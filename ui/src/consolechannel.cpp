@@ -23,10 +23,10 @@
 #include <QVBoxLayout>
 #include <QToolButton>
 #include <QSpinBox>
+#include <QDebug>
 #include <QLabel>
 #include <QMenu>
 #include <QList>
-#include <QtXml>
 
 #include "qlcchannel.h"
 #include "qlccapability.h"

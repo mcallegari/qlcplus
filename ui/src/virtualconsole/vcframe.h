@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   vcframe.h
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -43,7 +44,6 @@
 #define KXMLQLCVCFrameMultipage   "Multipage"
 #define KXMLQLCVCFramePagesNumber "PagesNum"
 #define KXMLQLCVCFrameCurrentPage "CurrentPage"
-#define KXMLQLCVCFrameKey         "Key"
 #define KXMLQLCVCFrameNext        "Next"
 #define KXMLQLCVCFramePrevious    "Previous"
 #define KXMLQLCVCFramePagesLoop   "PagesLoop"
@@ -264,8 +264,9 @@ public:
      * Load & Save
      *********************************************************************/
 public:
-    bool loadXML(const QDomElement* root);
-    bool saveXML(QDomDocument* doc, QDomElement* vc_root);
+    bool loadXML(QXmlStreamReader &root);
+
+    bool saveXML(QXmlStreamWriter *doc);
 
     /**
      * @reimp

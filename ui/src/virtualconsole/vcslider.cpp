@@ -1,8 +1,10 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   vcslider.cpp
 
-  Copyright (c) Heikki Junnila, Stefan Krumm
+  Copyright (c) Heikki Junnila
+                Stefan Krumm
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,19 +19,22 @@
   limitations under the License.
 */
 
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QWidgetAction>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QMessageBox>
 #include <QPaintEvent>
+#include <QSettings>
 #include <QPainter>
 #include <QString>
 #include <QSlider>
 #include <QDebug>
 #include <QLabel>
+#include <math.h>
 #include <QMenu>
 #include <QSize>
-#include <QtXml>
 #include <QPen>
 
 #include "vcsliderproperties.h"
@@ -1280,7 +1285,7 @@ void VCSlider::adjustIntensity(qreal val)
  * Load & Save
  *****************************************************************************/
 
-bool VCSlider::loadXML(const QDomElement* root)
+bool VCSlider::loadXML(QXmlStreamReader &root)
 {
     bool visible = false;
     int x = 0;
@@ -1289,13 +1294,9 @@ bool VCSlider::loadXML(const QDomElement* root)
     int h = 0;
 
     SliderMode sliderMode = Playback;
-    QDomElement tag;
-    QDomNode node;
     QString str;
 
-    Q_ASSERT(root != NULL);
-
-    if (root->tagName() != KXMLQLCVCSlider)
+    if (root.name() != KXMLQLCVCSlider)
     {
         qWarning() << Q_FUNC_INFO << "Slider node not found";
         return false;
@@ -1304,68 +1305,68 @@ bool VCSlider::loadXML(const QDomElement* root)
     /* Widget commons */
     loadXMLCommon(root);
 
-    /* Widget style */
-    if (root->hasAttribute(KXMLQLCVCSliderWidgetStyle))
-        setWidgetStyle(stringToWidgetStyle(root->attribute(KXMLQLCVCSliderWidgetStyle)));
+    QXmlStreamAttributes attrs = root.attributes();
 
-    if (root->attribute(KXMLQLCVCSliderInvertedAppearance) == "false")
+    /* Widget style */
+    if (attrs.hasAttribute(KXMLQLCVCSliderWidgetStyle))
+        setWidgetStyle(stringToWidgetStyle(attrs.value(KXMLQLCVCSliderWidgetStyle).toString()));
+
+    if (attrs.value(KXMLQLCVCSliderInvertedAppearance).toString() == "false")
         setInvertedAppearance(false);
     else
         setInvertedAppearance(true);
 
     /* Children */
-    node = root->firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        tag = node.toElement();
-        if (tag.tagName() == KXMLQLCWindowState)
+        if (root.name() == KXMLQLCWindowState)
         {
-            loadXMLWindowState(&tag, &x, &y, &w, &h, &visible);
+            loadXMLWindowState(root, &x, &y, &w, &h, &visible);
             setGeometry(x, y, w, h);
         }
-        else if (tag.tagName() == KXMLQLCVCWidgetAppearance)
+        else if (root.name() == KXMLQLCVCWidgetAppearance)
         {
-            loadXMLAppearance(&tag);
+            loadXMLAppearance(root);
         }
-        else if (tag.tagName() == KXMLQLCVCSliderMode)
+        else if (root.name() == KXMLQLCVCSliderMode)
         {
-            sliderMode = stringToSliderMode(tag.text());
+            QXmlStreamAttributes mAttrs = root.attributes();
+            sliderMode = stringToSliderMode(root.readElementText());
 
-            str = tag.attribute(KXMLQLCVCSliderValueDisplayStyle);
+            str = mAttrs.value(KXMLQLCVCSliderValueDisplayStyle).toString();
             setValueDisplayStyle(stringToValueDisplayStyle(str));
 
-            if (tag.hasAttribute(KXMLQLCVCSliderClickAndGoType))
+            if (mAttrs.hasAttribute(KXMLQLCVCSliderClickAndGoType))
             {
-                str = tag.attribute(KXMLQLCVCSliderClickAndGoType);
+                str = mAttrs.value(KXMLQLCVCSliderClickAndGoType).toString();
                 setClickAndGoType(ClickAndGoWidget::stringToClickAndGoType(str));
             }
 
-            if (tag.hasAttribute(KXMLQLCVCSliderLevelMonitor))
+            if (mAttrs.hasAttribute(KXMLQLCVCSliderLevelMonitor))
             {
-                if (tag.attribute(KXMLQLCVCSliderLevelMonitor) == "false")
+                if (mAttrs.value(KXMLQLCVCSliderLevelMonitor).toString() == "false")
                     setChannelsMonitorEnabled(false);
                 else
                     setChannelsMonitorEnabled(true);
             }
         }
-        else if (tag.tagName() == KXMLQLCVCSliderLevel)
+        else if (root.name() == KXMLQLCVCSliderLevel)
         {
-            loadXMLLevel(&tag);
+            loadXMLLevel(root);
         }
-        else if (tag.tagName() == KXMLQLCVCWidgetInput)
+        else if (root.name() == KXMLQLCVCWidgetInput)
         {
-            loadXMLInput(tag);
+            loadXMLInput(root);
         }
-        else if (tag.tagName() == KXMLQLCVCSliderPlayback)
+        else if (root.name() == KXMLQLCVCSliderPlayback)
         {
-            loadXMLPlayback(&tag);
+            loadXMLPlayback(root);
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown slider tag:" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unknown slider tag:" << root.name().toString();
+            root.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     /* Set the mode last, after everything else has been set */
@@ -1374,181 +1375,158 @@ bool VCSlider::loadXML(const QDomElement* root)
     return true;
 }
 
-bool VCSlider::loadXMLLevel(const QDomElement* level_root)
+bool VCSlider::loadXMLLevel(QXmlStreamReader &level_root)
 {
-    QDomNode node;
-    QDomElement tag;
     QString str;
 
-    Q_ASSERT(level_root != NULL);
-
-    if (level_root->tagName() != KXMLQLCVCSliderLevel)
+    if (level_root.name() != KXMLQLCVCSliderLevel)
     {
         qWarning() << Q_FUNC_INFO << "Slider level node not found";
         return false;
     }
 
+    QXmlStreamAttributes attrs = level_root.attributes();
+
     /* Level low limit */
-    str = level_root->attribute(KXMLQLCVCSliderLevelLowLimit);
+    str = attrs.value(KXMLQLCVCSliderLevelLowLimit).toString();
     setLevelLowLimit(str.toInt());
 
     /* Level high limit */
-    str = level_root->attribute(KXMLQLCVCSliderLevelHighLimit);
+    str = attrs.value(KXMLQLCVCSliderLevelHighLimit).toString();
     setLevelHighLimit(str.toInt());
 
     /* Level value */
-    str = level_root->attribute(KXMLQLCVCSliderLevelValue);
+    str = attrs.value(KXMLQLCVCSliderLevelValue).toString();
     setLevelValue(str.toInt());
 
     /* Children */
-    node = level_root->firstChild();
-    while (node.isNull() == false)
+    while (level_root.readNextStartElement())
     {
-        tag = node.toElement();
-        if (tag.tagName() == KXMLQLCVCSliderChannel)
+        if (level_root.name() == KXMLQLCVCSliderChannel)
         {
             /* Fixture & channel */
-            str = tag.attribute(KXMLQLCVCSliderChannelFixture);
+            str = level_root.attributes().value(KXMLQLCVCSliderChannelFixture).toString();
             addLevelChannel(
                 static_cast<quint32>(str.toInt()),
-                static_cast<quint32> (tag.text().toInt()));
+                static_cast<quint32> (level_root.readElementText().toInt()));
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown slider level tag:" << tag.tagName();
-        }
+            qWarning() << Q_FUNC_INFO << "Unknown slider level tag:" << level_root.name().toString();
+            level_root.skipCurrentElement();
 
-        node = node.nextSibling();
+        }
     }
 
     return true;
 }
 
-bool VCSlider::loadXMLPlayback(const QDomElement* pb_root)
+bool VCSlider::loadXMLPlayback(QXmlStreamReader &pb_root)
 {
-    QDomNode node;
-    QDomElement tag;
-
-    Q_ASSERT(pb_root != NULL);
-
-    if (pb_root->tagName() != KXMLQLCVCSliderPlayback)
+    if (pb_root.name() != KXMLQLCVCSliderPlayback)
     {
         qWarning() << Q_FUNC_INFO << "Slider playback node not found";
         return false;
     }
 
     /* Children */
-    node = pb_root->firstChild();
-    while (node.isNull() == false)
+    while (pb_root.readNextStartElement())
     {
-        tag = node.toElement();
-        if (tag.tagName() == KXMLQLCVCSliderPlaybackFunction)
+        if (pb_root.name() == KXMLQLCVCSliderPlaybackFunction)
         {
             /* Function */
-            setPlaybackFunction(tag.text().toUInt());
+            setPlaybackFunction(pb_root.readElementText().toUInt());
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown slider playback tag:" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unknown slider playback tag:" << pb_root.name().toString();
+            pb_root.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     return true;
 }
 
-bool VCSlider::saveXML(QDomDocument* doc, QDomElement* vc_root)
+bool VCSlider::saveXML(QXmlStreamWriter *doc)
 {
-    QDomElement root;
-    QDomElement tag;
-    QDomElement subtag;
-    QDomText text;
     QString str;
 
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(vc_root != NULL);
 
     /* VC Slider entry */
-    root = doc->createElement(KXMLQLCVCSlider);
-    vc_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCVCSlider);
 
-    saveXMLCommon(doc, &root);
+    saveXMLCommon(doc);
 
     /* Widget style */
-    root.setAttribute(KXMLQLCVCSliderWidgetStyle, widgetStyleToString(widgetStyle()));
+    doc->writeAttribute(KXMLQLCVCSliderWidgetStyle, widgetStyleToString(widgetStyle()));
 
     /* Inverted appearance */
     if (invertedAppearance() == true)
-        root.setAttribute(KXMLQLCVCSliderInvertedAppearance, "true");
+        doc->writeAttribute(KXMLQLCVCSliderInvertedAppearance, "true");
     else
-        root.setAttribute(KXMLQLCVCSliderInvertedAppearance, "false");
+        doc->writeAttribute(KXMLQLCVCSliderInvertedAppearance, "false");
 
     /* Window state */
-    saveXMLWindowState(doc, &root);
+    saveXMLWindowState(doc);
 
     /* Appearance */
-    saveXMLAppearance(doc, &root);
+    saveXMLAppearance(doc);
 
     /* External input */
-    saveXMLInput(doc, &root);
+    saveXMLInput(doc);
 
     /* Mode */
-    tag = doc->createElement(KXMLQLCVCSliderMode);
-    root.appendChild(tag);
-    text = doc->createTextNode(sliderModeToString(m_sliderMode));
-    tag.appendChild(text);
+    doc->writeStartElement(KXMLQLCVCSliderMode);
+    doc->writeCharacters(sliderModeToString(m_sliderMode));
 
     /* Value display style */
     str = valueDisplayStyleToString(valueDisplayStyle());
-    tag.setAttribute(KXMLQLCVCSliderValueDisplayStyle, str);
+    doc->writeAttribute(KXMLQLCVCSliderValueDisplayStyle, str);
 
     /* Click And Go type */
     str = ClickAndGoWidget::clickAndGoTypeToString(m_cngType);
-    tag.setAttribute(KXMLQLCVCSliderClickAndGoType, str);
+    doc->writeAttribute(KXMLQLCVCSliderClickAndGoType, str);
 
     /* Monitor channels */
     if (sliderMode() == Level)
     {
         if (channelsMonitorEnabled() == true)
-            tag.setAttribute(KXMLQLCVCSliderLevelMonitor, "true");
+            doc->writeAttribute(KXMLQLCVCSliderLevelMonitor, "true");
         else
-            tag.setAttribute(KXMLQLCVCSliderLevelMonitor, "false");
+            doc->writeAttribute(KXMLQLCVCSliderLevelMonitor, "false");
     }
+    /* End the <SliderMode> tag */
+    doc->writeEndElement();
 
     /* Level */
-    tag = doc->createElement(KXMLQLCVCSliderLevel);
-    root.appendChild(tag);
-
+    doc->writeStartElement(KXMLQLCVCSliderLevel);
     /* Level low limit */
-    str.setNum(levelLowLimit());
-    tag.setAttribute(KXMLQLCVCSliderLevelLowLimit, str);
-
+    doc->writeAttribute(KXMLQLCVCSliderLevelLowLimit, QString::number(levelLowLimit()));
     /* Level high limit */
-    str.setNum(levelHighLimit());
-    tag.setAttribute(KXMLQLCVCSliderLevelHighLimit, str);
-
+    doc->writeAttribute(KXMLQLCVCSliderLevelHighLimit, QString::number(levelHighLimit()));
     /* Level value */
-    str.setNum(levelValue());
-    tag.setAttribute(KXMLQLCVCSliderLevelValue, str);
+    doc->writeAttribute(KXMLQLCVCSliderLevelValue, QString::number(levelValue()));
+    /* End the <Level> tag */
+    doc->writeEndElement();
 
     /* Level channels */
     QListIterator <LevelChannel> it(m_levelChannels);
     while (it.hasNext() == true)
     {
         LevelChannel lch(it.next());
-        lch.saveXML(doc, &tag);
+        lch.saveXML(doc);
     }
 
     /* Playback */
-    tag = doc->createElement(KXMLQLCVCSliderPlayback);
-    root.appendChild(tag);
-
+    doc->writeStartElement(KXMLQLCVCSliderPlayback);
     /* Playback function */
-    subtag = doc->createElement(KXMLQLCVCSliderPlaybackFunction);
-    text = doc->createTextNode(QString::number(playbackFunction()));
-    subtag.appendChild(text);
-    tag.appendChild(subtag);
+    doc->writeTextElement(KXMLQLCVCSliderPlaybackFunction, QString::number(playbackFunction()));
+    /* End the <Playback> tag */
+    doc->writeEndElement();
+
+    /* End the <Slider> tag */
+    doc->writeEndElement();
 
     return true;
 }
@@ -1584,14 +1562,15 @@ bool VCSlider::LevelChannel::operator<(const LevelChannel& lc) const
         return false;
 }
 
-void VCSlider::LevelChannel::saveXML(QDomDocument* doc, QDomElement* root) const
+void VCSlider::LevelChannel::saveXML(QXmlStreamWriter *doc) const
 {
-    QDomElement chtag = doc->createElement(KXMLQLCVCSliderChannel);
-    root->appendChild(chtag);
+    Q_ASSERT(doc != NULL);
 
-    chtag.setAttribute(KXMLQLCVCSliderChannelFixture,
+    doc->writeStartElement(KXMLQLCVCSliderChannel);
+
+    doc->writeAttribute(KXMLQLCVCSliderChannelFixture,
                        QString::number(this->fixture));
 
-    QDomText text = doc->createTextNode(QString::number(this->channel));
-    chtag.appendChild(text);
+    doc->writeCharacters(QString::number(this->channel));
+    doc->writeEndElement();
 }

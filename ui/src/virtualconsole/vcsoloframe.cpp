@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   vcsoloframe.cpp
 
   Copyright (c) Anders Thomsen
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -20,6 +21,7 @@
 #include <QStyleOptionFrameV2>
 #include <QMetaObject>
 #include <QMessageBox>
+#include <QSettings>
 #include <QPainter>
 #include <QAction>
 #include <QStyle>
@@ -28,7 +30,6 @@
 #include <QSize>
 #include <QMenu>
 #include <QList>
-#include <QtXml>
 
 #include "vcpropertieseditor.h"
 #include "virtualconsole.h"

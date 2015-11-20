@@ -29,8 +29,6 @@
 
 class VirtualConsole;
 class InputOutputMap;
-class QDomDocument;
-class QDomElement;
 class VCFrame;
 
 /** @addtogroup ui_vc_props

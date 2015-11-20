@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   vccuelist.h
 
-  Copyright (c) Heikki Junnila, Massimo Callegari
+  Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -26,10 +27,10 @@
 #include "dmxsource.h"
 #include "vcwidget.h"
 
+class QXmlStreamReader;
+class QXmlStreamWriter;
 class QTreeWidgetItem;
 class QProgressBar;
-class QDomDocument;
-class QDomElement;
 class QTreeWidget;
 class QToolButton;
 class QCheckBox;
@@ -50,7 +51,6 @@ class Doc;
 #define KXMLQLCVCCueListFunction "Function" // Legacy
 #define KXMLQLCVCCueListChaser "Chaser"
 #define KXMLQLCVCCueListNextPrevBehavior "NextPrevBehavior"
-#define KXMLQLCVCCueListKey "Key"
 #define KXMLQLCVCCueListNext "Next"
 #define KXMLQLCVCCueListPrevious "Previous"
 #define KXMLQLCVCCueListPlayback "Playback"
@@ -351,10 +351,10 @@ signals:
      *************************************************************************/
 public:
     /** @reimp */
-    bool loadXML(const QDomElement* root);
+    bool loadXML(QXmlStreamReader &root);
 
     /** @reimp */
-    bool saveXML(QDomDocument* doc, QDomElement* vc_root);
+    bool saveXML(QXmlStreamWriter *doc);
 };
 
 /** @} */

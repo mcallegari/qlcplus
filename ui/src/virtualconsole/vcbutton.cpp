@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   vcbutton.cpp
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -18,6 +19,8 @@
 */
 
 #include <QStyleOptionButton>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QWidgetAction>
 #include <QColorDialog>
 #include <QImageReader>
@@ -26,6 +29,7 @@
 #include <QMouseEvent>
 #include <QMessageBox>
 #include <QByteArray>
+#include <QSettings>
 #include <QPainter>
 #include <QString>
 #include <QDebug>
@@ -33,7 +37,6 @@
 #include <QTimer>
 #include <QBrush>
 #include <QStyle>
-#include <QtXml>
 #include <QMenu>
 #include <QSize>
 #include <QPen>
@@ -818,7 +821,7 @@ void VCButton::adjustIntensity(qreal val)
  * Load & Save
  *****************************************************************************/
 
-bool VCButton::loadXML(const QDomElement* root)
+bool VCButton::loadXML(QXmlStreamReader &root)
 {
     bool visible = false;
     int x = 0;
@@ -826,13 +829,7 @@ bool VCButton::loadXML(const QDomElement* root)
     int w = 0;
     int h = 0;
 
-    QDomNode node;
-    QDomElement tag;
-    QString str;
-
-    Q_ASSERT(root != NULL);
-
-    if (root->tagName() != KXMLQLCVCButton)
+    if (root.name() != KXMLQLCVCButton)
     {
         qWarning() << Q_FUNC_INFO << "Button node not found";
         return false;
@@ -842,57 +839,55 @@ bool VCButton::loadXML(const QDomElement* root)
     loadXMLCommon(root);
 
     /* Icon */
-    setIconPath(m_doc->denormalizeComponentPath(root->attribute(KXMLQLCVCButtonIcon)));
+    setIconPath(m_doc->denormalizeComponentPath(root.attributes().value(KXMLQLCVCButtonIcon).toString()));
 
     /* Children */
-    node = root->firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        tag = node.toElement();
-        if (tag.tagName() == KXMLQLCWindowState)
+        if (root.name() == KXMLQLCWindowState)
         {
-            loadXMLWindowState(&tag, &x, &y, &w, &h, &visible);
+            loadXMLWindowState(root, &x, &y, &w, &h, &visible);
             setGeometry(x, y, w, h);
         }
-        else if (tag.tagName() == KXMLQLCVCWidgetAppearance)
+        else if (root.name() == KXMLQLCVCWidgetAppearance)
         {
-            loadXMLAppearance(&tag);
+            loadXMLAppearance(root);
         }
-        else if (tag.tagName() == KXMLQLCVCButtonFunction)
+        else if (root.name() == KXMLQLCVCButtonFunction)
         {
-            str = tag.attribute(KXMLQLCVCButtonFunctionID);
+            QString str = root.attributes().value(KXMLQLCVCButtonFunctionID).toString();
             setFunction(str.toUInt());
         }
-        else if (tag.tagName() == KXMLQLCVCWidgetInput)
+        else if (root.name() == KXMLQLCVCWidgetInput)
         {
-            loadXMLInput(tag);
+            loadXMLInput(root);
         }
-        else if (tag.tagName() == KXMLQLCVCButtonAction)
+        else if (root.name() == KXMLQLCVCButtonAction)
         {
-            setAction(stringToAction(tag.text()));
-            if (tag.hasAttribute(KXMLQLCVCButtonStopAllFadeTime))
-                setStopAllFadeOutTime(tag.attribute(KXMLQLCVCButtonStopAllFadeTime).toInt());
+            QXmlStreamAttributes attrs = root.attributes();
+            setAction(stringToAction(root.readElementText()));
+            if (attrs.hasAttribute(KXMLQLCVCButtonStopAllFadeTime))
+                setStopAllFadeOutTime(attrs.value(KXMLQLCVCButtonStopAllFadeTime).toString().toInt());
         }
-        else if (tag.tagName() == KXMLQLCVCButtonKey)
+        else if (root.name() == KXMLQLCVCButtonKey)
         {
-            setKeySequence(stripKeySequence(QKeySequence(tag.text())));
+            setKeySequence(stripKeySequence(QKeySequence(root.readElementText())));
         }
-        else if (tag.tagName() == KXMLQLCVCButtonIntensity)
+        else if (root.name() == KXMLQLCVCButtonIntensity)
         {
             bool adjust;
-            if (tag.attribute(KXMLQLCVCButtonIntensityAdjust) == KXMLQLCTrue)
+            if (root.attributes().value(KXMLQLCVCButtonIntensityAdjust).toString() == KXMLQLCTrue)
                 adjust = true;
             else
                 adjust = false;
-            setStartupIntensity(qreal(tag.text().toInt()) / qreal(100));
+            setStartupIntensity(qreal(root.readElementText().toInt()) / qreal(100));
             enableStartupIntensity(adjust);
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown button tag:" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unknown button tag:" << root.name().toString();
+            root.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     /* All buttons start raised... */
@@ -901,66 +896,51 @@ bool VCButton::loadXML(const QDomElement* root)
     return true;
 }
 
-bool VCButton::saveXML(QDomDocument* doc, QDomElement* vc_root)
+bool VCButton::saveXML(QXmlStreamWriter *doc)
 {
-    QDomElement root;
-    QDomElement tag;
-    QDomText text;
-    QString str;
-
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(vc_root != NULL);
 
     /* VC button entry */
-    root = doc->createElement(KXMLQLCVCButton);
-    vc_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCVCButton);
 
-    saveXMLCommon(doc, &root);
+    saveXMLCommon(doc);
+
+    /* Window state */
+    saveXMLWindowState(doc);
+
+    /* Appearance */
+    saveXMLAppearance(doc);
 
     /* Icon */
-    root.setAttribute(KXMLQLCVCButtonIcon, m_doc->normalizeComponentPath(iconPath()));
+    doc->writeAttribute(KXMLQLCVCButtonIcon, m_doc->normalizeComponentPath(iconPath()));
 
     /* Function */
-    tag = doc->createElement(KXMLQLCVCButtonFunction);
-    root.appendChild(tag);
-    str.setNum(function());
-    tag.setAttribute(KXMLQLCVCButtonFunctionID, str);
+    doc->writeStartElement(KXMLQLCVCButtonFunction);
+    doc->writeAttribute(KXMLQLCVCButtonFunctionID, QString::number(function()));
+    doc->writeEndElement();
 
     /* Action */
-    tag = doc->createElement(KXMLQLCVCButtonAction);
-    root.appendChild(tag);
-    text = doc->createTextNode(actionToString(action()));
+    doc->writeStartElement(KXMLQLCVCButtonAction);
+    doc->writeCharacters(actionToString(action()));
     if (action() == StopAll && stopAllFadeTime() != 0)
     {
-        tag.setAttribute(KXMLQLCVCButtonStopAllFadeTime, stopAllFadeTime());
+        doc->writeAttribute(KXMLQLCVCButtonStopAllFadeTime, QString::number(stopAllFadeTime()));
     }
-    tag.appendChild(text);
+    doc->writeEndElement();
 
     /* Key sequence */
     if (m_keySequence.isEmpty() == false)
-    {
-        tag = doc->createElement(KXMLQLCVCButtonKey);
-        root.appendChild(tag);
-        text = doc->createTextNode(m_keySequence.toString());
-        tag.appendChild(text);
-    }
+        doc->writeTextElement(KXMLQLCVCButtonKey, m_keySequence.toString());
 
     /* Intensity adjustment */
-    tag = doc->createElement(KXMLQLCVCButtonIntensity);
-    tag.setAttribute(KXMLQLCVCButtonIntensityAdjust,
+    doc->writeStartElement(KXMLQLCVCButtonIntensity);
+    doc->writeAttribute(KXMLQLCVCButtonIntensityAdjust,
                      isStartupIntensityEnabled() ? KXMLQLCTrue : KXMLQLCFalse);
-    root.appendChild(tag);
-    text = doc->createTextNode(QString::number(int(startupIntensity() * 100)));
-    tag.appendChild(text);
+    doc->writeCharacters(QString::number(int(startupIntensity() * 100)));
+    doc->writeEndElement();
 
     /* External input */
-    saveXMLInput(doc, &root);
-
-    /* Window state */
-    saveXMLWindowState(doc, &root);
-
-    /* Appearance */
-    saveXMLAppearance(doc, &root);
+    saveXMLInput(doc);
 
     return true;
 }

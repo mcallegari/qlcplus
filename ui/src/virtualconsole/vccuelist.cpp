@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   vccuelist.cpp
 
-  Copyright (c) Heikki Junnila, Massimo Callegari
+  Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -18,17 +19,19 @@
 */
 
 #include <QStyledItemDelegate>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QTreeWidgetItem>
+#include <QProgressBar>
 #include <QTreeWidget>
 #include <QHeaderView>
 #include <QGridLayout>
-#include <QProgressBar>
+#include <QSettings>
 #include <QCheckBox>
 #include <QString>
 #include <QLabel>
 #include <QDebug>
 #include <QTimer>
-#include <QtXml>
 
 #include "vccuelistproperties.h"
 #include "vcpropertieseditor.h"
@@ -1275,17 +1278,11 @@ void VCCueList::playCueAtIndex(int idx)
  * Load & Save
  *****************************************************************************/
 
-bool VCCueList::loadXML(const QDomElement* root)
+bool VCCueList::loadXML(QXmlStreamReader &root)
 {
     QList <quint32> legacyStepList;
 
-    QDomNode node;
-    QDomElement tag;
-    QString str;
-
-    Q_ASSERT(root != NULL);
-
-    if (root->tagName() != KXMLQLCVCCueList)
+    if (root.name() != KXMLQLCVCCueList)
     {
         qWarning() << Q_FUNC_INFO << "CueList node not found";
         return false;
@@ -1295,126 +1292,60 @@ bool VCCueList::loadXML(const QDomElement* root)
     loadXMLCommon(root);
 
     /* Children */
-    node = root->firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        tag = node.toElement();
-        if (tag.tagName() == KXMLQLCWindowState)
+        if (root.name() == KXMLQLCWindowState)
         {
             bool visible = false;
             int x = 0, y = 0, w = 0, h = 0;
-            loadXMLWindowState(&tag, &x, &y, &w, &h, &visible);
+            loadXMLWindowState(root, &x, &y, &w, &h, &visible);
             setGeometry(x, y, w, h);
         }
-        else if (tag.tagName() == KXMLQLCVCWidgetAppearance)
+        else if (root.name() == KXMLQLCVCWidgetAppearance)
         {
-            loadXMLAppearance(&tag);
+            loadXMLAppearance(root);
         }
-        else if (tag.tagName() == KXMLQLCVCCueListNext)
+        else if (root.name() == KXMLQLCVCCueListNext)
         {
-            QDomNode subNode = tag.firstChild();
-            while (subNode.isNull() == false)
-            {
-                QDomElement subTag = subNode.toElement();
-                if (subTag.tagName() == KXMLQLCVCWidgetInput)
-                {
-                    loadXMLInput(subTag, nextInputSourceId);
-                }
-                else if (subTag.tagName() == KXMLQLCVCCueListKey)
-                {
-                    m_nextKeySequence = stripKeySequence(QKeySequence(subTag.text()));
-                }
-                else
-                {
-                    qWarning() << Q_FUNC_INFO << "Unknown CueList Next tag" << subTag.tagName();
-                }
-
-                subNode = subNode.nextSibling();
-            }
+            QString str = loadXMLSources(root, nextInputSourceId);
+            if (str.isEmpty() == false)
+                m_nextKeySequence = stripKeySequence(QKeySequence(str));
         }
-        else if (tag.tagName() == KXMLQLCVCCueListPrevious)
+        else if (root.name() == KXMLQLCVCCueListPrevious)
         {
-            QDomNode subNode = tag.firstChild();
-            while (subNode.isNull() == false)
-            {
-                QDomElement subTag = subNode.toElement();
-                if (subTag.tagName() == KXMLQLCVCWidgetInput)
-                {
-                    loadXMLInput(subTag, previousInputSourceId);
-                }
-                else if (subTag.tagName() == KXMLQLCVCCueListKey)
-                {
-                    m_previousKeySequence = stripKeySequence(QKeySequence(subTag.text()));
-                }
-                else
-                {
-                    qWarning() << Q_FUNC_INFO << "Unknown CueList Previous tag" << subTag.tagName();
-                }
-
-                subNode = subNode.nextSibling();
-            }
+            QString str = loadXMLSources(root, previousInputSourceId);
+            if (str.isEmpty() == false)
+                m_previousKeySequence = stripKeySequence(QKeySequence(str));
         }
-        else if (tag.tagName() == KXMLQLCVCCueListPlayback)
+        else if (root.name() == KXMLQLCVCCueListPlayback)
         {
-            QDomNode subNode = tag.firstChild();
-            while (subNode.isNull() == false)
-            {
-                QDomElement subTag = subNode.toElement();
-                if (subTag.tagName() == KXMLQLCVCWidgetInput)
-                {
-                    loadXMLInput(subTag, playbackInputSourceId);
-                }
-                else if (subTag.tagName() == KXMLQLCVCCueListKey)
-                {
-                    m_playbackKeySequence = stripKeySequence(QKeySequence(subTag.text()));
-                }
-                else
-                {
-                    qWarning() << Q_FUNC_INFO << "Unknown CueList Stop tag" << subTag.tagName();
-                }
-
-                subNode = subNode.nextSibling();
-            }
+            QString str = loadXMLSources(root, playbackInputSourceId);
+            if (str.isEmpty() == false)
+                m_playbackKeySequence = stripKeySequence(QKeySequence(str));
         }
-        else if (tag.tagName() == KXMLQLCVCCueListSlidersMode)
+        else if (root.name() == KXMLQLCVCCueListSlidersMode)
         {
-            setSlidersMode(stringToSlidersMode(tag.text()));
+            setSlidersMode(stringToSlidersMode(root.readElementText()));
         }
-        else if (tag.tagName() == KXMLQLCVCCueListCrossfadeLeft)
+        else if (root.name() == KXMLQLCVCCueListCrossfadeLeft)
         {
-            QDomNode subNode = tag.firstChild();
-            if (subNode.isNull() == false)
-            {
-                QDomElement subTag = subNode.toElement();
-                if (subTag.tagName() == KXMLQLCVCWidgetInput)
-                {
-                    loadXMLInput(subTag, cf1InputSourceId);
-                }
-            }
+            loadXMLSources(root, cf1InputSourceId);
         }
-        else if (tag.tagName() == KXMLQLCVCCueListCrossfadeRight)
+        else if (root.name() == KXMLQLCVCCueListCrossfadeRight)
         {
-            QDomNode subNode = tag.firstChild();
-            if (subNode.isNull() == false)
-            {
-                QDomElement subTag = subNode.toElement();
-                if (subTag.tagName() == KXMLQLCVCWidgetInput)
-                {
-                    loadXMLInput(subTag, cf2InputSourceId);
-                }
-            }
+            loadXMLSources(root, cf2InputSourceId);
         }
-        else if (tag.tagName() == KXMLQLCVCCueListKey) /* Legacy */
+        else if (root.name() == KXMLQLCVCWidgetKey) /* Legacy */
         {
-            setNextKeySequence(QKeySequence(tag.text()));
+            setNextKeySequence(QKeySequence(root.readElementText()));
         }
-        else if (tag.tagName() == KXMLQLCVCCueListChaser)
+        else if (root.name() == KXMLQLCVCCueListChaser)
         {
-            setChaser(tag.text().toUInt());
+            setChaser(root.readElementText().toUInt());
         }
-        else if (tag.tagName() == KXMLQLCVCCueListNextPrevBehavior)
+        else if (root.name() == KXMLQLCVCCueListNextPrevBehavior)
         {
-            unsigned int nextPrev = tag.text().toUInt();
+            unsigned int nextPrev = root.readElementText().toUInt();
             if (nextPrev != DefaultRunFirst
                     && nextPrev != RunNext
                     && nextPrev != Select
@@ -1425,17 +1356,16 @@ bool VCCueList::loadXML(const QDomElement* root)
             }
             setNextPrevBehavior(nextPrev);
         }
-        else if (tag.tagName() == KXMLQLCVCCueListFunction)
+        else if (root.name() == KXMLQLCVCCueListFunction)
         {
             // Collect legacy file format steps into a list
-            legacyStepList << tag.text().toUInt();
+            legacyStepList << root.readElementText().toUInt();
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown cuelist tag:" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unknown cuelist tag:" << root.name().toString();
+            root.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     if (legacyStepList.isEmpty() == false)
@@ -1469,88 +1399,67 @@ bool VCCueList::loadXML(const QDomElement* root)
     return true;
 }
 
-bool VCCueList::saveXML(QDomDocument* doc, QDomElement* vc_root)
+bool VCCueList::saveXML(QXmlStreamWriter *doc)
 {
-    QDomElement root;
-    QDomElement tag;
-    QDomElement subtag;
-    QDomText text;
-    QString str;
-
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(vc_root != NULL);
 
     /* VC CueList entry */
-    root = doc->createElement(KXMLQLCVCCueList);
-    vc_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCVCCueList);
 
-    saveXMLCommon(doc, &root);
+    saveXMLCommon(doc);
+
+    /* Window state */
+    saveXMLWindowState(doc);
+
+    /* Appearance */
+    saveXMLAppearance(doc);
 
     /* Chaser */
-    tag = doc->createElement(KXMLQLCVCCueListChaser);
-    root.appendChild(tag);
-    text = doc->createTextNode(QString::number(chaserID()));
-    tag.appendChild(text);
-
+    doc->writeTextElement(KXMLQLCVCCueListChaser, QString::number(chaserID()));
     /* Next/Prev behavior */
-    tag = doc->createElement(KXMLQLCVCCueListNextPrevBehavior);
-    root.appendChild(tag);
-    text = doc->createTextNode(QString::number(nextPrevBehavior()));
-    tag.appendChild(text);
+    doc->writeTextElement(KXMLQLCVCCueListNextPrevBehavior, QString::number(nextPrevBehavior()));
 
     /* Next cue */
-    tag = doc->createElement(KXMLQLCVCCueListNext);
-    root.appendChild(tag);
-    subtag = doc->createElement(KXMLQLCVCCueListKey);
-    tag.appendChild(subtag);
-    text = doc->createTextNode(m_nextKeySequence.toString());
-    subtag.appendChild(text);
-    saveXMLInput(doc, &tag, inputSource(nextInputSourceId));
+    doc->writeStartElement(KXMLQLCVCCueListNext);
+    if (m_nextKeySequence.toString().isEmpty() == false)
+        doc->writeTextElement(KXMLQLCVCWidgetKey, m_nextKeySequence.toString());
+    saveXMLInput(doc, inputSource(nextInputSourceId));
+    doc->writeEndElement();
 
     /* Previous cue */
-    tag = doc->createElement(KXMLQLCVCCueListPrevious);
-    root.appendChild(tag);
-    subtag = doc->createElement(KXMLQLCVCCueListKey);
-    tag.appendChild(subtag);
-    text = doc->createTextNode(m_previousKeySequence.toString());
-    subtag.appendChild(text);
-    saveXMLInput(doc, &tag, inputSource(previousInputSourceId));
+    doc->writeStartElement(KXMLQLCVCCueListPrevious);
+    if (m_previousKeySequence.toString().isEmpty() == false)
+        doc->writeTextElement(KXMLQLCVCWidgetKey, m_previousKeySequence.toString());
+    saveXMLInput(doc, inputSource(previousInputSourceId));
+    doc->writeEndElement();
 
-    /* Stop cue list */
-    tag = doc->createElement(KXMLQLCVCCueListPlayback);
-    root.appendChild(tag);
-    subtag = doc->createElement(KXMLQLCVCCueListKey);
-    tag.appendChild(subtag);
-    text = doc->createTextNode(m_playbackKeySequence.toString());
-    subtag.appendChild(text);
-    saveXMLInput(doc, &tag, inputSource(playbackInputSourceId));
+    /* Cue list playback */
+    doc->writeStartElement(KXMLQLCVCCueListPlayback);
+    if (m_playbackKeySequence.toString().isEmpty() == false)
+        doc->writeTextElement(KXMLQLCVCWidgetKey, m_playbackKeySequence.toString());
+    saveXMLInput(doc, inputSource(playbackInputSourceId));
+    doc->writeEndElement();
 
     /* Crossfade cue list */
-    tag = doc->createElement(KXMLQLCVCCueListSlidersMode);
-    root.appendChild(tag);
-    text = doc->createTextNode(slidersModeToString(slidersMode()));
-    tag.appendChild(text);
+    doc->writeTextElement(KXMLQLCVCCueListSlidersMode, slidersModeToString(slidersMode()));
 
     QSharedPointer<QLCInputSource> cf1Src = inputSource(cf1InputSourceId);
     if (!cf1Src.isNull() && cf1Src->isValid())
     {
-        tag = doc->createElement(KXMLQLCVCCueListCrossfadeLeft);
-        root.appendChild(tag);
-        saveXMLInput(doc, &tag, inputSource(cf1InputSourceId));
+        doc->writeStartElement(KXMLQLCVCCueListCrossfadeLeft);
+        saveXMLInput(doc, cf1Src);
+        doc->writeEndElement();
     }
     QSharedPointer<QLCInputSource> cf2Src = inputSource(cf2InputSourceId);
     if (!cf2Src.isNull() && cf2Src->isValid())
     {
-        tag = doc->createElement(KXMLQLCVCCueListCrossfadeRight);
-        root.appendChild(tag);
-        saveXMLInput(doc, &tag, inputSource(cf2InputSourceId));
+        doc->writeStartElement(KXMLQLCVCCueListCrossfadeRight);
+        saveXMLInput(doc, cf2Src);
+        doc->writeEndElement();
     }
 
-    /* Window state */
-    saveXMLWindowState(doc, &root);
-
-    /* Appearance */
-    saveXMLAppearance(doc, &root);
+    /* End the <CueList> tag */
+    doc->writeEndElement();
 
     return true;
 }

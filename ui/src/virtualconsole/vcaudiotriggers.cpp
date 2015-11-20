@@ -17,8 +17,11 @@
   limitations under the License.
 */
 
-#include <QtXml>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QMessageBox>
+#include <QSettings>
+#include <QDebug>
 
 #include "vcaudiotriggersproperties.h"
 #include "vcpropertieseditor.h"
@@ -528,21 +531,16 @@ void VCAudioTriggers::editProperties()
  * Load & Save
  *********************************************************************/
 
-bool VCAudioTriggers::loadXML(const QDomElement *root)
+bool VCAudioTriggers::loadXML(QXmlStreamReader &root)
 {
-    QDomNode node;
-    QDomElement tag;
-
-    Q_ASSERT(root != NULL);
-
-    if (root->tagName() != KXMLQLCVCAudioTriggers)
+    if (root.name() != KXMLQLCVCAudioTriggers)
     {
         qWarning() << Q_FUNC_INFO << "Audio Triggers node not found";
         return false;
     }
-    if (root->hasAttribute(KXMLQLCVCATBarsNumber))
+    if (root.attributes().hasAttribute(KXMLQLCVCATBarsNumber))
     {
-        int barsNum = root->attribute(KXMLQLCVCATBarsNumber).toInt();
+        int barsNum = root.attributes().value(KXMLQLCVCATBarsNumber).toString().toInt();
         setSpectrumBarsNumber(barsNum);
     }
 
@@ -550,37 +548,37 @@ bool VCAudioTriggers::loadXML(const QDomElement *root)
     loadXMLCommon(root);
 
     /* Children */
-    node = root->firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        tag = node.toElement();
-        if (tag.tagName() == KXMLQLCWindowState)
+        QXmlStreamAttributes attrs = root.attributes();
+
+        if (root.name() == KXMLQLCWindowState)
         {
             int x = 0, y = 0, w = 0, h = 0;
             bool visible = false;
-            loadXMLWindowState(&tag, &x, &y, &w, &h, &visible);
+            loadXMLWindowState(root, &x, &y, &w, &h, &visible);
             setGeometry(x, y, w, h);
         }
-        else if (tag.tagName() == KXMLQLCVCWidgetAppearance)
+        else if (root.name() == KXMLQLCVCWidgetAppearance)
         {
-            loadXMLAppearance(&tag);
+            loadXMLAppearance(root);
         }
-        else if (tag.tagName() == KXMLQLCVCWidgetInput)
+        else if (root.name() == KXMLQLCVCWidgetInput)
         {
-            loadXMLInput(tag);
+            loadXMLInput(root);
         }
-        else if (tag.tagName() == KXMLQLCVCATKey)
+        else if (root.name() == KXMLQLCVCATKey)
         {
-            setKeySequence(stripKeySequence(QKeySequence(tag.text())));
+            setKeySequence(stripKeySequence(QKeySequence(root.readElementText())));
         }
-        else if (tag.tagName() == KXMLQLCVolumeBar)
+        else if (root.name() == KXMLQLCVolumeBar)
         {
-            m_volumeBar->loadXML(tag, m_doc);
+            m_volumeBar->loadXML(root, m_doc);
             if (m_volumeBar->m_type == AudioBar::FunctionBar)
             {
-                if (tag.hasAttribute(KXMLQLCAudioBarFunction))
+                if (attrs.hasAttribute(KXMLQLCAudioBarFunction))
                 {
-                    quint32 fid = tag.attribute(KXMLQLCAudioBarFunction).toUInt();
+                    quint32 fid = attrs.value(KXMLQLCAudioBarFunction).toString().toUInt();
                     Function *func = m_doc->function(fid);
                     if (func != NULL)
                         m_volumeBar->m_function = func;
@@ -588,26 +586,26 @@ bool VCAudioTriggers::loadXML(const QDomElement *root)
             }
             else if (m_volumeBar->m_type == AudioBar::VCWidgetBar)
             {
-                if (tag.hasAttribute(KXMLQLCAudioBarWidget))
+                if (attrs.hasAttribute(KXMLQLCAudioBarWidget))
                 {
-                    quint32 wid = tag.attribute(KXMLQLCAudioBarWidget).toUInt();
+                    quint32 wid = attrs.value(KXMLQLCAudioBarWidget).toString().toUInt();
                     m_volumeBar->m_widgetID = wid;
                 }
             }
         }
-        else if (tag.tagName() == KXMLQLCSpectrumBar)
+        else if (root.name() == KXMLQLCSpectrumBar)
         {
-            if (tag.hasAttribute(KXMLQLCAudioBarIndex))
+            if (attrs.hasAttribute(KXMLQLCAudioBarIndex))
             {
-                int idx = tag.attribute(KXMLQLCAudioBarIndex).toInt();
+                int idx = attrs.value(KXMLQLCAudioBarIndex).toString().toInt();
                 if (idx >= 0 && idx < m_spectrumBars.count())
                 {
-                    m_spectrumBars[idx]->loadXML(tag, m_doc);
+                    m_spectrumBars[idx]->loadXML(root, m_doc);
                     if (m_spectrumBars[idx]->m_type == AudioBar::FunctionBar)
                     {
-                        if (tag.hasAttribute(KXMLQLCAudioBarFunction))
+                        if (attrs.hasAttribute(KXMLQLCAudioBarFunction))
                         {
-                            quint32 fid = tag.attribute(KXMLQLCAudioBarFunction).toUInt();
+                            quint32 fid = attrs.value(KXMLQLCAudioBarFunction).toString().toUInt();
                             Function *func = m_doc->function(fid);
                             if (func != NULL)
                                 m_spectrumBars[idx]->m_function = func;
@@ -615,9 +613,9 @@ bool VCAudioTriggers::loadXML(const QDomElement *root)
                     }
                     else if (m_spectrumBars[idx]->m_type == AudioBar::VCWidgetBar)
                     {
-                        if (tag.hasAttribute(KXMLQLCAudioBarWidget))
+                        if (attrs.hasAttribute(KXMLQLCAudioBarWidget))
                         {
-                            quint32 wid = tag.attribute(KXMLQLCAudioBarWidget).toUInt();
+                            quint32 wid = attrs.value(KXMLQLCAudioBarWidget).toString().toUInt();
                             m_spectrumBars[idx]->m_widgetID = wid;
                         }
                     }
@@ -626,49 +624,36 @@ bool VCAudioTriggers::loadXML(const QDomElement *root)
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown audio triggers tag:" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unknown audio triggers tag:" << root.name().toString();
+            root.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     return true;
 }
 
-bool VCAudioTriggers::saveXML(QDomDocument *doc, QDomElement *vc_root)
+bool VCAudioTriggers::saveXML(QXmlStreamWriter *doc)
 {
-    QDomElement root;
-    QDomElement tag;
-    QDomText text;
-    //QString str;
-
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(vc_root != NULL);
 
     /* VC button entry */
-    root = doc->createElement(KXMLQLCVCAudioTriggers);
-    root.setAttribute(KXMLQLCVCATBarsNumber, m_spectrumBars.count());
-    vc_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCVCAudioTriggers);
+    doc->writeAttribute(KXMLQLCVCATBarsNumber, QString::number(m_spectrumBars.count()));
 
-    saveXMLCommon(doc, &root);
+    saveXMLCommon(doc);
 
     /* Window state */
-    saveXMLWindowState(doc, &root);
+    saveXMLWindowState(doc);
 
     /* Appearance */
-    saveXMLAppearance(doc, &root);
+    saveXMLAppearance(doc);
 
     /* Key sequence */
     if (m_keySequence.isEmpty() == false)
-    {
-        tag = doc->createElement(KXMLQLCVCATKey);
-        root.appendChild(tag);
-        text = doc->createTextNode(m_keySequence.toString());
-        tag.appendChild(text);
-    }
+        doc->writeTextElement(KXMLQLCVCATKey, m_keySequence.toString());
 
     /* External input */
-    saveXMLInput(doc, &root);
+    saveXMLInput(doc);
 
     /* Lookup for any assigned bar */
     bool hasAssignment = false;
@@ -691,15 +676,18 @@ bool VCAudioTriggers::saveXML(QDomDocument *doc, QDomElement *vc_root)
 
     if (m_volumeBar->m_type != AudioBar::None)
     {
-        m_volumeBar->saveXML(doc, &root, KXMLQLCVolumeBar, volumeBarIndex());
+        m_volumeBar->saveXML(doc, KXMLQLCVolumeBar, volumeBarIndex());
     }
     int idx = 0;
     foreach (AudioBar *bar, m_spectrumBars)
     {
         if (bar->m_type != AudioBar::None)
-            bar->saveXML(doc, &root, KXMLQLCSpectrumBar, idx);
+            bar->saveXML(doc, KXMLQLCSpectrumBar, idx);
         idx++;
     }
+
+    /* End the <AudioTriggers> tag */
+    doc->writeEndElement();
 
     return true;
 }

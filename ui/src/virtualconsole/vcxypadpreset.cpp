@@ -17,7 +17,9 @@
   limitations under the License.
 */
 
-#include <QtXml>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
+#include <QDebug>
 
 #include "vcxypadpreset.h"
 #include "vcwidget.h"
@@ -136,175 +138,151 @@ VCXYPadPreset::PresetType VCXYPadPreset::stringToType(QString str)
  * Load & Save
  ***********************************************************************/
 
-bool VCXYPadPreset::loadXML(const QDomElement &root)
+bool VCXYPadPreset::loadXML(QXmlStreamReader &root)
 {
-    QDomNode node;
-    QDomElement tag;
-
-    if (root.tagName() != KXMLQLCVCXYPadPreset)
+    if (root.name() != KXMLQLCVCXYPadPreset)
     {
         qWarning() << Q_FUNC_INFO << "Matrix control node not found";
         return false;
     }
 
-    if (root.hasAttribute(KXMLQLCVCXYPadPresetID) == false)
+    if (root.attributes().hasAttribute(KXMLQLCVCXYPadPresetID) == false)
     {
         qWarning() << Q_FUNC_INFO << "XYPad Preset ID not found";
         return false;
     }
 
-    m_id = root.attribute(KXMLQLCVCXYPadPresetID).toUInt();
+    m_id = root.attributes().value(KXMLQLCVCXYPadPresetID).toString().toUInt();
 
     QPointF pos;
     bool hasPosition = false;
 
     /* Children */
-    node = root.firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        tag = node.toElement();
-        if (tag.tagName() == KXMLQLCVCXYPadPresetType)
+        if (root.name() == KXMLQLCVCXYPadPresetType)
         {
-            m_type = stringToType(tag.text());
+            m_type = stringToType(root.readElementText());
         }
-        else if (tag.tagName() == KXMLQLCVCXYPadPresetName)
+        else if (root.name() == KXMLQLCVCXYPadPresetName)
         {
-            m_name = tag.text();
+            m_name = root.readElementText();
         }
-        else if (tag.tagName() == KXMLQLCVCXYPadPresetFuncID)
+        else if (root.name() == KXMLQLCVCXYPadPresetFuncID)
         {
-            setFunctionID(tag.text().toUInt());
+            setFunctionID(root.readElementText().toUInt());
         }
-        else if (tag.tagName() == KXMLQLCVCXYPadPresetXPos)
+        else if (root.name() == KXMLQLCVCXYPadPresetXPos)
         {
-            pos.setX(QString(tag.text()).toFloat());
+            pos.setX(QString(root.readElementText()).toFloat());
             hasPosition = true;
         }
-        else if (tag.tagName() == KXMLQLCVCXYPadPresetYPos)
+        else if (root.name() == KXMLQLCVCXYPadPresetYPos)
         {
-            pos.setY(QString(tag.text()).toFloat());
+            pos.setY(QString(root.readElementText()).toFloat());
             hasPosition = true;
         }
-        else if (tag.tagName() == KXMLQLCVCXYPadPresetFixture)
+        else if (root.name() == KXMLQLCVCXYPadPresetFixture)
         {
             quint32 fxID = Fixture::invalidId();
             int head = -1;
+            QXmlStreamAttributes attrs = root.attributes();
 
-            if (tag.hasAttribute(KXMLQLCVCXYPadPresetFixtureID))
-                fxID = tag.attribute(KXMLQLCVCXYPadPresetFixtureID).toUInt();
-            if (tag.hasAttribute(KXMLQLCVCXYPadPresetFixtureHead))
-                head = tag.attribute(KXMLQLCVCXYPadPresetFixtureHead).toInt();
+            if (attrs.hasAttribute(KXMLQLCVCXYPadPresetFixtureID))
+                fxID = attrs.value(KXMLQLCVCXYPadPresetFixtureID).toString().toUInt();
+            if (attrs.hasAttribute(KXMLQLCVCXYPadPresetFixtureHead))
+                head = attrs.value(KXMLQLCVCXYPadPresetFixtureHead).toString().toInt();
 
             if (fxID != Fixture::invalidId() && head != -1)
                 m_fxGroup.append(GroupHead(fxID, head));
+            root.skipCurrentElement();
         }
-        else if (tag.tagName() == KXMLQLCVCXYPadPresetInput)
+        else if (root.name() == KXMLQLCVCXYPadPresetInput)
         {
-            if (tag.hasAttribute(KXMLQLCVCXYPadPresetInputUniverse) &&
-                tag.hasAttribute(KXMLQLCVCXYPadPresetInputChannel))
+            QXmlStreamAttributes attrs = root.attributes();
+            if (attrs.hasAttribute(KXMLQLCVCXYPadPresetInputUniverse) &&
+                attrs.hasAttribute(KXMLQLCVCXYPadPresetInputChannel))
             {
-                quint32 uni = tag.attribute(KXMLQLCVCXYPadPresetInputUniverse).toUInt();
-                quint32 ch = tag.attribute(KXMLQLCVCXYPadPresetInputChannel).toUInt();
+                quint32 uni = attrs.value(KXMLQLCVCXYPadPresetInputUniverse).toString().toUInt();
+                quint32 ch = attrs.value(KXMLQLCVCXYPadPresetInputChannel).toString().toUInt();
                 m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch));
 
                 uchar min = 0, max = UCHAR_MAX;
-                if (tag.hasAttribute(KXMLQLCVCWidgetInputLowerValue))
-                    min = uchar(tag.attribute(KXMLQLCVCWidgetInputLowerValue).toUInt());
-                if (tag.hasAttribute(KXMLQLCVCWidgetInputUpperValue))
-                    max = uchar(tag.attribute(KXMLQLCVCWidgetInputUpperValue).toUInt());
+                if (attrs.hasAttribute(KXMLQLCVCWidgetInputLowerValue))
+                    min = uchar(attrs.value(KXMLQLCVCWidgetInputLowerValue).toString().toUInt());
+                if (attrs.hasAttribute(KXMLQLCVCWidgetInputUpperValue))
+                    max = uchar(attrs.value(KXMLQLCVCWidgetInputUpperValue).toString().toUInt());
                 m_inputSource->setRange(min, max);
             }
         }
-        else if (tag.tagName() == KXMLQLCVCXYPadPresetKey)
+        else if (root.name() == KXMLQLCVCXYPadPresetKey)
         {
-            m_keySequence = VCWidget::stripKeySequence(QKeySequence(tag.text()));
+            m_keySequence = VCWidget::stripKeySequence(QKeySequence(root.readElementText()));
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown VCMatrixControl tag:" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unknown VCMatrixControl tag:" << root.name().toString();
+            root.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
+
     if (hasPosition)
         m_dmxPos = pos;
 
     return true;
 }
 
-bool VCXYPadPreset::saveXML(QDomDocument *doc, QDomElement *xypad_root)
+bool VCXYPadPreset::saveXML(QXmlStreamWriter *doc)
 {
-    QDomElement root;
-    QDomElement tag;
-    QDomText text;
-
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(xypad_root != NULL);
 
-    root = doc->createElement(KXMLQLCVCXYPadPreset);
-    root.setAttribute(KXMLQLCVCXYPadPresetID, m_id);
-    xypad_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCVCXYPadPreset);
+    doc->writeAttribute(KXMLQLCVCXYPadPresetID, QString::number(m_id));
 
-    tag = doc->createElement(KXMLQLCVCXYPadPresetType);
-    root.appendChild(tag);
-    text = doc->createTextNode(typeToString(m_type));
-    tag.appendChild(text);
-
-    tag = doc->createElement(KXMLQLCVCXYPadPresetName);
-    root.appendChild(tag);
-    text = doc->createTextNode(m_name);
-    tag.appendChild(text);
+    /* Preset type */
+    doc->writeTextElement(KXMLQLCVCXYPadPresetType, typeToString(m_type));
+    /* Preset name */
+    doc->writeTextElement(KXMLQLCVCXYPadPresetName, m_name);
 
     if (m_type == EFX || m_type == Scene)
     {
-        tag = doc->createElement(KXMLQLCVCXYPadPresetFuncID);
-        root.appendChild(tag);
-        text = doc->createTextNode(QString::number(m_funcID));
-        tag.appendChild(text);
+        doc->writeTextElement(KXMLQLCVCXYPadPresetFuncID, QString::number(m_funcID));
     }
     else if (m_type == Position)
     {
-        tag = doc->createElement(KXMLQLCVCXYPadPresetXPos);
-        root.appendChild(tag);
-        text = doc->createTextNode(QString::number(m_dmxPos.x()));
-        tag.appendChild(text);
-        tag = doc->createElement(KXMLQLCVCXYPadPresetYPos);
-        root.appendChild(tag);
-        text = doc->createTextNode(QString::number(m_dmxPos.y()));
-        tag.appendChild(text);
+        doc->writeTextElement(KXMLQLCVCXYPadPresetXPos, QString::number(m_dmxPos.x()));
+        doc->writeTextElement(KXMLQLCVCXYPadPresetYPos, QString::number(m_dmxPos.y()));
     }
     else if (m_type == FixtureGroup)
     {
         foreach (GroupHead gh, fixtureGroup())
         {
-            tag = doc->createElement(KXMLQLCVCXYPadPresetFixture);
-            tag.setAttribute(KXMLQLCVCXYPadPresetFixtureID, gh.fxi);
-            tag.setAttribute(KXMLQLCVCXYPadPresetFixtureHead, gh.head);
-            root.appendChild(tag);
+            doc->writeStartElement(KXMLQLCVCXYPadPresetFixture);
+            doc->writeAttribute(KXMLQLCVCXYPadPresetFixtureID, QString::number(gh.fxi));
+            doc->writeAttribute(KXMLQLCVCXYPadPresetFixtureHead, QString::number(gh.head));
+            doc->writeEndElement();
         }
     }
 
     /* External input source */
     if (!m_inputSource.isNull() && m_inputSource->isValid())
     {
-        tag = doc->createElement(KXMLQLCVCXYPadPresetInput);
-        tag.setAttribute(KXMLQLCVCXYPadPresetInputUniverse, QString("%1").arg(m_inputSource->universe()));
-        tag.setAttribute(KXMLQLCVCXYPadPresetInputChannel, QString("%1").arg(m_inputSource->channel()));
+        doc->writeStartElement(KXMLQLCVCXYPadPresetInput);
+        doc->writeAttribute(KXMLQLCVCXYPadPresetInputUniverse, QString("%1").arg(m_inputSource->universe()));
+        doc->writeAttribute(KXMLQLCVCXYPadPresetInputChannel, QString("%1").arg(m_inputSource->channel()));
         if (m_inputSource->lowerValue() != 0)
-            tag.setAttribute(KXMLQLCVCWidgetInputLowerValue, QString::number(m_inputSource->lowerValue()));
+            doc->writeAttribute(KXMLQLCVCWidgetInputLowerValue, QString::number(m_inputSource->lowerValue()));
         if (m_inputSource->upperValue() != UCHAR_MAX)
-            tag.setAttribute(KXMLQLCVCWidgetInputUpperValue, QString::number(m_inputSource->upperValue()));
-        root.appendChild(tag);
+            doc->writeAttribute(KXMLQLCVCWidgetInputUpperValue, QString::number(m_inputSource->upperValue()));
+        doc->writeEndElement();
     }
 
     /* Key sequence */
     if (m_keySequence.isEmpty() == false)
-    {
-        tag = doc->createElement(KXMLQLCVCXYPadPresetKey);
-        root.appendChild(tag);
-        text = doc->createTextNode(m_keySequence.toString());
-        tag.appendChild(text);
-    }
+        doc->writeTextElement(KXMLQLCVCXYPadPresetFuncID, m_keySequence.toString());
+
+    /* End the <Preset> tag */
+    doc->writeEndElement();
 
     return true;
 }

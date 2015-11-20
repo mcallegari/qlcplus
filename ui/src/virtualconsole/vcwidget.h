@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   vcwidget.h
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -24,9 +25,9 @@
 #include <QWidget>
 #include "doc.h"
 
+class QXmlStreamReader;
+class QXmlStreamWriter;
 class QLCInputSource;
-class QDomDocument;
-class QDomElement;
 class QPaintEvent;
 class QMouseEvent;
 class QString;
@@ -58,6 +59,7 @@ class QFile;
 #define KVCFrameStyleRaised (QFrame::Panel | QFrame::Raised)
 #define KVCFrameStyleNone   (QFrame::NoFrame)
 
+#define KXMLQLCVCWidgetKey "Key"
 #define KXMLQLCVCWidgetInput "Input"
 #define KXMLQLCVCWidgetInputUniverse "Universe"
 #define KXMLQLCVCWidgetInputChannel "Channel"
@@ -483,8 +485,8 @@ signals:
      * Load & Save
      *********************************************************************/
 public:
-    virtual bool loadXML(const QDomElement* vc_root) = 0;
-    virtual bool saveXML(QDomDocument* doc, QDomElement* vc_root) = 0;
+    virtual bool loadXML(QXmlStreamReader &root) = 0;
+    virtual bool saveXML(QXmlStreamWriter *doc) = 0;
 
     /**
      * Called for every VCWidget-based object after everything has been loaded.
@@ -494,38 +496,42 @@ public:
     virtual void postLoad();
 
 protected:
-    bool loadXMLCommon(const QDomElement* root);
-    bool loadXMLAppearance(const QDomElement* appearance_root);
-    bool loadXMLInput(const QDomElement& root, const quint8& id = 0);
+    bool loadXMLCommon(QXmlStreamReader &root);
+    bool loadXMLAppearance(QXmlStreamReader &appearance_root);
+    bool loadXMLInput(QXmlStreamReader &root, const quint8& id = 0);
+
+    /** Parse an input XML section and:
+     *  - set an input source with the given $sourceID
+     *  - return a string of a KeySequence if present
+     */
+    QString loadXMLSources(QXmlStreamReader &root, quint8 sourceID);
 
     /** Load input source from $root to $uni and $ch */
-    bool loadXMLInput(const QDomElement& root, quint32* uni, quint32* ch) const;
+    bool loadXMLInput(QXmlStreamReader &root, quint32* uni, quint32* ch) const;
 
-    bool saveXMLCommon(QDomDocument* doc, QDomElement* widget_root);
-    bool saveXMLAppearance(QDomDocument* doc, QDomElement* widget_root);
+    bool saveXMLCommon(QXmlStreamWriter *doc);
+    bool saveXMLAppearance(QXmlStreamWriter *doc);
     /** Save the defualt input source to $root */
-    bool saveXMLInput(QDomDocument* doc, QDomElement* root);
+    bool saveXMLInput(QXmlStreamWriter *doc);
     /** Save input source from a $src input source to $root */
-    bool saveXMLInput(QDomDocument* doc, QDomElement* root,
-                      const QLCInputSource *src) const;
+    bool saveXMLInput(QXmlStreamWriter *doc, const QLCInputSource *src) const;
     /** Save input source from a $src input source to $root */
-    bool saveXMLInput(QDomDocument* doc, QDomElement* root,
+    bool saveXMLInput(QXmlStreamWriter *doc,
                       QSharedPointer<QLCInputSource> const& src) const;
 
     /**
      * Write this widget's geometry and visibility to an XML document.
      *
-     * @param doc A QDomDocument to save the tag to
-     * @param root A QDomElement under which to save the window state
+     * @param doc A QXmlStreamReader to save the tag to
      *
      * @return true if succesful, otherwise false
      */
-    bool saveXMLWindowState(QDomDocument* doc, QDomElement* root);
+    bool saveXMLWindowState(QXmlStreamWriter *doc);
 
     /**
      * Read this widget's geometry and visibility from an XML tag.
      *
-     * @param tag A QDomElement under which the window state is saved
+     * @param tag A QXmlStreamReader under which the window state is saved
      * @param x Loaded x position
      * @param y Loaded y position
      * @param w Loaded w position
@@ -534,7 +540,7 @@ protected:
      *
      * @return true if succesful, otherwise false
      */
-    bool loadXMLWindowState(const QDomElement* tag, int* x, int* y,
+    bool loadXMLWindowState(QXmlStreamReader &tag, int* x, int* y,
                             int* w, int* h, bool* visible);
 
 

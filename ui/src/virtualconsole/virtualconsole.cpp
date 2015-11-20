@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   virtualconsole.cpp
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,6 +18,8 @@
   limitations under the License.
 */
 
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QDesktopWidget>
 #include <QApplication>
 #include <QInputDialog>
@@ -28,6 +31,7 @@
 #include <QFileDialog>
 #include <QFontDialog>
 #include <QScrollArea>
+#include <QSettings>
 #include <QKeyEvent>
 #include <QMenuBar>
 #include <QToolBar>
@@ -35,7 +39,6 @@
 #include <QDebug>
 #include <QMenu>
 #include <QList>
-#include <QtXml>
 
 #include "vcpropertieseditor.h"
 #include "addvcbuttonmatrix.h"
@@ -1794,60 +1797,57 @@ void VirtualConsole::slotModeChanged(Doc::Mode mode)
  * Load & Save
  *****************************************************************************/
 
-bool VirtualConsole::loadXML(const QDomElement& root)
+bool VirtualConsole::loadXML(QXmlStreamReader &root)
 {
-    if (root.tagName() != KXMLQLCVirtualConsole)
+    if (root.name() != KXMLQLCVirtualConsole)
     {
         qWarning() << Q_FUNC_INFO << "Virtual Console node not found";
         return false;
     }
 
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == KXMLQLCVCProperties)
+        if (root.name() == KXMLQLCVCProperties)
         {
             /* Properties */
-            m_properties.loadXML(tag);
+            m_properties.loadXML(root);
             QSize size(m_properties.size());
             contents()->resize(size);
             contents()->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
         }
-        else if (tag.tagName() == KXMLQLCVCFrame)
+        else if (root.name() == KXMLQLCVCFrame)
         {
             /* Contents */
             Q_ASSERT(m_contents != NULL);
-            m_contents->loadXML(&tag);
+            m_contents->loadXML(root);
         }
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown Virtual Console tag"
-                       << tag.tagName();
+                       << root.name().toString();
+            root.skipCurrentElement();
         }
-
-        /* Next node */
-        node = node.nextSibling();
     }
 
     return true;
 }
 
-bool VirtualConsole::saveXML(QDomDocument* doc, QDomElement* wksp_root)
+bool VirtualConsole::saveXML(QXmlStreamWriter *doc)
 {
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(wksp_root != NULL);
 
     /* Virtual Console entry */
-    QDomElement vc_root = doc->createElement(KXMLQLCVirtualConsole);
-    wksp_root->appendChild(vc_root);
+    doc->writeStartElement(KXMLQLCVirtualConsole);
 
     /* Contents */
     Q_ASSERT(m_contents != NULL);
-    m_contents->saveXML(doc, &vc_root);
+    m_contents->saveXML(doc);
 
     /* Properties */
-    m_properties.saveXML(doc, &vc_root);
+    m_properties.saveXML(doc);
+
+    /* End the <VirtualConsole> tag */
+    doc->writeEndElement();
 
     return true;
 }

@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   vcbutton.h
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -26,8 +27,8 @@
 
 #include "vcwidget.h"
 
-class QDomDocument;
-class QDomElement;
+class QXmlStreamReader;
+class QXmlStreamWriter;
 class QMouseEvent;
 class QPaintEvent;
 class VCButton;
@@ -355,7 +356,7 @@ public:
      * @param btn_root A VCButton XML root node containing button properties
      * @return true if successful; otherwise false
      */
-    bool loadXML(const QDomElement* btn_root);
+    bool loadXML(QXmlStreamReader &root);
 
     /**
      * Save a VCButton's properties to an XML document node
@@ -363,7 +364,7 @@ public:
      * @param doc The master XML document to save to
      * @param frame_root The button's VCFrame XML parent node to save to
      */
-    bool saveXML(QDomDocument* doc, QDomElement* frame_root);
+    bool saveXML(QXmlStreamWriter *doc);
 
     /*********************************************************************
      * Event Handlers

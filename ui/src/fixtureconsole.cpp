@@ -21,7 +21,6 @@
 #include <QDebug>
 #include <QIcon>
 #include <QList>
-#include <QtXml>
 
 #include "qlcfile.h"
 

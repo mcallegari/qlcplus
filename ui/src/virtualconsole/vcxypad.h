@@ -1,8 +1,10 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   vcxypad.h
 
-  Copyright (c) Stefan Krumm, Heikki Junnila
+  Copyright (c) Stefan Krumm
+                Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -31,9 +33,9 @@
 #include "dmxsource.h"
 #include "vcwidget.h"
 
+class QXmlStreamReader;
+class QXmlStreamWriter;
 class ctkRangeSlider;
-class QDomDocument;
-class QDomElement;
 class QPaintEvent;
 class QMouseEvent;
 class MasterTimer;
@@ -240,10 +242,10 @@ protected slots:
      *************************************************************************/
 public:
     /** @reimp */
-    bool loadXML(const QDomElement* root);
+    bool loadXML(QXmlStreamReader &root);
 
     /** @reimp */
-    bool saveXML(QDomDocument* doc, QDomElement* root);
+    bool saveXML(QXmlStreamWriter *doc);
 };
 
 /** @} */

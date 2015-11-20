@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   cuestackmodel.cpp
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,11 +18,12 @@
   limitations under the License.
 */
 
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QApplication>
-#include <QDomDocument>
-#include <QDomElement>
 #include <QMimeData>
 #include <QPalette>
+#include <QBuffer>
 #include <QBrush>
 #include <QDebug>
 #include <QIcon>
@@ -268,35 +270,35 @@ bool CueStackModel::dropMimeData(const QMimeData* data, Qt::DropAction action, i
 
     if (data->hasText() == true)
     {
-        QDomDocument doc;
-        if (doc.setContent(data->text()) == true && doc.firstChild().isNull() == false)
+        QBuffer buffer;
+        buffer.setData(data->text().toLatin1());
+        buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+        QXmlStreamReader doc(&buffer);
+        doc.readNextStartElement();
+        if (doc.device() != NULL && doc.atEnd() == false && doc.hasError() == false)
         {
-            QDomElement root = doc.firstChild().toElement();
-            if (root.tagName() != MIMEDATA_ROOT)
+            if (doc.name() != MIMEDATA_ROOT)
             {
                 qWarning() << Q_FUNC_INFO << "Invalid MIME data";
                 return false;
             }
 
             // Dig the drag index from the XML
-            int dragIndex = root.attribute(MIMEDATA_DRAGINDEX).toInt();
+            int dragIndex = doc.attributes().value(MIMEDATA_DRAGINDEX).toString().toInt();
             int index = parent.row();
             if (dragIndex < index)
                 index += 1; // Moving items from above drop index
 
             // Insert each dropped Cue as a new Cue since the originals are in fact
             // removed in removeRows().
-            QDomNode node = root.firstChild();
-            while (node.isNull() == false)
+            while (doc.readNextStartElement())
             {
                 Cue cue;
-                if (cue.loadXML(node.toElement()) == true)
+                if (cue.loadXML(doc) == true)
                 {
                     m_cueStack->insertCue(index, cue);
                     index++; // Shift insertion point forwards
                 }
-
-                node = node.nextSibling();
             }
         }
 
@@ -316,10 +318,11 @@ QMimeData* CueStackModel::mimeData(const QModelIndexList& indexes) const
         return NULL;
 
     // MIME data is essentially a bunch of XML "Cue" entries (plus drag index)
-    QDomDocument doc;
-    QDomElement root = doc.createElement(MIMEDATA_ROOT);
-    root.setAttribute(MIMEDATA_DRAGINDEX, indexes.first().row());
-    doc.appendChild(root);
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter doc(&buffer);
+    doc.writeStartElement(MIMEDATA_ROOT);
+    doc.writeAttribute(MIMEDATA_DRAGINDEX, QString::number(indexes.first().row()));
 
     QSet <int> rows;
     foreach (QModelIndex index, indexes)
@@ -329,12 +332,16 @@ QMimeData* CueStackModel::mimeData(const QModelIndexList& indexes) const
         if (rows.contains(index.row()) == true)
             continue;
         else if (index.row() >= 0 && index.row() < m_cueStack->cues().size())
-            m_cueStack->cues().at(index.row()).saveXML(&doc, &root);
+            m_cueStack->cues().at(index.row()).saveXML(&doc);
         rows << index.row();
     }
 
     QMimeData* data = new QMimeData;
-    data->setText(doc.toString());
+    doc.writeEndElement();
+    doc.setDevice(NULL);
+    buffer.close();
+
+    data->setText(QString(buffer.data()));
     return data;
 }
 

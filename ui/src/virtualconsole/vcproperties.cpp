@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   vcproperties.cpp
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,8 +18,10 @@
   limitations under the License.
 */
 
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QWidget>
-#include <QtXml>
+#include <QDebug>
 
 #include "qlcfile.h"
 
@@ -126,140 +129,136 @@ quint32 VCProperties::grandMasterInputChannel() const
  * Load & Save
  *****************************************************************************/
 
-bool VCProperties::loadXML(const QDomElement& root)
+bool VCProperties::loadXML(QXmlStreamReader &root)
 {
-    if (root.tagName() != KXMLQLCVCProperties)
+    if (root.name() != KXMLQLCVCProperties)
     {
         qWarning() << Q_FUNC_INFO << "Virtual console properties node not found";
         return false;
     }
 
     QString str;
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == KXMLQLCVCPropertiesSize)
+        if (root.name() == KXMLQLCVCPropertiesSize)
         {
             QSize sz;
 
             /* Width */
-            str = tag.attribute(KXMLQLCVCPropertiesSizeWidth);
+            str = root.attributes().value(KXMLQLCVCPropertiesSizeWidth).toString();
             if (str.isEmpty() == false)
                 sz.setWidth(str.toInt());
 
             /* Height */
-            str = tag.attribute(KXMLQLCVCPropertiesSizeHeight);
+            str = root.attributes().value(KXMLQLCVCPropertiesSizeHeight).toString();
             if (str.isEmpty() == false)
                 sz.setHeight(str.toInt());
 
             /* Set size if both are valid */
             if (sz.isValid() == true)
                 setSize(sz);
+            root.skipCurrentElement();
         }
-        else if (tag.tagName() == KXMLQLCVCPropertiesGrandMaster)
+        else if (root.name() == KXMLQLCVCPropertiesGrandMaster)
+        {
+            QXmlStreamAttributes attrs = root.attributes();
+
+            str = attrs.value(KXMLQLCVCPropertiesGrandMasterChannelMode).toString();
+            setGrandMasterChannelMode(GrandMaster::stringToChannelMode(str));
+
+            str = attrs.value(KXMLQLCVCPropertiesGrandMasterValueMode).toString();
+            setGrandMasterValueMode(GrandMaster::stringToValueMode(str));
+
+            if (attrs.hasAttribute(KXMLQLCVCPropertiesGrandMasterSliderMode))
+            {
+                str = attrs.value(KXMLQLCVCPropertiesGrandMasterSliderMode).toString();
+                setGrandMasterSliderMode(GrandMaster::stringToSliderMode(str));
+            }
+            root.skipCurrentElement();
+        }
+        else if (root.name() == KXMLQLCVCPropertiesInput)
         {
             quint32 universe = InputOutputMap::invalidUniverse();
             quint32 channel = QLCChannel::invalid();
-
-            str = tag.attribute(KXMLQLCVCPropertiesGrandMasterChannelMode);
-            setGrandMasterChannelMode(GrandMaster::stringToChannelMode(str));
-
-            str = tag.attribute(KXMLQLCVCPropertiesGrandMasterValueMode);
-            setGrandMasterValueMode(GrandMaster::stringToValueMode(str));
-
-            if (tag.hasAttribute(KXMLQLCVCPropertiesGrandMasterSliderMode))
-            {
-                str = tag.attribute(KXMLQLCVCPropertiesGrandMasterSliderMode);
-                setGrandMasterSliderMode(GrandMaster::stringToSliderMode(str));
-            }
-
             /* External input */
-            if (loadXMLInput(tag.firstChild().toElement(), &universe, &channel) == true)
+            if (loadXMLInput(root, &universe, &channel) == true)
                 setGrandMasterInputSource(universe, channel);
         }
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown virtual console property tag:"
-                       << tag.tagName();
+                       << root.name().toString();
+            root.skipCurrentElement();
         }
-
-        /* Next node */
-        node = node.nextSibling();
     }
 
     return true;
 }
 
-bool VCProperties::saveXML(QDomDocument* doc, QDomElement* wksp_root) const
+bool VCProperties::saveXML(QXmlStreamWriter *doc) const
 {
-    QDomElement prop_root;
-    QDomElement subtag;
-    QDomElement tag;
-    QDomText text;
-    QString str;
-
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(wksp_root != NULL);
 
     /* Properties entry */
-    prop_root = doc->createElement(KXMLQLCVCProperties);
-    wksp_root->appendChild(prop_root);
+    doc->writeStartElement(KXMLQLCVCProperties);
 
     /* Size */
-    tag = doc->createElement(KXMLQLCVCPropertiesSize);
-    tag.setAttribute(KXMLQLCVCPropertiesSizeWidth, QString::number(size().width()));
-    tag.setAttribute(KXMLQLCVCPropertiesSizeHeight, QString::number(size().height()));
-    prop_root.appendChild(tag);
+    doc->writeStartElement(KXMLQLCVCPropertiesSize);
+    doc->writeAttribute(KXMLQLCVCPropertiesSizeWidth, QString::number(size().width()));
+    doc->writeAttribute(KXMLQLCVCPropertiesSizeHeight, QString::number(size().height()));
+    doc->writeEndElement();
 
     /***********************
      * Grand Master slider *
      ***********************/
-    tag = doc->createElement(KXMLQLCVCPropertiesGrandMaster);
-    prop_root.appendChild(tag);
+    doc->writeStartElement(KXMLQLCVCPropertiesGrandMaster);
 
     /* Channel mode */
-    tag.setAttribute(KXMLQLCVCPropertiesGrandMasterChannelMode,
+    doc->writeAttribute(KXMLQLCVCPropertiesGrandMasterChannelMode,
                      GrandMaster::channelModeToString(m_gmChannelMode));
 
     /* Value mode */
-    tag.setAttribute(KXMLQLCVCPropertiesGrandMasterValueMode,
+    doc->writeAttribute(KXMLQLCVCPropertiesGrandMasterValueMode,
                      GrandMaster::valueModeToString(m_gmValueMode));
 
     /* Slider mode */
-    tag.setAttribute(KXMLQLCVCPropertiesGrandMasterSliderMode,
+    doc->writeAttribute(KXMLQLCVCPropertiesGrandMasterSliderMode,
                      GrandMaster::sliderModeToString(m_gmSliderMode));
 
     /* Grand Master external input */
     if (m_gmInputUniverse != InputOutputMap::invalidUniverse() &&
         m_gmInputChannel != QLCChannel::invalid())
     {
-        subtag = doc->createElement(KXMLQLCVCPropertiesInput);
-        tag.appendChild(subtag);
-        subtag.setAttribute(KXMLQLCVCPropertiesInputUniverse,
+        doc->writeStartElement(KXMLQLCVCPropertiesInput);
+        doc->writeAttribute(KXMLQLCVCPropertiesInputUniverse,
                             QString("%1").arg(m_gmInputUniverse));
-        subtag.setAttribute(KXMLQLCVCPropertiesInputChannel,
+        doc->writeAttribute(KXMLQLCVCPropertiesInputChannel,
                             QString("%1").arg(m_gmInputChannel));
+        doc->writeEndElement();
     }
+    /* End the <GrandMaster> tag */
+    doc->writeEndElement();
 
     return true;
 }
 
-bool VCProperties::loadXMLInput(const QDomElement& tag, quint32* universe, quint32* channel)
+bool VCProperties::loadXMLInput(QXmlStreamReader &root, quint32* universe, quint32* channel)
 {
     /* External input */
-    if (tag.tagName() != KXMLQLCVCPropertiesInput)
+    if (root.name() != KXMLQLCVCPropertiesInput)
         return false;
 
+    QXmlStreamAttributes attrs = root.attributes();
+
     /* Universe */
-    QString str = tag.attribute(KXMLQLCVCPropertiesInputUniverse);
+    QString str = attrs.value(KXMLQLCVCPropertiesInputUniverse).toString();
     if (str.isEmpty() == false)
         *universe = str.toUInt();
     else
         *universe = InputOutputMap::invalidUniverse();
 
     /* Channel */
-    str = tag.attribute(KXMLQLCVCPropertiesInputChannel);
+    str = attrs.value(KXMLQLCVCPropertiesInputChannel).toString();
     if (str.isEmpty() == false)
         *channel = str.toUInt();
     else
@@ -267,9 +266,12 @@ bool VCProperties::loadXMLInput(const QDomElement& tag, quint32* universe, quint
 
     /* Verdict */
     if (*universe != InputOutputMap::invalidUniverse() &&
-        *channel != QLCChannel::invalid()) {
+        *channel != QLCChannel::invalid())
+    {
         return true;
-    } else {
+    }
+    else
+    {
         return false;
     }
 }

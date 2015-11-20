@@ -17,7 +17,9 @@
   limitations under the License.
 */
 
-#include <QtXml>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
+#include <QDebug>
 
 #include "audiobar.h"
 #include "vcbutton.h"
@@ -216,38 +218,37 @@ void AudioBar::debugInfo()
 
 }
 
-bool AudioBar::loadXML(const QDomElement &root, Doc *doc)
+bool AudioBar::loadXML(QXmlStreamReader &root, Doc *doc)
 {
-    if (root.hasAttribute(KXMLQLCAudioBarName))
-        m_name = root.attribute(KXMLQLCAudioBarName);
+    QXmlStreamAttributes attrs = root.attributes();
 
-    if (root.hasAttribute(KXMLQLCAudioBarType))
+    if (attrs.hasAttribute(KXMLQLCAudioBarName))
+        m_name = attrs.value(KXMLQLCAudioBarName).toString();
+
+    if (attrs.hasAttribute(KXMLQLCAudioBarType))
     {
-        m_type = root.attribute(KXMLQLCAudioBarType).toInt();
-        m_minThreshold = root.attribute(KXMLQLCAudioBarMinThreshold).toInt();
-        m_maxThreshold = root.attribute(KXMLQLCAudioBarMaxThreshold).toInt();
-        m_divisor = root.attribute(KXMLQLCAudioBarDivisor).toInt();
+        m_type = attrs.value(KXMLQLCAudioBarType).toString().toInt();
+        m_minThreshold = attrs.value(KXMLQLCAudioBarMinThreshold).toString().toInt();
+        m_maxThreshold = attrs.value(KXMLQLCAudioBarMaxThreshold).toString().toInt();
+        m_divisor = attrs.value(KXMLQLCAudioBarDivisor).toString().toInt();
 
         if (m_type == AudioBar::DMXBar)
         {
-            QDomNode node = root.firstChild();
-            if (node.isNull() == false)
+            root.readNextStartElement();
+
+            if (root.name() == KXMLQLCAudioBarDMXChannels)
             {
-                QDomElement tag = node.toElement();
-                if (tag.tagName() == KXMLQLCAudioBarDMXChannels)
+                QString dmxValues = root.readElementText();
+                if (dmxValues.isEmpty() == false)
                 {
-                    QString dmxValues = tag.text();
-                    if (dmxValues.isEmpty() == false)
+                    QList<SceneValue> channels;
+                    QStringList varray = dmxValues.split(",");
+                    for (int i = 0; i < varray.count(); i+=2)
                     {
-                        QList<SceneValue> channels;
-                        QStringList varray = dmxValues.split(",");
-                        for (int i = 0; i < varray.count(); i+=2)
-                        {
-                            channels.append(SceneValue(QString(varray.at(i)).toUInt(),
-                                                         QString(varray.at(i + 1)).toUInt(), 0));
-                        }
-                        attachDmxChannels(doc, channels);
+                        channels.append(SceneValue(QString(varray.at(i)).toUInt(),
+                                                     QString(varray.at(i + 1)).toUInt(), 0));
                     }
+                    attachDmxChannels(doc, channels);
                 }
             }
         }
@@ -255,23 +256,22 @@ bool AudioBar::loadXML(const QDomElement &root, Doc *doc)
     return true;
 }
 
-bool AudioBar::saveXML(QDomDocument *doc, QDomElement *atf_root, QString tagName, int index)
+bool AudioBar::saveXML(QXmlStreamWriter *doc, QString tagName, int index)
 {
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(atf_root != NULL);
 
     qDebug() << Q_FUNC_INFO;
 
-    QDomElement ab_tag = doc->createElement(tagName);
-    ab_tag.setAttribute(KXMLQLCAudioBarName, m_name);
-    ab_tag.setAttribute(KXMLQLCAudioBarType, m_type);
-    ab_tag.setAttribute(KXMLQLCAudioBarMinThreshold, m_minThreshold);
-    ab_tag.setAttribute(KXMLQLCAudioBarMaxThreshold, m_maxThreshold);
-    ab_tag.setAttribute(KXMLQLCAudioBarDivisor, m_divisor);
-    ab_tag.setAttribute(KXMLQLCAudioBarIndex, index);
+    doc->writeStartElement(tagName);
+    doc->writeAttribute(KXMLQLCAudioBarName, m_name);
+    doc->writeAttribute(KXMLQLCAudioBarType, QString::number(m_type));
+    doc->writeAttribute(KXMLQLCAudioBarMinThreshold, QString::number(m_minThreshold));
+    doc->writeAttribute(KXMLQLCAudioBarMaxThreshold, QString::number(m_maxThreshold));
+    doc->writeAttribute(KXMLQLCAudioBarDivisor, QString::number(m_divisor));
+    doc->writeAttribute(KXMLQLCAudioBarIndex, QString::number(index));
+
     if (m_type == AudioBar::DMXBar && m_dmxChannels.count() > 0)
     {
-        QDomElement dmx_tag = doc->createElement(KXMLQLCAudioBarDMXChannels);
         QString chans;
         foreach (SceneValue scv, m_dmxChannels)
         {
@@ -281,21 +281,20 @@ bool AudioBar::saveXML(QDomDocument *doc, QDomElement *atf_root, QString tagName
         }
         if (chans.isEmpty() == false)
         {
-            QDomText text = doc->createTextNode(chans);
-            dmx_tag.appendChild(text);
+            doc->writeTextElement(KXMLQLCAudioBarDMXChannels, chans);
         }
-
-        ab_tag.appendChild(dmx_tag);
     }
     else if (m_type == AudioBar::FunctionBar && m_function != NULL)
     {
-        ab_tag.setAttribute(KXMLQLCAudioBarFunction, m_function->id());
+        doc->writeAttribute(KXMLQLCAudioBarFunction, QString::number(m_function->id()));
     }
     else if (m_type == AudioBar::VCWidgetBar && m_widget != NULL)
     {
-        ab_tag.setAttribute(KXMLQLCAudioBarWidget, m_widget->id());
+        doc->writeAttribute(KXMLQLCAudioBarWidget, QString::number(m_widget->id()));
     }
-    atf_root->appendChild(ab_tag);
+
+    /* End <tagName> tag */
+    doc->writeEndElement();
 
     return true;
 }

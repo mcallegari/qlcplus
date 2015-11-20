@@ -26,7 +26,6 @@
 #else
 #include <QtWidgets>
 #endif
-#include <QtXml>
 
 #if defined(WIN32) || defined(Q_OS_WIN)
   #include <windows.h>
@@ -1300,7 +1299,7 @@ QFile::FileError App::loadXML(const QString& fileName)
     }
     else
     {
-        error = QFile::ReadError;
+        retval = QFile::ReadError;
         qWarning() << Q_FUNC_INFO << fileName
                    << "is not a workspace file";
     }
@@ -1312,8 +1311,6 @@ QFile::FileError App::loadXML(const QString& fileName)
 
 bool App::loadXML(QXmlStreamReader& doc, bool goToConsole, bool fromMemory)
 {
-    bool retval = false;
-
     if (doc.readNextStartElement() == false)
         return false;
 
@@ -1384,8 +1381,6 @@ bool App::loadXML(QXmlStreamReader& doc, bool goToConsole, bool fromMemory)
 
 QFile::FileError App::saveXML(const QString& fileName)
 {
-    QFile::FileError retval;
-
     QFile file(fileName);
     if (file.open(QIODevice::WriteOnly) == false)
         return file.error();
@@ -1399,7 +1394,7 @@ QFile::FileError App::saveXML(const QString& fileName)
     doc.writeDTD(QString("<!DOCTYPE %1>").arg(KXMLQLCWorkspace));
 
     doc.writeStartElement(KXMLQLCWorkspace);
-    doc.writeAttribute("xmlns", KXMLQLCplusNamespace + KXMLQLCWorkspace);
+    doc.writeAttribute("xmlns", QString("%1%2").arg(KXMLQLCplusNamespace).arg(KXMLQLCWorkspace));
     /* Currently active window */
     QWidget* widget = m_tab->currentWidget();
     if (widget != NULL)
@@ -1423,7 +1418,6 @@ QFile::FileError App::saveXML(const QString& fileName)
     doc.writeEndElement(); // close KXMLQLCWorkspace
 
     /* End the document and close all the open elements */
-    error = QFile::NoError;
     doc.writeEndDocument();
     file.close();
 
@@ -1432,10 +1426,7 @@ QFile::FileError App::saveXML(const QString& fileName)
     setFileName(fileName);
     m_doc->resetModified();
 
-    retval = QFile::NoError;
-
-
-    return retval;
+    return QFile::NoError;
 }
 
 void App::slotLoadDocFromMemory(QString xmlData)
@@ -1446,8 +1437,11 @@ void App::slotLoadDocFromMemory(QString xmlData)
     /* Clear existing document data */
     clearDocument();
 
-    QDomDocument doc;
-    doc.setContent(xmlData);
+    QBuffer databuf;
+    databuf.setData(xmlData.toLatin1());
+    databuf.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader doc(&databuf);
+
     loadXML(doc, true, true);
 }
 

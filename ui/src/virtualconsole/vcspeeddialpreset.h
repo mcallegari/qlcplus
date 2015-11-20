@@ -20,12 +20,13 @@
 #ifndef VCSPEEDDIALPRESET_H
 #define VCSPEEDDIALPRESET_H
 
+#include <QSharedPointer>
 #include <QKeySequence>
 
 #include "qlcinputsource.h"
 
-class QDomDocument;
-class QDomElement;
+class QXmlStreamReader;
+class QXmlStreamWriter;
 
 /** @addtogroup ui_vc_widgets
  * @{
@@ -59,10 +60,10 @@ public:
      ***********************************************************************/
 public:
     /** Load properties and contents from an XML tree */
-    bool loadXML(const QDomElement& root);
+    bool loadXML(QXmlStreamReader &root);
 
     /** Save properties and contents to an XML document */
-    bool saveXML(QDomDocument* doc, QDomElement* mtx_root);
+    bool saveXML(QXmlStreamWriter *doc);
 
 public:
     /**

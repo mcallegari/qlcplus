@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   vcslider.h
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -29,8 +30,8 @@
 #include "dmxsource.h"
 #include "vcwidget.h"
 
-class QDomDocument;
-class QDomElement;
+class QXmlStreamReader;
+class QXmlStreamWriter;
 class QToolButton;
 class QHBoxLayout;
 class QLabel;
@@ -217,7 +218,7 @@ public:
         /** Sorting operator */
         bool operator<(const LevelChannel& lc) const;
         /** Save the contents of a LevelChannel instance to an XML document */
-        void saveXML(QDomDocument* doc, QDomElement* root) const;
+        void saveXML(QXmlStreamWriter *doc) const;
 
     public:
         /** The associated fixture ID */
@@ -538,11 +539,11 @@ signals:
      * Load & Save
      *********************************************************************/
 public:
-    bool loadXML(const QDomElement* root);
-    bool loadXMLLevel(const QDomElement* level_root);
-    bool loadXMLPlayback(const QDomElement* pb_root);
+    bool loadXML(QXmlStreamReader &root);
+    bool loadXMLLevel(QXmlStreamReader &level_root);
+    bool loadXMLPlayback(QXmlStreamReader &pb_root);
 
-    bool saveXML(QDomDocument* doc, QDomElement* vc_root);
+    bool saveXML(QXmlStreamWriter *doc);
 };
 
 /** @} */

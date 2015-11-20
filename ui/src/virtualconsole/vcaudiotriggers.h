@@ -33,6 +33,8 @@
 #include "dmxsource.h"
 #include "vcwidget.h"
 
+class QXmlStreamReader;
+class QXmlStreamWriter;
 class AudioCapture;
 class AudioBar;
 
@@ -183,7 +185,7 @@ public:
      * @param btn_root A VCButton XML root node containing button properties
      * @return true if successful; otherwise false
      */
-    bool loadXML(const QDomElement* root);
+    bool loadXML(QXmlStreamReader &root);
 
     /**
      * Save a VCButton's properties to an XML document node
@@ -191,7 +193,7 @@ public:
      * @param doc The master XML document to save to
      * @param frame_root The button's VCFrame XML parent node to save to
      */
-    bool saveXML(QDomDocument* doc, QDomElement* vc_root);
+    bool saveXML(QXmlStreamWriter *doc);
 };
 
 /** @} */

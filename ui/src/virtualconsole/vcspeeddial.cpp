@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   vcspeeddial.cpp
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,9 +18,11 @@
   limitations under the License.
 */
 
-#include <QDomDocument>
-#include <QDomElement>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
+#include <QSettings>
 #include <QLayout>
+#include <QTimer>
 #include <QDebug>
 
 #include "vcspeeddialproperties.h"
@@ -777,11 +780,9 @@ static QSharedPointer<VCSpeedDialPreset> createInfinitePreset()
     return infinitePreset;
 }
 
-bool VCSpeedDial::loadXML(const QDomElement* root)
+bool VCSpeedDial::loadXML(QXmlStreamReader &root)
 {
-    Q_ASSERT(root != NULL);
-
-    if (root->tagName() != KXMLQLCVCSpeedDial)
+    if (root.name() != KXMLQLCVCSpeedDial)
     {
         qWarning() << Q_FUNC_INFO << "SpeedDial node not found";
         return false;
@@ -795,235 +796,127 @@ bool VCSpeedDial::loadXML(const QDomElement* root)
     VCSpeedDialFunction::SpeedMultiplier defaultFadeInMultiplier = VCSpeedDialFunction::None;
     VCSpeedDialFunction::SpeedMultiplier defaultFadeOutMultiplier = VCSpeedDialFunction::None;
     VCSpeedDialFunction::SpeedMultiplier defaultDurationMultiplier = VCSpeedDialFunction::One;
-    if (root->hasAttribute(KXMLQLCVCSpeedDialSpeedTypes))
+    if (root.attributes().hasAttribute(KXMLQLCVCSpeedDialSpeedTypes))
     {
-        SpeedTypes speedTypes = SpeedTypes(root->attribute(KXMLQLCVCSpeedDialSpeedTypes).toInt());
+        SpeedTypes speedTypes = SpeedTypes(root.attributes().value(KXMLQLCVCSpeedDialSpeedTypes).toString().toInt());
         defaultFadeInMultiplier = speedTypes & FadeIn ? VCSpeedDialFunction::One : VCSpeedDialFunction::None;
         defaultFadeOutMultiplier = speedTypes & FadeOut ? VCSpeedDialFunction::One : VCSpeedDialFunction::None;
         defaultDurationMultiplier = speedTypes & Duration ? VCSpeedDialFunction::One : VCSpeedDialFunction::None;
     }
 
-    /* Children */
-    QDomNode node = root->firstChild();
     // Sorted list for new presets
     QList<VCSpeedDialPreset> newPresets;
     // legacy: transform the infinite checkbox into an infinite preset
     QSharedPointer<VCSpeedDialPreset> infinitePreset(NULL);
-    while (node.isNull() == false)
+
+    /* Children */
+    while (root.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == KXMLQLCFunction)
+        if (root.name() == KXMLQLCFunction)
         {
             // Function
             VCSpeedDialFunction speeddialfunction;
-            if (speeddialfunction.loadXML(tag, defaultFadeInMultiplier, defaultFadeOutMultiplier, defaultDurationMultiplier))
+            if (speeddialfunction.loadXML(root, defaultFadeInMultiplier,
+                                          defaultFadeOutMultiplier,
+                                          defaultDurationMultiplier))
             {
                 m_functions.append(speeddialfunction);
             }
         }
-        else if (tag.tagName() == KXMLQLCVCSpeedDialAbsoluteValue)
+        else if (root.name() == KXMLQLCWindowState)
+        {
+            int x = 0, y = 0, w = 0, h = 0;
+            bool visible = true;
+            loadXMLWindowState(root, &x, &y, &w, &h, &visible);
+            setGeometry(x, y, w, h);
+        }
+        else if (root.name() == KXMLQLCVCWidgetAppearance)
+        {
+            loadXMLAppearance(root);
+        }
+        else if (root.name() == KXMLQLCVCSpeedDialAbsoluteValue)
         {
             // Value range
-            if (tag.hasAttribute(KXMLQLCVCSpeedDialAbsoluteValueMin) &&
-                tag.hasAttribute(KXMLQLCVCSpeedDialAbsoluteValueMax))
+            QXmlStreamAttributes vAttrs = root.attributes();
+            if (vAttrs.hasAttribute(KXMLQLCVCSpeedDialAbsoluteValueMin) &&
+                vAttrs.hasAttribute(KXMLQLCVCSpeedDialAbsoluteValueMax))
             {
-                uint min = tag.attribute(KXMLQLCVCSpeedDialAbsoluteValueMin).toUInt();
-                uint max = tag.attribute(KXMLQLCVCSpeedDialAbsoluteValueMax).toUInt();
+                uint min = vAttrs.value(KXMLQLCVCSpeedDialAbsoluteValueMin).toString().toUInt();
+                uint max = vAttrs.value(KXMLQLCVCSpeedDialAbsoluteValueMax).toString().toUInt();
                 setAbsoluteValueRange(min, max);
             }
-
-            // Input
-            QDomNode sub = node.firstChild();
-            while (sub.isNull() == false)
-            {
-                QDomElement subtag = sub.toElement();
-                if (subtag.tagName() == KXMLQLCVCWidgetInput)
-                {
-                    loadXMLInput(subtag, absoluteInputSourceId);
-                }
-                else
-                {
-                    qWarning() << Q_FUNC_INFO << "Unknown absolute value tag:" << tag.tagName();
-                }
-
-                sub = sub.nextSibling();
-            }
+            loadXMLSources(root, absoluteInputSourceId);
         }
-        else if (tag.tagName() == KXMLQLCVCSpeedDialTap)
+        else if (root.name() == KXMLQLCVCSpeedDialTap)
         {
-            // Input
-            QDomNode sub = node.firstChild();
-            while (sub.isNull() == false)
-            {
-                QDomElement subtag = sub.toElement();
-                if (subtag.tagName() == KXMLQLCVCWidgetInput)
-                {
-                    loadXMLInput(subtag, tapInputSourceId);
-                }
-                else
-                {
-                    qWarning() << Q_FUNC_INFO << "Unknown tap tag:" << tag.tagName();
-                }
-
-                sub = sub.nextSibling();
-            }
+            loadXMLSources(root, tapInputSourceId);
         }
-        else if (tag.tagName() == KXMLQLCVCSpeedDialResetFactorOnDialChange)
+        else if (root.name() == KXMLQLCVCSpeedDialResetFactorOnDialChange)
         {
             // Reset factor on dial change
-            setResetFactorOnDialChange(tag.text() == KXMLQLCTrue);
+            setResetFactorOnDialChange(root.readElementText() == KXMLQLCTrue);
         }
-        else if (tag.tagName() == KXMLQLCVCSpeedDialMult)
+        else if (root.name() == KXMLQLCVCSpeedDialMult)
         {
-            // Input
-            QDomNode sub = node.firstChild();
-            while (sub.isNull() == false)
-            {
-                QDomElement subtag = sub.toElement();
-                if (subtag.tagName() == KXMLQLCVCWidgetInput)
-                {
-                    loadXMLInput(subtag, multInputSourceId);
-                }
-                else
-                {
-                    qWarning() << Q_FUNC_INFO << "Unknown mult tag:" << tag.tagName();
-                }
-
-                sub = sub.nextSibling();
-            }
+            loadXMLSources(root, multInputSourceId);
         }
-        else if (tag.tagName() == KXMLQLCVCSpeedDialDiv)
+        else if (root.name() == KXMLQLCVCSpeedDialDiv)
         {
-            // Input
-            QDomNode sub = node.firstChild();
-            while (sub.isNull() == false)
-            {
-                QDomElement subtag = sub.toElement();
-                if (subtag.tagName() == KXMLQLCVCWidgetInput)
-                {
-                    loadXMLInput(subtag, divInputSourceId);
-                }
-                else
-                {
-                    qWarning() << Q_FUNC_INFO << "Unknown div tag:" << tag.tagName();
-                }
-
-                sub = sub.nextSibling();
-            }
+            loadXMLSources(root, divInputSourceId);
         }
-        else if (tag.tagName() == KXMLQLCVCSpeedDialMultDivReset)
+        else if (root.name() == KXMLQLCVCSpeedDialMultDivReset)
         {
-            // Input
-            QDomNode sub = node.firstChild();
-            while (sub.isNull() == false)
-            {
-                QDomElement subtag = sub.toElement();
-                if (subtag.tagName() == KXMLQLCVCWidgetInput)
-                {
-                    loadXMLInput(subtag, multDivResetInputSourceId);
-                }
-                else
-                {
-                    qWarning() << Q_FUNC_INFO << "Unknown multdiv reset tag:" << tag.tagName();
-                }
-
-                sub = sub.nextSibling();
-            }
+            loadXMLSources(root, multDivResetInputSourceId);
         }
-        else if (tag.tagName() == KXMLQLCVCSpeedDialApply)
+        else if (root.name() == KXMLQLCVCSpeedDialApply)
         {
-            // Input
-            QDomNode sub = node.firstChild();
-            while (sub.isNull() == false)
-            {
-                QDomElement subtag = sub.toElement();
-                if (subtag.tagName() == KXMLQLCVCWidgetInput)
-                {
-                    loadXMLInput(subtag, applyInputSourceId);
-                }
-                else
-                {
-                    qWarning() << Q_FUNC_INFO << "Unknown apply tag:" << tag.tagName();
-                }
-
-                sub = sub.nextSibling();
-            }
+            loadXMLSources(root, applyInputSourceId);
         }
-        else if (tag.tagName() == KXMLQLCVCSpeedDialTapKey)
+        else if (root.name() == KXMLQLCVCSpeedDialTapKey)
         {
-            setTapKeySequence(stripKeySequence(QKeySequence(tag.text())));
+            setTapKeySequence(stripKeySequence(QKeySequence(root.readElementText())));
         }
-        else if (tag.tagName() == KXMLQLCVCSpeedDialMultKey)
+        else if (root.name() == KXMLQLCVCSpeedDialMultKey)
         {
-            setMultKeySequence(stripKeySequence(QKeySequence(tag.text())));
+            setMultKeySequence(stripKeySequence(QKeySequence(root.readElementText())));
         }
-        else if (tag.tagName() == KXMLQLCVCSpeedDialDivKey)
+        else if (root.name() == KXMLQLCVCSpeedDialDivKey)
         {
-            setDivKeySequence(stripKeySequence(QKeySequence(tag.text())));
+            setDivKeySequence(stripKeySequence(QKeySequence(root.readElementText())));
         }
-        else if (tag.tagName() == KXMLQLCVCSpeedDialMultDivResetKey)
+        else if (root.name() == KXMLQLCVCSpeedDialMultDivResetKey)
         {
-            setMultDivResetKeySequence(stripKeySequence(QKeySequence(tag.text())));
+            setMultDivResetKeySequence(stripKeySequence(QKeySequence(root.readElementText())));
         }
-        else if (tag.tagName() == KXMLQLCVCSpeedDialApplyKey)
+        else if (root.name() == KXMLQLCVCSpeedDialApplyKey)
         {
-            setApplyKeySequence(stripKeySequence(QKeySequence(tag.text())));
+            setApplyKeySequence(stripKeySequence(QKeySequence(root.readElementText())));
         }
-        else if (tag.tagName() == KXMLQLCVCSpeedDialInfinite)
+        else if (root.name() == KXMLQLCVCSpeedDialInfinite)
         {
             // Legacy: infinite checkbox input
             if (!infinitePreset)
                 infinitePreset = createInfinitePreset();
 
-            QDomNode sub = node.firstChild();
-            while (sub.isNull() == false)
-            {
-                QDomElement subtag = sub.toElement();
-                if (subtag.tagName() == KXMLQLCVCWidgetInput)
-                {
-                    quint32 uni = QLCInputSource::invalidUniverse;
-                    quint32 ch = QLCInputSource::invalidChannel;
-                    if (loadXMLInput(subtag, &uni, &ch) == true)
-                    {
-                        infinitePreset->m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch));
-                    }
-                }
-                else
-                {
-                    qWarning() << Q_FUNC_INFO << "Unknown infinite tag:" << tag.tagName();
-                }
-
-                sub = sub.nextSibling();
-            }
+            loadXMLInfiniteLegacy(root, infinitePreset);
         }
-        else if (tag.tagName() == KXMLQLCVCSpeedDialInfiniteKey)
+        else if (root.name() == KXMLQLCVCSpeedDialInfiniteKey)
         {
             // Legacy: infinite checkbox key sequence
             if (!infinitePreset)
                 infinitePreset = createInfinitePreset();
 
-            infinitePreset->m_keySequence = stripKeySequence(QKeySequence(tag.text()));
+            infinitePreset->m_keySequence = stripKeySequence(QKeySequence(root.readElementText()));
         }
-        else if (tag.tagName() == KXMLQLCWindowState)
-        {
-            int x = 0, y = 0, w = 0, h = 0;
-            bool visible = true;
-            loadXMLWindowState(&tag, &x, &y, &w, &h, &visible);
-            setGeometry(x, y, w, h);
-        }
-        else if (tag.tagName() == KXMLQLCVCWidgetAppearance)
-        {
-            loadXMLAppearance(&tag);
-        }
-        else if(tag.tagName() == KXMLQLCVCSpeedDialPreset)
+        else if(root.name() == KXMLQLCVCSpeedDialPreset)
         {
             VCSpeedDialPreset preset(0xff);
-            if (preset.loadXML(tag))
+            if (preset.loadXML(root))
                 newPresets.insert(qLowerBound(newPresets.begin(), newPresets.end(), preset), preset);
         }
-        else if (tag.tagName() == KXMLQLCVCSpeedDialVisibilityMask)
+        else if (root.name() == KXMLQLCVCSpeedDialVisibilityMask)
         {
-            quint32 mask = tag.text().toUInt();
+            quint32 mask = root.readElementText().toUInt();
 
             // legacy: infinite checkbox
             if (mask & SpeedDial::Infinite)
@@ -1035,16 +928,15 @@ bool VCSpeedDial::loadXML(const QDomElement* root)
 
             setVisibilityMask(mask);
         }
-        else if (tag.tagName() == KXMLQLCVCSpeedDialTime)
+        else if (root.name() == KXMLQLCVCSpeedDialTime)
         {
-            m_dial->setValue(tag.text().toUInt());
+            m_dial->setValue(root.readElementText().toUInt());
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown speed dial tag:" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unknown speed dial tag:" << root.name().toString();
+            root.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     if (infinitePreset && newPresets.size() > 0)
@@ -1064,131 +956,116 @@ bool VCSpeedDial::loadXML(const QDomElement* root)
     return true;
 }
 
-bool VCSpeedDial::saveXML(QDomDocument* doc, QDomElement* vc_root)
+bool VCSpeedDial::loadXMLInfiniteLegacy(QXmlStreamReader &root, QSharedPointer<VCSpeedDialPreset> preset)
+{
+    while (root.readNextStartElement())
+    {
+        if (root.name() == KXMLQLCVCWidgetInput)
+        {
+            quint32 uni = QLCInputSource::invalidUniverse;
+            quint32 ch = QLCInputSource::invalidChannel;
+            if (loadXMLInput(root, &uni, &ch) == true)
+            {
+                preset->m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch));
+            }
+        }
+        else
+        {
+            qWarning() << Q_FUNC_INFO << "Unknown Frame Source tag" << root.name().toString();
+            root.skipCurrentElement();
+        }
+    }
+    return true;
+}
+
+bool VCSpeedDial::saveXML(QXmlStreamWriter *doc)
 {
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(vc_root != NULL);
 
-    QDomElement root = doc->createElement(KXMLQLCVCSpeedDial);
-    vc_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCVCSpeedDial);
 
-    saveXMLCommon(doc, &root);
+    saveXMLCommon(doc);
 
     /* Window state */
-    saveXMLWindowState(doc, &root);
+    saveXMLWindowState(doc);
 
     /* Appearance */
-    saveXMLAppearance(doc, &root);
+    saveXMLAppearance(doc);
 
     if (m_visibilityMask != SpeedDial::defaultVisibilityMask())
     {
-        QDomElement tag = doc->createElement(KXMLQLCVCSpeedDialVisibilityMask);
-        root.appendChild(tag);
-        QDomText text = doc->createTextNode(QString::number(m_visibilityMask));
-        tag.appendChild(text);
+        doc->writeTextElement(KXMLQLCVCSpeedDialVisibilityMask, QString::number(m_visibilityMask));
     }
 
     /* Absolute input */
-    QDomElement absInput = doc->createElement(KXMLQLCVCSpeedDialAbsoluteValue);
-    absInput.setAttribute(KXMLQLCVCSpeedDialAbsoluteValueMin, absoluteValueMin());
-    absInput.setAttribute(KXMLQLCVCSpeedDialAbsoluteValueMax, absoluteValueMax());
-    saveXMLInput(doc, &absInput, inputSource(absoluteInputSourceId));
-    root.appendChild(absInput);
+    doc->writeStartElement(KXMLQLCVCSpeedDialAbsoluteValue);
+    doc->writeAttribute(KXMLQLCVCSpeedDialAbsoluteValueMin, QString::number(absoluteValueMin()));
+    doc->writeAttribute(KXMLQLCVCSpeedDialAbsoluteValueMax, QString::number(absoluteValueMax()));
+    saveXMLInput(doc, inputSource(absoluteInputSourceId));
+    doc->writeEndElement();
 
     /* Tap input */
-    QDomElement tap = doc->createElement(KXMLQLCVCSpeedDialTap);
-    saveXMLInput(doc, &tap, inputSource(tapInputSourceId));
-    root.appendChild(tap);
+    doc->writeStartElement(KXMLQLCVCSpeedDialTap);
+    saveXMLInput(doc, inputSource(tapInputSourceId));
+    doc->writeEndElement();
 
     // MultDiv options
     if (m_resetFactorOnDialChange)
-    {
-        QDomElement tag = doc->createElement(KXMLQLCVCSpeedDialResetFactorOnDialChange);
-        QDomText text = doc->createTextNode(KXMLQLCTrue);
-        tag.appendChild(text);
-        root.appendChild(tag);
-    }
+        doc->writeTextElement(KXMLQLCVCSpeedDialResetFactorOnDialChange, KXMLQLCTrue);
 
     /* Mult input */
-    QDomElement mult = doc->createElement(KXMLQLCVCSpeedDialMult);
-    saveXMLInput(doc, &mult, inputSource(multInputSourceId));
-    root.appendChild(mult);
+    doc->writeStartElement(KXMLQLCVCSpeedDialMult);
+    saveXMLInput(doc, inputSource(multInputSourceId));
+    doc->writeEndElement();
 
     /* Div input */
-    QDomElement div = doc->createElement(KXMLQLCVCSpeedDialDiv);
-    saveXMLInput(doc, &div, inputSource(divInputSourceId));
-    root.appendChild(div);
+    doc->writeStartElement(KXMLQLCVCSpeedDialDiv);
+    saveXMLInput(doc, inputSource(divInputSourceId));
+    doc->writeEndElement();
 
     /* MultDiv Reset input */
-    QDomElement multDivReset = doc->createElement(KXMLQLCVCSpeedDialMultDivReset);
-    saveXMLInput(doc, &multDivReset, inputSource(multDivResetInputSourceId));
-    root.appendChild(multDivReset);
+    doc->writeStartElement(KXMLQLCVCSpeedDialMultDivReset);
+    saveXMLInput(doc, inputSource(multDivResetInputSourceId));
+    doc->writeEndElement();
 
     /* Apply input */
-    QDomElement apply = doc->createElement(KXMLQLCVCSpeedDialApply);
-    saveXMLInput(doc, &apply, inputSource(applyInputSourceId));
-    root.appendChild(apply);
+    doc->writeStartElement(KXMLQLCVCSpeedDialApply);
+    saveXMLInput(doc, inputSource(applyInputSourceId));
+    doc->writeEndElement();
 
     /* Save time */
-    QDomElement time = doc->createElement(KXMLQLCVCSpeedDialTime);
-    root.appendChild(time);
-    QDomText text = doc->createTextNode(QString::number(m_dial->value()));
-    time.appendChild(text);
+    doc->writeTextElement(KXMLQLCVCSpeedDialTime, QString::number(m_dial->value()));
 
     /* Tap key sequence */
     if (m_tapKeySequence.isEmpty() == false)
-    {
-        QDomElement tag = doc->createElement(KXMLQLCVCSpeedDialTapKey);
-        root.appendChild(tag);
-        QDomText text = doc->createTextNode(m_tapKeySequence.toString());
-        tag.appendChild(text);
-    }
+        doc->writeTextElement(KXMLQLCVCSpeedDialTapKey, m_tapKeySequence.toString());
 
     /* Mult key sequence */
     if (m_multKeySequence.isEmpty() == false)
-    {
-        QDomElement tag = doc->createElement(KXMLQLCVCSpeedDialMultKey);
-        root.appendChild(tag);
-        QDomText text = doc->createTextNode(m_multKeySequence.toString());
-        tag.appendChild(text);
-    }
+        doc->writeTextElement(KXMLQLCVCSpeedDialMultKey, m_multKeySequence.toString());
 
     /* Div key sequence */
     if (m_divKeySequence.isEmpty() == false)
-    {
-        QDomElement tag = doc->createElement(KXMLQLCVCSpeedDialDivKey);
-        root.appendChild(tag);
-        QDomText text = doc->createTextNode(m_divKeySequence.toString());
-        tag.appendChild(text);
-    }
+        doc->writeTextElement(KXMLQLCVCSpeedDialDivKey, m_divKeySequence.toString());
 
     /* MultDiv Reset key sequence */
     if (m_multDivResetKeySequence.isEmpty() == false)
-    {
-        QDomElement tag = doc->createElement(KXMLQLCVCSpeedDialMultDivResetKey);
-        root.appendChild(tag);
-        QDomText text = doc->createTextNode(m_multDivResetKeySequence.toString());
-        tag.appendChild(text);
-    }
+        doc->writeTextElement(KXMLQLCVCSpeedDialMultDivResetKey, m_multDivResetKeySequence.toString());
 
     /* MultDiv Reset key sequence */
     if (m_applyKeySequence.isEmpty() == false)
-    {
-        QDomElement tag = doc->createElement(KXMLQLCVCSpeedDialApplyKey);
-        root.appendChild(tag);
-        QDomText text = doc->createTextNode(m_applyKeySequence.toString());
-        tag.appendChild(text);
-    }
+        doc->writeTextElement(KXMLQLCVCSpeedDialApplyKey, m_applyKeySequence.toString());
 
     /* Functions */
     foreach (const VCSpeedDialFunction &speeddialfunction, m_functions)
-    {
-        speeddialfunction.saveXML(doc, &root);
-    }
+        speeddialfunction.saveXML(doc);
 
     // Presets
     foreach(VCSpeedDialPreset *preset, presets())
-        preset->saveXML(doc, &root);
+        preset->saveXML(doc);
+
+    /* End the <SpeedDial> tag */
+    doc->writeEndElement();
 
     return true;
 }

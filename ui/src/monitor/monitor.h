@@ -29,8 +29,6 @@
 class MonitorGraphicsView;
 class MonitorFixture;
 class MonitorLayout;
-class QDomDocument;
-class QDomElement;
 class QScrollArea;
 class QComboBox;
 class QSplitter;

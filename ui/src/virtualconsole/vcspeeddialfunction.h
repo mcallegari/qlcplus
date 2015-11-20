@@ -1,5 +1,5 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   vcspeeddialfunction.h
 
   Copyright (C) 2014 David Garyga
@@ -22,8 +22,8 @@
 
 #include "function.h"
 
-class QDomDocument;
-class QDomElement;
+class QXmlStreamReader;
+class QXmlStreamWriter;
 
 /** @addtogroup ui_vc_props
  * @{
@@ -73,11 +73,11 @@ public:
      ***********************************************************************/
 public:
     /** Load SpeedDialFunction with default values for multipliers */
-    bool loadXML(const QDomElement& root,
-            SpeedMultiplier aFadeIn = None, SpeedMultiplier aFadeOut = None, SpeedMultiplier aDuration = One);
+    bool loadXML(QXmlStreamReader &root, SpeedMultiplier aFadeIn = None,
+                 SpeedMultiplier aFadeOut = None, SpeedMultiplier aDuration = One);
 
     /** Save SpeedDialFunction contents to $doc, under $root */
-    bool saveXML(QDomDocument* doc, QDomElement* root) const;
+    bool saveXML(QXmlStreamWriter *doc) const;
 
 public:
     quint32 functionId;

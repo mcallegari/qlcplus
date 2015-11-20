@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   vcsoloframe.h
 
   Copyright (c) Anders Thomsen
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -24,8 +25,6 @@
 #include "vcframe.h"
 #include "function.h"
 
-class QDomDocument;
-class QDomElement;
 class QMouseEvent;
 class QString;
 class Doc;
@@ -102,9 +101,6 @@ public:
      *************************************************************************/
 protected:
     virtual QString xmlTagName() const;
-// public:
-//     virtual bool loadXML(const QDomElement* root);
-//     virtual bool saveXML(QDomDocument* doc, QDomElement* vc_root);
 
     /*************************************************************************
      * Event handlers

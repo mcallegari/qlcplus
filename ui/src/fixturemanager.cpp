@@ -17,6 +17,8 @@
   limitations under the License.
 */
 
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QTreeWidgetItem>
 #include <QTextBrowser>
 #include <QVBoxLayout>
@@ -34,7 +36,6 @@
 #include <QIcon>
 #include <QMenu>
 #include <QtGui>
-#include <QtXml>
 
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
@@ -1546,68 +1547,85 @@ void FixtureManager::slotImport()
 {
     QString fileName = createDialog(true);
 
-    QDomDocument doc(QLCFile::readXML(fileName));
-    if (doc.isNull() == false)
+    QXmlStreamReader *doc = QLCFile::getXMLReader(fileName);
+    if (doc == NULL || doc->device() == NULL || doc->hasError())
     {
-        if (doc.doctype().name() == KXMLQLCFixturesList)
+        qWarning() << Q_FUNC_INFO << "Unable to read from" << fileName;
+        return;
+    }
+
+    while (!doc->atEnd())
+    {
+        if (doc->readNext() == QXmlStreamReader::DTD)
+            break;
+    }
+    if (doc->hasError())
+    {
+        QLCFile::releaseXMLReader(doc);
+        return;
+    }
+
+    if (doc->dtdName() == KXMLQLCFixturesList)
+    {
+        doc->readNextStartElement();
+        if (doc->name() != KXMLQLCFixturesList)
         {
-            QDomElement root = doc.documentElement();
-            if (root.tagName() != KXMLQLCFixturesList)
-            {
-                qWarning() << Q_FUNC_INFO << "Fixture Definition node not found";
-                return;
-            }
-            QDomNode node = root.firstChild();
-            while (node.isNull() == false)
-            {
-                QDomElement tag = node.toElement();
+            qWarning() << Q_FUNC_INFO << "Fixture Definition node not found";
+            QLCFile::releaseXMLReader(doc);
+            return;
+        }
 
-                if (tag.tagName() == KXMLFixture)
+        while (doc->readNextStartElement())
+        {
+            if (doc->name() == KXMLFixture)
+            {
+                Fixture* fxi = new Fixture(m_doc);
+                Q_ASSERT(fxi != NULL);
+
+                if (fxi->loadXML(*doc, m_doc, m_doc->fixtureDefCache()) == true)
                 {
-                    Fixture* fxi = new Fixture(m_doc);
-                    Q_ASSERT(fxi != NULL);
-
-                    if (fxi->loadXML(tag, m_doc, m_doc->fixtureDefCache()) == true)
+                    if (m_doc->addFixture(fxi /*, fxi->id()*/) == true)
                     {
-                        if (m_doc->addFixture(fxi /*, fxi->id()*/) == true)
-                        {
-                            /* Success */
-                            qWarning() << Q_FUNC_INFO << "Fixture" << fxi->name() << "successfully created.";
-                        }
-                        else
-                        {
-                            /* Doc is full */
-                            qWarning() << Q_FUNC_INFO << "Fixture" << fxi->name() << "cannot be created.";
-                            delete fxi;
-                        }
+                        /* Success */
+                        qWarning() << Q_FUNC_INFO << "Fixture" << fxi->name() << "successfully created.";
                     }
                     else
                     {
-                        qWarning() << Q_FUNC_INFO << "Fixture" << fxi->name() << "cannot be loaded.";
+                        /* Doc is full */
+                        qWarning() << Q_FUNC_INFO << "Fixture" << fxi->name() << "cannot be created.";
                         delete fxi;
                     }
                 }
-                else if (tag.tagName() == KXMLQLCFixtureGroup)
+                else
                 {
-                    FixtureGroup* grp = new FixtureGroup(m_doc);
-                    Q_ASSERT(grp != NULL);
-
-                    if (grp->loadXML(tag) == true)
-                    {
-                        m_doc->addFixtureGroup(grp, grp->id());
-                    }
-                    else
-                    {
-                        qWarning() << Q_FUNC_INFO << "FixtureGroup" << grp->name() << "cannot be loaded.";
-                        delete grp;
-                    }
+                    qWarning() << Q_FUNC_INFO << "Fixture" << fxi->name() << "cannot be loaded.";
+                    delete fxi;
                 }
-
-                node = node.nextSibling();
             }
-            updateView();
+            else if (doc->name() == KXMLQLCFixtureGroup)
+            {
+                FixtureGroup* grp = new FixtureGroup(m_doc);
+                Q_ASSERT(grp != NULL);
+
+                if (grp->loadXML(*doc) == true)
+                {
+                    m_doc->addFixtureGroup(grp, grp->id());
+                }
+                else
+                {
+                    qWarning() << Q_FUNC_INFO << "FixtureGroup" << grp->name() << "cannot be loaded.";
+                    delete grp;
+                }
+            }
+            else
+            {
+                qWarning() << Q_FUNC_INFO << "Unknown label tag:" << doc->name().toString();
+                doc->skipCurrentElement();
+            }
         }
+        updateView();
     }
+    QLCFile::releaseXMLReader(doc);
 }
 
 void FixtureManager::slotExport()
@@ -1618,40 +1636,29 @@ void FixtureManager::slotExport()
     if (file.open(QIODevice::WriteOnly) == false)
         return;
 
-    QDomDocument doc(QLCFile::getXMLHeader(KXMLQLCFixturesList));
+    QXmlStreamWriter doc(&file);
+    doc.setAutoFormatting(true);
+    doc.setAutoFormattingIndent(1);
+    doc.setCodec("UTF-8");
+    QLCFile::writeXMLHeader(&doc, KXMLQLCFixturesList);
 
-    if (doc.isNull() == false)
+    QListIterator <Fixture*> fxit(m_doc->fixtures());
+    while (fxit.hasNext() == true)
     {
-        QDomElement root;
-        QDomElement tag;
-        QDomText text;
-
-        /* Create a text stream for the file */
-        QTextStream stream(&file);
-
-        /* THE MASTER XML ROOT NODE */
-        root = doc.documentElement();
-
-        QListIterator <Fixture*> fxit(m_doc->fixtures());
-        while (fxit.hasNext() == true)
-        {
-            Fixture* fxi(fxit.next());
-            Q_ASSERT(fxi != NULL);
-            fxi->saveXML(&doc, &root);
-        }
-
-        QListIterator <FixtureGroup*>grpit(m_doc->fixtureGroups());
-        while (grpit.hasNext() == true)
-        {
-            FixtureGroup *fxgrp(grpit.next());
-            Q_ASSERT(fxgrp != NULL);
-            fxgrp->saveXML(&doc, &root);
-        }
-
-        /* Write the XML document to the stream (=file) */
-        stream << doc.toString() << "\n";
+        Fixture* fxi(fxit.next());
+        Q_ASSERT(fxi != NULL);
+        fxi->saveXML(&doc);
     }
 
+    QListIterator <FixtureGroup*>grpit(m_doc->fixtureGroups());
+    while (grpit.hasNext() == true)
+    {
+        FixtureGroup *fxgrp(grpit.next());
+        Q_ASSERT(fxgrp != NULL);
+        fxgrp->saveXML(&doc);
+    }
+
+    doc.writeEndDocument();
     file.close();
 }
 

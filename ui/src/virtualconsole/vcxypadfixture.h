@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   vcxypadfixture.h
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -26,9 +27,9 @@
 
 #include "grouphead.h"
 
+class QXmlStreamReader;
+class QXmlStreamWriter;
 class VCXYPadFixture;
-class QDomDocument;
-class QDomElement;
 class Universe;
 class Doc;
 
@@ -145,8 +146,8 @@ private:
      * Load & Save
      ********************************************************************/
 public:
-    bool loadXML(const QDomElement& root);
-    bool saveXML(QDomDocument* doc, QDomElement* root) const;
+    bool loadXML(QXmlStreamReader &root);
+    bool saveXML(QXmlStreamWriter *doc) const;
 
     /********************************************************************
      * Running

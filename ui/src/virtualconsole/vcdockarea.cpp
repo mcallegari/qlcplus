@@ -20,7 +20,6 @@
 #include <QVBoxLayout>
 #include <QString>
 #include <QDebug>
-#include <QtXml>
 
 #include "qlcfile.h"
 

@@ -18,6 +18,7 @@
 */
 
 #include <QRadioButton>
+#include <QSettings>
 #include <QCheckBox>
 #include <QSpinBox>
 

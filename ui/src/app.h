@@ -31,8 +31,6 @@
 #include "doc.h"
 
 class QProgressDialog;
-class QDomDocument;
-class QDomElement;
 class QMessageBox;
 class QToolButton;
 class QFileDialog;

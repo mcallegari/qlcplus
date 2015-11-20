@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   vcxypadfixture.cpp
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,10 +18,13 @@
   limitations under the License.
 */
 
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QStringList>
 #include <QVariant>
 #include <QString>
-#include <QtXml>
+#include <QDebug>
+#include <math.h>
 
 #include "qlcfixturemode.h"
 #include "qlcchannel.h"
@@ -328,9 +332,9 @@ VCXYPadFixture::DisplayMode VCXYPadFixture::displayMode() const
  * Load & Save
  ****************************************************************************/
 
-bool VCXYPadFixture::loadXML(const QDomElement& root)
+bool VCXYPadFixture::loadXML(QXmlStreamReader &root)
 {
-    if (root.tagName() != KXMLQLCVCXYPadFixture)
+    if (root.name() != KXMLQLCVCXYPadFixture)
     {
         qWarning() << Q_FUNC_INFO << "XYPad Fixture node not found";
         return false;
@@ -338,21 +342,20 @@ bool VCXYPadFixture::loadXML(const QDomElement& root)
 
     /* Fixture ID */
     GroupHead head;
-    head.fxi = root.attribute(KXMLQLCVCXYPadFixtureID).toInt();
-    head.head = root.attribute(KXMLQLCVCXYPadFixtureHead).toInt();
+    head.fxi = root.attributes().value(KXMLQLCVCXYPadFixtureID).toString().toInt();
+    head.head = root.attributes().value(KXMLQLCVCXYPadFixtureHead).toString().toInt();
     setHead(head);
 
     /* Children */
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == KXMLQLCVCXYPadFixtureAxis)
+        if (root.name() == KXMLQLCVCXYPadFixtureAxis)
         {
-            QString axis = tag.attribute(KXMLQLCVCXYPadFixtureAxisID);
-            QString min = tag.attribute(KXMLQLCVCXYPadFixtureAxisLowLimit);
-            QString max = tag.attribute(KXMLQLCVCXYPadFixtureAxisHighLimit);
-            QString rev = tag.attribute(KXMLQLCVCXYPadFixtureAxisReverse);
+            QXmlStreamAttributes attrs = root.attributes();
+            QString axis = attrs.value(KXMLQLCVCXYPadFixtureAxisID).toString();
+            QString min = attrs.value(KXMLQLCVCXYPadFixtureAxisLowLimit).toString();
+            QString max = attrs.value(KXMLQLCVCXYPadFixtureAxisHighLimit).toString();
+            QString rev = attrs.value(KXMLQLCVCXYPadFixtureAxisReverse).toString();
 
             if (axis == KXMLQLCVCXYPadFixtureAxisX)
             {
@@ -372,55 +375,51 @@ bool VCXYPadFixture::loadXML(const QDomElement& root)
             {
                 qWarning() << Q_FUNC_INFO << "Unknown XYPad axis" << axis;
             }
+            root.skipCurrentElement();
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown XY Pad tag:" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unknown XY Pad tag:" << root.name().toString();
+            root.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     return true;
 }
 
-bool VCXYPadFixture::saveXML(QDomDocument* doc, QDomElement* pad_root) const
+bool VCXYPadFixture::saveXML(QXmlStreamWriter *doc) const
 {
-    QDomElement root;
-    QDomElement tag;
-    QDomText text;
-
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(pad_root != NULL);
 
     /* VCXYPad Fixture */
-    root = doc->createElement(KXMLQLCVCXYPadFixture);
-    root.setAttribute(KXMLQLCVCXYPadFixtureID, QString("%1").arg(m_head.fxi));
-    root.setAttribute(KXMLQLCVCXYPadFixtureHead, QString("%1").arg(m_head.head));
-    root.appendChild(text);
-    pad_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCVCXYPadFixture);
+    doc->writeAttribute(KXMLQLCVCXYPadFixtureID, QString("%1").arg(m_head.fxi));
+    doc->writeAttribute(KXMLQLCVCXYPadFixtureHead, QString("%1").arg(m_head.head));
 
     /* X-Axis */
-    tag = doc->createElement(KXMLQLCVCXYPadFixtureAxis);
-    root.appendChild(tag);
-    tag.setAttribute(KXMLQLCVCXYPadFixtureAxisID, KXMLQLCVCXYPadFixtureAxisX);
-    tag.setAttribute(KXMLQLCVCXYPadFixtureAxisLowLimit, QString("%1").arg(m_xMin));
-    tag.setAttribute(KXMLQLCVCXYPadFixtureAxisHighLimit, QString("%1").arg(m_xMax));
+    doc->writeStartElement(KXMLQLCVCXYPadFixtureAxis);
+    doc->writeAttribute(KXMLQLCVCXYPadFixtureAxisID, KXMLQLCVCXYPadFixtureAxisX);
+    doc->writeAttribute(KXMLQLCVCXYPadFixtureAxisLowLimit, QString("%1").arg(m_xMin));
+    doc->writeAttribute(KXMLQLCVCXYPadFixtureAxisHighLimit, QString("%1").arg(m_xMax));
     if (m_xReverse == true)
-        tag.setAttribute(KXMLQLCVCXYPadFixtureAxisReverse, KXMLQLCTrue);
+        doc->writeAttribute(KXMLQLCVCXYPadFixtureAxisReverse, KXMLQLCTrue);
     else
-        tag.setAttribute(KXMLQLCVCXYPadFixtureAxisReverse, KXMLQLCFalse);
+        doc->writeAttribute(KXMLQLCVCXYPadFixtureAxisReverse, KXMLQLCFalse);
+    doc->writeEndElement();
 
     /* Y-Axis */
-    tag = doc->createElement(KXMLQLCVCXYPadFixtureAxis);
-    root.appendChild(tag);
-    tag.setAttribute(KXMLQLCVCXYPadFixtureAxisID, KXMLQLCVCXYPadFixtureAxisY);
-    tag.setAttribute(KXMLQLCVCXYPadFixtureAxisLowLimit, QString("%1").arg(m_yMin));
-    tag.setAttribute(KXMLQLCVCXYPadFixtureAxisHighLimit, QString("%1").arg(m_yMax));
+    doc->writeStartElement(KXMLQLCVCXYPadFixtureAxis);
+    doc->writeAttribute(KXMLQLCVCXYPadFixtureAxisID, KXMLQLCVCXYPadFixtureAxisY);
+    doc->writeAttribute(KXMLQLCVCXYPadFixtureAxisLowLimit, QString("%1").arg(m_yMin));
+    doc->writeAttribute(KXMLQLCVCXYPadFixtureAxisHighLimit, QString("%1").arg(m_yMax));
     if (m_yReverse == true)
-        tag.setAttribute(KXMLQLCVCXYPadFixtureAxisReverse, KXMLQLCTrue);
+        doc->writeAttribute(KXMLQLCVCXYPadFixtureAxisReverse, KXMLQLCTrue);
     else
-        tag.setAttribute(KXMLQLCVCXYPadFixtureAxisReverse, KXMLQLCFalse);
+        doc->writeAttribute(KXMLQLCVCXYPadFixtureAxisReverse, KXMLQLCFalse);
+    doc->writeEndElement();
+
+    /* End the <Fixture> tag */
+    doc->writeEndElement();
 
     return true;
 }

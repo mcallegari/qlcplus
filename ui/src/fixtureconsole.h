@@ -26,8 +26,6 @@
 #include "consolechannel.h"
 #include "scene.h"
 
-class QDomDocument;
-class QDomElement;
 class MasterTimer;
 class QHBoxLayout;
 class OutputMap;

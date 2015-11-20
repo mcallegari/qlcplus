@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   vcspeeddial.h
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -24,15 +25,15 @@
 
 #include "vcwidget.h"
 
-class QDomDocument;
-class QDomElement;
-class SpeedDial;
 class VCSpeedDialFunction;
 class VCSpeedDialPreset;
-class FlowLayout;
-class QLabel;
+class QXmlStreamReader;
+class QXmlStreamWriter;
 class QPushButton;
 class QToolButton;
+class FlowLayout;
+class SpeedDial;
+class QLabel;
 
 /** @addtogroup ui_vc_props
  * @{
@@ -280,10 +281,12 @@ private:
      *************************************************************************/
 public:
     /** @reimp */
-    bool loadXML(const QDomElement* root);
+    bool loadXML(QXmlStreamReader &root);
+
+    bool loadXMLInfiniteLegacy(QXmlStreamReader &root, QSharedPointer<VCSpeedDialPreset> preset);
 
     /** @reimp */
-    bool saveXML(QDomDocument* doc, QDomElement* vc_root);
+    bool saveXML(QXmlStreamWriter *doc);
 
     /** @reimp */
     void postLoad();

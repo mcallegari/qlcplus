@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   virtualconsole.h
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -28,12 +29,12 @@
 #include "vcproperties.h"
 #include "doc.h"
 
+class QXmlStreamReader;
+class QXmlStreamWriter;
 class VirtualConsole;
-class QDomDocument;
 class QActionGroup;
 class QVBoxLayout;
 class QScrollArea;
-class QDomElement;
 class VCDockArea;
 class QKeyEvent;
 class QToolBar;
@@ -393,10 +394,10 @@ public slots:
      *********************************************************************/
 public:
     /** Load properties and contents from an XML tree */
-    bool loadXML(const QDomElement& root);
+    bool loadXML(QXmlStreamReader &root);
 
     /** Save properties and contents to an XML document */
-    bool saveXML(QDomDocument* doc, QDomElement* wksp_root);
+    bool saveXML(QXmlStreamWriter *doc);
 
     /** Do post-load cleanup & checks */
     void postLoad();

@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   vcwidget.cpp
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -18,6 +19,8 @@
 */
 
 #include <QStyleOptionFrame>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QApplication>
 #include <QInputDialog>
 #include <QColorDialog>
@@ -37,7 +40,6 @@
 #include <QSize>
 #include <QMenu>
 #include <QList>
-#include <QtXml>
 #include <cmath>
 
 #include "qlcinputsource.h"
@@ -752,287 +754,296 @@ void VCWidget::postLoad()
     /* NOP */
 }
 
-bool VCWidget::loadXMLCommon(const QDomElement *root)
+bool VCWidget::loadXMLCommon(QXmlStreamReader &root)
 {
-    Q_ASSERT(root != NULL);
+    if (root.device() == NULL || root.hasError())
+        return false;
+
+    QXmlStreamAttributes attrs = root.attributes();
 
     /* ID */
-    if (root->hasAttribute(KXMLQLCVCWidgetID))
-        setID(root->attribute(KXMLQLCVCWidgetID).toUInt());
+    if (attrs.hasAttribute(KXMLQLCVCWidgetID))
+        setID(attrs.value(KXMLQLCVCWidgetID).toString().toUInt());
 
     /* Caption */
-    if (root->hasAttribute(KXMLQLCVCCaption))
-        setCaption(root->attribute(KXMLQLCVCCaption));
+    if (attrs.hasAttribute(KXMLQLCVCCaption))
+        setCaption(attrs.value(KXMLQLCVCCaption).toString());
 
     /* Page */
-    if (root->hasAttribute(KXMLQLCVCWidgetPage))
-        setPage(root->attribute(KXMLQLCVCWidgetPage).toInt());
+    if (attrs.hasAttribute(KXMLQLCVCWidgetPage))
+        setPage(attrs.value(KXMLQLCVCWidgetPage).toString().toInt());
 
     return true;
 }
 
-bool VCWidget::loadXMLAppearance(const QDomElement* root)
+bool VCWidget::loadXMLAppearance(QXmlStreamReader &root)
 {
-    QDomNode node;
-    QDomElement tag;
-    QString str;
+    if (root.device() == NULL || root.hasError())
+        return false;
 
-    Q_ASSERT(root != NULL);
-
-    if (root->tagName() != KXMLQLCVCWidgetAppearance)
+    if (root.name() != KXMLQLCVCWidgetAppearance)
     {
         qWarning() << Q_FUNC_INFO << "Appearance node not found!";
         return false;
     }
 
     /* Children */
-    node = root->firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        tag = node.toElement();
-        if (tag.tagName() == KXMLQLCVCFrameStyle)
+        if (root.name() == KXMLQLCVCFrameStyle)
         {
-            setFrameStyle(stringToFrameStyle(tag.text()));
+            setFrameStyle(stringToFrameStyle(root.readElementText()));
         }
-        else if (tag.tagName() == KXMLQLCVCWidgetForegroundColor)
+        else if (root.name() == KXMLQLCVCWidgetForegroundColor)
         {
-            if (tag.text() != KXMLQLCVCWidgetColorDefault)
-                setForegroundColor(QColor(tag.text().toUInt()));
+            QString str = root.readElementText();
+            if (str != KXMLQLCVCWidgetColorDefault)
+                setForegroundColor(QColor(str.toUInt()));
             else if (hasCustomForegroundColor() == true)
                 resetForegroundColor();
         }
-        else if (tag.tagName() == KXMLQLCVCWidgetBackgroundColor)
+        else if (root.name() == KXMLQLCVCWidgetBackgroundColor)
         {
-            if (tag.text() != KXMLQLCVCWidgetColorDefault)
-                setBackgroundColor(QColor(tag.text().toUInt()));
+            QString str = root.readElementText();
+            if (str != KXMLQLCVCWidgetColorDefault)
+                setBackgroundColor(QColor(str.toUInt()));
         }
-        else if (tag.tagName() == KXMLQLCVCWidgetBackgroundImage)
+        else if (root.name() == KXMLQLCVCWidgetBackgroundImage)
         {
-            if (tag.text() != KXMLQLCVCWidgetBackgroundImageNone)
-                setBackgroundImage(m_doc->denormalizeComponentPath(tag.text()));
+            QString str = root.readElementText();
+            if (str != KXMLQLCVCWidgetBackgroundImageNone)
+                setBackgroundImage(m_doc->denormalizeComponentPath(str));
         }
-        else if (tag.tagName() == KXMLQLCVCWidgetFont)
+        else if (root.name() == KXMLQLCVCWidgetFont)
         {
-            if (tag.text() != KXMLQLCVCWidgetFontDefault)
+            QString str = root.readElementText();
+            if (str != KXMLQLCVCWidgetFontDefault)
             {
                 QFont font;
-                font.fromString(tag.text());
+                font.fromString(str);
                 setFont(font);
             }
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown appearance tag:" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unknown appearance tag:" << root.name();
+            root.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     return true;
 }
 
-bool VCWidget::loadXMLInput(const QDomElement &root, const quint8 &id)
+bool VCWidget::loadXMLInput(QXmlStreamReader &root, const quint8 &id)
 {
-    Q_ASSERT(&root != NULL);
-
-    if (root.tagName() != KXMLQLCVCWidgetInput)
+    if (root.device() == NULL || root.hasError())
         return false;
 
-    quint32 uni = root.attribute(KXMLQLCVCWidgetInputUniverse).toUInt();
-    quint32 ch = root.attribute(KXMLQLCVCWidgetInputChannel).toUInt();
+    if (root.name() != KXMLQLCVCWidgetInput)
+        return false;
+
+    QXmlStreamAttributes attrs = root.attributes();
+
+    quint32 uni = attrs.value(KXMLQLCVCWidgetInputUniverse).toString().toUInt();
+    quint32 ch = attrs.value(KXMLQLCVCWidgetInputChannel).toString().toUInt();
     uchar min = 0, max = UCHAR_MAX;
 
     QSharedPointer<QLCInputSource>newSrc = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch));
-    if (root.hasAttribute(KXMLQLCVCWidgetInputLowerValue))
-        min = uchar(root.attribute(KXMLQLCVCWidgetInputLowerValue).toUInt());
-    if (root.hasAttribute(KXMLQLCVCWidgetInputUpperValue))
-        max = uchar(root.attribute(KXMLQLCVCWidgetInputUpperValue).toUInt());
+    if (attrs.hasAttribute(KXMLQLCVCWidgetInputLowerValue))
+        min = uchar(attrs.value(KXMLQLCVCWidgetInputLowerValue).toString().toUInt());
+    if (attrs.hasAttribute(KXMLQLCVCWidgetInputUpperValue))
+        max = uchar(attrs.value(KXMLQLCVCWidgetInputUpperValue).toString().toUInt());
 
     newSrc->setRange(min, max);
 
     setInputSource(newSrc, id);
 
+    root.skipCurrentElement();
+
     return true;
 }
 
-bool VCWidget::loadXMLInput(const QDomElement& root, quint32* uni, quint32* ch) const
+QString VCWidget::loadXMLSources(QXmlStreamReader &root, quint8 sourceID)
 {
-    if (root.tagName() != KXMLQLCVCWidgetInput)
+    QString keyText;
+    while (root.readNextStartElement())
+    {
+        if (root.name() == KXMLQLCVCWidgetInput)
+        {
+            loadXMLInput(root, sourceID);
+        }
+        else if (root.name() == KXMLQLCVCWidgetKey)
+        {
+            keyText = root.readElementText();
+        }
+        else
+        {
+            qWarning() << Q_FUNC_INFO << "Unknown source tag" << root.name().toString();
+            root.skipCurrentElement();
+        }
+    }
+    return keyText;
+}
+
+bool VCWidget::loadXMLInput(QXmlStreamReader &root, quint32* uni, quint32* ch) const
+{
+    if (root.name() != KXMLQLCVCWidgetInput)
     {
         qWarning() << Q_FUNC_INFO << "Input node not found!";
         return false;
     }
     else
     {
-        *uni = root.attribute(KXMLQLCVCWidgetInputUniverse).toUInt();
-        *ch = root.attribute(KXMLQLCVCWidgetInputChannel).toUInt();
+        QXmlStreamAttributes attrs = root.attributes();
+        *uni = attrs.value(KXMLQLCVCWidgetInputUniverse).toString().toUInt();
+        *ch = attrs.value(KXMLQLCVCWidgetInputChannel).toString().toUInt();
+        root.skipCurrentElement();
     }
 
     return true;
 }
 
-bool VCWidget::saveXMLCommon(QDomDocument *doc, QDomElement *widget_root)
+bool VCWidget::saveXMLCommon(QXmlStreamWriter *doc)
 {
-    Q_UNUSED(doc)
-    Q_ASSERT(widget_root != NULL);
+    Q_ASSERT(doc != NULL);
 
     /* Caption */
-    widget_root->setAttribute(KXMLQLCVCCaption, caption());
+    doc->writeAttribute(KXMLQLCVCCaption, caption());
 
     /* ID */
     if (id() != VCWidget::invalidId())
-        widget_root->setAttribute(KXMLQLCVCWidgetID, id());
+        doc->writeAttribute(KXMLQLCVCWidgetID, QString::number(id()));
 
     /* Page */
     if (page() != 0)
-        widget_root->setAttribute(KXMLQLCVCWidgetPage, page());
+        doc->writeAttribute(KXMLQLCVCWidgetPage, QString::number(page()));
 
     return true;
 }
 
-bool VCWidget::saveXMLAppearance(QDomDocument* doc, QDomElement* frame_root)
+bool VCWidget::saveXMLAppearance(QXmlStreamWriter *doc)
 {
-    QDomElement root;
-    QDomElement tag;
-    QDomText text;
+    Q_ASSERT(doc != NULL);
+
     QString str;
 
-    Q_ASSERT(doc != NULL);
-    Q_ASSERT(frame_root != NULL);
-
-    /* VC Label entry */
-    root = doc->createElement(KXMLQLCVCWidgetAppearance);
-    frame_root->appendChild(root);
+    /* VC appearance entry */
+    doc->writeStartElement(KXMLQLCVCWidgetAppearance);
 
     /* Frame style */
-    tag = doc->createElement(KXMLQLCVCFrameStyle);
-    root.appendChild(tag);
-    text = doc->createTextNode(frameStyleToString(frameStyle()));
-    tag.appendChild(text);
+    doc->writeTextElement(KXMLQLCVCFrameStyle, frameStyleToString(frameStyle()));
 
     /* Foreground color */
-    tag = doc->createElement(KXMLQLCVCWidgetForegroundColor);
-    root.appendChild(tag);
     if (hasCustomForegroundColor() == true)
         str.setNum(foregroundColor().rgb());
     else
         str = KXMLQLCVCWidgetColorDefault;
-    text = doc->createTextNode(str);
-    tag.appendChild(text);
+    doc->writeTextElement(KXMLQLCVCFrameStyle, str);
 
     /* Background color */
-    tag = doc->createElement(KXMLQLCVCWidgetBackgroundColor);
-    root.appendChild(tag);
     if (hasCustomBackgroundColor() == true)
         str.setNum(backgroundColor().rgb());
     else
         str = KXMLQLCVCWidgetColorDefault;
-    text = doc->createTextNode(str);
-    tag.appendChild(text);
+    doc->writeTextElement(KXMLQLCVCWidgetBackgroundColor, str);
 
     /* Background image */
-    tag = doc->createElement(KXMLQLCVCWidgetBackgroundImage);
-    root.appendChild(tag);
     if (backgroundImage().isEmpty() == false)
         str = m_doc->normalizeComponentPath(m_backgroundImage);
     else
         str = KXMLQLCVCWidgetBackgroundImageNone;
-    text = doc->createTextNode(str);
-    tag.appendChild(text);
+    doc->writeTextElement(KXMLQLCVCWidgetBackgroundImage, str);
 
     /* Font */
-    tag = doc->createElement(KXMLQLCVCWidgetFont);
-    root.appendChild(tag);
     if (hasCustomFont() == true)
         str = font().toString();
     else
         str = KXMLQLCVCWidgetFontDefault;
-    text = doc->createTextNode(str);
-    tag.appendChild(text);
+    doc->writeTextElement(KXMLQLCVCWidgetFont, str);
+
+    /* End the <Appearance> tag */
+    doc->writeEndElement();
 
     return true;
 }
 
-bool VCWidget::saveXMLInput(QDomDocument* doc, QDomElement* root)
+bool VCWidget::saveXMLInput(QXmlStreamWriter *doc)
 {
-    return saveXMLInput(doc, root, inputSource());
+    return saveXMLInput(doc, inputSource());
 }
 
-bool VCWidget::saveXMLInput(QDomDocument* doc, QDomElement* root,
+bool VCWidget::saveXMLInput(QXmlStreamWriter *doc,
                             const QLCInputSource *src) const
 {
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(root != NULL);
 
     if (src == NULL)
         return false;
 
     if (src->isValid() == true)
     {
-        QDomElement tag = doc->createElement(KXMLQLCVCWidgetInput);
-        tag.setAttribute(KXMLQLCVCWidgetInputUniverse, QString("%1").arg(src->universe()));
-        tag.setAttribute(KXMLQLCVCWidgetInputChannel, QString("%1").arg(src->channel()));
+        doc->writeStartElement(KXMLQLCVCWidgetInput);
+        doc->writeAttribute(KXMLQLCVCWidgetInputUniverse, QString("%1").arg(src->universe()));
+        doc->writeAttribute(KXMLQLCVCWidgetInputChannel, QString("%1").arg(src->channel()));
         if (src->lowerValue() != 0)
-            tag.setAttribute(KXMLQLCVCWidgetInputLowerValue, QString::number(src->lowerValue()));
+            doc->writeAttribute(KXMLQLCVCWidgetInputLowerValue, QString::number(src->lowerValue()));
         if (src->upperValue() != UCHAR_MAX)
-            tag.setAttribute(KXMLQLCVCWidgetInputUpperValue, QString::number(src->upperValue()));
-        root->appendChild(tag);
+            doc->writeAttribute(KXMLQLCVCWidgetInputUpperValue, QString::number(src->upperValue()));
+        doc->writeEndElement();
     }
 
     return true;
 }
 
-bool VCWidget::saveXMLInput(QDomDocument* doc, QDomElement* root,
+bool VCWidget::saveXMLInput(QXmlStreamWriter *doc,
                       QSharedPointer<QLCInputSource> const& src) const
 {
-    return saveXMLInput(doc, root, src.data());
+    return saveXMLInput(doc, src.data());
 }
 
-bool VCWidget::saveXMLWindowState(QDomDocument* doc, QDomElement* root)
+bool VCWidget::saveXMLWindowState(QXmlStreamWriter *doc)
 {
-    QDomElement tag;
-    QDomText text;
-    QString str;
-
-    if (doc == NULL || root == NULL)
-        return false;
+    Q_ASSERT(doc != NULL);
 
     /* Window state tag */
-    tag = doc->createElement(KXMLQLCWindowState);
-    root->appendChild(tag);
+    doc->writeStartElement(KXMLQLCWindowState);
 
     /* Visible status */
     if (isVisible() == true)
-        tag.setAttribute(KXMLQLCWindowStateVisible, KXMLQLCTrue);
+        doc->writeAttribute(KXMLQLCWindowStateVisible, KXMLQLCTrue);
     else
-        tag.setAttribute(KXMLQLCWindowStateVisible, KXMLQLCFalse);
+        doc->writeAttribute(KXMLQLCWindowStateVisible, KXMLQLCFalse);
 
-    tag.setAttribute(KXMLQLCWindowStateX, QString::number(x()));
-    tag.setAttribute(KXMLQLCWindowStateY, QString::number(y()));
-    tag.setAttribute(KXMLQLCWindowStateWidth, QString::number(width()));
-    tag.setAttribute(KXMLQLCWindowStateHeight, QString::number(height()));
+    doc->writeAttribute(KXMLQLCWindowStateX, QString::number(x()));
+    doc->writeAttribute(KXMLQLCWindowStateY, QString::number(y()));
+    doc->writeAttribute(KXMLQLCWindowStateWidth, QString::number(width()));
+    doc->writeAttribute(KXMLQLCWindowStateHeight, QString::number(height()));
+
+    doc->writeEndElement();
 
     return true;
 }
 
-bool VCWidget::loadXMLWindowState(const QDomElement* tag, int* x, int* y,
+bool VCWidget::loadXMLWindowState(QXmlStreamReader &tag, int* x, int* y,
                                   int* w, int* h, bool* visible)
 {
-    if (tag == NULL || x == NULL || y == NULL || w == NULL || h == NULL ||
+    if (tag.device() == NULL || x == NULL || y == NULL || w == NULL || h == NULL ||
             visible == NULL)
         return false;
 
-    if (tag->tagName() == KXMLQLCWindowState)
+    if (tag.name() == KXMLQLCWindowState)
     {
-        *x = tag->attribute(KXMLQLCWindowStateX).toInt();
-        *y = tag->attribute(KXMLQLCWindowStateY).toInt();
-        *w = tag->attribute(KXMLQLCWindowStateWidth).toInt();
-        *h = tag->attribute(KXMLQLCWindowStateHeight).toInt();
+        QXmlStreamAttributes attrs = tag.attributes();
+        *x = attrs.value(KXMLQLCWindowStateX).toString().toInt();
+        *y = attrs.value(KXMLQLCWindowStateY).toString().toInt();
+        *w = attrs.value(KXMLQLCWindowStateWidth).toString().toInt();
+        *h = attrs.value(KXMLQLCWindowStateHeight).toString().toInt();
 
-        if (tag->attribute(KXMLQLCWindowStateVisible) == KXMLQLCTrue)
+        if (attrs.value(KXMLQLCWindowStateVisible).toString() == KXMLQLCTrue)
             *visible = true;
         else
             *visible = false;
+        tag.skipCurrentElement();
 
         return true;
     }

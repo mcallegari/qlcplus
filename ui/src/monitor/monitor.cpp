@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   monitor.cpp
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -26,13 +27,14 @@
 #include <QByteArray>
 #include <QComboBox>
 #include <QSplitter>
+#include <QSettings>
 #include <QToolBar>
 #include <QSpinBox>
 #include <QAction>
 #include <QLabel>
+#include <QDebug>
 #include <QFont>
 #include <QIcon>
-#include <QtXml>
 
 #include "monitorfixturepropertieseditor.h"
 #include "monitorbackgroundselection.h"

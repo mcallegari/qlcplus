@@ -17,8 +17,9 @@
   limitations under the License.
 */
 
-#include <QtGlobal>
-#include <QtXml>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
+#include <QDebug>
 
 #include "vcspeeddialpreset.h"
 #include "vcwidget.h"
@@ -58,114 +59,95 @@ bool VCSpeedDialPreset::compare(VCSpeedDialPreset const* left, VCSpeedDialPreset
     return *left < *right;
 }
 
-bool VCSpeedDialPreset::loadXML(const QDomElement &root)
+bool VCSpeedDialPreset::loadXML(QXmlStreamReader &root)
 {
-    QDomNode node;
-    QDomElement tag;
-
-    if (root.tagName() != KXMLQLCVCSpeedDialPreset)
+    if (root.name() != KXMLQLCVCSpeedDialPreset)
     {
         qWarning() << Q_FUNC_INFO << "Speed Dial Preset node not found";
         return false;
     }
 
-    if (root.hasAttribute(KXMLQLCVCSpeedDialPresetID) == false)
+    if (root.attributes().hasAttribute(KXMLQLCVCSpeedDialPresetID) == false)
     {
         qWarning() << Q_FUNC_INFO << "Speed Dial Preset ID not found";
         return false;
     }
 
-    m_id = root.attribute(KXMLQLCVCSpeedDialPresetID).toUInt();
+    m_id = root.attributes().value(KXMLQLCVCSpeedDialPresetID).toString().toUInt();
 
     /* Children */
-    node = root.firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        tag = node.toElement();
-        if (tag.tagName() == KXMLQLCVCSpeedDialPresetName)
+        if (root.name() == KXMLQLCVCSpeedDialPresetName)
         {
-            m_name = tag.text();
+            m_name = root.readElementText();
         }
-        else if (tag.tagName() == KXMLQLCVCSpeedDialPresetValue)
+        else if (root.name() == KXMLQLCVCSpeedDialPresetValue)
         {
-            m_value = tag.text().toInt();
+            m_value = root.readElementText().toInt();
         }
-        else if (tag.tagName() == KXMLQLCVCSpeedDialPresetInput)
+        else if (root.name() == KXMLQLCVCSpeedDialPresetInput)
         {
-            if (tag.hasAttribute(KXMLQLCVCSpeedDialPresetInputUniverse) &&
-                tag.hasAttribute(KXMLQLCVCSpeedDialPresetInputChannel))
+            QXmlStreamAttributes attrs = root.attributes();
+
+            if (attrs.hasAttribute(KXMLQLCVCSpeedDialPresetInputUniverse) &&
+                attrs.hasAttribute(KXMLQLCVCSpeedDialPresetInputChannel))
             {
-                quint32 uni = tag.attribute(KXMLQLCVCSpeedDialPresetInputUniverse).toUInt();
-                quint32 ch = tag.attribute(KXMLQLCVCSpeedDialPresetInputChannel).toUInt();
+                quint32 uni = attrs.value(KXMLQLCVCSpeedDialPresetInputUniverse).toString().toUInt();
+                quint32 ch = attrs.value(KXMLQLCVCSpeedDialPresetInputChannel).toString().toUInt();
                 m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch));
 
                 uchar min = 0, max = UCHAR_MAX;
-                if (tag.hasAttribute(KXMLQLCVCWidgetInputLowerValue))
-                    min = uchar(tag.attribute(KXMLQLCVCWidgetInputLowerValue).toUInt());
-                if (tag.hasAttribute(KXMLQLCVCWidgetInputUpperValue))
-                    max = uchar(tag.attribute(KXMLQLCVCWidgetInputUpperValue).toUInt());
+                if (attrs.hasAttribute(KXMLQLCVCWidgetInputLowerValue))
+                    min = uchar(attrs.value(KXMLQLCVCWidgetInputLowerValue).toString().toUInt());
+                if (attrs.hasAttribute(KXMLQLCVCWidgetInputUpperValue))
+                    max = uchar(attrs.value(KXMLQLCVCWidgetInputUpperValue).toString().toUInt());
                 m_inputSource->setRange(min, max);
             }
         }
-        else if (tag.tagName() == KXMLQLCVCSpeedDialPresetKey)
+        else if (root.name() == KXMLQLCVCSpeedDialPresetKey)
         {
-            m_keySequence = VCWidget::stripKeySequence(QKeySequence(tag.text()));
+            m_keySequence = VCWidget::stripKeySequence(QKeySequence(root.readElementText()));
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown VCSpeedDialPreset tag:" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unknown VCSpeedDialPreset tag:" << root.name().toString();
+            root.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     return true;
 }
 
-bool VCSpeedDialPreset::saveXML(QDomDocument *doc, QDomElement *mtx_root)
+bool VCSpeedDialPreset::saveXML(QXmlStreamWriter *doc)
 {
-    QDomElement root;
-    QDomElement tag;
-    QDomText text;
-
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(mtx_root != NULL);
 
-    root = doc->createElement(KXMLQLCVCSpeedDialPreset);
-    root.setAttribute(KXMLQLCVCSpeedDialPresetID, m_id);
-    mtx_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCVCSpeedDialPreset);
+    doc->writeAttribute(KXMLQLCVCSpeedDialPresetID, QString::number(m_id));
 
-    tag = doc->createElement(KXMLQLCVCSpeedDialPresetName);
-    root.appendChild(tag);
-    text = doc->createTextNode(m_name);
-    tag.appendChild(text);
-
-    tag = doc->createElement(KXMLQLCVCSpeedDialPresetValue);
-    root.appendChild(tag);
-    text = doc->createTextNode(QString::number(m_value));
-    tag.appendChild(text);
+    doc->writeTextElement(KXMLQLCVCSpeedDialPresetName, m_name);
+    doc->writeTextElement(KXMLQLCVCSpeedDialPresetValue, QString::number(m_value));
 
     /* External input source */
     if (!m_inputSource.isNull() && m_inputSource->isValid())
     {
-        tag = doc->createElement(KXMLQLCVCSpeedDialPresetInput);
-        tag.setAttribute(KXMLQLCVCSpeedDialPresetInputUniverse, QString("%1").arg(m_inputSource->universe()));
-        tag.setAttribute(KXMLQLCVCSpeedDialPresetInputChannel, QString("%1").arg(m_inputSource->channel()));
+        doc->writeStartElement(KXMLQLCVCSpeedDialPresetInput);
+        doc->writeAttribute(KXMLQLCVCSpeedDialPresetInputUniverse, QString("%1").arg(m_inputSource->universe()));
+        doc->writeAttribute(KXMLQLCVCSpeedDialPresetInputChannel, QString("%1").arg(m_inputSource->channel()));
         if (m_inputSource->lowerValue() != 0)
-            tag.setAttribute(KXMLQLCVCWidgetInputLowerValue, QString::number(m_inputSource->lowerValue()));
+            doc->writeAttribute(KXMLQLCVCWidgetInputLowerValue, QString::number(m_inputSource->lowerValue()));
         if (m_inputSource->upperValue() != UCHAR_MAX)
-            tag.setAttribute(KXMLQLCVCWidgetInputUpperValue, QString::number(m_inputSource->upperValue()));
-        root.appendChild(tag);
+            doc->writeAttribute(KXMLQLCVCWidgetInputUpperValue, QString::number(m_inputSource->upperValue()));
+        doc->writeEndElement();
     }
 
     /* Key sequence */
     if (m_keySequence.isEmpty() == false)
-    {
-        tag = doc->createElement(KXMLQLCVCSpeedDialPresetKey);
-        root.appendChild(tag);
-        text = doc->createTextNode(m_keySequence.toString());
-        tag.appendChild(text);
-    }
+        doc->writeTextElement(KXMLQLCVCSpeedDialPresetKey, m_keySequence.toString());
+
+    /* End the <Preset> tag */
+    doc->writeEndElement();
 
     return true;
 }

@@ -272,10 +272,8 @@ bool SimpleDeskEngine::saveXML(QXmlStreamWriter *doc) const
 {
     qDebug() << Q_FUNC_INFO;
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(wksp_root != NULL);
 
-    QDomElement root = doc->createElement(KXMLQLCSimpleDeskEngine);
-    wksp_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCSimpleDeskEngine);
 
     QMutexLocker locker(&m_mutex);
 
@@ -287,8 +285,11 @@ bool SimpleDeskEngine::saveXML(QXmlStreamWriter *doc) const
         // Save CueStack only if it contains something
         const CueStack* cs = it.value();
         if (cs->cues().size() > 0)
-            cs->saveXML(doc, &root, it.key());
+            cs->saveXML(doc, it.key());
     }
+
+    /* End the <Engine> tag */
+    doc->writeEndElement();
 
     return true;
 }

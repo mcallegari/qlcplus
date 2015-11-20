@@ -1,8 +1,10 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   vcxypad.cpp
 
-  Copyright (c) Heikki Junnila, Stefan Krumm
+  Copyright (c) Heikki Junnila
+                Stefan Krumm
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,21 +19,24 @@
   limitations under the License.
 */
 
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QTreeWidgetItem>
 #include <QTreeWidget>
 #include <QMouseEvent>
 #include <QMessageBox>
 #include <QGridLayout>
 #include <QByteArray>
+#include <QSettings>
 #include <QPainter>
 #include <QPixmap>
 #include <QCursor>
 #include <QSlider>
 #include <QDebug>
 #include <QPoint>
+#include <QtMath>
 #include <QMenu>
 #include <QList>
-#include <QtXml>
 
 #include "qlcmacros.h"
 #include "qlcfile.h"
@@ -977,7 +982,7 @@ void VCXYPad::slotModeChanged(Doc::Mode mode)
  * Load & Save
  *****************************************************************************/
 
-bool VCXYPad::loadXML(const QDomElement* root)
+bool VCXYPad::loadXML(QXmlStreamReader &root)
 {
     bool visible = false;
     int x = 0;
@@ -988,13 +993,7 @@ bool VCXYPad::loadXML(const QDomElement* root)
     int xpos = 0;
     int ypos = 0;
 
-    QDomNode node;
-    QDomElement tag;
-    QString str;
-
-    Q_ASSERT(root != NULL);
-
-    if (root->tagName() != KXMLQLCVCXYPad)
+    if (root.name() != KXMLQLCVCXYPad)
     {
         qWarning() << Q_FUNC_INFO << "XY Pad node not found";
         return false;
@@ -1003,9 +1002,11 @@ bool VCXYPad::loadXML(const QDomElement* root)
     /* Widget commons */
     loadXMLCommon(root);
 
-    if (root->hasAttribute(KXMLQLCVCXYPadInvertedAppearance))
+    QXmlStreamAttributes attrs = root.attributes();
+
+    if (attrs.hasAttribute(KXMLQLCVCXYPadInvertedAppearance))
     {
-        if (root->attribute(KXMLQLCVCXYPadInvertedAppearance) == "0")
+        if (attrs.value(KXMLQLCVCXYPadInvertedAppearance).toString() == "0")
             setInvertedAppearance(false);
         else
             setInvertedAppearance(true);
@@ -1015,74 +1016,72 @@ bool VCXYPad::loadXML(const QDomElement* root)
     QList<VCXYPadPreset> newPresets;
 
     /* Children */
-    node = root->firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        tag = node.toElement();
-        if (tag.tagName() == KXMLQLCWindowState)
+        if (root.name() == KXMLQLCWindowState)
         {
-            loadXMLWindowState(&tag, &x, &y, &w, &h, &visible);
+            loadXMLWindowState(root, &x, &y, &w, &h, &visible);
         }
-        else if (tag.tagName() == KXMLQLCVCWidgetAppearance)
+        else if (root.name() == KXMLQLCVCWidgetAppearance)
         {
-            loadXMLAppearance(&tag);
+            loadXMLAppearance(root);
         }
-        else if (tag.tagName() == KXMLQLCVCXYPadPan)
+        else if (root.name() == KXMLQLCVCXYPadPan)
         {
-            xpos = tag.attribute(KXMLQLCVCXYPadPosition).toInt();
-            loadXMLInput(tag.firstChild().toElement(), panInputSourceId);
+            xpos = root.attributes().value(KXMLQLCVCXYPadPosition).toString().toInt();
+            loadXMLSources(root, panInputSourceId);
         }
-        else if (tag.tagName() == KXMLQLCVCXYPadTilt)
+        else if (root.name() == KXMLQLCVCXYPadTilt)
         {
-            ypos = tag.attribute(KXMLQLCVCXYPadPosition).toInt();
-            loadXMLInput(tag.firstChild().toElement(), tiltInputSourceId);
+            ypos = root.attributes().value(KXMLQLCVCXYPadPosition).toString().toInt();
+            loadXMLSources(root, tiltInputSourceId);
         }
-        else if (tag.tagName() == KXMLQLCVCXYPadWidth)
+        else if (root.name() == KXMLQLCVCXYPadWidth)
         {
-            loadXMLInput(tag.firstChild().toElement(), widthInputSourceId);
+            loadXMLSources(root, widthInputSourceId);
         }
-        else if (tag.tagName() == KXMLQLCVCXYPadHeight)
+        else if (root.name() == KXMLQLCVCXYPadHeight)
         {
-            loadXMLInput(tag.firstChild().toElement(), heightInputSourceId);
+            loadXMLSources(root, heightInputSourceId);
         }
-        else if (tag.tagName() == KXMLQLCVCXYPadRangeWindow)
+        else if (root.name() == KXMLQLCVCXYPadRangeWindow)
         {
-            if (tag.hasAttribute(KXMLQLCVCXYPadRangeHorizMin))
-                m_hRangeSlider->setMinimumPosition(tag.attribute(KXMLQLCVCXYPadRangeHorizMin).toInt());
-            if (tag.hasAttribute(KXMLQLCVCXYPadRangeHorizMax))
-                m_hRangeSlider->setMaximumPosition(tag.attribute(KXMLQLCVCXYPadRangeHorizMax).toInt());
-            if (tag.hasAttribute(KXMLQLCVCXYPadRangeVertMin))
-                m_vRangeSlider->setMinimumPosition(tag.attribute(KXMLQLCVCXYPadRangeVertMin).toInt());
-            if (tag.hasAttribute(KXMLQLCVCXYPadRangeVertMax))
-                m_vRangeSlider->setMaximumPosition(tag.attribute(KXMLQLCVCXYPadRangeVertMax).toInt());
+            QXmlStreamAttributes wAttrs = root.attributes();
+            if (wAttrs.hasAttribute(KXMLQLCVCXYPadRangeHorizMin))
+                m_hRangeSlider->setMinimumPosition(wAttrs.value(KXMLQLCVCXYPadRangeHorizMin).toString().toInt());
+            if (wAttrs.hasAttribute(KXMLQLCVCXYPadRangeHorizMax))
+                m_hRangeSlider->setMaximumPosition(wAttrs.value(KXMLQLCVCXYPadRangeHorizMax).toString().toInt());
+            if (wAttrs.hasAttribute(KXMLQLCVCXYPadRangeVertMin))
+                m_vRangeSlider->setMinimumPosition(wAttrs.value(KXMLQLCVCXYPadRangeVertMin).toString().toInt());
+            if (wAttrs.hasAttribute(KXMLQLCVCXYPadRangeVertMax))
+                m_vRangeSlider->setMaximumPosition(wAttrs.value(KXMLQLCVCXYPadRangeVertMax).toString().toInt());
             slotRangeValueChanged();
+            root.skipCurrentElement();
         }
-        else if (tag.tagName() == KXMLQLCVCXYPadPosition) // Legacy
+        else if (root.name() == KXMLQLCVCXYPadPosition) // Legacy
         {
-            str = tag.attribute(KXMLQLCVCXYPadPositionX);
-            xpos = str.toInt();
-
-            str = tag.attribute(KXMLQLCVCXYPadPositionY);
-            ypos = str.toInt();
+            QXmlStreamAttributes pAttrs = root.attributes();
+            xpos = pAttrs.value(KXMLQLCVCXYPadPositionX).toString().toInt();
+            ypos = pAttrs.value(KXMLQLCVCXYPadPositionY).toString().toInt();
+            root.skipCurrentElement();
         }
-        else if (tag.tagName() == KXMLQLCVCXYPadFixture)
+        else if (root.name() == KXMLQLCVCXYPadFixture)
         {
             VCXYPadFixture fxi(m_doc);
-            if (fxi.loadXML(tag) == true)
+            if (fxi.loadXML(root) == true)
                 appendFixture(fxi);
         }
-        else if(tag.tagName() == KXMLQLCVCXYPadPreset)
+        else if(root.name() == KXMLQLCVCXYPadPreset)
         {
             VCXYPadPreset preset(0xff);
-            if (preset.loadXML(tag))
+            if (preset.loadXML(root))
                 newPresets.insert(qLowerBound(newPresets.begin(), newPresets.end(), preset), preset);
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown XY Pad tag:" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unknown XY Pad tag:" << root.name().toString();
+            root.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     foreach (VCXYPadPreset const& preset, newPresets)
@@ -1095,33 +1094,26 @@ bool VCXYPad::loadXML(const QDomElement* root)
     return true;
 }
 
-bool VCXYPad::saveXML(QDomDocument* doc, QDomElement* vc_root)
+bool VCXYPad::saveXML(QXmlStreamWriter *doc)
 {
-    QDomElement root;
-    QDomElement tag;
-    QDomText text;
-    QString str;
-
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(vc_root != NULL);
 
     /* VC XY Pad entry */
-    root = doc->createElement(KXMLQLCVCXYPad);
-    vc_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCVCXYPad);
 
-    saveXMLCommon(doc, &root);
+    saveXMLCommon(doc);
 
-    root.setAttribute(KXMLQLCVCXYPadInvertedAppearance, invertedAppearance());
+    doc->writeAttribute(KXMLQLCVCXYPadInvertedAppearance, QString::number(invertedAppearance()));
 
     /* Window state */
-    saveXMLWindowState(doc, &root);
+    saveXMLWindowState(doc);
 
     /* Appearance */
-    saveXMLAppearance(doc, &root);
+    saveXMLAppearance(doc);
 
     /* Fixtures */
     foreach (VCXYPadFixture fixture, m_fixtures)
-        fixture.saveXML(doc, &root);
+        fixture.saveXML(doc);
 
     /* Current XY position */
     QPointF pt(m_area->position(false));
@@ -1132,39 +1124,58 @@ bool VCXYPad::saveXML(QDomDocument* doc, QDomElement* vc_root)
         m_vRangeSlider->minimumPosition() != 0 ||
         m_vRangeSlider->maximumPosition() != 256)
     {
-        tag = doc->createElement(KXMLQLCVCXYPadRangeWindow);
-        tag.setAttribute(KXMLQLCVCXYPadRangeHorizMin, QString::number(m_hRangeSlider->minimumPosition()));
-        tag.setAttribute(KXMLQLCVCXYPadRangeHorizMax, QString::number(m_hRangeSlider->maximumPosition()));
-        tag.setAttribute(KXMLQLCVCXYPadRangeVertMin, QString::number(m_vRangeSlider->minimumPosition()));
-        tag.setAttribute(KXMLQLCVCXYPadRangeVertMax, QString::number(m_vRangeSlider->maximumPosition()));
-        root.appendChild(tag);
+        doc->writeStartElement(KXMLQLCVCXYPadRangeWindow);
+        doc->writeAttribute(KXMLQLCVCXYPadRangeHorizMin, QString::number(m_hRangeSlider->minimumPosition()));
+        doc->writeAttribute(KXMLQLCVCXYPadRangeHorizMax, QString::number(m_hRangeSlider->maximumPosition()));
+        doc->writeAttribute(KXMLQLCVCXYPadRangeVertMin, QString::number(m_vRangeSlider->minimumPosition()));
+        doc->writeAttribute(KXMLQLCVCXYPadRangeVertMax, QString::number(m_vRangeSlider->maximumPosition()));
+        doc->writeEndElement();
     }
 
     /* Pan */
-    tag = doc->createElement(KXMLQLCVCXYPadPan);
-    tag.setAttribute(KXMLQLCVCXYPadPosition, QString::number(int(pt.x())));
-    saveXMLInput(doc, &tag, inputSource(panInputSourceId));
-    root.appendChild(tag);
+    QSharedPointer<QLCInputSource> panSrc = inputSource(panInputSourceId);
+    if (!panSrc.isNull() && panSrc->isValid())
+    {
+        doc->writeStartElement(KXMLQLCVCXYPadPan);
+        doc->writeAttribute(KXMLQLCVCXYPadPosition, QString::number(int(pt.x())));
+        saveXMLInput(doc, panSrc);
+        doc->writeEndElement();
+    }
 
     /* Tilt */
-    tag = doc->createElement(KXMLQLCVCXYPadTilt);
-    tag.setAttribute(KXMLQLCVCXYPadPosition, QString::number(int(pt.y())));
-    saveXMLInput(doc, &tag, inputSource(tiltInputSourceId));
-    root.appendChild(tag);
+    QSharedPointer<QLCInputSource> tiltSrc = inputSource(tiltInputSourceId);
+    if (!tiltSrc.isNull() && tiltSrc->isValid())
+    {
+        doc->writeStartElement(KXMLQLCVCXYPadTilt);
+        doc->writeAttribute(KXMLQLCVCXYPadPosition, QString::number(int(pt.y())));
+        saveXMLInput(doc, tiltSrc);
+        doc->writeEndElement();
+    }
 
     /* Width */
-    tag = doc->createElement(KXMLQLCVCXYPadWidth);
-    saveXMLInput(doc, &tag, inputSource(widthInputSourceId));
-    root.appendChild(tag);
+    QSharedPointer<QLCInputSource> wSrc = inputSource(widthInputSourceId);
+    if (!wSrc.isNull() && wSrc->isValid())
+    {
+        doc->writeStartElement(KXMLQLCVCXYPadWidth);
+        saveXMLInput(doc, wSrc);
+        doc->writeEndElement();
+    }
 
     /* Height */
-    tag = doc->createElement(KXMLQLCVCXYPadHeight);
-    saveXMLInput(doc, &tag, inputSource(heightInputSourceId));
-    root.appendChild(tag);
+    QSharedPointer<QLCInputSource> hSrc = inputSource(heightInputSourceId);
+    if (!hSrc.isNull() && hSrc->isValid())
+    {
+        doc->writeStartElement(KXMLQLCVCXYPadHeight);
+        saveXMLInput(doc, hSrc);
+        doc->writeEndElement();
+    }
 
     // Presets
     foreach(VCXYPadPreset *preset, presets())
-        preset->saveXML(doc, &root);
+        preset->saveXML(doc);
+
+    /* End the >XYPad> tag */
+    doc->writeEndElement();
 
     return true;
 }

@@ -1,5 +1,5 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   vcclock.cpp
 
   Copyright (c) Massimo Callegari
@@ -17,10 +17,11 @@
   limitations under the License.
 */
 
-#include <QtXml>
-#include <QtGui>
-#include <QStyle>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QDateTime>
+#include <QStyle>
+#include <QtGui>
 
 #include "qlcfile.h"
 
@@ -248,28 +249,28 @@ void VCClock::editProperties()
  * Load & Save
  *****************************************************************************/
 
-bool VCClock::loadXML(const QDomElement* root)
+bool VCClock::loadXML(QXmlStreamReader &root)
 {
-    Q_ASSERT(root != NULL);
-
-    if (root->tagName() != KXMLQLCVCClock)
+    if (root.name() != KXMLQLCVCClock)
     {
         qWarning() << Q_FUNC_INFO << "Clock node not found";
         return false;
     }
 
-    if (root->hasAttribute(KXMLQLCVCClockType))
+    QXmlStreamAttributes attrs = root.attributes();
+
+    if (attrs.hasAttribute(KXMLQLCVCClockType))
     {
-        setClockType(stringToType(root->attribute(KXMLQLCVCClockType)));
+        setClockType(stringToType(attrs.value(KXMLQLCVCClockType).toString()));
         if (clockType() == Countdown)
         {
             int h = 0, m = 0, s = 0;
-            if (root->hasAttribute(KXMLQLCVCClockHours))
-                h = root->attribute(KXMLQLCVCClockHours).toInt();
-            if (root->hasAttribute(KXMLQLCVCClockMinutes))
-                m = root->attribute(KXMLQLCVCClockMinutes).toInt();
-            if (root->hasAttribute(KXMLQLCVCClockSeconds))
-                s = root->attribute(KXMLQLCVCClockSeconds).toInt();
+            if (attrs.hasAttribute(KXMLQLCVCClockHours))
+                h = attrs.value(KXMLQLCVCClockHours).toString().toInt();
+            if (attrs.hasAttribute(KXMLQLCVCClockMinutes))
+                m = attrs.value(KXMLQLCVCClockMinutes).toString().toInt();
+            if (attrs.hasAttribute(KXMLQLCVCClockSeconds))
+                s = attrs.value(KXMLQLCVCClockSeconds).toString().toInt();
             setCountdown(h, m ,s);
         }
     }
@@ -278,69 +279,65 @@ bool VCClock::loadXML(const QDomElement* root)
     loadXMLCommon(root);
 
     /* Children */
-    QDomNode node = root->firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == KXMLQLCWindowState)
+        if (root.name() == KXMLQLCWindowState)
         {
             int x = 0, y = 0, w = 0, h = 0;
             bool visible = false;
-            loadXMLWindowState(&tag, &x, &y, &w, &h, &visible);
+            loadXMLWindowState(root, &x, &y, &w, &h, &visible);
             setGeometry(x, y, w, h);
         }
-        else if (tag.tagName() == KXMLQLCVCWidgetAppearance)
+        else if (root.name() == KXMLQLCVCWidgetAppearance)
         {
-            loadXMLAppearance(&tag);
+            loadXMLAppearance(root);
         }
-        else if (tag.tagName() == KXMLQLCVCClockSchedule)
+        else if (root.name() == KXMLQLCVCClockSchedule)
         {
             VCClockSchedule sch;
-            if (sch.loadXML(&tag) == true)
+            if (sch.loadXML(root) == true)
                 addSchedule(sch);
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown clock tag:" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unknown clock tag:" << root.name().toString();
+            root.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     return true;
 }
 
-bool VCClock::saveXML(QDomDocument* doc, QDomElement* vc_root)
+bool VCClock::saveXML(QXmlStreamWriter *doc)
 {
-    QDomElement root;
-
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(vc_root != NULL);
 
     /* VC Clock entry */
-    root = doc->createElement(KXMLQLCVCClock);
-    vc_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCVCClock);
 
     /* Type */
     ClockType type = clockType();
-    root.setAttribute(KXMLQLCVCClockType, typeToString(type));
+    doc->writeAttribute(KXMLQLCVCClockType, typeToString(type));
     if (type == Countdown)
     {
-        root.setAttribute(KXMLQLCVCClockHours, getHours());
-        root.setAttribute(KXMLQLCVCClockMinutes, getMinutes());
-        root.setAttribute(KXMLQLCVCClockSeconds, getSeconds());
+        doc->writeAttribute(KXMLQLCVCClockHours, QString::number(getHours()));
+        doc->writeAttribute(KXMLQLCVCClockMinutes, QString::number(getMinutes()));
+        doc->writeAttribute(KXMLQLCVCClockSeconds, QString::number(getSeconds()));
     }
 
-    saveXMLCommon(doc, &root);
+    saveXMLCommon(doc);
 
     /* Window state */
-    saveXMLWindowState(doc, &root);
+    saveXMLWindowState(doc);
 
     /* Appearance */
-    saveXMLAppearance(doc, &root);
+    saveXMLAppearance(doc);
 
     foreach(VCClockSchedule sch, schedules())
-        sch.saveXML(doc, &root);
+        sch.saveXML(doc);
+
+    /* End the <Clock> tag */
+    doc->writeEndElement();
 
     return true;
 }
@@ -415,42 +412,42 @@ bool VCClockSchedule::operator <(const VCClockSchedule &sch) const
     return true;
 }
 
-bool VCClockSchedule::loadXML(const QDomElement *root)
+bool VCClockSchedule::loadXML(QXmlStreamReader &root)
 {
-    Q_ASSERT(root != NULL);
-
-    if (root->tagName() != KXMLQLCVCClockSchedule)
+    if (root.name() != KXMLQLCVCClockSchedule)
     {
         qWarning() << Q_FUNC_INFO << "Clock Schedule node not found";
         return false;
     }
 
-    if (root->hasAttribute(KXMLQLCVCClockScheduleFunc))
+    QXmlStreamAttributes attrs = root.attributes();
+
+    if (attrs.hasAttribute(KXMLQLCVCClockScheduleFunc))
     {
-        setFunction(root->attribute(KXMLQLCVCClockScheduleFunc).toUInt());
-        if (root->hasAttribute(KXMLQLCVCClockScheduleTime))
+        setFunction(attrs.value(KXMLQLCVCClockScheduleFunc).toString().toUInt());
+        if (attrs.hasAttribute(KXMLQLCVCClockScheduleTime))
         {
             QDateTime dt;
-            dt.setTime(QTime::fromString(root->attribute(KXMLQLCVCClockScheduleTime), "HH:mm:ss"));
+            dt.setTime(QTime::fromString(attrs.value(KXMLQLCVCClockScheduleTime).toString(), "HH:mm:ss"));
             setTime(dt);
         }
     }
+    root.skipCurrentElement();
 
     return true;
 }
 
-bool VCClockSchedule::saveXML(QDomDocument *doc, QDomElement *root)
+bool VCClockSchedule::saveXML(QXmlStreamWriter *doc)
 {
-    QDomElement tag;
-
     /* Schedule tag */
-    tag = doc->createElement(KXMLQLCVCClockSchedule);
-    root->appendChild(tag);
+    doc->writeStartElement(KXMLQLCVCClockSchedule);
 
     /* Schedule function */
-    tag.setAttribute(KXMLQLCVCClockScheduleFunc, function());
+    doc->writeAttribute(KXMLQLCVCClockScheduleFunc, QString::number(function()));
     /* Schedule time */
-    tag.setAttribute(KXMLQLCVCClockScheduleTime, time().time().toString());
+    doc->writeAttribute(KXMLQLCVCClockScheduleTime, time().time().toString());
+
+    doc->writeEndElement();
 
     return true;
 }

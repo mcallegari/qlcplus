@@ -25,8 +25,8 @@
 #include "function.h"
 #include "fixture.h"
 
-class QDomDocument;
-class QDomElement;
+class QXmlStreamReader;
+class QXmlStreamWriter;
 
 /** @addtogroup ui_vc_widgets
  * @{
@@ -79,10 +79,10 @@ public:
     void debugInfo();
 
     /** Load properties and contents from an XML tree */
-    bool loadXML(const QDomElement& root, Doc *doc);
+    bool loadXML(QXmlStreamReader &root, Doc *doc);
 
     /** Save properties and contents to an XML document */
-    bool saveXML(QDomDocument* doc, QDomElement* atf_root, QString tagName, int index);
+    bool saveXML(QXmlStreamWriter *doc, QString tagName, int index);
 
 public:
     QString m_name;

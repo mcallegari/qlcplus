@@ -17,12 +17,17 @@
   limitations under the License.
 */
 
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QWidgetAction>
 #include <QComboBox>
+#include <QSettings>
 #include <QLayout>
+#include <QDebug>
+#include <QTimer>
 #include <QLabel>
 #include <QMenu>
-#include <QtXml>
+#include <math.h>
 
 #include "vcmatrixproperties.h"
 #include "vcpropertieseditor.h"
@@ -885,15 +890,11 @@ void VCMatrix::slotInputValueChanged(quint32 universe, quint32 channel, uchar va
     }
 }
 
-bool VCMatrix::loadXML(const QDomElement *root)
+bool VCMatrix::loadXML(QXmlStreamReader &root)
 {
-    QDomNode node;
-    QDomElement tag;
     QString str;
 
-    Q_ASSERT(root != NULL);
-
-    if (root->tagName() != KXMLQLCVCMatrix)
+    if (root.name() != KXMLQLCVCMatrix)
     {
         qWarning() << Q_FUNC_INFO << "Matrix node not found";
         return false;
@@ -902,54 +903,50 @@ bool VCMatrix::loadXML(const QDomElement *root)
     /* Widget commons */
     loadXMLCommon(root);
 
-    /* Children */
-    node = root->firstChild();
     // Sorted list for new controls
     QList<VCMatrixControl> newControls;
-    while (node.isNull() == false)
+
+    /* Children */
+    while (root.readNextStartElement())
     {
-        tag = node.toElement();
-        if (tag.tagName() == KXMLQLCWindowState)
+        if (root.name() == KXMLQLCWindowState)
         {
             bool visible = false;
-            int x = 0;
-            int y = 0;
-            int w = 0;
-            int h = 0;
-            loadXMLWindowState(&tag, &x, &y, &w, &h, &visible);
+            int x = 0, y = 0, w = 0, h = 0;
+            loadXMLWindowState(root, &x, &y, &w, &h, &visible);
             setGeometry(x, y, w, h);
         }
-        else if (tag.tagName() == KXMLQLCVCWidgetAppearance)
+        else if (root.name() == KXMLQLCVCWidgetAppearance)
         {
-            loadXMLAppearance(&tag);
+            loadXMLAppearance(root);
         }
-        else if (tag.tagName() == KXMLQLCVCMatrixFunction)
+        else if (root.name() == KXMLQLCVCMatrixFunction)
         {
-            str = tag.attribute(KXMLQLCVCMatrixFunctionID);
+            QXmlStreamAttributes attrs = root.attributes();
+            str = attrs.value(KXMLQLCVCMatrixFunctionID).toString();
             setFunction(str.toUInt());
-            if (tag.hasAttribute(KXMLQLCVCMatrixInstantApply))
+            if (attrs.hasAttribute(KXMLQLCVCMatrixInstantApply))
                 setInstantChanges(true);
         }
-        else if (tag.tagName() == KXMLQLCVCWidgetInput)
+        else if (root.name() == KXMLQLCVCWidgetInput)
         {
-            loadXMLInput(tag);
+            loadXMLInput(root);
         }
-        else if(tag.tagName() == KXMLQLCVCMatrixControl)
+        else if(root.name() == KXMLQLCVCMatrixControl)
         {
             VCMatrixControl control(0xff);
-            if (control.loadXML(tag))
+            if (control.loadXML(root))
                 newControls.insert(qLowerBound(newControls.begin(), newControls.end(), control), control);
         }
-        else if (tag.tagName() == KXMLQLCVCMatrixVisibilityMask)
+        else if (root.name() == KXMLQLCVCMatrixVisibilityMask)
         {
-            setVisibilityMask(tag.text().toUInt());
+            setVisibilityMask(root.readElementText().toUInt());
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown VCMatrix tag:" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unknown VCMatrix tag:" << root.name().toString();
+            root.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     foreach (VCMatrixControl const& control, newControls)
@@ -958,51 +955,41 @@ bool VCMatrix::loadXML(const QDomElement *root)
     return true;
 }
 
-bool VCMatrix::saveXML(QDomDocument *doc, QDomElement *vc_root)
+bool VCMatrix::saveXML(QXmlStreamWriter *doc)
 {
-    QDomElement root;
-    QDomElement tag;
-    //QDomText text;
-    QString str;
-
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(vc_root != NULL);
 
     /* VC button entry */
-    root = doc->createElement(KXMLQLCVCMatrix);
-    vc_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCVCMatrix);
 
-    saveXMLCommon(doc, &root);
+    saveXMLCommon(doc);
 
     /* Window state */
-    saveXMLWindowState(doc, &root);
+    saveXMLWindowState(doc);
 
     /* Appearance */
-    saveXMLAppearance(doc, &root);
+    saveXMLAppearance(doc);
 
     /* Function */
-    tag = doc->createElement(KXMLQLCVCMatrixFunction);
-    root.appendChild(tag);
-    str.setNum(function());
-    tag.setAttribute(KXMLQLCVCMatrixFunctionID, str);
+    doc->writeStartElement(KXMLQLCVCMatrixFunction);
+    doc->writeAttribute(KXMLQLCVCMatrixFunctionID, QString::number(function()));
 
     if (instantChanges() == true)
-        tag.setAttribute(KXMLQLCVCMatrixInstantApply, "true");
+        doc->writeAttribute(KXMLQLCVCMatrixInstantApply, "true");
+    doc->writeEndElement();
 
     /* Default controls visibility  */
     if (m_visibilityMask != VCMatrix::defaultVisibilityMask())
-    {
-        QDomElement tag = doc->createElement(KXMLQLCVCMatrixVisibilityMask);
-        root.appendChild(tag);
-        QDomText text = doc->createTextNode(QString::number(m_visibilityMask));
-        tag.appendChild(text);
-    }
+        doc->writeTextElement(KXMLQLCVCMatrixVisibilityMask, QString::number(m_visibilityMask));
 
     /* Slider External input */
-    saveXMLInput(doc, &root);
+    saveXMLInput(doc);
 
     foreach(VCMatrixControl *control, customControls())
-        control->saveXML(doc, &root);
+        control->saveXML(doc);
+
+    /* End the <Matrix> tag */
+    doc->writeEndElement();
 
     return true;
 }
