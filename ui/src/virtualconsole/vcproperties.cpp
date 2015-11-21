@@ -175,8 +175,12 @@ bool VCProperties::loadXML(QXmlStreamReader &root)
                 setGrandMasterSliderMode(GrandMaster::stringToSliderMode(str));
             }
 
-            // check if there is an Input tag defined
-            if (root.readNext() == QXmlStreamReader::StartElement)
+            QXmlStreamReader::TokenType tType = root.readNext();
+            if (tType == QXmlStreamReader::Characters)
+                tType = root.readNext();
+
+            // check if there is a Input tag defined
+            if (tType == QXmlStreamReader::StartElement)
             {
                 if (root.name() == KXMLQLCVCPropertiesInput)
                 {

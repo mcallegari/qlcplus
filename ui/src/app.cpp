@@ -63,7 +63,7 @@
 #   include "hotplugmonitor.h"
 #endif
 
-#define DEBUG_SPEED
+//#define DEBUG_SPEED
 
 #ifdef DEBUG_SPEED
  #include <QTime>

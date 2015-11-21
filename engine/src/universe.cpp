@@ -809,6 +809,8 @@ bool Universe::loadXML(QXmlStreamReader &root, int index, InputOutputMap *ioMap)
 
     while (root.readNextStartElement())
     {
+        qDebug() << "Universe tag:" << root.name();
+
         QXmlStreamAttributes pAttrs = root.attributes();
 
         if (root.name() == KXMLQLCUniverseInputPatch)
@@ -825,8 +827,12 @@ bool Universe::loadXML(QXmlStreamReader &root, int index, InputOutputMap *ioMap)
                 profile = pAttrs.value(KXMLQLCUniverseInputProfileName).toString();
             ioMap->setInputPatch(index, plugin, input, profile);
 
-            // check if there is an PluginParameters tag defined
-            if (root.readNext() == QXmlStreamReader::StartElement)
+            QXmlStreamReader::TokenType tType = root.readNext();
+            if (tType == QXmlStreamReader::Characters)
+                tType = root.readNext();
+
+            // check if there is a PluginParameters tag defined
+            if (tType == QXmlStreamReader::StartElement)
             {
                 if (root.name() == KXMLQLCUniversePluginParameters)
                     loadXMLPluginParameters(root, InputPatchTag);
@@ -843,8 +849,12 @@ bool Universe::loadXML(QXmlStreamReader &root, int index, InputOutputMap *ioMap)
                 output = pAttrs.value(KXMLQLCUniverseOutputLine).toString().toUInt();
             ioMap->setOutputPatch(index, plugin, output, false);
 
-            // check if there is an PluginParameters tag defined
-            if (root.readNext() == QXmlStreamReader::StartElement)
+            QXmlStreamReader::TokenType tType = root.readNext();
+            if (tType == QXmlStreamReader::Characters)
+                tType = root.readNext();
+
+            // check if there is a PluginParameters tag defined
+            if (tType == QXmlStreamReader::StartElement)
             {
                 if (root.name() == KXMLQLCUniversePluginParameters)
                     loadXMLPluginParameters(root, OutputPatchTag);
@@ -861,8 +871,12 @@ bool Universe::loadXML(QXmlStreamReader &root, int index, InputOutputMap *ioMap)
                 output = pAttrs.value(KXMLQLCUniverseFeedbackLine).toString().toUInt();
             ioMap->setOutputPatch(index, plugin, output, true);
 
-            // check if there is an PluginParameters tag defined
-            if (root.readNext() == QXmlStreamReader::StartElement)
+            QXmlStreamReader::TokenType tType = root.readNext();
+            if (tType == QXmlStreamReader::Characters)
+                tType = root.readNext();
+
+            // check if there is a PluginParameters tag defined
+            if (tType == QXmlStreamReader::StartElement)
             {
                 if (root.name() == KXMLQLCUniversePluginParameters)
                     loadXMLPluginParameters(root, FeedbackPatchTag);
