@@ -113,6 +113,8 @@ bool RGBPlain::loadXML(QXmlStreamReader &root)
         return false;
     }
 
+    root.skipCurrentElement();
+
     return true;
 }
 

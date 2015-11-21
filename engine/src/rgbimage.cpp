@@ -333,6 +333,7 @@ bool RGBImage::loadXML(QXmlStreamReader &root)
                 setYOffset(value);
             else
                 qWarning() << Q_FUNC_INFO << "Invalid Y offset:" << str;
+            root.skipCurrentElement();
         }
         else
         {
