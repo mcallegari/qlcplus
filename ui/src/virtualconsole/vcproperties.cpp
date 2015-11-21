@@ -174,15 +174,20 @@ bool VCProperties::loadXML(QXmlStreamReader &root)
                 str = attrs.value(KXMLQLCVCPropertiesGrandMasterSliderMode).toString();
                 setGrandMasterSliderMode(GrandMaster::stringToSliderMode(str));
             }
-            root.skipCurrentElement();
-        }
-        else if (root.name() == KXMLQLCVCPropertiesInput)
-        {
-            quint32 universe = InputOutputMap::invalidUniverse();
-            quint32 channel = QLCChannel::invalid();
-            /* External input */
-            if (loadXMLInput(root, &universe, &channel) == true)
-                setGrandMasterInputSource(universe, channel);
+
+            // check if there is an Input tag defined
+            if (root.readNext() == QXmlStreamReader::StartElement)
+            {
+                if (root.name() == KXMLQLCVCPropertiesInput)
+                {
+                    quint32 universe = InputOutputMap::invalidUniverse();
+                    quint32 channel = QLCChannel::invalid();
+                    /* External input */
+                    if (loadXMLInput(root, &universe, &channel) == true)
+                        setGrandMasterInputSource(universe, channel);
+                }
+                root.skipCurrentElement();
+            }
         }
         else
         {
@@ -263,6 +268,8 @@ bool VCProperties::loadXMLInput(QXmlStreamReader &root, quint32* universe, quint
         *channel = str.toUInt();
     else
         *channel = QLCChannel::invalid();
+
+    root.skipCurrentElement();
 
     /* Verdict */
     if (*universe != InputOutputMap::invalidUniverse() &&

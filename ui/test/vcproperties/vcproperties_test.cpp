@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus - Unit test
   vcproperties_test.cpp
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,6 +18,8 @@
   limitations under the License.
 */
 
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QtTest>
 
 #define private public
@@ -78,56 +81,72 @@ void VCProperties_Test::copy()
 
 void VCProperties_Test::loadXMLSad()
 {
-    QDomDocument xmldoc;
-    QDomElement root = xmldoc.createElement("VirtualConsole");
-    xmldoc.appendChild(root);
+    QBuffer buffer;
+    buffer.open(QIODevice::ReadWrite | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement prop = xmldoc.createElement("Properties");
-    root.appendChild(prop);
+    xmlWriter.writeStartElement("VirtualConsole");
 
-    QDomElement frame = xmldoc.createElement("Frame");
-    root.appendChild(frame);
+    xmlWriter.writeStartElement("Properties");
+    xmlWriter.writeEndElement();
 
-    QDomElement foo = xmldoc.createElement("Foo");
-    root.appendChild(foo);
+    xmlWriter.writeStartElement("Frame");
+    xmlWriter.writeEndElement();
 
-    QWidget w;
+    xmlWriter.writeStartElement("Foo");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+
+    buffer.seek(0);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     VCProperties p;
-    QVERIFY(p.loadXML(root) == false);
-    QVERIFY(p.loadXML(prop) == true);
+    QVERIFY(p.loadXML(xmlReader) == false);
 }
 
 void VCProperties_Test::loadXMLHappy()
 {
-    QDomDocument xmldoc;
-    QDomElement root = xmldoc.createElement("Properties");
-    xmldoc.appendChild(root);
+    QBuffer buffer;
+    buffer.open(QIODevice::ReadWrite | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    xmlWriter.writeStartElement("Properties");
 
     // Size
-    QDomElement size = xmldoc.createElement("Size");
-    size.setAttribute("Width", "10");
-    size.setAttribute("Height", "20");
-    root.appendChild(size);
+    xmlWriter.writeStartElement("Size");
+    xmlWriter.writeAttribute("Width", "10");
+    xmlWriter.writeAttribute("Height", "20");
+    xmlWriter.writeEndElement();
 
     // Grand Master
-    QDomElement gm = xmldoc.createElement("GrandMaster");
-    gm.setAttribute("ChannelMode", "All");
-    gm.setAttribute("ValueMode", "Limit");
-    root.appendChild(gm);
-    QDomElement gmInput = xmldoc.createElement("Input");
-    gmInput.setAttribute("Universe", "2");
-    gmInput.setAttribute("Channel", "15");
-    gm.appendChild(gmInput);
+    xmlWriter.writeStartElement("GrandMaster");
+    xmlWriter.writeAttribute("ChannelMode", "All");
+    xmlWriter.writeAttribute("ValueMode", "Limit");
+
+    xmlWriter.writeStartElement("Input");
+    xmlWriter.writeAttribute("Universe", "2");
+    xmlWriter.writeAttribute("Channel", "15");
+    xmlWriter.writeEndElement();
+    xmlWriter.writeEndElement();
 
     // Extra crap
-    QDomElement foo = xmldoc.createElement("Foo");
-    root.appendChild(foo);
+    xmlWriter.writeStartElement("Foo");
+    xmlWriter.writeEndElement();
 
-    QWidget w;
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+
+    buffer.seek(0);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    qDebug() << "Buffer:" << buffer.data();
 
     VCProperties p;
-    QVERIFY(p.loadXML(root) == true);
+    QVERIFY(p.loadXML(xmlReader) == true);
     QCOMPARE(p.size(), QSize(10, 20));
     QCOMPARE(p.grandMasterChannelMode(), GrandMaster::AllChannels);
     QCOMPARE(p.grandMasterValueMode(), GrandMaster::Limit);
@@ -135,40 +154,108 @@ void VCProperties_Test::loadXMLHappy()
     QCOMPARE(p.grandMasterInputChannel(), quint32(15));
 }
 
+void VCProperties_Test::loadXMLHappyNoInput()
+{
+    QBuffer buffer;
+    buffer.open(QIODevice::ReadWrite | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    xmlWriter.writeStartElement("Properties");
+
+    // Size
+    xmlWriter.writeStartElement("Size");
+    xmlWriter.writeAttribute("Width", "30");
+    xmlWriter.writeAttribute("Height", "40");
+    xmlWriter.writeEndElement();
+
+    // Grand Master
+    xmlWriter.writeStartElement("GrandMaster");
+    xmlWriter.writeAttribute("ChannelMode", "Intensity");
+    xmlWriter.writeAttribute("ValueMode", "Reduce");
+    xmlWriter.writeEndElement();
+
+    // Extra crap
+    xmlWriter.writeStartElement("Foo");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+
+    buffer.seek(0);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    qDebug() << "Buffer:" << buffer.data();
+
+    VCProperties p;
+    QVERIFY(p.loadXML(xmlReader) == true);
+    QCOMPARE(p.size(), QSize(30, 40));
+    QCOMPARE(p.grandMasterChannelMode(), GrandMaster::Intensity);
+    QCOMPARE(p.grandMasterValueMode(), GrandMaster::Reduce);
+}
+
 void VCProperties_Test::loadXMLInput()
 {
-    QDomDocument doc;
-    QDomElement root = doc.createElement("Input");
-    root.setAttribute("Universe", "3");
-    root.setAttribute("Channel", "78");
-    doc.appendChild(root);
+    QBuffer buffer;
+    buffer.open(QIODevice::ReadWrite | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    xmlWriter.writeStartElement("Input");
+    xmlWriter.writeAttribute("Universe", "3");
+    xmlWriter.writeAttribute("Channel", "78");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+
+    buffer.seek(0);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     quint32 universe = 0;
     quint32 channel = 0;
 
-    QVERIFY(VCProperties::loadXMLInput(root, &universe, &channel) == true);
+    QVERIFY(VCProperties::loadXMLInput(xmlReader, &universe, &channel) == true);
     QCOMPARE(universe, quint32(3));
     QCOMPARE(channel, quint32(78));
 
+    buffer.close();
+    QByteArray bData = buffer.data();
+    bData.replace("<Input", "<Inputt");
+    buffer.setData(bData);
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    buffer.seek(0);
+    xmlReader.setDevice(&buffer);
+    xmlReader.readNextStartElement();
+
     universe = channel = 0;
-    root.setTagName("Inputt");
-    QVERIFY(VCProperties::loadXMLInput(root, &universe, &channel) == false);
+
+    QVERIFY(VCProperties::loadXMLInput(xmlReader, &universe, &channel) == false);
     QCOMPARE(universe, quint32(0));
     QCOMPARE(channel, quint32(0));
 
+    QBuffer buffer2;
+    buffer2.open(QIODevice::ReadWrite | QIODevice::Text);
+    xmlWriter.setDevice(&buffer2);
+
+    xmlWriter.writeStartElement("Input");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+
+    buffer2.seek(0);
+    xmlReader.setDevice(&buffer2);
+    xmlReader.readNextStartElement();
+
     universe = channel = 0;
-    root.setTagName("Input");
-    root.removeAttribute("Universe");
-    root.removeAttribute("Channel");
-    QVERIFY(VCProperties::loadXMLInput(root, &universe, &channel) == false);
+    QVERIFY(VCProperties::loadXMLInput(xmlReader, &universe, &channel) == false);
     QCOMPARE(universe, InputOutputMap::invalidUniverse());
     QCOMPARE(channel, QLCChannel::invalid());
 }
 
 void VCProperties_Test::saveXML()
 {
-    QWidget w;
-
     VCProperties p;
     p.m_size = QSize(33, 44);
     p.m_gmChannelMode = GrandMaster::AllChannels;
@@ -176,13 +263,21 @@ void VCProperties_Test::saveXML()
     p.m_gmInputUniverse = 3;
     p.m_gmInputChannel = 42;
 
-    QDomDocument xmldoc;
-    QDomElement root = xmldoc.createElement("TestRoot");
-    xmldoc.appendChild(root);
-    QVERIFY(p.saveXML(&xmldoc, &root) == true);
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    QVERIFY(p.saveXML(&xmlWriter) == true);
+
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     VCProperties p2;
-    QVERIFY(p2.loadXML(root.firstChild().toElement()) == true);
+    QVERIFY(p2.loadXML(xmlReader) == true);
     QCOMPARE(p2.size(), QSize(33, 44));
     QCOMPARE(p2.grandMasterChannelMode(), GrandMaster::AllChannels);
     QCOMPARE(p2.grandMasterValueMode(), GrandMaster::Limit);

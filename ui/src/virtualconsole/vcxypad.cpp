@@ -1133,24 +1133,16 @@ bool VCXYPad::saveXML(QXmlStreamWriter *doc)
     }
 
     /* Pan */
-    QSharedPointer<QLCInputSource> panSrc = inputSource(panInputSourceId);
-    if (!panSrc.isNull() && panSrc->isValid())
-    {
-        doc->writeStartElement(KXMLQLCVCXYPadPan);
-        doc->writeAttribute(KXMLQLCVCXYPadPosition, QString::number(int(pt.x())));
-        saveXMLInput(doc, panSrc);
-        doc->writeEndElement();
-    }
+    doc->writeStartElement(KXMLQLCVCXYPadPan);
+    doc->writeAttribute(KXMLQLCVCXYPadPosition, QString::number(int(pt.x())));
+    saveXMLInput(doc, inputSource(panInputSourceId));
+    doc->writeEndElement();
 
     /* Tilt */
-    QSharedPointer<QLCInputSource> tiltSrc = inputSource(tiltInputSourceId);
-    if (!tiltSrc.isNull() && tiltSrc->isValid())
-    {
-        doc->writeStartElement(KXMLQLCVCXYPadTilt);
-        doc->writeAttribute(KXMLQLCVCXYPadPosition, QString::number(int(pt.y())));
-        saveXMLInput(doc, tiltSrc);
-        doc->writeEndElement();
-    }
+    doc->writeStartElement(KXMLQLCVCXYPadTilt);
+    doc->writeAttribute(KXMLQLCVCXYPadPosition, QString::number(int(pt.y())));
+    saveXMLInput(doc, inputSource(tiltInputSourceId));
+    doc->writeEndElement();
 
     /* Width */
     QSharedPointer<QLCInputSource> wSrc = inputSource(widthInputSourceId);

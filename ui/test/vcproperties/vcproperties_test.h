@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus - Test Unit
   vcproperties_test.cpp
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -35,6 +36,7 @@ private slots:
     void copy();
     void loadXMLSad();
     void loadXMLHappy();
+    void loadXMLHappyNoInput();
     void loadXMLInput();
     void saveXML();
 

@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus - Unit test
   vcxypadfixture_test.cpp
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -18,7 +19,8 @@
 */
 
 #include <QtTest>
-#include <QtXml>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 
 #define private public
 #include "vcxypadfixture.h"
@@ -359,54 +361,71 @@ void VCXYPadFixture_Test::name()
 
 void VCXYPadFixture_Test::loadXMLWrongRoot()
 {
-    QDomDocument doc;
-    QDomElement root = doc.createElement("Fixteru");
-    root.setAttribute("ID", "69");
-    root.setAttribute("Head", "0");
-    doc.appendChild(root);
+    QBuffer buffer;
+    buffer.open(QIODevice::ReadWrite | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    xmlWriter.writeStartElement("Fixteru");
+    xmlWriter.writeAttribute("ID", "69");
+    xmlWriter.writeAttribute("Head", "0");
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+
+    buffer.seek(0);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     VCXYPadFixture fxi(m_doc);
-    QVERIFY(fxi.loadXML(root) == false);
+    QVERIFY(fxi.loadXML(xmlReader) == false);
 }
 
 void VCXYPadFixture_Test::loadXMLHappy()
 {
-    QDomDocument doc;
-    QDomElement root = doc.createElement("Fixture");
-    root.setAttribute("ID", "69");
-    root.setAttribute("Head", "0");
-    doc.appendChild(root);
+    QBuffer buffer;
+    buffer.open(QIODevice::ReadWrite | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement x = doc.createElement("Axis");
-    x.setAttribute("ID", "X");
-    x.setAttribute("LowLimit", "0.1");
-    x.setAttribute("HighLimit", "0.5");
-    x.setAttribute("Reverse", "True");
-    root.appendChild(x);
+    xmlWriter.writeStartElement("Fixture");
+    xmlWriter.writeAttribute("ID", "69");
+    xmlWriter.writeAttribute("Head", "0");
 
-    QDomElement y = doc.createElement("Axis");
-    y.setAttribute("ID", "Y");
-    y.setAttribute("LowLimit", "0.2");
-    y.setAttribute("HighLimit", "0.6");
-    y.setAttribute("Reverse", "True");
-    root.appendChild(y);
+    xmlWriter.writeStartElement("Axis");
+    xmlWriter.writeAttribute("ID", "X");
+    xmlWriter.writeAttribute("LowLimit", "0.1");
+    xmlWriter.writeAttribute("HighLimit", "0.5");
+    xmlWriter.writeAttribute("Reverse", "True");
+    xmlWriter.writeEndElement();
 
-    QDomElement z = doc.createElement("Axis"); // Foo axis
-    z.setAttribute("ID", "Z");
-    z.setAttribute("LowLimit", "0.2");
-    z.setAttribute("HighLimit", "0.6");
-    z.setAttribute("Reverse", "True");
-    root.appendChild(z);
+    xmlWriter.writeStartElement("Axis");
+    xmlWriter.writeAttribute("ID", "Y");
+    xmlWriter.writeAttribute("LowLimit", "0.2");
+    xmlWriter.writeAttribute("HighLimit", "0.6");
+    xmlWriter.writeAttribute("Reverse", "True");
+    xmlWriter.writeEndElement();
 
-    QDomElement foo = doc.createElement("Foo");
-    foo.setAttribute("ID", "Z");
-    foo.setAttribute("LowLimit", "0.2");
-    foo.setAttribute("HighLimit", "0.6");
-    foo.setAttribute("Reverse", "True");
-    root.appendChild(foo);
+    xmlWriter.writeStartElement("Axis"); // Foo axis
+    xmlWriter.writeAttribute("ID", "Z");
+    xmlWriter.writeAttribute("LowLimit", "0.2");
+    xmlWriter.writeAttribute("HighLimit", "0.6");
+    xmlWriter.writeAttribute("Reverse", "True");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeStartElement("Foo");
+    xmlWriter.writeAttribute("ID", "Z");
+    xmlWriter.writeAttribute("LowLimit", "0.2");
+    xmlWriter.writeAttribute("HighLimit", "0.6");
+    xmlWriter.writeAttribute("Reverse", "True");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+
+    buffer.seek(0);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     VCXYPadFixture fxi(m_doc);
-    QVERIFY(fxi.loadXML(root) == true);
+    QVERIFY(fxi.loadXML(xmlReader) == true);
     QCOMPARE(fxi.head().fxi, quint32(69));
     QCOMPARE(fxi.head().head, 0);
 
@@ -421,42 +440,51 @@ void VCXYPadFixture_Test::loadXMLHappy()
 
 void VCXYPadFixture_Test::loadXMLSad()
 {
-    QDomDocument doc;
-    QDomElement root = doc.createElement("Fixture");
-    root.setAttribute("ID", "69");
-    root.setAttribute("Head", "0");
-    doc.appendChild(root);
+    QBuffer buffer;
+    buffer.open(QIODevice::ReadWrite | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement x = doc.createElement("Axis");
-    x.setAttribute("ID", "X");
-    x.setAttribute("LowLimit", "0.1");
-    x.setAttribute("HighLimit", "0.5");
-    x.setAttribute("Reverse", "False");
-    root.appendChild(x);
+    xmlWriter.writeStartElement("Fixture");
+    xmlWriter.writeAttribute("ID", "69");
+    xmlWriter.writeAttribute("Head", "0");
 
-    QDomElement y = doc.createElement("Axis");
-    y.setAttribute("ID", "Y");
-    y.setAttribute("LowLimit", "0.2");
-    y.setAttribute("HighLimit", "0.6");
-    y.setAttribute("Reverse", "False");
-    root.appendChild(y);
+    xmlWriter.writeStartElement("Axis");
+    xmlWriter.writeAttribute("ID", "X");
+    xmlWriter.writeAttribute("LowLimit", "0.1");
+    xmlWriter.writeAttribute("HighLimit", "0.5");
+    xmlWriter.writeAttribute("Reverse", "False");
+    xmlWriter.writeEndElement();
 
-    QDomElement z = doc.createElement("Axis"); // Foo axis
-    z.setAttribute("ID", "Z");
-    z.setAttribute("LowLimit", "0.2");
-    z.setAttribute("HighLimit", "0.6");
-    z.setAttribute("Reverse", "False");
-    root.appendChild(z);
+    xmlWriter.writeStartElement("Axis");
+    xmlWriter.writeAttribute("ID", "Y");
+    xmlWriter.writeAttribute("LowLimit", "0.2");
+    xmlWriter.writeAttribute("HighLimit", "0.6");
+    xmlWriter.writeAttribute("Reverse", "False");
+    xmlWriter.writeEndElement();
 
-    QDomElement foo = doc.createElement("Foo");
-    foo.setAttribute("ID", "Z");
-    foo.setAttribute("LowLimit", "0.2");
-    foo.setAttribute("HighLimit", "0.6");
-    foo.setAttribute("Reverse", "False");
-    root.appendChild(foo);
+    xmlWriter.writeStartElement("Axis"); // Foo axis
+    xmlWriter.writeAttribute("ID", "Z");
+    xmlWriter.writeAttribute("LowLimit", "0.2");
+    xmlWriter.writeAttribute("HighLimit", "0.6");
+    xmlWriter.writeAttribute("Reverse", "False");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeStartElement("Foo");
+    xmlWriter.writeAttribute("ID", "Z");
+    xmlWriter.writeAttribute("LowLimit", "0.2");
+    xmlWriter.writeAttribute("HighLimit", "0.6");
+    xmlWriter.writeAttribute("Reverse", "False");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+
+    buffer.seek(0);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     VCXYPadFixture fxi(m_doc);
-    QVERIFY(fxi.loadXML(root) == true);
+    QVERIFY(fxi.loadXML(xmlReader) == true);
     QCOMPARE(fxi.head().fxi, quint32(69));
     QCOMPARE(fxi.head().head, 0);
 
@@ -476,27 +504,34 @@ void VCXYPadFixture_Test::saveXMLHappy()
     fxi.setX(0.1, 0.2, true);
     fxi.setY(0.3, 0.4, true);
 
-    QDomDocument doc;
-    QDomElement root = doc.createElement("TestRoot");
-    doc.appendChild(root);
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QVERIFY(fxi.saveXML(&doc, &root) == true);
-    QDomNode node = root.firstChild();
-    QCOMPARE(node.toElement().tagName(), QString("Fixture"));
-    QCOMPARE(node.toElement().attribute("ID"), QString("54"));
-    QCOMPARE(node.toElement().attribute("Head"), QString("32"));
+    QVERIFY(fxi.saveXML(&xmlWriter) == true);
+
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    QCOMPARE(xmlReader.name().toString(), QString("Fixture"));
+    QCOMPARE(xmlReader.attributes().value("ID").toString(), QString("54"));
+    QCOMPARE(xmlReader.attributes().value("Head").toString(), QString("32"));
 
     bool x = false, y = false;
-    node = node.firstChild();
-    while (node.isNull() == false)
+
+    while (xmlReader.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == "Axis")
+        if (xmlReader.name() == "Axis")
         {
-            QString id = tag.attribute("ID");
-            QString low = tag.attribute("LowLimit");
-            QString high = tag.attribute("HighLimit");
-            QString rev = tag.attribute("Reverse");
+            QXmlStreamAttributes attrs = xmlReader.attributes();
+            QString id = attrs.value("ID").toString();
+            QString low = attrs.value("LowLimit").toString();
+            QString high = attrs.value("HighLimit").toString();
+            QString rev = attrs.value("Reverse").toString();
             if (id == "X")
             {
                 x = true;
@@ -515,13 +550,12 @@ void VCXYPadFixture_Test::saveXMLHappy()
             {
                 QFAIL(QString("Unexpected axis: %1").arg(id).toUtf8().constData());
             }
+            xmlReader.skipCurrentElement();
         }
         else
         {
-            qDebug() << doc.toString();
-            QFAIL(QString("Unexpected tag: %1").arg(tag.tagName()).toUtf8().constData());
+            QFAIL(QString("Unexpected tag: %1").arg(xmlReader.name().toString()).toUtf8().constData());
         }
-        node = node.nextSibling();
     }
 
     QVERIFY(x == true);
@@ -535,27 +569,35 @@ void VCXYPadFixture_Test::saveXMLSad()
     fxi.setX(0.1, 0.2, false);
     fxi.setY(0.3, 0.4, false);
 
-    QDomDocument doc;
-    QDomElement root = doc.createElement("TestRoot");
-    doc.appendChild(root);
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QVERIFY(fxi.saveXML(&doc, &root) == true);
-    QDomNode node = root.firstChild();
-    QCOMPARE(node.toElement().tagName(), QString("Fixture"));
-    QCOMPARE(node.toElement().attribute("ID"), QString("54"));
-    QCOMPARE(node.toElement().attribute("Head"), QString("32"));
+    QVERIFY(fxi.saveXML(&xmlWriter) == true);
+
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    QCOMPARE(xmlReader.name().toString(), QString("Fixture"));
+    QCOMPARE(xmlReader.attributes().value("ID").toString(), QString("54"));
+    QCOMPARE(xmlReader.attributes().value("Head").toString(), QString("32"));
 
     bool x = false, y = false;
-    node = node.firstChild();
-    while (node.isNull() == false)
+
+    while (xmlReader.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == "Axis")
+        if (xmlReader.name() == "Axis")
         {
-            QString id = tag.attribute("ID");
-            QString low = tag.attribute("LowLimit");
-            QString high = tag.attribute("HighLimit");
-            QString rev = tag.attribute("Reverse");
+            QXmlStreamAttributes attrs = xmlReader.attributes();
+            QString id = attrs.value("ID").toString();
+            QString low = attrs.value("LowLimit").toString();
+            QString high = attrs.value("HighLimit").toString();
+            QString rev = attrs.value("Reverse").toString();
+
             if (id == "X")
             {
                 x = true;
@@ -574,13 +616,12 @@ void VCXYPadFixture_Test::saveXMLSad()
             {
                 QFAIL(QString("Unexpected axis: %1").arg(id).toUtf8().constData());
             }
+            xmlReader.skipCurrentElement();
         }
         else
         {
-            qDebug() << doc.toString();
-            QFAIL(QString("Unexpected tag: %1").arg(tag.tagName()).toUtf8().constData());
+            QFAIL(QString("Unexpected tag: %1").arg(xmlReader.name().toString()).toUtf8().constData());
         }
-        node = node.nextSibling();
     }
 
     QVERIFY(x == true);

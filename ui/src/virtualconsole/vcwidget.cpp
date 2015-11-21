@@ -938,7 +938,7 @@ bool VCWidget::saveXMLAppearance(QXmlStreamWriter *doc)
         str.setNum(foregroundColor().rgb());
     else
         str = KXMLQLCVCWidgetColorDefault;
-    doc->writeTextElement(KXMLQLCVCFrameStyle, str);
+    doc->writeTextElement(KXMLQLCVCWidgetForegroundColor, str);
 
     /* Background color */
     if (hasCustomBackgroundColor() == true)

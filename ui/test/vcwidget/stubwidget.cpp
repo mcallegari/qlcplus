@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus - Test Unit
   stubwidget.cpp
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,8 +18,8 @@
   limitations under the License.
 */
 
-#include <QDomDocument>
-#include <QDomElement>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 
 #include "stubwidget.h"
 
@@ -35,15 +36,14 @@ VCWidget* StubWidget::createCopy(VCWidget* parent)
     return parent;
 }
 
-bool StubWidget::loadXML(const QDomElement* vc_root)
+bool StubWidget::loadXML(QXmlStreamReader &root)
 {
-    Q_UNUSED(vc_root);
+    Q_UNUSED(root);
     return true;
 }
 
-bool StubWidget::saveXML(QDomDocument* doc, QDomElement* vc_root)
+bool StubWidget::saveXML(QXmlStreamWriter *doc)
 {
     Q_UNUSED(doc);
-    Q_UNUSED(vc_root);
     return true;
 }

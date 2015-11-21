@@ -857,6 +857,7 @@ bool VCButton::loadXML(QXmlStreamReader &root)
         {
             QString str = root.attributes().value(KXMLQLCVCButtonFunctionID).toString();
             setFunction(str.toUInt());
+            root.skipCurrentElement();
         }
         else if (root.name() == KXMLQLCVCWidgetInput)
         {
@@ -905,14 +906,14 @@ bool VCButton::saveXML(QXmlStreamWriter *doc)
 
     saveXMLCommon(doc);
 
+    /* Icon */
+    doc->writeAttribute(KXMLQLCVCButtonIcon, m_doc->normalizeComponentPath(iconPath()));
+
     /* Window state */
     saveXMLWindowState(doc);
 
     /* Appearance */
     saveXMLAppearance(doc);
-
-    /* Icon */
-    doc->writeAttribute(KXMLQLCVCButtonIcon, m_doc->normalizeComponentPath(iconPath()));
 
     /* Function */
     doc->writeStartElement(KXMLQLCVCButtonFunction);

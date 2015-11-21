@@ -1,8 +1,9 @@
 /*
-  Q Light Controller - Unit test
+  Q Light Controller Plus - Unit test
   vcwidgetproperties_test.cpp
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -19,6 +20,8 @@
 
 #include <QWidget>
 #include <QtTest>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 
 #include "vcwidgetproperties_test.h"
 #define protected public
@@ -93,48 +96,29 @@ void VCWidgetProperties_Test::wh()
 
 void VCWidgetProperties_Test::load()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::ReadWrite | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("WidgetProperties");
-    doc.appendChild(root);
+    xmlWriter.writeStartElement("WidgetProperties");
 
-    QDomElement x = doc.createElement("X");
-    QDomText xText = doc.createTextNode("50");
-    x.appendChild(xText);
-    root.appendChild(x);
+    xmlWriter.writeTextElement("X", "50");
+    xmlWriter.writeTextElement("Y", "70");
+    xmlWriter.writeTextElement("Width", "40");
+    xmlWriter.writeTextElement("Height", "60");
+    xmlWriter.writeTextElement("Visible", "1");
+    xmlWriter.writeTextElement("State", QString("%1").arg(Qt::WindowMinimized));
+    xmlWriter.writeTextElement("Foobar", "1");
 
-    QDomElement y = doc.createElement("Y");
-    QDomText yText = doc.createTextNode("70");
-    y.appendChild(yText);
-    root.appendChild(y);
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
 
-    QDomElement w = doc.createElement("Width");
-    QDomText wText = doc.createTextNode("40");
-    w.appendChild(wText);
-    root.appendChild(w);
-
-    QDomElement h = doc.createElement("Height");
-    QDomText hText = doc.createTextNode("60");
-    h.appendChild(hText);
-    root.appendChild(h);
-
-    QDomElement v = doc.createElement("Visible");
-    QDomText vText = doc.createTextNode("1");
-    v.appendChild(vText);
-    root.appendChild(v);
-
-    QDomElement s = doc.createElement("State");
-    QDomText sText = doc.createTextNode(QString("%1").arg(Qt::WindowMinimized));
-    s.appendChild(sText);
-    root.appendChild(s);
-
-    QDomElement foo = doc.createElement("Foobar");
-    QDomText fooText = doc.createTextNode("1");
-    foo.appendChild(fooText);
-    root.appendChild(foo);
+    buffer.seek(0);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     VCWidgetProperties p;
-    p.loadXML(root);
+    p.loadXML(xmlReader);
     QVERIFY(p.x() == 50);
     QVERIFY(p.y() == 70);
     QVERIFY(p.width() == 40);
@@ -145,13 +129,20 @@ void VCWidgetProperties_Test::load()
 
 void VCWidgetProperties_Test::loadWrongRoot()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::ReadWrite | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("WidgetPropertiez");
-    doc.appendChild(root);
+    xmlWriter.writeStartElement("WidgetPropertiez");
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+
+    buffer.seek(0);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     VCWidgetProperties p;
-    QVERIFY(p.loadXML(root) == false);
+    QVERIFY(p.loadXML(xmlReader) == false);
     QVERIFY(p.x() == 100);
     QVERIFY(p.y() == 100);
     QVERIFY(p.width() == 0);
@@ -170,54 +161,59 @@ void VCWidgetProperties_Test::save()
     p.m_width = 30;
     p.m_height = 40;
 
-    QDomDocument doc;
-    QDomElement root = doc.createElement("Root");
-    doc.appendChild(root);
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QVERIFY(p.saveXML(&doc, &root) == true);
-    QVERIFY(root.firstChild().toElement().tagName() == "WidgetProperties");
+    QVERIFY(p.saveXML(&xmlWriter) == true);
+
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    QCOMPARE(xmlReader.name().toString(), QString("WidgetProperties"));
 
     bool s = false, v = false, x = false, y = false, w = false, h = false;
-    QDomNode node = root.firstChild().firstChild();
-    while (node.isNull() == false)
+
+    while (xmlReader.readNextStartElement())
     {
-        QDomElement e = node.toElement();
-        if (e.tagName() == "State")
+        if (xmlReader.name() == "State")
         {
             s = true;
-            QCOMPARE(e.text(), QString::number(p.m_state));
+            QCOMPARE(xmlReader.readElementText(), QString::number(p.m_state));
         }
-        else if (e.tagName() == "Visible")
+        else if (xmlReader.name() == "Visible")
         {
             v = true;
-            QCOMPARE(e.text(), QString::number(p.m_visible));
+            QCOMPARE(xmlReader.readElementText(), QString::number(p.m_visible));
         }
-        else if (e.tagName() == "X")
+        else if (xmlReader.name() == "X")
         {
             x = true;
-            QCOMPARE(e.text(), QString::number(p.m_x));
+            QCOMPARE(xmlReader.readElementText(), QString::number(p.m_x));
         }
-        else if (e.tagName() == "Y")
+        else if (xmlReader.name() == "Y")
         {
             y = true;
-            QCOMPARE(e.text(), QString::number(p.m_y));
+            QCOMPARE(xmlReader.readElementText(), QString::number(p.m_y));
         }
-        else if (e.tagName() == "Width")
+        else if (xmlReader.name() == "Width")
         {
             w = true;
-            QCOMPARE(e.text(), QString::number(p.m_width));
+            QCOMPARE(xmlReader.readElementText(), QString::number(p.m_width));
         }
-        else if (e.tagName() == "Height")
+        else if (xmlReader.name() == "Height")
         {
             h = true;
-            QCOMPARE(e.text(), QString::number(p.m_height));
+            QCOMPARE(xmlReader.readElementText(), QString::number(p.m_height));
         }
         else
         {
-            QFAIL(QString("Unexpected widget property tag: %1").arg(e.tagName()).toUtf8().constData());
+            QFAIL(QString("Unexpected widget property tag: %1").arg(xmlReader.name().toString()).toUtf8().constData());
         }
-
-        node = node.nextSibling();
     }
 
     QVERIFY(s && v && x && y && w && h);

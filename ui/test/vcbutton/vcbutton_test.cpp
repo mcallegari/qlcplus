@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus - Unit test
   vcbutton_test.cpp
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,8 +18,8 @@
   limitations under the License.
 */
 
-#include <QDomDocument>
-#include <QDomElement>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QObject>
 #include <QtTest>
 #include <QMenu>
@@ -308,51 +309,54 @@ void VCButton_Test::load()
     m_doc->addFunction(sc);
     m_doc->setWorkspacePath(QDir("../../../resources/icons/png").absolutePath());
 
-    QDomDocument xmldoc;
-    QDomElement root = xmldoc.createElement("Button");
-    root.setAttribute("Caption", "Pertti");
-    root.setAttribute("Icon", "qlcplus.png");
-    xmldoc.appendChild(root);
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement wstate = xmldoc.createElement("WindowState");
-    wstate.setAttribute("X", "20");
-    wstate.setAttribute("Y", "20");
-    wstate.setAttribute("Width", "60");
-    wstate.setAttribute("Height", "60");
-    wstate.setAttribute("Visible", "True");
-    root.appendChild(wstate);
+    xmlWriter.writeStartElement("Button");
+    xmlWriter.writeAttribute("Caption", "Pertti");
+    xmlWriter.writeAttribute("Icon", "qlcplus.png");
 
-    QDomElement appearance = xmldoc.createElement("Appearance");
-    root.appendChild(appearance);
+    xmlWriter.writeStartElement("WindowState");
+    xmlWriter.writeAttribute("X", "20");
+    xmlWriter.writeAttribute("Y", "20");
+    xmlWriter.writeAttribute("Width", "60");
+    xmlWriter.writeAttribute("Height", "60");
+    xmlWriter.writeAttribute("Visible", "True");
+    xmlWriter.writeEndElement();
 
-    QDomElement function = xmldoc.createElement("Function");
-    function.setAttribute("ID", QString::number(sc->id()));
-    root.appendChild(function);
+    xmlWriter.writeStartElement("Appearance");
+    xmlWriter.writeEndElement();
 
-    QDomElement input = xmldoc.createElement("Input");
-    root.appendChild(input);
+    xmlWriter.writeStartElement("Function");
+    xmlWriter.writeAttribute("ID", QString::number(sc->id()));
+    xmlWriter.writeEndElement();
 
-    QDomElement action = xmldoc.createElement("Action");
-    QDomText actionText = xmldoc.createTextNode("Flash");
-    action.appendChild(actionText);
-    root.appendChild(action);
+    xmlWriter.writeStartElement("Input");
+    xmlWriter.writeEndElement();
 
-    QDomElement key = xmldoc.createElement("Key");
-    QDomText keyText = xmldoc.createTextNode(QKeySequence(keySequenceA).toString());
-    key.appendChild(keyText);
-    root.appendChild(key);
+    xmlWriter.writeTextElement("Action", "Flash");
 
-    QDomElement intensity = xmldoc.createElement("Intensity");
-    intensity.setAttribute("Adjust", "True");
-    QDomText intensityText = xmldoc.createTextNode("60");
-    intensity.appendChild(intensityText);
-    root.appendChild(intensity);
+    xmlWriter.writeTextElement("Key", QKeySequence(keySequenceA).toString());
 
-    QDomElement foo = xmldoc.createElement("Foo");
-    root.appendChild(foo);
+    xmlWriter.writeStartElement("Intensity");
+    xmlWriter.writeAttribute("Adjust", "True");
+    xmlWriter.writeCharacters("60");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeStartElement("Foo");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     VCButton btn(&w, m_doc);
-    QCOMPARE(btn.loadXML(&root), true);
+    QCOMPARE(btn.loadXML(xmlReader), true);
     QCOMPARE(btn.caption(), QString("Pertti"));
     QCOMPARE(btn.iconPath(), QFileInfo(QString("../../../resources/icons/png/qlcplus.png")).canonicalFilePath());
     QCOMPARE(btn.function(), sc->id());
@@ -363,8 +367,16 @@ void VCButton_Test::load()
     QCOMPARE(btn.pos(), QPoint(20, 20));
     QCOMPARE(btn.size(), QSize(60, 60));
 
-    intensity.setAttribute("Adjust", "False");
-    QCOMPARE(btn.loadXML(&root), true);
+    buffer.close();
+    QByteArray bData = buffer.data();
+    bData.replace("Adjust=\"True\"", "Adjust=\"False\"");
+    buffer.setData(bData);
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    buffer.seek(0);
+    xmlReader.setDevice(&buffer);
+    xmlReader.readNextStartElement();
+
+    QCOMPARE(btn.loadXML(xmlReader), true);
     QCOMPARE(btn.caption(), QString("Pertti"));
     QCOMPARE(btn.iconPath(), QFileInfo(QString("../../../resources/icons/png/qlcplus.png")).canonicalFilePath());
     QCOMPARE(btn.function(), sc->id());
@@ -375,8 +387,16 @@ void VCButton_Test::load()
     QCOMPARE(btn.pos(), QPoint(20, 20));
     QCOMPARE(btn.size(), QSize(60, 60));
 
-    root.setTagName("Buton");
-    QCOMPARE(btn.loadXML(&root), false);
+    buffer.close();
+    bData = buffer.data();
+    bData.replace("<Button", "<Buton");
+    buffer.setData(bData);
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    buffer.seek(0);
+    xmlReader.setDevice(&buffer);
+    xmlReader.readNextStartElement();
+
+    QCOMPARE(btn.loadXML(xmlReader), false);
 }
 
 void VCButton_Test::save()
@@ -396,55 +416,63 @@ void VCButton_Test::save()
     btn.enableStartupIntensity(true);
     btn.setStartupIntensity(qreal(0.2));
 
-    QDomDocument xmldoc;
-    QDomElement root = xmldoc.createElement("Root");
-    xmldoc.appendChild(root);
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
     int function = 0, action = 0, key = 0, intensity = 0, wstate = 0, appearance = 0;
-    QCOMPARE(btn.saveXML(&xmldoc, &root), true);
-    QDomElement tag = root.firstChild().toElement();
-    QCOMPARE(tag.tagName(), QString("Button"));
-    QCOMPARE(tag.attribute("Icon"), QString("qlcplus.png"));
-    QCOMPARE(tag.attribute("Caption"), QString("Foobar"));
-    QDomNode node = tag.firstChild();
-    while (node.isNull() == false)
+    QCOMPARE(btn.saveXML(&xmlWriter), true);
+
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    QCOMPARE(xmlReader.name().toString(), QString("Button"));
+    QCOMPARE(xmlReader.attributes().value("Icon").toString(), QString("qlcplus.png"));
+    QCOMPARE(xmlReader.attributes().value("Caption").toString(), QString("Foobar"));
+
+    while (xmlReader.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == "Function")
+        if (xmlReader.name() == "Function")
         {
             function++;
-            QCOMPARE(tag.attribute("ID"), QString::number(sc->id()));
+            QCOMPARE(xmlReader.attributes().value("ID").toString(), QString::number(sc->id()));
+            xmlReader.skipCurrentElement();
         }
-        else if (tag.tagName() == "Action")
+        else if (xmlReader.name() == "Action")
         {
             action++;
-            QCOMPARE(tag.text(), QString("Flash"));
+            QCOMPARE(xmlReader.readElementText(), QString("Flash"));
         }
-        else if (tag.tagName() == "Key")
+        else if (xmlReader.name() == "Key")
         {
             key++;
-            QCOMPARE(tag.text(), QKeySequence(keySequenceB).toString());
+            QCOMPARE(xmlReader.readElementText(), QKeySequence(keySequenceB).toString());
         }
-        else if (tag.tagName() == "Intensity")
+        else if (xmlReader.name() == "Intensity")
         {
             intensity++;
-            QCOMPARE(tag.attribute("Adjust"), QString("True"));
-            QCOMPARE(tag.text(), QString("20"));
+            QCOMPARE(xmlReader.attributes().value("Adjust").toString(), QString("True"));
+            QCOMPARE(xmlReader.readElementText(), QString("20"));
         }
-        else if (tag.tagName() == "WindowState")
+        else if (xmlReader.name() == "WindowState")
         {
             wstate++;
+            xmlReader.skipCurrentElement();
         }
-        else if (tag.tagName() == "Appearance")
+        else if (xmlReader.name() == "Appearance")
         {
             appearance++;
+            xmlReader.skipCurrentElement();
         }
         else
         {
-            QFAIL(QString("Unexpected tag: %1").arg(tag.tagName()).toUtf8().constData());
+            QFAIL(QString("Unexpected tag: %1").arg(xmlReader.name().toString()).toUtf8().constData());
+            xmlReader.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     QCOMPARE(function, 1);

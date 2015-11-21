@@ -285,7 +285,6 @@ void Collection_Test::save()
     QBuffer buffer;
     buffer.open(QIODevice::WriteOnly | QIODevice::Text);
     QXmlStreamWriter xmlWriter(&buffer);
-    xmlWriter.writeStartElement("TestRoot");
 
     QVERIFY(c.saveXML(&xmlWriter) == true);
 
@@ -294,7 +293,6 @@ void Collection_Test::save()
 
     buffer.open(QIODevice::ReadOnly | QIODevice::Text);
     QXmlStreamReader xmlReader(&buffer);
-
     xmlReader.readNextStartElement();
 
     QVERIFY(xmlReader.name().toString() == "Function");

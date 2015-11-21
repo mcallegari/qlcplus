@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus - Test Unit
   vclabel_test.cpp
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,10 +18,11 @@
   limitations under the License.
 */
 
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QFrame>
 #include <QtTest>
 #include <QMenu>
-#include <QtXml>
 #include <QSet>
 
 #define protected public
@@ -86,40 +88,54 @@ void VCLabel_Test::loadXML()
 {
     QWidget w;
 
-    QDomDocument xmldoc;
-    QDomElement root = xmldoc.createElement("Label");
-    xmldoc.appendChild(root);
+    QBuffer buffer;
+    buffer.open(QIODevice::ReadWrite | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement wstate = xmldoc.createElement("WindowState");
-    wstate.setAttribute("Width", "42");
-    wstate.setAttribute("Height", "69");
-    wstate.setAttribute("X", "3");
-    wstate.setAttribute("Y", "4");
-    wstate.setAttribute("Visible", "True");
-    root.appendChild(wstate);
+    xmlWriter.writeStartElement("Label");
 
-    QDomElement appearance = xmldoc.createElement("Appearance");
+    xmlWriter.writeStartElement("WindowState");
+    xmlWriter.writeAttribute("Width", "42");
+    xmlWriter.writeAttribute("Height", "69");
+    xmlWriter.writeAttribute("X", "3");
+    xmlWriter.writeAttribute("Y", "4");
+    xmlWriter.writeAttribute("Visible", "True");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeStartElement("Appearance");
     QFont f(w.font());
     f.setPointSize(f.pointSize() + 3);
-    QDomElement font = xmldoc.createElement("Font");
-    QDomText fontText = xmldoc.createTextNode(f.toString());
-    font.appendChild(fontText);
-    appearance.appendChild(font);
-    root.appendChild(appearance);
+    xmlWriter.writeTextElement("Font", f.toString());
+    xmlWriter.writeEndElement();
 
-    QDomElement foobar = xmldoc.createElement("Foobar");
-    root.appendChild(foobar);
+    xmlWriter.writeStartElement("Foobar");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+
+    buffer.seek(0);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     VCLabel label(&w, m_doc);
-    QVERIFY(label.loadXML(&root) == true);
+    QVERIFY(label.loadXML(xmlReader) == true);
     QCOMPARE(label.geometry().width(), 42);
     QCOMPARE(label.geometry().height(), 69);
     QCOMPARE(label.geometry().x(), 3);
     QCOMPARE(label.geometry().y(), 4);
     QCOMPARE(label.font(), f);
 
-    root.setTagName("Lable");
-    QVERIFY(label.loadXML(&root) == false);
+    buffer.close();
+    QByteArray bData = buffer.data();
+    bData.replace("<Label", "<Lable");
+    buffer.setData(bData);
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    buffer.seek(0);
+    xmlReader.setDevice(&buffer);
+    xmlReader.readNextStartElement();
+
+    QVERIFY(label.loadXML(xmlReader) == false);
 }
 
 void VCLabel_Test::saveXML()
@@ -129,37 +145,40 @@ void VCLabel_Test::saveXML()
     VCLabel label(&w, m_doc);
     label.setCaption("Simo Kuassimo");
 
-    QDomDocument xmldoc;
-    QDomElement root = xmldoc.createElement("TestRoot");
-    xmldoc.appendChild(root);
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QVERIFY(label.saveXML(&xmldoc, &root) == true);
+    QVERIFY(label.saveXML(&xmlWriter) == true);
 
-    QDomNode node = root.firstChild();
-    QVERIFY(node.nextSibling().isNull() == true);
-    QCOMPARE(node.toElement().tagName(), QString("Label"));
-    QCOMPARE(node.toElement().attribute("Caption"), QString("Simo Kuassimo"));
-    QVERIFY(node.firstChild().isNull() == false);
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+
+    QVERIFY(xmlReader.readNextStartElement() == true);
+    QCOMPARE(xmlReader.name().toString(), QString("Label"));
+    QCOMPARE(xmlReader.attributes().value("Caption").toString(), QString("Simo Kuassimo"));
 
     int appearance = 0, windowstate = 0;
 
-    node = node.firstChild();
-    while (node.isNull() == false)
+    while (xmlReader.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == QString("Appearance"))
+        if (xmlReader.name() == QString("Appearance"))
         {
             appearance++;
+            xmlReader.skipCurrentElement();
         }
-        else if (tag.tagName() == QString("WindowState"))
+        else if (xmlReader.name() == QString("WindowState"))
         {
             windowstate++;
+            xmlReader.skipCurrentElement();
         }
         else
         {
-            QFAIL(QString("Unexpected XML tag: %1").arg(tag.tagName()).toUtf8().constData());
+            QFAIL(QString("Unexpected XML tag: %1").arg(xmlReader.name().toString()).toUtf8().constData());
         }
-        node = node.nextSibling();
     }
 
     QCOMPARE(appearance, 1);

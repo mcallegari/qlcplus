@@ -4,7 +4,7 @@ TEMPLATE = app
 LANGUAGE = C++
 TARGET   = palettegenerator_test
 
-QT      += testlib xml script
+QT      += testlib script
 CONFIG  -= app_bundle
 
 INCLUDEPATH += ../../src
