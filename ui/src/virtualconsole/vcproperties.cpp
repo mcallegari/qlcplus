@@ -248,6 +248,9 @@ bool VCProperties::saveXML(QXmlStreamWriter *doc) const
     /* End the <GrandMaster> tag */
     doc->writeEndElement();
 
+    /* End the <Properties> tag */
+    doc->writeEndElement();
+
     return true;
 }
 

@@ -943,6 +943,9 @@ bool VCButton::saveXML(QXmlStreamWriter *doc)
     /* External input */
     saveXMLInput(doc);
 
+    /* End the <Button> tag */
+    doc->writeEndElement();
+
     return true;
 }
 

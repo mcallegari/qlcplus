@@ -136,7 +136,7 @@ bool VCLabel::saveXML(QXmlStreamWriter *doc)
     /* Appearance */
     saveXMLAppearance(doc);
 
-    /* Close the <Label> tag */
+    /* End the <Label> tag */
     doc->writeEndElement();
 
     return true;
