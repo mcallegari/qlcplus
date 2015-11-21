@@ -807,9 +807,6 @@ bool Universe::loadXML(QXmlStreamReader &root, int index, InputOutputMap *ioMap)
             setPassthrough(false);
     }
 
-    enum TagType { NoTag, InputPathTag, OutputPatchTag, FeedbackPatchTag };
-    TagType currentTag = NoTag;
-
     while (root.readNextStartElement())
     {
         QXmlStreamAttributes pAttrs = root.attributes();
@@ -827,7 +824,14 @@ bool Universe::loadXML(QXmlStreamReader &root, int index, InputOutputMap *ioMap)
             if (pAttrs.hasAttribute(KXMLQLCUniverseInputProfileName))
                 profile = pAttrs.value(KXMLQLCUniverseInputProfileName).toString();
             ioMap->setInputPatch(index, plugin, input, profile);
-            currentTag = InputPathTag;
+
+            // check if there is an PluginParameters tag defined
+            if (root.readNext() == QXmlStreamReader::StartElement)
+            {
+                if (root.name() == KXMLQLCUniversePluginParameters)
+                    loadXMLPluginParameters(root, InputPatchTag);
+                root.skipCurrentElement();
+            }
         }
         else if (root.name() == KXMLQLCUniverseOutputPatch)
         {
@@ -838,7 +842,14 @@ bool Universe::loadXML(QXmlStreamReader &root, int index, InputOutputMap *ioMap)
             if (pAttrs.hasAttribute(KXMLQLCUniverseOutputLine))
                 output = pAttrs.value(KXMLQLCUniverseOutputLine).toString().toUInt();
             ioMap->setOutputPatch(index, plugin, output, false);
-            currentTag = OutputPatchTag;
+
+            // check if there is an PluginParameters tag defined
+            if (root.readNext() == QXmlStreamReader::StartElement)
+            {
+                if (root.name() == KXMLQLCUniversePluginParameters)
+                    loadXMLPluginParameters(root, OutputPatchTag);
+                root.skipCurrentElement();
+            }
         }
         else if (root.name() == KXMLQLCUniverseFeedbackPatch)
         {
@@ -849,32 +860,13 @@ bool Universe::loadXML(QXmlStreamReader &root, int index, InputOutputMap *ioMap)
             if (pAttrs.hasAttribute(KXMLQLCUniverseFeedbackLine))
                 output = pAttrs.value(KXMLQLCUniverseFeedbackLine).toString().toUInt();
             ioMap->setOutputPatch(index, plugin, output, true);
-            currentTag = FeedbackPatchTag;
-        }
-        else if (root.name() == KXMLQLCUniversePluginParameters)
-        {
-            QXmlStreamAttributes pluginAttrs = root.attributes();
-            for (int i = 0; i < pluginAttrs.count(); i++)
+
+            // check if there is an PluginParameters tag defined
+            if (root.readNext() == QXmlStreamReader::StartElement)
             {
-                QXmlStreamAttribute attr = pluginAttrs.at(i);
-                if (currentTag == InputPathTag)
-                {
-                    InputPatch *ip = inputPatch();
-                    if (ip != NULL)
-                        ip->setPluginParameter(attr.name().toString(), attr.value().toString());
-                }
-                else if (currentTag == InputPathTag)
-                {
-                    OutputPatch *op = outputPatch();
-                    if (op != NULL)
-                        op->setPluginParameter(attr.name().toString(), attr.value().toString());
-                }
-                else if (currentTag == InputPathTag)
-                {
-                    OutputPatch *fbp = feedbackPatch();
-                    if (fbp != NULL)
-                        fbp->setPluginParameter(attr.name().toString(), attr.value().toString());
-                }
+                if (root.name() == KXMLQLCUniversePluginParameters)
+                    loadXMLPluginParameters(root, FeedbackPatchTag);
+                root.skipCurrentElement();
             }
         }
         else
@@ -883,6 +875,42 @@ bool Universe::loadXML(QXmlStreamReader &root, int index, InputOutputMap *ioMap)
             root.skipCurrentElement();
         }
     }
+
+    return true;
+}
+
+bool Universe::loadXMLPluginParameters(QXmlStreamReader &root, PatchTagType currentTag)
+{
+    if (root.name() != KXMLQLCUniversePluginParameters)
+    {
+        qWarning() << Q_FUNC_INFO << "PluginParameters node not found";
+        return false;
+    }
+
+    QXmlStreamAttributes pluginAttrs = root.attributes();
+    for (int i = 0; i < pluginAttrs.count(); i++)
+    {
+        QXmlStreamAttribute attr = pluginAttrs.at(i);
+        if (currentTag == InputPatchTag)
+        {
+            InputPatch *ip = inputPatch();
+            if (ip != NULL)
+                ip->setPluginParameter(attr.name().toString(), attr.value().toString());
+        }
+        else if (currentTag == OutputPatchTag)
+        {
+            OutputPatch *op = outputPatch();
+            if (op != NULL)
+                op->setPluginParameter(attr.name().toString(), attr.value().toString());
+        }
+        else if (currentTag == FeedbackPatchTag)
+        {
+            OutputPatch *fbp = feedbackPatch();
+            if (fbp != NULL)
+                fbp->setPluginParameter(attr.name().toString(), attr.value().toString());
+        }
+    }
+    root.skipCurrentElement();
 
     return true;
 }

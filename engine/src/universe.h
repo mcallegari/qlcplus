@@ -463,13 +463,23 @@ public:
      *********************************************************************/
 public:
 
+    enum PatchTagType { InputPatchTag, OutputPatchTag, FeedbackPatchTag };
+
     /**
      * Load a universe contents from the given XML node.
      *
      * @param root An XML subtree containing the universe contents
-     * @return true if the map was loaded successfully, otherwise false
+     * @return true if the Universe was loaded successfully, otherwise false
      */
     bool loadXML(QXmlStreamReader &root, int index, InputOutputMap* ioMap);
+
+    /**
+     * Load an optional tag defining the plugin specific parameters
+     * @param root An XML subtree containing the plugin parameters contents
+     * @param currentTag the type of Patch where the parameters should be set
+     * @return true if the parameters were loaded successfully, otherwise false
+     */
+    bool loadXMLPluginParameters(QXmlStreamReader &root, PatchTagType currentTag);
 
     /**
      * Save the universe instance into an XML document, under the given

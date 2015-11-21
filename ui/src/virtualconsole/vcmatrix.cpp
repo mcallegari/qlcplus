@@ -927,6 +927,7 @@ bool VCMatrix::loadXML(QXmlStreamReader &root)
             setFunction(str.toUInt());
             if (attrs.hasAttribute(KXMLQLCVCMatrixInstantApply))
                 setInstantChanges(true);
+            root.skipCurrentElement();
         }
         else if (root.name() == KXMLQLCVCWidgetInput)
         {

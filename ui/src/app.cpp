@@ -63,7 +63,7 @@
 #   include "hotplugmonitor.h"
 #endif
 
-//#define DEBUG_SPEED
+#define DEBUG_SPEED
 
 #ifdef DEBUG_SPEED
  #include <QTime>
@@ -1349,6 +1349,7 @@ bool App::loadXML(QXmlStreamReader& doc, bool goToConsole, bool fromMemory)
         else if (doc.name() == KXMLQLCCreator)
         {
             /* Ignore creator information */
+            doc.skipCurrentElement();
         }
         else
         {

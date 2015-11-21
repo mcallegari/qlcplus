@@ -953,6 +953,7 @@ bool Fixture::loadXML(QXmlStreamReader &xmlDoc, Doc *doc,
                     modifierIndices.append(chIdx);
                     modifierPointers.append(chMod);
                 }
+                xmlDoc.skipCurrentElement();
             }
         }
         else

@@ -305,6 +305,7 @@ bool Show::loadXML(QXmlStreamReader &root)
             QString type = root.attributes().value(KXMLQLCShowTimeType).toString();
             int bpm = root.attributes().value(KXMLQLCShowTimeBPM).toString().toInt();
             setTimeDivision(type, bpm);
+            root.skipCurrentElement();
         }
         else if (root.name() == KXMLQLCTrack)
         {

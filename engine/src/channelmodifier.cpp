@@ -184,6 +184,7 @@ QFile::FileError ChannelModifier::loadXML(const QString &fileName, Type type)
                     if (attrs.hasAttribute(KXMLQLCChannelModModifiedDMX))
                         dmxPair.second = attrs.value(KXMLQLCChannelModModifiedDMX).toString().toUInt();
                     modMap.append(dmxPair);
+                    doc->skipCurrentElement();
                 }
                 else
                 {

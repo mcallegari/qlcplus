@@ -141,6 +141,8 @@ bool ShowFunction::loadXML(QXmlStreamReader &root)
     if (attrs.hasAttribute(KXMLShowFunctionLocked))
         setLocked(true);
 
+    root.skipCurrentElement();
+
     return true;
 }
 

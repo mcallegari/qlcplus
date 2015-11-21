@@ -1072,6 +1072,7 @@ bool Doc::loadXML(QXmlStreamReader &doc)
 
     while (doc.readNextStartElement())
     {
+        //qDebug() << "Doc tag:" << doc.name();
         if (doc.name() == KXMLFixture)
         {
             Fixture::loader(doc, this);
@@ -1086,6 +1087,7 @@ bool Doc::loadXML(QXmlStreamReader &doc)
         }
         else if (doc.name() == KXMLQLCFunction)
         {
+            //qDebug() << doc.attributes().value("Name").toString();
             Function::loader(doc, this);
         }
         else if (doc.name() == KXMLQLCBus)

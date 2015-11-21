@@ -386,6 +386,7 @@ bool RGBMatrix::loadXML(QXmlStreamReader &root)
             QString name = root.attributes().value(KXMLQLCRGBMatrixPropertyName).toString();
             QString value = root.attributes().value(KXMLQLCRGBMatrixPropertyValue).toString();
             setProperty(name, value);
+            root.skipCurrentElement();
         }
         else if (root.name() == KXMLQLCRGBMatrixDimmerControl)
         {

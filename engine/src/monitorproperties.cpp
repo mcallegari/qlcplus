@@ -160,6 +160,7 @@ bool MonitorProperties::loadXML(QXmlStreamReader &root, const Doc * mainDocument
                 setGridUnits(GridUnits(tAttrs.value(KXMLQLCMonitorGridUnits).toString().toInt()));
 
             setGridSize(QSize(w, h));
+            root.skipCurrentElement();
         }
         else if (root.name() == KXMLQLCMonitorFixtureItem)
         {
@@ -178,6 +179,7 @@ bool MonitorProperties::loadXML(QXmlStreamReader &root, const Doc * mainDocument
 
                 if (tAttrs.hasAttribute(KXMLQLCMonitorFixtureGelColor))
                     setFixtureGelColor(fid, QColor(tAttrs.value(KXMLQLCMonitorFixtureGelColor).toString()));
+                root.skipCurrentElement();
             }
         }
         else
