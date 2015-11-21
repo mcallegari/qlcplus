@@ -186,6 +186,11 @@ QFile::FileError ChannelModifier::loadXML(const QString &fileName, Type type)
                     modMap.append(dmxPair);
                     doc->skipCurrentElement();
                 }
+                else if (doc->name() == KXMLQLCCreator)
+                {
+                    /* Ignore creator information */
+                    doc->skipCurrentElement();
+                }
                 else
                 {
                     qWarning() << Q_FUNC_INFO << "Unknown ChannelModifier tag:" << doc->name();

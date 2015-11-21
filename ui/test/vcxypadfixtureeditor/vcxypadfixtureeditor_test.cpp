@@ -18,7 +18,6 @@
 */
 
 #include <QtTest>
-#include <QtXml>
 
 #define private public
 #define protected public

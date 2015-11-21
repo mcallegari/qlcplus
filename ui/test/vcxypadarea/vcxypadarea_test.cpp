@@ -19,7 +19,6 @@
 
 #include <QFrame>
 #include <QtTest>
-#include <QtXml>
 
 #define protected public
 #define private public

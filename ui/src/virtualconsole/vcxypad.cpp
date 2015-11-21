@@ -32,9 +32,9 @@
 #include <QPixmap>
 #include <QCursor>
 #include <QSlider>
+#include <qmath.h>
 #include <QDebug>
 #include <QPoint>
-#include <QtMath>
 #include <QMenu>
 #include <QList>
 

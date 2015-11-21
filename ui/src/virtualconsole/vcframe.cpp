@@ -777,6 +777,10 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
     /* Children */
     while (root.readNextStartElement())
     {
+        //qDebug() << "Frame tag:" << root.name();
+        //if (root.attributes().hasAttribute("Caption"))
+        //    qDebug() << "Widget caption:" << root.attributes().value("Caption").toString();
+
         if (root.name() == KXMLQLCWindowState)
         {
             /* Frame geometry (visibility is ignored) */
