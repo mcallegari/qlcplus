@@ -133,7 +133,7 @@
   <Capability Min="0" Max="15">Open</Capability>
   <Capability Min="16" Max="255">On</Capability>
  </Channel>
- <Mode Name="13-Ch">
+ <Mode Name="Advanced">
   <Physical>
    <Bulb Type="LED 50W" Lumens="0" ColourTemperature="0"/>
    <Dimensions Depth="236" Width="205" Weight="5.7" Height="287"/>
@@ -155,7 +155,7 @@
   <Channel Number="11">Control Functions</Channel>
   <Channel Number="12">Movement Macros</Channel>
  </Mode>
- <Mode Name="8-Ch">
+ <Mode Name="Basic">
   <Physical>
    <Bulb Type="LED 50W" Lumens="0" ColourTemperature="0"/>
    <Dimensions Depth="236" Width="205" Weight="5.7" Height="287"/>
