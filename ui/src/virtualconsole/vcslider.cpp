@@ -1319,6 +1319,7 @@ bool VCSlider::loadXML(QXmlStreamReader &root)
     /* Children */
     while (root.readNextStartElement())
     {
+        //qDebug() << "VC Slider tag:" << root.name();
         if (root.name() == KXMLQLCWindowState)
         {
             loadXMLWindowState(root, &x, &y, &w, &h, &visible);
@@ -1399,23 +1400,37 @@ bool VCSlider::loadXMLLevel(QXmlStreamReader &level_root)
     str = attrs.value(KXMLQLCVCSliderLevelValue).toString();
     setLevelValue(str.toInt());
 
-    /* Children */
-    while (level_root.readNextStartElement())
-    {
-        if (level_root.name() == KXMLQLCVCSliderChannel)
-        {
-            /* Fixture & channel */
-            str = level_root.attributes().value(KXMLQLCVCSliderChannelFixture).toString();
-            addLevelChannel(
-                static_cast<quint32>(str.toInt()),
-                static_cast<quint32> (level_root.readElementText().toInt()));
-        }
-        else
-        {
-            qWarning() << Q_FUNC_INFO << "Unknown slider level tag:" << level_root.name().toString();
-            level_root.skipCurrentElement();
+    QXmlStreamReader::TokenType tType = level_root.readNext();
 
-        }
+    if (tType == QXmlStreamReader::EndElement)
+    {
+        level_root.readNext();
+        return true;
+    }
+
+    if (tType == QXmlStreamReader::Characters)
+        tType = level_root.readNext();
+
+    // check if there is a Channel tag defined
+    if (tType == QXmlStreamReader::StartElement)
+    {
+        /* Children */
+        do
+        {
+            if (level_root.name() == KXMLQLCVCSliderChannel)
+            {
+                /* Fixture & channel */
+                str = level_root.attributes().value(KXMLQLCVCSliderChannelFixture).toString();
+                addLevelChannel(
+                    static_cast<quint32>(str.toInt()),
+                    static_cast<quint32> (level_root.readElementText().toInt()));
+            }
+            else
+            {
+                qWarning() << Q_FUNC_INFO << "Unknown slider level tag:" << level_root.name().toString();
+                level_root.skipCurrentElement();
+            }
+        } while (level_root.readNextStartElement());
     }
 
     return true;

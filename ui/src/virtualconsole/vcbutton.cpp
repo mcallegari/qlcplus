@@ -844,6 +844,7 @@ bool VCButton::loadXML(QXmlStreamReader &root)
     /* Children */
     while (root.readNextStartElement())
     {
+        //qDebug() << "VC Button tag:" << root.name();
         if (root.name() == KXMLQLCWindowState)
         {
             loadXMLWindowState(root, &x, &y, &w, &h, &visible);

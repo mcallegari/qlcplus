@@ -1807,6 +1807,7 @@ bool VirtualConsole::loadXML(QXmlStreamReader &root)
 
     while (root.readNextStartElement())
     {
+        //qDebug() << "VC tag:" << root.name();
         if (root.name() == KXMLQLCVCProperties)
         {
             /* Properties */

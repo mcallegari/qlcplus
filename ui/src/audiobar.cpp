@@ -253,6 +253,9 @@ bool AudioBar::loadXML(QXmlStreamReader &root, Doc *doc)
             }
         }
     }
+
+    root.skipCurrentElement();
+
     return true;
 }
 

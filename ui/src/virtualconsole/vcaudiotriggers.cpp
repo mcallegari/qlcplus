@@ -550,6 +550,7 @@ bool VCAudioTriggers::loadXML(QXmlStreamReader &root)
     /* Children */
     while (root.readNextStartElement())
     {
+        //qDebug() << "VC Audio triggers tag:" << root.name();
         QXmlStreamAttributes attrs = root.attributes();
 
         if (root.name() == KXMLQLCWindowState)

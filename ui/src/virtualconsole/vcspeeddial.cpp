@@ -812,6 +812,7 @@ bool VCSpeedDial::loadXML(QXmlStreamReader &root)
     /* Children */
     while (root.readNextStartElement())
     {
+        //qDebug() << "VC Speed Dial tag:" << root.name();
         if (root.name() == KXMLQLCFunction)
         {
             // Function
