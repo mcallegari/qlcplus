@@ -81,27 +81,12 @@ Section
 SectionEnd
 
 Section
-	File mingwm10.dll
-	File libgcc_s_dw2-1.dll
-	File libmad-0.dll
-	File libogg-0.dll
-	File libFLAC-8.dll
-	File libvorbis-0.dll
-	File libvorbisenc-2.dll
-	File libsndfile-1.dll
-	File libfftw3-3.dll
-	File libstdc++-6.dll
-	File pthreadGC2.dll
 	File qlcplus.exe
 	File qlcplus-fixtureeditor.exe
-	File qlcplusengine.dll
-	File qlcplusui.dll
-	File qlcpluswebaccess.dll
-	File QtCore4.dll
-	File QtGui4.dll
-	File QtXml4.dll
-	File QtNetwork4.dll
-	File QtScript4.dll
+	File *.dll
+	File /r platforms
+	File /r mediaservice
+	File /r audio
 	File Sample.qxw
 	File *.qm
 	File /r Documents
@@ -138,25 +123,10 @@ Section "Uninstall"
 	Delete $INSTDIR\uninstall.exe
 	Delete $INSTDIR\qlcplus.exe
 	Delete $INSTDIR\qlcplus-fixtureeditor.exe
-	Delete $INSTDIR\qlcplusengine.dll
-	Delete $INSTDIR\qlcplusui.dll
-	Delete $INSTDIR\qlcpluswebaccess.dll
-	Delete $INSTDIR\mingwm10.dll
-	Delete $INSTDIR\libgcc_s_dw2-1.dll
-	Delete $INSTDIR\libmad-0.dll
-	Delete $INSTDIR\libogg-0.dll
-	Delete $INSTDIR\libFLAC-8.dll
-	Delete $INSTDIR\libvorbis-0.dll
-	Delete $INSTDIR\libvorbisenc-2.dll
-	Delete $INSTDIR\libsndfile-1.dll
-	Delete $INSTDIR\libfftw3-3.dll
-	Delete $INSTDIR\libstdc++-6.dll
-	Delete $INSTDIR\pthreadGC2.dll
-	Delete $INSTDIR\QtCore4.dll
-	Delete $INSTDIR\QtGui4.dll
-	Delete $INSTDIR\QtXml4.dll
-	Delete $INSTDIR\QtNetwork4.dll
-	Delete $INSTDIR\QtScript4.dll
+	Delete $INSTDIR\*.dll
+	RMDir /r $INSTDIR\platforms
+	RMDir /r $INSTDIR\mediaservice
+	RMDir /r $INSTDIR\audio
 	Delete $INSTDIR\Sample.qxw
 	Delete $INSTDIR\*.qm
 	RMDir /r $INSTDIR\Documents

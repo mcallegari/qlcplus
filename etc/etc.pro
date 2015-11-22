@@ -46,19 +46,16 @@ win32 {
 lessThan(QT_MAJOR_VERSION, 5) {
     release:qtlibs.files = $$QT_LIBS_PATH/QtCore4.dll \
                            $$QT_LIBS_PATH/QtGui4.dll \
-                           $$QT_LIBS_PATH/QtXml4.dll \
                            $$QT_LIBS_PATH/QtScript4.dll \
                            $$QT_LIBS_PATH/QtNetwork4.dll
 
     debug:qtlibs.files = $$QT_LIBS_PATH/QtCored4.dll \
                          $$QT_LIBS_PATH/QtGuid4.dll \
-                         $$QT_LIBS_PATH/QtXmld4.dll \
                          $$QT_LIBS_PATH/QtScriptd4.dll \
                          $$QT_LIBS_PATH/QtNetwork4d.dll
 } else {
     release:qtlibs.files = $$QT_LIBS_PATH/Qt5Core.dll \
                            $$QT_LIBS_PATH/Qt5Gui.dll \
-                           $$QT_LIBS_PATH/Qt5Xml.dll \
                            $$QT_LIBS_PATH/Qt5Script.dll \
                            $$QT_LIBS_PATH/Qt5Network.dll \
                            $$QT_LIBS_PATH/Qt5Widgets.dll \
@@ -68,7 +65,6 @@ lessThan(QT_MAJOR_VERSION, 5) {
 
     debug:qtlibs.files = $$QT_LIBS_PATH/Qt5Cored.dll \
                          $$QT_LIBS_PATH/Qt5Guid.dll \
-                         $$QT_LIBS_PATH/Qt5Xmld.dll \
                          $$QT_LIBS_PATH/Qt5Scriptd.dll \
                          $$QT_LIBS_PATH/Qt5Networkd.dll \
                          $$QT_LIBS_PATH/Qt5Widgetsd.dll \

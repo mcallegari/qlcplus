@@ -14,7 +14,6 @@ lessThan(QT_MAJOR_VERSION, 5) {
 include(libfftw-nametool.pri)
 include(libqtcore-nametool.pri)
 include(libqtgui-nametool.pri)
-include(libqtxml-nametool.pri)
 include(libqtnetwork-nametool.pri)
 include(libqtscript-nametool.pri)
 
@@ -51,7 +50,6 @@ lessThan(QT_MAJOR_VERSION, 5): INSTALLS += LIBPORTAUDIO LIBPORTAUDIO_ID
 INSTALLS += LIBFFTW LIBFFTW_ID
 INSTALLS += LIBQTCORE LIBQTCORE_ID
 INSTALLS += LIBQTGUI QTMENU LIBQTGUI_ID
-INSTALLS += LIBQTXML LIBQTXML_ID
 INSTALLS += LIBQTNETWORK LIBQTNETWORK_ID
 INSTALLS += LIBQTSCRIPT LIBQTSCRIPT_ID
 
