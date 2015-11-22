@@ -188,8 +188,8 @@ protected slots:
      *********************************************************************/
 
 public:
-    bool loadXML(const QDomElement* root);
-    //bool saveXML(QDomDocument* doc, QDomElement* vc_root, bool mainFrame = false);
+    bool loadXML(QXmlStreamReader &root);
+    //bool saveXML(QXmlStreamWriter *doc, bool mainFrame = false);
 
 protected:
     /** Can be overridden by subclasses */

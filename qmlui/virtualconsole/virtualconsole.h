@@ -26,7 +26,8 @@
 
 #include "previewcontext.h"
 
-class QDomElement;
+class QXmlStreamReader;
+class QXmlStreamWriter;
 class VCWidget;
 class VCFrame;
 class Doc;
@@ -130,10 +131,10 @@ protected:
      *********************************************************************/
 public:
     /** Load properties and contents from an XML tree */
-    bool loadXML(const QDomElement& root);
+    bool loadXML(QXmlStreamReader &root);
 
     /** Load the Virtual Console global properties XML tree */
-    bool loadPropertiesXML(const QDomElement& root);
+    bool loadPropertiesXML(QXmlStreamReader &root);
 
     /** Do post-load cleanup & checks */
     void postLoad();

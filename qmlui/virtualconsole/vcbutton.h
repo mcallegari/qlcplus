@@ -175,8 +175,8 @@ protected:
      *********************************************************************/
 
 public:
-    bool loadXML(const QDomElement* root);
-    //bool saveXML(QDomDocument* doc, QDomElement* vc_root);
+    bool loadXML(QXmlStreamReader &root);
+    //bool saveXML(QXmlStreamWriter *doc);
 };
 
 #endif

@@ -28,7 +28,6 @@
 
 #include "qlcfile.h"
 
-class QDomElement;
 class Doc;
 
 #define KXMLQLCVCCaption "Caption"
@@ -353,21 +352,21 @@ private:
      * Load & Save
      *********************************************************************/
 public:
-    virtual bool loadXML(const QDomElement* vc_root);
+    virtual bool loadXML(QXmlStreamReader &root);
 
 protected:
-    bool loadXMLCommon(const QDomElement* root);
+    bool loadXMLCommon(QXmlStreamReader &root);
 
     /**
      * Read this widget's appearance XML tag, to load properties
      * such as background and foreground color, font, etc..
      */
-    bool loadXMLAppearance(const QDomElement* appearance_root);
+    bool loadXMLAppearance(QXmlStreamReader &root);
 
     /**
      * Read this widget's geometry and visibility from an XML tag.
      *
-     * @param tag A QDomElement under which the window state is saved
+     * @param tag A QXmlStreamReader from which to read the window state
      * @param x Loaded x position
      * @param y Loaded y position
      * @param w Loaded w position
@@ -376,7 +375,7 @@ protected:
      *
      * @return true if succesful, otherwise false
      */
-    bool loadXMLWindowState(const QDomElement* tag, int* x, int* y,
+    bool loadXMLWindowState(QXmlStreamReader &root, int* x, int* y,
                             int* w, int* h, bool* visible);
 
 };

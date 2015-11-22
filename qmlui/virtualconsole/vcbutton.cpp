@@ -17,7 +17,8 @@
   limitations under the License.
 */
 
-#include <QtXml>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 
 #include "qlcmacros.h"
 #include "vcbutton.h"
@@ -318,11 +319,9 @@ qreal VCButton::startupIntensity() const
  * Load & Save
  *********************************************************************/
 
-bool VCButton::loadXML(const QDomElement* root)
+bool VCButton::loadXML(QXmlStreamReader &root)
 {
-    Q_ASSERT(root != NULL);
-
-    if (root->tagName() != KXMLQLCVCButton)
+    if (root.name() != KXMLQLCVCButton)
     {
         qWarning() << Q_FUNC_INFO << "Button node not found";
         return false;
@@ -331,52 +330,49 @@ bool VCButton::loadXML(const QDomElement* root)
     /* Widget commons */
     loadXMLCommon(root);
 
-    QString str;
-    QDomNode node = root->firstChild();
-
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == KXMLQLCWindowState)
+        if (root.name() == KXMLQLCWindowState)
         {
             bool visible = false;
             int x = 0, y = 0, w = 0, h = 0;
-            loadXMLWindowState(&tag, &x, &y, &w, &h, &visible);
+            loadXMLWindowState(root, &x, &y, &w, &h, &visible);
             setGeometry(QRect(x, y, w, h));
         }
-        else if (tag.tagName() == KXMLQLCVCWidgetAppearance)
+        else if (root.name() == KXMLQLCVCWidgetAppearance)
         {
-            loadXMLAppearance(&tag);
+            loadXMLAppearance(root);
         }
-        else if (tag.tagName() == KXMLQLCVCButtonFunction)
+        else if (root.name() == KXMLQLCVCButtonFunction)
         {
-            str = tag.attribute(KXMLQLCVCButtonFunctionID);
+            QString str = root.attributes().value(KXMLQLCVCButtonFunctionID).toString();
             setFunction(str.toUInt());
+            root.skipCurrentElement();
         }
-        else if (tag.tagName() == KXMLQLCVCButtonAction)
+        else if (root.name() == KXMLQLCVCButtonAction)
         {
-            setActionType(stringToAction(tag.text()));
+            //QXmlStreamAttributes attrs = root.attributes();
+            setActionType(stringToAction(root.readElementText()));
             /*
             if (tag.hasAttribute(KXMLQLCVCButtonStopAllFadeTime))
                 setStopAllFadeOutTime(tag.attribute(KXMLQLCVCButtonStopAllFadeTime).toInt());
             */
         }
-        else if (tag.tagName() == KXMLQLCVCButtonIntensity)
+        else if (root.name() == KXMLQLCVCButtonIntensity)
         {
             bool adjust;
-            if (tag.attribute(KXMLQLCVCButtonIntensityAdjust) == KXMLQLCTrue)
+            if (root.attributes().value(KXMLQLCVCButtonIntensityAdjust).toString() == KXMLQLCTrue)
                 adjust = true;
             else
                 adjust = false;
-            setStartupIntensity(qreal(tag.text().toInt()) / qreal(100));
+            setStartupIntensity(qreal(root.readElementText().toInt()) / qreal(100));
             enableStartupIntensity(adjust);
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown button tag:" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unknown button tag:" << root.name().toString();
+            root.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     /* All buttons start raised... */

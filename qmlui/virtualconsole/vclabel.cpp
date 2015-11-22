@@ -17,7 +17,8 @@
   limitations under the License.
 */
 
-#include <QtXml>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 
 #include "vclabel.h"
 
@@ -62,11 +63,9 @@ void VCLabel::render(QQuickView *view, QQuickItem *parent)
  * Load & Save
  *********************************************************************/
 
-bool VCLabel::loadXML(const QDomElement* root)
+bool VCLabel::loadXML(QXmlStreamReader &root)
 {
-    Q_ASSERT(root != NULL);
-
-    if (root->tagName() != KXMLQLCVCLabel)
+    if (root.name() != KXMLQLCVCLabel)
     {
         qWarning() << Q_FUNC_INFO << "Label node not found";
         return false;
@@ -75,31 +74,25 @@ bool VCLabel::loadXML(const QDomElement* root)
     /* Widget commons */
     loadXMLCommon(root);
 
-    QDomNode node = root->firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == KXMLQLCWindowState)
+        if (root.name() == KXMLQLCWindowState)
         {
             bool visible = false;
             int x = 0, y = 0, w = 0, h = 0;
-            loadXMLWindowState(&tag, &x, &y, &w, &h, &visible);
+            loadXMLWindowState(root, &x, &y, &w, &h, &visible);
             setGeometry(QRect(x, y, w, h));
         }
-        else if (tag.tagName() == KXMLQLCVCWidgetAppearance)
+        else if (root.name() == KXMLQLCVCWidgetAppearance)
         {
-            loadXMLAppearance(&tag);
+            loadXMLAppearance(root);
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown label tag:" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unknown label tag:" << root.name().toString();
+            root.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
-
-    /* All buttons start raised... */
-    //setOn(false);
 
     return true;
 }

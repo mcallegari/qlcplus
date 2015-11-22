@@ -17,10 +17,11 @@
   limitations under the License.
 */
 
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QQmlContext>
 #include <QQmlEngine>
 #include <QQuickItem>
-#include <QtXml>
 
 #include "virtualconsole.h"
 #include "vcwidget.h"
@@ -253,104 +254,111 @@ void VirtualConsole::resetDropTargets(bool deleteTargets)
  * Load & Save
  *****************************************************************************/
 
-bool VirtualConsole::loadXML(const QDomElement& root)
+bool VirtualConsole::loadXML(QXmlStreamReader &root)
 {
-    if (root.tagName() != KXMLQLCVirtualConsole)
+    if (root.name() != KXMLQLCVirtualConsole)
     {
         qWarning() << Q_FUNC_INFO << "Virtual Console node not found";
         return false;
     }
 
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == KXMLQLCVCFrame)
+        //qDebug() << "VC tag:" << root.name();
+        if (root.name() == KXMLQLCVCFrame)
         {
             /* Contents */
-            m_pages.at(0)->loadXML(&tag);
+            m_pages.at(0)->loadXML(root);
         }
-        else if (tag.tagName() == KXMLQLCVCProperties)
+        else if (root.name() == KXMLQLCVCProperties)
         {
-            loadPropertiesXML(tag);
+            loadPropertiesXML(root);
         }
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown Virtual Console tag"
-                       << tag.tagName();
+                       << root.name().toString();
+            root.skipCurrentElement();
         }
-
-        /* Next node */
-        node = node.nextSibling();
     }
 
     return true;
 }
 
-bool VirtualConsole::loadPropertiesXML(const QDomElement &root)
+bool VirtualConsole::loadPropertiesXML(QXmlStreamReader &root)
 {
-    if (root.tagName() != KXMLQLCVCProperties)
+    if (root.name() != KXMLQLCVCProperties)
     {
         qWarning() << Q_FUNC_INFO << "Virtual Console properties node not found";
         return false;
     }
 
     QString str;
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
         /** This is a legacy property, converted into
          *  VCFrame "WindowState" tag */
-        if (tag.tagName() == KXMLQLCVCPropertiesSize)
+        if (root.name() == KXMLQLCVCPropertiesSize)
         {
             QSize sz;
 
             /* Width */
-            str = tag.attribute(KXMLQLCVCPropertiesSizeWidth);
+            str = root.attributes().value(KXMLQLCVCPropertiesSizeWidth).toString();
             if (str.isEmpty() == false)
                 sz.setWidth(str.toInt());
 
             /* Height */
-            str = tag.attribute(KXMLQLCVCPropertiesSizeHeight);
+            str = root.attributes().value(KXMLQLCVCPropertiesSizeHeight).toString();
             if (str.isEmpty() == false)
                 sz.setHeight(str.toInt());
 
             /* Set size if both are valid */
             if (sz.isValid() == true)
                 m_pages.at(0)->setGeometry(QRect(0, 0, sz.width(), sz.height()));
+            root.skipCurrentElement();
         }
 #if 0
-        else if (tag.tagName() == KXMLQLCVCPropertiesGrandMaster)
+        else if (root.name() == KXMLQLCVCPropertiesGrandMaster)
         {
-            quint32 universe = InputOutputMap::invalidUniverse();
-            quint32 channel = QLCChannel::invalid();
+            QXmlStreamAttributes attrs = root.attributes();
 
-            str = tag.attribute(KXMLQLCVCPropertiesGrandMasterChannelMode);
+            str = attrs.value(KXMLQLCVCPropertiesGrandMasterChannelMode).toString();
             setGrandMasterChannelMode(GrandMaster::stringToChannelMode(str));
 
-            str = tag.attribute(KXMLQLCVCPropertiesGrandMasterValueMode);
+            str = attrs.value(KXMLQLCVCPropertiesGrandMasterValueMode).toString();
             setGrandMasterValueMode(GrandMaster::stringToValueMode(str));
 
-            if (tag.hasAttribute(KXMLQLCVCPropertiesGrandMasterSliderMode))
+            if (attrs.hasAttribute(KXMLQLCVCPropertiesGrandMasterSliderMode))
             {
-                str = tag.attribute(KXMLQLCVCPropertiesGrandMasterSliderMode);
+                str = attrs.value(KXMLQLCVCPropertiesGrandMasterSliderMode).toString();
                 setGrandMasterSliderMode(GrandMaster::stringToSliderMode(str));
             }
 
-            /* External input */
-            if (loadXMLInput(tag.firstChild().toElement(), &universe, &channel) == true)
-                setGrandMasterInputSource(universe, channel);
+            QXmlStreamReader::TokenType tType = root.readNext();
+            if (tType == QXmlStreamReader::Characters)
+                tType = root.readNext();
+
+            // check if there is a Input tag defined
+            if (tType == QXmlStreamReader::StartElement)
+            {
+                if (root.name() == KXMLQLCVCPropertiesInput)
+                {
+                    quint32 universe = InputOutputMap::invalidUniverse();
+                    quint32 channel = QLCChannel::invalid();
+                    /* External input */
+                    if (loadXMLInput(root, &universe, &channel) == true)
+                        setGrandMasterInputSource(universe, channel);
+                }
+                root.skipCurrentElement();
+            }
         }
 #endif
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown Virtual Console property tag:"
-                       << tag.tagName();
+                       << root.name().toString();
+            root.skipCurrentElement();
         }
-
-        /* Next node */
-        node = node.nextSibling();
     }
 
     return true;
