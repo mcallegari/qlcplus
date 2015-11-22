@@ -401,12 +401,12 @@
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="173"/>
         <source>Frame</source>
-        <translation>Cornice</translation>
+        <translation>Frame</translation>
     </message>
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="179"/>
         <source>Place the buttons inside a normal frame</source>
-        <translation>Inserisci i pulsanti in una cornice normale</translation>
+        <translation>Inserisci i pulsanti in un frame normale</translation>
     </message>
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="182"/>
@@ -416,7 +416,7 @@
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="189"/>
         <source>Place the buttons inside a frame that ensures that only one of them is pressed at a time</source>
-        <translation>Posizionare i pulsanti all&apos;interno di una cornice che assicura che solo uno di essi viene premuto alla volta</translation>
+        <translation>Posizionare i pulsanti all&apos;interno di un frame che assicura che solo uno di essi viene premuto alla volta</translation>
     </message>
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="192"/>
@@ -5690,12 +5690,12 @@ Durata: %3
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="14"/>
         <source>Frame Properties</source>
-        <translation>Proprietà cornice</translation>
+        <translation>Proprietà del frame</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="22"/>
         <source>Frame name</source>
-        <translation>Nome della cornice</translation>
+        <translation>Nome del frame</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="38"/>
@@ -6184,7 +6184,7 @@ Durata: %3
         <location filename="virtualconsole/vcproperties.ui" line="224"/>
         <source>Solo frame size</source>
         <oldsource>Solo frame size:</oldsource>
-        <translation>Dimensione cornice solo</translation>
+        <translation>Dimensione frame esclusivo</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="203"/>
@@ -6214,7 +6214,7 @@ Durata: %3
         <location filename="virtualconsole/vcproperties.ui" line="309"/>
         <source>Frame size</source>
         <oldsource>Frame size:</oldsource>
-        <translation>Dimensione cornice</translation>
+        <translation>Dimensione frame</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="146"/>
@@ -7014,12 +7014,12 @@ Durata: %3
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="147"/>
         <source>Frame</source>
-        <translation>Cornice</translation>
+        <translation>Frame</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="148"/>
         <source>Solo frame</source>
-        <translation>Cornice solo</translation>
+        <translation>Frame esclusivo</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="149"/>
@@ -7569,12 +7569,12 @@ Selezionarne una con i suddetti canali.</translation>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="325"/>
         <source>New Frame</source>
-        <translation>Nuova Cornice</translation>
+        <translation>Nuovo Frame</translation>
     </message>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="328"/>
         <source>New Solo frame</source>
-        <translation>Nuovo frame Solo</translation>
+        <translation>Nuovo Frame Esclusivo</translation>
     </message>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="331"/>
@@ -7649,7 +7649,7 @@ Selezionarne una con i suddetti canali.</translation>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="531"/>
         <source>F&amp;rame</source>
-        <translation>Co&amp;rnice</translation>
+        <translation>F&amp;rame</translation>
     </message>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="539"/>
