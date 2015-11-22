@@ -243,12 +243,12 @@ bool VCXYPadFixture::xReverse() const
 
 QString VCXYPadFixture::xBrief() const
 {
-    int scale = 100;
+    qreal scale = 100.0;
     QString units = "%";
 
     if (m_displayMode == DMX)
     {
-        scale = 255;
+        scale = 255.0;
         units = "";
     }
     else if (m_displayMode == Degrees)
@@ -293,12 +293,12 @@ bool VCXYPadFixture::yReverse() const
 
 QString VCXYPadFixture::yBrief() const
 {
-    int scale = 100;
+    qreal scale = 100.0;
     QString units = "%";
 
     if (m_displayMode == DMX)
     {
-        scale = 255;
+        scale = 255.0;
         units = "";
     }
     else if (m_displayMode == Degrees)
