@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.1</Version>
+  <Version>4.10.2 GIT</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -109,14 +109,14 @@
   <Capability Min="30" Max="39" Color="#0228ff">Blue</Capability>
   <Capability Min="40" Max="49" Color="#fefefe">White</Capability>
   <Capability Min="50" Max="59" Color="#ff0400">Red Small</Capability>
-  <Capability Color2="#25ff00" Min="60" Max="69" Color="#ff0400">Red Big + Green</Capability>
-  <Capability Color2="#0228ff" Min="70" Max="79" Color="#ff0400">Red Big + Blue</Capability>
-  <Capability Color2="#fefefe" Min="80" Max="89" Color="#ff0400">Red Big + White</Capability>
+  <Capability Min="60" Max="69" Color="#ff0400" Color2="#25ff00">Red Big + Green</Capability>
+  <Capability Min="70" Max="79" Color="#ff0400" Color2="#0228ff">Red Big + Blue</Capability>
+  <Capability Min="80" Max="89" Color="#ff0400" Color2="#fefefe">Red Big + White</Capability>
   <Capability Min="90" Max="99" Color="#ff0400">Red Big + Red Small</Capability>
-  <Capability Color2="#0228ff" Min="100" Max="109" Color="#25ff00">Green + Blue</Capability>
-  <Capability Color2="#fefefe" Min="110" Max="119" Color="#25ff00">Green + White</Capability>
-  <Capability Color2="#ff0400" Min="120" Max="129" Color="#25ff00">Green + Red Small</Capability>
-  <Capability Color2="#fefefe" Min="130" Max="139" Color="#0228ff">Blue + White</Capability>
+  <Capability Min="100" Max="109" Color="#25ff00" Color2="#0228ff">Green + Blue</Capability>
+  <Capability Min="110" Max="119" Color="#25ff00" Color2="#fefefe">Green + White</Capability>
+  <Capability Min="120" Max="129" Color="#25ff00" Color2="#ff0400">Green + Red Small</Capability>
+  <Capability Min="130" Max="139" Color="#0228ff" Color2="#fefefe">Blue + White</Capability>
   <Capability Min="140" Max="149">Red Big + Red Small + Blue</Capability>
   <Capability Min="150" Max="159">Red Big + Red Small + White</Capability>
   <Capability Min="160" Max="169">Red Big + Green + Blue</Capability>
@@ -138,14 +138,14 @@
   <Capability Min="30" Max="39" Color="#0228ff">Blue</Capability>
   <Capability Min="40" Max="49" Color="#fefefe">White</Capability>
   <Capability Min="50" Max="59" Color="#ff0400">Red Small</Capability>
-  <Capability Color2="#25ff00" Min="60" Max="69" Color="#ff0400">Red Big + Green</Capability>
-  <Capability Color2="#0228ff" Min="70" Max="79" Color="#ff0400">Red Big + Blue</Capability>
-  <Capability Color2="#fefefe" Min="80" Max="89" Color="#ff0400">Red Big + White</Capability>
+  <Capability Min="60" Max="69" Color="#ff0400" Color2="#25ff00">Red Big + Green</Capability>
+  <Capability Min="70" Max="79" Color="#ff0400" Color2="#0228ff">Red Big + Blue</Capability>
+  <Capability Min="80" Max="89" Color="#ff0400" Color2="#fefefe">Red Big + White</Capability>
   <Capability Min="90" Max="99" Color="#ff0400">Red Big + Red Small</Capability>
-  <Capability Color2="#0228ff" Min="100" Max="109" Color="#25ff00">Green + Blue</Capability>
-  <Capability Color2="#fefefe" Min="110" Max="119" Color="#25ff00">Green + White</Capability>
-  <Capability Color2="#ff0400" Min="120" Max="129" Color="#25ff00">Green + Red Small</Capability>
-  <Capability Color2="#fefefe" Min="130" Max="139" Color="#0228ff">Blue + White</Capability>
+  <Capability Min="100" Max="109" Color="#25ff00" Color2="#0228ff">Green + Blue</Capability>
+  <Capability Min="110" Max="119" Color="#25ff00" Color2="#fefefe">Green + White</Capability>
+  <Capability Min="120" Max="129" Color="#25ff00" Color2="#ff0400">Green + Red Small</Capability>
+  <Capability Min="130" Max="139" Color="#0228ff" Color2="#fefefe">Blue + White</Capability>
   <Capability Min="140" Max="149">Red Big + Red Small + Blue</Capability>
   <Capability Min="150" Max="159">Red Big + Red Small + White</Capability>
   <Capability Min="160" Max="169">Red Big + Green + Blue</Capability>
@@ -167,14 +167,14 @@
   <Capability Min="30" Max="39" Color="#0228ff">Blue</Capability>
   <Capability Min="40" Max="49" Color="#fefefe">White</Capability>
   <Capability Min="50" Max="59" Color="#ff0400">Red Small</Capability>
-  <Capability Color2="#25ff00" Min="60" Max="69" Color="#ff0400">Red Big + Green</Capability>
-  <Capability Color2="#0228ff" Min="70" Max="79" Color="#ff0400">Red Big + Blue</Capability>
-  <Capability Color2="#fefefe" Min="80" Max="89" Color="#ff0400">Red Big + White</Capability>
+  <Capability Min="60" Max="69" Color="#ff0400" Color2="#25ff00">Red Big + Green</Capability>
+  <Capability Min="70" Max="79" Color="#ff0400" Color2="#0228ff">Red Big + Blue</Capability>
+  <Capability Min="80" Max="89" Color="#ff0400" Color2="#fefefe">Red Big + White</Capability>
   <Capability Min="90" Max="99" Color="#ff0400">Red Big + Red Small</Capability>
-  <Capability Color2="#0228ff" Min="100" Max="109" Color="#25ff00">Green + Blue</Capability>
-  <Capability Color2="#fefefe" Min="110" Max="119" Color="#25ff00">Green + White</Capability>
-  <Capability Color2="#ff0400" Min="120" Max="129" Color="#25ff00">Green + Red Small</Capability>
-  <Capability Color2="#fefefe" Min="130" Max="139" Color="#0228ff">Blue + White</Capability>
+  <Capability Min="100" Max="109" Color="#25ff00" Color2="#0228ff">Green + Blue</Capability>
+  <Capability Min="110" Max="119" Color="#25ff00" Color2="#fefefe">Green + White</Capability>
+  <Capability Min="120" Max="129" Color="#25ff00" Color2="#ff0400">Green + Red Small</Capability>
+  <Capability Min="130" Max="139" Color="#0228ff" Color2="#fefefe">Blue + White</Capability>
   <Capability Min="140" Max="149">Red Big + Red Small + Blue</Capability>
   <Capability Min="150" Max="159">Red Big + Red Small + White</Capability>
   <Capability Min="160" Max="169">Red Big + Green + Blue</Capability>
@@ -196,14 +196,14 @@
   <Capability Min="30" Max="39" Color="#0228ff">Blue</Capability>
   <Capability Min="40" Max="49" Color="#fefefe">White</Capability>
   <Capability Min="50" Max="59" Color="#ff0400">Red Small</Capability>
-  <Capability Color2="#25ff00" Min="60" Max="69" Color="#ff0400">Red Big + Green</Capability>
-  <Capability Color2="#0228ff" Min="70" Max="79" Color="#ff0400">Red Big + Blue</Capability>
-  <Capability Color2="#fefefe" Min="80" Max="89" Color="#ff0400">Red Big + White</Capability>
+  <Capability Min="60" Max="69" Color="#ff0400" Color2="#25ff00">Red Big + Green</Capability>
+  <Capability Min="70" Max="79" Color="#ff0400" Color2="#0228ff">Red Big + Blue</Capability>
+  <Capability Min="80" Max="89" Color="#ff0400" Color2="#fefefe">Red Big + White</Capability>
   <Capability Min="90" Max="99" Color="#ff0400">Red Big + Red Small</Capability>
-  <Capability Color2="#0228ff" Min="100" Max="109" Color="#25ff00">Green + Blue</Capability>
-  <Capability Color2="#fefefe" Min="110" Max="119" Color="#25ff00">Green + White</Capability>
-  <Capability Color2="#ff0400" Min="120" Max="129" Color="#25ff00">Green + Red Small</Capability>
-  <Capability Color2="#fefefe" Min="130" Max="139" Color="#0228ff">Blue + White</Capability>
+  <Capability Min="100" Max="109" Color="#25ff00" Color2="#0228ff">Green + Blue</Capability>
+  <Capability Min="110" Max="119" Color="#25ff00" Color2="#fefefe">Green + White</Capability>
+  <Capability Min="120" Max="129" Color="#25ff00" Color2="#ff0400">Green + Red Small</Capability>
+  <Capability Min="130" Max="139" Color="#0228ff" Color2="#fefefe">Blue + White</Capability>
   <Capability Min="140" Max="149">Red Big + Red Small + Blue</Capability>
   <Capability Min="150" Max="159">Red Big + Red Small + White</Capability>
   <Capability Min="160" Max="169">Red Big + Green + Blue</Capability>
@@ -480,11 +480,11 @@
  </Channel>
  <Mode Name="Standard">
   <Physical>
-   <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
-   <Dimensions Width="304" Height="165" Depth="491" Weight="5"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="5" Width="304" Height="165" Depth="491"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="0"/>
+   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Mode</Channel>
   <Channel Number="1">Pattern/Chase</Channel>
@@ -493,11 +493,11 @@
  </Mode>
  <Mode Name="Extended">
   <Physical>
-   <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
-   <Dimensions Width="304" Height="165" Depth="491" Weight="5"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="5" Width="304" Height="165" Depth="491"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="0"/>
+   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Mode</Channel>
   <Channel Number="1">Pattern/Chase Lens 1</Channel>
@@ -509,11 +509,11 @@
  </Mode>
  <Mode Name="Standard Pattern">
   <Physical>
-   <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
-   <Dimensions Width="304" Height="165" Depth="491" Weight="5"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="5" Width="304" Height="165" Depth="491"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="0"/>
+   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Mode</Channel>
   <Channel Number="1">Pattern</Channel>
@@ -522,11 +522,11 @@
  </Mode>
  <Mode Name="Standard Chase">
   <Physical>
-   <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
-   <Dimensions Width="304" Height="165" Depth="491" Weight="5"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="5" Width="304" Height="165" Depth="491"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="0"/>
+   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Mode</Channel>
   <Channel Number="1">Chase</Channel>
@@ -535,11 +535,11 @@
  </Mode>
  <Mode Name="Extended Pattern">
   <Physical>
-   <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
-   <Dimensions Width="304" Height="165" Depth="491" Weight="5"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="5" Width="304" Height="165" Depth="491"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="0"/>
+   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Mode Pattern</Channel>
   <Channel Number="1">Pattern Lens 1</Channel>
@@ -551,11 +551,11 @@
  </Mode>
  <Mode Name="Extended Chase">
   <Physical>
-   <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
-   <Dimensions Width="304" Height="165" Depth="491" Weight="5"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="5" Width="304" Height="165" Depth="491"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="0"/>
+   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Mode Chase</Channel>
   <Channel Number="1">Chase Lens 1</Channel>

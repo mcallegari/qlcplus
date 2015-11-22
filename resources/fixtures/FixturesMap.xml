@@ -96,6 +96,7 @@
   <fixture path="Blizzard-Lighting-RokBox-Infiniwhite.qxf" mf="Blizzard Lighting" md="Rokbox Infiniwhite"/>
   <fixture path="Blizzard-Lighting-Snowball.qxf" mf="Blizzard Lighting" md="Snowball"/>
   <fixture path="Blizzard-Lighting-Stimul-Eye.qxf" mf="Blizzard Lighting" md="Stimul-Eye"/>
+  <fixture path="Blizzard-Lighting-StormChaser.qxf" mf="Blizzard Lighting" md="StormChaser"/>
   <fixture path="Blizzard-Lighting-Weather-System.qxf" mf="Blizzard Lighting" md="Weather System"/>
   <fixture path="BoomToneDJ-Froggy-LED-RGBW.qxf" mf="BoomToneDJ" md="Froggy LED RGBW"/>
   <fixture path="BoomToneDJ-Quattro-Scan-LED.qxf" mf="BoomToneDJ" md="Quattro Scan LED"/>
@@ -546,6 +547,7 @@
   <fixture path="Showtec-Dragon-F-350.qxf" mf="Showtec" md="Dragon F-350"/>
   <fixture path="Showtec-Dynamic-LED-v3.qxf" mf="Showtec" md="Dynamic LED v3"/>
   <fixture path="Showtec-Event-Spot-1800-Q4.qxf" mf="Showtec" md="Event Spot 1800 Q4"/>
+  <fixture path="Showtec-Explorer-250-Pro-MKII.qxf" mf="Showtec" md="Explorer 250 Pro MKII"/>
   <fixture path="Showtec-Expression-5000.qxf" mf="Showtec" md="Expression 5000"/>
   <fixture path="Showtec-Indigo-150-LED.qxf" mf="Showtec" md="Indigo 150 LED"/>
   <fixture path="Showtec-Indigo-4600.qxf" mf="Showtec" md="Indigo 4600"/>
@@ -564,6 +566,8 @@
   <fixture path="Showtec-Phantom-250.qxf" mf="Showtec" md="Phantom 250"/>
   <fixture path="Showtec-Phantom-50.qxf" mf="Showtec" md="Phantom 50"/>
   <fixture path="Showtec-Phantom-75-LED-Spot-V2.qxf" mf="Showtec" md="Phantom 75 LED Spot V2"/>
+  <fixture path="Showtec-Pixel-Bar-12.qxf" mf="Showtec" md="Pixel Bar 12"/>
+  <fixture path="Showtec-Power-Spot-9-Q6-Tour-V1.qxf" mf="Showtec" md="Power Spot 9 Q6 Tour V1"/>
   <fixture path="Showtec-Quatro.qxf" mf="Showtec" md="Quatro"/>
   <fixture path="Showtec-Spectral-CYC650.qxf" mf="Showtec" md="Spectral CYC650"/>
   <fixture path="Showtec-Sunstrip-Active.qxf" mf="Showtec" md="Sunstrip Active"/>
@@ -581,6 +585,7 @@
   <fixture path="Stairville-LED-bar-240-8-RGB.qxf" mf="Stairville" md="LED Bar 240/8 RGB"/>
   <fixture path="Stairville-LED-Flood-Panel-150.qxf" mf="Stairville" md="LED Flood Panel 150"/>
   <fixture path="Stairville-LED-Flood-Panel-7x3W.qxf" mf="Stairville" md="LED Flood Panel 7x3W"/>
+  <fixture path="Stairville-LED-Matrix-Blinder-5x5.qxf" mf="Stairville" md="LED Matrix Blinder 5x5"/>
   <fixture path="Stairville-LED-PAR-64-Alu.qxf" mf="Stairville" md="LED PAR 64 Alu"/>
   <fixture path="Stairville-LED-PAR56-10MM-UV.qxf" mf="Stairville" md="LED PAR56 10MM UV"/>
   <fixture path="Stairville-LED-PAR56-MKII-RGBA.qxf" mf="Stairville" md="LED Par56 MKII RGBA"/>

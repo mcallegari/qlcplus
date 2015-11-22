@@ -79,7 +79,7 @@
   <Capability Min="250" Max="251">Letter 'Z'/Number '8'</Capability>
   <Capability Min="252" Max="255">Letter 'Z'/Number '9'</Capability>
  </Channel>
- <Channel Name="Speed adjustmenty (chan 27=30...255)">
+ <Channel Name="Speed Adjustment (chan 27=30...255)">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Increasing speed</Capability>
  </Channel>
@@ -216,7 +216,7 @@
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="255">Increasing speed</Capability>
  </Channel>
- <Mode Name="1 Channel">
+ <Mode Name="1-Channel">
   <Physical>
    <Bulb Type="25 × 3 W LEDs (warm white)" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="10.2" Width="638" Height="664" Depth="114"/>

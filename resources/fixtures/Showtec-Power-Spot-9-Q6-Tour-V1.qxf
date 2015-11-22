@@ -11,7 +11,7 @@
  <Type>Color Changer</Type>
  <Channel Name="Dimmer">
   <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment, fromdarkest to brightest  0-100%</Capability>
+  <Capability Min="0" Max="255">Gradual adjustment, from darkest to brightest  0-100%</Capability>
  </Channel>
  <Channel Name="Red">
   <Group Byte="0">Intensity</Group>
@@ -85,7 +85,7 @@
   <Capability Min="0" Max="0">No function</Capability>
   <Capability Min="1" Max="255">Frequency, from slow to fast</Capability>
  </Channel>
- <Mode Name="6-Channel Mode">
+ <Mode Name="6-Channel">
   <Physical>
    <Bulb Type="9x6-in-1 12W LED RGBWA-UV" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="2.84" Width="264" Height="294" Depth="113"/>
@@ -100,7 +100,7 @@
   <Channel Number="4">Amber</Channel>
   <Channel Number="5">UV</Channel>
  </Mode>
- <Mode Name="8-Channel Mode">
+ <Mode Name="8-Channel">
   <Physical>
    <Bulb Type="9x6-in-1 12W LED RGBWA-UV" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="2.84" Width="264" Height="294" Depth="113"/>
@@ -117,7 +117,7 @@
   <Channel Number="6">UV</Channel>
   <Channel Number="7">Strobe</Channel>
  </Mode>
- <Mode Name="10-Channel Mode">
+ <Mode Name="10-Channel">
   <Physical>
    <Bulb Type="9x6-in-1 12W LED RGBWA-UV" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="2.84" Width="264" Height="294" Depth="113"/>

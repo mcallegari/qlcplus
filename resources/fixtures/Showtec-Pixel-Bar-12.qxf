@@ -8,7 +8,7 @@
  </Creator>
  <Manufacturer>Showtec</Manufacturer>
  <Model>Pixel Bar 12</Model>
- <Type>Other</Type>
+ <Type>Color Changer</Type>
  <Channel Name="Red">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
@@ -313,14 +313,14 @@
   <Channel Number="4">Green Section 2</Channel>
   <Channel Number="5">Blue Section 2</Channel>
   <Head>
-   <Channel>2</Channel>
-   <Channel>1</Channel>
    <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
   </Head>
   <Head>
-   <Channel>5</Channel>
-   <Channel>4</Channel>
    <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
   </Head>
  </Mode>
  <Mode Name="9 Channels">
@@ -341,19 +341,19 @@
   <Channel Number="7">Blue Section 3</Channel>
   <Channel Number="8">Green Section 3</Channel>
   <Head>
-   <Channel>2</Channel>
-   <Channel>1</Channel>
    <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
   </Head>
   <Head>
-   <Channel>5</Channel>
-   <Channel>4</Channel>
    <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
   </Head>
   <Head>
    <Channel>6</Channel>
-   <Channel>8</Channel>
    <Channel>7</Channel>
+   <Channel>8</Channel>
   </Head>
  </Mode>
  <Mode Name="12 Channels">
@@ -377,24 +377,24 @@
   <Channel Number="10">Green Section 4</Channel>
   <Channel Number="11">Blue Section 4</Channel>
   <Head>
-   <Channel>2</Channel>
-   <Channel>1</Channel>
    <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
   </Head>
   <Head>
-   <Channel>5</Channel>
-   <Channel>4</Channel>
    <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
   </Head>
   <Head>
    <Channel>6</Channel>
-   <Channel>8</Channel>
    <Channel>7</Channel>
+   <Channel>8</Channel>
   </Head>
   <Head>
-   <Channel>11</Channel>
-   <Channel>10</Channel>
    <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
   </Head>
  </Mode>
  <Mode Name="18 Channels">
@@ -424,34 +424,34 @@
   <Channel Number="16">Green Section 6</Channel>
   <Channel Number="17">Blue Section 6</Channel>
   <Head>
-   <Channel>2</Channel>
-   <Channel>1</Channel>
    <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
   </Head>
   <Head>
-   <Channel>5</Channel>
-   <Channel>4</Channel>
    <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
   </Head>
   <Head>
    <Channel>6</Channel>
-   <Channel>8</Channel>
    <Channel>7</Channel>
+   <Channel>8</Channel>
   </Head>
   <Head>
-   <Channel>11</Channel>
-   <Channel>10</Channel>
    <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
   </Head>
   <Head>
-   <Channel>14</Channel>
    <Channel>13</Channel>
+   <Channel>14</Channel>
    <Channel>12</Channel>
   </Head>
   <Head>
-   <Channel>17</Channel>
-   <Channel>16</Channel>
    <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
   </Head>
  </Mode>
  <Mode Name="36 Channels">
@@ -499,64 +499,64 @@
   <Channel Number="34">Green Section 12</Channel>
   <Channel Number="35">Blue Section 12</Channel>
   <Head>
-   <Channel>2</Channel>
-   <Channel>1</Channel>
    <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
   </Head>
   <Head>
-   <Channel>5</Channel>
-   <Channel>4</Channel>
    <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
   </Head>
   <Head>
    <Channel>6</Channel>
-   <Channel>8</Channel>
    <Channel>7</Channel>
+   <Channel>8</Channel>
   </Head>
   <Head>
-   <Channel>11</Channel>
-   <Channel>10</Channel>
    <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
   </Head>
   <Head>
-   <Channel>14</Channel>
    <Channel>13</Channel>
+   <Channel>14</Channel>
    <Channel>12</Channel>
   </Head>
   <Head>
-   <Channel>17</Channel>
-   <Channel>16</Channel>
    <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
   </Head>
   <Head>
-   <Channel>20</Channel>
-   <Channel>19</Channel>
    <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
   </Head>
   <Head>
    <Channel>21</Channel>
-   <Channel>23</Channel>
    <Channel>22</Channel>
+   <Channel>23</Channel>
   </Head>
   <Head>
-   <Channel>26</Channel>
-   <Channel>25</Channel>
    <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
   </Head>
   <Head>
-   <Channel>29</Channel>
-   <Channel>28</Channel>
    <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
   </Head>
   <Head>
-   <Channel>32</Channel>
-   <Channel>31</Channel>
    <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
   </Head>
   <Head>
-   <Channel>35</Channel>
-   <Channel>34</Channel>
    <Channel>33</Channel>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
   </Head>
  </Mode>
 </FixtureDefinition>

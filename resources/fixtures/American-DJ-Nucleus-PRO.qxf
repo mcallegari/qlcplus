@@ -52,7 +52,7 @@
  </Channel>
  <Channel Name="Mirror 1 Pan">
   <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">PAn</Capability>
+  <Capability Min="0" Max="255">Pan</Capability>
  </Channel>
  <Channel Name="Mirror 1 Tilt">
   <Group Byte="0">Tilt</Group>
@@ -314,12 +314,12 @@
   <Capability Min="240" Max="247" Color="#0078c8">Dark Blue</Capability>
   <Capability Min="248" Max="255" Color="#ffffff">White</Capability>
  </Channel>
- <Mode Name="4 Channel">
+ <Mode Name="4 Channel Mode">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="12.7" Width="577" Height="670" Depth="263"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="120" TiltMax="60"/>
+   <Focus Type="Mirror" PanMax="120" TiltMax="60"/>
    <Technical PowerConsumption="155" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan &amp; Tilt Movement</Channel>
@@ -327,12 +327,12 @@
   <Channel Number="2">Color Macro</Channel>
   <Channel Number="3">Color Macro Speed</Channel>
  </Mode>
- <Mode Name="18 Channel">
+ <Mode Name="18 Channel Mode">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="12.7" Width="577" Height="670" Depth="263"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="120" TiltMax="60"/>
+   <Focus Type="Mirror" PanMax="120" TiltMax="60"/>
    <Technical PowerConsumption="155" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Mirror 1 Pan</Channel>
@@ -354,42 +354,42 @@
   <Channel Number="16">Mirror 6 Tilt</Channel>
   <Channel Number="17">Color Macros LED 6</Channel>
   <Head>
-   <Channel>1</Channel>
    <Channel>0</Channel>
+   <Channel>1</Channel>
    <Channel>2</Channel>
   </Head>
   <Head>
    <Channel>3</Channel>
-   <Channel>5</Channel>
    <Channel>4</Channel>
+   <Channel>5</Channel>
   </Head>
   <Head>
-   <Channel>7</Channel>
    <Channel>6</Channel>
+   <Channel>7</Channel>
    <Channel>8</Channel>
   </Head>
   <Head>
-   <Channel>9</Channel>
    <Channel>11</Channel>
+   <Channel>9</Channel>
    <Channel>10</Channel>
   </Head>
   <Head>
-   <Channel>13</Channel>
    <Channel>12</Channel>
+   <Channel>13</Channel>
    <Channel>14</Channel>
   </Head>
   <Head>
-   <Channel>17</Channel>
-   <Channel>16</Channel>
    <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
   </Head>
  </Mode>
- <Mode Name="22 Channel">
+ <Mode Name="22 Channel Mode">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="12.7" Width="577" Height="670" Depth="263"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="120" TiltMax="60"/>
+   <Focus Type="Mirror" PanMax="120" TiltMax="60"/>
    <Technical PowerConsumption="155" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Mirror 1 Pan</Channel>
@@ -415,34 +415,34 @@
   <Channel Number="20">Color Macro</Channel>
   <Channel Number="21">Color Macro Speed</Channel>
   <Head>
-   <Channel>1</Channel>
    <Channel>0</Channel>
+   <Channel>1</Channel>
    <Channel>2</Channel>
   </Head>
   <Head>
    <Channel>3</Channel>
-   <Channel>5</Channel>
    <Channel>4</Channel>
+   <Channel>5</Channel>
   </Head>
   <Head>
-   <Channel>7</Channel>
    <Channel>6</Channel>
+   <Channel>7</Channel>
    <Channel>8</Channel>
   </Head>
   <Head>
-   <Channel>9</Channel>
    <Channel>11</Channel>
+   <Channel>9</Channel>
    <Channel>10</Channel>
   </Head>
   <Head>
-   <Channel>13</Channel>
    <Channel>12</Channel>
+   <Channel>13</Channel>
    <Channel>14</Channel>
   </Head>
   <Head>
-   <Channel>17</Channel>
-   <Channel>16</Channel>
    <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
   </Head>
  </Mode>
 </FixtureDefinition>
