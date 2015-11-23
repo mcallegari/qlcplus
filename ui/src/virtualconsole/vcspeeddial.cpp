@@ -1006,33 +1006,53 @@ bool VCSpeedDial::saveXML(QXmlStreamWriter *doc)
     doc->writeEndElement();
 
     /* Tap input */
-    doc->writeStartElement(KXMLQLCVCSpeedDialTap);
-    saveXMLInput(doc, inputSource(tapInputSourceId));
-    doc->writeEndElement();
+    QSharedPointer<QLCInputSource> tapSrc = inputSource(tapInputSourceId);
+    if (!tapSrc.isNull() && tapSrc->isValid())
+    {
+        doc->writeStartElement(KXMLQLCVCSpeedDialTap);
+        saveXMLInput(doc, tapSrc);
+        doc->writeEndElement();
+    }
 
     // MultDiv options
     if (m_resetFactorOnDialChange)
         doc->writeTextElement(KXMLQLCVCSpeedDialResetFactorOnDialChange, KXMLQLCTrue);
 
     /* Mult input */
-    doc->writeStartElement(KXMLQLCVCSpeedDialMult);
-    saveXMLInput(doc, inputSource(multInputSourceId));
-    doc->writeEndElement();
+    QSharedPointer<QLCInputSource> multSrc = inputSource(multInputSourceId);
+    if (!multSrc.isNull() && multSrc->isValid())
+    {
+        doc->writeStartElement(KXMLQLCVCSpeedDialMult);
+        saveXMLInput(doc, multSrc);
+        doc->writeEndElement();
+    }
 
     /* Div input */
-    doc->writeStartElement(KXMLQLCVCSpeedDialDiv);
-    saveXMLInput(doc, inputSource(divInputSourceId));
-    doc->writeEndElement();
+    QSharedPointer<QLCInputSource> divSrc = inputSource(divInputSourceId);
+    if (!divSrc.isNull() && divSrc->isValid())
+    {
+        doc->writeStartElement(KXMLQLCVCSpeedDialDiv);
+        saveXMLInput(doc, divSrc);
+        doc->writeEndElement();
+    }
 
     /* MultDiv Reset input */
-    doc->writeStartElement(KXMLQLCVCSpeedDialMultDivReset);
-    saveXMLInput(doc, inputSource(multDivResetInputSourceId));
-    doc->writeEndElement();
+    QSharedPointer<QLCInputSource> resetSrc = inputSource(multDivResetInputSourceId);
+    if (!resetSrc.isNull() && resetSrc->isValid())
+    {
+        doc->writeStartElement(KXMLQLCVCSpeedDialMultDivReset);
+        saveXMLInput(doc, resetSrc);
+        doc->writeEndElement();
+    }
 
     /* Apply input */
-    doc->writeStartElement(KXMLQLCVCSpeedDialApply);
-    saveXMLInput(doc, inputSource(applyInputSourceId));
-    doc->writeEndElement();
+    QSharedPointer<QLCInputSource> applySrc = inputSource(applyInputSourceId);
+    if (!applySrc.isNull() && applySrc->isValid())
+    {
+        doc->writeStartElement(KXMLQLCVCSpeedDialApply);
+        saveXMLInput(doc, applySrc);
+        doc->writeEndElement();
+    }
 
     /* Save time */
     doc->writeTextElement(KXMLQLCVCSpeedDialTime, QString::number(m_dial->value()));
