@@ -1522,8 +1522,6 @@ bool VCSlider::saveXML(QXmlStreamWriter *doc)
     doc->writeAttribute(KXMLQLCVCSliderLevelHighLimit, QString::number(levelHighLimit()));
     /* Level value */
     doc->writeAttribute(KXMLQLCVCSliderLevelValue, QString::number(levelValue()));
-    /* End the <Level> tag */
-    doc->writeEndElement();
 
     /* Level channels */
     QListIterator <LevelChannel> it(m_levelChannels);
@@ -1532,6 +1530,9 @@ bool VCSlider::saveXML(QXmlStreamWriter *doc)
         LevelChannel lch(it.next());
         lch.saveXML(doc);
     }
+
+    /* End the <Level> tag */
+    doc->writeEndElement();
 
     /* Playback */
     doc->writeStartElement(KXMLQLCVCSliderPlayback);

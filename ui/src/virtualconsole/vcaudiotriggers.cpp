@@ -673,7 +673,11 @@ bool VCAudioTriggers::saveXML(QXmlStreamWriter *doc)
     }
 
     if (hasAssignment == false)
+    {
+        /* End the <AudioTriggers> tag */
+        doc->writeEndElement();
         return false;
+    }
 
     if (m_volumeBar->m_type != AudioBar::None)
     {
