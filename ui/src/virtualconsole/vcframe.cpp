@@ -1089,11 +1089,17 @@ bool VCFrame::saveXML(QXmlStreamWriter *doc)
         doc->writeTextElement(KXMLQLCVCFrameIsDisabled, isDisabled() ? KXMLQLCTrue : KXMLQLCFalse);
 
         /* Enable control */
-        doc->writeStartElement(KXMLQLCVCFrameEnableSource);
-        if (m_enableKeySequence.toString().isEmpty() == false)
-            doc->writeTextElement(KXMLQLCVCWidgetKey, m_enableKeySequence.toString());
-        saveXMLInput(doc, inputSource(enableInputSourceId));
-        doc->writeEndElement();
+        QString keySeq = m_enableKeySequence.toString();
+        QSharedPointer<QLCInputSource> enableSrc = inputSource(enableInputSourceId);
+
+        if (keySeq.isEmpty() == false || (!enableSrc.isNull() && enableSrc->isValid()))
+        {
+            doc->writeStartElement(KXMLQLCVCFrameEnableSource);
+            if (keySeq.isEmpty() == false)
+                doc->writeTextElement(KXMLQLCVCWidgetKey, keySeq);
+            saveXMLInput(doc, enableSrc);
+            doc->writeEndElement();
+        }
 
         /* Multipage mode */
         if (multipageMode() == true)
@@ -1104,18 +1110,30 @@ bool VCFrame::saveXML(QXmlStreamWriter *doc)
             doc->writeEndElement();
 
             /* Next page */
-            doc->writeStartElement(KXMLQLCVCFrameNext);
-            if (m_nextPageKeySequence.toString().isEmpty() == false)
-                doc->writeTextElement(KXMLQLCVCWidgetKey, m_nextPageKeySequence.toString());
-            saveXMLInput(doc, inputSource(nextPageInputSourceId));
-            doc->writeEndElement();
+            keySeq = m_nextPageKeySequence.toString();
+            QSharedPointer<QLCInputSource> nextSrc = inputSource(nextPageInputSourceId);
+
+            if (keySeq.isEmpty() == false || (!nextSrc.isNull() && nextSrc->isValid()))
+            {
+                doc->writeStartElement(KXMLQLCVCFrameNext);
+                if (keySeq.isEmpty() == false)
+                    doc->writeTextElement(KXMLQLCVCWidgetKey, keySeq);
+                saveXMLInput(doc, nextSrc);
+                doc->writeEndElement();
+            }
 
             /* Previous page */
-            doc->writeStartElement(KXMLQLCVCFramePrevious);
-            if (m_previousPageKeySequence.toString().isEmpty() == false)
-                doc->writeTextElement(KXMLQLCVCWidgetKey, m_previousPageKeySequence.toString());
-            saveXMLInput(doc, inputSource(previousPageInputSourceId));
-            doc->writeEndElement();
+            keySeq = m_previousPageKeySequence.toString();
+            QSharedPointer<QLCInputSource> prevSrc = inputSource(previousPageInputSourceId);
+
+            if (keySeq.isEmpty() == false || (!prevSrc.isNull() && prevSrc->isValid()))
+            {
+                doc->writeStartElement(KXMLQLCVCFramePrevious);
+                if (keySeq.isEmpty() == false)
+                    doc->writeTextElement(KXMLQLCVCWidgetKey, keySeq);
+                saveXMLInput(doc, prevSrc);
+                doc->writeEndElement();
+            }
 
             /* Pages Loop */
             doc->writeTextElement(KXMLQLCVCFramePagesLoop, m_pagesLoop ? KXMLQLCTrue : KXMLQLCFalse);
