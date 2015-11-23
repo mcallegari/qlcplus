@@ -133,6 +133,7 @@ bool ChaserStep::loadXML(QXmlStreamReader &root, int& stepNumber)
                                          QString(varray.at(i + 1)).toUInt(),
                                          uchar(QString(varray.at(i + 2)).toInt())));
             }
+            qSort(values.begin(), values.end());
         }
     }
     else
