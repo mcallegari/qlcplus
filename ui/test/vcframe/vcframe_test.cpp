@@ -375,7 +375,7 @@ void VCFrame_Test::saveXML()
     QCOMPARE(collapsed, 2);
     QCOMPARE(showheader, 2);
     QCOMPARE(disabled, 2);
-    QCOMPARE(enableInput, 2);
+    QCOMPARE(enableInput, 0);
     QCOMPARE(showEnableButton, 2);
     QCOMPARE(frame, 2);
 }
