@@ -260,7 +260,7 @@
     <message>
         <location filename="../ui/src/docbrowser.cpp" line="128"/>
         <source>Close this window</source>
-        <translation type="unfinished"></translation>
+        <translation>Tanca aquesta finestra</translation>
     </message>
 </context>
 <context>
@@ -320,7 +320,7 @@
     <message>
         <location filename="editchannel.ui" line="262"/>
         <source>Invalid Range: overlapping with another capability.</source>
-        <translation type="unfinished"></translation>
+        <translation>Rang invàlid: es sobreposa amb un altre capacitat.</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="285"/>
@@ -417,14 +417,14 @@
     <message>
         <location filename="editchannel.cpp" line="555"/>
         <source>Missing resources</source>
-        <translation type="unfinished"></translation>
+        <translation>Recursos que falten</translation>
     </message>
     <message>
         <location filename="editchannel.cpp" line="556"/>
         <source>Some gobos are missing:
 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Alguns gobos falten:</translation>
     </message>
     <message>
         <location filename="editchannel.cpp" line="394"/>

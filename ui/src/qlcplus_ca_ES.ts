@@ -1668,7 +1668,7 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     <message>
         <location filename="dmxdumpfactory.ui" line="53"/>
         <source>Select an existing Scene to overwrite</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecciona una escena existent per sobreescriure</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.ui" line="75"/>
@@ -1746,7 +1746,7 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     <message>
         <location filename="docbrowser.cpp" line="128"/>
         <source>Close this window</source>
-        <translation type="unfinished"></translation>
+        <translation>Tanca aquesta finestra</translation>
     </message>
 </context>
 <context>
@@ -3465,7 +3465,7 @@ Si us plau, consulteu la documentació dels plugins per solucionar això.</trans
     <message>
         <location filename="inputprofileeditor.ui" line="311"/>
         <source>Generate an extra Press/Release when toggled</source>
-        <translation type="unfinished"></translation>
+        <translation>Generar una ordre addicional de Pressionar / Deixar anar Quan S&apos;activa</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="258"/>
@@ -3697,13 +3697,13 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
         <location filename="monitor/monitor.cpp" line="464"/>
         <location filename="monitor/monitor.cpp" line="545"/>
         <source>Close</source>
-        <translation type="unfinished">Tancar</translation>
+        <translation>Tancar</translation>
     </message>
     <message>
         <location filename="monitor/monitor.cpp" line="465"/>
         <location filename="monitor/monitor.cpp" line="546"/>
         <source>Close this window</source>
-        <translation type="unfinished"></translation>
+        <translation>Tanca aquesta finestra</translation>
     </message>
     <message>
         <location filename="monitor/monitor.cpp" line="484"/>
@@ -5731,12 +5731,12 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcframeproperties.cpp" line="71"/>
         <source>External Input - Previous Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrada Externa - Pàgina Anterior</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.cpp" line="84"/>
         <source>External Input - Next Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrada Externa - Pàgina Següent</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="122"/>
@@ -7182,22 +7182,22 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="233"/>
         <source>Range Display Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode de Visutalització de Rang</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="239"/>
         <source>Degrees</source>
-        <translation type="unfinished"></translation>
+        <translation>Graus</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="249"/>
         <source>Percentage</source>
-        <translation type="unfinished">Percentatge</translation>
+        <translation>Percentatge</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="259"/>
         <source>DMX</source>
-        <translation type="unfinished">DMX</translation>
+        <translation>DMX</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="283"/>
@@ -7227,7 +7227,7 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="347"/>
         <source>Add Fixture Group</source>
-        <translation type="unfinished"></translation>
+        <translation>Afegir un Grup de Fixtures</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="358"/>
@@ -7237,12 +7237,12 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="369"/>
         <source>Move Up</source>
-        <translation type="unfinished"></translation>
+        <translation>Moure cap amunt</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="380"/>
         <source>Move Down</source>
-        <translation type="unfinished"></translation>
+        <translation>Moure cap avall</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="399"/>
@@ -7320,12 +7320,12 @@ Si us plau seleccionau un d&apos;aquests canals.</translation>
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="768"/>
         <source>Please select at least one fixture or head to create this type of preset !</source>
-        <translation type="unfinished"></translation>
+        <translation>Si us plau, seleccioneu al menys un fixture o capçal per crear aquest tipus de preset !</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="775"/>
         <source>Fixture Group</source>
-        <translation type="unfinished">Grup de Fixtures</translation>
+        <translation>Grup de Fixtures</translation>
     </message>
 </context>
 <context>
