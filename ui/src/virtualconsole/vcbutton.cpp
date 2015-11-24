@@ -923,11 +923,12 @@ bool VCButton::saveXML(QXmlStreamWriter *doc)
 
     /* Action */
     doc->writeStartElement(KXMLQLCVCButtonAction);
-    doc->writeCharacters(actionToString(action()));
+
     if (action() == StopAll && stopAllFadeTime() != 0)
     {
         doc->writeAttribute(KXMLQLCVCButtonStopAllFadeTime, QString::number(stopAllFadeTime()));
     }
+    doc->writeCharacters(actionToString(action()));
     doc->writeEndElement();
 
     /* Key sequence */
