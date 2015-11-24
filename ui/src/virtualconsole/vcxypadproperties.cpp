@@ -892,10 +892,14 @@ void VCXYPadProperties::slotXYPadPositionChanged(const QPointF &pt)
 
 void VCXYPadProperties::slotInputValueChanged(quint32 universe, quint32 channel)
 {
+    Q_UNUSED(universe);
+    Q_UNUSED(channel);
+
     VCXYPadPreset *preset = getSelectedPreset();
 
-    if (preset != NULL)
-        preset->m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(universe, channel));
+    if (preset != NULL) {
+        preset->m_inputSource = m_presetInputWidget->inputSource();
+    }
 }
 
 void VCXYPadProperties::slotKeySequenceChanged(QKeySequence key)

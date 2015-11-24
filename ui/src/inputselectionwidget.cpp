@@ -23,6 +23,8 @@
 #include "inputpatch.h"
 #include "doc.h"
 
+#include <QDebug>
+
 InputSelectionWidget::InputSelectionWidget(Doc *doc, QWidget *parent)
     : QWidget(parent)
     , m_doc(doc)
@@ -85,7 +87,7 @@ bool InputSelectionWidget::isAutoDetecting()
 
 void InputSelectionWidget::stopAutoDetection()
 {
-    if(m_autoDetectInputButton->isChecked())
+    if (m_autoDetectInputButton->isChecked())
         m_autoDetectInputButton->toggle();
 }
 
@@ -173,6 +175,7 @@ void InputSelectionWidget::slotChooseInputClicked()
     {
         m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(sic.universe(), sic.channel()));
         updateInputSource();
+        emit inputValueChanged(sic.universe(), sic.channel());
     }
 }
 

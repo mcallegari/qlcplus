@@ -12,6 +12,7 @@ qlcplus (4.10.2) stable; urgency=low
   * Virtual Console/Slider: in level mode, activate only in operate mode and don't hold forced LTP channels (David Garyga)
   * Virtual Console/XYPad: added Fixture Group preset, to control a subgroup of Fixtures (see documentation)
   * Virtual Console/XYPad Properties: fixture ranges can now be set in degrees, percentage or DMX values
+  * Virtual Console/XYPad Properties: fix manual input selection for presets (David Garyga)
   * Virtual Console/Cue List: improved mixed usage of crossfader and next/previous buttons (David Garyga)
   * Virtual Console/Audio Triggers: fix triggering virtual console buttons (David Garyga)
   * Fixture Editor: Fix crash in the Channel Editor (David Garyga)

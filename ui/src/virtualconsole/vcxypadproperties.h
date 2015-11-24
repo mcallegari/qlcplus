@@ -82,7 +82,7 @@ private slots:
     /********************************************************************
      * External controls
      ********************************************************************/
-private slots:   
+private slots:
     void slotPanAutoDetectToggled(bool toggled);
     void slotPanInputValueChanged(quint32 uni, quint32 ch);
     void slotTiltAutoDetectToggled(bool toggled);
