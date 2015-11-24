@@ -386,9 +386,12 @@ void VCPropertiesEditor::updateGrandMasterInputSource()
     QString uniName;
     QString chName;
 
-    if (inputSourceNames(m_properties.grandMasterInputUniverse(),
-                         m_properties.grandMasterInputChannel(),
-                         uniName, chName) == true)
+    if (m_ioMap->inputSourceNames(
+                QSharedPointer<QLCInputSource>(
+                    new QLCInputSource(
+                        m_properties.grandMasterInputUniverse(),
+                        m_properties.grandMasterInputChannel())),
+                uniName, chName) == true)
     {
         /* Display the gathered information */
         m_gmInputUniverseEdit->setText(uniName);
@@ -399,55 +402,4 @@ void VCPropertiesEditor::updateGrandMasterInputSource()
         m_gmInputUniverseEdit->setText(KInputNone);
         m_gmInputChannelEdit->setText(KInputNone);
     }
-}
-
-/*****************************************************************************
- * Input Source helper
- *****************************************************************************/
-
-bool VCPropertiesEditor::inputSourceNames(quint32 universe, quint32 channel,
-                                          QString& uniName, QString& chName) const
-{
-    if (universe == InputOutputMap::invalidUniverse() || channel == QLCChannel::invalid())
-    {
-        /* Nothing selected for input universe and/or channel */
-        return false;
-    }
-
-    InputPatch* patch = m_ioMap->inputPatch(universe);
-    if (patch == NULL || patch->plugin() == NULL)
-    {
-        /* There is no patch for the given universe */
-        return false;
-    }
-
-    QLCInputProfile* profile = patch->profile();
-    if (profile == NULL)
-    {
-        /* There is no profile. Display plugin name and channel number.
-           Boring. */
-        uniName = patch->plugin()->name();
-        chName = tr("%1: Unknown").arg(channel + 1);
-    }
-    else
-    {
-        QLCInputChannel* ich;
-        QString name;
-
-        /* Display profile name for universe */
-        uniName = QString("%1: %2").arg(universe + 1).arg(profile->name());
-
-        /* User can input the channel number by hand, so put something
-           rational to the channel name in those cases as well. */
-        ich = profile->channel(channel);
-        if (ich != NULL)
-            name = ich->name();
-        else
-            name = tr("Unknown");
-
-        /* Display channel name */
-        chName = QString("%1: %2").arg(channel + 1).arg(name);
-    }
-
-    return true;
 }

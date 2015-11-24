@@ -104,13 +104,6 @@ private slots:
 
 private:
     void updateGrandMasterInputSource();
-
-    /*************************************************************************
-     * Input Source helper
-     *************************************************************************/
-private:
-    bool inputSourceNames(quint32 universe, quint32 channel,
-                          QString& uniName, QString& chName) const;
 };
 
 /** @} */
