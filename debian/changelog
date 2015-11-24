@@ -4,7 +4,7 @@ qlcplus (4.10.2) stable; urgency=low
   * Audio: fixed playback of 24/32 bit wave files and Show Manager waveform preview
   * DMX Dump: it is now possible to dump DMX values on an existing Scene
   * Function Manager: fix startup function not cleared when deleting function (David Garyga)
-  * Function Manager: highlight current Startup Function when openning the Startup Function Selection Dialog (David Garyga)
+  * Function Manager: highlight current startup Function when opening the Function selection dialog (David Garyga)
   * Function Selection Dialogs: Don't lose the current selection when changing the function type filter (David Garyga)
   * Show Manager: fixed looped functions never stopping with certain durations (Jano Svitok)
   * Show Manager: fixed copy/paste of an existing Chaser
@@ -33,7 +33,7 @@ qlcplus (4.10.2) stable; urgency=low
   * New fixture: Blizzard Lighting StormChaser (thanks to Brent)
   * New fixtures: Showtec Explorer 250 Pro MKII, Showtec Pixel Bar 12 (thanks to Henk de Gunst)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 22 Nov 2015 20:21:22 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 29 Nov 2015 20:21:22 +0200
 
 qlcplus (4.10.1) stable; urgency=high
 

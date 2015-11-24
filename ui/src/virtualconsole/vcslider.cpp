@@ -1491,9 +1491,8 @@ bool VCSlider::saveXML(QXmlStreamWriter *doc)
     /* External input */
     saveXMLInput(doc);
 
-    /* Mode */
+    /* SliderMode */
     doc->writeStartElement(KXMLQLCVCSliderMode);
-    doc->writeCharacters(sliderModeToString(m_sliderMode));
 
     /* Value display style */
     str = valueDisplayStyleToString(valueDisplayStyle());
@@ -1511,6 +1510,9 @@ bool VCSlider::saveXML(QXmlStreamWriter *doc)
         else
             doc->writeAttribute(KXMLQLCVCSliderLevelMonitor, "false");
     }
+
+    doc->writeCharacters(sliderModeToString(m_sliderMode));
+
     /* End the <SliderMode> tag */
     doc->writeEndElement();
 
