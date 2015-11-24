@@ -98,7 +98,7 @@ VCXYPadProperties::VCXYPadProperties(VCXYPad* xypad, Doc* doc)
     m_tiltInputWidget->setKeyInputVisibility(false);
     m_tiltInputWidget->setInputSource(m_xypad->inputSource(VCXYPad::tiltInputSourceId));
     m_tiltInputWidget->setWidgetPage(m_xypad->page());
-    m_panInputWidget->emitOddValues(true);
+    m_tiltInputWidget->emitOddValues(true);
     m_tiltInputWidget->show();
     m_extInputLayout->addWidget(m_tiltInputWidget);
     connect(m_tiltInputWidget, SIGNAL(autoDetectToggled(bool)),
