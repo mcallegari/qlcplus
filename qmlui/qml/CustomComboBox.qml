@@ -17,57 +17,139 @@
   limitations under the License.
 */
 
-import QtQuick 2.3
-import QtQuick.Controls 1.2
-import QtQuick.Controls.Styles 1.2
+import QtQuick 2.0
 import "."
 
-ComboBox
+Rectangle
 {
+    id: cbRoot
     implicitHeight: 30
     implicitWidth: 150
+    color: UISettings.bgMedium
+    border.width: 1
+    border.color: "#222"
+    radius: 3
 
-    currentIndex: 0
-    style:
-        ComboBoxStyle
+    property alias currentIndex: menuListView.currentIndex
+    property alias model: menuListView.model
+    property string currentText
+
+    onModelChanged: menuListView.currentIndex = 0
+
+    onVisibleChanged:
+    {
+        if (visible == false)
+            dropDownMenu.visible = false
+    }
+
+    function positionMenu()
+    {
+        var posnInWindow = cbRoot.mapToItem(mainView, 0, 0);
+        var totalHeight = menuListView.count * 35
+        console.log("Total height: " + totalHeight)
+        if (posnInWindow.y + cbRoot.height + totalHeight > mainView.height)
+          dropDownMenu.y = posnInWindow.y - totalHeight
+        else
+          dropDownMenu.y = posnInWindow.y + cbRoot.height
+        dropDownMenu.x = posnInWindow.x
+        dropDownMenu.height = totalHeight
+    }
+
+    Row
+    {
+        x: 2
+        RobotoText
         {
-            background:
-            Rectangle
-            {
-                anchors.fill: parent
-                radius: 3
-                color: UISettings.bgMedium
-                border.width: 1
-                border.color: "#222"
+            height: cbRoot.height
+            width: cbRoot.width - 2 - arrowButton.width
+            label: currentText
+            fontSize: 12
+            fontBold: true
+        }
+        Rectangle
+        {
+            id: arrowButton
+            width: 30
+            height: cbRoot.height
+            color: "transparent" //"#404040"
 
+            Image
+            {
+                anchors.centerIn: parent
+                source: "qrc:/arrow-down.svg"
+                sourceSize: Qt.size(20, 12)
+            }
+        }
+    }
+    MouseArea
+    {
+        anchors.fill: parent
+        onClicked:
+        {
+            positionMenu()
+            dropDownMenu.visible = !dropDownMenu.visible
+        }
+    }
+
+    Rectangle
+    {
+        id: dropDownMenu
+        y: cbRoot.height
+        width: cbRoot.width
+        color: UISettings.bgStrong
+        border.width: 1
+        border.color: UISettings.bgLight
+        parent: mainView
+        visible: false
+
+        ListView
+        {
+            id: menuListView
+            anchors.fill: parent
+            currentIndex: 0
+            boundsBehavior: Flickable.StopAtBounds
+
+
+
+            delegate:
                 Rectangle
                 {
-                    width: 30
-                    height: parent.height
-                    anchors.right: parent.right
-                    //border.width: 2
-                    //border.color: "#222"
-                    color: "transparent" //"#404040"
+                    id: delegateRoot
+                    width: menuListView.width
+                    height: 35
+                    color: "transparent"
 
-                    Image
+                    Component.onCompleted:
                     {
-                        anchors.centerIn: parent
-                        source: "qrc:/arrow-down.svg"
-                        sourceSize: Qt.size(20, 12)
+                        if (index == menuListView.currentIndex)
+                            currentText = modelData
+                    }
+
+                    RobotoText
+                    {
+                        id: textitem
+                        x: 3
+                        label: modelData
+                        height: parent.height
+                        fontSize: 12
+                    }
+
+                    Rectangle { height: 1; width: parent.width; y: parent.height - 1 }
+
+                    MouseArea
+                    {
+                        anchors.fill: parent
+                        hoverEnabled: true
+                        onEntered: delegateRoot.color = UISettings.highlight
+                        onExited: delegateRoot.color = "transparent"
+                        onClicked:
+                        {
+                            currentText = modelData
+                            menuListView.currentIndex = index
+                            dropDownMenu.visible = false
+                        }
                     }
                 }
-            }
-        label:
-            RobotoText
-            {
-                //verticalAlignment: Qt.AlignVCenter
-                //anchors.left: parent.left
-                //anchors.leftMargin: 5
-                label: control.currentText
-                anchors.fill: parent
-                fontSize: 12
-                fontBold: true
-            }
-        dropDownButtonWidth: 30
+        }
     }
 }
