@@ -1,11 +1,13 @@
 qlcplus (4.10.2) stable; urgency=low
 
   * Engine: added support for devices hotplug (DMX USB, MIDI, HID, Peperoni)
+  * Engine: Universe passthrough data is now merged with QLC+ output, it is not affected by QLC+ processing 
+    (except for blackout) and it appears in the DMX monitor (Jano Svitok)
   * Audio: fixed playback of 24/32 bit wave files and Show Manager waveform preview
   * DMX Dump: it is now possible to dump DMX values on an existing Scene
   * Function Manager: fix startup Function not cleared when deleting it (David Garyga)
   * Function Manager: highlight current startup Function when opening the Function selection dialog (David Garyga)
-  * Function Selection: Don't loose the current selection when changing the function type filter (David Garyga)
+  * Function Selection: Don't lose the current selection when changing the function type filter (David Garyga)
   * Show Manager: fixed looped functions never stopping with certain durations (Jano Svitok)
   * Show Manager: fixed copy/paste of an existing Chaser
   * Virtual Console/Slider: fixed copy of the channel monitor mode (David Garyga)
@@ -21,8 +23,6 @@ qlcplus (4.10.2) stable; urgency=low
   * Input Profiles: added an option for Buttons to always generate a press/release event
   * New input profile: Touch OSC Automat5
   * New input profile: Novation Launch Control (thanks to Giacomo Gorini)
-  * Universe Passthrough data is merged with QLC+ output, is not affected by QLC+ processing (except blackout)
-    and appears in DMX monitor (Jano Svitok)
   * Updated fixture: Stairville xBrick Full-Colour 16X3W (thanks to Rico Hansen)
   * New fixture: American DJ Dotz Flood
   * New fixture: Chauvet COLORdash Par Quad-7
