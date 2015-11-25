@@ -28,7 +28,7 @@ function iconFromName(name)
         case "MIDI": return "qrc:/midiplugin.svg"; break;
         case "OSC": return "qrc:/oscplugin.svg"; break;
         case "E1.31": return "qrc:/e131plugin.svg"; break;
-        case "Loopback": return "qrc:/loopbackplugin.svg"; break;
+        case "Loopback": return "qrc:/loop.svg"; break;
     }
     return "";
 }
