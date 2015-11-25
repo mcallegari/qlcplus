@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="es_ES">
+<TS version="2.1" language="es_ES">
 <context>
     <name>AboutBox</name>
     <message>
@@ -1682,7 +1682,7 @@ El archivo seleccionado ha sido movido o borrado.</translation>
     <message>
         <location filename="dmxdumpfactory.ui" line="53"/>
         <source>Select an existing Scene to overwrite</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccionar una Escena para sobreescribir</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.ui" line="85"/>
@@ -1751,7 +1751,7 @@ El archivo seleccionado ha sido movido o borrado.</translation>
     <message>
         <location filename="docbrowser.cpp" line="128"/>
         <source>Close this window</source>
-        <translation type="unfinished"></translation>
+        <translation>Cerrar esta ventana</translation>
     </message>
 </context>
 <context>
@@ -1907,7 +1907,7 @@ El archivo seleccionado ha sido movido o borrado.</translation>
         <source>Rotation of the pattern&apos;s starting point</source>
         <translation>Rotación del Punto de Inicio del Patrón</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="efxeditor.ui" line="312"/>
         <location filename="efxeditor.ui" line="410"/>
         <source>°</source>
@@ -3472,7 +3472,7 @@ Por favor, revise la documentación de los plugins para solucionar esto.</transl
     <message>
         <location filename="inputprofileeditor.ui" line="311"/>
         <source>Generate an extra Press/Release when toggled</source>
-        <translation type="unfinished"></translation>
+        <translation>Generar comando extra de Presionar/Soltar cuando se active</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="258"/>
@@ -3706,13 +3706,13 @@ Tenga en cuenta que el asistente no puede diferenciar entre una perilla y un sli
         <location filename="monitor/monitor.cpp" line="464"/>
         <location filename="monitor/monitor.cpp" line="545"/>
         <source>Close</source>
-        <translation type="unfinished">Cerrar</translation>
+        <translation>Cerrar</translation>
     </message>
     <message>
         <location filename="monitor/monitor.cpp" line="465"/>
         <location filename="monitor/monitor.cpp" line="546"/>
         <source>Close this window</source>
-        <translation type="unfinished"></translation>
+        <translation>Cerrar esta ventana</translation>
     </message>
     <message>
         <location filename="monitor/monitor.cpp" line="484"/>
@@ -5738,12 +5738,12 @@ Duración: %3
     <message>
         <location filename="virtualconsole/vcframeproperties.cpp" line="71"/>
         <source>External Input - Previous Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrada Externa - Página previa</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.cpp" line="84"/>
         <source>External Input - Next Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrada Externa - Siguiente página</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="122"/>
@@ -7191,22 +7191,22 @@ Duración: %3
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="233"/>
         <source>Range Display Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo de Visualización de Rango</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="239"/>
         <source>Degrees</source>
-        <translation type="unfinished"></translation>
+        <translation>Grados</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="249"/>
         <source>Percentage</source>
-        <translation type="unfinished">Porcentaje</translation>
+        <translation>Porcentaje</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="259"/>
         <source>DMX</source>
-        <translation type="unfinished">DMX</translation>
+        <translation>DMX</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="283"/>
@@ -7236,7 +7236,7 @@ Duración: %3
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="347"/>
         <source>Add Fixture Group</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir un Grupo de Fixtures</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="358"/>
@@ -7246,12 +7246,12 @@ Duración: %3
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="369"/>
         <source>Move Up</source>
-        <translation type="unfinished"></translation>
+        <translation>Mover arriba</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="380"/>
         <source>Move Down</source>
-        <translation type="unfinished"></translation>
+        <translation>Mover abajo</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="399"/>
@@ -7329,12 +7329,12 @@ Por favor elija una que tenga esos canales.</translation>
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="768"/>
         <source>Please select at least one fixture or head to create this type of preset !</source>
-        <translation type="unfinished"></translation>
+        <translation>Por favor, seleccionar al menos un fixture o cabeza para crear este tipo de preset !</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="775"/>
         <source>Fixture Group</source>
-        <translation type="unfinished">Grupo de Fixtures</translation>
+        <translation>Grupo de Fixtures</translation>
     </message>
 </context>
 <context>

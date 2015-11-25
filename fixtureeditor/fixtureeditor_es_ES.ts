@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="es_ES">
+<TS version="2.1" language="es_ES">
 <context>
     <name>AboutBox</name>
     <message>
@@ -261,7 +261,7 @@
     <message>
         <location filename="../ui/src/docbrowser.cpp" line="128"/>
         <source>Close this window</source>
-        <translation type="unfinished"></translation>
+        <translation>Cerrar esta ventana</translation>
     </message>
 </context>
 <context>
@@ -321,7 +321,7 @@
     <message>
         <location filename="editchannel.ui" line="262"/>
         <source>Invalid Range: overlapping with another capability.</source>
-        <translation type="unfinished"></translation>
+        <translation>Rango Inválido: se sobrepone con otra capacidad.</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="285"/>
@@ -418,14 +418,16 @@
     <message>
         <location filename="editchannel.cpp" line="555"/>
         <source>Missing resources</source>
-        <translation type="unfinished"></translation>
+        <translation>Recurso faltante</translation>
     </message>
     <message>
         <location filename="editchannel.cpp" line="556"/>
         <source>Some gobos are missing:
 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Algunos gobos faltantes:
+
+</translation>
     </message>
     <message>
         <location filename="editchannel.cpp" line="394"/>
