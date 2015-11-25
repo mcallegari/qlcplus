@@ -16,6 +16,7 @@ qlcplus (4.10.2) stable; urgency=low
   * Virtual Console/XYPad Properties: fixture ranges can now be set in degrees, percentage or DMX values
   * Virtual Console/XYPad Properties: fix manual input selection for presets (David Garyga)
   * Virtual Console/Cue List: improved mixed usage of crossfader and next/previous buttons (David Garyga)
+  * Virtual Console/Cue List: fix effect of a submaster slider on a Cue List in crossfader mode (David Garyga)
   * Virtual Console/Audio Triggers: fix virtual console buttons triggering (David Garyga)
   * Virtual Console/Input Selection: allow custom feedbacks only on an assigned source and don't crash (David Garyga)
   * Fixture Editor: Fix crash in the Channel Editor (David Garyga)

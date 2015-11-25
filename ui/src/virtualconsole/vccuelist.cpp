@@ -538,11 +538,10 @@ int VCCueList::getLastTreeIndex()
 qreal VCCueList::getPrimaryIntensity() const
 {
     qreal value;
-    if (slidersMode() == Crossfade)
+    if (slidersMode() == Steps)
         value = 1.0;
     else
         value = (qreal)((m_primaryLeft ? m_slider1 : m_slider2)->value()) / 100;
-    qDebug() << Q_FUNC_INFO << m_primaryLeft << m_slider1->value() << m_slider2->value() << value;
     return value;
 }
 
@@ -1197,6 +1196,15 @@ void VCCueList::adjustIntensity(qreal val)
     if (ch != NULL)
     {
         ch->adjustAttribute(val, Function::Intensity);
+
+        // Refresh intensity of current steps
+        if (!ch->stopped() && slidersMode() == Crossfade)
+        {
+            if (m_slider1->value() != 0)
+                ch->adjustIntensity((qreal)m_slider1->value() / 100, m_primaryLeft ? m_primaryIndex : m_secondaryIndex);
+            if (m_slider2->value() != 0)
+                ch->adjustIntensity((qreal)m_slider2->value() / 100, m_primaryLeft ? m_secondaryIndex : m_primaryIndex);
+        }
     }
 
     VCWidget::adjustIntensity(val);
