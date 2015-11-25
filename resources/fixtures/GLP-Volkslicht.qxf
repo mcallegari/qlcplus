@@ -67,9 +67,9 @@
   <Capability Min="0" Max="15">Closed</Capability>
   <Capability Min="16" Max="47">Random pulse effect, slow to fast</Capability>
   <Capability Min="48" Max="79">Up-dimming then Shutter closing, slow to fast</Capability>
-  <Capability Min="80" Max="111">Shuter open then down-dimming, slow to fast</Capability>
+  <Capability Min="80" Max="111">Shutter open then down-dimming, slow to fast</Capability>
   <Capability Min="112" Max="143">Up-dimming then down-dimming, slow to fast</Capability>
-  <Capability Min="144" Max="199">Strobe effect pause, 5s-1s</Capability>
+  <Capability Min="144" Max="199">Strobe effect pause, 5 s-1 s</Capability>
   <Capability Min="200" Max="239">Strobe, slow to fast (1 Hz-10 Hz)</Capability>
   <Capability Min="240" Max="240">Strobe 25 Hz</Capability>
   <Capability Min="241" Max="241">Strobe 50 Hz</Capability>

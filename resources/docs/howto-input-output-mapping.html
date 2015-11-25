@@ -20,7 +20,7 @@ reconfigure it every time.<br>
 If no project is loaded, QLC+ will keep the I/O mapping as a "fallback" configuration. 
 </p>
 
-<H2>Input/Output Manager</H2>
+<H2 id="input-output-manager">Input/Output Manager</H2>
 
 <P>
 To access the Input/Output Manager, just click on the tab with the <img src="qrc:/input_output.png" width=32> icon
@@ -41,10 +41,11 @@ Some plugins might require configuration before they can be used' so you might
 not be able to see all inputs/outputs at first. The configuration button
 is place next to the information panel and it is enabled if the plugin 
 allows any manual setting.<br>
-The button is icon is: <IMG SRC="qrc:/configure.png" width=32>
+The button icon is: <IMG SRC="qrc:/configure.png" width=32>
 </P>
 
-<H2>Adding/Removing universes</H2>
+<H2 "adding-universes">Adding/Removing universes</H2>
+
 <P>
 QLC+ supports any number of universes, depending on the CPU limit of the device controlling them.<br>
 On the left hand side of the Input/Output Manager there is a toolbar where you can add/remove, name
@@ -73,14 +74,11 @@ and configure universes.
  </TR>
  <TR>
   <TD><B>Passthrough</B></TD>
-  <TD>Set the universe to just forward what it receives in its input line to its output line<br>
-      This is useful when you want to use QLC+ to act as a "protocol" converter. For example
-      you can use this feature to transparently map an ArtNet network to a DMX USB adapter.
-  </TD>
+  <TD>See <a href="#passthrough">below</a></TD>
  </TR>
 </TABLE>
 
-<H2>Patching</H2>
+<H2 id="patching">Patching</H2>
 
 <P>
 To patch a plugin's input/output line to the selected universe, you need to place
@@ -98,7 +96,34 @@ The plugin information on the bottom right hand side of the screen will change a
 you the new status of the plugin line.
 </P>
 
-<H2>Input and Feedbacks</H2>
+<H2 id="passthrough">Universe Passthrough</H2>
+
+<P>
+When passthrough is enabled, universe just forwards what it receives in its input line to its output line.
+This is useful for several things:
+<UL>
+<LI><B>Protocol converter</B>: when you want to use QLC+ to act as a
+    "protocol" converter. For example you can use this feature to
+    transparently map an ArtNet network to a DMX USB adapter or even MIDI.
+</LI>
+<LI><B>Monitor external data</B>: patch fixtures and watch the data in DMX 
+    monitor
+</LI>
+<LI><B>Merge data from external controller</B>: Have external lighting desk 
+    control some of the channels independently (for example conventionals) 
+    and QLC+ control intelligent lights on the same universe.</LI>
+<LI><B>Raspberry Pi</B>: forward data from QLC+ on PC while programming scenes;
+    when the workspace is transferred, Raspberry becomes main controller; the
+    devices are always connected to RPi</LI>
+</UL>
+
+<P>Passthrough data is not affected by QLC+ grandmaster or channel modifiers.
+   It is merged in HTP fashion with QLC+ output if there are any fixtures
+   patched at that channel (Note: it does not use LTP/HTP channel settings).
+   Blackout affects passthrough data.
+</P>
+
+<H2 id="input-and-feedback">Input and Feedbacks</H2>
 
 <P>
 When a plugin input line is checked, it gets enabled right away, so you can perform a basic test
@@ -111,7 +136,7 @@ on the left side of the screen.
 <P>
 If your input device supports a return channel, QLC+ can send a visual/mechanical feedback 
 to it. Devices such as Behringer BCF2000 support this feature.<br>
-At the moment feedbacks are supported only through MIDI.
+At the moment feedbacks are supported only through MIDI, OSC and loopback.
 </P>
 
 <P>

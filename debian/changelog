@@ -20,6 +20,8 @@ qlcplus (4.10.2) stable; urgency=low
   * Input Profiles: added an option for Buttons to always generate a press/release event
   * New input profile: Touch OSC Automat5
   * New input profile: Novation Launch Control (thanks to Giacomo Gorini)
+  * Universe Passthrough data is merged with QLC+ output, is not affected by QLC+ processing (except blackout)
+    and appears in DMX monitor (Jano Svitok)
   * Updated fixture: Stairville xBrick Full-Colour 16X3W (thanks to Rico Hansen)
   * New fixture: American DJ Dotz Flood
   * New fixture: Chauvet COLORdash Par Quad-7

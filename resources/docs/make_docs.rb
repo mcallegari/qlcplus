@@ -35,6 +35,8 @@ if !options[:destination].empty?
     text.gsub!(%r{<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>\r?\n}, "")
     if !filename.include? "index.html"
       text.gsub!(%r{<BODY>}, "<BODY>\n<H1 style=\"background-color: lightgreen;padding:3pt\"><img src=\"gfx/qlcplus.png\" width=32 align=\"absmiddle\" /> Q Light Controller Plus - User Documentation</H1>\n<a href=\"index.html\">Index page</a>")
+    else
+      text.gsub!(%r{<H1>}, "<H1 style=\"background-color: lightgreen;padding:3pt\"><img src=\"gfx/qlcplus.png\" width=32 align=\"absmiddle\" /> ")
     end
     text.gsub!(%r{</BODY>}, "<HR />\nVersion: #{VERSION} Last update: #{Time.now}\r\n</BODY>")
     File.open(File.join(options[:destination], filename), 'w') do |f|
