@@ -189,6 +189,7 @@
   <fixture path="Chauvet-SlimPAR-56.qxf" mf="Chauvet" md="SlimPAR 56"/>
   <fixture path="Chauvet-SlimPAR-64-RGBA.qxf" mf="Chauvet" md="SlimPAR 64 RGBA"/>
   <fixture path="Chauvet-SlimPAR-64.qxf" mf="Chauvet" md="SlimPAR 64"/>
+  <fixture path="Chauvet-SlimPar-Pro-Tri.qxf" mf="Chauvet" md="SlimPar Pro Tri"/>
   <fixture path="Chauvet-SlimPAR-QUAD-12-IRC.qxf" mf="Chauvet" md="SlimPAR QUAD 12 IRC"/>
   <fixture path="Chauvet-SlimPAR-TRI-12-IRC.qxf" mf="Chauvet" md="SlimPAR TRI 12 IRC"/>
   <fixture path="Chauvet-SlimPar-Tri-7-IRC.qxf" mf="Chauvet" md="SlimPar Tri 7 IRC"/>
@@ -472,6 +473,7 @@
   <fixture path="Nicols-Strob-LED-W.qxf" mf="Nicols" md="Strob LED W"/>
   <fixture path="NJD-Spectre.qxf" mf="NJD" md="Spectre"/>
   <fixture path="Optima-Lighting-PAR64-LED.qxf" mf="Optima Lighting" md="PAR64 LED"/>
+  <fixture path="Philips-Selecon-PLProfile1-MkII.qxf" mf="Philips Selecon" md="PLProfile1 MkII"/>
   <fixture path="PixelRANGE-PixelPar-44.qxf" mf="PixelRANGE" md="PixelPar 44"/>
   <fixture path="PR-Lighting-Pilot-575.qxf" mf="PR Lighting" md="Pilot 575"/>
   <fixture path="PR-Lighting-PR-5000-Spot.qxf" mf="PR Lighting" md="PR 5000 Spot"/>
@@ -497,6 +499,7 @@
   <fixture path="Proel-Moving-Head-3Wx108-LED-RGBW.qxf" mf="Proel" md="Moving Head 3Wx108 LED RGBW"/>
   <fixture path="Proel-PLLED64RGB.qxf" mf="Proel" md="PLLED64RGB"/>
   <fixture path="Proel-Tarkus-575-Spot.qxf" mf="Proel" md="Tarkus 575 Spot"/>
+  <fixture path="PSL-Strip-Led-RGB-code-K2014.qxf" mf="PSL" md="Strip Led RGB code K2014"/>
   <fixture path="Pulse-ECO-LED-PAR56.qxf" mf="Pulse" md="ECO LED PAR56"/>
   <fixture path="Pulse-SlimLite-56.qxf" mf="Pulse" md="SlimLite 56"/>
   <fixture path="QTX-SL-Series.qxf" mf="QTX" md="SL Series"/>
