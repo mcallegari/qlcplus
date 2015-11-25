@@ -15,6 +15,7 @@ qlcplus (4.10.2) stable; urgency=low
   * Virtual Console/XYPad Properties: fix manual input selection for presets (David Garyga)
   * Virtual Console/Cue List: improved mixed usage of crossfader and next/previous buttons (David Garyga)
   * Virtual Console/Audio Triggers: fix triggering virtual console buttons (David Garyga)
+  * Virtual Console/Input Source Selection: forbid editing the custom feedback before a source has been assigned, preventing QLC+ from crashing (David Garyga)
   * Fixture Editor: Fix crash in the Channel Editor (David Garyga)
   * Plugins/uDMX: added support for AVLdiy.cn clone (thanks to Vitalii Husach)
   * Input Profiles: added an option for Buttons to always generate a press/release event

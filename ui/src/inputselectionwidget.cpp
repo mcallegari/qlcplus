@@ -38,6 +38,8 @@ InputSelectionWidget::InputSelectionWidget(Doc *doc, QWidget *parent)
 
     m_customFbButton->setVisible(false);
     m_feedbackGroup->setVisible(false);
+    m_lowerSpin->setEnabled(false);
+    m_upperSpin->setEnabled(false);
 
     connect(m_attachKey, SIGNAL(clicked()), this, SLOT(slotAttachKey()));
     connect(m_detachKey, SIGNAL(clicked()), this, SLOT(slotDetachKey()));
@@ -57,7 +59,6 @@ InputSelectionWidget::InputSelectionWidget(Doc *doc, QWidget *parent)
 
 InputSelectionWidget::~InputSelectionWidget()
 {
-
 }
 
 void InputSelectionWidget::setKeyInputVisibility(bool visible)
@@ -199,10 +200,12 @@ void InputSelectionWidget::updateInputSource()
     QString uniName;
     QString chName;
 
-    if (m_doc->inputOutputMap()->inputSourceNames(m_inputSource, uniName, chName) == false)
+    if (!m_inputSource || m_doc->inputOutputMap()->inputSourceNames(m_inputSource, uniName, chName) == false)
     {
         uniName = KInputNone;
         chName = KInputNone;
+        m_lowerSpin->setEnabled(false);
+        m_upperSpin->setEnabled(false);
     }
     else
     {
@@ -214,6 +217,8 @@ void InputSelectionWidget::updateInputSource()
             m_customFbButton->setChecked(true);
         m_lowerSpin->blockSignals(false);
         m_upperSpin->blockSignals(false);
+        m_lowerSpin->setEnabled(true);
+        m_upperSpin->setEnabled(true);
     }
 
     m_inputUniverseEdit->setText(uniName);
