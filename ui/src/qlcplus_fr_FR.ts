@@ -1685,7 +1685,7 @@ Celui-ci a dû être déplacé ou effacé.</translation>
     <message>
         <location filename="dmxdumpfactory.ui" line="53"/>
         <source>Select an existing Scene to overwrite</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisir une scène à écraser</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.ui" line="85"/>
@@ -1754,7 +1754,7 @@ Celui-ci a dû être déplacé ou effacé.</translation>
     <message>
         <location filename="docbrowser.cpp" line="128"/>
         <source>Close this window</source>
-        <translation type="unfinished"></translation>
+        <translation>Fermer cette fenêtre</translation>
     </message>
 </context>
 <context>
@@ -3477,7 +3477,7 @@ Veuillez vous référer à la documentation du plugin.</translation>
     <message>
         <location filename="inputprofileeditor.ui" line="311"/>
         <source>Generate an extra Press/Release when toggled</source>
-        <translation type="unfinished"></translation>
+        <translation>Générer une pression/relâche supplémentaire quand basculé</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="258"/>
@@ -3711,13 +3711,13 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
         <location filename="monitor/monitor.cpp" line="464"/>
         <location filename="monitor/monitor.cpp" line="545"/>
         <source>Close</source>
-        <translation type="unfinished">Quitter</translation>
+        <translation>Quitter</translation>
     </message>
     <message>
         <location filename="monitor/monitor.cpp" line="465"/>
         <location filename="monitor/monitor.cpp" line="546"/>
         <source>Close this window</source>
-        <translation type="unfinished"></translation>
+        <translation>Fermer cette fenêtre</translation>
     </message>
     <message>
         <location filename="monitor/monitor.cpp" line="484"/>
@@ -5742,12 +5742,12 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcframeproperties.cpp" line="71"/>
         <source>External Input - Previous Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrée Externe - Page Précédente</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.cpp" line="84"/>
         <source>External Input - Next Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrée Externe - Page Suivante</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="122"/>
@@ -7195,22 +7195,22 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="233"/>
         <source>Range Display Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode d&apos;affichage de la plage</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="239"/>
         <source>Degrees</source>
-        <translation type="unfinished"></translation>
+        <translation>Degrés</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="249"/>
         <source>Percentage</source>
-        <translation type="unfinished">Pourcentage</translation>
+        <translation>Pourcentage</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="259"/>
         <source>DMX</source>
-        <translation type="unfinished">DMX</translation>
+        <translation>DMX</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="283"/>
@@ -7240,7 +7240,7 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="347"/>
         <source>Add Fixture Group</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter un groupe d&apos;appareils</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="358"/>
@@ -7250,12 +7250,12 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="369"/>
         <source>Move Up</source>
-        <translation type="unfinished"></translation>
+        <translation>Déplacer vers le haut</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="380"/>
         <source>Move Down</source>
-        <translation type="unfinished"></translation>
+        <translation>Déplacer vers le bas</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="399"/>
@@ -7333,12 +7333,12 @@ Veuillez en choisir une qui affecte un des deux.</translation>
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="768"/>
         <source>Please select at least one fixture or head to create this type of preset !</source>
-        <translation type="unfinished"></translation>
+        <translation>Veuillez sélectionner au moins un appareil ou une tête pour créer ce type de préréglage !</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="775"/>
         <source>Fixture Group</source>
-        <translation type="unfinished">Groupe d&apos;appareils</translation>
+        <translation>Groupe d&apos;appareils</translation>
     </message>
 </context>
 <context>
