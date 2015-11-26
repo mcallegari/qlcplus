@@ -64,6 +64,7 @@ private:
     /** File handle for /dev/ttyACMx */
     QFile m_file;
 
+    /** local copy of the universe last data sent */
     QByteArray m_universe;
 };
 

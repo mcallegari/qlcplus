@@ -161,6 +161,8 @@ bool NanoDMX::open(quint32 line, bool input)
     }
 #endif
 
+    m_universe.fill(0, 512);
+
     QByteArray initSequence;
 
     /* Check connection */
@@ -172,7 +174,7 @@ bool NanoDMX::open(quint32 line, bool input)
 #endif
     {
         if (checkReply() == false)
-            return false;
+            qWarning() << Q_FUNC_INFO << name() << "Initialization failed";
     }
     else
         qWarning() << Q_FUNC_INFO << name() << "Initialization failed";
@@ -256,40 +258,47 @@ bool NanoDMX::writeUniverse(quint32 universe, quint32 output, const QByteArray& 
         return false;
 #endif
 
-    /* Since the DMX4ALL array transfer protocol can handle bulk transfer of
-     * a maximum of 256 channels, I need to split a 512 universe into 2 */
+    //qDebug() << "Writing universe...";
 
-    QByteArray arrayTransfer(data);
-    arrayTransfer.prepend(char(0xFF));
-    arrayTransfer.prepend(char(0x00));        // Start channel low byte
-    arrayTransfer.prepend(char(0x00));        // Start channel high byte
-    if (data.size() < 256)
+    for (int i = 0; i < data.size(); i++)
     {
-        arrayTransfer.prepend(data.size());   // Number of channels
-    }
-    else
-    {
-        arrayTransfer.prepend(char(0xFF));   // First 256 channels
-        arrayTransfer.insert(259, char(0xFF));
-        arrayTransfer.insert(260, char(0x00));
-        arrayTransfer.insert(261, char(0x01));
-    }
-
+        if (data[i] != m_universe[i])
+        {
+            //qDebug() << "Writing value at index" << i;
+            QByteArray fastTrans;
+            if (i < 256)
+            {
+                fastTrans.append((char)0xE2);
+                fastTrans.append((char)i);
+            }
+            else
+            {
+                fastTrans.append((char)0xE3);
+                fastTrans.append((char)(i - 256));
+            }
+            fastTrans.append(data[i]);
 #ifdef QTSERIAL
-    if (interface()->write(arrayTransfer) == false)
+            if (interface()->write(fastTrans) == false)
 #else
-    if (m_file.write(arrayTransfer) == false)
+            if (m_file.write(fastTrans) <= 0)
 #endif
-    {
-        qWarning() << Q_FUNC_INFO << name() << "will not accept DMX data";
+            {
+                qWarning() << Q_FUNC_INFO << name() << "will not accept DMX data";
 #ifdef QTSERIAL
-        interface()->purgeBuffers();
+                interface()->purgeBuffers();
 #endif
-        return false;
+                return false;
+            }
+            else
+            {
+                m_universe[i] = data[i];
+#ifdef QTSERIAL
+                if (checkReply() == false)
+                    interface()->purgeBuffers();
+#endif
+            }
+        }
     }
-
-    if (checkReply() == false)
-        interface()->purgeBuffers();
 
     return true;
 }
