@@ -142,7 +142,7 @@ private:
 
 private:
     /** The network interface associated to this controller */
-    QNetworkInterface const& m_interface;
+    QNetworkInterface m_interface;
     /** The controller IP address as QHostAddress */
     QHostAddress m_ipAddr;
 
