@@ -96,11 +96,11 @@ public:
      *********************************************************************/
 
     /** Verify the validity of an ArtNet packet and store the opCode in 'code' */
-    bool checkPacketAndCode(QByteArray& data, int &code);
+    bool checkPacketAndCode(QByteArray const& data, int &code);
 
-    bool fillArtPollReplyInfo(QByteArray& data, ArtNetNodeInfo &info);
+    bool fillArtPollReplyInfo(QByteArray const& data, ArtNetNodeInfo& info);
 
-    bool fillDMXdata(QByteArray& data, QByteArray& dmx, quint32 &universe);
+    bool fillDMXdata(QByteArray const& data, QByteArray& dmx, quint32 &universe);
 
 private:
     QByteArray m_commonHeader;

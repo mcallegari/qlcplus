@@ -147,7 +147,7 @@ void ArtNetPacketizer::setupArtNetDmx(QByteArray& data, const int &universe, con
  * Receiver functions
  *********************************************************************/
 
-bool ArtNetPacketizer::checkPacketAndCode(QByteArray& data, int &code)
+bool ArtNetPacketizer::checkPacketAndCode(QByteArray const& data, int &code)
 {
     /* An ArtNet header must be at least 12 bytes long */
     if (data.length() < 12)
@@ -165,7 +165,7 @@ bool ArtNetPacketizer::checkPacketAndCode(QByteArray& data, int &code)
     return true;
 }
 
-bool ArtNetPacketizer::fillArtPollReplyInfo(QByteArray& data, ArtNetNodeInfo &info)
+bool ArtNetPacketizer::fillArtPollReplyInfo(QByteArray const& data, ArtNetNodeInfo& info)
 {
     if (data.isNull())
         return false;
@@ -181,7 +181,7 @@ bool ArtNetPacketizer::fillArtPollReplyInfo(QByteArray& data, ArtNetNodeInfo &in
     return true;
 }
 
-bool ArtNetPacketizer::fillDMXdata(QByteArray& data, QByteArray &dmx, quint32 &universe)
+bool ArtNetPacketizer::fillDMXdata(QByteArray const& data, QByteArray &dmx, quint32 &universe)
 {
     if (data.isNull())
         return false;

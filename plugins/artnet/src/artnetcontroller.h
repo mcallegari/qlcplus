@@ -26,13 +26,18 @@
 
 #include "artnetpacketizer.h"
 
-#define ARTNET_DEFAULT_PORT     6454
+#define ARTNET_PORT      6454
+
+class QTimer;
 
 typedef struct
 {
+    ushort inputUniverse;
+
     QHostAddress outputAddress;
     ushort outputUniverse;
-    int trasmissionMode;
+    int outputTransmissionMode;
+
     int type;
 } UniverseInfo;
 
@@ -48,8 +53,9 @@ public:
 
     enum TransmissionMode { Full, Partial };
 
-    ArtNetController(QString ipaddr, QNetworkAddressEntry interface,
-                     QString macAddress, Type type, quint32 line, QObject *parent = 0);
+    ArtNetController(QNetworkInterface interface,
+                     QNetworkAddressEntry address,
+                     quint32 line, QObject *parent = 0);
 
     ~ArtNetController();
 
@@ -59,9 +65,6 @@ public:
     /** Return the controller IP address */
     QString getNetworkIP();
 
-    /** Return the controller subnet mask */
-    QString getNetmask();
-
     /** Returns the map of Nodes discovered by ArtPoll */
     QHash<QHostAddress, ArtNetNodeInfo> getNodesList();
 
@@ -70,6 +73,9 @@ public:
 
     /** Remove a universe from the map of this controller */
     void removeUniverse(quint32 universe, Type type);
+
+    /** Set a specific ArtNet input universe for the given QLC+ universe */
+    void setInputUniverse(quint32 universe, quint32 artnetUni);
 
     /** Set a specific output IP address for the given QLC+ universe */
     void setOutputIPAddress(quint32 universe, QString address);
@@ -109,6 +115,9 @@ public:
     quint64 getPacketReceivedNumber();
 
 private:
+    /** The network interface associated to this controller */
+    QNetworkInterface m_interface;
+    QNetworkAddressEntry m_address;
     /** The controller IP address as QHostAddress */
     QHostAddress m_ipAddr;
 
@@ -116,10 +125,6 @@ private:
     /** This is where all ArtNet packets are sent to */
     QHostAddress m_broadcastAddr;
 
-    /** Subnet mask of this controller, to be used during configuration */
-    QHostAddress m_netmask;
-
-    /** The controller interface MAC address. Used only for ArtPollReply */
     QString m_MACAddress;
 
     /** Counter for transmitted packets */
@@ -132,7 +137,8 @@ private:
     quint32 m_line;
 
     /** The UDP socket used to send/receive ArtNet packets */
-    QUdpSocket *m_UdpSocket;
+    QUdpSocket* m_udpSocket;
+    QUdpSocket* m_udpSocketBroadcastRecv;
 
     /** Helper class used to create or parse ArtNet packets */
     QScopedPointer<ArtNetPacketizer> m_packetizer;
@@ -152,9 +158,22 @@ private:
      *  variables that could be used to transmit/receive data */
     QMutex m_dataMutex;
 
-private slots:
-    /** Async event raised when new packets have been received */
-    void processPendingPackets();
+    QTimer* m_pollTimer;
+
+private:
+    bool handleArtNetPollReply(QByteArray const& datagram, QHostAddress const& senderAddress);
+    bool handleArtNetPoll(QByteArray const& datagram, QHostAddress const& senderAddress);
+    bool handleArtNetDmx(QByteArray const& datagram, QHostAddress const& senderAddress);
+public:
+    bool handlePacket(QByteArray const& datagram, QHostAddress const& senderAddress);
+
+protected slots:
+    void slotReadyRead();
+
+protected slots:
+    void slotPollTimeout();
+protected:
+    void sendPoll();
 
 signals:
     void valueChanged(quint32 universe, quint32 input, quint32 channel, uchar value);

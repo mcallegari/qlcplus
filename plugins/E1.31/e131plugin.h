@@ -32,8 +32,8 @@
 
 typedef struct
 {
-    QString IPAddress;
     QNetworkInterface interface;
+    QNetworkAddressEntry address;
     E131Controller* controller;
 } E131IO;
 
@@ -120,15 +120,10 @@ public:
     /** @reimp */
     void setParameter(quint32 universe, quint32 line, Capability type, QString name, QVariant value);
 
-    QList<QNetworkAddressEntry> interfaces();
-
     /** Get a list of the available Input/Output lines */
     QList<E131IO> getIOMapping();
 
 private:
-    /** List holding the detected system network interfaces */
-    QList<QNetworkAddressEntry> m_netInterfaces;
-
     /** Map of the E131 plugin Input/Output lines */
     QList<E131IO> m_IOmapping;
 };
