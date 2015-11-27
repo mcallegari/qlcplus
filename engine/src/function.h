@@ -274,7 +274,8 @@ protected:
      * Running order
      *********************************************************************/
 public:
-    enum RunOrder { Loop, SingleShot, PingPong, Random };
+    enum RunOrder { Loop = 0, SingleShot, PingPong, Random };
+    Q_ENUMS(RunOrder)
 
 public:
     /**
@@ -317,7 +318,8 @@ private:
      * Direction
      *********************************************************************/
 public:
-    enum Direction { Forward, Backward };
+    enum Direction { Forward = 0, Backward };
+    Q_ENUMS(Direction)
 
 public:
     /**

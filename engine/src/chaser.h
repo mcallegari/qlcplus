@@ -57,6 +57,7 @@ class Chaser : public Function
      * Initialization
      *********************************************************************/
 public:
+    Chaser();
     Chaser(Doc* doc);
     virtual ~Chaser();
 
@@ -237,10 +238,11 @@ private:
      *********************************************************************/
 public:
     enum SpeedMode {
-        Default, //! Use step function's own speed setting
+        Default = 0, //! Use step function's own speed setting
         Common,  //! Impose a common chaser-specific speed to all steps
         PerStep  //! Impose a step-specific speed to each step
     };
+    Q_ENUMS(SpeedMode)
 
     void setFadeInMode(SpeedMode mode);
     SpeedMode fadeInMode() const;
