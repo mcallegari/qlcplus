@@ -109,8 +109,6 @@ Rectangle
             currentIndex: 0
             boundsBehavior: Flickable.StopAtBounds
 
-
-
             delegate:
                 Rectangle
                 {

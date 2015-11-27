@@ -52,6 +52,7 @@ FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)
     m_currentEditor = NULL;
 
     qmlRegisterType<Collection>("com.qlcplus.classes", 1, 0, "Collection");
+    qmlRegisterType<Chaser>("com.qlcplus.classes", 1, 0, "Chaser");
 
     m_functionTree = new TreeModel(this);
     QQmlEngine::setObjectOwnership(m_functionTree, QQmlEngine::CppOwnership);

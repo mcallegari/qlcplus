@@ -29,6 +29,8 @@ Rectangle
     anchors.fill: parent
     color: "transparent"
 
+    property int functionID: -1
+
     Loader
     {
         id: funcMgrLoader
@@ -48,6 +50,7 @@ Rectangle
     Column
     {
         x: funcMgrLoader.width
+
         Rectangle
         {
             color: UISettings.bgMedium
@@ -111,7 +114,7 @@ Rectangle
                 id: addFunc
                 x: parent.width - 90
                 width: height
-                height: 40
+                height: 38
                 imgSource: "qrc:/add.svg"
                 checkable: true
                 tooltip: qsTr("Add a function")
@@ -137,7 +140,7 @@ Rectangle
                 id: removeFunc
                 x: parent.width - 45
                 width: height
-                height: 40
+                height: 38
                 imgSource: "qrc:/remove.svg"
                 tooltip: qsTr("Remove the selected function")
                 onClicked: {   }
@@ -370,7 +373,7 @@ Rectangle
         {
             id: cFunctionList
             width: ceContainer.width
-            height: ceContainer.height - 40
+            height: ceContainer.height - 40 - chListHeader.height - chModes.height
             boundsBehavior: Flickable.StopAtBounds
 
             property int dragInsertIndex: -1
@@ -408,7 +411,7 @@ Rectangle
                 {
                     console.log("Item dropped here. x: " + drag.x + " y: " + drag.y)
                     console.log("Item fID: " + drag.source.funcID)
-                    //collection.addFunction(drag.source.funcID, cFunctionList.dragInsertIndex)
+                    //chaserEditor.addFunction(drag.source.funcID, cFunctionList.dragInsertIndex)
                     cFunctionList.dragInsertIndex = -1
                 }
                 onPositionChanged:
@@ -419,5 +422,125 @@ Rectangle
                 }
             }
         }
-    }
+
+        Rectangle { height: 1; width: ceContainer.width; color: UISettings.bgLight }
+
+        Rectangle
+        {
+            id: chModes
+            width: ceContainer.width
+            height: (UISettings.iconSizeDefault * 2) + 6
+            color: "transparent"
+
+            GridLayout
+            {
+                x: 4
+                width: parent.width - 8
+                columns: 6
+                columnSpacing: 4
+                rowSpacing: 4
+
+                // Row 1
+                IconPopupButton
+                {
+                    ListModel
+                    {
+                        id: runOrderModel
+                        ListElement { mLabel: qsTr("Loop"); mIcon: "qrc:/loop.svg"; mValue: Function.Loop }
+                        ListElement { mLabel: qsTr("Single Shot"); mIcon: "qrc:/arrow-end.svg"; mValue: Function.SingleShot }
+                        ListElement { mLabel: qsTr("Ping Pong"); mIcon: "qrc:/pingpong.svg"; mValue: Function.PingPong }
+                        ListElement { mLabel: qsTr("Random"); mIcon: "qrc:/random.svg"; mValue: Function.Random }
+                    }
+                    model: runOrderModel
+
+                    onValueChanged: chaserEditor.runOrder = value
+                }
+                RobotoText
+                {
+                    label: qsTr("Run Order")
+                    Layout.fillWidth: true
+                }
+
+                IconPopupButton
+                {
+                    ListModel
+                    {
+                        id: directionModel
+                        ListElement { mLabel: qsTr("Forward"); mIcon: "qrc:/forward.svg"; mValue: Function.Forward }
+                        ListElement { mLabel: qsTr("Backward"); mIcon: "qrc:/back.svg"; mValue: Function.Backward }
+                    }
+                    model: directionModel
+
+                    onValueChanged: chaserEditor.direction = value
+                }
+                RobotoText
+                {
+                    label: qsTr("Direction")
+                    Layout.fillWidth: true
+                }
+
+                Rectangle { color: "transparent"; Layout.fillWidth: true }
+                Rectangle { color: "transparent"; Layout.fillWidth: true }
+
+                // Row 2
+                IconPopupButton
+                {
+                    ListModel
+                    {
+                        id: fadeInModel
+                        ListElement { mLabel: qsTr("Common"); mTextIcon: "C"; mValue: Chaser.Common }
+                        ListElement { mLabel: qsTr("Per Step"); mTextIcon: "S"; mValue: Chaser.PerStep }
+                        ListElement { mLabel: qsTr("Default"); mTextIcon: "D"; mValue: Chaser.Default }
+                    }
+                    model: fadeInModel
+
+                    onValueChanged: chaserEditor.stepsFadeIn = value
+                }
+                RobotoText
+                {
+                    label: qsTr("Fade In")
+                    Layout.fillWidth: true
+                }
+
+                IconPopupButton
+                {
+                    ListModel
+                    {
+                        id: fadeOutModel
+                        ListElement { mLabel: qsTr("Common"); mTextIcon: "C"; mValue: Chaser.Common }
+                        ListElement { mLabel: qsTr("Per Step"); mTextIcon: "S"; mValue: Chaser.PerStep }
+                        ListElement { mLabel: qsTr("Default"); mTextIcon: "D"; mValue: Chaser.Default }
+                    }
+                    model: fadeOutModel
+
+                    onValueChanged: chaserEditor.stepsFadeOut = value
+                }
+                RobotoText
+                {
+                    label: qsTr("Fade Out")
+                    Layout.fillWidth: true
+                }
+
+                IconPopupButton
+                {
+                    ListModel
+                    {
+                        id: durationModel
+                        ListElement { mLabel: qsTr("Common"); mTextIcon: "C"; mValue: Chaser.Common }
+                        ListElement { mLabel: qsTr("Per Step"); mTextIcon: "S"; mValue: Chaser.PerStep }
+                    }
+                    model: durationModel
+
+                    onValueChanged: chaserEditor.stepsDuration = value
+                }
+                RobotoText
+                {
+                    label: qsTr("Duration")
+                    Layout.fillWidth: true
+                }
+            }
+
+        }
+
+    } // end of Column
 }

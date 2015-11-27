@@ -106,3 +106,91 @@ void ChaserEditor::setChaserName(QString chaserName)
     m_chaser->setName(chaserName);
     emit chaserNameChanged(chaserName);
 }
+
+int ChaserEditor::runOrder() const
+{
+    if (m_chaser == NULL)
+        return Function::Loop;
+
+    return m_chaser->runOrder();
+}
+
+void ChaserEditor::setRunOrder(int runOrder)
+{
+    if (m_chaser == NULL || m_chaser->runOrder() == Function::RunOrder(runOrder))
+        return;
+
+    m_chaser->setRunOrder(Function::RunOrder(runOrder));
+    emit runOrderChanged(runOrder);
+}
+
+int ChaserEditor::direction() const
+{
+    if (m_chaser == NULL)
+        return Function::Forward;
+
+    return m_chaser->direction();
+}
+
+void ChaserEditor::setDirection(int direction)
+{
+    if (m_chaser == NULL || m_chaser->direction() == Function::Direction(direction))
+        return;
+
+    m_chaser->setDirection(Function::Direction(direction));
+    emit directionChanged(direction);
+}
+
+int ChaserEditor::stepsFadeIn() const
+{
+    if (m_chaser == NULL)
+        return Chaser::Default;
+
+    return m_chaser->fadeInMode();
+}
+
+void ChaserEditor::setStepsFadeIn(int stepsFadeIn)
+{
+    if (m_chaser == NULL || m_chaser->fadeInMode() == Chaser::SpeedMode(stepsFadeIn))
+        return;
+
+    m_chaser->setFadeInMode(Chaser::SpeedMode(stepsFadeIn));
+
+    emit stepsFadeInChanged(stepsFadeIn);
+}
+
+int ChaserEditor::stepsFadeOut() const
+{
+    if (m_chaser == NULL)
+        return Chaser::Default;
+
+    return m_chaser->fadeOutMode();
+}
+
+void ChaserEditor::setStepsFadeOut(int stepsFadeOut)
+{
+    if (m_chaser == NULL || m_chaser->fadeOutMode() == Chaser::SpeedMode(stepsFadeOut))
+        return;
+
+    m_chaser->setFadeOutMode(Chaser::SpeedMode(stepsFadeOut));
+
+    emit stepsFadeOutChanged(stepsFadeOut);
+}
+
+int ChaserEditor::stepsDuration() const
+{
+    if (m_chaser == NULL)
+        return Chaser::Default;
+
+    return m_chaser->durationMode();
+}
+
+void ChaserEditor::setStepsDuration(int stepsDuration)
+{
+    if (m_chaser == NULL || m_chaser->durationMode() == Chaser::SpeedMode(stepsDuration))
+        return;
+
+    m_chaser->setDurationMode(Chaser::SpeedMode(stepsDuration));
+
+    emit stepsDurationChanged(stepsDuration);
+}

@@ -293,7 +293,7 @@ Rectangle
                           onPathChanged: functionManager.setFolderPath(oldPath, newPath)
                       }
                   }
-              }
-      }
-    }
+              } // Component
+        } // ListView
+    } // ColumnLayout
 }

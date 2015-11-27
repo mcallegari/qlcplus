@@ -22,6 +22,7 @@
     <file alias="FunctionDelegate.qml">qml/FunctionDelegate.qml</file>
     <file alias="FontAwesomeVariables.qml">qml/FontAwesomeVariables.qml</file>
     <file alias="IconButton.qml">qml/IconButton.qml</file>
+    <file alias="IconPopupButton.qml">qml/IconPopupButton.qml</file>
     <file alias="IconTextEntry.qml">qml/IconTextEntry.qml</file>
     <file alias="MainView.qml">qml/MainView.qml</file>
     <file alias="MenuBarEntry.qml">qml/MenuBarEntry.qml</file>

@@ -29,26 +29,56 @@ class ChaserEditor : public FunctionEditor
     Q_OBJECT
 
     Q_PROPERTY(QString chaserName READ chaserName WRITE setChaserName NOTIFY chaserNameChanged)
-
     Q_PROPERTY(QVariant stepsList READ stepsList NOTIFY stepsListChanged)
+    Q_PROPERTY(int runOrder READ runOrder WRITE setRunOrder NOTIFY runOrderChanged)
+    Q_PROPERTY(int direction READ direction WRITE setDirection NOTIFY directionChanged)
+    Q_PROPERTY(int stepsFadeIn READ stepsFadeIn WRITE setStepsFadeIn NOTIFY stepsFadeInChanged)
+    Q_PROPERTY(int stepsFadeOut READ stepsFadeOut WRITE setStepsFadeOut NOTIFY stepsFadeOutChanged)
+    Q_PROPERTY(int stepsDuration READ stepsDuration WRITE setStepsDuration NOTIFY stepsDurationChanged)
 
 public:
     ChaserEditor(QQuickView *view, Doc *doc, QObject *parent = 0);
 
-    /** Set the ID of the Function being edit */
+    /** Set the ID of the Chaser being edit */
     void setFunctionID(quint32 ID);
 
     QVariant stepsList() const;
 
-    /** Return the name of the currently edited Chaser */
+    /** Return the name of the Chaser being edit */
     QString chaserName() const;
 
-    /** Set the name of the currently edited Chaser */
+    /** Set the name of the Chaser being edit */
     void setChaserName(QString chaserName);
+
+    /** Return the run order of the Chaser being edit */
+    int runOrder() const;
+
+    /** Set the run order of the Chaser being edit */
+    void setRunOrder(int runOrder);
+
+    /** Return the playback direction of the Chaser being edit */
+    int direction() const;
+
+    /** Set the run order of the Chaser being edit */
+    void setDirection(int direction);
+
+    int stepsFadeIn() const;
+    void setStepsFadeIn(int stepsFadeIn);
+
+    int stepsFadeOut() const;
+    void setStepsFadeOut(int stepsFadeOut);
+
+    int stepsDuration() const;
+    void setStepsDuration(int stepsDuration);
 
 signals:
     void chaserNameChanged(QString chaserName);
     void stepsListChanged();
+    void runOrderChanged(int runOrder);
+    void directionChanged(int direction);
+    void stepsFadeInChanged(int stepsFadeIn);
+    void stepsFadeOutChanged(int stepsFadeOut);
+    void stepsDurationChanged(int stepsDuration);
 
 private:
     /** Reference of the Chaser currently being edited */
