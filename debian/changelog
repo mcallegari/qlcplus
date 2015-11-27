@@ -5,6 +5,7 @@ qlcplus (4.10.2) stable; urgency=low
     (except for blackout) and it appears in the DMX monitor (Jano Svitok)
   * Audio: fixed playback of 24/32 bit wave files and Show Manager waveform preview
   * DMX Dump: it is now possible to dump DMX values on an existing Scene
+  * ClickAndGo Widgets: Preset widgets now display the channel name on top of the capability list (David Garyga)
   * Function Manager: fix startup Function not cleared when deleting it (David Garyga)
   * Function Manager: highlight current startup Function when opening the Function selection dialog (David Garyga)
   * Function Selection: Don't lose the current selection when changing the function type filter (David Garyga)
