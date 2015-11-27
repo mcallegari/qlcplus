@@ -140,6 +140,7 @@ protected:
     int m_cellBarYpos;
     int m_cellBarWidth;
 
+    QString m_title;
     QList<ClickAndGoWidget::PresetResource> m_resources;
 
     /** Used to group all the primary colors */

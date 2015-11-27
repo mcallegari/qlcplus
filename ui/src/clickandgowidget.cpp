@@ -32,6 +32,7 @@
 
 #define CELL_W  150
 #define CELL_H  45
+#define TITLE_H  18
 
 ClickAndGoWidget::ClickAndGoWidget(QWidget *parent) :
     QWidget(parent)
@@ -50,7 +51,7 @@ ClickAndGoWidget::ClickAndGoWidget(QWidget *parent) :
     m_cols = 0;
     m_rows = 0;
     m_cellWidth = CELL_W;
-    m_hoverCellIdx = 0;
+    m_hoverCellIdx = -1;
     m_cellBarXpos = 1;
     m_cellBarYpos = 1;
     m_cellBarWidth = 0;
@@ -228,6 +229,7 @@ void ClickAndGoWidget::createPresetList(const QLCChannel *chan)
     if (chan == NULL)
         return;
 
+    m_title = chan->name();
     m_resources.clear();
 
     //qDebug() << Q_FUNC_INFO << "cap #" << chan->capabilities().size();
@@ -256,7 +258,7 @@ void ClickAndGoWidget::setupPresetPicker()
     m_cols = 2;
     m_rows = qCeil((qreal)m_resources.size() / 2);
     m_width = m_cellWidth * m_cols;
-    m_height = CELL_H * m_rows;
+    m_height = CELL_H * m_rows + TITLE_H;
 
     // first check if the menu fits vertically
     if (m_height > screen.height())
@@ -264,7 +266,7 @@ void ClickAndGoWidget::setupPresetPicker()
         m_rows = qFloor((qreal)screen.height() / CELL_H);
         m_cols = qCeil((qreal)m_resources.size() / m_rows);
         m_width = m_cellWidth * m_cols;
-        m_height = CELL_H * m_rows;
+        m_height = CELL_H * m_rows + TITLE_H;
     }
 
     // then check if it has to be rescaled horizontally
@@ -283,6 +285,12 @@ void ClickAndGoWidget::setupPresetPicker()
     presetGrad.setColorAt(0, QApplication::palette().background().color());
     presetGrad.setColorAt(1, QColor(173, 171, 179));
     painter.fillRect(0, 0, m_width, m_height, presetGrad);
+
+    // title
+    painter.setPen(Qt::black);
+    painter.drawText(x + 3, y, m_width - 3, TITLE_H, Qt::AlignVCenter | Qt::TextSingleLine, m_title);
+    y += TITLE_H;
+
     for (int i = 0; i < m_resources.size(); i++)
     {
         PresetResource res = m_resources.at(i);
@@ -357,12 +365,16 @@ void ClickAndGoWidget::mouseMoveEvent(QMouseEvent *event)
     {
         // calculate the index of the resource where the cursor is
         int floorX = qFloor(event->x() / m_cellWidth);
-        int floorY = qFloor(event->y() / CELL_H);
+        int floorY = qFloor((event->y() - TITLE_H) / CELL_H);
         int tmpCellIDx = (floorY * m_cols) + floorX;
-        if (tmpCellIDx < 0 && tmpCellIDx >= m_resources.length())
+        if (event->y() < TITLE_H || tmpCellIDx < 0 || tmpCellIDx >= m_resources.length())
+        {
+            m_hoverCellIdx = -1;
+            update();
             return;
+        }
         m_cellBarXpos = floorX * m_cellWidth;
-        m_cellBarYpos = floorY * CELL_H;
+        m_cellBarYpos = floorY * CELL_H + TITLE_H;
         m_cellBarWidth = event->x() - m_cellBarXpos;
         m_hoverCellIdx = tmpCellIDx;
         update();
@@ -376,7 +388,7 @@ void ClickAndGoWidget::paintEvent(QPaintEvent *event)
 
     QPainter painter(this);
     painter.drawImage(QPoint(0, 0), m_image);
-    if (m_type == Preset)
+    if (m_type == Preset && m_hoverCellIdx >= 0)
     {
         painter.setPen(Qt::NoPen);
         painter.setBrush(QBrush(QColor(76, 136, 255, 255)));
