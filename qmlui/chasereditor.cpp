@@ -107,6 +107,21 @@ void ChaserEditor::setChaserName(QString chaserName)
     emit chaserNameChanged(chaserName);
 }
 
+bool ChaserEditor::addFunction(quint32 fid, int insertIndex)
+{
+    if (m_chaser == NULL)
+        return false;
+
+    ChaserStep step(fid);
+    m_chaser->addStep(step, insertIndex);
+    emit stepsListChanged();
+    return true;
+}
+
+/*********************************************************************
+ * Chaser playback modes
+ *********************************************************************/
+
 int ChaserEditor::runOrder() const
 {
     if (m_chaser == NULL)
@@ -141,6 +156,10 @@ void ChaserEditor::setDirection(int direction)
     emit directionChanged(direction);
 }
 
+/*********************************************************************
+ * Steps speed mode
+ *********************************************************************/
+
 int ChaserEditor::stepsFadeIn() const
 {
     if (m_chaser == NULL)
@@ -157,6 +176,7 @@ void ChaserEditor::setStepsFadeIn(int stepsFadeIn)
     m_chaser->setFadeInMode(Chaser::SpeedMode(stepsFadeIn));
 
     emit stepsFadeInChanged(stepsFadeIn);
+    emit stepsListChanged();
 }
 
 int ChaserEditor::stepsFadeOut() const
@@ -175,6 +195,7 @@ void ChaserEditor::setStepsFadeOut(int stepsFadeOut)
     m_chaser->setFadeOutMode(Chaser::SpeedMode(stepsFadeOut));
 
     emit stepsFadeOutChanged(stepsFadeOut);
+    emit stepsListChanged();
 }
 
 int ChaserEditor::stepsDuration() const
@@ -193,4 +214,5 @@ void ChaserEditor::setStepsDuration(int stepsDuration)
     m_chaser->setDurationMode(Chaser::SpeedMode(stepsDuration));
 
     emit stepsDurationChanged(stepsDuration);
+    emit stepsListChanged();
 }

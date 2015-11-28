@@ -39,36 +39,61 @@ class ChaserEditor : public FunctionEditor
 public:
     ChaserEditor(QQuickView *view, Doc *doc, QObject *parent = 0);
 
-    /** Set the ID of the Chaser being edit */
+    /** Set the ID of the Chaser being edited */
     void setFunctionID(quint32 ID);
 
     QVariant stepsList() const;
 
-    /** Return the name of the Chaser being edit */
+    /** Return the name of the Chaser being edited */
     QString chaserName() const;
 
-    /** Set the name of the Chaser being edit */
+    /** Set the name of the Chaser being edited */
     void setChaserName(QString chaserName);
 
-    /** Return the run order of the Chaser being edit */
+    /**
+     * Add a function to the Chaser being edited.
+     *
+     * @param fid The function ID to add
+     * @return true if successful, otherwise false
+     */
+    Q_INVOKABLE bool addFunction(quint32 fid, int insertIndex = -1);
+
+    /*********************************************************************
+     * Chaser playback modes
+     *********************************************************************/
+
+    /** Return the run order of the Chaser being edited */
     int runOrder() const;
 
-    /** Set the run order of the Chaser being edit */
+    /** Set the run order of the Chaser being edited */
     void setRunOrder(int runOrder);
 
-    /** Return the playback direction of the Chaser being edit */
+    /** Return the playback direction of the Chaser being edited */
     int direction() const;
 
-    /** Set the run order of the Chaser being edit */
+    /** Set the run order of the Chaser being edited */
     void setDirection(int direction);
 
+    /*********************************************************************
+     * Steps speed mode
+     *********************************************************************/
+
+    /** Return the steps fade in mode of the Chaser being edited */
     int stepsFadeIn() const;
+
+    /** Set the steps fade in mode of the Chaser being edited */
     void setStepsFadeIn(int stepsFadeIn);
 
+    /** Return the steps fade out mode of the Chaser being edited */
     int stepsFadeOut() const;
+
+    /** Set the steps fade out mode of the Chaser being edited */
     void setStepsFadeOut(int stepsFadeOut);
 
+    /** Return the steps duration mode of the Chaser being edited */
     int stepsDuration() const;
+
+    /** Set the steps duration mode of the Chaser being edited */
     void setStepsDuration(int stepsDuration);
 
 signals:

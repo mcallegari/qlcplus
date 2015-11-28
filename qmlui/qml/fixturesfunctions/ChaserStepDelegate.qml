@@ -90,6 +90,17 @@ Rectangle
         }
     }
 
+    // top line drag highlight
+    Rectangle
+    {
+        id: topDragLine
+        visible: false
+        width: parent.width
+        height: 2
+        z: 1
+        color: UISettings.selection
+    }
+
     Row
     {
         height: 35

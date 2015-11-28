@@ -46,7 +46,7 @@ Rectangle
     {
         var posnInWindow = cbRoot.mapToItem(mainView, 0, 0);
         var totalHeight = menuListView.count * 35
-        console.log("Total height: " + totalHeight)
+        //console.log("Total height: " + totalHeight)
         if (posnInWindow.y + cbRoot.height + totalHeight > mainView.height)
           dropDownMenu.y = posnInWindow.y - totalHeight
         else

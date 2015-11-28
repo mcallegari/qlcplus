@@ -41,20 +41,26 @@ Rectangle
     property alias currentIndex: menuListView.currentIndex
 
     /*! model: provides a data model for the popup.
-        A model should look like this:
+        A model with icons should look like this:
             ListModel
             {
-                ListElement { mLabel: qsTr("Foo"); mIcon:"qrc:/foo.svg" }
-                ListElement { mLabel: qsTr("Bar"); mIcon:"qrc:/bar.svg" }
+                ListElement { mLabel: qsTr("Foo"); mIcon:"qrc:/foo.svg"; mValue: 0 }
+                ListElement { mLabel: qsTr("Bar"); mIcon:"qrc:/bar.svg"; mValue: 1 }
+            }
+        A model with text icons should look like this:
+            ListModel
+            {
+                ListElement { mLabel: qsTr("Foo"); mTextIcon: "F"; mValue: 0 }
+                ListElement { mLabel: qsTr("Bar"); mTextIcon: "B"; mValue: 1 }
             }
      */
     property alias model: menuListView.model
 
     property int popupPosition: Qt.AlignBottom
 
-    signal valueChanged
+    signal valueChanged(var value)
 
-    onModelChanged: menuListView.currentIndex = 0
+    //onModelChanged: menuListView.currentIndex = 0
 
     onVisibleChanged:
     {
@@ -66,7 +72,7 @@ Rectangle
     {
         var posnInWindow = ipbRoot.mapToItem(mainView, 0, 0);
         var totalHeight = menuListView.count * 35
-        console.log("Total height: " + totalHeight)
+        //console.log("Total height: " + totalHeight)
         if (posnInWindow.y + ipbRoot.height + totalHeight > mainView.height)
           dropDownMenu.y = posnInWindow.y - totalHeight
         else
@@ -144,7 +150,7 @@ Rectangle
                         {
                             id: btnIcon
                             visible: model.mIcon ? true : false
-                            height: ipbRoot.height - 4
+                            height: delegateRoot.height - 4
                             width: height
                             x: 3
                             y: 2

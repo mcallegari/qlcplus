@@ -50,11 +50,12 @@ Rectangle
     Column
     {
         x: funcMgrLoader.width
+        width: funcMgrLoader.width ? ceContainer.width / 2 : ceContainer.width
 
         Rectangle
         {
             color: UISettings.bgMedium
-            width: funcMgrLoader.width ? ceContainer.width / 2 : ceContainer.width
+            width: parent.width
             height: 40
             z: 2
 
@@ -372,7 +373,7 @@ Rectangle
         ListView
         {
             id: cFunctionList
-            width: ceContainer.width
+            width: parent.width
             height: ceContainer.height - 40 - chListHeader.height - chModes.height
             boundsBehavior: Flickable.StopAtBounds
 
@@ -411,7 +412,7 @@ Rectangle
                 {
                     console.log("Item dropped here. x: " + drag.x + " y: " + drag.y)
                     console.log("Item fID: " + drag.source.funcID)
-                    //chaserEditor.addFunction(drag.source.funcID, cFunctionList.dragInsertIndex)
+                    chaserEditor.addFunction(drag.source.funcID, cFunctionList.dragInsertIndex)
                     cFunctionList.dragInsertIndex = -1
                 }
                 onPositionChanged:
@@ -423,12 +424,12 @@ Rectangle
             }
         }
 
-        Rectangle { height: 1; width: ceContainer.width; color: UISettings.bgLight }
+        Rectangle { height: 1; width: parent.width; color: UISettings.bgLight }
 
         Rectangle
         {
             id: chModes
-            width: ceContainer.width
+            width: parent.width
             height: (UISettings.iconSizeDefault * 2) + 6
             color: "transparent"
 
@@ -479,8 +480,8 @@ Rectangle
                     Layout.fillWidth: true
                 }
 
-                Rectangle { color: "transparent"; Layout.fillWidth: true }
-                Rectangle { color: "transparent"; Layout.fillWidth: true }
+                Rectangle { height: 30; color: "transparent" }
+                Rectangle { height: 30; color: "transparent"; Layout.fillWidth: true }
 
                 // Row 2
                 IconPopupButton
@@ -488,11 +489,12 @@ Rectangle
                     ListModel
                     {
                         id: fadeInModel
+                        ListElement { mLabel: qsTr("Default"); mTextIcon: "D"; mValue: Chaser.Default }
                         ListElement { mLabel: qsTr("Common"); mTextIcon: "C"; mValue: Chaser.Common }
                         ListElement { mLabel: qsTr("Per Step"); mTextIcon: "S"; mValue: Chaser.PerStep }
-                        ListElement { mLabel: qsTr("Default"); mTextIcon: "D"; mValue: Chaser.Default }
                     }
                     model: fadeInModel
+                    currentIndex: chaserEditor.stepsFadeIn
 
                     onValueChanged: chaserEditor.stepsFadeIn = value
                 }
@@ -507,11 +509,12 @@ Rectangle
                     ListModel
                     {
                         id: fadeOutModel
+                        ListElement { mLabel: qsTr("Default"); mTextIcon: "D"; mValue: Chaser.Default }
                         ListElement { mLabel: qsTr("Common"); mTextIcon: "C"; mValue: Chaser.Common }
                         ListElement { mLabel: qsTr("Per Step"); mTextIcon: "S"; mValue: Chaser.PerStep }
-                        ListElement { mLabel: qsTr("Default"); mTextIcon: "D"; mValue: Chaser.Default }
                     }
                     model: fadeOutModel
+                    currentIndex: chaserEditor.stepsFadeOut
 
                     onValueChanged: chaserEditor.stepsFadeOut = value
                 }
@@ -530,6 +533,7 @@ Rectangle
                         ListElement { mLabel: qsTr("Per Step"); mTextIcon: "S"; mValue: Chaser.PerStep }
                     }
                     model: durationModel
+                    currentIndex: chaserEditor.stepsDuration - 1
 
                     onValueChanged: chaserEditor.stepsDuration = value
                 }
