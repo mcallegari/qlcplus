@@ -764,6 +764,10 @@ void ShowManager::slotAddItem()
             m_show->addTrack(newTrack);
             m_showview->addTrack(newTrack);
             m_currentTrack = newTrack;
+            if (newTrackBoundID == Function::invalidId())
+                m_currentScene = NULL;
+            else
+                m_currentScene = qobject_cast<Scene*>(m_doc->function(newTrackBoundID));
         }
 
         if (selectedID != Function::invalidId())
@@ -864,9 +868,8 @@ void ShowManager::slotAddSequence()
     if (m_currentTrack->getSceneID() == Function::invalidId())
     {
         m_currentScene = new Scene(m_doc);
-        Function *f = qobject_cast<Function*>(m_currentScene);
-        if (m_doc->addFunction(f) == true)
-            f->setName(tr("Scene for %1 - Track %2").arg(m_show->name()).arg(m_currentTrack->id() + 1));
+        if (m_doc->addFunction(m_currentScene))
+            m_currentScene->setName(tr("Scene for %1 - Track %2").arg(m_show->name()).arg(m_currentTrack->id() + 1));
         m_currentTrack->setSceneID(m_currentScene->id());
     }
 
@@ -1053,15 +1056,37 @@ void ShowManager::slotPaste()
             Chaser *chaser = qobject_cast<Chaser*>(newCopy);
             if (chaser->isSequence() == true)
             {
-                // Verify the Chaser copy steps against the current Scene
-                foreach(ChaserStep cs, chaser->steps())
+                if (m_currentScene == NULL)
                 {
-                    foreach(SceneValue scv, cs.values)
+                    // No scene on the current track -> copy it from source sequence
+                    Scene* clipboardCopyScene = qobject_cast<Scene*>(m_doc->function(chaser->getBoundSceneID()));
+                    if (clipboardCopyScene == NULL)
                     {
-                        if (m_currentScene->checkValue(scv) == false)
+                        delete newCopy;
+                        return;
+                    }
+                    Scene* newScene = static_cast<Scene*>(clipboardCopyScene->createCopy(m_doc, true));
+                    if (newScene == NULL)
+                    {
+                        delete newCopy;
+                        return;
+                    }
+                    m_currentScene = newScene;
+                    m_currentTrack->setSceneID(m_currentScene->id());
+                }
+                else
+                {
+                    // Verify the Chaser copy steps against the current Scene
+                    foreach(ChaserStep cs, chaser->steps())
+                    {
+                        foreach(SceneValue scv, cs.values)
                         {
-                            QMessageBox::warning(this, tr("Paste error"), tr("Trying to paste on an incompatible Scene. Operation cancelled."));
-                            return;
+                            if (m_currentScene->checkValue(scv) == false)
+                            {
+                                QMessageBox::warning(this, tr("Paste error"), tr("Trying to paste on an incompatible Scene. Operation cancelled."));
+                                delete newCopy;
+                                return;
+                            }
                         }
                     }
                 }
@@ -1126,7 +1151,10 @@ void ShowManager::slotPaste()
         else if (clipboardCopy->type() == Function::Scene)
         {
             if (m_doc->addFunction(newCopy) == false)
+            {
+                delete newCopy;
                 return;
+            }
             m_currentScene = qobject_cast<Scene*>(newCopy);
             Track* newTrack = new Track(m_currentScene->id());
             newTrack->setName(m_currentScene->name());

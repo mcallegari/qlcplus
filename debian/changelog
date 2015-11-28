@@ -10,6 +10,7 @@ qlcplus (4.10.2) stable; urgency=low
   * Function Selection: Don't lose the current selection when changing the function type filter (David Garyga)
   * Show Manager: fixed looped functions never stopping with certain durations (Jano Svitok)
   * Show Manager: fixed copy/paste of an existing Chaser
+  * Show Manager: fix crashes when copying a sequence on an empty track (David Garyga)
   * Virtual Console/Slider: fixed copy of the channel monitor mode (David Garyga)
   * Virtual Console/Slider: in level mode, activate only in operate mode and don't hold forced LTP channels (David Garyga)
   * Virtual Console/XYPad: added Fixture Group preset, to control a subgroup of Fixtures (see documentation)
