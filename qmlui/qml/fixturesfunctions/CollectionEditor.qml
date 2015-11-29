@@ -37,6 +37,15 @@ Rectangle
         collection = functionManager.getFunction(functionID)
     }
 
+    ModelSelector
+    {
+        id: ceSelector
+        onItemsCountChanged:
+        {
+            console.log("Collection Editor selected items changed !")
+        }
+    }
+
     Loader
     {
         id: funcMgrLoader
@@ -173,6 +182,11 @@ Rectangle
                     functionID: modelData
                     indexInList: index
                     highlightIndex: cFunctionList.dragInsertIndex
+
+                    onClicked:
+                    {
+                        ceSelector.selectItem(ID, qItem, mouseMods & Qt.ControlModifier)
+                    }
                 }
 
             DropArea

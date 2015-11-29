@@ -31,6 +31,15 @@ Rectangle
 
     property int functionID: -1
 
+    ModelSelector
+    {
+        id: ceSelector
+        onItemsCountChanged:
+        {
+            console.log("Chaser Editor selected items changed !")
+        }
+    }
+
     Loader
     {
         id: funcMgrLoader
@@ -400,6 +409,11 @@ Rectangle
 
                     indexInList: index
                     highlightIndex: cFunctionList.dragInsertIndex
+
+                    onClicked:
+                    {
+                        ceSelector.selectItem(ID, qItem, mouseMods & Qt.ControlModifier)
+                    }
                 }
 
             DropArea

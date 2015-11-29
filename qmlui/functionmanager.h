@@ -64,11 +64,11 @@ public:
     QVariant functionsList();
 
     Q_INVOKABLE void setFunctionFilter(quint32 filter, bool enable);
-    Q_INVOKABLE void selectFunction(quint32 id, QQuickItem *item, bool multiSelection);
     Q_INVOKABLE quint32 createFunction(int type);
     Q_INVOKABLE Function *getFunction(quint32 id);
     Q_INVOKABLE void clearTree();
     Q_INVOKABLE void setPreview(bool enable);
+    Q_INVOKABLE void checkPreview(QVariantList idsList);
     Q_INVOKABLE void setEditorFunction(quint32 fID);
 
     int sceneCount() const { return m_sceneCount; }
@@ -124,14 +124,14 @@ private:
     Doc *m_doc;
     /** Reference to the Functions tree model */
     TreeModel *m_functionTree;
-    /** List of the currently selected Functions */
-    QList <selectedFunction> m_selectedFunctions;
 
     /** Map of the values available for dumping to a Scene */
     QMap <QPair<quint32,quint32>,uchar> m_dumpValues;
 
     /** Flag that hold if Functions preview is enabled or not */
     bool m_previewEnabled;
+    /** List of the Function IDs currently being previewed */
+    QVariantList m_previewList;
 
     quint32 m_filter;
     int m_sceneCount, m_chaserCount, m_efxCount;

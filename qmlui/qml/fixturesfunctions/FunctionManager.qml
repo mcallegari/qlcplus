@@ -55,6 +55,24 @@ Rectangle
         }
     }
 
+    function setFunctionFilter(fType, checked)
+    {
+        if (checked === true)
+            functionManager.setFunctionFilter(fType, true);
+        else
+            functionManager.setFunctionFilter(fType, false);
+    }
+
+    ModelSelector
+    {
+        id: fmSelector
+        onItemsCountChanged:
+        {
+            console.log("Function Manager selected items changed !")
+            functionManager.checkPreview(fmSelector.itemsList())
+        }
+    }
+
     ColumnLayout
     {
       anchors.fill: parent
@@ -90,13 +108,7 @@ Rectangle
                 checkable: true
                 tooltip: qsTr("Scenes")
                 counter: functionManager.sceneCount
-                onCheckedChanged:
-                {
-                    if (checked == true)
-                        functionManager.setFunctionFilter(Function.Scene, true);
-                    else
-                        functionManager.setFunctionFilter(Function.Scene, false);
-                }
+                onCheckedChanged: setFunctionFilter(Function.Scene, checked)
             }
             IconButton
             {
@@ -108,13 +120,7 @@ Rectangle
                 checkable: true
                 tooltip: qsTr("Chasers")
                 counter: functionManager.chaserCount
-                onCheckedChanged:
-                {
-                    if (checked == true)
-                        functionManager.setFunctionFilter(Function.Chaser, true);
-                    else
-                        functionManager.setFunctionFilter(Function.Chaser, false);
-                }
+                onCheckedChanged: setFunctionFilter(Function.Chaser, checked)
             }
             IconButton
             {
@@ -126,13 +132,7 @@ Rectangle
                 checkable: true
                 tooltip: qsTr("EFX")
                 counter: functionManager.efxCount
-                onCheckedChanged:
-                {
-                    if (checked == true)
-                        functionManager.setFunctionFilter(Function.EFX, true);
-                    else
-                        functionManager.setFunctionFilter(Function.EFX, false);
-                }
+                onCheckedChanged: setFunctionFilter(Function.EFX, checked)
             }
             IconButton
             {
@@ -144,13 +144,7 @@ Rectangle
                 checkable: true
                 tooltip: qsTr("Collections")
                 counter: functionManager.collectionCount
-                onCheckedChanged:
-                {
-                    if (checked == true)
-                        functionManager.setFunctionFilter(Function.Collection, true);
-                    else
-                        functionManager.setFunctionFilter(Function.Collection, false);
-                }
+                onCheckedChanged: setFunctionFilter(Function.Collection, checked)
             }
             IconButton
             {
@@ -162,13 +156,7 @@ Rectangle
                 checkable: true
                 tooltip: qsTr("RGB Matrices")
                 counter: functionManager.rgbMatrixCount
-                onCheckedChanged:
-                {
-                    if (checked == true)
-                        functionManager.setFunctionFilter(Function.RGBMatrix, true);
-                    else
-                        functionManager.setFunctionFilter(Function.RGBMatrix, false);
-                }
+                onCheckedChanged: setFunctionFilter(Function.RGBMatrix, checked)
             }
             IconButton
             {
@@ -180,13 +168,7 @@ Rectangle
                 checkable: true
                 tooltip: qsTr("Shows")
                 counter: functionManager.showCount
-                onCheckedChanged:
-                {
-                    if (checked == true)
-                        functionManager.setFunctionFilter(Function.Show, true);
-                    else
-                        functionManager.setFunctionFilter(Function.Show, false);
-                }
+                onCheckedChanged: setFunctionFilter(Function.Show, checked)
             }
             IconButton
             {
@@ -198,13 +180,7 @@ Rectangle
                 checkable: true
                 tooltip: qsTr("Scripts")
                 counter: functionManager.scriptCount
-                onCheckedChanged:
-                {
-                    if (checked == true)
-                        functionManager.setFunctionFilter(Function.Script, true);
-                    else
-                        functionManager.setFunctionFilter(Function.Script, false);
-                }
+                onCheckedChanged: setFunctionFilter(Function.Script, checked)
             }
             IconButton
             {
@@ -216,13 +192,7 @@ Rectangle
                 checkable: true
                 tooltip: qsTr("Audio")
                 counter: functionManager.audioCount
-                onCheckedChanged:
-                {
-                    if (checked == true)
-                        functionManager.setFunctionFilter(Function.Audio, true);
-                    else
-                        functionManager.setFunctionFilter(Function.Audio, false);
-                }
+                onCheckedChanged: setFunctionFilter(Function.Audio, checked)
             }
             IconButton
             {
@@ -234,12 +204,7 @@ Rectangle
                 checkable: true
                 tooltip: qsTr("Videos")
                 counter: functionManager.videoCount
-                onCheckedChanged: {
-                    if (checked == true)
-                        functionManager.setFunctionFilter(Function.Video, true);
-                    else
-                        functionManager.setFunctionFilter(Function.Video, false);
-                }
+                onCheckedChanged: setFunctionFilter(Function.Video, checked)
             }
             Rectangle { Layout.fillWidth: true }
         }
@@ -284,7 +249,7 @@ Rectangle
                       Connections
                       {
                           target: item
-                          onClicked: if (hasChildren) functionManager.selectFunction(-1, qItem, false)
+                          onClicked: fmSelector.selectItem(ID, qItem, mouseMods & Qt.ControlModifier)
                       }
                       Connections
                       {
@@ -292,7 +257,7 @@ Rectangle
                           target: item
                           onPathChanged: functionManager.setFolderPath(oldPath, newPath)
                       }
-                  }
+                  } // Loader
               } // Component
         } // ListView
     } // ColumnLayout

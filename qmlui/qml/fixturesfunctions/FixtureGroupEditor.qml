@@ -30,6 +30,15 @@ Rectangle
     anchors.fill: parent
     color: "transparent"
 
+    ModelSelector
+    {
+        id: fgeSelector
+        onItemsCountChanged:
+        {
+            console.log("Fixture Group Editor selected items changed !")
+        }
+    }
+
     ColumnLayout
     {
       anchors.fill: parent
@@ -102,21 +111,22 @@ Rectangle
                             item.nodeIcon = "qrc:/group.svg"
                             item.childrenDelegate = "qrc:/FixtureDelegate.qml"
                             item.folderChildren = childrenModel
-                            item.childrenHeight = (childrenModel.rowCount() * 35)
                         }
                         else
                         {
                             item.cRef = classRef
                         }
                     }
+                    Connections
+                    {
+                        target: item
+                        onClicked: fgeSelector.selectItem(ID, qItem, mouseMods & Qt.ControlModifier)
+                    }
                     /*
                     Connections
                     {
                           target: item
-                          onDoubleClicked:
-                          {
-                              loadFunctionEditor(fID, fType)
-                          }
+                          onDoubleClicked: { }
                     }
                     */
                 }

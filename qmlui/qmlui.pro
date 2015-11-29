@@ -37,6 +37,7 @@ HEADERS += \
     previewcontext.h \
     mainview2d.h \
     mainviewdmx.h \
+    modelselector.h \
     sceneeditor.h
 
 SOURCES += main.cpp \
@@ -53,7 +54,9 @@ SOURCES += main.cpp \
     previewcontext.cpp \
     mainview2d.cpp \
     mainviewdmx.cpp \
+    modelselector.cpp \
     sceneeditor.cpp
+    
 
 #############################################
 #  Virtual Console

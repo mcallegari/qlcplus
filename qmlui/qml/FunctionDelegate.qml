@@ -36,7 +36,7 @@ Rectangle
     property bool isSelected: false
 
     signal toggled
-    signal clicked
+    signal clicked(int ID, var qItem, int mouseMods)
     signal doubleClicked(int ID, int Type)
 
     Rectangle
@@ -89,9 +89,7 @@ Rectangle
         onClicked:
         {
             isSelected = true
-            functionManager.selectFunction(cRef.id, funcDelegate,
-                                           (mouse.modifiers & Qt.ControlModifier))
-            //funcDelegate.clicked()
+            funcDelegate.clicked(cRef.id, funcDelegate, mouse.modifiers)
         }
         onDoubleClicked:
         {

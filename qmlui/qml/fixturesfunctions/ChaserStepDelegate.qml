@@ -52,7 +52,7 @@ Rectangle
     property int col5Width: 60
     property int col6Width: 60
 
-    signal clicked
+    signal clicked(int ID, var qItem, int mouseMods)
 
     onFunctionIDChanged:
     {
@@ -84,9 +84,7 @@ Rectangle
         onClicked:
         {
             isSelected = true
-            functionManager.selectFunction(functionID, stepDelegate,
-                                           (mouse.modifiers & Qt.ControlModifier))
-            stepDelegate.clicked()
+            stepDelegate.clicked(functionID, stepDelegate, mouse.modifiers)
         }
     }
 

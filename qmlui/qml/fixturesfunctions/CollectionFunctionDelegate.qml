@@ -36,7 +36,7 @@ Rectangle
     property int indexInList: -1
     property int highlightIndex: -1
 
-    signal clicked
+    signal clicked(int ID, var qItem, int mouseMods)
 
     onFunctionIDChanged:
     {
@@ -95,9 +95,7 @@ Rectangle
         onClicked:
         {
             isSelected = true
-            functionManager.selectFunction(functionID, funcDelegate,
-                                           (mouse.modifiers & Qt.ControlModifier))
-            funcDelegate.clicked()
+            funcDelegate.clicked(functionID, funcDelegate, mouse.modifiers)
         }
     }
 }

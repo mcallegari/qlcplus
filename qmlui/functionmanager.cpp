@@ -88,46 +88,6 @@ void FunctionManager::setFunctionFilter(quint32 filter, bool enable)
     slotDocLoaded();
 }
 
-void FunctionManager::selectFunction(quint32 id, QQuickItem *item, bool multiSelection)
-{
-    if (multiSelection == false)
-    {
-        foreach(selectedFunction sf, m_selectedFunctions)
-        {
-            //if (m_previewEnabled && sf.m_fID == m_sceneEditor->sceneID())
-            //    m_sceneEditor->setPreview(false);
-            sf.m_item->setProperty("isSelected", false);
-            Function *f = m_doc->function(sf.m_fID);
-            if (f != NULL && f->isRunning())
-                f->stop();
-        }
-
-        m_selectedFunctions.clear();
-    }
-
-    selectedFunction sf;
-    sf.m_fID = id;
-    sf.m_item = item;
-    item->setProperty("isSelected", true);
-    m_selectedFunctions.append(sf);
-
-    if (m_previewEnabled == true)
-    {
-        Function *f = m_doc->function(sf.m_fID);
-        if (f != NULL)
-            f->start(m_doc->masterTimer());
-    }
-
-    QQuickItem *previewBtn = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("previewButton"));
-    if (previewBtn != NULL)
-    {
-        if ((int)id != -1)
-            previewBtn->setProperty("visible", true);
-        else
-            previewBtn->setProperty("visible", false);
-    }
-}
-
 quint32 FunctionManager::createFunction(int type)
 {
     Function* f = NULL;
@@ -214,7 +174,8 @@ Function *FunctionManager::getFunction(quint32 id)
 
 void FunctionManager::clearTree()
 {
-    m_selectedFunctions.clear();
+    setPreview(false);
+    m_previewList.clear();
     m_functionTree->clear();
 }
 
@@ -226,9 +187,9 @@ void FunctionManager::setPreview(bool enable)
     }
     else
     {
-        foreach(selectedFunction sf, m_selectedFunctions)
+        foreach(QVariant fID, m_previewList)
         {
-            Function *f = m_doc->function(sf.m_fID);
+            Function *f = m_doc->function(fID.toUInt());
             if (f != NULL)
             {
                 if (enable == false)
@@ -242,6 +203,54 @@ void FunctionManager::setPreview(bool enable)
     }
 
     m_previewEnabled = enable;
+}
+
+void FunctionManager::checkPreview(QVariantList idsList)
+{
+    qDebug() << Q_FUNC_INFO << "selected items list:" << idsList;
+    QVariantList finalList;
+
+    // merge the two lists and start/stop functions if needed
+    foreach(QVariant fID, m_previewList)
+    {
+        if (idsList.contains(fID))
+        {
+            idsList.removeOne(fID);
+            finalList << fID;
+        }
+        else
+        {
+            if (m_previewEnabled == true)
+            {
+                Function *f = m_doc->function(fID.toUInt());
+                if (f != NULL)
+                    f->stop();
+            }
+        }
+    }
+
+    // now idsList contains only the "new" Function IDs
+    foreach(QVariant fID, idsList)
+    {
+        if (m_previewEnabled == true)
+        {
+            Function *f = m_doc->function(fID.toUInt());
+            if (f != NULL)
+                f->start(m_doc->masterTimer());
+        }
+        finalList << fID;
+    }
+
+    m_previewList = finalList;
+
+    QQuickItem *previewBtn = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("previewButton"));
+    if (previewBtn != NULL)
+    {
+        if (m_previewList.isEmpty())
+            previewBtn->setProperty("visible", false);
+        else
+            previewBtn->setProperty("visible", true);
+    }
 }
 
 void FunctionManager::setEditorFunction(quint32 fID)
@@ -360,7 +369,8 @@ void FunctionManager::slotDocLoaded()
     m_collectionCount = m_rgbMatrixCount = m_scriptCount = 0;
     m_showCount = m_audioCount = m_videoCount = 0;
 
-    m_selectedFunctions.clear();
+    setPreview(false);
+    m_previewList.clear();
     m_functionTree->clear();
     foreach(Function *func, m_doc->functions())
     {

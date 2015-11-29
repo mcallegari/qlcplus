@@ -36,7 +36,7 @@ Column
     property string childrenDelegate: "qrc:/FunctionDelegate.qml"
 
     signal toggled(bool expanded, int newHeight)
-    signal clicked(var qItem)
+    signal clicked(int ID, var qItem, int mouseMods)
     signal doubleClicked(int ID, int Type)
     signal pathChanged(string oldPath, string newPath)
 
@@ -97,7 +97,7 @@ Column
             {
                 isExpanded = !isExpanded
                 isSelected = true
-                nodeContainer.clicked(nodeContainer)
+                nodeContainer.clicked(-1, nodeContainer, mouse.modifiers)
             }
             onDoubleClicked:
             {
@@ -147,7 +147,7 @@ Column
                     Connections
                     {
                         target: item
-                        onClicked: if (hasChildren) functionManager.selectFunction(-1, item, false)
+                        onClicked: nodeContainer.clicked(ID, qItem, mouseMods)
                     }
                     Connections
                     {

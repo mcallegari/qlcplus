@@ -34,8 +34,7 @@ Rectangle
     property string textLabel: cRef ? cRef.name : ""
     property bool isSelected: false
 
-    signal toggled
-    signal clicked
+    signal clicked(int ID, var qItem, int mouseMods)
     signal doubleClicked(int fID, int fType)
 
     function iconFromType(type)
@@ -83,7 +82,7 @@ Rectangle
         onClicked:
         {
             isSelected = true
-            fxDelegate.clicked()
+            fxDelegate.clicked(cRef.id, fxDelegate, mouse.modifiers)
         }
         onDoubleClicked:
         {

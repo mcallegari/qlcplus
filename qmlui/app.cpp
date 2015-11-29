@@ -27,11 +27,12 @@
 
 #include "app.h"
 #include "mainview2d.h"
+#include "modelselector.h"
+#include "contextmanager.h"
+#include "virtualconsole.h"
 #include "fixturebrowser.h"
 #include "fixturemanager.h"
 #include "functionmanager.h"
-#include "contextmanager.h"
-#include "virtualconsole.h"
 #include "inputoutputmanager.h"
 
 #include "rgbscriptscache.h"
@@ -66,6 +67,7 @@ void App::startup()
 {
     qmlRegisterType<Fixture>("com.qlcplus.classes", 1, 0, "Fixture");
     qmlRegisterType<Function>("com.qlcplus.classes", 1, 0, "Function");
+    qmlRegisterType<ModelSelector>("com.qlcplus.classes", 1, 0, "ModelSelector");
 
     setTitle("Q Light Controller Plus");
     setIcon(QIcon(":/qlcplus.png"));
