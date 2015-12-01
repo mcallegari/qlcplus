@@ -21,6 +21,7 @@ qlcplus (4.10.2) stable; urgency=low
   * Virtual Console/Cue List: fix crash when adding steps to the chaser being run by a Cue List (David Garyga)
   * Virtual Console/Audio Triggers: fix virtual console buttons triggering (David Garyga)
   * Virtual Console/Input Selection: allow custom feedbacks only on an assigned source and don't crash (David Garyga)
+  * DMX Monitor: Fix strobing in 2D view (Jano Svitok)
   * Fixture Editor: Fix crash in the Channel Editor (David Garyga)
   * Plugins/uDMX: added support for AVLdiy.cn clone (thanks to Vitalii Husach)
   * Plugins/DMXUSB: (Linux) fixed data transmission of DMX4ALL NanoDMX

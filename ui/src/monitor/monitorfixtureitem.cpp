@@ -23,6 +23,7 @@
 #include <qmath.h>
 #include <QCursor>
 #include <QDebug>
+#include <QTimer>
 
 #include "monitorfixtureitem.h"
 #include "qlcfixturehead.h"
@@ -33,7 +34,7 @@
 #include "doc.h"
 
 #define MOVEMENT_THICKNESS    3
-#define STROBE_PERIOD 30
+#define STROBE_PERIOD 500 // 0.5s
 
 MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
     : m_doc(doc)
@@ -202,6 +203,16 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
             }
         }
 
+        if (!fxiItem->m_shutterChannels.isEmpty())
+        {
+            fxiItem->m_strobeTimer = new QTimer(this);
+            connect(fxiItem->m_strobeTimer, SIGNAL(timeout()), this, SLOT(slotStrobeTimer()));
+        }
+        else
+        {
+            fxiItem->m_strobeTimer = 0;
+        }
+
         m_heads.append(fxiItem);
     }
     slotUpdateValues();
@@ -219,6 +230,11 @@ MonitorFixtureItem::~MonitorFixtureItem()
 
     foreach(FixtureHead *head, m_heads)
     {
+        if (head->m_strobeTimer != 0)
+        {
+            disconnect(head->m_strobeTimer, SIGNAL(timeout()), this, SLOT(slotStrobeTimer()));
+            delete head->m_strobeTimer;
+        }
         delete head;
     }
     m_heads.clear();
@@ -349,8 +365,12 @@ uchar MonitorFixtureItem::computeAlpha(FixtureHead *head, const QByteArray & val
     if (head->m_masterDimmer != UINT_MAX /*QLCChannel::invalid()*/)
         alpha = values.at(head->m_masterDimmer);
 
-    if (alpha == 0)
-        return alpha; // once the shutter is closed, no light will come through, regardless if other wheels are open 
+    return alpha; 
+}
+
+FixtureHead::ShutterState MonitorFixtureItem::computeShutter(FixtureHead *head, const QByteArray & values)
+{
+    FixtureHead::ShutterState result = FixtureHead::Open;
 
     foreach (quint32 c, head->m_shutterChannels)
     {
@@ -358,29 +378,15 @@ uchar MonitorFixtureItem::computeAlpha(FixtureHead *head, const QByteArray & val
         FixtureHead::ShutterState state = head->m_shutterValues[c].at(val);
         if (state == FixtureHead::Closed) 
         {
-            alpha = 0;
-            head->m_strobePhase = -1;
-            return alpha;
+            return state;
         }
         else if (state == FixtureHead::Strobe)
         {
-            if (head->m_strobePhase == -1)
-                head->m_strobePhase = 0;
-            if (head->m_strobePhase < STROBE_PERIOD/2)
-                alpha = 0;
-            ++head->m_strobePhase;
-            if (head->m_strobePhase > STROBE_PERIOD)
-                head->m_strobePhase = 0;
-            if (alpha == 0)
-                return alpha;
-        }
-        else
-        {
-            head->m_strobePhase = -1;
+            result = state;
         }
     }
 
-    return alpha;
+    return result;
 }
 
 void MonitorFixtureItem::slotUpdateValues()
@@ -401,8 +407,42 @@ void MonitorFixtureItem::slotUpdateValues()
     foreach(FixtureHead *head, m_heads)
     {
 
-        QColor col = computeColor(head, fxValues);
-        col.setAlpha(computeAlpha(head, fxValues));
+        head->m_color = computeColor(head, fxValues);
+        head->m_dimmerValue = computeAlpha(head, fxValues);
+        head->m_shutterState = computeShutter(head, fxValues);
+ 
+        QColor col = head->m_color;
+        col.setAlpha(head->m_dimmerValue);
+
+        if (head->m_dimmerValue > 0)
+        {
+            if (head->m_shutterState == FixtureHead::Closed)
+            {
+                col.setAlpha(0);
+            }
+
+            if (head->m_shutterState == FixtureHead::Strobe)
+            {
+                if (head->m_strobeTimer != 0 && !head->m_strobeTimer->isActive())
+                {
+                    head->m_strobePhase = 0;
+                    head->m_strobeTimer->start(STROBE_PERIOD);
+                }
+                else if (head->m_strobePhase != 0)
+                {
+                    col.setAlpha(0);
+                }
+            }
+            else if (head->m_strobeTimer != 0)
+            {
+                head->m_strobeTimer->stop();
+            }
+        }
+        else if (head->m_strobeTimer != 0)
+        {
+            head->m_strobeTimer->stop();
+        }
+
         head->m_item->setBrush(QBrush(col));
 
         if (head->m_panChannel != UINT_MAX /*QLCChannel::invalid()*/)
@@ -419,6 +459,29 @@ void MonitorFixtureItem::slotUpdateValues()
     }
     if (needUpdate)
         update();
+}
+
+void MonitorFixtureItem::slotStrobeTimer()
+{
+    QTimer* timer = qobject_cast<QTimer*>(sender());
+    foreach (FixtureHead *head, m_heads)
+    {
+        if (head->m_strobeTimer != timer)
+            continue;
+       
+        if (head->m_dimmerValue == 0 || head->m_shutterState != FixtureHead::Strobe)
+            return;
+
+        head->m_strobePhase = (head->m_strobePhase + 1) % 2;
+        
+        QColor col = head->m_color;
+        col.setAlpha(head->m_dimmerValue);
+        if (head->m_strobePhase != 0)
+            col.setAlpha(0);
+        head->m_item->setBrush(QBrush(col));
+        update();
+        return;
+    }
 }
 
 void MonitorFixtureItem::showLabel(bool visible)

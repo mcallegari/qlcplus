@@ -63,7 +63,11 @@ struct FixtureHead
     /*! map channel -> array of 256 bool values
      */
     QHash<quint32, QList<ShutterState> > m_shutterValues;
+    QColor m_color;
+    uchar m_dimmerValue;
+    ShutterState m_shutterState;
     int m_strobePhase;
+    QTimer* m_strobeTimer;
 
     quint32 m_masterDimmer;
     quint32 m_panChannel;
@@ -114,6 +118,7 @@ protected slots:
     /** Update the fixture values for rendering, passing the
      *  universe array of values */
     void slotUpdateValues();
+    void slotStrobeTimer();
 
 protected:
     QRectF boundingRect() const;
@@ -128,6 +133,7 @@ private:
     void computePanPosition(FixtureHead *h, uchar value);
     QColor computeColor(FixtureHead *head, const QByteArray & values);
     uchar computeAlpha(FixtureHead *head, const QByteArray & values);
+    FixtureHead::ShutterState computeShutter(FixtureHead *head, const QByteArray & values);
 
 signals:
     void itemDropped(MonitorFixtureItem *);
