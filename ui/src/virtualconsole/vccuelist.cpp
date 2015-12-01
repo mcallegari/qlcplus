@@ -688,6 +688,10 @@ void VCCueList::slotPreviousCue()
 
 void VCCueList::slotCurrentStepChanged(int stepNumber)
 {
+    // Chaser is being edited, channels cound may change.
+    // Wait for the CueList to update its steps.
+    if (m_updateTimer->isActive())
+        return;
     Q_ASSERT(stepNumber < m_tree->topLevelItemCount() && stepNumber >= 0);
     QTreeWidgetItem* item = m_tree->topLevelItem(stepNumber);
     Q_ASSERT(item != NULL);
@@ -699,10 +703,10 @@ void VCCueList::slotCurrentStepChanged(int stepNumber)
         m_sl1BottomLabel->setStyleSheet(cfLabelBlueStyle);
         m_sl1BottomLabel->setText(QString("#%1").arg(m_primaryIndex + 1));
 
-        Chaser* ch = chaser();
         float stepVal;
-        if (ch->stepsCount() < 256)
-            stepVal = 255.0 / (float)ch->stepsCount();
+        int stepsCount = m_tree->topLevelItemCount();
+        if (stepsCount < 256)
+            stepVal = 255.0 / (float)stepsCount;
         else
             stepVal = 1.0;
         int slValue = (stepVal * (float)stepNumber);
