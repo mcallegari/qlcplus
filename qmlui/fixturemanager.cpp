@@ -62,6 +62,24 @@ quint32 FixtureManager::fixtureForAddress(quint32 index)
     return m_doc->fixtureForAddress(index);
 }
 
+QVariantList FixtureManager::fixtureSelection(quint32 address)
+{
+    QVariantList list;
+    quint32 fxID = m_doc->fixtureForAddress(address);
+    if (fxID == Fixture::invalidId())
+        return list;
+
+    Fixture *fixture = m_doc->fixture(fxID);
+    if (fixture == NULL)
+        return list;
+
+    quint32 startAddr = fixture->address();
+    for (quint32 i = 0; i < fixture->channels(); i++)
+        list.append(startAddr + i);
+
+    return list;
+}
+
 bool FixtureManager::addFixture(QString manuf, QString model, QString mode, QString name,
                                 int uniIdx, int address, int channels, int quantity, quint32 gap,
                                 qreal xPos, qreal yPos)
@@ -524,6 +542,40 @@ QVariantList FixtureManager::presetCapabilities(int index)
         var.append(QVariant::fromValue(cap));
 
     return var;
+}
+
+QVariantList FixtureManager::fixturesMap()
+{
+    m_fixturesMap.clear();
+    bool odd = true;
+
+    for (int i = 0; i < 512; i++)
+    {
+        quint32 fxID = m_doc->fixtureForAddress(i);
+        if (fxID == Fixture::invalidId())
+        {
+            m_fixturesMap.append(QVariant(QColor("#7f7f7f")));
+        }
+        else
+        {
+            Fixture *fx = m_doc->fixture(fxID);
+            if (fx != NULL)
+            {
+                for(quint32 cn = 0; cn < fx->channels(); cn++)
+                {
+                    if (odd)
+                        m_fixturesMap.append(QVariant(QColor("#2D84B0")));
+                    else
+                        m_fixturesMap.append(QVariant(QColor("#2C58B0")));
+                }
+                odd = !odd;
+                i+=fx->channels() - 1;
+            }
+            else
+                m_fixturesMap.append(QVariant(QColor("#7f7f7f")));
+        }
+    }
+    return m_fixturesMap;
 }
 
 void FixtureManager::slotDocLoaded()

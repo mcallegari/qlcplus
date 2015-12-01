@@ -60,7 +60,7 @@ function createItem()
     {
         draggedItem = itemComponent.createObject(mainView,
                   {"x": posnInWindow.x, "y": posnInWindow.y, "z": 10,
-                   "manufacturer": manufacturer, "model": model });
+                   "channels": channels, "manufacturer": manufacturer, "model": model });
     }
     else if (itemComponent.status === Component.Error)
     {

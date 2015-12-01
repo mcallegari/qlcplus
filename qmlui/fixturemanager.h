@@ -37,6 +37,7 @@ class FixtureManager : public QObject
     Q_OBJECT
     Q_PROPERTY(int fixturesCount READ fixturesCount NOTIFY fixturesCountChanged)
     Q_PROPERTY(QQmlListProperty<Fixture> fixtures READ fixtures)
+    Q_PROPERTY(QVariantList fixturesMap READ fixturesMap NOTIFY fixturesMapChanged)
     Q_PROPERTY(QVariant groupsModel READ groupsModel NOTIFY groupsModelChanged)
 
     Q_PROPERTY(QVariantList goboChannels READ goboChannels NOTIFY goboChannelsChanged)
@@ -47,6 +48,10 @@ public:
 
     Q_INVOKABLE quint32 invalidFixture();
     Q_INVOKABLE quint32 fixtureForAddress(quint32 index);
+    /** Returns a list of the universe indices occupied by a Fixture
+        at the requested $address */
+    Q_INVOKABLE QVariantList fixtureSelection(quint32 address);
+
     Q_INVOKABLE bool addFixture(QString manuf, QString model, QString mode, QString name,
                                 int uniIdx, int address, int channels, int quantity, quint32 gap,
                                 qreal xPos, qreal yPos);
@@ -99,6 +104,9 @@ public:
      *  the channel cached at the given index */
     Q_INVOKABLE QVariantList presetCapabilities(int index);
 
+    /** Returns data for representation in a GridEditor QML component */
+    QVariantList fixturesMap();
+
 public slots:
     /** Slot called whenever a new workspace has been loaded */
     void slotDocLoaded();
@@ -137,6 +145,9 @@ signals:
     /** Notify the listeners that the list of fixtures with color wheel channels has changed */
     void colorWheelChannelsChanged();
 
+    /** Notify the listeners that the fixture map has changed */
+    void fixturesMapChanged(QVariantList fixturesMap);
+
 private:
     /** Generic method that returns the names of the cached channels for
      *  the required $group */
@@ -162,6 +173,7 @@ private:
      *  when enabling the position capability for the selected Fixtures */
     int m_maxPanDegrees;
     int m_maxTiltDegrees;
+    QVariantList m_fixturesMap;
 };
 
 #endif // FIXTUREMANAGER_H

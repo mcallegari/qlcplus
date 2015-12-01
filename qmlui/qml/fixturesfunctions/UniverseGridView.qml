@@ -20,24 +20,24 @@
 import QtQuick 2.3
 import "FixtureUtils.js" as FxUtils
 
-Flickable {
+Flickable
+{
     id: universeGridView
     anchors.fill: parent
     anchors.margins: 20
+    boundsBehavior: Flickable.StopAtBounds
 
-    //contentWidth: destGrid.width
-    //contentHeight: destGrid.height
-    contentHeight: destGrid.height + uniText.height
+    contentHeight: uniGrid.height + uniText.height
 
     property int uniStartAddr: viewUniverseCombo.currentIndex * 512
-    property int cellWidth: width / destGrid.columns
 
     function hasSettings()
     {
         return false;
     }
 
-    RobotoText {
+    RobotoText
+    {
         id: uniText
         height: 45
         labelColor: "#ccc"
@@ -46,53 +46,21 @@ Flickable {
         fontBold: true
     }
 
-    Grid {
-        id: destGrid
-
-        //anchors.fill: parent
+    GridEditor
+    {
+        id: uniGrid
         anchors.top: uniText.bottom
         width: parent.width
-        //opacity: 0.5
-        columns: 24
 
-        Repeater {
-            model: 512
-            delegate: //DropTile { colorKey: "red" }
-                DropArea {
-                    id: dragTarget
+        showIndices: 512
+        gridSize: Qt.size(24, 22)
+        gridData: fixtureManager.fixturesMap
 
-                    //property string colorKey
-                    property alias dropProxy: dragTarget
-
-                    width: cellWidth
-                    height: width
-
-                    Rectangle {
-                        id: dropRectangle
-
-                        anchors.fill: parent
-                        border.width: 1
-                        border.color: "black"
-                        color: FxUtils.getColorForAddress(index)
-
-                        Text {
-                            anchors.fill: parent
-                            anchors.margins: 2
-                            text: index + 1
-                            font.pixelSize: height / 3
-                        }
-
-                        states: [
-                            State {
-                                when: dragTarget.containsDrag
-                                PropertyChanges {
-                                    target: dropRectangle
-                                    color: "green"
-                                }
-                            }
-                        ]
-                    }
-                }
+        onPressed:
+        {
+            var uniAddress = (yPos * gridSize.width) + xPos
+            console.log("Fixture pressed at address: " + uniAddress)
+            setSelectionData(fixtureManager.fixtureSelection(uniAddress))
         }
     }
 }

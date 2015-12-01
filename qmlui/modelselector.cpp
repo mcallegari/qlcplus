@@ -37,14 +37,7 @@ void ModelSelector::selectItem(quint32 id, QQuickItem *item, bool multiSelection
     if (multiSelection == false)
     {
         foreach(selectedItem sf, m_selectedItems)
-        {
             sf.m_item->setProperty("isSelected", false);
-            /*
-            Function *f = m_doc->function(sf.m_fID);
-            if (f != NULL && f->isRunning())
-                f->stop();
-            */
-        }
 
         m_selectedItems.clear();
         m_nodesCount = 0;

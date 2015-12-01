@@ -48,6 +48,7 @@
     <file alias="FixtureDragItem.qml">qml/fixturesfunctions/FixtureDragItem.qml</file>
     <file alias="FixtureBrowserDelegate.qml">qml/fixturesfunctions/FixtureBrowserDelegate.qml</file>
     <file alias="FixtureGroupEditor.qml">qml/fixturesfunctions/FixtureGroupEditor.qml</file>
+    <file alias="GridEditor.qml">qml/fixturesfunctions/GridEditor.qml</file>
     <file alias="UniverseGridView.qml">qml/fixturesfunctions/UniverseGridView.qml</file>
     <file alias="DMXView.qml">qml/fixturesfunctions/DMXView.qml</file>
     <file alias="FixtureDMXItem.qml">qml/fixturesfunctions/FixtureDMXItem.qml</file>
@@ -93,7 +94,6 @@
 
     <!-- JavaScript helpers -->
     <file alias="FixtureDrag.js">js/FixtureDrag.js</file>
-    <file alias="FixtureUtils.js">js/FixtureUtils.js</file>
     <file alias="FunctionDrag.js">js/FunctionDrag.js</file>
     <file alias="DetachWindow.js">js/DetachWindow.js</file>
     <file alias="PluginUtils.js">js/PluginUtils.js</file>
