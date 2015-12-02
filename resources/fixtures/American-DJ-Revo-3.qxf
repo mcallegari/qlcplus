@@ -97,11 +97,11 @@
  </Mode>
  <Mode Name="Pattern">
   <Physical>
-   <Bulb ColourTemperature="0" Type="" Lumens="0"/>
-   <Dimensions Height="0" Weight="0" Width="0" Depth="0"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
+   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
+   <Dimensions Height="334" Weight="4.04" Width="306" Depth="312"/>
+   <Lens DegreesMin="0" DegreesMax="0" Name="Fresnel"/>
    <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="50"/>
   </Physical>
   <Channel Number="0">Mode</Channel>
   <Channel Number="1">Pattern</Channel>
