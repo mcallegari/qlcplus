@@ -12,8 +12,10 @@ qlcplus (4.10.2) stable; urgency=low
   * Show Manager: fixed looped functions never stopping with certain durations (Jano Svitok)
   * Show Manager: fixed copy/paste of an existing Chaser
   * Show Manager: fix crashes when copying a sequence on an empty track (David Garyga)
+  * EFX Editor: removed the intensity control. Please use separate Scenes for that
   * Virtual Console/Slider: fixed copy of the channel monitor mode (David Garyga)
   * Virtual Console/Slider: in level mode, activate only in operate mode and don't hold forced LTP channels (David Garyga)
+  * Virtual Console/Slider: in playback mode, ignore the fade in/fade out of the attached Function (David Garyga)
   * Virtual Console/XYPad: added Fixture Group preset, to control a subgroup of Fixtures (see documentation)
   * Virtual Console/XYPad Properties: fixture ranges can now be set in degrees, percentage or DMX values
   * Virtual Console/XYPad Properties: fix manual input selection for presets (David Garyga)
@@ -48,6 +50,7 @@ qlcplus (4.10.2) stable; urgency=low
   * New fixture: PSL Strip Led RGB code K2014 (thanks to Lorenzo Andreani)
   * New fixture: Chauvet SlimPar Pro Tri (thank to Bulle)
   * New fixture: Chauvet GigBar IRC (thanks to JD-HP-DV7 and Jungle Jim)
+  * New fixtures: Ghost Green 30, KOOLlight 3D RGB Laser, Mac Mah Mac FOG DMX (thanks to David Pilato)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 6 Dec 2015 20:21:22 +0200
 

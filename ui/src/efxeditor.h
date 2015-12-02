@@ -108,7 +108,6 @@ private slots:
     void slotSpeedDialToggle(bool state);
     void slotFixtureItemChanged(QTreeWidgetItem* item, int column);
     void slotFixtureModeChanged(int index);
-    void slotFixtureIntensityChanged(int intensity);
     void slotFixtureStartOffsetChanged(int intensity);
     void slotAddFixtureClicked();
     void slotRemoveFixtureClicked();

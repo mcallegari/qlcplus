@@ -2903,13 +2903,11 @@ void EFX_Test::save()
 
     EFXFixture* ef1 = new EFXFixture(&e1);
     ef1->setHead(GroupHead(12, 3));
-    ef1->setFadeIntensity(128);
     e1.addFixture(ef1);
     EFXFixture* ef2 = new EFXFixture(&e1);
     ef2->setHead(GroupHead(34, 5));
     ef2->setDirection(EFX::Backward);
     ef2->setStartOffset(27);
-    ef2->setFadeIntensity(64);
     e1.addFixture(ef2);
     EFXFixture* ef3 = new EFXFixture(&e1);
     ef3->setHead(GroupHead(56,7));
@@ -2939,7 +2937,7 @@ void EFX_Test::save()
     bool dir = false, off = false, run = false, algo = false, w = false,
          h = false, rot = false, isRelative = false, xoff = false, yoff = false,
          xfreq = false, yfreq = false, xpha = false, ypha = false,
-         prop = false, intensity = false, speed = false;
+         prop = false, speed = false;
     int fixtureid = 0, fixturehead = 0, fixturedirection = 0, fixtureStartOffset = 0;
     QList <QString> fixtures;
 
@@ -3064,7 +3062,6 @@ void EFX_Test::save()
         {
             int expectHead = 0;
             bool expectBackward = false;
-            int expectIntensity = 255;
             int expectedMode = 0;
             int expectStartOffset = 0;
 
@@ -3081,7 +3078,6 @@ void EFX_Test::save()
                     if (text == "34")
                     {
                         expectHead = 5;
-                        expectIntensity = 64;
                         expectBackward = true;
                         expectStartOffset = 27;
                     }
@@ -3090,12 +3086,10 @@ void EFX_Test::save()
                         if (text == "12")
                         {
                             expectHead = 3;
-                            expectIntensity = 128;
                         }
                         else
                         {
                             expectHead = 7;
-                            expectIntensity = 255;
                         }
                         expectBackward = false;
                         expectStartOffset = 0;
@@ -3123,15 +3117,9 @@ void EFX_Test::save()
                     QCOMPARE(xmlReader.readElementText().toInt(), expectStartOffset);
                     fixtureStartOffset++;
                 }
-                else if (xmlReader.name() == "Intensity")
-                {
-                    QCOMPARE(xmlReader.readElementText().toInt(), expectIntensity);
-                    intensity = true;
-                }
                 else if (xmlReader.name() == "Mode")
                 {
                     QCOMPARE(xmlReader.readElementText().toInt(), expectedMode);
-                    intensity = true;
                 }
                 else
                 {
@@ -3165,7 +3153,6 @@ void EFX_Test::save()
     QVERIFY(xpha == true);
     QVERIFY(ypha == true);
     QVERIFY(prop == true);
-    QVERIFY(intensity == true);
 }
 
 void EFX_Test::preRunPostRun()

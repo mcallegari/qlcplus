@@ -46,7 +46,6 @@ EFXFixture::EFXFixture(const EFX* parent)
     , m_direction(Function::Forward)
     , m_startOffset(0)
     , m_mode(EFXFixture::PanTilt)
-    , m_fadeIntensity(255)
 
     , m_serialNumber(0)
     , m_runTimeDirection(Function::Forward)
@@ -71,7 +70,6 @@ void EFXFixture::copyFrom(const EFXFixture* ef)
     m_direction = ef->m_direction;
     m_startOffset = ef->m_startOffset;
     m_mode = ef->m_mode;
-    m_fadeIntensity = ef->m_fadeIntensity;
 
     m_serialNumber = ef->m_serialNumber;
     m_runTimeDirection = ef->m_runTimeDirection;
@@ -152,16 +150,6 @@ void EFXFixture::setMode(Mode mode)
 EFXFixture::Mode EFXFixture::mode() const
 {
     return m_mode;
-}
-
-void EFXFixture::setFadeIntensity(uchar value)
-{
-    m_fadeIntensity = value;
-}
-
-uchar EFXFixture::fadeIntensity() const
-{
-    return m_fadeIntensity;
 }
 
 bool EFXFixture::isValid() const
@@ -294,8 +282,8 @@ bool EFXFixture::loadXML(QXmlStreamReader &root)
         }
         else if (root.name() == KXMLQLCEFXFixtureIntensity)
         {
-            /* Intensity */
-            setFadeIntensity(uchar(root.readElementText().toUInt()));
+            /* Intensity - LEGACY */
+            root.skipCurrentElement();
         }
         else
         {
@@ -327,8 +315,6 @@ bool EFXFixture::saveXML(QXmlStreamWriter *doc) const
     doc->writeTextElement(KXMLQLCEFXFixtureDirection, Function::directionToString(m_direction));
     /* Start offset */
     doc->writeTextElement(KXMLQLCEFXFixtureStartOffset, QString::number(startOffset()));
-    /* Intensity */
-    doc->writeTextElement(KXMLQLCEFXFixtureIntensity, QString::number(fadeIntensity()));
 
     /* End the <Fixture> tag */
     doc->writeEndElement();
@@ -430,12 +416,12 @@ void EFXFixture::nextStep(MasterTimer* timer, QList<Universe *> universes)
             break;
 
         case RGB:
-            setPointRGB (universes, valX, valY);
+            setPointRGB(universes, valX, valY);
             break;
 
         case Dimmer:
             //Use Y for coherence with RGB gradient.
-            setPointDimmer (universes, valY);
+            setPointDimmer(universes, valY);
             break;
         }
     }
@@ -527,13 +513,13 @@ void EFXFixture::setPointRGB(QList<Universe *> universes, float x, float y)
     QVector<quint32> rgbChannels = fxi->rgbChannels(head().head);
 
     /* Don't write dimmer data directly to universes but use FadeChannel to avoid steps at EFX loop restart */
-    if (rgbChannels.size () >= 3)
+    if (rgbChannels.size() >= 3)
     {
-        QColor pixel = m_rgbGradient.pixel (x, y);
+        QColor pixel = m_rgbGradient.pixel(x, y);
 
-        setFadeChannel(rgbChannels[0], pixel.red ());
-        setFadeChannel(rgbChannels[1], pixel.green ());
-        setFadeChannel(rgbChannels[2], pixel.blue ());
+        setFadeChannel(rgbChannels[0], pixel.red());
+        setFadeChannel(rgbChannels[1], pixel.green());
+        setFadeChannel(rgbChannels[2], pixel.blue());
     }
 }
 
@@ -542,59 +528,13 @@ void EFXFixture::start(MasterTimer* timer, QList<Universe *> universes)
     Q_UNUSED(universes);
     Q_UNUSED(timer);
 
-    if (fadeIntensity() > 0 && m_started == false)
-    {
-        Fixture* fxi = doc()->fixture(head().fxi);
-        Q_ASSERT(fxi != NULL);
-
-        if (fxi->masterIntensityChannel(head().head) != QLCChannel::invalid())
-        {
-            FadeChannel fc(doc(), head().fxi, fxi->masterIntensityChannel(head().head));
-            if (m_parent->overrideFadeInSpeed() != Function::defaultSpeed())
-                fc.setFadeTime(m_parent->overrideFadeInSpeed());
-            else
-                fc.setFadeTime(m_parent->fadeInSpeed());
-
-            fc.setStart(0);
-            fc.setCurrent(fc.start());
-            // Don't use intensity() multiplier because EFX's GenericFader takes care of that
-            fc.setTarget(fadeIntensity());
-            // Fade channel up with EFX's own GenericFader to allow manual intensity control
-            m_parent->m_fader->add(fc);
-        }
-    }
-
     m_started = true;
 }
 
 void EFXFixture::stop(MasterTimer* timer, QList<Universe *> universes)
 {
+    Q_UNUSED(timer)
     Q_UNUSED(universes);
-
-    if (fadeIntensity() > 0 && m_started == true)
-    {
-        Fixture* fxi = doc()->fixture(head().fxi);
-        Q_ASSERT(fxi != NULL);
-
-        if (fxi->masterIntensityChannel(head().head) != QLCChannel::invalid())
-        {
-            FadeChannel fc(doc(), head().fxi, fxi->masterIntensityChannel(head().head));
-
-            if (m_parent->overrideFadeOutSpeed() != Function::defaultSpeed())
-                fc.setFadeTime(m_parent->overrideFadeOutSpeed());
-            else
-                fc.setFadeTime(m_parent->fadeOutSpeed());
-
-            fc.setStart(uchar(floor((float(fadeIntensity()) * intensity()) + 0.5)));
-            fc.setCurrent(fc.start());
-            fc.setTarget(0);
-            // Give zero-fading to MasterTimer because EFX will stop after this call
-            timer->faderAdd(fc);
-            // Remove the previously up-faded channel from EFX's internal fader to allow
-            // MasterTimer's fader take HTP precedence.
-            m_parent->m_fader->remove(fc);
-        }
-    }
 
     m_started = false;
 }

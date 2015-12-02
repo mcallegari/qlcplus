@@ -53,7 +53,6 @@
 #define KColumnMode    2
 #define KColumnReverse 3
 #define KColumnStartOffset 4
-#define KColumnIntensity 5
 
 #define PROPERTY_FIXTURE "fixture"
 
@@ -94,7 +93,7 @@ EFXEditor::EFXEditor(QWidget* parent, EFX* efx, Doc* doc)
     connect(m_tab, SIGNAL(currentChanged(int)),
             this, SLOT(slotTabChanged(int)));
 
-    // Used for intensity changes
+    // Used for UI parameter changes
     m_testTimer.setSingleShot(true);
     m_testTimer.setInterval(500);
     connect(&m_testTimer, SIGNAL(timeout()), this, SLOT(slotRestartTest()));
@@ -401,7 +400,6 @@ void EFXEditor::updateFixtureTree()
     m_tree->resizeColumnToContents(KColumnMode);
     m_tree->resizeColumnToContents(KColumnReverse);
     m_tree->resizeColumnToContents(KColumnStartOffset);
-    m_tree->resizeColumnToContents(KColumnIntensity);
 }
 
 QTreeWidgetItem* EFXEditor::fixtureItem(EFXFixture* ef)
@@ -481,7 +479,6 @@ void EFXEditor::addFixtureItem(EFXFixture* ef)
         item->setCheckState(KColumnReverse, Qt::Unchecked);
 
     updateModeColumn(item, ef);
-    updateIntensityColumn(item, ef);
     updateStartOffsetColumn(item, ef);
 
     updateIndices(m_tree->indexOfTopLevelItem(item),
@@ -511,24 +508,6 @@ void EFXEditor::updateModeColumn(QTreeWidgetItem* item, EFXFixture* ef)
         combo->setProperty(PROPERTY_FIXTURE, (qulonglong) ef);
         connect(combo, SIGNAL(currentIndexChanged(int)),
                 this, SLOT(slotFixtureModeChanged(int)));
-    }
-}
-
-void EFXEditor::updateIntensityColumn(QTreeWidgetItem* item, EFXFixture* ef)
-{
-    Q_ASSERT(item != NULL);
-    Q_ASSERT(ef != NULL);
-
-    if (m_tree->itemWidget(item, KColumnIntensity) == NULL)
-    {
-        QSpinBox* spin = new QSpinBox(m_tree);
-        spin->setAutoFillBackground(true);
-        spin->setRange(0, 255);
-        spin->setValue(ef->fadeIntensity());
-        m_tree->setItemWidget(item, KColumnIntensity, spin);
-        spin->setProperty(PROPERTY_FIXTURE, (qulonglong) ef);
-        connect(spin, SIGNAL(valueChanged(int)),
-                this, SLOT(slotFixtureIntensityChanged(int)));
     }
 }
 
@@ -562,7 +541,6 @@ void EFXEditor::removeFixtureItem(EFXFixture* ef)
     Q_ASSERT(item != NULL);
 
     from = m_tree->indexOfTopLevelItem(item);
-    delete m_tree->itemWidget(item, KColumnIntensity);
     delete item;
 
     updateIndices(from, m_tree->topLevelItemCount() - 1);
@@ -573,7 +551,6 @@ void EFXEditor::removeFixtureItem(EFXFixture* ef)
     m_tree->resizeColumnToContents(KColumnMode);
     m_tree->resizeColumnToContents(KColumnReverse);
     m_tree->resizeColumnToContents(KColumnStartOffset);
-    m_tree->resizeColumnToContents(KColumnIntensity);
 }
 
 void EFXEditor::slotDialDestroyed(QObject *)
@@ -665,18 +642,6 @@ void EFXEditor::slotFixtureModeChanged(int index)
     m_testTimer.start();
 }
 
-void EFXEditor::slotFixtureIntensityChanged(int intensity)
-{
-    QSpinBox* spin = qobject_cast<QSpinBox*>(QObject::sender());
-    Q_ASSERT(spin != NULL);
-    EFXFixture* ef = (EFXFixture*) spin->property(PROPERTY_FIXTURE).toULongLong();
-    Q_ASSERT(ef != NULL);
-    ef->setFadeIntensity(uchar(intensity));
-
-    // Restart the test after the latest intensity change, delayed
-    m_testTimer.start();
-}
-
 void EFXEditor::slotFixtureStartOffsetChanged(int startOffset)
 {
     QSpinBox* spin = qobject_cast<QSpinBox*>(QObject::sender());
@@ -687,7 +652,7 @@ void EFXEditor::slotFixtureStartOffsetChanged(int startOffset)
 
     redrawPreview();
 
-    // Restart the test after the latest intensity change, delayed
+    // Restart the test after the latest offset change, delayed
     m_testTimer.start();
 }
 
@@ -771,7 +736,6 @@ void EFXEditor::slotAddFixtureClicked()
         m_tree->resizeColumnToContents(KColumnMode);
         m_tree->resizeColumnToContents(KColumnReverse);
         m_tree->resizeColumnToContents(KColumnStartOffset);
-        m_tree->resizeColumnToContents(KColumnIntensity);
 
         redrawPreview();
 
@@ -832,7 +796,6 @@ void EFXEditor::slotRaiseFixtureClicked()
 
             m_tree->insertTopLevelItem(index - 1, item);
             m_tree->setCurrentItem(item);
-            updateIntensityColumn(item, ef);
             updateStartOffsetColumn(item, ef);
 
             updateIndices(index - 1, index);
@@ -865,7 +828,6 @@ void EFXEditor::slotLowerFixtureClicked()
             item = m_tree->takeTopLevelItem(index);
             m_tree->insertTopLevelItem(index + 1, item);
             m_tree->setCurrentItem(item);
-            updateIntensityColumn(item, ef);
             updateStartOffsetColumn(item, ef);
 
             updateIndices(index, index + 1);

@@ -124,7 +124,6 @@ void EFXFixture_Test::initial()
     QVERIFY(ef.head().head == -1);
     QVERIFY(ef.direction() == EFX::Forward);
     QVERIFY(ef.serialNumber() == 0);
-    QVERIFY(ef.fadeIntensity() == uchar(255));
     QVERIFY(ef.isValid() == false);
     QVERIFY(ef.isReady() == false);
 
@@ -148,7 +147,6 @@ void EFXFixture_Test::copyFrom()
     ef.m_ready = true;
     ef.m_elapsed = 31337;
     ef.m_intensity = 0.314159;
-    ef.m_fadeIntensity = 125;
 
     EFXFixture copy(&e);
     copy.copyFrom(&ef);
@@ -160,7 +158,6 @@ void EFXFixture_Test::copyFrom()
     QVERIFY(copy.m_ready == true);
     QVERIFY(copy.m_elapsed == 31337);
     QVERIFY(copy.m_intensity == 0.314159);
-    QVERIFY(copy.m_fadeIntensity == 125);
 }
 
 void EFXFixture_Test::publicProperties()
@@ -182,9 +179,6 @@ void EFXFixture_Test::publicProperties()
     ef.setDirection(EFX::Forward);
     QVERIFY(ef.direction() == EFX::Forward);
     QVERIFY(ef.m_runTimeDirection == EFX::Forward);
-
-    ef.setFadeIntensity(69);
-    QVERIFY(ef.fadeIntensity() == 69);
 }
 
 void EFXFixture_Test::loadSuccess()
@@ -198,7 +192,6 @@ void EFXFixture_Test::loadSuccess()
     xmlWriter.writeTextElement("ID", "83");
     xmlWriter.writeTextElement("Head", "76");
     xmlWriter.writeTextElement("Direction", "Backward");
-    xmlWriter.writeTextElement("Intensity", "91");
 
     xmlWriter.writeEndDocument();
     xmlWriter.setDevice(NULL);
@@ -214,7 +207,6 @@ void EFXFixture_Test::loadSuccess()
     QVERIFY(ef.head().fxi == 83);
     QVERIFY(ef.head().head == 76);
     QVERIFY(ef.direction() == EFX::Backward);
-    QVERIFY(ef.fadeIntensity() == 91);
 }
 
 void EFXFixture_Test::loadWrongRoot()
@@ -619,88 +611,6 @@ void EFXFixture_Test::nextStepSingleShot()
 
     /* Single-shot EFX should now be ready */
     QVERIFY(ef->isReady() == true);
-
-    e.postRun(&mts, ua);
-}
-
-void EFXFixture_Test::start()
-{
-    QList<Universe*> ua;
-    ua.append(new Universe(0, new GrandMaster()));
-    MasterTimerStub mts(m_doc, ua);
-
-    EFX e(m_doc);
-    e.setFadeInSpeed(1000);
-    e.setFadeOutSpeed(2000);
-    EFXFixture* ef = new EFXFixture(&e);
-    ef->setHead(GroupHead(0,0));
-    e.addFixture(ef);
-
-    Fixture* fxi = m_doc->fixture(0);
-    QVERIFY(fxi != NULL);
-
-    e.preRun(&mts);
-
-    // Fade intensity == 0, no need to do fade-in
-    ef->setFadeIntensity(0);
-    ef->start(&mts, ua);
-    QCOMPARE(e.m_fader->m_channels.size(), 0);
-    ef->m_started = false;
-
-    // Fade intensity > 0, need to do fade-in
-    ef->setFadeIntensity(1);
-    ef->start(&mts, ua);
-    QCOMPARE(e.m_fader->m_channels.size(), 1);
-
-    FadeChannel fc;
-    fc.setFixture(m_doc, fxi->id());
-    fc.setChannel(m_doc, fxi->masterIntensityChannel());
-    QVERIFY(e.m_fader->m_channels.contains(fc) == true);
-    QCOMPARE(e.m_fader->m_channels[fc].fadeTime(), uint(1000));
-
-    e.postRun(&mts, ua);
-}
-
-void EFXFixture_Test::stop()
-{
-    QList<Universe*> ua;
-    ua.append(new Universe(0, new GrandMaster()));
-    MasterTimerStub mts(m_doc, ua);
-
-    EFX e(m_doc);
-    e.setFadeInSpeed(1000);
-    e.setFadeOutSpeed(2000);
-    EFXFixture* ef = new EFXFixture(&e);
-    ef->setHead(GroupHead(0,0));
-    e.addFixture(ef);
-
-    Fixture* fxi = m_doc->fixture(0);
-    QVERIFY(fxi != NULL);
-
-    e.preRun(&mts);
-
-    // Not started yet
-    ef->stop(&mts, ua);
-    QCOMPARE(e.m_fader->m_channels.size(), 0);
-    QCOMPARE(mts.fader()->m_channels.size(), 0);
-
-    // Start
-    ef->start(&mts, ua);
-    QCOMPARE(e.m_fader->m_channels.size(), 1);
-    FadeChannel fc;
-    fc.setFixture(m_doc, fxi->id());
-    fc.setChannel(m_doc, fxi->masterIntensityChannel());
-    QVERIFY(e.m_fader->m_channels.contains(fc) == true);
-
-    // Then stop
-    ef->stop(&mts, ua);
-    QCOMPARE(e.m_fader->m_channels.size(), 0);
-
-    // FadeChannels are handed over to MasterTimer's GenericFader
-    QCOMPARE(mts.fader()->m_channels.size(), 1);
-    QVERIFY(e.m_fader->m_channels.contains(fc) == false);
-    QVERIFY(mts.m_fader->m_channels.contains(fc) == true);
-    QCOMPARE(mts.m_fader->m_channels[fc].fadeTime(), uint(2000));
 
     e.postRun(&mts, ua);
 }

@@ -106,19 +106,6 @@ public:
     /** Get the parameter(s) that this efx will animate (ie. dimmer, RGB, ...) */
     Mode mode() const;
 
-
-    /**
-     * Set a value to fade the fixture's intensity channel(s) to
-     * during start().
-     */
-    void setFadeIntensity(uchar value);
-
-    /**
-     * Get the value to fade the fixture's intensity channel(s) to
-     * during start().
-     */
-    uchar fadeIntensity() const;
-
     /**
      * Check that this object has a fixture ID and at least LSB channel
      * for pan and/or tilt.
@@ -142,7 +129,6 @@ private:
     Function::Direction m_direction;
     int m_startOffset;
     Mode m_mode;
-    uchar m_fadeIntensity;
 
     /*************************************************************************
      * Load & Save

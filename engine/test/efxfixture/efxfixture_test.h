@@ -57,9 +57,6 @@ private slots:
     void nextStepLoopZeroDuration();
     void nextStepSingleShot();
 
-    void start();
-    void stop();
-
 private:
     Doc* m_doc;
 
