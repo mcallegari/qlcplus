@@ -38,6 +38,7 @@
 #include "clickandgoslider.h"
 #include "qlcinputchannel.h"
 #include "virtualconsole.h"
+#include "chaserrunner.h"
 #include "mastertimer.h"
 #include "chaserstep.h"
 #include "inputpatch.h"
@@ -47,7 +48,7 @@
 #include "qlcfile.h"
 #include "apputil.h"
 #include "chaser.h"
-#include "chaserrunner.h"
+#include "qmath.h"
 #include "doc.h"
 
 #define COL_NUM      0
@@ -712,10 +713,17 @@ void VCCueList::slotCurrentStepChanged(int stepNumber)
         int slValue = (stepVal * (float)stepNumber);
         if (slValue > 255)
             slValue = 255;
-        m_slider1->blockSignals(true);
-        m_slider1->setValue(255 - slValue);
-        m_sl1TopLabel->setText(QString("%1").arg(slValue));
-        m_slider1->blockSignals(false);
+
+        //qDebug() << "Slider value:" << m_slider1->value() << "Step range:" << (255 - slValue) << (255 - slValue - stepVal);
+        // if the Step slider is already in range, then do not set its value
+        // this means a user interaction is going on, either with the mouse or external controller
+        if (m_slider1->value() < (255 - slValue - stepVal) || m_slider1->value() > (255 - slValue))
+        {
+            m_slider1->blockSignals(true);
+            m_slider1->setValue(255 - slValue);
+            m_sl1TopLabel->setText(QString("%1").arg(slValue));
+            m_slider1->blockSignals(false);
+        }
     }
     else
         setSlidersInfo(m_primaryIndex);
@@ -967,7 +975,7 @@ void VCCueList::slotSlider1ValueChanged(int value)
             if(value >= 255.0 - stepSize)
                 newStep = ch->stepsCount() - 1;
             else
-                newStep = qRound((float)value / stepSize);
+                newStep = qFloor((float)value / stepSize);
         }
         //qDebug() << "value:" << value << "steps:" << ch->stepsCount() << "new step:" << newStep;
 
