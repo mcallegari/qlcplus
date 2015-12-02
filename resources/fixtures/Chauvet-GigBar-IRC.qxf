@@ -12,17 +12,17 @@
  <Channel Name="Par 1 Red Control">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
+  <Capability Min="0" Max="255">Red intensity (0-100%)</Capability>
  </Channel>
  <Channel Name="Par 1 Green Control">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
+  <Capability Min="0" Max="255">Green intensity (0-100%)</Capability>
  </Channel>
  <Channel Name="Par 1 Blue Control">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
+  <Capability Min="0" Max="255">Blue intensity (0-100%)</Capability>
  </Channel>
  <Channel Name="Par 1 Control">
   <Group Byte="0">Effect</Group>
@@ -34,17 +34,17 @@
  <Channel Name="Par 2 Red Control">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
+  <Capability Min="0" Max="255">Red intensity (0-100%)</Capability>
  </Channel>
  <Channel Name="Par 2 Green Control">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
+  <Capability Min="0" Max="255">Green intensity (0-100%)</Capability>
  </Channel>
  <Channel Name="Par 2 Blue Control">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
+  <Capability Min="0" Max="255">Blue intensity (0-100%)</Capability>
  </Channel>
  <Channel Name="Par 2 Control">
   <Group Byte="0">Effect</Group>
@@ -285,10 +285,10 @@
    <Channel>0</Channel>
   </Head>
   <Head>
-   <Channel>4</Channel>
    <Channel>7</Channel>
    <Channel>6</Channel>
    <Channel>5</Channel>
+   <Channel>4</Channel>
   </Head>
   <Head>
    <Channel>13</Channel>
