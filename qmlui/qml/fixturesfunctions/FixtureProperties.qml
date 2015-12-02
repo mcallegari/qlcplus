@@ -54,7 +54,8 @@ Rectangle
     function updateAvailableAddress()
     {
         fxAddressSpin.value =
-                fixtureBrowser.availableChannel(fxUniverseIndex, fxChannels, fxAddressSpin.value - 1) + 1
+                fixtureBrowser.availableChannel(fxUniverseIndex, fxChannels,
+                                                fxQuantity, fxGap, fxAddressSpin.value - 1) + 1
     }
 
     Column

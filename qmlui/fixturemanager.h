@@ -146,7 +146,7 @@ signals:
     void colorWheelChannelsChanged();
 
     /** Notify the listeners that the fixture map has changed */
-    void fixturesMapChanged(QVariantList fixturesMap);
+    void fixturesMapChanged();
 
 private:
     /** Generic method that returns the names of the cached channels for

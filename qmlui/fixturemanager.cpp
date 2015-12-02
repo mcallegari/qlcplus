@@ -114,6 +114,7 @@ bool FixtureManager::addFixture(QString manuf, QString model, QString mode, QStr
     emit fixturesCountChanged();
 
     updateFixtureTree();
+    emit fixturesMapChanged();
 
     return true;
 }

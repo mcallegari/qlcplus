@@ -22,10 +22,15 @@ import "."
 
 Rectangle
 {
-    property int channels: 1
     property string manufacturer
     property string model
     property string mode
+
+    property int universe: 0
+    property int address: 0
+    property int channels: 1
+    property int quantity: 1
+    property int gap: 0
 
     width: 80
     height: 80

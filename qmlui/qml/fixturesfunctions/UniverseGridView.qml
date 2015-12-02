@@ -17,8 +17,7 @@
   limitations under the License.
 */
 
-import QtQuick 2.3
-import "FixtureUtils.js" as FxUtils
+import QtQuick 2.0
 
 Flickable
 {
@@ -61,6 +60,34 @@ Flickable
             var uniAddress = (yPos * gridSize.width) + xPos
             console.log("Fixture pressed at address: " + uniAddress)
             setSelectionData(fixtureManager.fixtureSelection(uniAddress))
+        }
+
+        onDragEntered:
+        {
+            var channels = dragEvent.source.channels
+            console.log("Drag entered. Channels: " + channels)
+            var uniAddress = (yPos * gridSize.width) + xPos
+            var tmp = []
+            for (var q = 0; q < dragEvent.source.quantity; q++)
+            {
+                for (var i = 0; i < channels; i++)
+                    tmp.push(uniAddress + i)
+                uniAddress += channels + dragEvent.source.gap
+            }
+            setSelectionData(tmp)
+        }
+
+        onDragPositionChanged:
+        {
+            var uniAddress = (yPos * gridSize.width) + xPos
+            dragEvent.source.address = uniAddress
+            var freeAddr = fixtureBrowser.availableChannel(0, dragEvent.source.channels, // FIXME: use the correct universe
+                                                           dragEvent.source.quantity,
+                                                           dragEvent.source.gap, uniAddress)
+            if (freeAddr === uniAddress)
+                validSelection = true
+            else
+                validSelection = false
         }
     }
 }

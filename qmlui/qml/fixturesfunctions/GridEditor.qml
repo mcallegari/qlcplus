@@ -39,10 +39,14 @@ Rectangle
     onGridSizeChanged: calculateCellSize()
     onGridDataChanged: dataCanvas.requestPaint()
     onWidthChanged: calculateCellSize()
+    onValidSelectionChanged: dataCanvas.requestPaint()
 
-    signal pressed(int xPos, int yPos)
-    signal positionChanged(int xPos, int yPos)
-    signal released(int xPos, int yPos)
+    signal pressed(int xPos, int yPos, int mods)
+    signal positionChanged(int xPos, int yPos, int mods)
+    signal released(int xPos, int yPos, int mods)
+
+    signal dragEntered(int xPos, int yPos, var dragEvent)
+    signal dragPositionChanged(int xPos, int yPos, var dragEvent)
 
     function calculateCellSize()
     {
@@ -56,8 +60,6 @@ Rectangle
         gridRoot.height = cellSize * gridSize.height
 
         //console.log("Grid View cell size: " + cellSize)
-        dataCanvas.requestPaint()
-        gridCanvas.requestPaint()
     }
 
     function setSelectionData(data)
@@ -169,19 +171,22 @@ Rectangle
             onPressed:
             {
                 if (dataCanvas.checkPosition(mouse))
-                    gridRoot.pressed(dataCanvas.mouseLastX, dataCanvas.mouseLastY)
+                    gridRoot.pressed(dataCanvas.mouseLastX, dataCanvas.mouseLastY, mouse.modifiers)
                 dataCanvas.movingSelection = true
             }
             onPositionChanged:
             {
                 if (dataCanvas.movingSelection && dataCanvas.checkPosition(mouse))
-                    gridRoot.positionChanged(dataCanvas.mouseLastX, dataCanvas.mouseLastY)
+                    gridRoot.positionChanged(dataCanvas.mouseLastX, dataCanvas.mouseLastY, mouse.modifiers)
             }
             onReleased:
             {
-                gridRoot.released(dataCanvas.mouseLastX, dataCanvas.mouseLastY)
+                gridRoot.released(dataCanvas.mouseLastX, dataCanvas.mouseLastY, mouse.modifiers)
+                dataCanvas.mouseOrigX = -1
+                dataCanvas.mouseOrigY = -1
                 dataCanvas.mouseLastX = -1
                 dataCanvas.mouseLastY = -1
+                dataCanvas.selectionOffset = 0
             }
         }
 
@@ -190,15 +195,8 @@ Rectangle
             anchors.fill: parent
             onEntered:
             {
-                var channels = drag.source.channels
-                console.log("Drag entered. Channels: " + channels)
                 dataCanvas.checkPosition(drag)
-                var tmp = []
-                var uniAddress = (dataCanvas.mouseLastY * gridSize.width) + dataCanvas.mouseLastX
-                for (var i = 0; i < channels; i++)
-                    tmp.push(uniAddress + i)
-                selectionData = tmp
-                dataCanvas.requestPaint()
+                gridRoot.dragEntered(dataCanvas.mouseLastX, dataCanvas.mouseLastY, drag)
             }
 
             onPositionChanged:
@@ -209,8 +207,20 @@ Rectangle
                     dataCanvas.selectionOffset =
                             ((dataCanvas.mouseLastY - dataCanvas.mouseOrigY) * gridSize.width) +
                             dataCanvas.mouseLastX - dataCanvas.mouseOrigX
+                    gridRoot.dragPositionChanged(dataCanvas.mouseLastX, dataCanvas.mouseLastY, drag)
                     dataCanvas.requestPaint()
                 }
+            }
+
+            onExited:
+            {
+                dataCanvas.mouseOrigX = -1
+                dataCanvas.mouseOrigY = -1
+                dataCanvas.mouseLastX = -1
+                dataCanvas.mouseLastY = -1
+                dataCanvas.selectionOffset = 0
+                selectionData = []
+                dataCanvas.requestPaint()
             }
         }
     }

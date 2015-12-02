@@ -60,7 +60,9 @@ function createItem()
     {
         draggedItem = itemComponent.createObject(mainView,
                   {"x": posnInWindow.x, "y": posnInWindow.y, "z": 10,
-                   "channels": channels, "manufacturer": manufacturer, "model": model });
+                   "manufacturer": manufacturer, "model": model,
+                   "address": address, "universe": universeIndex,
+                   "channels": channels, "quantity": quantity, "gap": gap });
     }
     else if (itemComponent.status === Component.Error)
     {
@@ -98,7 +100,7 @@ function endDrag(mouse)
     }
 
     fixtureManager.addFixture(manufacturer, model, mode, name,
-                              universeIndex, address, channels, quantity, gap,
+                              universeIndex, draggedItem.address, channels, quantity, gap,
                               x, y);
     draggedItem.destroy();
     draggedItem = null;
