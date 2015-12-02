@@ -341,6 +341,7 @@
   <fixture path="Generic-Generic-Smoke.qxf" mf="Generic" md="Generic Smoke"/>
   <fixture path="Geni-OBY-5.qxf" mf="Geni" md="OBY 5"/>
   <fixture path="Geni-OBY-600.qxf" mf="Geni" md="OBY 600"/>
+  <fixture path="Ghost-Green-30.qxf" mf="Ghost" md="Green 30"/>
   <fixture path="GLP-Impression.qxf" mf="GLP" md="Impression"/>
   <fixture path="GLP-ImpressionWA.qxf" mf="GLP" md="Impression WA"/>
   <fixture path="GLP-ImpressionXL.qxf" mf="GLP" md="Impression XL"/>
@@ -390,6 +391,7 @@
   <fixture path="Kam-Laserscan-1000-3D.qxf" mf="Kam" md="Laserscan 1000 3D"/>
   <fixture path="Kam-LED-PartyBar.qxf" mf="Kam" md="LED PartyBar"/>
   <fixture path="Kam-Powercan-TRI54W-Slim.qxf" mf="Kam" md="Powercan TRI54W Slim"/>
+  <fixture path="KOOLlight-3D-RGB-Laser.qxf" mf="KOOLlight" md="3D RGB Laser"/>
   <fixture path="Lanta-Fireball-P64s.qxf" mf="Lanta" md="Fireball P64s Slimline LED Parcan"/>
   <fixture path="Lanta-Orion-Link-V2.qxf" mf="Lanta" md="Orion Link V2"/>
   <fixture path="Laserworld-CS-1000RGB.qxf" mf="Laserworld" md="CS-1000RGB"/>
@@ -413,6 +415,7 @@
   <fixture path="LiteCraft-LED-PAR-64-AT3.qxf" mf="Litecraft" md="LED PAR 64 AT3"/>
   <fixture path="Litecraft-PowerBar-4.qxf" mf="Litecraft" md="PowerBar 4"/>
   <fixture path="Look-Solutions-Unique-2.1.qxf" mf="Look Solutions" md="Unique 2.1"/>
+  <fixture path="Mac-Mah-Mac-FOG-DMX.qxf" mf="Mac Mah" md="Mac FOG DMX"/>
   <fixture path="Mac-Mah-Mac-Follow-1200.qxf" mf="Mac Mah" md="Mac Follow 1200"/>
   <fixture path="Mac-Mah-WiderPanel.qxf" mf="Mac Mah" md="Wider Panel"/>
   <fixture path="Martin-24-7-Hazer.qxf" mf="Martin" md="ZR24/7 Hazer"/>
