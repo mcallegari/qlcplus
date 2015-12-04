@@ -40,6 +40,7 @@ void FixtureGroup_Test::initTestCase()
     dir.setFilter(QDir::Files);
     dir.setNameFilters(QStringList() << QString("*%1").arg(KExtFixture));
     QVERIFY(m_doc->fixtureDefCache()->loadMap(dir) == true);
+    m_currentAddr = 0;
 }
 
 void FixtureGroup_Test::cleanupTestCase()
@@ -135,6 +136,8 @@ void FixtureGroup_Test::assignFixtureNoSize()
 
     Fixture* fxi = new Fixture(m_doc);
     fxi->setChannels(2);
+    fxi->setAddress(m_currentAddr);
+    m_currentAddr += fxi->channels();
     m_doc->addFixture(fxi);
 
     grp.assignFixture(fxi->id());
@@ -152,6 +155,8 @@ void FixtureGroup_Test::assignFixtureNoSize()
 
     fxi = new Fixture(m_doc);
     fxi->setChannels(1);
+    fxi->setAddress(m_currentAddr);
+    m_currentAddr += fxi->channels();
     m_doc->addFixture(fxi);
 
     grp.assignFixture(fxi->id());
@@ -168,6 +173,8 @@ void FixtureGroup_Test::assignFixtureNoSize()
 
     fxi = new Fixture(m_doc);
     fxi->setFixtureDefinition(def, mode);
+    fxi->setAddress(m_currentAddr);
+    m_currentAddr += fxi->channels();
     m_doc->addFixture(fxi);
 
     grp.assignFixture(fxi->id());
@@ -186,6 +193,8 @@ void FixtureGroup_Test::assignFixtureNoSize()
 
     fxi = new Fixture(m_doc);
     fxi->setFixtureDefinition(def, mode);
+    fxi->setAddress(m_currentAddr);
+    m_currentAddr += fxi->channels();
     m_doc->addFixture(fxi);
 
     grp.assignFixture(fxi->id());
@@ -218,6 +227,8 @@ void FixtureGroup_Test::assignFixture4x2()
 
         Fixture* fxi = new Fixture(m_doc);
         fxi->setFixtureDefinition(def, mode);
+        fxi->setAddress(m_currentAddr);
+        m_currentAddr += fxi->channels();
         m_doc->addFixture(fxi);
     }
 
@@ -388,6 +399,8 @@ void FixtureGroup_Test::resignFixture()
     {
         Fixture* fxi = new Fixture(m_doc);
         fxi->setChannels(1);
+        fxi->setAddress(m_currentAddr);
+        m_currentAddr += fxi->channels();
         m_doc->addFixture(fxi);
         grp.assignFixture(fxi->id());
     }
@@ -408,6 +421,8 @@ void FixtureGroup_Test::resignFixture()
     // Test that the gap is again filled
     Fixture* fxi = new Fixture(m_doc);
     fxi->setChannels(1);
+    fxi->setAddress(m_currentAddr);
+    m_currentAddr += fxi->channels();
     m_doc->addFixture(fxi, 42);
     grp.assignFixture(42);
     QCOMPARE(grp.headList().size(), 16);
@@ -422,6 +437,8 @@ void FixtureGroup_Test::resignHead()
     grp.setSize(QSize(4, 4));
     Fixture* fxi = new Fixture(m_doc);
     fxi->setChannels(16);
+    fxi->setAddress(m_currentAddr);
+    m_currentAddr += fxi->channels();
     m_doc->addFixture(fxi);
 
     for (quint32 id = 0; id < 16; id++)
@@ -474,6 +491,8 @@ void FixtureGroup_Test::fixtureRemoved()
     {
         Fixture* fxi = new Fixture(m_doc);
         fxi->setChannels(1);
+        fxi->setAddress(m_currentAddr);
+        m_currentAddr += fxi->channels();
         m_doc->addFixture(fxi);
         grp.assignFixture(fxi->id());
     }
@@ -486,6 +505,8 @@ void FixtureGroup_Test::fixtureRemoved()
 
     Fixture* fxi = new Fixture(m_doc);
     fxi->setChannels(5);
+    fxi->setAddress(m_currentAddr);
+    m_currentAddr += fxi->channels();
     m_doc->addFixture(fxi, 69);
     QCOMPARE(fxi->id(), quint32(69));
 
@@ -502,6 +523,8 @@ void FixtureGroup_Test::swap()
     {
         Fixture* fxi = new Fixture(m_doc);
         fxi->setChannels(1);
+        fxi->setAddress(m_currentAddr);
+        m_currentAddr += fxi->channels();
         m_doc->addFixture(fxi);
         grp.assignFixture(fxi->id());
     }
@@ -545,6 +568,8 @@ void FixtureGroup_Test::copy()
     {
         Fixture* fxi = new Fixture(m_doc);
         fxi->setChannels(1);
+        fxi->setAddress(m_currentAddr);
+        m_currentAddr += fxi->channels();
         m_doc->addFixture(fxi);
         grp1.assignFixture(fxi->id());
     }
@@ -732,6 +757,8 @@ void FixtureGroup_Test::load()
     {
         Fixture* fxi = new Fixture(m_doc);
         fxi->setChannels(1);
+        fxi->setAddress(m_currentAddr);
+        m_currentAddr += fxi->channels();
         m_doc->addFixture(fxi);
         grp.assignFixture(fxi->id());
     }
@@ -778,6 +805,8 @@ void FixtureGroup_Test::save()
     {
         Fixture* fxi = new Fixture(m_doc);
         fxi->setChannels(1);
+        fxi->setAddress(m_currentAddr);
+        m_currentAddr += fxi->channels();
         m_doc->addFixture(fxi);
         grp.assignFixture(fxi->id());
     }

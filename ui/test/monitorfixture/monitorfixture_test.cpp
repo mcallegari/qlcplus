@@ -34,6 +34,7 @@
 void MonitorFixture_Test::initTestCase()
 {
     m_doc = new Doc(this);
+    m_currentAddr = 0;
 }
 
 void MonitorFixture_Test::cleanupTestCase()
@@ -65,10 +66,11 @@ void MonitorFixture_Test::fixture()
 
     Fixture* fxi = new Fixture(m_doc);
     fxi->setChannels(6);
-    fxi->setAddress(10);
+    fxi->setAddress(m_currentAddr);
     fxi->setName("Foobar");
     m_doc->addFixture(fxi);
     QVERIFY(fxi->id() != Fixture::invalidId());
+    m_currentAddr += fxi->channels();
 
     MonitorFixture mof(&w, m_doc);
     mof.setFixture(fxi->id());
@@ -94,9 +96,10 @@ void MonitorFixture_Test::lessThan()
     Fixture* fxi1 = new Fixture(m_doc);
     fxi1->setChannels(6);
     fxi1->setName("Foo");
-    fxi1->setAddress(0);
+    fxi1->setAddress(m_currentAddr);
     m_doc->addFixture(fxi1);
     QVERIFY(fxi1->id() != Fixture::invalidId());
+    m_currentAddr += fxi1->channels();
 
     MonitorFixture mof1(&w, m_doc);
     mof1.setFixture(fxi1->id());
@@ -104,9 +107,10 @@ void MonitorFixture_Test::lessThan()
     Fixture* fxi2 = new Fixture(m_doc);
     fxi2->setChannels(4);
     fxi2->setName("Bar");
-    fxi2->setAddress(10);
+    fxi2->setAddress(m_currentAddr);
     m_doc->addFixture(fxi2);
     QVERIFY(fxi2->id() != Fixture::invalidId());
+    m_currentAddr += fxi2->channels();
 
     MonitorFixture mof2(&w, m_doc);
     mof2.setFixture(fxi2->id());
@@ -133,10 +137,11 @@ void MonitorFixture_Test::channelValueStyles()
 
     Fixture* fxi = new Fixture(m_doc);
     fxi->setChannels(6);
-    fxi->setAddress(10);
+    fxi->setAddress(m_currentAddr);
     fxi->setName("Foobar");
     m_doc->addFixture(fxi);
     QVERIFY(fxi->id() != Fixture::invalidId());
+    m_currentAddr += fxi->channels();
 
     MonitorFixture mof(&w, m_doc);
     mof.setFixture(fxi->id());
@@ -201,10 +206,11 @@ void MonitorFixture_Test::updateValues()
 
     Fixture* fxi = new Fixture(m_doc);
     fxi->setChannels(6);
-    fxi->setAddress(0);
+    fxi->setAddress(m_currentAddr);
     fxi->setName("Foobar");
     m_doc->addFixture(fxi);
     QVERIFY(fxi->id() != Fixture::invalidId());
+    m_currentAddr += fxi->channels();
 
     QByteArray ba(6, 0);
     for (int i = 0; i < 6; i++)

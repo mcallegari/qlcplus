@@ -50,6 +50,7 @@ private slots:
 
 private:
     Doc* m_doc;
+    int m_currentAddr;
 };
 
 #endif

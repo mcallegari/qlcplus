@@ -61,6 +61,7 @@ void RGBMatrix_Test::initTestCase()
     {
         Fixture* fxi = new Fixture(m_doc);
         fxi->setFixtureDefinition(def, mode);
+        fxi->setAddress(i * fxi->channels());
         m_doc->addFixture(fxi);
 
         grp->assignFixture(fxi->id());

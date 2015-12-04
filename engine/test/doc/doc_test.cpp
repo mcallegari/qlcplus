@@ -57,6 +57,7 @@ void Doc_Test::initTestCase()
     dir.setFilter(QDir::Files);
     dir.setNameFilters(QStringList() << QString("*%1").arg(KExtFixture));
     QVERIFY(m_doc->fixtureDefCache()->loadMap(dir) == true);
+    m_currentAddr = 0;
 }
 
 void Doc_Test::init()
@@ -68,6 +69,7 @@ void Doc_Test::cleanup()
     QSignalSpy spy1(m_doc, SIGNAL(clearing()));
     QSignalSpy spy2(m_doc, SIGNAL(cleared()));
     m_doc->clearContents();
+    m_currentAddr = 0;
     QCOMPARE(spy1.size(), 1);
     QCOMPARE(spy2.size(), 1);
     QCOMPARE(m_doc->functions().size(), 0);
@@ -152,10 +154,11 @@ void Doc_Test::addFixture()
     Fixture* f1 = new Fixture(m_doc);
     f1->setName("One");
     f1->setChannels(5);
-    f1->setAddress(0);
+    f1->setAddress(m_currentAddr);
     f1->setUniverse(0);
 
     QVERIFY(m_doc->addFixture(f1) == true);
+    m_currentAddr += f1->channels();
     QVERIFY(f1->id() == 0);
     QVERIFY(m_doc->isModified() == true);
     QVERIFY(spy.size() == 1);
@@ -168,7 +171,7 @@ void Doc_Test::addFixture()
     Fixture* f2 = new Fixture(m_doc);
     f2->setName("Two");
     f2->setChannels(5);
-    f2->setAddress(0);
+    f2->setAddress(m_currentAddr);
     f2->setUniverse(0);
     QVERIFY(m_doc->addFixture(f2, f1->id()) == false);
     QVERIFY(m_doc->isModified() == false);
@@ -177,6 +180,7 @@ void Doc_Test::addFixture()
 
     /* But, the fixture can be added if we give it an unassigned ID. */
     QVERIFY(m_doc->addFixture(f2, f1->id() + 1) == true);
+    m_currentAddr += f2->channels();
     QVERIFY(f1->id() == 0);
     QVERIFY(f2->id() == 1);
     QVERIFY(m_doc->isModified() == true);
@@ -189,9 +193,12 @@ void Doc_Test::addFixture()
     Fixture* f3 = new Fixture(m_doc);
     f3->setName("Three");
     f3->setChannels(5);
-    f3->setAddress(0);
+    f3->setAddress(f2->address());
     f3->setUniverse(0);
+    QVERIFY(m_doc->addFixture(f3) == false); // cannot assign the same address as f2
+    f3->setAddress(m_currentAddr);
     QVERIFY(m_doc->addFixture(f3) == true);
+    m_currentAddr += f3->channels();
     QVERIFY(f1->id() == 0);
     QVERIFY(f2->id() == 1);
     QVERIFY(f3->id() == 2);
@@ -215,23 +222,26 @@ void Doc_Test::deleteFixture()
     Fixture* f1 = new Fixture(m_doc);
     f1->setName("One");
     f1->setChannels(5);
-    f1->setAddress(0);
+    f1->setAddress(m_currentAddr);
     f1->setUniverse(0);
     m_doc->addFixture(f1);
+    m_currentAddr += f1->channels();
 
     Fixture* f2 = new Fixture(m_doc);
     f2->setName("Two");
     f2->setChannels(5);
-    f2->setAddress(0);
+    f2->setAddress(m_currentAddr);
     f2->setUniverse(0);
     m_doc->addFixture(f2);
+    m_currentAddr += f2->channels();
 
     Fixture* f3 = new Fixture(m_doc);
     f3->setName("Three");
     f3->setChannels(5);
-    f3->setAddress(0);
+    f3->setAddress(m_currentAddr);
     f3->setUniverse(0);
     m_doc->addFixture(f3);
+    m_currentAddr += f3->channels();
 
     QVERIFY(m_doc->isModified() == true);
     m_doc->resetModified();
@@ -294,23 +304,26 @@ void Doc_Test::fixture()
     Fixture* f1 = new Fixture(m_doc);
     f1->setName("One");
     f1->setChannels(5);
-    f1->setAddress(0);
+    f1->setAddress(m_currentAddr);
     f1->setUniverse(0);
     m_doc->addFixture(f1);
+    m_currentAddr += f1->channels();
 
     Fixture* f2 = new Fixture(m_doc);
     f2->setName("Two");
     f2->setChannels(5);
-    f2->setAddress(0);
+    f2->setAddress(m_currentAddr);
     f2->setUniverse(0);
     m_doc->addFixture(f2);
+    m_currentAddr += f2->channels();
 
     Fixture* f3 = new Fixture(m_doc);
     f3->setName("Three");
     f3->setChannels(5);
-    f3->setAddress(0);
+    f3->setAddress(m_currentAddr);
     f3->setUniverse(0);
     m_doc->addFixture(f3);
+    m_currentAddr += f3->channels();
 
     QVERIFY(m_doc->fixture(f1->id()) == f1);
     QVERIFY(m_doc->fixture(f2->id()) == f2);
@@ -576,9 +589,12 @@ void Doc_Test::load()
 
     xmlWriter.writeStartElement("Engine");
 
-    createFixtureNode(xmlWriter, 0);
-    createFixtureNode(xmlWriter, 72);
-    createFixtureNode(xmlWriter, 15);
+    createFixtureNode(xmlWriter, 0, m_currentAddr, 18);
+    m_currentAddr += 18;
+    createFixtureNode(xmlWriter, 72, m_currentAddr, 18);
+    m_currentAddr += 18;
+    createFixtureNode(xmlWriter, 15, m_currentAddr, 18);
+    m_currentAddr += 18;
 
     createFixtureGroupNode(xmlWriter, 0);
     createFixtureGroupNode(xmlWriter, 42);
@@ -627,9 +643,12 @@ void Doc_Test::loadWrongRoot()
 
     xmlWriter.writeStartElement("Enjine");
 
-    createFixtureNode(xmlWriter, 0);
-    createFixtureNode(xmlWriter, 72);
-    createFixtureNode(xmlWriter, 15);
+    createFixtureNode(xmlWriter, 0, m_currentAddr, 18);
+    m_currentAddr += 18;
+    createFixtureNode(xmlWriter, 72, m_currentAddr, 18);
+    m_currentAddr += 18;
+    createFixtureNode(xmlWriter, 15, m_currentAddr, 18);
+    m_currentAddr += 18;
 
     createFixtureGroupNode(xmlWriter, 0);
     createFixtureGroupNode(xmlWriter, 42);
@@ -755,18 +774,18 @@ void Doc_Test::save()
     QVERIFY(m_doc->isModified() == true);
 }
 
-void Doc_Test::createFixtureNode(QXmlStreamWriter &doc, quint32 id)
+void Doc_Test::createFixtureNode(QXmlStreamWriter &doc, quint32 id, quint32 address, quint32 channels)
 {
     doc.writeStartElement("Fixture");
 
-    doc.writeTextElement("Channels", "18");
+    doc.writeTextElement("Channels", QString("%1").arg(channels));
     doc.writeTextElement("Name", QString("Fixture %1").arg(id));
     doc.writeTextElement("Universe", "3");
     doc.writeTextElement("Model", "Foobar");
     doc.writeTextElement("Mode", "Foobar");
     doc.writeTextElement("Manufacturer", "Foobar");
     doc.writeTextElement("ID", QString("%1").arg(id));
-    doc.writeTextElement("Address", "21");
+    doc.writeTextElement("Address", QString("%1").arg(address));
 
     /* End the <Fixture> tag */
     doc.writeEndElement();
