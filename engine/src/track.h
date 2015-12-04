@@ -144,6 +144,7 @@ public:
 
     bool loadXML(QXmlStreamReader &root);
 
+    bool postLoad(Doc* doc);
 };
 
 /** @} */

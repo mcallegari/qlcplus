@@ -325,7 +325,11 @@ bool Show::loadXML(QXmlStreamReader &root)
 
 void Show::postLoad()
 {
-
+    foreach (Track* track, m_tracks)
+    {
+        if (track->postLoad(doc()))
+            doc()->setModified();
+    }
 }
 
 /*****************************************************************************

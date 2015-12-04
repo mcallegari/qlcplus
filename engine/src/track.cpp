@@ -245,3 +245,39 @@ bool Track::loadXML(QXmlStreamReader &root)
 
     return true;
 }
+
+bool Track::postLoad(Doc* doc)
+{
+    bool modified = false;
+    QMutableListIterator<ShowFunction*> it(m_functions);
+    while (it.hasNext())
+    {
+        ShowFunction* showFunction = it.next();
+
+        Function* function = doc->function(showFunction->functionID());
+        if (function == NULL)
+        {
+            it.remove();
+            delete showFunction;
+            modified = true;
+            continue;
+        }
+
+        Chaser* chaser = qobject_cast<Chaser*>(function);
+        if (chaser == NULL || !chaser->isSequence() || getSceneID() == chaser->getBoundSceneID())
+            continue;
+        if (getSceneID() == Function::invalidId())
+        {
+            // No scene ID, use the one from this sequence
+            setSceneID(chaser->getBoundSceneID());
+        }
+        else
+        {
+            // Conflicting scene IDs, we have to remove this sequence
+            it.remove();
+            delete showFunction;
+        }
+        modified = true;
+    }
+    return modified;
+}

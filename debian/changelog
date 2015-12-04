@@ -12,6 +12,7 @@ qlcplus (4.10.2) stable; urgency=low
   * Show Manager: fixed looped functions never stopping with certain durations (Jano Svitok)
   * Show Manager: fixed copy/paste of an existing Chaser
   * Show Manager: fix crashes when copying a sequence on an empty track (David Garyga)
+  * Show Manager: repair conflicting sequences when loading a broken workspace (David Garyga)
   * EFX Editor: removed the intensity control. Please use separate Scenes for that
   * Virtual Console/Slider: fixed copy of the channel monitor mode (David Garyga)
   * Virtual Console/Slider: in level mode, activate only in operate mode and don't hold forced LTP channels (David Garyga)
