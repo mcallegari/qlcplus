@@ -932,6 +932,14 @@ void FixtureManager::addFixture()
     if (af.exec() == QDialog::Rejected)
         return;
 
+    if (af.invalidAddress())
+    {
+        QMessageBox msg(QMessageBox::Critical, tr("Error"),
+                tr("Please enter a valid address"), QMessageBox::Ok);
+        msg.exec();
+        return;
+    }
+
     quint32 latestFxi = Fixture::invalidId();
 
     QString name = af.name();
