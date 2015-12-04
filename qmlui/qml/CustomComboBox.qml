@@ -23,8 +23,8 @@ import "."
 Rectangle
 {
     id: cbRoot
-    implicitHeight: 30
-    implicitWidth: 150
+    height: 30
+    width: 150
     color: UISettings.bgMedium
     border.width: 1
     border.color: "#222"
