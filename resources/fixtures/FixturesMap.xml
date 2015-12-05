@@ -9,6 +9,7 @@
   <fixture path="American-DJ-Accu-Spot-250-II.qxf" mf="American DJ" md="Accu Spot 250 II"/>
   <fixture path="American-DJ-Accu-Spot-Pro.qxf" mf="American DJ" md="ACCU Spot Pro"/>
   <fixture path="American-DJ-Accu-UFO.qxf" mf="American DJ" md="Accu UFO"/>
+  <fixture path="American-DJ-COB-Cannon-Wash-Pearl.qxf" mf="American DJ" md="COB Cannon Wash Pearl"/>
   <fixture path="American-DJ-Dekker-LED.qxf" mf="American DJ" md="Dekker LED"/>
   <fixture path="American-DJ-DJ-Spot-250.qxf" mf="American DJ" md="DJ Spot 250"/>
   <fixture path="American-DJ-DJ-Spot-300.qxf" mf="American DJ" md="DJ Spot 300"/>
@@ -37,6 +38,7 @@
   <fixture path="American-DJ-Inno-Pocket-Scan.qxf" mf="American DJ" md="Inno Pocket Scan"/>
   <fixture path="American-DJ-Inno-Pocket-Spot.qxf" mf="American DJ" md="Inno Pocket Spot"/>
   <fixture path="American-DJ-Inno-Pocket-Wash.qxf" mf="American DJ" md="Inno Pocket Wash"/>
+  <fixture path="American-DJ-Inno-Pocket-Z4.qxf" mf="American DJ" md="Inno Pocket Z4"/>
   <fixture path="American-DJ-Inno-Scan-LED.qxf" mf="American DJ" md="Inno Scan LED"/>
   <fixture path="American-DJ-Inno-Spot-LED.qxf" mf="American DJ" md="Inno Spot LED"/>
   <fixture path="American-DJ-Inno-Spot-Pro.qxf" mf="American DJ" md="Inno Spot Pro"/>
@@ -53,6 +55,7 @@
   <fixture path="American-DJ-Monster-Fun.qxf" mf="American DJ" md="Monster Fun"/>
   <fixture path="American-DJ-Nucleus-LED.qxf" mf="American DJ" md="Nucleus LED"/>
   <fixture path="American-DJ-Nucleus-PRO.qxf" mf="American DJ" md="Nucleus PRO"/>
+  <fixture path="American-DJ-On-X.qxf" mf="American DJ" md="On-X"/>
   <fixture path="American-DJ-P64-LED-Plus.qxf" mf="American DJ" md="P64 LED Plus"/>
   <fixture path="American-DJ-Par-38-Pro.qxf" mf="American DJ" md="Par 38 Pro"/>
   <fixture path="American-DJ-Profile-Panel-RGB.qxf" mf="American DJ" md="Profile Panel RGB"/>
@@ -80,6 +83,7 @@
   <fixture path="American-DJ-UVLed-Bar-16.qxf" mf="American DJ" md="UVLed Bar 16"/>
   <fixture path="American-DJ-Vizi-Beam-5R.qxf" mf="American DJ" md="Vizi Beam 5R"/>
   <fixture path="American-DJ-Vizi-LED-Spot.qxf" mf="American DJ" md="Vizi LED Spot"/>
+  <fixture path="American-DJ-WiFly-EXR-Dotz-Par.qxf" mf="American DJ" md="WiFly EXR Dotz Par"/>
   <fixture path="Ayra-ComPar20.qxf" mf="Ayra" md="ComPar 20"/>
   <fixture path="Beamz-LCB-252.qxf" mf="beamZ" md="LCB-252"/>
   <fixture path="BeamZ-LS-3DRG.qxf" mf="beamZ" md="LS-3DRG"/>
