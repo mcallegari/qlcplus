@@ -262,7 +262,7 @@
     <message>
         <location filename="../ui/src/docbrowser.cpp" line="128"/>
         <source>Close this window</source>
-        <translation type="unfinished"></translation>
+        <translation>Dieses Fenster schließen</translation>
     </message>
 </context>
 <context>
@@ -322,7 +322,7 @@
     <message>
         <location filename="editchannel.ui" line="262"/>
         <source>Invalid Range: overlapping with another capability.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ungültiger Bereich: Überlappung mit einer anderen Fähigkeit.</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="285"/>
@@ -421,14 +421,16 @@
     <message>
         <location filename="editchannel.cpp" line="555"/>
         <source>Missing resources</source>
-        <translation type="unfinished"></translation>
+        <translation>Fehlende Ressourcen</translation>
     </message>
     <message>
         <location filename="editchannel.cpp" line="556"/>
         <source>Some gobos are missing:
 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Einige Gobos fehlen:
+
+</translation>
     </message>
     <message>
         <location filename="editchannel.cpp" line="394"/>
