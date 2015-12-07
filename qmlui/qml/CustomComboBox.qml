@@ -89,6 +89,20 @@ Rectangle
             positionMenu()
             dropDownMenu.visible = !dropDownMenu.visible
         }
+        onWheel:
+        {
+            var newIdx
+            if (wheel.angleDelta.y > 0)
+                newIdx = Math.max(0, menuListView.currentIndex - 1)
+            else
+                newIdx = Math.min(menuListView.currentIndex + 1, menuListView.count - 1)
+
+            if (newIdx !== menuListView.currentIndex)
+            {
+                menuListView.currentIndex = newIdx
+                console.log("Wheel event. Index: " + menuListView.currentIndex)
+            }
+        }
     }
 
     Rectangle
@@ -116,6 +130,14 @@ Rectangle
                     width: menuListView.width
                     height: 35
                     color: "transparent"
+
+                    property int currentIdx: menuListView.currentIndex
+
+                    onCurrentIdxChanged:
+                    {
+                        if (index == menuListView.currentIndex)
+                            currentText = modelData
+                    }
 
                     Component.onCompleted:
                     {
