@@ -71,14 +71,12 @@ qmlui: {
   INSTALLS += LIBQTSVG LIBQTSVG_ID
 }
 
-# QtGui, QtXml, QtNetwork and QtScript depend on QtCore.
+# QtGui, QtNetwork and QtScript depend on QtCore.
 # Do this AFTER installing the libraries into the bundle
 qtnametool.path = $$INSTALLROOT
 
 qtnametool.commands = $$LIBQTCORE_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBQTGUI_DIR/$$LIBQTGUI_FILE
-qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
-    $$INSTALLROOT/$$LIBSDIR/$$LIBQTXML_DIR/$$LIBQTXML_FILE
 qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBQTNETWORK_DIR/$$LIBQTNETWORK_FILE
 qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
