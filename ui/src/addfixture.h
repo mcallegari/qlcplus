@@ -195,6 +195,9 @@ protected slots:
 
     /** Callback for button to open the Address Tool */
     void slotDiptoolButtonClicked();
+
+protected:
+    void checkOverlapping();
 };
 
 /** @} */

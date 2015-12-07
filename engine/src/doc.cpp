@@ -371,53 +371,62 @@ bool Doc::addFixture(Fixture* fixture, quint32 id)
         qWarning() << Q_FUNC_INFO << "a fixture with ID" << id << "already exists!";
         return false;
     }
-    else
+
+    /* Check for overlapping address */
+    for (uint i = fixture->universeAddress();
+            i < fixture->universeAddress() + fixture->channels(); i++)
     {
-        fixture->setID(id);
-        m_fixtures.insert(id, fixture);
-        m_fixturesListCacheUpToDate = false;
-
-        /* Patch fixture change signals thru Doc */
-        connect(fixture, SIGNAL(changed(quint32)),
-                this, SLOT(slotFixtureChanged(quint32)));
-
-        /* Keep track of fixture addresses */
-        for (uint i = fixture->universeAddress();
-             i < fixture->universeAddress() + fixture->channels(); i++)
+        if (m_addresses.contains(i))
         {
-            m_addresses[i] = id;
+            qWarning() << Q_FUNC_INFO << "fixture" << id << "overlapping with fixture" << m_addresses[i] << "@ channel" << i;
+            return false;
         }
-
-        // Add the fixture channels capabilities to the universe they belong
-        QList<Universe *> universes = inputOutputMap()->claimUniverses();
-        int uni = fixture->universe();
-
-        // TODO !!! if a universe for this fixture doesn't exist, add it !!!
-        QList<int> forcedHTP = fixture->forcedHTPChannels();
-        QList<int> forcedLTP = fixture->forcedLTPChannels();
-
-        for (quint32 i = 0 ; i < fixture->channels(); i++)
-        {
-            const QLCChannel* channel(fixture->channel(i));
-            if (forcedHTP.contains(i))
-                universes.at(uni)->setChannelCapability(fixture->address() + i,
-                                                        channel->group(), Universe::HTP);
-            else if (forcedLTP.contains(i))
-                universes.at(uni)->setChannelCapability(fixture->address() + i,
-                                                        channel->group(), Universe::LTP);
-            else
-                universes.at(uni)->setChannelCapability(fixture->address() + i,
-                                                        channel->group());
-            ChannelModifier *mod = fixture->channelModifier(i);
-            universes.at(uni)->setChannelModifier(fixture->address() + i, mod);
-        }
-        inputOutputMap()->releaseUniverses(true);
-
-        emit fixtureAdded(id);
-        setModified();
-
-        return true;
     }
+
+    fixture->setID(id);
+    m_fixtures.insert(id, fixture);
+    m_fixturesListCacheUpToDate = false;
+
+    /* Patch fixture change signals thru Doc */
+    connect(fixture, SIGNAL(changed(quint32)),
+            this, SLOT(slotFixtureChanged(quint32)));
+
+    /* Keep track of fixture addresses */
+    for (uint i = fixture->universeAddress();
+            i < fixture->universeAddress() + fixture->channels(); i++)
+    {
+        m_addresses[i] = id;
+    }
+
+    // Add the fixture channels capabilities to the universe they belong
+    QList<Universe *> universes = inputOutputMap()->claimUniverses();
+    int uni = fixture->universe();
+
+    // TODO !!! if a universe for this fixture doesn't exist, add it !!!
+    QList<int> forcedHTP = fixture->forcedHTPChannels();
+    QList<int> forcedLTP = fixture->forcedLTPChannels();
+
+    for (quint32 i = 0 ; i < fixture->channels(); i++)
+    {
+        const QLCChannel* channel(fixture->channel(i));
+        if (forcedHTP.contains(i))
+            universes.at(uni)->setChannelCapability(fixture->address() + i,
+                    channel->group(), Universe::HTP);
+        else if (forcedLTP.contains(i))
+            universes.at(uni)->setChannelCapability(fixture->address() + i,
+                    channel->group(), Universe::LTP);
+        else
+            universes.at(uni)->setChannelCapability(fixture->address() + i,
+                    channel->group());
+        ChannelModifier *mod = fixture->channelModifier(i);
+        universes.at(uni)->setChannelModifier(fixture->address() + i, mod);
+    }
+    inputOutputMap()->releaseUniverses(true);
+
+    emit fixtureAdded(id);
+    setModified();
+
+    return true;
 }
 
 bool Doc::deleteFixture(quint32 id)

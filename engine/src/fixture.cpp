@@ -536,7 +536,9 @@ void Fixture::setFixtureDefinition(QLCFixtureDef* fixtureDef,
         if (m_fixtureDef != NULL && m_fixtureDef != fixtureDef &&
             m_fixtureDef->manufacturer() == KXMLFixtureGeneric &&
             m_fixtureDef->model() == KXMLFixtureGeneric)
-                delete m_fixtureDef;
+        {
+            delete m_fixtureDef;
+        }
 
         m_fixtureDef = fixtureDef;
         m_fixtureMode = fixtureMode;
@@ -545,19 +547,18 @@ void Fixture::setFixtureDefinition(QLCFixtureDef* fixtureDef,
         // all channels. This const_cast is a bit heretic, but it's easier this
         // way, than to change everything def & mode related non-const, which would
         // be worse than one constness violation here.
-        QLCFixtureMode* mode = const_cast<QLCFixtureMode*> (fixtureMode);
-        if (mode->heads().size() == 0)
+        if (fixtureMode->heads().size() == 0)
         {
             QLCFixtureHead head;
-            for (int i = 0; i < mode->channels().size(); i++)
+            for (int i = 0; i < fixtureMode->channels().size(); i++)
                 head.addChannel(i);
-            mode->insertHead(-1, head);
+            fixtureMode->insertHead(-1, head);
         }
-        m_values.resize(mode->channels().size());
+        m_values.resize(fixtureMode->channels().size());
         m_values.fill(0);
 
         // Cache all head channels
-        mode->cacheHeads();
+        fixtureMode->cacheHeads();
     }
     else
     {

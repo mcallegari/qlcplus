@@ -932,6 +932,14 @@ void FixtureManager::addFixture()
     if (af.exec() == QDialog::Rejected)
         return;
 
+    if (af.invalidAddress())
+    {
+        QMessageBox msg(QMessageBox::Critical, tr("Error"),
+                tr("Please enter a valid address"), QMessageBox::Ok);
+        msg.exec();
+        return;
+    }
+
     quint32 latestFxi = Fixture::invalidId();
 
     QString name = af.name();
@@ -996,13 +1004,14 @@ void FixtureManager::addFixture()
            selected. Otherwise create a fixture definition
            and mode for a generic dimmer. */
         if (fixtureDef != NULL && mode != NULL)
+        {
             fxi->setFixtureDefinition(fixtureDef, mode);
+        }
         else
         {
-            fixtureDef = fxi->genericDimmerDef(channels);
-            mode = fxi->genericDimmerMode(fixtureDef, channels);
-            fxi->setFixtureDefinition(fixtureDef, mode);
-            //fxi->setChannels(channels);
+            QLCFixtureDef* genericDef = fxi->genericDimmerDef(channels);
+            QLCFixtureMode* genericMode = fxi->genericDimmerMode(genericDef, channels);
+            fxi->setFixtureDefinition(genericDef, genericMode);
         }
 
         m_doc->addFixture(fxi);

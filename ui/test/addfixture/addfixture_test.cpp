@@ -314,7 +314,7 @@ void AddFixture_Test::initialScanner()
     Q_ASSERT(def->modes().size() > 1);
 
     fxi->setFixtureDefinition(def, mode);
-    fxi->setUniverse(2);
+    fxi->setUniverse(3);
     fxi->setAddress(484);
     m_doc->addFixture(fxi);
 
@@ -324,7 +324,7 @@ void AddFixture_Test::initialScanner()
     QVERIFY(af.mode() == mode);
     QVERIFY(af.name() == QString("My scanner"));
     QVERIFY(af.address() == 484);
-    QVERIFY(af.universe() == 2);
+    QVERIFY(af.universe() == 3);
     QVERIFY(af.amount() == 1);
     QVERIFY(af.gap() == 0);
     QVERIFY(af.channels() == fxi->channels());
@@ -378,7 +378,7 @@ void AddFixture_Test::initialScanner()
     QCOMPARE(af.m_modeCombo->itemText(0), mode->name());
 
     QVERIFY(af.m_universeCombo->isEnabled() == true);
-    QCOMPARE(af.m_universeCombo->currentIndex(), 2);
+    QCOMPARE(af.m_universeCombo->currentIndex(), 3);
     QCOMPARE(af.m_universeCombo->count(), 4);
 
     QVERIFY(af.m_addressSpin->isEnabled() == true);

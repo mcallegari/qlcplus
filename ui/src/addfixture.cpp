@@ -471,19 +471,6 @@ void AddFixture::slotModeActivated(const QString& modeName)
             QString("%1: %2").arg(i + 1).arg(channel->name()),
             m_channelList);
     }
-
-    int absAddress = ((m_addressSpin->value() - 1) & 0x01FF) | (m_universeValue << 9);
-    if (checkAddressAvailability(absAddress, m_channelsSpin->value()) == false)
-    {
-        // turn the new address to red
-        m_addrErrorLabel->show();
-        m_invalidAddressFlag = true;
-    }
-    else
-    {
-        m_addrErrorLabel->hide();
-        m_invalidAddressFlag = false;
-    }
 }
 
 void AddFixture::slotUniverseActivated(int universe)
@@ -502,24 +489,12 @@ void AddFixture::slotUniverseActivated(int universe)
 
 void AddFixture::slotAddressChanged(int value)
 {
-    int absAddress = ((value - 1) & 0x01FF) | (m_universeValue << 9);
-    if (checkAddressAvailability(absAddress, m_channelsSpin->value()) == false)
-    {
-        // turn the new address to red
-        m_addrErrorLabel->show();
-        m_invalidAddressFlag = true;
-        return;
-    }
-    else
-    {
-        m_addrErrorLabel->hide();
-        m_invalidAddressFlag = false;
-    }
-
     m_addressValue = value - 1;
 
     /* Set the maximum number of fixtures */
     updateMaximumAmount();
+
+    checkOverlapping();
 }
 
 void AddFixture::slotChannelsChanged(int value)
@@ -532,6 +507,8 @@ void AddFixture::slotChannelsChanged(int value)
 
     /* Set the maximum number of fixtures */
     updateMaximumAmount();
+
+    checkOverlapping();
 }
 
 void AddFixture::slotNameEdited(const QString &text)
@@ -548,6 +525,8 @@ void AddFixture::slotNameEdited(const QString &text)
 void AddFixture::slotAmountSpinChanged(int value)
 {
     m_amountValue = value;
+
+    checkOverlapping();
 }
 
 void AddFixture::slotGapSpinChanged(int value)
@@ -556,6 +535,8 @@ void AddFixture::slotGapSpinChanged(int value)
 
     /* Set the maximum number of fixtures */
     updateMaximumAmount();
+
+    checkOverlapping();
 }
 
 void AddFixture::slotSearchFilterChanged(QString)
@@ -696,4 +677,23 @@ void AddFixture::slotDiptoolButtonClicked()
     AddressTool at(this, m_addressSpin->value());
     at.exec();
     m_addressSpin->setValue(at.getAddress());
+}
+
+void AddFixture::checkOverlapping()
+{
+    for (int i = 0; i < m_amountValue; ++i)
+    {
+        int address = m_addressValue + i * (m_gapValue + m_channelsValue);
+        int absAddress = (address & 0x01FF) | (m_universeValue << 9);
+        if (checkAddressAvailability(absAddress, m_channelsValue) == false)
+        {
+            // Show overlapping error
+            m_addrErrorLabel->show();
+            m_invalidAddressFlag = true;
+            return;
+        }
+    }
+
+    m_addrErrorLabel->hide();
+    m_invalidAddressFlag = false;
 }
