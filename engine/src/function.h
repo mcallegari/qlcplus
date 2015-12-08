@@ -788,6 +788,9 @@ signals:
 private:
     QList <Attribute> m_attributes;
 
+public:
+    virtual bool contains(quint32 functionId);
+
     /*************************************************************************
      * Blend mode
      *************************************************************************/

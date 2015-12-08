@@ -121,8 +121,7 @@ Function::~Function()
 
 Doc* Function::doc() const
 {
-    Doc* doc = qobject_cast<Doc*> (parent());
-    return doc;
+    return qobject_cast<Doc*>(parent());
 }
 
 /*****************************************************************************
@@ -1101,6 +1100,12 @@ int Function::getAttributeIndex(QString name) const
 QList<Attribute> Function::attributes()
 {
     return m_attributes;
+}
+
+bool Function::contains(quint32 functionId)
+{
+    Q_UNUSED(functionId);
+    return false;
 }
 
 void Function::setBlendMode(Universe::BlendMode mode)

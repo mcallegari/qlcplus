@@ -364,7 +364,16 @@ void ChaserEditor::slotAddClicked()
     else
     {
         FunctionSelection fs(this, m_doc);
-        fs.setDisabledFunctions(QList <quint32>() << m_chaser->id());
+        {
+            QList<quint32> disabledList;
+            disabledList << m_chaser->id();
+            foreach (Function* function, m_doc->functions())
+            {
+                if (function->contains(m_chaser->id()))
+                    disabledList << function->id();
+            }
+            fs.setDisabledFunctions(disabledList);
+        }
 
         if (fs.exec() == QDialog::Accepted)
         {
