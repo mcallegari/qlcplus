@@ -241,9 +241,34 @@ void Collection::postLoad()
     {
         /* Remove any nonexistent member functions */
         QVariant fidVar = it.next();
-        if (doc->function(fidVar.toUInt()) == NULL)
+        Function* function = doc->function(fidVar.toUInt());
+
+        if (function == NULL)
+            it.remove();
+        else if (function->contains(id())) // forbid self-containment
             it.remove();
     }
+}
+
+bool Collection::contains(quint32 functionId)
+{
+    Doc* doc = qobject_cast <Doc*> (parent());
+    Q_ASSERT(doc != NULL);
+
+    foreach(QVariant fid, m_functions)
+    {
+        Function* function = doc->function(fid.toUInt());
+        // contains() can be called during init, function may be NULL
+        if (function == NULL)
+            continue;
+
+        if (function->id() == functionId)
+            return true;
+        if (function->contains(functionId))
+            return true;
+    }
+
+    return false;
 }
 
 /*****************************************************************************

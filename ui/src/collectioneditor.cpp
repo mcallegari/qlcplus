@@ -76,7 +76,16 @@ void CollectionEditor::slotNameEdited(const QString& text)
 void CollectionEditor::slotAdd()
 {
     FunctionSelection fs(this, m_doc);
-    fs.setDisabledFunctions(QList <quint32>() << m_fc->id());
+    {
+        QList<quint32> disabledList;
+        disabledList << m_fc->id();
+        foreach (Function* function, m_doc->functions())
+        {
+            if (function->contains(m_fc->id()))
+                disabledList << function->id();
+        }
+        fs.setDisabledFunctions(disabledList);
+    }
 
     if (fs.exec() == QDialog::Accepted)
     {
