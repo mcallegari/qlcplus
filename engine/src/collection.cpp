@@ -281,6 +281,7 @@ void Collection::preRun(MasterTimer* timer)
         QMutexLocker locker(&m_functionListMutex);
         m_runningChildren.clear();
     }
+    m_firstTick = false;
     Function::preRun(timer);
 }
 
@@ -290,7 +291,7 @@ void Collection::write(MasterTimer* timer, QList<Universe *> universes)
 
     if (elapsed() == 0)
     {
-        Doc* doc = qobject_cast <Doc*> (parent());
+        Doc* doc = this->doc();
         Q_ASSERT(doc != NULL);
 
         QMutexLocker locker(&m_functionListMutex);
@@ -309,9 +310,34 @@ void Collection::write(MasterTimer* timer, QList<Universe *> universes)
             connect(function, SIGNAL(stopped(quint32)),
                     this, SLOT(slotChildStopped(quint32)));
 
+            // Listen to the children's stopped signals so that this collection
+            // can give up its rights to stop the function later.
+            connect(function, SIGNAL(running(quint32)),
+                    this, SLOT(slotChildStarted(quint32)));
+
             function->adjustAttribute(getAttributeValue(Function::Intensity), Function::Intensity);
             function->start(timer, Source(Source::Function, id()), 0, overrideFadeInSpeed(), overrideFadeOutSpeed(), overrideDuration());
         }
+        m_firstTick = true;
+    }
+    else if (m_firstTick)
+    {
+        Doc* doc = this->doc();
+        Q_ASSERT(doc != NULL);
+
+        QMutexLocker locker(&m_functionListMutex);
+        foreach (quint32 fid, m_runningChildren)
+        {
+            Function* function = doc->function(fid);
+            Q_ASSERT(function != NULL);
+
+            // First tick may correspond to this collection starting the function
+            // Now that first tick is over, stop listening to running signal
+            disconnect(function, SIGNAL(running(quint32)),
+                    this, SLOT(slotChildStarted(quint32)));
+        }
+
+        m_firstTick = false;
     }
 
     incrementElapsed();
@@ -343,6 +369,20 @@ void Collection::postRun(MasterTimer* timer, QList<Universe *> universes)
         }
 
         m_runningChildren.clear();
+
+        foreach(QVariant fid, m_functions)
+        {
+            Function* function = doc->function(fid.toUInt());
+            Q_ASSERT(function != NULL);
+
+            disconnect(function, SIGNAL(stopped(quint32)),
+                    this, SLOT(slotChildStopped(quint32)));
+            if (m_firstTick)
+            {
+                disconnect(function, SIGNAL(running(quint32)),
+                        this, SLOT(slotChildStarted(quint32)));
+            }
+        }
     }
 
     Function::postRun(timer, universes);
@@ -350,15 +390,14 @@ void Collection::postRun(MasterTimer* timer, QList<Universe *> universes)
 
 void Collection::slotChildStopped(quint32 fid)
 {
-    Doc* doc = qobject_cast <Doc*> (parent());
-    Q_ASSERT(doc != NULL);
-
-    Function* function = doc->function(fid);
-    disconnect(function, SIGNAL(stopped(quint32)),
-               this, SLOT(slotChildStopped(quint32)));
-
     QMutexLocker locker(&m_functionListMutex);
     m_runningChildren.remove(fid);
+}
+
+void Collection::slotChildStarted(quint32 fid)
+{
+    QMutexLocker locker(&m_functionListMutex);
+    m_runningChildren << fid;
 }
 
 void Collection::adjustAttribute(qreal fraction, int attributeIndex)

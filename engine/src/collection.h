@@ -134,9 +134,13 @@ protected slots:
     /** Called whenever one of this function's child functions stops */
     void slotChildStopped(quint32 fid);
 
+    /** Called whenever one of this function's child functions stops */
+    void slotChildStarted(quint32 fid);
+
 protected:
     /** Number of currently running children */
     QSet <quint32> m_runningChildren;
+    bool m_firstTick;
 
     /*************************************************************************
      * Intensity
