@@ -25,7 +25,7 @@
 #define TRANSMIT_FULL    "Full"
 #define TRANSMIT_PARTIAL "Partial"
 
-E131Controller::E131Controller(QNetworkInterface interface, QNetworkAddressEntry address,
+E131Controller::E131Controller(QNetworkInterface const& interface, QNetworkAddressEntry const& address,
                                quint32 line, QObject *parent)
     : QObject(parent)
     , m_interface(interface)

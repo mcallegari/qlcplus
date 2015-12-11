@@ -26,7 +26,7 @@
 #define TRANSMIT_FULL    "Full"
 #define TRANSMIT_PARTIAL "Partial"
 
-ArtNetController::ArtNetController(QNetworkInterface interface, QNetworkAddressEntry address,
+ArtNetController::ArtNetController(QNetworkInterface const& interface, QNetworkAddressEntry const& address,
                                    quint32 line, QObject *parent)
     : QObject(parent)
     , m_interface(interface)

@@ -53,8 +53,8 @@ public:
 
     enum TransmissionMode { Full, Partial };
 
-    ArtNetController(QNetworkInterface interface,
-                     QNetworkAddressEntry address,
+    ArtNetController(QNetworkInterface const& interface,
+                     QNetworkAddressEntry const& address,
                      quint32 line, QObject *parent = 0);
 
     ~ArtNetController();
