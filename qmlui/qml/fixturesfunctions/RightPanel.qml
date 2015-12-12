@@ -21,71 +21,25 @@ import QtQuick 2.0
 
 import "."
 
-Rectangle
+SidePanel
 {
     id: rightSidePanel
-    width: collapseWidth
-    height: 500
-    color: UISettings.bgStrong
 
-    property bool isOpen: false
-    property int collapseWidth: 50
-    property int expandedWidth: 450
-    property string editorSource: ""
-    property int iconSize: collapseWidth - 4
+    property int editorFuncID: -1
 
     function createFunctionAndEditor(fType, fEditor)
     {
         var newFuncID = functionManager.createFunction(fType)
         functionManager.setEditorFunction(newFuncID)
-        editorLoader.functionID = newFuncID
-        editorSource = fEditor
-        if (isOpen == false)
-            animatePanel()
-        else
-            editorLoader.source = editorSource;
+        itemID = newFuncID
+        loaderSource = fEditor
+        animatePanel(true)
         addFunctionMenu.visible = false
         addFunction.checked = false
         funcEditor.checked = true
     }
 
-    function animatePanel()
-    {
-        if (isOpen == false)
-        {
-            editorLoader.source = editorSource;
-            animateOpen.start();
-            isOpen = true;
-        }
-        else
-        {
-            animateClose.start();
-            editorLoader.source = ""
-            isOpen = false;
-        }
-    }
-
-    Rectangle
-    {
-        id: editorArea
-        x: collapseWidth
-        width: rightSidePanel.width - collapseWidth;
-        height: parent.height
-        color: "transparent"
-
-        Loader
-        {
-            id: editorLoader
-            anchors.fill: parent
-
-            property int functionID
-
-            onLoaded:
-            {
-                item.functionID = functionID
-            }
-        }
-    }
+    onContentLoaded: item.functionID = itemID
 
     Rectangle
     {
@@ -110,8 +64,9 @@ Rectangle
                 checkable: true
                 onToggled:
                 {
-                    editorSource = "qrc:/FunctionManager.qml"
-                    animatePanel();
+                    if (checked)
+                        loaderSource = "qrc:/FunctionManager.qml"
+                    animatePanel(checked)
                 }
             }
             IconButton
@@ -147,13 +102,8 @@ Rectangle
                 onClicked:
                 {
                     contextManager.dumpDmxChannels()
-                    editorSource = "qrc:///FunctionManager.qml"
-                    if (rightSidePanel.isOpen == false)
-                    {
-                        editorLoader.source = editorSource;
-                        animateOpen.start();
-                        rightSidePanel.isOpen = true;
-                    }
+                    loaderSource = "qrc:/FunctionManager.qml"
+                    animatePanel(true)
                     funcEditor.checked = true
                 }
             }
@@ -170,63 +120,6 @@ Rectangle
                 visible: false
                 onToggled: functionManager.setPreview(checked)
             }
-        }
-    }
-
-    PropertyAnimation
-    {
-        id: animateOpen
-        target: rightSidePanel
-        properties: "width"
-        to: expandedWidth
-        duration: 200
-    }
-
-    PropertyAnimation
-    {
-        id: animateClose
-        target: rightSidePanel
-        properties: "width"
-        to: collapseWidth
-        duration: 200
-    }
-
-    Rectangle
-    {
-        id: gradientBorder
-        y: 0
-        x: height
-        height: collapseWidth
-        color: "#141414"
-        width: parent.height
-        transformOrigin: Item.TopLeft
-        rotation: 90
-        gradient: Gradient
-        {
-            GradientStop { position: 0; color: "#141414" }
-            GradientStop { position: 0.21; color: UISettings.bgStrong }
-            GradientStop { position: 0.79; color: UISettings.bgStrong }
-            GradientStop { position: 1; color: "#141414" }
-        }
-
-        MouseArea
-        {
-            id: rpClickArea
-            anchors.fill: parent
-            z: 1
-            x: parent.width - width
-            hoverEnabled: true
-            cursorShape: pressed ? Qt.ClosedHandCursor : Qt.OpenHandCursor
-            drag.target: rightSidePanel
-            drag.axis: Drag.XAxis
-            drag.minimumX: collapseWidth
-
-            onPositionChanged:
-            {
-                if (drag.active == true)
-                    rightSidePanel.width = rightSidePanel.parent.width - rightSidePanel.x
-            }
-            //onClicked: animatePanel("")
         }
     }
 }

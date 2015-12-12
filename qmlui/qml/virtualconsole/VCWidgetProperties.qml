@@ -192,11 +192,11 @@ Rectangle
                 Text
                 {
                     anchors.fill: parent
-                    font.family: wObj.font.family
-                    font.bold: wObj.font.bold
-                    font.italic: wObj.font.italic
+                    font.family: wObj ? wObj.font.family : ""
+                    font.bold: wObj ? wObj.font.bold : false
+                    font.italic: wObj ? wObj.font.italic : false
                     font.pointSize: 12
-                    text: wObj.font.family
+                    text: wObj ? wObj.font.family : ""
                     color: "white"
                     verticalAlignment: Text.AlignVCenter
                 }
@@ -214,7 +214,7 @@ Rectangle
                     {
                         id: fontDialog
                         title: qsTr("Please choose a font")
-                        font: wObj.font
+                        font: wObj ? wObj.font : ""
                         visible: false
 
                         onAccepted:

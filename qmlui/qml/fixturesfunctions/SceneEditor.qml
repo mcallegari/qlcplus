@@ -32,6 +32,8 @@ Rectangle
     property int functionID
     property int selectedFixtureIndex: -1
 
+    signal requestView(int ID, string qmlSrc)
+
     Component.onDestruction: functionManager.setEditorFunction(-1)
 
     function selectFixture(index)
@@ -68,12 +70,9 @@ Rectangle
                 {
                     anchors.fill: parent
                     hoverEnabled: true
-                    onClicked:
-                    {
-                        editorLoader.source = "qrc:/FunctionManager.qml"
-                    }
                     onEntered: backBox.color = "#666"
                     onExited: backBox.color = "transparent"
+                    onClicked:requestView(-1, "qrc:/FunctionManager.qml")
                 }
             }
             TextInput

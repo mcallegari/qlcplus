@@ -37,14 +37,24 @@ Rectangle
     property string currentView: "2D"
     property bool docLoaded: qlcplus.docLoaded
 
-    function enableContext(ctx)
+    function enableContext(ctx, setChecked)
     {
-        if (ctx === "UniverseGrid")
-            uniView.visible = true
+        var item = null
+        if (ctx === "UNIGRID")
+            item = uniView
         else if (ctx === "DMX")
-            dmxView.visible = true
+            item = dmxView
         else if (ctx === "2D")
-            twodView.visible = true
+            item = twodView
+        else if (ctx === "3D")
+            item = threedView
+
+        if (item)
+        {
+            item.visible = true
+            if (setChecked)
+                item.checked = true
+        }
     }
 
     onDocLoadedChanged:
@@ -121,7 +131,7 @@ Rectangle
                         if (checked == true)
                         {
                             currentViewQML = "qrc:/UniverseGridView.qml"
-                            currentView = "UniverseGrid"
+                            currentView = "UNIGRID"
                         }
                     }
                     onRightClicked:

@@ -32,8 +32,11 @@ Rectangle
     property int functionID: -1
     property Collection collection
 
+    signal requestView(int ID, string qmlSrc)
+
     onFunctionIDChanged:
     {
+        console.log("Collection ID: " + functionID)
         collection = functionManager.getFunction(functionID)
     }
 
@@ -91,6 +94,8 @@ Rectangle
                 {
                     anchors.fill: parent
                     hoverEnabled: true
+                    onEntered: backBox.color = "#666"
+                    onExited: backBox.color = "transparent"
                     onClicked:
                     {
                         if (funcMgrLoader.width)
@@ -100,10 +105,8 @@ Rectangle
                             rightSidePanel.width = rightSidePanel.width / 2
                         }
 
-                        editorLoader.source = "qrc:/FunctionManager.qml"
+                        requestView(-1, "qrc:/FunctionManager.qml")
                     }
-                    onEntered: backBox.color = "#666"
-                    onExited: backBox.color = "transparent"
                 }
             }
             TextInput

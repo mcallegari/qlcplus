@@ -33,24 +33,29 @@ Rectangle
 
     property int functionID: -1
 
+    signal requestView(int ID, string qmlSrc)
+
     Component.onDestruction: functionManager.clearTree()
 
     function loadFunctionEditor(funcID, funcType)
     {
         //console.log("Request to open Function editor. ID: " + funcID + " type: " + funcType)
-        editorLoader.functionID = funcID
         functionManager.setEditorFunction(funcID)
 
         switch(funcType)
         {
             case Function.Scene:
-                editorLoader.source = "qrc:/SceneEditor.qml";
+                fmContainer.requestView(funcID, "qrc:/SceneEditor.qml")
             break;
             case Function.Collection:
-                editorLoader.source = "qrc:/CollectionEditor.qml";
+                fmContainer.requestView(funcID, "qrc:/CollectionEditor.qml")
             break;
             case Function.Chaser:
-                editorLoader.source = "qrc:/ChaserEditor.qml";
+                fmContainer.requestView(funcID, "qrc:/ChaserEditor.qml")
+            break;
+            case Function.Show:
+                showManager.currentShowID = funcID
+                mainView.switchToContext("SHOWMGR", "qrc:/ShowManager.qml")
             break;
         }
     }

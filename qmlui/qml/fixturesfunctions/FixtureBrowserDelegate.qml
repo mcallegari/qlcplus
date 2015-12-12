@@ -57,6 +57,7 @@ Item
     {
         id: textitem
         x: 2
+        width: parent.width
         label: modelData
         height: parent.height
         fontSize: 12

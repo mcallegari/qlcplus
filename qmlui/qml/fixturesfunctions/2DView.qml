@@ -143,32 +143,31 @@ Rectangle
             onPaint:
             {
                 var ctx = twoDContents.getContext('2d');
-                //ctx.save();
-                ctx.globalAlpha = 1.0;
-                ctx.strokeStyle = "#1A1A1A";
-                ctx.fillStyle = "black";
-                ctx.lineWidth = 1;
 
-                ctx.beginPath();
-                ctx.clearRect(0, 0, width, height);
+                ctx.globalAlpha = 1.0
+                ctx.strokeStyle = "#1A1A1A"
+                ctx.fillStyle = "black"
+                ctx.lineWidth = 1
+
+                ctx.beginPath()
+                ctx.clearRect(0, 0, width, height)
                 ctx.fillRect(0, 0, width, height)
                 ctx.rect(0, 0, width, height)
 
                 for (var vl = 1; vl < twoDView.gridSize.width; vl++)
                 {
-                    var xPos = cellSize * vl;
-                    ctx.moveTo(xPos, 0);
-                    ctx.lineTo(xPos, height);
+                    var xPos = cellSize * vl
+                    ctx.moveTo(xPos, 0)
+                    ctx.lineTo(xPos, height)
                 }
                 for (var hl = 1; hl < twoDView.gridSize.height; hl++)
                 {
-                    var yPos = cellSize * hl;
-                    ctx.moveTo(0, yPos);
-                    ctx.lineTo(width, yPos);
+                    var yPos = cellSize * hl
+                    ctx.moveTo(0, yPos)
+                    ctx.lineTo(width, yPos)
                 }
-                ctx.closePath();
-                ctx.stroke();
-                //ctx.restore();
+                ctx.closePath()
+                ctx.stroke()
             }
 
             MouseArea

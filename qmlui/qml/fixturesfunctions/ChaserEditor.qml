@@ -31,6 +31,8 @@ Rectangle
 
     property int functionID: -1
 
+    signal requestView(int ID, string qmlSrc)
+
     ModelSelector
     {
         id: ceSelector
@@ -87,6 +89,8 @@ Rectangle
                 {
                     anchors.fill: parent
                     hoverEnabled: true
+                    onEntered: backBox.color = "#666"
+                    onExited: backBox.color = "transparent"
                     onClicked:
                     {
                         if (funcMgrLoader.width)
@@ -96,10 +100,8 @@ Rectangle
                             rightSidePanel.width = rightSidePanel.width / 2
                         }
 
-                        editorLoader.source = "qrc:/FunctionManager.qml"
+                        requestView(-1, "qrc:/FunctionManager.qml")
                     }
-                    onEntered: backBox.color = "#666"
-                    onExited: backBox.color = "transparent"
                 }
             }
             TextInput

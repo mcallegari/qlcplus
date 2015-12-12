@@ -22,71 +22,31 @@ import QtQuick.Controls 1.0
 
 import "."
 
-Rectangle
+SidePanel
 {
     id: leftSidePanel
-    anchors.left: parent.left;
+    anchors.left: parent.left
     anchors.leftMargin: 0
-    width: collapseWidth
-    height: parent.height
-    color: UISettings.bgStrong
 
-    property bool isOpen: false
-    property int collapseWidth: 50
-    property int expandedWidth: 400
-    property string editorSource: ""
+    panelAlignment: Qt.AlignLeft
+
     property int universeIndex
     property bool showAudioButton: false
     property bool showPluginsButton: false
-    property int iconSize: collapseWidth - 4
-
-    function animatePanel(checked)
-    {
-        if (checked === isOpen)
-            return
-
-        if (isOpen == false)
-        {
-            editorLoader.source = editorSource
-            animateOpen.start()
-            isOpen = true
-        }
-        else
-        {
-            animateClose.start()
-            isOpen = false
-            editorLoader.source = ""
-        }
-    }
 
     onUniverseIndexChanged:
     {
         if (isOpen == true)
         {
-            editorLoader.source = ""
-            editorLoader.source = editorSource
+            viewLoader.source = ""
+            viewLoader.source = Qt.binding(function() { return loaderSource })
         }
     }
 
-    Rectangle
+    onContentLoaded:
     {
-        id: editorArea
-        z: 5
-        width: leftSidePanel.width - collapseWidth;
-        height: parent.height
-        color: "transparent"
-
-        Loader
-        {
-            id: editorLoader
-            anchors.fill: parent
-            source: editorSource
-            onLoaded:
-            {
-                item.universeIndex = universeIndex
-                item.loadSources(true)
-            }
-        }
+        item.universeIndex = universeIndex
+        item.loadSources(true)
     }
 
     Rectangle
@@ -120,8 +80,8 @@ Rectangle
                 onToggled:
                 {
                     if (checked == true)
-                        editorSource = "qrc:/AudioCardsList.qml"
-                    animatePanel(checked);
+                        loaderSource = "qrc:/AudioCardsList.qml"
+                    animatePanel(checked)
                 }
             }
 
@@ -139,8 +99,8 @@ Rectangle
                 onToggled:
                 {
                     if (checked == true)
-                        editorSource = "qrc:/PluginsList.qml"
-                    animatePanel(checked);
+                        loaderSource = "qrc:/PluginsList.qml"
+                    animatePanel(checked)
                 }
             }
 
@@ -158,8 +118,8 @@ Rectangle
                 onToggled:
                 {
                     if (checked == true)
-                        editorSource = "qrc:/ProfilesList.qml"
-                    animatePanel(checked);
+                        loaderSource = "qrc:/ProfilesList.qml"
+                    animatePanel(checked)
                 }
 
                 RobotoText
@@ -170,68 +130,6 @@ Rectangle
                     fontBold: true
                 }
             }
-        }
-    }
-
-    PropertyAnimation
-    {
-        id: animateOpen
-        target: leftSidePanel
-        properties: "width"
-        to: expandedWidth
-        duration: 200
-    }
-
-    PropertyAnimation
-    {
-        id: animateClose
-        target: leftSidePanel
-        properties: "width"
-        to: collapseWidth
-        duration: 200
-    }
-
-    Rectangle
-    {
-        id: gradientBorder
-        y: width
-        x: parent.width - height
-        height: collapseWidth
-        color: "#141414"
-        width: parent.height
-        transformOrigin: Item.TopLeft
-        rotation: 270
-        gradient: Gradient
-        {
-            GradientStop { position: 0; color: "#141414" }
-            GradientStop { position: 0.21; color: UISettings.bgStrong }
-            GradientStop { position: 0.79; color: UISettings.bgStrong }
-            GradientStop { position: 1; color: "#141414" }
-        }
-
-        MouseArea
-        {
-            id: lpClickArea
-            anchors.fill: parent
-            z: 1
-            x: parent.width - width
-            hoverEnabled: true
-            cursorShape: pressed ? Qt.ClosedHandCursor : Qt.OpenHandCursor
-            drag.target: leftSidePanel
-            drag.axis: Drag.XAxis
-            drag.minimumX: collapseWidth
-
-            onPositionChanged:
-            {
-                if (drag.active == true)
-                {
-                    var obj = mapToItem(null, mouseX, mouseY);
-                    leftSidePanel.width = obj.x + (collapseWidth / 2);
-                    //console.log("mouseX:", mouseX, "mapToItem().x:", obj.x);
-                }
-            }
-
-            //onClicked: animatePanel("")
         }
     }
 }

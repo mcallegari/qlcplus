@@ -20,69 +20,27 @@
 import QtQuick 2.0
 import "."
 
-Rectangle
+SidePanel
 {
     id: rightSidePanel
-    x: 0
-    y: 0
-    width: collapseWidth
-    height: 500
-    color: UISettings.bgStrong
-    z: 0
 
-    property bool isOpen: false
-    property int collapseWidth: 50
-    property int expandedWidth: 400
-    property string editorSource: ""
     property int universeIndex
     property bool showAudioButton: false
     property bool showPluginsButton: false
-    property int iconSize: collapseWidth - 4
 
     onUniverseIndexChanged:
     {
         if (isOpen == true)
         {
-            editorLoader.source = ""
-            editorLoader.source = editorSource
+            viewLoader.source = ""
+            viewLoader.source = loaderSource
         }
     }
 
-    function animatePanel()
+    onContentLoaded:
     {
-        if (isOpen == false)
-        {
-            editorLoader.source = editorSource
-            animateOpen.start()
-            isOpen = true
-        }
-        else
-        {
-            animateClose.start()
-            isOpen = false
-            editorLoader.source = ""
-        }
-    }
-
-    Rectangle
-    {
-        id: editorArea
-        x: collapseWidth
-        z: 5
-        width: rightSidePanel.width - collapseWidth;
-        height: parent.height
-        color: "transparent"
-
-        Loader
-        {
-            id: editorLoader
-            anchors.fill: parent
-            onLoaded:
-            {
-                item.universeIndex = universeIndex
-                item.loadSources(false)
-            }
-        }
+        item.universeIndex = universeIndex
+        item.loadSources(false)
     }
 
     Rectangle
@@ -109,8 +67,9 @@ Rectangle
                 tooltip: qsTr("Show the audio output sources")
                 onToggled:
                 {
-                    editorSource = "qrc:/AudioCardsList.qml"
-                    animatePanel();
+                    if (checked == true)
+                        loaderSource = "qrc:/AudioCardsList.qml"
+                    animatePanel(checked)
                 }
             }
 
@@ -126,68 +85,11 @@ Rectangle
                 tooltip: qsTr("Show the universe output sources")
                 onToggled:
                 {
-                    editorSource = "qrc:/PluginsList.qml"
-                    animatePanel();
+                    if (checked == true)
+                        loaderSource = "qrc:/PluginsList.qml"
+                    animatePanel(checked)
                 }
             }
-        }
-    }
-
-    PropertyAnimation
-    {
-        id: animateOpen
-        target: rightSidePanel
-        properties: "width"
-        to: expandedWidth
-        duration: 200
-    }
-
-    PropertyAnimation
-    {
-        id: animateClose
-        target: rightSidePanel
-        properties: "width"
-        to: collapseWidth
-        duration: 200
-    }
-
-    Rectangle
-    {
-        id: gradientBorder
-        y: 0
-        x: height
-        height: collapseWidth
-        color: "#141414"
-        width: parent.height
-        transformOrigin: Item.TopLeft
-        rotation: 90
-        gradient:
-            Gradient
-            {
-                GradientStop { position: 0; color: "#141414" }
-                GradientStop { position: 0.21; color: UISettings.bgStrong }
-                GradientStop { position: 0.79; color: UISettings.bgStrong }
-                GradientStop { position: 1; color: "#141414" }
-            }
-
-        MouseArea
-        {
-            id: rpClickArea
-            anchors.fill: parent
-            z: 1
-            x: parent.width - width
-            hoverEnabled: true
-            cursorShape: pressed ? Qt.ClosedHandCursor : Qt.OpenHandCursor
-            drag.target: rightSidePanel
-            drag.axis: Drag.XAxis
-            drag.minimumX: collapseWidth
-
-            onPositionChanged:
-            {
-                if (drag.active == true)
-                    rightSidePanel.width = rightSidePanel.parent.width - rightSidePanel.x
-            }
-            //onClicked: animatePanel()
         }
     }
 }

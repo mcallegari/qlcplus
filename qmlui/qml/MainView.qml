@@ -33,16 +33,39 @@ Rectangle
     height: 600
     anchors.fill: parent
 
-    function enableContext(ctx)
+    property string currentContext: "FIXANDFUNC"
+
+    function enableContext(ctx, setChecked)
     {
-        if (ctx === "VC")
-            vcEntry.visible = true
+        var item = null
+
+        if (ctx === "FIXANDFUNC")
+            item = edEntry
+        else if (ctx === "VC")
+            item = vcEntry
         else if (ctx === "SDESK")
-            sdEntry.visible = true
+            item = sdEntry
         else if (ctx === "SHOWMGR")
-            smEntry.visible = true
+            item = smEntry
         else if (ctx === "IOMGR")
-            ioEntry.visible = true
+            item = ioEntry
+
+        if (item)
+        {
+            item.visible = true
+            if (setChecked)
+                item.checked = true
+        }
+    }
+
+    function switchToContext(ctx, qmlRes)
+    {
+        if (currentContext === ctx)
+            return
+
+        enableContext(ctx, true)
+        currentContext = ctx
+        viewLoader.source = qmlRes
     }
 
     FontLoader
@@ -97,7 +120,7 @@ Rectangle
                 onCheckedChanged:
                 {
                     if (checked == true)
-                        viewLoader.source = "qrc:/FixturesAndFunctions.qml"
+                        switchToContext("FIXANDFUNC", "qrc:/FixturesAndFunctions.qml")
                 }
             }
             MenuBarEntry
@@ -110,7 +133,7 @@ Rectangle
                 onCheckedChanged:
                 {
                     if (checked == true)
-                        viewLoader.source = "qrc:/VirtualConsole.qml"
+                        switchToContext("VC", "qrc:/VirtualConsole.qml")
                 }
                 onRightClicked:
                 {
@@ -128,7 +151,7 @@ Rectangle
                 onCheckedChanged:
                 {
                     if (checked == true)
-                        viewLoader.source = "qrc:/SimpleDesk.qml"
+                        switchToContext("SDESK", "qrc:/SimpleDesk.qml")
                 }
                 onRightClicked:
                 {
@@ -146,7 +169,7 @@ Rectangle
                 onCheckedChanged:
                 {
                     if (checked == true)
-                        viewLoader.source = "qrc:/ShowManager.qml"
+                        switchToContext("SHOWMGR", "qrc:/ShowManager.qml")
                 }
                 onRightClicked:
                 {
@@ -164,7 +187,7 @@ Rectangle
                 onCheckedChanged:
                 {
                     if (checked == true)
-                        viewLoader.source = "qrc:/InputOutputManager.qml"
+                        switchToContext("IOMGR", "qrc:/InputOutputManager.qml")
                 }
                 onRightClicked:
                 {

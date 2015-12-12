@@ -285,6 +285,7 @@ void FunctionManager::setEditorFunction(quint32 fID)
             m_currentEditor = new ChaserEditor(m_view, m_doc, this);
         }
         break;
+        case Function::Show: break; // a Show is edited by the Show Manager
         default:
         {
             qDebug() << "Requested function type" << f->type() << "doesn't have a dedicated Function editor";
