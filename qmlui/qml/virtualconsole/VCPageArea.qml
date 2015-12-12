@@ -35,4 +35,6 @@ Rectangle
         anchors.fill: parent
         boundsBehavior: Flickable.StopAtBounds
     }
+    ScrollBar { flickable: vcPage; doubleBars: true }
+    ScrollBar { orientation: Qt.Horizontal; flickable: vcPage }
 }
