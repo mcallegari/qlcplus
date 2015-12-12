@@ -27,7 +27,7 @@
  <Channel Name="Color Macros/Programs/Auto Run">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="3" Color="#000000">Off/Color change/fade 1/Slow to fast</Capability>
-  <Capability Min="4" Max="7" Color="#ffce8f">/Color change/fade 1/Slow to fast</Capability>
+  <Capability Min="4" Max="7" Color="#ffce8f">Red/Color change/fade 1/Slow to fast</Capability>
   <Capability Min="8" Max="11" Color="#00ff00">Green/Color change/fade 1/Slow to fast</Capability>
   <Capability Min="12" Max="15" Color="#0000ff">Blue/Color change/fade 1/Slow to fast</Capability>
   <Capability Min="16" Max="19" Color="#ffffff">White/Color change/fade 2/Slow to fast</Capability>
