@@ -214,6 +214,7 @@ bool VCXYPadPreset::loadXML(QXmlStreamReader &root)
                     max = uchar(attrs.value(KXMLQLCVCWidgetInputUpperValue).toString().toUInt());
                 m_inputSource->setRange(min, max);
             }
+            root.skipCurrentElement();
         }
         else if (root.name() == KXMLQLCVCXYPadPresetKey)
         {
