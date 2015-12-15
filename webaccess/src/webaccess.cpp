@@ -192,7 +192,7 @@ mg_result WebAccess::beginRequestHandler(mg_connection *conn)
   {
       QString prjname;
       QString projectXML = loadXMLPost(conn, prjname);
-      qDebug() << "Project XML:\n\n" << projectXML << "\n\n";
+      //qDebug() << "Project XML:\n\n" << projectXML << "\n\n";
 
       QByteArray postReply =
               QString("<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />\n"

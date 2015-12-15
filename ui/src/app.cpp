@@ -1435,11 +1435,33 @@ void App::slotLoadDocFromMemory(QString xmlData)
     clearDocument();
 
     QBuffer databuf;
-    databuf.setData(xmlData.toLatin1());
+    databuf.setData(xmlData.simplified().toUtf8());
     databuf.open(QIODevice::ReadOnly | QIODevice::Text);
+
+    //qDebug() << "Buffer data:" << databuf.data();
     QXmlStreamReader doc(&databuf);
 
-    loadXML(doc, true, true);
+    if (doc.hasError())
+    {
+        qWarning() << Q_FUNC_INFO << "Unable to read from XML in memory";
+        return;
+    }
+
+    while (!doc.atEnd())
+    {
+        if (doc.readNext() == QXmlStreamReader::DTD)
+            break;
+    }
+    if (doc.hasError())
+    {
+        qDebug() << "XML has errors:" << doc.errorString();
+        return;
+    }
+
+    if (doc.dtdName() == KXMLQLCWorkspace)
+        loadXML(doc, true, true);
+    else
+        qDebug() << "XML doesn't have a Workspace tag";
 }
 
 void App::slotSaveAutostart(QString fileName)
