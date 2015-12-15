@@ -203,6 +203,7 @@ bool Cue::loadXMLSpeed(QXmlStreamReader &speedRoot)
     m_fadeInSpeed = speedRoot.attributes().value(KXMLQLCCueSpeedFadeIn).toString().toUInt();
     m_fadeOutSpeed = speedRoot.attributes().value(KXMLQLCCueSpeedFadeOut).toString().toUInt();
     m_duration = speedRoot.attributes().value(KXMLQLCCueSpeedDuration).toString().toUInt();
+    speedRoot.skipCurrentElement();
 
     return true;
 }
