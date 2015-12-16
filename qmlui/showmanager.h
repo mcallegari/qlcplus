@@ -62,7 +62,22 @@ public:
     /** Set the time scale of the Show Manager timeline */
     void setTimeScale(float timeScale);
 
+    /** Add a new Item to the timeline.
+     *  This happens when dragging an existing Function from the Function Manager.
+     *  If the current Show is NULL, a new Show is created.
+     *  If the provided $trackIdx is no valid, a new Track is created
+     */
     Q_INVOKABLE void addItem(QQuickItem *parent, int trackIdx, int startTime, quint32 functionID);
+
+    /** Method invoked when moving an existing Show Item on the timeline.
+     *  The new position is checked for overlapping against existing items on the
+     *  provided $newTrackIdx. On overlapping, false is returned and the UI
+     *  will bring back the Item to its original position.
+     *  If there is enough space, then the item is (in case) removed from the
+     *  $originalTrackIdx and moved into $newTrackIdx and true is returned.
+     */
+    Q_INVOKABLE bool checkAndMoveItem(ShowFunction *sf,  int originalTrackIdx,
+                                      int newTrackIdx, int newStartTime);
 
     QQmlListProperty<Track> tracks();
 
@@ -70,8 +85,14 @@ public:
 
     Q_INVOKABLE void renderView(QQuickItem *parent);
 
+    Q_INVOKABLE void enableFlicking(bool enable);
+
     /** Return the current Show total duration in milliseconds */
     int showDuration() const;
+
+private:
+    bool checkOverlapping(Track *track, ShowFunction *sourceFunc,
+                          quint32 startTime, quint32 duration);
 
 signals:
     void currentShowIDChanged(int currentShowID);

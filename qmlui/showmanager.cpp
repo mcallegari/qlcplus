@@ -137,6 +137,46 @@ void ShowManager::addItem(QQuickItem *parent, int trackIdx, int startTime, quint
     m_itemsMap[itemID] = newItem;
 }
 
+bool ShowManager::checkAndMoveItem(ShowFunction *sf, int originalTrackIdx, int newTrackIdx, int newStartTime)
+{
+    if (m_currentShow == NULL || sf == NULL)
+        return false;
+
+    qDebug() << Q_FUNC_INFO << "origIdx:" << originalTrackIdx << "newIdx:" << newTrackIdx << "time:" << newStartTime;
+
+    Track *dstTrack = NULL;
+
+    if (newTrackIdx >= m_currentShow->tracks().count() )
+    {
+        // create a new track here
+        dstTrack = new Track();
+        dstTrack->setName(tr("Track %1").arg(m_currentShow->tracks().count() + 1));
+        m_currentShow->addTrack(dstTrack);
+        emit tracksChanged();
+    }
+    else
+    {
+        dstTrack = m_currentShow->tracks().at(newTrackIdx);
+
+        bool overlapping = checkOverlapping(dstTrack, sf, newStartTime, sf->duration());
+        if (overlapping == true)
+            return false;
+    }
+
+    sf->setStartTime(newStartTime);
+
+    // check if we need to move the ShowFunction to a different Track
+    if (newTrackIdx != originalTrackIdx)
+    {
+        Track *srcTrack = m_currentShow->tracks().at(originalTrackIdx);
+        srcTrack->showFunctions().takeAt(srcTrack->showFunctions().indexOf(sf));
+        dstTrack->addShowFunction(sf);
+    }
+
+    return true;
+}
+
+
 QQmlListProperty<Track> ShowManager::tracks()
 {
     m_tracksList.clear();
@@ -192,12 +232,44 @@ void ShowManager::renderView(QQuickItem *parent)
     }
 }
 
+void ShowManager::enableFlicking(bool enable)
+{
+    QQuickItem *flickable = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("showItemsArea"));
+    flickable->setProperty("interactive", enable);
+}
+
 int ShowManager::showDuration() const
 {
     if (m_currentShow == NULL)
         return 0;
 
     return m_currentShow->totalDuration();
+}
+
+bool ShowManager::checkOverlapping(Track *track, ShowFunction *sourceFunc,
+                                   quint32 startTime, quint32 duration)
+{
+    if (track == NULL)
+        return false;
+
+    foreach(ShowFunction *sf, track->showFunctions())
+    {
+        if (sf == sourceFunc)
+            continue;
+
+        Function *func = m_doc->function(sf->functionID());
+        if (func != NULL)
+        {
+            quint32 fst = sf->startTime();
+            if ((startTime >= fst && startTime <= fst + sf->duration()) ||
+                (fst >= startTime && fst <= startTime + duration))
+            {
+                return true;
+            }
+        }
+    }
+
+    return false;
 }
 
 void ShowManager::setShowName(QString showName)

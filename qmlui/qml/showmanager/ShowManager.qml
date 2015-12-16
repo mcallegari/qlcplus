@@ -132,7 +132,7 @@ Rectangle
         x: trackWidth + verticalDivider.width
         y: topBar.height
         z: 4
-        height: showMgrContainer.height - topBar.height - (bottomPanel.visible ? bottomPanel.height : 0)
+        height: showMgrContainer.headerHeight //showMgrContainer.height - topBar.height - (bottomPanel.visible ? bottomPanel.height : 0)
         width: showMgrContainer.width - trackWidth
 
         boundsBehavior: Flickable.StopAtBounds
@@ -213,6 +213,7 @@ Rectangle
             width: showMgrContainer.width - trackWidth
             height: parent.height
 
+            boundsBehavior: Flickable.StopAtBounds
             contentHeight: showContents.contentHeight
             contentWidth: timelineHeader.contentWidth
             contentX: timelineHeader.contentX
@@ -234,6 +235,7 @@ Rectangle
                 id: newFuncDrop
                 width: showMgrContainer.width - trackWidth
                 height: tracksBox.count * trackHeight
+                z: 2
 
                 keys: [ "function" ]
                 onDropped:

@@ -27,21 +27,18 @@ Item
 {
     id: itemRoot
     height: 80
+    z: 1
 
     property ShowFunction sfRef: null
     property Function funcRef: null
+    property int startTime: sfRef ? sfRef.startTime : -1
+    property int duration: sfRef ? sfRef.duration : -1
     property int trackIndex: -1
     property real timeScale: showManager.timeScale
     property bool isSelected: false
 
-    onSfRefChanged:
-    {
-        showItemBody.color = sfRef.color
-        x = TimeUtils.timeToSize(sfRef.startTime, timeScale)
-        width = TimeUtils.timeToSize(sfRef.duration, timeScale)
-
-        console.log("Item x: " + x + " width: " + width)
-    }
+    onStartTimeChanged: x = TimeUtils.timeToSize(startTime, timeScale)
+    onDurationChanged: width = TimeUtils.timeToSize(duration, timeScale)
 
     onTrackIndexChanged:
     {
@@ -50,18 +47,22 @@ Item
 
     MouseArea
     {
+        id: sfMouseArea
         anchors.fill: parent
 
-        drag.target: showItemBody
         drag.threshold: 30
 
         Rectangle
         {
             id: showItemBody
-            anchors.fill: parent
-            color: UISettings.bgLight
+            width: itemRoot.width
+            height: itemRoot.height
+            color: sfRef ? sfRef.color : UISettings.bgLight
             border.width: isSelected ? 2 : 1
-            border.color: isSelected ? "yellow" : "white"
+            border.color: isSelected ? UISettings.selection : "white"
+
+            Drag.active: sfMouseArea.drag.active
+            Drag.keys: [ "function" ]
 
             RobotoText
             {
@@ -72,5 +73,33 @@ Item
                 wrapText: true
             }
         }
+
+        onPressed:
+        {
+            showManager.enableFlicking(false)
+            drag.target = showItemBody
+            itemRoot.z = 2
+        }
+        onReleased:
+        {
+            if (drag.target !== null)
+            {
+                console.log("Show item drag finished: " + showItemBody.x + " " + showItemBody.y);
+                drag.target = null
+                var newTrackIdx = parseInt((itemRoot.y + showItemBody.y) / height)
+                var res = showManager.checkAndMoveItem(sfRef, trackIndex, newTrackIdx,
+                                                       TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale))
+
+                if (res === true)
+                    trackIndex = newTrackIdx
+
+                showItemBody.x = 0
+                showItemBody.y = 0
+            }
+            itemRoot.z = 1
+            showManager.enableFlicking(true)
+        }
+
+        onClicked: itemRoot.isSelected = !itemRoot.isSelected
     }
 }

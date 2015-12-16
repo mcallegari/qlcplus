@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  TimelineHeader.qml
+  HeaderAndCursor.qml
 
   Copyright (c) Massimo Callegari
 
