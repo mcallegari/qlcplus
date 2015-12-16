@@ -28,6 +28,7 @@
     <file alias="MenuBarEntry.qml">qml/MenuBarEntry.qml</file>
     <file alias="QLCPlusFader.qml">qml/QLCPlusFader.qml</file>
     <file alias="RobotoText.qml">qml/RobotoText.qml</file>
+    <file alias="SidePanel.qml">qml/SidePanel.qml</file>
     <file alias="ScrollBar.qml">qml/ScrollBar.qml</file>
     <file alias="TimeEditTool.qml">qml/TimeEditTool.qml</file>
     <file alias="TreeNodeDelegate.qml">qml/TreeNodeDelegate.qml</file>
@@ -91,12 +92,20 @@
     <file alias="VCFrameItem.qml">qml/virtualconsole/VCFrameItem.qml</file>
     <file alias="VCButtonItem.qml">qml/virtualconsole/VCButtonItem.qml</file>
     <file alias="VCLabelItem.qml">qml/virtualconsole/VCLabelItem.qml</file>
+    
+    <!-- Show Manager -->
+    <file alias="ShowManager.qml">qml/showmanager/ShowManager.qml</file>
+    <file alias="TrackDelegate.qml">qml/showmanager/TrackDelegate.qml</file>
+    <file alias="ShowItem.qml">qml/showmanager/ShowItem.qml</file>
+    <file alias="HeaderAndCursor.qml">qml/showmanager/HeaderAndCursor.qml</file>
 
     <!-- JavaScript helpers -->
+    <file alias="CanvasDrawFunctions.js">js/CanvasDrawFunctions.js</file>
+    <file alias="DetachWindow.js">js/DetachWindow.js</file>
     <file alias="FixtureDrag.js">js/FixtureDrag.js</file>
     <file alias="FunctionDrag.js">js/FunctionDrag.js</file>
-    <file alias="DetachWindow.js">js/DetachWindow.js</file>
     <file alias="PluginUtils.js">js/PluginUtils.js</file>
-    <file alias="CanvasDrawFunctions.js">js/CanvasDrawFunctions.js</file>
+    <file alias="TimeUtils.js">js/TimeUtils.js</file>
+    
   </qresource>
 </RCC>

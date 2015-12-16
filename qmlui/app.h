@@ -26,6 +26,7 @@
 #include "doc.h"
 
 class MainView2D;
+class ShowManager;
 class FixtureBrowser;
 class FixtureManager;
 class ContextManager;
@@ -62,6 +63,7 @@ private:
     FunctionManager *m_functionManager;
     InputOutputManager *m_ioManager;
     VirtualConsole *m_virtualConsole;
+    ShowManager *m_showManager;
 
     /*********************************************************************
      * Doc

@@ -150,9 +150,9 @@ quint32 Audio::getStartTime() const
     return m_startTime;
 }
 
-qint64 Audio::totalDuration()
+quint32 Audio::totalDuration()
 {
-    return m_audioDuration;
+    return (quint32)m_audioDuration;
 }
 
 void Audio::setColor(QColor color)

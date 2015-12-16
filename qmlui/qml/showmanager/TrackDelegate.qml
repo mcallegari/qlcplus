@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  CustomTextEdit.qml
+  TrackDelegate.qml
 
   Copyright (c) Massimo Callegari
 
@@ -18,35 +18,35 @@
 */
 
 import QtQuick 2.0
+
+import com.qlcplus.classes 1.0
 import "."
 
 Rectangle
 {
-    id: customTextEditRect
-    width: 200
-    height: 30
+    width: 100
+    height: 80
     clip: true
-    radius: 3
-    color: UISettings.bgMedium
 
-    property alias inputText: textEdit2.text
-    property int fontSize: 16
+    color: isSelected ? UISettings.highlight : "#313F4A"
 
-    signal textChanged(var text)
+    property Track trackRef: null
+    property bool isSelected: false
 
-    border.color: "#222"
-
-    TextInput
+    RobotoText
     {
-        id: textEdit2
-        color: UISettings.fgMain
-        anchors.fill: parent
-        anchors.margins: 4
-        clip: false
-        font.family: "RobotoCondensed"
-        font.pointSize: fontSize
-        echoMode: TextInput.Normal
-        anchors.verticalCenter: parent.verticalCenter
-        onTextChanged: customTextEditRect.textChanged(text)
+        x: 2
+        width: parent.width - 4
+        height: parent.height
+        label: trackRef ? trackRef.name : ""
+        wrapText: true
+    }
+
+    Rectangle
+    {
+        width: parent.width
+        height: 2
+        y: parent.height - 2
+        color: "#263039"
     }
 }

@@ -27,6 +27,7 @@
 
 #include "app.h"
 #include "mainview2d.h"
+#include "showmanager.h"
 #include "modelselector.h"
 #include "contextmanager.h"
 #include "virtualconsole.h"
@@ -99,6 +100,9 @@ void App::startup()
 
     m_virtualConsole = new VirtualConsole(this, m_doc);
     rootContext()->setContextProperty("virtualConsole", m_virtualConsole);
+
+    m_showManager = new ShowManager(this, m_doc);
+    rootContext()->setContextProperty("showManager", m_showManager);
 
     // Start up in non-modified state
     m_doc->resetModified();

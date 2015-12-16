@@ -263,21 +263,29 @@ bool Track::postLoad(Doc* doc)
             continue;
         }
 
-        Chaser* chaser = qobject_cast<Chaser*>(function);
-        if (chaser == NULL || !chaser->isSequence() || getSceneID() == chaser->getBoundSceneID())
-            continue;
-        if (getSceneID() == Function::invalidId())
+        if (showFunction->duration() == 0)
+            showFunction->setDuration(function->totalDuration());
+        if (showFunction->color().isValid() == false)
+            showFunction->setColor(ShowFunction::defaultColor(function->type()));
+
+        if (function->type() == Function::Chaser)
         {
-            // No scene ID, use the one from this sequence
-            setSceneID(chaser->getBoundSceneID());
+            Chaser* chaser = qobject_cast<Chaser*>(function);
+            if (chaser == NULL || !chaser->isSequence() || getSceneID() == chaser->getBoundSceneID())
+                continue;
+            if (getSceneID() == Function::invalidId())
+            {
+                // No scene ID, use the one from this sequence
+                setSceneID(chaser->getBoundSceneID());
+            }
+            else
+            {
+                // Conflicting scene IDs, we have to remove this sequence
+                it.remove();
+                delete showFunction;
+            }
+            modified = true;
         }
-        else
-        {
-            // Conflicting scene IDs, we have to remove this sequence
-            it.remove();
-            delete showFunction;
-        }
-        modified = true;
     }
     return modified;
 }

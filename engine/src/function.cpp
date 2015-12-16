@@ -519,6 +519,13 @@ uint Function::duration() const
     return m_duration;
 }
 
+quint32 Function::totalDuration()
+{
+    // fall back to duration in case a
+    // subclass doesn't provide this method
+    return duration();
+}
+
 void Function::setOverrideFadeInSpeed(uint ms)
 {
     m_overrideFadeInSpeed = ms;

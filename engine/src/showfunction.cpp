@@ -30,7 +30,8 @@
 #define KXMLShowFunctionColor "Color"
 #define KXMLShowFunctionLocked "Locked"
 
-ShowFunction::ShowFunction()
+ShowFunction::ShowFunction(QObject *parent)
+    : QObject(parent)
 {
     m_id = Function::invalidId();
     m_startTime = UINT_MAX;
@@ -41,7 +42,11 @@ ShowFunction::ShowFunction()
 
 void ShowFunction::setFunctionID(quint32 id)
 {
+    if (id == m_id)
+        return;
+
     m_id = id;
+    emit functionIDChanged();
 }
 
 quint32 ShowFunction::functionID() const
@@ -51,7 +56,11 @@ quint32 ShowFunction::functionID() const
 
 void ShowFunction::setStartTime(quint32 time)
 {
+    if (time == m_startTime)
+        return;
+
     m_startTime = time;
+    emit startTimeChanged();
 }
 
 quint32 ShowFunction::startTime() const
@@ -61,7 +70,11 @@ quint32 ShowFunction::startTime() const
 
 void ShowFunction::setDuration(quint32 duration)
 {
+    if (duration == m_duration)
+        return;
+
     m_duration = duration;
+    emit durationChanged();
 }
 
 quint32 ShowFunction::duration() const
@@ -71,7 +84,11 @@ quint32 ShowFunction::duration() const
 
 void ShowFunction::setColor(QColor color)
 {
+    if (color == m_color)
+        return;
+
     m_color = color;
+    emit colorChanged();
 }
 
 QColor ShowFunction::color() const

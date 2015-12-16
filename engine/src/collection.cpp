@@ -42,7 +42,8 @@ Collection::Collection()
 
 }
 
-Collection::Collection(Doc* doc) : Function(doc, Function::Collection)
+Collection::Collection(Doc* doc)
+    : Function(doc, Function::Collection)
 {
     setName(tr("New Collection"));
 
@@ -55,6 +56,19 @@ Collection::~Collection()
 {
     QMutexLocker locker(&m_functionListMutex);
     m_functions.clear();
+}
+
+quint32 Collection::totalDuration()
+{
+    quint32 totalDuration = 0;
+
+    foreach(QVariant fid, functions())
+    {
+        Function* function = doc()->function(fid.toUInt());
+        totalDuration += function->totalDuration();
+    }
+
+    return totalDuration;
 }
 
 /*****************************************************************************

@@ -380,6 +380,11 @@ public:
     /** Get the duration in milliseconds */
     uint duration() const;
 
+    /** Get the total duration in milliseconds.
+     *  This differs from duration as it considers
+     *  the steps or the specific Function parameters */
+    virtual quint32 totalDuration();
+
     /** Set the override fade in speed (done by chaser in Common speed mode) */
     void setOverrideFadeInSpeed(uint ms);
 

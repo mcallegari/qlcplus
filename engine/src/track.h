@@ -39,6 +39,8 @@ class Track : public QObject
 {
     Q_OBJECT
 
+    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
+
     /************************************************************************
      * Initialization
      ************************************************************************/
@@ -78,6 +80,9 @@ public:
 
     /** Get the name of this track */
     QString name() const;
+
+signals:
+    void nameChanged();
 
 private:
     QString m_name;

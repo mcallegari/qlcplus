@@ -67,7 +67,7 @@ Rectangle
         {
             imgSource: "qrc:/showmanager.svg"
             entryText: qsTr("New Show")
-            onClicked: { }
+            onClicked: entryClicked(Function.Show, "qrc:/ShowManager.qml")
         }
         ContextMenuEntry
         {

@@ -19,6 +19,7 @@
 
 import QtQuick 2.0
 
+import com.qlcplus.classes 1.0
 import "."
 
 SidePanel
@@ -31,12 +32,20 @@ SidePanel
     {
         var newFuncID = functionManager.createFunction(fType)
         functionManager.setEditorFunction(newFuncID)
-        itemID = newFuncID
-        loaderSource = fEditor
-        animatePanel(true)
-        addFunctionMenu.visible = false
-        addFunction.checked = false
-        funcEditor.checked = true
+        if (fType === Function.Show)
+        {
+            showManager.currentShowID = newFuncID
+            mainView.switchToContext("SHOWMGR", fEditor)
+        }
+        else
+        {
+            itemID = newFuncID
+            loaderSource = fEditor
+            animatePanel(true)
+            addFunctionMenu.visible = false
+            addFunction.checked = false
+            funcEditor.checked = true
+        }
     }
 
     onContentLoaded: item.functionID = itemID

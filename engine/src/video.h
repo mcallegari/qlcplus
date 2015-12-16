@@ -95,7 +95,7 @@ public:
      *
      * @return Duration in milliseconds of the source video file
      */
-    qint64 totalDuration();
+    quint32 totalDuration();
 
     /**
      * Sets the video resolution as a QSize variable

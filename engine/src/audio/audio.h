@@ -90,7 +90,7 @@ public:
      *
      * @return Duration in milliseconds of the source audio file
      */
-    qint64 totalDuration();
+    quint32 totalDuration();
 
     /**
      * Set the color to be used by a AudioItem

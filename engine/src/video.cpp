@@ -144,9 +144,9 @@ void Video::setTotalDuration(qint64 duration)
     emit totalTimeChanged(m_videoDuration);
 }
 
-qint64 Video::totalDuration()
+quint32 Video::totalDuration()
 {
-    return m_videoDuration;
+    return (quint32)m_videoDuration;
 }
 
 void Video::setResolution(QSize size)

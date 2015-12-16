@@ -38,7 +38,8 @@ HEADERS += \
     mainview2d.h \
     mainviewdmx.h \
     modelselector.h \
-    sceneeditor.h
+    sceneeditor.h \
+    showmanager.h
 
 SOURCES += main.cpp \
     app.cpp \
@@ -55,7 +56,8 @@ SOURCES += main.cpp \
     mainview2d.cpp \
     mainviewdmx.cpp \
     modelselector.cpp \
-    sceneeditor.cpp
+    sceneeditor.cpp \
+    showmanager.cpp
     
 
 #############################################

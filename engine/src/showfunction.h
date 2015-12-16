@@ -32,10 +32,20 @@ class QXmlStreamReader;
 
 #define KXMLShowFunction "ShowFunction"
 
-class ShowFunction
+class ShowFunction: public QObject
 {
+    Q_OBJECT
+    Q_DISABLE_COPY(ShowFunction)
+
+    Q_PROPERTY(int functionID READ functionID WRITE setFunctionID NOTIFY functionIDChanged)
+    Q_PROPERTY(int startTime READ startTime WRITE setStartTime NOTIFY startTimeChanged)
+    Q_PROPERTY(int duration READ duration WRITE setDuration NOTIFY durationChanged)
+    Q_PROPERTY(QColor color READ color WRITE setColor NOTIFY colorChanged)
+    Q_PROPERTY(bool locked READ isLocked WRITE setLocked NOTIFY lockedChanged)
+
 public:
-    ShowFunction();
+    ShowFunction(QObject *parent = 0);
+    virtual ~ShowFunction() {}
 
     void setFunctionID(quint32 id);
     quint32 functionID() const;
@@ -56,6 +66,13 @@ public:
 
     /** Get the lock state of this ShowFunction */
     bool isLocked() const;
+
+signals:
+    void functionIDChanged();
+    void startTimeChanged();
+    void durationChanged();
+    void colorChanged();
+    void lockedChanged();
 
 private:
     /** ID of the QLC+ Function this class represents */

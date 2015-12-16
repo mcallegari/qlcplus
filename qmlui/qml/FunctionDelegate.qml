@@ -52,7 +52,7 @@ Rectangle
         id: funcEntry
         width: parent.width
         height: parent.height
-        tLabel: textLabel
+        tLabel: cRef ? cRef.name : textLabel
         functionType: cRef ? cRef.type : -1
     }
     Rectangle
@@ -72,7 +72,7 @@ Rectangle
             FunctionDragItem
             {
                 funcID: cRef ? cRef.id : -1
-                funcLabel: textLabel
+                funcLabel: cRef ? cRef.name : textLabel
                 funcIcon: funcEntry.iSrc
             }
         drag.threshold: 30
