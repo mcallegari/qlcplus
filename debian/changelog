@@ -1,5 +1,9 @@
 qlcplus (4.10.3) stable; urgency=low
 
+  * New fixture: Stellar Labs ECO LED PAR56, Chauvet Colorpalette II (thanks to Jimmy Traylor)
+  * New fixtures: Chauvet: COLORado 1 Solo, Ovation FD-165WW, Rogue RH1 Hybrid, COLORdash Par Hex 12 (thanks to Robert Box)
+  * New fixtures: Eurolite LED CLS-9 QCL RGBW 9x8W 12 (thanks to Robert Box)
+
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 7 Feb 2016 20:21:22 +0200
 
 qlcplus (4.10.2) stable; urgency=low

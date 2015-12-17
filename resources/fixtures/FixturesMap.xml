@@ -139,12 +139,15 @@
   <fixture path="Chauvet-6-Spot.qxf" mf="Chauvet" md="6 Spot"/>
   <fixture path="Chauvet-Circus-2.qxf" mf="Chauvet" md="Circus 2.0"/>
   <fixture path="Chauvet-Circus.qxf" mf="Chauvet" md="Circus"/>
+  <fixture path="Chauvet-COLORado-1-Solo.qxf" mf="Chauvet" md="COLORado 1 Solo"/>
   <fixture path="Chauvet-COLORado-1-Tour.qxf" mf="Chauvet" md="COLORado 1 Tour"/>
   <fixture path="Chauvet-ColorBand-Pix-IP.qxf" mf="Chauvet" md="ColorBand Pix IP"/>
   <fixture path="Chauvet-ColorBand-Pix-M.qxf" mf="Chauvet" md="ColorBand Pix-M"/>
   <fixture path="Chauvet-COLORdash-Accent-RGBW.qxf" mf="Chauvet" md="COLORdash Accent RGBW"/>
   <fixture path="Chauvet-COLORdash-Batten.qxf" mf="Chauvet" md="COLORdash Batten"/>
+  <fixture path="Chauvet-COLORdash-Par-Hex-12.qxf" mf="Chauvet" md="COLORdash Par-Hex 12"/>
   <fixture path="Chauvet-COLORdash-Par-Quad-7.qxf" mf="Chauvet" md="COLORdash Par-Quad 7"/>
+  <fixture path="Chauvet-Colorpalette-II.qxf" mf="Chauvet" md="Colorpalette II"/>
   <fixture path="Chauvet-COLORpalette.qxf" mf="Chauvet" md="COLORpalette"/>
   <fixture path="Chauvet-ColorStrip-Mini.qxf" mf="Chauvet" md="ColorStrip Mini"/>
   <fixture path="Chauvet-CORE-3x3.qxf" mf="Chauvet" md="CORE 3x3"/>
@@ -181,12 +184,14 @@
   <fixture path="Chauvet-Legend-230SR-Beam.qxf" mf="Chauvet" md="Legend 230SR Beam"/>
   <fixture path="Chauvet-Legend-412Z.qxf" mf="Chauvet" md="Legend 412Z"/>
   <fixture path="Chauvet-Omega-I-DMX-155.qxf" mf="Chauvet" md="Omega I DMX-155"/>
+  <fixture path="Chauvet-Ovation-FD-165WW.qxf" mf="Chauvet" md="Ovation FD-165WW"/>
   <fixture path="Chauvet-Q-Beam-260-LED.qxf" mf="Chauvet" md="Q-Beam 260-LED"/>
   <fixture path="Chauvet-Q-Spot-250.qxf" mf="Chauvet" md="Q-Spot 250"/>
   <fixture path="Chauvet-Q-Spot-260-LED.qxf" mf="Chauvet" md="Q-Spot 260 LED"/>
   <fixture path="Chauvet-Q-Spot-560-LED.qxf" mf="Chauvet" md="Q-Spot 560 LED"/>
   <fixture path="Chauvet-Q-Wash-560Z-LED.qxf" mf="Chauvet" md="Q-Wash 560Z-LED"/>
   <fixture path="Chauvet-Rogue-R2-Spot.qxf" mf="Chauvet" md="Rogue R2 Spot"/>
+  <fixture path="Chauvet-Rogue-RH1-Hybrid.qxf" mf="Chauvet" md="Rogue RH1 Hybrid"/>
   <fixture path="Chauvet-Scorpion-Storm-FX-RGB.qxf" mf="Chauvet" md="Scorpion Storm FX RGB"/>
   <fixture path="Chauvet-Shocker-90-IRC-QRG.qxf" mf="Chauvet" md="Shocker 90 IRC&#10;QRG"/>
   <fixture path="Chauvet-Slim-Par-Pro-RGBA.qxf" mf="Chauvet" md="Slim Par Pro RGBA"/>
@@ -260,6 +265,7 @@
   <fixture path="Eurolite-KLS200.qxf" mf="Eurolite" md="KLS200"/>
   <fixture path="Eurolite-LED-Bar-RGB-252_10_40__Indoor.qxf" mf="Eurolite" md="LED Bar RGB 252/10 40° Indoor"/>
   <fixture path="Eurolite-LED-CBB-3-COB-RGB-3x15W-Bar.qxf" mf="Eurolite" md="LED CBB-3 COB RBG 3x15W Bar"/>
+  <fixture path="Eurolite-LED-CLS-9-QCL-RGBW-9x8W-12.qxf" mf="Eurolite" md="LED CLS-9 QCL RGBW 9x8W 12"/>
   <fixture path="Eurolite-LED-D-400-RGBAW-3W-DMX.qxf" mf="Eurolite" md="LED D-400 RGBAW 3W DMX"/>
   <fixture path="Eurolite-LED-DMX-Pixel-Tube-16-RGB.qxf" mf="Eurolite" md="LED DMX Pixel Tube 16 RGB IP20"/>
   <fixture path="Eurolite-LED-FE-1500.qxf" mf="Eurolite" md="LED FE-1500"/>
@@ -638,6 +644,7 @@
   <fixture path="Starway-Servocolor-800.qxf" mf="Starway" md="ServoColor 800"/>
   <fixture path="Starway-TourKolor.qxf" mf="Starway" md="TourKolor"/>
   <fixture path="Starway-UrbanKolor.qxf" mf="Starway" md="UrbanKolor"/>
+  <fixture path="Stellar-Labs-ECO-LED-PAR56.qxf" mf="Stellar Labs" md="ECO LED PAR56"/>
   <fixture path="Stellar-Labs-LED-PAR38-RGB.qxf" mf="Stellar Labs" md="LED PAR38 RGB (555-11410)"/>
   <fixture path="Studio-Due-City-Color-1800.qxf" mf="Studio Due" md="City Color 1800"/>
   <fixture path="Studio-Due-Shark-150C.qxf" mf="Studio Due" md="Shark 150C"/>
