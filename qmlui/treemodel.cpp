@@ -39,6 +39,9 @@ TreeModel::~TreeModel()
 void TreeModel::clear()
 {
     int itemsCount = m_items.count();
+    if (itemsCount == 0)
+        return;
+
     beginRemoveRows(QModelIndex(), 0, itemsCount - 1);
     for (int i = 0; i < itemsCount; i++)
     {
