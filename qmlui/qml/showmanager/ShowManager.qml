@@ -81,6 +81,49 @@ Rectangle
                 onTextChanged: showManager.showName = text
             }
 
+            RobotoText
+            {
+                id: timeBox
+                property int currentTime: showManager.currentTime
+
+                label: "00:00:00.00"
+
+                onCurrentTimeChanged:
+                {
+                    label = TimeUtils.msToStringWithPrecision(currentTime, showManager.isPlaying ? 1 : 2)
+                }
+            }
+
+            IconButton
+            {
+                id: playbackBtn
+                width: parent.height - 6
+                height: width
+                imgSource: "qrc:/play.svg"
+                tooltip: qsTr("Play or resume")
+                checkable: true
+                onToggled:
+                {
+                    if (checked)
+                        showManager.playShow()
+                    else
+                        showManager.stopShow()
+                }
+            }
+            IconButton
+            {
+                id: stopBtn
+                width: parent.height - 6
+                height: width
+                imgSource: "qrc:/stop.svg"
+                tooltip: qsTr("Stop or rewind")
+                checkable: false
+                onClicked:
+                {
+                    playbackBtn.checked = false
+                    showManager.stopShow()
+                }
+            }
 
             Rectangle
             {
@@ -147,6 +190,7 @@ Rectangle
             z: 2
             height: parent.height
             headerHeight: showMgrContainer.headerHeight
+            cursorHeight: showMgrContainer.height - topBar.height - (bottomPanel.visible ? bottomPanel.height : 0)
             timeScale: showMgrContainer.timeScale
             duration: showManager.showDuration
         }

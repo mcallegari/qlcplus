@@ -38,6 +38,8 @@ class ShowManager : public PreviewContext
     Q_PROPERTY(int currentShowID READ currentShowID WRITE setCurrentShowID NOTIFY currentShowIDChanged)
     Q_PROPERTY(QString showName READ showName WRITE setShowName NOTIFY showNameChanged)
     Q_PROPERTY(float timeScale READ timeScale WRITE setTimeScale NOTIFY timeScaleChanged)
+    Q_PROPERTY(int currentTime READ currentTime WRITE setCurrentTime NOTIFY currentTimeChanged)
+    Q_PROPERTY(bool isPlaying READ isPlaying NOTIFY isPlayingChanged)
     Q_PROPERTY(int showDuration READ showDuration NOTIFY showDurationChanged)
     Q_PROPERTY(QQmlListProperty<Track> tracks READ tracks NOTIFY tracksChanged)
 
@@ -90,6 +92,20 @@ public:
     /** Return the current Show total duration in milliseconds */
     int showDuration() const;
 
+    /** Return the current time of the Show */
+    int currentTime() const;
+
+    /** Set the Show time position */
+    void setCurrentTime(int currentTime);
+
+    Q_INVOKABLE void playShow();
+    Q_INVOKABLE void stopShow();
+
+    bool isPlaying() const;
+
+protected slots:
+    void slotTimeChanged(quint32 msec_time);
+
 private:
     bool checkOverlapping(Track *track, ShowFunction *sourceFunc,
                           quint32 startTime, quint32 duration);
@@ -98,6 +114,8 @@ signals:
     void currentShowIDChanged(int currentShowID);
     void showNameChanged(QString showName);
     void timeScaleChanged(float timeScale);
+    void currentTimeChanged(int currentTime);
+    void isPlayingChanged(bool playing);
     void showDurationChanged(int showDuration);
     void tracksChanged();
 
@@ -107,6 +125,9 @@ private:
 
     /** The current time scale of the Show Manager timeline */
     float m_timeScale;
+
+    /** The current time position of the Show */
+    int m_currentTime;
 
     /** A list of references to the selected Show Tracks */
     QList <Track*> m_tracksList;

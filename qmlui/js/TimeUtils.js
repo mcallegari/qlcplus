@@ -17,6 +17,14 @@
   limitations under the License.
 */
 
+/**
+ * Returns a string from the provided time in milliseconds.
+ * It builds a stripped version of the time where
+ * - hours are not displayed if equal to 0
+ * - milliseconds are not displayed if equal to 0
+ * The format is hh:mm:ss.xx
+ */
+
 function msToString(ms)
 {
     var h = Math.floor(ms / 3600000)
@@ -36,6 +44,43 @@ function msToString(ms)
     finalTime += ((s < 10) ? "0" + s : s)
     if (ms)
         finalTime += "." + ((ms < 10) ? "0" + ms : ms)
+
+    return finalTime
+}
+
+/**
+ * Returns a string from the provided time in milliseconds,
+ * considering the requested precision to display miliseconds.
+ *
+ * It always returns a full string in the format: hh:mm:ss.xx
+ * Precision can be 1 (during playback) or 2 (when stopped)
+ */
+function msToStringWithPrecision(ms, precision)
+{
+    var h = Math.floor(ms / 3600000)
+    ms -= (h * 3600000)
+
+    var m = Math.floor(ms / 60000)
+    ms -= (m * 60000)
+
+    var s = Math.floor(ms / 1000)
+    ms -= (s * 1000)
+
+    var finalTime = ""
+    finalTime += ((h < 10) ? "0" + h : h) + ":"
+    finalTime += ((m < 10) ? "0" + m : m) + ":"
+    finalTime += ((s < 10) ? "0" + s : s)
+    if (precision === 1)
+        finalTime += "." + ((ms < 10) ? "0" : parseInt(ms / 100))
+    else
+    {
+        if (ms < 10)
+            finalTime += ".00"
+        else if (ms < 100)
+            finalTime += ".0" + parseInt(ms / 10)
+        else
+            finalTime += "." + parseInt(ms / 10)
+    }
 
     return finalTime
 }

@@ -20,6 +20,7 @@
 import QtQuick 2.0
 
 import "TimeUtils.js" as TimeUtils
+import "."
 
 Rectangle
 {
@@ -30,13 +31,45 @@ Rectangle
 
     property int duration: -1
     property int headerHeight: 40
+    property int cursorHeight: 0
     property real timeScale: 1.0
-    property int timePosition: 0
+    property int currentTime: showManager.currentTime
+
+    onCurrentTimeChanged:
+    {
+        cursor.x = TimeUtils.timeToSize(currentTime, timeScale)
+    }
 
     onDurationChanged:
     {
         width = TimeUtils.timeToSize(duration + 300000, timeScale)
         console.log("New header width: " + width)
+    }
+
+    Rectangle
+    {
+        id: cursor
+        height: cursorHeight
+        width: 1
+        color: "transparent"
+        z: 2
+
+        Rectangle
+        {
+            height: 10
+            width: 10
+            x: -5
+            y: headerHeight - 10
+            color: UISettings.selection
+        }
+
+        Rectangle
+        {
+            width: 1
+            height: cursorHeight - headerHeight
+            y: headerHeight
+            color: UISettings.selection
+        }
     }
 
     Canvas

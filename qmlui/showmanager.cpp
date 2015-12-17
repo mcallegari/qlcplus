@@ -26,6 +26,7 @@ ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
     : PreviewContext(view, doc, parent)
     , m_currentShow(NULL)
     , m_timeScale(5.0)
+    , m_currentTime(0)
 {
     qmlRegisterType<Track>("com.qlcplus.classes", 1, 0, "Track");
     qmlRegisterType<ShowFunction>("com.qlcplus.classes", 1, 0, "ShowFunction");
@@ -44,13 +45,18 @@ int ShowManager::currentShowID() const
 
 void ShowManager::setCurrentShowID(int currentShowID)
 {
-    if (m_currentShow != NULL && m_currentShow->id() == (quint32)currentShowID)
-        return;
+    if (m_currentShow != NULL)
+    {
+        if (m_currentShow->id() == (quint32)currentShowID)
+            return;
+        disconnect(m_currentShow, SIGNAL(timeChanged(quint32)), this, SLOT(slotTimeChanged(quint32)));
+    }
 
     m_currentShow = qobject_cast<Show*>(m_doc->function(currentShowID));
     emit currentShowIDChanged(currentShowID);
     if (m_currentShow != NULL)
     {
+        connect(m_currentShow, SIGNAL(timeChanged(quint32)), this, SLOT(slotTimeChanged(quint32)));
         emit showDurationChanged(m_currentShow->totalDuration());
         emit showNameChanged(m_currentShow->name());
     }
@@ -142,11 +148,11 @@ bool ShowManager::checkAndMoveItem(ShowFunction *sf, int originalTrackIdx, int n
     if (m_currentShow == NULL || sf == NULL)
         return false;
 
-    qDebug() << Q_FUNC_INFO << "origIdx:" << originalTrackIdx << "newIdx:" << newTrackIdx << "time:" << newStartTime;
+    //qDebug() << Q_FUNC_INFO << "origIdx:" << originalTrackIdx << "newIdx:" << newTrackIdx << "time:" << newStartTime;
 
     Track *dstTrack = NULL;
 
-    if (newTrackIdx >= m_currentShow->tracks().count() )
+    if (newTrackIdx >= m_currentShow->tracks().count())
     {
         // create a new track here
         dstTrack = new Track();
@@ -244,6 +250,54 @@ int ShowManager::showDuration() const
         return 0;
 
     return m_currentShow->totalDuration();
+}
+
+int ShowManager::currentTime() const
+{
+    return m_currentTime;
+}
+
+void ShowManager::setCurrentTime(int currentTime)
+{
+    if (m_currentTime == currentTime)
+        return;
+
+    m_currentTime = currentTime;
+    emit currentTimeChanged(currentTime);
+}
+
+void ShowManager::playShow()
+{
+    if (m_currentShow == NULL)
+        return;
+
+    m_currentShow->start(m_doc->masterTimer(), false, m_currentTime);
+    emit isPlayingChanged(true);
+}
+
+void ShowManager::stopShow()
+{
+    if (m_currentShow != NULL && m_currentShow->isRunning())
+    {
+        m_currentShow->stop();
+        emit isPlayingChanged(false);
+        return;
+    }
+    m_currentTime = 0;
+    emit currentTimeChanged(m_currentTime);
+}
+
+bool ShowManager::isPlaying() const
+{
+    if (m_currentShow != NULL && m_currentShow->isRunning())
+        return true;
+    return false;
+}
+
+void ShowManager::slotTimeChanged(quint32 msec_time)
+{
+    m_currentTime = (int)msec_time;
+    emit currentTimeChanged(m_currentTime);
 }
 
 bool ShowManager::checkOverlapping(Track *track, ShowFunction *sourceFunc,

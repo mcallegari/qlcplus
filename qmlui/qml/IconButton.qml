@@ -112,10 +112,10 @@ Rectangle
             if (checkable == true)
             {
                 checked = !checked
-                baseIconButton.toggled(checked);
+                baseIconButton.toggled(checked)
             }
             else
-                baseIconButton.clicked();
+                baseIconButton.clicked()
         }
 
         onCanceled: Tooltip.hideText()
