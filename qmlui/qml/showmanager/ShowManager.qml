@@ -74,8 +74,8 @@ Rectangle
             CustomTextEdit
             {
                 width: 200
-                height: parent.height - 6
-                fontSize: 18
+                height: parent.height - 10
+                fontSize: 16
                 inputText: showManager.showName
 
                 onTextChanged: showManager.showName = text
@@ -261,6 +261,12 @@ Rectangle
             contentHeight: showContents.contentHeight
             contentWidth: timelineHeader.contentWidth
             contentX: timelineHeader.contentX
+
+            MouseArea
+            {
+                anchors.fill: parent
+                onClicked: showManager.currentTime = TimeUtils.posToMs(mouse.x, timeScale)
+            }
 
             Repeater
             {

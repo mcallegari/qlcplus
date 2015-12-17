@@ -52,7 +52,7 @@ Rectangle
         height: cursorHeight
         width: 1
         color: "transparent"
-        z: 2
+        z: 1
 
         Rectangle
         {
@@ -118,5 +118,11 @@ Rectangle
             ctx.closePath()
             ctx.stroke()
         }
+    }
+
+    MouseArea
+    {
+        anchors.fill: parent
+        onClicked: showManager.currentTime = TimeUtils.posToMs(mouse.x, timeScale)
     }
 }
