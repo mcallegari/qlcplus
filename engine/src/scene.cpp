@@ -324,13 +324,15 @@ bool Scene::saveXML(QXmlStreamWriter *doc)
     if (m_channelGroups.count() > 0)
     {
         QString chanGroupsIDs;
-        foreach(quint32 id, m_channelGroups)
+        for (int i = 0; i < m_channelGroups.size(); ++i)
         {
             if (chanGroupsIDs.isEmpty() == false)
                 chanGroupsIDs.append(QString(","));
-            chanGroupsIDs.append(QString("%1").arg(id));
+            int id = m_channelGroups.at(i);
+            int val = m_channelGroupsLevels.at(i);
+            chanGroupsIDs.append(QString("%1,%2").arg(id).arg(val));
         }
-        doc->writeTextElement(KXMLQLCSceneChannelGroups, chanGroupsIDs);
+        doc->writeTextElement(KXMLQLCSceneChannelGroupsValues, chanGroupsIDs);
     }
 
     /* Scene contents */
@@ -416,7 +418,20 @@ bool Scene::loadXML(QXmlStreamReader &root)
                 foreach(QString grp, grpArray)
                 {
                     m_channelGroups.append(grp.toUInt());
-                    m_channelGroupsLevels.append(0); // @TODO: wanna save this on projects too ?
+                    m_channelGroupsLevels.append(0);
+                }
+            }
+        }
+        else if (root.name() == KXMLQLCSceneChannelGroupsValues)
+        {
+            QString chGrpIDs = root.readElementText();
+            if (chGrpIDs.isEmpty() == false)
+            {
+                QStringList grpArray = chGrpIDs.split(",");
+                for (int i = 0; i + 1 < grpArray.count(); i+=2)
+                {
+                    m_channelGroups.append(grpArray.at(i).toUInt());
+                    m_channelGroupsLevels.append(grpArray.at(i + 1).toUInt());
                 }
             }
         }
@@ -436,7 +451,7 @@ bool Scene::loadXML(QXmlStreamReader &root)
             if (strvals.isEmpty() == false)
             {
                 QStringList varray = strvals.split(",");
-                for (int i = 0; i < varray.count(); i+=2)
+                for (int i = 0; i + 1 < varray.count(); i+=2)
                 {
                     SceneValue scv;
                     scv.fxi = fxi;

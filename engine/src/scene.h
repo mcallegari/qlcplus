@@ -38,6 +38,9 @@ class QXmlStreamReader;
  */
 
 #define KXMLQLCFixtureValues "FixtureVal"
+#define KXMLQLCSceneChannelGroupsValues "ChannelGroupsVal"
+
+// Legacy: these do not contain ChannelGroups values
 #define KXMLQLCSceneChannelGroups "ChannelGroups"
 
 /**
