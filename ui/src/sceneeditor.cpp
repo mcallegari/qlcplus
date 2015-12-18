@@ -306,7 +306,20 @@ void SceneEditor::init(bool applyValues)
     slotModeChanged(m_doc->mode());
 
     // Fixtures & tabs
-    // Fill the fixtures list from the Scene values
+    // Fill the fixtures list from the Scene fixtures
+    foreach (quint32 fixtureID, m_scene->fixtures())
+    {
+        if (fixtureItem(fixtureID) == NULL)
+        {
+            Fixture* fixture = m_doc->fixture(fixtureID);
+            if (fixture == NULL)
+                continue;
+            addFixtureItem(fixture);
+        }
+    }
+
+    // Complete the fixtures list from the Scene values
+    // (This should be useless)
     QListIterator <SceneValue> it(m_scene->values());
     while (it.hasNext() == true)
     {
@@ -314,6 +327,8 @@ void SceneEditor::init(bool applyValues)
 
         if (fixtureItem(scv.fxi) == NULL)
         {
+            qWarning() << Q_FUNC_INFO
+                << "Fixture" << scv.fxi << "was not in the scene fixture list!";
             Fixture* fixture = m_doc->fixture(scv.fxi);
             if (fixture == NULL)
                 continue;
@@ -1239,6 +1254,9 @@ void SceneEditor::slotAddFixtureClicked()
 
             addFixtureItem(fixture);
             addFixtureTab(fixture);
+
+            // Add fixture in scene
+            m_scene->addFixture(fixture->id());
         }
     }
 }
@@ -1264,6 +1282,9 @@ void SceneEditor::slotRemoveFixtureClicked()
             /* Remove all values associated to the fixture */
             for (quint32 i = 0; i < fixture->channels(); i++)
                 m_scene->unsetValue(fixture->id(), i);
+
+            // Remove fixture from scene
+            m_scene->removeFixture(fixture->id());
         }
     }
 }

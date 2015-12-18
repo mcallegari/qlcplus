@@ -40,7 +40,7 @@ public:
 public:
     void setShowSpeedDial(bool show);
     bool showSpeedDial() const;
-           
+
 private:
     bool m_showSpeedDial;
 };

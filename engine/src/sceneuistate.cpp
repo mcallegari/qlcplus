@@ -66,4 +66,3 @@ int SceneUiState::currentTab() const
 {
     return m_currentTab;
 }
-

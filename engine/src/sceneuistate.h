@@ -42,7 +42,7 @@ public:
 
     void setDisplayMode(DisplayMode mode);
     DisplayMode displayMode() const;
-   
+
 private:
     DisplayMode m_displayMode;
 

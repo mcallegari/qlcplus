@@ -190,6 +190,14 @@ protected:
 public slots:
     void slotFixtureRemoved(quint32 fxi_id);
 
+public:
+    void addFixture(quint32 fixtureId);
+    bool removeFixture(quint32 fixtureId);
+    QSet<quint32> fixtures() const;
+
+private:
+    QSet<quint32> m_fixtures;
+
     /*********************************************************************
      * Load & Save
      *********************************************************************/
@@ -202,6 +210,9 @@ public:
 
     /** @reimpl */
     void postLoad();
+
+private:
+    static bool saveXMLFixtureValues(QXmlStreamWriter* doc, quint32 fixtureID, QStringList const& values);
 
     /*********************************************************************
      * Flash

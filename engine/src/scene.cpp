@@ -119,6 +119,9 @@ FunctionUiState * Scene::createUiState()
 
 void Scene::setValue(const SceneValue& scv, bool blind, bool checkHTP)
 {
+    if (!m_fixtures.contains(scv.fxi))
+        qWarning() << Q_FUNC_INFO << "Setting value for unknown fixture" << scv.fxi;
+
     m_valueListMutex.lock();
 
     QMap<SceneValue, uchar>::iterator it = m_values.find(scv);
@@ -157,6 +160,9 @@ void Scene::setValue(quint32 fxi, quint32 ch, uchar value)
 
 void Scene::unsetValue(quint32 fxi, quint32 ch)
 {
+    if (!m_fixtures.contains(fxi))
+        qWarning() << Q_FUNC_INFO << "Unsetting value for unknown fixture" << fxi;
+
     m_valueListMutex.lock();
     m_values.remove(SceneValue(fxi, ch, 0));
     m_valueListMutex.unlock();
@@ -292,17 +298,40 @@ QList<quint32> Scene::channelGroups()
 
 void Scene::slotFixtureRemoved(quint32 fxi_id)
 {
+    bool hasChanged = false;
+
     QMutableMapIterator <SceneValue, uchar> it(m_values);
     while (it.hasNext() == true)
     {
         SceneValue value(it.next().key());
         if (value.fxi == fxi_id)
+        {
             it.remove();
+            hasChanged = true;
+        }
     }
 
-    emit changed(this->id());
+    if (removeFixture(fxi_id))
+        hasChanged = true;
+
+    if (hasChanged)
+        emit changed(this->id());
 }
 
+void Scene::addFixture(quint32 fixtureId)
+{
+    m_fixtures.insert(fixtureId);
+}
+
+bool Scene::removeFixture(quint32 fixtureId)
+{
+    return m_fixtures.remove(fixtureId);
+}
+
+QSet<quint32> Scene::fixtures() const
+{
+    return m_fixtures;
+}
 /*****************************************************************************
  * Load & Save
  *****************************************************************************/
@@ -336,51 +365,48 @@ bool Scene::saveXML(QXmlStreamWriter *doc)
     }
 
     /* Scene contents */
+    QSet<quint32> writtenFixtures;
     QMapIterator <SceneValue, uchar> it(m_values);
     qint32 currFixID = -1;
-    int chanCount = 0;
-    QString fixValues;
+    QStringList currFixValues;
     while (it.hasNext() == true)
     {
         SceneValue sv = it.next().key();
         if (currFixID == -1) currFixID = sv.fxi;
         if ((qint32)sv.fxi != currFixID)
         {
-            doc->writeStartElement(KXMLQLCFixtureValues);
-            doc->writeAttribute(KXMLQLCFixtureID, QString::number(currFixID));
-
+            saveXMLFixtureValues(doc, currFixID, currFixValues);
+            writtenFixtures.insert(currFixID);
+            currFixValues.clear();
             currFixID = sv.fxi;
-            chanCount = 0;
-            if (fixValues.isEmpty() == false)
-            {
-                doc->writeCharacters(fixValues);
-                fixValues.clear();
-            }
-            doc->writeEndElement();
         }
-        chanCount++;
-        if (fixValues.isEmpty() == false)
-            fixValues.append(QString(","));
-        if (m_hasChildren == true)
-            fixValues.append(QString("%1,0").arg(sv.channel));
-        else
-            fixValues.append(QString("%1,%2").arg(sv.channel).arg(sv.value));
+        currFixValues.append(QString::number(sv.channel));
+        currFixValues.append(QString::number(m_hasChildren ? 0 : sv.value));
     }
     /* write last element */
-    doc->writeStartElement(KXMLQLCFixtureValues);
-    doc->writeAttribute(KXMLQLCFixtureID, QString::number(currFixID));
+    saveXMLFixtureValues(doc, currFixID, currFixValues);
 
-    chanCount = 0;
-    if (fixValues.isEmpty() == false)
+    // Write fixtures with no scene value
+    QSet<quint32> unwrittenFixtures(m_fixtures);
+    unwrittenFixtures -= writtenFixtures;
+    foreach(quint32 fixtureID, unwrittenFixtures)
     {
-        doc->writeCharacters(fixValues);
-        fixValues.clear();
+        saveXMLFixtureValues(doc, fixtureID, QStringList());
     }
-    doc->writeEndElement();
 
     /* End the <Function> tag */
     doc->writeEndElement();
 
+    return true;
+}
+
+bool Scene::saveXMLFixtureValues(QXmlStreamWriter* doc, quint32 fixtureID, QStringList const& values)
+{
+    doc->writeStartElement(KXMLQLCFixtureValues);
+    doc->writeAttribute(KXMLQLCFixtureID, QString::number(fixtureID));
+    if (values.size() > 0)
+        doc->writeCharacters(values.join(","));
+    doc->writeEndElement();
     return true;
 }
 
@@ -447,6 +473,7 @@ bool Scene::loadXML(QXmlStreamReader &root)
         else if (root.name() == KXMLQLCFixtureValues)
         {
             quint32 fxi = root.attributes().value(KXMLQLCFixtureID).toString().toUInt();
+            addFixture(fxi);
             QString strvals = root.readElementText();
             if (strvals.isEmpty() == false)
             {
