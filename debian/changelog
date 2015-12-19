@@ -1,5 +1,7 @@
 qlcplus (4.10.3) stable; urgency=low
 
+  * Scene Editor: Remember Channels Groups values when saving and loading a workspace (David Garyga)
+  * Scene Editor: Remember fixtures even with no activated channel (David Garyga)
   * New fixture: Stellar Labs ECO LED PAR56, Chauvet Colorpalette II (thanks to Jimmy Traylor)
   * New fixtures: Chauvet: COLORado 1 Solo, Ovation FD-165WW, Rogue RH1 Hybrid, COLORdash Par Hex 12 (thanks to Robert Box)
   * New fixtures: Eurolite LED CLS-9 QCL RGBW 9x8W 12 (thanks to Robert Box)
