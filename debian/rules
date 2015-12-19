@@ -10,3 +10,6 @@
 override_dh_auto_configure:
 	./translate.sh
 	dh_auto_configure --
+
+override_dh_install:
+	dh_install --exclude=libolaio.so
