@@ -6,6 +6,10 @@ APPNAME    = Q Light Controller Plus
 FXEDNAME   = Fixture Definition Editor
 APPVERSION = 4.10.3 GIT
 
+# Disable these if you don't want to see GIT short hash in the About Box
+#unix:REVISION = $$system(git log --pretty=format:'%h' -n 1)
+#unix:APPVERSION = $$APPVERSION-r$$REVISION
+
 #############################################################################
 # Compiler & linker configuration
 #############################################################################
@@ -27,17 +31,13 @@ CONFIG         += debug
 
 !macx:!ios: {
  system( g++ --version | grep -e "4.6.[0-9]" ) {
-   message("g++ version 4.6 found")
+   #message("g++ version 4.6 found")
    QMAKE_CXXFLAGS += -Wno-error=strict-overflow
  }
  else {
    QMAKE_CXXFLAGS += -Wno-unused-local-typedefs # Fix to build with GCC 4.8
  }
 }
-
-# Disable these if you don't want to see SVN revision in the About Box
-#unix:REVISION = $$system(svn info | grep "Revision" | sed 's/Revision://')
-#unix:APPVERSION = $$APPVERSION-r$$REVISION
 
 unix:OLA_GIT    = /usr/src/ola    # OLA directories
 
@@ -47,7 +47,6 @@ macx:CONFIG    -= app_bundle # Let QLC+ construct the .app bundle
 greaterThan(QT_MAJOR_VERSION, 4):greaterThan(QT_MINOR_VERSION, 4) {
   macx:QMAKE_LFLAGS += -Wl,-rpath,@executable_path/../Frameworks
 }
-
 
 # Produce build targets to the source directory
 win32:DESTDIR  = ./
@@ -201,3 +200,15 @@ unix:!macx:WEBFILESDIR = $$DATADIR/web
 macx:WEBFILESDIR       = $$DATADIR/Web
 android:WEBFILESDIR    = $$DATADIR/web
 ios:WEBFILESDIR        = Web
+
+unix:!macx: {
+  QTPREFIX = $$[QT_INSTALL_PREFIX]
+  equals(QTPREFIX, "/usr") {
+    QTLIBSDIR = $$[QT_INSTALL_LIBS]
+    QTPLUGINSDIR = $$[QT_INSTALL_PLUGINS]
+    LIBSDIR = $$replace(QTLIBSDIR, "/usr/", "")
+    PLUGINDIR = $$replace(QTPLUGINSDIR, "/usr/", "")/qlcplus
+  }
+  #message("Linux libs dir: " $$INSTALLROOT/$$LIBSDIR)
+  #message("Linux plugins dir: " $$INSTALLROOT/$$PLUGINDIR)
+}
