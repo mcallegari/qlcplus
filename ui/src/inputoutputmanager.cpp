@@ -208,7 +208,6 @@ void InputOutputManager::updateList()
     }
     else
     {
-        m_deleteUniverseAction->setEnabled(true);
         m_list->setCurrentItem(m_list->item(0));
         m_uniNameEdit->setEnabled(true);
         m_uniNameEdit->setText(m_ioMap->getUniverseNameByIndex(0));
@@ -301,6 +300,11 @@ void InputOutputManager::slotCurrentItemChanged()
     quint32 universe = item->data(Qt::UserRole).toInt();
     if (m_editorUniverse == universe)
         return;
+
+    if ((universe + 1) != m_ioMap->universesCount())
+        m_deleteUniverseAction->setEnabled(false);
+    else
+        m_deleteUniverseAction->setEnabled(true);
 
     if (m_editor != NULL)
     {
