@@ -6,7 +6,7 @@
 
 %:
 	dh  $@
-	
+
 override_dh_auto_configure:
 	./translate.sh
 	dh_auto_configure --
