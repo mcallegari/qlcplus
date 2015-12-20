@@ -4,7 +4,7 @@
 
 APPNAME    = Q Light Controller Plus
 FXEDNAME   = Fixture Definition Editor
-APPVERSION = 4.10.3 GIT
+APPVERSION = 4.10.3
 
 # Disable these if you don't want to see GIT short hash in the About Box
 #unix:REVISION = $$system(git log --pretty=format:'%h' -n 1)
@@ -23,11 +23,11 @@ CONFIG         += warn_on
 CONFIG         += ordered
 
 # Enable the following 2 lines when making a release
-CONFIG         -= release
-#DEFINES        += QT_NO_DEBUG_OUTPUT
+CONFIG         += release
+DEFINES        += QT_NO_DEBUG_OUTPUT
 
 # Disable this when making a release
-CONFIG         += debug
+CONFIG         -= debug
 
 !macx:!ios: {
  system( g++ --version | grep -e "4.6.[0-9]" ) {
@@ -209,6 +209,8 @@ unix:!macx: {
     LIBSDIR = $$replace(QTLIBSDIR, "/usr/", "")
     PLUGINDIR = $$replace(QTPLUGINSDIR, "/usr/", "")/qlcplus
   }
-  #message("Linux libs dir: " $$INSTALLROOT/$$LIBSDIR)
-  #message("Linux plugins dir: " $$INSTALLROOT/$$PLUGINDIR)
+  message("Qt install prefix: "$$[QT_INSTALL_PREFIX])
+  message("Qt install libs: "$$[QT_INSTALL_LIBS])
+  message("Linux libs dir: " $$INSTALLROOT/$$LIBSDIR)
+  message("Linux plugins dir: " $$INSTALLROOT/$$PLUGINDIR)
 }
