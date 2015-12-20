@@ -203,7 +203,7 @@ ios:WEBFILESDIR        = Web
 
 unix:!macx: {
   QTPREFIX = $$[QT_INSTALL_PREFIX]
-  equals(QTPREFIX, "/usr") {
+  contains(QTPREFIX, "/usr") {
     QTLIBSDIR = $$[QT_INSTALL_LIBS]
     QTPLUGINSDIR = $$[QT_INSTALL_PLUGINS]
     LIBSDIR = $$replace(QTLIBSDIR, "/usr/", "")
