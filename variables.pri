@@ -210,8 +210,8 @@ unix:!macx: {
     LIBSDIR = $$replace(QTLIBSDIR, "/usr/", "")
     PLUGINDIR = $$replace(QTPLUGINSDIR, "/usr/", "")/qlcplus
   }
-  message("Qt install prefix: "$$[QT_INSTALL_PREFIX])
-  message("Qt install libs: "$$[QT_INSTALL_LIBS])
-  message("Linux libs dir: " $$INSTALLROOT/$$LIBSDIR)
-  message("Linux plugins dir: " $$INSTALLROOT/$$PLUGINDIR)
+  #message("Qt install prefix: "$$[QT_INSTALL_PREFIX])
+  #message("Qt install libs: "$$[QT_INSTALL_LIBS])
+  #message("Linux libs dir: " $$INSTALLROOT/$$LIBSDIR)
+  #message("Linux plugins dir: " $$INSTALLROOT/$$PLUGINDIR)
 }
