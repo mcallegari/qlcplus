@@ -29,7 +29,6 @@ Rectangle
     color: UISettings.bgStrong
 
     property int panelAlignment: Qt.AlignRight
-    property bool alignLeft: true
     property bool isOpen: false
     property int collapseWidth: 50
     property int expandedWidth: 450

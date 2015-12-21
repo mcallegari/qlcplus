@@ -31,8 +31,22 @@ Rectangle
     radius: 3
 
     property alias currentIndex: menuListView.currentIndex
+
+    /*! model: provides a data model for the popup.
+        A model can be either a string list (QStringList) or a named model
+        to provide icons and values (QVariant)
+
+        A QML model with icons should look like this:
+
+        ListModel
+        {
+            ListElement { mLabel: qsTr("Foo"); mIcon:"qrc:/foo.svg"; mValue: 0 }
+            ListElement { mLabel: qsTr("Bar"); mIcon:"qrc:/bar.svg"; mValue: 1 }
+        }
+     */
     property alias model: menuListView.model
     property string currentText
+    property string currentIcon
 
     onModelChanged: menuListView.currentIndex = 0
 
@@ -57,11 +71,21 @@ Rectangle
 
     Row
     {
-        x: 2
+        x: 4
+        Image
+        {
+            id: mainIcon
+            visible: currentIcon ? true : false
+            height: cbRoot.height - 4
+            width: height
+            y: 2
+            source: currentIcon ? currentIcon : ""
+            sourceSize: Qt.size(width, height)
+        }
         RobotoText
         {
             height: cbRoot.height
-            width: cbRoot.width - 2 - arrowButton.width
+            width: cbRoot.width - 4 - arrowButton.width - (mainIcon.visible ? mainIcon.width : 0)
             label: currentText
             fontSize: 12
             fontBold: true
@@ -109,6 +133,7 @@ Rectangle
     {
         id: dropDownMenu
         y: cbRoot.height
+        z: 99
         width: cbRoot.width
         color: UISettings.bgStrong
         border.width: 1
@@ -136,22 +161,51 @@ Rectangle
                     onCurrentIdxChanged:
                     {
                         if (index == menuListView.currentIndex)
-                            currentText = modelData
+                        {
+                            if (modelData.mLabel)
+                                currentText = modelData.mLabel
+                            else
+                                currentText = modelData
+                            if (mIcon)
+                                currentIcon = modelData.mIcon
+                        }
                     }
 
                     Component.onCompleted:
                     {
                         if (index == menuListView.currentIndex)
-                            currentText = modelData
+                        {
+                            if (modelData.mLabel)
+                                currentText = modelData.mLabel
+                            else
+                                currentText = modelData
+                            if (modelData.mIcon)
+                                currentIcon = modelData.mIcon
+                        }
                     }
 
-                    RobotoText
+                    Row
                     {
-                        id: textitem
-                        x: 3
-                        label: modelData
-                        height: parent.height
-                        fontSize: 12
+                        x: 2
+                        spacing: 2
+                        Image
+                        {
+                            id: iconItem
+                            visible: modelData.mIcon ? true : false
+                            height: delegateRoot.height - 4
+                            width: height
+                            y: 2
+                            source: modelData.mIcon ? modelData.mIcon : ""
+                            sourceSize: Qt.size(width, height)
+                        }
+
+                        RobotoText
+                        {
+                            id: textitem
+                            label: modelData.mLabel ? modelData.mLabel : modelData
+                            height: delegateRoot.height
+                            fontSize: 12
+                        }
                     }
 
                     Rectangle { height: 1; width: parent.width; y: parent.height - 1 }
@@ -164,7 +218,13 @@ Rectangle
                         onExited: delegateRoot.color = "transparent"
                         onClicked:
                         {
-                            currentText = modelData
+                            if (modelData.mLabel)
+                                currentText = modelData.mLabel
+                            else
+                                currentText = modelData
+                            if (modelData.mIcon)
+                                currentIcon = modelData.mIcon
+
                             menuListView.currentIndex = index
                             dropDownMenu.visible = false
                         }
