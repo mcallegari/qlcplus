@@ -122,7 +122,7 @@ CONFIG(libftdi) {
 
 unix:!macx {
     # Rules to make USB DMX devices readable & writable by normal users
-    udev.path  = /etc/udev/rules.d
+    udev.path  = $$UDEVRULESDIR
     udev.files = z65-dmxusb.rules
     INSTALLS  += udev
 }
