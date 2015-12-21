@@ -201,6 +201,9 @@ macx:WEBFILESDIR       = $$DATADIR/Web
 android:WEBFILESDIR    = $$DATADIR/web
 ios:WEBFILESDIR        = Web
 
+# udev rules
+unix:!macx:UDEVRULESDIR = /etc/udev/rules.d
+
 unix:!macx: {
   QTPREFIX = $$[QT_INSTALL_PREFIX]
   IN_USR = $$find(QTPREFIX, "/usr")
