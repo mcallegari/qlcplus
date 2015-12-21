@@ -45,9 +45,9 @@ win32:coverage.commands = @echo Get a better OS.
 translations.target = translate
 QMAKE_EXTRA_TARGETS += translations
 translations.commands += ./translate.sh
-translations.files += qlcplus_de_DE.qm qlcplus_es_ES.qm qlcplus_fr_FR.qm
-translations.files += qlcplus_it_IT.qm qlcplus_nl_NL.qm qlcplus_cz_CZ.qm
-translations.files += qlcplus_pt_BR.qm qlcplus_ca_ES.qm qlcplus_ja_JP.qm
+translations.files = ./qlcplus_de_DE.qm ./qlcplus_es_ES.qm ./qlcplus_fr_FR.qm
+translations.files += ./qlcplus_it_IT.qm ./qlcplus_nl_NL.qm ./qlcplus_cz_CZ.qm
+translations.files += ./qlcplus_pt_BR.qm ./qlcplus_ca_ES.qm ./qlcplus_ja_JP.qm
 translations.path   = $$INSTALLROOT/$$TRANSLATIONDIR
 INSTALLS           += translations
 
