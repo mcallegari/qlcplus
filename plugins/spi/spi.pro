@@ -11,7 +11,7 @@ INCLUDEPATH += $SYSROOT/usr/include
 CONFIG      += plugin
 
 # Rules to make SPI devices readable & writable by normal users
-udev.path  = /etc/udev/rules.d
+udev.path  = $$UDEVRULESDIR
 udev.files = z65-spi.rules
 INSTALLS  += udev
 
