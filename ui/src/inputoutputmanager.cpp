@@ -351,13 +351,7 @@ void InputOutputManager::slotDeleteUniverse()
 {
     int uniIdx = m_list->currentRow();
 
-    if ((uniIdx + 1) != (int)(m_ioMap->universesCount()))
-    {
-        QMessageBox::information(this,
-                tr("Unable to remove universe"),
-                tr("You can only remove universes starting from the last one"));
-        return;
-    }
+    Q_ASSERT((uniIdx + 1) == (int)(m_ioMap->universesCount()));
 
     // Check if the universe is patched
     if (m_ioMap->isUniversePatched(uniIdx) == true)
