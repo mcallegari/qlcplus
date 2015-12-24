@@ -20,6 +20,12 @@
 	<key>CFBundleName</key>
 	<string>Q Light Controller Plus</string>
 
+	<key>NSPrincipalClass</key>
+	<string>NSApplication</string>
+
+	<key>NSHighResolutionCapable</key>
+	<string>True</string>
+
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
