@@ -65,7 +65,7 @@ Rectangle
 
         enableContext(ctx, true)
         currentContext = ctx
-        viewLoader.source = qmlRes
+        mainViewLoader.source = qmlRes
     }
 
     FontLoader
@@ -241,7 +241,7 @@ Rectangle
 
         Loader
         {
-            id: viewLoader
+            id: mainViewLoader
             anchors.fill: parent
             source: "qrc:/FixturesAndFunctions.qml"
         }
