@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2015 Dave Olsthoorn <dave.olsthoorn@gmail.com> -->
+<component type="desktop">
+ <id>qlcplus.desktop</id>
+ <metadata_license>CC-BY-SA-3.0</metadata_license>
+ <project_license>Apache-2.0</project_license>
+ <name>QLC+</name>
+ <summary>Control lights using DMX or analog systems</summary>
+ <summary xml:lang="nl">Bestuur verlichting met DMX of analoge systemen</summary>
+ <description>
+  <p>
+   QLC+ is free and cross-platform software to control DMX or analog lighting
+   systems like moving heads, dimmers, scanners etc. This project is a fork of
+   the great QLC project written by Heikki Junnila that aims to continue the
+   development of QLC and to introduce new features. The primary goal is to
+   bring QLC+ at the level of other commercial lighting control software.
+  </p>
+  <p xml:lang="nl">
+   QLC+ is gratis en cross-platform software voor het besturen van DMX of analoge
+   verlichting systemen zoals moving heads, dimmers, scanners etc. Dit project is
+   een verbetering van het grote QLC project geschreven door Heikki Junnila dat zich
+   richt op de verder ontwikkeling van QLC en om nieuwe functies te introduceren. Het primaire
+   doel is om QLC+ op het niveau van andere commerciële lichtregeling software te brengen.
+  </p>
+ </description>
+ <screenshots>
+  <screenshot type="default">
+   <image>http://www.qlcplus.org/shots/qlcplus_fixtures.png</image>
+   <caption>Fixtures panel</caption>
+  </screenshot>
+  <screenshot>
+   <image>http://www.qlcplus.org/shots/qlcplus_chgroups.png</image>
+   <caption>Channel groups</caption>
+  </screenshot>
+ </screenshots>
+ <url type="homepage">http://www.qlcplus.org/</url>
+ <url type="bugtracker">https://github.com/mcallegari/qlcplus/issues</url>
+</component>

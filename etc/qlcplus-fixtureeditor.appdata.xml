@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2015 Dave Olsthoorn <dave.olsthoorn@gmail.com> -->
+<component type="desktop">
+ <id>qlcplus-fixtureeditor.desktop</id>
+ <metadata_license>CC-BY-SA-3.0</metadata_license>
+ <project_license>Apache-2.0</project_license>
+ <name>QLC+ Fixture Editor</name>
+ <summary>Fixture Editor for QLC+</summary>
+ <summary xml:lang="nl">Armatuur Editor voor QLC+</summary>
+ <description>
+  <p>
+   This is the Fixture Editor for QLC+.
+   <!-- TODO: make a better description -->
+  </p>
+  <p xml:lang="nl">
+   Dit is de Armatuur Editor voor QLC+
+   <!-- TODO: make a better description -->
+  </p>
+ </description>
+ <screenshots>
+  <screenshot type="default">
+   <image>http://www.qlcplus.org/shots/qlcplus_fixtureeditor.png</image>
+   <caption>Fixture Editor</caption>
+  </screenshot>
+ </screenshots>
+ <url type="homepage">http://www.qlcplus.org/</url>
+ <url type="bugtracker">https://github.com/mcallegari/qlcplus/issues</url>
+</component>
