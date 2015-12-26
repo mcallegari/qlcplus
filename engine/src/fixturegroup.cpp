@@ -250,6 +250,16 @@ QSize FixtureGroup::size() const
  * Load & Save
  ****************************************************************************/
 
+static bool compareQLCPoints(const QLCPoint pt1, const QLCPoint pt2)
+{
+    if (pt1.y() < pt2.y())
+        return true;
+    if (pt1.y() == pt2.y() && pt1.x() < pt2.x())
+        return true;
+
+    return false;
+}
+
 bool FixtureGroup::loader(QXmlStreamReader &xmlDoc, Doc* doc)
 {
     bool result = false;
@@ -348,15 +358,17 @@ bool FixtureGroup::saveXML(QXmlStreamWriter *doc)
     doc->writeEndElement();
 
     /* Fixture heads */
-    QHashIterator <QLCPoint,GroupHead> it(m_heads);
-    while (it.hasNext() == true)
+    QList<QLCPoint> pointsList = m_heads.keys();
+    qSort(pointsList.begin(), pointsList.end(), compareQLCPoints);
+
+    foreach(QLCPoint pt, pointsList)
     {
-        it.next();
+        GroupHead head = m_heads[pt];
         doc->writeStartElement(KXMLQLCFixtureGroupHead);
-        doc->writeAttribute("X", QString::number(it.key().x()));
-        doc->writeAttribute("Y", QString::number(it.key().y()));
-        doc->writeAttribute("Fixture", QString::number(it.value().fxi));
-        doc->writeCharacters(QString::number(it.value().head));
+        doc->writeAttribute("X", QString::number(pt.x()));
+        doc->writeAttribute("Y", QString::number(pt.y()));
+        doc->writeAttribute("Fixture", QString::number(head.fxi));
+        doc->writeCharacters(QString::number(head.head));
         doc->writeEndElement();
     }
 
