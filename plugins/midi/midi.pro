@@ -14,3 +14,9 @@ TRANSLATIONS += MIDI_cz_CZ.ts
 TRANSLATIONS += MIDI_pt_BR.ts
 TRANSLATIONS += MIDI_ca_ES.ts
 TRANSLATIONS += MIDI_ja_JP.ts
+
+unix:!macx {
+   metainfo.path   = $$INSTALLROOT/share/appdata/
+   metainfo.files += qlcplus-midi.metainfo.xml
+   INSTALLS       += metainfo 
+}

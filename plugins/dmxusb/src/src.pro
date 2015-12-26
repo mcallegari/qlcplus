@@ -125,6 +125,10 @@ unix:!macx {
     udev.path  = $$UDEVRULESDIR
     udev.files = z65-dmxusb.rules
     INSTALLS  += udev
+    
+    metainfo.path   = $$INSTALLROOT/share/appdata/
+    metainfo.files += qlcplus-dmxusb.metainfo.xml
+    INSTALLS       += metainfo
 }
 
 TRANSLATIONS += DMX_USB_de_DE.ts
