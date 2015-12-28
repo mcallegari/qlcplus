@@ -42,7 +42,14 @@ Rectangle
 
     onDurationChanged:
     {
-        width = TimeUtils.timeToSize(duration + 300000, timeScale)
+        width = parseInt(TimeUtils.timeToSize(duration + 300000, timeScale))
+        console.log("New header width: " + width)
+    }
+
+    onTimeScaleChanged:
+    {
+        cursor.x = TimeUtils.timeToSize(currentTime, timeScale)
+        width = parseInt(TimeUtils.timeToSize(duration + 300000, timeScale))
         console.log("New header width: " + width)
     }
 
@@ -77,7 +84,7 @@ Rectangle
         id: timeHeader
         width: parent.width
         height: headerHeight
-        //antialiasing: true
+        antialiasing: true
 
         // tick size is the main time divider
         // on a timeScale equal to 1.0 it is 100 pixels
@@ -98,7 +105,8 @@ Rectangle
 
             ctx.fillStyle = "black"
             ctx.strokeStyle = "white"
-            //ctx.font = '12px RobotoCondensed'
+            //ctx.font = canvasText.font
+            ctx.font = '12px "Roboto Condensed"'
             ctx.fillRect(0, 0, width, headerHeight)
 
             var divNum = width / tickSize

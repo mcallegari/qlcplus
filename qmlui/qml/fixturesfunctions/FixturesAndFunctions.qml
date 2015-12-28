@@ -235,17 +235,13 @@ Rectangle
                     onToggled: previewLoader.item.showSettings(checked)
                 }
 
-                IconButton
+                ZoomItem
                 {
+                    width: 70
                     height: viewToolbar.height - 2
-                    faSource: FontAwesome.fa_search_minus
-                    onClicked: previewLoader.item.setZoom(-0.5)
-                }
-                IconButton
-                {
-                    height: viewToolbar.height - 2
-                    faSource: FontAwesome.fa_search_plus
-                    onClicked: previewLoader.item.setZoom(0.5)
+                    fontColor: "#222"
+                    onZoomOutClicked: previewLoader.item.setZoom(-0.5)
+                    onZoomInClicked: previewLoader.item.setZoom(0.5)
                 }
             }
         }

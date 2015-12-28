@@ -36,9 +36,15 @@ Item
     property int trackIndex: -1
     property real timeScale: showManager.timeScale
     property bool isSelected: false
+    property string infoText: ""
 
     onStartTimeChanged: x = TimeUtils.timeToSize(startTime, timeScale)
     onDurationChanged: width = TimeUtils.timeToSize(duration, timeScale)
+    onTimeScaleChanged:
+    {
+        x = TimeUtils.timeToSize(startTime, timeScale)
+        width = TimeUtils.timeToSize(duration, timeScale)
+    }
 
     onTrackIndexChanged:
     {
@@ -72,13 +78,34 @@ Item
                 fontSize: 9
                 wrapText: true
             }
+
+            RobotoText
+            {
+                id: infoTextBox
+                x: 3
+                y: itemRoot.height - height
+                width: 100
+                height: 20
+                fontSize: 9
+                wrapText: true
+                label: infoText
+            }
         }
 
         onPressed:
         {
+            console.log("Show Item drag started")
             showManager.enableFlicking(false)
             drag.target = showItemBody
             itemRoot.z = 2
+            infoTextBox.height = 20
+        }
+        onPositionChanged:
+        {
+            if (drag.target !== null)
+            {
+                infoText = qsTr("Position: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale))
+            }
         }
         onReleased:
         {
@@ -95,11 +122,108 @@ Item
 
                 showItemBody.x = 0
                 showItemBody.y = 0
+                infoText = ""
             }
             itemRoot.z = 1
             showManager.enableFlicking(true)
         }
 
         onClicked: itemRoot.isSelected = !itemRoot.isSelected
+    }
+
+    // horizontal left handler
+    Rectangle
+    {
+        id: horLeftHandler
+        z: 1
+        width: 10
+        height: itemRoot.height
+        color: horLeftHdlMa.containsMouse ? "#7FFFFF00" : "transparent"
+
+        MouseArea
+        {
+            id: horLeftHdlMa
+            anchors.fill: parent
+            preventStealing: true
+            hoverEnabled: true
+            cursorShape: containsMouse ? Qt.SizeHorCursor : Qt.ArrowCursor
+
+            drag.target: horLeftHandler
+            drag.axis: Drag.XAxis
+
+            onPositionChanged:
+            {
+                if (drag.active == true)
+                {
+                    var hdlPos = mapToItem(itemRoot.parent, horLeftHandler.x, horLeftHandler.y)
+                    itemRoot.width = itemRoot.width + (itemRoot.x - hdlPos.x + mouse.x)
+                    itemRoot.x = hdlPos.x - mouse.x
+                    infoTextBox.height = 40
+                    infoText = qsTr("Position: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale))
+                    infoText += "\n" + qsTr("Duration: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.width, timeScale))
+                    horLeftHandler.x = 0
+                }
+            }
+            onReleased:
+            {
+                if (drag.active == true)
+                {
+                    if (sfRef)
+                    {
+                        sfRef.startTime = TimeUtils.posToMs(itemRoot.x, timeScale)
+                        sfRef.duration = TimeUtils.posToMs(itemRoot.width, timeScale)
+                    }
+                    infoText = ""
+                    horLeftHandler.x = 0
+                }
+            }
+        }
+    }
+
+
+    // horizontal right handler
+    Rectangle
+    {
+        id: horRightHandler
+        x: itemRoot.width - 10
+        z: 1
+        width: 10
+        height: itemRoot.height
+        color: horRightHdlMa.containsMouse ? "#7FFFFF00" : "transparent"
+
+        MouseArea
+        {
+            id: horRightHdlMa
+            anchors.fill: parent
+            preventStealing: true
+            hoverEnabled: true
+            cursorShape: containsMouse ? Qt.SizeHorCursor : Qt.ArrowCursor
+
+            drag.target: horRightHandler
+            drag.axis: Drag.XAxis
+
+            onPositionChanged:
+            {
+                //var mp = mapToItem(itemRoot, mouseX, mouseY)
+                //console.log("Mouse position: " + mp.x)
+                if (drag.active == true)
+                {
+                    infoTextBox.height = 20
+                    var obj = mapToItem(itemRoot, mouseX, mouseY)
+                    //console.log("Mapped position: " + obj.x)
+                    itemRoot.width = obj.x + (horRightHdlMa.width - mouse.x)
+                    infoText = qsTr("Duration: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.width, timeScale))
+                }
+            }
+            onReleased:
+            {
+                if (drag.active == true)
+                {
+                    if (sfRef)
+                        sfRef.duration = TimeUtils.posToMs(itemRoot.width, timeScale)
+                    infoText = ""
+                }
+            }
+        }
     }
 }

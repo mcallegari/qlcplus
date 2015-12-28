@@ -22,3 +22,4 @@ SidePanel 0.1 SidePanel.qml
 ScrollBar 0.1 ScrollBar.qml
 TreeNodeDelegate 0.1 TreeNodeDelegate.qml
 WindowLoader 0.1 WindowLoader.qml
+ZoomItem 0.1 ZoomItem.qml

@@ -34,6 +34,7 @@
     <file alias="TreeNodeDelegate.qml">qml/TreeNodeDelegate.qml</file>
     <file alias="UISettings.qml">qml/UISettings.qml</file>
     <file alias="WindowLoader.qml">qml/WindowLoader.qml</file>
+    <file alias="ZoomItem.qml">qml/ZoomItem.qml</file>
 
     <!-- Fixtures and Functions -->
     <file alias="FixturesAndFunctions.qml">qml/fixturesfunctions/FixturesAndFunctions.qml</file>

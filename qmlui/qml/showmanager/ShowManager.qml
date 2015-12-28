@@ -165,6 +165,28 @@ Rectangle
             height: parent.height
             color: UISettings.bgLight
         }
+        ZoomItem
+        {
+            x: parent.width - width - 6
+            width: 100
+            height: parent.height - 2
+            fontColor: "#222"
+            onZoomOutClicked:
+            {
+                if (showManager.timeScale >= 1.0)
+                    showManager.timeScale += 1.0
+                else
+                    showManager.timeScale += 0.1
+            }
+
+            onZoomInClicked:
+            {
+                if (showManager.timeScale > 1.0)
+                    showManager.timeScale -= 1.0
+                else
+                    showManager.timeScale -= 0.1
+            }
+        }
     }
 
     // the timeline header can be flicked horizontally but not vertically
