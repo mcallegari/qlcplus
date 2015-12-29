@@ -4,8 +4,8 @@
  <id>qlcplus.desktop</id>
  <metadata_license>CC-BY-SA-3.0</metadata_license>
  <project_license>Apache-2.0</project_license>
- <name>QLC+</name>
- <summary>Control lights using DMX or analog systems</summary>
+ <name>Q Light Controller Plus</name>
+ <summary>This is a software to control DMX or analog lighting systems</summary>
  <summary xml:lang="nl">Bestuur verlichting met DMX of analoge systemen</summary>
  <description>
   <p>
@@ -22,6 +22,13 @@
    richt op de verder ontwikkeling van QLC en om nieuwe functies te introduceren. Het primaire
    doel is om QLC+ op het niveau van andere commerciële lichtregeling software te brengen.
   </p>
+  <p xml:lang="nl">
+   QLC+ è un software gratuito e multi piattaforma per controllare sistemi di illuminazione 
+   DMX o analogici come teste mobili, dimmer, scanner, ecc. Questo progetto è un fork
+   del magnifico progetto QLC scritto da Heikki Junnila, che mira a continuare lo sviluppo di
+   QLC e a introdurre nuove funzionalità. L'obiettivo primario è di portare QLC+
+   al livello di altri software commerciali per il controllo di illuminazione.
+  </p>
  </description>
  <screenshots>
   <screenshot type="default">
@@ -29,8 +36,12 @@
    <caption>Fixtures panel</caption>
   </screenshot>
   <screenshot>
-   <image>http://www.qlcplus.org/shots/qlcplus_chgroups.png</image>
-   <caption>Channel groups</caption>
+   <image>http://www.qlcplus.org/shots/qlcplus_virtualconsole2.png</image>
+   <caption>Virtual Console</caption>
+  </screenshot>
+  <screenshot>
+   <image>http://www.qlcplus.org/shots/qlcplus_multitrack2.png</image>
+   <caption>Show Manager</caption>
   </screenshot>
  </screenshots>
  <url type="homepage">http://www.qlcplus.org/</url>
