@@ -15,6 +15,10 @@ udev.path  = $$UDEVRULESDIR
 udev.files = z65-spi.rules
 INSTALLS  += udev
 
+metainfo.path   = $$INSTALLROOT/share/appdata/
+metainfo.files += qlcplus-spi.metainfo.xml
+INSTALLS       += metainfo
+
 target.path = $$INSTALLROOT/$$PLUGINDIR
 INSTALLS   += target
 

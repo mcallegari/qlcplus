@@ -23,6 +23,13 @@ macx: {
     LIBS      += -L/usr/local/lib -lolaserver -lola -lolacommon -lprotobuf
 }
 
+unix:!macx {
+   metainfo.path   = $$INSTALLROOT/share/appdata/
+   metainfo.files += qlcplus-ola.metainfo.xml
+   INSTALLS       += metainfo 
+}
+
+
 # Forms
 FORMS += configureolaio.ui
 

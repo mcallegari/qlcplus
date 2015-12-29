@@ -56,3 +56,10 @@ macx {
 # Installation
 target.path = $$INSTALLROOT/$$PLUGINDIR
 INSTALLS   += target
+
+unix:!macx {
+   metainfo.path   = $$INSTALLROOT/share/appdata/
+   metainfo.files += qlcplus-enttecwing.metainfo.xml
+   INSTALLS       += metainfo 
+}
+

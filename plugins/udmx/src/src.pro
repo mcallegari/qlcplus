@@ -53,4 +53,8 @@ unix:!macx {
     udev.path  = $$UDEVRULESDIR
     udev.files = z65-anyma-udmx.rules
     INSTALLS  += udev
+
+    metainfo.path   = $$INSTALLROOT/share/appdata/
+    metainfo.files += qlcplus-udmx.metainfo.xml
+    INSTALLS       += metainfo
 }
