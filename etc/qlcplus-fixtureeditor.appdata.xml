@@ -8,6 +8,7 @@
  <summary>Fixture Editor for QLC+</summary>
  <summary xml:lang="nl">Armatuur Editor voor QLC+</summary>
  <summary xml:lang="it">Editor di definizioni di fixture per QLC+</summary>
+ <summary xml:lang="es">Editor de definiciones de fixtures para QLC+</summary>
  <description>
   <p>
    This is the Fixture Definition Editor for QLC+.
@@ -17,6 +18,9 @@
   </p>
   <p xml:lang="it">
    Questo è l'editor di definizioni di fixture per QLC+.
+  </p>
+  <p xml:lang="es">
+   Éste es el editor de definiciones de fixtures para QLC+.
   </p>
  </description>
  <screenshots>
