@@ -3,7 +3,7 @@
   <id>qlcplus-spi</id>
   <extends>qlcplus.desktop</extends>
   <name>SPI</name>
-  <summary>Use SPI controlled lights with QLC+</summary>
+  <summary>SPI plugin for QLC+</summary>
   <url type="homepage">http://www.qlcplus.org/</url>
   <url type="bugtracker">https://github.com/mcallegari/qlcplus/issues/new?title=[SPI]:</url>
   <metadata_license>CC-BY-SA-3.0</metadata_license>

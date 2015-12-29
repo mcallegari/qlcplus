@@ -3,7 +3,7 @@
   <id>qlcplus-artnet</id>
   <extends>qlcplus.desktop</extends>
   <name>Artnet</name>
-  <summary>Use artnet with QLC+</summary>
+  <summary>ArtNet plugin for QLC+</summary>
   <url type="homepage">http://www.qlcplus.org/</url>
   <url type="bugtracker">https://github.com/mcallegari/qlcplus/issues/new?title=[artnet]:</url>
   <metadata_license>CC-BY-SA-3.0</metadata_license>

@@ -3,7 +3,7 @@
   <id>qlcplus-hid</id>
   <extends>qlcplus.desktop</extends>
   <name>Hid</name>
-  <summary>Use hid devices with QLC+</summary>
+  <summary>HID plugin for QLC+</summary>
   <url type="homepage">http://www.qlcplus.org/</url>
   <url type="bugtracker">https://github.com/mcallegari/qlcplus/issues/new?title=[hid]:</url>
   <metadata_license>CC-BY-SA-3.0</metadata_license>

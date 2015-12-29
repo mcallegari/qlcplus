@@ -3,7 +3,7 @@
   <id>qlcplus-dmxusb</id>
   <extends>qlcplus.desktop</extends>
   <name>DMXUSB</name>
-  <summary>Use USB enabled DMX devices with QLC+</summary>
+  <summary>DMX USB plugin for QLC+</summary>
   <url type="homepage">http://www.qlcplus.org/</url>
   <url type="bugtracker">https://github.com/mcallegari/qlcplus/issues/new?title=[DMXUSB]:</url>
   <metadata_license>CC-BY-SA-3.0</metadata_license>

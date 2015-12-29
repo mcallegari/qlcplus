@@ -3,7 +3,7 @@
   <id>qlcplus-udmx</id>
   <extends>qlcplus.desktop</extends>
   <name>uDMX</name>
-  <summary>Use uDMX devices with QLC+</summary>
+  <summary>uDMX plugin for QLC+</summary>
   <url type="homepage">http://www.qlcplus.org/</url>
   <url type="bugtracker">https://github.com/mcallegari/qlcplus/issues/new?title=[uDMX]:</url>
   <metadata_license>CC-BY-SA-3.0</metadata_license>
