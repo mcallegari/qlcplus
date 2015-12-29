@@ -81,6 +81,29 @@ Rectangle
                 onTextChanged: showManager.showName = text
             }
 
+            IconButton
+            {
+                id: colPickButton
+                z: 2
+                width: parent.height - 6
+                height: width
+                imgSource: "qrc:/color.svg"
+                checkable: true
+                tooltip: qsTr("Show Items Color")
+                onCheckedChanged: colTool.visible = !colTool.visible
+                ColorTool
+                {
+                    id: colTool
+                    parent: mainView
+                    x: colPickButton.x
+                    y: mainToolbar.height + colPickButton.y + colPickButton.height
+                    z: 15
+                    visible: false
+
+                    onColorChanged: showManager.itemsColor = Qt.rgba(r, g, b, 1.0)
+                }
+            }
+
             RobotoText
             {
                 id: timeBox

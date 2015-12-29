@@ -25,6 +25,7 @@
 ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
     : PreviewContext(view, doc, parent)
     , m_currentShow(NULL)
+    , m_itemsColor(Qt::gray)
     , m_timeScale(5.0)
     , m_currentTime(0)
 {
@@ -336,6 +337,20 @@ void ShowManager::setShowName(QString showName)
 
     m_currentShow->setName(showName);
     emit showNameChanged(showName);
+}
+
+QColor ShowManager::itemsColor() const
+{
+    return m_itemsColor;
+}
+
+void ShowManager::setItemsColor(QColor itemsColor)
+{
+    if (m_itemsColor == itemsColor)
+        return;
+
+    m_itemsColor = itemsColor;
+    emit itemsColorChanged(itemsColor);
 }
 
 QString ShowManager::showName() const

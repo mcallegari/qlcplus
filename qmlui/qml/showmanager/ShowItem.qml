@@ -36,6 +36,7 @@ Item
     property int trackIndex: -1
     property real timeScale: showManager.timeScale
     property bool isSelected: false
+    property color globalColor: showManager.itemsColor
     property string infoText: ""
 
     onStartTimeChanged: x = TimeUtils.timeToSize(startTime, timeScale)
@@ -49,6 +50,12 @@ Item
     onTrackIndexChanged:
     {
         itemRoot.y = trackIndex * 80
+    }
+
+    onGlobalColorChanged:
+    {
+        if (isSelected && sfRef)
+            sfRef.color = globalColor
     }
 
     MouseArea

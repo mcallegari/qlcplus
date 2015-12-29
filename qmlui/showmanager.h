@@ -37,6 +37,7 @@ class ShowManager : public PreviewContext
 
     Q_PROPERTY(int currentShowID READ currentShowID WRITE setCurrentShowID NOTIFY currentShowIDChanged)
     Q_PROPERTY(QString showName READ showName WRITE setShowName NOTIFY showNameChanged)
+    Q_PROPERTY(QColor itemsColor READ itemsColor WRITE setItemsColor NOTIFY itemsColorChanged)
     Q_PROPERTY(float timeScale READ timeScale WRITE setTimeScale NOTIFY timeScaleChanged)
     Q_PROPERTY(int currentTime READ currentTime WRITE setCurrentTime NOTIFY currentTimeChanged)
     Q_PROPERTY(bool isPlaying READ isPlaying NOTIFY isPlayingChanged)
@@ -57,6 +58,12 @@ public:
 
     /** Set the name of the Show Function to edit */
     void setShowName(QString showName);
+
+    /** Return the currently selected color for Show Items */
+    QColor itemsColor() const;
+
+    /** Set the color of the currently selected Show Items */
+    void setItemsColor(QColor itemsColor);
 
     /** Return the current time scale of the Show Manager timeline */
     float timeScale() const;
@@ -113,6 +120,7 @@ private:
 signals:
     void currentShowIDChanged(int currentShowID);
     void showNameChanged(QString showName);
+    void itemsColorChanged(QColor itemsColor);
     void timeScaleChanged(float timeScale);
     void currentTimeChanged(int currentTime);
     void isPlayingChanged(bool playing);
@@ -122,6 +130,9 @@ signals:
 private:
     /** A reference to the Show Function being edited */
     Show *m_currentShow;
+
+    /** The background color for Show Items */
+    QColor m_itemsColor;
 
     /** The current time scale of the Show Manager timeline */
     float m_timeScale;
