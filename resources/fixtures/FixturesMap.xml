@@ -176,6 +176,7 @@
   <fixture path="Chauvet-Intimidator-Wash-Zoom-350-IRC.qxf" mf="Chauvet" md="Intimidator Wash Zoom 350 IRC"/>
   <fixture path="Chauvet-Intimidator-Wave-360-IRC.qxf" mf="Chauvet" md="Intimidator Wave 360 IRC"/>
   <fixture path="Chauvet-LED-PAR-64-Tri-B.qxf" mf="Chauvet" md="LED PAR 64 Tri-B"/>
+  <fixture path="Chauvet-LED-PAR-64-Tri-C.qxf" mf="Chauvet" md="LED PAR 64 Tri-C"/>
   <fixture path="Chauvet-LED-Shadow.qxf" mf="Chauvet" md="LED Shadow"/>
   <fixture path="Chauvet-LED-Splash-86b.qxf" mf="Chauvet" md="LED Splash 86b"/>
   <fixture path="Chauvet-LED-Techno-Strobe-RGB.qxf" mf="Chauvet" md="LED Techno Strobe RGB"/>
@@ -206,6 +207,7 @@
   <fixture path="Chauvet-SlimPar-Tri-7-IRC.qxf" mf="Chauvet" md="SlimPar Tri 7 IRC"/>
   <fixture path="Chauvet-Swarm-5-FX.qxf" mf="Chauvet" md="Swarm 5 FX"/>
   <fixture path="Chauvet-Techno-Strobe-168.qxf" mf="Chauvet" md="Techno Strobe 168"/>
+  <fixture path="Chauvet-Vue-1.1.qxf" mf="Chauvet" md="Vue 1.1"/>
   <fixture path="Chauvet-Vue-3.1.qxf" mf="Chauvet" md="Vue 3.1"/>
   <fixture path="Chauvet-Vue-6.1.qxf" mf="Chauvet" md="Vue 6.1"/>
   <fixture path="Chauvet-Wash-FX.qxf" mf="Chauvet" md="Wash FX"/>
@@ -231,6 +233,7 @@
   <fixture path="Clay-Paky-Stormy.qxf" mf="Clay Paky" md="Stormy"/>
   <fixture path="Clay-Paky-SuperSharpy.qxf" mf="Clay Paky" md="SuperSharpy"/>
   <fixture path="Clay-Paky-Tornado.qxf" mf="Clay Paky" md="Tornado"/>
+  <fixture path="Coemar-Par-Lite-LED-RGB.qxf" mf="Coemar" md="Par Lite LED RGB"/>
   <fixture path="Coemar-ProWash-250-LX.qxf" mf="Coemar" md="ProWash 250 LX"/>
   <fixture path="Coemar-Stage-Lite-LED.qxf" mf="Coemar" md="Stage Lite LED"/>
   <fixture path="Contest-Evora-Beam-15R.qxf" mf="Contest" md="Evora Beam 15R"/>
@@ -382,6 +385,7 @@
   <fixture path="Involight-LED-MH60S.qxf" mf="Involight" md="LED MH60S"/>
   <fixture path="iSolution-5-Series.qxf" mf="iSolution" md="iMove 5 Series"/>
   <fixture path="iSolution-iMove-250w.qxf" mf="iSolution" md="iMove 250W"/>
+  <fixture path="JB-Lighting-A12-Tunable-White.qxf" mf="JB-Lighting" md="A12 Tunable White"/>
   <fixture path="JB-Lighting-Varyscan-2.qxf" mf="JB-Lighting" md="Varyscan 2"/>
   <fixture path="JB-Lighting-Varyscan-3-Special.qxf" mf="JB-Lighting" md="Varyscan 3 Special"/>
   <fixture path="JB-Lighting-Varyscan-3-SpecialPlus.qxf" mf="JB-Lighting" md="Varyscan 3 Special Plus"/>

@@ -208,7 +208,6 @@ void InputOutputManager::updateList()
     }
     else
     {
-        m_deleteUniverseAction->setEnabled(true);
         m_list->setCurrentItem(m_list->item(0));
         m_uniNameEdit->setEnabled(true);
         m_uniNameEdit->setText(m_ioMap->getUniverseNameByIndex(0));
@@ -302,6 +301,11 @@ void InputOutputManager::slotCurrentItemChanged()
     if (m_editorUniverse == universe)
         return;
 
+    if ((universe + 1) != m_ioMap->universesCount())
+        m_deleteUniverseAction->setEnabled(false);
+    else
+        m_deleteUniverseAction->setEnabled(true);
+
     if (m_editor != NULL)
     {
         m_splitter->widget(1)->layout()->removeWidget(m_editor);
@@ -346,6 +350,8 @@ void InputOutputManager::slotAddUniverse()
 void InputOutputManager::slotDeleteUniverse()
 {
     int uniIdx = m_list->currentRow();
+
+    Q_ASSERT((uniIdx + 1) == (int)(m_ioMap->universesCount()));
 
     // Check if the universe is patched
     if (m_ioMap->isUniversePatched(uniIdx) == true)

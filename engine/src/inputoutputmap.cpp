@@ -42,7 +42,6 @@
 InputOutputMap::InputOutputMap(Doc *doc, quint32 universes)
   : QObject(doc)
   , m_blackout(false)
-  , m_latestUniverseId(InputOutputMap::invalidUniverse())
   , m_universeChanged(false)
 {
     m_grandMaster = new GrandMaster(this);
@@ -127,15 +126,31 @@ quint32 InputOutputMap::invalidUniverse()
 
 bool InputOutputMap::addUniverse(quint32 id)
 {
-    QMutexLocker locker(&m_universeMutex);
-    if (id == InputOutputMap::invalidUniverse())
-        id = ++m_latestUniverseId;
-    else if (m_latestUniverseId == InputOutputMap::invalidUniverse()
-            || id >= m_latestUniverseId)
-        m_latestUniverseId = id;
+    {
+        QMutexLocker locker(&m_universeMutex);
+        if (id == InputOutputMap::invalidUniverse())
+            id = universesCount();
+        else if (id < universesCount())
+        {
+            qWarning() << Q_FUNC_INFO
+                << "Universe" << id << "is already present in the list."
+                << "The universe list may be unsorted.";
+            return false;
+        }
+        else if (id > universesCount())
+        {
+            qDebug() << Q_FUNC_INFO
+                << "Gap between universe" << (universesCount() - 1)
+                << "and universe" << id
+                << ", filling the gap...";
+            while (id > universesCount())
+            {
+                m_universeArray.append(new Universe(universesCount(), m_grandMaster));
+            }
+        }
 
-    m_universeArray.append(new Universe(id, m_grandMaster));
-    locker.unlock();
+        m_universeArray.append(new Universe(id, m_grandMaster));
+    }
 
     emit universeAdded(id);
     return true;
@@ -143,42 +158,37 @@ bool InputOutputMap::addUniverse(quint32 id)
 
 bool InputOutputMap::removeUniverse(int index)
 {
-    QMutexLocker locker(&m_universeMutex);
+    {
+        QMutexLocker locker(&m_universeMutex);
 
-    if (index < 0 || index >= m_universeArray.count())
-        return false;
+        if (index < 0 || index >= m_universeArray.count())
+            return false;
 
-    Universe *delUni = m_universeArray.takeAt(index);
-    quint32 id = delUni->id();
-    delete delUni;
-    if (m_universeArray.count() == 0)
-        m_latestUniverseId = invalidUniverse();
+        if (index != (m_universeArray.size() - 1))
+        {
+            qWarning() << Q_FUNC_INFO << "Removing universe" << index
+                << "would create a gap in the universe list, cancelling";
+            return false;
+        }
 
-    locker.unlock();
+        delete  m_universeArray.takeAt(index);
+    }
 
-    emit universeRemoved(id);
+    emit universeRemoved(index);
     return true;
 }
 
 bool InputOutputMap::removeAllUniverses()
 {
     QMutexLocker locker(&m_universeMutex);
-    quint32 uniCount = universesCount();
-    for (quint32 i = 0; i < uniCount; i++)
-    {
-        Universe *uni = m_universeArray.takeLast();
-        delete uni;
-    }
-    m_latestUniverseId = invalidUniverse();
+    qDeleteAll(m_universeArray);
+    m_universeArray.clear();
     return true;
 }
 
 quint32 InputOutputMap::getUniverseID(int index)
 {
-    if (index < 0 || index >= m_universeArray.count())
-        return invalidUniverse();
-
-    return m_universeArray.at(index)->id();
+    return index;
 }
 
 QString InputOutputMap::getUniverseNameByIndex(int index)
@@ -191,11 +201,7 @@ QString InputOutputMap::getUniverseNameByIndex(int index)
 
 QString InputOutputMap::getUniverseNameByID(quint32 id)
 {
-    for (int i = 0; i < m_universeArray.count(); i++)
-        if (m_universeArray.at(i)->id() == id)
-            return m_universeArray.at(i)->name();
-
-    return QString();
+    return getUniverseNameByIndex(id);
 }
 
 void InputOutputMap::setUniverseName(int index, QString name)
@@ -1037,9 +1043,11 @@ bool InputOutputMap::loadXML(QXmlStreamReader &root)
             quint32 id = InputOutputMap::invalidUniverse();
             if (root.attributes().hasAttribute(KXMLQLCUniverseID))
                 id = root.attributes().value(KXMLQLCUniverseID).toString().toUInt();
-            addUniverse(id);
-            Universe *uni = m_universeArray.last();
-            uni->loadXML(root, m_universeArray.count() - 1, this);
+            if (addUniverse(id))
+            {
+                Universe *uni = m_universeArray.last();
+                uni->loadXML(root, m_universeArray.count() - 1, this);
+            }
         }
         else
         {

@@ -41,6 +41,7 @@ limitations under the License.
 Requirements - Linux
 --------------------
 * Qt >= 4.6 development libraries & tools
+* libudev-dev, libmad0-dev, libsndfile1-dev, libfftw3-dev
 
 * Enttec DMX USB plugin: libftdi-dev, pkg-config
 * HID plugin: No additional requirements

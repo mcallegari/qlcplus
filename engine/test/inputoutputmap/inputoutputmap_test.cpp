@@ -207,8 +207,15 @@ void InputOutputMap_Test::removeUniverse()
 {
     InputOutputMap im(m_doc, 4);
     QVERIFY(im.universesCount() == 4);
-    im.removeUniverse(1);
+
+    // Creating a gap in the universe list is forbidden
+    QVERIFY(im.removeUniverse(1) == false);
+    QVERIFY(im.universesCount() == 4);
+
+    // Removing the last universe is OK
+    QVERIFY(im.removeUniverse(3) == true);
     QVERIFY(im.universesCount() == 3);
+
     QVERIFY(im.removeUniverse(7) == false);
     im.removeAllUniverses();
     QVERIFY(im.universesCount() == 0);
