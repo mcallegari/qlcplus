@@ -25,7 +25,7 @@
 		<comment xml:lang="cz">QLC+ definice zařízení</comment>
 		<comment xml:lang="de">QLC+ Gerätedefinition</comment>
 		<comment xml:lang="en">QLC+ fixture definition</comment>
-		<comment xml:lang="fr">QLC+ définitions des projecteurs</comment>
+		<comment xml:lang="fr">Définition d'appareil QLC+</comment>
 		<comment xml:lang="fi">QLC+ valaisinmääritys</comment>
 		<comment xml:lang="it">Definizione di Fixture QLC+</comment>
 		<comment xml:lang="nl">QLC+ armatuur definitie</comment>
@@ -41,7 +41,7 @@
 		<comment xml:lang="cz">QLC+ vstupní profil</comment>
 		<comment xml:lang="de">QLC+ Eingangsprofil</comment>
 		<comment xml:lang="en">QLC+ input profile</comment>
-		<comment xml:lang="fr">QLC+ profil d'entrée</comment>
+		<comment xml:lang="fr">Profil d'entrée QLC+</comment>
 		<comment xml:lang="fi">QLC+ syöttölaiteprofiili</comment>
 		<comment xml:lang="it">Profilo di input QLC+</comment>
 		<comment xml:lang="nl">QLC+ invoerprofiel</comment>
@@ -57,6 +57,7 @@
 		<comment xml:lang="cz">QLC+ MIDI šablona</comment>
 		<comment xml:lang="de">QLC+ MIDI-Vorlage</comment>
 		<comment xml:lang="en">QLC+ MIDI template</comment>
+		<comment xml:lang="fr">Modèle MIDI QLC+</comment>
 		<comment xml:lang="es">Plantilla MIDI QLC+</comment>
 		<comment xml:lang="ca">Plantilla MIDI QLC+</comment>
 	</mime-type>
@@ -69,6 +70,7 @@
 		<comment xml:lang="cz">QLC+ šablona modifikátoru kanálu</comment>
 		<comment xml:lang="de">QLC+ Kanalmodifizierer-Vorlage</comment>
 		<comment xml:lang="en">QLC+ channel modifier template</comment>
+		<comment xml:lang="fr">Modèle de modificateur de canal QLC+</comment>
 		<comment xml:lang="es">Plantilla de Modificadores de Canal QLC+</comment>
 		<comment xml:lang="ca">Plantilla de Modificadors de Canal QLC+</comment>
 	</mime-type>

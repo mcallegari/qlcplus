@@ -6,12 +6,16 @@
  <project_license>Apache-2.0</project_license>
  <name>QLC+ Fixture Definition Editor</name>
  <summary>Fixture Editor for QLC+</summary>
+ <summary xml:lang="fr">Editeur de définition d'appareil pour QLC+</summary>
  <summary xml:lang="nl">Armatuur Editor voor QLC+</summary>
  <summary xml:lang="it">Editor di definizioni di fixture per QLC+</summary>
  <summary xml:lang="es">Editor de definiciones de fixtures para QLC+</summary>
  <description>
   <p>
    This is the Fixture Definition Editor for QLC+.
+  </p>
+  <p xml:lang="fr">
+   Ceci est l'éditeur de définition d'appareil pour QLC+.
   </p>
   <p xml:lang="nl">
    Dit is de Armatuur Editor voor QLC+.
