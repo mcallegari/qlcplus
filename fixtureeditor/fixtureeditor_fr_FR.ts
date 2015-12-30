@@ -883,7 +883,7 @@
     <message>
         <location filename="fixtureeditor.ui" line="360"/>
         <source>Paste the channel in clipboard to this fixture</source>
-        <translation>Coller le canal depuis le presse-papier vers ce projecteur</translation>
+        <translation>Coller le canal depuis le presse-papier vers cet appareil</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="393"/>
