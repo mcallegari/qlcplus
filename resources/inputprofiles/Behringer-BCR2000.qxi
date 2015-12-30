@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE InputProfile>
+<InputProfile xmlns="http://www.qlcplus.org/InputProfile">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.1</Version>
+  <Author>Michael Trojacher (xarumanx@gmail.com)</Author>
+ </Creator>
+ <Manufacturer>Behringer</Manufacturer>
+ <Model>BCR2000</Model>
+ <Type>MIDI</Type>
+ <Channel Number="1">
+  <Name>Top Group 1 - Knob 1</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="2">
+  <Name>Top Group 1 - Knob 2</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="3">
+  <Name>Top Group 1 - Knob 3</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="4">
+  <Name>Top Group 1 - Knob 4</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="5">
+  <Name>Top Group 1 - Knob 5</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="6">
+  <Name>Top Group 1 - Knob 6</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="7">
+  <Name>Top Group 1 - Knob 7</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="8">
+  <Name>Top Group 1 - Knob 8</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="9">
+  <Name>Top Group 2 - Knob 1</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="10">
+  <Name>Top Group 2 - Knob 2</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="11">
+  <Name>Top Group 2 - Knob 3</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="12">
+  <Name>Top Group 2 - Knob 4</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="13">
+  <Name>Top Group 2 - Knob 5</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="14">
+  <Name>Top Group 2 - Knob 6</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="15">
+  <Name>Top Group 2 - Knob 7</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="16">
+  <Name>Top Group 2 - Knob 8</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="17">
+  <Name>Top Group 3 - Knob 1</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="18">
+  <Name>Top Group 3 - Knob 2</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="19">
+  <Name>Top Group 3 - Knob 3</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="20">
+  <Name>Top Group 3 - Knob 4</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="21">
+  <Name>Top Group 3 - Knob 5</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="22">
+  <Name>Top Group 3 - Knob 6</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="23">
+  <Name>Top Group 3 - Knob 7</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="24">
+  <Name>Top Group 3 - Knob 8</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="25">
+  <Name>Top Group 4 - Knob 1</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="26">
+  <Name>Top Group 4 - Knob 2</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="27">
+  <Name>Top Group 4 - Knob 3</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="28">
+  <Name>Top Group 4 - Knob 4</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="29">
+  <Name>Top Group 4 - Knob 5</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="30">
+  <Name>Top Group 4 - Knob 6</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="31">
+  <Name>Top Group 4 - Knob 7</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="32">
+  <Name>Top Group 4 - Knob 8</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="33">
+  <Name>Top Group 1 - Knob 1 Push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="34">
+  <Name>Top Group 1 - Knob 2 Push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="35">
+  <Name>Top Group 1 - Knob 3 Push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="36">
+  <Name>Top Group 1 - Knob 4 Push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37">
+  <Name>Top Group 1 - Knob 5 Push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="38">
+  <Name>Top Group 1 - Knob 6 Push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="39">
+  <Name>Top Group 1 - Knob 7 Push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="40">
+  <Name>Top Group 1 - Knob 8 Push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="41">
+  <Name>Top Group 2 - Knob 1 Push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="42">
+  <Name>Top Group 2 - Knob 2 Push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="43">
+  <Name>Top Group 2 - Knob 3 Push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="44">
+  <Name>Top Group 2 - Knob 4 Push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="45">
+  <Name>Top Group 2 - Knob 5 Push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="46">
+  <Name>Top Group 2 - Knob 6 Push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="47">
+  <Name>Top Group 2 - Knob 7 Push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="48">
+  <Name>Top Group 2 - Knob 8 Push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="49">
+  <Name>Top Group 3 - Knob 1 Push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="50">
+  <Name>Top Group 3 - Knob 2 Push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="51">
+  <Name>Top Group 3 - Knob 3 Push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="52">
+  <Name>Top Group 3 - Knob 4 Push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="53">
+  <Name>Top Group 3 - Knob 5 Push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="54">
+  <Name>Top Group 3 - Knob 6 Push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="55">
+  <Name>Top Group 3 - Knob 7 Push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="56">
+  <Name>Top Group 3 - Knob 8 Push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="57">
+  <Name>Top Group 4 - Knob 1 Push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="58">
+  <Name>Top Group 4 - Knob 2 Push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="59">
+  <Name>Top Group 4 - Knob 3 Push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="60">
+  <Name>Top Group 4 - Knob 4 Push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="61">
+  <Name>Top Group 4 - Knob 5 Push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="62">
+  <Name>Top Group 4 - Knob 6 Push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="63">
+  <Name>Top Group 4 - Knob 7 Push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="64">
+  <Name>Top Group 4 - Knob 8 Push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="65">
+  <Name>Button Top 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="66">
+  <Name>Button Top 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="67">
+  <Name>Button Top 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="68">
+  <Name>Button Top 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="69">
+  <Name>Button Top 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="70">
+  <Name>Button Top 6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="71">
+  <Name>Button Top 7</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="72">
+  <Name>Button Top 8</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="73">
+  <Name>Button Bottom 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="74">
+  <Name>Button Bottom 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="75">
+  <Name>Button Bottom 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="76">
+  <Name>Button Bottom 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="77">
+  <Name>Button Bottom 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="78">
+  <Name>Button Bottom 6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="79">
+  <Name>Button Bottom 7</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="80">
+  <Name>Button Bottom 8</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="81">
+  <Name>Knob 1-1</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="82">
+  <Name>Knob 1-2</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="83">
+  <Name>Knob 1-3</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="84">
+  <Name>Knob 1-4</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="85">
+  <Name>Knob 1-5</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="86">
+  <Name>Knob 1-6</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="87">
+  <Name>Knob 1-7</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="88">
+  <Name>Knob 1-8</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="89">
+  <Name>Knob 2-1</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="90">
+  <Name>Knob 2-2</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="91">
+  <Name>Knob 2-3</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="92">
+  <Name>Knob 2-4</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="93">
+  <Name>Knob 2-5</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="94">
+  <Name>Knob 2-6</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="95">
+  <Name>Knob 2-7</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="96">
+  <Name>Knob 2-8</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="97">
+  <Name>Knob 3-1</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="98">
+  <Name>Knob 3-2</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="99">
+  <Name>Knob 3-3</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="100">
+  <Name>Knob 3-4</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="101">
+  <Name>Knob 3-5</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="102">
+  <Name>Knob 3-6</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="103">
+  <Name>Knob 3-7</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="104">
+  <Name>Knob 3-8</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="105">
+  <Name>Button Right 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="106">
+  <Name>Button Right 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="107">
+  <Name>Button Right 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="108">
+  <Name>Button Right 4</Name>
+  <Type>Button</Type>
+ </Channel>
+</InputProfile>
