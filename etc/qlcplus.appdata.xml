@@ -7,7 +7,6 @@
  <name>Q Light Controller Plus</name>
  <summary>This is a software to control DMX or analog lighting systems</summary>
  <summary xml:lang="nl">Bestuur verlichting met DMX of analoge systemen</summary>
- <summary xml:lang="ca">Aquest es un programa per controlar sistemes d'il·luminació DMX o analògics</summary>
  <description>
   <p>
    QLC+ is free and cross-platform software to control DMX or analog lighting
@@ -29,13 +28,6 @@
    del magnifico progetto QLC scritto da Heikki Junnila, che mira a continuare lo sviluppo di
    QLC e a introdurre nuove funzionalità. L'obiettivo primario è di portare QLC+
    al livello di altri software commerciali per il controllo di illuminazione.
-  </p>
-  <p xml:lang="ca">
-   QLC és un programa lliure i multiplataforma per controlar sistemes d'il·luminació DMX 
-   o analògics com a caps mòbils, dimmers, scanners, etc. Aquest projecte és un fork del magnífic 
-   projecte QLC escrit per Heikki Junnila, que intenta continuar el desenvolupament de QLC 
-   i introduir noves funcionalitats. L'objectiu primari és d'elevar QLC+ al nivell 
-   d'altres programaris comercials de control d'il·luminació.
   </p>
  </description>
  <screenshots>
