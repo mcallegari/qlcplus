@@ -247,9 +247,6 @@ signals:
     void universesWritten(int index, const QByteArray& universesCount);
 
 private:
-    /** Keep track of the lastest asigned universe ID */
-    quint32 m_latestUniverseId;
-
     /** The values of all universes */
     QList<Universe *> m_universeArray;
 
