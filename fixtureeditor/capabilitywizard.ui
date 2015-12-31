@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
+<ui version="4.0" >
+ <author>Massimo Callegari</author>
+ <comment>
   Q Light Controller Plus
-  $file
+  capabilitywizard.ui
 
   Copyright (c) 2015 Massimo Callegari
 
@@ -16,8 +18,7 @@
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
--->
-<ui version="4.0" >
+ </comment>
  <class>CapabilityWizard</class>
  <widget class="QDialog" name="CapabilityWizard" >
   <property name="geometry" >

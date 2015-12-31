@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
+<ui version="4.0">
+ <author>Massimo Callegari</author>
+ <comment>
   Q Light Controller Plus
   vcaudiotriggersproperties.ui
 
@@ -16,8 +18,7 @@
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
--->
-<ui version="4.0">
+ </comment>
  <class>AudioTriggersConfiguration</class>
  <widget class="QDialog" name="AudioTriggersConfiguration">
   <property name="geometry">
