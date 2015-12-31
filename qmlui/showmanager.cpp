@@ -27,6 +27,7 @@ ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
     , m_currentShow(NULL)
     , m_itemsColor(Qt::gray)
     , m_timeScale(5.0)
+    , m_stretchFunctions(false)
     , m_currentTime(0)
 {
     qmlRegisterType<Track>("com.qlcplus.classes", 1, 0, "Track");
@@ -81,6 +82,20 @@ void ShowManager::setTimeScale(float timeScale)
 
     m_timeScale = timeScale;
     emit timeScaleChanged(timeScale);
+}
+
+bool ShowManager::stretchFunctions() const
+{
+    return m_stretchFunctions;
+}
+
+void ShowManager::setStretchFunctions(bool stretchFunctions)
+{
+    if (m_stretchFunctions == stretchFunctions)
+        return;
+
+    m_stretchFunctions = stretchFunctions;
+    emit stretchFunctionsChanged(stretchFunctions);
 }
 
 void ShowManager::addItem(QQuickItem *parent, int trackIdx, int startTime, quint32 functionID)
@@ -142,6 +157,8 @@ void ShowManager::addItem(QQuickItem *parent, int trackIdx, int startTime, quint
     quint32 itemIndex = m_itemsMap.isEmpty() ? 0 : m_itemsMap.lastKey() + 1;
     quint32 itemID = trackIdx << 16 | itemIndex;
     m_itemsMap[itemID] = newItem;
+
+    emit showDurationChanged(m_currentShow->totalDuration());
 }
 
 bool ShowManager::checkAndMoveItem(ShowFunction *sf, int originalTrackIdx, int newTrackIdx, int newStartTime)

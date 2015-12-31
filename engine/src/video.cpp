@@ -138,9 +138,9 @@ quint32 Video::getStartTime() const
     return m_startTime;
 }
 
-void Video::setTotalDuration(qint64 duration)
+void Video::setTotalDuration(qint32 duration)
 {
-    m_videoDuration = duration;
+    m_videoDuration = (qint64)duration;
     emit totalTimeChanged(m_videoDuration);
 }
 
