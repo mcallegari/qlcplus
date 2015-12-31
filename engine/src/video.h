@@ -86,7 +86,7 @@ public:
     quint32 getStartTime() const;
 
     /** @reimpl */
-    void setTotalDuration(qint32 duration);
+    void setTotalDuration(quint32 duration);
 
     /** @reimpl */
     quint32 totalDuration();
