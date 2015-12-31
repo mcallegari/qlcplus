@@ -1,3 +1,5 @@
+unix:!macx:include(../../variables.pri)
+
 TEMPLATE = subdirs
 
 macx:SUBDIRS       += macx
