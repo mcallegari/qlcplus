@@ -46,7 +46,7 @@ public:
     /**
      * Prepare an OSC DMX message using a OSC path like
      * /$universe/dmx/$channel
-     * All values are trasmitted as float (OSC 'f')
+     * All values are transmitted as float (OSC 'f')
      *
      * @param data the message composed by this function to be sent on the network
      * @param universe the universe used to compose the OSC message path

@@ -37,17 +37,14 @@ void ArtNetPlugin::init()
             if (addr.protocol() != QAbstractSocket::IPv6Protocol)
             {
                 ArtNetIO tmpIO;
-                tmpIO.IPAddress = entry.ip().toString();
-                if (addr == QHostAddress::LocalHost)
-                    tmpIO.MACAddress = "11:22:33:44:55:66";
-                else
-                    tmpIO.MACAddress = interface.hardwareAddress();
+                tmpIO.interface = interface;
+                tmpIO.address = entry;
                 tmpIO.controller = NULL;
 
                 bool alreadyInList = false;
                 for(int j = 0; j < m_IOmapping.count(); j++)
                 {
-                    if (m_IOmapping.at(j).IPAddress == tmpIO.IPAddress)
+                    if (m_IOmapping.at(j).address == tmpIO.address)
                     {
                         alreadyInList = true;
                         break;
@@ -56,7 +53,6 @@ void ArtNetPlugin::init()
                 if (alreadyInList == false)
                 {
                     m_IOmapping.append(tmpIO);
-                    m_netInterfaces.append(entry);
                 }
             }
         }
@@ -103,7 +99,7 @@ QStringList ArtNetPlugin::outputs()
 
     foreach (ArtNetIO line, m_IOmapping)
     {
-        list << QString("%1: %2").arg(j + 1).arg(line.IPAddress);
+        list << QString("%1: %2").arg(j + 1).arg(line.address.ip().toString());
         j++;
     }
     return list;
@@ -145,15 +141,16 @@ bool ArtNetPlugin::openOutput(quint32 output, quint32 universe)
     if (output >= (quint32)m_IOmapping.length())
         return false;
 
-    qDebug() << "[ArtNet] Open output on address :" << m_IOmapping.at(output).IPAddress;
+    qDebug() << "[ArtNet] Open output on address :" << m_IOmapping.at(output).address.ip().toString();
 
     // if the controller doesn't exist, create it
     if (m_IOmapping[output].controller == NULL)
     {
-        ArtNetController *controller = new ArtNetController(m_IOmapping.at(output).IPAddress,
-                                                            m_netInterfaces.at(output),
-                                                            m_IOmapping.at(output).MACAddress,
-                                                            ArtNetController::Output, output, this);
+        ArtNetController *controller = new ArtNetController(m_IOmapping.at(output).interface,
+                                                            m_IOmapping.at(output).address,
+                                                            output, this);
+        connect(controller, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
+                this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
         m_IOmapping[output].controller = controller;
     }
 
@@ -203,7 +200,7 @@ QStringList ArtNetPlugin::inputs()
 
     foreach (ArtNetIO line, m_IOmapping)
     {
-        list << QString("%1: %2").arg(j + 1).arg(line.IPAddress);
+        list << QString("%1: %2").arg(j + 1).arg(line.address.ip().toString());
         j++;
     }
     return list;
@@ -216,15 +213,13 @@ bool ArtNetPlugin::openInput(quint32 input, quint32 universe)
     if (input >= (quint32)m_IOmapping.length())
         return false;
 
-    qDebug() << "[ArtNet] Open input on address :" << m_IOmapping.at(input).IPAddress;
-
-    // if the controller doesn't exist, create it
+    // if the controller doesn't exist, create it.
+    // We need to have only one input controller.
     if (m_IOmapping[input].controller == NULL)
     {
-        ArtNetController *controller = new ArtNetController(m_IOmapping.at(input).IPAddress,
-                                                            m_netInterfaces.at(input),
-                                                            m_IOmapping.at(input).MACAddress,
-                                                            ArtNetController::Input, input, this);
+        ArtNetController *controller = new ArtNetController(m_IOmapping.at(input).interface,
+                                                            m_IOmapping.at(input).address,
+                                                            input, this);
         connect(controller, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
                 this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
         m_IOmapping[input].controller = controller;
@@ -304,19 +299,32 @@ void ArtNetPlugin::setParameter(quint32 universe, quint32 line, Capability type,
     if (controller == NULL)
         return;
 
-    if (name == ARTNET_OUTPUTIP)
-        controller->setOutputIPAddress(universe, value.toString());
-    else if (name == ARTNET_OUTPUTUNI)
-        controller->setOutputUniverse(universe, value.toUInt());
-    else if (name == ARTNET_TRANSMITMODE)
-        controller->setTransmissionMode(universe, ArtNetController::stringToTransmissionMode(value.toString()));
+    if (type == Input)
+    {
+        if (name == ARTNET_INPUTUNI)
+            controller->setInputUniverse(universe, value.toUInt());
+        else
+        {
+            qWarning() << Q_FUNC_INFO << name << "is not a valid ArtNet input parameter";
+            return;
+        }
+    }
+    else // if (type == Output)
+    {
+        if (name == ARTNET_OUTPUTIP)
+            controller->setOutputIPAddress(universe, value.toString());
+        else if (name == ARTNET_OUTPUTUNI)
+            controller->setOutputUniverse(universe, value.toUInt());
+        else if (name == ARTNET_TRANSMITMODE)
+            controller->setTransmissionMode(universe, ArtNetController::stringToTransmissionMode(value.toString()));
+        else
+        {
+            qWarning() << Q_FUNC_INFO << name << "is not a valid ArtNet output parameter";
+            return;
+        }
+    }
 
     QLCIOPlugin::setParameter(universe, line, type, name, value);
-}
-
-QList<QNetworkAddressEntry> ArtNetPlugin::interfaces()
-{
-    return m_netInterfaces;
 }
 
 QList<ArtNetIO> ArtNetPlugin::getIOMapping()

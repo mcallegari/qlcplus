@@ -37,14 +37,14 @@ void E131Plugin::init()
             if (addr.protocol() != QAbstractSocket::IPv6Protocol)
             {
                 E131IO tmpIO;
-                tmpIO.IPAddress = entry.ip().toString();
                 tmpIO.interface = interface;
+                tmpIO.address = entry;
                 tmpIO.controller = NULL;
 
                 bool alreadyInList = false;
                 for(int j = 0; j < m_IOmapping.count(); j++)
                 {
-                    if (m_IOmapping.at(j).IPAddress == tmpIO.IPAddress)
+                    if (m_IOmapping.at(j).address == tmpIO.address)
                     {
                         alreadyInList = true;
                         break;
@@ -53,7 +53,6 @@ void E131Plugin::init()
                 if (alreadyInList == false)
                 {
                     m_IOmapping.append(tmpIO);
-                    m_netInterfaces.append(entry);
                 }
             }
         }
@@ -100,7 +99,7 @@ QStringList E131Plugin::outputs()
 
     foreach (E131IO line, m_IOmapping)
     {
-        list << QString("%1: %2").arg(j + 1).arg(line.IPAddress);
+        list << QString("%1: %2").arg(j + 1).arg(line.address.ip().toString());
         j++;
     }
     return list;
@@ -139,14 +138,16 @@ bool E131Plugin::openOutput(quint32 output, quint32 universe)
     if (output >= (quint32)m_IOmapping.length())
         return false;
 
-    qDebug() << "[E1.31] Open output with address :" << m_IOmapping.at(output).IPAddress;
+    qDebug() << "[E1.31] Open output with address :" << m_IOmapping.at(output).address.ip().toString();
 
     // if the controller doesn't exist, create it
     if (m_IOmapping[output].controller == NULL)
     {
         E131Controller *controller = new E131Controller(m_IOmapping.at(output).interface,
-                                                        m_IOmapping.at(output).IPAddress,
-                                                        E131Controller::Output, output, this);
+                                                        m_IOmapping.at(output).address,
+                                                        output, this);
+        connect(controller, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
+                this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
         m_IOmapping[output].controller = controller;
     }
 
@@ -196,7 +197,7 @@ QStringList E131Plugin::inputs()
 
     foreach (E131IO line, m_IOmapping)
     {
-        list << QString("%1: %2").arg(j + 1).arg(line.IPAddress);
+        list << QString("%1: %2").arg(j + 1).arg(line.address.ip().toString());
         j++;
     }
     return list;
@@ -207,14 +208,14 @@ bool E131Plugin::openInput(quint32 input, quint32 universe)
     if (input >= (quint32)m_IOmapping.length())
         return false;
 
-    qDebug() << "[E1.31] Open input with address :" << m_IOmapping.at(input).IPAddress;
+    qDebug() << "[E1.31] Open input with address :" << m_IOmapping.at(input).address.ip().toString();
 
     // if the controller doesn't exist, create it
     if (m_IOmapping[input].controller == NULL)
     {
         E131Controller *controller = new E131Controller(m_IOmapping.at(input).interface,
-                                                        m_IOmapping.at(input).IPAddress,
-                                                        E131Controller::Input, input, this);
+                                                        m_IOmapping.at(input).address,
+                                                        input, this);
         connect(controller, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
                 this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
         m_IOmapping[input].controller = controller;
@@ -333,11 +334,6 @@ void E131Plugin::setParameter(quint32 universe, quint32 line, Capability type,
     }
 
     QLCIOPlugin::setParameter(universe, line, type, name, value);
-}
-
-QList<QNetworkAddressEntry> E131Plugin::interfaces()
-{
-    return m_netInterfaces;
 }
 
 QList<E131IO> E131Plugin::getIOMapping()

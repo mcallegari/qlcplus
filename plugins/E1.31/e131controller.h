@@ -59,8 +59,9 @@ public:
 
     enum TransmissionMode { Full, Partial };
 
-    explicit E131Controller(QNetworkInterface const& interface, QString const& ipaddr,
-                   Type type, quint32 line, QObject *parent = 0);
+    explicit E131Controller(QNetworkInterface const& interface,
+                            QNetworkAddressEntry const& address,
+                            quint32 line, QObject *parent = 0);
 
     ~E131Controller();
 
