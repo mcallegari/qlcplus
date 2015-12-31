@@ -341,9 +341,11 @@ bool ArtNetController::handleArtNetDmx(QByteArray const& datagram, QHostAddress 
         return false;
     }
 
+#if 0
     qDebug() << "[ArtNet] DMX data received. Universe:" << artnetUniverse << ", Data size:" << dmxData.size()
         << ", data[0]=" << (int)dmxData[0]
         << ", from=" << senderAddress.toString();
+#endif
 
     for (QMap<quint32, UniverseInfo>::iterator it = m_universeMap.begin(); it != m_universeMap.end(); ++it)
     {
