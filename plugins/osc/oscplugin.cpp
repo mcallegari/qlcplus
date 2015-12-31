@@ -52,7 +52,6 @@ void OSCPlugin::init()
                 if (alreadyInList == false)
                 {
                     m_IOmapping.append(tmpIO);
-                    m_netInterfaces.append(entry);
                 }
             }
         }
@@ -316,11 +315,6 @@ void OSCPlugin::setParameter(quint32 universe, quint32 line, Capability type,
         controller->setOutputPort(universe, value.toUInt());
 
     QLCIOPlugin::setParameter(universe, line, type, name, value);
-}
-
-QList<QNetworkAddressEntry> OSCPlugin::interfaces()
-{
-    return m_netInterfaces;
 }
 
 QList<OSCIO> OSCPlugin::getIOMapping()

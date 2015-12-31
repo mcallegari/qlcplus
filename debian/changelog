@@ -2,6 +2,10 @@ qlcplus (4.10.3) stable; urgency=low
 
   * Scene Editor: Remember Channels Groups values when saving and loading a workspace (David Garyga)
   * Scene Editor: Remember fixtures even with no activated channel (David Garyga)
+  * Universes: Forbid deleting universes in the middle of the list, this prevents a lot of bugs and crashes (David Garyga)
+  * Plugins/ArtNet: Fix input and output initialization conflict that results in no input (David Garyga)
+  * Plugins/ArtNet: Allow sending and receiving ArtNet on several different interfaces (David Garyga)
+  * Plugins/ArtNet: Allow selecting a different ArtNet input universe (David Garyga)
   * New input profile: Behringer BCR2000 (thanks to Michael Trojacher)
   * New fixture: Stellar Labs ECO LED PAR56, Chauvet Colorpalette II (thanks to Jimmy Traylor)
   * New fixtures: Chauvet: COLORado 1 Solo, Ovation FD-165WW, Rogue RH1 Hybrid, COLORdash Par Hex 12 (thanks to Robert Box)

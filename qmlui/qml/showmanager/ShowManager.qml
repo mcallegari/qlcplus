@@ -104,6 +104,18 @@ Rectangle
                 }
             }
 
+            IconButton
+            {
+                id: stretchBtn
+                width: parent.height - 6
+                height: width
+                imgSource: "qrc:/stretch.svg"
+                tooltip: qsTr("Stretch the original Function")
+                checkable: true
+                checked: showManager.stretchFunctions
+                onToggled: showManager.stretchFunctions = checked
+            }
+
             RobotoText
             {
                 id: timeBox

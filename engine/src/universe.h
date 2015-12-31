@@ -251,6 +251,12 @@ private:
     /** Reference to the feedback patch associated to this universe. */
     OutputPatch* m_fbPatch;
 
+private:
+    // Connect to inputPatch's valueChanged signal
+    void connectInputPatch();
+    // Disconnect from inputPatch's valueChanged signal
+    void disconnectInputPatch();
+
     /************************************************************************
      * Channels capabilities and modifiers
      ************************************************************************/

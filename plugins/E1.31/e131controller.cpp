@@ -25,18 +25,18 @@
 #define TRANSMIT_FULL    "Full"
 #define TRANSMIT_PARTIAL "Partial"
 
-E131Controller::E131Controller(QNetworkInterface const& interface, QString const& ipaddr,
-                               Type type, quint32 line, QObject *parent)
+E131Controller::E131Controller(QNetworkInterface const& interface, QNetworkAddressEntry const& address,
+                               quint32 line, QObject *parent)
     : QObject(parent)
     , m_interface(interface)
-    , m_ipAddr(ipaddr)
+    , m_ipAddr(address.ip())
     , m_packetSent(0)
     , m_packetReceived(0)
     , m_line(line)
     , m_UdpSocket(new QUdpSocket(this))
     , m_packetizer(new E131Packetizer())
 {
-    qDebug() << "[E131Controller] type: " << type;
+    qDebug() << Q_FUNC_INFO;
     m_UdpSocket->bind(m_ipAddr, 0);
     // Output multicast on the correct interface
     m_UdpSocket->setMulticastInterface(m_interface);
@@ -411,7 +411,7 @@ void E131Controller::processPendingPackets()
             for (QMap<quint32, UniverseInfo>::iterator it = m_universeMap.begin(); it != m_universeMap.end(); ++it)
             {
                 quint32 universe = it.key();
-                UniverseInfo& info = it.value();
+                UniverseInfo const& info = it.value();
                 if (info.inputSocket == socket && info.inputUniverse == e131universe)
                 {
                     QByteArray *dmxValues;

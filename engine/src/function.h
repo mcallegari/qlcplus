@@ -83,6 +83,7 @@ class Function : public QObject
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(quint32 id READ id CONSTANT)
     Q_PROPERTY(Type type READ type CONSTANT)
+    Q_PROPERTY(quint32 totalDuration READ totalDuration WRITE setTotalDuration NOTIFY totalDurationChanged)
 
 public:
     /**
@@ -385,6 +386,11 @@ public:
      *  the steps or the specific Function parameters */
     virtual quint32 totalDuration();
 
+    /** Set the total duration in milliseconds.
+     *  This method should be reimplemented only
+     *  by Functions supporting the stretch functionality */
+    virtual void setTotalDuration(quint32 msec);
+
     /** Set the override fade in speed (done by chaser in Common speed mode) */
     void setOverrideFadeInSpeed(uint ms);
 
@@ -419,6 +425,9 @@ public:
     static uint speedNormalize(uint speed);
     static uint speedAdd(uint left, uint right);
     static uint speedSubstract(uint left, uint right);
+
+signals:
+    void totalDurationChanged();
 
 protected:
     /** Load the contents of a speed node */

@@ -59,10 +59,10 @@ public:
      * Contents
      *********************************************************************/
 public:
-    /** Set the matrix total duration in milliseconds */
+    /** @reimpl */
     void setTotalDuration(quint32 msec);
 
-    /** Get the matrix total duration in milliseconds */
+    /** @reimpl */
     quint32 totalDuration();
 
     /** Set the matrix to control or not the dimmer channel */

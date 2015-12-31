@@ -21,71 +21,79 @@
 
 #include <QMutexLocker>
 #include <QDebug>
+#include <QMessageBox>
 
 #define TRANSMIT_FULL    "Full"
 #define TRANSMIT_PARTIAL "Partial"
 
-ArtNetController::ArtNetController(QString ipaddr, QNetworkAddressEntry interface,
-                                   QString macAddress, Type type, quint32 line, QObject *parent)
+ArtNetController::ArtNetController(QNetworkInterface const& interface, QNetworkAddressEntry const& address,
+                                   quint32 line, QObject *parent)
     : QObject(parent)
+    , m_interface(interface)
+    , m_address(address)
+    , m_ipAddr(address.ip())
+    , m_packetSent(0)
+    , m_packetReceived(0)
+    , m_line(line)
+    , m_udpSocket(new QUdpSocket(this))
+    , m_udpSocketBroadcastRecv(NULL)
+    , m_packetizer(new ArtNetPacketizer())
+    , m_pollTimer(NULL)
 {
-    m_ipAddr = QHostAddress(ipaddr);
-    m_MACAddress = macAddress;
-    m_line = line;
-
     if (m_ipAddr == QHostAddress::LocalHost)
-        m_broadcastAddr = QHostAddress::LocalHost;
-    else
-        m_broadcastAddr = interface.broadcast();
-
-    m_netmask = interface.netmask();
-
-    qDebug() << "[ArtNetController] Broadcast address:" << m_broadcastAddr.toString() << "(MAC:" << m_MACAddress << ")";
-    qDebug() << "[ArtNetController] type: " << type;
-    m_packetizer.reset(new ArtNetPacketizer());
-    m_packetSent = 0;
-    m_packetReceived = 0;
-
-    m_UdpSocket = new QUdpSocket(this);
-
-    if (m_UdpSocket->bind(ARTNET_DEFAULT_PORT, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint) == false)
-        return;
-
-    connect(m_UdpSocket, SIGNAL(readyRead()),
-            this, SLOT(processPendingPackets()));
-
-    // don't send a Poll if we're an input
-    if (type == Output)
     {
-        QByteArray pollPacket;
-        m_packetizer->setupArtNetPoll(pollPacket);
-        qint64 sent = m_UdpSocket->writeDatagram(pollPacket.data(), pollPacket.size(),
-                                                 m_broadcastAddr, ARTNET_DEFAULT_PORT);
-        if (sent < 0)
+        m_broadcastAddr = QHostAddress::LocalHost;
+        m_MACAddress = "11:22:33:44:55:66";
+    }
+    else
+    {
+        m_broadcastAddr = address.broadcast();
+        m_MACAddress = interface.hardwareAddress();
+    }
+
+    qDebug() << "[ArtNetController] IP Address:" << m_ipAddr.toString() << " Broadcast address:" << m_broadcastAddr.toString() << "(MAC:" << m_MACAddress << ")";
+
+    bool bindError = false;
+
+    if (m_udpSocket->bind(m_ipAddr, ARTNET_PORT, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint))
+    {
+        connect(m_udpSocket, SIGNAL(readyRead()),
+                this, SLOT(slotReadyRead()));
+    }
+    else
+    {
+        qWarning() << "ArtNet: could not bind socket to address" << QString("%1:%2").arg(m_ipAddr.toString()).arg(ARTNET_PORT);
+        bindError = true;
+    }
+
+// Binding to the interface adress is sufficient to receive broadcasts on windows
+#if !(defined(WIN32) || defined(Q_OS_WIN))
+    if (m_ipAddr != QHostAddress::LocalHost)
+    {
+        m_udpSocketBroadcastRecv = new QUdpSocket(this);
+        if (m_udpSocketBroadcastRecv->bind(m_broadcastAddr, ARTNET_PORT, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint))
         {
-            qDebug() << "Unable to send initial Poll packet";
-            qDebug() << "Errno: " << m_UdpSocket->error();
-            qDebug() << "Errmgs: " << m_UdpSocket->errorString();
+            connect(m_udpSocketBroadcastRecv, SIGNAL(readyRead()),
+                    this, SLOT(slotReadyRead()));
         }
         else
-            m_packetSent++;
+        {
+            qWarning() << "ArtNet: could not bind socket to address" << QString("%1:%2").arg(m_broadcastAddr.toString()).arg(ARTNET_PORT);
+            bindError = true;
+        }
     }
+#endif
+
+    if (bindError)
+        QMessageBox::warning(NULL, tr("Socket error"),
+                tr("ArtNet: Could not bind to ArtNet port (%1).\n"
+                   "It may be already in use by another program.").arg(ARTNET_PORT));
 }
 
 ArtNetController::~ArtNetController()
 {
     qDebug() << Q_FUNC_INFO;
-    disconnect(m_UdpSocket, SIGNAL(readyRead()),
-            this, SLOT(processPendingPackets()));
-    m_UdpSocket->close();
-    QMapIterator<int, QByteArray *> it(m_dmxValuesMap);
-    while(it.hasNext())
-    {
-        it.next();
-        QByteArray *ba = it.value();
-        delete ba;
-    }
-    m_dmxValuesMap.clear();
+    qDeleteAll(m_dmxValuesMap);
 }
 
 ArtNetController::Type ArtNetController::type()
@@ -119,11 +127,6 @@ QString ArtNetController::getNetworkIP()
     return m_ipAddr.toString();
 }
 
-QString ArtNetController::getNetmask()
-{
-    return m_netmask.toString();
-}
-
 QHash<QHostAddress, ArtNetNodeInfo> ArtNetController::getNodesList()
 {
     return m_nodesList;
@@ -139,11 +142,25 @@ void ArtNetController::addUniverse(quint32 universe, ArtNetController::Type type
     else
     {
         UniverseInfo info;
+        info.inputUniverse = universe;
         info.outputAddress = m_broadcastAddr;
         info.outputUniverse = universe;
-        info.trasmissionMode = Full;
+        info.outputTransmissionMode = Full;
         info.type = type;
         m_universeMap[universe] = info;
+    }
+
+    // send Polls if we open an Output
+    if (type == Output && m_pollTimer == NULL)
+    {
+        sendPoll();
+
+        m_pollTimer = new QTimer(this);
+        m_pollTimer->setInterval(5000);
+        m_pollTimer->setSingleShot(false);
+        connect(m_pollTimer, SIGNAL(timeout()),
+                this, SLOT(slotPollTimeout()));
+        m_pollTimer->start();
     }
 }
 
@@ -155,7 +172,22 @@ void ArtNetController::removeUniverse(quint32 universe, ArtNetController::Type t
             m_universeMap.take(universe);
         else
             m_universeMap[universe].type &= ~type;
+
+        if (type == Output && ((this->type() | Output) == 0))
+        {
+            delete m_pollTimer;
+            m_pollTimer = NULL;
+        }
     }
+}
+
+void ArtNetController::setInputUniverse(quint32 universe, quint32 artnetUni)
+{
+    if (m_universeMap.contains(universe) == false)
+        return;
+
+    QMutexLocker locker(&m_dataMutex);
+    m_universeMap[universe].inputUniverse = artnetUni;
 }
 
 void ArtNetController::setOutputIPAddress(quint32 universe, QString address)
@@ -191,7 +223,7 @@ void ArtNetController::setTransmissionMode(quint32 universe, ArtNetController::T
         return;
 
     QMutexLocker locker(&m_dataMutex);
-    m_universeMap[universe].trasmissionMode = int(mode);
+    m_universeMap[universe].outputTransmissionMode = int(mode);
 }
 
 QString ArtNetController::transmissionModeToString(ArtNetController::TransmissionMode mode)
@@ -242,7 +274,7 @@ void ArtNetController::sendDmx(const quint32 universe, const QByteArray &data)
         UniverseInfo info = m_universeMap[universe];
         outAddress = info.outputAddress;
         outUniverse = info.outputUniverse;
-        transmitMode = TransmissionMode(info.trasmissionMode);
+        transmitMode = TransmissionMode(info.outputTransmissionMode);
     }
 
     if (transmitMode == Full)
@@ -254,103 +286,148 @@ void ArtNetController::sendDmx(const quint32 universe, const QByteArray &data)
     else
         m_packetizer->setupArtNetDmx(dmxPacket, outUniverse, data);
 
-    qint64 sent = m_UdpSocket->writeDatagram(dmxPacket.data(), dmxPacket.size(),
-                                             outAddress, ARTNET_DEFAULT_PORT);
+    qint64 sent = m_udpSocket->writeDatagram(dmxPacket.data(), dmxPacket.size(),
+                                             outAddress, ARTNET_PORT);
     if (sent < 0)
     {
         qDebug() << "sendDmx failed";
-        qDebug() << "Errno: " << m_UdpSocket->error();
-        qDebug() << "Errmgs: " << m_UdpSocket->errorString();
+        qDebug() << "Errno: " << m_udpSocket->error();
+        qDebug() << "Errmgs: " << m_udpSocket->errorString();
     }
     else
         m_packetSent++;
 }
 
-void ArtNetController::processPendingPackets()
+bool ArtNetController::handleArtNetPollReply(QByteArray const& datagram, QHostAddress const& senderAddress)
 {
-    while (m_UdpSocket->hasPendingDatagrams())
+    ArtNetNodeInfo newNode;
+    if (!m_packetizer->fillArtPollReplyInfo(datagram, newNode))
     {
-        QByteArray datagram;
-        QHostAddress senderAddress;
-        datagram.resize(m_UdpSocket->pendingDatagramSize());
-        m_UdpSocket->readDatagram(datagram.data(), datagram.size(), &senderAddress);
-        //if (senderAddress != m_ipAddr)
+        qDebug() << "[ArtNet] Bad ArtPollReply received";
+        return false;
+    }
+
+    qDebug() << "[ArtNet] ArtPollReply received";
+
+    if (m_nodesList.contains(senderAddress) == false)
+        m_nodesList[senderAddress] = newNode;
+    ++m_packetReceived;
+    return true;
+}
+
+bool ArtNetController::handleArtNetPoll(QByteArray const& datagram, QHostAddress const& senderAddress)
+{
+    Q_UNUSED(datagram);
+
+    qDebug() << "[ArtNet] ArtPoll received";
+    QByteArray pollReplyPacket;
+    m_packetizer->setupArtNetPollReply(pollReplyPacket, m_ipAddr, m_MACAddress);
+    m_udpSocket->writeDatagram(pollReplyPacket.data(), pollReplyPacket.size(),
+            senderAddress, ARTNET_PORT);
+    ++m_packetSent;
+    ++m_packetReceived;
+    return true;
+}
+
+bool ArtNetController::handleArtNetDmx(QByteArray const& datagram, QHostAddress const& senderAddress)
+{
+    Q_UNUSED(senderAddress);
+
+    QByteArray dmxData;
+    quint32 artnetUniverse;
+    if (!m_packetizer->fillDMXdata(datagram, dmxData, artnetUniverse))
+    {
+        qDebug() << "[ArtNet] Bad DMX packet received";
+        return false;
+    }
+
+    qDebug() << "[ArtNet] DMX data received. Universe:" << artnetUniverse << ", Data size:" << dmxData.size()
+        << ", data[0]=" << (int)dmxData[0]
+        << ", from=" << senderAddress.toString();
+
+    for (QMap<quint32, UniverseInfo>::iterator it = m_universeMap.begin(); it != m_universeMap.end(); ++it)
+    {
+        quint32 universe = it.key();
+        UniverseInfo const& info = it.value();
+
+        if ((info.type & Input) && info.inputUniverse == artnetUniverse)
         {
-            //qDebug() << "Received packet with size: " << datagram.size() << ", host: " << senderAddress.toString();
-            int opCode = -1;
-            if (m_packetizer->checkPacketAndCode(datagram, opCode) == true)
+            QByteArray *dmxValues;
+            if (m_dmxValuesMap.contains(universe) == false)
+                m_dmxValuesMap[universe] = new QByteArray(512, 0);
+            dmxValues = m_dmxValuesMap[universe];
+
+            qDebug() << "[ArtNet] -> universe" << (universe + 1);
+
+            for (int i = 0; i < dmxData.length(); i++)
             {
-                m_packetReceived++;
-                switch (opCode)
+                if (dmxValues->at(i) != dmxData.at(i))
                 {
-                    case ARTNET_POLLREPLY:
-                    {
-                        qDebug() << "[ArtNet] ArtPollReply received";
-                        ArtNetNodeInfo newNode;
-                        if (m_packetizer->fillArtPollReplyInfo(datagram, newNode) == true)
-                        {
-                            if (m_nodesList.contains(senderAddress) == false)
-                                m_nodesList[senderAddress] = newNode;
-                        }
-                    }
-                    break;
-                    case ARTNET_POLL:
-                    {
-                        qDebug() << "[ArtNet] ArtPoll received";
-                        QByteArray pollReplyPacket;
-                        m_packetizer->setupArtNetPollReply(pollReplyPacket, m_ipAddr, m_MACAddress);
-                        m_UdpSocket->writeDatagram(pollReplyPacket.data(), pollReplyPacket.size(),
-                                                   senderAddress, ARTNET_DEFAULT_PORT);
-                        m_packetSent++;
-                    }
-                    break;
-                    case ARTNET_DMX:
-                    {
-                        QByteArray dmxData;
-                        quint32 universe;
-                        if (this->type() == Input)
-                        {
-                            if (m_packetizer->fillDMXdata(datagram, dmxData, universe) == true)
-                            {
-                                qDebug() << "[ArtNet] DMX data received. Universe:" << universe << "Data size:" << dmxData.size();
-
-                                QByteArray *dmxValues;
-                                if (m_dmxValuesMap.contains(universe) == false)
-                                    m_dmxValuesMap[universe] = new QByteArray(512, 0);
-                                dmxValues = m_dmxValuesMap[universe];
-
-                                //quint32 emitStartAddr = UINT_MAX;
-                                for (int i = 0; i < dmxData.length(); i++)
-                                {
-                                    if (dmxValues->at(i) != dmxData.at(i))
-                                    {
-                                        dmxValues->replace(i, 1, (const char *)(dmxData.data() + i), 1);
-                                        //if (emitStartAddr == UINT_MAX)
-                                        //    emitStartAddr = (quint32)i;
-                                        emit valueChanged(universe, m_line, i, (uchar)dmxData.at(i));
-                                    }
-                                    /*
-                                    else
-                                    {
-                                        if (emitStartAddr != UINT_MAX)
-                                        {
-                                            // SIGNAL is: void valuesChanged(quint32 input, quint32 startChannel, QByteArray &values);
-                                            emit valuesChanged(universe, emitStartAddr, m_dmxValues.mid(emitStartAddr, i - emitStartAddr));
-                                        }
-                                    }
-                                    */
-                                }
-                            }
-                        }
-                    }
-                    break;
-                    default:
-                        qDebug() << "[ArtNet] opCode not supported yet (" << opCode << ")";
-                    break;
+                    qDebug() << "[ArtNet] a value differs";
+                    dmxValues->replace(i, 1, (const char *)(dmxData.data() + i), 1);
+                    emit valueChanged(universe, m_line, i, (uchar)dmxData.at(i));
                 }
             }
-            else
-                qDebug() << "[ArtNet] Malformed packet received";
+            ++m_packetReceived;
+            return true;
         }
-     }
+    }
+    return false;
+}
+
+bool ArtNetController::handlePacket(QByteArray const& datagram, QHostAddress const& senderAddress)
+{
+    //qDebug() << "Received packet with size: " << datagram.size() << ", host: " << senderAddress.toString();
+    int opCode = -1;
+    if (m_packetizer->checkPacketAndCode(datagram, opCode) == true)
+    {
+        switch (opCode)
+        {
+            case ARTNET_POLLREPLY:
+                return handleArtNetPollReply(datagram, senderAddress);
+            case ARTNET_POLL:
+                return handleArtNetPoll(datagram, senderAddress);
+            case ARTNET_DMX:
+                return handleArtNetDmx(datagram, senderAddress);
+            default:
+                qDebug() << "[ArtNet] opCode not supported yet (" << opCode << ")";
+                break;
+        }
+    }
+    else
+        qDebug() << "[ArtNet] Malformed packet received";
+
+    return false;
+}
+
+void ArtNetController::slotReadyRead()
+{
+    QUdpSocket* udpSocket = qobject_cast<QUdpSocket*>(sender());
+    Q_ASSERT(udpSocket != NULL);
+
+    QByteArray datagram;
+    QHostAddress senderAddress;
+    while (udpSocket->hasPendingDatagrams())
+    {
+        datagram.resize(udpSocket->pendingDatagramSize());
+        udpSocket->readDatagram(datagram.data(), datagram.size(), &senderAddress);
+        handlePacket(datagram, senderAddress);
+    }
+}
+
+void ArtNetController::slotPollTimeout()
+{
+    sendPoll();
+}
+
+void ArtNetController::sendPoll()
+{
+    QByteArray pollPacket;
+    m_packetizer->setupArtNetPoll(pollPacket);
+    qint64 sent = m_udpSocket->writeDatagram(pollPacket.data(), pollPacket.size(),
+            m_broadcastAddr, ARTNET_PORT);
+    if (sent < 0)
+        qWarning() << "Unable to send Poll packet: errno=" << m_udpSocket->error() << "(" << m_udpSocket->errorString() << ")";
+    else
+        m_packetSent++;
 }

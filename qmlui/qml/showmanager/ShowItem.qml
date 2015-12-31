@@ -179,6 +179,8 @@ Item
                     {
                         sfRef.startTime = TimeUtils.posToMs(itemRoot.x, timeScale)
                         sfRef.duration = TimeUtils.posToMs(itemRoot.width, timeScale)
+                        if (funcRef && showManager.stretchFunctions === true)
+                            funcRef.totalDuration = sfRef.duration
                     }
                     infoText = ""
                     horLeftHandler.x = 0
@@ -227,7 +229,11 @@ Item
                 if (drag.active == true)
                 {
                     if (sfRef)
+                    {
                         sfRef.duration = TimeUtils.posToMs(itemRoot.width, timeScale)
+                        if (funcRef && showManager.stretchFunctions === true)
+                            funcRef.totalDuration = sfRef.duration
+                    }
                     infoText = ""
                 }
             }

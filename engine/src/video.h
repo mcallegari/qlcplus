@@ -85,16 +85,10 @@ public:
      */
     quint32 getStartTime() const;
 
-    /**
-     * Set the video duration retrieved from the source parsing
-     */
-    void setTotalDuration(qint64 duration);
+    /** @reimpl */
+    void setTotalDuration(quint32 duration);
 
-    /**
-     * Returns the duration of the source video file loaded
-     *
-     * @return Duration in milliseconds of the source video file
-     */
+    /** @reimpl */
     quint32 totalDuration();
 
     /**

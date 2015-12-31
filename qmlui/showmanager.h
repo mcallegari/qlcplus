@@ -39,6 +39,7 @@ class ShowManager : public PreviewContext
     Q_PROPERTY(QString showName READ showName WRITE setShowName NOTIFY showNameChanged)
     Q_PROPERTY(QColor itemsColor READ itemsColor WRITE setItemsColor NOTIFY itemsColorChanged)
     Q_PROPERTY(float timeScale READ timeScale WRITE setTimeScale NOTIFY timeScaleChanged)
+    Q_PROPERTY(bool stretchFunctions READ stretchFunctions WRITE setStretchFunctions NOTIFY stretchFunctionsChanged)
     Q_PROPERTY(int currentTime READ currentTime WRITE setCurrentTime NOTIFY currentTimeChanged)
     Q_PROPERTY(bool isPlaying READ isPlaying NOTIFY isPlayingChanged)
     Q_PROPERTY(int showDuration READ showDuration NOTIFY showDurationChanged)
@@ -70,6 +71,12 @@ public:
 
     /** Set the time scale of the Show Manager timeline */
     void setTimeScale(float timeScale);
+
+    /** Return the stretch flag */
+    bool stretchFunctions() const;
+
+    /** Set the stretch flag */
+    void setStretchFunctions(bool stretchFunctions);
 
     /** Add a new Item to the timeline.
      *  This happens when dragging an existing Function from the Function Manager.
@@ -122,6 +129,7 @@ signals:
     void showNameChanged(QString showName);
     void itemsColorChanged(QColor itemsColor);
     void timeScaleChanged(float timeScale);
+    void stretchFunctionsChanged(bool stretchFunction);
     void currentTimeChanged(int currentTime);
     void isPlayingChanged(bool playing);
     void showDurationChanged(int showDuration);
@@ -137,6 +145,10 @@ private:
     /** The current time scale of the Show Manager timeline */
     float m_timeScale;
 
+    /** Flag that indicates if a Function should be stretched
+     *  when the corresponding Show Item duration changes */
+    bool m_stretchFunctions;
+
     /** The current time position of the Show */
     int m_currentTime;
 
@@ -145,6 +157,7 @@ private:
 
     /** Pre-cached QML component for quick item creation */
     QQmlComponent *siComponent;
+
 };
 
 #endif // SHOWMANAGER_H

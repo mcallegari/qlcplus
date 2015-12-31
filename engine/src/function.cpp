@@ -526,6 +526,11 @@ quint32 Function::totalDuration()
     return duration();
 }
 
+void Function::setTotalDuration(quint32 msec)
+{
+    Q_UNUSED(msec)
+}
+
 void Function::setOverrideFadeInSpeed(uint ms)
 {
     m_overrideFadeInSpeed = ms;

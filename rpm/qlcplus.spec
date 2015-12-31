@@ -68,6 +68,7 @@ INSTALL_ROOT=$RPM_BUILD_ROOT make install
 %{_datadir}/qlcplus/modifierstemplates/*
 %{_datadir}/qlcplus/web/*
 %{_datadir}/mime/packages/qlcplus.xml
+%{_datadir}/appdata/*
 %_libdir/qt4/plugins/qlcplus/libenttecwing.so
 %_libdir/qt4/plugins/qlcplus/libhidplugin.so
 %_libdir/qt4/plugins/qlcplus/libdmx4linux.so
@@ -81,9 +82,9 @@ INSTALL_ROOT=$RPM_BUILD_ROOT make install
 %_libdir/qt4/plugins/qlcplus/libspi.so
 %_libdir/qt4/plugins/qlcplus/libloopback.so
 %doc /usr/share/qlcplus/documents/*
-/etc/udev/rules.d/z65-dmxusb.rules
-/etc/udev/rules.d/z65-anyma-udmx.rules
-/etc/udev/rules.d/z65-peperoni.rules
-/etc/udev/rules.d/z65-fx5-hid.rules
-/etc/udev/rules.d/z65-spi.rules
+/usr/lib/udev/rules.d/z65-dmxusb.rules
+/usr/lib/udev/rules.d/z65-anyma-udmx.rules
+/usr/lib/udev/rules.d/z65-peperoni.rules
+/usr/lib/udev/rules.d/z65-fx5-hid.rules
+/usr/lib/udev/rules.d/z65-spi.rules
 
