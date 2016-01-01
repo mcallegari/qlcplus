@@ -47,6 +47,9 @@ Rectangle
     property alias model: menuListView.model
     property string currentText
     property string currentIcon
+    property int currentValue
+
+    signal valuechanged(int value)
 
     onModelChanged: menuListView.currentIndex = 0
 
@@ -135,9 +138,9 @@ Rectangle
         y: cbRoot.height
         z: 99
         width: cbRoot.width
-        color: UISettings.bgStrong
+        color: UISettings.bgLight
         border.width: 1
-        border.color: UISettings.bgLight
+        border.color: UISettings.bgStrong
         parent: mainView
         visible: false
 
@@ -157,30 +160,26 @@ Rectangle
                     color: "transparent"
 
                     property int currentIdx: menuListView.currentIndex
+                    property string itemText: model.mLabel ? model.mLabel : (modelData.mLabel ? modelData.mLabel : modelData)
+                    property string itemIcon: model.mIcon ? model.mIcon : (modelData.mIcon ? modelData.mIcon : "")
+                    property int itemValue: model.mValue ? model.mValue : (modelData.mValue ? modelData.mValue : index)
 
                     onCurrentIdxChanged:
                     {
                         if (index == menuListView.currentIndex)
                         {
-                            if (modelData.mLabel)
-                                currentText = modelData.mLabel
-                            else
-                                currentText = modelData
-                            if (mIcon)
-                                currentIcon = modelData.mIcon
+                            currentText = itemText
+                            currentIcon = itemIcon
                         }
                     }
 
                     Component.onCompleted:
                     {
-                        if (index == menuListView.currentIndex)
+                        if (index == menuListView.currentIndex ||
+                            (currentValue && itemValue === currentValue))
                         {
-                            if (modelData.mLabel)
-                                currentText = modelData.mLabel
-                            else
-                                currentText = modelData
-                            if (modelData.mIcon)
-                                currentIcon = modelData.mIcon
+                            currentText = itemText
+                            currentIcon = itemIcon
                         }
                     }
 
@@ -191,18 +190,18 @@ Rectangle
                         Image
                         {
                             id: iconItem
-                            visible: modelData.mIcon ? true : false
+                            visible: itemIcon ? true : false
                             height: delegateRoot.height - 4
                             width: height
                             y: 2
-                            source: modelData.mIcon ? modelData.mIcon : ""
+                            source: itemIcon
                             sourceSize: Qt.size(width, height)
                         }
 
                         RobotoText
                         {
                             id: textitem
-                            label: modelData.mLabel ? modelData.mLabel : modelData
+                            label: itemText
                             height: delegateRoot.height
                             fontSize: 12
                         }
@@ -218,15 +217,13 @@ Rectangle
                         onExited: delegateRoot.color = "transparent"
                         onClicked:
                         {
-                            if (modelData.mLabel)
-                                currentText = modelData.mLabel
-                            else
-                                currentText = modelData
-                            if (modelData.mIcon)
-                                currentIcon = modelData.mIcon
-
+                            currentText = itemText
+                            currentIcon = itemIcon
                             menuListView.currentIndex = index
                             dropDownMenu.visible = false
+
+                            if (itemValue !== undefined)
+                                cbRoot.valuechanged(itemValue)
                         }
                     }
                 }
