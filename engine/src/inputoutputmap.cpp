@@ -188,7 +188,10 @@ bool InputOutputMap::removeAllUniverses()
 
 quint32 InputOutputMap::getUniverseID(int index)
 {
-    return index;
+    if (index >= 0 && index < m_universeArray.count())
+        return index;
+
+    return invalidUniverse();
 }
 
 QString InputOutputMap::getUniverseNameByIndex(int index)
