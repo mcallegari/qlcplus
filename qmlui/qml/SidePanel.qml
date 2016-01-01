@@ -91,22 +91,24 @@ Rectangle
         }
     }
 
-    PropertyAnimation
+    NumberAnimation
     {
         id: animateOpen
         target: sidePanelRoot
         properties: "width"
         to: expandedWidth
         duration: 200
+        onStopped: sidePanelRoot.width = expandedWidth
     }
 
-    PropertyAnimation
+    NumberAnimation
     {
         id: animateClose
         target: sidePanelRoot
         properties: "width"
         to: collapseWidth
         duration: 200
+        onStopped: sidePanelRoot.width = collapseWidth
     }
 
     Rectangle
