@@ -67,24 +67,24 @@ Rectangle
     function calculateHeadSize()
     {
         var areaSqrt = Math.sqrt((width * height) / headsNumber)
-        var columns = parseInt((width / areaSqrt) + 0.5);
-        var rows = parseInt((height / areaSqrt) + 0.5);
+        var columns = parseInt((width / areaSqrt) + 0.5)
+        var rows = parseInt((height / areaSqrt) + 0.5)
 
         // dirty workaround to correctly display right columns on one row
-        if (rows === 1) columns = headsNumber;
-        if (columns === 1) rows = headsNumber;
+        if (rows === 1) columns = headsNumber
+        if (columns === 1) rows = headsNumber
 
         if (columns > headsNumber)
-            columns = headsNumber;
+            columns = headsNumber
 
-        if (rows < 1) rows = 1;
-        if (columns < 1) columns = 1;
+        if (rows < 1) rows = 1
+        if (columns < 1) columns = 1
 
-        var cellWidth = width / columns;
-        var cellHeight = height / rows;
-        headSide = (cellWidth < cellHeight) ? cellWidth : cellHeight;
-        headColumns = columns;
-        headRows = rows;
+        var cellWidth = width / columns
+        var cellHeight = height / rows
+        headSide = Math.min(cellWidth, cellHeight) - 1
+        headColumns = columns
+        headRows = rows
     }
 
     function setHeadIntensity(headIndex, intensity)
@@ -123,6 +123,7 @@ Rectangle
         width: headSide * headColumns
         height: headSide * headRows
         anchors.centerIn: parent
+
         Repeater
         {
             id: headsRepeater
@@ -138,7 +139,7 @@ Rectangle
                     property real uvLevel: 0.0
                     property string goboSource: ""
 
-                    width: fixtureItem.headSide - 1
+                    width: fixtureItem.headSide
                     height: width
                     color: "black"
                     radius: fixtureItem.headSide / 2
