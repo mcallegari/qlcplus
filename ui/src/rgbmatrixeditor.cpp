@@ -610,23 +610,22 @@ void RGBMatrixEditor::slotPreviewTimeout()
         }
         map = m_matrix->previewMap(m_previewStep);
         m_previewIterator = 0;
-
-        for (int y = 0; y < map.size(); y++)
+    }
+    for (int y = 0; y < map.size(); y++)
+    {
+        for (int x = 0; x < map[y].size(); x++)
         {
-            for (int x = 0; x < map[y].size(); x++)
+            QLCPoint pt(x, y);
+            if (m_previewHash.contains(pt) == true)
             {
-                QLCPoint pt(x, y);
-                if (m_previewHash.contains(pt) == true)
-                {
-                    shape = static_cast<RGBCircleItem*>(m_previewHash[pt]);
-                    if (shape->color() != QColor(map[y][x]).rgb())
-                        shape->setColor(map[y][x]);
+            shape = static_cast<RGBCircleItem*>(m_previewHash[pt]);
+            if (shape->color() != QColor(map[y][x]).rgb())
+                shape->setColor(map[y][x]);
 
-                    if (shape->color() == QColor(Qt::black).rgb())
-                        shape->draw(m_matrix->fadeOutSpeed());
-                    else
-                        shape->draw(m_matrix->fadeInSpeed());
-                }
+            if (shape->color() == QColor(Qt::black).rgb())
+                shape->draw(m_matrix->fadeOutSpeed());
+            else
+                shape->draw(m_matrix->fadeInSpeed());
             }
         }
     }
