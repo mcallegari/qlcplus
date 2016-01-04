@@ -30,8 +30,6 @@ Rectangle
     border.color: "#222"
     radius: 3
 
-    property alias currentIndex: menuListView.currentIndex
-
     /*! model: provides a data model for the popup.
         A model can be either a string list (QStringList) or a named model
         to provide icons and values (QVariant)
@@ -44,14 +42,15 @@ Rectangle
             ListElement { mLabel: qsTr("Bar"); mIcon:"qrc:/bar.svg"; mValue: 1 }
         }
      */
-    property alias model: menuListView.model
+    property alias model: popupRepeater.model
+    property alias currentIndex: popupRepeater.currentIndex
     property string currentText
     property string currentIcon
     property int currentValue
 
     signal valuechanged(int value)
 
-    onModelChanged: menuListView.currentIndex = 0
+    //onModelChanged: popupRepeater.currentIndex = 0
 
     onVisibleChanged:
     {
@@ -62,14 +61,14 @@ Rectangle
     function positionMenu()
     {
         var posnInWindow = cbRoot.mapToItem(mainView, 0, 0);
-        var totalHeight = menuListView.count * 35
-        //console.log("Total height: " + totalHeight)
-        if (posnInWindow.y + cbRoot.height + totalHeight > mainView.height)
-          dropDownMenu.y = posnInWindow.y - totalHeight
+        var totalHeight = popupRepeater.count * popupRepeater.itemHeight
+        console.log("Total height: " + totalHeight + ", mainview: " + mainView.height)
+        dropDownMenu.height = Math.min(totalHeight, mainView.height - 50)
+        if (posnInWindow.y + cbRoot.height + dropDownMenu.height > mainView.height)
+          dropDownMenu.y = Math.max(posnInWindow.y - totalHeight, 25)
         else
           dropDownMenu.y = posnInWindow.y + cbRoot.height
         dropDownMenu.x = posnInWindow.x
-        dropDownMenu.height = totalHeight
     }
 
     Row
@@ -120,14 +119,14 @@ Rectangle
         {
             var newIdx
             if (wheel.angleDelta.y > 0)
-                newIdx = Math.max(0, menuListView.currentIndex - 1)
+                newIdx = Math.max(0, popupRepeater.currentIndex - 1)
             else
-                newIdx = Math.min(menuListView.currentIndex + 1, menuListView.count - 1)
+                newIdx = Math.min(popupRepeater.currentIndex + 1, popupRepeater.count - 1)
 
-            if (newIdx !== menuListView.currentIndex)
+            if (newIdx !== popupRepeater.currentIndex)
             {
-                menuListView.currentIndex = newIdx
-                console.log("Wheel event. Index: " + menuListView.currentIndex)
+                popupRepeater.currentIndex = newIdx
+                console.log("Wheel event. Index: " + popupRepeater.currentIndex)
             }
         }
     }
@@ -143,90 +142,109 @@ Rectangle
         border.color: UISettings.bgStrong
         parent: mainView
         visible: false
+        clip: true
 
-        ListView
+        Flickable
         {
-            id: menuListView
-            anchors.fill: parent
-            currentIndex: 0
+            id: popupFlickable
+            width: parent.width
+            height: parent.height
             boundsBehavior: Flickable.StopAtBounds
+            contentHeight: popupRepeater.height
+            contentWidth: parent.width
 
-            delegate:
-                Rectangle
-                {
-                    id: delegateRoot
-                    width: menuListView.width
-                    height: 35
-                    color: "transparent"
+            Repeater
+            {
+                id: popupRepeater
+                width: parent.width
+                height: count * itemHeight
 
-                    property int currentIdx: menuListView.currentIndex
-                    property string itemText: model.mLabel ? model.mLabel : (modelData.mLabel ? modelData.mLabel : modelData)
-                    property string itemIcon: model.mIcon ? model.mIcon : (modelData.mIcon ? modelData.mIcon : "")
-                    property int itemValue: model.mValue ? model.mValue : (modelData.mValue ? modelData.mValue : index)
+                property int itemHeight: 35
+                property int currentIndex: 0
 
-                    onCurrentIdxChanged:
+                delegate:
+                    Rectangle
                     {
-                        if (index == menuListView.currentIndex)
+                        id: delegateRoot
+                        width: dropDownMenu.width
+                        height: popupRepeater.itemHeight
+                        y: index * height
+                        color: "transparent"
+
+                        property int currentIdx: popupRepeater.currentIndex
+                        property string itemText: model.mLabel ? model.mLabel : (modelData.mLabel ? modelData.mLabel : modelData)
+                        property string itemIcon: model.mIcon ? model.mIcon : (modelData.mIcon ? modelData.mIcon : "")
+                        property int itemValue: (model.mValue !== undefined) ? model.mValue : ((modelData.mValue !== undefined) ? modelData.mValue : index)
+
+                        onCurrentIdxChanged:
                         {
-                            currentText = itemText
-                            currentIcon = itemIcon
+                            if (index == currentIdx)
+                            {
+                                currentText = itemText
+                                currentIcon = itemIcon
+                                if (itemValue !== undefined)
+                                    cbRoot.valuechanged(itemValue)
+                            }
+                        }
+
+                        Component.onCompleted:
+                        {
+                            if (index == currentIdx ||
+                                (currentValue && itemValue === currentValue))
+                            {
+                                currentText = itemText
+                                currentIcon = itemIcon
+                                if (currentValue && itemValue === currentValue)
+                                    currentIndex = index
+                            }
+                        }
+
+                        Row
+                        {
+                            x: 2
+                            spacing: 2
+                            Image
+                            {
+                                id: iconItem
+                                visible: itemIcon ? true : false
+                                height: delegateRoot.height - 4
+                                width: height
+                                y: 2
+                                source: itemIcon
+                                sourceSize: Qt.size(width, height)
+                            }
+
+                            RobotoText
+                            {
+                                id: textitem
+                                label: itemText
+                                height: delegateRoot.height
+                                fontSize: 12
+                            }
+                        }
+
+                        Rectangle { height: 1; width: parent.width; y: parent.height - 1 }
+
+                        MouseArea
+                        {
+                            anchors.fill: parent
+                            hoverEnabled: true
+                            onEntered: delegateRoot.color = UISettings.highlight
+                            onExited: delegateRoot.color = "transparent"
+                            onClicked:
+                            {
+                                currentText = itemText
+                                currentIcon = itemIcon
+                                popupRepeater.currentIndex = index
+                                dropDownMenu.visible = false
+
+                                if (itemValue !== undefined)
+                                    cbRoot.valuechanged(itemValue)
+                            }
                         }
                     }
-
-                    Component.onCompleted:
-                    {
-                        if (index == menuListView.currentIndex ||
-                            (currentValue && itemValue === currentValue))
-                        {
-                            currentText = itemText
-                            currentIcon = itemIcon
-                        }
-                    }
-
-                    Row
-                    {
-                        x: 2
-                        spacing: 2
-                        Image
-                        {
-                            id: iconItem
-                            visible: itemIcon ? true : false
-                            height: delegateRoot.height - 4
-                            width: height
-                            y: 2
-                            source: itemIcon
-                            sourceSize: Qt.size(width, height)
-                        }
-
-                        RobotoText
-                        {
-                            id: textitem
-                            label: itemText
-                            height: delegateRoot.height
-                            fontSize: 12
-                        }
-                    }
-
-                    Rectangle { height: 1; width: parent.width; y: parent.height - 1 }
-
-                    MouseArea
-                    {
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        onEntered: delegateRoot.color = UISettings.highlight
-                        onExited: delegateRoot.color = "transparent"
-                        onClicked:
-                        {
-                            currentText = itemText
-                            currentIcon = itemIcon
-                            menuListView.currentIndex = index
-                            dropDownMenu.visible = false
-
-                            if (itemValue !== undefined)
-                                cbRoot.valuechanged(itemValue)
-                        }
-                    }
-                }
-        }
+            } // Repeater
+        } // Flickable
+        ScrollBar { z: 2; flickable: popupFlickable }
     }
 }
