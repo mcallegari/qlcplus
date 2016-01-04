@@ -31,6 +31,8 @@ Rectangle
     border.color: "#666"
     border.width: 2
 
+    property bool closeOnSelect: false
+    property color selectedColor
     property string colorToolQML: "qrc:/ColorToolBasic.qml"
 
     signal colorChanged(real r, real g, real b, real w, real a, real uv)
@@ -133,14 +135,22 @@ Rectangle
         height: parent.height - colorToolBar.height
         source: colorToolQML
 
+        onLoaded: item.selectedColor = colorToolBox.selectedColor
+
         Connections
         {
              target: toolLoader.item
              ignoreUnknownSignals: true
-             onColorChanged:
-             {
-                 colorToolBox.colorChanged(r, g, b, white, amber, uv)
-             }
+             onColorChanged: colorToolBox.colorChanged(r, g, b, white, amber, uv)
+             onReleased: if (closeOnSelect) colorToolBox.visible = false
         }
+        /*
+        Connections
+        {
+             target: toolLoader.item
+             ignoreUnknownSignals: true
+             onReleased: if (closeOnSelect) colorToolBox.visible = false
+        }
+        */
     }
 }

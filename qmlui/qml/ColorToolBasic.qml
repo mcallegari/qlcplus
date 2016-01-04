@@ -29,7 +29,9 @@ Rectangle
     border.width: 2
 
     property color selectedColor
+
     signal colorChanged(real r, real g, real b, real white, real amber, real uv)
+    signal released()
 
     onSelectedColorChanged:
     {
@@ -82,7 +84,11 @@ Rectangle
                         MouseArea
                         {
                             anchors.fill: parent
-                            onClicked: selectedColor = color
+                            onClicked:
+                            {
+                                selectedColor = color
+                                rootBox.released()
+                            }
                         }
                     }
             }
@@ -113,7 +119,11 @@ Rectangle
                         MouseArea
                         {
                             anchors.fill: parent
-                            onClicked: selectedColor = color
+                            onClicked:
+                            {
+                                selectedColor = color
+                                rootBox.released()
+                            }
                         }
                     }
             }
@@ -153,7 +163,11 @@ Rectangle
                                     MouseArea
                                     {
                                         anchors.fill: parent
-                                        onClicked: selectedColor = color
+                                        onClicked:
+                                        {
+                                            selectedColor = color
+                                            rootBox.released()
+                                        }
                                     }
                                 }
                         }

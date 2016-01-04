@@ -35,6 +35,7 @@ Rectangle
     property bool hasUVChannel: false
 
     signal colorChanged(real r, real g, real b, real white, real amber, real uv)
+    signal released()
 
     onSelectedColorChanged:
     {
@@ -130,6 +131,7 @@ Rectangle
 
             onPressed: setPickedColor(mouse)
             onPositionChanged: setPickedColor(mouse)
+            onReleased: rootBox.released()
         }
     }
 
