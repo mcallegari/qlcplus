@@ -74,20 +74,24 @@ public:
     /** Remove a universe from the map of this controller */
     void removeUniverse(quint32 universe, Type type);
 
-    /** Set a specific ArtNet input universe for the given QLC+ universe */
-    void setInputUniverse(quint32 universe, quint32 artnetUni);
+    /** Set a specific ArtNet input universe for the given QLC+ universe.
+     *  Return true if this restores default input universe */
+    bool setInputUniverse(quint32 universe, quint32 artnetUni);
 
-    /** Set a specific output IP address for the given QLC+ universe */
-    void setOutputIPAddress(quint32 universe, QString address);
+    /** Set a specific output IP address for the given QLC+ universe.
+     *  Return true if this restores default output IP address */
+    bool setOutputIPAddress(quint32 universe, QString address);
 
-    /** Set a specific ArtNet output universe for the given QLC+ universe */
-    void setOutputUniverse(quint32 universe, quint32 artnetUni);
+    /** Set a specific ArtNet output universe for the given QLC+ universe.
+     *  Return true if this restores default ouput universe */
+    bool setOutputUniverse(quint32 universe, quint32 artnetUni);
 
     /** Set the transmission mode of the ArtNet DMX packets over the network.
      *  It can be 'Full', which transmits always 512 channels, or
      *  'Partial', which transmits only the channels actually used in a
-     *  universe */
-    void setTransmissionMode(quint32 universe, TransmissionMode mode);
+     *  universe.
+     *  Return true if this restores default transmission mode */
+    bool setTransmissionMode(quint32 universe, TransmissionMode mode);
 
     /** Converts a TransmissionMode value into a human readable string */
     static QString transmissionModeToString(TransmissionMode mode);

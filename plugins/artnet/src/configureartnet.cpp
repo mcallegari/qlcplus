@@ -265,28 +265,25 @@ void ConfigureArtNet::accept()
                 }
 
                 //qDebug() << "IPchanged = " << IPChanged;
-                if (IPChanged.isEmpty())
-                    m_plugin->unSetParameter(universe, line, cap, ARTNET_OUTPUTIP);
-                else
-                    m_plugin->setParameter(universe, line, cap, ARTNET_OUTPUTIP, IPChanged);
+                m_plugin->setParameter(universe, line, cap, ARTNET_OUTPUTIP, IPChanged);
             }
 
             QSpinBox *spin = qobject_cast<QSpinBox*>(m_uniMapTree->itemWidget(item, KMapColumnArtNetUni));
             Q_ASSERT(spin != NULL);
 
-            if ((quint32)spin->value() != universe)
-                m_plugin->setParameter(universe, line, cap, (cap == QLCIOPlugin::Output ? ARTNET_OUTPUTUNI : ARTNET_INPUTUNI), spin->value());
-            else
-                m_plugin->unSetParameter(universe, line, cap, (cap == QLCIOPlugin::Output ? ARTNET_OUTPUTUNI : ARTNET_INPUTUNI));
+            m_plugin->setParameter(universe, line, cap, (cap == QLCIOPlugin::Output ? ARTNET_OUTPUTUNI : ARTNET_INPUTUNI), spin->value());
 
             QComboBox *combo = qobject_cast<QComboBox*>(m_uniMapTree->itemWidget(item, KMapColumnTransmitMode));
             if (combo != NULL)
             {
-                if(combo->currentIndex() == 1)
-                    m_plugin->setParameter(universe, line, cap, ARTNET_TRANSMITMODE,
-                                           ArtNetController::transmissionModeToString(ArtNetController::Partial));
+                ArtNetController::TransmissionMode transmissionMode;
+                if (combo->currentIndex() == 0)
+                    transmissionMode = ArtNetController::Full;
                 else
-                    m_plugin->unSetParameter(universe, line, cap, ARTNET_TRANSMITMODE);
+                    transmissionMode = ArtNetController::Partial;
+
+                m_plugin->setParameter(universe, line, cap, ARTNET_TRANSMITMODE,
+                        ArtNetController::transmissionModeToString(transmissionMode));
             }
         }
     }

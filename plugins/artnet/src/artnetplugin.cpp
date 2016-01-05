@@ -299,10 +299,14 @@ void ArtNetPlugin::setParameter(quint32 universe, quint32 line, Capability type,
     if (controller == NULL)
         return;
 
+    // If the Controller parameter is restored to its default value,
+    // unset the corresponding plugin parameter
+    bool unset;
+
     if (type == Input)
     {
         if (name == ARTNET_INPUTUNI)
-            controller->setInputUniverse(universe, value.toUInt());
+            unset = controller->setInputUniverse(universe, value.toUInt());
         else
         {
             qWarning() << Q_FUNC_INFO << name << "is not a valid ArtNet input parameter";
@@ -312,11 +316,11 @@ void ArtNetPlugin::setParameter(quint32 universe, quint32 line, Capability type,
     else // if (type == Output)
     {
         if (name == ARTNET_OUTPUTIP)
-            controller->setOutputIPAddress(universe, value.toString());
+            unset = controller->setOutputIPAddress(universe, value.toString());
         else if (name == ARTNET_OUTPUTUNI)
-            controller->setOutputUniverse(universe, value.toUInt());
+            unset = controller->setOutputUniverse(universe, value.toUInt());
         else if (name == ARTNET_TRANSMITMODE)
-            controller->setTransmissionMode(universe, ArtNetController::stringToTransmissionMode(value.toString()));
+            unset = controller->setTransmissionMode(universe, ArtNetController::stringToTransmissionMode(value.toString()));
         else
         {
             qWarning() << Q_FUNC_INFO << name << "is not a valid ArtNet output parameter";
@@ -324,7 +328,10 @@ void ArtNetPlugin::setParameter(quint32 universe, quint32 line, Capability type,
         }
     }
 
-    QLCIOPlugin::setParameter(universe, line, type, name, value);
+    if (unset)
+        QLCIOPlugin::unSetParameter(universe, line, type, name);
+    else
+        QLCIOPlugin::setParameter(universe, line, type, name, value);
 }
 
 QList<ArtNetIO> ArtNetPlugin::getIOMapping()

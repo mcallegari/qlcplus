@@ -181,19 +181,27 @@ void ArtNetController::removeUniverse(quint32 universe, ArtNetController::Type t
     }
 }
 
-void ArtNetController::setInputUniverse(quint32 universe, quint32 artnetUni)
+bool ArtNetController::setInputUniverse(quint32 universe, quint32 artnetUni)
 {
-    if (m_universeMap.contains(universe) == false)
-        return;
+    if (!m_universeMap.contains(universe))
+        return false;
 
     QMutexLocker locker(&m_dataMutex);
     m_universeMap[universe].inputUniverse = artnetUni;
+
+    return universe == artnetUni;
 }
 
-void ArtNetController::setOutputIPAddress(quint32 universe, QString address)
+bool ArtNetController::setOutputIPAddress(quint32 universe, QString address)
 {
-    if (m_universeMap.contains(universe) == false)
-        return;
+    if (!m_universeMap.contains(universe))
+        return false;
+
+    if (address.size() == 0)
+    {
+        m_universeMap[universe].outputAddress = m_broadcastAddr;
+        return true;
+    }
 
     QMutexLocker locker(&m_dataMutex);
     QStringList iFaceIP = m_ipAddr.toString().split(".");
@@ -206,24 +214,30 @@ void ArtNetController::setOutputIPAddress(quint32 universe, QString address)
     qDebug() << "[setOutputIPAddress] transmit to IP: " << newIP;
 
     m_universeMap[universe].outputAddress = QHostAddress(newIP);
+
+    return QHostAddress(newIP) == m_broadcastAddr;
 }
 
-void ArtNetController::setOutputUniverse(quint32 universe, quint32 artnetUni)
+bool ArtNetController::setOutputUniverse(quint32 universe, quint32 artnetUni)
 {
-    if (m_universeMap.contains(universe) == false)
-        return;
+    if (!m_universeMap.contains(universe))
+        return false;
 
     QMutexLocker locker(&m_dataMutex);
     m_universeMap[universe].outputUniverse = artnetUni;
+
+    return universe == artnetUni;
 }
 
-void ArtNetController::setTransmissionMode(quint32 universe, ArtNetController::TransmissionMode mode)
+bool ArtNetController::setTransmissionMode(quint32 universe, ArtNetController::TransmissionMode mode)
 {
-    if (m_universeMap.contains(universe) == false)
-        return;
+    if (!m_universeMap.contains(universe))
+        return false;
 
     QMutexLocker locker(&m_dataMutex);
     m_universeMap[universe].outputTransmissionMode = int(mode);
+
+    return mode == ArtNetController::Full;
 }
 
 QString ArtNetController::transmissionModeToString(ArtNetController::TransmissionMode mode)
