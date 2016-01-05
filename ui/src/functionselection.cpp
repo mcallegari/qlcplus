@@ -68,6 +68,7 @@ FunctionSelection::FunctionSelection(QWidget* parent, Doc* doc)
                )
     , m_disableFilters(0)
     , m_constFilter(false)
+    , m_showSequences(false)
 {
     Q_ASSERT(doc != NULL);
 
@@ -340,20 +341,20 @@ void FunctionSelection::refillTree()
                 item->setSelected(selection.contains(function->id()));
         }
 
-        if (function->type() == Function::Chaser && m_showSequences == true)
+        // Show sequence attached to its scene when chasers are filtered out
+        if (m_showSequences
+                && function->type() == Function::Chaser
+                && qobject_cast<Chaser*>(function)->isSequence()
+                && (m_filter & Function::Scene))
         {
-            Chaser *chs = qobject_cast<Chaser*>(function);
-            if (chs->isSequence() == true)
+            QTreeWidgetItem* item = m_funcTree->addFunction(function->id());
+            if (disabledFunctions().contains(function->id()))
+                item->setFlags(0); // Disables the item
+            else
             {
-                QTreeWidgetItem* item = m_funcTree->addFunction(function->id());
-                if (disabledFunctions().contains(function->id()))
-                    item->setFlags(0); // Disables the item
-                else
-                {
-                    item->setSelected(selection.contains(function->id()));
-                    if (item->parent() != NULL)
-                        item->parent()->setFlags(item->parent()->flags() | Qt::ItemIsEnabled);
-                }
+                item->setSelected(selection.contains(function->id()));
+                if (item->parent() != NULL)
+                    item->parent()->setFlags(item->parent()->flags() | Qt::ItemIsEnabled);
             }
         }
     }

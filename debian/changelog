@@ -2,6 +2,7 @@ qlcplus (4.10.3) stable; urgency=low
 
   * Scene Editor: Remember Channels Groups values when saving and loading a workspace (David Garyga)
   * Scene Editor: Remember fixtures even with no activated channel (David Garyga)
+  * Show Manager/Function Selection: Fix sequences always displayed even with Chasers and Scenes both filtered out (David Garyga)
   * Universes: Forbid deleting universes in the middle of the list, this prevents a lot of bugs and crashes (David Garyga)
   * Plugins/ArtNet: Fix input and output initialization conflict that results in no input (David Garyga)
   * Plugins/ArtNet: Allow sending and receiving ArtNet on several different interfaces (David Garyga)
