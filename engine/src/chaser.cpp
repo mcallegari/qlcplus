@@ -242,7 +242,10 @@ void Chaser::setTotalDuration(quint32 msec)
 {
     if (durationMode() == Chaser::Common)
     {
-        setDuration(msec / m_steps.count());
+        int stepsCount = m_steps.count();
+        if (stepsCount == 0)
+            stepsCount = 1;
+        setDuration(msec / stepsCount);
     }
     else
     {
