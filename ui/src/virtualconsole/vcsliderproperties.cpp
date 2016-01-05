@@ -655,7 +655,8 @@ void VCSliderProperties::slotAttachPlaybackFunctionClicked()
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
                  | Function::Video
 #endif
-                 , true);
+                 , false);
+    fs.disableFilters(Function::Script | Function::Show);
 
     if (fs.exec() != QDialog::Accepted)
         return;
