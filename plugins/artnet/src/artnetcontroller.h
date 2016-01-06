@@ -102,7 +102,7 @@ public:
 
     /** Return the list of the universes handled by
      *  this controller */
-    QList<quint32>universesList();
+    QList<quint32> universesList();
 
     /** Return the specific information for the given universe */
     UniverseInfo *getUniverseInfo(quint32 universe);
