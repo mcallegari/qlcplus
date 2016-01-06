@@ -42,7 +42,7 @@ void OSCPacketizer::setupOSCDmx(QByteArray &data, quint32 universe, quint32 chan
 
     // add trailing zeros to reach a multiple of 4
     int zeroNumber = 4 - (path.length() % 4);
-    if (zeroNumber != 0 && zeroNumber != 4)
+    if (zeroNumber > 0)
         data.append(QByteArray(zeroNumber, 0x00));
 
     data.append(",f");
