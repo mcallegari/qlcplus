@@ -55,6 +55,7 @@ public:
 
     ArtNetController(QNetworkInterface const& interface,
                      QNetworkAddressEntry const& address,
+                     QSharedPointer<QUdpSocket> const& udpSocket,
                      quint32 line, QObject *parent = 0);
 
     ~ArtNetController();
@@ -141,8 +142,7 @@ private:
     quint32 m_line;
 
     /** The UDP socket used to send/receive ArtNet packets */
-    QUdpSocket* m_udpSocket;
-    QUdpSocket* m_udpSocketBroadcastRecv;
+    QSharedPointer<QUdpSocket> m_udpSocket;
 
     /** Helper class used to create or parse ArtNet packets */
     QScopedPointer<ArtNetPacketizer> m_packetizer;
@@ -168,11 +168,9 @@ private:
     bool handleArtNetPollReply(QByteArray const& datagram, QHostAddress const& senderAddress);
     bool handleArtNetPoll(QByteArray const& datagram, QHostAddress const& senderAddress);
     bool handleArtNetDmx(QByteArray const& datagram, QHostAddress const& senderAddress);
+
 public:
     bool handlePacket(QByteArray const& datagram, QHostAddress const& senderAddress);
-
-protected slots:
-    void slotReadyRead();
 
 protected slots:
     void slotPollTimeout();

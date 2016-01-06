@@ -134,7 +134,7 @@ void ConfigureArtNet::fillMappingTree()
                 item->setData(KMapColumnInterface, PROP_LINE, controller->line());
                 item->setData(KMapColumnInterface, PROP_TYPE, ArtNetController::Input);
 
-                item->setText(KMapColumnInterface, controller->getNetworkIP());
+                item->setText(KMapColumnInterface, "255.255.255.255");
                 item->setText(KMapColumnUniverse, QString::number(universe + 1));
                 item->setTextAlignment(KMapColumnUniverse, Qt::AlignHCenter | Qt::AlignVCenter);
 

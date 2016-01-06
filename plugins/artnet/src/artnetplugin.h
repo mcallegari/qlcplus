@@ -123,6 +123,16 @@ public:
 private:
     /** Map of the ArtNet plugin Input/Output lines */
     QList<ArtNetIO> m_IOmapping;
+
+    /*********************************************************************
+     * ArtNet socket
+     *********************************************************************/
+private:
+    QSharedPointer<QUdpSocket> getUdpSocket();
+private slots:
+    void slotReadyRead();
+private:
+    QWeakPointer<QUdpSocket> m_udpSocket;
 };
 
 #endif

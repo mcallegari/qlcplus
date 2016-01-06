@@ -22,6 +22,7 @@
 
 #include <QSettings>
 #include <QDebug>
+#include <QMessageBox>
 
 ArtNetPlugin::~ArtNetPlugin()
 {
@@ -148,6 +149,7 @@ bool ArtNetPlugin::openOutput(quint32 output, quint32 universe)
     {
         ArtNetController *controller = new ArtNetController(m_IOmapping.at(output).interface,
                                                             m_IOmapping.at(output).address,
+                                                            getUdpSocket(),
                                                             output, this);
         connect(controller, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
                 this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
@@ -219,6 +221,7 @@ bool ArtNetPlugin::openInput(quint32 input, quint32 universe)
     {
         ArtNetController *controller = new ArtNetController(m_IOmapping.at(input).interface,
                                                             m_IOmapping.at(input).address,
+                                                            getUdpSocket(),
                                                             input, this);
         connect(controller, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
                 this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
@@ -337,6 +340,56 @@ void ArtNetPlugin::setParameter(quint32 universe, quint32 line, Capability type,
 QList<ArtNetIO> ArtNetPlugin::getIOMapping()
 {
     return m_IOmapping;
+}
+
+/*********************************************************************
+ * ArtNet socket
+ *********************************************************************/
+
+QSharedPointer<QUdpSocket> ArtNetPlugin::getUdpSocket()
+{
+    // Is the socket already present ?
+    QSharedPointer<QUdpSocket> udpSocket(m_udpSocket);
+    if (udpSocket)
+        return udpSocket;
+
+    // Create a new socket
+    udpSocket = QSharedPointer<QUdpSocket>(new QUdpSocket());
+    m_udpSocket = udpSocket.toWeakRef();
+
+    if (udpSocket->bind(ARTNET_PORT, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint))
+    {
+        connect(udpSocket.data(), SIGNAL(readyRead()),
+                this, SLOT(slotReadyRead()));
+    }
+    else
+    {
+        qWarning() << "ArtNet: could not bind socket to address" << QString("0:%2").arg(ARTNET_PORT);
+        QMessageBox::warning(NULL, tr("Socket error"),
+                tr("ArtNet: Could not bind to ArtNet port (%1).\n"
+                   "It may be already in use by another program.").arg(ARTNET_PORT));
+    }
+    return udpSocket;
+}
+
+void ArtNetPlugin::slotReadyRead()
+{
+    QUdpSocket* udpSocket = qobject_cast<QUdpSocket*>(sender());
+    Q_ASSERT(udpSocket != NULL);
+
+    QByteArray datagram;
+    QHostAddress senderAddress;
+    while (udpSocket->hasPendingDatagrams())
+    {
+        datagram.resize(udpSocket->pendingDatagramSize());
+        udpSocket->readDatagram(datagram.data(), datagram.size(), &senderAddress);
+
+        foreach(ArtNetIO io, m_IOmapping)
+        {
+            if (io.controller != NULL)
+                io.controller->handlePacket(datagram, senderAddress);
+        }
+    }
 }
 
 /*****************************************************************************
