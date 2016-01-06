@@ -139,7 +139,7 @@ void ConfigureArtNet::fillMappingTree()
                 item->setTextAlignment(KMapColumnUniverse, Qt::AlignHCenter | Qt::AlignVCenter);
 
                 QSpinBox *spin = new QSpinBox(this);
-                spin->setRange(0, 65535);
+                spin->setRange(0, 0x7fff);
                 spin->setValue(info->inputUniverse);
                 m_uniMapTree->setItemWidget(item, KMapColumnArtNetUni, spin);
             }
@@ -166,7 +166,7 @@ void ConfigureArtNet::fillMappingTree()
                 }
 
                 QSpinBox *spin = new QSpinBox(this);
-                spin->setRange(0, 65535);
+                spin->setRange(0, 0x7fff);
                 spin->setValue(info->outputUniverse);
                 m_uniMapTree->setItemWidget(item, KMapColumnArtNetUni, spin);
 
