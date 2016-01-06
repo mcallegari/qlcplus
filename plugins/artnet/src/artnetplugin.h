@@ -132,6 +132,8 @@ private:
 private slots:
     void slotReadyRead();
 private:
+    void handlePacket(QByteArray const& datagram, QHostAddress const& senderAddress);
+private:
     QWeakPointer<QUdpSocket> m_udpSocket;
 };
 

@@ -25,6 +25,8 @@
 #define TRANSMIT_FULL    "Full"
 #define TRANSMIT_PARTIAL "Partial"
 
+#define _DEBUG_RECEIVED_PACKETS 0
+
 ArtNetController::ArtNetController(QNetworkInterface const& interface, QNetworkAddressEntry const& address,
                                    QSharedPointer<QUdpSocket> const& udpSocket,
                                    quint32 line, QObject *parent)
@@ -283,7 +285,9 @@ bool ArtNetController::handleArtNetPollReply(QByteArray const& datagram, QHostAd
         return false;
     }
 
+#if _DEBUG_RECEIVED_PACKETS
     qDebug() << "[ArtNet] ArtPollReply received";
+#endif
 
     if (m_nodesList.contains(senderAddress) == false)
         m_nodesList[senderAddress] = newNode;
@@ -295,7 +299,9 @@ bool ArtNetController::handleArtNetPoll(QByteArray const& datagram, QHostAddress
 {
     Q_UNUSED(datagram);
 
+#if _DEBUG_RECEIVED_PACKETS
     qDebug() << "[ArtNet] ArtPoll received";
+#endif
     QByteArray pollReplyPacket;
     m_packetizer->setupArtNetPollReply(pollReplyPacket, m_ipAddr, m_MACAddress);
     m_udpSocket->writeDatagram(pollReplyPacket, senderAddress, ARTNET_PORT);
@@ -316,9 +322,11 @@ bool ArtNetController::handleArtNetDmx(QByteArray const& datagram, QHostAddress 
         return false;
     }
 
-    // qDebug() << "[ArtNet] DMX data received. Universe:" << artnetUniverse << ", Data size:" << dmxData.size()
-    //     << ", data[0]=" << (int)dmxData[0]
-    //     << ", from=" << senderAddress.toString();
+#if _DEBUG_RECEIVED_PACKETS
+    qDebug() << "[ArtNet] DMX data received. Universe:" << artnetUniverse << ", Data size:" << dmxData.size()
+        << ", data[0]=" << (int)dmxData[0]
+        << ", from=" << senderAddress.toString();
+#endif
 
     for (QMap<quint32, UniverseInfo>::iterator it = m_universeMap.begin(); it != m_universeMap.end(); ++it)
     {
@@ -332,13 +340,17 @@ bool ArtNetController::handleArtNetDmx(QByteArray const& datagram, QHostAddress 
                 m_dmxValuesMap[universe] = new QByteArray(512, 0);
             dmxValues = m_dmxValuesMap[universe];
 
-            // qDebug() << "[ArtNet] -> universe" << (universe + 1);
+#if _DEBUG_RECEIVED_PACKETS
+            qDebug() << "[ArtNet] -> universe" << (universe + 1);
+#endif
 
             for (int i = 0; i < dmxData.length(); i++)
             {
                 if (dmxValues->at(i) != dmxData.at(i))
                 {
-                    // qDebug() << "[ArtNet] a value differs";
+#if _DEBUG_RECEIVED_PACKETS
+                    qDebug() << "[ArtNet] a value differs";
+#endif
                     dmxValues->replace(i, 1, (const char *)(dmxData.data() + i), 1);
                     emit valueChanged(universe, m_line, i, (uchar)dmxData.at(i));
                 }
@@ -352,7 +364,9 @@ bool ArtNetController::handleArtNetDmx(QByteArray const& datagram, QHostAddress 
 
 bool ArtNetController::handlePacket(QByteArray const& datagram, QHostAddress const& senderAddress)
 {
-    //qDebug() << "Received packet with size: " << datagram.size() << ", host: " << senderAddress.toString();
+#if _DEBUG_RECEIVED_PACKETS
+    qDebug() << "Received packet with size: " << datagram.size() << ", host: " << senderAddress.toString();
+#endif
     int opCode = -1;
     if (m_packetizer->checkPacketAndCode(datagram, opCode) == true)
     {
@@ -372,7 +386,7 @@ bool ArtNetController::handlePacket(QByteArray const& datagram, QHostAddress con
     else
         qWarning() << "[ArtNet] Malformed packet received";
 
-    return false;
+    return true;
 }
 
 void ArtNetController::slotPollTimeout()

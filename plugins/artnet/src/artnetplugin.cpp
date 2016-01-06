@@ -383,11 +383,31 @@ void ArtNetPlugin::slotReadyRead()
     {
         datagram.resize(udpSocket->pendingDatagramSize());
         udpSocket->readDatagram(datagram.data(), datagram.size(), &senderAddress);
+        handlePacket(datagram, senderAddress);
+    }
+}
 
-        foreach(ArtNetIO io, m_IOmapping)
+void ArtNetPlugin::handlePacket(QByteArray const& datagram, QHostAddress const& senderAddress)
+{
+    // A firts filter: look for a controller on the same subnet as the sender.
+    // This allows having the same ArtNet Universe on 2 different network interfaces.
+    foreach(ArtNetIO io, m_IOmapping)
+    {
+        if (senderAddress.isInSubnet(io.address.ip(), io.address.prefixLength()))
         {
             if (io.controller != NULL)
                 io.controller->handlePacket(datagram, senderAddress);
+            return;
+        }
+    }
+    // Packet comming from another subnet. This is an unusual case.
+    // We stop at the first controller that handles this packet.
+    foreach(ArtNetIO io, m_IOmapping)
+    {
+        if (io.controller != NULL)
+        {
+            if (io.controller->handlePacket(datagram, senderAddress))
+                break;
         }
     }
 }
