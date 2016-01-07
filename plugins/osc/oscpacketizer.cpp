@@ -116,11 +116,11 @@ bool OSCPacketizer::parseMessage(QByteArray &data, QString &path, QByteArray &va
     {
         switch (data.at(currPos))
         {
-            case 0x00: tagsEnded = true; break;
-            case 0x62: /* 'b' */ typeArray.append(Blob); break;
-            case 0x66: /* 'f' */ typeArray.append(Float); break;
-            case 0x69: /* 'i' */ typeArray.append(Integer); break;
-            case 0x73: /* 's' */ typeArray.append(String); break;
+            case '\0': tagsEnded = true; break;
+            case 'b': typeArray.append(Blob); break;
+            case 'f': typeArray.append(Float); break;
+            case 'i': typeArray.append(Integer); break;
+            case 's': typeArray.append(String); break;
             default: break;
         }
         currPos++;

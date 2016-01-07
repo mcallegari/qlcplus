@@ -84,7 +84,7 @@ public:
     bool setOutputIPAddress(quint32 universe, QString address);
 
     /** Set a specific ArtNet output universe for the given QLC+ universe.
-     *  Return true if this restores default ouput universe */
+     *  Return true if this restores default output universe */
     bool setOutputUniverse(quint32 universe, quint32 artnetUni);
 
     /** Set the transmission mode of the ArtNet DMX packets over the network.

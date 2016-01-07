@@ -53,9 +53,9 @@ OSCController::~OSCController()
     m_dmxValuesMap.clear();
 }
 
-QString OSCController::getNetworkIP()
+QHostAddress OSCController::getNetworkIP() const
 {
-    return m_ipAddr.toString();
+    return m_ipAddr;
 }
 
 void OSCController::addUniverse(quint32 universe, OSCController::Type type)
@@ -125,79 +125,100 @@ void OSCController::removeUniverse(quint32 universe, OSCController::Type type)
     }
 }
 
-void OSCController::setInputPort(quint32 universe, quint16 port)
+bool OSCController::setInputPort(quint32 universe, quint16 port)
 {
-    if (m_universeMap.contains(universe))
+    if (!m_universeMap.contains(universe))
+        return false;
+
+    QMutexLocker locker(&m_dataMutex);
+    if (m_portsMap.contains(m_universeMap[universe].inputPort))
+        m_portsMap.take(m_universeMap[universe].inputPort);
+    m_universeMap[universe].inputPort = port;
+    m_portsMap[port] = universe;
+
+    QUdpSocket *socket = m_universeMap[universe].inputSocket;
+    if (socket == NULL)
     {
-        if (m_portsMap.contains(m_universeMap[universe].inputPort))
-            m_portsMap.take(m_universeMap[universe].inputPort);
-        m_universeMap[universe].inputPort = port;
-        m_portsMap[port] = universe;
-
-        QUdpSocket *socket = m_universeMap[universe].inputSocket;
-        if (socket == NULL)
-        {
-            socket = new QUdpSocket(this);
-            qDebug() << "[OSC] new input socket created on universe" << universe;
-        }
-        else
-        {
-            disconnect(socket, SIGNAL(readyRead()),
-                       this, SLOT(processPendingPackets()));
-            qDebug() << "[OSC] socket disconnected from universe" << universe;
-        }
-
-        if (socket->bind(port, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint) == false)
-        {
-            qDebug() << "[OSCController] failed to bind socket to port" << port;
-            return;
-        }
-
-        qDebug() << "[OSC] socket connected for universe" << universe;
-        connect(socket, SIGNAL(readyRead()),
-                this, SLOT(processPendingPackets()));
-        m_universeMap[universe].inputSocket = socket;
+        socket = new QUdpSocket(this);
+        qDebug() << "[OSC] new input socket created on universe" << universe;
     }
+    else
+    {
+        disconnect(socket, SIGNAL(readyRead()),
+                this, SLOT(processPendingPackets()));
+        qDebug() << "[OSC] socket disconnected from universe" << universe;
+    }
+
+    if (socket->bind(port, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint) == false)
+    {
+        qDebug() << "[OSCController] failed to bind socket to port" << port;
+        return false;
+    }
+
+    qDebug() << "[OSC] socket connected for universe" << universe;
+    connect(socket, SIGNAL(readyRead()),
+            this, SLOT(processPendingPackets()));
+    m_universeMap[universe].inputSocket = socket;
+
+    return port == 7700 + universe;
 }
 
-void OSCController::setFeedbackIPAddress(quint32 universe, QString address)
+bool OSCController::setFeedbackIPAddress(quint32 universe, QString address)
 {
     if (m_universeMap.contains(universe) == false)
-        return;
+        return false;
 
     QMutexLocker locker(&m_dataMutex);
     m_universeMap[universe].feedbackAddress = QHostAddress(address);
+
+    if (m_ipAddr == QHostAddress::LocalHost)
+        return QHostAddress(address) == QHostAddress::LocalHost;
+    return QHostAddress(address) == QHostAddress::Null;
 }
 
-void OSCController::setFeedbackPort(quint32 universe, quint16 port)
+bool OSCController::setFeedbackPort(quint32 universe, quint16 port)
 {
+    if (m_universeMap.contains(universe) == false)
+        return false;
+
     QMutexLocker locker(&m_dataMutex);
     if (m_universeMap.contains(universe))
         m_universeMap[universe].feedbackPort = port;
+
+    return port == 9000 + universe;
 }
 
-void OSCController::setOutputIPAddress(quint32 universe, QString address)
+bool OSCController::setOutputIPAddress(quint32 universe, QString address)
 {
     if (m_universeMap.contains(universe) == false)
-        return;
+        return false;
 
     QMutexLocker locker(&m_dataMutex);
     m_universeMap[universe].outputAddress = QHostAddress(address);
+
+    if (m_ipAddr == QHostAddress::LocalHost)
+        return QHostAddress(address) == QHostAddress::LocalHost;
+    return QHostAddress(address) == QHostAddress::Null;
 }
 
-void OSCController::setOutputPort(quint32 universe, quint16 port)
+bool OSCController::setOutputPort(quint32 universe, quint16 port)
 {
+    if (m_universeMap.contains(universe) == false)
+        return false;
+
     QMutexLocker locker(&m_dataMutex);
     if (m_universeMap.contains(universe))
         m_universeMap[universe].outputPort = port;
+
+    return port == 9000 + universe;
 }
 
-QList<quint32> OSCController::universesList()
+QList<quint32> OSCController::universesList() const
 {
     return m_universeMap.keys();
 }
 
-UniverseInfo *OSCController::getUniverseInfo(quint32 universe)
+UniverseInfo* OSCController::getUniverseInfo(quint32 universe)
 {
     if (m_universeMap.contains(universe))
         return &m_universeMap[universe];
@@ -205,7 +226,7 @@ UniverseInfo *OSCController::getUniverseInfo(quint32 universe)
     return NULL;
 }
 
-OSCController::Type OSCController::type()
+OSCController::Type OSCController::type() const
 {
     int type = Unknown;
     foreach(UniverseInfo info, m_universeMap.values())
@@ -216,17 +237,17 @@ OSCController::Type OSCController::type()
     return Type(type);
 }
 
-quint32 OSCController::line()
+quint32 OSCController::line() const
 {
     return m_line;
 }
 
-quint64 OSCController::getPacketSentNumber()
+quint64 OSCController::getPacketSentNumber() const
 {
     return m_packetSent;
 }
 
-quint64 OSCController::getPacketReceivedNumber()
+quint64 OSCController::getPacketReceivedNumber() const
 {
     return m_packetReceived;
 }
