@@ -48,7 +48,8 @@ void OSCPacketizer::setupOSCDmx(QByteArray &data, quint32 universe, quint32 chan
     data.append(",f");
     data.append((char)0x00);
     data.append((char)0x00);
-    float fVal = (float)value;
+    // Output value
+    float fVal = (float)value / 255.f;
     data.append(*(((char *)&fVal) + 3));
     data.append(*(((char *)&fVal) + 2));
     data.append(*(((char *)&fVal) + 1));
@@ -82,7 +83,7 @@ void OSCPacketizer::setupOSCGeneric(QByteArray &data, QString &path, QString typ
         if (types.at(i) == 'f')
         {
             uchar val = (uchar)values.at(i);
-            float fVal = (float)val / 255.0;
+            float fVal = (float)val / 255.f;
             data.append(*(((char *)&fVal) + 3));
             data.append(*(((char *)&fVal) + 2));
             data.append(*(((char *)&fVal) + 1));
