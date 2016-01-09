@@ -27,7 +27,7 @@ import "."
 Rectangle
 {
     id: rgbmeContainer
-    anchors.fill: parent
+    //anchors.fill: parent
     color: "transparent"
 
     property int functionID: -1
@@ -78,8 +78,9 @@ Rectangle
             id: cNameEdit
             x: leftArrow.width + 5
             height: 40
-            width: rgbmeContainer.width - x
+            width: topBar.width - x
             color: UISettings.fgMain
+            clip: true
             text: matrix ? matrix.name : ""
             verticalAlignment: TextInput.AlignVCenter
             font.family: "RobotoCondensed"
@@ -400,8 +401,10 @@ Rectangle
     Component
     {
         id: imageAlgoComponent
+
         GridLayout
         {
+            id: imageAlgoGrid
             columns: 2
             columnSpacing: 5
 

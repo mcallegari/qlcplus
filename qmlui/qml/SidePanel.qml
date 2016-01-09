@@ -57,39 +57,33 @@ Rectangle
         }
     }
 
-    Rectangle
+    Loader
     {
-        id: loaderArea
+        id: viewLoader
         x: sidePanelRoot.panelAlignment === Qt.AlignRight ? collapseWidth : 0
         width: sidePanelRoot.width - collapseWidth
         height: parent.height
-        color: "transparent"
+        source: loaderSource
 
-        Loader
+        // this is a generic ID used by the Loader
+        // content to target an object to edit/view
+        property int itemID: -1
+
+        onLoaded: contentLoaded(item, itemID)
+
+        Connections
         {
-            id: viewLoader
-            anchors.fill: parent
-            source: loaderSource
-
-            // this is a generic ID used by the Loader
-            // content to target an object to edit/view
-            property int itemID: -1
-
-            onLoaded: contentLoaded(item, itemID)
-
-            Connections
+            ignoreUnknownSignals: true
+            target: viewLoader.item
+            onRequestView:
             {
-                ignoreUnknownSignals: true
-                target: viewLoader.item
-                onRequestView:
-                {
-                    console.log("SidePanel loader ID requested: " + ID)
-                    itemID = ID
-                    loaderSource = qmlSrc
-                }
+                console.log("SidePanel loader ID requested: " + ID)
+                itemID = ID
+                loaderSource = qmlSrc
             }
         }
     }
+
 
     NumberAnimation
     {

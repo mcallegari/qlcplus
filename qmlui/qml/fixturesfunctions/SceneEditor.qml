@@ -80,8 +80,9 @@ Rectangle
                 id: sNameEdit
                 x: leftArrow.width + 5
                 height: 40
-                width: seContainer.width // - addFunc.width - removeFunc.width
+                width: seContainer.width - backBox.width - removeFxButton.width - 10
                 color: UISettings.fgMain
+                clip: true
                 text: sceneEditor.sceneName
                 verticalAlignment: TextInput.AlignVCenter
                 font.family: "RobotoCondensed"

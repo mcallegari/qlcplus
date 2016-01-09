@@ -109,8 +109,9 @@ Rectangle
                 id: cNameEdit
                 x: leftArrow.width + 5
                 height: 40
-                width: ceContainer.width - addFunc.width - removeFunc.width
+                width: ceContainer.width - backBox.width - addFunc.width - removeFunc.width - 10
                 color: UISettings.fgMain
+                clip: true
                 text: chaserEditor.chaserName
                 verticalAlignment: TextInput.AlignVCenter
                 font.family: "RobotoCondensed"
