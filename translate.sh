@@ -34,7 +34,7 @@ function compile {
     echo Processing $1
     INPUT_NAME="*_${1}.ts"
     OUTPUT_NAME="qlcplus_${1}.qm"
-    $LRELEASE_BIN $(find . -name $INPUT_NAME) -qm $OUTPUT_NAME
+    $LRELEASE_BIN -silent $(find . -name $INPUT_NAME) -qm $OUTPUT_NAME
 }
 
 # Compile all translated languages present in $languages
