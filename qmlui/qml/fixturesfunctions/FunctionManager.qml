@@ -53,6 +53,9 @@ Rectangle
             case Function.Chaser:
                 fmContainer.requestView(funcID, "qrc:/ChaserEditor.qml")
             break;
+            case Function.RGBMatrix:
+                fmContainer.requestView(funcID, "qrc:/RGBMatrixEditor.qml")
+            break;
             case Function.Show:
                 showManager.currentShowID = funcID
                 mainView.switchToContext("SHOWMGR", "qrc:/ShowManager.qml")

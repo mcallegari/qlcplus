@@ -16,11 +16,13 @@
     <file alias="audiocard.svg">audiocard.svg</file>
     <file alias="audiotriggers.svg">audiotriggers.svg</file>
     <file alias="back.svg">back.svg</file>
+    <file alias="background.svg">background.svg</file>
     <file alias="beam.svg">beam.svg</file>
     <file alias="blackout.svg">blackout.svg</file>
     <file alias="blue.svg">blue.svg</file>
     <file alias="button.svg">button.svg</file>
     <file alias="buttonmatrix.svg">buttonmatrix.svg</file>
+    <file alias="cancel.svg">cancel.svg</file>
     <file alias="chaser.svg">chaser.svg</file>
     <file alias="clock.svg">clock.svg</file>
     <file alias="configure.svg">configure.svg</file>

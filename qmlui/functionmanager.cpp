@@ -22,6 +22,7 @@
 #include <QDebug>
 
 #include "functionmanager.h"
+#include "rgbmatrixeditor.h"
 #include "chasereditor.h"
 #include "sceneeditor.h"
 #include "collection.h"
@@ -53,6 +54,7 @@ FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)
 
     qmlRegisterType<Collection>("com.qlcplus.classes", 1, 0, "Collection");
     qmlRegisterType<Chaser>("com.qlcplus.classes", 1, 0, "Chaser");
+    qmlRegisterType<RGBMatrix>("com.qlcplus.classes", 1, 0, "RGBMatrix");
 
     m_functionTree = new TreeModel(this);
     QQmlEngine::setObjectOwnership(m_functionTree, QQmlEngine::CppOwnership);
@@ -283,6 +285,11 @@ void FunctionManager::setEditorFunction(quint32 fID)
         case Function::Chaser:
         {
             m_currentEditor = new ChaserEditor(m_view, m_doc, this);
+        }
+        break;
+        case Function::RGBMatrix:
+        {
+            m_currentEditor = new RGBMatrixEditor(m_view, m_doc, this);
         }
         break;
         case Function::Show: break; // a Show is edited by the Show Manager

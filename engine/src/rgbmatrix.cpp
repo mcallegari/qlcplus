@@ -225,11 +225,13 @@ RGBMap RGBMatrix::previewMap(int step)
     QMutexLocker algorithmLocker(&m_algorithmMutex);
     if (m_algorithm == NULL)
         return map;
-    FixtureGroup* grp = doc()->fixtureGroup(fixtureGroup());
-    if (grp != NULL)
-    {
-        map = m_algorithm->rgbMap(grp->size(), m_stepColor.rgb(), step);
-    }
+
+    if (m_group == NULL)
+        m_group = doc()->fixtureGroup(fixtureGroup());
+
+    if (m_group != NULL)
+        map = m_algorithm->rgbMap(m_group->size(), m_stepColor.rgb(), step);
+
     return map;
 }
 

@@ -32,14 +32,15 @@ HEADERS += \
     functioneditor.h \
     functionmanager.h \
     inputoutputmanager.h \ 
-    treemodel.h \
-    treemodelitem.h \
-    previewcontext.h \
     mainview2d.h \
     mainviewdmx.h \
     modelselector.h \
+    previewcontext.h \
+    rgbmatrixeditor.h \
     sceneeditor.h \
-    showmanager.h
+    showmanager.h \
+    treemodel.h \
+    treemodelitem.h
 
 SOURCES += main.cpp \
     app.cpp \
@@ -50,14 +51,15 @@ SOURCES += main.cpp \
     functioneditor.cpp \
     functionmanager.cpp \
     inputoutputmanager.cpp \
-    treemodel.cpp \
-    treemodelitem.cpp \
-    previewcontext.cpp \
     mainview2d.cpp \
     mainviewdmx.cpp \
     modelselector.cpp \
+    previewcontext.cpp \
+    rgbmatrixeditor.cpp \
     sceneeditor.cpp \
-    showmanager.cpp
+    showmanager.cpp \
+    treemodel.cpp \
+    treemodelitem.cpp
     
 
 #############################################
