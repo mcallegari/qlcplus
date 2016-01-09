@@ -94,7 +94,7 @@ Rectangle
         height: geContainer.height - topBar.height
         z: 4
         boundsBehavior: Flickable.StopAtBounds
-        model: fixtureManager.groupsModel
+        model: fixtureManager.groupsTreeModel
         delegate:
             Component
             {

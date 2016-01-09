@@ -189,13 +189,16 @@ Rectangle
 
                         Component.onCompleted:
                         {
-                            if (index == currentIdx ||
-                                (currentValue && itemValue === currentValue))
+                            if (index === currentIdx)
                             {
                                 currentText = itemText
                                 currentIcon = itemIcon
-                                if (currentValue && itemValue === currentValue)
-                                    currentIndex = index
+                            }
+                            if (currentValue && itemValue === currentValue)
+                            {
+                                currentText = itemText
+                                currentIcon = itemIcon
+                                popupRepeater.currentIndex = index
                             }
                         }
 

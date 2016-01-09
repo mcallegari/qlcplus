@@ -342,9 +342,25 @@ QQmlListProperty<Fixture> FixtureManager::fixtures()
     return QQmlListProperty<Fixture>(this, m_fixtureList);
 }
 
-QVariant FixtureManager::groupsModel()
+QVariant FixtureManager::groupsTreeModel()
 {
     return QVariant::fromValue(m_fixtureTree);
+}
+
+QVariant FixtureManager::groupsListModel()
+{
+    QVariantList groupsList;
+
+    foreach(FixtureGroup *grp, m_doc->fixtureGroups())
+    {
+        QVariantMap grpMap;
+        grpMap.insert("mIcon", "qrc:/group.svg");
+        grpMap.insert("mLabel", grp->name());
+        grpMap.insert("mValue", grp->id());
+        groupsList.append(grpMap);
+    }
+
+    return QVariant::fromValue(groupsList);
 }
 
 void FixtureManager::addFixturesToNewGroup(QList<quint32> fxList)
@@ -513,7 +529,8 @@ void FixtureManager::updateFixtureTree()
             m_fixtureTree->addItem(fixture->name(), params, grp->name());
         }
     }
-    emit groupsModelChanged();
+    emit groupsTreeModelChanged();
+    emit groupsListModelChanged();
 }
 
 QVariantList FixtureManager::goboChannels()

@@ -38,7 +38,8 @@ class FixtureManager : public QObject
     Q_PROPERTY(int fixturesCount READ fixturesCount NOTIFY fixturesCountChanged)
     Q_PROPERTY(QQmlListProperty<Fixture> fixtures READ fixtures)
     Q_PROPERTY(QVariantList fixturesMap READ fixturesMap NOTIFY fixturesMapChanged)
-    Q_PROPERTY(QVariant groupsModel READ groupsModel NOTIFY groupsModelChanged)
+    Q_PROPERTY(QVariant groupsTreeModel READ groupsTreeModel NOTIFY groupsTreeModelChanged)
+    Q_PROPERTY(QVariant groupsListModel READ groupsListModel NOTIFY groupsListModelChanged)
 
     Q_PROPERTY(QVariantList goboChannels READ goboChannels NOTIFY goboChannelsChanged)
     Q_PROPERTY(QVariantList colorWheelChannels READ colorWheelChannels NOTIFY colorWheelChannelsChanged)
@@ -79,8 +80,11 @@ public:
     /** Returns a QML-readable list of references to Fixture classes */
     QQmlListProperty<Fixture> fixtures();
 
-    /** Returns the data model to display a tree of Groups/Fixtures */
-    QVariant groupsModel();
+    /** Returns the data model to display a tree of FixtureGroups/Fixtures */
+    QVariant groupsTreeModel();
+
+    /** Returns the data model to display a list of FixtureGroups with icons */
+    QVariant groupsListModel();
 
     /** Add a list of fixture IDs to a new fixture group */
     void addFixturesToNewGroup(QList<quint32>fxList);
@@ -115,8 +119,11 @@ signals:
     /** Notify the listeners that the number of Fixtures has changed */
     void fixturesCountChanged();
 
-    /** Notify the listeners that the Group tree model has changed */
-    void groupsModelChanged();
+    /** Notify the listeners that the FixtureGroup tree model has changed */
+    void groupsTreeModelChanged();
+
+    /** Notify the listeners that the FixtureGroup list model has changed */
+    void groupsListModelChanged();
 
     void newFixtureCreated(quint32 fxID, qreal x, qreal y);
 

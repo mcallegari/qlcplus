@@ -224,10 +224,8 @@ Rectangle
                         height: 30
                         Layout.fillWidth: true
                         model: fixtureBrowser.modes(fxManufacturer, fxModel)
-                        onCurrentIndexChanged:
-                        {
-                            fxProps.fxMode = currentText
-                        }
+                        onModelChanged: currentIndex = 0
+                        onCurrentTextChanged: fxProps.fxMode = currentText
                     }
                     IconButton
                     {

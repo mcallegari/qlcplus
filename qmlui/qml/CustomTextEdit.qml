@@ -42,7 +42,7 @@ Rectangle
         color: UISettings.fgMain
         anchors.fill: parent
         anchors.margins: 4
-        clip: false
+        clip: true
         font.family: "RobotoCondensed"
         font.pointSize: fontSize
         echoMode: TextInput.Normal
