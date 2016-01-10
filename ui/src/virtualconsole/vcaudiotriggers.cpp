@@ -518,12 +518,15 @@ void VCAudioTriggers::editProperties()
         bool captureIsNew = m_inputCapture != capture.data();
         m_inputCapture = capture.data();
 
-        if (m_button->isChecked() && captureIsNew)
-            m_inputCapture->unregisterBandsNumber(barsNumber);
-        m_inputCapture->registerBandsNumber(m_spectrumBars.count());
-        if (captureIsNew)
-            connect(m_inputCapture, SIGNAL(dataProcessed(double*,int,double,quint32)),
-                    this, SLOT(slotDisplaySpectrum(double*,int,double,quint32)));
+        if (m_button->isChecked())
+        {
+            if (!captureIsNew)
+                m_inputCapture->unregisterBandsNumber(barsNumber);
+            m_inputCapture->registerBandsNumber(m_spectrumBars.count());
+            if (captureIsNew)
+                connect(m_inputCapture, SIGNAL(dataProcessed(double*,int,double,quint32)),
+                        this, SLOT(slotDisplaySpectrum(double*,int,double,quint32)));
+        }
     }
 }
 

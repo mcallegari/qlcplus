@@ -136,6 +136,7 @@ bool AudioCapture::initialize()
 
 void AudioCapture::stop()
 {
+    qDebug() << "[AudioCapture] stop capture";
     while (this->isRunning())
     {
         m_userStop = true;
@@ -240,7 +241,7 @@ void AudioCapture::processData()
 
 void AudioCapture::run()
 {
-    qDebug() << Q_FUNC_INFO;
+    qDebug() << "[AudioCapture] start capture";
 
     m_userStop = false;
 
