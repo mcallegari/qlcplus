@@ -66,10 +66,13 @@ int AudioCapture::defaultBarsNumber()
 
 void AudioCapture::registerBandsNumber(int number)
 {
+    qDebug() << "[AudioCapture] registering" << number << "bands";
+
+    QMutexLocker locker(&m_mutex);
+
     bool firstBand = m_fftMagnitudeMap.isEmpty();
     if (number > 0 && number <= FREQ_SUBBANDS_MAX_NUMBER)
     {
-        qDebug() << "[AudioCapture] registering" << number << "bands";
         if (m_fftMagnitudeMap.contains(number) == false)
         {
             BandsData newBands;
@@ -79,22 +82,32 @@ void AudioCapture::registerBandsNumber(int number)
         }
         else
             m_fftMagnitudeMap[number].m_registerCounter++;
+
+        if (firstBand)
+        {
+            locker.unlock();
+            start();
+        }
     }
-    if (firstBand)
-        start();
 }
 
 void AudioCapture::unregisterBandsNumber(int number)
 {
+    qDebug() << "[AudioCapture] unregistering" << number << "bands";
+
+    QMutexLocker locker(&m_mutex);
+
     if (m_fftMagnitudeMap.contains(number))
     {
-        qDebug() << "[AudioCapture] unregistering" << number << "bands";
         m_fftMagnitudeMap[number].m_registerCounter--;
         if (m_fftMagnitudeMap[number].m_registerCounter == 0)
             m_fftMagnitudeMap.remove(number);
 
         if (m_fftMagnitudeMap.isEmpty())
+        {
+            locker.unlock();
             stop();
+        }
     }
 }
 
@@ -253,16 +266,22 @@ void AudioCapture::run()
             if (readAudio(m_captureSize) == true)
             {
                 processData();
+                m_mutex.unlock();
             }
             else
             {
                 //qDebug() << "Error reading data from audio source";
-                usleep(5000);
+                m_mutex.unlock();
+                QThread::msleep(5);
             }
 
         }
         else
-            usleep(15000);
-        m_mutex.unlock();
+        {
+            m_mutex.unlock();
+            QThread::msleep(15);
+        }
+
+        QThread::yieldCurrentThread();
     }
 }
