@@ -86,6 +86,15 @@ bool AudioCaptureQt::initialize()
 
     m_input = m_audioInput->start();
 
+    if (m_audioInput->state() == QAudio::StoppedState)
+    {
+        qWarning() << Q_FUNC_INFO << "Could not start input capture on device" << audioDevice.deviceName();
+        delete m_audioInput;
+        m_audioInput = NULL;
+        m_input = NULL;
+        return false;
+    }
+
     return true;
 }
 
@@ -111,6 +120,9 @@ void AudioCaptureQt::resume()
 
 bool AudioCaptureQt::readAudio(int maxSize)
 {
+    if (m_audioInput == NULL || m_input == NULL)
+        return false;
+
     if (m_audioInput->bytesReady() < maxSize * 2)
         return false;
 
