@@ -36,15 +36,18 @@ public:
     ~AudioCaptureQt();
 
     /** @reimpl */
-    bool initialize();
-
-    /** @reimpl */
     qint64 latency();
 
     /** @reimpl */
     void setVolume(qreal volume);
 
 protected:
+    /** @reimpl */
+    bool initialize();
+
+    /** @reimpl */
+    virtual void uninitialize();
+
     /** @reimpl */
     void suspend();
 

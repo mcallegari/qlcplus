@@ -22,6 +22,7 @@
 #include <QXmlStreamWriter>
 #include <QStringList>
 #include <QString>
+#include <QCoreApplication>
 #include <QDebug>
 #include <QList>
 #include <QDir>
@@ -242,6 +243,7 @@ QSharedPointer<AudioCapture> Doc::audioInputCapture()
 {
     if (!m_inputCapture)
     {
+        qDebug() << "Creating new audio capture";
         m_inputCapture = QSharedPointer<AudioCapture>(
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 #if defined(__APPLE__) || defined(Q_OS_MAC)

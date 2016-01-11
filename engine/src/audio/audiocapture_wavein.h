@@ -38,12 +38,15 @@ public:
     ~AudioCaptureWaveIn();
 
     /** @reimpl */
-    bool initialize();
-
-    /** @reimpl */
     qint64 latency();
 
 protected:
+    /** @reimpl */
+    bool initialize();
+
+    /** @reimpl */
+    virtual void uninitialize();
+
     /** @reimpl */
     void suspend();
 
@@ -54,8 +57,6 @@ protected:
     bool readAudio(int maxSize);
 
 private:
-    bool m_started;
-    QMutex m_mutex;
     int m_currentBufferIndex;
     char *m_internalBuffers[HEADERS_NUMBER];
 };

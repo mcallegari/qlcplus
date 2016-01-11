@@ -31,26 +31,12 @@ static PaStream *stream = NULL;
 AudioCapturePortAudio::AudioCapturePortAudio(QObject * parent)
     : AudioCapture(parent)
 {
-
 }
 
 AudioCapturePortAudio::~AudioCapturePortAudio()
 {
-    PaError err;
-
-    /* -- Now we stop the stream -- */
-    err = Pa_StopStream( stream );
-    if( err != paNoError )
-        qDebug() << "PortAudio error: " << Pa_GetErrorText( err );
-
-    /* -- don't forget to cleanup! -- */
-    err = Pa_CloseStream( stream );
-    if( err != paNoError )
-        qDebug() << "PortAudio error: " << Pa_GetErrorText( err );
-
-    err = Pa_Terminate();
-    if( err != paNoError )
-        qDebug() << "PortAudio error: " << Pa_GetErrorText( err );
+    stop();
+    Q_ASSERT(stream == NULL);
 }
 
 bool AudioCapturePortAudio::initialize()
@@ -76,12 +62,13 @@ bool AudioCapturePortAudio::initialize()
         return false;
     }
 
-    AudioCapture::initialize();
-
     inputParameters.channelCount = m_channels;
     inputParameters.sampleFormat = paInt16;
     inputParameters.suggestedLatency = Pa_GetDeviceInfo( inputParameters.device )->defaultLowInputLatency;
     inputParameters.hostApiSpecificStreamInfo = NULL;
+
+    // ensure initialize() has not been called multiple times
+    Q_ASSERT(stream == NULL);
 
     /* -- setup stream -- */
     err = Pa_OpenStream( &stream, &inputParameters, NULL, m_sampleRate, paFramesPerBufferUnspecified,
@@ -100,11 +87,35 @@ bool AudioCapturePortAudio::initialize()
     if( err != paNoError )
     {
         qWarning("Cannot start stream capture (%s)\n",  Pa_GetErrorText(err));
+        Pa_CloseStream( stream );
+        stream = NULL;
         Pa_Terminate();
         return false;
     }
 
     return true;
+}
+
+void AudioCapturePortAudio::uninitialize()
+{
+    Q_ASSERT(stream != NULL);
+
+    PaError err;
+
+    /* -- Now we stop the stream -- */
+    err = Pa_StopStream( stream );
+    if( err != paNoError )
+        qDebug() << "PortAudio error: " << Pa_GetErrorText( err );
+
+    /* -- don't forget to cleanup! -- */
+    err = Pa_CloseStream( stream );
+    if( err != paNoError )
+        qDebug() << "PortAudio error: " << Pa_GetErrorText( err );
+    stream = NULL;
+
+    err = Pa_Terminate();
+    if( err != paNoError )
+        qDebug() << "PortAudio error: " << Pa_GetErrorText( err );
 }
 
 qint64 AudioCapturePortAudio::latency()
@@ -122,6 +133,8 @@ void AudioCapturePortAudio::resume()
 
 bool AudioCapturePortAudio::readAudio(int maxSize)
 {
+    Q_ASSERT(stream != NULL);
+
     int err = Pa_ReadStream( stream, m_audioBuffer, maxSize );
     if( err )
     {
@@ -133,14 +146,3 @@ bool AudioCapturePortAudio::readAudio(int maxSize)
 
     return true;
 }
-
-
-
-
-
-
-
-
-
-
-

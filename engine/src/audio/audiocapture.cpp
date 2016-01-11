@@ -37,7 +37,6 @@ AudioCapture::AudioCapture (QObject* parent)
     : QThread (parent)
     , m_userStop(true)
     , m_pause(false)
-    , m_isInitialized(false)
     , m_captureSize(0)
     , m_sampleRate(0)
     , m_channels(0)
@@ -45,11 +44,36 @@ AudioCapture::AudioCapture (QObject* parent)
     , m_fftInputBuffer(NULL)
     , m_fftOutputBuffer(NULL)
 {
+    int bufferSize = AUDIO_DEFAULT_BUFFER_SIZE;
+    m_sampleRate = AUDIO_DEFAULT_SAMPLE_RATE;
+    m_channels = AUDIO_DEFAULT_CHANNELS;
+
+    QSettings settings;
+    QVariant var = settings.value(SETTINGS_AUDIO_INPUT_SRATE);
+
+    if (var.isValid() == true)
+        m_sampleRate = var.toInt();
+
+    var = settings.value(SETTINGS_AUDIO_INPUT_CHANNELS);
+
+    if (var.isValid() == true)
+        m_channels = var.toInt();
+
+    qDebug() << "[AudioCapture] initialize" << m_sampleRate << m_channels;
+
+    m_captureSize = bufferSize * m_channels;
+
+    m_audioBuffer = new int16_t[m_captureSize];
+    m_fftInputBuffer = new double[m_captureSize];
+#ifdef HAS_FFTW3
+    m_fftOutputBuffer = fftw_malloc(sizeof(fftw_complex) * m_captureSize);
+#endif
 }
 
 AudioCapture::~AudioCapture()
 {
-    stop();
+    // stop() has to be called from the implementation class
+    Q_ASSERT(!this->isRunning());
 
     delete[] m_audioBuffer;
     delete[] m_fftInputBuffer;
@@ -109,42 +133,6 @@ void AudioCapture::unregisterBandsNumber(int number)
             stop();
         }
     }
-}
-
-bool AudioCapture::isInitialized()
-{
-    return m_isInitialized;
-}
-
-bool AudioCapture::initialize()
-{
-    int bufferSize = AUDIO_DEFAULT_BUFFER_SIZE;
-    m_sampleRate = AUDIO_DEFAULT_SAMPLE_RATE;
-    m_channels = AUDIO_DEFAULT_CHANNELS;
-
-    QSettings settings;
-    QVariant var = settings.value(SETTINGS_AUDIO_INPUT_SRATE);
-
-    if (var.isValid() == true)
-        m_sampleRate = var.toInt();
-
-    var = settings.value(SETTINGS_AUDIO_INPUT_CHANNELS);
-
-    if (var.isValid() == true)
-        m_channels = var.toInt();
-
-    qDebug() << "[AudioCapture] initialize" << m_sampleRate << m_channels;
-
-    m_captureSize = bufferSize * m_channels;
-
-    m_audioBuffer = new int16_t[m_captureSize];
-    m_fftInputBuffer = new double[m_captureSize];
-#ifdef HAS_FFTW3
-    m_fftOutputBuffer = fftw_malloc(sizeof(fftw_complex) * m_captureSize);
-#endif
-    m_isInitialized = true;
-
-    return true;
 }
 
 void AudioCapture::stop()
@@ -258,30 +246,35 @@ void AudioCapture::run()
 
     m_userStop = false;
 
+    if (!initialize())
+    {
+        qWarning() << "[AudioCapture] Could not initialize audio capture, abandon";
+        return;
+    }
+
     while (!m_userStop)
     {
-        m_mutex.lock();
         if (m_pause == false && m_captureSize != 0)
         {
             if (readAudio(m_captureSize) == true)
             {
+                QMutexLocker locker(&m_mutex);
                 processData();
-                m_mutex.unlock();
             }
             else
             {
                 //qDebug() << "Error reading data from audio source";
-                m_mutex.unlock();
                 QThread::msleep(5);
             }
 
         }
         else
         {
-            m_mutex.unlock();
             QThread::msleep(15);
         }
 
         QThread::yieldCurrentThread();
     }
+
+    uninitialize();
 }
