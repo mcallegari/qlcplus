@@ -115,9 +115,8 @@ public:
         Intensity = 0,
     };
 
-
     /**
-     * Running source
+     * Start/Stop source
      */
     struct Source
     {
@@ -127,7 +126,6 @@ public:
             AutoVCWidget,
             ManualVCWidget,
             God = 0xffffffff,
-            Mask = 0xffffffff,
         };
 
         quint64 m_source;
