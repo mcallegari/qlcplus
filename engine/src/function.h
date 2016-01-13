@@ -122,9 +122,13 @@ public:
     {
         enum SourceType
         {
+            // Another function (Chaser, Collection...)
             Function = 0,
+            // An automatic VC widget (VCAudioTriggers)
             AutoVCWidget,
+            // A manual VC widget (Button, Slider...)
             ManualVCWidget,
+            // Override anything (MasterTimer, test facilities...)
             God = 0xffffffff,
         };
 

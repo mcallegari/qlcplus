@@ -71,6 +71,11 @@ public:
 private:
     quint32 m_id;
 
+public:
+    void setShowId(quint32 id);
+private:
+    quint32 m_showId;
+
     /************************************************************************
      * Name
      ************************************************************************/
@@ -150,6 +155,10 @@ public:
     bool loadXML(QXmlStreamReader &root);
 
     bool postLoad(Doc* doc);
+
+public:
+    bool contains(Doc* doc, quint32 functionId);
+
 };
 
 /** @} */
