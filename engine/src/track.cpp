@@ -34,6 +34,7 @@
 
 Track::Track(quint32 sceneID)
     : m_id(Track::invalidId())
+    , m_showId(Function::invalidId())
     , m_sceneID(sceneID)
     , m_isMute(false)
 
@@ -63,6 +64,11 @@ quint32 Track::id() const
 quint32 Track::invalidId()
 {
     return UINT_MAX;
+}
+
+void Track::setShowId(quint32 id)
+{
+    m_showId = id;
 }
 
 /****************************************************************************
@@ -256,7 +262,9 @@ bool Track::postLoad(Doc* doc)
         ShowFunction* showFunction = it.next();
 
         Function* function = doc->function(showFunction->functionID());
-        if (function == NULL)
+        if (function == NULL
+                || (m_showId != Function::invalidId()
+                    && function->contains(m_showId)))
         {
             it.remove();
             delete showFunction;
@@ -289,4 +297,28 @@ bool Track::postLoad(Doc* doc)
         }
     }
     return modified;
+}
+
+bool Track::contains(Doc* doc, quint32 functionId)
+{
+    if (m_sceneID == functionId)
+        return true;
+
+    QListIterator<ShowFunction*> it(m_functions);
+    while (it.hasNext())
+    {
+        ShowFunction* showFunction = it.next();
+
+        Function* function = doc->function(showFunction->functionID());
+        // contains() can be called during init, function may be NULL
+        if (function == NULL)
+            continue;
+
+        if (function->id() == functionId)
+            return true;
+        if (function->contains(functionId))
+            return true;
+    }
+
+    return false;
 }

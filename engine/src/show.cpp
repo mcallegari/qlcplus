@@ -170,6 +170,7 @@ bool Show::addTrack(Track *track, quint32 id)
         id = createTrackId();
 
      track->setId(id);
+     track->setShowId(this->id());
      m_tracks[id] = track;
 
      registerAttribute(track->name());
@@ -346,6 +347,23 @@ void Show::postLoad()
         if (track->postLoad(doc()))
             doc()->setModified();
     }
+}
+
+bool Show::contains(quint32 functionId)
+{
+    Doc* doc = this->doc();
+    Q_ASSERT(doc != NULL);
+
+    if (functionId == id())
+        return true;
+
+    foreach (Track* track, m_tracks)
+    {
+        if (track->contains(doc, functionId))
+            return true;
+    }
+
+    return false;
 }
 
 /*****************************************************************************
