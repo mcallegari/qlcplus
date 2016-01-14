@@ -590,20 +590,18 @@ void ShowManager::slotAddItem()
 {
     if (m_show == NULL)
         return;
-#if 0
-    QList <quint32> disabledIDs;
-    if (m_show->tracks().count() > 0)
-    {
-        /** Add Scene IDs and Sequences IDs already assigned in this Show */
-        foreach (Track *track, m_show->tracks())
-        {
-            //disabledIDs.append(track->getSceneID());
-            disabledIDs.append(track->functionsID());
-        }
-    }
-#endif
+
     FunctionSelection fs(this, m_doc);
-    //fs.setDisabledFunctions(disabledIDs);
+    // Forbid self-containment
+    {
+        QList<quint32> disabledList;
+        foreach (Function* function, m_doc->functions())
+        {
+            if (function->contains(m_show->id()))
+                disabledList << function->id();
+        }
+        fs.setDisabledFunctions(disabledList);
+    }
     fs.showSequences(true);
     fs.setMultiSelection(false);
     fs.setFilter(Function::Scene | Function::Chaser | Function::Audio | Function::RGBMatrix | Function::EFX);
