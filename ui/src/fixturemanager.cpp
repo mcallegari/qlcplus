@@ -1281,13 +1281,24 @@ void FixtureManager::editFixtureProperties()
     {
         if (af.invalidAddress() == false)
         {
+            bool changed = false;
+
             fxi->blockSignals(true);
             if (fxi->name() != af.name())
+            {
                 fxi->setName(af.name());
+                changed = true;
+            }
             if (fxi->universe() != af.universe())
+            {
                 fxi->setUniverse(af.universe());
+                changed = true;
+            }
             if (fxi->address() != af.address())
+            {
                 fxi->setAddress(af.address());
+                changed = true;
+            }
             fxi->blockSignals(false);
 
             if (af.fixtureDef() != NULL && af.mode() != NULL)
@@ -1313,6 +1324,9 @@ void FixtureManager::editFixtureProperties()
                 fxi->setFixtureDefinition(NULL, NULL);
                 fxi->setChannels(af.channels());
             }
+
+            if (changed)
+                emit fxi->changed(fxi->id());
 
             updateView();
             slotSelectionChanged();
