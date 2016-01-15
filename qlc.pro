@@ -23,6 +23,7 @@ SUBDIRS          += resources
 SUBDIRS          += etc
 macx:SUBDIRS     += launcher
 SUBDIRS          += plugins
+unix:SUBDIRS	 += man
 
 unix:!macx:DEBIAN_CLEAN    += debian/*.substvars debian/*.log debian/*.debhelper
 unix:!macx:DEBIAN_CLEAN    += debian/files debian/dirs

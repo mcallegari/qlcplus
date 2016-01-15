@@ -1,0 +1,96 @@
+.TH qlcplus 1 "Jan 2016" "QLC+ 4.10.3 GIT"
+.\" --------------------------------------------------------------------
+.SH NAME
+.\" --------------------------------------------------------------------
+qlcplus \- Q Light Controller Plus
+.\" --------------------------------------------------------------------
+.\" Legal Terms
+.\" --------------------------------------------------------------------
+.
+.\" License
+.de co
+.B Copyright
+(c) Heikki Junnila, Massimo Callegari
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0.txt
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+..
+.
+.\" --------------------------------------------------------------------
+.SH SYNOPSIS
+.\" --------------------------------------------------------------------
+.B qlcplus [ options ]
+.\" --------------------------------------------------------------------
+.SH DESCRIPTION
+.\" --------------------------------------------------------------------
+.B QLC+
+is free and cross-platform software to control DMX or analog lighting
+systems like moving heads, dimmers, scanners etc. This project is a fork of
+the great QLC project written by Heikki Junnila that aims to continue the
+development of QLC and to introduce new features. The primary goal is to
+bring QLC+ at the level of other lighting control commercial software.
+.SH OPTIONS
+.IP "-c or --closebutton <x>,<y>,<w>,<h>"
+Define a position for a close button in the virtual console.
+The button can be used to close QLC+. Only has an effect in kiosk mode (see -k)
+and is most useful when in fullscreen mode without a window manager.
+.IP "-d or --debug <level>"
+Enable debug mode and optionally set the output level (0-3). Note that since 4.8.0 messages for level DEBUG (0) are not included in released binaries.
+.IP "-f or --fullscreen normal|resize"
+Start the application in fullscreen mode.
+.IP "-g or --log"
+Log debug messages to a file ($HOME/QLC+.log).
+.IP "-h, --help"
+Display command-line help (only in Linux & OS X).
+.IP "-k or --kiosk"
+Enable kiosk-mode (only virtual console is visible and the application is locked in operate mode).
+.IP "-l or --locale <locale>"
+Use the given locale for translation. Currently supported: ca_ES, cz_CZ, de_DE, en_GB, es_ES, fi_FI, fr_FR, it_IT, ja_JP, nl_NL, pt_BR
+.IP "-n or --nogui"
+Start the application with the GUI hidden (Raspberry Pi only).
+.IP "-o or --open <filename.qxw>"
+Open the given workspace file.
+.IP "-p or --operate"
+Start the application in Operate mode.
+.IP "-v or --version"
+Display the current application version number.
+.IP "-w or --web"
+Enable remote web access on port 9999.
+.
+.
+.\" --------------------------------------------------------------------
+.SH HOMEPAGE
+.\" --------------------------------------------------------------------
+.UR http://qlcplus.org/
+.UE
+.
+.
+.\" --------------------------------------------------------------------
+.SH SUPPORT
+.
+.
+.\" --------------------------------------------------------------------
+Please report bugs and ask at 
+.UR http://www.qlcplus.org/forum/
+QLC+ Forum
+.UE
+.
+.
+.\" --------------------------------------------------------------------
+.SH AUTHORS
+.\" --------------------------------------------------------------------
+.co
+.\" --------------------------------------------------------------------
+.SH SEE ALSO
+.\" --------------------------------------------------------------------
+.BR qlcplus-fixtureeditor(1)
+.
