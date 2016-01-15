@@ -1325,8 +1325,9 @@ void FixtureManager::editFixtureProperties()
                 fxi->setChannels(af.channels());
             }
 
+            // Emit changed signal
             if (changed)
-                emit fxi->changed(fxi->id());
+                fxi->setID(fxi->id());
 
             updateView();
             slotSelectionChanged();
