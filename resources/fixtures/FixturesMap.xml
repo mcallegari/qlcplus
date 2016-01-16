@@ -5,6 +5,7 @@
   <fixture path="ADB-ALC4.qxf" mf="ADB" md="ALC4"/>
   <fixture path="AGPtek-RGB-6ch-crystal-ball.qxf" mf="AGPtek" md="RGB 6ch crystal ball"/>
   <fixture path="Alkalite-Octopod-DP-80.qxf" mf="Alkalite" md="Octopod DP-80"/>
+  <fixture path="American-DJ-12P-Hex.qxf" mf="American DJ" md="12P Hex Pearl"/>
   <fixture path="American-DJ-64B-LED-PRO.qxf" mf="American DJ" md="64B LED PRO"/>
   <fixture path="American-DJ-Accu-Spot-250-II.qxf" mf="American DJ" md="Accu Spot 250 II"/>
   <fixture path="American-DJ-Accu-Spot-Pro.qxf" mf="American DJ" md="ACCU Spot Pro"/>
@@ -81,6 +82,7 @@
   <fixture path="American-DJ-UV-COB-Cannon.qxf" mf="American DJ" md="UV COB Cannon"/>
   <fixture path="American-DJ-UV-LED-Bar-20.qxf" mf="American DJ" md="UV LED Bar 20"/>
   <fixture path="American-DJ-UVLed-Bar-16.qxf" mf="American DJ" md="UVLed Bar 16"/>
+  <fixture path="American-DJ-VBar.qxf" mf="American DJ" md="VBar"/>
   <fixture path="American-DJ-Vizi-Beam-5R.qxf" mf="American DJ" md="Vizi Beam 5R"/>
   <fixture path="American-DJ-Vizi-LED-Spot.qxf" mf="American DJ" md="Vizi LED Spot"/>
   <fixture path="American-DJ-WiFly-EXR-Dotz-Par.qxf" mf="American DJ" md="WiFly EXR Dotz Par"/>
@@ -167,6 +169,7 @@
   <fixture path="Chauvet-Intimidator-Beam-LED-350.qxf" mf="Chauvet" md="Intimidator Beam LED 350"/>
   <fixture path="Chauvet-Intimidator-Scan-LED-200.qxf" mf="Chauvet" md="Intimidator Scan LED 200"/>
   <fixture path="Chauvet-Intimidator-Scan-LED-300.qxf" mf="Chauvet" md="Intimidator Scan LED 300"/>
+  <fixture path="Chauvet-Intimidator-Spot-100-IRC.qxf" mf="Chauvet" md="Intimidator Spot 100 IRC"/>
   <fixture path="Chauvet-Intimidator-Spot-250.qxf" mf="Chauvet" md="Intimidator Spot 250"/>
   <fixture path="Chauvet-Intimidator-Spot-400-IRC.qxf" mf="Chauvet" md="Intimidator Spot 400 IRC"/>
   <fixture path="Chauvet-Intimidator-Spot-Duo.qxf" mf="Chauvet" md="Intimidator Spot Duo"/>
@@ -386,6 +389,7 @@
   <fixture path="iSolution-5-Series.qxf" mf="iSolution" md="iMove 5 Series"/>
   <fixture path="iSolution-iMove-250w.qxf" mf="iSolution" md="iMove 250W"/>
   <fixture path="JB-Lighting-A12-Tunable-White.qxf" mf="JB-Lighting" md="A12 Tunable White"/>
+  <fixture path="JB-Lighting-JBLED-A7.qxf" mf="JB-Lighting" md="JBLED A7"/>
   <fixture path="JB-Lighting-Varyscan-2.qxf" mf="JB-Lighting" md="Varyscan 2"/>
   <fixture path="JB-Lighting-Varyscan-3-Special.qxf" mf="JB-Lighting" md="Varyscan 3 Special"/>
   <fixture path="JB-Lighting-Varyscan-3-SpecialPlus.qxf" mf="JB-Lighting" md="Varyscan 3 Special Plus"/>
@@ -482,6 +486,7 @@
   <fixture path="Martin-SCX-800.qxf" mf="Martin" md="SCX-800"/>
   <fixture path="Martin-Viper-AirFX.qxf" mf="Martin" md="Mac Viper AirFX"/>
   <fixture path="Microh-Firefly-RGY-II.qxf" mf="Microh" md="Firefly RGY II"/>
+  <fixture path="Microh-LED-Tri-Bar.qxf" mf="Microh" md="LED Tri Bar"/>
   <fixture path="Microh-Plasmawave-1-RGB.qxf" mf="Microh" md="Plasmawave 1 RGB"/>
   <fixture path="Monacor-CPL-3DMX.qxf" mf="Monacor" md="CPL-3DMX"/>
   <fixture path="Monacor-LSX-142SRGY.qxf" mf="Monacor" md="LSX-142SRGY"/>
@@ -552,6 +557,7 @@
   <fixture path="Robe_ColorMix_240_AT.qxf" mf="Robe" md="ColorMix 240 AT"/>
   <fixture path="Rosco-I-Cue.qxf" mf="Rosco" md="I-Cue"/>
   <fixture path="Sagitter-Miniscan-2001.qxf" mf="Sagitter" md="Miniscan 2001"/>
+  <fixture path="Sagitter-Slimpar-18-RGB.qxf" mf="Sagitter" md="Slimpar 18 RGB"/>
   <fixture path="Sagitter-Slimpar-7DL.qxf" mf="Sagitter" md="Slimpar 7DL"/>
   <fixture path="Scanic-Astute-LED-108.qxf" mf="Scanic" md="Astute LED 108"/>
   <fixture path="SGM-Colorlab-250.qxf" mf="SGM" md="Colorlab 250"/>

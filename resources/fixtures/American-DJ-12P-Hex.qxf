@@ -159,7 +159,7 @@
   <Channel Number="4">Amber</Channel>
   <Channel Number="5">UV</Channel>
  </Mode>
- <Mode Name="7 Channel Mode">
+ <Mode Name="7 Channel">
   <Physical>
    <Bulb Type="LED" Lumens="2566" ColourTemperature="0"/>
    <Dimensions Weight="3.9" Width="249" Height="136" Depth="298"/>
@@ -175,7 +175,7 @@
   <Channel Number="5">UV</Channel>
   <Channel Number="6">Master Dimmer</Channel>
  </Mode>
- <Mode Name="8 Channel Mode">
+ <Mode Name="8 Channel">
   <Physical>
    <Bulb Type="LED" Lumens="2566" ColourTemperature="0"/>
    <Dimensions Weight="3.9" Width="249" Height="136" Depth="298"/>
@@ -192,7 +192,7 @@
   <Channel Number="6">Master Dimmer</Channel>
   <Channel Number="7">Strobing</Channel>
  </Mode>
- <Mode Name="12 Channel Mode">
+ <Mode Name="12 Channel">
   <Physical>
    <Bulb Type="LED" Lumens="2566" ColourTemperature="0"/>
    <Dimensions Weight="3.9" Width="249" Height="136" Depth="298"/>
