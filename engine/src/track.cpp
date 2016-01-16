@@ -129,13 +129,14 @@ bool Track::addShowFunction(ShowFunction *func)
     return true;
 }
 
-bool Track::removeShowFunction(ShowFunction *function)
+bool Track::removeShowFunction(ShowFunction *function, bool performDelete)
 {
     if (m_functions.contains(function) == false)
         return false;
 
     ShowFunction *func = m_functions.takeAt(m_functions.indexOf(function));
-    delete func;
+    if (performDelete)
+        delete func;
 
     return true;
 }

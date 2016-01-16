@@ -340,6 +340,7 @@ Rectangle
             DropArea
             {
                 id: newFuncDrop
+                x: itemsArea.contentX
                 width: showMgrContainer.width - trackWidth
                 height: tracksBox.count * trackHeight
                 z: 2

@@ -113,7 +113,9 @@ void ShowManager::addItem(QQuickItem *parent, int trackIdx, int startTime, quint
             m_currentShow = NULL;
             return;
         }
+        connect(m_currentShow, SIGNAL(timeChanged(quint32)), this, SLOT(slotTimeChanged(quint32)));
         emit currentShowIDChanged(m_currentShow->id());
+        emit showNameChanged(m_currentShow->name());
     }
 
     Track *selectedTrack = NULL;
@@ -193,7 +195,7 @@ bool ShowManager::checkAndMoveItem(ShowFunction *sf, int originalTrackIdx, int n
     if (newTrackIdx != originalTrackIdx)
     {
         Track *srcTrack = m_currentShow->tracks().at(originalTrackIdx);
-        srcTrack->showFunctions().takeAt(srcTrack->showFunctions().indexOf(sf));
+        srcTrack->removeShowFunction(sf, false);
         dstTrack->addShowFunction(sf);
     }
 
