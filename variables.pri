@@ -204,6 +204,9 @@ ios:WEBFILESDIR        = Web
 # udev rules
 unix:!macx:UDEVRULESDIR = /etc/udev/rules.d
 
+# man
+unix:!macx:MANDIR = share/man/man1/
+
 unix:!macx: {
   QTPREFIX = $$[QT_INSTALL_PREFIX]
   IN_USR = $$find(QTPREFIX, "/usr")

@@ -21,6 +21,10 @@ unix:!macx {
     appdata.files += qlcplus-fixtureeditor.appdata.xml qlcplus.appdata.xml
     INSTALLS      += appdata
 
+    manpages.path = $$INSTALLROOT/$$MANDIR
+    manpages.files += *.1
+    INSTALLS += manpages
+
     # This is nowadays run by dpkg (TODO: rpm)
     #MIMEUPDATE    = $$system("which update-mime-database")
     #mimeupdate.commands = $$MIMEUPDATE /usr/share/mime
