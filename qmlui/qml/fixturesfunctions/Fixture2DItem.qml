@@ -82,7 +82,7 @@ Rectangle
 
         var cellWidth = width / columns
         var cellHeight = height / rows
-        headSide = Math.min(cellWidth, cellHeight) - 1
+        headSide = parseInt(Math.min(cellWidth, cellHeight))
         headColumns = columns
         headRows = rows
     }
