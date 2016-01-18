@@ -38,12 +38,14 @@
  *****************************************************************************/
 
 Collection::Collection()
+    : m_functionListMutex(QMutex::Recursive)
 {
 
 }
 
 Collection::Collection(Doc* doc)
     : Function(doc, Function::Collection)
+    , m_functionListMutex(QMutex::Recursive)
 {
     setName(tr("New Collection"));
 
@@ -54,8 +56,6 @@ Collection::Collection(Doc* doc)
 
 Collection::~Collection()
 {
-    QMutexLocker locker(&m_functionListMutex);
-    m_functions.clear();
 }
 
 quint32 Collection::totalDuration()
