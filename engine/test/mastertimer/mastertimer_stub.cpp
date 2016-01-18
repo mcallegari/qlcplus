@@ -57,4 +57,3 @@ void MasterTimerStub::unregisterDMXSource(DMXSource* source)
 {
     m_dmxSourceList.removeAll(source);
 }
-

@@ -461,7 +461,7 @@ void Collection_Test::write()
     c->write(mts, ua);
     QVERIFY(s2->stopped() == true);
     QVERIFY(c->stopped() == true);
-    mts->stopFunction(c);
+    c->stop(Function::Source(Function::Source::God, 0));
 
     delete mts;
     delete doc;
@@ -507,6 +507,7 @@ void Collection_Test::stopNotOwnChildren()
     QVERIFY(c->m_runningChildren.isEmpty() == true);
 
     c->write(mts, ua);
+    c->write(mts, ua); // TODO fix collection to avoid having to do double write
     QVERIFY(s1->stopped() == false);
     QVERIFY(s2->stopped() == false);
 
@@ -515,9 +516,7 @@ void Collection_Test::stopNotOwnChildren()
     QVERIFY(c->m_runningChildren.contains(s2->id()) == true);
 
     // Manually stop and re-start s1
-    s1->stop(Function::Source(Function::Source::Function, s1->id()));
-    s1->write(mts, ua);
-    s1->postRun(mts, ua);
+    mts->stopFunction(s1);
     s1->start(mts, Function::Source(Function::Source::Function, s1->id()));
     QVERIFY(s1->stopped() == false);
 
