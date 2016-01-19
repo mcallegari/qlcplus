@@ -200,6 +200,7 @@ bool Audio::setSourceFileName(QString filename)
         emit changed(id());
         return true;
     }
+    emit sourceFilenameChanged();
 
 #ifdef HAS_LIBSNDFILE
     m_decoder = new AudioDecoderSndFile(m_sourceFileName);
