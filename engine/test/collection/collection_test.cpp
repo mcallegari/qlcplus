@@ -499,15 +499,15 @@ void Collection_Test::stopNotOwnChildren()
     ua.append(new Universe(0, new GrandMaster()));
     MasterTimerStub* mts = new MasterTimerStub(m_doc, ua);
 
+    QVERIFY(c->m_runningChildren.isEmpty() == true);
+
     QVERIFY(c->stopped() == true);
     c->start(mts, Function::Source(Function::Source::God, 0));
     QVERIFY(c->stopped() == false);
 
-    c->preRun(mts);
-    QVERIFY(c->m_runningChildren.isEmpty() == true);
-
     c->write(mts, ua);
-    c->write(mts, ua); // TODO fix collection to avoid having to do double write
+    QVERIFY(c->m_runningChildren.isEmpty() == false);
+
     QVERIFY(s1->stopped() == false);
     QVERIFY(s2->stopped() == false);
 
@@ -516,6 +516,7 @@ void Collection_Test::stopNotOwnChildren()
     QVERIFY(c->m_runningChildren.contains(s2->id()) == true);
 
     // Manually stop and re-start s1
+    c->write(mts, ua);
     mts->stopFunction(s1);
     s1->start(mts, Function::Source(Function::Source::Function, s1->id()));
     QVERIFY(s1->stopped() == false);

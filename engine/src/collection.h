@@ -140,7 +140,7 @@ protected slots:
 protected:
     /** Number of currently running children */
     QSet <quint32> m_runningChildren;
-    bool m_firstTick;
+    unsigned int m_tick;
 
     /*************************************************************************
      * Intensity
