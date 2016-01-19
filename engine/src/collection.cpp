@@ -277,24 +277,11 @@ bool Collection::contains(quint32 functionId)
 
 void Collection::preRun(MasterTimer* timer)
 {
+    Doc* doc = this->doc();
+    Q_ASSERT(doc != NULL);
     {
         QMutexLocker locker(&m_functionListMutex);
         m_runningChildren.clear();
-    }
-    m_firstTick = false;
-    Function::preRun(timer);
-}
-
-void Collection::write(MasterTimer* timer, QList<Universe *> universes)
-{
-    Q_UNUSED(universes);
-
-    if (elapsed() == 0)
-    {
-        Doc* doc = this->doc();
-        Q_ASSERT(doc != NULL);
-
-        QMutexLocker locker(&m_functionListMutex);
         foreach(QVariant fid, m_functions)
         {
             Function* function = doc->function(fid.toUInt());
@@ -318,10 +305,22 @@ void Collection::write(MasterTimer* timer, QList<Universe *> universes)
             function->adjustAttribute(getAttributeValue(Function::Intensity), Function::Intensity);
             function->start(timer, Source(Source::Function, id()), 0, overrideFadeInSpeed(), overrideFadeOutSpeed(), overrideDuration());
         }
-        m_firstTick = true;
+        m_tick = 1;
     }
-    else if (m_firstTick)
+    Function::preRun(timer);
+}
+
+void Collection::write(MasterTimer* timer, QList<Universe *> universes)
+{
+    Q_UNUSED(timer);
+    Q_UNUSED(universes);
+
+    // During first tick, children may be stopped & started.
+    if (m_tick == 1)
+        m_tick = 2;
+    else if (m_tick == 2)
     {
+        m_tick = 0;
         Doc* doc = this->doc();
         Q_ASSERT(doc != NULL);
 
@@ -336,8 +335,6 @@ void Collection::write(MasterTimer* timer, QList<Universe *> universes)
             disconnect(function, SIGNAL(running(quint32)),
                     this, SLOT(slotChildStarted(quint32)));
         }
-
-        m_firstTick = false;
     }
 
     incrementElapsed();
@@ -345,7 +342,7 @@ void Collection::write(MasterTimer* timer, QList<Universe *> universes)
     {
         QMutexLocker locker(&m_functionListMutex);
         if (m_runningChildren.size() > 0)
-          return;
+            return;
     }
 
     stop(Source(Source::Function, id()));
@@ -377,7 +374,7 @@ void Collection::postRun(MasterTimer* timer, QList<Universe *> universes)
 
             disconnect(function, SIGNAL(stopped(quint32)),
                     this, SLOT(slotChildStopped(quint32)));
-            if (m_firstTick)
+            if (m_tick == 2)
             {
                 disconnect(function, SIGNAL(running(quint32)),
                         this, SLOT(slotChildStarted(quint32)));
