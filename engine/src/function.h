@@ -154,6 +154,11 @@ public:
         {
             return m_source & 0xffffffff;
         };
+
+        static Source god()
+        {
+            return Source(God, 0);
+        }
     };
 
     /*********************************************************************

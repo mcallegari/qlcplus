@@ -116,6 +116,9 @@ private slots:
     void slotPropertySpinChanged(int value);
 
 private:
+    Function::Source functionSource() const;
+
+private:
     Doc* m_doc;
     RGBMatrix* m_matrix; // The RGBMatrix being edited
 

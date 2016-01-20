@@ -106,6 +106,9 @@ private:
     QList<VCClockSchedule>m_scheduleList;
     int m_scheduleIndex;
 
+private:
+    Function::Source functionSource() const;
+
     /*********************************************************************
      * Time
      *********************************************************************/

@@ -413,7 +413,7 @@ void VCButton::notifyFunctionStarting(quint32 fid, qreal intensity)
     {
         Function *f = m_doc->function(m_function);
         if (f != NULL)
-            f->stop(Function::Source(Function::Source::ManualVCWidget, id()));
+            f->stop(functionSource());
     }
 }
 
@@ -672,7 +672,7 @@ void VCButton::pressFunction()
             // functions off and start this one.
             if (isOn() == true && !(isChildOfSoloFrame() && f->startedAsChild()))
             {
-                f->stop(Function::Source(Function::Source::ManualVCWidget, id()));
+                f->stop(functionSource());
             }
             else
             {
@@ -681,7 +681,7 @@ void VCButton::pressFunction()
                 else
                     f->adjustAttribute(intensity(), Function::Intensity);
 
-                f->start(m_doc->masterTimer(), Function::Source(Function::Source::ManualVCWidget, id()));
+                f->start(m_doc->masterTimer(), functionSource());
                 emit functionStarting(m_function);
             }
         }
@@ -703,6 +703,11 @@ void VCButton::pressFunction()
         else
             m_doc->masterTimer()->fadeAndStopAll(stopAllFadeTime());
     }
+}
+
+Function::Source VCButton::functionSource() const
+{
+    return Function::Source(Function::Source::ManualVCWidget, id());
 }
 
 void VCButton::releaseFunction()

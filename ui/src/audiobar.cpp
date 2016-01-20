@@ -156,19 +156,11 @@ void AudioBar::checkFunctionThresholds(Doc *doc)
         return;
     if (m_value >= m_maxThreshold)
     {
-        if (m_parentId != quint32(-1))
-            m_function->start(doc->masterTimer(),
-                    Function::Source(Function::Source::AutoVCWidget, m_parentId));
-        else
-            m_function->start(doc->masterTimer(),
-                    Function::Source(Function::Source::God, 0));
+        m_function->start(doc->masterTimer(), functionSource());
     }
     else if (m_value < m_minThreshold)
     {
-        if (m_parentId != quint32(-1))
-            m_function->stop(Function::Source(Function::Source::AutoVCWidget, m_parentId));
-        else
-            m_function->stop(Function::Source(Function::Source::God, 0));
+        m_function->stop(functionSource());
     }
 }
 
@@ -321,4 +313,12 @@ bool AudioBar::saveXML(QXmlStreamWriter *doc, QString tagName, int index)
     doc->writeEndElement();
 
     return true;
+}
+
+Function::Source AudioBar::functionSource() const
+{
+    if (m_parentId != quint32(-1))
+        return Function::Source(Function::Source::AutoVCWidget, m_parentId);
+    else
+        return Function::Source::god();
 }

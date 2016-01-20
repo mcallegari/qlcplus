@@ -58,6 +58,9 @@ public:
      *  and scroll the view to it */
     void selectStepAtTime(quint32 time);
 
+private:
+    Function::Source functionSource() const;
+
 signals:
     void applyValues(QList<SceneValue>&);
     void stepSelectionChanged(int index);

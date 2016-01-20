@@ -120,6 +120,9 @@ public:
     /*********************************************************************
      * Running
      *********************************************************************/
+private:
+    Source functionSource() const;
+
 public:
     /** @reimpl */
     void preRun(MasterTimer* timer);

@@ -275,6 +275,11 @@ bool Collection::contains(quint32 functionId)
  * Running
  *****************************************************************************/
 
+Function::Source Collection::functionSource() const
+{
+    return Source(Source::Function, id());
+}
+
 void Collection::preRun(MasterTimer* timer)
 {
     Doc* doc = this->doc();
@@ -303,7 +308,7 @@ void Collection::preRun(MasterTimer* timer)
                     this, SLOT(slotChildStarted(quint32)));
 
             function->adjustAttribute(getAttributeValue(Function::Intensity), Function::Intensity);
-            function->start(timer, Source(Source::Function, id()), 0, overrideFadeInSpeed(), overrideFadeOutSpeed(), overrideDuration());
+            function->start(timer, functionSource(), 0, overrideFadeInSpeed(), overrideFadeOutSpeed(), overrideDuration());
         }
         m_tick = 1;
     }
@@ -345,7 +350,7 @@ void Collection::write(MasterTimer* timer, QList<Universe *> universes)
             return;
     }
 
-    stop(Source(Source::Function, id()));
+    stop(functionSource());
 }
 
 void Collection::postRun(MasterTimer* timer, QList<Universe *> universes)
@@ -362,7 +367,7 @@ void Collection::postRun(MasterTimer* timer, QList<Universe *> universes)
         {
             Function* function = doc->function(it.next());
             Q_ASSERT(function != NULL);
-            function->stop(Source(Source::Function, id()));
+            function->stop(functionSource());
         }
 
         m_runningChildren.clear();
