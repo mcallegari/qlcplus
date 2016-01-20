@@ -555,7 +555,7 @@ void Scene_Test::writeHTPZeroTicks()
     s1->setValue(fxi->id(), 2, 0);
     doc->addFunction(s1);
 
-    s1->start(&timer, Function::Source(Function::Source::God, 0));
+    s1->start(&timer, Function::Source::god());
     timer.timerTick();
     ua = doc->inputOutputMap()->claimUniverses();
     QVERIFY(ua[0]->preGMValues()[0] == (char) 255);
@@ -564,7 +564,7 @@ void Scene_Test::writeHTPZeroTicks()
     QVERIFY(s1->stopped() == false);
     doc->inputOutputMap()->releaseUniverses(false);
 
-    s1->stop(Function::Source(Function::Source::God, 0));
+    s1->stop(Function::Source::god());
     QVERIFY(s1->stopped() == true);
     QVERIFY(s1->isRunning() == true); // postRun has not been run yet, but..
     timer.timerTick();                // ..now it has.
@@ -610,7 +610,7 @@ void Scene_Test::writeHTPTwoTicks()
     doc->inputOutputMap()->releaseUniverses(false);
 
     QVERIFY(s1->stopped() == true);
-    s1->start(&timer, Function::Source(Function::Source::God, 0));
+    s1->start(&timer, Function::Source::god());
     timer.timerTick();
 
     QVERIFY(s1->stopped() == false);
@@ -645,7 +645,7 @@ void Scene_Test::writeHTPTwoTicks()
     QVERIFY(s1->stopped() == false);
     doc->inputOutputMap()->releaseUniverses(false);
 
-    s1->stop(Function::Source(Function::Source::God, 0));
+    s1->stop(Function::Source::god());
     QVERIFY(s1->stopped() == true);
     QVERIFY(s1->isRunning() == true);
 
@@ -702,7 +702,7 @@ void Scene_Test::writeHTPTwoTicksIntensity()
     s1->adjustAttribute(0.5, Function::Intensity);
 
     QVERIFY(s1->stopped() == true);
-    s1->start(&timer, Function::Source(Function::Source::God, 0));
+    s1->start(&timer, Function::Source::god());
     timer.timerTick();
 
     QVERIFY(s1->stopped() == false);
@@ -741,7 +741,7 @@ void Scene_Test::writeHTPTwoTicksIntensity()
     QVERIFY(s1->stopped() == false);
     doc->inputOutputMap()->releaseUniverses(false);
 
-    s1->stop(Function::Source(Function::Source::God, 0));
+    s1->stop(Function::Source::god());
     QVERIFY(s1->stopped() == true);
     QVERIFY(s1->isRunning() == true);
 
@@ -792,7 +792,7 @@ void Scene_Test::writeLTPReady()
 
     QVERIFY(s1->stopped() == true);
     QVERIFY(s1->isRunning() == false);
-    s1->start(&timer, Function::Source(Function::Source::God, 0));
+    s1->start(&timer, Function::Source::god());
 
     timer.timerTick();
     ua = doc->inputOutputMap()->claimUniverses();

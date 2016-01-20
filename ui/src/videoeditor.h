@@ -55,6 +55,9 @@ private slots:
     void slotPreviewStopped(quint32 id);
     void slotDurationChanged(qint64 duration);
     void slotMetaDataChanged(QString key, QVariant data);
+
+private:
+    Function::Source functionSource() const;
 };
 
 /** @} */

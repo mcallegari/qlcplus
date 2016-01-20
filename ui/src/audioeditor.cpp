@@ -135,7 +135,7 @@ AudioEditor::AudioEditor(QWidget* parent, Audio *audio, Doc* doc)
 
 AudioEditor::~AudioEditor()
 {
-    m_audio->stop(Function::Source(Function::Source::God, 0));
+    m_audio->stop(functionSource());
 }
 
 void AudioEditor::slotNameEdited(const QString& text)
@@ -235,18 +235,23 @@ void AudioEditor::slotPreviewToggled(bool state)
 {
     if (state == true)
     {
-        m_audio->start(m_doc->masterTimer(), Function::Source(Function::Source::God, 0));
+        m_audio->start(m_doc->masterTimer(), functionSource());
         connect(m_audio, SIGNAL(stopped(quint32)),
                 this, SLOT(slotPreviewStopped(quint32)));
     }
     else
-        m_audio->stop(Function::Source(Function::Source::God, 0));
+        m_audio->stop(functionSource());
 }
 
 void AudioEditor::slotPreviewStopped(quint32 id)
 {
     if (id == m_audio->id())
         m_previewButton->setChecked(false);
+}
+
+Function::Source AudioEditor::functionSource() const
+{
+    return Function::Source::god();
 }
 
 /************************************************************************

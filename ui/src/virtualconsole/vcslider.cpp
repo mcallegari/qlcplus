@@ -831,6 +831,11 @@ void VCSlider::slotPlaybackFunctionIntensityChanged(int attrIndex, qreal fractio
     m_externalMovement = false;
 }
 
+Function::Source VCSlider::functionSource() const
+{
+    return Function::Source(Function::Source::ManualVCWidget, id());
+}
+
 /*****************************************************************************
  * DMXSource
  *****************************************************************************/
@@ -1015,7 +1020,7 @@ void VCSlider::writeDMXPlayback(MasterTimer* timer, QList<Universe *> ua)
             // Make sure we ignore the fade out time
             function->adjustAttribute(0, Function::Intensity);
             if (function->stopped() == false)
-                function->stop(Function::Source(Function::Source::ManualVCWidget, id()));
+                function->stop(functionSource());
         }
         else
         {
@@ -1024,7 +1029,7 @@ void VCSlider::writeDMXPlayback(MasterTimer* timer, QList<Universe *> ua)
                 // Since this function is started by a fader, its fade in time
                 // is decided by the fader movement.
                 function->start(
-                        timer, Function::Source(Function::Source::ManualVCWidget, id()),
+                        timer, functionSource(),
                         0, 0, Function::defaultSpeed(), Function::defaultSpeed());
             }
             emit functionStarting(m_playbackFunction, pIntensity);

@@ -69,6 +69,9 @@ protected slots:
     void slotFunctionRemoved(quint32 id);
 
 private:
+    Function::Source functionSource() const;
+
+private:
     Doc *m_doc;
     QHash<quint32, VideoWidget *> m_videoMap;
 };

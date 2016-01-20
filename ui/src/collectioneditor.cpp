@@ -110,9 +110,14 @@ void CollectionEditor::slotRemove()
 void CollectionEditor::slotTestClicked()
 {
     if (m_testButton->isChecked() == true)
-        m_fc->start(m_doc->masterTimer(), Function::Source(Function::Source::God, 0));
+        m_fc->start(m_doc->masterTimer(), functionSource());
     else
         m_fc->stopAndWait();
+}
+
+Function::Source CollectionEditor::functionSource() const
+{
+    return Function::Source::god();
 }
 
 void CollectionEditor::updateFunctionList()

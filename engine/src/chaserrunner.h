@@ -200,6 +200,9 @@ private:
 
     int getNextStepIndex();
 
+private:
+    Function::Source functionSource() const;
+
 public:
     /**
      * Call this from the parent function's write() method to run the steps.

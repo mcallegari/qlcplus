@@ -346,6 +346,9 @@ signals:
     /** Signal to webaccess */
     void stepChanged(int idx);
 
+private:
+    Function::Source functionSource() const;
+
     /*************************************************************************
      * Load & Save
      *************************************************************************/

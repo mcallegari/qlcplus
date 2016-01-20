@@ -1206,7 +1206,7 @@ void ShowManager::slotStopPlayback()
 {
     if (m_show != NULL && m_show->isRunning())
     {
-        m_show->stop(Function::Source(Function::Source::God, 0));
+        m_show->stop(functionSource());
         return;
     }
     m_showview->rewindCursor();
@@ -1217,7 +1217,7 @@ void ShowManager::slotStartPlayback()
 {
     if (m_showsCombo->count() == 0 || m_show == NULL)
         return;
-    m_show->start(m_doc->masterTimer(), Function::Source(Function::Source::God, 0), m_showview->getTimeFromCursor());
+    m_show->start(m_doc->masterTimer(), functionSource(), m_showview->getTimeFromCursor());
 }
 
 void ShowManager::slotShowStopped()
@@ -1793,7 +1793,7 @@ void ShowManager::hideEvent(QHideEvent* ev)
     qDebug() << Q_FUNC_INFO;
     emit functionManagerActive(false);
     QWidget::hideEvent(ev);
-    
+
     if (m_currentEditor != NULL)
     {
         m_vsplitter->widget(1)->layout()->removeWidget(m_currentEditor);
@@ -1809,4 +1809,9 @@ void ShowManager::hideEvent(QHideEvent* ev)
         m_sceneEditor->deleteLater();
         m_sceneEditor = NULL;
     }
+}
+
+Function::Source ShowManager::functionSource() const
+{
+    return Function::Source::god();
 }

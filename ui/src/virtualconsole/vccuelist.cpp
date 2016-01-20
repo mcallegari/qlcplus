@@ -846,7 +846,7 @@ void VCCueList::startChaser(int startIndex)
     ch->setStepIndex(startIndex);
     ch->setStartIntensity(getPrimaryIntensity());
     ch->adjustAttribute(intensity(), Function::Intensity);
-    ch->start(m_doc->masterTimer(), Function::Source(Function::Source::ManualVCWidget, id()));
+    ch->start(m_doc->masterTimer(), functionSource());
     emit functionStarting(m_chaserID);
 }
 
@@ -855,7 +855,7 @@ void VCCueList::stopChaser()
     Chaser* ch = chaser();
     if (ch == NULL)
         return;
-    ch->stop(Function::Source(Function::Source::ManualVCWidget, id()));
+    ch->stop(functionSource());
 }
 
 void VCCueList::setNextPrevBehavior(unsigned int nextPrev)
@@ -1292,6 +1292,11 @@ void VCCueList::playCueAtIndex(int idx)
 
     if (slidersMode() == Crossfade)
         setSlidersInfo(m_primaryIndex);
+}
+
+Function::Source VCCueList::functionSource() const
+{
+    return Function::Source(Function::Source::ManualVCWidget, id());
 }
 
 /*****************************************************************************

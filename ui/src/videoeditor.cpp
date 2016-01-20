@@ -206,12 +206,12 @@ void VideoEditor::slotPreviewToggled(bool state)
 {
     if (state == true)
     {
-        m_video->start(m_doc->masterTimer(), Function::Source(Function::Source::God, 0));
+        m_video->start(m_doc->masterTimer(), functionSource());
         connect(m_video, SIGNAL(stopped(quint32)),
                 this, SLOT(slotPreviewStopped(quint32)));
     }
     else
-        m_video->stop(Function::Source(Function::Source::God, 0));
+        m_video->stop(functionSource());
 }
 
 void VideoEditor::slotPreviewStopped(quint32 id)
@@ -243,3 +243,7 @@ void VideoEditor::slotMetaDataChanged(QString key, QVariant data)
         m_acodecLabel->setText(data.toString());
 }
 
+Function::Source VideoEditor::functionSource() const
+{
+    return Function::Source::god();
+}

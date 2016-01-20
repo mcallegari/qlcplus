@@ -158,6 +158,9 @@ private slots:
     void slotUpdate();
 
 private:
+    Function::Source functionSource() const;
+
+private:
     /** timer for updating the controls */
     QTimer* m_updateTimer;
 

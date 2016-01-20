@@ -110,6 +110,9 @@ public:
     int m_skippedBeats;
 
 private:
+    Function::Source functionSource() const;
+
+private:
 
     /** Reference to an attached VCWidget when m_type == VCWidgetBar */
     VCWidget *m_widget;
