@@ -114,6 +114,7 @@ Rectangle
                 height: topBar.height - 2
                 imgSource: "qrc:/scene.svg"
                 checkable: true
+                checked: functionManager.functionsFilter & Function.Scene
                 tooltip: qsTr("Scenes")
                 counter: functionManager.sceneCount
                 onCheckedChanged: setFunctionFilter(Function.Scene, checked)
@@ -126,6 +127,7 @@ Rectangle
                 height: topBar.height - 2
                 imgSource: "qrc:/chaser.svg"
                 checkable: true
+                checked: functionManager.functionsFilter & Function.Chaser
                 tooltip: qsTr("Chasers")
                 counter: functionManager.chaserCount
                 onCheckedChanged: setFunctionFilter(Function.Chaser, checked)
@@ -138,6 +140,7 @@ Rectangle
                 height: topBar.height - 2
                 imgSource: "qrc:/efx.svg"
                 checkable: true
+                checked: functionManager.functionsFilter & Function.EFX
                 tooltip: qsTr("EFX")
                 counter: functionManager.efxCount
                 onCheckedChanged: setFunctionFilter(Function.EFX, checked)
@@ -150,6 +153,7 @@ Rectangle
                 height: topBar.height - 2
                 imgSource: "qrc:/collection.svg"
                 checkable: true
+                checked: functionManager.functionsFilter & Function.Collection
                 tooltip: qsTr("Collections")
                 counter: functionManager.collectionCount
                 onCheckedChanged: setFunctionFilter(Function.Collection, checked)
@@ -162,6 +166,7 @@ Rectangle
                 height: topBar.height - 2
                 imgSource: "qrc:/rgbmatrix.svg"
                 checkable: true
+                checked: functionManager.functionsFilter & Function.RGBMatrix
                 tooltip: qsTr("RGB Matrices")
                 counter: functionManager.rgbMatrixCount
                 onCheckedChanged: setFunctionFilter(Function.RGBMatrix, checked)
@@ -174,6 +179,7 @@ Rectangle
                 height: topBar.height - 2
                 imgSource: "qrc:/showmanager.svg"
                 checkable: true
+                checked: functionManager.functionsFilter & Function.Show
                 tooltip: qsTr("Shows")
                 counter: functionManager.showCount
                 onCheckedChanged: setFunctionFilter(Function.Show, checked)
@@ -186,6 +192,7 @@ Rectangle
                 height: topBar.height - 2
                 imgSource: "qrc:/script.svg"
                 checkable: true
+                checked: functionManager.functionsFilter & Function.Script
                 tooltip: qsTr("Scripts")
                 counter: functionManager.scriptCount
                 onCheckedChanged: setFunctionFilter(Function.Script, checked)
@@ -198,6 +205,7 @@ Rectangle
                 height: topBar.height - 2
                 imgSource: "qrc:/audio.svg"
                 checkable: true
+                checked: functionManager.functionsFilter & Function.Audio
                 tooltip: qsTr("Audio")
                 counter: functionManager.audioCount
                 onCheckedChanged: setFunctionFilter(Function.Audio, checked)
@@ -210,6 +218,7 @@ Rectangle
                 height: topBar.height - 2
                 imgSource: "qrc:/video.svg"
                 checkable: true
+                checked: functionManager.functionsFilter & Function.Video
                 tooltip: qsTr("Videos")
                 counter: functionManager.videoCount
                 onCheckedChanged: setFunctionFilter(Function.Video, checked)
@@ -267,6 +276,7 @@ Rectangle
                       }
                   } // Loader
               } // Component
+              ScrollBar { flickable: functionsListView }
         } // ListView
     } // ColumnLayout
 }

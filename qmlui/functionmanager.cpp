@@ -90,6 +90,11 @@ void FunctionManager::setFunctionFilter(quint32 filter, bool enable)
     slotDocLoaded();
 }
 
+int FunctionManager::functionsFilter() const
+{
+    return (int)m_filter;
+}
+
 quint32 FunctionManager::createFunction(int type)
 {
     Function* f = NULL;

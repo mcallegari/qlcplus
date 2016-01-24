@@ -44,6 +44,7 @@ class FunctionManager : public QObject
     Q_OBJECT
 
     Q_PROPERTY(QVariant functionsList READ functionsList NOTIFY functionsListChanged)
+    Q_PROPERTY(int functionsFilter READ functionsFilter CONSTANT)
 
     Q_PROPERTY(int sceneCount READ sceneCount NOTIFY sceneCountChanged)
     Q_PROPERTY(int chaserCount READ chaserCount NOTIFY chaserCountChanged)
@@ -63,7 +64,10 @@ public:
      *********************************************************************/
     QVariant functionsList();
 
+    /** Enable/disable the display of a Function type in the functions tree */
     Q_INVOKABLE void setFunctionFilter(quint32 filter, bool enable);
+    int functionsFilter() const;
+
     Q_INVOKABLE quint32 createFunction(int type);
     Q_INVOKABLE Function *getFunction(quint32 id);
     Q_INVOKABLE void clearTree();
