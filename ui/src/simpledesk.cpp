@@ -1477,6 +1477,105 @@ void SimpleDesk::hideEvent(QHideEvent* ev)
     QWidget::hideEvent(ev);
 }
 
+void SimpleDesk::resizeEvent(QResizeEvent *ev)
+{
+    QWidget::resizeEvent(ev);
+
+    QSettings settings;
+    QVariant var = settings.value(SETTINGS_PAGE_CHANNELS);
+    QSize newSize = ev->size();
+    //qDebug() << "Resize event. Frame size:" << newSize;
+
+    // this block makes sense only in a fixed layout
+    if (m_viewModeButton->isChecked() == false)
+    {
+        // if channels per page are not forced by the user,
+        // perform an autodetection
+        if (var.isValid() == false || var.toUInt() == 0)
+        {
+            uint currChannels = m_channelsPerPage;
+            m_channelsPerPage = (newSize.width() - m_grandMasterSlider->width()) / 42;
+            //qDebug() << "Old channels per page:" << currChannels << ", new value:" << m_channelsPerPage;
+            if (m_channelsPerPage != currChannels)
+            {
+                int slidersDiff = (int)currChannels - (int)m_channelsPerPage;
+                if (slidersDiff < 0)
+                {
+                    for (int a = 0; a < -slidersDiff; a++)
+                        m_universeSliders.append(NULL);
+                }
+                else if (slidersDiff > 0)
+                {
+                    for (int r = 0; r < slidersDiff; r++)
+                    {
+                        ConsoleChannel* slider = m_universeSliders.takeLast();
+                        if (slider != NULL)
+                        {
+                            m_universeGroup->layout()->removeWidget(slider);
+                            disconnect(slider, SIGNAL(valueChanged(quint32,quint32,uchar)),
+                                   this, SLOT(slotUniverseSliderValueChanged(quint32,quint32,uchar)));
+                            disconnect(slider, SIGNAL(resetRequest(quint32,quint32)),
+                                    this, SLOT(slotChannelResetClicked(quint32,quint32)));
+                            delete slider;
+                        }
+                    }
+                }
+                if (this->isVisible() == true)
+                    slotUniversePageChanged(m_universePageSpin->value());
+            }
+        }
+    }
+
+    // check if the value has been forced by the user
+    var = settings.value(SETTINGS_PAGE_PLAYBACKS);
+    if (var.isValid() == true && var.toUInt() > 0)
+        return;
+
+    uint currPlayback = m_playbacksPerPage;
+    // always have playback sliders to fill half of the window
+    m_playbacksPerPage = (newSize.width() / 2) / 42;
+
+    //qDebug() << "Old playback per page:" << currPlayback << ", new value:" << m_playbacksPerPage;
+
+    if (currPlayback != m_playbacksPerPage)
+    {
+        int pbDiff = (int)currPlayback - (int)m_playbacksPerPage;
+        if (pbDiff < 0)
+        {
+            for (int a = 0; a < -pbDiff; a++)
+            {
+                PlaybackSlider* slider = new PlaybackSlider(m_playbackGroup);
+                m_playbackGroup->layout()->addWidget(slider);
+                slider->setLabel(QString::number(m_playbackSliders.count()));
+                slider->setProperty(PROP_PLAYBACK, uint(m_playbackSliders.count()));
+                m_playbackSliders << slider;
+                connect(slider, SIGNAL(selected()), this, SLOT(slotPlaybackSelected()));
+                connect(slider, SIGNAL(started()), this, SLOT(slotPlaybackStarted()));
+                connect(slider, SIGNAL(stopped()), this, SLOT(slotPlaybackStopped()));
+                connect(slider, SIGNAL(flashing(bool)), this, SLOT(slotPlaybackFlashing(bool)));
+                connect(slider, SIGNAL(valueChanged(uchar)), this, SLOT(slotPlaybackValueChanged(uchar)));
+            }
+        }
+        else if (pbDiff > 0)
+        {
+            for (int r = 0; r < pbDiff; r++)
+            {
+                PlaybackSlider* slider = m_playbackSliders.takeLast();
+                if (slider == NULL)
+                    continue;
+                disconnect(slider, SIGNAL(selected()), this, SLOT(slotPlaybackSelected()));
+                disconnect(slider, SIGNAL(started()), this, SLOT(slotPlaybackStarted()));
+                disconnect(slider, SIGNAL(stopped()), this, SLOT(slotPlaybackStopped()));
+                disconnect(slider, SIGNAL(flashing(bool)), this, SLOT(slotPlaybackFlashing(bool)));
+                disconnect(slider, SIGNAL(valueChanged(uchar)), this, SLOT(slotPlaybackValueChanged(uchar)));
+                m_playbackGroup->layout()->removeWidget(slider);
+                delete slider;
+            }
+        }
+    }
+
+}
+
 /****************************************************************************
  * Load & Save
  ****************************************************************************/

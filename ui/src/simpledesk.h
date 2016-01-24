@@ -219,6 +219,9 @@ protected:
     /** @reimp */
     void hideEvent(QHideEvent* ev);
 
+    /** @reimp */
+    void resizeEvent(QResizeEvent *ev);
+
 private:
     QGroupBox* m_cueStackGroup;
     QToolButton* m_previousCueButton;
