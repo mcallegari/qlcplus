@@ -52,7 +52,7 @@ Rectangle
     signal clicked
     signal toggled
 
-    color: bgColor
+    color: checked ? checkedColor : (mouseArea1.containsMouse ? hoverColor : bgColor)
     radius: 5
     border.color: "#1D1D1D"
     border.width: 2
@@ -61,17 +61,6 @@ Rectangle
     {
         if (exclusiveGroup)
             exclusiveGroup.bindCheckable(baseIconButton)
-    }
-    onCheckedChanged:
-    {
-        if (checked == true)
-        {
-            baseIconButton.color = checkedColor
-        }
-        else
-        {
-            baseIconButton.color = bgColor
-        }
     }
     onCounterChanged:
     {
@@ -105,8 +94,7 @@ Rectangle
         id: mouseArea1
         anchors.fill: parent
         hoverEnabled: true
-        onEntered: { if (checked == false) baseIconButton.color = hoverColor }
-        onExited: { if (checked == false) baseIconButton.color = bgColor; Tooltip.hideText() }
+        onExited: { Tooltip.hideText() }
         onReleased:
         {
             if (checkable == true)
