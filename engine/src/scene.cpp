@@ -376,7 +376,7 @@ bool Scene::saveXML(QXmlStreamWriter *doc)
         if ((qint32)sv.fxi != currFixID)
         {
             saveXMLFixtureValues(doc, currFixID, currFixValues);
-            writtenFixtures.insert(currFixID);
+            writtenFixtures << currFixID;
             currFixValues.clear();
             currFixID = sv.fxi;
         }
@@ -385,6 +385,7 @@ bool Scene::saveXML(QXmlStreamWriter *doc)
     }
     /* write last element */
     saveXMLFixtureValues(doc, currFixID, currFixValues);
+    writtenFixtures << currFixID;
 
     // Write fixtures with no scene value
     QSet<quint32> unwrittenFixtures(m_fixtures);
