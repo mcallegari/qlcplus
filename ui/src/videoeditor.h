@@ -21,6 +21,7 @@
 #define VIDEOEDITOR_H
 
 #include "ui_videoeditor.h"
+#include "function.h"
 
 class Video;
 class Doc;

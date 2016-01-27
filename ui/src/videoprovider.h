@@ -55,6 +55,9 @@ protected:
     QMediaPlayer *m_videoPlayer;
     /** Qt widget that actually displays the video */
     QVideoWidget *m_videoWidget;
+
+private:
+    Function::Source functionSource() const;
 };
 
 class VideoProvider: public QObject
@@ -67,9 +70,6 @@ public:
 protected slots:
     void slotFunctionAdded(quint32 id);
     void slotFunctionRemoved(quint32 id);
-
-private:
-    Function::Source functionSource() const;
 
 private:
     Doc *m_doc;
