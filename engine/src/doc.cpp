@@ -22,7 +22,6 @@
 #include <QXmlStreamWriter>
 #include <QStringList>
 #include <QString>
-#include <QCoreApplication>
 #include <QDebug>
 #include <QList>
 #include <QDir>
