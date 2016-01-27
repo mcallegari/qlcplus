@@ -243,16 +243,14 @@ void VCMatrix::slotSliderMoved(int value)
 
     if (value == 0)
     {
-        if (function->stopped() == false)
-            function->stop();
+        function->stop(functionSource());
     }
     else
     {
         qreal pIntensity = qreal(value) / qreal(UCHAR_MAX);
         function->adjustAttribute(pIntensity * intensity(), Function::Intensity);
 
-        if (function->stopped() == true)
-            function->start(m_doc->masterTimer());
+        function->start(m_doc->masterTimer(), functionSource());
     }
 }
 
@@ -530,6 +528,11 @@ void VCMatrix::slotUpdate()
             button->setDown(on);
         }
     }
+}
+
+Function::Source VCMatrix::functionSource() const
+{
+    return Function::Source(Function::Source::ManualVCWidget, id());
 }
 
 /*********************************************************************

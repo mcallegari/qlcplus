@@ -298,7 +298,7 @@ void Script::write(MasterTimer* timer, QList<Universe *> universes)
 
             // In case wait() is the last command, don't stop the script prematurely
             if (m_currentCommand >= m_lines.size() && m_waitCount == 0)
-                stop();
+                stop(Source(Source::Function, id()));
         }
 
         // Handle GenericFader tasks (setltp/sethtp/setfixture)
@@ -311,7 +311,7 @@ void Script::postRun(MasterTimer* timer, QList<Universe *> universes)
 {
     // Stop all functions started by this script
     foreach (Function* function, m_startedFunctions)
-        function->stop();
+        function->stop(Source(Source::Function, id()));
     m_startedFunctions.clear();
 
     // Stops keeping HTP channels up
@@ -463,10 +463,7 @@ QString Script::handleStartFunction(const QList<QStringList>& tokens, MasterTime
     Function* function = doc->function(id);
     if (function != NULL)
     {
-        if (function->stopped() == true)
-            function->start(timer, true);
-        else
-            qWarning() << "Function (" << function->name() << ") is already running.";
+        function->start(timer, Source(Source::Function, this->id()));
 
         m_startedFunctions << function;
         return QString();
@@ -495,10 +492,7 @@ QString Script::handleStopFunction(const QList <QStringList>& tokens)
     Function* function = doc->function(id);
     if (function != NULL)
     {
-        if (function->stopped() == false)
-            function->stop();
-        else
-            qWarning() << "Function (" << function->name() << ") is not running.";
+        function->stop(Source(Source::Function, this->id()));
 
         m_startedFunctions.removeAll(function);
         return QString();

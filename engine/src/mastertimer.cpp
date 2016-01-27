@@ -224,64 +224,85 @@ void MasterTimer::timerTickFunctions(QList<Universe *> universes)
 {
     // List of m_functionList indices that should be removed at the end of this
     // function. The functions at the indices have been stopped.
-    QList <int> removeList;
+    QList<int> removeList;
+
     bool functionListHasChanged = false;
+    bool stoppedAFunction = true;
+    bool firstIteration = true;
 
-    for (int i = 0; i < m_functionList.size(); i++)
+    while (stoppedAFunction)
     {
-        Function* function = m_functionList.at(i);
+        stoppedAFunction = false;
+        removeList.clear();
 
-        if (function != NULL)
+        for (int i = 0; i < m_functionList.size(); i++)
         {
-            /* Run the function unless it's supposed to be stopped */
-            if (function->stopped() == false && m_stopAllFunctions == false)
+            Function* function = m_functionList.at(i);
+
+            if (function != NULL)
             {
-                function->write(this, universes);
+                /* Run the function unless it's supposed to be stopped */
+                if (function->stopped() == false && m_stopAllFunctions == false)
+                {
+                    if (firstIteration)
+                        function->write(this, universes);
+                }
+                else
+                {
+                    // Clear function's parentList
+                    if (m_stopAllFunctions)
+                        function->stop(Function::Source::god());
+                    /* Function should be stopped instead */
+                    function->postRun(this, universes);
+                    //qDebug() << "[MasterTimer] Add function (ID: " << function->id() << ") to remove list ";
+                    removeList << i; // Don't remove the item from the list just yet.
+                    functionListHasChanged = true;
+                    stoppedAFunction = true;
+                }
+            }
+        }
+
+        // Remove functions that need to be removed AFTER all functions have been run
+        // for this round. This is done separately to prevent a case when a function
+        // is first removed and then another is added (chaser, for example), keeping the
+        // list's size the same, thus preventing the last added function from being run
+        // on this round. The indices in removeList are automatically sorted because the
+        // list is iterated with an int above from 0 to size, so iterating the removeList
+        // backwards here will always remove the correct indices.
+        QListIterator <int> it(removeList);
+        it.toBack();
+        while (it.hasPrevious() == true)
+            m_functionList.removeAt(it.previous());
+
+        firstIteration = false;
+    }
+
+    m_functionListMutex.lock();
+    while (m_startQueue.size() > 0)
+    {
+        QList<Function*> startQueue(m_startQueue);
+        m_startQueue.clear();
+        m_functionListMutex.unlock();
+
+        foreach (Function* f, startQueue)
+        {
+            if (m_functionList.contains(f))
+            {
+                f->postRun(this, universes);
             }
             else
             {
-                function->stop(); // set stop flag (in case of stopAllFunctions)
-                /* Function should be stopped instead */
-                function->postRun(this, universes);
-                //qDebug() << "[MasterTimer] Add function (ID: " << function->id() << ") to remove list ";
-                removeList << i; // Don't remove the item from the list just yet.
+                m_functionList.append(f);
                 functionListHasChanged = true;
             }
+            f->preRun(this);
+            f->write(this, universes);
+            emit functionStarted(f->id());
         }
+
+        m_functionListMutex.lock();
     }
-
-    // Remove functions that need to be removed AFTER all functions have been run
-    // for this round. This is done separately to prevent a case when a function
-    // is first removed and then another is added (chaser, for example), keeping the
-    // list's size the same, thus preventing the last added function from being run
-    // on this round. The indices in removeList are automatically sorted because the
-    // list is iterated with an int above from 0 to size, so iterating the removeList
-    // backwards here will always remove the correct indices.
-    QListIterator <int> it(removeList);
-    it.toBack();
-    while (it.hasPrevious() == true)
-        m_functionList.removeAt(it.previous());
-
-    m_functionListMutex.lock();
-    QList<Function*> startQueue(m_startQueue);
-    m_startQueue.clear();
     m_functionListMutex.unlock();
-
-    foreach (Function* f, startQueue)
-    {
-        if (m_functionList.contains(f))
-        {
-            f->postRun(this, universes);
-        }
-        else
-        {
-            m_functionList.append(f);
-            functionListHasChanged = true;
-        }
-        f->preRun(this);
-        f->write(this, universes);
-        emit functionStarted(f->id());
-    }
 
     if (functionListHasChanged)
         emit functionListChanged();

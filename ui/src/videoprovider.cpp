@@ -151,8 +151,7 @@ void VideoWidget::slotStatusChanged(QMediaPlayer::MediaStatus status)
             if (m_videoWidget != NULL)
                 m_videoWidget->hide();
 
-            if (m_video->isRunning())
-                m_video->stop();
+            m_video->stop(functionSource());
             break;
         }
         case QMediaPlayer::InvalidMedia:
@@ -226,8 +225,7 @@ void VideoWidget::slotStopVideo()
         m_videoWidget->hide();
     }
 
-    if (m_video->isRunning())
-        m_video->stop();
+    m_video->stop(functionSource());
 }
 
 void VideoWidget::slotBrightnessAdjust(int value)
@@ -244,4 +242,9 @@ int VideoWidget::getScreenCount()
         screenCount = desktop->screenCount();
 
     return screenCount;
+}
+
+Function::Source VideoWidget::functionSource() const
+{
+    return Function::Source::god();
 }

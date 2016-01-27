@@ -941,7 +941,7 @@ void RGBMatrixEditor::slotTestClicked()
     if (m_testButton->isChecked() == true)
     {
         m_previewTimer->stop();
-        m_matrix->start(m_doc->masterTimer());
+        m_matrix->start(m_doc->masterTimer(), functionSource());
     }
     else
     {
@@ -1178,4 +1178,9 @@ void RGBMatrixEditor::slotPropertySpinChanged(int value)
         script->setProperty(pName, QString::number(value));
         m_matrix->setProperty(pName, QString::number(value));
     }
+}
+
+Function::Source RGBMatrixEditor::functionSource() const
+{
+    return Function::Source::god();
 }

@@ -305,7 +305,7 @@ void Doc::setMode(Doc::Mode mode)
         if (func != NULL)
         {
             qDebug() << Q_FUNC_INFO << "Starting startup function. (" << m_startupFunctionId << ")";
-            func->start(masterTimer());
+            func->start(masterTimer(), Function::Source::god());
         }
         else
         {

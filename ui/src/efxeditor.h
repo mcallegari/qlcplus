@@ -73,6 +73,8 @@ private:
         otherwise it is restarted as a normal EFX. */
     void continueRunning(bool running);
 
+    Function::Source functionSource() const;
+
     EfxUiState * efxUiState();
 
 private slots:
