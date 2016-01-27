@@ -691,8 +691,19 @@ bool VCFrame::copyFrom(const VCWidget* widget)
         }
 
         if (childCopy != NULL)
+        {
             addWidgetToPageMap(childCopy);
 
+            if (childCopy->type() == VCWidget::SliderWidget)
+            {
+                VCSlider *slider = (VCSlider*)childCopy;
+                // always connect a slider as it it was a submaster
+                // cause this signal is emitted only when a slider is
+                // a submaster
+                connect(slider, SIGNAL(submasterValueChanged(qreal)),
+                        this, SLOT(slotSubmasterValueChanged(qreal)));
+            }
+        }
     }
 
     if (m_multiPageMode)
