@@ -142,8 +142,6 @@ RGBMap RGBAudio::rgbMap(const QSize& size, uint rgb, int step)
     {
         m_bandsNumber = size.width();
         qDebug() << "[RGBAudio] set" << m_bandsNumber << "bars";
-        if (m_audioInput->isInitialized() == false)
-            m_audioInput->initialize();
         m_audioInput->registerBandsNumber(m_bandsNumber);
         return map;
     }

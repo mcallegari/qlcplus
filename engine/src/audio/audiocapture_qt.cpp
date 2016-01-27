@@ -19,6 +19,7 @@
 
 #include <QSettings>
 #include <QDebug>
+#include <QCoreApplication>
 
 #include "audiocapture_qt.h"
 
@@ -27,22 +28,16 @@ AudioCaptureQt::AudioCaptureQt(QObject * parent)
     , m_audioInput(NULL)
     , m_input(NULL)
 {
-
 }
 
 AudioCaptureQt::~AudioCaptureQt()
 {
-    if (m_audioInput == NULL)
-        return;
-    m_audioInput->stop();
-    delete m_audioInput;
-    m_audioInput = NULL;
+    stop();
+    Q_ASSERT(m_audioInput == NULL);
 }
 
 bool AudioCaptureQt::initialize()
 {
-    AudioCapture::initialize();
-
     QSettings settings;
     QString devName = "";
     QAudioDeviceInfo audioDevice = QAudioDeviceInfo::defaultInputDevice();
@@ -76,7 +71,9 @@ bool AudioCaptureQt::initialize()
         m_sampleRate = m_format.sampleRate();
     }
 
-    m_audioInput = new QAudioInput(audioDevice, m_format, this);
+    Q_ASSERT(m_audioInput == NULL);
+
+    m_audioInput = new QAudioInput(audioDevice, m_format);
 
     if (m_audioInput == NULL)
     {
@@ -88,7 +85,7 @@ bool AudioCaptureQt::initialize()
 
     if (m_audioInput->state() == QAudio::StoppedState)
     {
-        qWarning() << Q_FUNC_INFO << "Could not start input capture on device" << audioDevice.deviceName();
+        qWarning() << "Could not start input capture on device" << audioDevice.deviceName();
         delete m_audioInput;
         m_audioInput = NULL;
         m_input = NULL;
@@ -96,6 +93,15 @@ bool AudioCaptureQt::initialize()
     }
 
     return true;
+}
+
+void AudioCaptureQt::uninitialize()
+{
+    Q_ASSERT(m_audioInput != NULL);
+
+    m_audioInput->stop();
+    delete m_audioInput;
+    m_audioInput = NULL;
 }
 
 qint64 AudioCaptureQt::latency()
@@ -132,14 +138,3 @@ bool AudioCaptureQt::readAudio(int maxSize)
 
     return true;
 }
-
-
-
-
-
-
-
-
-
-
-

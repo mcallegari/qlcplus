@@ -28,7 +28,6 @@ static WAVEHDR waveHeaders[HEADERS_NUMBER];
 
 AudioCaptureWaveIn::AudioCaptureWaveIn(QObject * parent)
     : AudioCapture(parent)
-    , m_started(false)
     , m_currentBufferIndex(0)
 {
 
@@ -36,30 +35,13 @@ AudioCaptureWaveIn::AudioCaptureWaveIn(QObject * parent)
 
 AudioCaptureWaveIn::~AudioCaptureWaveIn()
 {
-    m_started = false;
-    m_mutex.lock();
-    if (deviceHandle)
-    {
-        waveInStop(deviceHandle);
-        for (int i = 0; i < HEADERS_NUMBER; i++)
-        {
-            if (waveInUnprepareHeader(deviceHandle, &waveHeaders[i], sizeof(WAVEHDR)) != MMSYSERR_NOERROR)
-                qWarning("[WAVEIN readAudio] UnprepareHeader failed");
-        }
-
-        waveInReset(deviceHandle);
-        waveInClose(deviceHandle);
-    }
-    deviceHandle = NULL;
-    m_mutex.unlock();
+    stop();
 }
 
 bool AudioCaptureWaveIn::initialize()
 {
     MMRESULT result = 0;
     WAVEFORMATEX format;
-
-    AudioCapture::initialize();
 
     format.wFormatTag = WAVE_FORMAT_PCM; // simple, uncompressed format
     format.wBitsPerSample = 16;
@@ -96,7 +78,54 @@ bool AudioCaptureWaveIn::initialize()
         break;
     }
 
+    for (int i = 0; i < HEADERS_NUMBER; i++)
+    {
+        m_internalBuffers[i] = new char[m_captureSize * 2];
+        // Set up and prepare header for input
+        waveHeaders[i].lpData = (LPSTR)m_internalBuffers[i];
+        waveHeaders[i].dwBufferLength = m_captureSize * 2; // multiply by 2 cause they're 16bit samples
+        waveHeaders[i].dwBytesRecorded = 0;
+        waveHeaders[i].dwUser = 0L;
+        waveHeaders[i].dwFlags = 0L;
+        waveHeaders[i].dwLoops = 0L;
+
+        if (waveInPrepareHeader(deviceHandle, &waveHeaders[i], sizeof(WAVEHDR)) != MMSYSERR_NOERROR)
+        {
+            qWarning("[WAVEIN readAudio] PrepareHeader failed");
+            return false;
+        }
+    }
+    // Insert the first input buffer
+    if (waveInAddBuffer(deviceHandle, &waveHeaders[0], sizeof(WAVEHDR)) != MMSYSERR_NOERROR)
+    {
+        qWarning("[WAVEIN readAudio] AddBuffer failed");
+        return false;
+    }
+
+    if (waveInStart(deviceHandle) != MMSYSERR_NOERROR)
+    {
+        qWarning("[WAVEIN readAudio] WaveStart failed");
+        return false;
+    }
+
     return true;
+}
+
+void AudioCaptureWaveIn::uninitialize()
+{
+    if (deviceHandle)
+    {
+        waveInStop(deviceHandle);
+        for (int i = 0; i < HEADERS_NUMBER; i++)
+        {
+            if (waveInUnprepareHeader(deviceHandle, &waveHeaders[i], sizeof(WAVEHDR)) != MMSYSERR_NOERROR)
+                qWarning("[WAVEIN readAudio] UnprepareHeader failed");
+        }
+
+        waveInReset(deviceHandle);
+        waveInClose(deviceHandle);
+    }
+    deviceHandle = NULL;
 }
 
 qint64 AudioCaptureWaveIn::latency()
@@ -114,81 +143,25 @@ void AudioCaptureWaveIn::resume()
 
 bool AudioCaptureWaveIn::readAudio(int maxSize)
 {
-    if (m_started == false)
-    {
-        for (int i = 0; i < HEADERS_NUMBER; i++)
-        {
-            m_internalBuffers[i] = new char[m_captureSize * 2];
-            // Set up and prepare header for input
-            waveHeaders[i].lpData = (LPSTR)m_internalBuffers[i];
-            waveHeaders[i].dwBufferLength = m_captureSize * 2; // multiply by 2 cause they're 16bit samples
-            waveHeaders[i].dwBytesRecorded = 0;
-            waveHeaders[i].dwUser = 0L;
-            waveHeaders[i].dwFlags = 0L;
-            waveHeaders[i].dwLoops = 0L;
-
-            if (waveInPrepareHeader(deviceHandle, &waveHeaders[i], sizeof(WAVEHDR)) != MMSYSERR_NOERROR)
-            {
-                qWarning("[WAVEIN readAudio] PrepareHeader failed");
-                return false;
-            }
-        }
-        // Insert the first input buffer
-        if (waveInAddBuffer(deviceHandle, &waveHeaders[0], sizeof(WAVEHDR)) != MMSYSERR_NOERROR)
-        {
-            qWarning("[WAVEIN readAudio] AddBuffer failed");
-            return false;
-        }
-
-        if (waveInStart(deviceHandle) != MMSYSERR_NOERROR)
-        {
-            qWarning("[WAVEIN readAudio] WaveStart failed");
-            return false;
-        }
-        m_started = true;
-    }
-
-    m_mutex.lock();
     int newBufferIndex = m_currentBufferIndex + 1;
     if (newBufferIndex == HEADERS_NUMBER)
         newBufferIndex = 0;
 
-    // queue the next buffer to avoid loosing data
+    // queue the next buffer to avoid losing data
     if (waveInAddBuffer(deviceHandle, &waveHeaders[newBufferIndex], sizeof(WAVEHDR)) != MMSYSERR_NOERROR)
     {
         qWarning("[WAVEIN readAudio] AddBuffer failed");
-        m_mutex.unlock();
         return false;
     }
 
     while ( (waveHeaders[m_currentBufferIndex].dwFlags & WHDR_DONE) == 0)
-    {
-        if (m_started == false)
-        {
-            m_mutex.unlock();
-            return false;
-        }
         usleep(100);
-    }
 
     memcpy(m_audioBuffer, m_internalBuffers[m_currentBufferIndex], maxSize * 2);
 
     m_currentBufferIndex = newBufferIndex;
 
-    m_mutex.unlock();
-
     qDebug() << "[WAVEIN readAudio] " << maxSize << "bytes read";
 
     return true;
 }
-
-
-
-
-
-
-
-
-
-
-

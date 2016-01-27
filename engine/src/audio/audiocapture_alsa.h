@@ -39,12 +39,15 @@ public:
     ~AudioCaptureAlsa();
 
     /** @reimpl */
-    bool initialize();
-
-    /** @reimpl */
     qint64 latency();
 
 protected:
+    /** @reimpl */
+    bool initialize();
+
+    /** @reimpl */
+    virtual void uninitialize();
+
     /** @reimpl */
     void suspend();
 

@@ -1071,8 +1071,6 @@ void InputOutputPatchEditor::slotAudioInputPreview(bool enable)
 
     if (enable == true)
     {
-        if (m_inputCapture->isInitialized() == false)
-            m_inputCapture->initialize();
         connect(m_inputCapture, SIGNAL(dataProcessed(double*,int,double,quint32)),
                 this, SLOT(slotAudioUpdateLevel(double*,int,double,quint32)));
         m_inputCapture->registerBandsNumber(FREQ_SUBBANDS_DEFAULT_NUMBER);

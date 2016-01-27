@@ -43,11 +43,11 @@
  * @{
  */
 
-typedef struct
+struct BandsData
 {
     int m_registerCounter;
     QVector<double> m_fftMagnitudeBuffer;
-} BandsData;
+};
 
 class AudioCapture : public QThread
 {
@@ -75,10 +75,9 @@ public:
     void unregisterBandsNumber(int number);
     //int bandsNumber();
 
-    bool isInitialized();
-
     static int maxFrequency() { return SPECTRUM_MAX_FREQUENCY; }
 
+    protected:
     /*!
      * Prepares object for usage and setups required audio parameters.
      * Subclass should reimplement this function.
@@ -87,8 +86,11 @@ public:
      * @param bufferSize Audio dat buffer size\
      * @return initialization result (\b true - success, \b false - failure)
      */
-    virtual bool initialize();
+    virtual bool initialize() = 0;
 
+    virtual void uninitialize() = 0;
+
+    public:
     /*!
      * Returns input interface latency in milliseconds.
      */
@@ -142,7 +144,6 @@ protected:
     virtual bool readAudio(int maxSize) = 0;
 
     QMutex m_mutex;
-    bool m_isInitialized;
 
     unsigned int m_captureSize, m_sampleRate, m_channels;
 
