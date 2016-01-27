@@ -244,7 +244,7 @@ int VideoWidget::getScreenCount()
     return screenCount;
 }
 
-Function::Source VideoProvider::functionSource() const
+Function::Source VideoWidget::functionSource() const
 {
     return Function::Source::god();
 }
