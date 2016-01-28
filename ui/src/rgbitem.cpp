@@ -25,91 +25,65 @@
 #include "qlcmacros.h"
 #include "rgbitem.h"
 
-static QColor getColor(QColor oldColor, QColor color, uint ms, uint elapsed)
+template<typename T_QGraphicsItem>
+RGBItem<T_QGraphicsItem>::RGBItem(QGraphicsItem* parent)
+    : T_QGraphicsItem(parent)
+    , m_elapsed(0)
 {
-    if (ms == 0)
+}
+
+template<typename T_QGraphicsItem>
+void RGBItem<T_QGraphicsItem>::setColor(QRgb rgb)
+{
+    m_oldColor = this->brush().color();
+    m_color = QColor(rgb);
+    m_elapsed = 0;
+}
+
+template<typename T_QGraphicsItem>
+QRgb RGBItem<T_QGraphicsItem>::color() const
+{
+    return m_color.rgb();
+}
+
+template<typename T_QGraphicsItem>
+void RGBItem<T_QGraphicsItem>::draw(uint elapsedMs, uint targetMs)
+{
+    m_elapsed += elapsedMs;
+
+    if (targetMs == 0)
     {
-        return color;
+        this->setBrush(m_color);
     }
-    else if (elapsed <= ms)
+    else if (m_elapsed <= targetMs)
     {
         int red, green, blue;
-        if (oldColor.red() < color.red())
-            red = SCALE(qreal(elapsed), qreal(0), qreal(ms), qreal(oldColor.red()), qreal(color.red()));
+        if (m_oldColor.red() < m_color.red())
+            red = SCALE(qreal(m_elapsed), qreal(0), qreal(targetMs), qreal(m_oldColor.red()), qreal(m_color.red()));
         else
-            red = SCALE(qreal(elapsed), qreal(ms), qreal(0), qreal(color.red()), qreal(oldColor.red()));
+            red = SCALE(qreal(m_elapsed), qreal(targetMs), qreal(0), qreal(m_color.red()), qreal(m_oldColor.red()));
         red = CLAMP(red, 0, 255);
 
-        if (oldColor.green() < color.green())
-            green = SCALE(qreal(elapsed), qreal(0), qreal(ms), qreal(oldColor.green()), qreal(color.green()));
+        if (m_oldColor.green() < m_color.green())
+            green = SCALE(qreal(m_elapsed), qreal(0), qreal(targetMs), qreal(m_oldColor.green()), qreal(m_color.green()));
         else
-            green = SCALE(qreal(elapsed), qreal(ms), qreal(0), qreal(color.green()), qreal(oldColor.green()));
+            green = SCALE(qreal(m_elapsed), qreal(targetMs), qreal(0), qreal(m_color.green()), qreal(m_oldColor.green()));
         green = CLAMP(green, 0, 255);
 
-        if (oldColor.blue() < color.blue())
-            blue = SCALE(qreal(elapsed), qreal(0), qreal(ms), qreal(oldColor.blue()), qreal(color.blue()));
+        if (m_oldColor.blue() < m_color.blue())
+            blue = SCALE(qreal(m_elapsed), qreal(0), qreal(targetMs), qreal(m_oldColor.blue()), qreal(m_color.blue()));
         else
-            blue = SCALE(qreal(elapsed), qreal(ms), qreal(0), qreal(color.blue()), qreal(oldColor.blue()));
+            blue = SCALE(qreal(m_elapsed), qreal(targetMs), qreal(0), qreal(m_color.blue()), qreal(m_oldColor.blue()));
         blue = CLAMP(blue, 0, 255);
 
-        return QColor(red, green, blue);
+        this->setBrush(QColor(red, green, blue));
     }
-    return QColor();
+    else
+        this->setBrush(m_color);
+
+//    qDebug() << Q_FUNC_INFO << m_elapsed << this->brush().color().red() << this->brush().color().green() << this->brush().color().blue();
 }
 
-/************************************************************************
- * RGB Circle Item
- ************************************************************************/
-
-RGBCircleItem::RGBCircleItem(QGraphicsItem* parent)
-    : QGraphicsEllipseItem(parent)
-    , m_elapsed(0)
-{
-}
-
-void RGBCircleItem::setColor(QRgb rgb)
-{
-    m_oldColor = brush().color();
-    m_color = QColor(rgb);
-    m_elapsed = 0;
-}
-
-QRgb RGBCircleItem::color() const
-{
-    return m_color.rgb();
-}
-
-void RGBCircleItem::draw(uint ms)
-{
-    setBrush(getColor(m_oldColor, m_color, ms, m_elapsed));
-    m_elapsed += MasterTimer::tick();
-}
-
-/************************************************************************
- * RGB Rect Item
- ************************************************************************/
-
-RGBRectItem::RGBRectItem(QGraphicsItem* parent)
-    : QGraphicsRectItem(parent)
-    , m_elapsed(0)
-{
-}
-
-void RGBRectItem::setColor(QRgb rgb)
-{
-    m_oldColor = brush().color();
-    m_color = QColor(rgb);
-    m_elapsed = 0;
-}
-
-QRgb RGBRectItem::color() const
-{
-    return m_color.rgb();
-}
-
-void RGBRectItem::draw(uint ms)
-{
-    setBrush(getColor(m_oldColor, m_color, ms, m_elapsed));
-    m_elapsed += MasterTimer::tick();
-}
-
+// Force instantiation of templates
+template class RGBItem<QGraphicsEllipseItem>;
+template class RGBItem<QGraphicsRectItem>;

@@ -27,20 +27,17 @@
  * @{
  */
 
-/************************************************************************
- * RGB Circle Item
- ************************************************************************/
-
-class RGBCircleItem : public QGraphicsEllipseItem
+template<typename T_QGraphicsItem>
+class RGBItem: public T_QGraphicsItem
 {
 public:
-    RGBCircleItem(QGraphicsItem* parent = 0);
-    ~RGBCircleItem() { }
+    RGBItem(QGraphicsItem* parent = 0);
+    ~RGBItem() { }
 
     void setColor(QRgb rgb);
     QRgb color() const;
 
-    void draw(uint ms);
+    void draw(uint elapsedMs, uint targetMs);
 
 private:
     QColor m_color;
@@ -48,26 +45,8 @@ private:
     uint m_elapsed;
 };
 
-/************************************************************************
- * RGB Rect Item
- ************************************************************************/
-
-class RGBRectItem : public QGraphicsRectItem
-{
-public:
-    RGBRectItem(QGraphicsItem* parent = 0);
-    ~RGBRectItem() { }
-
-    void setColor(QRgb rgb);
-    QRgb color() const;
-
-    void draw(uint ms);
-
-private:
-    QColor m_color;
-    QColor m_oldColor;
-    uint m_elapsed;
-};
+typedef RGBItem<QGraphicsEllipseItem> RGBCircleItem;
+typedef RGBItem<QGraphicsRectItem> RGBRectItem;
 
 /** @} */
 
