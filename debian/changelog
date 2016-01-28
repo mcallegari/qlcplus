@@ -16,6 +16,7 @@ qlcplus (4.10.3) stable; urgency=low
   * Plugins/OSC: OSC Output values range from 0.0 to 1.0
   * Virtual Console: Fix copy of a frame containing a submaster slider resulting in a broken submaster (David Garyga)
   * Virtual Console/Slider: Enable function filters in playback function selection (David Garyga)
+  * Virtual Console/Animation: Can now be used in solo frames (David Garyga)
   * New input profile: Behringer BCR2000 (thanks to Michael Trojacher)
   * New fixture: Stellar Labs ECO LED PAR56, Chauvet Colorpalette II (thanks to Jimmy Traylor)
   * New fixtures: Chauvet: COLORado 1 Solo, Ovation FD-165WW, Rogue RH1 Hybrid, COLORdash Par Hex 12 (thanks to Robert Box)

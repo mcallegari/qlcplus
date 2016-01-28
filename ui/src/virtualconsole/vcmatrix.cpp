@@ -34,6 +34,7 @@
 #include "clickandgoslider.h"
 #include "clickandgowidget.h"
 #include "knobwidget.h"
+#include "qlcmacros.h"
 #include "rgbalgorithm.h"
 #include "flowlayout.h"
 #include "rgbmatrix.h"
@@ -249,10 +250,12 @@ void VCMatrix::slotSliderMoved(int value)
     else
     {
         qreal pIntensity = qreal(value) / qreal(UCHAR_MAX);
+        emit functionStarting(m_matrixID, pIntensity);
         function->adjustAttribute(pIntensity * intensity(), Function::Intensity);
-
         if (function->stopped() == true)
+        {
             function->start(m_doc->masterTimer());
+        }
     }
 }
 
@@ -384,6 +387,23 @@ void VCMatrix::setFunction(quint32 id)
 quint32 VCMatrix::function() const
 {
     return m_matrixID;
+}
+
+void VCMatrix::notifyFunctionStarting(quint32 fid, qreal functionIntensity)
+{
+    if (mode() == Doc::Design)
+        return;
+
+    if (fid == m_matrixID)
+        return;
+
+    int value = SCALE(1.0 - functionIntensity,
+            0, 1.0,
+            m_slider->minimum(), m_slider->maximum());
+    if (m_slider->value() > value)
+    {
+        m_slider->setValue(value);
+    }
 }
 
 void VCMatrix::slotFunctionStopped()
