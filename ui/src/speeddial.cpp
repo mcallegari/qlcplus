@@ -39,9 +39,6 @@
 #define MIN_MAX   59
 #define SEC_MAX   59
 #define MS_MAX    999
-#define MS_DIV    10
-
-#define MS_MAX_DIPLAY    99
 
 #define TIMER_HOLD       250
 #define TIMER_REPEAT     10
@@ -164,8 +161,8 @@ SpeedDial::SpeedDial(QWidget* parent)
     connect(m_sec, SIGNAL(focusGained()), this, SLOT(slotSpinFocusGained()));
 
     m_ms = new FocusSpinBox(this);
-    m_ms->setRange(0, MS_MAX / MS_DIV);
-    m_ms->setPrefix(".");
+    m_ms->setRange(0, MS_MAX);
+    m_ms->setSuffix("ms");
     m_ms->setButtonSymbols(QSpinBox::NoButtons);
     m_ms->setToolTip(tr("Milliseconds"));
     timeHBox->addWidget(m_ms);
@@ -279,7 +276,7 @@ void SpeedDial::setSpinValues(int ms)
         m_sec->setValue(ms / MS_PER_SECOND);
         ms -= (m_sec->value() * MS_PER_SECOND);
 
-        m_ms->setValue(ms / MS_DIV);
+        m_ms->setValue(ms);
     }
     m_hrs->blockSignals(false);
     m_min->blockSignals(false);
@@ -301,12 +298,7 @@ int SpeedDial::spinValues() const
         value += m_hrs->value() * MS_PER_HOUR;
         value += m_min->value() * MS_PER_MINUTE;
         value += m_sec->value() * MS_PER_SECOND;
-        QString msText = m_ms->text();
-        int msInt = m_ms->value();
-        if (msInt < 10 && msText.contains("0") == false)
-            value += (msInt * MS_DIV * 10);
-        else
-            value += (msInt * MS_DIV);
+        value += m_ms->value();
     }
     else
     {
@@ -369,7 +361,7 @@ void SpeedDial::slotDialChanged(int value)
         // Incremented value is above m_focus->maximum(). Spill the overflow to the
         // bigger number (unless already incrementing hours).
         if (m_focus == m_ms)
-            m_value += (m_ms->singleStep() * MS_DIV);
+            m_value += m_ms->singleStep();
         else if (m_focus == m_sec)
             m_value += MS_PER_SECOND;
         else if (m_focus == m_min)
@@ -384,7 +376,7 @@ void SpeedDial::slotDialChanged(int value)
         // Decremented value is below m_focus->minimum(). Spill the underflow to the
         // smaller number (unless already decrementing milliseconds).
         if (m_focus == m_ms)
-            newValue -= (m_ms->singleStep() * MS_DIV);
+            newValue -= m_ms->singleStep();
         else if (m_focus == m_sec)
             newValue -= MS_PER_SECOND;
         else if (m_focus == m_min)
@@ -448,13 +440,6 @@ void SpeedDial::slotSecondsChanged()
 
 void SpeedDial::slotMSChanged()
 {
-    m_ms->blockSignals(true);
-    if (m_ms->value() < 10)
-        m_ms->setPrefix(".0");
-    else
-        m_ms->setPrefix(".");
-    m_ms->blockSignals(false);
-
     if (m_preventSignals == false)
     {
         m_value = spinValues();
@@ -517,10 +502,7 @@ void SpeedDial::slotTapClicked()
         return;
     }
     // Round the elapsed time to the nearest full 10th ms.
-    int remainder = m_tapTime->elapsed() % MS_DIV;
-    m_value = m_tapTime->elapsed() - remainder;
-    if (remainder >= (MS_DIV / 2))
-        m_value += MS_DIV;
+    m_value = m_tapTime->elapsed();
     setSpinValues(m_value);
     m_tapTime->restart();
     if (m_tapTickTimer)
