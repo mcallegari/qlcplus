@@ -4,6 +4,8 @@ qlcplus (4.10.3) stable; urgency=low
   * Audio Capture: Fix crash when trying to use a wrongly configured audio input (David Garyga)
   * Scene Editor: Remember Channels Groups values when saving and loading a workspace (David Garyga)
   * Scene Editor: Remember fixtures even with no activated channel (David Garyga)
+  * RGBMatrix Editor: Fix preview now working when fadein > 0 (David Garyga)
+  * RGBMatrix Editor: Fix lenght of fadeout on the preview (David Garyga)
   * Show Manager: Fix crash when editing the total time of an empty chaser (David Garyga)
   * Show Manager/Function Selection: Fix sequences always displayed even with Chasers and Scenes both filtered out (David Garyga)
   * Input/Output Manager: Forbid deleting universes in the middle of the list, this prevents a lot of bugs and crashes (David Garyga)

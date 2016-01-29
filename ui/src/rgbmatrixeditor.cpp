@@ -40,6 +40,7 @@
 #include "rgbimage.h"
 #include "rgbitem.h"
 #include "rgbtext.h"
+#include "qlcmacros.h"
 #include "apputil.h"
 #include "chaser.h"
 #include "scene.h"
@@ -531,30 +532,32 @@ bool RGBMatrixEditor::createPreviewItems()
 
             if (grp->headHash().contains(pt) == true)
             {
+                RGBItem* item;
                 if (m_shapeButton->isChecked() == false)
                 {
-                    RGBCircleItem* item = new RGBCircleItem;
-                    item->setRect(x * RECT_SIZE + RECT_PADDING + ITEM_PADDING,
-                                  y * RECT_SIZE + RECT_PADDING + ITEM_PADDING,
-                                  ITEM_SIZE - (2 * ITEM_PADDING),
-                                  ITEM_SIZE - (2 * ITEM_PADDING));
-                    item->setColor(map[y][x]);
-                    item->draw(0);
-                    m_scene->addItem(item);
-                    m_previewHash[pt] = item;
+                    QGraphicsEllipseItem* circleItem = new QGraphicsEllipseItem();
+                    circleItem->setRect(
+                            x * RECT_SIZE + RECT_PADDING + ITEM_PADDING,
+                            y * RECT_SIZE + RECT_PADDING + ITEM_PADDING,
+                            ITEM_SIZE - (2 * ITEM_PADDING),
+                            ITEM_SIZE - (2 * ITEM_PADDING));
+                    item = new RGBItem(circleItem);
                 }
                 else
                 {
-                    RGBRectItem* item = new RGBRectItem;
-                    item->setRect(x * RECT_SIZE + RECT_PADDING + ITEM_PADDING,
-                                  y * RECT_SIZE + RECT_PADDING + ITEM_PADDING,
-                                  ITEM_SIZE - 1,
-                                  ITEM_SIZE - 1);
-                    item->setColor(map[y][x]);
-                    item->draw(0);
-                    m_scene->addItem(item);
-                    m_previewHash[pt] = item;
+                    QGraphicsRectItem* rectItem = new QGraphicsRectItem();
+                    rectItem->setRect(
+                            x * RECT_SIZE + RECT_PADDING + ITEM_PADDING,
+                            y * RECT_SIZE + RECT_PADDING + ITEM_PADDING,
+                            ITEM_SIZE - (2 * ITEM_PADDING),
+                            ITEM_SIZE - (2 * ITEM_PADDING));
+                    item = new RGBItem(rectItem);
                 }
+
+                item->setColor(map[y][x]);
+                item->draw(0, 0);
+                m_scene->addItem(item->graphicsItem());
+                m_previewHash[pt] = item;
             }
         }
     }
@@ -563,15 +566,14 @@ bool RGBMatrixEditor::createPreviewItems()
 
 void RGBMatrixEditor::slotPreviewTimeout()
 {
-    RGBCircleItem* shape = NULL;
-
     if (m_matrix->duration() <= 0)
         return;
 
     RGBMap map;
 
     m_previewIterator += MasterTimer::tick();
-    if (m_previewIterator >= m_matrix->duration())
+    uint elapsed = 0;
+    while (m_previewIterator > 0 && m_previewIterator >= m_matrix->duration())
     {
         int stepsCount = m_matrix->stepsCount();
         //qDebug() << "previewTimeout. Step:" << m_previewStep;
@@ -609,7 +611,9 @@ void RGBMatrixEditor::slotPreviewTimeout()
                 m_matrix->updateStepColor(m_previewStep);
         }
         map = m_matrix->previewMap(m_previewStep);
-        m_previewIterator = 0;
+
+        m_previewIterator -= MAX(m_matrix->duration(), MasterTimer::tick());
+        elapsed += MAX(m_matrix->duration(), MasterTimer::tick());
     }
     for (int y = 0; y < map.size(); y++)
     {
@@ -618,14 +622,14 @@ void RGBMatrixEditor::slotPreviewTimeout()
             QLCPoint pt(x, y);
             if (m_previewHash.contains(pt) == true)
             {
-                shape = static_cast<RGBCircleItem*>(m_previewHash[pt]);
+                RGBItem* shape = m_previewHash[pt];
                 if (shape->color() != QColor(map[y][x]).rgb())
                     shape->setColor(map[y][x]);
 
                 if (shape->color() == QColor(Qt::black).rgb())
-                    shape->draw(m_matrix->fadeOutSpeed());
+                    shape->draw(elapsed, m_matrix->fadeOutSpeed());
                 else
-                    shape->draw(m_matrix->fadeInSpeed());
+                    shape->draw(elapsed, m_matrix->fadeInSpeed());
             }
         }
     }

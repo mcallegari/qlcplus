@@ -25,91 +25,60 @@
 #include "qlcmacros.h"
 #include "rgbitem.h"
 
-static QColor getColor(QColor oldColor, QColor color, uint ms, uint elapsed)
+RGBItem::RGBItem(QAbstractGraphicsShapeItem* graphicsItem)
+    : m_elapsed(0)
+    , m_graphicsItem(graphicsItem)
 {
-    if (ms == 0)
+}
+
+void RGBItem::setColor(QRgb rgb)
+{
+    m_oldColor = m_graphicsItem->brush().color();
+    m_color = QColor(rgb);
+    m_elapsed = 0;
+}
+
+QRgb RGBItem::color() const
+{
+    return m_color.rgb();
+}
+
+void RGBItem::draw(uint elapsedMs, uint targetMs)
+{
+    m_elapsed += elapsedMs;
+
+    if (targetMs == 0)
     {
-        return color;
+        m_graphicsItem->setBrush(m_color);
     }
-    else if (elapsed <= ms)
+    else if (m_elapsed <= targetMs)
     {
         int red, green, blue;
-        if (oldColor.red() < color.red())
-            red = SCALE(qreal(elapsed), qreal(0), qreal(ms), qreal(oldColor.red()), qreal(color.red()));
+        if (m_oldColor.red() < m_color.red())
+            red = SCALE(qreal(m_elapsed), qreal(0), qreal(targetMs), qreal(m_oldColor.red()), qreal(m_color.red()));
         else
-            red = SCALE(qreal(elapsed), qreal(ms), qreal(0), qreal(color.red()), qreal(oldColor.red()));
+            red = SCALE(qreal(m_elapsed), qreal(targetMs), qreal(0), qreal(m_color.red()), qreal(m_oldColor.red()));
         red = CLAMP(red, 0, 255);
 
-        if (oldColor.green() < color.green())
-            green = SCALE(qreal(elapsed), qreal(0), qreal(ms), qreal(oldColor.green()), qreal(color.green()));
+        if (m_oldColor.green() < m_color.green())
+            green = SCALE(qreal(m_elapsed), qreal(0), qreal(targetMs), qreal(m_oldColor.green()), qreal(m_color.green()));
         else
-            green = SCALE(qreal(elapsed), qreal(ms), qreal(0), qreal(color.green()), qreal(oldColor.green()));
+            green = SCALE(qreal(m_elapsed), qreal(targetMs), qreal(0), qreal(m_color.green()), qreal(m_oldColor.green()));
         green = CLAMP(green, 0, 255);
 
-        if (oldColor.blue() < color.blue())
-            blue = SCALE(qreal(elapsed), qreal(0), qreal(ms), qreal(oldColor.blue()), qreal(color.blue()));
+        if (m_oldColor.blue() < m_color.blue())
+            blue = SCALE(qreal(m_elapsed), qreal(0), qreal(targetMs), qreal(m_oldColor.blue()), qreal(m_color.blue()));
         else
-            blue = SCALE(qreal(elapsed), qreal(ms), qreal(0), qreal(color.blue()), qreal(oldColor.blue()));
+            blue = SCALE(qreal(m_elapsed), qreal(targetMs), qreal(0), qreal(m_color.blue()), qreal(m_oldColor.blue()));
         blue = CLAMP(blue, 0, 255);
 
-        return QColor(red, green, blue);
+        m_graphicsItem->setBrush(QColor(red, green, blue));
     }
-    return QColor();
+    else
+        m_graphicsItem->setBrush(m_color);
 }
 
-/************************************************************************
- * RGB Circle Item
- ************************************************************************/
-
-RGBCircleItem::RGBCircleItem(QGraphicsItem* parent)
-    : QGraphicsEllipseItem(parent)
-    , m_elapsed(0)
+QAbstractGraphicsShapeItem* RGBItem::graphicsItem() const
 {
+    return m_graphicsItem.data();
 }
-
-void RGBCircleItem::setColor(QRgb rgb)
-{
-    m_oldColor = brush().color();
-    m_color = QColor(rgb);
-    m_elapsed = 0;
-}
-
-QRgb RGBCircleItem::color() const
-{
-    return m_color.rgb();
-}
-
-void RGBCircleItem::draw(uint ms)
-{
-    setBrush(getColor(m_oldColor, m_color, ms, m_elapsed));
-    m_elapsed += MasterTimer::tick();
-}
-
-/************************************************************************
- * RGB Rect Item
- ************************************************************************/
-
-RGBRectItem::RGBRectItem(QGraphicsItem* parent)
-    : QGraphicsRectItem(parent)
-    , m_elapsed(0)
-{
-}
-
-void RGBRectItem::setColor(QRgb rgb)
-{
-    m_oldColor = brush().color();
-    m_color = QColor(rgb);
-    m_elapsed = 0;
-}
-
-QRgb RGBRectItem::color() const
-{
-    return m_color.rgb();
-}
-
-void RGBRectItem::draw(uint ms)
-{
-    setBrush(getColor(m_oldColor, m_color, ms, m_elapsed));
-    m_elapsed += MasterTimer::tick();
-}
-
