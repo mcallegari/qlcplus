@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
+  <Author>Ovidijus Cepukas</Author>
+ </Creator>
+ <Manufacturer>PR Lighting</Manufacturer>
+ <Model>XLED 1037</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="15">No strobe</Capability>
+  <Capability Min="16" Max="127">Pulse from slow to fast</Capability>
+  <Capability Min="128" Max="255">Strobe from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Linear dimming from dark to bright</Capability>
+ </Channel>
+ <Channel Name="Dimmer Fine">
+  <Group Byte="1">Intensity</Group>
+  <Capability Min="0" Max="255">Dimming in 16 bit precision</Capability>
+ </Channel>
+ <Channel Name="Color Temperature">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="0">No</Capability>
+  <Capability Min="1" Max="255">Linear color temperature adjustment from low to high</Capability>
+ </Channel>
+ <Channel Name="Animation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">No</Capability>
+  <Capability Min="1" Max="255">Animation effects</Capability>
+ </Channel>
+ <Channel Name="Color Macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">No</Capability>
+  <Capability Min="1" Max="31" Color="#ff0000">Red</Capability>
+  <Capability Min="32" Max="63" Color="#00ff00">Green</Capability>
+  <Capability Min="64" Max="95" Color="#0000ff">Blue</Capability>
+  <Capability Min="96" Max="127">Color 1 - yellow</Capability>
+  <Capability Min="128" Max="159">Color 2 - cyan</Capability>
+  <Capability Min="160" Max="191">Color 3 - purple</Capability>
+  <Capability Min="192" Max="223" Color="#ffffff">White</Capability>
+  <Capability Min="224" Max="255">Rainbow effects (speed from slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Area 1 Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Linear adjustment in Red from light to dark of Area 1</Capability>
+ </Channel>
+ <Channel Name="Area 2 Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Linear adjustment in Red from light to dark of Area 2</Capability>
+ </Channel>
+ <Channel Name="Area 3 Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Linear adjustment in Red from light to dark of Area 3</Capability>
+ </Channel>
+ <Channel Name="Area 1 Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Linear adjustment in Green from light to dark of Area 1</Capability>
+ </Channel>
+ <Channel Name="Area 2 Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Linear adjustment in Green from light to dark of Area 2</Capability>
+ </Channel>
+ <Channel Name="Area 3 Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Linear adjustment in Green from light to dark of Area 3</Capability>
+ </Channel>
+ <Channel Name="Area 1 Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Linear adjustment in Blue from light to dark of Area 1</Capability>
+ </Channel>
+ <Channel Name="Area 2 Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Linear adjustment in Blue from light to dark of Area 2</Capability>
+ </Channel>
+ <Channel Name="Area 3 Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Linear adjustment in Blue from light to dark of Area 3</Capability>
+ </Channel>
+ <Channel Name="Area 1 White">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">Linear adjustment in White from light to dark of Area 1</Capability>
+ </Channel>
+ <Channel Name="Area 2 White">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">Linear adjustment in White from light to dark of Area 2</Capability>
+ </Channel>
+ <Channel Name="Area 3 White">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">Linear adjustment in White from light to dark of Area 3</Capability>
+ </Channel>
+ <Channel Name="Zoom">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">Linear zooming (0%~100%)</Capability>
+ </Channel>
+ <Channel Name="Zoom fine">
+  <Group Byte="1">Beam</Group>
+  <Capability Min="0" Max="255">Zooming in 16 bit precision</Capability>
+ </Channel>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan (0°~540°)</Capability>
+ </Channel>
+ <Channel Name="Pan fine">
+  <Group Byte="1">Pan</Group>
+  <Capability Min="0" Max="255">Pan in 16 bit precision</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt (0°~270°)</Capability>
+ </Channel>
+ <Channel Name="Tilt fine">
+  <Group Byte="1">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt in 16 bit precision</Capability>
+ </Channel>
+ <Channel Name="Pan &amp; Tilt speeds">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Pan and Tilt speeds from fast to slow</Capability>
+ </Channel>
+ <Channel Name="Control Function">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="49">Reserved</Capability>
+  <Capability Min="50" Max="255">Reset</Capability>
+ </Channel>
+ <Channel Name="Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Linear adjustment in red from light to dark</Capability>
+ </Channel>
+ <Channel Name="Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Linear adjustment in green from light to dark</Capability>
+ </Channel>
+ <Channel Name="Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Linear adjustment in blue from light to dark</Capability>
+ </Channel>
+ <Channel Name="White">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">Linear adjustment in white from light to dark</Capability>
+ </Channel>
+ <Mode Name="Standard Mode">
+  <Physical>
+   <Bulb Type="LED" Lumens="15862" ColourTemperature="0"/>
+   <Dimensions Weight="12.85" Width="382" Height="466" Depth="276"/>
+   <Lens Name="Other" DegreesMin="13" DegreesMax="52"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="450" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
+  <Channel Number="0">Strobe</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Color Temperature</Channel>
+  <Channel Number="3">Animation</Channel>
+  <Channel Number="4">Color Macro</Channel>
+  <Channel Number="5">Red</Channel>
+  <Channel Number="6">Green</Channel>
+  <Channel Number="7">Blue</Channel>
+  <Channel Number="8">White</Channel>
+  <Channel Number="9">Zoom</Channel>
+  <Channel Number="10">Zoom fine</Channel>
+  <Channel Number="11">Pan</Channel>
+  <Channel Number="12">Pan fine</Channel>
+  <Channel Number="13">Tilt</Channel>
+  <Channel Number="14">Tilt fine</Channel>
+  <Channel Number="15">Pan &amp; Tilt speeds</Channel>
+  <Channel Number="16">Control Function</Channel>
+ </Mode>
+ <Mode Name="Extended Mode">
+  <Physical>
+   <Bulb Type="LED" Lumens="15862" ColourTemperature="0"/>
+   <Dimensions Weight="12.85" Width="382" Height="466" Depth="276"/>
+   <Lens Name="Other" DegreesMin="13" DegreesMax="52"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="450" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
+  <Channel Number="0">Strobe</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Dimmer Fine</Channel>
+  <Channel Number="3">Color Temperature</Channel>
+  <Channel Number="4">Animation</Channel>
+  <Channel Number="5">Color Macro</Channel>
+  <Channel Number="6">Area 1 Red</Channel>
+  <Channel Number="7">Area 2 Red</Channel>
+  <Channel Number="8">Area 3 Red</Channel>
+  <Channel Number="9">Area 1 Green</Channel>
+  <Channel Number="10">Area 2 Green</Channel>
+  <Channel Number="11">Area 3 Green</Channel>
+  <Channel Number="12">Area 1 Blue</Channel>
+  <Channel Number="13">Area 2 Blue</Channel>
+  <Channel Number="14">Area 3 Blue</Channel>
+  <Channel Number="15">Area 1 White</Channel>
+  <Channel Number="16">Area 2 White</Channel>
+  <Channel Number="17">Area 3 White</Channel>
+  <Channel Number="18">Zoom</Channel>
+  <Channel Number="19">Zoom fine</Channel>
+  <Channel Number="20">Pan</Channel>
+  <Channel Number="21">Pan fine</Channel>
+  <Channel Number="22">Tilt</Channel>
+  <Channel Number="23">Tilt fine</Channel>
+  <Channel Number="24">Pan &amp; Tilt speeds</Channel>
+  <Channel Number="25">Control Function</Channel>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>15</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>6</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+   <Channel>1</Channel>
+   <Channel>16</Channel>
+   <Channel>2</Channel>
+   <Channel>7</Channel>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>17</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>8</Channel>
+   <Channel>11</Channel>
+  </Head>
+ </Mode>
+</FixtureDefinition>
