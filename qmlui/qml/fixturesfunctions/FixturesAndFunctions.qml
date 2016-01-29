@@ -214,8 +214,8 @@ Rectangle
                 {
                     id: viewUniverseCombo
                     width: 100
-                    height: 20
-                    anchors.margins: 4
+                    height: 26
+                    anchors.margins: 1
                     model: ioManager.universeNames
 
                     onCurrentIndexChanged:

@@ -236,8 +236,6 @@ Rectangle
                             onExited: delegateRoot.color = "transparent"
                             onClicked:
                             {
-                                currentText = itemText
-                                currentIcon = itemIcon
                                 popupRepeater.currentIndex = index
                                 dropDownMenu.visible = false
 

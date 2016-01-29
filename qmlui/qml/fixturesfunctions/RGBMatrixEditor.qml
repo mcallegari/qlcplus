@@ -95,191 +95,253 @@ Rectangle
         }
     }
 
-    onWidthChanged: rgbmeGrid.width = width - 10
+    //onWidthChanged: editorFlickable.width = width - 10
 
-    GridLayout
+    Flickable
     {
-        id: rgbmeGrid
-        columns: 2
-        columnSpacing: 5
-        rowSpacing: 5
+        id: editorFlickable
         x: 5
         y: topBar.height + 2
         width: parent.width - 10
-        //height: parent.height - topBar.height - 10
+        height: parent.height - y
 
-        property int itemsHeight: 38
+        contentHeight: editorColumn.height
+        boundsBehavior: Flickable.StopAtBounds
 
-        // row 1
-        RobotoText { label: qsTr("Fixture Group") }
-        CustomComboBox
+        Component.onCompleted: console.log("Flickable height: " + height + ", Grid height: " + editorColumn.height + ", parent height: " + parent.height)
+
+        Column
         {
-            Layout.fillWidth: true
-            height: rgbmeGrid.itemsHeight
-            model: fixtureManager.groupsListModel
-            currentValue: rgbMatrixEditor.fixtureGroup
-            onValuechanged: rgbMatrixEditor.fixtureGroup = value
-        }
+            id: editorColumn
+            width: parent.width
+            spacing: 2
 
-        // row 2
-        RGBMatrixPreview
-        {
-            Layout.columnSpan: 2
-            Layout.fillWidth: true
-            //Layout.fillHeight: true
+            property int itemsHeight: 38
+            property int firstColumnWidth: 0
+            property int colWidth: parent.width - (sbar.visible ? sbar.width : 0)
 
-            //height: width
+            //onHeightChanged: editorFlickable.contentHeight = height //console.log("Grid layout height changed: " + height)
 
-            matrixSize: rgbMatrixEditor.previewSize
-            matrixData: rgbMatrixEditor.previewData
-        }
-
-        // row 3
-        RobotoText { label: qsTr("Pattern") }
-        CustomComboBox
-        {
-            Layout.fillWidth: true
-            height: rgbmeGrid.itemsHeight
-            model: rgbMatrixEditor.algorithms
-            currentIndex: rgbMatrixEditor.algorithmIndex
-            onCurrentIndexChanged:
+            function checkLabelWidth(w)
             {
-                rgbMatrixEditor.algorithmIndex = currentIndex
-                if (currentText == "Text")
-                    rgbParamsLoader.sourceComponent = textAlgoComponent
-                else if (currentText == "Image")
-                    rgbParamsLoader.sourceComponent = imageAlgoComponent
-                else
-                    rgbParamsLoader.sourceComponent = null
+                firstColumnWidth = Math.max(w, firstColumnWidth)
             }
-        }
 
-        // row 4
-        RobotoText { label: qsTr("Blend mode") }
-        CustomComboBox
-        {
-            Layout.fillWidth: true
-            height: rgbmeGrid.itemsHeight
-
-            ListModel
+            // row 1
+            RowLayout
             {
-                id: blendModel
-                ListElement { mLabel: qsTr("Default (HTP)"); }
-                ListElement { mLabel: qsTr("Mask"); }
-                ListElement { mLabel: qsTr("Additive"); }
-                ListElement { mLabel: qsTr("Subtractive"); }
-            }
-            model: blendModel
-            //model: rgbMatrixEditor.algorithms
-            //currentIndex: rgbMatrixEditor.currentAlgo
-            //onCurrentIndexChanged: rgbMatrixEditor.currentAlgo = currentIndex
-        }
+                width: editorColumn.colWidth
 
-        // row 5
-        RobotoText { label: qsTr("Colors") }
-        Row
-        {
-            Layout.fillWidth: true
-            height: rgbmeGrid.itemsHeight
-            spacing: 4
-
-            Rectangle
-            {
-                id: startColButton
-                width: 80
-                height: parent.height
-                radius: 5
-                border.color: scMouseArea.containsMouse ? "white" : UISettings.bgLight
-                border.width: 2
-                color: startColTool.selectedColor
-                visible: rgbMatrixEditor.algoColors > 0 ? true : false
-
-                MouseArea
+                RobotoText
                 {
-                    id: scMouseArea
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    onClicked: startColTool.visible = !startColTool.visible
-                }
-
-                ColorTool
-                {
-                    id: startColTool
-                    parent: mainView
-                    x: rightSidePanel.x - width
-                    y: rightSidePanel.y
-                    visible: false
-                    closeOnSelect: true
-                    selectedColor: rgbMatrixEditor.startColor
-
-                    onColorChanged:
+                    label: qsTr("Fixture Group");
+                    onWidthChanged:
                     {
-                        startColButton.color = Qt.rgba(r, g, b, 1.0)
-                        rgbMatrixEditor.startColor = startColButton.color
+                        editorColumn.checkLabelWidth(width)
+                        width = Qt.binding(function() { return editorColumn.firstColumnWidth })
+                    }
+                }
+                CustomComboBox
+                {
+                    Layout.fillWidth: true
+                    height: editorColumn.itemsHeight
+                    model: fixtureManager.groupsListModel
+                    currentValue: rgbMatrixEditor.fixtureGroup
+                    onValuechanged: rgbMatrixEditor.fixtureGroup = value
+                }
+            }
+
+            // row 2
+            RGBMatrixPreview
+            {
+                width: editorColumn.width
+                matrixSize: rgbMatrixEditor.previewSize
+                matrixData: rgbMatrixEditor.previewData
+            }
+
+            // row 3
+            RowLayout
+            {
+                width: editorColumn.colWidth
+
+                RobotoText
+                {
+                    label: qsTr("Pattern")
+                    onWidthChanged:
+                    {
+                        editorColumn.checkLabelWidth(width)
+                        width = Qt.binding(function() { return editorColumn.firstColumnWidth })
+                    }
+                }
+                CustomComboBox
+                {
+                    Layout.fillWidth: true
+                    height: editorColumn.itemsHeight
+                    model: rgbMatrixEditor.algorithms
+                    currentIndex: rgbMatrixEditor.algorithmIndex
+                    onCurrentTextChanged:
+                    {
+                        rgbMatrixEditor.algorithmIndex = currentIndex
+                        if (currentText == "Text")
+                            rgbParamsLoader.sourceComponent = textAlgoComponent
+                        else if (currentText == "Image")
+                            rgbParamsLoader.sourceComponent = imageAlgoComponent
+                        else
+                            rgbParamsLoader.sourceComponent = null
                     }
                 }
             }
+
+            // row 4
+            RowLayout
+            {
+                width: editorColumn.colWidth
+
+                RobotoText
+                {
+                    label: qsTr("Blend mode")
+                    onWidthChanged:
+                    {
+                        editorColumn.checkLabelWidth(width)
+                        width = Qt.binding(function() { return editorColumn.firstColumnWidth })
+                    }
+                }
+                CustomComboBox
+                {
+                    Layout.fillWidth: true
+                    height: editorColumn.itemsHeight
+
+                    ListModel
+                    {
+                        id: blendModel
+                        ListElement { mLabel: qsTr("Default (HTP)"); }
+                        ListElement { mLabel: qsTr("Mask"); }
+                        ListElement { mLabel: qsTr("Additive"); }
+                        ListElement { mLabel: qsTr("Subtractive"); }
+                    }
+                    model: blendModel
+                    //currentIndex: rgbMatrixEditor.currentAlgo
+                    //onCurrentIndexChanged: rgbMatrixEditor.currentAlgo = currentIndex
+                }
+            }
+
+            // row 5
+            Row
+            {
+                width: editorColumn.colWidth
+                height: editorColumn.itemsHeight
+                spacing: 4
+
+                RobotoText
+                {
+                    label: qsTr("Colors")
+                    visible: rgbMatrixEditor.algoColors > 0 ? true : false
+                    onWidthChanged:
+                    {
+                        editorColumn.checkLabelWidth(width)
+                        width = Qt.binding(function() { return editorColumn.firstColumnWidth })
+                    }
+                }
+
+                Rectangle
+                {
+                    id: startColButton
+                    width: 80
+                    height: parent.height
+                    radius: 5
+                    border.color: scMouseArea.containsMouse ? "white" : UISettings.bgLight
+                    border.width: 2
+                    color: startColTool.selectedColor
+                    visible: rgbMatrixEditor.algoColors > 0 ? true : false
+
+                    MouseArea
+                    {
+                        id: scMouseArea
+                        anchors.fill: parent
+                        hoverEnabled: true
+                        onClicked: startColTool.visible = !startColTool.visible
+                    }
+
+                    ColorTool
+                    {
+                        id: startColTool
+                        parent: mainView
+                        x: rightSidePanel.x - width
+                        y: rightSidePanel.y
+                        visible: false
+                        closeOnSelect: true
+                        selectedColor: rgbMatrixEditor.startColor
+
+                        onColorChanged:
+                        {
+                            startColButton.color = Qt.rgba(r, g, b, 1.0)
+                            rgbMatrixEditor.startColor = startColButton.color
+                        }
+                    }
+                }
+                Rectangle
+                {
+                    id: endColButton
+                    width: 80
+                    height: parent.height
+                    radius: 5
+                    border.color: ecMouseArea.containsMouse ? "white" : UISettings.bgLight
+                    border.width: 2
+                    color: rgbMatrixEditor.hasEndColor ? rgbMatrixEditor.endColor : "transparent"
+                    visible: rgbMatrixEditor.algoColors > 1 ? true : false
+
+                    MouseArea
+                    {
+                        id: ecMouseArea
+                        anchors.fill: parent
+                        hoverEnabled: true
+                        onClicked: endColTool.visible = !startColTool.visible
+                    }
+
+                    ColorTool
+                    {
+                        id: endColTool
+                        parent: mainView
+                        x: rightSidePanel.x - width
+                        y: rightSidePanel.y
+                        visible: false
+                        closeOnSelect: true
+                        selectedColor: rgbMatrixEditor.endColor
+
+                        onColorChanged: rgbMatrixEditor.endColor = Qt.rgba(r, g, b, 1.0)
+                    }
+                }
+                IconButton
+                {
+                    width: parent.height
+                    height: parent.height
+                    imgSource: "qrc:/cancel.svg"
+                    visible: rgbMatrixEditor.algoColors > 1 ? true : false
+                    onClicked: rgbMatrixEditor.hasEndColor = false
+                }
+                // filler
+                //Rectangle { Layout.fillWidth: true; height: parent.height; color: "transparent" }
+            }
+
             Rectangle
             {
-                id: endColButton
-                width: 80
-                height: parent.height
-                radius: 5
-                border.color: ecMouseArea.containsMouse ? "white" : UISettings.bgLight
-                border.width: 2
-                color: rgbMatrixEditor.hasEndColor ? rgbMatrixEditor.endColor : "transparent"
-                visible: rgbMatrixEditor.algoColors > 1 ? true : false
+                width: parent.width
+                height: editorColumn.itemsHeight
+                visible: rgbParamsLoader.sourceComponent ? true : false
 
-                MouseArea
-                {
-                    id: ecMouseArea
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    onClicked: endColTool.visible = !startColTool.visible
-                }
-
-                ColorTool
-                {
-                    id: endColTool
-                    parent: mainView
-                    x: rightSidePanel.x - width
-                    y: rightSidePanel.y
-                    visible: false
-                    closeOnSelect: true
-                    selectedColor: rgbMatrixEditor.endColor
-
-                    onColorChanged: rgbMatrixEditor.endColor = Qt.rgba(r, g, b, 1.0)
-                }
+                color: UISettings.bgLight
+                RobotoText { label: qsTr("Parameters") }
             }
-            IconButton
+
+            Loader
             {
-                width: parent.height
-                height: parent.height
-                imgSource: "qrc:/cancel.svg"
-                visible: rgbMatrixEditor.algoColors > 1 ? true : false
-                onClicked: rgbMatrixEditor.hasEndColor = false
+                id: rgbParamsLoader
+                width: editorColumn.colWidth
+                source: ""
             }
-        }
-
-        Rectangle
-        {
-            Layout.columnSpan: 2
-            Layout.fillWidth: true
-            height: rgbmeGrid.itemsHeight
-            visible: rgbParamsLoader.sourceComponent ? true : false
-
-            color: UISettings.bgLight
-            RobotoText { label: qsTr("Parameters") }
-        }
-    } // GridLayout
-
-    Loader
-    {
-        id: rgbParamsLoader
-        y: rgbmeGrid.y + rgbmeGrid.height + 5
-        width: parent.width
-        source: ""
-    }
+        } // ColumnLayout
+    } // Flickable
+    ScrollBar { id: sbar; flickable: editorFlickable }
 
     // *************************************************************
     // Here starts all the Algorithm-specific Component definitions,
@@ -300,7 +362,7 @@ Rectangle
             Rectangle
             {
                 Layout.fillWidth: true
-                height: rgbmeGrid.itemsHeight
+                height: editorColumn.itemsHeight
                 color: "transparent"
 
                 Rectangle
@@ -355,7 +417,7 @@ Rectangle
             CustomComboBox
             {
                 Layout.fillWidth: true
-                height: rgbmeGrid.itemsHeight
+                height: editorColumn.itemsHeight
 
                 ListModel
                 {
@@ -372,7 +434,7 @@ Rectangle
             Rectangle
             {
                 Layout.fillWidth: true
-                height: rgbmeGrid.itemsHeight
+                height: editorColumn.itemsHeight
                 color: "transparent"
 
                 Row
@@ -413,7 +475,7 @@ Rectangle
             Rectangle
             {
                 Layout.fillWidth: true
-                height: rgbmeGrid.itemsHeight
+                height: editorColumn.itemsHeight
                 color: "transparent"
 
                 Rectangle
@@ -464,7 +526,7 @@ Rectangle
             CustomComboBox
             {
                 Layout.fillWidth: true
-                height: rgbmeGrid.itemsHeight
+                height: editorColumn.itemsHeight
 
                 ListModel
                 {
@@ -482,7 +544,7 @@ Rectangle
             Rectangle
             {
                 Layout.fillWidth: true
-                height: rgbmeGrid.itemsHeight
+                height: editorColumn.itemsHeight
                 color: "transparent"
 
                 Row
