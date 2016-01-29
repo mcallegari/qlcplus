@@ -4,8 +4,8 @@ qlcplus (4.10.3) stable; urgency=low
   * Audio Capture: Fix crash when trying to use a wrongly configured audio input (David Garyga)
   * Scene Editor: Remember Channels Groups values when saving and loading a workspace (David Garyga)
   * Scene Editor: Remember fixtures even with no activated channel (David Garyga)
-  * RGBMatrix Editor: Fix preview now working when fadein > 0 (David Garyga)
-  * RGBMatrix Editor: Fix lenght of fadeout on the preview (David Garyga)
+  * RGBMatrix Editor: Fix preview now working when fade in > 0 (David Garyga)
+  * RGBMatrix Editor: Fix length of fadeout on the preview (David Garyga)
   * Show Manager: Fix crash when editing the total time of an empty chaser (David Garyga)
   * Show Manager/Function Selection: Fix sequences always displayed even with Chasers and Scenes both filtered out (David Garyga)
   * Input/Output Manager: Forbid deleting universes in the middle of the list, this prevents a lot of bugs and crashes (David Garyga)
@@ -24,7 +24,7 @@ qlcplus (4.10.3) stable; urgency=low
   * New fixtures: Chauvet: COLORado 1 Solo, Ovation FD-165WW, Rogue RH1 Hybrid, COLORdash Par Hex 12 (thanks to Robert Box)
   * New fixtures: Chauvet: Vue 1.1, Intimidator Spot 100 IRC, Abyss USB, COREpar 40 USB, COREpar UV USB (thanks to Robert Box)
   * New fixtures: Chauvet: Intimidator Scan 305 IRC, Intimidator Barrel 305 IRC, SlimPAR T6 USB, SlimBANK TRI-18 (thanks to Robert Box)
-  * New fixtures: Eurolite LED CLS-9 QCL RGBW 9x8W 12, JB-Lighting A12 Tunable White (thanks to Robert Box)
+  * New fixtures: Eurolite LED CLS-9 QCL RGBW 9x8W 12, JB-Lighting A12 Tunable White, SGM G-Profile (thanks to Robert Box)
   * New fixtures: Coemar Par Lite LED RGB (thanks to Robert Box)
   * New fixture: Chauvet LED PAR 64 Tri-C (thanks to Jungle Jim and Robert Box)
   * New fixture: American DJ VBar (thanks to Thierry Rodolfo)
@@ -34,6 +34,12 @@ qlcplus (4.10.3) stable; urgency=low
   * New fixture: JB-Lighting JBLED A7 (thanks to BLACKsun)
   * New fixture: Chauvet COREpar 80 USB (thanks to Chris Gill)
   * New fixture: Stairville DJ Lase 25+25-G MK-II (thanks to galaris)
+  * New fixtures: PR Lighting XR 230 Spot, PR Lighting XLED 1037 (thanks to Ovidijus Cepukas)
+  * New fixtures: Futurelight DJ-Scan 600, Eurolite LED PAR-64 RGBW+UV (thanks to Ovidijus Cepukas)
+  * New fixtures: Varytec LED Pad 7 BA-D, American DJ X-Scan LED Plus, Showtec Blade Runner (thanks to DjProWings)
+  * New fixture: Involight LED CC60S (thanks to Stephane Hofman)
+  * New fixture: Stairville MH-x200 Pro Spot (thanks to Mirek Škop)
+  * New fixture: Varytec LED Giga Bar 4 MKII (thanks to Daniel Schauder)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 7 Feb 2016 20:21:22 +0200
 
