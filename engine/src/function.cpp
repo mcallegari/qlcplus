@@ -582,16 +582,34 @@ QString Function::speedToString(uint ms)
         ms -= (s * MS_PER_SECOND);
 
         if (h != 0)
-            str += QString("%1h").arg(h, 2, 10, QChar('0'));
+            str += QString("%1h").arg(h, 1, 10, QChar('0'));
         if (m != 0)
-            str += QString("%1m").arg(m, 2, 10, QChar('0'));
+            str += QString("%1m").arg(m, str.size() ? 2 : 1, 10, QChar('0'));
         if (s != 0)
-            str += QString("%1s").arg(s, 2, 10, QChar('0'));
+            str += QString("%1s").arg(s, str.size() ? 2 : 1, 10, QChar('0'));
         // Always display .ms
-        str += QString(".%1").arg(ms / 10, 2, 10, QChar('0'));
+        str += QString("%1ms").arg(ms, str.size() ? 3 : 1, 10, QChar('0'));
     }
 
     return str;
+}
+
+static uint speedSplit(QString& speedString, QString splitNeedle)
+{
+    QStringList splitResult;
+    // Filter out "ms" becaue "m" and "s" may wrongly use it
+    splitResult = speedString.split("ms");
+    if (splitResult.count() > 1)
+        splitResult = splitResult.at(0).split(splitNeedle);
+    else
+        splitResult = speedString.split(splitNeedle);
+
+    if (splitResult.count() > 1)
+    {
+        speedString.remove(0, speedString.indexOf(splitNeedle) + 1);
+        return splitResult.at(0).toUInt();
+    }
+    return 0;
 }
 
 uint Function::stringToSpeed(QString speed)
@@ -601,29 +619,20 @@ uint Function::stringToSpeed(QString speed)
     if (speed == QChar(0x221E)) // Infinity symbol
         return infiniteSpeed();
 
-    QStringList hours = speed.split("h");
-    if (hours.count() > 1)
-    {
-        value += (hours.at(0).toUInt() * 60 * 60 * 1000);
-        speed.remove(0, speed.indexOf("h") + 1);
-    }
+    value += speedSplit(speed, "h") * 1000 * 60 * 60;
+    value += speedSplit(speed, "m") * 1000 * 60;
+    value += speedSplit(speed, "s") * 1000;
 
-    QStringList mins = speed.split("m");
-    if (mins.count() > 1)
+    QStringList msecs = speed.split("ms");
+    if (msecs.count() > 1)
     {
-        value += (mins.at(0).toUInt() * 60 * 1000);
-        speed.remove(0, speed.indexOf("m") + 1);
+        value += msecs.at(0).toUInt();
     }
-
-    QStringList secs = speed.split("s");
-    if (secs.count() > 1)
+    else
     {
-        value += (secs.at(0).toUInt() * 1000);
-        speed.remove(0, speed.indexOf("s") + 1);
+        // lround avoids toDouble precison issues (.03 transforms to .029)
+        value += lround(speed.toDouble() * 1000.0);
     }
-
-    // lround avoids toDouble precison issues (.03 transforms to .029)
-    value += lround(speed.toDouble() * 1000.0);
 
     return speedNormalize(value);
 }
@@ -632,7 +641,7 @@ uint Function::speedNormalize(uint speed)
 {
     if ((int)speed < 0)
         return infiniteSpeed();
-    return speed - (speed % 10);
+    return speed;
 }
 
 uint Function::speedAdd(uint left, uint right)
