@@ -20,33 +20,31 @@
 #ifndef RGBITEM_H
 #define RGBITEM_H
 
-#include <QGraphicsEllipseItem>
+#include <QAbstractGraphicsShapeItem>
 #include <QColor>
 
 /** @addtogroup ui_functions
  * @{
  */
 
-template<typename T_QGraphicsItem>
-class RGBItem: public T_QGraphicsItem
+class RGBItem
 {
 public:
-    RGBItem(QGraphicsItem* parent = 0);
-    ~RGBItem() { }
+    RGBItem(QAbstractGraphicsShapeItem* graphicsItem);
 
     void setColor(QRgb rgb);
     QRgb color() const;
 
     void draw(uint elapsedMs, uint targetMs);
 
+    QAbstractGraphicsShapeItem* graphicsItem() const;
+
 private:
     QColor m_color;
     QColor m_oldColor;
     uint m_elapsed;
+    QScopedPointer<QAbstractGraphicsShapeItem> m_graphicsItem;
 };
-
-typedef RGBItem<QGraphicsEllipseItem> RGBCircleItem;
-typedef RGBItem<QGraphicsRectItem> RGBRectItem;
 
 /** @} */
 

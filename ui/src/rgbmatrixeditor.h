@@ -30,6 +30,7 @@
 
 class SpeedDialWidget;
 class QGraphicsScene;
+class RGBItem;
 class QTimer;
 
 /** @addtogroup ui_functions
@@ -128,7 +129,7 @@ private:
     QTimer* m_previewTimer;
     uint m_previewIterator;
     int m_previewStep;
-    QHash <QLCPoint,QGraphicsItem*> m_previewHash;
+    QHash<QLCPoint, RGBItem*> m_previewHash;
 };
 
 /** @} */

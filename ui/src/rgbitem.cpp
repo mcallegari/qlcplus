@@ -25,35 +25,31 @@
 #include "qlcmacros.h"
 #include "rgbitem.h"
 
-template<typename T_QGraphicsItem>
-RGBItem<T_QGraphicsItem>::RGBItem(QGraphicsItem* parent)
-    : T_QGraphicsItem(parent)
-    , m_elapsed(0)
+RGBItem::RGBItem(QAbstractGraphicsShapeItem* graphicsItem)
+    : m_elapsed(0)
+    , m_graphicsItem(graphicsItem)
 {
 }
 
-template<typename T_QGraphicsItem>
-void RGBItem<T_QGraphicsItem>::setColor(QRgb rgb)
+void RGBItem::setColor(QRgb rgb)
 {
-    m_oldColor = this->brush().color();
+    m_oldColor = m_graphicsItem->brush().color();
     m_color = QColor(rgb);
     m_elapsed = 0;
 }
 
-template<typename T_QGraphicsItem>
-QRgb RGBItem<T_QGraphicsItem>::color() const
+QRgb RGBItem::color() const
 {
     return m_color.rgb();
 }
 
-template<typename T_QGraphicsItem>
-void RGBItem<T_QGraphicsItem>::draw(uint elapsedMs, uint targetMs)
+void RGBItem::draw(uint elapsedMs, uint targetMs)
 {
     m_elapsed += elapsedMs;
 
     if (targetMs == 0)
     {
-        this->setBrush(m_color);
+        m_graphicsItem->setBrush(m_color);
     }
     else if (m_elapsed <= targetMs)
     {
@@ -76,14 +72,13 @@ void RGBItem<T_QGraphicsItem>::draw(uint elapsedMs, uint targetMs)
             blue = SCALE(qreal(m_elapsed), qreal(targetMs), qreal(0), qreal(m_color.blue()), qreal(m_oldColor.blue()));
         blue = CLAMP(blue, 0, 255);
 
-        this->setBrush(QColor(red, green, blue));
+        m_graphicsItem->setBrush(QColor(red, green, blue));
     }
     else
-        this->setBrush(m_color);
-
-//    qDebug() << Q_FUNC_INFO << m_elapsed << this->brush().color().red() << this->brush().color().green() << this->brush().color().blue();
+        m_graphicsItem->setBrush(m_color);
 }
 
-// Force instantiation of templates
-template class RGBItem<QGraphicsEllipseItem>;
-template class RGBItem<QGraphicsRectItem>;
+QAbstractGraphicsShapeItem* RGBItem::graphicsItem() const
+{
+    return m_graphicsItem.data();
+}

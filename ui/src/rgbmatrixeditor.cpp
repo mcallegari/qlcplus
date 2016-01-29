@@ -532,30 +532,32 @@ bool RGBMatrixEditor::createPreviewItems()
 
             if (grp->headHash().contains(pt) == true)
             {
+                RGBItem* item;
                 if (m_shapeButton->isChecked() == false)
                 {
-                    RGBCircleItem* item = new RGBCircleItem;
-                    item->setRect(x * RECT_SIZE + RECT_PADDING + ITEM_PADDING,
-                                  y * RECT_SIZE + RECT_PADDING + ITEM_PADDING,
-                                  ITEM_SIZE - (2 * ITEM_PADDING),
-                                  ITEM_SIZE - (2 * ITEM_PADDING));
-                    item->setColor(map[y][x]);
-                    item->draw(0, 0);
-                    m_scene->addItem(item);
-                    m_previewHash[pt] = item;
+                    QGraphicsEllipseItem* circleItem = new QGraphicsEllipseItem();
+                    circleItem->setRect(
+                            x * RECT_SIZE + RECT_PADDING + ITEM_PADDING,
+                            y * RECT_SIZE + RECT_PADDING + ITEM_PADDING,
+                            ITEM_SIZE - (2 * ITEM_PADDING),
+                            ITEM_SIZE - (2 * ITEM_PADDING));
+                    item = new RGBItem(circleItem);
                 }
                 else
                 {
-                    RGBRectItem* item = new RGBRectItem;
-                    item->setRect(x * RECT_SIZE + RECT_PADDING + ITEM_PADDING,
-                                  y * RECT_SIZE + RECT_PADDING + ITEM_PADDING,
-                                  ITEM_SIZE - 1,
-                                  ITEM_SIZE - 1);
-                    item->setColor(map[y][x]);
-                    item->draw(0, 0);
-                    m_scene->addItem(item);
-                    m_previewHash[pt] = item;
+                    QGraphicsRectItem* rectItem = new QGraphicsRectItem();
+                    rectItem->setRect(
+                            x * RECT_SIZE + RECT_PADDING + ITEM_PADDING,
+                            y * RECT_SIZE + RECT_PADDING + ITEM_PADDING,
+                            ITEM_SIZE - (2 * ITEM_PADDING),
+                            ITEM_SIZE - (2 * ITEM_PADDING));
+                    item = new RGBItem(rectItem);
                 }
+
+                item->setColor(map[y][x]);
+                item->draw(0, 0);
+                m_scene->addItem(item->graphicsItem());
+                m_previewHash[pt] = item;
             }
         }
     }
@@ -620,10 +622,7 @@ void RGBMatrixEditor::slotPreviewTimeout()
             QLCPoint pt(x, y);
             if (m_previewHash.contains(pt) == true)
             {
-                // TODO
-                // this is plain wrong. An RGBRectItem should not be
-                // accessed through an RGBCircleItem pointer.
-                RGBCircleItem* shape = static_cast<RGBCircleItem*>(m_previewHash[pt]);
+                RGBItem* shape = m_previewHash[pt];
                 if (shape->color() != QColor(map[y][x]).rgb())
                     shape->setColor(map[y][x]);
 
