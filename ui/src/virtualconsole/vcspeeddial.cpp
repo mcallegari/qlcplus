@@ -549,7 +549,7 @@ bool VCSpeedDial::resetFactorOnDialChange() const
 void VCSpeedDial::updateFeedback()
 {
     int fbv = (int)SCALE(float(m_dial->value()), float(m_absoluteValueMin),
-                     float(m_absoluteValueMax), float(0), float(UCHAR_MAX));
+                     float(m_absoluteValueMax), float(1), float(UCHAR_MAX));
 
     sendFeedback(fbv, absoluteInputSourceId);
 
