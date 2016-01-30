@@ -54,7 +54,9 @@ class AudioDecoderMAD : public AudioDecoder
 public:
     virtual ~AudioDecoderMAD();
 
-    // standard decoder API
+    /** @reimpl */
+    AudioDecoder *createCopy();
+
     /** @reimpl */
     bool initialize(const QString &path);
 

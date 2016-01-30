@@ -88,12 +88,14 @@ AudioDecoder *AudioPluginCache::getDecoderForFile(const QString &filename)
         AudioDecoder* ptr = qobject_cast<AudioDecoder*> (loader.instance());
         if (ptr != NULL)
         {
-            if (ptr->initialize(filename) == false)
+            AudioDecoder* copy = qobject_cast<AudioDecoder*> (ptr->createCopy());
+            if (copy->initialize(filename) == false)
             {
                 loader.unload();
+                delete copy;
                 continue;
             }
-            return ptr;
+            return copy;
         }
     }
 

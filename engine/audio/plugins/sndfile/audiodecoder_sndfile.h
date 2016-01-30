@@ -51,7 +51,9 @@ class AudioDecoderSndFile : public AudioDecoder
 public:
     virtual ~AudioDecoderSndFile();
 
-    // Standard Decoder API
+    /** @reimpl */
+    AudioDecoder *createCopy();
+
     /** @reimpl */
     bool initialize(const QString &path);
 

@@ -36,6 +36,12 @@ AudioDecoderSndFile::~AudioDecoderSndFile()
     deinit();
 }
 
+AudioDecoder *AudioDecoderSndFile::createCopy()
+{
+    AudioDecoderSndFile* copy = new AudioDecoderSndFile();
+    return qobject_cast<AudioDecoder *>(copy);
+}
+
 bool AudioDecoderSndFile::initialize(const QString &path)
 {
     m_path = path;

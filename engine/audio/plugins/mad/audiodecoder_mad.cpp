@@ -47,6 +47,12 @@ AudioDecoderMAD::~AudioDecoderMAD()
     }
 }
 
+AudioDecoder *AudioDecoderMAD::createCopy()
+{
+    AudioDecoderMAD* copy = new AudioDecoderMAD();
+    return qobject_cast<AudioDecoder *>(copy);
+}
+
 bool AudioDecoderMAD::initialize(const QString &path)
 {
     m_inited = false;

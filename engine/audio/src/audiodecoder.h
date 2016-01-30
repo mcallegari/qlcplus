@@ -49,6 +49,8 @@ public:
      */
     virtual ~AudioDecoder() { /* NOP */ }
 
+    virtual AudioDecoder *createCopy() = 0;
+
     virtual QStringList supportedFormats() = 0;
     /*!
      * Prepares decoder for usage.
