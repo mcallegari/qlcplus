@@ -73,10 +73,6 @@ public:
     QStringList supportedFormats();
 
 private:
-
-    // helper functions
-    void deinit();
-
     SNDFILE *m_sndfile;
     int m_bitrate;
     quint32 m_freq;

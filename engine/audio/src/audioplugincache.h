@@ -49,7 +49,6 @@ public:
     AudioDecoder *getDecoderForFile(const QString& filename);
 
 private:
-    QList <AudioDecoder*> m_plugins;
     QStringList m_pluginsPathList;
 };
 

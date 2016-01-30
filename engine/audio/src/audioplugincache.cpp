@@ -27,14 +27,10 @@
 AudioPluginCache::AudioPluginCache(QObject *parent)
     : QObject(parent)
 {
-
 }
 
 AudioPluginCache::~AudioPluginCache()
 {
-    qDebug() << Q_FUNC_INFO;
-    while (m_plugins.isEmpty() == false)
-        delete m_plugins.takeFirst();
 }
 
 void AudioPluginCache::load(const QDir &dir)
@@ -58,11 +54,11 @@ void AudioPluginCache::load(const QDir &dir)
         if (ptr != NULL)
         {
             qDebug() << "Loaded audio decoder plugin from" << fileName;
-            /* Valid plugin. Append to list */
-            m_plugins << ptr;
-            /* Append also the plugin path to be used at runtime
+            /* Just append the plugin path to be used at runtime
              * for dynamic creation of instances */
+            ptr->initialize("");
             m_pluginsPathList << path;
+            loader.unload();
         }
     }
 }
@@ -70,8 +66,18 @@ void AudioPluginCache::load(const QDir &dir)
 QStringList AudioPluginCache::getSupportedFormats()
 {
     QStringList caps;
-    foreach(AudioDecoder *dec, m_plugins)
-        caps << dec->supportedFormats();
+    foreach(QString path, m_pluginsPathList)
+    {
+        QPluginLoader loader(path, this);
+        AudioDecoder* ptr = qobject_cast<AudioDecoder*> (loader.instance());
+        if (ptr != NULL)
+        {
+            ptr->initialize("");
+            caps << ptr->supportedFormats();
+            loader.unload();
+            delete ptr;
+        }
+    }
 
     return caps;
 }

@@ -33,7 +33,12 @@
 
 AudioDecoderSndFile::~AudioDecoderSndFile()
 {
-    deinit();
+    m_totalTime = 0;
+    m_bitrate = 0;
+    m_freq = 0;
+    if (m_sndfile)
+        sf_close(m_sndfile);
+    m_sndfile = NULL;
 }
 
 AudioDecoder *AudioDecoderSndFile::createCopy()
@@ -47,7 +52,7 @@ bool AudioDecoderSndFile::initialize(const QString &path)
     m_path = path;
     m_bitrate = 0;
     m_totalTime = 0;
-    m_sndfile = 0;
+    m_sndfile = NULL;
     m_freq = 0;
     SF_INFO snd_info;
 
@@ -86,16 +91,6 @@ bool AudioDecoderSndFile::initialize(const QString &path)
             ",Channels: " <<  chan << ", PCM Format: " << pcmFormat /*snd_info.format*/;
 
     return true;
-}
-
-void AudioDecoderSndFile::deinit()
-{
-    m_totalTime = 0;
-    m_bitrate = 0;
-    m_freq = 0;
-    if (m_sndfile)
-        sf_close(m_sndfile);
-    m_sndfile = 0;
 }
 
 qint64 AudioDecoderSndFile::totalTime()
