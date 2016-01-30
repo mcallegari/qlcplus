@@ -8,7 +8,6 @@ TEMPLATE = lib
 LANGUAGE = C++
 TARGET   = qlcplusengine
 
-#CONFIG  += qt
 QT      += core script gui
 greaterThan(QT_MAJOR_VERSION, 4) {
   QT += multimedia
@@ -20,7 +19,7 @@ CONFIG += link_pkgconfig
 
 #QTPLUGIN =
 
-INCLUDEPATH += ./audio ../../plugins/interfaces
+INCLUDEPATH += ../audio/src ../../plugins/interfaces
 win32:LIBS  += -lwinmm
 win32:QMAKE_LFLAGS += -shared
 win32:INCLUDEPATH += ./
@@ -29,8 +28,8 @@ win32:INCLUDEPATH += ./
 DEPENDPATH  += ../../hotplugmonitor/src
 INCLUDEPATH += ../../hotplugmonitor/src
 LIBS        += -L../../hotplugmonitor/src -lhotplugmonitor
+LIBS        += -L../audio/src -lqlcplusaudio
 }
-
 
 #############################################################################
 # Sources
@@ -53,19 +52,7 @@ HEADERS += avolitesd4parser.h \
            qlcphysical.h \
            utils.h
 
-# Audio
-HEADERS += audio/audio.h \
-           audio/audiodecoder.h \
-           audio/audiorenderer.h \
-           audio/audioparameters.h \
-           audio/audiocapture.h
-
-lessThan(QT_MAJOR_VERSION, 5) {
-  unix:!macx:HEADERS += audio/audiorenderer_alsa.h audio/audiocapture_alsa.h
-  win32:HEADERS += audio/audiorenderer_waveout.h audio/audiocapture_wavein.h
-}
-else {
-  HEADERS += audio/audiorenderer_qt.h audio/audiocapture_qt.h
+greaterThan(QT_MAJOR_VERSION, 4) {
   HEADERS += video.h
 }
 
@@ -141,32 +128,7 @@ SOURCES += avolitesd4parser.cpp \
            qlcmodifierscache.cpp \
            qlcphysical.cpp
 
-
-# Audio
-SOURCES += audio/audio.cpp \
-           audio/audiodecoder.cpp \
-           audio/audiorenderer.cpp \
-           audio/audioparameters.cpp \
-           audio/audiocapture.cpp
-
-lessThan(QT_MAJOR_VERSION, 5) {
-  unix:!macx:SOURCES += audio/audiorenderer_alsa.cpp audio/audiocapture_alsa.cpp
-  win32:SOURCES += audio/audiorenderer_waveout.cpp audio/audiocapture_wavein.cpp
-
-  macx {
-    system(pkg-config --exists portaudio-2.0) {
-      DEFINES += HAS_PORTAUDIO
-      PKGCONFIG += portaudio-2.0
-      HEADERS += audio/audiorenderer_portaudio.h audio/audiocapture_portaudio.h
-      SOURCES += audio/audiorenderer_portaudio.cpp audio/audiocapture_portaudio.cpp
-    }
-
-  #  HEADERS += audio/audiorenderer_coreaudio.h
-  #  SOURCES += audio/audiorenderer_coreaudio.cpp
-  }
-}
-else {
-  SOURCES += audio/audiorenderer_qt.cpp audio/audiocapture_qt.cpp
+greaterThan(QT_MAJOR_VERSION, 4) {
   SOURCES += video.cpp
 }
 
@@ -225,27 +187,13 @@ win32:SOURCES += mastertimer-win32.cpp
 unix:SOURCES  += mastertimer-unix.cpp
 
 !android:!ios {
- system(pkg-config --exists mad) {
-    DEFINES += HAS_LIBMAD
-    PKGCONFIG += mad
-    HEADERS += audio/audiodecoder_mad.h
-    SOURCES += audio/audiodecoder_mad.cpp
- }
-
- system(pkg-config --exists sndfile) {
-    DEFINES += HAS_LIBSNDFILE
-    PKGCONFIG += sndfile
-    HEADERS += audio/audiodecoder_sndfile.h
-    SOURCES += audio/audiodecoder_sndfile.cpp
- }
-
- system(pkg-config --exists fftw3) {
+  system(pkg-config --exists fftw3) {
     DEFINES += HAS_FFTW3
     PKGCONFIG += fftw3
     macx:LIBS += -lfftw3
- }
+  }
 
- unix:!macx:LIBS += -lasound
+  unix:!macx:LIBS += -lasound
 }
 
 # Interfaces
@@ -294,6 +242,7 @@ macx|win32 {
     conf.commands += echo \"$$LITERAL_HASH define FIXTUREDIR \\\"$$FIXTUREDIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define USERFIXTUREDIR \\\"$$USERFIXTUREDIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define PLUGINDIR \\\"$$PLUGINDIR\\\"\" >> $$CONFIGFILE &&
+    conf.commands += echo \"$$LITERAL_HASH define AUDIOPLUGINDIR \\\"$$AUDIOPLUGINDIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define TRANSLATIONDIR \\\"$$TRANSLATIONDIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define RGBSCRIPTDIR \\\"$$RGBSCRIPTDIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define USERRGBSCRIPTDIR \\\"$$USERRGBSCRIPTDIR\\\"\" >> $$CONFIGFILE &&
@@ -318,6 +267,7 @@ else:unix|android|ios {
     conf.commands += echo \"$$LITERAL_HASH define FIXTUREDIR \\\"$$INSTALLROOT/$$FIXTUREDIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define USERFIXTUREDIR \\\"$$USERFIXTUREDIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define PLUGINDIR \\\"$$INSTALLROOT/$$PLUGINDIR\\\"\" >> $$CONFIGFILE &&
+    conf.commands += echo \"$$LITERAL_HASH define AUDIOPLUGINDIR \\\"$$INSTALLROOT/$$AUDIOPLUGINDIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define TRANSLATIONDIR \\\"$$INSTALLROOT/$$TRANSLATIONDIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define RGBSCRIPTDIR \\\"$$INSTALLROOT/$$RGBSCRIPTDIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define USERRGBSCRIPTDIR \\\"$$USERRGBSCRIPTDIR\\\"\" >> $$CONFIGFILE &&

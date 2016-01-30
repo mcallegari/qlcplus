@@ -1,7 +1,7 @@
 %define version %(echo $QLCPLUS_VERSION)
 
 Summary: Q Light Controller Plus - The free DMX lighting console
-License: GPLv2
+License: Apache License, Version 2.0
 Group: Other
 Name: qlcplus
 Prefix: /usr
@@ -69,6 +69,8 @@ INSTALL_ROOT=$RPM_BUILD_ROOT make install
 %{_datadir}/qlcplus/web/*
 %{_datadir}/mime/packages/qlcplus.xml
 %{_datadir}/appdata/*
+%_libdir/qt4/plugins/qlcplus/audio/libmadplugin.so
+%_libdir/qt4/plugins/qlcplus/audio/libsndfileplugin.so
 %_libdir/qt4/plugins/qlcplus/libenttecwing.so
 %_libdir/qt4/plugins/qlcplus/libhidplugin.so
 %_libdir/qt4/plugins/qlcplus/libdmx4linux.so

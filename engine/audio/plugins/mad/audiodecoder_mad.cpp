@@ -36,8 +36,24 @@
 #define INPUT_BUFFER_SIZE (32*1024)
 #define USE_DITHERING
 
-AudioDecoderMAD::AudioDecoderMAD(const QString &path)
-        : AudioDecoder()
+AudioDecoderMAD::~AudioDecoderMAD()
+{
+    deinit();
+    if (m_input_buf)
+    {
+        qDebug("AudioDecoderMAD: deleting input_buf");
+        delete [] m_input_buf;
+        m_input_buf = 0;
+    }
+}
+
+AudioDecoder *AudioDecoderMAD::createCopy()
+{
+    AudioDecoderMAD* copy = new AudioDecoderMAD();
+    return qobject_cast<AudioDecoder *>(copy);
+}
+
+bool AudioDecoderMAD::initialize(const QString &path)
 {
     m_inited = false;
     m_totalTime = 0;
@@ -45,7 +61,7 @@ AudioDecoderMAD::AudioDecoderMAD(const QString &path)
     m_bitrate = 0;
     m_freq = 0;
     m_len = 0;
-    m_input_buf = 0;
+    m_input_buf = NULL;
     m_input_bytes = 0;
     m_output_bytes = 0;
     m_output_at = 0;
@@ -62,46 +78,22 @@ AudioDecoderMAD::AudioDecoderMAD(const QString &path)
     m_right_dither.error[1] = 0;
     m_right_dither.error[2] = 0;
 
-    m_input = new QFile(path);
-}
+    m_input.setFileName(path);
 
-AudioDecoderMAD::~AudioDecoderMAD()
-{
-    deinit();
-    if (m_input_buf)
+    if (m_input.exists() == false)
     {
-        qDebug("AudioDecoderMAD: deleting input_buf");
-        delete [] m_input_buf;
-        m_input_buf = 0;
-    }
-}
-
-bool AudioDecoderMAD::initialize()
-{
-    m_inited = false;
-    m_totalTime = 0;
-    m_channels = 0;
-    m_bitrate = 0;
-    m_freq = 0;
-    m_len = 0;
-    m_input_bytes = 0;
-    m_output_bytes = 0;
-    m_output_at = 0;
-
-    if (!m_input)
-    {
-        qWarning("DecoderMAD: cannot initialize.  No input.");
+        qWarning("DecoderMAD: cannot initialize. Source file doesn't exist.");
         return false;
     }
 
     if (!m_input_buf)
         m_input_buf = new char[INPUT_BUFFER_SIZE];
 
-    if (!m_input->isOpen())
+    if (!m_input.isOpen())
     {
-        if (!m_input->open(QIODevice::ReadOnly))
+        if (!m_input.open(QIODevice::ReadOnly))
         {
-            qWarning("DecoderMAD: %s", qPrintable(m_input->errorString ()));
+            qWarning("DecoderMAD: %s", qPrintable(m_input.errorString ()));
             return false;
         }
     }
@@ -147,8 +139,8 @@ void AudioDecoderMAD::deinit()
     m_skip_frames = 0;
     m_eof = false;
 
-    if (m_input->isOpen())
-        m_input->close();
+    if (m_input.isOpen())
+        m_input.close();
 }
 
 bool AudioDecoderMAD::findXingHeader(struct mad_bitptr ptr, unsigned int bitlen)
@@ -232,7 +224,7 @@ bool AudioDecoderMAD::findHeader()
                 memmove (m_input_buf, m_stream.next_frame, remaining);
             }
 
-            m_input_bytes = m_input->read(m_input_buf + remaining, INPUT_BUFFER_SIZE - remaining);
+            m_input_bytes = m_input.read(m_input_buf + remaining, INPUT_BUFFER_SIZE - remaining);
 
             if (m_input_bytes <= 0)
             {
@@ -264,7 +256,7 @@ bool AudioDecoderMAD::findHeader()
         }
         result = true;
 
-        if (m_input->isSequential())
+        if (m_input.isSequential())
         {
             qDebug() << "Not a sequential file";
             break;
@@ -315,9 +307,9 @@ bool AudioDecoderMAD::findHeader()
         return false;
     }
 
-    if (!is_vbr && !m_input->isSequential())
+    if (!is_vbr && !m_input.isSequential())
     {
-        double time = (m_input->size() * 8.0) / (header.bitrate);
+        double time = (m_input.size() * 8.0) / (header.bitrate);
         double timefrac = (double)time - ((long)(time));
         mad_timer_set(&duration, (long)time, (long)(timefrac*100), 100);
     }
@@ -333,7 +325,7 @@ bool AudioDecoderMAD::findHeader()
     m_channels = MAD_NCHANNELS(&header);
     m_bitrate = header.bitrate / 1000;
     mad_header_finish(&header);
-    m_input->seek(0);
+    m_input.seek(0);
     m_input_bytes = 0;
     return true;
 }
@@ -398,8 +390,8 @@ void AudioDecoderMAD::seek(qint64 pos)
 {
     if(m_totalTime > 0)
     {
-        qint64 seek_pos = qint64(pos * m_input->size() / m_totalTime);
-        m_input->seek(seek_pos);
+        qint64 seek_pos = qint64(pos * m_input.size() / m_totalTime);
+        m_input.seek(seek_pos);
         mad_frame_mute(&m_frame);
         mad_synth_mute(&m_synth);
         m_stream.error = MAD_ERROR_BUFLEN;
@@ -411,7 +403,7 @@ void AudioDecoderMAD::seek(qint64 pos)
     }
 }
 
-QStringList AudioDecoderMAD::getSupportedFormats()
+QStringList AudioDecoderMAD::supportedFormats()
 {
     QStringList caps;
     caps << "*.mp3";
@@ -425,7 +417,7 @@ bool AudioDecoderMAD::fillBuffer()
         m_input_bytes = &m_input_buf[m_input_bytes] - (char *) m_stream.next_frame;
         memmove(m_input_buf, m_stream.next_frame, m_input_bytes);
     }
-    int len = m_input->read((char *) m_input_buf + m_input_bytes, INPUT_BUFFER_SIZE - m_input_bytes);
+    int len = m_input.read((char *) m_input_buf + m_input_bytes, INPUT_BUFFER_SIZE - m_input_bytes);
     if (!len)
     {
         qDebug("DecoderMAD: end of file");
@@ -452,9 +444,6 @@ uint AudioDecoderMAD::findID3v2(uchar *data, ulong size) //retuns ID3v2 tag size
             data[7] < 0x80 && data[8] < 0x80 && data[9] < 0x80)
     {
         quint32 id3v2_size = (data[6] << 21) + (data[7] << 14) + (data[8] << 7) + data[9];
-        //TagLib::ByteVector byteVector((char *)data, size);
-        //TagLib::ID3v2::Header header(byteVector);
-        //return header.tagSize();
         return id3v2_size;
     }
     return 0;

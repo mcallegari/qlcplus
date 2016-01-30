@@ -27,14 +27,6 @@
 
 #include "audiodecoder.h"
 
-AudioDecoder::AudioDecoder()
-{
-
-}
-
-AudioDecoder::~AudioDecoder()
-{}
-
 void AudioDecoder::configure(quint32 srate, int chan, AudioFormat format)
 {
     m_parameters = AudioParameters(srate, chan, format);

@@ -173,6 +173,13 @@ macx:PLUGINDIR       = PlugIns
 android:PLUGINDIR    = Plugins
 ios:PLUGINDIR        = Plugins
 
+# Audio Plugins
+win32:AUDIOPLUGINDIR      = $$PLUGINDIR/Audio
+unix:!macx:AUDIOPLUGINDIR = $$PLUGINDIR/audio
+macx:AUDIOPLUGINDIR       = $$PLUGINDIR/Audio
+android:AUDIOPLUGINDIR    = $$PLUGINDIR/Audio
+ios:AUDIOPLUGINDIR        = $$PLUGINDIR/Audio
+
 # Translations
 win32:TRANSLATIONDIR      =
 unix:!macx:TRANSLATIONDIR = $$DATADIR/translations
@@ -215,6 +222,7 @@ unix:!macx: {
     QTPLUGINSDIR = $$[QT_INSTALL_PLUGINS]
     LIBSDIR = $$replace(QTLIBSDIR, "/usr/", "")
     PLUGINDIR = $$replace(QTPLUGINSDIR, "/usr/", "")/qlcplus
+    AUDIOPLUGINDIR = $$PLUGINDIR/audio
   }
   #message("Qt install prefix: "$$[QT_INSTALL_PREFIX])
   #message("Qt install libs: "$$[QT_INSTALL_LIBS])

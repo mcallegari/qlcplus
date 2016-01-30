@@ -24,14 +24,8 @@
 #include <QFile>
 
 #include "audiodecoder.h"
-#ifdef HAS_LIBSNDFILE
-  #include "audiodecoder_sndfile.h"
-#endif
-#ifdef HAS_LIBMAD
-  #include "audiodecoder_mad.h"
-#endif
-
 #include "audiorenderer.h"
+#include "audioplugincache.h"
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 
@@ -127,14 +121,7 @@ bool Audio::copyFrom(const Function* function)
 
 QStringList Audio::getCapabilities()
 {
-    QStringList cap;
-#ifdef HAS_LIBSNDFILE
-    cap << AudioDecoderSndFile::getSupportedFormats();
-#endif
-#ifdef HAS_LIBMAD
-    cap << AudioDecoderMAD::getSupportedFormats();
-#endif
-    return cap;
+    return m_doc->audioPluginCache()->getSupportedFormats();
 }
 
 /*********************************************************************
@@ -202,35 +189,14 @@ bool Audio::setSourceFileName(QString filename)
     }
     emit sourceFilenameChanged();
 
-#ifdef HAS_LIBSNDFILE
-    m_decoder = new AudioDecoderSndFile(m_sourceFileName);
-    if (m_decoder->initialize() == false)
-    {
-        delete m_decoder;
-        m_decoder = NULL;
-    }
-    else
-    {
-        m_audioDuration = m_decoder->totalTime();
-        emit changed(id());
-        return true;
-    }
-#endif
-#ifdef HAS_LIBMAD
-    m_decoder = new AudioDecoderMAD(m_sourceFileName);
-    if (m_decoder->initialize() == false)
-    {
-        delete m_decoder;
-        m_decoder = NULL;
-    }
-    else
-    {
-        m_audioDuration = m_decoder->totalTime();
-        emit changed(id());
-        return true;
-    }
-#endif
-    return false;
+    m_decoder = m_doc->audioPluginCache()->getDecoderForFile(m_sourceFileName);
+    if (m_decoder == NULL)
+        return false;
+
+    m_audioDuration = m_decoder->totalTime();
+    emit changed(id());
+
+    return true;
 }
 
 QString Audio::getSourceFileName()

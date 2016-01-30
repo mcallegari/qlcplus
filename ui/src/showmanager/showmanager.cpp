@@ -34,6 +34,7 @@
 #include <QUrl>
 
 #include "functionselection.h"
+#include "audioplugincache.h"
 #include "rgbmatrixeditor.h"
 #include "multitrackview.h"
 #include "chasereditor.h"
@@ -899,7 +900,7 @@ void ShowManager::slotAddAudio()
     //dialog.selectFile(fileName());
 
     /* Append file filters to the dialog */
-    QStringList extList = Audio::getCapabilities();
+    QStringList extList = m_doc->audioPluginCache()->getSupportedFormats();
 
     QStringList filters;
     qDebug() << Q_FUNC_INFO << "Extensions: " << extList.join(" ");

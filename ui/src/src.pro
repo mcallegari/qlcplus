@@ -12,7 +12,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets multimedia multimediawidgets
 INCLUDEPATH     += monitor showmanager virtualconsole
 
 # Engine
-INCLUDEPATH     += ../../engine/src ../../engine/src/audio
+INCLUDEPATH     += ../../engine/src ../../engine/audio/src
 win32: INCLUDEPATH += ../../hotplugmonitor/src
 DEPENDPATH      += ../../engine/src
 QMAKE_LIBDIR    += ../../engine/src

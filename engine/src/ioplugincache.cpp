@@ -54,7 +54,7 @@ void IOPluginCache::load(const QDir& dir)
     if (dir.exists() == false || dir.isReadable() == false)
         return;
 
-    /* Loop thru all files in the directory */
+    /* Loop through all files in the directory */
     QStringListIterator it(dir.entryList());
     while (it.hasNext() == true)
     {

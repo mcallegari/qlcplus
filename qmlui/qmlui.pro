@@ -13,12 +13,13 @@ QT += multimedia multimediawidgets
 QML_IMPORT_PATH =
 
 # Engine
-INCLUDEPATH     += ../engine/src ../engine/src/audio
+INCLUDEPATH     += ../engine/src ../engine/audio/src
 INCLUDEPATH     += virtualconsole
 DEPENDPATH      += ../engine/src
 QMAKE_LIBDIR    += ../engine/src
 LIBS            += -lqlcplusengine
-win32:QMAKE_LFLAGS += -shared
+#win32:QMAKE_LFLAGS += -shared
+win32:RC_FILE = qmlui.rc
 
 # Plugins
 INCLUDEPATH     += ../plugins/interfaces

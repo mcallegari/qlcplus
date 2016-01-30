@@ -63,7 +63,6 @@ lessThan(QT_MAJOR_VERSION, 5) {
                          $$QT_LIBS_PATH/QtNetwork4d.dll
 } else {
     release:qtlibs.files = $$QT_LIBS_PATH/Qt5Core.dll \
-                           $$QT_LIBS_PATH/Qt5Gui.dll \
                            $$QT_LIBS_PATH/Qt5Script.dll \
                            $$QT_LIBS_PATH/Qt5Network.dll \
                            $$QT_LIBS_PATH/Qt5Widgets.dll \
@@ -72,33 +71,42 @@ lessThan(QT_MAJOR_VERSION, 5) {
                            $$QT_LIBS_PATH/Qt5MultimediaWidgets.dll
 
     debug:qtlibs.files = $$QT_LIBS_PATH/Qt5Cored.dll \
-                         $$QT_LIBS_PATH/Qt5Guid.dll \
                          $$QT_LIBS_PATH/Qt5Scriptd.dll \
                          $$QT_LIBS_PATH/Qt5Networkd.dll \
                          $$QT_LIBS_PATH/Qt5Widgetsd.dll \
                          $$QT_LIBS_PATH/Qt5OpenGLd.dll \
                          $$QT_LIBS_PATH/Qt5Multimediad.dll \
                          $$QT_LIBS_PATH/Qt5MultimediaWidgetsd.dll
-						 
+
+    qmlui: {
+        release:qtlibs.files += $$QT_LIBS_PATH/Qt5Qml.dll \
+                                $$QT_LIBS_PATH/Qt5Quick.dll \
+                                $$QT_LIBS_PATH/Qt5Svg.dll
+    } else {
+        release:qtlibs.files += $$QT_LIBS_PATH/Qt5Gui.dll
+        debug:qtlibs.files += $$QT_LIBS_PATH/Qt5Guid.dll
+    }
+
     # Qt Libraries
     qt5deps.path  = $$INSTALLROOT/$$LIBSDIR
 
     qt5deps.files += $$SYS_LIBS_PATH/libicudt55.dll \
-                    $$SYS_LIBS_PATH/libicuin55.dll \
-                    $$SYS_LIBS_PATH/libicuuc55.dll \
-                    $$SYS_LIBS_PATH/libpcre16-0.dll \
-                    $$SYS_LIBS_PATH/libpng16-16.dll \
-                    $$SYS_LIBS_PATH/zlib1.dll \
-                    $$SYS_LIBS_PATH/libbz2-1.dll \
-                    $$SYS_LIBS_PATH/libfreetype-6.dll \
-                    $$SYS_LIBS_PATH/libharfbuzz-0.dll \
-                    $$SYS_LIBS_PATH/libiconv-2.dll \
-                    $$SYS_LIBS_PATH/libintl-8.dll \
-                    $$SYS_LIBS_PATH/libglib-2.0-0.dll \
-                    $$SYS_LIBS_PATH/libspeex-1.dll
-					
-	INSTALLS += qt5deps
+                     $$SYS_LIBS_PATH/libicuin55.dll \
+                     $$SYS_LIBS_PATH/libicuuc55.dll \
+                     $$SYS_LIBS_PATH/libpcre16-0.dll \
+                     $$SYS_LIBS_PATH/libpng16-16.dll \
+                     $$SYS_LIBS_PATH/zlib1.dll \
+                     $$SYS_LIBS_PATH/libbz2-1.dll \
+                     $$SYS_LIBS_PATH/libfreetype-6.dll \
+                     $$SYS_LIBS_PATH/libharfbuzz-0.dll \
+                     $$SYS_LIBS_PATH/libiconv-2.dll \
+                     $$SYS_LIBS_PATH/libintl-8.dll \
+                     $$SYS_LIBS_PATH/libglib-2.0-0.dll \
+                     $$SYS_LIBS_PATH/libspeex-1.dll
+
+    INSTALLS += qt5deps
 }
+
     INSTALLS += qtlibs
 
 greaterThan(QT_MAJOR_VERSION, 4) {
@@ -118,6 +126,13 @@ greaterThan(QT_MAJOR_VERSION, 4) {
     release:qtmedia.files = $$QT_PLUGINS_PATH/mediaservice/dsengine.dll \
                             $$QT_PLUGINS_PATH/mediaservice/qtmedia_audioengine.dll
     INSTALLS += qtmedia
+
+    qmlui: {
+        qtimageformats.path = $$INSTALLROOT/$$LIBSDIR/imageformats
+        debug:qtimageformats.files = $$QT_PLUGINS_PATH/imageformats/qsvgd.dll
+        release:qtimageformats.files = $$QT_PLUGINS_PATH/imageformats/qsvg.dll
+        INSTALLS += qtimageformats
+    }
 }
 
     # MSYS2 libraries
