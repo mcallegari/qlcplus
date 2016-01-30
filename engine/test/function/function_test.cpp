@@ -325,9 +325,9 @@ void Function_Test::stringToDirection()
 void Function_Test::speedToString()
 {
     QCOMPARE(Function::speedToString(0), QString("0ms"));
-    QCOMPARE(Function::speedToString(1000), QString("1s000ms"));
-    QCOMPARE(Function::speedToString(1000 * 60), QString("1m000ms"));
-    QCOMPARE(Function::speedToString(1000 * 60 * 60), QString("1h000ms"));
+    QCOMPARE(Function::speedToString(1000), QString("1s"));
+    QCOMPARE(Function::speedToString(1000 * 60), QString("1m"));
+    QCOMPARE(Function::speedToString(1000 * 60 * 60), QString("1h"));
 
     QCOMPARE(Function::speedToString(990), QString("990ms"));
     QCOMPARE(Function::speedToString(990 + 59 * 1000), QString("59s990ms"));
@@ -363,7 +363,9 @@ void Function_Test::stringToSpeed()
     QCOMPARE(Function::stringToSpeed("1"), uint(1000));
     QCOMPARE(Function::stringToSpeed("1s"), uint(1000));
     QCOMPARE(Function::stringToSpeed("1.000"), uint(1000));
+    QCOMPARE(Function::stringToSpeed("1.001"), uint(1001));
     QCOMPARE(Function::stringToSpeed("1s.00"), uint(1000));
+    QCOMPARE(Function::stringToSpeed("1ms"), uint(1));
 
     QCOMPARE(Function::stringToSpeed("1s.01"), uint(10 + 1000));
     QCOMPARE(Function::stringToSpeed("1m1s.01"), uint(10 + 1000 + 1000 * 60));

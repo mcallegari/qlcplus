@@ -587,8 +587,8 @@ QString Function::speedToString(uint ms)
             str += QString("%1m").arg(m, str.size() ? 2 : 1, 10, QChar('0'));
         if (s != 0)
             str += QString("%1s").arg(s, str.size() ? 2 : 1, 10, QChar('0'));
-        // Always display .ms
-        str += QString("%1ms").arg(ms, str.size() ? 3 : 1, 10, QChar('0'));
+        if (ms != 0 || str.size() == 0)
+            str += QString("%1ms").arg(ms, str.size() ? 3 : 1, 10, QChar('0'));
     }
 
     return str;
