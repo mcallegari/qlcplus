@@ -17,6 +17,7 @@ PKGCONFIG   += sndfile
 target.path = $$INSTALLROOT/$$AUDIOPLUGINDIR
 INSTALLS   += target
 
-HEADERS += ../../src/audiodecoder.h
+HEADERS += ../../src/audiodecoder.h ../../src/audioparameters.h
+SOURCES += ../../src/audiodecoder.cpp ../../src/audioparameters.cpp
 HEADERS += audiodecoder_sndfile.h
 SOURCES += audiodecoder_sndfile.cpp

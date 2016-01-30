@@ -17,6 +17,7 @@ PKGCONFIG   += mad
 target.path = $$INSTALLROOT/$$AUDIOPLUGINDIR
 INSTALLS   += target
 
-HEADERS += ../../src/audiodecoder.h
+HEADERS += ../../src/audiodecoder.h ../../src/audioparameters.h
+SOURCES += ../../src/audiodecoder.cpp ../../src/audioparameters.cpp
 HEADERS += audiodecoder_mad.h
 SOURCES += audiodecoder_mad.cpp
