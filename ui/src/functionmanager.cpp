@@ -40,6 +40,7 @@
 #include "functionstreewidget.h"
 #include "functionselection.h"
 #include "collectioneditor.h"
+#include "audioplugincache.h"
 #include "functionmanager.h"
 #include "rgbmatrixeditor.h"
 #include "functionwizard.h"
@@ -477,7 +478,7 @@ void FunctionManager::slotAddAudio()
     dialog.setAcceptMode(QFileDialog::AcceptOpen);
 
     /* Append file filters to the dialog */
-    QStringList extList = Audio::getCapabilities();
+    QStringList extList = m_doc->audioPluginCache()->getSupportedFormats();
 
     QStringList filters;
     qDebug() << Q_FUNC_INFO << "Extensions: " << extList.join(" ");

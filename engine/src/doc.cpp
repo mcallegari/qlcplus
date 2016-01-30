@@ -30,6 +30,9 @@
 #include "qlcfixturedef.h"
 #include "qlcfile.h"
 
+#include "monitorproperties.h"
+#include "audioplugincache.h"
+#include "rgbscriptscache.h"
 #include "channelsgroup.h"
 #include "collection.h"
 #include "function.h"
@@ -41,8 +44,6 @@
 #include "efx.h"
 #include "doc.h"
 #include "bus.h"
-#include "rgbscriptscache.h"
-#include "monitorproperties.h"
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
  #if defined(__APPLE__) || defined(Q_OS_MAC)
@@ -63,6 +64,7 @@ Doc::Doc(QObject* parent, int universes)
     , m_modifiersCache(new QLCModifiersCache)
     , m_rgbScriptsCache(new RGBScriptsCache(this))
     , m_ioPluginCache(new IOPluginCache(this))
+    , m_audioPluginCache(new AudioPluginCache(this))
     , m_ioMap(new InputOutputMap(this, universes))
     , m_masterTimer(new MasterTimer(this))
     , m_monitorProps(NULL)
@@ -226,6 +228,11 @@ RGBScriptsCache* Doc::rgbScriptsCache() const
 IOPluginCache* Doc::ioPluginCache() const
 {
     return m_ioPluginCache;
+}
+
+AudioPluginCache *Doc::audioPluginCache() const
+{
+    return m_audioPluginCache;
 }
 
 InputOutputMap* Doc::inputOutputMap() const

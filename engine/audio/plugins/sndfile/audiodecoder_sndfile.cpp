@@ -31,27 +31,18 @@
 
 #include "audiodecoder_sndfile.h"
 
-// Decoder class
+AudioDecoderSndFile::~AudioDecoderSndFile()
+{
+    deinit();
+}
 
-AudioDecoderSndFile::AudioDecoderSndFile(const QString &path)
-        : AudioDecoder()
+bool AudioDecoderSndFile::initialize(const QString &path)
 {
     m_path = path;
     m_bitrate = 0;
     m_totalTime = 0;
     m_sndfile = 0;
     m_freq = 0;
-}
-
-AudioDecoderSndFile::~AudioDecoderSndFile()
-{
-    deinit();
-}
-
-bool AudioDecoderSndFile::initialize()
-{
-    m_bitrate = 0;
-    m_totalTime = 0.0;
     SF_INFO snd_info;
 
     memset (&snd_info, 0, sizeof(snd_info));
@@ -121,7 +112,7 @@ void AudioDecoderSndFile::seek(qint64 pos)
     sf_seek(m_sndfile, m_freq * pos/1000, SEEK_SET);
 }
 
-QStringList AudioDecoderSndFile::getSupportedFormats()
+QStringList AudioDecoderSndFile::supportedFormats()
 {
     QStringList caps;
     SF_FORMAT_INFO format_info;

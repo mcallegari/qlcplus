@@ -24,6 +24,7 @@
 #include <QDebug>
 #include <QUrl>
 
+#include "audioplugincache.h"
 #include "speeddialwidget.h"
 #include "audiodecoder.h"
 #include "audioeditor.h"
@@ -154,7 +155,7 @@ void AudioEditor::slotSourceFileClicked()
     dialog.setAcceptMode(QFileDialog::AcceptOpen);
 
     /* Append file filters to the dialog */
-    QStringList extList = Audio::getCapabilities();
+    QStringList extList = m_doc->audioPluginCache()->getSupportedFormats();
 
     QStringList filters;
     qDebug() << Q_FUNC_INFO << "Extensions: " << extList.join(" ");

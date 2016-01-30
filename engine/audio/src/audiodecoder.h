@@ -26,6 +26,7 @@
 #ifndef AUDIODECODER_H
 #define AUDIODECODER_H
 
+#include <QtPlugin>
 #include <QStringList>
 
 #include "audioparameters.h"
@@ -38,23 +39,22 @@
  * @author Brad Hughes <bhughes@trolltech.com>
  * @author Ilya Kotov <forkotov@hotmail.ru>
  */
-class AudioDecoder
+class AudioDecoder: public QObject
 {
+    Q_OBJECT
+
 public:
-    /*!
-     * Object constructor.
-     * @param input QIODevice-based input source.
-     */
-    AudioDecoder();
     /*!
      * Destructor.
      */
-    virtual ~AudioDecoder();
+    virtual ~AudioDecoder() { /* NOP */ }
+
+    virtual QStringList supportedFormats() = 0;
     /*!
      * Prepares decoder for usage.
      * Subclass should reimplement this function.
      */
-    virtual bool initialize() = 0;
+    virtual bool initialize(const QString &path) = 0;
     /*!
      * Returns the total time in milliseconds.
      * Subclass should reimplement this function.
@@ -93,6 +93,10 @@ protected:
 private:
     AudioParameters m_parameters;
 };
+
+#define QLCPlusAudioPlugin_iid "org.qlcplus.AudioPlugin"
+
+Q_DECLARE_INTERFACE(AudioDecoder, QLCPlusAudioPlugin_iid)
 
 /** @} */
 

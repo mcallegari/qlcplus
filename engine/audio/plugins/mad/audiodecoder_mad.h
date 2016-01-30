@@ -29,15 +29,15 @@
 #ifndef AUDIODECODER_MAD_H
 #define AUDIODECODER_MAD_H
 
-extern "C"
-{
-#include <mad.h>
-}
-
 #include <QFile>
 #include <QStringList>
 
 #include "audiodecoder.h"
+
+extern "C"
+{
+    #include <mad.h>
+}
 
 /** @addtogroup engine_audio Audio
  * @{
@@ -45,13 +45,18 @@ extern "C"
 
 class AudioDecoderMAD : public AudioDecoder
 {
+    Q_OBJECT
+    Q_INTERFACES(AudioDecoder)
+#if QT_VERSION > QT_VERSION_CHECK(5, 0, 0)
+    Q_PLUGIN_METADATA(IID QLCPlusAudioPlugin_iid)
+#endif
+
 public:
-    AudioDecoderMAD(const QString &path);
     virtual ~AudioDecoderMAD();
 
     // standard decoder API
     /** @reimpl */
-    bool initialize();
+    bool initialize(const QString &path);
 
     /** @reimpl */
     qint64 totalTime();
@@ -65,7 +70,8 @@ public:
     /** @reimpl */
     void seek(qint64);
 
-    static QStringList getSupportedFormats();
+    /** @reimpl */
+    QStringList supportedFormats();
 
 private:
     // helper functions
@@ -76,7 +82,7 @@ private:
     bool findXingHeader(struct mad_bitptr, unsigned int);
     uint findID3v2(uchar *data, ulong size);
 
-    QFile *m_input;
+    QFile m_input;
     bool m_inited, m_eof;
     qint64 m_totalTime;
     int m_channels, m_skip_frames;

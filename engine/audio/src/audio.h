@@ -68,7 +68,7 @@ public slots:
      * Capabilities
      *********************************************************************/
 public:
-    Q_INVOKABLE static QStringList getCapabilities();
+    Q_INVOKABLE QStringList getCapabilities();
 
     /*********************************************************************
      * Properties

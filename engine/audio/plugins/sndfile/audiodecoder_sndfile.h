@@ -27,13 +27,14 @@
 #ifndef AUDIODECODER_AUDIOFILE_H
 #define AUDIODECODER_AUDIOFILE_H
 
-extern "C"{
-#include <sndfile.h>
-}
-
 #include <QStringList>
 
 #include "audiodecoder.h"
+
+extern "C"
+{
+    #include <sndfile.h>
+}
 
 /** @addtogroup engine_audio Audio
  * @{
@@ -41,13 +42,18 @@ extern "C"{
 
 class AudioDecoderSndFile : public AudioDecoder
 {
+    Q_OBJECT
+    Q_INTERFACES(AudioDecoder)
+#if QT_VERSION > QT_VERSION_CHECK(5, 0, 0)
+    Q_PLUGIN_METADATA(IID QLCPlusAudioPlugin_iid)
+#endif
+
 public:
-    AudioDecoderSndFile(const QString &path);
     virtual ~AudioDecoderSndFile();
 
     // Standard Decoder API
     /** @reimpl */
-    bool initialize();
+    bool initialize(const QString &path);
 
     /** @reimpl */
     qint64 totalTime();
@@ -61,7 +67,8 @@ public:
     /** @reimpl */
     void seek(qint64 time);
 
-    static QStringList getSupportedFormats();
+    /** @reimpl */
+    QStringList supportedFormats();
 
 private:
 

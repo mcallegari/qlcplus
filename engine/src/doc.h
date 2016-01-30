@@ -38,8 +38,8 @@
 #include "fixture.h"
 
 class AudioCapture;
-class QString;
 class RGBScriptsCache;
+class AudioPluginCache;
 class MonitorProperties;
 
 /** @addtogroup engine Engine
@@ -130,6 +130,9 @@ public:
     /** Get the I/O plugin cache object */
     IOPluginCache* ioPluginCache() const;
 
+    /** Get the audio decoder plugin cache object */
+    AudioPluginCache* audioPluginCache() const;
+
     /** Get the DMX output map object */
     InputOutputMap* inputOutputMap() const;
 
@@ -143,12 +146,13 @@ public:
     void destroyAudioCapture();
 
 private:
-    QLCFixtureDefCache* m_fixtureDefCache;
-    QLCModifiersCache* m_modifiersCache;
-    RGBScriptsCache* m_rgbScriptsCache;
-    IOPluginCache* m_ioPluginCache;
+    QLCFixtureDefCache *m_fixtureDefCache;
+    QLCModifiersCache *m_modifiersCache;
+    RGBScriptsCache *m_rgbScriptsCache;
+    IOPluginCache *m_ioPluginCache;
+    AudioPluginCache *m_audioPluginCache;
     InputOutputMap *m_ioMap;
-    MasterTimer* m_masterTimer;
+    MasterTimer *m_masterTimer;
     QSharedPointer<AudioCapture> m_inputCapture;
     MonitorProperties *m_monitorProps;
 
