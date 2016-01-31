@@ -23,14 +23,19 @@
 #include <QStringList>
 #include <QDebug>
 
+#include "rgbscriptscache.h"
 #include "rgbalgorithm.h"
 #include "rgbaudio.h"
 #include "rgbimage.h"
 #include "rgbplain.h"
-#include "rgbscript.h"
-#include "rgbscriptscache.h"
 #include "rgbtext.h"
 #include "doc.h"
+
+#ifdef QT_QML_LIB
+  #include "rgbscriptv4.h"
+#else
+  #include "rgbscript.h"
+#endif
 
 RGBAlgorithm::RGBAlgorithm(Doc * doc)
     : m_doc(doc)

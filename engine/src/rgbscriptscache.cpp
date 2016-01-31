@@ -21,7 +21,11 @@
 #include <QDir>
 
 #include "rgbscriptscache.h"
-#include "rgbscript.h"
+#ifdef QT_QML_LIB
+  #include "rgbscriptv4.h"
+#else
+  #include "rgbscript.h"
+#endif
 #include "qlcconfig.h"
 #include "qlcfile.h"
 

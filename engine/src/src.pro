@@ -8,11 +8,17 @@ TEMPLATE = lib
 LANGUAGE = C++
 TARGET   = qlcplusengine
 
-QT      += core script gui
+QT      += core gui
 greaterThan(QT_MAJOR_VERSION, 4) {
   QT += multimedia
   macx:QT_CONFIG -= no-pkg-config
   win32:QT += widgets
+}
+
+qmlui {
+  QT += qml
+} else {
+  QT += script
 }
 
 CONFIG += link_pkgconfig
@@ -95,7 +101,6 @@ HEADERS += bus.h \
            rgbmatrix.h \
            rgbimage.h \
            rgbplain.h \
-           rgbscript.h \
            rgbscriptproperty.h \
            rgbscriptscache.h \
            rgbtext.h \
@@ -108,6 +113,12 @@ HEADERS += bus.h \
            showrunner.h \
            track.h \
            universe.h
+
+qmlui {
+  HEADERS += rgbscriptv4.h
+} else {
+  HEADERS += rgbscript.h
+}
 
 win32:HEADERS += mastertimer-win32.h
 unix:HEADERS  += mastertimer-unix.h
@@ -170,7 +181,6 @@ SOURCES += bus.cpp \
            rgbmatrix.cpp \
            rgbimage.cpp \
            rgbplain.cpp \
-           rgbscript.cpp \
            rgbscriptscache.cpp \
            rgbtext.cpp \
            scene.cpp \
@@ -182,6 +192,12 @@ SOURCES += bus.cpp \
            showrunner.cpp \
            track.cpp \
            universe.cpp
+
+qmlui {
+  SOURCES += rgbscriptv4.cpp
+} else {
+  SOURCES += rgbscript.cpp
+}
 
 win32:SOURCES += mastertimer-win32.cpp
 unix:SOURCES  += mastertimer-unix.cpp
