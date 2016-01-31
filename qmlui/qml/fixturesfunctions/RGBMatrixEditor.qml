@@ -182,12 +182,13 @@ Rectangle
                     onCurrentTextChanged:
                     {
                         rgbMatrixEditor.algorithmIndex = currentIndex
+                        rgbParamsLoader.sourceComponent = null
                         if (currentText == "Text")
                             rgbParamsLoader.sourceComponent = textAlgoComponent
                         else if (currentText == "Image")
                             rgbParamsLoader.sourceComponent = imageAlgoComponent
                         else
-                            rgbParamsLoader.sourceComponent = null
+                            rgbParamsLoader.sourceComponent = scriptAlgoComponent
                     }
                 }
             }
@@ -565,6 +566,68 @@ Rectangle
                     }
                 }
             }
+        }
+    }
+
+    // ************************************************************
+
+    // Script Algorithm parameters
+    Component
+    {
+        id: scriptAlgoComponent
+
+        GridLayout
+        {
+            id: scriptAlgoGrid
+            columns: 2
+            columnSpacing: 5
+
+            function addComboBox(propName, model, currentIndex)
+            {
+                comboComponent.createObject(scriptAlgoGrid,
+                               {"propName": propName, "model": model, "currentIndex": currentIndex });
+            }
+
+            function addSpinBox(propName, min, max, currentValue)
+            {
+                spinComponent.createObject(scriptAlgoGrid,
+                              {"propName": propName, "minimumValue": min, "maximumValue": max, "value": currentValue });
+            }
+
+            Component.onCompleted:
+            {
+                rgbMatrixEditor.createScriptObjects(scriptAlgoGrid)
+            }
+        }
+    }
+
+    // Script algorithm combo box property
+    Component
+    {
+        id: comboComponent
+
+        CustomComboBox
+        {
+            id: sCombo
+            Layout.fillWidth: true
+            property string propName
+
+            onCurrentTextChanged: rgbMatrixEditor.setScriptStringProperty(propName, currentText)
+        }
+    }
+
+    // Script algorithm spin box property
+    Component
+    {
+        id: spinComponent
+
+        CustomSpinBox
+        {
+            id: sSpin
+            Layout.fillWidth: true
+            property string propName
+
+            onValueChanged: rgbMatrixEditor.setScriptIntProperty(propName, value)
         }
     }
 

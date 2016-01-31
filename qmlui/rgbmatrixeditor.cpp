@@ -237,6 +237,97 @@ void RGBMatrixEditor::setAlgoImagePath(QString path)
     }
 }
 
+void RGBMatrixEditor::createScriptObjects(QQuickItem *parent)
+{
+    if (m_matrix == NULL || m_matrix->algorithm() == NULL ||
+        m_matrix->algorithm()->type() != RGBAlgorithm::Script)
+            return;
+
+    QQmlComponent *labelComp = new QQmlComponent(m_view->engine(), QUrl("qrc:/RobotoText.qml"));
+    if (labelComp->isError())
+        qDebug() << labelComp->errors();
+
+    RGBScript* script = static_cast<RGBScript*> (m_matrix->algorithm());
+    QList<RGBScriptProperty> properties = script->properties();
+
+    foreach(RGBScriptProperty prop, properties)
+    {
+        // always create a label first
+        QQuickItem *propLabel = qobject_cast<QQuickItem*>(labelComp->create());
+        propLabel->setParentItem(parent);
+        propLabel->setProperty("label", prop.m_displayName);
+
+        switch(prop.m_type)
+        {
+            case RGBScriptProperty::List:
+            {
+                QVariantList valList;
+                int idx = 0;
+                int currIdx = 0;
+                QString pValue = m_matrix->property(prop.m_name);
+                if (pValue.isEmpty())
+                    pValue = script->property(prop.m_name);
+
+                foreach(QString val, prop.m_listValues)
+                {
+                    if (val == pValue)
+                        currIdx = idx;
+
+                    QVariantMap valMap;
+                    valMap.insert("mIcon", "");
+                    valMap.insert("mLabel", val);
+                    valMap.insert("mValue", idx++);
+                    valList.append(valMap);
+                }
+
+                QMetaObject::invokeMethod(parent, "addComboBox",
+                        Q_ARG(QVariant, prop.m_name),
+                        Q_ARG(QVariant, QVariant::fromValue(valList)),
+                        Q_ARG(QVariant, currIdx));
+            }
+            break;
+            case RGBScriptProperty::Range:
+            {
+                QString pValue = m_matrix->property(prop.m_name);
+                if (pValue.isEmpty())
+                    pValue = script->property(prop.m_name);
+
+                QMetaObject::invokeMethod(parent, "addSpinBox",
+                        Q_ARG(QVariant, prop.m_name),
+                        Q_ARG(QVariant, prop.m_rangeMinValue),
+                        Q_ARG(QVariant, prop.m_rangeMaxValue),
+                        Q_ARG(QVariant, pValue.toInt()));
+            }
+            break;
+            default:
+                qWarning() << "Type" << prop.m_type << "not handled yet";
+            break;
+        }
+    }
+}
+
+void RGBMatrixEditor::setScriptStringProperty(QString paramName, QString value)
+{
+    if (m_matrix == NULL || m_matrix->algorithm() == NULL ||
+        m_matrix->algorithm()->type() != RGBAlgorithm::Script)
+            return;
+
+    RGBScript *script = static_cast<RGBScript*> (m_matrix->algorithm());
+    script->setProperty(paramName, value);
+    m_matrix->setProperty(paramName, value);
+}
+
+void RGBMatrixEditor::setScriptIntProperty(QString paramName, int value)
+{
+    if (m_matrix == NULL || m_matrix->algorithm() == NULL ||
+        m_matrix->algorithm()->type() != RGBAlgorithm::Script)
+            return;
+
+    RGBScript *script = static_cast<RGBScript*> (m_matrix->algorithm());
+    script->setProperty(paramName, QString::number(value));
+    m_matrix->setProperty(paramName, QString::number(value));
+}
+
 QSize RGBMatrixEditor::previewSize() const
 {
     if (m_matrix == NULL || m_group == NULL)

@@ -96,6 +96,19 @@ public:
     QString algoImagePath() const;
     void setAlgoImagePath(QString path);
 
+    /** This is an important method called by the QML world
+     *  when a RGBScript algorithm is selected.
+     *  The steps are:
+     *    - QML creates an empty GridLayout. On completed, it invokes this C++ method
+     *    - each parameter label is created by the C++ code
+     *    - combo boxes are created in QML, and C++ sends the model and properties
+     *    - spin boxes are created in QML, and C++ sends the range and properties
+     */
+    Q_INVOKABLE void createScriptObjects(QQuickItem *parent);
+
+    Q_INVOKABLE void setScriptStringProperty(QString paramName, QString value);
+    Q_INVOKABLE void setScriptIntProperty(QString paramName, int value);
+
 signals:
     void algorithmIndexChanged();
     void algoColorsChanged();
