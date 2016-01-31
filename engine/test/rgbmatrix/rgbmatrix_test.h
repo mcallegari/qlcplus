@@ -23,7 +23,11 @@
 #include <QObject>
 #include <QList>
 
-#include "rgbscript.h"
+#ifdef QT_QML_LIB
+  #include "rgbscriptv4.h"
+#else
+  #include "rgbscript.h"
+#endif
 
 class Doc;
 class RGBMatrix_Test : public QObject

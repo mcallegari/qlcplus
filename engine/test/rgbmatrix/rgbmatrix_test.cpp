@@ -23,13 +23,12 @@
 #include <QXmlStreamWriter>
 
 #define private public
+#include "rgbscriptscache.h"
 #include "rgbmatrix_test.h"
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
 #include "fixturegroup.h"
 #include "mastertimer.h"
-#include "rgbscript.h"
-#include "rgbscriptscache.h"
 #include "rgbmatrix.h"
 #include "fixture.h"
 #include "qlcfile.h"

@@ -4,7 +4,7 @@ TEMPLATE = app
 LANGUAGE = C++
 TARGET   = qlcpoint_test
 
-QT      += testlib script
+QT      += testlib
 CONFIG  -= app_bundle
 
 DEPENDPATH   += ../../src

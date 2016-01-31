@@ -4,7 +4,7 @@ TEMPLATE = app
 LANGUAGE = C++
 TARGET   = qlcphysical_test
 
-QT      += testlib script
+QT      += testlib
 CONFIG  -= app_bundle
 
 DEPENDPATH   += ../../src

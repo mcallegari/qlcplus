@@ -6,7 +6,7 @@ include(../variables.pri)
 TEMPLATE = app
 TARGET = qlcplus-qml
 
-QT += qml quick widgets svg script
+QT += qml quick widgets svg
 QT += multimedia multimediawidgets
 
 # Additional import path used to resolve QML modules in Qt Creator's code model

@@ -4,7 +4,7 @@ TEMPLATE = app
 LANGUAGE = C++
 TARGET   = collection_test
 
-QT      += testlib script
+QT      += testlib
 CONFIG  -= app_bundle
 
 DEPENDPATH   += ../../src
