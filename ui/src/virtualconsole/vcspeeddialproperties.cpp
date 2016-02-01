@@ -40,8 +40,6 @@
 #define COL_FADEOUT  2
 #define COL_DURATION 3
 
-#define MS_DIV    10
-
 VCSpeedDialProperties::VCSpeedDialProperties(VCSpeedDial* dial, Doc* doc)
     : QDialog(dial)
     , m_dial(dial)
@@ -73,11 +71,11 @@ VCSpeedDialProperties::VCSpeedDialProperties(VCSpeedDial* dial, Doc* doc)
     /* Absolute input */
     connect(m_absolutePrecisionCb, SIGNAL(toggled(bool)),
             this, SLOT(slotAbsolutePrecisionCbChecked(bool)));
-    if (m_dial->absoluteValueMin() % (1000 / MS_DIV) || m_dial->absoluteValueMax() % (1000 / MS_DIV))
+    if (m_dial->absoluteValueMin() % (1000) || m_dial->absoluteValueMax() % (1000))
     {
         m_absolutePrecisionCb->setChecked(true);
-        m_absoluteMinSpin->setValue(m_dial->absoluteValueMin() / MS_DIV);
-        m_absoluteMaxSpin->setValue(m_dial->absoluteValueMax() / MS_DIV);
+        m_absoluteMinSpin->setValue(m_dial->absoluteValueMin());
+        m_absoluteMaxSpin->setValue(m_dial->absoluteValueMax());
     }
     else
     {
@@ -200,8 +198,8 @@ void VCSpeedDialProperties::accept()
 
     /* Input sources */
     if (m_absolutePrecisionCb->isChecked())
-        m_dial->setAbsoluteValueRange(m_absoluteMinSpin->value() * MS_DIV,
-                                      m_absoluteMaxSpin->value() * MS_DIV);
+        m_dial->setAbsoluteValueRange(m_absoluteMinSpin->value(),
+                                      m_absoluteMaxSpin->value());
     else
         m_dial->setAbsoluteValueRange(m_absoluteMinSpin->value() * 1000,
                                       m_absoluteMaxSpin->value() * 1000);
@@ -320,20 +318,20 @@ void VCSpeedDialProperties::slotAbsolutePrecisionCbChecked(bool checked)
 {
     if (checked)
     {
-        m_absoluteMinSpin->setSuffix("0ms");
-        m_absoluteMinSpin->setMaximum(600 * (1000 / MS_DIV));
-        m_absoluteMinSpin->setValue(m_absoluteMinSpin->value() * (1000 / MS_DIV));
-        m_absoluteMaxSpin->setSuffix("0ms");
-        m_absoluteMaxSpin->setMaximum(600 * (1000 / MS_DIV));
-        m_absoluteMaxSpin->setValue(m_absoluteMaxSpin->value() * 1000 / MS_DIV);
+        m_absoluteMinSpin->setSuffix("ms");
+        m_absoluteMinSpin->setMaximum(600 * 1000);
+        m_absoluteMinSpin->setValue(m_absoluteMinSpin->value() * 1000);
+        m_absoluteMaxSpin->setSuffix("ms");
+        m_absoluteMaxSpin->setMaximum(600 * 1000);
+        m_absoluteMaxSpin->setValue(m_absoluteMaxSpin->value() * 1000);
     }
     else
     {
         m_absoluteMinSpin->setSuffix("s");
-        m_absoluteMinSpin->setValue(m_absoluteMinSpin->value() / (1000 / MS_DIV));
+        m_absoluteMinSpin->setValue(m_absoluteMinSpin->value() / 1000);
         m_absoluteMinSpin->setMaximum(600);
         m_absoluteMaxSpin->setSuffix("s");
-        m_absoluteMaxSpin->setValue(m_absoluteMaxSpin->value() / (1000 / MS_DIV));
+        m_absoluteMaxSpin->setValue(m_absoluteMaxSpin->value() / 1000);
         m_absoluteMaxSpin->setMaximum(600);
     }
 }
