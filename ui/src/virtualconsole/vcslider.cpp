@@ -798,7 +798,7 @@ void VCSlider::notifyFunctionStarting(quint32 fid, qreal functionIntensity)
                 qreal pIntensity = qreal(value) / qreal(UCHAR_MAX);
                 function->adjustAttribute(pIntensity * intensity(), Function::Intensity);
                 if (value == 0 && !function->stopped())
-                    function->stop();
+                    function->stop(functionSource());
             }
         }
     }
