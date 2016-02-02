@@ -106,7 +106,7 @@ void ChaserRunner::slotChaserChanged()
     }
     foreach(ChaserRunnerStep* step, delList)
     {
-        step->m_function->stop(functionSource());
+        step->m_function->stop(functionParent());
         delete step;
         m_runnerSteps.removeAll(step);
     }
@@ -248,7 +248,7 @@ void ChaserRunner::stopStep(int stepIndex)
         if (stepIndex == step->m_index)
         {
             qDebug() << "Stopping step idx:" << stepIndex << "(running:" << m_runnerSteps.count() << ")";
-            step->m_function->stop(functionSource());
+            step->m_function->stop(functionParent());
             m_runnerSteps.removeOne(step);
             delete step;
             stopped = true;
@@ -452,7 +452,7 @@ void ChaserRunner::clearRunningList()
     // empty the running queue
     foreach(ChaserRunnerStep *step, m_runnerSteps)
     {
-        step->m_function->stop(functionSource());
+        step->m_function->stop(functionParent());
         delete step;
     }
     m_runnerSteps.clear();
@@ -504,7 +504,7 @@ void ChaserRunner::startNewStep(int index, MasterTimer* timer, bool manualFade, 
         // might momentarily jump too high.
         newStep->m_function->adjustAttribute(m_intensity, Function::Intensity);
         // Start the fire up !
-        newStep->m_function->start(timer, functionSource(), 0, newStep->m_fadeIn, newStep->m_fadeOut);
+        newStep->m_function->start(timer, functionParent(), 0, newStep->m_fadeIn, newStep->m_fadeOut);
         m_runnerSteps.append(newStep);
         m_roundTime->restart();
     }
@@ -623,9 +623,9 @@ int ChaserRunner::getNextStepIndex()
     return currentStepIndex;
 }
 
-Function::Source ChaserRunner::functionSource() const
+FunctionParent ChaserRunner::functionParent() const
 {
-    return Function::Source(Function::Source::Function, m_chaser->id());
+    return FunctionParent(FunctionParent::Function, m_chaser->id());
 }
 
 bool ChaserRunner::write(MasterTimer* timer, QList<Universe *> universes)
@@ -660,7 +660,7 @@ bool ChaserRunner::write(MasterTimer* timer, QList<Universe *> universes)
             if (step->m_duration != 0)
                 prevStepRoundElapsed = step->m_elapsed % step->m_duration;
 
-            step->m_function->stop(functionSource());
+            step->m_function->stop(functionParent());
             delete step;
             m_runnerSteps.removeOne(step);
         }

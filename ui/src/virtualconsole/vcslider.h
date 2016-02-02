@@ -388,7 +388,7 @@ protected:
     QMutex m_playbackValueMutex;
 
 private:
-    Function::Source functionSource() const;
+    FunctionParent functionParent() const;
 
     /*********************************************************************
      * Submaster

@@ -347,7 +347,7 @@ signals:
     void stepChanged(int idx);
 
 private:
-    Function::Source functionSource() const;
+    FunctionParent functionParent() const;
 
     /*************************************************************************
      * Load & Save

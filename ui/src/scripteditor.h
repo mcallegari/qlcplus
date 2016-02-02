@@ -81,7 +81,7 @@ private slots:
     void slotCheckSyntax();
 
 private:
-    Function::Source functionSource() const;
+    FunctionParent functionParent() const;
 
 private:
     QAction* m_addStartFunctionAction;

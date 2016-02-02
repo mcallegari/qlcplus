@@ -110,7 +110,7 @@ public:
     int m_skippedBeats;
 
 private:
-    Function::Source functionSource() const;
+    FunctionParent functionParent() const;
 
 private:
 

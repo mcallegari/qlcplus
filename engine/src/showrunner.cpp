@@ -112,15 +112,15 @@ void ShowRunner::stop()
     m_elapsedTime = 0;
     m_currentFunctionIndex = 0;
     foreach (Function *f, m_runningQueue)
-        f->stop(functionSource());
+        f->stop(functionParent());
 
     m_runningQueue.clear();
     qDebug() << "ShowRunner stopped";
 }
 
-Function::Source ShowRunner::functionSource() const
+FunctionParent ShowRunner::functionParent() const
 {
-    return Function::Source(Function::Source::Function, m_show->id());
+    return FunctionParent(FunctionParent::Function, m_show->id());
 }
 
 void ShowRunner::slotFunctionStopped(quint32 id)
@@ -159,7 +159,7 @@ void ShowRunner::write()
                 }
             }
 
-            f->start(m_doc->masterTimer(), functionSource(), functionTimeOffset);
+            f->start(m_doc->masterTimer(), functionParent(), functionTimeOffset);
             m_runningQueue.append(f);
             m_currentFunctionIndex++;
 
@@ -180,7 +180,7 @@ void ShowRunner::write()
         {
             //qDebug() << "elapsed:" << m_elapsedTime << "stopTime:" << m_stopTimeMap[f->id()];
             if (m_elapsedTime == m_stopTimeMap[f->id()])
-                f->stop(functionSource());
+                f->stop(functionParent());
         }
     }
     m_runningQueueMutex.unlock();
@@ -189,7 +189,7 @@ void ShowRunner::write()
     if (m_elapsedTime >= m_totalRunTime)
     {
         if (m_show != NULL)
-            m_show->stop(functionSource());
+            m_show->stop(functionParent());
         emit showFinished();
         return;
     }

@@ -107,7 +107,7 @@ private:
     int m_scheduleIndex;
 
 private:
-    Function::Source functionSource() const;
+    FunctionParent functionParent() const;
 
     /*********************************************************************
      * Time

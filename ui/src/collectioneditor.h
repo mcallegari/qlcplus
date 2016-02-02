@@ -54,7 +54,7 @@ private slots:
     void slotTestClicked();
 
 private:
-    Function::Source functionSource() const;
+    FunctionParent functionParent() const;
 
 private:
     void updateFunctionList();

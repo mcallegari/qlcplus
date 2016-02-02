@@ -309,7 +309,7 @@ public:
     void blink(int ms);
 
 private:
-    Function::Source functionSource() const;
+    FunctionParent functionParent() const;
 
 protected slots:
     /** Handler for function running signal */

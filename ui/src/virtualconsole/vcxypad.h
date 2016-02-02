@@ -214,7 +214,7 @@ protected slots:
     void slotPresetClicked(bool checked);
 
 private:
-    Function::Source functionSource() const;
+    FunctionParent functionParent() const;
 
 protected:
     QHash<QWidget *, VCXYPadPreset *> m_presets;

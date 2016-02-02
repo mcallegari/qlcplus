@@ -251,7 +251,7 @@ void VCMatrix::slotSliderMoved(int value)
         // Make sure we ignore the fade out time
         function->adjustAttribute(0, Function::Intensity);
         if (function->stopped() == false)
-            function->stop(functionSource());
+            function->stop(functionParent());
     }
     else
     {
@@ -261,7 +261,7 @@ void VCMatrix::slotSliderMoved(int value)
         if (function->stopped() == true)
         {
             // TODO once #758 is fixed: function started by a fader -> override fade in time
-            function->start(m_doc->masterTimer(), functionSource());
+            function->start(m_doc->masterTimer(), functionParent());
         }
     }
 }
@@ -419,7 +419,7 @@ void VCMatrix::notifyFunctionStarting(quint32 fid, qreal functionIntensity)
             qreal pIntensity = qreal(value) / qreal(UCHAR_MAX);
             function->adjustAttribute(pIntensity * intensity(), Function::Intensity);
             if (value == 0 && !function->stopped())
-                function->stop(functionSource());
+                function->stop(functionParent());
         }
     }
 }
@@ -570,9 +570,9 @@ void VCMatrix::slotUpdate()
     }
 }
 
-Function::Source VCMatrix::functionSource() const
+FunctionParent VCMatrix::functionParent() const
 {
-    return Function::Source(Function::Source::ManualVCWidget, id());
+    return FunctionParent(FunctionParent::ManualVCWidget, id());
 }
 
 /*********************************************************************

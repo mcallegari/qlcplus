@@ -1206,7 +1206,7 @@ void ShowManager::slotStopPlayback()
 {
     if (m_show != NULL && m_show->isRunning())
     {
-        m_show->stop(functionSource());
+        m_show->stop(functionParent());
         return;
     }
     m_showview->rewindCursor();
@@ -1217,7 +1217,7 @@ void ShowManager::slotStartPlayback()
 {
     if (m_showsCombo->count() == 0 || m_show == NULL)
         return;
-    m_show->start(m_doc->masterTimer(), functionSource(), m_showview->getTimeFromCursor());
+    m_show->start(m_doc->masterTimer(), functionParent(), m_showview->getTimeFromCursor());
 }
 
 void ShowManager::slotShowStopped()
@@ -1811,7 +1811,7 @@ void ShowManager::hideEvent(QHideEvent* ev)
     }
 }
 
-Function::Source ShowManager::functionSource() const
+FunctionParent ShowManager::functionParent() const
 {
-    return Function::Source::god();
+    return FunctionParent::god();
 }

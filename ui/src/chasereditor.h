@@ -59,7 +59,7 @@ public:
     void selectStepAtTime(quint32 time);
 
 private:
-    Function::Source functionSource() const;
+    FunctionParent functionParent() const;
 
 signals:
     void applyValues(QList<SceneValue>&);

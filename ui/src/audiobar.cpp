@@ -156,11 +156,11 @@ void AudioBar::checkFunctionThresholds(Doc *doc)
         return;
     if (m_value >= m_maxThreshold)
     {
-        m_function->start(doc->masterTimer(), functionSource());
+        m_function->start(doc->masterTimer(), functionParent());
     }
     else if (m_value < m_minThreshold)
     {
-        m_function->stop(functionSource());
+        m_function->stop(functionParent());
     }
 }
 
@@ -315,10 +315,10 @@ bool AudioBar::saveXML(QXmlStreamWriter *doc, QString tagName, int index)
     return true;
 }
 
-Function::Source AudioBar::functionSource() const
+FunctionParent AudioBar::functionParent() const
 {
     if (m_parentId != quint32(-1))
-        return Function::Source(Function::Source::AutoVCWidget, m_parentId);
+        return FunctionParent(FunctionParent::AutoVCWidget, m_parentId);
     else
-        return Function::Source::god();
+        return FunctionParent::god();
 }

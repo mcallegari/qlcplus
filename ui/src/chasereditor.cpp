@@ -1031,12 +1031,12 @@ void ChaserEditor::slotTestPlay()
     int idx = getCurrentIndex();
     if (idx >= 0)
         m_chaser->setStepIndex(idx);
-    m_chaser->start(m_doc->masterTimer(), functionSource());
+    m_chaser->start(m_doc->masterTimer(), functionParent());
 }
 
-Function::Source ChaserEditor::functionSource() const
+FunctionParent ChaserEditor::functionParent() const
 {
-    return Function::Source::god();
+    return FunctionParent::god();
 }
 
 void ChaserEditor::slotTestStop()
@@ -1064,7 +1064,7 @@ void ChaserEditor::slotModeChanged(Doc::Mode mode)
         m_testPlayButton->setEnabled(false);
         m_testStopButton->setEnabled(false);
         if (m_liveMode == false)
-            m_chaser->stop(functionSource());
+            m_chaser->stop(functionParent());
     }
     else
     {

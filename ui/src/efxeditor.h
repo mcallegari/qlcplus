@@ -73,7 +73,7 @@ private:
         otherwise it is restarted as a normal EFX. */
     void continueRunning(bool running);
 
-    Function::Source functionSource() const;
+    FunctionParent functionParent() const;
 
     EfxUiState * efxUiState();
 

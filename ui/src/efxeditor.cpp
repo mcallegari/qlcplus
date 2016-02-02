@@ -307,7 +307,7 @@ void EFXEditor::slotTestClicked()
 {
     if (m_testButton->isChecked() == true)
     {
-        m_efx->start(m_doc->masterTimer(), functionSource());
+        m_efx->start(m_doc->masterTimer(), functionParent());
 
         //Restart animation so preview it is in sync with real test
         m_previewArea->restart();
@@ -373,15 +373,15 @@ void EFXEditor::continueRunning(bool running)
     if (running == true)
     {
         if (m_doc->mode() == Doc::Operate)
-            m_efx->start(m_doc->masterTimer(), functionSource());
+            m_efx->start(m_doc->masterTimer(), functionParent());
         else
             m_testButton->click();
     }
 }
 
-Function::Source EFXEditor::functionSource() const
+FunctionParent EFXEditor::functionParent() const
 {
-    return Function::Source::god();
+    return FunctionParent::god();
 }
 
 EfxUiState * EFXEditor::efxUiState()

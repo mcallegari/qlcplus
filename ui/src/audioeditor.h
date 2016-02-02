@@ -54,7 +54,7 @@ private slots:
     void slotPreviewStopped(quint32 id);
 
 private:
-    Function::Source functionSource() const;
+    FunctionParent functionParent() const;
 
     /************************************************************************
      * Speed dials

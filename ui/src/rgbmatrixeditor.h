@@ -117,7 +117,7 @@ private slots:
     void slotPropertySpinChanged(int value);
 
 private:
-    Function::Source functionSource() const;
+    FunctionParent functionParent() const;
 
 private:
     Doc* m_doc;

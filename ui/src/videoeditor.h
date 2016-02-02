@@ -58,7 +58,7 @@ private slots:
     void slotMetaDataChanged(QString key, QVariant data);
 
 private:
-    Function::Source functionSource() const;
+    FunctionParent functionParent() const;
 };
 
 /** @} */

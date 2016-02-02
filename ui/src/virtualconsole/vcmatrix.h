@@ -158,7 +158,7 @@ private slots:
     void slotUpdate();
 
 private:
-    Function::Source functionSource() const;
+    FunctionParent functionParent() const;
 
 private:
     /** timer for updating the controls */

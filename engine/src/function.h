@@ -29,6 +29,7 @@
 #include <QIcon>
 
 #include "universe.h"
+#include "functionparent.h"
 
 class QXmlStreamReader;
 
@@ -113,52 +114,6 @@ public:
     enum Attr
     {
         Intensity = 0,
-    };
-
-    /**
-     * Start/Stop source
-     */
-    struct Source
-    {
-        enum SourceType
-        {
-            // Another function (Chaser, Collection...)
-            Function = 0,
-            // An automatic VC widget (VCAudioTriggers)
-            AutoVCWidget,
-            // A manual VC widget (Button, Slider...)
-            ManualVCWidget,
-            // Override anything (MasterTimer, test facilities...)
-            God = 0xffffffff,
-        };
-
-        quint64 m_source;
-
-        explicit Source(SourceType type, quint32 id)
-        {
-            m_source = quint64((quint64(type) & 0xffffffff) << 32)
-                | quint64(id & 0xffffffff);
-        };
-
-        bool operator ==(Source const& right) const
-        {
-            return m_source == right.m_source;
-        };
-
-        quint32 type() const
-        {
-            return (m_source >> 32) & 0xffffffff;
-        };
-
-        quint32 id() const
-        {
-            return m_source & 0xffffffff;
-        };
-
-        static Source god()
-        {
-            return Source(God, 0);
-        }
     };
 
     /*********************************************************************
@@ -675,7 +630,7 @@ public:
      * @param overrideFadeOut Override the function's default fade out speed
      * @param overrideDuration Override the function's default duration
      */
-    void start(MasterTimer* timer, Source source, quint32 startTime = 0,
+    void start(MasterTimer* timer, FunctionParent parent, quint32 startTime = 0,
                uint overrideFadeIn = defaultSpeed(),
                uint overrideFadeOut = defaultSpeed(),
                uint overrideDuration = defaultSpeed());
@@ -686,7 +641,7 @@ public:
      * There is no way to cancel it, but the function can be started again
      * normally.
      */
-    void stop(Source source);
+    void stop(FunctionParent parent);
 
     /**
      * Check, whether the function should be stopped ASAP. Functions can use this
@@ -719,7 +674,7 @@ private:
     /** Stop flag, private to keep functions from modifying it. */
     bool m_stop;
     bool m_running;
-    QList<Source> m_sources;
+    QList<FunctionParent> m_sources;
     QMutex m_sourcesMutex;
 
     QMutex m_stopMutex;

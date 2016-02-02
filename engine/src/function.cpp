@@ -939,7 +939,7 @@ void Function::roundElapsed(quint32 roundTime)
  * Start & Stop
  *****************************************************************************/
 
-void Function::start(MasterTimer* timer, Source source, quint32 startTime,
+void Function::start(MasterTimer* timer, FunctionParent source, quint32 startTime,
                      uint overrideFadeIn, uint overrideFadeOut, uint overrideDuration)
 {
     qDebug() << "Function start(). Name:" << m_name << "ID: " << m_id << "source:" << source.type() << source.id() << ", startTime:" << startTime;
@@ -967,15 +967,15 @@ void Function::start(MasterTimer* timer, Source source, quint32 startTime,
     //}
 }
 
-void Function::stop(Source source)
+void Function::stop(FunctionParent source)
 {
     qDebug() << "Function stop(). Name:" << m_name << "ID: " << m_id << "source:" << source.type() << source.id();
 
     QMutexLocker sourcesLocker(&m_sourcesMutex);
 
-    if ((source.id() == id() && source.type() == Source::Function)
-            || (source.type() == Source::God)
-            || (source.type() == Source::ManualVCWidget)
+    if ((source.id() == id() && source.type() == FunctionParent::Function)
+            || (source.type() == FunctionParent::God)
+            || (source.type() == FunctionParent::ManualVCWidget)
        )
         m_sources.clear();
     else
@@ -993,9 +993,9 @@ bool Function::stopped() const
 bool Function::startedAsChild() const
 {
     QMutexLocker sourcesLocker(const_cast<QMutex*>(&m_sourcesMutex));
-    foreach (Source source, m_sources)
+    foreach (FunctionParent source, m_sources)
     {
-        if (source.type() == Source::Function && source.id() != id())
+        if (source.type() == FunctionParent::Function && source.id() != id())
             return true;
     }
     return false;
@@ -1006,7 +1006,7 @@ bool Function::stopAndWait()
     bool result = true;
 
     m_stopMutex.lock();
-    stop(Source(Source::God, 0));
+    stop(FunctionParent::god());
 
     QTime watchdog;
     watchdog.start();

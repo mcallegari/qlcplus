@@ -202,7 +202,7 @@ protected slots:
     void slotFunctionRemoved(quint32 id);
 
 private:
-    Function::Source functionSource() const;
+    FunctionParent functionParent() const;
 };
 
 /** @} */

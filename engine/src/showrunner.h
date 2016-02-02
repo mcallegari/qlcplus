@@ -77,7 +77,7 @@ private:
     int m_currentFunctionIndex;
 
 private:
-    Function::Source functionSource() const;
+    FunctionParent functionParent() const;
 private slots:
     void slotFunctionStopped(quint32);
 

@@ -201,7 +201,7 @@ private:
     int getNextStepIndex();
 
 private:
-    Function::Source functionSource() const;
+    FunctionParent functionParent() const;
 
 public:
     /**

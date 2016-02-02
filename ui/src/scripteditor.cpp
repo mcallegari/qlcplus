@@ -452,12 +452,12 @@ void ScriptEditor::slotCheckSyntax()
 void ScriptEditor::slotTestRun()
 {
     if (m_testPlayButton->isChecked() == true)
-        m_script->start(m_doc->masterTimer(), functionSource());
+        m_script->start(m_doc->masterTimer(), functionParent());
     else
         m_script->stopAndWait();
 }
 
-Function::Source ScriptEditor::functionSource() const
+FunctionParent ScriptEditor::functionParent() const
 {
-    return Function::Source::god();
+    return FunctionParent::god();
 }

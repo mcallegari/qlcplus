@@ -57,7 +57,7 @@ protected:
     QVideoWidget *m_videoWidget;
 
 private:
-    Function::Source functionSource() const;
+    FunctionParent functionParent() const;
 };
 
 class VideoProvider: public QObject
