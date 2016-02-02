@@ -55,6 +55,7 @@ const QSize VCMatrix::defaultSize(QSize(160, 120));
 VCMatrix::VCMatrix(QWidget *parent, Doc *doc)
     : VCWidget(parent, doc)
     , m_matrixID(Function::invalidId())
+    , m_sliderExternalMovement(false)
     , m_instantApply(true)
     , m_visibilityMask(VCMatrix::defaultVisibilityMask())
 {
@@ -242,8 +243,13 @@ void VCMatrix::slotSliderMoved(int value)
     if (function == NULL || mode() == Doc::Design)
         return;
 
+    if (m_sliderExternalMovement)
+        return;
+
     if (value == 0)
     {
+        // Make sure we ignore the fade out time
+        function->adjustAttribute(0, Function::Intensity);
         if (function->stopped() == false)
             function->stop();
     }
@@ -254,6 +260,7 @@ void VCMatrix::slotSliderMoved(int value)
         function->adjustAttribute(pIntensity * intensity(), Function::Intensity);
         if (function->stopped() == true)
         {
+            // TODO once #758 is fixed: function started by a fader -> override fade in time
             function->start(m_doc->masterTimer());
         }
     }
@@ -402,7 +409,18 @@ void VCMatrix::notifyFunctionStarting(quint32 fid, qreal functionIntensity)
             m_slider->minimum(), m_slider->maximum());
     if (m_slider->value() > value)
     {
+        m_sliderExternalMovement = true;
         m_slider->setValue(value);
+        m_sliderExternalMovement = false;
+
+        Function* function = m_doc->function(m_matrixID);
+        if (function != NULL)
+        {
+            qreal pIntensity = qreal(value) / qreal(UCHAR_MAX);
+            function->adjustAttribute(pIntensity * intensity(), Function::Intensity);
+            if (value == 0 && !function->stopped())
+                function->stop();
+        }
     }
 }
 

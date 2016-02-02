@@ -84,6 +84,7 @@ public:
 private:
     quint32 m_matrixID;
     ClickAndGoSlider *m_slider;
+    bool m_sliderExternalMovement;
     QLabel *m_label;
     QToolButton *m_startColorButton;
     ClickAndGoWidget *m_scCnGWidget;

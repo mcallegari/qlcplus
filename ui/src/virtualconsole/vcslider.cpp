@@ -791,11 +791,15 @@ void VCSlider::notifyFunctionStarting(quint32 fid, qreal functionIntensity)
             m_externalMovement = true;
             m_slider->setValue(value);
             m_externalMovement = false;
-            qreal pIntensity = qreal(value) / qreal(UCHAR_MAX);
 
             Function* function = m_doc->function(m_playbackFunction);
             if (function != NULL)
+            {
+                qreal pIntensity = qreal(value) / qreal(UCHAR_MAX);
                 function->adjustAttribute(pIntensity * intensity(), Function::Intensity);
+                if (value == 0 && !function->stopped())
+                    function->stop();
+            }
         }
     }
 }
