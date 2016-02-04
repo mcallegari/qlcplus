@@ -33,11 +33,11 @@
   <Capability Min="245" Max="255">Auto/Sound mode 16</Capability>
  </Channel>
  <Channel Name="Auto Mode Speed">
-  <Group Byte="1">Speed</Group>
+  <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Slow &gt; fast</Capability>
  </Channel>
  <Channel Name="Strobe">
-  <Group Byte="1">Shutter</Group>
+  <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="2">No strobe</Capability>
   <Capability Min="3" Max="249">Slow &gt; fast</Capability>
   <Capability Min="250" Max="255">Sound activated</Capability>
