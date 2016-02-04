@@ -225,50 +225,15 @@ void ConfigureArtNet::accept()
             if (ipEdit != NULL)
             {
                 Q_ASSERT(cap == QLCIOPlugin::Output);
-                QString newIP = ipEdit->text();
-                QStringList IPNibbles = newIP.split(".");
-
-                // perform all the preliminary IP validity checks
-                if (IPNibbles.count() < 4)
+                QHostAddress newHostAddress(ipEdit->text());
+                if (newHostAddress.isNull() && ipEdit->text().size() > 0)
                 {
-                    showIPAlert(newIP);
+                    showIPAlert(ipEdit->text());
                     return;
-                }
-                if (IPNibbles.at(0).toInt() == 255 ||
-                    IPNibbles.at(0).toInt() == 0 ||
-                    IPNibbles.at(3).toInt() == 0)
-                {
-                    showIPAlert(newIP);
-                    return;
-                }
-
-                QString origIP = item->text(KNodesColumnIP);
-                QStringList origIPNibbles = origIP.split(".");
-                QString IPChanged;
-
-                for (int i = 0; i < 4; i++)
-                {
-                    // some more validity check
-                    if (IPNibbles.at(i).toInt() < 0 || IPNibbles.at(i).toInt() > 255)
-                    {
-                        showIPAlert(newIP);
-                        return;
-                    }
-
-                    if (IPNibbles.at(i) != origIPNibbles.at(i) || IPChanged.isEmpty() == false)
-                    {
-                        // if the 4th nibble is 255, then skip it as it is the default
-                        if (i == 3 && IPNibbles.at(i).toInt() == 255 && IPChanged.isEmpty())
-                            continue;
-
-                        IPChanged.append(IPNibbles.at(i));
-                        if (i < 3)
-                            IPChanged.append(".");
-                    }
                 }
 
                 //qDebug() << "IPchanged = " << IPChanged;
-                m_plugin->setParameter(universe, line, cap, ARTNET_OUTPUTIP, IPChanged);
+                m_plugin->setParameter(universe, line, cap, ARTNET_OUTPUTIP, newHostAddress.toString());
             }
 
             QSpinBox *spin = qobject_cast<QSpinBox*>(m_uniMapTree->itemWidget(item, KMapColumnArtNetUni));
@@ -298,4 +263,3 @@ int ConfigureArtNet::exec()
 {
     return QDialog::exec();
 }
-

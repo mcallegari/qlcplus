@@ -169,18 +169,27 @@ bool ArtNetController::setOutputIPAddress(quint32 universe, QString address)
     }
 
     QMutexLocker locker(&m_dataMutex);
-    QStringList iFaceIP = m_ipAddr.toString().split(".");
-    QStringList addList = address.split(".");
 
-    for (int i = 0; i < addList.count(); i++)
-        iFaceIP.replace(4 - addList.count() + i , addList.at(i));
+    QHostAddress hostAddress(address);
+    if (hostAddress.isNull() || !address.contains("."))
+    {
+        // IP addresses are now always fully saved
+        qDebug() << "[setOutputIPAddress] Legacy IP style detected:" << address;
+        QStringList iFaceIP = m_ipAddr.toString().split(".");
+        QStringList addList = address.split(".");
 
-    QString newIP = iFaceIP.join(".");
-    qDebug() << "[setOutputIPAddress] transmit to IP: " << newIP;
+        for (int i = 0; i < addList.count(); i++)
+            iFaceIP.replace(4 - addList.count() + i , addList.at(i));
 
-    m_universeMap[universe].outputAddress = QHostAddress(newIP);
+        QString newIP = iFaceIP.join(".");
+        hostAddress = QHostAddress(newIP);
+    }
 
-    return QHostAddress(newIP) == m_broadcastAddr;
+    qDebug() << "[setOutputIPAddress] transmit to IP: " << hostAddress.toString();
+
+    m_universeMap[universe].outputAddress = hostAddress;
+
+    return hostAddress == m_broadcastAddr;
 }
 
 bool ArtNetController::setOutputUniverse(quint32 universe, quint32 artnetUni)
