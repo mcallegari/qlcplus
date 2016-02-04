@@ -3213,15 +3213,11 @@ void EFX_Test::adjustIntensity()
 
     e->adjustAttribute(0.2);
     QCOMPARE(e->getAttributeValue(Function::Intensity), 0.2);
-    QCOMPARE(ef1->m_intensity, 0.2);
-    QCOMPARE(ef2->m_intensity, 0.2);
 
     e->preRun(m_doc->masterTimer());
 
     e->adjustAttribute(0.5);
     QCOMPARE(e->m_fader->intensity(), 0.5);
-    QCOMPARE(ef1->intensity(), 0.5);
-    QCOMPARE(ef2->intensity(), 0.5);
 
     QList<Universe*> ua;
     ua.append(new Universe(0, new GrandMaster()));

@@ -53,8 +53,6 @@ EFXFixture::EFXFixture(const EFX* parent)
     , m_started(false)
     , m_elapsed(0)
     , m_currentAngle(0)
-
-    , m_intensity(1.0)
 {
     Q_ASSERT(parent != NULL);
 
@@ -77,8 +75,6 @@ void EFXFixture::copyFrom(const EFXFixture* ef)
     m_started = ef->m_started;
     m_elapsed = ef->m_elapsed;
     m_currentAngle = ef->m_currentAngle;
-
-    m_intensity = ef->m_intensity;
 }
 
 EFXFixture::~EFXFixture()
@@ -538,21 +534,6 @@ void EFXFixture::stop(MasterTimer* timer, QList<Universe *> universes)
 
     m_started = false;
 }
-
-/*****************************************************************************
- * Intensity
- *****************************************************************************/
-
-void EFXFixture::adjustIntensity(qreal fraction)
-{
-    m_intensity = fraction;
-}
-
-qreal EFXFixture::intensity() const
-{
-    return m_intensity;
-}
-
 
 /*****************************************************************************
  * Helper Function

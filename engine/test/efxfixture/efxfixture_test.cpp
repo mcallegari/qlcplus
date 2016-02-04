@@ -143,8 +143,6 @@ void EFXFixture_Test::initial()
     QVERIFY(ef.m_runTimeDirection == EFX::Forward);
     QVERIFY(ef.m_ready == false);
     QVERIFY(ef.m_elapsed == 0);
-
-    QVERIFY(ef.m_intensity == 1.0);
 }
 
 void EFXFixture_Test::copyFrom()
@@ -159,7 +157,6 @@ void EFXFixture_Test::copyFrom()
     ef.m_runTimeDirection = EFX::Backward;
     ef.m_ready = true;
     ef.m_elapsed = 31337;
-    ef.m_intensity = 0.314159;
 
     EFXFixture copy(&e);
     copy.copyFrom(&ef);
@@ -170,7 +167,6 @@ void EFXFixture_Test::copyFrom()
     QVERIFY(copy.m_runTimeDirection == EFX::Backward);
     QVERIFY(copy.m_ready == true);
     QVERIFY(copy.m_elapsed == 31337);
-    QVERIFY(copy.m_intensity == 0.314159);
 }
 
 void EFXFixture_Test::publicProperties()

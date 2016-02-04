@@ -1084,13 +1084,6 @@ void EFX::adjustAttribute(qreal fraction, int attributeIndex)
         {
             if (m_fader != NULL)
                 m_fader->adjustIntensity(fraction);
-
-            QListIterator <EFXFixture*> it(m_fixtures);
-            while (it.hasNext() == true)
-            {
-                EFXFixture* ef = it.next();
-                ef->adjustIntensity(fraction);
-            }
         }
         break;
 

@@ -198,26 +198,7 @@ private:
     /* Run the stop scene if necessary */
     void stop(MasterTimer* timer, QList<Universe *> universes);
 
-    /*************************************************************************
-     * Intensity adjustment
-     *************************************************************************/
-public:
-    /**
-     * Adjust the intensity of the fixture by a fraction.
-     *
-     * @param fraction Intensity fraction 0.0 - 1.0
-     */
-    void adjustIntensity(qreal fraction);
-
-    /**
-     * Get the adjusted intensity percentage
-     *
-     * @return Intensity 0.0 - 1.0
-     */
-    qreal intensity() const;
-
 private:
-    qreal m_intensity;
     static QImage m_rgbGradient;
 
     void setFadeChannel(quint32 nChannel, uchar val);
