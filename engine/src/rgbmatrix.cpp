@@ -597,6 +597,7 @@ void RGBMatrix::postRun(MasterTimer* timer, QList<Universe *> universes)
             if (fixture != NULL)
                 canFade = fixture->channelCanFade(fc.channel());
             fc.setStart(fc.current(getAttributeValue(Intensity)));
+            fc.setCurrent(fc.current(getAttributeValue(Intensity)));
 
             fc.setElapsed(0);
             fc.setReady(false);

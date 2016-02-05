@@ -524,6 +524,7 @@ void CueStack::postRun(MasterTimer* timer)
         if (fc.group(doc()) == QLCChannel::Intensity)
         {
             fc.setStart(fc.current(intensity()));
+            fc.setCurrent(fc.current(intensity()));
             fc.setTarget(0);
             fc.setElapsed(0);
             fc.setReady(false);
