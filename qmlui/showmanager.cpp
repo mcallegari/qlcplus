@@ -212,6 +212,14 @@ QQmlListProperty<Track> ShowManager::tracks()
     return QQmlListProperty<Track>(this, m_tracksList);
 }
 
+void ShowManager::resetContents()
+{
+    resetView();
+    m_currentTime = 0;
+    emit currentTimeChanged(m_currentTime);
+    m_currentShow = NULL;
+}
+
 void ShowManager::resetView()
 {
     QMapIterator<quint32, QQuickItem*> it(m_itemsMap);

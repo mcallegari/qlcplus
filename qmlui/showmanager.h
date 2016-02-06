@@ -97,6 +97,9 @@ public:
 
     QQmlListProperty<Track> tracks();
 
+    /** Reset the Show Manager contents to an initial state */
+    void resetContents();
+
     Q_INVOKABLE void resetView();
 
     Q_INVOKABLE void renderView(QQuickItem *parent);
