@@ -22,7 +22,7 @@ qlcplus (4.10.3) stable; urgency=low
   * Virtual Console/Solo Frame: Fix sliders in playback mode not actually stopping the attached function when the slider reaches 0 (David Garyga, thanks to Tubby)
   * Virtual Console/Animation: Can now be used in solo frames (David Garyga)
   * New input profile: Behringer BCR2000 (thanks to Michael Trojacher)
-  * New fixture: Stellar Labs ECO LED PAR56, Chauvet Colorpalette II (thanks to Jimmy Traylor)
+  * New fixtures: Stellar Labs ECO LED PAR56, Chauvet Colorpalette II (thanks to Jimmy Traylor)
   * New fixtures: Chauvet: COLORado 1 Solo, Ovation FD-165WW, Rogue RH1 Hybrid, COLORdash Par Hex 12 (thanks to Robert Box)
   * New fixtures: Chauvet: Vue 1.1, Intimidator Spot 100 IRC, Abyss USB, COREpar 40 USB, COREpar UV USB (thanks to Robert Box)
   * New fixtures: Chauvet: Intimidator Scan 305 IRC, Intimidator Barrel 305 IRC, SlimPAR T6 USB, SlimBANK TRI-18 (thanks to Robert Box)
@@ -41,7 +41,8 @@ qlcplus (4.10.3) stable; urgency=low
   * New fixtures: Varytec LED Pad 7 BA-D, American DJ X-Scan LED Plus, Showtec Blade Runner (thanks to DjProWings)
   * New fixture: Involight LED CC60S (thanks to Stephane Hofman)
   * New fixture: Stairville MH-x200 Pro Spot (thanks to Mirek Škop)
-  * New fixture: Varytec LED Giga Bar 4 MKII (thanks to Daniel Schauder)
+  * New fixtures: Varytec LED Giga Bar 4 MKII, Eurolite LED KLS Laser Bar FX Light Set (thanks to Daniel Schauder)
+  * New fixture: Chauvet Mayhem (thanks to Jonathan Wilson)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 7 Feb 2016 20:21:22 +0200
 

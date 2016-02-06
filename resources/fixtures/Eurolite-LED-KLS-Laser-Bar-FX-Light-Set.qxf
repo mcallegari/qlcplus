@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.2 GIT</Version>
+  <Version>4.10.3 GIT</Version>
   <Author>Daniel Schauder</Author>
  </Creator>
  <Manufacturer>Eurolite</Manufacturer>
@@ -157,7 +157,7 @@
  </Channel>
  <Channel Name="Spot 2: Non/Rotation">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="255">No function for spots orrotation when operating a derby at this position</Capability>
+  <Capability Min="0" Max="255">No function for spots or rotation when operating a derby at this position</Capability>
  </Channel>
  <Channel Name="Spot 3: Red">
   <Group Byte="0">Intensity</Group>
@@ -181,7 +181,7 @@
  </Channel>
  <Channel Name="Spot 3: Non/Rotation">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="255">No function for spots orrotation when operating a derby at this position</Capability>
+  <Capability Min="0" Max="255">No function for spots or rotation when operating a derby at this position</Capability>
  </Channel>
  <Channel Name="Derby 4: Red">
   <Group Byte="0">Intensity</Group>
@@ -241,7 +241,7 @@
  <Mode Name="3 Channels">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="1.2" Width="420" Height="170" Depth="45"/>
+   <Dimensions Weight="7.3" Width="1320" Height="320" Depth="145"/>
    <Lens Name="Other" DegreesMin="8" DegreesMax="15"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="50" DmxConnector="3-pin"/>
@@ -253,7 +253,7 @@
  <Mode Name="5 Channels">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="1.2" Width="420" Height="170" Depth="45"/>
+   <Dimensions Weight="7.3" Width="1320" Height="320" Depth="145"/>
    <Lens Name="Other" DegreesMin="8" DegreesMax="15"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="50" DmxConnector="3-pin"/>
@@ -267,7 +267,7 @@
  <Mode Name="9 Channels">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="1.2" Width="420" Height="170" Depth="45"/>
+   <Dimensions Weight="7.3" Width="1320" Height="320" Depth="145"/>
    <Lens Name="Other" DegreesMin="8" DegreesMax="15"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="50" DmxConnector="3-pin"/>
@@ -282,16 +282,16 @@
   <Channel Number="7">Laser: Rotation</Channel>
   <Channel Number="8">Strobe LEDs</Channel>
   <Head>
-   <Channel>2</Channel>
-   <Channel>3</Channel>
-   <Channel>0</Channel>
    <Channel>1</Channel>
+   <Channel>0</Channel>
+   <Channel>3</Channel>
+   <Channel>2</Channel>
    <Channel>4</Channel>
   </Head>
   <Head>
-   <Channel>6</Channel>
-   <Channel>7</Channel>
    <Channel>5</Channel>
+   <Channel>7</Channel>
+   <Channel>6</Channel>
   </Head>
   <Head>
    <Channel>8</Channel>
@@ -300,7 +300,7 @@
  <Mode Name="27 Channels">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="1.2" Width="420" Height="170" Depth="45"/>
+   <Dimensions Weight="7.3" Width="1320" Height="320" Depth="145"/>
    <Lens Name="Other" DegreesMin="8" DegreesMax="15"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="50" DmxConnector="3-pin"/>
@@ -333,49 +333,49 @@
   <Channel Number="25">Strobe LED 3</Channel>
   <Channel Number="26">Strobe LED 4</Channel>
   <Head>
-   <Channel>2</Channel>
-   <Channel>3</Channel>
-   <Channel>0</Channel>
    <Channel>1</Channel>
+   <Channel>0</Channel>
+   <Channel>3</Channel>
+   <Channel>2</Channel>
    <Channel>4</Channel>
   </Head>
   <Head>
    <Channel>23</Channel>
   </Head>
   <Head>
-   <Channel>6</Channel>
-   <Channel>7</Channel>
    <Channel>5</Channel>
-   <Channel>8</Channel>
+   <Channel>7</Channel>
+   <Channel>6</Channel>
    <Channel>9</Channel>
+   <Channel>8</Channel>
   </Head>
   <Head>
    <Channel>24</Channel>
   </Head>
   <Head>
-   <Channel>22</Channel>
-   <Channel>20</Channel>
    <Channel>21</Channel>
+   <Channel>20</Channel>
+   <Channel>22</Channel>
   </Head>
   <Head>
    <Channel>25</Channel>
   </Head>
   <Head>
-   <Channel>12</Channel>
-   <Channel>13</Channel>
-   <Channel>10</Channel>
    <Channel>11</Channel>
+   <Channel>10</Channel>
+   <Channel>13</Channel>
+   <Channel>12</Channel>
    <Channel>14</Channel>
   </Head>
   <Head>
    <Channel>26</Channel>
   </Head>
   <Head>
-   <Channel>18</Channel>
-   <Channel>19</Channel>
-   <Channel>16</Channel>
-   <Channel>17</Channel>
    <Channel>15</Channel>
+   <Channel>17</Channel>
+   <Channel>16</Channel>
+   <Channel>19</Channel>
+   <Channel>18</Channel>
   </Head>
  </Mode>
 </FixtureDefinition>
