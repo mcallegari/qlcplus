@@ -587,13 +587,15 @@ Rectangle
                 comboComponent.createObject(scriptAlgoGrid,
                                {"propName": propName, "model": model, "currentIndex": currentIndex });
                 if (comboComponent.status !== Component.Ready)
-                    console.log("Component is not ready !!")
+                    console.log("Combo component is not ready !!")
             }
 
             function addSpinBox(propName, min, max, currentValue)
             {
                 spinComponent.createObject(scriptAlgoGrid,
                               {"propName": propName, "minimumValue": min, "maximumValue": max, "value": currentValue });
+                if (spinComponent.status !== Component.Ready)
+                    console.log("Spin component is not ready !!")
             }
 
             Component.onCompleted:

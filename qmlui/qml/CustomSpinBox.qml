@@ -28,7 +28,7 @@ SpinBox
     font.family: "RobotoCondensed"
     font.pointSize: 14
     width: 70
-    height: 30
+    implicitHeight: 30
 
     property bool showControls: true
 
