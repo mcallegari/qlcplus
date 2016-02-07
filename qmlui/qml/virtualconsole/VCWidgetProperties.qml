@@ -39,53 +39,14 @@ Rectangle
         label: qsTr("Select a widget first")
     }
 
-    Rectangle
+    SectionBox
     {
-        id: commonPropsBox
-        x: 3
-        width: parent.width - 6
-        height: isExpanded ? (cPropsHeader.height + cPropsGrid.height) : cPropsHeader.height
-        color: "transparent"
-        clip: true
-        visible: wObj ? true : false
+        sectionLabel: qsTr("Basic properties")
 
-        property bool isExpanded: true
-
-        Rectangle
-        {
-            id: cPropsHeader
-            width: parent.width
-            height: 38
-            color: headerMouseArea.containsMouse ? UISettings.highlight : UISettings.sectionHeader
-
-            RobotoText
-            {
-                label: qsTr("Basic properties")
-            }
-            Text
-            {
-                x: parent.width - 34
-                anchors.verticalCenter: parent.verticalCenter
-                font.family: "FontAwesome"
-                font.pointSize: 24
-                text: commonPropsBox.isExpanded ? FontAwesome.fa_minus_square : FontAwesome.fa_plus_square
-                color: "white"
-            }
-
-            MouseArea
-            {
-                id: headerMouseArea
-                anchors.fill: parent
-                hoverEnabled: true
-
-                onClicked: commonPropsBox.isExpanded = !commonPropsBox.isExpanded
-            }
-        }
-
-        GridLayout
-        {
+        sectionContents:
+          GridLayout
+          {
             id: cPropsGrid
-            y: cPropsHeader.height
             width: parent.width
             columns: 2
             columnSpacing: 5
@@ -225,7 +186,6 @@ Rectangle
                     }
                 }
             }
-
-        }
+         } // GridLayout
     }
 }

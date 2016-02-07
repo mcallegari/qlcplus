@@ -154,6 +154,5 @@ Rectangle
                     contextManager.fixturesRotation = value
             }
         }
-
-    }
+    } // GridLayout
 }

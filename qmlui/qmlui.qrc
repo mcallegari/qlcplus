@@ -28,6 +28,7 @@
     <file alias="MenuBarEntry.qml">qml/MenuBarEntry.qml</file>
     <file alias="QLCPlusFader.qml">qml/QLCPlusFader.qml</file>
     <file alias="RobotoText.qml">qml/RobotoText.qml</file>
+    <file alias="SectionBox.qml">qml/SectionBox.qml</file>
     <file alias="SidePanel.qml">qml/SidePanel.qml</file>
     <file alias="ScrollBar.qml">qml/ScrollBar.qml</file>
     <file alias="TimeEditTool.qml">qml/TimeEditTool.qml</file>

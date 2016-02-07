@@ -182,13 +182,13 @@ Rectangle
                     onCurrentTextChanged:
                     {
                         rgbMatrixEditor.algorithmIndex = currentIndex
-                        rgbParamsLoader.sourceComponent = null
+                        paramSection.sectionContents = null
                         if (currentText == "Text")
-                            rgbParamsLoader.sourceComponent = textAlgoComponent
+                            paramSection.sectionContents = textAlgoComponent
                         else if (currentText == "Image")
-                            rgbParamsLoader.sourceComponent = imageAlgoComponent
+                            paramSection.sectionContents = imageAlgoComponent
                         else
-                            rgbParamsLoader.sourceComponent = scriptAlgoComponent
+                            paramSection.sectionContents = scriptAlgoComponent
                     }
                 }
             }
@@ -324,21 +324,14 @@ Rectangle
                 //Rectangle { Layout.fillWidth: true; height: parent.height; color: "transparent" }
             }
 
-            Rectangle
+            SectionBox
             {
-                width: parent.width
-                height: editorColumn.itemsHeight
-                visible: rgbParamsLoader.sourceComponent ? true : false
+                id: paramSection
+                width: editorColumn.colWidth - 5
+                visible: delegate ? true : false
 
-                color: UISettings.bgLight
-                RobotoText { label: qsTr("Parameters") }
-            }
-
-            Loader
-            {
-                id: rgbParamsLoader
-                width: editorColumn.colWidth
-                source: ""
+                sectionLabel: qsTr("Parameters")
+                sectionContents: null
             }
         } // ColumnLayout
     } // Flickable
