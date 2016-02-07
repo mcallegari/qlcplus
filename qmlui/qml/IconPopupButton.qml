@@ -83,6 +83,7 @@ Rectangle
 
     IconButton
     {
+        id: buttonBox
         anchors.fill: parent
         imgSource: iconSource
 
@@ -138,6 +139,8 @@ Rectangle
 
                             if (model.mTextIcon)
                                 textIcon.label = mTextIcon
+
+                            buttonBox.tooltip = mLabel
                         }
                     }
 
@@ -205,6 +208,7 @@ Rectangle
                                     ipbRoot.iconSource = mIcon
                                 if (model.mTextIcon)
                                     textIcon.label = mTextIcon
+                                buttonBox.tooltip = mLabel
                             }
                             menuListView.currentIndex = index
                             dropDownMenu.visible = false
