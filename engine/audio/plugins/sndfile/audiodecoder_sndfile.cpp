@@ -36,7 +36,7 @@ AudioDecoderSndFile::~AudioDecoderSndFile()
     m_totalTime = 0;
     m_bitrate = 0;
     m_freq = 0;
-    if (m_sndfile)
+    if (m_path.isEmpty() == false && m_sndfile != NULL)
         sf_close(m_sndfile);
     m_sndfile = NULL;
 }
@@ -55,6 +55,9 @@ bool AudioDecoderSndFile::initialize(const QString &path)
     m_sndfile = NULL;
     m_freq = 0;
     SF_INFO snd_info;
+
+    if (path.isEmpty())
+        return false;
 
     memset (&snd_info, 0, sizeof(snd_info));
     snd_info.format=0;
