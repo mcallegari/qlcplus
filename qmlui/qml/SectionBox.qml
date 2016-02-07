@@ -27,7 +27,6 @@ Rectangle
     height: isExpanded ? (cPropsHeader.height + sectionLoader.height) : cPropsHeader.height
     color: "transparent"
     clip: true
-    visible: wObj ? true : false
 
     property bool isExpanded: true
     property string sectionLabel: ""

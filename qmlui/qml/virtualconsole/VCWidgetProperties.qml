@@ -41,6 +41,7 @@ Rectangle
 
     SectionBox
     {
+        visible: wObj ? true : false
         sectionLabel: qsTr("Basic properties")
 
         sectionContents:
