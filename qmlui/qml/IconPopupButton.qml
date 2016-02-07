@@ -37,9 +37,6 @@ Rectangle
                     by the parent item */
     property string iconSource: ""
 
-    /*! currentIndex: the index of the currently selected entry of the popup */
-    property alias currentIndex: menuListView.currentIndex
-
     /*! model: provides a data model for the popup.
         A model with icons should look like this:
             ListModel
@@ -57,6 +54,12 @@ Rectangle
     property alias model: menuListView.model
 
     property int popupPosition: Qt.AlignBottom
+
+    /*! currentIndex: the index of the currently selected entry of the popup */
+    property alias currentIndex: menuListView.currentIndex
+
+    /*! currentValue: the value of the currently selected entry of the popup */
+    property int currentValue
 
     signal valueChanged(var value)
 
@@ -131,6 +134,7 @@ Rectangle
 
                     Component.onCompleted:
                     {
+                        // check for corresponding index
                         if (index == menuListView.currentIndex &&
                             iconFromPopup == true)
                         {
@@ -141,6 +145,16 @@ Rectangle
                                 textIcon.label = mTextIcon
 
                             buttonBox.tooltip = mLabel
+                        }
+                        // check for corresponding value
+                        if (currentValue && mValue === currentValue)
+                        {
+                            if (model.mIcon)
+                                ipbRoot.iconSource = mIcon
+
+                            if (model.mTextIcon)
+                                textIcon.label = mTextIcon
+                            menuListView.currentIndex = index
                         }
                     }
 
