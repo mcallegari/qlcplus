@@ -384,10 +384,11 @@ Rectangle
 
         ListView
         {
-            id: cFunctionList
+            id: cStepsList
             width: parent.width
             height: ceContainer.height - 40 - chListHeader.height - chModes.height
             boundsBehavior: Flickable.StopAtBounds
+            clip: true
 
             property int dragInsertIndex: -1
 
@@ -411,7 +412,7 @@ Rectangle
                     col6Width: durCol.width
 
                     indexInList: index
-                    highlightIndex: cFunctionList.dragInsertIndex
+                    highlightIndex: cStepsList.dragInsertIndex
 
                     onClicked:
                     {
@@ -429,27 +430,27 @@ Rectangle
                 {
                     console.log("Item dropped here. x: " + drag.x + " y: " + drag.y)
                     console.log("Item fID: " + drag.source.funcID)
-                    chaserEditor.addFunction(drag.source.funcID, cFunctionList.dragInsertIndex)
-                    cFunctionList.dragInsertIndex = -1
+                    chaserEditor.addFunction(drag.source.funcID, cStepsList.dragInsertIndex)
+                    cStepsList.dragInsertIndex = -1
                 }
                 onPositionChanged:
                 {
-                    var idx = cFunctionList.indexAt(drag.x, drag.y)
+                    var idx = cStepsList.indexAt(drag.x, drag.y)
                     //console.log("Item index:" + idx)
-                    cFunctionList.dragInsertIndex = idx
+                    cStepsList.dragInsertIndex = idx
                 }
             }
+            ScrollBar { flickable: cStepsList }
         }
 
-        Rectangle { height: 1; width: parent.width; color: UISettings.bgLight }
-
-        Rectangle
+        SectionBox
         {
             id: chModes
             width: parent.width
-            height: (UISettings.iconSizeDefault * 2) + 6
-            color: "transparent"
+            isExpanded: false
+            sectionLabel: qsTr("Run properties")
 
+            sectionContents:
             GridLayout
             {
                 x: 4
