@@ -75,7 +75,6 @@ QStringList AudioPluginCache::getSupportedFormats()
             ptr->initialize("");
             caps << ptr->supportedFormats();
             loader.unload();
-            delete ptr;
         }
     }
 
