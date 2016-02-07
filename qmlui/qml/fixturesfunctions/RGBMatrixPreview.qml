@@ -30,11 +30,12 @@ Rectangle
     property size matrixSize: Qt.size(0, 0)
     property variant matrixData
     property bool circleItems: false
+    property int maximumHeight: 0
 
     onMatrixSizeChanged: matrix.calculateCellSize()
     onMatrixDataChanged: matrix.requestPaint()
     onWidthChanged: matrix.calculateCellSize()
-    onHeightChanged: matrix.calculateCellSize()
+    onMaximumHeightChanged: matrix.calculateCellSize()
 
     Canvas
     {
@@ -50,7 +51,7 @@ Rectangle
         function calculateCellSize()
         {
             var cWidth = matrixBox.width / matrixSize.width
-            var cHeight = matrixBox.width / matrixSize.height
+            var cHeight = (maximumHeight ? maximumHeight : matrixBox.width) / matrixSize.height
 
             cellSize = Math.min(cWidth, cHeight)
 

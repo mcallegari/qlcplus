@@ -157,6 +157,7 @@ Rectangle
                 width: editorColumn.width
                 matrixSize: rgbMatrixEditor.previewSize
                 matrixData: rgbMatrixEditor.previewData
+                maximumHeight: rgbmeContainer.height / 3
             }
 
             // row 3
