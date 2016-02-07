@@ -46,6 +46,9 @@ class RGBMatrixEditor : public FunctionEditor
     Q_PROPERTY(QString algoText READ algoText WRITE setAlgoText NOTIFY algoTextChanged)
     // Image Algorithm specific properties
     Q_PROPERTY(QString algoImagePath READ algoImagePath WRITE setAlgoImagePath NOTIFY algoImagePathChanged)
+
+    Q_PROPERTY(int runOrder READ runOrder WRITE setRunOrder NOTIFY runOrderChanged)
+    Q_PROPERTY(int direction READ direction WRITE setDirection NOTIFY directionChanged)
     
 public:
     RGBMatrixEditor(QQuickView *view, Doc *doc, QObject *parent = 0);
@@ -118,6 +121,22 @@ signals:
 
     void algoTextChanged(QString text);
     void algoImagePathChanged(QString path);
+
+    /************************************************************************
+     * Run order and direction
+     ************************************************************************/
+public:
+    /** RGB Matrix run order getter/setter */
+    int runOrder() const;
+    void setRunOrder(int runOrder);
+
+    /** RGB Matrix direction getter/setter */
+    int direction() const;
+    void setDirection(int direction);
+
+signals:
+    void runOrderChanged(int runOrder);
+    void directionChanged(int direction);
 
     /************************************************************************
      * Preview

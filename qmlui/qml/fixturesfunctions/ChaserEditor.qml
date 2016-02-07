@@ -471,6 +471,7 @@ Rectangle
                     }
                     model: runOrderModel
 
+                    currentValue: chaserEditor.runOrder
                     onValueChanged: chaserEditor.runOrder = value
                 }
                 RobotoText
@@ -489,6 +490,7 @@ Rectangle
                     }
                     model: directionModel
 
+                    currentValue: chaserEditor.direction
                     onValueChanged: chaserEditor.direction = value
                 }
                 RobotoText
@@ -511,8 +513,8 @@ Rectangle
                         ListElement { mLabel: qsTr("Per Step"); mTextIcon: "S"; mValue: Chaser.PerStep }
                     }
                     model: fadeInModel
-                    currentIndex: chaserEditor.stepsFadeIn
 
+                    currentValue: chaserEditor.stepsFadeIn
                     onValueChanged: chaserEditor.stepsFadeIn = value
                 }
                 RobotoText
@@ -531,8 +533,8 @@ Rectangle
                         ListElement { mLabel: qsTr("Per Step"); mTextIcon: "S"; mValue: Chaser.PerStep }
                     }
                     model: fadeOutModel
-                    currentIndex: chaserEditor.stepsFadeOut
 
+                    currentValue: chaserEditor.stepsFadeOut
                     onValueChanged: chaserEditor.stepsFadeOut = value
                 }
                 RobotoText
@@ -550,8 +552,8 @@ Rectangle
                         ListElement { mLabel: qsTr("Per Step"); mTextIcon: "S"; mValue: Chaser.PerStep }
                     }
                     model: durationModel
-                    currentIndex: chaserEditor.stepsDuration - 1
 
+                    currentValue: chaserEditor.stepsDuration
                     onValueChanged: chaserEditor.stepsDuration = value
                 }
                 RobotoText
@@ -559,9 +561,7 @@ Rectangle
                     label: qsTr("Duration")
                     Layout.fillWidth: true
                 }
-            }
-
-        }
-
+            } // end of GridLayout
+        } // end of Rectangle
     } // end of Column
 }
