@@ -31,7 +31,7 @@ public:
     WebAccessConfiguration();
 
     static QString getIOConfigHTML(Doc *doc);
-    static QString getAudioConfigHTML();
+    static QString getAudioConfigHTML(Doc *doc);
     static QString getUserFixturesConfigHTML();
     static QString getHTML(Doc *doc);
 };

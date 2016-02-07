@@ -21,7 +21,10 @@
 #define AUDIOPLUGINCACHE_H
 
 #include <QObject>
-#include <QDir> 
+#include <QDir>
+
+#include "audiorenderer.h"
+#include "audiocapture.h"
 
 /** @addtogroup engine Engine
  * @{
@@ -48,8 +51,12 @@ public:
      *  If $filename can't be decoded, this method returns NULL */
     AudioDecoder *getDecoderForFile(const QString& filename);
 
+    /** Get the list of cached audio devices detected on creation */
+    QList<AudioDeviceInfo> audioDevicesList() const;
+
 private:
     QStringList m_pluginsPathList;
+    QList<AudioDeviceInfo> m_audioDevicesList;
 };
 
 /** @} */

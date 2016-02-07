@@ -31,18 +31,6 @@
 #include "audio.h"
 #include "doc.h"
 
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
- #if defined( __APPLE__) || defined(Q_OS_MAC)
-  #include "audiorenderer_portaudio.h"
- #elif defined(WIN32) || defined(Q_OS_WIN)
-  #include "audiorenderer_waveout.h"
- #else
-  #include "audiorenderer_alsa.h"
- #endif
-#else
- #include "audiorenderer_qt.h"
-#endif
-
 AudioEditor::AudioEditor(QWidget* parent, Audio *audio, Doc* doc)
     : QWidget(parent)
     , m_doc(doc)
@@ -88,18 +76,7 @@ AudioEditor::AudioEditor(QWidget* parent, Audio *audio, Doc* doc)
         m_bitrateLabel->setText(QString("%1 kb/s").arg(adec->bitrate()));
     }
 
-    QList<AudioDeviceInfo> devList;
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
- #if defined( __APPLE__) || defined(Q_OS_MAC)
-    devList = AudioRendererPortAudio::getDevicesInfo();
- #elif defined(WIN32) || defined(Q_OS_WIN)
-    devList = AudioRendererWaveOut::getDevicesInfo();
- #else
-    devList = AudioRendererAlsa::getDevicesInfo();
- #endif
-#else
-    devList = AudioRendererQt::getDevicesInfo();
-#endif
+    QList<AudioDeviceInfo> devList = m_doc->audioPluginCache()->audioDevicesList();
     QSettings settings;
     QString outputName;
     int i = 0, selIdx = 0;

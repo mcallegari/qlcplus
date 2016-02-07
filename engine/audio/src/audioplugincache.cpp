@@ -24,9 +24,32 @@
 #include "audiodecoder.h"
 #include "qlcfile.h"
 
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+ #if defined( __APPLE__) || defined(Q_OS_MAC)
+  #include "audiorenderer_portaudio.h"
+ #elif defined(WIN32) || defined(Q_OS_WIN)
+  #include "audiorenderer_waveout.h"
+ #else
+  #include "audiorenderer_alsa.h"
+ #endif
+#else
+ #include "audiorenderer_qt.h"
+#endif
+
 AudioPluginCache::AudioPluginCache(QObject *parent)
     : QObject(parent)
 {
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+ #if defined( __APPLE__) || defined(Q_OS_MAC)
+    m_audioDevicesList = AudioRendererPortAudio::getDevicesInfo();
+ #elif defined(WIN32) || defined(Q_OS_WIN)
+    m_audioDevicesList = AudioRendererWaveOut::getDevicesInfo();
+ #else
+    m_audioDevicesList = AudioRendererAlsa::getDevicesInfo();
+ #endif
+#else
+    m_audioDevicesList = AudioRendererQt::getDevicesInfo();
+#endif
 }
 
 AudioPluginCache::~AudioPluginCache()
@@ -93,11 +116,12 @@ AudioDecoder *AudioPluginCache::getDecoderForFile(const QString &filename)
         AudioDecoder* ptr = qobject_cast<AudioDecoder*> (loader.instance());
         if (ptr != NULL)
         {
+            ptr->initialize("");
             AudioDecoder* copy = qobject_cast<AudioDecoder*> (ptr->createCopy());
             if (copy->initialize(filename) == false)
             {
                 loader.unload();
-                delete copy;
+                //delete copy;
                 continue;
             }
             return copy;
@@ -105,4 +129,9 @@ AudioDecoder *AudioPluginCache::getDecoderForFile(const QString &filename)
     }
 
     return NULL;
+}
+
+QList<AudioDeviceInfo> AudioPluginCache::audioDevicesList() const
+{
+    return m_audioDevicesList;
 }

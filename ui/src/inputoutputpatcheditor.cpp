@@ -38,27 +38,12 @@
 
 #include "inputoutputpatcheditor.h"
 #include "inputprofileeditor.h"
+#include "audioplugincache.h"
 #include "inputoutputmap.h"
 #include "outputpatch.h"
 #include "inputpatch.h"
 #include "apputil.h"
 #include "doc.h"
-
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
- #if defined( __APPLE__) || defined(Q_OS_MAC)
-  #include "audiorenderer_portaudio.h"
-  #include "audiocapture_portaudio.h"
- #elif defined(WIN32) || defined(Q_OS_WIN)
-  #include "audiorenderer_waveout.h"
-  #include "audiocapture_wavein.h"
- #else
-  #include "audiorenderer_alsa.h"
-  #include "audiocapture_alsa.h"
- #endif
-#else
- #include "audiorenderer_qt.h"
- #include "audiocapture_qt.h"
-#endif
 
 /* Plugin column structure */
 #define KMapColumnPluginName    0
@@ -875,19 +860,7 @@ edit:
 
 void InputOutputPatchEditor::initAudioTab()
 {
-    QList<AudioDeviceInfo> devList;
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
- #if defined( __APPLE__) || defined(Q_OS_MAC)
-    devList = AudioRendererPortAudio::getDevicesInfo();
- #elif defined(WIN32) || defined(Q_OS_WIN)
-    devList = AudioRendererWaveOut::getDevicesInfo();
- #else
-    devList = AudioRendererAlsa::getDevicesInfo();
- #endif
-#else
-    devList = AudioRendererQt::getDevicesInfo();
-#endif
-
+    QList<AudioDeviceInfo> devList = m_doc->audioPluginCache()->audioDevicesList();
     m_audioMapTree->clear();
     QSettings settings;
     QString inputName, outputName;

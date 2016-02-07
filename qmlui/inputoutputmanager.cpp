@@ -71,7 +71,7 @@ QVariant InputOutputManager::audioInputDevice()
         return QVariant::fromValue(devMap);
     }
 
-    QList<AudioDeviceInfo> devList = AudioRendererQt::getDevicesInfo();
+    QList<AudioDeviceInfo> devList = m_doc->audioPluginCache()->audioDevicesList();
     foreach( AudioDeviceInfo info, devList)
     {
         if (info.capabilities & AUDIO_CAP_INPUT &&
@@ -103,7 +103,7 @@ QVariant InputOutputManager::audioOutputDevice()
         return QVariant::fromValue(devMap);
     }
 
-    QList<AudioDeviceInfo> devList = AudioRendererQt::getDevicesInfo();
+    QList<AudioDeviceInfo> devList = m_doc->audioPluginCache()->audioDevicesList();
     foreach( AudioDeviceInfo info, devList)
     {
         if (info.capabilities & AUDIO_CAP_OUTPUT &&
@@ -122,7 +122,7 @@ QVariant InputOutputManager::audioOutputDevice()
 QVariant InputOutputManager::audioInputSources()
 {
     QVariantList inputSources;
-    QList<AudioDeviceInfo> devList = AudioRendererQt::getDevicesInfo();
+    QList<AudioDeviceInfo> devList = m_doc->audioPluginCache()->audioDevicesList();
 
     QVariantMap defAudioMap;
     defAudioMap.insert("name", tr("Default device"));
@@ -146,7 +146,7 @@ QVariant InputOutputManager::audioInputSources()
 QVariant InputOutputManager::audioOutputSources()
 {
     QVariantList outputSources;
-    QList<AudioDeviceInfo> devList = AudioRendererQt::getDevicesInfo();
+    QList<AudioDeviceInfo> devList = m_doc->audioPluginCache()->audioDevicesList();
 
     QVariantMap defAudioMap;
     defAudioMap.insert("name", tr("Default device"));
