@@ -1,5 +1,6 @@
 qlcplus (4.10.3) stable; urgency=low
 
+  * Engine: Fix intensity channels forced back to HTP after LTP not working correctly (David Garyga)
   * Audio Capture: Fix crash when selecting another audio input while a capture is running (David Garyga)
   * Audio Capture: Fix crash when trying to use a wrongly configured audio input (David Garyga)
   * Scene Editor: Remember Channels Groups values when saving and loading a workspace (David Garyga)

@@ -587,7 +587,7 @@ void Universe::setChannelCapability(ushort channel, QLCChannel::Group group, Cha
     if (forcedType != Undefined)
     {
         (*m_channelsMask)[channel] = char(forcedType);
-        if (forcedType == HTP)
+        if ((forcedType & HTP) == HTP)
         {
             //qDebug() << "--- Channel" << channel << "forced type HTP";
             Utils::vectorSortedAddUnique(m_intensityChannels, channel);
@@ -598,7 +598,7 @@ void Universe::setChannelCapability(ushort channel, QLCChannel::Group group, Cha
                 (*m_channelsMask)[channel] = char(HTP | Intensity);
             }
         }
-        else if (forcedType == LTP)
+        else if ((forcedType & LTP) == LTP)
         {
             //qDebug() << "--- Channel" << channel << "forced type LTP";
             Utils::vectorSortedAddUnique(m_nonIntensityChannels, channel);
