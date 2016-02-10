@@ -182,7 +182,8 @@ public:
         Yellow      = 0xFFFF00,
         Amber       = 0xFF7E00,
         White       = 0xFFFFFF,
-        UV          = 0x9400D3
+        UV          = 0x9400D3,
+        Lime        = 0xADFF2F
     };
 
     /** Get a list of possible channel groups */
