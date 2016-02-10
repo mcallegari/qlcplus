@@ -70,7 +70,7 @@ void EFXItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
 
     ShowItem::paint(painter, option, widget);
 
-    int loopCount = qFloor(m_function->duration() / efxDuration);
+    int loopCount = (efxDuration == 0) ? 0 : qFloor(m_function->duration() / efxDuration);
     for (int i = 0; i < loopCount; i++)
     {
         xpos += ((timeScale * (float)efxDuration) / 1000);
