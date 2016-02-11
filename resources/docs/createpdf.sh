@@ -57,6 +57,8 @@ wkhtmltopdf-amd64 --footer-center "Page [page]" --image-quality 100 \
   simpledesk.html \
   howto-input-output-mapping.html \
   howto-input-profiles.html \
+  audio-input-output.html \
+  supported-input-devices.html \
   artnetplugin.html \
   dmxusbplugin.html \
   e131plugin.html \
