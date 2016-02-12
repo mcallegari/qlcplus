@@ -27,6 +27,9 @@ else
 
   if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     XPID=`pidof X`
+    if [ ! ${#XPID} -gt 0 ]; then
+      XPID=`pidof Xorg`
+    fi
     if [ ${#XPID} -gt 0 ]; then
       HAS_XSERVER="1"
     fi
