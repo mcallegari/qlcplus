@@ -1526,7 +1526,6 @@ void VirtualConsole::addWidgetInMap(VCWidget* widget)
     // Valid ID ?
     if (widget->id() != VCWidget::invalidId())
     {
-
         // Maybe we don't know this widget yet
         if (!m_widgetsMap.contains(widget->id()))
         {
