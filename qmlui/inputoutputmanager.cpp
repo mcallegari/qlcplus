@@ -23,6 +23,7 @@
 #include "inputoutputmanager.h"
 #include "audiorenderer_qt.h"
 #include "audiocapture_qt.h"
+#include "audioplugincache.h"
 #include "qlcioplugin.h"
 #include "outputpatch.h"
 #include "inputpatch.h"
