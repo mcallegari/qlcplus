@@ -739,7 +739,7 @@ void VCFrame::applyProperties(VCFrameProperties const& prop)
                     newWidget->show();
 
                     bool multiPageFrame = false;
-                    if (newWidget->type() == VCWidget::FrameWidget)
+                    if (newWidget->type() == VCWidget::FrameWidget || newWidget->type() == VCWidget::SoloFrameWidget)
                     {
                         VCFrame *fr = qobject_cast<VCFrame *>(newWidget);
                         multiPageFrame = fr->multipageMode();
