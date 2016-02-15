@@ -521,11 +521,7 @@ void App::slotUniversesWritten(int idx, const QByteArray &ua)
         if (fixture->universe() != (quint32)idx)
             continue;
 
-        int fxStartAddr = fixture->address();
-        if (fxStartAddr >= ua.size())
-            continue;
-
-        fixture->setChannelValues(ua.mid(fxStartAddr, fixture->channels()));
+        fixture->setChannelValues(ua);
     }
 }
 

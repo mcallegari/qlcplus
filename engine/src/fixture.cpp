@@ -493,17 +493,25 @@ ChannelModifier *Fixture::channelModifier(quint32 idx)
 
 bool Fixture::setChannelValues(QByteArray values)
 {
+    const int addr = address();
+    if (addr > values.size())
+        return false;
+ 
+    const int ch = qMin(values.size() - addr, (int)channels());
     bool changed = false;
-    for (int i = 0; i < qMin(values.length(), (int)channels()); i++)
+   
+    // Most of the time there are no changes, so the lock is inside 
+    // the cycle
+    for (int i = 0; i < ch; i++)
     {
-        if (m_values.at(i) != values.at(i))
+        if (m_values.at(i) != values.at(i + addr))
         {
-            m_valuesMutex.lock();
-            m_values[i] = values.at(i);
             changed = true;
-            m_valuesMutex.unlock();
+            QMutexLocker locker(&m_valuesMutex);
+            m_values[i] = values.at(i + addr);
         }
     }
+
     if (changed == true)
         emit valuesChanged();
 

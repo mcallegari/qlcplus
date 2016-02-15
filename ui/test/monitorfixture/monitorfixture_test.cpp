@@ -212,9 +212,9 @@ void MonitorFixture_Test::updateValues()
     QVERIFY(fxi->id() != Fixture::invalidId());
     m_currentAddr += fxi->channels();
 
-    QByteArray ba(6, 0);
+    QByteArray ba(512, 0);
     for (int i = 0; i < 6; i++)
-        ba[i] = 127 + i;
+        ba[i + fxi->address()] = 127 + i;
     fxi->setChannelValues(ba);
 
     MonitorFixture mof(&w, m_doc);
