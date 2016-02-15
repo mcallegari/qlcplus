@@ -119,6 +119,9 @@ public:
     /** Get the number of packets received by this controller */
     quint64 getPacketReceivedNumber();
 
+    /** Is the UDP socket capable of receiving packets ? */
+    bool socketBound() const;
+
 private:
     /** The network interface associated to this controller */
     QNetworkInterface m_interface;

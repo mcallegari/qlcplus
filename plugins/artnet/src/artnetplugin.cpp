@@ -122,6 +122,15 @@ QString ArtNetPlugin::outputInfo(quint32 output)
     {
         str += tr("Status: Open");
         str += QString("<BR>");
+
+        QString boundString;
+        if (!ctrl->socketBound())
+            boundString = QString("<FONT COLOR=\"#aa0000\">%1</FONT>").arg(tr("No"));
+        else
+           boundString = QString("<FONT COLOR=\"#00aa00\">%1</FONT>").arg(tr("Yes"));
+        str += QString("<B>%1:</B> %2").arg(tr("Can receive node informations")).arg(boundString);
+        str += QString("<BR>");
+
         str += tr("Nodes discovered: ");
         str += QString("%1").arg(ctrl->getNodesList().size());
         str += QString("<BR>");
@@ -266,8 +275,14 @@ QString ArtNetPlugin::inputInfo(quint32 input)
         str += tr("Status: Not open");
     else
     {
-        str += tr("Status: Open");
+        QString boundString;
+        if (!ctrl->socketBound())
+            boundString = QString("<FONT COLOR=\"#aa0000\">%1</FONT>").arg(tr("Bind failed"));
+        else
+           boundString = QString("<FONT COLOR=\"#00aa00\">%1</FONT>").arg(tr("Open"));
+        str += QString("<B>%1:</B> %2").arg(tr("Status")).arg(boundString);
         str += QString("<BR>");
+
         str += tr("Packets received: ");
         str += QString("%1").arg(ctrl->getPacketReceivedNumber());
     }
@@ -365,9 +380,6 @@ QSharedPointer<QUdpSocket> ArtNetPlugin::getUdpSocket()
     else
     {
         qWarning() << "ArtNet: could not bind socket to address" << QString("0:%2").arg(ARTNET_PORT);
-        QMessageBox::warning(NULL, tr("Socket error"),
-                tr("ArtNet: Could not bind to ArtNet port (%1).\n"
-                   "It may be already in use by another program.").arg(ARTNET_PORT));
     }
     return udpSocket;
 }
