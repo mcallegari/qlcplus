@@ -87,6 +87,11 @@ quint64 ArtNetController::getPacketReceivedNumber()
     return m_packetReceived;
 }
 
+bool ArtNetController::socketBound() const
+{
+    return m_udpSocket->state() == QAbstractSocket::BoundState;
+}
+
 QString ArtNetController::getNetworkIP()
 {
     return m_ipAddr.toString();
