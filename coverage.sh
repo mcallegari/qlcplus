@@ -18,10 +18,11 @@ ARCH=`uname`
 
 test[0]="engine/src"
 test[1]="ui/src"
-test[2]="plugins/ewinginput/src"
-test[3]="plugins/midiinput/common/src"
+test[2]="plugins/artnet/test"
+test[3]="plugins/enttecwing/src"
+#test[3]="plugins/midiinput/common/src"
 if [ ${ARCH} != "Darwin" ]; then
-    test[4]="plugins/vellemanout/src"
+    test[4]="plugins/velleman/src"
 fi
 
 # Number of tests
@@ -34,14 +35,14 @@ tlen=${#test[@]}
 # arg1:srcdir arg2:testname
 function prepare {
     lcov -d ${1} -z
-    lcov -d $1 -c -i -o coverage/${2}base.info
+    lcov -d ${1} -c -i -o coverage/${2}-base.info
 }
 
 # arg1:srcdir arg2:testname
 function gather_data {
-    lcov -d ${1} -c -o coverage/${2}test.info
-    lcov -a coverage/${2}base.info -a coverage/${2}test.info \
-         -o coverage/${2}merge.info
+    lcov -d ${1} -c -o coverage/${2}-test.info
+    lcov -a coverage/${2}-base.info -a coverage/${2}-test.info \
+         -o coverage/${2}-merge.info
 }
 
 #############################################################################
@@ -96,7 +97,7 @@ done
 
 for ((i = 0; i < ${tlen}; i++))
 do
-    mergeargs="${mergeargs} -a coverage/${i}merge.info"
+    mergeargs="${mergeargs} -a coverage/${i}-merge.info"
 done
 
 lcov ${mergeargs} -o coverage/coverage.info

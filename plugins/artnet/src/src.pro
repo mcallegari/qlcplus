@@ -1,4 +1,5 @@
 include(../../../variables.pri)
+include(../../../coverage.pri)
 
 TEMPLATE = lib
 LANGUAGE = C++

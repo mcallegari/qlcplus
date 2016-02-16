@@ -24,6 +24,7 @@ Makefile.*
 ui_*
 object_*
 engine/src/qlcconfig.h
+*.swp
 
 # Binaries
 *.exe
@@ -34,3 +35,9 @@ launcher/qlcplus-launcher
 hotplugmonitor/test/test
 qmlui/qlcplus-qml
 *.qm
+core
+
+# coverage
+coverage/
+*.gcda
+*.gcno
