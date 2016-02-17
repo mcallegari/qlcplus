@@ -200,10 +200,10 @@ void FunctionManager::setPreview(bool enable)
             if (f != NULL)
             {
                 if (enable == false)
-                    f->stop();
+                    f->stop(FunctionParent::master());
                 else
                 {
-                    f->start(m_doc->masterTimer());
+                    f->start(m_doc->masterTimer(), FunctionParent::master());
                 }
             }
         }
@@ -231,7 +231,7 @@ void FunctionManager::checkPreview(QVariantList idsList)
             {
                 Function *f = m_doc->function(fID.toUInt());
                 if (f != NULL)
-                    f->stop();
+                    f->stop(FunctionParent::master());
             }
         }
     }
@@ -243,7 +243,7 @@ void FunctionManager::checkPreview(QVariantList idsList)
         {
             Function *f = m_doc->function(fID.toUInt());
             if (f != NULL)
-                f->start(m_doc->masterTimer());
+                f->start(m_doc->masterTimer(), FunctionParent::master());
         }
         finalList << fID;
     }

@@ -64,12 +64,12 @@ void FunctionEditor::setPreview(bool enable)
     if (m_preview)
     {
         if (f->isRunning() == false)
-            f->start(m_doc->masterTimer());
+            f->start(m_doc->masterTimer(), FunctionParent::master());
     }
     else
     {
         if (f->isRunning())
-            f->stop();
+            f->stop(FunctionParent::master());
     }
 }
 

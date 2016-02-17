@@ -36,6 +36,8 @@
 #define KXMLQLCVCButtonIntensity "Intensity"
 #define KXMLQLCVCButtonIntensityAdjust "Adjust"
 
+class FunctionParent;
+
 class VCButton : public VCWidget
 {
     Q_OBJECT
@@ -93,6 +95,9 @@ protected slots:
 
     /** Basically the same as slotFunctionStopped() but for flash signal */
     void slotFunctionFlashing(quint32 fid, bool state);
+
+private:
+    FunctionParent functionParent() const;
 
 protected:
     /** The function that this button is controlling */

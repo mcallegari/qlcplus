@@ -87,7 +87,7 @@ void VCButton::setFunction(quint32 fid)
         if(current->isRunning())
         {
             running = true;
-            current->stop();
+            current->stop(functionParent());
         }
     }
 
@@ -104,7 +104,7 @@ void VCButton::setFunction(quint32 fid)
 
         m_function = fid;
         if(running)
-            function->start(m_doc->masterTimer());
+            function->start(m_doc->masterTimer(), functionParent());
     }
     else
     {
@@ -140,7 +140,7 @@ void VCButton::requestStateChange(bool pressed)
             else if (m_isOn == true && pressed == false)
             {
                 if (f->isRunning())
-                    f->stop();
+                    f->stop(functionParent());
             }
         }
         break;
@@ -182,7 +182,7 @@ void VCButton::notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fInte
     if (m_function != fid)
     {
         if (f->isRunning())
-            f->stop();
+            f->stop(functionParent());
     }
     else
     {
@@ -190,7 +190,7 @@ void VCButton::notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fInte
             f->adjustAttribute(startupIntensity() * intensity(), Function::Intensity);
         else
             f->adjustAttribute(intensity(), Function::Intensity);
-        f->start(m_doc->masterTimer());
+        f->start(m_doc->masterTimer(), functionParent());
     }
 }
 
@@ -226,6 +226,11 @@ void VCButton::slotFunctionFlashing(quint32 fid, bool state)
     }
 
     setOn(state);
+}
+
+FunctionParent VCButton::functionParent() const
+{
+    return FunctionParent(FunctionParent::ManualVCWidget, id());
 }
 
 /*********************************************************************

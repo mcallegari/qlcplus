@@ -299,7 +299,7 @@ void ShowManager::playShow()
     if (m_currentShow == NULL)
         return;
 
-    m_currentShow->start(m_doc->masterTimer(), false, m_currentTime);
+    m_currentShow->start(m_doc->masterTimer(), FunctionParent::master(), m_currentTime);
     emit isPlayingChanged(true);
 }
 
@@ -307,7 +307,7 @@ void ShowManager::stopShow()
 {
     if (m_currentShow != NULL && m_currentShow->isRunning())
     {
-        m_currentShow->stop();
+        m_currentShow->stop(FunctionParent::master());
         emit isPlayingChanged(false);
         return;
     }
