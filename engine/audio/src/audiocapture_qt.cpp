@@ -92,6 +92,8 @@ bool AudioCaptureQt::initialize()
         return false;
     }
 
+    m_currentBufferPosition = 0;
+
     return true;
 }
 
@@ -129,12 +131,21 @@ bool AudioCaptureQt::readAudio(int maxSize)
     if (m_audioInput == NULL || m_input == NULL)
         return false;
 
-    if (m_audioInput->bytesReady() < maxSize * 2)
+    unsigned int bufferSize = maxSize * sizeof(*m_audioBuffer);
+
+    int readSize = m_input->read(((char*)m_audioBuffer) + m_currentBufferPosition, bufferSize - m_currentBufferPosition);
+    if (readSize < 0)
+    {
+        // read error
         return false;
+    }
 
-    /*qint64 l = */ m_input->read((char *)m_audioBuffer, maxSize * 2);
-
-    //qDebug() << "[QT readAudio] " << l << "bytes read";
-
-    return true;
+    m_currentBufferPosition += readSize;
+    //qDebug() << "[QT readAudio] " << readSize << "bytes read -> (" << m_currentBufferPosition << "/" << bufferSize << ")";
+    if (m_currentBufferPosition == bufferSize)
+    {
+        m_currentBufferPosition = 0;
+        return true;
+    }
+    return false;
 }

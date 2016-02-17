@@ -137,7 +137,7 @@ signals:
 
 protected:
     /*!
-     * Reads up to \b maxSize bytes from \b the input interface device.
+     * Reads up to \b maxSize uint16 from \b the input interface device.
      * Returns an array of the bytes read, or an empty array if an error occurred.
      * Subclass should reimplement this function.
      */
