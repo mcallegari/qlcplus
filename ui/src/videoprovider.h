@@ -55,6 +55,9 @@ protected:
     QMediaPlayer *m_videoPlayer;
     /** Qt widget that actually displays the video */
     QVideoWidget *m_videoWidget;
+
+private:
+    FunctionParent functionParent() const;
 };
 
 class VideoProvider: public QObject

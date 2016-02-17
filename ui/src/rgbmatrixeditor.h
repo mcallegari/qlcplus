@@ -117,6 +117,9 @@ private slots:
     void slotPropertySpinChanged(int value);
 
 private:
+    FunctionParent functionParent() const;
+
+private:
     Doc* m_doc;
     RGBMatrix* m_matrix; // The RGBMatrix being edited
 

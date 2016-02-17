@@ -546,12 +546,18 @@ void Chaser::postLoad()
         setDuration((value / MasterTimer::frequency()) * 1000);
     }
 
+    Doc* doc = this->doc();
+    Q_ASSERT(doc != NULL);
+
     QMutableListIterator <ChaserStep> it(m_steps);
     while (it.hasNext() == true)
     {
         ChaserStep step(it.next());
-        Function* function = doc()->function(step.fid);
+        Function* function = doc->function(step.fid);
+
         if (function == NULL)
+            it.remove();
+        else if (function->contains(id())) // forbid self-containment
             it.remove();
     }
 }
@@ -669,6 +675,27 @@ void Chaser::adjustIntensity(qreal fraction, int stepIndex)
         m_runner->adjustIntensity(fraction * getAttributeValue(Intensity), stepIndex);
 }
 
+bool Chaser::contains(quint32 functionId)
+{
+    Doc* doc = this->doc();
+    Q_ASSERT(doc != NULL);
+
+    foreach(ChaserStep step, m_steps)
+    {
+        Function* function = doc->function(step.fid);
+        // contains() can be called during init, function may be NULL
+        if (function == NULL)
+            continue;
+
+        if (function->id() == functionId)
+            return true;
+        if (function->contains(functionId))
+            return true;
+    }
+
+    return false;
+}
+
 /*****************************************************************************
  * Running
  *****************************************************************************/
@@ -712,7 +739,7 @@ void Chaser::write(MasterTimer* timer, QList<Universe *> universes)
         Q_ASSERT(m_runner != NULL);
 
         if (m_runner->write(timer, universes) == false)
-            stop();
+            stop(FunctionParent::god());
     }
 
     incrementElapsed();

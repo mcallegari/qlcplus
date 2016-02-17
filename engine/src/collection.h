@@ -114,9 +114,15 @@ public:
     /** @reimp */
     void postLoad();
 
+public:
+    virtual bool contains(quint32 functionId);
+
     /*********************************************************************
      * Running
      *********************************************************************/
+private:
+    FunctionParent functionParent() const;
+
 public:
     /** @reimpl */
     void preRun(MasterTimer* timer);
@@ -131,9 +137,13 @@ protected slots:
     /** Called whenever one of this function's child functions stops */
     void slotChildStopped(quint32 fid);
 
+    /** Called whenever one of this function's child functions stops */
+    void slotChildStarted(quint32 fid);
+
 protected:
     /** Number of currently running children */
     QSet <quint32> m_runningChildren;
+    unsigned int m_tick;
 
     /*************************************************************************
      * Intensity

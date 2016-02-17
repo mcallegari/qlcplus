@@ -21,6 +21,7 @@
 #define AUDIOEDITOR_H
 
 #include "ui_audioeditor.h"
+#include "function.h"
 
 class SpeedDialWidget;
 class Audio;
@@ -51,6 +52,9 @@ private slots:
     void slotAudioDeviceChanged(int idx);
     void slotPreviewToggled(bool state);
     void slotPreviewStopped(quint32 id);
+
+private:
+    FunctionParent functionParent() const;
 
     /************************************************************************
      * Speed dials

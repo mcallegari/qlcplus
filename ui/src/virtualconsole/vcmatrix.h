@@ -158,6 +158,9 @@ private slots:
     void slotUpdate();
 
 private:
+    FunctionParent functionParent() const;
+
+private:
     /** timer for updating the controls */
     QTimer* m_updateTimer;
 

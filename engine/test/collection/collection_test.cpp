@@ -420,7 +420,7 @@ void Collection_Test::write()
     /* Collection starts all of its members immediately when it is started
        itself. */
     QVERIFY(c->stopped() == true);
-    c->start(mts);
+    c->start(mts, FunctionParent::god());
     QVERIFY(c->stopped() == false);
 
     c->write(mts, ua);
@@ -461,7 +461,7 @@ void Collection_Test::write()
     c->write(mts, ua);
     QVERIFY(s2->stopped() == true);
     QVERIFY(c->stopped() == true);
-    mts->stopFunction(c);
+    c->stop(FunctionParent::god());
 
     delete mts;
     delete doc;
@@ -499,14 +499,15 @@ void Collection_Test::stopNotOwnChildren()
     ua.append(new Universe(0, new GrandMaster()));
     MasterTimerStub* mts = new MasterTimerStub(m_doc, ua);
 
-    QVERIFY(c->stopped() == true);
-    c->start(mts);
-    QVERIFY(c->stopped() == false);
-
-    c->preRun(mts);
     QVERIFY(c->m_runningChildren.isEmpty() == true);
 
+    QVERIFY(c->stopped() == true);
+    c->start(mts, FunctionParent::god());
+    QVERIFY(c->stopped() == false);
+
     c->write(mts, ua);
+    QVERIFY(c->m_runningChildren.isEmpty() == false);
+
     QVERIFY(s1->stopped() == false);
     QVERIFY(s2->stopped() == false);
 
@@ -515,17 +516,16 @@ void Collection_Test::stopNotOwnChildren()
     QVERIFY(c->m_runningChildren.contains(s2->id()) == true);
 
     // Manually stop and re-start s1
-    s1->stop();
-    s1->write(mts, ua);
-    s1->postRun(mts, ua);
-    s1->start(mts);
+    c->write(mts, ua);
+    mts->stopFunction(s1);
+    s1->start(mts, FunctionParent::god());
     QVERIFY(s1->stopped() == false);
 
     // Collection should no longer be controlling s1
     QVERIFY(c->m_runningChildren.contains(s1->id()) == false);
     QVERIFY(c->m_runningChildren.contains(s2->id()) == true);
 
-    c->stop();
+    c->stop(FunctionParent::god());
     c->write(mts, ua);
     c->postRun(mts, ua);
 

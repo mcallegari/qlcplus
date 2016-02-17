@@ -26,6 +26,7 @@
 #include <QIcon>
 
 #include "vcwidget.h"
+#include "function.h"
 
 class QXmlStreamReader;
 class QXmlStreamWriter;
@@ -306,6 +307,9 @@ public:
 
     /** Blink the button for $ms milliseconds */
     void blink(int ms);
+
+private:
+    FunctionParent functionParent() const;
 
 protected slots:
     /** Handler for function running signal */

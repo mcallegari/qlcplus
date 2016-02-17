@@ -29,6 +29,7 @@
 #include <QIcon>
 
 #include "universe.h"
+#include "functionparent.h"
 
 class QXmlStreamReader;
 
@@ -629,19 +630,10 @@ public:
      * @param overrideFadeOut Override the function's default fade out speed
      * @param overrideDuration Override the function's default duration
      */
-    void start(MasterTimer* timer, bool child = false, quint32 startTime = 0,
+    void start(MasterTimer* timer, FunctionParent parent, quint32 startTime = 0,
                uint overrideFadeIn = defaultSpeed(),
                uint overrideFadeOut = defaultSpeed(),
                uint overrideDuration = defaultSpeed());
-
-	/**
-     * Check, whether the function was started by another function i.e.
-     * as the other function's child.
-     *
-	 * @return true If the function was started by another function.
-     *              Otherwise false.
-	 */
-    bool startedAsChild() const;
 
     /**
      * Mark the function to be stopped ASAP. MasterTimer will stop running
@@ -649,7 +641,7 @@ public:
      * There is no way to cancel it, but the function can be started again
      * normally.
      */
-    void stop();
+    void stop(FunctionParent parent);
 
     /**
      * Check, whether the function should be stopped ASAP. Functions can use this
@@ -676,10 +668,14 @@ public:
      */
     bool isRunning() const;
 
+    bool startedAsChild() const;
+
 private:
     /** Stop flag, private to keep functions from modifying it. */
     bool m_stop;
     bool m_running;
+    QList<FunctionParent> m_sources;
+    QMutex m_sourcesMutex;
 
     QMutex m_stopMutex;
     QWaitCondition m_functionStopped;
@@ -754,8 +750,10 @@ signals:
     void attributeChanged(int index, qreal fraction);
 
 private:
-    bool m_startedAsChild;
     QList <Attribute> m_attributes;
+
+public:
+    virtual bool contains(quint32 functionId);
 
     /*************************************************************************
      * Blend mode

@@ -155,6 +155,11 @@ QList<VCClockSchedule> VCClock::schedules()
     return m_scheduleList;
 }
 
+FunctionParent VCClock::functionParent() const
+{
+    return FunctionParent(FunctionParent::AutoVCWidget, id());
+}
+
 void VCClock::setCountdown(int h, int m, int s)
 {
     m_hh = h;
@@ -200,7 +205,7 @@ void VCClock::slotUpdateTime()
                         Function *func = m_doc->function(fid);
                         if (func != NULL)
                         {
-                            func->start(m_doc->masterTimer());
+                            func->start(m_doc->masterTimer(), functionParent());
                             qDebug() << "VC Clock starting function:" << func->name();
                         }
                         m_scheduleIndex++;

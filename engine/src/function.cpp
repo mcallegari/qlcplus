@@ -86,7 +86,6 @@ Function::Function(QObject *parent)
     , m_elapsed(0)
     , m_stop(true)
     , m_running(false)
-    , m_startedAsChild(false)
     , m_blendMode(Universe::NormalBlend)
 {
 
@@ -110,7 +109,6 @@ Function::Function(Doc* doc, Type t)
     , m_elapsed(0)
     , m_stop(true)
     , m_running(false)
-    , m_startedAsChild(false)
     , m_blendMode(Universe::NormalBlend)
 {
     Q_ASSERT(doc != NULL);
@@ -123,8 +121,7 @@ Function::~Function()
 
 Doc* Function::doc() const
 {
-    Doc* doc = qobject_cast<Doc*> (parent());
-    return doc;
+    return qobject_cast<Doc*>(parent());
 }
 
 /*****************************************************************************
@@ -890,9 +887,9 @@ void Function::postRun(MasterTimer* timer, QList<Universe *> universes)
     m_stopMutex.lock();
     resetElapsed();
     resetAttributes();
-    //m_overrideFadeInSpeed = defaultSpeed();
-    //m_overrideFadeOutSpeed = defaultSpeed();
-    //m_overrideDuration = defaultSpeed();
+    // m_overrideFadeInSpeed = defaultSpeed();
+    // m_overrideFadeOutSpeed = defaultSpeed();
+    // m_overrideDuration = defaultSpeed();
     m_functionStopped.wakeAll();
     m_stopMutex.unlock();
 
@@ -942,32 +939,50 @@ void Function::roundElapsed(quint32 roundTime)
  * Start & Stop
  *****************************************************************************/
 
-void Function::start(MasterTimer* timer, bool child, quint32 startTime,
+void Function::start(MasterTimer* timer, FunctionParent source, quint32 startTime,
                      uint overrideFadeIn, uint overrideFadeOut, uint overrideDuration)
 {
-    qDebug() << "Function start(). Name:" << m_name << "ID: " << m_id << ", startTime:" << startTime;
+    qDebug() << "Function start(). Name:" << m_name << "ID: " << m_id << "source:" << source.type() << source.id() << ", startTime:" << startTime;
+
     Q_ASSERT(timer != NULL);
-    m_startedAsChild = child;
+
+    {
+        QMutexLocker sourcesLocker(&m_sourcesMutex);
+        if (m_sources.contains(source))
+            return;
+        m_sources.append(source);
+        if (m_sources.size() > 1)
+            return;
+    }
+
+    // m_stop = false;
     m_elapsed = startTime;
     m_overrideFadeInSpeed = overrideFadeIn;
     m_overrideFadeOutSpeed = overrideFadeOut;
     m_overrideDuration = overrideDuration;
-    if (m_stop)
-    {
+    //if (m_stop)
+    //{
         m_stop = false;
         timer->startFunction(this);
-    }
+    //}
 }
 
-bool Function::startedAsChild() const
+void Function::stop(FunctionParent source)
 {
-    return m_startedAsChild;
-}
+    qDebug() << "Function stop(). Name:" << m_name << "ID: " << m_id << "source:" << source.type() << source.id();
 
-void Function::stop()
-{
-    qDebug() << "Function stop(). Name:" << m_name << "ID: " << m_id;
-    m_stop = true;
+    QMutexLocker sourcesLocker(&m_sourcesMutex);
+
+    if ((source.id() == id() && source.type() == FunctionParent::Function)
+            || (source.type() == FunctionParent::God)
+            || (source.type() == FunctionParent::ManualVCWidget)
+       )
+        m_sources.clear();
+    else
+        m_sources.removeAll(source);
+
+    if (m_sources.size() == 0)
+        m_stop = true;
 }
 
 bool Function::stopped() const
@@ -975,12 +990,23 @@ bool Function::stopped() const
     return m_stop;
 }
 
+bool Function::startedAsChild() const
+{
+    QMutexLocker sourcesLocker(const_cast<QMutex*>(&m_sourcesMutex));
+    foreach (FunctionParent source, m_sources)
+    {
+        if (source.type() == FunctionParent::Function && source.id() != id())
+            return true;
+    }
+    return false;
+}
+
 bool Function::stopAndWait()
 {
     bool result = true;
 
     m_stopMutex.lock();
-    stop();
+    stop(FunctionParent::god());
 
     QTime watchdog;
     watchdog.start();
@@ -1085,6 +1111,12 @@ QList<Attribute> Function::attributes()
     return m_attributes;
 }
 
+bool Function::contains(quint32 functionId)
+{
+    Q_UNUSED(functionId);
+    return false;
+}
+
 void Function::setBlendMode(Universe::BlendMode mode)
 {
     m_blendMode = mode;
@@ -1094,4 +1126,3 @@ Universe::BlendMode Function::blendMode() const
 {
     return m_blendMode;
 }
-

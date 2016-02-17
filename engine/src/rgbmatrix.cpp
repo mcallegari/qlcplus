@@ -488,7 +488,7 @@ void RGBMatrix::preRun(MasterTimer* timer)
         if (m_group == NULL)
         {
             // No fixture group to control
-            stop();
+            stop(FunctionParent::god());
             return;
         }
 
@@ -547,7 +547,7 @@ void RGBMatrix::write(MasterTimer* timer, QList<Universe *> universes)
         if (m_group == NULL)
         {
             // No fixture group to control
-            stop();
+            stop(FunctionParent::god());
             return;
         }
 
@@ -667,7 +667,7 @@ void RGBMatrix::roundCheck(const QSize& size)
         if (m_direction == Forward)
         {
             if (m_step >= m_algorithm->rgbMapStepCount(size) - 1)
-                stop();
+                stop(FunctionParent::god());
             else
             {
                 m_step++;
@@ -677,7 +677,7 @@ void RGBMatrix::roundCheck(const QSize& size)
         else
         {
             if (m_step <= 0)
-                stop();
+                stop(FunctionParent::god());
             else
             {
                 m_step--;

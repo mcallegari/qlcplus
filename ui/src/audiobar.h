@@ -46,7 +46,7 @@ class AudioBar
 {
 public:
     /** Normal constructor */
-    AudioBar(int t = 0, uchar v = 0);
+    AudioBar(int t = 0, uchar v = 0, quint32 parentId = quint32(-1));
 
     /** Destructor */
     ~AudioBar() { }
@@ -87,6 +87,7 @@ public:
 public:
     QString m_name;
     int m_type;
+    quint32 m_parentId;
     uchar m_value;
     bool m_tapped;
 
@@ -107,6 +108,9 @@ public:
     int m_divisor;
 
     int m_skippedBeats;
+
+private:
+    FunctionParent functionParent() const;
 
 private:
 

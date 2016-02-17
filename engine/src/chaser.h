@@ -323,6 +323,9 @@ private:
     qreal m_startIntensity;
     bool m_hasStartIntensity;
 
+public:
+    virtual bool contains(quint32 functionId);
+
     /*********************************************************************
      * Running
      *********************************************************************/

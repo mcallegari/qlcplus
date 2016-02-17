@@ -200,6 +200,9 @@ private:
 
     int getNextStepIndex();
 
+private:
+    FunctionParent functionParent() const;
+
 public:
     /**
      * Call this from the parent function's write() method to run the steps.

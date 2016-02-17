@@ -28,8 +28,9 @@
 #include "vccuelist.h"
 #include "virtualconsole.h"
 
-AudioBar::AudioBar(int t, uchar v)
+AudioBar::AudioBar(int t, uchar v, quint32 parentId)
 {
+    m_parentId = parentId;
     m_type = t;
     m_value = v;
     m_tapped = false;
@@ -47,6 +48,7 @@ AudioBar::AudioBar(int t, uchar v)
 AudioBar *AudioBar::createCopy()
 {
     AudioBar *copy = new AudioBar();
+    copy->m_parentId = m_parentId;
     copy->m_type = m_type;
     copy->m_value = m_value;
     copy->m_name = m_name;
@@ -152,10 +154,14 @@ void AudioBar::checkFunctionThresholds(Doc *doc)
 {
     if (m_function == NULL)
         return;
-    if (m_value >= m_maxThreshold && m_function->isRunning() == false)
-        m_function->start(doc->masterTimer());
-    else if (m_value < m_minThreshold && m_function->isRunning() == true)
-        m_function->stop();
+    if (m_value >= m_maxThreshold)
+    {
+        m_function->start(doc->masterTimer(), functionParent());
+    }
+    else if (m_value < m_minThreshold)
+    {
+        m_function->stop(functionParent());
+    }
 }
 
 void AudioBar::checkWidgetFunctionality()
@@ -307,4 +313,12 @@ bool AudioBar::saveXML(QXmlStreamWriter *doc, QString tagName, int index)
     doc->writeEndElement();
 
     return true;
+}
+
+FunctionParent AudioBar::functionParent() const
+{
+    if (m_parentId != quint32(-1))
+        return FunctionParent(FunctionParent::AutoVCWidget, m_parentId);
+    else
+        return FunctionParent::god();
 }

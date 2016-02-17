@@ -200,6 +200,9 @@ protected slots:
     void slotDocClearing();
     void slotDocLoaded();
     void slotFunctionRemoved(quint32 id);
+
+private:
+    FunctionParent functionParent() const;
 };
 
 /** @} */

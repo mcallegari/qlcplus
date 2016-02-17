@@ -1046,7 +1046,7 @@ void EFX::write(MasterTimer* timer, QList<Universe*> universes)
 
     /* Check for stop condition */
     if (ready == m_fixtures.count())
-        stop();
+        stop(FunctionParent::god());
     m_fader->write(universes);
 }
 

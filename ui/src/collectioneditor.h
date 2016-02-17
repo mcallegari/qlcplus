@@ -23,6 +23,7 @@
 #include <QWidget>
 
 #include "ui_collectioneditor.h"
+#include "function.h"
 
 class FunctionSelection;
 class MasterTimer;
@@ -51,6 +52,9 @@ private slots:
     void slotAdd();
     void slotRemove();
     void slotTestClicked();
+
+private:
+    FunctionParent functionParent() const;
 
 private:
     void updateFunctionList();

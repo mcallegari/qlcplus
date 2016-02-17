@@ -346,6 +346,9 @@ signals:
     /** Signal to webaccess */
     void stepChanged(int idx);
 
+private:
+    FunctionParent functionParent() const;
+
     /*************************************************************************
      * Load & Save
      *************************************************************************/

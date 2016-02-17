@@ -387,6 +387,9 @@ protected:
     bool m_playbackValueChanged;
     QMutex m_playbackValueMutex;
 
+private:
+    FunctionParent functionParent() const;
+
     /*********************************************************************
      * Submaster
      *********************************************************************/

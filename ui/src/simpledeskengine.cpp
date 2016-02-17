@@ -316,16 +316,16 @@ void SimpleDeskEngine::writeDMX(MasterTimer* timer, QList<Universe *> ua)
         if (cueStack == NULL)
             continue;
 
-        if (cueStack->isRunning() == true)
+        if (cueStack->isRunning())
         {
-            if (cueStack->isStarted() == false)
+            if (!cueStack->isStarted())
                 cueStack->preRun();
 
             cueStack->write(ua);
         }
         else
         {
-            if (cueStack->isStarted() == true)
+            if (cueStack->isStarted())
                 cueStack->postRun(timer);
         }
     }

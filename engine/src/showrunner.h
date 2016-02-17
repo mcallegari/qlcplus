@@ -24,6 +24,8 @@
 #include <QMutex>
 #include <QMap>
 
+#include <function.h>
+
 class ShowFunction;
 class Function;
 class Track;
@@ -74,6 +76,8 @@ private:
     /** Current step being played */
     int m_currentFunctionIndex;
 
+private:
+    FunctionParent functionParent() const;
 private slots:
     void slotFunctionStopped(quint32);
 

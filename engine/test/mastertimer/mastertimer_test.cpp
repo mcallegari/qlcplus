@@ -111,14 +111,12 @@ void MasterTimer_Test::startStopFunction()
     mt->startFunction(&fs);
     mt->timerTick();
     QVERIFY(mt->runningFunctions() == 1);
-    QVERIFY(fs.startedAsChild() == false);
 
     mt->startFunction(&fs);
     QVERIFY(mt->runningFunctions() == 1);
-    QVERIFY(fs.startedAsChild() == false);
 
     QTest::qWait(100);
-    fs.stop();
+    fs.stop(FunctionParent::god());
     QTest::qWait(100);
 
     QVERIFY(mt->runningFunctions() == 0);
@@ -183,7 +181,7 @@ void MasterTimer_Test::interval()
     mt->start();
     QTest::qWait(100);
 
-    fs.start(mt);
+    fs.start(mt, FunctionParent::god());
     mt->timerTick();
     QVERIFY(mt->runningFunctions() == 1);
 
@@ -200,7 +198,7 @@ void MasterTimer_Test::interval()
     QVERIFY(dss.m_writeCalls >= 49 && dss.m_writeCalls <= 51);
 #endif
 
-    fs.stop();
+    fs.stop(FunctionParent::god());
     QTest::qWait(1000);
     QVERIFY(mt->runningFunctions() == 0);
 
@@ -215,7 +213,7 @@ void MasterTimer_Test::functionInitiatedStop()
 
     mt->start();
 
-    fs.start(mt);
+    fs.start(mt, FunctionParent::god());
     mt->timerTick();
     QVERIFY(mt->runningFunctions() == 1);
 
@@ -223,7 +221,7 @@ void MasterTimer_Test::functionInitiatedStop()
     QTest::qWait(100);
 
     /* Stop the function after it has been running for a while */
-    fs.stop();
+    fs.stop(FunctionParent::god());
 
     /* Wait a while so that the function stops */
     QTest::qWait(100);
@@ -242,17 +240,17 @@ void MasterTimer_Test::runMultipleFunctions()
     mt->start();
 
     Function_Stub fs1(m_doc);
-    fs1.start(mt);
+    fs1.start(mt, FunctionParent::god());
     mt->timerTick();
     QVERIFY(mt->runningFunctions() == 1);
 
     Function_Stub fs2(m_doc);
-    fs2.start(mt);
+    fs2.start(mt, FunctionParent::god());
     mt->timerTick();
     QVERIFY(mt->runningFunctions() == 2);
 
     Function_Stub fs3(m_doc);
-    fs3.start(mt);
+    fs3.start(mt, FunctionParent::god());
     mt->timerTick();
     QVERIFY(mt->runningFunctions() == 3);
 
@@ -260,9 +258,9 @@ void MasterTimer_Test::runMultipleFunctions()
     QTest::qWait(100);
 
     /* Stop the functions after they have been running for a while */
-    fs1.stop();
-    fs2.stop();
-    fs3.stop();
+    fs1.stop(FunctionParent::god());
+    fs2.stop(FunctionParent::god());
+    fs3.stop(FunctionParent::god());
 
     /* Wait a while so that the functions stop */
     QTest::qWait(100);
@@ -276,19 +274,19 @@ void MasterTimer_Test::stopAllFunctions()
     mt->start();
 
     Function_Stub fs1(m_doc);
-    fs1.start(mt);
+    fs1.start(mt, FunctionParent::god());
 
     DMXSource_Stub s1;
     mt->registerDMXSource(&s1, "s1");
 
     Function_Stub fs2(m_doc);
-    fs2.start(mt);
+    fs2.start(mt, FunctionParent::god());
 
     DMXSource_Stub s2;
     mt->registerDMXSource(&s2, "s2");
 
     Function_Stub fs3(m_doc);
-    fs3.start(mt);
+    fs3.start(mt, FunctionParent::god());
 
     QTest::qWait(60);
 
@@ -309,13 +307,13 @@ void MasterTimer_Test::stop()
     mt->start();
 
     Function_Stub fs1(m_doc);
-    fs1.start(mt);
+    fs1.start(mt, FunctionParent::god());
 
     Function_Stub fs2(m_doc);
-    fs2.start(mt);
+    fs2.start(mt, FunctionParent::god());
 
     Function_Stub fs3(m_doc);
-    fs3.start(mt);
+    fs3.start(mt, FunctionParent::god());
 
     QTest::qWait(60);
     QVERIFY(mt->runningFunctions() == 3);
@@ -332,13 +330,13 @@ void MasterTimer_Test::restart()
     mt->start();
 
     Function_Stub fs1(m_doc);
-    fs1.start(mt);
+    fs1.start(mt, FunctionParent::god());
 
     Function_Stub fs2(m_doc);
-    fs2.start(mt);
+    fs2.start(mt, FunctionParent::god());
 
     Function_Stub fs3(m_doc);
-    fs3.start(mt);
+    fs3.start(mt, FunctionParent::god());
 
     QTest::qWait(60);
     QVERIFY(mt->runningFunctions() == 3);
@@ -360,9 +358,9 @@ void MasterTimer_Test::restart()
     // QVERIFY(mt->m_running == true);
     QVERIFY(mt->m_stopAllFunctions == false);
 
-    fs1.start(mt);
-    fs2.start(mt);
-    fs3.start(mt);
+    fs1.start(mt, FunctionParent::god());
+    fs2.start(mt, FunctionParent::god());
+    fs3.start(mt, FunctionParent::god());
     QTest::qWait(60);
     QVERIFY(mt->runningFunctions() == 3);
 
