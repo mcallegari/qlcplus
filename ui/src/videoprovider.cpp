@@ -246,5 +246,5 @@ int VideoWidget::getScreenCount()
 
 FunctionParent VideoWidget::functionParent() const
 {
-    return FunctionParent::god();
+    return FunctionParent::master();
 }

@@ -1186,5 +1186,5 @@ void RGBMatrixEditor::slotPropertySpinChanged(int value)
 
 FunctionParent RGBMatrixEditor::functionParent() const
 {
-    return FunctionParent::god();
+    return FunctionParent::master();
 }

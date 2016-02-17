@@ -895,7 +895,7 @@ void Chaser_Test::write()
 
     QVERIFY(c->isRunning() == false);
     QVERIFY(c->stopped() == true);
-    c->start(&timer, FunctionParent::god());
+    c->start(&timer, FunctionParent::master());
 
     timer.timerTick();
     for (uint i = MasterTimer::tick(); i < c->duration(); i += MasterTimer::tick())
@@ -985,7 +985,7 @@ void Chaser_Test::quickChaser()
 
     QVERIFY(c->isRunning() == false);
     QVERIFY(c->stopped() == true);
-    c->start(&timer, FunctionParent::god());
+    c->start(&timer, FunctionParent::master());
 
     timer.timerTick();
     for (uint i = 0; i < 12; ++i)
@@ -998,7 +998,7 @@ void Chaser_Test::quickChaser()
         QVERIFY(s1->stopped() == true || s2->stopped() == true);
     }
 
-    c->stop(FunctionParent::god());
+    c->stop(FunctionParent::master());
 
     timer.timerTick();
 

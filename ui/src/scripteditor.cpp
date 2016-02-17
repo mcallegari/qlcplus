@@ -459,5 +459,5 @@ void ScriptEditor::slotTestRun()
 
 FunctionParent ScriptEditor::functionParent() const
 {
-    return FunctionParent::god();
+    return FunctionParent::master();
 }

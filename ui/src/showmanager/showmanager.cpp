@@ -1813,5 +1813,5 @@ void ShowManager::hideEvent(QHideEvent* ev)
 
 FunctionParent ShowManager::functionParent() const
 {
-    return FunctionParent::god();
+    return FunctionParent::master();
 }

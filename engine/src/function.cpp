@@ -974,7 +974,7 @@ void Function::stop(FunctionParent source)
     QMutexLocker sourcesLocker(&m_sourcesMutex);
 
     if ((source.id() == id() && source.type() == FunctionParent::Function)
-            || (source.type() == FunctionParent::God)
+            || (source.type() == FunctionParent::Master)
             || (source.type() == FunctionParent::ManualVCWidget)
        )
         m_sources.clear();
@@ -1006,7 +1006,7 @@ bool Function::stopAndWait()
     bool result = true;
 
     m_stopMutex.lock();
-    stop(FunctionParent::god());
+    stop(FunctionParent::master());
 
     QTime watchdog;
     watchdog.start();

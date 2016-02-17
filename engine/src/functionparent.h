@@ -38,12 +38,12 @@ public:
     // otherwise
     //
     // 2. It allows to define a special behavior for some
-    // types. Example: a God FunctionParent can stop any
+    // types. Example: a Master FunctionParent can stop any
     // function, regardless of what started it.
     //
     // AutoVCWidget and ManualVCWidget are separated.
     // In order to keep some parts of the current behavior,
-    // ManualVCWidget acts like the "God" type and can stop a
+    // ManualVCWidget acts like the "Master" type and can stop a
     // running function when the user uses a manual VCWidget.
     enum Type
     {
@@ -54,7 +54,7 @@ public:
         // A manual VC widget (Button, Slider...)
         ManualVCWidget,
         // Override anything (MasterTimer, test facilities...)
-        God = 0xffffffff,
+        Master = 0xffffffff,
     };
 
 private:
@@ -65,26 +65,26 @@ public:
     {
         m_id = quint64((quint64(type) & 0xffffffff) << 32)
             | quint64(id & 0xffffffff);
-    };
+    }
 
     bool operator ==(FunctionParent const& right) const
     {
         return m_id == right.m_id;
-    };
+    }
 
     quint32 type() const
     {
         return (m_id >> 32) & 0xffffffff;
-    };
+    }
 
     quint32 id() const
     {
         return m_id & 0xffffffff;
-    };
+    }
 
-    static FunctionParent god()
+    static FunctionParent master()
     {
-        return FunctionParent(God, 0);
+        return FunctionParent(Master, 0);
     }
 };
 

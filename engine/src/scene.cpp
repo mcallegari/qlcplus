@@ -589,7 +589,7 @@ void Scene::write(MasterTimer* timer, QList<Universe*> ua)
 
     if (m_values.size() == 0)
     {
-        stop(FunctionParent::god());
+        stop(FunctionParent::master());
         return;
     }
 
@@ -631,7 +631,7 @@ void Scene::write(MasterTimer* timer, QList<Universe*> ua)
 
     // Fader has nothing to do. Stop.
     if (m_fader->channels().size() == 0)
-        stop(FunctionParent::god());
+        stop(FunctionParent::master());
 
     incrementElapsed();
 }

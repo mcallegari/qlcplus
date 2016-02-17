@@ -245,5 +245,5 @@ void VideoEditor::slotMetaDataChanged(QString key, QVariant data)
 
 FunctionParent VideoEditor::functionParent() const
 {
-    return FunctionParent::god();
+    return FunctionParent::master();
 }

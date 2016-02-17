@@ -228,7 +228,7 @@ void AudioEditor::slotPreviewStopped(quint32 id)
 
 FunctionParent AudioEditor::functionParent() const
 {
-    return FunctionParent::god();
+    return FunctionParent::master();
 }
 
 /************************************************************************

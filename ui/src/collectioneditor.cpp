@@ -117,7 +117,7 @@ void CollectionEditor::slotTestClicked()
 
 FunctionParent CollectionEditor::functionParent() const
 {
-    return FunctionParent::god();
+    return FunctionParent::master();
 }
 
 void CollectionEditor::updateFunctionList()

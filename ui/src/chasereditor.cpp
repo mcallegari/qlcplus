@@ -1036,7 +1036,7 @@ void ChaserEditor::slotTestPlay()
 
 FunctionParent ChaserEditor::functionParent() const
 {
-    return FunctionParent::god();
+    return FunctionParent::master();
 }
 
 void ChaserEditor::slotTestStop()

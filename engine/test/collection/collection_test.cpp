@@ -420,7 +420,7 @@ void Collection_Test::write()
     /* Collection starts all of its members immediately when it is started
        itself. */
     QVERIFY(c->stopped() == true);
-    c->start(mts, FunctionParent::god());
+    c->start(mts, FunctionParent::master());
     QVERIFY(c->stopped() == false);
 
     c->write(mts, ua);
@@ -461,7 +461,7 @@ void Collection_Test::write()
     c->write(mts, ua);
     QVERIFY(s2->stopped() == true);
     QVERIFY(c->stopped() == true);
-    c->stop(FunctionParent::god());
+    c->stop(FunctionParent::master());
 
     delete mts;
     delete doc;
@@ -502,7 +502,7 @@ void Collection_Test::stopNotOwnChildren()
     QVERIFY(c->m_runningChildren.isEmpty() == true);
 
     QVERIFY(c->stopped() == true);
-    c->start(mts, FunctionParent::god());
+    c->start(mts, FunctionParent::master());
     QVERIFY(c->stopped() == false);
 
     c->write(mts, ua);
@@ -518,14 +518,14 @@ void Collection_Test::stopNotOwnChildren()
     // Manually stop and re-start s1
     c->write(mts, ua);
     mts->stopFunction(s1);
-    s1->start(mts, FunctionParent::god());
+    s1->start(mts, FunctionParent::master());
     QVERIFY(s1->stopped() == false);
 
     // Collection should no longer be controlling s1
     QVERIFY(c->m_runningChildren.contains(s1->id()) == false);
     QVERIFY(c->m_runningChildren.contains(s2->id()) == true);
 
-    c->stop(FunctionParent::god());
+    c->stop(FunctionParent::master());
     c->write(mts, ua);
     c->postRun(mts, ua);
 

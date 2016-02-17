@@ -381,7 +381,7 @@ void EFXEditor::continueRunning(bool running)
 
 FunctionParent EFXEditor::functionParent() const
 {
-    return FunctionParent::god();
+    return FunctionParent::master();
 }
 
 EfxUiState * EFXEditor::efxUiState()

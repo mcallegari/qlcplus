@@ -320,5 +320,5 @@ FunctionParent AudioBar::functionParent() const
     if (m_parentId != quint32(-1))
         return FunctionParent(FunctionParent::AutoVCWidget, m_parentId);
     else
-        return FunctionParent::god();
+        return FunctionParent::master();
 }
