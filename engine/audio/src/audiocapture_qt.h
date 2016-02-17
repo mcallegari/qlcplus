@@ -62,7 +62,7 @@ private:
     QIODevice *m_input;
     QAudioFormat m_format;
     qreal m_volume;
-    unsigned int m_currentBufferPosition;
+    QByteArray m_currentReadBuffer;
 };
 
 /** @} */
