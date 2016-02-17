@@ -25,11 +25,11 @@ qlcplus (4.10.3) stable; urgency=low
   * Virtual Console: fix cloning a nested multipage frame
   * New input profile: Behringer BCR2000 (thanks to Michael Trojacher)
   * New fixtures: Stellar Labs ECO LED PAR56, Chauvet Colorpalette II (thanks to Jimmy Traylor)
-  * New fixtures: Chauvet: COLORado 1 Solo, Ovation FD-165WW, Rogue RH1 Hybrid, COLORdash Par Hex 12 (thanks to Robert Box)
+  * New fixtures: Chauvet: COLORado 1 Solo, Ovation FD-165WW, Rogue RH1 Hybrid, COLORdash Par Hex 12, COLORdash Accent Quad (thanks to Robert Box)
   * New fixtures: Chauvet: Vue 1.1, Intimidator Spot 100 IRC, Abyss USB, COREpar 40 USB, COREpar UV USB (thanks to Robert Box)
   * New fixtures: Chauvet: Intimidator Scan 305 IRC, Intimidator Barrel 305 IRC, SlimPAR T6 USB, SlimBANK TRI-18 (thanks to Robert Box)
   * New fixtures: Eurolite LED CLS-9 QCL RGBW 9x8W 12, JB-Lighting A12 Tunable White, SGM G-Profile (thanks to Robert Box)
-  * New fixtures: Coemar Par Lite LED RGB (thanks to Robert Box)
+  * New fixtures: Coemar Par Lite LED RGB, OXO LED Funstrip DMX (thanks to Robert Box)
   * New fixture: Chauvet LED PAR 64 Tri-C (thanks to Jungle Jim and Robert Box)
   * New fixture: American DJ VBar (thanks to Thierry Rodolfo)
   * New fixture: Sagitter Slimpar 18 RGB (thanks to Daniele Fogale)
