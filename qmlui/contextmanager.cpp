@@ -463,7 +463,7 @@ void ContextManager::slotUniversesWritten(int idx, const QByteArray &ua)
         if (fixture->universe() != (quint32)idx)
             continue;
 
-        if (fixture->setChannelValues(ua)) == true)
+        if (fixture->setChannelValues(ua) == true)
         {
             if (m_DMXView->isEnabled())
                 m_DMXView->updateFixture(fixture);
