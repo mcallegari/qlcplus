@@ -1381,7 +1381,9 @@ bool App::loadXML(QXmlStreamReader& doc, bool goToConsole, bool fromMemory)
 
 QFile::FileError App::saveXML(const QString& fileName)
 {
-    QFile file(fileName);
+    QString tempFileName(fileName);
+    tempFileName += ".temp";
+    QFile file(tempFileName);
     if (file.open(QIODevice::WriteOnly) == false)
         return file.error();
 
@@ -1420,6 +1422,19 @@ QFile::FileError App::saveXML(const QString& fileName)
     /* End the document and close all the open elements */
     doc.writeEndDocument();
     file.close();
+
+    // Save to actual requested file name
+    QFile currFile(fileName);
+    if (currFile.exists() && !currFile.remove())
+    {
+        qWarning() << "Could not erase" << fileName;
+        return currFile.error();
+    }
+    if (!file.rename(fileName))
+    {
+        qWarning() << "Could not rename" << tempFileName << "to" << fileName;
+        return file.error();
+    }
 
     /* Set the file name for the current Doc instance and
        set it also in an unmodified state. */
