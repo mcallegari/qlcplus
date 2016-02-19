@@ -36,7 +36,6 @@
 #include "qlcconfig.h"
 #include "webaccess.h"
 #include "vccuelist.h"
-#include "mongoose.h"
 #include "vcbutton.h"
 #include "vcslider.h"
 #include "function.h"
@@ -49,57 +48,31 @@
 #include "audiocapture.h"
 #include "audiorenderer.h"
 
+#include "qhttpserver.h"
+#include "qhttprequest.h"
+#include "qhttpresponse.h"
+
+#include "mongoose.h"
+
 #define AUTOSTART_PROJECT_NAME "autostart.qxw"
-
-WebAccess* s_instance = NULL;
-
-static int event_handler(struct mg_connection *conn, enum mg_event ev)
-{
-    if (ev == MG_REQUEST)
-    {
-        if (conn->is_websocket)
-            return s_instance->websocketDataHandler(conn);
-
-        return s_instance->beginRequestHandler(conn);
-    }
-    else if (ev == MG_WS_HANDSHAKE)
-    {
-        if (conn->is_websocket)
-        {
-            s_instance->websocketDataHandler(conn);
-            return MG_FALSE;
-        }
-    }
-    else if (ev == MG_AUTH)
-    {
-        return MG_TRUE;
-    }
-    else if (ev == MG_CLOSE)
-    {
-        return s_instance->closeHandler(conn);
-    }
-
-    return MG_FALSE;
-}
 
 WebAccess::WebAccess(Doc *doc, VirtualConsole *vcInstance, SimpleDesk *sdInstance, QObject *parent) :
     QThread(parent)
   , m_doc(doc)
   , m_vc(vcInstance)
   , m_sd(sdInstance)
-  , m_server(NULL)
   , m_conn(NULL)
   , m_running(false)
   , m_pendingProjectLoaded(false)
 {
-    Q_ASSERT(s_instance == NULL);
     Q_ASSERT(m_doc != NULL);
     Q_ASSERT(m_vc != NULL);
 
-    s_instance = this;
+    m_httpServer = new QHttpServer(this);
+    connect(m_httpServer, SIGNAL(newRequest(QHttpRequest*, QHttpResponse*)),
+            this, SLOT(slotHandleRequest(QHttpRequest*, QHttpResponse*)));
+    m_httpServer->listen(QHostAddress::Any, 9999);
 
-    m_server = mg_create_server(NULL, event_handler);
-    mg_set_option(m_server, "listening_port", "9999");
     start();
 
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
@@ -114,7 +87,7 @@ WebAccess::~WebAccess()
 {
     m_running = false;
     wait();
-    mg_destroy_server(&m_server);
+
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     delete m_netConfig;
 #endif
@@ -123,177 +96,153 @@ WebAccess::~WebAccess()
 void WebAccess::run()
 {
     m_running = true;
+
     while (isRunning())
     {
-        mg_poll_server(m_server, 500);
+        //mg_poll_server(m_server, 500);
+        QThread::msleep(100);
     }
 
 }
 
-QString WebAccess::loadXMLPost(mg_connection *conn, QString &filename)
+void WebAccess::slotHandleRequest(QHttpRequest *req, QHttpResponse *resp)
 {
-    const char *data;
-    int data_len;
-    char vname[1024], fname[1024];
-    QString XMLdata = "";
+    QString reqUrl = req->url().toString();
+    QString content;
 
-    if (conn != NULL &&
-        mg_parse_multipart(conn->content, conn->content_len,
-                           vname, sizeof(vname),
-                           fname, sizeof(fname),
-                           &data, &data_len) > 0)
+    qDebug() << Q_FUNC_INFO << req->methodString() << req->url();
+
+    if (reqUrl == "/qlcplusWS" || reqUrl == "/favicon.ico")
+        return;
+
+    if (reqUrl == "/loadProject")
     {
-        XMLdata = QString(data);
-        XMLdata.truncate(data_len);
-        filename = QString(fname);
-        qDebug() << "Filename:" << filename;
-    }
+        QByteArray projectXML = req->body();
 
-    return XMLdata;
+        projectXML.remove(0, projectXML.indexOf("\n\r\n") + 3);
+        projectXML.truncate(projectXML.lastIndexOf("\n\r\n"));
+
+        //qDebug() << "Project XML:\n\n" << QString(projectXML) << "\n\n";
+        qDebug() << "Workspace XML received. Content-Length:" << req->headers().value("content-length") << projectXML.size();
+
+        QByteArray postReply =
+                QString("<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />\n"
+                "<script type=\"text/javascript\">\n" PROJECT_LOADED_JS
+                "</script></head><body style=\"background-color: #45484d;\">"
+                "<div style=\"position: absolute; width: 100%; height: 30px; top: 50%; background-color: #888888;"
+                "text-align: center; font:bold 24px/1.2em sans-serif;\">"
+                + tr("Loading project...") +
+                "</div></body></html>").toUtf8();
+
+        resp->setHeader("Content-Type", "text/html");
+        resp->setHeader("Content-Length", QString::number(postReply.size()));
+        resp->writeHead(200);
+        resp->end(postReply);
+
+        m_pendingProjectLoaded = false;
+
+        emit loadProject(QString::fromUtf8(projectXML));
+
+        return;
+    }
+    else if (reqUrl == "/loadFixture")
+    {
+        QByteArray fixtureXML = req->body();
+        int fnamePos = fixtureXML.indexOf("filename=") + 10;
+        QString fxName = fixtureXML.mid(fnamePos, fixtureXML.indexOf("\"", fnamePos) - fnamePos);
+
+        fixtureXML.remove(0, fixtureXML.indexOf("\n\r\n") + 3);
+        fixtureXML.truncate(fixtureXML.lastIndexOf("\n\r\n"));
+
+        qDebug() << "Fixture name:" << fxName;
+        qDebug() << "Fixture XML:\n\n" << fixtureXML << "\n\n";
+
+        m_doc->fixtureDefCache()->storeFixtureDef(fxName, QString::fromUtf8(fixtureXML));
+
+        QByteArray postReply =
+                      QString("<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />\n"
+                      "<script type=\"text/javascript\">\n"
+                      " alert(\"" + tr("Fixture stored and loaded") + "\");"
+                      " window.location = \"/config\"\n"
+                      "</script></head></html>").toUtf8();
+
+        resp->setHeader("Content-Type", "text/html");
+        resp->setHeader("Content-Length", QString::number(postReply.size()));
+        resp->writeHead(200);
+        resp->end(postReply);
+
+        return;
+    }
+    else if (reqUrl == "/config")
+    {
+        content = WebAccessConfiguration::getHTML(m_doc);
+    }
+    else if (reqUrl == "/simpleDesk")
+    {
+        content = WebAccessSimpleDesk::getHTML(m_doc, m_sd);
+    }
+  #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
+    else if (reqUrl == "/system")
+    {
+        content = m_netConfig->getHTML();
+    }
+  #endif
+    else if (reqUrl.endsWith(".png"))
+    {
+        if (sendFile(resp, QString(":%1").arg(reqUrl), "image/png") == true)
+            return;
+    }
+    else if (reqUrl.endsWith(".css"))
+    {
+        QString clUri = reqUrl.mid(1);
+        if (sendFile(resp, QString("%1%2%3").arg(QLCFile::systemDirectory(WEBFILESDIR).path())
+                     .arg(QDir::separator()).arg(clUri), "text/css") == true)
+            return;
+    }
+    else if (reqUrl.endsWith(".js"))
+    {
+        QString clUri = reqUrl.mid(1);
+        if (sendFile(resp, QString("%1%2%3").arg(QLCFile::systemDirectory(WEBFILESDIR).path())
+                     .arg(QDir::separator()).arg(clUri), "text/javascript") == true)
+            return;
+    }
+    else if (reqUrl != "/")
+        return;
+    else
+        content = getVCHTML();
+
+    // Prepare the message we're going to send
+    QByteArray contentArray = content.toUtf8();
+
+    // Send HTTP reply to the client
+    resp->setHeader("Content-Type", "text/html");
+    resp->setHeader("Content-Length", QString::number(contentArray.size()));
+    resp->writeHead(200);
+    resp->end(contentArray);
+
+    return;
 }
 
-bool WebAccess::sendFile(mg_connection *conn, QString filename, QString contentType)
+bool WebAccess::sendFile(QHttpResponse *response, QString filename, QString contentType)
 {
     QFile resFile(filename);
     if (resFile.open(QIODevice::ReadOnly))
     {
         QByteArray resContent = resFile.readAll();
-        qDebug() << "Resource file lenght:" << resContent.length();
+        qDebug() << "Resource file length:" << resContent.length();
         resFile.close();
-        QString head = "HTTP/1.1 200 OK\r\n";
-        head += "Content-Type: " + contentType + "\r\n";
-        head += "Content-Length: %d\r\n\r\n";
-        mg_printf(conn, head.toLatin1().data(),
-                  resContent.length());
-        mg_write(conn, resContent.data(), resContent.length());
-        mg_write(conn, "\r\n", 2);
+
+        response->setHeader("Content-Type", contentType);
+        response->setHeader("Content-Length", QString::number(resContent.size()));
+        response->writeHead(200);
+        response->end(resContent);
+
         return true;
     }
     else
         qDebug() << "Failed to open file:" << filename;
 
     return false;
-}
-
-// This function will be called by mongoose on every new request.
-mg_result WebAccess::beginRequestHandler(mg_connection *conn)
-{
-
-  QString content;
-
-  //const struct mg_request_info *ri = mg_get_request_info(conn);
-  qDebug() << Q_FUNC_INFO << conn->request_method << conn->uri;
-
-  if (QString(conn->uri) == "/qlcplusWS" || QString(conn->uri) == "/favicon.ico")
-      return MG_FALSE;
-
-
-  if (QString(conn->uri) == "/loadProject")
-  {
-      QString prjname;
-      QString projectXML = loadXMLPost(conn, prjname);
-      //qDebug() << "Project XML:\n\n" << projectXML << "\n\n";
-
-      QByteArray postReply =
-              QString("<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />\n"
-              "<script type=\"text/javascript\">\n" PROJECT_LOADED_JS
-              "</script></head><body style=\"background-color: #45484d;\">"
-              "<div style=\"position: absolute; width: 100%; height: 30px; top: 50%; background-color: #888888;"
-              "text-align: center; font:bold 24px/1.2em sans-serif;\">"
-              + tr("Loading project...") +
-              "</div></body></html>").toUtf8();
-      int post_size = postReply.length();
-      mg_printf(conn, "HTTP/1.1 200 OK\r\n"
-                "Content-Type: text/html\r\n"
-                "Content-Length: %d\r\n\r\n"
-                "%s",
-                post_size, postReply.data());
-
-      m_pendingProjectLoaded = false;
-
-      emit loadProject(projectXML);
-
-      return MG_TRUE;
-  }
-  else if (QString(conn->uri) == "/config")
-  {
-      content = WebAccessConfiguration::getHTML(m_doc);
-  }
-  else if (QString(conn->uri) == "/simpleDesk")
-  {
-      content = WebAccessSimpleDesk::getHTML(m_doc, m_sd);
-  }
-#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
-  else if (QString(conn->uri) == "/system")
-  {
-      content = m_netConfig->getHTML();
-  }
-#endif
-  else if (QString(conn->uri) == "/loadFixture")
-  {
-      QString fxName;
-      QString fixtureXML = loadXMLPost(conn, fxName);
-      qDebug() << "Fixture name:" << fxName;
-      qDebug() << "Fixture XML:\n\n" << fixtureXML << "\n\n";
-
-      m_doc->fixtureDefCache()->storeFixtureDef(fxName, fixtureXML);
-
-      QByteArray postReply =
-                    QString("<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />\n"
-                    "<script type=\"text/javascript\">\n"
-                    " alert(\"" + tr("Fixture stored and loaded") + "\");"
-                    " window.location = \"/config\"\n"
-                    "</script></head></html>").toUtf8();
-      int post_size = postReply.length();
-      mg_printf(conn, "HTTP/1.1 200 OK\r\n"
-                      "Content-Type: text/html\r\n"
-                      "Content-Length: %d\r\n\r\n"
-                      "%s",
-                      post_size, postReply.data());
-
-      return MG_TRUE;
-  }
-  else if (QString(conn->uri).endsWith(".png"))
-  {
-      if (sendFile(conn, QString(":%1").arg(QString(conn->uri)), "image/png") == true)
-          return MG_TRUE;
-  }
-  else if (QString(conn->uri).endsWith(".css"))
-  {
-      QString clUri = QString(conn->uri).mid(1);
-      if (sendFile(conn, QString("%1%2%3").arg(QLCFile::systemDirectory(WEBFILESDIR).path())
-                   .arg(QDir::separator()).arg(clUri), "text/css") == true)
-          return MG_TRUE;
-  }
-  else if (QString(conn->uri).endsWith(".js"))
-  {
-      QString clUri = QString(conn->uri).mid(1);
-      if (sendFile(conn, QString("%1%2%3").arg(QLCFile::systemDirectory(WEBFILESDIR).path())
-                   .arg(QDir::separator()).arg(clUri), "text/javascript") == true)
-          return MG_TRUE;
-  }
-  else if (QString(conn->uri) != "/")
-      return MG_TRUE;
-  else
-      content = getVCHTML();
-
-  // Prepare the message we're going to send
-  QByteArray contentArray = content.toUtf8();
-
-  //For UTF8 we need to know the amount of bytes, not number of characters.
-  int content_length = contentArray.size();
-
-  // Send HTTP reply to the client
-  mg_printf(conn,
-            "HTTP/1.1 200 OK\r\n"
-            "Content-Type: text/html\r\n"
-            "Content-Length: %d\r\n\r\n"
-            "%s",
-            content_length, contentArray.data());
-
-  // Returning non-zero tells mongoose that our function has replied to
-  // the client, and mongoose should not send client any more data.
-  return MG_TRUE;
 }
 
 mg_result WebAccess::websocketDataHandler(mg_connection *conn)
