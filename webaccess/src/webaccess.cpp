@@ -141,7 +141,7 @@ void WebAccess::slotHandleRequest(QHttpRequest *req, QHttpResponse *resp)
 
         m_pendingProjectLoaded = false;
 
-        emit loadProject(QString::fromUtf8(projectXML));
+        emit loadProject(QString(projectXML).toUtf8());
 
         return;
     }
@@ -157,7 +157,7 @@ void WebAccess::slotHandleRequest(QHttpRequest *req, QHttpResponse *resp)
         qDebug() << "Fixture name:" << fxName;
         qDebug() << "Fixture XML:\n\n" << fixtureXML << "\n\n";
 
-        m_doc->fixtureDefCache()->storeFixtureDef(fxName, QString::fromUtf8(fixtureXML));
+        m_doc->fixtureDefCache()->storeFixtureDef(fxName, QString(fixtureXML).toUtf8());
 
         QByteArray postReply =
                       QString("<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />\n"
