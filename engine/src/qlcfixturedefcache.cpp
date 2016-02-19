@@ -126,7 +126,7 @@ bool QLCFixtureDefCache::storeFixtureDef(QString filename, QString data)
     if (file.open(QIODevice::WriteOnly | QIODevice::Text) == false)
         return false;
 
-    file.write(data.toLatin1());
+    file.write(data.toUtf8());
     file.close();
 
     // reload user definitions

@@ -23,6 +23,7 @@ qlcplus (4.10.3) stable; urgency=low
   * Virtual Console/Solo Frame: Fix sliders in playback mode not actually stopping the attached function when the slider reaches 0 (David Garyga, thanks to Tubby)
   * Virtual Console/Animation: Can now be used in solo frames (David Garyga)
   * Virtual Console: fix cloning a nested multipage frame
+  * Web access: fixed custom fixtures loading
   * New input profile: Behringer BCR2000 (thanks to Michael Trojacher)
   * New fixtures: Stellar Labs ECO LED PAR56, Chauvet Colorpalette II (thanks to Jimmy Traylor)
   * New fixtures: Chauvet: COLORado 1 Solo, Ovation FD-165WW, Rogue RH1 Hybrid, COLORdash Par Hex 12, COLORdash Accent Quad (thanks to Robert Box)
