@@ -89,6 +89,8 @@ Q_SIGNALS:
         @param response Response object to the request. */
     void newRequest(QHttpRequest *request, QHttpResponse *response);
 
+    void webSocketDataReady(QHttpConnection *conn, QString data);
+
 private Q_SLOTS:
     void newConnection();
 

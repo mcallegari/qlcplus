@@ -51,6 +51,7 @@
 #include "qhttpserver.h"
 #include "qhttprequest.h"
 #include "qhttpresponse.h"
+#include "qhttpconnection.h"
 
 #include "mongoose.h"
 
@@ -71,6 +72,8 @@ WebAccess::WebAccess(Doc *doc, VirtualConsole *vcInstance, SimpleDesk *sdInstanc
     m_httpServer = new QHttpServer(this);
     connect(m_httpServer, SIGNAL(newRequest(QHttpRequest*, QHttpResponse*)),
             this, SLOT(slotHandleRequest(QHttpRequest*, QHttpResponse*)));
+    connect(m_httpServer, SIGNAL(webSocketDataReady(QHttpConnection*,QString)),
+            this, SLOT(slotHandleWebSocketRequest(QHttpConnection*,QString)));
     m_httpServer->listen(QHostAddress::Any, 9999);
 
     start();
@@ -112,10 +115,21 @@ void WebAccess::slotHandleRequest(QHttpRequest *req, QHttpResponse *resp)
 
     qDebug() << Q_FUNC_INFO << req->methodString() << req->url();
 
-    if (reqUrl == "/qlcplusWS" || reqUrl == "/favicon.ico")
-        return;
+    if (reqUrl == "/qlcplusWS")
+    {
+        resp->setHeader("Upgrade", "websocket");
+        resp->setHeader("Connection", "Upgrade");
+        QByteArray hash = resp->getWebSocketHandshake(req->header("sec-websocket-key"));
+        //QByteArray hash = resp->getWebSocketHandshake("zTvHabaaTOEORzqK+d1yxw==");
+        qDebug() << "Websocket handshake:" << hash;
+        resp->setHeader("Sec-WebSocket-Accept", hash);
+        resp->enableWebSocket(true);
+        resp->writeHead(101);
+        resp->end(QByteArray());
 
-    if (reqUrl == "/loadProject")
+        return;
+    }
+    else if (reqUrl == "/loadProject")
     {
         QByteArray projectXML = req->body();
 
@@ -207,7 +221,13 @@ void WebAccess::slotHandleRequest(QHttpRequest *req, QHttpResponse *resp)
             return;
     }
     else if (reqUrl != "/")
+    {
+        resp->writeHead(404);
+        resp->setHeader("Content-Type", "text/plain");
+        resp->setHeader("Content-Length", "14");
+        resp->end(QByteArray("404 Not found"));
         return;
+    }
     else
         content = getVCHTML();
 
@@ -223,60 +243,31 @@ void WebAccess::slotHandleRequest(QHttpRequest *req, QHttpResponse *resp)
     return;
 }
 
-bool WebAccess::sendFile(QHttpResponse *response, QString filename, QString contentType)
-{
-    QFile resFile(filename);
-    if (resFile.open(QIODevice::ReadOnly))
-    {
-        QByteArray resContent = resFile.readAll();
-        qDebug() << "Resource file length:" << resContent.length();
-        resFile.close();
-
-        response->setHeader("Content-Type", contentType);
-        response->setHeader("Content-Length", QString::number(resContent.size()));
-        response->writeHead(200);
-        response->end(resContent);
-
-        return true;
-    }
-    else
-        qDebug() << "Failed to open file:" << filename;
-
-    return false;
-}
-
-mg_result WebAccess::websocketDataHandler(mg_connection *conn)
+void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
 {
     if (conn == NULL)
-        return MG_TRUE;
+        return;
 
-    m_conn = conn; // store this to send VC loaded async event
+    qDebug() << "[websocketDataHandler]" << data;
 
-    if (conn->content_len == 0)
-        return MG_TRUE;
-
-    QString qData = QString(conn->content);
-    qData.truncate(conn->content_len);
-    qDebug() << "[websocketDataHandler]" << qData;
-
-    QStringList cmdList = qData.split("|");
+    QStringList cmdList = data.split("|");
     if (cmdList.isEmpty())
-        return MG_TRUE;
+        return;
 
     if(cmdList[0] == "QLC+CMD")
     {
         if (cmdList.count() < 2)
-            return MG_FALSE;
+            return;
 
         if(cmdList[1] == "opMode")
             emit toggleDocMode();
 
-        return MG_TRUE;
+        return;
     }
     else if (cmdList[0] == "QLC+IO")
     {
         if (cmdList.count() < 3)
-            return MG_FALSE;
+            return;
 
         int universe = cmdList[2].toInt();
 
@@ -335,7 +326,7 @@ mg_result WebAccess::websocketDataHandler(mg_connection *conn)
         else
             qDebug() << "[webaccess] Command" << cmdList[1] << "not supported !";
 
-        return MG_TRUE;
+        return;
     }
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     else if(cmdList[0] == "QLC+SYS")
@@ -345,18 +336,18 @@ mg_result WebAccess::websocketDataHandler(mg_connection *conn)
             if (m_netConfig->updateNetworkFile(cmdList) == true)
             {
                 QString wsMessage = QString("ALERT|" + tr("Network configuration changed. Reboot to apply the changes."));
-                mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toUtf8().data(), wsMessage.length());
-                return MG_TRUE;
+                conn->webSocketWrite(QHttpConnection::TextFrame, wsMessage.toUtf8());
+                return;
             }
             else
                 qDebug() << "[webaccess] Error writing network configuration file !";
 
-            return MG_TRUE;
+            return;
         }
         else if (cmdList.at(1) == "AUTOSTART")
         {
             if (cmdList.count() < 3)
-                return MG_FALSE;
+                return;
 
             QString asName = QString("%1/%2/%3").arg(getenv("HOME")).arg(USERQLCPLUSDIR).arg(AUTOSTART_PROJECT_NAME);
             if (cmdList.at(2) == "none")
@@ -364,8 +355,8 @@ mg_result WebAccess::websocketDataHandler(mg_connection *conn)
             else
                 emit storeAutostartProject(asName);
             QString wsMessage = QString("ALERT|" + tr("Autostart configuration changed"));
-            mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toUtf8().data(), wsMessage.length());
-            return MG_TRUE;
+            conn->webSocketWrite(QHttpConnection::TextFrame, wsMessage.toUtf8());
+            return;
         }
         else if (cmdList.at(1) == "REBOOT")
         {
@@ -382,7 +373,7 @@ mg_result WebAccess::websocketDataHandler(mg_connection *conn)
     else if (cmdList[0] == "QLC+API")
     {
         if (cmdList.count() < 2)
-            return MG_FALSE;
+            return;
 
         QString apiCmd = cmdList[1];
         // compose the basic API reply messages
@@ -412,7 +403,7 @@ mg_result WebAccess::websocketDataHandler(mg_connection *conn)
         else if (apiCmd == "getFunctionType")
         {
             if (cmdList.count() < 3)
-                return MG_FALSE;
+                return;
 
             quint32 fID = cmdList[2].toUInt();
             Function *f = m_doc->function(fID);
@@ -424,7 +415,7 @@ mg_result WebAccess::websocketDataHandler(mg_connection *conn)
         else if (apiCmd == "getFunctionStatus")
         {
             if (cmdList.count() < 3)
-                return MG_FALSE;
+                return;
 
             quint32 fID = cmdList[2].toUInt();
             Function *f = m_doc->function(fID);
@@ -455,7 +446,7 @@ mg_result WebAccess::websocketDataHandler(mg_connection *conn)
         else if (apiCmd == "getWidgetType")
         {
             if (cmdList.count() < 3)
-                return MG_FALSE;
+                return;
 
             quint32 wID = cmdList[2].toUInt();
             VCWidget *widget = m_vc->widget(wID);
@@ -467,7 +458,8 @@ mg_result WebAccess::websocketDataHandler(mg_connection *conn)
         else if (apiCmd == "getWidgetStatus")
         {
             if (cmdList.count() < 3)
-                return MG_FALSE;
+                return;
+
             quint32 wID = cmdList[2].toUInt();
             VCWidget *widget = m_vc->widget(wID);
             if (widget != NULL)
@@ -506,7 +498,7 @@ mg_result WebAccess::websocketDataHandler(mg_connection *conn)
         else if (apiCmd == "getChannelsValues")
         {
             if (cmdList.count() < 4)
-                return MG_FALSE;
+                return;
 
             quint32 universe = cmdList[2].toUInt() - 1;
             int startAddr = cmdList[3].toInt() - 1;
@@ -526,31 +518,32 @@ mg_result WebAccess::websocketDataHandler(mg_connection *conn)
         }
         //qDebug() << "Simple desk channels:" << wsAPIMessage;
 
-        mg_websocket_write(conn, WEBSOCKET_OPCODE_TEXT, wsAPIMessage.toUtf8().data(), wsAPIMessage.length());
-        return MG_TRUE;
+        conn->webSocketWrite(QHttpConnection::TextFrame, wsAPIMessage.toUtf8());
+        return;
     }
     else if(cmdList[0] == "CH")
     {
         if (cmdList.count() < 3)
-            return MG_FALSE;
+            return;
 
         uint absAddress = cmdList[1].toInt() - 1;
         int value = cmdList[2].toInt();
         m_sd->setAbsoluteChannelValue(absAddress, uchar(value));
 
-        return MG_TRUE;
+        return;
     }
     else if(cmdList[0] == "POLL")
-        return MG_TRUE;
+        return;
 
-    if (qData.contains("|") == false)
-        return MG_FALSE;
+    if (data.contains("|") == false)
+        return;
 
     quint32 widgetID = cmdList[0].toUInt();
     VCWidget *widget = m_vc->widget(widgetID);
     uchar value = 0;
     if (cmdList.count() > 1)
         value = (uchar)cmdList[1].toInt();
+
     if (widget != NULL)
     {
         switch(widget->type())
@@ -578,7 +571,7 @@ mg_result WebAccess::websocketDataHandler(mg_connection *conn)
             case VCWidget::CueListWidget:
             {
                 if (cmdList.count() < 2)
-                    return MG_FALSE;
+                    return;
 
                 VCCueList *cue = qobject_cast<VCCueList*>(widget);
                 if (cmdList[1] == "PLAY")
@@ -607,6 +600,41 @@ mg_result WebAccess::websocketDataHandler(mg_connection *conn)
             break;
         }
     }
+
+}
+
+bool WebAccess::sendFile(QHttpResponse *response, QString filename, QString contentType)
+{
+    QFile resFile(filename);
+    if (resFile.open(QIODevice::ReadOnly))
+    {
+        QByteArray resContent = resFile.readAll();
+        qDebug() << "Resource file length:" << resContent.length();
+        resFile.close();
+
+        response->setHeader("Content-Type", contentType);
+        response->setHeader("Content-Length", QString::number(resContent.size()));
+        response->writeHead(200);
+        response->end(resContent);
+
+        return true;
+    }
+    else
+        qDebug() << "Failed to open file:" << filename;
+
+    return false;
+}
+
+mg_result WebAccess::websocketDataHandler(mg_connection *conn)
+{
+    if (conn == NULL)
+        return MG_TRUE;
+
+    m_conn = conn; // store this to send VC loaded async event
+
+    if (conn->content_len == 0)
+        return MG_TRUE;
+
 
     return MG_TRUE;
 }

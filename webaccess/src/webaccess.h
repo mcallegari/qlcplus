@@ -42,6 +42,7 @@ class Doc;
 class QHttpServer;
 class QHttpRequest;
 class QHttpResponse;
+class QHttpConnection;
 
 class WebAccess : public QThread
 {
@@ -76,6 +77,7 @@ private:
 
 protected slots:
     void slotHandleRequest(QHttpRequest *req, QHttpResponse *resp);
+    void slotHandleWebSocketRequest(QHttpConnection *conn, QString data);
 
     void slotVCLoaded();
     void slotButtonToggled(bool on);

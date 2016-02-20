@@ -103,6 +103,8 @@ void QHttpServer::newConnection()
             new QHttpConnection(m_tcpServer->nextPendingConnection(), this);
         connect(connection, SIGNAL(newRequest(QHttpRequest *, QHttpResponse *)), this,
                 SIGNAL(newRequest(QHttpRequest *, QHttpResponse *)));
+        connect(connection, SIGNAL(webSocketDataReady(QHttpConnection*,QString)),
+                this, SIGNAL(webSocketDataReady(QHttpConnection*,QString)));
     }
 }
 

@@ -24,6 +24,8 @@
 
 #include <QTcpSocket>
 #include <QHostAddress>
+#include <QTimer>
+#include <QDebug>
 
 #include "http_parser.h"
 #include "qhttprequest.h"
@@ -39,7 +41,9 @@ QHttpConnection::QHttpConnection(QTcpSocket *socket, QObject *parent)
       m_request(0),
       m_transmitLen(0),
       m_transmitPos(0),
-      m_postPending(false)
+      m_postPending(false),
+      m_isWebSocket(false),
+      m_pollTimer(NULL)
 {
     m_parser = (http_parser *)malloc(sizeof(http_parser));
     http_parser_init(m_parser, HTTP_REQUEST);
@@ -70,6 +74,8 @@ QHttpConnection::~QHttpConnection()
 
     delete m_parserSettings;
     m_parserSettings = 0;
+
+    qDebug() << "HTTP connection destroyed !";
 }
 
 void QHttpConnection::socketDisconnected()
@@ -89,15 +95,18 @@ void QHttpConnection::invalidateRequest()
 
 void QHttpConnection::updateWriteCount(qint64 count)
 {
-    Q_ASSERT(m_transmitPos + count <= m_transmitLen);
-
-    m_transmitPos += count;
-
-    if (m_transmitPos == m_transmitLen)
+    if (m_isWebSocket == false)
     {
-        m_transmitLen = 0;
-        m_transmitPos = 0;
-        Q_EMIT allBytesWritten();
+        Q_ASSERT(m_transmitPos + count <= m_transmitLen);
+
+        m_transmitPos += count;
+
+        if (m_transmitPos == m_transmitLen)
+        {
+            m_transmitLen = 0;
+            m_transmitPos = 0;
+            Q_EMIT allBytesWritten();
+        }
     }
 }
 
@@ -107,7 +116,10 @@ void QHttpConnection::parseRequest()
 
     while (m_socket->bytesAvailable()) {
         QByteArray arr = m_socket->readAll();
-        http_parser_execute(m_parser, m_parserSettings, arr.constData(), arr.size());
+        if (m_isWebSocket)
+            webSocketRead(arr);
+        else
+            http_parser_execute(m_parser, m_parserSettings, arr.constData(), arr.size());
     }
 }
 
@@ -130,7 +142,7 @@ void QHttpConnection::waitForBytesWritten()
 void QHttpConnection::responseDone()
 {
     QHttpResponse *response = qobject_cast<QHttpResponse *>(QObject::sender());
-    if (response->m_last)
+    if (response->m_last && m_isWebSocket == false)
         m_socket->disconnectFromHost();
 }
 
@@ -314,5 +326,102 @@ int QHttpConnection::Body(http_parser *parser, const char *at, size_t length)
     Q_EMIT theConnection->m_request->data(QByteArray(at, length));
     return 0;
 }
+
+/*************************************************************************
+ * WebSocket methods
+ *************************************************************************/
+
+void QHttpConnection::enableWebSocket(bool enable)
+{
+    m_isWebSocket = enable;
+    m_pollTimer = new QTimer(this);
+    m_pollTimer->setInterval(5000);
+
+    connect(m_pollTimer, SIGNAL(timeout()),
+            this, SLOT(slotWebSocketPollTimeout()));
+
+    m_pollTimer->start();
+}
+
+void QHttpConnection::slotWebSocketPollTimeout()
+{
+    webSocketWrite(Ping, QByteArray());
+}
+
+void QHttpConnection::webSocketWrite(WebSocketOpCode opCode, QByteArray data)
+{
+    data.prepend(0x80 + quint8(opCode));
+    qDebug() << "[webSocketWrite] data size:" << data.size();
+    if (data.size() < 126)
+        data.prepend(quint8(data.size()));
+    else
+    {
+        data.prepend(0x7E);
+        data.prepend(quint8(data.size() >> 8));
+        data.prepend(quint8(data.size() & 0x00FF));
+    }
+
+    m_socket->write(data);
+}
+
+void QHttpConnection::webSocketRead(QByteArray data)
+{
+    if (data.size() < 2)
+        return;
+
+    int dataPos = 0;
+
+    if (((data.at(dataPos) >> 4) & 0x07) != 0)
+    {
+        qWarning() << "Wrong WebSocket RSV bits. Discard.";
+        return;
+    }
+
+    int opCode = data.at(dataPos) & 0x0F;
+    dataPos++;
+
+    bool masked = (data.at(dataPos) >> 7) ? true : false;
+    int dataLen = data.at(dataPos) & 0x7F;
+    dataPos++;
+
+    if (dataLen == 126)
+    {
+        dataLen = (data.at(dataPos) << 8) + data.at(dataPos + 1);
+        dataPos+=2;
+    }
+    else if (dataLen == 127)
+    {
+        // TODO: 64bit length...really ?
+        dataPos+=8;
+    }
+
+    quint8 mask[4];
+    if (masked == true)
+    {
+        mask[0] = quint8(data.at(dataPos));
+        mask[1] = quint8(data.at(dataPos + 1));
+        mask[2] = quint8(data.at(dataPos + 2));
+        mask[3] = quint8(data.at(dataPos + 3));
+        dataPos+=4;
+    }
+
+    qDebug() << "WebSocket opCode: 0x" << QString::number(opCode, 16);
+
+    if (opCode == TextFrame)
+    {
+        data.remove(0, dataPos);
+        // if the payload is masked, then unmask
+        if (masked == true)
+        {
+            int i = 0;
+            char *cData = data.data();
+            while (dataLen-- > 0)
+                *cData++ ^= mask[i++ % 4];
+        }
+
+        Q_EMIT webSocketDataReady(this, QString(data));
+    }
+}
+
 
 /// @endcond

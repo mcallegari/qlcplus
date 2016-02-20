@@ -30,6 +30,8 @@
 
 /// @cond nodoc
 
+class QTimer;
+
 class QHttpConnection : public QObject
 {
     Q_OBJECT
@@ -81,6 +83,36 @@ private:
     qint64 m_transmitPos;
 
     bool m_postPending;
+
+    /*************************************************************************
+     * WebSocket methods
+     *************************************************************************/
+public:
+    /// WebSockets RFC 6455 OpCodes
+    enum WebSocketOpCode {
+        ContinuationFrame = 0x00,
+        TextFrame = 0x01,
+        BinaryFrame = 0x02,
+        ConnectionClose = 0x08,
+        Ping = 0x09,
+        Pong = 0x0A
+    };
+
+    void enableWebSocket(bool enable);
+    void webSocketWrite(WebSocketOpCode opCode, QByteArray data);
+
+Q_SIGNALS:
+    void webSocketDataReady(QHttpConnection *conn, QString data);
+
+private Q_SLOTS:
+    void slotWebSocketPollTimeout();
+
+private:
+    void webSocketRead(QByteArray data);
+
+private:
+    bool m_isWebSocket;
+    QTimer *m_pollTimer;
 };
 
 /// @endcond

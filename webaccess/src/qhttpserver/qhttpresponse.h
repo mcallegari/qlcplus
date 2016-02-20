@@ -121,6 +121,20 @@ public Q_SLOTS:
     /** @note writeHead() must be called before this function. */
     void waitForBytesWritten();
 
+    /// Calculate a websocket response handshake
+    /**
+     * As explained in RFC 6455, when a client requests a HTTP connection
+     * upgrade, the server is supposed to take the client key specified in
+     * Sec-WebSocket-Key, append the GUID 258EAFA5-E914-47DA-95CA-C5AB0DC85B11
+     * to it, perform a SHA1 encryption and return the base64 result of the whole thing.
+     *
+     * @param clientKey the client WebSocket key
+     * @return a bas64 encoded response handshake
+     */
+    QByteArray getWebSocketHandshake(QString clientKey);
+
+    void enableWebSocket(bool enable);
+
     /// End/finish the response.
     /** Data will be flushed to the underlying socket
         and the connection itself will be closed if
@@ -164,6 +178,7 @@ private:
     bool m_last;
     bool m_useChunkedEncoding;
     bool m_finished;
+    bool m_isWebSocket;
 
 private Q_SLOTS:
     void connectionClosed();
