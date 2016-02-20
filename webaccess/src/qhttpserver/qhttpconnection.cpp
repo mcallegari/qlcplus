@@ -331,7 +331,7 @@ int QHttpConnection::Body(http_parser *parser, const char *at, size_t length)
  * WebSocket methods
  *************************************************************************/
 
-void QHttpConnection::enableWebSocket(bool enable)
+QHttpConnection *QHttpConnection::enableWebSocket(bool enable)
 {
     m_isWebSocket = enable;
     m_pollTimer = new QTimer(this);
@@ -341,6 +341,7 @@ void QHttpConnection::enableWebSocket(bool enable)
             this, SLOT(slotWebSocketPollTimeout()));
 
     m_pollTimer->start();
+    return this;
 }
 
 void QHttpConnection::slotWebSocketPollTimeout()
@@ -350,16 +351,17 @@ void QHttpConnection::slotWebSocketPollTimeout()
 
 void QHttpConnection::webSocketWrite(WebSocketOpCode opCode, QByteArray data)
 {
-    data.prepend(0x80 + quint8(opCode));
     qDebug() << "[webSocketWrite] data size:" << data.size();
     if (data.size() < 126)
         data.prepend(quint8(data.size()));
     else
     {
-        data.prepend(0x7E);
-        data.prepend(quint8(data.size() >> 8));
         data.prepend(quint8(data.size() & 0x00FF));
+        data.prepend(quint8(data.size() >> 8));
+        data.prepend(0x7E);
     }
+
+    data.prepend(0x80 + quint8(opCode));
 
     m_socket->write(data);
 }
@@ -405,7 +407,7 @@ void QHttpConnection::webSocketRead(QByteArray data)
         dataPos+=4;
     }
 
-    qDebug() << "WebSocket opCode: 0x" << QString::number(opCode, 16);
+    qDebug() << "WebSocket opCode:" << QString("0x%1").arg(opCode, 2, 16, QChar('0'));
 
     if (opCode == TextFrame)
     {
@@ -420,6 +422,11 @@ void QHttpConnection::webSocketRead(QByteArray data)
         }
 
         Q_EMIT webSocketDataReady(this, QString(data));
+    }
+    else if (opCode == ConnectionClose)
+    {
+        qDebug() << "Connection closed by the client";
+        Q_EMIT webSocketConnectionClose(this);
     }
 }
 

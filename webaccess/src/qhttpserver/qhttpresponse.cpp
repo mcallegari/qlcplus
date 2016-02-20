@@ -182,9 +182,9 @@ QByteArray QHttpResponse::getWebSocketHandshake(QString clientKey)
     return crypto.result().toBase64();
 }
 
-void QHttpResponse::enableWebSocket(bool enable)
+QHttpConnection *QHttpResponse::enableWebSocket(bool enable)
 {
-    m_connection->enableWebSocket(enable);
+    return m_connection->enableWebSocket(enable);
 }
 
 void QHttpResponse::end(const QByteArray &data)
@@ -201,6 +201,7 @@ void QHttpResponse::end(const QByteArray &data)
     Q_EMIT done();
 
     /// @todo End connection and delete ourselves. Is this a still valid note?
+    qDebug() << "HttpResponse end";
     deleteLater();
 }
 
@@ -208,5 +209,6 @@ void QHttpResponse::connectionClosed()
 {
     m_finished = true;
     Q_EMIT done();
+    qDebug() << "HttpResponse connectionClosed";
     deleteLater();
 }

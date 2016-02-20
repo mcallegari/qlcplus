@@ -53,17 +53,13 @@
 #include "qhttpresponse.h"
 #include "qhttpconnection.h"
 
-#include "mongoose.h"
-
 #define AUTOSTART_PROJECT_NAME "autostart.qxw"
 
 WebAccess::WebAccess(Doc *doc, VirtualConsole *vcInstance, SimpleDesk *sdInstance, QObject *parent) :
-    QThread(parent)
+    QObject(parent)
   , m_doc(doc)
   , m_vc(vcInstance)
   , m_sd(sdInstance)
-  , m_conn(NULL)
-  , m_running(false)
   , m_pendingProjectLoaded(false)
 {
     Q_ASSERT(m_doc != NULL);
@@ -74,9 +70,10 @@ WebAccess::WebAccess(Doc *doc, VirtualConsole *vcInstance, SimpleDesk *sdInstanc
             this, SLOT(slotHandleRequest(QHttpRequest*, QHttpResponse*)));
     connect(m_httpServer, SIGNAL(webSocketDataReady(QHttpConnection*,QString)),
             this, SLOT(slotHandleWebSocketRequest(QHttpConnection*,QString)));
-    m_httpServer->listen(QHostAddress::Any, 9999);
+    connect(m_httpServer, SIGNAL(webSocketConnectionClose(QHttpConnection*)),
+            this, SLOT(slotHandleWebSocketClose(QHttpConnection*)));
 
-    start();
+    m_httpServer->listen(QHostAddress::Any, 9999);
 
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     m_netConfig = new WebAccessNetwork();
@@ -88,24 +85,11 @@ WebAccess::WebAccess(Doc *doc, VirtualConsole *vcInstance, SimpleDesk *sdInstanc
 
 WebAccess::~WebAccess()
 {
-    m_running = false;
-    wait();
-
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     delete m_netConfig;
 #endif
-}
-
-void WebAccess::run()
-{
-    m_running = true;
-
-    while (isRunning())
-    {
-        //mg_poll_server(m_server, 500);
-        QThread::msleep(100);
-    }
-
+    foreach(QHttpConnection *conn, m_webSocketsList)
+        delete conn;
 }
 
 void WebAccess::slotHandleRequest(QHttpRequest *req, QHttpResponse *resp)
@@ -123,7 +107,10 @@ void WebAccess::slotHandleRequest(QHttpRequest *req, QHttpResponse *resp)
         //QByteArray hash = resp->getWebSocketHandshake("zTvHabaaTOEORzqK+d1yxw==");
         qDebug() << "Websocket handshake:" << hash;
         resp->setHeader("Sec-WebSocket-Accept", hash);
-        resp->enableWebSocket(true);
+        QHttpConnection *conn = resp->enableWebSocket(true);
+        if (conn != NULL)
+            m_webSocketsList.append(conn);
+
         resp->writeHead(101);
         resp->end(QByteArray());
 
@@ -600,7 +587,11 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
             break;
         }
     }
+}
 
+void WebAccess::slotHandleWebSocketClose(QHttpConnection *conn)
+{
+    m_webSocketsList.removeOne(conn);
 }
 
 bool WebAccess::sendFile(QHttpResponse *response, QString filename, QString contentType)
@@ -625,25 +616,10 @@ bool WebAccess::sendFile(QHttpResponse *response, QString filename, QString cont
     return false;
 }
 
-mg_result WebAccess::websocketDataHandler(mg_connection *conn)
+void WebAccess::sendWebSocketMessage(QByteArray message)
 {
-    if (conn == NULL)
-        return MG_TRUE;
-
-    m_conn = conn; // store this to send VC loaded async event
-
-    if (conn->content_len == 0)
-        return MG_TRUE;
-
-
-    return MG_TRUE;
-}
-
-mg_result WebAccess::closeHandler(struct mg_connection* conn)
-{
-    (void)conn;
-    m_conn = NULL;
-    return MG_TRUE;
+    foreach(QHttpConnection *conn, m_webSocketsList)
+        conn->webSocketWrite(QHttpConnection::TextFrame, message);
 }
 
 QString WebAccess::getWidgetHTML(VCWidget *widget)
@@ -662,15 +638,12 @@ QString WebAccess::getWidgetHTML(VCWidget *widget)
 
 void WebAccess::slotFramePageChanged(int pageNum)
 {
-    if (m_conn == NULL)
-        return;
-
     VCWidget *frame = (VCWidget *)sender();
 
     QString wsMessage = QString("%1|FRAME|%2").arg(frame->id()).arg(pageNum);
     QByteArray ba = wsMessage.toUtf8();
 
-    mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, ba.data(), ba.length());
+    sendWebSocketMessage(ba);
 }
 
 QString WebAccess::getFrameHTML(VCFrame *frame)
@@ -776,9 +749,6 @@ QString WebAccess::getSoloFrameHTML(VCSoloFrame *frame)
 
 void WebAccess::slotButtonToggled(bool on)
 {
-    if (m_conn == NULL)
-        return;
-
     VCButton *btn = (VCButton *)sender();
 
     QString wsMessage = QString::number(btn->id());
@@ -787,7 +757,7 @@ void WebAccess::slotButtonToggled(bool on)
     else
         wsMessage.append("|BUTTON|0");
 
-    mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toUtf8().data(), wsMessage.length());
+    sendWebSocketMessage(wsMessage.toUtf8());
 }
 
 QString WebAccess::getButtonHTML(VCButton *btn)
@@ -816,14 +786,11 @@ QString WebAccess::getButtonHTML(VCButton *btn)
 
 void WebAccess::slotSliderValueChanged(QString val)
 {
-    if (m_conn == NULL)
-        return;
-
     VCSlider *slider = (VCSlider *)sender();
 
     QString wsMessage = QString("%1|SLIDER|%2").arg(slider->id()).arg(val);
 
-    mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toUtf8().data(), wsMessage.length());
+    sendWebSocketMessage(wsMessage.toUtf8());
 }
 
 QString WebAccess::getSliderHTML(VCSlider *slider)
@@ -902,14 +869,11 @@ QString WebAccess::getAudioTriggersHTML(VCAudioTriggers *triggers)
 
 void WebAccess::slotCueIndexChanged(int idx)
 {
-    if (m_conn == NULL)
-        return;
-
     VCCueList *cue = (VCCueList *)sender();
 
     QString wsMessage = QString("%1|CUE|%2").arg(cue->id()).arg(idx);
 
-    mg_websocket_write(m_conn, WEBSOCKET_OPCODE_TEXT, wsMessage.toUtf8().data(), wsMessage.length());
+    sendWebSocketMessage(wsMessage.toUtf8());
 }
 
 QString WebAccess::getCueListHTML(VCCueList *cue)

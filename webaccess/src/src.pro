@@ -46,16 +46,14 @@ SOURCES = qhttpserver/http_parser.c \
           qhttpserver/qhttpserver.cpp
 
 # QLC+ webaccess files
-HEADERS += mongoose.h \
-           commonjscss.h \
+HEADERS += commonjscss.h \
            webaccess.h \
            webaccessconfiguration.h \
            webaccesssimpledesk.h
 
 unix:!macx: HEADERS += webaccessnetwork.h
 
-SOURCES += mongoose.c \
-           webaccess.cpp \
+SOURCES += webaccess.cpp \
            webaccessconfiguration.cpp \
            webaccesssimpledesk.cpp
 

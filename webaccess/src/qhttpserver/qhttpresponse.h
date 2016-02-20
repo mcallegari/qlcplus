@@ -133,7 +133,16 @@ public Q_SLOTS:
      */
     QByteArray getWebSocketHandshake(QString clientKey);
 
-    void enableWebSocket(bool enable);
+    /// Enable/Disable a websocket connection
+    /**
+     * Enable or disable a websocket connection and return
+     * a reference to the connection to be used for
+     * asynchronous messages
+     *
+     * @param enable boolean enable flag
+     * @return the connection reference
+     */
+    QHttpConnection *enableWebSocket(bool enable);
 
     /// End/finish the response.
     /** Data will be flushed to the underlying socket

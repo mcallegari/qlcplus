@@ -105,6 +105,8 @@ void QHttpServer::newConnection()
                 SIGNAL(newRequest(QHttpRequest *, QHttpResponse *)));
         connect(connection, SIGNAL(webSocketDataReady(QHttpConnection*,QString)),
                 this, SIGNAL(webSocketDataReady(QHttpConnection*,QString)));
+        connect(connection, SIGNAL(webSocketConnectionClose(QHttpConnection*)),
+                this, SIGNAL(webSocketConnectionClose(QHttpConnection*)));
     }
 }
 

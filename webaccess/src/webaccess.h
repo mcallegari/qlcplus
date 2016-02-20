@@ -20,8 +20,7 @@
 #ifndef WEBACCESS_H
 #define WEBACCESS_H
 
-#include <QThread>
-#include "mongoose.h"
+#include <QObject>
 
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
 class WebAccessNetwork;
@@ -44,7 +43,7 @@ class QHttpRequest;
 class QHttpResponse;
 class QHttpConnection;
 
-class WebAccess : public QThread
+class WebAccess : public QObject
 {
     Q_OBJECT
 public:
@@ -52,11 +51,10 @@ public:
     /** Destructor */
     ~WebAccess();
 
-    mg_result websocketDataHandler(struct mg_connection *conn);
-    mg_result closeHandler(struct mg_connection* conn);
-
 private:
     bool sendFile(QHttpResponse *response, QString filename, QString contentType);
+    void sendWebSocketMessage(QByteArray message);
+
     QString getWidgetHTML(VCWidget *widget);
     QString getFrameHTML(VCFrame *frame);
     QString getSoloFrameHTML(VCSoloFrame *frame);
@@ -71,13 +69,10 @@ private:
 
     QString getSimpleDeskHTML();
 
-private:
-    /** Input data thread worker method */
-    virtual void run();
-
 protected slots:
     void slotHandleRequest(QHttpRequest *req, QHttpResponse *resp);
     void slotHandleWebSocketRequest(QHttpConnection *conn, QString data);
+    void slotHandleWebSocketClose(QHttpConnection *conn);
 
     void slotVCLoaded();
     void slotButtonToggled(bool on);
@@ -97,11 +92,9 @@ protected:
     WebAccessNetwork *m_netConfig;
 #endif
 
-    struct mg_connection *m_conn;
-
     QHttpServer *m_httpServer;
+    QList<QHttpConnection *> m_webSocketsList;
 
-    bool m_running;
     bool m_pendingProjectLoaded;
 
 signals:

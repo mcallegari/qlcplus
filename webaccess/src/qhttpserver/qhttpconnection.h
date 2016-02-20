@@ -98,11 +98,12 @@ public:
         Pong = 0x0A
     };
 
-    void enableWebSocket(bool enable);
+    QHttpConnection *enableWebSocket(bool enable);
     void webSocketWrite(WebSocketOpCode opCode, QByteArray data);
 
 Q_SIGNALS:
     void webSocketDataReady(QHttpConnection *conn, QString data);
+    void webSocketConnectionClose(QHttpConnection *conn);
 
 private Q_SLOTS:
     void slotWebSocketPollTimeout();

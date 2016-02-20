@@ -90,6 +90,7 @@ Q_SIGNALS:
     void newRequest(QHttpRequest *request, QHttpResponse *response);
 
     void webSocketDataReady(QHttpConnection *conn, QString data);
+    void webSocketConnectionClose(QHttpConnection *conn);
 
 private Q_SLOTS:
     void newConnection();
