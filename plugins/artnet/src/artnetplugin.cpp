@@ -128,7 +128,7 @@ QString ArtNetPlugin::outputInfo(quint32 output)
             boundString = QString("<FONT COLOR=\"#aa0000\">%1</FONT>").arg(tr("No"));
         else
            boundString = QString("<FONT COLOR=\"#00aa00\">%1</FONT>").arg(tr("Yes"));
-        str += QString("<B>%1:</B> %2").arg(tr("Can receive node informations")).arg(boundString);
+        str += QString("<B>%1:</B> %2").arg(tr("Can receive nodes information")).arg(boundString);
         str += QString("<BR>");
 
         str += tr("Nodes discovered: ");
