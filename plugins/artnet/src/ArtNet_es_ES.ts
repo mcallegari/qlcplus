@@ -28,18 +28,18 @@
     <message>
         <location filename="artnetplugin.cpp" line="128"/>
         <source>No</source>
-        <translation type="unfinished"></translation>
+        <translation>No</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="130"/>
         <source>Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>Sí</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="131"/>
         <source>Can receive nodes information</source>
         <oldsource>Can receive node information</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Puede recibir información de nodos</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="134"/>
@@ -59,17 +59,17 @@
     <message>
         <location filename="artnetplugin.cpp" line="280"/>
         <source>Bind failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Falló el enlace</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="282"/>
         <source>Open</source>
-        <translation type="unfinished"></translation>
+        <translation>Abierto</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="283"/>
         <source>Status</source>
-        <translation type="unfinished"></translation>
+        <translation>Estado</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="286"/>
