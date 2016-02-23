@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.9.1</Version>
+  <Version>4.10.3 GIT</Version>
   <Author>Mihai Andrei</Author>
  </Creator>
  <Manufacturer>Litecraft</Manufacturer>
@@ -12,87 +12,87 @@
  <Channel Name="Red">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="255" Min="0">Dimmer</Capability>
+  <Capability Min="0" Max="255">Dimmer</Capability>
  </Channel>
  <Channel Name="Green">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="255" Min="0">Dimmer</Capability>
+  <Capability Min="0" Max="255">Dimmer</Capability>
  </Channel>
  <Channel Name="Blue">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="255" Min="0">Dimmer</Capability>
+  <Capability Min="0" Max="255">Dimmer</Capability>
  </Channel>
  <Channel Name="Strobe/Speed">
   <Group Byte="0">Effect</Group>
-  <Capability Max="15" Min="0">No strobe</Capability>
-  <Capability Max="255" Min="16">16 speed values</Capability>
+  <Capability Min="0" Max="15">No strobe</Capability>
+  <Capability Min="16" Max="255">16 speed values</Capability>
  </Channel>
  <Channel Name="Mode">
   <Group Byte="0">Effect</Group>
-  <Capability Max="35" Min="0">No function</Capability>
-  <Capability Max="71" Min="36">Automatic ramp up</Capability>
-  <Capability Max="107" Min="72">Automatic ramp down</Capability>
-  <Capability Max="143" Min="108">Automatic ramp up/down</Capability>
-  <Capability Max="179" Min="144">Automatic color mix mode</Capability>
-  <Capability Max="215" Min="180">Random 3-colors</Capability>
-  <Capability Max="251" Min="216">Random 7-colors</Capability>
-  <Capability Max="255" Min="252">Audio</Capability>
+  <Capability Min="0" Max="35">No function</Capability>
+  <Capability Min="36" Max="71">Automatic ramp up</Capability>
+  <Capability Min="72" Max="107">Automatic ramp down</Capability>
+  <Capability Min="108" Max="143">Automatic ramp up/down</Capability>
+  <Capability Min="144" Max="179">Automatic color mix mode</Capability>
+  <Capability Min="180" Max="215">Random 3-colors</Capability>
+  <Capability Min="216" Max="251">Random 7-colors</Capability>
+  <Capability Min="252" Max="255">Audio</Capability>
  </Channel>
  <Channel Name="Dimmer">
   <Group Byte="0">Intensity</Group>
-  <Capability Max="255" Min="0">Dimmer</Capability>
+  <Capability Min="0" Max="255">Dimmer</Capability>
  </Channel>
  <Channel Name="Color Macro Mode (1/2-Channel Mode)">
   <Group Byte="0">Colour</Group>
-  <Capability Max="255" Min="0">35 colors + black</Capability>
+  <Capability Min="0" Max="255">35 colors + black</Capability>
  </Channel>
  <Channel Name="Color Macro Mode (7-Channel Mode)">
   <Group Byte="0">Colour</Group>
-  <Capability Max="13" Min="0">No macro</Capability>
-  <Capability Max="255" Min="14">Pre-programmed colors</Capability>
+  <Capability Min="0" Max="13">No macro</Capability>
+  <Capability Min="14" Max="255">Pre-programmed colors</Capability>
  </Channel>
  <Mode Name="1 Channel">
   <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Width="274" Height="268" Depth="433" Weight="3.5"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="3.5" Width="274" Height="268" Depth="433"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="69"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="69" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Color Macro Mode (1/2-Channel Mode)</Channel>
  </Mode>
  <Mode Name="2-Channel">
   <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Width="274" Height="268" Depth="433" Weight="3.5"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="3.5" Width="274" Height="268" Depth="433"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="69"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="69" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Color Macro Mode (1/2-Channel Mode)</Channel>
   <Channel Number="1">Dimmer</Channel>
  </Mode>
  <Mode Name="3-Channel">
   <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Width="274" Height="268" Depth="433" Weight="3.5"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="3.5" Width="274" Height="268" Depth="433"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="69"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="69" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
  </Mode>
- <Mode Name="4-Channel">
+ <Mode Name="7-Channel">
   <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Width="274" Height="268" Depth="433" Weight="3.5"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="3.5" Width="274" Height="268" Depth="433"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="69"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="69" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
