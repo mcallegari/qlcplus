@@ -703,6 +703,9 @@ void VCSlider::slotClickAndGoColorChanged(QRgb color)
     // place the slider half way to reach white@255 and black@0
     if (m_slider)
         m_slider->setValue(128);
+
+    // let's force a value change to cover all the HTP/LTP cases
+    m_levelValueChanged = true;
 }
 
 void VCSlider::slotClickAndGoLevelAndPresetChanged(uchar level, QImage img)
