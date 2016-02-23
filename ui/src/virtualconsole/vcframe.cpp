@@ -768,6 +768,30 @@ void VCFrame::applyProperties(VCFrameProperties const& prop)
         }
         slotSetPage(0);
     }
+    else if (multipageMode() == false)
+    {
+        setTotalPagesNumber(1);
+        resize(QSize(m_width, m_height));
+
+        QMapIterator <VCWidget*, int> it(m_pagesMap);
+        while (it.hasNext() == true)
+        {
+            it.next();
+            int page = it.value();
+            VCWidget *widget = it.key();
+            if (page > 0)
+            {
+                removeWidgetFromPageMap(widget);
+                delete widget;
+            }
+            else
+            {
+                widget->setEnabled(true);
+                widget->show();
+                widget->updateFeedback();
+            }
+        }
+    }
     VirtualConsole* vc = VirtualConsole::instance();
     if (vc != NULL)
         vc->reselectWidgets();
