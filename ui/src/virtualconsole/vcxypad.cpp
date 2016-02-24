@@ -626,7 +626,7 @@ void VCXYPad::slotPresetClicked(bool checked)
     // stop any previously started EFX
     if (m_efx != NULL && m_efx->isRunning())
     {
-        m_efx->stop(functionParent());
+        m_efx->stopAndWait();
         delete m_efx;
         m_efx = NULL;
     }
