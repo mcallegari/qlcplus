@@ -40,7 +40,6 @@ extern "C"
     void StopDevice();
 
     void SetChannelCount(int32_t Count);
-
     void SetData(int32_t Channel, int32_t Data);
     void SetAllData(int32_t Data[]);
 }
@@ -58,6 +57,7 @@ Velleman::~Velleman()
 void Velleman::init()
 {
     m_values = new qint32[512];
+    memset(m_values, 0, sizeof(qint32) * 512);
     m_currentlyOpen = false;
 }
 
@@ -83,7 +83,9 @@ bool Velleman::openOutput(quint32 output, quint32 universe)
 
     if (m_currentlyOpen == false)
     {
+        qDebug() << "Velleman: Starting device...";
         StartDevice();
+
         m_currentlyOpen = true;
     }
     return true;
@@ -98,6 +100,7 @@ void Velleman::closeOutput(quint32 output, quint32 universe)
     if (m_currentlyOpen == true)
     {
         m_currentlyOpen = false;
+        qDebug() << "Velleman: Stopping device...";
         StopDevice();
     }
 }
@@ -147,14 +150,15 @@ void Velleman::writeUniverse(quint32 universe, quint32 output, const QByteArray 
 {
     Q_UNUSED(universe)
 
-    if (output != 0 || m_currentlyOpen == false)
+    if (output != 0 || m_currentlyOpen == false || data.isEmpty())
         return;
 
-    SetChannelCount((int32_t) data.size());
+    qDebug() << "Sending" << data.size() << "bytes";
+    SetChannelCount((qint32)data.size());
     for (int i = 0; i < data.size(); i++)
-        m_values[i] = (qint32) data[i];
+        m_values[i] = (qint32)(uchar(data.at(i)));
 
-    SetAllData((int32_t*) m_values);
+    SetAllData(m_values);
 }
 
 /*****************************************************************************
