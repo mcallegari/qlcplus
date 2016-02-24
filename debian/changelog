@@ -48,8 +48,9 @@ qlcplus (4.10.3) stable; urgency=low
   * New fixture: Stairville MH-x200 Pro Spot (thanks to Mirek Škop)
   * New fixtures: Varytec LED Giga Bar 4 MKII, Eurolite LED KLS Laser Bar FX Light Set (thanks to Daniel Schauder)
   * New fixture: Chauvet Mayhem (thanks to Jonathan Wilson)
+  * New fixture: Ayra TDC Agaricus (thanks to Rob Nieuwenhuizen)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 7 Feb 2016 20:21:22 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 6 Mar 2016 20:21:22 +0200
 
 qlcplus (4.10.2) stable; urgency=low
 
