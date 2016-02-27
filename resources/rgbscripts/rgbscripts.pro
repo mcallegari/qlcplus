@@ -26,6 +26,7 @@ scripts.files += squares.js
 scripts.files += squaresfromcenter.js
 scripts.files += stripes.js
 scripts.files += stripesfromcenter.js
+scripts.files += strobe.js
 scripts.files += verticalfall.js
 scripts.files += waves.js
 
