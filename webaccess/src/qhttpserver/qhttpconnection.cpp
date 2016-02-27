@@ -402,7 +402,7 @@ void QHttpConnection::webSocketRead(QByteArray data)
         return;
     }
 
-    //qDebug() << "Websocket total data length:" << data.size();
+    qDebug() << "[webSocketRead] total data length:" << data.size();
 
     while (dataPos < data.size())
     {
@@ -434,33 +434,29 @@ void QHttpConnection::webSocketRead(QByteArray data)
             dataPos+=4;
         }
 
-        qDebug() << "WebSocket opCode:" << QString("0x%1").arg(opCode, 2, 16, QChar('0'));
+        qDebug() << "[webSocketRead] opCode:" << QString("0x%1").arg(opCode, 2, 16, QChar('0'));
 
         if (opCode == TextFrame)
         {
             int lengthCounter = dataLen;
-            qDebug() << "Text frame data length:" << dataLen;
-            data.remove(0, dataPos);
+            qDebug() << "[webSocketRead] Text frame length:" << dataLen;
             // if the payload is masked, then unmask
             if (masked == true)
             {
                 int i = 0;
-                char *cData = data.data();
+                char *cData = data.data() + dataPos;
                 while (lengthCounter-- > 0)
                     *cData++ ^= mask[i++ % 4];
             }
 
-            Q_EMIT webSocketDataReady(this, QString(data.mid(0, dataLen)));
-
-            // move the cursor to the end of the payload, keeping in mind
-            // that I have truncated it before
-            dataPos = dataLen;
+            Q_EMIT webSocketDataReady(this, QString(data.mid(dataPos, dataLen)));
         }
         else if (opCode == ConnectionClose)
         {
-            qDebug() << "Connection closed by the client";
+            qDebug() << "[webSocketRead] Connection closed by the client";
             Q_EMIT webSocketConnectionClose(this);
         }
+        dataPos += dataLen;
     }
 }
 
