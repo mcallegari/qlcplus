@@ -87,7 +87,7 @@ function msToStringWithPrecision(ms, precision)
 
 function posToMs(x, timescale)
 {
-    //100 : 1000 / timescale = x : res
+    //100 : 1000 / timescale = x : result
     return parseInt(10 * timescale * x)
 }
 

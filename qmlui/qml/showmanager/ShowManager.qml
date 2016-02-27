@@ -233,7 +233,7 @@ Rectangle
         y: topBar.height
         z: 4
         height: showMgrContainer.headerHeight //showMgrContainer.height - topBar.height - (bottomPanel.visible ? bottomPanel.height : 0)
-        width: showMgrContainer.width - trackWidth
+        width: showMgrContainer.width - trackWidth - rightPanel.width
 
         boundsBehavior: Flickable.StopAtBounds
         flickableDirection: Flickable.HorizontalFlick
@@ -246,6 +246,8 @@ Rectangle
             id: hdrItem
             z: 2
             height: parent.height
+            visibleWidth: timelineHeader.width
+            visibleX: itemsArea.contentX
             headerHeight: showMgrContainer.headerHeight
             cursorHeight: showMgrContainer.height - topBar.height - (bottomPanel.visible ? bottomPanel.height : 0)
             timeScale: showMgrContainer.timeScale
@@ -417,7 +419,6 @@ Rectangle
         orientation: Qt.Horizontal
         anchors.bottom: parent.bottom
         x: trackWidth
-        width: parent.width - trackWidth - rightPanel.width
         flickable: timelineHeader
     }
     ScrollBar { z: 5; flickable: showContents; doubleBars: true }

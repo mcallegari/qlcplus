@@ -29,11 +29,41 @@ Rectangle
     width: parent.width
     color: "transparent"
 
+    property int visibleWidth
+    property real visibleX
     property int duration: -1
     property int headerHeight: 40
     property int cursorHeight: 0
     property real timeScale: 1.0
     property int currentTime: showManager.currentTime
+
+    onVisibleWidthChanged:
+    {
+        console.log("Visible width changed to: " + visibleWidth)
+        timeHeader.x = ((visibleX / visibleWidth) * visibleWidth) - visibleWidth
+        timeHeader.requestPaint()
+    }
+
+    onVisibleXChanged:
+    {
+        /** To avoid consuming a massive amount of memory, and to workaround a
+          * nasty Canvas bug (QTBUG-51530), the adopted rendering strategy is the following:
+          * the timeHeader Canvas is 3 times the size of the visible
+          * screen area. Basically it is treated as 3 chunks, where the 2nd chunk
+          * is the visible one, the 1st chunk is for scrolling left and the 3rd chunk
+          * for scrolling right.
+          * Here, it is necessary to monitor the Flickable scroll position to properly
+          * shift and render the Canvas, so 2 actions have to be taken.
+          */
+
+        if (visibleX < timeHeader.x + visibleWidth || visibleX > timeHeader.x + (visibleWidth * 2))
+        {
+            //console.log("Shift the canvas. X before: " + timeHeader.x);
+            timeHeader.x = (parseInt(visibleX / visibleWidth) * visibleWidth) - visibleWidth
+            timeHeader.requestPaint()
+            //console.log("Shift the canvas. X after: " + timeHeader.x);
+        }
+    }
 
     onCurrentTimeChanged:
     {
@@ -43,14 +73,15 @@ Rectangle
     onDurationChanged:
     {
         width = parseInt(TimeUtils.timeToSize(duration + 300000, timeScale))
-        console.log("New header width: " + width)
+        //console.log("New header width: " + width)
     }
 
     onTimeScaleChanged:
     {
         cursor.x = TimeUtils.timeToSize(currentTime, timeScale)
         width = parseInt(TimeUtils.timeToSize(duration + 300000, timeScale))
-        console.log("New header width: " + width)
+        timeHeader.requestPaint()
+        //console.log("New header width: " + width)
     }
 
     Rectangle
@@ -60,6 +91,7 @@ Rectangle
         width: 1
         color: "transparent"
         z: 1
+        visible: x >= visibleX ? true : false
 
         Rectangle
         {
@@ -82,13 +114,15 @@ Rectangle
     Canvas
     {
         id: timeHeader
-        width: parent.width
+        width: visibleWidth * 3
         height: headerHeight
         antialiasing: true
 
         // tick size is the main time divider
         // on a timeScale equal to 1.0 it is 100 pixels
         property real tickSize: 100
+
+        Component.onCompleted: x = -visibleWidth
 
         function calculateTickSize()
         {
@@ -101,27 +135,35 @@ Rectangle
             ctx.globalAlpha = 1.0
             ctx.lineWidth = 1
 
-            ctx.clearRect(0, 0, width, height)
-
             ctx.fillStyle = "black"
             ctx.strokeStyle = "white"
-            //ctx.font = canvasText.font
-            ctx.font = '12px "Roboto Condensed"'
+            ctx.font = '14px "Roboto Condensed"'
             ctx.fillRect(0, 0, width, headerHeight)
 
             var divNum = width / tickSize
-            var xPos = 0
-            var msTime = 0
+            var xPos = parseInt((x + width) / tickSize) * tickSize
+            var msTime = TimeUtils.posToMs(xPos, timeScale)
+            xPos -= x
+
+            //console.log("xPos: " + xPos + ", msTime: " + msTime)
+
+            ctx.beginPath();
+            ctx.fillStyle = "white"
 
             for (var i = 0; i < divNum; i++)
             {
-                ctx.moveTo(xPos, 0)
-                ctx.lineTo(xPos, height)
+                // don't even bother to paint if we're outside the timeline
+                if (msTime >= 0)
+                {
+                    ctx.moveTo(xPos, 0)
+                    ctx.lineTo(xPos, height)
 
-                ctx.strokeText(TimeUtils.msToString(msTime), xPos + 3, height - 20)
+                    ctx.fillText(TimeUtils.msToString(msTime), xPos + 3, height - 20)
+                }
+                xPos -= tickSize
+                msTime -= timeScale * 1000
 
-                xPos += tickSize
-                msTime += timeScale * 1000
+                //console.log("xPos: " + xPos + ", msTime: " + msTime)
             }
             ctx.closePath()
             ctx.stroke()
