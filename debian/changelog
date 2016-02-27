@@ -27,14 +27,15 @@ qlcplus (4.10.3) stable; urgency=low
   * Virtual Console/Frames: fix disabling frame pages. Now widgets get actually deleted
   * Web access: fixed custom fixtures loading
   * New input profile: Behringer BCR2000 (thanks to Michael Trojacher)
+  * RGB Scripts: added Strobe script (thanks to Rob Nieuwenhuizen)
   * New fixtures: Stellar Labs ECO LED PAR56, Chauvet Colorpalette II (thanks to Jimmy Traylor)
   * New fixtures: Chauvet: COLORado 1 Solo, Ovation FD-165WW, Rogue RH1 Hybrid, COLORdash Par Hex 12, COLORdash Accent Quad (thanks to Robert Box)
   * New fixtures: Chauvet: Vue 1.1, Intimidator Spot 100 IRC, Abyss USB, COREpar 40 USB, COREpar UV USB (thanks to Robert Box)
   * New fixtures: Chauvet: Intimidator Scan 305 IRC, Intimidator Barrel 305 IRC, SlimPAR T6 USB, SlimBANK TRI-18 (thanks to Robert Box)
   * New fixtures: Eurolite LED CLS-9 QCL RGBW 9x8W 12, JB-Lighting A12 Tunable White, SGM G-Profile (thanks to Robert Box)
-  * New fixtures: Coemar Par Lite LED RGB, OXO LED Funstrip DMX (thanks to Robert Box)
+  * New fixtures: Coemar Par Lite LED RGB, OXO LED Funstrip DMX, American DJ Stinger II (thanks to Robert Box)
   * New fixture: Chauvet LED PAR 64 Tri-C (thanks to Jungle Jim and Robert Box)
-  * New fixture: American DJ VBar, American DJ Jellydome (thanks to Thierry Rodolfo)
+  * New fixtures: American DJ VBar, American DJ Jellydome, Briteq LDP Powerbar 6TC/12TC (thanks to Thierry Rodolfo)
   * New fixture: Sagitter Slimpar 18 RGB (thanks to Daniele Fogale)
   * New fixture: Microh LED Tri Bar (thanks to Michael Tughan)
   * New fixture: American DJ 12P Hex Pearl (thanks to Ethan Moses)
@@ -49,6 +50,8 @@ qlcplus (4.10.3) stable; urgency=low
   * New fixtures: Varytec LED Giga Bar 4 MKII, Eurolite LED KLS Laser Bar FX Light Set (thanks to Daniel Schauder)
   * New fixture: Chauvet Mayhem (thanks to Jonathan Wilson)
   * New fixture: Ayra TDC Agaricus (thanks to Rob Nieuwenhuizen)
+  * New fixture: American DJ Pinspot LED Quad DMX (thanks to Christian Polzer)
+  * New fixture: Stairville AF-180 LED Fogger Co2 FX (thanks to Johannes Uhl)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 6 Mar 2016 20:21:22 +0200
 

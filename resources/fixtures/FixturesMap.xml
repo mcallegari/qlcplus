@@ -60,6 +60,7 @@
   <fixture path="American-DJ-On-X.qxf" mf="American DJ" md="On-X"/>
   <fixture path="American-DJ-P64-LED-Plus.qxf" mf="American DJ" md="P64 LED Plus"/>
   <fixture path="American-DJ-Par-38-Pro.qxf" mf="American DJ" md="Par 38 Pro"/>
+  <fixture path="American-DJ-Pinspot-LED-Quad-DMX.qxf" mf="American DJ" md="Pinspot LED Quad DMX"/>
   <fixture path="American-DJ-Profile-Panel-RGB.qxf" mf="American DJ" md="Profile Panel RGB"/>
   <fixture path="American-DJ-ProPAR-56RGB.qxf" mf="American DJ" md="ProPAR 56RGB"/>
   <fixture path="American-DJ-Quad-Gem-DMX.qxf" mf="American DJ" md="Quad Gem DMX"/>
@@ -72,6 +73,7 @@
   <fixture path="American-DJ-Spherion-Tri-LED.qxf" mf="American DJ" md="Spherion Tri LED"/>
   <fixture path="American-DJ-Starball-LED-DMX.qxf" mf="American DJ" md="Starball LED DMX"/>
   <fixture path="American-DJ-Starburst.qxf" mf="American DJ" md="Starburst"/>
+  <fixture path="American-DJ-Stinger-II.qxf" mf="American DJ" md="Stinger II"/>
   <fixture path="American-DJ-Sweeper-Beam-LED.qxf" mf="American DJ" md="Sweeper Beam LED"/>
   <fixture path="American-DJ-Sweeper-Beam-Quad-LED.qxf" mf="American DJ" md="Sweeper Beam Quad LED"/>
   <fixture path="American-DJ-TRI64-Profile.qxf" mf="American DJ" md="TRI64 PRO"/>
@@ -120,6 +122,8 @@
   <fixture path="Briteq-BT-W12L10.qxf" mf="Briteq" md="BT-W12L10"/>
   <fixture path="Briteq-BTX-180LS.qxf" mf="Briteq" md="BTX-180LS"/>
   <fixture path="Briteq-COB-PAR56-RGB.qxf" mf="Briteq" md="COB PAR56 RGB"/>
+  <fixture path="Briteq-LDP-Powerbar-12TC.qxf" mf="Briteq" md="LDP Powerbar 12TC"/>
+  <fixture path="Briteq-LDP-Powerbar-6TC.qxf" mf="Briteq" md="LDP Powerbar 6TC"/>
   <fixture path="Briteq-Pro-Beamer-Zoom.qxf" mf="Briteq" md="Pro Beamer Zoom"/>
   <fixture path="Cameo-CL-Superfly-HP.qxf" mf="Cameo" md="CL Superfly HP"/>
   <fixture path="Cameo-CLBARL10RGBA.qxf" mf="Cameo" md="LED Colour Bar RGBA (CLBAR10RGBA)"/>
@@ -625,6 +629,7 @@
   <fixture path="Showtec-ZIPP-LED-DMX.qxf" mf="Showtec" md="ZIPP LED DMX"/>
   <fixture path="StageTech-LeaderScan-Roto.qxf" mf="StageTech" md="LeaderScan Roto"/>
   <fixture path="Stairville-AF-150.qxf" mf="Stairville" md="AF-150"/>
+  <fixture path="Stairville-AF-180-LED-Fogger-Co2-FX.qxf" mf="Stairville" md="AF-180 LED Fogger Co2 FX"/>
   <fixture path="Stairville-AF-40-DMX.qxf" mf="Stairville" md="AF-40 DMX"/>
   <fixture path="Stairville-DDS-405.qxf" mf="Stairville" md="DDS 405"/>
   <fixture path="Stairville-DJ-Lase-150-RGY-MkII.qxf" mf="Stairville" md="DJ Lase 150-RGY MkII"/>
