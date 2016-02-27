@@ -366,6 +366,29 @@ void QHttpConnection::webSocketWrite(WebSocketOpCode opCode, QByteArray data)
     m_socket->write(data);
 }
 
+/**
+     Here's the RFC 6455 Framing specs. The table of the law
+
+      0                   1                   2                   3
+      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+     +-+-+-+-+-------+-+-------------+-------------------------------+
+     |F|R|R|R| opcode|M| Payload len |    Extended payload length    |
+     |I|S|S|S|  (4)  |A|     (7)     |             (16/64)           |
+     |N|V|V|V|       |S|             |   (if payload len==126/127)   |
+     | |1|2|3|       |K|             |                               |
+     +-+-+-+-+-------+-+-------------+ - - - - - - - - - - - - - - - +
+     |     Extended payload length continued, if payload len == 127  |
+     + - - - - - - - - - - - - - - - +-------------------------------+
+     |                               |Masking-key, if MASK set to 1  |
+     +-------------------------------+-------------------------------+
+     | Masking-key (continued)       |          Payload Data         |
+     +-------------------------------- - - - - - - - - - - - - - - - +
+     :                     Payload Data continued ...                :
+     + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
+     |                     Payload Data continued ...                |
+     +---------------------------------------------------------------+
+ */
+
 void QHttpConnection::webSocketRead(QByteArray data)
 {
     if (data.size() < 2)
@@ -379,54 +402,65 @@ void QHttpConnection::webSocketRead(QByteArray data)
         return;
     }
 
-    int opCode = data.at(dataPos) & 0x0F;
-    dataPos++;
+    //qDebug() << "Websocket total data length:" << data.size();
 
-    bool masked = (data.at(dataPos) >> 7) ? true : false;
-    int dataLen = data.at(dataPos) & 0x7F;
-    dataPos++;
-
-    if (dataLen == 126)
+    while (dataPos < data.size())
     {
-        dataLen = (data.at(dataPos) << 8) + data.at(dataPos + 1);
-        dataPos+=2;
-    }
-    else if (dataLen == 127)
-    {
-        // TODO: 64bit length...really ?
-        dataPos+=8;
-    }
+        int opCode = data.at(dataPos) & 0x0F;
+        dataPos++;
 
-    quint8 mask[4];
-    if (masked == true)
-    {
-        mask[0] = quint8(data.at(dataPos));
-        mask[1] = quint8(data.at(dataPos + 1));
-        mask[2] = quint8(data.at(dataPos + 2));
-        mask[3] = quint8(data.at(dataPos + 3));
-        dataPos+=4;
-    }
+        bool masked = (data.at(dataPos) >> 7) ? true : false;
+        int dataLen = data.at(dataPos) & 0x7F;
+        dataPos++;
 
-    qDebug() << "WebSocket opCode:" << QString("0x%1").arg(opCode, 2, 16, QChar('0'));
-
-    if (opCode == TextFrame)
-    {
-        data.remove(0, dataPos);
-        // if the payload is masked, then unmask
-        if (masked == true)
+        if (dataLen == 126)
         {
-            int i = 0;
-            char *cData = data.data();
-            while (dataLen-- > 0)
-                *cData++ ^= mask[i++ % 4];
+            dataLen = (data.at(dataPos) << 8) + data.at(dataPos + 1);
+            dataPos+=2;
+        }
+        else if (dataLen == 127)
+        {
+            // TODO: 64bit length...really ?
+            dataPos+=8;
         }
 
-        Q_EMIT webSocketDataReady(this, QString(data));
-    }
-    else if (opCode == ConnectionClose)
-    {
-        qDebug() << "Connection closed by the client";
-        Q_EMIT webSocketConnectionClose(this);
+        quint8 mask[4];
+        if (masked == true)
+        {
+            mask[0] = quint8(data.at(dataPos));
+            mask[1] = quint8(data.at(dataPos + 1));
+            mask[2] = quint8(data.at(dataPos + 2));
+            mask[3] = quint8(data.at(dataPos + 3));
+            dataPos+=4;
+        }
+
+        qDebug() << "WebSocket opCode:" << QString("0x%1").arg(opCode, 2, 16, QChar('0'));
+
+        if (opCode == TextFrame)
+        {
+            int lengthCounter = dataLen;
+            qDebug() << "Text frame data length:" << dataLen;
+            data.remove(0, dataPos);
+            // if the payload is masked, then unmask
+            if (masked == true)
+            {
+                int i = 0;
+                char *cData = data.data();
+                while (lengthCounter-- > 0)
+                    *cData++ ^= mask[i++ % 4];
+            }
+
+            Q_EMIT webSocketDataReady(this, QString(data.mid(0, dataLen)));
+
+            // move the cursor to the end of the payload, keeping in mind
+            // that I have truncated it before
+            dataPos = dataLen;
+        }
+        else if (opCode == ConnectionClose)
+        {
+            qDebug() << "Connection closed by the client";
+            Q_EMIT webSocketConnectionClose(this);
+        }
     }
 }
 

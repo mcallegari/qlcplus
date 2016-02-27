@@ -92,10 +92,8 @@ QString QHttpRequest::MethodToString(HttpMethod method)
     return staticMetaObject.enumerator(index).valueToKey(method);
 }
 
-#include <QDebug>
-
 void QHttpRequest::appendBody(const QByteArray &body)
 {
-    qDebug() << "Appending body data:" << body.size();
+    //qDebug() << "Appending body data:" << body.size();
     m_body.append(body);
 }
