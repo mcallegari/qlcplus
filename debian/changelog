@@ -28,7 +28,8 @@ qlcplus (4.10.3) stable; urgency=low
   * Virtual Console/Frames: fix disabling frame pages. Now widgets get actually deleted
   * Web access: fixed custom fixtures loading
   * Web access: added a DMX keypad that can be accessed from the Simple Desk (thanks to Santiago Benejam Torres)
-  * New input profile: Behringer BCR2000 (thanks to Michael Trojacher)
+  * Input profiles: added Behringer BCR2000 (thanks to Michael Trojacher)
+  * Input profiles: added Lemur iPad Studio Combo
   * RGB Scripts: added Strobe script (thanks to Rob Nieuwenhuizen)
   * New fixtures: Stellar Labs ECO LED PAR56, Chauvet Colorpalette II (thanks to Jimmy Traylor)
   * New fixtures: Chauvet: COLORado 1 Solo, Ovation FD-165WW, Rogue RH1 Hybrid, COLORdash Par Hex 12, COLORdash Accent Quad (thanks to Robert Box)
