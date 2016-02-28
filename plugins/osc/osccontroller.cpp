@@ -376,11 +376,17 @@ void OSCController::processPendingPackets()
         socket->readDatagram(datagram.data(), datagram.size(), &senderAddress);
         //if (senderAddress != m_ipAddr)
         {
-            QString path;
-            QByteArray values;
             //qDebug() << "Received packet with size: " << datagram.size() << ", host: " << senderAddress.toString();
-            if (m_packetizer->parseMessage(datagram, path, values) == true)
+            QList< QPair<QString, QByteArray> > messages = m_packetizer->parsePacket(datagram);
+
+            QListIterator <QPair<QString,QByteArray> > it(messages);
+            while (it.hasNext() == true)
             {
+                QPair <QString,QByteArray> msg(it.next());
+
+                QString path = msg.first;
+                QByteArray values = msg.second;
+
                 //qDebug() << "[OSC] message has path:" << path << "values:" << values.count();
                 if (values.isEmpty())
                     continue;

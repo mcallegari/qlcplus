@@ -18,6 +18,7 @@ qlcplus (4.10.3) stable; urgency=low
   * Plugins/ArtNet: Fix configuration issue that prevents setting a parameter back to its default value (David Garyga)
   * Plugins/OSC: Fix configuration issue that prevents setting a parameter back to its default value (David Garyga)
   * Plugins/OSC: OSC Output values range from 0.0 to 1.0
+  * Plugins/OSC: Properly handle OSC bundles (restores Lemur compatibility)
   * Virtual Console: Fix copy of a frame containing a submaster slider resulting in a broken submaster (David Garyga)
   * Virtual Console/Slider: Enable function filters in playback function selection (David Garyga)
   * Virtual Console/Slider: Allow to force to LTP color channels controlled by a Click & Go button

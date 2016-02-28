@@ -21,6 +21,7 @@
 #include <QByteArray>
 #include <QString>
 #include <QHash>
+#include <QPair>
 
 #ifndef OSCPACKETIZER_H
 #define OSCPACKETIZER_H
@@ -70,18 +71,27 @@ public:
     /*********************************************************************
      * Receiver functions
      *********************************************************************/
-
+private:
     /**
-     * Parse an OSC message received from the network.
+     * Extract an OSC message received from a buffer.
      * As a result, it returns the extracted OSC path and values
      * (empty if invalid)
      *
-     * @param data the UDP datagram received from the network
-     * @param path the OSC path extracted from the packet
-     * @param values the array of values extracted from the packet
+     * @param data the buffer containing the OSC message
+     * @param path the OSC path extracted from the buffer
+     * @param values the array of values extracted from the buffer
      * @return true on successful parsing, otherwise false
      */
-    bool parseMessage(QByteArray& data, QString &path, QByteArray& values);
+    bool parseMessage(QByteArray &data, QString &path, QByteArray &values);
+public:
+    /**
+     * Parse a OSC packet received from the network.
+     *
+     * @param data the payload of a UDP packet received from the network
+     * @return a list of couples of OSC path/values
+     */
+    QList< QPair<QString, QByteArray> > parsePacket(QByteArray& data);
+
 };
 
 #endif
