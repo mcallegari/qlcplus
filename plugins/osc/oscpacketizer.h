@@ -34,7 +34,7 @@ public:
     OSCPacketizer();
     ~OSCPacketizer();
 
-    enum TagType { Integer = 0x01, Float = 0x02, String = 0x03, Blob = 0x04 };
+    enum TagType { Integer = 0x01, Float = 0x02, Time = 0x03, String = 0x04, Blob = 0x05 };
 
 public:
     /*********************************************************************

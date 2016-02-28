@@ -121,6 +121,7 @@ bool OSCPacketizer::parseMessage(QByteArray &data, QString &path, QByteArray &va
             case 'f': typeArray.append(Float); break;
             case 'i': typeArray.append(Integer); break;
             case 's': typeArray.append(String); break;
+            case 't': typeArray.append(Time); break;
             default: break;
         }
         currPos++;
@@ -177,10 +178,18 @@ bool OSCPacketizer::parseMessage(QByteArray &data, QString &path, QByteArray &va
             {
                 int firstZeroPos = data.indexOf('\0', currPos);
                 QString str = QString(data.mid(currPos, firstZeroPos - currPos));
-                qDebug() << "[OSC] sVal:" << str;
+                qDebug() << "[OSC] string:" << str;
                 // align current position to a multiple of 4
                 int zeroNumber = 4 - (str.length() % 4);
                 currPos = firstZeroPos + zeroNumber;
+            }
+            break;
+            case Time:
+            {
+                // A OSC timestamp would be helpful to defer
+                // value changes, but since QLC+ plugins don't support
+                // such thing, let's skip it.
+                currPos += 8;
             }
             break;
             default: break;
