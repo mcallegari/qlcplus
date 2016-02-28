@@ -207,6 +207,13 @@ void WebAccess::slotHandleRequest(QHttpRequest *req, QHttpResponse *resp)
                      .arg(QDir::separator()).arg(clUri), "text/javascript") == true)
             return;
     }
+    else if (reqUrl.endsWith(".html"))
+    {
+        QString clUri = reqUrl.mid(1);
+        if (sendFile(resp, QString("%1%2%3").arg(QLCFile::systemDirectory(WEBFILESDIR).path())
+                     .arg(QDir::separator()).arg(clUri), "text/html") == true)
+            return;
+    }
     else if (reqUrl != "/")
     {
         resp->writeHead(404);

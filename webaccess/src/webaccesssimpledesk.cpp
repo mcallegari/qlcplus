@@ -48,6 +48,7 @@ QString WebAccessSimpleDesk::getHTML(Doc *doc, SimpleDesk *sd)
 
     QString bodyHTML = "<div class=\"controlBar\">\n"
                        "<a class=\"button button-blue\" href=\"/\"><span>" + tr("Back") + "</span></a>\n"
+                       "<a class=\"button button-blue\" href=\"/keypad.html\"><span>DMX Keypad</span></a>\n"
                        "<div class=\"swInfo\">" + QString(APPNAME) + " " + QString(APPVERSION) + "</div>"
                        "</div>\n";
 
