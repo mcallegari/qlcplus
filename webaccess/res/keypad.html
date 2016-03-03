@@ -94,8 +94,7 @@ function composeCommand(cmd)
 // Modified set Channel Function
 function setChannel(c, v)
 { 
-  //console.log(c, v);
-  // if (c && v)
+  // This function set a channel passed with param c at value passed with param v
   {
     if (isConnected == true)
       websocket.send("CH|" + c + "|" + v);
@@ -118,6 +117,11 @@ function zip()
 // Evaluate commands
 function chval(c)
 {
+// This function evaluates string that could contain
+//  'T' = THRU, 'B' = BY
+// Returns three values first, last and step values
+// first, last and step should be channels number or values. 
+
   if (c.split(by).length>1)
   {
     step=c.split(by)[1];
@@ -145,24 +149,31 @@ function chval(c)
   return [parseInt(first,10), parseInt(last,10), parseInt(step,10)];
 }
 
-// Main function. Split command at "AT" string
-// Calling other functions for evaluate channels numbers and values
-// and arrange it on an array used later to assign channels values
-// calling setChannel function in a loop
+
 function chans_vals(c)
 {
+// Main function. Split command at "AT" string.
+// Left part are single channel number, a range of channels and optionally a step value. 
+// Right part are a single value, a range of values and optionally a step value.
+// Calls to chval fucntion to evaluate channels numbers and values.
+// Arrange it on an array used later to assign channels values
+// calling setChannel function in a loop
+
   chanlvall = []
   chanl = []
   vall = []
   if (c.split(at).length>1)
   {
     a=c.split(at);
+    // Call to chval function to assing first, last and step number channels
     chans=chval(a[0]);
+    // Call to chval function to assing first, last and step value of channels
     vals=chval(a[1]);
     console.log(chans, vals);
+    // Set a list of channels for a single channel, a range of channels with a given step
     for (var i = chans[0]; i <= chans[1]; i += chans[2])
       chanl.push(i);
-  
+    // Set a list of values for a single value, a range of values
     if (vals[0] == vals[1])
     {
       for (i = 1; i <= chanl.length; i++)
@@ -174,8 +185,10 @@ function chans_vals(c)
       for (var i = vals[0]; i <= vals[1]; i += Math.round(vals[1]/llarg ))
         vall.push(i);
     }
+    // Set an array of channels number with a dmx value for that channel.
     chanlvall = zip(chanl, vall);
     document.getElementById('commInput').value = '';
+    // Iterate on array chanvall and set dmx values for every channel number
     for (i = 0, len = chanlvall.length; i  < len; i++)
     {
       // console.log(chanlvall[i][0],chanlvall[i][1]);
