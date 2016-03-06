@@ -37,8 +37,8 @@ HEADERS = qhttpserver/http_parser.h \
           qhttpserver/qhttpserver.h \
           qhttpserver/qhttprequest.h \
           qhttpserver/qhttpresponse.h \
-          qhttpserver/qhttpserverapi.h
-          
+          qhttpserver/qhttpserverfwd.h
+
 SOURCES = qhttpserver/http_parser.c \
           qhttpserver/qhttpconnection.cpp \
           qhttpserver/qhttprequest.cpp \

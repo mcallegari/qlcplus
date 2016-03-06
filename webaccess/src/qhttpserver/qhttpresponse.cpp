@@ -25,6 +25,7 @@
 #include <QCryptographicHash>
 #include <QDateTime>
 #include <QLocale>
+#include <QDebug>
 
 #include "qhttpserver.h"
 #include "qhttpconnection.h"
