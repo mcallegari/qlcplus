@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
+  <Author>Freddy Hoogstoel</Author>
+ </Creator>
+ <Manufacturer>Velleman</Manufacturer>
+ <Model>VDPDP152</Model>
+ <Type>Dimmer</Type>
+ <Channel Name="Channel 1">
+  <Group Byte="1">Intensity</Group>
+  <Capability Min="0" Max="255">Channel 1</Capability>
+ </Channel>
+ <Channel Name="Channel 2">
+  <Group Byte="1">Intensity</Group>
+  <Capability Min="0" Max="255">Channel 2</Capability>
+ </Channel>
+ <Channel Name="Channel 3">
+  <Group Byte="1">Intensity</Group>
+  <Capability Min="0" Max="255">Channel 3</Capability>
+ </Channel>
+ <Channel Name="Channel 4">
+  <Group Byte="1">Intensity</Group>
+  <Capability Min="0" Max="255">Channel 4</Capability>
+ </Channel>
+ <Mode Name="4 Channel">
+  <Physical>
+   <Bulb Type="None" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.95" Width="315" Height="165" Depth="96"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="3520" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Channel 1</Channel>
+  <Channel Number="1">Channel 2</Channel>
+  <Channel Number="2">Channel 3</Channel>
+  <Channel Number="3">Channel 4</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+ </Mode>
+</FixtureDefinition>
