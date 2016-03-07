@@ -573,7 +573,7 @@ void RGBMatrixEditor::slotPreviewTimeout()
 
     m_previewIterator += MasterTimer::tick();
     uint elapsed = 0;
-    while (m_previewIterator > 0 && m_previewIterator >= m_matrix->duration())
+    while (m_previewIterator >= MAX(m_matrix->duration(), MasterTimer::tick()))
     {
         int stepsCount = m_matrix->stepsCount();
         //qDebug() << "previewTimeout. Step:" << m_previewStep;
