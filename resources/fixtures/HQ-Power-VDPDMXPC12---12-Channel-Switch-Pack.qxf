@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
+  <Author>DJ MoreBass</Author>
+ </Creator>
+ <Manufacturer>HQ Power</Manufacturer>
+ <Model>VDPDMXPC12 - 12-Channel Switch Pack</Model>
+ <Type>Other</Type>
+ <Channel Name="Channel 1">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
+ </Channel>
+ <Channel Name="Channel 2">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
+ </Channel>
+ <Channel Name="Channel 3">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
+ </Channel>
+ <Channel Name="Channel 4">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
+ </Channel>
+ <Channel Name="Channel 5">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
+ </Channel>
+ <Channel Name="Channel 6">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
+ </Channel>
+ <Channel Name="Channel 7">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
+ </Channel>
+ <Channel Name="Channel 8">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
+ </Channel>
+ <Channel Name="Channel 9">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
+ </Channel>
+ <Channel Name="Channel 10">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
+ </Channel>
+ <Channel Name="Channel 11">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
+ </Channel>
+ <Channel Name="Channel 12">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="127">Off</Capability>
+  <Capability Min="128" Max="255">On</Capability>
+ </Channel>
+ <Mode Name="Default">
+  <Physical>
+   <Bulb Type="None" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="3.5" Width="485" Height="88" Depth="410"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="3500" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Channel 1</Channel>
+  <Channel Number="1">Channel 2</Channel>
+  <Channel Number="2">Channel 3</Channel>
+  <Channel Number="3">Channel 4</Channel>
+  <Channel Number="4">Channel 5</Channel>
+  <Channel Number="5">Channel 6</Channel>
+  <Channel Number="6">Channel 7</Channel>
+  <Channel Number="7">Channel 8</Channel>
+  <Channel Number="8">Channel 9</Channel>
+  <Channel Number="9">Channel 10</Channel>
+  <Channel Number="10">Channel 11</Channel>
+  <Channel Number="11">Channel 12</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+  </Head>
+ </Mode>
+</FixtureDefinition>
