@@ -1,9 +1,9 @@
-qlcplus (4.10.4) stable; urgency=low
+qlcplus (4.10.3a) stable; urgency=low
 
   * Scripts: Fix 4.10.3 regression that breaks time values parsing (David Garyga)
   * RGBMatrix Editor: Fix 4.10.3 regression where QLC+ hangs on duration < 20ms (David Garyga)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 8 May 2016 12:13:14 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Wed, 9 Mar 2016 22:03:14 +0200
 
 qlcplus (4.10.3) stable; urgency=low
 
