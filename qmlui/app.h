@@ -27,6 +27,7 @@
 
 class MainView2D;
 class ShowManager;
+class ActionManager;
 class FixtureBrowser;
 class FixtureManager;
 class ContextManager;
@@ -64,6 +65,7 @@ private:
     InputOutputManager *m_ioManager;
     VirtualConsole *m_virtualConsole;
     ShowManager *m_showManager;
+    ActionManager *m_actionManager;
 
     /*********************************************************************
      * Doc

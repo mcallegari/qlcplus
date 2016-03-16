@@ -26,6 +26,7 @@ INCLUDEPATH     += ../plugins/interfaces
 
 HEADERS += \
     app.h \
+    actionmanager.h \
     chasereditor.h \
     contextmanager.h \
     fixturebrowser.h \
@@ -45,6 +46,7 @@ HEADERS += \
 
 SOURCES += main.cpp \
     app.cpp \
+    actionmanager.cpp \
     chasereditor.cpp \
     contextmanager.cpp \
     fixturebrowser.cpp \

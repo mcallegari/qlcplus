@@ -45,6 +45,7 @@ class FunctionManager : public QObject
 
     Q_PROPERTY(QVariant functionsList READ functionsList NOTIFY functionsListChanged)
     Q_PROPERTY(int functionsFilter READ functionsFilter CONSTANT)
+    Q_PROPERTY(int selectionCount READ selectionCount NOTIFY selectionCountChanged)
 
     Q_PROPERTY(int sceneCount READ sceneCount NOTIFY sceneCountChanged)
     Q_PROPERTY(int chaserCount READ chaserCount NOTIFY chaserCountChanged)
@@ -64,6 +65,9 @@ public:
      *********************************************************************/
     QVariant functionsList();
 
+    Q_INVOKABLE QVariantList selectedFunctionsID();
+    Q_INVOKABLE QStringList selectedFunctionsName();
+
     /** Enable/disable the display of a Function type in the functions tree */
     Q_INVOKABLE void setFunctionFilter(quint32 filter, bool enable);
     int functionsFilter() const;
@@ -74,6 +78,10 @@ public:
     Q_INVOKABLE void setPreview(bool enable);
     Q_INVOKABLE void checkPreview(QVariantList idsList);
     Q_INVOKABLE void setEditorFunction(quint32 fID);
+    void deleteFunctions(QVariantList IDList);
+
+    /** Returns the number of the currently selected Functions */
+    int selectionCount() const;
 
     int sceneCount() const { return m_sceneCount; }
     int chaserCount() const { return m_chaserCount; }
@@ -84,6 +92,9 @@ public:
     int showCount() const { return m_showCount; }
     int audioCount() const { return m_audioCount; }
     int videoCount() const { return m_videoCount; }
+
+protected:
+    void updateFunctionsTree();
 
     /*********************************************************************
      * DMX values (dumping and Scene editor)
@@ -117,6 +128,7 @@ signals:
     void audioCountChanged();
     void videoCountChanged();
     void functionEditingChanged(bool enable);
+    void selectionCountChanged(int count);
 
 public slots:
     void slotDocLoaded();

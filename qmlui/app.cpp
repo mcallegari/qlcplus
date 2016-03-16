@@ -28,6 +28,7 @@
 #include "app.h"
 #include "mainview2d.h"
 #include "showmanager.h"
+#include "actionmanager.h"
 #include "modelselector.h"
 #include "contextmanager.h"
 #include "virtualconsole.h"
@@ -103,6 +104,10 @@ void App::startup()
 
     m_showManager = new ShowManager(this, m_doc);
     rootContext()->setContextProperty("showManager", m_showManager);
+
+    m_actionManager = new ActionManager(this, m_functionManager, m_showManager);
+    rootContext()->setContextProperty("actionManager", m_actionManager);
+    qmlRegisterType<ActionManager>("com.qlcplus.classes", 1, 0, "ActionManager"); // to use the enums in QML
 
     // Start up in non-modified state
     m_doc->resetModified();

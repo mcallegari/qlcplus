@@ -246,4 +246,8 @@ Rectangle
             source: "qrc:/FixturesAndFunctions.qml"
         }
     }
+    PopupBox
+    {
+        anchors.fill: parent
+    }
 }

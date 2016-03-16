@@ -39,17 +39,13 @@ Item
     property color globalColor: showManager.itemsColor
     property string infoText: ""
 
+    onTrackIndexChanged: itemRoot.y = trackIndex * height
     onStartTimeChanged: x = TimeUtils.timeToSize(startTime, timeScale)
     onDurationChanged: width = TimeUtils.timeToSize(duration, timeScale)
     onTimeScaleChanged:
     {
         x = TimeUtils.timeToSize(startTime, timeScale)
         width = TimeUtils.timeToSize(duration, timeScale)
-    }
-
-    onTrackIndexChanged:
-    {
-        itemRoot.y = trackIndex * 80
     }
 
     onGlobalColorChanged:
@@ -135,7 +131,11 @@ Item
             showManager.enableFlicking(true)
         }
 
-        onClicked: itemRoot.isSelected = !itemRoot.isSelected
+        onClicked:
+        {
+            itemRoot.isSelected = !itemRoot.isSelected
+            showManager.setItemSelection(trackIndex, sfRef, this, itemRoot.isSelected)
+        }
     }
 
     // horizontal left handler

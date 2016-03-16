@@ -31,6 +31,13 @@ class Track;
 class Function;
 class ShowFunction;
 
+typedef struct
+{
+    quint32 m_trackIndex;
+    ShowFunction *m_showFunc;
+    QQuickItem *m_item;
+} selectedShowItem;
+
 class ShowManager : public PreviewContext
 {
     Q_OBJECT
@@ -44,6 +51,7 @@ class ShowManager : public PreviewContext
     Q_PROPERTY(bool isPlaying READ isPlaying NOTIFY isPlayingChanged)
     Q_PROPERTY(int showDuration READ showDuration NOTIFY showDurationChanged)
     Q_PROPERTY(QQmlListProperty<Track> tracks READ tracks NOTIFY tracksChanged)
+    Q_PROPERTY(int selectedItemsCount READ selectedItemsCount NOTIFY selectedItemsCountChanged)
 
 public:
     explicit ShowManager(QQuickView *view, Doc *doc, QObject *parent = 0);
@@ -85,6 +93,8 @@ public:
      */
     Q_INVOKABLE void addItem(QQuickItem *parent, int trackIdx, int startTime, quint32 functionID);
 
+    void deleteShowItems(QVariantList data);
+
     /** Method invoked when moving an existing Show Item on the timeline.
      *  The new position is checked for overlapping against existing items on the
      *  provided $newTrackIdx. On overlapping, false is returned and the UI
@@ -120,6 +130,14 @@ public:
 
     bool isPlaying() const;
 
+    /** Returns the number of the currently selected Show items */
+    int selectedItemsCount() const;
+
+    Q_INVOKABLE void setItemSelection(int trackIdx, ShowFunction *sf, QQuickItem *item, bool selected);
+
+    Q_INVOKABLE QVariantList selectedItemRefs();
+    Q_INVOKABLE QStringList selectedItemNames();
+
 protected slots:
     void slotTimeChanged(quint32 msec_time);
 
@@ -137,6 +155,7 @@ signals:
     void isPlayingChanged(bool playing);
     void showDurationChanged(int showDuration);
     void tracksChanged();
+    void selectedItemsCountChanged(int count);
 
 private:
     /** A reference to the Show Function being edited */
@@ -161,6 +180,7 @@ private:
     /** Pre-cached QML component for quick item creation */
     QQmlComponent *siComponent;
 
+    QList<selectedShowItem> m_selectedItems;
 };
 
 #endif // SHOWMANAGER_H

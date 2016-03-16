@@ -42,6 +42,7 @@ public:
 
     Q_INVOKABLE void selectItem(quint32 id, QQuickItem *item, bool multiSelection);
     Q_INVOKABLE QVariantList itemsList();
+    Q_INVOKABLE void resetSelection();
 
     int nodesCount() const;
     int itemsCount() const;

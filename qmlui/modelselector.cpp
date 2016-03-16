@@ -71,6 +71,12 @@ QVariantList ModelSelector::itemsList()
     return list;
 }
 
+void ModelSelector::resetSelection()
+{
+    //qDebug() << "[ModelSelector] resetSelection";
+    m_selectedItems.clear();
+}
+
 int ModelSelector::nodesCount() const
 {
     return m_nodesCount;

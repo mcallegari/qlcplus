@@ -74,6 +74,18 @@ Rectangle
     ModelSelector
     {
         id: fmSelector
+
+        // this is here to monitor the changes coming from the Function Manager
+        // For example, changin the functions filter or deleting function
+        // can lead the ModelSelector out of sync, so here's an extra check
+        property int selectionCount: functionManager.selectionCount
+
+        onSelectionCountChanged:
+        {
+            if (selectionCount == 0)
+                fmSelector.resetSelection()
+        }
+
         onItemsCountChanged:
         {
             console.log("Function Manager selected items changed !")
