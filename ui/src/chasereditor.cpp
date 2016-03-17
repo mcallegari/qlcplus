@@ -595,13 +595,7 @@ void ChaserEditor::slotItemChanged(QTreeWidgetItem *item, int column)
     m_chaser->replaceStep(step, idx);
     updateItem(item, step);
 
-    m_tree->resizeColumnToContents(COL_NUM);
-    m_tree->resizeColumnToContents(COL_NAME);
-    m_tree->resizeColumnToContents(COL_FADEIN);
-    m_tree->resizeColumnToContents(COL_HOLD);
-    m_tree->resizeColumnToContents(COL_FADEOUT);
-    m_tree->resizeColumnToContents(COL_DURATION);
-    m_tree->resizeColumnToContents(COL_NOTES);
+    m_tree->header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
 /****************************************************************************
@@ -1103,13 +1097,7 @@ void ChaserEditor::updateTree(bool clear)
         updateItem(item, step);
     }
 
-    m_tree->resizeColumnToContents(COL_NUM);
-    m_tree->resizeColumnToContents(COL_NAME);
-    m_tree->resizeColumnToContents(COL_FADEIN);
-    m_tree->resizeColumnToContents(COL_HOLD);
-    m_tree->resizeColumnToContents(COL_FADEOUT);
-    m_tree->resizeColumnToContents(COL_DURATION);
-    m_tree->resizeColumnToContents(COL_NOTES);
+    m_tree->header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
 void ChaserEditor::updateItem(QTreeWidgetItem* item, ChaserStep& step)

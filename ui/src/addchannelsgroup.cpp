@@ -116,9 +116,7 @@ AddChannelsGroup::AddChannelsGroup(QWidget* parent, Doc* doc, ChannelsGroup *gro
             item->setText(KColumnChIdx, QString::number(c));
         }
     }
-    m_tree->resizeColumnToContents(KColumnName);
-    m_tree->resizeColumnToContents(KColumnType);
-    m_tree->resizeColumnToContents(KColumnGroup);
+    m_tree->header()->resizeSections(QHeaderView::ResizeToContents);
 
     QSettings settings;
     QVariant var = settings.value(SETTINGS_APPLYALL);

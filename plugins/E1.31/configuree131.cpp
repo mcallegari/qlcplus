@@ -188,14 +188,7 @@ void ConfigureE131::fillMappingTree()
         }
     }
 
-    m_uniMapTree->resizeColumnToContents(KMapColumnInterface);
-    m_uniMapTree->resizeColumnToContents(KMapColumnUniverse);
-    m_uniMapTree->resizeColumnToContents(KMapColumnMulticast);
-    m_uniMapTree->resizeColumnToContents(KMapColumnIPAddress);
-    m_uniMapTree->resizeColumnToContents(KMapColumnPort);
-    m_uniMapTree->resizeColumnToContents(KMapColumnE131Uni);
-    m_uniMapTree->resizeColumnToContents(KMapColumnTransmitMode);
-    m_uniMapTree->resizeColumnToContents(KMapColumnPriority);
+    m_uniMapTree->header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
 QWidget *ConfigureE131::createMcastIPWidget(QString ip)

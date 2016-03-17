@@ -444,13 +444,7 @@ void VCCueList::updateStepList()
     if (item != NULL)
         m_defCol = item->background(COL_NUM);
 
-    m_tree->resizeColumnToContents(COL_NUM);
-    m_tree->resizeColumnToContents(COL_NAME);
-    m_tree->resizeColumnToContents(COL_FADEIN);
-    m_tree->resizeColumnToContents(COL_FADEOUT);
-    m_tree->resizeColumnToContents(COL_DURATION);
-    m_tree->resizeColumnToContents(COL_NOTES);
-
+    m_tree->header()->resizeSections(QHeaderView::ResizeToContents);
     m_listIsUpdating = false;
 }
 

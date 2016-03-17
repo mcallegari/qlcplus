@@ -18,6 +18,7 @@
 */
 
 #include <QDebug>
+#include <QHeaderView>
 
 #include "fixturetreewidget.h"
 #include "qlcfixturedef.h"
@@ -408,12 +409,7 @@ void FixtureTreeWidget::updateSelections()
 
 void FixtureTreeWidget::slotItemExpanded()
 {
-    resizeColumnToContents(KColumnName);
-    resizeColumnToContents(m_uniColumn);
-    resizeColumnToContents(m_typeColumn);
-    resizeColumnToContents(m_headsColumn);
-    resizeColumnToContents(m_manufColumn);
-    resizeColumnToContents(m_modelColumn);
+    header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
 void FixtureTreeWidget::updateTree()
@@ -474,12 +470,7 @@ void FixtureTreeWidget::updateTree()
         m_channelsCount += fixture->channels();
     }
 
-    resizeColumnToContents(KColumnName);
-    resizeColumnToContents(m_uniColumn);
-    resizeColumnToContents(m_typeColumn);
-    resizeColumnToContents(m_headsColumn);
-    resizeColumnToContents(m_manufColumn);
-    resizeColumnToContents(m_modelColumn);
+    header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
 

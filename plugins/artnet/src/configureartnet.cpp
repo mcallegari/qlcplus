@@ -93,9 +93,7 @@ void ConfigureArtNet::fillNodesTree()
         }
     }
 
-    m_nodesTree->resizeColumnToContents(KNodesColumnIP);
-    m_nodesTree->resizeColumnToContents(KNodesColumnShortName);
-    m_nodesTree->resizeColumnToContents(KNodesColumnLongName);
+    m_nodesTree->header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
 void ConfigureArtNet::fillMappingTree()
@@ -183,11 +181,7 @@ void ConfigureArtNet::fillMappingTree()
         }
     }
 
-    m_uniMapTree->resizeColumnToContents(KMapColumnInterface);
-    m_uniMapTree->resizeColumnToContents(KMapColumnUniverse);
-    m_uniMapTree->resizeColumnToContents(KMapColumnIPAddress);
-    m_uniMapTree->resizeColumnToContents(KMapColumnArtNetUni);
-    m_uniMapTree->resizeColumnToContents(KMapColumnTransmitMode);
+    m_uniMapTree->header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
 void ConfigureArtNet::showIPAlert(QString ip)

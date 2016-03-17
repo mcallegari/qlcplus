@@ -163,6 +163,7 @@ void InputProfileEditor::fillTree()
         it.next();
         updateChannelItem(new QTreeWidgetItem(m_tree), it.value());
     }
+    m_tree->header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
 void InputProfileEditor::updateChannelItem(QTreeWidgetItem* item,

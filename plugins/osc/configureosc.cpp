@@ -160,11 +160,7 @@ void ConfigureOSC::fillMappingTree()
         }
     }
 
-    m_uniMapTree->resizeColumnToContents(KMapColumnInterface);
-    m_uniMapTree->resizeColumnToContents(KMapColumnUniverse);
-    m_uniMapTree->resizeColumnToContents(KMapColumnInputPort);
-    m_uniMapTree->resizeColumnToContents(KMapColumnOutputAddress);
-    m_uniMapTree->resizeColumnToContents(KMapColumnOutputPort);
+    m_uniMapTree->header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
 void ConfigureOSC::showIPAlert(QString ip)

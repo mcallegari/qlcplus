@@ -106,6 +106,7 @@ void OSCController::addUniverse(quint32 universe, OSCController::Type type)
 
 void OSCController::removeUniverse(quint32 universe, OSCController::Type type)
 {
+    qDebug() << "### OSCController::removeUniverse";
     if (m_universeMap.contains(universe))
     {
         if (type == Input)
@@ -130,6 +131,7 @@ bool OSCController::setInputPort(quint32 universe, quint16 port)
     if (!m_universeMap.contains(universe))
         return false;
 
+    qDebug() << "### OSCController::setInputPort";
     QMutexLocker locker(&m_dataMutex);
     if (m_portsMap.contains(m_universeMap[universe].inputPort))
         m_portsMap.take(m_universeMap[universe].inputPort);
@@ -387,13 +389,14 @@ void OSCController::processPendingPackets()
                 QString path = msg.first;
                 QByteArray values = msg.second;
 
-                //qDebug() << "[OSC] message has path:" << path << "values:" << values.count();
+                qDebug() << "[OSC] message has path:" << path << "values:" << values.count();
                 if (values.isEmpty())
                     continue;
 
                 quint16 port = socket->localPort();
                 if (m_portsMap.contains(port))
                 {
+                    qDebug() << "here -- 1";
                     if (values.count() > 1)
                     {
                         quint32 uni = m_portsMap[port];

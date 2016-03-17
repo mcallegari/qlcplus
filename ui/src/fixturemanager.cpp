@@ -438,9 +438,7 @@ void FixtureManager::updateView()
     updateGroupMenu();
     slotModeChanged(m_doc->mode());
 
-    m_fixtures_tree->resizeColumnToContents(KColumnName);
-    m_fixtures_tree->resizeColumnToContents(KColumnAddress);
-    m_fixtures_tree->resizeColumnToContents(KColumnUniverse);
+    m_fixtures_tree->header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
 void FixtureManager::updateChannelsGroupView()
@@ -485,8 +483,7 @@ void FixtureManager::updateChannelsGroupView()
     m_importAction->setEnabled(false);
     m_remapAction->setEnabled(false);
 
-    m_channel_groups_tree->resizeColumnToContents(KColumnName);
-    m_channel_groups_tree->resizeColumnToContents(KColumnChannels);
+    m_channel_groups_tree->header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
 void FixtureManager::fixtureSelected(quint32 id)
@@ -711,9 +708,7 @@ void FixtureManager::slotTabChanged(int index)
 
 void FixtureManager::slotFixtureItemExpanded()
 {
-    m_fixtures_tree->resizeColumnToContents(KColumnName);
-    m_fixtures_tree->resizeColumnToContents(KColumnAddress);
-    m_fixtures_tree->resizeColumnToContents(KColumnUniverse);
+    m_fixtures_tree->header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
 void FixtureManager::selectGroup(quint32 id)
