@@ -1,5 +1,13 @@
 qlcplus (4.10.4) stable; urgency=low
 
+  * Fixture updated: Starway MaxKolor-18 (thanks to Thierry Rodolfo and Robert Box)
+  * Fixture updated: Cameo LED RGBW PAR64 18x8W (thanks to Lukas)
+  * New fixture: American DJ Mega QA Par38 (thanks to Nathan Durnan)
+  * New fixture: Martin MAC 250 Wash (thanks to Robert Box)
+  * New fixture: Luxibel LX161 (thanks to Freddy Hoogstoel)
+  * New fixture: Stairville MH-X60th LED Spot (thanks to Jasper Zevering)
+  * New fixture: Cameo CLHB400RGBW (thanks to Mihai Andrei)
+
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 8 May 2016 12:13:14 +0200
 
 qlcplus (4.10.3a) stable; urgency=low

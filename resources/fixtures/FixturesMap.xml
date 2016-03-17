@@ -50,6 +50,7 @@
   <fixture path="American-DJ-Mega-Panel-LED.qxf" mf="American DJ" md="Mega Panel LED"/>
   <fixture path="American-DJ-Mega-PAR-Profile-Plus.qxf" mf="American DJ" md="Mega PAR Profile Plus"/>
   <fixture path="American-DJ-Mega-PAR-Profile.qxf" mf="American DJ" md="Mega PAR Profile"/>
+  <fixture path="American-DJ-Mega-QA-Par38.qxf" mf="American DJ" md="Mega QA Par38"/>
   <fixture path="American-DJ-Mega-Tri-Bar.qxf" mf="American DJ" md="Mega Tri Bar"/>
   <fixture path="American-DJ-Mega-Tri-Par.qxf" mf="American DJ" md="Mega Tri Par"/>
   <fixture path="American-DJ-Mega-TriPar-Profile-Plus.qxf" mf="American DJ" md="Mega TriPar Profile Plus"/>
@@ -127,6 +128,7 @@
   <fixture path="Briteq-Pro-Beamer-Zoom.qxf" mf="Briteq" md="Pro Beamer Zoom"/>
   <fixture path="Cameo-CL-Superfly-HP.qxf" mf="Cameo" md="CL Superfly HP"/>
   <fixture path="Cameo-CLBARL10RGBA.qxf" mf="Cameo" md="LED Colour Bar RGBA (CLBAR10RGBA)"/>
+  <fixture path="Cameo-CLHB400RGBW.qxf" mf="Cameo" md="CLHB400RGBW"/>
   <fixture path="Cameo-Flat-PAR-CAN-TRI-3W.qxf" mf="Cameo" md="Flat PAR CAN TRI 3W"/>
   <fixture path="Cameo-Gobo-Scanner-60.qxf" mf="Cameo" md="Gobo Scanner 60"/>
   <fixture path="Cameo-LED-Mini-PAR-CAN-RGB-7x3W.qxf" mf="Cameo" md="LED Mini PAR CAN RGB 7x3W"/>
@@ -455,6 +457,7 @@
   <fixture path="LiteCraft-LED-PAR-64-AT3.qxf" mf="Litecraft" md="LED PAR 64 AT3"/>
   <fixture path="Litecraft-PowerBar-4.qxf" mf="Litecraft" md="PowerBar 4"/>
   <fixture path="Look-Solutions-Unique-2.1.qxf" mf="Look Solutions" md="Unique 2.1"/>
+  <fixture path="Luxibel-LX161.qxf" mf="Luxibel" md="LX161"/>
   <fixture path="Mac-Mah-Mac-FOG-DMX.qxf" mf="Mac Mah" md="Mac FOG DMX"/>
   <fixture path="Mac-Mah-Mac-Follow-1200.qxf" mf="Mac Mah" md="Mac Follow 1200"/>
   <fixture path="Mac-Mah-WiderPanel.qxf" mf="Mac Mah" md="Wider Panel"/>
@@ -472,6 +475,7 @@
   <fixture path="Martin-MAC-101.qxf" mf="Martin" md="MAC 101"/>
   <fixture path="Martin-MAC-2000-Performance-II.qxf" mf="Martin" md="MAC 2000 Performance II"/>
   <fixture path="Martin-MAC-2000-Profile-II.qxf" mf="Martin" md="MAC 2000 Profile II"/>
+  <fixture path="Martin-MAC-250-Wash.qxf" mf="Martin" md="MAC 250 Wash"/>
   <fixture path="Martin-MAC-301-Wash.qxf" mf="Martin" md="MAC 301 Wash"/>
   <fixture path="Martin-Mac-350-Entour.qxf" mf="Martin" md="MAC 350 Entour"/>
   <fixture path="Martin-MAC-700-Profile.qxf" mf="Martin" md="MAC 700 Profile"/>
@@ -658,6 +662,7 @@
   <fixture path="Stairville-MH-x200-Pro-Spot.qxf" mf="Stairville" md="MH-x200 Pro Spot"/>
   <fixture path="Stairville-MH-X25.qxf" mf="Stairville" md="MH-X25"/>
   <fixture path="Stairville-MH-X50.qxf" mf="Stairville" md="MH-X50+"/>
+  <fixture path="Stairville-MH-X60th-LED-Spot.qxf" mf="Stairville" md="MH-X60th LED Spot"/>
   <fixture path="Stairville-Octagon-Theater.qxf" mf="Stairville" md="Octagon Theater"/>
   <fixture path="Stairville-PAR64-CX-3-RGBW.qxf" mf="Stairville" md="PAR 64 CX-3 RGBW"/>
   <fixture path="Stairville-PS1500DMX.qxf" mf="Stairville" md="PS 1500 DMX"/>
