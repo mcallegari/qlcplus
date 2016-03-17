@@ -36,6 +36,8 @@ QLCInputChannel::QLCInputChannel()
     m_movementType = Absolute;
     m_movementSensitivity = 20;
     m_sendExtraPress = false;
+    m_lower = 0;
+    m_upper = UCHAR_MAX;
 }
 
 QLCInputChannel::QLCInputChannel(const QLCInputChannel& channel)
@@ -45,6 +47,8 @@ QLCInputChannel::QLCInputChannel(const QLCInputChannel& channel)
     m_movementType = channel.m_movementType;
     m_movementSensitivity = channel.m_movementSensitivity;
     m_sendExtraPress = channel.m_sendExtraPress;
+    m_lower = channel.m_lower;
+    m_upper = channel.m_upper;
 }
 
 QLCInputChannel::~QLCInputChannel()
@@ -213,6 +217,22 @@ bool QLCInputChannel::sendExtraPress() const
     return m_sendExtraPress;
 }
 
+void QLCInputChannel::setRange(uchar lower, uchar upper)
+{
+    m_lower = lower;
+    m_upper = upper;
+}
+
+uchar QLCInputChannel::lowerValue() const
+{
+    return m_lower;
+}
+
+uchar QLCInputChannel::upperValue() const
+{
+    return m_upper;
+}
+
 /****************************************************************************
  * Load & Save
  ****************************************************************************/
@@ -247,6 +267,18 @@ bool QLCInputChannel::loadXML(QXmlStreamReader &root)
 
             if (root.readElementText() == KXMLQLCInputChannelRelative)
                 setMovementType(Relative);
+        }
+        else if (root.name() == KXMLQLCInputChannelFeedbacks)
+        {
+            uchar min = 0, max = UCHAR_MAX;
+
+            if (root.attributes().hasAttribute(KXMLQLCInputChannelLowerValue))
+                min = uchar(root.attributes().value(KXMLQLCInputChannelLowerValue).toString().toUInt());
+            if (root.attributes().hasAttribute(KXMLQLCInputChannelUpperValue))
+                max = uchar(root.attributes().value(KXMLQLCInputChannelUpperValue).toString().toUInt());
+
+            setRange(min, max);
+            root.skipCurrentElement();
         }
         else
         {
@@ -284,6 +316,15 @@ bool QLCInputChannel::saveXML(QXmlStreamWriter *doc, quint32 channelNumber) cons
     {
         doc->writeStartElement(KXMLQLCInputChannelMovement);
         doc->writeAttribute(KXMLQLCInputChannelSensitivity, QString::number(movementSensitivity()));
+        doc->writeEndElement();
+    }
+    else if (type() == Button && (lowerValue() != 0 || upperValue() != UCHAR_MAX))
+    {
+        doc->writeStartElement(KXMLQLCInputChannelFeedbacks);
+        if (lowerValue() != 0)
+            doc->writeAttribute(KXMLQLCInputChannelLowerValue, QString::number(lowerValue()));
+        if (upperValue() != UCHAR_MAX)
+            doc->writeAttribute(KXMLQLCInputChannelUpperValue, QString::number(upperValue()));
         doc->writeEndElement();
     }
 

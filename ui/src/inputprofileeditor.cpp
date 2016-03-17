@@ -85,6 +85,10 @@ InputProfileEditor::InputProfileEditor(QWidget* parent, QLCInputProfile* profile
             this, SLOT(slotSensitivitySpinChanged(int)));
     connect(m_extraPressCheck, SIGNAL(toggled(bool)),
             this, SLOT(slotExtraPressChecked(bool)));
+    connect(m_lowerSpin, SIGNAL(valueChanged(int)),
+            this, SLOT(slotLowerValueSpinChanged(int)));
+    connect(m_upperSpin, SIGNAL(valueChanged(int)),
+            this, SLOT(slotUpperValueSpinChanged(int)));
 
     /* Listen to input data */
     connect(m_ioMap, SIGNAL(inputValueChanged(quint32, quint32, uchar, const QString&)),
@@ -130,6 +134,7 @@ InputProfileEditor::InputProfileEditor(QWidget* parent, QLCInputProfile* profile
     m_modelEdit->setText(m_profile->model());
   
     m_behaviourBox->hide();
+    m_feedbackGroup->hide();
     /* Fill up the tree with profile's channels */
     fillTree();
 
@@ -181,12 +186,12 @@ void InputProfileEditor::updateChannelItem(QTreeWidgetItem* item,
     item->setIcon(KColumnType, ch->icon());
 }
 
-void InputProfileEditor::updateBehaviourBox(QLCInputChannel::Type type)
+void InputProfileEditor::setOptionsVisibility(QLCInputChannel::Type type)
 {
     bool showBox = true;
     bool showMovement = false;
     bool showSensitivity = false;
-    bool showExtraPress = false;
+    bool showButtonOpts = false;
 
     if (type == QLCInputChannel::Slider || type == QLCInputChannel::Knob)
     {
@@ -201,7 +206,7 @@ void InputProfileEditor::updateBehaviourBox(QLCInputChannel::Type type)
     }
     else if (type == QLCInputChannel::Button)
     {
-        showExtraPress = true;
+        showButtonOpts = true;
     }
     else
         showBox = false;
@@ -210,7 +215,8 @@ void InputProfileEditor::updateBehaviourBox(QLCInputChannel::Type type)
     m_movementCombo->setVisible(showMovement);
     m_sensitivityLabel->setVisible(showSensitivity);
     m_sensitivitySpin->setVisible(showSensitivity);
-    m_extraPressCheck->setVisible(showExtraPress);
+    m_extraPressCheck->setVisible(showButtonOpts);
+    m_feedbackGroup->setVisible(showButtonOpts);
     m_behaviourBox->setVisible(showBox);
 }
 
@@ -390,7 +396,7 @@ edit:
                 if (ice.type() != QLCInputChannel::NoType)
                 {
                     if (ice.type() != channel->type())
-                        updateBehaviourBox(ice.type());
+                        setOptionsVisibility(ice.type());
                     channel->setType(ice.type());
                     if (m_sensitivitySpin->isVisible())
                         m_sensitivitySpin->setValue(channel->movementSensitivity());
@@ -469,7 +475,7 @@ void InputProfileEditor::slotItemClicked(QTreeWidgetItem *item, int col)
     QLCInputChannel *ich = m_profile->channel(chNum);
     if (ich != NULL)
     {
-        updateBehaviourBox(ich->type());
+        setOptionsVisibility(ich->type());
 
         if (ich->type() == QLCInputChannel::Slider || ich->type() == QLCInputChannel::Knob)
         {
@@ -493,10 +499,16 @@ void InputProfileEditor::slotItemClicked(QTreeWidgetItem *item, int col)
         else if (ich->type() == QLCInputChannel::Button)
         {
             m_extraPressCheck->setChecked(ich->sendExtraPress());
+            m_lowerSpin->blockSignals(true);
+            m_upperSpin->blockSignals(true);
+            m_lowerSpin->setValue(ich->lowerValue());
+            m_upperSpin->setValue(ich->upperValue());
+            m_lowerSpin->blockSignals(false);
+            m_upperSpin->blockSignals(false);
         }
     }
     else
-        updateBehaviourBox(QLCInputChannel::NoType);
+        setOptionsVisibility(QLCInputChannel::NoType);
 }
 
 void InputProfileEditor::slotMovementComboChanged(int index)
@@ -541,6 +553,24 @@ void InputProfileEditor::slotExtraPressChecked(bool checked)
     }
 }
 
+void InputProfileEditor::slotLowerValueSpinChanged(int value)
+{
+    foreach(QLCInputChannel *channel, selectedChannels())
+    {
+        if (channel->type() == QLCInputChannel::Button)
+            channel->setRange(uchar(value), uchar(m_upperSpin->value()));
+    }
+}
+
+void InputProfileEditor::slotUpperValueSpinChanged(int value)
+{
+    foreach(QLCInputChannel *channel, selectedChannels())
+    {
+        if (channel->type() == QLCInputChannel::Button)
+            channel->setRange(uchar(m_lowerSpin->value()), uchar(value));
+    }
+}
+
 void InputProfileEditor::slotInputValueChanged(quint32 universe,
                                                quint32 channel,
                                                uchar value,
@@ -556,7 +586,7 @@ void InputProfileEditor::slotInputValueChanged(quint32 universe,
     if (channel == UINT_MAX && key.isEmpty() == false)
         list = m_tree->findItems(key, Qt::MatchExactly, KColumnName);
     else
-        list = m_tree->findItems(QString("%1").arg(channel + 1), Qt::MatchExactly,
+        list = m_tree->findItems(QString("%1").arg(channel + 1, 4, 10, QChar('0')), Qt::MatchExactly,
                              KColumnNumber);
     if (list.size() != 0)
         latestItem = list.first();

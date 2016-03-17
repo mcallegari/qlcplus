@@ -604,11 +604,18 @@ void VCWidget::setInputSource(QSharedPointer<QLCInputSource> const& source, quin
                         connect(source.data(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
                                 this, SLOT(slotInputValueChanged(quint32,quint32,uchar)));
                     }
-                    else if (ich->sendExtraPress() == true)
+                    else if (ich->type() == QLCInputChannel::Button)
                     {
-                        source->setSendExtraPressRelease(true);
-                        connect(source.data(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
-                                this, SLOT(slotInputValueChanged(quint32,quint32,uchar)));
+                        if (ich->sendExtraPress() == true)
+                        {
+                            source->setSendExtraPressRelease(true);
+                            connect(source.data(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+                                    this, SLOT(slotInputValueChanged(quint32,quint32,uchar)));
+                        }
+
+                        // user custom feedbacks have precedence over input profile custom feedbacks
+                        source->setRange((source->lowerValue() != 0) ? source->lowerValue() : ich->lowerValue(),
+                                         (source->upperValue() != UCHAR_MAX) ? source->upperValue() : ich->upperValue());
                     }
                 }
             }
