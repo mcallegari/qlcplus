@@ -175,7 +175,7 @@ void InputProfileEditor::updateChannelItem(QTreeWidgetItem* item,
     Q_ASSERT(ch != NULL);
 
     num = m_profile->channelNumber(ch);
-    item->setText(KColumnNumber, QString("%1").arg(num + 1));
+    item->setText(KColumnNumber, QString("%1").arg(num + 1, 4, 10, QChar('0')));
     item->setText(KColumnName, ch->name());
     item->setText(KColumnType, QLCInputChannel::typeToString(ch->type()));
     item->setIcon(KColumnType, ch->icon());
