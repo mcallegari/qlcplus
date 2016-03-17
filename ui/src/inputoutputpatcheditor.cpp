@@ -663,8 +663,8 @@ void InputOutputPatchEditor::slotProfileItemChanged(QTreeWidgetItem* item)
     m_currentProfileName = item->text(KProfileColumnName);
 
     /* Apply the patch immediately */
-    if (m_ioMap->setInputPatch(m_universe, m_currentInputPluginName,
-                               m_currentInput, m_currentProfileName) == false)
+    //if (m_ioMap->setInputPatch(m_universe, m_currentInputPluginName, m_currentInput, m_currentProfileName) == false)
+    if (m_ioMap->setInputProfile(m_universe, m_currentProfileName) == false)
         showPluginMappingError();
 
     emit mappingChanged();
