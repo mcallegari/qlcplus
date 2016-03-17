@@ -117,6 +117,7 @@ void VCFrame::setDisableState(bool disable)
     foreach( VCWidget* widget, this->findChildren<VCWidget*>())
         widget->setDisableState(disable);
     m_disableState = disable;
+    updateFeedback();
     //VCWidget::setDisableState(disable);
 }
 
@@ -507,6 +508,7 @@ void VCFrame::slotModeChanged(Doc::Mode mode)
         if (isDisabled())
             slotEnableButtonClicked(false);
         updateSubmasterValue();
+        updateFeedback();
     }
 
     VCWidget::slotModeChanged(mode);
@@ -614,6 +616,15 @@ void VCFrame::slotFrameKeyPressed(const QKeySequence& keySequence)
 
 void VCFrame::updateFeedback()
 {
+    QSharedPointer<QLCInputSource> src = inputSource(enableInputSourceId);
+    if (!src.isNull() && src->isValid() == true)
+    {
+        if (m_disableState == false)
+            sendFeedback(src->upperValue(), enableInputSourceId);
+        else
+            sendFeedback(src->lowerValue(), enableInputSourceId);
+    }
+
     QListIterator <VCWidget*> it(this->findChildren<VCWidget*>());
     while (it.hasNext() == true)
     {
@@ -628,16 +639,16 @@ void VCFrame::updateFeedback()
 
 void VCFrame::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
 {
-    if (isEnabled() == false || value == 0)
+    if (isEnabled() == false)
         return;
 
     quint32 pagedCh = (page() << 16) | channel;
 
-    if (checkInputSource(universe, pagedCh, value, sender(), enableInputSourceId))
+    if (checkInputSource(universe, pagedCh, value, sender(), enableInputSourceId) && value)
         setDisableState(!isDisabled());
-    else if (checkInputSource(universe, pagedCh, value, sender(), previousPageInputSourceId))
+    else if (checkInputSource(universe, pagedCh, value, sender(), previousPageInputSourceId) && value)
         slotPreviousPage();
-    else if (checkInputSource(universe, pagedCh, value, sender(), nextPageInputSourceId))
+    else if (checkInputSource(universe, pagedCh, value, sender(), nextPageInputSourceId) && value)
         slotNextPage();
 }
 
