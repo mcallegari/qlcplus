@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
+  <Author>Mihai</Author>
+ </Creator>
+ <Manufacturer>Cameo</Manufacturer>
+ <Model>CLHB400RGBW</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Master Control - Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan</Capability>
+ </Channel>
+ <Channel Name="Fine Control - Pan">
+  <Group Byte="1">Pan</Group>
+  <Capability Min="0" Max="255">Pan fine</Capability>
+ </Channel>
+ <Channel Name="Master Control - Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt</Capability>
+ </Channel>
+ <Channel Name="Fine Control - Tilt">
+  <Group Byte="1">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt fine</Capability>
+ </Channel>
+ <Channel Name="First Head - Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">0-100%</Capability>
+ </Channel>
+ <Channel Name="Sound Mode/Reset">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="199">No function</Capability>
+  <Capability Min="200" Max="209">Reset</Capability>
+  <Capability Min="210" Max="240">No function</Capability>
+  <Capability Min="241" Max="255">Sound control mode</Capability>
+ </Channel>
+ <Channel Name="Second Head - Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan</Capability>
+ </Channel>
+ <Channel Name="Second Head - Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt</Capability>
+ </Channel>
+ <Channel Name="Second Head - Tilt Fine">
+  <Group Byte="1">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt Fine</Capability>
+ </Channel>
+ <Channel Name="Second Head - Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">0-100%</Capability>
+ </Channel>
+ <Channel Name="Third Head - Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan</Capability>
+ </Channel>
+ <Channel Name="Third Head - Pan Fine">
+  <Group Byte="1">Pan</Group>
+  <Capability Min="0" Max="255">Pan Fine</Capability>
+ </Channel>
+ <Channel Name="Third Head - Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt</Capability>
+ </Channel>
+ <Channel Name="Third Head - Tilt Fine">
+  <Group Byte="1">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt Fine</Capability>
+ </Channel>
+ <Channel Name="Head Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Slow to fast</Capability>
+ </Channel>
+ <Channel Name="Third Head - Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">0-100%</Capability>
+ </Channel>
+ <Channel Name="Fourth Head - Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan</Capability>
+ </Channel>
+ <Channel Name="Fourth Head - Pan Fine">
+  <Group Byte="1">Pan</Group>
+  <Capability Min="0" Max="255">Pan Fine</Capability>
+ </Channel>
+ <Channel Name="Fourth Head - Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt</Capability>
+ </Channel>
+ <Channel Name="Fourth Head - Tilt Fine">
+  <Group Byte="1">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt Fine</Capability>
+ </Channel>
+ <Channel Name="Light Control - Automatic Colour Change Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Slow to fast</Capability>
+ </Channel>
+ <Channel Name="Fourth Head - Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">0-100%</Capability>
+ </Channel>
+ <Channel Name="Light Control - Automatic Colour Change/Colour Macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="30" Res="Others/rainbow.png">Automatic colour change</Capability>
+  <Capability Min="31" Max="45" Color="#ff0000">Red</Capability>
+  <Capability Min="46" Max="60" Color="#00ff00">Green</Capability>
+  <Capability Min="61" Max="75" Color="#0000ff">Blue</Capability>
+  <Capability Min="76" Max="90" Color="#ffffff">White</Capability>
+  <Capability Min="91" Max="105" Color="#ffff00">Red green</Capability>
+  <Capability Min="106" Max="120" Color="#ff00ff">Red blue</Capability>
+  <Capability Min="121" Max="135" Color="#ff7f7f">Red white</Capability>
+  <Capability Min="136" Max="150" Color="#00ffff">Green blue</Capability>
+  <Capability Min="151" Max="165" Color="#7fff7f">Green white</Capability>
+  <Capability Min="166" Max="180" Color="#7f7fff">Blue white</Capability>
+  <Capability Min="181" Max="195" Color="#ffffff">Red green blue</Capability>
+  <Capability Min="196" Max="210" Color="#ffff80">Red green white</Capability>
+  <Capability Min="211" Max="225" Color="#ff80ff">Red blue white</Capability>
+  <Capability Min="226" Max="240" Color="#80ffff">Green blue white</Capability>
+  <Capability Min="241" Max="255" Color="#ffffff">Red green blue white</Capability>
+ </Channel>
+ <Channel Name="Master Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">0-100%</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10">No strobe</Capability>
+  <Capability Min="11" Max="255">Slow to fast</Capability>
+ </Channel>
+ <Channel Name="Show Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">No movement</Capability>
+  <Capability Min="8" Max="22">Show mode 1</Capability>
+  <Capability Min="23" Max="37">Show mode 2</Capability>
+  <Capability Min="38" Max="52">Show mode 3</Capability>
+  <Capability Min="53" Max="67">Show mode 4</Capability>
+  <Capability Min="68" Max="82">Show mode 5</Capability>
+  <Capability Min="83" Max="97">Show mode 6</Capability>
+  <Capability Min="98" Max="112">Show mode 7</Capability>
+  <Capability Min="113" Max="127">Show mode 8</Capability>
+  <Capability Min="128" Max="142">Show mode 9</Capability>
+  <Capability Min="143" Max="157">Show mode 10</Capability>
+  <Capability Min="158" Max="172">Show mode 11</Capability>
+  <Capability Min="173" Max="187">Show mode 12</Capability>
+  <Capability Min="188" Max="202">Show mode 13</Capability>
+  <Capability Min="203" Max="217">Show mode 14</Capability>
+  <Capability Min="218" Max="232">Show mode 15</Capability>
+  <Capability Min="233" Max="247">Show mode 16</Capability>
+  <Capability Min="248" Max="255">Sound control mode</Capability>
+ </Channel>
+ <Channel Name="Show Mode Speed/Sound Sensitivity">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Slow to fast/Low to high</Capability>
+ </Channel>
+ <Channel Name="Master Control - Master Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">0-100%</Capability>
+ </Channel>
+ <Channel Name="Colour Control - Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red dimmer</Capability>
+ </Channel>
+ <Channel Name="Colour Control - Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green dimmer</Capability>
+ </Channel>
+ <Channel Name="Colour Control - Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue dimmer</Capability>
+ </Channel>
+ <Channel Name="Colour Control - White">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">White dimmer</Capability>
+ </Channel>
+ <Channel Name="First Head - Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan</Capability>
+ </Channel>
+ <Channel Name="First Head - Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt</Capability>
+ </Channel>
+ <Channel Name="First Head - Pan Fine">
+  <Group Byte="1">Pan</Group>
+  <Capability Min="0" Max="255">Pan fine</Capability>
+ </Channel>
+ <Channel Name="First Head - Tilt Fine">
+  <Group Byte="1">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt fine</Capability>
+ </Channel>
+ <Channel Name="First Head - Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="10">Fastest</Capability>
+  <Capability Min="11" Max="255">Slow to fast</Capability>
+ </Channel>
+ <Channel Name="Second Head - Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="10">Fastest</Capability>
+  <Capability Min="11" Max="255">Slow to fast</Capability>
+ </Channel>
+ <Channel Name="Third Head - Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="10">Fastest</Capability>
+  <Capability Min="11" Max="255">Slow to fast</Capability>
+ </Channel>
+ <Channel Name="Fourth Head - Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="10">Fastest</Capability>
+  <Capability Min="11" Max="255">Slow to fast</Capability>
+ </Channel>
+ <Channel Name="First Head - Light Control">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="30">Use channels 29-32 to control colour</Capability>
+  <Capability Min="31" Max="45" Color="#ff0000">Red</Capability>
+  <Capability Min="46" Max="60" Color="#00ff00">Green</Capability>
+  <Capability Min="61" Max="75" Color="#0000ff">Blue</Capability>
+  <Capability Min="76" Max="90" Color="#ffffff">White</Capability>
+  <Capability Min="91" Max="105" Color="#ffff00">Red green</Capability>
+  <Capability Min="106" Max="120" Color="#ff00ff">Red blue</Capability>
+  <Capability Min="121" Max="135" Color="#ff7f7f">Red white</Capability>
+  <Capability Min="136" Max="150" Color="#00ffff">Green blue</Capability>
+  <Capability Min="151" Max="165" Color="#7fff7f">Green white</Capability>
+  <Capability Min="166" Max="180" Color="#7f7fff">Blue white</Capability>
+  <Capability Min="181" Max="195" Color="#ffffff">Red green blue</Capability>
+  <Capability Min="196" Max="210" Color="#ffff80">Red green white</Capability>
+  <Capability Min="211" Max="225" Color="#ff80ff">Red blue white</Capability>
+  <Capability Min="226" Max="240" Color="#80ffff">Green blue white</Capability>
+  <Capability Min="241" Max="255" Color="#ffffff">Red green blue white</Capability>
+ </Channel>
+ <Channel Name="Second Head - Light Control">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="30">Use channels 29-32 to control colour</Capability>
+  <Capability Min="31" Max="45" Color="#ff0000">Red</Capability>
+  <Capability Min="46" Max="60" Color="#00ff00">Green</Capability>
+  <Capability Min="61" Max="75" Color="#0000ff">Blue</Capability>
+  <Capability Min="76" Max="90" Color="#ffffff">White</Capability>
+  <Capability Min="91" Max="105" Color="#ffff00">Red green</Capability>
+  <Capability Min="106" Max="120" Color="#ff00ff">Red blue</Capability>
+  <Capability Min="121" Max="135" Color="#ff7f7f">Red white</Capability>
+  <Capability Min="136" Max="150" Color="#00ffff">Green blue</Capability>
+  <Capability Min="151" Max="165" Color="#7fff7f">Green white</Capability>
+  <Capability Min="166" Max="180" Color="#7f7fff">Blue white</Capability>
+  <Capability Min="181" Max="195" Color="#ffffff">Red green blue</Capability>
+  <Capability Min="196" Max="210" Color="#ffff80">Red green white</Capability>
+  <Capability Min="211" Max="225" Color="#ff80ff">Red blue white</Capability>
+  <Capability Min="226" Max="240" Color="#80ffff">Green blue white</Capability>
+  <Capability Min="241" Max="255" Color="#ffffff">Red green blue white</Capability>
+ </Channel>
+ <Channel Name="Third Head - Light Control">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="30">Use channels 29-32 to control colour</Capability>
+  <Capability Min="31" Max="45" Color="#ff0000">Red</Capability>
+  <Capability Min="46" Max="60" Color="#00ff00">Green</Capability>
+  <Capability Min="61" Max="75" Color="#0000ff">Blue</Capability>
+  <Capability Min="76" Max="90" Color="#ffffff">White</Capability>
+  <Capability Min="91" Max="105" Color="#ffff00">Red green</Capability>
+  <Capability Min="106" Max="120" Color="#ff00ff">Red blue</Capability>
+  <Capability Min="121" Max="135" Color="#ff7f7f">Red white</Capability>
+  <Capability Min="136" Max="150" Color="#00ffff">Green blue</Capability>
+  <Capability Min="151" Max="165" Color="#7fff7f">Green white</Capability>
+  <Capability Min="166" Max="180" Color="#7f7fff">Blue white</Capability>
+  <Capability Min="181" Max="195" Color="#ffffff">Red green blue</Capability>
+  <Capability Min="196" Max="210" Color="#ffff80">Red green white</Capability>
+  <Capability Min="211" Max="225" Color="#ff80ff">Red blue white</Capability>
+  <Capability Min="226" Max="240" Color="#80ffff">Green blue white</Capability>
+  <Capability Min="241" Max="255" Color="#ffffff">Red green blue white</Capability>
+ </Channel>
+ <Channel Name="Fourth Head - Light Control">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="30">Use channels 29-32 to control colour</Capability>
+  <Capability Min="31" Max="45" Color="#ff0000">Red</Capability>
+  <Capability Min="46" Max="60" Color="#00ff00">Green</Capability>
+  <Capability Min="61" Max="75" Color="#0000ff">Blue</Capability>
+  <Capability Min="76" Max="90" Color="#ffffff">White</Capability>
+  <Capability Min="91" Max="105" Color="#ffff00">Red green</Capability>
+  <Capability Min="106" Max="120" Color="#ff00ff">Red blue</Capability>
+  <Capability Min="121" Max="135" Color="#ff7f7f">Red white</Capability>
+  <Capability Min="136" Max="150" Color="#00ffff">Green blue</Capability>
+  <Capability Min="151" Max="165" Color="#7fff7f">Green white</Capability>
+  <Capability Min="166" Max="180" Color="#7f7fff">Blue white</Capability>
+  <Capability Min="181" Max="195" Color="#ffffff">Red green blue</Capability>
+  <Capability Min="196" Max="210" Color="#ffff80">Red green white</Capability>
+  <Capability Min="211" Max="225" Color="#ff80ff">Red blue white</Capability>
+  <Capability Min="226" Max="240" Color="#80ffff">Green blue white</Capability>
+  <Capability Min="241" Max="255" Color="#ffffff">Red green blue white</Capability>
+ </Channel>
+ <Channel Name="Second Head - Pan Fine">
+  <Group Byte="1">Pan</Group>
+  <Capability Min="0" Max="255">Pan fine</Capability>
+ </Channel>
+ <Channel Name="Master Colour Selection - Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red dimmer</Capability>
+ </Channel>
+ <Channel Name="Master Colour Selection - Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green dimmer</Capability>
+ </Channel>
+ <Channel Name="Master Colour Selection - Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue dimmer</Capability>
+ </Channel>
+ <Channel Name="Master Colour Selection - White">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">White dimmer</Capability>
+ </Channel>
+ <Channel Name="Sound Sensitivity in Sound Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Sound sensitivity</Capability>
+ </Channel>
+ <Mode Name="6-Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="1182" ColourTemperature="0"/>
+   <Dimensions Weight="7.6" Width="810" Height="250" Depth="130"/>
+   <Lens Name="Other" DegreesMin="4.5" DegreesMax="4.5"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="100" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Show Mode</Channel>
+  <Channel Number="3">Show Mode Speed/Sound Sensitivity</Channel>
+  <Channel Number="4">Light Control - Automatic Colour Change/Colour Macro</Channel>
+  <Channel Number="5">Light Control - Automatic Colour Change Speed</Channel>
+ </Mode>
+ <Mode Name="10-Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="1182" ColourTemperature="0"/>
+   <Dimensions Weight="7.6" Width="810" Height="250" Depth="130"/>
+   <Lens Name="Other" DegreesMin="4.5" DegreesMax="4.5"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="100" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Master Control - Pan</Channel>
+  <Channel Number="1">Master Control - Tilt</Channel>
+  <Channel Number="2">Master Control - Master Dimmer</Channel>
+  <Channel Number="3">Strobe</Channel>
+  <Channel Number="4">Show Mode</Channel>
+  <Channel Number="5">Show Mode Speed/Sound Sensitivity</Channel>
+  <Channel Number="6">Light Control - Automatic Colour Change/Colour Macro</Channel>
+  <Channel Number="7">Light Control - Automatic Colour Change Speed</Channel>
+  <Channel Number="8">Fine Control - Pan</Channel>
+  <Channel Number="9">Fine Control - Tilt</Channel>
+ </Mode>
+ <Mode Name="19-Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="1182" ColourTemperature="0"/>
+   <Dimensions Weight="7.6" Width="810" Height="250" Depth="130"/>
+   <Lens Name="Other" DegreesMin="4.5" DegreesMax="4.5"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="100" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Colour Control - Red</Channel>
+  <Channel Number="3">Colour Control - Green</Channel>
+  <Channel Number="4">Colour Control - Blue</Channel>
+  <Channel Number="5">Colour Control - White</Channel>
+  <Channel Number="6">First Head - Pan</Channel>
+  <Channel Number="7">First Head - Tilt</Channel>
+  <Channel Number="8">First Head - Dimmer</Channel>
+  <Channel Number="9">Second Head - Pan</Channel>
+  <Channel Number="10">Second Head - Tilt</Channel>
+  <Channel Number="11">Second Head - Dimmer</Channel>
+  <Channel Number="12">Third Head - Pan</Channel>
+  <Channel Number="13">Third Head - Tilt</Channel>
+  <Channel Number="14">Third Head - Dimmer</Channel>
+  <Channel Number="15">Fourth Head - Pan</Channel>
+  <Channel Number="16">Fourth Head - Tilt</Channel>
+  <Channel Number="17">Fourth Head - Dimmer</Channel>
+  <Channel Number="18">Head Speed</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>0</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>0</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="32-Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="1182" ColourTemperature="0"/>
+   <Dimensions Weight="7.6" Width="810" Height="250" Depth="130"/>
+   <Lens Name="Other" DegreesMin="4.5" DegreesMax="4.5"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="100" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">First Head - Pan</Channel>
+  <Channel Number="3">First Head - Pan Fine</Channel>
+  <Channel Number="4">First Head - Tilt</Channel>
+  <Channel Number="5">First Head - Tilt Fine</Channel>
+  <Channel Number="6">First Head - Speed</Channel>
+  <Channel Number="7">First Head - Light Control</Channel>
+  <Channel Number="8">Second Head - Pan</Channel>
+  <Channel Number="9">Second Head - Pan Fine</Channel>
+  <Channel Number="10">Second Head - Tilt</Channel>
+  <Channel Number="11">Second Head - Tilt Fine</Channel>
+  <Channel Number="12">Second Head - Speed</Channel>
+  <Channel Number="13">Second Head - Light Control</Channel>
+  <Channel Number="14">Third Head - Pan</Channel>
+  <Channel Number="15">Third Head - Pan Fine</Channel>
+  <Channel Number="16">Third Head - Tilt</Channel>
+  <Channel Number="17">Third Head - Tilt Fine</Channel>
+  <Channel Number="18">Third Head - Speed</Channel>
+  <Channel Number="19">Third Head - Light Control</Channel>
+  <Channel Number="20">Fourth Head - Pan</Channel>
+  <Channel Number="21">Fourth Head - Pan Fine</Channel>
+  <Channel Number="22">Fourth Head - Tilt</Channel>
+  <Channel Number="23">Fourth Head - Tilt Fine</Channel>
+  <Channel Number="24">Fourth Head - Speed</Channel>
+  <Channel Number="25">Fourth Head - Light Control</Channel>
+  <Channel Number="26">Sound Mode/Reset</Channel>
+  <Channel Number="27">Sound Sensitivity in Sound Mode</Channel>
+  <Channel Number="28">Master Colour Selection - Red</Channel>
+  <Channel Number="29">Master Colour Selection - Green</Channel>
+  <Channel Number="30">Master Colour Selection - Blue</Channel>
+  <Channel Number="31">Master Colour Selection - White</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>0</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>0</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>20</Channel>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+  </Head>
+ </Mode>
+</FixtureDefinition>
