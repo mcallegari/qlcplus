@@ -366,7 +366,7 @@ void VCMatrix::setFunction(quint32 id)
     if (old != NULL)
     {
         disconnect(old, SIGNAL(stopped(quint32)),
-                this, SLOT(slotFunctionStopped(quint32)));
+                this, SLOT(slotFunctionStopped()));
         disconnect(old, SIGNAL(attributeChanged(int,qreal)),
                 this, SLOT(slotFunctionAttributeChanged(int, qreal)));
         disconnect(old, SIGNAL(changed(quint32)),
