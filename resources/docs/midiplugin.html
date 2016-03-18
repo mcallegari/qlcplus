@@ -23,8 +23,8 @@ shows (metronome controlled gigs using an audio sequencer)
 <H1 id="configuration">Configuration</H1>
 
 <P>
-When you click on the configuration button a window will appear, showing all the MIDI input and output lines
-detected.<br>
+When you click on the configuration button <IMG SRC="qrc:/configure.png" ALIGN="absmiddle"> a window will appear, 
+showing all the MIDI input and output lines detected.<br>
 Each line has three options that can be changed depending on your needs:
 <ul>
  <li><b id="midi-channel">MIDI Channel</b>: This is the channel where QLC+ will receive or send data through the MIDI system. MIDI channels can go
@@ -68,6 +68,13 @@ Let's look at some examples:
  <li>Input: <b>OSC</b> ---> Output: <b>DMX USB</b> --> Feedback: <b>MIDI</b></li>
  <li>Input: <b>Enttec Wing</b> --> Output: <b>ArtNet</b> --> Feedback: <b>MIDI</b></li>
 </ul>
+</P>
+
+<H1 id="korg-nanopad">KORG nanoPAD X Axis</H1>
+<P>
+For unknown reasons, the nanoPAD factory defaults don't map the X Axis of the pad area.
+To have it fully working with QLC+, please download the KORG utility (Windows and OSX only) from 
+<A HREF="http://www.korg.com/SupportPage.aspx?productid=415">here</A> and set the X Axis to CC2 (Control Change #2).
 </P>
 
 <H1 id="akai-feedbacks">AKAI APC LED Feedbacks</H1>

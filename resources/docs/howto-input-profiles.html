@@ -37,12 +37,6 @@ actually <u>move</u> from its previous position to the item that you have just
 selected.
 </P>
 
-<P>
-<B>KORG nanoPAD: </B>For unknown reasons, the nanoPAD factory defaults don't map the X Axis of the pad area.
-To have it fully working with QLC+, please download the KORG utility (Windows and OSX only) from 
-<A HREF="http://www.korg.com/SupportPage.aspx?productid=415">here</A> and set the X Axis to CC2 (Control Change #2).
-</P>
-
 <H2>Add/Edit a Profile</H2>
 
 <P>
@@ -125,7 +119,7 @@ will be displayed, asking you to fill or change some parameters:
    Other types:  
    <IMG SRC="qrc:/back.png" ALIGN="absmiddle"> Previous page,
    <IMG SRC="qrc:/forward.png" ALIGN="absmiddle"> Next Page,
-   <IMG SRC="qrc:/star.png" ALIGN="absmiddle"> Set Page were used for Multipage frames.
+   <IMG SRC="qrc:/star.png" ALIGN="absmiddle"> Set Page are used to control multipage frames.
  </li>
 </ul>
 </P>
@@ -177,20 +171,33 @@ The higher this value is, the slower the movements will occur. The lower, the fa
 <P>
 An encoder is an endless rotary control and can be treated only as a relative control. Basically the encoder
 can start at any position and when turned clockwise or counter-clockwise it will generate positive or
-negative offset inside QLC+.
+negative offsets inside QLC+.
 When an Input Profile channel is set to the Encoder type, it is possible to specify a <b>sensitivity</b>
-value, which is nothing but the relative offset that will be added or subtracted by the current QLC+
-value.
+value, which is nothing but the relative offset that will be added to or subtracted from the current QLC+
+channel value.
 </P>
 <HR>
 
 <H3><IMG SRC="qrc:/button.png" ALIGN="absmiddle"> Button properties</H3>
 <P>
-Buttons have an option too, used only in quite specific cases like when using TouchOSC.<br>
-A TouchOSC toggle button sends a value to QLC+ only when it is pressed (either to turn it on or off)
-and this behaviour is not in line with the standard behaviour of MIDI controllers.<br>
-For this reason, an option saying "Generate an extra Press/Release when toggled" can be checked
-to turn the non-standard TouchOSC behaviour into a more standard one.
+It is possible to change the behaviour of individual buttons from an input profile, and
+the following properties will be used globally in QLC+.
+
+<B>Generate an extra Press/Release when toggled</B>: this is a quite specific option used for
+example when dealing with TouchOSC or the Behringer BCF2000.<br>
+QLC+ toggle events are triggered when a high+low sequence is received. This means that QLC+ expects a 
+non zero value (typically 255) followed by a zero value to toggle, for example, a button.<br>
+Devices like BCF2000 or softwares like TouchOSC, instead, send just a non zero value when activating
+a button, and a zero value when deactivating it.<br>
+When checking this option, QLC+ will generate the "missing" events to standardize the way some controller
+work. So, for example, the BCF2000 will look like sending 255+0 when pressing a button, and 
+another 255+0 when pressing it again.<br><br>
+<B>Custom feedback</B>: with the "Lower value" and "Upper value" boxes, it is possible to force
+custom values to be sent when the selected button sends a non-zero and a zero value.<br>
+For example, with this option it is possible to set globally how Akai APC devices LEDs should be
+colored when activated/deactivated.<br>
+Note that this option is global in QLC+, but it can be overridden if needed by a specific Virtual Console
+widget, through its configuration page.
 </P>
 <HR>
 

@@ -14,11 +14,13 @@ Here you can either find the answer directly or find help to point you in the ri
 
 <TABLE BORDER=1 class="qlcTable">
  <TR>
-  <TD><H2 id="not-detected">Q:</H2></TD>
+  <TD><SPAN>1</SPAN></TD>
+  <TD><SPAN id="not-detected">Q:</SPAN></TD>
   <TD>QLC+ cannot detect my USB device</TD>
  </TR>
  <TR>
-  <TD><H2>A:</H2></TD>
+  <TD></TD>
+  <TD><SPAN>A:</SPAN></TD>
   <TD>QLC+ supports a wide variety of USB devices. First of all you should check if the physical connection
       is OK. Usually a LED on your device should indicate if it is powered up and working correctly.<BR>
       If you are using Windows and your device is manufactured by Peperoni or Velleman, please read the information on how to get
@@ -32,45 +34,54 @@ Here you can either find the answer directly or find help to point you in the ri
 <BR>
 <TABLE BORDER=1 class="qlcTable">
  <TR>
-  <TD><H2 id="solo-frame">Q:</H2></TD>
+  <TD><SPAN>2</SPAN></TD>
+  <TD><SPAN id="solo-frame">Q:</SPAN></TD>
   <TD>I've got several <A HREF="vcbutton.html">buttons</A> in my Virtual Console. I need a way to disable the currently
       active button when I enable another one. How do I do that ?
   </TD>
  </TR>
  <TR>
-  <TD><H2>A:</H2></TD>
+  <TD></TD>
+  <TD><SPAN>A:</SPAN></TD>
   <TD>Simply place your buttons inside a <A HREF="vcsoloframe.html">Solo Frame</A>. It does exactly that.</TD>
  </TR>
 </TABLE>
 <BR>
 <TABLE BORDER=1 class="qlcTable">
  <TR>
-  <TD><H2 id="efx-intensity">Q:</H2></TD>
+  <TD><SPAN>3</SPAN></TD>
+  <TD><SPAN id="efx-intensity">Q:</SPAN></TD>
   <TD>When I start an EFX function, all my fixtures go to full intensity and I can't make them dimmer.</TD>
  </TR>
  <TR>
-  <TD><H2>A:</H2></TD>
+  <TD></TD>
+  <TD><SPAN>A:</SPAN></TD>
   <TD>Please, read <A HREF="file:efxeditor.html#efx-intensity">this note</A>.</TD>
  </TR>
 </TABLE>
 <BR>
 <TABLE BORDER=1 class="qlcTable">
  <TR>
-  <TD><H2 id="osx-mavericks">Q:</H2></TD>
+  <TD><SPAN>4</SPAN></TD>
+  <TD><SPAN id="osx-mavericks">Q:</SPAN></TD>
   <TD>I just upgraded my Mac to OSX Mavericks (or later) and my USB DMX adapter doesn't work anymore.</TD>
  </TR>
  <TR>
-  <TD><H2>A:</H2></TD>
-  <TD>The problem is in a new Apple USB driver, which takes control of every FTDI based device detected in the system.<br>
-      You can download the <A HREF="http://www.dmxis.com/release/FtdiDriverControl.zip">ENTTEC FTDI Driver Control tool</A>
-      to enable/disable the Apple driver.<BR>
-      Otherwise you can disable the driver manually, by following the steps below.<br>
-      From a terminal type the following commands:<br>
+  <TD></TD>
+  <TD><SPAN>A:</SPAN></TD>
+  <TD>The problem is in a Apple driver called AppleUSBFTDI, which takes control of every FTDI based device detected in the system.<br>
+      There are three ways to solve the problem, but basically the result is the same: the Apple driver must be disabled.<br><br>
+      <B>1.</B> Temporarily disable the Apple driver by entering this command on a terminal:
+      <PRE>
+      sudo kextunload -b com.apple.driver.AppleUSBFTDI</PRE>
+      <B>2.</B> Permamently disable the Apple driver by entering the following commands on a terminal:
       <PRE>
       cd /System/Library/Extensions/IOUSBFamily.kext/Contents/PlugIns
       sudo mv AppleUSBFTDI.kext AppleUSBFTDI.disabled
-      sudo touch /System/Library/Extensions
-      </PRE>
+      sudo touch /System/Library/Extensions</PRE>
+      <B>3.</B> You can download the <A HREF="http://www.dmxis.com/release/FtdiDriverControl.zip">ENTTEC FTDI Driver Control tool</A>
+      to enable/disable the Apple driver.<BR><BR>
+
       <B>Note 1: this can compromise the behaviour of other USB devices, so do it only 
       if you know what you're doing! </B><br>
       <B>Note 2: every time OSX receives an update, you need to perform this procedure again !</B><br>
@@ -81,18 +92,21 @@ Here you can either find the answer directly or find help to point you in the ri
 <BR>
 <TABLE BORDER=1 class="qlcTable">
  <TR>
-  <TD><H2 id="user-folder">Q:</H2></TD>
+  <TD><SPAN>5</SPAN></TD>
+  <TD><SPAN id="user-folder">Q:</SPAN></TD>
   <TD>Where is the QLC+ user folder located in my system ?</TD>
  </TR>
  <TR>
-  <TD><H2>A:</H2></TD>
+  <TD></TD>
+  <TD><SPAN>A:</SPAN></TD>
   <TD>The user folder is where user fixtures, input profiles, RGB scripts and MIDI templates go.<br>
       It changes depending on your operating system:<br>
       <B>Linux</B>: it is a hidden folder in your user home directory: $HOME/.qlcplus<br>
       <B>Windows</B>: it is a folder in your user (e.g. MyUser) directory: C:\Users\MyUser\QLC+<br>
       <B>OSX</B>: it is located in your user "Library" directory: $HOME/Library/Application\ Support/QLC+<br>
       You can reach any of these folders from a terminal with the 'cd' command. For example:<br>
-      <PRE>cd $HOME/Library/Application\ Support/QLC+</PRE>
+      <PRE>
+      cd $HOME/Library/Application\ Support/QLC+</PRE>
       Please keep in mind that fixures and input profiles found in the user folder will have precedence
       over the same files in the QLC+ system folder.<br>
   </TD>
