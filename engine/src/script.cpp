@@ -340,7 +340,10 @@ bool Script::waiting()
 quint32 Script::getValueFromString(QString str, bool *ok)
 {
     if (str.startsWith("random") == false)
+    {
+        *ok = true;
         return Function::stringToSpeed(str);
+    }
 
     QString strippedStr = str.remove("random(");
     strippedStr.remove(")");
