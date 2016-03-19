@@ -18,6 +18,8 @@
 */
 
 import QtQuick 2.0
+import QtQuick.Controls 1.2
+import QtQuick.Controls.Private 1.0
 
 import com.qlcplus.classes 1.0
 import "TimeUtils.js" as TimeUtils
@@ -58,6 +60,7 @@ Item
     {
         id: sfMouseArea
         anchors.fill: parent
+        hoverEnabled: true
 
         drag.threshold: 30
 
@@ -135,6 +138,22 @@ Item
         {
             itemRoot.isSelected = !itemRoot.isSelected
             showManager.setItemSelection(trackIndex, sfRef, this, itemRoot.isSelected)
+        }
+
+        onExited: Tooltip.hideText()
+        onCanceled: Tooltip.hideText()
+
+        Timer
+        {
+           interval: 1000
+           running: sfMouseArea.containsMouse
+           onTriggered:
+           {
+               var tooltip = funcRef ? funcRef.name + "\n" : "0"
+               tooltip += qsTr("Position: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale))
+               tooltip += "\n" + qsTr("Duration: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.width, timeScale))
+               Tooltip.showText(sfMouseArea, Qt.point(sfMouseArea.mouseX, sfMouseArea.mouseY), tooltip)
+           }
         }
     }
 
