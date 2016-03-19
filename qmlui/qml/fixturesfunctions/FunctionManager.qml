@@ -35,7 +35,7 @@ Rectangle
 
     signal requestView(int ID, string qmlSrc)
 
-    Component.onDestruction: functionManager.clearTree()
+    //Component.onDestruction: functionManager.clearTree()
 
     function loadFunctionEditor(funcID, funcType)
     {

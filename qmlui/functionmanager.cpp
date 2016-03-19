@@ -77,7 +77,6 @@ FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)
 
 QVariant FunctionManager::functionsList()
 {
-    slotDocLoaded();
     return QVariant::fromValue(m_functionTree);
 }
 
