@@ -49,10 +49,10 @@ Rectangle
         pageLoader.source = "qrc:/VCPageArea.qml"
     }
 
-    VCLeftPanel
+    VCRightPanel
     {
-        id: leftPanel
-        x: 0
+        id: rightPanel
+        x: parent.width - width
         z: 5
         height: parent.height
     }
@@ -60,8 +60,7 @@ Rectangle
     Rectangle
     {
         id: centerView
-        width: parent.width - leftPanel.width //- rightPanel.width
-        x: leftPanel.width
+        width: parent.width - rightPanel.width //- rightPanel.width
         height: parent.height
         color: "transparent"
 

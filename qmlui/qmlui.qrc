@@ -88,7 +88,7 @@
 
     <!-- Virtual Console -->
     <file alias="VirtualConsole.qml">qml/virtualconsole/VirtualConsole.qml</file>
-    <file alias="VCLeftPanel.qml">qml/virtualconsole/VCLeftPanel.qml</file>
+    <file alias="VCRightPanel.qml">qml/virtualconsole/VCRightPanel.qml</file>
     <file alias="VCPageArea.qml">qml/virtualconsole/VCPageArea.qml</file>
     <file alias="WidgetsList.qml">qml/virtualconsole/WidgetsList.qml</file>
     <file alias="WidgetDragItem.qml">qml/virtualconsole/WidgetDragItem.qml</file>
