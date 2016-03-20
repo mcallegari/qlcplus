@@ -42,7 +42,7 @@ class VCButton : public VCWidget
 {
     Q_OBJECT
 
-    Q_PROPERTY(Action actionType READ actionType WRITE setActionType NOTIFY actionTypeChanged)
+    Q_PROPERTY(ButtonAction actionType READ actionType WRITE setActionType NOTIFY actionTypeChanged)
     Q_PROPERTY(bool isOn READ isOn WRITE setOn NOTIFY isOnChanged)
     Q_PROPERTY(QString functionName READ functionName NOTIFY functionNameChanged)
 
@@ -140,21 +140,21 @@ public:
      * Blackout: Toggle blackout on/off.
      * StopAll: Stop all functions (panic button).
      */
-    enum Action { Toggle, Flash, Blackout, StopAll };
-    Q_ENUMS(Action)
+    enum ButtonAction { Toggle, Flash, Blackout, StopAll };
+    Q_ENUMS(ButtonAction)
 
-    Action actionType() const;
+    ButtonAction actionType() const;
 
-    void setActionType(Action actionType);
+    void setActionType(ButtonAction actionType);
 
-    static QString actionToString(Action action);
-    static Action stringToAction(const QString& str);
+    static QString actionToString(ButtonAction action);
+    static ButtonAction stringToAction(const QString& str);
 
 signals:
-    void actionTypeChanged(Action actionType);
+    void actionTypeChanged(ButtonAction actionType);
 
 protected:
-    Action m_actionType;
+    ButtonAction m_actionType;
 
     /*********************************************************************
      * Startup intensity adjustment

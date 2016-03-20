@@ -96,7 +96,7 @@ Rectangle
                     height: gridItemsHeight
                     exclusiveGroup: pressBehaviourGroup
                     checked: widgetRef ? widgetRef.actionType === VCButton.Toggle : false
-                    onCheckedChanged: if (widgetRef) widgetRef.actionType = VCButton.Toggle
+                    onCheckedChanged: if (checked && widgetRef) widgetRef.actionType = VCButton.Toggle
                 }
 
                 // row 2
@@ -108,7 +108,7 @@ Rectangle
                     height: gridItemsHeight
                     exclusiveGroup: pressBehaviourGroup
                     checked: widgetRef ? widgetRef.actionType === VCButton.Flash : false
-                    onCheckedChanged: if (widgetRef) widgetRef.actionType = VCButton.Flash
+                    onCheckedChanged: if (checked && widgetRef) widgetRef.actionType = VCButton.Flash
                 }
 
                 // row 3
@@ -120,7 +120,7 @@ Rectangle
                     height: gridItemsHeight
                     exclusiveGroup: pressBehaviourGroup
                     checked: widgetRef ? widgetRef.actionType === VCButton.Blackout : false
-                    onCheckedChanged: if (widgetRef) widgetRef.actionType = VCButton.Blackout
+                    onCheckedChanged: if (checked && widgetRef) widgetRef.actionType = VCButton.Blackout
                 }
 
                 // row 4
@@ -132,7 +132,7 @@ Rectangle
                     height: gridItemsHeight
                     exclusiveGroup: pressBehaviourGroup
                     checked: widgetRef ? widgetRef.actionType === VCButton.StopAll : false
-                    onCheckedChanged: if (widgetRef) widgetRef.actionType = VCButton.StopAll
+                    onCheckedChanged: if (checked && widgetRef) widgetRef.actionType = VCButton.StopAll
                 }
 
               } // GridLayout

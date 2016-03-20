@@ -275,12 +275,12 @@ void VCButton::setOn(bool isOn)
  * Button action
  *********************************************************************/
 
-VCButton::Action VCButton::actionType() const
+VCButton::ButtonAction VCButton::actionType() const
 {
     return m_actionType;
 }
 
-void VCButton::setActionType(VCButton::Action actionType)
+void VCButton::setActionType(ButtonAction actionType)
 {
     if (m_actionType == actionType)
         return;
@@ -289,7 +289,7 @@ void VCButton::setActionType(VCButton::Action actionType)
     emit actionTypeChanged(actionType);
 }
 
-QString VCButton::actionToString(VCButton::Action action)
+QString VCButton::actionToString(VCButton::ButtonAction action)
 {
     if (action == Flash)
         return QString(KXMLQLCVCButtonActionFlash);
@@ -301,7 +301,7 @@ QString VCButton::actionToString(VCButton::Action action)
         return QString(KXMLQLCVCButtonActionToggle);
 }
 
-VCButton::Action VCButton::stringToAction(const QString& str)
+VCButton::ButtonAction VCButton::stringToAction(const QString& str)
 {
     if (str == KXMLQLCVCButtonActionFlash)
         return Flash;
