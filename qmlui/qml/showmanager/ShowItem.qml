@@ -56,11 +56,23 @@ Item
             sfRef.color = globalColor
     }
 
+    Image
+    {
+        x: Math.max(0, itemRoot.width - 25)
+        y: itemRoot.height - 27
+        z: 2
+        source: "qrc:/lock.svg"
+        sourceSize: Qt.size(24, 24)
+        visible: sfRef ? (sfRef.locked ? true : false) : false
+    }
+
+    // Body mouse area (covers the whole item)
     MouseArea
     {
         id: sfMouseArea
         anchors.fill: parent
         hoverEnabled: true
+        enabled: sfRef ? (sfRef.locked ? false : true) : false
 
         drag.threshold: 30
 
@@ -165,6 +177,7 @@ Item
         width: 10
         height: itemRoot.height
         color: horLeftHdlMa.containsMouse ? "#7FFFFF00" : "transparent"
+        visible: sfRef ? (sfRef.locked ? false : true) : false
 
         MouseArea
         {
@@ -208,7 +221,6 @@ Item
         }
     }
 
-
     // horizontal right handler
     Rectangle
     {
@@ -218,6 +230,7 @@ Item
         width: 10
         height: itemRoot.height
         color: horRightHdlMa.containsMouse ? "#7FFFFF00" : "transparent"
+        visible: sfRef ? (sfRef.locked ? false : true) : false
 
         MouseArea
         {
