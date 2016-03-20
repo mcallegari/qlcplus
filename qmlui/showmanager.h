@@ -138,6 +138,12 @@ public:
     Q_INVOKABLE QVariantList selectedItemRefs();
     Q_INVOKABLE QStringList selectedItemNames();
 
+    /** Returns true if at least one of the selected items is locked */
+    Q_INVOKABLE bool selectedItemsLocked();
+
+    /** Lock/Unlock all the currently selected items */
+    Q_INVOKABLE void setSelectedItemsLock(bool lock);
+
 protected slots:
     void slotTimeChanged(quint32 msec_time);
 

@@ -183,6 +183,45 @@ Rectangle
                 }
             }
 
+            IconButton
+            {
+                id: lockItem
+                z: 2
+                width: parent.height - 6
+                height: width
+                imgSource: "qrc:/lock.svg"
+                counter: showManager.selectedItemsCount
+
+                function checkLockStatus()
+                {
+                    if (showManager.selectedItemsLocked())
+                    {
+                        imgSource = "qrc:/unlock.svg"
+                        tooltip = qsTr("Unlock the selected items")
+                    }
+                    else
+                    {
+                        imgSource = "qrc:/lock.svg"
+                        tooltip = qsTr("Lock the selected items")
+                    }
+                }
+
+                onCounterChanged:
+                {
+                    checkLockStatus()
+                }
+
+                onClicked:
+                {
+                    var lock = showManager.selectedItemsLocked()
+                    if (lock === true)
+                        showManager.setSelectedItemsLock(false)
+                    else
+                        showManager.setSelectedItemsLock(true)
+                    checkLockStatus()
+                }
+            }
+
             Rectangle
             {
                 Layout.fillWidth: true

@@ -125,7 +125,11 @@ QColor ShowFunction::defaultColor(Function::Type type)
 
 void ShowFunction::setLocked(bool locked)
 {
+    if (locked == m_locked)
+        return;
+
     m_locked = locked;
+    emit lockedChanged();
 }
 
 bool ShowFunction::isLocked() const

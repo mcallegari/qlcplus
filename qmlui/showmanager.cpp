@@ -411,6 +411,25 @@ QStringList ShowManager::selectedItemNames()
     return names;
 }
 
+bool ShowManager::selectedItemsLocked()
+{
+    foreach (selectedShowItem si, m_selectedItems)
+    {
+        if (si.m_showFunc != NULL && si.m_showFunc->isLocked())
+            return true;
+    }
+    return false;
+}
+
+void ShowManager::setSelectedItemsLock(bool lock)
+{
+    foreach (selectedShowItem si, m_selectedItems)
+    {
+        if (si.m_showFunc != NULL)
+            si.m_showFunc->setLocked(lock);
+    }
+}
+
 void ShowManager::slotTimeChanged(quint32 msec_time)
 {
     m_currentTime = (int)msec_time;

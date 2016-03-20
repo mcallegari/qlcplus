@@ -72,7 +72,6 @@ Item
         id: sfMouseArea
         anchors.fill: parent
         hoverEnabled: true
-        enabled: sfRef ? (sfRef.locked ? false : true) : false
 
         drag.threshold: 30
 
@@ -112,6 +111,8 @@ Item
 
         onPressed:
         {
+            if (sfRef && sfRef.locked)
+                return;
             console.log("Show Item drag started")
             showManager.enableFlicking(false)
             drag.target = showItemBody
