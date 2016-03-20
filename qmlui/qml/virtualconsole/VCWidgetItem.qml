@@ -107,6 +107,31 @@ Rectangle
                 {
                     anchors.fill: parent
                     cursorShape: pressed ? Qt.ClosedHandCursor : Qt.OpenHandCursor
+
+                    onPressed:
+                    {
+                        drag.target = tlHandle
+                        //drag.minimumX = 0
+                        //drag.maximumX = wRoot.x + wRoot.width
+                        //drag.maximumY = wRoot.y + wRoot.height
+                    }
+                    onPositionChanged:
+                    {
+                        if (drag.target === null)
+                            return;
+                        var hdlPos = mapToItem(wRoot.parent, tlHandle.x, tlHandle.y)
+                        wRoot.width = wRoot.width + (wRoot.x - hdlPos.x + mouse.x)
+                        wRoot.x = hdlPos.x - mouse.x
+                        wRoot.height = wRoot.height + (wRoot.y - hdlPos.y + mouse.y)
+                        wRoot.y = hdlPos.y - mouse.y
+                        tlHandle.x = 0
+                        tlHandle.y = 0
+                    }
+                    onReleased:
+                    {
+                        drag.target = null
+                        wObj.geometry = Qt.rect(wRoot.x, wRoot.y, wRoot.width, wRoot.height)
+                    }
                 }
             }
             // top-right corner
@@ -141,6 +166,7 @@ Rectangle
                     {
                         drag.target = brHandle
                         drag.minimumX = 0
+                        drag.minimumY = 0
                     }
                     onPositionChanged:
                     {
