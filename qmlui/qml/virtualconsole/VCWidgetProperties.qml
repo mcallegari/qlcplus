@@ -30,7 +30,15 @@ Rectangle
     anchors.fill: parent
     color: "transparent"
 
-    property VCWidget wObj: virtualConsole.selectedWidget
+    property VCWidget wObj
+
+    Component.onCompleted: wObj = Qt.binding(function() { return virtualConsole.selectedWidget })
+
+    onWObjChanged:
+    {
+        wPropsLoader.active = false
+        wPropsLoader.active = true
+    }
 
     RobotoText
     {
@@ -39,154 +47,173 @@ Rectangle
         label: qsTr("Select a widget first")
     }
 
-    SectionBox
+    Column
     {
-        visible: wObj ? true : false
-        sectionLabel: qsTr("Basic properties")
+        width: parent.width
+        spacing: 5
 
-        sectionContents:
-          GridLayout
-          {
-            id: cPropsGrid
+        SectionBox
+        {
             width: parent.width
-            columns: 2
-            columnSpacing: 5
-            rowSpacing: 4
+            visible: wObj ? true : false
+            sectionLabel: qsTr("Basic properties")
 
-            // row 1
-            RobotoText
-            {
-                fontSize: 14
-                label: qsTr("Label")
-            }
-            CustomTextEdit
-            {
-                inputText: wObj ? wObj.caption : ""
-                Layout.fillWidth: true
-                onTextChanged:
+            sectionContents:
+              GridLayout
+              {
+                id: cPropsGrid
+                width: parent.width
+                columns: 2
+                columnSpacing: 5
+                rowSpacing: 4
+
+                // row 1
+                RobotoText
                 {
-                    if (wObj)
-                        wObj.caption = text
+                    fontSize: 14
+                    label: qsTr("Label")
                 }
-            }
-
-            // row 2
-            RobotoText
-            {
-                fontSize: 14
-                label: qsTr("Background color")
-            }
-            Rectangle
-            {
-                width: 80
-                height: 38
-                color: wObj ? wObj.backgroundColor : "black"
-
-                ColorTool
+                CustomTextEdit
                 {
-                    id: bgColTool
-                    parent: wPropsRoot
-                    x: wPropsRoot.width
-                    y: 100
-                    visible: false
+                    Layout.fillWidth: true
+                    color: UISettings.bgStronger
+                    inputText: wObj ? wObj.caption : ""
 
-                    onColorChanged:
+                    onTextChanged:
                     {
-                        if(wObj)
-                            wObj.backgroundColor = Qt.rgba(r, g, b, 1.0)
+                        if (wObj)
+                            wObj.caption = text
                     }
                 }
 
-                MouseArea
+                // row 2
+                RobotoText
                 {
-                    anchors.fill: parent
-                    onClicked: bgColTool.visible = !bgColTool.visible
+                    fontSize: 14
+                    label: qsTr("Background color")
                 }
-            }
-
-            // row 3
-            RobotoText
-            {
-                fontSize: 14
-                label: qsTr("Foreground color")
-            }
-            Rectangle
-            {
-                width: 80
-                height: 38
-                color: wObj ? wObj.foregroundColor : "black"
-
-                ColorTool
+                Rectangle
                 {
-                    id: fgColTool
-                    parent: wPropsRoot
-                    x: wPropsRoot.width
-                    y: 100
-                    visible: false
+                    width: 80
+                    height: 38
+                    color: wObj ? wObj.backgroundColor : "black"
 
-                    onColorChanged:
+                    ColorTool
                     {
-                        if(wObj)
-                            wObj.foregroundColor = Qt.rgba(r, g, b, 1.0)
-                    }
-                }
-
-                MouseArea
-                {
-                    anchors.fill: parent
-                    onClicked: fgColTool.visible = !fgColTool.visible
-                }
-            }
-
-            // row 4
-            RobotoText
-            {
-                fontSize: 14
-                label: qsTr("Font")
-            }
-
-            Rectangle
-            {
-                Layout.fillWidth: true
-                height: 38
-                color: "transparent"
-
-                Text
-                {
-                    anchors.fill: parent
-                    font.family: wObj ? wObj.font.family : ""
-                    font.bold: wObj ? wObj.font.bold : false
-                    font.italic: wObj ? wObj.font.italic : false
-                    font.pointSize: 12
-                    text: wObj ? wObj.font.family : ""
-                    color: "white"
-                    verticalAlignment: Text.AlignVCenter
-                }
-
-                IconButton
-                {
-                    x: parent.width - UISettings.iconSizeDefault
-                    imgSource: "qrc:/font.svg"
-                    bgColor: "#aaa"
-                    hoverColor: "#888"
-
-                    onClicked: fontDialog.visible = true
-
-                    FontDialog
-                    {
-                        id: fontDialog
-                        title: qsTr("Please choose a font")
-                        font: wObj ? wObj.font : ""
+                        id: bgColTool
+                        parent: wPropsRoot
+                        x: wPropsRoot.width
+                        y: 100
                         visible: false
 
-                        onAccepted:
+                        onColorChanged:
                         {
-                            console.log("Selected font: " + fontDialog.font)
-                            wObj.font = fontDialog.font
+                            if(wObj)
+                                wObj.backgroundColor = Qt.rgba(r, g, b, 1.0)
+                        }
+                    }
+
+                    MouseArea
+                    {
+                        anchors.fill: parent
+                        onClicked: bgColTool.visible = !bgColTool.visible
+                    }
+                }
+
+                // row 3
+                RobotoText
+                {
+                    fontSize: 14
+                    label: qsTr("Foreground color")
+                }
+                Rectangle
+                {
+                    width: 80
+                    height: 38
+                    color: wObj ? wObj.foregroundColor : "black"
+
+                    ColorTool
+                    {
+                        id: fgColTool
+                        parent: wPropsRoot
+                        x: wPropsRoot.width
+                        y: 100
+                        visible: false
+
+                        onColorChanged:
+                        {
+                            if(wObj)
+                                wObj.foregroundColor = Qt.rgba(r, g, b, 1.0)
+                        }
+                    }
+
+                    MouseArea
+                    {
+                        anchors.fill: parent
+                        onClicked: fgColTool.visible = !fgColTool.visible
+                    }
+                }
+
+                // row 4
+                RobotoText
+                {
+                    fontSize: 14
+                    label: qsTr("Font")
+                }
+
+                Rectangle
+                {
+                    Layout.fillWidth: true
+                    height: 38
+                    color: "transparent"
+
+                    Text
+                    {
+                        anchors.fill: parent
+                        font.family: wObj ? wObj.font.family : ""
+                        font.bold: wObj ? wObj.font.bold : false
+                        font.italic: wObj ? wObj.font.italic : false
+                        font.pointSize: 12
+                        text: wObj ? wObj.font.family : ""
+                        color: "white"
+                        verticalAlignment: Text.AlignVCenter
+                    }
+
+                    IconButton
+                    {
+                        x: parent.width - UISettings.iconSizeDefault
+                        imgSource: "qrc:/font.svg"
+                        //bgColor: "#aaa"
+                        //hoverColor: "#888"
+
+                        onClicked: fontDialog.visible = true
+
+                        FontDialog
+                        {
+                            id: fontDialog
+                            title: qsTr("Please choose a font")
+                            font: wObj ? wObj.font : ""
+                            visible: false
+
+                            onAccepted:
+                            {
+                                console.log("Selected font: " + fontDialog.font)
+                                wObj.font = fontDialog.font
+                            }
                         }
                     }
                 }
-            }
-         } // GridLayout
+             } // GridLayout
+        } // SectionBox
+
+        Loader
+        {
+            id: wPropsLoader
+            width: parent.width
+            visible: wObj ? true : false
+            source: wObj ? wObj.propertiesResource : ""
+
+            onLoaded: item.widgetRef = wObj
+        }
     }
 }

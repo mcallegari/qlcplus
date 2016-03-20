@@ -389,8 +389,7 @@ Rectangle
 
                     } // GridLayout
             }
-
-        } // ColumnLayout
+        } // Column
     } // Flickable
     ScrollBar { id: sbar; flickable: editorFlickable }
 

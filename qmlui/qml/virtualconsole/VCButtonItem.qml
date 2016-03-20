@@ -26,6 +26,7 @@ VCWidgetItem
 {
     id: buttonRoot
     property VCButton buttonObj: null
+
     property bool isOn: buttonObj ? buttonObj.isOn : false
     radius: 4
 

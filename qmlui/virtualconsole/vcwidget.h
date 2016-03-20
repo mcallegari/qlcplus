@@ -63,6 +63,7 @@ class VCWidget : public QObject
     Q_OBJECT
 
     Q_PROPERTY(quint32 id READ id CONSTANT)
+    Q_PROPERTY(QString propertiesResource READ propertiesResource CONSTANT)
     Q_PROPERTY(QRect geometry READ geometry WRITE setGeometry NOTIFY geometryChanged)
     Q_PROPERTY(bool allowResize READ allowResize WRITE setAllowResize NOTIFY allowResizeChanged)
     Q_PROPERTY(bool isDisabled READ isDisabled WRITE setDisabled NOTIFY disabledStateChanged)
@@ -347,6 +348,12 @@ public:
 
 private:
     qreal m_intensity;
+
+    /*********************************************************************
+     * QML Properties Component
+     *********************************************************************/
+public:
+    virtual QString propertiesResource() const;
 
     /*********************************************************************
      * Load & Save

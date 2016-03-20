@@ -29,7 +29,7 @@ Rectangle
     radius: 3
     color: UISettings.bgMedium
 
-    property alias inputText: textEdit2.text
+    property alias inputText: ctEdit.text
     property int fontSize: 16
 
     signal textChanged(var text)
@@ -38,15 +38,17 @@ Rectangle
 
     TextInput
     {
-        id: textEdit2
-        color: UISettings.fgMain
+        id: ctEdit
         anchors.fill: parent
+        anchors.verticalCenter: parent.verticalCenter
         anchors.margins: 4
+        color: UISettings.fgMain
         clip: true
         font.family: "RobotoCondensed"
         font.pointSize: fontSize
         echoMode: TextInput.Normal
-        anchors.verticalCenter: parent.verticalCenter
+        selectByMouse: true
+
         onTextChanged: customTextEditRect.textChanged(text)
     }
 }

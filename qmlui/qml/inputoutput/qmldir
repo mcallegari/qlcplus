@@ -2,6 +2,7 @@ singleton UISettings 1.0 ../UISettings.qml
 singleton FontAwesome 1.0 ../FontAwesomeVariables.qml
 
 ContextMenuEntry 0.1 ../ContextMenuEntry.qml
+CustomCheckBox 0.1 ../CustomCheckBox.qml
 CustomComboBox 0.1 ../CustomComboBox.qml
 CustomSpinBox 0.1 ../CustomSpinBox.qml
 CustomTextEdit 0.1 ../CustomTextEdit.qml

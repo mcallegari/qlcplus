@@ -65,6 +65,11 @@ void VCButton::render(QQuickView *view, QQuickItem *parent)
     item->setProperty("buttonObj", QVariant::fromValue(this));
 }
 
+QString VCButton::propertiesResource() const
+{
+    return QString("qrc:/VCButtonProperties.qml");
+}
+
 /*********************************************************************
  * Function attachment
  *********************************************************************/
@@ -105,6 +110,7 @@ void VCButton::setFunction(quint32 fid)
         m_function = fid;
         if(running)
             function->start(m_doc->masterTimer(), functionParent());
+        emit functionNameChanged(function->name());
     }
     else
     {
@@ -117,6 +123,17 @@ void VCButton::setFunction(quint32 fid)
 quint32 VCButton::function() const
 {
     return m_function;
+}
+
+QString VCButton::functionName() const
+{
+    if (m_function != Function::invalidId())
+    {
+        Function* function = m_doc->function(m_function);
+        if (function != NULL)
+            return function->name();
+    }
+    return QString();
 }
 
 void VCButton::requestStateChange(bool pressed)

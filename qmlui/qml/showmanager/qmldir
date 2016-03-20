@@ -5,6 +5,7 @@ ColorTool 0.1 ../ColorTool.qml
 ColorToolBasic 0.1 ../ColorToolBasic.qml
 ColorToolFull 0.1 ../ColorToolFull.qml
 ContextMenuEntry 0.1 ../ContextMenuEntry.qml
+CustomCheckBox 0.1 ../CustomCheckBox.qml
 CustomComboBox 0.1 ../CustomComboBox.qml
 CustomSpinBox 0.1 ../CustomSpinBox.qml
 CustomTextEdit 0.1 ../CustomTextEdit.qml

@@ -24,10 +24,11 @@ import QtQuick 2.0
 QtObject
 {
     /* Colors */
-    property color bgMain:   "#303030"
-    property color bgStrong: "#232323"
-    property color bgMedium: "#333"
-    property color bgLight:  "#5F5F5F"
+    property color bgMain:     "#303030"
+    property color bgStronger: "#161616"
+    property color bgStrong:   "#232323"
+    property color bgMedium:   "#333"
+    property color bgLight:    "#5F5F5F"
     property color bgLighter:  "#8F8F8F"
 
     property color fgMain:   "white"
