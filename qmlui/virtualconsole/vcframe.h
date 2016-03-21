@@ -87,6 +87,7 @@ public:
     QList<VCWidget *>children(bool recursive = false);
 
     Q_INVOKABLE void addWidget(QQuickItem *parent, QString wType, QPoint pos);
+    Q_INVOKABLE void addFunction(QQuickItem *parent, quint32 funcID, QPoint pos, bool modifierPressed);
 
     void deleteChildren();
 

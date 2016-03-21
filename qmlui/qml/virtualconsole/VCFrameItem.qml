@@ -31,6 +31,7 @@ VCWidgetItem
     property bool isSolo: false
     property bool isCollapsed: frameObj ? frameObj.isCollapsed : false
 
+    color: dropActive ? "#9DFF52" : frameObj.backgroundColor
     clip: true
 
     onFrameObjChanged:
@@ -38,11 +39,6 @@ VCWidgetItem
         setCommonProperties(frameObj)
         if (isSolo)
             frameRoot.border.color = "red"
-    }
-
-    onDropActiveChanged:
-    {
-        frameRoot.color = dropActive ? "#9DFF52" : frameObj.backgroundColor
     }
 
     onIsCollapsedChanged:
@@ -179,11 +175,18 @@ VCWidgetItem
         {
             if (frameObj === null || dropActive === false)
                 return;
+            virtualConsole.setDropTarget(frameRoot, false)
             console.log("Item dropped in frame " + frameObj.id)
             var pos = drag.source.mapToItem(frameRoot, 0, 0);
-            frameObj.addWidget(dropArea, drag.source.widgetType, pos)
+
+            //console.log("Drop keys: " + drop.keys)
+            if (drop.keys[0] === "vcwidget")
+                frameObj.addWidget(dropArea, drag.source.widgetType, pos)
+            else if (drop.keys[0] === "function")
+                frameObj.addFunction(dropArea, drag.source.funcID, pos, false)
+
         }
 
-        keys: [ "vcwidget" ]
+        keys: [ "vcwidget", "function" ]
     }
 }

@@ -108,6 +108,8 @@ void VCButton::setFunction(quint32 fid)
                 this, SLOT(slotFunctionFlashing(quint32,bool)));
 
         m_function = fid;
+        if (caption().isEmpty())
+            setCaption(function->name());
         if(running)
             function->start(m_doc->masterTimer(), functionParent());
         emit functionNameChanged(function->name());

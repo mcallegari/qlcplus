@@ -51,7 +51,7 @@ Rectangle
 
     VCRightPanel
     {
-        id: rightPanel
+        id: vcRightPanel
         x: parent.width - width
         z: 5
         height: parent.height
@@ -60,7 +60,7 @@ Rectangle
     Rectangle
     {
         id: centerView
-        width: parent.width - rightPanel.width //- rightPanel.width
+        width: parent.width - vcRightPanel.width
         height: parent.height
         color: "transparent"
 

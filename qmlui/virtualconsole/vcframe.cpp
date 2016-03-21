@@ -115,6 +115,9 @@ QList<VCWidget *> VCFrame::children(bool recursive)
 void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
 {
     qDebug() << "[VCFrame] adding widget of type:" << wType << pos;
+
+    // reset all the drop targets, otherwise two overlapping
+    // frames can get the same drop event
     m_vc->resetDropTargets(true);
 
     VCWidget::WidgetType type = stringToType(wType);
@@ -164,6 +167,23 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
         default:
         break;
     }
+}
+
+void VCFrame::addFunction(QQuickItem *parent, quint32 funcID, QPoint pos, bool modifierPressed)
+{
+    Q_UNUSED(modifierPressed)
+
+    // reset all the drop targets, otherwise two overlapping
+    // frames can get the same drop event
+    m_vc->resetDropTargets(true);
+
+    VCButton *button = new VCButton(m_doc, this);
+    QQmlEngine::setObjectOwnership(button, QQmlEngine::CppOwnership);
+    button->setGeometry(QRect(pos.x(), pos.y(), 100, 100));
+    button->setFunction(funcID);
+    setupWidget(button);
+    m_vc->addWidgetToMap(button);
+    button->render(m_vc->view(), parent);
 }
 
 void VCFrame::deleteChildren()
