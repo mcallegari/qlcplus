@@ -101,8 +101,8 @@ Rectangle
                     ColorTool
                     {
                         id: bgColTool
-                        parent: wPropsRoot
-                        x: wPropsRoot.width
+                        parent: mainView
+                        x: vcRightPanel.x - width
                         y: 100
                         visible: false
 
@@ -135,8 +135,8 @@ Rectangle
                     ColorTool
                     {
                         id: fgColTool
-                        parent: wPropsRoot
-                        x: wPropsRoot.width
+                        parent: mainView
+                        x: vcRightPanel.x - width
                         y: 100
                         visible: false
 
