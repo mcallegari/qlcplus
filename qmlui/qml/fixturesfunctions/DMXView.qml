@@ -19,30 +19,42 @@
 
 import QtQuick 2.0
 
-Flickable
+Rectangle
 {
-    id: fixtureDMXView
+    id: dmxViewRoot
     anchors.fill: parent
-    anchors.margins: 20
-
-    contentHeight: flowLayout.height
-    contentWidth: flowLayout.width
-
-    property string contextName: "DMX"
-
-    Component.onCompleted: contextManager.enableContext("DMX", true)
-    Component.onDestruction: contextManager.enableContext("DMX", false)
+    color: "transparent"
 
     function hasSettings()
     {
         return false;
     }
 
-    Flow
+    Flickable
     {
-        id: flowLayout
-        objectName: "DMXFlowView"
-        spacing: 5
-        width: parent.width
+        id: fixtureDMXView
+        anchors.fill: parent
+        anchors.leftMargin: 20
+        anchors.topMargin: 20
+        anchors.bottomMargin: 20
+
+        contentHeight: flowLayout.height
+        contentWidth: flowLayout.width
+
+        boundsBehavior: Flickable.StopAtBounds
+
+        property string contextName: "DMX"
+
+        Component.onCompleted: contextManager.enableContext("DMX", true)
+        Component.onDestruction: contextManager.enableContext("DMX", false)
+
+        Flow
+        {
+            id: flowLayout
+            objectName: "DMXFlowView"
+            spacing: 5
+            width: dmxViewRoot.width
+        }
     }
+    ScrollBar { flickable: fixtureDMXView }
 }
