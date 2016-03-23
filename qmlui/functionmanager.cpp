@@ -188,6 +188,12 @@ quint32 FunctionManager::createFunction(int type)
     {
         f->setName(QString("%1 %2").arg(name).arg(f->id()));
         QQmlEngine::setObjectOwnership(f, QQmlEngine::CppOwnership);
+
+        QVariantList params;
+        params.append(QVariant::fromValue(f));
+        m_functionTree->addItem(f->name(), params, f->path(true));
+        emit functionsListChanged();
+
         return f->id();
     }
     else
