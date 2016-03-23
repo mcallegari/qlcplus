@@ -24,7 +24,7 @@ import com.qlcplus.classes 1.0
 VCWidgetItem
 {
     id: labelRoot
-    property VCButton labelObj: null
+    property VCLabel labelObj: null
     clip: true
 
     onLabelObjChanged:

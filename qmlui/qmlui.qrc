@@ -99,6 +99,7 @@
     <file alias="VCButtonItem.qml">qml/virtualconsole/VCButtonItem.qml</file>
     <file alias="VCButtonProperties.qml">qml/virtualconsole/VCButtonProperties.qml</file>
     <file alias="VCLabelItem.qml">qml/virtualconsole/VCLabelItem.qml</file>
+    <file alias="VCSliderItem.qml">qml/virtualconsole/VCSliderItem.qml</file>
     
     <!-- Show Manager -->
     <file alias="ShowManager.qml">qml/showmanager/ShowManager.qml</file>

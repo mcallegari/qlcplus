@@ -25,6 +25,7 @@
 #include "vcframe.h"
 #include "vclabel.h"
 #include "vcbutton.h"
+#include "vcslider.h"
 #include "vcsoloframe.h"
 #include "virtualconsole.h"
 
@@ -162,6 +163,16 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             setupWidget(label);
             m_vc->addWidgetToMap(label);
             label->render(m_vc->view(), parent);
+        }
+        break;
+        case SliderWidget:
+        {
+            VCSlider *slider = new VCSlider(m_doc, this);
+            QQmlEngine::setObjectOwnership(slider, QQmlEngine::CppOwnership);
+            slider->setGeometry(QRect(pos.x(), pos.y(), 60, 200));
+            setupWidget(slider);
+            m_vc->addWidgetToMap(slider);
+            slider->render(m_vc->view(), parent);
         }
         break;
         default:
@@ -531,6 +542,19 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
                 QQmlEngine::setObjectOwnership(label, QQmlEngine::CppOwnership);
                 setupWidget(label);
                 m_vc->addWidgetToMap(label);
+            }
+        }
+        else if (root.name() == KXMLQLCVCSlider)
+        {
+            /* Create a new slider into its parent */
+            VCSlider* slider = new VCSlider(m_doc, this);
+            if (slider->loadXML(root) == false)
+                delete slider;
+            else
+            {
+                QQmlEngine::setObjectOwnership(slider, QQmlEngine::CppOwnership);
+                setupWidget(slider);
+                m_vc->addWidgetToMap(slider);
             }
         }
         else
