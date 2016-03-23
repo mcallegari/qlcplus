@@ -145,7 +145,7 @@ private:
      *
      * @return the randomized value requested
      */
-    quint32 getValueFromString(QString str, bool *ok);
+    static quint32 getValueFromString(QString str, bool *ok);
 
     /**
      * Handle "startfunction" command.

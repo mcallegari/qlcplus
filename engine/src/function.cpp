@@ -594,7 +594,7 @@ QString Function::speedToString(uint ms)
 static uint speedSplit(QString& speedString, QString splitNeedle)
 {
     QStringList splitResult;
-    // Filter out "ms" becaue "m" and "s" may wrongly use it
+    // Filter out "ms" because "m" and "s" may wrongly use it
     splitResult = speedString.split("ms");
     if (splitResult.count() > 1)
         splitResult = splitResult.at(0).split(splitNeedle);
@@ -620,15 +620,16 @@ uint Function::stringToSpeed(QString speed)
     value += speedSplit(speed, "m") * 1000 * 60;
     value += speedSplit(speed, "s") * 1000;
 
-    QStringList msecs = speed.split("ms");
-    if (msecs.count() > 1)
-    {
-        value += msecs.at(0).toUInt();
-    }
-    else
+    if (speed.contains("."))
     {
         // lround avoids toDouble precison issues (.03 transforms to .029)
         value += lround(speed.toDouble() * 1000.0);
+    }
+    else
+    {
+        if (speed.contains("ms"))
+            speed = speed.split("ms").at(0);
+        value += speed.toUInt();
     }
 
     return speedNormalize(value);
