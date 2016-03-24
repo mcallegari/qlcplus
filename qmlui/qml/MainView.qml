@@ -100,7 +100,7 @@ Rectangle
             MenuBarEntry
             {
                 id: actEntry
-                imgSource: "qrc:/qlcplus.png"
+                imgSource: "qrc:/qlcplus.svg"
                 entryText: qsTr("Actions")
                 onClicked:
                 {
