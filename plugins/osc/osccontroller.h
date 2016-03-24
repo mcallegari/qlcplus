@@ -30,7 +30,7 @@
 
 typedef struct
 {
-    QUdpSocket *inputSocket;
+    QSharedPointer<QUdpSocket> inputSocket;
 
     quint16 inputPort;
 
@@ -118,10 +118,16 @@ public:
     /** Send a feedback using the specified path and value */
     void sendFeedback(const quint32 universe, quint32 channel, uchar value, const QString &key);
 
+private:
+    QSharedPointer<QUdpSocket> getInputSocket(quint16 port);
+
 protected:
     /** Calculate a 16bit unsigned hash as a unique representation
      *  of a OSC path. If new, the hash is added to the hash map (m_hashMap) */
     quint16 getHash(QString path);
+
+private:
+    void handlePacket(QUdpSocket* socket, QByteArray const& datagram, QHostAddress const& senderAddress);
 
 private slots:
     /** Async event raised when new packets have been received */
@@ -141,7 +147,7 @@ private:
     quint32 m_line;
 
     /** The UDP socket used to output OSC packets */
-    QUdpSocket *m_outputSocket;
+    QSharedPointer<QUdpSocket> m_outputSocket;
 
     /** Helper class used to create or parse OSC packets */
     QScopedPointer<OSCPacketizer> m_packetizer;
@@ -153,10 +159,6 @@ private:
     /** Map of the QLC+ universes transmitted/received by this
      *  controller, with the related, specific parameters */
     QMap<quint32, UniverseInfo> m_universeMap;
-
-    /** Map of the relation between input ports and QLC+ universes,
-     *  since a single controller can handle input for several universes */
-    QMap<quint16, quint32>m_portsMap;
 
     /** Mutex to handle the change of output IP address or in general
      *  variables that could be used to transmit/receive data */

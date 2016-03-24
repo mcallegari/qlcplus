@@ -95,7 +95,7 @@ void OSCPacketizer::setupOSCGeneric(QByteArray &data, QString &path, QString typ
 /*********************************************************************
  * Receiver functions
  *********************************************************************/
-bool OSCPacketizer::parseMessage(QByteArray &data, QString &path, QByteArray &values)
+bool OSCPacketizer::parseMessage(QByteArray const& data, QString& path, QByteArray& values)
 {
     path.clear();
     values.clear();
@@ -201,7 +201,7 @@ bool OSCPacketizer::parseMessage(QByteArray &data, QString &path, QByteArray &va
     return true;
 }
 
-QList<QPair<QString, QByteArray> > OSCPacketizer::parsePacket(QByteArray &data)
+QList<QPair<QString, QByteArray> > OSCPacketizer::parsePacket(QByteArray const& data)
 {
     int bufPos = 0;
     QList<QPair<QString, QByteArray> > messages;

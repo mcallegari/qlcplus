@@ -436,5 +436,4 @@ void E131Controller::processPendingPackets()
                 << ", that does not look like E1.31";
         }
     }
-// TODO? use this test?                if (senderAddress != m_ipAddr || info.inputMulticast == false)
 }
