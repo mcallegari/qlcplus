@@ -82,7 +82,7 @@ private:
      * @param values the array of values extracted from the buffer
      * @return true on successful parsing, otherwise false
      */
-    bool parseMessage(QByteArray &data, QString &path, QByteArray &values);
+    bool parseMessage(QByteArray const& data, QString& path, QByteArray& values);
 public:
     /**
      * Parse a OSC packet received from the network.
@@ -90,7 +90,7 @@ public:
      * @param data the payload of a UDP packet received from the network
      * @return a list of couples of OSC path/values
      */
-    QList< QPair<QString, QByteArray> > parsePacket(QByteArray& data);
+    QList<QPair<QString, QByteArray> > parsePacket(QByteArray const& data);
 
 };
 
