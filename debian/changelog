@@ -3,6 +3,8 @@ qlcplus (4.10.4) stable; urgency=low
   * Scripts: Fix 4.10.3a regression that breaks values parsing (David Garyga)
   * Virtual Console/Animation: fix behavior issue when changing the associated function (David Garyga)
   * Virtual Console/Frames: send feedbacks for the enable button
+  * Plugins/OSC: fixed regression of receiving data from the wrong interface (David Garyga)
+  * Plugins/OSC: fixed regression causing not receiving data anymore when changing the input profile (David Garyga)
   * Input Profiles Editor: it is now possible to define button custom feedbacks in a profile (see documentation)
   * Fixture updated: Starway MaxKolor-18 (thanks to Thierry Rodolfo and Robert Box)
   * Fixture updated: Cameo LED RGBW PAR64 18x8W (thanks to Lukas)
