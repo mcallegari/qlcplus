@@ -57,9 +57,19 @@ Flickable
 
         onPressed:
         {
+            universeGridView.interactive = false
             var uniAddress = (yPos * gridSize.width) + xPos
             console.log("Fixture pressed at address: " + uniAddress)
             setSelectionData(fixtureManager.fixtureSelection(uniAddress))
+        }
+
+        onReleased:
+        {
+            if (currentFixtureID === -1)
+                return;
+            var uniAddress = (yPos * gridSize.width) + xPos
+            fixtureManager.moveFixture(currentFixtureID, uniAddress + offset)
+            universeGridView.interactive = true
         }
 
         onDragEntered:
@@ -81,9 +91,20 @@ Flickable
         {
             var uniAddress = (yPos * gridSize.width) + xPos
             dragEvent.source.address = uniAddress
-            var freeAddr = fixtureBrowser.availableChannel(0, dragEvent.source.channels, // FIXME: use the correct universe
+            var freeAddr = fixtureBrowser.availableChannel(contextManager.universeFilter, dragEvent.source.channels,
                                                            dragEvent.source.quantity,
                                                            dragEvent.source.gap, uniAddress)
+            if (freeAddr === uniAddress)
+                validSelection = true
+            else
+                validSelection = false
+        }
+
+        onPositionChanged:
+        {
+            var uniAddress = (yPos * gridSize.width) + xPos
+            var freeAddr = fixtureBrowser.availableChannel(currentFixtureID, uniAddress)
+
             if (freeAddr === uniAddress)
                 validSelection = true
             else

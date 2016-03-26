@@ -35,11 +35,13 @@ class Fixture;
 class FixtureManager : public QObject
 {
     Q_OBJECT
+
     Q_PROPERTY(int fixturesCount READ fixturesCount NOTIFY fixturesCountChanged)
     Q_PROPERTY(QQmlListProperty<Fixture> fixtures READ fixtures)
     Q_PROPERTY(QVariantList fixturesMap READ fixturesMap NOTIFY fixturesMapChanged)
     Q_PROPERTY(QVariant groupsTreeModel READ groupsTreeModel NOTIFY groupsTreeModelChanged)
     Q_PROPERTY(QVariant groupsListModel READ groupsListModel NOTIFY groupsListModelChanged)
+    Q_PROPERTY(quint32 universeFilter READ universeFilter WRITE setUniverseFilter NOTIFY universeFilterChanged)
 
     Q_PROPERTY(QVariantList goboChannels READ goboChannels NOTIFY goboChannelsChanged)
     Q_PROPERTY(QVariantList colorWheelChannels READ colorWheelChannels NOTIFY colorWheelChannelsChanged)
@@ -56,6 +58,8 @@ public:
     Q_INVOKABLE bool addFixture(QString manuf, QString model, QString mode, QString name,
                                 int uniIdx, int address, int channels, int quantity, quint32 gap,
                                 qreal xPos, qreal yPos);
+    Q_INVOKABLE bool moveFixture(quint32 fixtureID, quint32 newAddress);
+
     Q_INVOKABLE QString channelIcon(quint32 fxID, quint32 chIdx);
 
     Q_INVOKABLE void setChannelValue(quint32 fixtureID, quint32 channelIndex, quint8 value);
@@ -111,6 +115,9 @@ public:
     /** Returns data for representation in a GridEditor QML component */
     QVariantList fixturesMap();
 
+    quint32 universeFilter() const;
+    void setUniverseFilter(quint32 universeFilter);
+
 public slots:
     /** Slot called whenever a new workspace has been loaded */
     void slotDocLoaded();
@@ -155,6 +162,9 @@ signals:
     /** Notify the listeners that the fixture map has changed */
     void fixturesMapChanged();
 
+    /** Notify the listeners that the universe filter has changed */
+    void universeFilterChanged(quint32 universeFilter);
+
 private:
     /** Generic method that returns the names of the cached channels for
      *  the required $group */
@@ -175,12 +185,15 @@ private:
     QMap<const QLCChannel *, quint32>m_presetsCache;
     /** Data model used by the QML UI to represent groups and fixtures */
     TreeModel *m_fixtureTree;
+    /** An array-like map of the current fixtures, filtered by m_universeFilter */
+    QVariantList m_fixturesMap;
+    /** A filter for m_fixturesMap to restrict data to a specific universe */
+    quint32 m_universeFilter;
 
     /** Variables to hold the maximum Pan/Tilt degrees discovered
      *  when enabling the position capability for the selected Fixtures */
     int m_maxPanDegrees;
     int m_maxTiltDegrees;
-    QVariantList m_fixturesMap;
 };
 
 #endif // FIXTUREMANAGER_H
