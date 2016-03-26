@@ -36,7 +36,8 @@ class ContextManager : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY (bool hasSelectedFixtures READ hasSelectedFixtures NOTIFY selectedFixturesChanged)
+    Q_PROPERTY(quint32 universeFilter READ universeFilter WRITE setUniverseFilter NOTIFY universeFilterChanged)
+    Q_PROPERTY(bool hasSelectedFixtures READ hasSelectedFixtures NOTIFY selectedFixturesChanged)
     Q_PROPERTY(int fixturesRotation READ fixturesRotation WRITE setFixturesRotation)
 
 public:
@@ -67,6 +68,9 @@ public:
     int fixturesRotation() const;
     void setFixturesRotation(int degrees);
 
+    quint32 universeFilter() const;
+    void setUniverseFilter(quint32 universeFilter);
+
 private:
     void checkDumpButton(quint32 valCount);
 
@@ -76,6 +80,8 @@ public slots:
 
     /** Resets the current values used for dumping or preview */
     void resetValues();
+
+
 
 protected slots:
     void slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal z = 0);
@@ -97,6 +103,7 @@ protected slots:
 
 signals:
     void selectedFixturesChanged();
+    void universeFilterChanged(quint32 universeFilter);
 
 private:
     /** Reference to the QML view root */
@@ -109,6 +116,8 @@ private:
     FunctionManager *m_functionManager;
     /** The list of the currently selected Fixture IDs */
     QList<quint32> m_selectedFixtures;
+    /** The currently displayed universe */
+    quint32 m_universeFilter;
     /** Holds the last rotation value to handle relative changes */
     int m_prevRotation;
     /** A flag indicating if a Function is currently being edited */

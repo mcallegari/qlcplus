@@ -56,6 +56,26 @@ QStringList InputOutputManager::universeNames() const
     return m_ioMap->universeNames();
 }
 
+QVariant InputOutputManager::universesListModel() const
+{
+    QVariantList universesList;
+
+    QVariantMap allMap;
+    allMap.insert("mLabel", tr("All universes"));
+    allMap.insert("mValue", Universe::invalid());
+    universesList.append(allMap);
+
+    foreach(Universe *uni, m_ioMap->universes())
+    {
+        QVariantMap uniMap;
+        uniMap.insert("mLabel", uni->name());
+        uniMap.insert("mValue", uni->id());
+        universesList.append(uniMap);
+    }
+
+    return QVariant::fromValue(universesList);
+}
+
 QVariant InputOutputManager::audioInputDevice()
 {
     QSettings settings;

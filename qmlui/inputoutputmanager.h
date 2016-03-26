@@ -35,6 +35,7 @@ class InputOutputManager : public QObject
 
     Q_PROPERTY(QQmlListProperty<Universe> universes READ universes CONSTANT)
     Q_PROPERTY(QStringList universeNames READ universeNames CONSTANT)
+    Q_PROPERTY(QVariant universesListModel READ universesListModel CONSTANT)
     Q_PROPERTY(QVariant audioInputDevice READ audioInputDevice NOTIFY audioInputDeviceChanged)
     Q_PROPERTY(QVariant audioOutputDevice READ audioOutputDevice NOTIFY audioOutputDeviceChanged)
 
@@ -43,6 +44,7 @@ public:
 
     QQmlListProperty<Universe> universes();
     QStringList universeNames() const;
+    QVariant universesListModel() const;
 
     QVariant audioInputDevice();
     QVariant audioOutputDevice();

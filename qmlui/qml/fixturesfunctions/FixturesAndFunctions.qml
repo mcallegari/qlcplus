@@ -216,11 +216,13 @@ Rectangle
                     width: 100
                     height: 26
                     anchors.margins: 1
-                    model: ioManager.universeNames
+                    model: ioManager.universesListModel
 
-                    onCurrentIndexChanged:
+                    onValueChanged:
                     {
                         // set the universe filter here
+                        contextManager.universeFilter = value
+                        fixtureManager.universeFilter = value
                     }
                 }
 
