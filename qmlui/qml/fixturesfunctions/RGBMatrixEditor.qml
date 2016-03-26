@@ -147,7 +147,7 @@ Rectangle
                     height: editorColumn.itemsHeight
                     model: fixtureManager.groupsListModel
                     currentValue: rgbMatrixEditor.fixtureGroup
-                    onValuechanged: rgbMatrixEditor.fixtureGroup = value
+                    onValueChanged: rgbMatrixEditor.fixtureGroup = value
                 }
             }
 

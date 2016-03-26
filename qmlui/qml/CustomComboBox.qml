@@ -48,7 +48,7 @@ Rectangle
     property string currentIcon
     property int currentValue
 
-    signal valuechanged(int value)
+    signal valueChanged(int value)
 
     //onModelChanged: popupRepeater.currentIndex = 0
 
@@ -183,7 +183,7 @@ Rectangle
                                 currentText = itemText
                                 currentIcon = itemIcon
                                 if (itemValue !== undefined)
-                                    cbRoot.valuechanged(itemValue)
+                                    cbRoot.valueChanged(itemValue)
                             }
                         }
 
@@ -240,7 +240,7 @@ Rectangle
                                 dropDownMenu.visible = false
 
                                 if (itemValue !== undefined)
-                                    cbRoot.valuechanged(itemValue)
+                                    cbRoot.valueChanged(itemValue)
                             }
                         }
                     }
