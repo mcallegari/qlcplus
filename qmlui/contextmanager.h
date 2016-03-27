@@ -81,8 +81,6 @@ public slots:
     /** Resets the current values used for dumping or preview */
     void resetValues();
 
-
-
 protected slots:
     void slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal z = 0);
     void slotChannelValueChanged(quint32 fxID, quint32 channel, quint8 value);
@@ -116,7 +114,8 @@ private:
     FunctionManager *m_functionManager;
     /** The list of the currently selected Fixture IDs */
     QList<quint32> m_selectedFixtures;
-    /** The currently displayed universe */
+    /** The currently displayed universe
+      * The value Universe::invalid() means "All universes" */
     quint32 m_universeFilter;
     /** Holds the last rotation value to handle relative changes */
     int m_prevRotation;

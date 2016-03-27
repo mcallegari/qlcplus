@@ -43,6 +43,9 @@ public:
     /** @reimp */
     void enableContext(bool enable);
 
+    /** @reimp */
+    void setUniverseFilter(quint32 universeFilter);
+
     void resetItems();
 
     void createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords = true);

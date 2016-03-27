@@ -41,6 +41,9 @@ InputOutputManager::InputOutputManager(Doc *doc, QObject *parent)
     qmlRegisterType<Universe>("com.qlcplus.classes", 1, 0, "Universe");
     qmlRegisterType<InputPatch>("com.qlcplus.classes", 1, 0, "InputPatch");
     qmlRegisterType<OutputPatch>("com.qlcplus.classes", 1, 0, "OutputPatch");
+
+    connect(m_doc, SIGNAL(loaded()),
+            this, SLOT(slotDocLoaded()));
 }
 
 QQmlListProperty<Universe> InputOutputManager::universes()
@@ -62,7 +65,7 @@ QVariant InputOutputManager::universesListModel() const
 
     QVariantMap allMap;
     allMap.insert("mLabel", tr("All universes"));
-    allMap.insert("mValue", Universe::invalid());
+    allMap.insert("mValue", (int)Universe::invalid());
     universesList.append(allMap);
 
     foreach(Universe *uni, m_ioMap->universes())
@@ -339,6 +342,11 @@ void InputOutputManager::setSelectedItem(QQuickItem *item, int index)
     m_selectedItem->setProperty("z", 5);
 
     qDebug() << "[InputOutputManager] Selected universe:" << index;
+}
+
+void InputOutputManager::slotDocLoaded()
+{
+    emit universesListModelChanged();
 }
 
 
