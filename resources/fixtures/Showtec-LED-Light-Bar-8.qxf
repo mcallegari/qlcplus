@@ -296,35 +296,29 @@
    <Channel>0</Channel>
    <Channel>1</Channel>
    <Channel>2</Channel>
-   <Channel>25</Channel>
   </Head>
   <Head>
    <Channel>3</Channel>
    <Channel>4</Channel>
    <Channel>5</Channel>
-   <Channel>25</Channel>
   </Head>
   <Head>
    <Channel>6</Channel>
    <Channel>7</Channel>
    <Channel>8</Channel>
-   <Channel>25</Channel>
   </Head>
   <Head>
-   <Channel>25</Channel>
    <Channel>9</Channel>
    <Channel>10</Channel>
    <Channel>11</Channel>
   </Head>
   <Head>
-   <Channel>25</Channel>
    <Channel>12</Channel>
    <Channel>13</Channel>
    <Channel>14</Channel>
   </Head>
   <Head>
    <Channel>17</Channel>
-   <Channel>25</Channel>
    <Channel>15</Channel>
    <Channel>16</Channel>
   </Head>
@@ -332,13 +326,11 @@
    <Channel>18</Channel>
    <Channel>19</Channel>
    <Channel>20</Channel>
-   <Channel>25</Channel>
   </Head>
   <Head>
    <Channel>21</Channel>
    <Channel>22</Channel>
    <Channel>23</Channel>
-   <Channel>25</Channel>
   </Head>
  </Mode>
  <Mode Name="d-P5">

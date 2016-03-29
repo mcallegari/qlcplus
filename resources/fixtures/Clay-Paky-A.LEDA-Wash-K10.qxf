@@ -859,29 +859,24 @@
    <Channel>19</Channel>
    <Channel>20</Channel>
    <Channel>21</Channel>
-   <Channel>11</Channel>
   </Head>
   <Head>
    <Channel>23</Channel>
    <Channel>24</Channel>
    <Channel>25</Channel>
-   <Channel>11</Channel>
   </Head>
   <Head>
    <Channel>26</Channel>
    <Channel>27</Channel>
-   <Channel>11</Channel>
    <Channel>28</Channel>
   </Head>
   <Head>
-   <Channel>11</Channel>
    <Channel>29</Channel>
    <Channel>30</Channel>
    <Channel>31</Channel>
   </Head>
   <Head>
    <Channel>34</Channel>
-   <Channel>11</Channel>
    <Channel>32</Channel>
    <Channel>33</Channel>
   </Head>
@@ -889,28 +884,23 @@
    <Channel>35</Channel>
    <Channel>36</Channel>
    <Channel>37</Channel>
-   <Channel>11</Channel>
   </Head>
   <Head>
    <Channel>38</Channel>
    <Channel>39</Channel>
    <Channel>40</Channel>
-   <Channel>11</Channel>
   </Head>
   <Head>
    <Channel>41</Channel>
    <Channel>42</Channel>
    <Channel>43</Channel>
-   <Channel>11</Channel>
   </Head>
   <Head>
    <Channel>44</Channel>
-   <Channel>11</Channel>
    <Channel>45</Channel>
    <Channel>46</Channel>
   </Head>
   <Head>
-   <Channel>11</Channel>
    <Channel>47</Channel>
    <Channel>48</Channel>
    <Channel>49</Channel>
@@ -918,35 +908,29 @@
   <Head>
    <Channel>51</Channel>
    <Channel>52</Channel>
-   <Channel>11</Channel>
    <Channel>50</Channel>
   </Head>
   <Head>
    <Channel>53</Channel>
    <Channel>54</Channel>
    <Channel>55</Channel>
-   <Channel>11</Channel>
   </Head>
   <Head>
    <Channel>56</Channel>
    <Channel>57</Channel>
    <Channel>58</Channel>
-   <Channel>11</Channel>
   </Head>
   <Head>
    <Channel>59</Channel>
    <Channel>60</Channel>
    <Channel>61</Channel>
-   <Channel>11</Channel>
   </Head>
   <Head>
-   <Channel>11</Channel>
    <Channel>62</Channel>
    <Channel>63</Channel>
    <Channel>64</Channel>
   </Head>
   <Head>
-   <Channel>11</Channel>
    <Channel>65</Channel>
    <Channel>66</Channel>
    <Channel>67</Channel>
@@ -955,19 +939,16 @@
    <Channel>68</Channel>
    <Channel>69</Channel>
    <Channel>70</Channel>
-   <Channel>11</Channel>
   </Head>
   <Head>
    <Channel>71</Channel>
    <Channel>72</Channel>
    <Channel>73</Channel>
-   <Channel>11</Channel>
   </Head>
   <Head>
    <Channel>74</Channel>
    <Channel>75</Channel>
    <Channel>76</Channel>
-   <Channel>11</Channel>
   </Head>
  </Mode>
  <Mode Name="Extended RGBW">
@@ -1079,17 +1060,14 @@
    <Channel>21</Channel>
    <Channel>22</Channel>
    <Channel>23</Channel>
-   <Channel>11</Channel>
   </Head>
   <Head>
    <Channel>24</Channel>
    <Channel>25</Channel>
    <Channel>26</Channel>
    <Channel>27</Channel>
-   <Channel>11</Channel>
   </Head>
   <Head>
-   <Channel>11</Channel>
    <Channel>28</Channel>
    <Channel>29</Channel>
    <Channel>30</Channel>
@@ -1098,7 +1076,6 @@
   <Head>
    <Channel>34</Channel>
    <Channel>35</Channel>
-   <Channel>11</Channel>
    <Channel>32</Channel>
    <Channel>33</Channel>
   </Head>
@@ -1107,25 +1084,21 @@
    <Channel>37</Channel>
    <Channel>38</Channel>
    <Channel>39</Channel>
-   <Channel>11</Channel>
   </Head>
   <Head>
    <Channel>40</Channel>
    <Channel>41</Channel>
    <Channel>42</Channel>
    <Channel>43</Channel>
-   <Channel>11</Channel>
   </Head>
   <Head>
    <Channel>44</Channel>
-   <Channel>11</Channel>
    <Channel>45</Channel>
    <Channel>46</Channel>
    <Channel>47</Channel>
   </Head>
   <Head>
    <Channel>51</Channel>
-   <Channel>11</Channel>
    <Channel>48</Channel>
    <Channel>49</Channel>
    <Channel>50</Channel>
@@ -1135,24 +1108,20 @@
    <Channel>53</Channel>
    <Channel>54</Channel>
    <Channel>55</Channel>
-   <Channel>11</Channel>
   </Head>
   <Head>
    <Channel>56</Channel>
    <Channel>57</Channel>
    <Channel>58</Channel>
    <Channel>59</Channel>
-   <Channel>11</Channel>
   </Head>
   <Head>
    <Channel>60</Channel>
    <Channel>61</Channel>
-   <Channel>11</Channel>
    <Channel>62</Channel>
    <Channel>63</Channel>
   </Head>
   <Head>
-   <Channel>11</Channel>
    <Channel>64</Channel>
    <Channel>65</Channel>
    <Channel>66</Channel>
@@ -1163,24 +1132,20 @@
    <Channel>69</Channel>
    <Channel>70</Channel>
    <Channel>71</Channel>
-   <Channel>11</Channel>
   </Head>
   <Head>
    <Channel>72</Channel>
    <Channel>73</Channel>
    <Channel>74</Channel>
    <Channel>75</Channel>
-   <Channel>11</Channel>
   </Head>
   <Head>
    <Channel>76</Channel>
    <Channel>77</Channel>
    <Channel>78</Channel>
-   <Channel>11</Channel>
    <Channel>79</Channel>
   </Head>
   <Head>
-   <Channel>11</Channel>
    <Channel>80</Channel>
    <Channel>81</Channel>
    <Channel>82</Channel>
@@ -1190,7 +1155,6 @@
    <Channel>85</Channel>
    <Channel>86</Channel>
    <Channel>87</Channel>
-   <Channel>11</Channel>
    <Channel>84</Channel>
   </Head>
   <Head>
@@ -1198,14 +1162,12 @@
    <Channel>89</Channel>
    <Channel>90</Channel>
    <Channel>91</Channel>
-   <Channel>11</Channel>
   </Head>
   <Head>
    <Channel>92</Channel>
    <Channel>93</Channel>
    <Channel>94</Channel>
    <Channel>95</Channel>
-   <Channel>11</Channel>
   </Head>
  </Mode>
 </FixtureDefinition>

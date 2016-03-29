@@ -170,13 +170,11 @@
   <Channel Number="6">Green 2nd Half Bar</Channel>
   <Channel Number="7">Blue 2nd Half Bar</Channel>
   <Head>
-   <Channel>1</Channel>
    <Channel>2</Channel>
    <Channel>3</Channel>
    <Channel>4</Channel>
   </Head>
   <Head>
-   <Channel>1</Channel>
    <Channel>5</Channel>
    <Channel>6</Channel>
    <Channel>7</Channel>
@@ -205,25 +203,21 @@
   <Channel Number="12">Green 4th Segment</Channel>
   <Channel Number="13">Blue 4th Segment</Channel>
   <Head>
-   <Channel>1</Channel>
    <Channel>2</Channel>
    <Channel>3</Channel>
    <Channel>4</Channel>
   </Head>
   <Head>
-   <Channel>1</Channel>
    <Channel>5</Channel>
    <Channel>6</Channel>
    <Channel>7</Channel>
   </Head>
   <Head>
-   <Channel>1</Channel>
    <Channel>8</Channel>
    <Channel>9</Channel>
    <Channel>10</Channel>
   </Head>
   <Head>
-   <Channel>1</Channel>
    <Channel>11</Channel>
    <Channel>12</Channel>
    <Channel>13</Channel>

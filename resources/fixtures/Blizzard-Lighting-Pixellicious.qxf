@@ -222,17 +222,14 @@
   <Head>
    <Channel>3</Channel>
    <Channel>2</Channel>
-   <Channel>0</Channel>
    <Channel>4</Channel>
   </Head>
   <Head>
-   <Channel>0</Channel>
    <Channel>7</Channel>
    <Channel>6</Channel>
    <Channel>5</Channel>
   </Head>
   <Head>
-   <Channel>0</Channel>
    <Channel>10</Channel>
    <Channel>9</Channel>
    <Channel>8</Channel>
@@ -240,36 +237,30 @@
   <Head>
    <Channel>13</Channel>
    <Channel>12</Channel>
-   <Channel>0</Channel>
    <Channel>11</Channel>
   </Head>
   <Head>
    <Channel>15</Channel>
    <Channel>14</Channel>
-   <Channel>0</Channel>
    <Channel>16</Channel>
   </Head>
   <Head>
    <Channel>19</Channel>
    <Channel>18</Channel>
    <Channel>17</Channel>
-   <Channel>0</Channel>
   </Head>
   <Head>
-   <Channel>0</Channel>
    <Channel>22</Channel>
    <Channel>21</Channel>
    <Channel>20</Channel>
   </Head>
   <Head>
    <Channel>24</Channel>
-   <Channel>0</Channel>
    <Channel>23</Channel>
    <Channel>25</Channel>
   </Head>
   <Head>
    <Channel>28</Channel>
-   <Channel>0</Channel>
    <Channel>27</Channel>
    <Channel>26</Channel>
   </Head>
@@ -277,7 +268,6 @@
    <Channel>31</Channel>
    <Channel>30</Channel>
    <Channel>29</Channel>
-   <Channel>0</Channel>
   </Head>
  </Mode>
  <Mode Name="8 Channel Mode">
@@ -296,10 +286,5 @@
   <Channel Number="5">Auto Programs 1-15</Channel>
   <Channel Number="6">Auto Programs 16-29 + Mix Mode</Channel>
   <Channel Number="7">Auto Program Speed</Channel>
-  <Head>
-   <Channel>3</Channel>
-   <Channel>2</Channel>
-   <Channel>4</Channel>
-  </Head>
  </Mode>
 </FixtureDefinition>
