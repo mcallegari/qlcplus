@@ -782,7 +782,7 @@ void VCFrame::applyProperties(VCFrameProperties const& prop)
     else if (multipageMode() == false)
     {
         setTotalPagesNumber(1);
-        resize(QSize(m_width, m_height));
+        resize(QSize(this->width(), this->height()));
 
         QMapIterator <VCWidget*, int> it(m_pagesMap);
         while (it.hasNext() == true)
