@@ -70,8 +70,6 @@ protected slots:
     void slotAudioPreviewLeft();
     void slotAudioPreviewRight();
     void slotAudioPreviewStereo();
-    /** Routine that decode the whole and create the waveform QPixmap */
-    void slotCreateWaveform();
 
 private:
     /** Calculate sequence width for paint() and boundingRect() */
