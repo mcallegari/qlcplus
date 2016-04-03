@@ -189,7 +189,7 @@ void QLCFixtureHead_Test::cacheChannelsRgbMaster()
     QCOMPARE(head.tiltLsbChannel(), QLCChannel::invalid());
     QCOMPARE(head.rgbChannels(), QVector <quint32> () << 0 << 1 << 2);
     QCOMPARE(head.cmyChannels(), QVector <quint32> ());
-    QCOMPARE(head.masterIntensityChannel(), quint32(3));
+    QCOMPARE(head.intensityChannel(), quint32(3));
 }
 
 void QLCFixtureHead_Test::cacheChannelsCmyMaster()
@@ -226,7 +226,7 @@ void QLCFixtureHead_Test::cacheChannelsCmyMaster()
     QCOMPARE(head.tiltLsbChannel(), QLCChannel::invalid());
     QCOMPARE(head.rgbChannels(), QVector <quint32> ());
     QCOMPARE(head.cmyChannels(), QVector <quint32> () << 0 << 1 << 3);
-    QCOMPARE(head.masterIntensityChannel(), quint32(2));
+    QCOMPARE(head.intensityChannel(), quint32(2));
 }
 
 void QLCFixtureHead_Test::cacheChannelsPanTilt()
@@ -263,7 +263,7 @@ void QLCFixtureHead_Test::cacheChannelsPanTilt()
     QCOMPARE(head.tiltLsbChannel(), quint32(3));
     QCOMPARE(head.rgbChannels(), QVector <quint32> ());
     QCOMPARE(head.cmyChannels(), QVector <quint32> ());
-    QCOMPARE(head.masterIntensityChannel(), QLCChannel::invalid());
+    QCOMPARE(head.intensityChannel(), QLCChannel::invalid());
 
     head.cacheChannels((QLCFixtureMode*) 0xDEADBEEF);
     QCOMPARE(head.panMsbChannel(), quint32(0));
@@ -272,7 +272,7 @@ void QLCFixtureHead_Test::cacheChannelsPanTilt()
     QCOMPARE(head.tiltLsbChannel(), quint32(3));
     QCOMPARE(head.rgbChannels(), QVector <quint32> ());
     QCOMPARE(head.cmyChannels(), QVector <quint32> ());
-    QCOMPARE(head.masterIntensityChannel(), QLCChannel::invalid());
+    QCOMPARE(head.intensityChannel(), QLCChannel::invalid());
 }
 
 void QLCFixtureHead_Test::doublePanTilt()
@@ -348,7 +348,7 @@ void QLCFixtureHead_Test::cacheChannelsColor()
 void QLCFixtureHead_Test::dimmerHead()
 {
     QLCDimmerHead dh(5);
-    QCOMPARE(dh.masterIntensityChannel(), quint32(5));
+    QCOMPARE(dh.intensityChannel(), quint32(5));
     QCOMPARE(dh.m_channelsCached, true);
 }
 

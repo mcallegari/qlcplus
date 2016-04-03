@@ -196,9 +196,13 @@ public:
      */
     quint32 channelNumber(QLCChannel::Group group, QLCChannel::ControlByte cByte = QLCChannel::MSB) const;
 
+    quint32 masterIntensityChannel() const;
+
 protected:
     /** List of channels (pointers are not owned) */
     QVector <QLCChannel*> m_channels;
+
+    quint32 m_masterIntensityChannel;
 
     /*********************************************************************
      * Heads

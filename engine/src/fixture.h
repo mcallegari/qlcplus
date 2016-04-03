@@ -266,8 +266,11 @@ public:
     /** @see QLCFixtureHead */
     quint32 tiltLsbChannel(int head = 0) const;
 
+    /** @see QLCFixtureMode */
+    quint32 masterIntensityChannel() const;
+
     /** @see QLCFixtureHead */
-    quint32 masterIntensityChannel(int head = 0) const;
+    quint32 intensityChannel(int head = 0) const;
 
     /** @see QLCFixtureHead */
     QVector <quint32> rgbChannels(int head = 0) const;

@@ -631,9 +631,6 @@ void RGBMatrix::roundCheck()
 
 void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
 {
-    quint32 mdAssigned = QLCChannel::invalid();
-    quint32 mdFxi = Fixture::invalidId();
-
     uint fadeTime = (overrideFadeInSpeed() == defaultSpeed()) ? fadeInSpeed() : overrideFadeInSpeed();
 
     // Create/modify fade channels for ALL pixels in the color map.
@@ -647,16 +644,36 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
             if (fxi == NULL)
                 continue;
 
-            if (grpHead.fxi != mdFxi)
-            {
-                mdAssigned = QLCChannel::invalid();
-                mdFxi = grpHead.fxi;
-            }
-
             QLCFixtureHead head = fxi->head(grpHead.head);
 
             QVector <quint32> rgb = head.rgbChannels();
             QVector <quint32> cmy = head.cmyChannels();
+
+            quint32 masterDim = fxi->masterIntensityChannel();
+            quint32 headDim = head.intensityChannel();
+
+            // Collect all dimmers that affect current head:
+            // They are the master dimmer (affects whole fixture)
+            // and per-head dimmer.
+            //
+            // If there are no RGB or CMY channels, the least important* dimmer channel 
+            // is used to create grayscale image.
+            //
+            // The rest of the dimmer channels are set to full if dimmer control is
+            // enabled.
+            //
+            // Note: If there is only one head, and only one dimmer channel,
+            // make it a master dimmer in fixture definition.
+            //
+            // *least important - per head dimmer if present, 
+            // otherwise per fixture dimmer if present
+            QVector <quint32> dim;
+            if (masterDim != QLCChannel::invalid())
+                dim << masterDim;
+
+            if (headDim != QLCChannel::invalid())
+                dim << headDim;
+
             if (rgb.size() == 3)
             {
                 // RGB color mixing
@@ -707,24 +724,30 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
                     m_fader->add(fc);
                 }
             }
-
-            if (m_dimmerControl &&
-                head.masterIntensityChannel() != QLCChannel::invalid())
+            else if (!dim.empty())
             {
-                //qDebug() << "RGBMatrix: found dimmer at" << head.masterIntensityChannel();
-                // Simple intensity (dimmer) channel
+                // Set dimmer to value of the color (e.g. for PARs)
                 QColor col(map[y][x]);
-                FadeChannel fc(doc(), grpHead.fxi, head.masterIntensityChannel());
-                if (col.value() == 0 && mdAssigned != head.masterIntensityChannel())
-                    fc.setTarget(0);
-                else
-                {
-                    fc.setTarget(255);
-                    if (mdAssigned == QLCChannel::invalid())
-                        mdAssigned = head.masterIntensityChannel();
-                }
+
+                FadeChannel fc(doc(), grpHead.fxi, dim.last());
+                // the weights are taken from
+                // https://en.wikipedia.org/wiki/YUV#SDTV_with_BT.601
+                fc.setTarget((0.299 * col.redF() + 0.587 * col.greenF() + 0.114 * col.blueF()) * 255);
                 insertStartValues(fc, fadeTime);
                 m_fader->add(fc);
+                dim.pop_back();
+            }
+
+            if (m_dimmerControl)
+            {
+                // Set the rest of the dimmer channels to full on
+                foreach(quint32 ch, dim)
+                {
+                    FadeChannel fc(doc(), grpHead.fxi, ch);
+                    fc.setTarget(255);
+                    insertStartValues(fc, fadeTime);
+                    m_fader->add(fc);
+                }
             }
         }
     }

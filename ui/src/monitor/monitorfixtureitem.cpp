@@ -77,17 +77,26 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
             //qDebug() << "Add CMY comp at address:" << cmyComp;
         }
 
-        if (head.masterIntensityChannel() != QLCChannel::invalid())
+        fxiItem->m_dimmer = head.intensityChannel();
+        if (fxiItem->m_dimmer != QLCChannel::invalid())
         {
-            fxiItem->m_masterDimmer = head.masterIntensityChannel();
+            qDebug() << "Set dimmer to:" << fxiItem->m_dimmer;
+        }
+
+        fxiItem->m_masterDimmer = fxi->masterIntensityChannel();
+        if (fxiItem->m_masterDimmer != QLCChannel::invalid())
+        {
             qDebug() << "Set master dimmer to:" << fxiItem->m_masterDimmer;
+        }
+
+        if ((fxiItem->m_dimmer != QLCChannel::invalid()) || (fxiItem->m_masterDimmer != QLCChannel::invalid()))
+        {
             fxiItem->m_back = new QGraphicsEllipseItem(this);
             fxiItem->m_back->setPen(QPen(Qt::white, 1));
             fxiItem->m_back->setBrush(QBrush(Qt::black));
         }
         else
         {
-            fxiItem->m_masterDimmer = QLCChannel::invalid();
             fxiItem->m_back = NULL;
         }
 
@@ -324,7 +333,7 @@ void MonitorFixtureItem::setSize(QSize size)
     update();
 }
 
-QColor MonitorFixtureItem::computeColor(FixtureHead *head, const QByteArray & values)
+QColor MonitorFixtureItem::computeColor(const FixtureHead *head, const QByteArray & values)
 {
     foreach (quint32 c, head->m_colorWheels)
     {
@@ -359,16 +368,29 @@ QColor MonitorFixtureItem::computeColor(FixtureHead *head, const QByteArray & va
 
     return QColor(255,255,255);
 }
-uchar MonitorFixtureItem::computeAlpha(FixtureHead *head, const QByteArray & values)
+uchar MonitorFixtureItem::computeAlpha(const FixtureHead *head, const QByteArray & values)
 {
-    uchar alpha = 255;
-    if (head->m_masterDimmer != UINT_MAX /*QLCChannel::invalid()*/)
-        alpha = values.at(head->m_masterDimmer);
+    // postpone division as late as possible to improve accuracy
+    unsigned mul = 255U;
+    unsigned div = 1U;
 
-    return alpha; 
+    if (head->m_masterDimmer != UINT_MAX /*QLCChannel::invalid()*/)
+    {
+        mul *= static_cast<uchar>(values.at(head->m_masterDimmer));
+        div *= 255U;
+    }
+
+    if (head->m_dimmer != UINT_MAX /*QLCChannel::invalid()*/)
+    {
+        mul *= static_cast<uchar>(values.at(head->m_dimmer));
+        div *= 255U;
+    }
+
+    qDebug() << mul << "/" << div << "=" << (mul /div);
+    return mul / div;
 }
 
-FixtureHead::ShutterState MonitorFixtureItem::computeShutter(FixtureHead *head, const QByteArray & values)
+FixtureHead::ShutterState MonitorFixtureItem::computeShutter(const FixtureHead *head, const QByteArray & values)
 {
     FixtureHead::ShutterState result = FixtureHead::Open;
 

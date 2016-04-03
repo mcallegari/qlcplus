@@ -995,7 +995,7 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
                 grpScene->setValue(head.fxi, rgbCh.at(2), 0);
             }
 
-            quint32 master = fxi->masterIntensityChannel(head.head);
+            quint32 master = fxi->intensityChannel(head.head);
             if (master != QLCChannel::invalid())
                 grpScene->setValue(head.fxi, master, 0);
         }
@@ -1063,7 +1063,7 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
                         step.values.append(SceneValue(head.fxi, rgbCh.at(2), rgb.blue()));
                     }
 
-                    quint32 master = fxi->masterIntensityChannel(head.head);
+                    quint32 master = fxi->intensityChannel(head.head);
                     if (master != QLCChannel::invalid())
                         step.values.append(SceneValue(head.fxi, master, 255));
                 }
