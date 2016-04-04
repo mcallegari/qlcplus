@@ -864,8 +864,12 @@ void VCXYPadFixture_Test::write16bitReverse()
         xmul = ((xy.xMax() - xy.xMin()) * xmul) + xy.xMin();
         ymul = ((xy.yMax() - xy.yMin()) * ymul) + xy.yMin();
 
-        xmul = xy.xMax() - xmul;
-        ymul = xy.yMax() - ymul;
+        //*  ** old code **
+        //*xmul = xy.xMax() - xmul;
+        //*ymul = xy.yMax() - ymul;
+
+        xmul = 1 - xmul;
+        ymul = 1 - ymul;
 
         ushort x = floor((qreal(USHRT_MAX) * xmul) + 0.5);
         ushort y = floor((qreal(USHRT_MAX) * ymul) + 0.5);
