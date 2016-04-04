@@ -62,6 +62,8 @@ private slots:
     void write8bitReverse();
     void write16bitNoReverse();
     void write16bitReverse();
+    void writeReverseRange();
+    void writeRange();
 
     void cleanupTestCase();
 
