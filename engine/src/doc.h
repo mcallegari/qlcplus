@@ -194,19 +194,23 @@ protected:
      * Modified status
      *********************************************************************/
 public:
-    /**
-     * Check, whether Doc has been modified (and is in need of saving)
-     */
+    enum LoadStatus
+    {
+        Cleared = 0,
+        Loading,
+        Loaded
+    };
+
+    /** Get the current Doc load status */
+    LoadStatus loadStatus() const;
+
+    /** Check, whether Doc has been modified (and is in need of saving) */
     bool isModified() const;
 
-    /**
-     * Set Doc into modified state (i.e. it is in need of saving)
-     */
+    /** Set Doc into modified state (i.e. it is in need of saving) */
     void setModified();
 
-    /**
-     * Reset Doc's modified state (i.e. it is no longer in need of saving)
-     */
+    /** Reset Doc's modified state (i.e. it is no longer in need of saving) */
     void resetModified();
 
 signals:
@@ -214,7 +218,8 @@ signals:
     void modified(bool state);
 
 protected:
-    /** Modified status (true; needs saving, false; does not) */
+    /** The current Doc load status */
+    LoadStatus m_loadStatus;
     bool m_modified;
 
     /*********************************************************************
@@ -376,7 +381,7 @@ private:
     quint32 m_latestFixtureGroupId;
 
     /*********************************************************************
-     * Channels groups
+     * Channel groups
      *********************************************************************/
 public:
     /** Add a new channels group. Doc takes ownership of the group. */

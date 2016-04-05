@@ -108,6 +108,7 @@ void Doc_Test::defaults()
     QVERIFY(m_doc->m_ioMap != NULL);
     QVERIFY(m_doc->m_masterTimer != NULL);
 
+    QVERIFY(m_doc->m_loadStatus == Doc::Cleared);
     QVERIFY(m_doc->m_modified == false);
     QVERIFY(m_doc->m_latestFixtureId == 0);
     QVERIFY(m_doc->m_fixtures.size() == 0);
