@@ -56,6 +56,7 @@ protected:
     VCCueList* m_cueList;
     Doc* m_doc;
     InputSelectionWidget *m_playInputWidget;
+    InputSelectionWidget *m_stopInputWidget;
     InputSelectionWidget *m_nextInputWidget;
     InputSelectionWidget *m_prevInputWidget;
 

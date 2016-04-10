@@ -54,6 +54,7 @@ class Doc;
 #define KXMLQLCVCCueListNext "Next"
 #define KXMLQLCVCCueListPrevious "Previous"
 #define KXMLQLCVCCueListPlayback "Playback"
+#define KXMLQLCVCCueListStop "Stop"
 #define KXMLQLCVCCueListCrossfadeLeft "CrossLeft"
 #define KXMLQLCVCCueListCrossfadeRight "CrossRight"
 #define KXMLQLCVCCueListSlidersMode "SlidersMode"
@@ -75,6 +76,7 @@ public:
     static const quint8 nextInputSourceId;
     static const quint8 previousInputSourceId;
     static const quint8 playbackInputSourceId;
+    static const quint8 stopInputSourceId;
     static const quint8 cf1InputSourceId;
     static const quint8 cf2InputSourceId;
 
@@ -160,8 +162,11 @@ private:
     QTimer* m_updateTimer;
 
 public slots:
-    /** Play/stop the cue list from the current selection */
+    /** Play/stop/resume the cue list from the current selection */
     void slotPlayback();
+
+    /** Stop the cue list */
+    void slotStop();
 
     /** Skip to the next cue */
     void slotNextCue();
@@ -226,6 +231,7 @@ private:
     QTreeWidget* m_tree;
     QToolButton* m_crossfadeButton;
     QToolButton* m_playbackButton;
+    QToolButton* m_stopButton;
     QToolButton* m_previousButton;
     QToolButton* m_nextButton;
     QProgressBar* m_progress;
@@ -291,11 +297,17 @@ public:
     /** Get the keyboard key combination for skipping to the previous cue */
     QKeySequence previousKeySequence() const;
 
-    /** Set the keyboard key combination for stopping the cue list */
+    /** Set the keyboard key combination for playing/resuming the cue list */
     void setPlaybackKeySequence(const QKeySequence& keySequence);
 
-    /** Get the keyboard key combination for stopping the cue list */
+    /** Get the keyboard key combination for playing/resuming the cue list */
     QKeySequence playbackKeySequence() const;
+
+    /** Set the keyboard key combination for stopping the cue list */
+    void setStopKeySequence(const QKeySequence& keySequence);
+
+    /** Get the keyboard key combination for stopping the cue list */
+    QKeySequence stopKeySequence() const;
 
 protected slots:
     void slotKeyPressed(const QKeySequence& keySequence);
@@ -304,6 +316,7 @@ private:
     QKeySequence m_nextKeySequence;
     QKeySequence m_previousKeySequence;
     QKeySequence m_playbackKeySequence;
+    QKeySequence m_stopKeySequence;
 
     /*************************************************************************
      * External Input
@@ -318,6 +331,7 @@ private:
     quint32 m_nextLatestValue;
     quint32 m_previousLatestValue;
     quint32 m_playbackLatestValue;
+    quint32 m_stopLatestValue;
 
     /*************************************************************************
      * VCWidget-inherited

@@ -6,6 +6,7 @@ qlcplus (4.10.4) stable; urgency=low
   * Virtual Console/Animation: fix behavior issue when changing the associated function (David Garyga)
   * Virtual Console/Frames: send feedbacks for the enable button
   * Virtual Console/Frames: fix 4.10.3 regression causing frames to resize after configuration
+  * Virtual Console/Cue List: added a dedicated stop button, with external controls
   * Plugins/OSC: fixed regression of receiving data from the wrong interface (David Garyga)
   * Plugins/OSC: fixed regression causing not receiving data anymore when changing the input profile (David Garyga)
   * Plugins/MIDI: distinguish MIDI beat clock start and stop (see documentation)
