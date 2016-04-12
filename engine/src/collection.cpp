@@ -315,10 +315,26 @@ void Collection::preRun(MasterTimer* timer)
     Function::preRun(timer);
 }
 
+void Collection::setPause(bool enable)
+{
+    Doc* doc = this->doc();
+    Q_ASSERT(doc != NULL);
+    foreach (quint32 fid, m_runningChildren)
+    {
+        Function* function = doc->function(fid);
+        Q_ASSERT(function != NULL);
+        function->setPause(enable);
+    }
+    Function::setPause(enable);
+}
+
 void Collection::write(MasterTimer* timer, QList<Universe *> universes)
 {
     Q_UNUSED(timer);
     Q_UNUSED(universes);
+
+    if (isPaused())
+        return;
 
     // During first tick, children may be stopped & started.
     if (m_tick == 1)

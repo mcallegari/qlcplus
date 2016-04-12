@@ -627,13 +627,14 @@ void Scene::write(MasterTimer* timer, QList<Universe*> ua)
 
     //qDebug() << "[Scene] writing channels:" << m_fader->channels().count();
     // Run the internal GenericFader
-    m_fader->write(ua);
+    m_fader->write(ua, isPaused());
 
     // Fader has nothing to do. Stop.
     if (m_fader->channels().size() == 0)
         stop(FunctionParent::master());
 
-    incrementElapsed();
+    if (isPaused() == false)
+        incrementElapsed();
 }
 
 void Scene::postRun(MasterTimer* timer, QList<Universe *> ua)

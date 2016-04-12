@@ -615,7 +615,19 @@ void VCCueList::slotPlayback()
 
     if (ch->isRunning())
     {
-        stopChaser();
+        //stopChaser();
+        if (ch->isPaused())
+        {
+            m_playbackButton->setStyleSheet(QString("QToolButton{ background: %1; }")
+                                            .arg(m_stopButton->palette().background().color().name()));
+            m_playbackButton->setIcon(QIcon(":/player_pause.png"));
+        }
+        else
+        {
+            m_playbackButton->setStyleSheet("QToolButton{ background: #5B81FF; }");
+            m_playbackButton->setIcon(QIcon(":/player_play.png"));
+        }
+        ch->setPause(!ch->isPaused());
     }
     else
     {
@@ -644,6 +656,10 @@ void VCCueList::slotStop()
         m_primaryIndex = 0;
         m_tree->setCurrentItem(m_tree->topLevelItem(getFirstIndex()));
     }
+    m_playbackButton->setStyleSheet(QString("QToolButton{ background: %1; }")
+                                    .arg(m_stopButton->palette().background().color().name()));
+    m_progress->setFormat("");
+    m_progress->setValue(0);
 }
 
 void VCCueList::slotNextCue()

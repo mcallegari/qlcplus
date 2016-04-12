@@ -21,12 +21,6 @@ pre
   height: 100%;
 }
 
-.qlcTable span
-{
-  font-size: 24px;
-  font-weight: bold;
-}
-
 .qlcTable td
 {
   vertical-align: middle;

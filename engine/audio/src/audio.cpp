@@ -361,10 +361,26 @@ void Audio::preRun(MasterTimer* timer)
     Function::preRun(timer);
 }
 
+void Audio::setPause(bool enable)
+{
+    if (isRunning())
+    {
+        if (enable)
+            m_audio_out->suspend();
+        else
+            m_audio_out->resume();
+
+        Function::setPause(enable);
+    }
+}
+
 void Audio::write(MasterTimer* timer, QList<Universe *> universes)
 {
     Q_UNUSED(timer)
     Q_UNUSED(universes)
+
+    if (isPaused())
+        return;
 
     incrementElapsed();
 

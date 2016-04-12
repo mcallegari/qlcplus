@@ -731,8 +731,19 @@ void Chaser::preRun(MasterTimer* timer)
     Function::preRun(timer);
 }
 
+void Chaser::setPause(bool enable)
+{
+    QMutexLocker runnerLocker(&m_runnerMutex);
+    if (m_runner != NULL)
+        m_runner->setPause(enable);
+    Function::setPause(enable);
+}
+
 void Chaser::write(MasterTimer* timer, QList<Universe *> universes)
 {
+    if (isPaused())
+        return;
+
     {
         QMutexLocker runnerLocker(&m_runnerMutex);
         QMutexLocker stepListLocker(&m_stepListMutex);

@@ -89,6 +89,8 @@ VideoWidget::VideoWidget(Video *video, QObject *parent)
             this, SLOT(slotSourceUrlChanged(QString)));
     connect(m_video, SIGNAL(requestPlayback()),
             this, SLOT(slotPlaybackVideo()));
+    connect(m_video, SIGNAL(requestPause(bool)),
+            this, SLOT(slotSetPause(bool)));
     connect(m_video, SIGNAL(requestStop()),
             this, SLOT(slotStopVideo()));
     connect(m_video, SIGNAL(requestBrightnessAdjust(int)),
@@ -212,6 +214,14 @@ void VideoWidget::slotPlaybackVideo()
 
     m_videoPlayer->play();
 
+}
+
+void VideoWidget::slotSetPause(bool enable)
+{
+    if (enable)
+        m_videoPlayer->pause();
+    else
+        m_videoPlayer->play();
 }
 
 void VideoWidget::slotStopVideo()

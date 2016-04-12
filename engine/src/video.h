@@ -174,6 +174,7 @@ signals:
     void totalTimeChanged(qint64);
     void metaDataChanged(QString key, QVariant data);
     void requestPlayback();
+    void requestPause(bool enable);
     void requestStop();
     void requestBrightnessAdjust(int value);
 
@@ -216,6 +217,9 @@ public:
 public:
     /** @reimpl */
     void preRun(MasterTimer*);
+
+    /** @reimpl */
+    void setPause(bool enable);
 
     /** @reimpl */
     void write(MasterTimer* timer, QList<Universe*> universes);

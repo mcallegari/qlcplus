@@ -281,6 +281,9 @@ void Script::preRun(MasterTimer* timer)
 
 void Script::write(MasterTimer* timer, QList<Universe *> universes)
 {
+    if (isPaused())
+        return;
+
     incrementElapsed();
 
     if (stopped() == false)

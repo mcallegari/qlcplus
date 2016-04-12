@@ -213,6 +213,9 @@ public:
      */
     bool write(MasterTimer* timer, QList<Universe*> universes);
 
+    /** If running, pauses the runner and all the current running steps. */
+    void setPause(bool enable);
+
     /**
      * Perform postRun operations. Call this from the parent function's postRun().
      *

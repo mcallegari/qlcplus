@@ -1028,9 +1028,12 @@ void EFX::preRun(MasterTimer* timer)
 
 void EFX::write(MasterTimer* timer, QList<Universe*> universes)
 {
+    Q_UNUSED(timer);
+
     int ready = 0;
 
-    Q_UNUSED(timer);
+    if (isPaused())
+        return;
 
     QListIterator <EFXFixture*> it(m_fixtures);
     while (it.hasNext() == true)

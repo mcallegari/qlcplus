@@ -86,6 +86,7 @@ Function::Function(QObject *parent)
     , m_elapsed(0)
     , m_stop(true)
     , m_running(false)
+    , m_paused(false)
     , m_blendMode(Universe::NormalBlend)
 {
 
@@ -109,6 +110,7 @@ Function::Function(Doc* doc, Type t)
     , m_elapsed(0)
     , m_stop(true)
     , m_running(false)
+    , m_paused(false)
     , m_blendMode(Universe::NormalBlend)
 {
     Q_ASSERT(doc != NULL);
@@ -903,6 +905,11 @@ bool Function::isRunning() const
     return m_running;
 }
 
+bool Function::isPaused() const
+{
+    return m_paused;
+}
+
 /*****************************************************************************
  * Elapsed ticks while running
  *****************************************************************************/
@@ -956,16 +963,29 @@ void Function::start(MasterTimer* timer, FunctionParent source, quint32 startTim
             return;
     }
 
-    // m_stop = false;
+    /** If we're in a paused state, then just return to the running state
+     *  to let subclasses resuming what they were doing. */
+    if (m_paused == true)
+    {
+        m_paused = false;
+        return;
+    }
+
     m_elapsed = startTime;
     m_overrideFadeInSpeed = overrideFadeIn;
     m_overrideFadeOutSpeed = overrideFadeOut;
     m_overrideDuration = overrideDuration;
-    //if (m_stop)
-    //{
-        m_stop = false;
-        timer->startFunction(this);
-    //}
+
+    m_stop = false;
+    timer->startFunction(this);
+}
+
+void Function::setPause(bool enable)
+{
+    if (enable && isRunning() == false)
+        return;
+
+    m_paused = enable;
 }
 
 void Function::stop(FunctionParent source)
@@ -974,16 +994,22 @@ void Function::stop(FunctionParent source)
 
     QMutexLocker sourcesLocker(&m_sourcesMutex);
 
-    if ((source.id() == id() && source.type() == FunctionParent::Function)
-            || (source.type() == FunctionParent::Master)
-            || (source.type() == FunctionParent::ManualVCWidget)
-       )
+    if ((source.id() == id() && source.type() == FunctionParent::Function) ||
+        (source.type() == FunctionParent::Master) ||
+        (source.type() == FunctionParent::ManualVCWidget))
+    {
         m_sources.clear();
+    }
     else
+    {
         m_sources.removeAll(source);
+    }
 
     if (m_sources.size() == 0)
+    {
+        m_paused = false;
         m_stop = true;
+    }
 }
 
 bool Function::stopped() const

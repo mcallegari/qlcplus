@@ -394,6 +394,10 @@ void Show::write(MasterTimer* timer, QList<Universe *> universes)
 {
     Q_UNUSED(universes);
     Q_UNUSED(timer);
+
+    if (isPaused())
+        return;
+
     m_runner->write();
 }
 

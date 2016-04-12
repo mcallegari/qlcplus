@@ -559,24 +559,30 @@ void RGBMatrix::write(MasterTimer* timer, QList<Universe *> universes)
         if (m_algorithm == NULL || m_algorithm->apiVersion() == 0)
             return;
 
-        // Get new map every time when elapsed is reset to zero
-        if (elapsed() < MasterTimer::tick())
+        if (isPaused() == false)
         {
-            qDebug() << "RGBMatrix stepColor:" << QString::number(m_stepColor.rgb(), 16);
-            RGBMap map = m_algorithm->rgbMap(m_group->size(), m_stepColor.rgb(), m_step);
-            updateMapChannels(map, m_group);
+            // Get new map every time when elapsed is reset to zero
+            if (elapsed() < MasterTimer::tick())
+            {
+                qDebug() << "RGBMatrix stepColor:" << QString::number(m_stepColor.rgb(), 16);
+                RGBMap map = m_algorithm->rgbMap(m_group->size(), m_stepColor.rgb(), m_step);
+                updateMapChannels(map, m_group);
+            }
         }
     }
 
     // Run the generic fader that takes care of fading in/out individual channels
-    m_fader->write(universes);
+    m_fader->write(universes, isPaused());
 
-    // Increment elapsed time
-    incrementElapsed();
+    if (isPaused() == false)
+    {
+        // Increment elapsed time
+        incrementElapsed();
 
-    // Check if we need to change direction, stop completely or go to next step
-    if (elapsed() >= duration())
-        roundCheck(m_group->size());
+        // Check if we need to change direction, stop completely or go to next step
+        if (elapsed() >= duration())
+            roundCheck(m_group->size());
+    }
 }
 
 void RGBMatrix::postRun(MasterTimer* timer, QList<Universe *> universes)
