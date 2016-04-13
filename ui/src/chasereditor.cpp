@@ -343,7 +343,7 @@ void ChaserEditor::slotAddClicked()
     if (m_chaser->isSequence() == true)
     {
         ChaserStep step(m_chaser->getBoundSceneID());
-        QTreeWidgetItem* item = new QTreeWidgetItem;
+        item = new QTreeWidgetItem;
         updateItem(item, step);
         // if this is the first step we add, then copy all DMX channels non-zero values
         Scene *currScene = qobject_cast<Scene*> (m_doc->function(m_chaser->getBoundSceneID()));
@@ -382,7 +382,7 @@ void ChaserEditor::slotAddClicked()
             while (it.hasNext() == true)
             {
                 ChaserStep step(it.next());
-                QTreeWidgetItem* item = new QTreeWidgetItem;
+                item = new QTreeWidgetItem;
                 updateItem(item, step);
                 m_tree->insertTopLevelItem(insertionPoint, item);
                 qDebug() << "Insertion point: " << insertionPoint;
@@ -393,6 +393,9 @@ void ChaserEditor::slotAddClicked()
     }
     if (stepAdded == true)
     {
+        // at last, select the newly created step, so in case of a Sequence,
+        // the Scene Editor will show the current values, and users will
+        // stop bugging us in the forums
         m_tree->setCurrentItem(item);
         updateStepNumbers();
         updateClipboardButtons();
