@@ -107,6 +107,12 @@ void ShowRunner::start()
     qDebug() << "ShowRunner started";
 }
 
+void ShowRunner::setPause(bool enable)
+{
+    foreach (Function *f, m_runningQueue)
+        f->setPause(enable);
+}
+
 void ShowRunner::stop()
 {
     m_elapsedTime = 0;

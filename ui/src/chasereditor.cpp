@@ -264,7 +264,7 @@ void ChaserEditor::stopTest()
 
 void ChaserEditor::selectStepAtTime(quint32 time)
 {
-    quint32 stepTime = m_chaser->getStartTime();
+    quint32 stepTime = 0;
     for (int i = 0; i < m_chaser->stepsCount(); i++)
     {
         quint32 timeIncr = 0;

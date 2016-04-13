@@ -47,6 +47,9 @@ public:
     /** Start the runner */
     void start();
 
+    /** If running, pauses the runner and all the current running functions. */
+    void setPause(bool enable);
+
     /** Stop the runner */
     void stop();
 

@@ -1204,6 +1204,7 @@ void ShowManager::slotDelete()
 
 void ShowManager::slotStopPlayback()
 {
+    m_playAction->setIcon(QIcon(":/player_play.png"));
     if (m_show != NULL && m_show->isRunning())
     {
         m_show->stop(functionParent());
@@ -1217,7 +1218,25 @@ void ShowManager::slotStartPlayback()
 {
     if (m_showsCombo->count() == 0 || m_show == NULL)
         return;
-    m_show->start(m_doc->masterTimer(), functionParent(), m_showview->getTimeFromCursor());
+
+    if (m_show->isRunning() == false)
+    {
+        m_show->start(m_doc->masterTimer(), functionParent(), m_showview->getTimeFromCursor());
+        m_playAction->setIcon(QIcon(":/player_pause.png"));
+    }
+    else
+    {
+        if (m_show->isPaused())
+        {
+            m_playAction->setIcon(QIcon(":/player_pause.png"));
+            m_show->setPause(false);
+        }
+        else
+        {
+            m_playAction->setIcon(QIcon(":/player_play.png"));
+            m_show->setPause(true);
+        }
+    }
 }
 
 void ShowManager::slotShowStopped()
@@ -1300,7 +1319,7 @@ void ShowManager::slotShowItemMoved(ShowItem *item, quint32 time, bool moved)
         if (m_currentEditor != NULL)
         {
             ChaserEditor *editor = qobject_cast<ChaserEditor*>(m_currentEditor);
-            editor->selectStepAtTime(time);
+            editor->selectStepAtTime(time - item->getStartTime());
         }
     }
     else
