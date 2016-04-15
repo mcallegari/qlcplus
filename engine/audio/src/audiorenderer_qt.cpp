@@ -207,4 +207,5 @@ void AudioRendererQt::run()
         }
     }
     AudioRenderer::run();
+    m_audioOutput->stop();
 }
