@@ -18,9 +18,9 @@ macx: {
     #QMAKE_CXXFLAGS_X86_64 = -mmacosx-version-min=10.7
     QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.9
     INCLUDEPATH += /opt/local/include
-    LIBS      += -L/opt/local/lib -lolaserver -lola -lolacommon -lprotobuf
+    LIBS      += -L/opt/local/lib -lolaserver -lola -lolacommon
 } else {
-    LIBS      += -L/usr/local/lib -lolaserver -lola -lolacommon -lprotobuf
+    LIBS      += -L/usr/local/lib -lolaserver -lola -lolacommon
 }
 
 unix:!macx {
