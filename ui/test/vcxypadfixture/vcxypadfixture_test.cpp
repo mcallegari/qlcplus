@@ -877,126 +877,17 @@ void VCXYPadFixture_Test::write16bitReverse()
     }
 }
 
-void VCXYPadFixture_Test::writeReverseRange()
-{
-    // For testing pourpose we will test only on the X axis
-    // keeping the Y axis at its full range
-    Fixture* fxi = new Fixture(m_doc);
-
-    // 0-100% / DMX: 0-255
-    qreal rangeMin = 0;
-    qreal rangeMax = 1;
-    bool reverse = true;
-
-    // Select fixture
-    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("American DJ", "Inno Pocket Spot");
-    QVERIFY(def != NULL);
-    QLCFixtureMode* mode = def->modes().at(1);
-    QVERIFY(mode != NULL);
-
-    fxi->setFixtureDefinition(def, mode);
-
-    QList<Universe*> ua;
-    ua.append(new Universe(0, new GrandMaster()));
-
-    // "handles" to "left"
-    qreal xmul = 0;
-    qreal ymul = 0;
-
-    m_doc->addFixture(fxi);
-    VCXYPadFixture xy(m_doc);
-    xy.setHead(GroupHead(fxi->id(), 0));
-    xy.setX(rangeMin, rangeMax, reverse);
-    xy.setY(0, 1, false);
-    xy.arm();
-
-
-    // writing dmx value to dummy universe
-    // Handle on the left
-    xy.writeDMX(xmul, ymul, ua);
-
-    // check for actual value for X
-    // qDebug() << "CH 0 (255): " << ua[0]->preGMValue(0);
-
-    // Comparing results
-    QCOMPARE((int)ua[0]->preGMValue(0), 255);
-
-    // writing dmx value to dummy universe
-    // "handles" to "right"
-    xmul = 1;
-    xy.writeDMX(xmul, ymul, ua);
-
-    // check for actual value for X
-    // qDebug() << "CH 0 (0): " << ua[0]->preGMValue(0);
-
-    // Comparing results
-    QCOMPARE((int)ua[0]->preGMValue(0), 0);
-
-    // We will do the same for the others ranges
-    // From now comments will be scraped
-
-    // 40-60% / DMX: 102-153
-    rangeMin = 0.4;
-    rangeMax = 0.6;
-    xy.disarm();
-    xy.setHead(GroupHead(fxi->id(), 0));
-    xy.setX(rangeMin, rangeMax, reverse);
-    xy.setY(0, 1, false);
-    xy.arm();
-    xmul = 0;
-    xy.writeDMX(xmul, ymul, ua);
-    // qDebug() << "CH 0 153: " << ua[0]->preGMValue(0);
-    QCOMPARE((int)ua[0]->preGMValue(0), 153);
-    xmul = 1;
-    xy.writeDMX(xmul, ymul, ua);
-    // qDebug() << "CH 0 102: " << ua[0]->preGMValue(0);
-    QCOMPARE((int)ua[0]->preGMValue(0), 102);
-
-    // 0-20% / DMX: 0-51 -> DMX:204-255
-    rangeMin = 0;
-    rangeMax = 0.2;
-    xy.disarm();
-    xy.setHead(GroupHead(fxi->id(), 0));
-    xy.setX(rangeMin, rangeMax, reverse);
-    xy.setY(0, 1, false);
-    xy.arm();
-    xmul = 0;
-    xy.writeDMX(xmul, ymul, ua);
-    // qDebug() << "CH 0 255: " << ua[0]->preGMValue(0);
-    QCOMPARE((int)ua[0]->preGMValue(0), 255);
-    xmul = 1;
-    xy.writeDMX(xmul, ymul, ua);
-    // qDebug() << "CH 0 204 " << ua[0]->preGMValue(0);
-    QCOMPARE((int)ua[0]->preGMValue(0), 204);
-
-    // 80-100% / DMX: 204-255 -> DMX:0-51
-    rangeMin = 0.8;
-    rangeMax = 1;
-    xy.disarm();
-    xy.setHead(GroupHead(fxi->id(), 0));
-    xy.setX(rangeMin, rangeMax, reverse);
-    xy.setY(0, 1, false);
-    xy.arm();
-    xmul = 0;
-    xy.writeDMX(xmul, ymul, ua);
-    // qDebug() << "CH 0 51: " << ua[0]->preGMValue(0);
-    QCOMPARE((int)ua[0]->preGMValue(0), 51);
-    xmul = 1;
-    xy.writeDMX(xmul, ymul, ua);
-    // qDebug() << "CH 0 0 " << ua[0]->preGMValue(0);
-    QCOMPARE((int)ua[0]->preGMValue(0), 0);
-}
-
 void VCXYPadFixture_Test::writeRange()
 {
+    QFETCH(qreal, rangeMin);
+    QFETCH(qreal, rangeMax);
+    QFETCH(bool, reverse);
+    QFETCH(int, valueAt0);
+    QFETCH(int, valueAt1);
+
     // For testing pourpose we will test only on the X axis
     // keeping the Y axis at its full range
     Fixture* fxi = new Fixture(m_doc);
-
-    // 0-100% / DMX: 0-255
-    qreal rangeMin = 0;
-    qreal rangeMax = 1;
-    bool reverse = false;
 
     // Select fixture
     QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("American DJ", "Inno Pocket Spot");
@@ -1009,10 +900,6 @@ void VCXYPadFixture_Test::writeRange()
     QList<Universe*> ua;
     ua.append(new Universe(0, new GrandMaster()));
 
-    // "handles" to "left"
-    qreal xmul = 0;
-    qreal ymul = 0;
-
     m_doc->addFixture(fxi);
     VCXYPadFixture xy(m_doc);
     xy.setHead(GroupHead(fxi->id(), 0));
@@ -1020,98 +907,38 @@ void VCXYPadFixture_Test::writeRange()
     xy.setY(0, 1, false);
     xy.arm();
 
-
-    // writing dmx value to dummy universe
     // Handle on the left
+    qreal xmul = 0;
+    qreal ymul = 0;
+
     xy.writeDMX(xmul, ymul, ua);
+    QCOMPARE((int)ua[0]->preGMValue(0), valueAt0);
 
-    // check for actual value for X
-    // qDebug() << "CH 0 (0): " << ua[0]->preGMValue(0);
-
-    //Comparing results
-    QCOMPARE((int)ua[0]->preGMValue(0), 0);
-
-    // writing dmx value to dummy universe
-    // "handles" to "right"
+    // handle on the right
     xmul = 1;
     xy.writeDMX(xmul, ymul, ua);
+    QCOMPARE((int)ua[0]->preGMValue(0), valueAt1);
+}
 
-    // check for actual value for X
-    // qDebug() << "CH 0 (255): " << ua[0]->preGMValue(0);
+void VCXYPadFixture_Test::writeRange_data()
+{
+    QTest::addColumn<qreal>("rangeMin");
+    QTest::addColumn<qreal>("rangeMax");
+    QTest::addColumn<bool>("reverse");
+    QTest::addColumn<int>("valueAt0");
+    QTest::addColumn<int>("valueAt1");
 
-    // Comparing results
-    QCOMPARE((int)ua[0]->preGMValue(0), 255);
+    // normal
+    QTest::newRow("0-100% / DMX: 0-255") << 0.0 << 1.0 << false << 0 << 255;
+    QTest::newRow("40-60% / DMX: 102-153") << 0.4 << 0.6 << false << 102 << 153;
+    QTest::newRow("0-20% / DMX: 0-51 ") << 0.0 << 0.2 << false << 0 << 51;
+    QTest::newRow("80-100% / DMX: 204-255") << 0.8 << 1.0 << false << 204 << 255;
 
-    // We will do the same for the others ranges
-    // From now comments will be scraped
-
-    // bis
-    rangeMin = 0;
-    rangeMax = 1;
-    xy.disarm();
-    xy.setHead(GroupHead(fxi->id(), 0));
-    xy.setX(rangeMin, rangeMax, reverse);
-    xy.setY(0, 1, false);
-    xy.arm();
-    xmul = 0;
-    xy.writeDMX(xmul, ymul, ua);
-    //*qDebug() << "CH 0 bis 0: " << ua[0]->preGMValue(0);
-    QCOMPARE((int)ua[0]->preGMValue(0), 0);
-    xmul = 1;
-    xy.writeDMX(xmul, ymul, ua);
-    //*qDebug() << "CH 0 bis 255: " << ua[0]->preGMValue(0);
-    QCOMPARE((int)ua[0]->preGMValue(0), 255);
-
-    // 40-60% / DMX: 102-153
-    rangeMin = 0.4;
-    rangeMax = 0.6;
-    xy.disarm();
-    xy.setHead(GroupHead(fxi->id(), 0));
-    xy.setX(rangeMin, rangeMax, reverse);
-    xy.setY(0, 1, false);
-    xy.arm();
-    xmul = 0;
-    xy.writeDMX(xmul, ymul, ua);
-    // qDebug() << "CH 0 102: " << ua[0]->preGMValue(0);
-    QCOMPARE((int)ua[0]->preGMValue(0), 102);
-    xmul = 1;
-    xy.writeDMX(xmul, ymul, ua);
-    // qDebug() << "CH 0 153: " << ua[0]->preGMValue(0);
-    QCOMPARE((int)ua[0]->preGMValue(0), 153);
-
-    // 0-20% / DMX: 0-51
-    rangeMin = 0;
-    rangeMax = 0.2;
-    xy.disarm();
-    xy.setHead(GroupHead(fxi->id(), 0));
-    xy.setX(rangeMin, rangeMax, reverse);
-    xy.setY(0, 1, false);
-    xy.arm();
-    xmul = 0;
-    xy.writeDMX(xmul, ymul, ua);
-    // qDebug() << "CH 0 0: " << ua[0]->preGMValue(0);
-    QCOMPARE((int)ua[0]->preGMValue(0), 0);
-    xmul = 1;
-    xy.writeDMX(xmul, ymul, ua);
-    // qDebug() << "CH 0 51: " << ua[0]->preGMValue(0);
-    QCOMPARE((int)ua[0]->preGMValue(0), 51);
-
-    // 80-100% / DMX: 204-255
-    rangeMin = 0.8;
-    rangeMax = 1;
-    xy.disarm();
-    xy.setHead(GroupHead(fxi->id(), 0));
-    xy.setX(rangeMin, rangeMax, reverse);
-    xy.setY(0, 1, false);
-    xy.arm();
-    xmul = 0;
-    xy.writeDMX(xmul, ymul, ua);
-    // qDebug() << "CH 0 204: " << ua[0]->preGMValue(0);
-    QCOMPARE((int)ua[0]->preGMValue(0), 204);
-    xmul = 1;
-    xy.writeDMX(xmul, ymul, ua);
-    // qDebug() << "CH 0 255 " << ua[0]->preGMValue(0);
-    QCOMPARE((int)ua[0]->preGMValue(0), 255);
+    // reversed
+    QTest::newRow("0-100% / DMX: 0-255 -> DMX:255-0") << 0.0 << 1.0 << true << 255 << 0;
+    QTest::newRow("40-60% / DMX: 102-153 -> DMX:153-102") << 0.4 << 0.6 << true << 153 << 102;
+    QTest::newRow("0-20% / DMX: 0-51 -> DMX:204-255") << 0.0 << 0.2 << true << 255 << 204;
+    QTest::newRow("80-100% / DMX: 204-255 -> DMX:0-51") << 0.8 << 1.0 << true << 51 << 0;
 }
 
 void VCXYPadFixture_Test::cleanupTestCase()
