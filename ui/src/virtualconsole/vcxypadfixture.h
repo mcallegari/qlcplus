@@ -98,12 +98,17 @@ public:
     QString xBrief() const;
 
 private:
+    void precompute();
+
+private:
     qreal m_xMin;
     qreal m_xMax;
     bool m_xReverse;
 
     quint32 m_xLSB;
     quint32 m_xMSB;
+    qreal m_xOffset;
+    qreal m_xRange;
 
     /********************************************************************
      * Y-Axis
@@ -124,6 +129,8 @@ private:
 
     quint32 m_yLSB;
     quint32 m_yMSB;
+    qreal m_yOffset;
+    qreal m_yRange;
 
     /********************************************************************
      * Display mode

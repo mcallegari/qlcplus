@@ -59,6 +59,8 @@ VCXYPadFixture::VCXYPadFixture(Doc* doc)
     m_yLSB = QLCChannel::invalid();
     m_yMSB = QLCChannel::invalid();
 
+    precompute();
+
     m_enabled = true;
     m_displayMode = Degrees;
 }
@@ -92,6 +94,8 @@ VCXYPadFixture::VCXYPadFixture(Doc* doc, const QVariant& variant)
             m_xLSB = QLCChannel::invalid();
             m_yMSB = QLCChannel::invalid();
             m_yLSB = QLCChannel::invalid();
+
+            precompute();
 
             m_enabled = bool(list.takeFirst().toInt());
             m_displayMode = DisplayMode(list.takeFirst().toInt());
@@ -134,6 +138,8 @@ VCXYPadFixture& VCXYPadFixture::operator=(const VCXYPadFixture& fxi)
 
     m_yMSB = fxi.m_yMSB;
     m_yLSB = fxi.m_yLSB;
+
+    precompute();
 
     m_enabled = fxi.m_enabled;
     m_displayMode = fxi.m_displayMode;
@@ -224,6 +230,7 @@ void VCXYPadFixture::setX(qreal min, qreal max, bool reverse)
     m_xMin = CLAMP(min, 0.0, 1.0);
     m_xMax = CLAMP(max, 0.0, 1.0);
     m_xReverse = reverse;
+    precompute();
 }
 
 qreal VCXYPadFixture::xMin() const
@@ -265,6 +272,31 @@ QString VCXYPadFixture::xBrief() const
 
 }
 
+void VCXYPadFixture::precompute()
+{
+    if (m_xReverse)
+    {
+        m_xOffset = m_xMax * qreal(USHRT_MAX);
+        m_xRange = (m_xMin - m_xMax) * qreal(USHRT_MAX);
+    }
+    else
+    {
+        m_xOffset = m_xMin * qreal(USHRT_MAX);
+        m_xRange = (m_xMax - m_xMin) * qreal(USHRT_MAX);
+    }
+
+    if (m_yReverse)
+    {
+        m_yOffset = m_yMax *qreal(USHRT_MAX);
+        m_yRange = (m_yMin - m_yMax) * qreal(USHRT_MAX);
+    }
+    else
+    {
+        m_yOffset = m_yMin * qreal(USHRT_MAX);
+        m_yRange = (m_yMax - m_yMin) * qreal(USHRT_MAX);
+    }
+}
+
 /****************************************************************************
  * Y-Axis
  ****************************************************************************/
@@ -274,6 +306,7 @@ void VCXYPadFixture::setY(qreal min, qreal max, bool reverse)
     m_yMin = CLAMP(min, 0.0, 1.0);
     m_yMax = CLAMP(max, 0.0, 1.0);
     m_yReverse = reverse;
+    precompute();
 }
 
 qreal VCXYPadFixture::yMin() const
@@ -440,21 +473,21 @@ void VCXYPadFixture::arm()
     }
     else
     {
-       m_xMSB = fxi->panMsbChannel(m_head.head);
-       if (m_xMSB != QLCChannel::invalid() )
-           m_xMSB += fxi->universeAddress();
+        m_xMSB = fxi->panMsbChannel(m_head.head);
+        if (m_xMSB != QLCChannel::invalid() )
+            m_xMSB += fxi->universeAddress();
 
-       m_xLSB = fxi->panLsbChannel(m_head.head);
-       if (m_xLSB != QLCChannel::invalid() )
-           m_xLSB += fxi->universeAddress();
+        m_xLSB = fxi->panLsbChannel(m_head.head);
+        if (m_xLSB != QLCChannel::invalid() )
+            m_xLSB += fxi->universeAddress();
 
-       m_yMSB = fxi->tiltMsbChannel(m_head.head);
-       if (m_yMSB != QLCChannel::invalid() )
-           m_yMSB += fxi->universeAddress();
+        m_yMSB = fxi->tiltMsbChannel(m_head.head);
+        if (m_yMSB != QLCChannel::invalid() )
+            m_yMSB += fxi->universeAddress();
 
-       m_yLSB = fxi->tiltLsbChannel(m_head.head);
-       if (m_yLSB != QLCChannel::invalid() )
-           m_yLSB += fxi->universeAddress();
+        m_yLSB = fxi->tiltLsbChannel(m_head.head);
+        if (m_yLSB != QLCChannel::invalid() )
+            m_yLSB += fxi->universeAddress();
     }
 }
 
@@ -481,16 +514,8 @@ void VCXYPadFixture::writeDMX(qreal xmul, qreal ymul, QList<Universe *> universe
     if (m_xMSB == QLCChannel::invalid() || m_yMSB == QLCChannel::invalid())
         return;
 
-    xmul = ((m_xMax - m_xMin) * xmul) + m_xMin;
-    ymul = ((m_yMax - m_yMin) * ymul) + m_yMin;
-
-    if (m_xReverse == true)
-        xmul = 1 - xmul;
-    if (m_yReverse == true)
-        ymul = 1 - ymul;
-
-    ushort x = floor((qreal(USHRT_MAX) * xmul) + 0.5);
-    ushort y = floor((qreal(USHRT_MAX) * ymul) + 0.5);
+    ushort x = floor(m_xRange * xmul + m_xOffset + 0.5);
+    ushort y = floor(m_yRange * ymul + m_yOffset + 0.5);
 
     quint32 address = m_xMSB & 0x01FF;
     int uni = m_xMSB >> 9;
@@ -550,20 +575,19 @@ void VCXYPadFixture::readDMX(QList<Universe*> universes, qreal & xmul, qreal & y
             y += universes[uni]->preGMValue(address);
     }
 
-    x /= USHRT_MAX;
-    y /= USHRT_MAX;
+    if (m_xRange == 0 || m_yRange == 0)
+    {
+        Q_ASSERT(m_xRange != 0);
+        Q_ASSERT(m_yRange != 0);
+        return; // potential divide by zero!
+    }
 
-    if (x < m_xMin || x > m_xMax || y < m_yMin || y > m_yMax) // out of range
-        return;
+    x = (x - m_xOffset) / m_xRange;
+    y = (y - m_yOffset) / m_yRange;
 
-    if (m_xReverse == true)
-        x = m_xMax - x;
-    if (m_yReverse == true)
-        y = m_yMax - y;
+    x = CLAMP(x, qreal(0), qreal(1));
+    y = CLAMP(y, qreal(0), qreal(1));
 
-    if (m_xMax == m_xMin || m_yMax == m_yMin) // avoid divide by zero below
-        return;
-
-    xmul = (x - m_xMin) / (m_xMax - m_xMin);
-    ymul = (y - m_yMin) / (m_yMax - m_yMin);
+    xmul = x;
+    ymul = y;
 }

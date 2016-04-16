@@ -64,6 +64,8 @@ private slots:
     void write16bitReverse();
     void writeRange();
     void writeRange_data();
+    void readRange();
+    void readRange_data();
 
     void cleanupTestCase();
 

@@ -10,6 +10,7 @@ qlcplus (4.10.4) stable; urgency=low
   * Virtual Console/Frames: fix 4.10.3 regression causing frames to resize after configuration
   * Virtual Console/Cue List: playback can now be paused and resumed (see documentation)
   * Virtual Console/Cue List: added a dedicated stop button, with external controls
+  * Virtual Console/XYPad: fixed computation of reversed fixture position (Luca Ugolini)
   * Plugins/OSC: fixed regression of receiving data from the wrong interface (David Garyga)
   * Plugins/OSC: fixed regression causing not receiving data anymore when changing the input profile (David Garyga)
   * Plugins/MIDI: distinguish MIDI beat clock start and stop (see documentation)
