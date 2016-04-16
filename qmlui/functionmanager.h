@@ -46,6 +46,7 @@ class FunctionManager : public QObject
     Q_PROPERTY(QVariant functionsList READ functionsList NOTIFY functionsListChanged)
     Q_PROPERTY(int functionsFilter READ functionsFilter CONSTANT)
     Q_PROPERTY(int selectionCount READ selectionCount NOTIFY selectionCountChanged)
+    Q_PROPERTY(int viewPosition READ viewPosition WRITE setViewPosition NOTIFY viewPositionChanged)
 
     Q_PROPERTY(int sceneCount READ sceneCount NOTIFY sceneCountChanged)
     Q_PROPERTY(int chaserCount READ chaserCount NOTIFY chaserCountChanged)
@@ -93,6 +94,9 @@ public:
     int audioCount() const { return m_audioCount; }
     int videoCount() const { return m_videoCount; }
 
+    void setViewPosition(int viewPosition);
+    int viewPosition() const;
+
 protected:
     void updateFunctionsTree();
 
@@ -130,6 +134,8 @@ signals:
     void functionEditingChanged(bool enable);
     void selectionCountChanged(int count);
 
+    void viewPositionChanged(int viewPosition);
+
 public slots:
     void slotDocLoaded();
 
@@ -140,6 +146,8 @@ private:
     Doc *m_doc;
     /** Reference to the Functions tree model */
     TreeModel *m_functionTree;
+    /** The QML ListView position in pixel for state restoring */
+    int m_viewPosition;
 
     /** Map of the values available for dumping to a Scene */
     QMap <QPair<quint32,quint32>,uchar> m_dumpValues;

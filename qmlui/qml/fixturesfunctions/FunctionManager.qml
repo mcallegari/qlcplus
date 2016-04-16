@@ -41,6 +41,7 @@ Rectangle
     {
         //console.log("Request to open Function editor. ID: " + funcID + " type: " + funcType)
         functionManager.setEditorFunction(funcID)
+        functionManager.viewPosition = functionsListView.contentY
 
         switch(funcType)
         {
@@ -247,6 +248,9 @@ Rectangle
           z: 4
           boundsBehavior: Flickable.StopAtBounds
           Layout.fillHeight: true
+
+          Component.onCompleted: contentY = functionManager.viewPosition
+
           model: functionManager.functionsList
           delegate:
               Component

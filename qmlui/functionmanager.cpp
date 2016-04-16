@@ -43,6 +43,7 @@ FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)
     : QObject(parent)
     , m_view(view)
     , m_doc(doc)
+    , m_viewPosition(0)
     , m_previewEnabled(false)
 {
     m_filter = 0;
@@ -360,6 +361,20 @@ void FunctionManager::deleteFunctions(QVariantList IDList)
 int FunctionManager::selectionCount() const
 {
     return m_previewList.count();
+}
+
+void FunctionManager::setViewPosition(int viewPosition)
+{
+    if (m_viewPosition == viewPosition)
+        return;
+
+    m_viewPosition = viewPosition;
+    emit viewPositionChanged(viewPosition);
+}
+
+int FunctionManager::viewPosition() const
+{
+    return m_viewPosition;
 }
 
 /*********************************************************************
