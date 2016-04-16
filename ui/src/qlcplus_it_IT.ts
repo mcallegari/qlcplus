@@ -795,7 +795,7 @@ Vuoi veramente fermarle e ritornare in modalità Design?</translation>
     <message>
         <location filename="app.cpp" line="805"/>
         <source>An unspecified error has occurred. Nice.</source>
-        <translation>Errore sconosciuto. Figo.</translation>
+        <translation>Si è verificato un errore sconosciuto.</translation>
     </message>
     <message>
         <location filename="app.cpp" line="809"/>
