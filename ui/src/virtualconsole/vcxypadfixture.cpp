@@ -485,9 +485,9 @@ void VCXYPadFixture::writeDMX(qreal xmul, qreal ymul, QList<Universe *> universe
     ymul = ((m_yMax - m_yMin) * ymul) + m_yMin;
 
     if (m_xReverse == true)
-        xmul = m_xMax - xmul;
+        xmul = 1 - xmul;
     if (m_yReverse == true)
-        ymul = m_yMax - ymul;
+        ymul = 1 - ymul;
 
     ushort x = floor((qreal(USHRT_MAX) * xmul) + 0.5);
     ushort y = floor((qreal(USHRT_MAX) * ymul) + 0.5);
