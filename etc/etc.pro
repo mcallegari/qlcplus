@@ -90,19 +90,18 @@ lessThan(QT_MAJOR_VERSION, 5) {
     # Qt Libraries
     qt5deps.path  = $$INSTALLROOT/$$LIBSDIR
 
-    qt5deps.files += $$SYS_LIBS_PATH/libicudt55.dll \
-                     $$SYS_LIBS_PATH/libicuin55.dll \
-                     $$SYS_LIBS_PATH/libicuuc55.dll \
-                     $$SYS_LIBS_PATH/libpcre16-0.dll \
-                     $$SYS_LIBS_PATH/libpng16-16.dll \
-                     $$SYS_LIBS_PATH/zlib1.dll \
+    qt5deps.files += \
                      $$SYS_LIBS_PATH/libbz2-1.dll \
                      $$SYS_LIBS_PATH/libfreetype-6.dll \
+                     $$SYS_LIBS_PATH/libglib-2.0-0.dll \
+                     $$SYS_LIBS_PATH/libgraphite2.dll \
                      $$SYS_LIBS_PATH/libharfbuzz-0.dll \
                      $$SYS_LIBS_PATH/libiconv-2.dll \
                      $$SYS_LIBS_PATH/libintl-8.dll \
-                     $$SYS_LIBS_PATH/libglib-2.0-0.dll \
-                     $$SYS_LIBS_PATH/libspeex-1.dll
+                     $$SYS_LIBS_PATH/libpcre-1.dll \
+                     $$SYS_LIBS_PATH/libpng16-16.dll \
+                     $$SYS_LIBS_PATH/libspeex-1.dll \
+                     $$SYS_LIBS_PATH/zlib1.dll
 
     INSTALLS += qt5deps
 }
