@@ -37,8 +37,9 @@
 #include "functionmanager.h"
 #include "inputoutputmanager.h"
 
-#include "rgbscriptscache.h"
 #include "qlcfixturedefcache.h"
+#include "audioplugincache.h"
+#include "rgbscriptscache.h"
 #include "qlcfixturedef.h"
 #include "qlcconfig.h"
 #include "qlcfile.h"
@@ -187,6 +188,12 @@ void App::initDoc()
 #else
     m_doc->ioPluginCache()->load(IOPluginCache::systemPluginDirectory());
 #endif
+
+    /* Load audio decoder plugins
+     * This doesn't use a AudioPluginCache::systemPluginDirectory() cause
+     * otherwise the qlcconfig.h creation should have been moved into the
+     * audio folder, which doesn't make much sense */
+    m_doc->audioPluginCache()->load(QLCFile::systemDirectory(AUDIOPLUGINDIR, KExtPlugin));
 
     /* Restore outputmap settings */
     Q_ASSERT(m_doc->inputOutputMap() != NULL);
