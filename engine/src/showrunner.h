@@ -70,19 +70,14 @@ private:
     /** Total time the runner has to run */
     quint32 m_totalRunTime;
 
-    /** List of running Functions and its mutex */
-    QList <Function *> m_runningQueue;
-    QMutex m_runningQueueMutex;
+    /** List of the currently running Functions and their stop time */
+    QList < QPair<Function *, quint32> > m_runningQueue;
 
-    QMap <quint32, quint32> m_stopTimeMap;
-
-    /** Current step being played */
+    /** Index of the item in m_functions to be considered for playback */
     int m_currentFunctionIndex;
 
 private:
     FunctionParent functionParent() const;
-private slots:
-    void slotFunctionStopped(quint32);
 
 signals:
     void timeChanged(quint32 time);

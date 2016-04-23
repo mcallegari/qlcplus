@@ -2,9 +2,11 @@ qlcplus (4.10.4) stable; urgency=low
 
   * Scripts: Fix 4.10.3a regression that breaks values parsing (David Garyga)
   * engine: fix relative paths when opening a project from the command line
+  * engine: improved the start/stop mechanism of Functions within a Show
   * Chaser Editor: a newly created step is now selected automatically
   * Show Manager: added the possibility to pause a Show leaving the lights on
   * Show Manager/Audio: allow to display the waveform preview while playing a file
+  * UI/Video: fixed the fullscreen positioning on Windows
   * Virtual Console/Animation: fix behavior issue when changing the associated function (David Garyga)
   * Virtual Console/Frames: send feedbacks for the enable button
   * Virtual Console/Frames: fix 4.10.3 regression causing frames to resize after configuration
