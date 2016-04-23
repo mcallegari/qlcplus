@@ -7,10 +7,8 @@ TEMPLATE = subdirs
  SUBDIRS              += udmx
  SUBDIRS              += midi
  unix {
-   system(pkg-config --exists libola) {
-     system(pkg-config --exists libolaserver) {
+   packagesExist(libola libolaserver) {
        SUBDIRS        += ola
-     }
    }
  }
  !macx:!win32:SUBDIRS += dmx4linux
