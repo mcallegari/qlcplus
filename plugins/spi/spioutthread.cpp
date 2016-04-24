@@ -20,8 +20,8 @@
 #include <QMutexLocker>
 #include <QSettings>
 #include <QDebug>
-#include <QTime>
 
+#include <time.h>
 #include <sys/ioctl.h>
 #include <linux/spi/spidev.h>
 
@@ -30,24 +30,18 @@
 SPIOutThread::SPIOutThread()
     : m_isRunning(false)
     , m_dataSize(0)
-    , m_estimatedSleepTime(50000)
+    , m_estimatedWireTime(50000)
 {
 
 }
 
-void SPIOutThread::runThread(int fd)
+void SPIOutThread::runThread(int fd, int speed)
 {
     if (fd < 0)
         return;
 
     m_spifd = fd;
-
-    QSettings settings;
-    QVariant value = settings.value("SPIPlugin/frequency");
-    if (value.isValid() == true)
-        m_speed = value.toUInt();
-    else
-        m_speed = 1000000;
+    m_speed = speed;
 
     m_bitsPerWord = 8;
     int mode = SPI_MODE_0;
@@ -75,6 +69,19 @@ void SPIOutThread::stopThread()
     wait();
 }
 
+void SPIOutThread::setSpeed(int speed)
+{
+    if (speed == m_speed)
+        return;
+
+    if (isRunning())
+    {
+        m_isRunning = false;
+        wait();
+        runThread(m_spifd, speed);
+    }
+}
+
 void SPIOutThread::run()
 {
     while(m_isRunning)
@@ -82,8 +89,13 @@ void SPIOutThread::run()
         struct spi_ioc_transfer spi;
         int retVal = -1;
 
-        QTime elapsedTime;
-        elapsedTime.start();
+        struct timespec ts_start;
+        struct timespec ts_end;
+#ifdef CLOCK_MONOTONIC
+        clock_gettime(CLOCK_MONOTONIC, &ts_start);
+#else
+        clock_gettime(CLOCK_REALTIME, &ts_start);
+#endif
 
         if (m_spifd != -1 && m_pluginData.size() > 0)
         {
@@ -101,9 +113,14 @@ void SPIOutThread::run()
                 qWarning() << "Problem transmitting SPI data: ioctl failed";
         }
 
-        int nMilliseconds = elapsedTime.elapsed();
-        //qDebug() << "[SPI] ioctl took" << nMilliseconds << "ms";
-        usleep(m_estimatedSleepTime - nMilliseconds);
+#ifdef CLOCK_MONOTONIC
+        clock_gettime(CLOCK_MONOTONIC, &ts_end);
+#else
+        clock_gettime(CLOCK_REALTIME, &ts_end);
+#endif
+        int uSecDiff = (difftime(ts_end.tv_sec, ts_start.tv_sec) * 1000000) + ((ts_end.tv_nsec - ts_start.tv_nsec) / 1000);
+        //qDebug() << "[SPI] ioctl took" << microseconds << "uSecDiff";
+        usleep(m_estimatedWireTime - uSecDiff);
     }
 }
 
@@ -114,15 +131,15 @@ void SPIOutThread::writeData(const QByteArray &data)
     if (m_dataSize != data.size())
     {
         // Data size has changed ! I need to estimate the
-        // time to sleep between SPI writes
+        // time that the SPI writes will take on the wire.
         // The estimation is very unprecise and it is based
         // on Simon Newton's measurements on a Raspberry Pi
-        // where 512 bytes at 1Mhz takes about 80ms to be sent
+        // where 512 bytes at 1Mhz takes about 70ms to be sent
 
-        double byteWriteTimeuS = (double)(70000 / (m_speed / 1000000)) / 512; // time taken to write a byte
-        m_estimatedSleepTime = byteWriteTimeuS * (double)data.size();
+        double byteWriteTimeuS = (double)(70000.0 / ((double)m_speed / 1000000.0)) / 512.0; // time taken to write a byte
+        m_estimatedWireTime = byteWriteTimeuS * (double)data.size();
         m_dataSize = data.size();
-        qDebug() << "[SPI out thread] estimated sleep time:" << m_estimatedSleepTime;
+        qDebug() << "[SPI out thread] estimated sleep time:" << m_estimatedWireTime;
     }
 }
 

@@ -85,8 +85,14 @@ bool SPIPlugin::openOutput(quint32 output, quint32 universe)
         return false;
     }
 
+    QSettings settings;
+    int speed = 1000000;
+    QVariant value = settings.value("SPIPlugin/frequency");
+    if (value.isValid() == true)
+        speed = value.toUInt();
+
     m_outThread = new SPIOutThread();
-    m_outThread->runThread(m_spifd);
+    m_outThread->runThread(m_spifd, speed);
 
     return true;
 }
@@ -218,6 +224,8 @@ void SPIPlugin::configure()
     {
         QSettings settings;
         settings.setValue("SPIPlugin/frequency", QVariant(conf.frequency()));
+        if (m_outThread != NULL)
+            m_outThread->setSpeed(conf.frequency());
     }
 }
 
