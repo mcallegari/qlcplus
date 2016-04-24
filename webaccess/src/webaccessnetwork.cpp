@@ -143,7 +143,7 @@ QString WebAccessNetwork::getNetworkHTML()
             if (currInterface.name.contains("wlan") || currInterface.name.contains("ra"))
                 currInterface.isWireless = true;
 
-            if (ifaceRow.at(3) == "dhcp")
+            if (ifaceRow.at(3) == "dhcp" || ifaceRow.at(3) == "manual")
             {
                 html += getInterfaceHTML(&currInterface);
                 appendInterface(currInterface);
