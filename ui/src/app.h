@@ -178,6 +178,7 @@ private:
 
     QAction* m_helpIndexAction;
     QAction* m_helpAboutAction;
+    QAction* m_quitAction;
     QMenu* m_fileOpenMenu;
     QMenu* m_fadeAndStopMenu;
 

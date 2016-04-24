@@ -719,6 +719,13 @@ void App::initActions()
 
     m_helpAboutAction = new QAction(QIcon(":/qlcplus.png"), tr("&About QLC+"), this);
     connect(m_helpAboutAction, SIGNAL(triggered(bool)), this, SLOT(slotHelpAbout()));
+
+    if (QLCFile::isRaspberry())
+    {
+        m_quitAction = new QAction(QIcon(":/exit.png"), tr("Quit QLC+"), this);
+        m_quitAction->setShortcut(QKeySequence("CTRL+ALT+Backspace"));
+        connect(m_quitAction, SIGNAL(triggered(bool)), this, SLOT(close()));
+    }
 }
 
 void App::initToolBar()
@@ -740,6 +747,8 @@ void App::initToolBar()
     m_toolbar->addAction(m_controlFullScreenAction);
     m_toolbar->addAction(m_helpIndexAction);
     m_toolbar->addAction(m_helpAboutAction);
+    if (QLCFile::isRaspberry())
+        m_toolbar->addAction(m_quitAction);
 
     /* Create an empty widget between help items to flush them to the right */
     QWidget* widget = new QWidget(this);
