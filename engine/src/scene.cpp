@@ -319,15 +319,15 @@ void Scene::slotFixtureRemoved(quint32 fxi_id)
 
 void Scene::addFixture(quint32 fixtureId)
 {
-    m_fixtures.insert(fixtureId);
+    m_fixtures.append(fixtureId);
 }
 
 bool Scene::removeFixture(quint32 fixtureId)
 {
-    return m_fixtures.remove(fixtureId);
+    return m_fixtures.removeOne(fixtureId);
 }
 
-QSet<quint32> Scene::fixtures() const
+QList<quint32> Scene::fixtures() const
 {
     return m_fixtures;
 }
@@ -364,7 +364,7 @@ bool Scene::saveXML(QXmlStreamWriter *doc)
     }
 
     /* Scene contents */
-    QSet<quint32> writtenFixtures;
+    QList<quint32> writtenFixtures;
     QMapIterator <SceneValue, uchar> it(m_values);
     qint32 currFixID = -1;
     QStringList currFixValues;
@@ -387,10 +387,11 @@ bool Scene::saveXML(QXmlStreamWriter *doc)
     writtenFixtures << currFixID;
 
     // Write fixtures with no scene value
-    QSet<quint32> unwrittenFixtures(m_fixtures);
-    unwrittenFixtures -= writtenFixtures;
-    foreach(quint32 fixtureID, unwrittenFixtures)
+    foreach(quint32 fixtureID, m_fixtures)
     {
+        if (writtenFixtures.contains(fixtureID))
+            continue;
+
         saveXMLFixtureValues(doc, fixtureID, QStringList());
     }
 
