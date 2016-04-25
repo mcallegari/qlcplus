@@ -50,12 +50,11 @@ function sendCueCmd(id, cmd) {
  if (cmd == "PLAY") {
    var obj = document.getElementById("play" + id);
    if (cueListsIndices[id] == -1) {
-     obj.innerHTML = "<img src=\"player_stop.png\" width=\"27\">";
+     obj.innerHTML = "<img src=\"player_pause.png\" width=\"27\">";
      setCueIndex(id, 0);
    }
    else {
      obj.innerHTML = "<img src=\"player_play.png\" width=\"27\">";
-     setCueIndex(id, -1);
    }
  }
  websocket.send(id + "|" + cmd);
@@ -71,7 +70,7 @@ function checkMouseOut(id, idx) {
 
 function enableCue(id, idx) {
  var btnObj = document.getElementById("play" + id);
- btnObj.innerHTML = "<img src=\"player_stop.png\" width=\"27\">";
+ btnObj.innerHTML = "<img src=\"player_pause.png\" width=\"27\">";
  setCueIndex(id, idx);
  websocket.send(id + "|STEP|" + idx);
 }

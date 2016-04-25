@@ -570,6 +570,8 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
                 VCCueList *cue = qobject_cast<VCCueList*>(widget);
                 if (cmdList[1] == "PLAY")
                     cue->slotPlayback();
+                else if (cmdList[1] == "STOP")
+                    cue->slotStop();
                 else if (cmdList[1] == "PREV")
                     cue->slotPreviousCue();
                 else if (cmdList[1] == "NEXT")
@@ -1001,6 +1003,10 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
     str += "<a class=\"vccuelistButton\" id=\"play" + QString::number(cue->id()) + "\" ";
     str += "href=\"javascript:sendCueCmd(" + QString::number(cue->id()) + ", 'PLAY');\">\n";
     str += "<img src=\"player_play.png\" width=\"27\"></a>\n";
+
+    str += "<a class=\"vccuelistButton\" id=\"stop" + QString::number(cue->id()) + "\" ";
+    str += "href=\"javascript:sendCueCmd(" + QString::number(cue->id()) + ", 'STOP');\">\n";
+    str += "<img src=\"player_stop.png\" width=\"27\"></a>\n";
 
     str += "<a class=\"vccuelistButton\" href=\"javascript:sendCueCmd(";
     str += QString::number(cue->id()) + ", 'PREV');\">\n";
