@@ -19,6 +19,7 @@
     <file alias="FixtureConsole.qml">qml/FixtureConsole.qml</file>
     <file alias="FixtureDelegate.qml">qml/FixtureDelegate.qml</file>
     <file alias="FunctionDelegate.qml">qml/FunctionDelegate.qml</file>
+    <file alias="GenericButton.qml">qml/GenericButton.qml</file>
     <file alias="FontAwesomeVariables.qml">qml/FontAwesomeVariables.qml</file>
     <file alias="IconButton.qml">qml/IconButton.qml</file>
     <file alias="IconPopupButton.qml">qml/IconPopupButton.qml</file>

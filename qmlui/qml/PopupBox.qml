@@ -77,61 +77,33 @@ Rectangle
             textAlign: Text.AlignHCenter
         }
 
-        Rectangle
+        GenericButton
         {
             id: okButton
-            color: "#555"
-            width: parent.width / 3
-            height: 35
             y: popupBox.height - 45
             x: parent.width - width - 20
-
-            RobotoText
+            width: parent.width / 3
+            height: 35
+            label: qsTr("OK")
+            onClicked:
             {
-                anchors.centerIn: parent
-                label: "OK"
-            }
-
-            MouseArea
-            {
-                anchors.fill: parent
-                hoverEnabled: true
-                onEntered: okButton.color = "#666"
-                onExited: okButton.color = "#555"
-                onReleased:
-                {
-                    actionManager.acceptAction()
-                    popupScreen.visible = false
-                }
+                actionManager.acceptAction()
+                popupScreen.visible = false
             }
         }
 
-        Rectangle
+        GenericButton
         {
-            id: cancelButton
-            color: "#555"
-            width: parent.width / 3
-            height: 35
             y: popupBox.height - 45
             x: 20
-
-            RobotoText
+            id: cancelButton
+            width: parent.width / 3
+            height: 35
+            label: qsTr("Cancel")
+            onClicked:
             {
-                anchors.centerIn: parent
-                label: qsTr("Cancel")
-            }
-
-            MouseArea
-            {
-                anchors.fill: parent
-                hoverEnabled: true
-                onEntered: cancelButton.color = "#666"
-                onExited: cancelButton.color = "#555"
-                onReleased:
-                {
-                    actionManager.rejectAction()
-                    popupScreen.visible = false
-                }
+                actionManager.rejectAction()
+                popupScreen.visible = false
             }
         }
     }

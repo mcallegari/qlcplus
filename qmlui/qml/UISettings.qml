@@ -34,10 +34,11 @@ QtObject
     property color fgMain:   "white"
     property color fgMedium: "#888"
 
-    property color sectionHeader: "#555"
-    property color highlight: "#0978FF"
-    property color hover: "#B6B6B6"
-    property color selection: "yellow"
+    property color sectionHeader:    "#555"
+    property color highlight:        "#0978FF"
+    property color highlightPressed: "#044089"
+    property color hover:            "#B6B6B6"
+    property color selection:        "yellow"
 
     property color toolbarStartMain: "#1a1a1a"
     property color toolbarStartSub:  "#222"
