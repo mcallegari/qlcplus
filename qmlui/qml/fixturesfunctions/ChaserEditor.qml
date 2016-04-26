@@ -30,15 +30,34 @@ Rectangle
     color: "transparent"
 
     property int functionID: -1
+    // the index of the step currently being edited
+    property int timeEditStepIndex: -1
+    // the type of time editing currently being performed
+    property string timeEditType: ""
 
     signal requestView(int ID, string qmlSrc)
+
 
     ModelSelector
     {
         id: ceSelector
+
         onItemsCountChanged:
         {
             console.log("Chaser Editor selected items changed !")
+        }
+    }
+
+    TimeEditTool
+    {
+        id: timeEditTool
+        //parent: mainView
+        z: 99
+        visible: false
+
+        onTimeValueChanged:
+        {
+
         }
     }
 
@@ -177,7 +196,7 @@ Rectangle
                 RobotoText
                 {
                     id: numCol
-                    width: 20
+                    width: 25
                     label: "#"
                     wrapText: true
                     textAlign: Text.AlignHCenter
@@ -417,6 +436,43 @@ Rectangle
                     onClicked:
                     {
                         ceSelector.selectItem(ID, qItem, mouseMods & Qt.ControlModifier)
+                    }
+                    onDoubleClicked:
+                    {
+                        console.log("Double clicked: " + indexInList + ", " + type)
+                        ceContainer.timeEditStepIndex = indexInList
+                        ceContainer.timeEditType = type
+
+                        if (type == "FI")
+                        {
+                            timeEditTool.x = fInCol.x - 35
+                            timeEditTool.title = fInCol.label
+                            timeEditTool.timeValueString = stepFadeIn
+                        }
+                        else if (type == "H")
+                        {
+                            timeEditTool.x = holdCol.x - 35
+                            timeEditTool.title = holdCol.label
+                            timeEditTool.timeValueString = stepHold
+                        }
+                        else if (type == "FO")
+                        {
+                            timeEditTool.x = fOutCol.x - 35
+                            timeEditTool.title = fOutCol.label
+                            timeEditTool.timeValueString = stepFadeOut
+                        }
+                        else if (type == "D")
+                        {
+                            timeEditTool.x = durCol.x - 35
+                            timeEditTool.title = durCol.label
+                            timeEditTool.timeValueString = stepDuration
+                        }
+
+
+                        timeEditTool.y = height * indexInList - cStepsList.contentY + cStepsList.y
+                        //timeEditTool.y = height * indexInList - cStepsList.contentY + cStepsList.y - 70
+                        timeEditTool.visible = true
+                        height = timeEditTool.height
                     }
                 }
 
