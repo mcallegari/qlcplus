@@ -598,6 +598,7 @@
   <fixture path="SGM-Victory-250.qxf" mf="SGM" md="Victory 250"/>
   <fixture path="SGM-Victory-II-250.qxf" mf="SGM" md="Victory II 250"/>
   <fixture path="SGM-Victory-II-Pro150.qxf" mf="SGM" md="Victory II Pro150"/>
+  <fixture path="Showlite-Flood-Light-Panel-144x10mm-LED-RGBW.qxf" mf="Showlite" md="FLP 144W RGBW"/>
   <fixture path="Showtec-Acrobat.qxf" mf="Showtec" md="Acrobat"/>
   <fixture path="Showtec-Atmos-F-350.qxf" mf="Showtec" md="Atmos F-350"/>
   <fixture path="Showtec-Blade-Runner.qxf" mf="Showtec" md="Blade Runner"/>
