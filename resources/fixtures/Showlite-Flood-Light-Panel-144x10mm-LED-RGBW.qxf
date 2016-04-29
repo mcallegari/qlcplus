@@ -34,11 +34,11 @@
  <Channel Name="Function">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="15">no function</Capability>
-  <Capability Min="16" Max="31">sence R-G-B-RG-G</Capability>
-  <Capability Min="32" Max="47">sence R-RG-B-RB-R</Capability>
-  <Capability Min="48" Max="63">sence R-B-G-RG-G</Capability>
-  <Capability Min="64" Max="79">sence R-G-GB-RGB-G</Capability>
-  <Capability Min="80" Max="95">sence B-BG-RGB-RG-G</Capability>
+  <Capability Min="16" Max="31">sequence R-G-B-RG-G</Capability>
+  <Capability Min="32" Max="47">sequence R-RG-B-RB-R</Capability>
+  <Capability Min="48" Max="63">sequence R-B-G-RG-G</Capability>
+  <Capability Min="64" Max="79">sequence R-G-GB-RGB-G</Capability>
+  <Capability Min="80" Max="95">sequence B-BG-RGB-RG-G</Capability>
   <Capability Min="96" Max="111">color sync strobe</Capability>
   <Capability Min="112" Max="127">color fade</Capability>
   <Capability Min="128" Max="143">color change</Capability>
