@@ -62,6 +62,8 @@ QHttpConnection::QHttpConnection(QTcpSocket *socket, QObject *parent)
     connect(socket, SIGNAL(readyRead()), this, SLOT(parseRequest()));
     connect(socket, SIGNAL(disconnected()), this, SLOT(socketDisconnected()));
     connect(socket, SIGNAL(bytesWritten(qint64)), this, SLOT(updateWriteCount(qint64)));
+
+    qDebug() << "HTTP connection created !";
 }
 
 QHttpConnection::~QHttpConnection()
@@ -75,6 +77,9 @@ QHttpConnection::~QHttpConnection()
     delete m_parserSettings;
     m_parserSettings = 0;
 
+    if (m_isWebSocket == true)
+        Q_EMIT webSocketConnectionClose(this);
+
     qDebug() << "HTTP connection destroyed !";
 }
 
@@ -86,7 +91,8 @@ void QHttpConnection::socketDisconnected()
 
 void QHttpConnection::invalidateRequest()
 {
-    if (m_request && !m_request->successful()) {
+    if (m_request && !m_request->successful())
+    {
         Q_EMIT m_request->end();
     }
 
@@ -97,7 +103,9 @@ void QHttpConnection::updateWriteCount(qint64 count)
 {
     if (m_isWebSocket == false)
     {
-        Q_ASSERT(m_transmitPos + count <= m_transmitLen);
+        //Q_ASSERT(m_transmitPos + count <= m_transmitLen);
+        if (m_transmitPos + count > m_transmitLen)
+            return;
 
         m_transmitPos += count;
 
@@ -114,7 +122,8 @@ void QHttpConnection::parseRequest()
 {
     Q_ASSERT(m_parser);
 
-    while (m_socket->bytesAvailable()) {
+    while (m_socket->bytesAvailable())
+    {
         QByteArray arr = m_socket->readAll();
         if (m_isWebSocket)
             webSocketRead(arr);
@@ -363,7 +372,8 @@ void QHttpConnection::webSocketWrite(WebSocketOpCode opCode, QByteArray data)
 
     data.prepend(0x80 + quint8(opCode));
 
-    m_socket->write(data);
+    if (m_socket)
+        m_socket->write(data);
 }
 
 /**
