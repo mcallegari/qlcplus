@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE InputProfile>
+<InputProfile xmlns="http://www.qlcplus.org/InputProfile">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2</Version>
+  <Author>David Giardi</Author>
+ </Creator>
+ <Manufacturer>Novation</Manufacturer>
+ <Model>Launchpad Pro</Model>
+ <Type>MIDI</Type>
+ <Channel Number="1">
+  <Name>Record Arm</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="2">
+  <Name>Track Select</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="3">
+  <Name>Mute</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4">
+  <Name>Solo</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="5">
+  <Name>Volume</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="6">
+  <Name>Pan</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="7">
+  <Name>Sends</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8">
+  <Name>Stop Clip</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="10">
+  <Name>Record</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="19">
+  <Name>Run 8</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20">
+  <Name>Double</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="29">
+  <Name>Run 7</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="30">
+  <Name>Duplicate</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="39">
+  <Name>Run 6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="40">
+  <Name>Quantise</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="49">
+  <Name>Run 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="50">
+  <Name>Delete</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="59">
+  <Name>Run 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="60">
+  <Name>Undo</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="69">
+  <Name>Run 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="70">
+  <Name>Click</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="79">
+  <Name>Run 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="80">
+  <Name>Shift</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="89">
+  <Name>Run 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="91">
+  <Name>Up Button</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="92">
+  <Name>Down Button</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="93">
+  <Name>Left Button</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="94">
+  <Name>Right Button</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="95">
+  <Name>Session</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="96">
+  <Name>Note</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="97">
+  <Name>Device</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="98">
+  <Name>User</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="139">
+  <Name>Button 8-1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="140">
+  <Name>Button 8-2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="141">
+  <Name>Button 8-3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="142">
+  <Name>Button 8-4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="143">
+  <Name>Button 8-5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="144">
+  <Name>Button 8-6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="145">
+  <Name>Button 8-7</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="146">
+  <Name>Button 8-8</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="149">
+  <Name>Button 7-1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="150">
+  <Name>Button 7-2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="151">
+  <Name>Button 7-3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="152">
+  <Name>Button 7-4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="153">
+  <Name>Button 7-5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="154">
+  <Name>Button 7-6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="155">
+  <Name>Button 7-7</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="156">
+  <Name>Button 7-8</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="159">
+  <Name>Button 6-1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="160">
+  <Name>Button 6-2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="161">
+  <Name>Button 6-3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="162">
+  <Name>Button 6-4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="163">
+  <Name>Button 6-5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="164">
+  <Name>Button 6-6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="165">
+  <Name>Button 6-7</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="166">
+  <Name>Button 6-8</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="169">
+  <Name>Button 5-1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="170">
+  <Name>Button 5-2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="171">
+  <Name>Button 5-3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="172">
+  <Name>Button 5-4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="173">
+  <Name>Button 5-5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="174">
+  <Name>Button 5-6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="175">
+  <Name>Button 5-7</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="176">
+  <Name>Button 5-8</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="179">
+  <Name>Button 4-1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="180">
+  <Name>Button 4-2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="181">
+  <Name>Button 4-3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="182">
+  <Name>Button 4-4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="183">
+  <Name>Button 4-5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="184">
+  <Name>Button 4-6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="185">
+  <Name>Button 4-7</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="186">
+  <Name>Button 4-8</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="189">
+  <Name>Button 3-1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="190">
+  <Name>Button 3-2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="191">
+  <Name>Button 3-3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="192">
+  <Name>Button 3-4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="193">
+  <Name>Button 3-5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="194">
+  <Name>Button 3-6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="195">
+  <Name>Button 3-7</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="196">
+  <Name>Button 3-8</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="199">
+  <Name>Button 2-1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="200">
+  <Name>Button 2-2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="201">
+  <Name>Button 2-3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="202">
+  <Name>Button 2-4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="203">
+  <Name>Button 2-5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="204">
+  <Name>Button 2-6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="205">
+  <Name>Button 2-7</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="206">
+  <Name>Button 2-8</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="209">
+  <Name>Button 1-1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="210">
+  <Name>Button 1-2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="211">
+  <Name>Button 1-3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="212">
+  <Name>Button 1-4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="213">
+  <Name>Button 1-5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="214">
+  <Name>Button 1-6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="215">
+  <Name>Button 1-7</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="216">
+  <Name>Button 1-8</Name>
+  <Type>Button</Type>
+ </Channel>
+</InputProfile>
