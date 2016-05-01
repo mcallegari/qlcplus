@@ -29,6 +29,7 @@
 #include "vcslider.h"
 #include "vcframe.h"
 #include "vclabel.h"
+#include "vcclock.h"
 #include "doc.h"
 
 #define KXMLQLCVCProperties "Properties"
@@ -73,6 +74,8 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc, QObject *parent)
     qmlRegisterType<VCButton>("com.qlcplus.classes", 1, 0, "VCButton");
     qmlRegisterType<VCLabel>("com.qlcplus.classes", 1, 0, "VCLabel");
     qmlRegisterType<VCSlider>("com.qlcplus.classes", 1, 0, "VCSlider");
+    qmlRegisterType<VCClock>("com.qlcplus.classes", 1, 0, "VCClock");
+    qmlRegisterType<VCClockSchedule>("com.qlcplus.classes", 1, 0, "VCClockSchedule");
 }
 
 void VirtualConsole::renderPage(QQuickItem *parent, QQuickItem *contentItem, int page)

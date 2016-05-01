@@ -94,7 +94,7 @@ VCWidgetItem
                     x: 2
                     width: parent.width - 4
                     height: parent.height
-                    font: frameObj ? frameObj.font : null
+                    font: frameObj ? frameObj.font : ""
                     text: frameObj ? frameObj.caption : ""
                     verticalAlignment: Text.AlignVCenter
                     color: frameObj ? frameObj.foregroundColor : "white"

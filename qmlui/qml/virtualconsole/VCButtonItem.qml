@@ -105,7 +105,7 @@ VCWidgetItem
                 z: 2
                 width: parent.width - 4
                 height: parent.height
-                font: buttonObj ? buttonObj.font : null
+                font: buttonObj ? buttonObj.font : ""
                 text: buttonObj ? buttonObj.caption : ""
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter

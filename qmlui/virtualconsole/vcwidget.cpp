@@ -35,7 +35,7 @@ VCWidget::VCWidget(Doc *doc, QObject *parent)
     , m_caption(QString())
     , m_backgroundColor(QColor("#333"))
     , m_hasCustomBackgroundColor(false)
-    , m_foregroundColor(QColor(Qt::black))
+    , m_foregroundColor(QColor(Qt::white))
     , m_hasCustomForegroundColor(false)
     , m_page(0)
     , m_intensity(1.0)
@@ -97,7 +97,6 @@ QString VCWidget::typeToString(int type)
 {
     switch (type)
     {
-
         case ButtonWidget: return QString(tr("Button"));
         case SliderWidget: return QString(tr("Slider"));
         case FrameWidget: return QString(tr("Frame"));
@@ -108,6 +107,7 @@ QString VCWidget::typeToString(int type)
         case LabelWidget: return QString(tr("Label"));
         case AudioTriggersWidget: return QString(tr("Audio Triggers"));
         case AnimationWidget: return QString(tr("Animation"));
+        case ClockWidget: return QString(tr("Clock"));
         case UnknownWidget:
         default:
              return QString(tr("Unknown"));
@@ -308,7 +308,7 @@ bool VCWidget::hasCustomForegroundColor() const
 void VCWidget::resetForegroundColor()
 {
     m_hasCustomForegroundColor = false;
-    m_foregroundColor = Qt::black;
+    m_foregroundColor = Qt::white;
     setDocModified();
     emit foregroundColorChanged(m_foregroundColor);
 }

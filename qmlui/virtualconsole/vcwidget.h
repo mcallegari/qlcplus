@@ -25,10 +25,11 @@
 #include <QObject>
 #include <QColor>
 #include <QRect>
+#include <QFont>
 
 #include "qlcfile.h"
+#include "doc.h"
 
-class Doc;
 
 #define KXMLQLCVCCaption "Caption"
 #define KXMLQLCVCFrameStyle "FrameStyle"

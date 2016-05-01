@@ -30,6 +30,7 @@ Rectangle
 
     property string iSrc
     property string tLabel
+    property int fontSize: 11
     property int functionType: -1
 
     onFunctionTypeChanged:
@@ -67,7 +68,7 @@ Rectangle
             height: parent.height
             anchors.verticalCenter: parent.verticalCenter
             label: tLabel
-            fontSize: 11
+            fontSize: fontSize
         }
     }
 }

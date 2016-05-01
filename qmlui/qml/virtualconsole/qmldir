@@ -9,6 +9,7 @@ CustomCheckBox 0.1 ../CustomCheckBox.qml
 CustomComboBox 0.1 ../CustomComboBox.qml
 CustomSpinBox 0.1 ../CustomSpinBox.qml
 CustomTextEdit 0.1 ../CustomTextEdit.qml
+DayTimeTool 0.1 ../DayTimeTool.qml
 DMXPercentageButton 0.1 ../DMXPercentageButton.qml
 FixtureConsole 0.1 ../FixtureConsole.qml
 FixtureDelegate 0.1 ../FixtureDelegate.qml

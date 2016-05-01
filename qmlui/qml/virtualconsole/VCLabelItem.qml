@@ -37,7 +37,7 @@ VCWidgetItem
         x: 2
         width: parent.width - 4
         height: parent.height
-        font: labelObj ? labelObj.font : null
+        font: labelObj ? labelObj.font : ""
         text: labelObj ? labelObj.caption : ""
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter

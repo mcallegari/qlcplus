@@ -44,7 +44,7 @@ VCWidgetItem
         {
             anchors.horizontalCenter: parent.horizontalCenter
             height: 32
-            font: sliderObj ? sliderObj.font : null
+            font: sliderObj ? sliderObj.font : ""
             text: sliderObj ? /*sliderObj.sliderValue*/ "0" : ""
 
             color: sliderObj ? sliderObj.foregroundColor : "white"
@@ -64,7 +64,7 @@ VCWidgetItem
             x: 2
             width: sliderRoot.width - 4
             height: 32
-            font: sliderObj ? sliderObj.font : null
+            font: sliderObj ? sliderObj.font : ""
             text: sliderObj ? sliderObj.caption : ""
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter

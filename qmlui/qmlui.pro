@@ -76,7 +76,8 @@ HEADERS += \
     virtualconsole/vcsoloframe.h \
     virtualconsole/vcbutton.h \
     virtualconsole/vclabel.h \
-    virtualconsole/vcslider.h
+    virtualconsole/vcslider.h \
+    virtualconsole/vcclock.h
 
 SOURCES += \
     virtualconsole/virtualconsole.cpp \
@@ -85,7 +86,8 @@ SOURCES += \
     virtualconsole/vcsoloframe.cpp \
     virtualconsole/vcbutton.cpp \
     virtualconsole/vclabel.cpp \
-    virtualconsole/vcslider.cpp
+    virtualconsole/vcslider.cpp \
+    virtualconsole/vcclock.cpp
 
 RESOURCES += qmlui.qrc ../resources/icons/svg/svgicons.qrc ../resources/fonts/fonts.qrc
 

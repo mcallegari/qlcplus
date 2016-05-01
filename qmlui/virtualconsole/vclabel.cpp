@@ -26,6 +26,7 @@ VCLabel::VCLabel(Doc *doc, QObject *parent)
     : VCWidget(doc, parent)
 {
     setType(VCWidget::LabelWidget);
+    setForegroundColor(Qt::white);
 }
 
 VCLabel::~VCLabel()

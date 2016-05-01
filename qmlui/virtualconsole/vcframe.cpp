@@ -24,6 +24,7 @@
 
 #include "vcframe.h"
 #include "vclabel.h"
+#include "vcclock.h"
 #include "vcbutton.h"
 #include "vcslider.h"
 #include "vcsoloframe.h"
@@ -159,7 +160,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
         {
             VCLabel *label = new VCLabel(m_doc, this);
             QQmlEngine::setObjectOwnership(label, QQmlEngine::CppOwnership);
-            label->setGeometry(QRect(pos.x(), pos.y(), 100, 100));
+            label->setGeometry(QRect(pos.x(), pos.y(), 100, 30));
             setupWidget(label);
             m_vc->addWidgetToMap(label);
             label->render(m_vc->view(), parent);
@@ -173,6 +174,16 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             setupWidget(slider);
             m_vc->addWidgetToMap(slider);
             slider->render(m_vc->view(), parent);
+        }
+        break;
+        case ClockWidget:
+        {
+            VCClock *clock = new VCClock(m_doc, this);
+            QQmlEngine::setObjectOwnership(clock, QQmlEngine::CppOwnership);
+            clock->setGeometry(QRect(pos.x(), pos.y(), 150, 50));
+            setupWidget(clock);
+            m_vc->addWidgetToMap(clock);
+            clock->render(m_vc->view(), parent);
         }
         break;
         default:
@@ -555,6 +566,19 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
                 QQmlEngine::setObjectOwnership(slider, QQmlEngine::CppOwnership);
                 setupWidget(slider);
                 m_vc->addWidgetToMap(slider);
+            }
+        }
+        else if (root.name() == KXMLQLCVCClock)
+        {
+            /* Create a new clock into its parent */
+            VCClock* clock = new VCClock(m_doc, this);
+            if (clock->loadXML(root) == false)
+                delete clock;
+            else
+            {
+                QQmlEngine::setObjectOwnership(clock, QQmlEngine::CppOwnership);
+                setupWidget(clock);
+                m_vc->addWidgetToMap(clock);
             }
         }
         else

@@ -47,9 +47,17 @@ Rectangle
         label: qsTr("Select a widget first")
     }
 
-    Column
+    Flickable
     {
-        width: parent.width
+      id: propsFlickable
+      anchors.fill: parent
+      boundsBehavior: Flickable.StopAtBounds
+      contentHeight: propsContentsColumn.height
+
+      Column
+      {
+        id: propsContentsColumn
+        width: parent.width - (wpBar.visible ? wpBar.width : 0)
         spacing: 5
 
         SectionBox
@@ -215,5 +223,7 @@ Rectangle
 
             onLoaded: item.widgetRef = wObj
         }
-    }
+      } // end of properties column
+    } // end of flickable
+    ScrollBar { id: wpBar; flickable: propsFlickable }
 }
