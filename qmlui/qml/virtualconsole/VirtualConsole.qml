@@ -63,6 +63,7 @@ Rectangle
         width: parent.width - vcRightPanel.width
         height: parent.height
         color: "transparent"
+        clip: true
 
         Rectangle
         {
