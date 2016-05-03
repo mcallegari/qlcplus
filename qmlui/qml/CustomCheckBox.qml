@@ -19,6 +19,7 @@
 
 import QtQuick 2.0
 import QtQuick.Controls 1.2
+import QtQuick.Controls.Private 1.0
 
 import "."
 
@@ -31,6 +32,7 @@ Rectangle
     property color bgColor: UISettings.bgMedium
     property color hoverColor: UISettings.bgLight
     property color pressColor: "#054A9E"
+    property string tooltip: ""
 
     property bool checked: false
 
@@ -66,7 +68,7 @@ Rectangle
         anchors.fill: parent
         hoverEnabled: true
         onEntered: { checkBoxRoot.color = hoverColor }
-        onExited: { checkBoxRoot.color = bgColor }
+        onExited: { checkBoxRoot.color = bgColor; Tooltip.hideText() }
         onReleased:
         {
             if (exclusiveGroup && checked == true)
@@ -74,6 +76,14 @@ Rectangle
 
             checked = !checked
             checkBoxRoot.toggle(checked)
+        }
+        onCanceled: Tooltip.hideText()
+
+        Timer
+        {
+           interval: 1000
+           running: mouseArea1.containsMouse && tooltip.length
+           onTriggered: Tooltip.showText(mouseArea1, Qt.point(mouseArea1.mouseX, mouseArea1.mouseY), tooltip)
         }
     }
 }

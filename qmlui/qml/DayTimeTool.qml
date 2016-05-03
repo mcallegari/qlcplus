@@ -36,6 +36,9 @@ Rectangle
 
     onTimeValueChanged:
     {
+        if (timeValue < 0)
+            return
+
         var sTime = timeValue
         tHours = Math.floor(sTime / 3600)
         sTime -= (tHours * 3600)
@@ -54,11 +57,14 @@ Rectangle
 
     Row
     {
+        id: dtRow
         spacing: 5
+        property int fieldsWidth: (dttRoot.width / 3) - spacing
 
         CustomSpinBox
         {
-            width: dttRoot.width / 3
+            width: dtRow.fieldsWidth
+            height: dttRoot.height
             minimumValue: 0
             maximumValue: 23
             suffix: "h"
@@ -71,7 +77,8 @@ Rectangle
         }
         CustomSpinBox
         {
-            width: dttRoot.width / 3
+            width: dtRow.fieldsWidth
+            height: dttRoot.height
             minimumValue: 0
             maximumValue: 59
             suffix: "m"
@@ -84,7 +91,8 @@ Rectangle
         }
         CustomSpinBox
         {
-            width: dttRoot.width / 3
+            width: dtRow.fieldsWidth
+            height: dttRoot.height
             minimumValue: 0
             maximumValue: 59
             suffix: "s"
