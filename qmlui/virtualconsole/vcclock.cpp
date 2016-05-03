@@ -49,10 +49,16 @@ VCClock::VCClock(Doc *doc, QObject *parent)
     wFont.setBold(true);
     wFont.setPointSize(28);
     setFont(wFont);
+
+    m_timer = new QTimer(this);
+    connect(m_timer, SIGNAL(timeout()), this, SLOT(slotTimerTimeout()));
+    m_timer->start(1000);
 }
 
 VCClock::~VCClock()
 {
+    delete m_timer;
+
     int schNum = m_scheduleList.count();
     for (int i = 0; i < schNum; i++)
     {
@@ -103,6 +109,12 @@ void VCClock::setClockType(VCClock::ClockType type)
         return;
 
     m_clocktype = type;
+
+    if (m_clocktype == Clock)
+        m_timer->start(1000);
+    else
+        m_timer->stop();
+
     emit clockTypeChanged(type);
 }
 
@@ -135,6 +147,13 @@ VCClock::ClockType VCClock::stringToType(QString str)
  * Time
  *********************************************************************/
 
+int VCClock::currentTime() const
+{
+    QTime currTime = QDateTime::currentDateTime().time();
+    int dayTimeSecs = (currTime.hour() * 60 * 60) + (currTime.minute() * 60) + currTime.second();
+    return dayTimeSecs;
+}
+
 int VCClock::targetTime() const
 {
     if (clockType() == Countdown)
@@ -150,6 +169,13 @@ void VCClock::setTargetTime(int ms)
 
     m_targetTime = ms;
     emit targetTimeChanged(ms);
+}
+
+void VCClock::slotTimerTimeout()
+{
+    QTime currTime = QTime::currentTime();
+    int dayTimeSecs = (currTime.hour() * 60 * 60) + (currTime.minute() * 60) + currTime.second();
+    emit currentTimeChanged(dayTimeSecs);
 }
 
 /*********************************************************************
@@ -169,6 +195,19 @@ void VCClock::addSchedule(VCClockSchedule *schedule)
     if (schedule->functionID() != Function::invalidId())
         m_scheduleList.append(schedule);
     qSort(m_scheduleList);
+    emit scheduleListChanged();
+}
+
+void VCClock::addSchedule(quint32 funcID)
+{
+    if (m_doc->function(funcID) == NULL)
+        return;
+
+    VCClockSchedule *sch = new VCClockSchedule();
+    sch->setFunctionID(funcID);
+    m_scheduleList.append(sch);
+    qSort(m_scheduleList);
+    emit scheduleListChanged();
 }
 
 void VCClock::removeSchedule(int index)

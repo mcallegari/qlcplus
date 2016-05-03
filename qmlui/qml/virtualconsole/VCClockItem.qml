@@ -30,42 +30,38 @@ VCWidgetItem
     property var locale: Qt.locale()
     property string timeString: new Date().toLocaleString(locale, "hh:mm:ss");
     property int clockType: clockObj ? clockObj.clockType : VCClock.Clock
+
+    /** The target time from where to start a countdown or a stopwatch */
     property int targetTime: clockObj ? clockObj.targetTime : 0
-    property int currentTime: 0
+
+    /** This is the Countdown/Stopwatch time in milliseconds */
+    property int timeCounter: 0
+
+    /** The current day time in seconds, bound to the C++ timer */
+    property int currentDayTime: clockObj ? clockObj.currentTime : 0
 
     clip: true
 
     onClockObjChanged:
     {
         setCommonProperties(clockObj)
-        currentTime = clockObj.targetTime
+        timeCounter = clockObj.targetTime
         updateTime(false)
     }
 
+    onCurrentDayTimeChanged: updateTime(false)
+
     onTargetTimeChanged:
     {
-        if (clockTimer.running == false)
-            currentTime = targetTime
+        if (clockTimer.running === false)
+            timeCounter = targetTime
         updateTime(false)
     }
 
     onClockTypeChanged:
     {
-        switch(clockType)
-        {
-            case VCClock.Stopwatch:
-                clockTimer.interval = 100
-                clockTimer.running = false
-            break;
-            case VCClock.Countdown:
-                clockTimer.interval = 100
-                clockTimer.running = false
-            break;
-            case VCClock.Clock:
-                clockTimer.interval = 1000
-                clockTimer.running = true
-            break;
-        }
+        timeCounter = clockObj.targetTime
+        clockTimer.running = false
         updateTime(false)
     }
 
@@ -73,22 +69,21 @@ VCWidgetItem
     {
         switch(clockType)
         {
-        case VCClock.Stopwatch:
-            if (modify)
-                currentTime += 100
-            timeString = TimeUtils.msToStringWithPrecision(currentTime, 1)
-        break;
-        case VCClock.Countdown:
-            if (modify)
-                currentTime -= 100
-            timeString = TimeUtils.msToStringWithPrecision(currentTime, 1)
-            if (currentTime == 0)
-                clockTimer.running = false
-        break;
-        case VCClock.Clock:
-            timeString = new Date().toLocaleString(locale, "hh:mm:ss");
-            clockTimer.running = true
-        break;
+            case VCClock.Stopwatch:
+                if (modify)
+                    timeCounter += 100
+                timeString = TimeUtils.msToStringWithPrecision(timeCounter, 1)
+            break;
+            case VCClock.Countdown:
+                if (modify)
+                    timeCounter -= 100
+                timeString = TimeUtils.msToStringWithPrecision(timeCounter, 1)
+                if (timeCounter == 0)
+                    clockTimer.running = false
+            break;
+            case VCClock.Clock:
+                timeString = new Date().toLocaleString(locale, "hh:mm:ss");
+            break;
         }
     }
 
@@ -122,9 +117,9 @@ VCWidgetItem
                 else
                 {
                     if (clockType == VCClock.Stopwatch)
-                        currentTime = 0
+                        timeCounter = 0
                     else
-                        currentTime = clockObj.targetTime
+                        timeCounter = clockObj.targetTime
                     updateTime(false)
                 }
             }
@@ -135,7 +130,7 @@ VCWidgetItem
     {
         id: clockTimer
         running: false
-        interval: 1000
+        interval: 100
         repeat: true
         onTriggered: updateTime(true)
     }

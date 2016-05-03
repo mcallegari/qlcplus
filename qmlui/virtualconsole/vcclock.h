@@ -20,6 +20,8 @@
 #ifndef VCCLOCK_H
 #define VCCLOCK_H
 
+#include <QTimer>
+
 #include "vcwidget.h"
 
 #define KXMLQLCVCClock "Clock"
@@ -80,6 +82,7 @@ class VCClock : public VCWidget
     Q_OBJECT
 
     Q_PROPERTY(ClockType clockType READ clockType WRITE setClockType NOTIFY clockTypeChanged)
+    Q_PROPERTY(int  currentTime READ currentTime NOTIFY currentTimeChanged)
     Q_PROPERTY(int  targetTime READ targetTime WRITE setTargetTime NOTIFY targetTimeChanged)
     Q_PROPERTY(QVariantList scheduleList READ scheduleList NOTIFY scheduleListChanged)
     
@@ -123,15 +126,28 @@ private:
      * Time
      *********************************************************************/
 public:
+    /** Get the current day time in seconds */
+    int currentTime() const;
+
+    /** Get/Set the target time for Countdown and Stopwatch */
     int targetTime() const;
     void setTargetTime(int ms);
 
+protected slots:
+    void slotTimerTimeout();
+
 signals:
+    /** Notify the listeners about the current day time in seconds */
+    void currentTimeChanged(int s);
+
+    /** Notify the listeners that the clock target time has changed */
     void targetTimeChanged(int ms);
 
 private:
     /** the target time in ms of the clock. Used by Countdown and Stopwatch */
     int m_targetTime;
+    /** The 1 second timer active when m_clocktype is Clock */
+    QTimer *m_timer;
 
     /*********************************************************************
      * Functions scheduling
@@ -139,6 +155,7 @@ private:
 public:
     QVariantList scheduleList();
     void addSchedule(VCClockSchedule *schedule);
+    Q_INVOKABLE void addSchedule(quint32 funcID);
     Q_INVOKABLE void removeSchedule(int index);
 
 signals:
