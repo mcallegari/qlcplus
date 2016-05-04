@@ -7,6 +7,7 @@ qlcplus (4.10.4) stable; urgency=low
   * Scene Editor: fixed the tab order of the fixtures
   * Show Manager: added the possibility to pause a Show leaving the lights on
   * Show Manager/Audio: allow to display the waveform preview while playing a file
+  * UI/Function Selection: fix crash on workspaces where a scene ID is bigger than its sequence ID (David Garyga)
   * UI/Video: fixed the fullscreen positioning on Windows
   * Virtual Console/Animation: fix behavior issue when changing the associated function (David Garyga)
   * Virtual Console/Frames: send feedbacks for the enable button
