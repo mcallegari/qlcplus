@@ -35,6 +35,12 @@ Rectangle
 
     onFunctionTypeChanged:
     {
+        if (functionType == -1)
+        {
+            iSrc = ""
+            return
+        }
+
         switch (functionType)
         {
             case Function.Scene: iSrc = "qrc:/scene.svg"; break;

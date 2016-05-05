@@ -44,7 +44,7 @@ class VCButton : public VCWidget
 
     Q_PROPERTY(ButtonAction actionType READ actionType WRITE setActionType NOTIFY actionTypeChanged)
     Q_PROPERTY(bool isOn READ isOn WRITE setOn NOTIFY isOnChanged)
-    Q_PROPERTY(QString functionName READ functionName NOTIFY functionNameChanged)
+    Q_PROPERTY(quint32 functionID READ functionID WRITE setFunctionID NOTIFY functionIDChanged)
 
     /*********************************************************************
      * Initialization
@@ -73,7 +73,7 @@ public:
      *
      * @param function An ID of a function to attach
      */
-    Q_INVOKABLE void setFunction(quint32 fid);
+    Q_INVOKABLE void setFunctionID(quint32 fid);
 
     /**
      * Get the ID of the function attached to a VCButton
@@ -81,11 +81,7 @@ public:
      * @return The ID of the attached function or Function::invalidId()
      *         if there isn't one
      */
-    quint32 function() const;
-
-    /** Get the name of the function attached to a VCButton
-     *  as string. Empty if no function is attached */
-    QString functionName() const;
+    quint32 functionID() const;
 
     /**
      *  The actual method used to request a change of state of this
@@ -110,8 +106,8 @@ private:
     FunctionParent functionParent() const;
 
 protected:
-    /** The function that this button is controlling */
-    quint32 m_function;
+    /** The ID of the Function that this button is controlling */
+    quint32 m_functionID;
 
     /*********************************************************************
      * Button state
@@ -125,7 +121,7 @@ public:
 
 signals:
     void isOnChanged(bool isOn);
-    void functionNameChanged(QString name);
+    void functionIDChanged(quint32 id);
 
 protected:
     bool m_isOn;

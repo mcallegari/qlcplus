@@ -26,7 +26,7 @@
 
 VCButton::VCButton(Doc *doc, QObject *parent)
     : VCWidget(doc, parent)
-    , m_function(Function::invalidId())
+    , m_functionID(Function::invalidId())
     , m_isOn(false)
     , m_actionType(Toggle)
 {
@@ -74,11 +74,14 @@ QString VCButton::propertiesResource() const
  * Function attachment
  *********************************************************************/
 
-void VCButton::setFunction(quint32 fid)
+void VCButton::setFunctionID(quint32 fid)
 {
     bool running = false;
 
-    Function* current = m_doc->function(m_function);
+    if (m_functionID == fid)
+        return;
+
+    Function* current = m_doc->function(m_functionID);
     if (current != NULL)
     {
         /* Get rid of old function connections */
@@ -107,35 +110,25 @@ void VCButton::setFunction(quint32 fid)
         connect(function, SIGNAL(flashing(quint32,bool)),
                 this, SLOT(slotFunctionFlashing(quint32,bool)));
 
-        m_function = fid;
+        m_functionID = fid;
         if (caption().isEmpty())
             setCaption(function->name());
         if(running)
             function->start(m_doc->masterTimer(), functionParent());
-        emit functionNameChanged(function->name());
+        emit functionIDChanged(fid);
     }
     else
     {
         /* No function attachment */
-        m_function = Function::invalidId();
+        m_functionID = Function::invalidId();
+        emit functionIDChanged(-1);
     }
     setDocModified();
 }
 
-quint32 VCButton::function() const
+quint32 VCButton::functionID() const
 {
-    return m_function;
-}
-
-QString VCButton::functionName() const
-{
-    if (m_function != Function::invalidId())
-    {
-        Function* function = m_doc->function(m_function);
-        if (function != NULL)
-            return function->name();
-    }
-    return QString();
+    return m_functionID;
 }
 
 void VCButton::requestStateChange(bool pressed)
@@ -144,7 +137,7 @@ void VCButton::requestStateChange(bool pressed)
     {
         case Toggle:
         {
-            Function *f = m_doc->function(m_function);
+            Function *f = m_doc->function(m_functionID);
             if (f == NULL)
                 return;
 
@@ -152,9 +145,9 @@ void VCButton::requestStateChange(bool pressed)
             {
                 static const QMetaMethod funcSignal = QMetaMethod::fromSignal(&VCButton::functionStarting);
                 if (isSignalConnected(funcSignal))
-                    emit functionStarting(this, m_function);
+                    emit functionStarting(this, m_functionID);
                 else
-                    notifyFunctionStarting(this, m_function, 1.0);
+                    notifyFunctionStarting(this, m_functionID, 1.0);
             }
             else if (m_isOn == true && pressed == false)
             {
@@ -165,7 +158,7 @@ void VCButton::requestStateChange(bool pressed)
         break;
         case Flash:
         {
-            Function *f = m_doc->function(m_function);
+            Function *f = m_doc->function(m_functionID);
             if (f != NULL)
             {
                 if (m_isOn == false && pressed == true)
@@ -191,14 +184,14 @@ void VCButton::notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fInte
     Q_UNUSED(widget)
     Q_UNUSED(fIntensity)
 
-    if (m_function == Function::invalidId() || actionType() != VCButton::Toggle)
+    if (m_functionID == Function::invalidId() || actionType() != VCButton::Toggle)
         return;
 
-    Function *f = m_doc->function(m_function);
+    Function *f = m_doc->function(m_functionID);
     if (f == NULL)
         return;
 
-    if (m_function != fid)
+    if (m_functionID != fid)
     {
         if (f->isRunning())
             f->stop(functionParent());
@@ -215,13 +208,13 @@ void VCButton::notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fInte
 
 void VCButton::slotFunctionRunning(quint32 fid)
 {
-    if (fid == m_function && actionType() == Toggle)
+    if (fid == m_functionID && actionType() == Toggle)
         setOn(true);
 }
 
 void VCButton::slotFunctionStopped(quint32 fid)
 {
-    if (fid == m_function && actionType() == Toggle)
+    if (fid == m_functionID && actionType() == Toggle)
     {
         setOn(false);
         //blink(250);
@@ -234,11 +227,11 @@ void VCButton::slotFunctionFlashing(quint32 fid, bool state)
     if (actionType() != Toggle && actionType() != Flash)
         return;
 
-    if (fid != m_function)
+    if (fid != m_functionID)
         return;
 
     // if the function was flashed by another button, and the function is still running, keep the button pushed
-    Function* f = m_doc->function(m_function);
+    Function* f = m_doc->function(m_functionID);
     if (state == false && actionType() == Toggle && f != NULL && f->isRunning())
     {
         return;
@@ -266,7 +259,7 @@ void VCButton::setOn(bool isOn)
     if (m_isOn == isOn)
         return;
 
-    if (m_function == Function::invalidId())
+    if (m_functionID == Function::invalidId())
         return;
 
     m_isOn = isOn;
@@ -370,7 +363,7 @@ bool VCButton::loadXML(QXmlStreamReader &root)
         else if (root.name() == KXMLQLCVCButtonFunction)
         {
             QString str = root.attributes().value(KXMLQLCVCButtonFunctionID).toString();
-            setFunction(str.toUInt());
+            setFunctionID(str.toUInt());
             root.skipCurrentElement();
         }
         else if (root.name() == KXMLQLCVCButtonAction)

@@ -30,8 +30,13 @@ Rectangle
     height: bPropsColumn.height
 
     property VCButton widgetRef: null
-
+    property Function func
+    property int funcID: widgetRef ? widgetRef.functionID : -1
     property int gridItemsHeight: 38
+
+    //onWidgetRefChanged: func = functionManager.getFunction(widgetRef.functionID)
+
+    onFuncIDChanged: func = functionManager.getFunction(funcID)
 
     Column
     {
@@ -53,22 +58,28 @@ Rectangle
                 rowSpacing: 4
 
                 // row 1
-                RobotoText
+                IconTextEntry
                 {
+                    id: funcBox
+                    Layout.columnSpan: 2
                     Layout.fillWidth: true
-                    color: UISettings.bgStronger
+
                     fontSize: 14
-                    label: widgetRef ? widgetRef.functionName : ""
-                }
-                IconButton
-                {
-                    imgSource: "qrc:/reset.svg"
 
-                    onClicked:
+                    tLabel: func ? func.name : ""
+                    functionType: func ? func.type : -1
+
+                    IconButton
                     {
-
+                        id: fontButton
+                        anchors.top: parent.top
+                        anchors.right: parent.right
+                        imgSource: "qrc:/reset.svg"
+                        tooltip: qsTr("Detach the current function")
+                        onClicked: widgetRef.functionID = -1
                     }
                 }
+
               } // GridLayout
         } // SectionBox
 

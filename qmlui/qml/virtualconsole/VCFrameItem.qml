@@ -31,7 +31,7 @@ VCWidgetItem
     property bool isSolo: false
     property bool isCollapsed: frameObj ? frameObj.isCollapsed : false
 
-    color: dropActive ? "#9DFF52" : frameObj.backgroundColor
+    color: dropActive ? "#9DFF52" : (frameObj ? frameObj.backgroundColor : "darkgray")
     clip: true
 
     onFrameObjChanged:
@@ -166,7 +166,7 @@ VCWidgetItem
     {
         id: dropArea
         anchors.fill: parent
-        objectName: "frameDropArea" + frameObj.id
+        objectName: frameObj ? "frameDropArea" + frameObj.id : ""
         z: 5 // children must be above the VCWidget resizeLayer
 
         onEntered: virtualConsole.setDropTarget(frameRoot, true)

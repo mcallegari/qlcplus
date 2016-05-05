@@ -202,7 +202,7 @@ void VCFrame::addFunction(QQuickItem *parent, quint32 funcID, QPoint pos, bool m
     VCButton *button = new VCButton(m_doc, this);
     QQmlEngine::setObjectOwnership(button, QQmlEngine::CppOwnership);
     button->setGeometry(QRect(pos.x(), pos.y(), 100, 100));
-    button->setFunction(funcID);
+    button->setFunctionID(funcID);
     setupWidget(button);
     m_vc->addWidgetToMap(button);
     button->render(m_vc->view(), parent);
