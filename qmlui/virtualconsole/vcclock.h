@@ -34,7 +34,7 @@ class VCClockSchedule : public QObject
     Q_PROPERTY(int functionID READ functionID WRITE setFunctionID NOTIFY functionIDChanged)
     Q_PROPERTY(int startTime READ startTime WRITE setStartTime NOTIFY startTimeChanged)
     Q_PROPERTY(int stopTime READ stopTime WRITE setStopTime NOTIFY stopTimeChanged)
-    Q_PROPERTY(uchar weekFlags READ weekFlags WRITE setWeekFlags NOTIFY weekFlagsChanged)
+    Q_PROPERTY(int weekFlags READ weekFlags WRITE setWeekFlags NOTIFY weekFlagsChanged)
 
 public:
     VCClockSchedule(QObject* parent = 0);
@@ -50,8 +50,8 @@ public:
     void setStopTime(int time) { m_stopTime = time; }
     int stopTime() const { return m_stopTime; }
 
-    void setWeekFlags(uchar flags) { m_weekFlags = flags; }
-    uchar weekFlags() const { return m_weekFlags; }
+    void setWeekFlags(int flags) { m_weekFlags = flags; }
+    int weekFlags() const { return m_weekFlags; }
 
     /** Sorting operator */
     bool operator<(const VCClockSchedule& sch) const;
@@ -59,6 +59,9 @@ public:
     /** Load & Save */
     bool loadXML(QXmlStreamReader &root);
     bool saveXML(QXmlStreamWriter *doc);
+
+public:
+    bool m_canPlay;
 
 signals:
     void functionIDChanged();
@@ -74,7 +77,7 @@ private:
     quint32 m_id;
     int m_startTime;
     int m_stopTime;
-    uchar m_weekFlags;
+    int m_weekFlags;
 };
 
 class VCClock : public VCWidget
@@ -102,6 +105,9 @@ public:
 
     /** @reimp */
     QString propertiesResource() const;
+
+private:
+    FunctionParent functionParent() const;
 
     /*********************************************************************
      * Type

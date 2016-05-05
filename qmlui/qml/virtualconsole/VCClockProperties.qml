@@ -209,6 +209,7 @@ Rectangle
                                     DayTimeTool
                                     {
                                         timeValue: schedule ? schedule.startTime : 0
+                                        onTimeValueChanged: if (schedule) schedule.startTime = timeValue
                                     }
 
                                     // row 3
@@ -226,7 +227,10 @@ Rectangle
                                             spacing: 5
                                             DayTimeTool
                                             {
+                                                enabled: stEnableCheck.checked
                                                 timeValue: schedule ? schedule.stopTime : 0
+
+                                                onTimeValueChanged: if (schedule) schedule.stopTime = timeValue
 
                                                 Rectangle
                                                 {

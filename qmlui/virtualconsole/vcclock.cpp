@@ -19,6 +19,7 @@
 
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
+#include <QQmlEngine>
 
 #include "vcclock.h"
 #include "doc.h"
@@ -99,6 +100,11 @@ QString VCClock::propertiesResource() const
     return QString("qrc:/VCClockProperties.qml");
 }
 
+FunctionParent VCClock::functionParent() const
+{
+    return FunctionParent(FunctionParent::AutoVCWidget, id());
+}
+
 /*********************************************************************
  * Type
  *********************************************************************/
@@ -173,8 +179,44 @@ void VCClock::setTargetTime(int ms)
 
 void VCClock::slotTimerTimeout()
 {
-    QTime currTime = QTime::currentTime();
+    QDateTime currDate = QDateTime::currentDateTime();
+    QTime currTime = currDate.time();
+    int currDay = 1 << (currDate.date().dayOfWeek() - 1);
     int dayTimeSecs = (currTime.hour() * 60 * 60) + (currTime.minute() * 60) + currTime.second();
+
+    foreach(VCClockSchedule *sch, m_scheduleList)
+    {
+        // check if a Function has to be started
+        if(dayTimeSecs >= sch->startTime() && (sch->stopTime() == -1 || dayTimeSecs < sch->stopTime()))
+        {
+            Function *f = m_doc->function(sch->functionID());
+            if (f == NULL || f->isRunning())
+                continue;
+
+            // check for the day of the week, if selected
+            if (sch->weekFlags() == 0 || sch->weekFlags() & currDay)
+            {
+                // check for repetition
+                if (sch->m_canPlay)
+                {
+                    f->start(m_doc->masterTimer(), functionParent());
+                    qDebug() << "VC Clock starting function:" << f->name();
+                    if ((sch->weekFlags() & 0x80) == 0)
+                        sch->m_canPlay = false;
+                }
+            }
+        }
+        // check if a Function has to be stopped
+        else if (sch->stopTime() != -1 && dayTimeSecs == sch->stopTime())
+        {
+            Function *f = m_doc->function(sch->functionID());
+            if (f == NULL || f->isRunning() == false)
+                continue;
+            f->stop(functionParent());
+        }
+    }
+
+    // at last, notify the UI the time has changed
     emit currentTimeChanged(dayTimeSecs);
 }
 
@@ -195,6 +237,7 @@ void VCClock::addSchedule(VCClockSchedule *schedule)
     if (schedule->functionID() != Function::invalidId())
         m_scheduleList.append(schedule);
     qSort(m_scheduleList);
+    QQmlEngine::setObjectOwnership(schedule, QQmlEngine::CppOwnership);
     emit scheduleListChanged();
 }
 
@@ -204,6 +247,7 @@ void VCClock::addSchedule(quint32 funcID)
         return;
 
     VCClockSchedule *sch = new VCClockSchedule();
+    QQmlEngine::setObjectOwnership(sch, QQmlEngine::CppOwnership);
     sch->setFunctionID(funcID);
     m_scheduleList.append(sch);
     qSort(m_scheduleList);
@@ -216,6 +260,9 @@ void VCClock::removeSchedule(int index)
         return;
 
     VCClockSchedule *sch = m_scheduleList.takeAt(index);
+    Function *f = m_doc->function(sch->functionID());
+    if (f != NULL && f->isRunning())
+        f->stop(functionParent());
     delete sch;
     emit scheduleListChanged();
 }
@@ -345,10 +392,12 @@ bool VCClockSchedule::operator <(const VCClockSchedule &sch) const
 
 VCClockSchedule::VCClockSchedule(QObject *parent)
     : QObject(parent)
+    , m_canPlay(true)
     , m_id(Function::invalidId())
     , m_startTime(0)
     , m_stopTime(-1)
     , m_weekFlags(0)
+
 {
 }
 
