@@ -326,13 +326,18 @@ void FunctionSelection::refillTree()
         m_newTrackItem->setData(KColumnName, Qt::UserRole, Function::invalidId());
     }
 
+    // these need their parent scene to be loaded first
+    QList<Function*> sequences;
+
     /* Fill the tree */
     foreach (Function* function, m_doc->functions())
     {
         if (m_runningOnlyFlag == true && !function->isRunning())
             continue;
 
-        if (m_filter & function->type())
+        if (function->type() == Function::Chaser && qobject_cast<Chaser*>(function)->isSequence() == true)
+            sequences.append(function);
+        else if (m_filter & function->type())
         {
             QTreeWidgetItem* item = m_funcTree->addFunction(function->id());
             if (disabledFunctions().contains(function->id()))
@@ -340,12 +345,12 @@ void FunctionSelection::refillTree()
             else
                 item->setSelected(selection.contains(function->id()));
         }
+    }
 
+    foreach (Function* function, sequences)
+    {
         // Show sequence attached to its scene when chasers are filtered out
-        if (m_showSequences
-                && function->type() == Function::Chaser
-                && qobject_cast<Chaser*>(function)->isSequence()
-                && (m_filter & Function::Scene))
+        if ((m_filter & Function::Chaser) || (m_showSequences && (m_filter & Function::Scene)))
         {
             QTreeWidgetItem* item = m_funcTree->addFunction(function->id());
             if (disabledFunctions().contains(function->id()))
@@ -358,6 +363,7 @@ void FunctionSelection::refillTree()
             }
         }
     }
+
     m_funcTree->resizeColumnToContents(KColumnName);
     for (int i = 0; i < m_funcTree->topLevelItemCount(); i++)
     {

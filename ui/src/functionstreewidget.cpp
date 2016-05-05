@@ -330,9 +330,11 @@ QTreeWidgetItem *FunctionsTreeWidget::folderItem(QString name)
         // and the type, then skip it.
         if (fullPath.isEmpty())
         {
-            parentNode = m_foldersMap[QString(level + "/")];
-            if (parentNode != NULL)
+            if (m_foldersMap.contains(level + "/"))
+            {
+                parentNode = m_foldersMap[level + "/"];
                 type = parentNode->data(COL_NAME, Qt::UserRole + 1).toInt();
+            }
             fullPath = level;
             continue;
         }
