@@ -136,6 +136,9 @@ public:
     /** Load the Virtual Console global properties XML tree */
     bool loadPropertiesXML(QXmlStreamReader &root);
 
+    /** Save properties and contents to an XML document */
+    bool saveXML(QXmlStreamWriter *doc);
+
     /** Do post-load cleanup & checks */
     void postLoad();
 };

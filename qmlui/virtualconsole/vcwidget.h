@@ -32,7 +32,7 @@
 
 
 #define KXMLQLCVCCaption "Caption"
-#define KXMLQLCVCFrameStyle "FrameStyle"
+#define KXMLQLCVCFrameStyle "FrameStyle"    // LEGACY
 
 #define KXMLQLCVCWidgetID "ID"
 #define KXMLQLCVCWidgetPage "Page"
@@ -361,6 +361,7 @@ public:
      *********************************************************************/
 public:
     virtual bool loadXML(QXmlStreamReader &root);
+    virtual bool saveXML(QXmlStreamWriter *doc);
 
 protected:
     bool loadXMLCommon(QXmlStreamReader &root);
@@ -386,6 +387,20 @@ protected:
     bool loadXMLWindowState(QXmlStreamReader &root, int* x, int* y,
                             int* w, int* h, bool* visible);
 
+    /** Save the widget common properties */
+    bool saveXMLCommon(QXmlStreamWriter *doc);
+
+    /** Save the widget appearance, if customized */
+    bool saveXMLAppearance(QXmlStreamWriter *doc);
+
+    /**
+     * Write this widget's geometry and visibility to an XML document.
+     *
+     * @param doc A QXmlStreamReader to save the tag to
+     *
+     * @return true if succesful, otherwise false
+     */
+    bool saveXMLWindowState(QXmlStreamWriter *doc);
 };
 
 #endif

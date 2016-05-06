@@ -402,6 +402,12 @@ bool VCWidget::loadXML(QXmlStreamReader &root)
     return false;
 }
 
+bool VCWidget::saveXML(QXmlStreamWriter *doc)
+{
+    Q_UNUSED(doc)
+    return false;
+}
+
 bool VCWidget::loadXMLCommon(QXmlStreamReader &root)
 {
     if (root.device() == NULL || root.hasError())
@@ -514,3 +520,106 @@ bool VCWidget::loadXMLWindowState(QXmlStreamReader &root, int* x, int* y,
         return false;
     }
 }
+
+bool VCWidget::saveXMLCommon(QXmlStreamWriter *doc)
+{
+    Q_ASSERT(doc != NULL);
+
+    /* Caption */
+    doc->writeAttribute(KXMLQLCVCCaption, caption());
+
+    /* ID */
+    if (id() != VCWidget::invalidId())
+        doc->writeAttribute(KXMLQLCVCWidgetID, QString::number(id()));
+
+    /* Page */
+    if (page() != 0)
+        doc->writeAttribute(KXMLQLCVCWidgetPage, QString::number(page()));
+
+    return true;
+}
+
+bool VCWidget::saveXMLAppearance(QXmlStreamWriter *doc)
+{
+    Q_ASSERT(doc != NULL);
+
+    QString str;
+
+    if (hasCustomForegroundColor() == false &&
+        hasCustomBackgroundColor() == false &&
+        //backgroundImage().isEmpty() &&
+        hasCustomFont() == false)
+            return true;
+
+    /* VC widget appearance entry */
+    doc->writeStartElement(KXMLQLCVCWidgetAppearance);
+
+    /* Foreground color */
+    if (hasCustomForegroundColor() == true)
+    {
+        str.setNum(foregroundColor().rgb());
+    //else
+    //    str = KXMLQLCVCWidgetColorDefault;
+        doc->writeTextElement(KXMLQLCVCWidgetForegroundColor, str);
+    }
+
+    /* Background color */
+    if (hasCustomBackgroundColor() == true)
+    {
+        str.setNum(backgroundColor().rgb());
+    //else
+    //    str = KXMLQLCVCWidgetColorDefault;
+        doc->writeTextElement(KXMLQLCVCWidgetBackgroundColor, str);
+    }
+
+#if 0 // TODO
+    /* Background image */
+    if (backgroundImage().isEmpty() == false)
+    {
+        str = m_doc->normalizeComponentPath(m_backgroundImage);
+    //else
+    //    str = KXMLQLCVCWidgetBackgroundImageNone;
+        doc->writeTextElement(KXMLQLCVCWidgetBackgroundImage, str);
+    }
+#endif
+
+    /* Font */
+    if (hasCustomFont() == true)
+    {
+        str = font().toString();
+    //else
+    //    str = KXMLQLCVCWidgetFontDefault;
+        doc->writeTextElement(KXMLQLCVCWidgetFont, str);
+    }
+
+    /* End the <Appearance> tag */
+    doc->writeEndElement();
+
+    return true;
+}
+
+bool VCWidget::saveXMLWindowState(QXmlStreamWriter *doc)
+{
+    Q_ASSERT(doc != NULL);
+
+    QRect r = geometry();
+
+    /* Window state tag */
+    doc->writeStartElement(KXMLQLCWindowState);
+
+    /* Visible status */
+    if (isVisible() == true)
+        doc->writeAttribute(KXMLQLCWindowStateVisible, KXMLQLCTrue);
+    else
+        doc->writeAttribute(KXMLQLCWindowStateVisible, KXMLQLCFalse);
+
+    doc->writeAttribute(KXMLQLCWindowStateX, QString::number(r.x()));
+    doc->writeAttribute(KXMLQLCWindowStateY, QString::number(r.y()));
+    doc->writeAttribute(KXMLQLCWindowStateWidth, QString::number(r.width()));
+    doc->writeAttribute(KXMLQLCWindowStateHeight, QString::number(r.height()));
+
+    doc->writeEndElement();
+
+    return true;
+}
+

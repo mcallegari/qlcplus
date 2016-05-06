@@ -594,4 +594,104 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
     return true;
 }
 
+bool VCFrame::saveXML(QXmlStreamWriter *doc)
+{
+    Q_ASSERT(doc != NULL);
 
+    /* VC Frame entry */
+    doc->writeStartElement(xmlTagName());
+
+    saveXMLCommon(doc);
+
+    /* Save appearance */
+    saveXMLAppearance(doc);
+
+    /* Save widget proportions only for child frames */
+    saveXMLWindowState(doc);
+
+    /* Allow resize */
+    doc->writeTextElement(KXMLQLCVCFrameAllowResize, allowResize() ? KXMLQLCTrue : KXMLQLCFalse);
+
+    /* ShowHeader */
+    doc->writeTextElement(KXMLQLCVCFrameShowHeader, showHeader() ? KXMLQLCTrue : KXMLQLCFalse);
+
+    /* ShowEnableButton */
+    doc->writeTextElement(KXMLQLCVCFrameShowEnableButton, showEnable() ? KXMLQLCTrue : KXMLQLCFalse);
+
+#if 0 // TODO
+    /* Solo frame mixing */
+    if (this->type() == SoloFrameWidget)
+    {
+        if (reinterpret_cast<VCSoloFrame*>(this)->soloframeMixing())
+            doc->writeTextElement(KXMLQLCVCSoloFrameMixing, KXMLQLCTrue);
+        else
+            doc->writeTextElement(KXMLQLCVCSoloFrameMixing, KXMLQLCFalse);
+    }
+#endif
+    /* Collapsed */
+    doc->writeTextElement(KXMLQLCVCFrameIsCollapsed, isCollapsed() ? KXMLQLCTrue : KXMLQLCFalse);
+
+    /* Disabled */
+    doc->writeTextElement(KXMLQLCVCFrameIsDisabled, isDisabled() ? KXMLQLCTrue : KXMLQLCFalse);
+
+#if 0 // TODO
+    /* Enable control */
+    QString keySeq = m_enableKeySequence.toString();
+    QSharedPointer<QLCInputSource> enableSrc = inputSource(enableInputSourceId);
+
+    if (keySeq.isEmpty() == false || (!enableSrc.isNull() && enableSrc->isValid()))
+    {
+        doc->writeStartElement(KXMLQLCVCFrameEnableSource);
+        if (keySeq.isEmpty() == false)
+            doc->writeTextElement(KXMLQLCVCWidgetKey, keySeq);
+        saveXMLInput(doc, enableSrc);
+        doc->writeEndElement();
+    }
+#endif
+    /* Multipage mode */
+    if (multiPageMode() == true)
+    {
+        doc->writeStartElement(KXMLQLCVCFrameMultipage);
+        doc->writeAttribute(KXMLQLCVCFramePagesNumber, QString::number(totalPagesNumber()));
+        doc->writeAttribute(KXMLQLCVCFrameCurrentPage, QString::number(currentPage()));
+        doc->writeEndElement();
+#if 0 // TODO
+        /* Next page */
+        keySeq = m_nextPageKeySequence.toString();
+        QSharedPointer<QLCInputSource> nextSrc = inputSource(nextPageInputSourceId);
+
+        if (keySeq.isEmpty() == false || (!nextSrc.isNull() && nextSrc->isValid()))
+        {
+            doc->writeStartElement(KXMLQLCVCFrameNext);
+            if (keySeq.isEmpty() == false)
+                doc->writeTextElement(KXMLQLCVCWidgetKey, keySeq);
+            saveXMLInput(doc, nextSrc);
+            doc->writeEndElement();
+        }
+
+        /* Previous page */
+        keySeq = m_previousPageKeySequence.toString();
+        QSharedPointer<QLCInputSource> prevSrc = inputSource(previousPageInputSourceId);
+
+        if (keySeq.isEmpty() == false || (!prevSrc.isNull() && prevSrc->isValid()))
+        {
+            doc->writeStartElement(KXMLQLCVCFramePrevious);
+            if (keySeq.isEmpty() == false)
+                doc->writeTextElement(KXMLQLCVCWidgetKey, keySeq);
+            saveXMLInput(doc, prevSrc);
+            doc->writeEndElement();
+        }
+#endif
+        /* Pages Loop */
+        doc->writeTextElement(KXMLQLCVCFramePagesLoop, m_pagesLoop ? KXMLQLCTrue : KXMLQLCFalse);
+    }
+
+    /* Save children */
+    foreach(VCWidget *child, children(false))
+        child->saveXML(doc);
+
+    /* End the <Frame> tag */
+    doc->writeEndElement();
+
+    return true;
+}
