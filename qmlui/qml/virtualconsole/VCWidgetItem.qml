@@ -36,6 +36,12 @@ Rectangle
     property VCWidget wObj: null
     property bool isSelected: false
 
+    onIsSelectedChanged:
+    {
+        if (wObj)
+            wObj.isEditing = isSelected
+    }
+
     function setCommonProperties(obj)
     {
         if (obj === null)

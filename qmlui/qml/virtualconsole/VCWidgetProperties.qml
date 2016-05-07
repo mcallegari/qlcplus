@@ -34,6 +34,7 @@ Rectangle
     property VCWidget wObj
 
     Component.onCompleted: wObj = Qt.binding(function() { return virtualConsole.selectedWidget })
+    Component.onDestruction: virtualConsole.resetWidgetSelection()
 
     onWObjChanged:
     {

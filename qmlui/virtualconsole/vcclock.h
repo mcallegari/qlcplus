@@ -62,6 +62,10 @@ public:
 
 public:
     bool m_canPlay;
+    /** Cached duration in seconds of the attached Function,
+     *  to avoid calculating it every timer tick (1s), which
+     *  might be a waste of resources */
+    int m_cachedDuration;
 
 signals:
     void functionIDChanged();

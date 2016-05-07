@@ -179,6 +179,10 @@ void VCClock::setTargetTime(int ms)
 
 void VCClock::slotTimerTimeout()
 {
+    // if we're editing the widget, then do nothing
+    if (isEditing())
+        return;
+
     QDateTime currDate = QDateTime::currentDateTime();
     QTime currTime = currDate.time();
     int currDay = 1 << (currDate.date().dayOfWeek() - 1);
@@ -186,33 +190,68 @@ void VCClock::slotTimerTimeout()
 
     foreach(VCClockSchedule *sch, m_scheduleList)
     {
-        // check if a Function has to be started
-        if(dayTimeSecs >= sch->startTime() && (sch->stopTime() == -1 || dayTimeSecs < sch->stopTime()))
+        if (sch->m_cachedDuration == -1)
         {
             Function *f = m_doc->function(sch->functionID());
-            if (f == NULL || f->isRunning())
+            if (f != NULL)
+                sch->m_cachedDuration = f->totalDuration() / 1000;
+        }
+
+        /**
+         *  Now, there are a bunch of cases to be checked:
+         *
+         *  1- Function with no duration (e.g. Scene) and no stop time. This case runs indefinitely
+         *  2- Function with duration and no stop time (must loop if repeat flag is high)
+         *  3- Function with no duration and stop time
+         *  4- Function with duration and stop time (must loop until stop time)
+         *
+         *  Each case must be checked against days of the week
+         */
+
+        if(dayTimeSecs >= sch->startTime())
+        {
+            // if there's a stop time and we past it, then skip
+            if (sch->stopTime() > 0 && dayTimeSecs > sch->stopTime())
                 continue;
 
+            // check for existing Function
+            Function *f = m_doc->function(sch->functionID());
+            if (f == NULL)
+                continue;
+
+            // case #3 and #4
+            if (dayTimeSecs == sch->stopTime())
+            {
+                if (f->isRunning())
+                    f->stop(functionParent());
+                continue;
+            }
+
+            // case #2: check for 'one shot' Functions with duration
+            if (sch->stopTime() == -1 && sch->m_cachedDuration > 0)
+            {
+                if (dayTimeSecs >= sch->startTime() + sch->m_cachedDuration)
+                    continue;
+            }
+
             // check for the day of the week, if selected
-            if (sch->weekFlags() == 0 || sch->weekFlags() & currDay)
+            if ((sch->weekFlags() & 0x7F) == 0 || sch->weekFlags() & currDay)
             {
                 // check for repetition
                 if (sch->m_canPlay)
                 {
+                    if (f->isRunning())
+                        continue;
+
                     f->start(m_doc->masterTimer(), functionParent());
                     qDebug() << "VC Clock starting function:" << f->name();
+
+                    // if repetition flag is down, then this Function
+                    // must not be played anymore
                     if ((sch->weekFlags() & 0x80) == 0)
                         sch->m_canPlay = false;
                 }
             }
-        }
-        // check if a Function has to be stopped
-        else if (sch->stopTime() != -1 && dayTimeSecs == sch->stopTime())
-        {
-            Function *f = m_doc->function(sch->functionID());
-            if (f == NULL || f->isRunning() == false)
-                continue;
-            f->stop(functionParent());
         }
     }
 
@@ -393,11 +432,11 @@ bool VCClockSchedule::operator <(const VCClockSchedule &sch) const
 VCClockSchedule::VCClockSchedule(QObject *parent)
     : QObject(parent)
     , m_canPlay(true)
+    , m_cachedDuration(-1)
     , m_id(Function::invalidId())
     , m_startTime(0)
     , m_stopTime(-1)
     , m_weekFlags(0)
-
 {
 }
 

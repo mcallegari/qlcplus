@@ -37,8 +37,10 @@ VCWidget::VCWidget(Doc *doc, QObject *parent)
     , m_hasCustomBackgroundColor(false)
     , m_foregroundColor(QColor(Qt::white))
     , m_hasCustomForegroundColor(false)
+    , m_hasCustomFont(false)
     , m_page(0)
     , m_intensity(1.0)
+    , m_isEditing(false)
 {
     m_font = QFont("RobotoCondensed");
     m_font.setPointSize(10);
@@ -386,6 +388,20 @@ qreal VCWidget::intensity()
 /*********************************************************************
  * QML Properties Component
  *********************************************************************/
+
+bool VCWidget::isEditing() const
+{
+    return m_isEditing;
+}
+
+void VCWidget::setIsEditing(bool edit)
+{
+    if (edit == m_isEditing)
+        return;
+
+    m_isEditing = edit;
+    emit isEditingChanged();
+}
 
 QString VCWidget::propertiesResource() const
 {

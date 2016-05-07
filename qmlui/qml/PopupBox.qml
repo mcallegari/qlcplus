@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  PopupBox.h
+  PopupBox.qml
 
   Copyright (c) Massimo Callegari
 

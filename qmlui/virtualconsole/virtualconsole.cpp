@@ -98,19 +98,37 @@ void VirtualConsole::renderPage(QQuickItem *parent, QQuickItem *contentItem, int
 void VirtualConsole::setWidgetSelection(quint32 wID, QQuickItem *item, bool enable)
 {
     // disable any previously selected widget
-    foreach(QQuickItem *widget, m_itemsMap.values())
-        widget->setProperty("isSelected", false);
-    m_itemsMap.clear();
+    // TODO: handle multiple widgets selection
+    resetWidgetSelection();
 
     if (enable)
     {
         m_itemsMap[wID] = item;
+        if (m_selectedWidget != NULL)
+            m_selectedWidget->setIsEditing(false);
+
         m_selectedWidget = m_widgetsMap[wID];
+
+        if (m_selectedWidget != NULL)
+            m_selectedWidget->setIsEditing(true);
     }
     else
+    {
+        if (m_selectedWidget != NULL)
+            m_selectedWidget->setIsEditing(false);
         m_selectedWidget = NULL;
+    }
 
     emit selectedWidgetChanged(m_selectedWidget);
+}
+
+void VirtualConsole::resetWidgetSelection()
+{
+    foreach(QQuickItem *widget, m_itemsMap.values())
+        widget->setProperty("isSelected", false);
+    m_itemsMap.clear();
+
+    m_selectedWidget = NULL;
 }
 
 /*********************************************************************

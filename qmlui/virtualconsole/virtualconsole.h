@@ -49,6 +49,8 @@ public:
 
     Q_INVOKABLE void setWidgetSelection(quint32 wID, QQuickItem *item, bool enable);
 
+    Q_INVOKABLE void resetWidgetSelection();
+
     /*********************************************************************
      * Contents
      *********************************************************************/
