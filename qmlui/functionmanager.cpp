@@ -129,54 +129,72 @@ quint32 FunctionManager::createFunction(int type)
         {
             f = new Scene(m_doc);
             name = tr("New Scene");
+            m_sceneCount++;
+            emit sceneCountChanged();
         }
         break;
         case Function::Chaser:
         {
             f = new Chaser(m_doc);
             name = tr("New Chaser");
+            m_chaserCount++;
+            emit chaserCountChanged();
         }
         break;
         case Function::EFX:
         {
             f = new EFX(m_doc);
             name = tr("New EFX");
+            m_efxCount++;
+            emit efxCountChanged();
         }
         break;
         case Function::Collection:
         {
             f = new Collection(m_doc);
             name = tr("New Collection");
+            m_collectionCount++;
+            emit collectionCountChanged();
         }
         break;
         case Function::RGBMatrix:
         {
             f = new RGBMatrix(m_doc);
             name = tr("New RGB Matrix");
+            m_rgbMatrixCount++;
+            emit rgbMatrixCountChanged();
         }
         break;
         case Function::Script:
         {
             f = new Script(m_doc);
             name = tr("New Script");
+            m_scriptCount++;
+            emit scriptCountChanged();
         }
         break;
         case Function::Show:
         {
             f = new Show(m_doc);
             name = tr("New Show");
+            m_showCount++;
+            emit showCountChanged();
         }
         break;
         case Function::Audio:
         {
             f = new Audio(m_doc);
             name = tr("New Audio");
+            m_audioCount++;
+            emit audioCountChanged();
         }
         break;
         case Function::Video:
         {
             f = new Video(m_doc);
             name = tr("New Video");
+            m_videoCount++;
+            emit videoCountChanged();
         }
         break;
         default:
