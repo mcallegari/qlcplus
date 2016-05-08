@@ -35,6 +35,8 @@ Rectangle
 
     signal requestView(int ID, string qmlSrc)
 
+    Component.onDestruction: functionManager.setEditorFunction(-1)
+
     onFunctionIDChanged:
     {
         console.log("RGBMatrix ID: " + functionID)

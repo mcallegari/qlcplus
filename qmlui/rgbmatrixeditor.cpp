@@ -30,6 +30,7 @@
 RGBMatrixEditor::RGBMatrixEditor(QQuickView *view, Doc *doc, QObject *parent)
     : FunctionEditor(view, doc, parent)
     , m_matrix(NULL)
+    , m_group(NULL)
     , m_previewTimer(new QTimer(this))
 {
     m_view->rootContext()->setContextProperty("rgbMatrixEditor", this);
@@ -57,8 +58,20 @@ void RGBMatrixEditor::setFunctionID(quint32 id)
         return;
 
     m_group = m_doc->fixtureGroup(m_matrix->fixtureGroup());
+
+    if (m_group == NULL)
+    {
+        if (m_doc->fixtureGroups().count())
+        {
+            m_group = m_doc->fixtureGroups().first();
+            m_matrix->setFixtureGroup(m_group->id());
+        }
+    }
+
     initPreviewData();
     emit previewSizeChanged();
+
+    FunctionEditor::setFunctionID(id);
 }
 
 int RGBMatrixEditor::fixtureGroup() const
