@@ -77,7 +77,7 @@ public:
     Q_INVOKABLE Function *getFunction(quint32 id);
     Q_INVOKABLE void clearTree();
     Q_INVOKABLE void setPreview(bool enable);
-    Q_INVOKABLE void checkPreview(QVariantList idsList);
+    Q_INVOKABLE void selectFunctionID(quint32 fID, bool multiSelection);
     Q_INVOKABLE void setEditorFunction(quint32 fID);
     void deleteFunctions(QVariantList IDList);
 
@@ -154,8 +154,9 @@ private:
 
     /** Flag that hold if Functions preview is enabled or not */
     bool m_previewEnabled;
-    /** List of the Function IDs currently being previewed */
-    QVariantList m_previewList;
+    /** List of the Function IDs currently selected
+     *  and previewed, if preview is enabled */
+    QVariantList m_selectedIDList;
 
     quint32 m_filter;
     int m_sceneCount, m_chaserCount, m_efxCount;

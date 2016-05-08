@@ -96,7 +96,7 @@ Column
             onClicked:
             {
                 isExpanded = !isExpanded
-                isSelected = true
+                //isSelected = true
                 nodeContainer.clicked(-1, nodeContainer, mouse.modifiers)
             }
             onDoubleClicked:
@@ -108,7 +108,6 @@ Column
                 nodeLabel.cursorVisible = true
             }
         }
-
     }
 
     Repeater
@@ -130,9 +129,12 @@ Column
                     onLoaded:
                     {
                         item.textLabel = label
+                        item.isSelected = Qt.binding(function() { return isSelected })
+
                         if (hasChildren)
                         {
                             item.nodePath = nodePath + "/" + path
+                            item.isExpanded = isExpanded
                             item.folderChildren = childrenModel
                             item.nodeIcon = nodeContainer.nodeIcon
                             item.childrenDelegate = childrenDelegate
@@ -147,7 +149,16 @@ Column
                     Connections
                     {
                         target: item
-                        onClicked: nodeContainer.clicked(ID, qItem, mouseMods)
+                        onClicked:
+                        {
+                            if (qItem == item)
+                            {
+                                model.isSelected = (mouseMods & Qt.ControlModifier) ? 2 : 1
+                                if (model.hasChildren)
+                                    model.isExpanded = item.isExpanded
+                            }
+                            nodeContainer.clicked(ID, qItem, mouseMods)
+                        }
                     }
                     Connections
                     {

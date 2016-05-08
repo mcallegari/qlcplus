@@ -83,14 +83,14 @@ QVariant FunctionManager::functionsList()
 
 QVariantList FunctionManager::selectedFunctionsID()
 {
-    return m_previewList;
+    return m_selectedIDList;
 }
 
 QStringList FunctionManager::selectedFunctionsName()
 {
     QStringList names;
 
-    foreach(QVariant fID, m_previewList)
+    foreach(QVariant fID, m_selectedIDList)
     {
         Function *f = m_doc->function(fID.toInt());
         if (f == NULL)
@@ -109,7 +109,7 @@ void FunctionManager::setFunctionFilter(quint32 filter, bool enable)
         m_filter &= ~filter;
 
     updateFunctionsTree();
-    emit selectionCountChanged(m_previewList.count());
+    emit selectionCountChanged(m_selectedIDList.count());
     emit functionsListChanged();
 }
 
@@ -211,7 +211,7 @@ Function *FunctionManager::getFunction(quint32 id)
 void FunctionManager::clearTree()
 {
     setPreview(false);
-    m_previewList.clear();
+    m_selectedIDList.clear();
     m_functionTree->clear();
 }
 
@@ -223,7 +223,7 @@ void FunctionManager::setPreview(bool enable)
     }
     else
     {
-        foreach(QVariant fID, m_previewList)
+        foreach(QVariant fID, m_selectedIDList)
         {
             Function *f = m_doc->function(fID.toUInt());
             if (f != NULL)
@@ -241,20 +241,11 @@ void FunctionManager::setPreview(bool enable)
     m_previewEnabled = enable;
 }
 
-void FunctionManager::checkPreview(QVariantList idsList)
+void FunctionManager::selectFunctionID(quint32 fID, bool multiSelection)
 {
-    qDebug() << Q_FUNC_INFO << "selected items list:" << idsList;
-    QVariantList finalList;
-
-    // merge the two lists and start/stop functions if needed
-    foreach(QVariant fID, m_previewList)
+    if (multiSelection == false)
     {
-        if (idsList.contains(fID))
-        {
-            idsList.removeOne(fID);
-            finalList << fID;
-        }
-        else
+        foreach(QVariant fID, m_selectedIDList)
         {
             if (m_previewEnabled == true)
             {
@@ -263,23 +254,18 @@ void FunctionManager::checkPreview(QVariantList idsList)
                     f->stop(FunctionParent::master());
             }
         }
+        m_selectedIDList.clear();
     }
 
-    // now idsList contains only the "new" Function IDs
-    foreach(QVariant fID, idsList)
+    if (m_previewEnabled == true)
     {
-        if (m_previewEnabled == true)
-        {
-            Function *f = m_doc->function(fID.toUInt());
-            if (f != NULL)
-                f->start(m_doc->masterTimer(), FunctionParent::master());
-        }
-        finalList << fID;
+        Function *f = m_doc->function(fID);
+        if (f != NULL)
+            f->start(m_doc->masterTimer(), FunctionParent::master());
     }
+    m_selectedIDList.append(QVariant(fID));
 
-    m_previewList = finalList;
-
-    emit selectionCountChanged(m_previewList.count());
+    emit selectionCountChanged(m_selectedIDList.count());
 }
 
 void FunctionManager::setEditorFunction(quint32 fID)
@@ -347,20 +333,20 @@ void FunctionManager::deleteFunctions(QVariantList IDList)
         if (f->isRunning())
             f->stop(FunctionParent::master());
 
-        if (m_previewList.contains(fID))
-            m_previewList.removeAll(fID);
+        if (m_selectedIDList.contains(fID))
+            m_selectedIDList.removeAll(fID);
 
         m_doc->deleteFunction(f->id());
     }
 
     updateFunctionsTree();
     emit functionsListChanged();
-    emit selectionCountChanged(m_previewList.count());
+    emit selectionCountChanged(m_selectedIDList.count());
 }
 
 int FunctionManager::selectionCount() const
 {
-    return m_previewList.count();
+    return m_selectedIDList.count();
 }
 
 void FunctionManager::setViewPosition(int viewPosition)
@@ -445,7 +431,7 @@ void FunctionManager::updateFunctionsTree()
     m_collectionCount = m_rgbMatrixCount = m_scriptCount = 0;
     m_showCount = m_audioCount = m_videoCount = 0;
 
-    m_previewList.clear();
+    m_selectedIDList.clear();
     m_functionTree->clear();
     foreach(Function *func, m_doc->functions())
     {

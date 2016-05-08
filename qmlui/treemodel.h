@@ -33,6 +33,8 @@ public:
     enum FixedRoles {
         LabelRole = Qt::UserRole + 1,
         PathRole,
+        IsExpandedRole,
+        IsSelectedRole,
         ItemsCountRole,
         HasChildrenRole,
         ChildrenModel,
@@ -54,7 +56,15 @@ public:
 
     QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
 
+    bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
+
     void printTree(int tab = 0);
+
+signals:
+    void singleSelection(TreeModelItem *item);
+
+protected slots:
+    void setSingleSelection(TreeModelItem *item);
 
 protected:
     int getItemIndex(QString label);

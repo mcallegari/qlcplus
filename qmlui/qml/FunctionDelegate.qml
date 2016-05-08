@@ -38,6 +38,13 @@ Rectangle
     signal toggled
     signal clicked(int ID, var qItem, int mouseMods)
     signal doubleClicked(int ID, int Type)
+    signal destruction(int ID, var qItem)
+
+    Component.onDestruction:
+    {
+        if (cRef)
+            funcDelegate.destruction(cRef.id, funcDelegate)
+    }
 
     Rectangle
     {
@@ -88,7 +95,8 @@ Rectangle
 
         onClicked:
         {
-            isSelected = true
+            // inform the upper layers of the click.
+            // A ModelSelector will be in charge to actually select this item
             funcDelegate.clicked(cRef.id, funcDelegate, mouse.modifiers)
         }
         onDoubleClicked:

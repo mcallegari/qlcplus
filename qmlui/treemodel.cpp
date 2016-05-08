@@ -93,7 +93,13 @@ void TreeModel::addItem(QString label, QVariantList data, QString path)
             item = new TreeModelItem(pathList.at(0));
             item->setPath(pathList.at(0));
             QQmlEngine::setObjectOwnership(item, QQmlEngine::CppOwnership);
-            item->setChildrenColumns(m_roles);
+            if (item->setChildrenColumns(m_roles) == true)
+            {
+                connect(item->children(), SIGNAL(singleSelection(TreeModelItem*)),
+                        this, SLOT(setSingleSelection(TreeModelItem*)));
+                qDebug() << "Tree" << this << "connected to tree" << item->children();
+            }
+
             int addIndex = getFolderIndex(label);
             beginInsertRows(QModelIndex(), addIndex, addIndex);
             m_items.insert(addIndex, item);
@@ -102,11 +108,23 @@ void TreeModel::addItem(QString label, QVariantList data, QString path)
         }
 
         if (pathList.count() == 1)
-            item->addChild(label, data, m_sorting);
+        {
+            if (item->addChild(label, data, m_sorting) == true)
+            {
+                connect(item->children(), SIGNAL(singleSelection(TreeModelItem*)),
+                        this, SLOT(setSingleSelection(TreeModelItem*)));
+                qDebug() << "Tree" << this << "connected to tree" << item->children();
+            }
+        }
         else
         {
             QString newPath = path.mid(path.indexOf("/") + 1);
-            item->addChild(label, data, m_sorting, newPath);
+            if (item->addChild(label, data, m_sorting, newPath) == true)
+            {
+                connect(item->children(), SIGNAL(singleSelection(TreeModelItem*)),
+                        this, SLOT(setSingleSelection(TreeModelItem*)));
+                qDebug() << "Tree" << this << "connected to tree" << item->children();
+            }
         }
     }
 }
@@ -123,19 +141,110 @@ QVariant TreeModel::data(const QModelIndex &index, int role) const
         return QVariant();
 
     int itemRow = index.row();
+    if (itemRow < 0 || itemRow >= m_items.count())
+        return false;
 
-    if (role == LabelRole)
-        return m_items.at(itemRow)->label();
-    else if (role == PathRole)
-        return m_items.at(itemRow)->path();
-    else if (role == ItemsCountRole)
-        return m_items.count();
-    else if (role == HasChildrenRole)
-        return m_items.at(itemRow)->hasChildren();
-    else if (role == ChildrenModel)
-        return QVariant::fromValue(m_items.at(itemRow)->children());
+    TreeModelItem *item = m_items.at(itemRow);
 
-    return m_items.at(index.row())->data(role - FixedRolesEnd);
+    switch(role)
+    {
+        case LabelRole:
+            return item->label();
+        case PathRole:
+            return item->path();
+        case IsExpandedRole:
+            return item->isExpanded();
+        case IsSelectedRole:
+            return item->isSelected();
+        case ItemsCountRole:
+            return m_items.count();
+        case HasChildrenRole:
+            return item->hasChildren();
+        case ChildrenModel:
+            return QVariant::fromValue(item->children());
+        default:
+            return m_items.at(index.row())->data(role - FixedRolesEnd);
+    }
+}
+
+bool TreeModel::setData(const QModelIndex &index, const QVariant &value, int role)
+{
+    if (index.row() < 0 || index.row() >= m_items.count())
+        return false;
+
+    int itemRow = index.row();
+    if (itemRow < 0 || itemRow >= m_items.count())
+        return false;
+
+    TreeModelItem *item = m_items.at(itemRow);
+
+    switch(role)
+    {
+        case LabelRole:
+            item->setLabel(value.toString());
+        break;
+        case PathRole:
+            item->setPath(value.toString());
+        break;
+        case IsExpandedRole:
+            item->setExpanded(value.toBool());
+        break;
+        case IsSelectedRole:
+        {
+            if (value.toInt() > 0)
+            {
+                item->setSelected(true);
+                emit dataChanged(index, index, QVector<int>(1, role));
+                if (value.toInt() == 1)
+                {
+                    setSingleSelection(item);
+                    emit singleSelection(item);
+                }
+            }
+            else
+                item->setSelected(false);
+        }
+        break;
+        default:
+            return false;
+        break;
+    }
+
+    return true;
+}
+
+void TreeModel::setSingleSelection(TreeModelItem *item)
+{
+    bool parentSignalSent = false;
+    qDebug() << "Set single selection" << this;
+    for (int i = 0; i < m_items.count(); i++)
+    {
+        TreeModelItem *target = m_items.at(i);
+
+        if (target != item)
+        {
+            QModelIndex index = createIndex(i, 0, &i);
+            target->setSelected(false);
+            emit dataChanged(index, index, QVector<int>(1, IsSelectedRole));
+        }
+
+        if (target->hasChildren())
+        {
+            // if this slot has been called from self or a parent node,
+            // then walk down the children path
+            if (sender() != target->children())
+                target->children()->setSingleSelection(item);
+
+            // if this slot has been called from a lower node,
+            // then notify any upper node listening
+            if (sender() == target->children() && sender() != this && parentSignalSent == false)
+            {
+                parentSignalSent = true;
+                emit singleSelection(item);
+            }
+        }
+    }
+
 }
 
 void TreeModel::printTree(int tab)
@@ -191,6 +300,15 @@ QHash<int, QByteArray> TreeModel::roleNames() const
     QHash<int, QByteArray> roles;
     roles[LabelRole] = "label";
     roles[PathRole] = "path";
+    roles[IsExpandedRole] = "isExpanded";
+    // The isSelected role is tricky.
+    // It always returns true/false through the data() method but
+    // to set it via setData(), an integer has to be passed, to distinguish
+    // between 3 cases:
+    // 0: item de-selection
+    // 1: item single (exclusive) selection
+    // 2: item multiple selection (when Ctrl-click an item)
+    roles[IsSelectedRole] = "isSelected";
     roles[ItemsCountRole] = "itemsCount";
     roles[HasChildrenRole] = "hasChildren";
     roles[ChildrenModel] = "childrenModel";

@@ -40,7 +40,19 @@ public:
     ModelSelector(QObject *parent = 0);
     ~ModelSelector();
 
+    /** Add an entry to the selected items list.
+     *  If $multiSelection is false, every previous item in the list will be
+     *  deselected. */
     Q_INVOKABLE void selectItem(quint32 id, QQuickItem *item, bool multiSelection);
+
+    /** Restore the item pointer of an entry previously added to the selected
+     *  items list. This is needed cause QML ListView destroys invisible items */
+    Q_INVOKABLE void validateItem(quint32 id, QQuickItem *item);
+
+    /** Invalidate the pointer of m_item in the selected items list.
+     *  This is needed cause QML ListView destroys invisible items */
+    Q_INVOKABLE void invalidateItem(QQuickItem *item);
+
     Q_INVOKABLE QVariantList itemsList();
     Q_INVOKABLE void resetSelection();
 

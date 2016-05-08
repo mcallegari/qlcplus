@@ -72,28 +72,6 @@ Rectangle
             functionManager.setFunctionFilter(fType, false);
     }
 
-    ModelSelector
-    {
-        id: fmSelector
-
-        // this is here to monitor the changes coming from the Function Manager
-        // For example, changin the functions filter or deleting function
-        // can lead the ModelSelector out of sync, so here's an extra check
-        property int selectionCount: functionManager.selectionCount
-
-        onSelectionCountChanged:
-        {
-            if (selectionCount == 0)
-                fmSelector.resetSelection()
-        }
-
-        onItemsCountChanged:
-        {
-            console.log("Function Manager selected items changed !")
-            functionManager.checkPreview(fmSelector.itemsList())
-        }
-    }
-
     ColumnLayout
     {
       anchors.fill: parent
@@ -259,13 +237,17 @@ Rectangle
                   {
                       width: parent.width
                       source: hasChildren ? "qrc:/TreeNodeDelegate.qml" : "qrc:/FunctionDelegate.qml"
+
                       onLoaded:
                       {
                           item.textLabel = label
+                          item.isSelected = Qt.binding(function() { return isSelected })
+
                           if (hasChildren)
                           {
                               console.log("Item path: " + path + ",label: " + label)
                               item.nodePath = path
+                              item.isExpanded = isExpanded
                               item.folderChildren = childrenModel
                           }
                           else
@@ -282,7 +264,16 @@ Rectangle
                       Connections
                       {
                           target: item
-                          onClicked: fmSelector.selectItem(ID, qItem, mouseMods & Qt.ControlModifier)
+                          onClicked:
+                          {
+                              if (qItem == item)
+                              {
+                                  model.isSelected = (mouseMods & Qt.ControlModifier) ? 2 : 1
+                                  if (model.hasChildren)
+                                      model.isExpanded = item.isExpanded
+                              }
+                              functionManager.selectFunctionID(ID, mouseMods & Qt.ControlModifier)
+                          }
                       }
                       Connections
                       {

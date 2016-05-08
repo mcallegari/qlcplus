@@ -24,7 +24,6 @@ ModelSelector::ModelSelector(QObject *parent)
     , m_nodesCount(0)
     , m_itemsCount(0)
 {
-
 }
 
 ModelSelector::~ModelSelector()
@@ -34,10 +33,14 @@ ModelSelector::~ModelSelector()
 
 void ModelSelector::selectItem(quint32 id, QQuickItem *item, bool multiSelection)
 {
+    qDebug() << "select item with ID:" << id;
     if (multiSelection == false)
     {
         foreach(selectedItem sf, m_selectedItems)
-            sf.m_item->setProperty("isSelected", false);
+        {
+            if (sf.m_item != NULL)
+                sf.m_item->setProperty("isSelected", false);
+        }
 
         m_selectedItems.clear();
         m_nodesCount = 0;
@@ -58,6 +61,37 @@ void ModelSelector::selectItem(quint32 id, QQuickItem *item, bool multiSelection
     {
         m_itemsCount++;
         emit itemsCountChanged(m_itemsCount);
+    }
+}
+
+void ModelSelector::validateItem(quint32 id, QQuickItem *item)
+{
+    qDebug() << "validate item with ID:" << id;
+    for (int i = 0; i < m_selectedItems.count(); i++)
+    {
+        if(m_selectedItems.at(i).m_ID == id)
+        {
+            m_selectedItems[i].m_item = item;
+            return;
+        }
+    }
+
+    // if we're here, it means the entry doesn't exist, so create it
+    selectedItem si;
+    si.m_ID = id;
+    si.m_item = item;
+    m_selectedItems.append(si);
+}
+
+void ModelSelector::invalidateItem(QQuickItem *item)
+{
+    for (int i = 0; i < m_selectedItems.count(); i++)
+    {
+        if(m_selectedItems.at(i).m_item == item)
+        {
+            m_selectedItems[i].m_item = NULL;
+            return;
+        }
     }
 }
 
