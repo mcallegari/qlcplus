@@ -33,6 +33,8 @@
 #define KXMLQLCVCButtonActionBlackout "Blackout"
 #define KXMLQLCVCButtonActionStopAll "StopAll"
 
+#define KXMLQLCVCButtonStopAllFadeTime "FadeOut"
+
 #define KXMLQLCVCButtonIntensity "Intensity"
 #define KXMLQLCVCButtonIntensityAdjust "Adjust"
 
@@ -146,11 +148,17 @@ public:
     static QString actionToString(ButtonAction action);
     static ButtonAction stringToAction(const QString& str);
 
+    void setStopAllFadeOutTime(int ms);
+    int stopAllFadeTime();
+
 signals:
     void actionTypeChanged(ButtonAction actionType);
 
 protected:
     ButtonAction m_actionType;
+    /** if button action is StopAll, this indicates the time
+     *  in milliseconds of fadeout before stopping */
+    int m_blackoutFadeOutTime;
 
     /*********************************************************************
      * Startup intensity adjustment
@@ -188,7 +196,7 @@ protected:
 
 public:
     bool loadXML(QXmlStreamReader &root);
-    //bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter *doc);
 };
 
 #endif

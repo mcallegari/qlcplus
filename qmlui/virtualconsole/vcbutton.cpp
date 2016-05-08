@@ -308,6 +308,17 @@ VCButton::ButtonAction VCButton::stringToAction(const QString& str)
         return Toggle;
 }
 
+void VCButton::setStopAllFadeOutTime(int ms)
+{
+    m_blackoutFadeOutTime = ms;
+}
+
+int VCButton::stopAllFadeTime()
+{
+    return m_blackoutFadeOutTime;
+}
+
+
 /*****************************************************************************
  * Intensity adjustment
  *****************************************************************************/
@@ -392,8 +403,57 @@ bool VCButton::loadXML(QXmlStreamReader &root)
         }
     }
 
-    /* All buttons start raised... */
-    //setOn(false);
+    return true;
+}
+
+bool VCButton::saveXML(QXmlStreamWriter *doc)
+{
+    Q_ASSERT(doc != NULL);
+
+    /* VC button entry */
+    doc->writeStartElement(KXMLQLCVCButton);
+
+    saveXMLCommon(doc);
+
+    /* Window state */
+    saveXMLWindowState(doc);
+
+    /* Appearance */
+    saveXMLAppearance(doc);
+
+    /* Function */
+    doc->writeStartElement(KXMLQLCVCButtonFunction);
+    doc->writeAttribute(KXMLQLCVCButtonFunctionID, QString::number(functionID()));
+    doc->writeEndElement();
+
+    /* Action */
+    doc->writeStartElement(KXMLQLCVCButtonAction);
+
+    if (actionType() == StopAll && stopAllFadeTime() != 0)
+        doc->writeAttribute(KXMLQLCVCButtonStopAllFadeTime, QString::number(stopAllFadeTime()));
+
+    doc->writeCharacters(actionToString(actionType()));
+    doc->writeEndElement();
+
+#if 0 // TODO
+    /* Key sequence */
+    if (m_keySequence.isEmpty() == false)
+        doc->writeTextElement(KXMLQLCVCButtonKey, m_keySequence.toString());
+#endif
+    /* Intensity adjustment */
+    doc->writeStartElement(KXMLQLCVCButtonIntensity);
+    doc->writeAttribute(KXMLQLCVCButtonIntensityAdjust,
+                     isStartupIntensityEnabled() ? KXMLQLCTrue : KXMLQLCFalse);
+    doc->writeCharacters(QString::number(int(startupIntensity() * 100)));
+    doc->writeEndElement();
+
+#if 0 // TODO
+    /* External input */
+    saveXMLInput(doc);
+#endif
+
+    /* End the <Button> tag */
+    doc->writeEndElement();
 
     return true;
 }
