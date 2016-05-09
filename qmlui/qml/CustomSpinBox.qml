@@ -25,7 +25,7 @@ import "."
 SpinBox
 {
     id: spinbox
-    font.family: "RobotoCondensed"
+    font.family: "Roboto Condensed"
     font.pointSize: 14
     width: 70
     implicitHeight: 30

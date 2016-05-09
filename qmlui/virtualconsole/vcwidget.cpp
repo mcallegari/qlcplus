@@ -42,7 +42,7 @@ VCWidget::VCWidget(Doc *doc, QObject *parent)
     , m_intensity(1.0)
     , m_isEditing(false)
 {
-    m_font = QFont("RobotoCondensed");
+    m_font = QFont("Roboto Condensed");
     m_font.setPointSize(10);
 }
 
@@ -339,7 +339,7 @@ bool VCWidget::hasCustomFont() const
 
 void VCWidget::resetFont()
 {
-    m_font = QFont("RobotoCondensed");
+    m_font = QFont("Roboto Condensed");
     m_font.setPointSize(16);
     m_hasCustomFont = false;
     setDocModified();

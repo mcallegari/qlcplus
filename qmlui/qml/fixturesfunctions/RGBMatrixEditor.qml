@@ -85,7 +85,7 @@ Rectangle
             clip: true
             text: matrix ? matrix.name : ""
             verticalAlignment: TextInput.AlignVCenter
-            font.family: "RobotoCondensed"
+            font.family: "Roboto Condensed"
             font.pixelSize: 20
             selectByMouse: true
             Layout.fillWidth: true

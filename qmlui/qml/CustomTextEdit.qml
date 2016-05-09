@@ -55,7 +55,7 @@ Rectangle
         selectionColor: UISettings.highlightPressed
         clip: true
         horizontalAlignment: textAlignment
-        font.family: "RobotoCondensed"
+        font.family: "Roboto Condensed"
         font.pointSize: fontSize
         selectByMouse: true
 

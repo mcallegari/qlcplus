@@ -73,7 +73,7 @@ Column
             text: textLabel
             verticalAlignment: TextInput.AlignVCenter
             color: UISettings.fgMain
-            font.family: "RobotoCondensed"
+            font.family: "Roboto Condensed"
             font.pointSize: 12
             echoMode: TextInput.Normal
             selectByMouse: true
