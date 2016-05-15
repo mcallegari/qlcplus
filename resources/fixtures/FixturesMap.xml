@@ -204,6 +204,7 @@
   <fixture path="Chauvet-Legend-230SR-Beam.qxf" mf="Chauvet" md="Legend 230SR Beam"/>
   <fixture path="Chauvet-Legend-412Z.qxf" mf="Chauvet" md="Legend 412Z"/>
   <fixture path="Chauvet-Mayhem.qxf" mf="Chauvet" md="Mayhem"/>
+  <fixture path="Chauvet-Mini-Kinta.qxf" mf="Chauvet" md="Mini Kinta"/>
   <fixture path="Chauvet-Omega-I-DMX-155.qxf" mf="Chauvet" md="Omega I DMX-155"/>
   <fixture path="Chauvet-Ovation-FD-165WW.qxf" mf="Chauvet" md="Ovation FD-165WW"/>
   <fixture path="Chauvet-Q-Beam-260-LED.qxf" mf="Chauvet" md="Q-Beam 260-LED"/>
@@ -258,6 +259,7 @@
   <fixture path="Coemar-Par-Lite-LED-RGB.qxf" mf="Coemar" md="Par Lite LED RGB"/>
   <fixture path="Coemar-ProWash-250-LX.qxf" mf="Coemar" md="ProWash 250 LX"/>
   <fixture path="Coemar-Stage-Lite-LED.qxf" mf="Coemar" md="Stage Lite LED"/>
+  <fixture path="Color-Imagination-LedSpot-90-(SI-052).qxf" mf="Color Imagination" md="LedSpot 90 (SI-052)"/>
   <fixture path="Contest-Evora-Beam-15R.qxf" mf="Contest" md="Evora Beam 15R"/>
   <fixture path="Contest-Evora-Beam-5R.qxf" mf="Contest" md="Evora Beam 5R"/>
   <fixture path="Contest-Evora-DUO-B2R.qxf" mf="Contest" md="Evora DUO B2R"/>
@@ -297,6 +299,7 @@
   <fixture path="Eurolite-LED-Flood-Light-252-RGB-19.qxf" mf="Eurolite" md="LED Flood Light 252 RGB 19°"/>
   <fixture path="Eurolite-LED-KLS-401.qxf" mf="Eurolite" md="LED KLS-401"/>
   <fixture path="Eurolite-LED-KLS-Laser-Bar-FX-Light-Set.qxf" mf="Eurolite" md="LED KLS Laser Bar FX Light Set"/>
+  <fixture path="Eurolite-LED-ML-56-QCL-RGBW-RGBA-18x8W.qxf" mf="Eurolite" md="LED ML-56 QCL RGBW-RGBA 18x8W"/>
   <fixture path="Eurolite-LED-PAR-56-RGB-DMX.qxf" mf="Eurolite" md="LED PAR 56 RGB DMX"/>
   <fixture path="Eurolite-LED-PAR-64-RGBW+UV.qxf" mf="Eurolite" md="LED PAR-64 RGBW+UV"/>
   <fixture path="Eurolite-LED-PAR56.qxf" mf="Eurolite" md="LED PAR56"/>
@@ -400,6 +403,7 @@
   <fixture path="Griven-Kolorado-2500.qxf" mf="Griven" md="Kolorado 2500"/>
   <fixture path="High-End-Systems-Studio-Command-1200.qxf" mf="High End Systems" md="Studio Command 1200"/>
   <fixture path="High-End-Systems-Technobeam.qxf" mf="High End Systems" md="Technobeam"/>
+  <fixture path="High-End-Systems-TechnoSpot.qxf" mf="High End Systems" md="TechnoSpot"/>
   <fixture path="High-End-Systems-Trackspot.qxf" mf="High End Systems" md="Trackspot"/>
   <fixture path="High-End-Systems-Xspot-Xtreme.qxf" mf="High End Systems" md="Xspot Xtreme"/>
   <fixture path="HQ-Power-Power-Space-250.qxf" mf="HQ Power" md="Power Space 250"/>
@@ -581,6 +585,7 @@
   <fixture path="Robe-Robin-600E-Wash.qxf" mf="Robe" md="Robin 600E Wash"/>
   <fixture path="Robe-Robin-MiniMe.qxf" mf="Robe" md="Robin MiniMe"/>
   <fixture path="Robe-Scan-575-XT.qxf" mf="Robe" md="Scan 575 XT"/>
+  <fixture path="Robe-Spot-575-XT.qxf" mf="Robe" md="Spot 575 XT"/>
   <fixture path="Robe-Wash-575-XT.qxf" mf="Robe" md="Wash 575 XT"/>
   <fixture path="Robe_ColorMix_240_AT.qxf" mf="Robe" md="ColorMix 240 AT"/>
   <fixture path="Rosco-I-Cue.qxf" mf="Rosco" md="I-Cue"/>
@@ -598,7 +603,7 @@
   <fixture path="SGM-Victory-250.qxf" mf="SGM" md="Victory 250"/>
   <fixture path="SGM-Victory-II-250.qxf" mf="SGM" md="Victory II 250"/>
   <fixture path="SGM-Victory-II-Pro150.qxf" mf="SGM" md="Victory II Pro150"/>
-  <fixture path="Showlite-Flood-Light-Panel-144x10mm-LED-RGBW.qxf" mf="Showlite" md="FLP 144W RGBW"/>
+  <fixture path="Showlite-Flood-Light-Panel-144x10mm-LED-RGBW.qxf" mf="Showlite" md="Flood Light Panel 144x10mm LED RGBW"/>
   <fixture path="Showtec-Acrobat.qxf" mf="Showtec" md="Acrobat"/>
   <fixture path="Showtec-Atmos-F-350.qxf" mf="Showtec" md="Atmos F-350"/>
   <fixture path="Showtec-Blade-Runner.qxf" mf="Showtec" md="Blade Runner"/>
