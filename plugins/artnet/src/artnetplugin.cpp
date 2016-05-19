@@ -20,9 +20,16 @@
 #include "artnetplugin.h"
 #include "configureartnet.h"
 
-#include <QSettings>
 #include <QDebug>
-#include <QMessageBox>
+
+#if defined(WIN32) || defined(Q_OS_WIN)
+#include <windows.h>
+#else
+#include <unistd.h>
+#define Sleep(x) usleep((x)*1000)
+#endif
+
+#define MAX_INIT_RETRY  10
 
 ArtNetPlugin::~ArtNetPlugin()
 {
@@ -88,6 +95,22 @@ QString ArtNetPlugin::pluginInfo()
     return str;
 }
 
+bool ArtNetPlugin::requestLine(quint32 line, int retries)
+{
+    int retryCount = 0;
+
+    while (line >= (quint32)m_IOmapping.length())
+    {
+        qDebug() << "[ArtNet] cannot open line" << line << "(available:" << m_IOmapping.length() << ")";
+        Sleep(1000);
+        init();
+        if (retryCount++ == retries)
+            return false;
+    }
+
+    return true;
+}
+
 /*********************************************************************
  * Outputs
  *********************************************************************/
@@ -146,9 +169,7 @@ QString ArtNetPlugin::outputInfo(quint32 output)
 
 bool ArtNetPlugin::openOutput(quint32 output, quint32 universe)
 {
-    init();
-
-    if (output >= (quint32)m_IOmapping.length())
+    if (requestLine(output, MAX_INIT_RETRY) == false)
         return false;
 
     qDebug() << "[ArtNet] Open output on address :" << m_IOmapping.at(output).address.ip().toString();
@@ -219,9 +240,7 @@ QStringList ArtNetPlugin::inputs()
 
 bool ArtNetPlugin::openInput(quint32 input, quint32 universe)
 {
-    init();
-
-    if (input >= (quint32)m_IOmapping.length())
+    if (requestLine(input, MAX_INIT_RETRY) == false)
         return false;
 
     // if the controller doesn't exist, create it.

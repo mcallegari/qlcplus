@@ -69,6 +69,9 @@ public:
     /** @reimp */
     QString pluginInfo();
 
+private:
+    bool requestLine(quint32 line, int retries);
+
     /*********************************************************************
      * Outputs
      *********************************************************************/

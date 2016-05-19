@@ -23,6 +23,15 @@
 #include <QSettings>
 #include <QDebug>
 
+#if defined(WIN32) || defined(Q_OS_WIN)
+#include <windows.h>
+#else
+#include <unistd.h>
+#define Sleep(x) usleep((x)*1000)
+#endif
+
+#define MAX_INIT_RETRY  10
+
 E131Plugin::~E131Plugin()
 {
 }
@@ -87,6 +96,22 @@ QString E131Plugin::pluginInfo()
     return str;
 }
 
+bool E131Plugin::requestLine(quint32 line, int retries)
+{
+    int retryCount = 0;
+
+    while (line >= (quint32)m_IOmapping.length())
+    {
+        qDebug() << "[E1.31] cannot open line" << line << "(available:" << m_IOmapping.length() << ")";
+        Sleep(1000);
+        init();
+        if (retryCount++ == retries)
+            return false;
+    }
+
+    return true;
+}
+
 /*********************************************************************
  * Outputs
  *********************************************************************/
@@ -133,9 +158,7 @@ QString E131Plugin::outputInfo(quint32 output)
 
 bool E131Plugin::openOutput(quint32 output, quint32 universe)
 {
-    init();
-
-    if (output >= (quint32)m_IOmapping.length())
+    if (requestLine(output, MAX_INIT_RETRY) == false)
         return false;
 
     qDebug() << "[E1.31] Open output with address :" << m_IOmapping.at(output).address.ip().toString();
@@ -205,7 +228,7 @@ QStringList E131Plugin::inputs()
 
 bool E131Plugin::openInput(quint32 input, quint32 universe)
 {
-    if (input >= (quint32)m_IOmapping.length())
+    if (requestLine(input, MAX_INIT_RETRY) == false)
         return false;
 
     qDebug() << "[E1.31] Open input with address :" << m_IOmapping.at(input).address.ip().toString();
