@@ -31,6 +31,9 @@ typedef struct
     QString address;
     QString netmask;
     QString gateway;
+    QString dns1;
+    QString dns2;
+    QString wpaConfFile;
     QString ssid;
     QString wpaPass;
 } InterfaceInfo;
@@ -47,11 +50,16 @@ public:
     QString getHTML();
 
     bool updateNetworkFile(QStringList cmdList);
+
 protected:
+    void parseWPAConfFile(InterfaceInfo *iface);
     bool writeNetworkFile();
+    QString netmaskToString(int mask);
+    int stringToNetmask(QString mask);
 
 protected:
     QList<InterfaceInfo>m_interfaces;
+    QStringList m_dhcpcdConfCache;
 };
 
 #endif // WEBACCESSNETWORK_H
