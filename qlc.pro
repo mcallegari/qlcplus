@@ -2,8 +2,7 @@ include(variables.pri)
 
 TEMPLATE = subdirs
 
-android: CONFIG += qmlui
-ios: CONFIG += qmlui
+android|ios: CONFIG += qmlui
 
 SUBDIRS      += hotplugmonitor
 SUBDIRS      += engine
