@@ -12,7 +12,7 @@ install:
     - pacman --noconfirm -Sy
     - pacman --noconfirm --needed -S pacman-mirrors
     - pacman --noconfirm -Sy
-    - pacman -S make automake autoconf libtool mingw32/mingw-w64-i686-gcc mingw32/mingw-w64-i686-pkg-config mingw32/mingw-w64-i686-tools
+    - pacman --noconfirm --needed -S make automake autoconf libtool mingw32/mingw-w64-i686-gcc mingw32/mingw-w64-i686-pkg-config mingw32/mingw-w64-i686-tools
     - pacman --noconfirm --needed -S mingw32/mingw-w64-i686-qt5 mingw32/mingw-w64-i686-libmad mingw32/mingw-w64-i686-libsndfile mingw32/mingw-w64-i686-flac mingw32/mingw-w64-i686-fftw
 
 build_script:
