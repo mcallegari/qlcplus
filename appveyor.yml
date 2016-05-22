@@ -23,8 +23,11 @@ build_script:
           exec 0</dev/null 2>&1
           export
           gcc -v
+          # disable the test units, since we won't run them
+          sed -i -e 's/  SUBDIRS += test/#SUBDIRS += test/g' engine/engine.pro
+          sed -i -e 's/SUBDIRS += test/#SUBDIRS += test/g' ui/ui.pro
           qmake FORCECONFIG=release
-          make
+          make -j4
           make install
         "@
 
