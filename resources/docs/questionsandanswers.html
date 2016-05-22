@@ -64,23 +64,16 @@ Here you can either find the answer directly or find help to point you in the ri
  <TR>
   <TD><SPAN>4</SPAN></TD>
   <TD><SPAN id="osx-mavericks">Q:</SPAN></TD>
-  <TD>I just upgraded my Mac to OSX Mavericks (or later) and my USB DMX adapter doesn't work anymore.</TD>
+  <TD>I just upgraded my Mac to OSX Mavericks (or later) and my USB DMX adapter doesn't transmit any data.</TD>
  </TR>
  <TR>
   <TD></TD>
   <TD><SPAN>A:</SPAN></TD>
-  <TD>The problem is in a Apple driver called AppleUSBFTDI, which takes control of every FTDI based device detected in the system.<br>
-      There are three ways to solve the problem, but basically the result is the same: the Apple driver must be disabled.<br><br>
-      <B>1.</B> Temporarily disable the Apple driver by entering this command on a terminal:
-      <PRE>
-      sudo kextunload -b com.apple.driver.AppleUSBFTDI</PRE>
-      <B>2.</B> Permamently disable the Apple driver by entering the following commands on a terminal:
-      <PRE>
-      cd /System/Library/Extensions/IOUSBFamily.kext/Contents/PlugIns
-      sudo mv AppleUSBFTDI.kext AppleUSBFTDI.disabled
-      sudo touch /System/Library/Extensions</PRE>
-      <B>3.</B> You can download the <A HREF="http://www.dmxis.com/release/FtdiDriverControl.zip">ENTTEC FTDI Driver Control tool</A>
-      to enable/disable the Apple driver.<BR><BR>
+  <TD>The problem is in an Apple driver called AppleUSBFTDI, which takes control of every FTDI based device detected in the system.<br>
+      There are a few ways to solve the problem, but basically the result is the same: the Apple driver must be disabled.<br><br>
+      Please check the dedicated page to understand how to <a href="disable_apple_ftdi_driver.html">disable the Apple FTDI driver</A><br>
+      Otherwise, you can download the <A HREF="http://www.dmxis.com/release/FtdiDriverControl.zip">ENTTEC FTDI Driver Control tool</A>
+      and try to enable/disable the Apple driver with it.<BR><BR>
 
       <B>Note 1: this can compromise the behaviour of other USB devices, so do it only 
       if you know what you're doing! </B><br>
@@ -109,6 +102,27 @@ Here you can either find the answer directly or find help to point you in the ri
       cd $HOME/Library/Application\ Support/QLC+</PRE>
       Please keep in mind that fixures and input profiles found in the user folder will have precedence
       over the same files in the QLC+ system folder.<br>
+  </TD>
+ </TR>  
+</TABLE>
+<BR>
+<TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD><SPAN>6</SPAN></TD>
+  <TD><SPAN id="system-folder">Q:</SPAN></TD>
+  <TD>Where is the QLC+ system folder located in my system ?</TD>
+ </TR>
+ <TR>
+  <TD></TD>
+  <TD><SPAN>A:</SPAN></TD>
+  <TD>The system folder is where QLC+ resources (fixtures, input profiles, RGB scripts, etc) are installed 
+      and it changes depending on your operating system:<br>
+      <B>Linux</B>: it's a fixed folder named /usr/share/qlcplus<br>
+      <B>Windows</B>: it is the folder where you actually installed QLC+. By default: C:\QLC+<br>
+      <B>OSX</B>: it is a folder inside the QLC+ bundle (.app file). It is possible to browse the QLC+.app bundle contents simply with Finder. 
+      Just right click on the file and select "Show Package Contents".<br>
+      Otherwise, the system folder can be reached with a terminal but it depends on where you installed QLC+.<br>
+      For example if you dragged QLC+ into Applications it will be: /Applications/QLC+.app/Contents/Resources
   </TD>
  </TR>  
 </TABLE>

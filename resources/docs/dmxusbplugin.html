@@ -67,15 +67,7 @@ interface. Installing the D2XX drivers should cause no harm, but <B>DO NOT INSTA
 with QLC+. If you have previously installed the VCP drivers, consult the
 <A HREF="http://www.ftdichip.com/Support/Documents/InstallGuides.htm">FTDI installation guides</A> on how to uninstall them.<br>
 <br>
-<B>OSX Mavericks issues</B>: The problem is in a new Apple USB driver. The procedure to disable it follows below.<br>
-<B>Please note that this can compromise the behaviour of other USB devices, so do it only 
-if you know what you're doing! </B><br>
-From a terminal type the following commands:<br>
-<PRE>
-cd /System/Library/Extensions/IOUSBFamily.kext/Contents/PlugIns
-sudo mv AppleUSBFTDI.kext AppleUSBFTDI.disabled
-sudo touch /System/Library/Extensions
-</PRE>
+<B>OSX Mavericks (or later) issues</B>: please check <a href="questionsandanswers.html#osx-mavericks">Questions &amp; answers #4</A>
 </P>
 
 <H2>3.3 Windows</H2>
