@@ -1,6 +1,6 @@
 environment:
     MSYSTEM: MSYS
-    PATH: "C:\msys64\usr\bin;C:\msys64\mingw32\bin;C:\Windows\System32;C:\Windows;%PATH%"
+    PATH: C:\msys64\usr\bin;C:\msys64\mingw32\bin;C:\Windows\System32;C:\Windows;%PATH%
 
 install:
     - pacman --noconfirm -Sy
