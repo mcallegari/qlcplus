@@ -1,6 +1,7 @@
 environment:
     MSYSTEM: MSYS
-    PATH: C:\msys64\usr\bin;C:\msys64\mingw32\bin;C:\Windows\System32;C:\Windows;%PATH%
+    PATH: C:\msys64\mingw32\bin;C:\msys64\usr\bin;C:\Windows\System32;C:\Windows;%PATH%
+    QMAKESPEC: win32-g++
 
 platform:
   - x86
@@ -12,7 +13,6 @@ install:
     - pacman --noconfirm -Sy
     - pacman --noconfirm --needed -S pacman-mirrors
     - pacman --noconfirm -Sy
-    - pacman --noconfirm --needed -S make automake autoconf libtool mingw32/mingw-w64-i686-gcc mingw32/mingw-w64-i686-pkg-config mingw32/mingw-w64-i686-tools
     - pacman --noconfirm --needed -S mingw32/mingw-w64-i686-qt5 mingw32/mingw-w64-i686-libmad mingw32/mingw-w64-i686-libsndfile mingw32/mingw-w64-i686-flac mingw32/mingw-w64-i686-fftw
 
 build_script:
@@ -21,10 +21,11 @@ build_script:
           set -e
           # stdin seems to be invalid on appveyor, so set it to null
           exec 0</dev/null 2>&1
+          export
           gcc -v
           qmake
-          make
-          make install
+          mingw32-make
+          mingw32-make install
         "@
 
 
