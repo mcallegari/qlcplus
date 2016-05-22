@@ -21,8 +21,7 @@ build_script:
           set -e
           # stdin seems to be invalid on appveyor, so set it to null
           exec 0</dev/null 2>&1
-          which make
-          which g++
+          gcc -v
           qmake
           make
           make install

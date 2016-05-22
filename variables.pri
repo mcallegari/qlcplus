@@ -53,6 +53,7 @@ win32:DESTDIR  = ./
 
 # Don't whine about some imports
 win32:QMAKE_LFLAGS += -Wl,--enable-auto-import
+win32:QMAKE_CXXFLAGS += -m32
 
 # Enable unit test coverage measurement ('qmake CONFIG+=coverage' works, too)
 #CONFIG        += coverage
