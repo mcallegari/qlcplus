@@ -23,7 +23,7 @@ build_script:
           exec 0</dev/null 2>&1
           export
           gcc -v
-          qmake
+          qmake FORCECONFIG=release
           mingw32-make
           mingw32-make install
         "@
