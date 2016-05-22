@@ -24,8 +24,8 @@ build_script:
           export
           gcc -v
           qmake FORCECONFIG=release
-          mingw32-make
-          mingw32-make install
+          make
+          make install
         "@
 
 
