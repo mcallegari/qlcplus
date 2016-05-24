@@ -386,6 +386,16 @@ void ShowManager::setItemSelection(int trackIdx, ShowFunction *sf, QQuickItem *i
     emit selectedItemsCountChanged(m_selectedItems.count());
 }
 
+void ShowManager::resetItemsSelection()
+{
+    foreach(selectedShowItem ssi, m_selectedItems)
+    {
+        if (ssi.m_item != NULL)
+            ssi.m_item->setProperty("isSelected", false);
+    }
+    m_selectedItems.clear();
+}
+
 QVariantList ShowManager::selectedItemRefs()
 {
     QVariantList list;

@@ -37,6 +37,8 @@ Rectangle
     property real timeScale: 1.0
     property int currentTime: showManager.currentTime
 
+    signal clicked(int mouseX, int mouseY)
+
     onVisibleWidthChanged:
     {
         console.log("Visible width changed to: " + visibleWidth)
@@ -173,6 +175,6 @@ Rectangle
     MouseArea
     {
         anchors.fill: parent
-        onClicked: showManager.currentTime = TimeUtils.posToMs(mouse.x, timeScale)
+        onClicked: tlHeaderCursorLayer.clicked(mouse.x, mouse.y)
     }
 }

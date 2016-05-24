@@ -150,7 +150,7 @@ Item
         onClicked:
         {
             itemRoot.isSelected = !itemRoot.isSelected
-            showManager.setItemSelection(trackIndex, sfRef, this, itemRoot.isSelected)
+            showManager.setItemSelection(trackIndex, sfRef, itemRoot, itemRoot.isSelected)
         }
 
         onExited: Tooltip.hideText()

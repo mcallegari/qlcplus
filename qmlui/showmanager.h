@@ -112,6 +112,7 @@ public:
 
     Q_INVOKABLE void resetView();
 
+    /** Request to render the current Show items on screen */
     Q_INVOKABLE void renderView(QQuickItem *parent);
 
     Q_INVOKABLE void enableFlicking(bool enable);
@@ -133,7 +134,11 @@ public:
     /** Returns the number of the currently selected Show items */
     int selectedItemsCount() const;
 
+    /** Add an item to the selection tracking list */
     Q_INVOKABLE void setItemSelection(int trackIdx, ShowFunction *sf, QQuickItem *item, bool selected);
+
+    /** Deselect all the selected items at once */
+    Q_INVOKABLE void resetItemsSelection();
 
     Q_INVOKABLE QVariantList selectedItemRefs();
     Q_INVOKABLE QStringList selectedItemNames();

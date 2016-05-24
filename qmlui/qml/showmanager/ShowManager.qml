@@ -314,6 +314,12 @@ Rectangle
             cursorHeight: showMgrContainer.height - topBar.height - (bottomPanel.visible ? bottomPanel.height : 0)
             timeScale: showMgrContainer.timeScale
             duration: showManager.showDuration
+
+            onClicked:
+            {
+                showManager.currentTime = TimeUtils.posToMs(mouseX, timeScale)
+                showManager.resetItemsSelection()
+            }
         }
     }
 
@@ -387,7 +393,11 @@ Rectangle
             MouseArea
             {
                 anchors.fill: parent
-                onClicked: showManager.currentTime = TimeUtils.posToMs(mouse.x, timeScale)
+                onClicked:
+                {
+                    showManager.currentTime = TimeUtils.posToMs(mouse.x, timeScale)
+                    showManager.resetItemsSelection()
+                }
             }
 
             Repeater
