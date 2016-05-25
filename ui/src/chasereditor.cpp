@@ -1114,6 +1114,8 @@ void ChaserEditor::updateItem(QTreeWidgetItem* item, ChaserStep& step)
     item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsEditable);
     item->setText(COL_NUM, QString("%1").arg(m_tree->indexOfTopLevelItem(item) + 1));
     item->setText(COL_NAME, function->name());
+    item->setIcon(COL_NAME, Function::typeToIcon(function->type()));
+
     if (step.note.isEmpty() == false)
         item->setText(COL_NOTES, step.note);
     step.fid = function->id();
