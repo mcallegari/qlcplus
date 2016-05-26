@@ -13,7 +13,7 @@ install:
     #- pacman --noconfirm -Sy
     #- pacman --noconfirm --needed -S pacman-mirrors
     #- pacman --noconfirm -Sy
-    - pacman --noconfirm --needed -S zip mingw32/mingw-w64-i686-qt5 mingw32/mingw-w64-i686-libmad mingw32/mingw-w64-i686-libsndfile mingw32/mingw-w64-i686-flac mingw32/mingw-w64-i686-fftw
+    - pacman --noconfirm --needed -S unzip mingw32/mingw-w64-i686-qt5 mingw32/mingw-w64-i686-libmad mingw32/mingw-w64-i686-libsndfile mingw32/mingw-w64-i686-flac mingw32/mingw-w64-i686-fftw
 
 build_script:
     - ps: >-
