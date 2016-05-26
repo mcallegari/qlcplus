@@ -10,10 +10,10 @@ configuration:
   - Release
 
 install:
-    - pacman --noconfirm -Sy
-    - pacman --noconfirm --needed -S pacman-mirrors
-    - pacman --noconfirm -Sy
-    - pacman --noconfirm --needed -S mingw32/mingw-w64-i686-qt5 mingw32/mingw-w64-i686-libmad mingw32/mingw-w64-i686-libsndfile mingw32/mingw-w64-i686-flac mingw32/mingw-w64-i686-fftw
+    #- pacman --noconfirm -Sy
+    #- pacman --noconfirm --needed -S pacman-mirrors
+    #- pacman --noconfirm -Sy
+    - pacman --noconfirm --needed -S zip mingw32/mingw-w64-i686-qt5 mingw32/mingw-w64-i686-libmad mingw32/mingw-w64-i686-libsndfile mingw32/mingw-w64-i686-flac mingw32/mingw-w64-i686-fftw
 
 build_script:
     - ps: >-
@@ -23,6 +23,15 @@ build_script:
           exec 0</dev/null 2>&1
           export
           gcc -v
+          # get and prepare the D2XX SDK
+          mkdir -p /c/Qt/CDM21200
+          wget http://www.ftdichip.com/Drivers/CDM/CDM%20v2.12.16%20WHQL%20Certified.zip -O /c/Qt/CDM21200/cdm.zip
+          cd /c/Qt/CDM21200
+          unzip cdm.zip
+          cd i386
+          gendef.exe - ftd2xx.dll > ftd2xx.def
+          dlltool -k --input-def ftd2xx.def --dllname ftd2xx.dll --output-lib libftd2xx.a
+          cd /c/projects/qlcplus
           # disable the test units, since we won't run them
           sed -i -e 's/  SUBDIRS += test/#SUBDIRS += test/g' engine/engine.pro
           sed -i -e 's/SUBDIRS += test/#SUBDIRS += test/g' ui/ui.pro
