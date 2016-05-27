@@ -22,13 +22,6 @@
 
 #include <QDebug>
 
-#if defined(WIN32) || defined(Q_OS_WIN)
-#include <windows.h>
-#else
-#include <unistd.h>
-#define Sleep(x) usleep((x)*1000)
-#endif
-
 #define MAX_INIT_RETRY  10
 
 ArtNetPlugin::~ArtNetPlugin()
