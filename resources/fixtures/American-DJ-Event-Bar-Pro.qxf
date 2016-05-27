@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.2 GIT</Version>
+  <Version>4.10.4 GIT</Version>
   <Author>MaBonzo</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -127,7 +127,7 @@
   <Capability Min="81" Max="100">Theater</Capability>
   <Capability Min="101" Max="255">Default to unit curve setting</Capability>
  </Channel>
- <Mode Name="22">
+ <Mode Name="22 channel">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="10000"/>
    <Dimensions Weight="11" Width="1033" Height="270" Depth="83"/>
@@ -158,39 +158,39 @@
   <Channel Number="20">Master Dimmer</Channel>
   <Channel Number="21">Strobe</Channel>
   <Head>
-   <Channel>20</Channel>
    <Channel>4</Channel>
-   <Channel>3</Channel>
-   <Channel>2</Channel>
-   <Channel>1</Channel>
+   <Channel>20</Channel>
    <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
   </Head>
   <Head>
-   <Channel>9</Channel>
    <Channel>8</Channel>
-   <Channel>7</Channel>
-   <Channel>6</Channel>
+   <Channel>9</Channel>
    <Channel>5</Channel>
    <Channel>20</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
   </Head>
   <Head>
-   <Channel>14</Channel>
-   <Channel>13</Channel>
    <Channel>12</Channel>
-   <Channel>11</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
    <Channel>10</Channel>
+   <Channel>11</Channel>
    <Channel>20</Channel>
   </Head>
   <Head>
+   <Channel>19</Channel>
    <Channel>15</Channel>
    <Channel>20</Channel>
-   <Channel>19</Channel>
-   <Channel>18</Channel>
-   <Channel>17</Channel>
    <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
   </Head>
  </Mode>
- <Mode Name="25">
+ <Mode Name="25 channel">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="10000"/>
    <Dimensions Weight="11" Width="1033" Height="270" Depth="83"/>
@@ -224,39 +224,39 @@
   <Channel Number="23">Show Speed/Sound Sensitivity</Channel>
   <Channel Number="24">Dimmer Curves</Channel>
   <Head>
-   <Channel>20</Channel>
    <Channel>4</Channel>
-   <Channel>3</Channel>
-   <Channel>2</Channel>
-   <Channel>1</Channel>
+   <Channel>20</Channel>
    <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
   </Head>
   <Head>
-   <Channel>9</Channel>
    <Channel>8</Channel>
-   <Channel>7</Channel>
-   <Channel>6</Channel>
+   <Channel>9</Channel>
    <Channel>5</Channel>
    <Channel>20</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
   </Head>
   <Head>
-   <Channel>14</Channel>
-   <Channel>13</Channel>
    <Channel>12</Channel>
-   <Channel>11</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
    <Channel>10</Channel>
+   <Channel>11</Channel>
    <Channel>20</Channel>
   </Head>
   <Head>
+   <Channel>19</Channel>
    <Channel>15</Channel>
    <Channel>20</Channel>
-   <Channel>19</Channel>
-   <Channel>18</Channel>
-   <Channel>17</Channel>
    <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
   </Head>
  </Mode>
- <Mode Name="2">
+ <Mode Name="2 channel">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="10000"/>
    <Dimensions Weight="11" Width="1033" Height="270" Depth="83"/>
@@ -267,7 +267,7 @@
   <Channel Number="0">Shows</Channel>
   <Channel Number="1">Show Speed/Sound Sensitivity</Channel>
  </Mode>
- <Mode Name="17">
+ <Mode Name="17 channel">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="10000"/>
    <Dimensions Weight="11" Width="1033" Height="270" Depth="83"/>
@@ -293,31 +293,31 @@
   <Channel Number="15">Tilt Fine (Head 4)</Channel>
   <Channel Number="16">Master Dimmer</Channel>
   <Head>
-   <Channel>3</Channel>
-   <Channel>2</Channel>
+   <Channel>0</Channel>
    <Channel>1</Channel>
    <Channel>16</Channel>
-   <Channel>0</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
   </Head>
   <Head>
-   <Channel>7</Channel>
-   <Channel>6</Channel>
-   <Channel>5</Channel>
    <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
    <Channel>16</Channel>
   </Head>
   <Head>
-   <Channel>11</Channel>
-   <Channel>10</Channel>
-   <Channel>9</Channel>
    <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
    <Channel>16</Channel>
   </Head>
   <Head>
-   <Channel>15</Channel>
-   <Channel>14</Channel>
-   <Channel>13</Channel>
    <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
    <Channel>16</Channel>
   </Head>
  </Mode>
