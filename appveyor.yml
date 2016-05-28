@@ -44,6 +44,7 @@ build_script:
           make -j4
           echo 'Silently installing QLC+...'
           make install -s
+          cp *.qm /c/qlcplus
           cd /c/qlcplus
           makensis qlcplusQt5.nsi
         "@
