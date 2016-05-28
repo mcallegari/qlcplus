@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.4 GIT</Version>
+  <Author>David Read</Author>
+ </Creator>
+ <Manufacturer>PR Lighting</Manufacturer>
+ <Model>Pilot 150 (PR-2150)</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Gobo Wheel">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="4">Open/Clear</Capability>
+  <Capability Min="5" Max="7">Hold for 3 secs, the unit will reset and restart</Capability>
+  <Capability Min="8" Max="33">Open/Clear</Capability>
+  <Capability Min="34" Max="66">GOBO 1 (Swirl)</Capability>
+  <Capability Min="67" Max="99">GOBO 2 (Tri-ring)</Capability>
+  <Capability Min="100" Max="132">GOBO 3 (Windmill)</Capability>
+  <Capability Min="133" Max="165">GOBO 4 (Multi-circle)</Capability>
+  <Capability Min="166" Max="199">GOBO 5 (Stars)</Capability>
+  <Capability Min="200" Max="232">GOBO 6 (Ring)</Capability>
+  <Capability Min="233" Max="255">GOBO 7 (Three-prong)</Capability>
+ </Channel>
+ <Channel Name="Gobo Rotation">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="8">Stop</Capability>
+  <Capability Min="9" Max="163">Orientation from 0° to 360°</Capability>
+  <Capability Min="164" Max="205">Rotate from slow to fast</Capability>
+  <Capability Min="206" Max="213">Stop</Capability>
+  <Capability Min="214" Max="255">Rotate in opposite direction from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Colour Wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="27" Color="#ffffff">Open (White)</Capability>
+  <Capability Min="28" Max="55" Color="#ff0000">Red</Capability>
+  <Capability Min="56" Max="83" Color="#ffff7f">Yellow</Capability>
+  <Capability Min="84" Max="111" Color="#aaff7f">Light green (Lime)</Capability>
+  <Capability Min="112" Max="139" Color="#ffaaff">Pink</Capability>
+  <Capability Min="140" Max="167" Color="#5555ff">Ultraviolet colour</Capability>
+  <Capability Min="168" Max="195" Color="#55ffff">Cyan (Aqua)</Capability>
+  <Capability Min="196" Max="223" Color="#00ff00">Green</Capability>
+  <Capability Min="224" Max="251" Color="#0000ff">Blue</Capability>
+  <Capability Min="252" Max="255" Color="#ffaa00">Orange</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="21">Black-out</Capability>
+  <Capability Min="22" Max="110">Open gradually from black to full open (dimming)</Capability>
+  <Capability Min="111" Max="135">Open</Capability>
+  <Capability Min="136" Max="247">Strobe adjust from slow to fast (1-7 flashes/sec)</Capability>
+  <Capability Min="248" Max="255">Open</Capability>
+ </Channel>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan movement from 0° to 370°</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt movement from 0° to 265°</Capability>
+ </Channel>
+ <Channel Name="Pan Fine">
+  <Group Byte="1">Pan</Group>
+  <Capability Min="0" Max="255">16 Bit pan movement (High Res)</Capability>
+ </Channel>
+ <Channel Name="Tilt Fine">
+  <Group Byte="1">Tilt</Group>
+  <Capability Min="0" Max="255">16 Bit tilt movement (High res)</Capability>
+ </Channel>
+ <Mode Name="Default">
+  <Physical>
+   <Bulb Type="HTI 150W" Lumens="10000" ColourTemperature="6500"/>
+   <Dimensions Weight="12" Width="340" Height="470" Depth="380"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="370" TiltMax="265"/>
+   <Technical PowerConsumption="280" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Gobo Wheel</Channel>
+  <Channel Number="1">Gobo Rotation</Channel>
+  <Channel Number="2">Colour Wheel</Channel>
+  <Channel Number="3">Strobe</Channel>
+  <Channel Number="4">Pan</Channel>
+  <Channel Number="5">Tilt</Channel>
+  <Channel Number="6">Pan Fine</Channel>
+  <Channel Number="7">Tilt Fine</Channel>
+ </Mode>
+</FixtureDefinition>

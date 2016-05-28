@@ -10,6 +10,7 @@
   <fixture path="American-DJ-Accu-Spot-250-II.qxf" mf="American DJ" md="Accu Spot 250 II"/>
   <fixture path="American-DJ-Accu-Spot-Pro.qxf" mf="American DJ" md="ACCU Spot Pro"/>
   <fixture path="American-DJ-Accu-UFO.qxf" mf="American DJ" md="Accu UFO"/>
+  <fixture path="American-DJ-Asteroid-1200.qxf" mf="American DJ" md="Asteroid 1200"/>
   <fixture path="American-DJ-COB-Cannon-Wash-Pearl.qxf" mf="American DJ" md="COB Cannon Wash Pearl"/>
   <fixture path="American-DJ-Dekker-LED.qxf" mf="American DJ" md="Dekker LED"/>
   <fixture path="American-DJ-DJ-Spot-250.qxf" mf="American DJ" md="DJ Spot 250"/>
@@ -95,10 +96,14 @@
   <fixture path="American-DJ-WiFly-EXR-Dotz-Par.qxf" mf="American DJ" md="WiFly EXR Dotz Par"/>
   <fixture path="American-DJ-WiFly-EXR-HEX5-IP.qxf" mf="American DJ" md="WiFly EXR HEX5 IP"/>
   <fixture path="American-Dj-X-Scan-LED-Plus.qxf" mf="American DJ" md="X-Scan LED Plus"/>
+  <fixture path="Antari-X-310-Pro-Fazer.qxf" mf="Antari" md="X-310 Pro Fazer"/>
   <fixture path="Ayra-ComPar20.qxf" mf="Ayra" md="ComPar 20"/>
+  <fixture path="Ayra-ERO-506.qxf" mf="Ayra" md="ERO 506"/>
   <fixture path="Ayra-TDC-Agaricus.qxf" mf="Ayra" md="TDC Agaricus"/>
+  <fixture path="Ayrton-Arcaline-100-RGB.qxf" mf="Ayrton" md="Arcaline 100 RGB"/>
   <fixture path="Beamz-LCB-252.qxf" mf="beamZ" md="LCB-252"/>
   <fixture path="BeamZ-LS-3DRG.qxf" mf="beamZ" md="LS-3DRG"/>
+  <fixture path="Beamz-MHL90-Wash-5x18W-RGBAW-UV.qxf" mf="Beamz" md="MHL90 Wash 5x18W RGBAW-UV"/>
   <fixture path="Blizzard-Lighting-Blade-RGBW.qxf" mf="Blizzard Lighting" md="Blade RGBW"/>
   <fixture path="Blizzard-Lighting-Hotbox-EXA.qxf" mf="Blizzard Lighting" md="Hotbox EXA"/>
   <fixture path="Blizzard-Lighting-HotBox-Infiniwhite.qxf" mf="Blizzard Lighting" md="HotBox Infiniwhite"/>
@@ -292,6 +297,7 @@
   <fixture path="Equinox-Party-Par-LED-PAR-56.qxf" mf="Equinox" md="Party Par LED PAR 56"/>
   <fixture path="ETC-Desire-D40-Vivid.qxf" mf="ETC" md="Desire D40 Vivid"/>
   <fixture path="Eurolite-DMXSuperstrobe-2700.qxf" mf="Eurolite" md="DMX Superstrobe 2700"/>
+  <fixture path="Eurolite-GKF-60.qxf" mf="Eurolite" md="GKF-60"/>
   <fixture path="Eurolite-KLS200.qxf" mf="Eurolite" md="KLS200"/>
   <fixture path="Eurolite-LED-Bar-RGB-252_10_40__Indoor.qxf" mf="Eurolite" md="LED Bar RGB 252/10 40° Indoor"/>
   <fixture path="Eurolite-LED-CBB-3-COB-RGB-3x15W-Bar.qxf" mf="Eurolite" md="LED CBB-3 COB RBG 3x15W Bar"/>
@@ -299,6 +305,7 @@
   <fixture path="Eurolite-LED-D-400-RGBAW-3W-DMX.qxf" mf="Eurolite" md="LED D-400 RGBAW 3W DMX"/>
   <fixture path="Eurolite-LED-DMX-Pixel-Tube-16-RGB.qxf" mf="Eurolite" md="LED DMX Pixel Tube 16 RGB IP20"/>
   <fixture path="Eurolite-LED-FE-1500.qxf" mf="Eurolite" md="LED FE-1500"/>
+  <fixture path="Eurolite-LED-FE-700.qxf" mf="Eurolite" md="LED FE-700"/>
   <fixture path="Eurolite-LED-Flood-Light-252-RGB-19.qxf" mf="Eurolite" md="LED Flood Light 252 RGB 19°"/>
   <fixture path="Eurolite-LED-KLS-401.qxf" mf="Eurolite" md="LED KLS-401"/>
   <fixture path="Eurolite-LED-KLS-Laser-Bar-FX-Light-Set.qxf" mf="Eurolite" md="LED KLS Laser Bar FX Light Set"/>
@@ -454,6 +461,7 @@
   <fixture path="Ledj-Performer-18-RGBWA.qxf" mf="Ledj" md="Performer 18 RGBWA"/>
   <fixture path="Ledj-Tri-LED-back-drop-controller.qxf" mf="Ledj" md="Pro Tri LED back drop controller"/>
   <fixture path="Light-Emotion-LED-Parbar.qxf" mf="Light Emotion" md="LED Parbar"/>
+  <fixture path="lightmaXX-CLS-2.qxf" mf="lightmaXX" md="CLS-2"/>
   <fixture path="lightmaXX-COMPLETE-PAR-56-9x12-W-RGBAW-UV.qxf" mf="lightmaXX" md="Complete PAR 56 9x12W RGBAW-UV"/>
   <fixture path="lightmaXX-LED-MEGA-PAR-64-RGBW-18x8-W.qxf" mf="lightmaXX" md="LED MEGA PAR 64 RGBW 18x8 W"/>
   <fixture path="lightmaXX-Platinum-Line-Mini-PAR-QUAD-7x8W.qxf" mf="lightmaXX" md="Platinum Line Mini PAR QUAD 7x8W"/>
@@ -532,6 +540,7 @@
   <fixture path="OXO-LED-Funstrip-DMX.qxf" mf="OXO" md="LED Funstrip DMX"/>
   <fixture path="Philips-Selecon-PLProfile1-MkII.qxf" mf="Philips Selecon" md="PLProfile1 MkII"/>
   <fixture path="PixelRANGE-PixelPar-44.qxf" mf="PixelRANGE" md="PixelPar 44"/>
+  <fixture path="PR-Lighting-Pilot-150-PR-2150.qxf" mf="PR Lighting" md="Pilot 150 (PR-2150)"/>
   <fixture path="PR-Lighting-Pilot-575.qxf" mf="PR Lighting" md="Pilot 575"/>
   <fixture path="PR-Lighting-PR-5000-Spot.qxf" mf="PR Lighting" md="PR 5000 Spot"/>
   <fixture path="PR-Lighting-XLED-1037.qxf" mf="PR Lighting" md="XLED 1037"/>
