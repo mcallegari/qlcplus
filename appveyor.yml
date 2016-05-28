@@ -13,7 +13,9 @@ install:
     #- pacman --noconfirm -Sy
     #- pacman --noconfirm --needed -S pacman-mirrors
     #- pacman --noconfirm -Sy
-    - pacman --noconfirm --needed -S unzip mingw32/mingw-w64-i686-qt5 mingw32/mingw-w64-i686-libmad mingw32/mingw-w64-i686-libsndfile mingw32/mingw-w64-i686-flac mingw32/mingw-w64-i686-fftw
+    - pacman --noconfirm --needed -S unzip mingw32/mingw-w64-i686-libmad mingw32/mingw-w64-i686-libsndfile mingw32/mingw-w64-i686-flac mingw32/mingw-w64-i686-fftw mingw32/mingw-w64-i686-nsis
+    - wget http://www.qlcplus.org/misc/mingw-w64-i686-qt5-5.6.0-1-any.pkg.tar.xz -O /c/projects
+    - pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-qt5-5.6.0-1-any.pkg.tar.xz
 
 build_script:
     - ps: >-
@@ -25,7 +27,7 @@ build_script:
           gcc -v
           # get and prepare the D2XX SDK
           mkdir -p /c/Qt/CDM21200
-          wget http://www.ftdichip.com/Drivers/CDM/CDM%20v2.12.16%20WHQL%20Certified.zip -O /c/Qt/CDM21200/cdm.zip
+          wget http://www.qlcplus.org/misc/CDM%20v2.12.16%20WHQL%20Certified.zip -O /c/Qt/CDM21200/cdm.zip
           cd /c/Qt/CDM21200
           unzip cdm.zip
           cd i386
@@ -39,6 +41,8 @@ build_script:
           qmake FORCECONFIG=release
           make -j4
           make install
+          cd /c/qlcplus
+          makensis qlcplusQt5.nsi
         "@
 
 
