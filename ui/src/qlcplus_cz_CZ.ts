@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="cs_CZ">
+<TS version="2.0" language="cs_CZ">
 <context>
     <name>AboutBox</name>
     <message>
@@ -753,7 +753,7 @@ Opravdu si přejete běžící funkce zastavit a přejít zpět do režimu Návr
     <message>
         <location filename="app.cpp" line="725"/>
         <source>Quit QLC+</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukončit QLC+</translation>
     </message>
     <message>
         <location filename="app.cpp" line="733"/>
@@ -1683,7 +1683,7 @@ Zvolený soubor byl asi smazán nebo přesunut.</translation>
     <message>
         <location filename="dmxdumpfactory.ui" line="72"/>
         <source>Select an existing Scene to overwrite</source>
-        <translation type="unfinished"></translation>
+        <translation>Zvolit existující scénu na editaci</translation>
     </message>
     <message>
         <location filename="dmxdumpfactory.ui" line="104"/>
@@ -1751,7 +1751,7 @@ Zvolený soubor byl asi smazán nebo přesunut.</translation>
     <message>
         <location filename="docbrowser.cpp" line="128"/>
         <source>Close this window</source>
-        <translation type="unfinished"></translation>
+        <translation>Zavřít tohle okno</translation>
     </message>
 </context>
 <context>
@@ -3424,17 +3424,17 @@ Použijte nápovědu k pluginu (zásuvnému modulu) pro vyřešení tohoto probl
     <message>
         <location filename="inputprofileeditor.ui" line="347"/>
         <source>Custom feedback</source>
-        <translation type="unfinished">Vlastní odezva</translation>
+        <translation>Vlastní odezva</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="359"/>
         <source>Upper value</source>
-        <translation type="unfinished">Horní hodnota</translation>
+        <translation>Horní hodnota</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="379"/>
         <source>Lower value</source>
-        <translation type="unfinished">Dolní hodnota</translation>
+        <translation>Dolní hodnota</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="130"/>
@@ -3480,7 +3480,7 @@ Použijte nápovědu k pluginu (zásuvnému modulu) pro vyřešení tohoto probl
     <message>
         <location filename="inputprofileeditor.ui" line="189"/>
         <source>Generate an extra Press/Release when toggled</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Generovat extra stlačení/uvolnění</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="163"/>
@@ -3712,13 +3712,13 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
         <location filename="monitor/monitor.cpp" line="466"/>
         <location filename="monitor/monitor.cpp" line="547"/>
         <source>Close</source>
-        <translation type="unfinished">Zavřít</translation>
+        <translation>Zavřít</translation>
     </message>
     <message>
         <location filename="monitor/monitor.cpp" line="467"/>
         <location filename="monitor/monitor.cpp" line="548"/>
         <source>Close this window</source>
-        <translation type="unfinished"></translation>
+        <translation>Zavřít tohle okno</translation>
     </message>
     <message>
         <location filename="monitor/monitor.cpp" line="486"/>
@@ -5521,12 +5521,12 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="210"/>
         <source>Play/Pause Cue list</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Spustit/pozastavit seznam střihů</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="219"/>
         <source>Stop Cue list</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Zastavit seznam střihů</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="228"/>
@@ -5670,12 +5670,12 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="65"/>
         <source>Play/Pause control</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ovládání pro Spustit/pozastavit</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="74"/>
         <source>Stop control</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ovládaní pro Zastavit</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="116"/>
@@ -5757,12 +5757,12 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vcframeproperties.cpp" line="71"/>
         <source>External Input - Previous Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Externí vstup - Předchozí stránka</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.cpp" line="84"/>
         <source>External Input - Next Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Externí vstup - Následující stránka</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="141"/>
@@ -7198,22 +7198,22 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="252"/>
         <source>Range Display Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Způsob zobrazení rozsahu</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="258"/>
         <source>Degrees</source>
-        <translation type="unfinished"></translation>
+        <translation>Stupně</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="268"/>
         <source>Percentage</source>
-        <translation type="unfinished">Procenta</translation>
+        <translation>Procenta</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="278"/>
         <source>DMX</source>
-        <translation type="unfinished">DMX</translation>
+        <translation>DMX</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="302"/>
@@ -7243,7 +7243,7 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="366"/>
         <source>Add Fixture Group</source>
-        <translation type="unfinished"></translation>
+        <translation>Přidat skupinu zařízení</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="377"/>
@@ -7253,12 +7253,12 @@ Délka: %3
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="388"/>
         <source>Move Up</source>
-        <translation type="unfinished"></translation>
+        <translation>Posunout výše</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="399"/>
         <source>Move Down</source>
-        <translation type="unfinished"></translation>
+        <translation>Posunout níže</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.ui" line="418"/>
@@ -7336,12 +7336,12 @@ Vyberte prosím některý z těchto kanálů.</translation>
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="765"/>
         <source>Please select at least one fixture or head to create this type of preset !</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Prosím zvolte alespoň jedno zařízení nebo halvu pro vytvoření tohohle presetu!</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="772"/>
         <source>Fixture Group</source>
-        <translation type="unfinished">Skupina zařízení</translation>
+        <translation>Skupina zařízení</translation>
     </message>
 </context>
 <context>
