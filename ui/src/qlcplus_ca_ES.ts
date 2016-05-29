@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="ca_ES">
+<TS version="2.0" language="ca_ES">
 <context>
     <name>AboutBox</name>
     <message>
@@ -751,7 +751,7 @@ Voleu aturar-les i tornar a Mode Disseny?</translation>
     <message>
         <location filename="app.cpp" line="725"/>
         <source>Quit QLC+</source>
-        <translation type="unfinished"></translation>
+        <translation>Abandonar QLC+</translation>
     </message>
     <message>
         <location filename="app.cpp" line="733"/>
@@ -3426,17 +3426,17 @@ Si us plau, consulteu la documentació dels plugins per solucionar això.</trans
     <message>
         <location filename="inputprofileeditor.ui" line="347"/>
         <source>Custom feedback</source>
-        <translation type="unfinished">Feedback personalitzat</translation>
+        <translation>Feedback personalitzat</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="359"/>
         <source>Upper value</source>
-        <translation type="unfinished">Valor superior</translation>
+        <translation>Valor superior</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="379"/>
         <source>Lower value</source>
-        <translation type="unfinished">Valor inferior</translation>
+        <translation>Valor inferior</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="130"/>
@@ -5527,12 +5527,12 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="210"/>
         <source>Play/Pause Cue list</source>
-        <translation type="unfinished"></translation>
+        <translation>Reprodueix/Pausa Cue List</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="219"/>
         <source>Stop Cue list</source>
-        <translation type="unfinished"></translation>
+        <translation>Atura Cue list</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="228"/>
@@ -5641,7 +5641,7 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="178"/>
         <source>Playback</source>
-        <translation>Playback</translation>
+        <translation>Reproduir</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="250"/>
@@ -5676,12 +5676,12 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="65"/>
         <source>Play/Pause control</source>
-        <translation type="unfinished"></translation>
+        <translation>Reprodueix/Pausa control</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="74"/>
         <source>Stop control</source>
-        <translation type="unfinished"></translation>
+        <translation>Atura control</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="116"/>
@@ -6620,7 +6620,7 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="459"/>
         <source>Playback</source>
-        <translation>Playback</translation>
+        <translation>Reproduir</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="465"/>
