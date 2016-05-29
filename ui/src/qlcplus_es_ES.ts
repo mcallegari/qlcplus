@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="es_ES">
+<TS version="2.0" language="es_ES">
 <context>
     <name>AboutBox</name>
     <message>
@@ -755,7 +755,7 @@ Really stop them and switch back to Design mode?</source>
     <message>
         <location filename="app.cpp" line="725"/>
         <source>Quit QLC+</source>
-        <translation type="unfinished"></translation>
+        <translation>Salir de QLC+</translation>
     </message>
     <message>
         <location filename="app.cpp" line="733"/>
@@ -3417,17 +3417,17 @@ Por favor, revise la documentación de los plugins para solucionar esto.</transl
     <message>
         <location filename="inputprofileeditor.ui" line="347"/>
         <source>Custom feedback</source>
-        <translation type="unfinished">Feedback personalizado</translation>
+        <translation>Feedback personalizado</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="359"/>
         <source>Upper value</source>
-        <translation type="unfinished">Valor superior</translation>
+        <translation>Valor superior</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="379"/>
         <source>Lower value</source>
-        <translation type="unfinished">Valor inferior</translation>
+        <translation>Valor inferior</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="67"/>
@@ -5533,12 +5533,12 @@ Duración: %3
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="210"/>
         <source>Play/Pause Cue list</source>
-        <translation type="unfinished"></translation>
+        <translation>Reproducir/Pausar Lista de Cues</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="219"/>
         <source>Stop Cue list</source>
-        <translation type="unfinished"></translation>
+        <translation>Detener Lista de Cues</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="228"/>
@@ -5683,12 +5683,12 @@ Duración: %3
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="65"/>
         <source>Play/Pause control</source>
-        <translation type="unfinished"></translation>
+        <translation>Reproducción/Pausa control</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="74"/>
         <source>Stop control</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="116"/>
