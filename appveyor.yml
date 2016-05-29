@@ -41,7 +41,7 @@ build_script:
           sed -i -e 's/  SUBDIRS += test/#SUBDIRS += test/g' plugins/artnet/artnet.pro
           sed -i -e 's/SUBDIRS += test/#SUBDIRS += test/g' plugins/enttecwing/enttecwing.pro
           qmake FORCECONFIG=release
-          make -j4
+          make
           echo 'Silently installing QLC+...'
           make install -s
           cp *.qm /c/qlcplus
