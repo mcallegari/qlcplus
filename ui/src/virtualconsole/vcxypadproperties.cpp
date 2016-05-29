@@ -215,9 +215,7 @@ void VCXYPadProperties::fillFixturesTree()
     while (it.hasNext() == true)
         updateFixtureItem(new QTreeWidgetItem(m_tree), it.next());
     m_tree->setCurrentItem(m_tree->topLevelItem(0));
-    m_tree->resizeColumnToContents(KColumnFixture);
-    m_tree->resizeColumnToContents(KColumnXAxis);
-    m_tree->resizeColumnToContents(KColumnYAxis);
+    m_tree->header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
 void VCXYPadProperties::updateFixturesTree(VCXYPadFixture::DisplayMode mode)
@@ -354,9 +352,7 @@ void VCXYPadProperties::slotAddClicked()
     if (item != NULL)
         m_tree->setCurrentItem(item);
 
-    m_tree->resizeColumnToContents(KColumnFixture);
-    m_tree->resizeColumnToContents(KColumnXAxis);
-    m_tree->resizeColumnToContents(KColumnYAxis);
+    m_tree->header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
 void VCXYPadProperties::slotRemoveClicked()
@@ -391,6 +387,7 @@ void VCXYPadProperties::slotEditClicked()
 
             updateFixtureItem(item, fxi);
         }
+        m_tree->header()->resizeSections(QHeaderView::ResizeToContents);
     }
 }
 

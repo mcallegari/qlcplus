@@ -42,7 +42,7 @@ Rectangle
         height: wrapText ? parent.height : Text.paintedHeight
         anchors.verticalCenter: parent.verticalCenter
         text: label
-        font.family: "RobotoCondensed"
+        font.family: "Roboto Condensed"
         font.pointSize: fontSize
         font.bold: fontBold
         color: labelColor

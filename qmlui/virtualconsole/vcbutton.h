@@ -33,6 +33,8 @@
 #define KXMLQLCVCButtonActionBlackout "Blackout"
 #define KXMLQLCVCButtonActionStopAll "StopAll"
 
+#define KXMLQLCVCButtonStopAllFadeTime "FadeOut"
+
 #define KXMLQLCVCButtonIntensity "Intensity"
 #define KXMLQLCVCButtonIntensityAdjust "Adjust"
 
@@ -42,8 +44,9 @@ class VCButton : public VCWidget
 {
     Q_OBJECT
 
-    Q_PROPERTY(Action actionType READ actionType WRITE setActionType NOTIFY actionTypeChanged)
+    Q_PROPERTY(ButtonAction actionType READ actionType WRITE setActionType NOTIFY actionTypeChanged)
     Q_PROPERTY(bool isOn READ isOn WRITE setOn NOTIFY isOnChanged)
+    Q_PROPERTY(quint32 functionID READ functionID WRITE setFunctionID NOTIFY functionIDChanged)
 
     /*********************************************************************
      * Initialization
@@ -53,9 +56,14 @@ public:
     VCButton(Doc* doc = NULL, QObject *parent = 0);
     virtual ~VCButton();
 
+    /** @reimp */
     void setID(quint32 id);
 
+    /** @reimp */
     void render(QQuickView *view, QQuickItem *parent);
+
+    /** @reimp */
+    QString propertiesResource() const;
 
     /*********************************************************************
      * Function attachment
@@ -67,7 +75,7 @@ public:
      *
      * @param function An ID of a function to attach
      */
-    Q_INVOKABLE void setFunction(quint32 fid);
+    Q_INVOKABLE void setFunctionID(quint32 fid);
 
     /**
      * Get the ID of the function attached to a VCButton
@@ -75,7 +83,7 @@ public:
      * @return The ID of the attached function or Function::invalidId()
      *         if there isn't one
      */
-    quint32 function() const;
+    quint32 functionID() const;
 
     /**
      *  The actual method used to request a change of state of this
@@ -100,8 +108,8 @@ private:
     FunctionParent functionParent() const;
 
 protected:
-    /** The function that this button is controlling */
-    quint32 m_function;
+    /** The ID of the Function that this button is controlling */
+    quint32 m_functionID;
 
     /*********************************************************************
      * Button state
@@ -115,6 +123,7 @@ public:
 
 signals:
     void isOnChanged(bool isOn);
+    void functionIDChanged(quint32 id);
 
 protected:
     bool m_isOn;
@@ -129,21 +138,27 @@ public:
      * Blackout: Toggle blackout on/off.
      * StopAll: Stop all functions (panic button).
      */
-    enum Action { Toggle, Flash, Blackout, StopAll };
-    Q_ENUMS(Action)
+    enum ButtonAction { Toggle, Flash, Blackout, StopAll };
+    Q_ENUMS(ButtonAction)
 
-    Action actionType() const;
+    ButtonAction actionType() const;
 
-    void setActionType(Action actionType);
+    void setActionType(ButtonAction actionType);
 
-    static QString actionToString(Action action);
-    static Action stringToAction(const QString& str);
+    static QString actionToString(ButtonAction action);
+    static ButtonAction stringToAction(const QString& str);
+
+    void setStopAllFadeOutTime(int ms);
+    int stopAllFadeTime();
 
 signals:
-    void actionTypeChanged(Action actionType);
+    void actionTypeChanged(ButtonAction actionType);
 
 protected:
-    Action m_actionType;
+    ButtonAction m_actionType;
+    /** if button action is StopAll, this indicates the time
+     *  in milliseconds of fadeout before stopping */
+    int m_blackoutFadeOutTime;
 
     /*********************************************************************
      * Startup intensity adjustment
@@ -181,7 +196,7 @@ protected:
 
 public:
     bool loadXML(QXmlStreamReader &root);
-    //bool saveXML(QXmlStreamWriter *doc);
+    bool saveXML(QXmlStreamWriter *doc);
 };
 
 #endif

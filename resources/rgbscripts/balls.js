@@ -39,8 +39,8 @@ var testAlgo;
     algo.properties.push("name:presetNumber|type:range|display:Number|values:1,50|write:setNumber|read:getNumber");
     algo.presetRandom = 1;
     algo.properties.push("name:presetRandom|type:list|display:Random Colour|values:No,Yes|write:setRandom|read:getRandom");
-    algo.presetColision = 1;
-    algo.properties.push("name:presetColision|type:list|display:Self Colision|values:No,Yes|write:setColision|read:getColision");
+    algo.presetCollision = 1;
+    algo.properties.push("name:presetCollision|type:list|display:Self Collision|values:No,Yes|write:setCollision|read:getCollision");
     var util = new Object;
     algo.initialized = false;
         
@@ -77,16 +77,16 @@ var testAlgo;
       else if (algo.presetRandom == 1) return "No";
     }
  
-   algo.setColision = function(_colision)
+   algo.setCollision = function(_colision)
     {
-      if (_colision == "Yes") algo.presetColision = 0;
-      else if (_colision == "No") algo.presetColision = 1;
+      if (_colision == "Yes") algo.presetCollision = 0;
+      else if (_colision == "No") algo.presetCollision = 1;
     }
     
-    algo.getColision = function()
+    algo.getCollision = function()
     {
-      if (algo.presetColision == 0) return "Yes";
-      else if (algo.presetColision == 1) return "No";
+      if (algo.presetCollision == 0) return "Yes";
+      else if (algo.presetCollision == 1) return "No";
     }
 
     util.initialize = function(width, height)
@@ -178,7 +178,7 @@ var testAlgo;
 		  }
 	       }
 	    }
-		if (algo.presetColision == 0)  // if colision detection is on
+		if (algo.presetCollision == 0)  // if colision detection is on
 		{
 			// Ball collision detection
 		    for (var ti = 0; ti < algo.presetNumber; ti++) // check all balls

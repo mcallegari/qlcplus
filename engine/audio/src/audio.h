@@ -96,6 +96,13 @@ public:
     quint32 totalDuration();
 
     /**
+     * Set the playback duration of the audio file
+     *
+     * @param The playback total duration in milliseconds
+     */
+    void setTotalDuration(quint32 msec);
+
+    /**
      * Set the color to be used by a AudioItem
      */
     void setColor(QColor color);
@@ -182,6 +189,9 @@ public:
 public:
     /** @reimpl */
     void preRun(MasterTimer*);
+
+    /** @reimpl */
+    void setPause(bool enable);
 
     /** @reimpl */
     void write(MasterTimer* timer, QList<Universe*> universes);

@@ -85,7 +85,7 @@ Rectangle
                 clip: true
                 text: sceneEditor.sceneName
                 verticalAlignment: TextInput.AlignVCenter
-                font.family: "RobotoCondensed"
+                font.family: "Roboto Condensed"
                 font.pixelSize: 20
                 echoMode: TextInput.Normal
                 selectByMouse: true

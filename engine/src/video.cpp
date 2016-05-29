@@ -382,6 +382,15 @@ void Video::preRun(MasterTimer* timer)
     Function::preRun(timer);
 }
 
+void Video::setPause(bool enable)
+{
+    if (isRunning())
+    {
+        emit requestPause(enable);
+        Function::setPause(enable);
+    }
+}
+
 void Video::write(MasterTimer* timer, QList<Universe *> universes)
 {
     Q_UNUSED(timer)

@@ -134,6 +134,10 @@ bool Win32MidiInputDevice::processMBC(int type)
         m_mbc_counter = 1;
         return true;
     }
+    else if (type == MIDI_BEAT_CONTINUE)
+    {
+        return true;
+    }
     else if (type == MIDI_BEAT_CLOCK)
     {
         if (m_mbc_counter == UINT_MAX)

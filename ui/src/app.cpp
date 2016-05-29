@@ -719,6 +719,13 @@ void App::initActions()
 
     m_helpAboutAction = new QAction(QIcon(":/qlcplus.png"), tr("&About QLC+"), this);
     connect(m_helpAboutAction, SIGNAL(triggered(bool)), this, SLOT(slotHelpAbout()));
+
+    if (QLCFile::isRaspberry())
+    {
+        m_quitAction = new QAction(QIcon(":/exit.png"), tr("Quit QLC+"), this);
+        m_quitAction->setShortcut(QKeySequence("CTRL+ALT+Backspace"));
+        connect(m_quitAction, SIGNAL(triggered(bool)), this, SLOT(close()));
+    }
 }
 
 void App::initToolBar()
@@ -740,6 +747,8 @@ void App::initToolBar()
     m_toolbar->addAction(m_controlFullScreenAction);
     m_toolbar->addAction(m_helpIndexAction);
     m_toolbar->addAction(m_helpAboutAction);
+    if (QLCFile::isRaspberry())
+        m_toolbar->addAction(m_quitAction);
 
     /* Create an empty widget between help items to flush them to the right */
     QWidget* widget = new QWidget(this);
@@ -960,10 +969,6 @@ QFile::FileError App::slotFileOpen()
 
     /* Clear existing document data */
     clearDocument();
-
-    /* Set the workspace path before loading the new XML. In this way local files
-       can be loaded even if the workspace file has been moved */
-    m_doc->setWorkspacePath(QFileInfo(fn).absolutePath());
 
 #ifdef DEBUG_SPEED
     speedTime.restart();
@@ -1215,10 +1220,6 @@ void App::slotRecentFileClicked(QAction *recent)
     /* Clear existing document data */
     clearDocument();
 
-    /* Set the workspace path before loading the new XML. In this way local files
-       can be loaded even if the workspace file has been moved */
-    m_doc->setWorkspacePath(QFileInfo(recentAbsPath).absolutePath());
-
 #ifdef DEBUG_SPEED
     speedTime.restart();
 #endif
@@ -1282,6 +1283,10 @@ QFile::FileError App::loadXML(const QString& fileName)
         QLCFile::releaseXMLReader(doc);
         return QFile::ResourceError;
     }
+
+    /* Set the workspace path before loading the new XML. In this way local files
+       can be loaded even if the workspace file has been moved */
+    m_doc->setWorkspacePath(QFileInfo(fileName).absolutePath());
 
     if (doc->dtdName() == KXMLQLCWorkspace)
     {

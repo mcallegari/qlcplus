@@ -26,6 +26,7 @@ INCLUDEPATH     += ../plugins/interfaces
 
 HEADERS += \
     app.h \
+    actionmanager.h \
     chasereditor.h \
     contextmanager.h \
     fixturebrowser.h \
@@ -45,6 +46,7 @@ HEADERS += \
 
 SOURCES += main.cpp \
     app.cpp \
+    actionmanager.cpp \
     chasereditor.cpp \
     contextmanager.cpp \
     fixturebrowser.cpp \
@@ -73,7 +75,9 @@ HEADERS += \
     virtualconsole/vcframe.h \
     virtualconsole/vcsoloframe.h \
     virtualconsole/vcbutton.h \
-    virtualconsole/vclabel.h
+    virtualconsole/vclabel.h \
+    virtualconsole/vcslider.h \
+    virtualconsole/vcclock.h
 
 SOURCES += \
     virtualconsole/virtualconsole.cpp \
@@ -81,7 +85,9 @@ SOURCES += \
     virtualconsole/vcframe.cpp \
     virtualconsole/vcsoloframe.cpp \
     virtualconsole/vcbutton.cpp \
-    virtualconsole/vclabel.cpp
+    virtualconsole/vclabel.cpp \
+    virtualconsole/vcslider.cpp \
+    virtualconsole/vcclock.cpp
 
 RESOURCES += qmlui.qrc ../resources/icons/svg/svgicons.qrc ../resources/fonts/fonts.qrc
 

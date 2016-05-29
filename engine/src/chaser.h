@@ -344,6 +344,9 @@ public:
     void preRun(MasterTimer* timer);
 
     /** @reimpl */
+    void setPause(bool enable);
+
+    /** @reimpl */
     void write(MasterTimer* timer, QList<Universe *> universes);
 
     /** @reimpl */

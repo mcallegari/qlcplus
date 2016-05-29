@@ -42,6 +42,7 @@ protected slots:
     void slotStatusChanged(QMediaPlayer::MediaStatus status);
     void slotMetaDataChanged(QString key, QVariant data);
     void slotPlaybackVideo();
+    void slotSetPause(bool enable);
     void slotStopVideo();
     void slotBrightnessAdjust(int value);
 

@@ -16,7 +16,7 @@ The function works on predefined
 created by the user with the <IMG SRC="qrc:/fixture.png" align="absmiddle"> <A HREF="file:fixturemanager.html">Fixture Manager</A>.
 </P>
 
-<H2>Controls</H2>
+<H2 id="controls">Controls</H2>
 
 <TABLE BORDER=1 class="qlcTable">
  <TR>
@@ -137,11 +137,13 @@ created by the user with the <IMG SRC="qrc:/fixture.png" align="absmiddle"> <A H
   <TD>
    <B>Pattern Blend Mode</B>
   </TD>
-  <TD>The blend mode is the mechanism used to mix multiple RGB Matrices running one on top of the other.<br>
+  <TD>The blend mode is the mechanism used to mix multiple RGB Matrices running
+    one on top of the other.<br>
     Here's a representation of how it works:
     <P><IMG SRC="file:images/blending.png" /></P>
-    The matrix running on the bottom layer must use the default mode, to prepare a ground of colors that
-    all the above layers can use to perform blending.
+    The matrix running on the bottom layer must use the default mode, to
+    prepare a ground of colors that all the above layers can use to perform
+    blending.
   </TD>
  </TR>
  <TR>
@@ -151,8 +153,10 @@ created by the user with the <IMG SRC="qrc:/fixture.png" align="absmiddle"> <A H
   <TD>
    Available only when <B>Text</B> or <B>Image</B> is the selected pattern.
    <UL>
-    <LI>X: Used to shift the pattern along the horizontal x-axis (negative values go to the left, positive values go to the right)</LI>
-    <LI>Y: Used to shift the pattern along the vertical y-axis (negative values go up, positive values go down)</LI>
+    <LI><B>X:</B> Used to shift the pattern along the horizontal x-axis (negative
+        values go to the left, positive values go to the right)</LI>
+    <LI><B>Y:</B> Used to shift the pattern along the vertical y-axis (negative
+        values go up, positive values go down)</LI>
    </UL>
   </TD>
  </TR>
@@ -162,9 +166,10 @@ created by the user with the <IMG SRC="qrc:/fixture.png" align="absmiddle"> <A H
   </TD>
   <TD>
    <UL>
-    <LI>Loop: Run through the steps over and over again.</LI>
-    <LI>Single Shot: Run through the steps once and then stop.</LI>
-    <LI>Ping Pong: Run through the steps over and over again, reversing direction at both ends.</LI>
+    <LI><B>Loop:</B> Run through the steps over and over again.</LI>
+    <LI><B>Single Shot:</B> Run through the steps once and then stop.</LI>
+    <LI><B>Ping Pong:</B> Run through the steps over and over again, reversing
+        direction at both ends.</LI>
    </UL>
   </TD>
  </TR>
@@ -174,8 +179,20 @@ created by the user with the <IMG SRC="qrc:/fixture.png" align="absmiddle"> <A H
   </TD>
   <TD>
    <UL>
-    <LI>Forward: Run through the steps from start to end; 1, 2, 3...</LI>
-    <LI>Backward: Run through the steps from end to start; ...3, 2, 1</LI>
+    <LI><B>Forward:</B> Run through the steps from start to end; 1, 2, 3...</LI>
+    <LI><B>Backward:</B> Run through the steps from end to start; ...3, 2, 1</LI>
+   </UL>
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Other Controls</B>
+  </TD>
+  <TD>
+   <UL>
+    <LI><B>Dimmer control:</B> When enabled, dimmer channel of include fixtures will
+        be set to 100% when the matrix is running. Uncheck if you want
+        independent intensity control.</LI>
    </UL>
   </TD>
  </TR>

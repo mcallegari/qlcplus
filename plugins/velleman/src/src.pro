@@ -16,8 +16,9 @@ win32: {
     # extract its contents under K8062DDIR below to compile this plugin.
     K8062DDIR    = C:/Qt/K8062D
     LIBS        += -L$$K8062DDIR -lK8062D
-	INCLUDE	    += -I$$K8062DDIR
-	QMAKE_LFLAGS += -shared
+    LIBS        += $$K8062DDIR/K8062D.a
+    INCLUDE     += -I$$K8062DDIR
+    QMAKE_LFLAGS += -shared
 } else {
     SOURCES += velleman_mock.cpp
 }

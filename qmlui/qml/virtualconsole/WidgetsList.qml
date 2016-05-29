@@ -41,7 +41,7 @@ Rectangle
         ListElement { name: qsTr("Animation"); type: "Animation"; icon: "animation" }
         ListElement { name: qsTr("Label"); type: "Label"; icon: "label" }
         ListElement { name: qsTr("Audio Triggers"); type: "Audio Triggers"; icon: "audiotriggers" }
-        ListElement { name: qsTr("Clock"); type: "clock"; icon: "clock" }
+        ListElement { name: qsTr("Clock"); type: "Clock"; icon: "clock" }
     }
 
     ListView
@@ -70,7 +70,7 @@ Rectangle
                     {
                         //widgetItem.color = "#444"
                         widgetItem.reduced = true
-                        widgetItem.x = mouse.x
+                        //widgetItem.x = mouse.x
                     }
                     onReleased:
                     {

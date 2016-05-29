@@ -193,10 +193,10 @@ public slots:
 public:
     void addFixture(quint32 fixtureId);
     bool removeFixture(quint32 fixtureId);
-    QSet<quint32> fixtures() const;
+    QList<quint32> fixtures() const;
 
 private:
-    QSet<quint32> m_fixtures;
+    QList<quint32> m_fixtures;
 
     /*********************************************************************
      * Load & Save

@@ -4,6 +4,7 @@ TEMPLATE = subdirs
 TARGET = webfiles
 
 webfiles.files += common.css
+webfiles.files += keypad.html
 webfiles.files += networkconfig.js
 webfiles.files += simpledesk.css
 webfiles.files += simpledesk.js

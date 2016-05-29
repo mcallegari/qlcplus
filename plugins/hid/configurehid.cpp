@@ -91,8 +91,7 @@ void ConfigureHID::refreshList()
         item->setText(KColumnName, dev->name());
         item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
     }
-    m_list->resizeColumnToContents(KColumnNumber);
-    m_list->resizeColumnToContents(KColumnName);
+    m_list->header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
 void ConfigureHID::slotDeviceAdded(HIDDevice*)

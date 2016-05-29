@@ -9,8 +9,9 @@ CONFIG += qt
 QT     += core gui script network
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets multimedia
 
-# Engine
-INCLUDEPATH     += ../../engine/src ../../engine/audio/src ../../ui/src ../../ui/src/virtualconsole
+INCLUDEPATH     += qhttpserver
+INCLUDEPATH     += ../../engine/src ../../engine/audio/src 
+INCLUDEPATH     += ../../ui/src ../../ui/src/virtualconsole
 DEPENDPATH      += ../../engine/src ../../ui/src
 QMAKE_LIBDIR    += ../../engine/src ../../ui/src
 DEFINES         += USE_WEBSOCKET NO_SSL
@@ -30,16 +31,29 @@ win32:LIBS  += -lws2_32
 win32:QMAKE_LFLAGS += -shared
 win32:INCLUDEPATH += ./
 
-HEADERS += mongoose.h \
-           commonjscss.h \
+# qhttpserver files
+HEADERS = qhttpserver/http_parser.h \
+          qhttpserver/qhttpconnection.h \
+          qhttpserver/qhttpserver.h \
+          qhttpserver/qhttprequest.h \
+          qhttpserver/qhttpresponse.h \
+          qhttpserver/qhttpserverfwd.h
+
+SOURCES = qhttpserver/http_parser.c \
+          qhttpserver/qhttpconnection.cpp \
+          qhttpserver/qhttprequest.cpp \
+          qhttpserver/qhttpresponse.cpp \
+          qhttpserver/qhttpserver.cpp
+
+# QLC+ webaccess files
+HEADERS += commonjscss.h \
            webaccess.h \
            webaccessconfiguration.h \
            webaccesssimpledesk.h
 
 unix:!macx: HEADERS += webaccessnetwork.h
 
-SOURCES += mongoose.c \
-           webaccess.cpp \
+SOURCES += webaccess.cpp \
            webaccessconfiguration.cpp \
            webaccesssimpledesk.cpp
 

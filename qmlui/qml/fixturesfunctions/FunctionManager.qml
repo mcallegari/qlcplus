@@ -35,12 +35,13 @@ Rectangle
 
     signal requestView(int ID, string qmlSrc)
 
-    Component.onDestruction: functionManager.clearTree()
+    //Component.onDestruction: functionManager.clearTree()
 
     function loadFunctionEditor(funcID, funcType)
     {
         //console.log("Request to open Function editor. ID: " + funcID + " type: " + funcType)
         functionManager.setEditorFunction(funcID)
+        functionManager.viewPosition = functionsListView.contentY
 
         switch(funcType)
         {
@@ -69,16 +70,6 @@ Rectangle
             functionManager.setFunctionFilter(fType, true);
         else
             functionManager.setFunctionFilter(fType, false);
-    }
-
-    ModelSelector
-    {
-        id: fmSelector
-        onItemsCountChanged:
-        {
-            console.log("Function Manager selected items changed !")
-            functionManager.checkPreview(fmSelector.itemsList())
-        }
     }
 
     ColumnLayout
@@ -235,6 +226,9 @@ Rectangle
           z: 4
           boundsBehavior: Flickable.StopAtBounds
           Layout.fillHeight: true
+
+          Component.onCompleted: contentY = functionManager.viewPosition
+
           model: functionManager.functionsList
           delegate:
               Component
@@ -243,13 +237,17 @@ Rectangle
                   {
                       width: parent.width
                       source: hasChildren ? "qrc:/TreeNodeDelegate.qml" : "qrc:/FunctionDelegate.qml"
+
                       onLoaded:
                       {
                           item.textLabel = label
+                          item.isSelected = Qt.binding(function() { return isSelected })
+
                           if (hasChildren)
                           {
                               console.log("Item path: " + path + ",label: " + label)
                               item.nodePath = path
+                              item.isExpanded = isExpanded
                               item.folderChildren = childrenModel
                           }
                           else
@@ -266,7 +264,16 @@ Rectangle
                       Connections
                       {
                           target: item
-                          onClicked: fmSelector.selectItem(ID, qItem, mouseMods & Qt.ControlModifier)
+                          onClicked:
+                          {
+                              if (qItem == item)
+                              {
+                                  model.isSelected = (mouseMods & Qt.ControlModifier) ? 2 : 1
+                                  if (model.hasChildren)
+                                      model.isExpanded = item.isExpanded
+                              }
+                              functionManager.selectFunctionID(ID, mouseMods & Qt.ControlModifier)
+                          }
                       }
                       Connections
                       {

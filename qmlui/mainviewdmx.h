@@ -38,6 +38,9 @@ public:
     /** @reimp */
     void enableContext(bool enable);
 
+    /** @reimp */
+    void setUniverseFilter(quint32 universeFilter);
+
     void reset();
 
     void createFixtureItem(quint32 fxID);

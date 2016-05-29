@@ -80,5 +80,4 @@ Slider
     */
             }
         }
-    //onValueChanged: currentValue = slider.value
 }

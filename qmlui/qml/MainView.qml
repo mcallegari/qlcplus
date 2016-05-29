@@ -100,7 +100,7 @@ Rectangle
             MenuBarEntry
             {
                 id: actEntry
-                imgSource: "qrc:/qlcplus.png"
+                imgSource: "qrc:/qlcplus.svg"
                 entryText: qsTr("Actions")
                 onClicked:
                 {
@@ -245,5 +245,9 @@ Rectangle
             anchors.fill: parent
             source: "qrc:/FixturesAndFunctions.qml"
         }
+    }
+    PopupBox
+    {
+        anchors.fill: parent
     }
 }

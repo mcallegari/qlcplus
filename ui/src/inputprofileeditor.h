@@ -48,7 +48,7 @@ public:
 protected:
     void fillTree();
     void updateChannelItem(QTreeWidgetItem* item, QLCInputChannel* ch);
-    void updateBehaviourBox(QLCInputChannel::Type type);
+    void setOptionsVisibility(QLCInputChannel::Type type);
 
 protected slots:
     void slotTypeComboChanged(int );
@@ -78,6 +78,8 @@ protected slots:
     void slotMovementComboChanged(int index);
     void slotSensitivitySpinChanged(int value);
     void slotExtraPressChecked(bool checked);
+    void slotLowerValueSpinChanged(int value);
+    void slotUpperValueSpinChanged(int value);
 
     void slotInputValueChanged(quint32 universe, quint32 channel, uchar value, const QString& key = 0);
     void slotTimerTimeout();

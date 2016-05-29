@@ -4,6 +4,7 @@ TEMPLATE = subdirs
 TARGET   = scripts
 
 scripts.files += balls.js
+scripts.files += ballscolors.js
 scripts.files += circles.js
 scripts.files += evenodd.js
 scripts.files += fill.js
@@ -26,6 +27,7 @@ scripts.files += squares.js
 scripts.files += squaresfromcenter.js
 scripts.files += stripes.js
 scripts.files += stripesfromcenter.js
+scripts.files += strobe.js
 scripts.files += verticalfall.js
 scripts.files += waves.js
 

@@ -1,0 +1,624 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE InputProfile>
+<InputProfile xmlns="http://www.qlcplus.org/InputProfile">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.3</Version>
+  <Author>Massimo Callegari</Author>
+ </Creator>
+ <Manufacturer>Lemur</Manufacturer>
+ <Model>iPad Studio Combo</Model>
+ <Type>OSC</Type>
+ <Channel Number="8">
+  <Name>/Fader5/x</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="291">
+  <Name>/MasterKeyboard/white/vel_10</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="811">
+  <Name>/Locks/x_1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="885">
+  <Name>/MasterKeyboard/white/vel_56</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="1417">
+  <Name>/Drumpads/x_7</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="1570">
+  <Name>/Multiball1/x</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="1832">
+  <Name>/MultiSlider/x_13</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="2137">
+  <Name>/MasterKeyboard/white/vel_22</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="2575">
+  <Name>/MasterKeyboard/white/vel_64</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="2852">
+  <Name>/MasterKeyboard/white/vel_47</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="3269">
+  <Name>/MultiSlider/z_10</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="3917">
+  <Name>/MultiSlider/z_7</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4266">
+  <Name>/MasterKeyboard/white/vel_11</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4481">
+  <Name>/MasterKeyboard/white/vel_32</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4770">
+  <Name>/Locks/x_0</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4860">
+  <Name>/MasterKeyboard/white/vel_57</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="5120">
+  <Name>/Drumpads/x_6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="5793">
+  <Name>/MultiSlider/x_12</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="6059">
+  <Name>/Multiball1/y</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="6608">
+  <Name>/MasterKeyboard/white/vel_23</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="6829">
+  <Name>/MasterKeyboard/white/vel_46</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="7046">
+  <Name>/MasterKeyboard/white/vel_65</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="7309">
+  <Name>/Multiball4/z</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="7500">
+  <Name>/MultiSlider/z_11</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="7876">
+  <Name>/MultiSlider/z_6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8295">
+  <Name>/MasterKeyboard/white/vel_54</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8753">
+  <Name>/MasterKeyboard/white/vel_12</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8986">
+  <Name>/Fader5/z</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="9274">
+  <Name>/MultiSlider/x_11</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="9520">
+  <Name>/Multiball1/z</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="9883">
+  <Name>/Drumpads/x_5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="10294">
+  <Name>/MasterKeyboard/white/vel_45</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="10525">
+  <Name>/MasterKeyboard/white/vel_66</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="11083">
+  <Name>/MasterKeyboard/white/vel_20</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="11359">
+  <Name>/MultiSlider/z_5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="11798">
+  <Name>/Multiball4/y</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="12247">
+  <Name>/MultiSlider/z_12</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12720">
+  <Name>/Locks/x_2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12782">
+  <Name>/MasterKeyboard/white/vel_55</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12947">
+  <Name>/MasterKeyboard/white/vel_30</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="13240">
+  <Name>/MasterKeyboard/white/vel_13</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="13747">
+  <Name>/MultiSlider/x_10</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="14098">
+  <Name>/Drumpads/x_4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="14484">
+  <Name>/MasterKeyboard/white/vel_67</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="14783">
+  <Name>/MasterKeyboard/white/vel_44</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="15042">
+  <Name>/MasterKeyboard/white/vel_21</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="15830">
+  <Name>/MultiSlider/z_4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="15966">
+  <Name>/MultiSlider/z_13</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16287">
+  <Name>/Multiball4/x</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="16507">
+  <Name>/Fader1/z</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16898">
+  <Name>/MultiSlider/x_8</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="17325">
+  <Name>/Drumpads/x_3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="17530">
+  <Name>/MasterKeyboard/white/vel_71</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="17745">
+  <Name>/MasterKeyboard/white/vel_52</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="17964">
+  <Name>/MasterKeyboard/white/vel_37</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="18183">
+  <Name>/MasterKeyboard/white/vel_14</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="18793">
+  <Name>/MultiSlider/z_3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="19169">
+  <Name>/MultiSlider/z_14</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="19499">
+  <Name>/MasterKeyboard/white/vel_60</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="19712">
+  <Name>/MasterKeyboard/white/vel_43</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="20093">
+  <Name>/MasterKeyboard/white/vel_26</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="21028">
+  <Name>/Drumpads/x_2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="21387">
+  <Name>/MultiSlider/x_9</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="21720">
+  <Name>/MasterKeyboard/white/vel_53</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="22003">
+  <Name>/MasterKeyboard/white/vel_70</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="22158">
+  <Name>/MasterKeyboard/white/vel_15</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="22437">
+  <Name>/MasterKeyboard/white/vel_36</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="22752">
+  <Name>/MultiSlider/z_2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="23252">
+  <Name>/Fader4/x</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="23400">
+  <Name>/MultiSlider/z_15</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="23689">
+  <Name>/MasterKeyboard/white/vel_42</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="23970">
+  <Name>/MasterKeyboard/white/vel_61</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24564">
+  <Name>/MasterKeyboard/white/vel_27</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24767">
+  <Name>/Drumpads/x_1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="25118">
+  <Name>/MultiSlider/x_15</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="25449">
+  <Name>/Fader1/x</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="25621">
+  <Name>/MasterKeyboard/white/vel_16</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="25918">
+  <Name>/MasterKeyboard/white/vel_35</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="26179">
+  <Name>/MasterKeyboard/white/vel_50</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="26862">
+  <Name>/MasterKeyboard/white/vel_9</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="27259">
+  <Name>/MultiSlider/z_1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28015">
+  <Name>/MasterKeyboard/white/vel_24</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28178">
+  <Name>/MasterKeyboard/white/vel_41</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28473">
+  <Name>/MasterKeyboard/white/vel_62</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28982">
+  <Name>/Drumpads/x_0</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="29591">
+  <Name>/MultiSlider/x_14</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="29879">
+  <Name>/MasterKeyboard/white/vel_34</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="30108">
+  <Name>/MasterKeyboard/white/vel_17</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="30666">
+  <Name>/MasterKeyboard/white/vel_51</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="31079">
+  <Name>/MasterKeyboard/white/vel_8</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="31174">
+  <Name>/Fader4/z</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="31730">
+  <Name>/MultiSlider/z_0</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="31974">
+  <Name>/MasterKeyboard/white/vel_25</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="32432">
+  <Name>/MasterKeyboard/white/vel_63</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="32667">
+  <Name>/MasterKeyboard/white/vel_40</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="33168">
+  <Name>/MasterKeyboard/white/vel_7</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="34926">
+  <Name>/MultiSlider/x_4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="35853">
+  <Name>/Fader2/x</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="36071">
+  <Name>/Drumpads/x_10</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="36203">
+  <Name>/MasterKeyboard/white/vel_18</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="36889">
+  <Name>/MasterKeyboard/white/vel_6</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37000">
+  <Name>/Multiball3/z</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="38562">
+  <Name>/Fader7/z</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="39399">
+  <Name>/MultiSlider/x_5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="40162">
+  <Name>/MasterKeyboard/white/vel_19</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="40302">
+  <Name>/Drumpads/x_11</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="41491">
+  <Name>/Multiball3/y</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="41602">
+  <Name>/MasterKeyboard/white/vel_5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="42755">
+  <Name>/MasterKeyboard/white/vel_28</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="42918">
+  <Name>/MultiPhysics/x</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="43900">
+  <Name>/MultiSlider/x_6</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="44831">
+  <Name>/Fader2/z</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="44882">
+  <Name>/MasterKeyboard/white/vel_39</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="45045">
+  <Name>/Drumpads/x_12</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="45835">
+  <Name>/MasterKeyboard/white/vel_4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="45978">
+  <Name>/Multiball3/x</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="46512">
+  <Name>/Fader7/x</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="46730">
+  <Name>/MasterKeyboard/white/vel_29</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="47861">
+  <Name>/MultiSlider/x_7</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="48764">
+  <Name>/Drumpads/x_13</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="48859">
+  <Name>/MasterKeyboard/white/vel_38</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="49251">
+  <Name>/MasterKeyboard/white/vel_68</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="50261">
+  <Name>/Balance/x</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="51124">
+  <Name>/MasterKeyboard/white/vel_3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="51796">
+  <Name>/Multiball2/z</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="51907">
+  <Name>/Drumpads/x_14</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="52350">
+  <Name>/Fader6/z</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="52810">
+  <Name>/MultiSlider/x_0</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="53738">
+  <Name>/MasterKeyboard/white/vel_69</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="54845">
+  <Name>/MasterKeyboard/white/vel_2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="54993">
+  <Name>/Fader3/x</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="56138">
+  <Name>/Drumpads/x_15</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="56421">
+  <Name>/Fader8/z</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="57283">
+  <Name>/MultiSlider/x_1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="57946">
+  <Name>/MasterKeyboard/white/vel_49</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="58534">
+  <Name>/MasterKeyboard/white/vel_1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="58931">
+  <Name>/MultiSlider/z_9</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="59207">
+  <Name>/Balance/z</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="59718">
+  <Name>/Multiball2/x</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="59915">
+  <Name>/MasterKeyboard/white/vel_58</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="60663">
+  <Name>/Drumpads/x_9</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="60760">
+  <Name>/MultiSlider/x_2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="61292">
+  <Name>/Fader6/x</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="61502">
+  <Name>/TogglePhysics/x</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="62419">
+  <Name>/MasterKeyboard/white/vel_48</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="62767">
+  <Name>/MasterKeyboard/white/vel_0</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="62915">
+  <Name>/Fader3/z</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="63418">
+  <Name>/MultiSlider/z_8</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="63695">
+  <Name>/Multiball2/y</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="64386">
+  <Name>/MasterKeyboard/white/vel_59</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="64721">
+  <Name>/MultiSlider/x_3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="64894">
+  <Name>/Drumpads/x_8</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="65399">
+  <Name>/Fader8/x</Name>
+  <Type>Slider</Type>
+ </Channel>
+</InputProfile>

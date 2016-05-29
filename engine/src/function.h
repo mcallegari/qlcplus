@@ -636,6 +636,16 @@ public:
                uint overrideDuration = defaultSpeed());
 
     /**
+     * Pause a running Function. Subclasses should check the paused state
+     * immediately in the write call and, in case, return, to avoid performing
+     * any action and moreover to increment the elapsed time.
+     * This is declared as virtual for those subclasses where the actual
+     * Function progress is handled in a separate thread, like multimedia
+     * functions, or where the Function handles a few children Functions.
+     */
+    virtual void setPause(bool enable);
+
+    /**
      * Mark the function to be stopped ASAP. MasterTimer will stop running
      * the function on the next pass after this method has been called.
      * There is no way to cancel it, but the function can be started again
@@ -668,12 +678,25 @@ public:
      */
     bool isRunning() const;
 
+    /**
+     * Check if the function is currently in a paused state. This is invoked
+     * by subclasses to understand if they have to do something during the
+     * write call
+     */
+    bool isPaused() const;
+
     bool startedAsChild() const;
 
 private:
-    /** Stop flag, private to keep functions from modifying it. */
+    /** Running state flags. The rules are:
+     *  - m_stop resets also m_paused
+     *  - m_paused and m_running can be both true
+     *  - if m_paused is true, a start(...) call will just reset it to false
+     *  These are private to prevent Functions from modifying them. */
     bool m_stop;
     bool m_running;
+    bool m_paused;
+
     QList<FunctionParent> m_sources;
     QMutex m_sourcesMutex;
 

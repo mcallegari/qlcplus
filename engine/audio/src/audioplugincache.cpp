@@ -83,6 +83,8 @@ void AudioPluginCache::load(const QDir &dir)
             m_pluginsPathList << path;
             loader.unload();
         }
+        else
+            qDebug() << "Failed to load plugin: " << loader.errorString();
     }
 }
 

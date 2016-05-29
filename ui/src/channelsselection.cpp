@@ -195,9 +195,7 @@ void ChannelsSelection::updateFixturesTree()
             item->setText(KColumnChIdx, QString::number(c));
         }
     }
-    m_channelsTree->resizeColumnToContents(KColumnName);
-    m_channelsTree->resizeColumnToContents(KColumnType);
-    m_channelsTree->resizeColumnToContents(KColumnSelection);
+    m_channelsTree->header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
 QList<QTreeWidgetItem *> ChannelsSelection::getSameChannels(QTreeWidgetItem *item)
@@ -264,11 +262,7 @@ void ChannelsSelection::slotItemChecked(QTreeWidgetItem *item, int col)
 
 void ChannelsSelection::slotItemExpanded()
 {
-    m_channelsTree->resizeColumnToContents(KColumnName);
-    m_channelsTree->resizeColumnToContents(KColumnType);
-    m_channelsTree->resizeColumnToContents(KColumnSelection);
-    if (m_mode == ConfigurationMode)
-        m_channelsTree->resizeColumnToContents(KColumnBehaviour);
+    m_channelsTree->header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
 void ChannelsSelection::slotComboChanged(int idx)

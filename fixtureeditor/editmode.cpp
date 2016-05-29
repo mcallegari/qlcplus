@@ -258,8 +258,7 @@ void EditMode::refreshChannelList()
         item->setIcon(COL_NAME, ch->getIcon());
         item->setData(COL_NAME, PROP_PTR, (qulonglong) ch);
     }
-    m_channelList->resizeColumnToContents(COL_NUM);
-    m_channelList->resizeColumnToContents(COL_NAME);
+    m_channelList->header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
 QLCChannel* EditMode::currentChannel()

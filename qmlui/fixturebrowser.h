@@ -39,7 +39,18 @@ public:
     Q_INVOKABLE QStringList models(QString manufacturer);
     Q_INVOKABLE QStringList modes(QString manufacturer, QString model);
     Q_INVOKABLE int modeChannels(QString modeName);
-    Q_INVOKABLE int availableChannel(int uniIdx, int channels, int quantity, int gap, int requested);
+
+    /** Check if the group of fixtures with the specified $uniIdx, $channels, $quantity and $gap
+     *  can be created in the $requested DMX address.
+     *  Returns:
+     *  > $requested if the $requested address is available
+     *  > the first available address if $requested is not available
+     *  > -1 in case all the checks have failed
+     */
+    Q_INVOKABLE int availableChannel(quint32 uniIdx, int channels, int quantity, int gap, int requested);
+
+    /** Check if a Fixture with $fixtureID can be moved to the $requested DMX address */
+    Q_INVOKABLE int availableChannel(quint32 fixtureID, int requested);
 
 signals:
     void modeChanged();

@@ -164,7 +164,5 @@ void ShowEditor::updateFunctionList()
     masterItem->setText(DUR_COL, Function::speedToString(totalDuration));
 
     m_tree->expandAll();
-    m_tree->resizeColumnToContents(NAME_COL);
-    m_tree->resizeColumnToContents(TIME_COL);
-    m_tree->resizeColumnToContents(DUR_COL);
+    m_tree->header()->resizeSections(QHeaderView::ResizeToContents);
 }

@@ -100,6 +100,26 @@ SidePanel
             }
             IconButton
             {
+                id: removeFunction
+                z: 2
+                width: iconSize
+                height: iconSize
+                imgSource: "qrc:/remove.svg"
+                tooltip: qsTr("Remove the selected functions")
+                counter: functionManager.selectionCount
+                onClicked:
+                {
+                    var selNames = functionManager.selectedFunctionsName()
+                    console.log(selNames)
+
+                    actionManager.requestActionPopup(ActionManager.DeleteFunctions,
+                                                     qsTr("Are you sure you want to remove the following functions ?\n" + selNames),
+                                                     ActionManager.OK | ActionManager.Cancel,
+                                                     functionManager.selectedFunctionsID())
+                }
+            }
+            IconButton
+            {
                 id: sceneDump
                 objectName: "dumpButton"
                 z: 2
@@ -126,7 +146,7 @@ SidePanel
                 imgSource: "qrc:/play.svg"
                 tooltip: qsTr("Function Preview")
                 checkable: true
-                visible: false
+                counter: functionManager.selectionCount
                 onToggled: functionManager.setPreview(checked)
             }
         }

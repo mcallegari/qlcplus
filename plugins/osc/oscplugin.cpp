@@ -23,6 +23,8 @@
 #include <QSettings>
 #include <QDebug>
 
+#define MAX_INIT_RETRY  10
+
 OSCPlugin::~OSCPlugin()
 {
 }
@@ -86,6 +88,22 @@ QString OSCPlugin::pluginInfo()
     return str;
 }
 
+bool OSCPlugin::requestLine(quint32 line, int retries)
+{
+    int retryCount = 0;
+
+    while (line >= (quint32)m_IOmapping.length())
+    {
+        qDebug() << "[OSC] cannot open line" << line << "(available:" << m_IOmapping.length() << ")";
+        Sleep(1000);
+        init();
+        if (retryCount++ == retries)
+            return false;
+    }
+
+    return true;
+}
+
 /*********************************************************************
  * Outputs
  *********************************************************************/
@@ -132,9 +150,7 @@ QString OSCPlugin::outputInfo(quint32 output)
 
 bool OSCPlugin::openOutput(quint32 output, quint32 universe)
 {
-    init();
-
-    if (output >= (quint32)m_IOmapping.length())
+    if (requestLine(output, MAX_INIT_RETRY) == false)
         return false;
 
     qDebug() << "[OSC] Open output with address :" << m_IOmapping.at(output).IPAddress;
@@ -201,9 +217,7 @@ QStringList OSCPlugin::inputs()
 
 bool OSCPlugin::openInput(quint32 input, quint32 universe)
 {
-    init();
-
-    if (input >= (quint32)m_IOmapping.length())
+    if (requestLine(input, MAX_INIT_RETRY) == false)
         return false;
 
     qDebug() << "[OSC] Open input on address :" << m_IOmapping.at(input).IPAddress;

@@ -45,7 +45,7 @@ Rectangle
     property int indexInList: -1
     property int highlightIndex: -1
 
-    property int col1Width: 20
+    property int col1Width: 25
     property int col2Width: 120
     property int col3Width: 60
     property int col4Width: 60
@@ -53,12 +53,13 @@ Rectangle
     property int col6Width: 60
 
     signal clicked(int ID, var qItem, int mouseMods)
+    signal doubleClicked(int ID, string type)
 
     onFunctionIDChanged:
     {
         func = functionManager.getFunction(functionID)
         stepLabel = func.name
-        funcEntry.functionType = func.type
+        funcIconName.functionType = func.type
     }
 
     onHighlightIndexChanged:
@@ -83,8 +84,25 @@ Rectangle
         anchors.fill: parent
         onClicked:
         {
-            isSelected = true
             stepDelegate.clicked(functionID, stepDelegate, mouse.modifiers)
+        }
+        onDoubleClicked:
+        {
+            console.log("Double click happened at " + mouse.x + "," + mouse.y)
+
+            var item = fieldsRow.childAt(mouse.x, mouse.y)
+            if (item === funcIconName)
+                console.log("Func name clicked")
+            else if (item === fadeInText)
+                stepDelegate.doubleClicked(functionID, "FI")
+            else if (item === holdText)
+                stepDelegate.doubleClicked(functionID, "H")
+            else if (item === fadeOutText)
+                stepDelegate.doubleClicked(functionID, "FO")
+            else if (item === durationText)
+                stepDelegate.doubleClicked(functionID, "D")
+            else if (mouse.x >= noteText.x)
+                console.log("Note clicked")
         }
     }
 
@@ -101,70 +119,83 @@ Rectangle
 
     Row
     {
-        height: 35
+        id: fieldsRow
+        height: stepDelegate.height
         spacing: 2
 
         RobotoText
         {
             width: col1Width
+            height: parent.height
             label: indexInList + 1
             fontSize: labelFontSize
             wrapText: true
             textAlign: Text.AlignHCenter
         }
-        Rectangle { height: 35; width: 1; color: UISettings.fgMedium }
+        Rectangle { height: parent.height; width: 1; color: UISettings.fgMedium }
 
         IconTextEntry
         {
-            id: funcEntry
+            id: funcIconName
             width: col2Width
-            height: parent.height
+            height: 35
+            anchors.verticalCenter: parent.verticalCenter
             tLabel: stepLabel
         }
-        Rectangle { height: 35; width: 1; color: UISettings.fgMedium }
+        Rectangle { height: parent.height; width: 1; color: UISettings.fgMedium }
 
         RobotoText
         {
+            id: fadeInText
             width: col3Width
+            height: parent.height
             label: stepFadeIn
             fontSize: labelFontSize
             wrapText: true
             textAlign: Text.AlignHCenter
         }
-        Rectangle { height: 35; width: 1; color: UISettings.fgMedium }
+        Rectangle { height: parent.height; width: 1; color: UISettings.fgMedium }
 
         RobotoText
         {
+            id: holdText
             width: col4Width
+            height: parent.height
             label: stepHold
             fontSize: labelFontSize
             wrapText: true
             textAlign: Text.AlignHCenter
         }
-        Rectangle { height: 35; width: 1; color: UISettings.fgMedium }
+        Rectangle { height: parent.height; width: 1; color: UISettings.fgMedium }
 
         RobotoText
         {
+            id: fadeOutText
             width: col5Width
+            height: parent.height
             label: stepFadeOut
             fontSize: labelFontSize
             wrapText: true
             textAlign: Text.AlignHCenter
         }
-        Rectangle { height: 35; width: 1; color: UISettings.fgMedium }
+        Rectangle { height: parent.height; width: 1; color: UISettings.fgMedium }
 
         RobotoText
         {
+            id: durationText
             width: col6Width
+            height: parent.height
             label: stepDuration
             fontSize: labelFontSize
             wrapText: true
             textAlign: Text.AlignHCenter
         }
-        Rectangle { height: 35; width: 1; color: UISettings.fgMedium }
+        Rectangle { height: parent.height; width: 1; color: UISettings.fgMedium }
 
         RobotoText
         {
+            id: noteText
+            height: parent.height
             label: stepNote
             fontSize: labelFontSize
             //Layout.fillWidth: true

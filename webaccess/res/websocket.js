@@ -62,7 +62,7 @@ window.onload = function() {
     if (msgParams[2] == "-1")
       playBbj.innerHTML = "<img src=\"player_play.png\" width=\"27\">";
     else
-      playBbj.innerHTML = "<img src=\"player_stop.png\" width=\"27\">";
+      playBbj.innerHTML = "<img src=\"player_pause.png\" width=\"27\">";
   }
   else if (msgParams[1] == "FRAME") {
     setFramePage(msgParams[0], msgParams[2]);

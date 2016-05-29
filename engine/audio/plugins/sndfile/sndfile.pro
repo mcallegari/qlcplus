@@ -14,6 +14,12 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 CONFIG      += link_pkgconfig
 PKGCONFIG   += sndfile
 
+macx {
+    # This must be after "TARGET = " and before target installation so that
+    # install_name_tool can be run before target installation
+    include(../../../../macx/nametool.pri)
+}
+
 target.path = $$INSTALLROOT/$$AUDIOPLUGINDIR
 INSTALLS   += target
 

@@ -20,12 +20,7 @@
  display: inline-block;
  text-align: center;
  color: #fff;
- border: 1px solid #9c9c9c;
- border: 1px solid rgba(0, 0, 0, 0.3);
- text-shadow: 0 1px 0 rgba(0,0,0,0.4);
- box-shadow: 0 0 .05em rgba(0,0,0,0.4);
- -moz-box-shadow: 0 0 .05em rgba(0,0,0,0.4);
- -webkit-box-shadow: 0 0 .05em rgba(0,0,0,0.4);
+ border: 1px solid #333;
 }
 
 .button, .button span  {
@@ -34,8 +29,6 @@
 }
 
 .button span {
- border-top: 1px solid #fff;
- border-top: 1px solid rgba(255, 255, 255, 0.5);
  display: block;
  padding: 0 10px 0 10px;
  background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(.25, rgba(0, 0, 0, 0.05)), color-stop(.25, transparent), to(transparent));

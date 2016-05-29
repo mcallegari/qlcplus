@@ -26,7 +26,10 @@
 #include "virtualconsole.h"
 #include "vcwidget.h"
 #include "vcbutton.h"
+#include "vcslider.h"
 #include "vcframe.h"
+#include "vclabel.h"
+#include "vcclock.h"
 #include "doc.h"
 
 #define KXMLQLCVCProperties "Properties"
@@ -62,13 +65,17 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc, QObject *parent)
         page->setAllowResize(false);
         page->setShowHeader(false);
         page->setGeometry(QRect(0, 0, 1920, 1080));
-        page->setFont(QFont("RobotoCondensed", 16));
+        page->setFont(QFont("Roboto Condensed", 16));
         m_pages.append(page);
     }
 
     qmlRegisterType<VCWidget>("com.qlcplus.classes", 1, 0, "VCWidget");
     qmlRegisterType<VCFrame>("com.qlcplus.classes", 1, 0, "VCFrame");
     qmlRegisterType<VCButton>("com.qlcplus.classes", 1, 0, "VCButton");
+    qmlRegisterType<VCLabel>("com.qlcplus.classes", 1, 0, "VCLabel");
+    qmlRegisterType<VCSlider>("com.qlcplus.classes", 1, 0, "VCSlider");
+    qmlRegisterType<VCClock>("com.qlcplus.classes", 1, 0, "VCClock");
+    qmlRegisterType<VCClockSchedule>("com.qlcplus.classes", 1, 0, "VCClockSchedule");
 }
 
 void VirtualConsole::renderPage(QQuickItem *parent, QQuickItem *contentItem, int page)
@@ -91,19 +98,37 @@ void VirtualConsole::renderPage(QQuickItem *parent, QQuickItem *contentItem, int
 void VirtualConsole::setWidgetSelection(quint32 wID, QQuickItem *item, bool enable)
 {
     // disable any previously selected widget
-    foreach(QQuickItem *widget, m_itemsMap.values())
-        widget->setProperty("isSelected", false);
-    m_itemsMap.clear();
+    // TODO: handle multiple widgets selection
+    resetWidgetSelection();
 
     if (enable)
     {
         m_itemsMap[wID] = item;
+        if (m_selectedWidget != NULL)
+            m_selectedWidget->setIsEditing(false);
+
         m_selectedWidget = m_widgetsMap[wID];
+
+        if (m_selectedWidget != NULL)
+            m_selectedWidget->setIsEditing(true);
     }
     else
+    {
+        if (m_selectedWidget != NULL)
+            m_selectedWidget->setIsEditing(false);
         m_selectedWidget = NULL;
+    }
 
     emit selectedWidgetChanged(m_selectedWidget);
+}
+
+void VirtualConsole::resetWidgetSelection()
+{
+    foreach(QQuickItem *widget, m_itemsMap.values())
+        widget->setProperty("isSelected", false);
+    m_itemsMap.clear();
+
+    m_selectedWidget = NULL;
 }
 
 /*********************************************************************
@@ -146,7 +171,6 @@ void VirtualConsole::addWidgetToMap(VCWidget* widget)
     // Valid ID ?
     if (widget->id() != VCWidget::invalidId())
     {
-
         // Maybe we don't know this widget yet
         if (!m_widgetsMap.contains(widget->id()))
         {
@@ -256,6 +280,8 @@ void VirtualConsole::resetDropTargets(bool deleteTargets)
 
 bool VirtualConsole::loadXML(QXmlStreamReader &root)
 {
+    int currPageIdx = 0;
+
     if (root.name() != KXMLQLCVirtualConsole)
     {
         qWarning() << Q_FUNC_INFO << "Virtual Console node not found";
@@ -267,8 +293,20 @@ bool VirtualConsole::loadXML(QXmlStreamReader &root)
         //qDebug() << "VC tag:" << root.name();
         if (root.name() == KXMLQLCVCFrame)
         {
+            if (currPageIdx == m_pages.count())
+            {
+                VCFrame *page = new VCFrame(m_doc, this, this);
+                QQmlEngine::setObjectOwnership(page, QQmlEngine::CppOwnership);
+                page->setAllowResize(false);
+                page->setShowHeader(false);
+                page->setGeometry(QRect(0, 0, 1920, 1080));
+                page->setFont(QFont("Roboto Condensed", 16));
+                m_pages.append(page);
+            }
             /* Contents */
-            m_pages.at(0)->loadXML(root);
+            m_pages.at(currPageIdx)->loadXML(root);
+            currPageIdx++;
+
         }
         else if (root.name() == KXMLQLCVCProperties)
         {
@@ -363,6 +401,27 @@ bool VirtualConsole::loadPropertiesXML(QXmlStreamReader &root)
 
     return true;
 }
+
+bool VirtualConsole::saveXML(QXmlStreamWriter *doc)
+{
+    Q_ASSERT(doc != NULL);
+
+    /* Virtual Console entry */
+    doc->writeStartElement(KXMLQLCVirtualConsole);
+
+    /* Contents */
+    for (int i = 0; i < m_pages.count(); i++)
+        m_pages.at(i)->saveXML(doc);
+
+    /* Properties */
+    //m_properties.saveXML(doc);
+
+    /* End the <VirtualConsole> tag */
+    doc->writeEndElement();
+
+    return true;
+}
+
 
 void VirtualConsole::postLoad()
 {

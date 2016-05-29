@@ -29,24 +29,37 @@ Rectangle
     radius: 3
     color: UISettings.bgMedium
 
-    property alias inputText: textEdit2.text
+    property alias inputFocus: ctEdit.focus
+    property alias inputText: ctEdit.text
     property int fontSize: 16
+    property int textAlignment: TextInput.AlignLeft
 
     signal textChanged(var text)
+    signal enterPressed()
+
+    function selectAndFocus()
+    {
+        ctEdit.selectAll()
+        ctEdit.focus = true
+    }
 
     border.color: "#222"
 
     TextInput
     {
-        id: textEdit2
-        color: UISettings.fgMain
+        id: ctEdit
         anchors.fill: parent
-        anchors.margins: 4
-        clip: true
-        font.family: "RobotoCondensed"
-        font.pointSize: fontSize
-        echoMode: TextInput.Normal
         anchors.verticalCenter: parent.verticalCenter
+        anchors.margins: 4
+        color: UISettings.fgMain
+        selectionColor: UISettings.highlightPressed
+        clip: true
+        horizontalAlignment: textAlignment
+        font.family: "Roboto Condensed"
+        font.pointSize: fontSize
+        selectByMouse: true
+
         onTextChanged: customTextEditRect.textChanged(text)
+        onAccepted: customTextEditRect.enterPressed()
     }
 }

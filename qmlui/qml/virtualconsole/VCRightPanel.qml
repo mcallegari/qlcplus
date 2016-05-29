@@ -23,15 +23,11 @@ import "."
 
 SidePanel
 {
-    id: leftSidePanel
-    anchors.left: parent.left
-    anchors.leftMargin: 0
-    panelAlignment: Qt.AlignLeft
+    id: vcRightPanel
 
     Rectangle
     {
         id: sideBar
-        x: parent.width - collapseWidth
         width: collapseWidth
         height: parent.height
         color: "transparent"

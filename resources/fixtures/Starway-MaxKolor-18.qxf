@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.8.6 GIT</Version>
+  <Version>4.10.2 GIT</Version>
   <Author>Thierry Rodolfo</Author>
  </Creator>
  <Manufacturer>Starway</Manufacturer>
@@ -25,65 +25,83 @@
  <Channel Name="Red">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0 &gt; Max</Capability>
+  <Capability Min="0" Max="255">0 &gt; max</Capability>
  </Channel>
  <Channel Name="Green">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0 &gt; Max</Capability>
+  <Capability Min="0" Max="255">0 &gt; max</Capability>
  </Channel>
  <Channel Name="Blue">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0 &gt; Max</Capability>
+  <Capability Min="0" Max="255">0 &gt; max</Capability>
  </Channel>
- <Channel Name="Strobe">
-  <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="15">None</Capability>
-  <Capability Min="16" Max="255">Max &gt; 0</Capability>
+ <Channel Name="Strobe/Macro Speed">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">None/Macro speed</Capability>
+  <Capability Min="16" Max="255">Fast to slow/Macro speed</Capability>
  </Channel>
  <Channel Name="Dimmer">
   <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0 &gt; Max</Capability>
+  <Capability Min="0" Max="255">RGB mode only</Capability>
  </Channel>
  <Channel Name="Pan">
   <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">0 &gt; Max</Capability>
+  <Capability Min="0" Max="255">0 &gt; 540°</Capability>
  </Channel>
  <Channel Name="Tilt">
   <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">0 &gt; Max</Capability>
+  <Capability Min="0" Max="255">0 &gt; 230°</Capability>
  </Channel>
  <Channel Name="Pan Fine">
   <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">0 &gt; Max</Capability>
+  <Capability Min="0" Max="255">0 &gt; max</Capability>
  </Channel>
  <Channel Name="Tilt Fine">
   <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">0 &gt; Max</Capability>
+  <Capability Min="0" Max="255">0 &gt; max</Capability>
  </Channel>
- <Channel Name="Speed Pan/Tilt">
+ <Channel Name="Pan/Tilt Speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Max &gt; 0</Capability>
  </Channel>
  <Mode Name="16 Bit">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Weight="7" Depth="376" Height="220" Width="250"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="7" Width="250" Height="220" Depth="376"/>
    <Lens Name="Other" DegreesMin="23" DegreesMax="23"/>
-   <Focus TiltMax="23" Type="Head" PanMax="540"/>
-   <Technical PowerConsumption="55" DmxConnector="3-pin"/>
+   <Focus Type="Head" PanMax="540" TiltMax="230"/>
+   <Technical PowerConsumption="102" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Macros</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
   <Channel Number="3">Blue</Channel>
-  <Channel Number="4">Strobe</Channel>
+  <Channel Number="4">Strobe/Macro Speed</Channel>
   <Channel Number="5">Dimmer</Channel>
   <Channel Number="6">Pan</Channel>
   <Channel Number="7">Tilt</Channel>
-  <Channel Number="8">Speed Pan/Tilt</Channel>
+  <Channel Number="8">Pan/Tilt Speed</Channel>
   <Channel Number="9">Pan Fine</Channel>
   <Channel Number="10">Tilt Fine</Channel>
+ </Mode>
+ <Mode Name="8 Bit">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="7" Width="250" Height="220" Depth="376"/>
+   <Lens Name="Other" DegreesMin="23" DegreesMax="23"/>
+   <Focus Type="Head" PanMax="540" TiltMax="230"/>
+   <Technical PowerConsumption="102" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Macros</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Strobe/Macro Speed</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Pan</Channel>
+  <Channel Number="7">Tilt</Channel>
+  <Channel Number="8">Pan/Tilt Speed</Channel>
  </Mode>
 </FixtureDefinition>

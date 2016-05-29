@@ -32,43 +32,48 @@ Rectangle
     property string sectionLabel: ""
     property Component sectionContents
 
-    Rectangle
+    Column
     {
-        id: cPropsHeader
+        id: sectionColumn
         width: parent.width
-        height: 38
-        color: headerMouseArea.containsMouse ? UISettings.highlight : UISettings.sectionHeader
 
-        RobotoText
+        Rectangle
         {
-            x: 2
-            label: boxRoot.sectionLabel
+            id: cPropsHeader
+            width: parent.width
+            height: 38
+            color: headerMouseArea.containsMouse ? UISettings.highlight : UISettings.sectionHeader
+
+            RobotoText
+            {
+                x: 2
+                label: boxRoot.sectionLabel
+            }
+            Text
+            {
+                x: parent.width - 34
+                anchors.verticalCenter: parent.verticalCenter
+                font.family: "FontAwesome"
+                font.pointSize: 24
+                text: boxRoot.isExpanded ? FontAwesome.fa_minus_square : FontAwesome.fa_plus_square
+                color: "white"
+            }
+
+            MouseArea
+            {
+                id: headerMouseArea
+                anchors.fill: parent
+                hoverEnabled: true
+
+                onClicked: boxRoot.isExpanded = !boxRoot.isExpanded
+            }
         }
-        Text
+
+        Loader
         {
-            x: parent.width - 34
-            anchors.verticalCenter: parent.verticalCenter
-            font.family: "FontAwesome"
-            font.pointSize: 24
-            text: boxRoot.isExpanded ? FontAwesome.fa_minus_square : FontAwesome.fa_plus_square
-            color: "white"
+            id: sectionLoader
+            width: parent.width
+            sourceComponent: boxRoot.sectionContents
         }
-
-        MouseArea
-        {
-            id: headerMouseArea
-            anchors.fill: parent
-            hoverEnabled: true
-
-            onClicked: boxRoot.isExpanded = !boxRoot.isExpanded
-        }
-    }
-
-    Loader
-    {
-        id: sectionLoader
-        y: cPropsHeader.height
-        width: parent.width
-        sourceComponent: boxRoot.sectionContents
     }
 }

@@ -111,8 +111,7 @@ void DMXUSBConfig::slotRefresh()
         m_tree->setItemWidget(item, COL_TYPE, createTypeCombo(widget));
     }
 
-    m_tree->resizeColumnToContents(COL_NAME);
-    m_tree->resizeColumnToContents(COL_SERIAL);
+    m_tree->header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
 QComboBox* DMXUSBConfig::createTypeCombo(DMXUSBWidget *widget)

@@ -145,5 +145,6 @@ namespace QLCMIDIProtocol
 #define MIDI_BEAT_CLOCK_PPQ                24
 #define CHANNEL_OFFSET_MBC_PLAYBACK        529
 #define CHANNEL_OFFSET_MBC_BEAT            530
+#define CHANNEL_OFFSET_MBC_STOP            531
 
 #endif

@@ -864,8 +864,8 @@ void VCXYPadFixture_Test::write16bitReverse()
         xmul = ((xy.xMax() - xy.xMin()) * xmul) + xy.xMin();
         ymul = ((xy.yMax() - xy.yMin()) * ymul) + xy.yMin();
 
-        xmul = xy.xMax() - xmul;
-        ymul = xy.yMax() - ymul;
+        xmul = 1 - xmul;
+        ymul = 1 - ymul;
 
         ushort x = floor((qreal(USHRT_MAX) * xmul) + 0.5);
         ushort y = floor((qreal(USHRT_MAX) * ymul) + 0.5);
@@ -875,6 +875,140 @@ void VCXYPadFixture_Test::write16bitReverse()
         QCOMPARE(ua[0]->preGMValues()[2], char(y >> 8));
         QCOMPARE(ua[0]->preGMValues()[3], char(y & 0xFF));
     }
+}
+
+void VCXYPadFixture_Test::writeRange()
+{
+    QFETCH(qreal, rangeMin);
+    QFETCH(qreal, rangeMax);
+    QFETCH(bool, reverse);
+    QFETCH(int, valueAt0);
+    QFETCH(int, valueAt1);
+
+    // For testing pourpose we will test only on the X axis
+    // keeping the Y axis at its full range
+    Fixture* fxi = new Fixture(m_doc);
+
+    // Select fixture
+    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("American DJ", "Inno Pocket Spot");
+    QVERIFY(def != NULL);
+    QLCFixtureMode* mode = def->modes().at(1);
+    QVERIFY(mode != NULL);
+
+    fxi->setFixtureDefinition(def, mode);
+
+    QList<Universe*> ua;
+    ua.append(new Universe(0, new GrandMaster()));
+
+    m_doc->addFixture(fxi);
+    VCXYPadFixture xy(m_doc);
+    xy.setHead(GroupHead(fxi->id(), 0));
+    xy.setX(rangeMin, rangeMax, reverse);
+    xy.setY(0, 1, false);
+    xy.arm();
+
+    // Handle on the left
+    qreal xmul = 0;
+    qreal ymul = 0;
+
+    xy.writeDMX(xmul, ymul, ua);
+    QCOMPARE((int)ua[0]->preGMValue(0), valueAt0);
+
+    // handle on the right
+    xmul = 1;
+    xy.writeDMX(xmul, ymul, ua);
+    QCOMPARE((int)ua[0]->preGMValue(0), valueAt1);
+}
+
+void VCXYPadFixture_Test::writeRange_data()
+{
+    QTest::addColumn<qreal>("rangeMin");
+    QTest::addColumn<qreal>("rangeMax");
+    QTest::addColumn<bool>("reverse");
+    QTest::addColumn<int>("valueAt0");
+    QTest::addColumn<int>("valueAt1");
+
+    // normal
+    QTest::newRow("0-100% / DMX: 0-255") << 0.0 << 1.0 << false << 0 << 255;
+    QTest::newRow("40-60% / DMX: 102-153") << 0.4 << 0.6 << false << 102 << 153;
+    QTest::newRow("0-20% / DMX: 0-51 ") << 0.0 << 0.2 << false << 0 << 51;
+    QTest::newRow("80-100% / DMX: 204-255") << 0.8 << 1.0 << false << 204 << 255;
+
+    // reversed
+    QTest::newRow("0-100% / DMX: 0-255 reversed") << 0.0 << 1.0 << true << 255 << 0;
+    QTest::newRow("40-60% / DMX: 102-153 reversed") << 0.4 << 0.6 << true << 153 << 102;
+    QTest::newRow("0-20% / DMX: 0-51 reversed") << 0.0 << 0.2 << true << 51 << 0;
+    QTest::newRow("80-100% / DMX: 204-255 reversed") << 0.8 << 1.0 << true << 255 << 204;
+}
+
+void VCXYPadFixture_Test::readRange()
+{
+    QFETCH(qreal, rangeMin);
+    QFETCH(qreal, rangeMax);
+    QFETCH(bool, reverse);
+    QFETCH(int, valueAt0);
+    QFETCH(int, valueAt1);
+
+    // For testing pourpose we will test only on the X axis
+    // keeping the Y axis at its full range
+    Fixture* fxi = new Fixture(m_doc);
+
+    // Select fixture
+    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("American DJ", "Inno Pocket Spot");
+    QVERIFY(def != NULL);
+    QLCFixtureMode* mode = def->modes().at(1);
+    QVERIFY(mode != NULL);
+
+    fxi->setFixtureDefinition(def, mode);
+
+    QList<Universe*> ua;
+    ua.append(new Universe(0, new GrandMaster()));
+
+    m_doc->addFixture(fxi);
+    VCXYPadFixture xy(m_doc);
+    xy.setHead(GroupHead(fxi->id(), 0));
+    xy.setX(rangeMin, rangeMax, reverse);
+    xy.setY(0, 1, false);
+    xy.arm();
+
+    // Handle on the left
+    qreal xmul = 0;
+    qreal ymul = 0;
+
+    ua[0]->write(0, valueAt0);
+    xy.readDMX(ua, xmul, ymul);
+    // the value was scaled to interval rangeMax-rangeMin,
+    // so the resolution is less than 1/that range
+    // here the value should be near zero
+    QVERIFY(xmul < 1.0/(rangeMax-rangeMin));
+
+    // handle on the right
+    ua[0]->write(0, valueAt1);
+    xy.readDMX(ua, xmul, ymul);
+    // again, the resolution depends on the range.
+    // here the value should be near one
+    QVERIFY(xmul > (rangeMax-rangeMin-1)/(rangeMax-rangeMin));
+}
+
+void VCXYPadFixture_Test::readRange_data()
+{
+    QTest::addColumn<qreal>("rangeMin");
+    QTest::addColumn<qreal>("rangeMax");
+    QTest::addColumn<bool>("reverse");
+    QTest::addColumn<int>("valueAt0");
+    QTest::addColumn<int>("valueAt1");
+
+    // normal
+    QTest::newRow("0-100% / DMX: 0-255") << 0.0 << 1.0 << false << 0 << 255;
+    QTest::newRow("40-60% / DMX: 102-153") << 0.4 << 0.6 << false << 102 << 153;
+    QTest::newRow("0-20% / DMX: 0-51 ") << 0.0 << 0.2 << false << 0 << 51;
+    QTest::newRow("80-100% / DMX: 204-255") << 0.8 << 1.0 << false << 204 << 255;
+
+    // reversed
+    QTest::newRow("0-100% / DMX: 0-255 reversed") << 0.0 << 1.0 << true << 255 << 0;
+    QTest::newRow("40-60% / DMX: 102-153 reversed") << 0.4 << 0.6 << true << 153 << 102;
+    QTest::newRow("0-20% / DMX: 0-51 reversed") << 0.0 << 0.2 << true << 51 << 0;
+    QTest::newRow("80-100% / DMX: 204-255 reversed") << 0.8 << 1.0 << true << 255 << 204;
 }
 
 void VCXYPadFixture_Test::cleanupTestCase()

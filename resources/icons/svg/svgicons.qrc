@@ -60,6 +60,7 @@
     <file alias="intensity.svg">intensity.svg</file>
     <file alias="knob.svg">knob.svg</file>
     <file alias="label.svg">label.svg</file>
+    <file alias="lock.svg">lock.svg</file>
     <file alias="loop.svg">loop.svg</file>
     <file alias="magenta.svg">magenta.svg</file>
     <file alias="midiplugin.svg">midiplugin.svg</file>
@@ -71,9 +72,11 @@
     <file alias="play.svg">play.svg</file>
     <file alias="position.svg">position.svg</file>
     <file alias="prism.svg">prism.svg</file>
+    <file alias="qlcplus.svg">qlcplus.svg</file>
     <file alias="random.svg">random.svg</file>
     <file alias="red.svg">red.svg</file>
     <file alias="remove.svg">remove.svg</file>
+    <file alias="reset.svg">reset.svg</file>
     <file alias="resize.svg">resize.svg</file>
     <file alias="rgbmatrix.svg">rgbmatrix.svg</file>
     <file alias="rotate-right.svg">rotate-right.svg</file>
@@ -93,6 +96,7 @@
     <file alias="stretch.svg">stretch.svg</file>
     <file alias="tilt.svg">tilt.svg</file>
     <file alias="uniview.svg">uniview.svg</file>
+    <file alias="unlock.svg">unlock.svg</file>
     <file alias="uv.svg">uv.svg</file>
     <file alias="video.svg">video.svg</file>
     <file alias="virtualconsole.svg">virtualconsole.svg</file>

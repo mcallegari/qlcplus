@@ -27,6 +27,7 @@
 #include "trackitem.h"
 #include "headeritems.h"
 #include "audiodecoder.h"
+#include "audioplugincache.h"
 
 AudioItem::AudioItem(Audio *aud, ShowFunction *func)
     : ShowItem(func)
@@ -53,16 +54,16 @@ AudioItem::AudioItem(Audio *aud, ShowFunction *func)
     /* Preview actions */
     m_previewLeftAction = new QAction(tr("Preview Left Channel"), this);
     m_previewLeftAction->setCheckable(true);
-    connect(m_previewLeftAction, SIGNAL(toggled(bool)),
-            this, SLOT(slotAudioPreviewLeft(bool)));
+    connect(m_previewLeftAction, SIGNAL(triggered(bool)),
+            this, SLOT(slotAudioPreviewLeft()));
     m_previewRightAction = new QAction(tr("Preview Right Channel"), this);
     m_previewRightAction->setCheckable(true);
-    connect(m_previewRightAction, SIGNAL(toggled(bool)),
-            this, SLOT(slotAudioPreviewRight(bool)));
+    connect(m_previewRightAction, SIGNAL(triggered(bool)),
+            this, SLOT(slotAudioPreviewRight()));
     m_previewStereoAction = new QAction(tr("Preview Stereo Channels"), this);
     m_previewStereoAction->setCheckable(true);
-    connect(m_previewStereoAction, SIGNAL(toggled(bool)),
-            this, SLOT(slotAudioPreviewStereo(bool)));
+    connect(m_previewStereoAction, SIGNAL(triggered(bool)),
+            this, SLOT(slotAudioPreviewStereo()));
 }
 
 void AudioItem::calculateWidth()
@@ -92,8 +93,7 @@ void AudioItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     if (m_preview != NULL)
     {
         // show preview here
-        QPixmap waveform = m_preview->scaled(m_width, TRACK_HEIGHT - 4);
-        painter->drawPixmap(0, 0, waveform);
+        painter->drawPixmap(0, 0, m_preview->scaled(m_width, TRACK_HEIGHT - 4));
     }
 
     if (m_audio->fadeInSpeed() != 0)
@@ -146,7 +146,72 @@ void AudioItem::slotAudioChanged(quint32)
         m_function->setDuration(m_audio->totalDuration());
 }
 
-qint32 AudioItem::getSample(unsigned char *data, quint32 idx, int sampleSize)
+void AudioItem::slotAudioPreviewLeft()
+{
+    m_previewRightAction->setChecked(false);
+    m_previewStereoAction->setChecked(false);
+    PreviewThread *waveformThread = new PreviewThread;
+    waveformThread->setAudioItem(this);
+    connect(waveformThread, SIGNAL(finished()), waveformThread, SLOT(deleteLater()));
+    waveformThread->start();
+}
+
+void AudioItem::slotAudioPreviewRight()
+{
+    m_previewLeftAction->setChecked(false);
+    m_previewStereoAction->setChecked(false);
+    PreviewThread *waveformThread = new PreviewThread;
+    waveformThread->setAudioItem(this);
+    connect(waveformThread, SIGNAL(finished()), waveformThread, SLOT(deleteLater()));
+    waveformThread->start();
+}
+
+void AudioItem::slotAudioPreviewStereo()
+{
+    m_previewLeftAction->setChecked(false);
+    m_previewRightAction->setChecked(false);
+    PreviewThread *waveformThread = new PreviewThread;
+    waveformThread->setAudioItem(this);
+    connect(waveformThread, SIGNAL(finished()), waveformThread, SLOT(deleteLater()));
+    waveformThread->start();
+}
+
+void AudioItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
+{
+    QMenu menu;
+    QFont menuFont = qApp->font();
+    menuFont.setPixelSize(14);
+    menu.setFont(menuFont);
+
+    if (m_audio->getAudioDecoder() != NULL)
+    {
+        AudioDecoder *ad = m_audio->getAudioDecoder();
+        AudioParameters ap = ad->audioParameters();
+
+        if (ap.channels() == 1)
+            m_previewLeftAction->setText(tr("Preview Mono"));
+        menu.addAction(m_previewLeftAction);
+        if (ap.channels() == 2)
+        {
+            m_previewLeftAction->setText(tr("Preview Left Channel"));
+            menu.addAction(m_previewRightAction);
+            menu.addAction(m_previewStereoAction);
+        }
+        menu.addSeparator();
+    }
+
+    foreach(QAction *action, getDefaultActions())
+        menu.addAction(action);
+
+    menu.exec(QCursor::pos());
+}
+
+void PreviewThread::setAudioItem(AudioItem *item)
+{
+    m_item = item;
+}
+
+qint32 PreviewThread::getSample(unsigned char *data, quint32 idx, int sampleSize)
 {
     qint32 value = 0;
     if (sampleSize == 1)
@@ -166,32 +231,14 @@ qint32 AudioItem::getSample(unsigned char *data, quint32 idx, int sampleSize)
     return value;
 }
 
-void AudioItem::slotAudioPreviewLeft(bool active)
+void PreviewThread::run()
 {
-    m_previewRightAction->setChecked(false);
-    m_previewStereoAction->setChecked(false);
-    createWaveform(active, false);
-}
+    bool left = m_item->m_previewLeftAction->isChecked() | m_item->m_previewStereoAction->isChecked();
+    bool right = m_item->m_previewRightAction->isChecked() | m_item->m_previewStereoAction->isChecked();
 
-void AudioItem::slotAudioPreviewRight(bool active)
-{
-    m_previewLeftAction->setChecked(false);
-    m_previewStereoAction->setChecked(false);
-    createWaveform(false, active);
-}
-
-void AudioItem::slotAudioPreviewStereo(bool active)
-{
-    m_previewLeftAction->setChecked(false);
-    m_previewRightAction->setChecked(false);
-    createWaveform(active, active);
-}
-
-void AudioItem::createWaveform(bool left, bool right)
-{
-    if ((left == true || right == true) && m_audio->getAudioDecoder() != NULL)
+    if ((left == true || right == true) && m_item->m_audio->getAudioDecoder() != NULL)
     {
-        AudioDecoder *ad = m_audio->getAudioDecoder();
+        AudioDecoder *ad = m_item->m_audio->doc()->audioPluginCache()->getDecoderForFile(m_item->m_audio->getSourceFileName());
         AudioParameters ap = ad->audioParameters();
         ad->seek(0);
         // 1- find out how many samples have to be represented on a single pixel on a 1:1 time scale
@@ -217,16 +264,20 @@ void AudioItem::createWaveform(bool left, bool right)
         qint64 dataRead = 1;
         unsigned char audioData[onePixelReadLen * 4];
         quint32 audioDataOffset = 0;
-        m_preview = new QPixmap((50 * m_audio->totalDuration()) / 1000, 76);
-        m_preview->fill(Qt::transparent);
-        QPainter p(m_preview);
+        QPixmap *preview = new QPixmap((50 * m_item->m_audio->totalDuration()) / 1000, 76);
+        preview->fill(Qt::transparent);
+        QPainter p(preview);
         int xpos = 0;
 
-        qDebug() << "Audio duration: " << m_audio->totalDuration() <<
-                    ", pixmap width: " << m_preview->width() <<
+        qDebug() << "Audio duration: " << m_item->m_audio->totalDuration() <<
+                    ", pixmap width: " << preview->width() <<
                     ", maxValue: " << maxValue << ", samples:" << sampleSize;
         qDebug() << "Samples per second: " << oneSecondSamples << ", for one pixel: " << onePixelSamples <<
                     ", onePixelReadLen:" << onePixelReadLen;
+
+        delete m_item->m_preview;
+        m_item->m_preview = NULL;
+        m_item->update();
 
         while (dataRead)
         {
@@ -339,43 +390,14 @@ void AudioItem::createWaveform(bool left, bool right)
             }
         }
         //qDebug() << "Iterations done: " << xpos;
-        ad->seek(0);
+        delete ad;
+        m_item->m_preview = preview;
     }
     else // no preview selected. Delete pixmap
     {
-        delete m_preview;
-        m_preview = NULL;
+        delete m_item->m_preview;
+        m_item->m_preview = NULL;
     }
 
-    update();
-}
-
-void AudioItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *)
-{
-    QMenu menu;
-    QFont menuFont = qApp->font();
-    menuFont.setPixelSize(14);
-    menu.setFont(menuFont);
-
-    if (m_audio->getAudioDecoder() != NULL)
-    {
-        AudioDecoder *ad = m_audio->getAudioDecoder();
-        AudioParameters ap = ad->audioParameters();
-
-        if (ap.channels() == 1)
-            m_previewLeftAction->setText(tr("Preview Mono"));
-        menu.addAction(m_previewLeftAction);
-        if (ap.channels() == 2)
-        {
-            m_previewLeftAction->setText(tr("Preview Left Channel"));
-            menu.addAction(m_previewRightAction);
-            menu.addAction(m_previewStereoAction);
-        }
-        menu.addSeparator();
-    }
-
-    foreach(QAction *action, getDefaultActions())
-        menu.addAction(action);
-
-    menu.exec(QCursor::pos());
+    m_item->update();
 }

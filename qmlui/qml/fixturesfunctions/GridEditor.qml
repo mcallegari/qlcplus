@@ -27,26 +27,40 @@ Rectangle
 
     color: "transparent"
 
+    /** The size of the universe grid to render */
     property size gridSize: Qt.size(1,1)
-    property real gridScale: 1.0
+
+    /** An array of data organized as follows: Fixture ID | DMX address | isOdd | channel type */
     property variant gridData
+
+    /** The size in pixels of a grid cell */
     property real cellSize
+
+    /** The number of universe DMX addresses to display (typically 512) */
     property int showIndices: 0
 
+    /** During a drag operation, this indicates if the selection is valid (green) or not (red) */
     property bool validSelection: true
+
+    /** An array of DMX addresses composing the currently selected fixtures */
     property variant selectionData
 
+    property int currentFixtureID
+
     onGridSizeChanged: calculateCellSize()
-    onGridDataChanged: dataCanvas.requestPaint()
+    onGridDataChanged: { selectionData = null; dataCanvas.requestPaint() }
     onWidthChanged: calculateCellSize()
     onValidSelectionChanged: dataCanvas.requestPaint()
 
     signal pressed(int xPos, int yPos, int mods)
     signal positionChanged(int xPos, int yPos, int mods)
-    signal released(int xPos, int yPos, int mods)
+    signal released(int xPos, int yPos, int offset, int mods)
 
     signal dragEntered(int xPos, int yPos, var dragEvent)
     signal dragPositionChanged(int xPos, int yPos, var dragEvent)
+
+    property color oddColor: "#2D84B0"
+    property color evenColor: "#2C58B0"
 
     function calculateCellSize()
     {
@@ -108,6 +122,26 @@ Rectangle
             return false
         }
 
+        function getPressedFixtureID(uniAddress)
+        {
+            if (gridData === null)
+                return -1
+
+            for (var idx = 0; idx < gridData.length; idx+=4)
+            {
+                if (gridData[idx + 1] === uniAddress)
+                    return gridData[idx]
+            }
+            return -1
+        }
+
+        function setSelectionOffset()
+        {
+            dataCanvas.selectionOffset =
+                    ((dataCanvas.mouseLastY - dataCanvas.mouseOrigY) * gridSize.width) +
+                      dataCanvas.mouseLastX - dataCanvas.mouseOrigX
+        }
+
         function fillCell(ctx, absIdx, color)
         {
             var yCell = parseInt(absIdx / gridSize.width)
@@ -119,26 +153,21 @@ Rectangle
         onPaint:
         {
             var ctx = dataCanvas.getContext('2d');
+            ctx.fillStyle = "#7f7f7f"
+            ctx.fillRect(0, 0, cellSize * gridSize.width, cellSize * gridSize.height)
 
             if (gridData && gridData.length)
             {
                 console.log("[GridEditor] Full repaint data length: " + gridData.length)
-                var xpos = 0;
-                var ypos = 0;
-                var rowCount = 0;
 
-                for (var idx = 0; idx < gridData.length; idx++)
+                for (var idx = 0; idx < gridData.length; idx+=4)
                 {
-                    ctx.fillStyle = gridData[idx]
-                    ctx.fillRect(xpos, ypos, cellSize, cellSize)
-                    xpos += cellSize
-                    rowCount++;
-                    if (rowCount === gridSize.width)
-                    {
-                        xpos = 0
-                        rowCount = 0
-                        ypos += cellSize
-                    }
+                    //console.log("Fixture ID: " + gridData[idx] + ", address: " + gridData[idx + 1]);
+
+                    if (gridData[idx + 2])
+                        fillCell(ctx, gridData[idx + 1], oddColor)
+                    else
+                        fillCell(ctx, gridData[idx + 1], evenColor)
                 }
                 if (selectionData && selectionData.length)
                 {
@@ -171,22 +200,41 @@ Rectangle
             onPressed:
             {
                 if (dataCanvas.checkPosition(mouse))
+                {
+                    var uniAddress = (dataCanvas.mouseLastY * gridSize.width) + dataCanvas.mouseLastX
+                    currentFixtureID = dataCanvas.getPressedFixtureID(uniAddress)
+                    if (currentFixtureID === -1)
+                        return;
+
+                    console.log("Clicked Fixture ID: " + currentFixtureID)
                     gridRoot.pressed(dataCanvas.mouseLastX, dataCanvas.mouseLastY, mouse.modifiers)
-                dataCanvas.movingSelection = true
+                    dataCanvas.movingSelection = true
+                }
             }
             onPositionChanged:
             {
                 if (dataCanvas.movingSelection && dataCanvas.checkPosition(mouse))
+                {
+                    dataCanvas.setSelectionOffset()
                     gridRoot.positionChanged(dataCanvas.mouseLastX, dataCanvas.mouseLastY, mouse.modifiers)
+                    dataCanvas.requestPaint()
+                }
             }
             onReleased:
             {
-                gridRoot.released(dataCanvas.mouseLastX, dataCanvas.mouseLastY, mouse.modifiers)
-                dataCanvas.mouseOrigX = -1
-                dataCanvas.mouseOrigY = -1
-                dataCanvas.mouseLastX = -1
-                dataCanvas.mouseLastY = -1
-                dataCanvas.selectionOffset = 0
+                if (dataCanvas.selectionOffset != 0 && selectionData && selectionData.length)
+                {
+                    var absPosition = (dataCanvas.mouseLastY * gridSize.width) + dataCanvas.mouseLastX
+                    var offset = selectionData[0] + dataCanvas.selectionOffset - absPosition
+                    console.log("Offset with mouse: " + offset)
+                    gridRoot.released(dataCanvas.mouseLastX, dataCanvas.mouseLastY, offset, mouse.modifiers)
+                    dataCanvas.mouseOrigX = -1
+                    dataCanvas.mouseOrigY = -1
+                    dataCanvas.mouseLastX = -1
+                    dataCanvas.mouseLastY = -1
+                    dataCanvas.selectionOffset = 0
+                    dataCanvas.movingSelection = false
+                }
             }
         }
 
@@ -204,9 +252,7 @@ Rectangle
                 if (dataCanvas.checkPosition(drag))
                 {
                     console.log("Drag position changed" + dataCanvas.mouseLastX + " " + dataCanvas.mouseLastY)
-                    dataCanvas.selectionOffset =
-                            ((dataCanvas.mouseLastY - dataCanvas.mouseOrigY) * gridSize.width) +
-                            dataCanvas.mouseLastX - dataCanvas.mouseOrigX
+                    dataCanvas.setSelectionOffset()
                     gridRoot.dragPositionChanged(dataCanvas.mouseLastX, dataCanvas.mouseLastY, drag)
                     dataCanvas.requestPaint()
                 }
@@ -265,7 +311,7 @@ Rectangle
 
             if (showIndices)
             {
-                //ctx.font = "10px RobotoCondensed"
+                ctx.font = '10px "Roboto Condensed"'
                 var xpos = 5
                 var ypos = cellSize - 10
                 var rowCount = 0;

@@ -70,6 +70,7 @@ Doc::Doc(QObject* parent, int universes)
     , m_monitorProps(NULL)
     , m_mode(Design)
     , m_kiosk(false)
+    , m_loadStatus(Cleared)
     , m_clipboard(new QLCClipboard(this))
     , m_fixturesListCacheUpToDate(false)
     , m_latestFixtureId(0)
@@ -167,6 +168,7 @@ void Doc::clearContents()
     m_latestFixtureGroupId = 0;
     m_latestChannelsGroupId = 0;
     m_addresses.clear();
+    m_loadStatus = Cleared;
 
     emit cleared();
 }
@@ -276,6 +278,10 @@ void Doc::destroyAudioCapture()
 /*****************************************************************************
  * Modified status
  *****************************************************************************/
+Doc::LoadStatus Doc::loadStatus() const
+{
+    return m_loadStatus;
+}
 
 bool Doc::isModified() const
 {
@@ -1083,6 +1089,7 @@ bool Doc::loadXML(QXmlStreamReader &doc)
         return false;
     }
 
+    m_loadStatus = Loading;
     emit loading();
 
     if (doc.attributes().hasAttribute(KXMLQLCStartupFunction))
@@ -1134,6 +1141,7 @@ bool Doc::loadXML(QXmlStreamReader &doc)
 
     postLoad();
 
+    m_loadStatus = Loaded;
     emit loaded();
 
     return true;

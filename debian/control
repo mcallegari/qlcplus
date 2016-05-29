@@ -12,6 +12,7 @@ Package: qlcplus
 Section: misc
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
+Recommends: libmad0, libsndfile1
 Description: Q Light Controller Plus - The open DMX lighting desk
   Software lighting desk for controlling professional lighting fixtures.
 

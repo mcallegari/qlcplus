@@ -28,25 +28,45 @@ class TreeModel;
 class TreeModelItem: public QObject
 {
     Q_OBJECT
+
 public:
     TreeModelItem(QString label, QObject *parent = 0);
     ~TreeModelItem();
 
+    /** Get/Set the item display label */
     QString label() const;
     void setLabel(QString label);
 
+    /** Get/Set the item path, to be used to rebuild
+      * the folder structure */
     QString path() const;
     void setPath(QString path);
 
+    /** Get/Set if the item should be expanded when
+     *  displayed in the UI */
+    bool isExpanded() const;
+    void setExpanded(bool expanded);
+
+    /** Get/Set if the item should be selected when
+     *  displayed in the UI */
+    bool isSelected() const;
+    void setSelected(bool selected);
+
+    /** Get the user custom fields as variant */
     QVariant data(int index);
+    /** Set the list of user custom fields */
     void setData(QVariantList data);
 
-    void setChildrenColumns(QStringList columns);
+    /** Set the children column names, if this item has children */
+    bool setChildrenColumns(QStringList columns);
 
-    void addChild(QString label, QVariantList data, bool sorting = false, QString path = QString());
+    /** Add a child to this item. Typically this means the item is a folder */
+    bool addChild(QString label, QVariantList data, bool sorting = false, QString path = QString());
 
+    /** Return if the item has children. Typically for folders */
     bool hasChildren();
 
+    /** Return a reference to the item's children */
     TreeModel *children();
 
     void printItem(int tab = 0);
@@ -54,6 +74,8 @@ public:
 private:
     QString m_label;
     QString m_path;
+    bool m_isExpanded;
+    bool m_isSelected;
     QVariantList m_data;
     TreeModel *m_children;
 };

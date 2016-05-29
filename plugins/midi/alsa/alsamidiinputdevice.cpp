@@ -92,6 +92,10 @@ bool AlsaMidiInputDevice::processMBC(snd_seq_event_type_t type)
         m_mbc_counter = 1;
         return true;
     }
+    else if (type == SND_SEQ_EVENT_CONTINUE)
+    {
+        return true;
+    }
     else if (type == SND_SEQ_EVENT_CLOCK)
     {
         if (m_mbc_counter == UINT_MAX)

@@ -25,32 +25,22 @@
 
 OSCController::OSCController(QString ipaddr, Type type, quint32 line, QObject *parent)
     : QObject(parent)
+    , m_ipAddr(ipaddr)
+    , m_packetSent(0)
+    , m_packetReceived(0)
+    , m_line(line)
+    , m_outputSocket(new QUdpSocket(this))
+    , m_packetizer(new OSCPacketizer())
 {
-    m_ipAddr = QHostAddress(ipaddr);
-    m_line = line;
-
     qDebug() << "[OSCController] type: " << type;
-    m_packetizer.reset(new OSCPacketizer());
-    m_packetSent = 0;
-    m_packetReceived = 0;
-
-    m_outputSocket = new QUdpSocket(this);
+    // Ensure packets will be sent from the correct interface
+    m_outputSocket->bind(m_ipAddr, 0);
 }
 
 OSCController::~OSCController()
 {
     qDebug() << Q_FUNC_INFO;
-    //disconnect(m_outputSocket, SIGNAL(readyRead()), this, SLOT(processPendingPackets()));
-    if (m_outputSocket->isOpen())
-        m_outputSocket->close();
-    QMapIterator<quint32, QByteArray *> it(m_dmxValuesMap);
-    while(it.hasNext())
-    {
-        it.next();
-        QByteArray *ba = it.value();
-        delete ba;
-    }
-    m_dmxValuesMap.clear();
+    qDeleteAll(m_dmxValuesMap);
 }
 
 QHostAddress OSCController::getNetworkIP() const
@@ -68,7 +58,7 @@ void OSCController::addUniverse(quint32 universe, OSCController::Type type)
     else
     {
         UniverseInfo info;
-        info.inputSocket = NULL;
+        info.inputSocket.clear();
         info.inputPort = 7700 + universe;
         if (m_ipAddr == QHostAddress::LocalHost)
         {
@@ -84,44 +74,29 @@ void OSCController::addUniverse(quint32 universe, OSCController::Type type)
         info.outputPort = 9000 + universe;
         info.type = type;
         m_universeMap[universe] = info;
-        m_portsMap[info.inputPort] = universe;
     }
 
-    QUdpSocket *socket = m_universeMap[universe].inputSocket;
-    if (type == Input && socket == NULL)
+    if (type == Input)
     {
-        quint16 inPort = m_universeMap[universe].inputPort;
-        socket = new QUdpSocket(this);
-        if (socket->bind(inPort, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint) == false)
-        {
-            qDebug() << "[OSCController] failed to bind socket to port" << inPort;
-            delete m_universeMap[universe].inputSocket;
-            m_universeMap[universe].inputSocket = NULL;
-        }
-        else
-            connect(socket, SIGNAL(readyRead()),
-                    this, SLOT(processPendingPackets()));
+        UniverseInfo& info = m_universeMap[universe];
+        info.inputSocket.clear();
+        info.inputSocket = getInputSocket(info.inputPort);
     }
 }
 
 void OSCController::removeUniverse(quint32 universe, OSCController::Type type)
 {
+    qDebug() << "[OSC] removeUniverse - universe" << universe << ", type" << type;
     if (m_universeMap.contains(universe))
     {
+        UniverseInfo& info = m_universeMap[universe];
         if (type == Input)
-        {
-            m_portsMap.take(m_universeMap[universe].inputPort);
-            if (m_universeMap[universe].inputSocket != NULL)
-            {
-                disconnect(m_universeMap[universe].inputSocket, SIGNAL(readyRead()),
-                           this, SLOT(processPendingPackets()));
-                delete m_universeMap[universe].inputSocket;
-            }
-        }
-        if (m_universeMap[universe].type == type)
+            info.inputSocket.clear();
+
+        if (info.type == type)
             m_universeMap.take(universe);
         else
-            m_universeMap[universe].type &= ~type;
+            info.type &= ~type;
     }
 }
 
@@ -131,36 +106,31 @@ bool OSCController::setInputPort(quint32 universe, quint16 port)
         return false;
 
     QMutexLocker locker(&m_dataMutex);
-    if (m_portsMap.contains(m_universeMap[universe].inputPort))
-        m_portsMap.take(m_universeMap[universe].inputPort);
-    m_universeMap[universe].inputPort = port;
-    m_portsMap[port] = universe;
+    UniverseInfo& info = m_universeMap[universe];
 
-    QUdpSocket *socket = m_universeMap[universe].inputSocket;
-    if (socket == NULL)
-    {
-        socket = new QUdpSocket(this);
-        qDebug() << "[OSC] new input socket created on universe" << universe;
-    }
-    else
-    {
-        disconnect(socket, SIGNAL(readyRead()),
-                this, SLOT(processPendingPackets()));
-        qDebug() << "[OSC] socket disconnected from universe" << universe;
-    }
+    if (info.inputPort == port)
+        return port == 7700 + universe;
+    info.inputPort = port;
 
-    if (socket->bind(port, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint) == false)
-    {
-        qDebug() << "[OSCController] failed to bind socket to port" << port;
-        return false;
-    }
-
-    qDebug() << "[OSC] socket connected for universe" << universe;
-    connect(socket, SIGNAL(readyRead()),
-            this, SLOT(processPendingPackets()));
-    m_universeMap[universe].inputSocket = socket;
+    info.inputSocket.clear();
+    info.inputSocket = getInputSocket(port);
 
     return port == 7700 + universe;
+}
+
+QSharedPointer<QUdpSocket> OSCController::getInputSocket(quint16 port)
+{
+    foreach(UniverseInfo const& info, m_universeMap)
+    {
+        if (info.inputSocket && info.inputPort == port)
+            return info.inputSocket;
+    }
+
+    QSharedPointer<QUdpSocket> inputSocket(new QUdpSocket(this));
+    inputSocket->bind(m_ipAddr, port, QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint);
+    connect(inputSocket.data(), SIGNAL(readyRead()),
+            this, SLOT(processPendingPackets()));
+    return inputSocket;
 }
 
 bool OSCController::setFeedbackIPAddress(quint32 universe, QString address)
@@ -365,48 +335,60 @@ void OSCController::sendFeedback(const quint32 universe, quint32 channel, uchar 
         m_packetSent++;
 }
 
+void OSCController::handlePacket(QUdpSocket* socket, QByteArray const& datagram, QHostAddress const& senderAddress)
+{
+#if _DEBUG_RECEIVED_PACKETS
+    qDebug() << "Received packet with size: " << datagram.size() << ", host: " << senderAddress.toString();
+#else
+    Q_UNUSED(senderAddress);
+#endif
+
+    QList< QPair<QString, QByteArray> > messages = m_packetizer->parsePacket(datagram);
+
+    QListIterator <QPair<QString,QByteArray> > it(messages);
+    while (it.hasNext() == true)
+    {
+        QPair <QString,QByteArray> msg(it.next());
+
+        QString path = msg.first;
+        QByteArray values = msg.second;
+
+        qDebug() << "[OSC] message has path:" << path << "values:" << values.count();
+        if (values.isEmpty())
+            continue;
+
+        for (QMap<quint32, UniverseInfo>::iterator it = m_universeMap.begin(); it != m_universeMap.end(); ++it)
+        {
+            quint32 universe = it.key();
+            UniverseInfo& info = it.value();
+            if (info.inputSocket == socket)
+            {
+                if (values.count() > 1)
+                {
+                    info.multipartCache[path] = values;
+                    for(int i = 0; i < values.count(); i++)
+                    {
+                        QString modPath = QString("%1_%2").arg(path).arg(i);
+                        emit valueChanged(universe, m_line, getHash(modPath), (uchar)values.at(i), modPath);
+                    }
+                }
+                else
+                    emit valueChanged(universe, m_line, getHash(path), (uchar)values.at(0), path);
+            }
+        }
+    }
+    m_packetReceived++;
+}
+
 void OSCController::processPendingPackets()
 {
     QUdpSocket *socket = qobject_cast<QUdpSocket *>(sender());
+    QByteArray datagram;
+    QHostAddress senderAddress;
     while (socket->hasPendingDatagrams())
     {
-        QByteArray datagram;
-        QHostAddress senderAddress;
         datagram.resize(socket->pendingDatagramSize());
         socket->readDatagram(datagram.data(), datagram.size(), &senderAddress);
-        //if (senderAddress != m_ipAddr)
-        {
-            QString path;
-            QByteArray values;
-            //qDebug() << "Received packet with size: " << datagram.size() << ", host: " << senderAddress.toString();
-            if (m_packetizer->parseMessage(datagram, path, values) == true)
-            {
-                //qDebug() << "[OSC] message has path:" << path << "values:" << values.count();
-                if (values.isEmpty())
-                    continue;
-
-                quint16 port = socket->localPort();
-                if (m_portsMap.contains(port))
-                {
-                    if (values.count() > 1)
-                    {
-                        quint32 uni = m_portsMap[port];
-                        if (m_universeMap.contains(uni))
-                        {
-                            //m_universeMap[uni].multipartCache[path].resize(values.count());
-                            m_universeMap[uni].multipartCache[path] = values;
-                        }
-                        for(int i = 0; i < values.count(); i++)
-                        {
-                            QString modPath = QString("%1_%2").arg(path).arg(i);
-                            emit valueChanged(m_portsMap[port], m_line, getHash(modPath), (uchar)values.at(i), modPath);
-                        }
-                    }
-                    else
-                        emit valueChanged(m_portsMap[port], m_line, getHash(path), (uchar)values.at(0), path);
-                }
-            }
-            m_packetReceived++;
-        }
+        handlePacket(socket, datagram, senderAddress);
     }
 }

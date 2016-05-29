@@ -58,16 +58,26 @@ VCCueListProperties::VCCueListProperties(VCCueList* cueList, Doc* doc)
     connect(m_chaserDetachButton, SIGNAL(clicked()), this, SLOT(slotChaserDetachClicked()));
 
     /************************************************************************
-     * Playback Cue List page
+     * Play/Stop Cue List page
      ************************************************************************/
 
     m_playInputWidget = new InputSelectionWidget(m_doc, this);
+    m_playInputWidget->setTitle(tr("Play/Pause control"));
     m_playInputWidget->setCustomFeedbackVisibility(true);
     m_playInputWidget->setKeySequence(m_cueList->playbackKeySequence());
     m_playInputWidget->setInputSource(m_cueList->inputSource(VCCueList::playbackInputSourceId));
     m_playInputWidget->setWidgetPage(m_cueList->page());
     m_playInputWidget->show();
     m_playbackLayout->addWidget(m_playInputWidget);
+
+    m_stopInputWidget = new InputSelectionWidget(m_doc, this);
+    m_stopInputWidget->setTitle(tr("Stop control"));
+    m_stopInputWidget->setCustomFeedbackVisibility(true);
+    m_stopInputWidget->setKeySequence(m_cueList->stopKeySequence());
+    m_stopInputWidget->setInputSource(m_cueList->inputSource(VCCueList::stopInputSourceId));
+    m_stopInputWidget->setWidgetPage(m_cueList->page());
+    m_stopInputWidget->show();
+    m_stopLayout->addWidget(m_stopInputWidget);
 
     /************************************************************************
      * Next Cue page
@@ -142,11 +152,13 @@ void VCCueListProperties::accept()
     m_cueList->setNextKeySequence(m_nextInputWidget->keySequence());
     m_cueList->setPreviousKeySequence(m_prevInputWidget->keySequence());
     m_cueList->setPlaybackKeySequence(m_playInputWidget->keySequence());
+    m_cueList->setStopKeySequence(m_stopInputWidget->keySequence());
 
     /* Input sources */
     m_cueList->setInputSource(m_nextInputWidget->inputSource(), VCCueList::nextInputSourceId);
     m_cueList->setInputSource(m_prevInputWidget->inputSource(), VCCueList::previousInputSourceId);
     m_cueList->setInputSource(m_playInputWidget->inputSource(), VCCueList::playbackInputSourceId);
+    m_cueList->setInputSource(m_stopInputWidget->inputSource(), VCCueList::stopInputSourceId);
     m_cueList->setInputSource(m_crossfade1InputWidget->inputSource(), VCCueList::cf1InputSourceId);
     m_cueList->setInputSource(m_crossfade2InputWidget->inputSource(), VCCueList::cf2InputSourceId);
 
@@ -161,6 +173,7 @@ void VCCueListProperties::accept()
 void VCCueListProperties::slotTabChanged()
 {
     m_playInputWidget->stopAutoDetection();
+    m_stopInputWidget->stopAutoDetection();
     m_nextInputWidget->stopAutoDetection();
     m_prevInputWidget->stopAutoDetection();
 

@@ -319,15 +319,15 @@ void Scene::slotFixtureRemoved(quint32 fxi_id)
 
 void Scene::addFixture(quint32 fixtureId)
 {
-    m_fixtures.insert(fixtureId);
+    m_fixtures.append(fixtureId);
 }
 
 bool Scene::removeFixture(quint32 fixtureId)
 {
-    return m_fixtures.remove(fixtureId);
+    return m_fixtures.removeOne(fixtureId);
 }
 
-QSet<quint32> Scene::fixtures() const
+QList<quint32> Scene::fixtures() const
 {
     return m_fixtures;
 }
@@ -364,7 +364,7 @@ bool Scene::saveXML(QXmlStreamWriter *doc)
     }
 
     /* Scene contents */
-    QSet<quint32> writtenFixtures;
+    QList<quint32> writtenFixtures;
     QMapIterator <SceneValue, uchar> it(m_values);
     qint32 currFixID = -1;
     QStringList currFixValues;
@@ -387,10 +387,11 @@ bool Scene::saveXML(QXmlStreamWriter *doc)
     writtenFixtures << currFixID;
 
     // Write fixtures with no scene value
-    QSet<quint32> unwrittenFixtures(m_fixtures);
-    unwrittenFixtures -= writtenFixtures;
-    foreach(quint32 fixtureID, unwrittenFixtures)
+    foreach(quint32 fixtureID, m_fixtures)
     {
+        if (writtenFixtures.contains(fixtureID))
+            continue;
+
         saveXMLFixtureValues(doc, fixtureID, QStringList());
     }
 
@@ -627,13 +628,14 @@ void Scene::write(MasterTimer* timer, QList<Universe*> ua)
 
     //qDebug() << "[Scene] writing channels:" << m_fader->channels().count();
     // Run the internal GenericFader
-    m_fader->write(ua);
+    m_fader->write(ua, isPaused());
 
     // Fader has nothing to do. Stop.
     if (m_fader->channels().size() == 0)
         stop(FunctionParent::master());
 
-    incrementElapsed();
+    if (isPaused() == false)
+        incrementElapsed();
 }
 
 void Scene::postRun(MasterTimer* timer, QList<Universe *> ua)
@@ -654,6 +656,7 @@ void Scene::postRun(MasterTimer* timer, QList<Universe *> ua)
         if (fixture != NULL)
             canFade = fixture->channelCanFade(fc.channel());
         fc.setStart(fc.current(getAttributeValue(Intensity)));
+        fc.setCurrent(fc.current(getAttributeValue(Intensity)));
 
         fc.setElapsed(0);
         fc.setReady(false);

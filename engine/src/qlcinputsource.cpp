@@ -198,6 +198,7 @@ void QLCInputSource::updateInputValue(uchar value)
     }
     else if (m_emitExtraPressRelease == true)
     {
+        locker.unlock();
         emit inputValueChanged(m_universe, m_channel, m_upper);
         emit inputValueChanged(m_universe, m_channel, m_lower);
     }

@@ -18,6 +18,8 @@
 */
 
 import QtQuick 2.0
+import QtQuick.Controls 1.2
+import QtQuick.Controls.Private 1.0
 
 import com.qlcplus.classes 1.0
 import "TimeUtils.js" as TimeUtils
@@ -39,6 +41,7 @@ Item
     property color globalColor: showManager.itemsColor
     property string infoText: ""
 
+    onTrackIndexChanged: itemRoot.y = trackIndex * height
     onStartTimeChanged: x = TimeUtils.timeToSize(startTime, timeScale)
     onDurationChanged: width = TimeUtils.timeToSize(duration, timeScale)
     onTimeScaleChanged:
@@ -47,21 +50,28 @@ Item
         width = TimeUtils.timeToSize(duration, timeScale)
     }
 
-    onTrackIndexChanged:
-    {
-        itemRoot.y = trackIndex * 80
-    }
-
     onGlobalColorChanged:
     {
         if (isSelected && sfRef)
             sfRef.color = globalColor
     }
 
+    Image
+    {
+        x: Math.max(0, itemRoot.width - 25)
+        y: itemRoot.height - 27
+        z: 2
+        source: "qrc:/lock.svg"
+        sourceSize: Qt.size(24, 24)
+        visible: sfRef ? (sfRef.locked ? true : false) : false
+    }
+
+    // Body mouse area (covers the whole item)
     MouseArea
     {
         id: sfMouseArea
         anchors.fill: parent
+        hoverEnabled: true
 
         drag.threshold: 30
 
@@ -101,6 +111,8 @@ Item
 
         onPressed:
         {
+            if (sfRef && sfRef.locked)
+                return;
             console.log("Show Item drag started")
             showManager.enableFlicking(false)
             drag.target = showItemBody
@@ -135,7 +147,27 @@ Item
             showManager.enableFlicking(true)
         }
 
-        onClicked: itemRoot.isSelected = !itemRoot.isSelected
+        onClicked:
+        {
+            itemRoot.isSelected = !itemRoot.isSelected
+            showManager.setItemSelection(trackIndex, sfRef, itemRoot, itemRoot.isSelected)
+        }
+
+        onExited: Tooltip.hideText()
+        onCanceled: Tooltip.hideText()
+
+        Timer
+        {
+           interval: 1000
+           running: sfMouseArea.containsMouse
+           onTriggered:
+           {
+               var tooltip = funcRef ? funcRef.name + "\n" : "0"
+               tooltip += qsTr("Position: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale))
+               tooltip += "\n" + qsTr("Duration: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.width, timeScale))
+               Tooltip.showText(sfMouseArea, Qt.point(sfMouseArea.mouseX, sfMouseArea.mouseY), tooltip)
+           }
+        }
     }
 
     // horizontal left handler
@@ -146,6 +178,7 @@ Item
         width: 10
         height: itemRoot.height
         color: horLeftHdlMa.containsMouse ? "#7FFFFF00" : "transparent"
+        visible: sfRef ? (sfRef.locked ? false : true) : false
 
         MouseArea
         {
@@ -189,7 +222,6 @@ Item
         }
     }
 
-
     // horizontal right handler
     Rectangle
     {
@@ -199,6 +231,7 @@ Item
         width: 10
         height: itemRoot.height
         color: horRightHdlMa.containsMouse ? "#7FFFFF00" : "transparent"
+        visible: sfRef ? (sfRef.locked ? false : true) : false
 
         MouseArea
         {

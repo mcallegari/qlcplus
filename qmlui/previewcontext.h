@@ -35,6 +35,8 @@ public:
 
     virtual bool isEnabled();
 
+    virtual void setUniverseFilter(quint32 universeFilter);
+
     QQuickView *view();
 
 signals:
@@ -51,6 +53,10 @@ protected:
     /** Flag that holds the enable status of the view.
      *  Enabled means visible on the screen */
     bool m_enabled;
+
+    /** The currently displayed universe
+      * The value Universe::invalid() means "All universes" */
+    quint32 m_universeFilter;
 
     /** Map of QLC+ objects with ID and QML items */
     QMap<quint32, QQuickItem*> m_itemsMap;

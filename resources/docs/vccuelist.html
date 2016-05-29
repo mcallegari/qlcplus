@@ -17,7 +17,7 @@ and toggle the next cue as the performance goes on.
 </P>
 
 <P>
-The first column on the Cue List displays the step (cue) number that runs from 1 to
+The first column on the Cue List displays the cue number that runs from 1 to
 infinity and beyond <A HREF="http://en.wikipedia.org/wiki/Buzz_Lightyear">.</A>
 The second column shows the individual <A HREF="file:concept.html#Functions">Function</A>
 name that has been assigned to that particular cue.
@@ -63,13 +63,13 @@ by double clicking on the Cue List widget.<br>
    <b>Behavior of the Next/Previous buttons when the chaser is not active</b>: Select the behaviour
    of the Next and Previous buttons when the Chaser is not running. Basically this option determines
    the action that should be taken when the Chaser is started for the first time or when the Chaser
-   is stopped at any step in the list.<br>
+   is stopped at any cue in the list.<br>
    The possible choices are:
    <UL>
-    <LI>Run chaser from first/last step (default): This is the default behaviour and it will run the Chaser
+    <LI>Run chaser from first/last cue (default): This is the default behaviour and it will run the Chaser
     with its original running order (Normal or Reverse)</LI>
-    <LI>Run chaser from next/previous step: Start the Chaser from the step where it has been interrupted</LI>
-    <LI>Select next/previous step: This performs only a selection of a step, without running the Chaser</LI>
+    <LI>Run chaser from next/previous cue: Start the Chaser from the cue where it has been interrupted</LI>
+    <LI>Select next/previous cue: This performs only a selection of a cue, without running the Chaser</LI>
     <LI>Do nothing: No action is taken in this case. This is useful when working only with the Play/Stop button</LI>
    </UL>
   </TD>
@@ -79,7 +79,7 @@ by double clicking on the Cue List widget.<br>
    <B>Playback</B>
   </TD>
   <TD>
-   You can select the key that you want to use to start/stop the selected step (cue) in the Cue List
+   You can select the key that you want to use to start/stop the selected cue in the Cue List
    with this option. The key combination is shown in the text field; if the
    field is empty, there is no key combination currently attached to the Cue List.
   </TD>
@@ -88,7 +88,7 @@ by double clicking on the Cue List widget.<br>
    <B>Next cue</B>
   </TD>
   <TD>
-   You can select the key that you want to use to skip to the next step (cue) in the Cue List
+   You can select the key that you want to use to skip to the next cue in the Cue List
    with this option. The key combination is shown on the text field; if the
    field is empty, there is no key combination currently attached to the Cue List.
   </TD>
@@ -98,7 +98,7 @@ by double clicking on the Cue List widget.<br>
    <B>Previous cue</B>
   </TD>
   <TD>
-   You can select the key that you want to use to skip to the previous step (cue) in the Cue List
+   You can select the key that you want to use to skip to the previous cue in the Cue List
    with this option. The key combination is shown on the text field; if the
    field is empty, there is no key combination currently attached to the Cue List.
   </TD>
@@ -109,9 +109,9 @@ by double clicking on the Cue List widget.<br>
   </TD>
   <TD>
    <B>Behaviour</B>: Select the behaviour of the side sliders. If "Crossfade" is selected, 2 sliders will
-   be displayed on the left side panel, implementing the crossfade functionality between steps.<br>
+   be displayed on the left side panel, implementing the crossfade functionality between cues.<br>
    If "Steps" is selected, only one slider will be displayed,
-   and its value will determine which step of the Cue List to run.<br>
+   and its value will determine which cue of the Cue List to run.<br>
    <B>Left Slider</B>: Select an external input for the left slider.<br>
    <B>Right Slider</B>: Select an external input for the right slider. 
    This has no effect with the "Steps" behaviour.<br>
@@ -124,8 +124,8 @@ by double clicking on the Cue List widget.<br>
 
 <P>
 When switching QLC+ to <A HREF="file:concept.html#Modes">Operate Mode</A>, the Cue List will
-become active, allowing the selection of the desired steps included in the associated Chaser.<br>
-Pressing the ENTER key will start the selected step.<br><br>
+become active, allowing the selection of the desired cues included in the associated Chaser.<br>
+Pressing the ENTER key will start the selected cue.<br><br>
 The following items are displayed at the bottom of the Cue List widget:<br><br>
 
 <TABLE BORDER=1 class="qlcTable">
@@ -134,12 +134,12 @@ The following items are displayed at the bottom of the Cue List widget:<br><br>
    <B>Cue progress bar</B>
   </TD>
   <TD>
-   A progress bar showing the current running step status.<br>
+   A progress bar showing the current running cue status.<br>
    When a fade in speed is set and is not set to "default" the bar will 
    be colored in <span style="background-color:#63C10B">green</span>.<br>
    During the hold time the bar will be colored in <span style="background-color:#0F9BEC">blue</span>.
    The text displayed on the bar is the time remaining for the cue to end.<br>
-   If the step duration is set to inifinite (&infin;), the bar will just display the fade in progress
+   If the cue duration is set to infinite (&infin;), the bar will just display the fade in progress
    in <span style="background-color:#63C10B">green</span>.
   </TD>
  </TR>
@@ -150,18 +150,39 @@ The following items are displayed at the bottom of the Cue List widget:<br><br>
   </TD>
  </TR>
  <TR>
-  <TD><IMG src="qrc:/player_play.png"><IMG src="qrc:/player_stop.png"></TD>
-  <TD>Start/stop the replay of the Cue List from the currently selected step</TD>
+  <TD><IMG src="qrc:/player_play.png"> <IMG src="qrc:/player_pause.png"></TD>
+  <TD>
+    Play/Pause/Resume the playback of the Cue List from the currently selected cue.<br>
+    When pressed for the first time, the currently selected cue will be started and the button icon
+    will turn to <IMG src="qrc:/player_pause.png"><br>
+    Pressing the button again, will pause the playback of the currently running cues,
+    freezing everything that was running to the current state (lights will stay on, motors will stop moving, etc).
+    The button background will turn to a light blue, to indicate that the next stage is "resuming", and the button icon
+    will go back to <IMG src="qrc:/player_play.png"><br>
+    Pressing the button for the third time, will resume the paused cues exactly from where they were left.
+    The button background will reset to default and the icon will be turned once again to <IMG src="qrc:/player_pause.png"><br>
+    <b>Note:</b> It is possible to pause fade in and hold phases, but not a fade out.
+  </TD>
+ </TR>
+ <TR>
+  <TD><IMG src="qrc:/player_stop.png"></TD>
+  <TD>
+    Stop the playback of the Cue List running cues.<br>
+    When pressed once, the currently running cue will be stopped, and the selected
+    cue will stay on the last played. Any paused state will be reset and lights will be shut down.<br>
+    When pressing this button for the second time, the selected cue
+    will be brought back to the first cue of the Chaser (or the last if the running order is reversed)
+  </TD>
  </TR>
  <TR>
   <TD><IMG src="qrc:/back.png"></TD>
-  <TD>Go back to the previous step in the Cue List, which will then be replayed. 
-  When the top is reached, the previous step will be the last step of the Cue List</TD>
+  <TD>Go back to the previous cue in the Cue List, which will then be reproduced. 
+  When the top is reached, the previous cue will be the last cue of the Cue List</TD>
  </TR>
  <TR>
   <TD><IMG src="qrc:/forward.png"></TD>
-  <TD>Go to the next step in the Cue List, which will then be replayed. 
-  When reaching the bottom, the next step will be the first of the Cue List</TD>
+  <TD>Go to the next cue in the Cue List, which will then be reproduced. 
+  When reaching the bottom, the next cue will be the first of the Cue List</TD>
  </TR>
 </TABLE>
 
@@ -171,36 +192,42 @@ The following items are displayed at the bottom of the Cue List widget:<br><br>
 <H3>Crossfade</H3>
 
 <P>
-  There are two faders that can be used to manually control crossfade between two consecutive steps.<br><br>
-  Each slider is connected to a Cue List step and to help to understand their purpose we'll call them 
-  "current step" and "next step" sliders.<br>
+  There are two faders that can be used to manually control crossfade between two consecutive cues.<br><br>
+  Each slider is connected to a Cue List cue and to help to understand their purpose we'll call them 
+  "current cue" and "next cue" sliders.<br>
   The label at the bottom of each slider will show
-  the number of the step that the slider is controlling and a color to show the status of that step.<br><br>
-  The checkbox at the top will link the sliders together to facilitate crossfading between steps.<br>
+  the number of the cue that the slider is controlling and a color to show the status of that cue.<br><br>
+  The checkbox at the top will link the sliders together to facilitate crossfading between cues.<br>
   When the Cue list is running the sliders control the intensity of the 
-  associated steps, overriding their Fade In and Fade Out speeds and so allowing manual control
+  associated cues, overriding their Fade In and Fade Out speeds and so allowing manual control
   of the transition.<br><br>
-  The slider for the <span style="background-color:#4E8DDE">current step</span> has a blue label. This will be at 100% when the replay of the Cue List is started.<br>
-  The slider for the next step</span> has an <span style="background-color:orange">orange label</span> and will be at 0% when the replay of the Cue List is started.<br>
-  The intensities of both steps can be adjusted by moving the corresponding slider.<br><br>
+  The slider for the <span style="background-color:#4E8DDE">current cue</span> has a blue label. 
+  This will be at 100% when the playback of the Cue List is started.<br>
+  The slider for the next cue</span> has an <span style="background-color:orange">orange label</span> and will be 
+  at 0% when the playback of the Cue List is started.<br>
+  The intensities of both cues can be adjusted by moving the corresponding slider.<br><br>
   However, after both sliders have been moved to the opposite ends of their travel, the following changes take place:<br>
-  The orange <span style="background-color:orange">next step</span> label changes to <span style="background-color:#4E8DDE">blue</span> (slider at 100%). This indicates that the old next step has become the new current step.<br>
-  The blue <span style="background-color:#4E8DDE">current step</span> label changes to <span style="background-color:orange">orange</span> and the number of the step is increased by 2 (slider at 0%). So this slider now controls the step which comes after the
-  old next step.
+  The orange <span style="background-color:orange">next cue</span> label changes to 
+  <span style="background-color:#4E8DDE">blue</span> (slider at 100%). This indicates that the old next cue 
+  has become the new current cue.<br>
+  The blue <span style="background-color:#4E8DDE">current cue</span> label changes to 
+  <span style="background-color:orange">orange</span> and the number of the cue is increased by 2 (slider at 0%). 
+  So this slider now controls the cue which comes after the old next cue.
 </P>
 
 <br>
 <H3>Hint</H3>
 
 <P>
-When a step is added to a Chaser using the <A HREF="file:chasereditor.html">Chaser Editor</A>, the default 
+When a cue is added to a Chaser using the <A HREF="file:chasereditor.html">Chaser Editor</A>, the default 
 duration is set to 0.<br>
-To avoid the steps in the Cue List looping frantically without any result, set the duration
-of your steps, either by double clicking on the duration field or by using the 
+To avoid the cues in the Cue List looping frantically without any result, set the duration
+of your cues, either by double clicking on the duration field or by using the 
 Speed Dial widget<IMG src="qrc:/speed.png"><br>
 Note that if you need scenes that you're going to crossfade manually with the 
-Cue List widget, you probably will want to set the duration of the steps to "infinite" (&infin;) using the Speed Dial widget. This can be
-enabled in the Chaser Editor by clicking on the <IMG src="qrc:/speed.png"> button.
+Cue List widget, you probably will want to set the duration of the cues to "infinite" (&infin;) using 
+the <a href="file:vcspeeddial.html">Speed Dial widget</a>. This can be enabled in the Chaser Editor by 
+clicking on the <IMG src="qrc:/speed.png"> button.
 </P>
 
 </BODY>

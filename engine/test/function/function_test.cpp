@@ -360,7 +360,7 @@ void Function_Test::stringToSpeed()
     QCOMPARE(Function::stringToSpeed(".100"), uint(100));
     QCOMPARE(Function::stringToSpeed(".101"), uint(101));
 
-    QCOMPARE(Function::stringToSpeed("1"), uint(1000));
+    QCOMPARE(Function::stringToSpeed("1"), uint(1));
     QCOMPARE(Function::stringToSpeed("1s"), uint(1000));
     QCOMPARE(Function::stringToSpeed("1.000"), uint(1000));
     QCOMPARE(Function::stringToSpeed("1.001"), uint(1001));

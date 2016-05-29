@@ -623,6 +623,16 @@ int ChaserRunner::getNextStepIndex()
     return currentStepIndex;
 }
 
+void ChaserRunner::setPause(bool enable)
+{
+    // Nothing to do
+    if (m_chaser->steps().size() == 0)
+        return;
+
+    foreach(ChaserRunnerStep *step, m_runnerSteps)
+        step->m_function->setPause(enable);
+}
+
 FunctionParent ChaserRunner::functionParent() const
 {
     return FunctionParent(FunctionParent::Function, m_chaser->id());

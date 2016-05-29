@@ -399,11 +399,7 @@ void EFXEditor::updateFixtureTree()
     QListIterator <EFXFixture*> it(m_efx->fixtures());
     while (it.hasNext() == true)
         addFixtureItem(it.next());
-    m_tree->resizeColumnToContents(KColumnNumber);
-    m_tree->resizeColumnToContents(KColumnName);
-    m_tree->resizeColumnToContents(KColumnMode);
-    m_tree->resizeColumnToContents(KColumnReverse);
-    m_tree->resizeColumnToContents(KColumnStartOffset);
+    m_tree->header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
 QTreeWidgetItem* EFXEditor::fixtureItem(EFXFixture* ef)
@@ -550,11 +546,7 @@ void EFXEditor::removeFixtureItem(EFXFixture* ef)
     updateIndices(from, m_tree->topLevelItemCount() - 1);
     redrawPreview();
 
-    m_tree->resizeColumnToContents(KColumnNumber);
-    m_tree->resizeColumnToContents(KColumnName);
-    m_tree->resizeColumnToContents(KColumnMode);
-    m_tree->resizeColumnToContents(KColumnReverse);
-    m_tree->resizeColumnToContents(KColumnStartOffset);
+    m_tree->header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
 void EFXEditor::slotDialDestroyed(QObject *)
@@ -735,11 +727,7 @@ void EFXEditor::slotAddFixtureClicked()
                 delete ef;
         }
 
-        m_tree->resizeColumnToContents(KColumnNumber);
-        m_tree->resizeColumnToContents(KColumnName);
-        m_tree->resizeColumnToContents(KColumnMode);
-        m_tree->resizeColumnToContents(KColumnReverse);
-        m_tree->resizeColumnToContents(KColumnStartOffset);
+        m_tree->header()->resizeSections(QHeaderView::ResizeToContents);
 
         redrawPreview();
 

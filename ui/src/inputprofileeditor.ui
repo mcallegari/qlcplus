@@ -7,14 +7,14 @@
 
   Copyright (c) 2015 Massimo Callegari
 
-  Licensed under the Apache License, Version 2.0 (the "License");
+  Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
 
       http://www.apache.org/licenses/LICENSE-2.0.txt
 
   Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
+  distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
@@ -26,7 +26,7 @@
     <x>0</x>
     <y>0</y>
     <width>520</width>
-    <height>440</height>
+    <height>476</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -124,6 +124,151 @@
        <string>Channels</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_2">
+       <item row="6" column="0">
+        <widget class="QGroupBox" name="m_behaviourBox">
+         <property name="title">
+          <string>Behaviour</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_5">
+          <item row="0" column="0">
+           <widget class="QLabel" name="m_movementLabel">
+            <property name="text">
+             <string>Movement</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QComboBox" name="m_movementCombo">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <item>
+             <property name="text">
+              <string>Absolute</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Relative</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QLabel" name="m_sensitivityLabel">
+            <property name="text">
+             <string>Sensitivity</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="3">
+           <widget class="QSpinBox" name="m_sensitivitySpin">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimum">
+             <number>10</number>
+            </property>
+            <property name="maximum">
+             <number>100</number>
+            </property>
+            <property name="value">
+             <number>20</number>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0" colspan="4">
+           <widget class="QCheckBox" name="m_extraPressCheck">
+            <property name="text">
+             <string>Generate an extra Press/Release when toggled</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="1" column="1">
+        <widget class="QToolButton" name="m_removeButton">
+         <property name="toolTip">
+          <string>Remove the selected channels</string>
+         </property>
+         <property name="text">
+          <string notr="true">...</string>
+         </property>
+         <property name="icon">
+          <iconset resource="qlcui.qrc">
+           <normaloff>:/edit_remove.png</normaloff>:/edit_remove.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QToolButton" name="m_wizardButton">
+         <property name="toolTip">
+          <string>Automatically add channels to the list when you wiggle the device's controls</string>
+         </property>
+         <property name="text">
+          <string notr="true">...</string>
+         </property>
+         <property name="icon">
+          <iconset resource="qlcui.qrc">
+           <normaloff>:/wizard.png</normaloff>:/wizard.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QToolButton" name="m_editButton">
+         <property name="toolTip">
+          <string>Edit the selected channel</string>
+         </property>
+         <property name="text">
+          <string notr="true">...</string>
+         </property>
+         <property name="icon">
+          <iconset resource="qlcui.qrc">
+           <normaloff>:/edit.png</normaloff>:/edit.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+        </widget>
+       </item>
        <item row="0" column="0" rowspan="6">
         <widget class="QTreeWidget" name="m_tree">
          <property name="sizePolicy">
@@ -169,6 +314,13 @@
          </column>
         </widget>
        </item>
+       <item row="3" column="1">
+        <widget class="Line" name="line">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
        <item row="0" column="1">
         <widget class="QToolButton" name="m_addButton">
          <property name="toolTip">
@@ -189,163 +341,54 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="1">
-        <widget class="QToolButton" name="m_removeButton">
-         <property name="toolTip">
-          <string>Remove the selected channels</string>
-         </property>
-         <property name="text">
-          <string notr="true">...</string>
-         </property>
-         <property name="icon">
-          <iconset resource="qlcui.qrc">
-           <normaloff>:/edit_remove.png</normaloff>:/edit_remove.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>32</width>
-           <height>32</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QToolButton" name="m_editButton">
-         <property name="toolTip">
-          <string>Edit the selected channel</string>
-         </property>
-         <property name="text">
-          <string notr="true">...</string>
-         </property>
-         <property name="icon">
-          <iconset resource="qlcui.qrc">
-           <normaloff>:/edit.png</normaloff>:/edit.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>32</width>
-           <height>32</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="1">
-        <widget class="QToolButton" name="m_wizardButton">
-         <property name="toolTip">
-          <string>Automatically add channels to the list when you wiggle the device's controls</string>
-         </property>
-         <property name="text">
-          <string notr="true">...</string>
-         </property>
-         <property name="icon">
-          <iconset resource="qlcui.qrc">
-           <normaloff>:/wizard.png</normaloff>:/wizard.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>32</width>
-           <height>32</height>
-          </size>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="Line" name="line">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="0">
-        <widget class="QGroupBox" name="m_behaviourBox">
+       <item row="7" column="0">
+        <widget class="QGroupBox" name="m_feedbackGroup">
          <property name="title">
-          <string>Behaviour</string>
+          <string>Custom feedback</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_4">
-          <property name="leftMargin">
-           <number>0</number>
+          <property name="topMargin">
+           <number>3</number>
           </property>
-          <property name="rightMargin">
-           <number>0</number>
+          <property name="bottomMargin">
+           <number>3</number>
           </property>
           <item row="0" column="2">
-           <widget class="QLabel" name="m_sensitivityLabel">
+           <widget class="QLabel" name="label_2">
             <property name="text">
-             <string>Sensitivity</string>
+             <string>Upper value</string>
             </property>
            </widget>
           </item>
           <item row="0" column="3">
-           <widget class="QSpinBox" name="m_sensitivitySpin">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
+           <widget class="QSpinBox" name="m_upperSpin">
             <property name="minimum">
-             <number>10</number>
+             <number>0</number>
             </property>
             <property name="maximum">
-             <number>100</number>
+             <number>255</number>
             </property>
             <property name="value">
-             <number>20</number>
+             <number>255</number>
             </property>
            </widget>
           </item>
           <item row="0" column="0">
-           <widget class="QLabel" name="m_movementLabel">
+           <widget class="QLabel" name="label">
             <property name="text">
-             <string>Movement</string>
+             <string>Lower value</string>
             </property>
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QComboBox" name="m_movementCombo">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <item>
-             <property name="text">
-              <string>Absolute</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Relative</string>
-             </property>
-            </item>
-           </widget>
-          </item>
-          <item row="1" column="0" colspan="4">
-           <widget class="QCheckBox" name="m_extraPressCheck">
-            <property name="text">
-             <string>Generate an extra Press/Release when toggled</string>
+           <widget class="QSpinBox" name="m_lowerSpin">
+            <property name="maximum">
+             <number>255</number>
             </property>
            </widget>
           </item>
          </layout>
         </widget>
-       </item>
-       <item row="5" column="1">
-        <spacer name="verticalSpacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
        </item>
       </layout>
      </widget>

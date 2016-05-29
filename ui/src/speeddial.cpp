@@ -118,6 +118,7 @@ SpeedDial::SpeedDial(QWidget* parent)
     m_dial = new QDial(this);
     m_dial->setWrapping(true);
     m_dial->setNotchesVisible(true);
+    m_dial->setNotchTarget(15);
     m_dial->setTracking(true);
     topHBox->addWidget(m_dial);
     connect(m_dial, SIGNAL(valueChanged(int)), this, SLOT(slotDialChanged(int)));

@@ -36,6 +36,12 @@ Rectangle
     property VCWidget wObj: null
     property bool isSelected: false
 
+    onIsSelectedChanged:
+    {
+        if (wObj)
+            wObj.isEditing = isSelected
+    }
+
     function setCommonProperties(obj)
     {
         if (obj === null)
@@ -54,7 +60,7 @@ Rectangle
         border.color: isSelected ? "yellow" : "#111"
         // this must be above the widget root but
         // underneath the widget children (if any)
-        z: isSelected ? 2 : 1
+        z: isSelected ? 99 : 1
         visible: virtualConsole.editMode && wObj && wObj.allowResize
 
         // mouse area to select and move the widget
@@ -88,87 +94,142 @@ Rectangle
             }
         }
 
-        Rectangle
+
+        // top-left corner
+        Image
         {
-            anchors.fill: parent
-            color: "transparent"
+            id: tlHandle
+            rotation: 180
+            source: "qrc:/arrow-corner.svg"
+            sourceSize: Qt.size(32, 32)
             visible: isSelected && wObj && wObj.allowResize
-            //z: -1
 
-            // top-left corner
-            Image
+            MouseArea
             {
-                id: tlHandle
-                rotation: 180
-                source: "qrc:/arrow-corner.svg"
-                sourceSize: Qt.size(32, 32)
+                anchors.fill: parent
+                cursorShape: pressed ? Qt.ClosedHandCursor : Qt.OpenHandCursor
 
-                MouseArea
+                onPressed:
                 {
-                    anchors.fill: parent
-                    cursorShape: pressed ? Qt.ClosedHandCursor : Qt.OpenHandCursor
+                    drag.target = tlHandle
+                    drag.threshold = 0
+                }
+                onPositionChanged:
+                {
+                    if (drag.target === null)
+                        return;
+                    wRoot.x += tlHandle.x
+                    wRoot.width -= tlHandle.x
+                    wRoot.height -= tlHandle.y
+                    wRoot.y += tlHandle.y
+                }
+                onReleased:
+                {
+                    drag.target = null
+                    wObj.geometry = Qt.rect(wRoot.x, wRoot.y, wRoot.width, wRoot.height)
                 }
             }
-            // top-right corner
-            Image
-            {
-                id: trHandle
-                x: parent.width - 32
-                rotation: 270
-                source: "qrc:/arrow-corner.svg"
-                sourceSize: Qt.size(32, 32)
+        }
+        // top-right corner
+        Image
+        {
+            id: trHandle
+            x: parent.width - 32
+            rotation: 270
+            source: "qrc:/arrow-corner.svg"
+            sourceSize: Qt.size(32, 32)
+            visible: isSelected && wObj && wObj.allowResize
 
-                MouseArea
+            MouseArea
+            {
+                anchors.fill: parent
+                cursorShape: pressed ? Qt.ClosedHandCursor : Qt.OpenHandCursor
+
+                onPressed:
                 {
-                    anchors.fill: parent
-                    cursorShape: pressed ? Qt.ClosedHandCursor : Qt.OpenHandCursor
+                    drag.target = trHandle
+                    drag.threshold = 0
+                }
+                onPositionChanged:
+                {
+                    if (drag.target === null)
+                        return;
+                    wRoot.width = trHandle.x + trHandle.width
+                    wRoot.height -= trHandle.y
+                    wRoot.y += trHandle.y
+                }
+                onReleased:
+                {
+                    drag.target = null
+                    wObj.geometry = Qt.rect(wRoot.x, wRoot.y, wRoot.width, wRoot.height)
                 }
             }
-            // bottom-right corner
-            Image
-            {
-                id: brHandle
-                x: parent.width - 32
-                y: parent.height - 32
-                source: "qrc:/arrow-corner.svg"
-                sourceSize: Qt.size(32, 32)
+        }
+        // bottom-right corner
+        Image
+        {
+            id: brHandle
+            x: parent.width - 32
+            y: parent.height - 32
+            source: "qrc:/arrow-corner.svg"
+            sourceSize: Qt.size(32, 32)
+            visible: isSelected && wObj && wObj.allowResize
 
-                MouseArea
+            MouseArea
+            {
+                anchors.fill: parent
+                cursorShape: pressed ? Qt.ClosedHandCursor : Qt.OpenHandCursor
+                onPressed:
                 {
-                    anchors.fill: parent
-                    cursorShape: pressed ? Qt.ClosedHandCursor : Qt.OpenHandCursor
-                    onPressed:
-                    {
-                        drag.target = brHandle
-                        drag.minimumX = 0
-                    }
-                    onPositionChanged:
-                    {
-                        if (drag.target === null)
-                            return;
-                        wRoot.width = brHandle.x + brHandle.width
-                        wRoot.height = brHandle.y + brHandle.height
-                    }
-                    onReleased:
-                    {
-                        drag.target = null
-                        wObj.geometry = Qt.rect(wRoot.x, wRoot.y, wRoot.width, wRoot.height)
-                    }
+                    drag.target = brHandle
+                    drag.threshold = 0
+                }
+                onPositionChanged:
+                {
+                    if (drag.target === null)
+                        return;
+                    wRoot.width = brHandle.x + brHandle.width
+                    wRoot.height = brHandle.y + brHandle.height
+                }
+                onReleased:
+                {
+                    drag.target = null
+                    wObj.geometry = Qt.rect(wRoot.x, wRoot.y, wRoot.width, wRoot.height)
                 }
             }
-            // bottom-left corner
-            Image
-            {
-                id: blHandle
-                rotation: 90
-                y: parent.height - 32
-                source: "qrc:/arrow-corner.svg"
-                sourceSize: Qt.size(32, 32)
+        }
+        // bottom-left corner
+        Image
+        {
+            id: blHandle
+            rotation: 90
+            y: parent.height - 32
+            source: "qrc:/arrow-corner.svg"
+            sourceSize: Qt.size(32, 32)
+            visible: isSelected && wObj && wObj.allowResize
 
-                MouseArea
+            MouseArea
+            {
+                anchors.fill: parent
+                cursorShape: pressed ? Qt.ClosedHandCursor : Qt.OpenHandCursor
+
+                onPressed:
                 {
-                    anchors.fill: parent
-                    cursorShape: pressed ? Qt.ClosedHandCursor : Qt.OpenHandCursor
+                    drag.target = blHandle
+                    drag.threshold = 0
+                }
+                onPositionChanged:
+                {
+                    if (drag.target === null)
+                        return;
+                    wRoot.height = blHandle.y + blHandle.height
+                    wRoot.x += blHandle.x
+                    wRoot.width -= blHandle.x
+                }
+                onReleased:
+                {
+                    drag.target = null
+                    wObj.geometry = Qt.rect(wRoot.x, wRoot.y, wRoot.width, wRoot.height)
                 }
             }
         }

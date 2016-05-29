@@ -281,6 +281,9 @@ void Script::preRun(MasterTimer* timer)
 
 void Script::write(MasterTimer* timer, QList<Universe *> universes)
 {
+    if (isPaused())
+        return;
+
     incrementElapsed();
 
     if (stopped() == false)
@@ -341,10 +344,8 @@ quint32 Script::getValueFromString(QString str, bool *ok)
 {
     if (str.startsWith("random") == false)
     {
-        if (str.contains("."))
-            return Function::stringToSpeed(str);
-        else
-            return str.toUInt(ok);
+        *ok = true;
+        return Function::stringToSpeed(str);
     }
 
     QString strippedStr = str.remove("random(");
@@ -353,16 +354,8 @@ quint32 Script::getValueFromString(QString str, bool *ok)
         return -1;
 
     QStringList valList = strippedStr.split(",");
-    int min = 0;
-    if (valList.at(0).contains("."))
-        min = Function::stringToSpeed(valList.at(0));
-    else
-        min = valList.at(0).toInt();
-    int max = 0;
-    if (valList.at(1).contains("."))
-        max = Function::stringToSpeed(valList.at(1));
-    else
-        max = valList.at(1).toInt();
+    int min = Function::stringToSpeed(valList.at(0));
+    int max = Function::stringToSpeed(valList.at(1));
 
     *ok = true;
     return qrand() % ((max + 1) - min) + min;

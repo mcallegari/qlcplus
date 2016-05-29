@@ -34,6 +34,7 @@ FixtureManager::FixtureManager(QQuickView *view, Doc *doc, QObject *parent)
     : QObject(parent)
     , m_view(view)
     , m_doc(doc)
+    , m_universeFilter(Universe::invalid())
     , m_maxPanDegrees(0)
     , m_maxTiltDegrees(0)
 {
@@ -65,7 +66,9 @@ quint32 FixtureManager::fixtureForAddress(quint32 index)
 QVariantList FixtureManager::fixtureSelection(quint32 address)
 {
     QVariantList list;
-    quint32 fxID = m_doc->fixtureForAddress(address);
+    quint32 uniFilter = m_universeFilter == Universe::invalid() ? 0 : m_universeFilter;
+
+    quint32 fxID = m_doc->fixtureForAddress((uniFilter << 9) | address);
     if (fxID == Fixture::invalidId())
         return list;
 
@@ -116,6 +119,20 @@ bool FixtureManager::addFixture(QString manuf, QString model, QString mode, QStr
     updateFixtureTree();
     emit fixturesMapChanged();
 
+    return true;
+}
+
+bool FixtureManager::moveFixture(quint32 fixtureID, quint32 newAddress)
+{
+    qDebug() << "[FixtureManager] requested to move fixture with ID" << fixtureID << "to address" << newAddress;
+    Fixture *fixture = m_doc->fixture(fixtureID);
+    if (fixture == NULL)
+        return false;
+
+    fixture->setAddress(newAddress);
+
+    updateFixtureTree();
+    emit fixturesMapChanged();
     return true;
 }
 
@@ -567,33 +584,62 @@ QVariantList FixtureManager::fixturesMap()
     m_fixturesMap.clear();
     bool odd = true;
 
-    for (int i = 0; i < 512; i++)
+    /* There would be two ways to transfer organized data to QML.
+     * The first is a QVariantList of QVariantMaps, to have named variables.
+     * The second is a plain QVariantList of numbers, organized as contiguous
+     * groups with a specific (implicit) meaning.
+     * In this case since we have to transfer a lot of data and the rendering
+     * is already heavy, I prefer the second option, organized as follows:
+     *
+     * Fixture ID | DMX address | isOdd | channel type (a lookup for icons)
+     */
+
+    foreach(Fixture *fx, m_doc->fixtures())
     {
-        quint32 fxID = m_doc->fixtureForAddress(i);
-        if (fxID == Fixture::invalidId())
+        if (fx != NULL)
         {
-            m_fixturesMap.append(QVariant(QColor("#7f7f7f")));
-        }
-        else
-        {
-            Fixture *fx = m_doc->fixture(fxID);
-            if (fx != NULL)
+            quint32 uniFilter = m_universeFilter == Universe::invalid() ? 0 : m_universeFilter;
+
+            if (fx->universe() != uniFilter)
+                continue;
+
+            quint32 startAddress = fx->address();
+            for(quint32 cn = 0; cn < fx->channels(); cn++)
             {
-                for(quint32 cn = 0; cn < fx->channels(); cn++)
-                {
-                    if (odd)
-                        m_fixturesMap.append(QVariant(QColor("#2D84B0")));
-                    else
-                        m_fixturesMap.append(QVariant(QColor("#2C58B0")));
-                }
-                odd = !odd;
-                i+=fx->channels() - 1;
+                m_fixturesMap.append(fx->id());
+                m_fixturesMap.append(startAddress + cn);
+
+                if (odd)
+                    m_fixturesMap.append(1);
+                else
+                    m_fixturesMap.append(0);
+
+                QLCChannel::Group group = fx->channel(cn)->group();
+                if (group == QLCChannel::Intensity)
+                    m_fixturesMap.append(fx->channel(cn)->colour());
+                else
+                    m_fixturesMap.append(group - 1);
             }
-            else
-                m_fixturesMap.append(QVariant(QColor("#7f7f7f")));
+            odd = !odd;
         }
     }
     return m_fixturesMap;
+}
+
+quint32 FixtureManager::universeFilter() const
+{
+    return m_universeFilter;
+}
+
+void FixtureManager::setUniverseFilter(quint32 universeFilter)
+{
+    if (m_universeFilter == universeFilter)
+        return;
+
+    m_universeFilter = universeFilter;
+    emit universeFilterChanged(universeFilter);
+    qDebug("Notify that the fixtures map has changed !");
+    emit fixturesMapChanged();
 }
 
 void FixtureManager::slotDocLoaded()

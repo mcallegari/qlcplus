@@ -440,10 +440,12 @@ bool InputOutputMap::setInputProfile(quint32 universe, const QString &profileNam
     }
 
     InputPatch *currInPatch = m_universeArray.at(universe)->inputPatch();
-    if (currInPatch == NULL)
-        return false;
+    if (currInPatch != NULL)
+        currInPatch->set(profile(profileName));
 
-    return currInPatch->set(profile(profileName));
+    /* if no input patch is set, then setting a profile is useless,
+       but there's no reason to cause an error here */
+    return true;
 }
 
 bool InputOutputMap::setOutputPatch(quint32 universe, const QString &pluginName,

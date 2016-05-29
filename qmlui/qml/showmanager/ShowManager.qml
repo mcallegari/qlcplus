@@ -20,6 +20,8 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 
+import com.qlcplus.classes 1.0
+
 import "TimeUtils.js" as TimeUtils
 import "."
 
@@ -160,6 +162,66 @@ Rectangle
                 }
             }
 
+            IconButton
+            {
+                id: removeItem
+                z: 2
+                width: parent.height - 6
+                height: width
+                imgSource: "qrc:/remove.svg"
+                tooltip: qsTr("Remove the selected items")
+                counter: showManager.selectedItemsCount
+                onClicked:
+                {
+                    var selNames = showManager.selectedItemNames()
+                    console.log(selNames)
+
+                    actionManager.requestActionPopup(ActionManager.DeleteShowItems,
+                                                     qsTr("Are you sure you want to remove the following items ?\n(Note that the original functions will not be deleted)\n" + selNames),
+                                                     ActionManager.OK | ActionManager.Cancel,
+                                                     showManager.selectedItemRefs())
+                }
+            }
+
+            IconButton
+            {
+                id: lockItem
+                z: 2
+                width: parent.height - 6
+                height: width
+                imgSource: "qrc:/lock.svg"
+                counter: showManager.selectedItemsCount
+
+                function checkLockStatus()
+                {
+                    if (showManager.selectedItemsLocked())
+                    {
+                        imgSource = "qrc:/unlock.svg"
+                        tooltip = qsTr("Unlock the selected items")
+                    }
+                    else
+                    {
+                        imgSource = "qrc:/lock.svg"
+                        tooltip = qsTr("Lock the selected items")
+                    }
+                }
+
+                onCounterChanged:
+                {
+                    checkLockStatus()
+                }
+
+                onClicked:
+                {
+                    var lock = showManager.selectedItemsLocked()
+                    if (lock === true)
+                        showManager.setSelectedItemsLock(false)
+                    else
+                        showManager.setSelectedItemsLock(true)
+                    checkLockStatus()
+                }
+            }
+
             Rectangle
             {
                 Layout.fillWidth: true
@@ -233,7 +295,7 @@ Rectangle
         y: topBar.height
         z: 4
         height: showMgrContainer.headerHeight //showMgrContainer.height - topBar.height - (bottomPanel.visible ? bottomPanel.height : 0)
-        width: showMgrContainer.width - trackWidth
+        width: showMgrContainer.width - trackWidth - rightPanel.width
 
         boundsBehavior: Flickable.StopAtBounds
         flickableDirection: Flickable.HorizontalFlick
@@ -246,10 +308,18 @@ Rectangle
             id: hdrItem
             z: 2
             height: parent.height
+            visibleWidth: timelineHeader.width
+            visibleX: itemsArea.contentX
             headerHeight: showMgrContainer.headerHeight
             cursorHeight: showMgrContainer.height - topBar.height - (bottomPanel.visible ? bottomPanel.height : 0)
             timeScale: showMgrContainer.timeScale
             duration: showManager.showDuration
+
+            onClicked:
+            {
+                showManager.currentTime = TimeUtils.posToMs(mouseX, timeScale)
+                showManager.resetItemsSelection()
+            }
         }
     }
 
@@ -262,6 +332,7 @@ Rectangle
         z: 3 // below timelineHeader
         width: parent.width - rightPanel.width
         height: showMgrContainer.height - topBar.height - headerHeight - (bottomPanel.visible ? bottomPanel.height : 0)
+        clip: true
 
         boundsBehavior: Flickable.StopAtBounds
         flickableDirection: Flickable.VerticalFlick
@@ -322,7 +393,11 @@ Rectangle
             MouseArea
             {
                 anchors.fill: parent
-                onClicked: showManager.currentTime = TimeUtils.posToMs(mouse.x, timeScale)
+                onClicked:
+                {
+                    showManager.currentTime = TimeUtils.posToMs(mouse.x, timeScale)
+                    showManager.resetItemsSelection()
+                }
             }
 
             Repeater
@@ -417,7 +492,6 @@ Rectangle
         orientation: Qt.Horizontal
         anchors.bottom: parent.bottom
         x: trackWidth
-        width: parent.width - trackWidth - rightPanel.width
         flickable: timelineHeader
     }
     ScrollBar { z: 5; flickable: showContents; doubleBars: true }

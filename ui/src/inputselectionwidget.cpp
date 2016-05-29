@@ -19,6 +19,7 @@
 
 #include "inputselectionwidget.h"
 #include "selectinputchannel.h"
+#include "qlcinputchannel.h"
 #include "assignhotkey.h"
 #include "inputpatch.h"
 #include "doc.h"
@@ -211,8 +212,21 @@ void InputSelectionWidget::updateInputSource()
     {
         m_lowerSpin->blockSignals(true);
         m_upperSpin->blockSignals(true);
-        m_lowerSpin->setValue(m_inputSource->lowerValue());
-        m_upperSpin->setValue(m_inputSource->upperValue());
+
+        uchar min = 0, max = UCHAR_MAX;
+
+        InputPatch *ip = m_doc->inputOutputMap()->inputPatch(m_inputSource->universe());
+        if (ip != NULL && ip->profile() != NULL)
+        {
+            QLCInputChannel *ich = ip->profile()->channel(m_inputSource->channel());
+            if (ich != NULL && ich->type() == QLCInputChannel::Button)
+            {
+                min = ich->lowerValue();
+                max = ich->upperValue();
+            }
+        }
+        m_lowerSpin->setValue((m_inputSource->lowerValue() != 0) ? m_inputSource->lowerValue() : min);
+        m_upperSpin->setValue((m_inputSource->upperValue() != UCHAR_MAX) ? m_inputSource->upperValue() : max);
         if (m_lowerSpin->value() != 0 || m_upperSpin->value() != UCHAR_MAX)
             m_customFbButton->setChecked(true);
         m_lowerSpin->blockSignals(false);

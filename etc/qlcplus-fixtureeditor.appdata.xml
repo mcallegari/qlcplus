@@ -11,6 +11,7 @@
  <summary xml:lang="it">Editor di definizioni di fixture per QLC+</summary>
  <summary xml:lang="es">Editor de definiciones de fixtures para QLC+</summary>
  <summary xml:lang="ca">Editor de definicions de fixtures per QLC+</summary>
+ <summary xml:lang="de">Editor für QLC+ Gerätedefinitionen</summary>
  <description>
   <p>
    This is the Fixture Definition Editor for QLC+.
@@ -29,6 +30,9 @@
   </p>
   <p xml:lang="ca">
    Aquest es l'editor de definicions de fixtures per QLC+.
+  </p>
+  <p xml:lang="de">
+   Editor zum Bearbeiten und Erstellen von Gerätedefinitionen für QLC+.
   </p>
  </description>
  <screenshots>

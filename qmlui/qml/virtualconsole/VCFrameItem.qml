@@ -31,6 +31,7 @@ VCWidgetItem
     property bool isSolo: false
     property bool isCollapsed: frameObj ? frameObj.isCollapsed : false
 
+    color: dropActive ? "#9DFF52" : (frameObj ? frameObj.backgroundColor : "darkgray")
     clip: true
 
     onFrameObjChanged:
@@ -38,11 +39,6 @@ VCWidgetItem
         setCommonProperties(frameObj)
         if (isSolo)
             frameRoot.border.color = "red"
-    }
-
-    onDropActiveChanged:
-    {
-        frameRoot.color = dropActive ? "#9DFF52" : frameObj.backgroundColor
     }
 
     onIsCollapsedChanged:
@@ -98,7 +94,7 @@ VCWidgetItem
                     x: 2
                     width: parent.width - 4
                     height: parent.height
-                    font: frameObj ? frameObj.font : null
+                    font: frameObj ? frameObj.font : ""
                     text: frameObj ? frameObj.caption : ""
                     verticalAlignment: Text.AlignVCenter
                     color: frameObj ? frameObj.foregroundColor : "white"
@@ -145,7 +141,7 @@ VCWidgetItem
                     Text
                     {
                         anchors.centerIn: parent
-                        font.family: "RobotoCondensed"
+                        font.family: "Roboto Condensed"
                         font.pointSize: 12
                         font.bold: true
                         text: qsTr("Page") + " " + (frameObj ? frameObj.currentPage + 1 : "1")
@@ -170,7 +166,7 @@ VCWidgetItem
     {
         id: dropArea
         anchors.fill: parent
-        objectName: "frameDropArea" + frameObj.id
+        objectName: frameObj ? "frameDropArea" + frameObj.id : ""
         z: 5 // children must be above the VCWidget resizeLayer
 
         onEntered: virtualConsole.setDropTarget(frameRoot, true)
@@ -179,11 +175,18 @@ VCWidgetItem
         {
             if (frameObj === null || dropActive === false)
                 return;
+            virtualConsole.setDropTarget(frameRoot, false)
             console.log("Item dropped in frame " + frameObj.id)
             var pos = drag.source.mapToItem(frameRoot, 0, 0);
-            frameObj.addWidget(dropArea, drag.source.widgetType, pos)
+
+            //console.log("Drop keys: " + drop.keys)
+            if (drop.keys[0] === "vcwidget")
+                frameObj.addWidget(dropArea, drag.source.widgetType, pos)
+            else if (drop.keys[0] === "function")
+                frameObj.addFunction(dropArea, drag.source.funcID, pos, false)
+
         }
 
-        keys: [ "vcwidget" ]
+        keys: [ "vcwidget", "function" ]
     }
 }

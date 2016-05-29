@@ -63,7 +63,7 @@
     <message>
         <location filename="artnetplugin.cpp" line="282"/>
         <source>Open</source>
-        <translation></translation>
+        <translation>Obert</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="283"/>

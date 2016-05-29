@@ -3,266 +3,266 @@
 <InputProfile xmlns="http://www.qlcplus.org/InputProfile">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.0 GIT</Version>
-  <Author>Heikki Junnila, Lorenzo Andreani</Author>
+  <Version>4.10.3 GIT</Version>
+  <Author>Heikki Junnila, Lorenzo Andreani, Massimo Callegari</Author>
  </Creator>
  <Manufacturer>Behringer</Manufacturer>
  <Model>BCF2000</Model>
  <Type>MIDI</Type>
  <Channel Number="1">
-  <Name>Knob 1</Name>
+  <Name>Encoder 1 - Group A</Name>
   <Type>Knob</Type>
  </Channel>
  <Channel Number="2">
-  <Name>Knob 2</Name>
+  <Name>Encoder 2 - Group A</Name>
   <Type>Knob</Type>
  </Channel>
  <Channel Number="3">
-  <Name>Knob 3</Name>
+  <Name>Encoder 3 - Group A</Name>
   <Type>Knob</Type>
  </Channel>
  <Channel Number="4">
-  <Name>Knob 4</Name>
+  <Name>Encoder 4 - Group A</Name>
   <Type>Knob</Type>
  </Channel>
  <Channel Number="5">
-  <Name>Knob 5</Name>
+  <Name>Encoder 5 - Group A</Name>
   <Type>Knob</Type>
  </Channel>
  <Channel Number="6">
-  <Name>Knob 6</Name>
+  <Name>Encoder 6 - Group A</Name>
   <Type>Knob</Type>
  </Channel>
  <Channel Number="7">
-  <Name>Knob 7</Name>
+  <Name>Encoder 7 - Group A</Name>
   <Type>Knob</Type>
  </Channel>
  <Channel Number="8">
-  <Name>Knob 8</Name>
+  <Name>Encoder 8 - Group A</Name>
   <Type>Knob</Type>
  </Channel>
  <Channel Number="9">
-  <Name>Knob 9</Name>
+  <Name>Encoder 1 - Group B</Name>
   <Type>Knob</Type>
  </Channel>
  <Channel Number="10">
-  <Name>Knob 10</Name>
+  <Name>Encoder 2 - Group B</Name>
   <Type>Knob</Type>
  </Channel>
  <Channel Number="11">
-  <Name>Knob 11</Name>
+  <Name>Encoder 3 - Group B</Name>
   <Type>Knob</Type>
  </Channel>
  <Channel Number="12">
-  <Name>Knob 12</Name>
+  <Name>Encoder 4 - Group B</Name>
   <Type>Knob</Type>
  </Channel>
  <Channel Number="13">
-  <Name>Knob 13</Name>
+  <Name>Encoder 5 - Group B</Name>
   <Type>Knob</Type>
  </Channel>
  <Channel Number="14">
-  <Name>Knob 14</Name>
+  <Name>Encoder 6 - Group B</Name>
   <Type>Knob</Type>
  </Channel>
  <Channel Number="15">
-  <Name>Knob 15</Name>
+  <Name>Encoder 7 - Group B</Name>
   <Type>Knob</Type>
  </Channel>
  <Channel Number="16">
-  <Name>Knob 16</Name>
+  <Name>Encoder 8 - Group B</Name>
   <Type>Knob</Type>
  </Channel>
  <Channel Number="17">
-  <Name>Knob 17</Name>
+  <Name>Encoder 1 - Group C</Name>
   <Type>Knob</Type>
  </Channel>
  <Channel Number="18">
-  <Name>Knob 18</Name>
+  <Name>Encoder 2 - Group C</Name>
   <Type>Knob</Type>
  </Channel>
  <Channel Number="19">
-  <Name>Knob 19</Name>
+  <Name>Encoder 3 - Group C</Name>
   <Type>Knob</Type>
  </Channel>
  <Channel Number="20">
-  <Name>Knob 20</Name>
+  <Name>Encoder 4 - Group C</Name>
   <Type>Knob</Type>
  </Channel>
  <Channel Number="21">
-  <Name>Knob 21</Name>
+  <Name>Encoder 5 - Group C</Name>
   <Type>Knob</Type>
  </Channel>
  <Channel Number="22">
-  <Name>Knob 22</Name>
+  <Name>Encoder 6 - Group C</Name>
   <Type>Knob</Type>
  </Channel>
  <Channel Number="23">
-  <Name>Knob 23</Name>
+  <Name>Encoder 7 - Group C</Name>
   <Type>Knob</Type>
  </Channel>
  <Channel Number="24">
-  <Name>Knob 24</Name>
+  <Name>Encoder 8 - Group C</Name>
   <Type>Knob</Type>
  </Channel>
  <Channel Number="25">
-  <Name>Knob 25</Name>
+  <Name>Encoder 1 - Group D</Name>
   <Type>Knob</Type>
  </Channel>
  <Channel Number="26">
-  <Name>Knob 26</Name>
+  <Name>Encoder 2 - Group D</Name>
   <Type>Knob</Type>
  </Channel>
  <Channel Number="27">
-  <Name>Knob 27</Name>
+  <Name>Encoder 3 - Group D</Name>
   <Type>Knob</Type>
  </Channel>
  <Channel Number="28">
-  <Name>Knob 28</Name>
+  <Name>Encoder 4 - Group D</Name>
   <Type>Knob</Type>
  </Channel>
  <Channel Number="29">
-  <Name>Knob 29</Name>
+  <Name>Encoder 5 - Group D</Name>
   <Type>Knob</Type>
  </Channel>
  <Channel Number="30">
-  <Name>Knob 30</Name>
+  <Name>Encoder 6 - Group D</Name>
   <Type>Knob</Type>
  </Channel>
  <Channel Number="31">
-  <Name>Knob 31</Name>
+  <Name>Encoder 7 - Group D</Name>
   <Type>Knob</Type>
  </Channel>
  <Channel Number="32">
-  <Name>Knob 32</Name>
+  <Name>Encoder 8 - Group D</Name>
   <Type>Knob</Type>
  </Channel>
  <Channel Number="33">
-  <Name>Knob Push 1</Name>
+  <Name>Encoder Push 1 - Group A</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="34">
-  <Name>Knob Push 2</Name>
+  <Name>Encoder Push 2 - Group A</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="35">
-  <Name>Knob Push 3</Name>
+  <Name>Encoder Push 3 - Group A</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="36">
-  <Name>Knob Push 4</Name>
+  <Name>Encoder Push 4 - Group A</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="37">
-  <Name>Knob Push 5</Name>
+  <Name>Encoder Push 5 - Group A</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="38">
-  <Name>Knob Push 6</Name>
+  <Name>Encoder Push 6 - Group A</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="39">
-  <Name>Knob Push 7</Name>
+  <Name>Encoder Push 7 - Group A</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="40">
-  <Name>Knob Push 8</Name>
+  <Name>Encoder Push 8 - Group A</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="41">
-  <Name>Knob Push 9</Name>
+  <Name>Encoder Push 1 - Group B</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="42">
-  <Name>Knob Push 10</Name>
+  <Name>Encoder Push 2 - Group B</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="43">
-  <Name>Knob Push 11</Name>
+  <Name>Encoder Push 3 - Group B</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="44">
-  <Name>Knob Push 12</Name>
+  <Name>Encoder Push 4 - Group B</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="45">
-  <Name>Knob Push 13</Name>
+  <Name>Encoder Push 5 - Group B</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="46">
-  <Name>Knob Push 14</Name>
+  <Name>Encoder Push 6 - Group B</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="47">
-  <Name>Knob Push 15</Name>
+  <Name>Encoder Push 7 - Group B</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="48">
-  <Name>Knob Push 16</Name>
+  <Name>Encoder Push 8 - Group B</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="49">
-  <Name>Knob Push 17</Name>
+  <Name>Encoder Push 1 - Group C</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="50">
-  <Name>Knob Push 18</Name>
+  <Name>Encoder Push 2 - Group C</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="51">
-  <Name>Knob Push 19</Name>
+  <Name>Encoder Push 3 - Group C</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="52">
-  <Name>Knob Push 20</Name>
+  <Name>Encoder Push 4 - Group C</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="53">
-  <Name>Knob Push 21</Name>
+  <Name>Encoder Push 5 - Group C</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="54">
-  <Name>Knob Push 22</Name>
+  <Name>Encoder Push 6 - Group C</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="55">
-  <Name>Knob Push 23</Name>
+  <Name>Encoder Push 7 - Group C</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="56">
-  <Name>Knob Push 24</Name>
+  <Name>Encoder Push 8 - Group C</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="57">
-  <Name>Knob Push 25</Name>
+  <Name>Encoder Push 1 - Group D</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="58">
-  <Name>Knob Push 26</Name>
+  <Name>Encoder Push 2 - Group D</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="59">
-  <Name>Knob Push 27</Name>
+  <Name>Encoder Push 3 - Group D</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="60">
-  <Name>Knob Push 28</Name>
+  <Name>Encoder Push 4 - Group D</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="61">
-  <Name>Knob Push 29</Name>
+  <Name>Encoder Push 5 - Group D</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="62">
-  <Name>Knob Push 30</Name>
+  <Name>Encoder Push 6 - Group D</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="63">
-  <Name>Knob Push 31</Name>
+  <Name>Encoder Push 7 - Group D</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="64">
-  <Name>Knob Push 32</Name>
+  <Name>Encoder Push 8 - Group D</Name>
   <Type>Button</Type>
  </Channel>
  <Channel Number="65">

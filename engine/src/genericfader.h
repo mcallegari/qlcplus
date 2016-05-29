@@ -71,8 +71,9 @@ public:
      * the given UniverseArray.
      *
      * @param universes The universe array that receives channel data.
+     * @param paused Request a pause state, so the fader doesn't have to advance its transition
      */
-    void write(QList<Universe *> universes);
+    void write(QList<Universe *> universes, bool paused = false);
 
     /**
      * Adjust the intensities of all channels by $fraction

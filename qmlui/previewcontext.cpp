@@ -39,6 +39,11 @@ bool PreviewContext::isEnabled()
     return m_enabled;
 }
 
+void PreviewContext::setUniverseFilter(quint32 universeFilter)
+{
+    m_universeFilter = universeFilter;
+}
+
 QQuickView *PreviewContext::view()
 {
     return m_view;

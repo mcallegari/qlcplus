@@ -127,10 +127,12 @@ void VCCueList_Test::initial()
     QCOMPARE(cl.m_nextKeySequence, QKeySequence());
     QCOMPARE(cl.m_previousKeySequence, QKeySequence());
     QCOMPARE(cl.m_playbackKeySequence, QKeySequence());
+    QCOMPARE(cl.m_stopKeySequence, QKeySequence());
 
     QVERIFY(cl.inputSource(VCCueList::nextInputSourceId) == NULL);
     QVERIFY(cl.inputSource(VCCueList::previousInputSourceId) == NULL);
     QVERIFY(cl.inputSource(VCCueList::playbackInputSourceId) == NULL);
+    QVERIFY(cl.inputSource(VCCueList::stopInputSourceId) == NULL);
 }
 
 void VCCueList_Test::chaser()
@@ -317,11 +319,10 @@ void VCCueList_Test::loadXML()
     xmlWriter.writeAttribute("Universe", "0");
     xmlWriter.writeAttribute("Channel", "1");
     xmlWriter.writeEndElement();
-
     xmlWriter.writeTextElement("Key", QKeySequence(keySequenceD).toString());
+    xmlWriter.writeEndElement();
 
     xmlWriter.writeStartElement("Foo");
-    xmlWriter.writeEndElement();
     xmlWriter.writeEndElement();
 
     xmlWriter.writeStartElement("Previous");
@@ -329,11 +330,10 @@ void VCCueList_Test::loadXML()
     xmlWriter.writeAttribute("Universe", "2");
     xmlWriter.writeAttribute("Channel", "3");
     xmlWriter.writeEndElement();
-
     xmlWriter.writeTextElement("Key", QKeySequence(keySequenceC).toString());
+    xmlWriter.writeEndElement();
 
     xmlWriter.writeStartElement("Foo");
-    xmlWriter.writeEndElement();
     xmlWriter.writeEndElement();
 
     xmlWriter.writeStartElement("Playback");
@@ -341,11 +341,18 @@ void VCCueList_Test::loadXML()
     xmlWriter.writeAttribute("Universe", "4");
     xmlWriter.writeAttribute("Channel", "5");
     xmlWriter.writeEndElement();
-
     xmlWriter.writeTextElement("Key", QKeySequence(keySequenceA).toString());
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeStartElement("Stop");
+    xmlWriter.writeStartElement("Input");
+    xmlWriter.writeAttribute("Universe", "0");
+    xmlWriter.writeAttribute("Channel", "6");
+    xmlWriter.writeEndElement();
+    xmlWriter.writeTextElement("Key", QKeySequence(keySequenceB).toString());
+    xmlWriter.writeEndElement();
 
     xmlWriter.writeStartElement("Foo");
-    xmlWriter.writeEndElement();
     xmlWriter.writeEndElement();
 
     xmlWriter.writeTextElement("Function", QString::number(s1->id()));
@@ -391,6 +398,10 @@ void VCCueList_Test::loadXML()
     QCOMPARE(pli->universe(), quint32(4));
     QCOMPARE(pli->channel(), quint32(5));
     QCOMPARE(cl.playbackKeySequence(), QKeySequence(keySequenceA));
+    QSharedPointer<QLCInputSource> const& si = cl.inputSource(VCCueList::stopInputSourceId);
+    QCOMPARE(si->universe(), quint32(0));
+    QCOMPARE(si->channel(), quint32(6));
+    QCOMPARE(cl.stopKeySequence(), QKeySequence(keySequenceB));
 
     QCOMPARE(cl.pos(), QPoint(3, 4));
     QCOMPARE(cl.size(), QSize(42, 69));
@@ -429,17 +440,19 @@ void VCCueList_Test::saveXML()
     cl.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(0, 1)), VCCueList::nextInputSourceId);
     cl.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(1, 2)), VCCueList::previousInputSourceId);
     cl.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(2, 3)), VCCueList::playbackInputSourceId);
+    cl.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(3, 4)), VCCueList::stopInputSourceId);
     cl.setNextKeySequence(QKeySequence(keySequenceB));
     cl.setPreviousKeySequence(QKeySequence(keySequenceA));
     cl.setPlaybackKeySequence(QKeySequence(keySequenceC));
+    cl.setStopKeySequence(QKeySequence(keySequenceD));
 
     QBuffer buffer;
     buffer.open(QIODevice::WriteOnly | QIODevice::Text);
     QXmlStreamWriter xmlWriter(&buffer);
 
     int chaser = 0, next = 0, nextKey = 0, nextInput = 0, previous = 0, previousKey = 0,
-        previousInput = 0, playback = 0, playbackKey = 0, playbackInput = 0, wstate = 0, appearance = 0,
-        nextPrevBehavior = 0, slidersMode = 0;
+        previousInput = 0, playback = 0, playbackKey = 0, playbackInput = 0, stop = 0, stopKey = 0, stopInput = 0,
+        wstate = 0, appearance = 0, nextPrevBehavior = 0, slidersMode = 0;
 
     QVERIFY(cl.saveXML(&xmlWriter) == true);
 
@@ -544,6 +557,32 @@ void VCCueList_Test::saveXML()
             }
             xmlReader.skipCurrentElement();
         }
+        else if (xmlReader.name() == "Stop")
+        {
+            stop++;
+            xmlReader.readNextStartElement();
+            if (xmlReader.name() == "Key")
+            {
+                stopKey++;
+                QCOMPARE(xmlReader.readElementText(), QKeySequence(keySequenceD).toString());
+            }
+            else
+            {
+                QFAIL(QString("Unexpected tag: %1").arg(xmlReader.name().toString()).toUtf8().constData());
+            }
+            xmlReader.readNextStartElement();
+            if (xmlReader.name() == "Input")
+            {
+                stopInput++;
+                // Handled by VCWidget tests, just check that the node is there
+                xmlReader.skipCurrentElement();
+            }
+            else
+            {
+                QFAIL(QString("Unexpected tag: %1").arg(xmlReader.name().toString()).toUtf8().constData());
+            }
+            xmlReader.skipCurrentElement();
+        }
         else if (xmlReader.name() == "WindowState")
         {
             // Handled by VCWidget tests, just check that the node is there
@@ -583,6 +622,9 @@ void VCCueList_Test::saveXML()
     QCOMPARE(playback, 1);
     QCOMPARE(playbackKey, 1);
     QCOMPARE(playbackInput, 1);
+    QCOMPARE(stop, 1);
+    QCOMPARE(stopKey, 1);
+    QCOMPARE(stopInput, 1);
     QCOMPARE(wstate, 1);
     QCOMPARE(appearance, 1);
     QCOMPARE(nextPrevBehavior, 1);

@@ -27,8 +27,9 @@ class SPIOutThread : public QThread
 public:
     SPIOutThread();
 
-    void runThread(int fd);
+    void runThread(int fd, int speed);
     void stopThread();
+    void setSpeed(int speed);
 
     void run();
 
@@ -48,8 +49,8 @@ protected:
     /** Last size of data sent to the SPI bus */
     int m_dataSize;
 
-    /** Roughly estimated time to sleep between SPI writes (in uS) */
-    quint32 m_estimatedSleepTime;
+    /** Roughly estimated time that SPI writes will take on the wire (in uS) */
+    quint32 m_estimatedWireTime;
 
     /** Mutex used to synchronize data between the SPI plugin
      *  and the output thread */

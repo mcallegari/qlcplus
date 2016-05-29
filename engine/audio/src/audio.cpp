@@ -142,6 +142,12 @@ quint32 Audio::totalDuration()
     return (quint32)m_audioDuration;
 }
 
+void Audio::setTotalDuration(quint32 msec)
+{
+    qDebug() << "Audio set total duration:" << msec;
+    m_audioDuration = msec;
+}
+
 void Audio::setColor(QColor color)
 {
     m_color = color;
@@ -183,7 +189,7 @@ bool Audio::setSourceFileName(QString filename)
     else
     {
         setName(tr("File not found"));
-        m_audioDuration = 0;
+        //m_audioDuration = 0;
         emit changed(id());
         return true;
     }
@@ -193,7 +199,9 @@ bool Audio::setSourceFileName(QString filename)
     if (m_decoder == NULL)
         return false;
 
-    m_audioDuration = m_decoder->totalTime();
+    if (m_audioDuration == 0)
+        m_audioDuration = m_decoder->totalTime();
+
     emit changed(id());
 
     return true;
@@ -361,10 +369,26 @@ void Audio::preRun(MasterTimer* timer)
     Function::preRun(timer);
 }
 
+void Audio::setPause(bool enable)
+{
+    if (isRunning())
+    {
+        if (enable)
+            m_audio_out->suspend();
+        else
+            m_audio_out->resume();
+
+        Function::setPause(enable);
+    }
+}
+
 void Audio::write(MasterTimer* timer, QList<Universe *> universes)
 {
     Q_UNUSED(timer)
     Q_UNUSED(universes)
+
+    if (isPaused())
+        return;
 
     incrementElapsed();
 

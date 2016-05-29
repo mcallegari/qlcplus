@@ -21,7 +21,6 @@
 #include <sys/time.h>
 
 #include "universe_test.h"
-#include "testmacros.h"
 
 #define protected public
 #include "universe.h"

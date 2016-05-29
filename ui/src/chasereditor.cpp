@@ -264,7 +264,7 @@ void ChaserEditor::stopTest()
 
 void ChaserEditor::selectStepAtTime(quint32 time)
 {
-    quint32 stepTime = m_chaser->getStartTime();
+    quint32 stepTime = 0;
     for (int i = 0; i < m_chaser->stepsCount(); i++)
     {
         quint32 timeIncr = 0;
@@ -343,7 +343,7 @@ void ChaserEditor::slotAddClicked()
     if (m_chaser->isSequence() == true)
     {
         ChaserStep step(m_chaser->getBoundSceneID());
-        QTreeWidgetItem* item = new QTreeWidgetItem;
+        item = new QTreeWidgetItem;
         updateItem(item, step);
         // if this is the first step we add, then copy all DMX channels non-zero values
         Scene *currScene = qobject_cast<Scene*> (m_doc->function(m_chaser->getBoundSceneID()));
@@ -382,7 +382,7 @@ void ChaserEditor::slotAddClicked()
             while (it.hasNext() == true)
             {
                 ChaserStep step(it.next());
-                QTreeWidgetItem* item = new QTreeWidgetItem;
+                item = new QTreeWidgetItem;
                 updateItem(item, step);
                 m_tree->insertTopLevelItem(insertionPoint, item);
                 qDebug() << "Insertion point: " << insertionPoint;
@@ -393,6 +393,9 @@ void ChaserEditor::slotAddClicked()
     }
     if (stepAdded == true)
     {
+        // at last, select the newly created step, so in case of a Sequence,
+        // the Scene Editor will show the current values, and users will
+        // stop bugging us in the forums
         m_tree->setCurrentItem(item);
         updateStepNumbers();
         updateClipboardButtons();
@@ -595,13 +598,7 @@ void ChaserEditor::slotItemChanged(QTreeWidgetItem *item, int column)
     m_chaser->replaceStep(step, idx);
     updateItem(item, step);
 
-    m_tree->resizeColumnToContents(COL_NUM);
-    m_tree->resizeColumnToContents(COL_NAME);
-    m_tree->resizeColumnToContents(COL_FADEIN);
-    m_tree->resizeColumnToContents(COL_HOLD);
-    m_tree->resizeColumnToContents(COL_FADEOUT);
-    m_tree->resizeColumnToContents(COL_DURATION);
-    m_tree->resizeColumnToContents(COL_NOTES);
+    m_tree->header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
 /****************************************************************************
@@ -1103,13 +1100,7 @@ void ChaserEditor::updateTree(bool clear)
         updateItem(item, step);
     }
 
-    m_tree->resizeColumnToContents(COL_NUM);
-    m_tree->resizeColumnToContents(COL_NAME);
-    m_tree->resizeColumnToContents(COL_FADEIN);
-    m_tree->resizeColumnToContents(COL_HOLD);
-    m_tree->resizeColumnToContents(COL_FADEOUT);
-    m_tree->resizeColumnToContents(COL_DURATION);
-    m_tree->resizeColumnToContents(COL_NOTES);
+    m_tree->header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
 void ChaserEditor::updateItem(QTreeWidgetItem* item, ChaserStep& step)
@@ -1122,7 +1113,12 @@ void ChaserEditor::updateItem(QTreeWidgetItem* item, ChaserStep& step)
 
     item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsEditable);
     item->setText(COL_NUM, QString("%1").arg(m_tree->indexOfTopLevelItem(item) + 1));
-    item->setText(COL_NAME, function->name());
+    if (m_chaser->isSequence() == false)
+    {
+        item->setText(COL_NAME, function->name());
+        item->setIcon(COL_NAME, Function::typeToIcon(function->type()));
+    }
+
     if (step.note.isEmpty() == false)
         item->setText(COL_NOTES, step.note);
     step.fid = function->id();

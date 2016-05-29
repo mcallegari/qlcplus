@@ -18,260 +18,277 @@
 */
 
 import QtQuick 2.0
+import QtQuick.Layouts 1.0
+
+import "TimeUtils.js" as TimeUtils
+
 import "."
 
-Column
+GridLayout
 {
-    property color bgCol: "#2D3492"
+    id: toolRoot
+    property color buttonsBgColor: "#05438E"
     property int btnFontSize: 12
+    property string title
+    property string timeValueString
 
-    // top row: close, increase values
-    Row
+    property int msTime: 0
+    property bool msTimeCalcNeeded: true
+
+    columns: 5
+    rows: 4
+    columnSpacing: 0
+    rowSpacing: 0
+
+    signal timeValueChanged(int ms)
+
+    onVisibleChanged: if (visible) timeBox.selectAndFocus()
+
+    onTimeValueStringChanged:
     {
-        Rectangle
+        if (msTimeCalcNeeded == true)
+            msTime = TimeUtils.qlcStringToMs(timeValueString)
+        //console.log("Time value ms: " + msTime)
+        msTimeCalcNeeded = false
+    }
+
+    onMsTimeChanged:
+    {
+        //console.log("ms time: " + msTime)
+        msTimeCalcNeeded = false
+        timeValueString = TimeUtils.msToQlcString(msTime)
+        toolRoot.timeValueChanged(msTime)
+    }
+
+    // title bar
+    Rectangle
+    {
+        height: 35
+        Layout.fillWidth: true
+        Layout.columnSpan: 5
+        gradient:
+            Gradient
+            {
+                GradientStop { position: 0; color: UISettings.toolbarStartSub }
+                GradientStop { position: 1; color: UISettings.toolbarEnd }
+            }
+
+        RobotoText
+        {
+            id: titleBox
+            anchors.fill: parent
+            anchors.margins: 3
+
+            label: title
+            fontSize: 14
+        }
+        // allow the tool to be dragged around
+        // by holding it on the title bar
+        MouseArea
+        {
+            anchors.fill: parent
+            drag.target: toolRoot
+        }
+        GenericButton
         {
             width: 35
             height: 35
-            color: bgCol
+            anchors.right: parent.right
             border.width: 1
             border.color: "#333"
+            //bgColor: buttonsBgColor
+            useFontawesome: true
+            label: FontAwesome.fa_times
 
-            Text
-            {
-                id: faIcon
-                anchors.centerIn: parent
-                color: "white"
-                font.family: "FontAwesome"
-                font.pointSize: btnFontSize
-                text: FontAwesome.fa_times
-            }
-        }
-
-        Rectangle
-        {
-            width: 35
-            height: 35
-            color: bgCol
-            border.width: 1
-            border.color: "#333"
-
-            RobotoText
-            {
-                anchors.centerIn: parent
-                label: "+H"
-                fontSize: btnFontSize
-            }
-        }
-        Rectangle
-        {
-            width: 35
-            height: 35
-            color: bgCol
-            border.width: 1
-            border.color: "#333"
-
-            RobotoText
-            {
-                anchors.centerIn: parent
-                label: "+M"
-                fontSize: btnFontSize
-            }
-        }
-
-        Rectangle
-        {
-            width: 40
-            height: 35
-            color: bgCol
-            border.width: 1
-            border.color: "#333"
-
-            RobotoText
-            {
-                anchors.centerIn: parent
-                label: "+S"
-                fontSize: btnFontSize
-            }
-        }
-
-        Rectangle
-        {
-            width: 40
-            height: 35
-            color: bgCol
-            border.width: 1
-            border.color: "#333"
-
-            RobotoText
-            {
-                anchors.centerIn: parent
-                label: "+ms"
-                fontSize: btnFontSize
-            }
+            onClicked: toolRoot.visible = false
         }
     }
 
-    // middle row: tap, values
-    Row
+    // top row: close, increase values
+    GenericButton
     {
-        Rectangle
+        width: 35
+        Layout.fillHeight: true
+        Layout.rowSpan: 2
+        border.width: 1
+        border.color: "#333"
+        bgColor: buttonsBgColor
+        fontSize: btnFontSize
+        label: "Tap"
+    }
+
+    GenericButton
+    {
+        width: 35
+        height: 35
+        border.width: 1
+        border.color: "#333"
+        bgColor: buttonsBgColor
+        fontSize: btnFontSize
+        label: "+H"
+        repetition: true
+        onClicked:
         {
-            width: 35
-            height: 35
-            color: bgCol
-            border.width: 1
-            border.color: "#333"
-
-            RobotoText
-            {
-                anchors.centerIn: parent
-                label: "Tap"
-                fontSize: btnFontSize
-            }
+            msTime += (60 * 60 * 1000)
         }
-        Rectangle
+    }
+
+    GenericButton
+    {
+        width: 35
+        height: 35
+        border.width: 1
+        border.color: "#333"
+        bgColor: buttonsBgColor
+        fontSize: btnFontSize
+        label: "+M"
+        repetition: true
+        onClicked:
         {
-            width: 35
-            height: 35
-            color: "#444"
-            border.width: 1
-            border.color: "#333"
-
-            CustomTextEdit
-            {
-                anchors.fill: parent
-                inputText: "0h"
-                fontSize: btnFontSize
-            }
+            msTime += (60 * 1000)
         }
-        Rectangle
+    }
+
+    GenericButton
+    {
+        width: 40
+        height: 35
+        border.width: 1
+        border.color: "#333"
+        bgColor: buttonsBgColor
+        fontSize: btnFontSize
+        label: "+S"
+        repetition: true
+        onClicked:
         {
-            width: 35
-            height: 35
-            color: "#444"
-            border.width: 1
-            border.color: "#333"
-
-            CustomTextEdit
-            {
-                anchors.fill: parent
-                inputText: "0m"
-                fontSize: btnFontSize
-            }
+            msTime += 1000
         }
-        Rectangle
+    }
+
+    GenericButton
+    {
+        width: 40
+        height: 35
+        border.width: 1
+        border.color: "#333"
+        bgColor: buttonsBgColor
+        fontSize: btnFontSize
+        label: "+ms"
+        repetition: true
+        onClicked:
         {
-            width: 40
-            height: 35
-            color: "#444"
-            border.width: 1
-            border.color: "#333"
-
-            CustomTextEdit
-            {
-                anchors.fill: parent
-                inputText: "0s"
-                fontSize: btnFontSize
-            }
+            msTime++
         }
-        Rectangle
+    }
+
+    // middle row: tap, time value
+    Rectangle
+    {
+        height: 35
+        color: "#444"
+        border.width: 1
+        border.color: "#333"
+        Layout.fillWidth: true
+        Layout.columnSpan: 4
+
+        CustomTextEdit
         {
-            width: 40
+            id: timeBox
+            width: parent.width
             height: 35
-            color: "#444"
-            border.width: 1
-            border.color: "#333"
-
-            CustomTextEdit
-            {
-                anchors.fill: parent
-                inputText: ".00"
-                fontSize: btnFontSize
-            }
+            //anchors.fill: parent
+            textAlignment: TextInput.AlignHCenter
+            radius: 0
+            inputText: timeValueString
+            fontSize: btnFontSize
         }
-
     }
 
     // bottom row: infinite, decrease values
-    Row
+    GenericButton
     {
-        Rectangle
+        width: 35
+        height: 35
+        border.width: 1
+        border.color: "#333"
+        bgColor: buttonsBgColor
+        fontSize: btnFontSize
+        label: "∞"
+        onClicked:
         {
-            width: 35
-            height: 35
-            color: bgCol
-            border.width: 1
-            border.color: "#333"
-
-            RobotoText
-            {
-                anchors.centerIn: parent
-                label: "∞"
-                fontSize: btnFontSize
-            }
+            timeValueString = "∞"
         }
+    }
 
-        Rectangle
+    GenericButton
+    {
+        width: 35
+        height: 35
+        border.width: 1
+        border.color: "#333"
+        bgColor: buttonsBgColor
+        fontSize: btnFontSize
+        label: "-H"
+        repetition: true
+        onClicked:
         {
-            width: 35
-            height: 35
-            color: bgCol
-            border.width: 1
-            border.color: "#333"
-
-            RobotoText
-            {
-                anchors.centerIn: parent
-                label: "-H"
-                fontSize: btnFontSize
-            }
+            if (msTime < 60 * 60 * 1000)
+                return
+            msTime -= (60 * 60 * 1000)
         }
-        Rectangle
-        {
-            width: 35
-            height: 35
-            color: bgCol
-            border.width: 1
-            border.color: "#333"
+    }
 
-            RobotoText
-            {
-                anchors.centerIn: parent
-                label: "-M"
-                fontSize: btnFontSize
-            }
+    GenericButton
+    {
+        width: 35
+        height: 35
+        border.width: 1
+        border.color: "#333"
+        bgColor: buttonsBgColor
+        fontSize: btnFontSize
+        label: "-M"
+        repetition: true
+        onClicked:
+        {
+            if (msTime < 60000)
+                return
+            msTime -= (60 * 1000)
         }
+    }
 
-        Rectangle
+    GenericButton
+    {
+        width: 40
+        height: 35
+        border.width: 1
+        border.color: "#333"
+        bgColor: buttonsBgColor
+        fontSize: btnFontSize
+        label: "-S"
+        repetition: true
+        onClicked:
         {
-            width: 40
-            height: 35
-            color: bgCol
-            border.width: 1
-            border.color: "#333"
-
-            RobotoText
-            {
-                anchors.centerIn: parent
-                label: "-S"
-                fontSize: btnFontSize
-            }
+            if (msTime < 1000)
+                return
+            msTime -= 1000
         }
+    }
 
-        Rectangle
+    GenericButton
+    {
+        width: 40
+        height: 35
+        border.width: 1
+        border.color: "#333"
+        bgColor: buttonsBgColor
+        fontSize: btnFontSize
+        label: "-ms"
+        repetition: true
+        onClicked:
         {
-            width: 40
-            height: 35
-            color: bgCol
-            border.width: 1
-            border.color: "#333"
-
-            RobotoText
-            {
-                anchors.centerIn: parent
-                label: "-ms"
-                fontSize: btnFontSize
-            }
+            if (msTime == 0)
+                return
+            msTime--
         }
     }
 }

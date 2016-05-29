@@ -24,7 +24,9 @@
 
 #include "vcframe.h"
 #include "vclabel.h"
+#include "vcclock.h"
 #include "vcbutton.h"
+#include "vcslider.h"
 #include "vcsoloframe.h"
 #include "virtualconsole.h"
 
@@ -115,6 +117,9 @@ QList<VCWidget *> VCFrame::children(bool recursive)
 void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
 {
     qDebug() << "[VCFrame] adding widget of type:" << wType << pos;
+
+    // reset all the drop targets, otherwise two overlapping
+    // frames can get the same drop event
     m_vc->resetDropTargets(true);
 
     VCWidget::WidgetType type = stringToType(wType);
@@ -155,15 +160,52 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
         {
             VCLabel *label = new VCLabel(m_doc, this);
             QQmlEngine::setObjectOwnership(label, QQmlEngine::CppOwnership);
-            label->setGeometry(QRect(pos.x(), pos.y(), 100, 100));
+            label->setGeometry(QRect(pos.x(), pos.y(), 100, 30));
             setupWidget(label);
             m_vc->addWidgetToMap(label);
             label->render(m_vc->view(), parent);
         }
         break;
+        case SliderWidget:
+        {
+            VCSlider *slider = new VCSlider(m_doc, this);
+            QQmlEngine::setObjectOwnership(slider, QQmlEngine::CppOwnership);
+            slider->setGeometry(QRect(pos.x(), pos.y(), 60, 200));
+            setupWidget(slider);
+            m_vc->addWidgetToMap(slider);
+            slider->render(m_vc->view(), parent);
+        }
+        break;
+        case ClockWidget:
+        {
+            VCClock *clock = new VCClock(m_doc, this);
+            QQmlEngine::setObjectOwnership(clock, QQmlEngine::CppOwnership);
+            clock->setGeometry(QRect(pos.x(), pos.y(), 150, 50));
+            setupWidget(clock);
+            m_vc->addWidgetToMap(clock);
+            clock->render(m_vc->view(), parent);
+        }
+        break;
         default:
         break;
     }
+}
+
+void VCFrame::addFunction(QQuickItem *parent, quint32 funcID, QPoint pos, bool modifierPressed)
+{
+    Q_UNUSED(modifierPressed)
+
+    // reset all the drop targets, otherwise two overlapping
+    // frames can get the same drop event
+    m_vc->resetDropTargets(true);
+
+    VCButton *button = new VCButton(m_doc, this);
+    QQmlEngine::setObjectOwnership(button, QQmlEngine::CppOwnership);
+    button->setGeometry(QRect(pos.x(), pos.y(), 100, 100));
+    button->setFunctionID(funcID);
+    setupWidget(button);
+    m_vc->addWidgetToMap(button);
+    button->render(m_vc->view(), parent);
 }
 
 void VCFrame::deleteChildren()
@@ -513,6 +555,32 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
                 m_vc->addWidgetToMap(label);
             }
         }
+        else if (root.name() == KXMLQLCVCSlider)
+        {
+            /* Create a new slider into its parent */
+            VCSlider* slider = new VCSlider(m_doc, this);
+            if (slider->loadXML(root) == false)
+                delete slider;
+            else
+            {
+                QQmlEngine::setObjectOwnership(slider, QQmlEngine::CppOwnership);
+                setupWidget(slider);
+                m_vc->addWidgetToMap(slider);
+            }
+        }
+        else if (root.name() == KXMLQLCVCClock)
+        {
+            /* Create a new clock into its parent */
+            VCClock* clock = new VCClock(m_doc, this);
+            if (clock->loadXML(root) == false)
+                delete clock;
+            else
+            {
+                QQmlEngine::setObjectOwnership(clock, QQmlEngine::CppOwnership);
+                setupWidget(clock);
+                m_vc->addWidgetToMap(clock);
+            }
+        }
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown frame tag:" << root.name().toString();
@@ -526,4 +594,104 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
     return true;
 }
 
+bool VCFrame::saveXML(QXmlStreamWriter *doc)
+{
+    Q_ASSERT(doc != NULL);
 
+    /* VC Frame entry */
+    doc->writeStartElement(xmlTagName());
+
+    saveXMLCommon(doc);
+
+    /* Save appearance */
+    saveXMLAppearance(doc);
+
+    /* Save widget proportions only for child frames */
+    saveXMLWindowState(doc);
+
+    /* Allow resize */
+    doc->writeTextElement(KXMLQLCVCFrameAllowResize, allowResize() ? KXMLQLCTrue : KXMLQLCFalse);
+
+    /* ShowHeader */
+    doc->writeTextElement(KXMLQLCVCFrameShowHeader, showHeader() ? KXMLQLCTrue : KXMLQLCFalse);
+
+    /* ShowEnableButton */
+    doc->writeTextElement(KXMLQLCVCFrameShowEnableButton, showEnable() ? KXMLQLCTrue : KXMLQLCFalse);
+
+#if 0 // TODO
+    /* Solo frame mixing */
+    if (this->type() == SoloFrameWidget)
+    {
+        if (reinterpret_cast<VCSoloFrame*>(this)->soloframeMixing())
+            doc->writeTextElement(KXMLQLCVCSoloFrameMixing, KXMLQLCTrue);
+        else
+            doc->writeTextElement(KXMLQLCVCSoloFrameMixing, KXMLQLCFalse);
+    }
+#endif
+    /* Collapsed */
+    doc->writeTextElement(KXMLQLCVCFrameIsCollapsed, isCollapsed() ? KXMLQLCTrue : KXMLQLCFalse);
+
+    /* Disabled */
+    doc->writeTextElement(KXMLQLCVCFrameIsDisabled, isDisabled() ? KXMLQLCTrue : KXMLQLCFalse);
+
+#if 0 // TODO
+    /* Enable control */
+    QString keySeq = m_enableKeySequence.toString();
+    QSharedPointer<QLCInputSource> enableSrc = inputSource(enableInputSourceId);
+
+    if (keySeq.isEmpty() == false || (!enableSrc.isNull() && enableSrc->isValid()))
+    {
+        doc->writeStartElement(KXMLQLCVCFrameEnableSource);
+        if (keySeq.isEmpty() == false)
+            doc->writeTextElement(KXMLQLCVCWidgetKey, keySeq);
+        saveXMLInput(doc, enableSrc);
+        doc->writeEndElement();
+    }
+#endif
+    /* Multipage mode */
+    if (multiPageMode() == true)
+    {
+        doc->writeStartElement(KXMLQLCVCFrameMultipage);
+        doc->writeAttribute(KXMLQLCVCFramePagesNumber, QString::number(totalPagesNumber()));
+        doc->writeAttribute(KXMLQLCVCFrameCurrentPage, QString::number(currentPage()));
+        doc->writeEndElement();
+#if 0 // TODO
+        /* Next page */
+        keySeq = m_nextPageKeySequence.toString();
+        QSharedPointer<QLCInputSource> nextSrc = inputSource(nextPageInputSourceId);
+
+        if (keySeq.isEmpty() == false || (!nextSrc.isNull() && nextSrc->isValid()))
+        {
+            doc->writeStartElement(KXMLQLCVCFrameNext);
+            if (keySeq.isEmpty() == false)
+                doc->writeTextElement(KXMLQLCVCWidgetKey, keySeq);
+            saveXMLInput(doc, nextSrc);
+            doc->writeEndElement();
+        }
+
+        /* Previous page */
+        keySeq = m_previousPageKeySequence.toString();
+        QSharedPointer<QLCInputSource> prevSrc = inputSource(previousPageInputSourceId);
+
+        if (keySeq.isEmpty() == false || (!prevSrc.isNull() && prevSrc->isValid()))
+        {
+            doc->writeStartElement(KXMLQLCVCFramePrevious);
+            if (keySeq.isEmpty() == false)
+                doc->writeTextElement(KXMLQLCVCWidgetKey, keySeq);
+            saveXMLInput(doc, prevSrc);
+            doc->writeEndElement();
+        }
+#endif
+        /* Pages Loop */
+        doc->writeTextElement(KXMLQLCVCFramePagesLoop, m_pagesLoop ? KXMLQLCTrue : KXMLQLCFalse);
+    }
+
+    /* Save children */
+    foreach(VCWidget *child, children(false))
+        child->saveXML(doc);
+
+    /* End the <Frame> tag */
+    doc->writeEndElement();
+
+    return true;
+}

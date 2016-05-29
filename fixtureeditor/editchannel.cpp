@@ -557,9 +557,7 @@ void EditChannel::refreshCapabilities()
     }
 
     m_capabilityList->sortItems(COL_MIN, Qt::AscendingOrder);
-    m_capabilityList->resizeColumnToContents(COL_MIN);
-    m_capabilityList->resizeColumnToContents(COL_MAX);
-    m_capabilityList->resizeColumnToContents(COL_NAME);
+    m_capabilityList->header()->resizeSections(QHeaderView::ResizeToContents);
 
     slotCapabilityListSelectionChanged(m_capabilityList->currentItem());
 }

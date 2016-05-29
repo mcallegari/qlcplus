@@ -252,13 +252,7 @@ void AudioTriggersConfiguration::updateTree()
         freqCount += freqIncr;
     }
 
-    m_tree->resizeColumnToContents(KColumnName);
-    m_tree->resizeColumnToContents(KColumnType);
-    m_tree->resizeColumnToContents(KColumnAssign);
-    m_tree->resizeColumnToContents(KColumnInfo);
-    m_tree->resizeColumnToContents(KColumnMinThreshold);
-    m_tree->resizeColumnToContents(KColumnMaxThreshold);
-    m_tree->resizeColumnToContents(KColumnDivisor);
+    m_tree->header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
 void AudioTriggersConfiguration::slotTypeComboChanged(int comboIndex)

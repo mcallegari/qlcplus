@@ -35,6 +35,8 @@ Rectangle
 
     signal requestView(int ID, string qmlSrc)
 
+    Component.onDestruction: functionManager.setEditorFunction(-1)
+
     onFunctionIDChanged:
     {
         console.log("RGBMatrix ID: " + functionID)
@@ -83,7 +85,7 @@ Rectangle
             clip: true
             text: matrix ? matrix.name : ""
             verticalAlignment: TextInput.AlignVCenter
-            font.family: "RobotoCondensed"
+            font.family: "Roboto Condensed"
             font.pixelSize: 20
             selectByMouse: true
             Layout.fillWidth: true
@@ -147,7 +149,7 @@ Rectangle
                     height: editorColumn.itemsHeight
                     model: fixtureManager.groupsListModel
                     currentValue: rgbMatrixEditor.fixtureGroup
-                    onValuechanged: rgbMatrixEditor.fixtureGroup = value
+                    onValueChanged: rgbMatrixEditor.fixtureGroup = value
                 }
             }
 
@@ -389,8 +391,7 @@ Rectangle
 
                     } // GridLayout
             }
-
-        } // ColumnLayout
+        } // Column
     } // Flickable
     ScrollBar { id: sbar; flickable: editorFlickable }
 

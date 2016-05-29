@@ -312,8 +312,7 @@ void VCSliderProperties::levelUpdateFixtures()
         Q_ASSERT(fixture != NULL);
         levelUpdateFixtureNode(fixture->id());
     }
-    m_levelList->resizeColumnToContents(KColumnName);
-    m_levelList->resizeColumnToContents(KColumnType);
+    m_levelList->header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
 void VCSliderProperties::levelUpdateFixtureNode(quint32 id)
@@ -638,8 +637,7 @@ void VCSliderProperties::slotLevelByGroupClicked()
 
 void VCSliderProperties::slotItemExpanded()
 {
-    m_levelList->resizeColumnToContents(KColumnName);
-    m_levelList->resizeColumnToContents(KColumnType);
+    m_levelList->header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
 /*****************************************************************************

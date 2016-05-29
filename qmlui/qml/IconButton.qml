@@ -72,7 +72,9 @@ Rectangle
     {
         id: btnIcon
         visible: imgSource ? true : false
-        anchors.fill: parent
+        anchors.centerIn: parent
+        width: Math.min(parent.width - imgMargins, parent.height - imgMargins)
+        height: width
         anchors.margins: imgMargins
         source: imgSource
         sourceSize: Qt.size(width, height)

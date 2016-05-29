@@ -57,13 +57,6 @@ Rectangle
         }
     }
 
-    onDocLoadedChanged:
-    {
-        // a new Doc has been loaded. Do here all the operations to
-        // reset/restore the view (active contexts are updated in C++)
-        viewUniverseCombo.model = ioManager.universeNames
-    }
-
     LeftPanel
     {
         id: leftPanel
@@ -213,14 +206,16 @@ Rectangle
                 CustomComboBox
                 {
                     id: viewUniverseCombo
-                    width: 100
+                    width: 120
                     height: 26
                     anchors.margins: 1
-                    model: ioManager.universeNames
+                    model: ioManager.universesListModel
 
-                    onCurrentIndexChanged:
+                    onValueChanged:
                     {
                         // set the universe filter here
+                        contextManager.universeFilter = value
+                        fixtureManager.universeFilter = value
                     }
                 }
 

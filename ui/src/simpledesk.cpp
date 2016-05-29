@@ -1494,6 +1494,8 @@ void SimpleDesk::resizeEvent(QResizeEvent *ev)
         if (var.isValid() == false || var.toUInt() == 0)
         {
             uint currChannels = m_channelsPerPage;
+            // 42 is the answer to life, the universe and everything...
+            // but also the width of a console channel slider :)
             m_channelsPerPage = (newSize.width() - m_grandMasterSlider->width()) / 42;
             //qDebug() << "Old channels per page:" << currChannels << ", new value:" << m_channelsPerPage;
             if (m_channelsPerPage != currChannels)
@@ -1520,6 +1522,7 @@ void SimpleDesk::resizeEvent(QResizeEvent *ev)
                         }
                     }
                 }
+                m_universePageSpin->setRange(1, int((512 + m_channelsPerPage - 1) / m_channelsPerPage));
                 if (this->isVisible() == true)
                     slotUniversePageChanged(m_universePageSpin->value());
             }

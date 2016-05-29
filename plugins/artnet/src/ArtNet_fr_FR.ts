@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="fr_FR">
+<TS version="2.1" language="fr_FR">
 <context>
     <name>ArtNetPlugin</name>
     <message>
@@ -28,18 +28,18 @@
     <message>
         <location filename="artnetplugin.cpp" line="128"/>
         <source>No</source>
-        <translation type="unfinished"></translation>
+        <translation>Non</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="130"/>
         <source>Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>Oui</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="131"/>
         <source>Can receive nodes information</source>
         <oldsource>Can receive node information</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>Peut recevoir les informations des nœuds</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="134"/>
@@ -59,17 +59,17 @@
     <message>
         <location filename="artnetplugin.cpp" line="280"/>
         <source>Bind failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Échec du lien</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="282"/>
         <source>Open</source>
-        <translation type="unfinished"></translation>
+        <translation>Ouvert</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="283"/>
         <source>Status</source>
-        <translation type="unfinished"></translation>
+        <translation>État</translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="286"/>

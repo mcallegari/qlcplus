@@ -39,6 +39,7 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
     , m_doc(doc)
     , m_fixtureManager(fxMgr)
     , m_functionManager(funcMgr)
+    , m_universeFilter(Universe::invalid())
     , m_prevRotation(0)
     , m_editingEnabled(false)
 {
@@ -328,12 +329,32 @@ void ContextManager::setFixturesRotation(int degrees)
     m_prevRotation = degrees;
 }
 
+quint32 ContextManager::universeFilter() const
+{
+    return m_universeFilter;
+}
+
+void ContextManager::setUniverseFilter(quint32 universeFilter)
+{
+    if (m_universeFilter == universeFilter)
+        return;
+
+    m_universeFilter = universeFilter;
+
+    if (m_DMXView->isEnabled())
+        m_DMXView->setUniverseFilter(m_universeFilter);
+    if (m_2DView->isEnabled())
+        m_2DView->setUniverseFilter(m_universeFilter);
+
+    emit universeFilterChanged(universeFilter);
+}
+
 void ContextManager::checkDumpButton(quint32 valCount)
 {
     int dumpValuesCount = m_functionManager->dumpValuesCount();
     /** Monitor the changes from/to 0 */
     if ((valCount == 0 && dumpValuesCount > 0) ||
-        (valCount > 0 && dumpValuesCount == 0))
+            (valCount > 0 && dumpValuesCount == 0))
     {
         QQuickItem *dumpBtn = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("dumpButton"));
         if (dumpBtn != NULL)

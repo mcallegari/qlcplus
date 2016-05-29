@@ -95,13 +95,15 @@ void OSCPacketizer::setupOSCGeneric(QByteArray &data, QString &path, QString typ
 /*********************************************************************
  * Receiver functions
  *********************************************************************/
-bool OSCPacketizer::parseMessage(QByteArray &data, QString &path, QByteArray &values)
+bool OSCPacketizer::parseMessage(QByteArray const& data, QString& path, QByteArray& values)
 {
     path.clear();
     values.clear();
 
     QList<TagType> typeArray;
     bool tagsEnded = false;
+
+    //qDebug() << "[OSC] data:" << data;
 
     // first of all look for a comma
     int commaPos = data.indexOf(0x2C);
@@ -121,6 +123,7 @@ bool OSCPacketizer::parseMessage(QByteArray &data, QString &path, QByteArray &va
             case 'f': typeArray.append(Float); break;
             case 'i': typeArray.append(Integer); break;
             case 's': typeArray.append(String); break;
+            case 't': typeArray.append(Time); break;
             default: break;
         }
         currPos++;
@@ -177,10 +180,18 @@ bool OSCPacketizer::parseMessage(QByteArray &data, QString &path, QByteArray &va
             {
                 int firstZeroPos = data.indexOf('\0', currPos);
                 QString str = QString(data.mid(currPos, firstZeroPos - currPos));
-                qDebug() << "[OSC] sVal:" << str;
+                qDebug() << "[OSC] string:" << str;
                 // align current position to a multiple of 4
                 int zeroNumber = 4 - (str.length() % 4);
                 currPos = firstZeroPos + zeroNumber;
+            }
+            break;
+            case Time:
+            {
+                // A OSC timestamp would be helpful to defer
+                // value changes, but since QLC+ plugins don't support
+                // such thing, let's skip it.
+                currPos += 8;
             }
             break;
             default: break;
@@ -188,6 +199,58 @@ bool OSCPacketizer::parseMessage(QByteArray &data, QString &path, QByteArray &va
     }
 
     return true;
+}
+
+QList<QPair<QString, QByteArray> > OSCPacketizer::parsePacket(QByteArray const& data)
+{
+    int bufPos = 0;
+    QList<QPair<QString, QByteArray> > messages;
+
+    while (bufPos < data.size())
+    {
+        QString path;
+        QByteArray values;
+
+        // check wether we need to parse a bundle or a single message
+        if (data.at(bufPos) == '#')
+        {
+            if (data.size() < 20 || data.startsWith("#bundle") == false)
+            {
+                qWarning() << "[OSC] Found an unsupported message type !" << data;
+                return messages;
+            }
+            // 8 bytes for '#bundle\0' and 8 bytes for a timestamp that we don't handle
+            bufPos += 16;
+
+            // now, a bundle can contain another bundle or a message, starting with the message size
+            // Check where we are here
+            while (bufPos < data.size() && data.at(bufPos) != '#')
+            {
+                quint32 msgSize = (uchar(data.at(bufPos)) << 24) + (uchar(data.at(bufPos + 1)) << 16) + (uchar(data.at(bufPos + 2)) << 8) + uchar(data.at(bufPos + 3));
+                qDebug() << "[OSC] Bundle message size:" << msgSize;
+                bufPos += 4;
+
+                if (data.size() >= bufPos + (int)msgSize)
+                {
+                    QByteArray msgData = data.mid(bufPos, msgSize);
+                    if (parseMessage(msgData, path, values) == true)
+                        messages.append(QPair<QString, QByteArray>(path, values));
+                }
+                bufPos += msgSize;
+            }
+            //qDebug() << "Buf pos=" << bufPos << "data size=" << data.size();
+        }
+        else
+        {
+            if (parseMessage(data, path, values) == true)
+                messages.append(QPair<QString, QByteArray>(path, values));
+
+            bufPos += data.size();
+        }
+
+    }
+
+    return messages;
 }
 
 

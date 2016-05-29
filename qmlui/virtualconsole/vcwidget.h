@@ -25,13 +25,14 @@
 #include <QObject>
 #include <QColor>
 #include <QRect>
+#include <QFont>
 
 #include "qlcfile.h"
+#include "doc.h"
 
-class Doc;
 
 #define KXMLQLCVCCaption "Caption"
-#define KXMLQLCVCFrameStyle "FrameStyle"
+#define KXMLQLCVCFrameStyle "FrameStyle"    // LEGACY
 
 #define KXMLQLCVCWidgetID "ID"
 #define KXMLQLCVCWidgetPage "Page"
@@ -63,6 +64,8 @@ class VCWidget : public QObject
     Q_OBJECT
 
     Q_PROPERTY(quint32 id READ id CONSTANT)
+    Q_PROPERTY(QString propertiesResource READ propertiesResource CONSTANT)
+    Q_PROPERTY(bool isEditing READ isEditing WRITE setIsEditing NOTIFY isEditingChanged)
     Q_PROPERTY(QRect geometry READ geometry WRITE setGeometry NOTIFY geometryChanged)
     Q_PROPERTY(bool allowResize READ allowResize WRITE setAllowResize NOTIFY allowResizeChanged)
     Q_PROPERTY(bool isDisabled READ isDisabled WRITE setDisabled NOTIFY disabledStateChanged)
@@ -349,10 +352,31 @@ private:
     qreal m_intensity;
 
     /*********************************************************************
+     * Properties editing
+     *********************************************************************/
+public:
+    /** Return the widget editing flag */
+    bool isEditing() const;
+
+    /** Set the widget editing flag. This is used to indicate that
+     *  the properties page is open and it can be useful to defer
+     *  some actions */
+    void setIsEditing(bool edit);
+
+    virtual QString propertiesResource() const;
+
+signals:
+    void isEditingChanged();
+
+private:
+    bool m_isEditing;
+
+    /*********************************************************************
      * Load & Save
      *********************************************************************/
 public:
     virtual bool loadXML(QXmlStreamReader &root);
+    virtual bool saveXML(QXmlStreamWriter *doc);
 
 protected:
     bool loadXMLCommon(QXmlStreamReader &root);
@@ -378,6 +402,20 @@ protected:
     bool loadXMLWindowState(QXmlStreamReader &root, int* x, int* y,
                             int* w, int* h, bool* visible);
 
+    /** Save the widget common properties */
+    bool saveXMLCommon(QXmlStreamWriter *doc);
+
+    /** Save the widget appearance, if customized */
+    bool saveXMLAppearance(QXmlStreamWriter *doc);
+
+    /**
+     * Write this widget's geometry and visibility to an XML document.
+     *
+     * @param doc A QXmlStreamReader to save the tag to
+     *
+     * @return true if succesful, otherwise false
+     */
+    bool saveXMLWindowState(QXmlStreamWriter *doc);
 };
 
 #endif
