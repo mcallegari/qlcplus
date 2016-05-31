@@ -84,7 +84,6 @@ bool AudioRendererAlsa::initialize(quint32 freq, int chan, AudioFormat format)
 
     uint buffer_time = 500000;
     uint period_time = 100000;
-    bool use_pause =  false;
 
     snd_pcm_hw_params_t *hwparams = 0;
     snd_pcm_sw_params_t *swparams = 0;
@@ -197,9 +196,10 @@ bool AudioRendererAlsa::initialize(quint32 freq, int chan, AudioFormat format)
     //setup needed values
     m_bits_per_frame = snd_pcm_format_physical_width(alsa_format) * chan;
     m_chunk_size = period_size;
-    m_can_pause = snd_pcm_hw_params_can_pause(hwparams) && use_pause;
+    m_can_pause = snd_pcm_hw_params_can_pause(hwparams);
+
     qDebug("OutputALSA: can pause: %d", m_can_pause);
-    //configure(freq, chan, format); //apply configuration
+
     //create alsa prebuffer;
     m_prebuf_size = m_bits_per_frame * m_chunk_size / 8;
     m_prebuf = (uchar *)malloc(m_prebuf_size);
@@ -416,16 +416,13 @@ void AudioRendererAlsa::suspend()
 {
     if (m_can_pause)
         snd_pcm_pause(pcm_handle, 1);
-    snd_pcm_prepare(pcm_handle);
 }
 
 void AudioRendererAlsa::resume()
 {
     if (m_can_pause)
         snd_pcm_pause(pcm_handle, 0);
-    snd_pcm_prepare(pcm_handle);
 }
-
 
 void AudioRendererAlsa::uninitialize()
 {
