@@ -34,6 +34,12 @@ Rectangle
         objectName: "vcPage" + page
         anchors.fill: parent
         boundsBehavior: Flickable.StopAtBounds
+
+        MouseArea
+        {
+            anchors.fill: parent
+            onClicked: virtualConsole.resetWidgetSelection()
+        }
     }
     ScrollBar { flickable: vcPage; doubleBars: true }
     ScrollBar { orientation: Qt.Horizontal; flickable: vcPage }
