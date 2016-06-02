@@ -20,6 +20,7 @@
 pragma Singleton
 
 import QtQuick 2.0
+import QtQuick.Window 2.0
 
 QtObject
 {
@@ -49,6 +50,6 @@ QtObject
 
     /* Sizes */
     property int textSizeDefault: 16
-    property int iconSizeDefault: 40 // more or less the size of a finger
+    property real iconSizeDefault: 40 //Screen.pixelDensity * 20 // more or less the size of a finger
     property int iconSizeMedium: 34
 }

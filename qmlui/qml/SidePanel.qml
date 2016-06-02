@@ -30,10 +30,10 @@ Rectangle
 
     property int panelAlignment: Qt.AlignRight
     property bool isOpen: false
-    property int collapseWidth: 50
+    property int collapseWidth: UISettings.iconSizeDefault * 1.25
     property int expandedWidth: 450
     property string loaderSource: ""
-    property int iconSize: collapseWidth - 4
+    property int iconSize: UISettings.iconSizeDefault
 
     property alias itemID: viewLoader.itemID
 
