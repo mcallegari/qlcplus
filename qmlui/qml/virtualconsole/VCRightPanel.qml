@@ -19,6 +19,8 @@
 
 import QtQuick 2.0
 import QtQuick.Controls 1.0
+
+import com.qlcplus.classes 1.0
 import "."
 
 SidePanel
@@ -67,8 +69,8 @@ SidePanel
                 imgSource: "qrc:/edit.svg"
                 checkable: true
                 exclusiveGroup: vcButtonsGroup
-                //checked: virtualConsole.resizeMode
                 tooltip: qsTr("Enable/Disable the widgets edit mode")
+
                 onToggled:
                 {
                     virtualConsole.editMode = checked
@@ -100,6 +102,27 @@ SidePanel
                     if (checked == true)
                         loaderSource = "qrc:/FunctionManager.qml"
                     animatePanel(checked);
+                }
+            }
+
+            IconButton
+            {
+                id: removeButton
+                z: 2
+                width: iconSize
+                height: iconSize
+                imgSource: "qrc:/remove.svg"
+                tooltip: qsTr("Remove the selected widgets")
+                counter: virtualConsole.selectedWidget ? 1 : 0
+                onClicked:
+                {
+                    var selNames = virtualConsole.selectedWidgetNames()
+                    console.log(selNames)
+
+                    actionManager.requestActionPopup(ActionManager.DeleteVCWidgets,
+                                                     qsTr("Are you sure you want to remove the following widgets ?\n" + selNames),
+                                                     ActionManager.OK | ActionManager.Cancel,
+                                                     virtualConsole.selectedWidgetIDs())
                 }
             }
         }

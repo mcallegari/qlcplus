@@ -22,13 +22,15 @@
 #include "actionmanager.h"
 
 #include "functionmanager.h"
+#include "virtualconsole.h"
 #include "showmanager.h"
 
-ActionManager::ActionManager(QQuickView *view, FunctionManager *fManager, ShowManager *sManager, QObject *parent)
+ActionManager::ActionManager(QQuickView *view, FunctionManager *fManager, ShowManager *sManager, VirtualConsole *vConsole, QObject *parent)
     : QObject(parent)
     , m_view(view)
     , m_functionManager(fManager)
     , m_showManager(sManager)
+    , m_virtualConsole(vConsole)
 {
 
 }
@@ -72,6 +74,11 @@ void ActionManager::acceptAction()
         case DeleteShowItems:
         {
             m_showManager->deleteShowItems(data);
+        }
+        break;
+        case DeleteVCWidgets:
+        {
+            m_virtualConsole->deleteVCWidgets(data);
         }
         break;
         default: break;

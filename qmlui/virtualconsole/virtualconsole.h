@@ -49,7 +49,17 @@ public:
 
     Q_INVOKABLE void setWidgetSelection(quint32 wID, QQuickItem *item, bool enable);
 
+    /** Return a list of strings with the currently selected VC widget names */
+    Q_INVOKABLE QStringList selectedWidgetNames();
+
+    /** Return a list of the currently selected VC widget IDs */
+    Q_INVOKABLE QVariantList selectedWidgetIDs();
+
+    /** Resets the currently selected widgets selection list */
     Q_INVOKABLE void resetWidgetSelection();
+
+    /** Delete the VC widgets with the IDs specified in $IDList */
+    void deleteVCWidgets(QVariantList IDList);
 
     /*********************************************************************
      * Contents
@@ -63,14 +73,17 @@ public:
     /** Reset the Virtual Console contents to an initial state */
     void resetContents();
 
+    /** Adds $widget to the global VC widgets map */
     void addWidgetToMap(VCWidget* widget);
 
+    /** Return a reference to the VC widget with the specified $id.
+     *  On invalid $id, NULL is returned */
     VCWidget *widget(quint32 id);
 
-    //QList<VCWidget *> getChildren(VCWidget *obj);
-
+    /** Return the currently selected VC page index */
     int selectedPage() const;
 
+    /** Set the selected VC page index */
     void setSelectedPage(int selectedPage);
 
     /** Get resize mode flag */
@@ -79,13 +92,16 @@ public:
     /** Set the VC in resize mode */
     void setEditMode(bool editMode);
 
+    /** Return a reference to the currently selected VC widget */
     VCWidget *selectedWidget() const;
 
 signals:
     void editModeChanged(bool editMode);
 
-    void selectedWidgetChanged(VCWidget * selectedWidget);
+    /** Notify the listeners that the currenly selected VC widget has changed */
+    void selectedWidgetChanged(VCWidget* selectedWidget);
 
+    /** Notify the listeners that the currenly selected VC page has changed */
     void selectedPageChanged(int selectedPage);
 
 protected:
@@ -102,7 +118,7 @@ protected:
     /** Latest assigned widget ID */
     quint32 m_latestWidgetId;
 
-    bool m_resizeMode;
+    bool m_editMode;
 
     int m_selectedPage;
 

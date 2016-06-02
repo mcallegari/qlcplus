@@ -84,16 +84,24 @@ public:
     /** Returns if this frame has chidren widgets */
     bool hasChildren();
 
+    /** Returns a list of the children widgets with the specified
+     *  $recursive method */
     QList<VCWidget *>children(bool recursive = false);
 
     Q_INVOKABLE void addWidget(QQuickItem *parent, QString wType, QPoint pos);
     Q_INVOKABLE void addFunction(QQuickItem *parent, quint32 funcID, QPoint pos, bool modifierPressed);
 
+    /** Delete all the frame children */
     void deleteChildren();
+
+    /** Add a child widget to the frame page map */
+    void addWidgetToPageMap(VCWidget *widget);
+
+    /** Remove the child $widget from the frame page map */
+    void removeWidgetFromPageMap(VCWidget *widget);
 
 protected:
     void setupWidget(VCWidget *widget);
-    void deleteWidget(VCWidget *widget);
 
     /*********************************************************************
      * Header

@@ -25,6 +25,7 @@
 #include <QPair>
 
 class FunctionManager;
+class VirtualConsole;
 class ShowManager;
 
 class ActionManager : public QObject
@@ -32,13 +33,15 @@ class ActionManager : public QObject
     Q_OBJECT
 public:
     ActionManager() { }
-    ActionManager(QQuickView *view, FunctionManager *fManager, ShowManager *sManager, QObject *parent = 0);
+    ActionManager(QQuickView *view, FunctionManager *fManager, ShowManager *sManager,
+                  VirtualConsole *vConsole, QObject *parent = 0);
 
     enum ActionType
     {
         None,
         DeleteFunctions,
-        DeleteShowItems
+        DeleteShowItems,
+        DeleteVCWidgets
     };
     Q_ENUM(ActionType)
 
@@ -60,6 +63,7 @@ private:
     QQuickView *m_view;
     FunctionManager *m_functionManager;
     ShowManager *m_showManager;
+    VirtualConsole *m_virtualConsole;
 
     QPair<ActionType, QVariantList> m_deferredAction;
 };

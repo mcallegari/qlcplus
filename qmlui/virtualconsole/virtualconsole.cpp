@@ -52,7 +52,7 @@
 VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc, QObject *parent)
     : PreviewContext(view, doc, parent)
     , m_latestWidgetId(0)
-    , m_resizeMode(false)
+    , m_editMode(false)
     , m_selectedPage(0)
     , m_selectedWidget(NULL)
 {
@@ -122,6 +122,24 @@ void VirtualConsole::setWidgetSelection(quint32 wID, QQuickItem *item, bool enab
     emit selectedWidgetChanged(m_selectedWidget);
 }
 
+QStringList VirtualConsole::selectedWidgetNames()
+{
+    QStringList names;
+    if (m_selectedWidget != NULL)
+        names << m_selectedWidget->caption();
+
+    return names;
+}
+
+QVariantList VirtualConsole::selectedWidgetIDs()
+{
+    QVariantList ids;
+    if (m_selectedWidget != NULL)
+        ids << m_selectedWidget->id();
+
+    return ids;
+}
+
 void VirtualConsole::resetWidgetSelection()
 {
     foreach(QQuickItem *widget, m_itemsMap.values())
@@ -129,6 +147,48 @@ void VirtualConsole::resetWidgetSelection()
     m_itemsMap.clear();
 
     m_selectedWidget = NULL;
+
+    emit selectedWidgetChanged(NULL);
+}
+
+void VirtualConsole::deleteVCWidgets(QVariantList IDList)
+{
+    foreach(QVariant id, IDList)
+    {
+        quint32 wID = id.toUInt();
+        VCWidget *w = widget(wID);
+        if (w == NULL)
+            continue;
+
+        /* 1- remove the widget from its parent frame page map */
+        VCFrame *parentFrame = qobject_cast<VCFrame *>(w->parent());
+        if (parentFrame != NULL)
+            parentFrame->removeWidgetFromPageMap(w);
+
+        /* 2- remove the widget from the global VC widgets map */
+        m_widgetsMap.remove(wID);
+
+        /* 3- if the widget is a frame, delete also all its children */
+        if (w->type() == VCWidget::FrameWidget || w->type() == VCWidget::SoloFrameWidget)
+        {
+            VCFrame *frame = qobject_cast<VCFrame *>(w);
+            foreach (VCWidget* child, frame->children(true))
+                m_widgetsMap.remove(child->id());
+        }
+
+        /* 4- perform the actual widget deletion */
+        delete w;
+
+        /* 5- if the widget was selected, delete the on-screen Quick item */
+        if (m_itemsMap.contains(wID))
+        {
+            QQuickItem *qItem = m_itemsMap[wID];
+            m_selectedWidget = NULL;
+            emit selectedWidgetChanged(NULL);
+            delete qItem;
+        }
+    }
+    m_itemsMap.clear();
 }
 
 /*********************************************************************
@@ -220,16 +280,16 @@ void VirtualConsole::setSelectedPage(int selectedPage)
 
 bool VirtualConsole::editMode() const
 {
-    return m_resizeMode;
+    return m_editMode;
 }
 
-void VirtualConsole::setEditMode(bool resizeMode)
+void VirtualConsole::setEditMode(bool editMode)
 {
-    if (m_resizeMode == resizeMode)
+    if (m_editMode == editMode)
         return;
 
-    m_resizeMode = resizeMode;
-    emit editModeChanged(resizeMode);
+    m_editMode = editMode;
+    emit editModeChanged(editMode);
 }
 
 VCWidget *VirtualConsole::selectedWidget() const

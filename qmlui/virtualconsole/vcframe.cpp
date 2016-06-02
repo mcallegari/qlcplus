@@ -235,7 +235,7 @@ void VCFrame::deleteChildren()
 
 void VCFrame::setupWidget(VCWidget *widget)
 {
-    m_pagesMap.insert(widget, widget->page());
+    addWidgetToPageMap(widget);
 
     // if we're a normal Frame and we have a Solo Frame parent
     // then passthrough the widget functionStarting signal.
@@ -254,10 +254,14 @@ void VCFrame::setupWidget(VCWidget *widget)
         connect(widget, SIGNAL(functionStarting(VCWidget *,quint32,qreal)),
                 this, SLOT(slotFunctionStarting(VCWidget *,quint32,qreal)));
     }
-
 }
 
-void VCFrame::deleteWidget(VCWidget *widget)
+void VCFrame::addWidgetToPageMap(VCWidget *widget)
+{
+    m_pagesMap.insert(widget, widget->page());
+}
+
+void VCFrame::removeWidgetFromPageMap(VCWidget *widget)
 {
     m_pagesMap.remove(widget);
 }
