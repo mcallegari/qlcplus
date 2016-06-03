@@ -121,7 +121,12 @@ void RGBMatrixEditor::setAlgorithmIndex(int algoIndex)
 
     RGBAlgorithm* algo = RGBAlgorithm::algorithm(m_doc, algoList.at(algoIndex));
     if (algo != NULL)
+    {
+        /** if we're setting the same algorithm, then there's nothing to do */
+        if (m_matrix->algorithm() != NULL && m_matrix->algorithm()->name() == algo->name())
+            return;
         algo->setColors(m_matrix->startColor(), m_matrix->endColor());
+    }
     m_matrix->setAlgorithm(algo);
 
     initPreviewData();
@@ -329,6 +334,8 @@ void RGBMatrixEditor::setScriptStringProperty(QString paramName, QString value)
         m_matrix->algorithm()->type() != RGBAlgorithm::Script)
             return;
 
+    qDebug() << "[setScriptStringProperty] param:" << paramName << ", value:" << value;
+
     RGBScript *script = static_cast<RGBScript*> (m_matrix->algorithm());
     script->setProperty(paramName, value);
     m_matrix->setProperty(paramName, value);
@@ -340,11 +347,78 @@ void RGBMatrixEditor::setScriptIntProperty(QString paramName, int value)
         m_matrix->algorithm()->type() != RGBAlgorithm::Script)
             return;
 
+    qDebug() << "[setScriptIntProperty] param:" << paramName << ", value:" << value;
+
     RGBScript *script = static_cast<RGBScript*> (m_matrix->algorithm());
     script->setProperty(paramName, QString::number(value));
     m_matrix->setProperty(paramName, QString::number(value));
 }
 
+/************************************************************************
+ * Speed
+ ************************************************************************/
+
+int RGBMatrixEditor::fadeInSpeed() const
+{
+    if (m_matrix == NULL)
+        return Function::defaultSpeed();
+
+    return m_matrix->fadeInSpeed();
+}
+
+void RGBMatrixEditor::setFadeInSpeed(int fadeInSpeed)
+{
+    if (m_matrix == NULL)
+        return;
+
+    if (m_matrix->fadeInSpeed() == (uint)fadeInSpeed)
+        return;
+
+    m_matrix->setFadeInSpeed(fadeInSpeed);
+    emit fadeInSpeedChanged(fadeInSpeed);
+}
+
+int RGBMatrixEditor::holdSpeed() const
+{
+    if (m_matrix == NULL)
+        return Function::defaultSpeed();
+
+    return m_matrix->duration();
+}
+
+void RGBMatrixEditor::setHoldSpeed(int holdSpeed)
+{
+    if (m_matrix == NULL)
+        return;
+
+    if (m_matrix->duration() - m_matrix->fadeInSpeed() == (uint)holdSpeed)
+        return;
+
+    uint duration = Function::speedAdd(m_matrix->fadeInSpeed(), holdSpeed);
+    m_matrix->setDuration(duration);
+
+    emit holdSpeedChanged(holdSpeed);
+}
+
+int RGBMatrixEditor::fadeOutSpeed() const
+{
+    if (m_matrix == NULL)
+        return Function::defaultSpeed();
+
+    return m_matrix->fadeOutSpeed();
+}
+
+void RGBMatrixEditor::setFadeOutSpeed(int fadeOutSpeed)
+{
+    if (m_matrix == NULL)
+        return;
+
+    if (m_matrix->fadeOutSpeed() == (uint)fadeOutSpeed)
+        return;
+
+    m_matrix->setFadeOutSpeed(fadeOutSpeed);
+    emit fadeOutSpeedChanged(fadeOutSpeed);
+}
 
 /************************************************************************
  * Run order and direction

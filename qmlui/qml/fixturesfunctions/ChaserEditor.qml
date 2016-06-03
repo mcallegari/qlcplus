@@ -31,10 +31,6 @@ Rectangle
     color: "transparent"
 
     property int functionID: -1
-    // the index of the step currently being edited
-    property int timeEditStepIndex: -1
-    // the type of time editing currently being performed
-    property string timeEditType: ""
 
     signal requestView(int ID, string qmlSrc)
 
@@ -52,7 +48,8 @@ Rectangle
     TimeEditTool
     {
         id: timeEditTool
-        //parent: mainView
+        parent: mainView
+        x: rightSidePanel.x - width
         z: 99
         visible: false
 
@@ -445,39 +442,39 @@ Rectangle
                         onDoubleClicked:
                         {
                             console.log("Double clicked: " + indexInList + ", " + type)
-                            ceContainer.timeEditStepIndex = indexInList
-                            ceContainer.timeEditType = type
+                            var title, timeValueString
 
                             if (type == "FI")
                             {
-                                timeEditTool.x = fInCol.x - 35
-                                timeEditTool.title = fInCol.label
-                                timeEditTool.timeValueString = stepFadeIn
+                                //timeEditTool.x = fInCol.x - 35
+                                title = fInCol.label
+                                timeValueString = stepFadeIn
                             }
                             else if (type == "H")
                             {
-                                timeEditTool.x = holdCol.x - 35
-                                timeEditTool.title = holdCol.label
-                                timeEditTool.timeValueString = stepHold
+                                //timeEditTool.x = holdCol.x - 35
+                                title = holdCol.label
+                                timeValueString = stepHold
                             }
                             else if (type == "FO")
                             {
-                                timeEditTool.x = fOutCol.x - 35
-                                timeEditTool.title = fOutCol.label
-                                timeEditTool.timeValueString = stepFadeOut
+                                //timeEditTool.x = fOutCol.x - 35
+                                title = fOutCol.label
+                                timeValueString = stepFadeOut
                             }
                             else if (type == "D")
                             {
-                                timeEditTool.x = durCol.x - 35
-                                timeEditTool.title = durCol.label
-                                timeEditTool.timeValueString = stepDuration
+                                //timeEditTool.x = durCol.x - 35
+                                title = durCol.label
+                                timeValueString = stepDuration
                             }
 
+                            timeEditTool.indexInList = indexInList
 
-                            timeEditTool.y = height * indexInList - cStepsList.contentY + cStepsList.y
+                            //timeEditTool.y = height * indexInList - cStepsList.contentY + cStepsList.y
                             //timeEditTool.y = height * indexInList - cStepsList.contentY + cStepsList.y - 70
-                            timeEditTool.visible = true
-                            height = timeEditTool.height
+                            //height = timeEditTool.height
+                            timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y, title, timeValueString, type)
                         }
                     }
 

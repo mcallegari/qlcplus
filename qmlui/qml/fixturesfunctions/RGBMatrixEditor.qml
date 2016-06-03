@@ -22,6 +22,8 @@ import QtQuick.Layouts 1.2
 import QtQuick.Dialogs 1.1
 
 import com.qlcplus.classes 1.0
+
+import "TimeUtils.js" as TimeUtils
 import "."
 
 Rectangle
@@ -41,6 +43,26 @@ Rectangle
     {
         console.log("RGBMatrix ID: " + functionID)
         matrix = functionManager.getFunction(functionID)
+    }
+
+    TimeEditTool
+    {
+        id: timeEditTool
+
+        parent: mainView
+        z: 99
+        x: rightSidePanel.x - width
+        visible: false
+
+        onTimeValueChanged:
+        {
+            if (timeType == "FI")
+                rgbMatrixEditor.fadeInSpeed = msTime
+            else if (timeType == "H")
+                rgbMatrixEditor.holdSpeed = msTime
+            else if (timeType == "FO")
+                rgbMatrixEditor.fadeOutSpeed = msTime
+        }
     }
 
     Rectangle
@@ -169,6 +191,7 @@ Rectangle
 
                 RobotoText
                 {
+                    id: patternLabel
                     label: qsTr("Pattern")
                     onWidthChanged:
                     {
@@ -178,6 +201,7 @@ Rectangle
                 }
                 CustomComboBox
                 {
+                    id: algoCombo
                     Layout.fillWidth: true
                     height: editorColumn.itemsHeight
                     model: rgbMatrixEditor.algorithms
@@ -329,6 +353,82 @@ Rectangle
 
             SectionBox
             {
+                id: speedSection
+                width: editorColumn.colWidth - 5
+                isExpanded: false
+                sectionLabel: qsTr("Speed")
+                sectionContents:
+                    GridLayout
+                    {
+                        width: parent.width
+                        columns: 2
+                        columnSpacing: 4
+                        rowSpacing: 4
+
+                        // Row 1
+                        RobotoText
+                        {
+                            id: fiLabel
+                            Layout.fillWidth: true
+                            label: qsTr("Fade in")
+                        }
+                        RobotoText
+                        {
+                            width: algoCombo.width
+                            color: UISettings.bgMedium
+                            label: TimeUtils.msToQlcString(rgbMatrixEditor.fadeInSpeed)
+                            MouseArea
+                            {
+                                anchors.fill: parent
+                                onDoubleClicked: timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
+                                                                   fiLabel.label, parent.label, "FI")
+                            }
+                        }
+
+                        // Row 2
+                        RobotoText
+                        {
+                            id: hLabel
+                            Layout.fillWidth: true
+                            label: qsTr("Hold")
+                        }
+                        RobotoText
+                        {
+                            width: algoCombo.width
+                            color: UISettings.bgMedium
+                            label: TimeUtils.msToQlcString(rgbMatrixEditor.holdSpeed)
+                            MouseArea
+                            {
+                                anchors.fill: parent
+                                onDoubleClicked: timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
+                                                                   hLabel.label, parent.label, "H")
+                            }
+                        }
+
+                        // Row 3
+                        RobotoText
+                        {
+                            id: foLabel
+                            Layout.fillWidth: true
+                            label: qsTr("Fade out")
+                        }
+                        RobotoText
+                        {
+                            width: algoCombo.width
+                            color: UISettings.bgMedium
+                            label: TimeUtils.msToQlcString(rgbMatrixEditor.fadeOutSpeed)
+                            MouseArea
+                            {
+                                anchors.fill: parent
+                                onDoubleClicked: timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
+                                                                   foLabel.label, parent.label, "FO")
+                            }
+                        }
+                    }
+            }
+
+            SectionBox
+            {
                 id: paramSection
                 width: editorColumn.colWidth - 5
                 visible: sectionContents ? true : false
@@ -395,12 +495,12 @@ Rectangle
     } // Flickable
     ScrollBar { id: sbar; flickable: editorFlickable }
 
-    // *************************************************************
-    // Here starts all the Algorithm-specific Component definitions,
-    // loaded at runtime depending on the selected algorithm
-    // *************************************************************
+    /* *************************************************************
+     * Here starts all the Algorithm-specific Component definitions,
+     * loaded at runtime depending on the selected algorithm
+     * *********************************************************** */
 
-    // Text Algorithm parameters
+    /* **************** Text Algorithm parameters **************** */
     Component
     {
         id: textAlgoComponent
@@ -511,7 +611,7 @@ Rectangle
     }
     // ************************************************************
 
-    // Image Algorithm parameters
+    /* **************** Image Algorithm parameters **************** */
     Component
     {
         id: imageAlgoComponent
@@ -620,9 +720,9 @@ Rectangle
         }
     }
 
-    // ************************************************************
+    /* ************************************************************ */
 
-    // Script Algorithm parameters
+    /* ***************  Script Algorithm parameters *************** */
     Component
     {
         id: scriptAlgoComponent
@@ -665,6 +765,7 @@ Rectangle
         {
             id: sCombo
             Layout.fillWidth: true
+            height: 38
             property string propName
 
             onCurrentTextChanged: rgbMatrixEditor.setScriptStringProperty(propName, currentText)
@@ -680,6 +781,7 @@ Rectangle
         {
             id: sSpin
             Layout.fillWidth: true
+            height: 38
             property string propName
 
             onValueChanged: rgbMatrixEditor.setScriptIntProperty(propName, value)

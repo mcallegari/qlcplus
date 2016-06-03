@@ -27,6 +27,11 @@ import "."
 GridLayout
 {
     id: toolRoot
+    columns: 5
+    rows: 4
+    columnSpacing: 0
+    rowSpacing: 0
+
     property color buttonsBgColor: "#05438E"
     property int btnFontSize: 12
     property string title
@@ -35,12 +40,28 @@ GridLayout
     property int msTime: 0
     property bool msTimeCalcNeeded: true
 
-    columns: 5
-    rows: 4
-    columnSpacing: 0
-    rowSpacing: 0
+    /* If needed, this string can be used to recognize which type
+       of time value is being edited */
+    property string timeType
+
+    /* If needed, this can be the reference index of an item in a list */
+    property int indexInList
 
     signal timeValueChanged(int ms)
+
+    function show(tX, tY, tTitle, tStrValue, tType)
+    {
+        title = tTitle
+        timeValueString = tStrValue
+        timeType = tType
+
+        if (tX >= 0)
+            x = tX
+        if (tY >= 0)
+            y = tY
+
+        visible = true
+    }
 
     onVisibleChanged: if (visible) timeBox.selectAndFocus()
 
