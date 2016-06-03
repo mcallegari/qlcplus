@@ -222,6 +222,12 @@ GridLayout
             radius: 0
             inputText: timeValueString
             fontSize: btnFontSize
+
+            onEnterPressed:
+            {
+                msTimeCalcNeeded = true
+                timeValueString = TimeUtils.msToQlcString(inputText)
+            }
         }
     }
 

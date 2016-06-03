@@ -139,6 +139,11 @@ public:
     int fadeOutSpeed() const;
     void setFadeOutSpeed(int fadeOutSpeed);
 
+signals:
+    void fadeInSpeedChanged(int fadeInSpeed);
+    void holdSpeedChanged(int holdSpeed);
+    void fadeOutSpeedChanged(int fadeOutSpeed);
+
     /************************************************************************
      * Run order and direction
      ************************************************************************/
@@ -171,12 +176,6 @@ private:
 signals:
     void previewSizeChanged();
     void previewDataChanged(QVariantList matrixData);
-
-    void fadeInSpeedChanged(int fadeInSpeed);
-
-    void holdSpeedChanged(int holdSpeed);
-
-    void fadeOutSpeedChanged(int fadeOutSpeed);
 
 private:
     /** A timer to perform a timed preview of the RGBMatrix pattern */
