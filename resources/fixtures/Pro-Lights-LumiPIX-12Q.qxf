@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.2 GIT</Version>
+  <Version>4.10.5 GIT</Version>
   <Author>Andrea Ugolini</Author>
  </Creator>
  <Manufacturer>Pro-Lights</Manufacturer>
@@ -306,7 +306,7 @@
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Slow to fast</Capability>
  </Channel>
- <Mode Name="4 Ch Mode">
+ <Mode Name="4 Channel">
   <Physical>
    <Bulb Type="LED" Lumens="3000" ColourTemperature="0"/>
    <Dimensions Weight="4.3" Width="1055" Height="82" Depth="164"/>
@@ -319,7 +319,7 @@
   <Channel Number="2">Blue</Channel>
   <Channel Number="3">White</Channel>
  </Mode>
- <Mode Name="6 Ch Mode">
+ <Mode Name="6 Channel">
   <Physical>
    <Bulb Type="LED" Lumens="3000" ColourTemperature="0"/>
    <Dimensions Weight="4.3" Width="1055" Height="82" Depth="164"/>
@@ -334,7 +334,7 @@
   <Channel Number="4">Dimmer</Channel>
   <Channel Number="5">Shutter 6-Channel</Channel>
  </Mode>
- <Mode Name="8 Ch Mode">
+ <Mode Name="8 Channel">
   <Physical>
    <Bulb Type="LED" Lumens="3000" ColourTemperature="0"/>
    <Dimensions Weight="4.3" Width="1055" Height="82" Depth="164"/>
@@ -351,7 +351,7 @@
   <Channel Number="6">Speed</Channel>
   <Channel Number="7">Dimmer</Channel>
  </Mode>
- <Mode Name="48 Ch Mode">
+ <Mode Name="48 Channel">
   <Physical>
    <Bulb Type="LED" Lumens="3000" ColourTemperature="0"/>
    <Dimensions Weight="4.3" Width="1055" Height="82" Depth="164"/>
@@ -408,10 +408,10 @@
   <Channel Number="46">Blue 12</Channel>
   <Channel Number="47">White 12</Channel>
   <Head>
+   <Channel>3</Channel>
    <Channel>2</Channel>
    <Channel>1</Channel>
    <Channel>0</Channel>
-   <Channel>3</Channel>
   </Head>
   <Head>
    <Channel>7</Channel>
@@ -420,10 +420,10 @@
    <Channel>4</Channel>
   </Head>
   <Head>
-   <Channel>11</Channel>
    <Channel>10</Channel>
    <Channel>9</Channel>
    <Channel>8</Channel>
+   <Channel>11</Channel>
   </Head>
   <Head>
    <Channel>15</Channel>
@@ -462,16 +462,16 @@
    <Channel>32</Channel>
   </Head>
   <Head>
-   <Channel>36</Channel>
    <Channel>39</Channel>
    <Channel>38</Channel>
    <Channel>37</Channel>
+   <Channel>36</Channel>
   </Head>
   <Head>
+   <Channel>40</Channel>
    <Channel>43</Channel>
    <Channel>42</Channel>
    <Channel>41</Channel>
-   <Channel>40</Channel>
   </Head>
   <Head>
    <Channel>47</Channel>

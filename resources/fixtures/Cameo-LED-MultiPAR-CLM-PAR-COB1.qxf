@@ -3,11 +3,11 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.2 GIT</Version>
+  <Version>4.10.5 GIT</Version>
   <Author>Freasy</Author>
  </Creator>
  <Manufacturer>Cameo</Manufacturer>
- <Model>LED MultiiPAR CLM-PAR-COB1</Model>
+ <Model>LED MultiPAR CLM-PAR-COB1</Model>
  <Type>Color Changer</Type>
  <Channel Name="Red">
   <Group Byte="0">Intensity</Group>
@@ -118,7 +118,7 @@
   <Capability Min="1" Max="128">Music control (sensitivity weak - strong)</Capability>
   <Capability Min="129" Max="255">Strobe (slow - fast)</Capability>
  </Channel>
- <Channel Name="Programmes">
+ <Channel Name="Programs">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="15">Ch4 - ch6 RGB</Capability>
   <Capability Min="16" Max="23" Color="#ff0000">Red</Capability>
@@ -230,7 +230,7 @@
   <Colour>Green</Colour>
   <Capability Min="0" Max="255">0 - 100%</Capability>
  </Channel>
- <Mode Name="3-channel mode">
+ <Mode Name="3 Channel">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="8.8" Width="1005" Height="285" Depth="80"/>
@@ -242,7 +242,7 @@
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
  </Mode>
- <Mode Name="4-channel mode">
+ <Mode Name="4 Channel">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="8.8" Width="1005" Height="285" Depth="80"/>
@@ -267,7 +267,7 @@
    <Channel>3</Channel>
   </Head>
  </Mode>
- <Mode Name="5-channel mode">
+ <Mode Name="5 Channel">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="8.8" Width="1005" Height="285" Depth="80"/>
@@ -281,7 +281,7 @@
   <Channel Number="3">Power Out 1</Channel>
   <Channel Number="4">Power Out 2</Channel>
  </Mode>
- <Mode Name="6-channel mode">
+ <Mode Name="6 Channel">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="8.8" Width="1005" Height="285" Depth="80"/>
@@ -296,17 +296,17 @@
   <Channel Number="4">Green 3 + 4</Channel>
   <Channel Number="5">Blue 3 + 4</Channel>
   <Head>
-   <Channel>0</Channel>
    <Channel>1</Channel>
+   <Channel>0</Channel>
    <Channel>2</Channel>
   </Head>
   <Head>
-   <Channel>3</Channel>
-   <Channel>4</Channel>
    <Channel>5</Channel>
+   <Channel>4</Channel>
+   <Channel>3</Channel>
   </Head>
  </Mode>
- <Mode Name="7-channel mode">
+ <Mode Name="7 Channel">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="8.8" Width="1005" Height="285" Depth="80"/>
@@ -322,7 +322,7 @@
   <Channel Number="5">Power Out 1</Channel>
   <Channel Number="6">Power Out 2</Channel>
  </Mode>
- <Mode Name="8-channel mode">
+ <Mode Name="8 Channel">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="8.8" Width="1005" Height="285" Depth="80"/>
@@ -330,7 +330,7 @@
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="55" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Programmes</Channel>
+  <Channel Number="0">Programs</Channel>
   <Channel Number="1">Master Dimmer/Speed/Sensitivity</Channel>
   <Channel Number="2">Strobe</Channel>
   <Channel Number="3">Red/Colour Variations</Channel>
@@ -339,7 +339,7 @@
   <Channel Number="6">Power Out 1</Channel>
   <Channel Number="7">Power Out 2</Channel>
  </Mode>
- <Mode Name="12-channel mode">
+ <Mode Name="12 Channel">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="8.8" Width="1005" Height="285" Depth="80"/>
@@ -360,27 +360,27 @@
   <Channel Number="10">Green 4</Channel>
   <Channel Number="11">Blue 4</Channel>
   <Head>
-   <Channel>0</Channel>
    <Channel>1</Channel>
+   <Channel>0</Channel>
    <Channel>2</Channel>
   </Head>
   <Head>
-   <Channel>3</Channel>
-   <Channel>4</Channel>
    <Channel>5</Channel>
+   <Channel>4</Channel>
+   <Channel>3</Channel>
   </Head>
   <Head>
    <Channel>8</Channel>
-   <Channel>6</Channel>
    <Channel>7</Channel>
+   <Channel>6</Channel>
   </Head>
   <Head>
    <Channel>9</Channel>
-   <Channel>10</Channel>
    <Channel>11</Channel>
+   <Channel>10</Channel>
   </Head>
  </Mode>
- <Mode Name="17-channel mode">
+ <Mode Name="17 Channel">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="8.8" Width="1005" Height="285" Depth="80"/>
@@ -388,7 +388,7 @@
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="55" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Programmes</Channel>
+  <Channel Number="0">Programs</Channel>
   <Channel Number="1">Master Dimmer/Speed/Sensitivity</Channel>
   <Channel Number="2">Strobe</Channel>
   <Channel Number="3">Red/Colour Variations</Channel>
@@ -406,23 +406,23 @@
   <Channel Number="15">Power Out 1</Channel>
   <Channel Number="16">Power Out 2</Channel>
   <Head>
-   <Channel>3</Channel>
-   <Channel>4</Channel>
    <Channel>5</Channel>
+   <Channel>4</Channel>
+   <Channel>3</Channel>
   </Head>
   <Head>
    <Channel>8</Channel>
-   <Channel>6</Channel>
    <Channel>7</Channel>
+   <Channel>6</Channel>
   </Head>
   <Head>
    <Channel>9</Channel>
-   <Channel>10</Channel>
    <Channel>11</Channel>
+   <Channel>10</Channel>
   </Head>
   <Head>
-   <Channel>12</Channel>
    <Channel>13</Channel>
+   <Channel>12</Channel>
    <Channel>14</Channel>
   </Head>
  </Mode>

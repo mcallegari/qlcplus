@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.2 GIT</Version>
+  <Version>4.10.5 GIT</Version>
   <Author>Freasy</Author>
  </Creator>
  <Manufacturer>Stairville</Manufacturer>
@@ -23,14 +23,14 @@
   <Colour>White</Colour>
   <Capability Min="0" Max="255">Colour temperature cold white (0% to 100%)</Capability>
  </Channel>
- <Channel Name="Programmes">
+ <Channel Name="Programs">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="0">No function</Capability>
-  <Capability Min="1" Max="42">Programme 01</Capability>
-  <Capability Min="43" Max="85">Programme 02</Capability>
-  <Capability Min="86" Max="128">Programme 03</Capability>
-  <Capability Min="129" Max="171">Programme 04</Capability>
-  <Capability Min="172" Max="214">Programme 05</Capability>
+  <Capability Min="1" Max="42">Program 01</Capability>
+  <Capability Min="43" Max="85">Program 02</Capability>
+  <Capability Min="86" Max="128">Program 03</Capability>
+  <Capability Min="129" Max="171">Program 04</Capability>
+  <Capability Min="172" Max="214">Program 05</Capability>
   <Capability Min="215" Max="255">Sound control</Capability>
  </Channel>
  <Channel Name="Colour Setting / Process Speed / Sound-Control Sensitivity">
@@ -54,7 +54,7 @@
   <Colour>White</Colour>
   <Capability Min="0" Max="255">Colour temperature selection cold white, if channel 4 = 0</Capability>
  </Channel>
- <Mode Name="2-channel DMX mode">
+ <Mode Name="2 Channel">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="2.34" Width="164" Height="164" Depth="105"/>
@@ -65,7 +65,7 @@
   <Channel Number="0">Warm White</Channel>
   <Channel Number="1">Cold White</Channel>
  </Mode>
- <Mode Name="6-channel DMX mode">
+ <Mode Name="6 Channel">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="2.34" Width="164" Height="164" Depth="105"/>
@@ -76,7 +76,7 @@
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Warm White, if Channel 4 = 0</Channel>
   <Channel Number="2">Cold White, if Channel 4 = 0</Channel>
-  <Channel Number="3">Programmes</Channel>
+  <Channel Number="3">Programs</Channel>
   <Channel Number="4">Colour Setting / Process Speed / Sound-Control Sensitivity</Channel>
   <Channel Number="5">Strobe</Channel>
  </Mode>
