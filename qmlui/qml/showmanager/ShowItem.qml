@@ -132,12 +132,15 @@ Item
             {
                 console.log("Show item drag finished: " + showItemBody.x + " " + showItemBody.y);
                 drag.target = null
+                var newTime = TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale)
                 var newTrackIdx = parseInt((itemRoot.y + showItemBody.y) / height)
-                var res = showManager.checkAndMoveItem(sfRef, trackIndex, newTrackIdx,
-                                                       TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale))
+                if (newTime >= 0)
+                {
+                    var res = showManager.checkAndMoveItem(sfRef, trackIndex, newTrackIdx, newTime)
 
-                if (res === true)
-                    trackIndex = newTrackIdx
+                    if (res === true)
+                        trackIndex = newTrackIdx
+                }
 
                 showItemBody.x = 0
                 showItemBody.y = 0
