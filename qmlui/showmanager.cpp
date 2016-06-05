@@ -207,7 +207,12 @@ void ShowManager::deleteShowItems(QVariantList data)
         Track *track = m_currentShow->tracks().at(trackIndex);
         track->removeShowFunction(ssi.m_showFunc, true);
         if (ssi.m_item != NULL)
+        {
+            quint32 key = m_itemsMap.key(ssi.m_item, UINT_MAX);
+            if (key != UINT_MAX)
+                m_itemsMap.remove(key);
             delete ssi.m_item;
+        }
     }
 
     /*
