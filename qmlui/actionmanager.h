@@ -32,7 +32,6 @@ class ActionManager : public QObject
 {
     Q_OBJECT
 public:
-    ActionManager() { }
     ActionManager(QQuickView *view, FunctionManager *fManager, ShowManager *sManager,
                   VirtualConsole *vConsole, QObject *parent = 0);
 

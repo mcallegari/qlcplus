@@ -106,9 +106,14 @@ void App::startup()
     m_showManager = new ShowManager(this, m_doc);
     rootContext()->setContextProperty("showManager", m_showManager);
 
+    // register an uncreatable type just to use the enums in QML
+    qmlRegisterUncreatableType<ShowManager>("com.qlcplus.classes", 1, 0, "ShowManager", "Can't create a ShowManager !");
+
     m_actionManager = new ActionManager(this, m_functionManager, m_showManager, m_virtualConsole);
     rootContext()->setContextProperty("actionManager", m_actionManager);
-    qmlRegisterType<ActionManager>("com.qlcplus.classes", 1, 0, "ActionManager"); // to use the enums in QML
+
+    // register an uncreatable type just to use the enums in QML
+    qmlRegisterUncreatableType<ActionManager>("com.qlcplus.classes", 1, 0,  "ActionManager", "Can't create an ActionManager !");
 
     // Start up in non-modified state
     m_doc->resetModified();

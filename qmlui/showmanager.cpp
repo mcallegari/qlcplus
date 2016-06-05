@@ -70,6 +70,35 @@ void ShowManager::setCurrentShowID(int currentShowID)
     emit tracksChanged();
 }
 
+QString ShowManager::showName() const
+{
+    if (m_currentShow == NULL)
+        return QString();
+
+    return m_currentShow->name();
+}
+
+void ShowManager::setShowName(QString showName)
+{
+    if (m_currentShow == NULL)
+        return;
+
+    if (m_currentShow->name() == showName)
+        return;
+
+    m_currentShow->setName(showName);
+    emit showNameChanged(showName);
+}
+
+QQmlListProperty<Track> ShowManager::tracks()
+{
+    m_tracksList.clear();
+    if (m_currentShow)
+        m_tracksList = m_currentShow->tracks();
+
+    return QQmlListProperty<Track>(this, m_tracksList);
+}
+
 float ShowManager::timeScale() const
 {
     return m_timeScale;
@@ -236,16 +265,6 @@ bool ShowManager::checkAndMoveItem(ShowFunction *sf, int originalTrackIdx, int n
     return true;
 }
 
-
-QQmlListProperty<Track> ShowManager::tracks()
-{
-    m_tracksList.clear();
-    if (m_currentShow)
-        m_tracksList = m_currentShow->tracks();
-
-    return QQmlListProperty<Track>(this, m_tracksList);
-}
-
 void ShowManager::resetContents()
 {
     resetView();
@@ -354,6 +373,20 @@ bool ShowManager::isPlaying() const
     if (m_currentShow != NULL && m_currentShow->isRunning())
         return true;
     return false;
+}
+
+QColor ShowManager::itemsColor() const
+{
+    return m_itemsColor;
+}
+
+void ShowManager::setItemsColor(QColor itemsColor)
+{
+    if (m_itemsColor == itemsColor)
+        return;
+
+    m_itemsColor = itemsColor;
+    emit itemsColorChanged(itemsColor);
 }
 
 int ShowManager::selectedItemsCount() const
@@ -472,37 +505,60 @@ bool ShowManager::checkOverlapping(Track *track, ShowFunction *sourceFunc,
     return false;
 }
 
-void ShowManager::setShowName(QString showName)
+QVariantList ShowManager::previewData(Function *f) const
 {
-    if (m_currentShow == NULL)
-        return;
+    QVariantList data;
+    if (f == NULL)
+        return data;
 
-    if (m_currentShow->name() == showName)
-        return;
+    switch (f->type())
+    {
+        case Function::Chaser:
+        {
+            Chaser *chaser = qobject_cast<Chaser *>(f);
+            quint32 stepsTimeCounter = 0;
 
-    m_currentShow->setName(showName);
-    emit showNameChanged(showName);
+            foreach (ChaserStep step, chaser->steps())
+            {
+                uint stepFadeIn = step.fadeIn;
+                uint stepFadeOut = step.fadeOut;
+                uint stepDuration = step.duration;
+                if (chaser->fadeInMode() == Chaser::Common)
+                    stepFadeIn = chaser->fadeInSpeed();
+                if (chaser->fadeOutMode() == Chaser::Common)
+                    stepFadeOut = chaser->fadeOutSpeed();
+                if (chaser->durationMode() == Chaser::Common)
+                    stepDuration = chaser->duration();
+
+                stepsTimeCounter += stepDuration;
+
+                if (stepFadeIn > 0)
+                {
+                    data.append(FadeIn);
+                    data.append(stepFadeIn);
+                }
+                data.append(StepDivider);
+                data.append(stepsTimeCounter);
+
+                if (stepFadeOut > 0)
+                {
+                    data.append(FadeOut);
+                    data.append(stepFadeOut);
+                }
+            }
+        }
+        break;
+
+        /* All the other Function types */
+        default:
+            data.append(RepeatingDuration);
+            data.append(f->totalDuration());
+        break;
+    }
+
+    return data;
 }
 
-QColor ShowManager::itemsColor() const
-{
-    return m_itemsColor;
-}
 
-void ShowManager::setItemsColor(QColor itemsColor)
-{
-    if (m_itemsColor == itemsColor)
-        return;
 
-    m_itemsColor = itemsColor;
-    emit itemsColorChanged(itemsColor);
-}
-
-QString ShowManager::showName() const
-{
-    if (m_currentShow == NULL)
-        return QString();
-
-    return m_currentShow->name();
-}
 

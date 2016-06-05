@@ -68,6 +68,50 @@ public:
     /** Set the name of the Show Function to edit */
     void setShowName(QString showName);
 
+    QQmlListProperty<Track> tracks();
+
+    /** Reset the Show Manager contents to an initial state */
+    void resetContents();
+
+    Q_INVOKABLE void resetView();
+
+    /** Request to render the current Show items on screen */
+    Q_INVOKABLE void renderView(QQuickItem *parent);
+
+    Q_INVOKABLE void enableFlicking(bool enable);
+
+    /** Return the current Show total duration in milliseconds */
+    int showDuration() const;
+
+    /** Return the current time of the Show */
+    int currentTime() const;
+
+    /** Set the Show time position */
+    void setCurrentTime(int currentTime);
+
+    Q_INVOKABLE void playShow();
+    Q_INVOKABLE void stopShow();
+
+    bool isPlaying() const;
+
+    /*********************************************************************
+      * Show Items
+      ********************************************************************/
+    /**
+     * This enumeration instructs the UI how to interpret the data
+     * stored in what previewData returns. It is a numeric
+     * prefix before the time value
+     */
+    enum PreviewDrawType
+    {
+        RepeatingDuration = 0,
+        FadeIn,
+        StepDivider,
+        FadeOut,
+        AudioData
+    };
+    Q_ENUM(PreviewDrawType)
+
     /** Return the currently selected color for Show Items */
     QColor itemsColor() const;
 
@@ -105,32 +149,6 @@ public:
     Q_INVOKABLE bool checkAndMoveItem(ShowFunction *sf,  int originalTrackIdx,
                                       int newTrackIdx, int newStartTime);
 
-    QQmlListProperty<Track> tracks();
-
-    /** Reset the Show Manager contents to an initial state */
-    void resetContents();
-
-    Q_INVOKABLE void resetView();
-
-    /** Request to render the current Show items on screen */
-    Q_INVOKABLE void renderView(QQuickItem *parent);
-
-    Q_INVOKABLE void enableFlicking(bool enable);
-
-    /** Return the current Show total duration in milliseconds */
-    int showDuration() const;
-
-    /** Return the current time of the Show */
-    int currentTime() const;
-
-    /** Set the Show time position */
-    void setCurrentTime(int currentTime);
-
-    Q_INVOKABLE void playShow();
-    Q_INVOKABLE void stopShow();
-
-    bool isPlaying() const;
-
     /** Returns the number of the currently selected Show items */
     int selectedItemsCount() const;
 
@@ -148,6 +166,12 @@ public:
 
     /** Lock/Unlock all the currently selected items */
     Q_INVOKABLE void setSelectedItemsLock(bool lock);
+
+    /**
+     * Returns an array of values coupled as: PreviewDrawType, time value
+     * The UI will render the lines according to their time value and their type
+     */
+    Q_INVOKABLE QVariantList previewData(Function *f) const;
 
 protected slots:
     void slotTimeChanged(quint32 msec_time);

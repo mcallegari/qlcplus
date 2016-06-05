@@ -56,17 +56,92 @@ Item
             sfRef.color = globalColor
     }
 
+    /* Locker image */
     Image
     {
         x: Math.max(0, itemRoot.width - 25)
         y: itemRoot.height - 27
-        z: 2
+        z: 3
         source: "qrc:/lock.svg"
         sourceSize: Qt.size(24, 24)
         visible: sfRef ? (sfRef.locked ? true : false) : false
     }
 
-    // Body mouse area (covers the whole item)
+    Canvas
+    {
+        id: prCanvas
+        z: 2
+        anchors.fill: parent
+
+        onPaint:
+        {
+            if (sfRef === null || funcRef === null)
+                return
+
+            var previewData = showManager.previewData(funcRef)
+
+            if (previewData === null || previewData === undefined)
+                return
+
+            var ctx = prCanvas.getContext('2d')
+
+            ctx.strokeStyle = "#ddd"
+            ctx.fillStyle = "transparent"
+            ctx.lineWidth = 1
+
+            ctx.beginPath()
+            ctx.clearRect(0, 0, width, height)
+
+            //console.log("About to paint " + previewData.length + " values")
+
+            var lastTime = 0
+            var xPos = 0
+
+            if (previewData[0] === ShowManager.RepeatingDuration)
+            {
+                var loopCount = funcRef.totalDuration ? Math.floor(sfRef.duration / funcRef.totalDuration) : 0
+                for (var l = 0; l < loopCount; l++)
+                {
+                    lastTime += previewData[1]
+                    xPos = TimeUtils.timeToSize(lastTime, timeScale)
+                    ctx.moveTo(xPos, 0)
+                    ctx.lineTo(xPos, itemRoot.height)
+                }
+                ctx.stroke()
+                return
+            }
+
+            for (var i = 0; i < previewData.length; i+=2)
+            {
+                if (i + 1 >= previewData.length)
+                    break
+
+                switch(previewData[i])
+                {
+                    case ShowManager.FadeIn:
+                        var fiEnd = TimeUtils.timeToSize(lastTime + previewData[i + 1], timeScale)
+                        ctx.moveTo(xPos, itemRoot.height)
+                        ctx.lineTo(fiEnd, 0)
+                    break;
+                    case ShowManager.StepDivider:
+                        lastTime = previewData[i + 1]
+                        xPos = TimeUtils.timeToSize(lastTime, timeScale)
+                        ctx.moveTo(xPos, 0)
+                        ctx.lineTo(xPos, itemRoot.height)
+                    break;
+                    case ShowManager.FadeOut:
+                        var foEnd = TimeUtils.timeToSize(lastTime + previewData[i + 1], timeScale)
+                        ctx.moveTo(xPos, 0)
+                        ctx.lineTo(foEnd, itemRoot.height)
+                    break;
+                }
+
+            }
+            ctx.stroke()
+        }
+    }
+
+    /* Body mouse area (covers the whole item) */
     MouseArea
     {
         id: sfMouseArea
@@ -140,6 +215,8 @@ Item
 
                     if (res === true)
                         trackIndex = newTrackIdx
+
+                    prCanvas.requestPaint()
                 }
 
                 showItemBody.x = 0
@@ -173,7 +250,7 @@ Item
         }
     }
 
-    // horizontal left handler
+    /* horizontal left handler */
     Rectangle
     {
         id: horLeftHandler
@@ -217,6 +294,8 @@ Item
                         sfRef.duration = TimeUtils.posToMs(itemRoot.width, timeScale)
                         if (funcRef && showManager.stretchFunctions === true)
                             funcRef.totalDuration = sfRef.duration
+
+                        prCanvas.requestPaint()
                     }
                     infoText = ""
                     horLeftHandler.x = 0
@@ -225,7 +304,7 @@ Item
         }
     }
 
-    // horizontal right handler
+    /* horizontal right handler */
     Rectangle
     {
         id: horRightHandler
@@ -269,6 +348,8 @@ Item
                         sfRef.duration = TimeUtils.posToMs(itemRoot.width, timeScale)
                         if (funcRef && showManager.stretchFunctions === true)
                             funcRef.totalDuration = sfRef.duration
+
+                        prCanvas.requestPaint()
                     }
                     infoText = ""
                 }
