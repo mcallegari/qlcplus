@@ -91,8 +91,10 @@ Rectangle
         {
             Rectangle
             {
-                width: parent.width - 30; height: 31
-                color: "#0978FF"; radius: 5
+                width: parent.width - 30
+                height: UISettings.listItemHeight - 2
+                color: "#0978FF"
+                radius: 5
                 y: manufacturerList.currentItem.y + 1
             }
         }
@@ -203,7 +205,7 @@ Rectangle
                 Rectangle
                 {
                     width: fixtureList.width - 30
-                    height: 31
+                    height: UISettings.listItemHeight - 2
                     color: UISettings.highlight
                     radius: 5
                     y: fixtureList.currentItem ? fixtureList.currentItem.y + 1 : 0

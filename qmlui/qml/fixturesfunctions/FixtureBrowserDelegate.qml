@@ -20,12 +20,13 @@
 import QtQuick 2.0
 
 import "FixtureDrag.js" as FxDragJS
+import "."
 
 Item
 {
     id: fxDraggableItem
     width: parent.width - 30
-    height: 32
+    height: UISettings.listItemHeight
 
     //property alias text: textitem.text
     property bool isManufacturer: false
@@ -60,7 +61,7 @@ Item
         width: parent.width
         label: modelData
         height: parent.height
-        fontSize: 12
+        fontSize: height ? height / 3 : 12
         //fontBold: true
     }
 

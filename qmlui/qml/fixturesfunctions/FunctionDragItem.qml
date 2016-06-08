@@ -27,7 +27,7 @@ Rectangle
     property string funcIcon
 
     width: 200
-    height: 40
+    height: UISettings.listItemHeight
     z: 10
     border.width: 1
     border.color: "black"

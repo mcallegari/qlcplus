@@ -38,7 +38,7 @@ Item
     }
 
     property Flickable flickable  : null
-    property int       handleSize : 20
+    property int       handleSize : UISettings.scrollBarWidth
     property int      orientation : Qt.Vertical
     property bool      doubleBars : false
 

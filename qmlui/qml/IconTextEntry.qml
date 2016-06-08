@@ -21,16 +21,17 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.1
 
 import com.qlcplus.classes 1.0
+import "."
 
 Rectangle
 {
     width: 100
-    height: 40
+    height: UISettings.iconSizeDefault
     color: "transparent"
 
     property string iSrc
     property string tLabel
-    property int fontSize: 11
+    property int fontSize: height * 0.75
     property int functionType: -1
 
     onFunctionTypeChanged:

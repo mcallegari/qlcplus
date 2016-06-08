@@ -23,7 +23,7 @@ import "."
 Rectangle
 {
     id: cbRoot
-    height: 30
+    height: UISettings.listItemHeight
     width: 150
     color: UISettings.bgMedium
     border.width: 1

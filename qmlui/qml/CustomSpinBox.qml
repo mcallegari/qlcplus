@@ -28,7 +28,7 @@ SpinBox
     font.family: "Roboto Condensed"
     font.pointSize: 14
     width: 70
-    implicitHeight: 30
+    implicitHeight: UISettings.listItemHeight
 
     property bool showControls: true
 

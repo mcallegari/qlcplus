@@ -207,7 +207,7 @@ Rectangle
                 {
                     id: viewUniverseCombo
                     width: 120
-                    height: 26
+                    height: viewToolbar.height - 4
                     anchors.margins: 1
                     model: ioManager.universesListModel
 
@@ -232,7 +232,7 @@ Rectangle
 
                 ZoomItem
                 {
-                    width: 70
+                    width: UISettings.iconSizeMedium * 2
                     height: viewToolbar.height - 2
                     fontColor: "#222"
                     onZoomOutClicked: previewLoader.item.setZoom(-0.5)

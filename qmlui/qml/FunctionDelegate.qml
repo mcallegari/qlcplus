@@ -27,7 +27,7 @@ Rectangle
 {
     id: funcDelegate
     width: 100
-    height: 35
+    height: UISettings.listItemHeight
 
     color: "transparent"
 

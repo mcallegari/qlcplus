@@ -145,7 +145,7 @@ Rectangle
                 var ctx = twoDContents.getContext('2d');
 
                 ctx.globalAlpha = 1.0
-                ctx.strokeStyle = "#1A1A1A"
+                ctx.strokeStyle = "#2A2A2A"
                 ctx.fillStyle = "black"
                 ctx.lineWidth = 1
 

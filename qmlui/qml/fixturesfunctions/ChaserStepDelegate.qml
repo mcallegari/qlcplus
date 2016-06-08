@@ -26,7 +26,7 @@ Rectangle
 {
     id: stepDelegate
     width: 100
-    height: 35
+    height: UISettings.listItemHeight
 
     color: "transparent"
 

@@ -48,7 +48,7 @@ Rectangle
       {
         id: topBar
         width: geContainer.width
-        height: 44
+        height: UISettings.iconSizeMedium
         z: 5
         gradient: Gradient
         {

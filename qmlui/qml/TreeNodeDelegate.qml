@@ -44,7 +44,7 @@ Column
     {
         color: "transparent"
         width: nodeContainer.width
-        height: 35
+        height: UISettings.listItemHeight
 
         // selection rectangle
         Rectangle
@@ -57,24 +57,25 @@ Column
 
         Image
         {
-            width: 40
-            height: 35
+            id: nodeIconImg
+            width: parent.height
+            height: parent.height
             source: nodeIcon
         }
 
         TextInput
         {
             id: nodeLabel
-            x: 45
+            x: nodeIconImg.width + 1
             z: 0
             width: parent.width - 45
-            height: 35
+            height: UISettings.listItemHeight
             readOnly: true
             text: textLabel
             verticalAlignment: TextInput.AlignVCenter
             color: UISettings.fgMain
             font.family: "Roboto Condensed"
-            font.pointSize: 12
+            font.pointSize: height ? height * 0.40 : 16
             echoMode: TextInput.Normal
             selectByMouse: true
             selectionColor: "#4DB8FF"
@@ -92,7 +93,7 @@ Column
         MouseArea
         {
             anchors.fill: parent
-            height: 35
+            height: UISettings.listItemHeight
             onClicked:
             {
                 isExpanded = !isExpanded

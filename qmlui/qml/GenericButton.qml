@@ -25,7 +25,7 @@ Rectangle
 {
     id: btnRoot
     width: 150
-    height: 40
+    height: UISettings.iconSizeDefault
     color: gbMouseArea.containsMouse ? (gbMouseArea.pressed ? pressedColor : hoverColor) : bgColor
     border.width: 2
     border.color: UISettings.bgStrong

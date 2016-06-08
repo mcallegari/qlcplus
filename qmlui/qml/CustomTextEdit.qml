@@ -24,7 +24,7 @@ Rectangle
 {
     id: customTextEditRect
     width: 200
-    height: 30
+    height: UISettings.listItemHeight
     clip: true
     radius: 3
     color: UISettings.bgMedium

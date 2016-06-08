@@ -20,13 +20,15 @@
 import QtQuick 2.2
 import QtQuick.Controls 1.2
 
+import "."
+
 Rectangle
 {
     id: baseIconEntry
     width: parent ? (parent.width > itemWidth) ? parent.width : itemWidth : 400
     height: imgSize + 4
 
-    property int imgSize: 40
+    property int imgSize: UISettings.iconSizeDefault
     property string imgSource: ""
     property string entryText: ""
     property color bgColor: "transparent"
@@ -60,7 +62,7 @@ Rectangle
         y: 0
         label: entryText
         height: baseIconEntry.height
-        fontSize: 12
+        fontSize: height ? height / 4 : 16
         fontBold: true
     }
 

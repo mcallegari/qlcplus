@@ -30,7 +30,7 @@ Rectangle
 
     property string label: ""
     property color labelColor: UISettings.fgMain
-    property int fontSize: 16 //UISettings.textSizeDefault
+    property real fontSize: 16 //UISettings.textSizeDefault
     property bool fontBold: false
     property bool wrapText: false
     property int textAlign: Text.AlignLeft

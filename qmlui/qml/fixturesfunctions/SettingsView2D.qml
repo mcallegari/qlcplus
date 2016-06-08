@@ -25,7 +25,7 @@ import "."
 Rectangle
 {
     id: settingsRoot
-    width: 300
+    width: mainView.width / 5
     height: parent.height
 
     color: UISettings.bgMedium
@@ -36,6 +36,7 @@ Rectangle
 
     GridLayout
     {
+        width: settingsRoot.width
         columns: 2
         columnSpacing: 5
         rowSpacing: 5
@@ -43,8 +44,8 @@ Rectangle
         // row 1
         Rectangle
         {
-            width: settingsRoot.width
-            height: 38
+            height: UISettings.listItemHeight
+            Layout.fillWidth: true
             color: UISettings.sectionHeader
             Layout.columnSpan: 2
 
@@ -60,8 +61,8 @@ Rectangle
         RobotoText { label: qsTr("Grid size") }
         Rectangle
         {
-            width: 180
-            height: 40
+            Layout.fillWidth: true
+            height: UISettings.listItemHeight
             color: "transparent"
             Row
             {
@@ -70,7 +71,7 @@ Rectangle
                 {
                     id: gWidthSpin
                     width: 80
-                    height: 38
+                    height: UISettings.listItemHeight
                     minimumValue: 1
                     maximumValue: 50
                     decimals: 0
@@ -86,7 +87,7 @@ Rectangle
                 {
                     id: gHeightSpin
                     width: 80
-                    height: 38
+                    height: UISettings.listItemHeight
                     minimumValue: 1
                     maximumValue: 50
                     decimals: 0
@@ -104,8 +105,8 @@ Rectangle
         RobotoText { label: qsTr("Grid units") }
         CustomComboBox
         {
-            width: 120
-            height: 38
+            Layout.fillWidth: true
+            height: UISettings.listItemHeight
             model: [ qsTr("Meters"), qsTr("Feet") ]
             onCurrentIndexChanged:
             {
@@ -122,8 +123,8 @@ Rectangle
         // row 4
         Rectangle
         {
-            width: settingsRoot.width
-            height: 38
+            Layout.fillWidth: true
+            height: UISettings.listItemHeight
             color: UISettings.sectionHeader
             visible: fxPropsVisible
             Layout.columnSpan: 2
@@ -142,8 +143,8 @@ Rectangle
         {
             id: fxRotSpin
             visible: fxPropsVisible
-            width: 80
-            height: 38
+            Layout.fillWidth: true
+            height: UISettings.listItemHeight
             minimumValue: -359
             maximumValue: 359
             decimals: 0

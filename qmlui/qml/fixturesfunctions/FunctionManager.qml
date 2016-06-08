@@ -81,7 +81,7 @@ Rectangle
       {
         id: topBar
         width: fmContainer.width
-        height: 44
+        height: UISettings.iconSizeMedium
         z: 5
         gradient: Gradient
         {
