@@ -36,6 +36,12 @@ contains(FORCECONFIG, release) {
   CONFIG         += debug
 }
 
+unix:!mac: {
+    CONFIG(debug, debug|release) {
+        DEFINES += "DEBUG"
+    }
+}
+
 !macx:!ios: {
  system( g++ --version | grep -e "4.6.[0-9]" ) {
    #message("g++ version 4.6 found")
