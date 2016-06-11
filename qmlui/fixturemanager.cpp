@@ -78,7 +78,14 @@ QVariantList FixtureManager::fixtureSelection(quint32 address)
 
     quint32 startAddr = fixture->address();
     for (quint32 i = 0; i < fixture->channels(); i++)
+    {
         list.append(startAddr + i);
+        QLCChannel::Group group = fixture->channel(i)->group();
+        if (group == QLCChannel::Intensity)
+            list.append(fixture->channel(i)->colour());
+        else
+            list.append(group - 1);
+    }
 
     return list;
 }
