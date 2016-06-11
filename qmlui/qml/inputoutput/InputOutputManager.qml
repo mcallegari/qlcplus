@@ -94,6 +94,7 @@ Rectangle
         }
     }
 
+    /* Bottom container to drag a patch and delete it */
     Rectangle
     {
         id: removePatchBox
@@ -101,7 +102,7 @@ Rectangle
         y: ioMgrContainer.height - (height / 2)
         z: 10
         width: 300
-        height: 160
+        height: UISettings.bigItemHeight
         visible: false
 
         radius: height / 2

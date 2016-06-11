@@ -37,7 +37,7 @@ Rectangle
         id: searchBox
         y: 8
         z: 1
-        height: 30
+        height: UISettings.iconSizeMedium
         anchors.right: parent.right
         anchors.rightMargin: 8
         anchors.left: parent.left
@@ -51,24 +51,24 @@ Rectangle
         {
             id: searchIcon
             y: 3
-            width: 24
-            height: 24
+            width: height
+            height: parent.height - 6
             anchors.left: parent.left
             anchors.leftMargin: 6
             source: "qrc:/search.svg"
-            sourceSize: Qt.size(24, 24)
+            sourceSize: Qt.size(width, height)
         }
 
         TextInput
         {
             id: textEdit1
             x: searchIcon.width + 10
-            y: 3
-            height: 24
+            anchors.verticalCenter: parent.verticalCenter
+            height: parent.height
             width: searchBox.width - searchIcon.width - 10
             color: UISettings.fgMain
             text: qsTr("")
-            font.pixelSize: 18
+            font.pointSize: height ? height * 0.45 : 12
         }
     }
 

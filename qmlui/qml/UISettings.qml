@@ -53,5 +53,6 @@ QtObject
     property real iconSizeDefault: Screen.pixelDensity * 10 // more or less the size of a finger
     property real iconSizeMedium: Screen.pixelDensity * 8
     property real listItemHeight: Screen.pixelDensity * 7
+    property real bigItemHeight: Screen.pixelDensity * 30
     property real scrollBarWidth: Screen.pixelDensity * 6
 }

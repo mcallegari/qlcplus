@@ -26,7 +26,7 @@ Rectangle
 {
     id: uniItem
     width: parent.width
-    height: 120
+    height: UISettings.bigItemHeight
     color: isSelected ? "#2D444E" : "transparent"
     border.width: 2
     border.color: isSelected ? UISettings.selection : "transparent"

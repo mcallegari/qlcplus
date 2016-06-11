@@ -61,7 +61,7 @@ Item
         width: parent.width
         label: modelData
         height: parent.height
-        fontSize: height ? height / 3 : 12
+        fontSize: height ? height * 0.45 : 12
         //fontBold: true
     }
 
