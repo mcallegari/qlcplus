@@ -32,7 +32,7 @@ Rectangle
     property int visibleWidth
     property real visibleX
     property int duration: -1
-    property int headerHeight: 40
+    property int headerHeight: UISettings.iconSizeMedium
     property int cursorHeight: 0
     property real timeScale: 1.0
     property int currentTime: showManager.currentTime
@@ -139,7 +139,8 @@ Rectangle
 
             ctx.fillStyle = "black"
             ctx.strokeStyle = "white"
-            ctx.font = '14px "Roboto Condensed"'
+            var fontPxSize = headerHeight * 0.5
+            ctx.font = fontPxSize + 'px "Roboto Condensed"'
             ctx.fillRect(0, 0, width, headerHeight)
 
             var divNum = width / tickSize

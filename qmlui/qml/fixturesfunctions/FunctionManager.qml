@@ -235,7 +235,7 @@ Rectangle
               {
                   Loader
                   {
-                      width: parent.width
+                      width: functionsListView.width
                       source: hasChildren ? "qrc:/TreeNodeDelegate.qml" : "qrc:/FunctionDelegate.qml"
 
                       onLoaded:

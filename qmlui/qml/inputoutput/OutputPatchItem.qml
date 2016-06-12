@@ -21,11 +21,12 @@ import QtQuick 2.0
 
 import com.qlcplus.classes 1.0
 import "PluginUtils.js" as PluginUtils
+import "."
 
 Rectangle
 {
     width: parent.width
-    height: 80
+    height: UISettings.bigItemHeight * 0.8
     color: "transparent"
 
     property int universeID
@@ -68,6 +69,7 @@ Rectangle
                 label: patch ? patch.outputName : ""
                 labelColor: "black"
                 wrapText: true
+                fontSize: UISettings.textSizeDefault
             }
         }
     }

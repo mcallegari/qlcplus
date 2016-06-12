@@ -178,7 +178,7 @@ Rectangle
                                         Layout.columnSpan: 2
                                         Layout.fillWidth: true
 
-                                        fontSize: 14
+                                        tFontSize: 14
 
                                         Component.onCompleted:
                                         {

@@ -26,7 +26,7 @@ SpinBox
 {
     id: spinbox
     font.family: "Roboto Condensed"
-    font.pointSize: 14
+    font.pointSize: height ? height * 0.4 : 14
     width: 70
     implicitHeight: UISettings.listItemHeight
 
@@ -53,7 +53,7 @@ SpinBox
                 }
             textColor: UISettings.fgMain
 
-            property int controlWidth: showControls ? Math.min(35, spinbox.width / 3) : 0
+            property int controlWidth: showControls ? Math.min(UISettings.iconSizeMedium, spinbox.width / 3) : 0
 
             incrementControl:
                 Rectangle

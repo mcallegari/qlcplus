@@ -54,17 +54,17 @@ Rectangle
             Item
             {
                 id: root
-                height: 60
+                height: UISettings.listItemHeight * 2
                 width: widgetsContainer.width
 
                 MouseArea
                 {
                     id: delegateRoot
                     width: widgetsContainer.width
-                    height: 60
+                    height: parent.height
 
                     drag.target: widgetItem
-                    drag.threshold: 30
+                    drag.threshold: height / 2
 
                     onPressed:
                     {

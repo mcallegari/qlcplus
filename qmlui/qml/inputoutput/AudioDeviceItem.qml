@@ -18,11 +18,12 @@
 */
 
 import QtQuick 2.0
+import "."
 
 Rectangle
 {
     width: parent.width
-    height: 80
+    height: UISettings.bigItemHeight * 0.8
     color: "transparent"
 
     property var audioDevice
@@ -65,6 +66,7 @@ Rectangle
                 width: deviceBox.width - deviceIcon.width - 6
                 label: deviceName
                 labelColor: "black"
+                fontSize: UISettings.textSizeDefault
                 wrapText: true
             }
         }

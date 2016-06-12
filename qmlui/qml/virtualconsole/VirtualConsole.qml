@@ -69,7 +69,7 @@ Rectangle
         {
             id: vcToolbar
             width: parent.width
-            height: 34
+            height: UISettings.iconSizeMedium
             z: 10
             gradient: Gradient
             {

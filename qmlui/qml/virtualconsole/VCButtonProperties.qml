@@ -64,7 +64,7 @@ Rectangle
                     Layout.columnSpan: 2
                     Layout.fillWidth: true
 
-                    fontSize: 14
+                    tFontSize: 14
 
                     tLabel: func ? func.name : ""
                     functionType: func ? func.type : -1

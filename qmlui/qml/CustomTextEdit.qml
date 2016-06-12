@@ -31,7 +31,7 @@ Rectangle
 
     property alias inputFocus: ctEdit.focus
     property alias inputText: ctEdit.text
-    property int fontSize: 16
+    property int fontSize: UISettings.textSizeDefault
     property int textAlignment: TextInput.AlignLeft
 
     signal textChanged(var text)

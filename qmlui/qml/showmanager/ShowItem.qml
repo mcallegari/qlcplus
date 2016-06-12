@@ -167,7 +167,7 @@ Item
                 x: 3
                 width: parent.width - 6
                 label: funcRef ? funcRef.name : ""
-                fontSize: 9
+                fontSize: UISettings.textSizeDefault * 0.5
                 wrapText: true
             }
 

@@ -31,7 +31,7 @@ Rectangle
 
     property string iSrc
     property string tLabel
-    property int fontSize: height * 0.75
+    property int tFontSize: UISettings.textSizeDefault
     property int functionType: -1
 
     onFunctionTypeChanged:
@@ -75,7 +75,7 @@ Rectangle
             height: parent.height
             anchors.verticalCenter: parent.verticalCenter
             label: tLabel
-            fontSize: fontSize
+            fontSize: tFontSize
         }
     }
 }

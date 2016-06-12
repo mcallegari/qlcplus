@@ -144,7 +144,7 @@ Rectangle
         Rectangle
         {
             id: manufBackLink
-            height: 40
+            height: UISettings.iconSizeMedium
             z: 1
             anchors.right: parent.right
             anchors.left: parent.left

@@ -64,41 +64,46 @@ Rectangle
             Layout.fillWidth: true
             height: UISettings.listItemHeight
             color: "transparent"
-            Row
+
+            CustomSpinBox
             {
-                spacing: 3
-                CustomSpinBox
+                id: gWidthSpin
+                width: parent.width * 0.45
+                height: UISettings.listItemHeight
+                minimumValue: 1
+                maximumValue: 50
+                decimals: 0
+                value: View2D.gridSize.width
+                onValueChanged:
                 {
-                    id: gWidthSpin
-                    width: 80
-                    height: UISettings.listItemHeight
-                    minimumValue: 1
-                    maximumValue: 50
-                    decimals: 0
-                    value: View2D.gridSize.width
-                    onValueChanged:
-                    {
-                        if (settingsRoot.visible)
-                        View2D.gridSize = Qt.size(value, gHeightSpin.value)
-                    }
-                }
-                RobotoText { label: "x" }
-                CustomSpinBox
-                {
-                    id: gHeightSpin
-                    width: 80
-                    height: UISettings.listItemHeight
-                    minimumValue: 1
-                    maximumValue: 50
-                    decimals: 0
-                    value: View2D.gridSize.height
-                    onValueChanged:
-                    {
-                        if (settingsRoot.visible)
-                            View2D.gridSize = Qt.size(gWidthSpin.value, value)
-                    }
+                    if (settingsRoot.visible)
+                    View2D.gridSize = Qt.size(value, gHeightSpin.value)
                 }
             }
+
+            RobotoText
+            {
+                anchors.centerIn: parent
+                label: "x"
+            }
+
+            CustomSpinBox
+            {
+                id: gHeightSpin
+                x: parent.width - width
+                width: parent.width * 0.45
+                height: UISettings.listItemHeight
+                minimumValue: 1
+                maximumValue: 50
+                decimals: 0
+                value: View2D.gridSize.height
+                onValueChanged:
+                {
+                    if (settingsRoot.visible)
+                        View2D.gridSize = Qt.size(gWidthSpin.value, value)
+                }
+            }
+
         }
 
         // row 3

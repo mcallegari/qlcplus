@@ -126,7 +126,7 @@ SidePanel
                 {
                     anchors.centerIn: parent
                     label: "P"
-                    fontSize: 18
+                    fontSize: UISettings.textSizeDefault * 1.1
                     fontBold: true
                 }
             }

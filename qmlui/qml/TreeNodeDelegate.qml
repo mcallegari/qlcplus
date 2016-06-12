@@ -75,7 +75,7 @@ Column
             verticalAlignment: TextInput.AlignVCenter
             color: UISettings.fgMain
             font.family: "Roboto Condensed"
-            font.pointSize: height ? height * 0.40 : 16
+            font.pointSize: UISettings.textSizeDefault
             echoMode: TextInput.Normal
             selectByMouse: true
             selectionColor: "#4DB8FF"

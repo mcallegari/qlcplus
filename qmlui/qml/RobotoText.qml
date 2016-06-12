@@ -22,15 +22,16 @@ import "."
 
 Rectangle
 {
+    id: rtRoot
     width: wrapText ? 100 : textBox.width
-    height: 40
+    height: UISettings.iconSizeDefault
 
     color: "transparent"
     clip: true
 
     property string label: ""
     property color labelColor: UISettings.fgMain
-    property real fontSize: 16 //UISettings.textSizeDefault
+    property real fontSize: UISettings.textSizeDefault
     property bool fontBold: false
     property bool wrapText: false
     property int textAlign: Text.AlignLeft
@@ -43,7 +44,7 @@ Rectangle
         anchors.verticalCenter: parent.verticalCenter
         text: label
         font.family: "Roboto Condensed"
-        font.pointSize: fontSize
+        font.pointSize: fontSize ? fontSize : 16
         font.bold: fontBold
         color: labelColor
         wrapMode: wrapText ? Text.Wrap : Text.NoWrap

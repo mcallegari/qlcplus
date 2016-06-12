@@ -25,7 +25,7 @@ Rectangle
     id: cbRoot
     height: UISettings.listItemHeight
     width: 150
-    color: UISettings.bgMedium
+    color: cbMouseArea.containsMouse ? UISettings.bgLight : UISettings.bgMedium
     border.width: 1
     border.color: "#222"
     radius: 3
@@ -89,13 +89,13 @@ Rectangle
             height: cbRoot.height
             width: cbRoot.width - 4 - arrowButton.width - (mainIcon.visible ? mainIcon.width : 0)
             label: currentText
-            fontSize: 12
+            fontSize: height ? height * 0.4 : 12
             fontBold: true
         }
         Rectangle
         {
             id: arrowButton
-            width: 30
+            width: UISettings.iconSizeMedium
             height: cbRoot.height
             color: "transparent" //"#404040"
 
@@ -103,13 +103,16 @@ Rectangle
             {
                 anchors.centerIn: parent
                 source: "qrc:/arrow-down.svg"
-                sourceSize: Qt.size(20, 12)
+                sourceSize: Qt.size(UISettings.iconSizeMedium * 0.7, UISettings.iconSizeMedium * 0.35)
             }
         }
     }
     MouseArea
     {
+        id: cbMouseArea
         anchors.fill: parent
+        hoverEnabled: true
+
         onClicked:
         {
             positionMenu()
@@ -139,7 +142,7 @@ Rectangle
         width: cbRoot.width
         color: UISettings.bgLight
         border.width: 1
-        border.color: UISettings.bgStrong
+        border.color: UISettings.bgLighter
         parent: mainView
         visible: false
         clip: true
@@ -159,7 +162,7 @@ Rectangle
                 width: parent.width
                 height: count * itemHeight
 
-                property int itemHeight: 35
+                property int itemHeight: UISettings.listItemHeight
                 property int currentIndex: 0
 
                 delegate:
@@ -222,7 +225,7 @@ Rectangle
                                 id: textitem
                                 label: itemText
                                 height: delegateRoot.height
-                                fontSize: 12
+                                fontSize: height ? height * 0.4 : 12
                             }
                         }
 

@@ -18,6 +18,7 @@
 */
 
 import QtQuick 2.0
+import "."
 
 Rectangle
 {
@@ -51,17 +52,17 @@ Rectangle
             Item
             {
                 id: root
-                height: 60
+                height: UISettings.listItemHeight * 2
                 width: pluginsContainer.width
 
                 MouseArea
                 {
                     id: delegateRoot
                     width: pluginsContainer.width
-                    height: 60
+                    height: parent.height
 
                     drag.target: pluginItem
-                    drag.threshold: 30
+                    drag.threshold: height / 2
 
                     onPressed: pluginItem.color = "#444"
                     onReleased:

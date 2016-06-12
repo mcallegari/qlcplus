@@ -206,7 +206,7 @@ Rectangle
                 CustomComboBox
                 {
                     id: viewUniverseCombo
-                    width: 120
+                    width: UISettings.bigItemHeight * 1.5
                     height: viewToolbar.height - 4
                     anchors.margins: 1
                     model: ioManager.universesListModel
@@ -219,7 +219,7 @@ Rectangle
                     }
                 }
 
-                Rectangle { Layout.fillWidth: true }
+                Rectangle { Layout.fillWidth: true; color: "transparent" }
 
                 IconButton
                 {

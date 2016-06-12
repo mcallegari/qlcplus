@@ -98,7 +98,7 @@ Rectangle
                 id: textBox
                 label: entryText
                 height: parent.height
-                fontSize: height ? height / 4 : 16
+                fontSize: height ? height * 0.25 : 16
                 fontBold: true
             }
             Rectangle
