@@ -52,7 +52,7 @@ Rectangle
             Item
             {
                 id: root
-                height: UISettings.listItemHeight * 2
+                height: UISettings.listItemHeight * 1.7
                 width: pluginsContainer.width
 
                 MouseArea

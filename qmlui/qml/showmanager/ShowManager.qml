@@ -33,8 +33,8 @@ Rectangle
 
     property string contextName: "SHOWMGR"
 
-    property int trackHeight: 80
-    property int trackWidth: 200
+    property int trackHeight: UISettings.bigItemHeight * 0.6
+    property int trackWidth: UISettings.bigItemHeight * 1.6
 
     property real timeScale: showManager.timeScale
     property int headerHeight: UISettings.iconSizeMedium

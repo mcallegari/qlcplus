@@ -27,7 +27,7 @@ Rectangle
     x: 3
     id: pluginDragItem
     width: parent.width
-    height: UISettings.listItemHeight * 2
+    height: UISettings.listItemHeight * 1.7
     color: "transparent"
 
     property int pluginUniverse

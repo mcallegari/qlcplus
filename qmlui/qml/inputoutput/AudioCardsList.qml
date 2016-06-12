@@ -47,7 +47,7 @@ Rectangle
             {
                 id: acDelegate
                 width: aclContainer.width
-                height: UISettings.listItemHeight * 2
+                height: UISettings.listItemHeight * 1.7
                 color: "transparent"
                 Row
                 {

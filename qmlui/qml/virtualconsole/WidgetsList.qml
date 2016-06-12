@@ -18,6 +18,7 @@
 */
 
 import QtQuick 2.0
+import "."
 
 Rectangle
 {
@@ -54,7 +55,7 @@ Rectangle
             Item
             {
                 id: root
-                height: UISettings.listItemHeight * 2
+                height: UISettings.listItemHeight * 1.7
                 width: widgetsContainer.width
 
                 MouseArea
@@ -101,8 +102,8 @@ Rectangle
 
                         Drag.active: delegateRoot.drag.active
                         Drag.source: widgetItem
-                        Drag.hotSpot.x: 30
-                        Drag.hotSpot.y: 30
+                        Drag.hotSpot.x: height / 2
+                        Drag.hotSpot.y: height / 2
                         Drag.keys: [ "vcwidget" ]
 
                         // line divider
