@@ -33,7 +33,7 @@ Rectangle
     onWidthChanged: consoleRoot.sizeChanged(width, height)
     onHeightChanged:
     {
-        if (height < 80)
+        if (height < UISettings.iconSizeDefault * 3)
             fxColumn.visible = false
         else
             fxColumn.visible = true
@@ -81,7 +81,7 @@ Rectangle
             id: fxNameBar
             color: "#111"
             width: parent.width
-            height: 27
+            height: UISettings.listItemHeight
             clip: true
 
             RobotoText
@@ -89,14 +89,14 @@ Rectangle
                 anchors.verticalCenter: parent.verticalCenter
                 x: 2
                 label: fixtureObj ? fixtureObj.name : ""
-                fontSize: 17
+                fontSize: parent.height ? parent.height * 0.4 : 17
             }
             DMXPercentageButton
             {
                 x: parent.width - width - 3
                 y: 1
                 z: 2
-                height: 25
+                height: parent.height - 2
                 dmxMode: dmxValues
                 onClicked:
                 {
@@ -137,7 +137,7 @@ Rectangle
                         color: "transparent"
                         border.width: 1
                         border.color: "#111"
-                        width: 40
+                        width: UISettings.iconSizeDefault
                         height: channelsRow.height
 
                         property alias dmxValue: slider.value
@@ -157,10 +157,10 @@ Rectangle
                         Rectangle
                         {
                             x: 1
-                            y: 16
+                            y: chIcon.y
                             z: 2
                             width: parent.width - 2
-                            height: chColumn.height - 16
+                            height: chDelegate.height - enableCheckBox.height
                             color: "black"
                             opacity: 0.7
                             visible: showEnablers ? !isEnabled : false
@@ -172,18 +172,19 @@ Rectangle
                             x: 1
                             y: 1
                             width: parent.width - 2
+                            height: parent.height
                             spacing: 1
 
                             Rectangle
                             {
                                 id: enableCheckBox
-                                width: 34
-                                height: 15
+                                width: UISettings.iconSizeMedium
+                                height: UISettings.iconSizeMedium / 2
                                 radius: 2
                                 visible: showEnablers
-                                color: isEnabled ? UISettings.highlight : UISettings.bgMedium
+                                color: isEnabled ? UISettings.highlight : UISettings.bgLight
                                 border.width: 1
-                                border.color: isEnabled ? "white" : "#555"
+                                border.color: isEnabled ? "white" : UISettings.bgLighter
                                 Layout.alignment: Qt.AlignCenter
 
                                 MouseArea
@@ -205,8 +206,9 @@ Rectangle
 
                             Image
                             {
-                                width: 32
-                                height: 32
+                                id: chIcon
+                                width: UISettings.iconSizeMedium
+                                height: height
                                 Layout.alignment: Qt.AlignCenter
                                 sourceSize: Qt.size(width, height)
                                 source: fixtureObj ? fixtureManager.channelIcon(fixtureObj.id, index) : ""
@@ -214,9 +216,12 @@ Rectangle
                             QLCPlusFader
                             {
                                 id: slider
-                                width: 32
+                                width: UISettings.iconSizeMedium
+                                Layout.fillHeight: true
+                                /*
                                 Layout.preferredHeight:
-                                    chDelegate.height ? chDelegate.height - 32 - 25 - (showEnablers ? 15 : 0) - 4 : 0
+                                    chDelegate.height ? chDelegate.height - UISettings.iconSizeMedium - chValueSpin.height -
+                                                        (showEnablers ? enableCheckBox.height : 0) - 4 : 0*/
                                 Layout.alignment: Qt.AlignCenter
                                 minimumValue: 0
                                 maximumValue: dmxMode ? 255 : 100
@@ -237,8 +242,9 @@ Rectangle
                             }
                             CustomSpinBox
                             {
-                                width: 38
-                                height: 25
+                                id: chValueSpin
+                                width: parent.width
+                                height: UISettings.listItemHeight * 0.75
                                 minimumValue: 0
                                 maximumValue: dmxMode ? 255 : 100
                                 showControls: false
