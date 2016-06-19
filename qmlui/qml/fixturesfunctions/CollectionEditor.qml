@@ -79,14 +79,14 @@ Rectangle
                 color: UISettings.bgMedium
                 //width: funcMgrLoader.width ? ceContainer.width / 2 : ceContainer.width
                 width: parent.width
-                height: 40
+                height: UISettings.iconSizeMedium
                 z: 2
 
                 Rectangle
                 {
                     id: backBox
-                    width: 40
-                    height: 40
+                    width: UISettings.iconSizeMedium
+                    height: width
                     color: "transparent"
 
                     Image
@@ -120,14 +120,14 @@ Rectangle
                 {
                     id: cNameEdit
                     x: leftArrow.width + 5
-                    height: 40
+                    height: UISettings.iconSizeMedium
                     width: ceContainer.width - backBox.width - addFunc.width - removeFunc.width
                     color: UISettings.fgMain
                     clip: true
                     text: collection ? collection.name : ""
                     verticalAlignment: TextInput.AlignVCenter
                     font.family: "Roboto Condensed"
-                    font.pixelSize: 20
+                    font.pointSize: UISettings.textSizeDefault
                     selectByMouse: true
                     Layout.fillWidth: true
                     onTextChanged:
@@ -140,9 +140,9 @@ Rectangle
                 IconButton
                 {
                     id: addFunc
-                    x: parent.width - 90
+                    x: parent.width - (UISettings.iconSizeMedium * 2) - 10
                     width: height
-                    height: 40
+                    height: UISettings.iconSizeMedium
                     imgSource: "qrc:/add.svg"
                     checkable: true
                     tooltip: qsTr("Add a function")
@@ -166,9 +166,9 @@ Rectangle
                 IconButton
                 {
                     id: removeFunc
-                    x: parent.width - 45
+                    x: parent.width - UISettings.iconSizeMedium - 5
                     width: height
-                    height: 40
+                    height: UISettings.iconSizeMedium
                     imgSource: "qrc:/remove.svg"
                     tooltip: qsTr("Remove the selected function")
                     onClicked: {   }
@@ -179,8 +179,8 @@ Rectangle
             {
                 id: cFunctionList
                 width: parent.width //ceContainer.width
-                height: ceContainer.height - 40
-                y: 40
+                height: ceContainer.height - UISettings.iconSizeMedium
+                y: UISettings.iconSizeMedium
                 boundsBehavior: Flickable.StopAtBounds
 
                 property int dragInsertIndex: -1

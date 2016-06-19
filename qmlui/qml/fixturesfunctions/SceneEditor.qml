@@ -49,13 +49,13 @@ Rectangle
         {
             color: UISettings.bgMedium
             width: seContainer.width
-            height: 40
+            height: UISettings.iconSizeMedium
 
             Rectangle
             {
                 id: backBox
-                width: 40
-                height: 40
+                width: UISettings.iconSizeMedium
+                height: width
                 color: "transparent"
 
                 Image
@@ -79,14 +79,14 @@ Rectangle
             {
                 id: sNameEdit
                 x: leftArrow.width + 5
-                height: 40
+                height: UISettings.iconSizeMedium
                 width: seContainer.width - backBox.width - removeFxButton.width - 10
                 color: UISettings.fgMain
                 clip: true
                 text: sceneEditor.sceneName
                 verticalAlignment: TextInput.AlignVCenter
                 font.family: "Roboto Condensed"
-                font.pixelSize: 20
+                font.pointSize: UISettings.textSizeDefault
                 echoMode: TextInput.Normal
                 selectByMouse: true
                 Layout.fillWidth: true
@@ -96,9 +96,9 @@ Rectangle
             IconButton
             {
                 id: removeFxButton
-                x: parent.width - 45
+                x: parent.width - UISettings.iconSizeMedium - 5
                 width: height
-                height: 40
+                height: UISettings.iconSizeMedium
                 imgSource: "qrc:/remove.svg"
                 tooltip: qsTr("Remove the selected fixture")
                 onClicked: {   }
@@ -109,8 +109,8 @@ Rectangle
         {
             id: sfxList
             width: seContainer.width
-            height: seContainer.height - 40
-            y: 40
+            height: seContainer.height - UISettings.iconSizeMedium
+            y: UISettings.iconSizeMedium
             boundsBehavior: Flickable.StopAtBounds
             model: sceneEditor.fixtures
             delegate:

@@ -70,14 +70,14 @@ Rectangle
         id: topBar
         color: UISettings.bgMedium
         width: rgbmeContainer.width
-        height: 40
+        height: UISettings.iconSizeMedium
         z: 2
 
         Rectangle
         {
             id: backBox
-            width: 40
-            height: 40
+            width: UISettings.iconSizeMedium
+            height: width
             color: "transparent"
 
             Image
@@ -101,14 +101,14 @@ Rectangle
         {
             id: cNameEdit
             x: leftArrow.width + 5
-            height: 40
+            height: UISettings.iconSizeMedium
             width: topBar.width - x
             color: UISettings.fgMain
             clip: true
             text: matrix ? matrix.name : ""
             verticalAlignment: TextInput.AlignVCenter
             font.family: "Roboto Condensed"
-            font.pixelSize: 20
+            font.pointSize: UISettings.textSizeDefault
             selectByMouse: true
             Layout.fillWidth: true
             onTextChanged:
@@ -140,7 +140,7 @@ Rectangle
             width: parent.width
             spacing: 2
 
-            property int itemsHeight: 38
+            property int itemsHeight: UISettings.listItemHeight
             property int firstColumnWidth: 0
             property int colWidth: parent.width - (sbar.visible ? sbar.width : 0)
 
@@ -159,6 +159,7 @@ Rectangle
                 RobotoText
                 {
                     label: qsTr("Fixture Group");
+                    height: editorColumn.itemsHeight
                     onWidthChanged:
                     {
                         editorColumn.checkLabelWidth(width)
@@ -193,6 +194,7 @@ Rectangle
                 {
                     id: patternLabel
                     label: qsTr("Pattern")
+                    height: editorColumn.itemsHeight
                     onWidthChanged:
                     {
                         editorColumn.checkLabelWidth(width)
@@ -228,6 +230,7 @@ Rectangle
                 RobotoText
                 {
                     label: qsTr("Blend mode")
+                    height: editorColumn.itemsHeight
                     onWidthChanged:
                     {
                         editorColumn.checkLabelWidth(width)
@@ -264,6 +267,7 @@ Rectangle
                 {
                     label: qsTr("Colors")
                     visible: rgbMatrixEditor.algoColors > 0 ? true : false
+                    height: editorColumn.itemsHeight
                     onWidthChanged:
                     {
                         editorColumn.checkLabelWidth(width)
@@ -274,8 +278,8 @@ Rectangle
                 Rectangle
                 {
                     id: startColButton
-                    width: 80
-                    height: parent.height
+                    width: UISettings.iconSizeDefault * 2
+                    height: editorColumn.itemsHeight
                     radius: 5
                     border.color: scMouseArea.containsMouse ? "white" : UISettings.bgLight
                     border.width: 2
@@ -310,8 +314,8 @@ Rectangle
                 Rectangle
                 {
                     id: endColButton
-                    width: 80
-                    height: parent.height
+                    width: UISettings.iconSizeDefault * 2
+                    height: editorColumn.itemsHeight
                     radius: 5
                     border.color: ecMouseArea.containsMouse ? "white" : UISettings.bgLight
                     border.width: 2
@@ -341,8 +345,8 @@ Rectangle
                 }
                 IconButton
                 {
-                    width: parent.height
-                    height: parent.height
+                    width: UISettings.listItemHeight
+                    height: width
                     imgSource: "qrc:/cancel.svg"
                     visible: rgbMatrixEditor.algoColors > 1 ? true : false
                     onClicked: rgbMatrixEditor.hasEndColor = false
@@ -371,10 +375,12 @@ Rectangle
                             id: fiLabel
                             Layout.fillWidth: true
                             label: qsTr("Fade in")
+                            height: UISettings.listItemHeight
                         }
                         RobotoText
                         {
                             width: algoCombo.width
+                            height: UISettings.listItemHeight
                             color: UISettings.bgMedium
                             label: TimeUtils.msToQlcString(rgbMatrixEditor.fadeInSpeed)
                             MouseArea
@@ -390,11 +396,13 @@ Rectangle
                         {
                             id: hLabel
                             Layout.fillWidth: true
+                            height: UISettings.listItemHeight
                             label: qsTr("Hold")
                         }
                         RobotoText
                         {
                             width: algoCombo.width
+                            height: UISettings.listItemHeight
                             color: UISettings.bgMedium
                             label: TimeUtils.msToQlcString(rgbMatrixEditor.holdSpeed)
                             MouseArea
@@ -410,11 +418,13 @@ Rectangle
                         {
                             id: foLabel
                             Layout.fillWidth: true
+                            height: UISettings.listItemHeight
                             label: qsTr("Fade out")
                         }
                         RobotoText
                         {
                             width: algoCombo.width
+                            height: UISettings.listItemHeight
                             color: UISettings.bgMedium
                             label: TimeUtils.msToQlcString(rgbMatrixEditor.fadeOutSpeed)
                             MouseArea
@@ -721,7 +731,6 @@ Rectangle
     }
 
     /* ************************************************************ */
-
     /* ***************  Script Algorithm parameters *************** */
     Component
     {
@@ -765,7 +774,7 @@ Rectangle
         {
             id: sCombo
             Layout.fillWidth: true
-            height: 38
+            height: UISettings.listItemHeight
             property string propName
 
             onCurrentTextChanged: rgbMatrixEditor.setScriptStringProperty(propName, currentText)
@@ -781,7 +790,7 @@ Rectangle
         {
             id: sSpin
             Layout.fillWidth: true
-            height: 38
+            height: UISettings.listItemHeight
             property string propName
 
             onValueChanged: rgbMatrixEditor.setScriptIntProperty(propName, value)

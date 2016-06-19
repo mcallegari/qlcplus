@@ -41,17 +41,19 @@ Rectangle
         {
             id: cPropsHeader
             width: parent.width
-            height: 38
+            height: UISettings.listItemHeight
             color: headerMouseArea.containsMouse ? UISettings.highlight : UISettings.sectionHeader
 
             RobotoText
             {
                 x: 2
                 label: boxRoot.sectionLabel
+                height: UISettings.listItemHeight
+                fontSize: UISettings.textSizeDefault
             }
             Text
             {
-                x: parent.width - 34
+                x: parent.width - UISettings.listItemHeight
                 anchors.verticalCenter: parent.verticalCenter
                 font.family: "FontAwesome"
                 font.pointSize: 24
