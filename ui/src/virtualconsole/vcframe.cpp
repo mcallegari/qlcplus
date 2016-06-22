@@ -242,7 +242,6 @@ void VCFrame::slotCollapseButtonToggled(bool toggle)
         {
             if (m_prevPageBtn) m_prevPageBtn->hide();
             if (m_nextPageBtn) m_nextPageBtn->hide();
-            if (m_pageLabel) m_pageLabel->hide();
         }
         resize(QSize(200, 40));
         m_collapsed = true;
@@ -254,7 +253,6 @@ void VCFrame::slotCollapseButtonToggled(bool toggle)
         {
             if (m_prevPageBtn) m_prevPageBtn->show();
             if (m_nextPageBtn) m_nextPageBtn->show();
-            if (m_pageLabel) m_pageLabel->show();
         }
         m_collapsed = false;
     }
@@ -376,9 +374,17 @@ void VCFrame::setMultipageMode(bool enable)
         connect (m_prevPageBtn, SIGNAL(clicked()), this, SLOT(slotPreviousPage()));
         connect (m_nextPageBtn, SIGNAL(clicked()), this, SLOT(slotNextPage()));
 
-        m_prevPageBtn->show();
+        if(this->isCollapsed() == false)
+        {
+            m_prevPageBtn->show();
+            m_nextPageBtn->show();
+        }
+        else
+        {
+            m_prevPageBtn->hide();
+            m_nextPageBtn->hide();
+        }
         m_pageLabel->show();
-        m_nextPageBtn->show();
 
         if (m_pagesMap.isEmpty())
         {
