@@ -81,7 +81,6 @@ Rectangle
 
         onClicked:
         {
-            isSelected = true
             fxDelegate.clicked(cRef.id, fxDelegate, mouse.modifiers)
         }
         onDoubleClicked:

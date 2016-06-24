@@ -248,7 +248,7 @@ Rectangle
                               console.log("Item path: " + path + ",label: " + label)
                               item.nodePath = path
                               item.isExpanded = isExpanded
-                              item.folderChildren = childrenModel
+                              item.nodeChildren = childrenModel
                           }
                           else
                           {

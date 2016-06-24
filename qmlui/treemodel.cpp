@@ -169,9 +169,6 @@ QVariant TreeModel::data(const QModelIndex &index, int role) const
 
 bool TreeModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-    if (index.row() < 0 || index.row() >= m_items.count())
-        return false;
-
     int itemRow = index.row();
     if (itemRow < 0 || itemRow >= m_items.count())
         return false;

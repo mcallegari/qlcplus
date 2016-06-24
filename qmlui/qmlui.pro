@@ -33,7 +33,8 @@ HEADERS += \
     fixturemanager.h \
     functioneditor.h \
     functionmanager.h \
-    inputoutputmanager.h \ 
+    inputoutputmanager.h \
+    listmodel.h \
     mainview2d.h \
     mainviewdmx.h \
     modelselector.h \
@@ -54,6 +55,7 @@ SOURCES += main.cpp \
     functioneditor.cpp \
     functionmanager.cpp \
     inputoutputmanager.cpp \
+    listmodel.cpp \
     mainview2d.cpp \
     mainviewdmx.cpp \
     modelselector.cpp \

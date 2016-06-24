@@ -414,16 +414,25 @@ Rectangle
                 property int dragInsertIndex: -1
 
                 model: chaserEditor.stepsList
+
+                onModelChanged:
+                {
+                    //console.log("Item 0: " + cStepsList.model[0].fadeIn)
+                    //cStepsList.model[0].isSelected = true
+                    console.log(model.data(0, 0x102))
+                }
+
                 delegate:
                     ChaserStepDelegate
                     {
                         width: ceContainer.width
-                        functionID: modelData.funcID
-                        stepFadeIn: modelData.fadeIn
-                        stepHold: modelData.hold
-                        stepFadeOut: modelData.fadeOut
-                        stepDuration: modelData.duration
-                        stepNote: modelData.note
+                        functionID: model.funcID
+                        isSelected: model.isSelected
+                        stepFadeIn: model.fadeIn
+                        stepHold: model.hold
+                        stepFadeOut: model.fadeOut
+                        stepDuration: model.duration
+                        stepNote: model.note
 
                         col1Width: numCol.width
                         col2Width: nameCol.width
@@ -437,7 +446,7 @@ Rectangle
 
                         onClicked:
                         {
-                            ceSelector.selectItem(ID, qItem, mouseMods & Qt.ControlModifier)
+                            ceSelector.selectItem(indexInList, cStepsList.model, mouseMods & Qt.ControlModifier)
                         }
                         onDoubleClicked:
                         {

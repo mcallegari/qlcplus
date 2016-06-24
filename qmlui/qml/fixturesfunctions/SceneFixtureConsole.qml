@@ -19,6 +19,7 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
+import "."
 
 Rectangle
 {
@@ -76,7 +77,7 @@ Rectangle
                     color: "transparent"
                     radius: 3
                     border.width: 2
-                    border.color: isSelected ? "#0978FF" : "transparent"
+                    border.color: isSelected ? UISettings.highlight : "transparent"
                 }
             }
     }

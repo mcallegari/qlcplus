@@ -23,6 +23,7 @@
 #include "functioneditor.h"
 
 class Chaser;
+class ListModel;
 
 class ChaserEditor : public FunctionEditor
 {
@@ -57,6 +58,12 @@ public:
      * @return true if successful, otherwise false
      */
     Q_INVOKABLE bool addFunction(quint32 fid, int insertIndex = -1);
+
+private:
+    /** Reference of the Chaser currently being edited */
+    Chaser *m_chaser;
+
+    ListModel *m_stepsList;
 
     /*********************************************************************
      * Chaser playback modes
@@ -104,10 +111,6 @@ signals:
     void stepsFadeInChanged(int stepsFadeIn);
     void stepsFadeOutChanged(int stepsFadeOut);
     void stepsDurationChanged(int stepsDuration);
-
-private:
-    /** Reference of the Chaser currently being edited */
-    Chaser *m_chaser;
 };
 
 #endif // CHASEREDITOR_H

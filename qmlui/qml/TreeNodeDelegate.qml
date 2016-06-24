@@ -29,7 +29,7 @@ Column
 
     property string textLabel
     property string nodePath
-    property var folderChildren
+    property var nodeChildren
     property bool isExpanded: false
     property bool isSelected: false
     property string nodeIcon: "qrc:/folder.svg"
@@ -116,7 +116,7 @@ Column
         id: nodeChildrenView
         visible: isExpanded
         width: nodeContainer.width - 20
-        model: visible ? folderChildren : null
+        model: visible ? nodeChildren : null
         delegate:
             Component
             {
@@ -136,7 +136,7 @@ Column
                         {
                             item.nodePath = nodePath + "/" + path
                             item.isExpanded = isExpanded
-                            item.folderChildren = childrenModel
+                            item.nodeChildren = childrenModel
                             item.nodeIcon = nodeContainer.nodeIcon
                             item.childrenDelegate = childrenDelegate
 

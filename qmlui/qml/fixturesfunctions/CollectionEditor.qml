@@ -196,7 +196,7 @@ Rectangle
 
                         onClicked:
                         {
-                            ceSelector.selectItem(ID, qItem, mouseMods & Qt.ControlModifier)
+                            ceSelector.selectItem(indexInList, cFunctionList.model, mouseMods & Qt.ControlModifier)
                         }
                     }
 
