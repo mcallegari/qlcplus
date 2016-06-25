@@ -57,6 +57,9 @@ Rectangle
             case Function.RGBMatrix:
                 fmContainer.requestView(funcID, "qrc:/RGBMatrixEditor.qml")
             break;
+            case Function.Audio:
+                fmContainer.requestView(funcID, "qrc:/AudioEditor.qml")
+            break;
             case Function.Show:
                 showManager.currentShowID = funcID
                 mainView.switchToContext("SHOWMGR", "qrc:/ShowManager.qml")

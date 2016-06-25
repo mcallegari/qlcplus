@@ -37,13 +37,10 @@ class Audio : public Function
     Q_OBJECT
     Q_DISABLE_COPY(Audio)
 
-    Q_PROPERTY (QString sourceFilename READ getSourceFileName WRITE setSourceFileName NOTIFY sourceFilenameChanged)
-
     /*********************************************************************
      * Initialization
      *********************************************************************/
 public:
-    Audio() { }
     Audio(Doc* doc);
     virtual ~Audio();
 
@@ -68,7 +65,7 @@ public slots:
      * Capabilities
      *********************************************************************/
 public:
-    Q_INVOKABLE QStringList getCapabilities();
+    QStringList getCapabilities();
 
     /*********************************************************************
      * Properties

@@ -26,6 +26,7 @@
 #include "rgbmatrixeditor.h"
 #include "chasereditor.h"
 #include "sceneeditor.h"
+#include "audioeditor.h"
 #include "collection.h"
 #include "treemodel.h"
 #include "rgbmatrix.h"
@@ -53,10 +54,6 @@ FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)
     m_showCount = m_audioCount = m_videoCount = 0;
 
     m_currentEditor = NULL;
-
-    qmlRegisterUncreatableType<Collection>("com.qlcplus.classes", 1, 0, "Collection", "Can't create a Collection");
-    qmlRegisterUncreatableType<Chaser>("com.qlcplus.classes", 1, 0, "Chaser", "Can't create a Chaser");
-    qmlRegisterUncreatableType<RGBMatrix>("com.qlcplus.classes", 1, 0, "RGBMatrix", "Can't create a RGBMatrix");
 
     m_functionTree = new TreeModel(this);
     QQmlEngine::setObjectOwnership(m_functionTree, QQmlEngine::CppOwnership);
@@ -326,6 +323,11 @@ void FunctionManager::setEditorFunction(quint32 fID)
         case Function::RGBMatrix:
         {
             m_currentEditor = new RGBMatrixEditor(m_view, m_doc, this);
+        }
+        break;
+        case Function::Audio:
+        {
+            m_currentEditor = new AudioEditor(m_view, m_doc, this);
         }
         break;
         case Function::Show: break; // a Show is edited by the Show Manager

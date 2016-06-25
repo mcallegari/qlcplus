@@ -26,6 +26,7 @@ INCLUDEPATH     += ../plugins/interfaces
 
 HEADERS += \
     app.h \
+    audioeditor.h \
     actionmanager.h \
     chasereditor.h \
     collectioneditor.h \
@@ -48,6 +49,7 @@ HEADERS += \
 
 SOURCES += main.cpp \
     app.cpp \
+    audioeditor.cpp \
     actionmanager.cpp \
     chasereditor.cpp \
     collectioneditor.cpp \
