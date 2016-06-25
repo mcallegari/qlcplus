@@ -28,7 +28,8 @@ import "."
 Item
 {
     id: itemRoot
-    height: 80
+    height: UISettings.mediumItemHeight
+    y: trackIndex >= 0 ? iTrackHeight * trackIndex : 0
     z: 1
 
     property ShowFunction sfRef: null
@@ -41,7 +42,9 @@ Item
     property color globalColor: showManager.itemsColor
     property string infoText: ""
 
-    onTrackIndexChanged: itemRoot.y = trackIndex * height
+    /* this is a damn workaround cause apparently everybody in the ShowManager rounds this real value to int except for an Item. */
+    property int iTrackHeight: UISettings.mediumItemHeight
+
     onStartTimeChanged: x = TimeUtils.timeToSize(startTime, timeScale)
     onDurationChanged: width = TimeUtils.timeToSize(duration, timeScale)
     onTimeScaleChanged:

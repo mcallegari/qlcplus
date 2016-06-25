@@ -25,7 +25,7 @@ import "."
 Rectangle
 {
     width: 100
-    height: 80
+    height: UISettings.mediumItemHeight
     clip: true
 
     color: isSelected ? UISettings.highlight : "#313F4A"

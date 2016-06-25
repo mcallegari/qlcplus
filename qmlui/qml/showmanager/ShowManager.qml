@@ -33,7 +33,7 @@ Rectangle
 
     property string contextName: "SHOWMGR"
 
-    property int trackHeight: UISettings.bigItemHeight * 0.6
+    property int trackHeight: UISettings.mediumItemHeight
     property int trackWidth: UISettings.bigItemHeight * 1.6
 
     property real timeScale: showManager.timeScale
@@ -337,10 +337,10 @@ Rectangle
         boundsBehavior: Flickable.StopAtBounds
         flickableDirection: Flickable.VerticalFlick
 
-        contentHeight: tracksHeight > height ? tracksHeight : height
+        contentHeight: totalTracksHeight > height ? totalTracksHeight : height
         //contentWidth: timelineHeader.contentWidth
 
-        property int tracksHeight: (tracksBox.count + 1) * trackHeight
+        property real totalTracksHeight: (tracksBox.count + 1) * trackHeight
 
         Column
         {
