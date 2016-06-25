@@ -56,7 +56,6 @@ class RGBMatrix : public Function
      * Initialization
      *********************************************************************/
 public:
-    RGBMatrix() {}
     RGBMatrix(Doc* parent);
     ~RGBMatrix();
 

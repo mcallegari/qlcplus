@@ -37,12 +37,6 @@
  * Initialization
  *****************************************************************************/
 
-Collection::Collection()
-    : m_functionListMutex(QMutex::Recursive)
-{
-
-}
-
 Collection::Collection(Doc* doc)
     : Function(doc, Function::Collection)
     , m_functionListMutex(QMutex::Recursive)
@@ -152,7 +146,7 @@ bool Collection::removeFunction(quint32 fid)
     }
 }
 
-QVariantList Collection::functions() const
+QList<quint32> Collection::functions() const
 {
     QMutexLocker locker(&m_functionListMutex);
     return m_functions;
@@ -180,7 +174,8 @@ bool Collection::saveXML(QXmlStreamWriter *doc)
     saveXMLCommon(doc);
 
     /* Steps */
-    foreach(QVariant fid, m_functions)
+    QListIterator <quint32> it(m_functions);
+    while (it.hasNext() == true)
     {
         /* Step tag */
         doc->writeStartElement(KXMLQLCFunctionStep);
@@ -189,7 +184,7 @@ bool Collection::saveXML(QXmlStreamWriter *doc)
         doc->writeAttribute(KXMLQLCFunctionNumber, QString::number(i++));
 
         /* Step Function ID */
-        doc->writeCharacters(QString::number(fid.toUInt()));
+        doc->writeCharacters(QString::number(it.next()));
         doc->writeEndElement();
     }
 
@@ -236,16 +231,13 @@ void Collection::postLoad()
 
     /* Check that all member functions exist (nonexistent functions can
        be present only when a corrupted file has been loaded) */
-    QMutableListIterator<QVariant> it(m_functions);
+    QMutableListIterator<quint32> it(m_functions);
     while (it.hasNext() == true)
     {
         /* Remove any nonexistent member functions */
-        QVariant fidVar = it.next();
-        Function* function = doc->function(fidVar.toUInt());
+        Function* function = doc->function(it.next());
 
-        if (function == NULL)
-            it.remove();
-        else if (function->contains(id())) // forbid self-containment
+        if (function == NULL || function->contains(id())) // forbid self-containment
             it.remove();
     }
 }
@@ -255,9 +247,10 @@ bool Collection::contains(quint32 functionId)
     Doc* doc = qobject_cast <Doc*> (parent());
     Q_ASSERT(doc != NULL);
 
-    foreach(QVariant fid, m_functions)
+    QListIterator <quint32> it(m_functions);
+    while (it.hasNext() == true)
     {
-        Function* function = doc->function(fid.toUInt());
+        Function* function = doc->function(it.next());
         // contains() can be called during init, function may be NULL
         if (function == NULL)
             continue;

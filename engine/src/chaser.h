@@ -57,7 +57,6 @@ class Chaser : public Function
      * Initialization
      *********************************************************************/
 public:
-    Chaser();
     Chaser(Doc* doc);
     virtual ~Chaser();
 

@@ -52,11 +52,6 @@
  * Initialization
  *****************************************************************************/
 
-Chaser::Chaser()
-{
-
-}
-
 Chaser::Chaser(Doc* doc)
     : Function(doc, Function::Chaser)
     , m_legacyHoldBus(Bus::invalid())

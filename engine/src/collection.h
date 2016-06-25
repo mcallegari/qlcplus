@@ -21,7 +21,6 @@
 #ifndef COLLECTION_H
 #define COLLECTION_H
 
-#include <QVariant>
 #include <QMutex>
 #include <QList>
 #include <QSet>
@@ -39,13 +38,10 @@ class Collection : public Function
     Q_OBJECT
     Q_DISABLE_COPY(Collection)
 
-    Q_PROPERTY(QVariantList functions READ functions NOTIFY functionsChanged)
-
     /*********************************************************************
      * Initialization
      *********************************************************************/
 public:
-    Collection();
     Collection(Doc* doc);
     virtual ~Collection();
 
@@ -73,7 +69,7 @@ public:
      * @param fid The function to add
      * @return true if successful, otherwise false
      */
-    Q_INVOKABLE bool addFunction(quint32 fid, int insertIndex = -1);
+    bool addFunction(quint32 fid, int insertIndex = -1);
 
     /**
      * Remove a function from this collection. If the function is not a
@@ -82,12 +78,12 @@ public:
      * @param fid The function to remove
      * @return true if successful, otherwise false
      */
-    Q_INVOKABLE bool removeFunction(quint32 fid);
+    bool removeFunction(quint32 fid);
 
     /**
      * Get this function's list of member functions
      */
-    QVariantList functions() const;
+    QList <quint32> functions() const;
 
 signals:
     void functionsChanged();
@@ -98,7 +94,7 @@ public slots:
     void slotFunctionRemoved(quint32 function);
 
 protected:
-    QVariantList m_functions;
+    QList <quint32> m_functions;
     mutable QMutex m_functionListMutex;
 
     /*********************************************************************
