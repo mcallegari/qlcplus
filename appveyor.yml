@@ -46,8 +46,9 @@ build_script:
           make install -s
           cp *.qm /c/qlcplus
           cd /c/qlcplus
-          ls
           makensis -V4 qlcplusQt5.nsi
+          ls
+          exit 0
         "@
 
 
