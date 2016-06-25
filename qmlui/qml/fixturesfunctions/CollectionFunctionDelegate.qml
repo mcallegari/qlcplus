@@ -92,11 +92,7 @@ Rectangle
     MouseArea
     {
         anchors.fill: parent
-        onClicked:
-        {
-            isSelected = true
-            funcDelegate.clicked(functionID, funcDelegate, mouse.modifiers)
-        }
+        onClicked: funcDelegate.clicked(functionID, funcDelegate, mouse.modifiers)
     }
 }
 
