@@ -33,17 +33,10 @@ Rectangle
     color: "transparent"
 
     property int functionID: -1
-    property RGBMatrix matrix
 
     signal requestView(int ID, string qmlSrc)
 
     Component.onDestruction: functionManager.setEditorFunction(-1)
-
-    onFunctionIDChanged:
-    {
-        console.log("RGBMatrix ID: " + functionID)
-        matrix = functionManager.getFunction(functionID)
-    }
 
     TimeEditTool
     {
@@ -105,17 +98,13 @@ Rectangle
             width: topBar.width - x
             color: UISettings.fgMain
             clip: true
-            text: matrix ? matrix.name : ""
+            text: rgbMatrixEditor.functionName
             verticalAlignment: TextInput.AlignVCenter
             font.family: "Roboto Condensed"
             font.pointSize: UISettings.textSizeDefault
             selectByMouse: true
             Layout.fillWidth: true
-            onTextChanged:
-            {
-                if (matrix)
-                    matrix.name = text
-            }
+            onTextChanged: rgbMatrixEditor.functionName = text
         }
     }
 

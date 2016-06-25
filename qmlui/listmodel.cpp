@@ -102,7 +102,7 @@ bool ListModel::setDataWithRole(const QModelIndex &index, QString roleName, cons
 
 void ListModel::addDataMap(QVariantMap data)
 {
-    int addIndex = m_data.count() - 1;
+    int addIndex = m_data.count();
     beginInsertRows(QModelIndex(), addIndex, addIndex);
     m_data.append(data);
     endInsertRows();

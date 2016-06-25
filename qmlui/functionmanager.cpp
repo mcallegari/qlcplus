@@ -21,6 +21,7 @@
 #include <QQmlEngine>
 #include <QDebug>
 
+#include "collectioneditor.h"
 #include "functionmanager.h"
 #include "rgbmatrixeditor.h"
 #include "chasereditor.h"
@@ -53,9 +54,9 @@ FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)
 
     m_currentEditor = NULL;
 
-    qmlRegisterType<Collection>("com.qlcplus.classes", 1, 0, "Collection");
-    qmlRegisterType<Chaser>("com.qlcplus.classes", 1, 0, "Chaser");
-    qmlRegisterType<RGBMatrix>("com.qlcplus.classes", 1, 0, "RGBMatrix");
+    qmlRegisterUncreatableType<Collection>("com.qlcplus.classes", 1, 0, "Collection", "Can't create a Collection");
+    qmlRegisterUncreatableType<Chaser>("com.qlcplus.classes", 1, 0, "Chaser", "Can't create a Chaser");
+    qmlRegisterUncreatableType<RGBMatrix>("com.qlcplus.classes", 1, 0, "RGBMatrix", "Can't create a RGBMatrix");
 
     m_functionTree = new TreeModel(this);
     QQmlEngine::setObjectOwnership(m_functionTree, QQmlEngine::CppOwnership);
@@ -291,7 +292,6 @@ void FunctionManager::setEditorFunction(quint32 fID)
     // reset all the editor functions
     if (m_currentEditor != NULL)
     {
-        //m_currentEditor->setFunctionID(Function::invalidId());
         delete m_currentEditor;
         m_currentEditor = NULL;
     }
@@ -316,6 +316,11 @@ void FunctionManager::setEditorFunction(quint32 fID)
         case Function::Chaser:
         {
             m_currentEditor = new ChaserEditor(m_view, m_doc, this);
+        }
+        break;
+        case Function::Collection:
+        {
+            m_currentEditor = new CollectionEditor(m_view, m_doc, this);
         }
         break;
         case Function::RGBMatrix:

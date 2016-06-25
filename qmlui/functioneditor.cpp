@@ -24,10 +24,11 @@ FunctionEditor::FunctionEditor(QQuickView *view, Doc *doc, QObject *parent)
     : QObject(parent)
     , m_view(view)
     , m_doc(doc)
+    , m_functionID(Function::invalidId())
+    , m_function(NULL)
+    , m_functionType(Function::Undefined)
+    , m_preview(false)
 {
-    m_functionID = Function::invalidId();
-    m_functionType = Function::Undefined;
-    m_preview = false;
 }
 
 FunctionEditor::~FunctionEditor()
@@ -37,10 +38,21 @@ FunctionEditor::~FunctionEditor()
 
 void FunctionEditor::setFunctionID(quint32 ID)
 {
+    bool wasRunning = false;
+
+    if (m_function != NULL && m_function->isRunning())
+    {
+        wasRunning = true;
+        m_function->stop(FunctionParent::master());
+    }
+
     m_functionID = ID;
-    Function *f = m_doc->function(ID);
-    if (f != NULL)
-        m_functionType = f->type();
+    m_function = m_doc->function(ID);
+    if (m_function != NULL)
+        m_functionType = m_function->type();
+
+    if (wasRunning)
+        m_function->start(m_doc->masterTimer(), FunctionParent::master());
 }
 
 quint32 FunctionEditor::functionID() const
@@ -57,19 +69,35 @@ void FunctionEditor::setPreview(bool enable)
 {
     m_preview = enable;
 
-    Function *f = m_doc->function(m_functionID);
-    if (f == NULL)
+    if (m_function == NULL)
         return;
 
     if (m_preview)
     {
-        if (f->isRunning() == false)
-            f->start(m_doc->masterTimer(), FunctionParent::master());
+        if (m_function->isRunning() == false)
+            m_function->start(m_doc->masterTimer(), FunctionParent::master());
     }
     else
     {
-        if (f->isRunning())
-            f->stop(FunctionParent::master());
+        if (m_function->isRunning())
+            m_function->stop(FunctionParent::master());
     }
+}
+
+QString FunctionEditor::functionName() const
+{
+    if (m_function == NULL)
+        return "";
+
+    return m_function->name();
+}
+
+void FunctionEditor::setFunctionName(QString functionName)
+{
+    if (m_function == NULL || m_function->name() == functionName)
+        return;
+
+    m_function->setName(functionName);
+    emit functionNameChanged(functionName);
 }
 

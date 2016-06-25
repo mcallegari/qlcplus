@@ -28,6 +28,7 @@ HEADERS += \
     app.h \
     actionmanager.h \
     chasereditor.h \
+    collectioneditor.h \
     contextmanager.h \
     fixturebrowser.h \
     fixturemanager.h \
@@ -49,6 +50,7 @@ SOURCES += main.cpp \
     app.cpp \
     actionmanager.cpp \
     chasereditor.cpp \
+    collectioneditor.cpp \
     contextmanager.cpp \
     fixturebrowser.cpp \
     fixturemanager.cpp \

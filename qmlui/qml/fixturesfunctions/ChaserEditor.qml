@@ -34,6 +34,7 @@ Rectangle
 
     signal requestView(int ID, string qmlSrc)
 
+    Component.onDestruction: functionManager.setEditorFunction(-1)
 
     ModelSelector
     {
@@ -133,14 +134,14 @@ Rectangle
                     width: ceContainer.width - backBox.width - addFunc.width - removeFunc.width - 10
                     color: UISettings.fgMain
                     clip: true
-                    text: chaserEditor.chaserName
+                    text: chaserEditor.functionName
                     verticalAlignment: TextInput.AlignVCenter
                     font.family: "Roboto Condensed"
                     font.pointSize: UISettings.textSizeDefault
                     selectByMouse: true
                     Layout.fillWidth: true
 
-                    onTextChanged: chaserEditor.chaserName = text
+                    onTextChanged: chaserEditor.functionName = text
                 }
 
                 IconButton

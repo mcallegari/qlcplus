@@ -33,6 +33,8 @@ class FunctionEditor : public QObject
 {
     Q_OBJECT
 
+    Q_PROPERTY(QString functionName READ functionName WRITE setFunctionName NOTIFY functionNameChanged)
+
 public:
     FunctionEditor(QQuickView *view, Doc *doc, QObject *parent = 0);
     virtual ~FunctionEditor();
@@ -47,6 +49,13 @@ public:
     /** Enable/Disable the preview of the edited Function */
     virtual void setPreview(bool enable);
 
+    /** Get/Set the name of the Function being edited */
+    virtual QString functionName() const;
+    virtual void setFunctionName(QString functionName);
+
+signals:
+    void functionNameChanged(QString functionName);
+
 protected:
     /** Reference of the QML view */
     QQuickView *m_view;
@@ -54,6 +63,8 @@ protected:
     Doc *m_doc;
     /** ID of the Function being edited */
     quint32 m_functionID;
+    /** Reference of the Function being edited */
+    Function *m_function;
     /** Type of the Function being edited */
     Function::Type m_functionType;
     /** Flag that holds if the editor should preview its function */

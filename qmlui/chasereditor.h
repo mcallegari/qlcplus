@@ -29,7 +29,6 @@ class ChaserEditor : public FunctionEditor
 {
     Q_OBJECT
 
-    Q_PROPERTY(QString chaserName READ chaserName WRITE setChaserName NOTIFY chaserNameChanged)
     Q_PROPERTY(QVariant stepsList READ stepsList NOTIFY stepsListChanged)
     Q_PROPERTY(int runOrder READ runOrder WRITE setRunOrder NOTIFY runOrderChanged)
     Q_PROPERTY(int direction READ direction WRITE setDirection NOTIFY directionChanged)
@@ -45,12 +44,6 @@ public:
 
     QVariant stepsList() const;
 
-    /** Return the name of the Chaser being edited */
-    QString chaserName() const;
-
-    /** Set the name of the Chaser being edited */
-    void setChaserName(QString chaserName);
-
     /**
      * Add a function to the Chaser being edited.
      *
@@ -58,6 +51,9 @@ public:
      * @return true if successful, otherwise false
      */
     Q_INVOKABLE bool addFunction(quint32 fid, int insertIndex = -1);
+
+protected:
+    void updateStepsList();
 
 private:
     /** Reference of the Chaser currently being edited */
@@ -104,7 +100,6 @@ private:
     void setStepsDuration(int stepsDuration);
 
 signals:
-    void chaserNameChanged(QString chaserName);
     void stepsListChanged();
     void runOrderChanged(int runOrder);
     void directionChanged(int direction);

@@ -31,15 +31,10 @@ Rectangle
     color: "transparent"
 
     property int functionID: -1
-    property Collection collection
 
     signal requestView(int ID, string qmlSrc)
 
-    onFunctionIDChanged:
-    {
-        console.log("Collection ID: " + functionID)
-        collection = functionManager.getFunction(functionID)
-    }
+    Component.onDestruction: functionManager.setEditorFunction(-1)
 
     ModelSelector
     {
@@ -124,17 +119,13 @@ Rectangle
                     width: ceContainer.width - backBox.width - addFunc.width - removeFunc.width
                     color: UISettings.fgMain
                     clip: true
-                    text: collection ? collection.name : ""
+                    text: collectionEditor.functionName
                     verticalAlignment: TextInput.AlignVCenter
                     font.family: "Roboto Condensed"
                     font.pointSize: UISettings.textSizeDefault
                     selectByMouse: true
                     Layout.fillWidth: true
-                    onTextChanged:
-                    {
-                        if (collection)
-                            collection.name = text
-                    }
+                    onTextChanged: collectionEditor.functionName = text
                 }
 
                 IconButton
@@ -185,12 +176,13 @@ Rectangle
 
                 property int dragInsertIndex: -1
 
-                model: collection ? collection.functions : null
+                model: collectionEditor.functionsList
                 delegate:
                     CollectionFunctionDelegate
                     {
                         width: cFunctionList.width
-                        functionID: modelData
+                        functionID: model.funcID
+                        isSelected: model.isSelected
                         indexInList: index
                         highlightIndex: cFunctionList.dragInsertIndex
 
@@ -210,7 +202,7 @@ Rectangle
                     {
                         console.log("Item dropped here. x: " + drag.x + " y: " + drag.y)
                         console.log("Item fID: " + drag.source.funcID)
-                        collection.addFunction(drag.source.funcID, cFunctionList.dragInsertIndex)
+                        collectionEditor.addFunction(drag.source.funcID, cFunctionList.dragInsertIndex)
                         cFunctionList.dragInsertIndex = -1
                     }
                     onPositionChanged:
