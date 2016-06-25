@@ -56,4 +56,4 @@ private:
     ListModel *m_functionsList;
 };
 
-#endif // CHASEREDITOR_H
+#endif // COLLECTIONEDITOR_H

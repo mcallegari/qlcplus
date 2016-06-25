@@ -32,7 +32,7 @@ Rectangle
     property string imgSource: ""
     property string entryText: ""
     property color bgColor: "transparent"
-    property color hoverColor: "#0978FF"
+    property color hoverColor: UISettings.highlight
     property color pressedColor: "#054A9E"
     property int itemWidth: imgSize + (textBox ? textBox.width : 100) + 15
 
