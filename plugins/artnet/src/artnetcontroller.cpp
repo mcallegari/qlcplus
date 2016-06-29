@@ -123,13 +123,12 @@ void ArtNetController::addUniverse(quint32 universe, ArtNetController::Type type
     // send Polls if we open an Output
     if (type == Output && m_pollTimer == NULL)
     {
-        sendPoll();
+        slotSendPoll();
 
         m_pollTimer = new QTimer(this);
         m_pollTimer->setInterval(5000);
-        m_pollTimer->setSingleShot(false);
         connect(m_pollTimer, SIGNAL(timeout()),
-                this, SLOT(slotPollTimeout()));
+                this, SLOT(slotSendPoll()));
         m_pollTimer->start();
     }
 }
@@ -145,6 +144,8 @@ void ArtNetController::removeUniverse(quint32 universe, ArtNetController::Type t
 
         if (type == Output && ((this->type() | Output) == 0))
         {
+            disconnect(m_pollTimer, SIGNAL(timeout()),
+                       this, SLOT(slotSendPoll()));
             delete m_pollTimer;
             m_pollTimer = NULL;
         }
@@ -403,18 +404,26 @@ bool ArtNetController::handlePacket(QByteArray const& datagram, QHostAddress con
     return true;
 }
 
-void ArtNetController::slotPollTimeout()
+void ArtNetController::slotSendPoll()
 {
-    sendPoll();
-}
+    QList<QHostAddress>addressList;
 
-void ArtNetController::sendPoll()
-{
-    QByteArray pollPacket;
-    m_packetizer->setupArtNetPoll(pollPacket);
-    qint64 sent = m_udpSocket->writeDatagram(pollPacket, m_broadcastAddr, ARTNET_PORT);
-    if (sent < 0)
-        qWarning() << "Unable to send Poll packet: errno=" << m_udpSocket->error() << "(" << m_udpSocket->errorString() << ")";
-    else
-        m_packetSent++;
+    /* first, retrieve a list of unique output addresses */
+    foreach(quint32 universe, universesList())
+    {
+        UniverseInfo info = m_universeMap[universe];
+        if (addressList.contains(info.outputAddress) == false)
+            addressList.append(info.outputAddress);
+    }
+
+    foreach (QHostAddress addr, addressList)
+    {
+        QByteArray pollPacket;
+        m_packetizer->setupArtNetPoll(pollPacket);
+        qint64 sent = m_udpSocket->writeDatagram(pollPacket, addr, ARTNET_PORT);
+        if (sent < 0)
+            qWarning() << "Unable to send Poll packet: errno=" << m_udpSocket->error() << "(" << m_udpSocket->errorString() << ")";
+        else
+            m_packetSent++;
+    }
 }

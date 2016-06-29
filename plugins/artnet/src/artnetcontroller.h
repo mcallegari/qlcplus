@@ -179,9 +179,7 @@ public:
     bool handlePacket(QByteArray const& datagram, QHostAddress const& senderAddress);
 
 protected slots:
-    void slotPollTimeout();
-protected:
-    void sendPoll();
+    void slotSendPoll();
 
 signals:
     void valueChanged(quint32 universe, quint32 input, quint32 channel, uchar value);
