@@ -35,6 +35,7 @@ VCWidget::VCWidget(Doc *doc, QObject *parent)
     , m_caption(QString())
     , m_backgroundColor(QColor("#333"))
     , m_hasCustomBackgroundColor(false)
+    , m_backgroundImage(QString())
     , m_foregroundColor(QColor(Qt::white))
     , m_hasCustomForegroundColor(false)
     , m_hasCustomFont(false)
@@ -282,6 +283,25 @@ void VCWidget::resetBackgroundColor()
     emit backgroundColorChanged(m_backgroundColor);
 }
 
+/*********************************************************************
+ * Background image
+ *********************************************************************/
+void VCWidget::setBackgroundImage(const QString& path)
+{
+    if (m_backgroundImage == path)
+        return;
+
+    m_hasCustomBackgroundColor = false;
+    m_backgroundImage = path;
+    setDocModified();
+    emit backgroundImageChanged(path);
+}
+
+QString VCWidget::backgroundImage() const
+{
+    return m_backgroundImage;
+}
+
 /*****************************************************************************
  * Foreground color
  *****************************************************************************/
@@ -474,14 +494,12 @@ bool VCWidget::loadXMLAppearance(QXmlStreamReader &root)
             if (str != KXMLQLCVCWidgetColorDefault)
                 setBackgroundColor(QColor(str.toUInt()));
         }
-/*
         else if (root.name() == KXMLQLCVCWidgetBackgroundImage)
         {
             QString str = root.readElementText();
             if (str != KXMLQLCVCWidgetBackgroundImageNone)
                 setBackgroundImage(m_doc->denormalizeComponentPath(str));
         }
-*/
         else if (root.name() == KXMLQLCVCWidgetFont)
         {
             QString str = root.readElementText();
@@ -588,16 +606,12 @@ bool VCWidget::saveXMLAppearance(QXmlStreamWriter *doc)
         doc->writeTextElement(KXMLQLCVCWidgetBackgroundColor, str);
     }
 
-#if 0 // TODO
     /* Background image */
     if (backgroundImage().isEmpty() == false)
     {
-        str = m_doc->normalizeComponentPath(m_backgroundImage);
-    //else
-    //    str = KXMLQLCVCWidgetBackgroundImageNone;
-        doc->writeTextElement(KXMLQLCVCWidgetBackgroundImage, str);
+        doc->writeTextElement(KXMLQLCVCWidgetBackgroundImage,
+                              m_doc->normalizeComponentPath(m_backgroundImage));
     }
-#endif
 
     /* Font */
     if (hasCustomFont() == true)

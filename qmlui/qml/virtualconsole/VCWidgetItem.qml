@@ -50,6 +50,12 @@ Rectangle
         wObj = obj
     }
 
+    Image
+    {
+        anchors.fill: parent
+        source: wObj ? wObj.backgroundImage : ""
+    }
+
     // resize area
     Rectangle
     {

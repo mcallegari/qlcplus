@@ -72,6 +72,7 @@ class VCWidget : public QObject
     Q_PROPERTY(bool isVisible READ isVisible WRITE setVisible NOTIFY isVisibleChanged)
     Q_PROPERTY(QString caption READ caption WRITE setCaption NOTIFY captionChanged)
     Q_PROPERTY(QColor backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY backgroundColorChanged)
+    Q_PROPERTY(QString backgroundImage READ backgroundImage WRITE setBackgroundImage NOTIFY backgroundImageChanged)
     Q_PROPERTY(QColor foregroundColor READ foregroundColor WRITE setForegroundColor NOTIFY foregroundColorChanged)
     Q_PROPERTY(QFont font READ font WRITE setFont NOTIFY fontChanged)
     Q_PROPERTY(int page READ page WRITE setPage NOTIFY pageChanged)
@@ -261,6 +262,22 @@ signals:
 protected:
     QColor m_backgroundColor;
     bool m_hasCustomBackgroundColor;
+
+    /*********************************************************************
+     * Background image
+     *********************************************************************/
+public:
+    /** Set the widget's background image */
+    void setBackgroundImage(const QString& path);
+
+    /** Get the widget's background image */
+    QString backgroundImage() const;
+
+signals:
+    void backgroundImageChanged(const QString& path);
+
+protected:
+    QString m_backgroundImage;
 
     /*********************************************************************
      * Foreground color

@@ -85,7 +85,6 @@ Rectangle
               boundsBehavior: Flickable.StopAtBounds
               contentHeight: propsContentsColumn.height
 
-
               Column
               {
                 id: propsContentsColumn
@@ -110,12 +109,13 @@ Rectangle
                         // row 1
                         RobotoText
                         {
-                            fontSize: 14
+                            height: UISettings.listItemHeight
                             label: qsTr("Label")
                         }
                         CustomTextEdit
                         {
                             Layout.fillWidth: true
+                            height: UISettings.listItemHeight
                             color: UISettings.bgStronger
                             inputText: wObj ? wObj.caption : ""
 
@@ -129,13 +129,13 @@ Rectangle
                         // row 2
                         RobotoText
                         {
-                            fontSize: 14
+                            height: UISettings.listItemHeight
                             label: qsTr("Background color")
                         }
                         Rectangle
                         {
                             width: 80
-                            height: 38
+                            height: UISettings.listItemHeight
                             color: wObj ? wObj.backgroundColor : "black"
 
                             ColorTool
@@ -163,13 +163,13 @@ Rectangle
                         // row 3
                         RobotoText
                         {
-                            fontSize: 14
+                            height: UISettings.listItemHeight
                             label: qsTr("Foreground color")
                         }
                         Rectangle
                         {
                             width: 80
-                            height: 38
+                            height: UISettings.listItemHeight
                             color: wObj ? wObj.foregroundColor : "black"
 
                             ColorTool
@@ -197,14 +197,14 @@ Rectangle
                         // row 4
                         RobotoText
                         {
-                            fontSize: 14
+                            height: UISettings.listItemHeight
                             label: qsTr("Font")
                         }
 
                         Rectangle
                         {
                             Layout.fillWidth: true
-                            height: 38
+                            height: UISettings.listItemHeight
                             color: "transparent"
 
                             Text
@@ -213,7 +213,7 @@ Rectangle
                                 font.family: wObj ? wObj.font.family : ""
                                 font.bold: wObj ? wObj.font.bold : false
                                 font.italic: wObj ? wObj.font.italic : false
-                                font.pointSize: 12
+                                font.pointSize: UISettings.textSizeDefault * 0.8
                                 text: wObj ? wObj.font.family : ""
                                 color: "white"
                                 verticalAlignment: Text.AlignVCenter
@@ -221,7 +221,9 @@ Rectangle
 
                             IconButton
                             {
-                                x: parent.width - UISettings.iconSizeDefault
+                                width: UISettings.listItemHeight
+                                height: UISettings.listItemHeight
+                                anchors.right: parent.right
                                 imgSource: "qrc:/font.svg"
                                 //bgColor: "#aaa"
                                 //hoverColor: "#888"
@@ -240,6 +242,49 @@ Rectangle
                                         console.log("Selected font: " + fontDialog.font)
                                         wObj.font = fontDialog.font
                                     }
+                                }
+                            }
+                        }
+
+                        // row 5
+                        RobotoText
+                        {
+                            height: UISettings.listItemHeight
+                            label: qsTr("Background image")
+                        }
+
+                        Rectangle
+                        {
+                            Layout.fillWidth: true
+                            height: UISettings.listItemHeight
+                            color: "transparent"
+
+                            RobotoText
+                            {
+                                width: parent.width - imgButton.width - 5
+                                height: parent.height
+                                label: wObj ? wObj.backgroundImage : ""
+                                fontSize: UISettings.textSizeDefault * 0.8
+                            }
+
+                            IconButton
+                            {
+                                id: imgButton
+                                width: UISettings.listItemHeight
+                                height: UISettings.listItemHeight
+                                anchors.right: parent.right
+                                imgSource: "qrc:/background.svg"
+
+                                onClicked: fileDialog.visible = true
+
+                                FileDialog
+                                {
+                                    id: fileDialog
+                                    visible: false
+                                    title: qsTr("Select an image")
+                                    nameFilters: [ "Image files (*.png *.bmp *.jpg *.jpeg *.gif)", "All files (*)" ]
+
+                                    onAccepted: wObj.backgroundImage = fileDialog.fileUrl
                                 }
                             }
                         }
