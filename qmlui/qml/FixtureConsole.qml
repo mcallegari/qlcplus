@@ -76,6 +76,7 @@ Rectangle
         id: fxColumn
         height: parent.height
         visible: false
+
         Rectangle
         {
             id: fxNameBar
@@ -153,7 +154,7 @@ Rectangle
                                 sceneEditor.setChannelValue(fixtureObj.id, index, val)
                         }
 
-                        // This is the black overlay to "emulate" a disabled channel
+                        // This is the black overlay to "simulate" a disabled channel
                         Rectangle
                         {
                             x: 1
@@ -166,7 +167,7 @@ Rectangle
                             visible: showEnablers ? !isEnabled : false
                         }
 
-                        ColumnLayout
+                        Column
                         {
                             id: chColumn
                             x: 1
@@ -185,7 +186,7 @@ Rectangle
                                 color: isEnabled ? UISettings.highlight : UISettings.bgLight
                                 border.width: 1
                                 border.color: isEnabled ? "white" : UISettings.bgLighter
-                                Layout.alignment: Qt.AlignCenter
+                                //Layout.alignment: Qt.AlignCenter
 
                                 MouseArea
                                 {
@@ -207,22 +208,19 @@ Rectangle
                             Image
                             {
                                 id: chIcon
+                                x: (parent.width - width) / 2
                                 width: UISettings.iconSizeMedium
-                                height: height
-                                Layout.alignment: Qt.AlignCenter
+                                height: width
+                                //Layout.alignment: Qt.AlignCenter
                                 sourceSize: Qt.size(width, height)
                                 source: fixtureObj ? fixtureManager.channelIcon(fixtureObj.id, index) : ""
                             }
                             QLCPlusFader
                             {
                                 id: slider
-                                width: UISettings.iconSizeMedium
-                                Layout.fillHeight: true
-                                /*
-                                Layout.preferredHeight:
-                                    chDelegate.height ? chDelegate.height - UISettings.iconSizeMedium - chValueSpin.height -
-                                                        (showEnablers ? enableCheckBox.height : 0) - 4 : 0*/
-                                Layout.alignment: Qt.AlignCenter
+                                x: (parent.width - width) / 2
+                                width: parent.width * 0.95
+                                height: chDelegate.height - (showEnablers ? enableCheckBox.height : 0) - chIcon.height - chValueSpin.height
                                 minimumValue: 0
                                 maximumValue: dmxMode ? 255 : 100
                                 enabled: showEnablers ? isEnabled : true
@@ -248,6 +246,7 @@ Rectangle
                                 minimumValue: 0
                                 maximumValue: dmxMode ? 255 : 100
                                 showControls: false
+                                horizontalAlignment: Qt.AlignHCenter
                                 value: slider.value
                                 onValueChanged: dmxValue = value
                             }

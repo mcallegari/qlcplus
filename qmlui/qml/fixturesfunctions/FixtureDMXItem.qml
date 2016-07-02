@@ -153,7 +153,7 @@ Rectangle
             item.fixtureObj = fixtureObj
             item.isSelected = isSelected
             item.values = values
-            item.height = UISettings.bigItemHeight * 2
+            item.height = UISettings.bigItemHeight * 2.3
         }
         Connections
         {
