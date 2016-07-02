@@ -1,7 +1,6 @@
 qlcplus (4.10.5) stable; urgency=low
 
   * VC Frame: Show page number when collapsed (thanks to Matthias Gubisch)
-  * Plugins/ArtNet: send polls to the correct output addresses
   * New fixture: Pro-Lights LumiPIX 12Q (thanks to Andrea Ugolini)
   * New fixtures: Stairville DCL Flat Par 18x4W CW/WW, Cameo LED MultiPAR CLM-PAR-COB1 (thanks to Freasy)
   * New fixture: iSolution iColor 4 (thanks to withlime)

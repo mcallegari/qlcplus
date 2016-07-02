@@ -406,6 +406,7 @@ bool ArtNetController::handlePacket(QByteArray const& datagram, QHostAddress con
 
 void ArtNetController::slotSendPoll()
 {
+#if 0
     QList<QHostAddress>addressList;
 
     /* first, retrieve a list of unique output addresses */
@@ -416,6 +417,7 @@ void ArtNetController::slotSendPoll()
             addressList.append(info.outputAddress);
     }
 
+    /* then send a poll to each address collected */
     foreach (QHostAddress addr, addressList)
     {
         QByteArray pollPacket;
@@ -426,4 +428,13 @@ void ArtNetController::slotSendPoll()
         else
             m_packetSent++;
     }
+#else
+    QByteArray pollPacket;
+    m_packetizer->setupArtNetPoll(pollPacket);
+    qint64 sent = m_udpSocket->writeDatagram(pollPacket, m_broadcastAddr, ARTNET_PORT);
+    if (sent < 0)
+        qWarning() << "Unable to send Poll packet: errno=" << m_udpSocket->error() << "(" << m_udpSocket->errorString() << ")";
+    else
+        m_packetSent++;
+#endif
 }
