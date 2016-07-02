@@ -499,7 +499,8 @@ Rectangle
      * loaded at runtime depending on the selected algorithm
      * *********************************************************** */
 
-    /* **************** Text Algorithm parameters **************** */
+    /* *************************************************************
+     * **************** Text Algorithm parameters **************** */
     Component
     {
         id: textAlgoComponent
@@ -531,7 +532,7 @@ Rectangle
                         anchors.margins: 4
                         anchors.verticalCenter: parent.verticalCenter
                         text: rgbMatrixEditor.algoText
-                        font.pointSize: 16
+                        font.pointSize: UISettings.textSizeDefault
                         color: "white"
 
                         onTextChanged: rgbMatrixEditor.algoText = text
@@ -608,9 +609,9 @@ Rectangle
             }
         }
     }
-    // ************************************************************
 
-    /* **************** Image Algorithm parameters **************** */
+    /* *************************************************************
+     * **************** Image Algorithm parameters *************** */
     Component
     {
         id: imageAlgoComponent
@@ -632,7 +633,7 @@ Rectangle
                 Rectangle
                 {
                     height: parent.height
-                    width: parent.width - fontButton.width - 5
+                    width: parent.width - imgButton.width - 5
                     radius: 3
                     color: UISettings.bgMedium
                     border.color: "#222"
@@ -645,7 +646,7 @@ Rectangle
                         anchors.margins: 4
                         anchors.verticalCenter: parent.verticalCenter
                         text: rgbMatrixEditor.algoImagePath
-                        font.pointSize: 16
+                        font.pointSize: UISettings.textSizeDefault
                         color: "white"
 
                         onTextChanged: rgbMatrixEditor.algoImagePath = text
@@ -653,7 +654,7 @@ Rectangle
                 }
                 IconButton
                 {
-                    id: fontButton
+                    id: imgButton
                     anchors.right: parent.right
                     imgSource: "qrc:/background.svg"
 
@@ -668,7 +669,6 @@ Rectangle
 
                         onAccepted: rgbMatrixEditor.algoImagePath = fileDialog.fileUrl
                     }
-
                 }
             }
 

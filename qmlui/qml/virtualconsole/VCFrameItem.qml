@@ -44,30 +44,28 @@ VCWidgetItem
     onIsCollapsedChanged:
     {
         frameRoot.width = isCollapsed ? 200 : frameObj.geometry.width
-        frameRoot.height = isCollapsed ? 36 : frameObj.geometry.height
+        frameRoot.height = isCollapsed ? UISettings.listItemHeight : frameObj.geometry.height
     }
 
     // Frame header
     Rectangle
     {
-        x: 2
-        y: 2
         width: parent.width
-        height: 32
+        height: UISettings.listItemHeight
         color: "transparent"
         visible: frameObj ? frameObj.showHeader : false
 
         RowLayout
         {
-            height: 32
-            width: parent.width - 4
+            height: parent.height
+            width: parent.width
             spacing: 2
 
             // expand/collapse button
             IconButton
             {
-                width: 32
-                height: 32
+                width: height
+                height: parent.height
                 tooltip: qsTr("Expand/Collapse this frame")
                 faSource: checked ? FontAwesome.fa_expand : FontAwesome.fa_compress
                 faColor: UISettings.fgMain
@@ -80,7 +78,7 @@ VCWidgetItem
             // header bar and caption
             Rectangle
             {
-                height: 32
+                height: parent.height
                 radius: 3
                 gradient: Gradient
                 {
@@ -104,8 +102,8 @@ VCWidgetItem
             // enable button
             IconButton
             {
-                width: 32
-                height: 32
+                width: height
+                height: parent.height
                 checkable: true
                 tooltip: qsTr("Enable/Disable this frame")
                 imgSource: "qrc:/apply.svg"
@@ -118,13 +116,13 @@ VCWidgetItem
             {
                 visible: frameObj ? frameObj.multiPageMode : false
                 width: 168
-                height: 32
+                height: parent.height
                 color: "transparent"
 
                 IconButton
                 {
-                    width: 32
-                    height: 32
+                    width: height
+                    height: parent.height
                     tooltip: qsTr("Previous page")
                     imgSource: "qrc:/back.svg"
                     imgMargins: 1
@@ -132,9 +130,9 @@ VCWidgetItem
                 }
                 Rectangle
                 {
-                    x: 34
+                    x: parent.height + 2
                     width: 100
-                    height: 32
+                    height: parent.height
                     radius: 3
                     color: "black"
 
@@ -150,9 +148,9 @@ VCWidgetItem
                 }
                 IconButton
                 {
-                    x: 136
-                    width: 32
-                    height: 32
+                    x: parent.width - width - 2
+                    width: height
+                    height: parent.height
                     tooltip: qsTr("Next page")
                     imgSource: "qrc:/forward.svg"
                     imgMargins: 1

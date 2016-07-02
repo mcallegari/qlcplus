@@ -80,7 +80,7 @@ Rectangle
             onClicked:
             {
                 fileDialog.title = qsTr("Open a workspace")
-                fileDialog.nameFilters = [ "Workspace files (*.qxw)", "All files (*)" ]
+                fileDialog.nameFilters = [ qsTr("Workspace files") + " (*.qxw)", qsTr("All files") + " (*)" ]
                 fileDialog.visible = true
                 closeMenu()
                 fileDialog.open();

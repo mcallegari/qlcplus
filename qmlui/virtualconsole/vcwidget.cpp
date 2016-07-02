@@ -264,6 +264,8 @@ void VCWidget::setBackgroundColor(QColor backgroundColor)
     if (m_backgroundColor == backgroundColor)
         return;
 
+    setBackgroundImage("");
+
     m_backgroundColor = backgroundColor;
     m_hasCustomBackgroundColor = true;
     setDocModified();

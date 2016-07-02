@@ -41,7 +41,7 @@ Rectangle
     {
         id: colorToolBar
         width: parent.width
-        height: 32
+        height: UISettings.listItemHeight
         z: 10
         gradient:
             Gradient
@@ -76,9 +76,7 @@ Rectangle
                 onCheckedChanged:
                 {
                     if (checked == true)
-                    {
                         colorToolQML = "qrc:/ColorToolBasic.qml"
-                    }
                 }
             }
 
@@ -93,9 +91,7 @@ Rectangle
                 onCheckedChanged:
                 {
                     if (checked == true)
-                    {
                         colorToolQML = "qrc:/ColorToolFull.qml"
-                    }
                 }
             }
             MenuBarEntry
@@ -109,9 +105,7 @@ Rectangle
                 onCheckedChanged:
                 {
                     if (checked == true)
-                    {
                         colorToolQML = "qrc:/ColorToolFilters.qml"
-                    }
                 }
             }
             // allow the tool to be dragged around

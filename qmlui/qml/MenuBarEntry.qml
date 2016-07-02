@@ -34,6 +34,7 @@ Rectangle
     property bool checkable: false
     property string imgSource: ""
     property string entryText: ""
+    property real mFontSize: UISettings.textSizeDefault * 0.85
     property bool checked: false
     property Gradient bgGradient: defBgGradient
     property Gradient selGradient: defSelectionGradient
@@ -98,7 +99,7 @@ Rectangle
                 id: textBox
                 label: entryText
                 height: parent.height
-                fontSize: height ? height * 0.25 : 16
+                fontSize: mFontSize
                 fontBold: true
             }
             Rectangle
@@ -121,7 +122,7 @@ Rectangle
         acceptedButtons: Qt.LeftButton | Qt.RightButton
         onClicked:
         {
-            if (mouse.button == Qt.LeftButton)
+            if (mouse.button === Qt.LeftButton)
             {
                 if (checkable == true)
                 {

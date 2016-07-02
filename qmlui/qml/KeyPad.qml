@@ -26,7 +26,7 @@ Rectangle
 {
     id: keyPadRoot
     width: 400
-    height: 400
+    height: keyPadGrid.height
     color: "transparent"
     //border.color: "#666"
     //border.width: 2
@@ -43,9 +43,9 @@ Rectangle
     {
         id: keyPadGrid
         width: parent.width
-        height: 40 * rows
+        height: UISettings.iconSizeDefault * rows
         columns: showDMXcontrol ? 4 : 3
-        rows: 4
+        rows: 6
         rowSpacing: 3
         columnSpacing: 3
 

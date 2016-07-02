@@ -18,6 +18,7 @@
 */
 
 import QtQuick 2.0
+import "."
 
 Rectangle
 {
@@ -184,12 +185,13 @@ Rectangle
         spacing: 20
         RobotoText
         {
+            height: UISettings.listItemHeight
             label: qsTr("Selected color");
         }
         Rectangle
         {
-            width: 70
-            height: 40
+            width: UISettings.mediumItemHeight
+            height: UISettings.listItemHeight
             color: selectedColor
         }
     }

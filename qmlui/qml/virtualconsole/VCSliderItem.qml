@@ -21,6 +21,7 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.1
 
 import com.qlcplus.classes 1.0
+import "."
 
 VCWidgetItem
 {
@@ -43,16 +44,16 @@ VCWidgetItem
         Text
         {
             anchors.horizontalCenter: parent.horizontalCenter
-            height: 32
+            height: UISettings.listItemHeight
             font: sliderObj ? sliderObj.font : ""
-            text: sliderObj ? /*sliderObj.sliderValue*/ "0" : ""
-
+            text: slFader.value
             color: sliderObj ? sliderObj.foregroundColor : "white"
         }
 
         // the central fader
         QLCPlusFader
         {
+            id: slFader
             anchors.horizontalCenter: parent.horizontalCenter
             Layout.fillHeight: true
             width: parent.width
@@ -61,13 +62,12 @@ VCWidgetItem
         // widget name text box
         Text
         {
+            anchors.horizontalCenter: parent.horizontalCenter
             x: 2
-            width: sliderRoot.width - 4
-            height: 32
+            width: parent.width
+            height: UISettings.listItemHeight
             font: sliderObj ? sliderObj.font : ""
             text: sliderObj ? sliderObj.caption : ""
-            verticalAlignment: Text.AlignVCenter
-            horizontalAlignment: Text.AlignHCenter
             color: sliderObj ? sliderObj.foregroundColor : "white"
         }
     }
