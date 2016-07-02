@@ -140,13 +140,11 @@ Rectangle
                 onClicked:
                 {
                     var extList = audioEditor.mimeTypes
-                    var exts = "Audio files ("
+                    var exts = qsTr("Audio files") + " ("
                     for (var i = 0; i < extList.length; i++)
-                    {
                         exts += extList[i] + " "
-                    }
-                    exts += "), All files (*)"
-                    openAudioDialog.nameFilters = [ exts ]
+                    exts += ")"
+                    openAudioDialog.nameFilters = [ exts, qsTr("All files (*)") ]
                     openAudioDialog.visible = true
                     openAudioDialog.open()
                 }
@@ -154,36 +152,40 @@ Rectangle
         }
 
         // row 2
-        RobotoText { label: qsTr("Duration") }
+        RobotoText { label: qsTr("Duration"); height: UISettings.listItemHeight }
         RobotoText
         {
+            height: UISettings.listItemHeight
             Layout.fillWidth: true
             label: mediaInfo ? mediaInfo.duration : ""
             labelColor: UISettings.fgLight
         }
 
         // row 3
-        RobotoText { label: qsTr("Channels") }
+        RobotoText { label: qsTr("Channels"); height: UISettings.listItemHeight }
         RobotoText
         {
+            height: UISettings.listItemHeight
             Layout.fillWidth: true
             label: mediaInfo ? mediaInfo.channels : ""
             labelColor: UISettings.fgLight
         }
 
         // row 4
-        RobotoText { label: qsTr("Sample Rate") }
+        RobotoText { label: qsTr("Sample Rate"); height: UISettings.listItemHeight }
         RobotoText
         {
+            height: UISettings.listItemHeight
             Layout.fillWidth: true
             label: mediaInfo ? mediaInfo.sampleRate : ""
             labelColor: UISettings.fgLight
         }
 
         // row 5
-        RobotoText { label: qsTr("Bitrate") }
+        RobotoText { label: qsTr("Bitrate"); height: UISettings.listItemHeight }
         RobotoText
         {
+            height: UISettings.listItemHeight
             Layout.fillWidth: true
             label: mediaInfo ? mediaInfo.bitrate : ""
             labelColor: UISettings.fgLight

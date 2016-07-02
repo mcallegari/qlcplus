@@ -53,6 +53,7 @@ void AudioEditor::setSourceFileName(QString sourceFileName)
     m_audio->setSourceFileName(sourceFileName);
     emit sourceFileNameChanged(sourceFileName);
     emit mediaInfoChanged();
+    emit functionNameChanged(m_audio->name());
 }
 
 QStringList AudioEditor::mimeTypes() const
