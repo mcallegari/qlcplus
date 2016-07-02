@@ -66,6 +66,7 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc, QObject *parent)
         page->setShowHeader(false);
         page->setGeometry(QRect(0, 0, 1920, 1080));
         page->setFont(QFont("Roboto Condensed", 16));
+        page->setCaption(tr("Page %1").arg(i + 1));
         m_pages.append(page);
     }
 
@@ -262,6 +263,15 @@ VCWidget *VirtualConsole::widget(quint32 id)
         return NULL;
 
     return m_widgetsMap.value(id, NULL);
+}
+
+QStringList VirtualConsole::pagesList() const
+{
+    QStringList list;
+    foreach(VCFrame *frame, m_pages)
+        list.append(frame->caption());
+
+    return list;
 }
 
 int VirtualConsole::selectedPage() const

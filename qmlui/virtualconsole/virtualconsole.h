@@ -38,6 +38,7 @@ class VirtualConsole : public PreviewContext
 {
     Q_OBJECT
 
+    Q_PROPERTY(QStringList pagesList READ pagesList CONSTANT)
     Q_PROPERTY(int selectedPage READ selectedPage WRITE setSelectedPage NOTIFY selectedPageChanged)
     Q_PROPERTY(bool editMode READ editMode WRITE setEditMode NOTIFY editModeChanged)
     Q_PROPERTY(VCWidget *selectedWidget READ selectedWidget NOTIFY selectedWidgetChanged)
@@ -79,6 +80,8 @@ public:
     /** Return a reference to the VC widget with the specified $id.
      *  On invalid $id, NULL is returned */
     VCWidget *widget(quint32 id);
+
+    QStringList pagesList() const;
 
     /** Return the currently selected VC page index */
     int selectedPage() const;

@@ -85,44 +85,29 @@ Rectangle
                 spacing: 5
                 ExclusiveGroup { id: vcToolbarGroup }
 
-                MenuBarEntry
+                Repeater
                 {
-                    id: vcPage1
-                    entryText: qsTr("Page 1")
-                    checkable: true
-                    checked: true
-                    checkedColor: UISettings.toolbarSelectionSub
-                    bgGradient: vcTbGradient
-                    exclusiveGroup: vcToolbarGroup
-                    onCheckedChanged:
-                    {
-                        if (checked == true)
-                            virtualConsole.selectedPage = 0
-                    }
-                    onRightClicked:
-                    {
-                        vcPage1.visible = false
-                        WinLoader.createVCWindow("qrc:/VCPageArea.qml", 0)
-                    }
-                }
-                MenuBarEntry
-                {
-                    id: vcPage2
-                    entryText: qsTr("Page 2")
-                    checkable: true
-                    checkedColor: UISettings.toolbarSelectionSub
-                    bgGradient: vcTbGradient
-                    exclusiveGroup: vcToolbarGroup
-                    onCheckedChanged:
-                    {
-                        if (checked == true)
-                            virtualConsole.selectedPage = 1
-                    }
-                    onRightClicked:
-                    {
-                        vcPage1.visible = false
-                        WinLoader.createVCWindow("qrc:/VCPageArea.qml", 1)
-                    }
+                    model: virtualConsole.pagesList
+                    delegate:
+                        MenuBarEntry
+                        {
+                            entryText: modelData
+                            checkable: true
+                            checked: index === 0 ? true : false
+                            checkedColor: UISettings.toolbarSelectionSub
+                            bgGradient: vcTbGradient
+                            exclusiveGroup: vcToolbarGroup
+                            onCheckedChanged:
+                            {
+                                if (checked == true)
+                                    virtualConsole.selectedPage = index
+                            }
+                            onRightClicked:
+                            {
+                                visible = false
+                                WinLoader.createVCWindow("qrc:/VCPageArea.qml", index)
+                            }
+                        }
                 }
 
                 Rectangle { Layout.fillWidth: true }
