@@ -17,6 +17,7 @@
     <file alias="CustomTextEdit.qml">qml/CustomTextEdit.qml</file>
     <file alias="DayTimeTool.qml">qml/DayTimeTool.qml</file>
     <file alias="DMXPercentageButton.qml">qml/DMXPercentageButton.qml</file>
+    <file alias="EditableTextBox.qml">qml/EditableTextBox.qml</file>
     <file alias="FixtureConsole.qml">qml/FixtureConsole.qml</file>
     <file alias="FixtureDelegate.qml">qml/FixtureDelegate.qml</file>
     <file alias="FunctionDelegate.qml">qml/FunctionDelegate.qml</file>
