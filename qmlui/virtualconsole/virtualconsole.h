@@ -38,7 +38,7 @@ class VirtualConsole : public PreviewContext
 {
     Q_OBJECT
 
-    Q_PROPERTY(QStringList pagesList READ pagesList CONSTANT)
+    Q_PROPERTY(QStringList pagesList READ pagesList NOTIFY pagesListChanged)
     Q_PROPERTY(int selectedPage READ selectedPage WRITE setSelectedPage NOTIFY selectedPageChanged)
     Q_PROPERTY(bool editMode READ editMode WRITE setEditMode NOTIFY editModeChanged)
     Q_PROPERTY(VCWidget *selectedWidget READ selectedWidget NOTIFY selectedWidgetChanged)
@@ -81,7 +81,14 @@ public:
      *  On invalid $id, NULL is returned */
     VCWidget *widget(quint32 id);
 
+    /** Return a list with the VC page names */
     QStringList pagesList() const;
+
+    /** Set the name of the given VC $page */
+    Q_INVOKABLE bool setPageName(int page, QString name);
+
+    /** Add a new VC page */
+    Q_INVOKABLE void addPage();
 
     /** Return the currently selected VC page index */
     int selectedPage() const;
@@ -106,6 +113,9 @@ signals:
 
     /** Notify the listeners that the currenly selected VC page has changed */
     void selectedPageChanged(int selectedPage);
+
+    /** Notify the listener that some page names have changed */
+    void pagesListChanged();
 
 protected:
     /** Create a new widget ID */

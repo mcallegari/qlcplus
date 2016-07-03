@@ -97,14 +97,13 @@ Column
             onClicked:
             {
                 isExpanded = !isExpanded
-                //isSelected = true
                 nodeContainer.clicked(-1, nodeContainer, mouse.modifiers)
             }
             onDoubleClicked:
             {
                 nodeLabel.z = 5
                 nodeLabel.readOnly = false
-                nodeLabel.focus = true
+                nodeLabel.forceActiveFocus()
                 nodeLabel.cursorPosition = nodeLabel.text.length
                 nodeLabel.cursorVisible = true
             }

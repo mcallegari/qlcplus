@@ -25,13 +25,14 @@ import "."
 Rectangle
 {
     id: menuEntry
-    width: btnIcon.width + textBox.width + 10
+    implicitWidth: entryContents.width + 10
     height: parent.height
     gradient: (checked || mouseArea1.containsMouse) ? selGradient : bgGradient
 
     property color checkedColor: UISettings.toolbarSelectionMain
 
     property bool checkable: false
+    property bool editable: false
     property string imgSource: ""
     property string entryText: ""
     property real mFontSize: UISettings.textSizeDefault * 0.85
@@ -49,6 +50,7 @@ Rectangle
     signal clicked
     signal rightClicked
     signal toggled
+    signal textChanged(var text)
 
     Gradient
     {
@@ -72,9 +74,11 @@ Rectangle
 
     Row
     {
+        id: entryContents
+        height: parent.height
         spacing: 2
-        anchors.fill: parent
-        anchors.leftMargin: 3
+        //anchors.fill: parent
+        //anchors.leftMargin: 3
 
         Image
         {
@@ -89,26 +93,52 @@ Rectangle
 
         Rectangle
         {
-            y: 0
-            width: textBox.width
             height: parent.height
+            width: tbLoader.width
             color: "transparent"
 
-            RobotoText
+            Loader
             {
-                id: textBox
-                label: entryText
+                id: tbLoader
                 height: parent.height
-                fontSize: mFontSize
-                fontBold: true
+                //width: item.width
+
+                source: menuEntry.editable ? "qrc:/EditableTextBox.qml" : "qrc:/RobotoText.qml"
+
+                onLoaded:
+                {
+                    if (menuEntry.editable == true)
+                    {
+                        item.color = "transparent"
+                        item.inputText = entryText
+                        item.maximumHeight = parent.height
+                        item.wrapText = false
+                    }
+                    else
+                    {
+                        item.label = entryText
+                        item.height = parent.height
+                        item.fontSize = mFontSize
+                        item.fontBold = true
+                    }
+                    width = Qt.binding(function() { return item.width })
+                }
+
+                Connections
+                {
+                    ignoreUnknownSignals: true
+                    target: tbLoader.item
+                    onTextChanged: menuEntry.textChanged(text)
+                }
             }
+
             Rectangle
             {
                 id: selRect
                 radius: 2
                 color: checked ? checkedColor : "transparent"
                 height: 5
-                width: textBox.width
+                width: tbLoader.width
                 y: parent.height - height - 1
             }
         }
@@ -135,6 +165,13 @@ Rectangle
             }
             else
                 menuEntry.rightClicked()
+        }
+        onDoubleClicked:
+        {
+            if (menuEntry.editable)
+            {
+                tbLoader.item.enableEditing()
+            }
         }
     }
 }

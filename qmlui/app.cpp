@@ -125,7 +125,7 @@ void App::startup()
 
 void App::show()
 {
-    //setGeometry(0, 0, 800, 600);
+    setGeometry(0, 0, 800, 600);
     //setGeometry(0, 0, 1272, 689); // youtube recording
     showMaximized();
     //showFullScreen();

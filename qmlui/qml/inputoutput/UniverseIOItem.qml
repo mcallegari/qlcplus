@@ -199,6 +199,7 @@ Rectangle
     {
         id: uniBox
         anchors.centerIn: parent
+        z: 5
         width: UISettings.bigItemHeight * 1.2
         height: UISettings.bigItemHeight * 0.8
         radius: 5
@@ -213,14 +214,24 @@ Rectangle
         border.width: 2
         border.color: "#111"
 
-        RobotoText
+        EditableTextBox
         {
-            height: parent.height
+            anchors.centerIn: parent
             width: parent.width
-            label: universe ? universe.name : ""
-            wrapText: true
-            textAlign: Text.AlignHCenter
-            fontSize: UISettings.textSizeDefault
+            maximumHeight: parent.height
+            color: "transparent"
+            inputText: universe ? universe.name : ""
+            textAlignment: Text.AlignHCenter
+
+            onClicked:
+            {
+                if (isSelected == false)
+                {
+                    isSelected = true
+                    ioManager.setSelectedItem(uniItem, universe.id)
+                    uniItem.selected(universe.id);
+                }
+            }
         }
     }
 

@@ -31,6 +31,7 @@ Rectangle
 
     property alias inputFocus: ctEdit.focus
     property alias inputText: ctEdit.text
+    property alias readOnly: ctEdit.readOnly
     property int fontSize: UISettings.textSizeDefault
     property int textAlignment: TextInput.AlignLeft
 

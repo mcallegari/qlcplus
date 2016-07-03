@@ -274,6 +274,31 @@ QStringList VirtualConsole::pagesList() const
     return list;
 }
 
+bool VirtualConsole::setPageName(int page, QString name)
+{
+    if (page < 0 || page >= m_pages.count())
+        return false;
+
+    m_pages.at(page)->setCaption(name);
+    emit pagesListChanged();
+
+    return true;
+}
+
+void VirtualConsole::addPage()
+{
+    VCFrame *page = new VCFrame(m_doc, this, this);
+    QQmlEngine::setObjectOwnership(page, QQmlEngine::CppOwnership);
+    page->setAllowResize(false);
+    page->setShowHeader(false);
+    page->setGeometry(QRect(0, 0, 1920, 1080));
+    page->setFont(QFont("Roboto Condensed", 16));
+    page->setCaption(tr("Page %1").arg(m_pages.count() + 1));
+    m_pages.append(page);
+
+    emit pagesListChanged();
+}
+
 int VirtualConsole::selectedPage() const
 {
     return m_selectedPage;

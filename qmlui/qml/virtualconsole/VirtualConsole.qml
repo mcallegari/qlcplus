@@ -93,10 +93,12 @@ Rectangle
                         {
                             entryText: modelData
                             checkable: true
-                            checked: index === 0 ? true : false
+                            editable: true
+                            checked: index === virtualConsole.selectedPage ? true : false
                             checkedColor: UISettings.toolbarSelectionSub
                             bgGradient: vcTbGradient
                             exclusiveGroup: vcToolbarGroup
+
                             onCheckedChanged:
                             {
                                 if (checked == true)
@@ -107,7 +109,34 @@ Rectangle
                                 visible = false
                                 WinLoader.createVCWindow("qrc:/VCPageArea.qml", index)
                             }
+                            onTextChanged: virtualConsole.setPageName(index, text)
                         }
+                }
+
+                //Rectangle { Layout.fillWidth: true }
+
+                IconButton
+                {
+                    width: parent.height * 0.8
+                    height: width
+                    tooltip: qsTr("Add a new Virtual Console page")
+                    faSource: FontAwesome.fa_plus_square_o
+                    faColor: UISettings.fgLight
+                    bgColor: "transparent"
+                    border.width: 0
+
+                    onClicked: virtualConsole.addPage()
+                }
+
+                IconButton
+                {
+                    width: parent.height * 0.8
+                    height: width
+                    tooltip: qsTr("Remove the selected Virtual Console page")
+                    faSource: FontAwesome.fa_minus_square_o
+                    faColor: UISettings.fgLight
+                    bgColor: "transparent"
+                    border.width: 0
                 }
 
                 Rectangle { Layout.fillWidth: true }
