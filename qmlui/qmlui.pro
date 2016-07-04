@@ -19,7 +19,15 @@ DEPENDPATH      += ../engine/src
 QMAKE_LIBDIR    += ../engine/src
 LIBS            += -lqlcplusengine
 #win32:QMAKE_LFLAGS += -shared
-win32:RC_FILE = qmlui.rc
+lessThan(QT_MAJOR_VERSION, 5) {
+    win32:RC_FILE = qmlui.rc
+}
+else
+{
+    win32:RC_ICONS += ../resources/icons/qlcplus.ico
+    win32:QMAKE_TARGET_DESCRIPTION = "Q Light Controller+"
+    win32:QMAKE_TARGET_PRODUCT = "Q Light Controller+"
+}
 
 # Plugins
 INCLUDEPATH     += ../plugins/interfaces

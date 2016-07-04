@@ -25,6 +25,12 @@ lessThan(QT_MAJOR_VERSION, 5) {
   }
 }
 
+greaterThan(QT_MAJOR_VERSION, 4) {
+    win32:RC_ICONS += ../../resources/icons/qlcplus.ico
+    win32:QMAKE_TARGET_DESCRIPTION = "Q Light Controller+ Webaccess"
+    win32:QMAKE_TARGET_PRODUCT = "Q Light Controller+"
+}
+
 LIBS += -lqlcplusengine -lqlcplusui
 
 win32:LIBS  += -lws2_32

@@ -13,6 +13,10 @@ greaterThan(QT_MAJOR_VERSION, 4) {
   QT += multimedia
   macx:QT_CONFIG -= no-pkg-config
   win32:QT += widgets
+
+  win32:RC_ICONS += ../../resources/icons/qlcplus.ico
+  win32:QMAKE_TARGET_DESCRIPTION = "Q Light Controller+ engine"
+  win32:QMAKE_TARGET_PRODUCT = "Q Light Controller+"
 }
 
 qmlui {

@@ -37,6 +37,9 @@ qmlui/qlcplus-qml
 *.qm
 core
 
+#generated resources
+*_resource.rc
+
 # coverage
 coverage/
 *.gcda
