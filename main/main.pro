@@ -24,9 +24,7 @@ macx:SOURCES += ../ui/src/debugbox.cpp
 
 lessThan(QT_MAJOR_VERSION, 5) {
     win32:RC_FILE = main.rc
-}
-else
-{
+} else {
     win32:RC_ICONS += ../resources/icons/qlcplus.ico
     win32:QMAKE_TARGET_DESCRIPTION = "Q Light Controller+ Application"
     win32:QMAKE_TARGET_PRODUCT = "Q Light Controller+"
