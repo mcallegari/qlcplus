@@ -6,9 +6,6 @@ APPNAME    = Q Light Controller Plus
 FXEDNAME   = Fixture Definition Editor
 APPVERSION = 4.10.5 GIT
 
-VERSION              = 4.10.5
-QMAKE_TARGET_COMPANY = qlcplus.org
-
 # Disable these if you don't want to see GIT short hash in the About Box
 #unix:REVISION = $$system(git log --pretty=format:'%h' -n 1)
 #unix:APPVERSION = $$APPVERSION-r$$REVISION

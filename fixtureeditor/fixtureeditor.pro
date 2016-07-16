@@ -20,16 +20,7 @@ LIBS    += -lqlcplusengine
 
 # Sources
 RESOURCES    += ../ui/src/qlcui.qrc
-lessThan(QT_MAJOR_VERSION, 5) {
-    win32:RC_FILE = fixtureeditor.rc
-}
-else
-{
-    win32:RC_ICONS += ../resources/icons/qlcplus-fixtureeditor.ico
-    win32:QMAKE_TARGET_DESCRIPTION = "Q Light Controller+ Fixture Editor"
-    win32:QMAKE_TARGET_PRODUCT = "Q Light Controller+"
-}
-
+win32:RC_FILE = fixtureeditor.rc
 
 HEADERS += ../ui/src/aboutbox.h \
            ../ui/src/docbrowser.h \

@@ -14,7 +14,7 @@ win32: {
     # 100% FLOSS codebase of QLC if distributed along with QLC sources. Download
     # the package from http://www.box.net/shared/2l0b2tk8e1 and
     # extract its contents under K8062DDIR below to compile this plugin.
-    K8062DDIR    = /home/x/K8062D
+    K8062DDIR    = C:/Qt/K8062D
     LIBS        += -L$$K8062DDIR -lK8062D
     LIBS        += $$K8062DDIR/K8062D.a
     INCLUDE     += -I$$K8062DDIR
