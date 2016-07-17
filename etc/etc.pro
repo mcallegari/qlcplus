@@ -46,6 +46,7 @@ macx {
 win32 {
     QT_LIBS_PATH = $$dirname(QMAKE_QMAKE)
     QT_PLUGINS_PATH = $$QT_LIBS_PATH/../share/qt5/plugins
+    QT_QML_PATH = $$QT_LIBS_PATH/../share/qt5/qml
     SYS_LIBS_PATH = $$(SystemDrive)/msys64/mingw32/bin
 
     # Qt Libraries
@@ -65,6 +66,7 @@ lessThan(QT_MAJOR_VERSION, 5) {
     release:qtlibs.files = $$QT_LIBS_PATH/Qt5Core.dll \
                            $$QT_LIBS_PATH/Qt5Script.dll \
                            $$QT_LIBS_PATH/Qt5Network.dll \
+                           $$QT_LIBS_PATH/Qt5Gui.dll \
                            $$QT_LIBS_PATH/Qt5Widgets.dll \
                            $$QT_LIBS_PATH/Qt5OpenGL.dll \
                            $$QT_LIBS_PATH/Qt5Multimedia.dll \
@@ -73,6 +75,7 @@ lessThan(QT_MAJOR_VERSION, 5) {
     debug:qtlibs.files = $$QT_LIBS_PATH/Qt5Cored.dll \
                          $$QT_LIBS_PATH/Qt5Scriptd.dll \
                          $$QT_LIBS_PATH/Qt5Networkd.dll \
+                         $$QT_LIBS_PATH/Qt5Guid.dll \
                          $$QT_LIBS_PATH/Qt5Widgetsd.dll \
                          $$QT_LIBS_PATH/Qt5OpenGLd.dll \
                          $$QT_LIBS_PATH/Qt5Multimediad.dll \
@@ -82,9 +85,6 @@ lessThan(QT_MAJOR_VERSION, 5) {
         release:qtlibs.files += $$QT_LIBS_PATH/Qt5Qml.dll \
                                 $$QT_LIBS_PATH/Qt5Quick.dll \
                                 $$QT_LIBS_PATH/Qt5Svg.dll
-    } else {
-        release:qtlibs.files += $$QT_LIBS_PATH/Qt5Gui.dll
-        debug:qtlibs.files += $$QT_LIBS_PATH/Qt5Guid.dll
     }
 
     # Qt Libraries
@@ -131,6 +131,20 @@ greaterThan(QT_MAJOR_VERSION, 4) {
         debug:qtimageformats.files = $$QT_PLUGINS_PATH/imageformats/qsvgd.dll
         release:qtimageformats.files = $$QT_PLUGINS_PATH/imageformats/qsvg.dll
         INSTALLS += qtimageformats
+
+        qmldeps.path   = $$INSTALLROOT/$$LIBSDIR
+        qmldeps.files += $$QT_QML_PATH/QtQml \
+                         $$QT_QML_PATH/QtQuick \
+                         $$QT_QML_PATH/QtQuick.2
+
+        INSTALLS += qmldeps
+
+        qmlpostinstall.path = $$INSTALLROOT/$$LIBSDIR
+        qmlpostinstall.commands = cd $$INSTALLROOT/$$LIBSDIR && \
+                                  find . -name plugins.qmltypes -type f -delete && \
+                                  find . -name *.qml -type f -delete && \
+                                  rm -rf QtQuick/Extras QtQuick/Particles.2 QtQuick/XmlListModel
+        INSTALLS  += qmlpostinstall
     }
 }
 
