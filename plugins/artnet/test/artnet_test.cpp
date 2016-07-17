@@ -17,7 +17,7 @@
   limitations under the License.
 */
 
-#include <QtTest>
+#include <QTest>
 
 #define private public
 #include "artnet_test.h"

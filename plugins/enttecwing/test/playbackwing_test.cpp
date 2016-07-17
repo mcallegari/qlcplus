@@ -20,7 +20,7 @@
 #include <QApplication>
 #include <QUdpSocket>
 #include <QByteArray>
-#include <QtTest>
+#include <QTest>
 
 #include "playbackwing.h"
 #include "playbackwing_test.h"

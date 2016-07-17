@@ -17,8 +17,6 @@
   limitations under the License.
 */
 
-#include <QtTest>
-
 #include "dmxsource_stub.h"
 #include "mastertimer.h"
 #include "universe.h"
