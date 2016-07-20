@@ -150,6 +150,8 @@ public:
      */
     bool monitor() const;
 
+    uchar applyPassthrough(int channel, uchar value);
+
 protected slots:
     /**
      * Called every time the Grand Master changed value
@@ -169,7 +171,6 @@ protected:
 
     uchar applyRelative(int channel, uchar value);
     uchar applyModifiers(int channel, uchar value);
-    uchar applyPassthrough(int channel, uchar value);
     void updatePostGMValue(int channel);
 
 signals:
