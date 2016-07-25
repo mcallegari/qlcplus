@@ -777,8 +777,9 @@ bool EFX::saveXML(QXmlStreamWriter *doc)
     /* Propagation mode */
     doc->writeTextElement(KXMLQLCEFXPropagationMode, propagationModeToString(m_propagationMode));
 
-    /* Speeds */
-    saveXMLSpeed(doc);
+    /* Timings */
+    m_timings.saveXML(doc);
+
     /* Direction */
     saveXMLDirection(doc);
     /* Run order */
@@ -861,9 +862,13 @@ bool EFX::loadXML(QXmlStreamReader &root)
             else if (str == KXMLQLCBusHold)
                 m_legacyHoldBus = root.readElementText().toUInt();
         }
-        else if (root.name() == KXMLQLCFunctionSpeed)
+        else if (root.name() == KXMLQLCFunctionLegacySpeed)
         {
-            loadXMLSpeed(root);
+            m_timings.loadXMLLegacy(root);
+        }
+        else if (root.name() == KXMLQLCFunctionTimings)
+        {
+            m_timings.loadXML(root);
         }
         else if (root.name() == KXMLQLCEFXFixture)
         {
@@ -988,12 +993,12 @@ bool EFX::loadXMLAxis(QXmlStreamReader &root)
 
 void EFX::postLoad()
 {
-    // Map legacy bus speeds to fixed speed values
+    // Map legacy bus timings to fixed timings values
     if (m_legacyFadeBus != Bus::invalid())
     {
         quint32 value = Bus::instance()->value(m_legacyFadeBus);
-        setFadeInSpeed((value / MasterTimer::frequency()) * 1000);
-        setFadeOutSpeed((value / MasterTimer::frequency()) * 1000);
+        setFadeIn((value / MasterTimer::frequency()) * 1000);
+        setFadeOut((value / MasterTimer::frequency()) * 1000);
     }
 
     if (m_legacyHoldBus != Bus::invalid())

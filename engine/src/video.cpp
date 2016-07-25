@@ -281,8 +281,8 @@ bool Video::saveXML(QXmlStreamWriter *doc)
     /* Common attributes */
     saveXMLCommon(doc);
 
-    /* Speed */
-    saveXMLSpeed(doc);
+    /* Timings */
+    m_timings.saveXML(doc);
 
     /* Playback mode */
     saveXMLRunOrder(doc);
@@ -349,9 +349,13 @@ bool Video::loadXML(QXmlStreamReader &root)
             else
                 setSourceUrl(m_doc->denormalizeComponentPath(path));
         }
-        else if (root.name() == KXMLQLCFunctionSpeed)
+        else if (root.name() == KXMLQLCFunctionLegacySpeed)
         {
-            loadXMLSpeed(root);
+            m_timings.loadXMLLegacy(root);
+        }
+        else if (root.name() == KXMLQLCFunctionTimings)
+        {
+            m_timings.loadXML(root);
         }
         else if (root.name() == KXMLQLCFunctionRunOrder)
         {
@@ -398,10 +402,10 @@ void Video::write(MasterTimer* timer, QList<Universe *> universes)
 
     incrementElapsed();
 /*
-    if (fadeOutSpeed() != 0)
+    if (fadeOut() != 0)
     {
-        if (getDuration() - elapsed() <= fadeOutSpeed())
-            m_audio_out->setFadeOut(fadeOutSpeed());
+        if (getDuration() - elapsed() <= fadeOut())
+            m_audio_out->setFadeOut(fadeOut());
     }
 */
 }

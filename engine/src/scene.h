@@ -46,9 +46,9 @@ class QXmlStreamReader;
 /**
  * Scene encapsulates the values of selected channels from one or more fixture
  * instances. When a scene is started, the duration it takes for its channels
- * to reach their target values depends on the function's fade in speed setting.
+ * to reach their target values depends on the function's fade in setting.
  * For HTP channels, the fade out setting is also used when the scene is toggled off.
- * If the speed value is 0 seconds, scene values are set immediately and no
+ * If the timing value is 0 seconds, scene values are set immediately and no
  * fading occurs. Otherwise values are always faded from what they currently
  * are, to the target values defined in the scene (with SceneValue instances).
  */

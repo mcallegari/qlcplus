@@ -345,8 +345,8 @@ bool Scene::saveXML(QXmlStreamWriter *doc)
     /* Common attributes */
     saveXMLCommon(doc);
 
-    /* Speed */
-    saveXMLSpeed(doc);
+    /* Timings */
+    m_timings.saveXML(doc);
 
     /* Channel groups */
     if (m_channelGroups.count() > 0)
@@ -432,9 +432,13 @@ bool Scene::loadXML(QXmlStreamReader &root)
         {
             m_legacyFadeBus = root.readElementText().toUInt();
         }
-        else if (root.name() == KXMLQLCFunctionSpeed)
+        else if (root.name() == KXMLQLCFunctionLegacySpeed)
         {
-            loadXMLSpeed(root);
+            m_timings.loadXMLLegacy(root);
+        }
+        else if (root.name() == KXMLQLCFunctionTimings)
+        {
+            m_timings.loadXML(root);
         }
         else if (root.name() == KXMLQLCSceneChannelGroups)
         {
@@ -501,12 +505,12 @@ bool Scene::loadXML(QXmlStreamReader &root)
 
 void Scene::postLoad()
 {
-    // Map legacy bus speed to fixed speed values
+    // Map legacy bus timings to fixed timings values
     if (m_legacyFadeBus != Bus::invalid())
     {
         quint32 value = Bus::instance()->value(m_legacyFadeBus);
-        setFadeInSpeed((value / MasterTimer::frequency()) * 1000);
-        setFadeOutSpeed((value / MasterTimer::frequency()) * 1000);
+        setFadeIn((value / MasterTimer::frequency()) * 1000);
+        setFadeOut((value / MasterTimer::frequency()) * 1000);
     }
 
     // Remove such fixtures and channels that don't exist
@@ -615,7 +619,11 @@ void Scene::write(MasterTimer* timer, QList<Universe*> ua)
             }
             else
             {
-                uint fadein = overrideFadeInSpeed() == defaultSpeed() ? fadeInSpeed() : overrideFadeInSpeed();
+                uint fadein;
+                if (overrideFadeIn() == FunctionTimings::defaultValue())
+                    fadein = fadeIn();
+                else
+                    fadein = overrideFadeIn();
 
                 if (tempoType() == Beats)
                 {
@@ -681,7 +689,11 @@ void Scene::postRun(MasterTimer* timer, QList<Universe *> ua)
             }
             else
             {
-                uint fadeout = overrideFadeOutSpeed() == defaultSpeed() ? fadeOutSpeed() : overrideFadeOutSpeed();
+                uint fadeout;
+                if (overrideFadeOut() == FunctionTimings::defaultValue())
+                    fadeout = fadeOut();
+                else
+                    fadeout = overrideFadeOut();
 
                 if (tempoType() == Beats)
                     fc.setFadeTime(beatsToTime(fadeout, timer->beatTimeDuration()));

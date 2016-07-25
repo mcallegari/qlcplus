@@ -139,12 +139,6 @@ public:
      */
     QList <ChaserStep> steps() const;
 
-    /** @reimpl */
-    void setTotalDuration(quint32 msec);
-
-    /** @reimpl */
-    quint32 totalDuration();
-
 public slots:
     /**
      * Catches Doc::functionRemoved() so that destroyed members can be
@@ -228,32 +222,32 @@ private:
     bool m_locked;
 
     /*********************************************************************
-     * Speed modes
+     * Timings modes
      *********************************************************************/
 public:
-    enum SpeedMode {
-        Default = 0, //! Use step function's own speed setting
-        Common,  //! Impose a common chaser-specific speed to all steps
-        PerStep  //! Impose a step-specific speed to each step
+    enum TimingsMode {
+        Default = 0, //! Use step function's own timings setting
+        Common,  //! Impose a common chaser-specific timings to all steps
+        PerStep  //! Impose a step-specific timings to each step
     };
-    Q_ENUMS(SpeedMode)
+    Q_ENUMS(TimingsMode)
 
-    void setFadeInMode(SpeedMode mode);
-    SpeedMode fadeInMode() const;
+    void setFadeInMode(TimingsMode mode);
+    TimingsMode fadeInMode() const;
 
-    void setFadeOutMode(SpeedMode mode);
-    SpeedMode fadeOutMode() const;
+    void setFadeOutMode(TimingsMode mode);
+    TimingsMode fadeOutMode() const;
 
-    void setDurationMode(SpeedMode mode);
-    SpeedMode durationMode() const;
+    void setHoldMode(TimingsMode mode);
+    TimingsMode holdMode() const;
 
-    static QString speedModeToString(SpeedMode mode);
-    static SpeedMode stringToSpeedMode(const QString& str);
+    static QString timingsModeToString(TimingsMode mode);
+    static TimingsMode stringToTimingsMode(const QString& str);
 
 private:
-    SpeedMode m_fadeInMode;
-    SpeedMode m_fadeOutMode;
-    SpeedMode m_holdMode;
+    TimingsMode m_fadeInMode;
+    TimingsMode m_fadeOutMode;
+    TimingsMode m_holdMode;
 
     /*********************************************************************
      * Save & Load

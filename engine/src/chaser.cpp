@@ -38,10 +38,10 @@
 #include "doc.h"
 #include "bus.h"
 
-#define KXMLQLCChaserSpeedModes "SpeedModes"
-#define KXMLQLCChaserSpeedModeCommon "Common"
-#define KXMLQLCChaserSpeedModePerStep "PerStep"
-#define KXMLQLCChaserSpeedModeDefault "Default"
+#define KXMLQLCChaserTimingsModes "SpeedModes"
+#define KXMLQLCChaserTimingsModeCommon "Common"
+#define KXMLQLCChaserTimingsModePerStep "PerStep"
+#define KXMLQLCChaserTimingsModeDefault "Default"
 #define KXMLQLCChaserSequenceTag "Sequence"
 #define KXMLQLCChaserSequenceBoundScene "BoundScene"
 #define KXMLQLCChaserSequenceStartTime "StartTime"
@@ -230,6 +230,7 @@ QList <ChaserStep> Chaser::steps() const
     return m_steps;
 }
 
+/*
 void Chaser::setTotalDuration(quint32 msec)
 {
     if (durationMode() == Chaser::Common)
@@ -257,7 +258,9 @@ void Chaser::setTotalDuration(quint32 msec)
     }
     emit changed(this->id());
 }
+*/
 
+/*
 quint32 Chaser::totalDuration()
 {
     quint32 totalDuration = 0;
@@ -272,6 +275,7 @@ quint32 Chaser::totalDuration()
 
     return totalDuration;
 }
+*/
 
 void Chaser::slotFunctionRemoved(quint32 fid)
 {
@@ -336,57 +340,57 @@ bool Chaser::isLocked()
 }
 
 /*****************************************************************************
- * Speed modes
+ * Timings modes
  *****************************************************************************/
 
-void Chaser::setFadeInMode(Chaser::SpeedMode mode)
+void Chaser::setFadeInMode(Chaser::TimingsMode mode)
 {
     m_fadeInMode = mode;
     emit changed(this->id());
 }
 
-Chaser::SpeedMode Chaser::fadeInMode() const
+Chaser::TimingsMode Chaser::fadeInMode() const
 {
     return m_fadeInMode;
 }
 
-void Chaser::setFadeOutMode(Chaser::SpeedMode mode)
+void Chaser::setFadeOutMode(Chaser::TimingsMode mode)
 {
     m_fadeOutMode = mode;
     emit changed(this->id());
 }
 
-Chaser::SpeedMode Chaser::fadeOutMode() const
+Chaser::TimingsMode Chaser::fadeOutMode() const
 {
     return m_fadeOutMode;
 }
 
-void Chaser::setDurationMode(Chaser::SpeedMode mode)
+void Chaser::setHoldMode(Chaser::TimingsMode mode)
 {
     m_holdMode = mode;
     emit changed(this->id());
 }
 
-Chaser::SpeedMode Chaser::durationMode() const
+Chaser::TimingsMode Chaser::holdMode() const
 {
     return m_holdMode;
 }
 
-QString Chaser::speedModeToString(Chaser::SpeedMode mode)
+QString Chaser::timingsModeToString(Chaser::TimingsMode mode)
 {
     if (mode == Common)
-        return KXMLQLCChaserSpeedModeCommon;
+        return KXMLQLCChaserTimingsModeCommon;
     else if (mode == PerStep)
-        return KXMLQLCChaserSpeedModePerStep;
+        return KXMLQLCChaserTimingsModePerStep;
     else
-        return KXMLQLCChaserSpeedModeDefault;
+        return KXMLQLCChaserTimingsModeDefault;
 }
 
-Chaser::SpeedMode Chaser::stringToSpeedMode(const QString& str)
+Chaser::TimingsMode Chaser::stringToTimingsMode(const QString& str)
 {
-    if (str == KXMLQLCChaserSpeedModeCommon)
+    if (str == KXMLQLCChaserTimingsModeCommon)
         return Common;
-    else if (str == KXMLQLCChaserSpeedModePerStep)
+    else if (str == KXMLQLCChaserTimingsModePerStep)
         return PerStep;
     else
         return Default;
@@ -406,8 +410,8 @@ bool Chaser::saveXML(QXmlStreamWriter *doc)
     /* Common attributes */
     saveXMLCommon(doc);
 
-    /* Speed */
-    saveXMLSpeed(doc);
+    /* Timings */
+    m_timings.saveXML(doc);
 
     /* Direction */
     saveXMLDirection(doc);
@@ -415,11 +419,11 @@ bool Chaser::saveXML(QXmlStreamWriter *doc)
     /* Run order */
     saveXMLRunOrder(doc);
 
-    /* Speed modes */
-    doc->writeStartElement(KXMLQLCChaserSpeedModes);
-    doc->writeAttribute(KXMLQLCFunctionSpeedFadeIn, speedModeToString(fadeInMode()));
-    doc->writeAttribute(KXMLQLCFunctionSpeedFadeOut, speedModeToString(fadeOutMode()));
-    doc->writeAttribute(KXMLQLCFunctionSpeedDuration, speedModeToString(durationMode()));
+    /* Timings modes */
+    doc->writeStartElement(KXMLQLCChaserTimingsModes);
+    doc->writeAttribute(KXMLQLCFunctionTimingsFadeIn, timingsModeToString(fadeInMode()));
+    doc->writeAttribute(KXMLQLCFunctionTimingsFadeOut, timingsModeToString(fadeOutMode()));
+    doc->writeAttribute(KXMLQLCFunctionTimingsHold, timingsModeToString(holdMode()));
     doc->writeEndElement();
 
     if (m_isSequence == true)
@@ -466,9 +470,13 @@ bool Chaser::loadXML(QXmlStreamReader &root)
         {
             m_legacyHoldBus = root.readElementText().toUInt();
         }
-        else if (root.name() == KXMLQLCFunctionSpeed)
+        else if (root.name() == KXMLQLCFunctionLegacySpeed)
         {
-            loadXMLSpeed(root);
+            m_timings.loadXMLLegacy(root);
+        }
+        else if (root.name() == KXMLQLCFunctionTimings)
+        {
+            m_timings.loadXML(root);
         }
         else if (root.name() == KXMLQLCFunctionDirection)
         {
@@ -478,19 +486,19 @@ bool Chaser::loadXML(QXmlStreamReader &root)
         {
             loadXMLRunOrder(root);
         }
-        else if (root.name() == KXMLQLCChaserSpeedModes)
+        else if (root.name() == KXMLQLCChaserTimingsModes)
         {
             QXmlStreamAttributes attrs = root.attributes();
             QString str;
 
-            str = attrs.value(KXMLQLCFunctionSpeedFadeIn).toString();
-            setFadeInMode(stringToSpeedMode(str));
+            str = attrs.value(KXMLQLCFunctionTimingsFadeIn).toString();
+            setFadeInMode(stringToTimingsMode(str));
 
-            str = attrs.value(KXMLQLCFunctionSpeedFadeOut).toString();
-            setFadeOutMode(stringToSpeedMode(str));
+            str = attrs.value(KXMLQLCFunctionTimingsFadeOut).toString();
+            setFadeOutMode(stringToTimingsMode(str));
 
-            str = attrs.value(KXMLQLCFunctionSpeedDuration).toString();
-            setDurationMode(stringToSpeedMode(str));
+            str = attrs.value(KXMLQLCFunctionTimingsHold).toString();
+            setHoldMode(stringToTimingsMode(str));
             root.skipCurrentElement();
         }
         else if (root.name() == KXMLQLCChaserSequenceTag)
@@ -564,7 +572,7 @@ void Chaser::postLoad()
 void Chaser::tap()
 {
     QMutexLocker runnerLocker(&m_runnerMutex);
-    if (m_runner != NULL && durationMode() == Common)
+    if (m_runner != NULL && holdMode() == Common)
         m_runner->tap();
 }
 

@@ -37,7 +37,7 @@ ChaserRunner::ChaserRunner(const Doc* doc, const Chaser* chaser, quint32 startTi
     : QObject(NULL)
     , m_doc(doc)
     , m_chaser(chaser)
-    , m_updateOverrideSpeeds(false)
+    , m_updateOverrideTimings(false)
     , m_startOffset(0)
     , m_next(false)
     , m_previous(false)
@@ -56,14 +56,14 @@ ChaserRunner::ChaserRunner(const Doc* doc, const Chaser* chaser, quint32 startTi
         quint32 stepsTime = 0;
         foreach(ChaserStep step, chaser->steps())
         {
-            if (startTime < stepsTime + step.duration)
+            if (startTime < stepsTime + step.timings.duration())
             {
                 m_newStartStepIdx = idx;
                 m_startOffset = startTime - stepsTime;
                 break;
             }
             idx++;
-            stepsTime += step.duration;
+            stepsTime += step.timings.duration();
         }
     }
 
@@ -81,13 +81,13 @@ ChaserRunner::~ChaserRunner()
 }
 
 /****************************************************************************
- * Speed
+ * Timings
  ****************************************************************************/
 
 void ChaserRunner::slotChaserChanged()
 {
-    // Handle (possible) speed change on the next write() pass
-    m_updateOverrideSpeeds = true;
+    // Handle (possible) timings change on the next write() pass
+    m_updateOverrideTimings = true;
     QList<ChaserRunnerStep*> delList;
     foreach(ChaserRunnerStep *step, m_runnerSteps)
     {
@@ -98,10 +98,10 @@ void ChaserRunner::slotChaserChanged()
         }
         else
         {
-            // Recalculate the speed of each running step
-            step->m_fadeIn = stepFadeIn(step->m_index);
-            step->m_fadeOut = stepFadeOut(step->m_index);
-            step->m_duration = stepDuration(step->m_index);
+            // Recalculate the timings of each running step
+            step->m_timings.fadeIn = stepFadeIn(step->m_index);
+            step->m_timings.fadeOut = stepFadeOut(step->m_index);
+            step->m_timings.hold = stepHold(step->m_index);
         }
     }
     foreach(ChaserRunnerStep* step, delList)
@@ -112,73 +112,54 @@ void ChaserRunner::slotChaserChanged()
     }
 }
 
-uint ChaserRunner::stepFadeIn(int stepIdx) const
+quint32 ChaserRunner::stepFadeIn(int stepIdx) const
 {
-    uint speed = 0;
-    if (m_chaser->overrideFadeInSpeed() != Function::defaultSpeed())
+    quint32 fadeIn = 0;
+    switch (m_chaser->fadeInMode())
     {
-        // Override speed is used when another function has started the chaser,
-        // i.e. chaser inside a chaser that wants to impose its own fade in speed
-        // to its members.
-        speed = m_chaser->overrideFadeInSpeed();
-    }
-    else
-    {
-        switch (m_chaser->fadeInMode())
-        {
-        case Chaser::Common:
-            // All steps' fade in speed is dictated by the chaser
-            speed = m_chaser->fadeInSpeed();
-            break;
-        case Chaser::PerStep:
-            // Each step specifies its own fade in speed
-            if (stepIdx >= 0 && stepIdx < m_chaser->steps().size())
-                speed = m_chaser->steps().at(stepIdx).fadeIn;
-            else
-                speed = Function::defaultSpeed();
-            break;
-        default:
-        case Chaser::Default:
-            // Don't touch members' fade in speed at all
-            speed = Function::defaultSpeed();
-            break;
-        }
+    case Chaser::Common:
+        // All steps' fade in speed is dictated by the chaser
+        fadeIn = m_chaser->fadeIn();
+        break;
+    case Chaser::PerStep:
+        // Each step specifies its own fade in speed
+        if (stepIdx >= 0 && stepIdx < m_chaser->steps().size())
+            // TODO ici changed step.fadeIn to step.timing.fadeIn
+            fadeIn = m_chaser->steps().at(stepIdx).timings.fadeIn;
+        else
+            fadeIn = FunctionTimings::defaultValue();
+        break;
+    default:
+    case Chaser::Default:
+        // Don't touch members' fade in speed at all
+        fadeIn = FunctionTimings::defaultValue();
+        break;
     }
 
-    return speed;
+    return fadeIn;
 }
 
-uint ChaserRunner::stepFadeOut(int stepIdx) const
+quint32 ChaserRunner::stepFadeOut(int stepIdx) const
 {
-    uint speed = 0;
-    if (m_chaser->overrideFadeOutSpeed() != Function::defaultSpeed())
+    quint32 fadeOut = 0;
+    switch (m_chaser->fadeOutMode())
     {
-        // Override speed is used when another function has started the chaser,
-        // i.e. chaser inside a chaser that wants to impose its own fade out speed
-        // to its members.
-        speed = m_chaser->overrideFadeOutSpeed();
-    }
-    else
-    {
-        switch (m_chaser->fadeOutMode())
-        {
-        case Chaser::Common:
-            // All steps' fade out speed is dictated by the chaser
-            speed = m_chaser->fadeOutSpeed();
-            break;
-        case Chaser::PerStep:
-            // Each step specifies its own fade out speed
-            if (stepIdx >= 0 && stepIdx < m_chaser->steps().size())
-                speed = m_chaser->steps().at(stepIdx).fadeOut;
-            else
-                speed = Function::defaultSpeed();
-            break;
-        default:
-        case Chaser::Default:
-            // Don't touch members' fade out speed at all
-            speed = Function::defaultSpeed();
-            break;
-        }
+    case Chaser::Common:
+        // All steps' fade out speed is dictated by the chaser
+        fadeOut = m_chaser->fadeOut();
+        break;
+    case Chaser::PerStep:
+        // Each step specifies its own fade out speed
+        if (stepIdx >= 0 && stepIdx < m_chaser->steps().size())
+            speed = m_chaser->steps().at(stepIdx).fadeOut();
+        else
+            speed = FunctionTimings::defaultValue();
+        break;
+    default:
+    case Chaser::Default:
+        // Don't touch members' fade out speed at all
+        speed = Function::defaultSpeed();
+        break;
     }
 
     return speed;

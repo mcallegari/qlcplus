@@ -82,12 +82,7 @@ Function::Function(QObject *parent)
     , m_tempoType(Time)
     , m_overrideTempoType(Original)
     , m_beatResyncNeeded(false)
-    , m_fadeInSpeed(0)
-    , m_fadeOutSpeed(0)
-    , m_duration(0)
-    , m_overrideFadeInSpeed(defaultSpeed())
-    , m_overrideFadeOutSpeed(defaultSpeed())
-    , m_overrideDuration(defaultSpeed())
+    , m_timings(0, 0, 0)
     , m_uiState()
     , m_flashing(false)
     , m_elapsed(0)
@@ -110,12 +105,7 @@ Function::Function(Doc* doc, Type t)
     , m_tempoType(Time)
     , m_overrideTempoType(Original)
     , m_beatResyncNeeded(false)
-    , m_fadeInSpeed(0)
-    , m_fadeOutSpeed(0)
-    , m_duration(0)
-    , m_overrideFadeInSpeed(defaultSpeed())
-    , m_overrideFadeOutSpeed(defaultSpeed())
-    , m_overrideDuration(defaultSpeed())
+    , m_timings(0, 0, 0)
     , m_uiState()
     , m_flashing(false)
     , m_elapsed(0)
@@ -169,9 +159,7 @@ bool Function::copyFrom(const Function* function)
     m_runOrder = function->runOrder();
     m_direction = function->direction();
     m_tempoType = function->tempoType();
-    m_fadeInSpeed = function->fadeInSpeed();
-    m_fadeOutSpeed = function->fadeOutSpeed();
-    m_duration = function->duration();
+    m_timings = function->timings();
     m_path = function->path(true);
     m_blendMode = function->blendMode();
     uiState()->copyFrom(function->uiState());
@@ -603,228 +591,164 @@ void Function::slotBPMChanged(int bpmNumber)
 }
 
 /****************************************************************************
- * Speed
+ * Timings
  ****************************************************************************/
 
-void Function::setFadeInSpeed(uint ms)
+void setTimings(FunctionTimings const& timings)
 {
-    m_fadeInSpeed = ms;
+    m_timings = timings;
     emit changed(m_id);
 }
 
-uint Function::fadeInSpeed() const
+FunctionTimings timings() const
 {
-    return m_fadeInSpeed;
+    return m_timings;
 }
 
-void Function::setFadeOutSpeed(uint ms)
+void Function::setFadeIn(quint32 ms)
 {
-    m_fadeOutSpeed = ms;
+    m_timings.fadeIn = ms;
     emit changed(m_id);
 }
 
-uint Function::fadeOutSpeed() const
+quint32 Function::fadeIn() const
 {
-    return m_fadeOutSpeed;
+    return m_timings.fadeIn;
 }
 
-void Function::setDuration(uint ms)
+void Function::setFadeOut(quint32 ms)
 {
-    m_duration = ms;
+    m_timings.fadeOut = ms;
     emit changed(m_id);
 }
 
-uint Function::duration() const
+quint32 Function::fadeOut() const
 {
-    return m_duration;
+    return m_timings.fadeOut;
 }
 
-quint32 Function::totalDuration()
+void Function::setHold(quint32 ms)
 {
-    // fall back to duration in case a
-    // subclass doesn't provide this method
-    return duration();
+    m_timings.hold = ms;
+    emit changed(m_id);
 }
 
-void Function::setTotalDuration(quint32 msec)
+quint32 Function::hold() const
 {
-    Q_UNUSED(msec)
+    return m_timings.hold;
 }
 
-void Function::setOverrideFadeInSpeed(uint ms)
+void Function::setDuration(quint32 ms)
 {
-    m_overrideFadeInSpeed = ms;
+    m_timings.setDuration(ms);
+    emit changed(m_id);
 }
 
-uint Function::overrideFadeInSpeed() const
+quint32 Function::duration() const
 {
-    return m_overrideFadeInSpeed;
+    return m_timings.duration();
 }
 
-void Function::setOverrideFadeOutSpeed(uint ms)
+void setOverrideTimings(FunctionTimings const& timings)
 {
-    m_overrideFadeOutSpeed = ms;
+    m_overrideTimings = timings;
 }
 
-uint Function::overrideFadeOutSpeed() const
+FunctionTimings overrideTimings() const
 {
-    return m_overrideFadeOutSpeed;
+    return m_overrideTimings;
 }
 
-void Function::setOverrideDuration(uint ms)
+void Function::setOverrideFadeIn(quint32 ms)
 {
-    m_overrideDuration = ms;
+    m_overrideTimings.fadeIn = ms;
 }
 
-uint Function::overrideDuration() const
+quint32 Function::overrideFadeIn() const
 {
-    return m_overrideDuration;
+    return m_overrideTimings.fadeIn;
 }
 
-QString Function::speedToString(uint ms)
+void Function::setOverrideFadeOut(quint32 ms)
 {
-    QString str;
-    if (ms == infiniteSpeed())
-    {
-        str = QChar(0x221E); // Infinity symbol
-    }
-    else
-    {
-        uint h, m, s;
-
-        h = ms / MS_PER_HOUR;
-        ms -= (h * MS_PER_HOUR);
-
-        m = ms / MS_PER_MINUTE;
-        ms -= (m * MS_PER_MINUTE);
-
-        s = ms / MS_PER_SECOND;
-        ms -= (s * MS_PER_SECOND);
-
-        if (h != 0)
-            str += QString("%1h").arg(h, 1, 10, QChar('0'));
-        if (m != 0)
-            str += QString("%1m").arg(m, str.size() ? 2 : 1, 10, QChar('0'));
-        if (s != 0)
-            str += QString("%1s").arg(s, str.size() ? 2 : 1, 10, QChar('0'));
-        if (ms != 0 || str.size() == 0)
-            str += QString("%1ms").arg(ms, str.size() ? 3 : 1, 10, QChar('0'));
-    }
-
-    return str;
+    m_overrideTimings.fadeOut = ms;
 }
 
-static uint speedSplit(QString& speedString, QString splitNeedle)
+quint32 Function::overrideFadeOut() const
 {
-    QStringList splitResult;
-    // Filter out "ms" because "m" and "s" may wrongly use it
-    splitResult = speedString.split("ms");
-    if (splitResult.count() > 1)
-        splitResult = splitResult.at(0).split(splitNeedle);
-    else
-        splitResult = speedString.split(splitNeedle);
-
-    if (splitResult.count() > 1)
-    {
-        speedString.remove(0, speedString.indexOf(splitNeedle) + 1);
-        return splitResult.at(0).toUInt();
-    }
-    return 0;
+    return m_overrideTimings.fadeOut;
 }
 
-uint Function::stringToSpeed(QString speed)
+void Function::setOverrideHold(quint32 ms)
 {
-    uint value = 0;
-
-    if (speed == QChar(0x221E)) // Infinity symbol
-        return infiniteSpeed();
-
-    value += speedSplit(speed, "h") * 1000 * 60 * 60;
-    value += speedSplit(speed, "m") * 1000 * 60;
-    value += speedSplit(speed, "s") * 1000;
-
-    if (speed.contains("."))
-    {
-        // lround avoids toDouble precison issues (.03 transforms to .029)
-        value += lround(speed.toDouble() * 1000.0);
-    }
-    else
-    {
-        if (speed.contains("ms"))
-            speed = speed.split("ms").at(0);
-        value += speed.toUInt();
-    }
-
-    return speedNormalize(value);
+    m_overrideTimings.hold = ms;
 }
 
-uint Function::speedNormalize(uint speed)
+quint32 Function::overrideHold() const
 {
-    if ((int)speed < 0)
-        return infiniteSpeed();
-    return speed;
+    return m_overrideTimings.hold;
 }
 
-uint Function::speedAdd(uint left, uint right)
+void Function::setOverrideDuration(quint32 ms)
 {
-    if (speedNormalize(left) == infiniteSpeed()
-        || speedNormalize(right) == infiniteSpeed())
-        return infiniteSpeed();
-
-    return speedNormalize(left + right);
+    m_overrideTimings.setDuration(ms);
 }
 
 uint Function::speedSubtract(uint left, uint right)
 {
-    if (right >= left)
-        return 0;
-    if (speedNormalize(right) == infiniteSpeed())
-        return 0;
-    if (speedNormalize(left) == infiniteSpeed())
-        return infiniteSpeed();
-
-    return speedNormalize(left - right);
+    return m_overrideTimings.duration();
 }
 
 void Function::tap()
 {
 }
 
-bool Function::loadXMLSpeed(QXmlStreamReader &speedRoot)
+quint32 Function::getNum__SUBTIMINGPH__TimingsCount() const
 {
-    if (speedRoot.name() != KXMLQLCFunctionSpeed)
-        return false;
-
-    QXmlStreamAttributes attrs = speedRoot.attributes();
-
-    m_fadeInSpeed = attrs.value(KXMLQLCFunctionSpeedFadeIn).toString().toUInt();
-    m_fadeOutSpeed = attrs.value(KXMLQLCFunctionSpeedFadeOut).toString().toUInt();
-    m_duration = attrs.value(KXMLQLCFunctionSpeedDuration).toString().toUInt();
-
-    speedRoot.skipCurrentElement();
-
-    return true;
+    return 0;
 }
 
-bool Function::saveXMLSpeed(QXmlStreamWriter *doc) const
+void Function::set__SUBTIMINGPH__Timings(quint32 other, FunctionTimings const& timings)
 {
-    doc->writeStartElement(KXMLQLCFunctionSpeed);
-    doc->writeAttribute(KXMLQLCFunctionSpeedFadeIn, QString::number(fadeInSpeed()));
-    doc->writeAttribute(KXMLQLCFunctionSpeedFadeOut, QString::number(fadeOutSpeed()));
-    doc->writeAttribute(KXMLQLCFunctionSpeedDuration, QString::number(duration()));
-    doc->writeEndElement();
-
-    return true;
+    Q_UNUSED(other);
+    Q_UNUSED(timings);
+    qWarning() << Q_FUNC_INFO << "Function" << typeString()
+        << "does not have any \"other timing\"";
 }
 
-uint Function::infiniteSpeed()
+void Function::set__SUBTIMINGPH__FadeIn(quint32 other, quint32 ms)
 {
-    return (uint) -2;
+    Q_UNUSED(other);
+    Q_UNUSED(ms);
+    return Function::set__SUBTIMINGPH__Timings(0, FunctionTimings());
 }
 
-uint Function::defaultSpeed()
+void Function::set__SUBTIMINGPH__Hold(quint32 other, quint32 ms)
 {
-    return (uint) -1;
+    Q_UNUSED(other);
+    Q_UNUSED(ms);
+    return Function::set__SUBTIMINGPH__Timings(0, FunctionTimings());
+}
+
+void Function::set__SUBTIMINGPH__FadeOut(quint32 other, quint32 ms)
+{
+    Q_UNUSED(other);
+    Q_UNUSED(ms);
+    return Function::set__SUBTIMINGPH__Timings(0, FunctionTimings());
+}
+
+void Function::set__SUBTIMINGPH__Duration(quint32 other, quint32 ms)
+{
+    Q_UNUSED(other);
+    Q_UNUSED(ms);
+    return Function::set__SUBTIMINGPH__Timings(0, FunctionTimings());
+}
+
+QString Function::get__SUBTIMINGPH__String(quint32 other) const
+{
+    Q_UNUSED(other);
+    Function::set__SUBTIMINGPH__Timings(0, FunctionTimings());
+    return "";
 }
 
 /*****************************************************************************
@@ -1011,7 +935,6 @@ void Function::postRun(MasterTimer* timer, QList<Universe *> universes)
     m_stopMutex.lock();
     resetElapsed();
     resetAttributes();
-
     m_functionStopped.wakeAll();
     m_stopMutex.unlock();
 
@@ -1077,7 +1000,7 @@ void Function::roundElapsed(quint32 roundTime)
  *****************************************************************************/
 
 void Function::start(MasterTimer* timer, FunctionParent source, quint32 startTime,
-                     uint overrideFadeIn, uint overrideFadeOut, uint overrideDuration, TempoType overrideTempoType)
+                     FunctionTimings const& overrideTimings, TempoType overrideTempoType)
 {
     qDebug() << "Function start(). Name:" << m_name << "ID: " << m_id << "source:" << source.type() << source.id() << ", startTime:" << startTime;
 
@@ -1102,9 +1025,7 @@ void Function::start(MasterTimer* timer, FunctionParent source, quint32 startTim
 
     m_elapsed = startTime;
     m_elapsedBeats = 0;
-    m_overrideFadeInSpeed = overrideFadeIn;
-    m_overrideFadeOutSpeed = overrideFadeOut;
-    m_overrideDuration = overrideDuration;
+    m_overrideTimings = overrideTimings;
     m_overrideTempoType = overrideTempoType == Original ? tempoType() : overrideTempoType;
 
     m_stop = false;

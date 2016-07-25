@@ -30,6 +30,7 @@
 
 #include "universe.h"
 #include "functionparent.h"
+#include "functiontimings.h"
 
 class QXmlStreamReader;
 
@@ -64,11 +65,6 @@ class FunctionUiState;
 
 #define KXMLQLCFunctionEnabled "Enabled"
 
-#define KXMLQLCFunctionSpeed         "Speed"
-#define KXMLQLCFunctionSpeedFadeIn   "FadeIn"
-#define KXMLQLCFunctionSpeedHold     "Hold"
-#define KXMLQLCFunctionSpeedFadeOut  "FadeOut"
-#define KXMLQLCFunctionSpeedDuration "Duration"
 
 typedef struct
 {
@@ -84,7 +80,6 @@ class Function : public QObject
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(quint32 id READ id CONSTANT)
     Q_PROPERTY(Type type READ type CONSTANT)
-    Q_PROPERTY(quint32 totalDuration READ totalDuration WRITE setTotalDuration NOTIFY totalDurationChanged)
 
 public:
     /**
@@ -432,87 +427,79 @@ public:
     Q_ENUMS(SpeedType)
 
 public:
+    /*********************************************************************
+     * Timings
+     *********************************************************************/
+public:
+    void setTimings(FunctionTimings const& timings);
+    FunctionTimings timings() const;
+
     /** Set the fade in time in milliseconds */
-    void setFadeInSpeed(uint ms);
+    void setFadeIn(quint32 ms);
 
     /** Get the fade in time in milliseconds */
-    uint fadeInSpeed() const;
+    quint32 fadeIn() const;
 
     /** Set the fade out time in milliseconds */
-    void setFadeOutSpeed(uint ms);
+    void setFadeOut(quint32 ms);
 
     /** Get the fade out time in milliseconds */
-    uint fadeOutSpeed() const;
+    quint32 fadeOut() const;
+
+    /** Set the hold time in milliseconds */
+    void setHold(quint32 ms);
+
+    /** Get the hold time in milliseconds */
+    quint32 hold() const;
 
     /** Set the duration in milliseconds */
-    virtual void setDuration(uint ms);
+    void setDuration(quint32 ms);
 
     /** Get the duration in milliseconds */
-    uint duration() const;
+    quint32 duration() const;
 
-    /** Get the total duration in milliseconds.
-     *  This differs from duration as it considers
-     *  the steps or the specific Function parameters */
-    virtual quint32 totalDuration();
+    void setOverrideTimings(FunctionTimings const& timings);
+    FunctionTimings overrideTimings() const;
 
-    /** Set the total duration in milliseconds.
-     *  This method should be reimplemented only
-     *  by Functions supporting the stretch functionality */
-    virtual void setTotalDuration(quint32 msec);
+    /** Set the override fade in (done by chaser in Common timings mode) */
+    void setOverrideFadeIn(quint32 ms);
 
-    /** Set the override fade in speed (done by chaser in Common speed mode) */
-    void setOverrideFadeInSpeed(uint ms);
+    /** Get the override fade in */
+    quint32 overrideFadeIn() const;
 
-    /** Get the override fade in speed */
-    uint overrideFadeInSpeed() const;
+    /** Set the override fade out (done by chaser in Common timings mode) */
+    void setOverrideFadeOut(quint32 ms);
 
-    /** Set the override fade out speed (done by chaser in Common speed mode) */
-    void setOverrideFadeOutSpeed(uint ms);
+    /** Get the override fade out */
+    quint32 overrideFadeOut() const;
 
-    /** Get the override fade out speed */
-    uint overrideFadeOutSpeed() const;
+    /** Set the override hold */
+    void setOverrideHold(quint32 ms);
+
+    /** Get the override hold */
+    quint32 overrideHold() const;
 
     /** Set the override duration */
-    void setOverrideDuration(uint ms);
+    void setOverrideDuration(quint32 ms);
 
     /** Get the override duration */
-    uint overrideDuration() const;
+    quint32 overrideDuration() const;
 
     /** Tell the function that it has been "tapped". Default implementation does nothing. */
     virtual void tap();
 
-    static uint defaultSpeed();
-    static uint infiniteSpeed();
-
-    /** Pretty-print the given speed into a QString */
-    static QString speedToString(uint ms);
-
-    /** returns value in msec of a string created by speedToString */
-    static uint stringToSpeed(QString speed);
-
-    /** Safe speed operations */
-    static uint speedNormalize(uint speed);
-    static uint speedAdd(uint left, uint right);
-    static uint speedSubtract(uint left, uint right);
-
-signals:
-    void totalDurationChanged();
+    // TODO alternate speeds
+    // virtual quint32 getNum__SUBTIMINGPH__TimingsCount() const;
+    // virtual void set__SUBTIMINGPH__Timings(quint32 other, FunctionTimings const& timings);
+    // virtual void set__SUBTIMINGPH__FadeIn(quint32 other, quint32 ms);
+    // virtual void set__SUBTIMINGPH__Hold(quint32 other, quint32 ms);
+    // virtual void set__SUBTIMINGPH__FadeOut(quint32 other, quint32 ms);
+    // virtual void set__SUBTIMINGPH__Duration(quint32 other, quint32 ms);
+    // virtual void get__SUBTIMINGPH__String(quint32 other) const;
 
 protected:
-    /** Load the contents of a speed node */
-    bool loadXMLSpeed(QXmlStreamReader &speedRoot);
-
-    /** Save function's speed values in $doc */
-    bool saveXMLSpeed(QXmlStreamWriter *doc) const;
-
-private:
-    uint m_fadeInSpeed;
-    uint m_fadeOutSpeed;
-    uint m_duration;
-
-    uint m_overrideFadeInSpeed;
-    uint m_overrideFadeOutSpeed;
-    uint m_overrideDuration;
+    FunctionTimings m_timings;
+    FunctionTimings m_overrideTimings;
 
     /*********************************************************************
      * UI State
@@ -702,15 +689,11 @@ public:
      *
      * @param timer The MasterTimer that should run the function
      * @param child Use true if called from another function
-     * @param overrideFadeIn Override the function's default fade in speed
-     * @param overrideFadeOut Override the function's default fade out speed
-     * @param overrideDuration Override the function's default duration
+     * @param overrideTimings Override the function's default timings
      * @param overrideTempoType Override the tempo type of the function
      */
     void start(MasterTimer* timer, FunctionParent parent, quint32 startTime = 0,
-               uint overrideFadeIn = defaultSpeed(),
-               uint overrideFadeOut = defaultSpeed(),
-               uint overrideDuration = defaultSpeed(),
+               FunctionTimings const& overrideTimings = FunctionTimings(),
                TempoType overrideTempoType = Original);
 
     /**
