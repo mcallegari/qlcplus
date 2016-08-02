@@ -115,34 +115,24 @@ void ChaserRunner::slotChaserChanged()
 uint ChaserRunner::stepFadeIn(int stepIdx) const
 {
     uint speed = 0;
-    if (m_chaser->overrideFadeInSpeed() != Function::defaultSpeed())
+    switch (m_chaser->fadeInMode())
     {
-        // Override speed is used when another function has started the chaser,
-        // i.e. chaser inside a chaser that wants to impose its own fade in speed
-        // to its members.
-        speed = m_chaser->overrideFadeInSpeed();
-    }
-    else
-    {
-        switch (m_chaser->fadeInMode())
-        {
-        case Chaser::Common:
-            // All steps' fade in speed is dictated by the chaser
-            speed = m_chaser->fadeInSpeed();
-            break;
-        case Chaser::PerStep:
-            // Each step specifies its own fade in speed
-            if (stepIdx >= 0 && stepIdx < m_chaser->steps().size())
-                speed = m_chaser->steps().at(stepIdx).fadeIn;
-            else
-                speed = Function::defaultSpeed();
-            break;
-        default:
-        case Chaser::Default:
-            // Don't touch members' fade in speed at all
+    case Chaser::Common:
+        // All steps' fade in speed is dictated by the chaser
+        speed = m_chaser->alternateFadeIn(0);
+        break;
+    case Chaser::PerStep:
+        // Each step specifies its own fade in speed
+        if (stepIdx >= 0 && stepIdx < m_chaser->steps().size())
+            speed = m_chaser->steps().at(stepIdx).fadeIn;
+        else
             speed = Function::defaultSpeed();
-            break;
-        }
+        break;
+    default:
+    case Chaser::Default:
+        // Don't touch members' fade in speed at all
+        speed = Function::defaultSpeed();
+        break;
     }
 
     return speed;
@@ -151,34 +141,24 @@ uint ChaserRunner::stepFadeIn(int stepIdx) const
 uint ChaserRunner::stepFadeOut(int stepIdx) const
 {
     uint speed = 0;
-    if (m_chaser->overrideFadeOutSpeed() != Function::defaultSpeed())
+    switch (m_chaser->fadeOutMode())
     {
-        // Override speed is used when another function has started the chaser,
-        // i.e. chaser inside a chaser that wants to impose its own fade out speed
-        // to its members.
-        speed = m_chaser->overrideFadeOutSpeed();
-    }
-    else
-    {
-        switch (m_chaser->fadeOutMode())
-        {
-        case Chaser::Common:
-            // All steps' fade out speed is dictated by the chaser
-            speed = m_chaser->fadeOutSpeed();
-            break;
-        case Chaser::PerStep:
-            // Each step specifies its own fade out speed
-            if (stepIdx >= 0 && stepIdx < m_chaser->steps().size())
-                speed = m_chaser->steps().at(stepIdx).fadeOut;
-            else
-                speed = Function::defaultSpeed();
-            break;
-        default:
-        case Chaser::Default:
-            // Don't touch members' fade out speed at all
+    case Chaser::Common:
+        // All steps' fade out speed is dictated by the chaser
+        speed = m_chaser->alternateFadeOut(0);
+        break;
+    case Chaser::PerStep:
+        // Each step specifies its own fade out speed
+        if (stepIdx >= 0 && stepIdx < m_chaser->steps().size())
+            speed = m_chaser->steps().at(stepIdx).fadeOut;
+        else
             speed = Function::defaultSpeed();
-            break;
-        }
+        break;
+    default:
+    case Chaser::Default:
+        // Don't touch members' fade out speed at all
+        speed = Function::defaultSpeed();
+        break;
     }
 
     return speed;
@@ -187,31 +167,21 @@ uint ChaserRunner::stepFadeOut(int stepIdx) const
 uint ChaserRunner::stepDuration(int stepIdx) const
 {
     uint speed = 0;
-    if (m_chaser->overrideDuration() != Function::defaultSpeed())
+    switch (m_chaser->durationMode())
     {
-        // Override speed is used when another function has started the chaser,
-        // i.e. chaser inside a chaser that wants to impose its own duration
-        // to its members.
-        speed = m_chaser->overrideDuration();
-    }
-    else
-    {
-        switch (m_chaser->durationMode())
-        {
-        default:
-        case Chaser::Default:
-        case Chaser::Common:
-            // All steps' duration is dictated by the chaser
-            speed = m_chaser->duration();
-            break;
-        case Chaser::PerStep:
-            // Each step specifies its own duration
-            if (stepIdx >= 0 && stepIdx < m_chaser->steps().size())
-                speed = m_chaser->steps().at(stepIdx).duration;
-            else
-                speed = m_chaser->duration();
-            break;
-        }
+    default:
+    case Chaser::Default:
+    case Chaser::Common:
+        // All steps' duration is dictated by the chaser
+        speed = m_chaser->alternateDuration(0);
+        break;
+    case Chaser::PerStep:
+        // Each step specifies its own duration
+        if (stepIdx >= 0 && stepIdx < m_chaser->steps().size())
+            speed = m_chaser->steps().at(stepIdx).duration;
+        else
+            speed = m_chaser->alternateDuration(0);
+        break;
     }
 
     return speed;

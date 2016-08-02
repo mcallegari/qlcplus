@@ -64,11 +64,13 @@ class FunctionUiState;
 
 #define KXMLQLCFunctionEnabled "Enabled"
 
-#define KXMLQLCFunctionSpeed         "Speed"
-#define KXMLQLCFunctionSpeedFadeIn   "FadeIn"
-#define KXMLQLCFunctionSpeedHold     "Hold"
-#define KXMLQLCFunctionSpeedFadeOut  "FadeOut"
-#define KXMLQLCFunctionSpeedDuration "Duration"
+#define KXMLQLCFunctionSpeed          "Speed"
+#define KXMLQLCFunctionAlternateSpeed "AlternateSpeed"
+#define KXMLQLCFunctionAlternateIndex "Index"
+#define KXMLQLCFunctionSpeedFadeIn    "FadeIn"
+#define KXMLQLCFunctionSpeedHold      "Hold"
+#define KXMLQLCFunctionSpeedFadeOut   "FadeOut"
+#define KXMLQLCFunctionSpeedDuration  "Duration"
 
 typedef struct
 {
@@ -382,6 +384,15 @@ public:
     /** Get the duration in milliseconds */
     uint duration() const;
 
+    virtual void setAlternateFadeIn(int idx, quint32 ms);
+    virtual quint32 alternateFadeIn(int idx) const;
+    virtual void setAlternateFadeOut(int idx, quint32 ms);
+    virtual quint32 alternateFadeOut(int idx) const;
+    virtual void setAlternateDuration(int idx, quint32 ms);
+    virtual quint32 alternateDuration(int idx) const;
+    virtual uint alternateSpeedCount() const;
+    virtual QString alternateSpeedName(int idx) const;
+
     /** Get the total duration in milliseconds.
      *  This differs from duration as it considers
      *  the steps or the specific Function parameters */
@@ -437,6 +448,9 @@ protected:
     /** Save function's speed values in $doc */
     bool saveXMLSpeed(QXmlStreamWriter *doc) const;
 
+    bool loadXMLAlternateSpeed(QXmlStreamReader &alternateSpeedRoot);
+    bool saveXMLAlternateSpeed(QXmlStreamWriter *doc, int idx) const;
+
 private:
     uint m_fadeInSpeed;
     uint m_fadeOutSpeed;
@@ -480,7 +494,6 @@ public:
     /**
      * Read this function's contents from an XML document
      *
-     * @param doc An XML document to load from
      * @param root An XML root element of a function
      */
     virtual bool loadXML(QXmlStreamReader &root);

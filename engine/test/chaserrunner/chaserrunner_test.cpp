@@ -148,7 +148,7 @@ void ChaserRunner_Test::currentFadeIn()
     m_chaser->setDirection(Function::Forward);
     m_chaser->setRunOrder(Function::Loop);
 
-    m_chaser->setFadeInSpeed(100);
+    m_chaser->setAlternateFadeIn(0, 100);
     m_chaser->replaceStep(ChaserStep(m_scene1->id(), 1000, 2000, 3000), 0);
     m_chaser->replaceStep(ChaserStep(m_scene2->id(), 1100, 2100, 3100), 1);
     m_chaser->replaceStep(ChaserStep(m_scene3->id(), 1200, 2200, 3200), 2);
@@ -182,34 +182,34 @@ void ChaserRunner_Test::currentFadeIn()
     cr.m_lastRunStepIdx = 3; // Nonexistent step
     QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), Function::defaultSpeed());
 
-    // Check that override speed really overrides any setting
+    // Check that override speed does not fuck up step speeds
     m_chaser->setOverrideFadeInSpeed(1234);
 
     m_chaser->setFadeInMode(Chaser::Default);
     cr.m_lastRunStepIdx = 0;
-    QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), Function::defaultSpeed());
     cr.m_lastRunStepIdx = 1;
-    QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), Function::defaultSpeed());
     cr.m_lastRunStepIdx = 2;
-    QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), Function::defaultSpeed());
 
     m_chaser->setFadeInMode(Chaser::Common);
     cr.m_lastRunStepIdx = 0;
-    QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), uint(100));
     cr.m_lastRunStepIdx = 1;
-    QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), uint(100));
     cr.m_lastRunStepIdx = 2;
-    QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), uint(100));
 
     m_chaser->setFadeInMode(Chaser::PerStep);
     cr.m_lastRunStepIdx = 0;
-    QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), uint(1000));
     cr.m_lastRunStepIdx = 1;
-    QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), uint(1100));
     cr.m_lastRunStepIdx = 2;
-    QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), uint(1200));
     cr.m_lastRunStepIdx = 3; // Nonexistent step
-    QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), Function::defaultSpeed());
 }
 
 void ChaserRunner_Test::currentFadeOut()
@@ -217,7 +217,7 @@ void ChaserRunner_Test::currentFadeOut()
     m_chaser->setDirection(Function::Forward);
     m_chaser->setRunOrder(Function::Loop);
 
-    m_chaser->setFadeOutSpeed(200);
+    m_chaser->setAlternateFadeOut(0, 200);
     m_chaser->replaceStep(ChaserStep(m_scene1->id(), 1000, 2000, 3000), 0);
     m_chaser->replaceStep(ChaserStep(m_scene2->id(), 1100, 2100, 3100), 1);
     m_chaser->replaceStep(ChaserStep(m_scene3->id(), 1200, 2200, 3200), 2);
@@ -251,34 +251,34 @@ void ChaserRunner_Test::currentFadeOut()
     cr.m_lastRunStepIdx = 3; // Nonexistent step
     QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), Function::defaultSpeed());
 
-    // Check that override speed really overrides any setting
+    // Check that override speed does not fuck up step speeds
     m_chaser->setOverrideFadeOutSpeed(1234);
 
     m_chaser->setFadeOutMode(Chaser::Default);
     cr.m_lastRunStepIdx = 0;
-    QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), Function::defaultSpeed());
     cr.m_lastRunStepIdx = 1;
-    QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), Function::defaultSpeed());
     cr.m_lastRunStepIdx = 2;
-    QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), Function::defaultSpeed());
 
     m_chaser->setFadeOutMode(Chaser::Common);
     cr.m_lastRunStepIdx = 0;
-    QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), uint(200));
     cr.m_lastRunStepIdx = 1;
-    QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), uint(200));
     cr.m_lastRunStepIdx = 2;
-    QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), uint(200));
 
     m_chaser->setFadeOutMode(Chaser::PerStep);
     cr.m_lastRunStepIdx = 0;
-    QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), uint(3000));
     cr.m_lastRunStepIdx = 1;
-    QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), uint(3100));
     cr.m_lastRunStepIdx = 2;
-    QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), uint(3200));
     cr.m_lastRunStepIdx = 3; // Nonexistent step
-    QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), Function::defaultSpeed());
 }
 
 void ChaserRunner_Test::currentDuration()
@@ -286,7 +286,7 @@ void ChaserRunner_Test::currentDuration()
     m_chaser->setDirection(Function::Forward);
     m_chaser->setRunOrder(Function::Loop);
 
-    m_chaser->setDuration(300);
+    m_chaser->setAlternateDuration(0, 300);
     m_chaser->replaceStep(ChaserStep(m_scene1->id(), 1000, 2000, 3000), 0);
     m_chaser->replaceStep(ChaserStep(m_scene2->id(), 1100, 2100, 3100), 1);
     m_chaser->replaceStep(ChaserStep(m_scene3->id(), 1200, 2200, 3200), 2);
@@ -321,34 +321,35 @@ void ChaserRunner_Test::currentDuration()
     cr.m_lastRunStepIdx = 3; // Nonexistent step
     QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(300)); // Fall back to common speed
 
-    // Check that override speed really overrides any setting
+    // Check that override speed does not fuck up speeds
     m_chaser->setOverrideDuration(1234);
 
+    // Default mode for duration is interpreted as Common
     m_chaser->setDurationMode(Chaser::Default);
     cr.m_lastRunStepIdx = 0;
-    QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(300));
     cr.m_lastRunStepIdx = 1;
-    QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(300));
     cr.m_lastRunStepIdx = 2;
-    QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(300));
 
     m_chaser->setDurationMode(Chaser::Common);
     cr.m_lastRunStepIdx = 0;
-    QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(300));
     cr.m_lastRunStepIdx = 1;
-    QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(300));
     cr.m_lastRunStepIdx = 2;
-    QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(300));
 
     m_chaser->setDurationMode(Chaser::PerStep);
     cr.m_lastRunStepIdx = 0;
-    QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(3000));
     cr.m_lastRunStepIdx = 1;
-    QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(3200));
     cr.m_lastRunStepIdx = 2;
-    QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(3400));
     cr.m_lastRunStepIdx = 3; // Nonexistent step
-    QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(300)); // Fall back to common speed
 }
 
 /*
@@ -356,7 +357,7 @@ void ChaserRunner_Test::roundCheckSingleShotForward()
 {
     m_chaser->setDirection(Function::Forward);
     m_chaser->setRunOrder(Function::SingleShot);
-    m_chaser->setDuration(Function::infiniteSpeed());
+    m_chaser->setAlternateDuration(0, Function::infiniteSpeed());
     ChaserRunner cr(m_doc, m_chaser);
 
     QCOMPARE(cr.currentStep(), 0);
@@ -380,7 +381,7 @@ void ChaserRunner_Test::roundCheckSingleShotBackward()
 {
     m_chaser->setDirection(Function::Backward);
     m_chaser->setRunOrder(Function::SingleShot);
-    m_chaser->setDuration(Function::infiniteSpeed());
+    m_chaser->setAlternateDuration(0, Function::infiniteSpeed());
     ChaserRunner cr(m_doc, m_chaser);
 
     QCOMPARE(cr.currentStep(), 2);
@@ -402,7 +403,7 @@ void ChaserRunner_Test::roundCheckLoopForward()
 {
     m_chaser->setDirection(Function::Forward);
     m_chaser->setRunOrder(Function::Loop);
-    m_chaser->setDuration(Function::infiniteSpeed());
+    m_chaser->setAlternateDuration(0, Function::infiniteSpeed());
     ChaserRunner cr(m_doc, m_chaser);
 
     QCOMPARE(cr.currentStep(), 0);
@@ -438,7 +439,7 @@ void ChaserRunner_Test::roundCheckLoopBackward()
 {
     m_chaser->setDirection(Function::Backward);
     m_chaser->setRunOrder(Function::Loop);
-    m_chaser->setDuration(Function::infiniteSpeed());
+    m_chaser->setAlternateDuration(0, Function::infiniteSpeed());
     ChaserRunner cr(m_doc, m_chaser);
 
     QCOMPARE(cr.currentStep(), 2);
@@ -475,7 +476,7 @@ void ChaserRunner_Test::roundCheckPingPongForward()
     m_chaser->addStep(m_scene1->id()); // Easier to check direction changes with 4 steps
     m_chaser->setDirection(Function::Forward);
     m_chaser->setRunOrder(Function::PingPong);
-    m_chaser->setDuration(Function::infiniteSpeed());
+    m_chaser->setAlternateDuration(0, Function::infiniteSpeed());
     ChaserRunner cr(m_doc, m_chaser);
 
     QCOMPARE(cr.currentStep(), 0);
@@ -547,7 +548,7 @@ void ChaserRunner_Test::roundCheckPingPongBackward()
     m_chaser->addStep(m_scene1->id()); // Easier to check direction changes with 4 steps
     m_chaser->setDirection(Function::Backward);
     m_chaser->setRunOrder(Function::PingPong);
-    m_chaser->setDuration(Function::infiniteSpeed());
+    m_chaser->setAlternateDuration(0, Function::infiniteSpeed());
     ChaserRunner cr(m_doc, m_chaser);
 
     QCOMPARE(cr.currentStep(), 3);
@@ -856,7 +857,7 @@ void ChaserRunner_Test::writeForwardLoopFive()
     m_chaser->setRunOrder(Function::Loop);
 
     uint dur = MasterTimer::tick() * 5;
-    m_chaser->setDuration(dur);
+    m_chaser->setAlternateDuration(0, dur);
 
     ChaserRunner cr(m_doc, m_chaser);
     MasterTimer timer(m_doc);
@@ -922,7 +923,7 @@ void ChaserRunner_Test::writeBackwardLoopFive()
     m_chaser->setRunOrder(Function::Loop);
 
     uint dur = MasterTimer::tick() * 5;
-    m_chaser->setDuration(dur);
+    m_chaser->setAlternateDuration(0, dur);
 
     ChaserRunner cr(m_doc, m_chaser);
     MasterTimer timer(m_doc);
@@ -988,7 +989,7 @@ void ChaserRunner_Test::writeForwardSingleShotFive()
     m_chaser->setRunOrder(Function::SingleShot);
 
     uint dur = MasterTimer::tick() * 5;
-    m_chaser->setDuration(dur);
+    m_chaser->setAlternateDuration(0, dur);
 
     ChaserRunner cr(m_doc, m_chaser);
     MasterTimer timer(m_doc);
@@ -1034,7 +1035,7 @@ void ChaserRunner_Test::writeBackwardSingleShotFive()
     m_chaser->setRunOrder(Function::SingleShot);
 
     uint dur = MasterTimer::tick() * 5;
-    m_chaser->setDuration(dur);
+    m_chaser->setAlternateDuration(0, dur);
 
     ChaserRunner cr(m_doc, m_chaser);
     MasterTimer timer(m_doc);
@@ -1080,7 +1081,7 @@ void ChaserRunner_Test::writeForwardPingPongFive()
     m_chaser->setRunOrder(Function::PingPong);
 
     uint dur = MasterTimer::tick() * 5;
-    m_chaser->setDuration(dur);
+    m_chaser->setAlternateDuration(0, dur);
 
     ChaserRunner cr(m_doc, m_chaser);
     MasterTimer timer(m_doc);
@@ -1155,7 +1156,7 @@ void ChaserRunner_Test::writeBackwardPingPongFive()
     m_chaser->setRunOrder(Function::PingPong);
 
     uint dur = MasterTimer::tick() * 5;
-    m_chaser->setDuration(dur);
+    m_chaser->setAlternateDuration(0, dur);
 
     ChaserRunner cr(m_doc, m_chaser);
     MasterTimer timer(m_doc);
@@ -1229,7 +1230,7 @@ void ChaserRunner_Test::writeNoAutoStep()
     m_chaser->setDirection(Function::Forward);
     m_chaser->setRunOrder(Function::Loop);
 
-    m_chaser->setDuration(Function::infiniteSpeed());
+    m_chaser->setAlternateDuration(0, Function::infiniteSpeed());
 
     ChaserRunner cr(m_doc, m_chaser);
     MasterTimer timer(m_doc);

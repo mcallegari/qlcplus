@@ -518,6 +518,60 @@ uint Function::duration() const
     return m_duration;
 }
 
+void Function::setAlternateFadeIn(int idx, quint32 ms)
+{
+    Q_UNUSED(ms);
+    Q_UNUSED(idx);
+    qWarning() << Q_FUNC_INFO << "Invalid try";
+}
+
+quint32 Function::alternateFadeIn(int idx) const
+{
+    Q_UNUSED(idx);
+    qWarning() << Q_FUNC_INFO << "Invalid try";
+    return defaultSpeed();
+}
+
+void Function::setAlternateFadeOut(int idx, quint32 ms)
+{
+    Q_UNUSED(ms);
+    Q_UNUSED(idx);
+    qWarning() << Q_FUNC_INFO << "Invalid try";
+}
+
+quint32 Function::alternateFadeOut(int idx) const
+{
+    Q_UNUSED(idx);
+    qWarning() << Q_FUNC_INFO << "Invalid try";
+    return defaultSpeed();
+}
+
+void Function::setAlternateDuration(int idx, quint32 ms)
+{
+    Q_UNUSED(ms);
+    Q_UNUSED(idx);
+    qWarning() << Q_FUNC_INFO << "Invalid try";
+}
+
+quint32 Function::alternateDuration(int idx) const
+{
+    Q_UNUSED(idx);
+    qWarning() << Q_FUNC_INFO << "Invalid try";
+    return defaultSpeed();
+}
+
+uint Function::alternateSpeedCount() const
+{
+    return 0;
+}
+
+QString Function::alternateSpeedName(int idx) const
+{
+    Q_UNUSED(idx);
+    qWarning() << Q_FUNC_INFO << "Invalid try";
+    return QString();
+}
+
 quint32 Function::totalDuration()
 {
     // fall back to duration in case a
@@ -691,6 +745,35 @@ bool Function::saveXMLSpeed(QXmlStreamWriter *doc) const
     doc->writeAttribute(KXMLQLCFunctionSpeedFadeIn, QString::number(fadeInSpeed()));
     doc->writeAttribute(KXMLQLCFunctionSpeedFadeOut, QString::number(fadeOutSpeed()));
     doc->writeAttribute(KXMLQLCFunctionSpeedDuration, QString::number(duration()));
+    doc->writeEndElement();
+
+    return true;
+}
+
+bool Function::loadXMLAlternateSpeed(QXmlStreamReader &speedRoot)
+{
+    if (speedRoot.name() != KXMLQLCFunctionAlternateSpeed)
+        return false;
+
+    QXmlStreamAttributes attrs = speedRoot.attributes();
+
+    int idx = attrs.value(KXMLQLCFunctionAlternateIndex).toString().toUInt();
+    setAlternateFadeIn(idx, attrs.value(KXMLQLCFunctionSpeedFadeIn).toString().toUInt());
+    setAlternateFadeOut(idx, attrs.value(KXMLQLCFunctionSpeedFadeOut).toString().toUInt());
+    setAlternateDuration(idx, attrs.value(KXMLQLCFunctionSpeedDuration).toString().toUInt());
+
+    speedRoot.skipCurrentElement();
+
+    return true;
+}
+
+bool Function::saveXMLAlternateSpeed(QXmlStreamWriter *doc, int idx) const
+{
+    doc->writeStartElement(KXMLQLCFunctionAlternateSpeed);
+    doc->writeAttribute(KXMLQLCFunctionAlternateIndex, QString::number(idx));
+    doc->writeAttribute(KXMLQLCFunctionSpeedFadeIn, QString::number(alternateFadeIn(idx)));
+    doc->writeAttribute(KXMLQLCFunctionSpeedFadeOut, QString::number(alternateFadeOut(idx)));
+    doc->writeAttribute(KXMLQLCFunctionSpeedDuration, QString::number(alternateDuration(idx)));
     doc->writeEndElement();
 
     return true;

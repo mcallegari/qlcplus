@@ -85,7 +85,7 @@ void RGBMatrix_Test::initial()
     QVERIFY(mtx.m_fader == NULL);
     QCOMPARE(mtx.m_step, 0);
     QCOMPARE(mtx.name(), tr("New RGB Matrix"));
-    QCOMPARE(mtx.duration(), uint(500));
+    QCOMPARE(mtx.alternateDuration(0), uint(500));
     QVERIFY(mtx.algorithm() != NULL);
     QCOMPARE(mtx.algorithm()->name(), QString("Stripes"));
 }
@@ -186,9 +186,9 @@ void RGBMatrix_Test::loadSave()
     mtx->setName("Xyzzy");
     mtx->setDirection(Function::Backward);
     mtx->setRunOrder(Function::PingPong);
-    mtx->setDuration(1200);
-    mtx->setFadeInSpeed(10);
-    mtx->setFadeOutSpeed(20);
+    mtx->setAlternateDuration(0, 1200);
+    mtx->setAlternateFadeIn(0, 10);
+    mtx->setAlternateFadeOut(0, 20);
     mtx->setDimmerControl(false);
     m_doc->addFunction(mtx);
 
@@ -210,16 +210,21 @@ void RGBMatrix_Test::loadSave()
     QCOMPARE(xmlReader.attributes().value("ID").toString(), QString::number(mtx->id()));
     QCOMPARE(xmlReader.attributes().value("Name").toString(), QString("Xyzzy"));
 
-    int speed = 0, dir = 0, run = 0, algo = 0, monocolor = 0, endcolor = 0, grp = 0, dimmer = 0;
+    int speed = 0, alternatespeed = 0, dir = 0, run = 0, algo = 0, monocolor = 0, endcolor = 0, grp = 0, dimmer = 0;
 
     while (xmlReader.readNextStartElement())
     {
         if (xmlReader.name() == "Speed")
         {
+            speed++;
+            xmlReader.skipCurrentElement();
+        }
+        else if (xmlReader.name() == "AlternateSpeed")
+        {
             QCOMPARE(xmlReader.attributes().value("FadeIn").toString(), QString("10"));
             QCOMPARE(xmlReader.attributes().value("FadeOut").toString(), QString("20"));
             QCOMPARE(xmlReader.attributes().value("Duration").toString(), QString("1200"));
-            speed++;
+            alternatespeed++;
             xmlReader.skipCurrentElement();
         }
         else if (xmlReader.name() == "Direction")
@@ -265,6 +270,7 @@ void RGBMatrix_Test::loadSave()
     }
 
     QCOMPARE(speed, 1);
+    QCOMPARE(alternatespeed, 1);
     QCOMPARE(dir, 1);
     QCOMPARE(run, 1);
     QCOMPARE(algo, 1);
@@ -287,9 +293,9 @@ void RGBMatrix_Test::loadSave()
     QCOMPARE(mtx2.fixtureGroup(), uint(42));
     QVERIFY(mtx2.algorithm() != NULL);
     QCOMPARE(mtx2.algorithm()->name(), mtx->algorithm()->name());
-    QCOMPARE(mtx2.duration(), uint(1200));
-    QCOMPARE(mtx2.fadeInSpeed(), uint(10));
-    QCOMPARE(mtx2.fadeOutSpeed(), uint(20));
+    QCOMPARE(mtx2.alternateDuration(0), uint(1200));
+    QCOMPARE(mtx2.alternateFadeIn(0), uint(10));
+    QCOMPARE(mtx2.alternateFadeOut(0), uint(20));
 
     buffer.close();
     buffer.setData(QByteArray());
