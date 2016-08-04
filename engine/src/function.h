@@ -424,6 +424,8 @@ public:
     /** Tell the function that it has been "tapped". Default implementation does nothing. */
     virtual void tap();
 
+    static int baseSpeedIdx();
+
     static uint defaultSpeed();
     static uint infiniteSpeed();
 

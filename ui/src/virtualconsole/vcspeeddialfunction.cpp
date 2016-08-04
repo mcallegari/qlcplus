@@ -25,12 +25,14 @@
 #include "function.h"
 #include "doc.h"
 
-#define KXMLQLCSequenceSceneValues "Values"
-#define KXMLQLCStepNote "Note"
+#define KXMLQLCVCSpeedDialFunctionAlternateSpeedIdx "AlternateSpeedIdx"
 
-VCSpeedDialFunction::VCSpeedDialFunction(quint32 aFid, SpeedMultiplier aFadeIn,
-                                         SpeedMultiplier aFadeOut, SpeedMultiplier aDuration)
+VCSpeedDialFunction::VCSpeedDialFunction(quint32 aFid, int aAlternateSpeedIdx,
+                                         SpeedMultiplier aFadeIn,
+                                         SpeedMultiplier aFadeOut,
+                                         SpeedMultiplier aDuration)
     : functionId(aFid)
+    , alternateSpeedIdx(aAlternateSpeedIdx)
     , fadeInMultiplier(aFadeIn)
     , fadeOutMultiplier(aFadeOut)
     , durationMultiplier(aDuration)
@@ -55,16 +57,21 @@ bool VCSpeedDialFunction::loadXML(QXmlStreamReader &root, SpeedMultiplier aFadeI
     }
     functionId = text.toUInt();
 
+    if (attrs.hasAttribute(KXMLQLCVCSpeedDialFunctionAlternateSpeedIdx))
+        alternateSpeedIdx = attrs.value(KXMLQLCVCSpeedDialFunctionAlternateSpeedIdx).toString().toUInt();
+    else
+        alternateSpeedIdx = Function::baseSpeedIdx();
+
     // For each multiplier: If not present in XML, use default value.
-    if (attrs.hasAttribute(KXMLQLCFunctionSpeedFadeIn) == true)
+    if (attrs.hasAttribute(KXMLQLCFunctionSpeedFadeIn))
         fadeInMultiplier = static_cast<SpeedMultiplier>(attrs.value(KXMLQLCFunctionSpeedFadeIn).toString().toUInt());
     else
         fadeInMultiplier = aFadeIn;
-    if (attrs.hasAttribute(KXMLQLCFunctionSpeedFadeOut) == true)
+    if (attrs.hasAttribute(KXMLQLCFunctionSpeedFadeOut))
         fadeOutMultiplier = static_cast<SpeedMultiplier>(attrs.value(KXMLQLCFunctionSpeedFadeOut).toString().toUInt());
     else
         fadeOutMultiplier = aFadeOut;
-    if (attrs.hasAttribute(KXMLQLCFunctionSpeedDuration) == true)
+    if (attrs.hasAttribute(KXMLQLCFunctionSpeedDuration))
         durationMultiplier = static_cast<SpeedMultiplier>(attrs.value(KXMLQLCFunctionSpeedDuration).toString().toUInt());
     else
         durationMultiplier = aDuration;
@@ -82,7 +89,11 @@ bool VCSpeedDialFunction::saveXML(QXmlStreamWriter *doc) const
     /* Multipliers */
     doc->writeAttribute(KXMLQLCFunctionSpeedFadeIn, QString::number(fadeInMultiplier));
     doc->writeAttribute(KXMLQLCFunctionSpeedFadeOut, QString::number(fadeOutMultiplier));
-    doc->writeAttribute(KXMLQLCFunctionSpeedDuration,QString::number( durationMultiplier));
+    doc->writeAttribute(KXMLQLCFunctionSpeedDuration,QString::number(durationMultiplier));
+
+    /* Alternate speed (no need for base speed) */
+    if (alternateSpeedIdx != Function::baseSpeedIdx())
+        doc->writeAttribute(KXMLQLCVCSpeedDialFunctionAlternateSpeedIdx, QString::number(alternateSpeedIdx));
 
     /* Function ID */
     doc->writeCharacters(QString::number(functionId));

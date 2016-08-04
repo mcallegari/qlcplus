@@ -779,6 +779,11 @@ bool Function::saveXMLAlternateSpeed(QXmlStreamWriter *doc, int idx) const
     return true;
 }
 
+int Function::baseSpeedIdx()
+{
+    return -1;
+}
+
 uint Function::infiniteSpeed()
 {
     return (uint) -2;

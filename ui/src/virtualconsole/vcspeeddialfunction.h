@@ -66,7 +66,10 @@ public:
 public:
     /** Construct a new VCSpeedDialFunction with the given attributes */
     VCSpeedDialFunction(quint32 aFid = Function::invalidId(),
-            SpeedMultiplier aFadeIn = None, SpeedMultiplier aFadeOut = None, SpeedMultiplier aDuration = One);
+                        int aAlternateSpeedIdx = Function::baseSpeedIdx(),
+                        SpeedMultiplier aFadeIn = None,
+                        SpeedMultiplier aFadeOut = None,
+                        SpeedMultiplier aDuration = One);
 
     /************************************************************************
      * Load & Save
@@ -81,6 +84,7 @@ public:
 
 public:
     quint32 functionId;
+    int alternateSpeedIdx;
     SpeedMultiplier fadeInMultiplier;
     SpeedMultiplier fadeOutMultiplier;
     SpeedMultiplier durationMultiplier;
