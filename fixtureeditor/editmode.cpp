@@ -391,7 +391,7 @@ void EditMode::refreshHeadList()
             const QLCChannel* ch = m_mode->channel(chnum);
             QTreeWidgetItem* chitem = new QTreeWidgetItem(item);
             if (ch != NULL)
-                chitem->setText(0, QString("%1: %2").arg(chnum).arg(ch->name()));
+                chitem->setText(0, QString("%1: %2").arg(chnum + 1).arg(ch->name()));
             else
                 chitem->setText(0, QString("%1: INVALID!"));
             chitem->setFlags(0); // Disable channel selection inside heads
