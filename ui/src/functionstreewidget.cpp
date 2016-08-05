@@ -108,6 +108,23 @@ QTreeWidgetItem *FunctionsTreeWidget::addFunction(quint32 fid)
     return item;
 }
 
+QTreeWidgetItem *FunctionsTreeWidget::addAlternateSpeed(quint32 fid, int idx)
+{
+    Function* function = m_doc->function(fid);
+    if (function == NULL)
+        return NULL;
+
+    QTreeWidgetItem* parentItem = functionItem(function);
+    if (parentItem == NULL)
+        return NULL;
+
+    blockSignals(true);
+    QTreeWidgetItem* item = new QTreeWidgetItem(parentItem);
+    updateAlternateSpeedItem(item, function, idx);
+    blockSignals(false);
+    return item;
+}
+
 void FunctionsTreeWidget::updateFunctionItem(QTreeWidgetItem* item, const Function* function)
 {
     Q_ASSERT(item != NULL);
@@ -116,6 +133,18 @@ void FunctionsTreeWidget::updateFunctionItem(QTreeWidgetItem* item, const Functi
     item->setIcon(COL_NAME, functionIcon(function));
     item->setData(COL_NAME, Qt::UserRole, function->id());
     item->setData(COL_NAME, Qt::UserRole + 1, function->type());
+    item->setFlags(item->flags() & ~Qt::ItemIsDropEnabled);
+}
+
+void FunctionsTreeWidget::updateAlternateSpeedItem(QTreeWidgetItem* item, const Function* function, int idx)
+{
+    Q_ASSERT(item != NULL);
+    Q_ASSERT(function != NULL);
+    item->setText(COL_NAME, function->alternateSpeedName(idx));
+    item->setIcon(COL_NAME, QIcon(":/speed.png"));
+    item->setData(COL_NAME, Qt::UserRole, function->id());
+    item->setData(COL_NAME, Qt::UserRole + 1, Function::Undefined);
+    item->setData(COL_NAME, Qt::UserRole + 2, idx);
     item->setFlags(item->flags() & ~Qt::ItemIsDropEnabled);
 }
 

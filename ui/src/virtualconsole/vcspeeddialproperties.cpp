@@ -249,6 +249,7 @@ void VCSpeedDialProperties::slotAddClicked()
 {
     FunctionSelection fs(this, m_doc);
     fs.setMultiSelection(true);
+    fs.showAlternateSpeed(true);
     QList <quint32> ids;
     foreach (const VCSpeedDialFunction &speeddialfunction, functions())
         ids.append(speeddialfunction.functionId);
@@ -258,6 +259,7 @@ void VCSpeedDialProperties::slotAddClicked()
         foreach (quint32 id, fs.selection())
             createFunctionItem(id);
     }
+    // TODO ici ajouter des lignes pour les alternate speeds
 }
 
 void VCSpeedDialProperties::slotRemoveClicked()

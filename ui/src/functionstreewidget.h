@@ -48,6 +48,7 @@ class Doc;
  * |   Qt::UserRole: function ID (or invalid)  |                                |
  * |   Qt::UserRole + 1: category type         |                                |
  * |                     (Function::Type)      |                                |
+ * |   Qt::UserRole + 2: alternate speed idx   |                                |
  *  ------------------------------------------- --------------------------------
  */
 
@@ -57,7 +58,7 @@ class FunctionsTreeWidget : public QTreeWidget
 
 public:
     FunctionsTreeWidget(Doc* doc, QWidget *parent = 0);
-    
+
     /** Update all functions to function tree */
     void updateTree();
 
@@ -68,6 +69,8 @@ public:
     /** Add the Function with the given ID and returns
      *  a pointer to the created item */
     QTreeWidgetItem* addFunction(quint32 fid);
+
+    QTreeWidgetItem* addAlternateSpeed(quint32 fid, int idx);
 
     /** Return a suitable parent item for the $function's type */
     QTreeWidgetItem* parentItem(const Function* function);
@@ -81,6 +84,8 @@ public:
 private:
     /** Update $item's contents from the given $function */
     void updateFunctionItem(QTreeWidgetItem* item, const Function* function);
+
+    void updateAlternateSpeedItem(QTreeWidgetItem* item, const Function* function, int idx);
 
     /** Get an icon that represents the given function's type */
     QIcon functionIcon(const Function* function) const;
