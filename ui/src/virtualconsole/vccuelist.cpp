@@ -574,7 +574,7 @@ void VCCueList::slotFunctionRemoved(quint32 fid)
 
 void VCCueList::slotFunctionChanged(quint32 fid)
 {
-    if (fid == m_chaserID)
+    if (fid == m_chaserID && !m_updateTimer->isActive())
         m_updateTimer->start(UPDATE_TIMEOUT);
 }
 
