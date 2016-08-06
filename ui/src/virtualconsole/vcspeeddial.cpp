@@ -510,31 +510,30 @@ void VCSpeedDial::slotFactoredValueChanged()
         Function* function = m_doc->function(speeddialfunction.functionId);
         if (function != NULL)
         {
+            FunctionSpeedsEditProxy speedsEdit =
+                (speeddialfunction.alternateSpeedsIdx == VCSpeedDialFunction::baseSpeedsIdx()) ?
+                function->speedsEdit() : function->alternateSpeedsEdit(speeddialfunction.alternateSpeedsIdx);
             if (speeddialfunction.fadeInMultiplier != VCSpeedDialFunction::None)
             {
-                if ((uint)ms != Speed::infiniteValue())
-                    function->speedsEdit().setFadeIn(ms * multipliers[speeddialfunction.fadeInMultiplier] / 1000);
-                else
-                    function->speedsEdit().setFadeIn(ms);
+                uint fadeIn = (uint)ms == Speed::infiniteValue() ? ms :
+                    (ms * multipliers[speeddialfunction.fadeInMultiplier] / 1000);
+                speedsEdit.setFadeIn(fadeIn);
             }
             if (speeddialfunction.fadeOutMultiplier != VCSpeedDialFunction::None)
             {
-                if ((uint)ms != Speed::infiniteValue())
-                    function->speedsEdit().setFadeOut(ms * multipliers[speeddialfunction.fadeOutMultiplier] / 1000);
-                else
-                    function->speedsEdit().setFadeOut(ms);
+                uint fadeOut = ((uint)ms == Speed::infiniteValue()) ? ms :
+                    (ms * multipliers[speeddialfunction.fadeOutMultiplier] / 1000);
+                speedsEdit.setFadeOut(fadeOut);
             }
             if (speeddialfunction.durationMultiplier != VCSpeedDialFunction::None)
             {
-                if ((uint)ms != Speed::infiniteValue())
-                    function->speedsEdit().setDuration(ms * multipliers[speeddialfunction.durationMultiplier] / 1000);
-                else
-                    function->speedsEdit().setDuration(ms);
+                uint duration = ((uint)ms == Speed::infiniteValue()) ? ms :
+                    (ms * multipliers[speeddialfunction.durationMultiplier] / 1000);
+                speedsEdit.setDuration(duration);
             }
         }
     }
 }
-
 
 void VCSpeedDial::setResetFactorOnDialChange(bool value)
 {
