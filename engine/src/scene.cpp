@@ -651,54 +651,55 @@ void Scene::write(MasterTimer* timer, QList<Universe*> ua)
 
 void Scene::postRun(MasterTimer* timer, QList<Universe *> ua)
 {
-    Q_ASSERT(m_fader != NULL);
-
-    QHashIterator <FadeChannel,FadeChannel> it(m_fader->channels());
-    while (it.hasNext() == true)
+    if (m_fader != NULL)
     {
-        it.next();
-        FadeChannel fc = it.value();
-        // fade out only intensity channels
-        if (fc.group(doc()) != QLCChannel::Intensity)
-            continue;
-
-        bool canFade = true;
-        Fixture *fixture = doc()->fixture(fc.fixture());
-        if (fixture != NULL)
-            canFade = fixture->channelCanFade(fc.channel());
-        fc.setStart(fc.current(getAttributeValue(Intensity)));
-        fc.setCurrent(fc.current(getAttributeValue(Intensity)));
-
-        fc.setElapsed(0);
-        fc.setReady(false);
-        if (canFade == false)
+        QHashIterator <FadeChannel,FadeChannel> it(m_fader->channels());
+        while (it.hasNext() == true)
         {
-            fc.setFadeTime(0);
-            fc.setTarget(fc.current(getAttributeValue(Intensity)));
-        }
-        else
-        {
-            if (overrideFadeOutSpeed() == defaultSpeed())
+            it.next();
+            FadeChannel fc = it.value();
+            // fade out only intensity channels
+            if (fc.group(doc()) != QLCChannel::Intensity)
+                continue;
+
+            bool canFade = true;
+            Fixture *fixture = doc()->fixture(fc.fixture());
+            if (fixture != NULL)
+                canFade = fixture->channelCanFade(fc.channel());
+            fc.setStart(fc.current(getAttributeValue(Intensity)));
+            fc.setCurrent(fc.current(getAttributeValue(Intensity)));
+
+            fc.setElapsed(0);
+            fc.setReady(false);
+            if (canFade == false)
             {
-                if (tempoType() == Beats)
-                    fc.setFadeTime(((float)timer->beatTimeDuration() / 1000.0) * fadeOutSpeed() + timer->timeToNextBeat());
-                else
-                    fc.setFadeTime(fadeOutSpeed());
+                fc.setFadeTime(0);
+                fc.setTarget(fc.current(getAttributeValue(Intensity)));
             }
             else
             {
-                if (overrideTempoType() == Beats)
-                    fc.setFadeTime(((float)timer->beatTimeDuration() / 1000.0) * overrideFadeOutSpeed() + timer->timeToNextBeat());
+                if (overrideFadeOutSpeed() == defaultSpeed())
+                {
+                    if (tempoType() == Beats)
+                        fc.setFadeTime(((float)timer->beatTimeDuration() / 1000.0) * fadeOutSpeed() + timer->timeToNextBeat());
+                    else
+                        fc.setFadeTime(fadeOutSpeed());
+                }
                 else
-                    fc.setFadeTime(overrideFadeOutSpeed());
+                {
+                    if (overrideTempoType() == Beats)
+                        fc.setFadeTime(((float)timer->beatTimeDuration() / 1000.0) * overrideFadeOutSpeed() + timer->timeToNextBeat());
+                    else
+                        fc.setFadeTime(overrideFadeOutSpeed());
+                }
+                fc.setTarget(0);
             }
-            fc.setTarget(0);
+            timer->faderAdd(fc);
         }
-        timer->faderAdd(fc);
-    }
 
-    delete m_fader;
-    m_fader = NULL;
+        delete m_fader;
+        m_fader = NULL;
+    }
 
     Function::postRun(timer, ua);
 }
