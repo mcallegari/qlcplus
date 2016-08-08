@@ -509,23 +509,23 @@ void Function::setTempoType(const Function::TempoType &type)
     {
         /* Beats -> Time */
         case Time:
-            setFadeInSpeed((float)fadeInSpeed() * beatTime);
-            setDuration((float)duration() * beatTime);
-            setFadeOutSpeed((float)fadeOutSpeed() * beatTime);
+            setFadeInSpeed(beatsToTime(fadeInSpeed(), beatTime));
+            setDuration(beatsToTime(duration(), beatTime));
+            setFadeOutSpeed(beatsToTime(fadeOutSpeed(), beatTime));
             disconnect(doc()->masterTimer(), SIGNAL(bpmNumberChanged(int)),
                        this, SLOT(slotBPMChanged(int)));
         break;
 
         /* Time -> Beats */
         case Beats:
-            setFadeInSpeed((float)fadeInSpeed() / beatTime);
-            setDuration((float)duration() / beatTime);
-            setFadeOutSpeed((float)fadeOutSpeed() / beatTime);
+            setFadeInSpeed(timeToBeats(fadeInSpeed(), beatTime));
+            setDuration(timeToBeats(duration(), beatTime));
+            setFadeOutSpeed(timeToBeats(fadeOutSpeed(), beatTime));
             connect(doc()->masterTimer(), SIGNAL(bpmNumberChanged(int)),
                     this, SLOT(slotBPMChanged(int)));
         break;
         default:
-            qDebug() << "Error. Unhandled speed type" << type;
+            qDebug() << "Error. Unhandled tempo type" << type;
         break;
     }
 
@@ -559,7 +559,7 @@ Function::TempoType Function::stringToTempoType(const QString &str)
 
 uint Function::timeToBeats(uint time, int beatDuration)
 {
-    if (time == 0)
+    if (time == 0 || time == infiniteSpeed())
         return time;
 
     uint value = 0;
@@ -575,8 +575,8 @@ uint Function::timeToBeats(uint time, int beatDuration)
 
 uint Function::beatsToTime(uint beats, int beatDuration)
 {
-    if (beats == 0)
-        return 0;
+    if (beats == 0 || beats == infiniteSpeed())
+        return beats;
 
     return ((float)beats / 1000.0) * beatDuration;
 }
@@ -1054,7 +1054,7 @@ void Function::incrementElapsed()
 
 void Function::incrementElapsedBeats()
 {
-    m_elapsedBeats++;
+    m_elapsedBeats += 1000;
 }
 
 void Function::roundElapsed(quint32 roundTime)
