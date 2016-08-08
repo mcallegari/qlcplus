@@ -64,6 +64,9 @@ const QString KRandomString     (     "Random" );
 const QString KBackwardString   (   "Backward" );
 const QString KForwardString    (    "Forward" );
 
+const QString KTimeTypeString   (       "Time" );
+const QString KBeatsTypeString  (      "Beats" );
+
 /*****************************************************************************
  * Initialization
  *****************************************************************************/
@@ -75,6 +78,8 @@ Function::Function(QObject *parent)
     , m_path(QString())
     , m_runOrder(Loop)
     , m_direction(Forward)
+    , m_tempoType(Time)
+    , m_overrideTempoType(Original)
     , m_fadeInSpeed(0)
     , m_fadeOutSpeed(0)
     , m_duration(0)
@@ -99,6 +104,8 @@ Function::Function(Doc* doc, Type t)
     , m_path(QString())
     , m_runOrder(Loop)
     , m_direction(Forward)
+    , m_tempoType(Time)
+    , m_overrideTempoType(Original)
     , m_fadeInSpeed(0)
     , m_fadeOutSpeed(0)
     , m_duration(0)
@@ -133,7 +140,7 @@ Function *Function::createCopy(Doc *doc, bool addToDoc)
 {
     Q_ASSERT(doc != NULL);
 
-    Function* copy = new Function(doc);
+    Function* copy = new Function(doc, type());
     if (copy->copyFrom(this) == false)
     {
         delete copy;
@@ -156,6 +163,7 @@ bool Function::copyFrom(const Function* function)
     m_name = function->name();
     m_runOrder = function->runOrder();
     m_direction = function->direction();
+    m_tempoType = function->tempoType();
     m_fadeInSpeed = function->fadeInSpeed();
     m_fadeOutSpeed = function->fadeOutSpeed();
     m_duration = function->duration();
@@ -439,11 +447,11 @@ QString Function::directionToString(const Direction& dir)
 {
     switch (dir)
     {
-    default:
-    case Forward:
-        return KForwardString;
-    case Backward:
-        return KBackwardString;
+        default:
+        case Forward:
+            return KForwardString;
+        case Backward:
+            return KBackwardString;
     }
 }
 
@@ -479,6 +487,113 @@ bool Function::loadXMLDirection(QXmlStreamReader &root)
     setDirection(stringToDirection(str));
 
     return true;
+}
+
+/*********************************************************************
+ * Speed type
+ *********************************************************************/
+
+void Function::setTempoType(const Function::TempoType &type)
+{
+    if (type == m_tempoType)
+        return;
+
+    m_tempoType = type;
+
+    /* Retrieve the current BPM value known by the Master Timer */
+    float bpmNum = doc()->masterTimer()->bpmNumber();
+    /* Calculate the duration in ms of a single beat */
+    float beatTime = 60000.0 / bpmNum;
+
+    switch (type)
+    {
+        /* Beats -> Time */
+        case Time:
+            setFadeInSpeed((float)fadeInSpeed() * beatTime);
+            setDuration((float)duration() * beatTime);
+            setFadeOutSpeed((float)fadeOutSpeed() * beatTime);
+            disconnect(doc()->masterTimer(), SIGNAL(bpmNumberChanged(int)),
+                       this, SLOT(slotBPMChanged(int)));
+        break;
+
+        /* Time -> Beats */
+        case Beats:
+            setFadeInSpeed((float)fadeInSpeed() / beatTime);
+            setDuration((float)duration() / beatTime);
+            setFadeOutSpeed((float)fadeOutSpeed() / beatTime);
+            connect(doc()->masterTimer(), SIGNAL(bpmNumberChanged(int)),
+                    this, SLOT(slotBPMChanged(int)));
+        break;
+        default:
+            qDebug() << "Error. Unhandled speed type" << type;
+        break;
+    }
+
+    emit changed(m_id);
+}
+
+Function::TempoType Function::tempoType() const
+{
+    return m_tempoType;
+}
+
+QString Function::tempoTypeToString(const Function::TempoType &type)
+{
+    switch (type)
+    {
+        default:
+        case Time:
+            return KTimeTypeString;
+        case Beats:
+            return KBeatsTypeString;
+    }
+}
+
+Function::TempoType Function::stringToTempoType(const QString &str)
+{
+    if (str == KTimeTypeString)
+        return Time;
+    else
+        return Beats;
+}
+
+uint Function::timeToBeats(uint time, int beatDuration)
+{
+    if (time == 0)
+        return time;
+
+    uint value = 0;
+
+    float beats = (float)time / (float)beatDuration;
+    value = floor(beats) * 1000;
+
+    beats -= floor(beats);
+    beats = floor((beats * 1000) / 125) * 125;
+
+    return value + beats;
+}
+
+uint Function::beatsToTime(uint beats, int beatDuration)
+{
+    if (beats == 0)
+        return 0;
+
+    return ((float)beats / 1000.0) * beatDuration;
+}
+
+Function::TempoType Function::overrideTempoType() const
+{
+    return m_overrideTempoType;
+}
+
+void Function::setOverrideTempoType(Function::TempoType type)
+{
+    m_overrideTempoType = type;
+}
+
+void Function::slotBPMChanged(int bpmNumber)
+{
+    Q_UNUSED(bpmNumber)
 }
 
 /****************************************************************************
@@ -653,7 +768,7 @@ uint Function::speedAdd(uint left, uint right)
     return speedNormalize(left + right);
 }
 
-uint Function::speedSubstract(uint left, uint right)
+uint Function::speedSubtract(uint left, uint right)
 {
     if (right >= left)
         return 0;
@@ -890,9 +1005,7 @@ void Function::postRun(MasterTimer* timer, QList<Universe *> universes)
     m_stopMutex.lock();
     resetElapsed();
     resetAttributes();
-    // m_overrideFadeInSpeed = defaultSpeed();
-    // m_overrideFadeOutSpeed = defaultSpeed();
-    // m_overrideDuration = defaultSpeed();
+
     m_functionStopped.wakeAll();
     m_stopMutex.unlock();
 
@@ -919,6 +1032,11 @@ quint32 Function::elapsed() const
     return m_elapsed;
 }
 
+quint32 Function::elapsedBeats() const
+{
+    return m_elapsedBeats;
+}
+
 void Function::resetElapsed()
 {
     qDebug() << Q_FUNC_INFO;
@@ -934,13 +1052,24 @@ void Function::incrementElapsed()
         m_elapsed = UINT_MAX;
 }
 
+void Function::incrementElapsedBeats()
+{
+    m_elapsedBeats++;
+}
+
 void Function::roundElapsed(quint32 roundTime)
 {
     qDebug() << Q_FUNC_INFO;
     if (roundTime == 0)
+    {
         m_elapsed = 0;
+        m_elapsedBeats = 0;
+    }
     else
+    {
         m_elapsed %= roundTime;
+        m_elapsedBeats %= roundTime;
+    }
 }
 
 /*****************************************************************************
@@ -948,7 +1077,7 @@ void Function::roundElapsed(quint32 roundTime)
  *****************************************************************************/
 
 void Function::start(MasterTimer* timer, FunctionParent source, quint32 startTime,
-                     uint overrideFadeIn, uint overrideFadeOut, uint overrideDuration)
+                     uint overrideFadeIn, uint overrideFadeOut, uint overrideDuration, TempoType overrideTempoType)
 {
     qDebug() << "Function start(). Name:" << m_name << "ID: " << m_id << "source:" << source.type() << source.id() << ", startTime:" << startTime;
 
@@ -975,6 +1104,7 @@ void Function::start(MasterTimer* timer, FunctionParent source, quint32 startTim
     m_overrideFadeInSpeed = overrideFadeIn;
     m_overrideFadeOutSpeed = overrideFadeOut;
     m_overrideDuration = overrideDuration;
+    m_overrideTempoType = overrideTempoType == Original ? tempoType() : overrideTempoType;
 
     m_stop = false;
     timer->startFunction(this);

@@ -32,6 +32,7 @@ class ChaserEditor : public FunctionEditor
     Q_PROPERTY(QVariant stepsList READ stepsList NOTIFY stepsListChanged)
     Q_PROPERTY(int runOrder READ runOrder WRITE setRunOrder NOTIFY runOrderChanged)
     Q_PROPERTY(int direction READ direction WRITE setDirection NOTIFY directionChanged)
+    Q_PROPERTY(int tempoType READ tempoType WRITE setTempoType NOTIFY tempoTypeChanged)
     Q_PROPERTY(int stepsFadeIn READ stepsFadeIn WRITE setStepsFadeIn NOTIFY stepsFadeInChanged)
     Q_PROPERTY(int stepsFadeOut READ stepsFadeOut WRITE setStepsFadeOut NOTIFY stepsFadeOutChanged)
     Q_PROPERTY(int stepsDuration READ stepsDuration WRITE setStepsDuration NOTIFY stepsDurationChanged)
@@ -55,6 +56,11 @@ public:
 protected:
     void updateStepsList();
 
+    /** Set the steps $param to $value.
+     *  If $selectedOnly is true, $value is applied only to the selected steps,
+     *  otherwise it will be applied to all the steps */
+    void setSelectedValue(Function::SpeedType type, QString param, uint value, bool selectedOnly = true);
+
 private:
     /** Reference of the Chaser currently being edited */
     Chaser *m_chaser;
@@ -64,45 +70,43 @@ private:
     /*********************************************************************
      * Chaser playback modes
      *********************************************************************/
-
-    /** Return the run order of the Chaser being edited */
+public:
+    /** Get/Set the run order of the Chaser being edited */
     int runOrder() const;
-
-    /** Set the run order of the Chaser being edited */
     void setRunOrder(int runOrder);
 
-    /** Return the playback direction of the Chaser being edited */
+    /** Get/Set the playback direction of the Chaser being edited */
     int direction() const;
-
-    /** Set the run order of the Chaser being edited */
     void setDirection(int direction);
 
     /*********************************************************************
      * Steps speed mode
      *********************************************************************/
+public:
+    /** Get/Set the steps tempo type of the Chaser being edited */
+    int tempoType() const;
+    void setTempoType(int tempoType);
 
-    /** Return the steps fade in mode of the Chaser being edited */
+    /** Get/Set the steps fade in mode of the Chaser being edited */
     int stepsFadeIn() const;
-
-    /** Set the steps fade in mode of the Chaser being edited */
     void setStepsFadeIn(int stepsFadeIn);
 
-    /** Return the steps fade out mode of the Chaser being edited */
+    /** Get/Set the steps fade out mode of the Chaser being edited */
     int stepsFadeOut() const;
-
-    /** Set the steps fade out mode of the Chaser being edited */
     void setStepsFadeOut(int stepsFadeOut);
 
-    /** Return the steps duration mode of the Chaser being edited */
+    /** Get/Set the steps duration mode of the Chaser being edited */
     int stepsDuration() const;
-
-    /** Set the steps duration mode of the Chaser being edited */
     void setStepsDuration(int stepsDuration);
+
+    /** Set the speed value with $type of the step at $index */
+    Q_INVOKABLE void setStepSpeed(int index, int value, int type);
 
 signals:
     void stepsListChanged();
     void runOrderChanged(int runOrder);
     void directionChanged(int direction);
+    void tempoTypeChanged(int tempoType);
     void stepsFadeInChanged(int stepsFadeIn);
     void stepsFadeOutChanged(int stepsFadeOut);
     void stepsDurationChanged(int stepsDuration);

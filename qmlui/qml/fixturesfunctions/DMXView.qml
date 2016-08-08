@@ -40,6 +40,7 @@ Rectangle
 
         contentHeight: flowLayout.height
         contentWidth: flowLayout.width
+        interactive: false
 
         boundsBehavior: Flickable.StopAtBounds
 

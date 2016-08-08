@@ -53,7 +53,7 @@ Rectangle
     property int col6Width: 60
 
     signal clicked(int ID, var qItem, int mouseMods)
-    signal doubleClicked(int ID, string type)
+    signal doubleClicked(int ID, int type)
 
     onFunctionIDChanged:
     {
@@ -79,28 +79,47 @@ Rectangle
         visible: isSelected
     }
 
+    Timer
+    {
+        id: clickTimer
+        interval: 200
+        repeat: false
+        running: false
+
+        property int modifiers: 0
+
+        onTriggered:
+        {
+            stepDelegate.clicked(functionID, stepDelegate, modifiers)
+            modifiers = 0
+        }
+    }
+
     MouseArea
     {
         anchors.fill: parent
         onClicked:
         {
-            stepDelegate.clicked(functionID, stepDelegate, mouse.modifiers)
+            clickTimer.modifiers = mouse.modifiers
+            clickTimer.start()
         }
         onDoubleClicked:
         {
+            clickTimer.stop()
+            clickTimer.modifiers = 0
             console.log("Double click happened at " + mouse.x + "," + mouse.y)
 
             var item = fieldsRow.childAt(mouse.x, mouse.y)
             if (item === funcIconName)
                 console.log("Func name clicked")
             else if (item === fadeInText)
-                stepDelegate.doubleClicked(functionID, "FI")
+                stepDelegate.doubleClicked(functionID, Function.FadeIn)
             else if (item === holdText)
-                stepDelegate.doubleClicked(functionID, "H")
+                stepDelegate.doubleClicked(functionID, Function.Hold)
             else if (item === fadeOutText)
-                stepDelegate.doubleClicked(functionID, "FO")
+                stepDelegate.doubleClicked(functionID, Function.FadeOut)
             else if (item === durationText)
-                stepDelegate.doubleClicked(functionID, "D")
+                stepDelegate.doubleClicked(functionID, Function.Duration)
             else if (mouse.x >= noteText.x)
                 console.log("Note clicked")
         }

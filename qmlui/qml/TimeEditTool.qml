@@ -20,6 +20,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.0
 
+import com.qlcplus.classes 1.0
 import "TimeUtils.js" as TimeUtils
 
 import "."
@@ -33,27 +34,32 @@ GridLayout
     rowSpacing: 0
 
     property color buttonsBgColor: "#05438E"
-    property int btnFontSize: 12
+    property int btnFontSize: UISettings.textSizeDefault
     property string title
     property string timeValueString
 
-    property int msTime: 0
-    property bool msTimeCalcNeeded: true
+    property int timeValue: 0
+    property bool timeValueCalcNeeded: true
 
-    /* If needed, this string can be used to recognize which type
-       of time value is being edited */
-    property string timeType
+    /* If needed, this property can be used to recognize which type
+       of speed value is being edited */
+    property int speedType
+
+    /* The type of the tempo being edited. Can be Time or Beats */
+    property int tempoType: Function.Time
+    property bool allowFractions: false
 
     /* If needed, this can be the reference index of an item in a list */
     property int indexInList
 
-    signal timeValueChanged(int ms)
+    signal valueChanged(int val)
 
     function show(tX, tY, tTitle, tStrValue, tType)
     {
+        timeValueCalcNeeded = true
         title = tTitle
+        speedType = tType
         timeValueString = tStrValue
-        timeType = tType
 
         if (tX >= 0)
             x = tX
@@ -61,30 +67,29 @@ GridLayout
             y = tY
 
         visible = true
+        timeBox.selectAndFocus()
     }
-
-    onVisibleChanged: if (visible) timeBox.selectAndFocus()
 
     onTimeValueStringChanged:
     {
-        if (msTimeCalcNeeded == true)
-            msTime = TimeUtils.qlcStringToMs(timeValueString)
-        //console.log("Time value ms: " + msTime)
-        msTimeCalcNeeded = false
+        if (timeValueCalcNeeded == true)
+            timeValue = TimeUtils.qlcStringToTime(timeValueString, tempoType)
+        console.log("Time value: " + timeValue)
+        timeValueCalcNeeded = false
     }
 
-    onMsTimeChanged:
+    onTimeValueChanged:
     {
-        //console.log("ms time: " + msTime)
-        msTimeCalcNeeded = false
-        timeValueString = TimeUtils.msToQlcString(msTime)
-        toolRoot.timeValueChanged(msTime)
+        //console.log("ms time: " + timeValue)
+        timeValueCalcNeeded = false
+        timeValueString = TimeUtils.timeToQlcString(timeValue, tempoType)
+        toolRoot.valueChanged(timeValue)
     }
 
-    // title bar
+    // title bar + close button
     Rectangle
     {
-        height: 35
+        height: UISettings.iconSizeDefault
         Layout.fillWidth: true
         Layout.columnSpan: 5
         gradient:
@@ -112,8 +117,8 @@ GridLayout
         }
         GenericButton
         {
-            width: 35
-            height: 35
+            width: height
+            height: parent.height
             anchors.right: parent.right
             border.width: 1
             border.color: "#333"
@@ -125,10 +130,10 @@ GridLayout
         }
     }
 
-    // top row: close, increase values
+    // top row: tap, increase values
     GenericButton
     {
-        width: 35
+        width: UISettings.iconSizeDefault
         Layout.fillHeight: true
         Layout.rowSpan: 2
         border.width: 1
@@ -140,72 +145,80 @@ GridLayout
 
     GenericButton
     {
-        width: 35
-        height: 35
-        border.width: 1
-        border.color: "#333"
-        bgColor: buttonsBgColor
-        fontSize: btnFontSize
-        label: "+H"
-        repetition: true
-        onClicked:
-        {
-            msTime += (60 * 60 * 1000)
-        }
-    }
-
-    GenericButton
-    {
-        width: 35
-        height: 35
+        visible: tempoType === Function.Time
+        width: height
+        height: UISettings.iconSizeDefault
         border.width: 1
         border.color: "#333"
         bgColor: buttonsBgColor
         fontSize: btnFontSize
         label: "+M"
         repetition: true
-        onClicked:
-        {
-            msTime += (60 * 1000)
-        }
+        onClicked: timeValue += (60 * 1000)
     }
 
     GenericButton
     {
-        width: 40
-        height: 35
+        visible: tempoType === Function.Time
+        width: height * 1.2
+        height: UISettings.iconSizeDefault
         border.width: 1
         border.color: "#333"
         bgColor: buttonsBgColor
         fontSize: btnFontSize
         label: "+S"
         repetition: true
-        onClicked:
-        {
-            msTime += 1000
-        }
+        onClicked: timeValue += 1000
     }
 
     GenericButton
     {
-        width: 40
-        height: 35
+        visible: tempoType === Function.Time
+        width: height * 1.2
+        height: UISettings.iconSizeDefault
         border.width: 1
         border.color: "#333"
         bgColor: buttonsBgColor
         fontSize: btnFontSize
         label: "+ms"
         repetition: true
-        onClicked:
-        {
-            msTime++
-        }
+        onClicked: timeValue++
+    }
+
+    GenericButton
+    {
+        visible: tempoType === Function.Beats
+        height: UISettings.iconSizeDefault
+        Layout.fillWidth: true
+        Layout.columnSpan: allowFractions ? 2 : 4
+        border.width: 1
+        border.color: "#333"
+        bgColor: buttonsBgColor
+        fontSize: btnFontSize
+        label: "+"
+        repetition: true
+        onClicked: timeValue += 1000
+    }
+
+    GenericButton
+    {
+        visible: tempoType === Function.Beats && allowFractions
+        height: UISettings.iconSizeDefault
+        Layout.fillWidth: true
+        Layout.columnSpan: 2
+        border.width: 1
+        border.color: "#333"
+        bgColor: buttonsBgColor
+        fontSize: btnFontSize
+        label: "+1/8"
+        repetition: true
+        onClicked: timeValue += 125
     }
 
     // middle row: tap, time value
     Rectangle
     {
-        height: 35
+        height: UISettings.iconSizeDefault
         color: "#444"
         border.width: 1
         border.color: "#333"
@@ -215,8 +228,7 @@ GridLayout
         CustomTextEdit
         {
             id: timeBox
-            width: parent.width
-            height: 35
+            anchors.fill: parent
             //anchors.fill: parent
             textAlignment: TextInput.AlignHCenter
             radius: 0
@@ -225,8 +237,8 @@ GridLayout
 
             onEnterPressed:
             {
-                msTimeCalcNeeded = true
-                timeValueString = TimeUtils.msToQlcString(inputText)
+                timeValueCalcNeeded = true
+                timeValueString = TimeUtils.timeToQlcString(inputText, tempoType)
             }
         }
     }
@@ -234,41 +246,21 @@ GridLayout
     // bottom row: infinite, decrease values
     GenericButton
     {
-        width: 35
-        height: 35
+        width: height
+        height: UISettings.iconSizeDefault
         border.width: 1
         border.color: "#333"
         bgColor: buttonsBgColor
         fontSize: btnFontSize
         label: "∞"
-        onClicked:
-        {
-            timeValueString = "∞"
-        }
+        onClicked: timeValue = -2
     }
 
     GenericButton
     {
-        width: 35
-        height: 35
-        border.width: 1
-        border.color: "#333"
-        bgColor: buttonsBgColor
-        fontSize: btnFontSize
-        label: "-H"
-        repetition: true
-        onClicked:
-        {
-            if (msTime < 60 * 60 * 1000)
-                return
-            msTime -= (60 * 60 * 1000)
-        }
-    }
-
-    GenericButton
-    {
-        width: 35
-        height: 35
+        visible: tempoType === Function.Time
+        width: height
+        height: UISettings.iconSizeDefault
         border.width: 1
         border.color: "#333"
         bgColor: buttonsBgColor
@@ -277,16 +269,17 @@ GridLayout
         repetition: true
         onClicked:
         {
-            if (msTime < 60000)
+            if (timeValue < 60000)
                 return
-            msTime -= (60 * 1000)
+            timeValue -= (60 * 1000)
         }
     }
 
     GenericButton
     {
-        width: 40
-        height: 35
+        visible: tempoType === Function.Time
+        width: height * 1.2
+        height: UISettings.iconSizeDefault
         border.width: 1
         border.color: "#333"
         bgColor: buttonsBgColor
@@ -295,16 +288,17 @@ GridLayout
         repetition: true
         onClicked:
         {
-            if (msTime < 1000)
+            if (timeValue < 1000)
                 return
-            msTime -= 1000
+            timeValue -= 1000
         }
     }
 
     GenericButton
     {
-        width: 40
-        height: 35
+        visible: tempoType === Function.Time
+        width: height * 1.2
+        height: UISettings.iconSizeDefault
         border.width: 1
         border.color: "#333"
         bgColor: buttonsBgColor
@@ -313,9 +307,44 @@ GridLayout
         repetition: true
         onClicked:
         {
-            if (msTime == 0)
+            if (timeValue == 0)
                 return
-            msTime--
+            timeValue--
+        }
+    }
+
+    GenericButton
+    {
+        visible: tempoType === Function.Beats
+        height: UISettings.iconSizeDefault
+        Layout.fillWidth: true
+        Layout.columnSpan: allowFractions ? 2 : 4
+        border.width: 1
+        border.color: "#333"
+        bgColor: buttonsBgColor
+        fontSize: btnFontSize
+        label: "-"
+        repetition: true
+        onClicked: timeValue -= 1000
+    }
+
+    GenericButton
+    {
+        visible: tempoType === Function.Beats && allowFractions
+        height: UISettings.iconSizeDefault
+        Layout.fillWidth: true
+        Layout.columnSpan: 2
+        border.width: 1
+        border.color: "#333"
+        bgColor: buttonsBgColor
+        fontSize: btnFontSize
+        label: "-1/8"
+        repetition: true
+        onClicked:
+        {
+            if (timeValue == 0)
+                return
+            timeValue -= 125
         }
     }
 }

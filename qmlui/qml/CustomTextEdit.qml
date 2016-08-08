@@ -50,12 +50,13 @@ Rectangle
     {
         id: ctEdit
         anchors.fill: parent
-        anchors.verticalCenter: parent.verticalCenter
+        //anchors.verticalCenter: parent.verticalCenter
         anchors.margins: 4
         color: UISettings.fgMain
         selectionColor: UISettings.highlightPressed
         clip: true
         horizontalAlignment: textAlignment
+        verticalAlignment: TextInput.AlignVCenter
         font.family: "Roboto Condensed"
         font.pointSize: fontSize
         selectByMouse: true

@@ -169,6 +169,7 @@ public:
 
 private slots:
     void slotPreviewTimeout();
+    void slotBeatReceived();
 
 private:
     void initPreviewData();
@@ -180,9 +181,10 @@ signals:
 private:
     /** A timer to perform a timed preview of the RGBMatrix pattern */
     QTimer* m_previewTimer;
-    uint m_previewIterator;
+    uint m_previewElapsed;
     Function::Direction m_previewDirection;
     int m_previewStep;
+    bool m_gotBeat;
 
     // exchange variable with the QML world
     QVariantList m_previewData;

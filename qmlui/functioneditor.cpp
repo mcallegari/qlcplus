@@ -101,3 +101,38 @@ void FunctionEditor::setFunctionName(QString functionName)
     emit functionNameChanged(functionName);
 }
 
+int FunctionEditor::tempoType() const
+{
+    if (m_function == NULL)
+        return Function::Time;
+
+    return m_function->tempoType();
+}
+
+void FunctionEditor::setTempoType(int tempoType)
+{
+    if (m_function == NULL || m_function->tempoType() == Function::TempoType(tempoType))
+        return;
+
+    m_function->setTempoType(Function::TempoType(tempoType));
+
+    int beatDuration = m_doc->masterTimer()->beatTimeDuration();
+
+    // Time -> Beats
+    if (tempoType == Function::Beats)
+    {
+        m_function->setFadeInSpeed(Function::timeToBeats(m_function->fadeInSpeed(), beatDuration));
+        m_function->setDuration(Function::timeToBeats(m_function->duration(), beatDuration));
+        m_function->setFadeOutSpeed(Function::timeToBeats(m_function->fadeOutSpeed(), beatDuration));
+    }
+    // Beats -> Time
+    else
+    {
+        m_function->setFadeInSpeed(Function::beatsToTime(m_function->fadeInSpeed(), beatDuration));
+        m_function->setDuration(Function::beatsToTime(m_function->duration(), beatDuration));
+        m_function->setFadeOutSpeed(Function::beatsToTime(m_function->fadeOutSpeed(), beatDuration));
+    }
+
+    emit tempoTypeChanged(tempoType);
+}
+

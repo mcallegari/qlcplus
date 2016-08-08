@@ -33,18 +33,34 @@
 InputOutputManager::InputOutputManager(Doc *doc, QObject *parent)
     : QObject(parent)
     , m_doc(doc)
+    , m_selectedItem(NULL)
+    , m_selectedUniverseIndex(-1)
+    , m_beatType("INTERNAL")
 {
     Q_ASSERT(m_doc != NULL);
     m_ioMap = m_doc->inputOutputMap();
-    m_selectedItem = NULL;
+    Q_ASSERT(m_ioMap != NULL);
 
     qmlRegisterType<Universe>("com.qlcplus.classes", 1, 0, "Universe");
     qmlRegisterType<InputPatch>("com.qlcplus.classes", 1, 0, "InputPatch");
     qmlRegisterType<OutputPatch>("com.qlcplus.classes", 1, 0, "OutputPatch");
 
-    connect(m_doc, SIGNAL(loaded()),
-            this, SLOT(slotDocLoaded()));
+    connect(m_doc, SIGNAL(loaded()), this, SLOT(slotDocLoaded()));
+    connect(m_ioMap, SIGNAL(beat()), this, SIGNAL(beat()));
+    connect(m_ioMap, SIGNAL(beatGeneratorTypeChanged()), this, SLOT(slotBeatTypeChanged()));
+    connect(m_ioMap, SIGNAL(bpmNumberChanged(int)), this, SLOT(slotBpmNumberChanged(int)));
+
+    m_bpmNumber = m_doc->masterTimer()->bpmNumber();
 }
+
+void InputOutputManager::slotDocLoaded()
+{
+    emit universesListModelChanged();
+}
+
+/*********************************************************************
+ * Universes
+ *********************************************************************/
 
 QQmlListProperty<Universe> InputOutputManager::universes()
 {
@@ -79,15 +95,34 @@ QVariant InputOutputManager::universesListModel() const
     return QVariant::fromValue(universesList);
 }
 
+void InputOutputManager::setSelectedItem(QQuickItem *item, int index)
+{
+    if (m_selectedItem != NULL)
+    {
+        m_selectedItem->setProperty("isSelected", false);
+        m_selectedItem->setProperty("z", 1);
+    }
+
+    m_selectedItem = item;
+    m_selectedUniverseIndex = index;
+    m_selectedItem->setProperty("z", 5);
+
+    qDebug() << "[InputOutputManager] Selected universe:" << index;
+}
+
+/*********************************************************************
+ * Audio IO
+ *********************************************************************/
+
 QVariant InputOutputManager::audioInputDevice()
 {
     QSettings settings;
-    QString devName = tr("Default device");
+    QString devName;
     QVariant var = settings.value(SETTINGS_AUDIO_INPUT_DEVICE);
     if (var.isValid() == true)
         devName = var.toString();
 
-    if (var.isValid() == false || devName == tr("Default device"))
+    if (var.isValid() == false || devName.isEmpty())
     {
         QVariantMap devMap;
         devMap.insert("name", tr("Default device"));
@@ -96,7 +131,7 @@ QVariant InputOutputManager::audioInputDevice()
     }
 
     QList<AudioDeviceInfo> devList = m_doc->audioPluginCache()->audioDevicesList();
-    foreach( AudioDeviceInfo info, devList)
+    foreach(AudioDeviceInfo info, devList)
     {
         if (info.capabilities & AUDIO_CAP_INPUT &&
             info.deviceName == devName)
@@ -114,12 +149,12 @@ QVariant InputOutputManager::audioInputDevice()
 QVariant InputOutputManager::audioOutputDevice()
 {
     QSettings settings;
-    QString devName = tr("Default device");
+    QString devName;
     QVariant var = settings.value(SETTINGS_AUDIO_OUTPUT_DEVICE);
     if (var.isValid() == true)
         devName = var.toString();
 
-    if (var.isValid() == false || devName == tr("Default device"))
+    if (var.isValid() == false || devName.isEmpty())
     {
         QVariantMap devMap;
         devMap.insert("name", tr("Default device"));
@@ -128,7 +163,7 @@ QVariant InputOutputManager::audioOutputDevice()
     }
 
     QList<AudioDeviceInfo> devList = m_doc->audioPluginCache()->audioDevicesList();
-    foreach( AudioDeviceInfo info, devList)
+    foreach(AudioDeviceInfo info, devList)
     {
         if (info.capabilities & AUDIO_CAP_OUTPUT &&
             info.deviceName == devName)
@@ -153,7 +188,7 @@ QVariant InputOutputManager::audioInputSources()
     defAudioMap.insert("privateName", "__qlcplusdefault__");
     inputSources.append(defAudioMap);
 
-    foreach( AudioDeviceInfo info, devList)
+    foreach(AudioDeviceInfo info, devList)
     {
         if (info.capabilities & AUDIO_CAP_INPUT)
         {
@@ -177,7 +212,7 @@ QVariant InputOutputManager::audioOutputSources()
     defAudioMap.insert("privateName", "__qlcplusdefault__");
     outputSources.append(defAudioMap);
 
-    foreach( AudioDeviceInfo info, devList)
+    foreach(AudioDeviceInfo info, devList)
     {
         if (info.capabilities & AUDIO_CAP_OUTPUT)
         {
@@ -190,6 +225,10 @@ QVariant InputOutputManager::audioOutputSources()
 
     return QVariant::fromValue(outputSources);
 }
+
+/*********************************************************************
+ * IO Patches
+ *********************************************************************/
 
 QVariant InputOutputManager::universeInputSources(int universe)
 {
@@ -329,24 +368,155 @@ void InputOutputManager::setInputProfile(int universe, QString profileName)
     m_doc->inputOutputMap()->setInputProfile(universe, profileName);
 }
 
-void InputOutputManager::setSelectedItem(QQuickItem *item, int index)
+/*********************************************************************
+ * Beats
+ *********************************************************************/
+
+QVariant InputOutputManager::beatGeneratorsList()
 {
-    if (m_selectedItem != NULL)
+    QVariantList genList;
+
+    // add a default entry to disable the beat system
+    QVariantMap disableMap;
+    disableMap.insert("type", "OFF");
+    disableMap.insert("name", tr("Disabled"));
+    disableMap.insert("uni", 0);
+    disableMap.insert("line", 0);
+    disableMap.insert("privateName", "");
+    genList.append(disableMap);
+
+    // add a default entry to enable MasterTimer beats generation
+    QVariantMap internalMap;
+    internalMap.insert("type", "INTERNAL");
+    internalMap.insert("name", tr("Internal generator"));
+    internalMap.insert("uni", 0);
+    internalMap.insert("line", 0);
+    internalMap.insert("privateName", "");
+    genList.append(internalMap);
+
+    // add the currently open MIDI input devices
+    foreach(Universe *uni, m_ioMap->universes())
     {
-        m_selectedItem->setProperty("isSelected", false);
-        m_selectedItem->setProperty("z", 1);
+        InputPatch *ip = uni->inputPatch();
+        if (ip == NULL || ip->pluginName() != "MIDI")
+            continue;
+
+        QVariantMap midiInMap;
+        midiInMap.insert("type", "MIDI");
+        midiInMap.insert("name", ip->inputName());
+        midiInMap.insert("uni", uni->id());
+        midiInMap.insert("line", ip->input());
+        midiInMap.insert("privateName", "");
+        genList.append(midiInMap);
     }
 
-    m_selectedItem = item;
-    m_selectedUniverseIndex = index;
-    m_selectedItem->setProperty("z", 5);
+    // add the currently selected audio input device
+    QSettings settings;
+    QString devName;
+    QVariant var = settings.value(SETTINGS_AUDIO_INPUT_DEVICE);
+    if (var.isValid() == true)
+        devName = var.toString();
 
-    qDebug() << "[InputOutputManager] Selected universe:" << index;
+    if (var.isValid() == false || devName.isEmpty())
+    {
+        QVariantMap audioInMap;
+        audioInMap.insert("type", "AUDIO");
+        audioInMap.insert("name", tr("Default device"));
+        audioInMap.insert("uni", 0);
+        audioInMap.insert("line", 0);
+        audioInMap.insert("privateName", "__qlcplusdefault__");
+        genList.append(audioInMap);
+    }
+    else
+    {
+        QList<AudioDeviceInfo> devList = m_doc->audioPluginCache()->audioDevicesList();
+        foreach(AudioDeviceInfo info, devList)
+        {
+            if (info.capabilities & AUDIO_CAP_INPUT &&
+                info.deviceName == devName)
+            {
+                QVariantMap audioInMap;
+                audioInMap.insert("type", "AUDIO");
+                audioInMap.insert("name", info.deviceName);
+                audioInMap.insert("uni", 0);
+                audioInMap.insert("line", 0);
+                audioInMap.insert("privateName", info.privateName);
+                genList.append(audioInMap);
+            }
+        }
+    }
+
+    return QVariant::fromValue(genList);
 }
 
-void InputOutputManager::slotDocLoaded()
+QString InputOutputManager::beatType() const
 {
-    emit universesListModelChanged();
+    return m_beatType;
+}
+
+void InputOutputManager::setBeatType(QString beatType)
+{
+    if (m_beatType == beatType)
+        return;
+
+    m_beatType = beatType;
+
+    qDebug() << "[InputOutputManager] Setting beat type:" << m_beatType;
+
+    if (m_beatType == "INTERNAL")
+        m_ioMap->setBeatGeneratorType(InputOutputMap::Internal);
+    else if (m_beatType == "MIDI")
+        m_ioMap->setBeatGeneratorType(InputOutputMap::MIDI);
+    else if (m_beatType == "AUDIO")
+        m_ioMap->setBeatGeneratorType(InputOutputMap::Audio);
+    else
+        m_ioMap->setBeatGeneratorType(InputOutputMap::Disabled);
+
+    setBpmNumber(m_ioMap->bpmNumber());
+
+    emit beatTypeChanged(beatType);
+}
+
+void InputOutputManager::slotBeatTypeChanged()
+{
+    switch(m_ioMap->beatGeneratorType())
+    {
+        case InputOutputMap::Internal: m_beatType = "INTERNAL"; break;
+        case InputOutputMap::MIDI: m_beatType = "MIDI"; break;
+        case InputOutputMap::Audio: m_beatType = "AUDIO"; break;
+        case InputOutputMap::Disabled:
+        default:
+            m_beatType = "OFF";
+        break;
+    }
+    emit beatTypeChanged(m_beatType);
+    emit bpmNumberChanged(m_ioMap->bpmNumber());
+}
+
+void InputOutputManager::slotBpmNumberChanged(int bpmNumber)
+{
+    qDebug() << "[InputOutputManager] BPM changed to:" << bpmNumber;
+    if (m_bpmNumber == bpmNumber)
+        return;
+
+    m_bpmNumber = bpmNumber;
+    emit bpmNumberChanged(bpmNumber);
+}
+
+int InputOutputManager::bpmNumber() const
+{
+    return m_bpmNumber;
+}
+
+void InputOutputManager::setBpmNumber(int bpmNumber)
+{
+    if (m_bpmNumber == bpmNumber)
+        return;
+
+    m_bpmNumber = bpmNumber;
+    m_ioMap->setBpmNumber(m_bpmNumber);
+
+    emit bpmNumberChanged(bpmNumber);
 }
 
 

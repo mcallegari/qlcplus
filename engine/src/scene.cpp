@@ -577,16 +577,12 @@ void Scene::preRun(MasterTimer* timer)
     qDebug() << "Scene preRun. ID: " << id();
 
     Q_ASSERT(m_fader == NULL);
-    m_fader = new GenericFader(doc());
-    m_fader->adjustIntensity(getAttributeValue(Intensity));
     Function::preRun(timer);
 }
 
 void Scene::write(MasterTimer* timer, QList<Universe*> ua)
 {
     //qDebug() << Q_FUNC_INFO << elapsed();
-    Q_UNUSED(timer);
-    Q_ASSERT(m_fader != NULL);
 
     if (m_values.size() == 0)
     {
@@ -594,9 +590,12 @@ void Scene::write(MasterTimer* timer, QList<Universe*> ua)
         return;
     }
 
-    if (elapsed() == 0)
+    if (m_fader == NULL)
     {
         m_valueListMutex.lock();
+        m_fader = new GenericFader(doc());
+        m_fader->adjustIntensity(getAttributeValue(Intensity));
+
         QMapIterator <SceneValue, uchar> it(m_values);
         while (it.hasNext() == true)
         {
@@ -618,7 +617,15 @@ void Scene::write(MasterTimer* timer, QList<Universe*> ua)
                 if (overrideFadeInSpeed() == defaultSpeed())
                     fc.setFadeTime(fadeInSpeed());
                 else
-                    fc.setFadeTime(overrideFadeInSpeed());
+                {
+                    if (overrideTempoType() == Beats)
+                    {
+                        uint fadeInTime = (timer->beatTimeDuration() * overrideFadeInSpeed()) + timer->timeToNextBeat();
+                        fc.setFadeTime(fadeInTime);
+                    }
+                    else
+                        fc.setFadeTime(overrideFadeInSpeed());
+                }
             }
             insertStartValue(fc, timer, ua);
             m_fader->add(fc);
@@ -635,7 +642,11 @@ void Scene::write(MasterTimer* timer, QList<Universe*> ua)
         stop(FunctionParent::master());
 
     if (isPaused() == false)
+    {
         incrementElapsed();
+        if (timer->isBeat() && tempoType() == Beats)
+            incrementElapsedBeats();
+    }
 }
 
 void Scene::postRun(MasterTimer* timer, QList<Universe *> ua)
@@ -668,9 +679,19 @@ void Scene::postRun(MasterTimer* timer, QList<Universe *> ua)
         else
         {
             if (overrideFadeOutSpeed() == defaultSpeed())
-                fc.setFadeTime(fadeOutSpeed());
+            {
+                if (tempoType() == Beats)
+                    fc.setFadeTime(((float)timer->beatTimeDuration() / 1000.0) * fadeOutSpeed() + timer->timeToNextBeat());
+                else
+                    fc.setFadeTime(fadeOutSpeed());
+            }
             else
-                fc.setFadeTime(overrideFadeOutSpeed());
+            {
+                if (overrideTempoType() == Beats)
+                    fc.setFadeTime(((float)timer->beatTimeDuration() / 1000.0) * overrideFadeOutSpeed() + timer->timeToNextBeat());
+                else
+                    fc.setFadeTime(overrideFadeOutSpeed());
+            }
             fc.setTarget(0);
         }
         timer->faderAdd(fc);

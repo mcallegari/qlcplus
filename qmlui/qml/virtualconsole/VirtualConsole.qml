@@ -113,7 +113,7 @@ Rectangle
                         }
                 }
 
-                //Rectangle { Layout.fillWidth: true }
+                Rectangle { Layout.fillWidth: true }
 
                 IconButton
                 {
@@ -139,7 +139,7 @@ Rectangle
                     border.width: 0
                 }
 
-                Rectangle { Layout.fillWidth: true }
+                //Rectangle { Layout.fillWidth: true }
             }
         }
 

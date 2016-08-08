@@ -35,7 +35,9 @@ RGBMatrixEditor::RGBMatrixEditor(QQuickView *view, Doc *doc, QObject *parent)
 {
     m_view->rootContext()->setContextProperty("rgbMatrixEditor", this);
 
+    m_gotBeat = false;
     connect(m_previewTimer, SIGNAL(timeout()), this, SLOT(slotPreviewTimeout()));
+    connect(m_doc->masterTimer(), SIGNAL(beat()), this, SLOT(slotBeatReceived()));
 }
 
 RGBMatrixEditor::~RGBMatrixEditor()
@@ -265,19 +267,14 @@ void RGBMatrixEditor::createScriptObjects(QQuickItem *parent)
         m_matrix->algorithm()->type() != RGBAlgorithm::Script)
             return;
 
-    QQmlComponent *labelComp = new QQmlComponent(m_view->engine(), QUrl("qrc:/RobotoText.qml"));
-    if (labelComp->isError())
-        qDebug() << labelComp->errors();
-
     RGBScript* script = static_cast<RGBScript*> (m_matrix->algorithm());
     QList<RGBScriptProperty> properties = script->properties();
 
     foreach(RGBScriptProperty prop, properties)
     {
         // always create a label first
-        QQuickItem *propLabel = qobject_cast<QQuickItem*>(labelComp->create());
-        propLabel->setParentItem(parent);
-        propLabel->setProperty("label", prop.m_displayName);
+        QMetaObject::invokeMethod(parent, "addLabel",
+                Q_ARG(QVariant, prop.m_displayName));
 
         switch(prop.m_type)
         {
@@ -482,9 +479,15 @@ void RGBMatrixEditor::slotPreviewTimeout()
 
     RGBMap map;
 
-    m_previewIterator += MasterTimer::tick();
+    if (m_matrix->tempoType() == Function::Time)
+        m_previewElapsed += MasterTimer::tick();
+    else if (m_matrix->tempoType() == Function::Beats && m_gotBeat)
+    {
+        m_gotBeat = false;
+        m_previewElapsed++;
+    }
 
-    if (m_previewIterator >= m_matrix->duration())
+    if (m_previewElapsed >= m_matrix->duration())
     {
         int stepsCount = m_matrix->stepsCount();
         //qDebug() << "previewTimeout. Step:" << m_previewStep;
@@ -522,7 +525,7 @@ void RGBMatrixEditor::slotPreviewTimeout()
                 m_matrix->updateStepColor(m_previewStep);
         }
         map = m_matrix->previewMap(m_previewStep);
-        m_previewIterator = 0;
+        m_previewElapsed = 0;
 /*
         for (int y = 0; y < map.size(); y++)
         {
@@ -560,6 +563,11 @@ void RGBMatrixEditor::slotPreviewTimeout()
         //qDebug() << "Preview data changed !";
         emit previewDataChanged(m_previewData);
     }
+}
+
+void RGBMatrixEditor::slotBeatReceived()
+{
+    m_gotBeat = true;
 }
 
 void RGBMatrixEditor::initPreviewData()

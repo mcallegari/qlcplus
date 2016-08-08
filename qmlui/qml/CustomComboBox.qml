@@ -23,7 +23,7 @@ import "."
 Rectangle
 {
     id: cbRoot
-    height: UISettings.listItemHeight
+    implicitHeight: UISettings.listItemHeight
     width: 150
     color: cbMouseArea.containsMouse ? UISettings.bgLight : UISettings.bgMedium
     border.width: 1
@@ -54,7 +54,7 @@ Rectangle
 
     onVisibleChanged:
     {
-        if (visible == false)
+        if (visible == false && dropDownMenu)
             dropDownMenu.visible = false
     }
 

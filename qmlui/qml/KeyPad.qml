@@ -155,6 +155,7 @@ Rectangle
         {
             width: buttonWidth
             label: "-"
+            repetition: true
             onClicked:
             {
                 if (showDMXcontrol == false)
@@ -171,6 +172,7 @@ Rectangle
         {
             width: buttonWidth
             label: "+"
+            repetition: true
             onClicked:
             {
                 if (showDMXcontrol == false)

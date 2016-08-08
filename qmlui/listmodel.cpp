@@ -55,15 +55,26 @@ QVariant ListModel::data(const QModelIndex &index, int role) const
 {
     int itemRow = index.row();
     if (itemRow < 0 || itemRow >= m_data.count())
-        return false;
+        return QVariant();
 
     if (role < Qt::UserRole + 1 || role > Qt::UserRole + 1 + m_roles.count())
-        return false;
+        return QVariant();
 
     QString roleName = m_roles.at(role - Qt::UserRole - 1);
     QVariantMap dataMap = m_data.at(itemRow).toMap();
 
     return dataMap[roleName];
+}
+
+QVariant ListModel::data(const QModelIndex &index, QString role) const
+{
+    int itemRow = index.row();
+    if (itemRow < 0 || itemRow >= m_data.count() || m_roles.contains(role) == false)
+        return QVariant();
+
+    QVariantMap dataMap = m_data.at(itemRow).toMap();
+
+    return dataMap[role];
 }
 
 bool ListModel::setData(const QModelIndex &index, const QVariant &value, int role)

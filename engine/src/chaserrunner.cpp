@@ -487,6 +487,8 @@ void ChaserRunner::startNewStep(int index, MasterTimer* timer, bool manualFade, 
             newStep->m_elapsed = m_startOffset + MasterTimer::tick();
         else
             newStep->m_elapsed = MasterTimer::tick() + elapsed;
+        newStep->m_elapsedBeats = timer->isBeat() ? 1000 : 0; //(newStep->m_elapsed / timer->beatTimeDuration()) * 1000;
+
         m_startOffset = 0;
 
         newStep->m_function = func;
@@ -504,7 +506,7 @@ void ChaserRunner::startNewStep(int index, MasterTimer* timer, bool manualFade, 
         // might momentarily jump too high.
         newStep->m_function->adjustAttribute(m_intensity, Function::Intensity);
         // Start the fire up !
-        newStep->m_function->start(timer, functionParent(), 0, newStep->m_fadeIn, newStep->m_fadeOut);
+        newStep->m_function->start(timer, functionParent(), 0, newStep->m_fadeIn, newStep->m_fadeOut, m_chaser->tempoType());
         m_runnerSteps.append(newStep);
         m_roundTime->restart();
     }
@@ -665,7 +667,8 @@ bool ChaserRunner::write(MasterTimer* timer, QList<Universe *> universes)
     foreach(ChaserRunnerStep *step, m_runnerSteps)
     {
         if (step->m_duration != Function::infiniteSpeed() &&
-             step->m_elapsed >= step->m_duration)
+            ((m_chaser->tempoType() == Function::Time && step->m_elapsed >= step->m_duration) ||
+             (m_chaser->tempoType() == Function::Beats && step->m_elapsedBeats >= step->m_duration + 1000)))
         {
             if (step->m_duration != 0)
                 prevStepRoundElapsed = step->m_elapsed % step->m_duration;
@@ -678,6 +681,12 @@ bool ChaserRunner::write(MasterTimer* timer, QList<Universe *> universes)
         {
             if (step->m_elapsed < UINT_MAX)
                 step->m_elapsed += MasterTimer::tick();
+
+            if (m_chaser->tempoType() == Function::Beats && timer->isBeat())
+            {
+                step->m_elapsedBeats += 1000;
+                qDebug() << "Function" << step->m_function->name() << "duration:" << step->m_duration << "beats:" << step->m_elapsedBeats;
+            }
 
             // When the speeds of the chaser change, they need to be updated to the lower
             // level (only current function) as well. Otherwise the new speeds would take

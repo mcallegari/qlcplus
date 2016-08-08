@@ -208,6 +208,7 @@ void App::initDoc()
     m_doc->inputOutputMap()->loadProfiles(InputOutputMap::systemProfileDirectory());
     m_doc->inputOutputMap()->loadDefaults();
 
+    m_doc->inputOutputMap()->setBeatGeneratorType(InputOutputMap::Internal);
     m_doc->masterTimer()->start();
 }
 

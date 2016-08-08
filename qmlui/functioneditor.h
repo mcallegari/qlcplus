@@ -34,6 +34,7 @@ class FunctionEditor : public QObject
     Q_OBJECT
 
     Q_PROPERTY(QString functionName READ functionName WRITE setFunctionName NOTIFY functionNameChanged)
+    Q_PROPERTY(int tempoType READ tempoType WRITE setTempoType NOTIFY tempoTypeChanged)
 
 public:
     FunctionEditor(QQuickView *view, Doc *doc, QObject *parent = 0);
@@ -53,8 +54,13 @@ public:
     virtual QString functionName() const;
     virtual void setFunctionName(QString functionName);
 
+    /** Get/Set the tempo type of the Function being edited */
+    virtual int tempoType() const;
+    virtual void setTempoType(int tempoType);
+
 signals:
     void functionNameChanged(QString functionName);
+    void tempoTypeChanged(int tempoType);
 
 protected:
     /** Reference of the QML view */
