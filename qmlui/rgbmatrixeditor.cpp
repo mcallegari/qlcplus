@@ -480,11 +480,13 @@ void RGBMatrixEditor::slotPreviewTimeout()
     RGBMap map;
 
     if (m_matrix->tempoType() == Function::Time)
+    {
         m_previewElapsed += MasterTimer::tick();
+    }
     else if (m_matrix->tempoType() == Function::Beats && m_gotBeat)
     {
         m_gotBeat = false;
-        m_previewElapsed++;
+        m_previewElapsed += 1000;
     }
 
     if (m_previewElapsed >= m_matrix->duration())

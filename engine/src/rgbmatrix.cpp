@@ -568,8 +568,6 @@ void RGBMatrix::write(MasterTimer* timer, QList<Universe *> universes)
                 qDebug() << "RGBMatrix stepColor:" << QString::number(m_stepColor.rgb(), 16);
                 RGBMap map = m_algorithm->rgbMap(m_group->size(), m_stepColor.rgb(), m_step);
                 updateMapChannels(map, m_group);
-                if (tempoType() == Beats)
-                    incrementElapsedBeats();
             }
         }
     }
@@ -582,7 +580,7 @@ void RGBMatrix::write(MasterTimer* timer, QList<Universe *> universes)
         // Increment elapsed time
         incrementElapsed();
 
-        if (tempoType() == Beats)
+        if (tempoType() == Beats && timer->isBeat())
             incrementElapsedBeats();
 
         // Check if we need to change direction, stop completely or go to next step

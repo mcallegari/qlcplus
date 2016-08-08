@@ -89,6 +89,7 @@ Function::Function(QObject *parent)
     , m_uiState()
     , m_flashing(false)
     , m_elapsed(0)
+    , m_elapsedBeats(0)
     , m_stop(true)
     , m_running(false)
     , m_paused(false)
@@ -115,6 +116,7 @@ Function::Function(Doc* doc, Type t)
     , m_uiState()
     , m_flashing(false)
     , m_elapsed(0)
+    , m_elapsedBeats(0)
     , m_stop(true)
     , m_running(false)
     , m_paused(false)
@@ -1041,6 +1043,7 @@ void Function::resetElapsed()
 {
     qDebug() << Q_FUNC_INFO;
     m_elapsed = 0;
+    m_elapsedBeats = 0;
 }
 
 void Function::incrementElapsed()
@@ -1059,7 +1062,7 @@ void Function::incrementElapsedBeats()
 
 void Function::roundElapsed(quint32 roundTime)
 {
-    qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO << m_elapsedBeats << roundTime;
     if (roundTime == 0)
     {
         m_elapsed = 0;
@@ -1101,6 +1104,7 @@ void Function::start(MasterTimer* timer, FunctionParent source, quint32 startTim
     }
 
     m_elapsed = startTime;
+    m_elapsedBeats = 0;
     m_overrideFadeInSpeed = overrideFadeIn;
     m_overrideFadeOutSpeed = overrideFadeOut;
     m_overrideDuration = overrideDuration;
