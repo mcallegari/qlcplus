@@ -614,18 +614,12 @@ void Scene::write(MasterTimer* timer, QList<Universe*> ua)
             }
             else
             {
-                if (overrideFadeInSpeed() == defaultSpeed())
-                    fc.setFadeTime(fadeInSpeed());
+                uint fadein = overrideFadeInSpeed() == defaultSpeed() ? fadeInSpeed() : overrideFadeInSpeed();
+
+                if (tempoType() == Beats)
+                    fc.setFadeTime(beatsToTime(fadein, timer->beatTimeDuration()) + timer->timeToNextBeat());
                 else
-                {
-                    if (overrideTempoType() == Beats)
-                    {
-                        uint fadeInTime = (timer->beatTimeDuration() * overrideFadeInSpeed()) + timer->timeToNextBeat();
-                        fc.setFadeTime(fadeInTime);
-                    }
-                    else
-                        fc.setFadeTime(overrideFadeInSpeed());
-                }
+                    fc.setFadeTime(fadein);
             }
             insertStartValue(fc, timer, ua);
             m_fader->add(fc);
@@ -678,20 +672,13 @@ void Scene::postRun(MasterTimer* timer, QList<Universe *> ua)
             }
             else
             {
-                if (overrideFadeOutSpeed() == defaultSpeed())
-                {
-                    if (tempoType() == Beats)
-                        fc.setFadeTime(((float)timer->beatTimeDuration() / 1000.0) * fadeOutSpeed() + timer->timeToNextBeat());
-                    else
-                        fc.setFadeTime(fadeOutSpeed());
-                }
+                uint fadeout = overrideFadeOutSpeed() == defaultSpeed() ? fadeOutSpeed() : overrideFadeOutSpeed();
+
+                if (tempoType() == Beats)
+                    fc.setFadeTime(beatsToTime(fadeout, timer->beatTimeDuration()));
                 else
-                {
-                    if (overrideTempoType() == Beats)
-                        fc.setFadeTime(((float)timer->beatTimeDuration() / 1000.0) * overrideFadeOutSpeed() + timer->timeToNextBeat());
-                    else
-                        fc.setFadeTime(overrideFadeOutSpeed());
-                }
+                    fc.setFadeTime(fadeout);
+
                 fc.setTarget(0);
             }
             timer->faderAdd(fc);
