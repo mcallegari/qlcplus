@@ -65,8 +65,6 @@ class FunctionUiState;
 #define KXMLQLCFunctionEnabled "Enabled"
 
 #define KXMLQLCFunctionSpeed          "Speed"
-#define KXMLQLCFunctionAlternateSpeed "AlternateSpeed"
-#define KXMLQLCFunctionAlternateIndex "Index"
 #define KXMLQLCFunctionSpeedFadeIn    "FadeIn"
 #define KXMLQLCFunctionSpeedHold      "Hold"
 #define KXMLQLCFunctionSpeedFadeOut   "FadeOut"
@@ -449,9 +447,6 @@ protected:
 
     /** Save function's speed values in $doc */
     bool saveXMLSpeed(QXmlStreamWriter *doc) const;
-
-    bool loadXMLAlternateSpeed(QXmlStreamReader &alternateSpeedRoot);
-    bool saveXMLAlternateSpeed(QXmlStreamWriter *doc, int idx) const;
 
 private:
     uint m_fadeInSpeed;

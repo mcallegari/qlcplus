@@ -66,12 +66,9 @@ RGBMatrix::RGBMatrix(Doc* doc)
     , m_cgDelta(0.0)
     , m_cbDelta(0.0)
     , m_stepCount(0)
-    , m_innerFadeIn(0)
-    , m_innerFadeOut(0)
-    , m_innerDuration(0)
 {
     setName(tr("New RGB Matrix"));
-    setAlternateDuration(0, 500);
+    setDuration(500);
 
     RGBScript scr = doc->rgbScriptsCache()->script("Stripes");
     setAlgorithm(scr.clone());
@@ -95,7 +92,7 @@ void RGBMatrix::setTotalDuration(quint32 msec)
     if (grp != NULL)
     {
         int steps = m_algorithm->rgbMapStepCount(grp->size());
-        setAlternateDuration(0, msec / steps);
+        setDuration(msec / steps);
     }
 }
 
@@ -111,70 +108,7 @@ quint32 RGBMatrix::totalDuration()
         return 0;
 
     qDebug () << "Algorithm steps:" << m_algorithm->rgbMapStepCount(grp->size());
-    return m_algorithm->rgbMapStepCount(grp->size()) * m_innerDuration;
-}
-
-void RGBMatrix::setAlternateFadeIn(int idx, quint32 ms)
-{
-    if (idx < 0 || idx > 0)
-        return Function::setAlternateFadeIn(idx, ms);
-
-    m_innerFadeIn = ms;
-    emit changed(id());
-}
-
-quint32 RGBMatrix::alternateFadeIn(int idx) const
-{
-    if (idx < 0 || idx > 0)
-        return Function::alternateFadeIn(idx);
-
-    return m_innerFadeIn;
-}
-
-void RGBMatrix::setAlternateFadeOut(int idx, quint32 ms)
-{
-    if (idx < 0 || idx > 0)
-        return Function::setAlternateFadeOut(idx, ms);
-
-    m_innerFadeOut = ms;
-    emit changed(id());
-}
-
-quint32 RGBMatrix::alternateFadeOut(int idx) const
-{
-    if (idx < 0 || idx > 0)
-        return Function::alternateFadeOut(idx);
-
-    return m_innerFadeOut;
-}
-
-void RGBMatrix::setAlternateDuration(int idx, quint32 ms)
-{
-    if (idx < 0 || idx > 0)
-        return Function::setAlternateDuration(idx, ms);
-
-    m_innerDuration = ms;
-    emit changed(id());
-}
-
-quint32 RGBMatrix::alternateDuration(int idx) const
-{
-    if (idx < 0 || idx > 0)
-        return Function::alternateDuration(idx);
-
-    return m_innerDuration;
-}
-
-uint RGBMatrix::alternateSpeedCount() const
-{
-    return 1;
-}
-
-QString RGBMatrix::alternateSpeedName(int idx) const
-{
-    if (idx < 0 || idx > 0)
-        return Function::alternateSpeedName(idx);
-    return "inner"; // TODO TR
+    return m_algorithm->rgbMapStepCount(grp->size()) * duration();
 }
 
 void RGBMatrix::setDimmerControl(bool dimmerControl)
@@ -224,10 +158,6 @@ bool RGBMatrix::copyFrom(const Function* function)
         setAlgorithm(NULL);
     setStartColor(mtx->startColor());
     setEndColor(mtx->endColor());
-
-    m_innerFadeIn = mtx->m_innerFadeIn;
-    m_innerFadeOut = mtx->m_innerFadeOut;
-    m_innerDuration = mtx->m_innerDuration;
 
     return Function::copyFrom(function);
 }
@@ -426,10 +356,6 @@ bool RGBMatrix::loadXML(QXmlStreamReader &root)
         {
             loadXMLSpeed(root);
         }
-        else if (root.name() == KXMLQLCFunctionAlternateSpeed)
-        {
-            loadXMLAlternateSpeed(root);
-        }
         else if (root.name() == KXMLQLCRGBAlgorithm)
         {
             setAlgorithm(RGBAlgorithm::loader(doc(), root));
@@ -488,9 +414,6 @@ bool RGBMatrix::saveXML(QXmlStreamWriter *doc)
     /* Speed */
     saveXMLSpeed(doc);
 
-    /* Inner speed */
-    saveXMLAlternateSpeed(doc, 0);
-
     /* Direction */
     saveXMLDirection(doc);
 
@@ -543,7 +466,7 @@ void RGBMatrix::tap()
     {
         FixtureGroup* grp = doc()->fixtureGroup(fixtureGroup());
         // Filter out taps that are too close to each other
-        if (grp != NULL && uint(m_roundTime->elapsed()) >= (m_innerDuration / 4))
+        if (grp != NULL && uint(m_roundTime->elapsed()) >= (duration() / 4))
         {
             roundCheck(grp->size());
             resetElapsed();
@@ -626,7 +549,7 @@ void RGBMatrix::write(MasterTimer* timer, QList<Universe *> universes)
         }
 
         // No time to do anything.
-        if (m_innerDuration == 0)
+        if (duration() == 0)
             return;
 
         // Invalid/nonexistent script
@@ -654,7 +577,7 @@ void RGBMatrix::write(MasterTimer* timer, QList<Universe *> universes)
         incrementElapsed();
 
         // Check if we need to change direction, stop completely or go to next step
-        if (elapsed() >= m_innerDuration)
+        if (elapsed() >= duration())
             roundCheck(m_group->size());
     }
 }
@@ -688,7 +611,7 @@ void RGBMatrix::postRun(MasterTimer* timer, QList<Universe *> universes)
             }
             else
             {
-                fc.setFadeTime(m_innerFadeOut);
+                fc.setFadeTime(fadeOutSpeed());
                 fc.setTarget(0);
             }
             timer->faderAdd(fc);
@@ -795,7 +718,7 @@ void RGBMatrix::roundCheck(const QSize& size)
     }
 
     m_roundTime->restart();
-    roundElapsed(m_innerDuration);
+    roundElapsed(duration());
 }
 
 void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
@@ -927,7 +850,7 @@ void RGBMatrix::insertStartValues(FadeChannel& fc) const
     fc.setReady(false);
 
     // Fade out speed is used for all non-zero targets
-    fc.setFadeTime(m_innerFadeOut);
+    fc.setFadeTime(fadeOutSpeed());
 }
 
 /*********************************************************************

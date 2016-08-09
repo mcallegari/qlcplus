@@ -119,7 +119,7 @@ uint ChaserRunner::stepFadeIn(int stepIdx) const
     {
     case Chaser::Common:
         // All steps' fade in speed is dictated by the chaser
-        speed = m_chaser->alternateFadeIn(0);
+        speed = m_chaser->fadeInSpeed();
         break;
     case Chaser::PerStep:
         // Each step specifies its own fade in speed
@@ -145,7 +145,7 @@ uint ChaserRunner::stepFadeOut(int stepIdx) const
     {
     case Chaser::Common:
         // All steps' fade out speed is dictated by the chaser
-        speed = m_chaser->alternateFadeOut(0);
+        speed = m_chaser->fadeOutSpeed();
         break;
     case Chaser::PerStep:
         // Each step specifies its own fade out speed
@@ -173,14 +173,14 @@ uint ChaserRunner::stepDuration(int stepIdx) const
     case Chaser::Default:
     case Chaser::Common:
         // All steps' duration is dictated by the chaser
-        speed = m_chaser->alternateDuration(0);
+        speed = m_chaser->duration();
         break;
     case Chaser::PerStep:
         // Each step specifies its own duration
         if (stepIdx >= 0 && stepIdx < m_chaser->steps().size())
             speed = m_chaser->steps().at(stepIdx).duration;
         else
-            speed = m_chaser->alternateDuration(0);
+            speed = m_chaser->duration();
         break;
     }
 

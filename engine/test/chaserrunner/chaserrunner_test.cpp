@@ -148,7 +148,7 @@ void ChaserRunner_Test::currentFadeIn()
     m_chaser->setDirection(Function::Forward);
     m_chaser->setRunOrder(Function::Loop);
 
-    m_chaser->setAlternateFadeIn(0, 100);
+    m_chaser->setFadeInSpeed(100);
     m_chaser->replaceStep(ChaserStep(m_scene1->id(), 1000, 2000, 3000), 0);
     m_chaser->replaceStep(ChaserStep(m_scene2->id(), 1100, 2100, 3100), 1);
     m_chaser->replaceStep(ChaserStep(m_scene3->id(), 1200, 2200, 3200), 2);
@@ -217,7 +217,7 @@ void ChaserRunner_Test::currentFadeOut()
     m_chaser->setDirection(Function::Forward);
     m_chaser->setRunOrder(Function::Loop);
 
-    m_chaser->setAlternateFadeOut(0, 200);
+    m_chaser->setFadeOutSpeed(200);
     m_chaser->replaceStep(ChaserStep(m_scene1->id(), 1000, 2000, 3000), 0);
     m_chaser->replaceStep(ChaserStep(m_scene2->id(), 1100, 2100, 3100), 1);
     m_chaser->replaceStep(ChaserStep(m_scene3->id(), 1200, 2200, 3200), 2);
@@ -286,7 +286,7 @@ void ChaserRunner_Test::currentDuration()
     m_chaser->setDirection(Function::Forward);
     m_chaser->setRunOrder(Function::Loop);
 
-    m_chaser->setAlternateDuration(0, 300);
+    m_chaser->setDuration(300);
     m_chaser->replaceStep(ChaserStep(m_scene1->id(), 1000, 2000, 3000), 0);
     m_chaser->replaceStep(ChaserStep(m_scene2->id(), 1100, 2100, 3100), 1);
     m_chaser->replaceStep(ChaserStep(m_scene3->id(), 1200, 2200, 3200), 2);
@@ -357,7 +357,7 @@ void ChaserRunner_Test::roundCheckSingleShotForward()
 {
     m_chaser->setDirection(Function::Forward);
     m_chaser->setRunOrder(Function::SingleShot);
-    m_chaser->setAlternateDuration(0, Function::infiniteSpeed());
+    m_chaser->setDuration(Function::infiniteSpeed());
     ChaserRunner cr(m_doc, m_chaser);
 
     QCOMPARE(cr.currentStep(), 0);
@@ -381,7 +381,7 @@ void ChaserRunner_Test::roundCheckSingleShotBackward()
 {
     m_chaser->setDirection(Function::Backward);
     m_chaser->setRunOrder(Function::SingleShot);
-    m_chaser->setAlternateDuration(0, Function::infiniteSpeed());
+    m_chaser->setDuration(Function::infiniteSpeed());
     ChaserRunner cr(m_doc, m_chaser);
 
     QCOMPARE(cr.currentStep(), 2);
@@ -403,7 +403,7 @@ void ChaserRunner_Test::roundCheckLoopForward()
 {
     m_chaser->setDirection(Function::Forward);
     m_chaser->setRunOrder(Function::Loop);
-    m_chaser->setAlternateDuration(0, Function::infiniteSpeed());
+    m_chaser->setDuration(Function::infiniteSpeed());
     ChaserRunner cr(m_doc, m_chaser);
 
     QCOMPARE(cr.currentStep(), 0);
@@ -439,7 +439,7 @@ void ChaserRunner_Test::roundCheckLoopBackward()
 {
     m_chaser->setDirection(Function::Backward);
     m_chaser->setRunOrder(Function::Loop);
-    m_chaser->setAlternateDuration(0, Function::infiniteSpeed());
+    m_chaser->setDuration(Function::infiniteSpeed());
     ChaserRunner cr(m_doc, m_chaser);
 
     QCOMPARE(cr.currentStep(), 2);
@@ -476,7 +476,7 @@ void ChaserRunner_Test::roundCheckPingPongForward()
     m_chaser->addStep(m_scene1->id()); // Easier to check direction changes with 4 steps
     m_chaser->setDirection(Function::Forward);
     m_chaser->setRunOrder(Function::PingPong);
-    m_chaser->setAlternateDuration(0, Function::infiniteSpeed());
+    m_chaser->setDuration(Function::infiniteSpeed());
     ChaserRunner cr(m_doc, m_chaser);
 
     QCOMPARE(cr.currentStep(), 0);
@@ -548,7 +548,7 @@ void ChaserRunner_Test::roundCheckPingPongBackward()
     m_chaser->addStep(m_scene1->id()); // Easier to check direction changes with 4 steps
     m_chaser->setDirection(Function::Backward);
     m_chaser->setRunOrder(Function::PingPong);
-    m_chaser->setAlternateDuration(0, Function::infiniteSpeed());
+    m_chaser->setDuration(Function::infiniteSpeed());
     ChaserRunner cr(m_doc, m_chaser);
 
     QCOMPARE(cr.currentStep(), 3);
@@ -857,7 +857,7 @@ void ChaserRunner_Test::writeForwardLoopFive()
     m_chaser->setRunOrder(Function::Loop);
 
     uint dur = MasterTimer::tick() * 5;
-    m_chaser->setAlternateDuration(0, dur);
+    m_chaser->setDuration(dur);
 
     ChaserRunner cr(m_doc, m_chaser);
     MasterTimer timer(m_doc);
@@ -923,7 +923,7 @@ void ChaserRunner_Test::writeBackwardLoopFive()
     m_chaser->setRunOrder(Function::Loop);
 
     uint dur = MasterTimer::tick() * 5;
-    m_chaser->setAlternateDuration(0, dur);
+    m_chaser->setDuration(dur);
 
     ChaserRunner cr(m_doc, m_chaser);
     MasterTimer timer(m_doc);
@@ -989,7 +989,7 @@ void ChaserRunner_Test::writeForwardSingleShotFive()
     m_chaser->setRunOrder(Function::SingleShot);
 
     uint dur = MasterTimer::tick() * 5;
-    m_chaser->setAlternateDuration(0, dur);
+    m_chaser->setDuration(dur);
 
     ChaserRunner cr(m_doc, m_chaser);
     MasterTimer timer(m_doc);
@@ -1035,7 +1035,7 @@ void ChaserRunner_Test::writeBackwardSingleShotFive()
     m_chaser->setRunOrder(Function::SingleShot);
 
     uint dur = MasterTimer::tick() * 5;
-    m_chaser->setAlternateDuration(0, dur);
+    m_chaser->setDuration(dur);
 
     ChaserRunner cr(m_doc, m_chaser);
     MasterTimer timer(m_doc);
@@ -1081,7 +1081,7 @@ void ChaserRunner_Test::writeForwardPingPongFive()
     m_chaser->setRunOrder(Function::PingPong);
 
     uint dur = MasterTimer::tick() * 5;
-    m_chaser->setAlternateDuration(0, dur);
+    m_chaser->setDuration(dur);
 
     ChaserRunner cr(m_doc, m_chaser);
     MasterTimer timer(m_doc);
@@ -1156,7 +1156,7 @@ void ChaserRunner_Test::writeBackwardPingPongFive()
     m_chaser->setRunOrder(Function::PingPong);
 
     uint dur = MasterTimer::tick() * 5;
-    m_chaser->setAlternateDuration(0, dur);
+    m_chaser->setDuration(dur);
 
     ChaserRunner cr(m_doc, m_chaser);
     MasterTimer timer(m_doc);
@@ -1230,7 +1230,7 @@ void ChaserRunner_Test::writeNoAutoStep()
     m_chaser->setDirection(Function::Forward);
     m_chaser->setRunOrder(Function::Loop);
 
-    m_chaser->setAlternateDuration(0, Function::infiniteSpeed());
+    m_chaser->setDuration(Function::infiniteSpeed());
 
     ChaserRunner cr(m_doc, m_chaser);
     MasterTimer timer(m_doc);

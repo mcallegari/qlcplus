@@ -69,16 +69,6 @@ public:
     /** @reimpl */
     quint32 totalDuration();
 
-    // @REPOIMLP
-    virtual void setAlternateFadeIn(int idx, quint32 ms);
-    virtual quint32 alternateFadeIn(int idx) const;
-    virtual void setAlternateFadeOut(int idx, quint32 ms);
-    virtual quint32 alternateFadeOut(int idx) const;
-    virtual void setAlternateDuration(int idx, quint32 ms);
-    virtual quint32 alternateDuration(int idx) const;
-    virtual uint alternateSpeedCount() const;
-    virtual QString alternateSpeedName(int idx) const;
-
     /** Set the matrix to control or not the dimmer channel */
     void setDimmerControl(bool dimmerControl);
 
@@ -210,10 +200,6 @@ private:
     QColor m_stepColor;
     int m_crDelta, m_cgDelta, m_cbDelta;
     int m_stepCount;
-
-    quint32 m_innerFadeIn;
-    quint32 m_innerFadeOut;
-    quint32 m_innerDuration;
 
     /*********************************************************************
      * Attributes

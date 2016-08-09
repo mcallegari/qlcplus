@@ -174,10 +174,6 @@ private:
     QList <ChaserStep> m_steps;
     mutable QMutex m_stepListMutex;
 
-    quint32 m_innerFadeIn;
-    quint32 m_innerFadeOut;
-    quint32 m_innerDuration;
-
     /*********************************************************************
      * Sequence mode
      *********************************************************************/
