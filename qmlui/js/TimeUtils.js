@@ -165,7 +165,9 @@ function qlcStringToTime(str, type)
 
 function timeToQlcString(value, type)
 {
-    if (value === -2)
+    if (value === 0)
+        return "0"
+    else if (value === -2)
         return "∞"
 
     var timeString = ""

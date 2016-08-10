@@ -36,6 +36,7 @@ class ChaserEditor : public FunctionEditor
     Q_PROPERTY(int stepsFadeIn READ stepsFadeIn WRITE setStepsFadeIn NOTIFY stepsFadeInChanged)
     Q_PROPERTY(int stepsFadeOut READ stepsFadeOut WRITE setStepsFadeOut NOTIFY stepsFadeOutChanged)
     Q_PROPERTY(int stepsDuration READ stepsDuration WRITE setStepsDuration NOTIFY stepsDurationChanged)
+    Q_PROPERTY(int playbackIndex READ playbackIndex WRITE setPlaybackIndex NOTIFY playbackIndexChanged)
 
 public:
     ChaserEditor(QQuickView *view, Doc *doc, QObject *parent = 0);
@@ -53,6 +54,12 @@ public:
      */
     Q_INVOKABLE bool addFunction(quint32 fid, int insertIndex = -1);
 
+    int playbackIndex() const;
+    void setPlaybackIndex(int playbackIndex);
+
+    /** @reimp */
+    void setPreviewEnabled(bool enable);
+
 protected:
     void updateStepsList();
 
@@ -61,11 +68,20 @@ protected:
      *  otherwise it will be applied to all the steps */
     void setSelectedValue(Function::SpeedType type, QString param, uint value, bool selectedOnly = true);
 
+protected slots:
+    /** Slot invoked during Chaser playback when the step index changes */
+    void slotStepChanged(int index);
+
+signals:
+    void playbackIndexChanged(int playbackIndex);
+
 private:
     /** Reference of the Chaser currently being edited */
     Chaser *m_chaser;
-
+    /** Reference to a ListModel representing the steps list for the QML UI */
     ListModel *m_stepsList;
+    /** Index of the current step being played. -1 when stopped */
+    int m_playbackIndex;
 
     /*********************************************************************
      * Chaser playback modes

@@ -239,7 +239,7 @@ void FunctionManager::setPreview(bool enable)
 {
     if (m_currentEditor != NULL)
     {
-        m_currentEditor->setPreview(enable);
+        m_currentEditor->setPreviewEnabled(enable);
     }
     else
     {
@@ -345,7 +345,7 @@ void FunctionManager::setEditorFunction(quint32 fID)
     if (m_currentEditor != NULL)
     {
         m_currentEditor->setFunctionID(fID);
-        m_currentEditor->setPreview(m_previewEnabled);
+        m_currentEditor->setPreviewEnabled(m_previewEnabled);
     }
 
     emit functionEditingChanged(true);

@@ -25,6 +25,7 @@
 ChaserEditor::ChaserEditor(QQuickView *view, Doc *doc, QObject *parent)
     : FunctionEditor(view, doc, parent)
     , m_chaser(NULL)
+    , m_playbackIndex(-1)
 {
     m_view->rootContext()->setContextProperty("chaserEditor", this);
 
@@ -33,8 +34,13 @@ ChaserEditor::ChaserEditor(QQuickView *view, Doc *doc, QObject *parent)
 
 void ChaserEditor::setFunctionID(quint32 ID)
 {
+    disconnect(m_chaser, SIGNAL(currentStepChanged(int)), this, SLOT(slotStepChanged(int)));
+
     m_chaser = qobject_cast<Chaser *>(m_doc->function(ID));
     FunctionEditor::setFunctionID(ID);
+    if (m_chaser != NULL)
+        connect(m_chaser, SIGNAL(currentStepChanged(int)), this, SLOT(slotStepChanged(int)));
+
     updateStepsList();
 }
 
@@ -62,11 +68,43 @@ bool ChaserEditor::addFunction(quint32 fid, int insertIndex)
     return true;
 }
 
+int ChaserEditor::playbackIndex() const
+{
+    return m_playbackIndex;
+}
+
+void ChaserEditor::setPlaybackIndex(int playbackIndex)
+{
+    if (m_playbackIndex == playbackIndex)
+        return;
+
+    m_playbackIndex = playbackIndex;
+    emit playbackIndexChanged(playbackIndex);
+}
+
+void ChaserEditor::setPreviewEnabled(bool enable)
+{
+    if (m_chaser != NULL && m_playbackIndex >= 0)
+        m_chaser->setStepIndex(m_playbackIndex);
+
+    FunctionEditor::setPreviewEnabled(enable);
+}
+
+void ChaserEditor::slotStepChanged(int index)
+{
+    if (index == m_playbackIndex)
+        return;
+
+    m_playbackIndex = index;
+    emit playbackIndexChanged(index);
+}
+
 void ChaserEditor::updateStepsList()
 {
+    m_stepsList->clear();
+
     if (m_chaser != NULL)
     {
-        m_stepsList->clear();
         QStringList listRoles;
         listRoles << "funcID" << "isSelected" << "fadeIn" << "hold" << "fadeOut" << "duration" << "note";
         m_stepsList->setRoleNames(listRoles);
@@ -348,8 +386,8 @@ void ChaserEditor::setStepSpeed(int index, int value, int type)
         {
             if (m_chaser->fadeInMode() == Chaser::Common)
             {
-                setSelectedValue(Function::FadeIn, "fadeIn", uint(value), false);
                 m_chaser->setFadeInSpeed(value);
+                setSelectedValue(Function::FadeIn, "fadeIn", uint(value), false);
             }
             else if (m_chaser->fadeInMode() == Chaser::PerStep)
                 setSelectedValue(Function::FadeIn, "fadeIn", uint(value));
@@ -361,8 +399,8 @@ void ChaserEditor::setStepSpeed(int index, int value, int type)
         case Function::FadeOut:
             if (m_chaser->fadeOutMode() == Chaser::Common)
             {
-                setSelectedValue(Function::FadeOut, "fadeOut", uint(value), false);
                 m_chaser->setFadeOutSpeed(value);
+                setSelectedValue(Function::FadeOut, "fadeOut", uint(value), false);
             }
             else if (m_chaser->fadeOutMode() == Chaser::PerStep)
                 setSelectedValue(Function::FadeOut, "fadeOut", uint(value));
@@ -370,8 +408,8 @@ void ChaserEditor::setStepSpeed(int index, int value, int type)
         case Function::Duration:
             if (m_chaser->durationMode() == Chaser::Common)
             {
-                setSelectedValue(Function::Duration, "duration", uint(value), false);
                 m_chaser->setDuration(value);
+                setSelectedValue(Function::Duration, "duration", uint(value), false);
             }
             else
                 setSelectedValue(Function::Duration, "duration", uint(value));

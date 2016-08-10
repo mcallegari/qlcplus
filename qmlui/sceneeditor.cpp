@@ -92,8 +92,11 @@ void SceneEditor::setSceneName(QString sceneName)
     emit sceneNameChanged();
 }
 
-void SceneEditor::setPreview(bool enable)
+void SceneEditor::setPreviewEnabled(bool enable)
 {
+    if (m_previewEnabled == enable)
+        return;
+
     qDebug() << "[SceneEditor] set preview" << enable;
 
     if (enable == true)
@@ -105,7 +108,8 @@ void SceneEditor::setPreview(bool enable)
         m_source->unsetAll();
 
     m_source->setOutputEnabled(enable);
-    m_preview = enable;
+    m_previewEnabled = enable;
+    emit previewEnabledChanged(enable);
 }
 
 void SceneEditor::sceneConsoleLoaded(bool status)

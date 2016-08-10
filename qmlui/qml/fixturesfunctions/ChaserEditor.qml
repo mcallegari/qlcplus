@@ -414,8 +414,15 @@ Rectangle
                 clip: true
 
                 property int dragInsertIndex: -1
+                property int playbackIndex: chaserEditor.playbackIndex
 
                 model: chaserEditor.stepsList
+
+                onPlaybackIndexChanged:
+                {
+                    if (chaserEditor.previewEnabled)
+                        ceSelector.selectItem(playbackIndex, model, 0)
+                }
 
                 delegate:
                     ChaserStepDelegate
@@ -442,6 +449,8 @@ Rectangle
                         onClicked:
                         {
                             ceSelector.selectItem(indexInList, cStepsList.model, mouseMods & Qt.ControlModifier)
+                            if (mouseMods & Qt.ControlModifier === false)
+                                chaserEditor.playbackIndex = index
                         }
 
                         onDoubleClicked:
