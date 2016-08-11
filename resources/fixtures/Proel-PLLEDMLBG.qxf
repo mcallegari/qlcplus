@@ -7,7 +7,7 @@
   <Author>Andrea Ugolini</Author>
  </Creator>
  <Manufacturer>Proel</Manufacturer>
- <Model>Plledmlbg LED Moving Head</Model>
+ <Model>PLLEDMLBG LED Moving Head</Model>
  <Type>Moving Head</Type>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
