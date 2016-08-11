@@ -130,7 +130,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
         {
             VCFrame *frame = new VCFrame(m_doc, m_vc, this);
             QQmlEngine::setObjectOwnership(frame, QQmlEngine::CppOwnership);
-            frame->setGeometry(QRect(pos.x(), pos.y(), 300, 300));
+            frame->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 50, m_vc->pixelDensity() * 50));
             setupWidget(frame);
             m_vc->addWidgetToMap(frame);
             frame->render(m_vc->view(), parent);
@@ -140,7 +140,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
         {
             VCSoloFrame *soloframe = new VCSoloFrame(m_doc, m_vc, this);
             QQmlEngine::setObjectOwnership(soloframe, QQmlEngine::CppOwnership);
-            soloframe->setGeometry(QRect(pos.x(), pos.y(), 300, 300));
+            soloframe->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 50, m_vc->pixelDensity() * 50));
             setupWidget(soloframe);
             m_vc->addWidgetToMap(soloframe);
             soloframe->render(m_vc->view(), parent);
@@ -150,7 +150,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
         {
             VCButton *button = new VCButton(m_doc, this);
             QQmlEngine::setObjectOwnership(button, QQmlEngine::CppOwnership);
-            button->setGeometry(QRect(pos.x(), pos.y(), 100, 100));
+            button->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 17, m_vc->pixelDensity() * 17));
             setupWidget(button);
             m_vc->addWidgetToMap(button);
             button->render(m_vc->view(), parent);
@@ -160,7 +160,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
         {
             VCLabel *label = new VCLabel(m_doc, this);
             QQmlEngine::setObjectOwnership(label, QQmlEngine::CppOwnership);
-            label->setGeometry(QRect(pos.x(), pos.y(), 100, 30));
+            label->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 25, m_vc->pixelDensity() * 8));
             setupWidget(label);
             m_vc->addWidgetToMap(label);
             label->render(m_vc->view(), parent);
@@ -170,8 +170,9 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
         {
             VCSlider *slider = new VCSlider(m_doc, this);
             QQmlEngine::setObjectOwnership(slider, QQmlEngine::CppOwnership);
-            slider->setGeometry(QRect(pos.x(), pos.y(), 60, 200));
+            slider->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 10, m_vc->pixelDensity() * 35));
             setupWidget(slider);
+            slider->setDefaultFontSize(m_vc->pixelDensity() * 3.5);
             m_vc->addWidgetToMap(slider);
             slider->render(m_vc->view(), parent);
         }
@@ -180,8 +181,9 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
         {
             VCClock *clock = new VCClock(m_doc, this);
             QQmlEngine::setObjectOwnership(clock, QQmlEngine::CppOwnership);
-            clock->setGeometry(QRect(pos.x(), pos.y(), 150, 50));
+            clock->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 25, m_vc->pixelDensity() * 8));
             setupWidget(clock);
+            clock->setDefaultFontSize(m_vc->pixelDensity() * 5.5);
             m_vc->addWidgetToMap(clock);
             clock->render(m_vc->view(), parent);
         }
@@ -235,6 +237,8 @@ void VCFrame::deleteChildren()
 
 void VCFrame::setupWidget(VCWidget *widget)
 {
+    widget->setDefaultFontSize(m_vc->pixelDensity() * 4.5);
+
     addWidgetToPageMap(widget);
 
     // if we're a normal Frame and we have a Solo Frame parent

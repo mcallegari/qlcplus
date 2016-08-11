@@ -31,6 +31,7 @@
 #include "vclabel.h"
 #include "vcclock.h"
 #include "doc.h"
+#include "app.h"
 
 #define KXMLQLCVCProperties "Properties"
 #define KXMLQLCVCPropertiesSize "Size"
@@ -77,6 +78,12 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc, QObject *parent)
     qmlRegisterType<VCSlider>("com.qlcplus.classes", 1, 0, "VCSlider");
     qmlRegisterType<VCClock>("com.qlcplus.classes", 1, 0, "VCClock");
     qmlRegisterType<VCClockSchedule>("com.qlcplus.classes", 1, 0, "VCClockSchedule");
+}
+
+qreal VirtualConsole::pixelDensity() const
+{
+    App *app = qobject_cast<App *>(m_view);
+    return app->pixelDensity();
 }
 
 void VirtualConsole::renderPage(QQuickItem *parent, QQuickItem *contentItem, int page)

@@ -46,10 +46,7 @@ VCClock::VCClock(Doc *doc, QObject *parent)
 {
     setType(VCWidget::ClockWidget);
     setForegroundColor(Qt::white);
-    QFont wFont = font();
-    wFont.setBold(true);
-    wFont.setPointSize(28);
-    setFont(wFont);
+    m_font.setBold(true);
 
     m_timer = new QTimer(this);
     connect(m_timer, SIGNAL(timeout()), this, SLOT(slotTimerTimeout()));

@@ -20,7 +20,6 @@
 pragma Singleton
 
 import QtQuick 2.0
-import QtQuick.Window 2.0
 
 QtObject
 {
@@ -50,11 +49,11 @@ QtObject
     property color toolbarSelectionSub:  "yellow"
 
     /* Sizes */
-    property int textSizeDefault:   Screen.pixelDensity * 3.5
-    property real iconSizeDefault:  Screen.pixelDensity * 10 // more or less the size of a finger
-    property real iconSizeMedium:   Screen.pixelDensity * 8
-    property real listItemHeight:   Screen.pixelDensity * 7
-    property real mediumItemHeight: Screen.pixelDensity * 15
-    property real bigItemHeight:    Screen.pixelDensity * 25
-    property real scrollBarWidth:   Screen.pixelDensity * 6
+    property int  textSizeDefault:  screenPixelDensity * 4.5
+    property real iconSizeDefault:  screenPixelDensity * 10 // more or less the size of a finger
+    property real iconSizeMedium:   screenPixelDensity * 8
+    property real listItemHeight:   screenPixelDensity * 7
+    property real mediumItemHeight: screenPixelDensity * 15
+    property real bigItemHeight:    screenPixelDensity * 25
+    property real scrollBarWidth:   screenPixelDensity * 6
 }
