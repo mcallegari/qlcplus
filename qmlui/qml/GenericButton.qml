@@ -46,7 +46,7 @@ Rectangle
         anchors.centerIn: parent
         color: "white"
         font.family: useFontawesome ? "FontAwesome" : "Roboto Condensed"
-        font.pointSize: fontSize
+        font.pixelSize: fontSize
     }
 
     MouseArea

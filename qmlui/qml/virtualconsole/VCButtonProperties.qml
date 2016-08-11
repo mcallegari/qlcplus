@@ -32,7 +32,7 @@ Rectangle
     property VCButton widgetRef: null
     property Function func
     property int funcID: widgetRef ? widgetRef.functionID : -1
-    property int gridItemsHeight: 38
+    property int gridItemsHeight: UISettings.listItemHeight
 
     //onWidgetRefChanged: func = functionManager.getFunction(widgetRef.functionID)
 
@@ -99,7 +99,12 @@ Rectangle
                 ExclusiveGroup { id: pressBehaviourGroup }
 
                 // row 1
-                RobotoText { fontSize: 14; label: qsTr("Toggle Function on/off") }
+                RobotoText
+                {
+                    height: gridItemsHeight
+                    fontSize: UISettings.textSizeDefault * 0.75
+                    label: qsTr("Toggle Function on/off")
+                }
 
                 CustomCheckBox
                 {
@@ -111,7 +116,12 @@ Rectangle
                 }
 
                 // row 2
-                RobotoText { fontSize: 14; label: qsTr("Flash Function (only for Scenes)") }
+                RobotoText
+                {
+                    height: gridItemsHeight
+                    fontSize: UISettings.textSizeDefault * 0.75
+                    label: qsTr("Flash Function (only for Scenes)")
+                }
 
                 CustomCheckBox
                 {
@@ -123,7 +133,12 @@ Rectangle
                 }
 
                 // row 3
-                RobotoText { fontSize: 14; label: qsTr("Toggle Blackout") }
+                RobotoText
+                {
+                    height: gridItemsHeight
+                    fontSize: UISettings.textSizeDefault * 0.75
+                    label: qsTr("Toggle Blackout")
+                }
 
                 CustomCheckBox
                 {
@@ -135,7 +150,12 @@ Rectangle
                 }
 
                 // row 4
-                RobotoText { fontSize: 14; label: qsTr("Stop all Functions") }
+                RobotoText
+                {
+                    height: gridItemsHeight
+                    fontSize: UISettings.textSizeDefault * 0.75
+                    label: qsTr("Stop all Functions")
+                }
 
                 CustomCheckBox
                 {

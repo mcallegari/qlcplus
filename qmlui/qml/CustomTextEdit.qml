@@ -58,7 +58,7 @@ Rectangle
         horizontalAlignment: textAlignment
         verticalAlignment: TextInput.AlignVCenter
         font.family: "Roboto Condensed"
-        font.pointSize: fontSize
+        font.pixelSize: fontSize
         selectByMouse: true
 
         onTextChanged: customTextEditRect.textChanged(text)

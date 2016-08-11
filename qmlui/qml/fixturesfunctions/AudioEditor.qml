@@ -79,7 +79,7 @@ Rectangle
             clip: true
             verticalAlignment: TextInput.AlignVCenter
             font.family: "Roboto Condensed"
-            font.pointSize: UISettings.textSizeDefault
+            font.pixelSize: UISettings.textSizeDefault
             selectByMouse: true
             text: audioEditor.functionName
             Layout.fillWidth: true

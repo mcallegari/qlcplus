@@ -20,6 +20,7 @@
 import QtQuick 2.0
 
 import com.qlcplus.classes 1.0
+import "."
 
 Rectangle
 {
@@ -35,6 +36,7 @@ Rectangle
 
     property VCWidget wObj: null
     property bool isSelected: false
+    property int handleSize: UISettings.iconSizeMedium
 
     onIsSelectedChanged:
     {
@@ -106,8 +108,10 @@ Rectangle
         {
             id: tlHandle
             rotation: 180
+            width: handleSize
+            height: width
             source: "qrc:/arrow-corner.svg"
-            sourceSize: Qt.size(32, 32)
+            sourceSize: Qt.size(handleSize, handleSize)
             visible: isSelected && wObj && wObj.allowResize
 
             MouseArea
@@ -140,10 +144,12 @@ Rectangle
         Image
         {
             id: trHandle
-            x: parent.width - 32
+            width: handleSize
+            height: width
+            x: parent.width - handleSize
             rotation: 270
             source: "qrc:/arrow-corner.svg"
-            sourceSize: Qt.size(32, 32)
+            sourceSize: Qt.size(handleSize, handleSize)
             visible: isSelected && wObj && wObj.allowResize
 
             MouseArea
@@ -175,10 +181,12 @@ Rectangle
         Image
         {
             id: brHandle
-            x: parent.width - 32
-            y: parent.height - 32
+            width: handleSize
+            height: width
+            x: parent.width - handleSize
+            y: parent.height - handleSize
             source: "qrc:/arrow-corner.svg"
-            sourceSize: Qt.size(32, 32)
+            sourceSize: Qt.size(handleSize, handleSize)
             visible: isSelected && wObj && wObj.allowResize
 
             MouseArea
@@ -209,9 +217,11 @@ Rectangle
         {
             id: blHandle
             rotation: 90
-            y: parent.height - 32
+            width: handleSize
+            height: width
+            y: parent.height - handleSize
             source: "qrc:/arrow-corner.svg"
-            sourceSize: Qt.size(32, 32)
+            sourceSize: Qt.size(handleSize, handleSize)
             visible: isSelected && wObj && wObj.allowResize
 
             MouseArea

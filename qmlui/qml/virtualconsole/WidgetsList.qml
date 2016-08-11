@@ -47,7 +47,7 @@ Rectangle
 
     ListView
     {
-        id: uniListView
+        id: widgetListView
         anchors.fill: parent
         boundsBehavior: Flickable.StopAtBounds
         model: wModel
@@ -65,14 +65,8 @@ Rectangle
                     height: parent.height
 
                     drag.target: widgetItem
-                    drag.threshold: height / 2
+                    drag.threshold: 30
 
-                    onPressed:
-                    {
-                        //widgetItem.color = "#444"
-                        widgetItem.reduced = true
-                        //widgetItem.x = mouse.x
-                    }
                     onReleased:
                     {
                         if (widgetItem.Drag.target !== null)
@@ -88,8 +82,6 @@ Rectangle
                         }
                         widgetItem.x = 3
                         widgetItem.y = 0
-                        widgetItem.reduced = false
-                        //widgetItem.color = "transparent"
                     }
                     WidgetDragItem
                     {
@@ -115,9 +107,10 @@ Rectangle
                             color: "#555"
                             visible: widgetItem.reduced ? false : true
                         }
-                    } // PluginDragItem
+                    } // WidgetDragItem
                 } // MouseArea
             } // Item
+        ScrollBar { flickable: widgetListView }
     } // ListView
 }
 

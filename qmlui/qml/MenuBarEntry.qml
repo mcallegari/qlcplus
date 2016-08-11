@@ -35,7 +35,7 @@ Rectangle
     property bool editable: false
     property string imgSource: ""
     property string entryText: ""
-    property real mFontSize: UISettings.textSizeDefault * 0.85
+    property real mFontSize: UISettings.textSizeDefault * 0.70
     property bool checked: false
     property Gradient bgGradient: defBgGradient
     property Gradient selGradient: defSelectionGradient

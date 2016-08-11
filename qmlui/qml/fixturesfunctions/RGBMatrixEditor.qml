@@ -102,7 +102,7 @@ Rectangle
             text: rgbMatrixEditor.functionName
             verticalAlignment: TextInput.AlignVCenter
             font.family: "Roboto Condensed"
-            font.pointSize: UISettings.textSizeDefault
+            font.pixelSize: UISettings.textSizeDefault
             selectByMouse: true
             Layout.fillWidth: true
             onTextChanged: rgbMatrixEditor.functionName = text
@@ -557,7 +557,7 @@ Rectangle
                         anchors.margins: 4
                         anchors.verticalCenter: parent.verticalCenter
                         text: rgbMatrixEditor.algoText
-                        font.pointSize: UISettings.textSizeDefault
+                        font.pixelSize: UISettings.textSizeDefault
                         color: "white"
 
                         onTextChanged: rgbMatrixEditor.algoText = text
@@ -582,7 +582,7 @@ Rectangle
                         {
                             console.log("Selected font: " + fontDialog.font)
                             algoTextEdit.font = fontDialog.font
-                            algoTextEdit.font.pointSize = 16
+                            algoTextEdit.font.pixelSize = 16
                             //wObj.font = fontDialog.font
                         }
                     }
@@ -671,7 +671,7 @@ Rectangle
                         anchors.margins: 4
                         anchors.verticalCenter: parent.verticalCenter
                         text: rgbMatrixEditor.algoImagePath
-                        font.pointSize: UISettings.textSizeDefault
+                        font.pixelSize: UISettings.textSizeDefault
                         color: "white"
 
                         onTextChanged: rgbMatrixEditor.algoImagePath = text

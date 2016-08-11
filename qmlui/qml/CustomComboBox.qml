@@ -89,7 +89,7 @@ Rectangle
             height: cbRoot.height
             width: cbRoot.width - 4 - arrowButton.width - (mainIcon.visible ? mainIcon.width : 0)
             label: currentText
-            fontSize: height ? height * 0.4 : 12
+            fontSize: UISettings.textSizeDefault
             fontBold: true
         }
         Rectangle
@@ -225,7 +225,7 @@ Rectangle
                                 id: textitem
                                 label: itemText
                                 height: delegateRoot.height
-                                fontSize: height ? height * 0.4 : 12
+                                fontSize: UISettings.textSizeDefault
                             }
                         }
 

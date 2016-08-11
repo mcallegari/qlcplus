@@ -62,7 +62,7 @@ Rectangle
         y: 0
         label: entryText
         height: baseIconEntry.height
-        fontSize: height ? height / 4 : 16
+        fontSize: UISettings.textSizeDefault
         fontBold: true
     }
 

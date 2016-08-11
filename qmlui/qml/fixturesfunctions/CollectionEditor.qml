@@ -122,7 +122,7 @@ Rectangle
                     text: collectionEditor.functionName
                     verticalAlignment: TextInput.AlignVCenter
                     font.family: "Roboto Condensed"
-                    font.pointSize: UISettings.textSizeDefault
+                    font.pixelSize: UISettings.textSizeDefault
                     selectByMouse: true
                     Layout.fillWidth: true
                     onTextChanged: collectionEditor.functionName = text

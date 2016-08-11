@@ -39,7 +39,7 @@ Rectangle
     property string stepDuration
     property string stepNote
 
-    property int labelFontSize: 11
+    property int labelFontSize: UISettings.textSizeDefault * 0.75
 
     property bool isSelected: false
     property int indexInList: -1
