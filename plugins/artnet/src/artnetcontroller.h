@@ -22,6 +22,7 @@
 
 #include <QNetworkInterface>
 #include <QScopedPointer>
+#include <QSharedPointer>
 #include <QHostAddress>
 #include <QUdpSocket>
 #include <QMutex>
