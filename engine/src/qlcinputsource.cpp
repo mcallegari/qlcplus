@@ -192,7 +192,7 @@ void QLCInputSource::updateInputValue(uchar value)
             m_sensitivity = -qAbs(m_sensitivity);
         else if (value > m_inputValue)
             m_sensitivity = qAbs(m_sensitivity);
-        m_inputValue = CLAMP(m_inputValue + m_sensitivity, 0, UCHAR_MAX);
+        m_inputValue = CLAMP(m_inputValue + (char)m_sensitivity, 0, UCHAR_MAX);
         locker.unlock();
         emit inputValueChanged(m_universe, m_channel, m_inputValue);
     }
