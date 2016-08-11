@@ -376,7 +376,7 @@ QString Chaser::alternateSpeedName(int idx) const
         return Function::alternateSpeedName(idx);
 
     if (isSequence())
-        return QString("step ") + idx;
+        return QString("step ") + QString::number(idx);
 
     Function* function = doc()->function(m_steps[idx].fid);
     if (function == NULL)
