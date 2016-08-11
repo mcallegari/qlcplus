@@ -22,9 +22,13 @@
 
 #include "oscpacketizer.h"
 
+#include <QNetworkInterface>
 #include <QScopedPointer>
-#include <QtNetwork>
-#include <QObject>
+#include <QSharedPointer>
+#include <QHostAddress>
+#include <QUdpSocket>
+#include <QMutex>
+#include <QTimer>
 #include <QHash>
 #include <QMap>
 

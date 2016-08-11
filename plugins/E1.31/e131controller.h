@@ -22,9 +22,13 @@
 
 #include "e131packetizer.h"
 
-#include <QtNetwork>
-#include <QObject>
+#include <QNetworkInterface>
 #include <QScopedPointer>
+#include <QSharedPointer>
+#include <QHostAddress>
+#include <QUdpSocket>
+#include <QMutex>
+#include <QTimer>
 
 #define E131_DEFAULT_PORT     5568
 

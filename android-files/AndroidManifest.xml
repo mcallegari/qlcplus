@@ -17,18 +17,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<manifest package="org.qtproject.qlcplus" 
-	  xmlns:android="http://schemas.android.com/apk/res/android" 
-	  android:versionName="5.0" android:versionCode="1" android:installLocation="auto">
-    <application android:hardwareAccelerated="true" 
-		 android:name="org.qtproject.qt5.android.bindings.QtApplication" 
-		 android:label="-- %%INSERT_APP_NAME%% --" 
-		 android:icon="@drawable/icon">
-        <activity android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|locale|fontScale|keyboard|keyboardHidden|navigation" 
-		  android:name="org.qtproject.qt5.android.bindings.QtActivity" 
-		  android:label="-- %%INSERT_APP_NAME%% --" 
-		  android:screenOrientation="unspecified" 
-		  android:launchMode="singleTop">
+<manifest package="org.qlcplus" xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="5.0" android:versionCode="1" android:installLocation="auto">
+    <application android:hardwareAccelerated="true" android:name="org.qtproject.qt5.android.bindings.QtApplication" android:label="-- %%INSERT_APP_NAME%% --" android:icon="@drawable/icon">
+        <activity android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|locale|fontScale|keyboard|keyboardHidden|navigation" android:name="org.qtproject.qt5.android.bindings.QtActivity" android:label="-- %%INSERT_APP_NAME%% --" android:screenOrientation="unspecified" android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -69,9 +60,8 @@
             <!-- Background running -->
         </activity>
     </application>
-    <uses-sdk android:minSdkVersion="9" android:targetSdkVersion="14"/>
-    <supports-screens android:largeScreens="true" android:normalScreens="true" 
-		      android:anyDensity="true" android:smallScreens="true"/>
+    <uses-sdk android:minSdkVersion="17" android:targetSdkVersion="22"/>
+    <supports-screens android:largeScreens="true" android:normalScreens="true" android:anyDensity="true" android:smallScreens="true"/>
 
     <!-- The following comment will be replaced upon deployment with default permissions based on the dependencies of the application.
          Remove the comment if you do not require these default permissions. -->

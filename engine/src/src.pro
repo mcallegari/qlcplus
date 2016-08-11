@@ -34,8 +34,9 @@ win32:INCLUDEPATH += ./
 DEPENDPATH  += ../../hotplugmonitor/src
 INCLUDEPATH += ../../hotplugmonitor/src
 LIBS        += -L../../hotplugmonitor/src -lhotplugmonitor
-LIBS        += -L../audio/src -lqlcplusaudio
 }
+
+LIBS        += -L../audio/src -lqlcplusaudio
 
 #############################################################################
 # Sources

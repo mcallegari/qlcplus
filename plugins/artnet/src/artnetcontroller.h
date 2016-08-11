@@ -20,9 +20,13 @@
 #ifndef ARTNETCONTROLLER_H
 #define ARTNETCONTROLLER_H
 
-#include <QtNetwork>
-#include <QObject>
+#include <QNetworkInterface>
 #include <QScopedPointer>
+#include <QSharedPointer>
+#include <QHostAddress>
+#include <QUdpSocket>
+#include <QMutex>
+#include <QTimer>
 
 #include "artnetpacketizer.h"
 

@@ -20,6 +20,7 @@
 #include "artnetcontroller.h"
 
 #include <QMutexLocker>
+#include <QStringList>
 #include <QDebug>
 
 #define TRANSMIT_FULL    "Full"
