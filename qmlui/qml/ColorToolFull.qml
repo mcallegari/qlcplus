@@ -20,11 +20,13 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.2
 
+import "."
+
 Rectangle
 {
     id: rootBox
-    width: parent.width
-    height: parent.height
+    width: 330
+    height: 370
     color: "#444"
     border.color: "#222"
     border.width: 2
@@ -42,6 +44,12 @@ Rectangle
         colorChanged(selectedColor.r, selectedColor.g, selectedColor.b, 0, 0, 0)
     }
 
+    function setHTMLColor(r, g, b)
+    {
+        htmlText.inputText = "#" + ("0" + r.toString(16)).slice(-2) +
+                ("0" + g.toString(16)).slice(-2) + ("0" + b.toString(16)).slice(-2)
+    }
+
     Canvas
     {
         id: colorBox
@@ -49,6 +57,10 @@ Rectangle
         y: 5
         width: 256
         height: 256
+        transformOrigin: Item.TopLeft
+        // try to scale always to a little bit more
+        // than half of the tool width
+        scale: (rootBox.width / 1.75) / 256
 
         function getHTMLColor(r, g, b)
         {
@@ -115,18 +127,17 @@ Rectangle
 
             function setPickedColor(mouse)
             {
-                var ctx = colorBox.getContext('2d');
-                var imgData = ctx.getImageData(mouse.x, mouse.y, 1, 1).data;
-                var r = imgData[0];
-                var g = imgData[1];
-                var b = imgData[2];
-                rSpin.value = r;
-                gSpin.value = g;
-                bSpin.value = b;
-                htmlText.inputText = "#" + ("0" + r.toString(16)).slice(-2) +
-                        ("0" + g.toString(16)).slice(-2) + ("0" + b.toString(16)).slice(-2);
+                var ctx = colorBox.getContext('2d')
+                var imgData = ctx.getImageData(mouse.x, mouse.y, 1, 1).data
+                var r = imgData[0]
+                var g = imgData[1]
+                var b = imgData[2]
+                rSpin.value = r
+                gSpin.value = g
+                bSpin.value = b
+                setHTMLColor(r, g, b)
 
-                selectedColor = Qt.rgba(r / 256, g / 256, b / 256, 1.0);
+                selectedColor = Qt.rgba(r / 256, g / 256, b / 256, 1.0)
             }
 
             onPressed: setPickedColor(mouse)
@@ -135,79 +146,107 @@ Rectangle
         }
     }
 
-    Column
+    Grid
     {
         id: tColumn
         x: colorBox.width + 10
         y: 5
-        height: 256
+        //height: 256
+        columns: 2
+        columnSpacing: 5
+        anchors.right: parent.right
 
-        RobotoText { height: 40; fontSize: 12; label: qsTr("Red"); }
-        RobotoText { height: 40; fontSize: 12; label: qsTr("Green"); }
-        RobotoText { height: 40; fontSize: 12; label: qsTr("Blue"); }
-        RobotoText { height: 40; fontSize: 12; label: "HTML"; }
-    }
-
-    Rectangle
-    {
-        x: rootBox.width - 80
-        y: 5
-        height: 256
-        width: 75
-        color: "transparent"
+        RobotoText
+        {
+            height: UISettings.listItemHeight
+            label: qsTr("Red")
+        }
 
         CustomSpinBox
         {
             id: rSpin
-            width: 75
-            height: 38
+            width: UISettings.bigItemHeight * 0.7
+            height: UISettings.listItemHeight
             minimumValue: 0
             maximumValue: 255
             decimals: 0
+            onValueChanged:
+            {
+                selectedColor = Qt.rgba(rSpin.value / 256, gSpin.value / 256, bSpin.value / 256, 1.0)
+                setHTMLColor(rSpin.value, gSpin.value, bSpin.value)
+            }
         }
+
+        RobotoText
+        {
+            height: UISettings.listItemHeight
+            label: qsTr("Green")
+        }
+
         CustomSpinBox
         {
             id: gSpin
-            y: 40
-            width: 75
-            height: 38
+            width: UISettings.bigItemHeight * 0.7
+            height: UISettings.listItemHeight
             minimumValue: 0
             maximumValue: 255
-            decimals: 0;
+            decimals: 0
+            onValueChanged:
+            {
+                selectedColor = Qt.rgba(rSpin.value / 256, gSpin.value / 256, bSpin.value / 256, 1.0)
+                setHTMLColor(rSpin.value, gSpin.value, bSpin.value)
+            }
         }
+
+        RobotoText
+        {
+            height: UISettings.listItemHeight
+            label: qsTr("Blue")
+        }
+
         CustomSpinBox
         {
             id: bSpin
-            y: 80
-            width: 75
-            height: 38
+            width: UISettings.bigItemHeight * 0.7
+            height: UISettings.listItemHeight
             minimumValue: 0
             maximumValue: 255
-            decimals: 0;
+            decimals: 0
+            onValueChanged:
+            {
+                selectedColor = Qt.rgba(rSpin.value / 256, gSpin.value / 256, bSpin.value / 256, 1.0)
+                setHTMLColor(rSpin.value, gSpin.value, bSpin.value)
+            }
         }
+
+        RobotoText
+        {
+            height: UISettings.listItemHeight
+            label: "HTML"
+        }
+
         CustomTextEdit
         {
             id: htmlText
-            y: 120
-            width: 75
-            height: 38
+            width: UISettings.bigItemHeight * 0.7
+            height: UISettings.listItemHeight
         }
     }
-
 
     Row
     {
         x: 5
-        y: 350
+        y: rootBox.height - UISettings.listItemHeight - 10
         spacing: 20
         RobotoText
         {
+            height: UISettings.listItemHeight
             label: qsTr("Selected color");
         }
         Rectangle
         {
-            width: 70
-            height: 40
+            width: UISettings.mediumItemHeight
+            height: UISettings.listItemHeight
             color: selectedColor
         }
     }

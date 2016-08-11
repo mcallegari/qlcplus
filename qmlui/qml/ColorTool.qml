@@ -25,8 +25,8 @@ import "."
 Rectangle
 {
     id: colorToolBox
-    width: 400
-    height: 430
+    width: UISettings.bigItemHeight * 3
+    height: UISettings.bigItemHeight * 3.5
     color: UISettings.bgMedium
     border.color: "#666"
     border.width: 2
