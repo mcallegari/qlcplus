@@ -405,6 +405,13 @@ void FunctionSelection::refillTree()
                     {
                         item->parent()->setFlags(item->parent()->flags() | Qt::ItemIsEnabled);
                         item->setFlags(item->flags() | Qt::ItemIsEnabled);
+
+                        // In the case of a sequence and if the container scene has been selected,
+                        // we have to go up one more time
+                        QTreeWidgetItem* parentParent = item->parent()->parent();
+                        if (parentParent != NULL &&
+                                parentParent->data(KColumnName, Qt::UserRole).toUInt() != Function::invalidId())
+                            parentParent->setFlags(item->parent()->parent()->flags() | Qt::ItemIsEnabled);
                     }
                 }
             }
