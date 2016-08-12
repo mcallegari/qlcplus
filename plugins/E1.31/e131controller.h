@@ -20,15 +20,19 @@
 #ifndef E131CONTROLLER_H
 #define E131CONTROLLER_H
 
-#include "e131packetizer.h"
-
+#if defined(Q_OS_ANDROID)
 #include <QNetworkInterface>
 #include <QScopedPointer>
 #include <QSharedPointer>
 #include <QHostAddress>
 #include <QUdpSocket>
+#else
+#include <QtNetwork>
+#endif
 #include <QMutex>
 #include <QTimer>
+
+#include "e131packetizer.h"
 
 #define E131_DEFAULT_PORT     5568
 

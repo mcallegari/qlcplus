@@ -20,19 +20,21 @@
 #ifndef ARTNETCONTROLLER_H
 #define ARTNETCONTROLLER_H
 
+#if defined(Q_OS_ANDROID)
 #include <QNetworkInterface>
-#include <QScopedPointer>
-#include <QSharedPointer>
 #include <QHostAddress>
 #include <QUdpSocket>
+#include <QScopedPointer>
+#include <QSharedPointer>
+#else
+#include <QtNetwork>
+#endif
 #include <QMutex>
 #include <QTimer>
 
 #include "artnetpacketizer.h"
 
 #define ARTNET_PORT      6454
-
-class QTimer;
 
 typedef struct
 {
