@@ -200,7 +200,9 @@ static int lookup_functions()
 #undef RESOLVE
 	}
     else
+    {
         return -1;
+    }
 
 	return 0;
 }
