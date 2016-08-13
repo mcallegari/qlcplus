@@ -36,7 +36,7 @@ if [ ! $? -eq 0 ]; then
 fi
 
 # Create Apple Disk iMaGe from ~/QLC+.app/
-cd dmg
+cd platforms/macos/dmg
 ./create-dmg --volname "Q Light Controller Plus $VERSION" \
 	     --background background.png \
 	     --window-size 300 225 \

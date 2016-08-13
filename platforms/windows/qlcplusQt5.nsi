@@ -20,6 +20,10 @@ InstallDir C:\QLC+
 InstallDirRegKey HKCU "Software\qlcplus" "Install_Dir"
 RequestExecutionLevel user
 
+!define MUI_LICENSEPAGE_TEXT_TOP "Do you accept the following statement of the Apache 2.0 license ?"
+
+!insertmacro MUI_PAGE_LICENSE "${QLCPLUS_HOME}\platforms\windows\apache_2.0.txt"
+
 ;--------------------------------
 ;Languages
 !insertmacro MUI_LANGUAGE "English"
@@ -32,10 +36,6 @@ RequestExecutionLevel user
 !insertmacro MUI_LANGUAGE "Finnish"
 !insertmacro MUI_LANGUAGE "Japanese"
 !insertmacro MUI_LANGUAGE "Catalan"
-
-!define MUI_LICENSEPAGE_TEXT_TOP "Do you accept the following statement of the Apache 2.0 license ?"
-
-!insertmacro MUI_PAGE_LICENSE "${QLCPLUS_HOME}\etc\apache_2.0.txt"
 
 ;--------------------------------
 ; Pages

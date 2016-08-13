@@ -25,7 +25,7 @@ if [ ! -f $RPMBUILD ]; then
 fi
 
 # Copy the RPM spec file so that rpmbuild finds it
-cp -f rpm/qlcplus.spec $RPMBUILD/SPECS
+cp -f platforms/linux/qlcplus.spec $RPMBUILD/SPECS
 
 # Prepare a source tarball and move it under $RPMBUILD/SOURCES
 echo "Packing sources into qlcplus-$VERSION.tar.gz..."
