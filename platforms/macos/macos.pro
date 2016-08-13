@@ -240,6 +240,7 @@ qmlui: {
 
     qmlpostinstall.path = $$INSTALLROOT/qml
     qmlpostinstall.commands = cd $$INSTALLROOT/qml && \
+                              find . -name *_debug.dylib -type f -delete && \
                               find . -name plugins.qmltypes -type f -delete && \
                               rm -rf QtQuick/Extras QtQuick/Particles.2 QtQuick/XmlListModel
     INSTALLS  += qmlpostinstall
