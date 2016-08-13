@@ -78,7 +78,7 @@ Rectangle
             color: UISettings.fgMain
             clip: true
             verticalAlignment: TextInput.AlignVCenter
-            font.family: "Roboto Condensed"
+            font.family: UISettings.robotoFontName
             font.pixelSize: UISettings.textSizeDefault
             selectByMouse: true
             text: audioEditor.functionName

@@ -45,7 +45,7 @@ Rectangle
         id: btnText
         anchors.centerIn: parent
         color: "white"
-        font.family: useFontawesome ? "FontAwesome" : "Roboto Condensed"
+        font.family: useFontawesome ? "FontAwesome" : UISettings.robotoFontName
         font.pixelSize: fontSize
     }
 

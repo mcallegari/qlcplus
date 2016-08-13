@@ -64,7 +64,7 @@ Rectangle
         selectionColor: UISettings.highlightPressed
         //clip: true
         horizontalAlignment: textAlignment
-        font.family: "Roboto Condensed"
+        font.family: UISettings.robotoFontName
         font.pixelSize: fontSize
         selectByMouse: true
         mouseSelectionMode: TextEdit.SelectWords

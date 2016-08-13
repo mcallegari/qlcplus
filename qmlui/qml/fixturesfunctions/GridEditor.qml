@@ -18,6 +18,7 @@
 */
 
 import QtQuick 2.0
+import "."
 
 Rectangle
 {
@@ -350,7 +351,7 @@ Rectangle
                 var rowCount = 0
                 var fontPxSize = cellSize / 3
 
-                ctx.font = fontPxSize + 'px "Roboto Condensed"'
+                ctx.font = fontPxSize + "px " + UISettings.robotoFontName
 
                 for(var idx = 1; idx <= showIndices; idx++)
                 {

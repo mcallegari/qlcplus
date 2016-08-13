@@ -121,7 +121,7 @@ Rectangle
                     clip: true
                     text: collectionEditor.functionName
                     verticalAlignment: TextInput.AlignVCenter
-                    font.family: "Roboto Condensed"
+                    font.family: UISettings.robotoFontName
                     font.pixelSize: UISettings.textSizeDefault
                     selectByMouse: true
                     Layout.fillWidth: true

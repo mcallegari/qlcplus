@@ -76,7 +76,8 @@ void App::startup()
     setTitle("Q Light Controller Plus");
     setIcon(QIcon(":/qlcplus.png"));
 
-    QFontDatabase::addApplicationFont(":/RobotoCondensed-Regular.ttf");
+    if (QFontDatabase::addApplicationFont(":/RobotoCondensed-Regular.ttf") < 0)
+        qWarning() << "Roboto font cannot be loaded !";
 
     rootContext()->setContextProperty("qlcplus", this);
 

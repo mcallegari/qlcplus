@@ -66,7 +66,11 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc, QObject *parent)
         page->setAllowResize(false);
         page->setShowHeader(false);
         page->setGeometry(QRect(0, 0, 1920, 1080));
+#ifdef Q_OS_MAC
+        page->setFont(QFont("RobotoCondensed", 16));
+#else
         page->setFont(QFont("Roboto Condensed", 16));
+#endif
         page->setCaption(tr("Page %1").arg(i + 1));
         m_pages.append(page);
     }
@@ -299,7 +303,11 @@ void VirtualConsole::addPage()
     page->setAllowResize(false);
     page->setShowHeader(false);
     page->setGeometry(QRect(0, 0, 1920, 1080));
+#ifdef Q_OS_MAC
+    page->setFont(QFont("RobotoCondensed", 16));
+#else
     page->setFont(QFont("Roboto Condensed", 16));
+#endif
     page->setCaption(tr("Page %1").arg(m_pages.count() + 1));
     m_pages.append(page);
 
@@ -402,7 +410,11 @@ bool VirtualConsole::loadXML(QXmlStreamReader &root)
                 page->setAllowResize(false);
                 page->setShowHeader(false);
                 page->setGeometry(QRect(0, 0, 1920, 1080));
+#ifdef Q_OS_MAC
+                page->setFont(QFont("RobotoCondensed", 16));
+#else
                 page->setFont(QFont("Roboto Condensed", 16));
+#endif
                 m_pages.append(page);
             }
             /* Contents */

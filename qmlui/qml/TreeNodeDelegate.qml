@@ -74,7 +74,7 @@ Column
             text: textLabel
             verticalAlignment: TextInput.AlignVCenter
             color: UISettings.fgMain
-            font.family: "Roboto Condensed"
+            font.family: UISettings.robotoFontName
             font.pixelSize: UISettings.textSizeDefault
             echoMode: TextInput.Normal
             selectByMouse: true

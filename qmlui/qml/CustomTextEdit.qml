@@ -57,7 +57,7 @@ Rectangle
         clip: true
         horizontalAlignment: textAlignment
         verticalAlignment: TextInput.AlignVCenter
-        font.family: "Roboto Condensed"
+        font.family: UISettings.robotoFontName
         font.pixelSize: fontSize
         selectByMouse: true
 
