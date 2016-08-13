@@ -391,7 +391,7 @@ bool VCClock::saveXML(QXmlStreamWriter *doc)
     if (type == Countdown)
     {
         QDateTime tTime;
-        tTime.addSecs(targetTime() / 1000);
+        tTime = tTime.addSecs(targetTime() / 1000);
         doc->writeAttribute(KXMLQLCVCClockTime, tTime.time().toString());
     }
 
@@ -482,14 +482,14 @@ bool VCClockSchedule::saveXML(QXmlStreamWriter *doc)
 
     /* Schedule start time */
     QDateTime start;
-    start.addSecs(startTime());
+    start = start.addSecs(startTime());
     doc->writeAttribute(KXMLQLCVCClockScheduleStartTime, start.time().toString());
 
     if (stopTime() != -1)
     {
         /* Schedule stop time */
         QDateTime stop;
-        stop.addSecs(startTime());
+        stop = stop.addSecs(startTime());
         doc->writeAttribute(KXMLQLCVCClockScheduleStopTime, stop.time().toString());
     }
     if (weekFlags() != 0)

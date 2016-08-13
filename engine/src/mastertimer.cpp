@@ -124,7 +124,7 @@ void MasterTimer::timerTick()
                 // milliseconds, otherwise it will generate an unpleasant drift
                 int deltaMs = m_beatTime.elapsed() - m_beatTimeDuration;
                 m_beatTime.restart();
-                m_beatTime.addMSecs(deltaMs);
+                m_beatTime = m_beatTime.addMSecs(deltaMs);
             }
         }
         break;
