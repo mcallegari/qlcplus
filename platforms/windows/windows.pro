@@ -1,56 +1,14 @@
-include(../variables.pri)
+include(../../variables.pri)
 
 TEMPLATE = subdirs
-TARGET   = icons
 
-# Linux
-unix:!macx {
-    desktop.path   = $$INSTALLROOT/share/applications/
-    desktop.files += qlcplus.desktop qlcplus-fixtureeditor.desktop
-    INSTALLS      += desktop
+QT_LIBS_PATH = $$dirname(QMAKE_QMAKE)
+QT_PLUGINS_PATH = $$QT_LIBS_PATH/../share/qt5/plugins
+QT_QML_PATH = $$QT_LIBS_PATH/../share/qt5/qml
+SYS_LIBS_PATH = $$(SystemDrive)/msys64/mingw32/bin
 
-    icons.path   = $$INSTALLROOT/share/pixmaps/
-    icons.files += ../resources/icons/png/qlcplus.png ../resources/icons/png/qlcplus-fixtureeditor.png
-    INSTALLS    += icons
-
-    mime.path   = $$INSTALLROOT/share/mime/packages
-    mime.files += qlcplus.xml
-    INSTALLS   += mime
-
-    appdata.path   = $$INSTALLROOT/share/appdata/
-    appdata.files += qlcplus-fixtureeditor.appdata.xml qlcplus.appdata.xml
-    INSTALLS      += appdata
-
-    manpages.path = $$INSTALLROOT/$$MANDIR
-    manpages.files += *.1
-    INSTALLS += manpages
-
-    # This is nowadays run by dpkg (TODO: rpm)
-    #MIMEUPDATE    = $$system("which update-mime-database")
-    #mimeupdate.commands = $$MIMEUPDATE /usr/share/mime
-    #mimeupdate.path = /usr/share/mime
-    #INSTALLS += mimeupdate
-}
-
-# Mac OSX
-macx {
-    icons.path   = $$INSTALLROOT/$$DATADIR
-    icons.files += ../resources/icons/qlcplus.icns
-
-    plist.path   = $$INSTALLROOT
-    plist.files += Info.plist
-    INSTALLS    += icons plist
-}
-
-# Windows
-win32 {
-    QT_LIBS_PATH = $$dirname(QMAKE_QMAKE)
-    QT_PLUGINS_PATH = $$QT_LIBS_PATH/../share/qt5/plugins
-    QT_QML_PATH = $$QT_LIBS_PATH/../share/qt5/qml
-    SYS_LIBS_PATH = $$(SystemDrive)/msys64/mingw32/bin
-
-    # Qt Libraries
-    qtlibs.path  = $$INSTALLROOT/$$LIBSDIR
+# Qt Libraries
+qtlibs.path  = $$INSTALLROOT/$$LIBSDIR
 
 lessThan(QT_MAJOR_VERSION, 5) {
     release:qtlibs.files = $$QT_LIBS_PATH/QtCore4.dll \
@@ -106,7 +64,7 @@ lessThan(QT_MAJOR_VERSION, 5) {
     INSTALLS += qt5deps
 }
 
-    INSTALLS += qtlibs
+INSTALLS += qtlibs
 
 greaterThan(QT_MAJOR_VERSION, 4) {
     qtplatform.path = $$INSTALLROOT/$$LIBSDIR/platforms
@@ -148,59 +106,60 @@ greaterThan(QT_MAJOR_VERSION, 4) {
     }
 }
 
-    # MSYS2 libraries
-    msys.path = $$INSTALLROOT/$$LIBSDIR
+# MSYS2 libraries
+msys.path = $$INSTALLROOT/$$LIBSDIR
 
-    exists($$SYS_LIBS_PATH/libstdc++-6.dll) {
-        msys.files += $$SYS_LIBS_PATH/libstdc++-6.dll
-    }
+exists($$SYS_LIBS_PATH/libstdc++-6.dll) {
+    msys.files += $$SYS_LIBS_PATH/libstdc++-6.dll
+}
 
-    exists($$SYS_LIBS_PATH/libgcc_s_dw2-1.dll) {
-        msys.files += $$SYS_LIBS_PATH/libgcc_s_dw2-1.dll
-    }
+exists($$SYS_LIBS_PATH/libgcc_s_dw2-1.dll) {
+    msys.files += $$SYS_LIBS_PATH/libgcc_s_dw2-1.dll
+}
 
-    exists($$SYS_LIBS_PATH/libwinpthread-1.dll) {
-        msys.files += $$SYS_LIBS_PATH/libwinpthread-1.dll
-    }
+exists($$SYS_LIBS_PATH/libwinpthread-1.dll) {
+    msys.files += $$SYS_LIBS_PATH/libwinpthread-1.dll
+}
 
-    INSTALLS += msys
+INSTALLS += msys
 
-    # audio libraries
-    audio.path = $$INSTALLROOT/$$LIBSDIR
-    exists($$SYS_LIBS_PATH/libmad-0.dll) {
-        audio.files += $$SYS_LIBS_PATH/libmad-0.dll
-    }
-    exists($$SYS_LIBS_PATH/libogg-0.dll) {
-        audio.files += $$SYS_LIBS_PATH/libogg-0.dll
-    }
-    exists($$SYS_LIBS_PATH/libvorbis-0.dll) {
-        audio.files += $$SYS_LIBS_PATH/libvorbis-0.dll
-    }
-    exists($$SYS_LIBS_PATH/libvorbisenc-2.dll) {
-        audio.files += $$SYS_LIBS_PATH/libvorbisenc-2.dll
-    }
-    exists($$SYS_LIBS_PATH/libFLAC-8.dll) {
-        audio.files += $$SYS_LIBS_PATH/libFLAC-8.dll
-    }
-    exists($$SYS_LIBS_PATH/libsndfile-1.dll) {
-        audio.files += $$SYS_LIBS_PATH/libsndfile-1.dll
-    }
-    exists($$SYS_LIBS_PATH/libfftw3-3.dll) {
-        audio.files += $$SYS_LIBS_PATH/libfftw3-3.dll
-    }
+# audio libraries
+audio.path = $$INSTALLROOT/$$LIBSDIR
+exists($$SYS_LIBS_PATH/libmad-0.dll) {
+    audio.files += $$SYS_LIBS_PATH/libmad-0.dll
+}
+exists($$SYS_LIBS_PATH/libogg-0.dll) {
+    audio.files += $$SYS_LIBS_PATH/libogg-0.dll
+}
+exists($$SYS_LIBS_PATH/libvorbis-0.dll) {
+    audio.files += $$SYS_LIBS_PATH/libvorbis-0.dll
+}
+exists($$SYS_LIBS_PATH/libvorbisenc-2.dll) {
+    audio.files += $$SYS_LIBS_PATH/libvorbisenc-2.dll
+}
+exists($$SYS_LIBS_PATH/libFLAC-8.dll) {
+    audio.files += $$SYS_LIBS_PATH/libFLAC-8.dll
+}
+exists($$SYS_LIBS_PATH/libsndfile-1.dll) {
+    audio.files += $$SYS_LIBS_PATH/libsndfile-1.dll
+}
+exists($$SYS_LIBS_PATH/libfftw3-3.dll) {
+    audio.files += $$SYS_LIBS_PATH/libfftw3-3.dll
+}
 
-    INSTALLS += audio
+INSTALLS += audio
 
-    # NullSoft installer files
-    nsis.path  = $$INSTALLROOT/$$DATADIR
+# NullSoft installer files
+nsis.path  = $$INSTALLROOT/$$DATADIR
+
 lessThan(QT_MAJOR_VERSION, 5) {
     nsis.files = qlcplus.nsi
 } else {
     nsis.files = qlcplusQt5.nsi
 }
-    INSTALLS  += nsis
-}
 
-samples.files += Sample.qxw
+INSTALLS  += nsis
+
+samples.files += ../Sample.qxw
 samples.path   = $$INSTALLROOT/$$DATADIR
 INSTALLS      += samples

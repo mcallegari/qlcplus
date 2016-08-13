@@ -1,7 +1,8 @@
-include(../variables.pri)
+include(../../variables.pri)
 
 TEMPLATE = subdirs
 CONFIG  += ordered
+TARGET   = icons
 
 include(libusb-nametool.pri)
 include(libftdi-nametool.pri)
@@ -212,19 +213,30 @@ qtnametool.commands += && $$LIBOGG_INSTALL_NAME_TOOL \
 # INSTALLS += imageformats
 
 greaterThan(QT_MAJOR_VERSION, 4) {
-include(platformplugins-nametool.pri)
-include(audioplugins-nametool.pri)
-include(mediaservice-nametool.pri)
-qmlui:include(imageformats-nametool.pri)
+    include(platformplugins-nametool.pri)
+    include(audioplugins-nametool.pri)
+    include(mediaservice-nametool.pri)
+    qmlui:include(imageformats-nametool.pri)
 
-INSTALLS += platformplugins
-INSTALLS += audioplugins
-INSTALLS += mediaservice
-qmlui: INSTALLS += imageformats
+    INSTALLS += platformplugins
+    INSTALLS += audioplugins
+    INSTALLS += mediaservice
+    qmlui: INSTALLS += imageformats
 
-qtconf.path   = $$INSTALLROOT/Resources
-qtconf.files += qt.conf
-INSTALLS      += qtconf
+    qtconf.path   = $$INSTALLROOT/Resources
+    qtconf.files += qt.conf
+    INSTALLS      += qtconf
 }
+
+icons.path   = $$INSTALLROOT/$$DATADIR
+icons.files += ../../resources/icons/qlcplus.icns
+
+plist.path   = $$INSTALLROOT
+plist.files += Info.plist
+INSTALLS    += icons plist
+
+samples.files += ../Sample.qxw
+samples.path   = $$INSTALLROOT/$$DATADIR
+INSTALLS      += samples
 
 INSTALLS += qtnametool

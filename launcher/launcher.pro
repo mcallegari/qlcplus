@@ -27,7 +27,7 @@ TRANSLATIONS += launcher_ja_JP.ts
 
 # This must be after "TARGET = " and before target installation so that
 # install_name_tool can be run before target installation
-include(../macx/nametool.pri)
+include(../platforms/macos/nametool.pri)
 
 # Installation
 target.path     = $$INSTALLROOT/$$BINDIR

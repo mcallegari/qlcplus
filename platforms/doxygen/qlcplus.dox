@@ -99,21 +99,21 @@ WARN_LOGFILE           =
 # configuration options related to the input files
 #---------------------------------------------------------------------------
 INPUT                  = doxygen.h \
-                         ../engine \
-                         ../fixtureeditor \
-                         ../hotplugmonitor \
-                         ../launcher \
-                         ../main \
-                         ../plugins \
-                         ../ui \
-                         ../webaccess
+                         ../../engine \
+                         ../../fixtureeditor \
+                         ../../hotplugmonitor \
+                         ../../launcher \
+                         ../../main \
+                         ../../plugins \
+                         ../../ui \
+                         ../../webaccess
 INPUT_ENCODING         = UTF-8
 FILE_PATTERNS          =
 RECURSIVE              = YES
-EXCLUDE                = ../plugins/hid/hidapi.h \
-                         ../plugins/hid/linux \
-                         ../plugins/hid/macx \
-                         ../plugins/hid/win32
+EXCLUDE                = ../../plugins/hid/hidapi.h \
+                         ../../plugins/hid/linux \
+                         ../../plugins/hid/macx \
+                         ../../plugins/hid/win32
 EXCLUDE_SYMLINKS       = NO
 EXCLUDE_PATTERNS       = .svn \
                          */test/* \

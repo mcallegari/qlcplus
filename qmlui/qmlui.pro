@@ -100,17 +100,17 @@ RESOURCES += qmlui.qrc ../resources/icons/svg/svgicons.qrc ../resources/fonts/fo
 macx {
     # This must be after "TARGET = " and before target installation so that
     # install_name_tool can be run before target installation
-    include(../macx/nametool.pri)
+    include(../platforms/macos/nametool.pri)
 }
 
 # Installation
 target.path = $$INSTALLROOT/$$BINDIR
 INSTALLS   += target
 
-android: ANDROID_PACKAGE_SOURCE_DIR = $$PWD/../android-files
+android: ANDROID_PACKAGE_SOURCE_DIR = $$PWD/../platforms/android
 
 ios: {
-    ios_icon.files = $$files($$PWD/../ios-files/qlcplus*.png)
+    ios_icon.files = $$files($$PWD/../platforms/ios/qlcplus*.png)
     QMAKE_BUNDLE_DATA += ios_icon
 
     fixtures.files += $$files($$PWD/../resources/fixtures/FixturesMap.xml)
@@ -118,5 +118,5 @@ ios: {
     fixtures.path = Fixtures
     QMAKE_BUNDLE_DATA += fixtures
 
-    QMAKE_INFO_PLIST = $$PWD/../ios-files/Info.plist
+    QMAKE_INFO_PLIST = $$PWD/../platforms/ios/Info.plist
 }
