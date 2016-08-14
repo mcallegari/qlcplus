@@ -142,11 +142,17 @@ VCWidgetItem
         }
         onPressed:
         {
+            if (virtualConsole.editMode)
+                return;
+
             if (buttonObj.actionType === VCButton.Flash)
                 buttonObj.requestStateChange(true)
         }
         onReleased:
         {
+            if (virtualConsole.editMode)
+                return;
+
             if (buttonObj.actionType === VCButton.Flash)
                 buttonObj.requestStateChange(false)
         }
