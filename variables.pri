@@ -215,6 +215,13 @@ macx:WEBFILESDIR       = $$DATADIR/Web
 android:WEBFILESDIR    = $$DATADIR/web
 ios:WEBFILESDIR        = Web
 
+# Samples
+win32:SAMPLESDIR       = $$INSTALLROOT
+unix:!macx:SAMPLESDIR  = $$INSTALLROOT/$$DATADIR
+macx:SAMPLESDIR        = $$INSTALLROOT/$$DATADIR
+android:SAMPLESDIR     = $$INSTALLROOT/$$DATADIR
+ios:SAMPLESDIR         = $$INSTALLROOT/$$DATADIR
+
 # udev rules
 unix:!macx:UDEVRULESDIR = /etc/udev/rules.d
 
