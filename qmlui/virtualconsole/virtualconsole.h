@@ -53,6 +53,11 @@ public:
 
     Q_INVOKABLE void setWidgetSelection(quint32 wID, QQuickItem *item, bool enable);
 
+    Q_INVOKABLE void moveWidget(VCWidget *widget, VCFrame *targetFrame, QPoint pos);
+
+    /** Return the reference of the currently selected VC page */
+    Q_INVOKABLE QQuickItem *currentPageItem() const;
+
     /** Return a list of strings with the currently selected VC widget names */
     Q_INVOKABLE QStringList selectedWidgetNames();
 

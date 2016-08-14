@@ -71,8 +71,7 @@ Rectangle
                     {
                         if (widgetItem.Drag.target !== null)
                         {
-                            // create the widget here
-                            //console.log("Item dropped on " + widgetItem.Drag.target)
+                            // emit a drop event, for the active DropArea
                             widgetItem.Drag.drop()
                         }
                         else

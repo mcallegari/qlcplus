@@ -160,6 +160,10 @@ VCWidgetItem
         }
     }
 
+    /* This DropArea has a dual usage:
+     * 1- it is the parent of the frame chidren
+     * 2- it is an actual drop area to drag/drop new or existing widgets
+     */
     DropArea
     {
         id: dropArea
@@ -172,17 +176,30 @@ VCWidgetItem
         onDropped:
         {
             if (frameObj === null || dropActive === false)
-                return;
+                return
+
             virtualConsole.setDropTarget(frameRoot, false)
-            console.log("Item dropped in frame " + frameObj.id)
-            var pos = drag.source.mapToItem(frameRoot, 0, 0);
+
+            var pos = drag.source.mapToItem(frameRoot, 0, 0)
+            console.log("Item dropped in frame " + frameObj.id + " at pos " + pos)
 
             //console.log("Drop keys: " + drop.keys)
             if (drop.keys[0] === "vcwidget")
-                frameObj.addWidget(dropArea, drag.source.widgetType, pos)
-            else if (drop.keys[0] === "function")
-                frameObj.addFunction(dropArea, drag.source.funcID, pos, false)
+            {
+                if (drag.source.widgetType)
+                    frameObj.addWidget(dropArea, drag.source.widgetType, pos)
+                else
+                {
+                    // reparent the QML item first
+                    drag.source.parent = dropArea
+                    virtualConsole.moveWidget(drag.source.wObj, frameObj, pos)
 
+                }
+            }
+            else if (drop.keys[0] === "function")
+            {
+                frameObj.addFunction(dropArea, drag.source.funcID, pos, false)
+            }
         }
 
         keys: [ "vcwidget", "function" ]

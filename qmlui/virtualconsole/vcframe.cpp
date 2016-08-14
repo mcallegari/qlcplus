@@ -77,6 +77,16 @@ void VCFrame::render(QQuickView *view, QQuickItem *parent)
     }
 }
 
+QString VCFrame::propertiesResource() const
+{
+    /** If this frame is a top level frame, then it means
+     *  it is a VC page, so return a specific properties resource */
+    if (parent() == m_vc)
+        return QString("qrc:/VCPageProperties.qml");
+
+    return QString("qrc:/VCFrameProperties.qml");
+}
+
 void VCFrame::setHasSoloParent(bool hasSoloParent)
 {
     m_hasSoloParent = hasSoloParent;
@@ -195,19 +205,30 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
 
 void VCFrame::addFunction(QQuickItem *parent, quint32 funcID, QPoint pos, bool modifierPressed)
 {
-    Q_UNUSED(modifierPressed)
-
     // reset all the drop targets, otherwise two overlapping
     // frames can get the same drop event
     m_vc->resetDropTargets(true);
 
-    VCButton *button = new VCButton(m_doc, this);
-    QQmlEngine::setObjectOwnership(button, QQmlEngine::CppOwnership);
-    button->setGeometry(QRect(pos.x(), pos.y(), 100, 100));
-    button->setFunctionID(funcID);
-    setupWidget(button);
-    m_vc->addWidgetToMap(button);
-    button->render(m_vc->view(), parent);
+    if (modifierPressed == false)
+    {
+        VCButton *button = new VCButton(m_doc, this);
+        QQmlEngine::setObjectOwnership(button, QQmlEngine::CppOwnership);
+        button->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 17, m_vc->pixelDensity() * 17));
+        button->setFunctionID(funcID);
+        setupWidget(button);
+        m_vc->addWidgetToMap(button);
+        button->render(m_vc->view(), parent);
+    }
+    else
+    {
+        VCSlider *slider = new VCSlider(m_doc, this);
+        QQmlEngine::setObjectOwnership(slider, QQmlEngine::CppOwnership);
+        slider->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 10, m_vc->pixelDensity() * 35));
+        //slider->setFunctionID(funcID); //TODO
+        setupWidget(slider);
+        m_vc->addWidgetToMap(slider);
+        slider->render(m_vc->view(), parent);
+    }
 }
 
 void VCFrame::deleteChildren()

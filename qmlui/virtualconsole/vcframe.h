@@ -59,7 +59,11 @@ public:
     VCFrame(Doc* doc = NULL, VirtualConsole *vc = NULL, QObject *parent = 0);
     virtual ~VCFrame();
 
+    /** @reimp */
     virtual void render(QQuickView *view, QQuickItem *parent);
+
+    /** @reimp */
+    QString propertiesResource() const;
 
     /** Method used to indicate if this Frame has a SoloFrame parent
      *  at any lower level. This is used to determine if
@@ -88,7 +92,14 @@ public:
      *  $recursive method */
     QList<VCWidget *>children(bool recursive = false);
 
+    /** Add a new widget of type $wType at position $pos to this frame.
+     *  $parent is used only to render the new widget */
     Q_INVOKABLE void addWidget(QQuickItem *parent, QString wType, QPoint pos);
+
+    /** Add a Function with ID $funcID at position $pos to this frame.
+     *  If $modifierPressed is false, a VC Button is created to represent the Function
+     *  otherwise a VC Slider is created.
+     *  $parent is used only to render the new widget */
     Q_INVOKABLE void addFunction(QQuickItem *parent, quint32 funcID, QPoint pos, bool modifierPressed);
 
     /** Delete all the frame children */

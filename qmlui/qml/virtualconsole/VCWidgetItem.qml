@@ -38,6 +38,10 @@ Rectangle
     property bool isSelected: false
     property int handleSize: UISettings.iconSizeMedium
 
+    Drag.source: wRoot
+    Drag.keys: [ "vcwidget" ]
+    Drag.active: dragMouseArea.drag.active
+
     onIsSelectedChanged:
     {
         if (wObj)
@@ -74,7 +78,10 @@ Rectangle
         // mouse area to select and move the widget
         MouseArea
         {
+            id: dragMouseArea
             anchors.fill: parent
+
+            property bool dragRemapped: false
 
             onPressed:
             {
@@ -85,23 +92,34 @@ Rectangle
                 }
 
                 drag.target = wRoot
-                drag.minimumX = 0
-                drag.minimumY = 0
                 drag.threshold = 10
-                drag.maximumX = wRoot.parent.width - wRoot.width
-                drag.maximumY = wRoot.parent.height - wRoot.height
+                dragRemapped = false
+            }
+
+            onPositionChanged:
+            {
+                if (drag.target !== null && dragRemapped == false)
+                {
+                    var remappedPos = wRoot.mapToItem(virtualConsole.currentPageItem(), 0, 0);
+                    wObj.geometry = Qt.rect(remappedPos.x, remappedPos.y, wRoot.width, wRoot.height)
+                    wRoot.parent = virtualConsole.currentPageItem()
+                    dragRemapped = true
+                }
             }
 
             onReleased:
             {
                 if (drag.target !== null)
                 {
+                    // A drag/drop sequence is always performed within a parent frame,
+                    // so the new geometry will be calculated by virtualConsole.moveWidget,
+                    // invoked by VCFrameItem DropArea
+                    wRoot.Drag.drop()
                     drag.target = null
-                    wObj.geometry = Qt.rect(wRoot.x, wRoot.y, wRoot.width, wRoot.height)
+                    dragRemapped = false
                 }
             }
         }
-
 
         // top-left corner
         Image
@@ -128,6 +146,8 @@ Rectangle
                 {
                     if (drag.target === null)
                         return;
+                    drag.maximumX = wRoot.width - handleSize
+                    drag.maximumY = wRoot.height - handleSize
                     wRoot.x += tlHandle.x
                     wRoot.width -= tlHandle.x
                     wRoot.height -= tlHandle.y
@@ -161,11 +181,13 @@ Rectangle
                 {
                     drag.target = trHandle
                     drag.threshold = 0
+                    drag.minimumX = handleSize
                 }
                 onPositionChanged:
                 {
                     if (drag.target === null)
                         return;
+                    drag.maximumY = wRoot.height - handleSize
                     wRoot.width = trHandle.x + trHandle.width
                     wRoot.height -= trHandle.y
                     wRoot.y += trHandle.y
@@ -197,6 +219,8 @@ Rectangle
                 {
                     drag.target = brHandle
                     drag.threshold = 0
+                    drag.minimumX = handleSize
+                    drag.minimumY = handleSize
                 }
                 onPositionChanged:
                 {
@@ -233,11 +257,13 @@ Rectangle
                 {
                     drag.target = blHandle
                     drag.threshold = 0
+                    drag.minimumY = handleSize
                 }
                 onPositionChanged:
                 {
                     if (drag.target === null)
                         return;
+                    drag.maximumX = wRoot.width - handleSize
                     wRoot.height = blHandle.y + blHandle.height
                     wRoot.x += blHandle.x
                     wRoot.width -= blHandle.x

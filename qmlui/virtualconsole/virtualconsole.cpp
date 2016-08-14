@@ -134,6 +134,37 @@ void VirtualConsole::setWidgetSelection(quint32 wID, QQuickItem *item, bool enab
     emit selectedWidgetChanged(m_selectedWidget);
 }
 
+void VirtualConsole::moveWidget(VCWidget *widget, VCFrame *targetFrame, QPoint pos)
+{
+    // reset all the drop targets, otherwise two overlapping
+    // frames can get the same drop event
+    resetDropTargets(true);
+
+    VCFrame *sourceFrame = qobject_cast<VCFrame*>(widget->parent());
+
+    if (sourceFrame != targetFrame)
+    {
+        sourceFrame->removeWidgetFromPageMap(widget);
+        widget->setPage(targetFrame->currentPage());
+        targetFrame->addWidgetToPageMap(widget);
+
+        widget->setParent(targetFrame);
+    }
+
+    QRect wRect = widget->geometry();
+    wRect.moveTopLeft(pos);
+    widget->setGeometry(wRect);
+
+    qDebug() << "New widget geometry:" << widget->geometry();
+}
+
+QQuickItem *VirtualConsole::currentPageItem() const
+{
+    QString currPage = QString("vcPage%1").arg(m_selectedPage);
+    QQuickItem *pageItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>(currPage));
+    return pageItem;
+}
+
 QStringList VirtualConsole::selectedWidgetNames()
 {
     QStringList names;
@@ -415,10 +446,13 @@ bool VirtualConsole::loadXML(QXmlStreamReader &root)
 #else
                 page->setFont(QFont("Roboto Condensed", 16));
 #endif
+                page->setCaption(tr("Page %1").arg(currPageIdx + 1));
                 m_pages.append(page);
             }
             /* Contents */
             m_pages.at(currPageIdx)->loadXML(root);
+            if (m_pages.at(currPageIdx)->caption().isEmpty())
+                m_pages.at(currPageIdx)->setCaption(tr("Page %1").arg(currPageIdx + 1));
             currPageIdx++;
 
         }
