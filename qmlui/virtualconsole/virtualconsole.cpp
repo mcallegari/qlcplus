@@ -107,6 +107,11 @@ void VirtualConsole::renderPage(QQuickItem *parent, QQuickItem *contentItem, int
     m_pages.at(page)->render(m_view, contentItem);
 }
 
+VCWidget *VirtualConsole::selectedWidget() const
+{
+    return m_selectedWidget;
+}
+
 void VirtualConsole::setWidgetSelection(quint32 wID, QQuickItem *item, bool enable)
 {
     // disable any previously selected widget
@@ -189,9 +194,9 @@ void VirtualConsole::resetWidgetSelection()
         widget->setProperty("isSelected", false);
     m_itemsMap.clear();
 
-    m_selectedWidget = NULL;
+    m_selectedWidget = m_pages.at(m_selectedPage);
 
-    emit selectedWidgetChanged(NULL);
+    emit selectedWidgetChanged(m_selectedWidget);
 }
 
 void VirtualConsole::deleteVCWidgets(QVariantList IDList)
@@ -299,6 +304,14 @@ void VirtualConsole::addWidgetToMap(VCWidget* widget)
     m_widgetsMap.insert(wid, widget);
 }
 
+void VirtualConsole::removeWidgetFromMap(VCWidget *widget)
+{
+    if (widget == NULL)
+        return;
+
+    m_widgetsMap.remove(widget->id());
+}
+
 VCWidget *VirtualConsole::widget(quint32 id)
 {
     if (id == VCWidget::invalidId())
@@ -307,27 +320,12 @@ VCWidget *VirtualConsole::widget(quint32 id)
     return m_widgetsMap.value(id, NULL);
 }
 
-QStringList VirtualConsole::pagesList() const
+int VirtualConsole::pagesCount() const
 {
-    QStringList list;
-    foreach(VCFrame *frame, m_pages)
-        list.append(frame->caption());
-
-    return list;
+    return m_pages.count();
 }
 
-bool VirtualConsole::setPageName(int page, QString name)
-{
-    if (page < 0 || page >= m_pages.count())
-        return false;
-
-    m_pages.at(page)->setCaption(name);
-    emit pagesListChanged();
-
-    return true;
-}
-
-void VirtualConsole::addPage()
+void VirtualConsole::addPage(int index)
 {
     VCFrame *page = new VCFrame(m_doc, this, this);
     QQmlEngine::setObjectOwnership(page, QQmlEngine::CppOwnership);
@@ -340,9 +338,34 @@ void VirtualConsole::addPage()
     page->setFont(QFont("Roboto Condensed", 16));
 #endif
     page->setCaption(tr("Page %1").arg(m_pages.count() + 1));
-    m_pages.append(page);
+    m_pages.insert(index, page);
 
-    emit pagesListChanged();
+    emit pagesCountChanged();
+
+    if (index == m_selectedPage)
+    {
+        m_selectedPage++;
+        emit selectedPageChanged(m_selectedPage);
+    }
+}
+
+void VirtualConsole::deletePage(int index)
+{
+    if (index < 0 || index >= m_pages.count())
+        return;
+
+    m_pages.at(index)->deleteChildren();
+    m_pages.takeAt(index);
+
+    m_itemsMap.clear();
+
+    emit pagesCountChanged();
+
+    if (index > 0)
+    {
+        m_selectedPage--;
+        emit selectedPageChanged(m_selectedPage);
+    }
 }
 
 int VirtualConsole::selectedPage() const
@@ -371,11 +394,6 @@ void VirtualConsole::setEditMode(bool editMode)
 
     m_editMode = editMode;
     emit editModeChanged(editMode);
-}
-
-VCWidget *VirtualConsole::selectedWidget() const
-{
-    return m_selectedWidget;
 }
 
 /*********************************************************************

@@ -39,7 +39,7 @@ Rectangle
     function selectFixture(index)
     {
         if (selectedFixtureIndex != -1)
-        sfxList.contentItem.children[selectedFixtureIndex].isSelected = false
+            sfxList.contentItem.children[selectedFixtureIndex].isSelected = false
         selectedFixtureIndex = index
     }
 
@@ -75,6 +75,7 @@ Rectangle
                     onClicked:requestView(-1, "qrc:/FunctionManager.qml")
                 }
             }
+
             TextInput
             {
                 id: sNameEdit
@@ -93,6 +94,7 @@ Rectangle
 
                 onTextChanged: sceneEditor.sceneName = text
             }
+
             IconButton
             {
                 id: removeFxButton
@@ -100,8 +102,8 @@ Rectangle
                 width: height
                 height: UISettings.iconSizeMedium
                 imgSource: "qrc:/remove.svg"
-                tooltip: qsTr("Remove the selected fixture")
-                onClicked: {   }
+                tooltip: qsTr("Remove the selected fixtures")
+                onClicked: { /* TODO */  }
             }
         }
 

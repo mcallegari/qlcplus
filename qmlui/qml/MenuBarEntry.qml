@@ -110,13 +110,13 @@ Rectangle
                     if (menuEntry.editable == true)
                     {
                         item.color = "transparent"
-                        item.inputText = entryText
+                        item.inputText = Qt.binding(function() { return entryText })
                         item.maximumHeight = parent.height
                         item.wrapText = false
                     }
                     else
                     {
-                        item.label = entryText
+                        item.label = Qt.binding(function() { return entryText })
                         item.height = parent.height
                         item.fontSize = mFontSize
                         item.fontBold = true

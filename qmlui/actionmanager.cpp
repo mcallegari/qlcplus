@@ -76,6 +76,11 @@ void ActionManager::acceptAction()
             m_showManager->deleteShowItems(data);
         }
         break;
+        case DeleteVCPage:
+        {
+            m_virtualConsole->deletePage(data.first().toInt());
+        }
+        break;
         case DeleteVCWidgets:
         {
             m_virtualConsole->deleteVCWidgets(data);

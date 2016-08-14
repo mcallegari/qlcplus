@@ -40,6 +40,7 @@ public:
         None,
         DeleteFunctions,
         DeleteShowItems,
+        DeleteVCPage,
         DeleteVCWidgets
     };
     Q_ENUM(ActionType)

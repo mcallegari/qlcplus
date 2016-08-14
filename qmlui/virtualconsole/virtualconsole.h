@@ -38,7 +38,7 @@ class VirtualConsole : public PreviewContext
 {
     Q_OBJECT
 
-    Q_PROPERTY(QStringList pagesList READ pagesList NOTIFY pagesListChanged)
+    Q_PROPERTY(int pagesCount READ pagesCount NOTIFY pagesCountChanged)
     Q_PROPERTY(int selectedPage READ selectedPage WRITE setSelectedPage NOTIFY selectedPageChanged)
     Q_PROPERTY(bool editMode READ editMode WRITE setEditMode NOTIFY editModeChanged)
     Q_PROPERTY(VCWidget *selectedWidget READ selectedWidget NOTIFY selectedWidgetChanged)
@@ -77,26 +77,29 @@ public:
 public:
     /** Get the Virtual Console's frame representing the given $page,
      *  where all the widgets are placed */
-    VCFrame* page(int page) const;
+    Q_INVOKABLE VCFrame* page(int page) const;
 
     /** Reset the Virtual Console contents to an initial state */
     void resetContents();
 
-    /** Adds $widget to the global VC widgets map */
+    /** Add $widget to the global VC widgets map */
     void addWidgetToMap(VCWidget* widget);
+
+    /** Remove $widget from the global VC widgets map */
+    void removeWidgetFromMap(VCWidget* widget);
 
     /** Return a reference to the VC widget with the specified $id.
      *  On invalid $id, NULL is returned */
     VCWidget *widget(quint32 id);
 
     /** Return a list with the VC page names */
-    QStringList pagesList() const;
+    int pagesCount() const;
 
-    /** Set the name of the given VC $page */
-    Q_INVOKABLE bool setPageName(int page, QString name);
+    /** Add a new VC page at $index */
+    Q_INVOKABLE void addPage(int index);
 
-    /** Add a new VC page */
-    Q_INVOKABLE void addPage();
+    /** Delete a VC page at $index */
+    void deletePage(int index);
 
     /** Return the currently selected VC page index */
     int selectedPage() const;
@@ -123,7 +126,7 @@ signals:
     void selectedPageChanged(int selectedPage);
 
     /** Notify the listener that some page names have changed */
-    void pagesListChanged();
+    void pagesCountChanged();
 
 protected:
     /** Create a new widget ID */

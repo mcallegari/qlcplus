@@ -47,6 +47,7 @@ VCFrame::VCFrame(Doc *doc, VirtualConsole *vc, QObject *parent)
 
 VCFrame::~VCFrame()
 {
+    deleteChildren();
 }
 
 void VCFrame::render(QQuickView *view, QQuickItem *parent)
@@ -251,7 +252,10 @@ void VCFrame::deleteChildren()
             VCFrame *soloframe = static_cast<VCFrame*>(widget);
             soloframe->deleteChildren();
         }
+        /* Remove the widget from the frame pages map */
         m_pagesMap.remove(widget);
+        /* Remove it also from the global VC widgets map */
+        m_vc->removeWidgetFromMap(widget);
         delete widget;
     }
 }

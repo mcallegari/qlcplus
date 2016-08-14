@@ -23,7 +23,7 @@ import "."
 Rectangle
 {
     id: etbRoot
-    width: etbTextEdit.paintedWidth + 5
+    width: wrapText ? 100 : etbTextEdit.paintedWidth + 5
     height: (maximumHeight && maximumHeight < etbTextEdit.paintedHeight) ?
                 maximumHeight : etbTextEdit.paintedHeight
     clip: true
