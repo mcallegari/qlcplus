@@ -31,7 +31,7 @@ Rectangle
     border.color: UISettings.bgStrong
 
     property bool useFontawesome: false // false means Roboto, true means FontAwesome
-    property int fontSize: 16 //UISettings.textSizeDefault
+    property int fontSize: UISettings.textSizeDefault
     property alias label: btnText.text
     property color bgColor: UISettings.bgLight
     property color hoverColor: UISettings.highlight

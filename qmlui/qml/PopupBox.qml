@@ -80,10 +80,9 @@ Rectangle
         GenericButton
         {
             id: okButton
-            y: popupBox.height - 45
+            y: popupBox.height - height - 5
             x: parent.width - width - 20
             width: parent.width / 3
-            height: 35
             label: qsTr("OK")
             onClicked:
             {
@@ -94,11 +93,10 @@ Rectangle
 
         GenericButton
         {
-            y: popupBox.height - 45
+            y: popupBox.height - height - 5
             x: 20
             id: cancelButton
             width: parent.width / 3
-            height: 35
             label: qsTr("Cancel")
             onClicked:
             {
