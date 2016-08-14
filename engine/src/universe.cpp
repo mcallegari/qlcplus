@@ -806,6 +806,10 @@ bool Universe::loadXML(QXmlStreamReader &root, int index, InputOutputMap *ioMap)
         else
             setPassthrough(false);
     }
+    else
+    {
+        setPassthrough(false);
+    }
 
     while (root.readNextStartElement())
     {
@@ -939,8 +943,6 @@ bool Universe::saveXML(QXmlStreamWriter *doc) const
 
     if (passthrough() == true)
         doc->writeAttribute(KXMLQLCUniversePassthrough, KXMLQLCTrue);
-    else
-        doc->writeAttribute(KXMLQLCUniversePassthrough, KXMLQLCFalse);
 
     if (inputPatch() != NULL)
     {
