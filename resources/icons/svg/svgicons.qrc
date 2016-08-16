@@ -38,6 +38,7 @@
     <file alias="e131plugin.svg">e131plugin.svg</file>
     <file alias="edit.svg">edit.svg</file>
     <file alias="editor.svg">editor.svg</file>
+    <file alias="effect.svg">effect.svg</file>
     <file alias="efx.svg">efx.svg</file>
     <file alias="filenew.svg">filenew.svg</file>
     <file alias="fileopen.svg">fileopen.svg</file>
@@ -45,6 +46,7 @@
     <file alias="filesaveas.svg">filesaveas.svg</file>
     <file alias="fixture.svg">fixture.svg</file>
     <file alias="flash.svg">flash.svg</file>
+    <file alias="flower.svg">flower.svg</file>
     <file alias="folder.svg">folder.svg</file>
     <file alias="font.svg">font.svg</file>
     <file alias="forward.svg">forward.svg</file>
