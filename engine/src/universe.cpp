@@ -806,6 +806,10 @@ bool Universe::loadXML(QXmlStreamReader &root, int index, InputOutputMap *ioMap)
         else
             setPassthrough(false);
     }
+    else
+    {
+        setPassthrough(false);
+    }
 
     while (root.readNextStartElement())
     {
@@ -819,12 +823,12 @@ bool Universe::loadXML(QXmlStreamReader &root, int index, InputOutputMap *ioMap)
             quint32 input = QLCIOPlugin::invalidLine();
             QString profile = KInputNone;
 
-            if (pAttrs.hasAttribute(KXMLQLCUniverseInputPlugin))
-                plugin = pAttrs.value(KXMLQLCUniverseInputPlugin).toString();
-            if (pAttrs.hasAttribute(KXMLQLCUniverseInputLine))
-                input = pAttrs.value(KXMLQLCUniverseInputLine).toString().toUInt();
-            if (pAttrs.hasAttribute(KXMLQLCUniverseInputProfileName))
-                profile = pAttrs.value(KXMLQLCUniverseInputProfileName).toString();
+            if (pAttrs.hasAttribute(KXMLQLCUniversePlugin))
+                plugin = pAttrs.value(KXMLQLCUniversePlugin).toString();
+            if (pAttrs.hasAttribute(KXMLQLCUniverseLine))
+                input = pAttrs.value(KXMLQLCUniverseLine).toString().toUInt();
+            if (pAttrs.hasAttribute(KXMLQLCUniverseProfileName))
+                profile = pAttrs.value(KXMLQLCUniverseProfileName).toString();
             ioMap->setInputPatch(index, plugin, input, profile);
 
             QXmlStreamReader::TokenType tType = root.readNext();
@@ -843,10 +847,10 @@ bool Universe::loadXML(QXmlStreamReader &root, int index, InputOutputMap *ioMap)
         {
             QString plugin = KOutputNone;
             quint32 output = QLCIOPlugin::invalidLine();
-            if (pAttrs.hasAttribute(KXMLQLCUniverseOutputPlugin))
-                plugin = pAttrs.value(KXMLQLCUniverseOutputPlugin).toString();
-            if (pAttrs.hasAttribute(KXMLQLCUniverseOutputLine))
-                output = pAttrs.value(KXMLQLCUniverseOutputLine).toString().toUInt();
+            if (pAttrs.hasAttribute(KXMLQLCUniversePlugin))
+                plugin = pAttrs.value(KXMLQLCUniversePlugin).toString();
+            if (pAttrs.hasAttribute(KXMLQLCUniverseLine))
+                output = pAttrs.value(KXMLQLCUniverseLine).toString().toUInt();
             ioMap->setOutputPatch(index, plugin, output, false);
 
             QXmlStreamReader::TokenType tType = root.readNext();
@@ -865,10 +869,10 @@ bool Universe::loadXML(QXmlStreamReader &root, int index, InputOutputMap *ioMap)
         {
             QString plugin = KOutputNone;
             quint32 output = QLCIOPlugin::invalidLine();
-            if (pAttrs.hasAttribute(KXMLQLCUniverseFeedbackPlugin))
-                plugin = pAttrs.value(KXMLQLCUniverseFeedbackPlugin).toString();
-            if (pAttrs.hasAttribute(KXMLQLCUniverseFeedbackLine))
-                output = pAttrs.value(KXMLQLCUniverseFeedbackLine).toString().toUInt();
+            if (pAttrs.hasAttribute(KXMLQLCUniversePlugin))
+                plugin = pAttrs.value(KXMLQLCUniversePlugin).toString();
+            if (pAttrs.hasAttribute(KXMLQLCUniverseLine))
+                output = pAttrs.value(KXMLQLCUniverseLine).toString().toUInt();
             ioMap->setOutputPatch(index, plugin, output, true);
 
             QXmlStreamReader::TokenType tType = root.readNext();
@@ -939,39 +943,47 @@ bool Universe::saveXML(QXmlStreamWriter *doc) const
 
     if (passthrough() == true)
         doc->writeAttribute(KXMLQLCUniversePassthrough, KXMLQLCTrue);
-    else
-        doc->writeAttribute(KXMLQLCUniversePassthrough, KXMLQLCFalse);
 
     if (inputPatch() != NULL)
     {
-        doc->writeStartElement(KXMLQLCUniverseInputPatch);
-        doc->writeAttribute(KXMLQLCUniverseInputPlugin, inputPatch()->pluginName());
-        doc->writeAttribute(KXMLQLCUniverseInputLine, QString::number(inputPatch()->input()));
-        doc->writeAttribute(KXMLQLCUniverseInputProfileName, inputPatch()->profileName());
-        savePluginParametersXML(doc, inputPatch()->getPluginParameters());
-        doc->writeEndElement();
+        savePatchXML(doc, KXMLQLCUniverseInputPatch, inputPatch()->pluginName(),
+            inputPatch()->input(), inputPatch()->profileName(), inputPatch()->getPluginParameters());
     }
     if (outputPatch() != NULL)
     {
-        doc->writeStartElement(KXMLQLCUniverseOutputPatch);
-        doc->writeAttribute(KXMLQLCUniverseOutputPlugin, outputPatch()->pluginName());
-        doc->writeAttribute(KXMLQLCUniverseOutputLine, QString::number(outputPatch()->output()));
-        savePluginParametersXML(doc, outputPatch()->getPluginParameters());
-        doc->writeEndElement();
+        savePatchXML(doc, KXMLQLCUniverseOutputPatch, outputPatch()->pluginName(),
+            outputPatch()->output(), "", outputPatch()->getPluginParameters());
     }
     if (feedbackPatch() != NULL)
     {
-        doc->writeStartElement(KXMLQLCUniverseFeedbackPatch);
-        doc->writeAttribute(KXMLQLCUniverseFeedbackPlugin, feedbackPatch()->pluginName());
-        doc->writeAttribute(KXMLQLCUniverseFeedbackLine, QString::number(feedbackPatch()->output()));
-        savePluginParametersXML(doc, feedbackPatch()->getPluginParameters());
-        doc->writeEndElement();
+        savePatchXML(doc, KXMLQLCUniverseFeedbackPatch, feedbackPatch()->pluginName(),
+            feedbackPatch()->output(), "", feedbackPatch()->getPluginParameters());
     }
 
     /* End the <Universe> tag */
     doc->writeEndElement();
 
     return true;
+}
+
+void Universe::savePatchXML(
+    QXmlStreamWriter *doc,
+    const QString &tag,
+    const QString &pluginName,
+    quint32 line,
+    QString profileName,
+    QMap<QString, QVariant> parameters) const
+{
+    doc->writeStartElement(tag);
+    if (!pluginName.isEmpty() && pluginName != KInputNone)
+        doc->writeAttribute(KXMLQLCUniversePlugin, pluginName);
+    if (line != QLCIOPlugin::invalidLine())
+        doc->writeAttribute(KXMLQLCUniverseLine, QString::number(line));
+    if (!profileName.isEmpty() && profileName != KInputNone)
+        doc->writeAttribute(KXMLQLCUniverseProfileName, profileName);
+
+    savePluginParametersXML(doc, parameters);
+    doc->writeEndElement();
 }
 
 bool Universe::savePluginParametersXML(QXmlStreamWriter *doc,
