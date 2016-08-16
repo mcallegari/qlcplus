@@ -129,6 +129,7 @@ Rectangle
                         seContainer.selectFixture(index)
                     }
                 }
+            ScrollBar { flickable: sfxList }
         }
     }
 }
