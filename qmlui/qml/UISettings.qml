@@ -23,7 +23,7 @@ import QtQuick 2.0
 
 QtObject
 {
-    property string robotoFontName: Qt.platform.os === "osx" ? "RobotoCondensed" : "Roboto Condensed"
+    property string robotoFontName: "Roboto Condensed"
     /* Colors */
     property color bgMain:     "#303030"
     property color bgStronger: "#161616"
