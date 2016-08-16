@@ -44,6 +44,15 @@ private slots:
     void write();
     void writeRelative();
     void reset();
+
+    void loadEmpty();
+    void loadPassthroughTrue();
+    void loadPassthrough1();
+    void loadPassthroughFalse();
+    void loadWrong();
+    void saveEmpty();
+    void savePasthroughTrue();
+
     void setGMValueEfficiency();
     void writeEfficiency();
     void hasChangedEfficiency();

@@ -48,18 +48,12 @@ class InputPatch;
 #define KXMLQLCUniversePassthrough "Passthrough"
 
 #define KXMLQLCUniverseInputPatch "Input"
-#define KXMLQLCUniverseInputPlugin "Plugin"
-#define KXMLQLCUniverseInputLine "Line"
-#define KXMLQLCUniverseInputProfileName "Profile"
-
 #define KXMLQLCUniverseOutputPatch "Output"
-#define KXMLQLCUniverseOutputPlugin "Plugin"
-#define KXMLQLCUniverseOutputLine "Line"
-
 #define KXMLQLCUniverseFeedbackPatch "Feedback"
-#define KXMLQLCUniverseFeedbackPlugin "Plugin"
-#define KXMLQLCUniverseFeedbackLine "Line"
 
+#define KXMLQLCUniversePlugin "Plugin"
+#define KXMLQLCUniverseLine "Line"
+#define KXMLQLCUniverseProfileName "Profile"
 #define KXMLQLCUniversePluginParameters "PluginParameters"
 
 /** Universe class contains input/output data for one DMX universe
@@ -496,6 +490,23 @@ public:
      * @param wksp_root The workspace root element
      */
     bool saveXML(QXmlStreamWriter *doc) const;
+
+    /**
+     * Save one patch (input/output/feedback)
+     *
+     * @param doc
+     * @param tag
+     * @param pluginName
+     * @param line
+     * @param profileName
+     * @param parameters
+     */
+    void savePatchXML(QXmlStreamWriter *doc,
+        QString const & tag,
+        QString const & pluginName,
+        quint32 line,
+        QString profileName,
+        QMap<QString, QVariant>parameters) const;
 
     /**
      * Save a plugin custom parameters (if available) into a tag nested

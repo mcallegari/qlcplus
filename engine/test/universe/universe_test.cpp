@@ -47,6 +47,7 @@ void Universe_Test::initial()
     QCOMPARE(m_uni->usedChannels(), ushort(0));
     QCOMPARE(m_uni->totalChannels(), ushort(0));
     QCOMPARE(m_uni->hasChanged(), false);
+    QCOMPARE(m_uni->passthrough(), false);
     QVERIFY(m_uni->inputPatch() == NULL);
     QVERIFY(m_uni->outputPatch() == NULL);
     QVERIFY(m_uni->feedbackPatch() == NULL);
@@ -365,6 +366,176 @@ void Universe_Test::reset()
     m_uni->reset();
     for (i = 0; i < 128; i++)
         QCOMPARE((int)m_uni->postGMValues()->at(i), 0);
+}
+
+void Universe_Test::loadEmpty()
+{
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    xmlWriter.writeStartElement("Universe");
+    xmlWriter.writeAttribute("Name", "Universe 123");
+    //xmlWriter.writeAttribute("ID", "1");
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    QVERIFY(m_uni->loadXML(xmlReader, 0, 0) == true);
+    QCOMPARE(m_uni->name(), QString("Universe 123"));
+    //QCOMPARE(m_uni->id(), 1U);
+    QCOMPARE(m_uni->passthrough(), false);
+}
+
+void Universe_Test::loadPassthroughTrue()
+{
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    xmlWriter.writeStartElement("Universe");
+    xmlWriter.writeAttribute("Name", "Universe 123");
+    //xmlWriter.writeAttribute("ID", "1");
+    xmlWriter.writeAttribute("Passthrough", "True");
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    QVERIFY(m_uni->loadXML(xmlReader, 0, 0) == true);
+    QCOMPARE(m_uni->name(), QString("Universe 123"));
+    //QCOMPARE(m_uni->id(), 1U);
+    QCOMPARE(m_uni->passthrough(), true);
+}
+
+void Universe_Test::loadPassthrough1()
+{
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    xmlWriter.writeStartElement("Universe");
+    xmlWriter.writeAttribute("Name", "Universe 123");
+    //xmlWriter.writeAttribute("ID", "1");
+    xmlWriter.writeAttribute("Passthrough", "1");
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    QVERIFY(m_uni->loadXML(xmlReader, 0, 0) == true);
+    QCOMPARE(m_uni->name(), QString("Universe 123"));
+    //QCOMPARE(m_uni->id(), 1U);
+    QCOMPARE(m_uni->passthrough(), true);
+}
+
+void Universe_Test::loadWrong()
+{
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    xmlWriter.writeStartElement("U");
+    xmlWriter.writeAttribute("Name", "Universe 123");
+    //xmlWriter.writeAttribute("ID", "1");
+    xmlWriter.writeAttribute("Passthrough", "1");
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    QVERIFY(m_uni->loadXML(xmlReader, 0, 0) == false);
+}
+
+void Universe_Test::loadPassthroughFalse()
+{
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    xmlWriter.writeStartElement("Universe");
+    xmlWriter.writeAttribute("Name", "Universe 123");
+    //xmlWriter.writeAttribute("ID", "1");
+    xmlWriter.writeAttribute("Passthrough", "False");
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    QVERIFY(m_uni->loadXML(xmlReader, 0, 0) == true);
+    QCOMPARE(m_uni->name(), QString("Universe 123"));
+    //QCOMPARE(m_uni->id(), 1U);
+    QCOMPARE(m_uni->passthrough(), false);
+}
+
+void Universe_Test::saveEmpty()
+{
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    m_uni->setName("Universe 123");
+    m_uni->setID(1);
+
+    QVERIFY(m_uni->saveXML(&xmlWriter) == true);
+
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    QCOMPARE(xmlReader.name().toString(), QString("Universe"));
+    QCOMPARE(xmlReader.attributes().value("Name").toString(), QString("Universe 123"));
+    QCOMPARE(xmlReader.attributes().value("ID").toString(), QString("1"));
+    QCOMPARE(xmlReader.attributes().hasAttribute("Passthrough"), false);
+}
+
+void Universe_Test::savePasthroughTrue()
+{
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    m_uni->setName("Universe 123");
+    m_uni->setID(1);
+    m_uni->setPassthrough(true);
+
+    QVERIFY(m_uni->saveXML(&xmlWriter) == true);
+
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    QCOMPARE(xmlReader.name().toString(), QString("Universe"));
+    QCOMPARE(xmlReader.attributes().value("Name").toString(), QString("Universe 123"));
+    QCOMPARE(xmlReader.attributes().value("ID").toString(), QString("1"));
+    QCOMPARE(xmlReader.attributes().value("Passthrough").toString(), QString("True"));
 }
 
 void Universe_Test::setGMValueEfficiency()
