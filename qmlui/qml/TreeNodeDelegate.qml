@@ -65,6 +65,8 @@ Column
 
         TextInput
         {
+            property string originalText
+
             id: nodeLabel
             x: nodeIconImg.width + 1
             z: 0
@@ -88,6 +90,30 @@ Column
                 readOnly = true
                 nodeContainer.pathChanged(nodePath, text)
             }
+            Keys.onEscapePressed:
+            {
+                z = 0
+                select(0, 0)
+                readOnly = true
+                nodeLabel.text = originalText
+            }
+        }
+
+        Timer
+        {
+            id: clickTimer
+            interval: 200
+            repeat: false
+            running: false
+
+            property int modifiers: 0
+
+            onTriggered:
+            {
+                isExpanded = !isExpanded
+                nodeContainer.clicked(-1, nodeContainer, modifiers)
+                modifiers = 0
+            }
         }
 
         MouseArea
@@ -96,11 +122,15 @@ Column
             height: UISettings.listItemHeight
             onClicked:
             {
-                isExpanded = !isExpanded
-                nodeContainer.clicked(-1, nodeContainer, mouse.modifiers)
+
+                clickTimer.modifiers = mouse.modifiers
+                clickTimer.start()
             }
             onDoubleClicked:
             {
+                clickTimer.stop()
+                clickTimer.modifiers = 0
+                nodeLabel.originalText = textLabel
                 nodeLabel.z = 5
                 nodeLabel.readOnly = false
                 nodeLabel.forceActiveFocus()
