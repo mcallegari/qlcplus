@@ -41,6 +41,9 @@ GridLayout
     property int timeValue: 0
     property bool timeValueCalcNeeded: true
 
+    /* The TAP time counter */
+    property double tapTimeValue: 0
+
     /* If needed, this property can be used to recognize which type
        of speed value is being edited */
     property int speedType
@@ -60,6 +63,8 @@ GridLayout
         title = tTitle
         speedType = tType
         timeValueString = tStrValue
+        tapTimeValue = 0
+        tapTimer.stop()
 
         if (tX >= 0)
             x = tX
@@ -86,6 +91,22 @@ GridLayout
         toolRoot.valueChanged(timeValue)
     }
 
+    Timer
+    {
+        id: tapTimer
+        repeat: true
+        running: false
+        interval: 500
+
+        onTriggered:
+        {
+            if (tapButton.border.color == UISettings.bgMedium)
+                tapButton.border.color = "green"
+            else
+                tapButton.border.color = UISettings.bgMedium
+        }
+    }
+
     // title bar + close button
     Rectangle
     {
@@ -106,7 +127,7 @@ GridLayout
             anchors.margins: 3
 
             label: title
-            fontSize: 14
+            fontSize: UISettings.textSizeDefault * 0.75
         }
         // allow the tool to be dragged around
         // by holding it on the title bar
@@ -120,27 +141,51 @@ GridLayout
             width: height
             height: parent.height
             anchors.right: parent.right
-            border.width: 1
-            border.color: "#333"
+            border.color: UISettings.bgMedium
             //bgColor: buttonsBgColor
             useFontawesome: true
             label: FontAwesome.fa_times
 
-            onClicked: toolRoot.visible = false
+            onClicked:
+            {
+                tapTimer.stop()
+                toolRoot.visible = false
+            }
         }
     }
 
     // top row: tap, increase values
     GenericButton
     {
+        id: tapButton
         width: UISettings.iconSizeDefault
         Layout.fillHeight: true
         Layout.rowSpan: 2
-        border.width: 1
-        border.color: "#333"
         bgColor: buttonsBgColor
         fontSize: btnFontSize
         label: "Tap"
+
+        onClicked:
+        {
+            /* right click resets the current TAP time */
+            if (mouseButton === Qt.RightButton)
+            {
+                tapTimer.stop()
+                tapButton.border.color = UISettings.bgMedium
+                tapTimeValue = 0
+            }
+            else
+            {
+                var currTime = new Date().getTime()
+                if (tapTimeValue != 0)
+                {
+                    timeValue = currTime - tapTimeValue
+                    tapTimer.interval = timeValue
+                    tapTimer.restart()
+                }
+                tapTimeValue = currTime
+            }
+        }
     }
 
     GenericButton
@@ -148,8 +193,7 @@ GridLayout
         visible: tempoType === Function.Time
         width: height
         height: UISettings.iconSizeDefault
-        border.width: 1
-        border.color: "#333"
+        border.color: UISettings.bgMedium
         bgColor: buttonsBgColor
         fontSize: btnFontSize
         label: "+M"
@@ -162,8 +206,7 @@ GridLayout
         visible: tempoType === Function.Time
         width: height * 1.2
         height: UISettings.iconSizeDefault
-        border.width: 1
-        border.color: "#333"
+        border.color: UISettings.bgMedium
         bgColor: buttonsBgColor
         fontSize: btnFontSize
         label: "+S"
@@ -176,8 +219,7 @@ GridLayout
         visible: tempoType === Function.Time
         width: height * 1.2
         height: UISettings.iconSizeDefault
-        border.width: 1
-        border.color: "#333"
+        border.color: UISettings.bgMedium
         bgColor: buttonsBgColor
         fontSize: btnFontSize
         label: "+ms"
@@ -191,8 +233,7 @@ GridLayout
         height: UISettings.iconSizeDefault
         Layout.fillWidth: true
         Layout.columnSpan: allowFractions ? 2 : 4
-        border.width: 1
-        border.color: "#333"
+        border.color: UISettings.bgMedium
         bgColor: buttonsBgColor
         fontSize: btnFontSize
         label: "+"
@@ -206,8 +247,7 @@ GridLayout
         height: UISettings.iconSizeDefault
         Layout.fillWidth: true
         Layout.columnSpan: 2
-        border.width: 1
-        border.color: "#333"
+        border.color: UISettings.bgMedium
         bgColor: buttonsBgColor
         fontSize: btnFontSize
         label: "+1/8"
@@ -220,8 +260,7 @@ GridLayout
     {
         height: UISettings.iconSizeDefault
         color: "#444"
-        border.width: 1
-        border.color: "#333"
+        border.color: UISettings.bgMedium
         Layout.fillWidth: true
         Layout.columnSpan: 4
 
@@ -240,7 +279,11 @@ GridLayout
                 timeValueCalcNeeded = true
                 timeValueString = TimeUtils.timeToQlcString(inputText, tempoType)
             }
-            Keys.onEscapePressed: toolRoot.visible = false
+            Keys.onEscapePressed:
+            {
+                tapTimer.stop()
+                toolRoot.visible = false
+            }
         }
     }
 
@@ -249,8 +292,7 @@ GridLayout
     {
         width: height
         height: UISettings.iconSizeDefault
-        border.width: 1
-        border.color: "#333"
+        border.color: UISettings.bgMedium
         bgColor: buttonsBgColor
         fontSize: btnFontSize
         label: "∞"
@@ -262,8 +304,7 @@ GridLayout
         visible: tempoType === Function.Time
         width: height
         height: UISettings.iconSizeDefault
-        border.width: 1
-        border.color: "#333"
+        border.color: UISettings.bgMedium
         bgColor: buttonsBgColor
         fontSize: btnFontSize
         label: "-M"
@@ -281,8 +322,7 @@ GridLayout
         visible: tempoType === Function.Time
         width: height * 1.2
         height: UISettings.iconSizeDefault
-        border.width: 1
-        border.color: "#333"
+        border.color: UISettings.bgMedium
         bgColor: buttonsBgColor
         fontSize: btnFontSize
         label: "-S"
@@ -300,8 +340,7 @@ GridLayout
         visible: tempoType === Function.Time
         width: height * 1.2
         height: UISettings.iconSizeDefault
-        border.width: 1
-        border.color: "#333"
+        border.color: UISettings.bgMedium
         bgColor: buttonsBgColor
         fontSize: btnFontSize
         label: "-ms"
@@ -320,8 +359,7 @@ GridLayout
         height: UISettings.iconSizeDefault
         Layout.fillWidth: true
         Layout.columnSpan: allowFractions ? 2 : 4
-        border.width: 1
-        border.color: "#333"
+        border.color: UISettings.bgMedium
         bgColor: buttonsBgColor
         fontSize: btnFontSize
         label: "-"
@@ -335,8 +373,7 @@ GridLayout
         height: UISettings.iconSizeDefault
         Layout.fillWidth: true
         Layout.columnSpan: 2
-        border.width: 1
-        border.color: "#333"
+        border.color: UISettings.bgMedium
         bgColor: buttonsBgColor
         fontSize: btnFontSize
         label: "-1/8"

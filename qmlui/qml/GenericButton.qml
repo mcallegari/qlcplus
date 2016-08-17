@@ -38,7 +38,7 @@ Rectangle
     property color pressedColor: UISettings.highlightPressed
     property bool repetition: false
 
-    signal clicked
+    signal clicked(int mouseButton)
 
     Text
     {
@@ -54,7 +54,7 @@ Rectangle
         id: gbMouseArea
         anchors.fill: parent
         hoverEnabled: true
-        onClicked: btnRoot.clicked()
+        onClicked: btnRoot.clicked(mouse.button)
         onPressAndHold:
         {
             if (repetition == true)
@@ -69,6 +69,6 @@ Rectangle
         running: false
         interval: 100
         repeat: true
-        onTriggered: btnRoot.clicked()
+        onTriggered: btnRoot.clicked(Qt.LeftButton)
     }
 }
