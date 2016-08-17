@@ -240,6 +240,7 @@ GridLayout
                 timeValueCalcNeeded = true
                 timeValueString = TimeUtils.timeToQlcString(inputText, tempoType)
             }
+            Keys.onEscapePressed: toolRoot.visible = false
         }
     }
 
