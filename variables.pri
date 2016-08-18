@@ -19,6 +19,9 @@ QMAKE_CXXFLAGS += -Werror
 
 CONFIG         += warn_on
 
+# Mobile platforms are QML only
+android|ios: CONFIG += qmlui
+
 # Build everything in the order specified in .pro files
 CONFIG         += ordered
 
