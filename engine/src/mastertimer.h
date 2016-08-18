@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   mastertimer.h
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -24,7 +25,6 @@
 #include <QObject>
 #include <QMutex>
 #include <QList>
-#include <QTime>
 
 class MasterTimerPrivate;
 class GenericFader;
@@ -242,8 +242,6 @@ private:
     int m_beatTimeDuration;
     /** Flag to request a beat generation at the next MasterTimer tick */
     bool m_beatRequested;
-    /** The absolute time a beat should happen */
-    QTime m_beatTime;
 };
 
 /** @} */

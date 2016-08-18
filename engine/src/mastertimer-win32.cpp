@@ -1,8 +1,9 @@
 ﻿/*
-  Q Light Controller
+  Q Light Controller Plus
   mastertimer-win32.cpp
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -21,6 +22,7 @@
 #define _WIN32_WINNT 0x05000000
 #define _WIN32_WINDOWS 0x05000000
 #define WINVER 0x05000000
+
 #include <Windows.h>
 #include <QDebug>
 
@@ -57,6 +59,8 @@ MasterTimerPrivate::MasterTimerPrivate(MasterTimer* masterTimer)
     , m_run(false)
 {
     Q_ASSERT(masterTimer != NULL);
+
+    QueryPerformanceFrequency(&m_systemFrequency);
 }
 
 MasterTimerPrivate::~MasterTimerPrivate()
@@ -122,6 +126,24 @@ void MasterTimerPrivate::stop()
 bool MasterTimerPrivate::isRunning() const
 {
     return m_run;
+}
+
+void MasterTimerPrivate::timeCounterRestart(int msecOffset)
+{
+    QueryPerformanceCounter(&m_timeCounter);
+    if (msecOffset)
+        m_timeCounter.QuadPart += (msecOffset * m_systemFrequency.QuadPart) / 1000LL;
+
+}
+
+int MasterTimerPrivate::timeCounterElapsed()
+{
+    LARGE_INTEGER current, elapsed;
+    QueryPerformanceCounter(&current);
+
+    elapsed.QuadPart = current.QuadPart - m_timeCounter.QuadPart;
+
+    return (1000LL * elapsed.QuadPart) / m_systemFrequency.QuadPart;
 }
 
 void MasterTimerPrivate::timerTick()

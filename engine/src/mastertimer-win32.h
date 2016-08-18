@@ -1,8 +1,9 @@
 ﻿/*
-  Q Light Controller
+  Q Light Controller Plus
   mastertimer-win32.h
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -38,6 +39,9 @@ public:
     void stop();
     bool isRunning() const;
 
+    void timeCounterRestart(int msecOffset = 0);
+    int timeCounterElapsed();
+
     void timerTick();
 
 private:
@@ -45,6 +49,9 @@ private:
     UINT m_systemTimerResolution;
     HANDLE m_phTimer;
     bool m_run;
+
+    LARGE_INTEGER m_systemFrequency;
+    LARGE_INTEGER m_timeCounter;
 };
 
 /** @} */
