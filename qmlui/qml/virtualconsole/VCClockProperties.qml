@@ -31,7 +31,7 @@ Rectangle
 
     property VCClock widgetRef: null
 
-    property int gridItemsHeight: 38
+    property int gridItemsHeight: UISettings.listItemHeight
 
     Column
     {
@@ -55,7 +55,12 @@ Rectangle
                 ExclusiveGroup { id: clockTypeGroup }
 
                 // row 1
-                RobotoText { fontSize: 14; label: qsTr("Clock") }
+                RobotoText
+                {
+                    height: gridItemsHeight
+                    fontSize: UISettings.textSizeDefault * 0.75
+                    label: qsTr("Clock")
+                }
 
                 CustomCheckBox
                 {
@@ -67,7 +72,12 @@ Rectangle
                 }
 
                 // row 2
-                RobotoText { fontSize: 14; label: qsTr("Stopwatch") }
+                RobotoText
+                {
+                    height: gridItemsHeight
+                    fontSize: UISettings.textSizeDefault * 0.75
+                    label: qsTr("Stopwatch")
+                }
 
                 CustomCheckBox
                 {
@@ -79,7 +89,12 @@ Rectangle
                 }
 
                 // row 3
-                RobotoText { fontSize: 14; label: qsTr("Countdown") }
+                RobotoText
+                {
+                    height: gridItemsHeight
+                    fontSize: UISettings.textSizeDefault * 0.75
+                    label: qsTr("Countdown")
+                }
 
                 CustomCheckBox
                 {
@@ -116,7 +131,7 @@ Rectangle
                     {
                         color: UISettings.bgMedium
                         width: parent.width
-                        height: 40
+                        height: UISettings.listItemHeight
 
                         IconButton
                         {
@@ -125,7 +140,7 @@ Rectangle
                             anchors.right: parent.right
 
                             width: height
-                            height: 38
+                            height: parent.height
                             imgSource: "qrc:/add.svg"
                             checkable: true
                             tooltip: qsTr("Add a function schedule")
@@ -151,10 +166,10 @@ Rectangle
                     {
                         id: schListView
                         width: parent.width
-                        height: model.length * 180
+                        height: model ? model.length * 180 : 0
                         boundsBehavior: Flickable.StopAtBounds
 
-                        model: widgetRef.scheduleList
+                        model: widgetRef ? widgetRef.scheduleList : null
                         delegate:
                             Rectangle
                             {

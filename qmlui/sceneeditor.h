@@ -53,7 +53,7 @@ public:
 
     /** Enable/disable the preview of the current Scene.
      *  In this editor, the preview is done with a GenericDMXSource */
-    void setPreview(bool enable);
+    void setPreviewEnabled(bool enable);
 
     /** Method called by QML to inform the SceneEditor that
      *  SceneFixtureConsole has been loaded/unloaded. */

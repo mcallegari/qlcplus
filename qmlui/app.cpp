@@ -24,6 +24,7 @@
 #include <QQuickItem>
 #include <QSettings>
 #include <QKeyEvent>
+#include <QScreen>
 
 #include "app.h"
 #include "mainview2d.h"
@@ -79,6 +80,11 @@ void App::startup()
 
     rootContext()->setContextProperty("qlcplus", this);
 
+    m_pixelDensity = screen()->physicalDotsPerInch() *  0.039370;
+    qDebug() << "Pixel density:" << m_pixelDensity;
+
+    rootContext()->setContextProperty("screenPixelDensity", m_pixelDensity);
+
     initDoc();
 
     //connect(m_doc, SIGNAL(loaded()),
@@ -129,6 +135,11 @@ void App::show()
     //setGeometry(0, 0, 1272, 689); // youtube recording
     showMaximized();
     //showFullScreen();
+}
+
+qreal App::pixelDensity() const
+{
+    return m_pixelDensity;
 }
 
 void App::keyPressEvent(QKeyEvent *e)
@@ -208,6 +219,7 @@ void App::initDoc()
     m_doc->inputOutputMap()->loadProfiles(InputOutputMap::systemProfileDirectory());
     m_doc->inputOutputMap()->loadDefaults();
 
+    m_doc->inputOutputMap()->setBeatGeneratorType(InputOutputMap::Internal);
     m_doc->masterTimer()->start();
 }
 

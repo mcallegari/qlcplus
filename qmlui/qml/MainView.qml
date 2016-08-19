@@ -21,6 +21,8 @@ import QtQuick 2.2
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 
+import QtQuick.Window 2.0
+
 import "."
 
 import "DetachWindow.js" as WinLoader
@@ -89,6 +91,11 @@ Rectangle
         {
             GradientStop { position: 0; color: UISettings.toolbarStartMain }
             GradientStop { position: 1; color: UISettings.toolbarEnd }
+        }
+
+        Component.onCompleted:
+        {
+            console.log("density: " + Screen.pixelDensity + ", ratio: " + Screen.devicePixelRatio)
         }
 
         RowLayout
@@ -199,14 +206,65 @@ Rectangle
             {
                 // acts like an horizontal spacer
                 Layout.fillWidth: true
+                color: "transparent"
             }
-        }
-    }
+            RobotoText
+            {
+                label: "BPM: " + (ioManager.bpmNumber > 0 ? ioManager.bpmNumber : qsTr("Off"))
+                color: gsMouseArea.containsMouse ? UISettings.bgLight : "transparent"
+                fontSize: UISettings.textSizeDefault
+                MouseArea
+                {
+                    id: gsMouseArea
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    onClicked: beatSelectionPanel.visible = !beatSelectionPanel.visible
+                }
+                BeatGeneratorsPanel
+                {
+                    id: beatSelectionPanel
+                    parent: mainView
+                    y: mainToolbar.height
+                    x: beatIndicator.x - width
+                    visible: false
+                }
+            }
+            Rectangle
+            {
+                id: beatIndicator
+                width: height
+                height: parent.height * 0.5
+                radius: height / 2
+                border.width: 2
+                border.color: "#333"
+                color: "#666"
+
+                ColorAnimation on color
+                {
+                    id: cAnim
+                    from: "#00FF00"
+                    to: "#666"
+                    // half the duration of the current BPM
+                    duration: ioManager.bpmNumber ? 30000 / ioManager.bpmNumber : 200
+                    running: false
+                }
+
+                Connections
+                {
+                    id: beatSignal
+                    target: ioManager
+                    onBeat: cAnim.restart()
+                }
+            }
+
+        } // end of RowLayout
+    } // end of mainToolbar
 
     /** Menu to open/load/save a project */
     ActionsMenu
     {
         id: actionsMenu
+        y: actEntry.height + 1
     }
 
     /** Mouse area enabled when actionsMenu is visible

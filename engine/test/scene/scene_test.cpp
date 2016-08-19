@@ -454,7 +454,7 @@ void Scene_Test::preRunPostRun()
     Fixture* fxi = new Fixture(doc);
     fxi->setName("Test Fixture");
     fxi->setAddress(15);
-    fxi->setUniverse(3);
+    fxi->setUniverse(0);
     fxi->setChannels(10);
     doc->addFixture(fxi);
 
@@ -467,9 +467,13 @@ void Scene_Test::preRunPostRun()
 
     QVERIFY(s1->m_fader == NULL);
     s1->preRun(&timer);
+    QVERIFY(s1->m_fader == NULL);
+
+    s1->write(&timer, ua);
     QVERIFY(s1->m_fader != NULL);
 
     s1->postRun(&timer, ua);
+    QVERIFY(s1->m_fader == NULL);
 
     delete doc;
 }

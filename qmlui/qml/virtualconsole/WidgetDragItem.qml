@@ -31,7 +31,7 @@ Rectangle
     property string widgetName
     property string widgetType
     property string widgetIconName
-    property bool reduced: false
+    property bool reduced: Drag.active
 
     Row
     {

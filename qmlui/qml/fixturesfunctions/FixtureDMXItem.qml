@@ -63,7 +63,7 @@ Rectangle
                 anchors.verticalCenter: parent.verticalCenter
                 x: 2
                 label: fixtureObj ? fixtureObj.name : ""
-                fontSize: parent.height ? parent.height * 0.4 : 15
+                fontSize: UISettings.textSizeDefault
             }
         }
         Row
@@ -97,7 +97,7 @@ Rectangle
                             y: fxChIcon.height
                             //width: 30
                             height: UISettings.listItemHeight * 0.75
-                            fontSize: 11
+                            fontSize: UISettings.textSizeDefault
                             labelColor: "black"
                             label: dmxValue
                         }
@@ -175,6 +175,11 @@ Rectangle
                      dmxItemRoot.height = h
                      //console.log("2- Item width: " + w + ", height: " + h)
                  }
+             }
+             onValueChanged:
+             {
+                 //console.log("Channel " + chIndex + " value changed " + value)
+                 channelsRpt.itemAt(chIndex).dmxValue = value
              }
         }
     }

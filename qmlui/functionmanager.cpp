@@ -55,6 +55,10 @@ FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)
 
     m_currentEditor = NULL;
 
+    qmlRegisterUncreatableType<Collection>("com.qlcplus.classes", 1, 0, "Collection", "Can't create a Collection");
+    qmlRegisterUncreatableType<Chaser>("com.qlcplus.classes", 1, 0, "Chaser", "Can't create a Chaser");
+    qmlRegisterUncreatableType<RGBMatrix>("com.qlcplus.classes", 1, 0, "RGBMatrix", "Can't create a RGBMatrix");
+
     m_functionTree = new TreeModel(this);
     QQmlEngine::setObjectOwnership(m_functionTree, QQmlEngine::CppOwnership);
     QStringList treeColumns;
@@ -235,7 +239,7 @@ void FunctionManager::setPreview(bool enable)
 {
     if (m_currentEditor != NULL)
     {
-        m_currentEditor->setPreview(enable);
+        m_currentEditor->setPreviewEnabled(enable);
     }
     else
     {
@@ -341,7 +345,7 @@ void FunctionManager::setEditorFunction(quint32 fID)
     if (m_currentEditor != NULL)
     {
         m_currentEditor->setFunctionID(fID);
-        m_currentEditor->setPreview(m_previewEnabled);
+        m_currentEditor->setPreviewEnabled(m_previewEnabled);
     }
 
     emit functionEditingChanged(true);

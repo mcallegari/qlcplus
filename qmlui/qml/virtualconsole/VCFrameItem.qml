@@ -140,7 +140,7 @@ VCWidgetItem
                     {
                         anchors.centerIn: parent
                         font.family: "Roboto Condensed"
-                        font.pointSize: 12
+                        font.pixelSize: UISettings.textSizeDefault
                         font.bold: true
                         text: qsTr("Page") + " " + (frameObj ? frameObj.currentPage + 1 : "1")
                         color: "red"

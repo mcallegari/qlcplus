@@ -68,7 +68,7 @@ Rectangle
             width: searchBox.width - searchIcon.width - 10
             color: UISettings.fgMain
             text: qsTr("")
-            font.pointSize: height ? height * 0.45 : 12
+            font.pixelSize: UISettings.textSizeDefault
         }
     }
 
@@ -169,7 +169,7 @@ Rectangle
                 anchors.left: leftArrow.right
                 anchors.leftMargin: 10
                 anchors.verticalCenter: parent.verticalCenter
-                fontSize: 18
+                fontSize: UISettings.textSizeDefault
                 fontBold: true
                 labelColor: UISettings.fgMedium
             }

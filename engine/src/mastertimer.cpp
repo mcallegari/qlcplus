@@ -56,11 +56,15 @@ quint64 ticksCount = 0;
 
 MasterTimer::MasterTimer(Doc* doc)
     : QObject(doc)
+    , d_ptr(new MasterTimerPrivate(this))
     , m_stopAllFunctions(false)
     , m_dmxSourceListMutex(QMutex::Recursive)
     , m_simpleDeskRegistered(false)
     , m_fader(new GenericFader(doc))
-    , d_ptr(new MasterTimerPrivate(this))
+    , m_beatSourceType(None)
+    , m_currentBPM(120)
+    , m_beatTimeDuration(500)
+    , m_beatRequested(false)
 {
     Q_ASSERT(doc != NULL);
     Q_ASSERT(d_ptr != NULL);
@@ -104,11 +108,39 @@ void MasterTimer::timerTick()
     qDebug() << "[MasterTimer] *********** tick:" << ticksCount++ << "**********";
 #endif
 
-    doc->inputOutputMap()->flushInputs();
+    switch (m_beatSourceType)
+    {
+        case Internal:
+        {
+            if (m_beatTime.elapsed() >= m_beatTimeDuration)
+            {
+                // it's time to fire a beat
+                m_beatRequested = true;
+
+                // inform the listening classes that a beat is happening
+                emit beat();
+
+                // restart the time for the next beat, starting at a delta
+                // milliseconds, otherwise it will generate an unpleasant drift
+                int deltaMs = m_beatTime.elapsed() - m_beatTimeDuration;
+                m_beatTime.restart();
+                m_beatTime.addMSecs(deltaMs);
+            }
+        }
+        break;
+        case External:
+        break;
+
+        case None:
+        default:
+            m_beatRequested = false;
+        break;
+    }
 
     QList<Universe *> universes = doc->inputOutputMap()->claimUniverses();
     for (int i = 0 ; i < universes.count(); i++)
     {
+        universes[i]->flushInput();
         universes[i]->zeroIntensityChannels();
         universes[i]->zeroRelativeValues();
     }
@@ -119,6 +151,8 @@ void MasterTimer::timerTick()
 
     doc->inputOutputMap()->releaseUniverses();
     doc->inputOutputMap()->dumpUniverses();
+
+    m_beatRequested = false;
 }
 
 uint MasterTimer::frequency()
@@ -408,5 +442,66 @@ void MasterTimer::timerTickFader(QList<Universe *> universes)
         qDebug() << "[MasterTimer] ticking fader (channels:" << fader()->channels().count() << ")";
 #endif
 
-    fader()->write(universes);
+        fader()->write(universes);
+}
+
+/*************************************************************************
+ * Beats generation
+ *************************************************************************/
+
+void MasterTimer::setBeatSourceType(MasterTimer::BeatsSourceType type)
+{
+    if (type == m_beatSourceType)
+        return;
+
+    // alright, this causes a time drift of maximum 1ms per beat
+    // but at the moment I am not looking for a better solution
+    m_beatTimeDuration = 60000 / m_currentBPM;
+    m_beatTime.restart();
+
+    m_beatSourceType = type;
+}
+
+MasterTimer::BeatsSourceType MasterTimer::beatSourceType() const
+{
+    return m_beatSourceType;
+}
+
+void MasterTimer::requestBpmNumber(int bpm)
+{
+    if (bpm == m_currentBPM)
+        return;
+
+    m_currentBPM = bpm;
+    m_beatTimeDuration = 60000 / m_currentBPM;
+    m_beatTime.restart();
+
+    emit bpmNumberChanged(bpm);
+}
+
+int MasterTimer::bpmNumber() const
+{
+    return m_currentBPM;
+}
+
+int MasterTimer::beatTimeDuration() const
+{
+    return m_beatTimeDuration;
+}
+
+int MasterTimer::timeToNextBeat() const
+{
+    return m_beatTimeDuration - m_beatTime.elapsed();
+}
+
+bool MasterTimer::isBeat() const
+{
+    return m_beatRequested;
+}
+
+void MasterTimer::requestBeat()
+{
+    // forceful request of a beat, processed at
+    // the next timerTick call
+    m_beatRequested = true;
 }

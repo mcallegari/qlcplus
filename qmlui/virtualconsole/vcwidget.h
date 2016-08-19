@@ -306,6 +306,10 @@ protected:
      * Font
      *********************************************************************/
 public:
+    /** Set the initial size of the font for the widget's caption.
+     *  This doesn't affect the custom font flag */
+    void setDefaultFontSize(qreal size);
+
     /** Set the font used for the widget's caption */
     void setFont(const QFont& font);
 

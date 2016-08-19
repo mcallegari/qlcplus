@@ -113,7 +113,7 @@ public:
      */
     enum Attr
     {
-        Intensity = 0,
+        Intensity = 0
     };
 
     /*********************************************************************
@@ -361,8 +361,72 @@ private:
     Direction m_direction;
 
     /*********************************************************************
+     * Tempo type
+     *********************************************************************/
+public:
+    enum TempoType { Original = -1, Time = 0, Beats = 1 };
+    Q_ENUMS(TempoType)
+
+public:
+    /**
+     * Set the speed type of this function.
+     * When switching from a type to another, the current fade in, hold, fade out
+     * and duration times will be converted to the new type.
+     *
+     * @param type the speed type
+     */
+    void setTempoType(const Function::TempoType& type);
+
+    /**
+     * Get the Function current speed type
+     */
+    Function::TempoType tempoType() const;
+
+    /**
+     * Convert a speed type to a string
+     *
+     * @param type Speed type to convert
+     */
+    static QString tempoTypeToString(const Function::TempoType& type);
+
+    /**
+     * Convert a string to a speed type
+     *
+     * @param str The string to convert
+     */
+    static Function::TempoType stringToTempoType(const QString& str);
+
+    /** Convert a time value in milliseconds to a beats value */
+    static uint timeToBeats(uint time, int beatDuration);
+
+    /** Convert a beats value to a time value in milliseconds */
+    static uint beatsToTime(uint beats, int beatDuration);
+
+    /** Get the override speed type (done by a Chaser) */
+    TempoType overrideTempoType() const;
+
+    /** Set the override speed type (done by a Chaser) */
+    void setOverrideTempoType(TempoType type);
+
+protected slots:
+    /**
+     * This slot is connected to the Master Timer and it is invoked
+     * when this Function is in 'Beats' speed type and the BPM
+     * number changed. Subclasses should reimplement this.
+     */
+    virtual void slotBPMChanged(int bpmNumber);
+
+private:
+    TempoType m_tempoType;
+    TempoType m_overrideTempoType;
+
+    /*********************************************************************
      * Speed
      *********************************************************************/
+public:
+    enum SpeedType { FadeIn = 0, Hold, FadeOut, Duration };
+    Q_ENUMS(SpeedType)
+
 public:
     /** Set the fade in time in milliseconds */
     void setFadeInSpeed(uint ms);
@@ -425,7 +489,7 @@ public:
     /** Safe speed operations */
     static uint speedNormalize(uint speed);
     static uint speedAdd(uint left, uint right);
-    static uint speedSubstract(uint left, uint right);
+    static uint speedSubtract(uint left, uint right);
 
 signals:
     void totalDurationChanged();
@@ -605,6 +669,8 @@ public:
      */
     quint32 elapsed() const;
 
+    quint32 elapsedBeats() const;
+
 protected:
     /** Reset elapsed timer ticks to zero */
     void resetElapsed();
@@ -612,10 +678,16 @@ protected:
     /** Increment the elapsed timer ticks by one */
     void incrementElapsed();
 
+    /** Increment the elapsed beats by one */
+    void incrementElapsedBeats();
+
     void roundElapsed(quint32 roundTime);
 
 private:
+    /* The elapsed time in ms when tempoType is Time */
     quint32 m_elapsed;
+    /* The elapsed beats when tempoType is Beats */
+    quint32 m_elapsedBeats;
 
     /*********************************************************************
      * Start & Stop
@@ -629,11 +701,13 @@ public:
      * @param overrideFadeIn Override the function's default fade in speed
      * @param overrideFadeOut Override the function's default fade out speed
      * @param overrideDuration Override the function's default duration
+     * @param overrideTempoType Override the tempo type of the function
      */
     void start(MasterTimer* timer, FunctionParent parent, quint32 startTime = 0,
                uint overrideFadeIn = defaultSpeed(),
                uint overrideFadeOut = defaultSpeed(),
-               uint overrideDuration = defaultSpeed());
+               uint overrideDuration = defaultSpeed(),
+               TempoType overrideTempoType = Original);
 
     /**
      * Pause a running Function. Subclasses should check the paused state

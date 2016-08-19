@@ -406,13 +406,13 @@ void Function_Test::speedOperations()
     QCOMPARE(Function::speedAdd(60, 0), uint(60));
     QCOMPARE(Function::speedAdd(70, 0), uint(70));
 
-    QCOMPARE(Function::speedSubstract(10, 10), uint(0));
-    QCOMPARE(Function::speedSubstract(10, 0), uint(10));
-    QCOMPARE(Function::speedSubstract(0, 10), uint(0));
-    QCOMPARE(Function::speedSubstract(15, 2), uint(13));
-    QCOMPARE(Function::speedSubstract(Function::infiniteSpeed(), 10), Function::infiniteSpeed());
-    QCOMPARE(Function::speedSubstract(10, Function::infiniteSpeed()), uint(0));
-    QCOMPARE(Function::speedSubstract(Function::infiniteSpeed(), Function::infiniteSpeed()), uint(0));
+    QCOMPARE(Function::speedSubtract(10, 10), uint(0));
+    QCOMPARE(Function::speedSubtract(10, 0), uint(10));
+    QCOMPARE(Function::speedSubtract(0, 10), uint(0));
+    QCOMPARE(Function::speedSubtract(15, 2), uint(13));
+    QCOMPARE(Function::speedSubtract(Function::infiniteSpeed(), 10), Function::infiniteSpeed());
+    QCOMPARE(Function::speedSubtract(10, Function::infiniteSpeed()), uint(0));
+    QCOMPARE(Function::speedSubtract(Function::infiniteSpeed(), Function::infiniteSpeed()), uint(0));
 }
 
 void Function_Test::loaderWrongRoot()

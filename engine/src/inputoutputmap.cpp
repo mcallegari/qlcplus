@@ -27,6 +27,7 @@
 #include <QXmlStreamWriter>
 #include <QSettings>
 #include <QDebug>
+#include <qmath.h>
 
 #include "inputoutputmap.h"
 #include "qlcinputchannel.h"
@@ -39,6 +40,8 @@
 #include "qlcfile.h"
 #include "doc.h"
 
+#include "../../plugins/midi/common/midiprotocol.h"
+
 InputOutputMap::InputOutputMap(Doc *doc, quint32 universes)
   : QObject(doc)
   , m_blackout(false)
@@ -50,6 +53,7 @@ InputOutputMap::InputOutputMap(Doc *doc, quint32 universes)
 
     connect(doc->ioPluginCache(), SIGNAL(pluginConfigurationChanged(QLCIOPlugin*)),
             this, SLOT(slotPluginConfigurationChanged(QLCIOPlugin*)));
+    connect(doc->masterTimer(), SIGNAL(beat()), this, SLOT(slotMasterTimerBeat()));
 }
 
 InputOutputMap::~InputOutputMap()
@@ -407,6 +411,11 @@ bool InputOutputMap::setInputPatch(quint32 universe, const QString &pluginName,
         currProfile = currInPatch->profile();
         disconnect(currInPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
                 this, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)));
+        if (currInPatch->pluginName() == "MIDI")
+        {
+            disconnect(currInPatch, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
+                       this, SLOT(slotMIDIBeat(quint32,quint32,uchar)));
+        }
     }
     InputPatch *ip = NULL;
 
@@ -416,8 +425,15 @@ bool InputOutputMap::setInputPatch(quint32 universe, const QString &pluginName,
     {
         ip = m_universeArray.at(universe)->inputPatch();
         if (ip != NULL)
+        {
             connect(ip, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
                     this, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)));
+            if (ip->pluginName() == "MIDI")
+            {
+                connect(ip, SIGNAL(inputValueChanged(quint32,quint32,uchar,const QString&)),
+                        this, SLOT(slotMIDIBeat(quint32,quint32,uchar)));
+            }
+        }
     }
     else
     {
@@ -882,6 +898,118 @@ QDir InputOutputMap::userProfileDirectory()
 }
 
 /*********************************************************************
+ * Beats
+ *********************************************************************/
+
+void InputOutputMap::setBeatGeneratorType(InputOutputMap::BeatGeneratorType type)
+{
+    if (type == m_beatGeneratorType)
+        return;
+
+    m_beatGeneratorType = type;
+    qDebug() << "[InputOutputMap] setting beat type:" << m_beatGeneratorType;
+
+    switch (m_beatGeneratorType)
+    {
+        case Internal:
+            doc()->masterTimer()->setBeatSourceType(MasterTimer::Internal);
+            setBpmNumber(doc()->masterTimer()->bpmNumber());
+        break;
+        case MIDI:
+            doc()->masterTimer()->setBeatSourceType(MasterTimer::External);
+            // reset the current BPM number and detect it from the MIDI beats
+            setBpmNumber(0);
+            m_beatTime.restart();
+        break;
+        case Audio:
+            doc()->masterTimer()->setBeatSourceType(MasterTimer::External);
+            // reset the current BPM number and detect it from the audio input
+            setBpmNumber(0);
+            m_beatTime.restart();
+        break;
+        case Disabled:
+        default:
+            doc()->masterTimer()->setBeatSourceType(MasterTimer::None);
+            setBpmNumber(0);
+        break;
+    }
+
+    emit beatGeneratorTypeChanged();
+}
+
+InputOutputMap::BeatGeneratorType InputOutputMap::beatGeneratorType() const
+{
+    return m_beatGeneratorType;
+}
+
+void InputOutputMap::setBpmNumber(int bpm)
+{
+    if (m_beatGeneratorType == Disabled || bpm == m_currentBPM)
+        return;
+
+    //qDebug() << "[InputOutputMap] set BPM to" << bpm;
+    m_currentBPM = bpm;
+
+    if (bpm != 0)
+        doc()->masterTimer()->requestBpmNumber(bpm);
+
+    emit bpmNumberChanged(m_currentBPM);
+}
+
+int InputOutputMap::bpmNumber() const
+{
+    if (m_beatGeneratorType == Disabled)
+        return 0;
+
+    return m_currentBPM;
+}
+
+void InputOutputMap::slotMasterTimerBeat()
+{
+    if (m_beatGeneratorType != Internal)
+        return;
+
+    emit beat();
+}
+
+void InputOutputMap::slotMIDIBeat(quint32 universe, quint32 channel, uchar value)
+{
+    Q_UNUSED(universe)
+
+    // not interested in synthetic release event or non-MBC ones
+    if (value == 0 || channel < CHANNEL_OFFSET_MBC_PLAYBACK)
+        return;
+
+    qDebug() << "MIDI MBC:" << channel << m_beatTime.elapsed();
+
+    // process the timer as first thing, to avoid wasting time
+    // with the operations below
+    int elapsed = m_beatTime.elapsed();
+    m_beatTime.restart();
+
+    if (channel == CHANNEL_OFFSET_MBC_BEAT)
+    {
+        int bpm = qRound(60000.0 / (float)elapsed);
+        float currBpmTime = 60000.0 / (float)m_currentBPM;
+        // here we check if the difference between the current BPM duration
+        // and the current time elapsed is within a range of +/-1ms.
+        // If it isn't, then the BPM number has really changed, otherwise
+        // it's just a tiny time drift
+        if (qAbs((float)elapsed - currBpmTime) > 1)
+            setBpmNumber(bpm);
+        emit beat();
+    }
+}
+
+void InputOutputMap::slotAudioSpectrum(double *spectrumBands, int size, double maxMagnitude, quint32 power)
+{
+    Q_UNUSED(spectrumBands)
+    Q_UNUSED(size)
+    Q_UNUSED(maxMagnitude)
+    Q_UNUSED(power)
+}
+
+/*********************************************************************
  * Defaults - !! FALLBACK !!
  *********************************************************************/
 
@@ -1029,6 +1157,10 @@ void InputOutputMap::saveDefaults()
             settings.setValue(key, KOutputNone);
     }
 }
+
+/*********************************************************************
+ * Load & Save
+ *********************************************************************/
 
 bool InputOutputMap::loadXML(QXmlStreamReader &root)
 {

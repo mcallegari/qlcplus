@@ -34,6 +34,8 @@ class FunctionEditor : public QObject
     Q_OBJECT
 
     Q_PROPERTY(QString functionName READ functionName WRITE setFunctionName NOTIFY functionNameChanged)
+    Q_PROPERTY(bool previewEnabled READ previewEnabled WRITE setPreviewEnabled NOTIFY previewEnabledChanged)
+    Q_PROPERTY(int tempoType READ tempoType WRITE setTempoType NOTIFY tempoTypeChanged)
 
 public:
     FunctionEditor(QQuickView *view, Doc *doc, QObject *parent = 0);
@@ -46,15 +48,23 @@ public:
     /** Return the type of the Function being edited */
     virtual Function::Type functionType() const;
 
-    /** Enable/Disable the preview of the edited Function */
-    virtual void setPreview(bool enable);
+    /** Return the preview status of the Function being edited */
+    virtual bool previewEnabled() const;
+    /** Enable/Disable the preview of the Function being edited */
+    virtual void setPreviewEnabled(bool enable);
 
     /** Get/Set the name of the Function being edited */
     virtual QString functionName() const;
     virtual void setFunctionName(QString functionName);
 
+    /** Get/Set the tempo type of the Function being edited */
+    virtual int tempoType() const;
+    virtual void setTempoType(int tempoType);
+
 signals:
     void functionNameChanged(QString functionName);
+    void previewEnabledChanged(bool enabled);
+    void tempoTypeChanged(int tempoType);
 
 protected:
     /** Reference of the QML view */
@@ -68,7 +78,7 @@ protected:
     /** Type of the Function being edited */
     Function::Type m_functionType;
     /** Flag that holds if the editor should preview its function */
-    bool m_preview;
+    bool m_previewEnabled;
 };
 
 #endif // SCENEEDITOR_H

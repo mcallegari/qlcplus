@@ -46,6 +46,9 @@ class VirtualConsole : public PreviewContext
 public:
     VirtualConsole(QQuickView *view, Doc *doc, QObject *parent = 0);
 
+    /** Return the number of pixels in 1mm */
+    qreal pixelDensity() const;
+
     Q_INVOKABLE void renderPage(QQuickItem *parent, QQuickItem *contentItem, int page);
 
     Q_INVOKABLE void setWidgetSelection(quint32 wID, QQuickItem *item, bool enable);

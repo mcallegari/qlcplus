@@ -577,16 +577,12 @@ void Scene::preRun(MasterTimer* timer)
     qDebug() << "Scene preRun. ID: " << id();
 
     Q_ASSERT(m_fader == NULL);
-    m_fader = new GenericFader(doc());
-    m_fader->adjustIntensity(getAttributeValue(Intensity));
     Function::preRun(timer);
 }
 
 void Scene::write(MasterTimer* timer, QList<Universe*> ua)
 {
     //qDebug() << Q_FUNC_INFO << elapsed();
-    Q_UNUSED(timer);
-    Q_ASSERT(m_fader != NULL);
 
     if (m_values.size() == 0)
     {
@@ -594,9 +590,12 @@ void Scene::write(MasterTimer* timer, QList<Universe*> ua)
         return;
     }
 
-    if (elapsed() == 0)
+    if (m_fader == NULL)
     {
         m_valueListMutex.lock();
+        m_fader = new GenericFader(doc());
+        m_fader->adjustIntensity(getAttributeValue(Intensity));
+
         QMapIterator <SceneValue, uchar> it(m_values);
         while (it.hasNext() == true)
         {
@@ -615,10 +614,12 @@ void Scene::write(MasterTimer* timer, QList<Universe*> ua)
             }
             else
             {
-                if (overrideFadeInSpeed() == defaultSpeed())
-                    fc.setFadeTime(fadeInSpeed());
+                uint fadein = overrideFadeInSpeed() == defaultSpeed() ? fadeInSpeed() : overrideFadeInSpeed();
+
+                if (tempoType() == Beats)
+                    fc.setFadeTime(beatsToTime(fadein, timer->beatTimeDuration()) + timer->timeToNextBeat());
                 else
-                    fc.setFadeTime(overrideFadeInSpeed());
+                    fc.setFadeTime(fadein);
             }
             insertStartValue(fc, timer, ua);
             m_fader->add(fc);
@@ -635,49 +636,57 @@ void Scene::write(MasterTimer* timer, QList<Universe*> ua)
         stop(FunctionParent::master());
 
     if (isPaused() == false)
+    {
         incrementElapsed();
+        if (timer->isBeat() && tempoType() == Beats)
+            incrementElapsedBeats();
+    }
 }
 
 void Scene::postRun(MasterTimer* timer, QList<Universe *> ua)
 {
-    Q_ASSERT(m_fader != NULL);
-
-    QHashIterator <FadeChannel,FadeChannel> it(m_fader->channels());
-    while (it.hasNext() == true)
+    if (m_fader != NULL)
     {
-        it.next();
-        FadeChannel fc = it.value();
-        // fade out only intensity channels
-        if (fc.group(doc()) != QLCChannel::Intensity)
-            continue;
-
-        bool canFade = true;
-        Fixture *fixture = doc()->fixture(fc.fixture());
-        if (fixture != NULL)
-            canFade = fixture->channelCanFade(fc.channel());
-        fc.setStart(fc.current(getAttributeValue(Intensity)));
-        fc.setCurrent(fc.current(getAttributeValue(Intensity)));
-
-        fc.setElapsed(0);
-        fc.setReady(false);
-        if (canFade == false)
+        QHashIterator <FadeChannel,FadeChannel> it(m_fader->channels());
+        while (it.hasNext() == true)
         {
-            fc.setFadeTime(0);
-            fc.setTarget(fc.current(getAttributeValue(Intensity)));
-        }
-        else
-        {
-            if (overrideFadeOutSpeed() == defaultSpeed())
-                fc.setFadeTime(fadeOutSpeed());
+            it.next();
+            FadeChannel fc = it.value();
+            // fade out only intensity channels
+            if (fc.group(doc()) != QLCChannel::Intensity)
+                continue;
+
+            bool canFade = true;
+            Fixture *fixture = doc()->fixture(fc.fixture());
+            if (fixture != NULL)
+                canFade = fixture->channelCanFade(fc.channel());
+            fc.setStart(fc.current(getAttributeValue(Intensity)));
+            fc.setCurrent(fc.current(getAttributeValue(Intensity)));
+
+            fc.setElapsed(0);
+            fc.setReady(false);
+            if (canFade == false)
+            {
+                fc.setFadeTime(0);
+                fc.setTarget(fc.current(getAttributeValue(Intensity)));
+            }
             else
-                fc.setFadeTime(overrideFadeOutSpeed());
-            fc.setTarget(0);
-        }
-        timer->faderAdd(fc);
-    }
+            {
+                uint fadeout = overrideFadeOutSpeed() == defaultSpeed() ? fadeOutSpeed() : overrideFadeOutSpeed();
 
-    delete m_fader;
-    m_fader = NULL;
+                if (tempoType() == Beats)
+                    fc.setFadeTime(beatsToTime(fadeout, timer->beatTimeDuration()));
+                else
+                    fc.setFadeTime(fadeout);
+
+                fc.setTarget(0);
+            }
+            timer->faderAdd(fc);
+        }
+
+        delete m_fader;
+        m_fader = NULL;
+    }
 
     Function::postRun(timer, ua);
 }

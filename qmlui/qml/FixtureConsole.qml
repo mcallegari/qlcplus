@@ -90,7 +90,7 @@ Rectangle
                 anchors.verticalCenter: parent.verticalCenter
                 x: 2
                 label: fixtureObj ? fixtureObj.name : ""
-                fontSize: parent.height ? parent.height * 0.4 : 17
+                fontSize: UISettings.textSizeDefault
             }
             DMXPercentageButton
             {
@@ -152,6 +152,8 @@ Rectangle
                                 fixtureManager.setChannelValue(fixtureObj.id, index, val)
                             else
                                 sceneEditor.setChannelValue(fixtureObj.id, index, val)
+
+                            consoleRoot.valueChanged(fixtureObj.id, index, val)
                         }
 
                         // This is the black overlay to "simulate" a disabled channel

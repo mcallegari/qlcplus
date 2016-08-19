@@ -7,6 +7,7 @@
 
     <!-- Common components -->
     <file alias="ActionsMenu.qml">qml/ActionsMenu.qml</file>
+    <file alias="BeatGeneratorsPanel.qml">qml/BeatGeneratorsPanel.qml</file>
     <file alias="ColorTool.qml">qml/ColorTool.qml</file>
     <file alias="ColorToolBasic.qml">qml/ColorToolBasic.qml</file>
     <file alias="ColorToolFull.qml">qml/ColorToolFull.qml</file>

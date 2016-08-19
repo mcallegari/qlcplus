@@ -134,7 +134,7 @@ Rectangle
                         }
                         Rectangle
                         {
-                            width: 80
+                            Layout.fillWidth: true
                             height: UISettings.listItemHeight
                             color: wObj ? wObj.backgroundColor : "black"
 
@@ -168,7 +168,7 @@ Rectangle
                         }
                         Rectangle
                         {
-                            width: 80
+                            Layout.fillWidth: true
                             height: UISettings.listItemHeight
                             color: wObj ? wObj.foregroundColor : "black"
 
@@ -213,7 +213,7 @@ Rectangle
                                 font.family: wObj ? wObj.font.family : ""
                                 font.bold: wObj ? wObj.font.bold : false
                                 font.italic: wObj ? wObj.font.italic : false
-                                font.pointSize: UISettings.textSizeDefault * 0.8
+                                font.pixelSize: UISettings.textSizeDefault * 0.8
                                 text: wObj ? wObj.font.family : ""
                                 color: "white"
                                 verticalAlignment: Text.AlignVCenter

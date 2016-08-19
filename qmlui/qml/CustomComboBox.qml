@@ -23,7 +23,7 @@ import "."
 Rectangle
 {
     id: cbRoot
-    height: UISettings.listItemHeight
+    implicitHeight: UISettings.listItemHeight
     width: 150
     color: cbMouseArea.containsMouse ? UISettings.bgLight : UISettings.bgMedium
     border.width: 1
@@ -54,7 +54,7 @@ Rectangle
 
     onVisibleChanged:
     {
-        if (visible == false)
+        if (visible == false && dropDownMenu)
             dropDownMenu.visible = false
     }
 
@@ -89,7 +89,7 @@ Rectangle
             height: cbRoot.height
             width: cbRoot.width - 4 - arrowButton.width - (mainIcon.visible ? mainIcon.width : 0)
             label: currentText
-            fontSize: height ? height * 0.4 : 12
+            fontSize: UISettings.textSizeDefault
             fontBold: true
         }
         Rectangle
@@ -225,7 +225,7 @@ Rectangle
                                 id: textitem
                                 label: itemText
                                 height: delegateRoot.height
-                                fontSize: height ? height * 0.4 : 12
+                                fontSize: UISettings.textSizeDefault
                             }
                         }
 

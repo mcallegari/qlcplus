@@ -65,7 +65,7 @@ Rectangle
         //clip: true
         horizontalAlignment: textAlignment
         font.family: "Roboto Condensed"
-        font.pointSize: fontSize
+        font.pixelSize: fontSize
         selectByMouse: true
         mouseSelectionMode: TextEdit.SelectWords
         wrapMode: wrapText ? Text.Wrap : Text.NoWrap

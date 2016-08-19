@@ -27,7 +27,7 @@ FunctionEditor::FunctionEditor(QQuickView *view, Doc *doc, QObject *parent)
     , m_functionID(Function::invalidId())
     , m_function(NULL)
     , m_functionType(Function::Undefined)
-    , m_preview(false)
+    , m_previewEnabled(false)
 {
 }
 
@@ -65,14 +65,22 @@ Function::Type FunctionEditor::functionType() const
     return m_functionType;
 }
 
-void FunctionEditor::setPreview(bool enable)
+bool FunctionEditor::previewEnabled() const
 {
-    m_preview = enable;
+    return m_previewEnabled;
+}
+
+void FunctionEditor::setPreviewEnabled(bool enable)
+{
+    if (m_previewEnabled == enable)
+        return;
+
+    m_previewEnabled = enable;
 
     if (m_function == NULL)
         return;
 
-    if (m_preview)
+    if (m_previewEnabled)
     {
         if (m_function->isRunning() == false)
             m_function->start(m_doc->masterTimer(), FunctionParent::master());
@@ -82,6 +90,7 @@ void FunctionEditor::setPreview(bool enable)
         if (m_function->isRunning())
             m_function->stop(FunctionParent::master());
     }
+    emit previewEnabledChanged(enable);
 }
 
 QString FunctionEditor::functionName() const
@@ -99,5 +108,40 @@ void FunctionEditor::setFunctionName(QString functionName)
 
     m_function->setName(functionName);
     emit functionNameChanged(functionName);
+}
+
+int FunctionEditor::tempoType() const
+{
+    if (m_function == NULL)
+        return Function::Time;
+
+    return m_function->tempoType();
+}
+
+void FunctionEditor::setTempoType(int tempoType)
+{
+    if (m_function == NULL || m_function->tempoType() == Function::TempoType(tempoType))
+        return;
+
+    m_function->setTempoType(Function::TempoType(tempoType));
+
+    int beatDuration = m_doc->masterTimer()->beatTimeDuration();
+
+    // Time -> Beats
+    if (tempoType == Function::Beats)
+    {
+        m_function->setFadeInSpeed(Function::timeToBeats(m_function->fadeInSpeed(), beatDuration));
+        m_function->setDuration(Function::timeToBeats(m_function->duration(), beatDuration));
+        m_function->setFadeOutSpeed(Function::timeToBeats(m_function->fadeOutSpeed(), beatDuration));
+    }
+    // Beats -> Time
+    else
+    {
+        m_function->setFadeInSpeed(Function::beatsToTime(m_function->fadeInSpeed(), beatDuration));
+        m_function->setDuration(Function::beatsToTime(m_function->duration(), beatDuration));
+        m_function->setFadeOutSpeed(Function::beatsToTime(m_function->fadeOutSpeed(), beatDuration));
+    }
+
+    emit tempoTypeChanged(tempoType);
 }
 
