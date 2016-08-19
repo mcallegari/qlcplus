@@ -255,17 +255,16 @@ Rectangle
         y: parent.height + 2
         x: -10
         width: parent.width + 20
-        height: 28
+        height: UISettings.listItemHeight
         color: "#444"
         visible: showLabel
 
         RobotoText
         {
-            width: parent.width
-            height: parent.height
+            anchors.fill: parent
             label: fixtureName
             //labelColor: "black"
-            fontSize: 8
+            fontSize: UISettings.textSizeDefault / 2
             wrapText: true
             textAlign: Text.AlignHCenter
         }
