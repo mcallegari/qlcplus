@@ -34,19 +34,44 @@ Rectangle
     property int fontSize: UISettings.textSizeDefault
     property alias label: btnText.text
     property color bgColor: UISettings.bgLight
+    property color fgColor: UISettings.fgMain
     property color hoverColor: UISettings.highlight
     property color pressedColor: UISettings.highlightPressed
     property bool repetition: false
+    property int originalHeight
 
     signal clicked(int mouseButton)
+
+    /* Record the original height to perform the "auto height" calculation later */
+    Component.onCompleted: originalHeight = height
+
+    onWidthChanged:
+    {
+        /* temporarily reset the wrap mode to
+         * measure a "linear" text painted width */
+        btnText.wrapMode = Text.NoWrap
+        var ratio = Math.ceil(btnText.paintedWidth / width)
+        if (ratio < 5 && ratio > 1)
+        {
+            //console.log("Ratio changed to " + ratio + ", painted: " + btnText.paintedWidth + ", width: " + width)
+            implicitHeight = ratio * originalHeight
+            btnText.wrapMode = Text.Wrap
+        }
+        else if (ratio == 1)
+        {
+            implicitHeight = originalHeight
+        }
+    }
 
     Text
     {
         id: btnText
-        anchors.centerIn: parent
-        color: "white"
+        anchors.fill: parent
+        color: fgColor
         font.family: useFontawesome ? "FontAwesome" : UISettings.robotoFontName
         font.pixelSize: fontSize
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
     }
 
     MouseArea
