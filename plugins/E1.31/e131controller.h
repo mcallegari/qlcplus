@@ -20,7 +20,7 @@
 #ifndef E131CONTROLLER_H
 #define E131CONTROLLER_H
 
-#if defined(Q_OS_ANDROID)
+#if defined(ANDROID)
 #include <QNetworkInterface>
 #include <QScopedPointer>
 #include <QSharedPointer>

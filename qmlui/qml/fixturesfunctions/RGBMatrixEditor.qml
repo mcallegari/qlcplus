@@ -48,14 +48,14 @@ Rectangle
         visible: false
         tempoType: rgbMatrixEditor.tempoType
 
-        onTimeValueChanged:
+        onValueChanged:
         {
-            if (timeType == Function.FadeIn)
-                rgbMatrixEditor.fadeInSpeed = msTime
-            else if (timeType == Function.Hold)
-                rgbMatrixEditor.holdSpeed = msTime
-            else if (timeType == Function.FadeOut)
-                rgbMatrixEditor.fadeOutSpeed = msTime
+            if (speedType == Function.FadeIn)
+                rgbMatrixEditor.fadeInSpeed = val
+            else if (speedType == Function.Hold)
+                rgbMatrixEditor.holdSpeed = val
+            else if (speedType == Function.FadeOut)
+                rgbMatrixEditor.fadeOutSpeed = val
         }
     }
 
@@ -376,18 +376,24 @@ Rectangle
                             label: qsTr("Steps fade in")
                             height: UISettings.listItemHeight
                         }
-                        RobotoText
+
+                        Rectangle
                         {
                             Layout.fillWidth: true
                             height: UISettings.listItemHeight
                             color: UISettings.bgMedium
-                            label: TimeUtils.timeToQlcString(rgbMatrixEditor.fadeIn, rgbMatrixEditor.tempoType)
 
-                            MouseArea
+                            RobotoText
                             {
                                 anchors.fill: parent
-                                onDoubleClicked: timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
-                                                                   fiLabel.label, parent.label, Function.FadeIn)
+                                label: TimeUtils.timeToQlcString(rgbMatrixEditor.fadeIn, rgbMatrixEditor.tempoType)
+
+                                MouseArea
+                                {
+                                    anchors.fill: parent
+                                    onDoubleClicked: timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
+                                                                       fiLabel.label, parent.label, Function.FadeIn)
+                                }
                             }
                         }
 
@@ -398,18 +404,24 @@ Rectangle
                             height: UISettings.listItemHeight
                             label: qsTr("Steps hold")
                         }
-                        RobotoText
+
+                        Rectangle
                         {
                             Layout.fillWidth: true
                             height: UISettings.listItemHeight
                             color: UISettings.bgMedium
-                            label: TimeUtils.timeToQlcString(rgbMatrixEditor.holdSpeed, rgbMatrixEditor.tempoType)
 
-                            MouseArea
+                            RobotoText
                             {
                                 anchors.fill: parent
-                                onDoubleClicked: timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
-                                                                   hLabel.label, parent.label, Function.Hold)
+                                label: TimeUtils.timeToQlcString(rgbMatrixEditor.holdSpeed, rgbMatrixEditor.tempoType)
+
+                                MouseArea
+                                {
+                                    anchors.fill: parent
+                                    onDoubleClicked: timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
+                                                                       hLabel.label, parent.label, Function.Hold)
+                                }
                             }
                         }
 
@@ -420,18 +432,24 @@ Rectangle
                             height: UISettings.listItemHeight
                             label: qsTr("Steps fade out")
                         }
-                        RobotoText
+
+                        Rectangle
                         {
                             Layout.fillWidth: true
                             height: UISettings.listItemHeight
                             color: UISettings.bgMedium
-                            label: TimeUtils.timeToQlcString(rgbMatrixEditor.fadeOutSpeed, rgbMatrixEditor.tempoType)
 
-                            MouseArea
+                            RobotoText
                             {
                                 anchors.fill: parent
-                                onDoubleClicked: timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
-                                                                   foLabel.label, parent.label, Function.FadeOut)
+                                label: TimeUtils.timeToQlcString(rgbMatrixEditor.fadeOutSpeed, rgbMatrixEditor.tempoType)
+
+                                MouseArea
+                                {
+                                    anchors.fill: parent
+                                    onDoubleClicked: timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
+                                                                       foLabel.label, parent.label, Function.FadeOut)
+                                }
                             }
                         }
 

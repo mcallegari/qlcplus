@@ -194,9 +194,9 @@ function timeToQlcString(value, type)
 
         if (value)
         {
-            if (value < 10)
+            if (value < 10 && timeString.length)
                 timeString = timeString + "00" + value + "ms"
-            else if (value < 100)
+            else if (value < 100 && timeString.length)
                 timeString = timeString + "0" + value + "ms"
             else
                 timeString = timeString + value + "ms"

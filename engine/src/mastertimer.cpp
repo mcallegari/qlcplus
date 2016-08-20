@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   mastertimer.cpp
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -112,7 +113,8 @@ void MasterTimer::timerTick()
     {
         case Internal:
         {
-            if (m_beatTime.elapsed() >= m_beatTimeDuration)
+            int elapsedTime = d_ptr->timeCounterElapsed();
+            if (elapsedTime >= m_beatTimeDuration)
             {
                 // it's time to fire a beat
                 m_beatRequested = true;
@@ -122,9 +124,8 @@ void MasterTimer::timerTick()
 
                 // restart the time for the next beat, starting at a delta
                 // milliseconds, otherwise it will generate an unpleasant drift
-                int deltaMs = m_beatTime.elapsed() - m_beatTimeDuration;
-                m_beatTime.restart();
-                m_beatTime = m_beatTime.addMSecs(deltaMs);
+                //qDebug() << "Elapsed:" << elapsedTime << ", delta:" << elapsedTime - m_beatTimeDuration;
+                d_ptr->timeCounterRestart(elapsedTime - m_beatTimeDuration);
             }
         }
         break;
@@ -457,7 +458,7 @@ void MasterTimer::setBeatSourceType(MasterTimer::BeatsSourceType type)
     // alright, this causes a time drift of maximum 1ms per beat
     // but at the moment I am not looking for a better solution
     m_beatTimeDuration = 60000 / m_currentBPM;
-    m_beatTime.restart();
+    d_ptr->timeCounterRestart();
 
     m_beatSourceType = type;
 }
@@ -474,7 +475,7 @@ void MasterTimer::requestBpmNumber(int bpm)
 
     m_currentBPM = bpm;
     m_beatTimeDuration = 60000 / m_currentBPM;
-    m_beatTime.restart();
+    d_ptr->timeCounterRestart();
 
     emit bpmNumberChanged(bpm);
 }
@@ -491,7 +492,7 @@ int MasterTimer::beatTimeDuration() const
 
 int MasterTimer::timeToNextBeat() const
 {
-    return m_beatTimeDuration - m_beatTime.elapsed();
+    return m_beatTimeDuration - d_ptr->timeCounterElapsed();
 }
 
 bool MasterTimer::isBeat() const

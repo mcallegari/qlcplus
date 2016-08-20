@@ -18,12 +18,13 @@
 */
 
 import QtQuick 2.0
+import "."
 
 Rectangle
 {
     id: buttonRoot
     width: 50
-    height: 40
+    height: UISettings.listItemHeight
     border.width: 2
     border.color: "white"
     radius: 5
@@ -37,7 +38,7 @@ Rectangle
         height: parent.height
         anchors.horizontalCenter: parent.horizontalCenter
         label: dmxMode ? "DMX" : "%"
-        fontSize: 15
+        fontSize: UISettings.textSizeDefault
         fontBold: true
     }
 

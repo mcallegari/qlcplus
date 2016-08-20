@@ -54,13 +54,7 @@ Rectangle
         RowLayout
         {
             id: rowLayout1
-            //anchors.horizontalCenter: parent.horizontalCenter
-            anchors.left: parent.left
-            anchors.leftMargin: 10
-            anchors.right: parent.right
-            anchors.bottom: parent.bottom
-            anchors.top: parent.top
-
+            anchors.fill: parent
             spacing: 5
             ExclusiveGroup { id: menuBarGroup2 }
 
@@ -73,6 +67,7 @@ Rectangle
                 checkedColor: "green"
                 bgGradient: cBarGradient
                 exclusiveGroup: menuBarGroup2
+                mFontSize: UISettings.textSizeDefault
                 onCheckedChanged:
                 {
                     if (checked == true)
@@ -88,6 +83,7 @@ Rectangle
                 checkedColor: "green"
                 bgGradient: cBarGradient
                 exclusiveGroup: menuBarGroup2
+                mFontSize: UISettings.textSizeDefault
                 onCheckedChanged:
                 {
                     if (checked == true)
@@ -102,6 +98,7 @@ Rectangle
                 checkedColor: "green"
                 bgGradient: cBarGradient
                 exclusiveGroup: menuBarGroup2
+                mFontSize: UISettings.textSizeDefault
                 onCheckedChanged:
                 {
                     if (checked == true)

@@ -101,7 +101,7 @@ Rectangle
         x: (ioMgrContainer.width / 2) - (width / 2)
         y: ioMgrContainer.height - (height / 2)
         z: 10
-        width: 300
+        width: UISettings.bigItemHeight * 2
         height: UISettings.bigItemHeight
         visible: false
 
@@ -115,7 +115,7 @@ Rectangle
             y: 15
             color: "#aaa"
             font.family: "FontAwesome"
-            font.pixelSize: 55
+            font.pixelSize: UISettings.textSizeDefault * 2.5
             text: FontAwesome.fa_trash_o
         }
 

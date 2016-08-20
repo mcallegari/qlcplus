@@ -25,8 +25,8 @@ import "."
 Rectangle
 {
     id: toolRoot
-    width: 360
-    height: 350
+    width: UISettings.bigItemHeight * 3
+    height: UISettings.bigItemHeight * 3
     color: UISettings.bgMedium
     border.color: "#666"
     border.width: 2
@@ -52,7 +52,7 @@ Rectangle
     {
         id: presetToolBar
         width: parent.width
-        height: 50
+        height: UISettings.iconSizeDefault
         z: 10
         clip: true
         gradient: Gradient
@@ -72,7 +72,7 @@ Rectangle
                 Rectangle
                 {
                     id: delRoot
-                    width: 150
+                    width: UISettings.bigItemHeight
                     height: presetToolBar.height
                     color: prMouseArea.pressed ? UISettings.bgLight : UISettings.bgMedium
                     border.width: 1
@@ -92,7 +92,7 @@ Rectangle
                         width: parent.width - 2
                         height: parent.height
                         label: modelData.name
-                        fontSize: 10
+                        fontSize: UISettings.textSizeDefault * 0.75
                         wrapText: true
                     }
                     MouseArea

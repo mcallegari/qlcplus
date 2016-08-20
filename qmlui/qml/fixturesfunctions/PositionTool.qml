@@ -18,6 +18,7 @@
 */
 
 import QtQuick 2.0
+import QtQuick.Layouts 1.0
 import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.2
 
@@ -27,8 +28,8 @@ import "."
 Rectangle
 {
     id: posToolRoot
-    width: 200
-    height: 340
+    width: UISettings.bigItemHeight * 2
+    height: UISettings.bigItemHeight * 3
     color: UISettings.bgMedium
     border.color: "#666"
     border.width: 2
@@ -46,7 +47,7 @@ Rectangle
     {
         id: posToolBar
         width: parent.width
-        height: 32
+        height: UISettings.listItemHeight
         z: 10
         gradient:
             Gradient
@@ -59,10 +60,10 @@ Rectangle
         {
             id: titleBox
             y: 7
-            height: 20
+            height: parent.height
             anchors.horizontalCenter: parent.horizontalCenter
             label: qsTr("Position")
-            fontSize: 15
+            fontSize: UISettings.textSizeDefault
             fontBold: true
         }
         // allow the tool to be dragged around
@@ -77,10 +78,10 @@ Rectangle
     Rectangle
     {
         id: rotateButton
-        x: parent.width - 40
-        y: 32
-        width: 40
-        height: 40
+        x: parent.width - width
+        y: posToolBar.height
+        width: UISettings.iconSizeDefault
+        height: width
         z: 2
 
         radius: 3
@@ -114,7 +115,7 @@ Rectangle
         width: posToolRoot.width - 20
         height: width
         x: 10
-        y: 45
+        y: posToolBar.height + 5
         rotation: 0
 
         antialiasing: true
@@ -134,21 +135,21 @@ Rectangle
             ctx.lineWidth = 5;
             // draw TILT curve
             ctx.strokeStyle = "#2E77FF";
-            DrawFuncs.drawEllipse(ctx, width / 2, height / 2, 40, height - 30)
+            DrawFuncs.drawEllipse(ctx, width / 2, height / 2, UISettings.iconSizeDefault, height - 30)
             // draw PAN curve
             ctx.strokeStyle = "#19438F"
-            DrawFuncs.drawEllipse(ctx, width / 2, height / 2, width - 30, 50)
+            DrawFuncs.drawEllipse(ctx, width / 2, height / 2, width - 30, UISettings.iconSizeDefault)
 
             ctx.lineWidth = 1;
             ctx.strokeStyle = "white";
 
             // draw TILT cursor position
             ctx.fillStyle = "red";
-            DrawFuncs.drawCursor(ctx, width / 2, height / 2, 40, height - 30, tiltDegrees + 135, 16)
+            DrawFuncs.drawCursor(ctx, width / 2, height / 2, UISettings.iconSizeDefault, height - 30, tiltDegrees + 135, UISettings.iconSizeMedium / 2)
 
             // draw PAN cursor position
             ctx.fillStyle = "green";
-            DrawFuncs.drawCursor(ctx, width / 2, height / 2, width - 30, 50, panDegrees + 90, 16)
+            DrawFuncs.drawCursor(ctx, width / 2, height / 2, width - 30, UISettings.iconSizeDefault, panDegrees + 90, UISettings.iconSizeMedium / 2)
         }
 
         MouseArea
@@ -185,25 +186,26 @@ Rectangle
         }
     }
 
-    Row
+    GridLayout
     {
         x: 10
-        y: gCanvas.y + gCanvas.height + 20
+        y: gCanvas.y + gCanvas.height + 5
         width: parent.width - 20
-        height: 40
-        spacing: 5
+        columns: 2
+        rows: 2
+        //rowsSpacing: 10
+        //columnsSpacing: 10
 
+        // row 1
         RobotoText
         {
             label: "Pan"
-            width: 40
-            height: 40
         }
+
         CustomSpinBox
         {
             id: panSpinBox
-            width: 75
-            height: 40
+            Layout.fillWidth: true
             minimumValue: 0
             maximumValue: panMaxDegrees
             value: 0
@@ -215,27 +217,17 @@ Rectangle
                 gCanvas.requestPaint()
             }
         }
-    }
 
-    Row
-    {
-        x: 10
-        y: gCanvas.y + gCanvas.height + 65
-        width: parent.width - 20
-        height: 40
-        spacing: 5
-
+        // row 2
         RobotoText
         {
             label: "Tilt"
-            width: 40
-            height: 40
         }
+
         CustomSpinBox
         {
             id: tiltSpinBox
-            width: 75
-            height: 40
+            Layout.fillWidth: true
             minimumValue: 0
             maximumValue: tiltMaxDegrees
             value: 0

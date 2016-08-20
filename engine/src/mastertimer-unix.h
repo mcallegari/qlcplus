@@ -1,8 +1,9 @@
 ﻿/*
-  Q Light Controller
+  Q Light Controller Plus
   mastertimer-unix.h
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -22,6 +23,11 @@
 
 #include <QThread>
 
+#if defined(Q_OS_OSX)
+#include <mach/clock.h>
+#include <mach/mach.h>
+#endif
+
 class MasterTimer;
 
 /** @addtogroup engine Engine
@@ -36,11 +42,27 @@ public:
 
     void stop();
 
+    void timeCounterRestart(int msecOffset = 0);
+    int timeCounterElapsed();
+
 private:
     void run();
+#if defined(Q_OS_OSX)
+    int compareTime(mach_timespec_t *time1, mach_timespec_t *time2);
+#else
+    int compareTime(struct timespec *time1, struct timespec *time2);
+#endif
 
 private:
     bool m_run;
+#if defined(Q_OS_OSX)
+    clock_serv_t cclock;
+    mach_timespec_t *m_timeCounter;
+    mach_timespec_t *m_timeCurrent;
+#else
+    struct timespec* m_timeCounter;
+    struct timespec* m_timeCurrent;
+#endif
 };
 
 /** @} */
