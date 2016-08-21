@@ -38,6 +38,7 @@ Rectangle
     property color hoverColor: UISettings.highlight
     property color pressedColor: UISettings.highlightPressed
     property bool repetition: false
+    property bool autoHeight: false
     property int originalHeight
 
     signal clicked(int mouseButton)
@@ -47,6 +48,8 @@ Rectangle
 
     onWidthChanged:
     {
+        if (autoHeight === false)
+            return
         /* temporarily reset the wrap mode to
          * measure a "linear" text painted width */
         btnText.wrapMode = Text.NoWrap

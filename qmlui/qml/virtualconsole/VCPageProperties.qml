@@ -50,6 +50,7 @@ Rectangle
         {
             Layout.fillWidth: true
             height: gridItemsHeight
+            autoHeight: true
             label: qsTr("Set a PIN")
         }
 
@@ -58,6 +59,7 @@ Rectangle
         {
             Layout.fillWidth: true
             height: gridItemsHeight
+            autoHeight: true
             label: qsTr("Add page to the left")
             onClicked: virtualConsole.addPage(virtualConsole.selectedPage)
         }
@@ -66,6 +68,7 @@ Rectangle
         {
             Layout.fillWidth: true
             height: gridItemsHeight
+            autoHeight: true
             label: qsTr("Add page to the right")
             onClicked: virtualConsole.addPage(virtualConsole.selectedPage + 1)
         }
@@ -78,6 +81,7 @@ Rectangle
             bgColor: "darkred"
             hoverColor: "red"
             height: gridItemsHeight
+            autoHeight: true
             label: qsTr("Remove this page")
             onClicked:
             {
