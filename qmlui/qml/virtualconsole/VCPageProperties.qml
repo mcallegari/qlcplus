@@ -29,6 +29,7 @@ Rectangle
     color: "transparent"
     height: gridContents.height
 
+    property VCFrame widgetRef: null
     property int gridItemsHeight: UISettings.listItemHeight
 
     GridLayout
@@ -52,6 +53,14 @@ Rectangle
             height: gridItemsHeight
             autoHeight: true
             label: qsTr("Set a PIN")
+            onClicked:
+            {
+                var page = [ virtualConsole.selectedPage ]
+
+                actionManager.requestActionPopup(ActionManager.SetVCPagePIN,
+                                                 "qrc:/PINSetup.qml",
+                                                 ActionManager.OK | ActionManager.Cancel, page)
+            }
         }
 
         // row 2

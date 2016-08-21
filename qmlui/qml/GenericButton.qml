@@ -30,6 +30,7 @@ Rectangle
     border.width: 2
     border.color: UISettings.bgStrong
 
+    property bool disabled: false
     property bool useFontawesome: false // false means Roboto, true means FontAwesome
     property int fontSize: UISettings.textSizeDefault
     property alias label: btnText.text
@@ -66,6 +67,16 @@ Rectangle
         }
     }
 
+    /* Overlay rectangle to represent the disabled status */
+    Rectangle
+    {
+        visible: disabled
+        anchors.fill: parent
+        z: 1
+        color: "black"
+        opacity: 0.6
+    }
+
     Text
     {
         id: btnText
@@ -80,6 +91,7 @@ Rectangle
     MouseArea
     {
         id: gbMouseArea
+        enabled: !disabled
         anchors.fill: parent
         hoverEnabled: true
         onClicked: btnRoot.clicked(mouse.button)

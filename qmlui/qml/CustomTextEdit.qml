@@ -31,12 +31,19 @@ Rectangle
 
     property alias inputFocus: ctEdit.focus
     property alias inputText: ctEdit.text
+    property alias inputMethodHints: ctEdit.inputMethodHints
     property alias readOnly: ctEdit.readOnly
+    property alias echoMode: ctEdit.echoMode
+    property alias maximumLength: ctEdit.maximumLength
     property int fontSize: UISettings.textSizeDefault
     property int textAlignment: TextInput.AlignLeft
 
+    property Item nextTabItem: null
+    property Item previousTabItem: null
+
     signal textChanged(var text)
     signal enterPressed()
+    signal escapePressed()
 
     function selectAndFocus()
     {
@@ -45,6 +52,8 @@ Rectangle
     }
 
     border.color: "#222"
+
+    onFocusChanged: if (focus) selectAndFocus()
 
     TextInput
     {
@@ -63,5 +72,8 @@ Rectangle
 
         onTextChanged: customTextEditRect.textChanged(text)
         onAccepted: customTextEditRect.enterPressed()
+        Keys.onEscapePressed: customTextEditRect.escapePressed()
+        KeyNavigation.tab: nextTabItem
+        KeyNavigation.backtab: previousTabItem
     }
 }

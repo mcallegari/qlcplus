@@ -101,6 +101,15 @@ public:
     /** Delete a VC page at $index */
     void deletePage(int index);
 
+    /** Set a protection PIN for the page at $index */
+    Q_INVOKABLE bool setPagePIN(int index, QString currentPIN, QString newPIN);
+
+    /** Validate a PIN for a VC Page. Returns true if the user entered the
+     *  correct PIN, otherwise false is returned.
+     *  The $remember flag is used to avoid requesting the PIN again
+     *  for the entire session (on PIN check success) */
+    Q_INVOKABLE bool validatePagePIN(int index, QString PIN, bool remember);
+
     /** Return the currently selected VC page index */
     int selectedPage() const;
 

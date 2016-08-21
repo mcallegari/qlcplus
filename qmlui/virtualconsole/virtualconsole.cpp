@@ -360,6 +360,40 @@ void VirtualConsole::deletePage(int index)
     }
 }
 
+bool VirtualConsole::setPagePIN(int index, QString currentPIN, QString newPIN)
+{
+    if (index < 0 || index >= m_pages.count())
+        return false;
+
+    /* A PIN must be aither empty or 4 digits */
+    if (newPIN.length() != 0 && newPIN.length() != 4)
+        return false;
+
+    if (m_pages.at(index)->PIN() != currentPIN.toInt())
+        return false;
+
+    if (newPIN.isEmpty())
+        m_pages.at(index)->setPIN(0);
+    else
+        m_pages.at(index)->setPIN(newPIN.toInt());
+
+    return true;
+}
+
+bool VirtualConsole::validatePagePIN(int index, QString PIN, bool remember)
+{
+    if (index < 0 || index >= m_pages.count())
+        return false;
+
+    if (m_pages.at(index)->PIN() != PIN.toInt())
+        return false;
+
+    if(remember)
+        m_pages.at(index)->validatePIN();
+
+    return true;
+}
+
 int VirtualConsole::selectedPage() const
 {
     return m_selectedPage;

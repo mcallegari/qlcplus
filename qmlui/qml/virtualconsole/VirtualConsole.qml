@@ -104,8 +104,19 @@ Rectangle
 
                             onCheckedChanged:
                             {
-                                if (checked == true)
-                                    virtualConsole.selectedPage = index
+                                if (wObj && checked == true)
+                                {
+                                    if (wObj.requirePIN())
+                                    {
+                                        var page = [ index ]
+
+                                        actionManager.requestActionPopup(ActionManager.VCPagePINRequest,
+                                                                         "qrc:/PINRequest.qml",
+                                                                         ActionManager.OK | ActionManager.Cancel, page)
+                                    }
+                                    else
+                                        virtualConsole.selectedPage = index
+                                }
                             }
                             onRightClicked:
                             {
