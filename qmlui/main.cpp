@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
     QApplication::setOrganizationName("qlcplus");
-    QApplication::setOrganizationDomain("sf.net");
+    QApplication::setOrganizationDomain("org.qlcplus");
     QApplication::setApplicationName(APPNAME);
     QApplication::setApplicationVersion(QString(APPVERSION));
 
