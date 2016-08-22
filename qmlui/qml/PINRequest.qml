@@ -45,7 +45,7 @@ Rectangle
 
     function acceptAction()
     {
-        /* At this time, the ActionManager has the VC page that is requested to be displayed */
+        /* At this stage, the ActionManager has the VC page that is requested to be displayed */
         var vcPage = actionManager.actionData()
 
         var result = virtualConsole.validatePagePIN(vcPage[0], currentPIN, validateCheck.checked)
@@ -92,7 +92,7 @@ Rectangle
         // Row 1
         RobotoText
         {
-            label: qsTr("Current PIN")
+            label: qsTr("Page PIN")
         }
 
         CustomTextEdit
@@ -111,6 +111,7 @@ Rectangle
         {
             Layout.columnSpan: 2
             Layout.fillWidth: true
+            spacing: 5
 
             CustomCheckBox
             {

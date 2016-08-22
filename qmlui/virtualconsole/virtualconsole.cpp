@@ -362,6 +362,8 @@ void VirtualConsole::deletePage(int index)
 
 bool VirtualConsole::setPagePIN(int index, QString currentPIN, QString newPIN)
 {
+    bool ok = false;
+
     if (index < 0 || index >= m_pages.count())
         return false;
 
@@ -369,9 +371,20 @@ bool VirtualConsole::setPagePIN(int index, QString currentPIN, QString newPIN)
     if (newPIN.length() != 0 && newPIN.length() != 4)
         return false;
 
+    /* Check if the entered PINs are numeric */
+    int iPIN = currentPIN.toInt(&ok);
+    if (ok == false)
+        return false;
+
+    iPIN = newPIN.toInt(&ok);
+    if (ok == false)
+        return false;
+
+    /* Check if the current PIN matches with the Frame PIN */
     if (m_pages.at(index)->PIN() != currentPIN.toInt())
         return false;
 
+    /* At last, set the new PIN for the page */
     if (newPIN.isEmpty())
         m_pages.at(index)->setPIN(0);
     else
