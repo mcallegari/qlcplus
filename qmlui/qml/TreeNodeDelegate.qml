@@ -70,7 +70,7 @@ Column
             id: nodeLabel
             x: nodeIconImg.width + 1
             z: 0
-            width: parent.width - 45
+            width: parent.width - nodeIconImg.width - 1
             height: UISettings.listItemHeight
             readOnly: true
             text: textLabel
@@ -83,18 +83,22 @@ Column
             selectionColor: "#4DB8FF"
             selectedTextColor: "#111"
 
-            onEditingFinished:
+            function disableEditing()
             {
                 z = 0
                 select(0, 0)
                 readOnly = true
+                cursorVisible = false
+            }
+
+            onEditingFinished:
+            {
+                disableEditing()
                 nodeContainer.pathChanged(nodePath, text)
             }
             Keys.onEscapePressed:
             {
-                z = 0
-                select(0, 0)
-                readOnly = true
+                disableEditing()
                 nodeLabel.text = originalText
             }
         }

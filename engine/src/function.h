@@ -367,6 +367,9 @@ public:
     enum TempoType { Original = -1, Time = 0, Beats = 1 };
     Q_ENUMS(TempoType)
 
+    enum FractionsType { NoFractions = 0, ByTwoFractions, AllFractions };
+    Q_ENUMS(FractionsType)
+
 public:
     /**
      * Set the speed type of this function.

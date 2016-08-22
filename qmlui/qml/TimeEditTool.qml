@@ -50,7 +50,8 @@ GridLayout
 
     /* The type of the tempo being edited. Can be Time or Beats */
     property int tempoType: Function.Time
-    property bool allowFractions: false
+    property int allowFractions: Function.NoFractions
+    property int currentFraction: 0
 
     /* If needed, this can be the reference index of an item in a list */
     property int indexInList
@@ -59,12 +60,15 @@ GridLayout
 
     function show(tX, tY, tTitle, tStrValue, tType)
     {
-        timeValueCalcNeeded = true
+        timeValueCalcNeeded = false
+        tapTimeValue = 0
+        tapTimer.stop()
         title = tTitle
         speedType = tType
         timeValueString = tStrValue
-        tapTimeValue = 0
-        tapTimer.stop()
+        timeValue = TimeUtils.qlcStringToTime(timeValueString, tempoType)
+        if (allowFractions !== Function.NoFractions)
+            currentFraction = (timeValue % 1000)
 
         if (tX >= 0)
             x = tX
@@ -232,7 +236,7 @@ GridLayout
         visible: tempoType === Function.Beats
         height: UISettings.iconSizeDefault
         Layout.fillWidth: true
-        Layout.columnSpan: allowFractions ? 2 : 4
+        Layout.columnSpan: allowFractions !== Function.NoFractions ? 2 : 4
         border.color: UISettings.bgMedium
         bgColor: buttonsBgColor
         fontSize: btnFontSize
@@ -243,16 +247,31 @@ GridLayout
 
     GenericButton
     {
-        visible: tempoType === Function.Beats && allowFractions
+        visible: tempoType === Function.Beats && allowFractions !== Function.NoFractions
         height: UISettings.iconSizeDefault
         Layout.fillWidth: true
         Layout.columnSpan: 2
         border.color: UISettings.bgMedium
         bgColor: buttonsBgColor
         fontSize: btnFontSize
-        label: "+1/8"
+        label: allowFractions === Function.AllFractions ? "+1/8" : "x2"
         repetition: true
-        onClicked: timeValue += 125
+        onClicked:
+        {
+            if (allowFractions === Function.AllFractions)
+                timeValue += 125
+            else
+            {
+                var newfraction = 0
+                if (currentFraction == 0)
+                    newfraction = 125
+                else if (currentFraction != 500)
+                    newfraction = currentFraction * 2
+
+                timeValue = timeValue - currentFraction + newfraction
+                currentFraction = newfraction
+            }
+        }
     }
 
     // middle row: tap, time value
@@ -358,7 +377,7 @@ GridLayout
         visible: tempoType === Function.Beats
         height: UISettings.iconSizeDefault
         Layout.fillWidth: true
-        Layout.columnSpan: allowFractions ? 2 : 4
+        Layout.columnSpan: allowFractions !== Function.NoFractions ? 2 : 4
         border.color: UISettings.bgMedium
         bgColor: buttonsBgColor
         fontSize: btnFontSize
@@ -369,20 +388,35 @@ GridLayout
 
     GenericButton
     {
-        visible: tempoType === Function.Beats && allowFractions
+        visible: tempoType === Function.Beats && allowFractions !== Function.NoFractions
         height: UISettings.iconSizeDefault
         Layout.fillWidth: true
         Layout.columnSpan: 2
         border.color: UISettings.bgMedium
         bgColor: buttonsBgColor
         fontSize: btnFontSize
-        label: "-1/8"
+        label: allowFractions === Function.AllFractions ? "-1/8" : "/2"
         repetition: true
         onClicked:
         {
-            if (timeValue == 0)
-                return
-            timeValue -= 125
+            if (allowFractions === Function.AllFractions)
+            {
+                if (timeValue == 0)
+                    return
+
+                timeValue -= 125
+            }
+            else
+            {
+                var newfraction = 0
+                if (currentFraction == 0)
+                    newfraction = 500
+                else if (currentFraction != 125)
+                    newfraction = currentFraction / 2
+
+                timeValue = timeValue - currentFraction + newfraction
+                currentFraction = newfraction
+            }
         }
     }
 }

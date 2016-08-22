@@ -94,8 +94,10 @@ function msToStringWithPrecision(ms, precision)
   */
 function qlcStringToTime(str, type)
 {
-    if (str === "∞")
-        return -2;
+    if (str === "" || str === "0")
+        return 0
+    else if (str === "∞")
+        return -2
 
     var finalTime = 0
 

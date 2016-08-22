@@ -391,8 +391,12 @@ Rectangle
                                 MouseArea
                                 {
                                     anchors.fill: parent
-                                    onDoubleClicked: timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
-                                                                       fiLabel.label, parent.label, Function.FadeIn)
+                                    onDoubleClicked:
+                                    {
+                                        timeEditTool.allowFractions = Function.ByTwoFractions
+                                        timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
+                                                          fiLabel.label, parent.label, Function.FadeIn)
+                                    }
                                 }
                             }
                         }
@@ -419,8 +423,12 @@ Rectangle
                                 MouseArea
                                 {
                                     anchors.fill: parent
-                                    onDoubleClicked: timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
-                                                                       hLabel.label, parent.label, Function.Hold)
+                                    onDoubleClicked:
+                                    {
+                                        timeEditTool.allowFractions = Function.NoFractions
+                                        timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
+                                                          hLabel.label, parent.label, Function.Hold)
+                                    }
                                 }
                             }
                         }
@@ -447,8 +455,12 @@ Rectangle
                                 MouseArea
                                 {
                                     anchors.fill: parent
-                                    onDoubleClicked: timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
-                                                                       foLabel.label, parent.label, Function.FadeOut)
+                                    onDoubleClicked:
+                                    {
+                                        timeEditTool.allowFractions = Function.ByTwoFractions
+                                        timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
+                                                          foLabel.label, parent.label, Function.FadeOut)
+                                    }
                                 }
                             }
                         }

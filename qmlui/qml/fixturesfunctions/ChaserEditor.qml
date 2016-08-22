@@ -463,28 +463,28 @@ Rectangle
                                 //timeEditTool.x = fInCol.x - 35
                                 title = fInCol.label
                                 timeValueString = stepFadeIn
-                                timeEditTool.allowFractions = true
+                                timeEditTool.allowFractions = Function.AllFractions
                             }
                             else if (type === Function.Hold)
                             {
                                 //timeEditTool.x = holdCol.x - 35
                                 title = holdCol.label
                                 timeValueString = stepHold
-                                timeEditTool.allowFractions = false
+                                timeEditTool.allowFractions = Function.NoFractions
                             }
                             else if (type === Function.FadeOut)
                             {
                                 //timeEditTool.x = fOutCol.x - 35
                                 title = fOutCol.label
                                 timeValueString = stepFadeOut
-                                timeEditTool.allowFractions = true
+                                timeEditTool.allowFractions = Function.AllFractions
                             }
                             else if (type === Function.Duration)
                             {
                                 //timeEditTool.x = durCol.x - 35
                                 title = durCol.label
                                 timeValueString = stepDuration
-                                timeEditTool.allowFractions = false
+                                timeEditTool.allowFractions = Function.NoFractions
                             }
 
                             timeEditTool.tempoType = chaserEditor.tempoType

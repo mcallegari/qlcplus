@@ -25,7 +25,7 @@ import "."
 Rectangle
 {
     id: beatChooserBox
-    width: 400
+    width: UISettings.bigItemHeight * 3
     height: generatorsList.height + keyPadBox.height + 20
     color: UISettings.bgMedium
     border.color: "#666"
@@ -46,7 +46,7 @@ Rectangle
         x: 10
         y: 10
         width: parent.width - 20
-        height: 200
+        height: UISettings.bigItemHeight * 2
         boundsBehavior: Flickable.StopAtBounds
 
         delegate:
@@ -123,5 +123,6 @@ Rectangle
 
             ioManager.bpmNumber = cmd
         }
+        onEscapePressed: beatChooserBox.visible = false
     }
 }
