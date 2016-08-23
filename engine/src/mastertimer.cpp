@@ -40,6 +40,7 @@
 #include "doc.h"
 
 #define MASTERTIMER_FREQUENCY "mastertimer/frequency"
+#define LATE_TO_BEAT_THRESHOLD 25
 
 /** The timer tick frequency in Hertz */
 uint MasterTimer::s_frequency = 50;
@@ -493,6 +494,24 @@ int MasterTimer::beatTimeDuration() const
 int MasterTimer::timeToNextBeat() const
 {
     return m_beatTimeDuration - d_ptr->timeCounterElapsed();
+}
+
+int MasterTimer::nextBeatTimeOffset() const
+{
+    // get the time offset to the next beat
+    int toNext = timeToNextBeat();
+    // get the percentage of beat time passed
+    int beatPercentage = (100 * toNext) / m_beatTimeDuration;
+
+    // if a Function has been started within the first LATE_TO_BEAT_THRESHOLD %
+    // of a beat, then it means it is "late" but there's
+    // no need to wait a whole beat
+    if (beatPercentage <= LATE_TO_BEAT_THRESHOLD)
+        return toNext;
+
+    // otherwise we're running early, so we should wait the
+    // whole remaining time
+    return -toNext;
 }
 
 bool MasterTimer::isBeat() const

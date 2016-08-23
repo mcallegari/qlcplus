@@ -487,7 +487,7 @@ void ChaserRunner::startNewStep(int index, MasterTimer* timer, bool manualFade, 
             newStep->m_elapsed = m_startOffset + MasterTimer::tick();
         else
             newStep->m_elapsed = MasterTimer::tick() + elapsed;
-        newStep->m_elapsedBeats = timer->isBeat() ? 1000 : 0; //(newStep->m_elapsed / timer->beatTimeDuration()) * 1000;
+        newStep->m_elapsedBeats = 0; //(newStep->m_elapsed / timer->beatTimeDuration()) * 1000;
 
         m_startOffset = 0;
 
@@ -664,11 +664,18 @@ bool ChaserRunner::write(MasterTimer* timer, QList<Universe *> universes)
 
     quint32 prevStepRoundElapsed = 0;
 
+
     foreach(ChaserRunnerStep *step, m_runnerSteps)
     {
+        if (m_chaser->tempoType() == Function::Beats && timer->isBeat())
+        {
+            step->m_elapsedBeats += 1000;
+            qDebug() << "Function" << step->m_function->name() << "duration:" << step->m_duration << "beats:" << step->m_elapsedBeats;
+        }
+
         if (step->m_duration != Function::infiniteSpeed() &&
             ((m_chaser->tempoType() == Function::Time && step->m_elapsed >= step->m_duration) ||
-             (m_chaser->tempoType() == Function::Beats && step->m_elapsedBeats >= step->m_duration + 1000)))
+             (m_chaser->tempoType() == Function::Beats && step->m_elapsedBeats >= step->m_duration)))
         {
             if (step->m_duration != 0)
                 prevStepRoundElapsed = step->m_elapsed % step->m_duration;
@@ -681,12 +688,6 @@ bool ChaserRunner::write(MasterTimer* timer, QList<Universe *> universes)
         {
             if (step->m_elapsed < UINT_MAX)
                 step->m_elapsed += MasterTimer::tick();
-
-            if (m_chaser->tempoType() == Function::Beats && timer->isBeat())
-            {
-                step->m_elapsedBeats += 1000;
-                qDebug() << "Function" << step->m_function->name() << "duration:" << step->m_duration << "beats:" << step->m_elapsedBeats;
-            }
 
             // When the speeds of the chaser change, they need to be updated to the lower
             // level (only current function) as well. Otherwise the new speeds would take

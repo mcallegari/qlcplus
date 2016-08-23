@@ -80,6 +80,7 @@ Function::Function(QObject *parent)
     , m_direction(Forward)
     , m_tempoType(Time)
     , m_overrideTempoType(Original)
+    , m_beatResyncNeeded(false)
     , m_fadeInSpeed(0)
     , m_fadeOutSpeed(0)
     , m_duration(0)
@@ -107,6 +108,7 @@ Function::Function(Doc* doc, Type t)
     , m_direction(Forward)
     , m_tempoType(Time)
     , m_overrideTempoType(Original)
+    , m_beatResyncNeeded(false)
     , m_fadeInSpeed(0)
     , m_fadeOutSpeed(0)
     , m_duration(0)
@@ -596,6 +598,7 @@ void Function::setOverrideTempoType(Function::TempoType type)
 void Function::slotBPMChanged(int bpmNumber)
 {
     Q_UNUSED(bpmNumber)
+    m_beatResyncNeeded = true;
 }
 
 /****************************************************************************

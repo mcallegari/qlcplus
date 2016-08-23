@@ -218,6 +218,17 @@ public:
     /** Get the time in milliseconds to the next beat */
     int timeToNextBeat() const;
 
+    /** Get a positive or negative time offset in milliseconds that
+     *  indicates how close the current timer tick is from a beat.
+     *
+     *  Example: a Scene with 1 beat fade in, at 120BPM (= 500ms)
+     *  If the Scene is started 60ms after a beat, then this method returns 60,
+     *  so the fade in should be 440ms long.
+     *  If the Scene is started 380ms after a beat, then this method returns -120,
+     *  so the fade in should be 620ms long.
+     */
+    int nextBeatTimeOffset() const;
+
     /** Return true if the current tick is also a beat, otherwise false */
     bool isBeat() const;
 
