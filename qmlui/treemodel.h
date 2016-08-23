@@ -50,7 +50,7 @@ public:
 
     void enableSorting(bool enable);
 
-    void addItem(QString label, QVariantList data, QString path = QString());
+    TreeModelItem *addItem(QString label, QVariantList data, QString path = QString());
 
     Q_INVOKABLE int rowCount(const QModelIndex & parent = QModelIndex()) const;
 
