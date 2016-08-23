@@ -110,17 +110,16 @@ public:
      *  for the entire session (on PIN check success) */
     Q_INVOKABLE bool validatePagePIN(int index, QString PIN, bool remember);
 
-    /** Return the currently selected VC page index */
+    /** Set/Get the currently selected VC page index */
     int selectedPage() const;
-
-    /** Set the selected VC page index */
     void setSelectedPage(int selectedPage);
 
-    /** Get resize mode flag */
+    /** Set/Get the VC edit mode flag */
     bool editMode() const;
-
-    /** Set the VC in resize mode */
     void setEditMode(bool editMode);
+
+    /** Enable/disable the current page scroll interaction */
+    Q_INVOKABLE void setPageInteraction(bool enable);
 
     /** Return a reference to the currently selected VC widget */
     VCWidget *selectedWidget() const;

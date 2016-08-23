@@ -57,6 +57,13 @@ VCWidgetItem
             anchors.horizontalCenter: parent.horizontalCenter
             Layout.fillHeight: true
             width: parent.width
+            onTouchPressed:
+            {
+                console.log("Slider touch pressed: " + pressed)
+                // QML tends to propagate touch events, so temporarily disable
+                // the page Flickable interactivity during this operation
+                virtualConsole.setPageInteraction(!pressed)
+            }
         }
 
         // widget name text box

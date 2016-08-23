@@ -380,6 +380,8 @@ bool VirtualConsole::setPagePIN(int index, QString currentPIN, QString newPIN)
     if (ok == false)
         return false;
 
+    Q_UNUSED(iPIN)
+
     /* Check if the current PIN matches with the Frame PIN */
     if (m_pages.at(index)->PIN() != currentPIN.toInt())
         return false;
@@ -433,6 +435,13 @@ void VirtualConsole::setEditMode(bool editMode)
 
     m_editMode = editMode;
     emit editModeChanged(editMode);
+}
+
+void VirtualConsole::setPageInteraction(bool enable)
+{
+    QQuickItem *page = currentPageItem();
+    if (page != NULL)
+        page->setProperty("interactive", enable);
 }
 
 /*********************************************************************

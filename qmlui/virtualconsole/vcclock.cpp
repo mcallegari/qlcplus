@@ -395,7 +395,6 @@ bool VCClock::saveXML(QXmlStreamWriter *doc)
         doc->writeAttribute(KXMLQLCVCClockTime, tTime.time().toString());
     }
 
-#if 0 // TODO
     saveXMLCommon(doc);
 
     /* Window state */
@@ -403,7 +402,6 @@ bool VCClock::saveXML(QXmlStreamWriter *doc)
 
     /* Appearance */
     saveXMLAppearance(doc);
-#endif
 
     foreach(VCClockSchedule *sch, m_scheduleList)
         sch->saveXML(doc);
