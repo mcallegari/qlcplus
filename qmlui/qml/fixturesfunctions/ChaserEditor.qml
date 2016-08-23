@@ -200,7 +200,7 @@ Rectangle
                     RobotoText
                     {
                         id: numCol
-                        width: 25
+                        width: UISettings.iconSizeMedium
                         label: "#"
                         wrapText: true
                         textAlign: Text.AlignHCenter
@@ -212,7 +212,7 @@ Rectangle
                     RobotoText
                     {
                         id: nameCol
-                        width: 120
+                        width: UISettings.bigItemHeight * 1.5
                         label: qsTr("Function")
                         wrapText: true
                         textAlign: Text.AlignHCenter
@@ -249,7 +249,7 @@ Rectangle
                     RobotoText
                     {
                         id: fInCol
-                        width: 60
+                        width: UISettings.bigItemHeight * 0.5
                         label: qsTr("Fade In")
                         wrapText: true
                         textAlign: Text.AlignHCenter
@@ -286,7 +286,7 @@ Rectangle
                     RobotoText
                     {
                         id: holdCol
-                        width: 60
+                        width: UISettings.bigItemHeight * 0.5
                         label: qsTr("Hold")
                         wrapText: true
                         textAlign: Text.AlignHCenter
@@ -323,7 +323,7 @@ Rectangle
                     RobotoText
                     {
                         id: fOutCol
-                        width: 60
+                        width: UISettings.bigItemHeight * 0.5
                         label: qsTr("Fade Out")
                         wrapText: true
                         textAlign: Text.AlignHCenter
@@ -360,7 +360,7 @@ Rectangle
                     RobotoText
                     {
                         id: durCol
-                        width: 60
+                        width: UISettings.bigItemHeight * 0.5
                         label: qsTr("Duration")
                         wrapText: true
                         textAlign: Text.AlignHCenter
@@ -397,7 +397,7 @@ Rectangle
                     RobotoText
                     {
                         id: noteCol
-                        width: 200
+                        width: UISettings.bigItemHeight * 2
                         label: qsTr("Note")
                         fontSize: chListHeader.fSize
                         //Layout.fillWidth: true
