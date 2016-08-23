@@ -518,6 +518,60 @@ uint Function::duration() const
     return m_duration;
 }
 
+void Function::setAlternateFadeIn(int idx, quint32 ms)
+{
+    Q_UNUSED(ms);
+    Q_UNUSED(idx);
+    qWarning() << Q_FUNC_INFO << "Invalid try";
+}
+
+quint32 Function::alternateFadeIn(int idx) const
+{
+    Q_UNUSED(idx);
+    qWarning() << Q_FUNC_INFO << "Invalid try";
+    return defaultSpeed();
+}
+
+void Function::setAlternateFadeOut(int idx, quint32 ms)
+{
+    Q_UNUSED(ms);
+    Q_UNUSED(idx);
+    qWarning() << Q_FUNC_INFO << "Invalid try";
+}
+
+quint32 Function::alternateFadeOut(int idx) const
+{
+    Q_UNUSED(idx);
+    qWarning() << Q_FUNC_INFO << "Invalid try";
+    return defaultSpeed();
+}
+
+void Function::setAlternateDuration(int idx, quint32 ms)
+{
+    Q_UNUSED(ms);
+    Q_UNUSED(idx);
+    qWarning() << Q_FUNC_INFO << "Invalid try";
+}
+
+quint32 Function::alternateDuration(int idx) const
+{
+    Q_UNUSED(idx);
+    qWarning() << Q_FUNC_INFO << "Invalid try";
+    return defaultSpeed();
+}
+
+uint Function::alternateSpeedCount() const
+{
+    return 0;
+}
+
+QString Function::alternateSpeedName(int idx) const
+{
+    Q_UNUSED(idx);
+    qWarning() << Q_FUNC_INFO << "Invalid try";
+    return QString();
+}
+
 quint32 Function::totalDuration()
 {
     // fall back to duration in case a
@@ -694,6 +748,11 @@ bool Function::saveXMLSpeed(QXmlStreamWriter *doc) const
     doc->writeEndElement();
 
     return true;
+}
+
+int Function::baseSpeedIdx()
+{
+    return -1;
 }
 
 uint Function::infiniteSpeed()

@@ -150,6 +150,15 @@ public:
     /** @reimpl */
     quint32 totalDuration();
 
+    virtual void setAlternateFadeIn(int idx, quint32 ms);
+    virtual quint32 alternateFadeIn(int idx) const;
+    virtual void setAlternateFadeOut(int idx, quint32 ms);
+    virtual quint32 alternateFadeOut(int idx) const;
+    virtual void setAlternateDuration(int idx, quint32 ms);
+    virtual quint32 alternateDuration(int idx) const;
+    virtual uint alternateSpeedCount() const;
+    virtual QString alternateSpeedName(int idx) const;
+
 public slots:
     /**
      * Catches Doc::functionRemoved() so that destroyed members can be
@@ -163,7 +172,7 @@ public slots:
 
 private:
     QList <ChaserStep> m_steps;
-    QMutex m_stepListMutex;
+    mutable QMutex m_stepListMutex;
 
     /*********************************************************************
      * Sequence mode
@@ -264,10 +273,10 @@ private:
      * Save & Load
      *********************************************************************/
 public:
-    /** Save this function to an XML document */
+    /** @reimp */
     bool saveXML(QXmlStreamWriter *doc);
 
-    /** Load this function contents from an XML document */
+    /** @reimp */
     bool loadXML(QXmlStreamReader &root);
 
     /** @reimp */

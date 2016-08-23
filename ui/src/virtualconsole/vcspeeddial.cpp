@@ -508,24 +508,42 @@ void VCSpeedDial::slotFactoredValueChanged()
         {
             if (speeddialfunction.fadeInMultiplier != VCSpeedDialFunction::None)
             {
-                if ((uint)ms != Function::infiniteSpeed())
-                    function->setFadeInSpeed(ms * multipliers[speeddialfunction.fadeInMultiplier] / 1000);
+                uint fadeIn = (uint)ms == Function::infiniteSpeed() ? ms :
+                    (ms * multipliers[speeddialfunction.fadeInMultiplier] / 1000);
+                if (speeddialfunction.alternateSpeedIdx == Function::baseSpeedIdx())
+                {
+                    function->setFadeInSpeed(fadeIn);
+                }
                 else
-                    function->setFadeInSpeed(ms);
+                {
+                    function->setAlternateFadeIn(speeddialfunction.alternateSpeedIdx, fadeIn);
+                }
             }
             if (speeddialfunction.fadeOutMultiplier != VCSpeedDialFunction::None)
             {
-                if ((uint)ms != Function::infiniteSpeed())
-                    function->setFadeOutSpeed(ms * multipliers[speeddialfunction.fadeOutMultiplier] / 1000);
+                uint fadeOut = ((uint)ms == Function::infiniteSpeed()) ? ms :
+                    (ms * multipliers[speeddialfunction.fadeOutMultiplier] / 1000);
+                if (speeddialfunction.alternateSpeedIdx == Function::baseSpeedIdx())
+                {
+                    function->setFadeOutSpeed(fadeOut);
+                }
                 else
-                    function->setFadeOutSpeed(ms);
+                {
+                    function->setAlternateFadeOut(speeddialfunction.alternateSpeedIdx, fadeOut);
+                }
             }
             if (speeddialfunction.durationMultiplier != VCSpeedDialFunction::None)
             {
-                if ((uint)ms != Function::infiniteSpeed())
-                    function->setDuration(ms * multipliers[speeddialfunction.durationMultiplier] / 1000);
+                uint duration = ((uint)ms == Function::infiniteSpeed()) ? ms :
+                    (ms * multipliers[speeddialfunction.durationMultiplier] / 1000);
+                if (speeddialfunction.alternateSpeedIdx == Function::baseSpeedIdx())
+                {
+                    function->setDuration(duration);
+                }
                 else
-                    function->setDuration(ms);
+                {
+                    function->setAlternateDuration(speeddialfunction.alternateSpeedIdx, duration);
+                }
             }
         }
     }

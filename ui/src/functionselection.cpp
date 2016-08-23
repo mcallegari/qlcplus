@@ -69,6 +69,7 @@ FunctionSelection::FunctionSelection(QWidget* parent, Doc* doc)
     , m_disableFilters(0)
     , m_constFilter(false)
     , m_showSequences(false)
+    , m_showAlternateSpeed(false)
 {
     Q_ASSERT(doc != NULL);
 
@@ -279,18 +280,34 @@ void FunctionSelection::showSequences(bool show)
     m_showSequences = show;
 }
 
+void FunctionSelection::setDisabledAlternateSpeed(const QList<QPair<quint32, int> >& indexes)
+{
+    m_disabledAlternateSpeed = indexes;
+}
+
+void FunctionSelection::showAlternateSpeed(bool show)
+{
+    m_showAlternateSpeed = show;
+}
+
+
 /*****************************************************************************
  * Selection
  *****************************************************************************/
 
 void FunctionSelection::setSelection(QList<quint32> selection)
 {
-    m_selection = selection;
+    m_selection = QSet<quint32>::fromList(selection);
 }
 
-const QList <quint32> FunctionSelection::selection() const
+QList<quint32> FunctionSelection::selection() const
 {
-    return m_selection;
+    return m_selection.toList();
+}
+
+QList<QPair<quint32, int> > FunctionSelection::alternateSpeedSelection() const
+{
+    return m_alternateSpeedSelection.toList();
 }
 
 /*****************************************************************************
@@ -304,7 +321,8 @@ void FunctionSelection::refillTree()
 
     // m_selection will be erased when calling setSelected() on each new item.
     // A backup in made so current selection is applied correctly.
-    QList<quint32> selection = m_selection;
+    QSet<quint32> selection = m_selection;
+    QSet<QPair<quint32, int> > alternateSpeedSelection = m_alternateSpeedSelection;
 
     m_funcTree->clearTree();
 
@@ -359,7 +377,43 @@ void FunctionSelection::refillTree()
             {
                 item->setSelected(selection.contains(function->id()));
                 if (item->parent() != NULL)
+                {
                     item->parent()->setFlags(item->parent()->flags() | Qt::ItemIsEnabled);
+                    item->setFlags(item->flags() | Qt::ItemIsEnabled);
+                }
+            }
+        }
+    }
+
+    // Now we add the alternate speeds if necessary
+    if (m_showAlternateSpeed)
+    {
+        foreach(Function* function, m_doc->functions())
+        {
+            if (m_runningOnlyFlag && !function->isRunning())
+                continue;
+
+            for (int i = 0; i < (int)function->alternateSpeedCount(); ++i)
+            {
+                QTreeWidgetItem* item = m_funcTree->addAlternateSpeed(function->id(), i);
+                if (m_disabledAlternateSpeed.contains(qMakePair(function->id(), i)))
+                    item->setFlags(0); // Disables the item
+                else
+                {
+                    item->setSelected(alternateSpeedSelection.contains(qMakePair(function->id(), i)));
+                    if (item->parent() != NULL)
+                    {
+                        item->parent()->setFlags(item->parent()->flags() | Qt::ItemIsEnabled);
+                        item->setFlags(item->flags() | Qt::ItemIsEnabled);
+
+                        // In the case of a sequence and if the container scene has been selected,
+                        // we have to go up one more time
+                        QTreeWidgetItem* parentParent = item->parent()->parent();
+                        if (parentParent != NULL &&
+                                parentParent->data(KColumnName, Qt::UserRole).toUInt() != Function::invalidId())
+                            parentParent->setFlags(item->parent()->parent()->flags() | Qt::ItemIsEnabled);
+                    }
+                }
             }
         }
     }
@@ -375,18 +429,31 @@ void FunctionSelection::refillTree()
 void FunctionSelection::slotItemSelectionChanged()
 {
     m_selection.clear();
+    m_alternateSpeedSelection.clear();
 
     QListIterator <QTreeWidgetItem*> it(m_funcTree->selectedItems());
     while (it.hasNext() == true)
     {
         QTreeWidgetItem *item = it.next();
         quint32 id = item->data(KColumnName, Qt::UserRole).toUInt();
-        if ((id != Function::invalidId() || item == m_noneItem || item == m_newTrackItem)
-             && m_selection.contains(id) == false)
-                    m_selection.append(id);
+        Function::Type type = static_cast<Function::Type>(item->data(KColumnName, Qt::UserRole + 1).toUInt());
+        if (type != Function::Undefined)
+        {
+            if (id != Function::invalidId() || item == m_noneItem || item == m_newTrackItem)
+                m_selection.insert(id);
+        }
+        else
+        {
+            // type is undefined -> this is a speed
+            if (id != Function::invalidId())
+            {
+                int idx = item->data(KColumnName, Qt::UserRole + 2).toUInt();
+                m_alternateSpeedSelection.insert(qMakePair(id, idx));
+            }
+        }
     }
 
-    if (m_selection.isEmpty() == true)
+    if (m_selection.isEmpty() && m_alternateSpeedSelection.isEmpty())
         m_buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
     else
         m_buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);

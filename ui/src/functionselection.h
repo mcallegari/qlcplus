@@ -162,9 +162,15 @@ public:
     /** Show Sequences even if Chasers are not displayed */
     void showSequences(bool show = false);
 
+    void setDisabledAlternateSpeed(const QList<QPair<quint32, int> >& indexes);
+    void showAlternateSpeed(bool show = false);
+
 protected:
     QList <quint32> m_disabledFunctions;
     bool m_showSequences;
+
+    QList<QPair<quint32, int> > m_disabledAlternateSpeed;
+    bool m_showAlternateSpeed;
 
     /*********************************************************************
      * Selection
@@ -174,11 +180,15 @@ public:
     void setSelection(QList<quint32> selection);
 
     /** Get a list of selected function IDs */
-    const QList <quint32> selection() const;
+    QList<quint32> selection() const;
+
+    QList<QPair<quint32, int> > alternateSpeedSelection() const;
 
 protected:
     /** The list of selected function IDs */
-    QList <quint32> m_selection;
+    QSet <quint32> m_selection;
+
+    QSet<QPair<quint32, int> > m_alternateSpeedSelection;
 
     /*********************************************************************
      * Internal

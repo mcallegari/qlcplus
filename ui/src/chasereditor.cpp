@@ -522,7 +522,7 @@ void ChaserEditor::slotItemChanged(QTreeWidgetItem *item, int column)
     ChaserStep step = m_chaser->steps().at(idx);
 
     uint fadeIn = m_chaser->fadeInMode() == Chaser::Common ? m_chaser->fadeInSpeed() : step.fadeIn;
-    uint fadeOut = m_chaser->fadeOutMode() == Chaser::Common ? m_chaser->fadeOutSpeed() : step.fadeOut;
+    uint fadeOut = m_chaser->fadeOutMode() == Chaser::Common ? m_chaser->fadeInSpeed() : step.fadeOut;
     uint duration = m_chaser->durationMode() == Chaser::Common ? m_chaser->duration() : step.duration;
     uint hold = Function::speedSubstract(duration, fadeIn);
     bool updateTreeNeeded = false;
@@ -976,10 +976,8 @@ void ChaserEditor::updateSpeedDials()
     default:
     case Chaser::Common:
     {
-        if ((int)m_chaser->duration() < 0)
-            m_speedDials->setDuration(m_chaser->duration());
-        else
-            m_speedDials->setDuration(m_chaser->duration() - m_chaser->fadeInSpeed());
+        m_speedDials->setDuration(Function::speedSubstract(
+                    m_chaser->duration(), m_chaser->fadeInSpeed()));
         m_speedDials->setDurationTitle(globalHold);
         m_speedDials->setDurationEnabled(true);
         break;
