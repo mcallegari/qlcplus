@@ -43,7 +43,7 @@ VCWidgetItem
 
     onIsCollapsedChanged:
     {
-        frameRoot.width = isCollapsed ? 200 : frameObj.geometry.width
+        frameRoot.width = isCollapsed ? UISettings.bigItemHeight * 2 : frameObj.geometry.width
         frameRoot.height = isCollapsed ? UISettings.listItemHeight : frameObj.geometry.height
     }
 
@@ -57,15 +57,19 @@ VCWidgetItem
 
         RowLayout
         {
-            height: parent.height
-            width: parent.width
-            spacing: 2
+            x: 1
+            y: 1
+            height: parent.height - 2
+            width: parent.width - 2
+            spacing: 1
 
             // expand/collapse button
             IconButton
             {
                 width: height
                 height: parent.height
+                radius: 0
+                border.width: 0
                 tooltip: qsTr("Expand/Collapse this frame")
                 faSource: checked ? FontAwesome.fa_expand : FontAwesome.fa_compress
                 faColor: UISettings.fgMain
@@ -79,7 +83,7 @@ VCWidgetItem
             Rectangle
             {
                 height: parent.height
-                radius: 3
+                //radius: 3
                 gradient: Gradient
                 {
                     GradientStop { position: 0; color: isSolo ? "#BC0A0A" : "#666666" }
@@ -104,6 +108,8 @@ VCWidgetItem
             {
                 width: height
                 height: parent.height
+                radius: 0
+                border.width: 0
                 checkable: true
                 tooltip: qsTr("Enable/Disable this frame")
                 imgSource: "qrc:/apply.svg"
@@ -123,6 +129,8 @@ VCWidgetItem
                 {
                     width: height
                     height: parent.height
+                    radius: 0
+                    border.width: 0
                     tooltip: qsTr("Previous page")
                     imgSource: "qrc:/back.svg"
                     imgMargins: 1
@@ -151,6 +159,8 @@ VCWidgetItem
                     x: parent.width - width - 2
                     width: height
                     height: parent.height
+                    radius: 0
+                    border.width: 0
                     tooltip: qsTr("Next page")
                     imgSource: "qrc:/forward.svg"
                     imgMargins: 1
