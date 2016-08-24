@@ -37,10 +37,10 @@
 #endif
 #include "function.h"
 
+class QElapsedTimer;
 class FixtureGroup;
 class GenericFader;
 class FadeChannel;
-class QTime;
 class QDir;
 
 /** @addtogroup engine_functions Functions
@@ -196,7 +196,7 @@ private:
     Function::Direction m_direction;
     GenericFader* m_fader;
     int m_step;
-    QTime* m_roundTime;
+    QElapsedTimer* m_roundTime;
     QColor m_stepColor;
     int m_crDelta, m_cgDelta, m_cbDelta;
     int m_stepCount;

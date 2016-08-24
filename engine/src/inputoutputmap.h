@@ -23,7 +23,6 @@
 #include <QSharedPointer>
 #include <QObject>
 #include <QMutex>
-#include <QTime>
 #include <QDir>
 
 #include "qlcinputprofile.h"
@@ -32,6 +31,7 @@
 class QXmlStreamReader;
 class QXmlStreamWriter;
 class QLCInputSource;
+class QElapsedTimer;
 class QLCIOPlugin;
 class OutputPatch;
 class InputPatch;
@@ -574,7 +574,7 @@ signals:
 private:
     BeatGeneratorType m_beatGeneratorType;
     int m_currentBPM;
-    QTime m_beatTime;
+    QElapsedTimer *m_beatTime;
 
     /*********************************************************************
      * Defaults

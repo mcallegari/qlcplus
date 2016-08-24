@@ -24,6 +24,7 @@
 #include <QString>
 #include <QDebug>
 #include <QList>
+#include <QTime>
 #include <QDir>
 
 #include "qlcfixturemode.h"

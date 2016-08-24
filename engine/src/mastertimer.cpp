@@ -20,6 +20,7 @@
 
 #include <QDebug>
 #include <QSettings>
+#include <QElapsedTimer>
 #include <QMutexLocker>
 
 #if defined(WIN32) || defined(Q_OS_WIN)
@@ -67,6 +68,8 @@ MasterTimer::MasterTimer(Doc* doc)
     , m_currentBPM(120)
     , m_beatTimeDuration(500)
     , m_beatRequested(false)
+    , m_beatTimer(new QElapsedTimer())
+    , m_lastBeatOffset(0)
 {
     Q_ASSERT(doc != NULL);
     Q_ASSERT(d_ptr != NULL);
@@ -86,6 +89,8 @@ MasterTimer::~MasterTimer()
 
     delete d_ptr;
     d_ptr = NULL;
+
+    delete m_beatTimer;
 }
 
 void MasterTimer::start()
@@ -114,7 +119,7 @@ void MasterTimer::timerTick()
     {
         case Internal:
         {
-            int elapsedTime = d_ptr->timeCounterElapsed();
+            int elapsedTime = m_beatTimer->elapsed() + m_lastBeatOffset;
             if (elapsedTime >= m_beatTimeDuration)
             {
                 // it's time to fire a beat
@@ -126,7 +131,9 @@ void MasterTimer::timerTick()
                 // restart the time for the next beat, starting at a delta
                 // milliseconds, otherwise it will generate an unpleasant drift
                 //qDebug() << "Elapsed:" << elapsedTime << ", delta:" << elapsedTime - m_beatTimeDuration;
-                d_ptr->timeCounterRestart(elapsedTime - m_beatTimeDuration);
+                m_lastBeatOffset = elapsedTime - m_beatTimeDuration;
+                m_beatTimer->restart();
+
             }
         }
         break;
@@ -459,7 +466,7 @@ void MasterTimer::setBeatSourceType(MasterTimer::BeatsSourceType type)
     // alright, this causes a time drift of maximum 1ms per beat
     // but at the moment I am not looking for a better solution
     m_beatTimeDuration = 60000 / m_currentBPM;
-    d_ptr->timeCounterRestart();
+    m_beatTimer->restart();
 
     m_beatSourceType = type;
 }
@@ -476,7 +483,7 @@ void MasterTimer::requestBpmNumber(int bpm)
 
     m_currentBPM = bpm;
     m_beatTimeDuration = 60000 / m_currentBPM;
-    d_ptr->timeCounterRestart();
+    m_beatTimer->restart();
 
     emit bpmNumberChanged(bpm);
 }
@@ -493,7 +500,7 @@ int MasterTimer::beatTimeDuration() const
 
 int MasterTimer::timeToNextBeat() const
 {
-    return m_beatTimeDuration - d_ptr->timeCounterElapsed();
+    return m_beatTimeDuration - m_beatTimer->elapsed();
 }
 
 int MasterTimer::nextBeatTimeOffset() const

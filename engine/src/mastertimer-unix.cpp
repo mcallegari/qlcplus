@@ -40,66 +40,17 @@ MasterTimerPrivate::MasterTimerPrivate(MasterTimer* masterTimer)
     , m_run(false)
 {
     Q_ASSERT(masterTimer != NULL);
-
-#if defined(Q_OS_OSX)
-    host_get_clock_service(mach_host_self(), SYSTEM_CLOCK, &cclock);
-    m_timeCounter = static_cast<mach_timespec_t*> (malloc(sizeof(mach_timespec_t)));
-    m_timeCurrent = static_cast<mach_timespec_t*> (malloc(sizeof(mach_timespec_t)));
-#else
-    m_timeCounter = static_cast<struct timespec*> (malloc(sizeof(struct timespec)));
-    m_timeCurrent = static_cast<struct timespec*> (malloc(sizeof(struct timespec)));
-#endif
 }
 
 MasterTimerPrivate::~MasterTimerPrivate()
 {
     stop();
-
-#if defined(Q_OS_OSX)
-    mach_port_deallocate(mach_task_self(), cclock);
-#else
-    free(m_timeCounter);
-    free(m_timeCurrent);
-#endif
 }
 
 void MasterTimerPrivate::stop()
 {
     m_run = false;
     wait();
-}
-
-void MasterTimerPrivate::timeCounterRestart(int msecOffset)
-{
-#if defined(Q_OS_OSX)
-    clock_get_time(cclock, m_timeCounter);
-#else
-    clock_gettime(CLOCK_MONOTONIC, m_timeCounter);
-#endif
-    if (msecOffset)
-    {
-        m_timeCounter->tv_sec += (m_timeCounter->tv_nsec + (msecOffset * 1000000)) / 1000000000L;
-        m_timeCounter->tv_nsec = (m_timeCounter->tv_nsec + (msecOffset * 1000000)) % 1000000000L;
-    }
-}
-
-int MasterTimerPrivate::timeCounterElapsed()
-{
-#if defined(Q_OS_OSX)
-    clock_get_time(cclock, m_timeCurrent);
-#else
-    clock_gettime(CLOCK_MONOTONIC, m_timeCurrent);
-#endif
-    int tv_sec = m_timeCurrent->tv_sec - m_timeCounter->tv_sec;
-    int tv_nsec = m_timeCurrent->tv_nsec - m_timeCounter->tv_nsec;
-
-    if (m_timeCurrent->tv_nsec < m_timeCounter->tv_nsec)
-    {
-        tv_nsec = m_timeCurrent->tv_nsec + 1000000000L - m_timeCounter->tv_nsec ;
-        tv_sec--; /* Decrease a second. */
-    }
-
-    return (tv_sec * 1000L) + (tv_nsec / 1000000);
 }
 
 #if defined(Q_OS_OSX)

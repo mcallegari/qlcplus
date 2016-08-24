@@ -20,6 +20,7 @@
 
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
+#include <QElapsedTimer>
 #include <QString>
 #include <QDebug>
 #include <math.h>
@@ -1172,8 +1173,8 @@ bool Function::stopAndWait()
     m_stopMutex.lock();
     stop(FunctionParent::master());
 
-    QTime watchdog;
-    watchdog.start();
+    QElapsedTimer watchdog;
+    watchdog.restart();
 
     // block thread for maximum 2 seconds
     while (m_running == true)

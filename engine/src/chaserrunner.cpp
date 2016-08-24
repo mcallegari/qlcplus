@@ -19,8 +19,8 @@
   limitations under the License.
 */
 
+#include <QElapsedTimer>
 #include <QDebug>
-#include <QTime>
 
 #include "chaserrunner.h"
 #include "genericfader.h"
@@ -43,7 +43,7 @@ ChaserRunner::ChaserRunner(const Doc* doc, const Chaser* chaser, quint32 startTi
     , m_previous(false)
     , m_newStartStepIdx(-1)
     , m_lastRunStepIdx(-1)
-    , m_roundTime(new QTime)
+    , m_roundTime(new QElapsedTimer())
     , m_order()
     , m_intensity(1.0)
 {
@@ -69,7 +69,7 @@ ChaserRunner::ChaserRunner(const Doc* doc, const Chaser* chaser, quint32 startTi
 
     m_direction = m_chaser->direction();
     connect(chaser, SIGNAL(changed(quint32)), this, SLOT(slotChaserChanged()));
-    m_roundTime->start();
+    m_roundTime->restart();
 
     fillOrder();
 }

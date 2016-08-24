@@ -25,6 +25,7 @@
 
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
+#include <QElapsedTimer>
 #include <QSettings>
 #include <QDebug>
 #include <qmath.h>
@@ -46,6 +47,7 @@ InputOutputMap::InputOutputMap(Doc *doc, quint32 universes)
   : QObject(doc)
   , m_blackout(false)
   , m_universeChanged(false)
+  , m_beatTime(new QElapsedTimer())
 {
     m_grandMaster = new GrandMaster(this);
     for (quint32 i = 0; i < universes; i++)
@@ -60,6 +62,7 @@ InputOutputMap::~InputOutputMap()
 {
     removeAllUniverses();
     delete m_grandMaster;
+    delete m_beatTime;
 }
 
 Doc* InputOutputMap::doc() const
@@ -919,13 +922,13 @@ void InputOutputMap::setBeatGeneratorType(InputOutputMap::BeatGeneratorType type
             doc()->masterTimer()->setBeatSourceType(MasterTimer::External);
             // reset the current BPM number and detect it from the MIDI beats
             setBpmNumber(0);
-            m_beatTime.restart();
+            m_beatTime->restart();
         break;
         case Audio:
             doc()->masterTimer()->setBeatSourceType(MasterTimer::External);
             // reset the current BPM number and detect it from the audio input
             setBpmNumber(0);
-            m_beatTime.restart();
+            m_beatTime->restart();
         break;
         case Disabled:
         default:
@@ -980,12 +983,12 @@ void InputOutputMap::slotMIDIBeat(quint32 universe, quint32 channel, uchar value
     if (value == 0 || channel < CHANNEL_OFFSET_MBC_PLAYBACK)
         return;
 
-    qDebug() << "MIDI MBC:" << channel << m_beatTime.elapsed();
+    qDebug() << "MIDI MBC:" << channel << m_beatTime->elapsed();
 
     // process the timer as first thing, to avoid wasting time
     // with the operations below
-    int elapsed = m_beatTime.elapsed();
-    m_beatTime.restart();
+    int elapsed = m_beatTime->elapsed();
+    m_beatTime->restart();
 
     if (channel == CHANNEL_OFFSET_MBC_BEAT)
     {

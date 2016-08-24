@@ -39,9 +39,6 @@ public:
     void stop();
     bool isRunning() const;
 
-    void timeCounterRestart(int msecOffset = 0);
-    int timeCounterElapsed();
-
     void timerTick();
 
 private:
@@ -49,9 +46,6 @@ private:
     UINT m_systemTimerResolution;
     HANDLE m_phTimer;
     bool m_run;
-
-    LARGE_INTEGER m_systemFrequency;
-    LARGE_INTEGER m_timeCounter;
 };
 
 /** @} */

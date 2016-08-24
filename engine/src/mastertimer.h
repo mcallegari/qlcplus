@@ -27,6 +27,7 @@
 #include <QList>
 
 class MasterTimerPrivate;
+class QElapsedTimer;
 class GenericFader;
 class FadeChannel;
 class DMXSource;
@@ -253,6 +254,10 @@ private:
     int m_beatTimeDuration;
     /** Flag to request a beat generation at the next MasterTimer tick */
     bool m_beatRequested;
+    /** The reference of a platform dependent timer to measure precise elapsed time */
+    QElapsedTimer *m_beatTimer;
+    /** Time offset in milliseconds when the last beat occured */
+    int m_lastBeatOffset;
 };
 
 /** @} */

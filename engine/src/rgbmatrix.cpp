@@ -21,8 +21,8 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <QCoreApplication>
+#include <QElapsedTimer>
 #include <QDebug>
-#include <QTime>
 #include <cmath>
 #include <QDir>
 
@@ -60,7 +60,7 @@ RGBMatrix::RGBMatrix(Doc* doc)
     , m_endColor(QColor())
     , m_fader(NULL)
     , m_step(0)
-    , m_roundTime(new QTime)
+    , m_roundTime(new QElapsedTimer())
     , m_stepColor(QColor())
     , m_crDelta(0.0)
     , m_cgDelta(0.0)
@@ -533,7 +533,7 @@ void RGBMatrix::preRun(MasterTimer* timer)
         }
     }
 
-    m_roundTime->start();
+    m_roundTime->restart();
 
     Function::preRun(timer);
 }
@@ -562,12 +562,12 @@ void RGBMatrix::write(MasterTimer* timer, QList<Universe *> universes)
         if (isPaused() == false)
         {
             // Get new map every time when elapsed is reset to zero
-            if ((tempoType() == Time && elapsed() < MasterTimer::tick()) ||
-                (tempoType() == Beats && elapsedBeats() == 0 && timer->isBeat()))
+            if (elapsed() < MasterTimer::tick())
             {
                 qDebug() << "RGBMatrix stepColor:" << QString::number(m_stepColor.rgb(), 16);
                 RGBMap map = m_algorithm->rgbMap(m_group->size(), m_stepColor.rgb(), m_step);
                 updateMapChannels(map, m_group);
+
             }
         }
     }
@@ -737,11 +737,7 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
     quint32 mdAssigned = QLCChannel::invalid();
     quint32 mdFxi = Fixture::invalidId();
 
-    uint fadeTime = 0;
-    if (overrideFadeInSpeed() == defaultSpeed())
-        fadeTime = fadeInSpeed();
-    else
-        fadeTime = overrideFadeInSpeed();
+    uint fadeTime = (overrideFadeInSpeed() == defaultSpeed()) ? fadeInSpeed() : overrideFadeInSpeed();
 
     // Create/modify fade channels for ALL pixels in the color map.
     for (int y = 0; y < map.size(); y++)

@@ -42,9 +42,6 @@ public:
 
     void stop();
 
-    void timeCounterRestart(int msecOffset = 0);
-    int timeCounterElapsed();
-
 private:
     void run();
 #if defined(Q_OS_OSX)
@@ -55,14 +52,6 @@ private:
 
 private:
     bool m_run;
-#if defined(Q_OS_OSX)
-    clock_serv_t cclock;
-    mach_timespec_t *m_timeCounter;
-    mach_timespec_t *m_timeCurrent;
-#else
-    struct timespec* m_timeCounter;
-    struct timespec* m_timeCurrent;
-#endif
 };
 
 /** @} */

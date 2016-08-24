@@ -23,15 +23,11 @@
 #define _WIN32_WINDOWS 0x05000000
 #define WINVER 0x05000000
 
-#include <Windows.h>
 #include <QDebug>
 
 #include "mastertimer-win32.h"
 #include "mastertimer.h"
 #include "qlcmacros.h"
-
-// Target timer resolution in milliseconds
-#define TARGET_RESOLUTION_MS 1
 
 /****************************************************************************
  * Timer callback
@@ -59,8 +55,6 @@ MasterTimerPrivate::MasterTimerPrivate(MasterTimer* masterTimer)
     , m_run(false)
 {
     Q_ASSERT(masterTimer != NULL);
-
-    QueryPerformanceFrequency(&m_systemFrequency);
 }
 
 MasterTimerPrivate::~MasterTimerPrivate()
@@ -126,24 +120,6 @@ void MasterTimerPrivate::stop()
 bool MasterTimerPrivate::isRunning() const
 {
     return m_run;
-}
-
-void MasterTimerPrivate::timeCounterRestart(int msecOffset)
-{
-    QueryPerformanceCounter(&m_timeCounter);
-    if (msecOffset)
-        m_timeCounter.QuadPart += (msecOffset * m_systemFrequency.QuadPart) / 1000LL;
-
-}
-
-int MasterTimerPrivate::timeCounterElapsed()
-{
-    LARGE_INTEGER current, elapsed;
-    QueryPerformanceCounter(&current);
-
-    elapsed.QuadPart = current.QuadPart - m_timeCounter.QuadPart;
-
-    return (1000LL * elapsed.QuadPart) / m_systemFrequency.QuadPart;
 }
 
 void MasterTimerPrivate::timerTick()
