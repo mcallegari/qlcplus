@@ -20,11 +20,11 @@
 #ifndef VCCLOCK_H
 #define VCCLOCK_H
 
-#include <QTimer>
-
 #include "vcwidget.h"
 
 #define KXMLQLCVCClock "Clock"
+
+class QTimer;
 
 class VCClockSchedule : public QObject
 {

@@ -20,6 +20,8 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <QQmlEngine>
+#include <QDateTime>
+#include <QTimer>
 
 #include "vcclock.h"
 #include "doc.h"
