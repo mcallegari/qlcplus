@@ -40,7 +40,7 @@ MasterTimerPrivate::MasterTimerPrivate(MasterTimer* masterTimer)
     , m_run(false)
 {
     Q_ASSERT(masterTimer != NULL);
-#if defined(Q_OS_OSX)
+#if defined(Q_OS_OSX) || defined(Q_OS_IOS)
     host_get_clock_service(mach_host_self(), SYSTEM_CLOCK, &cclock);
 #endif
 }
@@ -56,7 +56,7 @@ void MasterTimerPrivate::stop()
     wait();
 }
 
-#if defined(Q_OS_OSX)
+#if defined(Q_OS_OSX) || defined(Q_OS_IOS)
 int MasterTimerPrivate::compareTime(mach_timespec_t *time1, mach_timespec_t *time2)
 #else
 int MasterTimerPrivate::compareTime(struct timespec *time1, struct timespec *time2)
@@ -91,7 +91,7 @@ void MasterTimerPrivate::run()
     int ret = 0;
 
     /* Allocate all the memory at the start so we don't waste any time */
-#if defined(Q_OS_OSX)
+#if defined(Q_OS_OSX) || defined(Q_OS_IOS)
     mach_timespec_t* finish = static_cast<mach_timespec_t*> (malloc(sizeof(mach_timespec_t)));
     mach_timespec_t* current = static_cast<mach_timespec_t*> (malloc(sizeof(mach_timespec_t)));
 #else
@@ -104,7 +104,7 @@ void MasterTimerPrivate::run()
     sleepTime->tv_sec = 0;
 
     /* This is the start time for the timer */
-#if defined(Q_OS_OSX)
+#if defined(Q_OS_OSX) || defined(Q_OS_IOS)
     ret = clock_get_time(cclock, finish);
 #else
     ret = clock_gettime(CLOCK_MONOTONIC, finish);
@@ -126,7 +126,7 @@ void MasterTimerPrivate::run()
         finish->tv_sec += (finish->tv_nsec + nsTickTime) / 1000000000L;
         finish->tv_nsec = (finish->tv_nsec + nsTickTime) % 1000000000L;
 
-#if defined(Q_OS_OSX)
+#if defined(Q_OS_OSX) || defined(Q_OS_IOS)
         ret = clock_get_time(cclock, current);
 #else
         ret = clock_gettime(CLOCK_MONOTONIC, current);
