@@ -51,11 +51,11 @@ QString QtSerialInterface::readLabel(uchar label, int *ESTA_code)
         return QString();
     serial.setReadBufferSize(1024);
 
-    serial.setBaudRate(250000);
     serial.setDataBits(QSerialPort::Data8);
     serial.setStopBits(QSerialPort::TwoStop);
     serial.setParity(QSerialPort::NoParity);
     serial.setFlowControl(QSerialPort::NoFlowControl);
+    serial.setBaudRate(250000);
 
     QByteArray request;
     request.append(ENTTEC_PRO_START_OF_MSG);
@@ -120,6 +120,12 @@ QList<DMXInterface *> QtSerialInterface::interfaces(QList<DMXInterface *> discov
         // Skip non wanted devices
         if (validInterface(info.vendorIdentifier(), info.productIdentifier()) == false)
             continue;
+
+#if defined(Q_OS_OSX)
+        /* Qt 5.6+ reports the same device as "cu" and "tty". Only the first will be considered */
+        if (info.portName().startsWith("tty"))
+            continue;
+#endif
 
         bool found = false;
         for (int c = 0; c < discoveredList.count(); c++)
