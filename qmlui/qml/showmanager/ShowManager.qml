@@ -423,11 +423,21 @@ Rectangle
                 keys: [ "function" ]
                 onDropped:
                 {
-                    console.log("Function item dropped here. x: " + drag.x + " y: " + drag.y)
-                    var trackIdx = (itemsArea.contentY + drag.y) / trackHeight
-                    var fTime = TimeUtils.posToMs(itemsArea.contentX + drag.x, timeScale)
-                    console.log("Drop on time: " + fTime)
-                    showManager.addItem(itemsArea.contentItem, trackIdx, fTime, drag.source.funcID)
+                    if (drag.source.funcID !== showID)
+                    {
+                        console.log("Function item dropped here. x: " + drag.x + " y: " + drag.y)
+                        var trackIdx = (itemsArea.contentY + drag.y) / trackHeight
+                        var fTime = TimeUtils.posToMs(itemsArea.contentX + drag.x, timeScale)
+                        console.log("Drop on time: " + fTime)
+                        showManager.addItem(itemsArea.contentItem, trackIdx, fTime, drag.source.funcID)
+                    }
+                    else
+                    {
+                        var args = []
+                        actionManager.requestActionPopup(ActionManager.None,
+                                                         qsTr("Cannot drag a Show into itself !"),
+                                                         ActionManager.OK, args)
+                    }
                 }
             }
 
@@ -475,10 +485,20 @@ Rectangle
 
                     onDropped:
                     {
-                        console.log("Function item dropped here. x: " + drag.x + " y: " + drag.y)
-                        var fTime = TimeUtils.posToMs(itemsArea.contentX + drag.x, timeScale)
-                        console.log("Drop on time: " + fTime)
-                        showManager.addItem(itemsArea.contentItem, -1, fTime, drag.source.funcID)
+                        if (drag.source.funcID !== showID)
+                        {
+                            console.log("Function item dropped here. x: " + drag.x + " y: " + drag.y)
+                            var fTime = TimeUtils.posToMs(itemsArea.contentX + drag.x, timeScale)
+                            console.log("Drop on time: " + fTime)
+                            showManager.addItem(itemsArea.contentItem, -1, fTime, drag.source.funcID)
+                        }
+                        else
+                        {
+                            var args = []
+                            actionManager.requestActionPopup(ActionManager.None,
+                                                             qsTr("Cannot drag a Show into itself !"),
+                                                             ActionManager.OK, args)
+                        }
                     }
                 }
             }
