@@ -40,6 +40,9 @@ MasterTimerPrivate::MasterTimerPrivate(MasterTimer* masterTimer)
     , m_run(false)
 {
     Q_ASSERT(masterTimer != NULL);
+#if defined(Q_OS_OSX)
+    host_get_clock_service(mach_host_self(), SYSTEM_CLOCK, &cclock);
+#endif
 }
 
 MasterTimerPrivate::~MasterTimerPrivate()

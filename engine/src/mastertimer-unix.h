@@ -52,6 +52,9 @@ private:
 
 private:
     bool m_run;
+#if defined(Q_OS_OSX)
+    clock_serv_t cclock;
+#endif
 };
 
 /** @} */
