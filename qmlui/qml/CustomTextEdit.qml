@@ -49,6 +49,7 @@ Rectangle
     {
         ctEdit.selectAll()
         ctEdit.focus = true
+        ctEdit.forceActiveFocus()
     }
 
     border.color: "#222"
