@@ -30,6 +30,8 @@ SidePanel
 
     function createFunctionAndEditor(fType, fEditor)
     {
+        // reset the current editor first
+        loaderSource = ""
         var newFuncID = functionManager.createFunction(fType)
         functionManager.setEditorFunction(newFuncID)
         if (fType === Function.Show)
