@@ -46,7 +46,7 @@ InputOutputManager::InputOutputManager(Doc *doc, QObject *parent)
     qmlRegisterType<OutputPatch>("com.qlcplus.classes", 1, 0, "OutputPatch");
 
     connect(m_doc, SIGNAL(loaded()), this, SLOT(slotDocLoaded()));
-    connect(m_ioMap, SIGNAL(beat()), this, SIGNAL(beat()));
+    connect(m_ioMap, SIGNAL(beat()), this, SIGNAL(beat()), Qt::QueuedConnection);
     connect(m_ioMap, SIGNAL(beatGeneratorTypeChanged()), this, SLOT(slotBeatTypeChanged()));
     connect(m_ioMap, SIGNAL(bpmNumberChanged(int)), this, SLOT(slotBpmNumberChanged(int)));
 
