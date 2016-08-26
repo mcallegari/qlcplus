@@ -279,7 +279,7 @@ void VCMatrix::slotStartColorChanged(QRgb color)
 
     matrix->setStartColor(col);
     if (instantChanges() == true)
-        matrix->calculateColorDelta();
+        matrix->updateColorDelta();
 }
 
 void VCMatrix::slotEndColorChanged(QRgb color)
@@ -295,7 +295,7 @@ void VCMatrix::slotEndColorChanged(QRgb color)
 
     matrix->setEndColor(col);
     if (instantChanges() == true)
-        matrix->calculateColorDelta();
+        matrix->updateColorDelta();
 }
 
 void VCMatrix::slotAnimationChanged(QString name)
@@ -307,7 +307,7 @@ void VCMatrix::slotAnimationChanged(QString name)
     RGBAlgorithm* algo = RGBAlgorithm::algorithm(m_doc, name);
     matrix->setAlgorithm(algo);
     if (instantChanges() == true)
-        matrix->calculateColorDelta();
+        matrix->updateColorDelta();
 }
 
 void VCMatrix::setVisibilityMask(quint32 mask)
@@ -752,21 +752,21 @@ void VCMatrix::slotCustomControlClicked()
         {
             matrix->setStartColor(control->m_color);
             if (instantChanges() == true)
-                matrix->calculateColorDelta();
+                matrix->updateColorDelta();
             btn->setDown(true);
         }
         else if (control->m_type == VCMatrixControl::EndColor)
         {
             matrix->setEndColor(control->m_color);
             if (instantChanges() == true)
-                matrix->calculateColorDelta();
+                matrix->updateColorDelta();
             btn->setDown(true);
         }
         else if (control->m_type == VCMatrixControl::ResetEndColor)
         {
             matrix->setEndColor(QColor());
             if (instantChanges() == true)
-                matrix->calculateColorDelta();
+                matrix->updateColorDelta();
         }
         else if (control->m_type == VCMatrixControl::Animation)
         {
@@ -784,7 +784,7 @@ void VCMatrix::slotCustomControlClicked()
             }
             matrix->setAlgorithm(algo);
             if (instantChanges() == true)
-                matrix->calculateColorDelta();
+                matrix->updateColorDelta();
             btn->setDown(true);
         }
         else if (control->m_type == VCMatrixControl::Text)
@@ -794,7 +794,7 @@ void VCMatrix::slotCustomControlClicked()
             text->setText(control->m_resource);
             matrix->setAlgorithm(algo);
             if (instantChanges() == true)
-                matrix->calculateColorDelta();
+                matrix->updateColorDelta();
             btn->setDown(true);
         }
     }
@@ -818,7 +818,7 @@ void VCMatrix::slotCustomControlValueChanged()
 
             matrix->setStartColor(color);
             if (instantChanges() == true)
-                matrix->calculateColorDelta();
+                matrix->updateColorDelta();
         }
         else if (control->m_type == VCMatrixControl::EndColorKnob)
         {
@@ -828,7 +828,7 @@ void VCMatrix::slotCustomControlValueChanged()
 
             matrix->setEndColor(color);
             if (instantChanges() == true)
-                matrix->calculateColorDelta();
+                matrix->updateColorDelta();
         }
         else
         {
