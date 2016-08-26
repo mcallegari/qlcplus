@@ -95,17 +95,7 @@ Requirements - Mac OS X
 Compiling & Installation
 ------------------------
 
-For windows, just install the latest Qt package from Trolltech along with the
-default MinGW setup and start the Qt command prompt. For Linux or OSX, in
-addition to the Qt libraries, you need also Qt development packages.
-
-As normal user, type to your X terminal:
-	qmake
-and then:
-	make
-and then (as administrator/root):
-	make install
-
+Please refer to the online wiki pages: https://github.com/mcallegari/qlcplus/wiki
 
 Support & Bug Reports
 ---------------------
