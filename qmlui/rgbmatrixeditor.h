@@ -24,6 +24,7 @@
 
 class Doc;
 class RGBMatrix;
+class RGBMatrixStep;
 class FixtureGroup;
 
 class RGBMatrixEditor : public FunctionEditor
@@ -182,8 +183,7 @@ private:
     /** A timer to perform a timed preview of the RGBMatrix pattern */
     QTimer* m_previewTimer;
     uint m_previewElapsed;
-    Function::Direction m_previewDirection;
-    int m_previewStep;
+    RGBMatrixStep *m_previewStepHandler;
     bool m_gotBeat;
 
     // exchange variable with the QML world
