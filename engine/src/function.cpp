@@ -1066,17 +1066,10 @@ void Function::incrementElapsedBeats()
 
 void Function::roundElapsed(quint32 roundTime)
 {
-    qDebug() << Q_FUNC_INFO << m_elapsedBeats << roundTime;
     if (roundTime == 0)
-    {
         m_elapsed = 0;
-        m_elapsedBeats = 0;
-    }
     else
-    {
         m_elapsed %= roundTime;
-        m_elapsedBeats %= roundTime;
-    }
 }
 
 /*****************************************************************************

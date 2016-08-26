@@ -173,12 +173,20 @@ void MasterTimerPrivate::run()
 #if 0
         /* Now take full CPU for precision (only a few nanoseconds,
            at maximum 100 nanoseconds) */
+#if defined(Q_OS_OSX) || defined(Q_OS_IOS)
+        ret = clock_get_time(cclock, current);
+#else
         ret = clock_gettime(CLOCK_MONOTONIC, current);
+#endif
         sleepTime->tv_nsec = finish->tv_nsec - current->tv_nsec;
 
         while (sleepTime->tv_nsec > 5)
         {
+#if defined(Q_OS_OSX) || defined(Q_OS_IOS)
+            ret = clock_get_time(cclock, current);
+#else
             ret = clock_gettime(CLOCK_MONOTONIC, current);
+#endif
             sleepTime->tv_nsec = finish->tv_nsec - current->tv_nsec;
             qDebug() << "Full CPU wait:" << sleepTime->tv_nsec;
         }
