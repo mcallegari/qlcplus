@@ -254,7 +254,7 @@ GridLayout
         border.color: UISettings.bgMedium
         bgColor: buttonsBgColor
         fontSize: btnFontSize
-        label: allowFractions === Function.AllFractions ? "+1/8" : "x2"
+        label: allowFractions === Function.AllFractions ? "+1/8" : "+2x"
         repetition: true
         onClicked:
         {
@@ -267,6 +267,9 @@ GridLayout
                     newfraction = 125
                 else if (currentFraction != 500)
                     newfraction = currentFraction * 2
+
+                if (newfraction == 0)
+                    timeValue += 1000
 
                 timeValue = timeValue - currentFraction + newfraction
                 currentFraction = newfraction
@@ -395,7 +398,7 @@ GridLayout
         border.color: UISettings.bgMedium
         bgColor: buttonsBgColor
         fontSize: btnFontSize
-        label: allowFractions === Function.AllFractions ? "-1/8" : "/2"
+        label: allowFractions === Function.AllFractions ? "-1/8" : "-x/2"
         repetition: true
         onClicked:
         {
@@ -410,7 +413,11 @@ GridLayout
             {
                 var newfraction = 0
                 if (currentFraction == 0)
+                {
                     newfraction = 500
+                    if (timeValue > 0)
+                        timeValue -= 1000
+                }
                 else if (currentFraction != 125)
                     newfraction = currentFraction / 2
 

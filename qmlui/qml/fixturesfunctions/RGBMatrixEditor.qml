@@ -386,7 +386,7 @@ Rectangle
                             RobotoText
                             {
                                 anchors.fill: parent
-                                label: TimeUtils.timeToQlcString(rgbMatrixEditor.fadeIn, rgbMatrixEditor.tempoType)
+                                label: TimeUtils.timeToQlcString(rgbMatrixEditor.fadeInSpeed, rgbMatrixEditor.tempoType)
 
                                 MouseArea
                                 {
@@ -425,7 +425,7 @@ Rectangle
                                     anchors.fill: parent
                                     onDoubleClicked:
                                     {
-                                        timeEditTool.allowFractions = Function.NoFractions
+                                        timeEditTool.allowFractions = Function.ByTwoFractions
                                         timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
                                                           hLabel.label, parent.label, Function.Hold)
                                     }
