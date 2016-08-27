@@ -38,8 +38,9 @@ SidePanel
     {
         if (isOpen == true)
         {
-            viewLoader.source = ""
-            viewLoader.source = Qt.binding(function() { return loaderSource })
+            var tmpSource = loaderSource
+            loaderSource = ""
+            loaderSource = tmpSource
         }
     }
 

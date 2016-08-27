@@ -343,14 +343,14 @@ QVariant InputOutputManager::universeInputProfiles(int universe)
     return QVariant::fromValue(profilesList);
 }
 
-void InputOutputManager::addOutputPatch(int universe, QString plugin, QString line)
+void InputOutputManager::setOutputPatch(int universe, QString plugin, QString line, int index)
 {
-    m_doc->inputOutputMap()->setOutputPatch(universe, plugin, line.toUInt(), false);
+    m_doc->inputOutputMap()->setOutputPatch(universe, plugin, line.toUInt(), false, index);
 }
 
-void InputOutputManager::removeOutputPatch(int universe)
+void InputOutputManager::removeOutputPatch(int universe, int index)
 {
-    m_doc->inputOutputMap()->setOutputPatch(universe, KOutputNone, QLCIOPlugin::invalidLine(), false);
+    m_doc->inputOutputMap()->setOutputPatch(universe, KOutputNone, QLCIOPlugin::invalidLine(), false, index);
 }
 
 void InputOutputManager::addInputPatch(int universe, QString plugin, QString line)
@@ -366,6 +366,11 @@ void InputOutputManager::removeInputPatch(int universe)
 void InputOutputManager::setInputProfile(int universe, QString profileName)
 {
     m_doc->inputOutputMap()->setInputProfile(universe, profileName);
+}
+
+int InputOutputManager::outputPatchesCount(int universe) const
+{
+    return m_doc->inputOutputMap()->outputPatchesCount(universe);
 }
 
 /*********************************************************************

@@ -65,7 +65,7 @@ Rectangle
                     height: parent.height
 
                     drag.target: widgetItem
-                    drag.threshold: 30
+                    drag.threshold: height / 2
 
                     onReleased:
                     {
