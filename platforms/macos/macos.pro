@@ -216,12 +216,35 @@ greaterThan(QT_MAJOR_VERSION, 4) {
     include(platformplugins-nametool.pri)
     include(audioplugins-nametool.pri)
     include(mediaservice-nametool.pri)
-    qmlui:include(imageformats-nametool.pri)
 
     INSTALLS += platformplugins
     INSTALLS += audioplugins
     INSTALLS += mediaservice
-    qmlui: INSTALLS += imageformats
+
+qmlui: {
+    include(imageformats-nametool.pri)
+    INSTALLS += imageformats
+
+# QML components
+    qmlqtdeps.path   = $$INSTALLROOT/qml/Qt/labs
+    qmlqtdeps.files += $$(QTDIR)/qml/Qt/labs/folderlistmodel \
+                       $$(QTDIR)/qml/Qt/labs/settings
+    INSTALLS += qmlqtdeps
+
+    qmldeps.path   = $$INSTALLROOT/qml
+    qmldeps.files += $$(QTDIR)/qml/QtQml \
+                     $$(QTDIR)/qml/QtQuick \
+                     $$(QTDIR)/qml/QtQuick.2
+
+    INSTALLS += qmldeps
+
+    qmlpostinstall.path = $$INSTALLROOT/qml
+    qmlpostinstall.commands = cd $$INSTALLROOT/qml && \
+                              find . -name *_debug.dylib -type f -delete && \
+                              find . -name plugins.qmltypes -type f -delete && \
+                              rm -rf QtQuick/Extras QtQuick/Particles.2 QtQuick/XmlListModel
+    INSTALLS  += qmlpostinstall
+}
 
     qtconf.path   = $$INSTALLROOT/Resources
     qtconf.files += qt.conf

@@ -20,7 +20,7 @@
 #ifndef OSCCONTROLLER_H
 #define OSCCONTROLLER_H
 
-#if defined(Q_OS_ANDROID)
+#if defined(ANDROID)
 #include <QNetworkInterface>
 #include <QScopedPointer>
 #include <QSharedPointer>

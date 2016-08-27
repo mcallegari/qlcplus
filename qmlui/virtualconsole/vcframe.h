@@ -30,6 +30,7 @@
 #define KXMLQLCVCFrameIsDisabled    "Disabled"
 #define KXMLQLCVCFrameEnableSource  "Enable"
 #define KXMLQLCVCFrameShowEnableButton "ShowEnableButton"
+#define KXMLQLCVCFrameSignature     "Signature"
 
 #define KXMLQLCVCFrameMultipage   "Multipage"
 #define KXMLQLCVCFramePagesNumber "PagesNum"
@@ -50,6 +51,7 @@ class VCFrame : public VCWidget
     Q_PROPERTY(bool isCollapsed READ isCollapsed WRITE setCollapsed NOTIFY collapsedChanged)
     Q_PROPERTY(bool multiPageMode READ multiPageMode WRITE setMultiPageMode NOTIFY multiPageModeChanged)
     Q_PROPERTY(int currentPage READ currentPage NOTIFY currentPageChanged)
+    Q_PROPERTY(int PIN READ PIN WRITE setPIN NOTIFY PINChanged)
 
     /*********************************************************************
      * Initialization
@@ -59,7 +61,11 @@ public:
     VCFrame(Doc* doc = NULL, VirtualConsole *vc = NULL, QObject *parent = 0);
     virtual ~VCFrame();
 
+    /** @reimp */
     virtual void render(QQuickView *view, QQuickItem *parent);
+
+    /** @reimp */
+    QString propertiesResource() const;
 
     /** Method used to indicate if this Frame has a SoloFrame parent
      *  at any lower level. This is used to determine if
@@ -88,7 +94,14 @@ public:
      *  $recursive method */
     QList<VCWidget *>children(bool recursive = false);
 
+    /** Add a new widget of type $wType at position $pos to this frame.
+     *  $parent is used only to render the new widget */
     Q_INVOKABLE void addWidget(QQuickItem *parent, QString wType, QPoint pos);
+
+    /** Add a Function with ID $funcID at position $pos to this frame.
+     *  If $modifierPressed is false, a VC Button is created to represent the Function
+     *  otherwise a VC Slider is created.
+     *  $parent is used only to render the new widget */
     Q_INVOKABLE void addFunction(QQuickItem *parent, quint32 funcID, QPoint pos, bool modifierPressed);
 
     /** Delete all the frame children */
@@ -185,6 +198,29 @@ protected:
     /** Here's where the magic takes place. This holds a map
      *  of pages/widgets to be shown/hidden when page is changed */
     QMap <VCWidget *, int> m_pagesMap;
+
+    /*********************************************************************
+     * PIN
+     *********************************************************************/
+public:
+    /** Get/Set a protection PIN for this Frame. Note that only top level frames
+     *  will expose this functionality */
+    int PIN() const;
+    void setPIN(int newPIN);
+
+    /** Validate the Frame PIN for the entire session */
+    void validatePIN();
+
+    /** Returns true if this Frame has a PIN set and has not been validated for the session.
+     *  Otherwise false is returned, and the Frame can be displayed by everyone */
+    Q_INVOKABLE bool requirePIN() const;
+
+signals:
+    void PINChanged(int PIN);
+
+protected:
+    int m_PIN;
+    bool m_validatedPIN;
 
     /*********************************************************************
      * Widget Function

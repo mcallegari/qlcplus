@@ -32,8 +32,9 @@ SidePanel
     {
         if (isOpen == true)
         {
-            viewLoader.source = ""
-            viewLoader.source = loaderSource
+            var tmpSource = loaderSource
+            loaderSource = ""
+            loaderSource = tmpSource
         }
     }
 

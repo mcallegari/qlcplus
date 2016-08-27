@@ -25,7 +25,7 @@ import "."
 Rectangle
 {
     id: keyPadRoot
-    width: 400
+    width: UISettings.bigItemHeight * 2.5
     height: keyPadGrid.height
     color: "transparent"
     //border.color: "#666"
@@ -38,6 +38,7 @@ Rectangle
     onVisibleChanged: if (visible) commandBox.selectAndFocus()
 
     signal executeCommand(string cmd)
+    signal escapePressed()
 
     GridLayout
     {
@@ -54,18 +55,20 @@ Rectangle
         {
             Layout.columnSpan: keyPadGrid.columns
             width: parent.width
-            height: 40
-            color: UISettings.bgStronger
+            height: UISettings.listItemHeight
+            color: "transparent"
             border.width: 2
-            border.color: UISettings.bgStrong
+            border.color: UISettings.bgStronger
 
             CustomTextEdit
             {
                 id: commandBox
                 anchors.fill: parent
                 x: 3
+                color: UISettings.bgLight
                 inputText: ""
                 onEnterPressed: keyPadRoot.executeCommand(keyPadRoot.commandString)
+                onEscapePressed: keyPadRoot.escapePressed()
             }
         }
 

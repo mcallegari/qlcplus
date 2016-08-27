@@ -23,7 +23,6 @@
 #include <QSharedPointer>
 #include <QObject>
 #include <QMutex>
-#include <QTime>
 #include <QDir>
 
 #include "qlcinputprofile.h"
@@ -32,6 +31,7 @@
 class QXmlStreamReader;
 class QXmlStreamWriter;
 class QLCInputSource;
+class QElapsedTimer;
 class QLCIOPlugin;
 class OutputPatch;
 class InputPatch;
@@ -335,10 +335,14 @@ public:
      * @param pluginName The name of the plugin to patch to the universe
      * @param output A universe provided by the plugin to patch to
      * @param isFeedback Determine if this line is a feedback output
+     * @param index the output patch index
+     *
      * @return true if successful, otherwise false
      */
     bool setOutputPatch(quint32 universe, const QString& pluginName,
-                        quint32 output = 0, bool isFeedback = false);
+                        quint32 output = 0, bool isFeedback = false, int index = 0);
+
+    int outputPatchesCount(quint32 universe) const;
 
     /**
      * Get mapping for an input universe.
@@ -352,7 +356,7 @@ public:
      *
      * @param universe The internal universe to get mapping for
      */
-    OutputPatch* outputPatch(quint32 universe) const;
+    OutputPatch* outputPatch(quint32 universe, int index = 0) const;
 
     /**
      * Get the feedback mapping for a QLC universe.
@@ -574,7 +578,7 @@ signals:
 private:
     BeatGeneratorType m_beatGeneratorType;
     int m_currentBPM;
-    QTime m_beatTime;
+    QElapsedTimer *m_beatTime;
 
     /*********************************************************************
      * Defaults

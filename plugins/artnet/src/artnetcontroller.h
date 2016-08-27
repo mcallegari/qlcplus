@@ -20,7 +20,7 @@
 #ifndef ARTNETCONTROLLER_H
 #define ARTNETCONTROLLER_H
 
-#if defined(Q_OS_ANDROID)
+#if defined(ANDROID)
 #include <QNetworkInterface>
 #include <QHostAddress>
 #include <QUdpSocket>

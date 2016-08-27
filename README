@@ -43,7 +43,7 @@ Requirements - Linux
 * Qt >= 4.6 development libraries & tools
 * libudev-dev, libmad0-dev, libsndfile1-dev, libfftw3-dev
 
-* Enttec DMX USB plugin: libftdi-dev, pkg-config
+* DMX USB plugin: libftdi-dev, pkg-config
 * HID plugin: No additional requirements
 * MIDI plugin: libasound, libasound-dev, pkg-config
 * ENTTEC Wing plugin: No additional requirements
@@ -58,14 +58,14 @@ Requirements - Linux
 
 Requirements - Windows
 ----------------------
-* MinGW / MSYS environment (http://sourceforge.net/projects/mingw/files/Installer/mingw-get-inst/)
-* Qt >= 4.6 (http://download.qt.io/official_releases/qt/)
+* MSYS2 environment (https://msys2.github.io/)
+* Qt >= 5.0.x (http://download.qt.io/official_releases/qt/)
 
-* Enttec DMX USB plugin: No additional requirements
-* HID plugin: Not available
+* DMX USB plugin: D2XX driver & development package (http://www.ftdichip.com/Drivers/D2XX.htm)
+* HID plugin: No additional requirements
 * MIDI plugin: No additional requirements
 * ENTTEC Wing plugin: D2XX driver & development package (http://www.ftdichip.com/Drivers/D2XX.htm)
-* OLA plugin: Not available for Windows
+* OLA plugin: Not available
 * uDMX plugin: No additional requirements
 * Peperoni plugin: No additional requirements
 * Velleman plugin: K8062 SDK from www.velleman.eu
@@ -77,16 +77,17 @@ Requirements - Windows
 Requirements - Mac OS X
 -----------------------
 * XCode (http://developer.apple.com/technologies/tools/xcode.html)
-* Qt SDK >= 4.8.x (http://download.qt.io/official_releases/qt/)
+* Qt SDK >= 5.0.x (http://download.qt.io/official_releases/qt/)
+* macports (https://www.macports.org/)
 
-* Enttec DMX USB plugin: macports, libftdi-dev, pkg-config
-* HID plugin: Not available
+* DMX USB plugin: macports, libftdi-dev, pkg-config
+* HID plugin: No additional requirements
 * MIDI plugin: No additional requirements
 * ENTTEC Wing plugin: No additional requirements
 * OLA plugin: libola, ola-dev, pkg-config (see libs/olaout/README)
 * uDMX plugin: macports, libusb-compat, pkg-config
 * Peperoni plugin: macports, libusb-compat, pkg-config
-* Velleman plugin: Not available for OSX
+* Velleman plugin: Not available
 * OSC plugin: No additional requirements
 * ArtNet plugin: No additional requirements
 * E1.31 plugin: No additional requirements
@@ -95,17 +96,7 @@ Requirements - Mac OS X
 Compiling & Installation
 ------------------------
 
-For windows, just install the latest Qt package from Trolltech along with the
-default MinGW setup and start the Qt command prompt. For Linux or OSX, in
-addition to the Qt libraries, you need also Qt development packages.
-
-As normal user, type to your X terminal:
-	qmake
-and then:
-	make
-and then (as administrator/root):
-	make install
-
+Please refer to the online wiki pages: https://github.com/mcallegari/qlcplus/wiki
 
 Support & Bug Reports
 ---------------------

@@ -95,8 +95,9 @@ public:
     Q_INVOKABLE QVariant universeOutputSources(int universe);
     Q_INVOKABLE QVariant universeInputProfiles(int universe);
 
-    Q_INVOKABLE void addOutputPatch(int universe, QString plugin, QString line);
-    Q_INVOKABLE void removeOutputPatch(int universe);
+    Q_INVOKABLE int outputPatchesCount(int universe) const;
+    Q_INVOKABLE void setOutputPatch(int universe, QString plugin, QString line, int index);
+    Q_INVOKABLE void removeOutputPatch(int universe, int index);
     Q_INVOKABLE void addInputPatch(int universe, QString plugin, QString line);
     Q_INVOKABLE void removeInputPatch(int universe);
     Q_INVOKABLE void setInputProfile(int universe, QString profileName);
@@ -122,7 +123,6 @@ public:
 signals:
     void beatTypeChanged(QString beatType);
     void beat();
-
     void bpmNumberChanged(int bpmNumber);
 
 protected slots:

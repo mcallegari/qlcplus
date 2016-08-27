@@ -20,6 +20,7 @@
 
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
+#include <QElapsedTimer>
 #include <QString>
 #include <QDebug>
 #include <math.h>
@@ -80,6 +81,7 @@ Function::Function(QObject *parent)
     , m_direction(Forward)
     , m_tempoType(Time)
     , m_overrideTempoType(Original)
+    , m_beatResyncNeeded(false)
     , m_fadeInSpeed(0)
     , m_fadeOutSpeed(0)
     , m_duration(0)
@@ -107,6 +109,7 @@ Function::Function(Doc* doc, Type t)
     , m_direction(Forward)
     , m_tempoType(Time)
     , m_overrideTempoType(Original)
+    , m_beatResyncNeeded(false)
     , m_fadeInSpeed(0)
     , m_fadeOutSpeed(0)
     , m_duration(0)
@@ -596,6 +599,7 @@ void Function::setOverrideTempoType(Function::TempoType type)
 void Function::slotBPMChanged(int bpmNumber)
 {
     Q_UNUSED(bpmNumber)
+    m_beatResyncNeeded = true;
 }
 
 /****************************************************************************
@@ -1062,17 +1066,10 @@ void Function::incrementElapsedBeats()
 
 void Function::roundElapsed(quint32 roundTime)
 {
-    qDebug() << Q_FUNC_INFO << m_elapsedBeats << roundTime;
     if (roundTime == 0)
-    {
         m_elapsed = 0;
-        m_elapsedBeats = 0;
-    }
     else
-    {
         m_elapsed %= roundTime;
-        m_elapsedBeats %= roundTime;
-    }
 }
 
 /*****************************************************************************
@@ -1169,8 +1166,8 @@ bool Function::stopAndWait()
     m_stopMutex.lock();
     stop(FunctionParent::master());
 
-    QTime watchdog;
-    watchdog.start();
+    QElapsedTimer watchdog;
+    watchdog.restart();
 
     // block thread for maximum 2 seconds
     while (m_running == true)

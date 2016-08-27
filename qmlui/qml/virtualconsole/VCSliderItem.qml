@@ -57,18 +57,44 @@ VCWidgetItem
             anchors.horizontalCenter: parent.horizontalCenter
             Layout.fillHeight: true
             width: parent.width
+            onTouchPressed:
+            {
+                console.log("Slider touch pressed: " + pressed)
+                // QML tends to propagate touch events, so temporarily disable
+                // the page Flickable interactivity during this operation
+                virtualConsole.setPageInteraction(!pressed)
+            }
         }
 
         // widget name text box
         Text
         {
-            anchors.horizontalCenter: parent.horizontalCenter
-            x: 2
-            width: parent.width
+            id: sliderText
+            //width: sliderRoot.width
+            Layout.fillWidth: true
             height: UISettings.listItemHeight
             font: sliderObj ? sliderObj.font : ""
             text: sliderObj ? sliderObj.caption : ""
             color: sliderObj ? sliderObj.foregroundColor : "white"
+            horizontalAlignment: Text.AlignHCenter
+            wrapMode: Text.Wrap
+
+            function calculateTextHeight()
+            {
+                sliderText.wrapMode = Text.NoWrap
+                var ratio = Math.ceil(sliderText.paintedWidth / width)
+                if (ratio == 0)
+                    return
+
+                height = ratio * font.pixelSize
+                if (ratio > 1)
+                    sliderText.wrapMode = Text.Wrap
+            }
+
+            Component.onCompleted: calculateTextHeight()
+            onWidthChanged: calculateTextHeight()
+            onFontChanged: calculateTextHeight()
+            onTextChanged: calculateTextHeight()
         }
     }
 }

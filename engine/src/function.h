@@ -367,6 +367,9 @@ public:
     enum TempoType { Original = -1, Time = 0, Beats = 1 };
     Q_ENUMS(TempoType)
 
+    enum FractionsType { NoFractions = 0, ByTwoFractions, AllFractions };
+    Q_ENUMS(FractionsType)
+
 public:
     /**
      * Set the speed type of this function.
@@ -383,23 +386,23 @@ public:
     Function::TempoType tempoType() const;
 
     /**
-     * Convert a speed type to a string
+     * Convert a tempo type to a string
      *
-     * @param type Speed type to convert
+     * @param type Tempo type to convert
      */
     static QString tempoTypeToString(const Function::TempoType& type);
 
     /**
-     * Convert a string to a speed type
+     * Convert a string to a tempo type
      *
      * @param str The string to convert
      */
     static Function::TempoType stringToTempoType(const QString& str);
 
-    /** Convert a time value in milliseconds to a beats value */
+    /** Convert a time value in milliseconds to a beat value */
     static uint timeToBeats(uint time, int beatDuration);
 
-    /** Convert a beats value to a time value in milliseconds */
+    /** Convert a beat value to a time value in milliseconds */
     static uint beatsToTime(uint beats, int beatDuration);
 
     /** Get the override speed type (done by a Chaser) */
@@ -411,7 +414,7 @@ public:
 protected slots:
     /**
      * This slot is connected to the Master Timer and it is invoked
-     * when this Function is in 'Beats' speed type and the BPM
+     * when this Function is in 'Beats' tempo type and the BPM
      * number changed. Subclasses should reimplement this.
      */
     virtual void slotBPMChanged(int bpmNumber);
@@ -419,6 +422,7 @@ protected slots:
 private:
     TempoType m_tempoType;
     TempoType m_overrideTempoType;
+    bool m_beatResyncNeeded;
 
     /*********************************************************************
      * Speed

@@ -25,7 +25,7 @@ import "."
 Rectangle
 {
     id: stepDelegate
-    width: 100
+    width: 500
     height: UISettings.listItemHeight
 
     color: "transparent"
@@ -46,11 +46,11 @@ Rectangle
     property int highlightIndex: -1
 
     property int col1Width: 25
-    property int col2Width: 120
-    property int col3Width: 60
-    property int col4Width: 60
-    property int col5Width: 60
-    property int col6Width: 60
+    property int col2Width: UISettings.bigItemHeight * 1.5
+    property int col3Width: UISettings.bigItemHeight
+    property int col4Width: UISettings.bigItemHeight
+    property int col5Width: UISettings.bigItemHeight
+    property int col6Width: UISettings.bigItemHeight
 
     signal clicked(int ID, var qItem, int mouseMods)
     signal doubleClicked(int ID, int type)

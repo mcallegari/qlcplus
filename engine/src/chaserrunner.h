@@ -27,12 +27,12 @@
 
 #include "function.h"
 
+class QElapsedTimer;
 class FadeChannel;
 class ChaserStep;
 class Function;
 class Universe;
 class Chaser;
-class QTime;
 class Doc;
 
 /** @addtogroup engine_functions Functions
@@ -176,7 +176,7 @@ private:
     bool m_previous;                        //! If true, skips to the previous step when write is called
     int m_newStartStepIdx;                  //! Manually set the start step index
     int m_lastRunStepIdx;                   //! Index of the last step ran
-    QTime* m_roundTime;                     //! Counts the time between steps
+    QElapsedTimer* m_roundTime;             //! Counts the time between steps
     QVector<int> m_order;                   //! Array of step indices in a randomized order
 
     /************************************************************************

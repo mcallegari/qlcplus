@@ -65,14 +65,13 @@ Rectangle
                     height: parent.height
 
                     drag.target: widgetItem
-                    drag.threshold: 30
+                    drag.threshold: height / 2
 
                     onReleased:
                     {
                         if (widgetItem.Drag.target !== null)
                         {
-                            // create the widget here
-                            //console.log("Item dropped on " + widgetItem.Drag.target)
+                            // emit a drop event, for the active DropArea
                             widgetItem.Drag.drop()
                         }
                         else

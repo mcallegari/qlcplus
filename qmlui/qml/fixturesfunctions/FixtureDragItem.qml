@@ -32,8 +32,8 @@ Rectangle
     property int quantity: 1
     property int gap: 0
 
-    width: 80
-    height: 80
+    width: height
+    height: UISettings.bigItemHeight * 0.75
     z: 10
     border.width: 1
     border.color: "black"
@@ -46,7 +46,7 @@ Rectangle
         anchors.margins: 1
         label: manufacturer + " - " + model
         labelColor: UISettings.fgMain
-        fontSize: 10
+        fontSize: UISettings.textSizeDefault * 0.75
         wrapText: true
         textAlign: Text.AlignHCenter
     }

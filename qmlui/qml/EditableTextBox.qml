@@ -23,7 +23,7 @@ import "."
 Rectangle
 {
     id: etbRoot
-    width: etbTextEdit.paintedWidth + 5
+    width: wrapText ? 100 : etbTextEdit.paintedWidth + 5
     height: (maximumHeight && maximumHeight < etbTextEdit.paintedHeight) ?
                 maximumHeight : etbTextEdit.paintedHeight
     clip: true
@@ -64,7 +64,7 @@ Rectangle
         selectionColor: UISettings.highlightPressed
         //clip: true
         horizontalAlignment: textAlignment
-        font.family: "Roboto Condensed"
+        font.family: UISettings.robotoFontName
         font.pixelSize: fontSize
         selectByMouse: true
         mouseSelectionMode: TextEdit.SelectWords

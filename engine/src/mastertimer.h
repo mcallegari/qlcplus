@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   mastertimer.h
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -24,9 +25,9 @@
 #include <QObject>
 #include <QMutex>
 #include <QList>
-#include <QTime>
 
 class MasterTimerPrivate;
+class QElapsedTimer;
 class GenericFader;
 class FadeChannel;
 class DMXSource;
@@ -218,6 +219,17 @@ public:
     /** Get the time in milliseconds to the next beat */
     int timeToNextBeat() const;
 
+    /** Get a positive or negative time offset in milliseconds that
+     *  indicates how close the current timer tick is from a beat.
+     *
+     *  Example: a Scene with 1 beat fade in, at 120BPM (= 500ms)
+     *  If the Scene is started 60ms after a beat, then this method returns 60,
+     *  so the fade in should be 440ms long.
+     *  If the Scene is started 380ms after a beat, then this method returns -120,
+     *  so the fade in should be 620ms long.
+     */
+    int nextBeatTimeOffset() const;
+
     /** Return true if the current tick is also a beat, otherwise false */
     bool isBeat() const;
 
@@ -242,8 +254,10 @@ private:
     int m_beatTimeDuration;
     /** Flag to request a beat generation at the next MasterTimer tick */
     bool m_beatRequested;
-    /** The absolute time a beat should happen */
-    QTime m_beatTime;
+    /** The reference of a platform dependent timer to measure precise elapsed time */
+    QElapsedTimer *m_beatTimer;
+    /** Time offset in milliseconds when the last beat occured */
+    int m_lastBeatOffset;
 };
 
 /** @} */

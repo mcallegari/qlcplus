@@ -139,8 +139,7 @@ Rectangle
 
             ctx.fillStyle = "black"
             ctx.strokeStyle = "white"
-            var fontPxSize = headerHeight * 0.5
-            ctx.font = fontPxSize + 'px "Roboto Condensed"'
+            ctx.font = UISettings.textSizeDefault + "px \"" + UISettings.robotoFontName + "\""
             ctx.fillRect(0, 0, width, headerHeight)
 
             var divNum = width / tickSize

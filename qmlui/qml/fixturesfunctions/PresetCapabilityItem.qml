@@ -18,13 +18,15 @@
 */
 
 import QtQuick 2.0
+
 import com.qlcplus.classes 1.0
+import "."
 
 Rectangle
 {
     id: iRoot
-    width: 180
-    height: 64
+    width: UISettings.bigItemHeight * 1.5
+    height: UISettings.iconSizeDefault * 1.2
 
     border.width: 1
     border.color: "#111"
@@ -66,10 +68,12 @@ Rectangle
 
     Row
     {
+        spacing: 5
+
         Rectangle
         {
-            width: 64
-            height: 64
+            width: UISettings.iconSizeDefault
+            height: width
             border.width: 1
             border.color: "#111"
 
@@ -78,17 +82,17 @@ Rectangle
                 id: col1
                 x: 1
                 y: 1
-                width: 31
-                height: 62
+                width: parent.width / 2
+                height: parent.height - 2
                 color: "transparent"
             }
             Rectangle
             {
                 id: col2
-                x: 32
+                x: parent.width / 2
                 y: 1
-                width: 31
-                height: 62
+                width: parent.width / 2
+                height: parent.height - 2
                 color: "transparent"
             }
             RobotoText
@@ -113,11 +117,11 @@ Rectangle
         RobotoText
         {
             id: capName
-            width: iRoot.width - 64
+            width: iRoot.width - UISettings.iconSizeDefault
             height: iRoot.height
             //label: ""
             labelColor: "black"
-            fontSize: 10
+            fontSize: UISettings.textSizeDefault * 0.75
             wrapText: true
         }
     }

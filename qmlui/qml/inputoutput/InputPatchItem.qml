@@ -85,11 +85,12 @@ Rectangle
         {
             x: 8
             spacing: 3
+
             Image
             {
                 id: pluginIcon
-                y: 2
-                height: patchBox.height - 6
+                anchors.verticalCenter: parent.verticalCenter
+                height: patchBox.height * 0.75
                 width: height
                 source: patch ? PluginUtils.iconFromName(patch.pluginName) : ""
                 sourceSize: Qt.size(width, height)

@@ -281,13 +281,13 @@ bool DMXUSBWidget::open(quint32 line, bool input)
     if (m_interface->reset() == false)
         return close(line);
 
-    if (m_interface->setBaudRate() == false)
-        return close(line);
-
     if (m_interface->setLineProperties() == false)
         return close(line);
 
     if (m_interface->setFlowControl() == false)
+        return close(line);
+
+    if (m_interface->setBaudRate() == false)
         return close(line);
 
     if (m_interface->purgeBuffers() == false)

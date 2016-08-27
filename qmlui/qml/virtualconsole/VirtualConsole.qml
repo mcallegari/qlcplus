@@ -22,6 +22,7 @@ import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 
 import "DetachWindow.js" as WinLoader
+import com.qlcplus.classes 1.0
 import "."
 
 Rectangle
@@ -87,11 +88,13 @@ Rectangle
 
                 Repeater
                 {
-                    model: virtualConsole.pagesList
+                    model: virtualConsole.pagesCount
                     delegate:
                         MenuBarEntry
                         {
-                            entryText: modelData
+                            property VCWidget wObj: virtualConsole.page(index)
+
+                            entryText: wObj ? wObj.caption : qsTr("Page " + index)
                             checkable: true
                             editable: true
                             checked: index === virtualConsole.selectedPage ? true : false
@@ -101,45 +104,34 @@ Rectangle
 
                             onCheckedChanged:
                             {
-                                if (checked == true)
-                                    virtualConsole.selectedPage = index
+                                if (wObj && checked == true)
+                                {
+                                    if (wObj.requirePIN())
+                                    {
+                                        var page = [ index ]
+
+                                        actionManager.requestActionPopup(ActionManager.VCPagePINRequest,
+                                                                         "qrc:/PINRequest.qml",
+                                                                         ActionManager.OK | ActionManager.Cancel, page)
+                                    }
+                                    else
+                                        virtualConsole.selectedPage = index
+                                }
                             }
                             onRightClicked:
                             {
                                 visible = false
                                 WinLoader.createVCWindow("qrc:/VCPageArea.qml", index)
                             }
-                            onTextChanged: virtualConsole.setPageName(index, text)
+                            onTextChanged:
+                            {
+                                if (wObj)
+                                    wObj.caption = text
+                            }
                         }
                 }
 
                 Rectangle { Layout.fillWidth: true }
-
-                IconButton
-                {
-                    width: parent.height * 0.8
-                    height: width
-                    tooltip: qsTr("Add a new Virtual Console page")
-                    faSource: FontAwesome.fa_plus_square_o
-                    faColor: UISettings.fgLight
-                    bgColor: "transparent"
-                    border.width: 0
-
-                    onClicked: virtualConsole.addPage()
-                }
-
-                IconButton
-                {
-                    width: parent.height * 0.8
-                    height: width
-                    tooltip: qsTr("Remove the selected Virtual Console page")
-                    faSource: FontAwesome.fa_minus_square_o
-                    faColor: UISettings.fgLight
-                    bgColor: "transparent"
-                    border.width: 0
-                }
-
-                //Rectangle { Layout.fillWidth: true }
             }
         }
 

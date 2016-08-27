@@ -122,16 +122,16 @@ private:
 private:
     Doc* m_doc;
     RGBMatrix* m_matrix; // The RGBMatrix being edited
+    RGBMatrixStep *m_previewHandler;
 
     QList <RGBScript> m_scripts;
-    Function::Direction m_previewDirection;
 
     SpeedDialWidget *m_speedDials;
 
     QGraphicsScene* m_scene;
     QTimer* m_previewTimer;
     uint m_previewIterator;
-    int m_previewStep;
+
     QHash<QLCPoint, RGBItem*> m_previewHash;
 };
 

@@ -19,6 +19,9 @@ QMAKE_CXXFLAGS += -Werror
 
 CONFIG         += warn_on
 
+# Mobile platforms are QML only
+android|ios: CONFIG += qmlui
+
 # Build everything in the order specified in .pro files
 CONFIG         += ordered
 
@@ -50,6 +53,7 @@ unix:OLA_GIT    = /usr/src/ola    # OLA directories
 
 #macx:CONFIG   += x86 ppc  # Build universal binaries (Leopard only)
 macx:CONFIG    -= app_bundle # Let QLC+ construct the .app bundle
+macx:QMAKE_STRIP = strip -x
 # Qt 5.5 and above
 greaterThan(QT_MAJOR_VERSION, 4):greaterThan(QT_MINOR_VERSION, 4) {
   macx:QMAKE_LFLAGS += -Wl,-rpath,@executable_path/../Frameworks

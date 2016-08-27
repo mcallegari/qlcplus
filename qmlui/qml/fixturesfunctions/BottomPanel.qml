@@ -125,12 +125,18 @@ Rectangle
             cursorShape: pressed ? Qt.ClosedHandCursor : Qt.OpenHandCursor
             drag.target: bottomSidePanel
             drag.axis: Drag.YAxis
-            drag.minimumY: collapseHeight
+            drag.minimumY: 0
+            drag.maximumY: bottomSidePanel.parent.height - collapseHeight
 
             onPositionChanged:
             {
                 if (drag.active == true)
-                    bottomSidePanel.height = bottomSidePanel.parent.height - bottomSidePanel.y
+                {
+                    var newHeight = bottomSidePanel.parent.height - bottomSidePanel.y
+                    if (newHeight < collapseHeight)
+                        return
+                    bottomSidePanel.height = newHeight
+                }
             }
             //onClicked: animatePanel()
         }

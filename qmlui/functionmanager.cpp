@@ -24,6 +24,7 @@
 #include "collectioneditor.h"
 #include "functionmanager.h"
 #include "rgbmatrixeditor.h"
+#include "treemodelitem.h"
 #include "chasereditor.h"
 #include "sceneeditor.h"
 #include "audioeditor.h"
@@ -212,7 +213,11 @@ quint32 FunctionManager::createFunction(int type)
 
         QVariantList params;
         params.append(QVariant::fromValue(f));
-        m_functionTree->addItem(f->name(), params, f->path(true));
+        TreeModelItem *item = m_functionTree->addItem(f->name(), params, f->path(true));
+        if (item != NULL)
+            item->setSelected(true);
+        m_selectedIDList.append(QVariant(f->id()));
+        emit selectionCountChanged(m_selectedIDList.count());
         emit functionsListChanged();
 
         return f->id();

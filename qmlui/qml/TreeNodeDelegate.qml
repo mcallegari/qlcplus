@@ -65,28 +65,58 @@ Column
 
         TextInput
         {
+            property string originalText
+
             id: nodeLabel
             x: nodeIconImg.width + 1
             z: 0
-            width: parent.width - 45
+            width: parent.width - nodeIconImg.width - 1
             height: UISettings.listItemHeight
             readOnly: true
             text: textLabel
             verticalAlignment: TextInput.AlignVCenter
             color: UISettings.fgMain
-            font.family: "Roboto Condensed"
+            font.family: UISettings.robotoFontName
             font.pixelSize: UISettings.textSizeDefault
             echoMode: TextInput.Normal
             selectByMouse: true
             selectionColor: "#4DB8FF"
             selectedTextColor: "#111"
 
-            onEditingFinished:
+            function disableEditing()
             {
                 z = 0
                 select(0, 0)
                 readOnly = true
+                cursorVisible = false
+            }
+
+            onEditingFinished:
+            {
+                disableEditing()
                 nodeContainer.pathChanged(nodePath, text)
+            }
+            Keys.onEscapePressed:
+            {
+                disableEditing()
+                nodeLabel.text = originalText
+            }
+        }
+
+        Timer
+        {
+            id: clickTimer
+            interval: 200
+            repeat: false
+            running: false
+
+            property int modifiers: 0
+
+            onTriggered:
+            {
+                isExpanded = !isExpanded
+                nodeContainer.clicked(-1, nodeContainer, modifiers)
+                modifiers = 0
             }
         }
 
@@ -96,11 +126,15 @@ Column
             height: UISettings.listItemHeight
             onClicked:
             {
-                isExpanded = !isExpanded
-                nodeContainer.clicked(-1, nodeContainer, mouse.modifiers)
+
+                clickTimer.modifiers = mouse.modifiers
+                clickTimer.start()
             }
             onDoubleClicked:
             {
+                clickTimer.stop()
+                clickTimer.modifiers = 0
+                nodeLabel.originalText = textLabel
                 nodeLabel.z = 5
                 nodeLabel.readOnly = false
                 nodeLabel.forceActiveFocus()

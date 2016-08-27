@@ -110,13 +110,13 @@ Rectangle
                     if (menuEntry.editable == true)
                     {
                         item.color = "transparent"
-                        item.inputText = entryText
+                        item.inputText = Qt.binding(function() { return entryText })
                         item.maximumHeight = parent.height
                         item.wrapText = false
                     }
                     else
                     {
-                        item.label = entryText
+                        item.label = Qt.binding(function() { return entryText })
                         item.height = parent.height
                         item.fontSize = mFontSize
                         item.fontBold = true
@@ -137,7 +137,7 @@ Rectangle
                 id: selRect
                 radius: 2
                 color: checked ? checkedColor : "transparent"
-                height: 5
+                height: UISettings.listItemHeight * 0.1
                 width: tbLoader.width
                 y: parent.height - height - 1
             }

@@ -63,16 +63,18 @@ void TreeModel::enableSorting(bool enable)
     m_sorting = enable;
 }
 
-void TreeModel::addItem(QString label, QVariantList data, QString path)
+TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path)
 {
     qDebug() << "Adding item" << label << path;
+
+    TreeModelItem *item = NULL;
 
     if (data.count() != m_roles.count())
         qDebug() << "Adding an item with a different number of roles" << data.count() << m_roles.count();
 
     if (path.isEmpty())
     {
-        TreeModelItem *item = new TreeModelItem(label);
+        item = new TreeModelItem(label);
         QQmlEngine::setObjectOwnership(item, QQmlEngine::CppOwnership);
         item->setData(data);
         int addIndex = getItemIndex(label);
@@ -82,7 +84,6 @@ void TreeModel::addItem(QString label, QVariantList data, QString path)
     }
     else
     {
-        TreeModelItem *item = NULL;
         QStringList pathList = path.split("/");
         if (m_itemsPathMap.contains(pathList.at(0)))
         {
@@ -127,6 +128,8 @@ void TreeModel::addItem(QString label, QVariantList data, QString path)
             }
         }
     }
+
+    return item;
 }
 
 int TreeModel::rowCount(const QModelIndex &parent) const

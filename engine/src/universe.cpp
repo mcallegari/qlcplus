@@ -47,7 +47,6 @@ Universe::Universe(quint32 id, GrandMaster *gm, QObject *parent)
     , m_passthrough(false)
     , m_monitor(false)
     , m_inputPatch(NULL)
-    , m_outputPatch(NULL)
     , m_fbPatch(NULL)
     , m_channelsMask(new QByteArray(UNIVERSE_SIZE, char(0)))
     , m_modifiedZeroValues(new QByteArray(UNIVERSE_SIZE, char(0)))
@@ -72,7 +71,12 @@ Universe::Universe(quint32 id, GrandMaster *gm, QObject *parent)
 Universe::~Universe()
 {
     delete m_inputPatch;
-    delete m_outputPatch;
+    int opCount = m_outputPatchList.count();
+    for (int i = 0; i < opCount; i++)
+    {
+        OutputPatch *patch = m_outputPatchList.takeLast();
+        delete patch;
+    }
     delete m_fbPatch;
 }
 
@@ -390,7 +394,7 @@ void Universe::updatePostGMValue(int channel)
 
 bool Universe::isPatched()
 {
-    if (m_inputPatch != NULL || m_outputPatch != NULL || m_fbPatch != NULL)
+    if (m_inputPatch != NULL || m_outputPatchList.count() || m_fbPatch != NULL)
         return true;
 
     return false;
@@ -431,31 +435,41 @@ bool Universe::setInputPatch(QLCIOPlugin *plugin,
     return true;
 }
 
-bool Universe::setOutputPatch(QLCIOPlugin *plugin, quint32 output)
+bool Universe::setOutputPatch(QLCIOPlugin *plugin, quint32 output, int index)
 {
+    if (index < 0)
+        return false;
+
     qDebug() << "[Universe] setOutputPatch - ID:" << m_id
-             << ", plugin:" << ((plugin == NULL)?"None":plugin->name()) << ", output:" << output;
-    if (m_outputPatch == NULL)
+             << ", plugin:" << ((plugin == NULL) ? "None" : plugin->name()) << ", output:" << output;
+
+    // replace or delete an existing patch
+    if (index < m_outputPatchList.count())
+    {
+        if (plugin == NULL || output == QLCIOPlugin::invalidLine())
+        {
+            // need to delete an existing patch
+            OutputPatch *patch = m_outputPatchList.takeAt(index);
+            delete patch;
+            emit outputPatchesCountChanged();
+            return true;
+        }
+
+        OutputPatch *patch = m_outputPatchList.at(index);
+        bool result = patch->set(plugin, output);
+        emit outputPatchChanged();
+        return result;
+    }
+    else
     {
         if (plugin == NULL || output == QLCIOPlugin::invalidLine())
             return false;
 
-        m_outputPatch = new OutputPatch(m_id, this);
-    }
-    else
-    {
-        if (output == QLCIOPlugin::invalidLine())
-        {
-            delete m_outputPatch;
-            m_outputPatch = NULL;
-            emit outputPatchChanged();
-            return true;
-        }
-    }
-    if (m_outputPatch != NULL)
-    {
-        bool result = m_outputPatch->set(plugin, output);
-        emit outputPatchChanged();
+        // add a new patch
+        OutputPatch *patch = new OutputPatch(m_id, this);
+        bool result = patch->set(plugin, output);
+        m_outputPatchList.append(patch);
+        emit outputPatchesCountChanged();
         return result;
     }
 
@@ -491,9 +505,17 @@ InputPatch *Universe::inputPatch() const
     return m_inputPatch;
 }
 
-OutputPatch *Universe::outputPatch() const
+OutputPatch *Universe::outputPatch(int index) const
 {
-    return m_outputPatch;
+    if (index < 0 || index >= m_outputPatchList.count())
+        return NULL;
+
+    return m_outputPatchList.at(index);
+}
+
+int Universe::outputPatchesCount() const
+{
+    return m_outputPatchList.count();
 }
 
 OutputPatch *Universe::feedbackPatch() const
@@ -503,15 +525,17 @@ OutputPatch *Universe::feedbackPatch() const
 
 void Universe::dumpOutput(const QByteArray &data)
 {
-    if (m_outputPatch == NULL)
+    if (m_outputPatchList.count() == 0)
         return;
 
-    if (m_totalChannelsChanged == true)
+    for (int i = 0; i < m_outputPatchList.count(); i++)
     {
-        m_outputPatch->setPluginParameter(PLUGIN_UNIVERSECHANNELS, m_totalChannels);
-        m_totalChannelsChanged = false;
+        if (m_totalChannelsChanged == true)
+            m_outputPatchList.at(i)->setPluginParameter(PLUGIN_UNIVERSECHANNELS, m_totalChannels);
+
+        m_outputPatchList.at(i)->dump(m_id, data);
     }
-    m_outputPatch->dump(m_id, data);
+    m_totalChannelsChanged = false;
 }
 
 void Universe::flushInput()

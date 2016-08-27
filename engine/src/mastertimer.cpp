@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   mastertimer.cpp
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -19,6 +20,7 @@
 
 #include <QDebug>
 #include <QSettings>
+#include <QElapsedTimer>
 #include <QMutexLocker>
 
 #if defined(WIN32) || defined(Q_OS_WIN)
@@ -39,6 +41,7 @@
 #include "doc.h"
 
 #define MASTERTIMER_FREQUENCY "mastertimer/frequency"
+#define LATE_TO_BEAT_THRESHOLD 25
 
 /** The timer tick frequency in Hertz */
 uint MasterTimer::s_frequency = 50;
@@ -65,6 +68,8 @@ MasterTimer::MasterTimer(Doc* doc)
     , m_currentBPM(120)
     , m_beatTimeDuration(500)
     , m_beatRequested(false)
+    , m_beatTimer(new QElapsedTimer())
+    , m_lastBeatOffset(0)
 {
     Q_ASSERT(doc != NULL);
     Q_ASSERT(d_ptr != NULL);
@@ -84,6 +89,8 @@ MasterTimer::~MasterTimer()
 
     delete d_ptr;
     d_ptr = NULL;
+
+    delete m_beatTimer;
 }
 
 void MasterTimer::start()
@@ -112,19 +119,21 @@ void MasterTimer::timerTick()
     {
         case Internal:
         {
-            if (m_beatTime.elapsed() >= m_beatTimeDuration)
+            int elapsedTime = qRound((double)m_beatTimer->nsecsElapsed() / 1000000) + m_lastBeatOffset;
+            //qDebug() << "Elapsed beat:" << elapsedTime;
+            if (elapsedTime >= m_beatTimeDuration)
             {
                 // it's time to fire a beat
                 m_beatRequested = true;
 
-                // inform the listening classes that a beat is happening
-                emit beat();
-
                 // restart the time for the next beat, starting at a delta
                 // milliseconds, otherwise it will generate an unpleasant drift
-                int deltaMs = m_beatTime.elapsed() - m_beatTimeDuration;
-                m_beatTime.restart();
-                m_beatTime.addMSecs(deltaMs);
+                //qDebug() << "Elapsed:" << elapsedTime << ", delta:" << elapsedTime - m_beatTimeDuration;
+                m_lastBeatOffset = elapsedTime - m_beatTimeDuration;
+                m_beatTimer->restart();
+
+                // inform the listening classes that a beat is happening
+                emit beat();
             }
         }
         break;
@@ -457,7 +466,7 @@ void MasterTimer::setBeatSourceType(MasterTimer::BeatsSourceType type)
     // alright, this causes a time drift of maximum 1ms per beat
     // but at the moment I am not looking for a better solution
     m_beatTimeDuration = 60000 / m_currentBPM;
-    m_beatTime.restart();
+    m_beatTimer->restart();
 
     m_beatSourceType = type;
 }
@@ -474,7 +483,7 @@ void MasterTimer::requestBpmNumber(int bpm)
 
     m_currentBPM = bpm;
     m_beatTimeDuration = 60000 / m_currentBPM;
-    m_beatTime.restart();
+    m_beatTimer->restart();
 
     emit bpmNumberChanged(bpm);
 }
@@ -491,7 +500,25 @@ int MasterTimer::beatTimeDuration() const
 
 int MasterTimer::timeToNextBeat() const
 {
-    return m_beatTimeDuration - m_beatTime.elapsed();
+    return m_beatTimeDuration - m_beatTimer->elapsed();
+}
+
+int MasterTimer::nextBeatTimeOffset() const
+{
+    // get the time offset to the next beat
+    int toNext = timeToNextBeat();
+    // get the percentage of beat time passed
+    int beatPercentage = (100 * toNext) / m_beatTimeDuration;
+
+    // if a Function has been started within the first LATE_TO_BEAT_THRESHOLD %
+    // of a beat, then it means it is "late" but there's
+    // no need to wait a whole beat
+    if (beatPercentage <= LATE_TO_BEAT_THRESHOLD)
+        return toNext;
+
+    // otherwise we're running early, so we should wait the
+    // whole remaining time
+    return -toNext;
 }
 
 bool MasterTimer::isBeat() const

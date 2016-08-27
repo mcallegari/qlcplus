@@ -32,6 +32,7 @@ RGBMatrixEditor::RGBMatrixEditor(QQuickView *view, Doc *doc, QObject *parent)
     , m_matrix(NULL)
     , m_group(NULL)
     , m_previewTimer(new QTimer(this))
+    , m_previewStepHandler(new RGBMatrixStep())
 {
     m_view->rootContext()->setContextProperty("rgbMatrixEditor", this);
 
@@ -44,6 +45,7 @@ RGBMatrixEditor::~RGBMatrixEditor()
 {
     m_previewTimer->stop();
     m_view->rootContext()->setContextProperty("rgbMatrixEditor", NULL);
+    delete m_previewStepHandler;
 }
 
 void RGBMatrixEditor::setFunctionID(quint32 id)
@@ -159,7 +161,7 @@ void RGBMatrixEditor::setStartColor(QColor algoStartColor)
         return;
 
     m_matrix->setStartColor(algoStartColor);
-    m_matrix->calculateColorDelta();
+    m_previewStepHandler->calculateColorDelta(m_matrix->startColor(), m_matrix->endColor());
 
     emit startColorChanged(algoStartColor);
 }
@@ -178,7 +180,7 @@ void RGBMatrixEditor::setEndColor(QColor algoEndColor)
         return;
 
     m_matrix->setEndColor(algoEndColor);
-    m_matrix->calculateColorDelta();
+    m_previewStepHandler->calculateColorDelta(m_matrix->startColor(), m_matrix->endColor());
 
     emit endColorChanged(algoEndColor);
     if (algoEndColor.isValid())
@@ -198,7 +200,7 @@ void RGBMatrixEditor::setHasEndColor(bool hasEndCol)
     if (m_matrix && hasEndCol == false)
     {
         m_matrix->setEndColor(QColor());
-        m_matrix->calculateColorDelta();
+        m_previewStepHandler->calculateColorDelta(m_matrix->startColor(), m_matrix->endColor());
     }
     emit hasEndColorChanged(hasEndCol);
 }
@@ -491,42 +493,13 @@ void RGBMatrixEditor::slotPreviewTimeout()
 
     if (m_previewElapsed >= m_matrix->duration())
     {
-        int stepsCount = m_matrix->stepsCount();
-        //qDebug() << "previewTimeout. Step:" << m_previewStep;
-        if (m_matrix->runOrder() == RGBMatrix::PingPong)
-        {
-            if (m_previewDirection == Function::Forward && (m_previewStep + 1) == stepsCount)
-                m_previewDirection = Function::Backward;
-            else if (m_previewDirection == Function::Backward && (m_previewStep - 1) < 0)
-                m_previewDirection = Function::Forward;
-        }
+        m_previewStepHandler->checkNextStep(m_matrix->runOrder(), m_matrix->startColor(),
+                                            m_matrix->endColor(), m_matrix->stepsCount());
 
-        if (m_previewDirection == Function::Forward)
-        {
-            m_previewStep++;
-            if (m_previewStep >= stepsCount)
-            {
-                m_previewStep = 0;
-                m_matrix->setStepColor(m_matrix->startColor());
-            }
-            else
-                m_matrix->updateStepColor(m_previewStep);
-        }
-        else
-        {
-            m_previewStep--;
-            if (m_previewStep < 0)
-            {
-                m_previewStep = stepsCount - 1;
-                if (m_matrix->endColor().isValid())
-                    m_matrix->setStepColor(m_matrix->endColor());
-                else
-                    m_matrix->setStepColor(m_matrix->startColor());
-            }
-            else
-                m_matrix->updateStepColor(m_previewStep);
-        }
-        map = m_matrix->previewMap(m_previewStep);
+        map = m_matrix->previewMap(m_previewStepHandler->currentStepIndex(), m_previewStepHandler);
+
+        qDebug() << "Step changing. Index:" << m_previewStepHandler->currentStepIndex() << ", map size:" << map.size();
+
         m_previewElapsed = 0;
 /*
         for (int y = 0; y < map.size(); y++)
@@ -584,29 +557,9 @@ void RGBMatrixEditor::initPreviewData()
     if (m_matrix == NULL)
         return;
 
-    m_previewDirection = m_matrix->direction();
+    m_previewStepHandler->initializeDirection(m_matrix->direction(), m_matrix->startColor(),
+                                              m_matrix->endColor(), m_matrix->stepsCount());
+    m_previewStepHandler->calculateColorDelta(m_matrix->startColor(), m_matrix->endColor());
 
-    if (m_previewDirection == Function::Forward)
-    {
-        m_matrix->setStepColor(m_matrix->startColor());
-    }
-    else
-    {
-        if (m_matrix->endColor().isValid())
-            m_matrix->setStepColor(m_matrix->endColor());
-        else
-            m_matrix->setStepColor(m_matrix->startColor());
-    }
-
-    m_matrix->calculateColorDelta();
-
-    if (m_previewDirection == Function::Forward)
-    {
-        m_previewStep = 0;
-    }
-    else
-    {
-        m_previewStep = m_matrix->stepsCount() - 1;
-    }
     m_previewTimer->start(MasterTimer::tick());
 }

@@ -38,7 +38,7 @@ class VirtualConsole : public PreviewContext
 {
     Q_OBJECT
 
-    Q_PROPERTY(QStringList pagesList READ pagesList NOTIFY pagesListChanged)
+    Q_PROPERTY(int pagesCount READ pagesCount NOTIFY pagesCountChanged)
     Q_PROPERTY(int selectedPage READ selectedPage WRITE setSelectedPage NOTIFY selectedPageChanged)
     Q_PROPERTY(bool editMode READ editMode WRITE setEditMode NOTIFY editModeChanged)
     Q_PROPERTY(VCWidget *selectedWidget READ selectedWidget NOTIFY selectedWidgetChanged)
@@ -52,6 +52,11 @@ public:
     Q_INVOKABLE void renderPage(QQuickItem *parent, QQuickItem *contentItem, int page);
 
     Q_INVOKABLE void setWidgetSelection(quint32 wID, QQuickItem *item, bool enable);
+
+    Q_INVOKABLE void moveWidget(VCWidget *widget, VCFrame *targetFrame, QPoint pos);
+
+    /** Return the reference of the currently selected VC page */
+    Q_INVOKABLE QQuickItem *currentPageItem() const;
 
     /** Return a list of strings with the currently selected VC widget names */
     Q_INVOKABLE QStringList selectedWidgetNames();
@@ -72,38 +77,49 @@ public:
 public:
     /** Get the Virtual Console's frame representing the given $page,
      *  where all the widgets are placed */
-    VCFrame* page(int page) const;
+    Q_INVOKABLE VCFrame* page(int page) const;
 
     /** Reset the Virtual Console contents to an initial state */
     void resetContents();
 
-    /** Adds $widget to the global VC widgets map */
+    /** Add $widget to the global VC widgets map */
     void addWidgetToMap(VCWidget* widget);
+
+    /** Remove $widget from the global VC widgets map */
+    void removeWidgetFromMap(VCWidget* widget);
 
     /** Return a reference to the VC widget with the specified $id.
      *  On invalid $id, NULL is returned */
     VCWidget *widget(quint32 id);
 
     /** Return a list with the VC page names */
-    QStringList pagesList() const;
+    int pagesCount() const;
 
-    /** Set the name of the given VC $page */
-    Q_INVOKABLE bool setPageName(int page, QString name);
+    /** Add a new VC page at $index */
+    Q_INVOKABLE void addPage(int index);
 
-    /** Add a new VC page */
-    Q_INVOKABLE void addPage();
+    /** Delete a VC page at $index */
+    void deletePage(int index);
 
-    /** Return the currently selected VC page index */
+    /** Set a protection PIN for the page at $index */
+    Q_INVOKABLE bool setPagePIN(int index, QString currentPIN, QString newPIN);
+
+    /** Validate a PIN for a VC Page. Returns true if the user entered the
+     *  correct PIN, otherwise false is returned.
+     *  The $remember flag is used to avoid requesting the PIN again
+     *  for the entire session (on PIN check success) */
+    Q_INVOKABLE bool validatePagePIN(int index, QString PIN, bool remember);
+
+    /** Set/Get the currently selected VC page index */
     int selectedPage() const;
-
-    /** Set the selected VC page index */
     void setSelectedPage(int selectedPage);
 
-    /** Get resize mode flag */
+    /** Set/Get the VC edit mode flag */
     bool editMode() const;
-
-    /** Set the VC in resize mode */
     void setEditMode(bool editMode);
+
+    /** Enable/disable the current page scroll interaction */
+    Q_INVOKABLE void setPageInteraction(bool enable);
 
     /** Return a reference to the currently selected VC widget */
     VCWidget *selectedWidget() const;
@@ -118,7 +134,7 @@ signals:
     void selectedPageChanged(int selectedPage);
 
     /** Notify the listener that some page names have changed */
-    void pagesListChanged();
+    void pagesCountChanged();
 
 protected:
     /** Create a new widget ID */

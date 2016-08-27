@@ -103,6 +103,11 @@ void VirtualConsole::renderPage(QQuickItem *parent, QQuickItem *contentItem, int
     m_pages.at(page)->render(m_view, contentItem);
 }
 
+VCWidget *VirtualConsole::selectedWidget() const
+{
+    return m_selectedWidget;
+}
+
 void VirtualConsole::setWidgetSelection(quint32 wID, QQuickItem *item, bool enable)
 {
     // disable any previously selected widget
@@ -130,6 +135,37 @@ void VirtualConsole::setWidgetSelection(quint32 wID, QQuickItem *item, bool enab
     emit selectedWidgetChanged(m_selectedWidget);
 }
 
+void VirtualConsole::moveWidget(VCWidget *widget, VCFrame *targetFrame, QPoint pos)
+{
+    // reset all the drop targets, otherwise two overlapping
+    // frames can get the same drop event
+    resetDropTargets(true);
+
+    VCFrame *sourceFrame = qobject_cast<VCFrame*>(widget->parent());
+
+    if (sourceFrame != targetFrame)
+    {
+        sourceFrame->removeWidgetFromPageMap(widget);
+        widget->setPage(targetFrame->currentPage());
+        targetFrame->addWidgetToPageMap(widget);
+
+        widget->setParent(targetFrame);
+    }
+
+    QRect wRect = widget->geometry();
+    wRect.moveTopLeft(pos);
+    widget->setGeometry(wRect);
+
+    qDebug() << "New widget geometry:" << widget->geometry();
+}
+
+QQuickItem *VirtualConsole::currentPageItem() const
+{
+    QString currPage = QString("vcPage%1").arg(m_selectedPage);
+    QQuickItem *pageItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>(currPage));
+    return pageItem;
+}
+
 QStringList VirtualConsole::selectedWidgetNames()
 {
     QStringList names;
@@ -154,9 +190,9 @@ void VirtualConsole::resetWidgetSelection()
         widget->setProperty("isSelected", false);
     m_itemsMap.clear();
 
-    m_selectedWidget = NULL;
+    m_selectedWidget = m_pages.at(m_selectedPage);
 
-    emit selectedWidgetChanged(NULL);
+    emit selectedWidgetChanged(m_selectedWidget);
 }
 
 void VirtualConsole::deleteVCWidgets(QVariantList IDList)
@@ -264,6 +300,14 @@ void VirtualConsole::addWidgetToMap(VCWidget* widget)
     m_widgetsMap.insert(wid, widget);
 }
 
+void VirtualConsole::removeWidgetFromMap(VCWidget *widget)
+{
+    if (widget == NULL)
+        return;
+
+    m_widgetsMap.remove(widget->id());
+}
+
 VCWidget *VirtualConsole::widget(quint32 id)
 {
     if (id == VCWidget::invalidId())
@@ -272,27 +316,12 @@ VCWidget *VirtualConsole::widget(quint32 id)
     return m_widgetsMap.value(id, NULL);
 }
 
-QStringList VirtualConsole::pagesList() const
+int VirtualConsole::pagesCount() const
 {
-    QStringList list;
-    foreach(VCFrame *frame, m_pages)
-        list.append(frame->caption());
-
-    return list;
+    return m_pages.count();
 }
 
-bool VirtualConsole::setPageName(int page, QString name)
-{
-    if (page < 0 || page >= m_pages.count())
-        return false;
-
-    m_pages.at(page)->setCaption(name);
-    emit pagesListChanged();
-
-    return true;
-}
-
-void VirtualConsole::addPage()
+void VirtualConsole::addPage(int index)
 {
     VCFrame *page = new VCFrame(m_doc, this, this);
     QQmlEngine::setObjectOwnership(page, QQmlEngine::CppOwnership);
@@ -301,9 +330,83 @@ void VirtualConsole::addPage()
     page->setGeometry(QRect(0, 0, 1920, 1080));
     page->setFont(QFont("Roboto Condensed", 16));
     page->setCaption(tr("Page %1").arg(m_pages.count() + 1));
-    m_pages.append(page);
+    m_pages.insert(index, page);
 
-    emit pagesListChanged();
+    emit pagesCountChanged();
+
+    if (index == m_selectedPage)
+    {
+        m_selectedPage++;
+        emit selectedPageChanged(m_selectedPage);
+    }
+}
+
+void VirtualConsole::deletePage(int index)
+{
+    if (index < 0 || index >= m_pages.count())
+        return;
+
+    m_pages.at(index)->deleteChildren();
+    m_pages.takeAt(index);
+
+    m_itemsMap.clear();
+
+    emit pagesCountChanged();
+
+    if (index > 0)
+    {
+        m_selectedPage--;
+        emit selectedPageChanged(m_selectedPage);
+    }
+}
+
+bool VirtualConsole::setPagePIN(int index, QString currentPIN, QString newPIN)
+{
+    bool ok = false;
+
+    if (index < 0 || index >= m_pages.count())
+        return false;
+
+    /* A PIN must be aither empty or 4 digits */
+    if (newPIN.length() != 0 && newPIN.length() != 4)
+        return false;
+
+    /* Check if the entered PINs are numeric */
+    int iPIN = currentPIN.toInt(&ok);
+    if (ok == false)
+        return false;
+
+    iPIN = newPIN.toInt(&ok);
+    if (ok == false)
+        return false;
+
+    Q_UNUSED(iPIN)
+
+    /* Check if the current PIN matches with the Frame PIN */
+    if (m_pages.at(index)->PIN() != currentPIN.toInt())
+        return false;
+
+    /* At last, set the new PIN for the page */
+    if (newPIN.isEmpty())
+        m_pages.at(index)->setPIN(0);
+    else
+        m_pages.at(index)->setPIN(newPIN.toInt());
+
+    return true;
+}
+
+bool VirtualConsole::validatePagePIN(int index, QString PIN, bool remember)
+{
+    if (index < 0 || index >= m_pages.count())
+        return false;
+
+    if (m_pages.at(index)->PIN() != PIN.toInt())
+        return false;
+
+    if(remember)
+        m_pages.at(index)->validatePIN();
+
+    return true;
 }
 
 int VirtualConsole::selectedPage() const
@@ -334,9 +437,11 @@ void VirtualConsole::setEditMode(bool editMode)
     emit editModeChanged(editMode);
 }
 
-VCWidget *VirtualConsole::selectedWidget() const
+void VirtualConsole::setPageInteraction(bool enable)
 {
-    return m_selectedWidget;
+    QQuickItem *page = currentPageItem();
+    if (page != NULL)
+        page->setProperty("interactive", enable);
 }
 
 /*********************************************************************
@@ -403,10 +508,13 @@ bool VirtualConsole::loadXML(QXmlStreamReader &root)
                 page->setShowHeader(false);
                 page->setGeometry(QRect(0, 0, 1920, 1080));
                 page->setFont(QFont("Roboto Condensed", 16));
+                page->setCaption(tr("Page %1").arg(currPageIdx + 1));
                 m_pages.append(page);
             }
             /* Contents */
             m_pages.at(currPageIdx)->loadXML(root);
+            if (m_pages.at(currPageIdx)->caption().isEmpty())
+                m_pages.at(currPageIdx)->setCaption(tr("Page %1").arg(currPageIdx + 1));
             currPageIdx++;
 
         }

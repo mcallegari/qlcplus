@@ -10,7 +10,7 @@ for(i, FLAVORS):{
     qtnametool.commands += && $$LIBQTGUI_INSTALL_NAME_TOOL $$INSTALLROOT/PlugIns/platforms/$$FILE
     qtnametool.commands += && $$LIBQTWIDGETS_INSTALL_NAME_TOOL $$INSTALLROOT/PlugIns/platforms/$$FILE
     qtnametool.commands += && $$LIBQTPRINTSUPPORT_INSTALL_NAME_TOOL $$INSTALLROOT/PlugIns/platforms/$$FILE
-    qtnametool.commands += && install_name_tool -id @executable_path/../PlugIns/platforms/$$FILE $$INSTALLROOT/PlugIns/platforms/$$FILE
+    #qtnametool.commands += && install_name_tool -id @executable_path/../PlugIns/platforms/$$FILE $$INSTALLROOT/PlugIns/platforms/$$FILE
 
     !isEmpty(nametool.commands) {
         nametool.commands += "&&"

@@ -603,10 +603,11 @@ void Scene::write(MasterTimer* timer, QList<Universe*> ua)
             bool canFade = true;
 
             FadeChannel fc(doc(), value.fxi, value.channel);
-            fc.setTarget(value.value);
             Fixture *fixture = doc()->fixture(value.fxi);
             if (fixture != NULL)
                 canFade = fixture->channelCanFade(value.channel);
+
+            fc.setTarget(value.value);
 
             if (canFade == false)
             {
@@ -617,7 +618,15 @@ void Scene::write(MasterTimer* timer, QList<Universe*> ua)
                 uint fadein = overrideFadeInSpeed() == defaultSpeed() ? fadeInSpeed() : overrideFadeInSpeed();
 
                 if (tempoType() == Beats)
-                    fc.setFadeTime(beatsToTime(fadein, timer->beatTimeDuration()) + timer->timeToNextBeat());
+                {
+                    int fadeInTime = beatsToTime(fadein, timer->beatTimeDuration());
+                    int beatOffset = timer->nextBeatTimeOffset();
+
+                    if (fadeInTime - beatOffset > 0)
+                        fc.setFadeTime(fadeInTime - beatOffset);
+                    else
+                        fc.setFadeTime(fadeInTime);
+                }
                 else
                     fc.setFadeTime(fadein);
             }

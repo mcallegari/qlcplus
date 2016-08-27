@@ -40,13 +40,17 @@ Rectangle
     function iconFromType(type)
     {
         if (type === "Color Changer")
-            return "qrc:/fixture.svg";
+            return "qrc:/fixture.svg"
         else if (type === "Dimmer")
-            return "qrc:/dimmer.svg";
+            return "qrc:/dimmer.svg"
         else if (type === "Moving Head")
-            return "qrc:/movinghead.svg";
+            return "qrc:/movinghead.svg"
+        else if (type === "Flower")
+            return "qrc:/flower.svg"
+        else if (type === "Effect")
+            return "qrc:/effect.svg"
         else
-            return "qrc:/fixture.svg";
+            return "qrc:/fixture.svg"
     }
 
     Rectangle
@@ -79,13 +83,7 @@ Rectangle
         anchors.fill: parent
         hoverEnabled: true
 
-        onClicked:
-        {
-            fxDelegate.clicked(cRef.id, fxDelegate, mouse.modifiers)
-        }
-        onDoubleClicked:
-        {
-            fxDelegate.doubleClicked(cRef.id, -1)
-        }
+        onClicked: fxDelegate.clicked(cRef.id, fxDelegate, mouse.modifiers)
+        onDoubleClicked: fxDelegate.doubleClicked(cRef.id, -1)
     }
 }
