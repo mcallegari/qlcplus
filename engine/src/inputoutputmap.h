@@ -356,7 +356,7 @@ public:
      *
      * @param universe The internal universe to get mapping for
      */
-    OutputPatch* outputPatch(quint32 universe) const;
+    OutputPatch* outputPatch(quint32 universe, int index = 0) const;
 
     /**
      * Get the feedback mapping for a QLC universe.

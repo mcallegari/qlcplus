@@ -44,6 +44,7 @@ private slots:
     void profiles();
     void setInputPatch();
     void setOutputPatch();
+    void setMultipleOutputPatches();
     void slotValueChanged();
     void slotConfigurationChanged();
     void loadInputProfiles();

@@ -509,14 +509,14 @@ InputPatch *InputOutputMap::inputPatch(quint32 universe) const
     return m_universeArray.at(universe)->inputPatch();
 }
 
-OutputPatch *InputOutputMap::outputPatch(quint32 universe) const
+OutputPatch *InputOutputMap::outputPatch(quint32 universe, int index) const
 {
     if (universe >= universesCount())
     {
         qWarning() << Q_FUNC_INFO << "Universe" << universe << "out of bounds.";
         return NULL;
     }
-    return m_universeArray.at(universe)->outputPatch();
+    return m_universeArray.at(universe)->outputPatch(index);
 }
 
 OutputPatch *InputOutputMap::feedbackPatch(quint32 universe) const
