@@ -462,6 +462,9 @@ bool Universe::setOutputPatch(QLCIOPlugin *plugin, quint32 output, int index)
     }
     else
     {
+        if (plugin == NULL || output == QLCIOPlugin::invalidLine())
+            return false;
+
         // add a new patch
         OutputPatch *patch = new OutputPatch(m_id, this);
         bool result = patch->set(plugin, output);
