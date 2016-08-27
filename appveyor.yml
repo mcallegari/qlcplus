@@ -47,7 +47,7 @@ build_script:
           cp *.qm /c/qlcplus
           cd /c/qlcplus
           sed -i -e 's/Qt/projects/g' qlcplusQt5.nsi
-          makensis -X"SetCompressor /FINAL lzma" qlcplusQt5.nsi
+          makensis -X'SetCompressor /FINAL lzma' qlcplusQt5.nsi
           ls *.exe
           exit 0
         "@
