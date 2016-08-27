@@ -52,4 +52,17 @@ build_script:
           exit 0
         "@
 
+artifacts:
+  - path: QLC+_4.10.5-TEST.exe
+    name: qlcplus_4_10_5
 
+deploy:
+  - provider: BinTray
+    username: mcallegari
+    api_key:
+      secure: 07c65b650846662c79ef656dbe43da808543aa1f
+    subject: mcallegari
+    repo: qlcplus
+    package: qlcplus_windows
+    version: 4.10.5-TEST
+    artifact: qlcplus_4_10_5
