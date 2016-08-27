@@ -46,8 +46,9 @@ build_script:
           make install -s
           cp *.qm /c/qlcplus
           cd /c/qlcplus
-          #makensis /V4 qlcplusQt5.nsi
-          ls
+          sed -i -e 's/Qt/projects/g' qlcplusQt5.nsi
+          makensis -X"SetCompressor /FINAL lzma" qlcplusQt5.nsi
+          ls *.exe
           exit 0
         "@
 
