@@ -468,7 +468,7 @@ bool InputOutputMap::setInputProfile(quint32 universe, const QString &profileNam
 }
 
 bool InputOutputMap::setOutputPatch(quint32 universe, const QString &pluginName,
-                                    quint32 output, bool isFeedback)
+                                    quint32 output, bool isFeedback, int index)
 {
     /* Check that the universe that we're doing mapping for is valid */
     if (universe >= universesCount())
@@ -480,12 +480,23 @@ bool InputOutputMap::setOutputPatch(quint32 universe, const QString &pluginName,
     QMutexLocker locker(&m_universeMutex);
     if (isFeedback == false)
         return m_universeArray.at(universe)->setOutputPatch(
-                    doc()->ioPluginCache()->plugin(pluginName), output);
+                    doc()->ioPluginCache()->plugin(pluginName), output, index);
     else
         return m_universeArray.at(universe)->setFeedbackPatch(
                     doc()->ioPluginCache()->plugin(pluginName), output);
 
     return false;
+}
+
+int InputOutputMap::outputPatchesCount(quint32 universe) const
+{
+    if (universe >= universesCount())
+    {
+        qWarning() << Q_FUNC_INFO << "Universe" << universe << "out of bounds.";
+        return 0;
+    }
+
+    return m_universeArray.at(universe)->outputPatchesCount();
 }
 
 InputPatch *InputOutputMap::inputPatch(quint32 universe) const
