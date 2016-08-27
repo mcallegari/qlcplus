@@ -60,7 +60,7 @@ deploy:
   - provider: BinTray
     username: mcallegari
     api_key:
-      secure: 07c65b650846662c79ef656dbe43da808543aa1f
+      secure: 5fjtLBoawWCTlXx/mkXdub6tvbeyHuqgu4HDcxX4vm1c9IA0l8He5sUcwQZgAAHI
     subject: mcallegari
     repo: qlcplus
     package: qlcplus_windows
