@@ -206,18 +206,17 @@ Rectangle
         }
     }
 
+
     // Output patches wires box
     PatchWireBox
     {
         id: outWireBox
         x: uniBox.x + uniBox.width - 6
-        y: outputBox.y
         width: wireBoxWidth
-        height: outputBox.height
+        height: uniItem.height
         z: 10
 
         patchesNumber: outputPatchesNumber
-        patchesSpacing: outputBox.spacing
     }
 
     // area containing the output patches

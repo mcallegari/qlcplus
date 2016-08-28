@@ -26,7 +26,6 @@ Canvas
     height: 120
 
     property int patchesNumber: 0
-    property int patchesSpacing
 
     onPatchesNumberChanged: requestPaint()
 
