@@ -56,13 +56,3 @@ artifacts:
   - path: QLC+_4.10.5-TEST.exe
     name: qlcplus_4_10_5
 
-deploy:
-  - provider: BinTray
-    username: mcallegari
-    api_key:
-      secure: 4NhFWKMP5zv3ux8/auxcvHSluJi3rQ5+SPrdqVnf26m4xLdv15m/UbVvITYhe/Bg
-    subject: mcallegari
-    repo: qlcplus
-    package: qlcplus_windows
-    version: 4.10.5-TEST
-    artifact: qlcplus_4_10_5
