@@ -55,7 +55,6 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc, QObject *parent)
     , m_latestWidgetId(0)
     , m_editMode(false)
     , m_selectedPage(0)
-    , m_selectedWidget(NULL)
 {
     Q_ASSERT(doc != NULL);
 
@@ -105,34 +104,97 @@ void VirtualConsole::renderPage(QQuickItem *parent, QQuickItem *contentItem, int
 
 VCWidget *VirtualConsole::selectedWidget() const
 {
-    return m_selectedWidget;
+    if (m_itemsMap.isEmpty())
+        return qobject_cast<VCWidget *>(m_pages.at(m_selectedPage));
+
+    return m_widgetsMap[m_itemsMap.firstKey()];
 }
 
-void VirtualConsole::setWidgetSelection(quint32 wID, QQuickItem *item, bool enable)
+void VirtualConsole::setWidgetSelection(quint32 wID, QQuickItem *item, bool enable, bool multi)
 {
-    // disable any previously selected widget
-    // TODO: handle multiple widgets selection
-    resetWidgetSelection();
+    VCWidget *vcWidget = NULL;
+
+    if (multi == false)
+    {
+        // disable any previously selected widget
+        QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
+        while(it.hasNext())
+        {
+            it.next();
+            QQuickItem *uiWidget = it.value();
+            vcWidget = m_widgetsMap[it.key()];
+            uiWidget->setProperty("isSelected", false);
+            vcWidget->setIsEditing(false);
+        }
+        m_itemsMap.clear();
+    }
 
     if (enable)
     {
         m_itemsMap[wID] = item;
-        if (m_selectedWidget != NULL)
-            m_selectedWidget->setIsEditing(false);
 
-        m_selectedWidget = m_widgetsMap[wID];
+        vcWidget = m_widgetsMap[wID];
 
-        if (m_selectedWidget != NULL)
-            m_selectedWidget->setIsEditing(true);
+        if (vcWidget != NULL)
+            vcWidget->setIsEditing(true);
+
+        if (selectedWidgetsCount() == 1)
+            emit selectedWidgetChanged();
     }
     else
     {
-        if (m_selectedWidget != NULL)
-            m_selectedWidget->setIsEditing(false);
-        m_selectedWidget = NULL;
+        m_itemsMap.remove(wID);
+
+        vcWidget = m_widgetsMap[wID];
+
+        if (vcWidget != NULL)
+            vcWidget->setIsEditing(false);
     }
 
-    emit selectedWidgetChanged(m_selectedWidget);
+    emit selectedWidgetsCountChanged();
+}
+
+void VirtualConsole::resetWidgetSelection()
+{
+    foreach(QQuickItem *widget, m_itemsMap.values())
+        widget->setProperty("isSelected", false);
+    m_itemsMap.clear();
+
+    emit selectedWidgetChanged();
+    emit selectedWidgetsCountChanged();
+}
+
+QStringList VirtualConsole::selectedWidgetNames()
+{
+    QStringList names;
+    if (m_itemsMap.isEmpty() == false)
+    {
+        foreach(quint32 wID, m_itemsMap.keys())
+        {
+            VCWidget *vcWidget = m_widgetsMap[wID];
+            if (vcWidget != NULL)
+                names << vcWidget->caption();
+        }
+    }
+
+    return names;
+}
+
+int VirtualConsole::selectedWidgetsCount() const
+{
+    return m_itemsMap.keys().count();
+}
+
+QVariantList VirtualConsole::selectedWidgetIDs()
+{
+    QVariantList ids;
+    if (m_itemsMap.isEmpty() == false)
+    {
+        foreach(quint32 wID, m_itemsMap.keys())
+            ids << wID;
+    }
+
+    return ids;
 }
 
 void VirtualConsole::moveWidget(VCWidget *widget, VCFrame *targetFrame, QPoint pos)
@@ -164,35 +226,6 @@ QQuickItem *VirtualConsole::currentPageItem() const
     QString currPage = QString("vcPage%1").arg(m_selectedPage);
     QQuickItem *pageItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>(currPage));
     return pageItem;
-}
-
-QStringList VirtualConsole::selectedWidgetNames()
-{
-    QStringList names;
-    if (m_selectedWidget != NULL)
-        names << m_selectedWidget->caption();
-
-    return names;
-}
-
-QVariantList VirtualConsole::selectedWidgetIDs()
-{
-    QVariantList ids;
-    if (m_selectedWidget != NULL)
-        ids << m_selectedWidget->id();
-
-    return ids;
-}
-
-void VirtualConsole::resetWidgetSelection()
-{
-    foreach(QQuickItem *widget, m_itemsMap.values())
-        widget->setProperty("isSelected", false);
-    m_itemsMap.clear();
-
-    m_selectedWidget = m_pages.at(m_selectedPage);
-
-    emit selectedWidgetChanged(m_selectedWidget);
 }
 
 void VirtualConsole::deleteVCWidgets(QVariantList IDList)
@@ -227,8 +260,7 @@ void VirtualConsole::deleteVCWidgets(QVariantList IDList)
         if (m_itemsMap.contains(wID))
         {
             QQuickItem *qItem = m_itemsMap[wID];
-            m_selectedWidget = NULL;
-            emit selectedWidgetChanged(NULL);
+            emit selectedWidgetChanged();
             delete qItem;
         }
     }

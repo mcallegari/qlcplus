@@ -79,8 +79,7 @@ public:
 
 public:
     /**
-     * Convert a SliderMode enum to a string that can be saved into
-     * an XML file.
+     * Convert a SliderMode enum to a string that can be saved into an XML file.
      *
      * @param mode The mode to convert
      * @return A string
@@ -95,14 +94,8 @@ public:
      */
     static SliderMode stringToSliderMode(const QString& mode);
 
-    /**
-     * Get the slider's current SliderMode
-     */
+    /** Get/Set the current slider mode */
     SliderMode sliderMode() const;
-
-    /**
-     * Change the slider's current SliderMode
-     */
     void setSliderMode(SliderMode mode);
 
 protected:

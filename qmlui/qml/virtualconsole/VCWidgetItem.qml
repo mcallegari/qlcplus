@@ -88,7 +88,7 @@ Rectangle
                 if (virtualConsole.editMode)
                 {
                     isSelected = !isSelected
-                    virtualConsole.setWidgetSelection(wObj.id, wRoot, isSelected)
+                    virtualConsole.setWidgetSelection(wObj.id, wRoot, isSelected, mouse.modifiers & Qt.ControlModifier)
                 }
 
                 drag.target = wRoot
@@ -104,6 +104,11 @@ Rectangle
                     wObj.geometry = Qt.rect(remappedPos.x, remappedPos.y, wRoot.width, wRoot.height)
                     wRoot.parent = virtualConsole.currentPageItem()
                     dragRemapped = true
+                    if (isSelected == false)
+                    {
+                        isSelected = true
+                        virtualConsole.setWidgetSelection(wObj.id, wRoot, isSelected, mouse.modifiers & Qt.ControlModifier)
+                    }
                 }
             }
 

@@ -42,6 +42,7 @@ class VirtualConsole : public PreviewContext
     Q_PROPERTY(int selectedPage READ selectedPage WRITE setSelectedPage NOTIFY selectedPageChanged)
     Q_PROPERTY(bool editMode READ editMode WRITE setEditMode NOTIFY editModeChanged)
     Q_PROPERTY(VCWidget *selectedWidget READ selectedWidget NOTIFY selectedWidgetChanged)
+    Q_PROPERTY(int selectedWidgetsCount READ selectedWidgetsCount NOTIFY selectedWidgetsCountChanged)
 
 public:
     VirtualConsole(QQuickView *view, Doc *doc, QObject *parent = 0);
@@ -51,21 +52,24 @@ public:
 
     Q_INVOKABLE void renderPage(QQuickItem *parent, QQuickItem *contentItem, int page);
 
-    Q_INVOKABLE void setWidgetSelection(quint32 wID, QQuickItem *item, bool enable);
+    Q_INVOKABLE void setWidgetSelection(quint32 wID, QQuickItem *item, bool enable, bool multi);
+
+    /** Resets the currently selected widgets selection list */
+    Q_INVOKABLE void resetWidgetSelection();
+
+    /** Return a list of strings with the currently selected VC widget names */
+    Q_INVOKABLE QStringList selectedWidgetNames();
+
+    /** Return the number of currently selected VC widgets */
+    int selectedWidgetsCount() const;
+
+    /** Return a list of the currently selected VC widget IDs */
+    Q_INVOKABLE QVariantList selectedWidgetIDs();
 
     Q_INVOKABLE void moveWidget(VCWidget *widget, VCFrame *targetFrame, QPoint pos);
 
     /** Return the reference of the currently selected VC page */
     Q_INVOKABLE QQuickItem *currentPageItem() const;
-
-    /** Return a list of strings with the currently selected VC widget names */
-    Q_INVOKABLE QStringList selectedWidgetNames();
-
-    /** Return a list of the currently selected VC widget IDs */
-    Q_INVOKABLE QVariantList selectedWidgetIDs();
-
-    /** Resets the currently selected widgets selection list */
-    Q_INVOKABLE void resetWidgetSelection();
 
     /** Delete the VC widgets with the IDs specified in $IDList */
     void deleteVCWidgets(QVariantList IDList);
@@ -128,7 +132,9 @@ signals:
     void editModeChanged(bool editMode);
 
     /** Notify the listeners that the currenly selected VC widget has changed */
-    void selectedWidgetChanged(VCWidget* selectedWidget);
+    void selectedWidgetChanged();
+
+    void selectedWidgetsCountChanged();
 
     /** Notify the listeners that the currenly selected VC page has changed */
     void selectedPageChanged(int selectedPage);
@@ -153,8 +159,6 @@ protected:
     bool m_editMode;
 
     int m_selectedPage;
-
-    VCWidget *m_selectedWidget;
 
     /*********************************************************************
      * Drag & Drop

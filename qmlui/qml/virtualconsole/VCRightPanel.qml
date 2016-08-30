@@ -115,7 +115,7 @@ SidePanel
                 height: iconSize
                 imgSource: "qrc:/remove.svg"
                 tooltip: qsTr("Remove the selected widgets")
-                counter: virtualConsole.selectedWidget ? 1 : 0
+                counter: virtualConsole.selectedWidgetsCount
                 onClicked:
                 {
                     var selNames = virtualConsole.selectedWidgetNames()
