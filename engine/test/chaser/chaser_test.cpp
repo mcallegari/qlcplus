@@ -185,26 +185,6 @@ void Chaser_Test::steps()
     QVERIFY(c.steps().at(1) == ChaserStep(1));
 }
 
-void Chaser_Test::clear()
-{
-    Chaser c(m_doc);
-    c.setID(50);
-    QCOMPARE(c.steps().size(), 0);
-
-    c.addStep(ChaserStep(0));
-    c.addStep(ChaserStep(1));
-    c.addStep(ChaserStep(2));
-    c.addStep(ChaserStep(470));
-    QCOMPARE(c.steps().size(), 4);
-
-    QSignalSpy spy(&c, SIGNAL(changed(quint32)));
-    c.clear();
-    QCOMPARE(c.steps().size(), 0);
-    QCOMPARE(spy.size(), 1);
-    QCOMPARE(spy.at(0).size(), 1);
-    QCOMPARE(spy.at(0).at(0).toUInt(), quint32(50));
-}
-
 void Chaser_Test::functionRemoval()
 {
     Chaser c(m_doc);
