@@ -33,7 +33,7 @@ Rectangle
 
     property color bgColor: UISettings.bgLight
     property color hoverColor: UISettings.hover
-    property color pressColor: "#054A9E"
+    property color pressColor: UISettings.highlightPressed
     property color checkedColor: UISettings.highlight
 
     property bool checkable: false
@@ -52,7 +52,7 @@ Rectangle
     signal clicked
     signal toggled
 
-    color: checked ? checkedColor : (mouseArea1.containsMouse ? hoverColor : bgColor)
+    color: bgColor
     radius: 5
     border.color: "#1D1D1D"
     border.width: 2
@@ -67,6 +67,36 @@ Rectangle
         if (counter == 0)
             checked = false
     }
+
+    states: [
+        State
+        {
+            when: checked
+            PropertyChanges
+            {
+                target: baseIconButton
+                color: checkedColor
+            }
+        },
+        State
+        {
+            when: mouseArea1.pressed
+            PropertyChanges
+            {
+                target: baseIconButton
+                color: pressColor
+            }
+        },
+        State
+        {
+            when: mouseArea1.containsMouse
+            PropertyChanges
+            {
+                target: baseIconButton
+                color: hoverColor
+            }
+        }
+    ]
 
     Image
     {
