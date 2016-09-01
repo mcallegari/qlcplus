@@ -2,6 +2,7 @@ environment:
     MSYSTEM: MSYS
     PATH: C:\msys64\mingw32\bin;C:\msys64\usr\bin;C:\Windows\System32;C:\Windows;%PATH%
     QMAKESPEC: win32-g++
+    CURRDATE: Get-Date -format yyyyMMdd
 
 platform:
   - x86
@@ -48,12 +49,12 @@ build_script:
           cd /c/qlcplus
           sed -i -e 's/Qt/projects/g' qlcplusQt5.nsi
           makensis -X'SetCompressor /FINAL lzma' qlcplusQt5.nsi
-          set CURRDATE=`date +%Y%m%d`
+          #set CURRDATE=`date +%Y%m%d`
           mv QLC+_4.10.5.exe /c/projects/qlcplus/QLC+_4.10.5-TEST-$CURRDATE.exe
           exit 0
         "@
 
 artifacts:
-  - path: QLC+_4.10.5-TEST-$CURRDATE.exe
+  - path: QLC+_4.10.5-TEST-%CURRDATE%.exe
     name: qlcplus_4_10_5
 
