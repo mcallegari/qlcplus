@@ -48,11 +48,12 @@ build_script:
           cd /c/qlcplus
           sed -i -e 's/Qt/projects/g' qlcplusQt5.nsi
           makensis -X'SetCompressor /FINAL lzma' qlcplusQt5.nsi
-          mv QLC+_4.10.5.exe /c/projects/qlcplus/QLC+_4.10.5-TEST.exe
+          set CURRDATE=`date +%Y%m%d`
+          mv QLC+_4.10.5.exe /c/projects/qlcplus/QLC+_4.10.5-TEST-$CURRDATE.exe
           exit 0
         "@
 
 artifacts:
-  - path: QLC+_4.10.5-TEST.exe
+  - path: QLC+_4.10.5-TEST-$CURRDATE.exe
     name: qlcplus_4_10_5
 
