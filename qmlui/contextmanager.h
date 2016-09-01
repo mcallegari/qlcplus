@@ -59,6 +59,8 @@ public:
 
     Q_INVOKABLE void setFixturePosition(quint32 fxID, qreal x, qreal y);
 
+    Q_INVOKABLE void setFixturesAlignment(int alignment);
+
     Q_INVOKABLE void dumpDmxChannels();
 
     Q_INVOKABLE void createFixtureGroup();

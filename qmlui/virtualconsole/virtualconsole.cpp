@@ -52,9 +52,9 @@
 
 VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc, QObject *parent)
     : PreviewContext(view, doc, parent)
-    , m_latestWidgetId(0)
     , m_editMode(false)
     , m_selectedPage(0)
+    , m_latestWidgetId(0)
 {
     Q_ASSERT(doc != NULL);
 
@@ -85,6 +85,34 @@ qreal VirtualConsole::pixelDensity() const
     return app->pixelDensity();
 }
 
+void VirtualConsole::resetContents()
+{
+    foreach (VCFrame *page, m_pages)
+        page->deleteChildren();
+
+    m_widgetsMap.clear();
+    m_latestWidgetId = 0;
+    m_selectedPage = 0;
+}
+
+bool VirtualConsole::editMode() const
+{
+    return m_editMode;
+}
+
+void VirtualConsole::setEditMode(bool editMode)
+{
+    if (m_editMode == editMode)
+        return;
+
+    m_editMode = editMode;
+    emit editModeChanged(editMode);
+}
+
+/*********************************************************************
+ * Pages
+ *********************************************************************/
+
 void VirtualConsole::renderPage(QQuickItem *parent, QQuickItem *contentItem, int page)
 {
     if (parent == NULL)
@@ -102,12 +130,196 @@ void VirtualConsole::renderPage(QQuickItem *parent, QQuickItem *contentItem, int
     m_pages.at(page)->render(m_view, contentItem);
 }
 
-VCWidget *VirtualConsole::selectedWidget() const
+VCFrame *VirtualConsole::page(int page) const
 {
-    if (m_itemsMap.isEmpty())
-        return qobject_cast<VCWidget *>(m_pages.at(m_selectedPage));
+    if (page < 0 || page >= m_pages.count())
+        return NULL;
 
-    return m_widgetsMap[m_itemsMap.firstKey()];
+    return m_pages.at(page);
+}
+
+QQuickItem *VirtualConsole::currentPageItem() const
+{
+    QString currPage = QString("vcPage%1").arg(m_selectedPage);
+    QQuickItem *pageItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>(currPage));
+    return pageItem;
+}
+
+int VirtualConsole::pagesCount() const
+{
+    return m_pages.count();
+}
+
+void VirtualConsole::addPage(int index)
+{
+    VCFrame *page = new VCFrame(m_doc, this, this);
+    QQmlEngine::setObjectOwnership(page, QQmlEngine::CppOwnership);
+    page->setAllowResize(false);
+    page->setShowHeader(false);
+    page->setGeometry(QRect(0, 0, 1920, 1080));
+    page->setFont(QFont("Roboto Condensed", 16));
+    page->setCaption(tr("Page %1").arg(m_pages.count() + 1));
+    m_pages.insert(index, page);
+
+    emit pagesCountChanged();
+
+    if (index == m_selectedPage)
+    {
+        m_selectedPage++;
+        emit selectedPageChanged(m_selectedPage);
+    }
+}
+
+void VirtualConsole::deletePage(int index)
+{
+    if (index < 0 || index >= m_pages.count())
+        return;
+
+    m_pages.at(index)->deleteChildren();
+    m_pages.takeAt(index);
+
+    m_itemsMap.clear();
+
+    emit pagesCountChanged();
+
+    if (index > 0)
+    {
+        m_selectedPage--;
+        emit selectedPageChanged(m_selectedPage);
+    }
+}
+
+bool VirtualConsole::setPagePIN(int index, QString currentPIN, QString newPIN)
+{
+    bool ok = false;
+
+    if (index < 0 || index >= m_pages.count())
+        return false;
+
+    /* A PIN must be aither empty or 4 digits */
+    if (newPIN.length() != 0 && newPIN.length() != 4)
+        return false;
+
+    /* Check if the entered PINs are numeric */
+    int iPIN = currentPIN.toInt(&ok);
+    if (ok == false)
+        return false;
+
+    iPIN = newPIN.toInt(&ok);
+    if (ok == false)
+        return false;
+
+    Q_UNUSED(iPIN)
+
+    /* Check if the current PIN matches with the Frame PIN */
+    if (m_pages.at(index)->PIN() != currentPIN.toInt())
+        return false;
+
+    /* At last, set the new PIN for the page */
+    if (newPIN.isEmpty())
+        m_pages.at(index)->setPIN(0);
+    else
+        m_pages.at(index)->setPIN(newPIN.toInt());
+
+    return true;
+}
+
+bool VirtualConsole::validatePagePIN(int index, QString PIN, bool remember)
+{
+    if (index < 0 || index >= m_pages.count())
+        return false;
+
+    if (m_pages.at(index)->PIN() != PIN.toInt())
+        return false;
+
+    if(remember)
+        m_pages.at(index)->validatePIN();
+
+    return true;
+}
+
+int VirtualConsole::selectedPage() const
+{
+    return m_selectedPage;
+}
+
+void VirtualConsole::setSelectedPage(int selectedPage)
+{
+    if (m_selectedPage == selectedPage)
+        return;
+
+    m_selectedPage = selectedPage;
+    emit selectedPageChanged(selectedPage);
+}
+
+void VirtualConsole::setPageInteraction(bool enable)
+{
+    QQuickItem *page = currentPageItem();
+    if (page != NULL)
+        page->setProperty("interactive", enable);
+}
+
+/*********************************************************************
+ * Widgets
+ *********************************************************************/
+
+quint32 VirtualConsole::newWidgetId()
+{
+    /* This results in an endless loop if there are UINT_MAX-1 widgets. That,
+       however, seems a bit unlikely. */
+    while (m_widgetsMap.contains(m_latestWidgetId) ||
+           m_latestWidgetId == VCWidget::invalidId())
+    {
+        m_latestWidgetId++;
+    }
+
+    return m_latestWidgetId;
+}
+
+void VirtualConsole::addWidgetToMap(VCWidget* widget)
+{
+    // Valid ID ?
+    if (widget->id() != VCWidget::invalidId())
+    {
+        // Maybe we don't know this widget yet
+        if (!m_widgetsMap.contains(widget->id()))
+        {
+            m_widgetsMap.insert(widget->id(), widget);
+            return;
+        }
+
+        // Maybe we already know this widget
+        if (m_widgetsMap[widget->id()] == widget)
+        {
+            qDebug() << Q_FUNC_INFO << "widget" << widget->id() << "already in map";
+            return;
+        }
+
+        // This widget id conflicts with another one we have to change it.
+        qDebug() << Q_FUNC_INFO << "widget id" << widget->id() << "conflicts, creating a new ID";
+    }
+
+    quint32 wid = newWidgetId();
+    Q_ASSERT(!m_widgetsMap.contains(wid));
+    qDebug() << Q_FUNC_INFO << "id=" << wid;
+    widget->setID(wid);
+    m_widgetsMap.insert(wid, widget);
+}
+
+void VirtualConsole::removeWidgetFromMap(VCWidget *widget)
+{
+    if (widget == NULL)
+        return;
+
+    m_widgetsMap.remove(widget->id());
+}
+
+VCWidget *VirtualConsole::widget(quint32 id)
+{
+    if (id == VCWidget::invalidId())
+        return NULL;
+
+    return m_widgetsMap.value(id, NULL);
 }
 
 void VirtualConsole::setWidgetSelection(quint32 wID, QQuickItem *item, bool enable, bool multi)
@@ -221,11 +433,107 @@ void VirtualConsole::moveWidget(VCWidget *widget, VCFrame *targetFrame, QPoint p
     qDebug() << "New widget geometry:" << widget->geometry();
 }
 
-QQuickItem *VirtualConsole::currentPageItem() const
+void VirtualConsole::setWidgetsAlignment(VCWidget *refWidget, int alignment)
 {
-    QString currPage = QString("vcPage%1").arg(m_selectedPage);
-    QQuickItem *pageItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>(currPage));
-    return pageItem;
+    if (refWidget == NULL)
+        return;
+
+    QRect refGeom = refWidget->geometry();
+
+    QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
+    while(it.hasNext())
+    {
+        it.next();
+
+        VCWidget *widget = m_widgetsMap[it.key()];
+        QRect wGeom = widget->geometry();
+
+        switch(alignment)
+        {
+            case Qt::AlignTop:
+                widget->setGeometry(QRect(wGeom.x(), refGeom.y(), wGeom.width(), wGeom.height()));
+            break;
+            case Qt::AlignLeft:
+                widget->setGeometry(QRect(refGeom.x(), wGeom.y(), wGeom.width(), wGeom.height()));
+            break;
+            case Qt::AlignRight:
+            {
+                // TODO: for now, let's do an ingnorant alignment, without considering
+                // that widgets can be nested into VC frames...
+                int right = refGeom.x() + refGeom.width();
+                widget->setGeometry(QRect(right - wGeom.width(), wGeom.y(), wGeom.width(), wGeom.height()));
+            }
+            break;
+            case Qt::AlignBottom:
+            {
+                // TODO: for now, let's do an ingnorant alignment, without considering
+                // that widgets can be nested into VC frames...
+                int bottom = refGeom.y() + refGeom.height();
+                widget->setGeometry(QRect(wGeom.x(), bottom - wGeom.height(), wGeom.width(), wGeom.height()));
+            }
+            break;
+        }
+    }
+}
+
+void VirtualConsole::setWidgetsCaption(QString caption)
+{
+    QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
+    while(it.hasNext())
+    {
+        it.next();
+
+        VCWidget *widget = m_widgetsMap[it.key()];
+        widget->setCaption(caption);
+    }
+}
+
+void VirtualConsole::setWidgetsForegroundColor(QColor color)
+{
+    QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
+    while(it.hasNext())
+    {
+        it.next();
+
+        VCWidget *widget = m_widgetsMap[it.key()];
+        widget->setForegroundColor(color);
+    }
+}
+
+void VirtualConsole::setWidgetsBackgroundColor(QColor color)
+{
+    QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
+    while(it.hasNext())
+    {
+        it.next();
+
+        VCWidget *widget = m_widgetsMap[it.key()];
+        widget->setBackgroundColor(color);
+    }
+}
+
+void VirtualConsole::setWidgetsBackgroundImage(QString path)
+{
+    QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
+    while(it.hasNext())
+    {
+        it.next();
+
+        VCWidget *widget = m_widgetsMap[it.key()];
+        widget->setBackgroundImage(path);
+    }
+}
+
+void VirtualConsole::setWidgetsFont(QFont font)
+{
+    QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
+    while(it.hasNext())
+    {
+        it.next();
+
+        VCWidget *widget = m_widgetsMap[it.key()];
+        widget->setFont(font);
+    }
 }
 
 void VirtualConsole::deleteVCWidgets(QVariantList IDList)
@@ -267,213 +575,12 @@ void VirtualConsole::deleteVCWidgets(QVariantList IDList)
     m_itemsMap.clear();
 }
 
-/*********************************************************************
- * Contents
- *********************************************************************/
-
-VCFrame *VirtualConsole::page(int page) const
+VCWidget *VirtualConsole::selectedWidget() const
 {
-    if (page < 0 || page >= m_pages.count())
-        return NULL;
+    if (m_itemsMap.isEmpty())
+        return qobject_cast<VCWidget *>(m_pages.at(m_selectedPage));
 
-    return m_pages.at(page);
-}
-
-void VirtualConsole::resetContents()
-{
-    foreach (VCFrame *page, m_pages)
-        page->deleteChildren();
-
-    m_widgetsMap.clear();
-    m_latestWidgetId = 0;
-    m_selectedPage = 0;
-}
-
-quint32 VirtualConsole::newWidgetId()
-{
-    /* This results in an endless loop if there are UINT_MAX-1 widgets. That,
-       however, seems a bit unlikely. */
-    while (m_widgetsMap.contains(m_latestWidgetId) ||
-           m_latestWidgetId == VCWidget::invalidId())
-    {
-        m_latestWidgetId++;
-    }
-
-    return m_latestWidgetId;
-}
-
-void VirtualConsole::addWidgetToMap(VCWidget* widget)
-{
-    // Valid ID ?
-    if (widget->id() != VCWidget::invalidId())
-    {
-        // Maybe we don't know this widget yet
-        if (!m_widgetsMap.contains(widget->id()))
-        {
-            m_widgetsMap.insert(widget->id(), widget);
-            return;
-        }
-
-        // Maybe we already know this widget
-        if (m_widgetsMap[widget->id()] == widget)
-        {
-            qDebug() << Q_FUNC_INFO << "widget" << widget->id() << "already in map";
-            return;
-        }
-
-        // This widget id conflicts with another one we have to change it.
-        qDebug() << Q_FUNC_INFO << "widget id" << widget->id() << "conflicts, creating a new ID";
-    }
-
-    quint32 wid = newWidgetId();
-    Q_ASSERT(!m_widgetsMap.contains(wid));
-    qDebug() << Q_FUNC_INFO << "id=" << wid;
-    widget->setID(wid);
-    m_widgetsMap.insert(wid, widget);
-}
-
-void VirtualConsole::removeWidgetFromMap(VCWidget *widget)
-{
-    if (widget == NULL)
-        return;
-
-    m_widgetsMap.remove(widget->id());
-}
-
-VCWidget *VirtualConsole::widget(quint32 id)
-{
-    if (id == VCWidget::invalidId())
-        return NULL;
-
-    return m_widgetsMap.value(id, NULL);
-}
-
-int VirtualConsole::pagesCount() const
-{
-    return m_pages.count();
-}
-
-void VirtualConsole::addPage(int index)
-{
-    VCFrame *page = new VCFrame(m_doc, this, this);
-    QQmlEngine::setObjectOwnership(page, QQmlEngine::CppOwnership);
-    page->setAllowResize(false);
-    page->setShowHeader(false);
-    page->setGeometry(QRect(0, 0, 1920, 1080));
-    page->setFont(QFont("Roboto Condensed", 16));
-    page->setCaption(tr("Page %1").arg(m_pages.count() + 1));
-    m_pages.insert(index, page);
-
-    emit pagesCountChanged();
-
-    if (index == m_selectedPage)
-    {
-        m_selectedPage++;
-        emit selectedPageChanged(m_selectedPage);
-    }
-}
-
-void VirtualConsole::deletePage(int index)
-{
-    if (index < 0 || index >= m_pages.count())
-        return;
-
-    m_pages.at(index)->deleteChildren();
-    m_pages.takeAt(index);
-
-    m_itemsMap.clear();
-
-    emit pagesCountChanged();
-
-    if (index > 0)
-    {
-        m_selectedPage--;
-        emit selectedPageChanged(m_selectedPage);
-    }
-}
-
-bool VirtualConsole::setPagePIN(int index, QString currentPIN, QString newPIN)
-{
-    bool ok = false;
-
-    if (index < 0 || index >= m_pages.count())
-        return false;
-
-    /* A PIN must be aither empty or 4 digits */
-    if (newPIN.length() != 0 && newPIN.length() != 4)
-        return false;
-
-    /* Check if the entered PINs are numeric */
-    int iPIN = currentPIN.toInt(&ok);
-    if (ok == false)
-        return false;
-
-    iPIN = newPIN.toInt(&ok);
-    if (ok == false)
-        return false;
-
-    Q_UNUSED(iPIN)
-
-    /* Check if the current PIN matches with the Frame PIN */
-    if (m_pages.at(index)->PIN() != currentPIN.toInt())
-        return false;
-
-    /* At last, set the new PIN for the page */
-    if (newPIN.isEmpty())
-        m_pages.at(index)->setPIN(0);
-    else
-        m_pages.at(index)->setPIN(newPIN.toInt());
-
-    return true;
-}
-
-bool VirtualConsole::validatePagePIN(int index, QString PIN, bool remember)
-{
-    if (index < 0 || index >= m_pages.count())
-        return false;
-
-    if (m_pages.at(index)->PIN() != PIN.toInt())
-        return false;
-
-    if(remember)
-        m_pages.at(index)->validatePIN();
-
-    return true;
-}
-
-int VirtualConsole::selectedPage() const
-{
-    return m_selectedPage;
-}
-
-void VirtualConsole::setSelectedPage(int selectedPage)
-{
-    if (m_selectedPage == selectedPage)
-        return;
-
-    m_selectedPage = selectedPage;
-    emit selectedPageChanged(selectedPage);
-}
-
-bool VirtualConsole::editMode() const
-{
-    return m_editMode;
-}
-
-void VirtualConsole::setEditMode(bool editMode)
-{
-    if (m_editMode == editMode)
-        return;
-
-    m_editMode = editMode;
-    emit editModeChanged(editMode);
-}
-
-void VirtualConsole::setPageInteraction(bool enable)
-{
-    QQuickItem *page = currentPageItem();
-    if (page != NULL)
-        page->setProperty("interactive", enable);
+    return m_widgetsMap[m_itemsMap.firstKey()];
 }
 
 /*********************************************************************

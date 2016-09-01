@@ -3,6 +3,10 @@
     <file alias="2dview.svg">2dview.svg</file>
     <file alias="3dview.svg">3dview.svg</file>
     <file alias="add.svg">add.svg</file>
+    <file alias="align-bottom.svg">align-bottom.svg</file>
+    <file alias="align-left.svg">align-left.svg</file>
+    <file alias="align-right.svg">align-right.svg</file>
+    <file alias="align-top.svg">align-top.svg</file>
     <file alias="amber.svg">amber.svg</file>
     <file alias="animation.svg">animation.svg</file>
     <file alias="apply.svg">apply.svg</file>

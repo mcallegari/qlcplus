@@ -160,5 +160,34 @@ Rectangle
                     contextManager.fixturesRotation = value
             }
         }
+
+        RobotoText { visible: fxPropsVisible; label: qsTr("Alignment") }
+
+        Row
+        {
+            Layout.fillWidth: true
+            visible: fxPropsVisible
+
+            IconButton
+            {
+                id: alignLeftBtn
+                width: UISettings.iconSizeDefault
+                height: width
+                bgColor: UISettings.bgLighter
+                imgSource: "qrc:/align-left.svg"
+                tooltip: qsTr("Align the selected items to the left")
+                onClicked: contextManager.setFixturesAlignment(Qt.AlignLeft)
+            }
+            IconButton
+            {
+                id: alignTopBtn
+                width: UISettings.iconSizeDefault
+                height: width
+                bgColor: UISettings.bgLighter
+                imgSource: "qrc:/align-top.svg"
+                tooltip: qsTr("Align the selected items to the top")
+                onClicked: contextManager.setFixturesAlignment(Qt.AlignTop)
+            }
+        }
     } // GridLayout
 }

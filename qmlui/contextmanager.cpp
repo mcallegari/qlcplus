@@ -206,6 +206,30 @@ void ContextManager::setFixturePosition(quint32 fxID, qreal x, qreal y)
     mProps->setFixturePosition(fxID, QPointF(x, y));
 }
 
+void ContextManager::setFixturesAlignment(int alignment)
+{
+    if (m_selectedFixtures.count() == 0)
+        return;
+
+    MonitorProperties *mProps = m_doc->monitorProperties();
+
+    QPointF firstPos = mProps->fixturePosition(m_selectedFixtures.first());
+
+    foreach(quint32 fxID, m_selectedFixtures)
+    {
+        QPointF fxPos = mProps->fixturePosition(fxID);
+
+        switch(alignment)
+        {
+            case Qt::AlignTop: fxPos.setY(firstPos.y()); break;
+            case Qt::AlignLeft: fxPos.setX(firstPos.x()); break;
+        }
+        mProps->setFixturePosition(fxID, fxPos);
+        if (m_2DView->isEnabled())
+            m_2DView->updateFixturePosition(fxID, fxPos);
+    }
+}
+
 void ContextManager::dumpDmxChannels()
 {
     m_functionManager->dumpOnNewScene(m_selectedFixtures);

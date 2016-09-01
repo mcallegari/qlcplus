@@ -60,6 +60,8 @@ public:
 
     void updateFixtureRotation(quint32 fxID, int degrees);
 
+    void updateFixturePosition(quint32 fxID, QPointF pos);
+
     QSize gridSize() const;
     void setGridSize(QSize sz);
 

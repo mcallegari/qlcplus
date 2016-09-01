@@ -22,6 +22,7 @@
 
 #include <QQuickView>
 #include <QObject>
+#include <QFont>
 #include <QHash>
 
 #include "previewcontext.h"
@@ -50,51 +51,31 @@ public:
     /** Return the number of pixels in 1mm */
     qreal pixelDensity() const;
 
-    Q_INVOKABLE void renderPage(QQuickItem *parent, QQuickItem *contentItem, int page);
+    /** Reset the Virtual Console contents to an initial state */
+    void resetContents();
 
-    Q_INVOKABLE void setWidgetSelection(quint32 wID, QQuickItem *item, bool enable, bool multi);
+    /** Set/Get the VC edit mode flag */
+    bool editMode() const;
+    void setEditMode(bool editMode);
 
-    /** Resets the currently selected widgets selection list */
-    Q_INVOKABLE void resetWidgetSelection();
+signals:
+    void editModeChanged(bool editMode);
 
-    /** Return a list of strings with the currently selected VC widget names */
-    Q_INVOKABLE QStringList selectedWidgetNames();
-
-    /** Return the number of currently selected VC widgets */
-    int selectedWidgetsCount() const;
-
-    /** Return a list of the currently selected VC widget IDs */
-    Q_INVOKABLE QVariantList selectedWidgetIDs();
-
-    Q_INVOKABLE void moveWidget(VCWidget *widget, VCFrame *targetFrame, QPoint pos);
-
-    /** Return the reference of the currently selected VC page */
-    Q_INVOKABLE QQuickItem *currentPageItem() const;
-
-    /** Delete the VC widgets with the IDs specified in $IDList */
-    void deleteVCWidgets(QVariantList IDList);
+protected:
+    bool m_editMode;
 
     /*********************************************************************
-     * Contents
+     * Pages
      *********************************************************************/
-
 public:
+    Q_INVOKABLE void renderPage(QQuickItem *parent, QQuickItem *contentItem, int page);
+
     /** Get the Virtual Console's frame representing the given $page,
      *  where all the widgets are placed */
     Q_INVOKABLE VCFrame* page(int page) const;
 
-    /** Reset the Virtual Console contents to an initial state */
-    void resetContents();
-
-    /** Add $widget to the global VC widgets map */
-    void addWidgetToMap(VCWidget* widget);
-
-    /** Remove $widget from the global VC widgets map */
-    void removeWidgetFromMap(VCWidget* widget);
-
-    /** Return a reference to the VC widget with the specified $id.
-     *  On invalid $id, NULL is returned */
-    VCWidget *widget(quint32 id);
+    /** Return the reference of the currently selected VC page */
+    Q_INVOKABLE QQuickItem *currentPageItem() const;
 
     /** Return a list with the VC page names */
     int pagesCount() const;
@@ -118,24 +99,10 @@ public:
     int selectedPage() const;
     void setSelectedPage(int selectedPage);
 
-    /** Set/Get the VC edit mode flag */
-    bool editMode() const;
-    void setEditMode(bool editMode);
-
     /** Enable/disable the current page scroll interaction */
     Q_INVOKABLE void setPageInteraction(bool enable);
 
-    /** Return a reference to the currently selected VC widget */
-    VCWidget *selectedWidget() const;
-
 signals:
-    void editModeChanged(bool editMode);
-
-    /** Notify the listeners that the currenly selected VC widget has changed */
-    void selectedWidgetChanged();
-
-    void selectedWidgetsCountChanged();
-
     /** Notify the listeners that the currenly selected VC page has changed */
     void selectedPageChanged(int selectedPage);
 
@@ -143,22 +110,74 @@ signals:
     void pagesCountChanged();
 
 protected:
+    /** A list of VCFrames representing the main VC pages */
+    QVector<VCFrame*> m_pages;
+
+    /** The index of the currently selected VC page */
+    int m_selectedPage;
+
+    /*********************************************************************
+     * Widgets
+     *********************************************************************/
+public:
+    /** Add $widget to the global VC widgets map */
+    void addWidgetToMap(VCWidget* widget);
+
+    /** Remove $widget from the global VC widgets map */
+    void removeWidgetFromMap(VCWidget* widget);
+
+    /** Return a reference to the VC widget with the specified $id.
+     *  On invalid $id, NULL is returned */
+    VCWidget *widget(quint32 id);
+
+    Q_INVOKABLE void setWidgetSelection(quint32 wID, QQuickItem *item, bool enable, bool multi);
+
+    /** Resets the currently selected widgets selection list */
+    Q_INVOKABLE void resetWidgetSelection();
+
+    /** Return a list of strings with the currently selected VC widget names */
+    Q_INVOKABLE QStringList selectedWidgetNames();
+
+    /** Return the number of currently selected VC widgets */
+    int selectedWidgetsCount() const;
+
+    /** Return a list of the currently selected VC widget IDs */
+    Q_INVOKABLE QVariantList selectedWidgetIDs();
+
+    Q_INVOKABLE void moveWidget(VCWidget *widget, VCFrame *targetFrame, QPoint pos);
+
+    /** Helper methods to handle alignment, label, background/foreground colors,
+     *  background image and font when multiple widgets are selected */
+    Q_INVOKABLE void setWidgetsAlignment(VCWidget *refWidget, int alignment);
+    Q_INVOKABLE void setWidgetsCaption(QString caption);
+    Q_INVOKABLE void setWidgetsForegroundColor(QColor color);
+    Q_INVOKABLE void setWidgetsBackgroundColor(QColor color);
+    Q_INVOKABLE void setWidgetsBackgroundImage(QString path);
+    Q_INVOKABLE void setWidgetsFont(QFont font);
+
+    /** Delete the VC widgets with the IDs specified in $IDList */
+    void deleteVCWidgets(QVariantList IDList);
+
+    /** Return a reference to the currently selected VC widget */
+    VCWidget *selectedWidget() const;
+
+signals:
+    /** Notify the listeners that the currenly selected VC widget has changed */
+    void selectedWidgetChanged();
+
+    void selectedWidgetsCountChanged();
+
+protected:
     /** Create a new widget ID */
     quint32 newWidgetId();
 
 protected:
-    /** A list of VCFrames representing the main VC pages */
-    QVector<VCFrame*> m_pages;
 
     /** A map of all the VC widgets references with their IDs */
     QHash <quint32, VCWidget *> m_widgetsMap;
 
     /** Latest assigned widget ID */
     quint32 m_latestWidgetId;
-
-    bool m_editMode;
-
-    int m_selectedPage;
 
     /*********************************************************************
      * Drag & Drop

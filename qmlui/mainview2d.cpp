@@ -459,6 +459,16 @@ void MainView2D::updateFixtureRotation(quint32 fxID, int degrees)
     fxItem->setProperty("rotation", degrees);
 }
 
+void MainView2D::updateFixturePosition(quint32 fxID, QPointF pos)
+{
+    if (isEnabled() == false || m_itemsMap.contains(fxID) == false)
+        return;
+
+    QQuickItem *fxItem = m_itemsMap[fxID];
+    fxItem->setProperty("mmXPos", pos.x());
+    fxItem->setProperty("mmYPos", pos.y());
+}
+
 QSize MainView2D::gridSize() const
 {
     return m_gridSize;

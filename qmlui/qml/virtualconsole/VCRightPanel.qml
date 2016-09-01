@@ -27,7 +27,7 @@ SidePanel
 {
     id: vcRightPanel
 
-    onContentLoaded: item.functionID = itemID
+    onContentLoaded: if (item.functionID) item.functionID = itemID
 
     Rectangle
     {

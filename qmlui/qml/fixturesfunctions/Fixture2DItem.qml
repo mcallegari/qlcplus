@@ -33,7 +33,7 @@ Rectangle
 
     color: "#2A2A2A"
     border.width: isSelected ? 2 : 1
-    border.color: isSelected ? (isDragging ? "#00FF00" : UISettings.selection) : (isDragging ? "#00FF00" : "#AAA")
+    border.color: isSelected ? UISettings.selection : UISettings.fgLight
 
     Drag.active: fxMouseArea.drag.active
 
@@ -277,15 +277,25 @@ Rectangle
         hoverEnabled: true
         preventStealing: false
 
+        drag.threshold: UISettings.iconSizeDefault
+
         onEntered: fixtureLabel.visible = true
         onExited: showLabel ? fixtureLabel.visible = true : fixtureLabel.visible = false
 
-        onPressAndHold:
+        onPressed:
         {
-            drag.target = fixtureItem
-            isDragging = true
-            console.log("drag started");
+            isSelected = !isSelected
+            contextManager.setFixtureSelection(fixtureID, isSelected)
         }
+
+        onPositionChanged:
+        {
+            if (!fxMouseArea.pressed)
+                return
+            drag.target = fixtureItem
+            isSelected = true
+        }
+
         onReleased:
         {
             if (drag.target !== null)
@@ -295,13 +305,7 @@ Rectangle
                 mmYPos = (fixtureItem.y * gridUnits) / gridCellSize;
                 contextManager.setFixturePosition(fixtureID, mmXPos, mmYPos)
                 drag.target = null
-                isDragging = false
             }
-        }
-        onClicked:
-        {
-            isSelected = !isSelected
-            contextManager.setFixtureSelection(fixtureID, isSelected)
         }
     }
 }
