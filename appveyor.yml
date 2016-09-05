@@ -1,3 +1,5 @@
+version: 4.10.5.{build}
+
 environment:
     MSYSTEM: MSYS
     PATH: C:\msys64\mingw32\bin;C:\msys64\usr\bin;C:\Windows\System32;C:\Windows;%PATH%
@@ -49,6 +51,8 @@ build_script:
           sed -i -e 's/Qt/projects/g' qlcplusQt5.nsi
           makensis -X'SetCompressor /FINAL lzma' qlcplusQt5.nsi
           #set CURRDATE=`date +%Y%m%d`
+          set
+          echo \"$APPVEYOR_BUILD_VERSION\"
           mv QLC+_4.10.5.exe /c/projects/qlcplus/QLC+_\"$APPVEYOR_BUILD_VERSION\".exe
           ls /c/projects/qlcplus/*.exe
           exit 0
