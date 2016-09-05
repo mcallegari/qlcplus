@@ -21,10 +21,8 @@ install:
 
 build_script:
     - ps: >-
-        bash -c @"
+        bash -c @'
           set -e
-          set
-          echo `$APPVEYOR_BUILD_VERSION
           # stdin seems to be invalid on appveyor, so set it to null
           exec 0</dev/null 2>&1
           export
@@ -53,12 +51,11 @@ build_script:
           sed -i -e 's/Qt/projects/g' qlcplusQt5.nsi
           makensis -X'SetCompressor /FINAL lzma' qlcplusQt5.nsi
           #set CURRDATE=`date +%Y%m%d`
-          mv QLC+_4.10.5.exe /c/projects/qlcplus/QLC+_`$APPVEYOR_BUILD_VERSION.exe
+          mv QLC+_4.10.5.exe /c/projects/qlcplus/QLC+_$APPVEYOR_BUILD_VERSION.exe
           ls /c/projects/qlcplus/*.exe
           exit 0
-        "@
+        '@
 
 artifacts:
   - path: QLC+_$(APPVEYOR_BUILD_VERSION).exe
     name: qlcplus_4_10_5
-
