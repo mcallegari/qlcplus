@@ -80,6 +80,7 @@ HEADERS += \
     virtualconsole/vcwidget.h \
     virtualconsole/vcframe.h \
     virtualconsole/vcsoloframe.h \
+    virtualconsole/vcpage.h \
     virtualconsole/vcbutton.h \
     virtualconsole/vclabel.h \
     virtualconsole/vcslider.h \
@@ -90,6 +91,7 @@ SOURCES += \
     virtualconsole/vcwidget.cpp \
     virtualconsole/vcframe.cpp \
     virtualconsole/vcsoloframe.cpp \
+    virtualconsole/vcpage.cpp \
     virtualconsole/vcbutton.cpp \
     virtualconsole/vclabel.cpp \
     virtualconsole/vcslider.cpp \

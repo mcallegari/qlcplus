@@ -31,6 +31,7 @@ class QXmlStreamReader;
 class QXmlStreamWriter;
 class VCWidget;
 class VCFrame;
+class VCPage;
 class Doc;
 
 #define KXMLQLCVirtualConsole "VirtualConsole"
@@ -72,7 +73,7 @@ public:
 
     /** Get the Virtual Console's frame representing the given $page,
      *  where all the widgets are placed */
-    Q_INVOKABLE VCFrame* page(int page) const;
+    Q_INVOKABLE VCPage* page(int page) const;
 
     /** Return the reference of the currently selected VC page */
     Q_INVOKABLE QQuickItem *currentPageItem() const;
@@ -110,8 +111,8 @@ signals:
     void pagesCountChanged();
 
 protected:
-    /** A list of VCFrames representing the main VC pages */
-    QVector<VCFrame*> m_pages;
+    /** A list of VCPage representing the main VC pages */
+    QVector<VCPage*> m_pages;
 
     /** The index of the currently selected VC page */
     int m_selectedPage;

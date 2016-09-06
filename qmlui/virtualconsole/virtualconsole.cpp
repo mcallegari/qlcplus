@@ -30,6 +30,7 @@
 #include "vcframe.h"
 #include "vclabel.h"
 #include "vcclock.h"
+#include "vcpage.h"
 #include "doc.h"
 #include "app.h"
 
@@ -48,7 +49,7 @@
 #define KXMLQLCVCPropertiesInputUniverse "Universe"
 #define KXMLQLCVCPropertiesInputChannel "Channel"
 
-#define VC_PAGES_NUMBER 4
+#define DEFAULT_VC_PAGES_NUMBER 4
 
 VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc, QObject *parent)
     : PreviewContext(view, doc, parent)
@@ -58,9 +59,9 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc, QObject *parent)
 {
     Q_ASSERT(doc != NULL);
 
-    for (int i = 0; i < VC_PAGES_NUMBER; i++)
+    for (int i = 0; i < DEFAULT_VC_PAGES_NUMBER; i++)
     {
-        VCFrame *page = new VCFrame(m_doc, this, this);
+        VCPage *page = new VCPage(m_doc, this, this);
         QQmlEngine::setObjectOwnership(page, QQmlEngine::CppOwnership);
         page->setAllowResize(false);
         page->setShowHeader(false);
@@ -72,6 +73,7 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc, QObject *parent)
 
     qmlRegisterType<VCWidget>("com.qlcplus.classes", 1, 0, "VCWidget");
     qmlRegisterType<VCFrame>("com.qlcplus.classes", 1, 0, "VCFrame");
+    qmlRegisterType<VCPage>("com.qlcplus.classes", 1, 0, "VCPage");
     qmlRegisterType<VCButton>("com.qlcplus.classes", 1, 0, "VCButton");
     qmlRegisterType<VCLabel>("com.qlcplus.classes", 1, 0, "VCLabel");
     qmlRegisterType<VCSlider>("com.qlcplus.classes", 1, 0, "VCSlider");
@@ -87,7 +89,7 @@ qreal VirtualConsole::pixelDensity() const
 
 void VirtualConsole::resetContents()
 {
-    foreach (VCFrame *page, m_pages)
+    foreach (VCPage *page, m_pages)
         page->deleteChildren();
 
     m_widgetsMap.clear();
@@ -130,7 +132,7 @@ void VirtualConsole::renderPage(QQuickItem *parent, QQuickItem *contentItem, int
     m_pages.at(page)->render(m_view, contentItem);
 }
 
-VCFrame *VirtualConsole::page(int page) const
+VCPage *VirtualConsole::page(int page) const
 {
     if (page < 0 || page >= m_pages.count())
         return NULL;
@@ -152,7 +154,7 @@ int VirtualConsole::pagesCount() const
 
 void VirtualConsole::addPage(int index)
 {
-    VCFrame *page = new VCFrame(m_doc, this, this);
+    VCPage *page = new VCPage(m_doc, this, this);
     QQmlEngine::setObjectOwnership(page, QQmlEngine::CppOwnership);
     page->setAllowResize(false);
     page->setShowHeader(false);
@@ -641,7 +643,7 @@ bool VirtualConsole::loadXML(QXmlStreamReader &root)
         {
             if (currPageIdx == m_pages.count())
             {
-                VCFrame *page = new VCFrame(m_doc, this, this);
+                VCPage *page = new VCPage(m_doc, this, this);
                 QQmlEngine::setObjectOwnership(page, QQmlEngine::CppOwnership);
                 page->setAllowResize(false);
                 page->setShowHeader(false);
@@ -787,8 +789,8 @@ void VirtualConsole::postLoad()
 
     QList<VCWidget *> invalidWidgetsList;
     QList<VCWidget *> widgetsList;
-    for (int i = 0; i < VC_PAGES_NUMBER; i++)
-        widgetsList.append(m_pages.at(i)->children());
+    for (int i = 0; i < m_pages.count(); i++)
+        widgetsList.append(m_pages.at(i)->children(true));
 
     foreach (VCWidget *widget, widgetsList)
     {
