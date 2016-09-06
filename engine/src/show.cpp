@@ -59,22 +59,6 @@ Show::~Show()
     m_tracks.clear();
 }
 
-quint32 Show::totalDuration()
-{
-    quint32 totalDuration = 0;
-
-    foreach(Track *track, tracks())
-    {
-        foreach(ShowFunction *sf, track->showFunctions())
-        {
-            if (sf->startTime() + sf->duration() > totalDuration)
-                totalDuration = sf->startTime() + sf->duration();
-        }
-    }
-
-    return totalDuration;
-}
-
 /*****************************************************************************
  * Copying
  *****************************************************************************/

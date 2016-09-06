@@ -273,7 +273,7 @@ bool Track::postLoad(Doc* doc)
         }
 
         if (showFunction->duration() == 0)
-            showFunction->setDuration(function->totalDuration());
+            showFunction->setDuration(function->duration());
         if (showFunction->color().isValid() == false)
             showFunction->setColor(ShowFunction::defaultColor(function->type()));
 

@@ -137,19 +137,6 @@ quint32 Audio::getStartTime() const
     return m_startTime;
 }
 
-quint32 Audio::totalDuration()
-{
-    return (quint32)m_audioDuration;
-}
-
-void Audio::setTotalDuration(quint32 msec)
-{
-    qDebug() << "Audio set total duration:" << msec;
-    m_audioDuration = msec;
-
-    emit totalDurationChanged();
-}
-
 void Audio::setColor(QColor color)
 {
     m_color = color;
@@ -201,7 +188,7 @@ bool Audio::setSourceFileName(QString filename)
     if (m_decoder == NULL)
         return false;
 
-    setTotalDuration(m_decoder->totalTime());
+    setDuration(m_decoder->totalTime());
 
     emit changed(id());
 
@@ -399,7 +386,7 @@ void Audio::write(MasterTimer* timer, QList<Universe *> universes)
 
     if (fadeOut() != 0)
     {
-        if (m_audio_out != NULL && totalDuration() - elapsed() <= fadeOut())
+        if (m_audio_out != NULL && duration() - elapsed() <= fadeOut())
             m_audio_out->setFadeOut(fadeOut());
     }
 }

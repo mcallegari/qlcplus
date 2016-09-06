@@ -39,7 +39,7 @@ SequenceItem::SequenceItem(Chaser *seq, ShowFunction *func)
         setColor(ShowFunction::defaultColor(Function::Chaser));
 
     if (func->duration() == 0)
-        func->setDuration(seq->totalDuration());
+        func->setDuration(seq->duration());
 
     calculateWidth();
 
@@ -50,7 +50,7 @@ SequenceItem::SequenceItem(Chaser *seq, ShowFunction *func)
 void SequenceItem::calculateWidth()
 {
     int newWidth = 0;
-    unsigned long seq_duration = m_chaser->totalDuration();
+    unsigned long seq_duration = m_chaser->duration();
 
     if (seq_duration != 0)
         newWidth = ((50/(float)getTimeScale()) * (float)seq_duration) / 1000;
@@ -134,7 +134,7 @@ void SequenceItem::setTimeScale(int val)
 void SequenceItem::setDuration(quint32 msec, bool stretch)
 {
     Q_UNUSED(stretch)
-    m_chaser->setTotalDuration(msec);
+    m_chaser->setDuration(msec);
 }
 
 QString SequenceItem::functionName()
@@ -160,7 +160,7 @@ void SequenceItem::slotSequenceChanged(quint32)
     prepareGeometryChange();
     calculateWidth();
     if (m_function)
-        m_function->setDuration(m_chaser->totalDuration());
+        m_function->setDuration(m_chaser->duration());
     updateTooltip();
 }
 

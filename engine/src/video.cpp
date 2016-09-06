@@ -138,17 +138,6 @@ quint32 Video::getStartTime() const
     return m_startTime;
 }
 
-void Video::setTotalDuration(quint32 duration)
-{
-    m_videoDuration = (qint64)duration;
-    emit totalTimeChanged(m_videoDuration);
-}
-
-quint32 Video::totalDuration()
-{
-    return (quint32)m_videoDuration;
-}
-
 void Video::setResolution(QSize size)
 {
     m_resolution = size;

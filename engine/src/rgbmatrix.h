@@ -105,12 +105,6 @@ public:
      * Contents
      *********************************************************************/
 public:
-    /** @reimpl */
-    void setTotalDuration(quint32 msec);
-
-    /** @reimpl */
-    quint32 totalDuration();
-
     /** Set the matrix to control or not the dimmer channel */
     void setDimmerControl(bool dimmerControl);
 

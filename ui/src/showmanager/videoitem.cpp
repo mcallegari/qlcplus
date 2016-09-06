@@ -40,7 +40,7 @@ VideoItem::VideoItem(Video *vid, ShowFunction *func)
         setColor(ShowFunction::defaultColor(Function::Video));
 
     if (func->duration() == 0)
-        func->setDuration(m_video->totalDuration());
+        func->setDuration(m_video->duration());
 
     calculateWidth();
     connect(m_video, SIGNAL(changed(quint32)),
@@ -75,7 +75,7 @@ void VideoItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 {
     float xpos = 0;
     float timeScale = 50/(float)m_timeScale;
-    quint32 videoDuration = m_video->totalDuration();
+    quint32 videoDuration = m_video->duration();
 
     ShowItem::paint(painter, option, widget);
 
@@ -141,7 +141,7 @@ void VideoItem::slotVideoChanged(quint32)
 {
     prepareGeometryChange();
     if (m_function)
-        m_function->setDuration(m_video->totalDuration());
+        m_function->setDuration(m_video->duration());
     calculateWidth();
     updateTooltip();
 }
@@ -150,7 +150,7 @@ void VideoItem::slotVideoDurationChanged(qint64)
 {
     prepareGeometryChange();
     if (m_function && m_function->duration() == 0)
-        m_function->setDuration(m_video->totalDuration());
+        m_function->setDuration(m_video->duration());
     calculateWidth();
     updateTooltip();
 }

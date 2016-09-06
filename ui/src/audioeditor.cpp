@@ -70,7 +70,7 @@ AudioEditor::AudioEditor(QWidget* parent, Audio *audio, Doc* doc)
     if (adec != NULL)
     {
         AudioParameters ap = adec->audioParameters();
-        m_durationLabel->setText(Function::speedToString(m_audio->totalDuration()));
+        m_durationLabel->setText(Function::speedToString(m_audio->duration()));
         m_srateLabel->setText(QString("%1 Hz").arg(ap.sampleRate()));
         m_channelsLabel->setText(QString("%1").arg(ap.channels()));
         m_bitrateLabel->setText(QString("%1 kb/s").arg(adec->bitrate()));
@@ -167,7 +167,7 @@ void AudioEditor::slotSourceFileClicked()
     if (adec != NULL)
     {
         AudioParameters ap = adec->audioParameters();
-        m_durationLabel->setText(Function::speedToString(m_audio->totalDuration()));
+        m_durationLabel->setText(Function::speedToString(m_audio->duration()));
         m_srateLabel->setText(QString("%1 Hz").arg(ap.sampleRate()));
         m_channelsLabel->setText(QString("%1").arg(ap.channels()));
         m_bitrateLabel->setText(QString("%1 kb/s").arg(adec->bitrate()));

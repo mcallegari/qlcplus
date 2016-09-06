@@ -230,53 +230,6 @@ QList <ChaserStep> Chaser::steps() const
     return m_steps;
 }
 
-/*
-void Chaser::setTotalDuration(quint32 msec)
-{
-    if (durationMode() == Chaser::Common)
-    {
-        int stepsCount = m_steps.count();
-        if (stepsCount == 0)
-            stepsCount = 1;
-        setDuration(msec / stepsCount);
-    }
-    else
-    {
-        // scale all the Chaser steps to resize
-        // to the desired duration
-        double dtDuration = (double)totalDuration();
-        for (int i = 0; i < m_steps.count(); i++)
-        {
-            uint origDuration = m_steps[i].duration;
-            m_steps[i].duration = ((double)m_steps[i].duration * msec) / dtDuration;
-            if(m_steps[i].hold)
-                m_steps[i].hold = ((double)m_steps[i].hold * (double)m_steps[i].duration) / (double)origDuration;
-            m_steps[i].fadeIn = m_steps[i].duration - m_steps[i].hold;
-            if (m_steps[i].fadeOut)
-                m_steps[i].fadeOut = ((double)m_steps[i].fadeOut * (double)m_steps[i].duration) / (double)origDuration;
-        }
-    }
-    emit changed(this->id());
-}
-*/
-
-/*
-quint32 Chaser::totalDuration()
-{
-    quint32 totalDuration = 0;
-
-    if (durationMode() == Chaser::Common)
-        totalDuration = duration() * m_steps.count();
-    else
-    {
-        foreach (ChaserStep step, m_steps)
-            totalDuration += step.duration;
-    }
-
-    return totalDuration;
-}
-*/
-
 void Chaser::slotFunctionRemoved(quint32 fid)
 {
     int count;

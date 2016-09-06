@@ -66,7 +66,7 @@ void EFXItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
 
     float xpos = 0;
     float timeScale = 50/(float)m_timeScale;
-    quint32 efxDuration = m_efx->totalDuration();
+    quint32 efxDuration = m_efx->duration();
 
     ShowItem::paint(painter, option, widget);
 
@@ -118,7 +118,7 @@ void EFXItem::slotEFXChanged(quint32)
 {
     prepareGeometryChange();
     if (m_function)
-        m_function->setDuration(m_efx->totalDuration());
+        m_function->setDuration(m_efx->duration());
     calculateWidth();
     updateTooltip();
 }

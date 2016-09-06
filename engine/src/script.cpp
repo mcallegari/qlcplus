@@ -67,28 +67,6 @@ Script::~Script()
     m_fader = NULL;
 }
 
-quint32 Script::totalDuration()
-{
-    quint32 totalDuration = 0;
-
-    for (int i = 0; i < m_lines.count(); i++)
-    {
-        QList <QStringList> tokens = m_lines[i];
-        if (tokens.isEmpty() || tokens[0].size() < 2)
-            continue;
-
-        if (tokens[0][0] == Script::waitCmd)
-        {
-            bool ok = false;
-            quint32 waitTime = getValueFromString(tokens[0][1], &ok);
-            if (ok == true)
-                totalDuration += waitTime;
-        }
-    }
-
-    return totalDuration;
-}
-
 Function* Script::createCopy(Doc* doc, bool addToDoc)
 {
     Q_ASSERT(doc != NULL);

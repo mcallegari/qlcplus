@@ -52,19 +52,6 @@ Collection::~Collection()
 {
 }
 
-quint32 Collection::totalDuration()
-{
-    quint32 totalDuration = 0;
-
-    foreach(QVariant fid, functions())
-    {
-        Function* function = doc()->function(fid.toUInt());
-        totalDuration += function->totalDuration();
-    }
-
-    return totalDuration;
-}
-
 /*****************************************************************************
  * Copying
  *****************************************************************************/

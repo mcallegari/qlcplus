@@ -45,7 +45,7 @@ AudioItem::AudioItem(Audio *aud, ShowFunction *func)
         setColor(ShowFunction::defaultColor(Function::Audio));
 
     if (func->duration() == 0)
-        func->setDuration(aud->totalDuration());
+        func->setDuration(aud->duration());
 
     calculateWidth();
     connect(m_audio, SIGNAL(changed(quint32)),
@@ -69,7 +69,7 @@ AudioItem::AudioItem(Audio *aud, ShowFunction *func)
 void AudioItem::calculateWidth()
 {
     int newWidth = 0;
-    qint64 audio_duration = m_audio->totalDuration();
+    qint64 audio_duration = m_audio->duration();
 
     if (audio_duration != 0)
         newWidth = ((50/(float)getTimeScale()) * (float)audio_duration) / 1000;
@@ -143,7 +143,7 @@ void AudioItem::slotAudioChanged(quint32)
     prepareGeometryChange();
     calculateWidth();
     if (m_function)
-        m_function->setDuration(m_audio->totalDuration());
+        m_function->setDuration(m_audio->duration());
 }
 
 void AudioItem::slotAudioPreviewLeft()
@@ -264,12 +264,12 @@ void PreviewThread::run()
         qint64 dataRead = 1;
         unsigned char audioData[onePixelReadLen * 4];
         quint32 audioDataOffset = 0;
-        QPixmap *preview = new QPixmap((50 * m_item->m_audio->totalDuration()) / 1000, 76);
+        QPixmap *preview = new QPixmap((50 * m_item->m_audio->duration()) / 1000, 76);
         preview->fill(Qt::transparent);
         QPainter p(preview);
         int xpos = 0;
 
-        qDebug() << "Audio duration: " << m_item->m_audio->totalDuration() <<
+        qDebug() << "Audio duration: " << m_item->m_audio->duration() <<
                     ", pixmap width: " << preview->width() <<
                     ", maxValue: " << maxValue << ", samples:" << sampleSize;
         qDebug() << "Samples per second: " << oneSecondSamples << ", for one pixel: " << onePixelSamples <<

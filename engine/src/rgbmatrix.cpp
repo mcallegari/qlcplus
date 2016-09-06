@@ -78,36 +78,6 @@ RGBMatrix::~RGBMatrix()
     delete m_stepHandler;
 }
 
-void RGBMatrix::setTotalDuration(quint32 msec)
-{
-    QMutexLocker algorithmLocker(&m_algorithmMutex);
-
-    if (m_algorithm == NULL)
-        return;
-
-    FixtureGroup* grp = doc()->fixtureGroup(fixtureGroup());
-    if (grp == NULL)
-        return;
-
-    int steps = m_algorithm->rgbMapStepCount(grp->size());
-    setDuration(msec / steps);
-}
-
-quint32 RGBMatrix::totalDuration()
-{
-    QMutexLocker algorithmLocker(&m_algorithmMutex);
-
-    if (m_algorithm == NULL)
-        return 0;
-
-    FixtureGroup* grp = doc()->fixtureGroup(fixtureGroup());
-    if (grp == NULL)
-        return 0;
-
-    qDebug () << "Algorithm steps:" << m_algorithm->rgbMapStepCount(grp->size());
-    return m_algorithm->rgbMapStepCount(grp->size()) * duration();
-}
-
 void RGBMatrix::setDimmerControl(bool dimmerControl)
 {
     m_dimmerControl = dimmerControl;

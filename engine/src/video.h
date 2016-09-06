@@ -85,12 +85,6 @@ public:
      */
     quint32 getStartTime() const;
 
-    /** @reimpl */
-    void setTotalDuration(quint32 duration);
-
-    /** @reimpl */
-    quint32 totalDuration();
-
     /**
      * Sets the video resolution as a QSize variable
      */

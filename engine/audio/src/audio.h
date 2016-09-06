@@ -86,20 +86,6 @@ public:
     quint32 getStartTime() const;
 
     /**
-     * Returns the duration of the source audio file loaded
-     *
-     * @return Duration in milliseconds of the source audio file
-     */
-    quint32 totalDuration();
-
-    /**
-     * Set the playback duration of the audio file
-     *
-     * @param The playback total duration in milliseconds
-     */
-    void setTotalDuration(quint32 msec);
-
-    /**
      * Set the color to be used by a AudioItem
      */
     void setColor(QColor color);

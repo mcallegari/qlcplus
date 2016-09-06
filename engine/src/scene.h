@@ -76,9 +76,6 @@ public:
 
     void setChildrenFlag(bool flag);
 
-    /** @reimpl */
-    quint32 totalDuration();
-
 private:
     quint32 m_legacyFadeBus;
 

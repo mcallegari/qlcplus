@@ -106,12 +106,6 @@ VideoEditor::VideoEditor(QWidget* parent, Video *video, Doc* doc)
 VideoEditor::~VideoEditor()
 {
     m_video->stopAndWait();
-/*
-    disconnect(m_video, SIGNAL(totalTimeChanged(qint64)),
-               this, SLOT(slotDurationChanged(qint64)));
-    disconnect(m_video, SIGNAL(metaDataChanged(QString,QVariant)),
-               this, SLOT(slotMetaDataChanged(QString,QVariant)));
-*/
 }
 
 void VideoEditor::slotNameEdited(const QString& text)

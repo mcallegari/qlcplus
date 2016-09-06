@@ -59,11 +59,6 @@ void Scene::setChildrenFlag(bool flag)
     m_hasChildren = flag;
 }
 
-quint32 Scene::totalDuration()
-{
-    return (quint32)duration();
-}
-
 /*****************************************************************************
  * Copying
  *****************************************************************************/
