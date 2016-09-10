@@ -93,7 +93,10 @@ qreal VirtualConsole::pixelDensity() const
 void VirtualConsole::resetContents()
 {
     foreach (VCPage *page, m_pages)
+    {
         page->deleteChildren();
+        page->resetInputSourcesMap();
+    }
 
     m_widgetsMap.clear();
     m_latestWidgetId = 0;

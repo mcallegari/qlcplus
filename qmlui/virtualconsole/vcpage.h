@@ -44,6 +44,9 @@ public:
      *  This method is called only by VirtualConsole postLoad event */
     void mapChildrenInputSources();
 
+    /** Reset the input source map */
+    void resetInputSourcesMap();
+
     /** Method invoked by the Virtual Console when an input signal is received.
      *  This is in charge of delivering the event to the children widgets
      *  expecting it.

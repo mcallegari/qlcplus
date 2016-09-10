@@ -58,6 +58,11 @@ void VCPage::mapChildrenInputSources()
     }
 }
 
+void VCPage::resetInputSourcesMap()
+{
+    m_inputSourcesMap.clear();
+}
+
 void VCPage::inputValueChanged(quint32 universe, quint32 channel, uchar value)
 {
     quint32 key = (universe << 16) | channel;

@@ -252,15 +252,10 @@ void VCFrame::deleteChildren()
     {
         it.next();
         VCWidget *widget = it.key();
-        if(widget->type() == FrameWidget)
+        if(widget->type() == FrameWidget || widget->type() == SoloFrameWidget)
         {
-            VCFrame *frame = static_cast<VCFrame*>(widget);
+            VCFrame *frame = qobject_cast<VCFrame*>(widget);
             frame->deleteChildren();
-        }
-        else if(widget->type() == SoloFrameWidget)
-        {
-            VCFrame *soloframe = static_cast<VCFrame*>(widget);
-            soloframe->deleteChildren();
         }
         /* Remove the widget from the frame pages map */
         m_pagesMap.remove(widget);
