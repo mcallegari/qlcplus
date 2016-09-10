@@ -33,6 +33,30 @@ public:
     VCPage(Doc* doc = NULL, VirtualConsole *vc = NULL, QObject *parent = 0);
     ~VCPage();
 
+    /*********************************************************************
+     * External input
+     *********************************************************************/
+public:
+    /** Map a single input source for a specific VC widget. */
+    void mapInputSource(QSharedPointer<QLCInputSource> source, VCWidget *widget);
+
+    /** Map all the children widgets input sources into $m_inputSourcesMap.
+     *  This method is called only by VirtualConsole postLoad event */
+    void mapChildrenInputSources();
+
+    /** Method invoked by the Virtual Console when an input signal is received.
+     *  This is in charge of delivering the event to the children widgets
+     *  expecting it.
+     */
+    void inputValueChanged(quint32 universe, quint32 channel, uchar value);
+
+private:
+    /** This variable represents the map of all the input sources for every child
+     *  of this VC Page.
+     *  It works as a lookup table for signals coming from the InputOutputMap class.
+     */
+    QMultiHash <quint32, QPair<QSharedPointer<QLCInputSource>, VCWidget *> > m_inputSourcesMap;
+
 };
 
 

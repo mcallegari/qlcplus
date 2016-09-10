@@ -48,16 +48,26 @@
 #define KXMLQLCVCWidgetBackgroundImage "BackgroundImage"
 #define KXMLQLCVCWidgetBackgroundImageNone "None"
 
-#define KXMLQLCVCWidgetInput "Input"
-#define KXMLQLCVCWidgetInputUniverse "Universe"
-#define KXMLQLCVCWidgetInputChannel "Channel"
-
 #define KXMLQLCWindowState "WindowState"
 #define KXMLQLCWindowStateVisible "Visible"
 #define KXMLQLCWindowStateX "X"
 #define KXMLQLCWindowStateY "Y"
 #define KXMLQLCWindowStateWidth "Width"
 #define KXMLQLCWindowStateHeight "Height"
+
+#define KXMLQLCVCWidgetKey "Key"
+#define KXMLQLCVCWidgetInput "Input"
+#define KXMLQLCVCWidgetInputUniverse "Universe"
+#define KXMLQLCVCWidgetInputChannel "Channel"
+#define KXMLQLCVCWidgetInputLowerValue "LowerValue"
+#define KXMLQLCVCWidgetInputUpperValue "UpperValue"
+
+typedef struct
+{
+    quint8 id;
+    QString name;
+    bool allowKeyboard;
+} ExternalControlInfo;
 
 class VCWidget : public QObject
 {
@@ -201,7 +211,7 @@ public:
     bool isDisabled();
 
     /** Set the widget's disable state flag */
-    void setDisabled(bool disable);
+    virtual void setDisabled(bool disable);
 
 signals:
     void disabledStateChanged(bool state);
@@ -393,6 +403,40 @@ private:
     bool m_isEditing;
 
     /*********************************************************************
+     * External input
+     *********************************************************************/
+public:
+
+    /** Register some external control information known by this widget
+     *
+     *  @param id a unique id identifying the external control
+     *  @param name a translatable string to be displayed by the UI
+     *  @param allowKeyboard a boolean flag indicating if the external control
+     *         can be a keyboard sequence
+     */
+    void registerExternalControl(quint8 id, QString name, bool allowKeyboard);
+
+    /**
+     * Add an external input $source to the sources known by thie widget.
+     *
+     * @param source The input source to add
+     */
+    void addInputSource(QSharedPointer<QLCInputSource> const& source);
+
+    QList <QSharedPointer<QLCInputSource> > inputSources() const;
+
+public slots:
+    /** Virtual slot called when an input value changed */
+    virtual void slotInputValueChanged(quint8 id, uchar value);
+
+protected:
+    /** A list of the external controls known by this widget */
+    QList <ExternalControlInfo> m_externalControlList;
+
+    /** The list of input sources that can control this widget */
+    QList <QSharedPointer<QLCInputSource> > m_inputSources;
+
+    /*********************************************************************
      * Load & Save
      *********************************************************************/
 public:
@@ -422,6 +466,9 @@ protected:
      */
     bool loadXMLWindowState(QXmlStreamReader &root, int* x, int* y,
                             int* w, int* h, bool* visible);
+
+    /** Load input source from $root with tthe given $id */
+    bool loadXMLInput(QXmlStreamReader &root, const quint8& id = 0);
 
     /** Save the widget common properties */
     bool saveXMLCommon(QXmlStreamWriter *doc);

@@ -27,6 +27,7 @@ VCWidgetItem
 {
     id: sliderRoot
     property VCSlider sliderObj: null
+    property int sliderValue: sliderObj ? sliderObj.value : 0
 
     radius: 2
 
@@ -57,6 +58,7 @@ VCWidgetItem
             anchors.horizontalCenter: parent.horizontalCenter
             Layout.fillHeight: true
             width: parent.width
+            value: sliderValue
             onTouchPressed:
             {
                 console.log("Slider touch pressed: " + pressed)
@@ -64,6 +66,7 @@ VCWidgetItem
                 // the page Flickable interactivity during this operation
                 virtualConsole.setPageInteraction(!pressed)
             }
+            onValueChanged: if (sliderObj) sliderObj.value = value
         }
 
         // widget name text box

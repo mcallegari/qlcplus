@@ -207,6 +207,8 @@ void VCWidget::setDisabled(bool disable)
     if (m_isDisabled == disable)
         return;
 
+    qDebug() << "Widget" << id() << "disabled:" << disable;
+
     m_isDisabled = disable;
     setDocModified();
     emit disabledStateChanged(disable);
@@ -434,6 +436,38 @@ QString VCWidget::propertiesResource() const
     return QString();
 }
 
+/*********************************************************************
+ * External input
+ *********************************************************************/
+
+void VCWidget::registerExternalControl(quint8 id, QString name, bool allowKeyboard)
+{
+    ExternalControlInfo info;
+    info.id = id;
+    info.name = name;
+    info.allowKeyboard = allowKeyboard;
+
+    m_externalControlList.append(info);
+}
+
+void VCWidget::addInputSource(QSharedPointer<QLCInputSource> const& source)
+{
+    m_inputSources.append(source);
+
+    // TODO: hook synthetic emitting sources here
+}
+
+QList<QSharedPointer<QLCInputSource> > VCWidget::inputSources() const
+{
+    return m_inputSources;
+}
+
+void VCWidget::slotInputValueChanged(quint8 id, uchar value)
+{
+    Q_UNUSED(id)
+    Q_UNUSED(value)
+}
+
 /*****************************************************************************
  * Load & Save
  *****************************************************************************/
@@ -559,6 +593,37 @@ bool VCWidget::loadXMLWindowState(QXmlStreamReader &root, int* x, int* y,
         qWarning() << Q_FUNC_INFO << "Window state not found";
         return false;
     }
+}
+
+bool VCWidget::loadXMLInput(QXmlStreamReader &root, const quint8 &id)
+{
+    if (root.device() == NULL || root.hasError())
+        return false;
+
+    if (root.name() != KXMLQLCVCWidgetInput)
+        return false;
+
+    QXmlStreamAttributes attrs = root.attributes();
+
+    quint32 uni = attrs.value(KXMLQLCVCWidgetInputUniverse).toString().toUInt();
+    quint32 ch = attrs.value(KXMLQLCVCWidgetInputChannel).toString().toUInt();
+    uchar min = 0, max = UCHAR_MAX;
+
+    QSharedPointer<QLCInputSource>inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch));
+    inputSource->setID(id);
+
+    if (attrs.hasAttribute(KXMLQLCVCWidgetInputLowerValue))
+        min = uchar(attrs.value(KXMLQLCVCWidgetInputLowerValue).toString().toUInt());
+    if (attrs.hasAttribute(KXMLQLCVCWidgetInputUpperValue))
+        max = uchar(attrs.value(KXMLQLCVCWidgetInputUpperValue).toString().toUInt());
+
+    inputSource->setRange(min, max);
+
+    addInputSource(inputSource);
+
+    root.skipCurrentElement();
+
+    return true;
 }
 
 bool VCWidget::saveXMLCommon(QXmlStreamWriter *doc)

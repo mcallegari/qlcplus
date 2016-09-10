@@ -24,12 +24,17 @@
 #include "vcslider.h"
 #include "doc.h"
 
+#define INPUT_SLIDER_CONTROL_ID     0
+
 VCSlider::VCSlider(Doc *doc, QObject *parent)
     : VCWidget(doc, parent)
     , m_sliderMode(Playback)
+    , m_value(0)
 {
     setType(VCWidget::SliderWidget);
     setBackgroundColor(QColor("#444"));
+
+    registerExternalControl(INPUT_SLIDER_CONTROL_ID, tr("Slider Control"), false);
 }
 
 VCSlider::~VCSlider()
@@ -110,6 +115,36 @@ VCSlider::SliderMode VCSlider::sliderMode() const
 }
 
 /*********************************************************************
+ * Slider value
+ *********************************************************************/
+
+int VCSlider::value() const
+{
+    return m_value;
+}
+
+void VCSlider::setValue(int value)
+{
+    if (m_value == value)
+        return;
+
+    m_value = value;
+    emit valueChanged(value);
+}
+
+/*********************************************************************
+ * External input
+ *********************************************************************/
+
+void VCSlider::slotInputValueChanged(quint8 id, uchar value)
+{
+    if (id != INPUT_SLIDER_CONTROL_ID)
+        return;
+
+    setValue(value);
+}
+
+/*********************************************************************
  * Load & Save
  *********************************************************************/
 
@@ -136,6 +171,10 @@ bool VCSlider::loadXML(QXmlStreamReader &root)
         else if (root.name() == KXMLQLCVCWidgetAppearance)
         {
             loadXMLAppearance(root);
+        }
+        else if (root.name() == KXMLQLCVCWidgetInput)
+        {
+            loadXMLInput(root, INPUT_SLIDER_CONTROL_ID);
         }
         else
         {

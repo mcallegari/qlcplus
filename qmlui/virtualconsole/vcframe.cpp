@@ -30,6 +30,10 @@
 #include "vcsoloframe.h"
 #include "virtualconsole.h"
 
+#define INPUT_NEXT_PAGE_ID      0
+#define INPUT_PREVIOUS_PAGE_ID  1
+#define INPUT_ENABLE_ID         2
+
 VCFrame::VCFrame(Doc *doc, VirtualConsole *vc, QObject *parent)
     : VCWidget(doc, parent)
     , m_vc(vc)
@@ -45,6 +49,10 @@ VCFrame::VCFrame(Doc *doc, VirtualConsole *vc, QObject *parent)
     , m_validatedPIN(false)
 {
     setType(VCWidget::FrameWidget);
+
+    registerExternalControl(INPUT_NEXT_PAGE_ID, tr("Next Page"), true);
+    registerExternalControl(INPUT_PREVIOUS_PAGE_ID, tr("Previous Page"), true);
+    registerExternalControl(INPUT_ENABLE_ID, tr("Enable"), true);
 }
 
 VCFrame::~VCFrame()
@@ -274,16 +282,16 @@ void VCFrame::setupWidget(VCWidget *widget)
     // the signal, so each widget will know to immediately start the Function
     if (xmlTagName() == KXMLQLCVCFrame && m_hasSoloParent == true)
     {
-        connect(widget, SIGNAL(functionStarting(VCWidget *,quint32,qreal)),
-                this, SIGNAL(functionStarting(VCWidget *,quint32,qreal)));
+        connect(widget, SIGNAL(functionStarting(VCWidget*,quint32,qreal)),
+                this, SIGNAL(functionStarting(VCWidget*,quint32,qreal)));
     }
 
     // otherwise, if we're a Solo Frame, connect the widget
     // functionStarting signal to a slot to handle the event
     if (xmlTagName() == KXMLQLCVCSoloFrame)
     {
-        connect(widget, SIGNAL(functionStarting(VCWidget *,quint32,qreal)),
-                this, SLOT(slotFunctionStarting(VCWidget *,quint32,qreal)));
+        connect(widget, SIGNAL(functionStarting(VCWidget*,quint32,qreal)),
+                this, SLOT(slotFunctionStarting(VCWidget*,quint32,qreal)));
     }
 }
 
@@ -297,6 +305,18 @@ void VCFrame::removeWidgetFromPageMap(VCWidget *widget)
     m_pagesMap.remove(widget);
 }
 
+
+/*********************************************************************
+ * Disable state
+ *********************************************************************/
+
+void VCFrame::setDisabled(bool disable)
+{
+    for (VCWidget *widget : children(true)) // C++11
+        widget->setDisabled(disable);
+
+    VCWidget::setDisabled(disable);
+}
 /*********************************************************************
  * Header
  *********************************************************************/
@@ -490,6 +510,24 @@ void VCFrame::slotFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensi
 
     if (xmlTagName() == KXMLQLCVCFrame)
         qDebug() << "[VCFrame] ERROR ! This should never happen !";
+}
+
+void VCFrame::slotInputValueChanged(quint8 id, uchar value)
+{
+    Q_UNUSED(value) // TODO
+
+    if (id == INPUT_NEXT_PAGE_ID)
+    {
+
+    }
+    else if (id == INPUT_PREVIOUS_PAGE_ID)
+    {
+
+    }
+    else if (id == INPUT_ENABLE_ID)
+    {
+
+    }
 }
 
 /*****************************************************************************

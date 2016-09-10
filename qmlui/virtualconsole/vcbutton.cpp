@@ -24,6 +24,8 @@
 #include "vcbutton.h"
 #include "doc.h"
 
+#define INPUT_PRESSURE_ID   0
+
 VCButton::VCButton(Doc *doc, QObject *parent)
     : VCWidget(doc, parent)
     , m_functionID(Function::invalidId())
@@ -32,6 +34,8 @@ VCButton::VCButton(Doc *doc, QObject *parent)
 {
     setType(VCWidget::ButtonWidget);
     setBackgroundColor(QColor("#444"));
+
+    registerExternalControl(INPUT_PRESSURE_ID, tr("Pressure"), true);
 }
 
 VCButton::~VCButton()
@@ -344,6 +348,31 @@ qreal VCButton::startupIntensity() const
 }
 
 /*********************************************************************
+ * External input
+ *********************************************************************/
+
+void VCButton::slotInputValueChanged(quint8 id, uchar value)
+{
+    if (id != INPUT_PRESSURE_ID)
+        return;
+
+    if (actionType() == Flash)
+    {
+        if (isOn() == false && value > 0)
+            requestStateChange(true);
+        else if (isOn() == true && value == 0)
+            requestStateChange(false);
+    }
+    else
+    {
+        if (value > 0 && isOn() == false)
+            requestStateChange(true);
+        else if (value > 0 && isOn() == true)
+            requestStateChange(false);
+    }
+}
+
+/*********************************************************************
  * Load & Save
  *********************************************************************/
 
@@ -395,6 +424,10 @@ bool VCButton::loadXML(QXmlStreamReader &root)
                 adjust = false;
             setStartupIntensity(qreal(root.readElementText().toInt()) / qreal(100));
             enableStartupIntensity(adjust);
+        }
+        else if (root.name() == KXMLQLCVCWidgetInput)
+        {
+            loadXMLInput(root, INPUT_PRESSURE_ID);
         }
         else
         {

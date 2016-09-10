@@ -117,6 +117,13 @@ protected:
     void setupWidget(VCWidget *widget);
 
     /*********************************************************************
+     * Disable state
+     *********************************************************************/
+public:
+    /** @reimp */
+    void setDisabled(bool disable);
+
+    /*********************************************************************
      * Header
      *********************************************************************/
 public:
@@ -195,8 +202,8 @@ protected:
     /** Flag to cycle through pages when reaching the end */
     bool m_pagesLoop;
 
-    /** Here's where the magic takes place. This holds a map
-     *  of pages/widgets to be shown/hidden when page is changed */
+    /** This holds a map of pages/widgets to be
+     *  shown/hidden when page is changed */
     QMap <VCWidget *, int> m_pagesMap;
 
     /*********************************************************************
@@ -227,6 +234,13 @@ protected:
      *********************************************************************/
 protected slots:
     virtual void slotFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensity = 1.0);
+
+    /*********************************************************************
+     * External input
+     *********************************************************************/
+public slots:
+    /** @reimp */
+    void slotInputValueChanged(quint8 id, uchar value);
 
     /*********************************************************************
      * Load & Save

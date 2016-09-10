@@ -201,6 +201,19 @@ protected:
     QList<QQuickItem *>m_dropTargets;
 
     /*********************************************************************
+     * External input
+     *********************************************************************/
+protected slots:
+    /**
+     * Slot that receives external input data from the InputOutputMap class.
+     *
+     * @param universe Input universe
+     * @param channel Input channel
+     * @param value New value for universe & value
+     */
+    void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
+
+    /*********************************************************************
      * Load & Save
      *********************************************************************/
 public:

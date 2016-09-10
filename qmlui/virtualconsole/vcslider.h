@@ -53,10 +53,11 @@ class VCSlider : public VCWidget
 {
     Q_OBJECT
 
+    Q_PROPERTY(int value READ value WRITE setValue NOTIFY valueChanged)
+
     /*********************************************************************
      * Initialization
      *********************************************************************/
-
 public:
     VCSlider(Doc* doc = NULL, QObject *parent = 0);
     virtual ~VCSlider();
@@ -100,6 +101,27 @@ public:
 
 protected:
     SliderMode m_sliderMode;
+
+    /*********************************************************************
+     * Slider value
+     *********************************************************************/
+public:
+    int value() const;
+
+    void setValue(int value);
+
+signals:
+    void valueChanged(int value);
+
+protected:
+    int m_value;
+
+    /*********************************************************************
+     * External input
+     *********************************************************************/
+public slots:
+    /** @reimp */
+    void slotInputValueChanged(quint8 id, uchar value);
 
     /*********************************************************************
      * Load & Save

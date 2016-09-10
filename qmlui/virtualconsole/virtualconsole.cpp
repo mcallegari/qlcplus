@@ -79,6 +79,9 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc, QObject *parent)
     qmlRegisterType<VCSlider>("com.qlcplus.classes", 1, 0, "VCSlider");
     qmlRegisterType<VCClock>("com.qlcplus.classes", 1, 0, "VCClock");
     qmlRegisterType<VCClockSchedule>("com.qlcplus.classes", 1, 0, "VCClockSchedule");
+
+    connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar,QString)),
+            this, SLOT(slotInputValueChanged(quint32,quint32,uchar)));
 }
 
 qreal VirtualConsole::pixelDensity() const
@@ -622,6 +625,19 @@ void VirtualConsole::resetDropTargets(bool deleteTargets)
         m_dropTargets.clear();
 }
 
+/*********************************************************************
+ * External input
+ *********************************************************************/
+
+void VirtualConsole::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
+{
+    foreach(VCPage *page, m_pages)
+    {
+        // TODO: send only to enabled (visible) pages
+        page->inputValueChanged(universe, channel, value);
+    }
+}
+
 /*****************************************************************************
  * Load & Save
  *****************************************************************************/
@@ -789,8 +805,9 @@ void VirtualConsole::postLoad()
 
     QList<VCWidget *> invalidWidgetsList;
     QList<VCWidget *> widgetsList;
-    for (int i = 0; i < m_pages.count(); i++)
-        widgetsList.append(m_pages.at(i)->children(true));
+
+    foreach (VCPage *page, m_pages)
+        widgetsList.append(page->children(true));
 
     foreach (VCWidget *widget, widgetsList)
     {
@@ -807,4 +824,10 @@ void VirtualConsole::postLoad()
     }
     foreach (VCWidget *widget, invalidWidgetsList)
         addWidgetToMap(widget);
+
+    /** Now for each page, map the children widgets input
+     *  sources, to look it up later when input signals start
+     *  to roll */
+    foreach (VCPage *page, m_pages)
+        page->mapChildrenInputSources();
 }
