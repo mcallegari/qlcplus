@@ -34,6 +34,7 @@ class QLCInputSource: public QThread
 public:
     static quint32 invalidUniverse;
     static quint32 invalidChannel;
+    static quint32 invalidID;
 
 public:
     QLCInputSource(QThread * parent = 0);
@@ -42,18 +43,34 @@ public:
 
     bool isValid() const;
 
+    /** Get/set the input source universe */
     void setUniverse(quint32 uni);
     quint32 universe() const;
 
+    /** Get/set the input source channel */
     void setChannel(quint32 ch);
     quint32 channel() const;
 
+    /** Set the input source page by masking it to the
+     *  existing input channel */
     void setPage(ushort pgNum);
+
+    /** Return the input source page retrieve from a masked channel */
     ushort page() const;
 
+    /** Get/set the input source target ID */
+    void setID(quint32 id);
+    quint32 id() const;
+
 private:
+    /** The universe from which this input source comes from */
     quint32 m_universe;
+
+    /** The channel from which this input source comes from */
     quint32 m_channel;
+
+    /** The target ID of this input source */
+    quint32 m_id;
 
     /*********************************************************************
      * Custom feedback
