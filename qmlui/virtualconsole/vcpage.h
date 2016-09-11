@@ -38,7 +38,10 @@ public:
      *********************************************************************/
 public:
     /** Map a single input source for a specific VC widget. */
-    void mapInputSource(QSharedPointer<QLCInputSource> source, VCWidget *widget);
+    void mapInputSource(QSharedPointer<QLCInputSource> source, VCWidget *widget, bool checkChildren = false);
+
+    /** Unmap a single input source for a specific VC widget. */
+    void unMapInputSource(quint32 id, quint32 universe, quint32 channel, VCWidget *widget, bool checkChildren = false);
 
     /** Map all the children widgets input sources into $m_inputSourcesMap.
      *  This method is called only by VirtualConsole postLoad event */

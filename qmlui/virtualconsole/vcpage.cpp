@@ -30,9 +30,13 @@ VCPage::~VCPage()
 
 }
 
-void VCPage::mapInputSource(QSharedPointer<QLCInputSource> source, VCWidget *widget)
+void VCPage::mapInputSource(QSharedPointer<QLCInputSource> source, VCWidget *widget, bool checkChildren)
 {
     if (source->isValid() == false || widget == NULL)
+        return;
+
+    /** Check if the widget belongs to this page */
+    if (checkChildren && children(true).contains(widget) == false)
         return;
 
     qDebug() << "Mapping input source. Universe:" << source->universe() << ", channel:" << source->channel() << ", widget:" << widget->id();
@@ -48,12 +52,39 @@ void VCPage::mapInputSource(QSharedPointer<QLCInputSource> source, VCWidget *wid
     m_inputSourcesMap.insert(key, refs);
 }
 
+void VCPage::unMapInputSource(quint32 id, quint32 universe, quint32 channel,
+                              VCWidget *widget, bool checkChildren)
+{
+    if (widget == NULL)
+        return;
+
+    /** Check if the widget belongs to this page */
+    if (checkChildren && children(true).contains(widget) == false)
+        return;
+
+    quint32 key = (universe << 16) | (channel & 0x0000FFFF);
+    ushort page = channel >> 16;
+
+    //qDebug() << "Multihash keys before deletion:" << m_inputSourcesMap.count(key);
+
+    for(QPair<QSharedPointer<QLCInputSource>, VCWidget *> match : m_inputSourcesMap.values(key)) // C++11
+    {
+        if (match.first->id() == id && match.first->page() == page)
+        {
+            m_inputSourcesMap.remove(key, match);
+
+            //qDebug() << "Multihash keys after deletion:" << m_inputSourcesMap.count(key);
+            return;
+        }
+    }
+}
+
 void VCPage::mapChildrenInputSources()
 {
     /** Scan all the children widgets and map the detected input sources */
-    foreach(VCWidget *widget, children(true))
+    for (VCWidget *widget : children(true)) // C++11
     {
-        foreach (QSharedPointer<QLCInputSource> source, widget->inputSources())
+        for (QSharedPointer<QLCInputSource> source : widget->inputSources()) // C++11
             mapInputSource(source, widget);
     }
 }
@@ -74,7 +105,11 @@ void VCPage::inputValueChanged(quint32 universe, quint32 channel, uchar value)
      */
     for(QPair<QSharedPointer<QLCInputSource>, VCWidget *> match : m_inputSourcesMap.values(key)) // C++11...yay !
     {
-        if (match.second->isDisabled() == false && match.first->page() == match.second->page())
+        if (match.second->isDisabled() == false &&
+            match.second->isEditing() == false &&
+            match.first->page() == match.second->page())
+        {
             match.second->slotInputValueChanged(match.first->id(), value);
+        }
     }
 }

@@ -435,6 +435,12 @@ public:
      */
     void addInputSource(QSharedPointer<QLCInputSource> const& source);
 
+    /** Update an existing input source with the provided $universe and $channel */
+    bool updateInputSource(const QSharedPointer<QLCInputSource> &source, quint32 universe, quint32 channel);
+
+    /** Delete an existing input source from this widget */
+    void deleteInputSurce(quint32 id, quint32 universe, quint32 channel);
+
     /** Returns a list of references to the input sources currently
      *  added to this widget */
     QList <QSharedPointer<QLCInputSource> > inputSources() const;

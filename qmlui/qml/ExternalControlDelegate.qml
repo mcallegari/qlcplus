@@ -29,6 +29,8 @@ Column
 
     property var dObjRef
     property int controlID
+    property int universe
+    property int channel
     property string uniName
     property string chName
 
@@ -95,6 +97,8 @@ Column
             height: width
             imgSource: "qrc:/remove.svg"
             tooltip: qsTr("Remove this input source")
+
+            onClicked: virtualConsole.deleteInputSource(dObjRef, controlID, universe, channel)
         }
 
     } // end of GridLayout

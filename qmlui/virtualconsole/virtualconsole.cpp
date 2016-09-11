@@ -56,6 +56,9 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc, QObject *parent)
     , m_editMode(false)
     , m_selectedPage(0)
     , m_latestWidgetId(0)
+    , m_inputDetectionEnabled(false)
+    , m_autoDetectionWidget(NULL)
+    , m_autoDetectionSource(NULL)
 {
     Q_ASSERT(doc != NULL);
 
@@ -632,12 +635,69 @@ void VirtualConsole::resetDropTargets(bool deleteTargets)
  * External input
  *********************************************************************/
 
+void VirtualConsole::enableAutoDetection(VCWidget *widget)
+{
+    /** Do not allow multiple detections at once ! */
+    if (m_inputDetectionEnabled == true || widget == NULL)
+        return;
+
+    /** Immediately raise the auto detection flag, to
+     *  modify the behaviour of slotInputValueChanged */
+    m_inputDetectionEnabled = true;
+
+    qDebug() << "Autodetection enabled on widget" << widget->id();
+
+    /** Create an empty input source and add it to the requested widget */
+    QSharedPointer<QLCInputSource> source = QSharedPointer<QLCInputSource>(new QLCInputSource());
+    widget->addInputSource(source);
+
+    /** Save also the reference to the requested widget and source, otherwise
+     *  the slotInputValueChanged method will not know where to act */
+    m_autoDetectionWidget = widget;
+    m_autoDetectionSource = source;
+
+    /** Note that VC pages should update their multi hash map as well,
+     *  but since the input source is still invalid, this action is deferred
+     *  to when the first input signal comes from an external controller */
+}
+
+void VirtualConsole::deleteInputSource(VCWidget *widget, quint32 id, quint32 universe, quint32 channel)
+{
+    if (widget == NULL)
+        return;
+
+    for(VCPage *page : m_pages) // C++11
+        page->unMapInputSource(id, universe, channel, widget, true);
+
+    widget->deleteInputSurce(id, universe, channel);
+}
+
 void VirtualConsole::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
 {
-    foreach(VCPage *page, m_pages)
+    qDebug() << "Inut signal received. Universe:" << universe << ", channel:" << channel << ", value:" << value;
+    if (m_inputDetectionEnabled == false)
     {
-        // TODO: send only to enabled (visible) pages
-        page->inputValueChanged(universe, channel, value);
+        for(VCPage *page : m_pages) // C++11
+        {
+            // TODO: send only to enabled (visible) pages
+            page->inputValueChanged(universe, channel, value);
+        }
+    }
+    else
+    {
+        /** The widget reference must be not NULL, otherwise
+         *  it means something went nuts */
+        Q_ASSERT(m_autoDetectionWidget != NULL);
+
+        m_autoDetectionWidget->updateInputSource(m_autoDetectionSource, universe, channel);
+
+        for(VCPage *page : m_pages) // C++11
+            page->mapInputSource(m_autoDetectionSource, m_autoDetectionWidget, true);
+
+        /** At last, disable the autodetection process */
+        m_inputDetectionEnabled = false;
+        m_autoDetectionWidget = NULL;
+        m_autoDetectionSource.clear();
     }
 }
 

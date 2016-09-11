@@ -29,6 +29,7 @@
 
 class QXmlStreamReader;
 class QXmlStreamWriter;
+class QLCInputSource;
 class VCWidget;
 class VCFrame;
 class VCPage;
@@ -203,6 +204,17 @@ protected:
     /*********************************************************************
      * External input
      *********************************************************************/
+public:
+    /** Enable the autodetection process for an external controller.
+     *  This method creates an empty QLCInputSource in the specified
+     *  $widget and fills it later once the first input signal is received */
+    Q_INVOKABLE void enableAutoDetection(VCWidget *widget);
+
+    /** Delete an existing input source from the specified $widget.
+     *  $type, $universe and $channel are also needed to remove the
+     *  source from a VC Page multi hash map */
+    Q_INVOKABLE void deleteInputSource(VCWidget *widget, quint32 id, quint32 universe, quint32 channel);
+
 protected slots:
     /**
      * Slot that receives external input data from the InputOutputMap class.
@@ -212,6 +224,17 @@ protected slots:
      * @param value New value for universe & value
      */
     void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
+
+protected:
+    /** Flag that indicates that an input source autodetection is running
+     *  to properly behave when an input signal is received */
+    bool m_inputDetectionEnabled;
+
+    /** Temporary reference to a VC widget which is in the process
+     *  of auto detecting an input source */
+    VCWidget *m_autoDetectionWidget;
+
+    QSharedPointer<QLCInputSource> m_autoDetectionSource;
 
     /*********************************************************************
      * Load & Save

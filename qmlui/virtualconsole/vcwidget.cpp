@@ -209,8 +209,6 @@ void VCWidget::setDisabled(bool disable)
     if (m_isDisabled == disable)
         return;
 
-    qDebug() << "Widget" << id() << "disabled:" << disable;
-
     m_isDisabled = disable;
     setDocModified();
     emit disabledStateChanged(disable);
@@ -475,11 +473,51 @@ QVariant VCWidget::externalControlsList() const
 
 void VCWidget::addInputSource(QSharedPointer<QLCInputSource> const& source)
 {
+    if (source.isNull() || m_externalControlList.isEmpty())
+        return;
+
+    /** If the source ID is invalid, assign the first known ID to it.
+     *  This is needed during the auto detection process, when the user
+     *  haven't decided yet the source type */
+    if (source->id() == QLCInputSource::invalidID)
+        source->setID(m_externalControlList.first().id);
+
     m_inputSources.append(source);
 
     // TODO: hook synthetic emitting sources here
 
     emit inputSourcesListChanged();
+}
+
+bool VCWidget::updateInputSource(QSharedPointer<QLCInputSource> const& source, quint32 universe, quint32 channel)
+{
+    if (source.isNull())
+        return false;
+
+    source->setUniverse(universe);
+    source->setChannel(channel);
+    source->setPage(page());
+
+    emit inputSourcesListChanged();
+
+    return true;
+}
+
+void VCWidget::deleteInputSurce(quint32 id, quint32 universe, quint32 channel)
+{
+    for (int i = 0; i < m_inputSources.count(); i++)
+    {
+        QSharedPointer<QLCInputSource> source = m_inputSources.at(i);
+
+        if (source->id() == id && source->universe() == universe && source->channel() == channel)
+        {
+            m_inputSources.takeAt(i);
+            source.reset();
+
+            emit inputSourcesListChanged();
+            break;
+        }
+    }
 }
 
 QList<QSharedPointer<QLCInputSource> > VCWidget::inputSources() const
@@ -493,7 +531,7 @@ QVariant VCWidget::inputSourcesList() const
 
     for (QSharedPointer<QLCInputSource> source : m_inputSources) // C++11
     {
-        if (source.isNull() || source->isValid() == false)
+        if (source.isNull())
             continue;
 
         QString uniName;
@@ -522,8 +560,10 @@ QVariant VCWidget::inputSourcesList() const
         QVariantMap sourceMap;
         sourceMap.insert("type", Controller);
         sourceMap.insert("id", source->id());
-        sourceMap.insert("universe", uniName);
-        sourceMap.insert("channel", chName);
+        sourceMap.insert("uniString", uniName);
+        sourceMap.insert("chString", chName);
+        sourceMap.insert("universe", source->universe());
+        sourceMap.insert("channel", source->channel());
         sourceMap.insert("lower", source->lowerValue() != 0 ? source->lowerValue() : min);
         sourceMap.insert("upper", source->upperValue() != 0 ? source->upperValue() : max);
         sourceMap.insert("customFeedback", supportCustomRange);

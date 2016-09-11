@@ -68,9 +68,7 @@ Column
                     sourceSize: Qt.size(width, height)
                 }
 
-                onClicked:
-                {
-                }
+                onClicked: virtualConsole.enableAutoDetection(objRef)
             }
 
             IconButton
@@ -107,6 +105,8 @@ Column
 
         model: objRef ? objRef.inputSourcesList : null
 
+        onModelChanged: console.log("model changed. Length: " + model.length)
+
         delegate:
             Loader
             {
@@ -119,8 +119,10 @@ Column
 
                     if (modelData.type === VCWidget.Controller)
                     {
-                        item.uniName = modelData.universe
-                        item.chName = modelData.channel
+                        item.universe = modelData.universe
+                        item.channel = modelData.channel
+                        item.uniName = modelData.uniString
+                        item.chName = modelData.chString
                     }
                     else if (modelData.type === VCWidget.Keyboard)
                     {
