@@ -87,6 +87,10 @@ class VCWidget : public QObject
     Q_PROPERTY(QFont font READ font WRITE setFont NOTIFY fontChanged)
     Q_PROPERTY(int page READ page WRITE setPage NOTIFY pageChanged)
 
+    Q_PROPERTY(int externalControlsCount READ externalControlsCount CONSTANT)
+    Q_PROPERTY(QVariant externalControlsList READ externalControlsList CONSTANT)
+    Q_PROPERTY(QVariant inputSourcesList READ inputSourcesList NOTIFY inputSourcesListChanged)
+
     /*********************************************************************
      * Initialization
      *********************************************************************/
@@ -406,6 +410,8 @@ private:
      * External input
      *********************************************************************/
 public:
+    enum InputSourceTypes { Controller, Keyboard };
+    Q_ENUM(InputSourceTypes)
 
     /** Register some external control information known by this widget
      *
@@ -416,6 +422,12 @@ public:
      */
     void registerExternalControl(quint8 id, QString name, bool allowKeyboard);
 
+    /** Returns the number of external controls registered by this widget */
+    int externalControlsCount() const;
+
+    /** Returns a list of the registered external controls suitable for the UI */
+    QVariant externalControlsList() const;
+
     /**
      * Add an external input $source to the sources known by thie widget.
      *
@@ -423,11 +435,19 @@ public:
      */
     void addInputSource(QSharedPointer<QLCInputSource> const& source);
 
+    /** Returns a list of references to the input sources currently
+     *  added to this widget */
     QList <QSharedPointer<QLCInputSource> > inputSources() const;
+
+    /** Return a list of input sources to be used by the UI */
+    QVariant inputSourcesList() const;
 
 public slots:
     /** Virtual slot called when an input value changed */
     virtual void slotInputValueChanged(quint8 id, uchar value);
+
+signals:
+    void inputSourcesListChanged();
 
 protected:
     /** A list of the external controls known by this widget */

@@ -360,7 +360,7 @@ Rectangle
                                         }
                                     }
 
-                                }
+                                } // end of GridLayout
 
                                 // items divider
                                 Rectangle

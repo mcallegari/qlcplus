@@ -389,6 +389,22 @@ Rectangle
 
                     onLoaded: item.widgetRef = wObj
                 }
+
+                SectionBox
+                {
+                    width: parent.width
+                    visible: wObj ? true : false
+                    sectionLabel: qsTr("External Controls")
+                    isExpanded: false
+
+                    sectionContents:
+                        ExternalControls
+                        {
+                            width: parent.width
+
+                            objRef: wObj
+                        }
+                }
               } // end of properties column
             } // end of flickable
             ScrollBar { id: wpBar; flickable: propsFlickable }

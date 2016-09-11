@@ -20,6 +20,8 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 
+#include "qlcinputchannel.h"
+#include "inputpatch.h"
 #include "vcwidget.h"
 #include "doc.h"
 
@@ -450,16 +452,87 @@ void VCWidget::registerExternalControl(quint8 id, QString name, bool allowKeyboa
     m_externalControlList.append(info);
 }
 
+int VCWidget::externalControlsCount() const
+{
+    return m_externalControlList.count();
+}
+
+QVariant VCWidget::externalControlsList() const
+{
+    QVariantList controlsList;
+
+    for (ExternalControlInfo info : m_externalControlList) // C++11
+    {
+        QVariantMap cMap;
+//        cMap.insert("mIcon", "qrc:/group.svg");
+        cMap.insert("mLabel", info.name);
+        cMap.insert("mValue", info.id);
+        controlsList.append(cMap);
+    }
+
+    return QVariant::fromValue(controlsList);
+}
+
 void VCWidget::addInputSource(QSharedPointer<QLCInputSource> const& source)
 {
     m_inputSources.append(source);
 
     // TODO: hook synthetic emitting sources here
+
+    emit inputSourcesListChanged();
 }
 
 QList<QSharedPointer<QLCInputSource> > VCWidget::inputSources() const
 {
     return m_inputSources;
+}
+
+QVariant VCWidget::inputSourcesList() const
+{
+    QVariantList sourcesList;
+
+    for (QSharedPointer<QLCInputSource> source : m_inputSources) // C++11
+    {
+        if (source.isNull() || source->isValid() == false)
+            continue;
+
+        QString uniName;
+        QString chName;
+        uchar min = 0, max = UCHAR_MAX;
+        bool supportCustomRange = false;
+
+        if (!source->isValid() || m_doc->inputOutputMap()->inputSourceNames(source, uniName, chName) == false)
+        {
+            uniName = tr("None");
+            chName = tr("None");
+        }
+
+        InputPatch *ip = m_doc->inputOutputMap()->inputPatch(source->universe());
+        if (ip != NULL && ip->profile() != NULL)
+        {
+            QLCInputChannel *ich = ip->profile()->channel(source->channel());
+            if (ich != NULL && ich->type() == QLCInputChannel::Button)
+            {
+                min = ich->lowerValue();
+                max = ich->upperValue();
+                supportCustomRange = true;
+            }
+        }
+
+        QVariantMap sourceMap;
+        sourceMap.insert("type", Controller);
+        sourceMap.insert("id", source->id());
+        sourceMap.insert("universe", uniName);
+        sourceMap.insert("channel", chName);
+        sourceMap.insert("lower", source->lowerValue() != 0 ? source->lowerValue() : min);
+        sourceMap.insert("upper", source->upperValue() != 0 ? source->upperValue() : max);
+        sourceMap.insert("customFeedback", supportCustomRange);
+        sourcesList.append(sourceMap);
+    }
+
+    // TODO: add keyboard sequences here
+
+    return QVariant::fromValue(sourcesList);
 }
 
 void VCWidget::slotInputValueChanged(quint8 id, uchar value)

@@ -19,6 +19,8 @@
     <file alias="DayTimeTool.qml">qml/DayTimeTool.qml</file>
     <file alias="DMXPercentageButton.qml">qml/DMXPercentageButton.qml</file>
     <file alias="EditableTextBox.qml">qml/EditableTextBox.qml</file>
+    <file alias="ExternalControls.qml">qml/ExternalControls.qml</file>
+    <file alias="ExternalControlDelegate.qml">qml/ExternalControlDelegate.qml</file>
     <file alias="FixtureConsole.qml">qml/FixtureConsole.qml</file>
     <file alias="FixtureDelegate.qml">qml/FixtureDelegate.qml</file>
     <file alias="FunctionDelegate.qml">qml/FunctionDelegate.qml</file>
@@ -27,6 +29,7 @@
     <file alias="IconButton.qml">qml/IconButton.qml</file>
     <file alias="IconPopupButton.qml">qml/IconPopupButton.qml</file>
     <file alias="IconTextEntry.qml">qml/IconTextEntry.qml</file>
+    <file alias="KeyboardSequenceDelegate.qml">qml/KeyboardSequenceDelegate.qml</file>
     <file alias="KeyPad.qml">qml/KeyPad.qml</file>
     <file alias="MainView.qml">qml/MainView.qml</file>
     <file alias="MenuBarEntry.qml">qml/MenuBarEntry.qml</file>

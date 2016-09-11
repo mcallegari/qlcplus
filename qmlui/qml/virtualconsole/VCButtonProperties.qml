@@ -64,7 +64,7 @@ Rectangle
                     Layout.columnSpan: 2
                     Layout.fillWidth: true
 
-                    tFontSize: 14
+                    tFontSize: UISettings.textSizeDefault
 
                     tLabel: func ? func.name : ""
                     functionType: func ? func.type : -1

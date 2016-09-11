@@ -11,6 +11,7 @@ CustomSpinBox 0.1 ../CustomSpinBox.qml
 CustomTextEdit 0.1 ../CustomTextEdit.qml
 DayTimeTool 0.1 ../DayTimeTool.qml
 DMXPercentageButton 0.1 ../DMXPercentageButton.qml
+ExternalControls.qml 0.1 ../ExternalControls.qml
 FixtureConsole 0.1 ../FixtureConsole.qml
 FixtureDelegate 0.1 ../FixtureDelegate.qml
 FunctionDelegate 0.1 ../FunctionDelegate.qml
