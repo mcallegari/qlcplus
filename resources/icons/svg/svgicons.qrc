@@ -64,6 +64,7 @@
     <file alias="inputoutput.svg">inputoutput.svg</file>
     <file alias="info.svg">info.svg</file>
     <file alias="intensity.svg">intensity.svg</file>
+    <file alias="keybinding.svg">keybinding.svg</file>
     <file alias="knob.svg">knob.svg</file>
     <file alias="label.svg">label.svg</file>
     <file alias="lock.svg">lock.svg</file>
