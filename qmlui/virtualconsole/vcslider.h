@@ -76,7 +76,7 @@ public:
      *********************************************************************/
 public:
     enum SliderMode { Level, Playback, Submaster };
-    Q_ENUMS(SliderMode)
+    Q_ENUM(SliderMode)
 
 public:
     /**

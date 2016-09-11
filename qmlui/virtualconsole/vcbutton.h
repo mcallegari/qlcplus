@@ -139,7 +139,7 @@ public:
      * StopAll: Stop all functions (panic button).
      */
     enum ButtonAction { Toggle, Flash, Blackout, StopAll };
-    Q_ENUMS(ButtonAction)
+    Q_ENUM(ButtonAction)
 
     ButtonAction actionType() const;
 

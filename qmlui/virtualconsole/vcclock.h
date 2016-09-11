@@ -118,7 +118,7 @@ private:
      *********************************************************************/
 public:
     enum ClockType { Clock, Stopwatch, Countdown };
-    Q_ENUMS(ClockType)
+    Q_ENUM(ClockType)
 
     void setClockType(ClockType type);
     ClockType clockType() const;
