@@ -68,7 +68,7 @@ Column
                     sourceSize: Qt.size(width, height)
                 }
 
-                onClicked: virtualConsole.enableAutoDetection(objRef)
+                onClicked: virtualConsole.createAndDetectInputSource(objRef)
             }
 
             IconButton
@@ -116,6 +116,8 @@ Column
                 {
                     item.dObjRef = objRef
                     item.controlID = modelData.id
+                    if (modelData.invalid)
+                        item.invalid = modelData.invalid
 
                     if (modelData.type === VCWidget.Controller)
                     {

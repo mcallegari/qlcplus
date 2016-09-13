@@ -512,7 +512,7 @@ void VCWidget::deleteInputSurce(quint32 id, quint32 universe, quint32 channel)
         if (source->id() == id && source->universe() == universe && source->channel() == channel)
         {
             m_inputSources.takeAt(i);
-            source.reset();
+            delete source.data();
 
             emit inputSourcesListChanged();
             break;
@@ -558,6 +558,8 @@ QVariant VCWidget::inputSourcesList() const
         }
 
         QVariantMap sourceMap;
+        if (source->isValid() == false)
+            sourceMap.insert("invalid", true);
         sourceMap.insert("type", Controller);
         sourceMap.insert("id", source->id());
         sourceMap.insert("uniString", uniName);
@@ -573,6 +575,17 @@ QVariant VCWidget::inputSourcesList() const
     // TODO: add keyboard sequences here
 
     return QVariant::fromValue(sourcesList);
+}
+
+QSharedPointer<QLCInputSource> VCWidget::inputSource(quint32 id, quint32 universe, quint32 channel)
+{
+    for (QSharedPointer<QLCInputSource> source : m_inputSources) // C++11
+    {
+        if (source->id() == id && source->universe() == universe && source->channel() == channel)
+            return source;
+    }
+
+    return QSharedPointer<QLCInputSource>();
 }
 
 void VCWidget::slotInputValueChanged(quint8 id, uchar value)

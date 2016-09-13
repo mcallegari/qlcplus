@@ -28,6 +28,7 @@ Column
     width: parent.width
 
     property var dObjRef
+    property bool invalid: false
     property int controlID
     property int universe
     property int channel
@@ -64,18 +65,46 @@ Column
         }
         RobotoText
         {
+            id: uniNameBox
             Layout.fillWidth: true
             height: UISettings.listItemHeight
             color: UISettings.bgLight
             label: uniName
+
+            SequentialAnimation on color
+            {
+                PropertyAnimation { to: "red"; duration: 1000 }
+                PropertyAnimation { to: UISettings.bgLight; duration: 1000 }
+                running: invalid
+                loops: Animation.Infinite
+            }
         }
         IconButton
         {
             width: UISettings.iconSizeMedium
             height: width
             checkable: true
+            checked: invalid
             imgSource: "qrc:/inputoutput.svg"
             tooltip: qsTr("Activate auto detection")
+
+            onToggled:
+            {
+                if (checked == true)
+                {
+                    if (invalid === false && virtualConsole.enableAutoDetection(dObjRef, controlID, universe, channel) === true)
+                        invalid = true
+                    else
+                        checked = false
+                }
+                else
+                {
+                    virtualConsole.disableAutoDetection()
+                    invalid = false
+                    uniNameBox.color = UISettings.bgLight
+                    chNameBox.color = UISettings.bgLight
+                }
+            }
         }
 
         // row 3
@@ -86,10 +115,19 @@ Column
         }
         RobotoText
         {
+            id: chNameBox
             Layout.fillWidth: true
             height: UISettings.listItemHeight
             color: UISettings.bgLight
             label: chName
+
+            SequentialAnimation on color
+            {
+                PropertyAnimation { to: "red"; duration: 1000 }
+                PropertyAnimation { to: UISettings.bgLight; duration: 1000 }
+                running: invalid
+                loops: Animation.Infinite
+            }
         }
         IconButton
         {

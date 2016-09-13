@@ -631,34 +631,65 @@ void VirtualConsole::resetDropTargets(bool deleteTargets)
         m_dropTargets.clear();
 }
 
+
+
 /*********************************************************************
  * External input
  *********************************************************************/
 
-void VirtualConsole::enableAutoDetection(VCWidget *widget)
+bool VirtualConsole::createAndDetectInputSource(VCWidget *widget)
 {
     /** Do not allow multiple detections at once ! */
     if (m_inputDetectionEnabled == true || widget == NULL)
-        return;
-
-    /** Immediately raise the auto detection flag, to
-     *  modify the behaviour of slotInputValueChanged */
-    m_inputDetectionEnabled = true;
-
-    qDebug() << "Autodetection enabled on widget" << widget->id();
+        return false;
 
     /** Create an empty input source and add it to the requested widget */
     QSharedPointer<QLCInputSource> source = QSharedPointer<QLCInputSource>(new QLCInputSource());
     widget->addInputSource(source);
 
+    enableAutoDetection(widget, source->id(), QLCInputSource::invalidUniverse, QLCInputSource::invalidChannel);
+
+    return true;
+}
+
+bool VirtualConsole::enableAutoDetection(VCWidget *widget, quint32 id, quint32 universe, quint32 channel)
+{
+    /** Do not allow multiple detections at once ! */
+    if (m_inputDetectionEnabled == true || widget == NULL)
+        return false;
+
+    qDebug() << "[enableAutoDetection] id:" << id << ",uni:" << universe << ",ch:" << channel;
+
     /** Save also the reference to the requested widget and source, otherwise
      *  the slotInputValueChanged method will not know where to act */
+    m_autoDetectionSource = widget->inputSource(id, universe, channel);
+
+    if (m_autoDetectionSource.isNull())
+    {
+        qDebug() << "Input source is null. Aborting autodetection.";
+        return false;
+    }
+
     m_autoDetectionWidget = widget;
-    m_autoDetectionSource = source;
+
+    qDebug() << "Autodetection enabled on widget" << widget->id();
+
+    /** Finally raise the auto detection flag, to
+     *  modify the behaviour of slotInputValueChanged */
+    m_inputDetectionEnabled = true;
 
     /** Note that VC pages should update their multi hash map as well,
      *  but since the input source is still invalid, this action is deferred
      *  to when the first input signal comes from an external controller */
+
+    return true;
+}
+
+void VirtualConsole::disableAutoDetection()
+{
+    m_inputDetectionEnabled = false;
+    m_autoDetectionWidget = NULL;
+    m_autoDetectionSource.clear();
 }
 
 void VirtualConsole::deleteInputSource(VCWidget *widget, quint32 id, quint32 universe, quint32 channel)
@@ -688,6 +719,8 @@ void VirtualConsole::slotInputValueChanged(quint32 universe, quint32 channel, uc
         /** The widget reference must be not NULL, otherwise
          *  it means something went nuts */
         Q_ASSERT(m_autoDetectionWidget != NULL);
+
+        //bool sourceIsValid = m_autoDetectionSource->isValid();
 
         m_autoDetectionWidget->updateInputSource(m_autoDetectionSource, universe, channel);
 

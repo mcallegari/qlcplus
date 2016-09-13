@@ -208,7 +208,14 @@ public:
     /** Enable the autodetection process for an external controller.
      *  This method creates an empty QLCInputSource in the specified
      *  $widget and fills it later once the first input signal is received */
-    Q_INVOKABLE void enableAutoDetection(VCWidget *widget);
+    Q_INVOKABLE bool createAndDetectInputSource(VCWidget *widget);
+
+    /** Enable the autodetection process for a specific input source
+     *  bound to an external controller. */
+    Q_INVOKABLE bool enableAutoDetection(VCWidget *widget, quint32 id, quint32 universe, quint32 channel);
+
+    /** Disable a previously started autodetection process */
+    Q_INVOKABLE void disableAutoDetection();
 
     /** Delete an existing input source from the specified $widget.
      *  $type, $universe and $channel are also needed to remove the

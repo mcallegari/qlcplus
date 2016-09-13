@@ -441,12 +441,15 @@ public:
     /** Delete an existing input source from this widget */
     void deleteInputSurce(quint32 id, quint32 universe, quint32 channel);
 
-    /** Returns a list of references to the input sources currently
+    /** Return a list of references to the input sources currently
      *  added to this widget */
     QList <QSharedPointer<QLCInputSource> > inputSources() const;
 
     /** Return a list of input sources to be used by the UI */
     QVariant inputSourcesList() const;
+
+    /** Return a input source reference that matches the specified $id, $universe and $channel */
+    QSharedPointer<QLCInputSource> inputSource(quint32 id, quint32 universe, quint32 channel);
 
 public slots:
     /** Virtual slot called when an input value changed */
