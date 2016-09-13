@@ -110,9 +110,15 @@ void ReadThread::run()
             uchar newVal = dataRead.toUInt();
             if (newVal != gpio->m_value)
             {
-                qDebug() << "Value read: GPIO:" << gpio->m_number << "val:" <<  newVal;
-                gpio->m_value = newVal;
-                emit valueChanged(gpio->m_number, gpio->m_value);
+                gpio->m_counter += 1;
+                if (gpio->m_counter > 3) {
+                    qDebug() << "Value read: GPIO:" << gpio->m_number << "val:" <<  newVal;
+                    gpio->m_value = newVal;
+                    gpio->m_counter = 0;
+                    emit valueChanged(gpio->m_number, gpio->m_value);
+                }
+            } else {
+                gpio->m_counter = 0;
             }
         }
         locker.unlock();
