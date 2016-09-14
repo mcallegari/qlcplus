@@ -78,18 +78,18 @@ private:
      * Speed
      ************************************************************************/
 public:
-    void setFadeInSpeed(uint ms);
-    uint fadeInSpeed() const;
+    void setFadeIn(uint ms);
+    uint fadeIn() const;
 
-    void setFadeOutSpeed(uint ms);
-    uint fadeOutSpeed() const;
+    void setFadeOut(uint ms);
+    uint fadeOut() const;
 
     void setDuration(uint ms);
     uint duration() const;
 
 private:
-    uint m_fadeInSpeed;
-    uint m_fadeOutSpeed;
+    uint m_fadeIn;
+    uint m_fadeOut;
     uint m_duration;
 
     /************************************************************************

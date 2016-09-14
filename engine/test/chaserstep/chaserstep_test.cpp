@@ -31,24 +31,24 @@ void ChaserStep_Test::initial()
 {
     ChaserStep step;
     QCOMPARE(step.fid, Function::invalidId());
-    QCOMPARE(step.fadeIn, uint(0));
-    QCOMPARE(step.fadeOut, uint(0));
-    QCOMPARE(step.duration, uint(0));
+    QCOMPARE(step.timings.fadeIn, uint(0));
+    QCOMPARE(step.timings.fadeOut, uint(0));
+    QCOMPARE(step.timings.duration(), uint(0));
     QCOMPARE(step.note, QString());
 
-    step = ChaserStep(1, 2, 3, 4);
+    step = ChaserStep(1, FunctionTimings(2, 3, 4));
     QCOMPARE(step.fid, quint32(1));
-    QCOMPARE(step.fadeIn, uint(2));
-    QCOMPARE(step.hold, uint(3));
-    QCOMPARE(step.fadeOut, uint(4));
-    QCOMPARE(step.duration, uint(5));
+    QCOMPARE(step.timings.fadeIn, uint(2));
+    QCOMPARE(step.timings.hold, uint(3));
+    QCOMPARE(step.timings.fadeOut, uint(4));
+    QCOMPARE(step.timings.duration(), uint(5));
     QCOMPARE(step.note, QString());
 }
 
 void ChaserStep_Test::comparison()
 {
-    ChaserStep step1(0, 1, 2, 3);
-    ChaserStep step2(0, 1, 2, 3);
+    ChaserStep step1(0, FunctionTimings(1, 2, 3));
+    ChaserStep step2(0, FunctionTimings(1, 2, 3));
     QVERIFY(step1 == step2);
 
     step2.fid = 1;
@@ -70,7 +70,7 @@ void ChaserStep_Test::resolveFunction()
 
 void ChaserStep_Test::variant()
 {
-    ChaserStep step(1, 2, 3, 4);
+    ChaserStep step(1, FunctionTimings(2, 3, 4));
     QVariant var = step.toVariant();
     QList <QVariant> list(var.toList());
     QCOMPARE(list.size(), 6);
@@ -82,10 +82,10 @@ void ChaserStep_Test::variant()
 
     ChaserStep pets = ChaserStep::fromVariant(var);
     QCOMPARE(pets.fid, uint(1));
-    QCOMPARE(pets.fadeIn, uint(2));
-    QCOMPARE(pets.hold, uint(3));
-    QCOMPARE(pets.fadeOut, uint(4));
-    QCOMPARE(pets.duration, uint(5));
+    QCOMPARE(pets.timings.fadeIn, uint(2));
+    QCOMPARE(pets.timings.hold, uint(3));
+    QCOMPARE(pets.timings.fadeOut, uint(4));
+    QCOMPARE(pets.timings.duration(), uint(5));
 }
 
 void ChaserStep_Test::load()
@@ -123,10 +123,10 @@ void ChaserStep_Test::load()
 
     QVERIFY(step.loadXML(xmlReader, number) == true);
     QCOMPARE(number, 5);
-    QCOMPARE(step.fadeIn, uint(10));
-    QCOMPARE(step.hold, uint(15));
-    QCOMPARE(step.fadeOut, uint(20));
-    QCOMPARE(step.duration, uint(25));
+    QCOMPARE(step.timings.fadeIn, uint(10));
+    QCOMPARE(step.timings.hold, uint(15));
+    QCOMPARE(step.timings.fadeOut, uint(20));
+    QCOMPARE(step.timings.duration(), uint(25));
     QCOMPARE(step.fid, quint32(30));
     QCOMPARE(step.note, QString("Fortytwo"));
 }
@@ -138,7 +138,7 @@ void ChaserStep_Test::save()
     QXmlStreamWriter xmlWriter(&buffer);
     xmlWriter.writeStartElement("Foo");
 
-    ChaserStep step(1, 2, 3, 4);
+    ChaserStep step(1, FunctionTimings(2, 3, 4));
     QVERIFY(step.saveXML(&xmlWriter, 5, false) == true);
 
     xmlWriter.setDevice(NULL);

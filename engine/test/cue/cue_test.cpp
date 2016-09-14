@@ -30,8 +30,8 @@ void Cue_Test::initial()
     Cue cue;
     QCOMPARE(cue.name(), QString());
     QCOMPARE(cue.values().size(), 0);
-    QCOMPARE(cue.fadeInSpeed(), uint(0));
-    QCOMPARE(cue.fadeOutSpeed(), uint(0));
+    QCOMPARE(cue.fadeIn(), uint(0));
+    QCOMPARE(cue.fadeOut(), uint(0));
     QCOMPARE(cue.duration(), uint(0));
 
     cue = Cue("Foo");
@@ -92,8 +92,8 @@ void Cue_Test::copy()
     cue1.setValue(0, 1);
     cue1.setValue(1, 2);
     cue1.setValue(2, 3);
-    cue1.setFadeInSpeed(10);
-    cue1.setFadeOutSpeed(20);
+    cue1.setFadeIn(10);
+    cue1.setFadeOut(20);
     cue1.setDuration(30);
 
     Cue cue2 = cue1;
@@ -102,8 +102,8 @@ void Cue_Test::copy()
     QCOMPARE(cue2.value(0), uchar(1));
     QCOMPARE(cue2.value(1), uchar(2));
     QCOMPARE(cue2.value(2), uchar(3));
-    QCOMPARE(cue2.fadeInSpeed(), uint(10));
-    QCOMPARE(cue2.fadeOutSpeed(), uint(20));
+    QCOMPARE(cue2.fadeIn(), uint(10));
+    QCOMPARE(cue2.fadeOut(), uint(20));
     QCOMPARE(cue2.duration(), uint(30));
 }
 
@@ -113,8 +113,8 @@ void Cue_Test::save()
     cue.setValue(0, 15);
     cue.setValue(31337, 255);
     cue.setValue(42, 127);
-    cue.setFadeInSpeed(10);
-    cue.setFadeOutSpeed(20);
+    cue.setFadeIn(10);
+    cue.setFadeOut(20);
     cue.setDuration(30);
 
     QBuffer buffer;
@@ -226,8 +226,8 @@ void Cue_Test::load()
     QCOMPARE(cue.value(1), uchar(127));
     QCOMPARE(cue.value(42), uchar(255));
     QCOMPARE(cue.value(69), uchar(0));
-    QCOMPARE(cue.fadeInSpeed(), uint(100));
-    QCOMPARE(cue.fadeOutSpeed(), uint(200));
+    QCOMPARE(cue.fadeIn(), uint(100));
+    QCOMPARE(cue.fadeOut(), uint(200));
     QCOMPARE(cue.duration(), uint(300));
 }
 

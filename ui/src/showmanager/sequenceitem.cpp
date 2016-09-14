@@ -73,13 +73,13 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
 
     foreach (ChaserStep step, m_chaser->steps())
     {
-        uint stepFadeIn = step.fadeIn;
-        uint stepFadeOut = step.fadeOut;
-        uint stepDuration = step.duration;
+        uint stepFadeIn = step.timings.fadeIn;
+        uint stepFadeOut = step.timings.fadeOut;
+        uint stepDuration = step.timings.duration();
         if (m_chaser->fadeInMode() == Chaser::Common)
-            stepFadeIn = m_chaser->fadeInSpeed();
+            stepFadeIn = m_chaser->fadeIn();
         if (m_chaser->fadeOutMode() == Chaser::Common)
-            stepFadeOut = m_chaser->fadeOutSpeed();
+            stepFadeOut = m_chaser->fadeOut();
         if (m_chaser->durationMode() == Chaser::Common)
             stepDuration = m_chaser->duration();
 

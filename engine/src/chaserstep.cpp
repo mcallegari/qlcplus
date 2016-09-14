@@ -33,7 +33,6 @@ ChaserStep::ChaserStep(quint32 fid, FunctionTimings const& timings)
     : fid(fid)
     , timings(timings)
 {
-    duration = fadeIn + hold;
     note = QString();
 }
 
@@ -104,8 +103,8 @@ bool ChaserStep::loadXML(QXmlStreamReader &root, int& stepNumber)
     if (attrs.hasAttribute(KXMLQLCFunctionTimingsFadeOut) == true)
         timings.fadeOut = attrs.value(KXMLQLCFunctionTimingsFadeOut).toString().toUInt();
 
-    if (attrs.hasAttribute(KXMLQLCFunctionSpeedLegacyDuration) == true)
-        timings.setDuration(attrs.value(KXMLQLCFunctionSpeedLegacyDuration).toString().toUInt());
+    if (attrs.hasAttribute(KXMLQLCFunctionLegacySpeedDuration) == true)
+        timings.setDuration(attrs.value(KXMLQLCFunctionLegacySpeedDuration).toString().toUInt());
 
     if (attrs.hasAttribute(KXMLQLCFunctionNumber) == true)
         stepNumber = attrs.value(KXMLQLCFunctionNumber).toString().toInt();
@@ -146,9 +145,9 @@ bool ChaserStep::saveXML(QXmlStreamWriter *doc, int stepNumber, bool isSequence)
     doc->writeAttribute(KXMLQLCFunctionNumber, QString::number(stepNumber));
 
     /* Timings */
-    doc->writeAttribute(KXMLQLCFunctionTimingsFadeIn, QString::number(fadeIn));
-    doc->writeAttribute(KXMLQLCFunctionTimingsHold, QString::number(hold));
-    doc->writeAttribute(KXMLQLCFunctionTimingsFadeOut, QString::number(fadeOut));
+    doc->writeAttribute(KXMLQLCFunctionTimingsFadeIn, QString::number(timings.fadeIn));
+    doc->writeAttribute(KXMLQLCFunctionTimingsHold, QString::number(timings.hold));
+    doc->writeAttribute(KXMLQLCFunctionTimingsFadeOut, QString::number(timings.fadeOut));
     if (note.isEmpty() == false)
         doc->writeAttribute(KXMLQLCStepNote, note);
 

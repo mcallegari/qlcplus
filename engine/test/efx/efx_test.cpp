@@ -2317,8 +2317,8 @@ void EFX_Test::copyFrom()
     e1.setXPhase(163);
     e1.setYPhase(94);
     e1.setPropagationMode(EFX::Serial);
-    e1.setFadeInSpeed(42);
-    e1.setFadeOutSpeed(69);
+    e1.setFadeIn(42);
+    e1.setFadeOut(69);
     e1.setDuration(1337);
 
     EFXFixture* ef1 = new EFXFixture(&e1);
@@ -2347,8 +2347,8 @@ void EFX_Test::copyFrom()
     QVERIFY(e2.xPhase() == 163);
     QVERIFY(e2.yPhase() == 94);
     QVERIFY(e2.propagationMode() == EFX::Serial);
-    QCOMPARE(e2.fadeInSpeed(), uint(42));
-    QCOMPARE(e2.fadeOutSpeed(), uint(69));
+    QCOMPARE(e2.fadeIn(), uint(42));
+    QCOMPARE(e2.fadeOut(), uint(69));
     QCOMPARE(e2.duration(), uint(1337));
     QVERIFY(e2.fixtures().size() == 2);
     QVERIFY(e2.fixtures().at(0)->head().fxi == 12);
@@ -2378,8 +2378,8 @@ void EFX_Test::copyFrom()
     e3.setXPhase(136);
     e3.setYPhase(49);
     e3.setPropagationMode(EFX::Parallel);
-    e3.setFadeInSpeed(69);
-    e3.setFadeOutSpeed(1337);
+    e3.setFadeIn(69);
+    e3.setFadeOut(1337);
     e3.setDuration(42);
     EFXFixture* ef3 = new EFXFixture(&e3);
     ef3->setHead(GroupHead(56, 8));
@@ -2404,8 +2404,8 @@ void EFX_Test::copyFrom()
     QVERIFY(e2.xPhase() == 136);
     QVERIFY(e2.yPhase() == 49);
     QVERIFY(e2.propagationMode() == EFX::Parallel);
-    QCOMPARE(e2.fadeInSpeed(), uint(69));
-    QCOMPARE(e2.fadeOutSpeed(), uint(1337));
+    QCOMPARE(e2.fadeIn(), uint(69));
+    QCOMPARE(e2.fadeOut(), uint(1337));
     QCOMPARE(e2.duration(), uint(42));
     QVERIFY(e2.fixtures().size() == 2);
     QVERIFY(e2.fixtures().at(0)->head().fxi == 56);
@@ -2437,8 +2437,8 @@ void EFX_Test::createCopy()
     e1->setXPhase(163);
     e1->setYPhase(94);
     e1->setPropagationMode(EFX::Serial);
-    e1->setFadeInSpeed(42);
-    e1->setFadeOutSpeed(69);
+    e1->setFadeIn(42);
+    e1->setFadeOut(69);
     e1->setDuration(1337);
     EFXFixture* ef1 = new EFXFixture(e1);
     ef1->setHead(GroupHead(12, 3));
@@ -2471,8 +2471,8 @@ void EFX_Test::createCopy()
     QVERIFY(copy->xPhase() == 163);
     QVERIFY(copy->yPhase() == 94);
     QVERIFY(copy->propagationMode() == EFX::Serial);
-    QCOMPARE(copy->fadeInSpeed(), uint(42));
-    QCOMPARE(copy->fadeOutSpeed(), uint(69));
+    QCOMPARE(copy->fadeIn(), uint(42));
+    QCOMPARE(copy->fadeOut(), uint(69));
     QCOMPARE(copy->duration(), uint(1337));
     QVERIFY(copy->fixtures().size() == 2);
     QVERIFY(copy->fixtures().at(0)->head().fxi == 12);
@@ -2692,8 +2692,8 @@ void EFX_Test::loadSuccessLegacy()
     Bus::instance()->setValue(13, 100);
     e.postLoad();
 
-    QVERIFY(e.fadeInSpeed() == uint(1000));
-    QVERIFY(e.fadeOutSpeed() == uint(1000));
+    QVERIFY(e.fadeIn() == uint(1000));
+    QVERIFY(e.fadeOut() == uint(1000));
     QVERIFY(e.duration() == uint(2000));
 }
 
@@ -2790,8 +2790,8 @@ void EFX_Test::loadSuccess()
     QVERIFY(e.fixtures().at(2)->head().fxi == 45);
     QVERIFY(e.fixtures().at(2)->direction() == EFX::Backward);
 
-    QVERIFY(e.fadeInSpeed() == uint(1300));
-    QVERIFY(e.fadeOutSpeed() == uint(1400));
+    QVERIFY(e.fadeIn() == uint(1300));
+    QVERIFY(e.fadeOut() == uint(1400));
     QVERIFY(e.duration() == uint(1500));
 }
 
@@ -2884,8 +2884,8 @@ void EFX_Test::save()
     e1.setName("First");
     e1.setDirection(EFX::Backward);
     e1.setRunOrder(EFX::SingleShot);
-    e1.setFadeInSpeed(42);
-    e1.setFadeOutSpeed(69);
+    e1.setFadeIn(42);
+    e1.setFadeOut(69);
     e1.setDuration(1337);
     e1.setAlgorithm(EFX::Lissajous);
     e1.setWidth(13);

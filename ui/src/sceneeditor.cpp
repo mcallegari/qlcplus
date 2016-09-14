@@ -1101,8 +1101,8 @@ void SceneEditor::createSpeedDials()
     m_speedDials = new SpeedDialWidget(this);
     m_speedDials->setAttribute(Qt::WA_DeleteOnClose);
     m_speedDials->setWindowTitle(m_scene->name());
-    m_speedDials->setFadeInSpeed(m_scene->fadeInSpeed());
-    m_speedDials->setFadeOutSpeed(m_scene->fadeOutSpeed());
+    m_speedDials->setFadeIn(m_scene->fadeIn());
+    m_speedDials->setFadeOut(m_scene->fadeOut());
     m_speedDials->setDurationEnabled(false);
     m_speedDials->setDurationVisible(false);
     connect(m_speedDials, SIGNAL(fadeInChanged(int)), this, SLOT(slotFadeInChanged(int)));
@@ -1306,12 +1306,12 @@ void SceneEditor::slotDisableAll()
 
 void SceneEditor::slotFadeInChanged(int ms)
 {
-    m_scene->setFadeInSpeed(ms);
+    m_scene->setFadeIn(ms);
 }
 
 void SceneEditor::slotFadeOutChanged(int ms)
 {
-    m_scene->setFadeOutSpeed(ms);
+    m_scene->setFadeOut(ms);
 }
 
 void SceneEditor::slotEnableAllChannelGroups()

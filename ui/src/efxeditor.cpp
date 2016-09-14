@@ -578,12 +578,12 @@ void EFXEditor::updateSpeedDials()
     createSpeedDials();
 
     m_speedDials->setWindowTitle(m_efx->name());
-    m_speedDials->setFadeInSpeed(m_efx->fadeInSpeed());
-    m_speedDials->setFadeOutSpeed(m_efx->fadeOutSpeed());
+    m_speedDials->setFadeIn(m_efx->fadeIn());
+    m_speedDials->setFadeOut(m_efx->fadeOut());
     if ((int)m_efx->duration() < 0)
         m_speedDials->setDuration(m_efx->duration());
     else
-        m_speedDials->setDuration(m_efx->duration() - m_efx->fadeInSpeed() - m_efx->fadeOutSpeed());
+        m_speedDials->setDuration(m_efx->duration() - m_efx->fadeIn() - m_efx->fadeOut());
 }
 
 void EFXEditor::slotNameEdited(const QString &text)
@@ -854,13 +854,13 @@ void EFXEditor::slotAsymmetricRadioToggled(bool state)
 
 void EFXEditor::slotFadeInChanged(int ms)
 {
-    m_efx->setFadeInSpeed(ms);
+    m_efx->setFadeIn(ms);
     slotRestartTest();
 }
 
 void EFXEditor::slotFadeOutChanged(int ms)
 {
-    m_efx->setFadeOutSpeed(ms);
+    m_efx->setFadeOut(ms);
 }
 
 void EFXEditor::slotHoldChanged(int ms)
@@ -869,7 +869,7 @@ void EFXEditor::slotHoldChanged(int ms)
     if (ms < 0)
         duration = ms;
     else
-        duration = m_efx->fadeInSpeed() + ms + m_efx->fadeOutSpeed();
+        duration = m_efx->fadeIn() + ms + m_efx->fadeOut();
     m_efx->setDuration(duration);
     redrawPreview();
 }

@@ -789,7 +789,7 @@ void ShowManager::slotAddItem()
                     m_currentScene->setChildrenFlag(true);
                     f->setName(QString("%1 %2").arg(tr("New Sequence")).arg(f->id()));
                     m_showview->addSequence(chaser, m_currentTrack);
-                    ChaserStep step(m_currentScene->id(), m_currentScene->fadeInSpeed(), 10000, m_currentScene->fadeOutSpeed());
+                    ChaserStep step(m_currentScene->id(), FunctionTimings(m_currentScene->fadeIn(), 10000, m_currentScene->fadeOut()));
                     step.note = QString();
                     step.values.append(m_currentScene->values());
                     chaser->addStep(step);

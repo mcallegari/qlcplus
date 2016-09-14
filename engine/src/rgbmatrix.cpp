@@ -603,7 +603,7 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
     quint32 mdFxi = Fixture::invalidId();
 
     uint fadeTime;
-    if (overrideFadeIn() == Functiontimings::defaultValue())
+    if (overrideFadeIn() == FunctionTimings::defaultValue())
         fadeTime = fadeIn();
     else
         fadeTime = overrideFadeIn();

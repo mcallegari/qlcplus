@@ -502,18 +502,18 @@ void Function::setTempoType(const Function::TempoType &type)
     {
         /* Beats -> Time */
         case Time:
-            setFadeInSpeed(beatsToTime(fadeInSpeed(), beatTime));
+            setFadeIn(beatsToTime(fadeIn(), beatTime));
             setDuration(beatsToTime(duration(), beatTime));
-            setFadeOutSpeed(beatsToTime(fadeOutSpeed(), beatTime));
+            setFadeOut(beatsToTime(fadeOut(), beatTime));
             disconnect(doc()->masterTimer(), SIGNAL(bpmNumberChanged(int)),
                        this, SLOT(slotBPMChanged(int)));
         break;
 
         /* Time -> Beats */
         case Beats:
-            setFadeInSpeed(timeToBeats(fadeInSpeed(), beatTime));
+            setFadeIn(timeToBeats(fadeIn(), beatTime));
             setDuration(timeToBeats(duration(), beatTime));
-            setFadeOutSpeed(timeToBeats(fadeOutSpeed(), beatTime));
+            setFadeOut(timeToBeats(fadeOut(), beatTime));
             connect(doc()->masterTimer(), SIGNAL(bpmNumberChanged(int)),
                     this, SLOT(slotBPMChanged(int)));
         break;
@@ -552,7 +552,7 @@ Function::TempoType Function::stringToTempoType(const QString &str)
 
 uint Function::timeToBeats(uint time, int beatDuration)
 {
-    if (time == 0 || time == infiniteSpeed())
+    if (time == 0 || time == FunctionTimings::infiniteValue())
         return time;
 
     uint value = 0;
@@ -568,7 +568,7 @@ uint Function::timeToBeats(uint time, int beatDuration)
 
 uint Function::beatsToTime(uint beats, int beatDuration)
 {
-    if (beats == 0 || beats == infiniteSpeed())
+    if (beats == 0 || beats == FunctionTimings::infiniteValue())
         return beats;
 
     return ((float)beats / 1000.0) * beatDuration;
@@ -594,13 +594,13 @@ void Function::slotBPMChanged(int bpmNumber)
  * Timings
  ****************************************************************************/
 
-void setTimings(FunctionTimings const& timings)
+void Function::setTimings(FunctionTimings const& timings)
 {
     m_timings = timings;
     emit changed(m_id);
 }
 
-FunctionTimings timings() const
+FunctionTimings Function::timings() const
 {
     return m_timings;
 }
@@ -649,12 +649,12 @@ quint32 Function::duration() const
     return m_timings.duration();
 }
 
-void setOverrideTimings(FunctionTimings const& timings)
+void Function::setOverrideTimings(FunctionTimings const& timings)
 {
     m_overrideTimings = timings;
 }
 
-FunctionTimings overrideTimings() const
+FunctionTimings Function::overrideTimings() const
 {
     return m_overrideTimings;
 }
@@ -694,7 +694,7 @@ void Function::setOverrideDuration(quint32 ms)
     m_overrideTimings.setDuration(ms);
 }
 
-uint Function::speedSubtract(uint left, uint right)
+uint Function::overrideDuration() const
 {
     return m_overrideTimings.duration();
 }
@@ -703,53 +703,54 @@ void Function::tap()
 {
 }
 
-quint32 Function::getNum__SUBTIMINGPH__TimingsCount() const
-{
-    return 0;
-}
-
-void Function::set__SUBTIMINGPH__Timings(quint32 other, FunctionTimings const& timings)
-{
-    Q_UNUSED(other);
-    Q_UNUSED(timings);
-    qWarning() << Q_FUNC_INFO << "Function" << typeString()
-        << "does not have any \"other timing\"";
-}
-
-void Function::set__SUBTIMINGPH__FadeIn(quint32 other, quint32 ms)
-{
-    Q_UNUSED(other);
-    Q_UNUSED(ms);
-    return Function::set__SUBTIMINGPH__Timings(0, FunctionTimings());
-}
-
-void Function::set__SUBTIMINGPH__Hold(quint32 other, quint32 ms)
-{
-    Q_UNUSED(other);
-    Q_UNUSED(ms);
-    return Function::set__SUBTIMINGPH__Timings(0, FunctionTimings());
-}
-
-void Function::set__SUBTIMINGPH__FadeOut(quint32 other, quint32 ms)
-{
-    Q_UNUSED(other);
-    Q_UNUSED(ms);
-    return Function::set__SUBTIMINGPH__Timings(0, FunctionTimings());
-}
-
-void Function::set__SUBTIMINGPH__Duration(quint32 other, quint32 ms)
-{
-    Q_UNUSED(other);
-    Q_UNUSED(ms);
-    return Function::set__SUBTIMINGPH__Timings(0, FunctionTimings());
-}
-
-QString Function::get__SUBTIMINGPH__String(quint32 other) const
-{
-    Q_UNUSED(other);
-    Function::set__SUBTIMINGPH__Timings(0, FunctionTimings());
-    return "";
-}
+// TODO alternate speeds
+//quint32 Function::getNum__SUBTIMINGPH__TimingsCount() const
+//{
+//    return 0;
+//}
+//
+//void Function::set__SUBTIMINGPH__Timings(quint32 other, FunctionTimings const& timings)
+//{
+//    Q_UNUSED(other);
+//    Q_UNUSED(timings);
+//    qWarning() << Q_FUNC_INFO << "Function" << typeString()
+//        << "does not have any \"other timing\"";
+//}
+//
+//void Function::set__SUBTIMINGPH__FadeIn(quint32 other, quint32 ms)
+//{
+//    Q_UNUSED(other);
+//    Q_UNUSED(ms);
+//    return Function::set__SUBTIMINGPH__Timings(0, FunctionTimings());
+//}
+//
+//void Function::set__SUBTIMINGPH__Hold(quint32 other, quint32 ms)
+//{
+//    Q_UNUSED(other);
+//    Q_UNUSED(ms);
+//    return Function::set__SUBTIMINGPH__Timings(0, FunctionTimings());
+//}
+//
+//void Function::set__SUBTIMINGPH__FadeOut(quint32 other, quint32 ms)
+//{
+//    Q_UNUSED(other);
+//    Q_UNUSED(ms);
+//    return Function::set__SUBTIMINGPH__Timings(0, FunctionTimings());
+//}
+//
+//void Function::set__SUBTIMINGPH__Duration(quint32 other, quint32 ms)
+//{
+//    Q_UNUSED(other);
+//    Q_UNUSED(ms);
+//    return Function::set__SUBTIMINGPH__Timings(0, FunctionTimings());
+//}
+//
+//QString Function::get__SUBTIMINGPH__String(quint32 other) const
+//{
+//    Q_UNUSED(other);
+//    Function::set__SUBTIMINGPH__Timings(0, FunctionTimings());
+//    return "";
+//}
 
 /*****************************************************************************
  * UI State

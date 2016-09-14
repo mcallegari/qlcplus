@@ -416,10 +416,10 @@ void VCCueList::updateStepList()
         switch (ch->fadeInMode())
         {
             case Chaser::Common:
-                item->setText(COL_FADEIN, Function::speedToString(ch->fadeInSpeed()));
+                item->setText(COL_FADEIN, FunctionTimings::valueToString(ch->fadeIn()));
                 break;
             case Chaser::PerStep:
-                item->setText(COL_FADEIN, Function::speedToString(step.fadeIn));
+                item->setText(COL_FADEIN, FunctionTimings::valueToString(step.timings.fadeIn));
                 break;
             default:
             case Chaser::Default:
@@ -429,10 +429,10 @@ void VCCueList::updateStepList()
         switch (ch->fadeOutMode())
         {
             case Chaser::Common:
-                item->setText(COL_FADEOUT, Function::speedToString(ch->fadeOutSpeed()));
+                item->setText(COL_FADEOUT, FunctionTimings::valueToString(ch->fadeOut()));
                 break;
             case Chaser::PerStep:
-                item->setText(COL_FADEOUT, Function::speedToString(step.fadeOut));
+                item->setText(COL_FADEOUT, FunctionTimings::valueToString(step.timings.fadeOut));
                 break;
             default:
             case Chaser::Default:
@@ -442,10 +442,10 @@ void VCCueList::updateStepList()
         switch (ch->durationMode())
         {
             case Chaser::Common:
-                item->setText(COL_DURATION, Function::speedToString(ch->duration()));
+                item->setText(COL_DURATION, FunctionTimings::valueToString(ch->duration()));
                 break;
             case Chaser::PerStep:
-                item->setText(COL_DURATION, Function::speedToString(step.duration));
+                item->setText(COL_DURATION, FunctionTimings::valueToString(step.timings.duration()));
                 break;
             default:
             case Chaser::Default:
@@ -840,9 +840,9 @@ void VCCueList::slotProgressTimeout()
     {
         int status = m_progress->property("status").toInt();
         int newstatus;
-        if (step.m_fadeIn == Function::defaultSpeed())
+        if (step.m_timings.fadeIn == FunctionTimings::defaultValue())
             newstatus = 1;
-        else if (step.m_elapsed > (quint32)step.m_fadeIn)
+        else if (step.m_elapsed > step.m_timings.fadeIn)
             newstatus = 1;
         else
             newstatus = 0;
@@ -855,12 +855,12 @@ void VCCueList::slotProgressTimeout()
                 m_progress->setStyleSheet(progressHoldStyle);
             m_progress->setProperty("status", newstatus);
         }
-        if (step.m_duration == Function::infiniteSpeed())
+        if (step.m_timings.duration() == FunctionTimings::infiniteValue())
         {
-            if (newstatus == 0 && step.m_fadeIn != Function::defaultSpeed())
+            if (newstatus == 0 && step.m_timings.fadeIn != FunctionTimings::defaultValue())
             {
-                double progress = ((double)step.m_elapsed / (double)step.m_fadeIn) * (double)m_progress->width();
-                m_progress->setFormat(QString("-%1").arg(Function::speedToString(step.m_fadeIn - step.m_elapsed)));
+                double progress = ((double)step.m_elapsed / (double)step.m_timings.fadeIn) * (double)m_progress->width();
+                m_progress->setFormat(QString("-%1").arg(FunctionTimings::valueToString(step.m_timings.fadeIn - step.m_elapsed)));
                 m_progress->setValue(progress);
             }
             else
@@ -872,8 +872,8 @@ void VCCueList::slotProgressTimeout()
         }
         else
         {
-            double progress = ((double)step.m_elapsed / (double)step.m_duration) * (double)m_progress->width();
-            m_progress->setFormat(QString("-%1").arg(Function::speedToString(step.m_duration - step.m_elapsed)));
+            double progress = ((double)step.m_elapsed / (double)step.m_timings.duration()) * (double)m_progress->width();
+            m_progress->setFormat(QString("-%1").arg(FunctionTimings::valueToString(step.m_timings.duration() - step.m_elapsed)));
             m_progress->setValue(progress);
         }
     }

@@ -49,7 +49,7 @@ ChaserRunner::ChaserRunner(const Doc* doc, const Chaser* chaser, quint32 startTi
 {
     Q_ASSERT(chaser != NULL);
 
-    if (m_chaser->isSequence() == true)
+    if (m_chaser->isSequence())
     {
         qDebug() << "[ChaserRunner] startTime:" << startTime;
         int idx = 0;
@@ -124,7 +124,6 @@ quint32 ChaserRunner::stepFadeIn(int stepIdx) const
     case Chaser::PerStep:
         // Each step specifies its own fade in speed
         if (stepIdx >= 0 && stepIdx < m_chaser->steps().size())
-            // TODO ici changed step.fadeIn to step.timing.fadeIn
             fadeIn = m_chaser->steps().at(stepIdx).timings.fadeIn;
         else
             fadeIn = FunctionTimings::defaultValue();
@@ -151,51 +150,64 @@ quint32 ChaserRunner::stepFadeOut(int stepIdx) const
     case Chaser::PerStep:
         // Each step specifies its own fade out speed
         if (stepIdx >= 0 && stepIdx < m_chaser->steps().size())
-            speed = m_chaser->steps().at(stepIdx).fadeOut();
+            fadeOut = m_chaser->steps().at(stepIdx).timings.fadeOut;
         else
-            speed = FunctionTimings::defaultValue();
+            fadeOut = FunctionTimings::defaultValue();
         break;
     default:
     case Chaser::Default:
         // Don't touch members' fade out speed at all
-        speed = Function::defaultSpeed();
+        fadeOut = FunctionTimings::defaultValue();
         break;
     }
 
-    return speed;
+    return fadeOut;
+}
+
+uint ChaserRunner::stepHold(int stepIdx) const
+{
+    uint hold = 0;
+    switch (m_chaser->durationMode())
+    {
+    default:
+    case Chaser::Default:
+    case Chaser::Common:
+        // All steps' hold is dictated by the chaser
+        hold = m_chaser->hold();
+        break;
+    case Chaser::PerStep:
+        // Each step specifies its own hold
+        if (stepIdx >= 0 && stepIdx < m_chaser->steps().size())
+            hold = m_chaser->steps().at(stepIdx).timings.hold;
+        else
+            hold = m_chaser->hold();
+        break;
+    }
+
+    return hold;
 }
 
 uint ChaserRunner::stepDuration(int stepIdx) const
 {
-    uint speed = 0;
-    if (m_chaser->overrideDuration() != Function::defaultSpeed())
+    uint duration = 0;
+    switch (m_chaser->durationMode())
     {
-        // Override speed is used when another function has started the chaser,
-        // i.e. chaser inside a chaser that wants to impose its own duration
-        // to its members.
-        speed = m_chaser->overrideDuration();
-    }
-    else
-    {
-        switch (m_chaser->durationMode())
-        {
-        default:
-        case Chaser::Default:
-        case Chaser::Common:
-            // All steps' duration is dictated by the chaser
-            speed = m_chaser->duration();
-            break;
-        case Chaser::PerStep:
-            // Each step specifies its own duration
-            if (stepIdx >= 0 && stepIdx < m_chaser->steps().size())
-                speed = m_chaser->steps().at(stepIdx).duration;
-            else
-                speed = m_chaser->duration();
-            break;
-        }
+    default:
+    case Chaser::Default:
+    case Chaser::Common:
+        // All steps' duration is dictated by the chaser
+        duration = m_chaser->duration();
+        break;
+    case Chaser::PerStep:
+        // Each step specifies its own duration
+        if (stepIdx >= 0 && stepIdx < m_chaser->steps().size())
+            duration = m_chaser->steps().at(stepIdx).timings.duration();
+        else
+            duration = m_chaser->duration();
+        break;
     }
 
-    return speed;
+    return duration;
 }
 
 /****************************************************************************
@@ -457,12 +469,12 @@ void ChaserRunner::startNewStep(int index, MasterTimer* timer, bool manualFade, 
     {
         ChaserRunnerStep *newStep = new ChaserRunnerStep();
         newStep->m_index = index;
-        if (manualFade == true)
-            newStep->m_fadeIn = 0;
+        if (manualFade)
+            newStep->m_timings.fadeIn = 0;
         else
-            newStep->m_fadeIn = stepFadeIn(index);
-        newStep->m_fadeOut = stepFadeOut(index);
-        newStep->m_duration = stepDuration(index);
+            newStep->m_timings.fadeIn = stepFadeIn(index);
+        newStep->m_timings.fadeOut = stepFadeOut(index);
+        newStep->m_timings.setDuration(stepDuration(index));
 
         if (m_startOffset != 0)
             newStep->m_elapsed = m_startOffset + MasterTimer::tick();
@@ -487,7 +499,7 @@ void ChaserRunner::startNewStep(int index, MasterTimer* timer, bool manualFade, 
         // might momentarily jump too high.
         newStep->m_function->adjustAttribute(m_intensity, Function::Intensity);
         // Start the fire up !
-        newStep->m_function->start(timer, functionParent(), 0, newStep->m_fadeIn, newStep->m_fadeOut, m_chaser->tempoType());
+        newStep->m_function->start(timer, functionParent(), 0, newStep->m_timings, m_chaser->tempoType());
         m_runnerSteps.append(newStep);
         m_roundTime->restart();
     }
@@ -515,7 +527,7 @@ int ChaserRunner::getNextStepIndex()
     if (m_direction == Function::Forward)
     {
         // "Previous" for a forward chaser is -1
-        if (m_previous == true)
+        if (m_previous)
             currentStepIndex--;
         else
             currentStepIndex++;
@@ -523,7 +535,7 @@ int ChaserRunner::getNextStepIndex()
     else
     {
         // "Previous" for a backward scene is +1
-        if (m_previous == true)
+        if (m_previous)
             currentStepIndex++;
         else
             currentStepIndex--;
@@ -629,7 +641,7 @@ bool ChaserRunner::write(MasterTimer* timer, QList<Universe *> universes)
     if (m_chaser->steps().size() == 0)
         return false;
 
-    if (m_next == true || m_previous == true || m_newStartStepIdx != -1)
+    if (m_next || m_previous || m_newStartStepIdx != -1)
     {
         clearRunningList();
     }
@@ -651,15 +663,15 @@ bool ChaserRunner::write(MasterTimer* timer, QList<Universe *> universes)
         if (m_chaser->tempoType() == Function::Beats && timer->isBeat())
         {
             step->m_elapsedBeats += 1000;
-            qDebug() << "Function" << step->m_function->name() << "duration:" << step->m_duration << "beats:" << step->m_elapsedBeats;
+            qDebug() << "Function" << step->m_function->name() << "duration:" << step->m_timings.duration() << "beats:" << step->m_elapsedBeats;
         }
 
-        if (step->m_duration != Function::infiniteSpeed() &&
-            ((m_chaser->tempoType() == Function::Time && step->m_elapsed >= step->m_duration) ||
-             (m_chaser->tempoType() == Function::Beats && step->m_elapsedBeats >= step->m_duration)))
+        if (step->m_timings.duration() != FunctionTimings::infiniteValue() &&
+            ((m_chaser->tempoType() == Function::Time && step->m_elapsed >= step->m_timings.duration()) ||
+             (m_chaser->tempoType() == Function::Beats && step->m_elapsedBeats >= step->m_timings.duration())))
         {
-            if (step->m_duration != 0)
-                prevStepRoundElapsed = step->m_elapsed % step->m_duration;
+            if (step->m_timings.duration() != 0)
+                prevStepRoundElapsed = step->m_elapsed % step->m_timings.duration();
 
             step->m_function->stop(functionParent());
             delete step;
@@ -673,13 +685,13 @@ bool ChaserRunner::write(MasterTimer* timer, QList<Universe *> universes)
             // When the speeds of the chaser change, they need to be updated to the lower
             // level (only current function) as well. Otherwise the new speeds would take
             // effect only on the next step change.
-            if (m_updateOverrideSpeeds == true)
+            if (m_updateOverrideTimings)
             {
-                m_updateOverrideSpeeds = false;
+                m_updateOverrideTimings = false;
                 if (step->m_function != NULL)
                 {
-                    step->m_function->setOverrideFadeInSpeed(step->m_fadeIn);
-                    step->m_function->setOverrideFadeOutSpeed(step->m_fadeOut);
+                    step->m_function->setOverrideFadeIn(step->m_timings.fadeIn);
+                    step->m_function->setOverrideFadeOut(step->m_timings.fadeOut);
                 }
             }
         }

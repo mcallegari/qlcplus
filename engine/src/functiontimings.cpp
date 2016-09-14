@@ -18,7 +18,12 @@
   limitations under the License.
 */
 
+#include <cmath>
+#include <QXmlStreamReader>
+
 #include "functiontimings.h"
+#include "function.h"
+#include "qlcmacros.h"
 
 FunctionTimings::FunctionTimings(quint32 fadeIn, quint32 hold, quint32 fadeOut)
     : fadeIn(fadeIn)
@@ -58,7 +63,7 @@ quint32 FunctionTimings::defaultValue()
 QString FunctionTimings::valueToString(quint32 ms)
 {
     QString str;
-    if (ms == infiniteSpeed())
+    if (ms == infiniteValue())
     {
         str = QChar(0x221E); // Infinity symbol
     }
@@ -123,7 +128,7 @@ quint32 FunctionTimings::stringToValue(QString string)
     if (string.contains("."))
     {
         // lround avoids toDouble precison issues (.03 transforms to .029)
-        value += lround(speed.toDouble() * 1000.0);
+        value += lround(string.toDouble() * 1000.0);
     }
     else
     {
@@ -151,7 +156,7 @@ quint32 FunctionTimings::add(quint32 left, quint32 right)
     return normalize(left + right);
 }
 
-quint32 FunctionTimings::substract(quint32 left, quint32 right)
+quint32 FunctionTimings::subtract(quint32 left, quint32 right)
 {
     if (right >= left)
         return 0;
@@ -163,28 +168,46 @@ quint32 FunctionTimings::substract(quint32 left, quint32 right)
     return normalize(left - right);
 }
 
-bool FunctionTimings::loadXML(QXmlStreamReader &speedRoot)
+bool FunctionTimings::loadXML(QXmlStreamReader &timingsRoot)
 {
-    if (speedRoot.name() != KXMLQLCFunctionSpeed)
+    if (timingsRoot.name() == KXMLQLCFunctionLegacySpeed)
+        return loadXMLLegacy(timingsRoot);
+    if (timingsRoot.name() != KXMLQLCFunctionTimings)
+        return false;
+
+    QXmlStreamAttributes attrs = timingsRoot.attributes();
+
+    fadeIn = attrs.value(KXMLQLCFunctionTimingsFadeIn).toString().toUInt();
+    hold = attrs.value(KXMLQLCFunctionTimingsHold).toString().toUInt();
+    fadeOut = attrs.value(KXMLQLCFunctionTimingsFadeOut).toString().toUInt();
+
+    timingsRoot.skipCurrentElement();
+
+    return true;
+}
+
+bool FunctionTimings::loadXMLLegacy(QXmlStreamReader& speedRoot)
+{
+    if (speedRoot.name() != KXMLQLCFunctionLegacySpeed)
         return false;
 
     QXmlStreamAttributes attrs = speedRoot.attributes();
 
-    fadeInSpeed = attrs.value(KXMLQLCFunctionSpeedFadeIn).toString().toUInt();
-    fadeOutSpeed = attrs.value(KXMLQLCFunctionSpeedFadeOut).toString().toUInt();
-    duration = attrs.value(KXMLQLCFunctionSpeedDuration).toString().toUInt();
+    fadeIn = attrs.value(KXMLQLCFunctionLegacySpeedFadeIn).toString().toUInt();
+    fadeOut = attrs.value(KXMLQLCFunctionLegacySpeedFadeOut).toString().toUInt();
+    setDuration(attrs.value(KXMLQLCFunctionLegacySpeedDuration).toString().toUInt());
 
     speedRoot.skipCurrentElement();
 
     return true;
 }
 
-bool Function::saveXMLSpeed(QXmlStreamWriter *doc) const
+bool FunctionTimings::saveXML(QXmlStreamWriter *doc) const
 {
-    doc->writeStartElement(KXMLQLCFunctionSpeed);
-    doc->writeAttribute(KXMLQLCFunctionSpeedFadeIn, QString::number(fadeInSpeed()));
-    doc->writeAttribute(KXMLQLCFunctionSpeedFadeOut, QString::number(fadeOutSpeed()));
-    doc->writeAttribute(KXMLQLCFunctionSpeedDuration, QString::number(duration()));
+    doc->writeStartElement(KXMLQLCFunctionTimings);
+    doc->writeAttribute(KXMLQLCFunctionTimingsFadeIn, QString::number(fadeIn));
+    doc->writeAttribute(KXMLQLCFunctionTimingsFadeOut, QString::number(fadeOut));
+    doc->writeAttribute(KXMLQLCFunctionTimingsHold, QString::number(hold));
     doc->writeEndElement();
 
     return true;

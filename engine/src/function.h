@@ -423,8 +423,8 @@ private:
      * Speed
      *********************************************************************/
 public:
-    enum SpeedType { FadeIn = 0, Hold, FadeOut, Duration };
-    Q_ENUMS(SpeedType)
+    enum TimingsType { FadeIn = 0, Hold, FadeOut, Duration };
+    Q_ENUMS(TimingsType)
 
 public:
     /*********************************************************************

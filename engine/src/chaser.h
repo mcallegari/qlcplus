@@ -225,29 +225,29 @@ private:
      * Timings modes
      *********************************************************************/
 public:
-    enum TimingsMode {
+    enum TimingMode {
         Default = 0, //! Use step function's own timings setting
         Common,  //! Impose a common chaser-specific timings to all steps
         PerStep  //! Impose a step-specific timings to each step
     };
-    Q_ENUMS(TimingsMode)
+    Q_ENUMS(TimingMode)
 
-    void setFadeInMode(TimingsMode mode);
-    TimingsMode fadeInMode() const;
+    void setFadeInMode(TimingMode mode);
+    TimingMode fadeInMode() const;
 
-    void setFadeOutMode(TimingsMode mode);
-    TimingsMode fadeOutMode() const;
+    void setFadeOutMode(TimingMode mode);
+    TimingMode fadeOutMode() const;
 
-    void setHoldMode(TimingsMode mode);
-    TimingsMode holdMode() const;
+    void setDurationMode(TimingMode mode);
+    TimingMode durationMode() const;
 
-    static QString timingsModeToString(TimingsMode mode);
-    static TimingsMode stringToTimingsMode(const QString& str);
+    static QString timingModeToString(TimingMode mode);
+    static TimingMode stringToTimingMode(const QString& str);
 
 private:
-    TimingsMode m_fadeInMode;
-    TimingsMode m_fadeOutMode;
-    TimingsMode m_holdMode;
+    TimingMode m_fadeInMode;
+    TimingMode m_fadeOutMode;
+    TimingMode m_durationMode;
 
     /*********************************************************************
      * Save & Load

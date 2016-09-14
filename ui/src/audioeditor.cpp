@@ -45,8 +45,8 @@ AudioEditor::AudioEditor(QWidget* parent, Audio *audio, Doc* doc)
     m_nameEdit->setText(m_audio->name());
     m_nameEdit->setSelection(0, m_nameEdit->text().length());
 
-    m_fadeInEdit->setText(Function::speedToString(audio->fadeInSpeed()));
-    m_fadeOutEdit->setText(Function::speedToString(audio->fadeOutSpeed()));
+    m_fadeInEdit->setText(FunctionTimings::valueToString(audio->fadeIn()));
+    m_fadeOutEdit->setText(FunctionTimings::valueToString(audio->fadeOut()));
 
     connect(m_nameEdit, SIGNAL(textEdited(const QString&)),
             this, SLOT(slotNameEdited(const QString&)));
@@ -70,7 +70,7 @@ AudioEditor::AudioEditor(QWidget* parent, Audio *audio, Doc* doc)
     if (adec != NULL)
     {
         AudioParameters ap = adec->audioParameters();
-        m_durationLabel->setText(Function::speedToString(m_audio->duration()));
+        m_durationLabel->setText(FunctionTimings::valueToString(m_audio->duration()));
         m_srateLabel->setText(QString("%1 Hz").arg(ap.sampleRate()));
         m_channelsLabel->setText(QString("%1").arg(ap.channels()));
         m_bitrateLabel->setText(QString("%1 kb/s").arg(adec->bitrate()));
@@ -167,7 +167,7 @@ void AudioEditor::slotSourceFileClicked()
     if (adec != NULL)
     {
         AudioParameters ap = adec->audioParameters();
-        m_durationLabel->setText(Function::speedToString(m_audio->duration()));
+        m_durationLabel->setText(FunctionTimings::valueToString(m_audio->duration()));
         m_srateLabel->setText(QString("%1 Hz").arg(ap.sampleRate()));
         m_channelsLabel->setText(QString("%1").arg(ap.channels()));
         m_bitrateLabel->setText(QString("%1 kb/s").arg(adec->bitrate()));
@@ -179,10 +179,10 @@ void AudioEditor::slotFadeInEdited()
     uint newValue;
     QString text = m_fadeInEdit->text();
 
-    newValue = Function::stringToSpeed(text);
-    m_fadeInEdit->setText(Function::speedToString(newValue));
+    newValue = FunctionTimings::stringToValue(text);
+    m_fadeInEdit->setText(FunctionTimings::valueToString(newValue));
 
-    m_audio->setFadeInSpeed(newValue);
+    m_audio->setFadeIn(newValue);
     m_doc->setModified();
 }
 
@@ -191,10 +191,10 @@ void AudioEditor::slotFadeOutEdited()
     uint newValue;
     QString text = m_fadeOutEdit->text();
 
-    newValue = Function::stringToSpeed(text);
-    m_fadeOutEdit->setText(Function::speedToString(newValue));
+    newValue = FunctionTimings::stringToValue(text);
+    m_fadeOutEdit->setText(FunctionTimings::valueToString(newValue));
 
-    m_audio->setFadeOutSpeed(newValue);
+    m_audio->setFadeOut(newValue);
     m_doc->setModified();
 }
 
@@ -243,8 +243,8 @@ void AudioEditor::createSpeedDials()
     m_speedDials = new SpeedDialWidget(this);
     m_speedDials->setAttribute(Qt::WA_DeleteOnClose);
     m_speedDials->setWindowTitle(m_audio->name());
-    m_speedDials->setFadeInSpeed(m_audio->fadeInSpeed());
-    m_speedDials->setFadeOutSpeed(m_audio->fadeOutSpeed());
+    m_speedDials->setFadeIn(m_audio->fadeIn());
+    m_speedDials->setFadeOut(m_audio->fadeOut());
     m_speedDials->setDurationEnabled(false);
     m_speedDials->setDurationVisible(false);
     connect(m_speedDials, SIGNAL(fadeInChanged(int)), this, SLOT(slotFadeInDialChanged(int)));
@@ -267,14 +267,14 @@ void AudioEditor::slotSpeedDialToggle(bool state)
 
 void AudioEditor::slotFadeInDialChanged(int ms)
 {
-    m_fadeInEdit->setText(Function::speedToString(ms));
-    m_audio->setFadeInSpeed(ms);
+    m_fadeInEdit->setText(FunctionTimings::valueToString(ms));
+    m_audio->setFadeIn(ms);
 }
 
 void AudioEditor::slotFadeOutDialChanged(int ms)
 {
-    m_fadeOutEdit->setText(Function::speedToString(ms));
-    m_audio->setFadeOutSpeed(ms);
+    m_fadeOutEdit->setText(FunctionTimings::valueToString(ms));
+    m_audio->setFadeOut(ms);
 }
 
 void AudioEditor::slotDialDestroyed(QObject *)

@@ -200,7 +200,7 @@ void SpeedDial::setValue(int ms, bool emitValue)
     m_value = ms;
     setSpinValues(ms);
 
-    if (ms == (int) Function::infiniteSpeed())
+    if (ms == (int) FunctionTimings::infiniteValue())
         m_infiniteCheck->setChecked(true);
     else
         m_infiniteCheck->setChecked(false);
@@ -258,7 +258,7 @@ void SpeedDial::setSpinValues(int ms)
     m_sec->blockSignals(true);
     m_ms->blockSignals(true);
 
-    if (ms == (int) Function::infiniteSpeed())
+    if (ms == (int) FunctionTimings::infiniteValue())
     {
         m_hrs->setValue(m_hrs->minimum());
         m_min->setValue(m_min->minimum());
@@ -304,7 +304,7 @@ int SpeedDial::spinValues() const
     }
     else
     {
-        value = Function::infiniteSpeed();
+        value = FunctionTimings::infiniteValue();
     }
 
     return CLAMP(value, 0, INT_MAX);
@@ -464,9 +464,9 @@ void SpeedDial::slotInfiniteChecked(bool state)
 
     if (state == true)
     {
-        m_value = Function::infiniteSpeed();
+        m_value = FunctionTimings::infiniteValue();
         if (m_preventSignals == false)
-            emit valueChanged(Function::infiniteSpeed());
+            emit valueChanged(FunctionTimings::infiniteValue());
     }
     else
     {

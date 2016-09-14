@@ -923,18 +923,18 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
                 {
                     case Chaser::Common:
                     {
-                        if (chaser->fadeInSpeed() == Function::infiniteSpeed())
+                        if (chaser->fadeIn() == FunctionTimings::infiniteValue())
                             str += "<td>&#8734;</td>";
                         else
-                            str += "<td>" + Function::speedToString(chaser->fadeInSpeed()) + "</td>";
+                            str += "<td>" + FunctionTimings::valueToString(chaser->fadeIn()) + "</td>";
                     }
                     break;
                     case Chaser::PerStep:
                     {
-                        if (step.fadeIn == Function::infiniteSpeed())
+                        if (step.timings.fadeIn == FunctionTimings::infiniteValue())
                             str += "<td>&#8734;</td>";
                         else
-                            str += "<td>" + Function::speedToString(step.fadeIn) + "</td>";
+                            str += "<td>" + FunctionTimings::valueToString(step.timings.fadeIn) + "</td>";
                     }
                     break;
                     default:
@@ -943,25 +943,25 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
                 }
 
                 //if (step.hold != 0)
-                //    str +=  "<td>" + Function::speedToString(step.hold) + "</td>";
+                //    str +=  "<td>" + FunctionTimings::valueToString(step.hold) + "</td>";
                 //else str += "<td></td>";
 
                 switch (chaser->fadeOutMode())
                 {
                     case Chaser::Common:
                     {
-                        if (chaser->fadeOutSpeed() == Function::infiniteSpeed())
+                        if (chaser->fadeOut() == FunctionTimings::infiniteValue())
                             str += "<td>&#8734;</td>";
                         else
-                            str += "<td>" + Function::speedToString(chaser->fadeOutSpeed()) + "</td>";
+                            str += "<td>" + FunctionTimings::valueToString(chaser->fadeOut()) + "</td>";
                     }
                     break;
                     case Chaser::PerStep:
                     {
-                        if (step.fadeOut == Function::infiniteSpeed())
+                        if (step.timings.fadeOut == FunctionTimings::infiniteValue())
                             str += "<td>&#8734;</td>";
                         else
-                            str += "<td>" + Function::speedToString(step.fadeOut) + "</td>";
+                            str += "<td>" + FunctionTimings::valueToString(step.timings.fadeOut) + "</td>";
                     }
                     break;
                     default:
@@ -973,18 +973,18 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
                 {
                     case Chaser::Common:
                     {
-                        if (chaser->duration() == Function::infiniteSpeed())
+                        if (chaser->duration() == FunctionTimings::infiniteValue())
                             str += "<td>&#8734;</td>";
                         else
-                            str += "<td>" + Function::speedToString(chaser->duration()) + "</td>";
+                            str += "<td>" + FunctionTimings::valueToString(chaser->duration()) + "</td>";
                     }
                     break;
                     case Chaser::PerStep:
                     {
-                        if (step.fadeOut == Function::infiniteSpeed())
+                        if (step.timings.duration() == FunctionTimings::infiniteValue())
                             str += "<td>&#8734;</td>";
                         else
-                            str += "<td>" + Function::speedToString(step.duration) + "</td>";
+                            str += "<td>" + FunctionTimings::valueToString(step.timings.duration()) + "</td>";
                     }
                     break;
                     default:

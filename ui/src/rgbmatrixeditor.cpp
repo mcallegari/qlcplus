@@ -243,12 +243,12 @@ void RGBMatrixEditor::updateSpeedDials()
     m_speedDials->setAttribute(Qt::WA_DeleteOnClose);
     m_speedDials->setWindowTitle(m_matrix->name());
     m_speedDials->show();
-    m_speedDials->setFadeInSpeed(m_matrix->fadeInSpeed());
-    m_speedDials->setFadeOutSpeed(m_matrix->fadeOutSpeed());
+    m_speedDials->setFadeIn(m_matrix->fadeIn());
+    m_speedDials->setFadeOut(m_matrix->fadeOut());
     if ((int)m_matrix->duration() < 0)
         m_speedDials->setDuration(m_matrix->duration());
     else
-        m_speedDials->setDuration(m_matrix->duration() - m_matrix->fadeInSpeed());
+        m_speedDials->setDuration(m_matrix->duration() - m_matrix->fadeIn());
     connect(m_speedDials, SIGNAL(fadeInChanged(int)), this, SLOT(slotFadeInChanged(int)));
     connect(m_speedDials, SIGNAL(fadeOutChanged(int)), this, SLOT(slotFadeOutChanged(int)));
     connect(m_speedDials, SIGNAL(holdChanged(int)), this, SLOT(slotHoldChanged(int)));
@@ -575,9 +575,9 @@ void RGBMatrixEditor::slotPreviewTimeout()
                     shape->setColor(map[y][x]);
 
                 if (shape->color() == QColor(Qt::black).rgb())
-                    shape->draw(elapsed, m_matrix->fadeOutSpeed());
+                    shape->draw(elapsed, m_matrix->fadeOut());
                 else
-                    shape->draw(elapsed, m_matrix->fadeInSpeed());
+                    shape->draw(elapsed, m_matrix->fadeIn());
             }
         }
     }
@@ -867,20 +867,19 @@ void RGBMatrixEditor::slotDimmerControlClicked()
 
 void RGBMatrixEditor::slotFadeInChanged(int ms)
 {
-    m_matrix->setFadeInSpeed(ms);
-    uint duration = Function::speedAdd(ms, m_speedDials->duration());
+    m_matrix->setFadeIn(ms);
+    uint duration = FunctionTimings::add(ms, m_speedDials->duration());
     m_matrix->setDuration(duration);
 }
 
 void RGBMatrixEditor::slotFadeOutChanged(int ms)
 {
-    m_matrix->setFadeOutSpeed(ms);
+    m_matrix->setFadeOut(ms);
 }
 
 void RGBMatrixEditor::slotHoldChanged(int ms)
 {
-    uint duration = Function::speedAdd(m_matrix->fadeInSpeed(), ms);
-    m_matrix->setDuration(duration);
+    m_matrix->setHold(ms);
 }
 
 void RGBMatrixEditor::slotDurationTapped()
@@ -1024,15 +1023,15 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
         chaser->setDurationMode(Chaser::PerStep);
         chaser->setDuration(m_matrix->duration());
         chaser->setStartTime(0);
-        if (m_matrix->fadeInSpeed() != 0)
+        if (m_matrix->fadeIn() != 0)
         {
             chaser->setFadeInMode(Chaser::PerStep);
-            chaser->setFadeInSpeed(m_matrix->fadeInSpeed());
+            chaser->setFadeIn(m_matrix->fadeIn());
         }
-        if (m_matrix->fadeOutSpeed() != 0)
+        if (m_matrix->fadeOut() != 0)
         {
             chaser->setFadeOutMode(Chaser::PerStep);
-            chaser->setFadeOutSpeed(m_matrix->fadeOutSpeed());
+            chaser->setFadeOut(m_matrix->fadeOut());
         }
 
         for (int i = 0; i < totalSteps; i++)
@@ -1040,10 +1039,9 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
             RGBMap map = m_matrix->previewMap(currentStep, m_previewHandler);
             ChaserStep step;
             step.fid = grpScene->id();
-            step.hold = m_matrix->duration() - m_matrix->fadeInSpeed();
-            step.duration = m_matrix->duration();
-            step.fadeIn = m_matrix->fadeInSpeed();
-            step.fadeOut = m_matrix->fadeOutSpeed();
+            step.timings.hold = m_matrix->hold();
+            step.timings.fadeIn = m_matrix->fadeIn();
+            step.timings.fadeOut = m_matrix->fadeOut();
 
             for (int y = 0; y < map.size(); y++)
             {

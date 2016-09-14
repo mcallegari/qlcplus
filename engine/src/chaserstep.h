@@ -44,7 +44,7 @@ class ChaserStep
 public:
     /** Construct a new ChaserStep with the given attributes */
     ChaserStep(quint32 aFid = Function::invalidId(),
-               FunctionTimings timings = FunctionTimings());
+               FunctionTimings const& timings = FunctionTimings());
 
     /** Copy constructor */
     ChaserStep(const ChaserStep& cs);
@@ -81,12 +81,6 @@ public:
     FunctionTimings timings;     //! The timings of this step
     QList <SceneValue> values;   //! specific DMX values for this step (chaser in sequence mode)
     QString note;
-
-public:
-    quint32 fadeIn();
-    quint32 fadeOut();
-    quint32 hold();
-    quint32 duration();
 
 public:
     FunctionTimings m_overrideTimings;

@@ -414,7 +414,7 @@ void VCSpeedDial::slotPresetClicked()
     {
         // Special case: infinite buttons should act as checkboxes
         // so the previous value can be restore when clicking 2 times on them
-        if (preset->m_value == (int)Function::infiniteSpeed())
+        if (preset->m_value == (int)FunctionTimings::infiniteValue())
         {
             m_dial->toggleInfinite();
         }
@@ -490,7 +490,7 @@ void VCSpeedDial::slotMultDivChanged()
         m_factoredValue = m_dial->value() / qAbs(m_currentFactor);
         m_multDivLabel->setText(QString("1/%1x").arg(qAbs(m_currentFactor)));
     }
-    m_multDivResultLabel->setText("(" + Function::speedToString(m_factoredValue) + ")");
+    m_multDivResultLabel->setText("(" + FunctionTimings::valueToString(m_factoredValue) + ")");
 
     slotFactoredValueChanged();
 }
@@ -508,21 +508,21 @@ void VCSpeedDial::slotFactoredValueChanged()
         {
             if (speeddialfunction.fadeInMultiplier != VCSpeedDialFunction::None)
             {
-                if ((uint)ms != Function::infiniteSpeed())
-                    function->setFadeInSpeed(ms * multipliers[speeddialfunction.fadeInMultiplier] / 1000);
+                if ((uint)ms != FunctionTimings::infiniteValue())
+                    function->setFadeIn(ms * multipliers[speeddialfunction.fadeInMultiplier] / 1000);
                 else
-                    function->setFadeInSpeed(ms);
+                    function->setFadeIn(ms);
             }
             if (speeddialfunction.fadeOutMultiplier != VCSpeedDialFunction::None)
             {
-                if ((uint)ms != Function::infiniteSpeed())
-                    function->setFadeOutSpeed(ms * multipliers[speeddialfunction.fadeOutMultiplier] / 1000);
+                if ((uint)ms != FunctionTimings::infiniteValue())
+                    function->setFadeOut(ms * multipliers[speeddialfunction.fadeOutMultiplier] / 1000);
                 else
-                    function->setFadeOutSpeed(ms);
+                    function->setFadeOut(ms);
             }
             if (speeddialfunction.durationMultiplier != VCSpeedDialFunction::None)
             {
-                if ((uint)ms != Function::infiniteSpeed())
+                if ((uint)ms != FunctionTimings::infiniteValue())
                     function->setDuration(ms * multipliers[speeddialfunction.durationMultiplier] / 1000);
                 else
                     function->setDuration(ms);
@@ -775,8 +775,8 @@ void VCSpeedDial::setVisibilityMask(quint32 mask)
 static QSharedPointer<VCSpeedDialPreset> createInfinitePreset()
 {
     QSharedPointer<VCSpeedDialPreset> infinitePreset(new VCSpeedDialPreset(16));
-    infinitePreset->m_value = Function::infiniteSpeed();
-    infinitePreset->m_name = Function::speedToString(Function::infiniteSpeed());
+    infinitePreset->m_value = FunctionTimings::infiniteValue();
+    infinitePreset->m_name = FunctionTimings::valueToString(FunctionTimings::infiniteValue());
     return infinitePreset;
 }
 

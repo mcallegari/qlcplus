@@ -57,7 +57,7 @@ VideoEditor::VideoEditor(QWidget* parent, Video *video, Doc* doc)
             this, SLOT(slotPreviewToggled(bool)));
 
     m_filenameLabel->setText(m_video->sourceUrl());
-    m_durationLabel->setText(Function::speedToString(m_video->totalDuration()));
+    m_durationLabel->setText(FunctionTimings::valueToString(m_video->duration()));
     QSize res = video->resolution();
     m_resolutionLabel->setText(QString("%1x%2").arg(res.width()).arg(res.height()));
     m_vcodecLabel->setText(video->videoCodec());
@@ -154,7 +154,7 @@ void VideoEditor::slotSourceFileClicked()
 
     m_video->setSourceUrl(fn);
     m_filenameLabel->setText(m_video->sourceUrl());
-    m_durationLabel->setText(Function::speedToString(m_video->totalDuration()));
+    m_durationLabel->setText(FunctionTimings::valueToString(m_video->duration()));
 }
 
 void VideoEditor::slotSourceUrlClicked()
@@ -220,7 +220,7 @@ void VideoEditor::slotPreviewStopped(quint32 id)
 
 void VideoEditor::slotDurationChanged(qint64 duration)
 {
-    m_durationLabel->setText(Function::speedToString(duration));
+    m_durationLabel->setText(FunctionTimings::valueToString(duration));
 }
 
 void VideoEditor::slotMetaDataChanged(QString key, QVariant data)

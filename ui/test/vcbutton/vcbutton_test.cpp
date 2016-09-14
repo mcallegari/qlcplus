@@ -503,8 +503,8 @@ void VCButton_Test::toggle()
 
     Scene* sc = new Scene(m_doc);
     sc->setValue(0, 0, 255);
-    sc->setFadeInSpeed(1000);
-    sc->setFadeOutSpeed(1000);
+    sc->setFadeIn(1000);
+    sc->setFadeOut(1000);
     m_doc->addFunction(sc);
 
     VCButton btn(&w, m_doc);
@@ -597,8 +597,8 @@ void VCButton_Test::input()
 
     Scene* sc = new Scene(m_doc);
     sc->setValue(0, 0, 255);
-    sc->setFadeInSpeed(1000);
-    sc->setFadeOutSpeed(1000);
+    sc->setFadeIn(1000);
+    sc->setFadeOut(1000);
     m_doc->addFunction(sc);
 
     VCButton btn(&w, m_doc);

@@ -76,6 +76,9 @@ private:
     /** Get the currently active hold value (See Chaser::TimingsMode) */
     quint32 stepHold(int stepIdx) const;
 
+    /** Get the currently active duration value (See Chaser::TimingsMode) */
+    quint32 stepDuration(int stepIdx) const;
+
 private:
     bool m_updateOverrideTimings;
 

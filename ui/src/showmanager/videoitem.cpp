@@ -91,16 +91,16 @@ void VideoItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         }
     }
 
-    if (m_video->fadeInSpeed() != 0)
+    if (m_video->fadeIn() != 0)
     {
-        int fadeXpos = (timeScale * (float)m_video->fadeInSpeed()) / 1000;
+        int fadeXpos = (timeScale * (float)m_video->fadeIn()) / 1000;
         painter->setPen(QPen(Qt::gray, 1));
         painter->drawLine(1, TRACK_HEIGHT - 4, fadeXpos, 2);
     }
 
-    if (m_video->fadeOutSpeed() != 0)
+    if (m_video->fadeOut() != 0)
     {
-        int fadeXpos = (timeScale * (float)m_video->fadeOutSpeed()) / 1000;
+        int fadeXpos = (timeScale * (float)m_video->fadeOut()) / 1000;
         painter->setPen(QPen(Qt::gray, 1));
         painter->drawLine(m_width - fadeXpos, 2, m_width - 1, TRACK_HEIGHT - 4);
     }

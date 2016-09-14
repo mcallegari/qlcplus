@@ -96,16 +96,16 @@ void AudioItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         painter->drawPixmap(0, 0, m_preview->scaled(m_width, TRACK_HEIGHT - 4));
     }
 
-    if (m_audio->fadeInSpeed() != 0)
+    if (m_audio->fadeIn() != 0)
     {
-        int fadeXpos = (timeScale * (float)m_audio->fadeInSpeed()) / 1000;
+        int fadeXpos = (timeScale * (float)m_audio->fadeIn()) / 1000;
         painter->setPen(QPen(Qt::gray, 1));
         painter->drawLine(1, TRACK_HEIGHT - 4, fadeXpos, 2);
     }
 
-    if (m_audio->fadeOutSpeed() != 0)
+    if (m_audio->fadeOut() != 0)
     {
-        int fadeXpos = (timeScale * (float)m_audio->fadeOutSpeed()) / 1000;
+        int fadeXpos = (timeScale * (float)m_audio->fadeOut()) / 1000;
         painter->setPen(QPen(Qt::gray, 1));
         painter->drawLine(m_width - fadeXpos, 2, m_width - 1, TRACK_HEIGHT - 4);
     }

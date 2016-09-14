@@ -21,6 +21,8 @@
 #ifndef FUNCTIONTIMINGS_H
 #define FUNCTIONTIMINGS_H
 
+#include <QString>
+
 /** @addtogroup engine_functions Functions
  * @{
  */
@@ -61,7 +63,7 @@ struct FunctionTimings
     /** Safe operations */
     static quint32 normalize(quint32 value);
     static quint32 add(quint32 left, quint32 right);
-    static quint32 substract(quint32 left, quint32 right);
+    static quint32 subtract(quint32 left, quint32 right);
 
     /** Load the contents of a timings node */
     bool loadXML(QXmlStreamReader &speedRoot);

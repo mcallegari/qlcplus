@@ -119,7 +119,7 @@ void SpeedDialWidget::setFadeInVisible(bool set)
     m_fadeIn->setVisible(set);
 }
 
-void SpeedDialWidget::setFadeInSpeed(int ms)
+void SpeedDialWidget::setFadeIn(int ms)
 {
     m_fadeIn->setValue(ms);
 }
@@ -144,7 +144,7 @@ void SpeedDialWidget::setFadeOutVisible(bool set)
     m_fadeOut->setVisible(set);
 }
 
-void SpeedDialWidget::setFadeOutSpeed(int ms)
+void SpeedDialWidget::setFadeOut(int ms)
 {
     m_fadeOut->setValue(ms);
 }

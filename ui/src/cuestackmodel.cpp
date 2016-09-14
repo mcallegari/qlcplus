@@ -199,18 +199,18 @@ QVariant CueStackModel::data(const QModelIndex& index, int role) const
             break;
         case FadeInColumn:
         {
-            uint ms = m_cueStack->cues()[index.row()].fadeInSpeed();
+            uint ms = m_cueStack->cues()[index.row()].fadeIn();
             if (ms > 0)
-                var = QVariant(Function::speedToString(ms));
+                var = QVariant(FunctionTimings::valueToString(ms));
             else
                 var = QVariant();
             break;
         }
         case FadeOutColumn:
         {
-            uint ms = m_cueStack->cues()[index.row()].fadeOutSpeed();
+            uint ms = m_cueStack->cues()[index.row()].fadeOut();
             if (ms > 0)
-                var = QVariant(Function::speedToString(ms));
+                var = QVariant(FunctionTimings::valueToString(ms));
             else
                 var = QVariant();
             break;
@@ -219,7 +219,7 @@ QVariant CueStackModel::data(const QModelIndex& index, int role) const
         {
             uint ms = m_cueStack->cues()[index.row()].duration();
             if (ms > 0)
-                var = QVariant(Function::speedToString(ms));
+                var = QVariant(FunctionTimings::valueToString(ms));
             else
                 var = QVariant();
             break;

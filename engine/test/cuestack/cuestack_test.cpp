@@ -65,8 +65,8 @@ void CueStack_Test::initial()
 {
     CueStack cs(m_doc);
     QCOMPARE(cs.name(), QString());
-    QCOMPARE(cs.fadeInSpeed(), uint(0));
-    QCOMPARE(cs.fadeOutSpeed(), uint(0));
+    QCOMPARE(cs.fadeIn(), uint(0));
+    QCOMPARE(cs.fadeOut(), uint(0));
     QCOMPARE(cs.duration(), uint(UINT_MAX));
     QCOMPARE(cs.cues().size(), 0);
     QCOMPARE(cs.currentIndex(), -1);
@@ -97,11 +97,11 @@ void CueStack_Test::speeds()
 {
     CueStack cs(m_doc);
 
-    cs.setFadeInSpeed(100);
-    cs.setFadeOutSpeed(200);
+    cs.setFadeIn(100);
+    cs.setFadeOut(200);
     cs.setDuration(300);
-    QCOMPARE(cs.fadeInSpeed(), uint(100));
-    QCOMPARE(cs.fadeOutSpeed(), uint(200));
+    QCOMPARE(cs.fadeIn(), uint(100));
+    QCOMPARE(cs.fadeOut(), uint(200));
     QCOMPARE(cs.duration(), uint(300));
 }
 
@@ -511,8 +511,8 @@ void CueStack_Test::save()
     cs.appendCue(Cue("One"));
     cs.appendCue(Cue("Two"));
     cs.appendCue(Cue("Three"));
-    cs.setFadeInSpeed(200);
-    cs.setFadeOutSpeed(300);
+    cs.setFadeIn(200);
+    cs.setFadeOut(300);
     cs.setDuration(400);
 
     QBuffer buffer;
@@ -757,8 +757,8 @@ void CueStack_Test::switchCue()
     QList<Universe*> ua;
     ua.append(new Universe(0, new GrandMaster()));
     CueStack cs(m_doc);
-    cs.setFadeInSpeed(100);
-    cs.setFadeOutSpeed(200);
+    cs.setFadeIn(100);
+    cs.setFadeOut(200);
     cs.setDuration(300);
 
     Cue cue;
@@ -768,8 +768,8 @@ void CueStack_Test::switchCue()
     cue.setValue(500, 255);
     cue.setValue(10, 255); // LTP
     cue.setValue(11, 255); // LTP
-    cue.setFadeInSpeed(20);
-    cue.setFadeOutSpeed(40);
+    cue.setFadeIn(20);
+    cue.setFadeOut(40);
     cs.appendCue(cue);
 
     cue = Cue();
@@ -779,8 +779,8 @@ void CueStack_Test::switchCue()
     cue.setValue(3, 255);
     cue.setValue(4, 255);
     cue.setValue(11, 255); // LTP
-    cue.setFadeInSpeed(60);
-    cue.setFadeOutSpeed(80);
+    cue.setFadeIn(60);
+    cue.setFadeOut(80);
     cs.appendCue(cue);
 
     cs.preRun();
@@ -920,8 +920,8 @@ void CueStack_Test::postRun()
     QList<Universe*> ua;
     ua.append(new Universe(0, new GrandMaster()));
     CueStack cs(m_doc);
-    cs.setFadeInSpeed(100);
-    cs.setFadeOutSpeed(200);
+    cs.setFadeIn(100);
+    cs.setFadeOut(200);
     cs.setDuration(300);
 
     Cue cue;
@@ -979,15 +979,15 @@ void CueStack_Test::write()
 
     Cue cue("One");
     cue.setValue(0, 255);
-    cue.setFadeInSpeed(100);
-    cue.setFadeOutSpeed(200);
+    cue.setFadeIn(100);
+    cue.setFadeOut(200);
     cue.setDuration(300);
     cs.appendCue(cue);
 
     cue = Cue("Two");
     cue.setValue(1, 255);
-    cue.setFadeInSpeed(100);
-    cue.setFadeOutSpeed(200);
+    cue.setFadeIn(100);
+    cue.setFadeOut(200);
     cue.setDuration(300);
     cs.appendCue(cue);
 

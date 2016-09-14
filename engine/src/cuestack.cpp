@@ -39,8 +39,8 @@
 
 CueStack::CueStack(Doc* doc)
     : QObject(doc)
-    , m_fadeInSpeed(0)
-    , m_fadeOutSpeed(0)
+    , m_fadeIn(0)
+    , m_fadeOut(0)
     , m_duration(UINT_MAX)
     , m_running(false)
     , m_intensity(1.0)
@@ -93,38 +93,38 @@ QString CueStack::name(int index) const
  * Speed
  ****************************************************************************/
 
-void CueStack::setFadeInSpeed(uint ms, int index)
+void CueStack::setFadeIn(uint ms, int index)
 {
     if (index < 0)
-        m_fadeInSpeed = ms;
+        m_fadeIn = ms;
     else
-        m_cues[index].setFadeInSpeed(ms);
+        m_cues[index].setFadeIn(ms);
     emit changed(index);
 }
 
-uint CueStack::fadeInSpeed(int index) const
+uint CueStack::fadeIn(int index) const
 {
     if (index < 0)
-        return m_fadeInSpeed;
+        return m_fadeIn;
     else
-        return m_cues[index].fadeInSpeed();
+        return m_cues[index].fadeIn();
 }
 
-void CueStack::setFadeOutSpeed(uint ms, int index)
+void CueStack::setFadeOut(uint ms, int index)
 {
     if (index < 0)
-        m_fadeOutSpeed = ms;
+        m_fadeOut = ms;
     else
-        m_cues[index].setFadeOutSpeed(ms);
+        m_cues[index].setFadeOut(ms);
     emit changed(index);
 }
 
-uint CueStack::fadeOutSpeed(int index) const
+uint CueStack::fadeOut(int index) const
 {
     if (index < 0)
-        return m_fadeOutSpeed;
+        return m_fadeOut;
     else
-        return m_cues[index].fadeOutSpeed();
+        return m_cues[index].fadeOut();
 }
 
 void CueStack::setDuration(uint ms, int index)
@@ -331,8 +331,8 @@ bool CueStack::loadXML(QXmlStreamReader &root)
         }
         else if (root.name() == KXMLQLCCueStackSpeed)
         {
-            setFadeInSpeed(root.attributes().value(KXMLQLCCueStackSpeedFadeIn).toString().toUInt());
-            setFadeOutSpeed(root.attributes().value(KXMLQLCCueStackSpeedFadeOut).toString().toUInt());
+            setFadeIn(root.attributes().value(KXMLQLCCueStackSpeedFadeIn).toString().toUInt());
+            setFadeOut(root.attributes().value(KXMLQLCCueStackSpeedFadeOut).toString().toUInt());
             setDuration(root.attributes().value(KXMLQLCCueStackSpeedDuration).toString().toUInt());
             root.skipCurrentElement();
         }
@@ -355,8 +355,8 @@ bool CueStack::saveXML(QXmlStreamWriter *doc, uint id) const
     doc->writeAttribute(KXMLQLCCueStackID, QString::number(id));
 
     doc->writeStartElement(KXMLQLCCueStackSpeed);
-    doc->writeAttribute(KXMLQLCCueStackSpeedFadeIn, QString::number(fadeInSpeed()));
-    doc->writeAttribute(KXMLQLCCueStackSpeedFadeOut, QString::number(fadeOutSpeed()));
+    doc->writeAttribute(KXMLQLCCueStackSpeedFadeIn, QString::number(fadeIn()));
+    doc->writeAttribute(KXMLQLCCueStackSpeedFadeOut, QString::number(fadeOut()));
     doc->writeAttribute(KXMLQLCCueStackSpeedDuration, QString::number(duration()));
     doc->writeEndElement();
 
@@ -528,7 +528,7 @@ void CueStack::postRun(MasterTimer* timer)
             fc.setTarget(0);
             fc.setElapsed(0);
             fc.setReady(false);
-            fc.setFadeTime(fadeOutSpeed());
+            fc.setFadeTime(fadeOut());
             timer->faderAdd(fc);
         }
     }
@@ -599,7 +599,7 @@ void CueStack::switchCue(int from, int to, const QList<Universe *> ua)
             fc.setElapsed(0);
             fc.setReady(false);
             fc.setTarget(0);
-            fc.setFadeTime(oldCue.fadeOutSpeed());
+            fc.setFadeTime(oldCue.fadeOut());
             insertStartValue(fc, ua);
             m_fader->add(fc);
         }
@@ -614,7 +614,7 @@ void CueStack::switchCue(int from, int to, const QList<Universe *> ua)
         fc.setTarget(newit.value());
         fc.setElapsed(0);
         fc.setReady(false);
-        fc.setFadeTime(newCue.fadeInSpeed());
+        fc.setFadeTime(newCue.fadeIn());
         insertStartValue(fc, ua);
         m_fader->add(fc);
     }

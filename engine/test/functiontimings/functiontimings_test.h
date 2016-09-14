@@ -1,8 +1,9 @@
 /*
   Q Light Controller - Unit test
-  chaser_test.h
+  functiontimings_test.h
 
   Copyright (c) Heikki Junnila
+                David Garyga
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,47 +18,22 @@
   limitations under the License.
 */
 
-#ifndef CHASER_TEST_H
-#define CHASER_TEST_H
+#ifndef FUNCTION_TEST_H
+#define FUNCTION_TEST_H
 
 #include <QObject>
 
-class Doc;
-class Chaser_Test : public QObject
+class FunctionTimings_Test : public QObject
 {
     Q_OBJECT
 
 private slots:
     void initTestCase();
-    void cleanupTestCase();
-    void init();
-    void cleanup();
-
-    void initial();
-    void directionRunOrder();
-    void steps();
-    void functionRemoval();
     void copyFrom();
-    void createCopy();
-    void timingModes();
-
-    void loadSuccessLegacy();
-    void loadSuccess();
-    void loadWrongType();
-    void loadWrongRoot();
-    void postLoad();
-    void save();
-
-    void tap();
-    void preRun();
-    void write();
-    void postRun();
-    void adjustIntensity();
-
-    void quickChaser();
-
-private:
-    Doc* m_doc;
+    void valueToString();
+    void stringToValue();
+    void operations();
+    void XML();
 };
 
 #endif

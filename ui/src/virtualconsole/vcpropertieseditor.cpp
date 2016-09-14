@@ -106,9 +106,9 @@ VCPropertiesEditor::VCPropertiesEditor(QWidget* parent, const VCProperties& prop
     // ********************* SPEED DIAL VALUE ******************
     var = settings.value(SETTINGS_SPEEDDIAL_VALUE);
     if (var.isValid() == true)
-        m_speedValueEdit->setText(Function::speedToString(var.toUInt()));
+        m_speedValueEdit->setText(FunctionTimings::valueToString(var.toUInt()));
     else
-        m_speedValueEdit->setText(Function::speedToString(0));
+        m_speedValueEdit->setText(FunctionTimings::valueToString(0));
 
     connect(m_speedValueEdit, SIGNAL(editingFinished()),
             this, SLOT(slotSpeedDialConfirmed()));
@@ -263,7 +263,7 @@ QSize VCPropertiesEditor::speedDialSize()
 
 uint VCPropertiesEditor::speedDialValue()
 {
-    return Function::stringToSpeed(m_speedValueEdit->text());
+    return FunctionTimings::stringToValue(m_speedValueEdit->text());
 }
 
 QSize VCPropertiesEditor::xypadSize()
@@ -318,7 +318,7 @@ void VCPropertiesEditor::slotSpeedDialConfirmed()
 {
     if (m_speedValueEdit->text().contains(".") == false)
     {
-        m_speedValueEdit->setText(Function::speedToString(m_speedValueEdit->text().toUInt()));
+        m_speedValueEdit->setText(FunctionTimings::valueToString(m_speedValueEdit->text().toUInt()));
     }
 }
 

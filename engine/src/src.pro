@@ -83,6 +83,7 @@ HEADERS += bus.h \
            fixture.h \
            fixturegroup.h \
            function.h \
+           functiontimings.h \
            functionuistate.h \
            genericdmxsource.h \
            genericfader.h \
@@ -163,6 +164,7 @@ SOURCES += bus.cpp \
            fixture.cpp \
            fixturegroup.cpp \
            function.cpp \
+           functiontimings.cpp \
            functionuistate.cpp \
            genericdmxsource.cpp \
            genericfader.cpp \

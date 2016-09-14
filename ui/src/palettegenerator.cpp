@@ -460,9 +460,9 @@ void PaletteGenerator::createChaser(QString name)
 
     Chaser *chaser = new Chaser(m_doc);
     chaser->setFadeInMode(Chaser::Common);
-    chaser->setFadeInSpeed(3000);
+    chaser->setFadeIn(3000);
     chaser->setFadeOutMode(Chaser::Common);
-    chaser->setFadeOutSpeed(0);
+    chaser->setFadeOut(0);
     chaser->setDurationMode(Chaser::Common);
     chaser->setDuration(10000);
     chaser->setName(tr("%1 chaser - %2").arg(name).arg(m_model));

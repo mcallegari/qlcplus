@@ -47,8 +47,8 @@ void Function_Test::initial()
     QCOMPARE(stub->direction(), Function::Forward);
     QCOMPARE(stub->elapsed(), quint32(0));
     QCOMPARE(stub->stopped(), true);
-    QCOMPARE(stub->fadeInSpeed(), uint(0));
-    QCOMPARE(stub->fadeOutSpeed(), uint(0));
+    QCOMPARE(stub->fadeIn(), uint(0));
+    QCOMPARE(stub->fadeOut(), uint(0));
     QCOMPARE(stub->duration(), uint(0));
 }
 
@@ -77,15 +77,15 @@ void Function_Test::properties()
     QCOMPARE(spy[1][0].toUInt(), stub->id());
     QCOMPARE(stub->direction(), Function::Backward);
 
-    stub->setFadeInSpeed(14);
+    stub->setFadeIn(14);
     QCOMPARE(spy.size(), 3);
     QCOMPARE(spy[2][0].toUInt(), stub->id());
-    QCOMPARE(stub->fadeInSpeed(), uint(14));
+    QCOMPARE(stub->fadeIn(), uint(14));
 
-    stub->setFadeOutSpeed(42);
+    stub->setFadeOut(42);
     QCOMPARE(spy.size(), 4);
     QCOMPARE(spy[3][0].toUInt(), stub->id());
-    QCOMPARE(stub->fadeOutSpeed(), uint(42));
+    QCOMPARE(stub->fadeOut(), uint(42));
 
     stub->setDuration(69);
     QCOMPARE(spy.size(), 5);
@@ -102,8 +102,8 @@ void Function_Test::copyFrom()
     stub1->setName("Stub1");
     stub1->setRunOrder(Function::PingPong);
     stub1->setDirection(Function::Backward);
-    stub1->setFadeInSpeed(42);
-    stub1->setFadeOutSpeed(69);
+    stub1->setFadeIn(42);
+    stub1->setFadeOut(69);
     stub1->setDuration(1337);
 
     Function_Stub* stub2 = new Function_Stub(&doc);
@@ -114,8 +114,8 @@ void Function_Test::copyFrom()
     QCOMPARE(stub2->name(), QString("Stub1"));
     QCOMPARE(stub2->runOrder(), Function::PingPong);
     QCOMPARE(stub2->direction(), Function::Backward);
-    QCOMPARE(stub2->fadeInSpeed(), uint(42));
-    QCOMPARE(stub2->fadeOutSpeed(), uint(69));
+    QCOMPARE(stub2->fadeIn(), uint(42));
+    QCOMPARE(stub2->fadeOut(), uint(69));
     QCOMPARE(stub2->duration(), uint(1337));
 }
 
@@ -320,99 +320,6 @@ void Function_Test::stringToDirection()
 
     QVERIFY(Function::stringToDirection("Foobar") == Function::Forward);
     QVERIFY(Function::stringToDirection("Xyzzy") == Function::Forward);
-}
-
-void Function_Test::speedToString()
-{
-    QCOMPARE(Function::speedToString(0), QString("0ms"));
-    QCOMPARE(Function::speedToString(1000), QString("1s"));
-    QCOMPARE(Function::speedToString(1000 * 60), QString("1m"));
-    QCOMPARE(Function::speedToString(1000 * 60 * 60), QString("1h"));
-
-    QCOMPARE(Function::speedToString(990), QString("990ms"));
-    QCOMPARE(Function::speedToString(990 + 59 * 1000), QString("59s990ms"));
-    QCOMPARE(Function::speedToString(990 + 59 * 1000 + 59 * 1000 * 60), QString("59m59s990ms"));
-    QCOMPARE(Function::speedToString(990 + 59 * 1000 + 59 * 1000 * 60 + 99 * 1000 * 60 * 60), QString("99h59m59s990ms"));
-    QCOMPARE(Function::speedToString(999 + 59 * 1000 + 59 * 1000 * 60 + 99 * 1000 * 60 * 60), QString("99h59m59s999ms"));
-    QCOMPARE(Function::speedToString(1 + 1 * 1000 + 1 * 1000 * 60 + 1 * 1000 * 60 * 60), QString("1h01m01s001ms"));
-
-    QCOMPARE(Function::speedToString(10), QString("10ms"));
-    QCOMPARE(Function::speedToString(100), QString("100ms"));
-}
-
-void Function_Test::stringToSpeed()
-{
-    QCOMPARE(Function::stringToSpeed(".0"), uint(0));
-    QCOMPARE(Function::stringToSpeed(".0."), uint(0));
-    QCOMPARE(Function::stringToSpeed("0"), uint(0));
-    QCOMPARE(Function::stringToSpeed("0.0"), uint(0));
-
-    QCOMPARE(Function::stringToSpeed(".01"), uint(10));
-    QCOMPARE(Function::stringToSpeed(".010"), uint(10));
-    QCOMPARE(Function::stringToSpeed(".011"), uint(11));
-
-    QCOMPARE(Function::stringToSpeed(".03"), uint(30));
-    QCOMPARE(Function::stringToSpeed(".030"), uint(30));
-    QCOMPARE(Function::stringToSpeed(".031"), uint(31));
-
-    QCOMPARE(Function::stringToSpeed(".1"), uint(100));
-    QCOMPARE(Function::stringToSpeed(".10"), uint(100));
-    QCOMPARE(Function::stringToSpeed(".100"), uint(100));
-    QCOMPARE(Function::stringToSpeed(".101"), uint(101));
-
-    QCOMPARE(Function::stringToSpeed("1"), uint(1));
-    QCOMPARE(Function::stringToSpeed("1s"), uint(1000));
-    QCOMPARE(Function::stringToSpeed("1.000"), uint(1000));
-    QCOMPARE(Function::stringToSpeed("1.001"), uint(1001));
-    QCOMPARE(Function::stringToSpeed("1s.00"), uint(1000));
-    QCOMPARE(Function::stringToSpeed("1ms"), uint(1));
-
-    QCOMPARE(Function::stringToSpeed("1s.01"), uint(10 + 1000));
-    QCOMPARE(Function::stringToSpeed("1m1s.01"), uint(10 + 1000 + 1000 * 60));
-    QCOMPARE(Function::stringToSpeed("1h1m1s.01"), uint(10 + 1000 + 1000 * 60 + 1000 * 60 * 60));
-
-    QCOMPARE(Function::stringToSpeed("59s12ms"), uint(12 + 59 * 1000));
-    QCOMPARE(Function::stringToSpeed("59m59s999ms"), uint(999 + 59 * 1000 + 59 * 1000 * 60));
-
-    // This string is broken, voluntarily ignore ms
-    QCOMPARE(Function::stringToSpeed("59m59s.999ms"), uint(/*999 +*/ 59 * 1000 + 59 * 1000 * 60));
-}
-
-void Function_Test::speedOperations()
-{
-    QCOMPARE(Function::speedNormalize(-1), Function::infiniteSpeed());
-    QCOMPARE(Function::speedNormalize(-10), Function::infiniteSpeed());
-    QCOMPARE(Function::speedNormalize(0), uint(0));
-    QCOMPARE(Function::speedNormalize(12), uint(12));
-    QCOMPARE(Function::speedNormalize(10), uint(10));
-    QCOMPARE(Function::speedNormalize(20), uint(20));
-    QCOMPARE(Function::speedNormalize(30), uint(30));
-    QCOMPARE(Function::speedNormalize(40), uint(40));
-    QCOMPARE(Function::speedNormalize(50), uint(50));
-    QCOMPARE(Function::speedNormalize(60), uint(60));
-
-    QCOMPARE(Function::speedAdd(10, 10), uint(20));
-    QCOMPARE(Function::speedAdd(10, 0), uint(10));
-    QCOMPARE(Function::speedAdd(0, 10), uint(10));
-    QCOMPARE(Function::speedAdd(15, 15), uint(30));
-    QCOMPARE(Function::speedAdd(Function::infiniteSpeed(), 10), Function::infiniteSpeed());
-    QCOMPARE(Function::speedAdd(10, Function::infiniteSpeed()), Function::infiniteSpeed());
-    QCOMPARE(Function::speedAdd(Function::infiniteSpeed(), Function::infiniteSpeed()), Function::infiniteSpeed());
-    QCOMPARE(Function::speedAdd(10, 0), uint(10));
-    QCOMPARE(Function::speedAdd(20, 0), uint(20));
-    QCOMPARE(Function::speedAdd(30, 0), uint(30));
-    QCOMPARE(Function::speedAdd(40, 0), uint(40));
-    QCOMPARE(Function::speedAdd(50, 0), uint(50));
-    QCOMPARE(Function::speedAdd(60, 0), uint(60));
-    QCOMPARE(Function::speedAdd(70, 0), uint(70));
-
-    QCOMPARE(Function::speedSubtract(10, 10), uint(0));
-    QCOMPARE(Function::speedSubtract(10, 0), uint(10));
-    QCOMPARE(Function::speedSubtract(0, 10), uint(0));
-    QCOMPARE(Function::speedSubtract(15, 2), uint(13));
-    QCOMPARE(Function::speedSubtract(Function::infiniteSpeed(), 10), Function::infiniteSpeed());
-    QCOMPARE(Function::speedSubtract(10, Function::infiniteSpeed()), uint(0));
-    QCOMPARE(Function::speedSubtract(Function::infiniteSpeed(), Function::infiniteSpeed()), uint(0));
 }
 
 void Function_Test::loaderWrongRoot()
@@ -863,44 +770,6 @@ void Function_Test::directionXML()
     QCOMPARE(stub.direction(), Function::Forward);
 
     //QVERIFY(stub.loadXMLDirection(root) == false);
-}
-
-void Function_Test::speedXML()
-{
-    Doc d(this);
-    Function_Stub stub(&d);
-    stub.setFadeInSpeed(500);
-    stub.setFadeOutSpeed(1000);
-    stub.setDuration(1500);
-
-    QBuffer buffer;
-    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
-    QXmlStreamWriter xmlWriter(&buffer);
-
-    QVERIFY(stub.saveXMLSpeed(&xmlWriter) == true);
-
-    xmlWriter.setDevice(NULL);
-    buffer.close();
-
-    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
-    QXmlStreamReader xmlReader(&buffer);
-
-    xmlReader.readNextStartElement();
-
-    QCOMPARE(xmlReader.name().toString(), QString("Speed"));
-    QCOMPARE(xmlReader.attributes().value("FadeIn").toString(), QString("500"));
-    QCOMPARE(xmlReader.attributes().value("FadeOut").toString(), QString("1000"));
-    QCOMPARE(xmlReader.attributes().value("Duration").toString(), QString("1500"));
-
-    stub.setFadeInSpeed(0);
-    stub.setFadeOutSpeed(0);
-    stub.setDuration(0);
-    QVERIFY(stub.loadXMLSpeed(xmlReader) == true);
-    QCOMPARE(stub.fadeInSpeed(), uint(500));
-    QCOMPARE(stub.fadeOutSpeed(), uint(1000));
-    QCOMPARE(stub.duration(), uint(1500));
-
-    //QVERIFY(stub.loadXMLSpeed(root) == false);
 }
 
 QTEST_APPLESS_MAIN(Function_Test)

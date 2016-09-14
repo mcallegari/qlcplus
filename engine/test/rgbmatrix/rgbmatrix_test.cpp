@@ -188,8 +188,8 @@ void RGBMatrix_Test::loadSave()
     mtx->setDirection(Function::Backward);
     mtx->setRunOrder(Function::PingPong);
     mtx->setDuration(1200);
-    mtx->setFadeInSpeed(10);
-    mtx->setFadeOutSpeed(20);
+    mtx->setFadeIn(10);
+    mtx->setFadeOut(20);
     mtx->setDimmerControl(false);
     m_doc->addFunction(mtx);
 
@@ -289,8 +289,8 @@ void RGBMatrix_Test::loadSave()
     QVERIFY(mtx2.algorithm() != NULL);
     QCOMPARE(mtx2.algorithm()->name(), mtx->algorithm()->name());
     QCOMPARE(mtx2.duration(), uint(1200));
-    QCOMPARE(mtx2.fadeInSpeed(), uint(10));
-    QCOMPARE(mtx2.fadeOutSpeed(), uint(20));
+    QCOMPARE(mtx2.fadeIn(), uint(10));
+    QCOMPARE(mtx2.fadeOut(), uint(20));
 
     buffer.close();
     buffer.setData(QByteArray());
