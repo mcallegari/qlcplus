@@ -27,16 +27,11 @@
  * @{
  */
 
-#define KXMLQLCFunctionLegacySpeed "Speed"
-#define KXMLQLCFunctionLegacySpeedFadeIn "FadeIn"
-#define KXMLQLCFunctionLegacySpeedHold "Hold"
-#define KXMLQLCFunctionLegacySpeedFadeOut "FadeOut"
-#define KXMLQLCFunctionLegacySpeedDuration "Duration"
-
-#define KXMLQLCFunctionTimings "Timings"
-#define KXMLQLCFunctionTimingsFadeIn KXMLQLCFunctionLegacySpeedFadeIn
-#define KXMLQLCFunctionTimingsHold KXMLQLCFunctionLegacySpeedHold
-#define KXMLQLCFunctionTimingsFadeOut KXMLQLCFunctionLegacySpeedDuration
+#define KXMLQLCFunctionTimings "Speed"
+#define KXMLQLCFunctionTimingsFadeIn "FadeIn"
+#define KXMLQLCFunctionTimingsHold "Hold"
+#define KXMLQLCFunctionTimingsFadeOut "FadeOut"
+#define KXMLQLCFunctionTimingsDuration "Duration"
 
 struct FunctionTimings
 {
@@ -67,9 +62,6 @@ struct FunctionTimings
 
     /** Load the contents of a timings node */
     bool loadXML(QXmlStreamReader &speedRoot);
-
-    /** Load the contents of a speed node */
-    bool loadXMLLegacy(QXmlStreamReader &speedRoot);
 
     /** Save timings values in $doc */
     bool saveXML(QXmlStreamWriter *doc) const;

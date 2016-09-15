@@ -427,10 +427,6 @@ bool Scene::loadXML(QXmlStreamReader &root)
         {
             m_legacyFadeBus = root.readElementText().toUInt();
         }
-        else if (root.name() == KXMLQLCFunctionLegacySpeed)
-        {
-            m_timings.loadXMLLegacy(root);
-        }
         else if (root.name() == KXMLQLCFunctionTimings)
         {
             m_timings.loadXML(root);

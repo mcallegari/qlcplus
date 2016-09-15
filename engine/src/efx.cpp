@@ -857,10 +857,6 @@ bool EFX::loadXML(QXmlStreamReader &root)
             else if (str == KXMLQLCBusHold)
                 m_legacyHoldBus = root.readElementText().toUInt();
         }
-        else if (root.name() == KXMLQLCFunctionLegacySpeed)
-        {
-            m_timings.loadXMLLegacy(root);
-        }
         else if (root.name() == KXMLQLCFunctionTimings)
         {
             m_timings.loadXML(root);

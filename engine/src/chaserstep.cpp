@@ -103,8 +103,8 @@ bool ChaserStep::loadXML(QXmlStreamReader &root, int& stepNumber)
     if (attrs.hasAttribute(KXMLQLCFunctionTimingsFadeOut) == true)
         timings.fadeOut = attrs.value(KXMLQLCFunctionTimingsFadeOut).toString().toUInt();
 
-    if (attrs.hasAttribute(KXMLQLCFunctionLegacySpeedDuration) == true)
-        timings.setDuration(attrs.value(KXMLQLCFunctionLegacySpeedDuration).toString().toUInt());
+    if (attrs.hasAttribute(KXMLQLCFunctionTimingsDuration) == true)
+        timings.setDuration(attrs.value(KXMLQLCFunctionTimingsDuration).toString().toUInt());
 
     if (attrs.hasAttribute(KXMLQLCFunctionNumber) == true)
         stepNumber = attrs.value(KXMLQLCFunctionNumber).toString().toInt();

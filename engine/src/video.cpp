@@ -338,10 +338,6 @@ bool Video::loadXML(QXmlStreamReader &root)
             else
                 setSourceUrl(m_doc->denormalizeComponentPath(path));
         }
-        else if (root.name() == KXMLQLCFunctionLegacySpeed)
-        {
-            m_timings.loadXMLLegacy(root);
-        }
         else if (root.name() == KXMLQLCFunctionTimings)
         {
             m_timings.loadXML(root);

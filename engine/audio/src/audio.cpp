@@ -303,10 +303,6 @@ bool Audio::loadXML(QXmlStreamReader &root)
                 setLocked(true);
             setSourceFileName(m_doc->denormalizeComponentPath(root.readElementText()));
         }
-        else if (root.name() == KXMLQLCFunctionLegacySpeed)
-        {
-            m_timings.loadXMLLegacy(root);
-        }
         else if (root.name() == KXMLQLCFunctionTimings)
         {
             m_timings.loadXML(root);

@@ -282,11 +282,7 @@ bool RGBMatrix::loadXML(QXmlStreamReader &root)
     /* Load matrix contents */
     while (root.readNextStartElement())
     {
-        if (root.name() == KXMLQLCFunctionLegacySpeed)
-        {
-            m_timings.loadXMLLegacy(root);
-        }
-        else if (root.name() == KXMLQLCFunctionTimings)
+        if (root.name() == KXMLQLCFunctionTimings)
         {
             m_timings.loadXML(root);
         }

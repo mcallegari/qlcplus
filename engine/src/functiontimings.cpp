@@ -170,8 +170,6 @@ quint32 FunctionTimings::subtract(quint32 left, quint32 right)
 
 bool FunctionTimings::loadXML(QXmlStreamReader &timingsRoot)
 {
-    if (timingsRoot.name() == KXMLQLCFunctionLegacySpeed)
-        return loadXMLLegacy(timingsRoot);
     if (timingsRoot.name() != KXMLQLCFunctionTimings)
         return false;
 
@@ -182,22 +180,6 @@ bool FunctionTimings::loadXML(QXmlStreamReader &timingsRoot)
     fadeOut = attrs.value(KXMLQLCFunctionTimingsFadeOut).toString().toUInt();
 
     timingsRoot.skipCurrentElement();
-
-    return true;
-}
-
-bool FunctionTimings::loadXMLLegacy(QXmlStreamReader& speedRoot)
-{
-    if (speedRoot.name() != KXMLQLCFunctionLegacySpeed)
-        return false;
-
-    QXmlStreamAttributes attrs = speedRoot.attributes();
-
-    fadeIn = attrs.value(KXMLQLCFunctionLegacySpeedFadeIn).toString().toUInt();
-    fadeOut = attrs.value(KXMLQLCFunctionLegacySpeedFadeOut).toString().toUInt();
-    setDuration(attrs.value(KXMLQLCFunctionLegacySpeedDuration).toString().toUInt());
-
-    speedRoot.skipCurrentElement();
 
     return true;
 }
