@@ -44,7 +44,7 @@ class ChaserStep
 public:
     /** Construct a new ChaserStep with the given attributes */
     ChaserStep(quint32 aFid = Function::invalidId(),
-               FunctionTimings const& timings = FunctionTimings());
+               FunctionTimings const& timings = FunctionTimings(0, 0, 0));
 
     /** Copy constructor */
     ChaserStep(const ChaserStep& cs);
