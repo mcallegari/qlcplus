@@ -22,14 +22,11 @@
 #include <QDebug>
 
 #include "contextmanager.h"
-#include "inputoutputmanager.h"
 #include "monitorproperties.h"
 #include "genericdmxsource.h"
 #include "functionmanager.h"
 #include "fixturemanager.h"
 #include "qlcfixturemode.h"
-#include "virtualconsole.h"
-#include "showmanager.h"
 #include "mainviewdmx.h"
 #include "mainview2d.h"
 #include "doc.h"
