@@ -293,6 +293,11 @@ Item
                 {
                     if (sfRef)
                     {
+                        if (itemRoot.x < 0)
+                        {
+                            itemRoot.width += itemRoot.x
+                            itemRoot.x = 0
+                        }
                         sfRef.startTime = TimeUtils.posToMs(itemRoot.x, timeScale)
                         sfRef.duration = TimeUtils.posToMs(itemRoot.width, timeScale)
                         if (funcRef && showManager.stretchFunctions === true)
