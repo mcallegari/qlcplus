@@ -33,8 +33,6 @@ MainViewDMX::MainViewDMX(QQuickView *view, Doc *doc, QObject *parent)
     setContextResource("qrc:/DMXView.qml");
     setContextTitle(tr("DMX View"));
 
-    m_viewDMX = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("DMXFlowView"));
-
     fixtureComponent = new QQmlComponent(m_view->engine(), QUrl("qrc:/FixtureDMXItem.qml"));
     if (fixtureComponent->isError())
         qDebug() << fixtureComponent->errors();
@@ -52,10 +50,7 @@ void MainViewDMX::enableContext(bool enable)
 {
     PreviewContext::enableContext(enable);
     if (enable == true)
-    {
-        m_viewDMX = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("DMXFlowView"));
         slotRefreshView();
-    }
 }
 
 void MainViewDMX::setUniverseFilter(quint32 universeFilter)
@@ -100,7 +95,7 @@ void MainViewDMX::createFixtureItem(quint32 fxID)
 
     QQuickItem *newFixtureItem = qobject_cast<QQuickItem*>(fixtureComponent->create());
 
-    newFixtureItem->setParentItem(m_viewDMX);
+    newFixtureItem->setParentItem(contextItem());
     newFixtureItem->setProperty("fixtureObj", QVariant::fromValue(fixture));
 
     // and finally add the new item to the items map
@@ -154,7 +149,8 @@ void MainViewDMX::updateFixtureSelection(quint32 fxID, bool enable)
 
 void MainViewDMX::slotRefreshView()
 {
-    m_viewDMX = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("DMXFlowView"));
+    if (isEnabled() == false)
+        return;
 
     reset();
 

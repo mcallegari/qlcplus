@@ -27,6 +27,8 @@ Rectangle
     anchors.fill: parent
     color: UISettings.bgMain
 
+    property alias contextItem: flowLayout
+
     function hasSettings()
     {
         return false;
@@ -48,15 +50,15 @@ Rectangle
 
         property string contextName: "DMX"
 
-        Component.onCompleted: contextManager.enableContext("DMX", true)
-        Component.onDestruction: contextManager.enableContext("DMX", false)
-
         Flow
         {
             id: flowLayout
             objectName: "DMXFlowView"
             spacing: 5
             width: dmxViewRoot.width
+
+            Component.onCompleted: contextManager.enableContext("DMX", true, flowLayout)
+            Component.onDestruction: contextManager.enableContext("DMX", false, flowLayout)
         }
     }
     ScrollBar { flickable: fixtureDMXView }

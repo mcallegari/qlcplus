@@ -44,6 +44,9 @@ public:
 
     QQuickView *view();
 
+    QQuickItem *contextItem();
+    void setContextItem(QQuickItem *item);
+
     QString name() const;
 
     /** Get/Set the title that will be displayed on a detached window title bar */
@@ -68,6 +71,8 @@ protected:
 
     /** Reference to the project workspace */
     Doc *m_doc;
+
+    QQuickItem *m_contextItem;
 
     /** The context unique identifier string */
     QString m_name;

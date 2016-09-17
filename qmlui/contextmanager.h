@@ -54,7 +54,7 @@ public:
     /** Enable/disable the context with the specified $name.
      *  This sets a flag in the context to know if it is visible
      *  on the screen, so to decide if changes should be applied to it */
-    Q_INVOKABLE void enableContext(QString name, bool enable);
+    Q_INVOKABLE void enableContext(QString name, bool enable, QQuickItem *item);
 
     /** Detach/Reattach a context from/to the application main window */
     Q_INVOKABLE void detachContext(QString name);

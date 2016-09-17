@@ -99,11 +99,16 @@ void MainView2D::resetItems()
 
 void MainView2D::initialize2DProperties()
 {
-    m_view2D = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("twoDView"));
-    m_contents2D = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("twoDContents"));
+    //m_view2D = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("twoDView"));
+    //m_contents2D = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("twoDContents"));
+    m_view2D = contextItem();
+    m_contents2D = qobject_cast<QQuickItem*>(m_view2D->findChild<QObject *>("twoDContents"));
 
     if (m_view2D == NULL || m_contents2D == NULL)
+    {
+        qDebug() << "ERROR: got invalid view2D" << m_view2D << "or contents2D" << m_contents2D;
         return;
+    }
 
     m_gridScale = m_view2D->property("gridScale").toReal();
     m_cellPixels = m_view2D->property("baseCellSize").toReal();
@@ -124,7 +129,7 @@ void MainView2D::createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords
         return;
 
     //if (m_view2D == NULL || m_contents2D == NULL)
-        initialize2DProperties();
+    //   initialize2DProperties();
 
     qDebug() << "[MainView2D] Creating fixture with ID" << fxID << "x:" << x << "y:" << y;
 
@@ -260,12 +265,12 @@ void MainView2D::slotRefreshView()
     if (isEnabled() == false)
         return;
 
+    resetItems();
+
     initialize2DProperties();
 
     if (m_view2D == NULL || m_contents2D == NULL)
         return;
-
-    resetItems();
 
     foreach(Fixture *fixture, m_doc->fixtures())
     {

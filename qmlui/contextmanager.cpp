@@ -98,7 +98,7 @@ void ContextManager::unregisterContext(QString name)
     m_contextsMap.remove(name);
 }
 
-void ContextManager::enableContext(QString name, bool enable)
+void ContextManager::enableContext(QString name, bool enable, QQuickItem *item)
 {
     if (m_contextsMap.contains(name) == false)
         return;
@@ -108,6 +108,7 @@ void ContextManager::enableContext(QString name, bool enable)
     if (enable == false && context->detached() == true)
         reattachContext(name);
 
+    context->setContextItem(item);
     context->enableContext(enable);
 
     if (name == "DMX")

@@ -19,7 +19,6 @@
 
 #include <QQmlContext>
 #include <QQuickItem>
-#include <QDebug>
 
 #include "previewcontext.h"
 #include "doc.h"
@@ -65,6 +64,16 @@ void PreviewContext::setUniverseFilter(quint32 universeFilter)
 QQuickView *PreviewContext::view()
 {
     return m_view;
+}
+
+QQuickItem *PreviewContext::contextItem()
+{
+    return m_contextItem;
+}
+
+void PreviewContext::setContextItem(QQuickItem *item)
+{
+    m_contextItem = item;
 }
 
 QString PreviewContext::name() const
@@ -138,7 +147,6 @@ void PreviewContext::setDetached(bool detached)
 
 void PreviewContext::slotWindowClosing()
 {
-    qDebug() << "Window closing";
     QMetaObject::invokeMethod(m_view->rootObject(), "closeWindow", Qt::AutoConnection);
 }
 

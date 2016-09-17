@@ -25,12 +25,13 @@ Rectangle
     color: "black"
 
     property string contextName: "2D"
+    property alias contextItem: twoDView
 
     onWidthChanged: twoDView.calculateCellSize()
     onHeightChanged: twoDView.calculateCellSize()
 
-    Component.onCompleted: contextManager.enableContext("2D", true)
-    Component.onDestruction: contextManager.enableContext("2D", false)
+    Component.onCompleted: contextManager.enableContext("2D", true, twoDView)
+    Component.onDestruction: contextManager.enableContext("2D", false, twoDView)
 
     function setZoom(amount)
     {
@@ -89,7 +90,7 @@ Rectangle
             else if (xDiv < yDiv)
                 baseCellSize = xDiv * gridScale;
 
-            //console.log("Cell size calculated: " + baseCellSize)
+            console.log("Cell size calculated: " + baseCellSize)
 
             contentWidth = baseCellSize * gridSize.width;
             contentHeight = baseCellSize * gridSize.height;

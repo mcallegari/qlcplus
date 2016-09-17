@@ -37,11 +37,12 @@ Rectangle
     function closeWindow()
     {
         console.log("Closing window of context: " + contextName)
-        contextManager.enableContext(contextName, false)
+        contextManager.enableContext(contextName, false, wLoader.item.contextItem)
     }
 
     Loader
     {
+        id: wLoader
         anchors.fill: parent
         source: viewSource
     }
