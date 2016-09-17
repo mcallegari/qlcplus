@@ -60,7 +60,6 @@ protected:
     void keyPressEvent(QKeyEvent * e);
 
 private:
-    QQmlEngine m_engine;
     FixtureBrowser *m_fixtureBrowser;
     FixtureManager *m_fixtureManager;
     ContextManager *m_contextManager;

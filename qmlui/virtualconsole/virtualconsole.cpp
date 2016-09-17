@@ -24,6 +24,7 @@
 #include <QQuickItem>
 
 #include "virtualconsole.h"
+#include "contextmanager.h"
 #include "vcwidget.h"
 #include "vcbutton.h"
 #include "vcslider.h"
@@ -51,9 +52,11 @@
 
 #define DEFAULT_VC_PAGES_NUMBER 4
 
-VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc, QObject *parent)
-    : PreviewContext(view, doc, parent)
+VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc,
+                               ContextManager *ctxManager, QObject *parent)
+    : PreviewContext(view, doc, "VC", parent)
     , m_editMode(false)
+    , m_contextManager(ctxManager)
     , m_selectedPage(0)
     , m_latestWidgetId(0)
     , m_inputDetectionEnabled(false)
@@ -62,15 +65,19 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc, QObject *parent)
 {
     Q_ASSERT(doc != NULL);
 
+    setContextResource("qrc:/VirtualConsole.qml");
+    setContextTitle(tr("Virtual Console"));
+
     for (int i = 0; i < DEFAULT_VC_PAGES_NUMBER; i++)
     {
-        VCPage *page = new VCPage(m_doc, this, this);
+        VCPage *page = new VCPage(view, m_doc, this, i, this);
         QQmlEngine::setObjectOwnership(page, QQmlEngine::CppOwnership);
         page->setAllowResize(false);
         page->setShowHeader(false);
         page->setGeometry(QRect(0, 0, 1920, 1080));
         page->setFont(QFont("Roboto Condensed", 16));
         page->setCaption(tr("Page %1").arg(i + 1));
+        m_contextManager->registerContext(page->previewContext());
         m_pages.append(page);
     }
 
@@ -163,13 +170,14 @@ int VirtualConsole::pagesCount() const
 
 void VirtualConsole::addPage(int index)
 {
-    VCPage *page = new VCPage(m_doc, this, this);
+    VCPage *page = new VCPage(m_view, m_doc, this, index, this);
     QQmlEngine::setObjectOwnership(page, QQmlEngine::CppOwnership);
     page->setAllowResize(false);
     page->setShowHeader(false);
     page->setGeometry(QRect(0, 0, 1920, 1080));
     page->setFont(QFont("Roboto Condensed", 16));
     page->setCaption(tr("Page %1").arg(m_pages.count() + 1));
+    m_contextManager->registerContext(page->previewContext());
     m_pages.insert(index, page);
 
     emit pagesCountChanged();
@@ -187,7 +195,9 @@ void VirtualConsole::deletePage(int index)
         return;
 
     m_pages.at(index)->deleteChildren();
-    m_pages.takeAt(index);
+    VCPage *page = m_pages.takeAt(index);
+    m_contextManager->unregisterContext(page->previewContext()->name());
+    delete page;
 
     m_itemsMap.clear();
 
@@ -755,13 +765,14 @@ bool VirtualConsole::loadXML(QXmlStreamReader &root)
         {
             if (currPageIdx == m_pages.count())
             {
-                VCPage *page = new VCPage(m_doc, this, this);
+                VCPage *page = new VCPage(m_view, m_doc, this, currPageIdx, this);
                 QQmlEngine::setObjectOwnership(page, QQmlEngine::CppOwnership);
                 page->setAllowResize(false);
                 page->setShowHeader(false);
                 page->setGeometry(QRect(0, 0, 1920, 1080));
                 page->setFont(QFont("Roboto Condensed", 16));
                 page->setCaption(tr("Page %1").arg(currPageIdx + 1));
+                m_contextManager->registerContext(page->previewContext());
                 m_pages.append(page);
             }
             /* Contents */

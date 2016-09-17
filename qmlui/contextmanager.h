@@ -31,6 +31,7 @@ class MainViewDMX;
 class FixtureManager;
 class FunctionManager;
 class GenericDMXSource;
+class PreviewContext;
 
 class ContextManager : public QObject
 {
@@ -44,12 +45,20 @@ public:
     explicit ContextManager(QQuickView *view, Doc *doc,
                             FixtureManager *fxMgr, FunctionManager *funcMgr,
                             QObject *parent = 0);
+    ~ContextManager();
 
-    Q_INVOKABLE void enableContext(QString context, bool enable);
+    /** Register/Unregister a context to the map of known contexts */
+    void registerContext(PreviewContext *context);
+    void unregisterContext(QString name);
 
-    Q_INVOKABLE void detachContext(QString context);
+    /** Enable/disable the context with the specified $name.
+     *  This sets a flag in the context to know if it is visible
+     *  on the screen, so to decide if changes should be applied to it */
+    Q_INVOKABLE void enableContext(QString name, bool enable);
 
-    Q_INVOKABLE void reattachContext(QString context);
+    /** Detach/Reattach a context from/to the application main window */
+    Q_INVOKABLE void detachContext(QString name);
+    Q_INVOKABLE void reattachContext(QString name);
 
     Q_INVOKABLE void setFixtureSelection(quint32 fxID, bool enable);
 
@@ -110,10 +119,21 @@ private:
     QQuickView *m_view;
     /** Reference to the project workspace */
     Doc *m_doc;
+
+    /** Reference to a simple PreviewContext representing
+     *  the universe grid view, since it doesn't have a dedicated class */
+    PreviewContext *m_uniGridView;
+    /** Reference to the DMX Preview context */
+    MainViewDMX *m_DMXView;
+    /** Reference to the 2D Preview context */
+    MainView2D *m_2DView;
     /** Reference to the Fixture Manager */
     FixtureManager *m_fixtureManager;
     /** Reference to the Function Manager */
     FunctionManager *m_functionManager;
+
+    QMap <QString, PreviewContext *> m_contextsMap;
+
     /** The list of the currently selected Fixture IDs */
     QList<quint32> m_selectedFixtures;
     /** The currently displayed universe
@@ -128,10 +148,6 @@ private:
     QMultiHash<int, SceneValue> m_channelsMap;
     /** Reference to a Generic DMX source used to handle Scenes dump */
     GenericDMXSource* m_source;
-    /** Reference to the DMX Preview context */
-    MainViewDMX *m_DMXView;
-    /** Reference to the 2D Preview context */
-    MainView2D *m_2DView;
 };
 
 #endif // CONTEXTMANAGER_H

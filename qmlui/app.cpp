@@ -74,7 +74,7 @@ void App::startup()
     qmlRegisterType<ModelSelector>("com.qlcplus.classes", 1, 0, "ModelSelector");
 
     setTitle("Q Light Controller Plus");
-    setIcon(QIcon(":/qlcplus.png"));
+    setIcon(QIcon(":/qlcplus.svg"));
 
     if (QFontDatabase::addApplicationFont(":/RobotoCondensed-Regular.ttf") < 0)
         qWarning() << "Roboto font cannot be loaded !";
@@ -92,7 +92,7 @@ void App::startup()
     //        this, SIGNAL(docLoadedChanged()));
     //qmlRegisterType<App>("com.qlcplus.app", 1, 0, "App");
 
-    m_ioManager = new InputOutputManager(m_doc);
+    m_ioManager = new InputOutputManager(this, m_doc);
     rootContext()->setContextProperty("ioManager", m_ioManager);
 
     m_fixtureBrowser = new FixtureBrowser(this, m_doc);
@@ -107,7 +107,7 @@ void App::startup()
     m_contextManager = new ContextManager(this, m_doc, m_fixtureManager, m_functionManager);
     rootContext()->setContextProperty("contextManager", m_contextManager);
 
-    m_virtualConsole = new VirtualConsole(this, m_doc);
+    m_virtualConsole = new VirtualConsole(this, m_doc, m_contextManager);
     rootContext()->setContextProperty("virtualConsole", m_virtualConsole);
 
     m_showManager = new ShowManager(this, m_doc);
@@ -122,12 +122,15 @@ void App::startup()
     // register an uncreatable type just to use the enums in QML
     qmlRegisterUncreatableType<ActionManager>("com.qlcplus.classes", 1, 0,  "ActionManager", "Can't create an ActionManager !");
 
+    m_contextManager->registerContext(m_virtualConsole);
+    m_contextManager->registerContext(m_showManager);
+    m_contextManager->registerContext(m_ioManager);
+
     // Start up in non-modified state
     m_doc->resetModified();
 
     // and here we go !
     setSource(QUrl("qrc:/MainView.qml"));
-    //m_contextManager->activateContext("2D");
 }
 
 void App::show()

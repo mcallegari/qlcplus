@@ -29,7 +29,7 @@
 #include "monitorproperties.h"
 
 MainView2D::MainView2D(QQuickView *view, Doc *doc, QObject *parent)
-    : PreviewContext(view, doc, parent)
+    : PreviewContext(view, doc, "2D", parent)
 {
     m_gridSize = QSize(5, 5);
     m_gridScale = 1.0;
@@ -40,6 +40,9 @@ MainView2D::MainView2D(QQuickView *view, Doc *doc, QObject *parent)
 
     m_view2D = NULL;
     m_contents2D = NULL;
+
+    setContextResource("qrc:/2DView.qml");
+    setContextTitle(tr("2D View"));
 
     m_monProps = m_doc->monitorProperties();
 

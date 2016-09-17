@@ -23,7 +23,7 @@
 #include "doc.h"
 
 ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
-    : PreviewContext(view, doc, parent)
+    : PreviewContext(view, doc, "SHOWMGR", parent)
     , m_currentShow(NULL)
     , m_itemsColor(Qt::gray)
     , m_timeScale(5.0)
@@ -32,6 +32,9 @@ ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
 {
     qmlRegisterType<Track>("com.qlcplus.classes", 1, 0, "Track");
     qmlRegisterType<ShowFunction>("com.qlcplus.classes", 1, 0, "ShowFunction");
+
+    setContextResource("qrc:/ShowManager.qml");
+    setContextTitle(tr("Show Manager"));
 
     siComponent = new QQmlComponent(m_view->engine(), QUrl("qrc:/ShowItem.qml"));
     if (siComponent->isError())

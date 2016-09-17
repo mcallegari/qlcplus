@@ -19,15 +19,24 @@
 
 #include "vcpage.h"
 
-VCPage::VCPage(Doc *doc, VirtualConsole *vc, QObject *parent)
+#include "previewcontext.h"
+
+VCPage::VCPage(QQuickView *view, Doc *doc, VirtualConsole *vc, int pageIndex, QObject *parent)
     : VCFrame(doc, vc, parent)
 {
-
+    m_pageContext = new PreviewContext(view, doc, QString("PAGE-%1").arg(pageIndex));
+    m_pageContext->setContextResource("qrc:/VCPageArea.qml");
+    m_pageContext->setContextTitle(tr("Virtual Console Page %1").arg(pageIndex));
 }
 
 VCPage::~VCPage()
 {
+    m_pageContext->deleteLater();
+}
 
+PreviewContext *VCPage::previewContext() const
+{
+    return m_pageContext;
 }
 
 void VCPage::mapInputSource(QSharedPointer<QLCInputSource> source, VCWidget *widget, bool checkChildren)

@@ -22,17 +22,21 @@
 #include <QDebug>
 
 #include "contextmanager.h"
+#include "inputoutputmanager.h"
 #include "monitorproperties.h"
 #include "genericdmxsource.h"
 #include "functionmanager.h"
 #include "fixturemanager.h"
 #include "qlcfixturemode.h"
+#include "virtualconsole.h"
+#include "showmanager.h"
 #include "mainviewdmx.h"
 #include "mainview2d.h"
 #include "doc.h"
 
 ContextManager::ContextManager(QQuickView *view, Doc *doc,
-                               FixtureManager *fxMgr, FunctionManager *funcMgr,
+                               FixtureManager *fxMgr,
+                               FunctionManager *funcMgr,
                                QObject *parent)
     : QObject(parent)
     , m_view(view)
@@ -46,10 +50,17 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
     m_source = new GenericDMXSource(m_doc);
     m_source->setOutputEnabled(true);
 
+    m_uniGridView = new PreviewContext(m_view, m_doc, "UNIGRID");
+    m_uniGridView->setContextResource("qrc:/UniverseGridView.qml");
+    m_uniGridView->setContextTitle(tr("Universe Grid View"));
+    registerContext(m_uniGridView);
+
     m_2DView = new MainView2D(m_view, m_doc);
+    registerContext(m_2DView);
     m_view->rootContext()->setContextProperty("View2D", m_2DView);
 
     m_DMXView = new MainViewDMX(m_view, m_doc);
+    registerContext(m_DMXView);
 
     connect(m_fixtureManager, SIGNAL(newFixtureCreated(quint32,qreal,qreal)),
             this, SLOT(slotNewFixtureCreated(quint32,qreal,qreal)));
@@ -69,42 +80,86 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
             this, SLOT(slotFunctionEditingChanged(bool)));
 }
 
-void ContextManager::enableContext(QString context, bool enable)
+ContextManager::~ContextManager()
 {
-    if (context == "DMX")
-    {
-        m_DMXView->enableContext(enable);
+    m_uniGridView->deleteLater();
+}
+
+void ContextManager::registerContext(PreviewContext *context)
+{
+    if (context == NULL)
+        return;
+
+    m_contextsMap[context->name()] = context;
+}
+
+void ContextManager::unregisterContext(QString name)
+{
+    if (m_contextsMap.contains(name) == false)
+        return;
+
+    m_contextsMap.remove(name);
+}
+
+void ContextManager::enableContext(QString name, bool enable)
+{
+    if (m_contextsMap.contains(name) == false)
+        return;
+
+    PreviewContext *context = m_contextsMap[name];
+
+    if (enable == false && context->detached() == true)
+        reattachContext(name);
+
+    context->enableContext(enable);
+
+    if (name == "DMX")
         m_DMXView->updateFixtureSelection(m_selectedFixtures);
-    }
-    else if (context == "2D")
-    {
-        m_2DView->enableContext(enable);
+    else if (name == "2D")
         m_2DView->updateFixtureSelection(m_selectedFixtures);
-    }
 }
 
-void ContextManager::detachContext(QString context)
+void ContextManager::detachContext(QString name)
 {
-    qDebug() << "[ContextManager] detaching context:" << context;
+    qDebug() << "[ContextManager] detaching context:" << name;
+    if (m_contextsMap.contains(name) == false)
+        return;
+
+    PreviewContext *context = m_contextsMap[name];
+    context->setDetached(true);
 }
 
-void ContextManager::reattachContext(QString context)
+void ContextManager::reattachContext(QString name)
 {
-    qDebug() << "[ContextManager] reattaching context:" << context;
-    if (context == "DMX" || context == "2D")
+    qDebug() << "[ContextManager] reattaching context:" << name;
+    if (m_contextsMap.contains(name) == false)
+        return;
+
+    PreviewContext *context = m_contextsMap[name];
+    context->setDetached(false);
+
+    if (name == "DMX" || name == "2D" || name == "UNIGRID")
     {
         QQuickItem *viewObj = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("fixturesAndFunctions"));
         if (viewObj == NULL)
             return;
         QMetaObject::invokeMethod(viewObj, "enableContext",
-                Q_ARG(QVariant, context),
+                Q_ARG(QVariant, name),
+                Q_ARG(QVariant, false));
+    }
+    else if (name.startsWith("PAGE-"))
+    {
+        QQuickItem *viewObj = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("virtualConsole"));
+        if (viewObj == NULL)
+            return;
+        QMetaObject::invokeMethod(viewObj, "enableContext",
+                Q_ARG(QVariant, name),
                 Q_ARG(QVariant, false));
     }
     else
     {
-
         QMetaObject::invokeMethod(m_view->rootObject(), "enableContext",
-                Q_ARG(QVariant, context),
+                Q_ARG(QVariant, name),
                 Q_ARG(QVariant, false));
     }
 }
@@ -120,6 +175,8 @@ void ContextManager::resetContexts()
     m_editingEnabled = false;
     m_DMXView->enableContext(m_DMXView->isEnabled());
     m_2DView->enableContext(m_2DView->isEnabled());
+
+    /** TODO: nothing to do on the other contexts ? */
 }
 
 void ContextManager::resetValues()

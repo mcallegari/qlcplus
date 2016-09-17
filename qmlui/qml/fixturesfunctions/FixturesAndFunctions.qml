@@ -21,7 +21,6 @@ import QtQuick 2.3
 import QtQuick.Controls 1.2
 import QtQuick.Layouts 1.1
 
-import "DetachWindow.js" as WinLoader
 import "."
 
 Rectangle
@@ -130,7 +129,7 @@ Rectangle
                     onRightClicked:
                     {
                         uniView.visible = false
-                        WinLoader.createWindow("qrc:/UniverseGridView.qml")
+                        contextManager.detachContext("UNIGRID")
                     }
                 }
                 MenuBarEntry
@@ -153,7 +152,7 @@ Rectangle
                     onRightClicked:
                     {
                         dmxView.visible = false
-                        WinLoader.createWindow("qrc:/DMXView.qml")
+                        contextManager.detachContext("DMX")
                     }
                 }
                 MenuBarEntry
@@ -177,7 +176,7 @@ Rectangle
                     onRightClicked:
                     {
                         twodView.visible = false
-                        WinLoader.createWindow("qrc:/2DView.qml")
+                        contextManager.detachContext("2D")
                     }
                 }
                 MenuBarEntry
@@ -199,7 +198,7 @@ Rectangle
                     }
                     onRightClicked:
                     {
-                        WinLoader.createWindow("qrc:/3DView.qml")
+                        contextManager.detachContext("3D")
                     }
                 }
 

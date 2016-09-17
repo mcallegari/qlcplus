@@ -19,11 +19,13 @@
 
 import QtQuick 2.0
 
+import "."
+
 Rectangle
 {
     id: dmxViewRoot
     anchors.fill: parent
-    color: "transparent"
+    color: UISettings.bgMain
 
     function hasSettings()
     {

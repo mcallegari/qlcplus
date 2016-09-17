@@ -22,6 +22,8 @@
 
 #include "vcframe.h"
 
+class PreviewContext;
+
 class VCPage : public VCFrame
 {
     Q_OBJECT
@@ -30,8 +32,10 @@ class VCPage : public VCFrame
      * Initialization
      *********************************************************************/
 public:
-    VCPage(Doc* doc = NULL, VirtualConsole *vc = NULL, QObject *parent = 0);
+    VCPage(QQuickView *view = NULL, Doc* doc = NULL, VirtualConsole *vc = NULL, int pageIndex = 0, QObject *parent = 0);
     ~VCPage();
+
+    PreviewContext *previewContext() const;
 
     /*********************************************************************
      * External input
@@ -63,6 +67,7 @@ private:
      */
     QMultiHash <quint32, QPair<QSharedPointer<QLCInputSource>, VCWidget *> > m_inputSourcesMap;
 
+    PreviewContext *m_pageContext;
 };
 
 

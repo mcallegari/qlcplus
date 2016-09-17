@@ -30,6 +30,7 @@
 class QXmlStreamReader;
 class QXmlStreamWriter;
 class QLCInputSource;
+class ContextManager;
 class VCWidget;
 class VCFrame;
 class VCPage;
@@ -48,7 +49,7 @@ class VirtualConsole : public PreviewContext
     Q_PROPERTY(int selectedWidgetsCount READ selectedWidgetsCount NOTIFY selectedWidgetsCountChanged)
 
 public:
-    VirtualConsole(QQuickView *view, Doc *doc, QObject *parent = 0);
+    VirtualConsole(QQuickView *view, Doc *doc, ContextManager *ctxManager, QObject *parent = 0);
 
     /** Return the number of pixels in 1mm */
     qreal pixelDensity() const;
@@ -65,6 +66,10 @@ signals:
 
 protected:
     bool m_editMode;
+
+    /** Reference to the Context Manager. Used to track VC pages as
+     *  regular contexts */
+    ContextManager *m_contextManager;
 
     /*********************************************************************
      * Pages

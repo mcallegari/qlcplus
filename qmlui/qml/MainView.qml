@@ -25,8 +25,6 @@ import QtQuick.Window 2.0
 
 import "."
 
-import "DetachWindow.js" as WinLoader
-
 Rectangle
 {
     id: mainView
@@ -145,7 +143,7 @@ Rectangle
                 onRightClicked:
                 {
                     vcEntry.visible = false
-                    WinLoader.createWindow("qrc:/VirtualConsole.qml")
+                    contextManager.detachContext("VC")
                 }
             }
             MenuBarEntry
@@ -163,7 +161,7 @@ Rectangle
                 onRightClicked:
                 {
                     sdEntry.visible = false
-                    WinLoader.createWindow("qrc:/SimpleDesk.qml")
+                    contextManager.detachContext("SDESK")
                 }
             }
             MenuBarEntry
@@ -181,7 +179,7 @@ Rectangle
                 onRightClicked:
                 {
                     smEntry.visible = false
-                    WinLoader.createWindow("qrc:/ShowManager.qml")
+                    contextManager.detachContext("SHOWMGR")
                 }
             }
             MenuBarEntry
@@ -199,7 +197,7 @@ Rectangle
                 onRightClicked:
                 {
                     ioEntry.visible = false
-                    WinLoader.createWindow("qrc:/InputOutputManager.qml")
+                    contextManager.detachContext("IOMGR")
                 }
             }
             Rectangle

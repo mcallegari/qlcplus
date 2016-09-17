@@ -28,8 +28,10 @@
 #include "doc.h"
 
 MainViewDMX::MainViewDMX(QQuickView *view, Doc *doc, QObject *parent)
-    : PreviewContext(view, doc, parent)
+    : PreviewContext(view, doc, "DMX", parent)
 {
+    setContextResource("qrc:/DMXView.qml");
+    setContextTitle(tr("DMX View"));
 
     m_viewDMX = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("DMXFlowView"));
 
