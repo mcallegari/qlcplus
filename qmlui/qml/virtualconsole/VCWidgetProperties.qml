@@ -162,7 +162,7 @@ Rectangle
                         {
                             Layout.fillWidth: true
                             height: UISettings.listItemHeight
-                            color: UISettings.bgStronger
+                            color: UISettings.bgMedium
                             inputText: wObj ? wObj.caption : ""
 
                             onTextChanged:
@@ -247,8 +247,8 @@ Rectangle
 
                             IconButton
                             {
-                                width: UISettings.listItemHeight
-                                height: UISettings.listItemHeight
+                                width: UISettings.iconSizeMedium
+                                height: width
                                 anchors.right: parent.right
                                 imgSource: "qrc:/font.svg"
                                 //bgColor: "#aaa"
@@ -299,8 +299,8 @@ Rectangle
                             IconButton
                             {
                                 id: imgButton
-                                width: UISettings.listItemHeight
-                                height: UISettings.listItemHeight
+                                width: UISettings.iconSizeMedium
+                                height: width
                                 anchors.right: parent.right
                                 imgSource: "qrc:/background.svg"
 
