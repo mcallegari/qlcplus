@@ -128,7 +128,7 @@ Rectangle
             width: parent.width - 20
             label: patch ? patch.profileName : ""
             labelColor: "black"
-            fontSize: height ? height * 0.45 : 20
+            fontSize: height ? height * 0.7 : 20
             //wrapText: true
         }
     }
