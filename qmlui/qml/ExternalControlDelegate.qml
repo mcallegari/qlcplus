@@ -34,6 +34,9 @@ Column
     property int channel
     property string uniName
     property string chName
+    property bool customFeedback: false
+    property int lowerFb: 0
+    property int upperFb: 255
 
     GridLayout
     {
@@ -139,13 +142,48 @@ Column
             onClicked: virtualConsole.deleteInputSource(dObjRef, controlID, universe, channel)
         }
 
+        RobotoText
+        {
+            Layout.columnSpan: 3
+            Layout.fillWidth: true
+            height: UISettings.listItemHeight
+            visible: customFeedback
+            label: qsTr("Custom feedbacks")
+            color: UISettings.bgMedium
+        }
+
+        Row
+        {
+            id: cfRow
+            Layout.columnSpan: 3
+            Layout.fillWidth: true
+            spacing: 5
+            visible: customFeedback
+
+            RobotoText { id: cfLower; height: UISettings.listItemHeight; label: qsTr("Lower") }
+            CustomSpinBox
+            {
+                width: (cfRow.width - cfLower.width - cfUpper.width - 20) / 2
+                minimumValue: 0
+                maximumValue: 255
+                value: lowerFb
+            }
+            RobotoText { id: cfUpper; height: UISettings.listItemHeight; label: qsTr("Upper") }
+            CustomSpinBox
+            {
+                width: (cfRow.width - cfLower.width - cfUpper.width - 20) / 2
+                minimumValue: 0
+                maximumValue: 255
+                value: upperFb
+            }
+        }
     } // end of GridLayout
 
     // items divider
     Rectangle
     {
         width: parent.width
-        height: 1
+        height: 2
         color: UISettings.fgMedium
     }
 }

@@ -462,7 +462,6 @@ QVariant VCWidget::externalControlsList() const
     for (ExternalControlInfo info : m_externalControlList) // C++11
     {
         QVariantMap cMap;
-//        cMap.insert("mIcon", "qrc:/group.svg");
         cMap.insert("mLabel", info.name);
         cMap.insert("mValue", info.id);
         controlsList.append(cMap);
@@ -537,7 +536,7 @@ QVariant VCWidget::inputSourcesList() const
         QString uniName;
         QString chName;
         uchar min = 0, max = UCHAR_MAX;
-        bool supportCustomRange = false;
+        bool supportCustomFeedback = false;
 
         if (!source->isValid() || m_doc->inputOutputMap()->inputSourceNames(source, uniName, chName) == false)
         {
@@ -553,7 +552,7 @@ QVariant VCWidget::inputSourcesList() const
             {
                 min = ich->lowerValue();
                 max = ich->upperValue();
-                supportCustomRange = true;
+                supportCustomFeedback = true;
             }
         }
 
@@ -568,7 +567,7 @@ QVariant VCWidget::inputSourcesList() const
         sourceMap.insert("channel", source->channel());
         sourceMap.insert("lower", source->lowerValue() != 0 ? source->lowerValue() : min);
         sourceMap.insert("upper", source->upperValue() != 0 ? source->upperValue() : max);
-        sourceMap.insert("customFeedback", supportCustomRange);
+        sourceMap.insert("customFeedback", supportCustomFeedback);
         sourcesList.append(sourceMap);
     }
 

@@ -100,12 +100,10 @@ Column
     {
         id: sourcesListView
         width: parent.width
-        height: model ? model.length * 180 : 0
+        height: contentHeight
         boundsBehavior: Flickable.StopAtBounds
 
         model: objRef ? objRef.inputSourcesList : null
-
-        onModelChanged: console.log("model changed. Length: " + model.length)
 
         delegate:
             Loader
@@ -125,6 +123,9 @@ Column
                         item.channel = modelData.channel
                         item.uniName = modelData.uniString
                         item.chName = modelData.chString
+                        item.customFeedback = modelData.customFeedback
+                        item.lowerFb = modelData.lower
+                        item.upperFb = modelData.upper
                     }
                     else if (modelData.type === VCWidget.Keyboard)
                     {
