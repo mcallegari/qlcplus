@@ -30,6 +30,7 @@ PreviewContext::PreviewContext(QQuickView *view, Doc *doc, QString name, QObject
     , m_doc(doc)
     , m_name(name)
     , m_title(name)
+    , m_page(0)
     , m_enabled(false)
     , m_detached(false)
 {
@@ -91,6 +92,16 @@ void PreviewContext::setContextTitle(QString title)
     m_title = title;
 }
 
+int PreviewContext::contextPage() const
+{
+    return m_page;
+}
+
+void PreviewContext::setContextPage(int page)
+{
+    m_page = page;
+}
+
 bool PreviewContext::detached() const
 {
     return m_detached;
@@ -123,6 +134,7 @@ void PreviewContext::setDetached(bool detached)
         /** Set the fundamental properties to allow the detached context to properly load */
         m_view->rootContext()->setContextProperty("viewSource", contextResource());
         m_view->rootContext()->setContextProperty("contextName", name());
+        m_view->rootContext()->setContextProperty("contextPage", contextPage());
 
         /** Finally, load the context wrapper and show it on the screen */
         m_view->setSource(QUrl("qrc:/WindowLoader.qml"));

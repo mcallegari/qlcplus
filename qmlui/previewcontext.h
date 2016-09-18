@@ -53,6 +53,10 @@ public:
     QString contextTitle() const;
     void setContextTitle(QString title);
 
+    /** Get/Set the context page. Used only by VC pages */
+    int contextPage() const;
+    void setContextPage(int page);
+
     /** Get/Set the detach state of this context */
     bool detached() const;
     void setDetached(bool detached);
@@ -79,6 +83,9 @@ protected:
 
     /** The context title to be displayed on a detached window title bar */
     QString m_title;
+
+    /** Optional page of the context. Used only by VC pages */
+    int m_page;
 
     /** A string with the QML resource URL representing the context */
     QString m_resource;

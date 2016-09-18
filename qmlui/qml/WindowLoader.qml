@@ -45,6 +45,7 @@ Rectangle
         id: wLoader
         anchors.fill: parent
         source: viewSource
+        onLoaded: if (item.page) item.page = contextPage
     }
 }
 
