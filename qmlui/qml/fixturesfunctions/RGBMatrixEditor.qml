@@ -109,8 +109,6 @@ Rectangle
         }
     }
 
-    //onWidthChanged: editorFlickable.width = width - sect0
-
     Flickable
     {
         id: editorFlickable
@@ -565,7 +563,12 @@ Rectangle
             columnSpacing: 5
 
             // Row 1
-            RobotoText { height: UISettings.listItemHeight; label: qsTr("Text") }
+            RobotoText
+            {
+                height: UISettings.listItemHeight
+                label: qsTr("Text")
+            }
+
             Rectangle
             {
                 Layout.fillWidth: true
@@ -599,7 +602,7 @@ Rectangle
                 IconButton
                 {
                     id: fontButton
-                    width:UISettings.iconSizeMedium
+                    width: UISettings.iconSizeMedium
                     height: width
                     anchors.right: parent.right
                     imgSource: "qrc:/font.svg"
@@ -623,7 +626,11 @@ Rectangle
             }
 
             // Row 2
-            RobotoText { height: UISettings.listItemHeight; label: qsTr("Animation") }
+            RobotoText
+            {
+                height: UISettings.listItemHeight
+                label: qsTr("Animation")
+            }
             CustomComboBox
             {
                 Layout.fillWidth: true
@@ -642,7 +649,11 @@ Rectangle
             }
 
             // Row 3
-            RobotoText { height: UISettings.listItemHeight; label: qsTr("Offset") }
+            RobotoText
+            {
+                height: UISettings.listItemHeight
+                label: qsTr("Offset")
+            }
             Rectangle
             {
                 Layout.fillWidth: true
@@ -672,7 +683,7 @@ Rectangle
                         }
                     }
 
-                    RobotoText { label: qsTr("Y") }
+                    RobotoText { height: UISettings.listItemHeight; label: qsTr("Y") }
                     CustomSpinBox
                     {
                         height: parent.height
@@ -704,7 +715,11 @@ Rectangle
             columnSpacing: 5
 
             // Row 1
-            RobotoText { height: UISettings.listItemHeight; label: qsTr("Image") }
+            RobotoText
+            {
+                height: UISettings.listItemHeight
+                label: qsTr("Image")
+            }
             Rectangle
             {
                 Layout.fillWidth: true
@@ -736,7 +751,7 @@ Rectangle
                 IconButton
                 {
                     id: imgButton
-                    width:UISettings.iconSizeMedium
+                    width: UISettings.iconSizeMedium
                     height: width
                     anchors.right: parent.right
                     imgSource: "qrc:/background.svg"
@@ -756,7 +771,11 @@ Rectangle
             }
 
             // Row 2
-            RobotoText { height: UISettings.listItemHeight; label: qsTr("Animation") }
+            RobotoText
+            {
+                height: UISettings.listItemHeight
+                label: qsTr("Animation")
+            }
             CustomComboBox
             {
                 Layout.fillWidth: true
@@ -776,51 +795,55 @@ Rectangle
             }
 
             // Row 3
-            RobotoText { height: UISettings.listItemHeight; label: qsTr("Offset") }
+            RobotoText
+            {
+                height: UISettings.listItemHeight
+                label: qsTr("Offset")
+            }
             Rectangle
             {
                 Layout.fillWidth: true
                 height: editorColumn.itemsHeight
                 color: "transparent"
 
-            Row
-            {
-                id: ioffRow
-                spacing: 20
-                anchors.fill: parent
-
-                property size algoOffset: rgbMatrixEditor.algoOffset
-
-                RobotoText { height: UISettings.listItemHeight; label: qsTr("X") }
-                CustomSpinBox
+                Row
                 {
-                    height: parent.height
-                    minimumValue: -255
-                    maximumValue: 255
-                    value: ioffRow.algoOffset.width
-                    onValueChanged:
+                    id: ioffRow
+                    spacing: 20
+                    anchors.fill: parent
+
+                    property size algoOffset: rgbMatrixEditor.algoOffset
+
+                    RobotoText { height: UISettings.listItemHeight; label: qsTr("X") }
+                    CustomSpinBox
                     {
-                        var newOffset = ioffRow.algoOffset
-                        newOffset.width = value
-                        rgbMatrixEditor.algoOffset = newOffset
+                        height: parent.height
+                        minimumValue: -255
+                        maximumValue: 255
+                        value: ioffRow.algoOffset.width
+                        onValueChanged:
+                        {
+                            var newOffset = ioffRow.algoOffset
+                            newOffset.width = value
+                            rgbMatrixEditor.algoOffset = newOffset
+                        }
+                    }
+
+                    RobotoText { height: UISettings.listItemHeight; label: qsTr("Y") }
+                    CustomSpinBox
+                    {
+                        height: parent.height
+                        minimumValue: -255
+                        maximumValue: 255
+                        value: ioffRow.algoOffset.height
+                        onValueChanged:
+                        {
+                            var newOffset = ioffRow.algoOffset
+                            newOffset.height = value
+                            rgbMatrixEditor.algoOffset = newOffset
+                        }
                     }
                 }
-
-                RobotoText { label: qsTr("Y") }
-                CustomSpinBox
-                {
-                    height: parent.height
-                    minimumValue: -255
-                    maximumValue: 255
-                    value: ioffRow.algoOffset.height
-                    onValueChanged:
-                    {
-                        var newOffset = ioffRow.algoOffset
-                        newOffset.height = value
-                        rgbMatrixEditor.algoOffset = newOffset
-                    }
-                }
-            }
             }
         }
     }

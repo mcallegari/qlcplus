@@ -204,7 +204,6 @@ Rectangle
                             x: 3
                             label: mLabel
                             height: parent.height
-                            //fontSize: 12
                         }
                     }
 
