@@ -77,7 +77,6 @@ Rectangle
             {
                 width: 200
                 height: parent.height - 10
-                fontSize: 16
                 inputText: showManager.showName
 
                 onTextChanged: showManager.showName = text

@@ -103,7 +103,6 @@ Rectangle
                 {
                     height: gridItemsHeight
                     Layout.fillWidth: true
-                    fontSize: UISettings.textSizeDefault
                     label: qsTr("Toggle Function on/off")
                 }
 
@@ -121,7 +120,6 @@ Rectangle
                 {
                     height: gridItemsHeight
                     Layout.fillWidth: true
-                    fontSize: UISettings.textSizeDefault
                     label: qsTr("Flash Function (only for Scenes)")
                 }
 
@@ -139,7 +137,6 @@ Rectangle
                 {
                     height: gridItemsHeight
                     Layout.fillWidth: true
-                    fontSize: UISettings.textSizeDefault
                     label: qsTr("Toggle Blackout")
                 }
 
@@ -157,7 +154,6 @@ Rectangle
                 {
                     height: gridItemsHeight
                     Layout.fillWidth: true
-                    fontSize: UISettings.textSizeDefault
                     label: qsTr("Stop all Functions")
                 }
 
