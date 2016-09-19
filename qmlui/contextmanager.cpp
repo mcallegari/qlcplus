@@ -237,6 +237,19 @@ void ContextManager::setFixtureSelection(quint32 fxID, bool enable)
     emit selectedFixturesChanged();
 }
 
+void ContextManager::toggleFixturesSelection()
+{
+    bool selectAll = true;
+    if (m_selectedFixtures.count() == m_doc->fixtures().count())
+        selectAll = false;
+
+    for(Fixture *fixture : m_doc->fixtures()) // C++11
+    {
+        if (fixture != NULL)
+            setFixtureSelection(fixture->id(), selectAll);
+    }
+}
+
 void ContextManager::setRectangleSelection(qreal x, qreal y, qreal width, qreal height)
 {
     QList<quint32> fxIDList;
@@ -300,7 +313,7 @@ void ContextManager::createFixtureGroup()
 
 void ContextManager::handleKeyPress(QKeyEvent *e)
 {
-    //qDebug() << "Key event received:" << e->text();
+    qDebug() << "Key event received:" << e->text();
 
     if (e->modifiers() & Qt::ControlModifier)
     {
@@ -308,15 +321,7 @@ void ContextManager::handleKeyPress(QKeyEvent *e)
         {
             case Qt::Key_A:
             {
-                bool selectAll = true;
-                if (m_selectedFixtures.count() == m_doc->fixtures().count())
-                    selectAll = false;
-
-                foreach(Fixture *fixture, m_doc->fixtures())
-                {
-                    if (fixture != NULL)
-                        setFixtureSelection(fixture->id(), selectAll);
-                }
+                toggleFixturesSelection();
             }
             break;
             case Qt::Key_R:
