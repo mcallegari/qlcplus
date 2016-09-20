@@ -187,9 +187,9 @@ void RGBMatrix_Test::loadSave()
     mtx->setName("Xyzzy");
     mtx->setDirection(Function::Backward);
     mtx->setRunOrder(Function::PingPong);
-    mtx->setDuration(1200);
     mtx->setFadeIn(10);
     mtx->setFadeOut(20);
+    mtx->setDuration(1200);
     mtx->setDimmerControl(false);
     m_doc->addFunction(mtx);
 
@@ -218,8 +218,8 @@ void RGBMatrix_Test::loadSave()
         if (xmlReader.name() == "Speed")
         {
             QCOMPARE(xmlReader.attributes().value("FadeIn").toString(), QString("10"));
+            QCOMPARE(xmlReader.attributes().value("Hold").toString(), QString("1190"));
             QCOMPARE(xmlReader.attributes().value("FadeOut").toString(), QString("20"));
-            QCOMPARE(xmlReader.attributes().value("Duration").toString(), QString("1200"));
             speed++;
             xmlReader.skipCurrentElement();
         }

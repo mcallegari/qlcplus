@@ -157,7 +157,7 @@ void FunctionTimings_Test::XML()
 
     xmlReader.readNextStartElement();
 
-    QCOMPARE(xmlReader.name().toString(), QString("Timings"));
+    QCOMPARE(xmlReader.name().toString(), QString("Speed"));
     QCOMPARE(xmlReader.attributes().value("FadeIn").toString(), QString("100"));
     QCOMPARE(xmlReader.attributes().value("Hold").toString(), QString("200"));
     QCOMPARE(xmlReader.attributes().value("FadeOut").toString(), QString("300"));

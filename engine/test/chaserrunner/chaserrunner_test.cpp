@@ -182,34 +182,36 @@ void ChaserRunner_Test::currentFadeIn()
     cr.m_lastRunStepIdx = 3; // Nonexistent step
     QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), FunctionTimings::defaultValue());
 
-    // Check that override speed really overrides any setting
+    // Check that override speed does not override steps settings
     m_chaser->setOverrideFadeIn(1234);
 
     m_chaser->setFadeInMode(Chaser::Default);
     cr.m_lastRunStepIdx = 0;
-    QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), FunctionTimings::defaultValue());
     cr.m_lastRunStepIdx = 1;
-    QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), FunctionTimings::defaultValue());
     cr.m_lastRunStepIdx = 2;
-    QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), FunctionTimings::defaultValue());
 
     m_chaser->setFadeInMode(Chaser::Common);
     cr.m_lastRunStepIdx = 0;
-    QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), uint(100));
     cr.m_lastRunStepIdx = 1;
-    QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), uint(100));
     cr.m_lastRunStepIdx = 2;
-    QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), uint(100));
 
     m_chaser->setFadeInMode(Chaser::PerStep);
     cr.m_lastRunStepIdx = 0;
-    QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), uint(1000));
     cr.m_lastRunStepIdx = 1;
-    QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), uint(1100));
     cr.m_lastRunStepIdx = 2;
-    QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), uint(1200));
     cr.m_lastRunStepIdx = 3; // Nonexistent step
-    QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), FunctionTimings::defaultValue());
+
+    // TODO override steps once alternateTimings are implemented
 }
 
 void ChaserRunner_Test::currentFadeOut()
@@ -251,34 +253,34 @@ void ChaserRunner_Test::currentFadeOut()
     cr.m_lastRunStepIdx = 3; // Nonexistent step
     QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), FunctionTimings::defaultValue());
 
-    // Check that override speed really overrides any setting
+    // Check that override speed does not override steps settings
     m_chaser->setOverrideFadeOut(1234);
 
     m_chaser->setFadeOutMode(Chaser::Default);
     cr.m_lastRunStepIdx = 0;
-    QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), FunctionTimings::defaultValue());
     cr.m_lastRunStepIdx = 1;
-    QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), FunctionTimings::defaultValue());
     cr.m_lastRunStepIdx = 2;
-    QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), FunctionTimings::defaultValue());
 
     m_chaser->setFadeOutMode(Chaser::Common);
     cr.m_lastRunStepIdx = 0;
-    QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), uint(200));
     cr.m_lastRunStepIdx = 1;
-    QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), uint(200));
     cr.m_lastRunStepIdx = 2;
-    QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), uint(200));
 
     m_chaser->setFadeOutMode(Chaser::PerStep);
     cr.m_lastRunStepIdx = 0;
-    QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), uint(3000));
     cr.m_lastRunStepIdx = 1;
-    QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), uint(3100));
     cr.m_lastRunStepIdx = 2;
-    QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), uint(3200));
     cr.m_lastRunStepIdx = 3; // Nonexistent step
-    QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), FunctionTimings::defaultValue());
 }
 
 void ChaserRunner_Test::currentDuration()
@@ -321,34 +323,34 @@ void ChaserRunner_Test::currentDuration()
     cr.m_lastRunStepIdx = 3; // Nonexistent step
     QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(300)); // Fall back to common speed
 
-    // Check that override speed really overrides any setting
+    // Check that override speed does not override steps settings
     m_chaser->setOverrideDuration(1234);
 
     m_chaser->setDurationMode(Chaser::Default);
     cr.m_lastRunStepIdx = 0;
-    QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(300));
     cr.m_lastRunStepIdx = 1;
-    QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(300));
     cr.m_lastRunStepIdx = 2;
-    QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(300));
 
     m_chaser->setDurationMode(Chaser::Common);
     cr.m_lastRunStepIdx = 0;
-    QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(300));
     cr.m_lastRunStepIdx = 1;
-    QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(300));
     cr.m_lastRunStepIdx = 2;
-    QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(300));
 
     m_chaser->setDurationMode(Chaser::PerStep);
     cr.m_lastRunStepIdx = 0;
-    QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(3000));
     cr.m_lastRunStepIdx = 1;
-    QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(3200));
     cr.m_lastRunStepIdx = 2;
-    QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(3400));
     cr.m_lastRunStepIdx = 3; // Nonexistent step
-    QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(1234));
+    QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(300)); // Fall back to common speed
 }
 
 /*

@@ -376,7 +376,7 @@ bool Chaser::saveXML(QXmlStreamWriter *doc)
     doc->writeStartElement(KXMLQLCChaserTimingModes);
     doc->writeAttribute(KXMLQLCFunctionTimingsFadeIn, timingModeToString(fadeInMode()));
     doc->writeAttribute(KXMLQLCFunctionTimingsFadeOut, timingModeToString(fadeOutMode()));
-    doc->writeAttribute(KXMLQLCFunctionTimingsHold, timingModeToString(durationMode()));
+    doc->writeAttribute(KXMLQLCFunctionTimingsDuration, timingModeToString(durationMode()));
     doc->writeEndElement();
 
     if (m_isSequence == true)
@@ -446,7 +446,7 @@ bool Chaser::loadXML(QXmlStreamReader &root)
             str = attrs.value(KXMLQLCFunctionTimingsFadeOut).toString();
             setFadeOutMode(stringToTimingMode(str));
 
-            str = attrs.value(KXMLQLCFunctionTimingsHold).toString();
+            str = attrs.value(KXMLQLCFunctionTimingsDuration).toString();
             setDurationMode(stringToTimingMode(str));
             root.skipCurrentElement();
         }

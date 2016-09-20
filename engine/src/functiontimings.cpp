@@ -179,6 +179,10 @@ bool FunctionTimings::loadXML(QXmlStreamReader &timingsRoot)
     hold = attrs.value(KXMLQLCFunctionTimingsHold).toString().toUInt();
     fadeOut = attrs.value(KXMLQLCFunctionTimingsFadeOut).toString().toUInt();
 
+    // Keep legacy workspaces compatibility
+    if (attrs.hasAttribute(KXMLQLCFunctionTimingsDuration))
+        setDuration(attrs.value(KXMLQLCFunctionTimingsDuration).toString().toUInt());
+
     timingsRoot.skipCurrentElement();
 
     return true;

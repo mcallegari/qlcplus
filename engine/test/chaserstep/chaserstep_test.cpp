@@ -73,12 +73,11 @@ void ChaserStep_Test::variant()
     ChaserStep step(1, FunctionTimings(2, 3, 4));
     QVariant var = step.toVariant();
     QList <QVariant> list(var.toList());
-    QCOMPARE(list.size(), 6);
+    QCOMPARE(list.size(), 5);
     QCOMPARE(list[0].toUInt(), uint(1));
     QCOMPARE(list[1].toUInt(), uint(2));
     QCOMPARE(list[2].toUInt(), uint(3));
     QCOMPARE(list[3].toUInt(), uint(4));
-    QCOMPARE(list[4].toUInt(), uint(5));
 
     ChaserStep pets = ChaserStep::fromVariant(var);
     QCOMPARE(pets.fid, uint(1));

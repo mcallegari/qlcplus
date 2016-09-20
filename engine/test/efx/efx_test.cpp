@@ -2379,8 +2379,8 @@ void EFX_Test::copyFrom()
     e3.setYPhase(49);
     e3.setPropagationMode(EFX::Parallel);
     e3.setFadeIn(69);
+    e3.setHold(42);
     e3.setFadeOut(1337);
-    e3.setDuration(42);
     EFXFixture* ef3 = new EFXFixture(&e3);
     ef3->setHead(GroupHead(56, 8));
     e3.addFixture(ef3);
@@ -2405,8 +2405,9 @@ void EFX_Test::copyFrom()
     QVERIFY(e2.yPhase() == 49);
     QVERIFY(e2.propagationMode() == EFX::Parallel);
     QCOMPARE(e2.fadeIn(), uint(69));
+    QCOMPARE(e2.hold(), uint(42));
     QCOMPARE(e2.fadeOut(), uint(1337));
-    QCOMPARE(e2.duration(), uint(42));
+    QCOMPARE(e2.duration(), uint(111));
     QVERIFY(e2.fixtures().size() == 2);
     QVERIFY(e2.fixtures().at(0)->head().fxi == 56);
     QVERIFY(e2.fixtures().at(0)->head().head == 8);
@@ -2946,8 +2947,8 @@ void EFX_Test::save()
         if (xmlReader.name() == "Speed")
         {
             QCOMPARE(xmlReader.attributes().value("FadeIn").toString().toUInt(), uint(42));
+            QCOMPARE(xmlReader.attributes().value("Hold").toString().toUInt(), uint(1295));
             QCOMPARE(xmlReader.attributes().value("FadeOut").toString().toUInt(), uint(69));
-            QCOMPARE(xmlReader.attributes().value("Duration").toString().toUInt(), uint(1337));
             speed = true;
             xmlReader.skipCurrentElement();
         }

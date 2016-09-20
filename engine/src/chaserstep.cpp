@@ -75,13 +75,17 @@ ChaserStep ChaserStep::fromVariant(const QVariant& var)
     ChaserStep cs;
     qDebug() << "-------------  ChaserStep::fromVariant";
     QList <QVariant> list(var.toList());
-    if (list.size() == 6)
+    if (list.size() == 5)
     {
         cs.fid = list.takeFirst().toUInt();
         cs.timings.fadeIn = list.takeFirst().toUInt();
         cs.timings.hold = list.takeFirst().toUInt();
         cs.timings.fadeOut = list.takeFirst().toUInt();
         cs.note = list.takeFirst().toString();
+    }
+    else
+    {
+        qWarning() << Q_FUNC_INFO << "wrong input";
     }
     return cs;
 }

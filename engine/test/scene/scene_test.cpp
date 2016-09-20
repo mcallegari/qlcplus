@@ -346,8 +346,8 @@ void Scene_Test::save()
 
     QVERIFY(xmlReader.name().toString() == "Speed");
     QVERIFY(xmlReader.attributes().value("FadeIn").toString() == "100");
+    QVERIFY(xmlReader.attributes().value("Hold").toString() == "9900");
     QVERIFY(xmlReader.attributes().value("FadeOut").toString() == "1000");
-    QVERIFY(xmlReader.attributes().value("Duration").toString() == "10000");
 
     xmlReader.skipCurrentElement();
     xmlReader.readNextStartElement();

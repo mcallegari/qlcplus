@@ -429,8 +429,8 @@ void Chaser_Test::loadSuccess()
 
     xmlWriter.writeStartElement("Speed");
     xmlWriter.writeAttribute("FadeIn", "42");
+    xmlWriter.writeAttribute("Hold", "1295");
     xmlWriter.writeAttribute("FadeOut", "69");
-    xmlWriter.writeAttribute("Duration", "1337");
     xmlWriter.writeEndElement();
 
     xmlWriter.writeTextElement("Direction", "Backward");
@@ -461,7 +461,7 @@ void Chaser_Test::loadSuccess()
     xmlWriter.writeCharacters("87");
     xmlWriter.writeEndElement();
 
-    xmlWriter.writeStartElement("TimingModes");
+    xmlWriter.writeStartElement("SpeedModes");
     xmlWriter.writeAttribute("FadeIn", "Common");
     xmlWriter.writeAttribute("FadeOut", "Default");
     xmlWriter.writeAttribute("Duration", "PerStep");
@@ -777,7 +777,7 @@ void Chaser_Test::save()
             speed++;
             xmlReader.skipCurrentElement();
         }
-        else if (xmlReader.name() == "TimingModes")
+        else if (xmlReader.name() == "SpeedModes")
         {
             QCOMPARE(xmlReader.attributes().value("FadeIn").toString(), QString("Default"));
             QCOMPARE(xmlReader.attributes().value("FadeOut").toString(), QString("PerStep"));
