@@ -76,8 +76,6 @@ public:
 
     Q_INVOKABLE void createFixtureGroup();
 
-    void handleKeyPress(QKeyEvent *e);
-
     int fixturesRotation() const;
     void setFixturesRotation(int degrees);
 
@@ -93,6 +91,9 @@ public slots:
 
     /** Resets the current values used for dumping or preview */
     void resetValues();
+
+    /** Handle a keypress from a QQuickView context */
+    void handleKeyPress(QKeyEvent *e);
 
 protected slots:
     void slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal z = 0);

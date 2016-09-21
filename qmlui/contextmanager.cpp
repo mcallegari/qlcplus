@@ -88,6 +88,8 @@ void ContextManager::registerContext(PreviewContext *context)
         return;
 
     m_contextsMap[context->name()] = context;
+    connect(context, SIGNAL(keyPressed(QKeyEvent*)),
+            this, SLOT(handleKeyPress(QKeyEvent*)));
 }
 
 void ContextManager::unregisterContext(QString name)
@@ -95,7 +97,10 @@ void ContextManager::unregisterContext(QString name)
     if (m_contextsMap.contains(name) == false)
         return;
 
-    m_contextsMap.remove(name);
+    PreviewContext *context = m_contextsMap.take(name);
+
+    disconnect(context, SIGNAL(keyPressed(QKeyEvent*)),
+               this, SLOT(handleKeyPress(QKeyEvent*)));
 }
 
 void ContextManager::enableContext(QString name, bool enable, QQuickItem *item)

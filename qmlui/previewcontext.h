@@ -25,6 +25,21 @@
 
 class Doc;
 
+class ContextQuickView : public QQuickView
+{
+    Q_OBJECT
+
+public:
+    ContextQuickView() { }
+    ~ContextQuickView() { }
+
+protected:
+    void keyPressEvent(QKeyEvent *e);
+
+signals:
+    void keyPressed(QKeyEvent *e);
+};
+
 class PreviewContext : public QObject
 {
     Q_OBJECT
@@ -63,6 +78,9 @@ public:
 
 protected slots:
     void slotWindowClosing();
+
+signals:
+    void keyPressed(QKeyEvent *e);
 
 protected:
     /** Reference to the current view window.

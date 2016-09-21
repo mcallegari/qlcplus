@@ -115,7 +115,9 @@ void PreviewContext::setDetached(bool detached)
     if (detached == true)
     {
         /** Create a new Quick View, as a true separate window */
-        m_view = new QQuickView();
+        ContextQuickView *cqView = new ContextQuickView();
+        m_view = cqView;
+        connect(cqView, SIGNAL(keyPressed(QKeyEvent*)), this, SIGNAL(keyPressed(QKeyEvent*)));
 
         /** Copy all the global properties of the main context into the detached one.
          *  This is a bit ugly, but I guess it is a downside of the QML programming */
@@ -150,6 +152,8 @@ void PreviewContext::setDetached(bool detached)
     }
     else
     {
+        ContextQuickView *cqView = qobject_cast<ContextQuickView *>(m_view);
+        disconnect(cqView, SIGNAL(keyPressed(QKeyEvent*)), this, SIGNAL(keyPressed(QKeyEvent*)));
         m_view->deleteLater();
         m_view = m_mainView;
     }
@@ -162,3 +166,9 @@ void PreviewContext::slotWindowClosing()
     QMetaObject::invokeMethod(m_view->rootObject(), "closeWindow", Qt::AutoConnection);
 }
 
+
+void ContextQuickView::keyPressEvent(QKeyEvent *e)
+{
+    emit keyPressed(e);
+    QQuickView::keyPressEvent(e);
+}
