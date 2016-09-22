@@ -25,6 +25,7 @@
   <fixture path="American-DJ-Event-Bar-LED.qxf" mf="American DJ" md="Event Bar LED"/>
   <fixture path="American-DJ-Event-Bar-Pro.qxf" mf="American DJ" md="Event Bar Pro"/>
   <fixture path="American-DJ-Event-Bar-Q4.qxf" mf="American DJ" md="Event Bar Q4"/>
+  <fixture path="American-DJ-Flat-Par-Tri7X.qxf" mf="American DJ" md="Flat Par Tri7X"/>
   <fixture path="American-DJ-Fog-Fury-3000-WiFly.qxf" mf="American DJ" md="Fog Fury 3000 WiFly"/>
   <fixture path="American-DJ-Fog-Fury-Jett.qxf" mf="American DJ" md="Fog Fury Jett"/>
   <fixture path="American-DJ-Fog-Storm.qxf" mf="American DJ" md="Fog Storm (with FS-DMXT Timer Remote)"/>
@@ -47,6 +48,7 @@
   <fixture path="American-DJ-Inno-Pocket-Wash.qxf" mf="American DJ" md="Inno Pocket Wash"/>
   <fixture path="American-DJ-Inno-Pocket-Z4.qxf" mf="American DJ" md="Inno Pocket Z4"/>
   <fixture path="American-DJ-Inno-Scan-LED.qxf" mf="American DJ" md="Inno Scan LED"/>
+  <fixture path="American-DJ-Inno-Spot-Elite.qxf" mf="American DJ" md="Inno Spot Elite"/>
   <fixture path="American-DJ-Inno-Spot-LED.qxf" mf="American DJ" md="Inno Spot LED"/>
   <fixture path="American-DJ-Inno-Spot-Pro.qxf" mf="American DJ" md="Inno Spot Pro"/>
   <fixture path="American-DJ-Jellydome.qxf" mf="American DJ" md="Jellydome"/>
@@ -81,6 +83,7 @@
   <fixture path="American-DJ-Starball-LED-DMX.qxf" mf="American DJ" md="Starball LED DMX"/>
   <fixture path="American-DJ-Starburst.qxf" mf="American DJ" md="Starburst"/>
   <fixture path="American-DJ-Stinger-II.qxf" mf="American DJ" md="Stinger II"/>
+  <fixture path="American-DJ-Stinger.qxf" mf="American DJ" md="Stinger"/>
   <fixture path="American-DJ-Sweeper-Beam-LED.qxf" mf="American DJ" md="Sweeper Beam LED"/>
   <fixture path="American-DJ-Sweeper-Beam-Quad-LED.qxf" mf="American DJ" md="Sweeper Beam Quad LED"/>
   <fixture path="American-DJ-TRI64-Profile.qxf" mf="American DJ" md="TRI64 PRO"/>
@@ -113,11 +116,13 @@
   <fixture path="Blizzard-Lighting-HotBox-Infiniwhite.qxf" mf="Blizzard Lighting" md="HotBox Infiniwhite"/>
   <fixture path="Blizzard-Lighting-Hotbox-RGBAW.qxf" mf="Blizzard Lighting" md="Hotbox 5 RGBAW"/>
   <fixture path="Blizzard-Lighting-Hotbox-RGBW.qxf" mf="Blizzard Lighting" md="Hotbox RGBW"/>
+  <fixture path="Blizzard-Lighting-LB-Par-Hex.qxf" mf="Blizzard Lighting" md="LB-Par Hex"/>
   <fixture path="Blizzard-Lighting-Lil-G.qxf" mf="Blizzard Lighting" md="Lil G"/>
   <fixture path="Blizzard-Lighting-Lo-Pro-CSI.qxf" mf="Blizzard Lighting" md="Lo-Pro CSI"/>
   <fixture path="Blizzard-Lighting-Pixellicious.qxf" mf="Blizzard Lighting" md="Pixellicious"/>
   <fixture path="Blizzard-Lighting-Puck-Fab5.qxf" mf="Blizzard Lighting" md="Puck Fab5"/>
   <fixture path="Blizzard-Lighting-Puck-RGBAW.qxf" mf="Blizzard Lighting" md="Puck RGBAW"/>
+  <fixture path="Blizzard-Lighting-Rocklite-RGBAW.qxf" mf="Blizzard Lighting" md="Rocklite RGBAW"/>
   <fixture path="Blizzard-Lighting-RokBox-Infiniwhite.qxf" mf="Blizzard Lighting" md="Rokbox Infiniwhite"/>
   <fixture path="Blizzard-Lighting-Snowball.qxf" mf="Blizzard Lighting" md="Snowball"/>
   <fixture path="Blizzard-Lighting-Stimul-Eye.qxf" mf="Blizzard Lighting" md="Stimul-Eye"/>
@@ -465,10 +470,14 @@
   <fixture path="Laserworld-ES-600B.qxf" mf="Laserworld" md="ES-600B"/>
   <fixture path="Laserworld-RS400G.qxf" mf="Laserworld" md="RS400G"/>
   <fixture path="LDDE-SpectraConnecT5.qxf" mf="LDDE" md="SpectraConnecT5"/>
+  <fixture path="Ledj-58-7Q5-RGBW.qxf" mf="Ledj" md="58 7Q5 RGBW"/>
+  <fixture path="Ledj-59-7Q5-RGBA.qxf" mf="Ledj" md="59 7Q5 RGBA"/>
+  <fixture path="Ledj-59-7Q5-RGBW.qxf" mf="Ledj" md="59 7Q5 RGBW"/>
   <fixture path="Ledj-Alu-Quad-Par-64.qxf" mf="Ledj" md="Alu Quad Par 64"/>
   <fixture path="Ledj-Colour-Storm-Quad.qxf" mf="Ledj" md="Colour Storm Quad"/>
   <fixture path="Ledj-Performer-18-Quad.qxf" mf="Ledj" md="Performer 18 Quad"/>
   <fixture path="Ledj-Performer-18-RGBWA.qxf" mf="Ledj" md="Performer 18 RGBWA"/>
+  <fixture path="Ledj-Stage-Color-24.qxf" mf="Ledj" md="Stage Color 24"/>
   <fixture path="Ledj-Tri-LED-back-drop-controller.qxf" mf="Ledj" md="Pro Tri LED back drop controller"/>
   <fixture path="Light-Emotion-LED-Parbar.qxf" mf="Light Emotion" md="LED Parbar"/>
   <fixture path="lightmaXX-CLS-2.qxf" mf="lightmaXX" md="CLS-2"/>
