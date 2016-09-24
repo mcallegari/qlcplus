@@ -215,9 +215,17 @@ public:
      *  $widget and fills it later once the first input signal is received */
     Q_INVOKABLE bool createAndDetectInputSource(VCWidget *widget);
 
+    /** Enable the autodetection process for a key sequence.
+     *  This method creates an empty QKeySequence in the specified
+     *  $widget and updates it later once the first key press is received */
+    Q_INVOKABLE bool createAndDetectInputKey(VCWidget *widget);
+
     /** Enable the autodetection process for a specific input source
      *  bound to an external controller. */
-    Q_INVOKABLE bool enableAutoDetection(VCWidget *widget, quint32 id, quint32 universe, quint32 channel);
+    Q_INVOKABLE bool enableInputSourceAutoDetection(VCWidget *widget, quint32 id, quint32 universe, quint32 channel);
+
+    /** Enable the autodetection process for a specific key sequence */
+    Q_INVOKABLE bool enableKeyAutoDetection(VCWidget *widget, quint32 id, QString keyText);
 
     /** Disable a previously started autodetection process */
     Q_INVOKABLE void disableAutoDetection();
@@ -226,6 +234,12 @@ public:
      *  $type, $universe and $channel are also needed to remove the
      *  source from a VC Page multi hash map */
     Q_INVOKABLE void deleteInputSource(VCWidget *widget, quint32 id, quint32 universe, quint32 channel);
+
+    /** Delete an existing key sequence from the specified $widget */
+    Q_INVOKABLE void deleteKeySequence(VCWidget *widget, quint32 id, QString keyText);
+
+    /** @reimp */
+    void handleKeyEvent(QKeyEvent *e, bool pressed);
 
 protected slots:
     /**
@@ -247,6 +261,8 @@ protected:
     VCWidget *m_autoDetectionWidget;
 
     QSharedPointer<QLCInputSource> m_autoDetectionSource;
+    QKeySequence m_autoDetectionKey;
+    quint32 m_autoDetectionKeyId;
 
     /*********************************************************************
      * Load & Save

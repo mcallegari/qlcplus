@@ -90,6 +90,8 @@ void ContextManager::registerContext(PreviewContext *context)
     m_contextsMap[context->name()] = context;
     connect(context, SIGNAL(keyPressed(QKeyEvent*)),
             this, SLOT(handleKeyPress(QKeyEvent*)));
+    connect(context, SIGNAL(keyReleased(QKeyEvent*)),
+            this, SLOT(handleKeyRelease(QKeyEvent*)));
 }
 
 void ContextManager::unregisterContext(QString name)
@@ -101,6 +103,8 @@ void ContextManager::unregisterContext(QString name)
 
     disconnect(context, SIGNAL(keyPressed(QKeyEvent*)),
                this, SLOT(handleKeyPress(QKeyEvent*)));
+    disconnect(context, SIGNAL(keyReleased(QKeyEvent*)),
+               this, SLOT(handleKeyRelease(QKeyEvent*)));
 }
 
 void ContextManager::enableContext(QString name, bool enable, QQuickItem *item)
@@ -318,7 +322,13 @@ void ContextManager::createFixtureGroup()
 
 void ContextManager::handleKeyPress(QKeyEvent *e)
 {
-    qDebug() << "Key event received:" << e->text();
+    int key = e->key();
+
+    /* Do not propagate single modifiers events */
+    if (key == Qt::Key_Control || key == Qt::Key_Alt || key == Qt::Key_Shift || key == Qt::Key_Meta)
+        return;
+
+    qDebug() << "Key press event received:" << e->text();
 
     if (e->modifiers() & Qt::ControlModifier)
     {
@@ -340,6 +350,22 @@ void ContextManager::handleKeyPress(QKeyEvent *e)
             break;
         }
     }
+
+    for(PreviewContext *context : m_contextsMap.values()) // C++11
+        context->handleKeyEvent(e, true);
+}
+
+void ContextManager::handleKeyRelease(QKeyEvent *e)
+{
+    int key = e->key();
+    /* Do not propagate single modifiers events */
+    if (key == Qt::Key_Control || key == Qt::Key_Alt || key == Qt::Key_Shift || key == Qt::Key_Meta)
+        return;
+
+    qDebug() << "Key release event received:" << e->text();
+
+    for(PreviewContext *context : m_contextsMap.values()) // C++11
+        context->handleKeyEvent(e, false);
 }
 
 int ContextManager::fixturesRotation() const

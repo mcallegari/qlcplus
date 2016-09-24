@@ -89,9 +89,7 @@ Column
                     sourceSize: Qt.size(width, height)
                 }
 
-                onClicked:
-                {
-                }
+                onClicked: virtualConsole.createAndDetectInputKey(objRef)
             }
         }
     }

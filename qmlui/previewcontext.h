@@ -35,9 +35,11 @@ public:
 
 protected:
     void keyPressEvent(QKeyEvent *e);
+    void keyReleaseEvent(QKeyEvent * e);
 
 signals:
     void keyPressed(QKeyEvent *e);
+    void keyReleased(QKeyEvent *e);
 };
 
 class PreviewContext : public QObject
@@ -76,11 +78,16 @@ public:
     bool detached() const;
     void setDetached(bool detached);
 
+    /** Virtual method to handle a key press event.
+     *  Subclasses should reimplement this if interested in key events */
+    virtual void handleKeyEvent(QKeyEvent *e, bool pressed);
+
 protected slots:
     void slotWindowClosing();
 
 signals:
     void keyPressed(QKeyEvent *e);
+    void keyReleased(QKeyEvent *e);
 
 protected:
     /** Reference to the current view window.

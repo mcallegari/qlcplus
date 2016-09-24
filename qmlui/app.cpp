@@ -154,6 +154,14 @@ void App::keyPressEvent(QKeyEvent *e)
     QQuickView::keyPressEvent(e);
 }
 
+void App::keyReleaseEvent(QKeyEvent *e)
+{
+    if (m_contextManager)
+        m_contextManager->handleKeyRelease(e);
+
+    QQuickView::keyReleaseEvent(e);
+}
+
 void App::clearDocument()
 {
     m_doc->masterTimer()->stop();

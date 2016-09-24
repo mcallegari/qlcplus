@@ -118,6 +118,7 @@ void PreviewContext::setDetached(bool detached)
         ContextQuickView *cqView = new ContextQuickView();
         m_view = cqView;
         connect(cqView, SIGNAL(keyPressed(QKeyEvent*)), this, SIGNAL(keyPressed(QKeyEvent*)));
+        connect(cqView, SIGNAL(keyReleased(QKeyEvent*)), this, SIGNAL(keyReleased(QKeyEvent*)));
 
         /** Copy all the global properties of the main context into the detached one.
          *  This is a bit ugly, but I guess it is a downside of the QML programming */
@@ -147,18 +148,24 @@ void PreviewContext::setDetached(bool detached)
         m_view->setGeometry(0, 0, 800, 600);
         m_view->show();
 
-        connect(m_view, SIGNAL(closing(QQuickCloseEvent*)),
-                this, SLOT(slotWindowClosing()));
+        connect(m_view, SIGNAL(closing(QQuickCloseEvent*)), this, SLOT(slotWindowClosing()));
     }
     else
     {
         ContextQuickView *cqView = qobject_cast<ContextQuickView *>(m_view);
         disconnect(cqView, SIGNAL(keyPressed(QKeyEvent*)), this, SIGNAL(keyPressed(QKeyEvent*)));
+        disconnect(cqView, SIGNAL(keyReleased(QKeyEvent*)), this, SIGNAL(keyReleased(QKeyEvent*)));
         m_view->deleteLater();
         m_view = m_mainView;
     }
 
     m_detached = detached;
+}
+
+void PreviewContext::handleKeyEvent(QKeyEvent *e, bool pressed)
+{
+    Q_UNUSED(e)
+    Q_UNUSED(pressed)
 }
 
 void PreviewContext::slotWindowClosing()
@@ -171,4 +178,10 @@ void ContextQuickView::keyPressEvent(QKeyEvent *e)
 {
     emit keyPressed(e);
     QQuickView::keyPressEvent(e);
+}
+
+void ContextQuickView::keyReleaseEvent(QKeyEvent *e)
+{
+    emit keyReleased(e);
+    QQuickView::keyReleaseEvent(e);
 }

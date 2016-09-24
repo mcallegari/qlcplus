@@ -127,3 +127,17 @@ void VCPage::inputValueChanged(quint32 universe, quint32 channel, uchar value)
         }
     }
 }
+
+void VCPage::handleKeyEvent(QKeyEvent *e, bool pressed)
+{
+    QKeySequence seq(e->key() | e->modifiers());
+
+    for(QPair<quint32, VCWidget *> match : m_keySequencesMap.values(seq)) // C++11...yay !
+    {
+        if (match.second->isDisabled() == false &&
+            match.second->isEditing() == false)
+        {
+            match.second->slotInputValueChanged(match.first, pressed ? 255 : 0);
+        }
+    }
+}

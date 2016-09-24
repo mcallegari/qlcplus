@@ -30,6 +30,7 @@ Column
     property var dObjRef
     property int controlID
     property string sequence
+    property bool invalid: false
 
     GridLayout
     {
@@ -60,10 +61,19 @@ Column
         }
         RobotoText
         {
+            id: seqTextBox
             Layout.fillWidth: true
             height: UISettings.listItemHeight
             color: UISettings.bgLight
             label: sequence
+
+            SequentialAnimation on color
+            {
+                PropertyAnimation { to: "red"; duration: 1000 }
+                PropertyAnimation { to: UISettings.bgLight; duration: 1000 }
+                running: invalid
+                loops: Animation.Infinite
+            }
         }
         IconButton
         {
@@ -72,6 +82,24 @@ Column
             checkable: true
             imgSource: "qrc:/keybinding.svg"
             tooltip: qsTr("Activate auto detection")
+
+            onToggled:
+            {
+                if (checked == true)
+                {
+                    if (invalid === false &&
+                        virtualConsole.enableKeyAutoDetection(dObjRef, controlID, sequence) === true)
+                        invalid = true
+                    else
+                        checked = false
+                }
+                else
+                {
+                    virtualConsole.disableAutoDetection()
+                    invalid = false
+                    seqTextBox.color = UISettings.bgLight
+                }
+            }
         }
         IconButton
         {
@@ -79,6 +107,8 @@ Column
             height: width
             imgSource: "qrc:/remove.svg"
             tooltip: qsTr("Remove this keyboard combination")
+
+            onClicked: virtualConsole.deleteKeySequence(dObjRef, controlID, sequence)
         }
     }
 }

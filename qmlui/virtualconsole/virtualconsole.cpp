@@ -62,6 +62,8 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc,
     , m_inputDetectionEnabled(false)
     , m_autoDetectionWidget(NULL)
     , m_autoDetectionSource(NULL)
+    , m_autoDetectionKey(QKeySequence())
+    , m_autoDetectionKeyId(UINT_MAX)
 {
     Q_ASSERT(doc != NULL);
 
@@ -657,18 +659,30 @@ bool VirtualConsole::createAndDetectInputSource(VCWidget *widget)
     QSharedPointer<QLCInputSource> source = QSharedPointer<QLCInputSource>(new QLCInputSource());
     widget->addInputSource(source);
 
-    enableAutoDetection(widget, source->id(), QLCInputSource::invalidUniverse, QLCInputSource::invalidChannel);
+    enableInputSourceAutoDetection(widget, source->id(), QLCInputSource::invalidUniverse, QLCInputSource::invalidChannel);
 
     return true;
 }
 
-bool VirtualConsole::enableAutoDetection(VCWidget *widget, quint32 id, quint32 universe, quint32 channel)
+bool VirtualConsole::createAndDetectInputKey(VCWidget *widget)
 {
     /** Do not allow multiple detections at once ! */
     if (m_inputDetectionEnabled == true || widget == NULL)
         return false;
 
-    qDebug() << "[enableAutoDetection] id:" << id << ",uni:" << universe << ",ch:" << channel;
+    widget->addKeySequence(QKeySequence());
+    enableKeyAutoDetection(widget, 0, "");
+
+    return true;
+}
+
+bool VirtualConsole::enableInputSourceAutoDetection(VCWidget *widget, quint32 id, quint32 universe, quint32 channel)
+{
+    /** Do not allow multiple detections at once ! */
+    if (m_inputDetectionEnabled == true || widget == NULL)
+        return false;
+
+    qDebug() << "[enableInputSourceAutoDetection] id:" << id << ",uni:" << universe << ",ch:" << channel;
 
     /** Save also the reference to the requested widget and source, otherwise
      *  the slotInputValueChanged method will not know where to act */
@@ -695,11 +709,29 @@ bool VirtualConsole::enableAutoDetection(VCWidget *widget, quint32 id, quint32 u
     return true;
 }
 
+bool VirtualConsole::enableKeyAutoDetection(VCWidget *widget, quint32 id, QString keyText)
+{
+    /** Do not allow multiple detections at once ! */
+    if (m_inputDetectionEnabled == true || widget == NULL)
+        return false;
+
+    qDebug() << "[enableKeyAutoDetection] id:" << id << ", key:" << keyText;
+
+    m_autoDetectionKey = QKeySequence(keyText);
+    m_autoDetectionWidget = widget;
+    m_autoDetectionKeyId = id;
+    m_inputDetectionEnabled = true;
+
+    return true;
+}
+
 void VirtualConsole::disableAutoDetection()
 {
     m_inputDetectionEnabled = false;
     m_autoDetectionWidget = NULL;
     m_autoDetectionSource.clear();
+    m_autoDetectionKey = QKeySequence();
+    m_autoDetectionKeyId = UINT_MAX;
 }
 
 void VirtualConsole::deleteInputSource(VCWidget *widget, quint32 id, quint32 universe, quint32 channel)
@@ -711,6 +743,42 @@ void VirtualConsole::deleteInputSource(VCWidget *widget, quint32 id, quint32 uni
         page->unMapInputSource(id, universe, channel, widget, true);
 
     widget->deleteInputSurce(id, universe, channel);
+}
+
+void VirtualConsole::deleteKeySequence(VCWidget *widget, quint32 id, QString keyText)
+{
+    if (widget == NULL)
+        return;
+
+    Q_UNUSED(id) // ...for now
+
+    QKeySequence seq(keyText);
+    widget->deleteKeySequence(seq);
+}
+
+void VirtualConsole::handleKeyEvent(QKeyEvent *e, bool pressed)
+{
+    if (m_inputDetectionEnabled == false)
+    {
+        for(VCPage *page : m_pages) // C++11
+            page->handleKeyEvent(e, pressed);
+    }
+    else
+    {
+        Q_ASSERT(m_autoDetectionWidget != NULL);
+
+        if (pressed == false)
+            return;
+
+        QKeySequence seq(e->key() | e->modifiers());
+        qDebug() << "Got key sequence:" << seq.toString(QKeySequence::NativeText);
+        m_autoDetectionWidget->updateKeySequence(m_autoDetectionKey, seq, m_autoDetectionKeyId);
+        /** At last, disable the autodetection process */
+        m_inputDetectionEnabled = false;
+        m_autoDetectionWidget = NULL;
+        m_autoDetectionKey = QKeySequence();
+        m_autoDetectionKeyId = UINT_MAX;
+    }
 }
 
 void VirtualConsole::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
@@ -729,8 +797,6 @@ void VirtualConsole::slotInputValueChanged(quint32 universe, quint32 channel, uc
         /** The widget reference must be not NULL, otherwise
          *  it means something went nuts */
         Q_ASSERT(m_autoDetectionWidget != NULL);
-
-        //bool sourceIsValid = m_autoDetectionSource->isValid();
 
         m_autoDetectionWidget->updateInputSource(m_autoDetectionSource, universe, channel);
 

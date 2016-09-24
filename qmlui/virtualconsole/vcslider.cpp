@@ -174,7 +174,7 @@ bool VCSlider::loadXML(QXmlStreamReader &root)
         }
         else if (root.name() == KXMLQLCVCWidgetInput)
         {
-            loadXMLInput(root, INPUT_SLIDER_CONTROL_ID);
+            loadXMLInputSource(root, INPUT_SLIDER_CONTROL_ID);
         }
         else
         {

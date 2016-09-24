@@ -407,12 +407,15 @@ private:
     bool m_isEditing;
 
     /*********************************************************************
-     * External input
+     * External inputs
      *********************************************************************/
 public:
     enum InputSourceTypes { Controller, Keyboard };
     Q_ENUM(InputSourceTypes)
 
+    /************************
+     * Controls
+     ************************/
     /** Register some external control information known by this widget
      *
      *  @param id a unique id identifying the external control
@@ -428,6 +431,9 @@ public:
     /** Returns a list of the registered external controls suitable for the UI */
     QVariant externalControlsList() const;
 
+    /************************
+     * Input sources
+     ************************/
     /**
      * Add an external input $source to the sources known by thie widget.
      *
@@ -449,7 +455,19 @@ public:
     QVariant inputSourcesList() const;
 
     /** Return a input source reference that matches the specified $id, $universe and $channel */
-    QSharedPointer<QLCInputSource> inputSource(quint32 id, quint32 universe, quint32 channel);
+    QSharedPointer<QLCInputSource> inputSource(quint32 id, quint32 universe, quint32 channel) const;
+
+    /************************
+     * Key sequences
+     ************************/
+    /** Add a new key sequence to this widget, bound to the specified control $id */
+    void addKeySequence(const QKeySequence& keySequence, const quint32& id = 0);
+
+    /** Delete an existing key sequence from this widget */
+    void deleteKeySequence(const QKeySequence& keySequence);
+
+    /** Update an existing key sequence with the specified $id */
+    void updateKeySequence(QKeySequence oldSequence, QKeySequence newSequence, const quint32 id = 0);
 
 public slots:
     /** Virtual slot called when an input value changed */
@@ -464,6 +482,8 @@ protected:
 
     /** The list of input sources that can control this widget */
     QList <QSharedPointer<QLCInputSource> > m_inputSources;
+
+    QMap <QKeySequence, quint32> m_keySequenceMap;
 
     /*********************************************************************
      * Load & Save
@@ -496,8 +516,17 @@ protected:
     bool loadXMLWindowState(QXmlStreamReader &root, int* x, int* y,
                             int* w, int* h, bool* visible);
 
-    /** Load input source from $root with tthe given $id */
-    bool loadXMLInput(QXmlStreamReader &root, const quint8& id = 0);
+    /** Load an input source from $root with the given $id */
+    bool loadXMLInputSource(QXmlStreamReader &root, const quint8& id = 0);
+
+    /** Load an input key sequence from $root with the given $id */
+    bool loadXMLInputKey(QXmlStreamReader &root, const quint8& id = 0);
+
+    /** Parse the $root XML section and:
+     *  - set an input source with the given $id
+     *  - if present, set an input key sequence with the given $id
+     */
+    bool loadXMLSources(QXmlStreamReader &root, const quint8& id);
 
     /** Save the widget common properties */
     bool saveXMLCommon(QXmlStreamWriter *doc);

@@ -35,7 +35,12 @@ public:
     VCPage(QQuickView *view = NULL, Doc* doc = NULL, VirtualConsole *vc = NULL, int pageIndex = 0, QObject *parent = 0);
     ~VCPage();
 
+    /** Return the Preview Context associated to this VC page */
     PreviewContext *previewContext() const;
+
+private:
+    /** Reference to a PreviewContext, registered to the Context Manager */
+    PreviewContext *m_pageContext;
 
     /*********************************************************************
      * External input
@@ -60,14 +65,28 @@ public:
      */
     void inputValueChanged(quint32 universe, quint32 channel, uchar value);
 
+    void handleKeyEvent(QKeyEvent *e, bool pressed);
+
 private:
-    /** This variable represents the map of all the input sources for every child
-     *  of this VC Page.
+    /** This variable represents the map of all the external controllers
+     *  input sources for every child of this VC Page.
      *  It works as a lookup table for signals coming from the InputOutputMap class.
+     *
+     *  The hash key is the source universe shifted 16bits left, masked with the
+     *  source channel without the widget page information. Example:
+     *      (source->universe() << 16) | (source->channel() & 0x0000FFFF);
+     *
+     *  The hash value is a pair of the actual input source and VC widget references
      */
     QMultiHash <quint32, QPair<QSharedPointer<QLCInputSource>, VCWidget *> > m_inputSourcesMap;
 
-    PreviewContext *m_pageContext;
+    /** This variable represents the map of all the key bindings for every
+     *  child widget of this VC Page.
+     *
+     *  The hash key is a QKeySequence, which can be used by multiple widgets
+     *  The hash value is a pair of the widget reference and control ID
+     */
+    QMultiHash <QKeySequence, QPair<quint32, VCWidget *> > m_keySequencesMap;
 };
 
 

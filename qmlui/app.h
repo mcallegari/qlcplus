@@ -58,6 +58,7 @@ public:
 
 protected:
     void keyPressEvent(QKeyEvent * e);
+    void keyReleaseEvent(QKeyEvent * e);
 
 private:
     FixtureBrowser *m_fixtureBrowser;

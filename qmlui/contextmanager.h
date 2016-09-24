@@ -92,8 +92,11 @@ public slots:
     /** Resets the current values used for dumping or preview */
     void resetValues();
 
-    /** Handle a keypress from a QQuickView context */
+    /** Handle a key press from a QQuickView context */
     void handleKeyPress(QKeyEvent *e);
+
+    /** Handle a key release from a QQuickView context */
+    void handleKeyRelease(QKeyEvent *e);
 
 protected slots:
     void slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal z = 0);

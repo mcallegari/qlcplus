@@ -427,7 +427,7 @@ bool VCButton::loadXML(QXmlStreamReader &root)
         }
         else if (root.name() == KXMLQLCVCWidgetInput)
         {
-            loadXMLInput(root, INPUT_PRESSURE_ID);
+            loadXMLInputSource(root, INPUT_PRESSURE_ID);
         }
         else
         {

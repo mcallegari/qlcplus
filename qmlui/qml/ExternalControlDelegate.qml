@@ -95,7 +95,8 @@ Column
             {
                 if (checked == true)
                 {
-                    if (invalid === false && virtualConsole.enableAutoDetection(dObjRef, controlID, universe, channel) === true)
+                    if (invalid === false &&
+                        virtualConsole.enableInputSourceAutoDetection(dObjRef, controlID, universe, channel) === true)
                         invalid = true
                     else
                         checked = false

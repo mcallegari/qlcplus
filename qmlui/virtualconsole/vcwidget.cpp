@@ -571,12 +571,38 @@ QVariant VCWidget::inputSourcesList() const
         sourcesList.append(sourceMap);
     }
 
-    // TODO: add keyboard sequences here
+    QMapIterator<QKeySequence, quint32> it(m_keySequenceMap);
+    while(it.hasNext())
+    {
+        it.next();
+
+        QKeySequence seq = it.key();
+        quint32 id = it.value();
+
+        QVariantMap keyMap;
+        keyMap.insert("type", Keyboard);
+        keyMap.insert("id", id);
+
+        if (seq.isEmpty())
+        {
+            keyMap.insert("invalid", true);
+            keyMap.insert("keySequence", "");
+        }
+        else
+            keyMap.insert("keySequence", seq.toString());
+        sourcesList.append(keyMap);
+    }
 
     return QVariant::fromValue(sourcesList);
 }
 
-QSharedPointer<QLCInputSource> VCWidget::inputSource(quint32 id, quint32 universe, quint32 channel)
+void VCWidget::slotInputValueChanged(quint8 id, uchar value)
+{
+    Q_UNUSED(id)
+    Q_UNUSED(value)
+}
+
+QSharedPointer<QLCInputSource> VCWidget::inputSource(quint32 id, quint32 universe, quint32 channel) const
 {
     for (QSharedPointer<QLCInputSource> source : m_inputSources) // C++11
     {
@@ -587,10 +613,29 @@ QSharedPointer<QLCInputSource> VCWidget::inputSource(quint32 id, quint32 univers
     return QSharedPointer<QLCInputSource>();
 }
 
-void VCWidget::slotInputValueChanged(quint8 id, uchar value)
+void VCWidget::addKeySequence(const QKeySequence &keySequence, const quint32 &id)
 {
-    Q_UNUSED(id)
-    Q_UNUSED(value)
+    m_keySequenceMap[keySequence] = id;
+
+    emit inputSourcesListChanged();
+}
+
+void VCWidget::deleteKeySequence(const QKeySequence &keySequence)
+{
+    m_keySequenceMap.remove(keySequence);
+
+    emit inputSourcesListChanged();
+}
+
+void VCWidget::updateKeySequence(QKeySequence oldSequence, QKeySequence newSequence, const quint32 id)
+{
+    if (m_keySequenceMap.contains(oldSequence) == false)
+        qDebug() << "Old key sequence not found !";
+
+    m_keySequenceMap.remove(oldSequence);
+    m_keySequenceMap[newSequence] = id;
+
+    emit inputSourcesListChanged();
 }
 
 /*****************************************************************************
@@ -720,7 +765,7 @@ bool VCWidget::loadXMLWindowState(QXmlStreamReader &root, int* x, int* y,
     }
 }
 
-bool VCWidget::loadXMLInput(QXmlStreamReader &root, const quint8 &id)
+bool VCWidget::loadXMLInputSource(QXmlStreamReader &root, const quint8 &id)
 {
     if (root.device() == NULL || root.hasError())
         return false;
@@ -748,6 +793,40 @@ bool VCWidget::loadXMLInput(QXmlStreamReader &root, const quint8 &id)
 
     root.skipCurrentElement();
 
+    return true;
+}
+
+bool VCWidget::loadXMLInputKey(QXmlStreamReader &root, const quint8 &id)
+{
+    if (root.device() == NULL || root.hasError())
+        return false;
+
+    if (root.name() != KXMLQLCVCWidgetKey)
+        return false;
+
+    addKeySequence(QKeySequence(root.readElementText()), id);
+
+    return true;
+}
+
+bool VCWidget::loadXMLSources(QXmlStreamReader &root, const quint8 &id)
+{
+    while (root.readNextStartElement())
+    {
+        if (root.name() == KXMLQLCVCWidgetInput)
+        {
+            loadXMLInputSource(root, id);
+        }
+        else if (root.name() == KXMLQLCVCWidgetKey)
+        {
+            loadXMLInputKey(root, id);
+        }
+        else
+        {
+            qWarning() << Q_FUNC_INFO << "Unknown source tag" << root.name().toString();
+            root.skipCurrentElement();
+        }
+    }
     return true;
 }
 
