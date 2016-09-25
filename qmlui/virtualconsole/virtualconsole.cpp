@@ -750,9 +750,11 @@ void VirtualConsole::deleteKeySequence(VCWidget *widget, quint32 id, QString key
     if (widget == NULL)
         return;
 
-    Q_UNUSED(id) // ...for now
-
     QKeySequence seq(keyText);
+
+    for(VCPage *page : m_pages) // C++11
+        page->unMapKeySequence(seq, id, widget, true);
+
     widget->deleteKeySequence(seq);
 }
 
@@ -760,6 +762,10 @@ void VirtualConsole::handleKeyEvent(QKeyEvent *e, bool pressed)
 {
     if (m_inputDetectionEnabled == false)
     {
+        /* Ignore the repeating events */
+        if (e->isAutoRepeat())
+            return;
+
         for(VCPage *page : m_pages) // C++11
             page->handleKeyEvent(e, pressed);
     }
@@ -773,6 +779,10 @@ void VirtualConsole::handleKeyEvent(QKeyEvent *e, bool pressed)
         QKeySequence seq(e->key() | e->modifiers());
         qDebug() << "Got key sequence:" << seq.toString(QKeySequence::NativeText);
         m_autoDetectionWidget->updateKeySequence(m_autoDetectionKey, seq, m_autoDetectionKeyId);
+
+        for(VCPage *page : m_pages) // C++11
+            page->mapKeySequence(seq, m_autoDetectionKeyId, m_autoDetectionWidget, true);
+
         /** At last, disable the autodetection process */
         m_inputDetectionEnabled = false;
         m_autoDetectionWidget = NULL;

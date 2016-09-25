@@ -60,11 +60,17 @@ public:
     void resetInputSourcesMap();
 
     /** Method invoked by the Virtual Console when an input signal is received.
-     *  This is in charge of delivering the event to the children widgets
-     *  expecting it.
-     */
+     *  This is in charge of delivering the event to the children widgets expecting it. */
     void inputValueChanged(quint32 universe, quint32 channel, uchar value);
 
+    /** Map a single key sequence for a specific VC widget. */
+    void mapKeySequence(QKeySequence sequence, quint32 id, VCWidget *widget, bool checkChildren = false);
+
+    /** Unmap a single key sequence for a specific VC widget. */
+    void unMapKeySequence(QKeySequence sequence, quint32 id, VCWidget *widget, bool checkChildren = false);
+
+    /** Method invoked by the Virtual Console when an key press/release signal is received.
+     *  This is in charge of delivering the event to the children widgets expecting it. */
     void handleKeyEvent(QKeyEvent *e, bool pressed);
 
 private:

@@ -804,7 +804,14 @@ bool VCWidget::loadXMLInputKey(QXmlStreamReader &root, const quint8 &id)
     if (root.name() != KXMLQLCVCWidgetKey)
         return false;
 
-    addKeySequence(QKeySequence(root.readElementText()), id);
+    QKeySequence seq(root.readElementText());
+    if (seq.isEmpty())
+    {
+        qDebug() << "Empty key sequence detected";
+        return false;
+    }
+
+    addKeySequence(seq, id);
 
     return true;
 }

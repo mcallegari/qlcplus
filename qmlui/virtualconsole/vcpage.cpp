@@ -106,6 +106,7 @@ void VCPage::mapChildrenInputSources()
 void VCPage::resetInputSourcesMap()
 {
     m_inputSourcesMap.clear();
+    m_keySequencesMap.clear();
 }
 
 void VCPage::inputValueChanged(quint32 universe, quint32 channel, uchar value)
@@ -124,6 +125,43 @@ void VCPage::inputValueChanged(quint32 universe, quint32 channel, uchar value)
             match.first->page() == match.second->page())
         {
             match.second->slotInputValueChanged(match.first->id(), value);
+        }
+    }
+}
+
+void VCPage::mapKeySequence(QKeySequence sequence, quint32 id, VCWidget *widget, bool checkChildren)
+{
+    if (sequence.isEmpty() || widget == NULL)
+        return;
+
+    /** Check if the widget belongs to this page */
+    if (checkChildren && children(true).contains(widget) == false)
+        return;
+
+    QPair <quint32, VCWidget *> refs;
+    refs.first = id;
+    refs.second = widget;
+
+    m_keySequencesMap.insert(sequence, refs);
+}
+
+void VCPage::unMapKeySequence(QKeySequence sequence, quint32 id, VCWidget *widget, bool checkChildren)
+{
+    if (sequence.isEmpty() || widget == NULL)
+        return;
+
+    /** Check if the widget belongs to this page */
+    if (checkChildren && children(true).contains(widget) == false)
+        return;
+
+    for(QPair<quint32, VCWidget *> match : m_keySequencesMap.values(sequence)) // C++11
+    {
+        if (match.first == id && match.second == widget)
+        {
+            m_keySequencesMap.remove(sequence, match);
+
+            //qDebug() << "Multihash keys after deletion:" << m_keySequencesMap.count(key);
+            return;
         }
     }
 }
