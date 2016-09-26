@@ -22,6 +22,8 @@
 #include "gpioreaderthread.h"
 #include "gpioplugin.h"
 
+#define HYSTERESIS_THRESHOLD  3
+
 ReadThread::ReadThread(GPIOPlugin *plugin, QObject *parent)
     : QThread(parent)
     , m_plugin(plugin)
@@ -110,14 +112,17 @@ void ReadThread::run()
             uchar newVal = dataRead.toUInt();
             if (newVal != gpio->m_value)
             {
-                gpio->m_count += 1;
-                if (gpio->m_count > 3) {
+                gpio->m_count++;
+                if (gpio->m_count > HYSTERESIS_THRESHOLD) 
+                {
                     qDebug() << "Value read: GPIO:" << gpio->m_number << "val:" <<  newVal;
                     gpio->m_value = newVal;
                     gpio->m_count = 0;
                     emit valueChanged(gpio->m_number, gpio->m_value);
                 }
-            } else {
+            } 
+            else 
+            {
                 gpio->m_count = 0;
             }
         }
