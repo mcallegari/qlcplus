@@ -33,6 +33,7 @@ typedef struct
     int m_usage;
     QFile *m_file;
     uchar m_value;
+    uchar m_count;
 } GPIOPinInfo;
 
 class ReadThread;

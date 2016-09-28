@@ -49,6 +49,7 @@ void GPIOPlugin::init()
         gpio->m_number = i;
         gpio->m_usage = NoUsage;
         gpio->m_value = 1;
+        gpio->m_count = 0;
 
         QString pinPath = QString("/sys/class/gpio/gpio%1/value").arg(i);
         gpio->m_file = new QFile(pinPath);
