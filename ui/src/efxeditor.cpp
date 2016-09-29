@@ -563,7 +563,6 @@ void EFXEditor::createSpeedDials()
         connect(m_speedDials, SIGNAL(fadeInChanged(int)), this, SLOT(slotFadeInChanged(int)));
         connect(m_speedDials, SIGNAL(fadeOutChanged(int)), this, SLOT(slotFadeOutChanged(int)));
         connect(m_speedDials, SIGNAL(holdChanged(int)), this, SLOT(slotHoldChanged(int)));
-        connect(m_speedDials, SIGNAL(holdTapped()), this, SLOT(slotDurationTapped()));
         connect(m_speedDials, SIGNAL(destroyed(QObject*)), this, SLOT(slotDialDestroyed(QObject*)));
     }
 
@@ -578,12 +577,9 @@ void EFXEditor::updateSpeedDials()
     createSpeedDials();
 
     m_speedDials->setWindowTitle(m_efx->name());
-    m_speedDials->setFadeIn(m_efx->fadeIn());
-    m_speedDials->setFadeOut(m_efx->fadeOut());
-    if ((int)m_efx->duration() < 0)
-        m_speedDials->setDuration(m_efx->duration());
-    else
-        m_speedDials->setDuration(m_efx->duration() - m_efx->fadeIn() - m_efx->fadeOut());
+    m_speedDials->setFadeIn(m_efx->speeds().fadeIn());
+    m_speedDials->setFadeOut(m_efx->speeds().fadeOut());
+    m_speedDials->setHold(m_efx->speeds().hold());
 }
 
 void EFXEditor::slotNameEdited(const QString &text)
@@ -854,23 +850,18 @@ void EFXEditor::slotAsymmetricRadioToggled(bool state)
 
 void EFXEditor::slotFadeInChanged(int ms)
 {
-    m_efx->setFadeIn(ms);
+    m_efx->speedsEdit().setFadeIn(ms);
     slotRestartTest();
 }
 
 void EFXEditor::slotFadeOutChanged(int ms)
 {
-    m_efx->setFadeOut(ms);
+    m_efx->speedsEdit().setFadeOut(ms);
 }
 
 void EFXEditor::slotHoldChanged(int ms)
 {
-    uint duration = 0;
-    if (ms < 0)
-        duration = ms;
-    else
-        duration = m_efx->fadeIn() + ms + m_efx->fadeOut();
-    m_efx->setDuration(duration);
+    m_efx->speedsEdit().setHold(ms);
     redrawPreview();
 }
 
@@ -1065,6 +1056,5 @@ void EFXEditor::redrawPreview()
     m_previewArea->setPolygon(polygon);
     m_previewArea->setFixturePolygons(fixturePoints);
 
-    m_previewArea->draw(m_efx->duration() / polygon.size());
+    m_previewArea->draw(m_efx->speeds().duration() / polygon.size());
 }
-

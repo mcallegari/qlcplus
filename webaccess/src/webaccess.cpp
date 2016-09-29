@@ -923,18 +923,18 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
                 {
                     case Chaser::Common:
                     {
-                        if (chaser->fadeIn() == FunctionTimings::infiniteValue())
+                        if (chaser->speeds().fadeIn() == Speed::infiniteValue())
                             str += "<td>&#8734;</td>";
                         else
-                            str += "<td>" + FunctionTimings::valueToString(chaser->fadeIn()) + "</td>";
+                            str += "<td>" + Speed::msToString(chaser->speeds().fadeIn()) + "</td>";
                     }
                     break;
                     case Chaser::PerStep:
                     {
-                        if (step.timings.fadeIn == FunctionTimings::infiniteValue())
+                        if (step.speeds.fadeIn() == Speed::infiniteValue())
                             str += "<td>&#8734;</td>";
                         else
-                            str += "<td>" + FunctionTimings::valueToString(step.timings.fadeIn) + "</td>";
+                            str += "<td>" + Speed::msToString(step.speeds.fadeIn()) + "</td>";
                     }
                     break;
                     default:
@@ -943,25 +943,25 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
                 }
 
                 //if (step.hold != 0)
-                //    str +=  "<td>" + FunctionTimings::valueToString(step.hold) + "</td>";
+                //    str +=  "<td>" + Speed::msToString(step.hold) + "</td>";
                 //else str += "<td></td>";
 
                 switch (chaser->fadeOutMode())
                 {
                     case Chaser::Common:
                     {
-                        if (chaser->fadeOut() == FunctionTimings::infiniteValue())
+                        if (chaser->speeds().fadeOut() == Speed::infiniteValue())
                             str += "<td>&#8734;</td>";
                         else
-                            str += "<td>" + FunctionTimings::valueToString(chaser->fadeOut()) + "</td>";
+                            str += "<td>" + Speed::msToString(chaser->speeds().fadeOut()) + "</td>";
                     }
                     break;
                     case Chaser::PerStep:
                     {
-                        if (step.timings.fadeOut == FunctionTimings::infiniteValue())
+                        if (step.speeds.fadeOut() == Speed::infiniteValue())
                             str += "<td>&#8734;</td>";
                         else
-                            str += "<td>" + FunctionTimings::valueToString(step.timings.fadeOut) + "</td>";
+                            str += "<td>" + Speed::msToString(step.speeds.fadeOut()) + "</td>";
                     }
                     break;
                     default:
@@ -973,18 +973,18 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
                 {
                     case Chaser::Common:
                     {
-                        if (chaser->duration() == FunctionTimings::infiniteValue())
+                        if (chaser->speeds().duration() == Speed::infiniteValue())
                             str += "<td>&#8734;</td>";
                         else
-                            str += "<td>" + FunctionTimings::valueToString(chaser->duration()) + "</td>";
+                            str += "<td>" + Speed::msToString(chaser->speeds().duration()) + "</td>";
                     }
                     break;
                     case Chaser::PerStep:
                     {
-                        if (step.timings.duration() == FunctionTimings::infiniteValue())
+                        if (step.speeds.duration() == Speed::infiniteValue())
                             str += "<td>&#8734;</td>";
                         else
-                            str += "<td>" + FunctionTimings::valueToString(step.timings.duration()) + "</td>";
+                            str += "<td>" + Speed::msToString(step.speeds.duration()) + "</td>";
                     }
                     break;
                     default:

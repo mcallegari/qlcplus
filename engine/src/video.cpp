@@ -270,8 +270,8 @@ bool Video::saveXML(QXmlStreamWriter *doc)
     /* Common attributes */
     saveXMLCommon(doc);
 
-    /* Timings */
-    m_timings.saveXML(doc);
+    /* Speeds */
+    m_speeds.saveXML(doc);
 
     /* Playback mode */
     saveXMLRunOrder(doc);
@@ -338,9 +338,9 @@ bool Video::loadXML(QXmlStreamReader &root)
             else
                 setSourceUrl(m_doc->denormalizeComponentPath(path));
         }
-        else if (root.name() == KXMLQLCFunctionTimings)
+        else if (root.name() == KXMLQLCFunctionSpeeds)
         {
-            m_timings.loadXML(root);
+            m_speeds.loadXML(root);
         }
         else if (root.name() == KXMLQLCFunctionRunOrder)
         {

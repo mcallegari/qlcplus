@@ -349,7 +349,7 @@ void VCSpeedDialProperties::updateTree()
         QTreeWidgetItem *item = new QTreeWidgetItem(m_presetsTree);
         item->setData(0, Qt::UserRole, preset->m_id);
         item->setText(0, preset->m_name);
-        item->setText(1, FunctionTimings::valueToString(preset->m_value));
+        item->setText(1, Speed::msToString(preset->m_value));
     }
     m_presetsTree->resizeColumnToContents(0);
     m_presetsTree->blockSignals(false);
@@ -365,7 +365,7 @@ void VCSpeedDialProperties::updateTreeItem(VCSpeedDialPreset const& preset)
         if (treeItem->data(0, Qt::UserRole).toUInt() == preset.m_id)
         {
             treeItem->setText(0, preset.m_name);
-            treeItem->setText(1, FunctionTimings::valueToString(preset.m_value));
+            treeItem->setText(1, Speed::msToString(preset.m_value));
             m_presetsTree->blockSignals(false);
             return;
         }
@@ -414,7 +414,7 @@ void VCSpeedDialProperties::slotAddPresetClicked()
 {
     VCSpeedDialPreset *newPreset = new VCSpeedDialPreset(++m_lastAssignedID);
     newPreset->m_value = 1000;
-    newPreset->m_name = FunctionTimings::valueToString(1000);
+    newPreset->m_name = Speed::msToString(1000);
     addPreset(newPreset);
     updateTree();
 }
@@ -475,9 +475,9 @@ void VCSpeedDialProperties::slotSpeedDialWidgetValueChanged(int ms)
 
     if (preset != NULL)
     {
-        if (FunctionTimings::stringToValue(preset->m_name) == uint(preset->m_value))
+        if (Speed::stringToMs(preset->m_name) == uint(preset->m_value))
         {
-            preset->m_name = FunctionTimings::valueToString(ms);
+            preset->m_name = Speed::msToString(ms);
             m_presetNameEdit->blockSignals(true);
             m_presetNameEdit->setText(preset->m_name);
             m_presetNameEdit->blockSignals(false);

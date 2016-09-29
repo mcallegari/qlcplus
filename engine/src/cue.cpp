@@ -26,27 +26,21 @@
 
 Cue::Cue(const QString& name)
     : m_name(name)
-    , m_fadeIn(0)
-    , m_fadeOut(0)
-    , m_duration(0)
+    , m_speeds(0, 0, 0)
 {
 }
 
 Cue::Cue(const QHash <uint,uchar> values)
     : m_name(QString())
     , m_values(values)
-    , m_fadeIn(0)
-    , m_fadeOut(0)
-    , m_duration(0)
+    , m_speeds(0, 0, 0)
 {
 }
 
 Cue::Cue(const Cue& cue)
     : m_name(cue.name())
     , m_values(cue.values())
-    , m_fadeIn(cue.fadeIn())
-    , m_fadeOut(cue.fadeOut())
-    , m_duration(cue.duration())
+    , m_speeds(cue.speeds())
 {
 }
 
@@ -100,34 +94,14 @@ QHash <uint,uchar> Cue::values() const
  * Speed
  ****************************************************************************/
 
-void Cue::setFadeIn(uint ms)
+const FunctionSpeeds& Cue::speeds() const
 {
-    m_fadeIn = ms;
+    return m_speeds;
 }
 
-uint Cue::fadeIn() const
+FunctionSpeeds& Cue::speedsEdit()
 {
-    return m_fadeIn;
-}
-
-void Cue::setFadeOut(uint ms)
-{
-    m_fadeOut = ms;
-}
-
-uint Cue::fadeOut() const
-{
-    return m_fadeOut;
-}
-
-void Cue::setDuration(uint ms)
-{
-    m_duration = ms;
-}
-
-uint Cue::duration() const
-{
-    return m_duration;
+    return m_speeds;
 }
 
 /****************************************************************************
@@ -155,9 +129,9 @@ bool Cue::loadXML(QXmlStreamReader &root)
             if (ch.isEmpty() == false && val.isEmpty() == false)
                 setValue(ch.toUInt(), uchar(val.toUInt()));
         }
-        else if (root.name() == KXMLQLCCueSpeed)
+        else if (root.name() == KXMLQLCFunctionSpeeds)
         {
-            loadXMLSpeed(root);
+            m_speeds.loadXML(root);
         }
         else
         {
@@ -187,33 +161,9 @@ bool Cue::saveXML(QXmlStreamWriter *doc) const
         doc->writeEndElement();
     }
 
-    saveXMLSpeed(doc);
+    m_speeds.saveXML(doc);
 
     /* End the <Cue> tag */
-    doc->writeEndElement();
-
-    return true;
-}
-
-bool Cue::loadXMLSpeed(QXmlStreamReader &speedRoot)
-{
-    if (speedRoot.name() != KXMLQLCCueSpeed)
-        return false;
-
-    m_fadeIn = speedRoot.attributes().value(KXMLQLCCueSpeedFadeIn).toString().toUInt();
-    m_fadeOut = speedRoot.attributes().value(KXMLQLCCueSpeedFadeOut).toString().toUInt();
-    m_duration = speedRoot.attributes().value(KXMLQLCCueSpeedDuration).toString().toUInt();
-    speedRoot.skipCurrentElement();
-
-    return true;
-}
-
-bool Cue::saveXMLSpeed(QXmlStreamWriter *doc) const
-{
-    doc->writeStartElement(KXMLQLCCueSpeed);
-    doc->writeAttribute(KXMLQLCCueSpeedFadeIn, QString::number(fadeIn()));
-    doc->writeAttribute(KXMLQLCCueSpeedFadeOut, QString::number(fadeOut()));
-    doc->writeAttribute(KXMLQLCCueSpeedDuration, QString::number(duration()));
     doc->writeEndElement();
 
     return true;

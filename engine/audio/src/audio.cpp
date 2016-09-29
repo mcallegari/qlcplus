@@ -188,7 +188,7 @@ bool Audio::setSourceFileName(QString filename)
     if (m_decoder == NULL)
         return false;
 
-    setDuration(m_decoder->totalTime());
+    m_speeds.setDuration(m_decoder->totalTime());
 
     emit changed(id());
 
@@ -254,8 +254,8 @@ bool Audio::saveXML(QXmlStreamWriter *doc)
     /* Common attributes */
     saveXMLCommon(doc);
 
-    /* Timings */
-    m_timings.saveXML(doc);
+    /* Speeds */
+    m_speeds.saveXML(doc);
 
     doc->writeStartElement(KXMLQLCAudioSource);
     if (m_audioDevice.isEmpty() == false)
@@ -303,9 +303,9 @@ bool Audio::loadXML(QXmlStreamReader &root)
                 setLocked(true);
             setSourceFileName(m_doc->denormalizeComponentPath(root.readElementText()));
         }
-        else if (root.name() == KXMLQLCFunctionTimings)
+        else if (root.name() == KXMLQLCFunctionSpeeds)
         {
-            m_timings.loadXML(root);
+            m_speeds.loadXML(root);
         }
         else
         {
@@ -348,7 +348,7 @@ void Audio::preRun(MasterTimer* timer)
         m_audio_out->setDecoder(m_decoder);
         m_audio_out->initialize(ap.sampleRate(), ap.channels(), ap.format());
         m_audio_out->adjustIntensity(getAttributeValue(Intensity));
-        m_audio_out->setFadeIn(fadeIn());
+        m_audio_out->setFadeIn(m_speeds.fadeIn());
         m_audio_out->start();
         connect(m_audio_out, SIGNAL(endOfStreamReached()),
                 this, SLOT(slotEndOfStream()));
@@ -380,10 +380,10 @@ void Audio::write(MasterTimer* timer, QList<Universe *> universes)
 
     incrementElapsed();
 
-    if (fadeOut() != 0)
+    if (m_speeds.fadeOut() != 0)
     {
-        if (m_audio_out != NULL && duration() - elapsed() <= fadeOut())
-            m_audio_out->setFadeOut(fadeOut());
+        if (m_audio_out != NULL && m_speeds.duration() - elapsed() <= m_speeds.fadeOut())
+            m_audio_out->setFadeOut(m_speeds.fadeOut());
     }
 }
 

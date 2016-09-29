@@ -283,7 +283,7 @@ void ScriptEditor::slotAddWait()
     {
         m_editor->moveCursor(QTextCursor::StartOfLine);
         m_editor->textCursor().insertText(QString("%1:%2\n")
-                              .arg(Script::waitCmd).arg(FunctionTimings::valueToString(sd->value())));
+                              .arg(Script::waitCmd).arg(Speed::msToString(sd->value())));
     }
 }
 

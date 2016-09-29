@@ -30,7 +30,7 @@
 
 #include "universe.h"
 #include "functionparent.h"
-#include "functiontimings.h"
+#include "functionspeeds.h"
 
 class QXmlStreamReader;
 
@@ -355,58 +355,6 @@ protected:
 private:
     Direction m_direction;
 
-    /*********************************************************************
-     * Tempo type
-     *********************************************************************/
-public:
-    enum TempoType { Original = -1, Time = 0, Beats = 1 };
-    Q_ENUMS(TempoType)
-
-    enum FractionsType { NoFractions = 0, ByTwoFractions, AllFractions };
-    Q_ENUMS(FractionsType)
-
-public:
-    /**
-     * Set the speed type of this function.
-     * When switching from a type to another, the current fade in, hold, fade out
-     * and duration times will be converted to the new type.
-     *
-     * @param type the speed type
-     */
-    void setTempoType(const Function::TempoType& type);
-
-    /**
-     * Get the Function current speed type
-     */
-    Function::TempoType tempoType() const;
-
-    /**
-     * Convert a tempo type to a string
-     *
-     * @param type Tempo type to convert
-     */
-    static QString tempoTypeToString(const Function::TempoType& type);
-
-    /**
-     * Convert a string to a tempo type
-     *
-     * @param str The string to convert
-     */
-    static Function::TempoType stringToTempoType(const QString& str);
-
-    /** Convert a time value in milliseconds to a beat value */
-    static uint timeToBeats(uint time, int beatDuration);
-
-    /** Convert a beat value to a time value in milliseconds */
-    static uint beatsToTime(uint beats, int beatDuration);
-
-    /** Get the override speed type (done by a Chaser) */
-    TempoType overrideTempoType() const;
-
-    /** Set the override speed type (done by a Chaser) */
-    void setOverrideTempoType(TempoType type);
-
-protected slots:
     /**
      * This slot is connected to the Master Timer and it is invoked
      * when this Function is in 'Beats' tempo type and the BPM
@@ -415,91 +363,88 @@ protected slots:
     virtual void slotBPMChanged(int bpmNumber);
 
 private:
-    TempoType m_tempoType;
-    TempoType m_overrideTempoType;
     bool m_beatResyncNeeded;
 
     /*********************************************************************
      * Speed
      *********************************************************************/
 public:
-    enum TimingsType { FadeIn = 0, Hold, FadeOut, Duration };
-    Q_ENUMS(TimingsType)
+    enum SpeedsType { FadeIn = 0, Hold, FadeOut, Duration };
+    Q_ENUMS(SpeedsType)
 
 public:
     /*********************************************************************
-     * Timings
+     * Speeds
      *********************************************************************/
+    void emitChanged();
+
+    class FunctionSpeedsEditProxy
+    {
+      private:
+        FunctionSpeeds& m_speeds;
+        Function& m_function;
+        bool m_changed;
+
+      public:
+        FunctionSpeedsEditProxy(FunctionSpeeds &speeds, Function &function)
+            : m_speeds(speeds), m_function(function), m_changed(false) {}
+        ~FunctionSpeedsEditProxy()
+        {
+            if (m_changed)
+                m_function.emitChanged();
+        }
+        FunctionSpeedsEditProxy& setFadeIn(quint32 ms)
+        {
+            m_speeds.setFadeIn(ms);
+            m_changed = true;
+            return *this;
+        }
+        FunctionSpeedsEditProxy& setFadeOut(quint32 ms)
+        {
+            m_speeds.setFadeOut(ms);
+            m_changed = true;
+            return *this;
+        }
+        FunctionSpeedsEditProxy& setHold(quint32 ms)
+        {
+            m_speeds.setHold(ms);
+            m_changed = true;
+            return *this;
+        }
+        FunctionSpeedsEditProxy& setDuration(quint32 ms)
+        {
+            m_speeds.setDuration(ms);
+            m_changed = true;
+            return *this;
+        }
+    };
+
 public:
-    void setTimings(FunctionTimings const& timings);
-    FunctionTimings timings() const;
+    void setSpeeds(FunctionSpeeds const& speeds);
+    FunctionSpeeds const& speeds() const;
+    FunctionSpeedsEditProxy speedsEdit();
 
-    /** Set the fade in time in milliseconds */
-    void setFadeIn(quint32 ms);
-
-    /** Get the fade in time in milliseconds */
-    quint32 fadeIn() const;
-
-    /** Set the fade out time in milliseconds */
-    void setFadeOut(quint32 ms);
-
-    /** Get the fade out time in milliseconds */
-    quint32 fadeOut() const;
-
-    /** Set the hold time in milliseconds */
-    void setHold(quint32 ms);
-
-    /** Get the hold time in milliseconds */
-    quint32 hold() const;
-
-    /** Set the duration in milliseconds */
-    void setDuration(quint32 ms);
-
-    /** Get the duration in milliseconds */
-    quint32 duration() const;
-
-    void setOverrideTimings(FunctionTimings const& timings);
-    FunctionTimings overrideTimings() const;
-
-    /** Set the override fade in (done by chaser in Common timings mode) */
-    void setOverrideFadeIn(quint32 ms);
-
-    /** Get the override fade in */
-    quint32 overrideFadeIn() const;
-
-    /** Set the override fade out (done by chaser in Common timings mode) */
-    void setOverrideFadeOut(quint32 ms);
-
-    /** Get the override fade out */
-    quint32 overrideFadeOut() const;
-
-    /** Set the override hold */
-    void setOverrideHold(quint32 ms);
-
-    /** Get the override hold */
-    quint32 overrideHold() const;
-
-    /** Set the override duration */
-    void setOverrideDuration(quint32 ms);
-
-    /** Get the override duration */
-    quint32 overrideDuration() const;
+    void setOverrideSpeeds(FunctionSpeeds const& speeds);
+    FunctionSpeeds const& overrideSpeeds() const;
+    FunctionSpeeds& overrideSpeeds();
 
     /** Tell the function that it has been "tapped". Default implementation does nothing. */
     virtual void tap();
 
     // TODO alternate speeds
-    // virtual quint32 getNum__SUBTIMINGPH__TimingsCount() const;
-    // virtual void set__SUBTIMINGPH__Timings(quint32 other, FunctionTimings const& timings);
-    // virtual void set__SUBTIMINGPH__FadeIn(quint32 other, quint32 ms);
-    // virtual void set__SUBTIMINGPH__Hold(quint32 other, quint32 ms);
-    // virtual void set__SUBTIMINGPH__FadeOut(quint32 other, quint32 ms);
-    // virtual void set__SUBTIMINGPH__Duration(quint32 other, quint32 ms);
-    // virtual void get__SUBTIMINGPH__String(quint32 other) const;
+    // replace overrideblabla by alternate.
+    // Alternate idx0 is the "global" speed of the function.
+    // virtual quint32 getNum__SUBSPEEDPH__SpeedsCount() const;
+    // virtual void set__SUBSPEEDPH__Speeds(quint32 alternateIdx, FunctionSpeeds const& speeds);
+    // virtual void set__SUBSPEEDPH__FadeIn(quint32 alternateIdx, quint32 ms);
+    // virtual void set__SUBSPEEDPH__Hold(quint32 alternateIdx, quint32 ms);
+    // virtual void set__SUBSPEEDPH__FadeOut(quint32 alternateIdx, quint32 ms);
+    // virtual void set__SUBSPEEDPH__Duration(quint32 alternateIdx, quint32 ms);
+    // virtual void get__SUBSPEEDPH__String(quint32 alternateIdx) const;
 
 protected:
-    FunctionTimings m_timings;
-    FunctionTimings m_overrideTimings;
+    FunctionSpeeds m_speeds;
+    FunctionSpeeds m_overrideSpeeds;
 
     /*********************************************************************
      * UI State
@@ -689,12 +634,11 @@ public:
      *
      * @param timer The MasterTimer that should run the function
      * @param child Use true if called from another function
-     * @param overrideTimings Override the function's default timings
+     * @param overrideSpeeds Override the function's default speeds
      * @param overrideTempoType Override the tempo type of the function
      */
     void start(MasterTimer* timer, FunctionParent parent, quint32 startTime = 0,
-               FunctionTimings const& overrideTimings = FunctionTimings(),
-               TempoType overrideTempoType = Original);
+               FunctionSpeeds const& overrideSpeeds = FunctionSpeeds());
 
     /**
      * Pause a running Function. Subclasses should check the paused state
@@ -837,7 +781,7 @@ private:
     QList <Attribute> m_attributes;
 
 public:
-    virtual bool contains(quint32 functionId);
+    virtual bool contains(quint32 functionId) const;
 
     /*************************************************************************
      * Blend mode

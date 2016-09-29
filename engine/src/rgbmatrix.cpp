@@ -65,7 +65,7 @@ RGBMatrix::RGBMatrix(Doc* doc)
     , m_stepBeatDuration(0)
 {
     setName(tr("New RGB Matrix"));
-    setDuration(500);
+    speedsEdit().setDuration(500);
 
     RGBScript scr = doc->rgbScriptsCache()->script("Stripes");
     setAlgorithm(scr.clone());
@@ -282,9 +282,9 @@ bool RGBMatrix::loadXML(QXmlStreamReader &root)
     /* Load matrix contents */
     while (root.readNextStartElement())
     {
-        if (root.name() == KXMLQLCFunctionTimings)
+        if (root.name() == KXMLQLCFunctionSpeeds)
         {
-            m_timings.loadXML(root);
+            m_speeds.loadXML(root);
         }
         else if (root.name() == KXMLQLCRGBAlgorithm)
         {
@@ -341,8 +341,8 @@ bool RGBMatrix::saveXML(QXmlStreamWriter *doc)
     /* Common attributes */
     saveXMLCommon(doc);
 
-    /* Timings */
-    m_timings.saveXML(doc);
+    /* Speeds */
+    m_speeds.saveXML(doc);
 
     /* Direction */
     saveXMLDirection(doc);
@@ -396,7 +396,7 @@ void RGBMatrix::tap()
     {
         FixtureGroup* grp = doc()->fixtureGroup(fixtureGroup());
         // Filter out taps that are too close to each other
-        if (grp != NULL && uint(m_roundTime->elapsed()) >= (duration() / 4))
+        if (grp != NULL && uint(m_roundTime->elapsed()) >= (speeds().duration() / 4))
         {
             roundCheck();
             resetElapsed();
@@ -459,7 +459,7 @@ void RGBMatrix::write(MasterTimer* timer, QList<Universe *> universes)
         }
 
         // No time to do anything.
-        if (duration() == 0)
+        if (speeds().duration() == 0)
             return;
 
         // Invalid/nonexistent script
@@ -471,8 +471,8 @@ void RGBMatrix::write(MasterTimer* timer, QList<Universe *> universes)
             // Get new map every time when elapsed is reset to zero
             if (elapsed() < MasterTimer::tick())
             {
-                if (tempoType() == Beats)
-                    m_stepBeatDuration = beatsToTime(duration(), timer->beatTimeDuration());
+                if (speeds().tempoType() == Speed::Beats)
+                    m_stepBeatDuration = Speed::beatsToMs(speeds().duration(), timer->beatTimeDuration());
 
                 //qDebug() << "RGBMatrix stepColor:" << QString::number(m_stepColor.rgb(), 16);
                 RGBMap map = m_algorithm->rgbMap(m_group->size(), m_stepHandler->stepColor().rgb(), m_stepHandler->currentStepIndex());
@@ -500,17 +500,17 @@ void RGBMatrix::write(MasterTimer* timer, QList<Universe *> universes)
          *    next beat is less than 1/16 of the step beat duration in ms, then defer the step
          *    change to case #2, to resync the matrix to the next beat
          */
-        if (tempoType() == Time && elapsed() >= duration())
+        if (speeds().tempoType() == Speed::Ms && elapsed() >= speeds().duration())
         {
             roundCheck();
         }
-        else if (tempoType() == Beats)
+        else if (speeds().tempoType() == Speed::Beats)
         {
             if (timer->isBeat())
             {
                 incrementElapsedBeats();
                 qDebug() << "Elapsed beats:" << elapsedBeats() << ", time elapsed:" << elapsed() << ", step time:" << m_stepBeatDuration;
-                if (elapsedBeats() % duration() == 0)
+                if (elapsedBeats() % speeds().duration() == 0)
                 {
                     roundCheck();
                     resetElapsed();
@@ -554,10 +554,10 @@ void RGBMatrix::postRun(MasterTimer* timer, QList<Universe *> universes)
             }
             else
             {
-                if (overrideFadeOut() == FunctionTimings::defaultValue())
-                    fc.setFadeTime(fadeOut());
+                if (m_overrideSpeeds.fadeOut() == Speed::originalValue())
+                    fc.setFadeTime(speeds().fadeOut());
                 else
-                    fc.setFadeTime(overrideFadeOut());
+                    fc.setFadeTime(m_overrideSpeeds.fadeOut());
                 fc.setTarget(0);
             }
             timer->faderAdd(fc);
@@ -587,10 +587,10 @@ void RGBMatrix::roundCheck()
 
     m_roundTime->restart();
 
-    if (tempoType() == Beats)
+    if (speeds().tempoType() == Speed::Beats)
         roundElapsed(m_stepBeatDuration);
     else
-        roundElapsed(duration());
+        roundElapsed(speeds().duration());
 }
 
 void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
@@ -599,10 +599,10 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
     quint32 mdFxi = Fixture::invalidId();
 
     uint fadeTime;
-    if (overrideFadeIn() == FunctionTimings::defaultValue())
-        fadeTime = fadeIn();
+    if (m_overrideSpeeds.fadeIn() == Speed::originalValue())
+        fadeTime = speeds().fadeIn();
     else
-        fadeTime = overrideFadeIn();
+        fadeTime = m_overrideSpeeds.fadeIn();
 
     // Create/modify fade channels for ALL pixels in the color map.
     for (int y = 0; y < map.size(); y++)
@@ -727,9 +727,9 @@ void RGBMatrix::insertStartValues(FadeChannel& fc, uint fadeTime) const
     // The channel is not ready yet
     fc.setReady(false);
 
-    // Fade in timing is used for all non-zero targets
+    // Fade in speed is used for all non-zero targets
     if (fc.target() == 0)
-        fc.setFadeTime(fadeOut());
+        fc.setFadeTime(speeds().fadeOut());
     else
         fc.setFadeTime(fadeTime);
 }

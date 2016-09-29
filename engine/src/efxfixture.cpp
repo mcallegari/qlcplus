@@ -174,14 +174,14 @@ void EFXFixture::durationChanged()
     // new duration.
     m_elapsed = SCALE(float(m_currentAngle),
             float(0), float(M_PI * 2),
-            float(0), float(m_parent->duration()));
+            float(0), float(m_parent->speeds().duration()));
 
     // Serial or Asymmetric propagation mode:
     // we must substract the offset from the current position
     if (timeOffset())
     {
         if (m_elapsed < timeOffset())
-            m_elapsed += m_parent->duration();
+            m_elapsed += m_parent->speeds().duration();
         m_elapsed -= timeOffset();
     }
 }
@@ -357,7 +357,7 @@ uint EFXFixture::timeOffset() const
     if (m_parent->propagationMode() == EFX::Asymmetric ||
         m_parent->propagationMode() == EFX::Serial)
     {
-        return m_parent->duration() / (m_parent->fixtures().size() + 1) * serialNumber();
+        return m_parent->speeds().duration() / (m_parent->fixtures().size() + 1) * serialNumber();
     }
     else
     {
@@ -386,21 +386,21 @@ void EFXFixture::nextStep(MasterTimer* timer, QList<Universe *> universes)
         start(timer, universes);
 
     // Nothing to do
-    if (m_parent->duration() == 0)
+    if (m_parent->speeds().duration() == 0)
         return;
 
     // Scale from elapsed time in relation to overall duration to a point in a circle
-    uint pos = (m_elapsed + timeOffset()) % m_parent->duration();
+    uint pos = (m_elapsed + timeOffset()) % m_parent->speeds().duration();
     m_currentAngle = SCALE(float(pos),
-                           float(0), float(m_parent->duration()),
+                           float(0), float(m_parent->speeds().duration()),
                            float(0), float(M_PI * 2));
 
     float valX = 0;
     float valY = 0;
 
     if ((m_parent->propagationMode() == EFX::Serial &&
-        m_elapsed < (m_parent->duration() + timeOffset()))
-        || m_elapsed < m_parent->duration())
+        m_elapsed < (m_parent->speeds().duration() + timeOffset()))
+        || m_elapsed < m_parent->speeds().duration())
     {
         m_parent->calculatePoint(m_runTimeDirection, m_startOffset, m_currentAngle, &valX, &valY);
 
@@ -438,7 +438,7 @@ void EFXFixture::nextStep(MasterTimer* timer, QList<Universe *> universes)
             stop(timer, universes);
         }
 
-        m_elapsed %= m_parent->duration();
+        m_elapsed %= m_parent->speeds().duration();
     }
 }
 

@@ -45,7 +45,7 @@ typedef struct
     Function* m_function;   //! Currently active function
     quint32 m_elapsed;      //! Elapsed milliseconds
     quint32 m_elapsedBeats; //! Elapsed beats
-    FunctionTimings m_timings; //! Step timings
+    FunctionSpeeds m_speeds; //! Step speeds
 } ChaserRunnerStep;
 
 class ChaserRunner : public QObject
@@ -64,23 +64,23 @@ private:
     const Chaser* m_chaser;
 
     /************************************************************************
-     * Timings
+     * Speeds
      ************************************************************************/
 private:
-    /** Get the currently active fade in value (See Chaser::TimingsMode) */
+    /** Get the currently active fade in value (See Chaser::SpeedsMode) */
     quint32 stepFadeIn(int stepIdx) const;
 
-    /** Get the currently active fade out value (See Chaser::TimingsMode) */
+    /** Get the currently active fade out value (See Chaser::SpeedsMode) */
     quint32 stepFadeOut(int stepIdx) const;
 
-    /** Get the currently active hold value (See Chaser::TimingsMode) */
+    /** Get the currently active hold value (See Chaser::SpeedsMode) */
     quint32 stepHold(int stepIdx) const;
 
-    /** Get the currently active duration value (See Chaser::TimingsMode) */
+    /** Get the currently active duration value (See Chaser::SpeedsMode) */
     quint32 stepDuration(int stepIdx) const;
 
 private:
-    bool m_updateOverrideTimings;
+    bool m_updateOverrideSpeeds;
 
     /************************************************************************
      * Step control

@@ -39,9 +39,7 @@
 
 CueStack::CueStack(Doc* doc)
     : QObject(doc)
-    , m_fadeIn(0)
-    , m_fadeOut(0)
-    , m_duration(UINT_MAX)
+    , m_speeds(0, Speed::infiniteValue(), 0)
     , m_running(false)
     , m_intensity(1.0)
     , m_currentIndex(-1)
@@ -96,52 +94,52 @@ QString CueStack::name(int index) const
 void CueStack::setFadeIn(uint ms, int index)
 {
     if (index < 0)
-        m_fadeIn = ms;
+        m_speeds.setFadeIn(ms);
     else
-        m_cues[index].setFadeIn(ms);
+        m_cues[index].speedsEdit().setFadeIn(ms);
     emit changed(index);
 }
 
 uint CueStack::fadeIn(int index) const
 {
     if (index < 0)
-        return m_fadeIn;
+        return m_speeds.fadeIn();
     else
-        return m_cues[index].fadeIn();
+        return m_cues[index].speeds().fadeIn();
 }
 
 void CueStack::setFadeOut(uint ms, int index)
 {
     if (index < 0)
-        m_fadeOut = ms;
+        m_speeds.setFadeOut(ms);
     else
-        m_cues[index].setFadeOut(ms);
+        m_cues[index].speedsEdit().setFadeOut(ms);
     emit changed(index);
 }
 
 uint CueStack::fadeOut(int index) const
 {
     if (index < 0)
-        return m_fadeOut;
+        return m_speeds.fadeOut();
     else
-        return m_cues[index].fadeOut();
+        return m_cues[index].speeds().fadeOut();
 }
 
 void CueStack::setDuration(uint ms, int index)
 {
     if (index < 0)
-        m_duration = ms;
+        m_speeds.setDuration(ms);
     else
-        m_cues[index].setDuration(ms);
+        m_cues[index].speedsEdit().setDuration(ms);
     emit changed(index);
 }
 
 uint CueStack::duration(int index) const
 {
     if (index < 0)
-        return m_duration;
+        return m_speeds.duration();
     else
-        return m_cues[index].duration();
+        return m_cues[index].speeds().duration();
 }
 
 /****************************************************************************
@@ -329,12 +327,9 @@ bool CueStack::loadXML(QXmlStreamReader &root)
             if (cue.loadXML(root) == true)
                 appendCue(cue);
         }
-        else if (root.name() == KXMLQLCCueStackSpeed)
+        else if (root.name() == KXMLQLCFunctionSpeeds)
         {
-            setFadeIn(root.attributes().value(KXMLQLCCueStackSpeedFadeIn).toString().toUInt());
-            setFadeOut(root.attributes().value(KXMLQLCCueStackSpeedFadeOut).toString().toUInt());
-            setDuration(root.attributes().value(KXMLQLCCueStackSpeedDuration).toString().toUInt());
-            root.skipCurrentElement();
+            m_speeds.loadXML(root);
         }
         else
         {
@@ -354,11 +349,7 @@ bool CueStack::saveXML(QXmlStreamWriter *doc, uint id) const
     doc->writeStartElement(KXMLQLCCueStack);
     doc->writeAttribute(KXMLQLCCueStackID, QString::number(id));
 
-    doc->writeStartElement(KXMLQLCCueStackSpeed);
-    doc->writeAttribute(KXMLQLCCueStackSpeedFadeIn, QString::number(fadeIn()));
-    doc->writeAttribute(KXMLQLCCueStackSpeedFadeOut, QString::number(fadeOut()));
-    doc->writeAttribute(KXMLQLCCueStackSpeedDuration, QString::number(duration()));
-    doc->writeEndElement();
+    m_speeds.saveXML(doc);
 
     foreach (Cue cue, cues())
         cue.saveXML(doc);
@@ -599,7 +590,7 @@ void CueStack::switchCue(int from, int to, const QList<Universe *> ua)
             fc.setElapsed(0);
             fc.setReady(false);
             fc.setTarget(0);
-            fc.setFadeTime(oldCue.fadeOut());
+            fc.setFadeTime(oldCue.speeds().fadeOut());
             insertStartValue(fc, ua);
             m_fader->add(fc);
         }
@@ -614,7 +605,7 @@ void CueStack::switchCue(int from, int to, const QList<Universe *> ua)
         fc.setTarget(newit.value());
         fc.setElapsed(0);
         fc.setReady(false);
-        fc.setFadeTime(newCue.fadeIn());
+        fc.setFadeTime(newCue.speeds().fadeIn());
         insertStartValue(fc, ua);
         m_fader->add(fc);
     }

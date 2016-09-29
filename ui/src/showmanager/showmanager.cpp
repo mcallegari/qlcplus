@@ -789,7 +789,7 @@ void ShowManager::slotAddItem()
                     m_currentScene->setChildrenFlag(true);
                     f->setName(QString("%1 %2").arg(tr("New Sequence")).arg(f->id()));
                     m_showview->addSequence(chaser, m_currentTrack);
-                    ChaserStep step(m_currentScene->id(), FunctionTimings(m_currentScene->fadeIn(), 10000, m_currentScene->fadeOut()));
+                    ChaserStep step(m_currentScene->id(), FunctionSpeeds(m_currentScene->speeds().fadeIn(), 10000, m_currentScene->speeds().fadeOut()));
                     step.note = QString();
                     step.values.append(m_currentScene->values());
                     chaser->addStep(step);
@@ -933,7 +933,7 @@ void ShowManager::slotAddAudio()
         return;
     }
     // Overlapping check
-    if (checkOverlapping(m_showview->getTimeFromCursor(), audio->duration()) == true)
+    if (checkOverlapping(m_showview->getTimeFromCursor(), audio->speeds().duration()) == true)
     {
         QMessageBox::warning(this, tr("Overlapping error"), tr("Overlapping not allowed. Operation cancelled."));
         delete f;
@@ -992,7 +992,7 @@ void ShowManager::slotAddVideo()
         return;
     }
     // Overlapping check
-    if (checkOverlapping(m_showview->getTimeFromCursor(), video->duration()) == true)
+    if (checkOverlapping(m_showview->getTimeFromCursor(), video->speeds().duration()) == true)
     {
         QMessageBox::warning(this, tr("Overlapping error"), tr("Overlapping not allowed. Operation cancelled."));
         delete f;
@@ -1027,12 +1027,12 @@ void ShowManager::slotPaste()
     Function* clipboardCopy = m_doc->clipboard()->getFunction();
     quint32 copyDuration = 0;
     if (clipboardCopy->type() == Function::Chaser)
-        copyDuration = (qobject_cast<Chaser*>(clipboardCopy))->duration();
+        copyDuration = (qobject_cast<Chaser*>(clipboardCopy))->speeds().duration();
     else if (clipboardCopy->type() == Function::Audio)
-        copyDuration = (qobject_cast<Audio*>(clipboardCopy))->duration();
+        copyDuration = (qobject_cast<Audio*>(clipboardCopy))->speeds().duration();
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     else if (clipboardCopy->type() == Function::Video)
-        copyDuration = (qobject_cast<Video*>(clipboardCopy))->duration();
+        copyDuration = (qobject_cast<Video*>(clipboardCopy))->speeds().duration();
 #endif
 
     // Overlapping check
@@ -1546,7 +1546,7 @@ void ShowManager::temporaryDocFixup()
                             if (chaser->isSequence())
                             {
                                 sf->setStartTime(chaser->getStartTime());
-                                sf->setDuration(chaser->duration());
+                                sf->setDuration(chaser->speeds().duration());
                                 sf->setColor(chaser->getColor());
                                 sf->setLocked(chaser->isLocked());
                             }
@@ -1555,7 +1555,7 @@ void ShowManager::temporaryDocFixup()
                         {
                             Audio *audio = qobject_cast<Audio*>(f);
                             sf->setStartTime(audio->getStartTime());
-                            sf->setDuration(audio->duration());
+                            sf->setDuration(audio->speeds().duration());
                             sf->setColor(audio->getColor());
                             sf->setLocked(audio->isLocked());
                         }
@@ -1564,7 +1564,7 @@ void ShowManager::temporaryDocFixup()
                         {
                             Video *video = qobject_cast<Video*>(f);
                             sf->setStartTime(video->getStartTime());
-                            sf->setDuration(video->duration());
+                            sf->setDuration(video->speeds().duration());
                             sf->setColor(video->getColor());
                             sf->setLocked(video->isLocked());
                         }

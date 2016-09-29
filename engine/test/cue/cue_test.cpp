@@ -30,9 +30,9 @@ void Cue_Test::initial()
     Cue cue;
     QCOMPARE(cue.name(), QString());
     QCOMPARE(cue.values().size(), 0);
-    QCOMPARE(cue.fadeIn(), uint(0));
-    QCOMPARE(cue.fadeOut(), uint(0));
-    QCOMPARE(cue.duration(), uint(0));
+    QCOMPARE(cue.speeds().fadeIn(), uint(0));
+    QCOMPARE(cue.speeds().fadeOut(), uint(0));
+    QCOMPARE(cue.speeds().duration(), uint(0));
 
     cue = Cue("Foo");
     QCOMPARE(cue.name(), QString("Foo"));
@@ -92,9 +92,9 @@ void Cue_Test::copy()
     cue1.setValue(0, 1);
     cue1.setValue(1, 2);
     cue1.setValue(2, 3);
-    cue1.setFadeIn(10);
-    cue1.setFadeOut(20);
-    cue1.setDuration(30);
+    cue1.speedsEdit().setFadeIn(10);
+    cue1.speedsEdit().setFadeOut(20);
+    cue1.speedsEdit().setDuration(30);
 
     Cue cue2 = cue1;
     QCOMPARE(cue2.name(), QString("Foo"));
@@ -102,9 +102,9 @@ void Cue_Test::copy()
     QCOMPARE(cue2.value(0), uchar(1));
     QCOMPARE(cue2.value(1), uchar(2));
     QCOMPARE(cue2.value(2), uchar(3));
-    QCOMPARE(cue2.fadeIn(), uint(10));
-    QCOMPARE(cue2.fadeOut(), uint(20));
-    QCOMPARE(cue2.duration(), uint(30));
+    QCOMPARE(cue2.speeds().fadeIn(), uint(10));
+    QCOMPARE(cue2.speeds().fadeOut(), uint(20));
+    QCOMPARE(cue2.speeds().duration(), uint(30));
 }
 
 void Cue_Test::save()
@@ -113,9 +113,9 @@ void Cue_Test::save()
     cue.setValue(0, 15);
     cue.setValue(31337, 255);
     cue.setValue(42, 127);
-    cue.setFadeIn(10);
-    cue.setFadeOut(20);
-    cue.setDuration(30);
+    cue.speedsEdit().setFadeIn(10);
+    cue.speedsEdit().setFadeOut(20);
+    cue.speedsEdit().setDuration(30);
 
     QBuffer buffer;
     buffer.open(QIODevice::WriteOnly | QIODevice::Text);
@@ -159,7 +159,7 @@ void Cue_Test::save()
             speed++;
             QCOMPARE(xmlReader.attributes().value("FadeIn").toString().toInt(), 10);
             QCOMPARE(xmlReader.attributes().value("FadeOut").toString().toInt(), 20);
-            QCOMPARE(xmlReader.attributes().value("Duration").toString().toInt(), 30);
+            QCOMPARE(xmlReader.attributes().value("Hold").toString().toInt(), 20);
             xmlReader.skipCurrentElement();
         }
         else
@@ -226,9 +226,9 @@ void Cue_Test::load()
     QCOMPARE(cue.value(1), uchar(127));
     QCOMPARE(cue.value(42), uchar(255));
     QCOMPARE(cue.value(69), uchar(0));
-    QCOMPARE(cue.fadeIn(), uint(100));
-    QCOMPARE(cue.fadeOut(), uint(200));
-    QCOMPARE(cue.duration(), uint(300));
+    QCOMPARE(cue.speeds().fadeIn(), uint(100));
+    QCOMPARE(cue.speeds().fadeOut(), uint(200));
+    QCOMPARE(cue.speeds().duration(), uint(300));
 }
 
 QTEST_APPLESS_MAIN(Cue_Test)

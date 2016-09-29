@@ -849,7 +849,7 @@ void VCXYPadProperties::slotPresetSelectionChanged()
             m_xyArea->enableEFXPreview(true);
             m_xyArea->setEnabled(false);
             m_xyArea->setEFXPolygons(polygon, fixturePoints);
-            m_xyArea->setEFXInterval(efx->duration() / polygon.size());
+            m_xyArea->setEFXInterval(efx->speeds().duration() / polygon.size());
         }
         else if (preset->m_type == VCXYPadPreset::Position)
         {

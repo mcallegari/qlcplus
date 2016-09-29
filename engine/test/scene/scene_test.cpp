@@ -231,9 +231,9 @@ void Scene_Test::loadSuccess()
 
     Scene s(m_doc);
     QVERIFY(s.loadXML(xmlReader) == true);
-    QVERIFY(s.fadeIn() == 500);
-    QVERIFY(s.fadeOut() == 5000);
-    QVERIFY(s.duration() == 50000);
+    QVERIFY(s.speeds().fadeIn() == 500);
+    QVERIFY(s.speeds().fadeOut() == 5000);
+    QVERIFY(s.speeds().duration() == 50000);
     QVERIFY(s.values().size() == 2);
     QVERIFY(s.value(5, 60) == 100);
     QVERIFY(s.value(133, 4) == 59);
@@ -318,9 +318,9 @@ void Scene_Test::loadWrongRoot()
 void Scene_Test::save()
 {
     Scene s(m_doc);
-    s.setFadeIn(100);
-    s.setFadeOut(1000);
-    s.setDuration(10000);
+    s.speedsEdit().setFadeIn(100);
+    s.speedsEdit().setFadeOut(1000);
+    s.speedsEdit().setDuration(10000);
     s.setValue(0, 0, 100);
     s.setValue(3, 0, 150);
     s.setValue(3, 3, 10);
@@ -367,9 +367,9 @@ void Scene_Test::copyFrom()
 {
     Scene s1(m_doc);
     s1.setName("First");
-    s1.setFadeIn(100);
-    s1.setFadeOut(1000);
-    s1.setDuration(10000);
+    s1.speedsEdit().setFadeIn(100);
+    s1.speedsEdit().setFadeOut(1000);
+    s1.speedsEdit().setDuration(10000);
     s1.setValue(1, 2, 3);
     s1.setValue(4, 5, 6);
     s1.setValue(7, 8, 9);
@@ -380,9 +380,9 @@ void Scene_Test::copyFrom()
     QVERIFY(s2.copyFrom(&s1) == true);
     QCOMPARE(spy.size(), 1);
     QVERIFY(s2.name() == s1.name());
-    QVERIFY(s2.fadeIn() == 100);
-    QVERIFY(s2.fadeOut() == 1000);
-    QVERIFY(s2.duration() == 10000);
+    QVERIFY(s2.speeds().fadeIn() == 100);
+    QVERIFY(s2.speeds().fadeOut() == 1000);
+    QVERIFY(s2.speeds().duration() == 10000);
     QVERIFY(s2.value(1, 2) == 3);
     QVERIFY(s2.value(4, 5) == 6);
     QVERIFY(s2.value(7, 8) == 9);
@@ -394,9 +394,9 @@ void Scene_Test::copyFrom()
     /* Make a third Scene */
     Scene s3(m_doc);
     s3.setName("Third");
-    s3.setFadeIn(200);
-    s3.setFadeOut(2000);
-    s3.setDuration(20000);
+    s3.speedsEdit().setFadeIn(200);
+    s3.speedsEdit().setFadeOut(2000);
+    s3.speedsEdit().setDuration(20000);
     s3.setValue(3, 1, 2);
     s3.setValue(6, 4, 5);
     s3.setValue(9, 7, 8);
@@ -404,9 +404,9 @@ void Scene_Test::copyFrom()
     /* Verify that copying TO the same Scene a second time succeeds */
     QVERIFY(s2.copyFrom(&s3) == true);
     QVERIFY(s2.name() == s3.name());
-    QVERIFY(s2.fadeIn() == 200);
-    QVERIFY(s2.fadeOut() == 2000);
-    QVERIFY(s2.duration() == 20000);
+    QVERIFY(s2.speeds().fadeIn() == 200);
+    QVERIFY(s2.speeds().fadeOut() == 2000);
+    QVERIFY(s2.speeds().duration() == 20000);
     QVERIFY(s2.value(3, 1) == 2);
     QVERIFY(s2.value(6, 4) == 5);
     QVERIFY(s2.value(9, 7) == 8);
@@ -418,9 +418,9 @@ void Scene_Test::createCopy()
 
     Scene* s1 = new Scene(m_doc);
     s1->setName("First");
-    s1->setFadeIn(200);
-    s1->setFadeOut(2000);
-    s1->setDuration(20000);
+    s1->speedsEdit().setFadeIn(200);
+    s1->speedsEdit().setFadeOut(2000);
+    s1->speedsEdit().setDuration(20000);
     s1->setValue(1, 2, 3);
     s1->setValue(4, 5, 6);
     s1->setValue(7, 8, 9);
@@ -435,9 +435,9 @@ void Scene_Test::createCopy()
 
     Scene* copy = qobject_cast<Scene*> (f);
     QVERIFY(copy != NULL);
-    QVERIFY(copy->fadeIn() == 200);
-    QVERIFY(copy->fadeOut() == 2000);
-    QVERIFY(copy->duration() == 20000);
+    QVERIFY(copy->speeds().fadeIn() == 200);
+    QVERIFY(copy->speeds().fadeOut() == 2000);
+    QVERIFY(copy->speeds().duration() == 20000);
     QVERIFY(copy->values().size() == 3);
     QVERIFY(copy->value(1, 2) == 3);
     QVERIFY(copy->value(4, 5) == 6);
@@ -551,8 +551,8 @@ void Scene_Test::writeHTPZeroTicks()
     doc->addFixture(fxi);
 
     Scene* s1 = new Scene(doc);
-    s1->setFadeIn(0);
-    s1->setFadeOut(0);
+    s1->speedsEdit().setFadeIn(0);
+    s1->speedsEdit().setFadeOut(0);
     s1->setName("First");
     s1->setValue(fxi->id(), 0, 255);
     s1->setValue(fxi->id(), 1, 127);
@@ -601,8 +601,8 @@ void Scene_Test::writeHTPTwoTicks()
 
     Scene* s1 = new Scene(doc);
     s1->setName("First");
-    s1->setFadeIn(MasterTimer::tick() * 2);
-    s1->setFadeOut(MasterTimer::tick() * 2);
+    s1->speedsEdit().setFadeIn(MasterTimer::tick() * 2);
+    s1->speedsEdit().setFadeOut(MasterTimer::tick() * 2);
     s1->setValue(fxi->id(), 5, 250); // HTP
     s1->setValue(fxi->id(), 0, 100); // LTP
     doc->addFunction(s1);
@@ -691,8 +691,8 @@ void Scene_Test::writeHTPTwoTicksIntensity()
 
     Scene* s1 = new Scene(doc);
     s1->setName("First");
-    s1->setFadeIn(MasterTimer::tick() * 2);
-    s1->setFadeOut(MasterTimer::tick() * 2);
+    s1->speedsEdit().setFadeIn(MasterTimer::tick() * 2);
+    s1->speedsEdit().setFadeOut(MasterTimer::tick() * 2);
     s1->setValue(fxi->id(), 5, 250); // HTP
     s1->setValue(fxi->id(), 0, 100); // LTP
     doc->addFunction(s1);
@@ -787,8 +787,8 @@ void Scene_Test::writeLTPReady()
 
     Scene* s1 = new Scene(doc);
     s1->setName("First");
-    s1->setFadeIn(MasterTimer::tick() * 2);
-    s1->setFadeOut(MasterTimer::tick() * 2);
+    s1->speedsEdit().setFadeIn(MasterTimer::tick() * 2);
+    s1->speedsEdit().setFadeOut(MasterTimer::tick() * 2);
     s1->setValue(fxi->id(), 0, 250); // LTP
     s1->setValue(fxi->id(), 1, 200); // LTP
     s1->setValue(fxi->id(), 2, 100); // LTP

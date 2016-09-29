@@ -2,7 +2,7 @@ include(../../../variables.pri)
 include(../../../coverage.pri)
 TEMPLATE = app
 LANGUAGE = C++
-TARGET   = functiontimings_test
+TARGET   = functionspeeds_test
 
 QT      += testlib
 CONFIG  -= app_bundle
@@ -13,5 +13,5 @@ INCLUDEPATH  += ../../src
 QMAKE_LIBDIR += ../../src
 LIBS         += -lqlcplusengine
 
-SOURCES += functiontimings_test.cpp
-HEADERS += functiontimings_test.h
+SOURCES += functionspeeds_test.cpp
+HEADERS += functionspeeds_test.h

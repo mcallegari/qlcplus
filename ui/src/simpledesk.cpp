@@ -1125,7 +1125,7 @@ void SimpleDesk::updateSpeedDials()
         m_speedDials->setWindowTitle(tr("No selection"));
         m_speedDials->setFadeIn(0);
         m_speedDials->setFadeOut(0);
-        m_speedDials->setDuration(0);
+        m_speedDials->setHold(0);
 
         m_speedDials->setOptionalTextTitle(QString());
         m_speedDials->setOptionalText(QString());
@@ -1138,12 +1138,9 @@ void SimpleDesk::updateSpeedDials()
         Q_ASSERT(index.row() >= 0 && index.row() < cueStack->cues().size());
         Cue cue = cueStack->cues()[index.row()];
         m_speedDials->setWindowTitle(cue.name());
-        m_speedDials->setFadeIn(cue.fadeIn());
-        m_speedDials->setFadeOut(cue.fadeOut());
-        if ((int)cue.duration() < 0)
-            m_speedDials->setDuration(cue.duration());
-        else
-            m_speedDials->setDuration(cue.duration() - cue.fadeIn() - cue.fadeOut());
+        m_speedDials->setFadeIn(cue.speeds().fadeIn());
+        m_speedDials->setFadeOut(cue.speeds().fadeOut());
+        m_speedDials->setHold(cue.speeds().hold());
 
         m_speedDials->setOptionalTextTitle(tr("Cue name"));
         m_speedDials->setOptionalText(cue.name());
@@ -1155,7 +1152,7 @@ void SimpleDesk::updateSpeedDials()
         m_speedDials->setWindowTitle(tr("Multiple Cues"));
         m_speedDials->setFadeIn(0);
         m_speedDials->setFadeOut(0);
-        m_speedDials->setDuration(0);
+        m_speedDials->setHold(0);
 
         m_speedDials->setOptionalTextTitle(QString());
         m_speedDials->setOptionalText(QString());

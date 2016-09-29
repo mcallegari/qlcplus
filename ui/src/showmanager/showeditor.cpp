@@ -145,8 +145,8 @@ void ShowEditor::updateFunctionList()
 
             fItem->setText(NAME_COL, func->name());
             fItem->setData(NAME_COL, PROP_ID, func->id());
-            fItem->setText(TIME_COL, FunctionTimings::valueToString(sf->startTime()));
-            fItem->setText(DUR_COL, FunctionTimings::valueToString(sf->duration()));
+            fItem->setText(TIME_COL, Speed::msToString(sf->startTime()));
+            fItem->setText(DUR_COL, Speed::msToString(sf->duration()));
             if (sf->startTime() + sf->duration() > totalDuration)
                 totalDuration = sf->startTime() + sf->duration();
 
@@ -161,7 +161,7 @@ void ShowEditor::updateFunctionList()
         }
     }
 
-    masterItem->setText(DUR_COL, FunctionTimings::valueToString(totalDuration));
+    masterItem->setText(DUR_COL, Speed::msToString(totalDuration));
 
     m_tree->expandAll();
     m_tree->header()->resizeSections(QHeaderView::ResizeToContents);

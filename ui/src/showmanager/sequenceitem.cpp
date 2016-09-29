@@ -39,7 +39,7 @@ SequenceItem::SequenceItem(Chaser *seq, ShowFunction *func)
         setColor(ShowFunction::defaultColor(Function::Chaser));
 
     if (func->duration() == 0)
-        func->setDuration(seq->duration());
+        func->setDuration(seq->speeds().duration());
 
     calculateWidth();
 
@@ -50,7 +50,7 @@ SequenceItem::SequenceItem(Chaser *seq, ShowFunction *func)
 void SequenceItem::calculateWidth()
 {
     int newWidth = 0;
-    unsigned long seq_duration = m_chaser->duration();
+    unsigned long seq_duration = m_chaser->speeds().duration();
 
     if (seq_duration != 0)
         newWidth = ((50/(float)getTimeScale()) * (float)seq_duration) / 1000;
@@ -73,15 +73,15 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
 
     foreach (ChaserStep step, m_chaser->steps())
     {
-        uint stepFadeIn = step.timings.fadeIn;
-        uint stepFadeOut = step.timings.fadeOut;
-        uint stepDuration = step.timings.duration();
+        uint stepFadeIn = step.speeds.fadeIn();
+        uint stepFadeOut = step.speeds.fadeOut();
+        uint stepDuration = step.speeds.duration();
         if (m_chaser->fadeInMode() == Chaser::Common)
-            stepFadeIn = m_chaser->fadeIn();
+            stepFadeIn = m_chaser->speeds().fadeIn();
         if (m_chaser->fadeOutMode() == Chaser::Common)
-            stepFadeOut = m_chaser->fadeOut();
+            stepFadeOut = m_chaser->speeds().fadeOut();
         if (m_chaser->durationMode() == Chaser::Common)
-            stepDuration = m_chaser->duration();
+            stepDuration = m_chaser->speeds().duration();
 
         // draw fade in line
         if (stepFadeIn > 0)
@@ -134,7 +134,7 @@ void SequenceItem::setTimeScale(int val)
 void SequenceItem::setDuration(quint32 msec, bool stretch)
 {
     Q_UNUSED(stretch)
-    m_chaser->setDuration(msec);
+    m_chaser->speedsEdit().setDuration(msec);
 }
 
 QString SequenceItem::functionName()
@@ -160,7 +160,7 @@ void SequenceItem::slotSequenceChanged(quint32)
     prepareGeometryChange();
     calculateWidth();
     if (m_function)
-        m_function->setDuration(m_chaser->duration());
+        m_function->setDuration(m_chaser->speeds().duration());
     updateTooltip();
 }
 

@@ -25,8 +25,9 @@
 #include <QMutex>
 #include <QList>
 
-#include "dmxsource.h"
 #include "cue.h"
+#include "dmxsource.h"
+#include "functionspeeds.h"
 
 class QXmlStreamReader;
 class QXmlStreamWriter;
@@ -42,10 +43,6 @@ class Doc;
 
 #define KXMLQLCCueStack "CueStack"
 #define KXMLQLCCueStackID "ID"
-#define KXMLQLCCueStackSpeed "Speed"
-#define KXMLQLCCueStackSpeedFadeIn "FadeIn"
-#define KXMLQLCCueStackSpeedFadeOut "FadeOut"
-#define KXMLQLCCueStackSpeedDuration "Duration"
 
 class CueStack : public QObject, public DMXSource
 {
@@ -154,9 +151,7 @@ public:
     uint duration(int index = -1) const;
 
 private:
-    uint m_fadeIn;
-    uint m_fadeOut;
-    uint m_duration;
+    FunctionSpeeds m_speeds;
 
     /************************************************************************
      * Cues

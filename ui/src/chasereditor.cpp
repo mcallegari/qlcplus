@@ -269,10 +269,10 @@ void ChaserEditor::selectStepAtTime(quint32 time)
     {
         quint32 timeIncr = 0;
         if (m_chaser->durationMode() == Chaser::Common)
-            timeIncr = m_chaser->duration();
+            timeIncr = m_chaser->speeds().duration();
         else // Chaser::PerStep
         {
-            timeIncr += m_chaser->stepAt(i).timings.duration();
+            timeIncr += m_chaser->stepAt(i).speeds.duration();
         }
         if (time < stepTime + timeIncr)
         {
@@ -516,15 +516,15 @@ void ChaserEditor::slotItemSelectionChanged()
 void ChaserEditor::slotItemChanged(QTreeWidgetItem *item, int column)
 {
     QString itemText = item->text(column);
-    quint32 newValue = FunctionTimings::stringToValue(itemText);
+    quint32 newValue = Speed::stringToMs(itemText);
     int idx = m_tree->indexOfTopLevelItem(item);
 
     ChaserStep step = m_chaser->steps().at(idx);
 
-    uint fadeIn = m_chaser->fadeInMode() == Chaser::Common ? m_chaser->fadeIn() : step.timings.fadeIn;
-    uint fadeOut = m_chaser->fadeOutMode() == Chaser::Common ? m_chaser->fadeOut() : step.timings.fadeOut;
-    uint duration = m_chaser->durationMode() == Chaser::Common ? m_chaser->duration() : step.timings.duration();
-    uint hold = FunctionTimings::subtract(duration, fadeIn);
+    uint fadeIn = m_chaser->fadeInMode() == Chaser::Common ? m_chaser->speeds().fadeIn() : step.speeds.fadeIn();
+    uint fadeOut = m_chaser->fadeOutMode() == Chaser::Common ? m_chaser->speeds().fadeOut() : step.speeds.fadeOut();
+    uint duration = m_chaser->durationMode() == Chaser::Common ? m_chaser->speeds().duration() : step.speeds.duration();
+    uint hold = Speed::sub(duration, fadeIn);
     bool updateTreeNeeded = false;
 
     if (column == COL_FADEIN)
@@ -532,12 +532,12 @@ void ChaserEditor::slotItemChanged(QTreeWidgetItem *item, int column)
         fadeIn = newValue;
         if (m_chaser->fadeInMode() == Chaser::Common)
         {
-            m_chaser->setFadeIn(fadeIn);
+            m_chaser->speedsEdit().setFadeIn(fadeIn);
             updateTreeNeeded = true;
         }
         else
         {
-            step.timings.fadeIn = fadeIn;
+            step.speeds.setFadeIn(fadeIn);
         }
 
     }
@@ -547,12 +547,12 @@ void ChaserEditor::slotItemChanged(QTreeWidgetItem *item, int column)
 
         if (m_chaser->durationMode() == Chaser::Common)
         {
-            m_chaser->setHold(hold);
+            m_chaser->speedsEdit().setHold(hold);
             updateTreeNeeded = true;
         }
         else
         {
-            step.timings.hold = hold;
+            step.speeds.setHold(hold);
         }
     }
     else if (column == COL_FADEOUT)
@@ -560,12 +560,12 @@ void ChaserEditor::slotItemChanged(QTreeWidgetItem *item, int column)
         fadeOut = newValue;
         if (m_chaser->fadeOutMode() == Chaser::Common)
         {
-            m_chaser->setFadeOut(fadeOut);
+            m_chaser->speedsEdit().setFadeOut(fadeOut);
             updateTreeNeeded = true;
         }
         else
         {
-            step.timings.fadeOut = fadeOut;
+            step.speeds.setFadeOut(fadeOut);
         }
     }
     else if (column == COL_DURATION)
@@ -574,12 +574,12 @@ void ChaserEditor::slotItemChanged(QTreeWidgetItem *item, int column)
 
         if (m_chaser->durationMode() == Chaser::Common)
         {
-            m_chaser->setDuration(duration);
+            m_chaser->speedsEdit().setDuration(duration);
             updateTreeNeeded = true;
         }
         else
         {
-            step.timings.setDuration(duration);
+            step.speeds.setDuration(duration);
         }
     }
     else if (column == COL_NOTES)
@@ -778,14 +778,14 @@ void ChaserEditor::slotFadeInDialChanged(int ms)
     {
     case Chaser::Common:
         if (QTreeWidgetItem* item = m_tree->topLevelItem(0))
-            item->setText(COL_FADEIN, FunctionTimings::valueToString(ms));
+            item->setText(COL_FADEIN, Speed::msToString(ms));
         else
-            m_chaser->setFadeIn(FunctionTimings::normalize(ms));
+            m_chaser->speedsEdit().setFadeIn(Speed::normalize(ms));
         break;
     case Chaser::PerStep:
         foreach (QTreeWidgetItem* item, m_tree->selectedItems())
         {
-            item->setText(COL_FADEIN, FunctionTimings::valueToString(ms));
+            item->setText(COL_FADEIN, Speed::msToString(ms));
         }
         break;
     default:
@@ -802,14 +802,14 @@ void ChaserEditor::slotFadeOutDialChanged(int ms)
     {
     case Chaser::Common:
         if (QTreeWidgetItem* item = m_tree->topLevelItem(0))
-            item->setText(COL_FADEOUT, FunctionTimings::valueToString(ms));
+            item->setText(COL_FADEOUT, Speed::msToString(ms));
         else
-            m_chaser->setFadeOut(FunctionTimings::normalize(ms));
+            m_chaser->speedsEdit().setFadeOut(Speed::normalize(ms));
         break;
     case Chaser::PerStep:
         foreach (QTreeWidgetItem* item, m_tree->selectedItems())
         {
-            item->setText(COL_FADEOUT, FunctionTimings::valueToString(ms));
+            item->setText(COL_FADEOUT, Speed::msToString(ms));
         }
         break;
     default:
@@ -826,19 +826,19 @@ void ChaserEditor::slotHoldDialChanged(int ms)
     {
     case Chaser::Common:
         if (QTreeWidgetItem* item = m_tree->topLevelItem(0))
-            item->setText(COL_HOLD, FunctionTimings::valueToString(ms));
+            item->setText(COL_HOLD, Speed::msToString(ms));
         else
         {
             if (m_chaser->fadeInMode() == Chaser::Common)
-                m_chaser->setDuration(FunctionTimings::add(ms, m_chaser->fadeIn()));
+                m_chaser->speedsEdit().setDuration(Speed::add(ms, m_chaser->speeds().fadeIn()));
             else
-                m_chaser->setDuration(FunctionTimings::normalize(ms));
+                m_chaser->speedsEdit().setDuration(Speed::normalize(ms));
         }
         break;
     case Chaser::PerStep:
         foreach (QTreeWidgetItem* item, m_tree->selectedItems())
         {
-            item->setText(COL_HOLD, FunctionTimings::valueToString(ms));
+            item->setText(COL_HOLD, Speed::msToString(ms));
         }
         break;
     default:
@@ -912,14 +912,14 @@ void ChaserEditor::updateSpeedDials()
     switch (m_chaser->fadeInMode())
     {
     case Chaser::Common:
-        m_speedDials->setFadeIn(m_chaser->fadeIn());
+        m_speedDials->setFadeIn(m_chaser->speeds().fadeIn());
         m_speedDials->setFadeInTitle(globalFadeIn);
         m_speedDials->setFadeInEnabled(true);
         break;
     case Chaser::PerStep:
         if (selected.size() != 0)
         {
-            m_speedDials->setFadeIn(step.timings.fadeIn);
+            m_speedDials->setFadeIn(step.speeds.fadeIn());
             m_speedDials->setFadeInEnabled(true);
         }
         else
@@ -940,14 +940,14 @@ void ChaserEditor::updateSpeedDials()
     switch (m_chaser->fadeOutMode())
     {
     case Chaser::Common:
-        m_speedDials->setFadeOut(m_chaser->fadeOut());
+        m_speedDials->setFadeOut(m_chaser->speeds().fadeOut());
         m_speedDials->setFadeOutTitle(globalFadeOut);
         m_speedDials->setFadeOutEnabled(true);
         break;
     case Chaser::PerStep:
         if (selected.size() != 0)
         {
-            m_speedDials->setFadeOut(step.timings.fadeOut);
+            m_speedDials->setFadeOut(step.speeds.fadeOut());
             m_speedDials->setFadeOutEnabled(true);
         }
         else
@@ -970,23 +970,23 @@ void ChaserEditor::updateSpeedDials()
     default:
     case Chaser::Common:
     {
-        m_speedDials->setDuration(m_chaser->hold());
-        m_speedDials->setDurationTitle(globalHold);
-        m_speedDials->setDurationEnabled(true);
+        m_speedDials->setHold(m_chaser->speeds().hold());
+        m_speedDials->setHoldTitle(globalHold);
+        m_speedDials->setHoldEnabled(true);
         break;
     }
     case Chaser::PerStep:
         if (selected.size() != 0)
         {
-            m_speedDials->setDuration(step.timings.hold);
-            m_speedDials->setDurationEnabled(true);
+            m_speedDials->setHold(step.speeds.hold());
+            m_speedDials->setHoldEnabled(true);
         }
         else
         {
-            m_speedDials->setDuration(0);
-            m_speedDials->setDurationEnabled(false);
+            m_speedDials->setHold(0);
+            m_speedDials->setHoldEnabled(false);
         }
-        m_speedDials->setDurationTitle(hold);
+        m_speedDials->setHoldTitle(hold);
         break;
     }
 }
@@ -1117,9 +1117,9 @@ void ChaserEditor::updateItem(QTreeWidgetItem* item, ChaserStep& step)
     switch (m_chaser->fadeInMode())
     {
     case Chaser::Common:
-        step.timings.fadeIn = m_chaser->fadeIn();
+        step.speeds.setFadeIn(m_chaser->speeds().fadeIn());
     case Chaser::PerStep:
-        item->setText(COL_FADEIN, FunctionTimings::valueToString(step.timings.fadeIn));
+        item->setText(COL_FADEIN, Speed::msToString(step.speeds.fadeIn()));
         break;
     default:
         item->setText(COL_FADEIN, QString());
@@ -1129,9 +1129,9 @@ void ChaserEditor::updateItem(QTreeWidgetItem* item, ChaserStep& step)
     switch (m_chaser->fadeOutMode())
     {
     case Chaser::Common:
-        step.timings.fadeOut = m_chaser->fadeOut();
+        step.speeds.setFadeOut(m_chaser->speeds().fadeOut());
     case Chaser::PerStep:
-        item->setText(COL_FADEOUT, FunctionTimings::valueToString(step.timings.fadeOut));
+        item->setText(COL_FADEOUT, Speed::msToString(step.speeds.fadeOut()));
         break;
     default:
         item->setText(COL_FADEOUT, QString());
@@ -1142,10 +1142,10 @@ void ChaserEditor::updateItem(QTreeWidgetItem* item, ChaserStep& step)
     {
     default:
     case Chaser::Common:
-        step.timings.hold = m_chaser->hold();
+        step.speeds.setHold(m_chaser->speeds().hold());
     case Chaser::PerStep:
-        item->setText(COL_HOLD, FunctionTimings::valueToString(step.timings.hold));
-        item->setText(COL_DURATION, FunctionTimings::valueToString(step.timings.duration()));
+        item->setText(COL_HOLD, Speed::msToString(step.speeds.hold()));
+        item->setText(COL_DURATION, Speed::msToString(step.speeds.duration()));
         break;
     }
 
@@ -1226,7 +1226,7 @@ void ChaserEditor::printSteps()
     while (it.hasNext() == true)
     {
         ChaserStep st(it.next());
-        qDebug() << "Step #" << i << ": id: " << st.fid << ": fadeIn: " << st.timings.fadeIn << ", fadeOut: " << st.timings.fadeOut << ", duration: " << st.timings.duration();
+        qDebug() << "Step #" << i << ": id: " << st.fid << ": fadeIn: " << st.speeds.fadeIn() << ", fadeOut: " << st.speeds.fadeOut() << ", duration: " << st.speeds.duration();
         if (st.values.count() > 0)
             qDebug() << "-----> values found: " << st.values.count();
     }

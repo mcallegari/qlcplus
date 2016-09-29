@@ -56,16 +56,16 @@ bool VCSpeedDialFunction::loadXML(QXmlStreamReader &root, SpeedMultiplier aFadeI
     functionId = text.toUInt();
 
     // For each multiplier: If not present in XML, use default value.
-    if (attrs.hasAttribute(KXMLQLCFunctionTimingsFadeIn) == true)
-        fadeInMultiplier = static_cast<SpeedMultiplier>(attrs.value(KXMLQLCFunctionTimingsFadeIn).toString().toUInt());
+    if (attrs.hasAttribute(KXMLQLCFunctionSpeedsFadeIn) == true)
+        fadeInMultiplier = static_cast<SpeedMultiplier>(attrs.value(KXMLQLCFunctionSpeedsFadeIn).toString().toUInt());
     else
         fadeInMultiplier = aFadeIn;
-    if (attrs.hasAttribute(KXMLQLCFunctionTimingsFadeOut) == true)
-        fadeOutMultiplier = static_cast<SpeedMultiplier>(attrs.value(KXMLQLCFunctionTimingsFadeOut).toString().toUInt());
+    if (attrs.hasAttribute(KXMLQLCFunctionSpeedsFadeOut) == true)
+        fadeOutMultiplier = static_cast<SpeedMultiplier>(attrs.value(KXMLQLCFunctionSpeedsFadeOut).toString().toUInt());
     else
         fadeOutMultiplier = aFadeOut;
-    if (attrs.hasAttribute(KXMLQLCFunctionTimingsDuration) == true)
-        durationMultiplier = static_cast<SpeedMultiplier>(attrs.value(KXMLQLCFunctionTimingsDuration).toString().toUInt());
+    if (attrs.hasAttribute(KXMLQLCFunctionSpeedsDuration) == true)
+        durationMultiplier = static_cast<SpeedMultiplier>(attrs.value(KXMLQLCFunctionSpeedsDuration).toString().toUInt());
     else
         durationMultiplier = aDuration;
 
@@ -80,9 +80,9 @@ bool VCSpeedDialFunction::saveXML(QXmlStreamWriter *doc) const
     doc->writeStartElement(KXMLQLCFunction);
 
     /* Multipliers */
-    doc->writeAttribute(KXMLQLCFunctionTimingsFadeIn, QString::number(fadeInMultiplier));
-    doc->writeAttribute(KXMLQLCFunctionTimingsFadeOut, QString::number(fadeOutMultiplier));
-    doc->writeAttribute(KXMLQLCFunctionTimingsDuration, QString::number(durationMultiplier));
+    doc->writeAttribute(KXMLQLCFunctionSpeedsFadeIn, QString::number(fadeInMultiplier));
+    doc->writeAttribute(KXMLQLCFunctionSpeedsFadeOut, QString::number(fadeOutMultiplier));
+    doc->writeAttribute(KXMLQLCFunctionSpeedsDuration, QString::number(durationMultiplier));
 
     /* Function ID */
     doc->writeCharacters(QString::number(functionId));

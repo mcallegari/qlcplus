@@ -564,7 +564,7 @@ private:
     bool loadXMLAxis(QXmlStreamReader &root);
 
     /*********************************************************************
-     * Timings
+     * Speeds
      *********************************************************************/
 private:
     quint32 m_legacyFadeBus;

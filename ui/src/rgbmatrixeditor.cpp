@@ -243,12 +243,9 @@ void RGBMatrixEditor::updateSpeedDials()
     m_speedDials->setAttribute(Qt::WA_DeleteOnClose);
     m_speedDials->setWindowTitle(m_matrix->name());
     m_speedDials->show();
-    m_speedDials->setFadeIn(m_matrix->fadeIn());
-    m_speedDials->setFadeOut(m_matrix->fadeOut());
-    if ((int)m_matrix->duration() < 0)
-        m_speedDials->setDuration(m_matrix->duration());
-    else
-        m_speedDials->setDuration(m_matrix->duration() - m_matrix->fadeIn());
+    m_speedDials->setFadeIn(m_matrix->speeds().fadeIn());
+    m_speedDials->setFadeOut(m_matrix->speeds().fadeOut());
+    m_speedDials->setHold(m_matrix->speeds().hold());
     connect(m_speedDials, SIGNAL(fadeInChanged(int)), this, SLOT(slotFadeInChanged(int)));
     connect(m_speedDials, SIGNAL(fadeOutChanged(int)), this, SLOT(slotFadeOutChanged(int)));
     connect(m_speedDials, SIGNAL(holdChanged(int)), this, SLOT(slotHoldChanged(int)));
@@ -546,22 +543,22 @@ bool RGBMatrixEditor::createPreviewItems()
 
 void RGBMatrixEditor::slotPreviewTimeout()
 {
-    if (m_matrix->duration() <= 0)
+    if (m_matrix->speeds().duration() <= 0)
         return;
 
     RGBMap map;
 
     m_previewIterator += MasterTimer::tick();
     uint elapsed = 0;
-    while (m_previewIterator >= MAX(m_matrix->duration(), MasterTimer::tick()))
+    while (m_previewIterator >= MAX(m_matrix->speeds().duration(), MasterTimer::tick()))
     {
         m_previewHandler->checkNextStep(m_matrix->runOrder(), m_matrix->startColor(),
                                         m_matrix->endColor(), m_matrix->stepsCount());
 
         map = m_matrix->previewMap(m_previewHandler->currentStepIndex(), m_previewHandler);
 
-        m_previewIterator -= MAX(m_matrix->duration(), MasterTimer::tick());
-        elapsed += MAX(m_matrix->duration(), MasterTimer::tick());
+        m_previewIterator -= MAX(m_matrix->speeds().duration(), MasterTimer::tick());
+        elapsed += MAX(m_matrix->speeds().duration(), MasterTimer::tick());
     }
     for (int y = 0; y < map.size(); y++)
     {
@@ -575,9 +572,9 @@ void RGBMatrixEditor::slotPreviewTimeout()
                     shape->setColor(map[y][x]);
 
                 if (shape->color() == QColor(Qt::black).rgb())
-                    shape->draw(elapsed, m_matrix->fadeOut());
+                    shape->draw(elapsed, m_matrix->speeds().fadeOut());
                 else
-                    shape->draw(elapsed, m_matrix->fadeIn());
+                    shape->draw(elapsed, m_matrix->speeds().fadeIn());
             }
         }
     }
@@ -867,19 +864,17 @@ void RGBMatrixEditor::slotDimmerControlClicked()
 
 void RGBMatrixEditor::slotFadeInChanged(int ms)
 {
-    m_matrix->setFadeIn(ms);
-    uint duration = FunctionTimings::add(ms, m_speedDials->duration());
-    m_matrix->setDuration(duration);
+    m_matrix->speedsEdit().setFadeIn(ms);
 }
 
 void RGBMatrixEditor::slotFadeOutChanged(int ms)
 {
-    m_matrix->setFadeOut(ms);
+    m_matrix->speedsEdit().setFadeOut(ms);
 }
 
 void RGBMatrixEditor::slotHoldChanged(int ms)
 {
-    m_matrix->setHold(ms);
+    m_matrix->speedsEdit().setHold(ms);
 }
 
 void RGBMatrixEditor::slotDurationTapped()
@@ -1021,27 +1016,21 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
         chaser->setName(m_matrix->name());
         chaser->enableSequenceMode(grpScene->id());
         chaser->setDurationMode(Chaser::PerStep);
-        chaser->setDuration(m_matrix->duration());
+        chaser->setSpeeds(m_matrix->speeds());
         chaser->setStartTime(0);
-        if (m_matrix->fadeIn() != 0)
-        {
+        if (chaser->speeds().fadeIn() != 0)
             chaser->setFadeInMode(Chaser::PerStep);
-            chaser->setFadeIn(m_matrix->fadeIn());
-        }
-        if (m_matrix->fadeOut() != 0)
-        {
+        if (chaser->speeds().fadeOut() != 0)
             chaser->setFadeOutMode(Chaser::PerStep);
-            chaser->setFadeOut(m_matrix->fadeOut());
-        }
 
         for (int i = 0; i < totalSteps; i++)
         {
             RGBMap map = m_matrix->previewMap(currentStep, m_previewHandler);
             ChaserStep step;
             step.fid = grpScene->id();
-            step.timings.hold = m_matrix->hold();
-            step.timings.fadeIn = m_matrix->fadeIn();
-            step.timings.fadeOut = m_matrix->fadeOut();
+            step.speeds.setFadeIn(m_matrix->speeds().fadeIn());
+            step.speeds.setHold(m_matrix->speeds().hold());
+            step.speeds.setFadeOut(m_matrix->speeds().fadeOut());
 
             for (int y = 0; y < map.size(); y++)
             {

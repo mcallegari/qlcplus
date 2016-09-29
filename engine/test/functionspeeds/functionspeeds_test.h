@@ -1,6 +1,6 @@
 /*
   Q Light Controller - Unit test
-  functiontimings_test.h
+  functionspeeds_test.h
 
   Copyright (c) Heikki Junnila
                 David Garyga
@@ -18,20 +18,20 @@
   limitations under the License.
 */
 
-#ifndef FUNCTION_TEST_H
-#define FUNCTION_TEST_H
+#ifndef FUNCTIONSPEEDS_TEST_H
+#define FUNCTIONSPEEDS_TEST_H
 
 #include <QObject>
 
-class FunctionTimings_Test : public QObject
+class FunctionSpeeds_Test : public QObject
 {
     Q_OBJECT
 
 private slots:
     void initTestCase();
     void copyFrom();
-    void valueToString();
-    void stringToValue();
+    void msToString();
+    void stringToMs();
     void operations();
     void XML();
 };

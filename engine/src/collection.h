@@ -108,7 +108,7 @@ public:
     void postLoad();
 
 public:
-    virtual bool contains(quint32 functionId);
+    bool contains(quint32 functionId) const override;
 
     /*********************************************************************
      * Running

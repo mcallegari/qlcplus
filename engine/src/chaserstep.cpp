@@ -29,16 +29,16 @@
 #define KXMLQLCSequenceSceneValues "Values"
 #define KXMLQLCStepNote "Note"
 
-ChaserStep::ChaserStep(quint32 fid, FunctionTimings const& timings)
+ChaserStep::ChaserStep(quint32 fid, FunctionSpeeds const& speeds)
     : fid(fid)
-    , timings(timings)
+    , speeds(speeds)
 {
     note = QString();
 }
 
 ChaserStep::ChaserStep(const ChaserStep& cs)
     : fid(cs.fid)
-    , timings(cs.timings)
+    , speeds(cs.speeds)
     , values(cs.values)
     , note(cs.note)
 {
@@ -63,9 +63,10 @@ QVariant ChaserStep::toVariant() const
     qDebug() << "-------------  ChaserStep::toVariant";
     QList <QVariant> list;
     list << fid;
-    list << timings.fadeIn;
-    list << timings.hold;
-    list << timings.fadeOut;
+    // TODO create FunctionSpeeds toVariant/fromVariant
+    list << speeds.fadeIn();
+    list << speeds.hold();
+    list << speeds.fadeOut();
     list << note;
     return list;
 }
@@ -78,9 +79,9 @@ ChaserStep ChaserStep::fromVariant(const QVariant& var)
     if (list.size() == 5)
     {
         cs.fid = list.takeFirst().toUInt();
-        cs.timings.fadeIn = list.takeFirst().toUInt();
-        cs.timings.hold = list.takeFirst().toUInt();
-        cs.timings.fadeOut = list.takeFirst().toUInt();
+        cs.speeds.setFadeIn(list.takeFirst().toUInt());
+        cs.speeds.setHold(list.takeFirst().toUInt());
+        cs.speeds.setFadeOut(list.takeFirst().toUInt());
         cs.note = list.takeFirst().toString();
     }
     else
@@ -100,15 +101,15 @@ bool ChaserStep::loadXML(QXmlStreamReader &root, int& stepNumber)
     }
     QXmlStreamAttributes attrs = root.attributes();
 
-    if (attrs.hasAttribute(KXMLQLCFunctionTimingsFadeIn) == true)
-        timings.fadeIn = attrs.value(KXMLQLCFunctionTimingsFadeIn).toString().toUInt();
-    if (attrs.hasAttribute(KXMLQLCFunctionTimingsHold) == true)
-        timings.hold = attrs.value(KXMLQLCFunctionTimingsHold).toString().toUInt();
-    if (attrs.hasAttribute(KXMLQLCFunctionTimingsFadeOut) == true)
-        timings.fadeOut = attrs.value(KXMLQLCFunctionTimingsFadeOut).toString().toUInt();
+    if (attrs.hasAttribute(KXMLQLCFunctionSpeedsFadeIn) == true)
+        speeds.setFadeIn(attrs.value(KXMLQLCFunctionSpeedsFadeIn).toString().toUInt());
+    if (attrs.hasAttribute(KXMLQLCFunctionSpeedsHold) == true)
+        speeds.setHold(attrs.value(KXMLQLCFunctionSpeedsHold).toString().toUInt());
+    if (attrs.hasAttribute(KXMLQLCFunctionSpeedsFadeOut) == true)
+        speeds.setFadeOut(attrs.value(KXMLQLCFunctionSpeedsFadeOut).toString().toUInt());
 
-    if (attrs.hasAttribute(KXMLQLCFunctionTimingsDuration) == true)
-        timings.setDuration(attrs.value(KXMLQLCFunctionTimingsDuration).toString().toUInt());
+    if (attrs.hasAttribute(KXMLQLCFunctionSpeedsDuration) == true)
+        speeds.setDuration(attrs.value(KXMLQLCFunctionSpeedsDuration).toString().toUInt());
 
     if (attrs.hasAttribute(KXMLQLCFunctionNumber) == true)
         stepNumber = attrs.value(KXMLQLCFunctionNumber).toString().toInt();
@@ -148,10 +149,10 @@ bool ChaserStep::saveXML(QXmlStreamWriter *doc, int stepNumber, bool isSequence)
     /* Step number */
     doc->writeAttribute(KXMLQLCFunctionNumber, QString::number(stepNumber));
 
-    /* Timings */
-    doc->writeAttribute(KXMLQLCFunctionTimingsFadeIn, QString::number(timings.fadeIn));
-    doc->writeAttribute(KXMLQLCFunctionTimingsHold, QString::number(timings.hold));
-    doc->writeAttribute(KXMLQLCFunctionTimingsFadeOut, QString::number(timings.fadeOut));
+    /* Speeds */
+    doc->writeAttribute(KXMLQLCFunctionSpeedsFadeIn, QString::number(speeds.fadeIn()));
+    doc->writeAttribute(KXMLQLCFunctionSpeedsHold, QString::number(speeds.hold()));
+    doc->writeAttribute(KXMLQLCFunctionSpeedsFadeOut, QString::number(speeds.fadeOut()));
     if (note.isEmpty() == false)
         doc->writeAttribute(KXMLQLCStepNote, note);
 

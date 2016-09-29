@@ -47,9 +47,9 @@ void Function_Test::initial()
     QCOMPARE(stub->direction(), Function::Forward);
     QCOMPARE(stub->elapsed(), quint32(0));
     QCOMPARE(stub->stopped(), true);
-    QCOMPARE(stub->fadeIn(), uint(0));
-    QCOMPARE(stub->fadeOut(), uint(0));
-    QCOMPARE(stub->duration(), uint(0));
+    QCOMPARE(stub->speeds().fadeIn(), uint(0));
+    QCOMPARE(stub->speeds().fadeOut(), uint(0));
+    QCOMPARE(stub->speeds().duration(), uint(0));
 }
 
 void Function_Test::properties()
@@ -77,20 +77,20 @@ void Function_Test::properties()
     QCOMPARE(spy[1][0].toUInt(), stub->id());
     QCOMPARE(stub->direction(), Function::Backward);
 
-    stub->setFadeIn(14);
+    stub->speedsEdit().setFadeIn(14);
     QCOMPARE(spy.size(), 3);
     QCOMPARE(spy[2][0].toUInt(), stub->id());
-    QCOMPARE(stub->fadeIn(), uint(14));
+    QCOMPARE(stub->speeds().fadeIn(), uint(14));
 
-    stub->setFadeOut(42);
+    stub->speedsEdit().setFadeOut(42);
     QCOMPARE(spy.size(), 4);
     QCOMPARE(spy[3][0].toUInt(), stub->id());
-    QCOMPARE(stub->fadeOut(), uint(42));
+    QCOMPARE(stub->speeds().fadeOut(), uint(42));
 
-    stub->setDuration(69);
+    stub->speedsEdit().setDuration(69);
     QCOMPARE(spy.size(), 5);
     QCOMPARE(spy[4][0].toUInt(), stub->id());
-    QCOMPARE(stub->duration(), uint(69));
+    QCOMPARE(stub->speeds().duration(), uint(69));
 }
 
 void Function_Test::copyFrom()
@@ -102,9 +102,9 @@ void Function_Test::copyFrom()
     stub1->setName("Stub1");
     stub1->setRunOrder(Function::PingPong);
     stub1->setDirection(Function::Backward);
-    stub1->setFadeIn(42);
-    stub1->setFadeOut(69);
-    stub1->setDuration(1337);
+    stub1->speedsEdit().setFadeIn(42);
+    stub1->speedsEdit().setFadeOut(69);
+    stub1->speedsEdit().setDuration(1337);
 
     Function_Stub* stub2 = new Function_Stub(&doc);
     QSignalSpy spy(stub2, SIGNAL(changed(quint32)));
@@ -114,9 +114,9 @@ void Function_Test::copyFrom()
     QCOMPARE(stub2->name(), QString("Stub1"));
     QCOMPARE(stub2->runOrder(), Function::PingPong);
     QCOMPARE(stub2->direction(), Function::Backward);
-    QCOMPARE(stub2->fadeIn(), uint(42));
-    QCOMPARE(stub2->fadeOut(), uint(69));
-    QCOMPARE(stub2->duration(), uint(1337));
+    QCOMPARE(stub2->speeds().fadeIn(), uint(42));
+    QCOMPARE(stub2->speeds().fadeOut(), uint(69));
+    QCOMPARE(stub2->speeds().duration(), uint(1337));
 }
 
 void Function_Test::flashUnflash()

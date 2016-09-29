@@ -185,9 +185,9 @@ bool Script::loadXML(QXmlStreamReader &root)
     /* Load script contents */
     while (root.readNextStartElement())
     {
-        if (root.name() == KXMLQLCFunctionTimings)
+        if (root.name() == KXMLQLCFunctionSpeeds)
         {
-            m_timings.loadXML(root);
+            m_speeds.loadXML(root);
         }
         else if (root.name() == KXMLQLCFunctionDirection)
         {
@@ -222,8 +222,8 @@ bool Script::saveXML(QXmlStreamWriter *doc)
     /* Common attributes */
     saveXMLCommon(doc);
 
-    /* Timings */
-    m_timings.saveXML(doc);
+    /* Speeds */
+    m_speeds.saveXML(doc);
 
     /* Direction */
     saveXMLDirection(doc);
@@ -323,7 +323,7 @@ quint32 Script::getValueFromString(QString str, bool *ok)
     if (str.startsWith("random") == false)
     {
         *ok = true;
-        return FunctionTimings::stringToValue(str);
+        return Speed::stringToMs(str);
     }
 
     QString strippedStr = str.remove("random(");
@@ -332,8 +332,8 @@ quint32 Script::getValueFromString(QString str, bool *ok)
         return -1;
 
     QStringList valList = strippedStr.split(",");
-    int min = FunctionTimings::stringToValue(valList.at(0));
-    int max = FunctionTimings::stringToValue(valList.at(1));
+    int min = Speed::stringToMs(valList.at(0));
+    int max = Speed::stringToMs(valList.at(1));
 
     *ok = true;
     return qrand() % ((max + 1) - min) + min;

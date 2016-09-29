@@ -261,7 +261,7 @@ bool Track::postLoad(Doc* doc)
     {
         ShowFunction* showFunction = it.next();
 
-        Function* function = doc->function(showFunction->functionID());
+        const Function* function = doc->function(showFunction->functionID());
         if (function == NULL
                 || (m_showId != Function::invalidId()
                     && function->contains(m_showId)))
@@ -273,13 +273,13 @@ bool Track::postLoad(Doc* doc)
         }
 
         if (showFunction->duration() == 0)
-            showFunction->setDuration(function->duration());
+            showFunction->setDuration(function->speeds().duration());
         if (showFunction->color().isValid() == false)
             showFunction->setColor(ShowFunction::defaultColor(function->type()));
 
         if (function->type() == Function::Chaser)
         {
-            Chaser* chaser = qobject_cast<Chaser*>(function);
+            const Chaser* chaser = qobject_cast<const Chaser*>(function);
             if (chaser == NULL || !chaser->isSequence() || getSceneID() == chaser->getBoundSceneID())
                 continue;
             if (getSceneID() == Function::invalidId())

@@ -460,11 +460,11 @@ void PaletteGenerator::createChaser(QString name)
 
     Chaser *chaser = new Chaser(m_doc);
     chaser->setFadeInMode(Chaser::Common);
-    chaser->setFadeIn(3000);
+    chaser->speedsEdit().setFadeIn(3000);
     chaser->setFadeOutMode(Chaser::Common);
-    chaser->setFadeOut(0);
+    chaser->speedsEdit().setFadeOut(0);
     chaser->setDurationMode(Chaser::Common);
-    chaser->setDuration(10000);
+    chaser->speedsEdit().setDuration(10000);
     chaser->setName(tr("%1 chaser - %2").arg(name).arg(m_model));
 
     // that's all here. I need to add an empty Chaser cause

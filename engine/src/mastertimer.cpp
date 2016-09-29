@@ -119,12 +119,14 @@ void MasterTimer::timerTick()
     {
         case Internal:
         {
-            int elapsedTime = qRound((double)m_beatTimer->nsecsElapsed() / 1000000) + m_lastBeatOffset;
+            int elapsedTime =
+                qRound((double)m_beatTimer->nsecsElapsed() / 1000000) +
+                m_lastBeatOffset;
             //qDebug() << "Elapsed beat:" << elapsedTime;
-            if (elapsedTime >= m_beatTimeDuration)
+            if (elapsedTime >= (int)m_beatTimeDuration)
             {
                 // it's time to fire a beat
-                m_beatRequested = true;
+                requestBeat();
 
                 // restart the time for the next beat, starting at a delta
                 // milliseconds, otherwise it will generate an unpleasant drift
@@ -476,7 +478,7 @@ MasterTimer::BeatsSourceType MasterTimer::beatSourceType() const
     return m_beatSourceType;
 }
 
-void MasterTimer::requestBpmNumber(int bpm)
+void MasterTimer::requestBpmNumber(float bpm)
 {
     if (bpm == m_currentBPM)
         return;
@@ -488,7 +490,7 @@ void MasterTimer::requestBpmNumber(int bpm)
     emit bpmNumberChanged(bpm);
 }
 
-int MasterTimer::bpmNumber() const
+float MasterTimer::bpmNumber() const
 {
     return m_currentBPM;
 }

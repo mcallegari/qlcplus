@@ -222,32 +222,32 @@ private:
     bool m_locked;
 
     /*********************************************************************
-     * Timings modes
+     * Speeds modes
      *********************************************************************/
 public:
-    enum TimingMode {
-        Default = 0, //! Use step function's own timings setting
-        Common,  //! Impose a common chaser-specific timings to all steps
-        PerStep  //! Impose a step-specific timings to each step
+    enum SpeedMode {
+        Default = 0, //! Use step function's own speeds setting
+        Common,  //! Impose a common chaser-specific speeds to all steps
+        PerStep  //! Impose a step-specific speeds to each step
     };
-    Q_ENUMS(TimingMode)
+    Q_ENUMS(SpeedMode)
 
-    void setFadeInMode(TimingMode mode);
-    TimingMode fadeInMode() const;
+    void setFadeInMode(SpeedMode mode);
+    SpeedMode fadeInMode() const;
 
-    void setFadeOutMode(TimingMode mode);
-    TimingMode fadeOutMode() const;
+    void setFadeOutMode(SpeedMode mode);
+    SpeedMode fadeOutMode() const;
 
-    void setDurationMode(TimingMode mode);
-    TimingMode durationMode() const;
+    void setDurationMode(SpeedMode mode);
+    SpeedMode durationMode() const;
 
-    static QString timingModeToString(TimingMode mode);
-    static TimingMode stringToTimingMode(const QString& str);
+    static QString speedModeToString(SpeedMode mode);
+    static SpeedMode stringToSpeedMode(const QString& str);
 
 private:
-    TimingMode m_fadeInMode;
-    TimingMode m_fadeOutMode;
-    TimingMode m_durationMode;
+    SpeedMode m_fadeInMode;
+    SpeedMode m_fadeOutMode;
+    SpeedMode m_durationMode;
 
     /*********************************************************************
      * Save & Load
@@ -312,7 +312,7 @@ private:
     bool m_hasStartIntensity;
 
 public:
-    virtual bool contains(quint32 functionId);
+    bool contains(quint32 functionId) const override;
 
     /*********************************************************************
      * Running

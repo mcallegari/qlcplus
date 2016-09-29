@@ -539,7 +539,7 @@ void VCXYPad::slotRangeValueChanged()
         m_efx->previewFixtures(fixturePoints);
 
         m_area->setEFXPolygons(polygon, fixturePoints);
-        m_area->setEFXInterval(m_efx->duration() / polygon.size());
+        m_area->setEFXInterval(m_efx->speeds().duration() / polygon.size());
     }
     m_area->update();
     if (QObject::sender() == m_hRangeSlider)
@@ -715,7 +715,7 @@ void VCXYPad::slotPresetClicked(bool checked)
 
         m_area->enableEFXPreview(true);
         m_area->setEFXPolygons(polygon, fixturePoints);
-        m_area->setEFXInterval(m_efx->duration() / polygon.size());
+        m_area->setEFXInterval(m_efx->speeds().duration() / polygon.size());
         m_efx->start(m_doc->masterTimer(), functionParent());
 
         if (preset->m_inputSource.isNull() == false)

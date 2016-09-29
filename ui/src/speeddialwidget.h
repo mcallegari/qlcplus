@@ -58,11 +58,11 @@ public:
     void setFadeOut(int ms);
     int fadeOut() const;
 
-    void setDurationTitle(const QString& title);
-    void setDurationEnabled(bool set);
-    void setDurationVisible(bool set);
-    void setDuration(int ms);
-    int duration() const;
+    void setHoldTitle(const QString& title);
+    void setHoldEnabled(bool set);
+    void setHoldVisible(bool set);
+    void setHold(int ms);
+    int hold() const;
 
 signals:
     void fadeInChanged(int ms);

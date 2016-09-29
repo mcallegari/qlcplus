@@ -45,8 +45,8 @@ AudioEditor::AudioEditor(QWidget* parent, Audio *audio, Doc* doc)
     m_nameEdit->setText(m_audio->name());
     m_nameEdit->setSelection(0, m_nameEdit->text().length());
 
-    m_fadeInEdit->setText(FunctionTimings::valueToString(audio->fadeIn()));
-    m_fadeOutEdit->setText(FunctionTimings::valueToString(audio->fadeOut()));
+    m_fadeInEdit->setText(Speed::msToString(audio->speeds().fadeIn()));
+    m_fadeOutEdit->setText(Speed::msToString(audio->speeds().fadeOut()));
 
     connect(m_nameEdit, SIGNAL(textEdited(const QString&)),
             this, SLOT(slotNameEdited(const QString&)));
@@ -70,7 +70,7 @@ AudioEditor::AudioEditor(QWidget* parent, Audio *audio, Doc* doc)
     if (adec != NULL)
     {
         AudioParameters ap = adec->audioParameters();
-        m_durationLabel->setText(FunctionTimings::valueToString(m_audio->duration()));
+        m_durationLabel->setText(Speed::msToString(m_audio->speeds().duration()));
         m_srateLabel->setText(QString("%1 Hz").arg(ap.sampleRate()));
         m_channelsLabel->setText(QString("%1").arg(ap.channels()));
         m_bitrateLabel->setText(QString("%1 kb/s").arg(adec->bitrate()));
@@ -167,7 +167,7 @@ void AudioEditor::slotSourceFileClicked()
     if (adec != NULL)
     {
         AudioParameters ap = adec->audioParameters();
-        m_durationLabel->setText(FunctionTimings::valueToString(m_audio->duration()));
+        m_durationLabel->setText(Speed::msToString(m_audio->speeds().duration()));
         m_srateLabel->setText(QString("%1 Hz").arg(ap.sampleRate()));
         m_channelsLabel->setText(QString("%1").arg(ap.channels()));
         m_bitrateLabel->setText(QString("%1 kb/s").arg(adec->bitrate()));
@@ -179,10 +179,10 @@ void AudioEditor::slotFadeInEdited()
     uint newValue;
     QString text = m_fadeInEdit->text();
 
-    newValue = FunctionTimings::stringToValue(text);
-    m_fadeInEdit->setText(FunctionTimings::valueToString(newValue));
+    newValue = Speed::stringToMs(text);
+    m_fadeInEdit->setText(Speed::msToString(newValue));
 
-    m_audio->setFadeIn(newValue);
+    m_audio->speedsEdit().setFadeIn(newValue);
     m_doc->setModified();
 }
 
@@ -191,10 +191,10 @@ void AudioEditor::slotFadeOutEdited()
     uint newValue;
     QString text = m_fadeOutEdit->text();
 
-    newValue = FunctionTimings::stringToValue(text);
-    m_fadeOutEdit->setText(FunctionTimings::valueToString(newValue));
+    newValue = Speed::stringToMs(text);
+    m_fadeOutEdit->setText(Speed::msToString(newValue));
 
-    m_audio->setFadeOut(newValue);
+    m_audio->speedsEdit().setFadeOut(newValue);
     m_doc->setModified();
 }
 
@@ -243,10 +243,10 @@ void AudioEditor::createSpeedDials()
     m_speedDials = new SpeedDialWidget(this);
     m_speedDials->setAttribute(Qt::WA_DeleteOnClose);
     m_speedDials->setWindowTitle(m_audio->name());
-    m_speedDials->setFadeIn(m_audio->fadeIn());
-    m_speedDials->setFadeOut(m_audio->fadeOut());
-    m_speedDials->setDurationEnabled(false);
-    m_speedDials->setDurationVisible(false);
+    m_speedDials->setFadeIn(m_audio->speeds().fadeIn());
+    m_speedDials->setFadeOut(m_audio->speeds().fadeOut());
+    m_speedDials->setHoldEnabled(false);
+    m_speedDials->setHoldVisible(false);
     connect(m_speedDials, SIGNAL(fadeInChanged(int)), this, SLOT(slotFadeInDialChanged(int)));
     connect(m_speedDials, SIGNAL(fadeOutChanged(int)), this, SLOT(slotFadeOutDialChanged(int)));
     connect(m_speedDials, SIGNAL(destroyed(QObject*)), this, SLOT(slotDialDestroyed(QObject*)));
@@ -267,14 +267,14 @@ void AudioEditor::slotSpeedDialToggle(bool state)
 
 void AudioEditor::slotFadeInDialChanged(int ms)
 {
-    m_fadeInEdit->setText(FunctionTimings::valueToString(ms));
-    m_audio->setFadeIn(ms);
+    m_fadeInEdit->setText(Speed::msToString(ms));
+    m_audio->speedsEdit().setFadeIn(ms);
 }
 
 void AudioEditor::slotFadeOutDialChanged(int ms)
 {
-    m_fadeOutEdit->setText(FunctionTimings::valueToString(ms));
-    m_audio->setFadeOut(ms);
+    m_fadeOutEdit->setText(Speed::msToString(ms));
+    m_audio->speedsEdit().setFadeOut(ms);
 }
 
 void AudioEditor::slotDialDestroyed(QObject *)

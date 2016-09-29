@@ -154,27 +154,27 @@ int SpeedDialWidget::fadeOut() const
     return m_fadeOut->value();
 }
 
-void SpeedDialWidget::setDurationTitle(const QString& title)
+void SpeedDialWidget::setHoldTitle(const QString& title)
 {
     m_hold->setTitle(title);
 }
 
-void SpeedDialWidget::setDurationEnabled(bool enable)
+void SpeedDialWidget::setHoldEnabled(bool enable)
 {
     m_hold->setEnabled(enable);
 }
 
-void SpeedDialWidget::setDurationVisible(bool set)
+void SpeedDialWidget::setHoldVisible(bool set)
 {
     m_hold->setVisible(set);
 }
 
-void SpeedDialWidget::setDuration(int ms)
+void SpeedDialWidget::setHold(int ms)
 {
     m_hold->setValue(ms);
 }
 
-int SpeedDialWidget::duration() const
+int SpeedDialWidget::hold() const
 {
     return m_hold->value();
 }

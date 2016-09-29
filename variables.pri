@@ -15,7 +15,7 @@ APPVERSION = 4.10.5 GIT
 #############################################################################
 
 # Treat all compiler warnings as errors
-QMAKE_CXXFLAGS += -Werror
+QMAKE_CXXFLAGS += -Werror -std=c++11
 
 CONFIG         += warn_on
 

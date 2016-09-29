@@ -40,7 +40,7 @@ VideoItem::VideoItem(Video *vid, ShowFunction *func)
         setColor(ShowFunction::defaultColor(Function::Video));
 
     if (func->duration() == 0)
-        func->setDuration(m_video->duration());
+        func->setDuration(m_video->speeds().duration());
 
     calculateWidth();
     connect(m_video, SIGNAL(changed(quint32)),
@@ -75,7 +75,7 @@ void VideoItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 {
     float xpos = 0;
     float timeScale = 50/(float)m_timeScale;
-    quint32 videoDuration = m_video->duration();
+    quint32 videoDuration = m_video->speeds().duration();
 
     ShowItem::paint(painter, option, widget);
 
@@ -91,16 +91,16 @@ void VideoItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         }
     }
 
-    if (m_video->fadeIn() != 0)
+    if (m_video->speeds().fadeIn() != 0)
     {
-        int fadeXpos = (timeScale * (float)m_video->fadeIn()) / 1000;
+        int fadeXpos = (timeScale * (float)m_video->speeds().fadeIn()) / 1000;
         painter->setPen(QPen(Qt::gray, 1));
         painter->drawLine(1, TRACK_HEIGHT - 4, fadeXpos, 2);
     }
 
-    if (m_video->fadeOut() != 0)
+    if (m_video->speeds().fadeOut() != 0)
     {
-        int fadeXpos = (timeScale * (float)m_video->fadeOut()) / 1000;
+        int fadeXpos = (timeScale * (float)m_video->speeds().fadeOut()) / 1000;
         painter->setPen(QPen(Qt::gray, 1));
         painter->drawLine(m_width - fadeXpos, 2, m_width - 1, TRACK_HEIGHT - 4);
     }
@@ -141,7 +141,7 @@ void VideoItem::slotVideoChanged(quint32)
 {
     prepareGeometryChange();
     if (m_function)
-        m_function->setDuration(m_video->duration());
+        m_function->setDuration(m_video->speeds().duration());
     calculateWidth();
     updateTooltip();
 }
@@ -150,7 +150,7 @@ void VideoItem::slotVideoDurationChanged(qint64)
 {
     prepareGeometryChange();
     if (m_function && m_function->duration() == 0)
-        m_function->setDuration(m_video->duration());
+        m_function->setDuration(m_video->speeds().duration());
     calculateWidth();
     updateTooltip();
 }

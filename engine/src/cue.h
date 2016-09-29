@@ -24,6 +24,7 @@
 #include <QString>
 #include <QHash>
 
+#include "functionspeeds.h"
 #include "scenevalue.h"
 
 class QXmlStreamReader;
@@ -39,9 +40,6 @@ class QXmlStreamWriter;
 #define KXMLQLCCueValueChannel "Channel"
 
 #define KXMLQLCCueSpeed         "Speed"
-#define KXMLQLCCueSpeedFadeIn   "FadeIn"
-#define KXMLQLCCueSpeedFadeOut  "FadeOut"
-#define KXMLQLCCueSpeedDuration "Duration"
 
 class Cue
 {
@@ -78,19 +76,11 @@ private:
      * Speed
      ************************************************************************/
 public:
-    void setFadeIn(uint ms);
-    uint fadeIn() const;
-
-    void setFadeOut(uint ms);
-    uint fadeOut() const;
-
-    void setDuration(uint ms);
-    uint duration() const;
+    const FunctionSpeeds& speeds() const;
+    FunctionSpeeds& speedsEdit();
 
 private:
-    uint m_fadeIn;
-    uint m_fadeOut;
-    uint m_duration;
+    FunctionSpeeds m_speeds;
 
     /************************************************************************
      * Load & Save
@@ -98,10 +88,6 @@ private:
 public:
     bool loadXML(QXmlStreamReader &root);
     bool saveXML(QXmlStreamWriter *doc) const;
-
-private:
-    bool loadXMLSpeed(QXmlStreamReader &speedRoot);
-    bool saveXMLSpeed(QXmlStreamWriter *doc) const;
 };
 
 /** @} */

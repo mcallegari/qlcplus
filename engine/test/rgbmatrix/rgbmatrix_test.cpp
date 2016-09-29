@@ -22,6 +22,7 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 
+#define protected public
 #define private public
 #include "rgbscriptscache.h"
 #include "rgbmatrix_test.h"
@@ -34,6 +35,7 @@
 #include "qlcfile.h"
 #include "doc.h"
 #undef private
+#undef protected
 
 #include "../common/resource_paths.h"
 
@@ -85,7 +87,7 @@ void RGBMatrix_Test::initial()
     QVERIFY(mtx.m_fader == NULL);
     QCOMPARE(mtx.m_stepHandler->currentStepIndex(), 0);
     QCOMPARE(mtx.name(), tr("New RGB Matrix"));
-    QCOMPARE(mtx.duration(), uint(500));
+    QCOMPARE(mtx.speeds().duration(), uint(500));
     QVERIFY(mtx.algorithm() != NULL);
     QCOMPARE(mtx.algorithm()->name(), QString("Stripes"));
 }
@@ -187,9 +189,9 @@ void RGBMatrix_Test::loadSave()
     mtx->setName("Xyzzy");
     mtx->setDirection(Function::Backward);
     mtx->setRunOrder(Function::PingPong);
-    mtx->setFadeIn(10);
-    mtx->setFadeOut(20);
-    mtx->setDuration(1200);
+    mtx->speedsEdit().setFadeIn(10);
+    mtx->speedsEdit().setFadeOut(20);
+    mtx->speedsEdit().setDuration(1200);
     mtx->setDimmerControl(false);
     m_doc->addFunction(mtx);
 
@@ -288,9 +290,9 @@ void RGBMatrix_Test::loadSave()
     QCOMPARE(mtx2.fixtureGroup(), uint(42));
     QVERIFY(mtx2.algorithm() != NULL);
     QCOMPARE(mtx2.algorithm()->name(), mtx->algorithm()->name());
-    QCOMPARE(mtx2.duration(), uint(1200));
-    QCOMPARE(mtx2.fadeIn(), uint(10));
-    QCOMPARE(mtx2.fadeOut(), uint(20));
+    QCOMPARE(mtx2.speeds().duration(), uint(1200));
+    QCOMPARE(mtx2.speeds().fadeIn(), uint(10));
+    QCOMPARE(mtx2.speeds().fadeOut(), uint(20));
 
     buffer.close();
     buffer.setData(QByteArray());

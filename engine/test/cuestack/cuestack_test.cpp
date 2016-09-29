@@ -67,7 +67,7 @@ void CueStack_Test::initial()
     QCOMPARE(cs.name(), QString());
     QCOMPARE(cs.fadeIn(), uint(0));
     QCOMPARE(cs.fadeOut(), uint(0));
-    QCOMPARE(cs.duration(), uint(UINT_MAX));
+    QCOMPARE(cs.duration(), Speed::infiniteValue());
     QCOMPARE(cs.cues().size(), 0);
     QCOMPARE(cs.currentIndex(), -1);
     QCOMPARE(cs.intensity(), qreal(1.0));
@@ -542,7 +542,7 @@ void CueStack_Test::save()
             speed++;
             QCOMPARE(xmlReader.attributes().value("FadeIn").toString(), QString("200"));
             QCOMPARE(xmlReader.attributes().value("FadeOut").toString(), QString("300"));
-            QCOMPARE(xmlReader.attributes().value("Duration").toString(), QString("400"));
+            QCOMPARE(xmlReader.attributes().value("Hold").toString(), QString("200"));
             xmlReader.skipCurrentElement();
         }
         else if (xmlReader.name() == "Cue")
@@ -768,8 +768,8 @@ void CueStack_Test::switchCue()
     cue.setValue(500, 255);
     cue.setValue(10, 255); // LTP
     cue.setValue(11, 255); // LTP
-    cue.setFadeIn(20);
-    cue.setFadeOut(40);
+    cue.speedsEdit().setFadeIn(20);
+    cue.speedsEdit().setFadeOut(40);
     cs.appendCue(cue);
 
     cue = Cue();
@@ -779,8 +779,8 @@ void CueStack_Test::switchCue()
     cue.setValue(3, 255);
     cue.setValue(4, 255);
     cue.setValue(11, 255); // LTP
-    cue.setFadeIn(60);
-    cue.setFadeOut(80);
+    cue.speedsEdit().setFadeIn(60);
+    cue.speedsEdit().setFadeOut(80);
     cs.appendCue(cue);
 
     cs.preRun();
@@ -979,16 +979,16 @@ void CueStack_Test::write()
 
     Cue cue("One");
     cue.setValue(0, 255);
-    cue.setFadeIn(100);
-    cue.setFadeOut(200);
-    cue.setDuration(300);
+    cue.speedsEdit().setFadeIn(100);
+    cue.speedsEdit().setFadeOut(200);
+    cue.speedsEdit().setDuration(300);
     cs.appendCue(cue);
 
     cue = Cue("Two");
     cue.setValue(1, 255);
-    cue.setFadeIn(100);
-    cue.setFadeOut(200);
-    cue.setDuration(300);
+    cue.speedsEdit().setFadeIn(100);
+    cue.speedsEdit().setFadeOut(200);
+    cue.speedsEdit().setDuration(300);
     cs.appendCue(cue);
 
     cs.preRun();

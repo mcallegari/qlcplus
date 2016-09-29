@@ -79,7 +79,7 @@ VCButtonProperties::VCButtonProperties(VCButton* button, Doc* doc)
     else
         m_toggle->setChecked(true);
     m_fadeOutTime = m_button->stopAllFadeTime();
-    m_fadeOutEdit->setText(FunctionTimings::valueToString(m_fadeOutTime));
+    m_fadeOutEdit->setText(Speed::msToString(m_fadeOutTime));
     slotActionToggled();
 
     /* Intensity adjustment */
@@ -173,8 +173,8 @@ void VCButtonProperties::slotSpeedDialToggle(bool state)
         m_speedDials->setWindowTitle(m_button->caption());
         m_speedDials->setFadeInVisible(false);
         m_speedDials->setFadeOut(m_fadeOutTime);
-        m_speedDials->setDurationEnabled(false);
-        m_speedDials->setDurationVisible(false);
+        m_speedDials->setHoldEnabled(false);
+        m_speedDials->setHoldVisible(false);
         connect(m_speedDials, SIGNAL(fadeOutChanged(int)), this, SLOT(slotFadeOutDialChanged(int)));
         connect(m_speedDials, SIGNAL(destroyed(QObject*)), this, SLOT(slotDialDestroyed(QObject*)));
         m_speedDials->show();
@@ -189,7 +189,7 @@ void VCButtonProperties::slotSpeedDialToggle(bool state)
 
 void VCButtonProperties::slotFadeOutDialChanged(int ms)
 {
-    m_fadeOutEdit->setText(FunctionTimings::valueToString(ms));
+    m_fadeOutEdit->setText(Speed::msToString(ms));
     m_fadeOutTime = ms;
 }
 
@@ -210,8 +210,8 @@ void VCButtonProperties::slotIntensityEdited(const QString& text)
 
 void VCButtonProperties::slotFadeOutTextEdited()
 {
-    m_fadeOutTime = FunctionTimings::stringToValue(m_fadeOutEdit->text());
-    m_fadeOutEdit->setText(FunctionTimings::valueToString(m_fadeOutTime));
+    m_fadeOutTime = Speed::stringToMs(m_fadeOutEdit->text());
+    m_fadeOutEdit->setText(Speed::msToString(m_fadeOutTime));
     if (m_speedDials != NULL)
         m_speedDials->setFadeOut(m_fadeOutTime);
 }

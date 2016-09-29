@@ -83,7 +83,7 @@ HEADERS += bus.h \
            fixture.h \
            fixturegroup.h \
            function.h \
-           functiontimings.h \
+           functionspeeds.h \
            functionuistate.h \
            genericdmxsource.h \
            genericfader.h \
@@ -113,6 +113,7 @@ HEADERS += bus.h \
            show.h \
            showfunction.h \
            showrunner.h \
+           speed.h \
            track.h \
            universe.h
 
@@ -164,7 +165,7 @@ SOURCES += bus.cpp \
            fixture.cpp \
            fixturegroup.cpp \
            function.cpp \
-           functiontimings.cpp \
+           functionspeeds.cpp \
            functionuistate.cpp \
            genericdmxsource.cpp \
            genericfader.cpp \
@@ -193,6 +194,7 @@ SOURCES += bus.cpp \
            show.cpp \
            showfunction.cpp \
            showrunner.cpp \
+           speed.cpp \
            track.cpp \
            universe.cpp
 

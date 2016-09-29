@@ -39,7 +39,7 @@ private slots:
     void functionRemoval();
     void copyFrom();
     void createCopy();
-    void timingModes();
+    void speedModes();
 
     void loadSuccessLegacy();
     void loadSuccess();

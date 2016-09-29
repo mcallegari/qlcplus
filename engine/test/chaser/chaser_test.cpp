@@ -228,9 +228,9 @@ void Chaser_Test::copyFrom()
     c1.setName("First");
     c1.setDirection(Chaser::Backward);
     c1.setRunOrder(Chaser::PingPong);
-    c1.setFadeIn(42);
-    c1.setFadeOut(69);
-    c1.setDuration(1337);
+    c1.speedsEdit().setFadeIn(42);
+    c1.speedsEdit().setFadeOut(69);
+    c1.speedsEdit().setDuration(1337);
     c1.addStep(ChaserStep(2));
     c1.addStep(ChaserStep(0));
     c1.addStep(ChaserStep(1));
@@ -242,9 +242,9 @@ void Chaser_Test::copyFrom()
     QVERIFY(c2.copyFrom(&c1) == true);
     QCOMPARE(spy.size(), 1);
     QVERIFY(c2.name() == c1.name());
-    QVERIFY(c2.fadeIn() == 42);
-    QVERIFY(c2.fadeOut() == 69);
-    QVERIFY(c2.duration() == 1337);
+    QVERIFY(c2.speeds().fadeIn() == 42);
+    QVERIFY(c2.speeds().fadeOut() == 69);
+    QVERIFY(c2.speeds().duration() == 1337);
     QVERIFY(c2.direction() == Chaser::Backward);
     QVERIFY(c2.runOrder() == Chaser::PingPong);
     QVERIFY(c2.steps().size() == 4);
@@ -260,9 +260,9 @@ void Chaser_Test::copyFrom()
     /* Make a third Chaser */
     Chaser c3(m_doc);
     c3.setName("Third");
-    c3.setFadeIn(142);
-    c3.setFadeOut(169);
-    c3.setDuration(11337);
+    c3.speedsEdit().setFadeIn(142);
+    c3.speedsEdit().setFadeOut(169);
+    c3.speedsEdit().setDuration(11337);
     c3.setDirection(Chaser::Forward);
     c3.setRunOrder(Chaser::Loop);
     c3.addStep(ChaserStep(15));
@@ -273,9 +273,9 @@ void Chaser_Test::copyFrom()
        that steps are not appended but replaced completely. */
     QVERIFY(c2.copyFrom(&c3) == true);
     QVERIFY(c2.name() == c3.name());
-    QVERIFY(c2.fadeIn() == 142);
-    QVERIFY(c2.fadeOut() == 169);
-    QVERIFY(c2.duration() == 11337);
+    QVERIFY(c2.speeds().fadeIn() == 142);
+    QVERIFY(c2.speeds().fadeOut() == 169);
+    QVERIFY(c2.speeds().duration() == 11337);
     QVERIFY(c2.direction() == Chaser::Forward);
     QVERIFY(c2.runOrder() == Chaser::Loop);
     QVERIFY(c2.steps().size() == 3);
@@ -290,9 +290,9 @@ void Chaser_Test::createCopy()
 
     Chaser* c1 = new Chaser(m_doc);
     c1->setName("First");
-    c1->setFadeIn(42);
-    c1->setFadeOut(69);
-    c1->setDuration(1337);
+    c1->speedsEdit().setFadeIn(42);
+    c1->speedsEdit().setFadeOut(69);
+    c1->speedsEdit().setDuration(1337);
     c1->setDirection(Chaser::Backward);
     c1->setRunOrder(Chaser::SingleShot);
     c1->addStep(ChaserStep(20));
@@ -309,9 +309,9 @@ void Chaser_Test::createCopy()
 
     Chaser* copy = qobject_cast<Chaser*> (f);
     QVERIFY(copy != NULL);
-    QVERIFY(copy->fadeIn() == 42);
-    QVERIFY(copy->fadeOut() == 69);
-    QVERIFY(copy->duration() == 1337);
+    QVERIFY(copy->speeds().fadeIn() == 42);
+    QVERIFY(copy->speeds().fadeOut() == 69);
+    QVERIFY(copy->speeds().duration() == 1337);
     QVERIFY(copy->direction() == Chaser::Backward);
     QVERIFY(copy->runOrder() == Chaser::SingleShot);
     QVERIFY(copy->steps().size() == 3);
@@ -320,7 +320,7 @@ void Chaser_Test::createCopy()
     QVERIFY(copy->steps().at(2) == ChaserStep(40));
 }
 
-void Chaser_Test::timingModes()
+void Chaser_Test::speedModes()
 {
     Chaser c(m_doc);
 
@@ -345,15 +345,15 @@ void Chaser_Test::timingModes()
     c.setDurationMode(Chaser::PerStep);
     QCOMPARE(c.durationMode(), Chaser::PerStep);
 
-    QCOMPARE(Chaser::timingModeToString(Chaser::Default), QString("Default"));
-    QCOMPARE(Chaser::timingModeToString(Chaser::Common), QString("Common"));
-    QCOMPARE(Chaser::timingModeToString(Chaser::PerStep), QString("PerStep"));
-    QCOMPARE(Chaser::timingModeToString(Chaser::TimingMode(12345)), QString("Default"));
+    QCOMPARE(Chaser::speedModeToString(Chaser::Default), QString("Default"));
+    QCOMPARE(Chaser::speedModeToString(Chaser::Common), QString("Common"));
+    QCOMPARE(Chaser::speedModeToString(Chaser::PerStep), QString("PerStep"));
+    QCOMPARE(Chaser::speedModeToString(Chaser::SpeedMode(12345)), QString("Default"));
 
-    QCOMPARE(Chaser::stringToTimingMode("Default"), Chaser::Default);
-    QCOMPARE(Chaser::stringToTimingMode("Common"), Chaser::Common);
-    QCOMPARE(Chaser::stringToTimingMode("PerStep"), Chaser::PerStep);
-    QCOMPARE(Chaser::stringToTimingMode("Foobar"), Chaser::Default);
+    QCOMPARE(Chaser::stringToSpeedMode("Default"), Chaser::Default);
+    QCOMPARE(Chaser::stringToSpeedMode("Common"), Chaser::Common);
+    QCOMPARE(Chaser::stringToSpeedMode("PerStep"), Chaser::PerStep);
+    QCOMPARE(Chaser::stringToSpeedMode("Foobar"), Chaser::Default);
 }
 
 void Chaser_Test::loadSuccessLegacy()
@@ -415,7 +415,7 @@ void Chaser_Test::loadSuccessLegacy()
 
     // postLoad() removes nonexistent functions so let's check this here
     c.postLoad();
-    QCOMPARE(c.duration(), MasterTimer::frequency() * MasterTimer::tick());
+    QCOMPARE(c.speeds().duration(), MasterTimer::frequency() * MasterTimer::tick());
 }
 
 void Chaser_Test::loadSuccess()
@@ -483,9 +483,9 @@ void Chaser_Test::loadSuccess()
 
     Chaser c(m_doc);
     QVERIFY(c.loadXML(xmlReader) == true);
-    QVERIFY(c.fadeIn() == 42);
-    QVERIFY(c.fadeOut() == 69);
-    QVERIFY(c.duration() == 1337);
+    QVERIFY(c.speeds().fadeIn() == 42);
+    QVERIFY(c.speeds().fadeOut() == 69);
+    QVERIFY(c.speeds().duration() == 1337);
     QCOMPARE(c.fadeInMode(), Chaser::Common);
     QCOMPARE(c.fadeOutMode(), Chaser::Default);
     QCOMPARE(c.durationMode(), Chaser::PerStep);
@@ -494,19 +494,19 @@ void Chaser_Test::loadSuccess()
     QVERIFY(c.steps().size() == 3);
 
     QVERIFY(c.steps().at(0) == ChaserStep(87));
-    QCOMPARE(c.steps().at(0).timings.fadeIn, uint(0));
-    QCOMPARE(c.steps().at(0).timings.fadeOut, uint(0));
-    QCOMPARE(c.steps().at(0).timings.duration(), uint(0));
+    QCOMPARE(c.steps().at(0).speeds.fadeIn(), uint(0));
+    QCOMPARE(c.steps().at(0).speeds.fadeOut(), uint(0));
+    QCOMPARE(c.steps().at(0).speeds.duration(), uint(0));
 
     QVERIFY(c.steps().at(1) == ChaserStep(50));
-    QCOMPARE(c.steps().at(1).timings.fadeIn, uint(600));
-    QCOMPARE(c.steps().at(1).timings.fadeOut, uint(700));
-    QCOMPARE(c.steps().at(1).timings.duration(), uint(800));
+    QCOMPARE(c.steps().at(1).speeds.fadeIn(), uint(600));
+    QCOMPARE(c.steps().at(1).speeds.fadeOut(), uint(700));
+    QCOMPARE(c.steps().at(1).speeds.duration(), uint(800));
 
     QVERIFY(c.steps().at(2) == ChaserStep(12));
-    QCOMPARE(c.steps().at(2).timings.fadeIn, uint(1600));
-    QCOMPARE(c.steps().at(2).timings.fadeOut, uint(1700));
-    QCOMPARE(c.steps().at(2).timings.duration(), uint(1800));
+    QCOMPARE(c.steps().at(2).speeds.fadeIn(), uint(1600));
+    QCOMPARE(c.steps().at(2).speeds.fadeOut(), uint(1700));
+    QCOMPARE(c.steps().at(2).speeds.duration(), uint(1800));
 }
 
 void Chaser_Test::loadWrongType()
@@ -721,9 +721,9 @@ void Chaser_Test::save()
     Chaser c(m_doc);
     c.setDirection(Chaser::Backward);
     c.setRunOrder(Chaser::SingleShot);
-    c.setFadeIn(42);
-    c.setFadeOut(69);
-    c.setDuration(1337);
+    c.speedsEdit().setFadeIn(42);
+    c.speedsEdit().setFadeOut(69);
+    c.speedsEdit().setDuration(1337);
     c.addStep(ChaserStep(3));
     c.addStep(ChaserStep(1));
     c.addStep(ChaserStep(0));
@@ -822,7 +822,7 @@ void Chaser_Test::tap()
 
     c->preRun(m_doc->masterTimer());
     QVERIFY(c->m_runner != NULL);
-    QCOMPARE(c->duration(), uint(0));
+    QCOMPARE(c->speeds().duration(), uint(0));
     c->write(m_doc->masterTimer(), QList<Universe*>());
     QCOMPARE(c->m_runner->m_next, false);
     c->tap();
@@ -858,7 +858,7 @@ void Chaser_Test::write()
     m_doc->addFixture(fxi);
 
     Chaser* c = new Chaser(m_doc);
-    c->setDuration(MasterTimer::tick() * 10);
+    c->speedsEdit().setDuration(MasterTimer::tick() * 10);
     m_doc->addFunction(c);
 
     Scene* s1 = new Scene(m_doc);
@@ -878,7 +878,7 @@ void Chaser_Test::write()
     c->start(&timer, FunctionParent::master());
 
     timer.timerTick();
-    for (uint i = MasterTimer::tick(); i < c->duration(); i += MasterTimer::tick())
+    for (uint i = MasterTimer::tick(); i < c->speeds().duration(); i += MasterTimer::tick())
     {
         timer.timerTick();
         QVERIFY(c->isRunning() == true);
@@ -887,7 +887,7 @@ void Chaser_Test::write()
         QVERIFY(s2->isRunning() == false);
     }
 
-    for (uint i = 0; i < c->duration(); i += MasterTimer::tick())
+    for (uint i = 0; i < c->speeds().duration(); i += MasterTimer::tick())
     {
         timer.timerTick();
         QVERIFY(c->isRunning() == true);
@@ -948,7 +948,7 @@ void Chaser_Test::quickChaser()
 
     Chaser* c = new Chaser(m_doc);
     // A really quick chaser
-    c->setDuration(0);
+    c->speedsEdit().setDuration(0);
     m_doc->addFunction(c);
 
     Scene* s1 = new Scene(m_doc);
