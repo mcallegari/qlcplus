@@ -103,6 +103,7 @@
   <fixture path="American-DJ-WiFly-EXR-Dotz-Par.qxf" mf="American DJ" md="WiFly EXR Dotz Par"/>
   <fixture path="American-DJ-WiFly-EXR-HEX5-IP.qxf" mf="American DJ" md="WiFly EXR HEX5 IP"/>
   <fixture path="American-Dj-X-Scan-LED-Plus.qxf" mf="American DJ" md="X-Scan LED Plus"/>
+  <fixture path="American-DJ-XS-600.qxf" mf="American DJ" md="XS 600"/>
   <fixture path="Antari-X-310-Pro-Fazer.qxf" mf="Antari" md="X-310 Pro Fazer"/>
   <fixture path="Ayra-ComPar20.qxf" mf="Ayra" md="ComPar 20"/>
   <fixture path="Ayra-ERO-506.qxf" mf="Ayra" md="ERO 506"/>
@@ -424,6 +425,7 @@
   <fixture path="GLP-YPOCColor575.qxf" mf="GLP" md="YPOC Color 575"/>
   <fixture path="GLX-Lighting-Power-LED-Beam-38-Narrow.qxf" mf="GLX Lighting" md="Power LED Beam 38 Narrow"/>
   <fixture path="Griven-Kolorado-2500.qxf" mf="Griven" md="Kolorado 2500"/>
+  <fixture path="High-End-Systems-Studio-Beam.qxf" mf="High End Systems" md="Studio Beam"/>
   <fixture path="High-End-Systems-Studio-Command-1200.qxf" mf="High End Systems" md="Studio Command 1200"/>
   <fixture path="High-End-Systems-Technobeam.qxf" mf="High End Systems" md="Technobeam"/>
   <fixture path="High-End-Systems-TechnoSpot.qxf" mf="High End Systems" md="TechnoSpot"/>
@@ -666,6 +668,7 @@
   <fixture path="Showtec-Phantom-250.qxf" mf="Showtec" md="Phantom 250"/>
   <fixture path="Showtec-Phantom-50.qxf" mf="Showtec" md="Phantom 50"/>
   <fixture path="Showtec-Phantom-75-LED-Spot-V2.qxf" mf="Showtec" md="Phantom 75 LED Spot V2"/>
+  <fixture path="Showtec-Phantom-95-LED-Spot.qxf" mf="Showtec" md="Phantom 95 LED Spot"/>
   <fixture path="Showtec-Pixel-Bar-12.qxf" mf="Showtec" md="Pixel Bar 12"/>
   <fixture path="Showtec-Power-Spot-9-Q6-Tour-V1.qxf" mf="Showtec" md="Power Spot 9 Q6 Tour V1"/>
   <fixture path="Showtec-Quatro.qxf" mf="Showtec" md="Quatro"/>
