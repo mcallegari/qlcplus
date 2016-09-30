@@ -23,7 +23,15 @@
 
 VCPage::VCPage(QQuickView *view, Doc *doc, VirtualConsole *vc, int pageIndex, QObject *parent)
     : VCFrame(doc, vc, parent)
+    , m_PIN(0)
+    , m_validatedPIN(false)
 {
+    setAllowResize(false);
+    setShowHeader(false);
+    setGeometry(QRect(0, 0, 1920, 1080));
+    setFont(QFont("Roboto Condensed", 16));
+    setCaption(tr("Page %1").arg(pageIndex + 1));
+
     m_pageContext = new PreviewContext(view, doc, QString("PAGE-%1").arg(pageIndex));
     m_pageContext->setContextResource("qrc:/VCPageArea.qml");
     m_pageContext->setContextTitle(tr("Virtual Console Page %1").arg(pageIndex));
@@ -38,6 +46,38 @@ VCPage::~VCPage()
 PreviewContext *VCPage::previewContext() const
 {
     return m_pageContext;
+}
+
+/*********************************************************************
+ * PIN
+ *********************************************************************/
+
+int VCPage::PIN() const
+{
+    return m_PIN;
+}
+
+void VCPage::setPIN(int newPIN)
+{
+    if (newPIN == m_PIN)
+        return;
+
+    m_PIN = newPIN;
+    setDocModified();
+    emit PINChanged(newPIN);
+}
+
+void VCPage::validatePIN()
+{
+    m_validatedPIN = true;
+}
+
+bool VCPage::requirePIN() const
+{
+    if (m_PIN == 0 || m_validatedPIN == true)
+        return false;
+
+    return true;
 }
 
 /*********************************************************************

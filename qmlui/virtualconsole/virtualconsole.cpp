@@ -74,11 +74,6 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc,
     {
         VCPage *page = new VCPage(view, m_doc, this, i, this);
         QQmlEngine::setObjectOwnership(page, QQmlEngine::CppOwnership);
-        page->setAllowResize(false);
-        page->setShowHeader(false);
-        page->setGeometry(QRect(0, 0, 1920, 1080));
-        page->setFont(QFont("Roboto Condensed", 16));
-        page->setCaption(tr("Page %1").arg(i + 1));
         m_contextManager->registerContext(page->previewContext());
         m_pages.append(page);
     }
@@ -174,11 +169,6 @@ void VirtualConsole::addPage(int index)
 {
     VCPage *page = new VCPage(m_view, m_doc, this, index, this);
     QQmlEngine::setObjectOwnership(page, QQmlEngine::CppOwnership);
-    page->setAllowResize(false);
-    page->setShowHeader(false);
-    page->setGeometry(QRect(0, 0, 1920, 1080));
-    page->setFont(QFont("Roboto Condensed", 16));
-    page->setCaption(tr("Page %1").arg(m_pages.count() + 1));
     m_contextManager->registerContext(page->previewContext());
     m_pages.insert(index, page);
 
@@ -215,34 +205,43 @@ void VirtualConsole::deletePage(int index)
 bool VirtualConsole::setPagePIN(int index, QString currentPIN, QString newPIN)
 {
     bool ok = false;
+    int iPIN;
+
+    Q_UNUSED(iPIN)
 
     if (index < 0 || index >= m_pages.count())
         return false;
 
-    /* A PIN must be aither empty or 4 digits */
+    /* A PIN must be either empty or 4 digits */
     if (newPIN.length() != 0 && newPIN.length() != 4)
         return false;
 
-    /* Check if the entered PINs are numeric */
-    int iPIN = currentPIN.toInt(&ok);
-    if (ok == false)
-        return false;
-
-    iPIN = newPIN.toInt(&ok);
-    if (ok == false)
-        return false;
-
-    Q_UNUSED(iPIN)
+    /* If the current PIN is set, check if
+     * the entered PIN is numeric */
+    if (m_pages.at(index)->PIN() != 0)
+    {
+        iPIN = currentPIN.toInt(&ok);
+        if (ok == false)
+            return false;
+    }
 
     /* Check if the current PIN matches with the Frame PIN */
-    if (m_pages.at(index)->PIN() != currentPIN.toInt())
+    if (m_pages.at(index)->PIN() != 0 &&
+        m_pages.at(index)->PIN() != currentPIN.toInt())
         return false;
 
     /* At last, set the new PIN for the page */
     if (newPIN.isEmpty())
         m_pages.at(index)->setPIN(0);
     else
+    {
+        /* If the new PIN is numeric */
+        iPIN = newPIN.toInt(&ok);
+        if (ok == false)
+            return false;
+
         m_pages.at(index)->setPIN(newPIN.toInt());
+    }
 
     return true;
 }
@@ -843,11 +842,6 @@ bool VirtualConsole::loadXML(QXmlStreamReader &root)
             {
                 VCPage *page = new VCPage(m_view, m_doc, this, currPageIdx, this);
                 QQmlEngine::setObjectOwnership(page, QQmlEngine::CppOwnership);
-                page->setAllowResize(false);
-                page->setShowHeader(false);
-                page->setGeometry(QRect(0, 0, 1920, 1080));
-                page->setFont(QFont("Roboto Condensed", 16));
-                page->setCaption(tr("Page %1").arg(currPageIdx + 1));
                 m_contextManager->registerContext(page->previewContext());
                 m_pages.append(page);
             }

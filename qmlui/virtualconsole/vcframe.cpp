@@ -45,8 +45,6 @@ VCFrame::VCFrame(Doc *doc, VirtualConsole *vc, QObject *parent)
     , m_currentPage(0)
     , m_totalPagesNumber(1)
     , m_pagesLoop(false)
-    , m_PIN(0)
-    , m_validatedPIN(false)
 {
     setType(VCWidget::FrameWidget);
 
@@ -459,38 +457,6 @@ void VCFrame::gotoNextPage()
         setCurrentPage(m_currentPage + 1);
 
     //sendFeedback(m_currentPage, nextPageInputSourceId);
-}
-
-/*********************************************************************
- * PIN
- *********************************************************************/
-
-int VCFrame::PIN() const
-{
-    return m_PIN;
-}
-
-void VCFrame::setPIN(int newPIN)
-{
-    if (newPIN == m_PIN)
-        return;
-
-    m_PIN = newPIN;
-    setDocModified();
-    emit PINChanged(newPIN);
-}
-
-void VCFrame::validatePIN()
-{
-    m_validatedPIN = true;
-}
-
-bool VCFrame::requirePIN() const
-{
-    if (m_PIN == 0 || m_validatedPIN == true)
-        return false;
-
-    return true;
 }
 
 /*********************************************************************
