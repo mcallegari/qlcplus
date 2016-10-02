@@ -88,6 +88,7 @@ class VCClock : public VCWidget
 {
     Q_OBJECT
 
+    Q_PROPERTY(bool enableSchedule READ enableSchedule WRITE setEnableSchedule NOTIFY enableScheduleChanged)
     Q_PROPERTY(ClockType clockType READ clockType WRITE setClockType NOTIFY clockTypeChanged)
     Q_PROPERTY(int  currentTime READ currentTime NOTIFY currentTimeChanged)
     Q_PROPERTY(int  targetTime READ targetTime WRITE setTargetTime NOTIFY targetTimeChanged)
@@ -163,6 +164,8 @@ private:
      * Functions scheduling
      *********************************************************************/
 public:
+    bool enableSchedule() const;
+    void setEnableSchedule(bool enableSchedule);
     QVariantList scheduleList();
     void addSchedule(VCClockSchedule *schedule);
     Q_INVOKABLE void addSchedule(quint32 funcID);
@@ -170,9 +173,12 @@ public:
 
 signals:
     void scheduleListChanged();
+    void enableScheduleChanged(bool enableSchedule);
 
 private:
+    bool m_enableSchedule;
     QList<VCClockSchedule*>m_scheduleList;
+
     /*********************************************************************
      * Load & Save
      *********************************************************************/

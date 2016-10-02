@@ -26,6 +26,7 @@
 #include "vcclock.h"
 #include "doc.h"
 
+#define KXMLQLCVCClockEnabled "Enable"
 #define KXMLQLCVCClockType "Type"
 #define KXMLQLCVCClockTime "Time"
 
@@ -45,10 +46,14 @@ VCClock::VCClock(Doc *doc, QObject *parent)
     : VCWidget(doc, parent)
     , m_clocktype(Clock)
     , m_targetTime(0)
+    , m_enableSchedule(false)
 {
     setType(VCWidget::ClockWidget);
     setForegroundColor(Qt::white);
-    m_font.setBold(true);
+    QFont wFont = font();
+    wFont.setBold(true);
+    wFont.setPointSize(28);
+    setFont(wFont);
 
     m_timer = new QTimer(this);
     connect(m_timer, SIGNAL(timeout()), this, SLOT(slotTimerTimeout()));
@@ -179,7 +184,7 @@ void VCClock::setTargetTime(int ms)
 void VCClock::slotTimerTimeout()
 {
     // if we're editing the widget, then do nothing
-    if (isEditing())
+    if (isEditing() || enableSchedule() == false)
         return;
 
     QDateTime currDate = QDateTime::currentDateTime();
@@ -187,7 +192,7 @@ void VCClock::slotTimerTimeout()
     int currDay = 1 << (currDate.date().dayOfWeek() - 1);
     int dayTimeSecs = (currTime.hour() * 60 * 60) + (currTime.minute() * 60) + currTime.second();
 
-    foreach(VCClockSchedule *sch, m_scheduleList)
+    for(VCClockSchedule *sch : m_scheduleList) // C++11
     {
         if (sch->m_cachedDuration == -1)
         {
@@ -254,7 +259,7 @@ void VCClock::slotTimerTimeout()
         }
     }
 
-    // at last, notify the UI the time has changed
+    // at last, notify the UI that the time has changed
     emit currentTimeChanged(dayTimeSecs);
 }
 
@@ -262,10 +267,35 @@ void VCClock::slotTimerTimeout()
  * Functions scheduling
  *********************************************************************/
 
+bool VCClock::enableSchedule() const
+{
+    return m_enableSchedule;
+}
+
+void VCClock::setEnableSchedule(bool enableSchedule)
+{
+    if (m_enableSchedule == enableSchedule)
+        return;
+
+    /* When disabling, check for running functions and stop them */
+    if (enableSchedule == false)
+    {
+        for(VCClockSchedule *sch : m_scheduleList) // C++11
+        {
+            Function *f = m_doc->function(sch->functionID());
+            if (f != NULL && f->isRunning())
+                f->stop(functionParent());
+        }
+    }
+
+    m_enableSchedule = enableSchedule;
+    emit enableScheduleChanged(enableSchedule);
+}
+
 QVariantList VCClock::scheduleList()
 {
     QVariantList list;
-    foreach(VCClockSchedule *sch, m_scheduleList)
+    for(VCClockSchedule *sch : m_scheduleList) // C++11
         list.append(QVariant::fromValue(sch));
     return list;
 }
@@ -318,6 +348,15 @@ bool VCClock::loadXML(QXmlStreamReader &root)
     }
 
     QXmlStreamAttributes attrs = root.attributes();
+    bool enableSchedule = true;
+
+    if (attrs.hasAttribute(KXMLQLCVCClockEnabled))
+    {
+        QString en = attrs.value(KXMLQLCVCClockEnabled).toString();
+        if (en == "False")
+            enableSchedule = false;
+    }
+    setEnableSchedule(enableSchedule);
 
     if (attrs.hasAttribute(KXMLQLCVCClockType))
     {
@@ -328,9 +367,8 @@ bool VCClock::loadXML(QXmlStreamReader &root)
 
             if (attrs.hasAttribute(KXMLQLCVCClockTime))
             {
-                QDateTime tTime;
-                tTime.setTime(QTime::fromString(attrs.value(KXMLQLCVCClockTime).toString(), "HH:mm:ss"));
-                msTime = (tTime.time().hour() * 60 * 60 * 1000) + (tTime.time().minute() * 60 * 1000) + (tTime.time().second() * 1000);
+                QTime tTime = QTime::fromString(attrs.value(KXMLQLCVCClockTime).toString(), "HH:mm:ss");
+                msTime = tTime.msecsSinceStartOfDay() / 1000;
             }
             else // LEGACY
             {
@@ -387,14 +425,22 @@ bool VCClock::saveXML(QXmlStreamWriter *doc)
     /* VC Clock entry */
     doc->writeStartElement(KXMLQLCVCClock);
 
+    doc->writeAttribute(KXMLQLCVCClockEnabled, enableSchedule() ? "True" : "False");
+
     /* Type */
     ClockType type = clockType();
     doc->writeAttribute(KXMLQLCVCClockType, typeToString(type));
     if (type == Countdown)
     {
-        QDateTime tTime;
-        tTime = tTime.addSecs(targetTime() / 1000);
-        doc->writeAttribute(KXMLQLCVCClockTime, tTime.time().toString());
+        QTime tTime;
+        int tt = targetTime();
+        int hh = (tt / 3600);
+        tt -= (hh * 3600);
+        int mm = (tt / 60);
+        tt -= (mm * 60);
+        tTime.setHMS(hh, mm, tt);
+
+        doc->writeAttribute(KXMLQLCVCClockTime, tTime.toString());
     }
 
     saveXMLCommon(doc);
@@ -405,7 +451,7 @@ bool VCClock::saveXML(QXmlStreamWriter *doc)
     /* Appearance */
     saveXMLAppearance(doc);
 
-    foreach(VCClockSchedule *sch, m_scheduleList)
+    for(VCClockSchedule *sch : m_scheduleList) // C++11
         sch->saveXML(doc);
 
     /* End the <Clock> tag */
@@ -451,17 +497,20 @@ bool VCClockSchedule::loadXML(QXmlStreamReader &root)
     {
         setFunctionID(attrs.value(KXMLQLCVCClockScheduleFunc).toString().toUInt());
 
-        if (attrs.hasAttribute(KXMLQLCVCClockScheduleTime))
+        if (attrs.hasAttribute(KXMLQLCVCClockScheduleStartTime))
         {
-            QDateTime start;
-            start.setTime(QTime::fromString(attrs.value(KXMLQLCVCClockScheduleTime).toString(), "HH:mm:ss"));
-            setStartTime((start.time().hour() * 60 * 60) + (start.time().minute() * 60) + start.time().second());
+            QTime start = QTime::fromString(attrs.value(KXMLQLCVCClockScheduleStartTime).toString(), "HH:mm:ss");
+            setStartTime(start.msecsSinceStartOfDay() / 1000);
         }
         if (attrs.hasAttribute(KXMLQLCVCClockScheduleStopTime))
         {
-            QDateTime stop;
-            stop.setTime(QTime::fromString(attrs.value(KXMLQLCVCClockScheduleStopTime).toString(), "HH:mm:ss"));
-            setStopTime((stop.time().hour() * 60 * 60) + (stop.time().minute() * 60) + stop.time().second());
+            QTime stop = QTime::fromString(attrs.value(KXMLQLCVCClockScheduleStopTime).toString(), "HH:mm:ss");
+            setStopTime(stop.msecsSinceStartOfDay() / 1000);
+        }
+        if (attrs.hasAttribute(KXMLQLCVCClockScheduleTime)) // LEGACY
+        {
+            QTime start = QTime::fromString(attrs.value(KXMLQLCVCClockScheduleTime).toString(), "HH:mm:ss");
+            setStartTime(start.msecsSinceStartOfDay() / 1000);
         }
 
         if (attrs.hasAttribute(KXMLQLCVCClockScheduleWeekFlags))
@@ -480,17 +529,29 @@ bool VCClockSchedule::saveXML(QXmlStreamWriter *doc)
     /* Schedule function */
     doc->writeAttribute(KXMLQLCVCClockScheduleFunc, QString::number(functionID()));
 
+    qDebug() << "Start time:" << startTime() << ", stopTime:" << stopTime();
+
     /* Schedule start time */
-    QDateTime start;
-    start = start.addSecs(startTime());
-    doc->writeAttribute(KXMLQLCVCClockScheduleStartTime, start.time().toString());
+    QTime start;
+    int st = startTime();
+    int hh = (st / 3600);
+    st -= (hh * 3600);
+    int mm = (st / 60);
+    st -= (mm * 60);
+    start.setHMS(hh, mm, st);
+    doc->writeAttribute(KXMLQLCVCClockScheduleStartTime, start.toString());
 
     if (stopTime() != -1)
     {
         /* Schedule stop time */
-        QDateTime stop;
-        stop = stop.addSecs(startTime());
-        doc->writeAttribute(KXMLQLCVCClockScheduleStopTime, stop.time().toString());
+        QTime stop;
+        st = stopTime();
+        hh = (st / 3600);
+        st -= (hh * 3600);
+        mm = (st / 60);
+        st -= (mm * 60);
+        stop.setHMS(hh, mm, st);
+        doc->writeAttribute(KXMLQLCVCClockScheduleStopTime, stop.toString());
     }
     if (weekFlags() != 0)
         doc->writeAttribute(KXMLQLCVCClockScheduleWeekFlags, QString::number(weekFlags()));
