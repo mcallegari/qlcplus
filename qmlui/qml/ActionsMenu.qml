@@ -23,23 +23,12 @@ import QtQuick.Dialogs 1.2
 Rectangle
 {
     id: menuRoot
-    visible: false
-    x: 1
-    y: 40
-    z: 99
     radius: 2
     border.width: 1
     border.color: "#1D1D1D"
     color: "#202020"
     width: actionsMenuEntries.width
     height: actionsMenuEntries.height
-
-    function closeMenu()
-    {
-        contextMenuArea.enabled = false
-        contextMenuArea.z = 0
-        menuRoot.visible = false
-    }
 
     FileDialog
     {
@@ -68,7 +57,7 @@ Rectangle
             onClicked:
             {
                 qlcplus.newWorkspace()
-                closeMenu()
+                menuRoot.visible = false
             }
             onEntered: recentMenu.visible = false
         }
@@ -82,7 +71,7 @@ Rectangle
                 fileDialog.title = qsTr("Open a workspace")
                 fileDialog.nameFilters = [ qsTr("Workspace files") + " (*.qxw)", qsTr("All files") + " (*)" ]
                 fileDialog.visible = true
-                closeMenu()
+                menuRoot.visible = false
                 fileDialog.open();
             }
             onEntered: recentMenu.visible = true
@@ -112,8 +101,6 @@ Rectangle
                                 {
                                     recentMenu.visible = false
                                     menuRoot.visible = false
-                                    contextMenuArea.enabled = false
-                                    contextMenuArea.z = 0
                                     qlcplus.loadWorkspace(entryText)
                                 }
                             }

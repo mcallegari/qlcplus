@@ -107,12 +107,7 @@ Rectangle
                 id: actEntry
                 imgSource: "qrc:/qlcplus.svg"
                 entryText: qsTr("Actions")
-                onClicked:
-                {
-                    actionsMenu.visible = true
-                    contextMenuArea.enabled = true
-                    contextMenuArea.z = 98
-                }
+                onClicked: actionsMenu.visible = true
             }
             MenuBarEntry
             {
@@ -262,7 +257,10 @@ Rectangle
     ActionsMenu
     {
         id: actionsMenu
+        x: 1
         y: actEntry.height + 1
+        visible: false
+        z: visible ? 99 : 0
     }
 
     /** Mouse area enabled when actionsMenu is visible
@@ -272,19 +270,10 @@ Rectangle
     MouseArea
     {
         id: contextMenuArea
-        z: 0
-        enabled: false
+        z: actionsMenu.visible ? 98 : 0
+        enabled: actionsMenu.visible
         anchors.fill: parent
-        onClicked:
-        {
-            console.log("Root clicked")
-            if (actionsMenu.visible == true)
-            {
-                contextMenuArea.enabled = false
-                contextMenuArea.z = 0;
-                actionsMenu.visible = false
-            }
-        }
+        onClicked: actionsMenu.visible = false
     }
 
     Rectangle
