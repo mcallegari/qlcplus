@@ -35,8 +35,6 @@ Rectangle
 
     signal requestView(int ID, string qmlSrc)
 
-    Component.onDestruction: functionManager.setEditorFunction(-1)
-
     Rectangle
     {
         id: topBar
@@ -66,7 +64,11 @@ Rectangle
                 hoverEnabled: true
                 onEntered: backBox.color = "#666"
                 onExited: backBox.color = "transparent"
-                onClicked: requestView(-1, "qrc:/FunctionManager.qml")
+                onClicked:
+                {
+                    functionManager.setEditorFunction(-1)
+                    requestView(-1, "qrc:/FunctionManager.qml")
+                }
             }
         }
         TextInput

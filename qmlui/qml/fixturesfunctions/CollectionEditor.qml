@@ -34,8 +34,6 @@ Rectangle
 
     signal requestView(int ID, string qmlSrc)
 
-    Component.onDestruction: functionManager.setEditorFunction(-1)
-
     ModelSelector
     {
         id: ceSelector
@@ -107,6 +105,7 @@ Rectangle
                                 rightSidePanel.width = rightSidePanel.width / 2
                             }
 
+                            functionManager.setEditorFunction(-1)
                             requestView(-1, "qrc:/FunctionManager.qml")
                         }
                     }
