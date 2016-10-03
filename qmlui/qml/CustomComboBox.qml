@@ -175,6 +175,7 @@ Rectangle
                         color: "transparent"
 
                         property int currentIdx: popupRepeater.currentIndex
+                        property int currentVal: cbRoot.currentValue
                         property string itemText: model.mLabel ? model.mLabel : (modelData.mLabel ? modelData.mLabel : modelData)
                         property string itemIcon: model.mIcon ? model.mIcon : (modelData.mIcon ? modelData.mIcon : "")
                         property int itemValue: (model.mValue !== undefined) ? model.mValue : ((modelData.mValue !== undefined) ? modelData.mValue : index)
@@ -187,6 +188,15 @@ Rectangle
                                 currentIcon = itemIcon
                                 if (itemValue !== undefined)
                                     cbRoot.valueChanged(itemValue)
+                            }
+                        }
+
+                        onCurrentValChanged:
+                        {
+                            if (itemValue == currentVal)
+                            {
+                                currentText = itemText
+                                currentIcon = itemIcon
                             }
                         }
 
@@ -240,6 +250,8 @@ Rectangle
                             onClicked:
                             {
                                 popupRepeater.currentIndex = index
+                                currentText = itemText
+                                currentIcon = itemIcon
                                 dropDownMenu.visible = false
 
                                 if (itemValue !== undefined)
