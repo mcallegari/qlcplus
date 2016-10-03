@@ -224,6 +224,10 @@ public:
      *  bound to an external controller. */
     Q_INVOKABLE bool enableInputSourceAutoDetection(VCWidget *widget, quint32 id, quint32 universe, quint32 channel);
 
+    /** Update the control ID of the specified $widget for a source coming
+     *  from $universe and $channel */
+    Q_INVOKABLE void updateInputSourceControlID(VCWidget *widget, quint32 id, quint32 universe, quint32 channel);
+
     /** Enable the autodetection process for a specific key sequence */
     Q_INVOKABLE bool enableKeyAutoDetection(VCWidget *widget, quint32 id, QString keyText);
 

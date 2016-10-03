@@ -502,6 +502,19 @@ bool VCWidget::updateInputSource(QSharedPointer<QLCInputSource> const& source, q
     return true;
 }
 
+bool VCWidget::updateInputSourceControlID(quint32 universe, quint32 channel, quint32 id)
+{
+    for (QSharedPointer<QLCInputSource> source : m_inputSources) // C++11
+    {
+        if (source->universe() == universe && source->channel() == channel)
+        {
+            source->setID(id);
+            return true;
+        }
+    }
+    return false;
+}
+
 void VCWidget::deleteInputSurce(quint32 id, quint32 universe, quint32 channel)
 {
     for (int i = 0; i < m_inputSources.count(); i++)
@@ -566,7 +579,7 @@ QVariant VCWidget::inputSourcesList() const
         sourceMap.insert("universe", source->universe());
         sourceMap.insert("channel", source->channel());
         sourceMap.insert("lower", source->lowerValue() != 0 ? source->lowerValue() : min);
-        sourceMap.insert("upper", source->upperValue() != 0 ? source->upperValue() : max);
+        sourceMap.insert("upper", source->upperValue() != UCHAR_MAX ? source->upperValue() : max);
         sourceMap.insert("customFeedback", supportCustomFeedback);
         sourcesList.append(sourceMap);
     }

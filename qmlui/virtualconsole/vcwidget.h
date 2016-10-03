@@ -444,6 +444,9 @@ public:
     /** Update an existing input source with the provided $universe and $channel */
     bool updateInputSource(const QSharedPointer<QLCInputSource> &source, quint32 universe, quint32 channel);
 
+    /** Update the control ID of an existing input source bound to $universe and $channel */
+    bool updateInputSourceControlID(quint32 universe, quint32 channel, quint32 id);
+
     /** Delete an existing input source from this widget */
     void deleteInputSurce(quint32 id, quint32 universe, quint32 channel);
 
@@ -483,6 +486,8 @@ protected:
     /** The list of input sources that can control this widget */
     QList <QSharedPointer<QLCInputSource> > m_inputSources;
 
+    /** The map of key sequences that can control this widget,
+     *  arranged by sequence / control ID */
     QMap <QKeySequence, quint32> m_keySequenceMap;
 
     /*********************************************************************

@@ -58,6 +58,11 @@ Column
             height: UISettings.listItemHeight
             model: dObjRef ? dObjRef.externalControlsList : null
             currentValue: controlID
+            onValueChanged:
+            {
+                controlID = value
+                virtualConsole.updateInputSourceControlID(dObjRef, controlID, universe, channel)
+            }
         }
 
         // row 2
