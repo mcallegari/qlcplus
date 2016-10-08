@@ -479,11 +479,13 @@ void VCFrame::slotInputValueChanged(quint8 id, uchar value)
 
     if (id == INPUT_NEXT_PAGE_ID)
     {
-
+        if (value == 255)
+            gotoNextPage();
     }
     else if (id == INPUT_PREVIOUS_PAGE_ID)
     {
-
+        if (value == 255)
+            gotoPreviousPage();
     }
     else if (id == INPUT_ENABLE_ID)
     {
