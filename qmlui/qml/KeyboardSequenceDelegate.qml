@@ -51,6 +51,11 @@ Column
             height: UISettings.listItemHeight
             model: dObjRef ? dObjRef.externalControlsList : null
             currentValue: controlID
+            onValueChanged:
+            {
+                controlID = value
+                virtualConsole.updateKeySequenceControlID(dObjRef, controlID, sequence)
+            }
         }
 
         // row 2

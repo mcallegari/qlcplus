@@ -206,6 +206,38 @@ void VCPage::unMapKeySequence(QKeySequence sequence, quint32 id, VCWidget *widge
     }
 }
 
+void VCPage::updateKeySequenceIDInMap(QKeySequence sequence, quint32 id, VCWidget *widget, bool checkChildren)
+{
+    if (sequence.isEmpty() || widget == NULL)
+        return;
+
+    /** Check if the widget belongs to this page */
+    if (checkChildren && children(true).contains(widget) == false)
+        return;
+
+    quint32 oldId = UINT_MAX;
+
+    /** Perform a lookup of the existing map to find the old control ID */
+    for(QPair<quint32, VCWidget *> match : m_keySequencesMap.values(sequence)) // C++11
+    {
+        if (match.second == widget)
+        {
+            oldId = match.first;
+            break;
+        }
+    }
+
+    if (oldId == UINT_MAX)
+    {
+        qDebug() << "No match found for sequence" << sequence.toString() << "and widget" << widget->caption();
+        return;
+    }
+
+    /** Now unmap and map the sequence again */
+    unMapKeySequence(sequence, oldId, widget);
+    mapKeySequence(sequence, id, widget);
+}
+
 void VCPage::handleKeyEvent(QKeyEvent *e, bool pressed)
 {
     QKeySequence seq(e->key() | e->modifiers());

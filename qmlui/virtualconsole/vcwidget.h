@@ -472,6 +472,9 @@ public:
     /** Update an existing key sequence with the specified $id */
     void updateKeySequence(QKeySequence oldSequence, QKeySequence newSequence, const quint32 id = 0);
 
+    /** Update the control ID of an existing key sequence */
+    void updateKeySequenceControlID(QKeySequence sequence, quint32 id);
+
 public slots:
     /** Virtual slot called when an input value changed */
     virtual void slotInputValueChanged(quint8 id, uchar value);

@@ -231,6 +231,9 @@ public:
     /** Enable the autodetection process for a specific key sequence */
     Q_INVOKABLE bool enableKeyAutoDetection(VCWidget *widget, quint32 id, QString keyText);
 
+    /** Update the control ID of a key sequence with $keyText for the specified $widget */
+    Q_INVOKABLE void updateKeySequenceControlID(VCWidget *widget, quint32 id, QString keyText);
+
     /** Disable a previously started autodetection process */
     Q_INVOKABLE void disableAutoDetection();
 

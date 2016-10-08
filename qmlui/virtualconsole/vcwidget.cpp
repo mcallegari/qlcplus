@@ -651,6 +651,13 @@ void VCWidget::updateKeySequence(QKeySequence oldSequence, QKeySequence newSeque
     emit inputSourcesListChanged();
 }
 
+void VCWidget::updateKeySequenceControlID(QKeySequence sequence, quint32 id)
+{
+    m_keySequenceMap[sequence] = id;
+
+    emit inputSourcesListChanged();
+}
+
 /*****************************************************************************
  * Load & Save
  *****************************************************************************/
