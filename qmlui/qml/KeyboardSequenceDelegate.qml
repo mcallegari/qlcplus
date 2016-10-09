@@ -42,7 +42,7 @@ Column
         RobotoText
         {
             height: UISettings.listItemHeight
-            label: qsTr("Type")
+            label: qsTr("Control")
         }
         CustomComboBox
         {
