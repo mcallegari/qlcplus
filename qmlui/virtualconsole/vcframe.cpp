@@ -33,6 +33,7 @@
 #define INPUT_NEXT_PAGE_ID      0
 #define INPUT_PREVIOUS_PAGE_ID  1
 #define INPUT_ENABLE_ID         2
+#define INPUT_COLLAPSE_ID       3
 
 VCFrame::VCFrame(Doc *doc, VirtualConsole *vc, QObject *parent)
     : VCWidget(doc, parent)
@@ -51,6 +52,7 @@ VCFrame::VCFrame(Doc *doc, VirtualConsole *vc, QObject *parent)
     registerExternalControl(INPUT_NEXT_PAGE_ID, tr("Next Page"), true);
     registerExternalControl(INPUT_PREVIOUS_PAGE_ID, tr("Previous Page"), true);
     registerExternalControl(INPUT_ENABLE_ID, tr("Enable"), true);
+    registerExternalControl(INPUT_COLLAPSE_ID, tr("Collapse"), true);
 }
 
 VCFrame::~VCFrame()
@@ -475,21 +477,23 @@ void VCFrame::slotFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensi
 
 void VCFrame::slotInputValueChanged(quint8 id, uchar value)
 {
-    Q_UNUSED(value) // TODO
+    if (value != 255)
+        return;
 
-    if (id == INPUT_NEXT_PAGE_ID)
+    switch(id)
     {
-        if (value == 255)
+        case INPUT_NEXT_PAGE_ID:
             gotoNextPage();
-    }
-    else if (id == INPUT_PREVIOUS_PAGE_ID)
-    {
-        if (value == 255)
+        break;
+        case INPUT_PREVIOUS_PAGE_ID:
             gotoPreviousPage();
-    }
-    else if (id == INPUT_ENABLE_ID)
-    {
-
+        break;
+        case INPUT_ENABLE_ID:
+            // TODO
+        break;
+        case INPUT_COLLAPSE_ID:
+            setCollapsed(!isCollapsed());
+        break;
     }
 }
 
