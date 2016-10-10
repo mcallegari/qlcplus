@@ -533,6 +533,11 @@
             </item>
             <item>
              <property name="text">
+              <string notr="true">MSD Platinum 15 R 300W</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
               <string notr="true">MSD 575W</string>
              </property>
             </item>
