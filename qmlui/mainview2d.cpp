@@ -31,20 +31,20 @@
 MainView2D::MainView2D(QQuickView *view, Doc *doc, QObject *parent)
     : PreviewContext(view, doc, "2D", parent)
 {
-    m_gridSize = QSize(5, 5);
-    m_gridScale = 1.0;
-    m_cellPixels = 100;
+    m_monProps = m_doc->monitorProperties();
+
+    setGridSize(QSize(5 ,5));
+    setGridUnits(1000);
+    setGridScale(1.0);
+    setCellPixels(100);
+
     m_xOffset = 0;
     m_yOffset = 0;
-    m_gridUnits = 1000;
 
-    m_view2D = NULL;
     m_contents2D = NULL;
 
     setContextResource("qrc:/2DView.qml");
     setContextTitle(tr("2D View"));
-
-    m_monProps = m_doc->monitorProperties();
 
     fixtureComponent = new QQmlComponent(m_view->engine(), QUrl("qrc:/Fixture2DItem.qml"));
     if (fixtureComponent->isError())
@@ -99,25 +99,19 @@ void MainView2D::resetItems()
 
 void MainView2D::initialize2DProperties()
 {
-    //m_view2D = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("twoDView"));
-    //m_contents2D = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("twoDContents"));
-    m_view2D = contextItem();
-    m_contents2D = qobject_cast<QQuickItem*>(m_view2D->findChild<QObject *>("twoDContents"));
-
-    if (m_view2D == NULL || m_contents2D == NULL)
-    {
-        qDebug() << "ERROR: got invalid view2D" << m_view2D << "or contents2D" << m_contents2D;
-        return;
-    }
-
-    m_gridScale = m_view2D->property("gridScale").toReal();
-    m_cellPixels = m_view2D->property("baseCellSize").toReal();
-
     setGridSize(m_monProps->gridSize());
     if (m_monProps->gridUnits() == MonitorProperties::Feet)
         setGridUnits(304.8);
     else
         setGridUnits(1000.0);
+
+    m_contents2D = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("twoDContents"));
+
+    if (m_contents2D == NULL)
+    {
+        qDebug() << "ERROR: got invalid contents2D" << m_contents2D;
+        return;
+    }
 
     m_xOffset = m_contents2D->property("x").toReal();
     m_yOffset = m_contents2D->property("y").toReal();
@@ -128,8 +122,8 @@ void MainView2D::createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords
     if (isEnabled() == false)
         return;
 
-    //if (m_view2D == NULL || m_contents2D == NULL)
-    //   initialize2DProperties();
+    if (m_contents2D == NULL)
+       initialize2DProperties();
 
     qDebug() << "[MainView2D] Creating fixture with ID" << fxID << "x:" << x << "y:" << y;
 
@@ -269,7 +263,7 @@ void MainView2D::slotRefreshView()
 
     initialize2DProperties();
 
-    if (m_view2D == NULL || m_contents2D == NULL)
+    if (m_contents2D == NULL)
         return;
 
     foreach(Fixture *fixture, m_doc->fixtures())
@@ -508,6 +502,34 @@ void MainView2D::setGridUnits(float units)
             m_monProps->setGridUnits(MonitorProperties::Meters);
         emit gridUnitsChanged();
     }
+}
+
+qreal MainView2D::gridScale() const
+{
+    return m_gridScale;
+}
+
+void MainView2D::setGridScale(qreal gridScale)
+{
+    if (m_gridScale == gridScale)
+        return;
+
+    m_gridScale = gridScale;
+    emit gridScaleChanged(gridScale);
+}
+
+qreal MainView2D::cellPixels() const
+{
+    return m_cellPixels;
+}
+
+void MainView2D::setCellPixels(qreal cellPixels)
+{
+    if (m_cellPixels == cellPixels)
+        return;
+
+    m_cellPixels = cellPixels;
+    emit cellPixelsChanged(cellPixels);
 }
 
 
