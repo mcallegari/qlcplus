@@ -89,20 +89,22 @@ function endDrag(mouse)
     if (draggedItem == null)
         return;
 
-    var currContext = previewLoader.item.contextName;
+    var currContext = previewLoader.item.contextName
     console.log("Current context: " + currContext)
-    var x = 0;
-    var y = 0;
+    var x = 0
+    var y = 0
     if (currContext === "2D")
     {
-        x = draggedItem.x - leftSidePanel.width;
+        x = draggedItem.x - leftSidePanel.width
         y = draggedItem.y - previewLoader.y - viewToolbar.height
+
+        console.log("Item x: " + x + ", y: " + y)
     }
 
     fixtureManager.addFixture(manufacturer, model, mode, name,
                               universeIndex, draggedItem.address, channels, quantity, gap,
-                              x, y);
-    draggedItem.destroy();
+                              x, y)
+    draggedItem.destroy()
     draggedItem = null;
 }
 

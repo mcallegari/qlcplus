@@ -25,11 +25,15 @@
 
 class QLCFixtureMode;
 class QLCFixtureDef;
+class TreeModel;
 class Doc;
 
 class FixtureBrowser : public QObject
 {
     Q_OBJECT
+
+    Q_PROPERTY(QString searchString READ searchString WRITE setSearchString NOTIFY searchStringChanged)
+    Q_PROPERTY(QVariant searchTreeModel READ searchTreeModel NOTIFY searchListChanged)
 
 public:
     FixtureBrowser(QQuickView *view, Doc *doc, QObject *parent = 0);
@@ -52,16 +56,28 @@ public:
     /** Check if a Fixture with $fixtureID can be moved to the $requested DMX address */
     Q_INVOKABLE int availableChannel(quint32 fixtureID, int requested);
 
+    /** Get/Set the fixture search filter */
+    QString searchString() const;
+    void setSearchString(QString searchString);
+
+    QVariant searchTreeModel() const;
+
 signals:
     void modeChanged();
     void modeChannelsChanged();
+    void searchStringChanged(QString searchString);
+    void searchListChanged();
 
-protected slots:
+private:
+    void updateSearchTree();
 
 private:
     Doc *m_doc;
     QQuickView *m_view;
     QLCFixtureDef *m_definition;
+    /** Reference to the tree model used for searches */
+    TreeModel *m_searchTree;
+    QString m_searchString;
 };
 
 #endif // FIXTUREBROWSER_H

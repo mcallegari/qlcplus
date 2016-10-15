@@ -42,7 +42,7 @@ Column
 
     Rectangle
     {
-        color: "transparent"
+        color: nodeIconImg.visible ? "transparent" : UISettings.sectionHeader
         width: nodeContainer.width
         height: UISettings.listItemHeight
 
@@ -58,7 +58,8 @@ Column
         Image
         {
             id: nodeIconImg
-            width: parent.height
+            visible: nodeIcon == "" ? false : true
+            width: visible ? parent.height : 0
             height: parent.height
             source: nodeIcon
         }
@@ -126,7 +127,6 @@ Column
             height: UISettings.listItemHeight
             onClicked:
             {
-
                 clickTimer.modifiers = mouse.modifiers
                 clickTimer.start()
             }
@@ -177,7 +177,8 @@ Column
                         }
                         else
                         {
-                            item.cRef = classRef
+                            if (item.cRef)
+                                item.cRef = classRef
                         }
                     }
                     Connections
@@ -196,6 +197,7 @@ Column
                     }
                     Connections
                     {
+                        ignoreUnknownSignals: true
                         target: item
                         onDoubleClicked: nodeContainer.doubleClicked(ID, Type)
                     }

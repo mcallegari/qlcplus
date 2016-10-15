@@ -467,7 +467,7 @@ void FunctionManager::updateFunctionsTree()
 
     m_selectedIDList.clear();
     m_functionTree->clear();
-    foreach(Function *func, m_doc->functions())
+    for(Function *func : m_doc->functions()) // C++11
     {
         QQmlEngine::setObjectOwnership(func, QQmlEngine::CppOwnership);
         if (m_filter == 0 || m_filter & func->type())
