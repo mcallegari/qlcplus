@@ -183,14 +183,17 @@ void VCClock::setTargetTime(int ms)
 
 void VCClock::slotTimerTimeout()
 {
-    // if we're editing the widget, then do nothing
-    if (isEditing() || enableSchedule() == false)
-        return;
-
     QDateTime currDate = QDateTime::currentDateTime();
     QTime currTime = currDate.time();
     int currDay = 1 << (currDate.date().dayOfWeek() - 1);
     int dayTimeSecs = (currTime.hour() * 60 * 60) + (currTime.minute() * 60) + currTime.second();
+
+    // if we're editing or the widget is disabled, just emit the current time
+    if (isEditing() || enableSchedule() == false)
+    {
+        emit currentTimeChanged(dayTimeSecs);
+        return;
+    }
 
     for(VCClockSchedule *sch : m_scheduleList) // C++11
     {
@@ -234,7 +237,8 @@ void VCClock::slotTimerTimeout()
             // case #2: check for 'one shot' Functions with duration
             if (sch->stopTime() == -1 && sch->m_cachedDuration > 0)
             {
-                if (dayTimeSecs >= sch->startTime() + sch->m_cachedDuration)
+                if (dayTimeSecs >= sch->startTime() + sch->m_cachedDuration &&
+                    (sch->weekFlags() & 0x80) == 0)
                     continue;
             }
 
@@ -285,6 +289,7 @@ void VCClock::setEnableSchedule(bool enableSchedule)
             Function *f = m_doc->function(sch->functionID());
             if (f != NULL && f->isRunning())
                 f->stop(functionParent());
+            sch->m_canPlay = true;
         }
     }
 
