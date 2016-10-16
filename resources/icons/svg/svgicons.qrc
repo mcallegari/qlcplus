@@ -87,7 +87,7 @@
     <file alias="resize.svg">resize.svg</file>
     <file alias="rgbmatrix.svg">rgbmatrix.svg</file>
     <file alias="rotate-right.svg">rotate-right.svg</file>
-    <file alias="search.svg">search.svg</file>
+    <!-- file alias="search.svg">search.svg</file -->
     <file alias="selectall.svg">selectall.svg</file>
     <file alias="scene.svg">scene.svg</file>
     <file alias="script.svg">script.svg</file>

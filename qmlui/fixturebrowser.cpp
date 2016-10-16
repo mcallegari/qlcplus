@@ -184,7 +184,7 @@ void FixtureBrowser::setSearchString(QString searchString)
 
     m_searchString = searchString;
 
-    if (searchString.length() >= 3)
+    if (searchString.length() >= SEARCH_MIN_CHARS)
         updateSearchTree();
     else
     {

@@ -46,29 +46,30 @@ Rectangle
         border.width: 2
         border.color: "#111"
 
-        Image
+        Text
         {
             id: searchIcon
+            x: 3
             y: 3
             width: height
             height: parent.height - 6
-            anchors.left: parent.left
-            anchors.leftMargin: 6
-            source: "qrc:/search.svg"
-            sourceSize: Qt.size(width, height)
+            color: "gray"
+            font.family: "FontAwesome"
+            font.pixelSize: parent.height - 6
+            text: FontAwesome.fa_search
         }
 
         TextInput
         {
             id: textEdit1
             x: searchIcon.width + 10
-            anchors.verticalCenter: parent.verticalCenter
+            y: 3
             height: parent.height - 6
             width: searchBox.width - searchIcon.width - 10
             color: UISettings.fgMain
             text: fixtureBrowser.searchString
             font.family: "Roboto Condensed"
-            font.pixelSize: UISettings.textSizeDefault
+            font.pixelSize: parent.height - 6
             selectionColor: UISettings.highlightPressed
             selectByMouse: true
 

@@ -23,6 +23,8 @@
 #include <QAbstractListModel>
 #include <QStringList>
 
+#define SEARCH_MIN_CHARS    3
+
 class TreeModelItem;
 
 class TreeModel : public QAbstractListModel

@@ -45,6 +45,7 @@ class FunctionManager : public QObject
 
     Q_PROPERTY(QVariant functionsList READ functionsList NOTIFY functionsListChanged)
     Q_PROPERTY(int functionsFilter READ functionsFilter CONSTANT)
+    Q_PROPERTY(QString searchFilter READ searchFilter WRITE setSearchFilter NOTIFY searchFilterChanged)
     Q_PROPERTY(int selectionCount READ selectionCount NOTIFY selectionCountChanged)
     Q_PROPERTY(int viewPosition READ viewPosition WRITE setViewPosition NOTIFY viewPositionChanged)
 
@@ -73,6 +74,10 @@ public:
     Q_INVOKABLE void setFunctionFilter(quint32 filter, bool enable);
     int functionsFilter() const;
 
+    /** Get/Set a string to filter Function names */
+    QString searchFilter() const;
+    void setSearchFilter(QString searchFilter);
+
     Q_INVOKABLE quint32 createFunction(int type);
     Q_INVOKABLE Function *getFunction(quint32 id);
     Q_INVOKABLE void clearTree();
@@ -100,6 +105,50 @@ public:
 protected:
     void updateFunctionsTree();
 
+signals:
+    void functionsListChanged();
+    void searchFilterChanged();
+    void sceneCountChanged();
+    void chaserCountChanged();
+    void efxCountChanged();
+    void collectionCountChanged();
+    void rgbMatrixCountChanged();
+    void scriptCountChanged();
+    void showCountChanged();
+    void audioCountChanged();
+    void videoCountChanged();
+    void functionEditingChanged(bool enable);
+    void selectionCountChanged(int count);
+    void viewPositionChanged(int viewPosition);
+
+public slots:
+    void slotDocLoaded();
+
+private:
+    /** Reference of the QML view */
+    QQuickView *m_view;
+    /** Reference of the project workspace */
+    Doc *m_doc;
+    /** Reference to the Functions tree model */
+    TreeModel *m_functionTree;
+    /** The QML ListView position in pixel for state restoring */
+    int m_viewPosition;
+
+    /** Flag that hold if Functions preview is enabled or not */
+    bool m_previewEnabled;
+    /** List of the Function IDs currently selected
+     *  and previewed, if preview is enabled */
+    QVariantList m_selectedIDList;
+
+    quint32 m_filter;
+    QString m_searchFilter;
+
+    int m_sceneCount, m_chaserCount, m_efxCount;
+    int m_collectionCount, m_rgbMatrixCount, m_scriptCount;
+    int m_showCount, m_audioCount, m_videoCount;
+
+    FunctionEditor *m_currentEditor;
+
     /*********************************************************************
      * DMX values (dumping and Scene editor)
      *********************************************************************/
@@ -120,51 +169,10 @@ public:
 
     void setChannelValue(quint32 fxID, quint32 channel, uchar value);
 
-signals:
-    void functionsListChanged();
-    void sceneCountChanged();
-    void chaserCountChanged();
-    void efxCountChanged();
-    void collectionCountChanged();
-    void rgbMatrixCountChanged();
-    void scriptCountChanged();
-    void showCountChanged();
-    void audioCountChanged();
-    void videoCountChanged();
-    void functionEditingChanged(bool enable);
-    void selectionCountChanged(int count);
-
-    void viewPositionChanged(int viewPosition);
-
-public slots:
-    void slotDocLoaded();
-
 private:
-    /** Reference of the QML view */
-    QQuickView *m_view;
-    /** Reference of the project workspace */
-    Doc *m_doc;
-    /** Reference to the Functions tree model */
-    TreeModel *m_functionTree;
-    /** The QML ListView position in pixel for state restoring */
-    int m_viewPosition;
 
     /** Map of the values available for dumping to a Scene */
     QMap <QPair<quint32,quint32>,uchar> m_dumpValues;
-
-    /** Flag that hold if Functions preview is enabled or not */
-    bool m_previewEnabled;
-    /** List of the Function IDs currently selected
-     *  and previewed, if preview is enabled */
-    QVariantList m_selectedIDList;
-
-    quint32 m_filter;
-    int m_sceneCount, m_chaserCount, m_efxCount;
-    int m_collectionCount, m_rgbMatrixCount, m_scriptCount;
-    int m_showCount, m_audioCount, m_videoCount;
-
-    //SceneEditor *m_sceneEditor;
-    FunctionEditor *m_currentEditor;
 };
 
 #endif // FUNCTIONMANAGER_H

@@ -217,8 +217,57 @@ Rectangle
                 counter: functionManager.videoCount
                 onCheckedChanged: setFunctionFilter(Function.Video, checked)
             }
+
             Rectangle { Layout.fillWidth: true }
+
+            IconButton
+            {
+                id: searchFunc
+                z: 2
+                width: height
+                height: topBar.height - 2
+                bgColor: UISettings.bgMain
+                faColor: checked ? "white" : "gray"
+                faSource: FontAwesome.fa_search
+                checkable: true
+                tooltip: qsTr("Set a Function search filter")
+                onToggled:
+                {
+                    functionManager.searchFilter = ""
+                    if (checked)
+                        sTextInput.forceActiveFocus()
+                }
+            }
         }
+      }
+
+      Rectangle
+      {
+          id: searchBox
+          visible: searchFunc.checked
+          width: fmContainer.width
+          height: UISettings.iconSizeMedium
+          z: 5
+          color: UISettings.bgMain
+          radius: 5
+          border.width: 2
+          border.color: "#111"
+
+          TextInput
+          {
+              id: sTextInput
+              y: 3
+              height: parent.height - 6
+              width: searchBox.width
+              color: UISettings.fgMain
+              text: functionManager.searchFilter
+              font.family: "Roboto Condensed"
+              font.pixelSize: parent.height - 6
+              selectionColor: UISettings.highlightPressed
+              selectByMouse: true
+
+              onTextChanged: functionManager.searchFilter = text
+          }
       }
 
       ListView
