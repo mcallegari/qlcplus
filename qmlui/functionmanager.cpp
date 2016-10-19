@@ -500,9 +500,7 @@ void FunctionManager::updateFunctionsTree()
         {
             QVariantList params;
             params.append(QVariant::fromValue(func));
-            TreeModelItem *item = m_functionTree->addItem(func->name(), params, func->path(true));
-            if (expandAll)
-                item->setExpanded(true);
+            m_functionTree->addItem(func->name(), params, func->path(true), expandAll ? TreeModel::Expanded : 0);
         }
 
         switch (func->type())

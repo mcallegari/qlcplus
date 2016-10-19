@@ -63,7 +63,7 @@ void TreeModel::enableSorting(bool enable)
     m_sorting = enable;
 }
 
-TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path)
+TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path, int flags)
 {
     qDebug() << "Adding item" << label << path;
 
@@ -77,6 +77,8 @@ TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path
         item = new TreeModelItem(label);
         QQmlEngine::setObjectOwnership(item, QQmlEngine::CppOwnership);
         item->setData(data);
+        if (flags & Expanded)
+            item->setExpanded(true);
         int addIndex = getItemIndex(label);
         beginInsertRows(QModelIndex(), addIndex, addIndex);
         m_items.insert(addIndex, item);
@@ -93,6 +95,8 @@ TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path
         {
             item = new TreeModelItem(pathList.at(0));
             item->setPath(pathList.at(0));
+            if (flags & Expanded)
+                item->setExpanded(true);
             QQmlEngine::setObjectOwnership(item, QQmlEngine::CppOwnership);
             if (item->setChildrenColumns(m_roles) == true)
             {
@@ -110,7 +114,7 @@ TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path
 
         if (pathList.count() == 1)
         {
-            if (item->addChild(label, data, m_sorting) == true)
+            if (item->addChild(label, data, m_sorting, "", flags) == true)
             {
                 connect(item->children(), SIGNAL(singleSelection(TreeModelItem*)),
                         this, SLOT(setSingleSelection(TreeModelItem*)));
@@ -120,7 +124,7 @@ TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path
         else
         {
             QString newPath = path.mid(path.indexOf("/") + 1);
-            if (item->addChild(label, data, m_sorting, newPath) == true)
+            if (item->addChild(label, data, m_sorting, newPath, flags) == true)
             {
                 connect(item->children(), SIGNAL(singleSelection(TreeModelItem*)),
                         this, SLOT(setSingleSelection(TreeModelItem*)));

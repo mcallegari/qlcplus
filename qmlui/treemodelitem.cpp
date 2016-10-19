@@ -112,7 +112,7 @@ bool TreeModelItem::setChildrenColumns(QStringList columns)
     return childrenTreeCreated;
 }
 
-bool TreeModelItem::addChild(QString label, QVariantList data, bool sorting, QString path)
+bool TreeModelItem::addChild(QString label, QVariantList data, bool sorting, QString path, int flags)
 {
     bool childrenTreeCreated = false;
     if (m_children == NULL)
@@ -122,7 +122,7 @@ bool TreeModelItem::addChild(QString label, QVariantList data, bool sorting, QSt
         childrenTreeCreated = true;
     }
     m_children->enableSorting(sorting);
-    m_children->addItem(label, data, path);
+    m_children->addItem(label, data, path, flags);
 
     return childrenTreeCreated;
 }
