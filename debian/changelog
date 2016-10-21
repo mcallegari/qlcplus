@@ -2,6 +2,7 @@ qlcplus (4.10.5) stable; urgency=low
 
   * VC Frame: Show page number when collapsed (thanks to Matthias Gubisch)
   * UI/RGB Matrix Editor: editor preview doesn't stop when testing the Function
+  * UI/Remap: fixed universes list in target mapping
   * Engine: added indigo to fixture channel colors (thanks to Axel Metzke)
   * New fixtures: Pro-Lights LumiPIX 12Q, Proel PLLEDMLBG (thanks to Andrea Ugolini)
   * New fixtures: Stairville DCL Flat Par 18x4W CW/WW, Cameo LED MultiPAR CLM-PAR-COB1, High End Systems Studio Beam (thanks to Freasy)

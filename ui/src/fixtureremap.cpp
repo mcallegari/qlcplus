@@ -82,6 +82,18 @@ FixtureRemap::FixtureRemap(Doc *doc, QWidget *parent)
     m_targetDoc->fixtureDefCache()->load(QLCFixtureDefCache::userDefinitionDirectory());
     m_targetDoc->fixtureDefCache()->load(QLCFixtureDefCache::systemDefinitionDirectory());
 
+    /* Remove the default set of universes from the target Doc and re-fill it
+     * with the current Doc universe list */
+    m_targetDoc->inputOutputMap()->removeAllUniverses();
+
+    int index = 0;
+    foreach(Universe *uni, m_doc->inputOutputMap()->universes())
+    {
+        m_targetDoc->inputOutputMap()->addUniverse(uni->id());
+        m_targetDoc->inputOutputMap()->setUniverseName(index, uni->name());
+        index++;
+    }
+
     m_sourceTree->setIconSize(QSize(24, 24));
     m_sourceTree->setAllColumnsShowFocus(true);
     fillFixturesTree(m_doc, m_sourceTree);
