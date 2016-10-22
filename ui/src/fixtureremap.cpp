@@ -80,7 +80,7 @@ FixtureRemap::FixtureRemap(Doc *doc, QWidget *parent)
     m_targetDoc = new Doc(this);
     /* Load user fixtures first so that they override system fixtures */
     m_targetDoc->fixtureDefCache()->load(QLCFixtureDefCache::userDefinitionDirectory());
-    m_targetDoc->fixtureDefCache()->load(QLCFixtureDefCache::systemDefinitionDirectory());
+    m_targetDoc->fixtureDefCache()->loadMap(QLCFixtureDefCache::systemDefinitionDirectory());
 
     /* Remove the default set of universes from the target Doc and re-fill it
      * with the current Doc universe list */
