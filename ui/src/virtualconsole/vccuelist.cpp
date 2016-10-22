@@ -90,6 +90,7 @@ const QString cfLabelNoStyle =
 VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     , m_chaserID(Function::invalidId())
     , m_nextPrevBehavior(DefaultRunFirst)
+    , m_playbackLayout(PlayPauseStop)
     , m_timer(NULL)
     , m_primaryIndex(0)
     , m_secondaryIndex(0)
@@ -615,19 +616,27 @@ void VCCueList::slotPlayback()
 
     if (ch->isRunning())
     {
-        //stopChaser();
-        if (ch->isPaused())
+        if (playbackLayout() == PlayPauseStop)
         {
-            m_playbackButton->setStyleSheet(QString("QToolButton{ background: %1; }")
-                                            .arg(m_stopButton->palette().background().color().name()));
-            m_playbackButton->setIcon(QIcon(":/player_pause.png"));
+            if (ch->isPaused())
+            {
+                m_playbackButton->setStyleSheet(QString("QToolButton{ background: %1; }")
+                                                .arg(m_stopButton->palette().background().color().name()));
+                m_playbackButton->setIcon(QIcon(":/player_pause.png"));
+            }
+            else
+            {
+                m_playbackButton->setStyleSheet("QToolButton{ background: #5B81FF; }");
+                m_playbackButton->setIcon(QIcon(":/player_play.png"));
+            }
+            ch->setPause(!ch->isPaused());
         }
-        else
+        else if (playbackLayout() == PlayStopPause)
         {
-            m_playbackButton->setStyleSheet("QToolButton{ background: #5B81FF; }");
-            m_playbackButton->setIcon(QIcon(":/player_play.png"));
+            stopChaser();
+            m_stopButton->setStyleSheet(QString("QToolButton{ background: %1; }")
+                                            .arg(m_playbackButton->palette().background().color().name()));
         }
-        ch->setPause(!ch->isPaused());
     }
     else
     {
@@ -649,17 +658,34 @@ void VCCueList::slotStop()
 
     if (ch->isRunning())
     {
-        stopChaser();
+        if (playbackLayout() == PlayPauseStop)
+        {
+            stopChaser();
+            m_playbackButton->setStyleSheet(QString("QToolButton{ background: %1; }")
+                                            .arg(m_stopButton->palette().background().color().name()));
+            m_progress->setFormat("");
+            m_progress->setValue(0);
+        }
+        else if (playbackLayout() == PlayStopPause)
+        {
+            if (ch->isPaused())
+            {
+                m_stopButton->setStyleSheet(QString("QToolButton{ background: %1; }")
+                                                .arg(m_playbackButton->palette().background().color().name()));
+                m_stopButton->setIcon(QIcon(":/player_pause.png"));
+            }
+            else
+            {
+                m_stopButton->setStyleSheet("QToolButton{ background: #5B81FF; }");
+            }
+            ch->setPause(!ch->isPaused());
+        }
     }
     else
     {
         m_primaryIndex = 0;
         m_tree->setCurrentItem(m_tree->topLevelItem(getFirstIndex()));
     }
-    m_playbackButton->setStyleSheet(QString("QToolButton{ background: %1; }")
-                                    .arg(m_stopButton->palette().background().color().name()));
-    m_progress->setFormat("");
-    m_progress->setValue(0);
 }
 
 void VCCueList::slotNextCue()
@@ -681,15 +707,15 @@ void VCCueList::slotNextCue()
         {
             case DefaultRunFirst:
                 startChaser(getFirstIndex());
-                break;
+            break;
             case RunNext:
                 startChaser(getNextIndex());
-                break;
+            break;
             case Select:
                 m_tree->setCurrentItem(m_tree->topLevelItem(getNextIndex()));
-                break;
+            break;
             case Nothing:
-                break;
+            break;
             default:
                 Q_ASSERT(false);
         }
@@ -715,15 +741,15 @@ void VCCueList::slotPreviousCue()
         {
             case DefaultRunFirst:
                 startChaser(getLastIndex());
-                break;
+            break;
             case RunNext:
                 startChaser(getPrevIndex());
-                break;
+            break;
             case Select:
                 m_tree->setCurrentItem(m_tree->topLevelItem(getPrevIndex()));
-                break;
+            break;
             case Nothing:
-                break;
+            break;
             default:
                 Q_ASSERT(false);
         }
@@ -802,7 +828,10 @@ void VCCueList::slotFunctionRunning(quint32 fid)
 {
     if (fid == m_chaserID)
     {
-        m_playbackButton->setIcon(QIcon(":/player_pause.png"));
+        if (playbackLayout() == PlayPauseStop)
+            m_playbackButton->setIcon(QIcon(":/player_pause.png"));
+        else if (playbackLayout() == PlayStopPause)
+            m_playbackButton->setIcon(QIcon(":/player_stop.png"));
         m_timer->start(PROGRESS_INTERVAL);
         updateFeedback();
     }
@@ -823,6 +852,9 @@ void VCCueList::slotFunctionStopped(quint32 fid)
             item->setBackground(COL_NUM, m_defCol);
 
         emit stepChanged(-1);
+
+        m_progress->setFormat("");
+        m_progress->setValue(0);
 
         qDebug() << Q_FUNC_INFO << "Cue stopped";
         updateFeedback();
@@ -901,7 +933,7 @@ void VCCueList::stopChaser()
     ch->stop(functionParent());
 }
 
-void VCCueList::setNextPrevBehavior(unsigned int nextPrev)
+void VCCueList::setNextPrevBehavior(NextPrevBehavior nextPrev)
 {
     Q_ASSERT(nextPrev == DefaultRunFirst
             || nextPrev == RunNext
@@ -910,9 +942,40 @@ void VCCueList::setNextPrevBehavior(unsigned int nextPrev)
     m_nextPrevBehavior = nextPrev;
 }
 
-unsigned int VCCueList::nextPrevBehavior() const
+VCCueList::NextPrevBehavior VCCueList::nextPrevBehavior() const
 {
     return m_nextPrevBehavior;
+}
+
+void VCCueList::setPlaybackLayout(VCCueList::PlaybackLayout layout)
+{
+    if (layout == m_playbackLayout)
+        return;
+
+    if (layout == PlayStopPause)
+    {
+        m_stopButton->setIcon(QIcon(":/player_pause.png"));
+        m_playbackButton->setToolTip(tr("Play/Stop Cue list"));
+        m_stopButton->setToolTip(tr("Pause Cue list"));
+    }
+    else if (layout == PlayPauseStop)
+    {
+        m_stopButton->setIcon(QIcon(":/player_stop.png"));
+        m_playbackButton->setToolTip(tr("Play/Pause Cue list"));
+        m_stopButton->setToolTip(tr("Stop Cue list"));
+    }
+    else
+    {
+        qWarning() << "Playback layout" << layout << "doesn't exist !";
+        layout = PlayPauseStop;
+    }
+
+    m_playbackLayout = layout;
+}
+
+VCCueList::PlaybackLayout VCCueList::playbackLayout() const
+{
+    return m_playbackLayout;
 }
 
 VCCueList::SlidersMode VCCueList::slidersMode() const
@@ -1448,9 +1511,19 @@ bool VCCueList::loadXML(QXmlStreamReader &root)
         {
             setChaser(root.readElementText().toUInt());
         }
+        else if (root.name() == KXMLQLCVCCueListPlaybackLayout)
+        {
+            PlaybackLayout layout = PlaybackLayout(root.readElementText().toInt());
+            if (layout != PlayPauseStop && layout != PlayStopPause)
+            {
+                qWarning() << Q_FUNC_INFO << "Playback layout" << layout << "does not exist.";
+                layout = PlayPauseStop;
+            }
+            setPlaybackLayout(layout);
+        }
         else if (root.name() == KXMLQLCVCCueListNextPrevBehavior)
         {
-            unsigned int nextPrev = root.readElementText().toUInt();
+            NextPrevBehavior nextPrev = NextPrevBehavior(root.readElementText().toInt());
             if (nextPrev != DefaultRunFirst
                     && nextPrev != RunNext
                     && nextPrev != Select
@@ -1521,6 +1594,11 @@ bool VCCueList::saveXML(QXmlStreamWriter *doc)
 
     /* Chaser */
     doc->writeTextElement(KXMLQLCVCCueListChaser, QString::number(chaserID()));
+
+    /* Playback layout */
+    if (playbackLayout() != PlayPauseStop)
+        doc->writeTextElement(KXMLQLCVCCueListPlaybackLayout, QString::number(playbackLayout()));
+
     /* Next/Prev behavior */
     doc->writeTextElement(KXMLQLCVCCueListNextPrevBehavior, QString::number(nextPrevBehavior()));
 

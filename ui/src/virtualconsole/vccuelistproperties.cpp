@@ -108,7 +108,7 @@ VCCueListProperties::VCCueListProperties(VCCueList* cueList, Doc* doc)
      ************************************************************************/
 
     if (cueList->slidersMode() == VCCueList::Steps)
-        m_sweepButton->setChecked(true);
+        m_stepsRadio->setChecked(true);
     else
         m_crossFadeRadio->setChecked(true);
 
@@ -131,6 +131,15 @@ VCCueListProperties::VCCueListProperties(VCCueList* cueList, Doc* doc)
     m_crossFadeLayout->addWidget(m_crossfade2InputWidget);
     connect(m_crossfade2InputWidget, SIGNAL(autoDetectToggled(bool)),
             this, SLOT(slotCF2AutoDetectionToggled(bool)));
+
+    /* Playback layout */
+    connect(m_play_stop_pause, SIGNAL(clicked(bool)), this, SLOT(slotPlaybackLayoutChanged()));
+    connect(m_play_pause_stop, SIGNAL(clicked(bool)), this, SLOT(slotPlaybackLayoutChanged()));
+
+    if (m_cueList->playbackLayout() == VCCueList::PlayStopPause)
+        m_play_stop_pause->setChecked(true);
+    else
+        m_play_pause_stop->setChecked(true);
 }
 
 VCCueListProperties::~VCCueListProperties()
@@ -145,8 +154,14 @@ void VCCueListProperties::accept()
     /* Chaser */
     m_cueList->setChaser(m_chaserId);
 
+    /* Playback layout */
+    if (m_play_stop_pause->isChecked())
+        m_cueList->setPlaybackLayout(VCCueList::PlayStopPause);
+    else
+        m_cueList->setPlaybackLayout(VCCueList::PlayPauseStop);
+
     /* Next/Prev behavior */
-    m_cueList->setNextPrevBehavior(m_nextPrevBehaviorCombo->currentIndex());
+    m_cueList->setNextPrevBehavior(VCCueList::NextPrevBehavior(m_nextPrevBehaviorCombo->currentIndex()));
 
     /* Key sequences */
     m_cueList->setNextKeySequence(m_nextInputWidget->keySequence());
@@ -162,7 +177,7 @@ void VCCueListProperties::accept()
     m_cueList->setInputSource(m_crossfade1InputWidget->inputSource(), VCCueList::cf1InputSourceId);
     m_cueList->setInputSource(m_crossfade2InputWidget->inputSource(), VCCueList::cf2InputSourceId);
 
-    if (m_sweepButton->isChecked())
+    if (m_stepsRadio->isChecked())
         m_cueList->setSlidersMode(VCCueList::Steps);
     else
         m_cueList->setSlidersMode(VCCueList::Crossfade);
@@ -213,6 +228,20 @@ void VCCueListProperties::slotChaserDetachClicked()
 {
     m_chaserId = Function::invalidId();
     updateChaserName();
+}
+
+void VCCueListProperties::slotPlaybackLayoutChanged()
+{
+    if (m_play_pause_stop->isChecked())
+    {
+        m_playInputWidget->setTitle(tr("Play/Pause control"));
+        m_stopInputWidget->setTitle(tr("Stop control"));
+    }
+    else
+    {
+        m_playInputWidget->setTitle(tr("Play/Stop control"));
+        m_stopInputWidget->setTitle(tr("Pause control"));
+    }
 }
 
 void VCCueListProperties::updateChaserName()

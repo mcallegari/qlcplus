@@ -70,13 +70,6 @@
        <string>Cue List</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="0">
-        <widget class="QLabel" name="m_chaserLabel">
-         <property name="text">
-          <string>Chaser</string>
-         </property>
-        </widget>
-       </item>
        <item row="0" column="1">
         <widget class="QLineEdit" name="m_chaserEdit">
          <property name="toolTip">
@@ -121,14 +114,21 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="0" colspan="4">
+       <item row="0" column="0">
+        <widget class="QLabel" name="m_chaserLabel">
+         <property name="text">
+          <string>Chaser</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0" colspan="4">
         <widget class="QLabel" name="label_11">
          <property name="text">
           <string>Behavior of the Next/Previous buttons when the chaser is not active</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="0" colspan="4">
+       <item row="3" column="0" colspan="4">
         <widget class="QComboBox" name="m_nextPrevBehaviorCombo">
          <property name="toolTip">
           <string>Behavior of the Next/Previous buttons when the chaser is not active</string>
@@ -158,7 +158,7 @@
          </item>
         </widget>
        </item>
-       <item row="3" column="0" colspan="4">
+       <item row="4" column="0" colspan="4">
         <spacer name="verticalSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -170,6 +170,32 @@
           </size>
          </property>
         </spacer>
+       </item>
+       <item row="1" column="0" colspan="4">
+        <widget class="QGroupBox" name="groupBox">
+         <property name="title">
+          <string>Playback buttons layout</string>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QRadioButton" name="m_play_pause_stop">
+            <property name="text">
+             <string>Play/Pause + Stop</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="m_play_stop_pause">
+            <property name="text">
+             <string>Play/Stop + Pause</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -273,7 +299,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QRadioButton" name="m_sweepButton">
+           <widget class="QRadioButton" name="m_stepsRadio">
             <property name="text">
              <string>Steps</string>
             </property>
@@ -308,6 +334,19 @@
           </item>
          </layout>
         </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_5">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </widget>
