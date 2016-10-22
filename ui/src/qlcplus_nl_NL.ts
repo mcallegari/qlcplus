@@ -2365,68 +2365,68 @@ The selected file has been moved or deleted.</source>
         <translation>Deel fixturenamen opnieuw in</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="117"/>
-        <location filename="fixtureremap.cpp" line="119"/>
+        <location filename="fixtureremap.cpp" line="129"/>
+        <location filename="fixtureremap.cpp" line="131"/>
         <source> (remapped)</source>
         <translation> (heringedeeld)</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="148"/>
+        <location filename="fixtureremap.cpp" line="160"/>
         <source>Universe %1</source>
         <translation>Universe %1</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="212"/>
+        <location filename="fixtureremap.cpp" line="224"/>
         <source>Generic Dimmer</source>
         <translation>Algemene dimmer</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="283"/>
+        <location filename="fixtureremap.cpp" line="295"/>
         <source>Delete Fixtures</source>
         <translation>Verwijder fixtures</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="284"/>
+        <location filename="fixtureremap.cpp" line="296"/>
         <source>Do you want to delete the selected items?</source>
         <translation>Geselecteerde items verwijderen?</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="332"/>
+        <location filename="fixtureremap.cpp" line="344"/>
         <source>Invalid operation</source>
         <translation>Ongeldige bewerking</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="333"/>
+        <location filename="fixtureremap.cpp" line="345"/>
         <source>You are trying to clone a fixture on an address already in use. Please fix the target list first.</source>
         <translation>U probeert een fixture te klonen op een adres dat al in gebruik is. Pas eerst de doellijst aan.</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="395"/>
-        <location filename="fixtureremap.cpp" line="411"/>
-        <location filename="fixtureremap.cpp" line="434"/>
-        <location filename="fixtureremap.cpp" line="524"/>
+        <location filename="fixtureremap.cpp" line="407"/>
+        <location filename="fixtureremap.cpp" line="423"/>
+        <location filename="fixtureremap.cpp" line="446"/>
+        <location filename="fixtureremap.cpp" line="536"/>
         <source>Invalid selection</source>
         <translation>Ongeldige selectie</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="396"/>
-        <location filename="fixtureremap.cpp" line="412"/>
-        <location filename="fixtureremap.cpp" line="525"/>
+        <location filename="fixtureremap.cpp" line="408"/>
+        <location filename="fixtureremap.cpp" line="424"/>
+        <location filename="fixtureremap.cpp" line="537"/>
         <source>Please select a source and a target fixture or channel to perform this operation.</source>
         <translation>Selecteer een bron en een doelfixture of kanaal om deze bewerking uit te voeren.</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="435"/>
+        <location filename="fixtureremap.cpp" line="447"/>
         <source>To perform a fixture remap, please select fixtures on both lists.</source>
         <translation>Om een fixture herindeling uit te voeren dient uit beide lijsten fixtures geselecteerd te worden.</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="650"/>
+        <location filename="fixtureremap.cpp" line="662"/>
         <source>This might take a while...</source>
         <translation>Even geduld a.u.b...</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="650"/>
+        <location filename="fixtureremap.cpp" line="662"/>
         <source>Cancel</source>
         <translation>Annuleren</translation>
     </message>
@@ -4372,22 +4372,22 @@ De wizard kent het verschil tussen een knop en een slider niet. Deze dient handm
         <translation>Bekijk wat de RGB matrix doet wanneer hij loopt</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="271"/>
+        <location filename="rgbmatrixeditor.cpp" line="273"/>
         <source>None</source>
         <translation>Geen</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="491"/>
+        <location filename="rgbmatrixeditor.cpp" line="493"/>
         <source>No fixture group to control</source>
         <translation>Geen fixturegroep om te bedienen</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="824"/>
+        <location filename="rgbmatrixeditor.cpp" line="772"/>
         <source>Select image</source>
         <translation>Selecteer afbeelding</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="826"/>
+        <location filename="rgbmatrixeditor.cpp" line="774"/>
         <source>Images</source>
         <translation>Afbeeldingen</translation>
     </message>
@@ -5168,32 +5168,32 @@ Duur: %3
 <context>
     <name>SpeedDial</name>
     <message>
-        <location filename="speeddial.cpp" line="141"/>
+        <location filename="speeddial.cpp" line="142"/>
         <source>Hours</source>
         <translation>Uren</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="150"/>
+        <location filename="speeddial.cpp" line="151"/>
         <source>Minutes</source>
         <translation>Minuten</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="159"/>
+        <location filename="speeddial.cpp" line="160"/>
         <source>Seconds</source>
         <translation>Seconden</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="168"/>
+        <location filename="speeddial.cpp" line="169"/>
         <source>Milliseconds</source>
         <translation>Milliseconden</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="174"/>
+        <location filename="speeddial.cpp" line="175"/>
         <source>Infinite</source>
         <translation>Oneindig</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="126"/>
+        <location filename="speeddial.cpp" line="127"/>
         <source>Tap</source>
         <translation>Tap</translation>
     </message>
@@ -5510,57 +5510,69 @@ Duur: %3
 <context>
     <name>VCCueList</name>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="106"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="107"/>
         <source>Link</source>
         <translation>Link</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="200"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="201"/>
         <source>Show/Hide crossfade sliders</source>
         <translation>Toon/verberg crossfade sliders</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="210"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="211"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="964"/>
         <source>Play/Pause Cue list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="219"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="220"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="965"/>
         <source>Stop Cue list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="228"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="229"/>
         <source>Go to previous step in the list</source>
         <translation>Ga naar vorige stap in de lijst</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="237"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="238"/>
         <source>Go to next step in the list</source>
         <translation>Ga naar volgende stap in de lijst</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="245"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="246"/>
         <source>Cue list</source>
         <translation>Cue list</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1304"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="958"/>
+        <source>Play/Stop Cue list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelist.cpp" line="959"/>
+        <source>Pause Cue list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelist.cpp" line="1367"/>
         <source>Fade In</source>
         <translation>Fade In</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1304"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1367"/>
         <source>Fade Out</source>
         <translation>Fade Out</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1304"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1367"/>
         <source>Duration</source>
         <translation>Duur</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1304"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1367"/>
         <source>Notes</source>
         <translation>Notities</translation>
     </message>
@@ -5588,22 +5600,22 @@ Duur: %3
         <translation>Cue list</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="76"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="120"/>
         <source>Chaser</source>
         <translation>Chaser</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="83"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="76"/>
         <source>The chaser function to use as cue list</source>
         <translation>De chaser functie die als cue list dient</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="93"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="86"/>
         <source>Choose the chaser function to use as the steps for the cue list</source>
         <translation>Kies de chaserfunctie voor de stappen van de cue list</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="110"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="103"/>
         <source>Detach current chaser from the cue list</source>
         <translation>Ontkoppel huidge chaser van de cue list</translation>
     </message>
@@ -5634,47 +5646,64 @@ Duur: %3
         <translation>Do niets</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="178"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="177"/>
+        <source>Playback buttons layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="183"/>
+        <source>Play/Pause + Stop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="193"/>
+        <source>Play/Stop + Pause</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="204"/>
         <source>Playback</source>
         <translation>Playback</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="204"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="230"/>
         <source>Next Cue</source>
         <translation>Volgende cue</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="250"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="276"/>
         <source>Side Faders</source>
         <translation>Faders</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="227"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="253"/>
         <source>Previous Cue</source>
         <translation>Vorige cue</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="256"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="282"/>
         <source>Behaviour</source>
         <translation>Gedrag</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="268"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="294"/>
         <source>Crossfade</source>
         <translation>Crossfade</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="278"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="304"/>
         <source>Steps</source>
         <translation>Stappen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="65"/>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="237"/>
         <source>Play/Pause control</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="74"/>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="238"/>
         <source>Stop control</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5689,7 +5718,17 @@ Duur: %3
         <translation>Rechter Fader</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.cpp" line="222"/>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="242"/>
+        <source>Play/Stop control</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="243"/>
+        <source>Pause control</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="251"/>
         <source>No function</source>
         <translation>Geen functie</translation>
     </message>
@@ -5697,13 +5736,13 @@ Duur: %3
 <context>
     <name>VCFrame</name>
     <message>
-        <location filename="virtualconsole/vcframe.cpp" line="362"/>
-        <location filename="virtualconsole/vcframe.cpp" line="479"/>
+        <location filename="virtualconsole/vcframe.cpp" line="360"/>
+        <location filename="virtualconsole/vcframe.cpp" line="485"/>
         <source>Page: %1</source>
         <translation>Pagina: %1</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframe.cpp" line="1264"/>
+        <location filename="virtualconsole/vcframe.cpp" line="1270"/>
         <source>Add</source>
         <translation>Toevoegen</translation>
     </message>
@@ -6668,17 +6707,17 @@ Duur: %3
         <translation>Ga naar Submaster Mode</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.cpp" line="629"/>
+        <location filename="virtualconsole/vcsliderproperties.cpp" line="631"/>
         <source>Select channels by group</source>
         <translation>Selecteer kanalen per groep</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.cpp" line="630"/>
+        <location filename="virtualconsole/vcsliderproperties.cpp" line="632"/>
         <source>Select a channel group</source>
         <translation>Selecteer een kanaalgroep</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.cpp" line="687"/>
+        <location filename="virtualconsole/vcsliderproperties.cpp" line="689"/>
         <source>No function</source>
         <translation>Geen functie</translation>
     </message>
