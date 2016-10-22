@@ -13,6 +13,7 @@
   <fixture path="American-DJ-Asteroid-1200.qxf" mf="American DJ" md="Asteroid 1200"/>
   <fixture path="American-DJ-Chameleon-QBar-Pro.qxf" mf="American DJ" md="Chameleon QBar Pro"/>
   <fixture path="American-DJ-COB-Cannon-Wash-Pearl.qxf" mf="American DJ" md="COB Cannon Wash Pearl"/>
+  <fixture path="American-DJ-Comscan-LED.qxf" mf="American DJ" md="Comscan LED"/>
   <fixture path="American-DJ-Dekker-LED.qxf" mf="American DJ" md="Dekker LED"/>
   <fixture path="American-DJ-DJ-Spot-250.qxf" mf="American DJ" md="DJ Spot 250"/>
   <fixture path="American-DJ-DJ-Spot-300.qxf" mf="American DJ" md="DJ Spot 300"/>
@@ -567,6 +568,7 @@
   <fixture path="PR-Lighting-Pilot-150-PR-2150.qxf" mf="PR Lighting" md="Pilot 150 (PR-2150)"/>
   <fixture path="PR-Lighting-Pilot-575.qxf" mf="PR Lighting" md="Pilot 575"/>
   <fixture path="PR-Lighting-PR-5000-Spot.qxf" mf="PR Lighting" md="PR 5000 Spot"/>
+  <fixture path="PR-Lighting-XL-250-PR-2225M.qxf" mf="PR Lighting" md="XL 250 PR-2225M"/>
   <fixture path="PR-Lighting-XLED-1037.qxf" mf="PR Lighting" md="XLED 1037"/>
   <fixture path="PR-Lighting-XR-230-Spot.qxf" mf="PR Lighting" md="XR 230 Spot"/>
   <fixture path="Pro-Lights-ARCLED7314HD.qxf" mf="Pro-Lights" md="ArcLed-7314HD"/>
