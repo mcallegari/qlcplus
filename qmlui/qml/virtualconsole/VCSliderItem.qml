@@ -47,7 +47,8 @@ VCWidgetItem
             anchors.horizontalCenter: parent.horizontalCenter
             height: UISettings.listItemHeight
             font: sliderObj ? sliderObj.font : ""
-            text: slFader.value
+            text: sliderObj ? (sliderObj.valueDisplayStyle === VCSlider.DMXValue ?
+                               slFader.value : parseInt((slFader.value * 100) / 255) + "%") : slFader.value
             color: sliderObj ? sliderObj.foregroundColor : "white"
         }
 
@@ -58,6 +59,7 @@ VCWidgetItem
             anchors.horizontalCenter: parent.horizontalCenter
             Layout.fillHeight: true
             width: parent.width
+            rotation: sliderObj ? (sliderObj.invertedAppearance ? 180 : 0) : 0
             value: sliderValue
             onTouchPressed:
             {
@@ -99,5 +101,33 @@ VCWidgetItem
             onFontChanged: calculateTextHeight()
             onTextChanged: calculateTextHeight()
         }
+    }
+
+    DropArea
+    {
+        id: dropArea
+        anchors.fill: parent
+        z: 2 // this area must be above the VCWidget resize controls
+        keys: [ "function" ]
+
+        onEntered: virtualConsole.setDropTarget(sliderRoot, true)
+        onExited: virtualConsole.setDropTarget(sliderRoot, false)
+        onDropped:
+        {
+            // attach function here
+            sliderObj.playbackFunction = drag.source.funcID
+        }
+
+        states: [
+            State
+            {
+                when: dropArea.containsDrag
+                PropertyChanges
+                {
+                    target: sliderRoot
+                    color: "#9DFF52"
+                }
+            }
+        ]
     }
 }

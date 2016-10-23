@@ -28,8 +28,11 @@
 
 VCSlider::VCSlider(Doc *doc, QObject *parent)
     : VCWidget(doc, parent)
+    , m_valueDisplayStyle(DMXValue)
+    , m_invertedAppearance(false)
     , m_sliderMode(Playback)
     , m_value(0)
+    , m_playbackFunction(Function::invalidId())
 {
     setType(VCWidget::SliderWidget);
     setBackgroundColor(QColor("#444"));
@@ -81,21 +84,11 @@ QString VCSlider::sliderModeToString(SliderMode mode)
 {
     switch (mode)
     {
-    case Level:
-        return QString("Level");
-        break;
-
-    case Playback:
-        return QString("Playback");
-        break;
-
-    case Submaster:
-        return QString("Submaster");
-        break;
-
-    default:
-        return QString("Unknown");
-        break;
+        case Level: return QString("Level");
+        case Playback: return QString("Playback");
+        case Submaster: return QString("Submaster");
+        case GrandMaster: return QString("GrandMaster");
+        default: return QString("Unknown");
     }
 }
 
@@ -103,15 +96,80 @@ VCSlider::SliderMode VCSlider::stringToSliderMode(const QString& mode)
 {
     if (mode == QString("Level"))
         return Level;
-    else  if (mode == QString("Playback"))
-       return Playback;
-    else //if (mode == QString("Submaster"))
+    else if (mode == QString("Submaster"))
         return Submaster;
+    else if (mode == QString("GrandMaster"))
+        return GrandMaster;
+    else
+        return Playback;
 }
 
 VCSlider::SliderMode VCSlider::sliderMode() const
 {
     return m_sliderMode;
+}
+
+void VCSlider::setSliderMode(SliderMode mode)
+{
+    Q_ASSERT(mode >= Level && mode <= GrandMaster);
+
+    if (m_sliderMode == mode)
+        return;
+
+    m_sliderMode = mode;
+    emit sliderModeChanged(mode);
+}
+
+/*****************************************************************************
+ * Display style
+ *****************************************************************************/
+
+QString VCSlider::valueDisplayStyleToString(VCSlider::ValueDisplayStyle style)
+{
+    switch (style)
+    {
+        case DMXValue: return KXMLQLCVCSliderValueDisplayStyleExact;
+        case PercentageValue: return KXMLQLCVCSliderValueDisplayStylePercentage;
+        default: return QString("Unknown");
+    };
+}
+
+VCSlider::ValueDisplayStyle VCSlider::stringToValueDisplayStyle(QString style)
+{
+    if (style == KXMLQLCVCSliderValueDisplayStyleExact)
+        return DMXValue;
+    else if (style == KXMLQLCVCSliderValueDisplayStylePercentage)
+        return PercentageValue;
+    else
+        return DMXValue;
+}
+
+VCSlider::ValueDisplayStyle VCSlider::valueDisplayStyle() const
+{
+    return m_valueDisplayStyle;
+}
+
+void VCSlider::setValueDisplayStyle(VCSlider::ValueDisplayStyle style)
+{
+    if (m_valueDisplayStyle == style)
+        return;
+
+    m_valueDisplayStyle = style;
+    emit valueDisplayStyleChanged(style);
+}
+
+bool VCSlider::invertedAppearance() const
+{
+    return m_invertedAppearance;
+}
+
+void VCSlider::setInvertedAppearance(bool inverted)
+{
+    if (m_invertedAppearance == inverted)
+        return;
+
+    m_invertedAppearance = inverted;
+    emit invertedAppearanceChanged(inverted);
 }
 
 /*********************************************************************
@@ -130,6 +188,20 @@ void VCSlider::setValue(int value)
 
     m_value = value;
     emit valueChanged(value);
+}
+
+quint32 VCSlider::playbackFunction() const
+{
+    return m_playbackFunction;
+}
+
+void VCSlider::setPlaybackFunction(quint32 playbackFunction)
+{
+    if (m_playbackFunction == playbackFunction)
+        return;
+
+    m_playbackFunction = playbackFunction;
+    emit playbackFunctionChanged(playbackFunction);
 }
 
 /*********************************************************************

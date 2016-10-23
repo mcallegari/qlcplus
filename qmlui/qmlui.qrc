@@ -111,6 +111,7 @@
     <file alias="VCButtonProperties.qml">qml/virtualconsole/VCButtonProperties.qml</file>
     <file alias="VCLabelItem.qml">qml/virtualconsole/VCLabelItem.qml</file>
     <file alias="VCSliderItem.qml">qml/virtualconsole/VCSliderItem.qml</file>
+    <file alias="VCSliderProperties.qml">qml/virtualconsole/VCSliderProperties.qml</file>
     <file alias="VCClockItem.qml">qml/virtualconsole/VCClockItem.qml</file>
     <file alias="VCClockProperties.qml">qml/virtualconsole/VCClockProperties.qml</file>
 

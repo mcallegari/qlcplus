@@ -71,7 +71,6 @@ Rectangle
 
                     IconButton
                     {
-                        id: fontButton
                         anchors.top: parent.top
                         anchors.right: parent.right
                         imgSource: "qrc:/reset.svg"

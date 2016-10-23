@@ -53,7 +53,11 @@ class VCSlider : public VCWidget
 {
     Q_OBJECT
 
+    Q_PROPERTY(ValueDisplayStyle valueDisplayStyle READ valueDisplayStyle WRITE setValueDisplayStyle NOTIFY valueDisplayStyleChanged)
+    Q_PROPERTY(bool invertedAppearance READ invertedAppearance WRITE setInvertedAppearance NOTIFY invertedAppearanceChanged)
+    Q_PROPERTY(SliderMode sliderMode READ sliderMode WRITE setSliderMode NOTIFY sliderModeChanged)
     Q_PROPERTY(int value READ value WRITE setValue NOTIFY valueChanged)
+    Q_PROPERTY(quint32 playbackFunction READ playbackFunction WRITE setPlaybackFunction NOTIFY playbackFunctionChanged)
 
     /*********************************************************************
      * Initialization
@@ -72,32 +76,54 @@ public:
     QString propertiesResource() const;
 
     /*********************************************************************
+     * Display style
+     *********************************************************************/
+public:
+    enum ValueDisplayStyle
+    {
+        DMXValue,
+        PercentageValue
+    };
+    Q_ENUM(ValueDisplayStyle)
+
+    /** Helper methods for ValueDisplayStyle <--> QString conversion */
+    static QString valueDisplayStyleToString(ValueDisplayStyle style);
+    static ValueDisplayStyle stringToValueDisplayStyle(QString style);
+
+    /** Get/Set the Slider value display style */
+    ValueDisplayStyle valueDisplayStyle() const;
+    void setValueDisplayStyle(ValueDisplayStyle style);
+
+    /** Get/Set the Slider inverted appearance mode */
+    bool invertedAppearance() const;
+    void setInvertedAppearance(bool inverted);
+
+signals:
+    void valueDisplayStyleChanged(ValueDisplayStyle valueDisplayStyle);
+    void invertedAppearanceChanged(bool inverted);
+
+protected:
+    ValueDisplayStyle m_valueDisplayStyle;
+    bool m_invertedAppearance;
+
+    /*********************************************************************
      * Slider Mode
      *********************************************************************/
 public:
-    enum SliderMode { Level, Playback, Submaster };
+    enum SliderMode { Level, Playback, Submaster, GrandMaster };
     Q_ENUM(SliderMode)
 
 public:
-    /**
-     * Convert a SliderMode enum to a string that can be saved into an XML file.
-     *
-     * @param mode The mode to convert
-     * @return A string
-     */
+    /** Helper methods for SliderMode <--> QString conversion */
     static QString sliderModeToString(SliderMode mode);
-
-    /**
-     * Convert a string into a SliderMode enum.
-     *
-     * @param mode The string to convert
-     * @return SliderMode
-     */
     static SliderMode stringToSliderMode(const QString& mode);
 
     /** Get/Set the current slider mode */
     SliderMode sliderMode() const;
     void setSliderMode(SliderMode mode);
+
+signals:
+    void sliderModeChanged(SliderMode mode);
 
 protected:
     SliderMode m_sliderMode;
@@ -107,7 +133,6 @@ protected:
      *********************************************************************/
 public:
     int value() const;
-
     void setValue(int value);
 
 signals:
@@ -115,6 +140,19 @@ signals:
 
 protected:
     int m_value;
+
+    /*********************************************************************
+     * Playback
+     *********************************************************************/
+public:
+    quint32 playbackFunction() const;
+    void setPlaybackFunction(quint32 playbackFunction);
+
+signals:
+    void playbackFunctionChanged(quint32 playbackFunction);
+
+protected:
+    quint32 m_playbackFunction;
 
     /*********************************************************************
      * External input
@@ -126,7 +164,6 @@ public slots:
     /*********************************************************************
      * Load & Save
      *********************************************************************/
-
 public:
     bool loadXML(QXmlStreamReader &root);
     //bool saveXML(QXmlStreamWriter *doc);
