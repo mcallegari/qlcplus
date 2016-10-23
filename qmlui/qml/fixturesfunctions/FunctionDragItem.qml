@@ -25,6 +25,7 @@ Rectangle
     property int funcID: -1
     property string funcLabel
     property string funcIcon
+    property int modifiers
 
     width: 200
     height: UISettings.listItemHeight

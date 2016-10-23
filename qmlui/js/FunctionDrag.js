@@ -74,11 +74,12 @@ function handleDrag(mouse)
     draggedItem.y = mouse.y + posnInWindow.y - 5;
 }
 
-function endDrag(mouse)
+function endDrag(mouse, modifiers)
 {
     if (draggedItem == null)
         return;
 
+    draggedItem.modifiers = modifiers
     draggedItem.Drag.drop();
     draggedItem.destroy();
     draggedItem = null;

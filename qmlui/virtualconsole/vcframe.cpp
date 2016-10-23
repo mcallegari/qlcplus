@@ -214,13 +214,25 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
     }
 }
 
-void VCFrame::addFunction(QQuickItem *parent, quint32 funcID, QPoint pos, bool modifierPressed)
+void VCFrame::addFunction(QQuickItem *parent, quint32 funcID, QPoint pos, int keyModifiers)
 {
     // reset all the drop targets, otherwise two overlapping
     // frames can get the same drop event
     m_vc->resetDropTargets(true);
 
-    if (modifierPressed == false)
+    //qDebug() << "modifiers:" << QString::number(keyModifiers, 16);
+
+    if (keyModifiers & Qt::ShiftModifier)
+    {
+        VCSlider *slider = new VCSlider(m_doc, this);
+        QQmlEngine::setObjectOwnership(slider, QQmlEngine::CppOwnership);
+        slider->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 10, m_vc->pixelDensity() * 35));
+        slider->setPlaybackFunction(funcID);
+        setupWidget(slider);
+        m_vc->addWidgetToMap(slider);
+        slider->render(m_vc->view(), parent);
+    }
+    else
     {
         VCButton *button = new VCButton(m_doc, this);
         QQmlEngine::setObjectOwnership(button, QQmlEngine::CppOwnership);
@@ -229,16 +241,6 @@ void VCFrame::addFunction(QQuickItem *parent, quint32 funcID, QPoint pos, bool m
         setupWidget(button);
         m_vc->addWidgetToMap(button);
         button->render(m_vc->view(), parent);
-    }
-    else
-    {
-        VCSlider *slider = new VCSlider(m_doc, this);
-        QQmlEngine::setObjectOwnership(slider, QQmlEngine::CppOwnership);
-        slider->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 10, m_vc->pixelDensity() * 35));
-        //slider->setFunctionID(funcID); //TODO
-        setupWidget(slider);
-        m_vc->addWidgetToMap(slider);
-        slider->render(m_vc->view(), parent);
     }
 }
 

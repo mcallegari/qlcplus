@@ -91,7 +91,7 @@ Rectangle
                 FuncDragJS.handleDrag(mouse);
         onReleased:
             if(drag.active == true)
-                FuncDragJS.endDrag(mouse);
+                FuncDragJS.endDrag(mouse, mouse.modifiers);
 
         onClicked:
         {
