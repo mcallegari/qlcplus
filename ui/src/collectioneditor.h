@@ -45,12 +45,14 @@ public:
 
 private:
     Doc* m_doc;
-    Collection* m_fc; // The Collection being edited
+    Collection* m_collection; // The Collection being edited
 
 private slots:
     void slotNameEdited(const QString& text);
     void slotAdd();
     void slotRemove();
+    void slotMoveUp();
+    void slotMoveDown();
     void slotTestClicked();
 
 private:

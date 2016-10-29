@@ -2,6 +2,7 @@ qlcplus (4.10.5) stable; urgency=low
 
   * Engine: added indigo to fixture channel colors (thanks to Axel Metzke)
   * UI/RGB Matrix Editor: editor preview doesn't stop when testing the Function
+  * UI/Collection Editor: allow multiple selection and added Function reordering buttons
   * UI/Remap: fixed universes list in target mapping
   * VC Frame: Show page number when collapsed (thanks to Matthias Gubisch)
   * VC Cue List: allow to choose playback buttons layout (Play/Pause + Stop or Play/Stop + Pause)

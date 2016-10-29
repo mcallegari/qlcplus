@@ -7,14 +7,14 @@
 
   Copyright (c) 2015 Massimo Callegari
 
-  Licensed under the Apache License, Version 2.0 (the "License");
+  Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
 
       http://www.apache.org/licenses/LICENSE-2.0.txt
 
   Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
+  distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
@@ -33,6 +33,40 @@
    <string>Collection editor</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <item row="6" column="3">
+    <widget class="QToolButton" name="m_moveDown">
+     <property name="toolTip">
+      <string>Move the selected functions down</string>
+     </property>
+     <property name="icon">
+      <iconset resource="qlcui.qrc">
+       <normaloff>:/down.png</normaloff>:/down.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="3">
+    <widget class="QToolButton" name="m_moveUp">
+     <property name="toolTip">
+      <string>Move the selected functions up</string>
+     </property>
+     <property name="icon">
+      <iconset resource="qlcui.qrc">
+       <normaloff>:/up.png</normaloff>:/up.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
+    </widget>
+   </item>
    <item row="0" column="0">
     <widget class="QLabel" name="m_nameLabel">
      <property name="sizePolicy">
@@ -93,7 +127,7 @@
      </property>
     </widget>
    </item>
-   <item row="5" column="3">
+   <item row="7" column="3">
     <spacer>
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -126,8 +160,14 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="0" rowspan="5" colspan="2">
+   <item row="1" column="0" rowspan="7" colspan="2">
     <widget class="QTreeWidget" name="m_tree">
+     <property name="alternatingRowColors">
+      <bool>true</bool>
+     </property>
+     <property name="selectionMode">
+      <enum>QAbstractItemView::ExtendedSelection</enum>
+     </property>
      <property name="rootIsDecorated">
       <bool>false</bool>
      </property>
@@ -140,11 +180,21 @@
      <property name="allColumnsShowFocus">
       <bool>true</bool>
      </property>
+     <property name="expandsOnDoubleClick">
+      <bool>false</bool>
+     </property>
      <column>
       <property name="text">
        <string>Function</string>
       </property>
      </column>
+    </widget>
+   </item>
+   <item row="4" column="3">
+    <widget class="Line" name="line">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
     </widget>
    </item>
   </layout>
