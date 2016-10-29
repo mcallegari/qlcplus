@@ -34,27 +34,7 @@ Rectangle
     property int tFontSize: UISettings.textSizeDefault
     property int functionType: -1
 
-    onFunctionTypeChanged:
-    {
-        if (functionType == -1)
-        {
-            iSrc = ""
-            return
-        }
-
-        switch (functionType)
-        {
-            case Function.Scene: iSrc = "qrc:/scene.svg"; break;
-            case Function.Chaser: iSrc = "qrc:/chaser.svg"; break;
-            case Function.EFX: iSrc = "qrc:/efx.svg"; break;
-            case Function.Collection: iSrc = "qrc:/collection.svg"; break;
-            case Function.Script: iSrc = "qrc:/script.svg"; break;
-            case Function.RGBMatrix: iSrc = "qrc:/rgbmatrix.svg"; break;
-            case Function.Show: iSrc = "qrc:/showmanager.svg"; break;
-            case Function.Audio: iSrc = "qrc:/audio.svg"; break;
-            case Function.Video: iSrc = "qrc:/video.svg"; break;
-        }
-    }
+    onFunctionTypeChanged: iSrc = functionManager.functionIcon(functionType)
 
     RowLayout
     {

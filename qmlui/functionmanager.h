@@ -80,6 +80,7 @@ public:
 
     Q_INVOKABLE quint32 createFunction(int type);
     Q_INVOKABLE Function *getFunction(quint32 id);
+    Q_INVOKABLE QString functionIcon(int type);
     Q_INVOKABLE void clearTree();
     Q_INVOKABLE void setPreview(bool enable);
     Q_INVOKABLE void selectFunctionID(quint32 fID, bool multiSelection);

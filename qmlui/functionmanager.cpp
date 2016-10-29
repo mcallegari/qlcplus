@@ -257,6 +257,24 @@ Function *FunctionManager::getFunction(quint32 id)
     return m_doc->function(id);
 }
 
+QString FunctionManager::functionIcon(int type)
+{
+    switch (type)
+    {
+        case Function::Scene: return "qrc:/scene.svg";
+        case Function::Chaser: return "qrc:/chaser.svg";
+        case Function::EFX: return "qrc:/efx.svg";
+        case Function::Collection: return "qrc:/collection.svg";
+        case Function::Script: return "qrc:/script.svg";
+        case Function::RGBMatrix: return "qrc:/rgbmatrix.svg";
+        case Function::Show: return "qrc:/showmanager.svg";
+        case Function::Audio: return "qrc:/audio.svg";
+        case Function::Video: return "qrc:/video.svg";
+    }
+
+    return "";
+}
+
 void FunctionManager::clearTree()
 {
     setPreview(false);
