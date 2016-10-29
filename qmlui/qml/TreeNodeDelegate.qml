@@ -177,7 +177,7 @@ Column
                         }
                         else
                         {
-                            if (item.cRef)
+                            if (item.hasOwnProperty('cRef'))
                                 item.cRef = classRef
                         }
                     }
