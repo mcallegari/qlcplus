@@ -178,7 +178,7 @@ void ShowManager::addItem(QQuickItem *parent, int trackIdx, int startTime, quint
 
     ShowFunction *showFunc = selectedTrack->createShowFunction(functionID);
     showFunc->setStartTime(startTime);
-    showFunc->setDuration(func->totalDuration());
+    showFunc->setDuration(func->totalDuration() ? func->totalDuration() : 5000);
     showFunc->setColor(ShowFunction::defaultColor(func->type()));
 
     QQuickItem *newItem = qobject_cast<QQuickItem*>(siComponent->create());
