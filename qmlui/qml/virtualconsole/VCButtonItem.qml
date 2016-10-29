@@ -158,6 +158,32 @@ VCWidgetItem
         }
     }
 
+    MultiPointTouchArea
+    {
+        anchors.fill: parent
+        mouseEnabled: false
+        maximumTouchPoints: 1
+
+        onPressed:
+        {
+            if (virtualConsole.editMode)
+                return;
+
+            if (buttonObj.actionType === VCButton.Flash)
+                buttonObj.requestStateChange(true)
+        }
+        onReleased:
+        {
+            if (virtualConsole.editMode)
+                return;
+
+            if (buttonObj.actionType === VCButton.Flash)
+                buttonObj.requestStateChange(false)
+            else if (buttonObj.actionType === VCButton.Toggle)
+                buttonObj.requestStateChange(!buttonObj.isOn)
+        }
+    }
+
     DropArea
     {
         id: dropArea
