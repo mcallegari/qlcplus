@@ -533,7 +533,7 @@ void FixtureManager::updateFixtureTree()
     QStringList uniNames = m_doc->inputOutputMap()->universeNames();
 
     // add the current universes as groups
-    foreach(Fixture *fixture, m_doc->fixtures())
+    for (Fixture *fixture : m_doc->fixtures()) // C++11
     {
         QVariantList params;
         params.append(QVariant::fromValue(fixture));
@@ -541,7 +541,7 @@ void FixtureManager::updateFixtureTree()
     }
 
     // add the actual Fixture Groups
-    foreach (FixtureGroup* grp, m_doc->fixtureGroups())
+    for (FixtureGroup* grp : m_doc->fixtureGroups()) // C++11
     {
         foreach(quint32 fxID, grp->fixtureList())
         {

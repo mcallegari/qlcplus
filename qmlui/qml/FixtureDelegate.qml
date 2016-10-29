@@ -49,6 +49,8 @@ Rectangle
             return "qrc:/flower.svg"
         else if (type === "Effect")
             return "qrc:/effect.svg"
+        else if (type === "Laser")
+            return "qrc:/laser.svg"
         else
             return "qrc:/fixture.svg"
     }
