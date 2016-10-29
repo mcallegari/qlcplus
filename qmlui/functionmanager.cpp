@@ -78,6 +78,8 @@ FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)
 
     connect(m_doc, SIGNAL(loaded()),
             this, SLOT(slotDocLoaded()));
+    connect(m_doc, SIGNAL(functionAdded(quint32)),
+            this, SLOT(slotFunctionAdded()));
 }
 
 QVariant FunctionManager::functionsList()
@@ -536,6 +538,13 @@ void FunctionManager::updateFunctionsTree()
 void FunctionManager::slotDocLoaded()
 {
     setPreview(false);
+    updateFunctionsTree();
+}
+
+void FunctionManager::slotFunctionAdded()
+{
+    if (m_doc->loadStatus() != Doc::Loaded)
+        return;
     updateFunctionsTree();
 }
 

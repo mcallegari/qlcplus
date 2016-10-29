@@ -123,6 +123,7 @@ signals:
 
 public slots:
     void slotDocLoaded();
+    void slotFunctionAdded();
 
 private:
     /** Reference of the QML view */
