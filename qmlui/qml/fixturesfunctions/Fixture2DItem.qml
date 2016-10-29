@@ -266,7 +266,7 @@ Rectangle
             //labelColor: "black"
             fontSize: UISettings.textSizeDefault / 2
             wrapText: true
-            textAlign: Text.AlignHCenter
+            textHAlign: Text.AlignHCenter
         }
     }
 

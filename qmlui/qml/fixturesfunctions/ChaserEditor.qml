@@ -186,13 +186,13 @@ Rectangle
             {
                 id: chListHeader
                 width: parent.width
-                height: UISettings.iconSizeMedium
+                height: UISettings.listItemHeight
                 color: UISettings.bgLight
-                property int fSize: UISettings.textSizeDefault * 0.6
+                property int fSize: UISettings.textSizeDefault * 0.75
 
                 Row
                 {
-                    height: UISettings.iconSizeMedium
+                    height: UISettings.listItemHeight
                     spacing: 2
 
                     // Step number column
@@ -200,27 +200,29 @@ Rectangle
                     {
                         id: numCol
                         width: UISettings.iconSizeMedium
+                        height: parent.height
                         label: "#"
                         wrapText: true
-                        textAlign: Text.AlignHCenter
+                        textHAlign: Text.AlignHCenter
                         fontSize: chListHeader.fSize
                     }
-                    Rectangle { height: UISettings.iconSizeMedium; width: 1; color: UISettings.fgMedium }
+                    Rectangle { height: parent.height; width: 1; color: UISettings.fgMedium }
 
                     // Step Function name column
                     RobotoText
                     {
                         id: nameCol
                         width: UISettings.bigItemHeight * 1.5
+                        height: parent.height
                         label: qsTr("Function")
                         wrapText: true
-                        textAlign: Text.AlignHCenter
+                        textHAlign: Text.AlignHCenter
                         fontSize: chListHeader.fSize
                     }
                     Rectangle
                     {
                         id: nameColDrag
-                        height: UISettings.iconSizeMedium
+                        height: parent.height
                         width: 1
                         color: UISettings.fgMedium
 
@@ -249,15 +251,16 @@ Rectangle
                     {
                         id: fInCol
                         width: UISettings.bigItemHeight * 0.5
+                        height: parent.height
                         label: qsTr("Fade In")
                         wrapText: true
-                        textAlign: Text.AlignHCenter
+                        textHAlign: Text.AlignHCenter
                         fontSize: chListHeader.fSize
                     }
                     Rectangle
                     {
                         id: fInColDrag
-                        height: UISettings.iconSizeMedium
+                        height: parent.height
                         width: 1
                         color: UISettings.fgMedium
 
@@ -286,15 +289,16 @@ Rectangle
                     {
                         id: holdCol
                         width: UISettings.bigItemHeight * 0.5
+                        height: parent.height
                         label: qsTr("Hold")
                         wrapText: true
-                        textAlign: Text.AlignHCenter
+                        textHAlign: Text.AlignHCenter
                         fontSize: chListHeader.fSize
                     }
                     Rectangle
                     {
                         id: holdColDrag
-                        height: UISettings.iconSizeMedium
+                        height: parent.height
                         width: 1
                         color: UISettings.fgMedium
 
@@ -323,15 +327,16 @@ Rectangle
                     {
                         id: fOutCol
                         width: UISettings.bigItemHeight * 0.5
+                        height: parent.height
                         label: qsTr("Fade Out")
                         wrapText: true
-                        textAlign: Text.AlignHCenter
+                        textHAlign: Text.AlignHCenter
                         fontSize: chListHeader.fSize
                     }
                     Rectangle
                     {
                         id: fOutColDrag
-                        height: UISettings.iconSizeMedium
+                        height: parent.height
                         width: 1
                         color: UISettings.fgMedium
 
@@ -360,15 +365,16 @@ Rectangle
                     {
                         id: durCol
                         width: UISettings.bigItemHeight * 0.5
+                        height: parent.height
                         label: qsTr("Duration")
                         wrapText: true
-                        textAlign: Text.AlignHCenter
+                        textHAlign: Text.AlignHCenter
                         fontSize: chListHeader.fSize
                     }
                     Rectangle
                     {
                         id: durColDrag
-                        height: UISettings.iconSizeMedium
+                        height: parent.height
                         width: 1
                         color: UISettings.fgMedium
 
@@ -397,6 +403,7 @@ Rectangle
                     {
                         id: noteCol
                         width: UISettings.bigItemHeight * 2
+                        height: parent.height
                         label: qsTr("Note")
                         fontSize: chListHeader.fSize
                         //Layout.fillWidth: true

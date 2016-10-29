@@ -48,7 +48,7 @@ Rectangle
         labelColor: UISettings.fgMain
         fontSize: UISettings.textSizeDefault * 0.75
         wrapText: true
-        textAlign: Text.AlignHCenter
+        textHAlign: Text.AlignHCenter
     }
 
     Drag.active: fxMouseArea.drag.active

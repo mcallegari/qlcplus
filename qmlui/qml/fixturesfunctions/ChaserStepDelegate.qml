@@ -149,7 +149,7 @@ Rectangle
             label: indexInList + 1
             fontSize: labelFontSize
             wrapText: true
-            textAlign: Text.AlignHCenter
+            textHAlign: Text.AlignHCenter
         }
         Rectangle { height: parent.height; width: 1; color: UISettings.fgMedium }
 
@@ -171,7 +171,7 @@ Rectangle
             label: stepFadeIn
             fontSize: labelFontSize
             wrapText: true
-            textAlign: Text.AlignHCenter
+            textHAlign: Text.AlignHCenter
         }
         Rectangle { height: parent.height; width: 1; color: UISettings.fgMedium }
 
@@ -183,7 +183,7 @@ Rectangle
             label: stepHold
             fontSize: labelFontSize
             wrapText: true
-            textAlign: Text.AlignHCenter
+            textHAlign: Text.AlignHCenter
         }
         Rectangle { height: parent.height; width: 1; color: UISettings.fgMedium }
 
@@ -195,7 +195,7 @@ Rectangle
             label: stepFadeOut
             fontSize: labelFontSize
             wrapText: true
-            textAlign: Text.AlignHCenter
+            textHAlign: Text.AlignHCenter
         }
         Rectangle { height: parent.height; width: 1; color: UISettings.fgMedium }
 
@@ -207,7 +207,7 @@ Rectangle
             label: stepDuration
             fontSize: labelFontSize
             wrapText: true
-            textAlign: Text.AlignHCenter
+            textHAlign: Text.AlignHCenter
         }
         Rectangle { height: parent.height; width: 1; color: UISettings.fgMedium }
 

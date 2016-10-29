@@ -74,7 +74,7 @@ Rectangle
             height: parent.height - 65
             label: message
             wrapText: true
-            textAlign: Text.AlignHCenter
+            textHAlign: Text.AlignHCenter
         }
 
         Loader
