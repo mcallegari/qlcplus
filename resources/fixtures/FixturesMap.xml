@@ -745,8 +745,8 @@
   <fixture path="TSSS-XL35.qxf" mf="TSSS" md="XL35"/>
   <fixture path="Vari-Lite-VL2500-Wash.qxf" mf="Vari-Lite" md="VL2500 Wash"/>
   <fixture path="Vari-Lite-VL3000-Spot.qxf" mf="Vari-Lite" md="VL3000 Spot"/>
-  <fixture path="Vari-Lite-VL3000-Wash.qxf" mf="Varilite" md="VL3000 Wash"/>
-  <fixture path="Vari-Lite-VL3500-Spot.qxf" mf="Varilite" md="VL3500 Spot"/>
+  <fixture path="Vari-Lite-VL3000-Wash.qxf" mf="Vari-Lite" md="VL3000 Wash"/>
+  <fixture path="Vari-Lite-VL3500-Spot.qxf" mf="Vari-Lite" md="VL3500 Spot"/>
   <fixture path="Varytec-Easy-Move-LED-XS-Spot.qxf" mf="Varytec" md="Easy Move LED XS Spot"/>
   <fixture path="Varytec-Easy-Move-LED-XS-Wash.qxf" mf="Varytec" md="Easy Move LED XS Wash"/>
   <fixture path="Varytec-Gigabar-II.qxf" mf="Varytec" md="Gigabar II"/>
