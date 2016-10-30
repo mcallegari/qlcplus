@@ -51,6 +51,7 @@ class ShowManager : public PreviewContext
     Q_PROPERTY(bool isPlaying READ isPlaying NOTIFY isPlayingChanged)
     Q_PROPERTY(int showDuration READ showDuration NOTIFY showDurationChanged)
     Q_PROPERTY(QQmlListProperty<Track> tracks READ tracks NOTIFY tracksChanged)
+    Q_PROPERTY(int selectedTrack READ selectedTrack WRITE setSelectedTrack NOTIFY selectedTrackChanged)
     Q_PROPERTY(int selectedItemsCount READ selectedItemsCount NOTIFY selectedItemsCountChanged)
 
 public:
@@ -68,7 +69,12 @@ public:
     /** Set the name of the Show Function to edit */
     void setShowName(QString showName);
 
+    /** Return a list of Track objects suitable for QML */
     QQmlListProperty<Track> tracks();
+
+    /** Get/Set the selected track index */
+    int selectedTrack() const;
+    void setSelectedTrack(int selectedTrack);
 
     /** Reset the Show Manager contents to an initial state */
     void resetContents();
@@ -83,10 +89,16 @@ public:
     /** Return the current Show total duration in milliseconds */
     int showDuration() const;
 
-    /** Return the current time of the Show */
-    int currentTime() const;
+    /** Get/Set the current time scale of the Show Manager timeline */
+    float timeScale() const;
+    void setTimeScale(float timeScale);
 
-    /** Set the Show time position */
+    /** Get/Set the Function stretch flag */
+    bool stretchFunctions() const;
+    void setStretchFunctions(bool stretchFunctions);
+
+    /** Get/Set the current time of the Show (aka cursor position) */
+    int currentTime() const;
     void setCurrentTime(int currentTime);
 
     Q_INVOKABLE void playShow();
@@ -94,9 +106,41 @@ public:
 
     bool isPlaying() const;
 
+signals:
+    void currentShowIDChanged(int currentShowID);
+    void showNameChanged(QString showName);
+    void timeScaleChanged(float timeScale);
+    void stretchFunctionsChanged(bool stretchFunction);
+    void currentTimeChanged(int currentTime);
+    void isPlayingChanged(bool playing);
+    void showDurationChanged(int showDuration);
+    void tracksChanged();
+    void selectedTrackChanged(int selectedTrack);
+
+private:
+    /** A reference to the Show Function being edited */
+    Show *m_currentShow;
+
+    /** The current time scale of the Show Manager timeline */
+    float m_timeScale;
+
+    /** Flag that indicates if a Function should be stretched
+     *  when the corresponding Show Item duration changes */
+    bool m_stretchFunctions;
+
+    /** The current time position of the Show */
+    int m_currentTime;
+
+    /** A list of references to the selected Show Tracks */
+    QList <Track*> m_tracksList;
+
+    /** The index of the currently selected track */
+    int m_selectedTrack;
+
     /*********************************************************************
       * Show Items
       ********************************************************************/
+public:
     /**
      * This enumeration instructs the UI how to interpret the data
      * stored in what previewData returns. It is a numeric
@@ -117,18 +161,6 @@ public:
 
     /** Set the color of the currently selected Show Items */
     void setItemsColor(QColor itemsColor);
-
-    /** Return the current time scale of the Show Manager timeline */
-    float timeScale() const;
-
-    /** Set the time scale of the Show Manager timeline */
-    void setTimeScale(float timeScale);
-
-    /** Return the stretch flag */
-    bool stretchFunctions() const;
-
-    /** Set the stretch flag */
-    void setStretchFunctions(bool stretchFunctions);
 
     /** Add a new Item to the timeline.
      *  This happens when dragging an existing Function from the Function Manager.
@@ -181,36 +213,12 @@ private:
                           quint32 startTime, quint32 duration);
 
 signals:
-    void currentShowIDChanged(int currentShowID);
-    void showNameChanged(QString showName);
     void itemsColorChanged(QColor itemsColor);
-    void timeScaleChanged(float timeScale);
-    void stretchFunctionsChanged(bool stretchFunction);
-    void currentTimeChanged(int currentTime);
-    void isPlayingChanged(bool playing);
-    void showDurationChanged(int showDuration);
-    void tracksChanged();
     void selectedItemsCountChanged(int count);
 
 private:
-    /** A reference to the Show Function being edited */
-    Show *m_currentShow;
-
     /** The background color for Show Items */
     QColor m_itemsColor;
-
-    /** The current time scale of the Show Manager timeline */
-    float m_timeScale;
-
-    /** Flag that indicates if a Function should be stretched
-     *  when the corresponding Show Item duration changes */
-    bool m_stretchFunctions;
-
-    /** The current time position of the Show */
-    int m_currentTime;
-
-    /** A list of references to the selected Show Tracks */
-    QList <Track*> m_tracksList;
 
     /** Pre-cached QML component for quick item creation */
     QQmlComponent *siComponent;

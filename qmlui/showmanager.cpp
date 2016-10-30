@@ -25,10 +25,11 @@
 ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
     : PreviewContext(view, doc, "SHOWMGR", parent)
     , m_currentShow(NULL)
-    , m_itemsColor(Qt::gray)
     , m_timeScale(5.0)
     , m_stretchFunctions(false)
     , m_currentTime(0)
+    , m_selectedTrack(-1)
+    , m_itemsColor(Qt::gray)
 {
     qmlRegisterType<Track>("com.qlcplus.classes", 1, 0, "Track");
     qmlRegisterType<ShowFunction>("com.qlcplus.classes", 1, 0, "ShowFunction");
@@ -102,6 +103,20 @@ QQmlListProperty<Track> ShowManager::tracks()
     return QQmlListProperty<Track>(this, m_tracksList);
 }
 
+int ShowManager::selectedTrack() const
+{
+    return m_selectedTrack;
+}
+
+void ShowManager::setSelectedTrack(int selectedTrack)
+{
+    if (m_selectedTrack == selectedTrack)
+        return;
+
+    m_selectedTrack = selectedTrack;
+    emit selectedTrackChanged(selectedTrack);
+}
+
 float ShowManager::timeScale() const
 {
     return m_timeScale;
@@ -129,6 +144,10 @@ void ShowManager::setStretchFunctions(bool stretchFunctions)
     m_stretchFunctions = stretchFunctions;
     emit stretchFunctionsChanged(stretchFunctions);
 }
+
+/*********************************************************************
+  * Show Items
+  ********************************************************************/
 
 void ShowManager::addItem(QQuickItem *parent, int trackIdx, int startTime, quint32 functionID)
 {
@@ -277,6 +296,7 @@ void ShowManager::resetContents()
 {
     resetView();
     m_currentTime = 0;
+    m_selectedTrack = -1;
     emit currentTimeChanged(m_currentTime);
     m_currentShow = NULL;
 }

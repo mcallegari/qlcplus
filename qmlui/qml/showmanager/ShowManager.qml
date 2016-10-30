@@ -251,36 +251,65 @@ Rectangle
         y: topBar.height
         z: 5
         width: trackWidth + verticalDivider.width
-        height: showMgrContainer.headerHeight
+        height: showMgrContainer.headerHeight - 2
         color: UISettings.bgStrong
 
-        Rectangle
+        RowLayout
         {
-            anchors.right: parent.right
-            width: verticalDivider.width
-            height: parent.height
-            color: UISettings.bgLight
-        }
-        ZoomItem
-        {
-            x: parent.width - width - 6
-            width: 100
-            height: parent.height - 2
-            fontColor: "#222"
-            onZoomOutClicked:
+            anchors.fill: parent
+
+            IconButton
             {
-                if (showManager.timeScale >= 1.0)
-                    showManager.timeScale += 1.0
-                else
-                    showManager.timeScale += 0.1
+                visible: showManager.selectedTrack > 0 ? true : false
+                height: parent.height
+                width: height
+                imgSource: "qrc:/up.svg"
+                tooltip: qsTr("Move the selected track up")
             }
 
-            onZoomInClicked:
+            IconButton
             {
-                if (showManager.timeScale > 1.0)
-                    showManager.timeScale -= 1.0
-                else
-                    showManager.timeScale -= 0.1
+                visible: showManager.selectedTrack >= 0 ? true : false
+                height: parent.height
+                width: height
+                imgSource: "qrc:/down.svg"
+                tooltip: qsTr("Move the selected track down")
+            }
+
+            // layout filler
+            Rectangle
+            {
+                Layout.fillWidth: true
+                color: "transparent"
+            }
+            ZoomItem
+            {
+                //x: parent.width - width - 6
+                width: UISettings.mediumItemHeight * 1.3
+                height: parent.height - 2
+                fontColor: "#222"
+                onZoomOutClicked:
+                {
+                    if (showManager.timeScale >= 1.0)
+                        showManager.timeScale += 1.0
+                    else
+                        showManager.timeScale += 0.1
+                }
+
+                onZoomInClicked:
+                {
+                    if (showManager.timeScale > 1.0)
+                        showManager.timeScale -= 1.0
+                    else
+                        showManager.timeScale -= 0.1
+                }
+            }
+
+            Rectangle
+            {
+                width: verticalDivider.width
+                height: parent.height
+                color: UISettings.bgLight
             }
         }
     }
@@ -358,6 +387,8 @@ Rectangle
                         width: tracksBox.width
                         height: trackHeight
                         trackRef: modelData
+                        trackIndex: index
+                        isSelected: showManager.selectedTrack === index ? true : false
                     }
             }
         }
