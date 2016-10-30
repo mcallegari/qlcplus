@@ -63,11 +63,17 @@ int MasterTimerPrivate::compareTime(struct timespec *time1, struct timespec *tim
 #endif
 {
     if (time1->tv_sec < time2->tv_sec)
+    {
+        qDebug() << "Time is late by" << (time2->tv_sec - time1->tv_sec) << "seconds";
         return -1;
+    }
     else if (time1->tv_sec > time2->tv_sec)
         return 1;
     else if (time1->tv_nsec < time2->tv_nsec)
+    {
+        qDebug() << "Time is late by" << (time2->tv_nsec - time1->tv_nsec) << "nanoseconds";
         return -1;
+    }
     else if (time1->tv_nsec > time2->tv_nsec)
         return 1;
     else
@@ -146,6 +152,12 @@ void MasterTimerPrivate::run()
             qDebug() << Q_FUNC_INFO << "MasterTimer is running late !";
             /* No need to sleep. Immediately process the next tick */
             mt->timerTick();
+            /* Now the finish time needs to be recalibrated */
+#if defined(Q_OS_OSX) || defined(Q_OS_IOS)
+            clock_get_time(cclock, finish);
+#else
+            clock_gettime(CLOCK_MONOTONIC, finish);
+#endif
             continue;
         }
 
