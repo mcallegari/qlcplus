@@ -6,6 +6,7 @@ qlcplus (4.10.5) stable; urgency=low
   * UI/Remap: fixed universes list in target mapping
   * VC Frame: Show page number when collapsed (thanks to Matthias Gubisch)
   * VC Cue List: allow to choose playback buttons layout (Play/Pause + Stop or Play/Stop + Pause)
+  * Plugins/DMX USB: fixed crash happening on PRO devices when receiving a full universe
   * New fixtures: Pro-Lights LumiPIX 12Q, Proel PLLEDMLBG (thanks to Andrea Ugolini)
   * New fixtures: Stairville DCL Flat Par 18x4W CW/WW, Cameo LED MultiPAR CLM-PAR-COB1, High End Systems Studio Beam (thanks to Freasy)
   * New fixture: iSolution iColor 4 (thanks to withlime)
