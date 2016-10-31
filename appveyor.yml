@@ -28,9 +28,9 @@ build_script:
           export
           gcc -v
           # get and prepare the D2XX SDK
-          mkdir -p /c/Qt/CDM21200
-          wget http://qlcplus.sourceforge.net/CDM%20v2.12.16%20WHQL%20Certified.zip -O /c/Qt/CDM21200/cdm.zip
-          cd /c/Qt/CDM21200
+          mkdir -p /c/Qt/D2XXSDK
+          wget http://www.ftdichip.com/Drivers/CDM/CDM%20v2.12.24%20WHQL%20Certified.zip -O /c/Qt/D2XXSDK/cdm.zip
+          cd /c/Qt/D2XXSDK
           unzip cdm.zip
           cd i386
           gendef.exe - ftd2xx.dll > ftd2xx.def
