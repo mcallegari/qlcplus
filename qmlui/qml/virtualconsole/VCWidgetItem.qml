@@ -59,7 +59,7 @@ Rectangle
     Image
     {
         anchors.fill: parent
-        source: wObj ? wObj.backgroundImage : ""
+        source: wObj && wObj.backgroundImage !== "" ? "file:" + wObj.backgroundImage : ""
     }
 
     // resize area
