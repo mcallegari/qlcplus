@@ -49,9 +49,6 @@ MainView2D::MainView2D(QQuickView *view, Doc *doc, QObject *parent)
     fixtureComponent = new QQmlComponent(m_view->engine(), QUrl("qrc:/Fixture2DItem.qml"));
     if (fixtureComponent->isError())
         qDebug() << fixtureComponent->errors();
-
-    connect(m_doc, SIGNAL(loaded()),
-            this, SLOT(slotRefreshView()));
 }
 
 MainView2D::~MainView2D()

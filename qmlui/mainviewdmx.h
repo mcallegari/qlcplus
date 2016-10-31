@@ -56,6 +56,7 @@ protected:
 signals:
 
 protected slots:
+    /** @reimp */
     void slotRefreshView();
 
 private:

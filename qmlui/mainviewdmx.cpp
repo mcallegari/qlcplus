@@ -36,9 +36,6 @@ MainViewDMX::MainViewDMX(QQuickView *view, Doc *doc, QObject *parent)
     fixtureComponent = new QQmlComponent(m_view->engine(), QUrl("qrc:/FixtureDMXItem.qml"));
     if (fixtureComponent->isError())
         qDebug() << fixtureComponent->errors();
-
-    connect(m_doc, SIGNAL(loaded()),
-            this, SLOT(slotRefreshView()));
 }
 
 MainViewDMX::~MainViewDMX()

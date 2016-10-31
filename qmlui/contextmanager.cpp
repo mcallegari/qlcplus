@@ -61,20 +61,14 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
 
     connect(m_fixtureManager, SIGNAL(newFixtureCreated(quint32,qreal,qreal)),
             this, SLOT(slotNewFixtureCreated(quint32,qreal,qreal)));
-    connect(m_fixtureManager, SIGNAL(channelValueChanged(quint32,quint32,quint8)),
-            this, SLOT(slotChannelValueChanged(quint32,quint32,quint8)));
+    connect(m_fixtureManager, &FixtureManager::channelValueChanged, this, &ContextManager::slotChannelValueChanged);
     connect(m_fixtureManager, SIGNAL(channelTypeValueChanged(int,quint8)),
             this, SLOT(slotChannelTypeValueChanged(int,quint8)));
-    connect(m_fixtureManager, SIGNAL(colorChanged(QColor,QColor)),
-            this, SLOT(slotColorChanged(QColor,QColor)));
-    connect(m_fixtureManager, SIGNAL(positionTypeValueChanged(int,int)),
-            this, SLOT(slotPositionChanged(int,int)));
-    connect(m_fixtureManager, SIGNAL(presetChanged(const QLCChannel*,quint8)),
-            this, SLOT(slotPresetChanged(const QLCChannel*,quint8)));
-    connect(m_doc->inputOutputMap(), SIGNAL(universesWritten(int, const QByteArray&)),
-            this, SLOT(slotUniversesWritten(int, const QByteArray&)));
-    connect(m_functionManager, SIGNAL(functionEditingChanged(bool)),
-            this, SLOT(slotFunctionEditingChanged(bool)));
+    connect(m_fixtureManager, &FixtureManager::colorChanged, this, &ContextManager::slotColorChanged);
+    connect(m_fixtureManager, &FixtureManager::positionTypeValueChanged, this, &ContextManager::slotPositionChanged);
+    connect(m_fixtureManager, &FixtureManager::presetChanged, this, &ContextManager::slotPresetChanged);
+    connect(m_doc->inputOutputMap(), &InputOutputMap::universesWritten, this, &ContextManager::slotUniversesWritten);
+    connect(m_functionManager, &FunctionManager::functionEditingChanged, this, &ContextManager::slotFunctionEditingChanged);
 }
 
 ContextManager::~ContextManager()

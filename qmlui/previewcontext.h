@@ -84,6 +84,7 @@ public:
 
 protected slots:
     void slotWindowClosing();
+    virtual void slotRefreshView();
 
 signals:
     void keyPressed(QKeyEvent *e);

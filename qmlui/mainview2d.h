@@ -89,6 +89,7 @@ signals:
     void gridScaleChanged(qreal gridScale);
 
 protected slots:
+    /** @reimp */
     void slotRefreshView();
 
 private:
