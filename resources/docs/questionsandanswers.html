@@ -98,8 +98,7 @@ Here you can either find the answer directly or find help to point you in the ri
       <B>Windows</B>: it is a folder in your user (e.g. MyUser) directory: C:\Users\MyUser\QLC+<br>
       <B>Mac OS</B>: it is located in your user "Library" directory: $HOME/Library/Application\ Support/QLC+<br>
       You can reach any of these folders from a terminal with the 'cd' command. For example:<br>
-      <PRE>
-      cd $HOME/Library/Application\ Support/QLC+</PRE>
+      <PRE>cd $HOME/Library/Application\ Support/QLC+</PRE>
       Please keep in mind that fixures and input profiles found in the user folder will have precedence
       over the same files in the QLC+ system folder.<br>
   </TD>
@@ -154,9 +153,9 @@ Here you can either find the answer directly or find help to point you in the ri
   <TD><SPAN>A:</SPAN></TD>
   <TD>You need to add an option to the QLC+ command line to tell the Qt libraries to autoscale
       the interface on a High DPI display. Examples:<br>
-      <b>Linux</b>: QT_AUTO_SCREEN_SCALE_FACTOR=1 qlcplus<br>
-      <b>Windows</b>: QT_AUTO_SCREEN_SCALE_FACTOR=1 C:\QLC+\qlcplus.exe<br>
-      <b>Mac OS</b>: QT_AUTO_SCREEN_SCALE_FACTOR=1 QLC+.app\Contents\MacOS\qlcplus<br>
+      <PRE><b>Linux (from terminal)</b>: QT_AUTO_SCREEN_SCALE_FACTOR=1 qlcplus</PRE>
+      <PRE><b>Windows shortcut</b>: C:\Windows\System32\cmd.exe /c "SET QT_AUTO_SCREEN_SCALE_FACTOR=1 && START /D ^"C:\QLC+^" qlcplus.exe"</PRE>
+      <PRE><b>Mac OS (from terminal)</b>: QT_AUTO_SCREEN_SCALE_FACTOR=1 QLC+.app\Contents\MacOS\qlcplus</PRE>
       In case, see the <A HREF="file:commandlineparameters.html">command line parameters page</a> for further information.
   </TD>
  </TR>  
