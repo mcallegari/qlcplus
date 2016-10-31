@@ -112,7 +112,7 @@ Rectangle
             MenuBarEntry
             {
                 id: edEntry
-                imgSource: "editor.svg"
+                imgSource: "qrc:/editor.svg"
                 entryText: qsTr("Fixtures & Functions")
                 checkable: true
                 checked: true
@@ -126,7 +126,7 @@ Rectangle
             MenuBarEntry
             {
                 id: vcEntry
-                imgSource: "virtualconsole.svg"
+                imgSource: "qrc:/virtualconsole.svg"
                 entryText: qsTr("Virtual Console")
                 checkable: true
                 exclusiveGroup: menuBarGroup
@@ -144,7 +144,7 @@ Rectangle
             MenuBarEntry
             {
                 id: sdEntry
-                imgSource: "simpledesk.svg"
+                imgSource: "qrc:/simpledesk.svg"
                 entryText: qsTr("Simple Desk")
                 checkable: true
                 exclusiveGroup: menuBarGroup
@@ -162,7 +162,7 @@ Rectangle
             MenuBarEntry
             {
                 id: smEntry
-                imgSource: "showmanager.svg"
+                imgSource: "qrc:/showmanager.svg"
                 entryText: qsTr("Show Manager")
                 checkable: true
                 exclusiveGroup: menuBarGroup
@@ -180,7 +180,7 @@ Rectangle
             MenuBarEntry
             {
                 id: ioEntry
-                imgSource: "inputoutput.svg"
+                imgSource: "qrc:/inputoutput.svg"
                 entryText: qsTr("Input/Output")
                 checkable: true
                 exclusiveGroup: menuBarGroup

@@ -44,12 +44,17 @@ class App : public QQuickView
     Q_DISABLE_COPY(App)
     Q_PROPERTY(bool docLoaded READ docLoaded NOTIFY docLoadedChanged)
     Q_PROPERTY(QStringList recentFiles READ recentFiles NOTIFY recentFilesChanged)
+    Q_PROPERTY(QString workingPath READ workingPath WRITE setWorkingPath NOTIFY workingPathChanged)
 
 public:
     App();
     ~App();
 
+    /** Method to turn the key a start the engine */
     void startup();
+
+    void enableKioskMode();
+    void createKioskCloseButton(const QRect& rect);
 
     void show();
 
@@ -61,6 +66,9 @@ protected:
     void keyReleaseEvent(QKeyEvent * e);
 
 private:
+    /** The number of pixels in one millimiter */
+    qreal m_pixelDensity;
+
     FixtureBrowser *m_fixtureBrowser;
     FixtureManager *m_fixtureManager;
     ContextManager *m_contextManager;
@@ -94,36 +102,25 @@ private:
     bool m_docLoaded;
 
     /*********************************************************************
-     * Main operating mode
-     *********************************************************************/
-public:
-    void enableKioskMode();
-    void createKioskCloseButton(const QRect& rect);
-
-public slots:
-    void slotModeOperate();
-    void slotModeDesign();
-    void slotModeToggle();
-    void slotModeChanged(Doc::Mode mode);
-
-    /*********************************************************************
      * Load & Save
      *********************************************************************/
 public:
-    /** Set the name of the current workspace file */
+    /** Get/Set the name of the current workspace file */
+    QString fileName() const;
     void setFileName(const QString& fileName);
 
-    /** Get the name of the current workspace file */
-    QString fileName() const;
+    /** Return the list of the recently opened files */
+    QStringList recentFiles() const;
 
-    /** Load the workspace with the given $fileName */
-    Q_INVOKABLE bool loadWorkspace(const QString& fileName);
+    /** Get/Set the path currently used by QLC+ to access projects and resources */
+    QString workingPath() const;
+    void setWorkingPath(QString workingPath);
 
     /** Reset everything and start a new workspace */
     Q_INVOKABLE bool newWorkspace();
 
-    /** Return the list of the recently opened files */
-    QStringList recentFiles() const;
+    /** Load the workspace with the given $fileName */
+    Q_INVOKABLE bool loadWorkspace(const QString& fileName);
 
     /**
      * Load workspace contents from a XML file with the given name.
@@ -150,11 +147,11 @@ private:
 
 signals:
     void recentFilesChanged();
+    void workingPathChanged(QString workingPath);
 
 private:
     QString m_fileName;
     QStringList m_recentFiles;
-    /** The number of pixels in one millimiter */
-    qreal m_pixelDensity;
+    QString m_workingPath;
 };
 #endif // APP_H
