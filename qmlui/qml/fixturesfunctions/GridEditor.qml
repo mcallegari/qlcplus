@@ -262,13 +262,13 @@ Rectangle
                     var offset = selectionData[0] + dataCanvas.selectionOffset - absPosition
                     console.log("Offset with mouse: " + offset)
                     gridRoot.released(dataCanvas.mouseLastX, dataCanvas.mouseLastY, offset, mouse.modifiers)
-                    dataCanvas.mouseOrigX = -1
-                    dataCanvas.mouseOrigY = -1
-                    dataCanvas.mouseLastX = -1
-                    dataCanvas.mouseLastY = -1
-                    dataCanvas.selectionOffset = 0
-                    dataCanvas.movingSelection = false
                 }
+                dataCanvas.mouseOrigX = -1
+                dataCanvas.mouseOrigY = -1
+                dataCanvas.mouseLastX = -1
+                dataCanvas.mouseLastY = -1
+                dataCanvas.selectionOffset = 0
+                dataCanvas.movingSelection = false
             }
         }
 
