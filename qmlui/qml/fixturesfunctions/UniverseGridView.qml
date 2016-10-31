@@ -18,6 +18,7 @@
 */
 
 import QtQuick 2.0
+import "."
 
 Flickable
 {
@@ -38,10 +39,10 @@ Flickable
     RobotoText
     {
         id: uniText
-        height: 45
+        height: UISettings.textSizeDefault * 2
         labelColor: "#ccc"
         label: viewUniverseCombo.currentText
-        fontSize: 30
+        fontSize: UISettings.textSizeDefault * 1.5
         fontBold: true
     }
 

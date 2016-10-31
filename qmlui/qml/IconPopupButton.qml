@@ -93,9 +93,10 @@ Rectangle
         RobotoText
         {
             id: textIcon
+            height: parent.height * 0.75
             anchors.centerIn: parent
             label: ""
-            fontSize: 22
+            fontSize: parent.height * 0.75
             fontBold: true
         }
 
@@ -191,10 +192,10 @@ Rectangle
                             RobotoText
                             {
                                 id: txtIcon
+                                height: parent.height
                                 anchors.centerIn: parent
                                 label: model.mTextIcon ? mTextIcon : ""
-                                labelColor: "black"
-                                fontSize: 24
+                                fontSize: parent.height * 0.9
                             }
                         }
 
