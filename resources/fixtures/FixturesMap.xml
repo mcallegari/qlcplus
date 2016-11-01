@@ -309,6 +309,7 @@
   <fixture path="Enterius-EC-133DMX.qxf" mf="Enterius" md="EC-133DMX"/>
   <fixture path="Equinox-Gigabar.qxf" mf="Equinox" md="Gigabar"/>
   <fixture path="Equinox-Party-Par-LED-PAR-56.qxf" mf="Equinox" md="Party Par LED PAR 56"/>
+  <fixture path="Equinox-Ultra-Scan-LED.qxf" mf="Equinox" md="Ultra Scan LED"/>
   <fixture path="ETC-ColorSource-Spot.qxf" mf="ETC" md="ColorSource Spot"/>
   <fixture path="ETC-Desire-D40-Vivid.qxf" mf="ETC" md="Desire D40 Vivid"/>
   <fixture path="Eurolite-DMXSuperstrobe-2700.qxf" mf="Eurolite" md="DMX Superstrobe 2700"/>
@@ -461,10 +462,13 @@
   <fixture path="JB-Systems-Super-Solar-RGBW.qxf" mf="JB Systems" md="Super Solar RGBW"/>
   <fixture path="JB-Systems-The-WinnerII.qxf" mf="JB Systems" md="The Winner II"/>
   <fixture path="Kam-iLink-All-Colour-Models.qxf" mf="Kam" md="iLink - All Colour Models"/>
+  <fixture path="Kam-iLink-GBC.qxf" mf="Kam" md="iLink GBC"/>
+  <fixture path="Kam-iLink-RGY.qxf" mf="Kam" md="iLink RGY"/>
   <fixture path="Kam-KMH-Series.qxf" mf="Kam" md="KMH Series"/>
   <fixture path="Kam-Laserscan-1000-3D.qxf" mf="Kam" md="Laserscan 1000 3D"/>
   <fixture path="Kam-LED-PartyBar.qxf" mf="Kam" md="LED PartyBar"/>
   <fixture path="Kam-Powercan-TRI54W-Slim.qxf" mf="Kam" md="Powercan TRI54W Slim"/>
+  <fixture path="Kam-Powercan84W.qxf" mf="Kam" md="Powercan84W"/>
   <fixture path="KOOLlight-3D-RGB-Laser.qxf" mf="KOOLlight" md="3D RGB Laser"/>
   <fixture path="Lanta-Fireball-P64s.qxf" mf="Lanta" md="Fireball P64s Slimline LED Parcan"/>
   <fixture path="Lanta-Orion-Link-V2.qxf" mf="Lanta" md="Orion Link V2"/>
@@ -598,6 +602,7 @@
   <fixture path="PSL-Strip-Led-RGB-code-K2014.qxf" mf="PSL" md="Strip Led RGB code K2014"/>
   <fixture path="Pulse-ECO-LED-PAR56.qxf" mf="Pulse" md="ECO LED PAR56"/>
   <fixture path="Pulse-SlimLite-56.qxf" mf="Pulse" md="SlimLite 56"/>
+  <fixture path="QTX-HZ-3.qxf" mf="QTX" md="HZ-3"/>
   <fixture path="QTX-SL-Series.qxf" mf="QTX" md="SL Series"/>
   <fixture path="ReelEfx-DF-50.qxf" mf="ReelEfx" md="DF-50"/>
   <fixture path="Robe-ClubScan-150CT.qxf" mf="Robe" md="ClubScan 150 CT"/>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.5 GIT</Version>
+  <Author>Chris Moses</Author>
+ </Creator>
+ <Manufacturer>Kam</Manufacturer>
+ <Model>iLink RGY</Model>
+ <Type>Laser</Type>
+ <Channel Name="Mode">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="29">Auto Red/Green/Yellow</Capability>
+  <Capability Min="30" Max="59">Auto Green Only</Capability>
+  <Capability Min="60" Max="89">Auto Red Only</Capability>
+  <Capability Min="90" Max="119">Auto Yellow Only</Capability>
+  <Capability Min="120" Max="149">Sound Red/Green/Yellow</Capability>
+  <Capability Min="150" Max="179">Sound Green Only</Capability>
+  <Capability Min="180" Max="209">Sound Red Only</Capability>
+  <Capability Min="210" Max="239">Sound Yellow Only</Capability>
+  <Capability Min="240" Max="255">DMX</Capability>
+ </Channel>
+ <Channel Name="Patterns">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="7">Circle</Capability>
+  <Capability Min="8" Max="15">Circle with Edges</Capability>
+  <Capability Min="16" Max="23">Triangle</Capability>
+  <Capability Min="24" Max="31">Square</Capability>
+  <Capability Min="32" Max="39">Dashed Square</Capability>
+  <Capability Min="40" Max="47">Double Square</Capability>
+  <Capability Min="48" Max="55">Cross</Capability>
+  <Capability Min="56" Max="63">Circular Saw</Capability>
+  <Capability Min="64" Max="71">Tetris Block</Capability>
+  <Capability Min="72" Max="79">Bow Tie</Capability>
+  <Capability Min="80" Max="87">Spiral</Capability>
+  <Capability Min="88" Max="95">Double C's</Capability>
+  <Capability Min="96" Max="103">Swirl</Capability>
+  <Capability Min="104" Max="111">Double Curves</Capability>
+  <Capability Min="112" Max="119">Double Triangles</Capability>
+  <Capability Min="120" Max="127">Zig Zag</Capability>
+  <Capability Min="128" Max="135">Chevron</Capability>
+  <Capability Min="136" Max="143">Letter W</Capability>
+  <Capability Min="144" Max="151">Saw Wave</Capability>
+  <Capability Min="152" Max="159">Solid Line</Capability>
+  <Capability Min="160" Max="167">Dashed Line</Capability>
+  <Capability Min="168" Max="175">Solid Line with Dashes</Capability>
+  <Capability Min="176" Max="183">Double Solid Lines</Capability>
+  <Capability Min="184" Max="191">Crossed Lines</Capability>
+  <Capability Min="192" Max="199">Double Small Lines</Capability>
+  <Capability Min="200" Max="207">Broken Diamond</Capability>
+  <Capability Min="208" Max="215">Dice 2</Capability>
+  <Capability Min="216" Max="223">Dice 4</Capability>
+  <Capability Min="224" Max="231">Small Circle</Capability>
+  <Capability Min="232" Max="239">Dotted Line</Capability>
+  <Capability Min="240" Max="247">Dotted Arc</Capability>
+  <Capability Min="248" Max="255">Random Dots</Capability>
+ </Channel>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="24">Blackout</Capability>
+  <Capability Min="25" Max="49">Red/Green/Yellow</Capability>
+  <Capability Min="50" Max="74">Red</Capability>
+  <Capability Min="75" Max="99">Green</Capability>
+  <Capability Min="100" Max="124">Yellow</Capability>
+  <Capability Min="125" Max="149">Alternate Red and Green</Capability>
+  <Capability Min="150" Max="174">Alternate Red and Yellow</Capability>
+  <Capability Min="175" Max="199">Alternate Green and Yellow</Capability>
+  <Capability Min="200" Max="224">Alternate Red/Green/Yellow</Capability>
+  <Capability Min="225" Max="255">Colour Rolling</Capability>
+ </Channel>
+ <Channel Name="Colour Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="4">Stop</Capability>
+  <Capability Min="5" Max="255">Slow to Fast</Capability>
+ </Channel>
+ <Channel Name="Zooming">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Size (100% to 5%)</Capability>
+  <Capability Min="128" Max="169">Zooming In</Capability>
+  <Capability Min="170" Max="209">Zooming Out</Capability>
+  <Capability Min="210" Max="255">Zoom In and Out</Capability>
+ </Channel>
+ <Channel Name="X Axis rolling">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">0 - 359 Degrees</Capability>
+  <Capability Min="128" Max="191">Clockwise rolling</Capability>
+  <Capability Min="192" Max="255">Anticlockwise rolling</Capability>
+ </Channel>
+ <Channel Name="Y Axis rolling">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">0 - 359 Degrees</Capability>
+  <Capability Min="128" Max="191">Clockwise rolling</Capability>
+  <Capability Min="192" Max="255">Anticlockwise rolling</Capability>
+ </Channel>
+ <Channel Name="Z Axis rotating">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">0 - 359 Degrees</Capability>
+  <Capability Min="128" Max="191">Clockwise rotating</Capability>
+  <Capability Min="192" Max="255">Anticlockwise rotating</Capability>
+ </Channel>
+ <Channel Name="X Axis moving">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">128 different fixed position on X</Capability>
+  <Capability Min="128" Max="191">Clockwise moving</Capability>
+  <Capability Min="192" Max="255">Anticlockwise moving</Capability>
+ </Channel>
+ <Channel Name="Y Axis moving">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">128 different fixed position on Y</Capability>
+  <Capability Min="128" Max="191">Clockwise moving</Capability>
+  <Capability Min="192" Max="255">Anticlockwise moving</Capability>
+ </Channel>
+ <Mode Name="Default">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1.5" Width="165" Height="80" Depth="145"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="90" TiltMax="90"/>
+   <Technical PowerConsumption="12" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Mode</Channel>
+  <Channel Number="1">Patterns</Channel>
+  <Channel Number="2">Colour</Channel>
+  <Channel Number="3">Colour Speed</Channel>
+  <Channel Number="4">Zooming</Channel>
+  <Channel Number="5">X Axis moving</Channel>
+  <Channel Number="6">Y Axis moving</Channel>
+  <Channel Number="7">X Axis rolling</Channel>
+  <Channel Number="8">Y Axis rolling</Channel>
+  <Channel Number="9">Z Axis rotating</Channel>
+ </Mode>
+</FixtureDefinition>

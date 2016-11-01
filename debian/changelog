@@ -22,6 +22,7 @@ qlcplus (4.10.5) stable; urgency=low
   * New fixture: Blizzard Lighting Rocklite RGBAW (thanks to Larry Wall)
   * New fixture: American DJ Comscan LED (thanks to Chris)
   * New fixture: PR Lighting XL 250 PR-2225M (thanks to István Király)
+  * New fixtures: Equinox Ultra Scan LED, Kam iLink GBC/RGY, Kam Powercan84W, QTX HZ-3 (thanks to Chris Moses)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 25 Sep 2016 12:13:14 +0200
 
