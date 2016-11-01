@@ -9,19 +9,19 @@
  <Manufacturer>Eurolite</Manufacturer>
  <Model>TMH-10</Model>
  <Type>Moving Head</Type>
- <Channel Name="Horizontal movement">
+ <Channel Name="Pan">
   <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255">Pan (0 - 585°)</Capability>
  </Channel>
- <Channel Name="Vertical movement">
+ <Channel Name="Tilt">
   <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255">Tilt (0 - 270°)</Capability>
  </Channel>
  <Channel Name="Pan/Tilt-speed">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255">Decreasing speed</Capability>
  </Channel>
- <Channel Name="Colour-wheel">
+ <Channel Name="Colour wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7" Color="#ffffff">Open/white</Capability>
   <Capability Min="8" Max="15" Color="#ffffff" Color2="#ff00ff">White/Purple</Capability>
@@ -42,7 +42,7 @@
   <Capability Min="128" Max="192">Forwards rainbow effect with decreasing speed</Capability>
   <Capability Min="193" Max="255">Backwards rainbow effect with increasing speed</Capability>
  </Channel>
- <Channel Name="gobo-wheel">
+ <Channel Name="Rotating gobo wheel">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="17">Open</Capability>
   <Capability Min="18" Max="36">Gobo 1</Capability>
@@ -81,26 +81,26 @@
   <Capability Min="201" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Pan 16 bit">
-  <Group Byte="0">Pan</Group>
+  <Group Byte="1">Pan</Group>
   <Capability Min="0" Max="255">Pan 16 bit</Capability>
  </Channel>
  <Channel Name="Tilt 16 bit">
-  <Group Byte="0">Tilt</Group>
+  <Group Byte="1">Tilt</Group>
   <Capability Min="0" Max="255">Tilt 16 bit</Capability>
  </Channel>
  <Mode Name="default">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="7.5" Width="0" Height="0" Depth="0"/>
+   <Dimensions Weight="7.5" Width="250" Height="320" Depth="280"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="585" TiltMax="270"/>
    <Technical PowerConsumption="170" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Horizontal movement</Channel>
-  <Channel Number="1">Vertical movement</Channel>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan/Tilt-speed</Channel>
-  <Channel Number="3">Colour-wheel</Channel>
-  <Channel Number="4">gobo-wheel</Channel>
+  <Channel Number="3">Colour wheel</Channel>
+  <Channel Number="4">Rotating gobo wheel</Channel>
   <Channel Number="5">Gobo rotation</Channel>
   <Channel Number="6">Strobe</Channel>
   <Channel Number="7">Dimmer intensity</Channel>
