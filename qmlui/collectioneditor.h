@@ -41,7 +41,10 @@ public:
 
     Q_INVOKABLE bool addFunction(quint32 fid, int insertIndex = -1);
 
-    Q_INVOKABLE bool removeFunction(quint32 fid);
+    Q_INVOKABLE bool moveFunction(quint32 fid, int newIndex);
+
+    /** @reimp */
+    void deleteItems(QVariantList list);
 
 signals:
     void functionsListChanged();

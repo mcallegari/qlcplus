@@ -70,29 +70,22 @@ void ActionManager::acceptAction()
     switch(action)
     {
         case DeleteFunctions:
-        {
             m_functionManager->deleteFunctions(data);
-        }
+        break;
+        case DeleteEditorItems:
+            m_functionManager->deleteEditorItems(data);
         break;
         case DeleteShowItems:
-        {
             m_showManager->deleteShowItems(data);
-        }
         break;
         case DeleteVCPage:
-        {
             m_virtualConsole->deletePage(data.first().toInt());
-        }
         break;
         case DeleteVCWidgets:
-        {
             m_virtualConsole->deleteVCWidgets(data);
-        }
         break;
         case VCPagePINRequest:
-        {
             m_virtualConsole->setSelectedPage(data.first().toInt());
-        }
         break;
         default: break;
     }

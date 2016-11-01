@@ -426,6 +426,12 @@ void FunctionManager::deleteFunctions(QVariantList IDList)
     emit selectionCountChanged(m_selectedIDList.count());
 }
 
+void FunctionManager::deleteEditorItems(QVariantList list)
+{
+    if (m_currentEditor != NULL)
+        m_currentEditor->deleteItems(list);
+}
+
 int FunctionManager::selectionCount() const
 {
     return m_selectedIDList.count();

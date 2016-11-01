@@ -86,6 +86,7 @@ public:
     Q_INVOKABLE void selectFunctionID(quint32 fID, bool multiSelection);
     Q_INVOKABLE void setEditorFunction(quint32 fID);
     void deleteFunctions(QVariantList IDList);
+    void deleteEditorItems(QVariantList list);
 
     /** Returns the number of the currently selected Functions */
     int selectionCount() const;
