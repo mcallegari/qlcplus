@@ -164,6 +164,7 @@
   <fixture path="Cameo-Multi-PAR-3.qxf" mf="Cameo" md="Multi Par 3"/>
   <fixture path="Cameo-Strobe-3x3.5W.qxf" mf="Cameo" md="Strobe 3x3.5W"/>
   <fixture path="Cameo-Strobe-6x10W.qxf" mf="Cameo" md="Strobe 6x10W"/>
+  <fixture path="Cameo-Wookie-series.qxf" mf="Cameo" md="Wookie series"/>
   <fixture path="Chauvet-200b.qxf" mf="Chauvet" md="200b"/>
   <fixture path="Chauvet-4Bar-Tri.qxf" mf="Chauvet" md="4Bar Tri"/>
   <fixture path="Chauvet-4Bar.qxf" mf="Chauvet" md="4Bar"/>
