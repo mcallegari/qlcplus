@@ -464,41 +464,37 @@ Rectangle
                             console.log("Double clicked: " + indexInList + ", " + type)
                             var title, timeValueString
 
+                            if (isSelected == false)
+                                ceSelector.selectItem(indexInList, cStepsList.model, false)
+
+                            timeEditTool.tempoType = chaserEditor.tempoType
+                            timeEditTool.indexInList = indexInList
+
                             if (type === Function.FadeIn)
                             {
-                                //timeEditTool.x = fInCol.x - 35
-                                title = fInCol.label
+                                title = "#" + (indexInList + 1) + " " + fInCol.label
                                 timeValueString = stepFadeIn
                                 timeEditTool.allowFractions = Function.AllFractions
                             }
                             else if (type === Function.Hold)
                             {
-                                //timeEditTool.x = holdCol.x - 35
                                 title = holdCol.label
                                 timeValueString = stepHold
                                 timeEditTool.allowFractions = Function.NoFractions
                             }
                             else if (type === Function.FadeOut)
                             {
-                                //timeEditTool.x = fOutCol.x - 35
                                 title = fOutCol.label
                                 timeValueString = stepFadeOut
                                 timeEditTool.allowFractions = Function.AllFractions
                             }
                             else if (type === Function.Duration)
                             {
-                                //timeEditTool.x = durCol.x - 35
                                 title = durCol.label
                                 timeValueString = stepDuration
                                 timeEditTool.allowFractions = Function.NoFractions
                             }
 
-                            timeEditTool.tempoType = chaserEditor.tempoType
-                            timeEditTool.indexInList = indexInList
-
-                            //timeEditTool.y = height * indexInList - cStepsList.contentY + cStepsList.y
-                            //timeEditTool.y = height * indexInList - cStepsList.contentY + cStepsList.y - 70
-                            //height = timeEditTool.height
                             timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y, title, timeValueString, type)
                         }
                     }

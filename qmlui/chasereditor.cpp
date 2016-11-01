@@ -60,7 +60,7 @@ bool ChaserEditor::addFunction(quint32 fid, int insertIndex)
         Function *func = m_doc->function(fid);
         step.duration = func->totalDuration();
         if (step.duration == 0)
-            step.duration = 5000;
+            step.duration = 1000;
         step.hold = step.duration;
     }
     m_chaser->addStep(step, insertIndex);
@@ -92,11 +92,7 @@ void ChaserEditor::setPreviewEnabled(bool enable)
 
 void ChaserEditor::slotStepChanged(int index)
 {
-    if (index == m_playbackIndex)
-        return;
-
-    m_playbackIndex = index;
-    emit playbackIndexChanged(index);
+    setPlaybackIndex(index);
 }
 
 void ChaserEditor::updateStepsList()
