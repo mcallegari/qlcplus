@@ -164,6 +164,13 @@ quint32 FunctionManager::createFunction(int type)
         {
             f = new Chaser(m_doc);
             name = tr("New Chaser");
+            if (f != NULL)
+            {
+                /* give the Chaser a meaningful common duration, to avoid
+                 * that awful effect of playing steps with 0 duration */
+                Chaser *chaser = qobject_cast<Chaser*>(f);
+                chaser->setDuration(1000);
+            }
             m_chaserCount++;
             emit chaserCountChanged();
         }
