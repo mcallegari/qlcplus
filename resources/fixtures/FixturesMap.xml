@@ -462,8 +462,6 @@
   <fixture path="JB-Systems-Super-Solar-RGBW.qxf" mf="JB Systems" md="Super Solar RGBW"/>
   <fixture path="JB-Systems-The-WinnerII.qxf" mf="JB Systems" md="The Winner II"/>
   <fixture path="Kam-iLink-All-Colour-Models.qxf" mf="Kam" md="iLink - All Colour Models"/>
-  <fixture path="Kam-iLink-GBC.qxf" mf="Kam" md="iLink GBC"/>
-  <fixture path="Kam-iLink-RGY.qxf" mf="Kam" md="iLink RGY"/>
   <fixture path="Kam-KMH-Series.qxf" mf="Kam" md="KMH Series"/>
   <fixture path="Kam-Laserscan-1000-3D.qxf" mf="Kam" md="Laserscan 1000 3D"/>
   <fixture path="Kam-LED-PartyBar.qxf" mf="Kam" md="LED PartyBar"/>
