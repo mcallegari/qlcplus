@@ -231,7 +231,7 @@ Item
 
                 var newTime = TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale)
                 var newTrackIdx = Math.round((itemRoot.y + showItemBody.y) / itemRoot.height)
-                if (newTime >= 0)
+                if (newTime >= 0 && newTrackIdx >= 0)
                 {
                     var res = showManager.checkAndMoveItem(sfRef, trackIndex, newTrackIdx, newTime)
 
