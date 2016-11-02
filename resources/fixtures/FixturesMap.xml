@@ -353,6 +353,7 @@
   <fixture path="Eurolite-TC-5.qxf" mf="Eurolite" md="TC-5"/>
   <fixture path="Eurolite-TF-5.qxf" mf="Eurolite" md="TF-5"/>
   <fixture path="Eurolite-TG-5.qxf" mf="Eurolite" md="TG-5"/>
+  <fixture path="Eurolite-TMH-10.qxf" mf="Eurolite" md="TMH-10"/>
   <fixture path="Eurolite-TMH-155.qxf" mf="Eurolite" md="TMH-155"/>
   <fixture path="Eurolite-TMH-250.qxf" mf="Eurolite" md="TMH-250"/>
   <fixture path="Eurolite-TMH-8.qxf" mf="Eurolite" md="TMH-8"/>
