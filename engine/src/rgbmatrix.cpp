@@ -283,6 +283,7 @@ void RGBMatrix::setProperty(QString propName, QString value)
 {
     QMutexLocker algoLocker(&m_algorithmMutex);
     m_properties[propName] = value;
+    m_stepsCount = stepsCount();
 }
 
 QString RGBMatrix::property(QString propName)
@@ -498,13 +499,13 @@ void RGBMatrix::write(MasterTimer* timer, QList<Universe *> universes)
 
         if (isPaused() == false)
         {
-            // Get new map every time when elapsed is reset to zero
+            // Get a new map every time elapsed is reset to zero
             if (elapsed() < MasterTimer::tick())
             {
                 if (tempoType() == Beats)
                     m_stepBeatDuration = beatsToTime(duration(), timer->beatTimeDuration());
 
-                //qDebug() << "RGBMatrix stepColor:" << QString::number(m_stepColor.rgb(), 16);
+                //qDebug() << "RGBMatrix step" << m_stepHandler->currentStepIndex() << ", color:" << QString::number(m_stepHandler->stepColor().rgb(), 16);
                 RGBMap map = m_algorithm->rgbMap(m_group->size(), m_stepHandler->stepColor().rgb(), m_stepHandler->currentStepIndex());
                 updateMapChannels(map, m_group);
             }
