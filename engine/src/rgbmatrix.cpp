@@ -283,6 +283,11 @@ void RGBMatrix::setProperty(QString propName, QString value)
 {
     QMutexLocker algoLocker(&m_algorithmMutex);
     m_properties[propName] = value;
+    if (m_algorithm != NULL && m_algorithm->type() == RGBAlgorithm::Script)
+    {
+        RGBScript *script = static_cast<RGBScript*> (m_algorithm);
+        script->setProperty(propName, value);
+    }
     m_stepsCount = stepsCount();
 }
 
