@@ -116,6 +116,7 @@ Rectangle
     Canvas
     {
         id: timeHeader
+        x: -visibleWidth
         width: visibleWidth * 3
         height: headerHeight
         antialiasing: true
@@ -123,8 +124,6 @@ Rectangle
         // tick size is the main time divider
         // on a timeScale equal to 1.0 it is 100 pixels
         property real tickSize: 100
-
-        Component.onCompleted: x = -visibleWidth
 
         function calculateTickSize()
         {

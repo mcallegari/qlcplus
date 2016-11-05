@@ -38,14 +38,24 @@ Rectangle
 
     property real timeScale: showManager.timeScale
     property int headerHeight: UISettings.iconSizeMedium
+    property real xViewOffset: 0
 
     property int showID: showManager.currentShowID
 
-    Component.onCompleted: showManager.renderView(itemsArea.contentItem)
+    onShowIDChanged: renderAndCenter()
+    Component.onCompleted: renderAndCenter()
 
-    onShowIDChanged:
+    function centerView()
+    {
+        var xPos = TimeUtils.timeToSize(showManager.currentTime, timeScale) - (timelineHeader.width / 2)
+        if (xPos >= 0)
+            xViewOffset = xPos
+    }
+
+    function renderAndCenter()
     {
         showManager.renderView(itemsArea.contentItem)
+        centerView()
     }
 
     Rectangle
@@ -294,6 +304,7 @@ Rectangle
                         showManager.timeScale += 1.0
                     else
                         showManager.timeScale += 0.1
+                    centerView()
                 }
 
                 onZoomInClicked:
@@ -302,6 +313,7 @@ Rectangle
                         showManager.timeScale -= 1.0
                     else
                         showManager.timeScale -= 0.1
+                    centerView()
                 }
             }
 
@@ -329,7 +341,9 @@ Rectangle
         flickableDirection: Flickable.HorizontalFlick
 
         contentWidth: hdrItem.width //> width ? hdrItem.width : width
-        contentX: itemsArea.contentX
+        contentX: xViewOffset
+
+        onContentXChanged: xViewOffset = contentX
 
         HeaderAndCursor
         {
@@ -337,7 +351,7 @@ Rectangle
             z: 2
             height: parent.height
             visibleWidth: timelineHeader.width
-            visibleX: itemsArea.contentX
+            visibleX: xViewOffset
             headerHeight: showMgrContainer.headerHeight
             cursorHeight: showMgrContainer.height - topBar.height - (bottomPanel.visible ? bottomPanel.height : 0)
             timeScale: showMgrContainer.timeScale
@@ -418,7 +432,9 @@ Rectangle
             boundsBehavior: Flickable.StopAtBounds
             contentHeight: showContents.contentHeight
             contentWidth: timelineHeader.contentWidth
-            contentX: timelineHeader.contentX
+            contentX: xViewOffset
+
+            onContentXChanged: xViewOffset = contentX
 
             MouseArea
             {
@@ -445,7 +461,7 @@ Rectangle
             DropArea
             {
                 id: newFuncDrop
-                x: itemsArea.contentX
+                x: xViewOffset
                 width: showMgrContainer.width - trackWidth
                 height: tracksBox.count * trackHeight
                 z: 2
@@ -474,7 +490,7 @@ Rectangle
             Rectangle
             {
                 id: newTrackBox
-                x: itemsArea.contentX
+                x: xViewOffset
                 y: tracksBox.count * trackHeight
                 height: trackHeight
                 width: itemsArea.width
@@ -518,7 +534,7 @@ Rectangle
                         if (drag.source.funcID !== showID)
                         {
                             console.log("Function item dropped here. x: " + drag.x + " y: " + drag.y)
-                            var fTime = TimeUtils.posToMs(itemsArea.contentX + drag.x, timeScale)
+                            var fTime = TimeUtils.posToMs(xViewOffset + drag.x, timeScale)
                             console.log("Drop on time: " + fTime)
                             showManager.addItem(itemsArea.contentItem, -1, fTime, drag.source.funcID)
                         }
