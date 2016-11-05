@@ -486,6 +486,8 @@ bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
     while (fxit.hasNext() == true)
     {
         Fixture* fxi = m_fixtures.take(fxit.next());
+        disconnect(fxi, SIGNAL(changed(quint32)),
+                   this, SLOT(slotFixtureChanged(quint32)));
         delete fxi;
         m_fixturesListCacheUpToDate = false;
     }
@@ -502,6 +504,7 @@ bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
         newFixture->setName(fixture->name());
         newFixture->setAddress(fixture->address());
         newFixture->setUniverse(fixture->universe());
+
         if (fixture->fixtureDef() == NULL ||
             (fixture->fixtureDef()->manufacturer() == KXMLFixtureGeneric &&
              fixture->fixtureDef()->model() == KXMLFixtureGeneric))

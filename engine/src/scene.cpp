@@ -248,8 +248,8 @@ QColor Scene::colorValue(quint32 fxi)
 void Scene::clear()
 {
     m_values.clear();
+    m_fixtures.clear();
 }
-
 
 /*********************************************************************
  * Channel Groups
@@ -319,7 +319,8 @@ void Scene::slotFixtureRemoved(quint32 fxi_id)
 
 void Scene::addFixture(quint32 fixtureId)
 {
-    m_fixtures.append(fixtureId);
+    if (m_fixtures.contains(fixtureId) == false)
+        m_fixtures.append(fixtureId);
 }
 
 bool Scene::removeFixture(quint32 fixtureId)

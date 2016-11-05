@@ -668,11 +668,41 @@ void FixtureRemap::accept()
     /* **********************************************************************
      * 3 - replace original project fixtures
      * ********************************************************************** */
+
     m_doc->replaceFixtures(m_targetDoc->fixtures());
 
     /* **********************************************************************
-     * 4 - remap channel groups
+     * 4 - remap fixture groups and channel groups
      * ********************************************************************** */
+    foreach(FixtureGroup *group, m_doc->fixtureGroups())
+    {
+        QHash<QLCPoint, GroupHead> grpHash = group->headHash();
+        group->reset();
+
+        QHashIterator<QLCPoint, GroupHead> it(grpHash);
+        while(it.hasNext())
+        {
+            it.next();
+
+            QLCPoint pt(it.key());
+            GroupHead head(it.value());
+
+            if (head.isValid() == false)
+                continue;
+
+            for (int i = 0; i < sourceList.count(); i++)
+            {
+                if (sourceList.at(i).fxi == head.fxi)
+                {
+                    head.fxi = targetList.at(i).fxi;
+                    group->resignHead(pt);
+                    group->assignHead(pt, head);
+                    break;
+                }
+            }
+        }
+    }
+
     foreach (ChannelsGroup *grp, m_doc->channelsGroups())
     {
         QList<SceneValue> grpChannels = grp->getChannels();
@@ -699,14 +729,10 @@ void FixtureRemap::accept()
                 QList <SceneValue> newList = remapSceneValues(s->values(), sourceList, targetList);
                 // this is crucial: here all the "unmapped" channels will be lost forever !
                 s->clear();
-                foreach (quint32 id, s->fixtures())
-                    s->removeFixture(id);
 
                 for (int i = 0; i < newList.count(); i++)
                 {
-                    quint32 fxi = newList.at(i).fxi;
-                    if (s->fixtures().contains(fxi) == false)
-                        s->addFixture(fxi);
+                    s->addFixture(newList.at(i).fxi);
                     s->setValue(newList.at(i));
                 }
             }
@@ -804,7 +830,7 @@ void FixtureRemap::accept()
 
                 foreach (VCSlider::LevelChannel chan, slider->levelChannels())
                 {
-                    for( int v = 0; v < sourceList.count(); v++)
+                    for (int v = 0; v < sourceList.count(); v++)
                     {
                         SceneValue val = sourceList.at(v);
                         if (val.fxi == chan.fixture && val.channel == chan.channel)

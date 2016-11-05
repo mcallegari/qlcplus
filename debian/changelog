@@ -5,6 +5,7 @@ qlcplus (4.10.5) stable; urgency=low
   * UI/Collection Editor: allow multiple selection and added Function reordering buttons
   * UI/Remap: fixed universes list in target mapping
   * UI/Remap: fixed wrong Scene remapping when mixing cloned and new fixtures
+  * UI/Remap: added remapping also of Fixture Groups
   * Virtual Console/Frame: Show page number when collapsed (thanks to Matthias Gubisch)
   * Virtual Console/Cue List: allow to choose playback buttons layout (Play/Pause + Stop or Play/Stop + Pause)
   * Plugins/DMX USB: fixed crash happening on PRO devices when receiving a full universe
