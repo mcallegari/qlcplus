@@ -296,15 +296,17 @@ QString App::workingPath() const
 
 void App::setWorkingPath(QString workingPath)
 {
-    if (m_workingPath == workingPath)
+    QString strippedPath = workingPath.replace("file://", "");
+
+    if (m_workingPath == strippedPath)
         return;
 
-    m_workingPath = workingPath;
+    m_workingPath = strippedPath;
 
     QSettings settings;
     settings.setValue(SETTINGS_WORKINGPATH, m_workingPath);
 
-    emit workingPathChanged(workingPath);
+    emit workingPathChanged(strippedPath);
 }
 
 bool App::newWorkspace()

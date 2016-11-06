@@ -55,7 +55,7 @@ Rectangle
           * is the visible one, the 1st chunk is for scrolling left and the 3rd chunk
           * for scrolling right.
           * Here, it is necessary to monitor the Flickable scroll position to properly
-          * shift and render the Canvas, so 2 actions have to be taken.
+          * shift and render the Canvas.
           */
 
         if (visibleX < timeHeader.x + visibleWidth || visibleX > timeHeader.x + (visibleWidth * 2))

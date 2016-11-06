@@ -34,6 +34,7 @@ Rectangle
     {
         id: fileDialog
         visible: false
+        folder: "file://" + qlcplus.workingPath
 
         onAccepted:
         {
@@ -72,7 +73,6 @@ Rectangle
             {
                 fileDialog.title = qsTr("Open a workspace")
                 fileDialog.nameFilters = [ qsTr("Workspace files") + " (*.qxw)", qsTr("All files") + " (*)" ]
-                fileDialog.folder = qlcplus.workingPath
                 fileDialog.visible = true
                 menuRoot.visible = false
                 fileDialog.open()
