@@ -193,7 +193,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             QQmlEngine::setObjectOwnership(slider, QQmlEngine::CppOwnership);
             slider->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 10, m_vc->pixelDensity() * 35));
             setupWidget(slider);
-            slider->setDefaultFontSize(m_vc->pixelDensity() * 3.5);
+            //slider->setDefaultFontSize(m_vc->pixelDensity() * 3.5);
             m_vc->addWidgetToMap(slider);
             slider->render(m_vc->view(), parent);
         }
@@ -269,7 +269,7 @@ void VCFrame::deleteChildren()
 
 void VCFrame::setupWidget(VCWidget *widget)
 {
-    widget->setDefaultFontSize(m_vc->pixelDensity() * 4.5);
+    widget->setDefaultFontSize(m_vc->pixelDensity() * 2.7);
 
     addWidgetToPageMap(widget);
 
