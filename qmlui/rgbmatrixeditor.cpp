@@ -446,8 +446,6 @@ void RGBMatrixEditor::setScriptStringProperty(QString paramName, QString value)
 
     qDebug() << "[setScriptStringProperty] param:" << paramName << ", value:" << value;
 
-    RGBScript *script = static_cast<RGBScript*> (m_matrix->algorithm());
-    script->setProperty(paramName, value);
     m_matrix->setProperty(paramName, value);
 }
 
@@ -459,8 +457,6 @@ void RGBMatrixEditor::setScriptIntProperty(QString paramName, int value)
 
     qDebug() << "[setScriptIntProperty] param:" << paramName << ", value:" << value;
 
-    RGBScript *script = static_cast<RGBScript*> (m_matrix->algorithm());
-    script->setProperty(paramName, QString::number(value));
     m_matrix->setProperty(paramName, QString::number(value));
 }
 
