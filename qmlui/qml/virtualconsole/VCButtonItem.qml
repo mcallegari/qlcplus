@@ -62,6 +62,7 @@ VCWidgetItem
     onButtonObjChanged:
     {
         setCommonProperties(buttonObj)
+        setBgImageMargins(4)
         checkActionType()
     }
     onBtnActionChanged: checkActionType()

@@ -282,7 +282,7 @@ protected:
      *********************************************************************/
 public:
     /** Set the widget's background image */
-    void setBackgroundImage(const QString& path);
+    void setBackgroundImage(QString path);
 
     /** Get the widget's background image */
     QString backgroundImage() const;

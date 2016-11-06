@@ -289,15 +289,17 @@ void VCWidget::resetBackgroundColor()
 /*********************************************************************
  * Background image
  *********************************************************************/
-void VCWidget::setBackgroundImage(const QString& path)
+void VCWidget::setBackgroundImage(QString path)
 {
-    if (m_backgroundImage == path)
+    QString strippedPath = path.replace("file://", "");
+
+    if (m_backgroundImage == strippedPath)
         return;
 
     m_hasCustomBackgroundColor = false;
-    m_backgroundImage = path;
+    m_backgroundImage = strippedPath;
     setDocModified();
-    emit backgroundImageChanged(path);
+    emit backgroundImageChanged(strippedPath);
 }
 
 QString VCWidget::backgroundImage() const

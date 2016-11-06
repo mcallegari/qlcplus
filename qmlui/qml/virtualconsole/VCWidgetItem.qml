@@ -56,10 +56,16 @@ Rectangle
         wObj = obj
     }
 
+    function setBgImageMargins(m)
+    {
+        bgImage.anchors.margins = m
+    }
+
     Image
     {
+        id: bgImage
         anchors.fill: parent
-        source: wObj && wObj.backgroundImage !== "" ? "file:" + wObj.backgroundImage : ""
+        source: wObj && wObj.backgroundImage !== "" ? "file://" + wObj.backgroundImage : ""
     }
 
     // resize area
