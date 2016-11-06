@@ -115,7 +115,7 @@ void VCButton::setFunctionID(quint32 fid)
                 this, SLOT(slotFunctionFlashing(quint32,bool)));
 
         m_functionID = fid;
-        if (caption().isEmpty())
+        if (isEditing() && caption().isEmpty())
             setCaption(function->name());
         if(running)
             function->start(m_doc->masterTimer(), functionParent());
