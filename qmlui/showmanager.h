@@ -167,7 +167,7 @@ public:
      *  If the current Show is NULL, a new Show is created.
      *  If the provided $trackIdx is no valid, a new Track is created
      */
-    Q_INVOKABLE void addItem(QQuickItem *parent, int trackIdx, int startTime, quint32 functionID);
+    Q_INVOKABLE void addItems(QQuickItem *parent, int trackIdx, int startTime, QVariantList idsList);
 
     void deleteShowItems(QVariantList data);
 

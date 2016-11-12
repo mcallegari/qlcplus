@@ -197,7 +197,8 @@ VCWidgetItem
         onDropped:
         {
             // attach function here
-            buttonObj.functionID = drag.source.funcID
+            if (drag.source.hasOwnProperty("fromFunctionManager"))
+                buttonObj.functionID = drag.source.itemsList[0]
         }
 
         states: [

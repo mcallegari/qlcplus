@@ -168,7 +168,7 @@ public:
     void setEnableSchedule(bool enableSchedule);
     QVariantList scheduleList();
     void addSchedule(VCClockSchedule *schedule);
-    Q_INVOKABLE void addSchedule(quint32 funcID);
+    Q_INVOKABLE void addSchedules(QVariantList idsList);
     Q_INVOKABLE void removeSchedule(int index);
 
 signals:

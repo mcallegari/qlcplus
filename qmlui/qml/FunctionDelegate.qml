@@ -20,7 +20,6 @@
 import QtQuick 2.0
 import com.qlcplus.classes 1.0
 
-import "FunctionDrag.js" as FuncDragJS
 import "."
 
 Rectangle
@@ -75,34 +74,8 @@ Rectangle
         id: funcMouseArea
         anchors.fill: parent
 
-        drag.target:
-            FunctionDragItem
-            {
-                funcID: cRef ? cRef.id : -1
-                funcLabel: cRef ? cRef.name : textLabel
-                funcIcon: funcEntry.iSrc
-            }
-        drag.threshold: 30
-
-        onPressed: FuncDragJS.initProperties(cRef.id, textLabel, funcEntry.iSrc);
-
-        onPositionChanged:
-            if(drag.active == true)
-                FuncDragJS.handleDrag(mouse);
-        onReleased:
-            if(drag.active == true)
-                FuncDragJS.endDrag(mouse, mouse.modifiers);
-
-        onClicked:
-        {
-            // inform the upper layers of the click.
-            // A ModelSelector will be in charge to actually select this item
-            funcDelegate.clicked(cRef.id, funcDelegate, mouse.modifiers)
-        }
-        onDoubleClicked:
-        {
-            funcDelegate.doubleClicked(cRef.id, cRef.type)
-        }
+        onClicked: funcDelegate.clicked(cRef.id, funcDelegate, mouse.modifiers)
+        onDoubleClicked: funcDelegate.doubleClicked(cRef.id, cRef.type)
     }
 }
 

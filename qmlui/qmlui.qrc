@@ -124,7 +124,6 @@
     <!-- JavaScript helpers -->
     <file alias="CanvasDrawFunctions.js">js/CanvasDrawFunctions.js</file>
     <file alias="FixtureDrag.js">js/FixtureDrag.js</file>
-    <file alias="FunctionDrag.js">js/FunctionDrag.js</file>
     <file alias="PluginUtils.js">js/PluginUtils.js</file>
     <file alias="TimeUtils.js">js/TimeUtils.js</file>
     

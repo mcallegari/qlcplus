@@ -314,15 +314,20 @@ void VCClock::addSchedule(VCClockSchedule *schedule)
     emit scheduleListChanged();
 }
 
-void VCClock::addSchedule(quint32 funcID)
+void VCClock::addSchedules(QVariantList idsList)
 {
-    if (m_doc->function(funcID) == NULL)
-        return;
+    for (QVariant vID : idsList) // C++11
+    {
+        quint32 funcID = vID.toUInt();
+        if (m_doc->function(funcID) == NULL)
+            continue;
 
-    VCClockSchedule *sch = new VCClockSchedule();
-    QQmlEngine::setObjectOwnership(sch, QQmlEngine::CppOwnership);
-    sch->setFunctionID(funcID);
-    m_scheduleList.append(sch);
+        VCClockSchedule *sch = new VCClockSchedule();
+        QQmlEngine::setObjectOwnership(sch, QQmlEngine::CppOwnership);
+        sch->setFunctionID(funcID);
+        m_scheduleList.append(sch);
+    }
+
     qSort(m_scheduleList);
     emit scheduleListChanged();
 }

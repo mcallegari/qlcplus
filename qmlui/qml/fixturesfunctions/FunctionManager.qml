@@ -275,6 +275,7 @@ Rectangle
           id: functionsListView
           width: fmContainer.width
           height: fmContainer.height - topBar.height
+          //anchors.fill: parent
           z: 4
           boundsBehavior: Flickable.StopAtBounds
           Layout.fillHeight: true
@@ -335,7 +336,52 @@ Rectangle
                       }
                   } // Loader
               } // Component
-              ScrollBar { flickable: functionsListView }
+              ScrollBar { id: fMgrScrollBar; flickable: functionsListView }
+
+              MouseArea
+              {
+                  id: funcDragMouseArea
+                  height: parent.height
+                  width: parent.width - (fMgrScrollBar.visible ? fMgrScrollBar.width : 0)
+                  z: 5
+
+                  preventStealing: true
+                  propagateComposedEvents:true
+
+                  drag.target: fDragItem
+                  drag.threshold: UISettings.iconSizeDefault
+
+                  onPressed:
+                  {
+                      var posnInWindow = fDragItem.mapToItem(mainView, mouse.x, mouse.y)
+                      fDragItem.x = posnInWindow.x - (fDragItem.width / 4)
+                      fDragItem.y = posnInWindow.y - (fDragItem.height / 4)
+                      fDragItem.parent = mainView
+                      fDragItem.itemsList = functionManager.selectedFunctionsID()
+                      fDragItem.modifiers = mouse.modifiers
+                  }
+
+                  onReleased:
+                  {
+                      fDragItem.Drag.drop()
+                      fDragItem.parent = funcDragMouseArea
+                      fDragItem.x = 0
+                      fDragItem.y = 0
+                  }
+
+                  FunctionDragItem
+                  {
+                      id: fDragItem
+
+                      visible: funcDragMouseArea.drag.active
+                      fromFunctionManager: true
+
+                      Drag.active: funcDragMouseArea.drag.active
+                      Drag.source: fDragItem
+                      Drag.keys: [ "function" ]
+                  }
+              }
         } // ListView
+
     } // ColumnLayout
 }

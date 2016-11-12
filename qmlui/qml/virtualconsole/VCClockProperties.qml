@@ -438,7 +438,9 @@ Rectangle
                             onDropped:
                             {
                                 console.log("Function item dropped here. x: " + drag.x + " y: " + drag.y)
-                                widgetRef.addSchedule(drag.source.funcID)
+
+                                if (drag.source.hasOwnProperty("fromFunctionManager"))
+                                    widgetRef.addSchedules(drag.source.itemsList)
                             }
                         }
                     }

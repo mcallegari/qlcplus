@@ -149,8 +149,11 @@ void ShowManager::setStretchFunctions(bool stretchFunctions)
   * Show Items
   ********************************************************************/
 
-void ShowManager::addItem(QQuickItem *parent, int trackIdx, int startTime, quint32 functionID)
+void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVariantList idsList)
 {
+    if (idsList.count() == 0)
+        return;
+
     // if no show is selected, then create a new one
     if (m_currentShow == NULL)
     {
@@ -190,26 +193,37 @@ void ShowManager::addItem(QQuickItem *parent, int trackIdx, int startTime, quint
         selectedTrack = m_currentShow->tracks().at(trackIdx);
     }
 
-    // and now create the actual ShowFunction and the QML item
-    Function *func = m_doc->function(functionID);
-    if (func == NULL)
-        return;
+    for (QVariant vID : idsList) // C++11
+    {
+        quint32 functionID = vID.toUInt();
+        if (functionID == m_currentShow->id())
+        {
+            /* TODO: a popup displaying the user stupidity would be nice here... */
+            continue;
+        }
 
-    ShowFunction *showFunc = selectedTrack->createShowFunction(functionID);
-    showFunc->setStartTime(startTime);
-    showFunc->setDuration(func->totalDuration() ? func->totalDuration() : 5000);
-    showFunc->setColor(ShowFunction::defaultColor(func->type()));
+        // and now create the actual ShowFunction and the QML item
+        Function *func = m_doc->function(functionID);
+        if (func == NULL)
+            continue;
 
-    QQuickItem *newItem = qobject_cast<QQuickItem*>(siComponent->create());
+        ShowFunction *showFunc = selectedTrack->createShowFunction(functionID);
+        showFunc->setStartTime(startTime);
+        showFunc->setDuration(func->totalDuration() ? func->totalDuration() : 5000);
+        showFunc->setColor(ShowFunction::defaultColor(func->type()));
 
-    newItem->setParentItem(parent);
-    newItem->setProperty("trackIndex", trackIdx);
-    newItem->setProperty("sfRef", QVariant::fromValue(showFunc));
-    newItem->setProperty("funcRef", QVariant::fromValue(func));
+        QQuickItem *newItem = qobject_cast<QQuickItem*>(siComponent->create());
 
-    quint32 itemIndex = m_itemsMap.isEmpty() ? 0 : m_itemsMap.lastKey() + 1;
-    quint32 itemID = trackIdx << 16 | itemIndex;
-    m_itemsMap[itemID] = newItem;
+        newItem->setParentItem(parent);
+        newItem->setProperty("trackIndex", trackIdx);
+        newItem->setProperty("sfRef", QVariant::fromValue(showFunc));
+        newItem->setProperty("funcRef", QVariant::fromValue(func));
+
+        quint32 itemIndex = m_itemsMap.isEmpty() ? 0 : m_itemsMap.lastKey() + 1;
+        quint32 itemID = trackIdx << 16 | itemIndex;
+        m_itemsMap[itemID] = newItem;
+        startTime += showFunc->duration();
+    }
 
     emit showDurationChanged(m_currentShow->totalDuration());
 }

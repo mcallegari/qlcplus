@@ -49,21 +49,31 @@ QVariant ChaserEditor::stepsList() const
     return QVariant::fromValue(m_stepsList);
 }
 
-bool ChaserEditor::addFunction(quint32 fid, int insertIndex)
+bool ChaserEditor::addFunctions(QVariantList idsList, int insertIndex)
 {
-    if (m_chaser == NULL)
+    if (m_chaser == NULL || idsList.count() == 0)
         return false;
 
-    ChaserStep step(fid);
-    if (m_chaser->durationMode() == Chaser::PerStep)
+    if (insertIndex == -1)
+        insertIndex = 0;
+
+    for (QVariant vID : idsList) // C++11
     {
-        Function *func = m_doc->function(fid);
-        step.duration = func->totalDuration();
-        if (step.duration == 0)
-            step.duration = 1000;
-        step.hold = step.duration;
+        quint32 fid = vID.toUInt();
+        ChaserStep step(fid);
+        if (m_chaser->durationMode() == Chaser::PerStep)
+        {
+            Function *func = m_doc->function(fid);
+            if (func == NULL)
+                continue;
+
+            step.duration = func->totalDuration();
+            if (step.duration == 0)
+                step.duration = 1000;
+            step.hold = step.duration;
+        }
+        m_chaser->addStep(step, insertIndex++);
     }
-    m_chaser->addStep(step, insertIndex);
     updateStepsList();
     return true;
 }

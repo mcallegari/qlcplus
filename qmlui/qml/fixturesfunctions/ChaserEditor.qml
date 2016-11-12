@@ -508,9 +508,13 @@ Rectangle
                     onDropped:
                     {
                         console.log("Item dropped here. x: " + drag.x + " y: " + drag.y)
-                        console.log("Item fID: " + drag.source.funcID)
-                        chaserEditor.addFunction(drag.source.funcID, cStepsList.dragInsertIndex)
-                        cStepsList.dragInsertIndex = -1
+
+                        /* Check if the dragging was started from a Function Manager */
+                        if (drag.source.hasOwnProperty("fromFunctionManager"))
+                        {
+                            chaserEditor.addFunctions(drag.source.itemsList, cStepsList.dragInsertIndex)
+                            cStepsList.dragInsertIndex = -1
+                        }
                     }
                     onPositionChanged:
                     {

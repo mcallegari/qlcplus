@@ -115,7 +115,8 @@ VCWidgetItem
         onDropped:
         {
             // attach function here
-            sliderObj.playbackFunction = drag.source.funcID
+            if (drag.source.hasOwnProperty("fromFunctionManager"))
+                sliderObj.playbackFunction = drag.source.itemsList[0]
         }
 
         states: [

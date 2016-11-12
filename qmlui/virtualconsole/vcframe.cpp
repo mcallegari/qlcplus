@@ -214,7 +214,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
     }
 }
 
-void VCFrame::addFunction(QQuickItem *parent, quint32 funcID, QPoint pos, int keyModifiers)
+void VCFrame::addFunctions(QQuickItem *parent, QVariantList idsList, QPoint pos, int keyModifiers)
 {
     // reset all the drop targets, otherwise two overlapping
     // frames can get the same drop event
@@ -222,25 +222,52 @@ void VCFrame::addFunction(QQuickItem *parent, quint32 funcID, QPoint pos, int ke
 
     //qDebug() << "modifiers:" << QString::number(keyModifiers, 16);
 
-    if (keyModifiers & Qt::ShiftModifier)
+    QPoint currPos = pos;
+
+    for (QVariant vID : idsList) // C++11
     {
-        VCSlider *slider = new VCSlider(m_doc, this);
-        QQmlEngine::setObjectOwnership(slider, QQmlEngine::CppOwnership);
-        slider->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 10, m_vc->pixelDensity() * 35));
-        slider->setPlaybackFunction(funcID);
-        setupWidget(slider);
-        m_vc->addWidgetToMap(slider);
-        slider->render(m_vc->view(), parent);
-    }
-    else
-    {
-        VCButton *button = new VCButton(m_doc, this);
-        QQmlEngine::setObjectOwnership(button, QQmlEngine::CppOwnership);
-        button->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 17, m_vc->pixelDensity() * 17));
-        button->setFunctionID(funcID);
-        setupWidget(button);
-        m_vc->addWidgetToMap(button);
-        button->render(m_vc->view(), parent);
+        quint32 funcID = vID.toUInt();
+        Function *func = m_doc->function(funcID);
+
+        if (func == NULL)
+            continue;
+
+        if (keyModifiers & Qt::ShiftModifier)
+        {
+            VCSlider *slider = new VCSlider(m_doc, this);
+            QQmlEngine::setObjectOwnership(slider, QQmlEngine::CppOwnership);
+            slider->setGeometry(QRect(currPos.x(), currPos.y(), m_vc->pixelDensity() * 10, m_vc->pixelDensity() * 35));
+            slider->setCaption(func->name());
+            slider->setPlaybackFunction(funcID);
+            setupWidget(slider);
+            m_vc->addWidgetToMap(slider);
+            slider->render(m_vc->view(), parent);
+
+            currPos.setX(currPos.x() + slider->geometry().width());
+            if (currPos.x() >= geometry().width())
+            {
+                currPos.setX(pos.x());
+                currPos.setY(currPos.y() + slider->geometry().height());
+            }
+        }
+        else
+        {
+            VCButton *button = new VCButton(m_doc, this);
+            QQmlEngine::setObjectOwnership(button, QQmlEngine::CppOwnership);
+            button->setGeometry(QRect(currPos.x(), currPos.y(), m_vc->pixelDensity() * 17, m_vc->pixelDensity() * 17));
+            button->setCaption(func->name());
+            button->setFunctionID(funcID);
+            setupWidget(button);
+            m_vc->addWidgetToMap(button);
+            button->render(m_vc->view(), parent);
+
+            currPos.setX(currPos.x() + button->geometry().width());
+            if (currPos.x() >= geometry().width())
+            {
+                currPos.setX(pos.x());
+                currPos.setY(currPos.y() + button->geometry().height());
+            }
+        }
     }
 }
 

@@ -37,10 +37,7 @@ Rectangle
     ModelSelector
     {
         id: ceSelector
-        onItemsCountChanged:
-        {
-            console.log("Collection Editor selected items changed !")
-        }
+        //onItemsCountChanged: console.log("Collection Editor selected items changed !")
     }
 
     SplitView
@@ -241,12 +238,18 @@ Rectangle
                     {
                         console.log("Item dropped here. x: " + drag.x + " y: " + drag.y)
 
-                        /* if the dragging started from a Function Manager,
-                           the property is called funcID */
-                        if (drag.source.hasOwnProperty("funcID"))
+                        /* Check if the dragging was started from a Function Manager */
+                        if (drag.source.hasOwnProperty("fromFunctionManager"))
                         {
-                            console.log("Item fID: " + drag.source.funcID)
-                            collectionEditor.addFunction(drag.source.funcID, cFunctionList.dragInsertIndex)
+                            var insertIndex = cFunctionList.dragInsertIndex
+                            if (insertIndex == -1)
+                                insertIndex = 0
+
+                            for (var i = 0; i < drag.source.itemsList.length; i++)
+                            {
+                                console.log("Adding function with ID: " + drag.source.itemsList[i])
+                                collectionEditor.addFunction(drag.source.itemsList[i], insertIndex + i)
+                            }
                         }
                         else if (drag.source.hasOwnProperty("functionID"))
                         {
