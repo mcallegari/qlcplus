@@ -61,6 +61,9 @@ public:
     virtual ~VCFrame();
 
     /** @reimp */
+    virtual QString defaultCaption();
+
+    /** @reimp */
     virtual void render(QQuickView *view, QQuickItem *parent);
 
     /** @reimp */

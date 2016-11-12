@@ -106,6 +106,9 @@ public:
     void setID(quint32 id);
 
     /** @reimp */
+    QString defaultCaption();
+
+    /** @reimp */
     void render(QQuickView *view, QQuickItem *parent);
 
     /** @reimp */

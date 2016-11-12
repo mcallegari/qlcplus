@@ -77,7 +77,12 @@ void VCClock::setID(quint32 id)
     VCWidget::setID(id);
 
     if (caption().isEmpty())
-        setCaption(tr("Clock %1").arg(id));
+        setCaption(defaultCaption());
+}
+
+QString VCClock::defaultCaption()
+{
+    return tr("Clock %1").arg(id());
 }
 
 void VCClock::render(QQuickView *view, QQuickItem *parent)

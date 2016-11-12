@@ -240,6 +240,9 @@ protected:
      * Caption
      *********************************************************************/
 public:
+    /** Virtual method to retrieve the widget default name which is "Widget ID" */
+    virtual QString defaultCaption();
+
     /** Get this widget's caption text */
     QString caption() const;
 

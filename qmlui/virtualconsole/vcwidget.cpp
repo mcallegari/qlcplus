@@ -232,6 +232,11 @@ bool VCWidget::isVisible() const
     return m_isVisible;
 }
 
+QString VCWidget::defaultCaption()
+{
+    return QString();
+}
+
 /*****************************************************************************
  * Caption
  *****************************************************************************/

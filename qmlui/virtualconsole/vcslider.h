@@ -70,6 +70,9 @@ public:
     void setID(quint32 id);
 
     /** @reimp */
+    QString defaultCaption();
+
+    /** @reimp */
     void render(QQuickView *view, QQuickItem *parent);
 
     /** @reimp */
@@ -147,6 +150,9 @@ protected:
 public:
     quint32 playbackFunction() const;
     void setPlaybackFunction(quint32 playbackFunction);
+
+private:
+    FunctionParent functionParent() const;
 
 signals:
     void playbackFunctionChanged(quint32 playbackFunction);

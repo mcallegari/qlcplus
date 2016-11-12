@@ -60,6 +60,11 @@ VCFrame::~VCFrame()
     deleteChildren();
 }
 
+QString VCFrame::defaultCaption()
+{
+    return tr("Frame %1").arg(id());
+}
+
 void VCFrame::render(QQuickView *view, QQuickItem *parent)
 {
     if (view == NULL || parent == NULL)

@@ -49,7 +49,12 @@ void VCSlider::setID(quint32 id)
     VCWidget::setID(id);
 
     if (caption().isEmpty())
-        setCaption(tr("Slider %1").arg(id));
+        setCaption(defaultCaption());
+}
+
+QString VCSlider::defaultCaption()
+{
+    return tr("Slider %1").arg(id());
 }
 
 void VCSlider::render(QQuickView *view, QQuickItem *parent)
@@ -197,11 +202,62 @@ quint32 VCSlider::playbackFunction() const
 
 void VCSlider::setPlaybackFunction(quint32 playbackFunction)
 {
+    bool running = false;
+
     if (m_playbackFunction == playbackFunction)
         return;
 
-    m_playbackFunction = playbackFunction;
-    emit playbackFunctionChanged(playbackFunction);
+    Function* current = m_doc->function(m_playbackFunction);
+    if (current != NULL)
+    {
+        /* Get rid of old function connections */
+/*
+        disconnect(current, SIGNAL(running(quint32)),
+                this, SLOT(slotFunctionRunning(quint32)));
+        disconnect(current, SIGNAL(stopped(quint32)),
+                this, SLOT(slotFunctionStopped(quint32)));
+        disconnect(current, SIGNAL(flashing(quint32,bool)),
+                this, SLOT(slotFunctionFlashing(quint32,bool)));
+*/
+        if(current->isRunning())
+        {
+            running = true;
+            current->stop(functionParent());
+        }
+    }
+
+    Function* function = m_doc->function(playbackFunction);
+    if (function != NULL)
+    {
+        /* Connect to the new function */
+/*
+        connect(function, SIGNAL(running(quint32)),
+                this, SLOT(slotFunctionRunning(quint32)));
+        connect(function, SIGNAL(stopped(quint32)),
+                this, SLOT(slotFunctionStopped(quint32)));
+        connect(function, SIGNAL(flashing(quint32,bool)),
+                this, SLOT(slotFunctionFlashing(quint32,bool)));
+*/
+        m_playbackFunction = playbackFunction;
+        if ((isEditing() && caption().isEmpty()) || caption() == defaultCaption())
+            setCaption(function->name());
+
+        if(running)
+            function->start(m_doc->masterTimer(), functionParent());
+        emit playbackFunctionChanged(playbackFunction);
+    }
+    else
+    {
+        /* No function attachment */
+        m_playbackFunction = Function::invalidId();
+        emit playbackFunctionChanged(-1);
+    }
+    setDocModified();
+}
+
+FunctionParent VCSlider::functionParent() const
+{
+    return FunctionParent(FunctionParent::ManualVCWidget, id());
 }
 
 /*********************************************************************

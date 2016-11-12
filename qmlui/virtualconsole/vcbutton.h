@@ -51,13 +51,15 @@ class VCButton : public VCWidget
     /*********************************************************************
      * Initialization
      *********************************************************************/
-
 public:
     VCButton(Doc* doc = NULL, QObject *parent = 0);
     virtual ~VCButton();
 
     /** @reimp */
     void setID(quint32 id);
+
+    /** @reimp */
+    QString defaultCaption();
 
     /** @reimp */
     void render(QQuickView *view, QQuickItem *parent);
