@@ -114,9 +114,10 @@ Rectangle
                     Connections
                     {
                         target: item
-                        onClicked:
+
+                        onMouseEvent:
                         {
-                            if (qItem == item)
+                            if (type === App.Clicked && qItem == item)
                             {
                                 model.isSelected = (mouseMods & Qt.ControlModifier) ? 2 : 1
                                 if (model.hasChildren)

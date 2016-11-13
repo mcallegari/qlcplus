@@ -33,11 +33,12 @@ Rectangle
     property Function cRef
     property string textLabel
     property bool isSelected: false
+    property Item dragItem
 
     signal toggled
-    signal clicked(int ID, var qItem, int mouseMods)
-    signal doubleClicked(int ID, int Type)
     signal destruction(int ID, var qItem)
+
+    signal mouseEvent(int type, int iID, int iType, var qItem, int mouseMods)
 
     Component.onDestruction:
     {
@@ -74,8 +75,19 @@ Rectangle
         id: funcMouseArea
         anchors.fill: parent
 
-        onClicked: funcDelegate.clicked(cRef.id, funcDelegate, mouse.modifiers)
-        onDoubleClicked: funcDelegate.doubleClicked(cRef.id, cRef.type)
+        property bool dragActive: drag.active
+
+        onDragActiveChanged:
+        {
+            //console.log("Drag changed on function: " + cRef.id)
+            funcDelegate.mouseEvent(dragActive ? App.DragStarted : App.DragFinished, cRef.id, cRef.type, funcDelegate, 0)
+        }
+
+        drag.target: dragItem
+
+        onPressed: funcDelegate.mouseEvent(App.Pressed, cRef.id, cRef.type, funcDelegate, mouse.modifiers)
+        onClicked: funcDelegate.mouseEvent(App.Clicked, cRef.id, cRef.type, funcDelegate, mouse.modifiers)
+        onDoubleClicked: funcDelegate.mouseEvent(App.DoubleClicked, cRef.id, cRef.type, funcDelegate, mouse.modifiers)
     }
 }
 

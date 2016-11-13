@@ -19,6 +19,7 @@
 
 import QtQuick 2.2
 
+import com.qlcplus.classes 1.0
 import "."
 
 Column
@@ -34,11 +35,20 @@ Column
     property bool isSelected: false
     property string nodeIcon: "qrc:/folder.svg"
     property string childrenDelegate: "qrc:/FunctionDelegate.qml"
+    property Item dragItem
 
     signal toggled(bool expanded, int newHeight)
-    signal clicked(int ID, var qItem, int mouseMods)
-    signal doubleClicked(int ID, int Type)
+    signal mouseEvent(int type, int iID, int iType, var qItem, int mouseMods)
     signal pathChanged(string oldPath, string newPath)
+
+    function getItemAtPos(x, y)
+    {
+        var child = nodeChildrenView.itemAt(x, y)
+        if (child.item.hasOwnProperty("nodePath"))
+            return child.item.getItemAtPos(x, y - child.item.y)
+
+        return child.item
+    }
 
     Rectangle
     {
@@ -116,7 +126,7 @@ Column
             onTriggered:
             {
                 isExpanded = !isExpanded
-                nodeContainer.clicked(-1, nodeContainer, modifiers)
+                nodeContainer.mouseEvent(qlcplus.Clicked, -1, -1, nodeContainer, modifiers)
                 modifiers = 0
             }
         }
@@ -164,6 +174,7 @@ Column
                     {
                         item.textLabel = label
                         item.isSelected = Qt.binding(function() { return isSelected })
+                        item.dragItem = dragItem
 
                         if (hasChildren)
                         {
@@ -184,22 +195,31 @@ Column
                     Connections
                     {
                         target: item
-                        onClicked:
+                        onMouseEvent:
                         {
-                            if (qItem == item)
+                            console.log("Got tree node children mouse event")
+                            switch (type)
                             {
-                                model.isSelected = (mouseMods & Qt.ControlModifier) ? 2 : 1
-                                if (model.hasChildren)
-                                    model.isExpanded = item.isExpanded
+                                case App.Clicked:
+                                    if (qItem == item)
+                                    {
+                                        model.isSelected = (mouseMods & Qt.ControlModifier) ? 2 : 1
+                                        if (model.hasChildren)
+                                            model.isExpanded = item.isExpanded
+                                    }
+                                break;
+                                case App.DragStarted:
+                                    if (qItem == item && !model.isSelected)
+                                    {
+                                        model.isSelected = 1
+                                        // invalidate the modifiers to force a single selection
+                                        mouseMods = -1
+                                    }
+                                break;
                             }
-                            nodeContainer.clicked(ID, qItem, mouseMods)
+
+                            nodeContainer.mouseEvent(type, iID, iType, qItem, mouseMods)
                         }
-                    }
-                    Connections
-                    {
-                        ignoreUnknownSignals: true
-                        target: item
-                        onDoubleClicked: nodeContainer.doubleClicked(ID, Type)
                     }
                     Connections
                     {

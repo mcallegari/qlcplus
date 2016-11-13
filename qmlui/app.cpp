@@ -78,6 +78,7 @@ void App::startup()
     qmlRegisterType<Fixture>("com.qlcplus.classes", 1, 0, "Fixture");
     qmlRegisterType<Function>("com.qlcplus.classes", 1, 0, "Function");
     qmlRegisterType<ModelSelector>("com.qlcplus.classes", 1, 0, "ModelSelector");
+    qmlRegisterType<App>("com.qlcplus.classes", 1, 0, "App");
 
     setTitle("Q Light Controller Plus");
     setIcon(QIcon(":/qlcplus.svg"));

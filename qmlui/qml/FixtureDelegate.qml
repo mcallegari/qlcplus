@@ -33,9 +33,9 @@ Rectangle
     property Fixture cRef
     property string textLabel: cRef ? cRef.name : ""
     property bool isSelected: false
+    property Item dragItem
 
-    signal clicked(int ID, var qItem, int mouseMods)
-    signal doubleClicked(int fID, int fType)
+    signal mouseEvent(int type, int iID, int iType, var qItem, int mouseMods)
 
     function iconFromType(type)
     {
@@ -85,7 +85,7 @@ Rectangle
         anchors.fill: parent
         hoverEnabled: true
 
-        onClicked: fxDelegate.clicked(cRef.id, fxDelegate, mouse.modifiers)
-        onDoubleClicked: fxDelegate.doubleClicked(cRef.id, -1)
+        onClicked: fxDelegate.mouseEvent(App.Clicked, cRef.id, cRef.type, fxDelegate, mouse.modifiers)
+        onDoubleClicked: fxDelegate.mouseEvent(App.DoubleClicked, cRef.id, cRef.type, fxDelegate, -1)
     }
 }

@@ -50,6 +50,17 @@ public:
     App();
     ~App();
 
+    enum MouseEvents
+    {
+        Pressed = 0,
+        Released,
+        Clicked,
+        DoubleClicked,
+        DragStarted,
+        DragFinished
+    };
+    Q_ENUM(MouseEvents)
+
     /** Method to turn the key a start the engine */
     void startup();
 

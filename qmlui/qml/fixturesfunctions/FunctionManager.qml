@@ -282,6 +282,8 @@ Rectangle
 
           Component.onCompleted: contentY = functionManager.viewPosition
 
+          property bool dragActive: false
+
           model: functionManager.functionsList
           delegate:
               Component
@@ -295,6 +297,7 @@ Rectangle
                       {
                           item.textLabel = label
                           item.isSelected = Qt.binding(function() { return isSelected })
+                          item.dragItem = fDragItem
 
                           if (hasChildren)
                           {
@@ -312,20 +315,52 @@ Rectangle
                       Connections
                       {
                           target: item
-                          onDoubleClicked: loadFunctionEditor(ID, Type)
-                      }
-                      Connections
-                      {
-                          target: item
-                          onClicked:
+                          onMouseEvent:
                           {
-                              if (qItem == item)
+                              //console.log("Got a mouse event in Function Manager: " + type)
+                              switch (type)
                               {
-                                  model.isSelected = (mouseMods & Qt.ControlModifier) ? 2 : 1
-                                  if (model.hasChildren)
-                                      model.isExpanded = item.isExpanded
+                                case App.Pressed:
+                                    var posnInWindow = qItem.mapToItem(mainView, qItem.x, qItem.y)
+                                    fDragItem.parent = mainView
+                                    fDragItem.x = posnInWindow.x - (fDragItem.width / 4)
+                                    fDragItem.y = posnInWindow.y - (fDragItem.height / 4)
+                                    fDragItem.modifiers = mouseMods
+                                break;
+                                case App.Clicked:
+                                  if (qItem == item)
+                                  {
+                                      model.isSelected = (mouseMods & Qt.ControlModifier) ? 2 : 1
+                                      if (model.hasChildren)
+                                          model.isExpanded = item.isExpanded
+                                  }
+                                  functionManager.selectFunctionID(iID, mouseMods & Qt.ControlModifier)
+                                break;
+                                case App.DoubleClicked:
+                                    loadFunctionEditor(iID, iType)
+                                break;
+                                case App.DragStarted:
+                                    if (qItem == item && !model.isSelected)
+                                    {
+                                        model.isSelected = 1
+                                        // invalidate the modifiers to force a single selection
+                                        mouseMods = -1
+                                    }
+
+                                    if (mouseMods == -1)
+                                        functionManager.selectFunctionID(iID, mouseMods & Qt.ControlModifier)
+
+                                    fDragItem.itemsList = functionManager.selectedFunctionsID()
+                                    functionsListView.dragActive = true
+                                break;
+                                case App.DragFinished:
+                                    fDragItem.Drag.drop()
+                                    fDragItem.parent = functionsListView
+                                    fDragItem.x = 0
+                                    fDragItem.y = 0
+                                    functionsListView.dragActive = false
+                                break;
                               }
-                              functionManager.selectFunctionID(ID, mouseMods & Qt.ControlModifier)
                           }
                       }
                       Connections
@@ -338,48 +373,17 @@ Rectangle
               } // Component
               ScrollBar { id: fMgrScrollBar; flickable: functionsListView }
 
-              MouseArea
+              FunctionDragItem
               {
-                  id: funcDragMouseArea
-                  height: parent.height
-                  width: parent.width - (fMgrScrollBar.visible ? fMgrScrollBar.width : 0)
-                  z: 5
+                  id: fDragItem
 
-                  preventStealing: true
-                  propagateComposedEvents:true
+                  visible: functionsListView.dragActive
+                  fromFunctionManager: true
 
-                  drag.target: fDragItem
-                  drag.threshold: UISettings.iconSizeDefault
+                  Drag.active: functionsListView.dragActive
+                  Drag.source: fDragItem
+                  Drag.keys: [ "function" ]
 
-                  onPressed:
-                  {
-                      var posnInWindow = fDragItem.mapToItem(mainView, mouse.x, mouse.y)
-                      fDragItem.x = posnInWindow.x - (fDragItem.width / 4)
-                      fDragItem.y = posnInWindow.y - (fDragItem.height / 4)
-                      fDragItem.parent = mainView
-                      fDragItem.itemsList = functionManager.selectedFunctionsID()
-                      fDragItem.modifiers = mouse.modifiers
-                  }
-
-                  onReleased:
-                  {
-                      fDragItem.Drag.drop()
-                      fDragItem.parent = funcDragMouseArea
-                      fDragItem.x = 0
-                      fDragItem.y = 0
-                  }
-
-                  FunctionDragItem
-                  {
-                      id: fDragItem
-
-                      visible: funcDragMouseArea.drag.active
-                      fromFunctionManager: true
-
-                      Drag.active: funcDragMouseArea.drag.active
-                      Drag.source: fDragItem
-                      Drag.keys: [ "function" ]
-                  }
               }
         } // ListView
 

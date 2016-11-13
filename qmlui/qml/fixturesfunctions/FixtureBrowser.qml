@@ -20,6 +20,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.1
 
+import com.qlcplus.classes 1.0
 import "."
 
 Rectangle
@@ -112,13 +113,16 @@ Rectangle
         {
             isManufacturer: true
             textLabel: modelData
-            onClicked:
+            onMouseEvent:
             {
-                selectedManufacturer = modelData
-                mfText.label = modelData
-                fixtureList.model = fixtureBrowser.models(modelData)
-                fixtureList.currentIndex = -1
-                manufacturerList.currentIndex = index
+                if (type == App.Clicked)
+                {
+                    selectedManufacturer = modelData
+                    mfText.label = modelData
+                    fixtureList.model = fixtureBrowser.models(modelData)
+                    fixtureList.currentIndex = -1
+                    manufacturerList.currentIndex = index
+                }
             }
         }
 
@@ -217,14 +221,17 @@ Rectangle
                 manufacturer: selectedManufacturer
                 textLabel: modelData
 
-                onClicked:
+                onMouseEvent:
                 {
-                    fixtureList.currentIndex = index
-                    fixtureBrowser.model = modelData
-                    fxPropsRect.fxManufacturer = selectedManufacturer
-                    fxPropsRect.fxModel = modelData
-                    fxPropsRect.fxName = modelData
-                    fxPropsRect.visible = true
+                    if (type == App.Clicked)
+                    {
+                        fixtureList.currentIndex = index
+                        fixtureBrowser.model = modelData
+                        fxPropsRect.fxManufacturer = selectedManufacturer
+                        fxPropsRect.fxModel = modelData
+                        fxPropsRect.fxName = modelData
+                        fxPropsRect.visible = true
+                    }
                 }
             }
             ScrollBar { flickable: fixtureList }
@@ -279,15 +286,17 @@ Rectangle
                             Connections
                             {
                                 target: item
-                                onClicked:
+                                onMouseEvent:
                                 {
-                                    console.log("Item clicked with path: " + item.nodePath + "/" + qItem.textLabel)
-                                    qItem.manufacturer = item.nodePath
-                                    fxPropsRect.fxManufacturer = qItem.manufacturer
-                                    fxPropsRect.fxModel = qItem.textLabel
-                                    fxPropsRect.fxName = qItem.textLabel
-                                    fxPropsRect.visible = true
-
+                                    if (type === App.Clicked)
+                                    {
+                                        console.log("Item clicked with path: " + item.nodePath + "/" + qItem.textLabel)
+                                        qItem.manufacturer = item.nodePath
+                                        fxPropsRect.fxManufacturer = qItem.manufacturer
+                                        fxPropsRect.fxModel = qItem.textLabel
+                                        fxPropsRect.fxName = qItem.textLabel
+                                        fxPropsRect.visible = true
+                                    }
                                 }
                             }
                         }

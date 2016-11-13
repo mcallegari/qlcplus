@@ -19,6 +19,7 @@
 
 import QtQuick 2.0
 
+import com.qlcplus.classes 1.0
 import "FixtureDrag.js" as FxDragJS
 import "."
 
@@ -34,8 +35,9 @@ Item
     property string textLabel
     property int channels: 1
     property bool isSelected: false
+    property Item dragItem
 
-    signal clicked(int ID, var qItem, int mouseMods)
+    signal mouseEvent(int type, int iID, int iType, var qItem, int mouseMods)
 
     Rectangle
     {
@@ -93,7 +95,7 @@ Item
         id: fxMouseArea
         anchors.fill: parent
         hoverEnabled: true
-        onClicked: fxDraggableItem.clicked(0, fxDraggableItem, mouse.modifiers)
+        onClicked: fxDraggableItem.mouseEvent(App.Clicked, 0, 0, fxDraggableItem, mouse.modifiers)
         drag.target: FixtureDragItem { }
         drag.threshold: 30
 
@@ -102,7 +104,7 @@ Item
         {
             if (fxDraggableItem.isManufacturer == false)
             {
-                fxDraggableItem.clicked(0, fxDraggableItem, mouse.modifiers);
+                fxDraggableItem.mouseEvent(App.Clicked, 0, 0, fxDraggableItem, mouse.modifiers);
                 FxDragJS.initProperties();
             }
         }

@@ -23,6 +23,7 @@ Rectangle
 {
     anchors.fill: parent
     color: "black"
+    clip: true
 
     property string contextName: "2D"
     property alias contextItem: twoDView
@@ -146,7 +147,7 @@ Rectangle
                 var ctx = twoDContents.getContext('2d');
 
                 ctx.globalAlpha = 1.0
-                ctx.strokeStyle = "#2A2A2A"
+                ctx.strokeStyle = "#5F5F5F"
                 ctx.fillStyle = "black"
                 ctx.lineWidth = 1
 
