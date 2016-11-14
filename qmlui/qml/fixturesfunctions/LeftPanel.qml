@@ -227,7 +227,7 @@ SidePanel
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/selectall.svg"
-                tooltip: qsTr("Select/Deselect all fixtures")
+                tooltip: qsTr("Select/Deselect all fixtures") + " (CTRL+A)"
                 onClicked: contextManager.toggleFixturesSelection()
             }
         }

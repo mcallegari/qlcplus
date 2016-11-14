@@ -59,6 +59,8 @@ class FunctionManager : public QObject
     Q_PROPERTY(int audioCount READ audioCount NOTIFY audioCountChanged)
     Q_PROPERTY(int videoCount READ videoCount NOTIFY videoCountChanged)
 
+    Q_PROPERTY(int dumpValuesCount READ dumpValuesCount NOTIFY dumpValuesCountChanged)
+
 public:
     FunctionManager(QQuickView *view, Doc *doc, QObject *parent = 0);
 
@@ -162,7 +164,7 @@ public:
     /** Return the currently set channel values */
     QMap <QPair<quint32,quint32>,uchar> dumpValues() const;
 
-    /** Return the number of the currently set channel values */
+    /** Return the number of DMX channels currently available for dumping */
     int dumpValuesCount() const;
 
     /** Reset the currently set channel values */
@@ -172,8 +174,10 @@ public:
 
     void setChannelValue(quint32 fxID, quint32 channel, uchar value);
 
-private:
+signals:
+    void dumpValuesCountChanged();
 
+private:
     /** Map of the values available for dumping to a Scene */
     QMap <QPair<quint32,quint32>,uchar> m_dumpValues;
 };

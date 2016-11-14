@@ -458,6 +458,7 @@ int FunctionManager::viewPosition() const
 void FunctionManager::setDumpValue(quint32 fxID, quint32 channel, uchar value)
 {
     m_dumpValues[QPair<quint32,quint32>(fxID, channel)] = value;
+    emit dumpValuesCountChanged();
 }
 
 QMap<QPair<quint32, quint32>, uchar> FunctionManager::dumpValues() const
@@ -473,6 +474,7 @@ int FunctionManager::dumpValuesCount() const
 void FunctionManager::resetDumpValues()
 {    
     m_dumpValues.clear();
+    emit dumpValuesCountChanged();
 }
 
 void FunctionManager::dumpOnNewScene(QList<quint32> selectedFixtures)
