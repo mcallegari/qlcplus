@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="ca_ES">
+<TS version="2.0" language="ca_ES">
 <context>
     <name>AboutBox</name>
     <message>
@@ -5554,12 +5554,12 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="958"/>
         <source>Play/Stop Cue list</source>
-        <translation type="unfinished"></translation>
+        <translation>Reproduir/Aturar Llista de Cues</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="959"/>
         <source>Pause Cue list</source>
-        <translation type="unfinished"></translation>
+        <translation>Pausar Llista de Cues</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="1367"/>
@@ -5653,17 +5653,17 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="177"/>
         <source>Playback buttons layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Disposició dels botons de reproducció</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="183"/>
         <source>Play/Pause + Stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Reproduir/Pausa + Aturar</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="193"/>
         <source>Play/Stop + Pause</source>
-        <translation type="unfinished"></translation>
+        <translation>Reproduir/Aturar + Pausa</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="204"/>
@@ -5725,12 +5725,12 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="242"/>
         <source>Play/Stop control</source>
-        <translation type="unfinished"></translation>
+        <translation>Control de Reproduir/Aturar</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="243"/>
         <source>Pause control</source>
-        <translation type="unfinished"></translation>
+        <translation>Control de Pausa</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="251"/>
