@@ -5557,12 +5557,12 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="958"/>
         <source>Play/Stop Cue list</source>
-        <translation type="unfinished"></translation>
+        <translation>Cue-Liste Abspielen/Stoppen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="959"/>
         <source>Pause Cue list</source>
-        <translation type="unfinished"></translation>
+        <translation>Cue-Liste pausieren</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="1367"/>
@@ -5657,17 +5657,17 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="177"/>
         <source>Playback buttons layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Layout der Abspielknöpfe</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="183"/>
         <source>Play/Pause + Stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Play/Pause + Stop</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="193"/>
         <source>Play/Stop + Pause</source>
-        <translation type="unfinished"></translation>
+        <translation>Play/Stop + Pause</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="282"/>
@@ -5729,12 +5729,12 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="242"/>
         <source>Play/Stop control</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrollelement Abspielen/Stoppen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="243"/>
         <source>Pause control</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrollelement Pausieren</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="251"/>
