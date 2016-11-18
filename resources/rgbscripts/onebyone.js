@@ -1,8 +1,8 @@
 /*
   Q Light Controller Plus
-  fill.js
+  onebyone.js
 
-  Copyright (c) Massimo Callegari
+  Copyright (c) Jano Svitok
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
