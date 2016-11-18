@@ -26,7 +26,7 @@ Rectangle
 {
     id: beatChooserBox
     width: UISettings.bigItemHeight * 3
-    height: generatorsList.height + keyPadBox.height + 20
+    height: contentsColumn.height + 13
     color: UISettings.bgMedium
     border.color: "#666"
     border.width: 2
@@ -39,90 +39,118 @@ Rectangle
 
     ExclusiveGroup { id: selGeneratorGroup }
 
-    ListView
+    Column
     {
-        id: generatorsList
+        id: contentsColumn
+        spacing: 3
+        x: 5
+        y: 5
+        width: parent.width - 10
 
-        x: 10
-        y: 10
-        width: parent.width - 20
-        height: UISettings.bigItemHeight * 2
-        boundsBehavior: Flickable.StopAtBounds
-
-        delegate:
-            Rectangle
-            {
-                color: "transparent"
-                height: UISettings.iconSizeDefault + 5
-
-                Component.onCompleted:
+        Rectangle
+        {
+            id: toolbar
+            width: parent.width
+            height: UISettings.listItemHeight
+            z: 1
+            gradient:
+                Gradient
                 {
-                    if (modelData.type === "MIDI")
-                    {
-                        iconBox.color = "white"
-                        iconBox.visible = true
-                        genIcon.source = "qrc:/midiplugin.svg"
-                    }
-                    else if (modelData.type === "AUDIO")
-                    {
-                        iconBox.color = "transparent"
-                        iconBox.visible = true
-                        genIcon.source = "qrc:/audiocard.svg"
-                    }
-                    else
-                        iconBox.visible = false
+                    id: cBarGradient
+                    GradientStop { position: 0; color: UISettings.toolbarStartSub }
+                    GradientStop { position: 1; color: UISettings.toolbarEnd }
                 }
 
-                Row
+            // allow the tool to be dragged around
+            // by holding it on the title bar
+            MouseArea
+            {
+                anchors.fill: parent
+                drag.target: beatChooserBox
+            }
+        }
+
+        ListView
+        {
+            id: generatorsList
+
+            width: parent.width
+            height: UISettings.bigItemHeight * 2
+            boundsBehavior: Flickable.StopAtBounds
+
+            delegate:
+                Rectangle
                 {
-                    spacing: 5
+                    color: "transparent"
+                    height: UISettings.iconSizeDefault + 5
 
-                    CustomCheckBox
+                    Component.onCompleted:
                     {
-                        exclusiveGroup: selGeneratorGroup
-                        checked: ioManager.beatType === modelData.type
-                        onCheckedChanged: if (checked) ioManager.beatType = modelData.type
-                    }
-                    Rectangle
-                    {
-                        id: iconBox
-                        width: UISettings.iconSizeDefault
-                        height: width
-                        color: "transparent"
-
-                        Image
+                        if (modelData.type === "MIDI")
                         {
-                            id: genIcon
-                            anchors.fill: parent
-                            sourceSize: Qt.size(width, height)
+                            iconBox.color = "white"
+                            iconBox.visible = true
+                            genIcon.source = "qrc:/midiplugin.svg"
+                        }
+                        else if (modelData.type === "AUDIO")
+                        {
+                            iconBox.color = "transparent"
+                            iconBox.visible = true
+                            genIcon.source = "qrc:/audiocard.svg"
+                        }
+                        else
+                            iconBox.visible = false
+                    }
+
+                    Row
+                    {
+                        spacing: 5
+
+                        CustomCheckBox
+                        {
+                            exclusiveGroup: selGeneratorGroup
+                            checked: ioManager.beatType === modelData.type
+                            onCheckedChanged: if (checked) ioManager.beatType = modelData.type
+                        }
+                        Rectangle
+                        {
+                            id: iconBox
+                            width: UISettings.iconSizeDefault
+                            height: width
+                            color: "transparent"
+
+                            Image
+                            {
+                                id: genIcon
+                                anchors.fill: parent
+                                sourceSize: Qt.size(width, height)
+                            }
+                        }
+                        RobotoText
+                        {
+                            label: modelData.name
                         }
                     }
-                    RobotoText
-                    {
-                        label: modelData.name
-                    }
                 }
-            }
-    } // end of ListView
+        } // end of ListView
 
-    KeyPad
-    {
-        id: keyPadBox
-        anchors.top: generatorsList.bottom
-        x: 10
-        width: parent.width - 20
-        showDMXcontrol: false
-        visible: ioManager.beatType === "INTERNAL"
-        commandString: ioManager.bpmNumber
-
-        onExecuteCommand:
+        KeyPad
         {
-            var intCmd = parseInt(cmd)
-            if (intCmd === 0 || intCmd > 300)
-                return
+            id: keyPadBox
+            width: parent.width
+            showDMXcontrol: false
+            visible: ioManager.beatType === "INTERNAL"
+            commandString: ioManager.bpmNumber
 
-            ioManager.bpmNumber = cmd
+            onExecuteCommand:
+            {
+                var intCmd = parseInt(cmd)
+                if (intCmd === 0 || intCmd > 300)
+                    return
+
+                ioManager.bpmNumber = cmd
+            }
+            onEscapePressed: beatChooserBox.visible = false
         }
-        onEscapePressed: beatChooserBox.visible = false
     }
 }

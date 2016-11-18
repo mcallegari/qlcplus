@@ -66,7 +66,6 @@ Rectangle
                 anchors.fill: parent
                 x: 3
                 color: UISettings.bgLight
-                inputText: ""
                 onEnterPressed: keyPadRoot.executeCommand(keyPadRoot.commandString)
                 onEscapePressed: keyPadRoot.escapePressed()
             }
@@ -77,26 +76,26 @@ Rectangle
         {
             width: buttonWidth
             label: "7"
-            onClicked: commandBox.inputText += label
+            onClicked: commandBox.appendText(label)
         }
         GenericButton
         {
             width: buttonWidth
             label: "8"
-            onClicked: commandBox.inputText += label
+            onClicked: commandBox.appendText(label)
         }
         GenericButton
         {
             width: buttonWidth
             label: "9"
-            onClicked: commandBox.inputText += label
+            onClicked: commandBox.appendText(label)
         }
         GenericButton
         {
             visible: showDMXcontrol
             width: buttonWidth
             label: "AT"
-            onClicked: commandBox.inputText += " AT"
+            onClicked: commandBox.appendText(" AT")
         }
 
         // row 3
@@ -104,26 +103,26 @@ Rectangle
         {
             width: buttonWidth
             label: "4"
-            onClicked: commandBox.inputText += label
+            onClicked: commandBox.appendText(label)
         }
         GenericButton
         {
             width: buttonWidth
             label: "5"
-            onClicked: commandBox.inputText += label
+            onClicked: commandBox.appendText(label)
         }
         GenericButton
         {
             width: buttonWidth
             label: "6"
-            onClicked: commandBox.inputText += label
+            onClicked: commandBox.appendText(label)
         }
         GenericButton
         {
             visible: showDMXcontrol
             width: buttonWidth
             label: "THRU"
-            onClicked: commandBox.inputText += " THRU"
+            onClicked: commandBox.appendText(" THRU")
         }
 
         // row 4
@@ -131,26 +130,26 @@ Rectangle
         {
             width: buttonWidth
             label: "1"
-            onClicked: commandBox.inputText += label
+            onClicked: commandBox.appendText(label)
         }
         GenericButton
         {
             width: buttonWidth
             label: "2"
-            onClicked: commandBox.inputText += label
+            onClicked: commandBox.appendText(label)
         }
         GenericButton
         {
             width: buttonWidth
             label: "3"
-            onClicked: commandBox.inputText += label
+            onClicked: commandBox.appendText(label)
         }
         GenericButton
         {
             visible: showDMXcontrol
             width: buttonWidth
             label: "FULL"
-            onClicked: commandBox.inputText += " FULL"
+            onClicked: commandBox.appendText(" FULL")
         }
 
         // row 5
@@ -169,7 +168,7 @@ Rectangle
         {
             width: buttonWidth
             label: "0"
-            onClicked: commandBox.inputText += label
+            onClicked: commandBox.appendText(label)
         }
         GenericButton
         {

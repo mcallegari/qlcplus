@@ -206,6 +206,7 @@ Rectangle
                 label: "BPM: " + (ioManager.bpmNumber > 0 ? ioManager.bpmNumber : qsTr("Off"))
                 color: gsMouseArea.containsMouse ? UISettings.bgLight : "transparent"
                 fontSize: UISettings.textSizeDefault
+
                 MouseArea
                 {
                     id: gsMouseArea
@@ -219,6 +220,7 @@ Rectangle
                     parent: mainView
                     y: mainToolbar.height
                     x: beatIndicator.x - width
+                    z: 51
                     visible: false
                 }
             }
