@@ -893,56 +893,6 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
         }
     }
 
-    if (m_monitorEnabled == true && m_levelValueChanged == false)
-    {
-        QListIterator <LevelChannel> it(m_levelChannels);
-        while (it.hasNext() == true)
-        {
-            LevelChannel lch(it.next());
-            Fixture* fxi = m_doc->fixture(lch.fixture);
-            if (fxi != NULL)
-            {
-                const QLCChannel* qlcch = fxi->channel(lch.channel);
-                if (qlcch == NULL)
-                    continue;
-
-                quint32 dmx_ch = fxi->address() + lch.channel;
-                int uni = fxi->universe();
-                if (uni < universes.count())
-                {
-                    uchar chValue = universes[uni]->preGMValue(dmx_ch);
-                    if (monitorSliderValue == -1)
-                    {
-                        monitorSliderValue = chValue;
-                        //qDebug() << "Monitor DMX value:" << monitorSliderValue << "level value:" << m_levelValue;
-                    }
-                    else
-                    {
-                        if (chValue != (uchar)monitorSliderValue)
-                        {
-                            mixedDMXlevels = true;
-                            // no need to proceed further as mixed values cannot
-                            // be represented by one single slider
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-
-        // check if all the DMX channels controlled by this slider
-        // have the same value. If so, move the widget slider or knob
-        // to the detected position
-        if (mixedDMXlevels == false &&
-            monitorSliderValue != m_monitorValue)
-        {
-            emit monitorDMXValueChanged(monitorSliderValue);
-            // return here. At the next call of this method,
-            // the monitor level will kick in
-            return;
-        }
-    }
-
     QListIterator <LevelChannel> it(m_levelChannels);
     while (it.hasNext() == true)
     {
@@ -997,6 +947,58 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
                 universes[uni]->write(dmx_ch, modLevel * intensity());
         }
     }
+
+    if (m_monitorEnabled == true && m_levelValueChanged == false)
+    {
+        QListIterator <LevelChannel> it(m_levelChannels);
+        while (it.hasNext() == true)
+        {
+            LevelChannel lch(it.next());
+            Fixture* fxi = m_doc->fixture(lch.fixture);
+            if (fxi != NULL)
+            {
+                const QLCChannel* qlcch = fxi->channel(lch.channel);
+                if (qlcch == NULL)
+                    continue;
+
+                quint32 dmx_ch = fxi->address() + lch.channel;
+                int uni = fxi->universe();
+                if (uni < universes.count())
+                {
+                    uchar chValue = universes[uni]->preGMValue(dmx_ch);
+                    if (monitorSliderValue == -1)
+                    {
+                        monitorSliderValue = chValue;
+                        //qDebug() << "Monitor DMX value:" << monitorSliderValue << "level value:" << m_levelValue;
+                    }
+                    else
+                    {
+                        if (chValue != (uchar)monitorSliderValue)
+                        {
+                            mixedDMXlevels = true;
+                            // no need to proceed further as mixed values cannot
+                            // be represented by one single slider
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        // check if all the DMX channels controlled by this slider
+        // have the same value. If so, move the widget slider or knob
+        // to the detected position
+        if (mixedDMXlevels == false &&
+            monitorSliderValue != m_monitorValue)
+        {
+            emit monitorDMXValueChanged(monitorSliderValue);
+            // return here. At the next call of this method,
+            // the monitor level will kick in
+            return;
+        }
+    }
+
+
     m_levelValueChanged = false;
 }
 
