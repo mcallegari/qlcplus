@@ -346,6 +346,7 @@ public:
      */
     const QByteArray preGMValues() const;
 
+
     /**
      * Get the current pre-Grand-Master value (used by functions and everyone
      * else INSIDE QLC+) at specified address.
@@ -353,6 +354,7 @@ public:
      * @return The current value at address
      */
     uchar preGMValue(int address) const;
+    uchar overrideValue(int address) const;
 
     /** Set all intensity channel values to zero */
     void zeroIntensityChannels();
@@ -401,6 +403,10 @@ protected:
     QVector<int> m_nonIntensityChannels;
     /** Array of values BEFORE the Grand Master changes */
     QScopedPointer<QByteArray> m_preGMValues;
+
+    QScopedPointer<QByteArray> m_overrideActive;
+    QScopedPointer<QByteArray> m_overrideValues;
+
     /** Array of values AFTER the Grand Master changes (applyGM) */
     QScopedPointer<QByteArray> m_postGMValues;
     /** Array of the last preGM values written before the zeroIntensityChannels call  */
@@ -445,6 +451,8 @@ public:
      * @return true if successful, otherwise false
      */
     bool write(int channel, uchar value, bool forceLTP = false);
+    bool override(int channel, uchar value);
+    bool enableOverride(int channel, bool enable);
 
     /**
      * Write a relative value to a DMX channel, taking Grand Master and HTP into

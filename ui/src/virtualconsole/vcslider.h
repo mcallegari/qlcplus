@@ -454,12 +454,14 @@ public:
 
 private slots:
     void slotSliderMoved(int value);
+    void slotOverrideButtonClicked(bool checked);
 
 protected:
     QHBoxLayout* m_hbox;
     QAbstractSlider* m_slider; //!< either QClickAndGoSlider or KnobWidget
     bool m_externalMovement;
     SliderWidgetStyle m_widgetMode;
+    QToolButton *m_overrideButton;
 
     /*********************************************************************
      * Bottom label
@@ -547,6 +549,10 @@ public:
     bool loadXMLPlayback(QXmlStreamReader &pb_root);
 
     bool saveXML(QXmlStreamWriter *doc);
+
+
+    //new behaviour place in appropriate place
+    bool m_override;
 };
 
 /** @} */

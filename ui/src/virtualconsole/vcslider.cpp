@@ -85,6 +85,7 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_topLabel = NULL;
     m_slider = NULL;
     m_bottomLabel = NULL;
+    m_overrideButton = NULL;
 
     m_valueDisplayStyle = ExactValue;
 
@@ -141,6 +142,23 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_hbox->addStretch();
 
     layout()->addItem(m_hbox);
+
+    m_override = false;
+    m_overrideButton = new QToolButton(this);
+    m_overrideButton->setMinimumWidth(32);
+    m_overrideButton->setMaximumWidth(80);
+    m_overrideButton->setText("OVR");
+    m_overrideButton->setFixedSize(48, 48);
+    m_overrideButton->setVisible(false);
+    m_overrideButton->setCheckable(true);
+    m_overrideButton->setChecked(false);
+
+    connect(m_overrideButton, SIGNAL(clicked(bool)),
+            this, SLOT(slotOverrideButtonClicked(bool)));
+
+    layout()->addWidget(m_overrideButton);
+    layout()->setAlignment(m_overrideButton, Qt::AlignHCenter);
+
 
     /* Click & Go button */
     m_cngType = ClickAndGoWidget::None;
@@ -459,6 +477,8 @@ void VCSlider::setSliderMode(SliderMode mode)
                 setClickAndGoWidgetFromLevel(m_slider->value());
         }
 
+        m_overrideButton->setVisible(true);
+
         if (m_doc->mode() == Doc::Operate)
             m_doc->masterTimer()->registerDMXSource(this, "Slider");
     }
@@ -478,6 +498,8 @@ void VCSlider::setSliderMode(SliderMode mode)
         }
         slotSliderMoved(level);
 
+        m_overrideButton->setVisible(false);
+
         if (m_doc->mode() == Doc::Operate)
             m_doc->masterTimer()->registerDMXSource(this, "Slider");
         setPlaybackFunction(this->m_playbackFunction);
@@ -493,6 +515,8 @@ void VCSlider::setSliderMode(SliderMode mode)
             if (m_widgetMode == WSlider)
                 m_slider->setStyleSheet(submasterStyleSheet);
         }
+        m_overrideButton->setVisible(false);
+
         if (m_doc->mode() == Doc::Operate)
             m_doc->masterTimer()->unregisterDMXSource(this);
     }
@@ -944,11 +968,23 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
             }
 
             if (uni < universes.count())
-                universes[uni]->write(dmx_ch, modLevel * intensity());
+            {
+                if(m_override)
+                {
+                    universes[uni]->enableOverride(dmx_ch, true);
+                    universes[uni]->override(dmx_ch, modLevel * intensity());
+                }
+                else
+                {
+                    universes[uni]->enableOverride(dmx_ch, false);
+                    universes[uni]->write(dmx_ch, modLevel * intensity());
+                }
+            }
         }
     }
 
-    if (m_monitorEnabled == true && m_levelValueChanged == false)
+    //on override there is no need to monitor level value because slider is the only source for the value
+    if (m_monitorEnabled == true && m_levelValueChanged == false && m_override == false)
     {
         QListIterator <LevelChannel> it(m_levelChannels);
         while (it.hasNext() == true)
@@ -1121,7 +1157,7 @@ void VCSlider::setWidgetStyle(SliderWidgetStyle mode)
     {
         qDebug() << "Switching to knob widget";
         disconnect(m_slider, SIGNAL(valueChanged(int)),
-                this, SLOT(slotSliderMoved(int)));
+                this, SLOT((int)));
 
         QLayoutItem* item;
         while ( ( item = m_hbox->takeAt( 0 ) ) != NULL )
@@ -1208,6 +1244,18 @@ void VCSlider::updateFeedback()
                          float(m_slider->maximum()), float(0), float(UCHAR_MAX));
     }
     sendFeedback(fbv);
+}
+
+void VCSlider::slotOverrideButtonClicked(bool checked)
+{
+    if(checked)
+    {
+        m_override = true;
+    }
+    else
+    {
+        m_override = false;
+    }
 }
 
 void VCSlider::slotSliderMoved(int value)

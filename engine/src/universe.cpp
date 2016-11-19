@@ -55,6 +55,8 @@ Universe::Universe(quint32 id, GrandMaster *gm, QObject *parent)
     , m_totalChannelsChanged(false)
     , m_intensityChannelsChanged(false)
     , m_preGMValues(new QByteArray(UNIVERSE_SIZE, char(0)))
+    , m_overrideActive(new QByteArray(UNIVERSE_SIZE, char(0)))
+    , m_overrideValues(new QByteArray(UNIVERSE_SIZE, char(0)))
     , m_postGMValues(new QByteArray(UNIVERSE_SIZE, char(0)))
     , m_lastPostGMValues(new QByteArray(UNIVERSE_SIZE, char(0)))
     , m_passthroughValues()
@@ -199,6 +201,8 @@ void Universe::reset()
     else
     {
         m_postGMValues->fill(0);
+ //       m_overrideActive->fill(0);
+        //m_overrideValues->fill(0);
     }
     zeroRelativeValues();
     m_modifiers.fill(NULL, UNIVERSE_SIZE);
@@ -226,7 +230,10 @@ void Universe::reset(int address, int range)
     if (address + range > UNIVERSE_SIZE) 
        range = UNIVERSE_SIZE - address;
 
+
     memset(m_preGMValues->data() + address, 0, range * sizeof(*m_preGMValues->data()));
+    //memset(m_overrideActive->data() + address, 0, range * sizeof(*m_overrideActive->data()));
+    //memset(m_overrideValues->data() + address, 0, range * sizeof(*m_overrideValues->data()));
     memset(m_relativeValues.data() + address, 0, range * sizeof(*m_relativeValues.data()));
     memcpy(m_postGMValues->data() + address, m_modifiedZeroValues->data() + address, range * sizeof(*m_postGMValues->data()));
 
@@ -322,6 +329,15 @@ uchar Universe::preGMValue(int address) const
     return static_cast<uchar>(m_preGMValues->at(address));
 }
 
+
+uchar Universe::overrideValue(int address) const
+{
+    if (address >= m_overrideValues->size())
+        return 0U;
+
+    return static_cast<uchar>(m_overrideValues->at(address));
+}
+
 uchar Universe::applyRelative(int channel, uchar value)
 {
     if (m_relativeValues[channel] != 0)
@@ -371,9 +387,18 @@ uchar Universe::applyPassthrough(int channel, uchar value)
 
 void Universe::updatePostGMValue(int channel)
 {
-    uchar value = preGMValue(channel);
+    uchar value = 0;
 
-    value = applyRelative(channel, value);
+    if(m_overrideActive->at(channel))
+    {
+        value = overrideValue(channel);
+    }
+    else
+    {
+        value = preGMValue(channel);
+        value = applyRelative(channel, value);
+    }
+
 
     if (value == 0)
     {
@@ -386,6 +411,7 @@ void Universe::updatePostGMValue(int channel)
     }
 
     value = applyPassthrough(channel, value);
+
 
     (*m_postGMValues)[channel] = static_cast<char>(value);
 }
@@ -738,6 +764,41 @@ bool Universe::write(int channel, uchar value, bool forceLTP)
 
     return true;
 }
+
+bool Universe::override(int channel, uchar value)
+{
+    Q_ASSERT(channel < UNIVERSE_SIZE);
+
+    //qDebug() << "Universe write channel" << channel << ", value:" << value;
+
+    if (channel >= m_usedChannels)
+        m_usedChannels = channel + 1;
+
+//    if (forceLTP == false && (m_channelsMask->at(channel) & HTP) && value < (uchar)m_preGMValues->at(channel))
+//    {
+//        qDebug() << "[Universe] HTP check not passed" << channel << value;
+//        return false;
+//    }
+
+    (*m_overrideValues)[channel] = char(value);
+
+    updatePostGMValue(channel);
+
+    return true;
+}
+
+bool Universe::enableOverride(int channel, bool enable)
+{
+    if (channel >= m_overrideActive->size())
+         return false;
+    (*m_overrideActive)[channel] = enable;
+
+    if(enable == false)
+        (*m_overrideValues)[channel] = 0;
+
+    return true;
+}
+
 
 bool Universe::writeRelative(int channel, uchar value)
 {
