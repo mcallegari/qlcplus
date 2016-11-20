@@ -46,11 +46,9 @@
   <Channel Number="4">Color Temperature</Channel>
   <Head>
    <Channel>2</Channel>
-   <Channel>0</Channel>
   </Head>
   <Head>
    <Channel>3</Channel>
-   <Channel>0</Channel>
   </Head>
  </Mode>
  <Mode Name="4 Channel">
@@ -67,11 +65,9 @@
   <Channel Number="3">Section 2 UV Intensity</Channel>
   <Head>
    <Channel>2</Channel>
-   <Channel>0</Channel>
   </Head>
   <Head>
    <Channel>3</Channel>
-   <Channel>0</Channel>
   </Head>
  </Mode>
  <Mode Name="3 Channel">
@@ -87,11 +83,9 @@
   <Channel Number="2">Section 2 UV Intensity</Channel>
   <Head>
    <Channel>1</Channel>
-   <Channel>0</Channel>
   </Head>
   <Head>
    <Channel>2</Channel>
-   <Channel>0</Channel>
   </Head>
  </Mode>
  <Mode Name="2 Channel">

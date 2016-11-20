@@ -221,24 +221,18 @@
   <Head>
    <Channel>12</Channel>
    <Channel>15</Channel>
-   <Channel>1</Channel>
-   <Channel>2</Channel>
    <Channel>6</Channel>
    <Channel>9</Channel>
   </Head>
   <Head>
    <Channel>13</Channel>
-   <Channel>1</Channel>
    <Channel>16</Channel>
-   <Channel>2</Channel>
    <Channel>7</Channel>
    <Channel>10</Channel>
   </Head>
   <Head>
    <Channel>14</Channel>
    <Channel>17</Channel>
-   <Channel>1</Channel>
-   <Channel>2</Channel>
    <Channel>8</Channel>
    <Channel>11</Channel>
   </Head>

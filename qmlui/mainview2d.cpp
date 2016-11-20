@@ -289,7 +289,7 @@ void MainView2D::updateFixture(Fixture *fixture)
 
     for (int headIdx = 0; headIdx < fixture->heads(); headIdx++)
     {
-        quint32 mdIndex = fixture->masterIntensityChannel(headIdx);
+        quint32 mdIndex = fixture->intensityChannel(headIdx);
         //qDebug() << "Head" << headIdx << "dimmer channel:" << mdIndex;
         qreal intValue = 1.0;
         if (mdIndex != QLCChannel::invalid())

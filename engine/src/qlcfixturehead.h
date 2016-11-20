@@ -97,10 +97,10 @@ public:
     quint32 tiltLsbChannel() const;
 
     /**
-     * Get the master intensity channel. For dimmers this is invalid.
-     * @return The master intensity channel or QLCChannel::invalid() if not applicable.
+     * Get the intensity (dimmer) channel. For dimmers this return the sole channel of the head.
+     * @return The intensity channel or QLCChannel::invalid() if not applicable.
      */
-    quint32 masterIntensityChannel() const;
+    quint32 intensityChannel() const;
 
     /**
      * Get a list of RGB channels. If the fixture doesn't support RGB mixing,
@@ -147,8 +147,8 @@ protected:
     /** The fine tilt channel */
     quint32 m_tiltLsbChannel;
 
-    /** The master intensity channel */
-    quint32 m_masterIntensityChannel;
+    /** The intensity (dimmer) channel */
+    quint32 m_intensityChannel;
 
     /** The RGB mix intensity channels */
     QVector <quint32> m_rgbChannels;

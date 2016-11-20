@@ -245,13 +245,11 @@
   <Channel Number="7">Green 2 Bottom Row</Channel>
   <Channel Number="8">Blue 2 Bottom Row</Channel>
   <Head>
-   <Channel>1</Channel>
    <Channel>3</Channel>
    <Channel>4</Channel>
    <Channel>5</Channel>
   </Head>
   <Head>
-   <Channel>1</Channel>
    <Channel>8</Channel>
    <Channel>6</Channel>
    <Channel>7</Channel>
@@ -281,25 +279,21 @@
   <Channel Number="13">Green 4</Channel>
   <Channel Number="14">Blue 4</Channel>
   <Head>
-   <Channel>1</Channel>
    <Channel>3</Channel>
    <Channel>4</Channel>
    <Channel>5</Channel>
   </Head>
   <Head>
-   <Channel>1</Channel>
    <Channel>8</Channel>
    <Channel>6</Channel>
    <Channel>7</Channel>
   </Head>
   <Head>
-   <Channel>1</Channel>
    <Channel>9</Channel>
    <Channel>10</Channel>
    <Channel>11</Channel>
   </Head>
   <Head>
-   <Channel>1</Channel>
    <Channel>12</Channel>
    <Channel>13</Channel>
    <Channel>14</Channel>
@@ -341,49 +335,41 @@
   <Channel Number="25">Green 8</Channel>
   <Channel Number="26">Blue 8</Channel>
   <Head>
-   <Channel>1</Channel>
    <Channel>3</Channel>
    <Channel>4</Channel>
    <Channel>5</Channel>
   </Head>
   <Head>
-   <Channel>1</Channel>
    <Channel>8</Channel>
    <Channel>6</Channel>
    <Channel>7</Channel>
   </Head>
   <Head>
-   <Channel>1</Channel>
    <Channel>9</Channel>
    <Channel>10</Channel>
    <Channel>11</Channel>
   </Head>
   <Head>
-   <Channel>1</Channel>
    <Channel>12</Channel>
    <Channel>13</Channel>
    <Channel>14</Channel>
   </Head>
   <Head>
    <Channel>16</Channel>
-   <Channel>1</Channel>
    <Channel>17</Channel>
    <Channel>15</Channel>
   </Head>
   <Head>
-   <Channel>1</Channel>
    <Channel>18</Channel>
    <Channel>19</Channel>
    <Channel>20</Channel>
   </Head>
   <Head>
-   <Channel>1</Channel>
    <Channel>21</Channel>
    <Channel>22</Channel>
    <Channel>23</Channel>
   </Head>
   <Head>
-   <Channel>1</Channel>
    <Channel>24</Channel>
    <Channel>25</Channel>
    <Channel>26</Channel>

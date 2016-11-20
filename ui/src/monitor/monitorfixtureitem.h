@@ -69,6 +69,7 @@ struct FixtureHead
     int m_strobePhase;
     QTimer* m_strobeTimer;
 
+    quint32 m_dimmer;
     quint32 m_masterDimmer;
     quint32 m_panChannel;
     int m_panMaxDegrees;
@@ -131,9 +132,10 @@ protected:
 private:
     void computeTiltPosition(FixtureHead *h, uchar value);
     void computePanPosition(FixtureHead *h, uchar value);
-    QColor computeColor(FixtureHead *head, const QByteArray & values);
-    uchar computeAlpha(FixtureHead *head, const QByteArray & values);
-    FixtureHead::ShutterState computeShutter(FixtureHead *head, const QByteArray & values);
+
+    QColor computeColor(const FixtureHead *head, const QByteArray & values);
+    uchar computeAlpha(const FixtureHead *head, const QByteArray & values);
+    FixtureHead::ShutterState computeShutter(const FixtureHead *head, const QByteArray & values);
 
 signals:
     void itemDropped(MonitorFixtureItem *);

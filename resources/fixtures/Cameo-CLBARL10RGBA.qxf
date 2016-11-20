@@ -225,10 +225,6 @@
   </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Colour-Macro</Channel>
-  <Head>
-   <Channel>1</Channel>
-   <Channel>0</Channel>
-  </Head>
  </Mode>
  <Mode Name="4-Channel">
   <Physical>
@@ -242,12 +238,6 @@
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
   <Channel Number="3">Amber</Channel>
-  <Head>
-   <Channel>1</Channel>
-   <Channel>0</Channel>
-   <Channel>3</Channel>
-   <Channel>2</Channel>
-  </Head>
  </Mode>
  <Mode Name="6-Channel">
   <Physical>
@@ -263,13 +253,6 @@
   <Channel Number="3">Amber</Channel>
   <Channel Number="4">Dimmer</Channel>
   <Channel Number="5">Mode</Channel>
-  <Head>
-   <Channel>1</Channel>
-   <Channel>0</Channel>
-   <Channel>3</Channel>
-   <Channel>2</Channel>
-   <Channel>4</Channel>
-  </Head>
  </Mode>
  <Mode Name="3-Channel">
   <Physical>
@@ -282,10 +265,6 @@
   <Channel Number="0">Colour Macros</Channel>
   <Channel Number="1">Dimmer/Speed</Channel>
   <Channel Number="2">Strobe speed</Channel>
-  <Head>
-   <Channel>1</Channel>
-   <Channel>0</Channel>
-  </Head>
  </Mode>
  <Mode Name="19-Channel">
   <Physical>
@@ -315,21 +294,18 @@
   <Channel Number="17">B4</Channel>
   <Channel Number="18">A4</Channel>
   <Head>
-   <Channel>1</Channel>
    <Channel>3</Channel>
    <Channel>5</Channel>
    <Channel>4</Channel>
    <Channel>6</Channel>
   </Head>
   <Head>
-   <Channel>1</Channel>
    <Channel>7</Channel>
    <Channel>9</Channel>
    <Channel>8</Channel>
    <Channel>10</Channel>
   </Head>
   <Head>
-   <Channel>1</Channel>
    <Channel>11</Channel>
    <Channel>13</Channel>
    <Channel>12</Channel>
@@ -338,7 +314,6 @@
   <Head>
    <Channel>17</Channel>
    <Channel>16</Channel>
-   <Channel>1</Channel>
    <Channel>18</Channel>
    <Channel>15</Channel>
   </Head>

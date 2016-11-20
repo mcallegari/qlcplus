@@ -357,17 +357,14 @@
    <Channel>1</Channel>
    <Channel>2</Channel>
    <Channel>3</Channel>
-   <Channel>12</Channel>
   </Head>
   <Head>
-   <Channel>12</Channel>
    <Channel>4</Channel>
    <Channel>5</Channel>
    <Channel>6</Channel>
    <Channel>7</Channel>
   </Head>
   <Head>
-   <Channel>12</Channel>
    <Channel>8</Channel>
    <Channel>9</Channel>
    <Channel>10</Channel>

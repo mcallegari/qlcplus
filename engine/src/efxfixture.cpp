@@ -99,7 +99,8 @@ void EFXFixture::setHead(GroupHead const & head)
             (fxi->tiltMsbChannel(head.head) != QLCChannel::invalid()))
         modes << PanTilt;
 
-    if((fxi->masterIntensityChannel(head.head) != QLCChannel::invalid()))
+    if((fxi->masterIntensityChannel() != QLCChannel::invalid()) ||
+            (fxi->intensityChannel(head.head) != QLCChannel::invalid()))
         modes << Dimmer;
 
     if((fxi->rgbChannels (head.head).size () >= 3))
@@ -159,7 +160,7 @@ bool EFXFixture::isValid() const
     else if (m_mode == PanTilt && fxi->panMsbChannel(head().head) == QLCChannel::invalid() && // Maybe a device can pan OR tilt
              fxi->tiltMsbChannel(head().head) == QLCChannel::invalid())   // but not both. Teh sux0r.
         return false;
-    else if (m_mode == Dimmer && fxi->masterIntensityChannel(head().head) == QLCChannel::invalid() )
+    else if (m_mode == Dimmer && fxi->masterIntensityChannel() == QLCChannel::invalid() && fxi->intensityChannel(head().head) == QLCChannel::invalid() )
         return false;
     else if (m_mode == RGB && fxi->rgbChannels(head().head).size () == 0)
         return false;
@@ -197,7 +198,7 @@ QStringList EFXFixture::modeList()
             (fxi->tiltMsbChannel(head().head) != QLCChannel::invalid()) )
         modes << KXMLQLCEFXFixtureModePanTilt;
 
-    if((fxi->masterIntensityChannel(head().head) != QLCChannel::invalid()))
+    if(fxi->masterIntensityChannel() != QLCChannel::invalid() || fxi->intensityChannel(head().head) != QLCChannel::invalid())
         modes << KXMLQLCEFXFixtureModeDimmer;
 
     if((fxi->rgbChannels (head().head).size () >= 3))
@@ -493,9 +494,13 @@ void EFXFixture::setPointDimmer(QList<Universe *> universes, float dimmer)
     Q_ASSERT(fxi != NULL);
 
     /* Don't write dimmer data directly to universes but use FadeChannel to avoid steps at EFX loop restart */
-    if (fxi->masterIntensityChannel(head().head) != QLCChannel::invalid())
+    if (fxi->intensityChannel(head().head) != QLCChannel::invalid())
     {
-        setFadeChannel(fxi->masterIntensityChannel(head().head),  dimmer);
+        setFadeChannel(fxi->intensityChannel(head().head), dimmer);
+    }
+    else if (fxi->masterIntensityChannel() != QLCChannel::invalid())
+    {
+        setFadeChannel(fxi->masterIntensityChannel(), dimmer);
     }
 }
 
