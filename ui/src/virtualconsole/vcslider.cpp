@@ -85,7 +85,8 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_topLabel = NULL;
     m_slider = NULL;
     m_bottomLabel = NULL;
-    m_overrideButton = NULL;
+    m_resetButton = NULL;
+    m_enaAutoResetButton = NULL;
 
     m_valueDisplayStyle = ExactValue;
 
@@ -96,6 +97,7 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_levelValueChanged = false;
     m_monitorEnabled = false;
     m_monitorValue = 0;
+    m_previousSceneValue = 0;
 
     m_playbackFunction = Function::invalidId();
     m_playbackValue = 0;
@@ -122,6 +124,39 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     /* Put stretchable space before the slider (to its left side) */
     m_hbox->addStretch();
 
+    /* Reset Handling Buttons */
+    m_override = false;
+    m_autoReset = false;
+    m_doReset = true;
+    m_resetButton = new QToolButton(this);
+    m_resetButton->setMinimumWidth(32);
+    m_resetButton->setMaximumWidth(80);
+    m_resetButton->setText("RST");
+    m_resetButton->setFixedSize(48, 48);
+    m_resetButton->setVisible(false);
+
+    connect(m_resetButton, SIGNAL(clicked()),
+            this, SLOT(slotResetButtonClicked()));
+
+    layout()->addWidget(m_resetButton);
+    layout()->setAlignment(m_resetButton, Qt::AlignHCenter);
+
+    m_override = false;
+    m_enaAutoResetButton = new QToolButton(this);
+    m_enaAutoResetButton->setMinimumWidth(32);
+    m_enaAutoResetButton->setMaximumWidth(80);
+    m_enaAutoResetButton->setText("AUTO RST");
+    m_enaAutoResetButton->setFixedSize(48, 48);
+    m_enaAutoResetButton->setVisible(false);
+    m_enaAutoResetButton->setCheckable(true);
+    m_enaAutoResetButton->setChecked(false);
+
+    connect(m_enaAutoResetButton, SIGNAL(clicked(bool)),
+            this, SLOT(slotEnaAutoResetButtonClicked(bool)));
+
+    layout()->addWidget(m_enaAutoResetButton);
+    layout()->setAlignment(m_enaAutoResetButton, Qt::AlignHCenter);
+
     /* The slider */
     m_slider = new ClickAndGoSlider(this);
 
@@ -143,21 +178,7 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
 
     layout()->addItem(m_hbox);
 
-    m_override = false;
-    m_overrideButton = new QToolButton(this);
-    m_overrideButton->setMinimumWidth(32);
-    m_overrideButton->setMaximumWidth(80);
-    m_overrideButton->setText("OVR");
-    m_overrideButton->setFixedSize(48, 48);
-    m_overrideButton->setVisible(false);
-    m_overrideButton->setCheckable(true);
-    m_overrideButton->setChecked(false);
 
-    connect(m_overrideButton, SIGNAL(clicked(bool)),
-            this, SLOT(slotOverrideButtonClicked(bool)));
-
-    layout()->addWidget(m_overrideButton);
-    layout()->setAlignment(m_overrideButton, Qt::AlignHCenter);
 
 
     /* Click & Go button */
@@ -477,7 +498,8 @@ void VCSlider::setSliderMode(SliderMode mode)
                 setClickAndGoWidgetFromLevel(m_slider->value());
         }
 
-        m_overrideButton->setVisible(true);
+        m_enaAutoResetButton->setVisible(true);
+        m_resetButton->setVisible(true);
 
         if (m_doc->mode() == Doc::Operate)
             m_doc->masterTimer()->registerDMXSource(this, "Slider");
@@ -498,7 +520,9 @@ void VCSlider::setSliderMode(SliderMode mode)
         }
         slotSliderMoved(level);
 
-        m_overrideButton->setVisible(false);
+        m_enaAutoResetButton->setVisible(false);
+        m_resetButton->setVisible(false);
+
 
         if (m_doc->mode() == Doc::Operate)
             m_doc->masterTimer()->registerDMXSource(this, "Slider");
@@ -515,7 +539,8 @@ void VCSlider::setSliderMode(SliderMode mode)
             if (m_widgetMode == WSlider)
                 m_slider->setStyleSheet(submasterStyleSheet);
         }
-        m_overrideButton->setVisible(false);
+        m_enaAutoResetButton->setVisible(false);
+        m_resetButton->setVisible(false);
 
         if (m_doc->mode() == Doc::Operate)
             m_doc->masterTimer()->unregisterDMXSource(this);
@@ -878,114 +903,42 @@ void VCSlider::writeDMX(MasterTimer* timer, QList<Universe *> universes)
 void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
 {
     Q_UNUSED(timer);
-
     QMutexLocker locker(&m_levelValueMutex);
-
-    uchar modLevel = m_levelValue;
-    bool mixedDMXlevels = false;
     int monitorSliderValue = -1;
-
     int r = 0, g = 0, b = 0, c = 0, m = 0, y = 0;
 
-    if (m_cngType == ClickAndGoWidget::RGB)
-    {
-        float f = 0;
-        if (m_slider)
+//    if(m_levelValueChanged)
+//    {
+        uchar modLevel = m_levelValue;
+
+        if (m_cngType == ClickAndGoWidget::RGB)
+        {
+            float f = 0;
+            if (m_slider)
             f = SCALE(float(m_levelValue), float(m_slider->minimum()),
-                      float(m_slider->maximum()), float(0), float(200));
-
-        if ((uchar)f != 0)
-        {
-            QColor modColor = m_cngRGBvalue.lighter((uchar)f);
-            r = modColor.red();
-            g = modColor.green();
-            b = modColor.blue();
+                  float(m_slider->maximum()), float(0), float(200));
+            if ((uchar)f != 0)
+            {
+                QColor modColor = m_cngRGBvalue.lighter((uchar)f);
+                r = modColor.red();
+                g = modColor.green();
+                b = modColor.blue();
+            }
         }
-    }
-    else if (m_cngType == ClickAndGoWidget::CMY)
-    {
-        float f = 0;
-        if (m_slider)
+        else if (m_cngType == ClickAndGoWidget::CMY)
+        {
+            float f = 0;
+            if (m_slider)
             f = SCALE(float(m_levelValue), float(m_slider->minimum()),
-                      float(m_slider->maximum()), float(0), float(200));
-        if ((uchar)f != 0)
-        {
-            QColor modColor = m_cngRGBvalue.lighter((uchar)f);
-            c = modColor.cyan();
-            m = modColor.magenta();
-            y = modColor.yellow();
-        }
-    }
-
-    QListIterator <LevelChannel> it(m_levelChannels);
-    while (it.hasNext() == true)
-    {
-        LevelChannel lch(it.next());
-        Fixture* fxi = m_doc->fixture(lch.fixture);
-        if (fxi != NULL)
-        {
-            const QLCChannel* qlcch = fxi->channel(lch.channel);
-            if (qlcch == NULL)
-                continue;
-
-            quint32 dmx_ch = fxi->address() + lch.channel;
-            int uni = fxi->universe();
-
-            // Dirty channel group check: is the channel HTP or LTP ?
-            QLCChannel::Group group = qlcch->group();
-            if (fxi->forcedLTPChannels().contains(lch.channel))
-                group = QLCChannel::Effect;
-            if (fxi->forcedHTPChannels().contains(lch.channel))
-                group = QLCChannel::Intensity;
-
-            if (group != QLCChannel::Intensity &&
-                m_levelValueChanged == false)
+                  float(m_slider->maximum()), float(0), float(200));
+            if ((uchar)f != 0)
             {
-                /* Value has not changed and this is not an intensity channel.
-                   LTP in effect. */
-                continue;
-            }
-            if (qlcch->group() == QLCChannel::Intensity)
-            {
-                if (m_cngType == ClickAndGoWidget::RGB)
-                {
-                    if (qlcch->colour() == QLCChannel::Red)
-                        modLevel = (uchar)r;
-                    else if (qlcch->colour() == QLCChannel::Green)
-                        modLevel = (uchar)g;
-                    else if (qlcch->colour() == QLCChannel::Blue)
-                        modLevel = (uchar)b;
-                }
-                else if (m_cngType == ClickAndGoWidget::CMY)
-                {
-                    if (qlcch->colour() == QLCChannel::Cyan)
-                        modLevel = (uchar)c;
-                    else if (qlcch->colour() == QLCChannel::Magenta)
-                        modLevel = (uchar)m;
-                    else if (qlcch->colour() == QLCChannel::Yellow)
-                        modLevel = (uchar)y;
-                }
-            }
-
-            if (uni < universes.count())
-            {
-                if(m_override)
-                {
-                    universes[uni]->enableOverride(dmx_ch, true);
-                    universes[uni]->override(dmx_ch, modLevel * intensity());
-                }
-                else
-                {
-                    universes[uni]->enableOverride(dmx_ch, false);
-                    universes[uni]->write(dmx_ch, modLevel * intensity());
-                }
+                QColor modColor = m_cngRGBvalue.lighter((uchar)f);
+                c = modColor.cyan();
+                m = modColor.magenta();
+                y = modColor.yellow();
             }
         }
-    }
-
-    //on override there is no need to monitor level value because slider is the only source for the value
-    if (m_monitorEnabled == true && m_levelValueChanged == false && m_override == false)
-    {
         QListIterator <LevelChannel> it(m_levelChannels);
         while (it.hasNext() == true)
         {
@@ -996,11 +949,71 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
                 const QLCChannel* qlcch = fxi->channel(lch.channel);
                 if (qlcch == NULL)
                     continue;
+                quint32 dmx_ch = fxi->address() + lch.channel;
+                int uni = fxi->universe();
+                // Dirty channel group check: is the channel HTP or LTP ?
+                QLCChannel::Group group = qlcch->group();
+                if (fxi->forcedLTPChannels().contains(lch.channel))
+                    group = QLCChannel::Effect;
+                if (fxi->forcedHTPChannels().contains(lch.channel))
+                    group = QLCChannel::Intensity;
+                if (group != QLCChannel::Intensity &&
+                    m_levelValueChanged == false)
+                {
+                    /* Value has not changed and this is not an intensity channel.
+                       LTP in effect. */
+                    continue;
+                }
+                if (qlcch->group() == QLCChannel::Intensity)
+                {
+                    if (m_cngType == ClickAndGoWidget::RGB)
+                    {
+                        if (qlcch->colour() == QLCChannel::Red)
+                            modLevel = (uchar)r;
+                        else if (qlcch->colour() == QLCChannel::Green)
+                            modLevel = (uchar)g;
+                        else if (qlcch->colour() == QLCChannel::Blue)
+                            modLevel = (uchar)b;
+                    }
+                    else if (m_cngType == ClickAndGoWidget::CMY)
+                    {
+                        if (qlcch->colour() == QLCChannel::Cyan)
+                            modLevel = (uchar)c;
+                        else if (qlcch->colour() == QLCChannel::Magenta)
+                            modLevel = (uchar)m;
+                        else if (qlcch->colour() == QLCChannel::Yellow)
+                            modLevel = (uchar)y;
+                    }
+                }
+                if (uni < universes.count())
+                {
+                    if(m_levelValueChanged == true)
+                    {
+                        universes[uni]->enableOverride(dmx_ch, true);
+                         m_override = true; //activate override as soon as slider is moved away from scene
+                    }
+                    universes[uni]->override(dmx_ch, modLevel * intensity());
+                }
+            }
+        }
 
+      if(m_levelValueChanged == false)
+      {
+        QListIterator <LevelChannel> it(m_levelChannels);
+        while (it.hasNext() == true)
+        {
+            LevelChannel lch(it.next());
+            Fixture* fxi = m_doc->fixture(lch.fixture);
+            if (fxi != NULL)
+            {
+                const QLCChannel* qlcch = fxi->channel(lch.channel);
+                if (qlcch == NULL)
+                    continue;
                 quint32 dmx_ch = fxi->address() + lch.channel;
                 int uni = fxi->universe();
                 if (uni < universes.count())
                 {
+                    //first determine mixed values
                     uchar chValue = universes[uni]->preGMValue(dmx_ch);
                     if (monitorSliderValue == -1)
                     {
@@ -1011,31 +1024,38 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
                     {
                         if (chValue != (uchar)monitorSliderValue)
                         {
-                            mixedDMXlevels = true;
+                            //mixedDMXlevels = true;
                             // no need to proceed further as mixed values cannot
                             // be represented by one single slider
                             break;
                         }
                     }
+
+                    if(m_doReset == true)
+                    {
+                        m_doReset = false;
+                        m_override = false;
+                        universes[uni]->enableOverride(dmx_ch, false);
+                        emit monitorDMXValueChanged(universes[uni]->preGMValue(dmx_ch));
+                    }
+                    if(m_autoReset == true || m_override == false)
+                    {
+                        if(m_previousSceneValue != universes[uni]->preGMValue(dmx_ch))
+                        {
+                            m_override = false;
+                            universes[uni]->enableOverride(dmx_ch, false);
+                            emit monitorDMXValueChanged(universes[uni]->preGMValue(dmx_ch));
+                            m_previousSceneValue = universes[uni]->preGMValue(dmx_ch);
+                        }
+                    }
+
                 }
             }
         }
-
-        // check if all the DMX channels controlled by this slider
-        // have the same value. If so, move the widget slider or knob
-        // to the detected position
-        if (mixedDMXlevels == false &&
-            monitorSliderValue != m_monitorValue)
-        {
-            emit monitorDMXValueChanged(monitorSliderValue);
-            // return here. At the next call of this method,
-            // the monitor level will kick in
-            return;
-        }
     }
 
-
     m_levelValueChanged = false;
+
 }
 
 void VCSlider::writeDMXPlayback(MasterTimer* timer, QList<Universe *> ua)
@@ -1246,17 +1266,16 @@ void VCSlider::updateFeedback()
     sendFeedback(fbv);
 }
 
-void VCSlider::slotOverrideButtonClicked(bool checked)
+void VCSlider::slotResetButtonClicked()
 {
-    if(checked)
-    {
-        m_override = true;
-    }
-    else
-    {
-        m_override = false;
-    }
+      m_doReset = true;
 }
+
+void VCSlider::slotEnaAutoResetButtonClicked(bool checked)
+{
+    m_autoReset = checked;
+}
+
 
 void VCSlider::slotSliderMoved(int value)
 {

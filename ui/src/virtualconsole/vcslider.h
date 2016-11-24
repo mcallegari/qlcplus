@@ -338,6 +338,7 @@ protected:
 
     bool m_monitorEnabled;
     uchar m_monitorValue;
+    uchar m_previousSceneValue;
 
     /*********************************************************************
      * Playback
@@ -454,14 +455,16 @@ public:
 
 private slots:
     void slotSliderMoved(int value);
-    void slotOverrideButtonClicked(bool checked);
+    void slotResetButtonClicked();
+    void slotEnaAutoResetButtonClicked(bool checked);
 
 protected:
     QHBoxLayout* m_hbox;
     QAbstractSlider* m_slider; //!< either QClickAndGoSlider or KnobWidget
     bool m_externalMovement;
     SliderWidgetStyle m_widgetMode;
-    QToolButton *m_overrideButton;
+    QToolButton *m_resetButton;
+    QToolButton *m_enaAutoResetButton;
 
     /*********************************************************************
      * Bottom label
@@ -553,6 +556,8 @@ public:
 
     //new behaviour place in appropriate place
     bool m_override;
+    bool m_autoReset;
+    bool m_doReset;
 };
 
 /** @} */

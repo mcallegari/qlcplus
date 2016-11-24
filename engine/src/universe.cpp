@@ -232,8 +232,6 @@ void Universe::reset(int address, int range)
 
 
     memset(m_preGMValues->data() + address, 0, range * sizeof(*m_preGMValues->data()));
-    //memset(m_overrideActive->data() + address, 0, range * sizeof(*m_overrideActive->data()));
-    //memset(m_overrideValues->data() + address, 0, range * sizeof(*m_overrideValues->data()));
     memset(m_relativeValues.data() + address, 0, range * sizeof(*m_relativeValues.data()));
     memcpy(m_postGMValues->data() + address, m_modifiedZeroValues->data() + address, range * sizeof(*m_postGMValues->data()));
 
@@ -774,7 +772,7 @@ bool Universe::override(int channel, uchar value)
     if (channel >= m_usedChannels)
         m_usedChannels = channel + 1;
 
-//    if (forceLTP == false && (m_channelsMask->at(channel) & HTP) && value < (uchar)m_preGMValues->at(channel))
+//    if ((m_channelsMask->at(channel) & HTP) && value < (uchar)m_overrideValues->at(channel))
 //    {
 //        qDebug() << "[Universe] HTP check not passed" << channel << value;
 //        return false;
