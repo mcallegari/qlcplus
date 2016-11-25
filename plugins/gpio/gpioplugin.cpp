@@ -47,6 +47,7 @@ void GPIOPlugin::init()
     {
         GPIOPinInfo *gpio = new GPIOPinInfo;
         gpio->m_number = i;
+        gpio->m_enabled = false;
         gpio->m_usage = NoUsage;
         gpio->m_value = 1;
         gpio->m_count = 0;
