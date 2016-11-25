@@ -83,13 +83,13 @@ void GPIOConfiguration::accept()
         if (combo != NULL)
         {
             GPIOPlugin::PinUsage usage = GPIOPlugin::PinUsage(combo->currentData().toInt());
-            if(combo->currentIndex() == 1)
+            if (usage == GPIOPlugin::InputUsage)
                 m_plugin->setParameter(0, 0, QLCIOPlugin::Input, parName,
                                        m_plugin->pinUsageToString(usage));
-            else if (combo->currentIndex() == 2)
+            else if (usage == GPIOPlugin::OutputUsage)
                 m_plugin->setParameter(0, 0, QLCIOPlugin::Output, parName,
                                        m_plugin->pinUsageToString(usage));
-            else if (combo->currentIndex() == 0)
+            else // GPIOPlugin::NoUsage
             {
                 // we use the setParameter method here cause we need to perform
                 // actual operations on the GPIO files
