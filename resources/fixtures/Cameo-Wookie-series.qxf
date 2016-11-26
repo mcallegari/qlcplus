@@ -82,7 +82,7 @@
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="1.4" Width="192" Height="154" Depth="83"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Focus Type="Fixed" PanMax="60" TiltMax="60"/>
    <Technical PowerConsumption="50" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Zooming</Channel>
@@ -94,7 +94,7 @@
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="1.4" Width="192" Height="154" Depth="83"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Focus Type="Fixed" PanMax="60" TiltMax="60"/>
    <Technical PowerConsumption="50" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Zooming</Channel>
@@ -106,7 +106,7 @@
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="1.4" Width="192" Height="154" Depth="83"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Focus Type="Fixed" PanMax="60" TiltMax="60"/>
    <Technical PowerConsumption="50" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Zooming</Channel>
@@ -118,7 +118,7 @@
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="1.4" Width="192" Height="154" Depth="83"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Focus Type="Fixed" PanMax="60" TiltMax="60"/>
    <Technical PowerConsumption="50" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Mode select</Channel>
@@ -136,7 +136,7 @@
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="1.4" Width="192" Height="154" Depth="83"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Focus Type="Fixed" PanMax="60" TiltMax="60"/>
    <Technical PowerConsumption="50" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Mode select</Channel>
@@ -154,7 +154,7 @@
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="1.4" Width="192" Height="154" Depth="83"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Focus Type="Fixed" PanMax="60" TiltMax="60"/>
    <Technical PowerConsumption="50" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Mode select</Channel>
