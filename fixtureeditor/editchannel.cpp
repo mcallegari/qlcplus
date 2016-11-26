@@ -195,10 +195,12 @@ void EditChannel::setupCapabilityGroup()
     m_maxSpin->blockSignals(true);
     m_descriptionEdit->blockSignals(true);
 
-    m_minSpin->setValue(m_currentCapability->min());
-    m_maxSpin->setValue(m_currentCapability->max());
     m_minSpin->setRange(0, m_currentCapability->max());
     m_maxSpin->setRange(m_currentCapability->min(), 255);
+
+    m_minSpin->setValue(m_currentCapability->min());
+    m_maxSpin->setValue(m_currentCapability->max());
+
     m_descriptionEdit->setText(m_currentCapability->name());
     m_descriptionEdit->setValidator(CAPS_VALIDATOR(this));
     m_minSpin->setFocus();
@@ -318,6 +320,7 @@ void EditChannel::slotAddCapabilityClicked()
         delete newCapability;
         return;
     }
+
     m_currentCapability = newCapability;
     refreshCapabilities();
     m_capabilityList->setCurrentItem(m_capabilityList->topLevelItem(idx));
