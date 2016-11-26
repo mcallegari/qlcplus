@@ -7,6 +7,7 @@
   <fixture path="Alkalite-Octopod-DP-80.qxf" mf="Alkalite" md="Octopod DP-80"/>
   <fixture path="American-DJ-12P-Hex.qxf" mf="American DJ" md="12P Hex Pearl"/>
   <fixture path="American-DJ-64B-LED-PRO.qxf" mf="American DJ" md="64B LED PRO"/>
+  <fixture path="American-DJ-Accu-Fog-1000.qxf" mf="American DJ" md="Accu Fog 1000"/>
   <fixture path="American-DJ-Accu-Spot-250-II.qxf" mf="American DJ" md="Accu Spot 250 II"/>
   <fixture path="American-DJ-Accu-Spot-Pro.qxf" mf="American DJ" md="ACCU Spot Pro"/>
   <fixture path="American-DJ-Accu-UFO.qxf" mf="American DJ" md="Accu UFO"/>
@@ -195,6 +196,7 @@
   <fixture path="Chauvet-COREpar-80-USB.qxf" mf="Chauvet" md="COREpar 80 USB"/>
   <fixture path="Chauvet-COREpar-80.qxf" mf="Chauvet" md="COREpar 80"/>
   <fixture path="Chauvet-COREpar-UV-USB.qxf" mf="Chauvet" md="COREpar UV USB"/>
+  <fixture path="Chauvet-Cubix-2.0.qxf" mf="Chauvet" md="Cubix 2.0"/>
   <fixture path="Chauvet-Derby-X.qxf" mf="Chauvet" md="Derby X"/>
   <fixture path="Chauvet-DMF-10.qxf" mf="Chauvet" md="DMF-10"/>
   <fixture path="Chauvet-DMX-Mega-Strobe-III.qxf" mf="Chauvet" md="DMX Mega Strobe III"/>
@@ -242,6 +244,7 @@
   <fixture path="Chauvet-Rogue-R2-Spot.qxf" mf="Chauvet" md="Rogue R2 Spot"/>
   <fixture path="Chauvet-Rogue-RH1-Hybrid.qxf" mf="Chauvet" md="Rogue RH1 Hybrid"/>
   <fixture path="Chauvet-RotoSphere-LED.qxf" mf="Chauvet" md="RotoSphere LED"/>
+  <fixture path="Chauvet-Scorpion-Bar-RG.qxf" mf="Chauvet" md="Scorpion Bar RG"/>
   <fixture path="Chauvet-Scorpion-Storm-FX-RGB.qxf" mf="Chauvet" md="Scorpion Storm FX RGB"/>
   <fixture path="Chauvet-Shocker-90-IRC-QRG.qxf" mf="Chauvet" md="Shocker 90 IRC&#10;QRG"/>
   <fixture path="Chauvet-Slim-Par-Pro-RGBA.qxf" mf="Chauvet" md="Slim Par Pro RGBA"/>
@@ -251,8 +254,10 @@
   <fixture path="Chauvet-SlimPAR-56.qxf" mf="Chauvet" md="SlimPAR 56"/>
   <fixture path="Chauvet-SlimPAR-64-RGBA.qxf" mf="Chauvet" md="SlimPAR 64 RGBA"/>
   <fixture path="Chauvet-SlimPAR-64.qxf" mf="Chauvet" md="SlimPAR 64"/>
+  <fixture path="Chauvet-SlimPAR-Pro-H-USB.qxf" mf="Chauvet" md="SlimPAR Pro H USB"/>
   <fixture path="Chauvet-SlimPar-Pro-Tri.qxf" mf="Chauvet" md="SlimPar Pro Tri"/>
   <fixture path="Chauvet-SlimPAR-QUAD-12-IRC.qxf" mf="Chauvet" md="SlimPAR QUAD 12 IRC"/>
+  <fixture path="Chauvet-SlimPAR-QUV12-USB.qxf" mf="Chauvet" md="SlimPAR QUV12 USB"/>
   <fixture path="Chauvet-SlimPAR-T6-USB.qxf" mf="Chauvet" md="SlimPAR T6 USB"/>
   <fixture path="Chauvet-SlimPAR-TRI-12-IRC.qxf" mf="Chauvet" md="SlimPAR TRI 12 IRC"/>
   <fixture path="Chauvet-SlimPar-Tri-7-IRC.qxf" mf="Chauvet" md="SlimPar Tri 7 IRC"/>
@@ -512,6 +517,7 @@
   <fixture path="Mac-Mah-Mac-FOG-DMX.qxf" mf="Mac Mah" md="Mac FOG DMX"/>
   <fixture path="Mac-Mah-Mac-Follow-1200.qxf" mf="Mac Mah" md="Mac Follow 1200"/>
   <fixture path="Mac-Mah-WiderPanel.qxf" mf="Mac Mah" md="Wider Panel"/>
+  <fixture path="MARQ-Gamut-PAR-H7.qxf" mf="MARQ" md="Gamut PAR H7"/>
   <fixture path="Martin-24-7-Hazer.qxf" mf="Martin" md="ZR24/7 Hazer"/>
   <fixture path="Martin-Acrobat.qxf" mf="Martin" md="Acrobat"/>
   <fixture path="Martin-Atomic-3000.qxf" mf="Martin" md="Atomic 3000"/>
@@ -582,6 +588,8 @@
   <fixture path="PR-Lighting-Pilot-575.qxf" mf="PR Lighting" md="Pilot 575"/>
   <fixture path="PR-Lighting-PR-5000-Spot.qxf" mf="PR Lighting" md="PR 5000 Spot"/>
   <fixture path="PR-Lighting-XL-250-PR-2225M.qxf" mf="PR Lighting" md="XL 250 PR-2225M"/>
+  <fixture path="PR-Lighting-XL-700-Spot-PR-2700.qxf" mf="PR Lighting" md="XL 700 Spot (PR-2705)"/>
+  <fixture path="PR-Lighting-XL-700-Wash-PR-2705.qxf" mf="PR Lighting" md="XL 700 Wash (PR-2705)"/>
   <fixture path="PR-Lighting-XLED-1037.qxf" mf="PR Lighting" md="XLED 1037"/>
   <fixture path="PR-Lighting-XR-230-Spot.qxf" mf="PR Lighting" md="XR 230 Spot"/>
   <fixture path="Pro-Lights-ARCLED7314HD.qxf" mf="Pro-Lights" md="ArcLed-7314HD"/>
@@ -670,6 +678,7 @@
   <fixture path="Showtec-Event-Spot-1800-Q4.qxf" mf="Showtec" md="Event Spot 1800 Q4"/>
   <fixture path="Showtec-Explorer-250-Pro-MKII.qxf" mf="Showtec" md="Explorer 250 Pro MKII"/>
   <fixture path="Showtec-Expression-5000.qxf" mf="Showtec" md="Expression 5000"/>
+  <fixture path="Showtec-Giant-XL-LED.qxf" mf="Showtec" md="Giant XL LED"/>
   <fixture path="Showtec-Indigo-150-LED.qxf" mf="Showtec" md="Indigo 150 LED"/>
   <fixture path="Showtec-Indigo-4600.qxf" mf="Showtec" md="Indigo 4600"/>
   <fixture path="Showtec-Indigo-6500.qxf" mf="Showtec" md="Indigo 6500"/>
@@ -692,6 +701,7 @@
   <fixture path="Showtec-Power-Spot-9-Q6-Tour-V1.qxf" mf="Showtec" md="Power Spot 9 Q6 Tour V1"/>
   <fixture path="Showtec-Quatro.qxf" mf="Showtec" md="Quatro"/>
   <fixture path="Showtec-Spectral-CYC650.qxf" mf="Showtec" md="Spectral CYC650"/>
+  <fixture path="Showtec-Stage-Blinder-Series.qxf" mf="Showtec" md="Stage Blinder Series"/>
   <fixture path="Showtec-Sunstrip-Active.qxf" mf="Showtec" md="Sunstrip Active"/>
   <fixture path="Showtec-XB-Wave.qxf" mf="Showtec" md="XB-Wave"/>
   <fixture path="Showtec-ZIPP-LED-DMX.qxf" mf="Showtec" md="ZIPP LED DMX"/>
@@ -699,6 +709,7 @@
   <fixture path="Stairville-AF-150.qxf" mf="Stairville" md="AF-150"/>
   <fixture path="Stairville-AF-180-LED-Fogger-Co2-FX.qxf" mf="Stairville" md="AF-180 LED Fogger Co2 FX"/>
   <fixture path="Stairville-AF-40-DMX.qxf" mf="Stairville" md="AF-40 DMX"/>
+  <fixture path="Stairville-Compact-LED-Bar-CLB8.qxf" mf="Stairville" md="Compact LED-Bar CLB8"/>
   <fixture path="Stairville-DCL-Flat-Par-18x4W-CW-WW.qxf" mf="Stairville" md="DCL Flat Par 18x4W CW/WW"/>
   <fixture path="Stairville-DDS-405.qxf" mf="Stairville" md="DDS 405"/>
   <fixture path="Stairville-DJ-Lase-150-RGY-MkII.qxf" mf="Stairville" md="DJ Lase 150-RGY MkII"/>
