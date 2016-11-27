@@ -296,6 +296,15 @@ void ContextManager::setFixtureSelection(quint32 fxID, bool enable)
     emit selectedFixturesChanged();
 }
 
+void ContextManager::resetFixtureSelection()
+{
+    for(Fixture *fixture : m_doc->fixtures()) // C++11
+    {
+        if (fixture != NULL)
+            setFixtureSelection(fixture->id(), false);
+    }
+}
+
 void ContextManager::toggleFixturesSelection()
 {
     bool selectAll = true;

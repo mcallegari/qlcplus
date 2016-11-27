@@ -30,6 +30,9 @@ ChaserEditor::ChaserEditor(QQuickView *view, Doc *doc, QObject *parent)
     m_view->rootContext()->setContextProperty("chaserEditor", this);
 
     m_stepsList = new ListModel(this);
+    QStringList listRoles;
+    listRoles << "funcID" << "isSelected" << "fadeIn" << "hold" << "fadeOut" << "duration" << "note";
+    m_stepsList->setRoleNames(listRoles);
 }
 
 void ChaserEditor::setFunctionID(quint32 ID)
@@ -111,10 +114,6 @@ void ChaserEditor::updateStepsList()
 
     if (m_chaser != NULL)
     {
-        QStringList listRoles;
-        listRoles << "funcID" << "isSelected" << "fadeIn" << "hold" << "fadeOut" << "duration" << "note";
-        m_stepsList->setRoleNames(listRoles);
-
         foreach(ChaserStep step, m_chaser->steps())
         {
             QVariantMap stepMap;
