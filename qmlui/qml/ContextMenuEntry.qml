@@ -74,9 +74,6 @@ Rectangle
         onEntered: { baseIconEntry.color = hoverColor; baseIconEntry.entered() }
         onExited: { baseIconEntry.color = bgColor; baseIconEntry.exited() }
         onPressed: { baseIconEntry.color = pressedColor }
-        onReleased:
-        {
-            baseIconEntry.clicked();
-        }
+        onReleased: baseIconEntry.clicked()
     }
 }

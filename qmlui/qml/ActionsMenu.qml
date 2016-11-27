@@ -80,7 +80,6 @@ Rectangle
             onEntered: recentMenu.visible = true
             //onExited: recentMenu.visible = false
 
-
             Rectangle
             {
                 id: recentMenu
