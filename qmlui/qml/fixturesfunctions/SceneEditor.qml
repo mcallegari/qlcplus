@@ -30,7 +30,6 @@ Rectangle
     color: "transparent"
 
     property int functionID
-    //property int selectedFixtureIndex: -1
 
     signal requestView(int ID, string qmlSrc)
 
@@ -136,10 +135,9 @@ Rectangle
 
                             if (!(mouseMods & Qt.ControlModifier))
                                 contextManager.resetFixtureSelection()
+
                             contextManager.setFixtureSelection(cRef.id, true)
                             sceneEditor.setFixtureSelection(cRef.id)
-                            //seContainer.selectFixture(index)
-                            //selectedFixtureIndex = index
                         }
                     }
                 }

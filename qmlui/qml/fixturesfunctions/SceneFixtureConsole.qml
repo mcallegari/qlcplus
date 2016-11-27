@@ -27,7 +27,6 @@ Rectangle
     anchors.fill: parent
     color: "transparent"
     objectName: "sceneFixtureConsole"
-    property int currentSelIndex: -1
 
     Component.onCompleted: sceneEditor.sceneConsoleLoaded(true)
     Component.onDestruction: sceneEditor.sceneConsoleLoaded(false)
@@ -35,7 +34,6 @@ Rectangle
     function scrollToItem(fxIdx)
     {
         console.log("[scrollToItem] fxIdx: " + fxIdx)
-        currentSelIndex = fxIdx
         fixtureList.positionViewAtIndex(fxIdx, ListView.Beginning)
     }
 
@@ -44,7 +42,7 @@ Rectangle
         id: fixtureList
         anchors.fill: parent
         orientation: ListView.Horizontal
-        model: sceneEditor.fixtures
+        model: sceneEditor.fixtureList
         boundsBehavior: Flickable.StopAtBounds
         highlightFollowsCurrentItem: false
 
@@ -53,7 +51,6 @@ Rectangle
             {
                 height: parent.height
                 width: fxConsole.width + 4
-                property bool isSelected: (index == currentSelIndex) ? true : false
                 color: "black"
 
                 Component.onCompleted: sceneEditor.registerFixtureConsole(index, fxConsole)
@@ -63,7 +60,8 @@ Rectangle
                 {
                     id: fxConsole
                     x: 2
-                    fixtureObj: modelData
+                    fixtureObj: model.fxRef
+                    isSelected: model.isSelected
                     height: parent.height
                     color: index % 2 ? "#202020" : "#404040"
                     showEnablers: true
@@ -77,7 +75,7 @@ Rectangle
                     color: "transparent"
                     radius: 3
                     border.width: 2
-                    border.color: isSelected ? UISettings.highlight : "transparent"
+                    border.color: model.isSelected ? UISettings.highlight : "transparent"
                 }
             }
     }
