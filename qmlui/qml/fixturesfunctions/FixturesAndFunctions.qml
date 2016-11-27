@@ -244,7 +244,6 @@ Rectangle
         {
             id: previewLoader
             z: 0
-            //objectName: "editorLoader"
             anchors.top: viewToolbar.bottom
             width: centerView.width
             height: parent.height - viewToolbar.height

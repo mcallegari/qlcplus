@@ -37,20 +37,20 @@ Rectangle
     /** The size in pixels of a grid cell */
     property real cellSize
 
-    /** The number of universe DMX addresses to display (typically 512) */
+    /** The number of indices to display (typically 512) */
     property int showIndices: 0
 
     /** During a drag operation, this indicates if the selection is valid (green) or not (red) */
     property bool validSelection: true
 
-    /** An array of DMX addresses composing the currently selected fixtures */
+    /** An array of data composing the currently selected item as follows: address | type */
     property variant selectionData
 
     property int currentFixtureID
 
     onGridSizeChanged: calculateCellSize()
     onGridDataChanged: { selectionData = null; dataCanvas.requestPaint() }
-    onWidthChanged: calculateCellSize()
+    onWidthChanged: repaintTimer.restart()
     onValidSelectionChanged: dataCanvas.requestPaint()
 
     signal pressed(int xPos, int yPos, int mods)
@@ -73,12 +73,22 @@ Rectangle
         gridRoot.height = cellSize * gridSize.height
 
         //console.log("Grid View cell size: " + cellSize)
+        dataCanvas.requestPaint()
     }
 
     function setSelectionData(data)
     {
         selectionData = data
         dataCanvas.requestPaint()
+    }
+
+    Timer
+    {
+        id: repaintTimer
+        repeat: false
+        running: false
+        interval: 100
+        onTriggered: calculateCellSize()
     }
 
     Canvas
@@ -155,8 +165,9 @@ Rectangle
                 console.log("Caching icon: " + iconSource)
                 //dataCanvas.loadImage(imgObject)
                 dataCanvas.iconsCache[channelType] = imgObject
+                return true
             }
-
+            return false
         }
 
         function fillCell(ctx, absIdx, color, channelType)
@@ -176,6 +187,7 @@ Rectangle
         onPaint:
         {
             var ctx = dataCanvas.getContext('2d');
+            var needRepaint = false
             ctx.fillStyle = "#7f7f7f"
             ctx.fillRect(0, 0, cellSize * gridSize.width, cellSize * gridSize.height)
 
@@ -193,7 +205,8 @@ Rectangle
                         isOdd = gridData[idx + 2]
                     }
                     //console.log("Fixture ID: " + gridData[idx] + ", address: " + gridData[idx + 1]);
-                    checkIconCache(gridData[idx], chNumber, gridData[idx + 3])
+                    if (checkIconCache(gridData[idx], chNumber, gridData[idx + 3]) === true)
+                        needRepaint = true
 
                     if (gridData[idx + 2])
                         fillCell(ctx, gridData[idx + 1], oddColor, gridData[idx + 3])
@@ -202,27 +215,33 @@ Rectangle
 
                     chNumber++
                 }
-                if (selectionData && selectionData.length)
+            }
+
+            if (selectionData && selectionData.length)
+            {
+                // if the selection has a offset, clear the original position first
+                if (selectionOffset != 0)
                 {
-                    // if the selection has a offset, clear the original position first
-                    if (selectionOffset != 0)
+                    for (var cIdx = 0; cIdx < selectionData.length; cIdx+=2)
                     {
-                        for (var cIdx = 0; cIdx < selectionData.length; cIdx+=2)
-                        {
-                            var clearIdx = selectionData[cIdx]
-                            fillCell(ctx, clearIdx, "#7f7f7f", -1)
-                        }
-                    }
-                    for (var selIdx = 0; selIdx < selectionData.length; selIdx+=2)
-                    {
-                        var gridIdx = selectionData[selIdx] + selectionOffset
-                        //console.log("Update selection gridIdx: " + gridIdx + " x: " + xCell + " y: " + yCell)
-                        if (validSelection)
-                            fillCell(ctx, gridIdx, "green", selectionData[selIdx + 1])
-                        else
-                            fillCell(ctx, gridIdx, "red", selectionData[selIdx + 1])
+                        var clearIdx = selectionData[cIdx]
+                        fillCell(ctx, clearIdx, "#7f7f7f", -1)
                     }
                 }
+                for (var selIdx = 0; selIdx < selectionData.length; selIdx+=2)
+                {
+                    var gridIdx = selectionData[selIdx] + selectionOffset
+                    //console.log("Update selection gridIdx: " + gridIdx)
+                    if (validSelection)
+                        fillCell(ctx, gridIdx, "green", selectionData[selIdx + 1])
+                    else
+                        fillCell(ctx, gridIdx, "red", selectionData[selIdx + 1])
+                }
+            }
+            if (needRepaint === true)
+            {
+                console.log("A further repaint is needed after icon caching")
+                repaintTimer.restart()
             }
         }
 
@@ -285,7 +304,7 @@ Rectangle
             {
                 if (dataCanvas.checkPosition(drag))
                 {
-                    console.log("Drag position changed" + dataCanvas.mouseLastX + " " + dataCanvas.mouseLastY)
+                    console.log("Drag position changed: " + dataCanvas.mouseLastX + " " + dataCanvas.mouseLastY)
                     dataCanvas.setSelectionOffset()
                     gridRoot.dragPositionChanged(dataCanvas.mouseLastX, dataCanvas.mouseLastY, drag)
                     dataCanvas.requestPaint()

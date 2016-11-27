@@ -112,7 +112,7 @@ Rectangle
                 Layout.fillWidth: true
                 onInputTextChanged:
                 {
-                    console.log("Text changed !!")
+                    //console.log("Text changed !!")
                     fxProps.fxName = inputText
                 }
             }
