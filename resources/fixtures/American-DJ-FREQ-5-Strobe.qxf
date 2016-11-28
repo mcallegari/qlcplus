@@ -79,7 +79,7 @@
    <Dimensions Weight="3.6" Width="1025" Height="65" Depth="88"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+   <Technical PowerConsumption="28" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer 1</Channel>
   <Channel Number="1">Dimmer 2</Channel>
@@ -103,12 +103,6 @@
   <Head>
    <Channel>4</Channel>
   </Head>
-  <Head>
-   <Channel>5</Channel>
-  </Head>
-  <Head>
-   <Channel>6</Channel>
-  </Head>
  </Mode>
  <Mode Name="5 Channels">
   <Physical>
@@ -116,7 +110,7 @@
    <Dimensions Weight="0" Width="0" Height="0" Depth="0"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+   <Technical PowerConsumption="28" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer 1</Channel>
   <Channel Number="1">Dimmer 2</Channel>
@@ -145,25 +139,10 @@
    <Dimensions Weight="0" Width="0" Height="0" Depth="0"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+   <Technical PowerConsumption="28" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Strobing Simple</Channel>
-  <Head>
-   <Channel>0</Channel>
-  </Head>
-  <Head>
-   <Channel>1</Channel>
-  </Head>
-  <Head>
-   <Channel>2</Channel>
-  </Head>
-  <Head>
-   <Channel>3</Channel>
-  </Head>
-  <Head>
-   <Channel>4</Channel>
-  </Head>
  </Mode>
  <Mode Name="1 Channel">
   <Physical>
@@ -171,23 +150,8 @@
    <Dimensions Weight="0" Width="0" Height="0" Depth="0"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+   <Technical PowerConsumption="28" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Strobing Shows</Channel>
-  <Head>
-   <Channel>0</Channel>
-  </Head>
-  <Head>
-   <Channel>1</Channel>
-  </Head>
-  <Head>
-   <Channel>2</Channel>
-  </Head>
-  <Head>
-   <Channel>3</Channel>
-  </Head>
-  <Head>
-   <Channel>4</Channel>
-  </Head>
  </Mode>
 </FixtureDefinition>
