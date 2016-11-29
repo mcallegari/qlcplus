@@ -47,6 +47,7 @@ void GPIOPlugin::init()
     {
         GPIOPinInfo *gpio = new GPIOPinInfo;
         gpio->m_number = i;
+        gpio->m_enabled = false;
         gpio->m_usage = NoUsage;
         gpio->m_value = 1;
         gpio->m_count = 0;
@@ -388,6 +389,9 @@ bool GPIOPlugin::canConfigure()
 void GPIOPlugin::setParameter(quint32 universe, quint32 line, Capability type,
                              QString name, QVariant value)
 {
+    // rewrite the target universe based on the type...
+    universe = (type == QLCIOPlugin::Input) ? m_inputUniverse : m_outputUniverse;
+
     //qDebug() << "[SetParameter]" << universe << line << name << value.toString();
     QStringList param = name.split("-");
     if (param.count() < 2)
