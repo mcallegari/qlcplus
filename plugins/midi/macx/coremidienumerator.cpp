@@ -28,8 +28,13 @@ extern "C"
 {
     void onMIDINotify(const MIDINotification* message, void* refCon)
     {
-        qDebug() << Q_FUNC_INFO << message << refCon;
-        //MidiEnumeratorPrivate* self = (MIDIEnumeratorPrivate*) refCon;
+        qDebug() << "[MIDI notification] ID:" << message->messageID;
+        MidiEnumeratorPrivate* self = (MidiEnumeratorPrivate*) refCon;
+        if (message->messageID == kMIDIMsgObjectAdded ||
+            message->messageID == kMIDIMsgObjectRemoved)
+        {
+            self->rescan();
+        }
     }
 } // extern "C"
 
@@ -58,20 +63,21 @@ MidiEnumeratorPrivate::~MidiEnumeratorPrivate()
     m_client = 0;
 }
 
-QString MidiEnumeratorPrivate::extractName(MIDIEntityRef entity)
+QString MidiEnumeratorPrivate::extractName(MIDIEndpointRef endpoint)
 {
-    qDebug() << Q_FUNC_INFO;
-
     CFStringRef str = NULL;
     QString name;
 
     /* Get the name property */
-    OSStatus s = MIDIObjectGetStringProperty(entity, kMIDIPropertyModel, &str);
+    OSStatus s = MIDIObjectGetStringProperty(endpoint, kMIDIPropertyModel, &str);
     if (s != 0)
     {
-        qWarning() << "Unable to get manufacturer for MIDI entity:" << s;
+        s = MIDIObjectGetStringProperty(endpoint, kMIDIPropertyDisplayName, &str);
+        if (s != 0)
+            qWarning() << "Unable to get manufacturer for MIDI endpoint:" << endpoint;
     }
-    else
+
+    if (s == 0)
     {
         /* Convert the name into a QString. */
         CFIndex size = CFStringGetLength(str) + 1;
@@ -86,10 +92,22 @@ QString MidiEnumeratorPrivate::extractName(MIDIEntityRef entity)
     return name;
 }
 
-QVariant MidiEnumeratorPrivate::extractUID(MIDIEntityRef entity)
+QVariant MidiEnumeratorPrivate::extractEndpointUID(MIDIEndpointRef endpoint)
 {
-    qDebug() << Q_FUNC_INFO;
+    SInt32 uid = 0;
+    if (MIDIObjectGetIntegerProperty(endpoint, kMIDIPropertyUniqueID, &uid) != 0)
+    {
+        qWarning() << Q_FUNC_INFO << "Unable to get UID from MIDI endpoint" << endpoint;
+        return QVariant();
+    }
+    else
+    {
+        return QVariant(int(uid));
+    }
+}
 
+QVariant MidiEnumeratorPrivate::extractEntityUID(MIDIEntityRef entity)
+{
     SInt32 uid = 0;
     if (MIDIObjectGetIntegerProperty(entity, kMIDIPropertyUniqueID, &uid) != 0)
     {
@@ -98,7 +116,7 @@ QVariant MidiEnumeratorPrivate::extractUID(MIDIEntityRef entity)
     }
     else
     {
-        return QVariant(uid);
+        return QVariant(int(uid));
     }
 }
 
@@ -111,56 +129,73 @@ void MidiEnumeratorPrivate::rescan()
     QList <MidiInputDevice*> destroyInputs(m_inputDevices);
 
     /* Find out which devices are still present */
-    ItemCount numDevices = MIDIGetNumberOfDevices();
-    for (ItemCount devIndex = 0; devIndex < numDevices; devIndex++)
+    ItemCount sourceDevices = MIDIGetNumberOfSources();
+
+    for (ItemCount devIndex = 0; devIndex < sourceDevices; devIndex++)
     {
-        MIDIDeviceRef dev = MIDIGetDevice(devIndex);
-        ItemCount numEntities = MIDIDeviceGetNumberOfEntities(dev);
-        for (ItemCount entIndex = 0; entIndex < numEntities; entIndex++)
+        MIDIEndpointRef sourceDev = MIDIGetSource(devIndex);
+        MIDIEntityRef entity = 0;
+        QVariant uid;
+
+        MIDIEndpointGetEntity(sourceDev, &entity);
+
+        /* Get the entity's UID */
+        if (entity)
+            uid = extractEntityUID(entity); // physical device
+        else
+            uid = extractEndpointUID(sourceDev); // virtual port
+
+        if (uid.isValid() == false)
+            continue;
+
+        QString name = extractName(sourceDev);
+        qDebug() << Q_FUNC_INFO << "Found source device:" << name << "UID:" << QString::number(uid.toUInt(), 16);
+
+        MidiInputDevice* dev = inputDevice(uid);
+        if (dev == NULL)
         {
-            MIDIEntityRef entity = MIDIDeviceGetEntity(dev, entIndex);
+            CoreMidiInputDevice* dev = new CoreMidiInputDevice(uid, name, entity, m_client, this);
+            m_inputDevices << dev;
+            changed = true;
+        }
+        else
+        {
+            destroyInputs.removeAll(dev);
+        }
+    }
 
-            /* Get the entity's UID */
-            QVariant uid = extractUID(entity);
-            if (uid.isValid() == false)
-                continue;
+    ItemCount destDevices = MIDIGetNumberOfDestinations();
 
-            QString name = extractName(entity);
-            qDebug() << Q_FUNC_INFO << "Found device:" << name << "UID:" << uid.toString();
+    for (ItemCount devIndex = 0; devIndex < destDevices; devIndex++)
+    {
+        MIDIEndpointRef destDev = MIDIGetDestination(devIndex);
+        MIDIEntityRef entity = 0;
+        QVariant uid;
 
-            ItemCount destCount = MIDIEntityGetNumberOfDestinations(entity);
-            if (destCount > 0)
-            {
-                MidiOutputDevice* dev = outputDevice(uid);
-                if (dev == NULL)
-                {
-                    CoreMidiOutputDevice* dev = new CoreMidiOutputDevice(
-                                            uid, name, entity, m_client, this);
-                    m_outputDevices << dev;
-                    changed = true;
-                }
-                else
-                {
-                    destroyOutputs.removeAll(dev);
-                }
-            }
+        MIDIEndpointGetEntity(destDev, &entity);
 
-            ItemCount srcCount = MIDIEntityGetNumberOfSources(entity);
-            if (srcCount > 0)
-            {
-                MidiInputDevice* dev = inputDevice(uid);
-                if (dev == NULL)
-                {
-                    CoreMidiInputDevice* dev = new CoreMidiInputDevice(
-                                            uid, name, entity, m_client, this);
-                    m_inputDevices << dev;
-                    changed = true;
-                }
-                else
-                {
-                    destroyInputs.removeAll(dev);
-                }
-            }
+        /* Get the entity's UID */
+        if (entity)
+            uid = extractEntityUID(entity);
+        else
+            uid = extractEndpointUID(destDev);
+
+        if (uid.isValid() == false)
+            continue;
+
+        QString name = extractName(destDev);
+        qDebug() << Q_FUNC_INFO << "Found destination device:" << name << "UID:" << QString::number(uid.toUInt(), 16);
+
+        MidiOutputDevice* dev = outputDevice(uid);
+        if (dev == NULL)
+        {
+            CoreMidiOutputDevice* dev = new CoreMidiOutputDevice(uid, name, entity, m_client, this);
+            m_outputDevices << dev;
+            changed = true;
+        }
+        else
+        {
+            destroyOutputs.removeAll(dev);
         }
     }
 

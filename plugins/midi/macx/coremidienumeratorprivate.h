@@ -39,8 +39,9 @@ public:
 
     void rescan();
 
-    static QString extractName(MIDIEntityRef entity);
-    static QVariant extractUID(MIDIEntityRef entity);
+    static QString extractName(MIDIEndpointRef endpoint);
+    static QVariant extractEndpointUID(MIDIEndpointRef endpoint);
+    static QVariant extractEntityUID(MIDIEntityRef entity);
 
     MidiOutputDevice* outputDevice(const QVariant& uid) const;
     MidiInputDevice* inputDevice(const QVariant& uid) const;

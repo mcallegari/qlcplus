@@ -529,15 +529,17 @@ QList <MidiTemplate*> MidiPlugin::midiTemplates()
 void MidiPlugin::slotDeviceAdded(uint vid, uint pid)
 {
     qDebug() << Q_FUNC_INFO << QString::number(vid, 16) << QString::number(pid, 16);
-
+#if !defined(__APPLE__) && !defined(Q_OS_MAC)
     m_enumerator->rescan();
+#endif
 }
 
 void MidiPlugin::slotDeviceRemoved(uint vid, uint pid)
 {
     qDebug() << Q_FUNC_INFO << QString::number(vid, 16) << QString::number(pid, 16);
-
+#if !defined(__APPLE__) && !defined(Q_OS_MAC)
     m_enumerator->rescan();
+#endif
 }
 
 /*****************************************************************************

@@ -10,6 +10,7 @@ qlcplus (4.10.5) stable; urgency=low
   * Virtual Console/Frame: Show page number when collapsed (thanks to Matthias Gubisch)
   * Virtual Console/Cue List: allow to choose playback buttons layout (Play/Pause + Stop or Play/Stop + Pause)
   * Plugins/DMX USB: fixed crash happening on PRO devices when receiving a full universe
+  * Plugins/MIDI: [MacOS] added support for virtual ports, show only plugged devices and properly handle hotplug 
   * Fixture Editor: fixed minimum value of a new capability not updating correctly
   * RGB Scripts: added One by one (Jano Svitok)
   * New fixtures: Pro-Lights LumiPIX 12Q, Proel PLLEDMLBG (thanks to Andrea Ugolini)
