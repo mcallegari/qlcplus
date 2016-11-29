@@ -43,6 +43,8 @@ qlcplus (4.10.5) stable; urgency=low
   * New fixture: Stairville CLB8 Compact LED PAR System (thanks to Detlef Fossan)
   * New fixture: Chauvet Cubix 2.0 (thanks to Jungle Jim)
   * New fixture: Showtec Giant XL LED (thanks to Samuel Hofmann)
+  * New fixtures: SGM: Idea Beam 300, Idea Led Bar 100, Idea Spot 700, Newton 1200 (thanks to Oscar Cervesato)
+  * New fixtures: Pro Lights LumiPAR18QTour, Elation SIXPAR 200IP (thanks to Oscar Cervesato)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 25 Sep 2016 12:13:14 +0200
 

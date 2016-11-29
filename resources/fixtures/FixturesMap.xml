@@ -311,6 +311,7 @@
   <fixture path="Elation-Platinum-Beam-5R.qxf" mf="Elation" md="Platinum Beam 5R"/>
   <fixture path="Elation-Platinum-Spot-5R.qxf" mf="Elation" md="Platinum Spot 5R"/>
   <fixture path="Elation-Rayzor-Q7.qxf" mf="Elation" md="Rayzor Q7"/>
+  <fixture path="Elation-SIXPAR-200IP.qxf" mf="Elation" md="SIXPAR 200IP"/>
   <fixture path="Elation-Sniper-2R.qxf" mf="Elation" md="Sniper 2R"/>
   <fixture path="Elation-Vision-250.qxf" mf="Elation" md="Vision 250"/>
   <fixture path="Electroconcept-PAR-56-LED-Full-RGB-18x3W.qxf" mf="Electroconcept" md="PAR 56 LED Full RGB 18x3W"/>
@@ -601,6 +602,7 @@
   <fixture path="Pro-Lights-LumiPar-7QPro.qxf" mf="Pro-Lights" md="LumiPar 7QPro"/>
   <fixture path="Pro-Lights-LumiPAR12Q.qxf" mf="Pro-Lights" md="LumiPAR12Q"/>
   <fixture path="Pro-Lights-LumiPAR18QPRO.qxf" mf="Pro-Lights" md="LumiPAR18QPRO"/>
+  <fixture path="Pro-Lights-LumiPAR18QTour.qxf" mf="Pro-Lights" md="LumiPAR18QTour"/>
   <fixture path="Pro-Lights-LumiPIX-12Q.qxf" mf="Pro-Lights" md="LumiPIX 12Q"/>
   <fixture path="Pro-Lights-Omni-Tri-9.qxf" mf="Pro-Lights" md="Omni Tri-9"/>
   <fixture path="Pro-Lights-SmartBat.qxf" mf="Pro-Lights" md="SmartBat"/>
@@ -663,8 +665,12 @@
   <fixture path="SGM-Giotto-Spot-400-CMY.qxf" mf="SGM" md="Giotto Spot 400 CMY"/>
   <fixture path="SGM-Giotto-Spot-400.qxf" mf="SGM" md="Giotto Spot 400"/>
   <fixture path="SGM-Giotto-Wash-400.qxf" mf="SGM" md="Giotto Wash 400"/>
+  <fixture path="SGM-Idea-Beam-300.qxf" mf="SGM" md="Idea BEAM 300"/>
+  <fixture path="SGM-Idea-Led-Bar-100.qxf" mf="SGM" md="Idea LED BAR 100"/>
   <fixture path="SGM-Idea-Spot-250.qxf" mf="SGM" md="Idea Spot 250"/>
   <fixture path="SGM-Idea-Spot-575.qxf" mf="SGM" md="Idea Spot 575"/>
+  <fixture path="SGM-Idea-Spot-700.qxf" mf="SGM" md="Idea Spot 700"/>
+  <fixture path="SGM-Newton-1200.qxf" mf="SGM" md="Newton 1200"/>
   <fixture path="SGM-Victory-250.qxf" mf="SGM" md="Victory 250"/>
   <fixture path="SGM-Victory-II-250.qxf" mf="SGM" md="Victory II 250"/>
   <fixture path="SGM-Victory-II-Pro150.qxf" mf="SGM" md="Victory II Pro150"/>
