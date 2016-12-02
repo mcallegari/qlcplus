@@ -12,6 +12,7 @@ qlcplus (4.10.5) stable; urgency=low
   * Plugins/DMX USB: fixed crash happening on PRO devices when receiving a full universe
   * Plugins/MIDI: [MacOS] added support for virtual ports, show only plugged devices and properly handle hotplug 
   * Fixture Editor: fixed minimum value of a new capability not updating correctly
+  * Function Manager: fix crash when trying to clone a folder (David Garyga)
   * RGB Scripts: added One by one (Jano Svitok)
   * New fixtures: Pro-Lights LumiPIX 12Q, Proel PLLEDMLBG (thanks to Andrea Ugolini)
   * New fixtures: Stairville DCL Flat Par 18x4W CW/WW, Cameo LED MultiPAR CLM-PAR-COB1, High End Systems Studio Beam (thanks to Freasy)
