@@ -28,6 +28,7 @@
   <fixture path="American-DJ-Event-Bar-Pro.qxf" mf="American DJ" md="Event Bar Pro"/>
   <fixture path="American-DJ-Event-Bar-Q4.qxf" mf="American DJ" md="Event Bar Q4"/>
   <fixture path="American-DJ-Flat-Par-Tri7X.qxf" mf="American DJ" md="Flat Par Tri7X"/>
+  <fixture path="American-DJ-Flat-Par-TW12.qxf" mf="American DJ" md="Flat Par TW12"/>
   <fixture path="American-DJ-Focus-Spot-Three-Z.qxf" mf="American DJ" md="Focus Spot Three Z"/>
   <fixture path="American-DJ-Fog-Fury-3000-WiFly.qxf" mf="American DJ" md="Fog Fury 3000 WiFly"/>
   <fixture path="American-DJ-Fog-Fury-Jett.qxf" mf="American DJ" md="Fog Fury Jett"/>
@@ -504,6 +505,7 @@
   <fixture path="Light-Emotion-LED-Parbar.qxf" mf="Light Emotion" md="LED Parbar"/>
   <fixture path="lightmaXX-CLS-2.qxf" mf="lightmaXX" md="CLS-2"/>
   <fixture path="lightmaXX-COMPLETE-PAR-56-9x12-W-RGBAW-UV.qxf" mf="lightmaXX" md="Complete PAR 56 9x12W RGBAW-UV"/>
+  <fixture path="lightmaXX-EASY-Wash-5IVE-LED.qxf" mf="lightmaXX" md="EASY Wash 5IVE LED"/>
   <fixture path="lightmaXX-LED-MEGA-PAR-64-RGBW-18x8-W.qxf" mf="lightmaXX" md="LED MEGA PAR 64 RGBW 18x8 W"/>
   <fixture path="lightmaXX-Platinum-CLS-1.qxf" mf="lightmaXX" md="Platinum CLS-1"/>
   <fixture path="lightmaXX-Platinum-Line-Mini-PAR-QUAD-7x8W.qxf" mf="lightmaXX" md="Platinum Line Mini PAR QUAD 7x8W"/>
@@ -715,6 +717,7 @@
   <fixture path="Stairville-AF-150.qxf" mf="Stairville" md="AF-150"/>
   <fixture path="Stairville-AF-180-LED-Fogger-Co2-FX.qxf" mf="Stairville" md="AF-180 LED Fogger Co2 FX"/>
   <fixture path="Stairville-AF-40-DMX.qxf" mf="Stairville" md="AF-40 DMX"/>
+  <fixture path="Stairville-Beam-Moving-Head-B5R.qxf" mf="Stairville" md="Beam Moving Head B5R"/>
   <fixture path="Stairville-Compact-LED-Bar-CLB8.qxf" mf="Stairville" md="Compact LED-Bar CLB8"/>
   <fixture path="Stairville-DCL-Flat-Par-18x4W-CW-WW.qxf" mf="Stairville" md="DCL Flat Par 18x4W CW/WW"/>
   <fixture path="Stairville-DDS-405.qxf" mf="Stairville" md="DDS 405"/>
@@ -783,6 +786,7 @@
   <fixture path="Vari-Lite-VL3500-Spot.qxf" mf="Vari-Lite" md="VL3500 Spot"/>
   <fixture path="Varytec-Easy-Move-LED-XS-Spot.qxf" mf="Varytec" md="Easy Move LED XS Spot"/>
   <fixture path="Varytec-Easy-Move-LED-XS-Wash.qxf" mf="Varytec" md="Easy Move LED XS Wash"/>
+  <fixture path="Varytec-Easy-Scan-XT-Mini.qxf" mf="Varytec" md="Easy Scan XT Mini"/>
   <fixture path="Varytec-Gigabar-II.qxf" mf="Varytec" md="Gigabar II"/>
   <fixture path="Varytec-LED-Giga-bar-4-MKII.qxf" mf="Varytec" md="LED Giga Bar 4 MKII"/>
   <fixture path="Varytec-LED-Hellball-3.qxf" mf="Varytec" md="LED Hellball 3"/>
