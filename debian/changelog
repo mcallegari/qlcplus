@@ -2,6 +2,7 @@ qlcplus (4.10.5) stable; urgency=low
 
   * Engine: added indigo to fixture channel colors (thanks to Axel Metzke)
   * Engine: properly handle RGB Matrices with generic dimmers (Jano Svitok)
+  * UI/Function Manager: fix crash when trying to clone a folder (David Garyga)
   * UI/RGB Matrix Editor: editor preview doesn't stop when testing the Function
   * UI/Collection Editor: allow multiple selection and added Function reordering buttons
   * UI/Remap: fixed universes list in target mapping
@@ -10,9 +11,9 @@ qlcplus (4.10.5) stable; urgency=low
   * Virtual Console/Frame: Show page number when collapsed (thanks to Matthias Gubisch)
   * Virtual Console/Cue List: allow to choose playback buttons layout (Play/Pause + Stop or Play/Stop + Pause)
   * Plugins/DMX USB: fixed crash happening on PRO devices when receiving a full universe
-  * Plugins/MIDI: [MacOS] added support for virtual ports, show only plugged devices and properly handle hotplug 
+  * Plugins/DMX USB: [MacOS] fixed regression caused by the Qt libraries on PRO devices
+  * Plugins/MIDI: [MacOS] added support for virtual ports, show only active devices and properly handle hotplug
   * Fixture Editor: fixed minimum value of a new capability not updating correctly
-  * Function Manager: fix crash when trying to clone a folder (David Garyga)
   * RGB Scripts: added One by one (Jano Svitok)
   * New fixtures: Pro-Lights LumiPIX 12Q, Proel PLLEDMLBG (thanks to Andrea Ugolini)
   * New fixtures: Stairville DCL Flat Par 18x4W CW/WW, Cameo LED MultiPAR CLM-PAR-COB1 (thanks to Freasy)
@@ -49,7 +50,7 @@ qlcplus (4.10.5) stable; urgency=low
   * New fixtures: Pro Lights LumiPAR18QTour, Elation SIXPAR 200IP (thanks to Oscar Cervesato)
   * New fixture: Stairville Beam Moving Head B5R, American DJ Flat Par TW12, Varytec Easy Scan XT Mini (thanks to Thierry Rodolfo)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 25 Sep 2016 12:13:14 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 3 Dec 2016 12:13:14 +0200
 
 qlcplus (4.10.4) stable; urgency=low
 
