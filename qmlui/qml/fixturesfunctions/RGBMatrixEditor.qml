@@ -33,17 +33,8 @@ Rectangle
     color: "transparent"
 
     property int functionID: -1
-    property RGBMatrix matrix
 
     signal requestView(int ID, string qmlSrc)
-
-    Component.onDestruction: functionManager.setEditorFunction(-1)
-
-    onFunctionIDChanged:
-    {
-        console.log("RGBMatrix ID: " + functionID)
-        matrix = functionManager.getFunction(functionID)
-    }
 
     TimeEditTool
     {
@@ -53,15 +44,16 @@ Rectangle
         z: 99
         x: rightSidePanel.x - width
         visible: false
+        tempoType: rgbMatrixEditor.tempoType
 
-        onTimeValueChanged:
+        onValueChanged:
         {
-            if (timeType == "FI")
-                rgbMatrixEditor.fadeInSpeed = msTime
-            else if (timeType == "H")
-                rgbMatrixEditor.holdSpeed = msTime
-            else if (timeType == "FO")
-                rgbMatrixEditor.fadeOutSpeed = msTime
+            if (speedType == Function.FadeIn)
+                rgbMatrixEditor.fadeInSpeed = val
+            else if (speedType == Function.Hold)
+                rgbMatrixEditor.holdSpeed = val
+            else if (speedType == Function.FadeOut)
+                rgbMatrixEditor.fadeOutSpeed = val
         }
     }
 
@@ -70,14 +62,14 @@ Rectangle
         id: topBar
         color: UISettings.bgMedium
         width: rgbmeContainer.width
-        height: 40
+        height: UISettings.iconSizeMedium
         z: 2
 
         Rectangle
         {
             id: backBox
-            width: 40
-            height: 40
+            width: UISettings.iconSizeMedium
+            height: width
             color: "transparent"
 
             Image
@@ -94,32 +86,30 @@ Rectangle
                 hoverEnabled: true
                 onEntered: backBox.color = "#666"
                 onExited: backBox.color = "transparent"
-                onClicked: requestView(-1, "qrc:/FunctionManager.qml")
+                onClicked:
+                {
+                    functionManager.setEditorFunction(-1)
+                    requestView(-1, "qrc:/FunctionManager.qml")
+                }
             }
         }
         TextInput
         {
             id: cNameEdit
             x: leftArrow.width + 5
-            height: 40
+            height: UISettings.iconSizeMedium
             width: topBar.width - x
             color: UISettings.fgMain
             clip: true
-            text: matrix ? matrix.name : ""
+            text: rgbMatrixEditor.functionName
             verticalAlignment: TextInput.AlignVCenter
-            font.family: "Roboto Condensed"
-            font.pixelSize: 20
+            font.family: UISettings.robotoFontName
+            font.pixelSize: UISettings.textSizeDefault
             selectByMouse: true
             Layout.fillWidth: true
-            onTextChanged:
-            {
-                if (matrix)
-                    matrix.name = text
-            }
+            onTextChanged: rgbMatrixEditor.functionName = text
         }
     }
-
-    //onWidthChanged: editorFlickable.width = width - 10
 
     Flickable
     {
@@ -140,7 +130,7 @@ Rectangle
             width: parent.width
             spacing: 2
 
-            property int itemsHeight: 38
+            property int itemsHeight: UISettings.listItemHeight
             property int firstColumnWidth: 0
             property int colWidth: parent.width - (sbar.visible ? sbar.width : 0)
 
@@ -159,6 +149,7 @@ Rectangle
                 RobotoText
                 {
                     label: qsTr("Fixture Group");
+                    height: editorColumn.itemsHeight
                     onWidthChanged:
                     {
                         editorColumn.checkLabelWidth(width)
@@ -193,6 +184,7 @@ Rectangle
                 {
                     id: patternLabel
                     label: qsTr("Pattern")
+                    height: editorColumn.itemsHeight
                     onWidthChanged:
                     {
                         editorColumn.checkLabelWidth(width)
@@ -228,6 +220,7 @@ Rectangle
                 RobotoText
                 {
                     label: qsTr("Blend mode")
+                    height: editorColumn.itemsHeight
                     onWidthChanged:
                     {
                         editorColumn.checkLabelWidth(width)
@@ -264,6 +257,7 @@ Rectangle
                 {
                     label: qsTr("Colors")
                     visible: rgbMatrixEditor.algoColors > 0 ? true : false
+                    height: editorColumn.itemsHeight
                     onWidthChanged:
                     {
                         editorColumn.checkLabelWidth(width)
@@ -274,8 +268,8 @@ Rectangle
                 Rectangle
                 {
                     id: startColButton
-                    width: 80
-                    height: parent.height
+                    width: UISettings.iconSizeDefault * 2
+                    height: editorColumn.itemsHeight
                     radius: 5
                     border.color: scMouseArea.containsMouse ? "white" : UISettings.bgLight
                     border.width: 2
@@ -310,8 +304,8 @@ Rectangle
                 Rectangle
                 {
                     id: endColButton
-                    width: 80
-                    height: parent.height
+                    width: UISettings.iconSizeDefault * 2
+                    height: editorColumn.itemsHeight
                     radius: 5
                     border.color: ecMouseArea.containsMouse ? "white" : UISettings.bgLight
                     border.width: 2
@@ -341,14 +335,24 @@ Rectangle
                 }
                 IconButton
                 {
-                    width: parent.height
-                    height: parent.height
+                    width: UISettings.listItemHeight
+                    height: width
                     imgSource: "qrc:/cancel.svg"
                     visible: rgbMatrixEditor.algoColors > 1 ? true : false
                     onClicked: rgbMatrixEditor.hasEndColor = false
                 }
                 // filler
                 //Rectangle { Layout.fillWidth: true; height: parent.height; color: "transparent" }
+            }
+
+            SectionBox
+            {
+                id: paramSection
+                width: editorColumn.colWidth - 5
+                visible: sectionContents ? true : false
+
+                sectionLabel: qsTr("Parameters")
+                sectionContents: null
             }
 
             SectionBox
@@ -362,26 +366,38 @@ Rectangle
                     {
                         width: parent.width
                         columns: 2
-                        columnSpacing: 4
+                        columnSpacing: 5
                         rowSpacing: 4
 
                         // Row 1
                         RobotoText
                         {
                             id: fiLabel
-                            Layout.fillWidth: true
-                            label: qsTr("Fade in")
+                            label: qsTr("Steps fade in")
+                            height: UISettings.listItemHeight
                         }
-                        RobotoText
+
+                        Rectangle
                         {
-                            width: algoCombo.width
+                            Layout.fillWidth: true
+                            height: UISettings.listItemHeight
                             color: UISettings.bgMedium
-                            label: TimeUtils.msToQlcString(rgbMatrixEditor.fadeInSpeed)
-                            MouseArea
+
+                            RobotoText
                             {
                                 anchors.fill: parent
-                                onDoubleClicked: timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
-                                                                   fiLabel.label, parent.label, "FI")
+                                label: TimeUtils.timeToQlcString(rgbMatrixEditor.fadeInSpeed, rgbMatrixEditor.tempoType)
+
+                                MouseArea
+                                {
+                                    anchors.fill: parent
+                                    onDoubleClicked:
+                                    {
+                                        timeEditTool.allowFractions = Function.ByTwoFractions
+                                        timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
+                                                          fiLabel.label, parent.label, Function.FadeIn)
+                                    }
+                                }
                             }
                         }
 
@@ -389,19 +405,31 @@ Rectangle
                         RobotoText
                         {
                             id: hLabel
-                            Layout.fillWidth: true
-                            label: qsTr("Hold")
+                            height: UISettings.listItemHeight
+                            label: qsTr("Steps hold")
                         }
-                        RobotoText
+
+                        Rectangle
                         {
-                            width: algoCombo.width
+                            Layout.fillWidth: true
+                            height: UISettings.listItemHeight
                             color: UISettings.bgMedium
-                            label: TimeUtils.msToQlcString(rgbMatrixEditor.holdSpeed)
-                            MouseArea
+
+                            RobotoText
                             {
                                 anchors.fill: parent
-                                onDoubleClicked: timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
-                                                                   hLabel.label, parent.label, "H")
+                                label: TimeUtils.timeToQlcString(rgbMatrixEditor.holdSpeed, rgbMatrixEditor.tempoType)
+
+                                MouseArea
+                                {
+                                    anchors.fill: parent
+                                    onDoubleClicked:
+                                    {
+                                        timeEditTool.allowFractions = Function.ByTwoFractions
+                                        timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
+                                                          hLabel.label, parent.label, Function.Hold)
+                                    }
+                                }
                             }
                         }
 
@@ -409,33 +437,59 @@ Rectangle
                         RobotoText
                         {
                             id: foLabel
-                            Layout.fillWidth: true
-                            label: qsTr("Fade out")
+                            height: UISettings.listItemHeight
+                            label: qsTr("Steps fade out")
                         }
-                        RobotoText
+
+                        Rectangle
                         {
-                            width: algoCombo.width
+                            Layout.fillWidth: true
+                            height: UISettings.listItemHeight
                             color: UISettings.bgMedium
-                            label: TimeUtils.msToQlcString(rgbMatrixEditor.fadeOutSpeed)
-                            MouseArea
+
+                            RobotoText
                             {
                                 anchors.fill: parent
-                                onDoubleClicked: timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
-                                                                   foLabel.label, parent.label, "FO")
+                                label: TimeUtils.timeToQlcString(rgbMatrixEditor.fadeOutSpeed, rgbMatrixEditor.tempoType)
+
+                                MouseArea
+                                {
+                                    anchors.fill: parent
+                                    onDoubleClicked:
+                                    {
+                                        timeEditTool.allowFractions = Function.ByTwoFractions
+                                        timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
+                                                          foLabel.label, parent.label, Function.FadeOut)
+                                    }
+                                }
                             }
+                        }
+
+                        // Row 4
+                        RobotoText
+                        {
+                            id: ttLabel
+                            height: UISettings.listItemHeight
+                            label: qsTr("Tempo type")
+                        }
+                        CustomComboBox
+                        {
+                            ListModel
+                            {
+                                id: tempoModel
+                                ListElement { mLabel: qsTr("Time"); mValue: Function.Time }
+                                ListElement { mLabel: qsTr("Beats"); mValue: Function.Beats }
+                            }
+                            Layout.fillWidth: true
+                            height: UISettings.listItemHeight
+                            model: tempoModel
+
+                            currentValue: rgbMatrixEditor.tempoType
+                            onValueChanged: rgbMatrixEditor.tempoType = value
                         }
                     }
             }
 
-            SectionBox
-            {
-                id: paramSection
-                width: editorColumn.colWidth - 5
-                visible: sectionContents ? true : false
-
-                sectionLabel: qsTr("Parameters")
-                sectionContents: null
-            }
             SectionBox
             {
                 id: directionSection
@@ -500,7 +554,8 @@ Rectangle
      * loaded at runtime depending on the selected algorithm
      * *********************************************************** */
 
-    /* **************** Text Algorithm parameters **************** */
+    /* *************************************************************
+     * **************** Text Algorithm parameters **************** */
     Component
     {
         id: textAlgoComponent
@@ -510,7 +565,12 @@ Rectangle
             columnSpacing: 5
 
             // Row 1
-            RobotoText { label: qsTr("Text") }
+            RobotoText
+            {
+                height: UISettings.listItemHeight
+                label: qsTr("Text")
+            }
+
             Rectangle
             {
                 Layout.fillWidth: true
@@ -532,7 +592,10 @@ Rectangle
                         anchors.margins: 4
                         anchors.verticalCenter: parent.verticalCenter
                         text: rgbMatrixEditor.algoText
-                        font.pointSize: 16
+                        font.family: rgbMatrixEditor.algoTextFont.font.family
+                        font.bold: rgbMatrixEditor.algoTextFont.font.bold
+                        font.italic: rgbMatrixEditor.algoTextFont.font.italic
+                        font.pixelSize: UISettings.textSizeDefault * 0.8
                         color: "white"
 
                         onTextChanged: rgbMatrixEditor.algoText = text
@@ -541,6 +604,8 @@ Rectangle
                 IconButton
                 {
                     id: fontButton
+                    width: UISettings.iconSizeMedium
+                    height: width
                     anchors.right: parent.right
                     imgSource: "qrc:/font.svg"
 
@@ -550,22 +615,24 @@ Rectangle
                     {
                         id: fontDialog
                         title: qsTr("Please choose a font")
-                        //font: wObj ? wObj.font : ""
+                        font: rgbMatrixEditor.algoTextFont
                         visible: false
 
                         onAccepted:
                         {
                             console.log("Selected font: " + fontDialog.font)
-                            algoTextEdit.font = fontDialog.font
-                            algoTextEdit.font.pointSize = 16
-                            //wObj.font = fontDialog.font
+                            rgbMatrixEditor.algoTextFont = font
                         }
                     }
                 }
             }
 
             // Row 2
-            RobotoText { label: qsTr("Animation") }
+            RobotoText
+            {
+                height: UISettings.listItemHeight
+                label: qsTr("Animation")
+            }
             CustomComboBox
             {
                 Layout.fillWidth: true
@@ -579,10 +646,16 @@ Rectangle
                     ListElement { mLabel: qsTr("Vertical"); }
                 }
                 model: textAnimModel
+                currentIndex: rgbMatrixEditor.animationStyle
+                onCurrentIndexChanged: rgbMatrixEditor.animationStyle = currentIndex
             }
 
             // Row 3
-            RobotoText { label: qsTr("Offset") }
+            RobotoText
+            {
+                height: UISettings.listItemHeight
+                label: qsTr("Offset")
+            }
             Rectangle
             {
                 Layout.fillWidth: true
@@ -591,27 +664,48 @@ Rectangle
 
                 Row
                 {
+                    id: toffRow
                     spacing: 20
                     anchors.fill: parent
 
-                    RobotoText { label: qsTr("X") }
+                    property size algoOffset: rgbMatrixEditor.algoOffset
+
+                    RobotoText { height: UISettings.listItemHeight; label: qsTr("X") }
                     CustomSpinBox
                     {
                         height: parent.height
+                        minimumValue: -255
+                        maximumValue: 255
+                        value: toffRow.algoOffset.width
+                        onValueChanged:
+                        {
+                            var newOffset = toffRow.algoOffset
+                            newOffset.width = value
+                            rgbMatrixEditor.algoOffset = newOffset
+                        }
                     }
 
-                    RobotoText { label: qsTr("Y") }
+                    RobotoText { height: UISettings.listItemHeight; label: qsTr("Y") }
                     CustomSpinBox
                     {
                         height: parent.height
+                        minimumValue: -255
+                        maximumValue: 255
+                        value: toffRow.algoOffset.height
+                        onValueChanged:
+                        {
+                            var newOffset = toffRow.algoOffset
+                            newOffset.height = value
+                            rgbMatrixEditor.algoOffset = newOffset
+                        }
                     }
                 }
             }
         }
     }
-    // ************************************************************
 
-    /* **************** Image Algorithm parameters **************** */
+    /* *************************************************************
+     * **************** Image Algorithm parameters *************** */
     Component
     {
         id: imageAlgoComponent
@@ -623,7 +717,11 @@ Rectangle
             columnSpacing: 5
 
             // Row 1
-            RobotoText { label: qsTr("Image") }
+            RobotoText
+            {
+                height: UISettings.listItemHeight
+                label: qsTr("Image")
+            }
             Rectangle
             {
                 Layout.fillWidth: true
@@ -633,7 +731,7 @@ Rectangle
                 Rectangle
                 {
                     height: parent.height
-                    width: parent.width - fontButton.width - 5
+                    width: parent.width - imgButton.width - 5
                     radius: 3
                     color: UISettings.bgMedium
                     border.color: "#222"
@@ -646,7 +744,7 @@ Rectangle
                         anchors.margins: 4
                         anchors.verticalCenter: parent.verticalCenter
                         text: rgbMatrixEditor.algoImagePath
-                        font.pointSize: 16
+                        font.pixelSize: UISettings.textSizeDefault
                         color: "white"
 
                         onTextChanged: rgbMatrixEditor.algoImagePath = text
@@ -654,7 +752,9 @@ Rectangle
                 }
                 IconButton
                 {
-                    id: fontButton
+                    id: imgButton
+                    width: UISettings.iconSizeMedium
+                    height: width
                     anchors.right: parent.right
                     imgSource: "qrc:/background.svg"
 
@@ -669,12 +769,15 @@ Rectangle
 
                         onAccepted: rgbMatrixEditor.algoImagePath = fileDialog.fileUrl
                     }
-
                 }
             }
 
             // Row 2
-            RobotoText { label: qsTr("Animation") }
+            RobotoText
+            {
+                height: UISettings.listItemHeight
+                label: qsTr("Animation")
+            }
             CustomComboBox
             {
                 Layout.fillWidth: true
@@ -689,10 +792,16 @@ Rectangle
                     ListElement { mLabel: qsTr("Animation"); }
                 }
                 model: imageAnimModel
+                currentIndex: rgbMatrixEditor.animationStyle
+                onCurrentIndexChanged: rgbMatrixEditor.animationStyle = currentIndex
             }
 
             // Row 3
-            RobotoText { label: qsTr("Offset") }
+            RobotoText
+            {
+                height: UISettings.listItemHeight
+                label: qsTr("Offset")
+            }
             Rectangle
             {
                 Layout.fillWidth: true
@@ -701,19 +810,40 @@ Rectangle
 
                 Row
                 {
+                    id: ioffRow
                     spacing: 20
                     anchors.fill: parent
 
-                    RobotoText { label: qsTr("X") }
+                    property size algoOffset: rgbMatrixEditor.algoOffset
+
+                    RobotoText { height: UISettings.listItemHeight; label: qsTr("X") }
                     CustomSpinBox
                     {
                         height: parent.height
+                        minimumValue: -255
+                        maximumValue: 255
+                        value: ioffRow.algoOffset.width
+                        onValueChanged:
+                        {
+                            var newOffset = ioffRow.algoOffset
+                            newOffset.width = value
+                            rgbMatrixEditor.algoOffset = newOffset
+                        }
                     }
 
-                    RobotoText { label: qsTr("Y") }
+                    RobotoText { height: UISettings.listItemHeight; label: qsTr("Y") }
                     CustomSpinBox
                     {
                         height: parent.height
+                        minimumValue: -255
+                        maximumValue: 255
+                        value: ioffRow.algoOffset.height
+                        onValueChanged:
+                        {
+                            var newOffset = ioffRow.algoOffset
+                            newOffset.height = value
+                            rgbMatrixEditor.algoOffset = newOffset
+                        }
                     }
                 }
             }
@@ -721,7 +851,6 @@ Rectangle
     }
 
     /* ************************************************************ */
-
     /* ***************  Script Algorithm parameters *************** */
     Component
     {
@@ -732,6 +861,14 @@ Rectangle
             id: scriptAlgoGrid
             columns: 2
             columnSpacing: 5
+
+            function addLabel(text)
+            {
+                labelComponent.createObject(scriptAlgoGrid,
+                               {"propName": text });
+                if (labelComponent.status !== Component.Ready)
+                    console.log("Label component is not ready !!")
+            }
 
             function addComboBox(propName, model, currentIndex)
             {
@@ -756,6 +893,20 @@ Rectangle
         }
     }
 
+    // Script algorithm text label
+    Component
+    {
+        id: labelComponent
+
+        RobotoText
+        {
+            height: UISettings.listItemHeight
+            property string propName
+
+            label: propName
+        }
+    }
+
     // Script algorithm combo box property
     Component
     {
@@ -763,9 +914,7 @@ Rectangle
 
         CustomComboBox
         {
-            id: sCombo
             Layout.fillWidth: true
-            height: 38
             property string propName
 
             onCurrentTextChanged: rgbMatrixEditor.setScriptStringProperty(propName, currentText)
@@ -779,9 +928,7 @@ Rectangle
 
         CustomSpinBox
         {
-            id: sSpin
             Layout.fillWidth: true
-            height: 38
             property string propName
 
             onValueChanged: rgbMatrixEditor.setScriptIntProperty(propName, value)

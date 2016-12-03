@@ -38,8 +38,9 @@ SidePanel
     {
         if (isOpen == true)
         {
-            viewLoader.source = ""
-            viewLoader.source = Qt.binding(function() { return loaderSource })
+            var tmpSource = loaderSource
+            loaderSource = ""
+            loaderSource = tmpSource
         }
     }
 
@@ -126,7 +127,7 @@ SidePanel
                 {
                     anchors.centerIn: parent
                     label: "P"
-                    fontSize: 18
+                    fontSize: UISettings.textSizeDefault * 1.1
                     fontBold: true
                 }
             }

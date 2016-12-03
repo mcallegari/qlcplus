@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.5 GIT</Version>
+  <Author>Detlef Fossan</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>Compact LED-Bar CLB8</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">0 to 100%</Capability>
+ </Channel>
+ <Channel Name="Strobe Effect">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255">Increasing speed</Capability>
+ </Channel>
+ <Channel Name="Speed/Sensitivity">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Speed/sensitivity increasing</Capability>
+ </Channel>
+ <Channel Name="Colour Selection/Shows/Sound Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9" Color="#000000">LEDs off</Capability>
+  <Capability Min="10" Max="19" Color="#ff0000">Red</Capability>
+  <Capability Min="20" Max="29" Color="#ffb53e">Amber</Capability>
+  <Capability Min="30" Max="39" Color="#55ff00">Green</Capability>
+  <Capability Min="40" Max="49" Color="#aaffff">Ice-blue</Capability>
+  <Capability Min="50" Max="59" Color="#0055ff">Blue</Capability>
+  <Capability Min="60" Max="69" Color="#ff5163">Magenta</Capability>
+  <Capability Min="70" Max="79" Color="#f3ffff">Cold white</Capability>
+  <Capability Min="80" Max="89" Color="#fff5eb">Warm white</Capability>
+  <Capability Min="90" Max="99" Color="#ffaaff">Pink</Capability>
+  <Capability Min="100" Max="109" Color="#55ffff">Cyan</Capability>
+  <Capability Min="110" Max="119" Color="#00aaff">Light blue</Capability>
+  <Capability Min="120" Max="129">Preprogrammed automatic show no. 1</Capability>
+  <Capability Min="130" Max="139">Preprogrammed automatic show no. 2</Capability>
+  <Capability Min="140" Max="149">Preprogrammed automatic show no. 3</Capability>
+  <Capability Min="150" Max="159">Preprogrammed automatic show no. 4</Capability>
+  <Capability Min="160" Max="169">Preprogrammed automatic show no. 5</Capability>
+  <Capability Min="170" Max="179">Preprogrammed automatic show no. 6</Capability>
+  <Capability Min="180" Max="189">Preprogrammed automatic show no. 7</Capability>
+  <Capability Min="190" Max="199">Preprogrammed automatic show no. 8</Capability>
+  <Capability Min="200" Max="209">Preprogrammed automatic show no. 9</Capability>
+  <Capability Min="210" Max="219">Preprogrammed automatic show no. 10</Capability>
+  <Capability Min="220" Max="229">Preprogrammed automatic show no. 11</Capability>
+  <Capability Min="230" Max="239">Preprogrammed automatic show no. 12</Capability>
+  <Capability Min="240" Max="255" Color="#ff5500" Color2="#aaff00">Sound Mode</Capability>
+ </Channel>
+ <Channel Name="White Spot 1">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">White Intensitiy (0 to 100%)</Capability>
+ </Channel>
+ <Channel Name="White Spot 2">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">White Intensitiy (0 to 100%)</Capability>
+ </Channel>
+ <Channel Name="White Spot 3">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">White Intensitiy (0 to 100%)</Capability>
+ </Channel>
+ <Channel Name="White Spot 4">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">White Intensitiy (0 to 100%)</Capability>
+ </Channel>
+ <Channel Name="Intensity White">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">0% to 100% for all LEDs together</Capability>
+ </Channel>
+ <Channel Name="Intensity Red Spot 1">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">0% to 100% all LEDs</Capability>
+ </Channel>
+ <Channel Name="Intensity Red Spot 2">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">0% to 100% all LEDs</Capability>
+ </Channel>
+ <Channel Name="Intensity Red Spot 3">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">0% to 100% all LEDs</Capability>
+ </Channel>
+ <Channel Name="Intensity Red Spot 4">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">0% to 100% all LEDs</Capability>
+ </Channel>
+ <Channel Name="Intensity Blue Spot 1">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">0% to 100% all LEDs</Capability>
+ </Channel>
+ <Channel Name="Intensity Blue Spot 2">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">0% to 100% all LEDs</Capability>
+ </Channel>
+ <Channel Name="Intensity Blue Spot 3">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">0% to 100% all LEDs</Capability>
+ </Channel>
+ <Channel Name="Intensity Blue Spot 4">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">0% to 100% all LEDs</Capability>
+ </Channel>
+ <Channel Name="Intensity Green Spot 1">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">0% to 100% all LEDs</Capability>
+ </Channel>
+ <Channel Name="Intensity Green Spot 2">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">0% to 100% all LEDs</Capability>
+ </Channel>
+ <Channel Name="Intensity Green Spot 3">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">0% to 100% all LEDs</Capability>
+ </Channel>
+ <Channel Name="Intensity Green Spot 4">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">0% to 100% all LEDs</Capability>
+ </Channel>
+ <Channel Name="Intensity White Spot 1">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">0% to 100% all LEDs</Capability>
+ </Channel>
+ <Channel Name="Intensity White Spot 2">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">0% to 100% all LEDs</Capability>
+ </Channel>
+ <Channel Name="Intensity White Spot 3">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">0% to 100% all LEDs</Capability>
+ </Channel>
+ <Channel Name="Intensity White Spot 4">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">0% to 100% all LEDs</Capability>
+ </Channel>
+ <Mode Name="18 Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="1364" ColourTemperature="0"/>
+   <Dimensions Weight="5.4" Width="682" Height="270" Depth="60"/>
+   <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="192" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Intensity Red Spot 1</Channel>
+  <Channel Number="1">Intensity Green Spot 1</Channel>
+  <Channel Number="2">Intensity Blue Spot 1</Channel>
+  <Channel Number="3">Intensity White Spot 1</Channel>
+  <Channel Number="4">Intensity Red Spot 2</Channel>
+  <Channel Number="5">Intensity Green Spot 2</Channel>
+  <Channel Number="6">Intensity Blue Spot 2</Channel>
+  <Channel Number="7">Intensity White Spot 2</Channel>
+  <Channel Number="8">Intensity Red Spot 3</Channel>
+  <Channel Number="9">Intensity Green Spot 3</Channel>
+  <Channel Number="10">Intensity Blue Spot 3</Channel>
+  <Channel Number="11">Intensity White Spot 3</Channel>
+  <Channel Number="12">Intensity Red Spot 4</Channel>
+  <Channel Number="13">Intensity Green Spot 4</Channel>
+  <Channel Number="14">Intensity Blue Spot 4</Channel>
+  <Channel Number="15">Intensity White Spot 4</Channel>
+  <Channel Number="16">Strobe Effect</Channel>
+  <Channel Number="17">Dimmer</Channel>
+  <Head>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="1364" ColourTemperature="0"/>
+   <Dimensions Weight="5.4" Width="682" Height="270" Depth="60"/>
+   <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="192" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Intensity White</Channel>
+ </Mode>
+ <Mode Name="2 Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="1364" ColourTemperature="0"/>
+   <Dimensions Weight="5.4" Width="682" Height="270" Depth="60"/>
+   <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="192" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Colour Selection/Shows/Sound Mode</Channel>
+  <Channel Number="1">Speed/Sensitivity</Channel>
+ </Mode>
+</FixtureDefinition>

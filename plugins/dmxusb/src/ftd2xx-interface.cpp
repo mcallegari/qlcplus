@@ -416,7 +416,7 @@ uchar FTD2XXInterface::readByte(bool* ok)
 {
     if (m_handle == NULL)
     {
-        *ok = false;
+        if (ok) *ok = false;
         return 0;
     }
 
@@ -434,14 +434,12 @@ uchar FTD2XXInterface::readByte(bool* ok)
     FT_Read(m_handle, &byte, 1, (LPDWORD) &read);
     if (read == 1)
     {
-        if (ok)
-            *ok = true;
+        if (ok) *ok = true;
         return byte;
     }
     else
     {
-        if (ok)
-            *ok = false;
+        if (ok) *ok = false;
         return 0;
     }
 }

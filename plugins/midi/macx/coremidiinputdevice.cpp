@@ -104,7 +104,6 @@ CoreMidiInputDevice::CoreMidiInputDevice(const QVariant& uid, const QString& nam
     , m_inPort(0)
     , m_source(0)
 {
-    qDebug() << Q_FUNC_INFO;
 }
 
 CoreMidiInputDevice::~CoreMidiInputDevice()

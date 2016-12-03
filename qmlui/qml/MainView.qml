@@ -21,9 +21,9 @@ import QtQuick 2.2
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 
-import "."
+import QtQuick.Window 2.0
 
-import "DetachWindow.js" as WinLoader
+import "."
 
 Rectangle
 {
@@ -91,6 +91,11 @@ Rectangle
             GradientStop { position: 1; color: UISettings.toolbarEnd }
         }
 
+        Component.onCompleted:
+        {
+            console.log("density: " + Screen.pixelDensity + ", ratio: " + Screen.devicePixelRatio)
+        }
+
         RowLayout
         {
             spacing: 5
@@ -102,17 +107,12 @@ Rectangle
                 id: actEntry
                 imgSource: "qrc:/qlcplus.svg"
                 entryText: qsTr("Actions")
-                onClicked:
-                {
-                    actionsMenu.visible = true
-                    contextMenuArea.enabled = true
-                    contextMenuArea.z = 98
-                }
+                onClicked: actionsMenu.visible = true
             }
             MenuBarEntry
             {
                 id: edEntry
-                imgSource: "editor.svg"
+                imgSource: "qrc:/editor.svg"
                 entryText: qsTr("Fixtures & Functions")
                 checkable: true
                 checked: true
@@ -126,7 +126,7 @@ Rectangle
             MenuBarEntry
             {
                 id: vcEntry
-                imgSource: "virtualconsole.svg"
+                imgSource: "qrc:/virtualconsole.svg"
                 entryText: qsTr("Virtual Console")
                 checkable: true
                 exclusiveGroup: menuBarGroup
@@ -138,13 +138,13 @@ Rectangle
                 onRightClicked:
                 {
                     vcEntry.visible = false
-                    WinLoader.createWindow("qrc:/VirtualConsole.qml")
+                    contextManager.detachContext("VC")
                 }
             }
             MenuBarEntry
             {
                 id: sdEntry
-                imgSource: "simpledesk.svg"
+                imgSource: "qrc:/simpledesk.svg"
                 entryText: qsTr("Simple Desk")
                 checkable: true
                 exclusiveGroup: menuBarGroup
@@ -156,13 +156,13 @@ Rectangle
                 onRightClicked:
                 {
                     sdEntry.visible = false
-                    WinLoader.createWindow("qrc:/SimpleDesk.qml")
+                    contextManager.detachContext("SDESK")
                 }
             }
             MenuBarEntry
             {
                 id: smEntry
-                imgSource: "showmanager.svg"
+                imgSource: "qrc:/showmanager.svg"
                 entryText: qsTr("Show Manager")
                 checkable: true
                 exclusiveGroup: menuBarGroup
@@ -174,13 +174,13 @@ Rectangle
                 onRightClicked:
                 {
                     smEntry.visible = false
-                    WinLoader.createWindow("qrc:/ShowManager.qml")
+                    contextManager.detachContext("SHOWMGR")
                 }
             }
             MenuBarEntry
             {
                 id: ioEntry
-                imgSource: "inputoutput.svg"
+                imgSource: "qrc:/inputoutput.svg"
                 entryText: qsTr("Input/Output")
                 checkable: true
                 exclusiveGroup: menuBarGroup
@@ -192,21 +192,77 @@ Rectangle
                 onRightClicked:
                 {
                     ioEntry.visible = false
-                    WinLoader.createWindow("qrc:/InputOutputManager.qml")
+                    contextManager.detachContext("IOMGR")
                 }
             }
             Rectangle
             {
                 // acts like an horizontal spacer
                 Layout.fillWidth: true
+                color: "transparent"
             }
-        }
-    }
+            RobotoText
+            {
+                label: "BPM: " + (ioManager.bpmNumber > 0 ? ioManager.bpmNumber : qsTr("Off"))
+                color: gsMouseArea.containsMouse ? UISettings.bgLight : "transparent"
+                fontSize: UISettings.textSizeDefault
+
+                MouseArea
+                {
+                    id: gsMouseArea
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    onClicked: beatSelectionPanel.visible = !beatSelectionPanel.visible
+                }
+                BeatGeneratorsPanel
+                {
+                    id: beatSelectionPanel
+                    parent: mainView
+                    y: mainToolbar.height
+                    x: beatIndicator.x - width
+                    z: 51
+                    visible: false
+                }
+            }
+            Rectangle
+            {
+                id: beatIndicator
+                width: height
+                height: parent.height * 0.5
+                radius: height / 2
+                border.width: 2
+                border.color: "#333"
+                color: "#666"
+
+                ColorAnimation on color
+                {
+                    id: cAnim
+                    from: "#00FF00"
+                    to: "#666"
+                    // half the duration of the current BPM
+                    duration: ioManager.bpmNumber ? 30000 / ioManager.bpmNumber : 200
+                    running: false
+                }
+
+                Connections
+                {
+                    id: beatSignal
+                    target: ioManager
+                    onBeat: cAnim.restart()
+                }
+            }
+
+        } // end of RowLayout
+    } // end of mainToolbar
 
     /** Menu to open/load/save a project */
     ActionsMenu
     {
         id: actionsMenu
+        x: 1
+        y: actEntry.height + 1
+        visible: false
+        z: visible ? 99 : 0
     }
 
     /** Mouse area enabled when actionsMenu is visible
@@ -216,19 +272,10 @@ Rectangle
     MouseArea
     {
         id: contextMenuArea
-        z: 0
-        enabled: false
+        z: actionsMenu.visible ? 98 : 0
+        enabled: actionsMenu.visible
         anchors.fill: parent
-        onClicked:
-        {
-            console.log("Root clicked")
-            if (actionsMenu.visible == true)
-            {
-                contextMenuArea.enabled = false
-                contextMenuArea.z = 0;
-                actionsMenu.visible = false
-            }
-        }
+        onClicked: actionsMenu.visible = false
     }
 
     Rectangle

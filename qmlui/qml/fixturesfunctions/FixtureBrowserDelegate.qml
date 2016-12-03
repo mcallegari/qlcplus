@@ -19,20 +19,25 @@
 
 import QtQuick 2.0
 
+import com.qlcplus.classes 1.0
 import "FixtureDrag.js" as FxDragJS
+import "."
 
 Item
 {
     id: fxDraggableItem
     width: parent.width - 30
-    height: 32
+    height: UISettings.listItemHeight
 
-    //property alias text: textitem.text
     property bool isManufacturer: false
     property string iconSource: ""
     property string manufacturer: ""
+    property string textLabel
     property int channels: 1
-    signal clicked
+    property bool isSelected: false
+    property Item dragItem
+
+    signal mouseEvent(int type, int iID, int iType, var qItem, int mouseMods)
 
     Rectangle
     {
@@ -58,9 +63,9 @@ Item
         id: textitem
         x: 2
         width: parent.width
-        label: modelData
+        label: textLabel
         height: parent.height
-        fontSize: 12
+        fontSize: UISettings.textSizeDefault
         //fontBold: true
     }
 
@@ -90,9 +95,7 @@ Item
         id: fxMouseArea
         anchors.fill: parent
         hoverEnabled: true
-        onClicked: fxDraggableItem.clicked()
-        //onEntered: rightArrow.visible = true
-        //onExited: rightArrow.visible = false
+        onClicked: fxDraggableItem.mouseEvent(App.Clicked, 0, 0, fxDraggableItem, mouse.modifiers)
         drag.target: FixtureDragItem { }
         drag.threshold: 30
 
@@ -101,7 +104,7 @@ Item
         {
             if (fxDraggableItem.isManufacturer == false)
             {
-                fxDraggableItem.clicked();
+                fxDraggableItem.mouseEvent(App.Clicked, 0, 0, fxDraggableItem, mouse.modifiers);
                 FxDragJS.initProperties();
             }
         }
@@ -110,6 +113,6 @@ Item
                 FxDragJS.handleDrag(mouse);
         onReleased:
             if(fxDraggableItem.isManufacturer == false && drag.active == true)
-                        FxDragJS.endDrag(mouse);
+                FxDragJS.endDrag(mouse);
     }
 }

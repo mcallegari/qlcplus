@@ -50,6 +50,7 @@ class Doc;
 #define KXMLQLCVCCueList "CueList"
 #define KXMLQLCVCCueListFunction "Function" // Legacy
 #define KXMLQLCVCCueListChaser "Chaser"
+#define KXMLQLCVCCueListPlaybackLayout "PlaybackLayout"
 #define KXMLQLCVCCueListNextPrevBehavior "NextPrevBehavior"
 #define KXMLQLCVCCueListNext "Next"
 #define KXMLQLCVCCueListPrevious "Previous"
@@ -221,13 +222,23 @@ public:
         Select,
         Nothing
     };
-public:
-    void setNextPrevBehavior(unsigned int nextPrev);
-    unsigned int nextPrevBehavior() const;
+
+    enum PlaybackLayout
+    {
+        PlayPauseStop = 0,
+        PlayStopPause
+    };
+
+    void setNextPrevBehavior(NextPrevBehavior nextPrev);
+    NextPrevBehavior nextPrevBehavior() const;
+
+    void setPlaybackLayout(PlaybackLayout layout);
+    PlaybackLayout playbackLayout() const;
 
 private:
     quint32 m_chaserID;
-    unsigned int m_nextPrevBehavior;
+    NextPrevBehavior m_nextPrevBehavior;
+    PlaybackLayout m_playbackLayout;
     QTreeWidget* m_tree;
     QToolButton* m_crossfadeButton;
     QToolButton* m_playbackButton;

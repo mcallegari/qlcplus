@@ -27,12 +27,12 @@
 
 #include "function.h"
 
+class QElapsedTimer;
 class FadeChannel;
 class ChaserStep;
 class Function;
 class Universe;
 class Chaser;
-class QTime;
 class Doc;
 
 /** @addtogroup engine_functions Functions
@@ -41,12 +41,13 @@ class Doc;
 
 typedef struct
 {
-    int m_index;          //! Index of the step from the original Chaser
-    Function* m_function; //! Currently active function
-    quint32 m_elapsed;    //! Elapsed milliseconds
-    uint m_fadeIn;        //! Step fade in in ms
-    uint m_fadeOut;       //! Step fade out in ms
-    uint m_duration;      //! Step hold in ms
+    int m_index;            //! Index of the step from the original Chaser
+    Function* m_function;   //! Currently active function
+    quint32 m_elapsed;      //! Elapsed milliseconds
+    quint32 m_elapsedBeats; //! Elapsed beats
+    uint m_fadeIn;          //! Step fade in in ms
+    uint m_fadeOut;         //! Step fade out in ms
+    uint m_duration;        //! Step hold in ms
 } ChaserRunnerStep;
 
 class ChaserRunner : public QObject
@@ -173,9 +174,9 @@ private:
     quint32 m_startOffset;                  //! Start step offset time in milliseconds
     bool m_next;                            //! If true, skips to the next step when write is called
     bool m_previous;                        //! If true, skips to the previous step when write is called
-    int m_newStartStepIdx;                  //! Manually set the start step
+    int m_newStartStepIdx;                  //! Manually set the start step index
     int m_lastRunStepIdx;                   //! Index of the last step ran
-    QTime* m_roundTime;                     //! Counts the time between steps
+    QElapsedTimer* m_roundTime;             //! Counts the time between steps
     QVector<int> m_order;                   //! Array of step indices in a randomized order
 
     /************************************************************************

@@ -151,8 +151,8 @@ private:
     RGBScriptsCache *m_rgbScriptsCache;
     IOPluginCache *m_ioPluginCache;
     AudioPluginCache *m_audioPluginCache;
-    InputOutputMap *m_ioMap;
     MasterTimer *m_masterTimer;
+    InputOutputMap *m_ioMap;
     QSharedPointer<AudioCapture> m_inputCapture;
     MonitorProperties *m_monitorProps;
 

@@ -20,11 +20,11 @@
 #ifndef VCCLOCK_H
 #define VCCLOCK_H
 
-#include <QTimer>
-
 #include "vcwidget.h"
 
 #define KXMLQLCVCClock "Clock"
+
+class QTimer;
 
 class VCClockSchedule : public QObject
 {
@@ -88,6 +88,7 @@ class VCClock : public VCWidget
 {
     Q_OBJECT
 
+    Q_PROPERTY(bool enableSchedule READ enableSchedule WRITE setEnableSchedule NOTIFY enableScheduleChanged)
     Q_PROPERTY(ClockType clockType READ clockType WRITE setClockType NOTIFY clockTypeChanged)
     Q_PROPERTY(int  currentTime READ currentTime NOTIFY currentTimeChanged)
     Q_PROPERTY(int  targetTime READ targetTime WRITE setTargetTime NOTIFY targetTimeChanged)
@@ -105,6 +106,9 @@ public:
     void setID(quint32 id);
 
     /** @reimp */
+    QString defaultCaption();
+
+    /** @reimp */
     void render(QQuickView *view, QQuickItem *parent);
 
     /** @reimp */
@@ -118,7 +122,7 @@ private:
      *********************************************************************/
 public:
     enum ClockType { Clock, Stopwatch, Countdown };
-    Q_ENUMS(ClockType)
+    Q_ENUM(ClockType)
 
     void setClockType(ClockType type);
     ClockType clockType() const;
@@ -163,16 +167,21 @@ private:
      * Functions scheduling
      *********************************************************************/
 public:
+    bool enableSchedule() const;
+    void setEnableSchedule(bool enableSchedule);
     QVariantList scheduleList();
     void addSchedule(VCClockSchedule *schedule);
-    Q_INVOKABLE void addSchedule(quint32 funcID);
+    Q_INVOKABLE void addSchedules(QVariantList idsList);
     Q_INVOKABLE void removeSchedule(int index);
 
 signals:
     void scheduleListChanged();
+    void enableScheduleChanged(bool enableSchedule);
 
 private:
+    bool m_enableSchedule;
     QList<VCClockSchedule*>m_scheduleList;
+
     /*********************************************************************
      * Load & Save
      *********************************************************************/

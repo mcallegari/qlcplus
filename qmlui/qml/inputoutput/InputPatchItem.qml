@@ -21,11 +21,12 @@ import QtQuick 2.0
 
 import com.qlcplus.classes 1.0
 import "PluginUtils.js" as PluginUtils
+import "."
 
 Rectangle
 {
     width: parent.width
-    height: profileBox.visible ? 110 : 80
+    height: UISettings.bigItemHeight * 0.9
     color: "transparent"
 
     property int universeID
@@ -35,8 +36,8 @@ Rectangle
     {
         id: patchBox
         width: profileBox.visible ? parent.width - 10 : parent.width
-        height: 80
-        y: profileBox.visible ? 25 : 0
+        height: profileBox.visible ? UISettings.bigItemHeight * 0.6 : UISettings.bigItemHeight * 0.8
+        y: profileBox.visible ? UISettings.bigItemHeight * 0.2 : 0
         x: profileBox.visible ? 5 : 0
         z: 1
         radius: 3
@@ -49,15 +50,16 @@ Rectangle
         border.width: 2
         border.color: "#111"
 
+        /* LED kind-of signal indicator */
         Rectangle
         {
             id: valueChangeBox
-            x: parent.width - 30
+            x: parent.width - width - 10
             y: 10
             z: 1
-            width: 20
-            height: 20
-            radius: 10
+            width: UISettings.iconSizeMedium * 0.75
+            height: width
+            radius: height / 2
             border.width: 2
             border.color: "#333"
             color: "#666"
@@ -83,11 +85,12 @@ Rectangle
         {
             x: 8
             spacing: 3
+
             Image
             {
                 id: pluginIcon
-                y: 2
-                height: patchBox.height - 6
+                anchors.verticalCenter: parent.verticalCenter
+                height: patchBox.height * 0.75
                 width: height
                 source: patch ? PluginUtils.iconFromName(patch.pluginName) : ""
                 sourceSize: Qt.size(width, height)
@@ -100,14 +103,16 @@ Rectangle
                 label: patch ? patch.inputName : ""
                 labelColor: "black"
                 wrapText: true
+                fontSize: UISettings.textSizeDefault
             }
         }
     }
+
     Rectangle
     {
         id: profileBox
         width: parent.width
-        height: patchBox.height + 30
+        height: UISettings.bigItemHeight * 0.8
         visible: patch ? (patch.profileName === "None" ? false : true) : false
 
         border.width: 2
@@ -119,10 +124,11 @@ Rectangle
         {
             x: 10
             y: 3
-            height: 20
+            height: UISettings.bigItemHeight * 0.2
             width: parent.width - 20
             label: patch ? patch.profileName : ""
             labelColor: "black"
+            fontSize: height ? height * 0.7 : 20
             //wrapText: true
         }
     }

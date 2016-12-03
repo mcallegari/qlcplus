@@ -30,17 +30,17 @@ Rectangle
     color: "transparent"
 
     property int functionID
-    property int selectedFixtureIndex: -1
 
     signal requestView(int ID, string qmlSrc)
 
-    Component.onDestruction: functionManager.setEditorFunction(-1)
-
-    function selectFixture(index)
+    ModelSelector
     {
-        if (selectedFixtureIndex != -1)
-        sfxList.contentItem.children[selectedFixtureIndex].isSelected = false
-        selectedFixtureIndex = index
+        id: seSelector
+
+        onItemsCountChanged:
+        {
+            console.log("Scene Editor selected items changed !")
+        }
     }
 
     Column
@@ -49,13 +49,13 @@ Rectangle
         {
             color: UISettings.bgMedium
             width: seContainer.width
-            height: 40
+            height: UISettings.iconSizeMedium
 
             Rectangle
             {
                 id: backBox
-                width: 40
-                height: 40
+                width: UISettings.iconSizeMedium
+                height: width
                 color: "transparent"
 
                 Image
@@ -72,36 +72,42 @@ Rectangle
                     hoverEnabled: true
                     onEntered: backBox.color = "#666"
                     onExited: backBox.color = "transparent"
-                    onClicked:requestView(-1, "qrc:/FunctionManager.qml")
+                    onClicked:
+                    {
+                        functionManager.setEditorFunction(-1)
+                        requestView(-1, "qrc:/FunctionManager.qml")
+                    }
                 }
             }
+
             TextInput
             {
                 id: sNameEdit
                 x: leftArrow.width + 5
-                height: 40
+                height: UISettings.iconSizeMedium
                 width: seContainer.width - backBox.width - removeFxButton.width - 10
                 color: UISettings.fgMain
                 clip: true
                 text: sceneEditor.sceneName
                 verticalAlignment: TextInput.AlignVCenter
-                font.family: "Roboto Condensed"
-                font.pixelSize: 20
+                font.family: UISettings.robotoFontName
+                font.pixelSize: UISettings.textSizeDefault
                 echoMode: TextInput.Normal
                 selectByMouse: true
                 Layout.fillWidth: true
 
                 onTextChanged: sceneEditor.sceneName = text
             }
+
             IconButton
             {
                 id: removeFxButton
-                x: parent.width - 45
+                x: parent.width - UISettings.iconSizeMedium - 5
                 width: height
-                height: 40
+                height: UISettings.iconSizeMedium
                 imgSource: "qrc:/remove.svg"
-                tooltip: qsTr("Remove the selected fixture")
-                onClicked: {   }
+                tooltip: qsTr("Remove the selected fixtures")
+                onClicked: { /* TODO */  }
             }
         }
 
@@ -109,24 +115,33 @@ Rectangle
         {
             id: sfxList
             width: seContainer.width
-            height: seContainer.height - 40
-            y: 40
+            height: seContainer.height - UISettings.iconSizeMedium
+            y: UISettings.iconSizeMedium
             boundsBehavior: Flickable.StopAtBounds
-            model: sceneEditor.fixtures
+            model: sceneEditor.fixtureList
             delegate:
                 FixtureDelegate
                 {
-                    cRef: modelData
+                    cRef: model.fxRef
                     width: seContainer.width
-
+                    isSelected: model.isSelected
                     Component.onCompleted: contextManager.setFixtureSelection(cRef.id, true)
                     Component.onDestruction: contextManager.setFixtureSelection(cRef.id, false)
-                    onClicked:
+                    onMouseEvent:
                     {
-                        sceneEditor.setFixtureSelection(cRef.id)
-                        seContainer.selectFixture(index)
+                        if (type === App.Clicked)
+                        {
+                            seSelector.selectItem(index, sfxList.model, mouseMods & Qt.ControlModifier)
+
+                            if (!(mouseMods & Qt.ControlModifier))
+                                contextManager.resetFixtureSelection()
+
+                            contextManager.setFixtureSelection(cRef.id, true)
+                            sceneEditor.setFixtureSelection(cRef.id)
+                        }
                     }
                 }
+            ScrollBar { flickable: sfxList }
         }
     }
 }

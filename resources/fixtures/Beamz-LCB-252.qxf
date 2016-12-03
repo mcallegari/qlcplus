@@ -292,14 +292,6 @@
   <Channel Number="3">Green</Channel>
   <Channel Number="4">Blue</Channel>
   <Channel Number="5">Auto Program</Channel>
-  <Head>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
-   <Channel>2</Channel>
-   <Channel>3</Channel>
-   <Channel>4</Channel>
-   <Channel>5</Channel>
-  </Head>
  </Mode>
  <Mode Name="12 Ch.">
   <Physical>
@@ -330,7 +322,6 @@
    <Channel>5</Channel>
   </Head>
   <Head>
-   <Channel>5</Channel>
    <Channel>6</Channel>
    <Channel>7</Channel>
    <Channel>8</Channel>

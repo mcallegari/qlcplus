@@ -26,27 +26,33 @@ Rectangle
 {
     id: fxDelegate
     width: 100
-    height: 35
+    height: UISettings.listItemHeight
 
     color: "transparent"
 
     property Fixture cRef
     property string textLabel: cRef ? cRef.name : ""
     property bool isSelected: false
+    property Item dragItem
 
-    signal clicked(int ID, var qItem, int mouseMods)
-    signal doubleClicked(int fID, int fType)
+    signal mouseEvent(int type, int iID, int iType, var qItem, int mouseMods)
 
     function iconFromType(type)
     {
         if (type === "Color Changer")
-            return "qrc:/fixture.svg";
+            return "qrc:/fixture.svg"
         else if (type === "Dimmer")
-            return "qrc:/dimmer.svg";
+            return "qrc:/dimmer.svg"
         else if (type === "Moving Head")
-            return "qrc:/movinghead.svg";
+            return "qrc:/movinghead.svg"
+        else if (type === "Flower")
+            return "qrc:/flower.svg"
+        else if (type === "Effect")
+            return "qrc:/effect.svg"
+        else if (type === "Laser")
+            return "qrc:/laser.svg"
         else
-            return "qrc:/fixture.svg";
+            return "qrc:/fixture.svg"
     }
 
     Rectangle
@@ -79,14 +85,7 @@ Rectangle
         anchors.fill: parent
         hoverEnabled: true
 
-        onClicked:
-        {
-            isSelected = true
-            fxDelegate.clicked(cRef.id, fxDelegate, mouse.modifiers)
-        }
-        onDoubleClicked:
-        {
-            fxDelegate.doubleClicked(cRef.id, -1)
-        }
+        onClicked: fxDelegate.mouseEvent(App.Clicked, cRef.id, cRef.type, fxDelegate, mouse.modifiers)
+        onDoubleClicked: fxDelegate.mouseEvent(App.DoubleClicked, cRef.id, cRef.type, fxDelegate, -1)
     }
 }

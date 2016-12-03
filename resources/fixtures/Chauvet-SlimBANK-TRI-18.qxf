@@ -199,20 +199,17 @@
   <Channel Number="11">Dimmer</Channel>
   <Channel Number="12">Shutter</Channel>
   <Head>
-   <Channel>11</Channel>
    <Channel>0</Channel>
    <Channel>1</Channel>
    <Channel>2</Channel>
   </Head>
   <Head>
-   <Channel>11</Channel>
    <Channel>4</Channel>
    <Channel>5</Channel>
    <Channel>3</Channel>
   </Head>
   <Head>
    <Channel>8</Channel>
-   <Channel>11</Channel>
    <Channel>6</Channel>
    <Channel>7</Channel>
   </Head>

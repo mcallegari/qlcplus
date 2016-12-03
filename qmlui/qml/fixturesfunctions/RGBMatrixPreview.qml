@@ -19,6 +19,8 @@
 
 import QtQuick 2.0
 
+import "."
+
 Rectangle
 {
     id: matrixBox
@@ -70,7 +72,7 @@ Rectangle
         {
             var ctx = matrix.getContext('2d')
             ctx.globalAlpha = 1.0
-            ctx.strokeStyle = "#3A3A3A"
+            ctx.strokeStyle = UISettings.bgLight
             ctx.fillStyle = "black"
             ctx.lineWidth = 1
 
@@ -79,6 +81,7 @@ Rectangle
 
             var yPos = 0
             var xPos = 0
+            var twoPi = Math.PI * 2
 
             for (var yp = 0; yp < matrixSize.height; yp++)
             {
@@ -107,7 +110,7 @@ Rectangle
                     if (matrixBox.circleItems)
                     {
                         ctx.beginPath()
-                        ctx.arc(xPos, yPos, cellSize / 2, 0, 6.28, false)
+                        ctx.arc(xPos, yPos, cellSize / 2, 0, twoPi, false)
                         ctx.fill()
                         ctx.stroke()
                         ctx.closePath()

@@ -361,6 +361,38 @@ void InputOutputMap_Test::setOutputPatch()
     QVERIFY(iom.outputPatch(0)->output() == 3);
 }
 
+void InputOutputMap_Test::setMultipleOutputPatches()
+{
+    InputOutputMap iom(m_doc, 4);
+
+    IOPluginStub* stub = static_cast<IOPluginStub*>
+                                (m_doc->ioPluginCache()->plugins().at(0));
+    QVERIFY(stub != NULL);
+
+    // add an output patch
+    QVERIFY(iom.setOutputPatch(1, stub->name(), 0, false, 0) == true);
+    QVERIFY(iom.outputPatchesCount(1) == 1);
+    QVERIFY(iom.outputPatch(1, 0)->plugin() == stub);
+    QVERIFY(iom.outputPatch(1, 0)->output() == 0);
+
+    // add another output patch
+    QVERIFY(iom.setOutputPatch(1, stub->name(), 0, false, 1) == true);
+    QVERIFY(iom.outputPatchesCount(1) == 2);
+    QVERIFY(iom.outputPatch(1, 1)->plugin() == stub);
+    QVERIFY(iom.outputPatch(1, 1)->output() == 0);
+
+    // remove the first output patch
+    QVERIFY(iom.setOutputPatch(1, stub->name(), QLCIOPlugin::invalidLine(), false, 0) == true);
+    QVERIFY(iom.outputPatchesCount(1) == 1);
+    QVERIFY(iom.outputPatch(1, 0)->plugin() == stub);
+    QVERIFY(iom.outputPatch(1, 0)->output() == 0);
+    QVERIFY(iom.outputPatch(1, 1) == NULL);
+
+    // remove the first output patch again
+    QVERIFY(iom.setOutputPatch(1, stub->name(), QLCIOPlugin::invalidLine(), false, 0) == true);
+    QVERIFY(iom.outputPatchesCount(1) == 0);
+}
+
 void InputOutputMap_Test::slotValueChanged()
 {
     InputOutputMap im(m_doc, 4);

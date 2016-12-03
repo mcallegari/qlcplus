@@ -340,27 +340,32 @@ quint32 Fixture::tiltLsbChannel(int head) const
     }
 }
 
-quint32 Fixture::masterIntensityChannel(int head) const
+quint32 Fixture::masterIntensityChannel() const
+{
+    if (m_fixtureMode == NULL)
+    {
+        return QLCChannel::invalid();
+    }
+
+    return m_fixtureMode->masterIntensityChannel();
+}
+
+quint32 Fixture::intensityChannel(int head) const
 {
     if (head == -1)
         return QLCChannel::invalid();
 
-    if (m_fixtureMode != NULL)
-    {
-        quint32 dimmerCh = QLCChannel::invalid();
-        if (head < m_fixtureMode->heads().size())
-            dimmerCh = m_fixtureMode->heads().at(head).masterIntensityChannel();
-
-        if (dimmerCh == QLCChannel::invalid())
-        {
-            dimmerCh = channel(QLCChannel::Intensity, QLCChannel::NoColour);
-        }
-        return dimmerCh;
-    }
-    else
+    if (m_fixtureMode == NULL)
     {
         return QLCChannel::invalid();
     }
+
+    if (head >= m_fixtureMode->heads().size())
+    {
+        return QLCChannel::invalid();
+    }
+
+    return m_fixtureMode->heads().at(head).intensityChannel();
 }
 
 QVector <quint32> Fixture::rgbChannels(int head) const

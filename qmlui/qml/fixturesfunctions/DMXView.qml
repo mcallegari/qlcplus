@@ -19,11 +19,15 @@
 
 import QtQuick 2.0
 
+import "."
+
 Rectangle
 {
     id: dmxViewRoot
     anchors.fill: parent
-    color: "transparent"
+    color: UISettings.bgMain
+
+    property alias contextItem: flowLayout
 
     function hasSettings()
     {
@@ -40,13 +44,11 @@ Rectangle
 
         contentHeight: flowLayout.height
         contentWidth: flowLayout.width
+        interactive: false
 
         boundsBehavior: Flickable.StopAtBounds
 
         property string contextName: "DMX"
-
-        Component.onCompleted: contextManager.enableContext("DMX", true)
-        Component.onDestruction: contextManager.enableContext("DMX", false)
 
         Flow
         {
@@ -54,6 +56,9 @@ Rectangle
             objectName: "DMXFlowView"
             spacing: 5
             width: dmxViewRoot.width
+
+            Component.onCompleted: contextManager.enableContext("DMX", true, flowLayout)
+            Component.onDestruction: contextManager.enableContext("DMX", false, flowLayout)
         }
     }
     ScrollBar { flickable: fixtureDMXView }

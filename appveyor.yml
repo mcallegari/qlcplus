@@ -1,3 +1,5 @@
+version: 4.10.5.{build}
+
 environment:
     MSYSTEM: MSYS
     PATH: C:\msys64\mingw32\bin;C:\msys64\usr\bin;C:\Windows\System32;C:\Windows;%PATH%
@@ -19,16 +21,16 @@ install:
 
 build_script:
     - ps: >-
-        bash -c @"
+        bash -c @'
           set -e
           # stdin seems to be invalid on appveyor, so set it to null
           exec 0</dev/null 2>&1
           export
           gcc -v
           # get and prepare the D2XX SDK
-          mkdir -p /c/Qt/CDM21200
-          wget http://qlcplus.sourceforge.net/CDM%20v2.12.16%20WHQL%20Certified.zip -O /c/Qt/CDM21200/cdm.zip
-          cd /c/Qt/CDM21200
+          mkdir -p /c/Qt/D2XXSDK
+          wget http://www.ftdichip.com/Drivers/CDM/CDM%20v2.12.24%20WHQL%20Certified.zip -O /c/Qt/D2XXSDK/cdm.zip
+          cd /c/Qt/D2XXSDK
           unzip cdm.zip
           cd i386
           gendef.exe - ftd2xx.dll > ftd2xx.def
@@ -46,8 +48,14 @@ build_script:
           make install -s
           cp *.qm /c/qlcplus
           cd /c/qlcplus
-          ls
-          makensis -V4 qlcplusQt5.nsi
-        "@
+          sed -i -e 's/Qt/projects/g' qlcplusQt5.nsi
+          makensis -X'SetCompressor /FINAL lzma' qlcplusQt5.nsi
+          #set CURRDATE=`date +%Y%m%d`
+          mv QLC+_4.10.5.exe /c/projects/qlcplus/QLC+_$APPVEYOR_BUILD_VERSION.exe
+          ls /c/projects/qlcplus/*.exe
+          exit 0
+        '@
 
-
+artifacts:
+  - path: QLC+_$(APPVEYOR_BUILD_VERSION).exe
+    name: qlcplus_4_10_5

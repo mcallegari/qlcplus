@@ -138,6 +138,9 @@ public:
      */
     void swap(const QLCPoint& a, const QLCPoint& b);
 
+    /** Reset the whole group but preserve its size */
+    void reset();
+
     /**
      * Get a fixture head by its position in the group. If nothing has been assigned
      * at the given point, returns an invalid GroupHead.

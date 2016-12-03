@@ -36,12 +36,10 @@ CoreMidiOutputDevice::CoreMidiOutputDevice(const QVariant& uid, const QString& n
     , m_destination(0)
     , m_universe(MAX_MIDI_DMX_CHANNELS, char(0))
 {
-    qDebug() << Q_FUNC_INFO;
 }
 
 CoreMidiOutputDevice::~CoreMidiOutputDevice()
 {
-    qDebug() << Q_FUNC_INFO;
     close();
 }
 

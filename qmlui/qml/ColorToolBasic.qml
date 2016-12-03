@@ -18,6 +18,7 @@
 */
 
 import QtQuick 2.0
+import "."
 
 Rectangle
 {
@@ -29,6 +30,7 @@ Rectangle
     border.width: 2
 
     property color selectedColor
+    property int cellSize: width / 9
 
     signal colorChanged(real r, real g, real b, real white, real amber, real uv)
     signal released()
@@ -63,10 +65,10 @@ Rectangle
 
     Rectangle
     {
-        x: 40
+        x: cellSize / 2
         y: 5
         width: parent - 10
-        height: 42
+        height: cellSize
 
         Row
         {
@@ -76,8 +78,8 @@ Rectangle
                 delegate:
                     Rectangle
                     {
-                        width: 40
-                        height: 40
+                        width: cellSize
+                        height: cellSize
                         border.width: 1
                         border.color: "#222"
                         color:  getHTMLColor(index * 36, index * 36, index * 36)
@@ -97,10 +99,10 @@ Rectangle
 
     Rectangle
     {
-        x: 40
-        y: 52
+        x: cellSize / 2
+        y: cellSize + 10
         width: parent - 10
-        height: 42
+        height: cellSize
 
         Row
         {
@@ -110,8 +112,8 @@ Rectangle
                 delegate:
                     Rectangle
                     {
-                        width: 40
-                        height: 40
+                        width: cellSize
+                        height: cellSize
                         border.width: 1
                         border.color: "#222"
                         color: getBaseHTMLColor(index)
@@ -132,10 +134,10 @@ Rectangle
 
     Rectangle
     {
-        x: 40
-        y: 100
+        x: cellSize / 2
+        y: (cellSize * 2) + 15
         width: parent - 10
-        height: 42 * 6
+        height: cellSize * 6
 
         Row
         {
@@ -154,8 +156,8 @@ Rectangle
                             delegate:
                                 Rectangle
                                 {
-                                    width: 40
-                                    height: 40
+                                    width: cellSize
+                                    height: cellSize
                                     border.width: 1
                                     border.color: "#222"
                                     color: getShadedColor(colIndex, index)
@@ -179,17 +181,19 @@ Rectangle
 
     Row
     {
-        x: 40
-        y: 350
+        x: cellSize / 2
+        y: (cellSize * 8) + 25
         spacing: 20
+
         RobotoText
         {
+            height: UISettings.listItemHeight
             label: qsTr("Selected color");
         }
         Rectangle
         {
-            width: 70
-            height: 40
+            width: UISettings.mediumItemHeight
+            height: UISettings.listItemHeight
             color: selectedColor
         }
     }

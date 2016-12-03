@@ -33,26 +33,36 @@ Rectangle
 
     property string contextName: "SHOWMGR"
 
-    property int trackHeight: 80
-    property int trackWidth: 200
+    property int trackHeight: UISettings.mediumItemHeight
+    property int trackWidth: UISettings.bigItemHeight * 1.6
 
     property real timeScale: showManager.timeScale
-    property int headerHeight: 40
+    property int headerHeight: UISettings.iconSizeMedium
+    property real xViewOffset: 0
 
     property int showID: showManager.currentShowID
 
-    Component.onCompleted: showManager.renderView(itemsArea.contentItem)
+    onShowIDChanged: renderAndCenter()
+    Component.onCompleted: renderAndCenter()
 
-    onShowIDChanged:
+    function centerView()
+    {
+        var xPos = TimeUtils.timeToSize(showManager.currentTime, timeScale) - (timelineHeader.width / 2)
+        if (xPos >= 0)
+            xViewOffset = xPos
+    }
+
+    function renderAndCenter()
     {
         showManager.renderView(itemsArea.contentItem)
+        centerView()
     }
 
     Rectangle
     {
         id: topBar
         width: showMgrContainer.width
-        height: 44
+        height: UISettings.iconSizeDefault
         z: 5
         gradient: Gradient
         {
@@ -77,7 +87,6 @@ Rectangle
             {
                 width: 200
                 height: parent.height - 10
-                fontSize: 16
                 inputText: showManager.showName
 
                 onTextChanged: showManager.showName = text
@@ -252,36 +261,67 @@ Rectangle
         y: topBar.height
         z: 5
         width: trackWidth + verticalDivider.width
-        height: showMgrContainer.headerHeight
+        height: showMgrContainer.headerHeight - 2
         color: UISettings.bgStrong
 
-        Rectangle
+        RowLayout
         {
-            anchors.right: parent.right
-            width: verticalDivider.width
-            height: parent.height
-            color: UISettings.bgLight
-        }
-        ZoomItem
-        {
-            x: parent.width - width - 6
-            width: 100
-            height: parent.height - 2
-            fontColor: "#222"
-            onZoomOutClicked:
+            anchors.fill: parent
+
+            IconButton
             {
-                if (showManager.timeScale >= 1.0)
-                    showManager.timeScale += 1.0
-                else
-                    showManager.timeScale += 0.1
+                visible: showManager.selectedTrack > 0 ? true : false
+                height: parent.height
+                width: height
+                imgSource: "qrc:/up.svg"
+                tooltip: qsTr("Move the selected track up")
             }
 
-            onZoomInClicked:
+            IconButton
             {
-                if (showManager.timeScale > 1.0)
-                    showManager.timeScale -= 1.0
-                else
-                    showManager.timeScale -= 0.1
+                visible: showManager.selectedTrack >= 0 ? true : false
+                height: parent.height
+                width: height
+                imgSource: "qrc:/down.svg"
+                tooltip: qsTr("Move the selected track down")
+            }
+
+            // layout filler
+            Rectangle
+            {
+                Layout.fillWidth: true
+                color: "transparent"
+            }
+            ZoomItem
+            {
+                //x: parent.width - width - 6
+                width: UISettings.mediumItemHeight * 1.3
+                height: parent.height - 2
+                fontColor: "#222"
+                onZoomOutClicked:
+                {
+                    if (showManager.timeScale >= 1.0)
+                        showManager.timeScale += 1.0
+                    else
+                        showManager.timeScale += 0.1
+                    centerView()
+                }
+
+                onZoomInClicked:
+                {
+                    if (showManager.timeScale > 1.0)
+                        showManager.timeScale -= 1.0
+                    else
+                        showManager.timeScale -= 0.1
+                    centerView()
+                }
+            }
+
+            Rectangle
+            {
+                width: verticalDivider.width
+                height: parent.height
+                color: UISettings.bgLight
             }
         }
     }
@@ -301,7 +341,9 @@ Rectangle
         flickableDirection: Flickable.HorizontalFlick
 
         contentWidth: hdrItem.width //> width ? hdrItem.width : width
-        contentX: itemsArea.contentX
+        contentX: xViewOffset
+
+        onContentXChanged: xViewOffset = contentX
 
         HeaderAndCursor
         {
@@ -309,7 +351,7 @@ Rectangle
             z: 2
             height: parent.height
             visibleWidth: timelineHeader.width
-            visibleX: itemsArea.contentX
+            visibleX: xViewOffset
             headerHeight: showMgrContainer.headerHeight
             cursorHeight: showMgrContainer.height - topBar.height - (bottomPanel.visible ? bottomPanel.height : 0)
             timeScale: showMgrContainer.timeScale
@@ -337,10 +379,10 @@ Rectangle
         boundsBehavior: Flickable.StopAtBounds
         flickableDirection: Flickable.VerticalFlick
 
-        contentHeight: tracksHeight > height ? tracksHeight : height
+        contentHeight: totalTracksHeight > height ? totalTracksHeight : height
         //contentWidth: timelineHeader.contentWidth
 
-        property int tracksHeight: (tracksBox.count + 1) * trackHeight
+        property real totalTracksHeight: (tracksBox.count + 1) * trackHeight
 
         Column
         {
@@ -359,6 +401,8 @@ Rectangle
                         width: tracksBox.width
                         height: trackHeight
                         trackRef: modelData
+                        trackIndex: index
+                        isSelected: showManager.selectedTrack === index ? true : false
                     }
             }
         }
@@ -388,7 +432,9 @@ Rectangle
             boundsBehavior: Flickable.StopAtBounds
             contentHeight: showContents.contentHeight
             contentWidth: timelineHeader.contentWidth
-            contentX: timelineHeader.contentX
+            contentX: xViewOffset
+
+            onContentXChanged: xViewOffset = contentX
 
             MouseArea
             {
@@ -415,7 +461,7 @@ Rectangle
             DropArea
             {
                 id: newFuncDrop
-                x: itemsArea.contentX
+                x: xViewOffset
                 width: showMgrContainer.width - trackWidth
                 height: tracksBox.count * trackHeight
                 z: 2
@@ -423,18 +469,36 @@ Rectangle
                 keys: [ "function" ]
                 onDropped:
                 {
-                    console.log("Function item dropped here. x: " + drag.x + " y: " + drag.y)
-                    var trackIdx = (itemsArea.contentY + drag.y) / trackHeight
-                    var fTime = TimeUtils.posToMs(itemsArea.contentX + drag.x, timeScale)
-                    console.log("Drop on time: " + fTime)
-                    showManager.addItem(itemsArea.contentItem, trackIdx, fTime, drag.source.funcID)
+                    console.log("Function items dropped here. x: " + drag.x + " y: " + drag.y)
+
+                    /* Check if the dragging was started from a Function Manager */
+                    if (drag.source.hasOwnProperty("fromFunctionManager"))
+                    {
+                        var trackIdx = (itemsArea.contentY + drag.y) / trackHeight
+                        var fTime = TimeUtils.posToMs(itemsArea.contentX + drag.x, timeScale)
+                        console.log("Drop on time: " + fTime)
+                        showManager.addItems(itemsArea.contentItem, trackIdx, fTime, drag.source.itemsList)
+                    }
+/*
+                    if (drag.source.funcID !== showID)
+                    {
+                        showManager.addItem(itemsArea.contentItem, trackIdx, fTime, drag.source.funcID)
+                    }
+                    else
+                    {
+                        var args = []
+                        actionManager.requestActionPopup(ActionManager.None,
+                                                         qsTr("Cannot drag a Show into itself !"),
+                                                         ActionManager.OK, args)
+                    }
+*/
                 }
             }
 
             Rectangle
             {
                 id: newTrackBox
-                x: itemsArea.contentX
+                x: xViewOffset
                 y: tracksBox.count * trackHeight
                 height: trackHeight
                 width: itemsArea.width
@@ -476,9 +540,14 @@ Rectangle
                     onDropped:
                     {
                         console.log("Function item dropped here. x: " + drag.x + " y: " + drag.y)
-                        var fTime = TimeUtils.posToMs(itemsArea.contentX + drag.x, timeScale)
-                        console.log("Drop on time: " + fTime)
-                        showManager.addItem(itemsArea.contentItem, -1, fTime, drag.source.funcID)
+
+                        /* Check if the dragging was started from a Function Manager */
+                        if (drag.source.hasOwnProperty("fromFunctionManager"))
+                        {
+                            var fTime = TimeUtils.posToMs(xViewOffset + drag.x, timeScale)
+                            console.log("Drop on time: " + fTime)
+                            showManager.addItems(itemsArea.contentItem, -1, fTime, drag.source.itemsList)
+                        }
                     }
                 }
             }

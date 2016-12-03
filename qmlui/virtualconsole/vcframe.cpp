@@ -30,6 +30,11 @@
 #include "vcsoloframe.h"
 #include "virtualconsole.h"
 
+#define INPUT_NEXT_PAGE_ID      0
+#define INPUT_PREVIOUS_PAGE_ID  1
+#define INPUT_ENABLE_ID         2
+#define INPUT_COLLAPSE_ID       3
+
 VCFrame::VCFrame(Doc *doc, VirtualConsole *vc, QObject *parent)
     : VCWidget(doc, parent)
     , m_vc(vc)
@@ -43,10 +48,21 @@ VCFrame::VCFrame(Doc *doc, VirtualConsole *vc, QObject *parent)
     , m_pagesLoop(false)
 {
     setType(VCWidget::FrameWidget);
+
+    registerExternalControl(INPUT_NEXT_PAGE_ID, tr("Next Page"), true);
+    registerExternalControl(INPUT_PREVIOUS_PAGE_ID, tr("Previous Page"), true);
+    registerExternalControl(INPUT_ENABLE_ID, tr("Enable"), true);
+    registerExternalControl(INPUT_COLLAPSE_ID, tr("Collapse"), true);
 }
 
 VCFrame::~VCFrame()
 {
+    deleteChildren();
+}
+
+QString VCFrame::defaultCaption()
+{
+    return tr("Frame %1").arg(id());
 }
 
 void VCFrame::render(QQuickView *view, QQuickItem *parent)
@@ -75,6 +91,16 @@ void VCFrame::render(QQuickView *view, QQuickItem *parent)
         foreach(VCWidget *child, m_pagesMap.keys())
             child->render(view, childrenArea);
     }
+}
+
+QString VCFrame::propertiesResource() const
+{
+    /** If this frame is a top level frame, then it means
+     *  it is a VC page, so return a specific properties resource */
+    if (parent() == m_vc)
+        return QString("qrc:/VCPageProperties.qml");
+
+    return QString("qrc:/VCFrameProperties.qml");
 }
 
 void VCFrame::setHasSoloParent(bool hasSoloParent)
@@ -130,7 +156,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
         {
             VCFrame *frame = new VCFrame(m_doc, m_vc, this);
             QQmlEngine::setObjectOwnership(frame, QQmlEngine::CppOwnership);
-            frame->setGeometry(QRect(pos.x(), pos.y(), 300, 300));
+            frame->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 50, m_vc->pixelDensity() * 50));
             setupWidget(frame);
             m_vc->addWidgetToMap(frame);
             frame->render(m_vc->view(), parent);
@@ -140,7 +166,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
         {
             VCSoloFrame *soloframe = new VCSoloFrame(m_doc, m_vc, this);
             QQmlEngine::setObjectOwnership(soloframe, QQmlEngine::CppOwnership);
-            soloframe->setGeometry(QRect(pos.x(), pos.y(), 300, 300));
+            soloframe->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 50, m_vc->pixelDensity() * 50));
             setupWidget(soloframe);
             m_vc->addWidgetToMap(soloframe);
             soloframe->render(m_vc->view(), parent);
@@ -150,7 +176,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
         {
             VCButton *button = new VCButton(m_doc, this);
             QQmlEngine::setObjectOwnership(button, QQmlEngine::CppOwnership);
-            button->setGeometry(QRect(pos.x(), pos.y(), 100, 100));
+            button->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 17, m_vc->pixelDensity() * 17));
             setupWidget(button);
             m_vc->addWidgetToMap(button);
             button->render(m_vc->view(), parent);
@@ -160,7 +186,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
         {
             VCLabel *label = new VCLabel(m_doc, this);
             QQmlEngine::setObjectOwnership(label, QQmlEngine::CppOwnership);
-            label->setGeometry(QRect(pos.x(), pos.y(), 100, 30));
+            label->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 25, m_vc->pixelDensity() * 8));
             setupWidget(label);
             m_vc->addWidgetToMap(label);
             label->render(m_vc->view(), parent);
@@ -170,8 +196,9 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
         {
             VCSlider *slider = new VCSlider(m_doc, this);
             QQmlEngine::setObjectOwnership(slider, QQmlEngine::CppOwnership);
-            slider->setGeometry(QRect(pos.x(), pos.y(), 60, 200));
+            slider->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 10, m_vc->pixelDensity() * 35));
             setupWidget(slider);
+            //slider->setDefaultFontSize(m_vc->pixelDensity() * 3.5);
             m_vc->addWidgetToMap(slider);
             slider->render(m_vc->view(), parent);
         }
@@ -180,8 +207,9 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
         {
             VCClock *clock = new VCClock(m_doc, this);
             QQmlEngine::setObjectOwnership(clock, QQmlEngine::CppOwnership);
-            clock->setGeometry(QRect(pos.x(), pos.y(), 150, 50));
+            clock->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 25, m_vc->pixelDensity() * 8));
             setupWidget(clock);
+            clock->setDefaultFontSize(m_vc->pixelDensity() * 5.5);
             m_vc->addWidgetToMap(clock);
             clock->render(m_vc->view(), parent);
         }
@@ -191,21 +219,61 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
     }
 }
 
-void VCFrame::addFunction(QQuickItem *parent, quint32 funcID, QPoint pos, bool modifierPressed)
+void VCFrame::addFunctions(QQuickItem *parent, QVariantList idsList, QPoint pos, int keyModifiers)
 {
-    Q_UNUSED(modifierPressed)
-
     // reset all the drop targets, otherwise two overlapping
     // frames can get the same drop event
     m_vc->resetDropTargets(true);
 
-    VCButton *button = new VCButton(m_doc, this);
-    QQmlEngine::setObjectOwnership(button, QQmlEngine::CppOwnership);
-    button->setGeometry(QRect(pos.x(), pos.y(), 100, 100));
-    button->setFunctionID(funcID);
-    setupWidget(button);
-    m_vc->addWidgetToMap(button);
-    button->render(m_vc->view(), parent);
+    //qDebug() << "modifiers:" << QString::number(keyModifiers, 16);
+
+    QPoint currPos = pos;
+
+    for (QVariant vID : idsList) // C++11
+    {
+        quint32 funcID = vID.toUInt();
+        Function *func = m_doc->function(funcID);
+
+        if (func == NULL)
+            continue;
+
+        if (keyModifiers & Qt::ShiftModifier)
+        {
+            VCSlider *slider = new VCSlider(m_doc, this);
+            QQmlEngine::setObjectOwnership(slider, QQmlEngine::CppOwnership);
+            slider->setGeometry(QRect(currPos.x(), currPos.y(), m_vc->pixelDensity() * 10, m_vc->pixelDensity() * 35));
+            slider->setCaption(func->name());
+            slider->setPlaybackFunction(funcID);
+            setupWidget(slider);
+            m_vc->addWidgetToMap(slider);
+            slider->render(m_vc->view(), parent);
+
+            currPos.setX(currPos.x() + slider->geometry().width());
+            if (currPos.x() >= geometry().width())
+            {
+                currPos.setX(pos.x());
+                currPos.setY(currPos.y() + slider->geometry().height());
+            }
+        }
+        else
+        {
+            VCButton *button = new VCButton(m_doc, this);
+            QQmlEngine::setObjectOwnership(button, QQmlEngine::CppOwnership);
+            button->setGeometry(QRect(currPos.x(), currPos.y(), m_vc->pixelDensity() * 17, m_vc->pixelDensity() * 17));
+            button->setCaption(func->name());
+            button->setFunctionID(funcID);
+            setupWidget(button);
+            m_vc->addWidgetToMap(button);
+            button->render(m_vc->view(), parent);
+
+            currPos.setX(currPos.x() + button->geometry().width());
+            if (currPos.x() >= geometry().width())
+            {
+                currPos.setX(pos.x());
+                currPos.setY(currPos.y() + button->geometry().height());
+            }
+        }
+    }
 }
 
 void VCFrame::deleteChildren()
@@ -218,23 +286,23 @@ void VCFrame::deleteChildren()
     {
         it.next();
         VCWidget *widget = it.key();
-        if(widget->type() == FrameWidget)
+        if(widget->type() == FrameWidget || widget->type() == SoloFrameWidget)
         {
-            VCFrame *frame = static_cast<VCFrame*>(widget);
+            VCFrame *frame = qobject_cast<VCFrame*>(widget);
             frame->deleteChildren();
         }
-        else if(widget->type() == SoloFrameWidget)
-        {
-            VCFrame *soloframe = static_cast<VCFrame*>(widget);
-            soloframe->deleteChildren();
-        }
+        /* Remove the widget from the frame pages map */
         m_pagesMap.remove(widget);
+        /* Remove it also from the global VC widgets map */
+        m_vc->removeWidgetFromMap(widget);
         delete widget;
     }
 }
 
 void VCFrame::setupWidget(VCWidget *widget)
 {
+    widget->setDefaultFontSize(m_vc->pixelDensity() * 2.7);
+
     addWidgetToPageMap(widget);
 
     // if we're a normal Frame and we have a Solo Frame parent
@@ -243,16 +311,16 @@ void VCFrame::setupWidget(VCWidget *widget)
     // the signal, so each widget will know to immediately start the Function
     if (xmlTagName() == KXMLQLCVCFrame && m_hasSoloParent == true)
     {
-        connect(widget, SIGNAL(functionStarting(VCWidget *,quint32,qreal)),
-                this, SIGNAL(functionStarting(VCWidget *,quint32,qreal)));
+        connect(widget, SIGNAL(functionStarting(VCWidget*,quint32,qreal)),
+                this, SIGNAL(functionStarting(VCWidget*,quint32,qreal)));
     }
 
     // otherwise, if we're a Solo Frame, connect the widget
     // functionStarting signal to a slot to handle the event
     if (xmlTagName() == KXMLQLCVCSoloFrame)
     {
-        connect(widget, SIGNAL(functionStarting(VCWidget *,quint32,qreal)),
-                this, SLOT(slotFunctionStarting(VCWidget *,quint32,qreal)));
+        connect(widget, SIGNAL(functionStarting(VCWidget*,quint32,qreal)),
+                this, SLOT(slotFunctionStarting(VCWidget*,quint32,qreal)));
     }
 }
 
@@ -266,6 +334,18 @@ void VCFrame::removeWidgetFromPageMap(VCWidget *widget)
     m_pagesMap.remove(widget);
 }
 
+
+/*********************************************************************
+ * Disable state
+ *********************************************************************/
+
+void VCFrame::setDisabled(bool disable)
+{
+    for (VCWidget *widget : children(true)) // C++11
+        widget->setDisabled(disable);
+
+    VCWidget::setDisabled(disable);
+}
 /*********************************************************************
  * Header
  *********************************************************************/
@@ -427,6 +507,28 @@ void VCFrame::slotFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensi
 
     if (xmlTagName() == KXMLQLCVCFrame)
         qDebug() << "[VCFrame] ERROR ! This should never happen !";
+}
+
+void VCFrame::slotInputValueChanged(quint8 id, uchar value)
+{
+    if (value != 255)
+        return;
+
+    switch(id)
+    {
+        case INPUT_NEXT_PAGE_ID:
+            gotoNextPage();
+        break;
+        case INPUT_PREVIOUS_PAGE_ID:
+            gotoPreviousPage();
+        break;
+        case INPUT_ENABLE_ID:
+            // TODO
+        break;
+        case INPUT_COLLAPSE_ID:
+            setCollapsed(!isCollapsed());
+        break;
+    }
 }
 
 /*****************************************************************************

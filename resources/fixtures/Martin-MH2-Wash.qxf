@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.5 GIT</Version>
+  <Author>John Yiannikakis, Freasy</Author>
+ </Creator>
+ <Manufacturer>Martin</Manufacturer>
+ <Model>MH2 Wash</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Electronic Shutter Effect">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="19">Shutter closed</Capability>
+  <Capability Min="20" Max="49">Shutter open</Capability>
+  <Capability Min="50" Max="64">Strobe 1 (fast to slow)</Capability>
+  <Capability Min="65" Max="69">Shutter open</Capability>
+  <Capability Min="70" Max="84">Strobe 2: opening pulse (fast to slow)</Capability>
+  <Capability Min="85" Max="89">Shutter open</Capability>
+  <Capability Min="90" Max="104">Strobe 3: closing pulse (fast to slow)</Capability>
+  <Capability Min="105" Max="109">Shutter open</Capability>
+  <Capability Min="110" Max="124">Strobe 4: random strobe (fast to slow)</Capability>
+  <Capability Min="125" Max="129">Shutter open</Capability>
+  <Capability Min="130" Max="144">Strobe 5: random opening pulse (fast to slow)</Capability>
+  <Capability Min="145" Max="149">Shutter open</Capability>
+  <Capability Min="150" Max="164">Strobe 6: random closing pulse (fast to slow)</Capability>
+  <Capability Min="165" Max="169">Shutter open</Capability>
+  <Capability Min="170" Max="184">Strobe 7: burst pulse (fast to slow)</Capability>
+  <Capability Min="185" Max="189">Shutter open</Capability>
+  <Capability Min="190" Max="204">Strobe 8: random burst pulse (fast to slow)</Capability>
+  <Capability Min="205" Max="209">Shutter open</Capability>
+  <Capability Min="210" Max="224">Strobe 9: sine wave (fast to slow)</Capability>
+  <Capability Min="225" Max="229">Shutter open</Capability>
+  <Capability Min="230" Max="244">Strobe 10: burst (fast to slow)</Capability>
+  <Capability Min="245" Max="255">Shutter open</Capability>
+ </Channel>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Dimmer 0-100%</Capability>
+ </Channel>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan 0°-540°</Capability>
+ </Channel>
+ <Channel Name="Pan Fine">
+  <Group Byte="1">Pan</Group>
+  <Capability Min="0" Max="255">Pan fine</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt 0°-180°</Capability>
+ </Channel>
+ <Channel Name="Tilt Fine">
+  <Group Byte="1">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt fine</Capability>
+ </Channel>
+ <Channel Name="Fixture Control Settings">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="14">Reset entire fixture</Capability>
+  <Capability Min="15" Max="94">No function</Capability>
+  <Capability Min="95" Max="99">Enable blackout during Pan/Tilt movement</Capability>
+  <Capability Min="100" Max="104">No function</Capability>
+  <Capability Min="105" Max="109">Disable blackout during Pan/Tilt movement</Capability>
+  <Capability Min="110" Max="114">Fast dimming, unrestricted effects speed</Capability>
+  <Capability Min="115" Max="119">No function</Capability>
+  <Capability Min="120" Max="124">Smooth dimming, slightly reduced effects speed</Capability>
+  <Capability Min="125" Max="249">Illuminate display</Capability>
+  <Capability Min="250" Max="255">Stand-alone</Capability>
+ </Channel>
+ <Channel Name="Color Wheel Effect">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">Open</Capability>
+  <Capability Min="10" Max="14" Color="#ffb4a6">LEE 790 - Moroccan pink</Capability>
+  <Capability Min="15" Max="19" Color="#ffb4a6">LEE 157 - Pink</Capability>
+  <Capability Min="20" Max="24" Color="#fe3887">LEE 332 - Special rose pink</Capability>
+  <Capability Min="25" Max="29" Color="#ff64c9">LEE 328 - Follies pink</Capability>
+  <Capability Min="30" Max="34" Color="#ce6ed9">LEE 345 - Fuchsia pink</Capability>
+  <Capability Min="35" Max="39" Color="#a31beb">LEE 194 - Suprise pink</Capability>
+  <Capability Min="40" Max="44" Color="#4f00ab">LEE 181 - Congo blue</Capability>
+  <Capability Min="45" Max="49" Color="#0001b4">LEE 071 - Tokyo blue</Capability>
+  <Capability Min="50" Max="54" Color="#015fbf">LEE 120 - Deep blue</Capability>
+  <Capability Min="55" Max="59" Color="#3d8cd1">LEE 079 - Just blue</Capability>
+  <Capability Min="60" Max="64" Color="#00a0dc">LEE 132 - Medium blue</Capability>
+  <Capability Min="65" Max="69" Color="#91bef5">LEE 200 - Double CT blue</Capability>
+  <Capability Min="70" Max="74" Color="#7ed2f6">LEE 161 - Slate blue</Capability>
+  <Capability Min="75" Max="79" Color="#c3e1fb">LEE 201 - Full CT blue</Capability>
+  <Capability Min="80" Max="84" Color="#d7f1fe">LEE 202 - Half CT blue</Capability>
+  <Capability Min="85" Max="89" Color="#b4fbf7">LEE 117 - Steel blue</Capability>
+  <Capability Min="90" Max="94" Color="#61e8e2">LEE 353 - Lighter blue</Capability>
+  <Capability Min="95" Max="99" Color="#00e2eb">LEE 118 - Light blue</Capability>
+  <Capability Min="100" Max="104" Color="#00c9b9">LEE 116 - Medium blue green</Capability>
+  <Capability Min="105" Max="109" Color="#01dc78">LEE 124 - Dark green</Capability>
+  <Capability Min="110" Max="114" Color="#4bc301">LEE 139 - Primary green</Capability>
+  <Capability Min="115" Max="119" Color="#5adb5a">LEE 089 - Moss green</Capability>
+  <Capability Min="120" Max="124" Color="#7afa6f">LEE 122 - Fern green</Capability>
+  <Capability Min="125" Max="129" Color="#aaff01">LEE 738 - JAS green</Capability>
+  <Capability Min="130" Max="134" Color="#dcff63">LEE 088 - Lime green</Capability>
+  <Capability Min="135" Max="139" Color="#f5ff00">LEE 100 - Spring yellow</Capability>
+  <Capability Min="140" Max="144" Color="#fedc01">LEE 104 - Deep amber</Capability>
+  <Capability Min="145" Max="149" Color="#ffbe00">LEE 179 - Chrome orange</Capability>
+  <Capability Min="150" Max="154" Color="#fea000">LEE 105 - Orange</Capability>
+  <Capability Min="155" Max="159" Color="#ff8c31">LEE 021 - Gold amber</Capability>
+  <Capability Min="160" Max="164" Color="#fe7600">LEE 778 - Millenium gold</Capability>
+  <Capability Min="165" Max="169" Color="#ff5f01">LEE 135 - Deep golden amber</Capability>
+  <Capability Min="170" Max="174" Color="#ff3301">LEE 164 - Flame red</Capability>
+  <Capability Min="175" Max="179">Open</Capability>
+  <Capability Min="180" Max="201">Rotation Clockwise, fast to slow</Capability>
+  <Capability Min="202" Max="207">Stop (this will stop wherever the color is at the time)</Capability>
+  <Capability Min="208" Max="229">Rotation Counter-clockwise, slow to fast</Capability>
+  <Capability Min="230" Max="234">Open</Capability>
+  <Capability Min="235" Max="239">Random color fast</Capability>
+  <Capability Min="240" Max="244">Random color medium</Capability>
+  <Capability Min="245" Max="249">Random color slow</Capability>
+  <Capability Min="250" Max="255">Open</Capability>
+ </Channel>
+ <Channel Name="Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red 0-100%</Capability>
+ </Channel>
+ <Channel Name="Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green 0-100%</Capability>
+ </Channel>
+ <Channel Name="Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue 0-100%</Capability>
+ </Channel>
+ <Channel Name="White">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">White 0-100%</Capability>
+ </Channel>
+ <Mode Name="12 Channel">
+  <Physical>
+   <Bulb Type="RGBW LED" Lumens="2300" ColourTemperature="0"/>
+   <Dimensions Weight="5.7" Width="258" Height="156" Depth="305"/>
+   <Lens Name="Other" DegreesMin="17" DegreesMax="17"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="180"/>
+   <Technical PowerConsumption="125" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
+  <Channel Number="0">Electronic Shutter Effect</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Pan</Channel>
+  <Channel Number="3">Pan Fine</Channel>
+  <Channel Number="4">Tilt</Channel>
+  <Channel Number="5">Tilt Fine</Channel>
+  <Channel Number="6">Fixture Control Settings</Channel>
+  <Channel Number="7">Color Wheel Effect</Channel>
+  <Channel Number="8">Red</Channel>
+  <Channel Number="9">Green</Channel>
+  <Channel Number="10">Blue</Channel>
+  <Channel Number="11">White</Channel>
+ </Mode>
+</FixtureDefinition>

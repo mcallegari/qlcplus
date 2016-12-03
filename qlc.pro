@@ -2,16 +2,13 @@ include(variables.pri)
 
 TEMPLATE = subdirs
 
-android|ios: CONFIG += qmlui
-
 SUBDIRS      += hotplugmonitor
 SUBDIRS      += engine
 
 contains(CONFIG, qmlui) {
   message("Building QLC+ 5 QML UI")
   SUBDIRS      += qmlui
-}
-else {
+} else {
   message("Building QLC+ 4 QtWidget UI")
   SUBDIRS      += ui
   SUBDIRS      += webaccess
@@ -19,7 +16,6 @@ else {
 }
 SUBDIRS          += resources
 !android:!ios:SUBDIRS += fixtureeditor
-SUBDIRS          += etc
 macx:SUBDIRS     += launcher
 SUBDIRS          += plugins
 
@@ -51,4 +47,4 @@ translations.path   = $$INSTALLROOT/$$TRANSLATIONDIR
 INSTALLS           += translations
 
 # Leave this on the last row of this file
-macx:SUBDIRS += macx
+SUBDIRS += platforms

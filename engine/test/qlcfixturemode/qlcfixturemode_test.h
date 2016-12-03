@@ -43,6 +43,7 @@ private slots:
     void channelNumber();
     void heads();
     void copy();
+    void intensityChannels();
 
     void load();
     void loadWrongRoot();

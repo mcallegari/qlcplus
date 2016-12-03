@@ -51,13 +51,15 @@ class VCButton : public VCWidget
     /*********************************************************************
      * Initialization
      *********************************************************************/
-
 public:
     VCButton(Doc* doc = NULL, QObject *parent = 0);
     virtual ~VCButton();
 
     /** @reimp */
     void setID(quint32 id);
+
+    /** @reimp */
+    QString defaultCaption();
 
     /** @reimp */
     void render(QQuickView *view, QQuickItem *parent);
@@ -139,7 +141,7 @@ public:
      * StopAll: Stop all functions (panic button).
      */
     enum ButtonAction { Toggle, Flash, Blackout, StopAll };
-    Q_ENUMS(ButtonAction)
+    Q_ENUM(ButtonAction)
 
     ButtonAction actionType() const;
 
@@ -189,6 +191,13 @@ public:
 protected:
     bool m_startupIntensityEnabled;
     qreal m_startupIntensity;
+
+    /*********************************************************************
+     * External input
+     *********************************************************************/
+public slots:
+    /** @reimp */
+    void slotInputValueChanged(quint8 id, uchar value);
 
     /*********************************************************************
      * Load & Save

@@ -1,11 +1,56 @@
 qlcplus (4.10.5) stable; urgency=low
 
-  * New fixture: Pro-Lights LumiPIX 12Q (thanks to Andrea Ugolini)
+  * Engine: added indigo to fixture channel colors (thanks to Axel Metzke)
+  * Engine: properly handle RGB Matrices with generic dimmers (Jano Svitok)
+  * UI/Function Manager: fix crash when trying to clone a folder (David Garyga)
+  * UI/RGB Matrix Editor: editor preview doesn't stop when testing the Function
+  * UI/Collection Editor: allow multiple selection and added Function reordering buttons
+  * UI/Remap: fixed universes list in target mapping
+  * UI/Remap: fixed wrong Scene remapping when mixing cloned and new fixtures
+  * UI/Remap: added remapping also of Fixture Groups
+  * Virtual Console/Frame: Show page number when collapsed (thanks to Matthias Gubisch)
+  * Virtual Console/Cue List: allow to choose playback buttons layout (Play/Pause + Stop or Play/Stop + Pause)
+  * Plugins/DMX USB: fixed crash happening on PRO devices when receiving a full universe
+  * Plugins/DMX USB: [MacOS] fixed regression caused by the Qt libraries on PRO devices
+  * Plugins/MIDI: [MacOS] added support for virtual ports, show only active devices and properly handle hotplug
+  * Fixture Editor: fixed minimum value of a new capability not updating correctly
+  * RGB Scripts: added One by one (Jano Svitok)
+  * New fixtures: Pro-Lights LumiPIX 12Q, Proel PLLEDMLBG (thanks to Andrea Ugolini)
   * New fixtures: Stairville DCL Flat Par 18x4W CW/WW, Cameo LED MultiPAR CLM-PAR-COB1 (thanks to Freasy)
+  * New fixtures: High End Systems Studio Beam, lightmaXX EASY Wash 5IVE LED (thanks to Freasy)
   * New fixture: iSolution iColor 4 (thanks to withlime)
-  * New fixtures: ETC ColorSource Spot, American DJ Chameleon QBar Pro, American DJ Vizi Beam RXONE (thanks to Robert Box)
+  * New fixtures: ETC ColorSource Spot, Blizzard Lighting LB-Par Hex (thanks to Robert Box)
+  * New fixtures: American DJ: Chameleon QBar Pro,DJ Vizi Beam RXONE, XS 600, Focus Spot Three Z (thanks to Robert Box)
+  * New fixture: JB-Lighting Varyscan P6, Cameo Wookie series, Cameo Hydrabeam series (thanks to Andres Robles)
+  * New fixture: Chauvet RotoSphere LED (thanks to Carl Eisenbeis)
+  * New fixture: Briteq Spectra 3D Laser (thanks to Robert Box + Freasy)
+  * New fixture: Martin MH2 Wash (thanks to John Yiannikakis + Freasy)
+  * New fixture: American DJ Flat Par Tri7X (thanks to Brian)
+  * New fixtures: Ledj Stage Color 24, 59 7Q5 RGBW, 59 7Q5 RGBA (thanks to Paul Wilton)
+  * New fixtures: American DJ: Inno Spot Elite, Stinger, Tri Phase (thanks to Piotr Nowik)
+  * New fixtures: Showtec Phantom 95 LED Spot, Futurelight PHS-260 (thanks to Piotr Nowik)
+  * New fixture: Blizzard Lighting Rocklite RGBAW (thanks to Larry Wall)
+  * New fixture: American DJ Comscan LED (thanks to Chris)
+  * New fixtures: PR Lighting XL 250/XL 700 Wash/XL 700 Spot, American DJ Accu Fog 1000 (thanks to István Király)
+  * New fixtures: Equinox Ultra Scan LED, Kam Powercan84W, QTX HZ-3 (thanks to Chris Moses)
+  * New fixture: Eurolite TMH-10 (thank to exmatrikulator)
+  * New fixture: Eurolite LED SLS 5 BCL, Robe Fog 1500 FT (thanks to Christian Hollbjär)
+  * New fixture: SGM Giotto Spot 400 (thanks to Mihai Andrei)
+  * New fixture: Pulse LEDBAR 320 (thanks to Allan Rhynas)
+  * New fixture: Equinox Swing Batten (thanks to Dean Clough)
+  * New fixture: Cameo Pixbar 600 PRO, Chauvet COLORado 1 Quad Zoom Tour (thanks to Andrew Hallmark)
+  * New fixture: Involight FM900 DMX (thanks to Jászberény Szabolcs)
+  * New fixture: Showtec Stage Blinder Series (thanks to Antoni J. Canós)
+  * New fixture: MARQ Gamut PAR H7 (thanks to Lance Lyda)
+  * New fixtures: Chauvet: SlimPAR QUV12 USB, SlimPAR PRO H USB, Scorpion Bar RG (thanks to Pete Mueller)
+  * New fixture: Stairville CLB8 Compact LED PAR System (thanks to Detlef Fossan)
+  * New fixture: Chauvet Cubix 2.0 (thanks to Jungle Jim)
+  * New fixture: Showtec Giant XL LED (thanks to Samuel Hofmann)
+  * New fixtures: SGM: Idea Beam 300, Idea Led Bar 100, Idea Spot 700, Newton 1200 (thanks to Oscar Cervesato)
+  * New fixtures: Pro Lights LumiPAR18QTour, Elation SIXPAR 200IP (thanks to Oscar Cervesato)
+  * New fixture: Stairville Beam Moving Head B5R, American DJ Flat Par TW12, Varytec Easy Scan XT Mini (thanks to Thierry Rodolfo)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 31 Jul 2016 12:13:14 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 3 Dec 2016 12:13:14 +0200
 
 qlcplus (4.10.4) stable; urgency=low
 

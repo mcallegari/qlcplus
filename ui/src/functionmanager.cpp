@@ -608,7 +608,13 @@ void FunctionManager::slotClone()
 {
     QListIterator <QTreeWidgetItem*> it(m_tree->selectedItems());
     while (it.hasNext() == true)
-        copyFunction(m_tree->itemFunctionId(it.next()));
+    {
+        QTreeWidgetItem* item = it.next();
+        quint32 fid = item->data(COL_NAME, Qt::UserRole).toUInt();
+        if (fid == Function::invalidId())
+            continue;
+        copyFunction(m_tree->itemFunctionId(item));
+    }
 }
 
 void FunctionManager::slotDelete()

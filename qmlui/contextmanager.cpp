@@ -32,7 +32,8 @@
 #include "doc.h"
 
 ContextManager::ContextManager(QQuickView *view, Doc *doc,
-                               FixtureManager *fxMgr, FunctionManager *funcMgr,
+                               FixtureManager *fxMgr,
+                               FunctionManager *funcMgr,
                                QObject *parent)
     : QObject(parent)
     , m_view(view)
@@ -46,65 +47,120 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
     m_source = new GenericDMXSource(m_doc);
     m_source->setOutputEnabled(true);
 
+    m_uniGridView = new PreviewContext(m_view, m_doc, "UNIGRID");
+    m_uniGridView->setContextResource("qrc:/UniverseGridView.qml");
+    m_uniGridView->setContextTitle(tr("Universe Grid View"));
+    registerContext(m_uniGridView);
+
     m_2DView = new MainView2D(m_view, m_doc);
+    registerContext(m_2DView);
     m_view->rootContext()->setContextProperty("View2D", m_2DView);
 
     m_DMXView = new MainViewDMX(m_view, m_doc);
+    registerContext(m_DMXView);
 
     connect(m_fixtureManager, SIGNAL(newFixtureCreated(quint32,qreal,qreal)),
             this, SLOT(slotNewFixtureCreated(quint32,qreal,qreal)));
-    connect(m_fixtureManager, SIGNAL(channelValueChanged(quint32,quint32,quint8)),
-            this, SLOT(slotChannelValueChanged(quint32,quint32,quint8)));
+    connect(m_fixtureManager, &FixtureManager::channelValueChanged, this, &ContextManager::slotChannelValueChanged);
     connect(m_fixtureManager, SIGNAL(channelTypeValueChanged(int,quint8)),
             this, SLOT(slotChannelTypeValueChanged(int,quint8)));
-    connect(m_fixtureManager, SIGNAL(colorChanged(QColor,QColor)),
-            this, SLOT(slotColorChanged(QColor,QColor)));
-    connect(m_fixtureManager, SIGNAL(positionTypeValueChanged(int,int)),
-            this, SLOT(slotPositionChanged(int,int)));
-    connect(m_fixtureManager, SIGNAL(presetChanged(const QLCChannel*,quint8)),
-            this, SLOT(slotPresetChanged(const QLCChannel*,quint8)));
-    connect(m_doc->inputOutputMap(), SIGNAL(universesWritten(int, const QByteArray&)),
-            this, SLOT(slotUniversesWritten(int, const QByteArray&)));
-    connect(m_functionManager, SIGNAL(functionEditingChanged(bool)),
-            this, SLOT(slotFunctionEditingChanged(bool)));
+    connect(m_fixtureManager, &FixtureManager::colorChanged, this, &ContextManager::slotColorChanged);
+    connect(m_fixtureManager, &FixtureManager::positionTypeValueChanged, this, &ContextManager::slotPositionChanged);
+    connect(m_fixtureManager, &FixtureManager::presetChanged, this, &ContextManager::slotPresetChanged);
+    connect(m_doc->inputOutputMap(), &InputOutputMap::universesWritten, this, &ContextManager::slotUniversesWritten);
+    connect(m_functionManager, &FunctionManager::functionEditingChanged, this, &ContextManager::slotFunctionEditingChanged);
 }
 
-void ContextManager::enableContext(QString context, bool enable)
+ContextManager::~ContextManager()
 {
-    if (context == "DMX")
-    {
-        m_DMXView->enableContext(enable);
+    m_uniGridView->deleteLater();
+}
+
+void ContextManager::registerContext(PreviewContext *context)
+{
+    if (context == NULL)
+        return;
+
+    m_contextsMap[context->name()] = context;
+    connect(context, SIGNAL(keyPressed(QKeyEvent*)),
+            this, SLOT(handleKeyPress(QKeyEvent*)));
+    connect(context, SIGNAL(keyReleased(QKeyEvent*)),
+            this, SLOT(handleKeyRelease(QKeyEvent*)));
+}
+
+void ContextManager::unregisterContext(QString name)
+{
+    if (m_contextsMap.contains(name) == false)
+        return;
+
+    PreviewContext *context = m_contextsMap.take(name);
+
+    disconnect(context, SIGNAL(keyPressed(QKeyEvent*)),
+               this, SLOT(handleKeyPress(QKeyEvent*)));
+    disconnect(context, SIGNAL(keyReleased(QKeyEvent*)),
+               this, SLOT(handleKeyRelease(QKeyEvent*)));
+}
+
+void ContextManager::enableContext(QString name, bool enable, QQuickItem *item)
+{
+    if (m_contextsMap.contains(name) == false)
+        return;
+
+    PreviewContext *context = m_contextsMap[name];
+
+    if (enable == false && context->detached() == true)
+        reattachContext(name);
+
+    context->setContextItem(item);
+    context->enableContext(enable);
+
+    if (name == "DMX")
         m_DMXView->updateFixtureSelection(m_selectedFixtures);
-    }
-    else if (context == "2D")
-    {
-        m_2DView->enableContext(enable);
+    else if (name == "2D")
         m_2DView->updateFixtureSelection(m_selectedFixtures);
-    }
 }
 
-void ContextManager::detachContext(QString context)
+void ContextManager::detachContext(QString name)
 {
-    qDebug() << "[ContextManager] detaching context:" << context;
+    qDebug() << "[ContextManager] detaching context:" << name;
+    if (m_contextsMap.contains(name) == false)
+        return;
+
+    PreviewContext *context = m_contextsMap[name];
+    context->setDetached(true);
 }
 
-void ContextManager::reattachContext(QString context)
+void ContextManager::reattachContext(QString name)
 {
-    qDebug() << "[ContextManager] reattaching context:" << context;
-    if (context == "DMX" || context == "2D")
+    qDebug() << "[ContextManager] reattaching context:" << name;
+    if (m_contextsMap.contains(name) == false)
+        return;
+
+    PreviewContext *context = m_contextsMap[name];
+    context->setDetached(false);
+
+    if (name == "DMX" || name == "2D" || name == "UNIGRID")
     {
         QQuickItem *viewObj = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("fixturesAndFunctions"));
         if (viewObj == NULL)
             return;
         QMetaObject::invokeMethod(viewObj, "enableContext",
-                Q_ARG(QVariant, context),
+                Q_ARG(QVariant, name),
+                Q_ARG(QVariant, false));
+    }
+    else if (name.startsWith("PAGE-"))
+    {
+        QQuickItem *viewObj = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("virtualConsole"));
+        if (viewObj == NULL)
+            return;
+        QMetaObject::invokeMethod(viewObj, "enableContext",
+                Q_ARG(QVariant, name),
                 Q_ARG(QVariant, false));
     }
     else
     {
-
         QMetaObject::invokeMethod(m_view->rootObject(), "enableContext",
-                Q_ARG(QVariant, context),
+                Q_ARG(QVariant, name),
                 Q_ARG(QVariant, false));
     }
 }
@@ -112,7 +168,7 @@ void ContextManager::reattachContext(QString context)
 void ContextManager::resetContexts()
 {
     m_channelsMap.clear();
-    resetValues();
+    resetDumpValues();
     foreach(quint32 fxID, m_selectedFixtures)
         setFixtureSelection(fxID, false);
 
@@ -120,25 +176,83 @@ void ContextManager::resetContexts()
     m_editingEnabled = false;
     m_DMXView->enableContext(m_DMXView->isEnabled());
     m_2DView->enableContext(m_2DView->isEnabled());
+
+    /** TODO: nothing to do on the other contexts ? */
 }
 
-void ContextManager::resetValues()
+void ContextManager::handleKeyPress(QKeyEvent *e)
 {
-    QMap<QPair<quint32, quint32>, uchar> dumpValues = m_functionManager->dumpValues();
-    int dumpValuesCount = m_functionManager->dumpValuesCount();
-    QMutableMapIterator <QPair<quint32,quint32>,uchar> it(dumpValues);
-    while (it.hasNext() == true)
+    int key = e->key();
+
+    /* Do not propagate single modifiers events */
+    if (key == Qt::Key_Control || key == Qt::Key_Alt || key == Qt::Key_Shift || key == Qt::Key_Meta)
+        return;
+
+    qDebug() << "Key press event received:" << e->text();
+
+    if (e->modifiers() & Qt::ControlModifier)
     {
-        it.next();
-        SceneValue sv;
-        sv.fxi = it.key().first;
-        sv.channel = it.key().second;
-        m_source->set(sv.fxi, sv.channel, 0);
+        switch(e->key())
+        {
+            case Qt::Key_A:
+            {
+                toggleFixturesSelection();
+            }
+            break;
+            case Qt::Key_R:
+            {
+                resetDumpValues();
+            }
+            break;
+            default:
+            break;
+        }
     }
-    m_source->unsetAll();
-    m_functionManager->resetDumpValues();
-    checkDumpButton(dumpValuesCount);
+
+    for(PreviewContext *context : m_contextsMap.values()) // C++11
+        context->handleKeyEvent(e, true);
 }
+
+void ContextManager::handleKeyRelease(QKeyEvent *e)
+{
+    int key = e->key();
+    /* Do not propagate single modifiers events */
+    if (key == Qt::Key_Control || key == Qt::Key_Alt || key == Qt::Key_Shift || key == Qt::Key_Meta)
+        return;
+
+    qDebug() << "Key release event received:" << e->text();
+
+    for(PreviewContext *context : m_contextsMap.values()) // C++11
+        context->handleKeyEvent(e, false);
+}
+
+/*********************************************************************
+ * Universe filtering
+ *********************************************************************/
+
+quint32 ContextManager::universeFilter() const
+{
+    return m_universeFilter;
+}
+
+void ContextManager::setUniverseFilter(quint32 universeFilter)
+{
+    if (m_universeFilter == universeFilter)
+        return;
+
+    m_universeFilter = universeFilter;
+
+    if (m_DMXView->isEnabled())
+        m_DMXView->setUniverseFilter(m_universeFilter);
+    if (m_2DView->isEnabled())
+        m_2DView->setUniverseFilter(m_universeFilter);
+
+    emit universeFilterChanged(universeFilter);
+}
+
+/*********************************************************************
+ * Common fixture helpers
+ *********************************************************************/
 
 void ContextManager::setFixtureSelection(quint32 fxID, bool enable)
 {
@@ -182,6 +296,28 @@ void ContextManager::setFixtureSelection(quint32 fxID, bool enable)
     emit selectedFixturesChanged();
 }
 
+void ContextManager::resetFixtureSelection()
+{
+    for(Fixture *fixture : m_doc->fixtures()) // C++11
+    {
+        if (fixture != NULL)
+            setFixtureSelection(fixture->id(), false);
+    }
+}
+
+void ContextManager::toggleFixturesSelection()
+{
+    bool selectAll = true;
+    if (m_selectedFixtures.count() == m_doc->fixtures().count())
+        selectAll = false;
+
+    for(Fixture *fixture : m_doc->fixtures()) // C++11
+    {
+        if (fixture != NULL)
+            setFixtureSelection(fixture->id(), selectAll);
+    }
+}
+
 void ContextManager::setRectangleSelection(qreal x, qreal y, qreal width, qreal height)
 {
     QList<quint32> fxIDList;
@@ -206,9 +342,28 @@ void ContextManager::setFixturePosition(quint32 fxID, qreal x, qreal y)
     mProps->setFixturePosition(fxID, QPointF(x, y));
 }
 
-void ContextManager::dumpDmxChannels()
+void ContextManager::setFixturesAlignment(int alignment)
 {
-    m_functionManager->dumpOnNewScene(m_selectedFixtures);
+    if (m_selectedFixtures.count() == 0)
+        return;
+
+    MonitorProperties *mProps = m_doc->monitorProperties();
+
+    QPointF firstPos = mProps->fixturePosition(m_selectedFixtures.first());
+
+    foreach(quint32 fxID, m_selectedFixtures)
+    {
+        QPointF fxPos = mProps->fixturePosition(fxID);
+
+        switch(alignment)
+        {
+            case Qt::AlignTop: fxPos.setY(firstPos.y()); break;
+            case Qt::AlignLeft: fxPos.setX(firstPos.x()); break;
+        }
+        mProps->setFixturePosition(fxID, fxPos);
+        if (m_2DView->isEnabled())
+            m_2DView->updateFixturePosition(fxID, fxPos);
+    }
 }
 
 void ContextManager::createFixtureGroup()
@@ -217,40 +372,6 @@ void ContextManager::createFixtureGroup()
         return;
 
     m_fixtureManager->addFixturesToNewGroup(m_selectedFixtures);
-}
-
-void ContextManager::handleKeyPress(QKeyEvent *e)
-{
-    //qDebug() << "Key event received:" << e->text();
-
-    if (e->modifiers() & Qt::ControlModifier)
-    {
-        switch(e->key())
-        {
-            case Qt::Key_A:
-            {
-                bool selectAll = true;
-                if (m_selectedFixtures.count() == m_doc->fixtures().count())
-                    selectAll = false;
-
-                foreach(Fixture *fixture, m_doc->fixtures())
-                {
-                    if (fixture != NULL)
-                        setFixtureSelection(fixture->id(), selectAll);
-                }
-            }
-            break;
-            case Qt::Key_R:
-            {
-                int valCount = m_functionManager->dumpValuesCount();
-                resetValues();
-                checkDumpButton(valCount);
-            }
-            break;
-            default:
-            break;
-        }
-    }
 }
 
 int ContextManager::fixturesRotation() const
@@ -329,44 +450,6 @@ void ContextManager::setFixturesRotation(int degrees)
     m_prevRotation = degrees;
 }
 
-quint32 ContextManager::universeFilter() const
-{
-    return m_universeFilter;
-}
-
-void ContextManager::setUniverseFilter(quint32 universeFilter)
-{
-    if (m_universeFilter == universeFilter)
-        return;
-
-    m_universeFilter = universeFilter;
-
-    if (m_DMXView->isEnabled())
-        m_DMXView->setUniverseFilter(m_universeFilter);
-    if (m_2DView->isEnabled())
-        m_2DView->setUniverseFilter(m_universeFilter);
-
-    emit universeFilterChanged(universeFilter);
-}
-
-void ContextManager::checkDumpButton(quint32 valCount)
-{
-    int dumpValuesCount = m_functionManager->dumpValuesCount();
-    /** Monitor the changes from/to 0 */
-    if ((valCount == 0 && dumpValuesCount > 0) ||
-            (valCount > 0 && dumpValuesCount == 0))
-    {
-        QQuickItem *dumpBtn = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("dumpButton"));
-        if (dumpBtn != NULL)
-        {
-            if (valCount)
-                dumpBtn->setProperty("visible", false);
-            else
-                dumpBtn->setProperty("visible", true);
-        }
-    }
-}
-
 void ContextManager::slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal z)
 {
     Q_UNUSED(z)
@@ -381,10 +464,8 @@ void ContextManager::slotChannelValueChanged(quint32 fxID, quint32 channel, quin
 {
     if (m_editingEnabled == false)
     {
-        quint32 valCount = m_functionManager->dumpValuesCount();
         m_source->set(fxID, channel, (uchar)value);
         m_functionManager->setDumpValue(fxID, channel, (uchar)value);
-        checkDumpButton(valCount);
     }
     else
         m_functionManager->setChannelValue(fxID, channel, (uchar)value);
@@ -392,7 +473,6 @@ void ContextManager::slotChannelValueChanged(quint32 fxID, quint32 channel, quin
 
 void ContextManager::slotChannelTypeValueChanged(int type, quint8 value, quint32 channel)
 {
-    quint32 valCount = m_functionManager->dumpValuesCount();
     //qDebug() << "type:" << type << "value:" << value << "channel:" << channel;
     QList<SceneValue> svList = m_channelsMap.values(type);
     foreach(SceneValue sv, svList)
@@ -408,9 +488,6 @@ void ContextManager::slotChannelTypeValueChanged(int type, quint8 value, quint32
                 m_functionManager->setChannelValue(sv.fxi, sv.channel, (uchar)value);
         }
     }
-
-    if (m_editingEnabled == false)
-        checkDumpButton(valCount);
 }
 
 void ContextManager::slotColorChanged(QColor col, QColor wauv)
@@ -433,7 +510,6 @@ void ContextManager::slotPositionChanged(int type, int degrees)
 {
     // list to keep track of the already processed Fixture IDs
     QList<quint32>fxIDs;
-    quint32 valCount = m_functionManager->dumpValuesCount();
     QList<SceneValue> typeList = m_channelsMap.values(type);
 
     foreach(SceneValue sv, typeList)
@@ -455,9 +531,6 @@ void ContextManager::slotPositionChanged(int type, int degrees)
                 m_functionManager->setChannelValue(posSv.fxi, posSv.channel, posSv.value);
         }
     }
-
-    if (m_editingEnabled == false)
-        checkDumpButton(valCount);
 }
 
 void ContextManager::slotPresetChanged(const QLCChannel *channel, quint8 value)
@@ -499,6 +572,33 @@ void ContextManager::slotFunctionEditingChanged(bool status)
     resetContexts();
     m_editingEnabled = status;
 }
+
+/*********************************************************************
+ * DMX channels dump
+ *********************************************************************/
+
+void ContextManager::dumpDmxChannels()
+{
+    m_functionManager->dumpOnNewScene(m_selectedFixtures);
+}
+
+void ContextManager::resetDumpValues()
+{
+    QMap<QPair<quint32, quint32>, uchar> dumpValues = m_functionManager->dumpValues();
+    QMutableMapIterator <QPair<quint32,quint32>,uchar> it(dumpValues);
+
+    while (it.hasNext() == true)
+    {
+        it.next();
+        SceneValue sv;
+        sv.fxi = it.key().first;
+        sv.channel = it.key().second;
+        m_source->set(sv.fxi, sv.channel, 0);
+    }
+    m_source->unsetAll();
+    m_functionManager->resetDumpValues();
+}
+
 
 
 

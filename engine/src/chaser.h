@@ -57,7 +57,6 @@ class Chaser : public Function
      * Initialization
      *********************************************************************/
 public:
-    Chaser();
     Chaser(Doc* doc);
     virtual ~Chaser();
 
@@ -122,11 +121,6 @@ public:
      * @return true if successful, otherwise false (index out of bounds or dest == source)
      */
     bool moveStep(int sourceIdx, int destIdx);
-
-    /**
-     * Clear the chaser's list of steps
-     */
-    void clear();
 
     /** Get the Chaser steps number */
     int stepsCount();
@@ -265,10 +259,10 @@ private:
      * Save & Load
      *********************************************************************/
 public:
-    /** Save this function to an XML document */
+    /** @reimpl */
     bool saveXML(QXmlStreamWriter *doc);
 
-    /** Load this function contents from an XML document */
+    /** @reimpl */
     bool loadXML(QXmlStreamReader &root);
 
     /** @reimp */

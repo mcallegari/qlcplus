@@ -33,18 +33,18 @@ Rectangle
 
     visible: false
 
+    /* A message string used for simple popup information */
     property string message
+    /* A QML resource to be loaded for complex operations */
+    property string resource
+    /* The mask of buttons to be displayed in the popup */
     property int buttonsMask
 
-    onButtonsMaskChanged:
+    function closePopup()
     {
-        okButton.visible = false
-        cancelButton.visible = false
-
-        if (buttonsMask & ActionManager.OK)
-            okButton.visible = true
-        if (buttonsMask & ActionManager.Cancel)
-            cancelButton.visible = true
+        popupScreen.message = ""
+        popupScreen.resource = ""
+        popupScreen.visible = false
     }
 
     MouseArea
@@ -74,36 +74,86 @@ Rectangle
             height: parent.height - 65
             label: message
             wrapText: true
-            textAlign: Text.AlignHCenter
+            textHAlign: Text.AlignHCenter
         }
 
-        GenericButton
+        Loader
         {
-            id: okButton
-            y: popupBox.height - 45
-            x: parent.width - width - 20
-            width: parent.width / 3
-            height: 35
-            label: qsTr("OK")
-            onClicked:
+            id: popupLoader
+            x: 10
+            y: 10
+            width: parent.width - 20
+            height: parent.height - 65
+            source: resource
+
+            onLoaded:
             {
-                actionManager.acceptAction()
-                popupScreen.visible = false
+                var btnMask = popupLoader.item.buttonsEnableMask()
+                okButton.disabled = !(btnMask & ActionManager.OK)
+                cancelButton.disabled = !(btnMask & ActionManager.Cancel)
+            }
+
+            Connections
+            {
+                ignoreUnknownSignals: true
+                target: popupLoader.item
+                onRequestButtonStatus:
+                {
+                    if (button === ActionManager.OK)
+                        okButton.disabled = disable
+                    else if (button === ActionManager.Cancel)
+                        cancelButton.disabled = disable
+                }
+            }
+            Connections
+            {
+                ignoreUnknownSignals: true
+                target: popupLoader.item
+                onRequestPopupClose: popupScreen.closePopup()
             }
         }
 
         GenericButton
         {
-            y: popupBox.height - 45
-            x: 20
-            id: cancelButton
+            id: okButton
+            visible: popupScreen.buttonsMask & ActionManager.OK
+            y: popupBox.height - height - 5
+            x: parent.width - width - 20
             width: parent.width / 3
-            height: 35
+            label: qsTr("OK")
+            onClicked:
+            {
+                if (popupScreen.resource)
+                {
+                    popupLoader.item.acceptAction()
+                }
+                else
+                {
+                    actionManager.acceptAction()
+                    popupScreen.closePopup()
+                }
+            }
+        }
+
+        GenericButton
+        {
+            id: cancelButton
+            visible: popupScreen.buttonsMask & ActionManager.Cancel
+            y: popupBox.height - height - 5
+            x: 20
+            width: parent.width / 3
             label: qsTr("Cancel")
             onClicked:
             {
-                actionManager.rejectAction()
-                popupScreen.visible = false
+                if (popupScreen.resource)
+                {
+                    popupLoader.item.rejectAction()
+                }
+                else
+                {
+                    actionManager.rejectAction()
+                    popupScreen.closePopup()
+                }
             }
         }
     }

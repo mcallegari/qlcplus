@@ -48,6 +48,8 @@ const QString Script::systemCmd = QString("systemcommand");
 const QString Script::labelCmd = QString("label");
 const QString Script::jumpCmd = QString("jump");
 
+const QStringList knownKeywords(QStringList() << "ch" << "val" << "arg");
+
 /****************************************************************************
  * Initialization
  ****************************************************************************/
@@ -749,10 +751,19 @@ QList <QStringList> Script::tokenizeLine(const QString& str, bool* ok)
                 }
             }
 
-            tokens << (QStringList() << keyword.trimmed() << value.trimmed());
-            qDebug() << "Tokens:" << tokens;
+            if (tokens.count() > 0 && knownKeywords.contains(keyword.trimmed()) == false)
+            {
+                qDebug() << "Syntax error. Unknown keyword detected:" << keyword.trimmed();
+                if (ok != NULL)
+                    *ok = false;
+                break;
+            }
+            else
+                tokens << (QStringList() << keyword.trimmed() << value.trimmed());
         }
     }
+
+    qDebug() << "Tokens:" << tokens;
 
     return tokens;
 }

@@ -1,0 +1,17 @@
+[Desktop Entry]
+Type=Application
+Name=QLC+ Fixture Editor
+Name[fr]=Éditeur d'appareil QLC+
+GenericName=Edit fixtures
+GenericName[cz]=Editor definicí zařízení
+GenericName[de]=Gerätedefinitionen bearbeiten
+GenericName[fi]=Muokkaa valaisimia
+GenericName[fr]=Édition des appareils
+GenericName[it]=Editor di Fixture
+GenericName[nl]=Bewerker voor armaturen
+GenericName[es]=Editor de Fixtures
+GenericName[ca]=Editor de Fixtures
+Exec=qlcplus-fixtureeditor --open %f
+Icon=qlcplus-fixtureeditor
+MimeType=application/x-qlc-fixture;
+Categories=Qt;AudioVideo;

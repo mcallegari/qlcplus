@@ -63,18 +63,22 @@ void TreeModel::enableSorting(bool enable)
     m_sorting = enable;
 }
 
-void TreeModel::addItem(QString label, QVariantList data, QString path)
+TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path, int flags)
 {
     qDebug() << "Adding item" << label << path;
+
+    TreeModelItem *item = NULL;
 
     if (data.count() != m_roles.count())
         qDebug() << "Adding an item with a different number of roles" << data.count() << m_roles.count();
 
     if (path.isEmpty())
     {
-        TreeModelItem *item = new TreeModelItem(label);
+        item = new TreeModelItem(label);
         QQmlEngine::setObjectOwnership(item, QQmlEngine::CppOwnership);
         item->setData(data);
+        if (flags & Expanded)
+            item->setExpanded(true);
         int addIndex = getItemIndex(label);
         beginInsertRows(QModelIndex(), addIndex, addIndex);
         m_items.insert(addIndex, item);
@@ -82,7 +86,6 @@ void TreeModel::addItem(QString label, QVariantList data, QString path)
     }
     else
     {
-        TreeModelItem *item = NULL;
         QStringList pathList = path.split("/");
         if (m_itemsPathMap.contains(pathList.at(0)))
         {
@@ -92,6 +95,8 @@ void TreeModel::addItem(QString label, QVariantList data, QString path)
         {
             item = new TreeModelItem(pathList.at(0));
             item->setPath(pathList.at(0));
+            if (flags & Expanded)
+                item->setExpanded(true);
             QQmlEngine::setObjectOwnership(item, QQmlEngine::CppOwnership);
             if (item->setChildrenColumns(m_roles) == true)
             {
@@ -109,7 +114,7 @@ void TreeModel::addItem(QString label, QVariantList data, QString path)
 
         if (pathList.count() == 1)
         {
-            if (item->addChild(label, data, m_sorting) == true)
+            if (item->addChild(label, data, m_sorting, "", flags) == true)
             {
                 connect(item->children(), SIGNAL(singleSelection(TreeModelItem*)),
                         this, SLOT(setSingleSelection(TreeModelItem*)));
@@ -119,7 +124,7 @@ void TreeModel::addItem(QString label, QVariantList data, QString path)
         else
         {
             QString newPath = path.mid(path.indexOf("/") + 1);
-            if (item->addChild(label, data, m_sorting, newPath) == true)
+            if (item->addChild(label, data, m_sorting, newPath, flags) == true)
             {
                 connect(item->children(), SIGNAL(singleSelection(TreeModelItem*)),
                         this, SLOT(setSingleSelection(TreeModelItem*)));
@@ -127,6 +132,8 @@ void TreeModel::addItem(QString label, QVariantList data, QString path)
             }
         }
     }
+
+    return item;
 }
 
 int TreeModel::rowCount(const QModelIndex &parent) const
@@ -169,9 +176,6 @@ QVariant TreeModel::data(const QModelIndex &index, int role) const
 
 bool TreeModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-    if (index.row() < 0 || index.row() >= m_items.count())
-        return false;
-
     int itemRow = index.row();
     if (itemRow < 0 || itemRow >= m_items.count())
         return false;

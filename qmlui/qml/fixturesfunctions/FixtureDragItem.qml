@@ -20,7 +20,7 @@
 import QtQuick 2.0
 import "."
 
-Rectangle
+Item
 {
     property string manufacturer
     property string model
@@ -32,23 +32,52 @@ Rectangle
     property int quantity: 1
     property int gap: 0
 
-    width: 80
-    height: 80
-    z: 10
-    border.width: 1
-    border.color: "black"
-    opacity: 0.7
-    color: UISettings.bgMedium
-
-    RobotoText
+    Rectangle
     {
-        anchors.fill: parent
-        anchors.margins: 1
-        label: manufacturer + " - " + model
-        labelColor: UISettings.fgMain
-        fontSize: 10
-        wrapText: true
-        textAlign: Text.AlignHCenter
+        id: topItem
+        width: height
+        height: UISettings.bigItemHeight * 0.75
+        z: 10
+        border.width: 1
+        border.color: UISettings.fgMain
+        opacity: 0.8
+        color: UISettings.bgMedium
+
+        RobotoText
+        {
+            anchors.fill: parent
+            anchors.margins: 1
+            label: manufacturer + " - " + model
+            labelColor: UISettings.fgMain
+            fontSize: UISettings.textSizeDefault * 0.75
+            wrapText: true
+            textHAlign: Text.AlignHCenter
+        }
+    }
+
+    Rectangle
+    {
+        visible: quantity > 1
+        width: topItem.width
+        height: topItem.height
+        x: topItem.height / 10
+        y: topItem.height / 10
+        z: 9
+        border.color: UISettings.fgMedium
+        opacity: 0.8
+        color: UISettings.bgMedium
+    }
+    Rectangle
+    {
+        visible: quantity > 1
+        width: topItem.width
+        height: topItem.height
+        x: (topItem.height / 10) * 2
+        y: (topItem.height / 10) * 2
+        z: 8
+        border.color: UISettings.fgMedium
+        opacity: 0.8
+        color: UISettings.bgMedium
     }
 
     Drag.active: fxMouseArea.drag.active

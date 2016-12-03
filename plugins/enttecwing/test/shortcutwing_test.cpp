@@ -20,7 +20,7 @@
 #include <QApplication>
 #include <QUdpSocket>
 #include <QByteArray>
-#include <QtTest>
+#include <QTest>
 
 #include "shortcutwing.h"
 #include "shortcutwing_test.h"

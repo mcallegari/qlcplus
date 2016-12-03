@@ -23,15 +23,19 @@
 #include "doc.h"
 
 ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
-    : PreviewContext(view, doc, parent)
+    : PreviewContext(view, doc, "SHOWMGR", parent)
     , m_currentShow(NULL)
-    , m_itemsColor(Qt::gray)
     , m_timeScale(5.0)
     , m_stretchFunctions(false)
     , m_currentTime(0)
+    , m_selectedTrack(-1)
+    , m_itemsColor(Qt::gray)
 {
     qmlRegisterType<Track>("com.qlcplus.classes", 1, 0, "Track");
     qmlRegisterType<ShowFunction>("com.qlcplus.classes", 1, 0, "ShowFunction");
+
+    setContextResource("qrc:/ShowManager.qml");
+    setContextTitle(tr("Show Manager"));
 
     siComponent = new QQmlComponent(m_view->engine(), QUrl("qrc:/ShowItem.qml"));
     if (siComponent->isError())
@@ -51,14 +55,14 @@ void ShowManager::setCurrentShowID(int currentShowID)
     {
         if (m_currentShow->id() == (quint32)currentShowID)
             return;
-        disconnect(m_currentShow, SIGNAL(timeChanged(quint32)), this, SLOT(slotTimeChanged(quint32)));
+        disconnect(m_currentShow, &Show::timeChanged, this, &ShowManager::slotTimeChanged);
     }
 
     m_currentShow = qobject_cast<Show*>(m_doc->function(currentShowID));
     emit currentShowIDChanged(currentShowID);
     if (m_currentShow != NULL)
     {
-        connect(m_currentShow, SIGNAL(timeChanged(quint32)), this, SLOT(slotTimeChanged(quint32)));
+        connect(m_currentShow, &Show::timeChanged, this, &ShowManager::slotTimeChanged);
         emit showDurationChanged(m_currentShow->totalDuration());
         emit showNameChanged(m_currentShow->name());
     }
@@ -99,6 +103,20 @@ QQmlListProperty<Track> ShowManager::tracks()
     return QQmlListProperty<Track>(this, m_tracksList);
 }
 
+int ShowManager::selectedTrack() const
+{
+    return m_selectedTrack;
+}
+
+void ShowManager::setSelectedTrack(int selectedTrack)
+{
+    if (m_selectedTrack == selectedTrack)
+        return;
+
+    m_selectedTrack = selectedTrack;
+    emit selectedTrackChanged(selectedTrack);
+}
+
 float ShowManager::timeScale() const
 {
     return m_timeScale;
@@ -127,8 +145,15 @@ void ShowManager::setStretchFunctions(bool stretchFunctions)
     emit stretchFunctionsChanged(stretchFunctions);
 }
 
-void ShowManager::addItem(QQuickItem *parent, int trackIdx, int startTime, quint32 functionID)
+/*********************************************************************
+  * Show Items
+  ********************************************************************/
+
+void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVariantList idsList)
 {
+    if (idsList.count() == 0)
+        return;
+
     // if no show is selected, then create a new one
     if (m_currentShow == NULL)
     {
@@ -142,7 +167,7 @@ void ShowManager::addItem(QQuickItem *parent, int trackIdx, int startTime, quint
             m_currentShow = NULL;
             return;
         }
-        connect(m_currentShow, SIGNAL(timeChanged(quint32)), this, SLOT(slotTimeChanged(quint32)));
+        connect(m_currentShow, &Show::timeChanged, this, &ShowManager::slotTimeChanged);
         emit currentShowIDChanged(m_currentShow->id());
         emit showNameChanged(m_currentShow->name());
     }
@@ -168,26 +193,37 @@ void ShowManager::addItem(QQuickItem *parent, int trackIdx, int startTime, quint
         selectedTrack = m_currentShow->tracks().at(trackIdx);
     }
 
-    // and now create the actual ShowFunction and the QML item
-    Function *func = m_doc->function(functionID);
-    if (func == NULL)
-        return;
+    for (QVariant vID : idsList) // C++11
+    {
+        quint32 functionID = vID.toUInt();
+        if (functionID == m_currentShow->id())
+        {
+            /* TODO: a popup displaying the user stupidity would be nice here... */
+            continue;
+        }
 
-    ShowFunction *showFunc = selectedTrack->createShowFunction(functionID);
-    showFunc->setStartTime(startTime);
-    showFunc->setDuration(func->totalDuration());
-    showFunc->setColor(ShowFunction::defaultColor(func->type()));
+        // and now create the actual ShowFunction and the QML item
+        Function *func = m_doc->function(functionID);
+        if (func == NULL)
+            continue;
 
-    QQuickItem *newItem = qobject_cast<QQuickItem*>(siComponent->create());
+        ShowFunction *showFunc = selectedTrack->createShowFunction(functionID);
+        showFunc->setStartTime(startTime);
+        showFunc->setDuration(func->totalDuration() ? func->totalDuration() : 5000);
+        showFunc->setColor(ShowFunction::defaultColor(func->type()));
 
-    newItem->setParentItem(parent);
-    newItem->setProperty("trackIndex", trackIdx);
-    newItem->setProperty("sfRef", QVariant::fromValue(showFunc));
-    newItem->setProperty("funcRef", QVariant::fromValue(func));
+        QQuickItem *newItem = qobject_cast<QQuickItem*>(siComponent->create());
 
-    quint32 itemIndex = m_itemsMap.isEmpty() ? 0 : m_itemsMap.lastKey() + 1;
-    quint32 itemID = trackIdx << 16 | itemIndex;
-    m_itemsMap[itemID] = newItem;
+        newItem->setParentItem(parent);
+        newItem->setProperty("trackIndex", trackIdx);
+        newItem->setProperty("sfRef", QVariant::fromValue(showFunc));
+        newItem->setProperty("funcRef", QVariant::fromValue(func));
+
+        quint32 itemIndex = m_itemsMap.isEmpty() ? 0 : m_itemsMap.lastKey() + 1;
+        quint32 itemID = trackIdx << 16 | itemIndex;
+        m_itemsMap[itemID] = newItem;
+        startTime += showFunc->duration();
+    }
 
     emit showDurationChanged(m_currentShow->totalDuration());
 }
@@ -274,6 +310,7 @@ void ShowManager::resetContents()
 {
     resetView();
     m_currentTime = 0;
+    m_selectedTrack = -1;
     emit currentTimeChanged(m_currentTime);
     m_currentShow = NULL;
 }

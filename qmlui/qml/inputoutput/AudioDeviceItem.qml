@@ -18,11 +18,12 @@
 */
 
 import QtQuick 2.0
+import "."
 
 Rectangle
 {
     width: parent.width
-    height: 80
+    height: UISettings.bigItemHeight * 0.8
     color: "transparent"
 
     property var audioDevice
@@ -49,11 +50,12 @@ Rectangle
         {
             x: 8
             spacing: 3
+
             Image
             {
                 id: deviceIcon
-                y: 2
-                height: deviceBox.height - 6
+                anchors.verticalCenter: parent.verticalCenter
+                height: deviceBox.height * 0.75
                 width: height
                 source: "qrc:/audiocard.svg"
                 sourceSize: Qt.size(width, height)
@@ -65,6 +67,7 @@ Rectangle
                 width: deviceBox.width - deviceIcon.width - 6
                 label: deviceName
                 labelColor: "black"
+                fontSize: UISettings.textSizeDefault
                 wrapText: true
             }
         }

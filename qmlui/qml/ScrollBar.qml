@@ -38,7 +38,7 @@ Item
     }
 
     property Flickable flickable  : null
-    property int       handleSize : 20
+    property int       handleSize : UISettings.scrollBarWidth
     property int      orientation : Qt.Vertical
     property bool      doubleBars : false
 
@@ -70,6 +70,7 @@ Item
                    (flickable.contentX * clicker.drag.maximumX / (flickable.contentWidth - flickable.width))
         when: (!clicker.drag.active)
     }
+
     Binding
     {
         target: flickable
@@ -189,6 +190,8 @@ Item
         MouseArea
         {
             id: clicker
+            anchors.fill: parent
+
             drag
             {
                 target: handle
@@ -198,7 +201,7 @@ Item
                 maximumX: orientation === Qt.Vertical ? 0 : (groove.width - handle.width)
                 axis: orientation === Qt.Vertical ? Drag.YAxis : Drag.XAxis
             }
-            anchors.fill: parent
+
             onClicked:
             {
                 if (orientation === Qt.Vertical)
@@ -222,18 +225,18 @@ Item
             Component.onCompleted:
             {
                 if (orientation === Qt.Vertical)
-                    height = Qt.binding(function() { return Math.max(20, (flickable.visibleArea.heightRatio * groove.height)) })
+                    height = Qt.binding(function() { return Math.max(UISettings.iconSizeMedium, (flickable.visibleArea.heightRatio * groove.height)) })
                 else
-                    width = Qt.binding(function() { return Math.max(20, (flickable.visibleArea.widthRatio * groove.width)) })
+                    width = Qt.binding(function() { return Math.max(UISettings.iconSizeMedium, (flickable.visibleArea.widthRatio * groove.width)) })
             }
 
             Rectangle
             {
                 id: backHandle
+                anchors.fill: parent
                 radius: 2
                 color: (clicker.pressed ? "white" : "black")
                 opacity: (flickable.moving ? 0.65 : 0.35)
-                anchors.fill: parent
 
                 Behavior on opacity { NumberAnimation { duration: 150 } }
             }

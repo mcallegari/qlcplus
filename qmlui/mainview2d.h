@@ -35,6 +35,8 @@ class MainView2D : public PreviewContext
 
     Q_PROPERTY(QSize gridSize READ gridSize WRITE setGridSize NOTIFY gridSizeChanged)
     Q_PROPERTY(float gridUnits READ gridUnits WRITE setGridUnits NOTIFY gridUnitsChanged)
+    Q_PROPERTY(qreal gridScale READ gridScale WRITE setGridScale NOTIFY gridScaleChanged)
+    Q_PROPERTY(qreal cellPixels READ cellPixels WRITE setCellPixels NOTIFY cellPixelsChanged)
 
 public:
     explicit MainView2D(QQuickView *view, Doc *doc, QObject *parent = 0);
@@ -60,11 +62,19 @@ public:
 
     void updateFixtureRotation(quint32 fxID, int degrees);
 
+    void updateFixturePosition(quint32 fxID, QPointF pos);
+
     QSize gridSize() const;
     void setGridSize(QSize sz);
 
     float gridUnits() const;
     void setGridUnits(float units);
+
+    qreal gridScale() const;
+    void setGridScale(qreal gridScale);
+
+    qreal cellPixels() const;
+    void setCellPixels(qreal cellPixels);
 
 protected:
     /** First time 2D view variables initializations */
@@ -74,12 +84,17 @@ signals:
     void gridSizeChanged();
     void gridUnitsChanged();
 
+    void cellPixelsChanged(qreal cellPixels);
+
+    void gridScaleChanged(qreal gridScale);
+
 protected slots:
+    /** @reimp */
     void slotRefreshView();
 
 private:
     /** References to the 2D view and 2D contents for items creation */
-    QQuickItem *m_view2D, *m_contents2D;
+    QQuickItem *m_contents2D;
 
     MonitorProperties *m_monProps;
 

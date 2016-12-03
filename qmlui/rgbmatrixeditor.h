@@ -24,6 +24,7 @@
 
 class Doc;
 class RGBMatrix;
+class RGBMatrixStep;
 class FixtureGroup;
 
 class RGBMatrixEditor : public FunctionEditor
@@ -48,8 +49,12 @@ class RGBMatrixEditor : public FunctionEditor
 
     // Text Algorithm specific properties
     Q_PROPERTY(QString algoText READ algoText WRITE setAlgoText NOTIFY algoTextChanged)
+    Q_PROPERTY(QFont algoTextFont READ algoTextFont WRITE setAlgoTextFont NOTIFY algoTextFontChanged)
     // Image Algorithm specific properties
     Q_PROPERTY(QString algoImagePath READ algoImagePath WRITE setAlgoImagePath NOTIFY algoImagePathChanged)
+
+    Q_PROPERTY(int animationStyle READ animationStyle WRITE setAnimationStyle NOTIFY animationStyleChanged)
+    Q_PROPERTY(QSize algoOffset READ algoOffset WRITE setAlgoOffset NOTIFY algoOffsetChanged)
 
     Q_PROPERTY(int runOrder READ runOrder WRITE setRunOrder NOTIFY runOrderChanged)
     Q_PROPERTY(int direction READ direction WRITE setDirection NOTIFY directionChanged)
@@ -100,8 +105,17 @@ public:
     QString algoText() const;
     void setAlgoText(QString text);
 
+    QFont algoTextFont() const;
+    void setAlgoTextFont(QFont algoTextFont);
+
     QString algoImagePath() const;
     void setAlgoImagePath(QString path);
+
+    QSize algoOffset() const;
+    void setAlgoOffset(QSize algoOffset);
+
+    int animationStyle() const;
+    void setAnimationStyle(int style);
 
     /** This is an important method called by the QML world
      *  when a RGBScript algorithm is selected.
@@ -124,7 +138,12 @@ signals:
     void hasEndColorChanged(bool hasEndColor);
 
     void algoTextChanged(QString text);
+    void algoTextFontChanged(QFont algoTextFont);
+
     void algoImagePathChanged(QString path);
+
+    void algoOffsetChanged(QSize algoOffset);
+    void animationStyleChanged(int style);
 
     /************************************************************************
      * Speed
@@ -169,6 +188,7 @@ public:
 
 private slots:
     void slotPreviewTimeout();
+    void slotBeatReceived();
 
 private:
     void initPreviewData();
@@ -180,9 +200,9 @@ signals:
 private:
     /** A timer to perform a timed preview of the RGBMatrix pattern */
     QTimer* m_previewTimer;
-    uint m_previewIterator;
-    Function::Direction m_previewDirection;
-    int m_previewStep;
+    uint m_previewElapsed;
+    RGBMatrixStep *m_previewStepHandler;
+    bool m_gotBeat;
 
     // exchange variable with the QML world
     QVariantList m_previewData;

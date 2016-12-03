@@ -20,15 +20,21 @@
 #ifndef ARTNETCONTROLLER_H
 #define ARTNETCONTROLLER_H
 
-#include <QtNetwork>
-#include <QObject>
+#if defined(ANDROID)
+#include <QNetworkInterface>
+#include <QHostAddress>
+#include <QUdpSocket>
 #include <QScopedPointer>
+#include <QSharedPointer>
+#else
+#include <QtNetwork>
+#endif
+#include <QMutex>
+#include <QTimer>
 
 #include "artnetpacketizer.h"
 
 #define ARTNET_PORT      6454
-
-class QTimer;
 
 typedef struct
 {
@@ -179,9 +185,7 @@ public:
     bool handlePacket(QByteArray const& datagram, QHostAddress const& senderAddress);
 
 protected slots:
-    void slotPollTimeout();
-protected:
-    void sendPoll();
+    void slotSendPoll();
 
 signals:
     void valueChanged(quint32 universe, quint32 input, quint32 channel, uchar value);

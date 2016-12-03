@@ -157,19 +157,16 @@
    <Channel>0</Channel>
    <Channel>1</Channel>
    <Channel>2</Channel>
-   <Channel>10</Channel>
   </Head>
   <Head>
    <Channel>3</Channel>
    <Channel>4</Channel>
    <Channel>5</Channel>
-   <Channel>10</Channel>
   </Head>
   <Head>
    <Channel>6</Channel>
    <Channel>7</Channel>
    <Channel>8</Channel>
-   <Channel>10</Channel>
   </Head>
  </Mode>
  <Mode Name="2 Channels">

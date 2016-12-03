@@ -207,9 +207,24 @@ void DmxDumpFactory::accept()
 {
     QByteArray dumpMask = m_properties->channelsMask();
     QList<Universe*> ua = m_doc->inputOutputMap()->claimUniverses();
-    QByteArray preGMValues; //= ua->preGMValues();
-    for (int i = 0; i < ua.count(); i++)
-        preGMValues.append(ua.at(i)->preGMValues());
+
+    QByteArray preGMValues(ua.size() * UNIVERSE_SIZE, 0); //= ua->preGMValues();
+
+    for (int i = 0; i < ua.count(); ++i)
+    {
+        const int offset = i * UNIVERSE_SIZE;
+        preGMValues.replace(offset, UNIVERSE_SIZE, ua.at(i)->preGMValues());
+        if (ua.at(i)->passthrough())
+        {
+            for (int j = 0; j < UNIVERSE_SIZE; ++j)
+            {
+                const int ofs = offset + j;
+                preGMValues[ofs] =
+                    static_cast<char>(ua.at(i)->applyPassthrough(j, static_cast<uchar>(preGMValues[ofs])));
+            }
+        }
+    }
+
     m_doc->inputOutputMap()->releaseUniverses(false);
 
     Scene *newScene = NULL;

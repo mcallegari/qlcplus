@@ -22,6 +22,7 @@
 #include "genericdmxsource.h"
 #include "sceneeditor.h"
 #include "scenevalue.h"
+#include "listmodel.h"
 #include "scene.h"
 #include "doc.h"
 
@@ -33,6 +34,10 @@ SceneEditor::SceneEditor(QQuickView *view, Doc *doc, QObject *parent)
 {
     m_view->rootContext()->setContextProperty("sceneEditor", this);
     m_source = new GenericDMXSource(m_doc);
+    m_fixtureList = new ListModel(this);
+    QStringList listRoles;
+    listRoles << "fxRef" << "isSelected";
+    m_fixtureList->setRoleNames(listRoles);
 }
 
 SceneEditor::~SceneEditor()
@@ -43,6 +48,7 @@ SceneEditor::~SceneEditor()
         bottomPanel->setProperty("visible", false);
 
     delete m_source;
+    delete m_fixtureList;
 }
 
 void SceneEditor::setFunctionID(quint32 id)
@@ -54,7 +60,7 @@ void SceneEditor::setFunctionID(quint32 id)
         m_scene = NULL;
         m_source->unsetAll();
         m_source->setOutputEnabled(false);
-        m_fixtures.clear();
+        m_fixtureList->clear();
         m_fixtureIDs.clear();
         if (bottomPanel != NULL)
             bottomPanel->setProperty("visible", false);
@@ -71,9 +77,9 @@ void SceneEditor::setFunctionID(quint32 id)
     FunctionEditor::setFunctionID(id);
 }
 
-QVariantList SceneEditor::fixtures()
+QVariant SceneEditor::fixtureList() const
 {
-    return m_fixtures;
+    return QVariant::fromValue(m_fixtureList);
 }
 
 QString SceneEditor::sceneName() const
@@ -92,8 +98,11 @@ void SceneEditor::setSceneName(QString sceneName)
     emit sceneNameChanged();
 }
 
-void SceneEditor::setPreview(bool enable)
+void SceneEditor::setPreviewEnabled(bool enable)
 {
+    if (m_previewEnabled == enable)
+        return;
+
     qDebug() << "[SceneEditor] set preview" << enable;
 
     if (enable == true)
@@ -105,7 +114,8 @@ void SceneEditor::setPreview(bool enable)
         m_source->unsetAll();
 
     m_source->setOutputEnabled(enable);
-    m_preview = enable;
+    m_previewEnabled = enable;
+    emit previewEnabledChanged(enable);
 }
 
 void SceneEditor::sceneConsoleLoaded(bool status)
@@ -206,7 +216,7 @@ void SceneEditor::updateFixtureList()
         return;
 
     m_fixtureIDs.clear();
-    m_fixtures.clear();
+    m_fixtureList->clear();
 
     foreach(SceneValue sv, m_scene->values())
     {
@@ -215,10 +225,15 @@ void SceneEditor::updateFixtureList()
             Fixture *fixture = m_doc->fixture(sv.fxi);
             if(fixture == NULL)
                 continue;
-            m_fixtures.append(QVariant::fromValue(fixture));
+
+            QVariantMap fxMap;
+            fxMap.insert("fxRef", QVariant::fromValue(fixture));
+            fxMap.insert("isSelected", false);
+            m_fixtureList->addDataMap(fxMap);
+
             m_fixtureIDs.append(sv.fxi);
         }
     }
-    emit fixturesChanged();
+    emit fixtureListChanged();
 }
 

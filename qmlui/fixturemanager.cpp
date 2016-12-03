@@ -78,7 +78,14 @@ QVariantList FixtureManager::fixtureSelection(quint32 address)
 
     quint32 startAddr = fixture->address();
     for (quint32 i = 0; i < fixture->channels(); i++)
+    {
         list.append(startAddr + i);
+        QLCChannel::Group group = fixture->channel(i)->group();
+        if (group == QLCChannel::Intensity)
+            list.append(fixture->channel(i)->colour());
+        else
+            list.append(group - 1);
+    }
 
     return list;
 }
@@ -526,7 +533,7 @@ void FixtureManager::updateFixtureTree()
     QStringList uniNames = m_doc->inputOutputMap()->universeNames();
 
     // add the current universes as groups
-    foreach(Fixture *fixture, m_doc->fixtures())
+    for (Fixture *fixture : m_doc->fixtures()) // C++11
     {
         QVariantList params;
         params.append(QVariant::fromValue(fixture));
@@ -534,7 +541,7 @@ void FixtureManager::updateFixtureTree()
     }
 
     // add the actual Fixture Groups
-    foreach (FixtureGroup* grp, m_doc->fixtureGroups())
+    for (FixtureGroup* grp : m_doc->fixtureGroups()) // C++11
     {
         foreach(quint32 fxID, grp->fixtureList())
         {

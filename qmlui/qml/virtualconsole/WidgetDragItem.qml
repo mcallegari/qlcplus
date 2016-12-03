@@ -18,19 +18,20 @@
 */
 
 import QtQuick 2.0
+import "."
 
 Rectangle
 {
     x: 3
     id: widgetDragItem
     width: parent.width
-    height: 60
+    height: UISettings.listItemHeight * 1.7
     color: "transparent"
 
     property string widgetName
     property string widgetType
     property string widgetIconName
-    property bool reduced: false
+    property bool reduced: Drag.active
 
     Row
     {

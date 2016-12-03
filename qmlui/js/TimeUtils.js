@@ -86,87 +86,145 @@ function msToStringWithPrecision(ms, precision)
 }
 
 /**
-  * Returns the number of milliseconds from the given string
-  * in the QLC+ format. Example: 2h34m12s870ms
+  * Returns a time value from the given string
+  * in the QLC+ format.
+  * Time example: 2h34m12s870ms
+  * Beats example: 5 1/4
   * Returns -2 on infinite time string
   */
-function qlcStringToMs(str)
+function qlcStringToTime(str, type)
 {
-    if (str === "∞")
-        return -2;
+    if (str === "" || str === "0")
+        return 0
+    else if (str === "∞")
+        return -2
 
     var finalTime = 0
 
     var currStr = ""
 
-    for (var i = 0; i < str.length; i++)
+    if (type === 0 /*Function.Time */)
     {
-        if (str[i] >= '0' && str[i] <= '9')
+        for (var i = 0; i < str.length; i++)
         {
-            currStr += str[i]
+            if (str[i] >= '0' && str[i] <= '9')
+            {
+                currStr += str[i]
+            }
+            else if (str[i] === 'h')
+            {
+                console.log("Hours: " + currStr)
+                finalTime += parseInt(currStr) * 1000 * 60 * 60
+                currStr = ""
+            }
+            else if (str[i] === 'm' && str[i + 1] === 's')
+            {
+                console.log("Millisecs: " + currStr)
+                finalTime += parseInt(currStr)
+                break
+            }
+            else if (str[i] === 'm')
+            {
+                console.log("minutes: " + currStr)
+                finalTime += parseInt(currStr) * 1000 * 60
+                currStr = ""
+            }
+            else if (str[i] === 's')
+            {
+                console.log("seconds: " + currStr)
+                finalTime += parseInt(currStr) * 1000
+                currStr = ""
+            }
         }
-        else if (str[i] === 'h')
+    }
+    else if (type === 1 /* Function.Beats */)
+    {
+        var tokens = str.split(" ")
+
+        finalTime = parseInt(tokens[0]) * 1000
+
+        if (tokens.length > 1)
         {
-            console.log("Hours: " + currStr)
-            finalTime += parseInt(currStr) * 1000 * 60 * 60
-            currStr = ""
-        }
-        else if (str[i] === 'm' && str[i + 1] === 's')
-        {
-            console.log("Millisecs: " + currStr)
-            finalTime += parseInt(currStr)
-            break
-        }
-        else if (str[i] === 'm')
-        {
-            console.log("minutes: " + currStr)
-            finalTime += parseInt(currStr) * 1000 * 60
-            currStr = ""
-        }
-        else if (str[i] === 's')
-        {
-            console.log("seconds: " + currStr)
-            finalTime += parseInt(currStr) * 1000
-            currStr = ""
+            if (tokens[0] === " 1/8")
+                finalTime += 125
+            else if (tokens[0] === " 1/4")
+                finalTime += 250
+            else if (tokens[0] === " 3/8")
+                finalTime += 375
+            else if (tokens[0] === " 1/2")
+                finalTime += 500
+            else if (tokens[0] === " 5/8")
+                finalTime += 625
+            else if (tokens[0] === " 3/4")
+                finalTime += 750
+            else if (tokens[0] === " 7/8")
+                finalTime += 875
         }
     }
 
     return finalTime
 }
 
-function msToQlcString(ms)
+function timeToQlcString(value, type)
 {
-    if (ms === -2)
+    if (value === 0)
+        return "0"
+    else if (value === -2)
         return "∞"
-
-    var h = Math.floor(ms / 3600000)
-    ms -= (h * 3600000)
-
-    var m = Math.floor(ms / 60000)
-    ms -= (m * 60000)
-
-    var s = Math.floor(ms / 1000)
-    ms -= (s * 1000)
-
-    //console.log("h: " + h + ", m: " + m + ", s: " + s + ", ms: " + ms)
 
     var timeString = ""
 
-    if (h)
-        timeString += ((h < 10) ? "0" + h : h) + "h"
-    if (m)
-        timeString += ((m < 10) ? "0" + m : m) + "m"
-    if (s)
-        timeString += ((s < 10) ? "0" + s : s) + "s"
-
-    if (ms)
+    if (type === 0 /*Function.Time */)
     {
-        if (ms < 10)
-            timeString = timeString + "00" + ms + "ms"
-        else if (ms < 100)
-            timeString = timeString + "0" + ms + "ms"
-        else
-            timeString = timeString + ms + "ms"
+        var h = Math.floor(value / 3600000)
+        value -= (h * 3600000)
+
+        var m = Math.floor(value / 60000)
+        value -= (m * 60000)
+
+        var s = Math.floor(value / 1000)
+        value -= (s * 1000)
+
+        //console.log("h: " + h + ", m: " + m + ", s: " + s + ", value: " + value)
+
+        if (h)
+            timeString += ((h < 10) ? "0" + h : h) + "h"
+        if (m)
+            timeString += ((m < 10) ? "0" + m : m) + "m"
+        if (s)
+            timeString += ((s < 10) ? "0" + s : s) + "s"
+
+        if (value)
+        {
+            if (value < 10 && timeString.length)
+                timeString = timeString + "00" + value + "ms"
+            else if (value < 100 && timeString.length)
+                timeString = timeString + "0" + value + "ms"
+            else
+                timeString = timeString + value + "ms"
+        }
+    }
+    else if (type === 1 /* Function.Beats */)
+    {
+        var beats = Math.floor(value / 1000)
+        if (beats > 0)
+            timeString = "" + beats
+        value -= (beats * 1000)
+
+        if (value === 125)
+            timeString += " 1/8"
+        else if (value === 250)
+            timeString += " 1/4"
+        else if (value === 375)
+            timeString += " 3/8"
+        else if (value === 500)
+            timeString += " 1/2"
+        else if (value === 625)
+            timeString += " 5/8"
+        else if (value === 750)
+            timeString += " 3/4"
+        else if (value === 875)
+            timeString += " 7/8"
     }
 
     //console.log("Final time string: " + timeString)

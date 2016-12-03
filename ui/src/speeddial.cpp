@@ -27,6 +27,7 @@
 #include <QTimer>
 #include <QDebug>
 #include <QDial>
+#include <QTime>
 #include <qmath.h>
 
 #include "mastertimer.h"

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.5 GIT</Version>
+  <Author>Andres Robles, Massimo Callegari</Author>
+ </Creator>
+ <Manufacturer>Cameo</Manufacturer>
+ <Model>Wookie series</Model>
+ <Type>Laser</Type>
+ <Channel Name="Mode select">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="63">Laser off</Capability>
+  <Capability Min="64" Max="127">Auto Mode</Capability>
+  <Capability Min="128" Max="191">Sound mode</Capability>
+  <Capability Min="192" Max="255">DMX mode (CH2-CH8)</Capability>
+ </Channel>
+ <Channel Name="Colours RGB">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="63">Original colour</Capability>
+  <Capability Min="64" Max="95" Color="#ff0000">Red</Capability>
+  <Capability Min="96" Max="127" Color="#00ff00">Green</Capability>
+  <Capability Min="128" Max="159" Color="#0000ff">Blue</Capability>
+  <Capability Min="160" Max="191" Color="#ffff00">Yellow</Capability>
+  <Capability Min="192" Max="223" Color="#ff00ff">Pink</Capability>
+  <Capability Min="224" Max="255" Color="#00ffff">Cyan</Capability>
+ </Channel>
+ <Channel Name="Pattern select">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="255">32 Pattern</Capability>
+ </Channel>
+ <Channel Name="Zooming">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="127">Manual pattern size</Capability>
+  <Capability Min="128" Max="255">Loop zooming in out</Capability>
+ </Channel>
+ <Channel Name="X axis rolling">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Manual rolling</Capability>
+  <Capability Min="128" Max="255">Rolling speed</Capability>
+ </Channel>
+ <Channel Name="Y axis rolling">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Manual rolling</Capability>
+  <Capability Min="128" Max="255">Rolling speed</Capability>
+ </Channel>
+ <Channel Name="Z axis rolling">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Manual rolling</Capability>
+  <Capability Min="128" Max="255">Speed rolling</Capability>
+ </Channel>
+ <Channel Name="X axis moving">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="127">Manual position</Capability>
+  <Capability Min="128" Max="255">Horizontal moving speed</Capability>
+ </Channel>
+ <Channel Name="Y axis moving">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="127">Manual position</Capability>
+  <Capability Min="128" Max="255">Vertical moving speed</Capability>
+ </Channel>
+ <Channel Name="No function">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Mode">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="100">Laser Off</Capability>
+  <Capability Min="101" Max="155">Auto Mode</Capability>
+  <Capability Min="156" Max="255">Auto Mode with rising speed (0-100%)</Capability>
+ </Channel>
+ <Channel Name="Colours RGY">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="63">Original colour</Capability>
+  <Capability Min="64" Max="127" Color="#ff0000">Red</Capability>
+  <Capability Min="128" Max="191" Color="#00ff00">Green</Capability>
+  <Capability Min="192" Max="255" Color="#ffff00">Yellow</Capability>
+ </Channel>
+ <Mode Name="3 Channel (150G/200R/600B)">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1.4" Width="192" Height="154" Depth="83"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="60" TiltMax="60"/>
+   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Zooming</Channel>
+  <Channel Number="1">No function</Channel>
+  <Channel Number="2">Mode</Channel>
+ </Mode>
+ <Mode Name="3 Channel (200RGY)">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1.4" Width="192" Height="154" Depth="83"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="60" TiltMax="60"/>
+   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Zooming</Channel>
+  <Channel Number="1">Colours RGY</Channel>
+  <Channel Number="2">Mode</Channel>
+ </Mode>
+ <Mode Name="3 Channel (400RGB)">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1.4" Width="192" Height="154" Depth="83"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="60" TiltMax="60"/>
+   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Zooming</Channel>
+  <Channel Number="1">Colours RGB</Channel>
+  <Channel Number="2">Mode</Channel>
+ </Mode>
+ <Mode Name="9 Channel (150G/200R/600B)">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1.4" Width="192" Height="154" Depth="83"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="60" TiltMax="60"/>
+   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Mode select</Channel>
+  <Channel Number="1">No function</Channel>
+  <Channel Number="2">Pattern select</Channel>
+  <Channel Number="3">Zooming</Channel>
+  <Channel Number="4">X axis rolling</Channel>
+  <Channel Number="5">Y axis rolling</Channel>
+  <Channel Number="6">Z axis rolling</Channel>
+  <Channel Number="7">X axis moving</Channel>
+  <Channel Number="8">Y axis moving</Channel>
+ </Mode>
+ <Mode Name="9 Channel (200RGY)">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1.4" Width="192" Height="154" Depth="83"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="60" TiltMax="60"/>
+   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Mode select</Channel>
+  <Channel Number="1">Colours RGY</Channel>
+  <Channel Number="2">Pattern select</Channel>
+  <Channel Number="3">Zooming</Channel>
+  <Channel Number="4">X axis rolling</Channel>
+  <Channel Number="5">Y axis rolling</Channel>
+  <Channel Number="6">Z axis rolling</Channel>
+  <Channel Number="7">X axis moving</Channel>
+  <Channel Number="8">Y axis moving</Channel>
+ </Mode>
+ <Mode Name="9 Channel (400RGB)">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1.4" Width="192" Height="154" Depth="83"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="60" TiltMax="60"/>
+   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Mode select</Channel>
+  <Channel Number="1">Colours RGB</Channel>
+  <Channel Number="2">Pattern select</Channel>
+  <Channel Number="3">Zooming</Channel>
+  <Channel Number="4">X axis rolling</Channel>
+  <Channel Number="5">Y axis rolling</Channel>
+  <Channel Number="6">Z axis rolling</Channel>
+  <Channel Number="7">X axis moving</Channel>
+  <Channel Number="8">Y axis moving</Channel>
+ </Mode>
+</FixtureDefinition>

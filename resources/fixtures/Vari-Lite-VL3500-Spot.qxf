@@ -6,7 +6,7 @@
   <Version>4.8.5 GIT</Version>
   <Author>Thierry Rodolfo</Author>
  </Creator>
- <Manufacturer>Varilite</Manufacturer>
+ <Manufacturer>Vari-Lite</Manufacturer>
  <Model>VL3500 Spot</Model>
  <Type>Moving Head</Type>
  <Channel Name="Dimmer">

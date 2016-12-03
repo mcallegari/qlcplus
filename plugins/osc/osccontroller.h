@@ -20,13 +20,21 @@
 #ifndef OSCCONTROLLER_H
 #define OSCCONTROLLER_H
 
-#include "oscpacketizer.h"
-
+#if defined(ANDROID)
+#include <QNetworkInterface>
 #include <QScopedPointer>
+#include <QSharedPointer>
+#include <QHostAddress>
+#include <QUdpSocket>
+#else
 #include <QtNetwork>
-#include <QObject>
+#endif
+#include <QMutex>
+#include <QTimer>
 #include <QHash>
 #include <QMap>
+
+#include "oscpacketizer.h"
 
 typedef struct
 {

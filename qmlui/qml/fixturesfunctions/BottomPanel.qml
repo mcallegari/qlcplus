@@ -30,8 +30,8 @@ Rectangle
     color: UISettings.bgStrong
 
     property bool isOpen: false
-    property int collapseHeight: 40
-    property int expandedHeight: 300
+    property int collapseHeight: UISettings.iconSizeDefault * 1.25
+    property int expandedHeight: mainView.height / 3
     property string editorSource: ""
 
     onVisibleChanged:
@@ -97,22 +97,22 @@ Rectangle
         {
             id: expandButton
             x: parent.width - width - 4
-            y: 4
             z: 2
-            width: parent.height + 4
-            height: parent.height - 8
-            imgSource: "qrc:/arrow-down.svg"
+            anchors.verticalCenter: parent.verticalCenter
+            width: height * 1.2
+            height: parent.height * 0.7
             checkable: true
-            rotation: 180
             tooltip: qsTr("Expand/Collapse this panel")
-            onToggled:
+            onToggled: animatePanel(checked)
+
+            Image
             {
-                if (checked == true)
-                    rotation = 0
-                else
-                    rotation = 180
-                //    editorSource = "qrc:/FixtureBrowser.qml"
-                animatePanel(checked)
+                anchors.centerIn: parent
+                source: "qrc:/arrow-down.svg"
+                width: parent.width * 0.8
+                height: parent.height * 0.5
+                rotation: expandButton.checked ? 0 : 180
+                sourceSize: Qt.size(width, height)
             }
         }
 
@@ -125,12 +125,18 @@ Rectangle
             cursorShape: pressed ? Qt.ClosedHandCursor : Qt.OpenHandCursor
             drag.target: bottomSidePanel
             drag.axis: Drag.YAxis
-            drag.minimumY: collapseHeight
+            drag.minimumY: 0
+            drag.maximumY: bottomSidePanel.parent.height - collapseHeight
 
             onPositionChanged:
             {
                 if (drag.active == true)
-                    bottomSidePanel.height = bottomSidePanel.parent.height - bottomSidePanel.y
+                {
+                    var newHeight = bottomSidePanel.parent.height - bottomSidePanel.y
+                    if (newHeight < collapseHeight)
+                        return
+                    bottomSidePanel.height = newHeight
+                }
             }
             //onClicked: animatePanel()
         }

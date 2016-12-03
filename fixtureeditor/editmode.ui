@@ -418,27 +418,27 @@
             </item>
             <item>
              <property name="text">
-              <string>HMI 150W</string>
+              <string notr="true">HMI 150W</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>HMI 250W</string>
+              <string notr="true">HMI 250W</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>HMI 400W</string>
+              <string notr="true">HMI 400W</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>HMI 575W</string>
+              <string notr="true">HMI 575W</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>HMI 700W</string>
+              <string notr="true">HMI 700W</string>
              </property>
             </item>
             <item>
@@ -453,22 +453,22 @@
             </item>
             <item>
              <property name="text">
-              <string>HSD 150W</string>
+              <string notr="true">HSD 150W</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>HSD 200W</string>
+              <string notr="true">HSD 200W</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>HSD 250W</string>
+              <string notr="true">HSD 250W</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>HSD 575W</string>
+              <string notr="true">HSD 575W</string>
              </property>
             </item>
             <item>
@@ -533,12 +533,17 @@
             </item>
             <item>
              <property name="text">
+              <string notr="true">MSD Platinum 15 R 300W</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
               <string notr="true">MSD 575W</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>MSR 575W</string>
+              <string notr="true">MSR 575W</string>
              </property>
             </item>
             <item>
@@ -590,77 +595,77 @@
             </property>
             <item>
              <property name="text">
-              <string>2000</string>
+              <string notr="true">2000</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>2800</string>
+              <string notr="true">2800</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>3200</string>
+              <string notr="true">3200</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>4000</string>
+              <string notr="true">4000</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>4500</string>
+              <string notr="true">4500</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>5000</string>
+              <string notr="true">5000</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>5500</string>
+              <string notr="true">5500</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>6000</string>
+              <string notr="true">6000</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>6500</string>
+              <string notr="true">6500</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>7000</string>
+              <string notr="true">7000</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>7200</string>
+              <string notr="true">7200</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>8000</string>
+              <string notr="true">8000</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>8300</string>
+              <string notr="true">8300</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>9000</string>
+              <string notr="true">9000</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>9300</string>
+              <string notr="true">9300</string>
              </property>
             </item>
            </widget>

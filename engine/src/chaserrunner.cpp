@@ -19,8 +19,8 @@
   limitations under the License.
 */
 
+#include <QElapsedTimer>
 #include <QDebug>
-#include <QTime>
 
 #include "chaserrunner.h"
 #include "genericfader.h"
@@ -43,7 +43,7 @@ ChaserRunner::ChaserRunner(const Doc* doc, const Chaser* chaser, quint32 startTi
     , m_previous(false)
     , m_newStartStepIdx(-1)
     , m_lastRunStepIdx(-1)
-    , m_roundTime(new QTime)
+    , m_roundTime(new QElapsedTimer())
     , m_order()
     , m_intensity(1.0)
 {
@@ -69,7 +69,7 @@ ChaserRunner::ChaserRunner(const Doc* doc, const Chaser* chaser, quint32 startTi
 
     m_direction = m_chaser->direction();
     connect(chaser, SIGNAL(changed(quint32)), this, SLOT(slotChaserChanged()));
-    m_roundTime->start();
+    m_roundTime->restart();
 
     fillOrder();
 }
@@ -487,6 +487,8 @@ void ChaserRunner::startNewStep(int index, MasterTimer* timer, bool manualFade, 
             newStep->m_elapsed = m_startOffset + MasterTimer::tick();
         else
             newStep->m_elapsed = MasterTimer::tick() + elapsed;
+        newStep->m_elapsedBeats = 0; //(newStep->m_elapsed / timer->beatTimeDuration()) * 1000;
+
         m_startOffset = 0;
 
         newStep->m_function = func;
@@ -504,7 +506,7 @@ void ChaserRunner::startNewStep(int index, MasterTimer* timer, bool manualFade, 
         // might momentarily jump too high.
         newStep->m_function->adjustAttribute(m_intensity, Function::Intensity);
         // Start the fire up !
-        newStep->m_function->start(timer, functionParent(), 0, newStep->m_fadeIn, newStep->m_fadeOut);
+        newStep->m_function->start(timer, functionParent(), 0, newStep->m_fadeIn, newStep->m_fadeOut, m_chaser->tempoType());
         m_runnerSteps.append(newStep);
         m_roundTime->restart();
     }
@@ -662,10 +664,18 @@ bool ChaserRunner::write(MasterTimer* timer, QList<Universe *> universes)
 
     quint32 prevStepRoundElapsed = 0;
 
+
     foreach(ChaserRunnerStep *step, m_runnerSteps)
     {
+        if (m_chaser->tempoType() == Function::Beats && timer->isBeat())
+        {
+            step->m_elapsedBeats += 1000;
+            qDebug() << "Function" << step->m_function->name() << "duration:" << step->m_duration << "beats:" << step->m_elapsedBeats;
+        }
+
         if (step->m_duration != Function::infiniteSpeed() &&
-             step->m_elapsed >= step->m_duration)
+            ((m_chaser->tempoType() == Function::Time && step->m_elapsed >= step->m_duration) ||
+             (m_chaser->tempoType() == Function::Beats && step->m_elapsedBeats >= step->m_duration)))
         {
             if (step->m_duration != 0)
                 prevStepRoundElapsed = step->m_elapsed % step->m_duration;

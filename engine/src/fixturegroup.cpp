@@ -199,6 +199,12 @@ void FixtureGroup::swap(const QLCPoint& a, const QLCPoint& b)
     emit changed(this->id());
 }
 
+void FixtureGroup::reset()
+{
+    m_heads.clear();
+    emit changed(this->id());
+}
+
 GroupHead FixtureGroup::head(const QLCPoint& pt) const
 {
     return m_heads.value(pt);

@@ -31,7 +31,7 @@ Rectangle
     property int panelAlignment: Qt.AlignRight
     property bool isOpen: false
     property int collapseWidth: UISettings.iconSizeDefault * 1.25
-    property int expandedWidth: 450
+    property int expandedWidth: mainView.width / 3
     property string loaderSource: ""
     property int iconSize: UISettings.iconSizeDefault
 
@@ -132,20 +132,28 @@ Rectangle
             cursorShape: pressed ? Qt.ClosedHandCursor : Qt.OpenHandCursor
             drag.target: sidePanelRoot
             drag.axis: Drag.XAxis
-            drag.minimumX: collapseWidth
+            drag.minimumX: 0
+            drag.maximumX: mainView.width - collapseWidth
 
             onPositionChanged:
             {
                 if (drag.active == true)
                 {
+                    var newWidth
                     if (sidePanelRoot.panelAlignment == Qt.AlignRight)
                     {
-                        sidePanelRoot.width = sidePanelRoot.parent.width - sidePanelRoot.x
+                        newWidth = sidePanelRoot.parent.width - sidePanelRoot.x
+                        if (newWidth < collapseWidth)
+                            return
+                        sidePanelRoot.width = newWidth
                     }
                     else
                     {
                         var obj = mapToItem(null, mouseX, mouseY)
-                        sidePanelRoot.width = obj.x + (collapseWidth / 2)
+                        newWidth = obj.x + (collapseWidth / 2)
+                        if (newWidth < collapseWidth)
+                            return
+                        sidePanelRoot.width = newWidth
                     }
                 }
             }

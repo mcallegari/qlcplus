@@ -24,7 +24,8 @@
 #include "gpioreaderthread.h"
 #include "gpioconfiguration.h"
 
-#define MAX_GPIO_PINS   30
+#define MAX_GPIO_PINS       30
+#define MAX_FILE_ATTEMPTS   10
 
 /*****************************************************************************
  * Initialization
@@ -46,8 +47,10 @@ void GPIOPlugin::init()
     {
         GPIOPinInfo *gpio = new GPIOPinInfo;
         gpio->m_number = i;
+        gpio->m_enabled = false;
         gpio->m_usage = NoUsage;
         gpio->m_value = 1;
+        gpio->m_count = 0;
 
         QString pinPath = QString("/sys/class/gpio/gpio%1/value").arg(i);
         gpio->m_file = new QFile(pinPath);
@@ -240,11 +243,25 @@ void GPIOPlugin::setPinUsage(int gpioNumber, GPIOPlugin::PinUsage usage)
 
     QString pinPath = QString("/sys/class/gpio/gpio%1/direction").arg(gpioNumber);
     QFile file(pinPath);
-    if (!file.open(QIODevice::WriteOnly))
+    int attempts = MAX_FILE_ATTEMPTS;
+
+    while (attempts)
+    {
+        if (!file.open(QIODevice::WriteOnly))
+        {
+            attempts--;
+            usleep(200000);
+        }
+        else
+            break;
+    }
+
+    if (attempts == 0)
     {
         qDebug() << "[GPIO] error in opening direction file" << pinPath;
         return;
     }
+
     if (usage == OutputUsage)
         file.write("out");
     else if (usage == InputUsage)
@@ -372,6 +389,10 @@ bool GPIOPlugin::canConfigure()
 void GPIOPlugin::setParameter(quint32 universe, quint32 line, Capability type,
                              QString name, QVariant value)
 {
+    // rewrite the target universe based on the type...
+    universe = (type == QLCIOPlugin::Input) ? m_inputUniverse : m_outputUniverse;
+
+    //qDebug() << "[SetParameter]" << universe << line << name << value.toString();
     QStringList param = name.split("-");
     if (param.count() < 2)
     {

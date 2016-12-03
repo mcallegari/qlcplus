@@ -18,6 +18,7 @@
 */
 
 import QtQuick 2.0
+import QtQuick.Layouts 1.0
 
 import com.qlcplus.classes 1.0
 import "."
@@ -30,6 +31,8 @@ SidePanel
 
     function createFunctionAndEditor(fType, fEditor)
     {
+        // reset the current editor first
+        loaderSource = ""
         var newFuncID = functionManager.createFunction(fType)
         functionManager.setEditorFunction(newFuncID)
         if (fType === Function.Show)
@@ -57,9 +60,10 @@ SidePanel
         color: "transparent"
         z: 2
 
-        Column
+        ColumnLayout
         {
             anchors.horizontalCenter: parent.horizontalCenter
+            height: parent.height
             spacing: 3
 
             IconButton
@@ -121,13 +125,35 @@ SidePanel
             IconButton
             {
                 id: sceneDump
-                objectName: "dumpButton"
                 z: 2
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/dmxdump.svg"
                 tooltip: qsTr("Dump to a Scene")
-                visible: false
+                counter: functionManager.dumpValuesCount
+
+                Rectangle
+                {
+                    x: -3
+                    y: -3
+                    width: sceneDump.width * 0.4
+                    height: width
+                    color: "red"
+                    border.width: 1
+                    border.color: UISettings.fgMain
+                    radius: 3
+                    clip: true
+
+                    RobotoText
+                    {
+                        anchors.centerIn: parent
+                        height: parent.height * 0.7
+                        label: functionManager.dumpValuesCount
+                        fontSize: height
+                    }
+
+                }
+
                 onClicked:
                 {
                     contextManager.dumpDmxChannels()
@@ -148,6 +174,24 @@ SidePanel
                 checkable: true
                 counter: functionManager.selectionCount
                 onToggled: functionManager.setPreview(checked)
+            }
+
+            /* filler object */
+            Rectangle
+            {
+                Layout.fillHeight: true
+                width: iconSize
+                color: "transparent"
+            }
+
+            IconButton
+            {
+                z: 2
+                width: iconSize
+                height: iconSize
+                imgSource: "qrc:/reset.svg"
+                tooltip: qsTr("Reset dump channels") + " (CTRL+R)"
+                onClicked: contextManager.resetDumpValues()
             }
         }
     }

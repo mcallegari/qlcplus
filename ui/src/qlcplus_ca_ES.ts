@@ -2369,68 +2369,68 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
         <translation>Reassignar nom de fixtures</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="117"/>
-        <location filename="fixtureremap.cpp" line="119"/>
+        <location filename="fixtureremap.cpp" line="129"/>
+        <location filename="fixtureremap.cpp" line="131"/>
         <source> (remapped)</source>
         <translation>(reassignat)</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="148"/>
+        <location filename="fixtureremap.cpp" line="160"/>
         <source>Universe %1</source>
         <translation>Univers %1</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="212"/>
+        <location filename="fixtureremap.cpp" line="224"/>
         <source>Generic Dimmer</source>
         <translation>Dimmer genèric</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="283"/>
+        <location filename="fixtureremap.cpp" line="295"/>
         <source>Delete Fixtures</source>
         <translation>Esborrar Fixtures</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="284"/>
+        <location filename="fixtureremap.cpp" line="296"/>
         <source>Do you want to delete the selected items?</source>
         <translation>Vol esborrar els ítems seleccionats?</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="332"/>
+        <location filename="fixtureremap.cpp" line="344"/>
         <source>Invalid operation</source>
         <translation>Operació invàlida</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="333"/>
+        <location filename="fixtureremap.cpp" line="345"/>
         <source>You are trying to clone a fixture on an address already in use. Please fix the target list first.</source>
         <translation>Està tractant de clonar un fixture a una adreça en us. Si us plau arregli la llista de destinació primer.</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="395"/>
-        <location filename="fixtureremap.cpp" line="411"/>
-        <location filename="fixtureremap.cpp" line="434"/>
-        <location filename="fixtureremap.cpp" line="524"/>
+        <location filename="fixtureremap.cpp" line="407"/>
+        <location filename="fixtureremap.cpp" line="423"/>
+        <location filename="fixtureremap.cpp" line="446"/>
+        <location filename="fixtureremap.cpp" line="536"/>
         <source>Invalid selection</source>
         <translation>Selecció invàlida</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="396"/>
-        <location filename="fixtureremap.cpp" line="412"/>
-        <location filename="fixtureremap.cpp" line="525"/>
+        <location filename="fixtureremap.cpp" line="408"/>
+        <location filename="fixtureremap.cpp" line="424"/>
+        <location filename="fixtureremap.cpp" line="537"/>
         <source>Please select a source and a target fixture or channel to perform this operation.</source>
         <translation>Si us plau, seleccioni un fixture o canal d&apos;origen i destinació per fer aquesta operació.</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="435"/>
+        <location filename="fixtureremap.cpp" line="447"/>
         <source>To perform a fixture remap, please select fixtures on both lists.</source>
         <translation>Per fer la reassignació de fixtures, si us plau seleccioni fixtures a ambdues llistes.</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="650"/>
+        <location filename="fixtureremap.cpp" line="662"/>
         <source>This might take a while...</source>
         <translation>Això pot trigar una estona...</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="650"/>
+        <location filename="fixtureremap.cpp" line="662"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
@@ -4369,22 +4369,22 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
         <translation>El grup de fixtures que s&apos;emprarà com a pixel de la matriu</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="271"/>
+        <location filename="rgbmatrixeditor.cpp" line="273"/>
         <source>None</source>
         <translation>Cap</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="491"/>
+        <location filename="rgbmatrixeditor.cpp" line="493"/>
         <source>No fixture group to control</source>
         <translation>Cap grup per controlar</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="824"/>
+        <location filename="rgbmatrixeditor.cpp" line="772"/>
         <source>Select image</source>
         <translation>Seleccionar imatge</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="826"/>
+        <location filename="rgbmatrixeditor.cpp" line="774"/>
         <source>Images</source>
         <translation>Imatges</translation>
     </message>
@@ -5173,32 +5173,32 @@ Durada: %3
 <context>
     <name>SpeedDial</name>
     <message>
-        <location filename="speeddial.cpp" line="141"/>
+        <location filename="speeddial.cpp" line="142"/>
         <source>Hours</source>
         <translation>Hores</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="150"/>
+        <location filename="speeddial.cpp" line="151"/>
         <source>Minutes</source>
         <translation>Minuts</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="159"/>
+        <location filename="speeddial.cpp" line="160"/>
         <source>Seconds</source>
         <translation>Segons</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="168"/>
+        <location filename="speeddial.cpp" line="169"/>
         <source>Milliseconds</source>
         <translation>Milisegons</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="174"/>
+        <location filename="speeddial.cpp" line="175"/>
         <source>Infinite</source>
         <translation>Infinit</translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="126"/>
+        <location filename="speeddial.cpp" line="127"/>
         <source>Tap</source>
         <translation>Tap</translation>
     </message>
@@ -5515,57 +5515,69 @@ Durada: %3
 <context>
     <name>VCCueList</name>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="106"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="107"/>
         <source>Link</source>
         <translation>Enllaç</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="200"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="201"/>
         <source>Show/Hide crossfade sliders</source>
         <translation>Motrar/Amagar els sliders de crossfade</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="210"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="211"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="964"/>
         <source>Play/Pause Cue list</source>
         <translation>Reprodueix/Pausa Cue List</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="219"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="220"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="965"/>
         <source>Stop Cue list</source>
         <translation>Atura Cue list</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="228"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="229"/>
         <source>Go to previous step in the list</source>
         <translation>Anar al pas anterior de la llista</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="237"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="238"/>
         <source>Go to next step in the list</source>
         <translation>Anar al pas seqüent de la llista</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="245"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="246"/>
         <source>Cue list</source>
         <translation>Lliste de Cues</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1304"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="958"/>
+        <source>Play/Stop Cue list</source>
+        <translation>Reproduir/Aturar Llista de Cues</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelist.cpp" line="959"/>
+        <source>Pause Cue list</source>
+        <translation>Pausar Llista de Cues</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelist.cpp" line="1367"/>
         <source>Fade In</source>
         <translation>Fade In</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1304"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1367"/>
         <source>Fade Out</source>
         <translation>Fade Out</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1304"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1367"/>
         <source>Duration</source>
         <translation>Durada</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1304"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1367"/>
         <source>Notes</source>
         <translation>Notes</translation>
     </message>
@@ -5593,22 +5605,22 @@ Durada: %3
         <translation>Llista de Cues</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="76"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="120"/>
         <source>Chaser</source>
         <translation>Chaser</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="83"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="76"/>
         <source>The chaser function to use as cue list</source>
         <translation>La funció de chaser per emprar com a Llista de Cues</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="93"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="86"/>
         <source>Choose the chaser function to use as the steps for the cue list</source>
         <translation>Triar la funció chaser per emprar com a pasos de la Llista de Cues</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="110"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="103"/>
         <source>Detach current chaser from the cue list</source>
         <translation>Desviincular el chaser actual de la Llista de Cues</translation>
     </message>
@@ -5639,47 +5651,64 @@ Durada: %3
         <translation>No fer res</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="178"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="177"/>
+        <source>Playback buttons layout</source>
+        <translation>Disposició dels botons de reproducció</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="183"/>
+        <source>Play/Pause + Stop</source>
+        <translation>Reproduir/Pausa + Aturar</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="193"/>
+        <source>Play/Stop + Pause</source>
+        <translation>Reproduir/Aturar + Pausa</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="204"/>
         <source>Playback</source>
         <translation>Reproduir</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="250"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="276"/>
         <source>Side Faders</source>
         <translation>Faders Laterals</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="204"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="230"/>
         <source>Next Cue</source>
         <translation>Següent Cue</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="227"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="253"/>
         <source>Previous Cue</source>
         <translation>Cue anterior</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="256"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="282"/>
         <source>Behaviour</source>
         <translation>Comportament</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="268"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="294"/>
         <source>Crossfade</source>
         <translation>Crossfade</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="278"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="304"/>
         <source>Steps</source>
         <translation>Pasos</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="65"/>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="237"/>
         <source>Play/Pause control</source>
         <translation>Reprodueix/Pausa control</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="74"/>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="238"/>
         <source>Stop control</source>
         <translation>Atura control</translation>
     </message>
@@ -5694,7 +5723,17 @@ Durada: %3
         <translation>Fadet Dreta</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.cpp" line="222"/>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="242"/>
+        <source>Play/Stop control</source>
+        <translation>Control de Reproduir/Aturar</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="243"/>
+        <source>Pause control</source>
+        <translation>Control de Pausa</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="251"/>
         <source>No function</source>
         <translation>Cap Funció</translation>
     </message>
@@ -5702,13 +5741,13 @@ Durada: %3
 <context>
     <name>VCFrame</name>
     <message>
-        <location filename="virtualconsole/vcframe.cpp" line="362"/>
-        <location filename="virtualconsole/vcframe.cpp" line="479"/>
+        <location filename="virtualconsole/vcframe.cpp" line="360"/>
+        <location filename="virtualconsole/vcframe.cpp" line="485"/>
         <source>Page: %1</source>
         <translation>Pàgina: %1</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframe.cpp" line="1264"/>
+        <location filename="virtualconsole/vcframe.cpp" line="1270"/>
         <source>Add</source>
         <translation>Afegir</translation>
     </message>
@@ -6673,17 +6712,17 @@ Durada: %3
         <translation>Canviar a Mode Submaster</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.cpp" line="629"/>
+        <location filename="virtualconsole/vcsliderproperties.cpp" line="631"/>
         <source>Select channels by group</source>
         <translation>Seleccionar canals per grup</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.cpp" line="630"/>
+        <location filename="virtualconsole/vcsliderproperties.cpp" line="632"/>
         <source>Select a channel group</source>
         <translation>Seleccionar un Grup de Canals</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.cpp" line="687"/>
+        <location filename="virtualconsole/vcsliderproperties.cpp" line="689"/>
         <source>No function</source>
         <translation>Cap Funció</translation>
     </message>

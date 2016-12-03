@@ -31,7 +31,7 @@ Rectangle
 
     property VCClock widgetRef: null
 
-    property int gridItemsHeight: 38
+    property int gridItemsHeight: UISettings.listItemHeight
 
     Column
     {
@@ -55,37 +55,52 @@ Rectangle
                 ExclusiveGroup { id: clockTypeGroup }
 
                 // row 1
-                RobotoText { fontSize: 14; label: qsTr("Clock") }
+                RobotoText
+                {
+                    height: gridItemsHeight
+                    Layout.fillWidth: true
+                    label: qsTr("Clock")
+                }
 
                 CustomCheckBox
                 {
-                    width: gridItemsHeight
-                    height: gridItemsHeight
+                    width: UISettings.iconSizeMedium
+                    height: width
                     exclusiveGroup: clockTypeGroup
                     checked: widgetRef ? widgetRef.clockType === VCClock.Clock : false
                     onCheckedChanged: if (checked && widgetRef) widgetRef.clockType = VCClock.Clock
                 }
 
                 // row 2
-                RobotoText { fontSize: 14; label: qsTr("Stopwatch") }
+                RobotoText
+                {
+                    height: gridItemsHeight
+                    Layout.fillWidth: true
+                    label: qsTr("Stopwatch")
+                }
 
                 CustomCheckBox
                 {
-                    width: gridItemsHeight
-                    height: gridItemsHeight
+                    width: UISettings.iconSizeMedium
+                    height: width
                     exclusiveGroup: clockTypeGroup
                     checked: widgetRef ? widgetRef.clockType === VCClock.Stopwatch : false
                     onCheckedChanged: if (checked && widgetRef) widgetRef.clockType = VCClock.Stopwatch
                 }
 
                 // row 3
-                RobotoText { fontSize: 14; label: qsTr("Countdown") }
+                RobotoText
+                {
+                    height: gridItemsHeight
+                    Layout.fillWidth: true
+                    label: qsTr("Countdown")
+                }
 
                 CustomCheckBox
                 {
                     id: cdownCheck
-                    width: gridItemsHeight
-                    height: gridItemsHeight
+                    width: UISettings.iconSizeMedium
+                    height: width
                     exclusiveGroup: clockTypeGroup
                     checked: widgetRef ? widgetRef.clockType === VCClock.Countdown : false
                     onCheckedChanged: if (checked && widgetRef) widgetRef.clockType = VCClock.Countdown
@@ -116,7 +131,7 @@ Rectangle
                     {
                         color: UISettings.bgMedium
                         width: parent.width
-                        height: 40
+                        height: UISettings.listItemHeight
 
                         IconButton
                         {
@@ -125,7 +140,7 @@ Rectangle
                             anchors.right: parent.right
 
                             width: height
-                            height: 38
+                            height: parent.height
                             imgSource: "qrc:/add.svg"
                             checkable: true
                             tooltip: qsTr("Add a function schedule")
@@ -151,10 +166,10 @@ Rectangle
                     {
                         id: schListView
                         width: parent.width
-                        height: model.length * 180
+                        height: model ? model.length * 180 : 0
                         boundsBehavior: Flickable.StopAtBounds
 
-                        model: widgetRef.scheduleList
+                        model: widgetRef ? widgetRef.scheduleList : null
                         delegate:
                             Rectangle
                             {
@@ -177,8 +192,7 @@ Rectangle
                                     {
                                         Layout.columnSpan: 2
                                         Layout.fillWidth: true
-
-                                        fontSize: 14
+                                        height: gridItemsHeight
 
                                         Component.onCompleted:
                                         {
@@ -190,6 +204,8 @@ Rectangle
                                         IconButton
                                         {
                                             id: fontButton
+                                            height: gridItemsHeight
+                                            width: height
                                             anchors.top: parent.top
                                             anchors.right: parent.right
                                             imgSource: "qrc:/cancel.svg"
@@ -204,10 +220,12 @@ Rectangle
                                     // row 2
                                     RobotoText
                                     {
+                                        height: gridItemsHeight
                                         label: qsTr("Start time")
                                     }
                                     DayTimeTool
                                     {
+                                        height: gridItemsHeight
                                         timeValue: schedule ? schedule.startTime : 0
                                         onTimeValueChanged: if (schedule) schedule.startTime = timeValue
                                     }
@@ -215,11 +233,12 @@ Rectangle
                                     // row 3
                                     RobotoText
                                     {
+                                        height: gridItemsHeight
                                         label: qsTr("Stop time")
                                     }
                                     Rectangle
                                     {
-                                        height: 40
+                                        height: UISettings.listItemHeight
                                         Layout.fillWidth: true
                                         color: "transparent"
                                         Row
@@ -242,6 +261,8 @@ Rectangle
                                             }
                                             CustomCheckBox
                                             {
+                                                width: UISettings.iconSizeMedium
+                                                height: width
                                                 id: stEnableCheck
                                                 tooltip: qsTr("Enable the stop time")
                                                 checked: schedule ? schedule.stopTime !== -1 : false
@@ -254,9 +275,11 @@ Rectangle
                                         Layout.columnSpan: 2
                                         spacing: 1
 
-                                        RobotoText { label: qsTr("M") }
+                                        RobotoText { height: UISettings.listItemHeight; label: qsTr("M") }
                                         CustomCheckBox
                                         {
+                                            width: UISettings.iconSizeMedium
+                                            height: width
                                             checked: schedule ? schedule.weekFlags & 0x01 : false
                                             onCheckedChanged:
                                             {
@@ -265,9 +288,11 @@ Rectangle
                                             }
                                         }
 
-                                        RobotoText { label: qsTr("T") }
+                                        RobotoText { height: UISettings.listItemHeight; label: qsTr("T") }
                                         CustomCheckBox
                                         {
+                                            width: UISettings.iconSizeMedium
+                                            height: width
                                             checked: schedule ? schedule.weekFlags & 0x02 : false
                                             onCheckedChanged:
                                             {
@@ -276,9 +301,11 @@ Rectangle
                                             }
                                         }
 
-                                        RobotoText { label: qsTr("W") }
+                                        RobotoText { height: UISettings.listItemHeight; label: qsTr("W") }
                                         CustomCheckBox
                                         {
+                                            width: UISettings.iconSizeMedium
+                                            height: width
                                             checked: schedule ? schedule.weekFlags & 0x04 : false
                                             onCheckedChanged:
                                             {
@@ -287,9 +314,11 @@ Rectangle
                                             }
                                         }
 
-                                        RobotoText { label: qsTr("T") }
+                                        RobotoText { height: UISettings.listItemHeight; label: qsTr("T") }
                                         CustomCheckBox
                                         {
+                                            width: UISettings.iconSizeMedium
+                                            height: width
                                             checked: schedule ? schedule.weekFlags & 0x08 : false
                                             onCheckedChanged:
                                             {
@@ -298,9 +327,11 @@ Rectangle
                                             }
                                         }
 
-                                        RobotoText { label: qsTr("F") }
+                                        RobotoText { height: UISettings.listItemHeight; label: qsTr("F") }
                                         CustomCheckBox
                                         {
+                                            width: UISettings.iconSizeMedium
+                                            height: width
                                             checked: schedule ? schedule.weekFlags & 0x10 : false
                                             onCheckedChanged:
                                             {
@@ -309,9 +340,11 @@ Rectangle
                                             }
                                         }
 
-                                        RobotoText { label: qsTr("S") }
+                                        RobotoText { height: UISettings.listItemHeight; label: qsTr("S") }
                                         CustomCheckBox
                                         {
+                                            width: UISettings.iconSizeMedium
+                                            height: width
                                             checked: schedule ? schedule.weekFlags & 0x20 : false
                                             onCheckedChanged:
                                             {
@@ -320,9 +353,11 @@ Rectangle
                                             }
                                         }
 
-                                        RobotoText { label: qsTr("S") }
+                                        RobotoText { height: UISettings.listItemHeight; label: qsTr("S") }
                                         CustomCheckBox
                                         {
+                                            width: UISettings.iconSizeMedium
+                                            height: width
                                             checked: schedule ? schedule.weekFlags & 0x40 : false
                                             onCheckedChanged:
                                             {
@@ -333,6 +368,8 @@ Rectangle
 
                                         IconButton
                                         {
+                                            width: UISettings.iconSizeMedium
+                                            height: width
                                             imgSource: "qrc:/loop.svg"
                                             checkable: true
                                             checked: schedule ? schedule.weekFlags & 0x80 : false
@@ -345,7 +382,7 @@ Rectangle
                                         }
                                     }
 
-                                }
+                                } // end of GridLayout
 
                                 // items divider
                                 Rectangle
@@ -401,7 +438,9 @@ Rectangle
                             onDropped:
                             {
                                 console.log("Function item dropped here. x: " + drag.x + " y: " + drag.y)
-                                widgetRef.addSchedule(drag.source.funcID)
+
+                                if (drag.source.hasOwnProperty("fromFunctionManager"))
+                                    widgetRef.addSchedules(drag.source.itemsList)
                             }
                         }
                     }

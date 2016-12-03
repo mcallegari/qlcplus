@@ -20,10 +20,10 @@
 #ifndef INPUTOUTPUTMAP_H
 #define INPUTOUTPUTMAP_H
 
+#include <QSharedPointer>
 #include <QObject>
 #include <QMutex>
 #include <QDir>
-#include <QSharedPointer>
 
 #include "qlcinputprofile.h"
 #include "grandmaster.h"
@@ -31,6 +31,7 @@
 class QXmlStreamReader;
 class QXmlStreamWriter;
 class QLCInputSource;
+class QElapsedTimer;
 class QLCIOPlugin;
 class OutputPatch;
 class InputPatch;
@@ -334,10 +335,14 @@ public:
      * @param pluginName The name of the plugin to patch to the universe
      * @param output A universe provided by the plugin to patch to
      * @param isFeedback Determine if this line is a feedback output
+     * @param index the output patch index
+     *
      * @return true if successful, otherwise false
      */
     bool setOutputPatch(quint32 universe, const QString& pluginName,
-                        quint32 output = 0, bool isFeedback = false);
+                        quint32 output = 0, bool isFeedback = false, int index = 0);
+
+    int outputPatchesCount(quint32 universe) const;
 
     /**
      * Get mapping for an input universe.
@@ -351,7 +356,7 @@ public:
      *
      * @param universe The internal universe to get mapping for
      */
-    OutputPatch* outputPatch(quint32 universe) const;
+    OutputPatch* outputPatch(quint32 universe, int index = 0) const;
 
     /**
      * Get the feedback mapping for a QLC universe.
@@ -543,6 +548,39 @@ private:
     QList <QLCInputProfile*> m_profiles;
 
     /*********************************************************************
+     * Beats
+     *********************************************************************/
+public:
+    enum BeatGeneratorType
+    {
+        Disabled,   //! No one is generating beats
+        Internal,   //! MasterTimer is the beat generator
+        MIDI,       //! A MIDI plugin is the beat generator
+        Audio       //! An audio input device is the beat generator
+    };
+
+    void setBeatGeneratorType(BeatGeneratorType type);
+    BeatGeneratorType beatGeneratorType() const;
+
+    void setBpmNumber(int bpm);
+    int bpmNumber() const;
+
+protected slots:
+    void slotMasterTimerBeat();
+    void slotMIDIBeat(quint32 universe, quint32 channel, uchar value);
+    void slotAudioSpectrum(double *spectrumBands, int size, double maxMagnitude, quint32 power);
+
+signals:
+    void beatGeneratorTypeChanged();
+    void bpmNumberChanged(int bpmNumber);
+    void beat();
+
+private:
+    BeatGeneratorType m_beatGeneratorType;
+    int m_currentBPM;
+    QElapsedTimer *m_beatTime;
+
+    /*********************************************************************
      * Defaults
      *********************************************************************/
 public:
@@ -556,6 +594,10 @@ public:
      */
     void saveDefaults();
 
+    /*********************************************************************
+     * Load & Save
+     *********************************************************************/
+public:
     /**
      * Load the input/output map contents from the given XML node.
      *

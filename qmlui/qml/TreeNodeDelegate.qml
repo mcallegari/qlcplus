@@ -19,6 +19,7 @@
 
 import QtQuick 2.2
 
+import com.qlcplus.classes 1.0
 import "."
 
 Column
@@ -29,22 +30,31 @@ Column
 
     property string textLabel
     property string nodePath
-    property var folderChildren
+    property var nodeChildren
     property bool isExpanded: false
     property bool isSelected: false
     property string nodeIcon: "qrc:/folder.svg"
     property string childrenDelegate: "qrc:/FunctionDelegate.qml"
+    property Item dragItem
 
     signal toggled(bool expanded, int newHeight)
-    signal clicked(int ID, var qItem, int mouseMods)
-    signal doubleClicked(int ID, int Type)
+    signal mouseEvent(int type, int iID, int iType, var qItem, int mouseMods)
     signal pathChanged(string oldPath, string newPath)
+
+    function getItemAtPos(x, y)
+    {
+        var child = nodeChildrenView.itemAt(x, y)
+        if (child.item.hasOwnProperty("nodePath"))
+            return child.item.getItemAtPos(x, y - child.item.y)
+
+        return child.item
+    }
 
     Rectangle
     {
-        color: "transparent"
+        color: nodeIconImg.visible ? "transparent" : UISettings.sectionHeader
         width: nodeContainer.width
-        height: 35
+        height: UISettings.listItemHeight
 
         // selection rectangle
         Rectangle
@@ -57,53 +67,87 @@ Column
 
         Image
         {
-            width: 40
-            height: 35
+            id: nodeIconImg
+            visible: nodeIcon == "" ? false : true
+            width: visible ? parent.height : 0
+            height: parent.height
             source: nodeIcon
         }
 
         TextInput
         {
+            property string originalText
+
             id: nodeLabel
-            x: 45
+            x: nodeIconImg.width + 1
             z: 0
-            width: parent.width - 45
-            height: 35
+            width: parent.width - nodeIconImg.width - 1
+            height: UISettings.listItemHeight
             readOnly: true
             text: textLabel
             verticalAlignment: TextInput.AlignVCenter
             color: UISettings.fgMain
-            font.family: "Roboto Condensed"
-            font.pointSize: 12
+            font.family: UISettings.robotoFontName
+            font.pixelSize: UISettings.textSizeDefault
             echoMode: TextInput.Normal
             selectByMouse: true
             selectionColor: "#4DB8FF"
             selectedTextColor: "#111"
 
-            onEditingFinished:
+            function disableEditing()
             {
                 z = 0
                 select(0, 0)
                 readOnly = true
+                cursorVisible = false
+            }
+
+            onEditingFinished:
+            {
+                disableEditing()
                 nodeContainer.pathChanged(nodePath, text)
+            }
+            Keys.onEscapePressed:
+            {
+                disableEditing()
+                nodeLabel.text = originalText
+            }
+        }
+
+        Timer
+        {
+            id: clickTimer
+            interval: 200
+            repeat: false
+            running: false
+
+            property int modifiers: 0
+
+            onTriggered:
+            {
+                isExpanded = !isExpanded
+                nodeContainer.mouseEvent(qlcplus.Clicked, -1, -1, nodeContainer, modifiers)
+                modifiers = 0
             }
         }
 
         MouseArea
         {
             anchors.fill: parent
-            height: 35
+            height: UISettings.listItemHeight
             onClicked:
             {
-                isExpanded = !isExpanded
-                //isSelected = true
-                nodeContainer.clicked(-1, nodeContainer, mouse.modifiers)
+                clickTimer.modifiers = mouse.modifiers
+                clickTimer.start()
             }
             onDoubleClicked:
             {
+                clickTimer.stop()
+                clickTimer.modifiers = 0
+                nodeLabel.originalText = textLabel
                 nodeLabel.z = 5
                 nodeLabel.readOnly = false
-                nodeLabel.focus = true
+                nodeLabel.forceActiveFocus()
                 nodeLabel.cursorPosition = nodeLabel.text.length
                 nodeLabel.cursorVisible = true
             }
@@ -115,7 +159,7 @@ Column
         id: nodeChildrenView
         visible: isExpanded
         width: nodeContainer.width - 20
-        model: visible ? folderChildren : null
+        model: visible ? nodeChildren : null
         delegate:
             Component
             {
@@ -130,12 +174,13 @@ Column
                     {
                         item.textLabel = label
                         item.isSelected = Qt.binding(function() { return isSelected })
+                        item.dragItem = dragItem
 
                         if (hasChildren)
                         {
                             item.nodePath = nodePath + "/" + path
                             item.isExpanded = isExpanded
-                            item.folderChildren = childrenModel
+                            item.nodeChildren = childrenModel
                             item.nodeIcon = nodeContainer.nodeIcon
                             item.childrenDelegate = childrenDelegate
 
@@ -143,27 +188,38 @@ Column
                         }
                         else
                         {
-                            item.cRef = classRef
+                            if (item.hasOwnProperty('cRef'))
+                                item.cRef = classRef
                         }
                     }
                     Connections
                     {
                         target: item
-                        onClicked:
+                        onMouseEvent:
                         {
-                            if (qItem == item)
+                            console.log("Got tree node children mouse event")
+                            switch (type)
                             {
-                                model.isSelected = (mouseMods & Qt.ControlModifier) ? 2 : 1
-                                if (model.hasChildren)
-                                    model.isExpanded = item.isExpanded
+                                case App.Clicked:
+                                    if (qItem == item)
+                                    {
+                                        model.isSelected = (mouseMods & Qt.ControlModifier) ? 2 : 1
+                                        if (model.hasChildren)
+                                            model.isExpanded = item.isExpanded
+                                    }
+                                break;
+                                case App.DragStarted:
+                                    if (qItem == item && !model.isSelected)
+                                    {
+                                        model.isSelected = 1
+                                        // invalidate the modifiers to force a single selection
+                                        mouseMods = -1
+                                    }
+                                break;
                             }
-                            nodeContainer.clicked(ID, qItem, mouseMods)
+
+                            nodeContainer.mouseEvent(type, iID, iType, qItem, mouseMods)
                         }
-                    }
-                    Connections
-                    {
-                        target: item
-                        onDoubleClicked: nodeContainer.doubleClicked(ID, Type)
                     }
                     Connections
                     {

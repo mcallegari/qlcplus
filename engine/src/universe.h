@@ -48,18 +48,12 @@ class InputPatch;
 #define KXMLQLCUniversePassthrough "Passthrough"
 
 #define KXMLQLCUniverseInputPatch "Input"
-#define KXMLQLCUniverseInputPlugin "Plugin"
-#define KXMLQLCUniverseInputLine "Line"
-#define KXMLQLCUniverseInputProfileName "Profile"
-
 #define KXMLQLCUniverseOutputPatch "Output"
-#define KXMLQLCUniverseOutputPlugin "Plugin"
-#define KXMLQLCUniverseOutputLine "Line"
-
 #define KXMLQLCUniverseFeedbackPatch "Feedback"
-#define KXMLQLCUniverseFeedbackPlugin "Plugin"
-#define KXMLQLCUniverseFeedbackLine "Line"
 
+#define KXMLQLCUniversePlugin "Plugin"
+#define KXMLQLCUniverseLine "Line"
+#define KXMLQLCUniverseProfileName "Profile"
 #define KXMLQLCUniversePluginParameters "PluginParameters"
 
 /** Universe class contains input/output data for one DMX universe
@@ -71,8 +65,9 @@ class Universe: public QObject
 
     Q_PROPERTY(QString name READ name NOTIFY nameChanged)
     Q_PROPERTY(quint32 id READ id CONSTANT)
+    Q_PROPERTY(bool passthrough READ passthrough WRITE setPassthrough NOTIFY passthroughChanged)
     Q_PROPERTY(InputPatch* inputPatch READ inputPatch NOTIFY inputPatchChanged)
-    Q_PROPERTY(OutputPatch* outputPatch READ outputPatch NOTIFY outputPatchChanged)
+    Q_PROPERTY(int outputPatchesCount READ outputPatchesCount NOTIFY outputPatchesCountChanged)
 
 public:
     /** Construct a new Universe */
@@ -150,6 +145,8 @@ public:
      */
     bool monitor() const;
 
+    uchar applyPassthrough(int channel, uchar value);
+
 protected slots:
     /**
      * Called every time the Grand Master changed value
@@ -169,11 +166,11 @@ protected:
 
     uchar applyRelative(int channel, uchar value);
     uchar applyModifiers(int channel, uchar value);
-    uchar applyPassthrough(int channel, uchar value);
     void updatePostGMValue(int channel);
 
 signals:
     void nameChanged();
+    void passthroughChanged();
 
 protected:
     /** The universe ID */
@@ -195,11 +192,14 @@ public:
      *  otherwise returns false */
     bool isPatched();
 
+    /** Sets an input patch for this Universe, and connect to it to receive signals */
     bool setInputPatch(QLCIOPlugin *plugin, quint32 input,
                        QLCInputProfile *profile = NULL);
 
-    bool setOutputPatch(QLCIOPlugin *plugin, quint32 output);
+    /** Add/Remove/Replace an output patch on this Universe */
+    bool setOutputPatch(QLCIOPlugin *plugin, quint32 output, int index = 0);
 
+    /** Sets a feedback patch for this Universe */
     bool setFeedbackPatch(QLCIOPlugin *plugin, quint32 output);
 
     /**
@@ -212,7 +212,10 @@ public:
      * Get the reference to the output plugin associated to this universe.
      * If not present NULL is returned.
      */
-    OutputPatch* outputPatch() const;
+    Q_INVOKABLE OutputPatch* outputPatch(int index = 0) const;
+
+    /** Return the number of output patches associated to this Universe */
+    int outputPatchesCount() const;
 
     /**
      * Get the reference to the feedback plugin associated to this universe.
@@ -238,15 +241,18 @@ signals:
     /** Notify the listeners that the input patch has changed */
     void inputPatchChanged();
 
-    /** Notify the listeners that the output patch has changed */
+    /** Notify the listeners that one output patch has changed */
     void outputPatchChanged();
+
+    /** Notify the listeners that the number of output patches has changed */
+    void outputPatchesCountChanged();
 
 private:
     /** Reference to the input patch associated to this universe. */
     InputPatch* m_inputPatch;
 
-    /** Reference to the output patch associated to this universe. */
-    OutputPatch* m_outputPatch;
+    /** List of references to the output patches associated to this universe. */
+    QList<OutputPatch*>m_outputPatchList;
 
     /** Reference to the feedback patch associated to this universe. */
     OutputPatch* m_fbPatch;
@@ -495,6 +501,23 @@ public:
      * @param wksp_root The workspace root element
      */
     bool saveXML(QXmlStreamWriter *doc) const;
+
+    /**
+     * Save one patch (input/output/feedback)
+     *
+     * @param doc
+     * @param tag
+     * @param pluginName
+     * @param line
+     * @param profileName
+     * @param parameters
+     */
+    void savePatchXML(QXmlStreamWriter *doc,
+        QString const & tag,
+        QString const & pluginName,
+        quint32 line,
+        QString profileName,
+        QMap<QString, QVariant>parameters) const;
 
     /**
      * Save a plugin custom parameters (if available) into a tag nested

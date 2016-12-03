@@ -20,17 +20,19 @@
 import QtQuick 2.2
 import QtQuick.Controls 1.2
 
+import "."
+
 Rectangle
 {
     id: baseIconEntry
     width: parent ? (parent.width > itemWidth) ? parent.width : itemWidth : 400
     height: imgSize + 4
 
-    property int imgSize: 40
+    property int imgSize: UISettings.iconSizeDefault
     property string imgSource: ""
     property string entryText: ""
     property color bgColor: "transparent"
-    property color hoverColor: "#0978FF"
+    property color hoverColor: UISettings.highlight
     property color pressedColor: "#054A9E"
     property int itemWidth: imgSize + (textBox ? textBox.width : 100) + 15
 
@@ -60,7 +62,7 @@ Rectangle
         y: 0
         label: entryText
         height: baseIconEntry.height
-        fontSize: 12
+        fontSize: UISettings.textSizeDefault
         fontBold: true
     }
 
@@ -72,9 +74,6 @@ Rectangle
         onEntered: { baseIconEntry.color = hoverColor; baseIconEntry.entered() }
         onExited: { baseIconEntry.color = bgColor; baseIconEntry.exited() }
         onPressed: { baseIconEntry.color = pressedColor }
-        onReleased:
-        {
-            baseIconEntry.clicked();
-        }
+        onReleased: baseIconEntry.clicked()
     }
 }

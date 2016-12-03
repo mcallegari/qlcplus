@@ -21,15 +21,17 @@ import QtQuick 2.0
 
 import com.qlcplus.classes 1.0
 import "PluginUtils.js" as PluginUtils
+import "."
 
 Rectangle
 {
     width: parent.width
-    height: 80
+    height: UISettings.bigItemHeight * 0.9
     color: "transparent"
 
     property int universeID
     property OutputPatch patch
+    property int patchIndex
 
     Rectangle
     {
@@ -51,11 +53,12 @@ Rectangle
         {
             x: 8
             spacing: 3
+
             Image
             {
                 id: pluginIcon
-                y: 2
-                height: patchBox.height - 6
+                anchors.verticalCenter: parent.verticalCenter
+                height: patchBox.height * 0.75
                 width: height
                 source: patch ? PluginUtils.iconFromName(patch.pluginName) : ""
                 sourceSize: Qt.size(width, height)
@@ -68,7 +71,33 @@ Rectangle
                 label: patch ? patch.outputName : ""
                 labelColor: "black"
                 wrapText: true
+                fontSize: UISettings.textSizeDefault
             }
+        }
+    }
+
+    DropArea
+    {
+        id: patchDropTarget
+        anchors.fill: parent
+        z: 5
+
+        // this key must match the one in PluginList, to avoid dropping
+        // an input plugin on output and vice-versa
+        keys: [ "output-" + universeID ]
+
+        onDropped:
+        {
+            console.log("Requested to replace an output patch")
+            ioManager.setOutputPatch(drag.source.pluginUniverse, drag.source.pluginName,
+                                     drag.source.pluginLine, patchIndex)
+        }
+
+        Rectangle
+        {
+            id: outDropRect
+            anchors.fill: parent
+            color: patchDropTarget.containsDrag ? "#33FF9B3E" : "transparent"
         }
     }
 }

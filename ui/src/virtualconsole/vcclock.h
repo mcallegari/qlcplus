@@ -20,6 +20,8 @@
 #ifndef VCCLOCK_H
 #define VCCLOCK_H
 
+#include <QDateTime>
+
 #include "vcwidget.h"
 
 class QXmlStreamReader;

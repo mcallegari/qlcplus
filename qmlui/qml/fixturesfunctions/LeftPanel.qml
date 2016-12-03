@@ -18,6 +18,7 @@
 */
 
 import QtQuick 2.0
+import QtQuick.Layouts 1.0
 import QtQuick.Controls 1.0
 
 import "."
@@ -41,10 +42,11 @@ SidePanel
         ExclusiveGroup { id: fxManagerGroup }
         ExclusiveGroup { id: capabilitiesGroup }
 
-        Column
+        ColumnLayout
         {
             anchors.horizontalCenter: parent.horizontalCenter
-            anchors.leftMargin: 1
+            height: parent.height
+            //anchors.leftMargin: 1
             spacing: 3
 
             IconButton
@@ -209,6 +211,24 @@ SidePanel
                     visible: false
                     goboPresets: true
                 }
+            }
+
+            /* filler object */
+            Rectangle
+            {
+                Layout.fillHeight: true
+                width: iconSize
+                color: "transparent"
+            }
+
+            IconButton
+            {
+                z: 2
+                width: iconSize
+                height: iconSize
+                imgSource: "qrc:/selectall.svg"
+                tooltip: qsTr("Select/Deselect all fixtures") + " (CTRL+A)"
+                onClicked: contextManager.toggleFixturesSelection()
             }
         }
     }

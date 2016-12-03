@@ -25,12 +25,13 @@ import "."
 Rectangle
 {
     width: 100
-    height: 80
+    height: UISettings.mediumItemHeight
     clip: true
 
     color: isSelected ? UISettings.highlight : "#313F4A"
 
     property Track trackRef: null
+    property int trackIndex
     property bool isSelected: false
 
     RobotoText
@@ -48,5 +49,67 @@ Rectangle
         height: 2
         y: parent.height - 2
         color: "#263039"
+    }
+
+    IconButton
+    {
+        id: soloButton
+        x: parent.width - (width * 2) - 10
+        y: 3
+        z: 2
+        width: parent.width / 6
+        height: parent.height * 0.28
+        bgColor: "#8191A0"
+        checkedColor: "yellow"
+        imgSource: ""
+        checkable: true
+        tooltip: qsTr("Solo this track")
+        onToggled:
+        {
+        }
+
+        RobotoText
+        {
+            anchors.centerIn: parent
+            height: parent.height - 2
+            label: "S"
+            labelColor: "#3C4A55"
+            fontSize: height
+            fontBold: true
+        }
+    }
+
+    IconButton
+    {
+        id: muteButton
+        x: parent.width - width - 5
+        y: 3
+        z: 2
+        width: parent.width / 6
+        height: parent.height * 0.28
+        bgColor: "#8191A0"
+        checkedColor: "red"
+        imgSource: ""
+        checkable: true
+        tooltip: qsTr("Mute this track")
+        onToggled:
+        {
+        }
+
+        RobotoText
+        {
+            anchors.centerIn: parent
+            height: parent.height - 2
+            label: "M"
+            labelColor: "#3C4A55"
+            fontSize: height
+            fontBold: true
+        }
+    }
+
+    MouseArea
+    {
+        anchors.fill: parent
+        onClicked: showManager.selectedTrack = trackIndex
     }
 }

@@ -30,15 +30,6 @@ Rectangle
     anchors.fill: parent
     color: "transparent"
 
-    ModelSelector
-    {
-        id: fgeSelector
-        onItemsCountChanged:
-        {
-            console.log("Fixture Group Editor selected items changed !")
-        }
-    }
-
     ColumnLayout
     {
       anchors.fill: parent
@@ -48,7 +39,7 @@ Rectangle
       {
         id: topBar
         width: geContainer.width
-        height: 44
+        height: UISettings.iconSizeMedium
         z: 5
         gradient: Gradient
         {
@@ -105,12 +96,15 @@ Rectangle
                     onLoaded:
                     {
                         item.textLabel = label
+                        item.isSelected = Qt.binding(function() { return isSelected })
+
                         if (hasChildren)
                         {
                             item.nodePath = path
                             item.nodeIcon = "qrc:/group.svg"
+                            item.isExpanded = isExpanded
                             item.childrenDelegate = "qrc:/FixtureDelegate.qml"
-                            item.folderChildren = childrenModel
+                            item.nodeChildren = childrenModel
                         }
                         else
                         {
@@ -120,7 +114,16 @@ Rectangle
                     Connections
                     {
                         target: item
-                        onClicked: fgeSelector.selectItem(ID, qItem, mouseMods & Qt.ControlModifier)
+
+                        onMouseEvent:
+                        {
+                            if (type === App.Clicked && qItem == item)
+                            {
+                                model.isSelected = (mouseMods & Qt.ControlModifier) ? 2 : 1
+                                if (model.hasChildren)
+                                    model.isExpanded = item.isExpanded
+                            }
+                        }
                     }
                     /*
                     Connections

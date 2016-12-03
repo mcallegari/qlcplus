@@ -26,8 +26,8 @@ import "."
 Rectangle
 {
     id: intRoot
-    width: 150
-    height: 350
+    width: UISettings.bigItemHeight * 1.5
+    height: UISettings.bigItemHeight * 3
     color: UISettings.bgMedium
     border.color: "#666"
     border.width: 2
@@ -47,7 +47,7 @@ Rectangle
     {
         id: intToolBar
         width: parent.width
-        height: 32
+        height: UISettings.listItemHeight
         z: 10
         gradient:
             Gradient
@@ -60,10 +60,10 @@ Rectangle
         {
             id: titleBox
             y: 7
-            height: 20
+            height: parent.height
             anchors.horizontalCenter: parent.horizontalCenter
             label: qsTr("Intensity")
-            fontSize: 15
+            fontSize: UISettings.textSizeDefault
             fontBold: true
         }
         // allow the tool to be dragged around
@@ -75,97 +75,104 @@ Rectangle
         }
     }
 
-    Image
-    {
-        id: intBackgroundImg
-        x: 30
-        y: 35
-        width: 100
-        height: 256
-        source: "qrc:/dimmer-back.svg"
-        sourceSize: Qt.size(100, 256)
-    }
-
     Rectangle
     {
-        id: rectMask
         color: "transparent"
         x: 30
-        width: dmxValues ? slider.value : (slider.value * 2.55)
-        y: 290
-        height: 100
-        transformOrigin: Item.TopLeft
-        rotation: -90
-        clip: true
+        y: intToolBar.height + 5
+        width: intRoot.width - 60
+        height: intRoot.height - (UISettings.listItemHeight * 2) - 10
 
         Image
         {
-            id: intForegroundImg
-            y: -256
-            width: 100
-            height: 256
-            transformOrigin: Item.BottomLeft
-            rotation: 90
-            source: "qrc:/dimmer-fill.svg"
-            sourceSize: Qt.size(100, 256)
+            id: intBackgroundImg
+            anchors.fill: parent
+            source: "qrc:/dimmer-back.svg"
+            sourceSize: Qt.size(width, height)
         }
-    }
 
-    Slider
-    {
-        id: slider
-        x: 20
-        y: 30
-        width: 110
-        height: 256
-        orientation: Qt.Vertical
-        minimumValue: 0
-        maximumValue: dmxValues ? 255 : 100
-        stepSize: 1.0
-
-        style: SliderStyle
+        Rectangle
         {
-            groove: Rectangle { color: "transparent" }
-            handle: Rectangle { color: "transparent" }
+            id: rectMask
+            color: "transparent"
+            width: (parent.height * slider.value) / (dmxValues ? 256 : 100)
+            y: parent.height
+            height: parent.width
+            transformOrigin: Item.TopLeft
+            rotation: -90
+            clip: true
+
+            Image
+            {
+                id: intForegroundImg
+                y: -height
+                width: intBackgroundImg.width
+                height: intBackgroundImg.height
+                transformOrigin: Item.BottomLeft
+                rotation: 90
+                source: "qrc:/dimmer-fill.svg"
+                sourceSize: Qt.size(width, height)
+            }
         }
-        onValueChanged: currentValue = slider.value
+
+        Slider
+        {
+            id: slider
+            anchors.fill: parent
+            orientation: Qt.Vertical
+            minimumValue: 0
+            maximumValue: dmxValues ? 255 : 100
+            stepSize: 1.0
+
+            style: SliderStyle
+            {
+                groove: Rectangle { color: "transparent" }
+                handle: Rectangle { color: "transparent" }
+            }
+            onValueChanged: currentValue = slider.value
+        }
     }
 
-    CustomSpinBox
+    Row
     {
-        id: spinBox
         x: 10
-        y: 300
-        width: 75
-        height: 40
-        minimumValue: 0
-        maximumValue: dmxValues ? 255 : 100
-        value: slider.value
+        y: intRoot.height - UISettings.listItemHeight - 10
+        spacing: 5
 
-        onValueChanged: slider.value = value
-    }
-
-    DMXPercentageButton
-    {
-        x: 90
-        y: 300
-        dmxMode: dmxValues
-        onClicked:
+        CustomSpinBox
         {
-            var slVal = slider.value
-            var newVal
-            dmxValues = !dmxValues
-            if (dmxValues == false)
+            id: spinBox
+            width: intRoot.width / 2
+            height: UISettings.listItemHeight
+            minimumValue: 0
+            maximumValue: dmxValues ? 255 : 100
+            value: slider.value
+
+            onValueChanged: slider.value = value
+        }
+
+        DMXPercentageButton
+        {
+            height: UISettings.listItemHeight
+            width: intRoot.width / 3
+            dmxMode: dmxValues
+            onClicked:
             {
-                newVal = (slVal / 255) * 100
-                slider.maximumValue = 100
+                var slVal = slider.value
+                var newVal
+                dmxValues = !dmxValues
+                if (dmxValues == false)
+                {
+                    newVal = (slVal / 255) * 100
+                    slider.maximumValue = 100
+                }
+                else
+                {
+                    newVal = (slVal / 100) * 255
+                    slider.maximumValue = 255
+                }
+                slider.value = newVal
             }
-            else
-            {
-                newVal = (slVal / 100) * 255
-                slider.maximumValue = 255
-            }
-            slider.value = newVal
         }
     }
 }

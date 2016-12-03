@@ -45,6 +45,8 @@ public:
         Yellow,
         Amber,
         White,
+        Lime,
+        Indigo,
         UV,
         RGB,
         CMY,

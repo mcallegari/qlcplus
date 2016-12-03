@@ -18,22 +18,60 @@
 */
 
 #include <QApplication>
+#include <QCommandLineParser>
 #include <QQmlApplicationEngine>
 
 #include "app.h"
 #include "qlcconfig.h"
+
+void debugMessageHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg)
+{
+    Q_UNUSED(context)
+    Q_UNUSED(type)
+
+    QByteArray localMsg = msg.toLocal8Bit();
+    //if (type >= QtSystemMsg)
+    {
+        fprintf(stderr, "%s\n", localMsg.constData());
+        fflush(stderr);
+    }
+}
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
     QApplication::setOrganizationName("qlcplus");
-    QApplication::setOrganizationDomain("sf.net");
+    QApplication::setOrganizationDomain("org");
     QApplication::setApplicationName(APPNAME);
+    QApplication::setApplicationVersion(QString(APPVERSION));
+
+    QCommandLineParser parser;
+    parser.setApplicationDescription("Q Light Controller Plus");
+
+    parser.addHelpOption();
+    parser.addVersionOption();
+    QCommandLineOption debugOption(QStringList() << "d" << "debug",
+                                      "Enable debug messages.");
+    parser.addOption(debugOption);
+
+    QCommandLineOption openFileOption(QStringList() << "o" << "open",
+                                      "Specify a file to open.",
+                                      "filename", "");
+    parser.addOption(openFileOption);
+
+    parser.process(app);
+
+    if (parser.isSet(debugOption))
+        qInstallMessageHandler(debugMessageHandler);
 
     App qlcplusApp;
     qlcplusApp.startup();
     qlcplusApp.show();
+
+    QString filename = parser.value(openFileOption);
+    if (filename.isEmpty() == false)
+        qlcplusApp.loadWorkspace(filename);
 
     return app.exec();
 }

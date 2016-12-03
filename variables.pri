@@ -4,7 +4,7 @@
 
 APPNAME    = Q Light Controller Plus
 FXEDNAME   = Fixture Definition Editor
-APPVERSION = 4.10.5 GIT
+APPVERSION = 4.10.5
 
 # Disable these if you don't want to see GIT short hash in the About Box
 #unix:REVISION = $$system(git log --pretty=format:'%h' -n 1)
@@ -19,6 +19,9 @@ QMAKE_CXXFLAGS += -Werror
 
 CONFIG         += warn_on
 
+# Mobile platforms are QML only
+android|ios: CONFIG += qmlui
+
 # Build everything in the order specified in .pro files
 CONFIG         += ordered
 
@@ -29,11 +32,11 @@ contains(FORCECONFIG, release) {
   #DEFINES += QT_NO_DEBUG_OUTPUT
 } else {
   # Enable the following 2 lines when making a release
-  CONFIG         -= release
-  #DEFINES        += QT_NO_DEBUG_OUTPUT
+  CONFIG         += release
+  DEFINES        += QT_NO_DEBUG_OUTPUT
 
   # Disable this when making a release
-  CONFIG         += debug
+  CONFIG         -= debug
 }
 
 unix:!mac: {
@@ -56,6 +59,7 @@ unix:OLA_GIT    = /usr/src/ola    # OLA directories
 
 #macx:CONFIG   += x86 ppc  # Build universal binaries (Leopard only)
 macx:CONFIG    -= app_bundle # Let QLC+ construct the .app bundle
+macx:QMAKE_STRIP = strip -x
 # Qt 5.5 and above
 greaterThan(QT_MAJOR_VERSION, 4):greaterThan(QT_MINOR_VERSION, 4) {
   macx:QMAKE_LFLAGS += -Wl,-rpath,@executable_path/../Frameworks
@@ -220,6 +224,13 @@ unix:!macx:WEBFILESDIR = $$DATADIR/web
 macx:WEBFILESDIR       = $$DATADIR/Web
 android:WEBFILESDIR    = $$DATADIR/web
 ios:WEBFILESDIR        = Web
+
+# Samples
+win32:SAMPLESDIR       = $$INSTALLROOT
+unix:!macx:SAMPLESDIR  = $$INSTALLROOT/$$DATADIR
+macx:SAMPLESDIR        = $$INSTALLROOT/$$DATADIR
+android:SAMPLESDIR     = $$INSTALLROOT/$$DATADIR
+ios:SAMPLESDIR         = $$INSTALLROOT/$$DATADIR
 
 # udev rules
 unix:!macx:UDEVRULESDIR = /etc/udev/rules.d

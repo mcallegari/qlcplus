@@ -18,6 +18,7 @@
 */
 
 import QtQuick 2.0
+import "."
 
 Flickable
 {
@@ -28,6 +29,7 @@ Flickable
 
     contentHeight: uniGrid.height + uniText.height
 
+    property string contextName: "UNIGRID"
     property int uniStartAddr: viewUniverseCombo.currentIndex * 512
 
     function hasSettings()
@@ -38,10 +40,10 @@ Flickable
     RobotoText
     {
         id: uniText
-        height: 45
+        height: UISettings.textSizeDefault * 2
         labelColor: "#ccc"
         label: viewUniverseCombo.currentText
-        fontSize: 30
+        fontSize: UISettings.textSizeDefault * 1.5
         fontBold: true
     }
 
@@ -81,9 +83,14 @@ Flickable
             for (var q = 0; q < dragEvent.source.quantity; q++)
             {
                 for (var i = 0; i < channels; i++)
+                {
                     tmp.push(uniAddress + i)
+                    // push also an invalid channel type for now...
+                    tmp.push(-1)
+                }
                 uniAddress += channels + dragEvent.source.gap
             }
+            console.log("Selection data contains " + tmp.length + " entries")
             setSelectionData(tmp)
         }
 

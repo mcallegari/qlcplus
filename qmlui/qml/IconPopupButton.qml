@@ -74,7 +74,7 @@ Rectangle
     function positionMenu()
     {
         var posnInWindow = ipbRoot.mapToItem(mainView, 0, 0);
-        var totalHeight = menuListView.count * 35
+        var totalHeight = menuListView.count * UISettings.listItemHeight
         //console.log("Total height: " + totalHeight)
         if (posnInWindow.y + ipbRoot.height + totalHeight > mainView.height)
           dropDownMenu.y = posnInWindow.y - totalHeight
@@ -93,9 +93,10 @@ Rectangle
         RobotoText
         {
             id: textIcon
+            height: parent.height * 0.75
             anchors.centerIn: parent
             label: ""
-            fontSize: 22
+            fontSize: parent.height * 0.75
             fontBold: true
         }
 
@@ -110,8 +111,8 @@ Rectangle
     {
         id: dropDownMenu
         y: ipbRoot.height
-        width: 150
-        color: UISettings.bgStrong
+        width: UISettings.bigItemHeight * 2
+        color: UISettings.bgMedium
         border.width: 1
         border.color: UISettings.bgLight
         parent: mainView
@@ -129,7 +130,7 @@ Rectangle
                 {
                     id: delegateRoot
                     width: menuListView.width
-                    height: 35
+                    height: UISettings.listItemHeight
                     color: "transparent"
 
                     Component.onCompleted:
@@ -154,7 +155,9 @@ Rectangle
 
                             if (model.mTextIcon)
                                 textIcon.label = mTextIcon
+
                             menuListView.currentIndex = index
+                            buttonBox.tooltip = mLabel
                         }
                     }
 
@@ -189,10 +192,10 @@ Rectangle
                             RobotoText
                             {
                                 id: txtIcon
+                                height: parent.height
                                 anchors.centerIn: parent
                                 label: model.mTextIcon ? mTextIcon : ""
-                                labelColor: "black"
-                                fontSize: 24
+                                fontSize: parent.height * 0.9
                             }
                         }
 
@@ -202,7 +205,6 @@ Rectangle
                             x: 3
                             label: mLabel
                             height: parent.height
-                            fontSize: 12
                         }
                     }
 

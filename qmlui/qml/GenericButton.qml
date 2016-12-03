@@ -25,36 +25,76 @@ Rectangle
 {
     id: btnRoot
     width: 150
-    height: 40
+    height: UISettings.iconSizeDefault
     color: gbMouseArea.containsMouse ? (gbMouseArea.pressed ? pressedColor : hoverColor) : bgColor
     border.width: 2
     border.color: UISettings.bgStrong
 
+    property bool disabled: false
     property bool useFontawesome: false // false means Roboto, true means FontAwesome
-    property int fontSize: 16 //UISettings.textSizeDefault
+    property int fontSize: UISettings.textSizeDefault
     property alias label: btnText.text
     property color bgColor: UISettings.bgLight
+    property color fgColor: UISettings.fgMain
     property color hoverColor: UISettings.highlight
     property color pressedColor: UISettings.highlightPressed
     property bool repetition: false
+    property bool autoHeight: false
+    property int originalHeight
 
-    signal clicked
+    signal clicked(int mouseButton)
+
+    /* Record the original height to perform the "auto height" calculation later */
+    Component.onCompleted: originalHeight = height
+
+    onWidthChanged:
+    {
+        if (autoHeight === false)
+            return
+        /* temporarily reset the wrap mode to
+         * measure a "linear" text painted width */
+        btnText.wrapMode = Text.NoWrap
+        var ratio = Math.ceil(btnText.paintedWidth / width)
+        if (ratio < 5 && ratio > 1)
+        {
+            //console.log("Ratio changed to " + ratio + ", painted: " + btnText.paintedWidth + ", width: " + width)
+            implicitHeight = ratio * originalHeight
+            btnText.wrapMode = Text.Wrap
+        }
+        else if (ratio == 1)
+        {
+            implicitHeight = originalHeight
+        }
+    }
+
+    /* Overlay rectangle to represent the disabled status */
+    Rectangle
+    {
+        visible: disabled
+        anchors.fill: parent
+        z: 1
+        color: "black"
+        opacity: 0.6
+    }
 
     Text
     {
         id: btnText
-        anchors.centerIn: parent
-        color: "white"
-        font.family: useFontawesome ? "FontAwesome" : "Roboto Condensed"
-        font.pointSize: fontSize
+        anchors.fill: parent
+        color: fgColor
+        font.family: useFontawesome ? "FontAwesome" : UISettings.robotoFontName
+        font.pixelSize: fontSize
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
     }
 
     MouseArea
     {
         id: gbMouseArea
+        enabled: !disabled
         anchors.fill: parent
         hoverEnabled: true
-        onClicked: btnRoot.clicked()
+        onClicked: btnRoot.clicked(mouse.button)
         onPressAndHold:
         {
             if (repetition == true)
@@ -69,6 +109,6 @@ Rectangle
         running: false
         interval: 100
         repeat: true
-        onTriggered: btnRoot.clicked()
+        onTriggered: btnRoot.clicked(Qt.LeftButton)
     }
 }

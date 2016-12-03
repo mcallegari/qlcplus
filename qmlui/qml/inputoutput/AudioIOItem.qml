@@ -24,7 +24,7 @@ Rectangle
 {
     id: audioItem
     width: parent.width
-    height: 120
+    height: UISettings.bigItemHeight
     color: isSelected ? "#2D444E" : "transparent"
     border.width: 2
     border.color: isSelected ? UISettings.selection : "transparent"
@@ -58,8 +58,8 @@ Rectangle
     {
         id: audioBox
         anchors.centerIn: parent
-        width: 200
-        height: 100
+        width: UISettings.bigItemHeight * 1.2
+        height: UISettings.bigItemHeight * 0.8
         radius: 5
         //color: "#1C2255"
         gradient: Gradient
@@ -77,7 +77,8 @@ Rectangle
             width: parent.width
             label: qsTr("Global Audio")
             wrapText: true
-            textAlign: Text.AlignHCenter
+            textHAlign: Text.AlignHCenter
+            fontSize: UISettings.textSizeDefault
         }
     }
 

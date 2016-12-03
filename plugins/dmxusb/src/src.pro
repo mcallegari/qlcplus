@@ -46,7 +46,7 @@ CONFIG(ftd2xx) {
 
     win32 {
         # Windows target
-        FTD2XXDIR    = C:/Qt/CDM21200
+        FTD2XXDIR    = C:/Qt/D2XXSDK
         LIBS        += -L$$FTD2XXDIR/i386 -lftd2xx
         LIBS     += $$FTD2XXDIR/i386/libftd2xx.a
         INCLUDEPATH += $$FTD2XXDIR
@@ -144,7 +144,7 @@ TRANSLATIONS += DMX_USB_ja_JP.ts
 
 # This must be after "TARGET = " and before target installation so that
 # install_name_tool can be run before target installation
-macx:include(../../../macx/nametool.pri)
+macx:include(../../../platforms/macos/nametool.pri)
 
 # Plugin installation
 target.path = $$INSTALLROOT/$$PLUGINDIR

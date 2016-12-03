@@ -20,25 +20,25 @@
 import QtQuick 2.0
 import com.qlcplus.classes 1.0
 
-import "FunctionDrag.js" as FuncDragJS
 import "."
 
 Rectangle
 {
     id: funcDelegate
     width: 100
-    height: 35
+    height: UISettings.listItemHeight
 
     color: "transparent"
 
     property Function cRef
     property string textLabel
     property bool isSelected: false
+    property Item dragItem
 
     signal toggled
-    signal clicked(int ID, var qItem, int mouseMods)
-    signal doubleClicked(int ID, int Type)
     signal destruction(int ID, var qItem)
+
+    signal mouseEvent(int type, int iID, int iType, var qItem, int mouseMods)
 
     Component.onDestruction:
     {
@@ -75,34 +75,19 @@ Rectangle
         id: funcMouseArea
         anchors.fill: parent
 
-        drag.target:
-            FunctionDragItem
-            {
-                funcID: cRef ? cRef.id : -1
-                funcLabel: cRef ? cRef.name : textLabel
-                funcIcon: funcEntry.iSrc
-            }
-        drag.threshold: 30
+        property bool dragActive: drag.active
 
-        onPressed: FuncDragJS.initProperties(cRef.id, textLabel, funcEntry.iSrc);
-
-        onPositionChanged:
-            if(drag.active == true)
-                FuncDragJS.handleDrag(mouse);
-        onReleased:
-            if(drag.active == true)
-                FuncDragJS.endDrag(mouse);
-
-        onClicked:
+        onDragActiveChanged:
         {
-            // inform the upper layers of the click.
-            // A ModelSelector will be in charge to actually select this item
-            funcDelegate.clicked(cRef.id, funcDelegate, mouse.modifiers)
+            //console.log("Drag changed on function: " + cRef.id)
+            funcDelegate.mouseEvent(dragActive ? App.DragStarted : App.DragFinished, cRef.id, cRef.type, funcDelegate, 0)
         }
-        onDoubleClicked:
-        {
-            funcDelegate.doubleClicked(cRef.id, cRef.type)
-        }
+
+        drag.target: dragItem
+
+        onPressed: funcDelegate.mouseEvent(App.Pressed, cRef.id, cRef.type, funcDelegate, mouse.modifiers)
+        onClicked: funcDelegate.mouseEvent(App.Clicked, cRef.id, cRef.type, funcDelegate, mouse.modifiers)
+        onDoubleClicked: funcDelegate.mouseEvent(App.DoubleClicked, cRef.id, cRef.type, funcDelegate, mouse.modifiers)
     }
 }
 

@@ -25,7 +25,7 @@ Rectangle
 {
     id: funcDelegate
     width: 100
-    height: 35
+    height: UISettings.listItemHeight
 
     color: "transparent"
 
@@ -36,8 +36,6 @@ Rectangle
     property int indexInList: -1
     property int highlightIndex: -1
 
-    signal clicked(int ID, var qItem, int mouseMods)
-
     onFunctionIDChanged:
     {
         func = functionManager.getFunction(functionID)
@@ -47,6 +45,9 @@ Rectangle
 
     onHighlightIndexChanged:
     {
+        if (Drag.active == true)
+            return
+
         if (indexInList >= 0 && highlightIndex == indexInList)
             topDragLine.visible = true
         else
@@ -87,16 +88,6 @@ Rectangle
         height: 2
         z: 1
         color: UISettings.selection
-    }
-
-    MouseArea
-    {
-        anchors.fill: parent
-        onClicked:
-        {
-            isSelected = true
-            funcDelegate.clicked(functionID, funcDelegate, mouse.modifiers)
-        }
     }
 }
 

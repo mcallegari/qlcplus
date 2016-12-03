@@ -272,6 +272,13 @@ class Fixtures
     end
   end
 
+  def heads_have_common_channels(mode)
+    all_head_channels = mode.heads.inject([]) { |result, h| result + h.channels }.sort
+    unique_head_channels = all_head_channels.uniq.sort
+
+    all_head_channels != unique_head_channels
+  end
+
   def update_fixtures_map(filename = 'FixturesMap.xml')
     orig_data = File.read(filename)
     doc = LibXML::XML::Document.string(orig_data)
@@ -291,6 +298,7 @@ class Fixtures
       wrong_height = f.modes.find {|m| m.physical.dimensions.height == 0 }
       wrong_depth = f.modes.find {|m| m.physical.dimensions.depth == 0 }
       wrong_weight = f.modes.find {|m| m.physical.dimensions.weight == 0 }
+      wrong_heads = f.modes.find {|m| heads_have_common_channels(m) }
  
       problems = []
       problems << "PAN" if wrong_pan && has_pan
@@ -298,7 +306,8 @@ class Fixtures
       problems << "WIDTH" if wrong_width
       problems << "HEIGHT" if wrong_height
       problems << "DEPTH" if wrong_depth
-      problems << "WEIGHT" if wrong_weight 
+      problems << "WEIGHT" if wrong_weight
+      problems << "HEADS" if wrong_heads
       
       unless problems.empty?        
         puts "#{f.path}: #{problems.join ' '}"

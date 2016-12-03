@@ -18,6 +18,7 @@
 */
 
 import QtQuick 2.0
+import "."
 
 Rectangle
 {
@@ -46,7 +47,7 @@ Rectangle
             {
                 id: acDelegate
                 width: aclContainer.width
-                height: 60
+                height: UISettings.listItemHeight * 1.7
                 color: "transparent"
                 Row
                 {

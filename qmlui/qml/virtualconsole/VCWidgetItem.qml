@@ -20,6 +20,7 @@
 import QtQuick 2.0
 
 import com.qlcplus.classes 1.0
+import "."
 
 Rectangle
 {
@@ -35,6 +36,11 @@ Rectangle
 
     property VCWidget wObj: null
     property bool isSelected: false
+    property int handleSize: UISettings.iconSizeMedium
+
+    Drag.source: wRoot
+    Drag.keys: [ "vcwidget" ]
+    Drag.active: dragMouseArea.drag.active
 
     onIsSelectedChanged:
     {
@@ -48,6 +54,18 @@ Rectangle
             return;
 
         wObj = obj
+    }
+
+    function setBgImageMargins(m)
+    {
+        bgImage.anchors.margins = m
+    }
+
+    Image
+    {
+        id: bgImage
+        anchors.fill: parent
+        source: wObj && wObj.backgroundImage !== "" ? "file://" + wObj.backgroundImage : ""
     }
 
     // resize area
@@ -66,42 +84,63 @@ Rectangle
         // mouse area to select and move the widget
         MouseArea
         {
+            id: dragMouseArea
             anchors.fill: parent
+
+            property bool dragRemapped: false
 
             onPressed:
             {
                 if (virtualConsole.editMode)
                 {
                     isSelected = !isSelected
-                    virtualConsole.setWidgetSelection(wObj.id, wRoot, isSelected)
+                    virtualConsole.setWidgetSelection(wObj.id, wRoot, isSelected, mouse.modifiers & Qt.ControlModifier)
                 }
 
                 drag.target = wRoot
-                drag.minimumX = 0
-                drag.minimumY = 0
                 drag.threshold = 10
-                drag.maximumX = wRoot.parent.width - wRoot.width
-                drag.maximumY = wRoot.parent.height - wRoot.height
+                dragRemapped = false
+            }
+
+            onPositionChanged:
+            {
+                if (drag.target !== null && dragRemapped == false)
+                {
+                    var remappedPos = wRoot.mapToItem(virtualConsole.currentPageItem(), 0, 0);
+                    wObj.geometry = Qt.rect(remappedPos.x, remappedPos.y, wRoot.width, wRoot.height)
+                    wRoot.parent = virtualConsole.currentPageItem()
+                    dragRemapped = true
+                    if (isSelected == false)
+                    {
+                        isSelected = true
+                        virtualConsole.setWidgetSelection(wObj.id, wRoot, isSelected, mouse.modifiers & Qt.ControlModifier)
+                    }
+                }
             }
 
             onReleased:
             {
                 if (drag.target !== null)
                 {
+                    // A drag/drop sequence is always performed within a parent frame,
+                    // so the new geometry will be calculated by virtualConsole.moveWidget,
+                    // invoked by VCFrameItem DropArea
+                    wRoot.Drag.drop()
                     drag.target = null
-                    wObj.geometry = Qt.rect(wRoot.x, wRoot.y, wRoot.width, wRoot.height)
+                    dragRemapped = false
                 }
             }
         }
-
 
         // top-left corner
         Image
         {
             id: tlHandle
             rotation: 180
+            width: handleSize
+            height: width
             source: "qrc:/arrow-corner.svg"
-            sourceSize: Qt.size(32, 32)
+            sourceSize: Qt.size(handleSize, handleSize)
             visible: isSelected && wObj && wObj.allowResize
 
             MouseArea
@@ -118,6 +157,8 @@ Rectangle
                 {
                     if (drag.target === null)
                         return;
+                    drag.maximumX = wRoot.width - handleSize
+                    drag.maximumY = wRoot.height - handleSize
                     wRoot.x += tlHandle.x
                     wRoot.width -= tlHandle.x
                     wRoot.height -= tlHandle.y
@@ -134,10 +175,12 @@ Rectangle
         Image
         {
             id: trHandle
-            x: parent.width - 32
+            width: handleSize
+            height: width
+            x: parent.width - handleSize
             rotation: 270
             source: "qrc:/arrow-corner.svg"
-            sourceSize: Qt.size(32, 32)
+            sourceSize: Qt.size(handleSize, handleSize)
             visible: isSelected && wObj && wObj.allowResize
 
             MouseArea
@@ -149,11 +192,13 @@ Rectangle
                 {
                     drag.target = trHandle
                     drag.threshold = 0
+                    drag.minimumX = handleSize
                 }
                 onPositionChanged:
                 {
                     if (drag.target === null)
                         return;
+                    drag.maximumY = wRoot.height - handleSize
                     wRoot.width = trHandle.x + trHandle.width
                     wRoot.height -= trHandle.y
                     wRoot.y += trHandle.y
@@ -169,10 +214,12 @@ Rectangle
         Image
         {
             id: brHandle
-            x: parent.width - 32
-            y: parent.height - 32
+            width: handleSize
+            height: width
+            x: parent.width - handleSize
+            y: parent.height - handleSize
             source: "qrc:/arrow-corner.svg"
-            sourceSize: Qt.size(32, 32)
+            sourceSize: Qt.size(handleSize, handleSize)
             visible: isSelected && wObj && wObj.allowResize
 
             MouseArea
@@ -183,6 +230,8 @@ Rectangle
                 {
                     drag.target = brHandle
                     drag.threshold = 0
+                    drag.minimumX = handleSize
+                    drag.minimumY = handleSize
                 }
                 onPositionChanged:
                 {
@@ -203,9 +252,11 @@ Rectangle
         {
             id: blHandle
             rotation: 90
-            y: parent.height - 32
+            width: handleSize
+            height: width
+            y: parent.height - handleSize
             source: "qrc:/arrow-corner.svg"
-            sourceSize: Qt.size(32, 32)
+            sourceSize: Qt.size(handleSize, handleSize)
             visible: isSelected && wObj && wObj.allowResize
 
             MouseArea
@@ -217,11 +268,13 @@ Rectangle
                 {
                     drag.target = blHandle
                     drag.threshold = 0
+                    drag.minimumY = handleSize
                 }
                 onPositionChanged:
                 {
                     if (drag.target === null)
                         return;
+                    drag.maximumX = wRoot.width - handleSize
                     wRoot.height = blHandle.y + blHandle.height
                     wRoot.x += blHandle.x
                     wRoot.width -= blHandle.x

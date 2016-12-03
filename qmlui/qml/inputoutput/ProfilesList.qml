@@ -18,6 +18,7 @@
 */
 
 import QtQuick 2.0
+import "."
 
 Rectangle
 {
@@ -46,14 +47,14 @@ Rectangle
             Item
             {
                 id: root
-                height: 60
+                height: UISettings.listItemHeight * 2
                 width: profilesContainer.width
 
                 MouseArea
                 {
                     id: delegateRoot
                     width: profilesContainer.width
-                    height: 60
+                    height: parent.height
 
                     drag.target: profileItem
                     drag.threshold: 30

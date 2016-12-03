@@ -246,11 +246,9 @@
    <Channel>5</Channel>
    <Channel>6</Channel>
    <Channel>7</Channel>
-   <Channel>17</Channel>
    <Channel>8</Channel>
   </Head>
   <Head>
-   <Channel>17</Channel>
    <Channel>12</Channel>
    <Channel>9</Channel>
    <Channel>10</Channel>
@@ -258,7 +256,6 @@
   </Head>
   <Head>
    <Channel>16</Channel>
-   <Channel>17</Channel>
    <Channel>13</Channel>
    <Channel>14</Channel>
    <Channel>15</Channel>
@@ -311,21 +308,18 @@
   <Channel Number="19">Blue (Z3)</Channel>
   <Channel Number="20">White (Z3)</Channel>
   <Head>
-   <Channel>5</Channel>
    <Channel>12</Channel>
    <Channel>9</Channel>
    <Channel>10</Channel>
    <Channel>11</Channel>
   </Head>
   <Head>
-   <Channel>5</Channel>
    <Channel>16</Channel>
    <Channel>13</Channel>
    <Channel>14</Channel>
    <Channel>15</Channel>
   </Head>
   <Head>
-   <Channel>5</Channel>
    <Channel>17</Channel>
    <Channel>18</Channel>
    <Channel>19</Channel>

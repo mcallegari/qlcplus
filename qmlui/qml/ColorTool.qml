@@ -25,8 +25,8 @@ import "."
 Rectangle
 {
     id: colorToolBox
-    width: 400
-    height: 430
+    width: UISettings.bigItemHeight * 3
+    height: UISettings.bigItemHeight * 3.5
     color: UISettings.bgMedium
     border.color: "#666"
     border.width: 2
@@ -41,7 +41,7 @@ Rectangle
     {
         id: colorToolBar
         width: parent.width
-        height: 32
+        height: UISettings.listItemHeight
         z: 10
         gradient:
             Gradient
@@ -54,13 +54,7 @@ Rectangle
         RowLayout
         {
             id: rowLayout1
-            //anchors.horizontalCenter: parent.horizontalCenter
-            anchors.left: parent.left
-            anchors.leftMargin: 10
-            anchors.right: parent.right
-            anchors.bottom: parent.bottom
-            anchors.top: parent.top
-
+            anchors.fill: parent
             spacing: 5
             ExclusiveGroup { id: menuBarGroup2 }
 
@@ -73,12 +67,11 @@ Rectangle
                 checkedColor: "green"
                 bgGradient: cBarGradient
                 exclusiveGroup: menuBarGroup2
+                mFontSize: UISettings.textSizeDefault
                 onCheckedChanged:
                 {
                     if (checked == true)
-                    {
                         colorToolQML = "qrc:/ColorToolBasic.qml"
-                    }
                 }
             }
 
@@ -90,12 +83,11 @@ Rectangle
                 checkedColor: "green"
                 bgGradient: cBarGradient
                 exclusiveGroup: menuBarGroup2
+                mFontSize: UISettings.textSizeDefault
                 onCheckedChanged:
                 {
                     if (checked == true)
-                    {
                         colorToolQML = "qrc:/ColorToolFull.qml"
-                    }
                 }
             }
             MenuBarEntry
@@ -106,12 +98,11 @@ Rectangle
                 checkedColor: "green"
                 bgGradient: cBarGradient
                 exclusiveGroup: menuBarGroup2
+                mFontSize: UISettings.textSizeDefault
                 onCheckedChanged:
                 {
                     if (checked == true)
-                    {
                         colorToolQML = "qrc:/ColorToolFilters.qml"
-                    }
                 }
             }
             // allow the tool to be dragged around

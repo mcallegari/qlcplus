@@ -69,9 +69,9 @@ Rectangle
 
         Rectangle
         {
-            height: 24
+            height: UISettings.listItemHeight * 0.8
             width: parent.width
-            color: "#0d235b"
+            color: UISettings.highlightPressed
             radius: 3
 
             RobotoText
@@ -84,20 +84,24 @@ Rectangle
 
         GridLayout
         {
+            id: propsGrid
             x: 4
             width: parent.width - 8
             columns: 4
             columnSpacing: 5
             rowSpacing: 4
 
+            property real itemsHeight: UISettings.listItemHeight
+            property real itemsFontSize: UISettings.textSizeDefault * 0.75
+
             // row 1
             RobotoText
             {
                 id: fxNameLabel
-                height: 30
+                height: propsGrid.itemsHeight
                 //anchors.verticalCenter: parent.verticalCenter
                 label: qsTr("Name")
-                fontSize: 14
+                fontSize: propsGrid.itemsFontSize
             }
 
             CustomTextEdit
@@ -108,7 +112,7 @@ Rectangle
                 Layout.fillWidth: true
                 onInputTextChanged:
                 {
-                    console.log("Text changed !!")
+                    //console.log("Text changed !!")
                     fxProps.fxName = inputText
                 }
             }
@@ -117,14 +121,14 @@ Rectangle
             RobotoText
             {
                 id: fxUniverseLabel
-                height: 30
+                height: propsGrid.itemsHeight
                 label: qsTr("Universe")
-                fontSize: 14
+                fontSize: propsGrid.itemsFontSize
             }
             CustomComboBox
             {
                 id: fxUniverseCombo
-                height: 30
+                height: propsGrid.itemsHeight
                 Layout.columnSpan: 3
                 Layout.fillWidth: true
                 model: ioManager.universeNames
@@ -134,9 +138,9 @@ Rectangle
             RobotoText
             {
                 id: fxAddressLabel
-                height: 30
+                height: propsGrid.itemsHeight
                 label: qsTr("Address")
-                fontSize: 14
+                fontSize: propsGrid.itemsFontSize
             }
             CustomSpinBox
             {
@@ -150,9 +154,9 @@ Rectangle
             RobotoText
             {
                 id: fxQuantityLabel
-                height: 30
+                height: propsGrid.itemsHeight
                 label: qsTr("Quantity")
-                fontSize: 14
+                fontSize: propsGrid.itemsFontSize
             }
             CustomSpinBox
             {
@@ -168,9 +172,9 @@ Rectangle
             RobotoText
             {
                 id: fxModeChLabel
-                height: 30
+                height: propsGrid.itemsHeight
                 label: qsTr("Channels")
-                fontSize: 14
+                fontSize: propsGrid.itemsFontSize
             }
             CustomSpinBox
             {
@@ -184,9 +188,9 @@ Rectangle
             RobotoText
             {
                 id: fxGapLabel
-                height: 30
+                height: propsGrid.itemsHeight
                 label: qsTr("Gap")
-                fontSize: 14
+                fontSize: propsGrid.itemsFontSize
             }
 
             CustomSpinBox
@@ -202,16 +206,16 @@ Rectangle
             RobotoText
             {
                 id: fxModeLabel
-                height: 30
+                height: propsGrid.itemsHeight
                 label: qsTr("Mode")
-                fontSize: 14
+                fontSize: propsGrid.itemsFontSize
             }
 
             Rectangle
             {
                 color: "transparent"
                 Layout.columnSpan: 3
-                height: 30
+                height: propsGrid.itemsHeight
                 Layout.fillWidth: true
 
                 RowLayout
@@ -221,7 +225,7 @@ Rectangle
                     CustomComboBox
                     {
                         id: fxModesCombo
-                        height: 30
+                        height: propsGrid.itemsHeight
                         Layout.fillWidth: true
                         model: fixtureBrowser.modes(fxManufacturer, fxModel)
                         onModelChanged: currentIndex = 0
@@ -230,11 +234,12 @@ Rectangle
                     IconButton
                     {
                         id: fxModeInfo
-                        width: 30
-                        height: 30
+                        width: propsGrid.itemsHeight
+                        height: width
                         imgSource: "qrc:/info.svg"
                         checkable: true
-                        onToggled: {
+                        onToggled:
+                        {
 
                         }
                     }

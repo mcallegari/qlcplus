@@ -21,6 +21,8 @@ import QtQuick 2.0
 import QtQuick.Controls 1.0
 import QtQuick.Controls.Styles 1.0
 
+import "."
+
 Slider
 {
     id: slider
@@ -30,6 +32,8 @@ Slider
     minimumValue: 0
     maximumValue: 255
     stepSize: 1.0
+
+    signal touchPressed(bool pressed)
 
     Gradient
     {
@@ -51,6 +55,23 @@ Slider
         GradientStop { position: 1.0; color: "#ccc" }
     }
 
+    MultiPointTouchArea
+    {
+        anchors.fill: parent
+        mouseEnabled: false
+        maximumTouchPoints: 1
+
+        onPressed: slider.touchPressed(true)
+        onReleased: slider.touchPressed(false)
+
+        onTouchUpdated:
+        {
+            //console.log("Touch updated: " + touchPoints[0].y)
+            if (touchPoints[0] && touchPoints[0].y >= 0 && touchPoints[0].y < slider.height)
+                slider.value = slider.maximumValue - ((touchPoints[0].y * slider.maximumValue) / slider.height)
+        }
+    }
+
     style: SliderStyle
         {
         //groove: Rectangle { color: "transparent" }
@@ -59,25 +80,27 @@ Slider
             {
                 anchors.centerIn: parent
                 color: "transparent"
-                implicitWidth: 30
-                implicitHeight: 32
+                implicitWidth: Math.min(slider.width, UISettings.iconSizeDefault * 0.75)
+                implicitHeight: Math.min(UISettings.iconSizeDefault, slider.width)
 
                 Rectangle
                 {
-                    anchors.fill: parent
+                    anchors.centerIn: parent
+                    width: parent.height
+                    height: Math.min(parent.width, UISettings.iconSizeDefault * 0.75)
                     rotation: 90
                     gradient: control.pressed ? handleGradientHover : handleGradient
                     border.color: "#5c5c5c"
                     border.width: 1
                     radius: 4
                 }
-    /*
+/*
                 Image {
                     rotation: 90
                     source: "qrc:/faderhandle.svg"
                     sourceSize: Qt.size(parent.width, parent.height)
                 }
-    */
+*/
             }
         }
 }

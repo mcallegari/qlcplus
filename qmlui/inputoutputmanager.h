@@ -23,13 +23,14 @@
 #include <QStringList>
 #include <QQuickItem>
 #include <QVariant>
-#include <QObject>
+
+#include "previewcontext.h"
 
 class Doc;
 class Universe;
 class InputOutputMap;
 
-class InputOutputManager : public QObject
+class InputOutputManager : public PreviewContext
 {
     Q_OBJECT
 
@@ -39,52 +40,98 @@ class InputOutputManager : public QObject
     Q_PROPERTY(QVariant audioInputDevice READ audioInputDevice NOTIFY audioInputDeviceChanged)
     Q_PROPERTY(QVariant audioOutputDevice READ audioOutputDevice NOTIFY audioOutputDeviceChanged)
 
-public:
-    InputOutputManager(Doc *doc, QObject *parent = 0);
+    Q_PROPERTY(QString beatType READ beatType WRITE setBeatType NOTIFY beatTypeChanged)
+    Q_PROPERTY(int bpmNumber READ bpmNumber WRITE setBpmNumber NOTIFY bpmNumberChanged)
 
+public:
+    InputOutputManager(QQuickView *view, Doc *doc, QObject *parent = 0);
+
+protected slots:
+    void slotDocLoaded();
+
+private:
+    InputOutputMap* m_ioMap;
+
+    /*********************************************************************
+     * Universes
+     *********************************************************************/
+public:
     QQmlListProperty<Universe> universes();
     QStringList universeNames() const;
     QVariant universesListModel() const;
 
+    Q_INVOKABLE void setSelectedItem(QQuickItem *item, int index);
+
+signals:
+    void universesChanged();
+    void universesListModelChanged();
+
+private:
+    /** List of references to the current Universes in Doc */
+    QList<Universe *> m_universeList;
+
+    QQuickItem *m_selectedItem;
+    int m_selectedUniverseIndex;
+
+    /*********************************************************************
+     * Audio IO
+     *********************************************************************/
+public:
     QVariant audioInputDevice();
     QVariant audioOutputDevice();
 
     Q_INVOKABLE QVariant audioInputSources();
     Q_INVOKABLE QVariant audioOutputSources();
 
+signals:
+    void audioInputDeviceChanged();
+    void audioOutputDeviceChanged();
+
+    /*********************************************************************
+     * IO Patches
+     *********************************************************************/
+public:
     Q_INVOKABLE QVariant universeInputSources(int universe);
     Q_INVOKABLE QVariant universeOutputSources(int universe);
     Q_INVOKABLE QVariant universeInputProfiles(int universe);
 
-    Q_INVOKABLE void addOutputPatch(int universe, QString plugin, QString line);
-    Q_INVOKABLE void removeOutputPatch(int universe);
+    Q_INVOKABLE int outputPatchesCount(int universe) const;
+    Q_INVOKABLE void setOutputPatch(int universe, QString plugin, QString line, int index);
+    Q_INVOKABLE void removeOutputPatch(int universe, int index);
     Q_INVOKABLE void addInputPatch(int universe, QString plugin, QString line);
     Q_INVOKABLE void removeInputPatch(int universe);
     Q_INVOKABLE void setInputProfile(int universe, QString profileName);
-
-    Q_INVOKABLE void setSelectedItem(QQuickItem *item, int index);
 
 private:
     void clearInputList();
     void clearOutputList();
 
+    /*********************************************************************
+     * Beats
+     *********************************************************************/
+public:
+    Q_INVOKABLE QVariant beatGeneratorsList();
+
+    QString beatType() const;
+
+    void setBeatType(QString beatType);
+
+    int bpmNumber() const;
+
+    void setBpmNumber(int bpmNumber);
+
 signals:
-    void universesChanged();
-    void audioInputDeviceChanged();
-    void audioOutputDeviceChanged();
-    void universesListModelChanged();
+    void beatTypeChanged(QString beatType);
+    void beat();
+    void bpmNumberChanged(int bpmNumber);
 
 protected slots:
-    void slotDocLoaded();
+    void slotBeatTypeChanged();
+    void slotBpmNumberChanged(int bpmNumber);
 
 private:
-    Doc *m_doc;
-    InputOutputMap* m_ioMap;
-    /** List of references to the current Universes in Doc */
-    QList<Universe *> m_universeList;
-
-    QQuickItem *m_selectedItem;
-    int m_selectedUniverseIndex;
+    QString m_beatType;
+    int m_bpmNumber;
 };
 
 #endif // INPUTOUTPUTMANAGER_H

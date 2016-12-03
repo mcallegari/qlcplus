@@ -146,6 +146,8 @@ void Audio::setTotalDuration(quint32 msec)
 {
     qDebug() << "Audio set total duration:" << msec;
     m_audioDuration = msec;
+
+    emit totalDurationChanged();
 }
 
 void Audio::setColor(QColor color)
@@ -199,8 +201,7 @@ bool Audio::setSourceFileName(QString filename)
     if (m_decoder == NULL)
         return false;
 
-    if (m_audioDuration == 0)
-        m_audioDuration = m_decoder->totalTime();
+    setTotalDuration(m_decoder->totalTime());
 
     emit changed(id());
 

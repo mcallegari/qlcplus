@@ -17,7 +17,7 @@
   limitations under the License.
 */
 
-#include <QtTest>
+#include <QTest>
 
 #define protected public
 #include "wing.h"

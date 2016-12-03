@@ -69,6 +69,7 @@ protected:
 protected slots:
     void slotChaserAttachClicked();
     void slotChaserDetachClicked();
+    void slotPlaybackLayoutChanged();
 
 private:
     void updateChaserName();

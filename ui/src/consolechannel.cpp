@@ -460,6 +460,18 @@ void ConsoleChannel::setIntensityButton(const QLCChannel* channel)
         m_cngWidget = new ClickAndGoWidget();
         m_cngWidget->setType(ClickAndGoWidget::UV);
     }
+    else if (channel->colour() == QLCChannel::Lime)
+    {
+        m_presetButton->setText("L");
+        m_cngWidget = new ClickAndGoWidget();
+        m_cngWidget->setType(ClickAndGoWidget::Lime);
+    }
+    else if (channel->colour() == QLCChannel::Indigo)
+    {
+        m_presetButton->setText("I");
+        m_cngWidget = new ClickAndGoWidget();
+        m_cngWidget->setType(ClickAndGoWidget::Indigo);
+    }
     else
     {
         // None of the primary colours matched and since this is an

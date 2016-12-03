@@ -53,6 +53,7 @@
 #define KXMLQLCChannelColourWhite      QString("White")
 #define KXMLQLCChannelColourUV         QString("UV")
 #define KXMLQLCChannelColourLime       QString("Lime")
+#define KXMLQLCChannelColourIndigo     QString("Indigo")
 
 QLCChannel::QLCChannel()
 {
@@ -242,6 +243,8 @@ QIcon QLCChannel::getIntensityIcon() const
         pm = drawIntensity(QColor(0xFF9400D3), "UV");
     else if (m_colour == QLCChannel::Lime)
         pm = drawIntensity(QColor(0xFFADFF2F), "L");
+    else if (m_colour == QLCChannel::Indigo)
+        pm = drawIntensity(QColor(0xFF4B0082), "I");
     else
     {
         // None of the primary colours matched and since this is an
@@ -274,6 +277,8 @@ QString QLCChannel::getIntensityColorCode() const
         return QString("#9400D3");
     else if (m_colour == QLCChannel::Lime)
         return QString("#ADFF2F");
+    else if (m_colour == QLCChannel::Indigo)
+        return QString("#4B0082");
     else
     {
         // None of the primary colours matched and since this is an
@@ -355,6 +360,7 @@ QStringList QLCChannel::colourList()
     list << KXMLQLCChannelColourWhite;
     list << KXMLQLCChannelColourUV;
     list << KXMLQLCChannelColourLime;
+    list << KXMLQLCChannelColourIndigo;
     return list;
 }
 
@@ -382,6 +388,8 @@ QString QLCChannel::colourToString(PrimaryColour colour)
         return KXMLQLCChannelColourUV;
     case Lime:
         return KXMLQLCChannelColourLime;
+    case Indigo:
+        return KXMLQLCChannelColourIndigo;
     case NoColour:
     default:
         return KXMLQLCChannelColourGeneric;
@@ -410,6 +418,8 @@ QLCChannel::PrimaryColour QLCChannel::stringToColour(const QString& str)
         return UV;
     else if (str == KXMLQLCChannelColourLime)
         return Lime;
+    else if (str == KXMLQLCChannelColourIndigo)
+        return Indigo;
     else
         return NoColour;
 }

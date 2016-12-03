@@ -46,7 +46,10 @@ void ActionManager::requestActionPopup(ActionManager::ActionType type, QString m
 
     qDebug() << "[ActionManager] buttonsMask:" << buttonsMask << data;
 
-    popupItem->setProperty("message", message);
+    if (message.startsWith("qrc:"))
+        popupItem->setProperty("resource", message);
+    else
+        popupItem->setProperty("message", message);
     popupItem->setProperty("buttonsMask", buttonsMask);
 
     // save the requested action to be processed when the user
@@ -67,19 +70,22 @@ void ActionManager::acceptAction()
     switch(action)
     {
         case DeleteFunctions:
-        {
             m_functionManager->deleteFunctions(data);
-        }
+        break;
+        case DeleteEditorItems:
+            m_functionManager->deleteEditorItems(data);
         break;
         case DeleteShowItems:
-        {
             m_showManager->deleteShowItems(data);
-        }
+        break;
+        case DeleteVCPage:
+            m_virtualConsole->deletePage(data.first().toInt());
         break;
         case DeleteVCWidgets:
-        {
             m_virtualConsole->deleteVCWidgets(data);
-        }
+        break;
+        case VCPagePINRequest:
+            m_virtualConsole->setSelectedPage(data.first().toInt());
         break;
         default: break;
     }
@@ -92,5 +98,10 @@ void ActionManager::rejectAction()
 {
     // invalidate the current action
     m_deferredAction = QPair<ActionType, QVariantList> (None, QVariantList());
+}
+
+QVariantList ActionManager::actionData() const
+{
+    return m_deferredAction.second;
 }
 

@@ -205,13 +205,11 @@
   <Channel Number="8">Strobe</Channel>
   <Channel Number="9">Master Dimmer</Channel>
   <Head>
-   <Channel>9</Channel>
    <Channel>2</Channel>
    <Channel>1</Channel>
    <Channel>0</Channel>
   </Head>
   <Head>
-   <Channel>9</Channel>
    <Channel>5</Channel>
    <Channel>4</Channel>
    <Channel>3</Channel>
@@ -245,24 +243,20 @@
    <Channel>2</Channel>
    <Channel>1</Channel>
    <Channel>0</Channel>
-   <Channel>15</Channel>
   </Head>
   <Head>
    <Channel>5</Channel>
    <Channel>4</Channel>
    <Channel>3</Channel>
-   <Channel>15</Channel>
   </Head>
   <Head>
    <Channel>8</Channel>
    <Channel>7</Channel>
    <Channel>6</Channel>
-   <Channel>15</Channel>
   </Head>
   <Head>
    <Channel>10</Channel>
    <Channel>9</Channel>
-   <Channel>15</Channel>
    <Channel>11</Channel>
   </Head>
  </Mode>
@@ -376,49 +370,41 @@
   <Channel Number="26">Strobe</Channel>
   <Channel Number="27">Master Dimmer</Channel>
   <Head>
-   <Channel>27</Channel>
    <Channel>2</Channel>
    <Channel>1</Channel>
    <Channel>0</Channel>
   </Head>
   <Head>
-   <Channel>27</Channel>
    <Channel>5</Channel>
    <Channel>4</Channel>
    <Channel>3</Channel>
   </Head>
   <Head>
-   <Channel>27</Channel>
    <Channel>8</Channel>
    <Channel>7</Channel>
    <Channel>6</Channel>
   </Head>
   <Head>
    <Channel>10</Channel>
-   <Channel>27</Channel>
    <Channel>9</Channel>
    <Channel>11</Channel>
   </Head>
   <Head>
-   <Channel>27</Channel>
    <Channel>14</Channel>
    <Channel>13</Channel>
    <Channel>12</Channel>
   </Head>
   <Head>
-   <Channel>27</Channel>
    <Channel>17</Channel>
    <Channel>16</Channel>
    <Channel>15</Channel>
   </Head>
   <Head>
-   <Channel>27</Channel>
    <Channel>20</Channel>
    <Channel>19</Channel>
    <Channel>18</Channel>
   </Head>
   <Head>
-   <Channel>27</Channel>
    <Channel>23</Channel>
    <Channel>22</Channel>
    <Channel>21</Channel>

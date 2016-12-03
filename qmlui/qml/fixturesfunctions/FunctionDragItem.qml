@@ -18,31 +18,75 @@
 */
 
 import QtQuick 2.0
+
+import com.qlcplus.classes 1.0
 import "."
 
-Rectangle
+Item
 {
-    property int funcID: -1
     property string funcLabel
     property string funcIcon
+    property int modifiers
+    property bool multipleItems: false
+    property bool fromFunctionManager: false
 
-    width: 200
-    height: 40
-    z: 10
-    border.width: 1
-    border.color: "black"
-    opacity: 0.8
-    color: UISettings.bgMedium
+    property var itemsList
 
-    IconTextEntry
+    onItemsListChanged:
     {
-        id: funcEntry
-        width: parent.width
-        height: parent.height
-        tLabel: funcLabel
-        iSrc: funcIcon
+        console.log("Items in list: " + itemsList.length)
+        if (itemsList.length)
+        {
+            var funcRef = functionManager.getFunction(itemsList[0])
+            funcLabel = funcRef.name
+            funcIcon = functionManager.functionIcon(funcRef.type)
+            multipleItems = itemsList.length > 1 ? true : false
+        }
     }
 
-    Drag.active: funcMouseArea.drag.active
+    Rectangle
+    {
+        id: topItem
+        width: UISettings.bigItemHeight * 1.5
+        height: UISettings.listItemHeight
+        z: 10
+        border.width: 1
+        border.color: UISettings.fgMain
+        opacity: 0.8
+        color: UISettings.bgMedium
+
+        IconTextEntry
+        {
+            id: funcEntry
+            width: parent.width
+            height: parent.height
+            tLabel: funcLabel
+            iSrc: funcIcon
+        }
+    }
+    Rectangle
+    {
+        visible: multipleItems
+        width: topItem.width
+        height: topItem.height
+        x: topItem.height / 5
+        y: topItem.height / 5
+        z: 9
+        border.color: UISettings.fgMedium
+        opacity: 0.8
+        color: UISettings.bgMedium
+    }
+    Rectangle
+    {
+        visible: multipleItems
+        width: topItem.width
+        height: topItem.height
+        x: (topItem.height / 5) * 2
+        y: (topItem.height / 5) * 2
+        z: 8
+        border.color: UISettings.fgMedium
+        opacity: 0.8
+        color: UISettings.bgMedium
+    }
 }
 
