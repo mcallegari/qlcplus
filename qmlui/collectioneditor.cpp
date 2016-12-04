@@ -29,6 +29,9 @@ CollectionEditor::CollectionEditor(QQuickView *view, Doc *doc, QObject *parent)
     m_view->rootContext()->setContextProperty("collectionEditor", this);
 
     m_functionsList = new ListModel(this);
+    QStringList listRoles;
+    listRoles << "funcID" << "isSelected";
+    m_functionsList->setRoleNames(listRoles);
 }
 
 void CollectionEditor::setFunctionID(quint32 ID)
@@ -94,9 +97,6 @@ void CollectionEditor::updateFunctionsList()
     if (m_collection != NULL)
     {
         m_functionsList->clear();
-        QStringList listRoles;
-        listRoles << "funcID" << "isSelected";
-        m_functionsList->setRoleNames(listRoles);
 
         foreach(quint32 fId, m_collection->functions())
         {

@@ -41,7 +41,6 @@ void ListModel::clear()
         m_data.takeLast();
 
     m_data.clear();
-    m_roles.clear();
     endRemoveRows();
 }
 
