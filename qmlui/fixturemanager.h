@@ -39,6 +39,7 @@ class FixtureManager : public QObject
     Q_PROPERTY(int fixturesCount READ fixturesCount NOTIFY fixturesCountChanged)
     Q_PROPERTY(QQmlListProperty<Fixture> fixtures READ fixtures)
     Q_PROPERTY(QVariantList fixturesMap READ fixturesMap NOTIFY fixturesMapChanged)
+    Q_PROPERTY(QVariantList fixtureNamesMap READ fixtureNamesMap NOTIFY fixtureNamesMapChanged)
     Q_PROPERTY(QVariant groupsTreeModel READ groupsTreeModel NOTIFY groupsTreeModelChanged)
     Q_PROPERTY(QVariant groupsListModel READ groupsListModel NOTIFY groupsListModelChanged)
     Q_PROPERTY(quint32 universeFilter READ universeFilter WRITE setUniverseFilter NOTIFY universeFilterChanged)
@@ -112,6 +113,9 @@ public:
      *  the channel cached at the given index */
     Q_INVOKABLE QVariantList presetCapabilities(int index);
 
+    /** Returns a list of fixture names for representation in a GridEditor QML component */
+    QVariantList fixtureNamesMap();
+
     /** Returns data for representation in a GridEditor QML component */
     QVariantList fixturesMap();
 
@@ -159,7 +163,10 @@ signals:
     /** Notify the listeners that the list of fixtures with color wheel channels has changed */
     void colorWheelChannelsChanged();
 
-    /** Notify the listeners that the fixture map has changed */
+    /** Notify the listeners that the fixture names map has changed */
+    void fixtureNamesMapChanged();
+
+    /** Notify the listeners that the fixtures map has changed */
     void fixturesMapChanged();
 
     /** Notify the listeners that the universe filter has changed */
@@ -179,12 +186,14 @@ private:
     QQuickView *m_view;
     /** Reference to the project workspace */
     Doc *m_doc;
-    /** List of the current Fixtures in Doc */
+    /** List of the current Fixture references in Doc */
     QList<Fixture *> m_fixtureList;
     /** Keep a map of references to the available preset channels and a related Fixture ID */
     QMap<const QLCChannel *, quint32>m_presetsCache;
     /** Data model used by the QML UI to represent groups and fixtures */
     TreeModel *m_fixtureTree;
+    /** An array-like map of the current fixture names, filtered by m_universeFilter */
+    QVariantList m_fixtureNamesMap;
     /** An array-like map of the current fixtures, filtered by m_universeFilter */
     QVariantList m_fixturesMap;
     /** A filter for m_fixturesMap to restrict data to a specific universe */

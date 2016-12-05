@@ -31,8 +31,11 @@ Rectangle
     /** The size of the universe grid to render */
     property size gridSize: Qt.size(1,1)
 
-    /** An array of data organized as follows: Fixture ID | DMX address | isOdd | channel type */
+    /** An array of data organized as follows: Item ID | DMX address | isOdd | item type */
     property variant gridData
+
+    /** An array of data organized as follows: Item ID | Absolute Index | Length | Label */
+    property variant gridLabels
 
     /** The size in pixels of a grid cell */
     property real cellSize
@@ -46,10 +49,11 @@ Rectangle
     /** An array of data composing the currently selected item as follows: address | type */
     property variant selectionData
 
-    property int currentFixtureID
+    property int currentItemID
 
     onGridSizeChanged: calculateCellSize()
     onGridDataChanged: { selectionData = null; dataCanvas.requestPaint() }
+    onGridLabelsChanged: gridCanvas.requestPaint()
     onWidthChanged: repaintTimer.restart()
     onValidSelectionChanged: dataCanvas.requestPaint()
 
@@ -66,14 +70,15 @@ Rectangle
     function calculateCellSize()
     {
         if (width <= 0 || height <= 0)
-            return;
-        cellSize = width / gridSize.width;
+            return
+        cellSize = width / gridSize.width
 
         //gridRoot.width = cellSize * gridSize.width
         gridRoot.height = cellSize * gridSize.height
 
         //console.log("Grid View cell size: " + cellSize)
         dataCanvas.requestPaint()
+        gridCanvas.requestPaint()
     }
 
     function setSelectionData(data)
@@ -107,6 +112,8 @@ Rectangle
         property int mouseLastY: -1
         property bool movingSelection: false
         property variant iconsCache: []
+
+        onWidthChanged: repaintTimer.restart()
 
         function checkPosition(mouse)
         {
@@ -152,11 +159,11 @@ Rectangle
                       dataCanvas.mouseLastX - dataCanvas.mouseOrigX
         }
 
-        function checkIconCache(fxID, chNumber, channelType)
+        function checkIconCache(itemID, chNumber, itemType)
         {
-            if (dataCanvas.iconsCache[channelType] === undefined)
+            if (dataCanvas.iconsCache[itemType] === undefined)
             {
-                var iconSource = fixtureManager.channelIcon(fxID, chNumber)
+                var iconSource = fixtureManager.channelIcon(itemID, chNumber)
                 var imgObject = Qt.createQmlObject('import QtQuick 2.0; Image { source: "' + iconSource + '"; ' +
                                                    'width: gridRoot.cellSize * 0.5; ' +
                                                    'height: gridRoot.cellSize * 0.5; ' +
@@ -164,21 +171,21 @@ Rectangle
 
                 console.log("Caching icon: " + iconSource)
                 //dataCanvas.loadImage(imgObject)
-                dataCanvas.iconsCache[channelType] = imgObject
+                dataCanvas.iconsCache[itemType] = imgObject
                 return true
             }
             return false
         }
 
-        function fillCell(ctx, absIdx, color, channelType)
+        function fillCell(ctx, absIdx, color, itemType)
         {
             var yCell = parseInt(absIdx / gridSize.width)
             var xCell = absIdx - (yCell * gridSize.width)
             ctx.fillStyle = color
             ctx.fillRect(xCell * cellSize, yCell * cellSize, cellSize, cellSize)
-            if (channelType >= 0)
+            if (itemType >= 0)
             {
-                ctx.drawImage(dataCanvas.iconsCache[channelType],
+                ctx.drawImage(dataCanvas.iconsCache[itemType],
                               (xCell * cellSize) + (cellSize / 2), (yCell * cellSize) + (cellSize / 2),
                               cellSize * 0.5, cellSize * 0.5)
             }
@@ -186,8 +193,12 @@ Rectangle
 
         onPaint:
         {
-            var ctx = dataCanvas.getContext('2d');
+            if (repaintTimer.running === true)
+                return
+
+            var ctx = dataCanvas.getContext('2d')
             var needRepaint = false
+
             ctx.fillStyle = "#7f7f7f"
             ctx.fillRect(0, 0, cellSize * gridSize.width, cellSize * gridSize.height)
 
@@ -204,7 +215,7 @@ Rectangle
                         chNumber = 0
                         isOdd = gridData[idx + 2]
                     }
-                    //console.log("Fixture ID: " + gridData[idx] + ", address: " + gridData[idx + 1]);
+                    //console.log("Item ID: " + gridData[idx] + ", address: " + gridData[idx + 1]);
                     if (checkIconCache(gridData[idx], chNumber, gridData[idx + 3]) === true)
                         needRepaint = true
 
@@ -219,7 +230,7 @@ Rectangle
 
             if (selectionData && selectionData.length)
             {
-                // if the selection has a offset, clear the original position first
+                // if the selection has an offset, clear the original position first
                 if (selectionOffset != 0)
                 {
                     for (var cIdx = 0; cIdx < selectionData.length; cIdx+=2)
@@ -254,12 +265,12 @@ Rectangle
                 if (dataCanvas.checkPosition(mouse))
                 {
                     var uniAddress = (dataCanvas.mouseLastY * gridSize.width) + dataCanvas.mouseLastX
-                    currentFixtureID = dataCanvas.getPressedFixtureID(uniAddress)
-                    if (currentFixtureID === -1)
+                    currentItemID = dataCanvas.getPressedFixtureID(uniAddress)
+                    if (currentItemID === -1)
                         return;
 
                     dataCanvas.setSelectionOffset()
-                    console.log("Clicked Fixture ID: " + currentFixtureID)
+                    console.log("Clicked item ID: " + currentItemID)
                     gridRoot.pressed(dataCanvas.mouseLastX, dataCanvas.mouseLastY, mouse.modifiers)
                     dataCanvas.movingSelection = true
                 }
@@ -338,37 +349,60 @@ Rectangle
 
         antialiasing: true
 
+        onWidthChanged: repaintTimer.restart()
+
+        function drawLabel(ctx, absIdx, text, fontSize, color)
+        {
+            var yCell = parseInt(absIdx / gridSize.width)
+            var xCell = absIdx - (yCell * gridSize.width)
+            ctx.fillStyle = color
+
+            //console.log("absIdx: " + absIdx + ", x: " + xCell + ", y: " + yCell + ", label: " + text)
+
+            ctx.fillText(text, (xCell * cellSize) + 2, (yCell * cellSize) + fontSize)
+        }
+
         onPaint:
         {
-            var ctx = gridCanvas.getContext('2d');
-            ctx.fillStyle = "#1A1A1A";
-            ctx.strokeStyle = "black";
-            ctx.lineWidth = 1;
+            if (repaintTimer.running === true)
+                return
 
-            ctx.beginPath();
+            var ctx = gridCanvas.getContext('2d')
+            ctx.fillStyle = "#1A1A1A"
+            ctx.strokeStyle = "black"
+            ctx.lineWidth = 1
+
+            ctx.clearRect(0, 0, cellSize * gridSize.width, cellSize * gridSize.height)
+
             var cWidth = cellSize * gridSize.width
+            var fontPxSize = cellSize / 3
 
+            ctx.beginPath()
+            /* Paint the grid vertical lines */
             for (var vl = 1; vl < gridSize.width; vl++)
             {
-                var xPos = cellSize * vl;
-                ctx.moveTo(xPos, 0);
-                ctx.lineTo(xPos, height);
+                var xPos = cellSize * vl
+                ctx.moveTo(xPos, 0)
+                ctx.lineTo(xPos, height)
             }
+
+            /* Paint the grid horizontal lines */
             for (var hl = 1; hl < gridSize.height; hl++)
             {
-                var yPos = cellSize * hl;
-                ctx.moveTo(0, yPos);
-                ctx.lineTo(cWidth, yPos);
+                var yPos = cellSize * hl
+                ctx.moveTo(0, yPos)
+                ctx.lineTo(cWidth, yPos)
             }
-            ctx.closePath();
-            ctx.stroke();
 
+            ctx.closePath()
+            ctx.stroke()
+
+            /* Paint the indices if needed */
             if (showIndices)
             {
                 var xpos = 1
                 var ypos = cellSize - 10
                 var rowCount = 0
-                var fontPxSize = cellSize / 3
 
                 ctx.font = fontPxSize + "px \"" + UISettings.robotoFontName + "\""
 
@@ -384,7 +418,13 @@ Rectangle
                         ypos += cellSize
                     }
                 }
+            }
 
+            /* Paint the labels if needed */
+            if (gridLabels && gridLabels.length)
+            {
+                for (var li = 0; li < gridLabels.length; li += 4)
+                    drawLabel(ctx, gridLabels[li + 1], gridLabels[li + 3], fontPxSize, "white")
             }
         }
     }

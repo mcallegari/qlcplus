@@ -41,7 +41,7 @@ Flickable
     {
         id: uniText
         height: UISettings.textSizeDefault * 2
-        labelColor: "#ccc"
+        labelColor: UISettings.fgLight
         label: viewUniverseCombo.currentText
         fontSize: UISettings.textSizeDefault * 1.5
         fontBold: true
@@ -55,6 +55,7 @@ Flickable
 
         showIndices: 512
         gridSize: Qt.size(24, 22)
+        gridLabels: fixtureManager.fixtureNamesMap
         gridData: fixtureManager.fixturesMap
 
         onPressed:
@@ -67,10 +68,10 @@ Flickable
 
         onReleased:
         {
-            if (currentFixtureID === -1)
+            if (currentItemID === -1)
                 return;
             var uniAddress = (yPos * gridSize.width) + xPos
-            fixtureManager.moveFixture(currentFixtureID, uniAddress + offset)
+            fixtureManager.moveFixture(currentItemID, uniAddress + offset)
             universeGridView.interactive = true
         }
 
@@ -110,7 +111,7 @@ Flickable
         onPositionChanged:
         {
             var uniAddress = (yPos * gridSize.width) + xPos
-            var freeAddr = fixtureBrowser.availableChannel(currentFixtureID, uniAddress)
+            var freeAddr = fixtureBrowser.availableChannel(currentItemID, uniAddress)
 
             if (freeAddr === uniAddress)
                 validSelection = true

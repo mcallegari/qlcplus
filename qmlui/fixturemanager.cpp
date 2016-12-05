@@ -124,6 +124,7 @@ bool FixtureManager::addFixture(QString manuf, QString model, QString mode, QStr
     emit fixturesCountChanged();
 
     updateFixtureTree();
+    emit fixtureNamesMapChanged();
     emit fixturesMapChanged();
 
     return true;
@@ -139,6 +140,7 @@ bool FixtureManager::moveFixture(quint32 fixtureID, quint32 newAddress)
     fixture->setAddress(newAddress);
 
     updateFixtureTree();
+    emit fixtureNamesMapChanged();
     emit fixturesMapChanged();
     return true;
 }
@@ -586,10 +588,33 @@ QVariantList FixtureManager::presetCapabilities(int index)
     return var;
 }
 
+QVariantList FixtureManager::fixtureNamesMap()
+{
+    quint32 uniFilter = m_universeFilter == Universe::invalid() ? 0 : m_universeFilter;
+
+    m_fixtureNamesMap.clear();
+
+    for(Fixture *fx : m_doc->fixtures()) // C++11
+    {
+        if (fx == NULL)
+            continue;
+
+        if (fx->universe() != uniFilter)
+            continue;
+
+        m_fixtureNamesMap.append(fx->id());
+        m_fixtureNamesMap.append(fx->universeAddress());
+        m_fixtureNamesMap.append(fx->channels());
+        m_fixtureNamesMap.append(fx->name());
+    }
+
+    return m_fixtureNamesMap;
+}
+
 QVariantList FixtureManager::fixturesMap()
 {
-    m_fixturesMap.clear();
     bool odd = true;
+    quint32 uniFilter = m_universeFilter == Universe::invalid() ? 0 : m_universeFilter;
 
     /* There would be two ways to transfer organized data to QML.
      * The first is a QVariantList of QVariantMaps, to have named variables.
@@ -601,34 +626,35 @@ QVariantList FixtureManager::fixturesMap()
      * Fixture ID | DMX address | isOdd | channel type (a lookup for icons)
      */
 
-    foreach(Fixture *fx, m_doc->fixtures())
+    m_fixturesMap.clear();
+
+    for(Fixture *fx : m_doc->fixtures()) // C++11
     {
-        if (fx != NULL)
+        if (fx == NULL)
+            continue;
+
+        if (fx->universe() != uniFilter)
+            continue;
+
+        quint32 startAddress = fx->address();
+        for(quint32 cn = 0; cn < fx->channels(); cn++)
         {
-            quint32 uniFilter = m_universeFilter == Universe::invalid() ? 0 : m_universeFilter;
+            m_fixturesMap.append(fx->id());
+            m_fixturesMap.append(startAddress + cn);
 
-            if (fx->universe() != uniFilter)
-                continue;
+            if (odd)
+                m_fixturesMap.append(1);
+            else
+                m_fixturesMap.append(0);
 
-            quint32 startAddress = fx->address();
-            for(quint32 cn = 0; cn < fx->channels(); cn++)
-            {
-                m_fixturesMap.append(fx->id());
-                m_fixturesMap.append(startAddress + cn);
-
-                if (odd)
-                    m_fixturesMap.append(1);
-                else
-                    m_fixturesMap.append(0);
-
-                QLCChannel::Group group = fx->channel(cn)->group();
-                if (group == QLCChannel::Intensity)
-                    m_fixturesMap.append(fx->channel(cn)->colour());
-                else
-                    m_fixturesMap.append(group - 1);
-            }
-            odd = !odd;
+            QLCChannel::Group group = fx->channel(cn)->group();
+            if (group == QLCChannel::Intensity)
+                m_fixturesMap.append(fx->channel(cn)->colour());
+            else
+                m_fixturesMap.append(group - 1);
         }
+        odd = !odd;
+
     }
     return m_fixturesMap;
 }
@@ -645,7 +671,7 @@ void FixtureManager::setUniverseFilter(quint32 universeFilter)
 
     m_universeFilter = universeFilter;
     emit universeFilterChanged(universeFilter);
-    qDebug("Notify that the fixtures map has changed !");
+    emit fixtureNamesMapChanged();
     emit fixturesMapChanged();
 }
 
