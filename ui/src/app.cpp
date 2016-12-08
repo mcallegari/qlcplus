@@ -478,15 +478,11 @@ void App::initDoc()
             this, SLOT(slotSetProgressText(const QString&)));
     m_doc->ioPluginCache()->load(IOPluginCache::systemPluginDirectory());
 
-    /* Load  decoder plugins
+    /* Load audio decoder plugins
      * This doesn't use a AudioPluginCache::systemPluginDirectory() cause
      * otherwise the qlcconfig.h creation should have been moved into the
      * audio folder, which doesn't make much sense */
-#ifdef DEBUG
-    m_doc->audioPluginCache()->load(QLCFile::systemDirectory("engine/audio/plugins", KExtPlugin));
-#else
     m_doc->audioPluginCache()->load(QLCFile::systemDirectory(AUDIOPLUGINDIR, KExtPlugin));
-#endif
 
     /* Restore outputmap settings */
     Q_ASSERT(m_doc->inputOutputMap() != NULL);
