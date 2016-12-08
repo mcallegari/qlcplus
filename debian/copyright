@@ -1,15 +1,29 @@
-This package was debianized by Heikki Junnila <hjunnila@users.sf.net> on
-Wed, 21 Dec 2005 20:27:06 +0300.
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: Q Light Controller Plus
+Upstream-Contact: Massimo Callegari <massimocallegari@yahoo.it>
+Source: http://www.qlcplus.org/downloads.html
 
-It was downloaded from http://www.qlcplus.org/
+Files: *
+Copyright:
+ Massimo Callegari <massimocallegari@yahoo.it>
+ Heikki Junnila <hjunnila@users.sf.net>
+License: Apache2
 
-Upstream Author(s): Heikki Junnila <hjunnila@users.sf.net>, Massimo Callegari <massimocallegari@yahoo.it>
-
-Copyright: Heikki Junnila, Massimo Callegari
-
-Copyright (c) Heikki Junnila, Massimo Callegari
-All rights reserved.
+Files: debian/*
+Copyright:
+ 2016 Olivier Humbert <trebmuh@tuxfamily.org>
+ 2005 Heikki Junnila <hjunnila@users.sf.net>
+License: Apache2
 
 License: Apache2
- On a debian system, the license can be found at
+ Unless required by applicable law or agreed to in writing, Licensor provides
+ the Work (and each Contributor provides its Contributions) on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied,
+ including, without limitation, any warranties or conditions of TITLE,
+ NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A PARTICULAR PURPOSE. You are
+ solely responsible for determining the appropriateness of using or
+ redistributing the Work and assume any risks associated with Your exercise of
+ permissions under this License.
+Comment:
+ On a Debian system, you can find the full license text at :
  /usr/share/common-licenses/Apache-2.0
