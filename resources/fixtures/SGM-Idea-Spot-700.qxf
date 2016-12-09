@@ -167,7 +167,7 @@
   <Capability Min="64" Max="255">No Function</Capability>
  </Channel>
  <Channel Name="Color Wheel Fine">
-  <Group Byte="0">Colour</Group>
+  <Group Byte="1">Colour</Group>
   <Capability Min="0" Max="255">Color Wheel colour change to any position Fine</Capability>
  </Channel>
  <Channel Name="Cyan Color">

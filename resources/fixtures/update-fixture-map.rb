@@ -40,6 +40,10 @@ class FixtureDef
 
   class Group
     attr_accessor :byte, :name
+
+    MSB = 0
+    LSB = 1
+
     def initialize(node)
       return if node.empty?
       @name = node.content 
@@ -299,15 +303,23 @@ class Fixtures
       wrong_depth = f.modes.find {|m| m.physical.dimensions.depth == 0 }
       wrong_weight = f.modes.find {|m| m.physical.dimensions.weight == 0 }
       wrong_heads = f.modes.find {|m| heads_have_common_channels(m) }
+      wrong_msb = f.channels.select do |c|
+         c.group.byte == FixtureDef::Group::MSB &&
+         (c.name.downcase.include?('fine') || c.name.downcase.include?('least')) &&
+         (f.model != 'Event Bar LED' || c.name != 'Movement (Fine)')
+      end
+      wrong_lsb = f.channels.select {|c| c.group.byte == FixtureDef::Group::LSB && c.name.downcase.include?('coarse') }
  
       problems = []
-      problems << "PAN" if wrong_pan && has_pan
-      problems << "TILT" if wrong_tilt && has_tilt
-      problems << "WIDTH" if wrong_width
-      problems << "HEIGHT" if wrong_height
-      problems << "DEPTH" if wrong_depth
-      problems << "WEIGHT" if wrong_weight
-      problems << "HEADS" if wrong_heads
+      problems << 'PAN' if wrong_pan && has_pan
+      problems << 'TILT' if wrong_tilt && has_tilt
+      problems << 'WIDTH' if wrong_width
+      problems << 'HEIGHT' if wrong_height
+      problems << 'DEPTH' if wrong_depth
+      problems << 'WEIGHT' if wrong_weight
+      problems << 'HEADS' if wrong_heads
+      problems << "MSB: #{wrong_msb.map {|c| c.name}.join(',')}" unless wrong_msb.empty?
+      problems << "LSB: #{wrong_msb.map {|c| c.name}.join(',')}" unless wrong_lsb.empty?
       
       unless problems.empty?        
         puts "#{f.path}: #{problems.join ' '}"

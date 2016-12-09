@@ -149,7 +149,7 @@
   <Capability Min="0" Max="255">Gobo rotation in 16-bit precision</Capability>
  </Channel>
  <Channel Name="Focus Fine">
-  <Group Byte="0">Beam</Group>
+  <Group Byte="1">Beam</Group>
   <Capability Min="0" Max="255">Focus in 16-bit precision</Capability>
  </Channel>
  <Channel Name="Zoom Fine">

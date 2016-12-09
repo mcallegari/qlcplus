@@ -145,7 +145,7 @@
   <Capability Min="0" Max="255">Open (off) -&gt; full</Capability>
  </Channel>
  <Channel Name="Frost Filter Fine (Least Significant Bit)">
-  <Group Byte="0">Beam</Group>
+  <Group Byte="1">Beam</Group>
   <Capability Min="0" Max="255">0 - 100%</Capability>
  </Channel>
  <Mode Name="16 Bt (16 Bit Mode)">

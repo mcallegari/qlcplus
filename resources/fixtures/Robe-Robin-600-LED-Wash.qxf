@@ -98,7 +98,7 @@
   <Capability Min="0" Max="255">Min to Max</Capability>
  </Channel>
  <Channel Name="Zoom Fine">
-  <Group Byte="0">Beam</Group>
+  <Group Byte="1">Beam</Group>
   <Capability Min="0" Max="255">Fine Zooming</Capability>
  </Channel>
  <Channel Name="Shutter">
@@ -120,7 +120,7 @@
   <Capability Min="0" Max="255">Dimmer 0% to 100%</Capability>
  </Channel>
  <Channel Name="Dimmer Fine">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="1">Intensity</Group>
   <Capability Min="0" Max="255">Fine Dimming</Capability>
  </Channel>
  <Channel Name="White (All Zones)">
@@ -129,22 +129,22 @@
   <Capability Min="0" Max="255">White Saturation 0% to 100%</Capability>
  </Channel>
  <Channel Name="Red Fine (All Zones)">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="1">Intensity</Group>
   <Colour>Red</Colour>
   <Capability Min="0" Max="255">Fine Saturation</Capability>
  </Channel>
  <Channel Name="Green Fine (All Zones)">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="1">Intensity</Group>
   <Colour>Green</Colour>
   <Capability Min="0" Max="255">Fine Saturation</Capability>
  </Channel>
  <Channel Name="Blue Fine (All Zones)">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="1">Intensity</Group>
   <Colour>Blue</Colour>
   <Capability Min="0" Max="255">Fine Saturation</Capability>
  </Channel>
  <Channel Name="White Fine (All Zones)">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="1">Intensity</Group>
   <Colour>White</Colour>
   <Capability Min="0" Max="255">Fine Saturation</Capability>
  </Channel>
@@ -169,22 +169,22 @@
   <Capability Min="0" Max="255">Fine Saturation</Capability>
  </Channel>
  <Channel Name="Red Fine (Z1)">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="1">Intensity</Group>
   <Colour>Red</Colour>
   <Capability Min="0" Max="255">Fine Saturation</Capability>
  </Channel>
  <Channel Name="Green Fine (Z1)">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="1">Intensity</Group>
   <Colour>Green</Colour>
   <Capability Min="0" Max="255">Fine Saturation</Capability>
  </Channel>
  <Channel Name="Blue Fine (Z1)">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="1">Intensity</Group>
   <Colour>Blue</Colour>
   <Capability Min="0" Max="255">Fine Saturation</Capability>
  </Channel>
  <Channel Name="White Fine (Z1)">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="1">Intensity</Group>
   <Colour>White</Colour>
   <Capability Min="0" Max="255">Fine Saturation</Capability>
  </Channel>
@@ -209,22 +209,22 @@
   <Capability Min="0" Max="255">Fine Saturation</Capability>
  </Channel>
  <Channel Name="Red Fine (Z2)">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="1">Intensity</Group>
   <Colour>Red</Colour>
   <Capability Min="0" Max="255">Fine Saturation</Capability>
  </Channel>
  <Channel Name="Green Fine (Z2)">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="1">Intensity</Group>
   <Colour>Green</Colour>
   <Capability Min="0" Max="255">Fine Saturation</Capability>
  </Channel>
  <Channel Name="Blue Fine (Z2)">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="1">Intensity</Group>
   <Colour>Blue</Colour>
   <Capability Min="0" Max="255">Fine Saturation</Capability>
  </Channel>
  <Channel Name="White Fine (Z2)">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="1">Intensity</Group>
   <Colour>White</Colour>
   <Capability Min="0" Max="255">Fine Saturation</Capability>
  </Channel>
@@ -249,22 +249,22 @@
   <Capability Min="0" Max="255">Fine Saturation</Capability>
  </Channel>
  <Channel Name="Red Fine (Z3)">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="1">Intensity</Group>
   <Colour>Red</Colour>
   <Capability Min="0" Max="255">Fine Saturation</Capability>
  </Channel>
  <Channel Name="Green Fine (Z3)">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="1">Intensity</Group>
   <Colour>Green</Colour>
   <Capability Min="0" Max="255">Fine Saturation</Capability>
  </Channel>
  <Channel Name="Blue Fine (Z3)">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="1">Intensity</Group>
   <Colour>Blue</Colour>
   <Capability Min="0" Max="255">Fine Saturation</Capability>
  </Channel>
  <Channel Name="White Fine (Z3)">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="1">Intensity</Group>
   <Colour>White</Colour>
   <Capability Min="0" Max="255">Fine Saturation</Capability>
  </Channel>
