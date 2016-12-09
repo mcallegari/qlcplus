@@ -77,7 +77,7 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
             //qDebug() << "Add CMY comp at address:" << cmyComp;
         }
 
-        fxiItem->m_dimmer = head.intensityChannel();
+        fxiItem->m_dimmer = head.channelNumber(QLCChannel::Intensity, QLCChannel::MSB);
         if (fxiItem->m_dimmer != QLCChannel::invalid())
         {
             qDebug() << "Set dimmer to:" << fxiItem->m_dimmer;
@@ -100,10 +100,9 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
             fxiItem->m_back = NULL;
         }
 
-        fxiItem->m_panChannel = QLCChannel::invalid();
-        if (head.panMsbChannel() != QLCChannel::invalid())
+        fxiItem->m_panChannel = head.channelNumber(QLCChannel::Pan, QLCChannel::MSB);
+        if (fxiItem->m_panChannel != QLCChannel::invalid())
         {
-            fxiItem->m_panChannel = head.panMsbChannel();
             // retrieve the PAN max degrees from the fixture mode
             fxiItem->m_panMaxDegrees = 360; // fallback. Very unprecise
             QLCFixtureMode *mode = fxi->fixtureMode();
@@ -116,10 +115,9 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
             qDebug() << "Pan channel on" << fxiItem->m_panChannel << "max degrees:" << fxiItem->m_panMaxDegrees;
         }
 
-        fxiItem->m_tiltChannel = QLCChannel::invalid();
-        if (head.tiltMsbChannel() != QLCChannel::invalid())
+        fxiItem->m_tiltChannel = head.channelNumber(QLCChannel::Tilt, QLCChannel::MSB);
+        if (fxiItem->m_tiltChannel != QLCChannel::invalid())
         {
-            fxiItem->m_tiltChannel = head.tiltMsbChannel();
             // retrieve the TILT max degrees from the fixture mode
             fxiItem->m_tiltMaxDegrees = 270; // fallback. Very unprecise
             QLCFixtureMode *mode = fxi->fixtureMode();
