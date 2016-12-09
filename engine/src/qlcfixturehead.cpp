@@ -69,9 +69,9 @@ QSet <quint32> QLCFixtureHead::channels() const
 
 quint32 QLCFixtureHead::channelNumber(int type, int controlByte) const
 {
-    quint32 val = m_channelsMap.value(type, UINT32_MAX);
+    quint32 val = m_channelsMap.value(type, 0xFFFFFFFF);
 
-    if (val == UINT32_MAX)
+    if (val == 0xFFFFFFFF)
         return QLCChannel::invalid();
 
     if (controlByte == QLCChannel::MSB)
@@ -126,7 +126,7 @@ void QLCFixtureHead::setMapIndex(int chType, int controlByte, quint32 index)
     if (index == QLCChannel::invalid())
         return;
 
-    quint32 val = m_channelsMap.value(chType, UINT32_MAX);
+    quint32 val = m_channelsMap.value(chType, 0xFFFFFFFF);
 
     if (controlByte == QLCChannel::MSB)
     {
