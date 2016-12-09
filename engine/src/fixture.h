@@ -255,22 +255,10 @@ public:
                     QLCChannel::PrimaryColour color = QLCChannel::NoColour) const;
 
     /** @see QLCFixtureHead */
-    quint32 panMsbChannel(int head = 0) const;
-
-    /** @see QLCFixtureHead */
-    quint32 tiltMsbChannel(int head = 0) const;
-
-    /** @see QLCFixtureHead */
-    quint32 panLsbChannel(int head = 0) const;
-
-    /** @see QLCFixtureHead */
-    quint32 tiltLsbChannel(int head = 0) const;
+    quint32 channelNumber(int type, int controlByte, int head = 0) const;
 
     /** @see QLCFixtureMode */
     quint32 masterIntensityChannel() const;
-
-    /** @see QLCFixtureHead */
-    quint32 intensityChannel(int head = 0) const;
 
     /** @see QLCFixtureHead */
     QVector <quint32> rgbChannels(int head = 0) const;

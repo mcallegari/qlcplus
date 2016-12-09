@@ -447,8 +447,8 @@ void QLCFixtureMode_Test::intensityChannels()
     mode.cacheHeads();
 
     QCOMPARE(mode.masterIntensityChannel(), 0U);
-    QCOMPARE(mode.heads()[0].intensityChannel(), 1U);
-    QCOMPARE(mode.heads()[1].intensityChannel(), 2U);
+    QCOMPARE(mode.heads()[0].channelNumber(QLCChannel::Intensity, QLCChannel::MSB), 1U);
+    QCOMPARE(mode.heads()[1].channelNumber(QLCChannel::Intensity, QLCChannel::MSB), 2U);
 }
 
 void QLCFixtureMode_Test::load()

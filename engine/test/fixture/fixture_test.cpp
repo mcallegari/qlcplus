@@ -212,10 +212,10 @@ void Fixture_Test::fixtureDef()
     QVERIFY(fxi.fixtureMode() == NULL);
     QVERIFY(fxi.channels() == 0);
     QVERIFY(fxi.channel(0) == NULL);
-    QCOMPARE(fxi.panMsbChannel(), QLCChannel::invalid());
-    QCOMPARE(fxi.tiltMsbChannel(), QLCChannel::invalid());
-    QCOMPARE(fxi.panLsbChannel(), QLCChannel::invalid());
-    QCOMPARE(fxi.tiltLsbChannel(), QLCChannel::invalid());
+    QCOMPARE(fxi.channelNumber(QLCChannel::Pan, QLCChannel::MSB), QLCChannel::invalid());
+    QCOMPARE(fxi.channelNumber(QLCChannel::Tilt, QLCChannel::MSB), QLCChannel::invalid());
+    QCOMPARE(fxi.channelNumber(QLCChannel::Pan, QLCChannel::LSB), QLCChannel::invalid());
+    QCOMPARE(fxi.channelNumber(QLCChannel::Tilt, QLCChannel::LSB), QLCChannel::invalid());
     QCOMPARE(fxi.masterIntensityChannel(), QLCChannel::invalid());
 
     QLCFixtureDef* fixtureDef;
@@ -248,10 +248,10 @@ void Fixture_Test::fixtureDef()
     const QLCChannel* ch = fxi.channel(fxi.channel(QLCChannel::Pan));
     QVERIFY(ch != NULL);
 
-    QCOMPARE(fxi.panMsbChannel(), quint32(7));
-    QCOMPARE(fxi.tiltMsbChannel(), quint32(9));
-    QCOMPARE(fxi.panLsbChannel(), quint32(8));
-    QCOMPARE(fxi.tiltLsbChannel(), quint32(10));
+    QCOMPARE(fxi.channelNumber(QLCChannel::Pan, QLCChannel::MSB), quint32(7));
+    QCOMPARE(fxi.channelNumber(QLCChannel::Tilt, QLCChannel::MSB), quint32(9));
+    QCOMPARE(fxi.channelNumber(QLCChannel::Pan, QLCChannel::LSB), quint32(8));
+    QCOMPARE(fxi.channelNumber(QLCChannel::Tilt, QLCChannel::LSB), quint32(10));
     QCOMPARE(fxi.masterIntensityChannel(), quint32(1));
     QCOMPARE(fxi.rgbChannels(), QVector <quint32> ());
     QCOMPARE(fxi.cmyChannels(), QVector <quint32> () << 2 << 3 << 4);

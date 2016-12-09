@@ -650,7 +650,7 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
             QVector <quint32> cmy = head.cmyChannels();
 
             quint32 masterDim = fxi->masterIntensityChannel();
-            quint32 headDim = head.intensityChannel();
+            quint32 headDim = head.channelNumber(QLCChannel::Intensity, QLCChannel::MSB);
 
             // Collect all dimmers that affect current head:
             // They are the master dimmer (affects whole fixture)

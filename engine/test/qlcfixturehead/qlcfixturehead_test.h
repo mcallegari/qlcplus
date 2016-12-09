@@ -40,7 +40,6 @@ private slots:
     void cacheChannelsPanTilt();
     void cacheChannelsColor();
     void doublePanTilt();
-    void dimmerHead();
 
     void cleanupTestCase();
 

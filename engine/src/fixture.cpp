@@ -268,146 +268,43 @@ QSet <quint32> Fixture::channels(QLCChannel::Group group, QLCChannel::PrimaryCol
     return set;
 }
 
-quint32 Fixture::panMsbChannel(int head) const
+quint32 Fixture::channelNumber(int type, int controlByte, int head) const
 {
-    if (head == -1)
+    if (m_fixtureMode == NULL || head < 0 || head >= m_fixtureMode->heads().size())
         return QLCChannel::invalid();
 
-    if (m_fixtureMode != NULL)
-    {
-        if (head < m_fixtureMode->heads().size())
-            return m_fixtureMode->heads().at(head).panMsbChannel();
-        else
-            return QLCChannel::invalid();
-    }
-    else
-    {
-        return QLCChannel::invalid();
-    }
-}
-
-quint32 Fixture::tiltMsbChannel(int head) const
-{
-    if (head == -1)
-        return QLCChannel::invalid();
-
-    if (m_fixtureMode != NULL)
-    {
-        if (head < m_fixtureMode->heads().size())
-            return m_fixtureMode->heads().at(head).tiltMsbChannel();
-        else
-            return QLCChannel::invalid();
-    }
-    else
-    {
-        return QLCChannel::invalid();
-    }
-}
-
-quint32 Fixture::panLsbChannel(int head) const
-{
-    if (head == -1)
-        return QLCChannel::invalid();
-
-    if (m_fixtureMode != NULL)
-    {
-        if (head < m_fixtureMode->heads().size())
-            return m_fixtureMode->heads().at(head).panLsbChannel();
-        else
-            return QLCChannel::invalid();
-    }
-    else
-    {
-        return QLCChannel::invalid();
-    }
-}
-
-quint32 Fixture::tiltLsbChannel(int head) const
-{
-    if (head == -1)
-        return QLCChannel::invalid();
-
-    if (m_fixtureMode != NULL)
-    {
-        if (head < m_fixtureMode->heads().size())
-            return m_fixtureMode->heads().at(head).tiltLsbChannel();
-        else
-            return QLCChannel::invalid();
-    }
-    else
-    {
-        return QLCChannel::invalid();
-    }
+    return m_fixtureMode->heads().at(head).channelNumber(type, controlByte);
 }
 
 quint32 Fixture::masterIntensityChannel() const
 {
     if (m_fixtureMode == NULL)
-    {
         return QLCChannel::invalid();
-    }
 
     return m_fixtureMode->masterIntensityChannel();
 }
 
-quint32 Fixture::intensityChannel(int head) const
-{
-    if (head == -1)
-        return QLCChannel::invalid();
-
-    if (m_fixtureMode == NULL)
-    {
-        return QLCChannel::invalid();
-    }
-
-    if (head >= m_fixtureMode->heads().size())
-    {
-        return QLCChannel::invalid();
-    }
-
-    return m_fixtureMode->heads().at(head).intensityChannel();
-}
-
 QVector <quint32> Fixture::rgbChannels(int head) const
 {
-    if (head == -1)
+    if (m_fixtureMode == NULL || head < 0 || head >= m_fixtureMode->heads().size())
         return QVector <quint32> ();
 
-    if (m_fixtureMode != NULL)
-    {
-        if (head < m_fixtureMode->heads().size())
-            return m_fixtureMode->heads().at(head).rgbChannels();
-        else
-            return QVector <quint32> ();
-    }
-    else
-    {
-        return QVector <quint32> ();
-    }
+    return m_fixtureMode->heads().at(head).rgbChannels();
 }
 
 QVector <quint32> Fixture::cmyChannels(int head) const
 {
-    if (head == -1)
+    if (m_fixtureMode == NULL || head < 0 || head >= m_fixtureMode->heads().size())
         return QVector <quint32> ();
 
-    if (m_fixtureMode != NULL)
-    {
-        if (head < m_fixtureMode->heads().size())
-            return m_fixtureMode->heads().at(head).cmyChannels();
-        else
-            return QVector <quint32> ();
-    }
-    else
-    {
-        return QVector <quint32> ();
-    }
+    return m_fixtureMode->heads().at(head).cmyChannels();
 }
 
 void Fixture::setExcludeFadeChannels(QList<int> indices)
 {
     if (indices.count() > (int)channels())
         return;
+
     m_excludeFadeIndices = indices;
 }
 
