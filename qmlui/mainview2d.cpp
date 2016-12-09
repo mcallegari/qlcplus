@@ -174,13 +174,13 @@ void MainView2D::createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords
         //qDebug() << "Current mode fixture heads:" << fxMode->heads().count();
         newFixtureItem->setProperty("headsNumber", fxMode->heads().count());
 
-        if (fixture->panMsbChannel() != QLCChannel::invalid())
+        if (fixture->channelNumber(QLCChannel::Pan, QLCChannel::MSB) != QLCChannel::invalid())
         {
             int panDeg = phy.focusPanMax();
             if (panDeg == 0) panDeg = 360;
             newFixtureItem->setProperty("panMaxDegrees", panDeg);
         }
-        if (fixture->tiltMsbChannel() != QLCChannel::invalid())
+        if (fixture->channelNumber(QLCChannel::Tilt, QLCChannel::MSB) != QLCChannel::invalid())
         {
             int tiltDeg = phy.focusTiltMax();
             if (tiltDeg == 0) tiltDeg = 270;
@@ -289,7 +289,7 @@ void MainView2D::updateFixture(Fixture *fixture)
 
     for (int headIdx = 0; headIdx < fixture->heads(); headIdx++)
     {
-        quint32 mdIndex = fixture->intensityChannel(headIdx);
+        quint32 mdIndex = fixture->channelNumber(QLCChannel::Intensity, QLCChannel::MSB, headIdx);
         //qDebug() << "Head" << headIdx << "dimmer channel:" << mdIndex;
         qreal intValue = 1.0;
         if (mdIndex != QLCChannel::invalid())
