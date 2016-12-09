@@ -276,7 +276,7 @@ void ContextManager::setFixtureSelection(quint32 fxID, bool enable)
     if (m_2DView->isEnabled())
         m_2DView->updateFixtureSelection(fxID, enable);
 
-    QMultiHash<int, SceneValue> channels = m_fixtureManager->setFixtureCapabilities(fxID, enable);
+    QMultiHash<int, SceneValue> channels = m_fixtureManager->getFixtureCapabilities(fxID, enable);
     if(channels.keys().isEmpty())
         return;
 

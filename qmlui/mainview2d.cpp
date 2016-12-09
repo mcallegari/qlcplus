@@ -307,11 +307,12 @@ void MainView2D::updateFixture(Fixture *fixture)
             g = fixture->channelValueAt(rgbCh.at(1));
             b = fixture->channelValueAt(rgbCh.at(2));
 
-            QMetaObject::invokeMethod(fxItem, "setHeadColor",
+            QMetaObject::invokeMethod(fxItem, "setHeadRGBColor",
                     Q_ARG(QVariant, headIdx),
                     Q_ARG(QVariant, QColor(r, g, b)));
             colorSet = true;
         }
+
         QVector <quint32> cmyCh = fixture->cmyChannels(headIdx);
         if (cmyCh.size() == 3)
         {
@@ -321,14 +322,27 @@ void MainView2D::updateFixture(Fixture *fixture)
             y = fixture->channelValueAt(cmyCh.at(2));
             QColor col;
             col.setCmyk(c, m, y, 0);
-            QMetaObject::invokeMethod(fxItem, "setHeadColor",
+            QMetaObject::invokeMethod(fxItem, "setHeadRGBColor",
                     Q_ARG(QVariant, headIdx),
                     Q_ARG(QVariant, QColor(col.red(), col.green(), col.blue())));
             colorSet = true;
         }
+
+        quint32 white = fixture->channelNumber(QLCChannel::White, QLCChannel::MSB, headIdx);
+        if (white != QLCChannel::invalid())
+            QMetaObject::invokeMethod(fxItem, "setHeadWhite", Q_ARG(QVariant, headIdx), Q_ARG(QVariant, fixture->channelValueAt(white)));
+
+        quint32 amber = fixture->channelNumber(QLCChannel::Amber, QLCChannel::MSB, headIdx);
+        if (amber != QLCChannel::invalid())
+            QMetaObject::invokeMethod(fxItem, "setHeadAmber", Q_ARG(QVariant, headIdx), Q_ARG(QVariant, fixture->channelValueAt(amber)));
+
+        quint32 UV = fixture->channelNumber(QLCChannel::UV, QLCChannel::MSB, headIdx);
+        if (UV != QLCChannel::invalid())
+            QMetaObject::invokeMethod(fxItem, "setHeadUV", Q_ARG(QVariant, headIdx), Q_ARG(QVariant, fixture->channelValueAt(UV)));
+
         if (colorSet == false && mdIndex != QLCChannel::invalid())
         {
-            QMetaObject::invokeMethod(fxItem, "setHeadColor",
+            QMetaObject::invokeMethod(fxItem, "setHeadRGBColor",
                     Q_ARG(QVariant, headIdx),
                     Q_ARG(QVariant, QColor(Qt::white)));
         }
@@ -377,7 +391,7 @@ void MainView2D::updateFixture(Fixture *fixture)
                         QColor wheelColor = cap->resourceColor1();
                         if (wheelColor.isValid())
                         {
-                            QMetaObject::invokeMethod(fxItem, "setHeadColor",
+                            QMetaObject::invokeMethod(fxItem, "setHeadRGBColor",
                                     Q_ARG(QVariant, 0),
                                     Q_ARG(QVariant, wheelColor));
                             colorSet = true;

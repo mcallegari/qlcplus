@@ -94,13 +94,6 @@ Slider
                     border.width: 1
                     radius: 4
                 }
-/*
-                Image {
-                    rotation: 90
-                    source: "qrc:/faderhandle.svg"
-                    sourceSize: Qt.size(parent.width, parent.height)
-                }
-*/
             }
         }
 }

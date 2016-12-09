@@ -46,6 +46,7 @@ class FixtureManager : public QObject
 
     Q_PROPERTY(QVariantList goboChannels READ goboChannels NOTIFY goboChannelsChanged)
     Q_PROPERTY(QVariantList colorWheelChannels READ colorWheelChannels NOTIFY colorWheelChannelsChanged)
+    Q_PROPERTY(int colorsMask READ colorsMask NOTIFY colorsMaskChanged)
 
 public:
     FixtureManager(QQuickView *view, Doc *doc, QObject *parent = 0);
@@ -77,7 +78,7 @@ public:
      * @param enable used to increment/decrement the UI tools counters
      * @return A multihash containg the fixture capabilities by channel type
      */
-    QMultiHash<int, SceneValue> setFixtureCapabilities(quint32 fxID, bool enable);
+    QMultiHash<int, SceneValue> getFixtureCapabilities(quint32 fxID, bool enable);
 
     /** Returns the number of fixtures currently loaded in the project */
     int fixturesCount();
@@ -121,6 +122,9 @@ public:
 
     quint32 universeFilter() const;
     void setUniverseFilter(quint32 universeFilter);
+
+    /** Returns the currently available colors as a bitmask */
+    int colorsMask() const;
 
 public slots:
     /** Slot called whenever a new workspace has been loaded */
@@ -172,6 +176,9 @@ signals:
     /** Notify the listeners that the universe filter has changed */
     void universeFilterChanged(quint32 universeFilter);
 
+    /** Notify the listeners that the available colors changed */
+    void colorsMaskChanged(int colorsMask);
+
 private:
     /** Generic method that returns the names of the cached channels for
      *  the required $group */
@@ -180,6 +187,8 @@ private:
     /** Update the tree of Groups and Fixtures and emit a signal
      *  to update the QML UI */
     void updateFixtureTree();
+
+    void updateColorsMap(int type, int delta);
 
 private:
     /** Reference to the QML view root */
@@ -203,6 +212,11 @@ private:
      *  when enabling the position capability for the selected Fixtures */
     int m_maxPanDegrees;
     int m_maxTiltDegrees;
+
+    /** Bitmask holding the colors supported by the currently selected fixtures */
+    int m_colorsMask;
+    /** A map of the currently available colors and their counters */
+    QMap<int, int> m_colorCounters;
 };
 
 #endif // FIXTUREMANAGER_H

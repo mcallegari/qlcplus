@@ -93,9 +93,24 @@ Rectangle
         headsRepeater.itemAt(headIndex).headLevel = intensity
     }
 
-    function setHeadColor(headIndex, color)
+    function setHeadRGBColor(headIndex, color)
     {
         headsRepeater.itemAt(headIndex).headColor = color
+    }
+
+    function setHeadWhite(headIndex, level)
+    {
+        headsRepeater.itemAt(headIndex).whiteLevel = level / 255
+    }
+
+    function setHeadAmber(headIndex, level)
+    {
+        headsRepeater.itemAt(headIndex).amberLevel = level / 255
+    }
+
+    function setHeadUV(headIndex, level)
+    {
+        headsRepeater.itemAt(headIndex).uvLevel = level / 255
     }
 
     function setPosition(pan, tilt)

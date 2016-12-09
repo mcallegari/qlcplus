@@ -128,8 +128,9 @@ SidePanel
                     x: leftSidePanel.width
                     y: mainToolbar.height + 40
                     visible: false
+                    colorsMask: fixtureManager.colorsMask
 
-                    onColorChanged: fixtureManager.setColorValue(r * 255, g * 255, b * 255, w * 255, a * 255, uv * 255)
+                    onColorChanged: fixtureManager.setColorValue(r * 255, g * 255, b * 255, w, a, uv)
                 }
             }
 

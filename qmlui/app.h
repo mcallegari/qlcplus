@@ -61,6 +61,22 @@ public:
     };
     Q_ENUM(MouseEvents)
 
+    enum ChannelColors
+    {
+        Red     = (1 << 0),
+        Green   = (1 << 1),
+        Blue    = (1 << 2),
+        Cyan    = (1 << 3),
+        Magenta = (1 << 4),
+        Yellow  = (1 << 5),
+        White   = (1 << 6),
+        Amber   = (1 << 7),
+        UV      = (1 << 8),
+        Lime    = (1 << 9),
+        Indigo  = (1 << 10),
+    };
+    Q_ENUM(ChannelColors)
+
     /** Method to turn the key a start the engine */
     void startup();
 

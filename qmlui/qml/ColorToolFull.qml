@@ -18,8 +18,11 @@
 */
 
 import QtQuick 2.0
-import QtQuick.Controls 1.2
+import QtQuick.Controls 1.0
+import QtQuick.Controls.Styles 1.0
+import QtQuick.Layouts 1.1
 
+import com.qlcplus.classes 1.0
 import "."
 
 Rectangle
@@ -31,17 +34,26 @@ Rectangle
     border.color: "#222"
     border.width: 2
 
+    property int colorsMask: 0
     property color selectedColor
-    property bool hasWhiteChannel: false
-    property bool hasAmberChannel: false
-    property bool hasUVChannel: false
 
-    signal colorChanged(real r, real g, real b, real white, real amber, real uv)
+    property int whiteValue: 0
+    property int amberValue: 0
+    property int uvValue: 0
+
+    property int slHandleSize: UISettings.listItemHeight * 0.8
+
+    signal colorChanged(real r, real g, real b, int w, int a, int uv)
     signal released()
 
-    onSelectedColorChanged:
+    onSelectedColorChanged: emitCurrentColor()
+    onWhiteValueChanged: emitCurrentColor()
+    onAmberValueChanged: emitCurrentColor()
+    onUvValueChanged: emitCurrentColor()
+
+    function emitCurrentColor()
     {
-        colorChanged(selectedColor.r, selectedColor.g, selectedColor.b, 0, 0, 0)
+        colorChanged(selectedColor.r, selectedColor.g, selectedColor.b, whiteValue, amberValue, uvValue)
     }
 
     function setHTMLColor(r, g, b)
@@ -149,7 +161,7 @@ Rectangle
     Grid
     {
         id: tColumn
-        x: colorBox.width + 10
+        x: colorBox.width + 5
         y: 5
         //height: 256
         columns: 2
@@ -230,6 +242,117 @@ Rectangle
             id: htmlText
             width: UISettings.bigItemHeight * 0.7
             height: UISettings.listItemHeight
+        }
+    }
+
+    GridLayout
+    {
+        x: 5
+        width: parent.width - 10
+        anchors.top: colorBox.bottom
+        columns: 3
+        columnSpacing: 5
+
+        RobotoText
+        {
+            visible: colorsMask & App.White
+            height: UISettings.listItemHeight
+            label: qsTr("White");
+        }
+
+        Slider
+        {
+            visible: colorsMask & App.White
+            Layout.fillWidth: true
+            orientation: Qt.Horizontal
+            minimumValue: 0
+            maximumValue: 255
+            value: whiteValue
+
+            style: SliderStyle {
+                    handle: Rectangle { width: slHandleSize; height: slHandleSize; radius: slHandleSize / 5 }
+                }
+            onValueChanged: whiteValue = value
+        }
+
+        CustomSpinBox
+        {
+            visible: colorsMask & App.White
+            width: UISettings.bigItemHeight * 0.7
+            height: UISettings.listItemHeight
+            minimumValue: 0
+            maximumValue: 255
+            decimals: 0
+            value: whiteValue
+            onValueChanged: whiteValue = value
+        }
+
+        RobotoText
+        {
+            visible: colorsMask & App.Amber
+            height: UISettings.listItemHeight
+            label: qsTr("Amber");
+        }
+
+        Slider
+        {
+            visible: colorsMask & App.Amber
+            Layout.fillWidth: true
+            orientation: Qt.Horizontal
+            minimumValue: 0
+            maximumValue: 255
+            value: amberValue
+
+            style: SliderStyle {
+                    handle: Rectangle { width: slHandleSize; height: slHandleSize; radius: slHandleSize / 5 }
+                }
+            onValueChanged: amberValue = value
+        }
+
+        CustomSpinBox
+        {
+            visible: colorsMask & App.Amber
+            width: UISettings.bigItemHeight * 0.7
+            height: UISettings.listItemHeight
+            minimumValue: 0
+            maximumValue: 255
+            decimals: 0
+            value: amberValue
+            onValueChanged: amberValue = value
+        }
+
+        RobotoText
+        {
+            visible: colorsMask & App.UV
+            height: UISettings.listItemHeight
+            label: qsTr("UV");
+        }
+
+        Slider
+        {
+            visible: colorsMask & App.UV
+            Layout.fillWidth: true
+            orientation: Qt.Horizontal
+            minimumValue: 0
+            maximumValue: 255
+            value: uvValue
+
+            style: SliderStyle {
+                    handle: Rectangle { width: slHandleSize; height: slHandleSize; radius: slHandleSize / 5 }
+                }
+            onValueChanged: uvValue = value
+        }
+
+        CustomSpinBox
+        {
+            visible: colorsMask & App.UV
+            width: UISettings.bigItemHeight * 0.7
+            height: UISettings.listItemHeight
+            minimumValue: 0
+            maximumValue: 255
+            decimals: 0
+            value: uvValue
+            onValueChanged: uvValue = value
         }
     }
 

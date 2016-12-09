@@ -32,10 +32,11 @@ Rectangle
     border.width: 2
 
     property bool closeOnSelect: false
+    property int colorsMask: 0
     property color selectedColor
     property string colorToolQML: "qrc:/ColorToolBasic.qml"
 
-    signal colorChanged(real r, real g, real b, real w, real a, real uv)
+    signal colorChanged(real r, real g, real b, int w, int a, int uv)
 
     Rectangle
     {
@@ -126,13 +127,17 @@ Rectangle
         height: parent.height - colorToolBar.height
         source: colorToolQML
 
-        onLoaded: item.selectedColor = colorToolBox.selectedColor
+        onLoaded:
+        {
+            item.colorsMask = Qt.binding(function() { return colorToolBox.colorsMask })
+            item.selectedColor = colorToolBox.selectedColor
+        }
 
         Connections
         {
              target: toolLoader.item
              ignoreUnknownSignals: true
-             onColorChanged: colorToolBox.colorChanged(r, g, b, white, amber, uv)
+             onColorChanged: colorToolBox.colorChanged(r, g, b, w, a, uv)
              onReleased: if (closeOnSelect) colorToolBox.visible = false
         }
         /*
