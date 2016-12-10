@@ -506,7 +506,8 @@ void ChaserRunner::startNewStep(int index, MasterTimer* timer, bool manualFade, 
         // might momentarily jump too high.
         newStep->m_function->adjustAttribute(m_intensity, Function::Intensity);
         // Start the fire up !
-        newStep->m_function->start(timer, functionParent(), 0, newStep->m_fadeIn, newStep->m_fadeOut, m_chaser->tempoType());
+        newStep->m_function->start(timer, functionParent(), 0, newStep->m_fadeIn, newStep->m_fadeOut,
+                                   newStep->m_function->defaultSpeed(), m_chaser->tempoType());
         m_runnerSteps.append(newStep);
         m_roundTime->restart();
     }
