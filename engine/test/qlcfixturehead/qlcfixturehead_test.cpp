@@ -131,25 +131,25 @@ void QLCFixtureHead_Test::channels()
 
     head.addChannel(0);
     QCOMPARE(head.channels().size(), 1);
-    QCOMPARE(head.channels().contains(0), true);
+    QVERIFY(head.channels().contains(0) == true);
 
     head.addChannel(0);
     QCOMPARE(head.channels().size(), 1);
-    QCOMPARE(head.channels().contains(0), true);
+    QVERIFY(head.channels().contains(0) == true);
 
     head.addChannel(5000);
     QCOMPARE(head.channels().size(), 2);
-    QCOMPARE(head.channels().contains(0), true);
-    QCOMPARE(head.channels().contains(5000), true);
+    QVERIFY(head.channels().contains(0) == true);
+    QVERIFY(head.channels().contains(5000) == true);
 
     head.removeChannel(1);
     QCOMPARE(head.channels().size(), 2);
-    QCOMPARE(head.channels().contains(0), true);
-    QCOMPARE(head.channels().contains(5000), true);
+    QVERIFY(head.channels().contains(0) == true);
+    QVERIFY(head.channels().contains(5000) == true);
 
     head.removeChannel(0);
     QCOMPARE(head.channels().size(), 1);
-    QCOMPARE(head.channels().contains(5000), true);
+    QVERIFY(head.channels().contains(5000) == true);
 
     head.removeChannel(5000);
     QCOMPARE(head.channels().size(), 0);
