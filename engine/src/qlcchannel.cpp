@@ -255,38 +255,41 @@ QIcon QLCChannel::getIntensityIcon() const
     return QIcon(pm);
 }
 
-QString QLCChannel::getIntensityColorCode() const
+QString QLCChannel::getIntensityColorCode(bool svg) const
 {
+    QString prefix = svg ? "qrc" : "";
+    QString ext = svg ? "svg" : "png";
+
     if (m_colour == QLCChannel::Red)
-        return QString("#FF0000");
+        return svg ? QString("qrc:/red.svg") : QString("#FF0000");
     else if (m_colour == QLCChannel::Green)
-        return QString("#00FF00");
+        return svg ? QString("qrc:/green.svg") : QString("#00FF00");
     else if (m_colour == QLCChannel::Blue)
-        return QString("#0000FF");
+        return svg ? QString("qrc:/blue.svg") : QString("#0000FF");
     else if (m_colour == QLCChannel::Cyan)
-        return QString("#00FFFF");
+        return svg ? QString("qrc:/cyan.svg") : QString("#00FFFF");
     else if (m_colour == QLCChannel::Magenta)
-        return QString("#FF00FF");
+        return svg ? QString("qrc:/magenta.svg") : QString("#FF00FF");
     else if (m_colour == QLCChannel::Yellow)
-        return QString("#FFFF00");
+        return svg ? QString("qrc:/yellow.svg") : QString("#FFFF00");
     else if (m_colour == QLCChannel::Amber)
-        return QString("#FF7E00");
+        return svg ? QString("qrc:/amber.svg") : QString("#FF7E00");
     else if (m_colour == QLCChannel::White)
-        return QString("#FFFFFF");
+        return svg ? QString("qrc:/white.svg") : QString("#FFFFFF");
     else if (m_colour == QLCChannel::UV)
-        return QString("#9400D3");
+        return svg ? QString("qrc:/uv.svg") : QString("#9400D3");
     else if (m_colour == QLCChannel::Lime)
-        return QString("#ADFF2F");
+        return svg ? QString("qrc:/lime.svg") : QString("#ADFF2F");
     else if (m_colour == QLCChannel::Indigo)
-        return QString("#4B0082");
+        return svg ? QString("qrc:/indigo.svg") : QString("#4B0082");
     else
     {
         // None of the primary colours matched and since this is an
         // intensity channel, it must be controlling a plain dimmer OSLT.
-        return QString(":/intensity.png");
+        return QString("%1:/intensity.%2").arg(prefix).arg(ext);
     }
 
-    return QString(":/intensity.png");
+    return QString("%1:/intensity.%2").arg(prefix).arg(ext);
 }
 
 QIcon QLCChannel::getIcon() const
@@ -297,25 +300,29 @@ QIcon QLCChannel::getIcon() const
         return QIcon(getIconNameFromGroup(group()));
 }
 
-QString QLCChannel::getIconNameFromGroup(QLCChannel::Group grp) const
+QString QLCChannel::getIconNameFromGroup(QLCChannel::Group grp, bool svg) const
 {
+    QString prefix = svg ? "qrc" : "";
+    QString ext = svg ? "svg" : "png";
+
     switch(grp)
     {
-        case Pan: return QString(":/pan.png"); break;
-        case Tilt: return QString(":/tilt.png"); break;
-        case Colour: return QString(":/colorwheel.png"); break;
-        case Effect: return QString(":/star.png"); break;
-        case Gobo: return QString(":/gobo.png"); break;
-        case Shutter: return QString(":/shutter.png"); break;
-        case Speed: return QString(":/speed.png"); break;
-        case Prism: return QString(":/prism.png"); break;
-        case Maintenance: return QString(":/configure.png"); break;
-        case Intensity: return getIntensityColorCode(); break;
-        case Beam: return QString(":/beam.png"); break;
+        case Pan: return QString("%1:/pan.%2").arg(prefix).arg(ext); break;
+        case Tilt: return QString("%1:/tilt.%2").arg(prefix).arg(ext); break;
+        case Colour: return QString("%1:/colorwheel.%2").arg(prefix).arg(ext); break;
+        case Effect: return QString("%1:/star.%2").arg(prefix).arg(ext); break;
+        case Gobo: return QString("%1:/gobo.%2").arg(prefix).arg(ext); break;
+        case Shutter: return QString("%1:/shutter.%2").arg(prefix).arg(ext); break;
+        case Speed: return QString("%1:/speed.%2").arg(prefix).arg(ext); break;
+        case Prism: return QString("%1:/prism.%2").arg(prefix).arg(ext); break;
+        case Maintenance: return QString("%1:/configure.%2").arg(prefix).arg(ext); break;
+        case Intensity: return getIntensityColorCode(svg); break;
+        case Beam: return QString("%1:/beam.%2").arg(prefix).arg(ext); break;
         default:
         break;
     }
-    return QString(":/intensity.png");
+
+    return QString("%1:/intensity.%2").arg(prefix).arg(ext);
 }
 
 /*****************************************************************************
