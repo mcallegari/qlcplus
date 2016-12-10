@@ -50,15 +50,15 @@ QLCFixtureHead::~QLCFixtureHead()
 void QLCFixtureHead::addChannel(quint32 channel)
 {
     if (m_channels.contains(channel) == false)
-        m_channels.insert(channel);
+        m_channels.append(channel);
 }
 
 void QLCFixtureHead::removeChannel(quint32 channel)
 {
-    m_channels.remove(channel);
+    m_channels.removeAll(channel);
 }
 
-QSet <quint32> QLCFixtureHead::channels() const
+QList<quint32> QLCFixtureHead::channels() const
 {
     return m_channels;
 }
@@ -139,6 +139,8 @@ void QLCFixtureHead::setMapIndex(int chType, int controlByte, quint32 index)
         val |= index;
     }
     m_channelsMap[chType] = val;
+
+    //qDebug() << this << "chtype:" << chType << "control" << controlByte << "index" << index << "val" << QString::number(val, 16);
 }
 
 void QLCFixtureHead::cacheChannels(const QLCFixtureMode* mode)
@@ -153,11 +155,8 @@ void QLCFixtureHead::cacheChannels(const QLCFixtureMode* mode)
     m_shutterChannels.clear();
     m_channelsMap.clear();
 
-    QSetIterator <quint32> it(m_channels);
-    while (it.hasNext() == true)
+    foreach(quint32 i, m_channels)
     {
-        quint32 i(it.next());
-
         if ((int)i >= mode->channels().size())
         {
             qDebug() << "Head contains undefined channel" << i;
@@ -246,11 +245,8 @@ bool QLCFixtureHead::saveXML(QXmlStreamWriter *doc) const
 
     doc->writeStartElement(KXMLQLCFixtureHead);
 
-    QSetIterator <quint32> it(m_channels);
-    while (it.hasNext() == true)
-    {
-        doc->writeTextElement(KXMLQLCFixtureHeadChannel, QString::number(it.next()));
-    }
+    foreach(quint32 index, m_channels)
+        doc->writeTextElement(KXMLQLCFixtureHeadChannel, QString::number(index));
 
     doc->writeEndElement();
 

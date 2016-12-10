@@ -63,10 +63,10 @@ public:
     void removeChannel(quint32 channel);
 
     /** Get all channels used by the head */
-    QSet <quint32> channels() const;
+    QList <quint32> channels() const;
 
 private:
-    QSet <quint32> m_channels;
+    QList <quint32> m_channels;
 
     /************************************************************************
      * Cached channels
