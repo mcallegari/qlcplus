@@ -22,7 +22,6 @@
 #define QLCFIXTUREHEAD_H
 
 #include <QList>
-#include <QSet>
 
 class QLCFixtureMode;
 class QXmlStreamReader;
