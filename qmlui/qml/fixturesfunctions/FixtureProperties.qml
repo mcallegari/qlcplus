@@ -238,13 +238,36 @@ Rectangle
                         height: width
                         imgSource: "qrc:/info.svg"
                         checkable: true
-                        onToggled:
-                        {
-
-                        }
                     }
                 }
             }
+        } // end of GridLayout
+
+        Rectangle
+        {
+            visible: fxModeInfo.checked
+            height: UISettings.bigItemHeight * 2
+            width: parent.width - 8
+
+            clip: true
+            color: UISettings.bgMedium
+
+            ListView
+            {
+                id: channelList
+                anchors.fill: parent
+                boundsBehavior: Flickable.StopAtBounds
+                model: fixtureBrowser.modeChannelList
+                delegate:
+                    IconTextEntry
+                    {
+                        width: channelList.width
+                        height: UISettings.listItemHeight
+                        tLabel: modelData.mLabel
+                        iSrc: modelData.mIcon
+                    }
+                ScrollBar { flickable: channelList }
+            }
         }
-    }
+    } // end of Column
 }

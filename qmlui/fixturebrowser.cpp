@@ -33,6 +33,7 @@ FixtureBrowser::FixtureBrowser(QQuickView *view, Doc *doc, QObject *parent)
     , m_doc(doc)
     , m_view(view)
     , m_definition(NULL)
+    , m_mode(NULL)
     , m_searchString(QString())
 {
     Q_ASSERT(m_doc != NULL);
@@ -84,11 +85,31 @@ int FixtureBrowser::modeChannels(QString modeName)
 {
     if (m_definition != NULL)
     {
-        QLCFixtureMode *mode = m_definition->mode(modeName);
-        if (mode != NULL)
-            return mode->channels().count();
+        m_mode = m_definition->mode(modeName);
+        emit modeChannelListChanged();
+        if (m_mode != NULL)
+            return m_mode->channels().count();
     }
     return 0;
+}
+
+QVariant FixtureBrowser::modeChannelList() const
+{
+    QVariantList channelList;
+
+    if (m_mode != NULL)
+    {
+        int i = 0;
+        for (QLCChannel *channel : m_mode->channels()) // C++11
+        {
+            QVariantMap chMap;
+            chMap.insert("mIcon", channel->getIconNameFromGroup(channel->group(), true));
+            chMap.insert("mLabel", QString("%1: %2").arg(i++).arg(channel->name()));
+            channelList.append(chMap);
+        }
+    }
+
+    return QVariant::fromValue(channelList);
 }
 
 int FixtureBrowser::availableChannel(quint32 uniIdx, int channels, int quantity, int gap, int requested)
