@@ -1,6 +1,8 @@
-qlcplus (4.10.6) stable; urgency=low
+qlcplus (4.10.5a) stable; urgency=high
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 5 Mar 2017 12:13:14 +0200
+  * engine: fixed playback of a chaser within a chaser
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Mon, 12 Dec 2016 12:13:14 +0200
 
 qlcplus (4.10.5) stable; urgency=low
 
