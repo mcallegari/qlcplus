@@ -4,7 +4,7 @@
 
 APPNAME    = Q Light Controller Plus
 FXEDNAME   = Fixture Definition Editor
-APPVERSION = 4.10.5a
+APPVERSION = 4.10.6 GIT anorod
 
 # Disable these if you don't want to see GIT short hash in the About Box
 #unix:REVISION = $$system(git log --pretty=format:'%h' -n 1)
@@ -32,11 +32,13 @@ contains(FORCECONFIG, release) {
   #DEFINES += QT_NO_DEBUG_OUTPUT
 } else {
   # Enable the following 2 lines when making a release
-  CONFIG         += release
-  DEFINES        += QT_NO_DEBUG_OUTPUT
+  CONFIG         -= release
+  #CONFIG         += release
+  #DEFINES        += QT_NO_DEBUG_OUTPUT
 
   # Disable this when making a release
-  CONFIG         -= debug
+  #CONFIG         -= debug
+  CONFIG         += debug
 }
 
 !macx:!ios: {
