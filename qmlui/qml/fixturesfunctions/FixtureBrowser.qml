@@ -30,7 +30,7 @@ Rectangle
     color: "transparent"
 
     property string selectedManufacturer
-    property int manufacturerIndex
+    property int manufacturerIndex: fixtureBrowser.manufacturerIndex
     property string selectedModel
 
     Rectangle
@@ -95,13 +95,15 @@ Rectangle
         focus: true
 
         boundsBehavior: Flickable.StopAtBounds
+        currentIndex: manufacturerIndex
+
         highlight: Component
         {
             Rectangle
             {
-                y: manufacturerList.currentItem.y + 1
+                y: manufacturerList.currentItem.y
                 width: parent.width - 30
-                height: UISettings.listItemHeight - 2
+                height: UISettings.listItemHeight
                 color: "#0978FF"
                 radius: 5
             }
@@ -121,17 +123,13 @@ Rectangle
                     mfText.label = modelData
                     fixtureList.model = fixtureBrowser.models(modelData)
                     fixtureList.currentIndex = -1
-                    manufacturerList.currentIndex = index
+                    fixtureBrowser.manufacturerIndex = index
                 }
             }
         }
 
-        Component.onCompleted:
-        {
-            manufacturerIndex = fixtureBrowser.genericIndex()
-            manufacturerList.currentIndex = fixtureBrowser.genericIndex()
-            manufacturerList.positionViewAtIndex(manufacturerIndex, ListView.Center)
-        }
+        Component.onCompleted: manufacturerList.positionViewAtIndex(manufacturerIndex, ListView.Center)
+
         ScrollBar { flickable: manufacturerList }
     }
 

@@ -142,6 +142,8 @@ void MainView2D::createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords
         {
             if (x != 0 || y != 0)
             {
+                m_xOffset = m_contents2D->property("x").toReal();
+                m_yOffset = m_contents2D->property("y").toReal();
                 x = ((x - m_xOffset) * m_gridUnits) / m_cellPixels;
                 y = ((y - m_yOffset) * m_gridUnits) / m_cellPixels;
             }
