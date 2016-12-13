@@ -1100,7 +1100,7 @@ void FixtureManager::slotAddRGBPanel()
             fxi->setFixtureDefinition(rowDef, rowMode);
 
             // Check universe span
-            if (address + fxi->channels() >= 512)
+            if (address + fxi->channels() > 512)
             {
                 uniIndex++;
                 if (m_doc->inputOutputMap()->getUniverseID(uniIndex) == m_doc->inputOutputMap()->invalidUniverse())
