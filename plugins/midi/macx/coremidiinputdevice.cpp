@@ -96,13 +96,12 @@ static void MidiInProc(const MIDIPacketList* pktList, void* readProcRefCon,
  ****************************************************************************/
 
 CoreMidiInputDevice::CoreMidiInputDevice(const QVariant& uid, const QString& name,
-                                         MIDIEntityRef entity, MIDIClientRef client,
+                                         MIDIEndpointRef source, MIDIClientRef client,
                                          QObject* parent)
     : MidiInputDevice(uid, name, parent)
     , m_client(client)
-    , m_entity(entity)
     , m_inPort(0)
-    , m_source(0)
+    , m_source(source)
 {
 }
 
@@ -131,8 +130,7 @@ bool CoreMidiInputDevice::open()
     }
     else
     {
-        // Connect the input port to the first source
-        m_source = MIDIEntityGetSource(m_entity, 0);
+        // Connect the input port to the source
         s = MIDIPortConnectSource(m_inPort, m_source, this);
         if (s != 0)
         {

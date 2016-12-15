@@ -154,7 +154,7 @@ void MidiEnumeratorPrivate::rescan()
         MidiInputDevice* dev = inputDevice(uid);
         if (dev == NULL)
         {
-            CoreMidiInputDevice* dev = new CoreMidiInputDevice(uid, name, entity, m_client, this);
+            CoreMidiInputDevice* dev = new CoreMidiInputDevice(uid, name, sourceDev, m_client, this);
             m_inputDevices << dev;
             changed = true;
         }
@@ -189,7 +189,7 @@ void MidiEnumeratorPrivate::rescan()
         MidiOutputDevice* dev = outputDevice(uid);
         if (dev == NULL)
         {
-            CoreMidiOutputDevice* dev = new CoreMidiOutputDevice(uid, name, entity, m_client, this);
+            CoreMidiOutputDevice* dev = new CoreMidiOutputDevice(uid, name, destDev, m_client, this);
             m_outputDevices << dev;
             changed = true;
         }

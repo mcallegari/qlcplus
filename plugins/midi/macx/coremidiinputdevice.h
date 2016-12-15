@@ -29,7 +29,7 @@ class CoreMidiInputDevice : public MidiInputDevice
 {
 public:
     CoreMidiInputDevice(const QVariant& uid, const QString& name,
-                        MIDIEntityRef entity, MIDIClientRef client, QObject* parent);
+                        MIDIEndpointRef source, MIDIClientRef client, QObject* parent);
     virtual ~CoreMidiInputDevice();
 
     bool open();
@@ -40,7 +40,6 @@ public:
 
 private:
     MIDIClientRef m_client;
-    MIDIEntityRef m_entity;
     MIDIPortRef m_inPort;
     MIDIEndpointRef m_source;
     uint m_mbc_counter;

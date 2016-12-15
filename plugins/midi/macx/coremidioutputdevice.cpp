@@ -27,13 +27,12 @@
  ****************************************************************************/
 
 CoreMidiOutputDevice::CoreMidiOutputDevice(const QVariant& uid, const QString& name,
-                                           MIDIEntityRef entity, MIDIClientRef client,
+                                           MIDIEndpointRef destination, MIDIClientRef client,
                                            QObject* parent)
     : MidiOutputDevice(uid, name, parent)
     , m_client(client)
-    , m_entity(entity)
     , m_outPort(0)
-    , m_destination(0)
+    , m_destination(destination)
     , m_universe(MAX_MIDI_DMX_CHANNELS, char(0))
 {
 }
@@ -58,10 +57,7 @@ bool CoreMidiOutputDevice::open()
                    << name() << ":" << s;
         m_outPort = 0;
     }
-    else
-    {
-        m_destination = MIDIEntityGetDestination(m_entity, 0);
-    }
+
     return true;
 }
 
