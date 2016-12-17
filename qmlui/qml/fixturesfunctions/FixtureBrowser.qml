@@ -308,9 +308,7 @@ Rectangle
     {
         id: fxPropsRect
         anchors.right: parent.right
-        anchors.rightMargin: 4
         anchors.left: parent.left
-        anchors.leftMargin: 4
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 8
         visible: false
