@@ -136,6 +136,8 @@ function qlcStringToTime(str, type)
                 currStr = ""
             }
         }
+        if (finalTime == 0)
+            finalTime += parseInt(currStr)
     }
     else if (type === 1 /* Function.Beats */)
     {
@@ -188,11 +190,11 @@ function timeToQlcString(value, type)
         //console.log("h: " + h + ", m: " + m + ", s: " + s + ", value: " + value)
 
         if (h)
-            timeString += ((h < 10) ? "0" + h : h) + "h"
+            timeString += h + "h"
         if (m)
-            timeString += ((m < 10) ? "0" + m : m) + "m"
+            timeString += ((m < 10 && h) ? "0" + m : m) + "m"
         if (s)
-            timeString += ((s < 10) ? "0" + s : s) + "s"
+            timeString += ((s < 10 && m) ? "0" + s : s) + "s"
 
         if (value)
         {
@@ -206,6 +208,9 @@ function timeToQlcString(value, type)
     }
     else if (type === 1 /* Function.Beats */)
     {
+        if (value < 125)
+            return value
+
         var beats = Math.floor(value / 1000)
         if (beats > 0)
             timeString = "" + beats

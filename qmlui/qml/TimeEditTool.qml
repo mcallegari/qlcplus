@@ -39,7 +39,6 @@ GridLayout
     property string timeValueString
 
     property int timeValue: 0
-    property bool timeValueCalcNeeded: true
 
     /* The TAP time counter */
     property double tapTimeValue: 0
@@ -60,7 +59,6 @@ GridLayout
 
     function show(tX, tY, tTitle, tStrValue, tType)
     {
-        timeValueCalcNeeded = false
         tapTimeValue = 0
         tapTimer.stop()
         title = tTitle
@@ -79,20 +77,20 @@ GridLayout
         timeBox.selectAndFocus()
     }
 
-    onTimeValueStringChanged:
+    function updateTime(value, string)
     {
-        if (timeValueCalcNeeded == true)
-            timeValue = TimeUtils.qlcStringToTime(timeValueString, tempoType)
-        console.log("Time value: " + timeValue)
-        timeValueCalcNeeded = false
-    }
-
-    onTimeValueChanged:
-    {
-        //console.log("ms time: " + timeValue)
-        timeValueCalcNeeded = false
-        timeValueString = TimeUtils.timeToQlcString(timeValue, tempoType)
-        toolRoot.valueChanged(timeValue)
+        if (value !== -1 && value !== timeValue)
+        {
+            timeValue = value
+            timeValueString = TimeUtils.timeToQlcString(timeValue, tempoType)
+            toolRoot.valueChanged(timeValue)
+        }
+        if (string !== "" && string !== timeValueString)
+        {
+            timeValue = TimeUtils.qlcStringToTime(string, tempoType)
+            timeValueString = TimeUtils.timeToQlcString(timeValue, tempoType)
+            toolRoot.valueChanged(timeValue)
+        }
     }
 
     Timer
@@ -183,7 +181,7 @@ GridLayout
                 var currTime = new Date().getTime()
                 if (tapTimeValue != 0)
                 {
-                    timeValue = currTime - tapTimeValue
+                    updateTime(currTime - tapTimeValue, "")
                     tapTimer.interval = timeValue
                     tapTimer.restart()
                 }
@@ -202,7 +200,7 @@ GridLayout
         fontSize: btnFontSize
         label: "+M"
         repetition: true
-        onClicked: timeValue += (60 * 1000)
+        onClicked: updateTime(timeValue + (60 * 1000), "")
     }
 
     GenericButton
@@ -215,7 +213,7 @@ GridLayout
         fontSize: btnFontSize
         label: "+S"
         repetition: true
-        onClicked: timeValue += 1000
+        onClicked: updateTime(timeValue + 1000, "")
     }
 
     GenericButton
@@ -228,7 +226,7 @@ GridLayout
         fontSize: btnFontSize
         label: "+ms"
         repetition: true
-        onClicked: timeValue++
+        onClicked: updateTime(timeValue + 1, "")
     }
 
     GenericButton
@@ -242,7 +240,7 @@ GridLayout
         fontSize: btnFontSize
         label: "+"
         repetition: true
-        onClicked: timeValue += 1000
+        onClicked: updateTime(timeValue + 1000, "")
     }
 
     GenericButton
@@ -259,9 +257,10 @@ GridLayout
         onClicked:
         {
             if (allowFractions === Function.AllFractions)
-                timeValue += 125
+                updateTime(timeValue + 125, "")
             else
             {
+                var tmpTime = timeValue
                 var newfraction = 0
                 if (currentFraction == 0)
                     newfraction = 125
@@ -269,9 +268,9 @@ GridLayout
                     newfraction = currentFraction * 2
 
                 if (newfraction == 0)
-                    timeValue += 1000
+                    tmpTime += 1000
 
-                timeValue = timeValue - currentFraction + newfraction
+                updateTime(tmpTime - currentFraction + newfraction, "")
                 currentFraction = newfraction
             }
         }
@@ -298,8 +297,7 @@ GridLayout
 
             onEnterPressed:
             {
-                timeValueCalcNeeded = true
-                timeValueString = TimeUtils.timeToQlcString(inputText, tempoType)
+                updateTime(-1, inputText)
             }
             Keys.onEscapePressed:
             {
@@ -318,7 +316,7 @@ GridLayout
         bgColor: buttonsBgColor
         fontSize: btnFontSize
         label: "∞"
-        onClicked: timeValue = -2
+        onClicked: updateTime(-2, "")
     }
 
     GenericButton
@@ -335,7 +333,7 @@ GridLayout
         {
             if (timeValue < 60000)
                 return
-            timeValue -= (60 * 1000)
+            updateTime(timeValue - (60 * 1000), "")
         }
     }
 
@@ -353,7 +351,7 @@ GridLayout
         {
             if (timeValue < 1000)
                 return
-            timeValue -= 1000
+            updateTime(timeValue - 1000, "")
         }
     }
 
@@ -371,7 +369,7 @@ GridLayout
         {
             if (timeValue == 0)
                 return
-            timeValue--
+            updateTime(timeValue - 1, "")
         }
     }
 
@@ -386,7 +384,7 @@ GridLayout
         fontSize: btnFontSize
         label: "-"
         repetition: true
-        onClicked: timeValue -= 1000
+        onClicked: updateTime(timeValue - 1000, "")
     }
 
     GenericButton
@@ -407,21 +405,22 @@ GridLayout
                 if (timeValue == 0)
                     return
 
-                timeValue -= 125
+                updateTime(timeValue - 125, "")
             }
             else
             {
+                var tmpTime = timeValue
                 var newfraction = 0
                 if (currentFraction == 0)
                 {
                     newfraction = 500
-                    if (timeValue > 0)
-                        timeValue -= 1000
+                    if (tmpTime > 0)
+                        tmpTime -= 1000
                 }
                 else if (currentFraction != 125)
                     newfraction = currentFraction / 2
 
-                timeValue = timeValue - currentFraction + newfraction
+                updateTime(tmpTime - currentFraction + newfraction, "")
                 currentFraction = newfraction
             }
         }
