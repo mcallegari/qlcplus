@@ -348,7 +348,7 @@ Rectangle
                                     }
 
                                     if (mouseMods == -1)
-                                        functionManager.selectFunctionID(iID, mouseMods & Qt.ControlModifier)
+                                        functionManager.selectFunctionID(iID, false)
 
                                     fDragItem.itemsList = functionManager.selectedFunctionsID()
                                     functionsListView.dragActive = true
