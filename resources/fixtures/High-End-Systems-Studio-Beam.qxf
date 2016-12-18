@@ -26,7 +26,7 @@
   <Capability Min="0" Max="255">Tilt, fine adjustment</Capability>
  </Channel>
  <Channel Name="Dim">
-  <Group Byte="1">Intensity</Group>
+  <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="255">Dim setting, continuous</Capability>
  </Channel>
  <Channel Name="Shutter (Normal/Lamp Assisted)">

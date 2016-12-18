@@ -70,7 +70,7 @@
   <Capability Min="0" Max="255">Fade speed (slow &lt;--&gt; fast)</Capability>
  </Channel>
  <Channel Name="32-Bit Dimmer">
-  <Group Byte="1">Effect</Group>
+  <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="5">As set in the control menu display</Capability>
   <Capability Min="6" Max="55">Mode 0 = 8-bit, 256 dimming steps</Capability>
   <Capability Min="56" Max="105">Mode 1 = 32-bit, 0-25% intensity range</Capability>
