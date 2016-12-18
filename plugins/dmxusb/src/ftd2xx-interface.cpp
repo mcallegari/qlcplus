@@ -403,7 +403,7 @@ QByteArray FTD2XXInterface::read(int size, uchar* userBuffer)
     }
     else
     {
-        array = QByteArray::fromRawData((char*) buffer, read);
+        array = QByteArray((char*) buffer, read);
     }
 
     if (userBuffer == NULL)

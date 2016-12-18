@@ -404,12 +404,13 @@ QByteArray LibFTDIInterface::read(int size, uchar* userBuffer)
     int read = ftdi_read_data(&m_handle, buffer, size);
     if (userBuffer != NULL)
     {
+        qDebug() << "using user buffer";
         for (int i = 0; i < read; i++)
             array.append((char) buffer[i]);
     }
     else
     {
-        array = QByteArray::fromRawData((char*) buffer, read);
+        array = QByteArray((char*)buffer, read);
     }
 
     if (userBuffer == NULL)
