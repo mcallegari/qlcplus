@@ -33,9 +33,6 @@
     <file alias="KeyPad.qml">qml/KeyPad.qml</file>
     <file alias="MainView.qml">qml/MainView.qml</file>
     <file alias="MenuBarEntry.qml">qml/MenuBarEntry.qml</file>
-    <file alias="PINRequest.qml">qml/PINRequest.qml</file>
-    <file alias="PINSetup.qml">qml/PINSetup.qml</file>
-    <file alias="PopupBox.qml">qml/PopupBox.qml</file>
     <file alias="QLCPlusFader.qml">qml/QLCPlusFader.qml</file>
     <file alias="RobotoText.qml">qml/RobotoText.qml</file>
     <file alias="SectionBox.qml">qml/SectionBox.qml</file>
@@ -47,6 +44,12 @@
     <file alias="WindowLoader.qml">qml/WindowLoader.qml</file>
     <file alias="ZoomItem.qml">qml/ZoomItem.qml</file>
 
+    <!-- Popup system -->
+    <file alias="PopupPINRequest.qml">qml/PopupPINRequest.qml</file>
+    <file alias="PopupPINSetup.qml">qml/PopupPINSetup.qml</file>
+    <file alias="PopupTextRequest.qml">qml/PopupTextRequest.qml</file>
+    <file alias="PopupBox.qml">qml/PopupBox.qml</file>    
+    
     <!-- Fixtures and Functions -->
     <file alias="FixturesAndFunctions.qml">qml/fixturesfunctions/FixturesAndFunctions.qml</file>
     <file alias="RightPanel.qml">qml/fixturesfunctions/RightPanel.qml</file>

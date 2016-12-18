@@ -124,7 +124,7 @@ Rectangle
                                         var page = [ index ]
 
                                         actionManager.requestActionPopup(ActionManager.VCPagePINRequest,
-                                                                         "qrc:/PINRequest.qml",
+                                                                         "qrc:/PopupPINRequest.qml",
                                                                          ActionManager.OK | ActionManager.Cancel, page)
                                     }
                                     else

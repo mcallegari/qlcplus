@@ -58,7 +58,7 @@ Rectangle
                 var page = [ virtualConsole.selectedPage ]
 
                 actionManager.requestActionPopup(ActionManager.SetVCPagePIN,
-                                                 "qrc:/PINSetup.qml",
+                                                 "qrc:/PopupPINSetup.qml",
                                                  ActionManager.OK | ActionManager.Cancel, page)
             }
         }

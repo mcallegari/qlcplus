@@ -35,8 +35,6 @@ Rectangle
 
     signal requestView(int ID, string qmlSrc)
 
-    //Component.onDestruction: functionManager.clearTree()
-
     function loadFunctionEditor(funcID, funcType)
     {
         //console.log("Request to open Function editor. ID: " + funcID + " type: " + funcType)

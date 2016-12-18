@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  PINRequest.qml
+  PopupPINRequest.qml
 
   Copyright (c) Massimo Callegari
 
