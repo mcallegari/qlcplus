@@ -85,6 +85,7 @@
     <file alias="random.svg">random.svg</file>
     <file alias="red.svg">red.svg</file>
     <file alias="remove.svg">remove.svg</file>
+    <file alias="rename.svg">rename.svg</file>
     <file alias="reset.svg">reset.svg</file>
     <file alias="resize.svg">resize.svg</file>
     <file alias="rgbmatrix.svg">rgbmatrix.svg</file>
