@@ -1,4 +1,4 @@
-version: 4.10.5.{build}
+version: 4.10.6.{build}
 
 environment:
     MSYSTEM: MSYS
@@ -58,4 +58,4 @@ build_script:
 
 artifacts:
   - path: QLC+_$(APPVEYOR_BUILD_VERSION).exe
-    name: qlcplus_4_10_5
+    name: qlcplus_4_10_6
