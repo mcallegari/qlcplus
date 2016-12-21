@@ -29,7 +29,7 @@ class CoreMidiOutputDevice : public MidiOutputDevice
 {
 public:
     CoreMidiOutputDevice(const QVariant& uid, const QString& name,
-                         MIDIEntityRef entity, MIDIClientRef client,
+                         MIDIEndpointRef destination, MIDIClientRef client,
                          QObject* parent);
     virtual ~CoreMidiOutputDevice();
 
@@ -44,7 +44,6 @@ public:
 
 private:
     MIDIClientRef m_client;
-    MIDIEntityRef m_entity;
     MIDIPortRef m_outPort;
     MIDIEndpointRef m_destination;
     QByteArray m_universe;

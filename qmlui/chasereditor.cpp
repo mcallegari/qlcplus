@@ -58,7 +58,7 @@ bool ChaserEditor::addFunctions(QVariantList idsList, int insertIndex)
         return false;
 
     if (insertIndex == -1)
-        insertIndex = 0;
+        insertIndex = m_chaser->stepsCount();
 
     for (QVariant vID : idsList) // C++11
     {
@@ -228,7 +228,7 @@ void ChaserEditor::setSelectedValue(Function::SpeedType type, QString param, uin
                     step.fadeOut = value;
                 break;
                 case Function::Duration:
-                    step.duration = value;
+                    step.duration = duration = value;
                     step.hold = Function::speedSubtract(duration, step.fadeIn);
                     m_stepsList->setDataWithRole(idx, "hold", step.hold);
                 break;

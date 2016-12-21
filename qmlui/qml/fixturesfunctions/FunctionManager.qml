@@ -35,8 +35,6 @@ Rectangle
 
     signal requestView(int ID, string qmlSrc)
 
-    //Component.onDestruction: functionManager.clearTree()
-
     function loadFunctionEditor(funcID, funcType)
     {
         //console.log("Request to open Function editor. ID: " + funcID + " type: " + funcType)
@@ -348,7 +346,7 @@ Rectangle
                                     }
 
                                     if (mouseMods == -1)
-                                        functionManager.selectFunctionID(iID, mouseMods & Qt.ControlModifier)
+                                        functionManager.selectFunctionID(iID, false)
 
                                     fDragItem.itemsList = functionManager.selectedFunctionsID()
                                     functionsListView.dragActive = true

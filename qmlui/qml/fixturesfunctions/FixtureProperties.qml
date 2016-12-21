@@ -29,8 +29,6 @@ Rectangle
     width: 400
     height: columnContainer.height + 8
     color: UISettings.bgLight
-    radius: 4
-    border.color: "#444"
 
     property string fxManufacturer
     property string fxModel
@@ -72,7 +70,6 @@ Rectangle
             height: UISettings.listItemHeight * 0.8
             width: parent.width
             color: UISettings.highlightPressed
-            radius: 3
 
             RobotoText
             {
@@ -246,7 +243,7 @@ Rectangle
         Rectangle
         {
             visible: fxModeInfo.checked
-            height: UISettings.bigItemHeight * 2
+            height: UISettings.bigItemHeight * 1.5
             width: parent.width - 8
 
             clip: true

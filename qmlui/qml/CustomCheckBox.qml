@@ -61,7 +61,6 @@ Rectangle
         sourceSize: Qt.size(width, height)
     }
 
-
     MouseArea
     {
         id: mouseArea1

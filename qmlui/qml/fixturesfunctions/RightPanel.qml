@@ -117,9 +117,30 @@ SidePanel
                     console.log(selNames)
 
                     actionManager.requestActionPopup(ActionManager.DeleteFunctions,
-                                                     qsTr("Are you sure you want to remove the following functions ?\n" + selNames),
+                                                     qsTr("Are you sure you want to remove the following functions ?\n") + selNames,
                                                      ActionManager.OK | ActionManager.Cancel,
                                                      functionManager.selectedFunctionsID())
+                }
+            }
+            IconButton
+            {
+                id: renameFunction
+                z: 2
+                width: iconSize
+                height: iconSize
+                imgSource: "qrc:/rename.svg"
+                tooltip: qsTr("Rename the selected functions")
+                counter: functionManager.selectionCount
+                onClicked:
+                {
+                    var selNames = functionManager.selectedFunctionsName()
+                    var dataArray = functionManager.selectedFunctionsID()
+                    // push the first selected name at the beginning of the array
+                    dataArray.unshift(selNames[0])
+
+                    actionManager.requestActionPopup(ActionManager.RenameFunctions,
+                                                     "qrc:/PopupTextRequest.qml",
+                                                     ActionManager.OK | ActionManager.Cancel, dataArray)
                 }
             }
             IconButton

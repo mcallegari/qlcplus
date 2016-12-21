@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  PINSetup.qml
+  PopupPINSetup.qml
 
   Copyright (c) Massimo Callegari
 

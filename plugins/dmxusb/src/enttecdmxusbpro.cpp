@@ -77,22 +77,16 @@ QString EnttecDMXUSBPro::additionalInfo() const
     QString info;
 
     info += QString("<P>");
+
     if (m_dmxKingMode == true)
-    {
-        info += QString("<B>%1:</B> %2").arg(tr("Protocol"))
-                                             .arg("ultraDMX USB Pro");
-    }
+        info += QString("<B>%1:</B> %2").arg(tr("Protocol")).arg("ultraDMX USB Pro");
     else
-    {
-        info += QString("<B>%1:</B> %2").arg(tr("Protocol"))
-                                             .arg("ENTTEC");
-    }
+        info += QString("<B>%1:</B> %2").arg(tr("Protocol")).arg("ENTTEC");
+
     info += QString("<BR>");
-    info += QString("<B>%1:</B> %2").arg(tr("Manufacturer"))
-                                         .arg(vendor());
+    info += QString("<B>%1:</B> %2").arg(tr("Manufacturer")).arg(vendor());
     info += QString("<BR>");
-    info += QString("<B>%1:</B> %2").arg(tr("Serial number"))
-                                         .arg(serial());
+    info += QString("<B>%1:</B> %2").arg(tr("Serial number")).arg(m_proSerial.isEmpty() ? serial() : m_proSerial);
     info += QString("</P>");
 
     return info;
@@ -156,6 +150,9 @@ bool EnttecDMXUSBPro::open(quint32 line, bool input)
 
     if (interface()->clearRts() == false)
         return close(line, input);
+
+    if (m_proSerial.isEmpty())
+        extractSerial();
 
     // specific port configuration are needed
     // only by ENTTEC
@@ -346,6 +343,7 @@ void EnttecDMXUSBPro::run()
 
         // Read the whole payload
         QByteArray payload = interface()->read(dataLength);
+        //qDebug() << "Data read:" << payload.length();
 
         for (ushort i = 0; i < payload.length(); i++)
         {
@@ -353,13 +351,9 @@ void EnttecDMXUSBPro::run()
 
             if (midiMessage == false)
             {
-                if (byte == (uchar) ENTTEC_PRO_END_OF_MSG)
+                if (i < 512 && byte != (uchar) m_universe[i])
                 {
-                    // Stop when the end of message is received
-                    break;
-                }
-                else if (i < 512 && byte != (uchar) m_universe[i])
-                {
+                    //qDebug() << "Value at" << i << "changed to" << QString::number(byte);
                     // Store and emit changed values
                     m_universe[i] = byte;
                     emit valueChanged(UINT_MAX, m_inputBaseLine, i, byte);

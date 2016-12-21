@@ -14,7 +14,7 @@
   <Capability Min="0" Max="255">0% to 100%, for all LEDs together</Capability>
  </Channel>
  <Channel Name="Operating-Mode (28-Channel Mode)">
-  <Group Byte="1">Effect</Group>
+  <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="0">LEDs off</Capability>
   <Capability Min="1" Max="9">All LEDs on</Capability>
   <Capability Min="10" Max="19">Letter display, to be selected with channel 28</Capability>
@@ -43,7 +43,7 @@
   <Capability Min="253" Max="255">Sound-controlled show</Capability>
  </Channel>
  <Channel Name="Letter/Number/Speed Adjustment (Increasing Speed 0..255)">
-  <Group Byte="1">Effect</Group>
+  <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="9">Letter 'A'/Number '0'</Capability>
   <Capability Min="10" Max="19">Letter 'B'/Number '0'</Capability>
   <Capability Min="20" Max="27">Letter 'C'/Number '0'</Capability>

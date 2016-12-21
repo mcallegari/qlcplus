@@ -422,14 +422,46 @@ void FunctionManager::deleteFunctions(QVariantList IDList)
         m_doc->deleteFunction(f->id());
     }
 
+    m_selectedIDList.clear();
+    emit selectionCountChanged(0);
     updateFunctionsTree();
-    emit selectionCountChanged(m_selectedIDList.count());
 }
 
 void FunctionManager::deleteEditorItems(QVariantList list)
 {
     if (m_currentEditor != NULL)
         m_currentEditor->deleteItems(list);
+}
+
+void FunctionManager::renameFunctions(QVariantList IDList, QString newName, int startNumber, int digits)
+{
+    if (IDList.isEmpty())
+        return;
+
+    if (IDList.count() == 1)
+    {
+        // single Function rename
+        Function *f = m_doc->function(IDList.first().toUInt());
+        if (f != NULL)
+            f->setName(newName.simplified());
+    }
+    else
+    {
+        int currNumber = startNumber;
+
+        for(QVariant id : IDList) // C++11
+        {
+            Function *f = m_doc->function(id.toUInt());
+            if (f == NULL)
+                continue;
+
+            QString fName = QString("%1 %2").arg(newName.simplified()).arg(currNumber, digits, 10, QChar('0'));
+            f->setName(fName);
+            currNumber++;
+        }
+    }
+
+    updateFunctionsTree();
 }
 
 int FunctionManager::selectionCount() const
@@ -523,7 +555,7 @@ void FunctionManager::updateFunctionsTree()
     m_collectionCount = m_rgbMatrixCount = m_scriptCount = 0;
     m_showCount = m_audioCount = m_videoCount = 0;
 
-    m_selectedIDList.clear();
+    //m_selectedIDList.clear();
     m_functionTree->clear();
 
     for(Function *func : m_doc->functions()) // C++11
@@ -535,7 +567,9 @@ void FunctionManager::updateFunctionsTree()
         {
             QVariantList params;
             params.append(QVariant::fromValue(func));
-            m_functionTree->addItem(func->name(), params, func->path(true), expandAll ? TreeModel::Expanded : 0);
+            TreeModelItem *item = m_functionTree->addItem(func->name(), params, func->path(true), expandAll ? TreeModel::Expanded : 0);
+            if (m_selectedIDList.contains(QVariant(func->id())))
+                item->setSelected(true);
         }
 
         switch (func->type())

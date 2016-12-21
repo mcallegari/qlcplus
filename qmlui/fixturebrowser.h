@@ -32,6 +32,7 @@ class FixtureBrowser : public QObject
 {
     Q_OBJECT
 
+    Q_PROPERTY(int manufacturerIndex READ manufacturerIndex WRITE setManufacturerIndex NOTIFY selectedManufacturerIndexChanged)
     Q_PROPERTY(QString searchString READ searchString WRITE setSearchString NOTIFY searchStringChanged)
     Q_PROPERTY(QVariant searchTreeModel READ searchTreeModel NOTIFY searchListChanged)
     Q_PROPERTY(QVariant modeChannelList READ modeChannelList NOTIFY modeChannelListChanged)
@@ -40,7 +41,6 @@ public:
     FixtureBrowser(QQuickView *view, Doc *doc, QObject *parent = 0);
 
     Q_INVOKABLE QStringList manufacturers();
-    Q_INVOKABLE int genericIndex();
     Q_INVOKABLE QStringList models(QString manufacturer);
     Q_INVOKABLE QStringList modes(QString manufacturer, QString model);
     Q_INVOKABLE int modeChannels(QString modeName);
@@ -65,7 +65,11 @@ public:
 
     QVariant modeChannelList() const;
 
+    int manufacturerIndex() const;
+    void setManufacturerIndex(int index);
+
 signals:
+    void selectedManufacturerIndexChanged(int manufacturerIndex);
     void modeChanged();
     void modeChannelsChanged();
     void searchStringChanged(QString searchString);
@@ -78,12 +82,15 @@ private:
 private:
     Doc *m_doc;
     QQuickView *m_view;
+    /** The index of the currently selected manufacturer */
+    int m_manufacturerIndex;
     /** Reference of the currently selected fixture definition */
     QLCFixtureDef *m_definition;
     /** Reference of the currently selected fixture mode */
     QLCFixtureMode *m_mode;
     /** Reference to the tree model used for searches */
     TreeModel *m_searchTree;
+    /** A string holding the search keyword */
     QString m_searchString;
 };
 
