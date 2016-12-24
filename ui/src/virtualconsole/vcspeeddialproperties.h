@@ -98,7 +98,6 @@ protected slots:
     void slotRemovePresetClicked();
     void slotPresetNameEdited(QString const& newName);
     void slotSpeedDialWidgetValueChanged(int ms);
-    void slotChoosePresetInputClicked();
 
     void slotInputValueChanged(quint32 universe, quint32 channel);
     void slotKeySequenceChanged(QKeySequence key);
