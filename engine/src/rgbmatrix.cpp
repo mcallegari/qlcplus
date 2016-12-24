@@ -78,6 +78,11 @@ RGBMatrix::~RGBMatrix()
     delete m_stepHandler;
 }
 
+QIcon RGBMatrix::getIcon() const
+{
+    return QIcon(":/rgbmatrix.png");
+}
+
 void RGBMatrix::setTotalDuration(quint32 msec)
 {
     QMutexLocker algorithmLocker(&m_algorithmMutex);

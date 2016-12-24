@@ -54,6 +54,11 @@ Scene::~Scene()
 {
 }
 
+QIcon Scene::getIcon() const
+{
+    return QIcon(":/scene.png");
+}
+
 void Scene::setChildrenFlag(bool flag)
 {
     m_hasChildren = flag;

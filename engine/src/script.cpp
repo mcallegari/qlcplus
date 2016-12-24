@@ -69,6 +69,11 @@ Script::~Script()
     m_fader = NULL;
 }
 
+QIcon Script::getIcon() const
+{
+    return QIcon(":/script.png");
+}
+
 quint32 Script::totalDuration()
 {
     quint32 totalDuration = 0;

@@ -242,12 +242,9 @@ public:
      */
     static Type stringToType(const QString& str);
 
-    /**
-     * Convert a type to an icon
-     *
-     * @param type The type to convert
-     */
-    static QIcon typeToIcon(Function::Type type);
+    /** Virtual method to retrieve a QIcon based on a Function type.
+      * Subclasses should reimplement this */
+    virtual QIcon getIcon() const;
 
 private:
     Type m_type;

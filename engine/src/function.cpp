@@ -291,34 +291,9 @@ Function::Type Function::stringToType(const QString& string)
         return Undefined;
 }
 
-QIcon Function::typeToIcon(Function::Type type)
+QIcon Function::getIcon() const
 {
-    switch (type)
-    {
-    case Scene:
-        return QIcon(":/scene.png");
-    case Chaser:
-        return QIcon(":/chaser.png");
-    case EFX:
-        return QIcon(":/efx.png");
-    case Collection:
-        return QIcon(":/collection.png");
-    case Script:
-        return QIcon(":/script.png");
-    case RGBMatrix:
-        return QIcon(":/rgbmatrix.png");
-    case Show:
-        return QIcon(":/show.png");
-    case Audio:
-        return QIcon(":/audio.png");
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-    case Video:
-        return QIcon(":/video.png");
-#endif
-    case Undefined:
-    default:
-        return QIcon(":/function.png");
-    }
+    return QIcon(":/function.png");
 }
 
 /*********************************************************************
