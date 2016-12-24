@@ -1,6 +1,7 @@
 qlcplus (4.10.5b) stable; urgency=low
 
   * engine: fixed 4.10.5 regression on RGB Matrix preset step color calculation
+  * Virtual Console/Frame: fixed widgets disable state when switching pages
   * Plugins/DMX USB: fixed 4.10.5 regression preventing to receive data from PRO devices
   * Plugins/MIDI: [macOS] further changes to support virtual ports
 
