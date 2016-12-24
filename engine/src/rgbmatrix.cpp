@@ -851,6 +851,8 @@ void RGBMatrixStep::calculateColorDelta(QColor startColor, QColor endColor)
         m_crDelta = endColor.red() - startColor.red();
         m_cgDelta = endColor.green() - startColor.green();
         m_cbDelta = endColor.blue() - startColor.blue();
+
+        //qDebug() << "Color deltas:" << m_crDelta << m_cgDelta << m_cbDelta;
     }
 }
 
@@ -869,9 +871,11 @@ void RGBMatrixStep::updateStepColor(int stepIndex, QColor startColor, int stepsC
     if (stepsCount <= 0)
         return;
 
-    m_stepColor.setRed(startColor.red() + (m_crDelta * stepIndex / stepsCount));
-    m_stepColor.setGreen(startColor.green() + (m_cgDelta * stepIndex / stepsCount));
-    m_stepColor.setBlue(startColor.blue() + (m_cbDelta * stepIndex / stepsCount));
+    m_stepColor.setRed(startColor.red() + (m_crDelta * stepIndex / (stepsCount - 1)));
+    m_stepColor.setGreen(startColor.green() + (m_cgDelta * stepIndex / (stepsCount - 1)));
+    m_stepColor.setBlue(startColor.blue() + (m_cbDelta * stepIndex / (stepsCount - 1)));
+
+    //qDebug() << "RGBMatrix step" << stepIndex << ", color:" << QString::number(m_stepColor.rgb(), 16);
 }
 
 void RGBMatrixStep::initializeDirection(Function::Direction direction, QColor startColor, QColor endColor, int stepsCount)

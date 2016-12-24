@@ -1,6 +1,8 @@
-qlcplus (4.10.6) stable; urgency=low
+qlcplus (4.10.5b) stable; urgency=low
 
+  * engine: fixed 4.10.5 regression on RGB Matrix preset step color calculation
   * Plugins/DMX USB: fixed 4.10.5 regression preventing to receive data from PRO devices
+  * Plugins/MIDI: [macOS] further changes to support virtual ports
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 5 Mar 2017 12:13:14 +0200
 
