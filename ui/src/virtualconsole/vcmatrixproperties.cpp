@@ -492,6 +492,16 @@ void VCMatrixProperties::slotTreeSelectionChanged()
     {
         m_presetInputWidget->setInputSource(control->m_inputSource);
         m_presetInputWidget->setKeySequence(control->m_keySequence.toString(QKeySequence::NativeText));
+        if (control->widgetType() == VCMatrixControl::Button)
+        {
+            m_presetInputWidget->setCustomFeedbackVisibility(true);
+            m_presetInputWidget->setKeyInputVisibility(true);
+        }
+        else
+        {
+            m_presetInputWidget->setCustomFeedbackVisibility(false);
+            m_presetInputWidget->setKeyInputVisibility(false);
+        }
     }
 }
 
