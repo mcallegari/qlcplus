@@ -170,6 +170,7 @@
   <fixture path="Cameo-Pixbar-600-PRO.qxf" mf="Cameo" md="Pixbar 600 PRO"/>
   <fixture path="Cameo-Strobe-3x3.5W.qxf" mf="Cameo" md="Strobe 3x3.5W"/>
   <fixture path="Cameo-Strobe-6x10W.qxf" mf="Cameo" md="Strobe 6x10W"/>
+  <fixture path="Cameo-Superfly-XS.qxf" mf="Cameo" md="Superfly XS"/>
   <fixture path="Cameo-Wookie-series.qxf" mf="Cameo" md="Wookie series"/>
   <fixture path="Chauvet-200b.qxf" mf="Chauvet" md="200b"/>
   <fixture path="Chauvet-4Bar-Tri.qxf" mf="Chauvet" md="4Bar Tri"/>
@@ -294,6 +295,7 @@
   <fixture path="Coemar-ProWash-250-LX.qxf" mf="Coemar" md="ProWash 250 LX"/>
   <fixture path="Coemar-Stage-Lite-LED.qxf" mf="Coemar" md="Stage Lite LED"/>
   <fixture path="Color-Imagination-LedSpot-90-SI-052.qxf" mf="Color Imagination" md="LedSpot 90 (SI-052)"/>
+  <fixture path="ColorKey-WaferPar-Quad-W-12-v2.qxf" mf="ColorKey" md="WaferPar Quad-W 12"/>
   <fixture path="Contest-Evora-Beam-15R.qxf" mf="Contest" md="Evora Beam 15R"/>
   <fixture path="Contest-Evora-Beam-5R.qxf" mf="Contest" md="Evora Beam 5R"/>
   <fixture path="Contest-Evora-DUO-B2R.qxf" mf="Contest" md="Evora DUO B2R"/>
@@ -346,6 +348,7 @@
   <fixture path="Eurolite-LED-PAR64-RGB.qxf" mf="Eurolite" md="LED PAR64 RGB"/>
   <fixture path="Eurolite-LED-PAR64-RGBA.qxf" mf="Eurolite" md="LED PAR64 RGBA"/>
   <fixture path="Eurolite-LED-PAR64-White.qxf" mf="Eurolite" md="LED PAR64 White"/>
+  <fixture path="Eurolite-LED-PARty-RGBW.qxf" mf="Eurolite" md="LED PARty RGBW"/>
   <fixture path="Eurolite-LED-PMB-4-COB-RGB-30W-Bar.qxf" mf="Eurolite" md="LED PMB-4 COB RGB 30W Bar"/>
   <fixture path="Eurolite-LED-PMB-8-COB-RGB-30W.qxf" mf="Eurolite" md="LED PMB-8 COB RGB 30W"/>
   <fixture path="Eurolite-LED-SCY-100-RGBW-DMX.qxf" mf="Eurolite" md="LED SCY-100 RGBW DMX"/>
@@ -503,6 +506,7 @@
   <fixture path="Ledj-Stage-Color-24.qxf" mf="Ledj" md="Stage Color 24"/>
   <fixture path="Ledj-Tri-LED-back-drop-controller.qxf" mf="Ledj" md="Pro Tri LED back drop controller"/>
   <fixture path="Light-Emotion-LED-Parbar.qxf" mf="Light Emotion" md="LED Parbar"/>
+  <fixture path="lightmaXX-CLS-1.qxf" mf="lightmaXX" md="Platinum CLS-1"/>
   <fixture path="lightmaXX-CLS-2.qxf" mf="lightmaXX" md="CLS-2"/>
   <fixture path="lightmaXX-COMPLETE-PAR-56-9x12-W-RGBAW-UV.qxf" mf="lightmaXX" md="Complete PAR 56 9x12W RGBAW-UV"/>
   <fixture path="lightmaXX-EASY-Wash-5IVE-LED.qxf" mf="lightmaXX" md="EASY Wash 5IVE LED"/>
@@ -738,6 +742,7 @@
   <fixture path="Stairville-LED-PAR56.qxf" mf="Stairville" md="LED PAR56"/>
   <fixture path="Stairville-LED-Show-Bar-Tri-18x3W-RGB.qxf" mf="Stairville" md="Show Bar Tri 18x3W RGB"/>
   <fixture path="Stairville-LED_BAR_RGB_252.qxf" mf="Stairville" md="LED BAR 252 RGB (no. 234564)"/>
+  <fixture path="Stairville-M-Fog-1000-DMX.qxf" mf="Stairville" md="M-Fog 1000 DMX"/>
   <fixture path="Stairville-Matrixx-FL-110-DMX.qxf" mf="Stairville" md="Matrixx FL-110 DMX"/>
   <fixture path="Stairville-maTrixx-SC-100.qxf" mf="Stairville" md="maTrixx SC-100"/>
   <fixture path="Stairville-MH-100-Beam-36x3-LED.qxf" mf="Stairville" md="MH-100 Beam 36x3 LED"/>
