@@ -414,20 +414,16 @@ QByteArray FTD2XXInterface::read(int size, uchar* userBuffer)
 
 uchar FTD2XXInterface::readByte(bool* ok)
 {
+    if (ok) *ok = false;
+
     if (m_handle == NULL)
-    {
-        if (ok) *ok = false;
         return 0;
-    }
 
     DWORD RxBytes, TxBytes, event;
     FT_GetStatus(m_handle, &RxBytes, &TxBytes, &event);
 
     if (RxBytes < 1)
-    {
-        *ok = false;
         return 0;
-    }
 
     uchar byte = 0;
     int read = 0;
@@ -437,11 +433,8 @@ uchar FTD2XXInterface::readByte(bool* ok)
         if (ok) *ok = true;
         return byte;
     }
-    else
-    {
-        if (ok) *ok = false;
-        return 0;
-    }
+
+    return 0;
 }
 
 
