@@ -459,6 +459,34 @@ void ChaserRunner::clearRunningList()
 }
 
 /****************************************************************************
+ * Attributes
+ ****************************************************************************/
+
+void ChaserRunner::adjustCrosfaderId(qreal id, int stepIndex)
+{
+    if (stepIndex == -1)
+    {
+        // stepIndex == -1 means that we reset all the CrossfaderId
+        foreach(ChaserRunnerStep *step, m_runnerSteps)
+        {
+            step->m_function->adjustAttribute(0, Function::CrosfaderId);
+        }
+        return;
+    }
+
+    // We change the CrossfaderId that we are provided
+    foreach(ChaserRunnerStep *step, m_runnerSteps)
+    {
+        if (stepIndex == step->m_index && step->m_function != NULL)
+        {
+            step->m_function->adjustAttribute(id, Function::CrosfaderId);
+            return;
+        }
+    }
+
+}
+
+/****************************************************************************
  * Running
  ****************************************************************************/
 
