@@ -1,3 +1,7 @@
+qlcplus (4.10.6) stable; urgency=low
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 5 Mar 2017 12:13:14 +0200
+
 qlcplus (4.10.5b) stable; urgency=high
 
   * engine: fixed 4.10.5 regression on RGB Matrix preset step color calculation
