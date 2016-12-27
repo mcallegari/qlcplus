@@ -248,6 +248,7 @@ void ChaserRunner::stopStep(int stepIndex)
         if (stepIndex == step->m_index)
         {
             qDebug() << "Stopping step idx:" << stepIndex << "(running:" << m_runnerSteps.count() << ")";
+            step->m_function->adjustAttribute(0, Function::CrosfaderId);
             step->m_function->stop(functionParent());
             m_runnerSteps.removeOne(step);
             delete step;
