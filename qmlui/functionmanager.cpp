@@ -67,14 +67,6 @@ FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)
     treeColumns << "classRef";
     m_functionTree->setColumnNames(treeColumns);
     m_functionTree->enableSorting(true);
-/*
-    for (int i = 0; i < 10; i++)
-    {
-        QStringList vars;
-        vars << QString::number(i) << 0;
-        m_functionTree->addItem(QString("Entry %1").arg(i), vars);
-    }
-*/
 
     connect(m_doc, SIGNAL(loaded()),
             this, SLOT(slotDocLoaded()));
@@ -337,7 +329,8 @@ void FunctionManager::selectFunctionID(quint32 fID, bool multiSelection)
         if (f != NULL)
             f->start(m_doc->masterTimer(), FunctionParent::master());
     }
-    m_selectedIDList.append(QVariant(fID));
+    if (fID != Function::invalidId())
+        m_selectedIDList.append(QVariant(fID));
 
     emit selectionCountChanged(m_selectedIDList.count());
 }
@@ -353,7 +346,7 @@ void FunctionManager::setEditorFunction(quint32 fID)
 
     if ((int)fID == -1)
     {
-        emit functionEditingChanged(false);
+        emit isEditingChanged(false);
         return;
     }
 
@@ -402,7 +395,15 @@ void FunctionManager::setEditorFunction(quint32 fID)
         m_currentEditor->setPreviewEnabled(m_previewEnabled);
     }
 
-    emit functionEditingChanged(true);
+    emit isEditingChanged(true);
+}
+
+bool FunctionManager::isEditing() const
+{
+    if (m_currentEditor != NULL)
+        return true;
+
+    return false;
 }
 
 void FunctionManager::deleteFunctions(QVariantList IDList)

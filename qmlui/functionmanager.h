@@ -47,6 +47,7 @@ class FunctionManager : public QObject
     Q_PROPERTY(int functionsFilter READ functionsFilter CONSTANT)
     Q_PROPERTY(QString searchFilter READ searchFilter WRITE setSearchFilter NOTIFY searchFilterChanged)
     Q_PROPERTY(int selectionCount READ selectionCount NOTIFY selectionCountChanged)
+    Q_PROPERTY(bool isEditing READ isEditing NOTIFY isEditingChanged)
     Q_PROPERTY(int viewPosition READ viewPosition WRITE setViewPosition NOTIFY viewPositionChanged)
 
     Q_PROPERTY(int sceneCount READ sceneCount NOTIFY sceneCountChanged)
@@ -103,6 +104,9 @@ public:
     /** Set $fID as the current Function ID being edited */
     Q_INVOKABLE void setEditorFunction(quint32 fID);
 
+    /** Returns if the UI is editing a Function */
+    bool isEditing() const;
+
     /** Delete the list of Function IDs in $IDList. This happens AFTER a popup confirmation */
     void deleteFunctions(QVariantList IDList);
 
@@ -146,8 +150,8 @@ signals:
     void showCountChanged();
     void audioCountChanged();
     void videoCountChanged();
-    void functionEditingChanged(bool enable);
     void selectionCountChanged(int count);
+    void isEditingChanged(bool editing);
     void viewPositionChanged(int viewPosition);
 
 public slots:

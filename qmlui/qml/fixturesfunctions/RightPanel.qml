@@ -79,6 +79,8 @@ SidePanel
                 {
                     if (checked)
                         loaderSource = "qrc:/FunctionManager.qml"
+                    else
+                        functionManager.selectFunctionID(-1, false)
                     animatePanel(checked)
                 }
             }
@@ -110,7 +112,7 @@ SidePanel
                 height: iconSize
                 imgSource: "qrc:/remove.svg"
                 tooltip: qsTr("Remove the selected functions")
-                counter: functionManager.selectionCount
+                counter: functionManager.selectionCount && !functionManager.isEditing
                 onClicked:
                 {
                     var selNames = functionManager.selectedFunctionsName()
@@ -130,7 +132,7 @@ SidePanel
                 height: iconSize
                 imgSource: "qrc:/rename.svg"
                 tooltip: qsTr("Rename the selected functions")
-                counter: functionManager.selectionCount
+                counter: functionManager.selectionCount && !functionManager.isEditing
                 onClicked:
                 {
                     var selNames = functionManager.selectedFunctionsName()
