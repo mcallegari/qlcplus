@@ -249,7 +249,10 @@ void RGBMatrix::setStartColor(const QColor& c)
     {
         QMutexLocker algorithmLocker(&m_algorithmMutex);
         if (m_algorithm != NULL)
+        {
             m_algorithm->setColors(m_startColor, m_endColor);
+            updateColorDelta();
+        }
     }
     emit changed(id());
 }
@@ -265,7 +268,10 @@ void RGBMatrix::setEndColor(const QColor &c)
     {
         QMutexLocker algorithmLocker(&m_algorithmMutex);
         if (m_algorithm != NULL)
+        {
             m_algorithm->setColors(m_startColor, m_endColor);
+            updateColorDelta();
+        }
     }
     emit changed(id());
 }
