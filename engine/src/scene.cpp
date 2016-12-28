@@ -104,6 +104,41 @@ bool Scene::copyFrom(const Function* function)
 }
 
 /*****************************************************************************
+ * Adding
+ *****************************************************************************/
+
+void Scene::addFrom(Function* function_from){
+    const Scene* sf_from = qobject_cast<const Scene*> (function_from);
+    qreal init_Intensity = getAttributeValue(Function::Intensity);
+    adjustAttribute(1, Function::Intensity);
+
+    QList <SceneValue> scenes_to = values();
+    QList <SceneValue> scenes_from = sf_from->values();
+
+    // First we adjust the intensity of not common channels
+    for(int i = 0; i<scenes_to.count(); i++){
+        int z = 0;
+        for(int j = 0; j<scenes_from.count();j++){
+            if(scenes_to[i] == scenes_from[j])
+                z++;
+        }
+        if(z == 0){
+            setValue(scenes_to[i].fxi, scenes_to[i].channel, CLAMP( init_Intensity*scenes_to[i].value, 0.0, 255.0 ));
+        }
+    }
+
+    // Now we adjust the intensity of common channels or channels from function_from
+    for(int i = 0; i<scenes_from.count(); i++){
+        if(checkValue(scenes_from[i]) ){
+            setValue(scenes_from[i].fxi, scenes_from[i].channel, CLAMP(init_Intensity*value(scenes_from[i].fxi, scenes_from[i].channel) + sf_from->getAttributeValue(Function::Intensity) * scenes_from[i].value, 0.0, 255.0 ));
+        } else {
+            setValue(scenes_from[i].fxi, scenes_from[i].channel, CLAMP(sf_from->getAttributeValue(Function::Intensity)*scenes_from[i].value, 0.0, 255.0));
+        }
+    }
+
+}
+
+/*****************************************************************************
  * UI State
  *****************************************************************************/
 
