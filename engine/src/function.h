@@ -113,7 +113,8 @@ public:
      */
     enum Attr
     {
-        Intensity = 0
+        Intensity = 0,
+        CrosfaderId = 1
     };
 
     /*********************************************************************
@@ -166,6 +167,20 @@ public:
      * @return true if successful, otherwise false
      */
     virtual bool copyFrom(const Function* function);
+
+    /*********************************************************************
+     * Adding
+     *********************************************************************/
+public:
+    /**
+     * Add all channels from the function passed as a parameter. It changes
+     * it's intensity to 100% to make it easier to represent the addition.
+     * The result of all the channels are:
+     * Result (at intensity 100%) = Intensity_f1 * Channel + Intensity_f2 * Channel
+     *
+     * @param function_from The Function we are adding the intensities from
+     */
+    virtual void addFrom(Function* function_from);
 
     /*********************************************************************
      * ID

@@ -669,6 +669,13 @@ void Chaser::adjustIntensity(qreal fraction, int stepIndex)
         m_runner->adjustIntensity(fraction * getAttributeValue(Intensity), stepIndex);
 }
 
+void Chaser::adjustCrosfaderId(qreal id, int stepIndex)
+{
+    QMutexLocker runnerLocker(&m_runnerMutex);
+    if (m_runner != NULL)
+        m_runner->adjustCrosfaderId(id, stepIndex);
+}
+
 bool Chaser::contains(quint32 functionId)
 {
     Doc* doc = this->doc();
