@@ -62,17 +62,20 @@ public:
     Script(Doc* doc);
     virtual ~Script();
 
-    /** @reimpl */
+    /** @reimp */
+    QIcon getIcon() const;
+
+    /** @reimp */
     quint32 totalDuration();
 
     /************************************************************************
      * Copying
      ************************************************************************/
 public:
-    /** @reimpl */
+    /** @reimp */
     Function* createCopy(Doc* doc, bool addToDoc = true);
 
-    /** @reimpl */
+    /** @reimp */
     bool copyFrom(const Function* function);
 
     /************************************************************************

@@ -114,7 +114,7 @@ void VCFrame::setDisableState(bool disable)
         m_enableButton->blockSignals(false);
     }
 
-    foreach( VCWidget* widget, this->findChildren<VCWidget*>())
+    foreach (VCWidget* widget, this->findChildren<VCWidget*>())
         widget->setDisableState(disable);
     m_disableState = disable;
     updateFeedback();
@@ -492,7 +492,7 @@ void VCFrame::slotSetPage(int pageNum)
             VCWidget *widget = it.key();
             if (page == m_currentPage)
             {
-                widget->setEnabled(true);
+                widget->setDisableState(m_disableState);
                 widget->show();
                 widget->updateFeedback();
             }

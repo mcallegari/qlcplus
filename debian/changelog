@@ -1,8 +1,21 @@
 qlcplus (4.10.6) stable; urgency=low
 
-  * Plugins/DMX USB: fixed 4.10.5 regression preventing to receive data from PRO devices
-
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 5 Mar 2017 12:13:14 +0200
+
+qlcplus (4.10.5b) stable; urgency=high
+
+  * engine: fixed 4.10.5 regression on RGB Matrix preset step color calculation
+  * Virtual Console/Frame: fixed widgets disable state when switching pages
+  * Virtual Console: fixed SpeedDial and Animation widget presets feedbacks, and allow to use custom feedbacks
+  * Plugins/DMX USB: fixed 4.10.5 regression preventing to receive data from PRO devices
+  * Plugins/DMX USB: [Windows] fixed a long standing bug causing random crashes when receiving DMX data
+  * Plugins/MIDI: [macOS] further changes to support virtual ports
+  * New fixtures: Stairville M-Fog 1000 DMX, Cameo Superfly XS (thanks to Konni)
+  * New fixture: ColorKey WaferPar Quad-W 12 (thanks to Taylor)
+  * New fixture: Eurolite LED PARty RGBW (thanks to Heiko Fanieng)
+  * New fixture: lightmaXX Platinum CLS-1 (thanks to Marc Geonet)
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Mon, 26 Dec 2016 12:13:14 +0200
 
 qlcplus (4.10.5a) stable; urgency=high
 

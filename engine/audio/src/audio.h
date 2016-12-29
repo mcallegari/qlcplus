@@ -44,13 +44,16 @@ public:
     Audio(Doc* doc);
     virtual ~Audio();
 
+    /** @reimp */
+    QIcon getIcon() const;
+
 private:
     Doc *m_doc;
     /*********************************************************************
      * Copying
      *********************************************************************/
 public:
-    /** @reimpl */
+    /** @reimp */
     Function* createCopy(Doc* doc, bool addToDoc = true);
 
     /** Copy the contents for this function from another function */

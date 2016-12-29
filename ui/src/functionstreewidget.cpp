@@ -113,7 +113,7 @@ void FunctionsTreeWidget::updateFunctionItem(QTreeWidgetItem* item, const Functi
     Q_ASSERT(item != NULL);
     Q_ASSERT(function != NULL);
     item->setText(COL_NAME, function->name());
-    item->setIcon(COL_NAME, functionIcon(function));
+    item->setIcon(COL_NAME, function->getIcon());
     item->setData(COL_NAME, Qt::UserRole, function->id());
     item->setData(COL_NAME, Qt::UserRole + 1, function->type());
     item->setFlags(item->flags() & ~Qt::ItemIsDropEnabled);
@@ -151,7 +151,7 @@ QTreeWidgetItem* FunctionsTreeWidget::parentItem(const Function* function)
         // Parent item for the given type doesn't exist yet so create one
         QTreeWidgetItem* item = new QTreeWidgetItem(this);
         item->setText(COL_NAME, basePath);
-        item->setIcon(COL_NAME, functionIcon(function));
+        item->setIcon(COL_NAME, function->getIcon());
         item->setData(COL_NAME, Qt::UserRole, Function::invalidId());
         item->setData(COL_NAME, Qt::UserRole + 1, function->type());
         item->setText(COL_PATH, QString(basePath + "/"));
@@ -209,17 +209,6 @@ QTreeWidgetItem* FunctionsTreeWidget::functionItem(const Function* function)
     }
 
     return NULL;
-}
-
-QIcon FunctionsTreeWidget::functionIcon(const Function* function) const
-{
-    if (function->type() == Function::Chaser)
-    {
-        if (qobject_cast<const Chaser*>(function)->isSequence() == true)
-            return QIcon(":/sequence.png");
-    }
-
-    return Function::typeToIcon(function->type());
 }
 
 /*********************************************************************

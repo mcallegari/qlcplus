@@ -157,7 +157,7 @@ void ShowEditor::updateFunctionList()
                 fItem->setText(STEPS_COL, QString("%1").arg(chaser->steps().count()));
             }
             else
-                fItem->setIcon(NAME_COL, Function::typeToIcon(func->type()));
+                fItem->setIcon(NAME_COL, func->getIcon());
         }
     }
 

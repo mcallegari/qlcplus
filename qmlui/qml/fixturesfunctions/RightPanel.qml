@@ -26,15 +26,17 @@ import "."
 SidePanel
 {
     id: rightSidePanel
+    objectName: "funcRightPanel"
 
-    property int editorFuncID: -1
-
-    function createFunctionAndEditor(fType, fEditor)
+    function createFunctionAndEditor(fType)
     {
-        // reset the current editor first
+        // reset the currently loaded item first
         loaderSource = ""
+
+        var fEditor = functionManager.getEditorResource(fType)
         var newFuncID = functionManager.createFunction(fType)
-        functionManager.setEditorFunction(newFuncID)
+        functionManager.setEditorFunction(newFuncID, false)
+
         if (fType === Function.Show)
         {
             showManager.currentShowID = newFuncID
@@ -51,7 +53,20 @@ SidePanel
         }
     }
 
-    onContentLoaded: item.functionID = itemID
+    function requestEditor(funcID, funcType)
+    {
+        // reset the currently loaded item first
+        loaderSource = ""
+        itemID = funcID
+        loaderSource = functionManager.getEditorResource(funcType)
+        animatePanel(true)
+    }
+
+    onContentLoaded:
+    {
+        if (item.hasOwnProperty("functionID"))
+            item.functionID = itemID
+    }
 
     Rectangle
     {
@@ -79,6 +94,8 @@ SidePanel
                 {
                     if (checked)
                         loaderSource = "qrc:/FunctionManager.qml"
+                    else
+                        functionManager.selectFunctionID(-1, false)
                     animatePanel(checked)
                 }
             }
@@ -99,7 +116,7 @@ SidePanel
                     visible: false
                     x: -width
 
-                    onEntryClicked: createFunctionAndEditor(fType, fEditor)
+                    onEntryClicked: createFunctionAndEditor(fType)
                 }
             }
             IconButton
@@ -110,7 +127,7 @@ SidePanel
                 height: iconSize
                 imgSource: "qrc:/remove.svg"
                 tooltip: qsTr("Remove the selected functions")
-                counter: functionManager.selectionCount
+                counter: functionManager.selectionCount && !functionManager.isEditing
                 onClicked:
                 {
                     var selNames = functionManager.selectedFunctionsName()
@@ -130,7 +147,7 @@ SidePanel
                 height: iconSize
                 imgSource: "qrc:/rename.svg"
                 tooltip: qsTr("Rename the selected functions")
-                counter: functionManager.selectionCount
+                counter: functionManager.selectionCount && !functionManager.isEditing
                 onClicked:
                 {
                     var selNames = functionManager.selectedFunctionsName()

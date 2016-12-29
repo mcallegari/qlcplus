@@ -103,7 +103,7 @@ GridLayout
         onTriggered:
         {
             if (tapButton.border.color == UISettings.bgMedium)
-                tapButton.border.color = "green"
+                tapButton.border.color = "#00FF00"
             else
                 tapButton.border.color = UISettings.bgMedium
         }
@@ -165,7 +165,7 @@ GridLayout
         Layout.rowSpan: 2
         bgColor: buttonsBgColor
         fontSize: btnFontSize
-        label: "Tap"
+        label: qsTr("Tap")
 
         onClicked:
         {

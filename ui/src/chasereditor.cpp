@@ -1116,7 +1116,7 @@ void ChaserEditor::updateItem(QTreeWidgetItem* item, ChaserStep& step)
     if (m_chaser->isSequence() == false)
     {
         item->setText(COL_NAME, function->name());
-        item->setIcon(COL_NAME, Function::typeToIcon(function->type()));
+        item->setIcon(COL_NAME, function->getIcon());
     }
 
     if (step.note.isEmpty() == false)

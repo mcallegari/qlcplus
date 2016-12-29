@@ -322,7 +322,8 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 fxID,
     if (hasDimmer)
     {
         QQuickItem *capItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("capIntensity"));
-        capItem->setProperty("counter", capItem->property("counter").toInt() + capDelta);
+        if (capItem != NULL)
+            capItem->setProperty("counter", capItem->property("counter").toInt() + capDelta);
     }
     if (hasColor)
     {
@@ -332,19 +333,24 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 fxID,
     if (hasPosition)
     {
         QQuickItem *capItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("capPosition"));
-        capItem->setProperty("counter", capItem->property("counter").toInt() + capDelta);
-        capItem->setProperty("panDegrees", m_maxPanDegrees);
-        capItem->setProperty("tiltDegrees", m_maxTiltDegrees);
+        if (capItem != NULL)
+        {
+            capItem->setProperty("counter", capItem->property("counter").toInt() + capDelta);
+            capItem->setProperty("panDegrees", m_maxPanDegrees);
+            capItem->setProperty("tiltDegrees", m_maxTiltDegrees);
+        }
     }
     if (hasColorWheel)
     {
         QQuickItem *capItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("capColorWheel"));
-        capItem->setProperty("counter", capItem->property("counter").toInt() + capDelta);
+        if (capItem != NULL)
+            capItem->setProperty("counter", capItem->property("counter").toInt() + capDelta);
     }
     if (hasGobos)
     {
         QQuickItem *capItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("capGobos"));
-        capItem->setProperty("counter", capItem->property("counter").toInt() + capDelta);
+        if (capItem != NULL)
+            capItem->setProperty("counter", capItem->property("counter").toInt() + capDelta);
     }
 
     return channelsMap;

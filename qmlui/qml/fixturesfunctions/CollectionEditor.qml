@@ -102,7 +102,7 @@ Rectangle
                                 rightSidePanel.width = rightSidePanel.width / 2
                             }
 
-                            functionManager.setEditorFunction(-1)
+                            functionManager.setEditorFunction(-1, false)
                             requestView(-1, "qrc:/FunctionManager.qml")
                         }
                     }

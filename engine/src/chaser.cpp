@@ -79,6 +79,14 @@ Chaser::~Chaser()
 {
 }
 
+QIcon Chaser::getIcon() const
+{
+    if (isSequence())
+        return QIcon(":/sequence.png");
+
+    return QIcon(":/chaser.png");
+}
+
 /*****************************************************************************
  * Copying
  *****************************************************************************/

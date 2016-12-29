@@ -59,6 +59,11 @@ Show::~Show()
     m_tracks.clear();
 }
 
+QIcon Show::getIcon() const
+{
+    return QIcon(":/show.png");
+}
+
 quint32 Show::totalDuration()
 {
     quint32 totalDuration = 0;

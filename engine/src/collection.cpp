@@ -52,6 +52,11 @@ Collection::~Collection()
 {
 }
 
+QIcon Collection::getIcon() const
+{
+    return QIcon(":/collection.png");
+}
+
 quint32 Collection::totalDuration()
 {
     quint32 totalDuration = 0;

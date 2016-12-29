@@ -84,7 +84,6 @@ Rectangle
         }
     }
 
-
     NumberAnimation
     {
         id: animateOpen

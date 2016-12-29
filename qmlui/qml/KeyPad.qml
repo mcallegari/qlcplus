@@ -28,17 +28,33 @@ Rectangle
     width: UISettings.bigItemHeight * 2.5
     height: keyPadGrid.height
     color: "transparent"
-    //border.color: "#666"
-    //border.width: 2
 
     property bool showDMXcontrol: true
-    property int buttonWidth: (width / keyPadGrid.columns) - keyPadGrid.columnSpacing
+    property bool showTapButton: false
+    property double tapTimeValue: 0
     property alias commandString: commandBox.inputText
 
     onVisibleChanged: if (visible) commandBox.selectAndFocus()
 
     signal executeCommand(string cmd)
     signal escapePressed()
+    signal tapTimeChanged(int time)
+
+    Timer
+    {
+        id: tapTimer
+        repeat: true
+        running: false
+        interval: 500
+
+        onTriggered:
+        {
+            if (tapButton.border.color == UISettings.bgMedium)
+                tapButton.border.color = "#00FF00"
+            else
+                tapButton.border.color = UISettings.bgMedium
+        }
+    }
 
     GridLayout
     {
@@ -51,49 +67,71 @@ Rectangle
         columnSpacing: 3
 
         // row 1
-        Rectangle
+        CustomTextEdit
         {
-            Layout.columnSpan: keyPadGrid.columns
-            width: parent.width
-            height: UISettings.listItemHeight
-            color: "transparent"
-            border.width: 2
-            border.color: UISettings.bgStronger
+            id: commandBox
+            property int span: showTapButton ? keyPadGrid.columns - 1 : keyPadGrid.columns
+            Layout.columnSpan: span
+            Layout.fillWidth: true
+            height: UISettings.iconSizeDefault
+            color: UISettings.bgLight
+            onEnterPressed: keyPadRoot.executeCommand(keyPadRoot.commandString)
+            onEscapePressed: keyPadRoot.escapePressed()
+        }
 
-            CustomTextEdit
+        GenericButton
+        {
+            id: tapButton
+            visible: showTapButton
+            Layout.fillWidth: true
+            label: qsTr("Tap")
+
+            onClicked:
             {
-                id: commandBox
-                anchors.fill: parent
-                x: 3
-                color: UISettings.bgLight
-                onEnterPressed: keyPadRoot.executeCommand(keyPadRoot.commandString)
-                onEscapePressed: keyPadRoot.escapePressed()
+                /* right click resets the current TAP time */
+                if (mouseButton === Qt.RightButton)
+                {
+                    tapTimer.stop()
+                    tapButton.border.color = UISettings.bgMedium
+                    tapTimeValue = 0
+                }
+                else
+                {
+                    var currTime = new Date().getTime()
+                    if (tapTimeValue != 0)
+                    {
+                        keyPadRoot.tapTimeChanged(currTime - tapTimeValue)
+                        tapTimer.interval = currTime - tapTimeValue
+                        tapTimer.restart()
+                    }
+                    tapTimeValue = currTime
+                }
             }
         }
 
         // row 2
         GenericButton
         {
-            width: buttonWidth
+            Layout.fillWidth: true
             label: "7"
             onClicked: commandBox.appendText(label)
         }
         GenericButton
         {
-            width: buttonWidth
+            Layout.fillWidth: true
             label: "8"
             onClicked: commandBox.appendText(label)
         }
         GenericButton
         {
-            width: buttonWidth
+            Layout.fillWidth: true
             label: "9"
             onClicked: commandBox.appendText(label)
         }
         GenericButton
         {
             visible: showDMXcontrol
-            width: buttonWidth
+            Layout.fillWidth: true
             label: "AT"
             onClicked: commandBox.appendText(" AT")
         }
@@ -101,26 +139,26 @@ Rectangle
         // row 3
         GenericButton
         {
-            width: buttonWidth
+            Layout.fillWidth: true
             label: "4"
             onClicked: commandBox.appendText(label)
         }
         GenericButton
         {
-            width: buttonWidth
+            Layout.fillWidth: true
             label: "5"
             onClicked: commandBox.appendText(label)
         }
         GenericButton
         {
-            width: buttonWidth
+            Layout.fillWidth: true
             label: "6"
             onClicked: commandBox.appendText(label)
         }
         GenericButton
         {
             visible: showDMXcontrol
-            width: buttonWidth
+            Layout.fillWidth: true
             label: "THRU"
             onClicked: commandBox.appendText(" THRU")
         }
@@ -128,26 +166,26 @@ Rectangle
         // row 4
         GenericButton
         {
-            width: buttonWidth
+            Layout.fillWidth: true
             label: "1"
             onClicked: commandBox.appendText(label)
         }
         GenericButton
         {
-            width: buttonWidth
+            Layout.fillWidth: true
             label: "2"
             onClicked: commandBox.appendText(label)
         }
         GenericButton
         {
-            width: buttonWidth
+            Layout.fillWidth: true
             label: "3"
             onClicked: commandBox.appendText(label)
         }
         GenericButton
         {
             visible: showDMXcontrol
-            width: buttonWidth
+            Layout.fillWidth: true
             label: "FULL"
             onClicked: commandBox.appendText(" FULL")
         }
@@ -155,7 +193,7 @@ Rectangle
         // row 5
         GenericButton
         {
-            width: buttonWidth
+            Layout.fillWidth: true
             label: "-"
             repetition: true
             onClicked:
@@ -166,13 +204,13 @@ Rectangle
         }
         GenericButton
         {
-            width: buttonWidth
+            Layout.fillWidth: true
             label: "0"
             onClicked: commandBox.appendText(label)
         }
         GenericButton
         {
-            width: buttonWidth
+            Layout.fillWidth: true
             label: "+"
             repetition: true
             onClicked:
@@ -184,7 +222,7 @@ Rectangle
         GenericButton
         {
             visible: showDMXcontrol
-            width: buttonWidth
+            Layout.fillWidth: true
             label: "ZERO"
         }
 
@@ -192,7 +230,7 @@ Rectangle
         GenericButton
         {
             Layout.columnSpan: 2
-            width: (buttonWidth * 2) + 5
+            Layout.fillWidth: true
             label: "ENTER"
             bgColor: "#43B008"
             hoverColor: "#61FF0C"
@@ -201,14 +239,14 @@ Rectangle
         }
         GenericButton
         {
-            width: buttonWidth
+            Layout.fillWidth: true
             label: "CLR"
             onClicked: keyPadRoot.commandString = ""
         }
         GenericButton
         {
             visible: showDMXcontrol
-            width: buttonWidth
+            Layout.fillWidth: true
             label: "BY"
         }
     }

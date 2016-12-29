@@ -36,11 +36,7 @@ Rectangle
     ModelSelector
     {
         id: seSelector
-
-        onItemsCountChanged:
-        {
-            console.log("Scene Editor selected items changed !")
-        }
+        onItemsCountChanged: console.log("Scene Editor selected items changed !")
     }
 
     Column
@@ -74,7 +70,7 @@ Rectangle
                     onExited: backBox.color = "transparent"
                     onClicked:
                     {
-                        functionManager.setEditorFunction(-1)
+                        functionManager.setEditorFunction(-1, false)
                         requestView(-1, "qrc:/FunctionManager.qml")
                     }
                 }

@@ -568,6 +568,8 @@ void VCMatrix::slotUpdate()
             button->setDown(on);
         }
     }
+
+    updateFeedback();
 }
 
 FunctionParent VCMatrix::functionParent() const

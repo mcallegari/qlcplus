@@ -88,7 +88,7 @@ Rectangle
                 onExited: backBox.color = "transparent"
                 onClicked:
                 {
-                    functionManager.setEditorFunction(-1)
+                    functionManager.setEditorFunction(-1, false)
                     requestView(-1, "qrc:/FunctionManager.qml")
                 }
             }

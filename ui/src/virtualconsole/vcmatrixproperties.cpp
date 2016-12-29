@@ -22,6 +22,7 @@
 #include <QTreeWidget>
 
 #include "vcmatrixpresetselection.h"
+#include "inputselectionwidget.h"
 #include "vcmatrixproperties.h"
 #include "selectinputchannel.h"
 #include "functionselection.h"
@@ -102,21 +103,24 @@ VCMatrixProperties::VCMatrixProperties(VCMatrix* matrix, Doc* doc)
     connect(m_removeButton, SIGNAL(clicked()),
             this, SLOT(slotRemoveClicked()));
 
-    connect(m_adControlInputButton, SIGNAL(toggled(bool)),
-            this, SLOT(slotAutoDetectControlInputToggled(bool)));
-    connect(m_chooseControlInputButton, SIGNAL(clicked()),
-            this, SLOT(slotChooseControlInputClicked()));
+    m_presetInputWidget = new InputSelectionWidget(m_doc, this);
+    m_presetInputWidget->setCustomFeedbackVisibility(true);
+    m_presetInputWidget->setWidgetPage(m_matrix->page());
+    m_presetInputWidget->show();
+    m_presetInputLayout->addWidget(m_presetInputWidget);
 
-    connect(m_attachKey, SIGNAL(clicked()), this, SLOT(slotAttachKey()));
-    connect(m_detachKey, SIGNAL(clicked()), this, SLOT(slotDetachKey()));
+    connect(m_presetInputWidget, SIGNAL(inputValueChanged(quint32,quint32)),
+            this, SLOT(slotInputValueChanged(quint32,quint32)));
+    connect(m_presetInputWidget, SIGNAL(keySequenceChanged(QKeySequence)),
+            this, SLOT(slotKeySequenceChanged(QKeySequence)));
 }
 
 VCMatrixProperties::~VCMatrixProperties()
 {
     foreach (VCMatrixControl* control, m_controls)
-    {
         delete control;
-    }
+
+    delete m_presetInputWidget;
 }
 
 /*********************************************************************
@@ -459,20 +463,26 @@ void VCMatrixProperties::slotRemoveClicked()
     updateTree();
 }
 
-void VCMatrixProperties::updateControlInputSource(QSharedPointer<QLCInputSource> const& source)
+void VCMatrixProperties::slotInputValueChanged(quint32 universe, quint32 channel)
 {
-    QString uniName;
-    QString chName;
+    Q_UNUSED(universe);
+    Q_UNUSED(channel);
 
-    if (m_doc->inputOutputMap()->inputSourceNames(source, uniName, chName) == false)
-    {
-        uniName = KInputNone;
-        chName = KInputNone;
+    VCMatrixControl *preset = getSelectedControl();
+
+    if (preset != NULL) {
+        preset->m_inputSource = m_presetInputWidget->inputSource();
     }
-
-    m_controlInputUniverseEdit->setText(uniName);
-    m_controlInputChannelEdit->setText(chName);
 }
+
+void VCMatrixProperties::slotKeySequenceChanged(QKeySequence key)
+{
+    VCMatrixControl *preset = getSelectedControl();
+
+    if (preset != NULL)
+        preset->m_keySequence = key;
+}
+
 
 void VCMatrixProperties::slotTreeSelectionChanged()
 {
@@ -480,74 +490,18 @@ void VCMatrixProperties::slotTreeSelectionChanged()
 
     if (control != NULL)
     {
-        updateControlInputSource(control->m_inputSource);
-        m_keyEdit->setText(control->m_keySequence.toString(QKeySequence::NativeText));
-    }
-}
-
-void VCMatrixProperties::slotAutoDetectControlInputToggled(bool checked)
-{
-    if (checked == true)
-    {
-        connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
-                this, SLOT(slotControlInputValueChanged(quint32,quint32)));
-    }
-    else
-    {
-        disconnect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
-                   this, SLOT(slotControlInputValueChanged(quint32,quint32)));
-    }
-}
-
-void VCMatrixProperties::slotControlInputValueChanged(quint32 universe, quint32 channel)
-{
-    VCMatrixControl *control = getSelectedControl();
-
-    if (control != NULL)
-    {
-        control->m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(universe, (m_matrix->page() << 16) | channel));
-        updateControlInputSource(control->m_inputSource);
-    }
-}
-
-void VCMatrixProperties::slotChooseControlInputClicked()
-{
-    VCMatrixControl *control = getSelectedControl();
-
-    if (control != NULL)
-    {
-        SelectInputChannel sic(this, m_doc->inputOutputMap());
-        if (sic.exec() == QDialog::Accepted)
+        m_presetInputWidget->setInputSource(control->m_inputSource);
+        m_presetInputWidget->setKeySequence(control->m_keySequence.toString(QKeySequence::NativeText));
+        if (control->widgetType() == VCMatrixControl::Button)
         {
-            control->m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(sic.universe(), sic.channel()));
-            updateControlInputSource(control->m_inputSource);
+            m_presetInputWidget->setCustomFeedbackVisibility(true);
+            m_presetInputWidget->setKeyInputVisibility(true);
         }
-    }
-}
-
-void VCMatrixProperties::slotAttachKey()
-{
-    VCMatrixControl *control = getSelectedControl();
-
-    if (control != NULL)
-    {
-        AssignHotKey ahk(this, control->m_keySequence);
-        if (ahk.exec() == QDialog::Accepted)
+        else
         {
-            control->m_keySequence = QKeySequence(ahk.keySequence());
-            m_keyEdit->setText(control->m_keySequence.toString(QKeySequence::NativeText));
+            m_presetInputWidget->setCustomFeedbackVisibility(false);
+            m_presetInputWidget->setKeyInputVisibility(false);
         }
-    }
-}
-
-void VCMatrixProperties::slotDetachKey()
-{
-    VCMatrixControl *control = getSelectedControl();
-
-    if (control != NULL)
-    {
-        control->m_keySequence = QKeySequence();
-        m_keyEdit->setText(control->m_keySequence.toString(QKeySequence::NativeText));
     }
 }
 

@@ -60,6 +60,9 @@ public:
     Chaser(Doc* doc);
     virtual ~Chaser();
 
+    /** @reimp */
+    QIcon getIcon() const;
+
 private:
     quint32 m_legacyHoldBus;
 
@@ -67,7 +70,7 @@ private:
      * Copying
      *********************************************************************/
 public:
-    /** @reimpl */
+    /** @reimp */
     Function* createCopy(Doc* doc, bool addToDoc = true);
 
     /** Copy the contents for this function from another function */

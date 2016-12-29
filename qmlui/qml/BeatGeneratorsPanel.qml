@@ -26,7 +26,7 @@ Rectangle
 {
     id: beatChooserBox
     width: UISettings.bigItemHeight * 3
-    height: contentsColumn.height + 13
+    height: contentsColumn.height + 30
     color: UISettings.bgMedium
     border.color: "#666"
     border.width: 2
@@ -139,6 +139,7 @@ Rectangle
             id: keyPadBox
             width: parent.width
             showDMXcontrol: false
+            showTapButton: true
             visible: ioManager.beatType === "INTERNAL"
             commandString: ioManager.bpmNumber
 
@@ -151,6 +152,8 @@ Rectangle
                 ioManager.bpmNumber = cmd
             }
             onEscapePressed: beatChooserBox.visible = false
+
+            onTapTimeChanged: ioManager.bpmNumber = Math.min(parseInt(60000 / time), 300)
         }
     }
 }

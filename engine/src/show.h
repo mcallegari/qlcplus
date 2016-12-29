@@ -46,14 +46,17 @@ public:
     Show(Doc* doc);
     virtual ~Show();
 
-    /** @reimpl */
+    /** @reimp */
+    QIcon getIcon() const;
+
+    /** @reimp */
     quint32 totalDuration();
 
     /*********************************************************************
      * Copying
      *********************************************************************/
 public:
-    /** @reimpl */
+    /** @reimp */
     Function* createCopy(Doc* doc, bool addToDoc = true);
 
     /** Copy the contents for this function from another function */
