@@ -123,16 +123,16 @@ void Scene::addFrom(Function* function_from){
                 z++;
         }
         if(z == 0){
-            setValue(scenes_to[i].fxi, scenes_to[i].channel, CLAMP( init_Intensity*scenes_to[i].value, 0.0, 255.0 ));
+            setValue(scenes_to[i].fxi, scenes_to[i].channel, CLAMP( qRound(init_Intensity*scenes_to[i].value), 0.0, 255.0 ));
         }
     }
 
     // Now we adjust the intensity of common channels or channels from function_from
     for(int i = 0; i<scenes_from.count(); i++){
         if(checkValue(scenes_from[i]) ){
-            setValue(scenes_from[i].fxi, scenes_from[i].channel, CLAMP(init_Intensity*value(scenes_from[i].fxi, scenes_from[i].channel) + sf_from->getAttributeValue(Function::Intensity) * scenes_from[i].value, 0.0, 255.0 ));
+            setValue(scenes_from[i].fxi, scenes_from[i].channel, CLAMP(qRound(init_Intensity*value(scenes_from[i].fxi, scenes_from[i].channel) + sf_from->getAttributeValue(Function::Intensity) * scenes_from[i].value), 0.0, 255.0 ));
         } else {
-            setValue(scenes_from[i].fxi, scenes_from[i].channel, CLAMP(sf_from->getAttributeValue(Function::Intensity)*scenes_from[i].value, 0.0, 255.0));
+            setValue(scenes_from[i].fxi, scenes_from[i].channel, CLAMP(qRound(sf_from->getAttributeValue(Function::Intensity)*scenes_from[i].value), 0.0, 255.0));
         }
     }
 
