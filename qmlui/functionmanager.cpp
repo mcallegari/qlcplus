@@ -335,7 +335,24 @@ void FunctionManager::selectFunctionID(quint32 fID, bool multiSelection)
     emit selectionCountChanged(m_selectedIDList.count());
 }
 
-void FunctionManager::setEditorFunction(quint32 fID)
+QString FunctionManager::getEditorResource(int type)
+{
+    switch(type)
+    {
+        case Function::Scene: return "qrc:/SceneEditor.qml";
+        case Function::Chaser: return "qrc:/ChaserEditor.qml";
+        case Function::EFX: return "qrc:/EFXEditor.qml";
+        case Function::Collection: return "qrc:/CollectionEditor.qml";
+        case Function::RGBMatrix: return "qrc:/RGBMatrixEditor.qml";
+        case Function::Show: return "qrc:/ShowManager.qml";
+        case Function::Script: return "qrc:/ScriptEditor.qml";
+        case Function::Audio: return "qrc:/AudioEditor.qml";
+        case Function::Video: return "qrc:/VideoEditor.qml";
+        default: return ""; break;
+    }
+}
+
+void FunctionManager::setEditorFunction(quint32 fID, bool requestUI)
 {
     // reset all the editor functions
     if (m_currentEditor != NULL)
@@ -393,6 +410,16 @@ void FunctionManager::setEditorFunction(quint32 fID)
     {
         m_currentEditor->setFunctionID(fID);
         m_currentEditor->setPreviewEnabled(m_previewEnabled);
+    }
+
+    if (requestUI == true)
+    {
+        QQuickItem *rightPanel = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("funcRightPanel"));
+        if (rightPanel != NULL)
+        {
+            QMetaObject::invokeMethod(rightPanel, "requestEditor",
+                Q_ARG(QVariant, f->id()), Q_ARG(QVariant, f->type()));
+        }
     }
 
     emit isEditingChanged(true);

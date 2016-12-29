@@ -31,38 +31,22 @@ Rectangle
     color: "transparent"
     clip: true
 
-    property int functionID: -1
-
     signal requestView(int ID, string qmlSrc)
 
     function loadFunctionEditor(funcID, funcType)
     {
         //console.log("Request to open Function editor. ID: " + funcID + " type: " + funcType)
-        functionManager.setEditorFunction(funcID)
+        functionManager.setEditorFunction(funcID, false)
         functionManager.viewPosition = functionsListView.contentY
+        var editorRes = functionManager.getEditorResource(funcType)
 
-        switch(funcType)
+        if (funcType === Function.Show)
         {
-            case Function.Scene:
-                fmContainer.requestView(funcID, "qrc:/SceneEditor.qml")
-            break;
-            case Function.Collection:
-                fmContainer.requestView(funcID, "qrc:/CollectionEditor.qml")
-            break;
-            case Function.Chaser:
-                fmContainer.requestView(funcID, "qrc:/ChaserEditor.qml")
-            break;
-            case Function.RGBMatrix:
-                fmContainer.requestView(funcID, "qrc:/RGBMatrixEditor.qml")
-            break;
-            case Function.Audio:
-                fmContainer.requestView(funcID, "qrc:/AudioEditor.qml")
-            break;
-            case Function.Show:
-                showManager.currentShowID = funcID
-                mainView.switchToContext("SHOWMGR", "qrc:/ShowManager.qml")
-            break;
+            showManager.currentShowID = funcID
+            mainView.switchToContext("SHOWMGR", editorRes)
         }
+        else
+            fmContainer.requestView(funcID, editorRes)
     }
 
     function setFunctionFilter(fType, checked)

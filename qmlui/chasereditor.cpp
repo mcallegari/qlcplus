@@ -37,7 +37,8 @@ ChaserEditor::ChaserEditor(QQuickView *view, Doc *doc, QObject *parent)
 
 void ChaserEditor::setFunctionID(quint32 ID)
 {
-    disconnect(m_chaser, &Chaser::currentStepChanged, this, &ChaserEditor::slotStepChanged);
+    if (m_chaser)
+        disconnect(m_chaser, &Chaser::currentStepChanged, this, &ChaserEditor::slotStepChanged);
 
     m_chaser = qobject_cast<Chaser *>(m_doc->function(ID));
     FunctionEditor::setFunctionID(ID);
