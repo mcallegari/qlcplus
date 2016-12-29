@@ -294,6 +294,7 @@ void MasterTimer::timerTickFunctions(QList<Universe *> universes)
                             if(function->stopped() == false && function->getAttributeValue(Function::CrosfaderId) == function_2->getAttributeValue(Function::CrosfaderId) && function_2->type() == function->type())
                             {
                                 function_copy->addFrom(function_2);
+                                function_copy->setDuration(function_copy->infiniteSpeed());
                                 if (firstIteration)
                                     function_copy->write(this, universes);
                             }
