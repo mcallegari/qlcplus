@@ -262,27 +262,27 @@ public:
     QList <VCSlider::LevelChannel> levelChannels();
 
     /**
-     * Set low limit for levels set thru the slider
+     * Set low limit for levels set through the slider
      *
      * @param value Low limit
      */
     void setLevelLowLimit(uchar value);
 
     /**
-     * Get low limit for levels set thru the slider
+     * Get low limit for levels set through the slider
      *
      */
     uchar levelLowLimit() const;
 
     /**
-     * Set high limit for levels set thru the slider
+     * Set high limit for levels set through the slider
      *
      * @param value High limit
      */
     void setLevelHighLimit(uchar value);
 
     /**
-     * Get high limit for levels set thru the slider
+     * Get high limit for levels set through the slider
      */
     uchar levelHighLimit() const;
 
@@ -457,7 +457,7 @@ private slots:
 
 protected:
     QHBoxLayout* m_hbox;
-    QAbstractSlider* m_slider; //!< either QClickAndGoSlider or KnobWidget
+    QAbstractSlider* m_slider; //!< either ClickAndGoSlider or KnobWidget
     bool m_externalMovement;
     SliderWidgetStyle m_widgetMode;
 
@@ -520,6 +520,16 @@ protected:
     QMenu *m_menu;
     ClickAndGoWidget *m_cngWidget;
     QColor m_cngRGBvalue;
+
+    /*********************************************************************
+     * Override reset button
+     *********************************************************************/
+private slots:
+    void slotResetButtonClicked();
+
+protected:
+    QToolButton *m_resetButton;
+    bool m_isOverriding;
 
     /*********************************************************************
      * External input

@@ -168,6 +168,9 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     connect(this, SIGNAL(monitorDMXValueChanged(int)),
             this, SLOT(slotMonitorDMXValueChanged(int)));
 
+    m_resetButton = NULL;
+    m_isOverriding = false;
+
     /* Bottom label */
     m_bottomLabel = new QLabel(this);
     layout()->addWidget(m_bottomLabel);
@@ -286,6 +289,8 @@ void VCSlider::enableWidgetUI(bool enable)
         m_slider->setEnabled(enable);
     m_bottomLabel->setEnabled(enable);
     m_cngButton->setEnabled(enable);
+    if (m_resetButton)
+        m_resetButton->setEnabled(enable);
 }
 
 /*****************************************************************************
@@ -301,9 +306,7 @@ void VCSlider::editProperties()
         if (m_cngType == ClickAndGoWidget::None)
             m_cngButton->hide();
         else
-        {
             m_cngButton->show();
-        }
     }
 }
 
@@ -552,6 +555,30 @@ uchar VCSlider::levelHighLimit() const
 void VCSlider::setChannelsMonitorEnabled(bool enable)
 {
     m_monitorEnabled = enable;
+
+    if (m_resetButton != NULL)
+    {
+        disconnect(m_resetButton, SIGNAL(clicked(bool)),
+                this, SLOT(slotResetButtonClicked()));
+        delete m_resetButton;
+        m_resetButton = NULL;
+    }
+
+    if (enable)
+    {
+        m_resetButton = new QToolButton(this);
+        m_cngButton->setFixedSize(32, 32);
+        m_resetButton->setIconSize(QSize(32, 32));
+        m_resetButton->setStyle(AppUtil::saneStyle());
+        m_resetButton->setIcon(QIcon(":/fileclose.png"));
+        m_resetButton->setToolTip(tr("Reset channels override"));
+        layout()->addWidget(m_resetButton);
+        layout()->setAlignment(m_resetButton, Qt::AlignHCenter);
+
+        connect(m_resetButton, SIGNAL(clicked(bool)),
+                this, SLOT(slotResetButtonClicked()));
+        m_resetButton->show();
+    }
 }
 
 bool VCSlider::channelsMonitorEnabled() const
@@ -715,6 +742,15 @@ void VCSlider::slotClickAndGoLevelAndPresetChanged(uchar level, QImage img)
 
     QPixmap px = QPixmap::fromImage(img);
     m_cngButton->setIcon(px);
+}
+
+/*********************************************************************
+ * Override reset button
+ *********************************************************************/
+
+void VCSlider::slotResetButtonClicked()
+{
+    m_isOverriding = false;
 }
 
 /*****************************************************************************
@@ -893,7 +929,7 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
         }
     }
 
-    if (m_monitorEnabled == true && m_levelValueChanged == false)
+    if (m_monitorEnabled == true && m_levelValueChanged == false && m_isOverriding == false)
     {
         QListIterator <LevelChannel> it(m_levelChannels);
         while (it.hasNext() == true)
@@ -994,7 +1030,7 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
             }
 
             if (uni < universes.count())
-                universes[uni]->write(dmx_ch, modLevel * intensity());
+                universes[uni]->write(dmx_ch, modLevel * intensity(), m_isOverriding ? true : false);
         }
     }
     m_levelValueChanged = false;
@@ -1122,7 +1158,7 @@ void VCSlider::setWidgetStyle(SliderWidgetStyle mode)
                 this, SLOT(slotSliderMoved(int)));
 
         QLayoutItem* item;
-        while ( ( item = m_hbox->takeAt( 0 ) ) != NULL )
+        while ((item = m_hbox->takeAt(0)) != NULL)
         {
             delete item->widget();
             delete item;
@@ -1144,7 +1180,7 @@ void VCSlider::setWidgetStyle(SliderWidgetStyle mode)
                 this, SLOT(slotSliderMoved(int)));
 
         QLayoutItem* item;
-        while ( ( item = m_hbox->takeAt( 0 ) ) != NULL )
+        while ((item = m_hbox->takeAt(0)) != NULL)
         {
             delete item->widget();
             delete item;
@@ -1212,27 +1248,33 @@ void VCSlider::slotSliderMoved(int value)
 {
     switch (sliderMode())
     {
-    case Level:
-    {
-        setLevelValue(value);
-        setClickAndGoWidgetFromLevel(value);
-    }
-    break;
+        case Level:
+        {
+            if (m_monitorEnabled == true && m_isOverriding == false && m_slider->isSliderDown())
+            {
+                qDebug() << Q_FUNC_INFO << "-----------------------";
+                m_doc->masterTimer()->requestHigherPriority(this);
+                m_isOverriding = true;
+            }
+            setLevelValue(value);
+            setClickAndGoWidgetFromLevel(value);
+        }
+        break;
 
-    case Playback:
-    {
-        setPlaybackValue(value);
-    }
-    break;
+        case Playback:
+        {
+            setPlaybackValue(value);
+        }
+        break;
 
-    case Submaster:
-    {
-        setLevelValue(value);
-        emitSubmasterValue();
-    }
-    break;
+        case Submaster:
+        {
+            setLevelValue(value);
+            emitSubmasterValue();
+        }
+        break;
 
-    default:
+        default:
         break;
     }
 
@@ -1262,7 +1304,7 @@ QString VCSlider::bottomLabelText()
 void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel,
                                      uchar value)
 {
-    /* Don't let input data thru in design mode */
+    /* Don't let input data through in design mode */
     if (mode() == Doc::Design || isEnabled() == false)
         return;
 
@@ -1275,6 +1317,13 @@ void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel,
             val = SCALE((float) value, (float) 0, (float) UCHAR_MAX,
                         (float) m_slider->minimum(),
                         (float) m_slider->maximum());
+
+            if (m_monitorEnabled == true && m_isOverriding == false)
+            {
+                qDebug() << Q_FUNC_INFO << "-----------------------";
+                m_doc->masterTimer()->requestHigherPriority(this);
+                m_isOverriding = true;
+            }
 
             if (m_slider->invertedAppearance() == true)
                 m_slider->setValue((m_slider->maximum() - (int) val) + m_slider->minimum());
