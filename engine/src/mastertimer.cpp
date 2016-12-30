@@ -385,6 +385,19 @@ void MasterTimer::unregisterDMXSource(DMXSource* source)
     m_dmxSourceList.removeAll(source);
 }
 
+void MasterTimer::requestHigherPriority(DMXSource *source)
+{
+    Q_ASSERT(source != NULL);
+    QMutexLocker lock(&m_dmxSourceListMutex);
+    if (m_dmxSourceList.contains(source) == true)
+    {
+       int pos = m_dmxSourceList.indexOf(source);
+       m_dmxSourceList.move(pos, m_dmxSourceList.count() - (m_simpleDeskRegistered ? 2 : 1));
+       qDebug() << "DMX source moved from" << pos << "to" << m_dmxSourceList.indexOf(source) << ". Count:" << m_dmxSourceList.count();
+    }
+
+}
+
 void MasterTimer::timerTickDMXSources(QList<Universe *> universes)
 {
     /* Lock before accessing the DMX sources list. */
