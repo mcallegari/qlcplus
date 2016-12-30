@@ -33,7 +33,7 @@ void ClickAndGoSlider::setSliderStyleSheet(const QString &styleSheet)
         m_styleSheet = styleSheet;
 }
 
-void ClickAndGoSlider::mousePressEvent ( QMouseEvent * event )
+void ClickAndGoSlider::mousePressEvent (QMouseEvent *event)
 {
     if (event->modifiers() == Qt::ControlModifier)
     {
