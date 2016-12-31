@@ -64,8 +64,14 @@ public:
     /** Copy constructor */
     SceneValue(const SceneValue& scv);
 
-    /** Destructor */
-    virtual ~SceneValue();
+    /** NON-virtual Destructor 
+     *
+     *  No class derives from this one and we need to keep the memory footprint
+     *  as low as possible.
+     *
+     *  TODO C++11: mark this as final
+     */
+    ~SceneValue();
 
     /** A SceneValue is not valid if .fxi == Fixture::invalidId() */
     bool isValid() const;
