@@ -292,7 +292,7 @@ Rectangle
         hoverEnabled: true
         preventStealing: false
 
-        drag.threshold: UISettings.iconSizeDefault
+        drag.threshold: 10 //UISettings.iconSizeDefault
 
         onEntered: fixtureLabel.visible = true
         onExited: showLabel ? fixtureLabel.visible = true : fixtureLabel.visible = false
@@ -307,8 +307,12 @@ Rectangle
         {
             if (!fxMouseArea.pressed)
                 return
-            drag.target = fixtureItem
-            isSelected = true
+
+            if (drag.target == null)
+            {
+                drag.target = fixtureItem
+                isSelected = true
+            }
         }
 
         onReleased:
