@@ -991,7 +991,7 @@ void InputOutputMap::slotMIDIBeat(quint32 universe, quint32 channel, uchar value
     Q_UNUSED(universe)
 
     // not interested in synthetic release event or non-MBC ones
-    if (value == 0 || channel < CHANNEL_OFFSET_MBC_PLAYBACK)
+    if (m_beatGeneratorType != MIDI || value == 0 || channel < CHANNEL_OFFSET_MBC_PLAYBACK)
         return;
 
     qDebug() << "MIDI MBC:" << channel << m_beatTime->elapsed();
@@ -1011,6 +1011,8 @@ void InputOutputMap::slotMIDIBeat(quint32 universe, quint32 channel, uchar value
         // it's just a tiny time drift
         if (qAbs((float)elapsed - currBpmTime) > 1)
             setBpmNumber(bpm);
+
+        doc()->masterTimer()->requestBeat();
         emit beat();
     }
 }
