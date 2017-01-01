@@ -56,6 +56,8 @@ GridLayout
     property int indexInList
 
     signal valueChanged(int val)
+    signal tabPressed(bool forward)
+    signal closed()
 
     function show(tX, tY, tTitle, tStrValue, tType)
     {
@@ -152,6 +154,7 @@ GridLayout
             {
                 tapTimer.stop()
                 toolRoot.visible = false
+                toolRoot.closed()
             }
         }
     }
@@ -295,14 +298,14 @@ GridLayout
             inputText: timeValueString
             fontSize: btnFontSize
 
-            onEnterPressed:
-            {
-                updateTime(-1, inputText)
-            }
-            Keys.onEscapePressed:
+            onEnterPressed: updateTime(-1, inputText)
+            Keys.onTabPressed: toolRoot.tabPressed(true)
+            Keys.onBacktabPressed: toolRoot.tabPressed(false)
+            onEscapePressed:
             {
                 tapTimer.stop()
                 toolRoot.visible = false
+                toolRoot.closed()
             }
         }
     }
