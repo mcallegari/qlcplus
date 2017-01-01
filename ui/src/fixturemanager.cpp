@@ -464,11 +464,11 @@ void FixtureManager::updateChannelsGroupView()
         if (grp->getChannels().count() > 0)
         {
             SceneValue scv = grp->getChannels().at(0);
-            Fixture *fxi = m_doc->fixture(scv.fxi);
+            Fixture *fxi = m_doc->fixture(scv.fxi());
             if (fxi == NULL)
                 continue;
 
-            const QLCChannel* ch = fxi->channel(scv.channel);
+            const QLCChannel* ch = fxi->channel(scv.channel());
             if (ch != NULL)
                 grpItem->setIcon(KColumnName, ch->getIcon());
         }

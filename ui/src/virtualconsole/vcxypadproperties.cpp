@@ -700,10 +700,10 @@ void VCXYPadProperties::slotAddSceneClicked()
         bool panTiltFound = false;
         foreach(SceneValue scv, scene->values())
         {
-            Fixture *fixture = m_doc->fixture(scv.fxi);
+            Fixture *fixture = m_doc->fixture(scv.fxi());
             if (fixture == NULL)
                 continue;
-            const QLCChannel *ch = fixture->channel(scv.channel);
+            const QLCChannel *ch = fixture->channel(scv.channel());
             if (ch == NULL)
                 continue;
             if (ch->group() == QLCChannel::Pan || ch->group() == QLCChannel::Tilt)

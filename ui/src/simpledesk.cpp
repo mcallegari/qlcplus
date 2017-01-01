@@ -994,10 +994,10 @@ void SimpleDesk::slotGroupValueChanged(quint32 groupID, uchar value)
 
     foreach (SceneValue scv, group->getChannels())
     {
-        Fixture *fixture = m_doc->fixture(scv.fxi);
+        Fixture *fixture = m_doc->fixture(scv.fxi());
         if (fixture == NULL)
             continue;
-        quint32 absAddr = fixture->universeAddress() + scv.channel;
+        quint32 absAddr = fixture->universeAddress() + scv.channel();
         m_engine->setValue(absAddr, value);
 
         // Update sliders on screen
@@ -1022,7 +1022,7 @@ void SimpleDesk::slotGroupValueChanged(quint32 groupID, uchar value)
             if(fc != NULL)
             {
                 fc->blockSignals(true);
-                fc->setValue(scv.channel, value, false);
+                fc->setValue(scv.channel(), value, false);
                 fc->blockSignals(false);
             }
         }

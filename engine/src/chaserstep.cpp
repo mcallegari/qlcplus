@@ -189,7 +189,7 @@ bool ChaserStep::saveXML(QXmlStreamWriter *doc, int stepNumber, bool isSequence)
             {
                 if (stepValues.isEmpty() == false)
                     stepValues.append(QString(","));
-                stepValues.append(QString("%1,%2,%3").arg(scv.fxi).arg(scv.channel).arg(scv.value));
+                stepValues.append(QString("%1,%2,%3").arg(scv.fxi()).arg(scv.channel()).arg(scv.value));
             }
         }
         if (stepValues.isEmpty() == false)

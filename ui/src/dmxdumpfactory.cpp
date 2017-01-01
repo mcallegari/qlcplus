@@ -141,10 +141,10 @@ void DmxDumpFactory::slotSelectSceneButtonClicked()
 
         foreach(SceneValue scv, scene->values())
         {
-            Fixture *fxi = m_doc->fixture(scv.fxi);
+            Fixture *fxi = m_doc->fixture(scv.fxi());
             if (fxi == NULL)
                 continue;
-            quint32 absAddress = fxi->universeAddress() + scv.channel;
+            quint32 absAddress = fxi->universeAddress() + scv.channel();
             if (chMask.length() > (int)absAddress)
                 chMask[absAddress] = 1;
         }

@@ -238,13 +238,13 @@ void PaletteGenerator::createColorScene(QList<SceneValue> chMap, QString name, P
     foreach(SceneValue scv, chMap)
     {
 
-        scene->setValue(scv.fxi, scv.channel, 255);
+        scene->setValue(scv.fxi(), scv.channel(), 255);
         if (subType == OddEven)
         {
             if (even)
-                evenScene->setValue(scv.fxi, scv.channel, 255);
+                evenScene->setValue(scv.fxi(), scv.channel(), 255);
             else
-                oddScene->setValue(scv.fxi, scv.channel, 255);
+                oddScene->setValue(scv.fxi(), scv.channel(), 255);
             even = !even;
         }
     }
@@ -307,13 +307,13 @@ void PaletteGenerator::createRGBCMYScene(QList<SceneValue> rcMap,
 
         foreach(SceneValue scv, rcMap)
         {
-            Fixture *fxi = m_doc->fixture(scv.fxi);
+            Fixture *fxi = m_doc->fixture(scv.fxi());
             int gmCh = -1, byCh = -1;
 
             for (int i = 0; i < fxi->heads(); i++)
             {
                 QLCFixtureHead head = fxi->head(i);
-                if(head.channels().contains(scv.channel))
+                if(head.channels().contains(scv.channel()))
                 {
                     if (head.rgbChannels().count() == 3)
                     {
@@ -334,23 +334,23 @@ void PaletteGenerator::createRGBCMYScene(QList<SceneValue> rcMap,
             if (gmCh == -1 || byCh == -1)
                 continue;
 
-            scene->setValue(scv.fxi, scv.channel, rc);
-            scene->setValue(scv.fxi, gmCh, gm);
-            scene->setValue(scv.fxi, byCh, by);
+            scene->setValue(scv.fxi(), scv.channel(), rc);
+            scene->setValue(scv.fxi(), gmCh, gm);
+            scene->setValue(scv.fxi(), byCh, by);
 
             if (subType == OddEven)
             {
                 if (even)
                 {
-                    evenScene->setValue(scv.fxi, scv.channel, rc);
-                    evenScene->setValue(scv.fxi, gmCh, gm);
-                    evenScene->setValue(scv.fxi, byCh, by);
+                    evenScene->setValue(scv.fxi(), scv.channel(), rc);
+                    evenScene->setValue(scv.fxi(), gmCh, gm);
+                    evenScene->setValue(scv.fxi(), byCh, by);
                 }
                 else
                 {
-                    oddScene->setValue(scv.fxi, scv.channel, rc);
-                    oddScene->setValue(scv.fxi, gmCh, gm);
-                    oddScene->setValue(scv.fxi, byCh, by);
+                    oddScene->setValue(scv.fxi(), scv.channel(), rc);
+                    oddScene->setValue(scv.fxi(), gmCh, gm);
+                    oddScene->setValue(scv.fxi(), byCh, by);
                 }
                 even = !even;
             }
@@ -439,7 +439,7 @@ void PaletteGenerator::createRGBMatrices(QList<SceneValue> rgbMap)
 
     foreach(SceneValue scv, rgbMap)
     {
-        m_fixtureGroup->assignFixture(scv.fxi);
+        m_fixtureGroup->assignFixture(scv.fxi());
         m_fixtureGroup->setName(m_model + tr(" - RGB Group"));
     }
     QStringList algoList = m_doc->rgbScriptsCache()->names();

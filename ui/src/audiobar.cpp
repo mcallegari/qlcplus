@@ -113,10 +113,10 @@ void AudioBar::attachDmxChannels(Doc *doc, QList<SceneValue> list)
     m_absDmxChannels.clear();
     foreach(SceneValue scv, m_dmxChannels)
     {
-        Fixture *fx = doc->fixture(scv.fxi);
+        Fixture *fx = doc->fixture(scv.fxi());
         if (fx != NULL)
         {
-            quint32 absAddr = fx->universeAddress() + scv.channel;
+            quint32 absAddr = fx->universeAddress() + scv.channel();
             m_absDmxChannels.append(absAddr);
         }
     }
@@ -293,7 +293,7 @@ bool AudioBar::saveXML(QXmlStreamWriter *doc, QString tagName, int index)
         {
             if (chans.isEmpty() == false)
                 chans.append(",");
-            chans.append(QString("%1,%2").arg(scv.fxi).arg(scv.channel));
+            chans.append(QString("%1,%2").arg(scv.fxi()).arg(scv.channel()));
         }
         if (chans.isEmpty() == false)
         {

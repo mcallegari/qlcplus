@@ -166,14 +166,14 @@ void FixtureConsole::setOutputDMX(bool state)
 
 void FixtureConsole::setSceneValue(const SceneValue& scv)
 {
-    Q_ASSERT(scv.fxi == m_fixture);
+    Q_ASSERT(scv.fxi() == m_fixture);
 
     QListIterator <ConsoleChannel*> it(m_channels);
     while (it.hasNext() == true)
     {
         ConsoleChannel* cc = it.next();
         Q_ASSERT(cc != NULL);
-        if (cc->channel() == scv.channel)
+        if (cc->channel() == scv.channel())
         {
             cc->setChecked(true);
             cc->setValue(scv.value);
@@ -225,9 +225,9 @@ void FixtureConsole::setValues(const QList <SceneValue>& list, bool fromSelectio
     while (it.hasNext() == true)
     {
         SceneValue val(it.next());
-        if (val.channel < quint32(children().size()))
+        if (val.channel() < quint32(children().size()))
         {
-            ConsoleChannel* cc = channel(val.channel);
+            ConsoleChannel* cc = channel(val.channel());
             if (cc != NULL)
             {
                 cc->setChecked(true);

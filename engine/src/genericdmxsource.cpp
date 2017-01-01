@@ -78,14 +78,13 @@ quint32 GenericDMXSource::channelsCount() const
 QList<SceneValue> GenericDMXSource::channels()
 {
     QList<SceneValue> chList;
+    chList.reserve( m_values.size());
+
     QMutableMapIterator <QPair<quint32,quint32>,uchar> it(m_values);
     while (it.hasNext() == true)
     {
         it.next();
-        SceneValue sv;
-        sv.fxi = it.key().first;
-        sv.channel = it.key().second;
-        sv.value = it.value();
+        SceneValue sv(it.key().first, it.key().second, it.value());
         chList.append(sv);
     }
     return chList;

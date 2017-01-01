@@ -103,8 +103,8 @@ AddChannelsGroup::AddChannelsGroup(QWidget* parent, Doc* doc, ChannelsGroup *gro
 
             item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
             if (chans.count() > ch &&
-                chans.at(ch).fxi == fxi->id() &&
-                chans.at(ch).channel == c)
+                chans.at(ch).fxi() == fxi->id() &&
+                chans.at(ch).channel() == c)
             {
                 item->setCheckState(KColumnGroup, Qt::Checked);
                 m_checkedChannels++;

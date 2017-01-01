@@ -123,8 +123,8 @@ FunctionUiState * Scene::createUiState()
 
 void Scene::setValue(const SceneValue& scv, bool blind, bool checkHTP)
 {
-    if (!m_fixtures.contains(scv.fxi))
-        qWarning() << Q_FUNC_INFO << "Setting value for unknown fixture" << scv.fxi;
+    if (!m_fixtures.contains(scv.fxi()))
+        qWarning() << Q_FUNC_INFO << "Setting value for unknown fixture" << scv.fxi();
 
     m_valueListMutex.lock();
 
@@ -141,7 +141,7 @@ void Scene::setValue(const SceneValue& scv, bool blind, bool checkHTP)
     // update/add the changed channel
     if (blind == false && m_fader != NULL)
     {
-        FadeChannel fc(doc(), scv.fxi, scv.channel);
+        FadeChannel fc(doc(), scv.fxi(), scv.channel());
         fc.setStart(scv.value);
         fc.setTarget(scv.value);
         fc.setCurrent(scv.value);
@@ -198,14 +198,14 @@ QColor Scene::colorValue(quint32 fxi)
 
     foreach(SceneValue scv, m_values.keys())
     {
-        if (fxi != Fixture::invalidId() && fxi != scv.fxi)
+        if (fxi != Fixture::invalidId() && fxi != scv.fxi())
             continue;
 
-        Fixture *fixture = doc()->fixture(scv.fxi);
+        Fixture *fixture = doc()->fixture(scv.fxi());
         if (fixture == NULL)
             continue;
 
-        const QLCChannel* channel(fixture->channel(scv.channel));
+        const QLCChannel* channel(fixture->channel(scv.channel()));
         if (channel->group() == QLCChannel::Intensity)
         {
             QLCChannel::PrimaryColour col = channel->colour();
@@ -308,7 +308,7 @@ void Scene::slotFixtureRemoved(quint32 fxi_id)
     while (it.hasNext() == true)
     {
         SceneValue value(it.next().key());
-        if (value.fxi == fxi_id)
+        if (value.fxi() == fxi_id)
         {
             it.remove();
             hasChanged = true;
@@ -377,15 +377,15 @@ bool Scene::saveXML(QXmlStreamWriter *doc)
     while (it.hasNext() == true)
     {
         SceneValue sv = it.next().key();
-        if (currFixID == -1) currFixID = sv.fxi;
-        if ((qint32)sv.fxi != currFixID)
+        if (currFixID == -1) currFixID = sv.fxi();
+        if ((qint32)sv.fxi() != currFixID)
         {
             saveXMLFixtureValues(doc, currFixID, currFixValues);
             writtenFixtures << currFixID;
             currFixValues.clear();
-            currFixID = sv.fxi;
+            currFixID = sv.fxi();
         }
-        currFixValues.append(QString::number(sv.channel));
+        currFixValues.append(QString::number(sv.channel()));
         currFixValues.append(QString::number(m_hasChildren ? 0 : sv.value));
     }
     /* write last element */
@@ -484,13 +484,10 @@ bool Scene::loadXML(QXmlStreamReader &root)
             QString strvals = root.readElementText();
             if (strvals.isEmpty() == false)
             {
-                QStringList varray = strvals.split(",");
+                QVector<QStringRef> varray = strvals.splitRef(",");
                 for (int i = 0; i + 1 < varray.count(); i+=2)
                 {
-                    SceneValue scv;
-                    scv.fxi = fxi;
-                    scv.channel = QString(varray.at(i)).toUInt();
-                    scv.value = uchar(QString(varray.at(i + 1)).toInt());
+                    SceneValue scv(fxi, varray.at(i).toUInt(), uchar(varray.at(i + 1).toInt()));
                     setValue(scv);
                 }
             }
@@ -520,8 +517,8 @@ void Scene::postLoad()
     while (it.hasNext() == true)
     {
         SceneValue value(it.next().key());
-        Fixture* fxi = doc()->fixture(value.fxi);
-        if (fxi == NULL || fxi->channel(value.channel) == NULL)
+        Fixture* fxi = doc()->fixture(value.fxi());
+        if (fxi == NULL || fxi->channel(value.channel()) == NULL)
             it.remove();
     }
 }
@@ -560,7 +557,7 @@ void Scene::writeDMX(MasterTimer* timer, QList<Universe *> ua)
         // so enforce all values that the user has chosen to flash.
         foreach (const SceneValue& sv, m_values.keys())
         {
-            FadeChannel fc(doc(), sv.fxi, sv.channel);
+            FadeChannel fc(doc(), sv.fxi(), sv.channel());
             fc.setTarget(sv.value);
             fc.setFlashing(true);
             // Force add this channel, since it will be removed
@@ -608,10 +605,10 @@ void Scene::write(MasterTimer* timer, QList<Universe*> ua)
             SceneValue value(it.next().key());
             bool canFade = true;
 
-            FadeChannel fc(doc(), value.fxi, value.channel);
-            Fixture *fixture = doc()->fixture(value.fxi);
+            FadeChannel fc(doc(), value.fxi(), value.channel());
+            Fixture *fixture = doc()->fixture(value.fxi());
             if (fixture != NULL)
-                canFade = fixture->channelCanFade(value.channel);
+                canFade = fixture->channelCanFade(value.channel());
 
             fc.setTarget(value.value);
 

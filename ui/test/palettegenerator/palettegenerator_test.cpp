@@ -126,10 +126,10 @@ void PaletteGenerator_Test::createColours()
         Scene* s = qobject_cast<Scene*> (doc.function(i));
         QVERIFY(s != NULL);
         QCOMPARE(s->values().size(), 2); // One colour for two fixtures
-        QCOMPARE(s->values().at(0).fxi, fxi1->id());
-        QCOMPARE(s->values().at(0).channel, quint32(2)); // DJScan colour channel
-        QCOMPARE(s->values().at(1).fxi, fxi2->id());
-        QCOMPARE(s->values().at(1).channel, quint32(2)); // DJScan colour channel
+        QCOMPARE(s->values().at(0).fxi(), fxi1->id());
+        QCOMPARE(s->values().at(0).channel(), quint32(2)); // DJScan colour channel
+        QCOMPARE(s->values().at(1).fxi(), fxi2->id());
+        QCOMPARE(s->values().at(1).channel(), quint32(2)); // DJScan colour channel
     }
 }
 
@@ -163,10 +163,10 @@ void PaletteGenerator_Test::createGobos()
         Scene* s = qobject_cast<Scene*> (doc.function(i));
         QVERIFY(s != NULL);
         QCOMPARE(s->values().size(), 2); // One gobo for two fixtures
-        QCOMPARE(s->values().at(0).fxi, fxi1->id());
-        QCOMPARE(s->values().at(0).channel, quint32(3)); // DJScan gobo channel
-        QCOMPARE(s->values().at(1).fxi, fxi2->id());
-        QCOMPARE(s->values().at(1).channel, quint32(3)); // DJScan gobo channel
+        QCOMPARE(s->values().at(0).fxi(), fxi1->id());
+        QCOMPARE(s->values().at(0).channel(), quint32(3)); // DJScan gobo channel
+        QCOMPARE(s->values().at(1).fxi(), fxi2->id());
+        QCOMPARE(s->values().at(1).channel(), quint32(3)); // DJScan gobo channel
     }
 }
 
@@ -201,10 +201,10 @@ void PaletteGenerator_Test::createShutters()
         Scene* s = qobject_cast<Scene*> (doc.function(i));
         QVERIFY(s != NULL);
         QCOMPARE(s->values().size(), 2); // One cap for two fixtures
-        QCOMPARE(s->values().at(0).fxi, fxi1->id());
-        QCOMPARE(s->values().at(0).channel, quint32(0)); // MAC300 shutter channel
-        QCOMPARE(s->values().at(1).fxi, fxi2->id());
-        QCOMPARE(s->values().at(1).channel, quint32(0)); // MAC300 shutter channel
+        QCOMPARE(s->values().at(0).fxi(), fxi1->id());
+        QCOMPARE(s->values().at(0).channel(), quint32(0)); // MAC300 shutter channel
+        QCOMPARE(s->values().at(1).fxi(), fxi2->id());
+        QCOMPARE(s->values().at(1).channel(), quint32(0)); // MAC300 shutter channel
     }
 }
 

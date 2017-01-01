@@ -73,6 +73,10 @@ public:
      */
     ~SceneValue();
 
+    void assign(quint32 fxi_id,
+               quint32 channel,
+               uchar value);
+
     /** A SceneValue is not valid if .fxi == Fixture::invalidId() */
     bool isValid() const;
 
@@ -88,11 +92,18 @@ public:
     /** Save this SceneValue to an XML document */
     bool saveXML(QXmlStreamWriter *doc) const;
 
-public:
+    quint32 channel() const;
     /** Fixture ID */
-    quint32 fxi;
-    quint32 channel;
+    quint32 fxi() const;
+    
+public:
     uchar value;
+
+private:
+    static quint32 compose(quint32 id, quint32 ch);
+
+private:
+    quint32 fixture_channel;
 };
 
 /** @} */
