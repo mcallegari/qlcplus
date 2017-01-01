@@ -161,12 +161,10 @@ Rectangle
     Grid
     {
         id: tColumn
-        x: colorBox.width + 5
+        x: colorBox.x + (colorBox.width * colorBox.scale) + 5
         y: 5
-        //height: 256
         columns: 2
         columnSpacing: 5
-        anchors.right: parent.right
 
         RobotoText
         {
@@ -249,7 +247,7 @@ Rectangle
     {
         x: 5
         width: parent.width - 10
-        anchors.top: colorBox.bottom
+        y: colorBox.y + (colorBox.height * colorBox.scale)
         columns: 3
         columnSpacing: 5
 
