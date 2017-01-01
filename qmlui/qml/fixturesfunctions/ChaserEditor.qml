@@ -555,6 +555,7 @@ Rectangle
                         //console.log("Item index:" + idx)
                         cStepsList.dragInsertIndex = idx
                     }
+                    onExited: cStepsList.dragInsertIndex = -1
                 }
                 ScrollBar { flickable: cStepsList }
             }
