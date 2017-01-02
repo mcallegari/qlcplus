@@ -51,6 +51,12 @@ public:
         ZigZag
     };
 
+    enum Direction {
+    	Undefined,
+		Horizontal,
+		Vertical
+    };
+
     QString name();
     int universeIndex();
     int address();
@@ -60,6 +66,7 @@ public:
     quint32 physicalHeight();
     Orientation orientation();
     Type type();
+    Direction direction();
     Fixture::Components components();
 
 private:

@@ -150,6 +150,16 @@ AddRGBPanel::Type AddRGBPanel::type()
     return Unknown;
 }
 
+AddRGBPanel::Direction AddRGBPanel::direction()
+{
+	if (m_verticalRadio->isChecked())
+		return Vertical;
+	else if (m_horizontalRadio->isChecked())
+		return Horizontal;
+
+	return Undefined;
+}
+
 Fixture::Components AddRGBPanel::components()
 {
     if (m_compCombo->currentIndex() == 1)
