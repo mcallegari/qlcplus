@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.4</Version>
+  <Version>4.10.6 GIT</Version>
   <Author>Martin Bochenek</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -52,7 +52,7 @@
   <Capability Min="248" Max="255">Off</Capability>
  </Channel>
  <Channel Name="Strobing Simple">
-  <Group Byte="0">Effect</Group>
+  <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="8">Off</Capability>
   <Capability Min="9" Max="255">Strobing Slow - Fast</Capability>
  </Channel>
@@ -106,8 +106,8 @@
  </Mode>
  <Mode Name="5 Channels">
   <Physical>
-   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="0" Width="0" Height="0" Depth="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="3.6" Width="1025" Height="65" Depth="88"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="28" DmxConnector="3-pin"/>
@@ -135,8 +135,8 @@
  </Mode>
  <Mode Name="2 Channels">
   <Physical>
-   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="0" Width="0" Height="0" Depth="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="3.6" Width="1025" Height="65" Depth="88"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="28" DmxConnector="3-pin"/>
@@ -146,8 +146,8 @@
  </Mode>
  <Mode Name="1 Channel">
   <Physical>
-   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="0" Width="0" Height="0" Depth="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="3.6" Width="1025" Height="65" Depth="88"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="28" DmxConnector="3-pin"/>
