@@ -33,7 +33,7 @@ Slider
     maximumValue: 255
     stepSize: 1.0
 
-    signal touchPressed(bool pressed)
+    property bool touchPressed: false
 
     Gradient
     {
@@ -61,8 +61,8 @@ Slider
         mouseEnabled: false
         maximumTouchPoints: 1
 
-        onPressed: slider.touchPressed(true)
-        onReleased: slider.touchPressed(false)
+        onPressed: touchPressed = true
+        onReleased: touchPressed = false
 
         onTouchUpdated:
         {

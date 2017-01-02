@@ -61,12 +61,12 @@ VCWidgetItem
             width: parent.width
             rotation: sliderObj ? (sliderObj.invertedAppearance ? 180 : 0) : 0
             value: sliderValue
-            onTouchPressed:
+            onTouchPressedChanged:
             {
-                console.log("Slider touch pressed: " + pressed)
+                console.log("Slider touch pressed: " + touchPressed)
                 // QML tends to propagate touch events, so temporarily disable
                 // the page Flickable interactivity during this operation
-                virtualConsole.setPageInteraction(!pressed)
+                virtualConsole.setPageInteraction(!touchPressed)
             }
             onValueChanged: if (sliderObj) sliderObj.value = value
         }
