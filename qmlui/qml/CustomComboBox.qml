@@ -117,6 +117,7 @@ Rectangle
         {
             positionMenu()
             dropDownMenu.visible = !dropDownMenu.visible
+            dropDownMenu.forceActiveFocus()
         }
         onWheel:
         {
@@ -146,6 +147,8 @@ Rectangle
         parent: mainView
         visible: false
         clip: true
+
+        Keys.onEscapePressed: visible = false
 
         Flickable
         {
