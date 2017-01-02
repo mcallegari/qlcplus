@@ -397,8 +397,6 @@ void RGBMatrixEditor::createScriptObjects(QQuickItem *parent)
                 int idx = 0;
                 int currIdx = 0;
                 QString pValue = m_matrix->property(prop.m_name);
-                if (pValue.isEmpty())
-                    pValue = script->property(prop.m_name);
 
                 foreach(QString val, prop.m_listValues)
                 {
@@ -421,8 +419,6 @@ void RGBMatrixEditor::createScriptObjects(QQuickItem *parent)
             case RGBScriptProperty::Range:
             {
                 QString pValue = m_matrix->property(prop.m_name);
-                if (pValue.isEmpty())
-                    pValue = script->property(prop.m_name);
 
                 QMetaObject::invokeMethod(parent, "addSpinBox",
                         Q_ARG(QVariant, prop.m_name),
