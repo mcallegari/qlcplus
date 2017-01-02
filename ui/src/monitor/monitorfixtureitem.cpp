@@ -384,7 +384,7 @@ uchar MonitorFixtureItem::computeAlpha(const FixtureHead *head, const QByteArray
         div *= 255U;
     }
 
-    qDebug() << mul << "/" << div << "=" << (mul /div);
+    //qDebug() << mul << "/" << div << "=" << (mul /div);
     return mul / div;
 }
 
