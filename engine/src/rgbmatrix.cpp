@@ -193,6 +193,25 @@ void RGBMatrix::setAlgorithm(RGBAlgorithm* algo)
         QMutexLocker algorithmLocker(&m_algorithmMutex);
         delete m_algorithm;
         m_algorithm = algo;
+
+        /** If there's been a change of Script algorithm "on the fly",
+         *  then re-apply the properties currently set in this RGBMatrix */
+        if (m_algorithm != NULL && m_algorithm->type() == RGBAlgorithm::Script)
+        {
+            RGBScript *script = static_cast<RGBScript*> (m_algorithm);
+            QHashIterator<QString, QString> it(m_properties);
+            while(it.hasNext())
+            {
+                it.next();
+                if (script->setProperty(it.key(), it.value()) == false)
+                {
+                    /** If the new algorithm doesn't expose a property,
+                     *  then remove it from the cached list, otherwise
+                     *  it would be carried around forever (and saved on XML) */
+                    m_properties.take(it.key());
+                }
+            }
+        }
     }
     m_stepsCount = stepsCount();
 
@@ -305,7 +324,19 @@ void RGBMatrix::setProperty(QString propName, QString value)
 QString RGBMatrix::property(QString propName)
 {
     QMutexLocker algoLocker(&m_algorithmMutex);
-    return m_properties[propName];
+
+    /** If the property is cached, then return it right away */
+    if (m_properties.contains(propName))
+        return m_properties[propName];
+
+    /** Otherwise, let's retrieve it from the Script */
+    if (m_algorithm != NULL && m_algorithm->type() == RGBAlgorithm::Script)
+    {
+        RGBScript *script = static_cast<RGBScript*> (m_algorithm);
+        return script->property(propName);
+    }
+
+    return QString();
 }
 
 /****************************************************************************
