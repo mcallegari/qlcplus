@@ -1,5 +1,8 @@
 qlcplus (4.10.6) stable; urgency=low
 
+  * engine: fixed setting start/end color while a RGB Matrix is running
+  * UI/RGBPanel: added panel direction (thanks to Raivis Rengelis)
+
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 5 Mar 2017 12:13:14 +0200
 
 qlcplus (4.10.5b) stable; urgency=high

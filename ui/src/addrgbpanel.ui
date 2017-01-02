@@ -26,7 +26,7 @@
     <x>0</x>
     <y>0</y>
     <width>477</width>
-    <height>485</height>
+    <height>452</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -192,72 +192,6 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="0">
-    <widget class="QGroupBox" name="groupBox_4">
-     <property name="title">
-      <string>Orientation</string>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_3">
-      <item row="0" column="1">
-       <widget class="QRadioButton" name="m_oriTopRightRadio">
-        <property name="text">
-         <string>Top-Right</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QRadioButton" name="m_oriTopLeftRadio">
-        <property name="text">
-         <string>Top-Left</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QRadioButton" name="m_oriBottomLeftRadio">
-        <property name="text">
-         <string>Bottom-Left</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QRadioButton" name="m_oriBottomRightRadio">
-        <property name="text">
-         <string>Bottom-Right</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="2" column="1">
-    <widget class="QGroupBox" name="groupBox_3">
-     <property name="title">
-      <string>Displacement</string>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QRadioButton" name="m_snakeRadio">
-        <property name="text">
-         <string>Snake</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QRadioButton" name="m_zigzagRadio">
-        <property name="text">
-         <string>Zig Zag</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
    <item row="1" column="0">
     <widget class="QGroupBox" name="groupBox_2">
      <property name="title">
@@ -331,26 +265,96 @@
      </layout>
     </widget>
    </item>
-   <item row="3" column="0">
-    <widget class="QGroupBox" name="groupBox_6">
+   <item row="2" column="1" rowspan="2">
+    <layout class="QVBoxLayout" name="verticalLayout_4">
+     <item>
+      <widget class="QGroupBox" name="groupBox_3">
+       <property name="title">
+        <string>Displacement</string>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QRadioButton" name="m_snakeRadio">
+          <property name="text">
+           <string>Snake</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="m_zigzagRadio">
+          <property name="text">
+           <string>Zig Zag</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBox_6">
+       <property name="title">
+        <string>Direction</string>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QRadioButton" name="m_horizontalRadio">
+          <property name="text">
+           <string>Horizontal</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="m_verticalRadio">
+          <property name="text">
+           <string>Vertical</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="2" column="0" rowspan="2">
+    <widget class="QGroupBox" name="groupBox_4">
      <property name="title">
-      <string>Direction</string>
+      <string>Orientation</string>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
-      <item>
-       <widget class="QRadioButton" name="m_horizontalRadio">
+     <layout class="QGridLayout" name="gridLayout_3">
+      <item row="0" column="1">
+       <widget class="QRadioButton" name="m_oriTopRightRadio">
         <property name="text">
-         <string>Horizontal</string>
+         <string>Top-Right</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QRadioButton" name="m_oriTopLeftRadio">
+        <property name="text">
+         <string>Top-Left</string>
         </property>
         <property name="checked">
          <bool>true</bool>
         </property>
        </widget>
       </item>
-      <item>
-       <widget class="QRadioButton" name="m_verticalRadio">
+      <item row="1" column="0">
+       <widget class="QRadioButton" name="m_oriBottomLeftRadio">
         <property name="text">
-         <string>Vertical</string>
+         <string>Bottom-Left</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QRadioButton" name="m_oriBottomRightRadio">
+        <property name="text">
+         <string>Bottom-Right</string>
         </property>
        </widget>
       </item>
