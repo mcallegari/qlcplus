@@ -29,14 +29,14 @@ void SceneValue_Test::initial()
 {
     SceneValue scv;
     QVERIFY(scv.isValid() == false);
-    QVERIFY(scv.fxi == Fixture::invalidId());
-    QVERIFY(scv.channel == QLCChannel::invalid());
+    QVERIFY(scv.fxi() == Fixture::invalidId());
+    QVERIFY(scv.channel() == QLCChannel::invalid());
     QVERIFY(scv.value == 0);
 
     SceneValue scv2(31337, 5150, 42);
     QVERIFY(scv2.isValid() == true);
-    QVERIFY(scv2.fxi == 31337);
-    QVERIFY(scv2.channel == 5150);
+    QVERIFY(scv2.fxi() == 31337);
+    QVERIFY(scv2.channel() == 5150);
     QVERIFY(scv2.value == 42);
 }
 
@@ -50,26 +50,26 @@ void SceneValue_Test::lessThan()
     QVERIFY((scv2 < scv1) == false);
 
     /* Both save same ID, invalid channel; same here */
-    scv1.fxi = 0;
-    scv2.fxi = 0;
+    scv1.assign(0, QLCChannel::invalid(), 0);
+    scv2.assign(0, QLCChannel::invalid(), 0);
     QVERIFY((scv1 < scv2) == false);
     QVERIFY((scv2 < scv1) == false);
 
     /* Same ID, different channel */
-    scv1.channel = 0;
-    scv2.channel = 1;
+    scv1.assign(0, 0, 0);
+    scv2.assign(0, 1, 0);
     QVERIFY((scv1 < scv2) == true);
     QVERIFY((scv2 < scv1) == false);
 
     /* Different ID, different channel */
-    scv1.fxi = 1;
-    scv2.fxi = 0;
+    scv1.assign(1, 0, 0);
+    scv2.assign(0, 1, 0);
     QVERIFY((scv1 < scv2) == false);
     QVERIFY((scv2 < scv1) == true);
 
     /* Different ID, same channel */
-    scv1.channel = 1;
-    scv2.channel = 1;
+    scv1.assign(1, 1, 0);
+    scv2.assign(0, 1, 0);
     QVERIFY((scv1 < scv2) == false);
     QVERIFY((scv2 < scv1) == true);
 }
@@ -95,8 +95,8 @@ void SceneValue_Test::loadSuccess()
 
     SceneValue scv;
     QVERIFY(scv.loadXML(xmlReader) == true);
-    QVERIFY(scv.fxi == 5);
-    QVERIFY(scv.channel == 60);
+    QVERIFY(scv.fxi() == 5);
+    QVERIFY(scv.channel() == 60);
     QVERIFY(scv.value == 100);
 }
 

@@ -735,10 +735,10 @@ void VCXYPad::slotPresetClicked(bool checked)
 
         foreach(SceneValue scv, m_scene->values())
         {
-            Fixture *fixture = m_doc->fixture(scv.fxi);
+            Fixture *fixture = m_doc->fixture(scv.fxi());
             if (fixture == NULL)
                 continue;
-            const QLCChannel *ch = fixture->channel(scv.channel);
+            const QLCChannel *ch = fixture->channel(scv.channel());
             if (ch == NULL)
                 continue;
             if (ch->group() != QLCChannel::Pan && ch->group() != QLCChannel::Tilt)
@@ -747,7 +747,7 @@ void VCXYPad::slotPresetClicked(bool checked)
             SceneChannel sChan;
             sChan.m_universe = fixture->universe();
             sChan.m_fixture = fixture->id();
-            sChan.m_channel = fixture->address() + scv.channel;
+            sChan.m_channel = fixture->address() + scv.channel();
             sChan.m_group = ch->group();
             sChan.m_subType = ch->controlByte();
             m_sceneChannels.append(sChan);

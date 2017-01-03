@@ -84,29 +84,29 @@ void Scene_Test::values()
     /* Value 3 to fixture 1's channel number 2 */
     s.setValue(1, 2, 3);
     QVERIFY(s.values().size() == 1);
-    QVERIFY(s.values().at(0).fxi == 1);
-    QVERIFY(s.values().at(0).channel == 2);
+    QVERIFY(s.values().at(0).fxi() == 1);
+    QVERIFY(s.values().at(0).channel() == 2);
     QVERIFY(s.values().at(0).value == 3);
 
     /* Value 6 to fixture 4's channel number 5 */
     SceneValue scv(4, 5, 6);
     s.setValue(scv);
     QVERIFY(s.values().size() == 2);
-    QVERIFY(s.values().at(0).fxi == 1);
-    QVERIFY(s.values().at(0).channel == 2);
+    QVERIFY(s.values().at(0).fxi() == 1);
+    QVERIFY(s.values().at(0).channel() == 2);
     QVERIFY(s.values().at(0).value == 3);
-    QVERIFY(s.values().at(1).fxi == 4);
-    QVERIFY(s.values().at(1).channel == 5);
+    QVERIFY(s.values().at(1).fxi() == 4);
+    QVERIFY(s.values().at(1).channel() == 5);
     QVERIFY(s.values().at(1).value == 6);
 
     /* Replace previous value 3 with 15 for fixture 1's channel number 2 */
     s.setValue(1, 2, 15);
     QVERIFY(s.values().size() == 2);
-    QVERIFY(s.values().at(0).fxi == 1);
-    QVERIFY(s.values().at(0).channel == 2);
+    QVERIFY(s.values().at(0).fxi() == 1);
+    QVERIFY(s.values().at(0).channel() == 2);
     QVERIFY(s.values().at(0).value == 15);
-    QVERIFY(s.values().at(1).fxi == 4);
-    QVERIFY(s.values().at(1).channel == 5);
+    QVERIFY(s.values().at(1).fxi() == 4);
+    QVERIFY(s.values().at(1).channel() == 5);
     QVERIFY(s.values().at(1).value == 6);
 
     QVERIFY(s.value(1, 2) == 15);
@@ -116,25 +116,25 @@ void Scene_Test::values()
     /* No channel 5 for fixture 1 in the scene, unset shouldn't happen */
     s.unsetValue(1, 5);
     QVERIFY(s.values().size() == 2);
-    QVERIFY(s.values().at(0).fxi == 1);
-    QVERIFY(s.values().at(0).channel == 2);
+    QVERIFY(s.values().at(0).fxi() == 1);
+    QVERIFY(s.values().at(0).channel() == 2);
     QVERIFY(s.values().at(0).value == 15);
-    QVERIFY(s.values().at(1).fxi == 4);
-    QVERIFY(s.values().at(1).channel == 5);
+    QVERIFY(s.values().at(1).fxi() == 4);
+    QVERIFY(s.values().at(1).channel() == 5);
     QVERIFY(s.values().at(1).value == 6);
 
     /* Remove fixture 1's channel 2 from the scene */
     s.unsetValue(1, 2);
     QVERIFY(s.values().size() == 1);
-    QVERIFY(s.values().at(0).fxi == 4);
-    QVERIFY(s.values().at(0).channel == 5);
+    QVERIFY(s.values().at(0).fxi() == 4);
+    QVERIFY(s.values().at(0).channel() == 5);
     QVERIFY(s.values().at(0).value == 6);
 
     /* No fixture 1 anymore */
     s.unsetValue(1, 2);
     QVERIFY(s.values().size() == 1);
-    QVERIFY(s.values().at(0).fxi == 4);
-    QVERIFY(s.values().at(0).channel == 5);
+    QVERIFY(s.values().at(0).fxi() == 4);
+    QVERIFY(s.values().at(0).channel() == 5);
     QVERIFY(s.values().at(0).value == 6);
 
     /* Remove fixture 4's channel 5 from the scene */
@@ -167,15 +167,15 @@ void Scene_Test::fixtureRemoval()
     /* Simulate fixture removal signal with a fixture in the scene */
     s.slotFixtureRemoved(4);
     QVERIFY(s.values().size() == 1);
-    QVERIFY(s.values().at(0).fxi == 1);
-    QVERIFY(s.values().at(0).channel == 2);
+    QVERIFY(s.values().at(0).fxi() == 1);
+    QVERIFY(s.values().at(0).channel() == 2);
     QVERIFY(s.values().at(0).value == 3);
 
     /* Simulate fixture removal signal with an invalid fixture id */
     s.slotFixtureRemoved(Fixture::invalidId());
     QVERIFY(s.values().size() == 1);
-    QVERIFY(s.values().at(0).fxi == 1);
-    QVERIFY(s.values().at(0).channel == 2);
+    QVERIFY(s.values().at(0).fxi() == 1);
+    QVERIFY(s.values().at(0).channel() == 2);
     QVERIFY(s.values().at(0).value == 3);
 
     /* Simulate fixture removal signal with a fixture in the scene */

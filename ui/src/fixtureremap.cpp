@@ -608,8 +608,8 @@ QList<SceneValue> FixtureRemap::remapSceneValues(QList<SceneValue> funcList,
             if (val == srcList.at(v))
             {
                 SceneValue tgtVal = tgtList.at(v);
-                //qDebug() << "[Scene] Remapping" << val.fxi << val.channel << " to " << tgtVal.fxi << tgtVal.channel;
-                newValuesList.append(SceneValue(tgtVal.fxi, tgtVal.channel, val.value));
+                //qDebug() << "[Scene] Remapping" << val.fxi() << val.channel() << " to " << tgtVal.fxi << tgtVal.channel;
+                newValuesList.append(SceneValue(tgtVal.fxi(), tgtVal.channel(), val.value));
             }
         }
     }
@@ -692,9 +692,9 @@ void FixtureRemap::accept()
 
             for (int i = 0; i < sourceList.count(); i++)
             {
-                if (sourceList.at(i).fxi == head.fxi)
+                if (sourceList.at(i).fxi() == head.fxi)
                 {
-                    head.fxi = targetList.at(i).fxi;
+                    head.fxi = targetList.at(i).fxi();
                     group->resignHead(pt);
                     group->assignHead(pt, head);
                     break;
@@ -710,7 +710,7 @@ void FixtureRemap::accept()
         grp->resetChannels();
         QList <SceneValue> newList = remapSceneValues(grpChannels, sourceList, targetList);
         foreach (SceneValue val, newList)
-            grp->addChannel(val.fxi, val.channel);
+            grp->addChannel(val.fxi(), val.channel());
     }
 
     /* **********************************************************************
@@ -732,7 +732,7 @@ void FixtureRemap::accept()
 
                 for (int i = 0; i < newList.count(); i++)
                 {
-                    s->addFixture(newList.at(i).fxi);
+                    s->addFixture(newList.at(i).fxi());
                     s->setValue(newList.at(i));
                 }
             }
@@ -779,21 +779,21 @@ void FixtureRemap::accept()
                         SceneValue tgtVal = targetList.at(i);
                         // check for fixture ID match. EFX remapping must be performed
                         // just once for each target fixture
-                        if (srcVal.fxi == fxID && remappedFixtures.contains(tgtVal.fxi) == false)
+                        if (srcVal.fxi() == fxID && remappedFixtures.contains(tgtVal.fxi()) == false)
                         {
-                            Fixture *docFix = m_doc->fixture(tgtVal.fxi);
-                            quint32 fxCh = tgtVal.channel;
+                            Fixture *docFix = m_doc->fixture(tgtVal.fxi());
+                            quint32 fxCh = tgtVal.channel();
                             const QLCChannel *chan = docFix->channel(fxCh);
                             if (chan->group() == QLCChannel::Pan ||
                                 chan->group() == QLCChannel::Tilt)
                             {
                                 EFXFixture* ef = new EFXFixture(e);
                                 ef->copyFrom(efxFix);
-                                ef->setHead(GroupHead(tgtVal.fxi, 0)); // TODO!!! head!!!
+                                ef->setHead(GroupHead(tgtVal.fxi(), 0)); // TODO!!! head!!!
                                 if (e->addFixture(ef) == false)
                                     delete ef;
-                                qDebug() << "EFX remap" << srcVal.fxi << "to" << tgtVal.fxi;
-                                remappedFixtures.append(tgtVal.fxi);
+                                qDebug() << "EFX remap" << srcVal.fxi() << "to" << tgtVal.fxi();
+                                remappedFixtures.append(tgtVal.fxi());
                             }
                         }
                     }
@@ -833,17 +833,17 @@ void FixtureRemap::accept()
                     for (int v = 0; v < sourceList.count(); v++)
                     {
                         SceneValue val = sourceList.at(v);
-                        if (val.fxi == chan.fixture && val.channel == chan.channel)
+                        if (val.fxi() == chan.fixture && val.channel() == chan.channel)
                         {
-                            qDebug() << "Matching channel:" << chan.fixture << chan.channel << "to target:" << targetList.at(v).fxi << targetList.at(v).channel;
-                            newChannels.append(SceneValue(targetList.at(v).fxi, targetList.at(v).channel));
+                            qDebug() << "Matching channel:" << chan.fixture << chan.channel << "to target:" << targetList.at(v).fxi() << targetList.at(v).channel();
+                            newChannels.append(SceneValue(targetList.at(v).fxi(), targetList.at(v).channel()));
                         }
                     }
                 }
                 // this is crucial: here all the "unmapped" channels will be lost forever !
                 slider->clearLevelChannels();
                 foreach (SceneValue rmpChan, newChannels)
-                    slider->addLevelChannel(rmpChan.fxi, rmpChan.channel);
+                    slider->addLevelChannel(rmpChan.fxi(), rmpChan.channel());
             }
         }
         else if (widget->type() == VCWidget::AudioTriggersWidget)
@@ -869,17 +869,17 @@ void FixtureRemap::accept()
                 for (int i = 0; i < sourceList.count(); i++)
                 {
                     SceneValue val = sourceList.at(i);
-                    if (val.fxi == srxFxID)
+                    if (val.fxi() == srxFxID)
                     {
                         SceneValue tgtVal = targetList.at(i);
-                        Fixture *docFix = m_doc->fixture(tgtVal.fxi);
-                        quint32 fxCh = tgtVal.channel;
+                        Fixture *docFix = m_doc->fixture(tgtVal.fxi());
+                        quint32 fxCh = tgtVal.channel();
                         const QLCChannel *chan = docFix->channel(fxCh);
                         if (chan->group() == QLCChannel::Pan ||
                             chan->group() == QLCChannel::Tilt)
                         {
                             VCXYPadFixture tgtFix(m_doc);
-                            GroupHead head(tgtVal.fxi, 0);
+                            GroupHead head(tgtVal.fxi(), 0);
                             tgtFix.setHead(head);
                             copyFixtures.append(tgtFix);
                         }
@@ -906,10 +906,10 @@ void FixtureRemap::accept()
         {
             for( int v = 0; v < sourceList.count(); v++)
             {
-                if (sourceList.at(v).fxi == fxID)
+                if (sourceList.at(v).fxi() == fxID)
                 {
                     FixtureItemProperties rmpProp = props->fixtureProperties(fxID);
-                    remappedFixtureItems[targetList.at(v).fxi] = rmpProp;
+                    remappedFixtureItems[targetList.at(v).fxi()] = rmpProp;
                     break;
                 }
             }

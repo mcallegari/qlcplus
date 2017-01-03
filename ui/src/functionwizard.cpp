@@ -588,7 +588,7 @@ VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int
             {
                 Scene *scene = qobject_cast<Scene*> (func);
                 foreach (SceneValue scv, scene->values())
-                    slider->addLevelChannel(scv.fxi, scv.channel);
+                    slider->addLevelChannel(scv.fxi(), scv.channel());
 
                 if (pType == PaletteGenerator::PrimaryColors ||
                     pType == PaletteGenerator::SixteenColors)
@@ -622,11 +622,11 @@ VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int
             {
                 foreach(SceneValue scv, scene->values())
                 {
-                    Fixture *fixture = m_doc->fixture(scv.fxi);
+                    Fixture *fixture = m_doc->fixture(scv.fxi());
                     if (fixture == NULL)
                         continue;
 
-                    const QLCChannel* channel(fixture->channel(scv.channel));
+                    const QLCChannel* channel(fixture->channel(scv.channel()));
                     if (channel->group() == QLCChannel::Gobo)
                     {
                         QLCCapability *cap = channel->searchCapability(scv.value);

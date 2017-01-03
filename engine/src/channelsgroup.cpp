@@ -76,7 +76,7 @@ void ChannelsGroup::slotFixtureRemoved(quint32 fixtureId)
     while (channelsIt.hasNext())
     {
         SceneValue scv(channelsIt.next());
-        if (scv.fxi == fixtureId)
+        if (scv.fxi() == fixtureId)
         {
             channelsIt.remove();
             hasChanged = true;
@@ -170,20 +170,20 @@ QString ChannelsGroup::status(Doc *doc) const
 
     foreach (SceneValue value, m_channels)
     {
-        Fixture *fixture = doc->fixture(value.fxi);
+        Fixture *fixture = doc->fixture(value.fxi());
         if (fixture == NULL)
             return QString();
         const QLCFixtureMode *mode = fixture->fixtureMode();
         QString chInfo("<TR><TD>%1</TD><TD>%2</TD><TD>%3</TD></TR>");
         if (mode != NULL)
         {
-            info += chInfo.arg(fixture->name()).arg(value.channel + 1)
-                .arg(mode->channels().at(value.channel)->name());
+            info += chInfo.arg(fixture->name()).arg(value.channel() + 1)
+                .arg(mode->channels().at(value.channel())->name());
         }
         else
         {
-            info += chInfo.arg(fixture->name()).arg(value.channel + 1)
-                .arg(QString(tr("Channel %1")).arg(value.channel));
+            info += chInfo.arg(fixture->name()).arg(value.channel() + 1)
+                .arg(QString(tr("Channel %1")).arg(value.channel()));
         }
     }
 
@@ -267,7 +267,7 @@ bool ChannelsGroup::saveXML(QXmlStreamWriter *doc)
     {
         if (str.isEmpty() == false)
             str.append(",");
-        str.append(QString("%1,%2").arg(value.fxi).arg(value.channel));
+        str.append(QString("%1,%2").arg(value.fxi()).arg(value.channel()));
     }
 
     /* Channels Group entry */
@@ -323,16 +323,16 @@ bool ChannelsGroup::loadXML(QXmlStreamReader &xmlDoc)
         {
             SceneValue scv(QString(varray.at(i)).toUInt(),
                            QString(varray.at(i + 1)).toUInt(), 0);
-            Fixture* fxi = m_doc->fixture(scv.fxi);
+            Fixture* fxi = m_doc->fixture(scv.fxi());
             if (fxi == NULL)
             {
-                qWarning() << Q_FUNC_INFO << "Fixture not present:" << scv.fxi;
+                qWarning() << Q_FUNC_INFO << "Fixture not present:" << scv.fxi();
                 continue;
             }
-            const QLCChannel* ch = fxi->channel(scv.channel);
+            const QLCChannel* ch = fxi->channel(scv.channel());
             if (ch == NULL)
             {
-                qWarning() << Q_FUNC_INFO << "Fixture" << scv.fxi << "does not have channel" << scv.channel;
+                qWarning() << Q_FUNC_INFO << "Fixture" << scv.fxi() << "does not have channel" << scv.channel();
                 continue;
             }
             m_channels.append(scv);

@@ -106,18 +106,18 @@ bool ChaserStep::loadXML(QXmlStreamReader &root, int& stepNumber)
     QXmlStreamAttributes attrs = root.attributes();
 
     if (attrs.hasAttribute(KXMLQLCFunctionSpeedFadeIn) == true)
-        fadeIn = attrs.value(KXMLQLCFunctionSpeedFadeIn).toString().toUInt();
+        fadeIn = attrs.value(KXMLQLCFunctionSpeedFadeIn).toUInt();
     if (attrs.hasAttribute(KXMLQLCFunctionSpeedHold) == true)
     {
-        hold = attrs.value(KXMLQLCFunctionSpeedHold).toString().toUInt();
+        hold = attrs.value(KXMLQLCFunctionSpeedHold).toUInt();
         holdFound = true;
     }
     if (attrs.hasAttribute(KXMLQLCFunctionSpeedFadeOut) == true)
-        fadeOut = attrs.value(KXMLQLCFunctionSpeedFadeOut).toString().toUInt();
+        fadeOut = attrs.value(KXMLQLCFunctionSpeedFadeOut).toUInt();
     if (attrs.hasAttribute(KXMLQLCFunctionSpeedDuration) == true)
-        duration = attrs.value(KXMLQLCFunctionSpeedDuration).toString().toUInt();
+        duration = attrs.value(KXMLQLCFunctionSpeedDuration).toUInt();
     if (attrs.hasAttribute(KXMLQLCFunctionNumber) == true)
-        stepNumber = attrs.value(KXMLQLCFunctionNumber).toString().toInt();
+        stepNumber = attrs.value(KXMLQLCFunctionNumber).toInt();
     if (attrs.hasAttribute(KXMLQLCStepNote) == true)
         note = attrs.value(KXMLQLCStepNote).toString();
 
@@ -126,12 +126,13 @@ bool ChaserStep::loadXML(QXmlStreamReader &root, int& stepNumber)
         QString stepValues = root.readElementText();
         if (stepValues.isEmpty() == false)
         {
-            QStringList varray = stepValues.split(",");
+            QVector<QStringRef> varray = stepValues.splitRef(",");
+            values.reserve(varray.count() / 3);
             for (int i = 0; i < varray.count(); i+=3)
             {
-                values.append(SceneValue(QString(varray.at(i)).toUInt(),
-                                         QString(varray.at(i + 1)).toUInt(),
-                                         uchar(QString(varray.at(i + 2)).toInt())));
+                values.append(SceneValue(varray.at(i).toUInt(),
+                                         varray.at(i + 1).toUInt(),
+                                         uchar(varray.at(i + 2).toInt())));
             }
             qSort(values.begin(), values.end());
         }
@@ -188,7 +189,7 @@ bool ChaserStep::saveXML(QXmlStreamWriter *doc, int stepNumber, bool isSequence)
             {
                 if (stepValues.isEmpty() == false)
                     stepValues.append(QString(","));
-                stepValues.append(QString("%1,%2,%3").arg(scv.fxi).arg(scv.channel).arg(scv.value));
+                stepValues.append(QString("%1,%2,%3").arg(scv.fxi()).arg(scv.channel()).arg(scv.value));
             }
         }
         if (stepValues.isEmpty() == false)

@@ -135,7 +135,7 @@ void SceneEditor::slotSetSceneValues(QList <SceneValue>&sceneValues)
     {
         SceneValue sv(it.next());
 
-        fixture = m_doc->fixture(sv.fxi);
+        fixture = m_doc->fixture(sv.fxi());
         Q_ASSERT(fixture != NULL);
 
         fc = fixtureConsole(fixture);
@@ -325,11 +325,11 @@ void SceneEditor::init(bool applyValues)
     {
         SceneValue scv(it.next());
 
-        if (fixtureItem(scv.fxi) == NULL)
+        if (fixtureItem(scv.fxi()) == NULL)
         {
             qWarning() << Q_FUNC_INFO
-                << "Fixture" << scv.fxi << "was not in the scene fixture list!";
-            Fixture* fixture = m_doc->fixture(scv.fxi);
+                << "Fixture" << scv.fxi() << "was not in the scene fixture list!";
+            Fixture* fixture = m_doc->fixture(scv.fxi());
             if (fixture == NULL)
                 continue;
 
@@ -346,7 +346,7 @@ void SceneEditor::setSceneValue(const SceneValue& scv)
     FixtureConsole* fc;
     Fixture* fixture;
 
-    fixture = m_doc->fixture(scv.fxi);
+    fixture = m_doc->fixture(scv.fxi());
     Q_ASSERT(fixture != NULL);
 
     fc = fixtureConsole(fixture);
@@ -512,7 +512,7 @@ void SceneEditor::slotPaste()
                 QList<SceneValue>thisFixtureVals;
                 foreach(SceneValue val, clipboard->getSceneValues())
                 {
-                    if (val.fxi == fxi)
+                    if (val.fxi() == fxi)
                         thisFixtureVals.append(val);
                 }
                 fc->setValues(thisFixtureVals, m_copyFromSelection);
@@ -832,7 +832,7 @@ void SceneEditor::slotBlindToggled(bool state)
         {
             m_source = new GenericDMXSource(m_doc);
             foreach(SceneValue scv, m_scene->values())
-                m_source->set(scv.fxi, scv.channel, scv.value);
+                m_source->set(scv.fxi(), scv.channel(), scv.value);
         }
     }
     else
@@ -917,7 +917,7 @@ void SceneEditor::slotViewModeChanged(bool toggled, bool applyValues)
                     SceneValue scv(it.next());
                     if (applyValues == false)
                         scv.value = 0;
-                    if (scv.fxi == fixture->id())
+                    if (scv.fxi() == fixture->id())
                         console->setSceneValue(scv);
                 }
 
@@ -945,7 +945,7 @@ void SceneEditor::slotViewModeChanged(bool toggled, bool applyValues)
                 SceneValue scv(it.next());
                 if (applyValues == false)
                     scv.value = 0;
-                if (scv.fxi == fixture->id())
+                if (scv.fxi() == fixture->id())
                     setSceneValue(scv);
             }
         }
@@ -1345,13 +1345,13 @@ void SceneEditor::slotChannelGroupsChanged(QTreeWidgetItem *item, int column)
         m_scene->addChannelGroup(grpID);
         foreach (SceneValue val, grp->getChannels())
         {
-            Fixture *fixture = m_doc->fixture(val.fxi);
+            Fixture *fixture = m_doc->fixture(val.fxi());
             if (fixture != NULL)
             {
                 if (addFixtureItem(fixture) == true)
-                    addFixtureTab(fixture, val.channel);
+                    addFixtureTab(fixture, val.channel());
                 else
-                    setTabChannelState(true, fixture, val.channel);
+                    setTabChannelState(true, fixture, val.channel());
             }
         }
     }
@@ -1360,9 +1360,9 @@ void SceneEditor::slotChannelGroupsChanged(QTreeWidgetItem *item, int column)
         m_scene->removeChannelGroup(grpID);
         foreach (SceneValue val, grp->getChannels())
         {
-            Fixture *fixture = m_doc->fixture(val.fxi);
+            Fixture *fixture = m_doc->fixture(val.fxi());
             if (fixture != NULL)
-                setTabChannelState(false, fixture, val.channel);
+                setTabChannelState(false, fixture, val.channel());
         }
     }
 
@@ -1446,13 +1446,13 @@ void SceneEditor::slotGroupValueChanged(quint32 groupID, uchar value)
             return;
         foreach (SceneValue scv, group->getChannels())
         {
-            Fixture *fixture = m_doc->fixture(scv.fxi);
+            Fixture *fixture = m_doc->fixture(scv.fxi());
             if (fixture == NULL)
                 continue;
             FixtureConsole *fc = fixtureConsole(fixture);
             if (fc == NULL)
                 continue;
-            fc->setValue(scv.channel, value);
+            fc->setValue(scv.channel(), value);
         }
         m_scene->setChannelGroupLevel(groupID, value);
     }

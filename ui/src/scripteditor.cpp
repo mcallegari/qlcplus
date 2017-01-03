@@ -322,14 +322,14 @@ void ScriptEditor::slotAddSetFixture()
     QList<SceneValue> channelsList = cfg.channelsList();
     foreach(SceneValue sv, channelsList)
     {
-        Fixture* fxi = m_doc->fixture(sv.fxi);
+        Fixture* fxi = m_doc->fixture(sv.fxi());
         if (fxi != NULL)
         {
-            const QLCChannel* channel = fxi->channel(sv.channel);
+            const QLCChannel* channel = fxi->channel(sv.channel());
             m_editor->moveCursor(QTextCursor::StartOfLine);
             m_editor->textCursor().insertText(QString("%1:%2 ch:%3 val:0 // %4, %5\n")
                                                 .arg(Script::setFixtureCmd)
-                                                .arg(fxi->id()).arg(sv.channel)
+                                                .arg(fxi->id()).arg(sv.channel())
                                                 .arg(fxi->name()).arg(channel->name()));
             m_editor->moveCursor(QTextCursor::Down);
         }

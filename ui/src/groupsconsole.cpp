@@ -67,7 +67,7 @@ void GroupsConsole::init()
         {
             SceneValue scv = grp->getChannels().at(0);
 
-            ConsoleChannel* cc = new ConsoleChannel(this, m_doc, scv.fxi, scv.channel, false);
+            ConsoleChannel* cc = new ConsoleChannel(this, m_doc, scv.fxi(), scv.channel(), false);
             cc->setLabel(grp->name());
             cc->setChannelsGroup(id);
             cc->setChannelStyleSheet(CNG_DEFAULT_STYLE);
