@@ -38,7 +38,6 @@
 VCFrame::VCFrame(Doc *doc, VirtualConsole *vc, QObject *parent)
     : VCWidget(doc, parent)
     , m_vc(vc)
-    , m_hasSoloParent(false)
     , m_showHeader(true)
     , m_showEnable(true)
     , m_isCollapsed(false)
@@ -101,16 +100,6 @@ QString VCFrame::propertiesResource() const
         return QString("qrc:/VCPageProperties.qml");
 
     return QString("qrc:/VCFrameProperties.qml");
-}
-
-void VCFrame::setHasSoloParent(bool hasSoloParent)
-{
-    m_hasSoloParent = hasSoloParent;
-}
-
-bool VCFrame::hasSoloParent() const
-{
-    return m_hasSoloParent;
 }
 
 bool VCFrame::hasChildren()
@@ -188,6 +177,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             QQmlEngine::setObjectOwnership(label, QQmlEngine::CppOwnership);
             label->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 25, m_vc->pixelDensity() * 8));
             setupWidget(label);
+            label->setDefaultFontSize(m_vc->pixelDensity() * 3.5);
             m_vc->addWidgetToMap(label);
             label->render(m_vc->view(), parent);
         }
@@ -198,7 +188,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             QQmlEngine::setObjectOwnership(slider, QQmlEngine::CppOwnership);
             slider->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 10, m_vc->pixelDensity() * 35));
             setupWidget(slider);
-            //slider->setDefaultFontSize(m_vc->pixelDensity() * 3.5);
+            slider->setDefaultFontSize(m_vc->pixelDensity() * 3.5);
             m_vc->addWidgetToMap(slider);
             slider->render(m_vc->view(), parent);
         }
@@ -209,7 +199,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             QQmlEngine::setObjectOwnership(clock, QQmlEngine::CppOwnership);
             clock->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 25, m_vc->pixelDensity() * 8));
             setupWidget(clock);
-            clock->setDefaultFontSize(m_vc->pixelDensity() * 5.5);
+            clock->setDefaultFontSize(m_vc->pixelDensity() * 5.0);
             m_vc->addWidgetToMap(clock);
             clock->render(m_vc->view(), parent);
         }
@@ -304,34 +294,47 @@ void VCFrame::setupWidget(VCWidget *widget)
     widget->setDefaultFontSize(m_vc->pixelDensity() * 2.7);
 
     addWidgetToPageMap(widget);
+}
+
+void VCFrame::addWidgetToPageMap(VCWidget *widget)
+{
+    m_pagesMap.insert(widget, widget->page());
 
     // if we're a normal Frame and we have a Solo Frame parent
     // then passthrough the widget functionStarting signal.
     // If we're not into a Solo Frame parent, then don't even connect
     // the signal, so each widget will know to immediately start the Function
-    if (xmlTagName() == KXMLQLCVCFrame && m_hasSoloParent == true)
+    if (xmlTagName() == KXMLQLCVCFrame && hasSoloParent() == true)
     {
-        connect(widget, SIGNAL(functionStarting(VCWidget*,quint32,qreal)),
-                this, SIGNAL(functionStarting(VCWidget*,quint32,qreal)));
+        qDebug() << "------ FRAME ----- connect";
+        connect(widget, &VCWidget::functionStarting, this, &VCWidget::functionStarting);
     }
 
     // otherwise, if we're a Solo Frame, connect the widget
     // functionStarting signal to a slot to handle the event
     if (xmlTagName() == KXMLQLCVCSoloFrame)
     {
-        connect(widget, SIGNAL(functionStarting(VCWidget*,quint32,qreal)),
-                this, SLOT(slotFunctionStarting(VCWidget*,quint32,qreal)));
+        qDebug() << "------ SOLO FRAME ----- connect";
+        connect(widget, &VCWidget::functionStarting, this, &VCFrame::slotFunctionStarting);
     }
-}
-
-void VCFrame::addWidgetToPageMap(VCWidget *widget)
-{
-    m_pagesMap.insert(widget, widget->page());
 }
 
 void VCFrame::removeWidgetFromPageMap(VCWidget *widget)
 {
     m_pagesMap.remove(widget);
+
+    // disconnect function start event. See addWidgetToPageMap
+    if (xmlTagName() == KXMLQLCVCFrame && hasSoloParent() == true)
+    {
+        qDebug() << "------ FRAME --//--- disconnect";
+        disconnect(widget, &VCWidget::functionStarting, this, &VCWidget::functionStarting);
+    }
+
+    if (xmlTagName() == KXMLQLCVCSoloFrame)
+    {
+        qDebug() << "------ SOLO FRAME --//--- disconnect";
+        disconnect(widget, &VCWidget::functionStarting, this, &VCFrame::slotFunctionStarting);
+    }
 }
 
 
@@ -607,11 +610,6 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
         {
             /* Create a new frame into its parent */
             VCFrame* frame = new VCFrame(m_doc, m_vc, this);
-
-            // if we're a Solo Frame or we have a Solo Frame parent, set
-            // the new frame accordingly
-            if (xmlTagName() == KXMLQLCVCSoloFrame || m_hasSoloParent == true)
-                frame->setHasSoloParent(true);
 
             if (frame->loadXML(root) == false)
                 delete frame;

@@ -399,6 +399,26 @@ int VCWidget::page()
     return m_page;
 }
 
+/*********************************************************************
+ * Widget Function
+ *********************************************************************/
+
+bool VCWidget::hasSoloParent()
+{
+    VCWidget *wParent = qobject_cast<VCWidget*>(parent());
+
+    if (wParent == NULL)
+        return false;
+
+    if (wParent->type() == VCWidget::FrameWidget)
+        return wParent->hasSoloParent();
+
+    if (wParent->type() == VCWidget::SoloFrameWidget)
+        return true;
+
+    return false;
+}
+
 void VCWidget::notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensity)
 {
     Q_UNUSED(widget)

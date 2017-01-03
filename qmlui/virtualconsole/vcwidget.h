@@ -363,6 +363,9 @@ protected:
      * Widget Function
      *********************************************************************/
 public:
+    /** Return true if the widget's parent is a Solo Frame */
+    bool hasSoloParent();
+
     /** This is a virtual method for VCWidgets attached to a Function.
      *  At the moment only Buttons, Sliders (in playback mode), Cue Lists
      *  and Audio Triggers can benefit from this.

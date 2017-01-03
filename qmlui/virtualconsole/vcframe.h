@@ -69,21 +69,9 @@ public:
     /** @reimp */
     QString propertiesResource() const;
 
-    /** Method used to indicate if this Frame has a SoloFrame parent
-     *  at any lower level. This is used to determine if
-     *  children widget should be connected to handle the Solo Frame
-     *  feature */
-    void setHasSoloParent(bool hasSoloParent);
-
-    /** Returns if this Frame has a Solo Frame parent at any lower level */
-    bool hasSoloParent() const;
-
 protected:
     /** Reference to the Virtual Console, used to add new widgets */
     VirtualConsole *m_vc;
-
-    /** Flag that holds if this frame has a Solo parent widget */
-    bool m_hasSoloParent;
 
     /*********************************************************************
      * Children
@@ -110,10 +98,10 @@ public:
     void deleteChildren();
 
     /** Add a child widget to the frame page map */
-    void addWidgetToPageMap(VCWidget *widget);
+    virtual void addWidgetToPageMap(VCWidget *widget);
 
     /** Remove the child $widget from the frame page map */
-    void removeWidgetFromPageMap(VCWidget *widget);
+    virtual void removeWidgetFromPageMap(VCWidget *widget);
 
 protected:
     void setupWidget(VCWidget *widget);
