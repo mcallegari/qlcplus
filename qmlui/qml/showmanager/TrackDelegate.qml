@@ -54,11 +54,11 @@ Rectangle
     IconButton
     {
         id: soloButton
-        x: parent.width - (width * 2) - 10
-        y: 3
+        x: parent.width - (width * 2) - 6
+        y: 2
         z: 2
         width: parent.width / 6
-        height: parent.height * 0.28
+        height: parent.height * 0.3
         bgColor: "#8191A0"
         checkedColor: "yellow"
         imgSource: ""
@@ -74,7 +74,7 @@ Rectangle
             height: parent.height - 2
             label: "S"
             labelColor: "#3C4A55"
-            fontSize: height
+            fontSize: height - 2
             fontBold: true
         }
     }
@@ -82,11 +82,11 @@ Rectangle
     IconButton
     {
         id: muteButton
-        x: parent.width - width - 5
-        y: 3
+        x: parent.width - width - 2
+        y: 2
         z: 2
         width: parent.width / 6
-        height: parent.height * 0.28
+        height: parent.height * 0.3
         bgColor: "#8191A0"
         checkedColor: "red"
         imgSource: ""
@@ -102,7 +102,7 @@ Rectangle
             height: parent.height - 2
             label: "M"
             labelColor: "#3C4A55"
-            fontSize: height
+            fontSize: height - 2
             fontBold: true
         }
     }

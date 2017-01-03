@@ -100,7 +100,7 @@ Rectangle
                 height: width
                 imgSource: "qrc:/color.svg"
                 checkable: true
-                tooltip: qsTr("Show Items Color")
+                tooltip: qsTr("Show items color")
                 onCheckedChanged: colTool.visible = !colTool.visible
                 ColorTool
                 {
@@ -121,7 +121,7 @@ Rectangle
                 width: parent.height - 6
                 height: width
                 imgSource: "qrc:/stretch.svg"
-                tooltip: qsTr("Stretch the original Function")
+                tooltip: qsTr("Stretch the original function")
                 checkable: true
                 checked: showManager.stretchFunctions
                 onToggled: showManager.stretchFunctions = checked
@@ -261,7 +261,7 @@ Rectangle
         y: topBar.height
         z: 5
         width: trackWidth + verticalDivider.width
-        height: showMgrContainer.headerHeight - 2
+        height: showMgrContainer.headerHeight
         color: UISettings.bgStrong
 
         RowLayout
@@ -271,7 +271,7 @@ Rectangle
             IconButton
             {
                 visible: showManager.selectedTrack > 0 ? true : false
-                height: parent.height
+                height: parent.height - 2
                 width: height
                 imgSource: "qrc:/up.svg"
                 tooltip: qsTr("Move the selected track up")
@@ -280,7 +280,7 @@ Rectangle
             IconButton
             {
                 visible: showManager.selectedTrack >= 0 ? true : false
-                height: parent.height
+                height: parent.height - 2
                 width: height
                 imgSource: "qrc:/down.svg"
                 tooltip: qsTr("Move the selected track down")
@@ -294,7 +294,6 @@ Rectangle
             }
             ZoomItem
             {
-                //x: parent.width - width - 6
                 width: UISettings.mediumItemHeight * 1.3
                 height: parent.height - 2
                 fontColor: "#222"
