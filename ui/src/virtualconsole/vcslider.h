@@ -338,6 +338,7 @@ protected:
 
     bool m_monitorEnabled;
     uchar m_monitorValue;
+    uchar m_previousSceneValue;
 
     /*********************************************************************
      * Playback
@@ -454,12 +455,16 @@ public:
 
 private slots:
     void slotSliderMoved(int value);
+    void slotResetButtonClicked();
+    void slotEnaAutoResetButtonClicked(bool checked);
 
 protected:
     QHBoxLayout* m_hbox;
     QAbstractSlider* m_slider; //!< either QClickAndGoSlider or KnobWidget
     bool m_externalMovement;
     SliderWidgetStyle m_widgetMode;
+    QToolButton *m_resetButton;
+    QToolButton *m_enaAutoResetButton;
 
     /*********************************************************************
      * Bottom label
@@ -547,6 +552,12 @@ public:
     bool loadXMLPlayback(QXmlStreamReader &pb_root);
 
     bool saveXML(QXmlStreamWriter *doc);
+
+
+    //new behaviour place in appropriate place
+    bool m_override;
+    bool m_autoReset;
+    bool m_doReset;
 };
 
 /** @} */
