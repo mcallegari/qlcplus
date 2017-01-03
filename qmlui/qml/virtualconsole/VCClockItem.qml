@@ -23,6 +23,7 @@ import QtQuick.Layouts 1.0
 import com.qlcplus.classes 1.0
 
 import "TimeUtils.js" as TimeUtils
+import "."
 
 VCWidgetItem
 {
@@ -143,7 +144,8 @@ VCWidgetItem
         IconButton
         {
             id: enableChk
-            height: clockRoot.height
+            anchors.verticalCenter: parent.verticalCenter
+            height: Math.min(clockRoot.height, UISettings.iconSizeDefault)
             width: height
             checkable: true
             tooltip: qsTr("Enable/Disable this scheduler")

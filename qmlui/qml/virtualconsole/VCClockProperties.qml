@@ -398,7 +398,7 @@ Rectangle
                     Rectangle
                     {
                         id: newScheduleBox
-                        height: 100
+                        height: UISettings.bigItemHeight * 0.6
                         width: parent.width
                         color: "transparent"
                         radius: 10
