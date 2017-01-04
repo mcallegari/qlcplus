@@ -320,7 +320,11 @@ void VCSlider::slotModeChanged(Doc::Mode mode)
     {
         enableWidgetUI(true);
         if (m_sliderMode == Level || m_sliderMode == Playback)
+        {
             m_doc->masterTimer()->registerDMXSource(this, "Slider");
+            if (channelsMonitorEnabled())
+                m_doc->masterTimer()->requestHigherPriority(this);
+        }
     }
     else
     {
@@ -578,6 +582,8 @@ void VCSlider::setChannelsMonitorEnabled(bool enable)
         connect(m_resetButton, SIGNAL(clicked(bool)),
                 this, SLOT(slotResetButtonClicked()));
         m_resetButton->show();
+
+        m_doc->masterTimer()->requestHigherPriority(this);
     }
 }
 
@@ -751,6 +757,8 @@ void VCSlider::slotClickAndGoLevelAndPresetChanged(uchar level, QImage img)
 void VCSlider::slotResetButtonClicked()
 {
     m_isOverriding = false;
+    m_resetButton->setStyleSheet(QString("QToolButton{ background: %1; }")
+                                    .arg(m_slider->palette().background().color().name()));
 }
 
 /*****************************************************************************
@@ -972,6 +980,11 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
         if (mixedDMXlevels == false &&
             monitorSliderValue != m_monitorValue)
         {
+            if (m_widgetMode == WSlider)
+            {
+                ClickAndGoSlider *sl = qobject_cast<ClickAndGoSlider*> (m_slider);
+                sl->setShadowLevel(monitorSliderValue);
+            }
             emit monitorDMXValueChanged(monitorSliderValue);
             // return here. At the next call of this method,
             // the monitor level will kick in
@@ -1254,6 +1267,7 @@ void VCSlider::slotSliderMoved(int value)
             {
                 qDebug() << Q_FUNC_INFO << "-----------------------";
                 m_doc->masterTimer()->requestHigherPriority(this);
+                m_resetButton->setStyleSheet(QString("QToolButton{ background: red; }"));
                 m_isOverriding = true;
             }
             setLevelValue(value);
