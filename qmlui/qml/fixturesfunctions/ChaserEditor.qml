@@ -32,17 +32,58 @@ Rectangle
     color: "transparent"
 
     property int functionID: -1
+    property int editStepIndex: -1
+    property int editStepType
 
     signal requestView(int ID, string qmlSrc)
+
+    function editStepTime(stepIndex, stepItem, type)
+    {
+        var title, timeValueString
+
+        cStepsList.currentIndex = stepIndex
+
+        if (stepItem.isSelected === false)
+            ceSelector.selectItem(stepIndex, cStepsList.model, false)
+
+        editStepIndex = stepIndex
+        editStepType = type
+
+        timeEditTool.tempoType = chaserEditor.tempoType
+        timeEditTool.indexInList = stepIndex
+
+        if (type === Function.FadeIn)
+        {
+            title = "#" + (stepIndex + 1) + " " + fInCol.label
+            timeValueString = stepItem.stepFadeIn
+            timeEditTool.allowFractions = Function.AllFractions
+        }
+        else if (type === Function.Hold)
+        {
+            title = "#" + (stepIndex + 1) + " " + holdCol.label
+            timeValueString = stepItem.stepHold
+            timeEditTool.allowFractions = Function.NoFractions
+        }
+        else if (type === Function.FadeOut)
+        {
+            title = "#" + (stepIndex + 1) + " " + fOutCol.label
+            timeValueString = stepItem.stepFadeOut
+            timeEditTool.allowFractions = Function.AllFractions
+        }
+        else if (type === Function.Duration)
+        {
+            title = "#" + (stepIndex + 1) + " " + durCol.label
+            timeValueString = stepItem.stepDuration
+            timeEditTool.allowFractions = Function.NoFractions
+        }
+
+        timeEditTool.show(-1, stepItem.mapToItem(mainView, 0, 0).y, title, timeValueString, type)
+    }
 
     ModelSelector
     {
         id: ceSelector
-
-        onItemsCountChanged:
-        {
-            console.log("Chaser Editor selected items changed !")
-        }
+        onItemsCountChanged: console.log("Chaser Editor selected items changed !")
     }
 
     TimeEditTool
@@ -53,9 +94,33 @@ Rectangle
         z: 99
         visible: false
 
-        onValueChanged:
+        onValueChanged: chaserEditor.setStepSpeed(indexInList, val, speedType)
+        onClosed: editStepIndex = -1
+        onTabPressed:
         {
-            chaserEditor.setStepSpeed(indexInList, val, speedType)
+            var typeArray = [ Function.FadeIn, Function.Hold, Function.FadeOut, Function.Duration ]
+            var currType = editStepType + (forward ? 1 : -1)
+
+            if (currType < 0)
+            {
+                // need to select the previous step
+                if (cStepsList.currentIndex > 0)
+                {
+                    cStepsList.currentIndex--
+                    editStepTime(cStepsList.currentIndex, cStepsList.currentItem, Function.Duration)
+                }
+            }
+            else if (currType >= typeArray.length)
+            {
+                // need to select the next step
+                cStepsList.currentIndex++
+                editStepTime(cStepsList.currentIndex, cStepsList.currentItem, Function.FadeIn)
+            }
+            else
+            {
+                // same step, other field
+                editStepTime(editStepIndex, cStepsList.currentItem, currType)
+            }
         }
     }
 
@@ -451,6 +516,7 @@ Rectangle
 
                         indexInList: index
                         highlightIndex: cStepsList.dragInsertIndex
+                        highlightEditTime: editStepIndex === index ? editStepType : -1
 
                         onClicked:
                         {
@@ -462,40 +528,7 @@ Rectangle
                         onDoubleClicked:
                         {
                             console.log("Double clicked: " + indexInList + ", " + type)
-                            var title, timeValueString
-
-                            if (isSelected == false)
-                                ceSelector.selectItem(indexInList, cStepsList.model, false)
-
-                            timeEditTool.tempoType = chaserEditor.tempoType
-                            timeEditTool.indexInList = indexInList
-
-                            if (type === Function.FadeIn)
-                            {
-                                title = "#" + (indexInList + 1) + " " + fInCol.label
-                                timeValueString = stepFadeIn
-                                timeEditTool.allowFractions = Function.AllFractions
-                            }
-                            else if (type === Function.Hold)
-                            {
-                                title = holdCol.label
-                                timeValueString = stepHold
-                                timeEditTool.allowFractions = Function.NoFractions
-                            }
-                            else if (type === Function.FadeOut)
-                            {
-                                title = fOutCol.label
-                                timeValueString = stepFadeOut
-                                timeEditTool.allowFractions = Function.AllFractions
-                            }
-                            else if (type === Function.Duration)
-                            {
-                                title = durCol.label
-                                timeValueString = stepDuration
-                                timeEditTool.allowFractions = Function.NoFractions
-                            }
-
-                            timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y, title, timeValueString, type)
+                            ceContainer.editStepTime(indexInList, this, type)
                         }
                     }
 
@@ -522,6 +555,7 @@ Rectangle
                         //console.log("Item index:" + idx)
                         cStepsList.dragInsertIndex = idx
                     }
+                    onExited: cStepsList.dragInsertIndex = -1
                 }
                 ScrollBar { flickable: cStepsList }
             }

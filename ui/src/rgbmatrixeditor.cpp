@@ -1102,10 +1102,8 @@ void RGBMatrixEditor::slotPropertyComboChanged(QString value)
     if (m_matrix->algorithm() == NULL ||
         m_matrix->algorithm()->type() == RGBAlgorithm::Script)
     {
-        RGBScript *script = static_cast<RGBScript*> (m_matrix->algorithm());
         QComboBox *combo = (QComboBox *)sender();
         QString pName = combo->property("pName").toString();
-        script->setProperty(pName, value);
         m_matrix->setProperty(pName, value);
     }
 }
@@ -1116,10 +1114,8 @@ void RGBMatrixEditor::slotPropertySpinChanged(int value)
     if (m_matrix->algorithm() == NULL ||
         m_matrix->algorithm()->type() == RGBAlgorithm::Script)
     {
-        RGBScript *script = static_cast<RGBScript*> (m_matrix->algorithm());
         QSpinBox *spin = (QSpinBox *)sender();
         QString pName = spin->property("pName").toString();
-        script->setProperty(pName, QString::number(value));
         m_matrix->setProperty(pName, QString::number(value));
     }
 }

@@ -147,6 +147,11 @@ Rectangle
 
                         onDmxValueChanged:
                         {
+                            // if the slider is not pressed, then it means
+                            // it is just monitoring values, with no user intervention
+                            if (slider.pressed == false && slider.touchPressed == false)
+                                return
+
                             var val = dmxMode ? dmxValue : dmxValue * 2.55
                             if (sceneConsole == false)
                                 fixtureManager.setChannelValue(fixtureObj.id, index, val)

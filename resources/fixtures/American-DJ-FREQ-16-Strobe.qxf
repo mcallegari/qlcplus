@@ -8,7 +8,7 @@
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
  <Model>FREQ 16 Strobe</Model>
- <Type>Color Changer</Type>
+ <Type>Strobe</Type>
  <Channel Name="Dimmer 1">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="0">Off</Capability>

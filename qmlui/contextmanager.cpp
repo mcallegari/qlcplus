@@ -596,6 +596,7 @@ void ContextManager::resetDumpValues()
         m_source->set(sv.fxi, sv.channel, 0);
     }
     m_source->unsetAll();
+
     m_functionManager->resetDumpValues();
 }
 

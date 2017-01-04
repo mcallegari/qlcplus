@@ -36,7 +36,7 @@ Rectangle
 
     property VCWidget wObj: null
     property bool isSelected: false
-    property int handleSize: UISettings.iconSizeMedium
+    property int handleSize: Math.min(UISettings.iconSizeMedium, Math.min(height / 2, width / 2))
 
     Drag.source: wRoot
     Drag.keys: [ "vcwidget" ]

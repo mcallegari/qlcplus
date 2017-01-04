@@ -998,7 +998,6 @@ bool VirtualConsole::saveXML(QXmlStreamWriter *doc)
     return true;
 }
 
-
 void VirtualConsole::postLoad()
 {
     /** apply GM values */

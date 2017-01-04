@@ -133,12 +133,13 @@ Rectangle
         onPaint:
         {
             var ctx = timeHeader.getContext('2d')
+            var fontSize = headerHeight * 0.55
             ctx.globalAlpha = 1.0
             ctx.lineWidth = 1
 
             ctx.fillStyle = "black"
             ctx.strokeStyle = "white"
-            ctx.font = UISettings.textSizeDefault + "px \"" + UISettings.robotoFontName + "\""
+            ctx.font = fontSize + "px \"" + UISettings.robotoFontName + "\""
             ctx.fillRect(0, 0, width, headerHeight)
 
             var divNum = width / tickSize
@@ -159,7 +160,7 @@ Rectangle
                     ctx.moveTo(xPos, 0)
                     ctx.lineTo(xPos, height)
 
-                    ctx.fillText(TimeUtils.msToString(msTime), xPos + 3, height - 20)
+                    ctx.fillText(TimeUtils.msToString(msTime), xPos + 3, height - fontSize)
                 }
                 xPos -= tickSize
                 msTime -= timeScale * 1000

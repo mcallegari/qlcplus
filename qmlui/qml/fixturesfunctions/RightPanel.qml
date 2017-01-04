@@ -95,7 +95,10 @@ SidePanel
                     if (checked)
                         loaderSource = "qrc:/FunctionManager.qml"
                     else
+                    {
                         functionManager.selectFunctionID(-1, false)
+                        functionManager.setEditorFunction(-1, false)
+                    }
                     animatePanel(checked)
                 }
             }

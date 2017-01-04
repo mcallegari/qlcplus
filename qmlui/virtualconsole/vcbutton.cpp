@@ -31,6 +31,8 @@ VCButton::VCButton(Doc *doc, QObject *parent)
     , m_functionID(Function::invalidId())
     , m_isOn(false)
     , m_actionType(Toggle)
+    , m_startupIntensityEnabled(false)
+    , m_startupIntensity(1.0)
 {
     setType(VCWidget::ButtonWidget);
     setBackgroundColor(QColor("#444"));
@@ -153,8 +155,7 @@ void VCButton::requestStateChange(bool pressed)
 
             if (m_isOn == false && pressed == true)
             {
-                static const QMetaMethod funcSignal = QMetaMethod::fromSignal(&VCButton::functionStarting);
-                if (isSignalConnected(funcSignal))
+                if (hasSoloParent())
                     emit functionStarting(this, m_functionID);
                 else
                     notifyFunctionStarting(this, m_functionID, 1.0);
