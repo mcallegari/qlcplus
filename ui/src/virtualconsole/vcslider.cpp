@@ -582,9 +582,12 @@ void VCSlider::setChannelsMonitorEnabled(bool enable)
         connect(m_resetButton, SIGNAL(clicked(bool)),
                 this, SLOT(slotResetButtonClicked()));
         m_resetButton->show();
+        setSliderShadowValue(m_monitorValue);
 
         m_doc->masterTimer()->requestHigherPriority(this);
     }
+    else
+        setSliderShadowValue(-1);
 }
 
 bool VCSlider::channelsMonitorEnabled() const
@@ -605,14 +608,6 @@ void VCSlider::setLevelValue(uchar value)
 uchar VCSlider::levelValue() const
 {
     return m_levelValue;
-}
-
-void VCSlider::emitSubmasterValue()
-{
-    Q_ASSERT(sliderMode() == Submaster);
-
-    emit submasterValueChanged(SCALE(float(m_levelValue), float(0),
-                float(UCHAR_MAX), float(0), float(1)) * intensity());
 }
 
 void VCSlider::slotFixtureRemoved(quint32 fxi_id)
@@ -883,6 +878,18 @@ FunctionParent VCSlider::functionParent() const
     return FunctionParent(FunctionParent::ManualVCWidget, id());
 }
 
+/*********************************************************************
+ * Submaster
+ *********************************************************************/
+
+void VCSlider::emitSubmasterValue()
+{
+    Q_ASSERT(sliderMode() == Submaster);
+
+    emit submasterValueChanged(SCALE(float(m_levelValue), float(0),
+                float(UCHAR_MAX), float(0), float(1)) * intensity());
+}
+
 /*****************************************************************************
  * DMXSource
  *****************************************************************************/
@@ -937,7 +944,7 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
         }
     }
 
-    if (m_monitorEnabled == true && m_levelValueChanged == false && m_isOverriding == false)
+    if (m_monitorEnabled == true && m_levelValueChanged == false)
     {
         QListIterator <LevelChannel> it(m_levelChannels);
         while (it.hasNext() == true)
@@ -980,15 +987,14 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
         if (mixedDMXlevels == false &&
             monitorSliderValue != m_monitorValue)
         {
-            if (m_widgetMode == WSlider)
+            setSliderShadowValue(monitorSliderValue);
+            if (m_isOverriding == false)
             {
-                ClickAndGoSlider *sl = qobject_cast<ClickAndGoSlider*> (m_slider);
-                sl->setShadowLevel(monitorSliderValue);
+                emit monitorDMXValueChanged(monitorSliderValue);
+                // return here. At the next call of this method,
+                // the monitor level will kick in
+                return;
             }
-            emit monitorDMXValueChanged(monitorSliderValue);
-            // return here. At the next call of this method,
-            // the monitor level will kick in
-            return;
         }
     }
 
@@ -1143,6 +1149,15 @@ void VCSlider::setSliderValue(uchar value, bool noScale)
             m_slider->setValue(m_slider->maximum() - (int) val);
         else
             m_slider->setValue((int) val);
+    }
+}
+
+void VCSlider::setSliderShadowValue(int value)
+{
+    if (m_widgetMode == WSlider)
+    {
+        ClickAndGoSlider *sl = qobject_cast<ClickAndGoSlider*> (m_slider);
+        sl->setShadowLevel(value);
     }
 }
 

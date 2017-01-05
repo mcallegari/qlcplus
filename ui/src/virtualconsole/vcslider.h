@@ -310,12 +310,6 @@ protected:
      */
     uchar levelValue() const;
 
-public:
-    /**
-     * Send submasterValueChanged signal
-     */
-    void emitSubmasterValue();
-
 signals:
     void monitorDMXValueChanged(int value);
 
@@ -393,6 +387,12 @@ private:
     /*********************************************************************
      * Submaster
      *********************************************************************/
+public:
+    /**
+     * Send submasterValueChanged signal
+     */
+    void emitSubmasterValue();
+
 signals:
     void submasterValueChanged(qreal value);
 
@@ -439,6 +439,8 @@ public:
 
 public:
     void setSliderValue(uchar value, bool noScale = false);
+
+    void setSliderShadowValue(int value);
 
     int sliderValue() const;
 
