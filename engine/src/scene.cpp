@@ -601,6 +601,7 @@ void Scene::write(MasterTimer* timer, QList<Universe*> ua)
         m_valueListMutex.lock();
         m_fader = new GenericFader(doc());
         m_fader->adjustIntensity(getAttributeValue(Intensity));
+        m_fader->setBlendMode(blendMode());
 
         QMapIterator <SceneValue, uchar> it(m_values);
         while (it.hasNext() == true)
