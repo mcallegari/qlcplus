@@ -1097,7 +1097,13 @@ void VCCueList::slotSlider1ValueChanged(int value)
         Chaser* ch = chaser();
         if (!(ch == NULL || ch->stopped()))
         {
-            ch->adjustIntensity((qreal)value / 100, m_primaryLeft ? m_primaryIndex : m_secondaryIndex);
+            int stepIndex = m_primaryLeft ? m_primaryIndex : m_secondaryIndex;
+
+            if (stepIndex == m_secondaryIndex && m_linkCheck->isChecked())
+                ch->adjustIntensity((qreal)value / 100, stepIndex, Chaser::LinkedCrossfade);
+            else
+                ch->adjustIntensity((qreal)value / 100, stepIndex, Chaser::Crossfade);
+
             stopStepIfNeeded(ch);
         }
 
@@ -1120,7 +1126,13 @@ void VCCueList::slotSlider2ValueChanged(int value)
     Chaser* ch = chaser();
     if (!(ch == NULL || ch->stopped()))
     {
-        ch->adjustIntensity((qreal)value / 100, m_primaryLeft ? m_secondaryIndex : m_primaryIndex);
+        int stepIndex = m_primaryLeft ? m_secondaryIndex : m_primaryIndex;
+
+        if (stepIndex == m_secondaryIndex && m_linkCheck->isChecked())
+            ch->adjustIntensity((qreal)value / 100, stepIndex, Chaser::LinkedCrossfade);
+        else
+            ch->adjustIntensity((qreal)value / 100, stepIndex, Chaser::Crossfade);
+
         stopStepIfNeeded(ch);
     }
 
