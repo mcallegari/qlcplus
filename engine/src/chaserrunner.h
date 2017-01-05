@@ -186,7 +186,7 @@ public:
     /**
      * Adjust the intensities of chaser steps.
      */
-    void adjustIntensity(qreal fraction, int stepIndex = -1);
+    void adjustIntensity(qreal fraction, int stepIndex = -1, int fadeControl = 0);
 
 private:
     qreal m_intensity;
@@ -195,10 +195,28 @@ private:
      * Running
      ************************************************************************/
 private:
+    /**
+     * Stop every running Function and clear the running list
+     */
     void clearRunningList();
 
-    void startNewStep(int index, MasterTimer *timer, qreal intensity, bool manualFade, quint32 elapsed = 0);
+    /**
+     * Start a Chaser step Function with the given $index, at the given $intensity
+     * and from the given $elapsed time.
+     * $fadeControl specified how the step Function should fade, according to
+     * the Chaser::FadeControlMode enumeration:
+     * - Chaser::FromFunction will use the original Function fadeIn time
+     * - Chaser::Crossfade means that the user is manually overriding the Function intensity with a slider
+     *                     so the Function fadeIn time will be set to 0
+     * - Chaser::LinkedCrossfade is like Crossfade, and the Function will also be requested
+     *                           to use the Universe::AdditiveBlend mode
+     */
+    void startNewStep(int index, MasterTimer *timer, qreal intensity, int fadeControl, quint32 elapsed = 0);
 
+    /**
+     * Get the index of the next step that should be started,
+     * according to the Chaser running order
+     */
     int getNextStepIndex();
 
 private:

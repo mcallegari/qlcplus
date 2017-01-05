@@ -276,9 +276,6 @@ public:
      * ChaserRunner wrappers
      *********************************************************************/
 public:
-    /** Set the intensity at start */
-    void setStartIntensity(qreal startIntensity);
-
     /** @reimpl */
     void tap();
 
@@ -309,8 +306,18 @@ public:
     /** Get the first step of the running list. If none is running this returns NULL */
     ChaserRunnerStep currentRunningStep() const;
 
+    enum FadeControlMode
+    {
+        FromFunction = 0,
+        Crossfade,
+        LinkedCrossfade
+    };
+
+    /** Set the intensity at start */
+    void setStartIntensity(qreal startIntensity);
+
     /** Adjust the intensities of chaser steps. */
-    void adjustIntensity(qreal fraction, int stepIndex = -1);
+    void adjustIntensity(qreal fraction, int stepIndex = -1, FadeControlMode fadeControl = FromFunction);
 
 private:
     /** Step index at chaser start */
