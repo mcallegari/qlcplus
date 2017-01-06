@@ -55,6 +55,9 @@
 #include "efx.h"
 #include "doc.h"
 
+const quint8 VCSlider::sliderInputSourceId = 0;
+const quint8 VCSlider::overrideResetInputSourceId = 1;
+
 const QSize VCSlider::defaultSize(QSize(60, 200));
 
 const QString submasterStyleSheet =
@@ -749,11 +752,30 @@ void VCSlider::slotClickAndGoLevelAndPresetChanged(uchar level, QImage img)
  * Override reset button
  *********************************************************************/
 
+void VCSlider::setOverrideResetKeySequence(const QKeySequence &keySequence)
+{
+    m_overrideResetKeySequence = QKeySequence(keySequence);
+}
+
+QKeySequence VCSlider::overrideResetKeySequence() const
+{
+    return m_overrideResetKeySequence;
+}
+
 void VCSlider::slotResetButtonClicked()
 {
     m_isOverriding = false;
     m_resetButton->setStyleSheet(QString("QToolButton{ background: %1; }")
-                                    .arg(m_slider->palette().background().color().name()));
+                                 .arg(m_slider->palette().background().color().name()));
+}
+
+void VCSlider::slotKeyPressed(const QKeySequence &keySequence)
+{
+    if (isEnabled() == false)
+        return;
+
+    if (m_overrideResetKeySequence == keySequence)
+        slotResetButtonClicked();
 }
 
 /*****************************************************************************
@@ -1280,7 +1302,6 @@ void VCSlider::slotSliderMoved(int value)
         {
             if (m_monitorEnabled == true && m_isOverriding == false && m_slider->isSliderDown())
             {
-                qDebug() << Q_FUNC_INFO << "-----------------------";
                 m_doc->masterTimer()->requestHigherPriority(this);
                 m_resetButton->setStyleSheet(QString("QToolButton{ background: red; }"));
                 m_isOverriding = true;
@@ -1337,20 +1358,22 @@ void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel,
     if (mode() == Doc::Design || isEnabled() == false)
         return;
 
-    if (checkInputSource(universe, (page() << 16) | channel, value, sender()))
+    quint32 pagedCh = (page() << 16) | channel;
+
+    if (checkInputSource(universe, pagedCh, value, sender(), sliderInputSourceId))
     {
         /* Scale from input value range to this slider's range */
-        float val;
+
         if (m_slider)
         {
-            val = SCALE((float) value, (float) 0, (float) UCHAR_MAX,
-                        (float) m_slider->minimum(),
-                        (float) m_slider->maximum());
+            float val = SCALE((float) value, (float) 0, (float) UCHAR_MAX,
+                              (float) m_slider->minimum(),
+                              (float) m_slider->maximum());
 
             if (m_monitorEnabled == true && m_isOverriding == false)
             {
-                qDebug() << Q_FUNC_INFO << "-----------------------";
                 m_doc->masterTimer()->requestHigherPriority(this);
+                m_resetButton->setStyleSheet(QString("QToolButton{ background: red; }"));
                 m_isOverriding = true;
             }
 
@@ -1359,6 +1382,11 @@ void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel,
             else
                 m_slider->setValue((int) val);
         }
+    }
+    else if (checkInputSource(universe, pagedCh, value, sender(), overrideResetInputSourceId))
+    {
+        if (value > 0)
+            slotResetButtonClicked();
     }
 }
 
@@ -1446,6 +1474,12 @@ bool VCSlider::loadXML(QXmlStreamReader &root)
                 else
                     setChannelsMonitorEnabled(true);
             }
+        }
+        else if (root.name() == KXMLQLCVCSliderOverrideReset)
+        {
+            QString str = loadXMLSources(root, overrideResetInputSourceId);
+            if (str.isEmpty() == false)
+                m_overrideResetKeySequence = stripKeySequence(QKeySequence(str));
         }
         else if (root.name() == KXMLQLCVCSliderLevel)
         {
@@ -1585,7 +1619,7 @@ bool VCSlider::saveXML(QXmlStreamWriter *doc)
     saveXMLAppearance(doc);
 
     /* External input */
-    saveXMLInput(doc);
+    saveXMLInput(doc, inputSource(sliderInputSourceId));
 
     /* SliderMode */
     doc->writeStartElement(KXMLQLCVCSliderMode);
@@ -1611,6 +1645,15 @@ bool VCSlider::saveXML(QXmlStreamWriter *doc)
 
     /* End the <SliderMode> tag */
     doc->writeEndElement();
+
+    if (sliderMode() == Level && channelsMonitorEnabled() == true)
+    {
+        doc->writeStartElement(KXMLQLCVCSliderOverrideReset);
+        if (m_overrideResetKeySequence.toString().isEmpty() == false)
+            doc->writeTextElement(KXMLQLCVCWidgetKey, m_overrideResetKeySequence.toString());
+        saveXMLInput(doc, inputSource(overrideResetInputSourceId));
+        doc->writeEndElement();
+    }
 
     /* Level */
     doc->writeStartElement(KXMLQLCVCSliderLevel);

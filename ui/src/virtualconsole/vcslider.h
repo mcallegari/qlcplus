@@ -54,7 +54,6 @@ class VCSliderProperties;
 
 #define KXMLQLCVCSliderInvertedAppearance "InvertedAppearance"
 
-#define KXMLQLCVCSliderBus "Bus"
 #define KXMLQLCVCSliderBusLowLimit "LowLimit"
 #define KXMLQLCVCSliderBusHighLimit "HighLimit"
 
@@ -63,6 +62,7 @@ class VCSliderProperties;
 #define KXMLQLCVCSliderLevelHighLimit "HighLimit"
 #define KXMLQLCVCSliderLevelValue "Value"
 #define KXMLQLCVCSliderLevelMonitor "Monitor"
+#define KXMLQLCVCSliderOverrideReset "Reset"
 
 #define KXMLQLCVCSliderChannel "Channel"
 #define KXMLQLCVCSliderChannelFixture "Fixture"
@@ -78,6 +78,9 @@ class VCSlider : public VCWidget, public DMXSource
     friend class VCSliderProperties;
 
 public:
+    static const quint8 sliderInputSourceId;
+    static const quint8 overrideResetInputSourceId;
+
     static const QSize defaultSize;
 
     /*********************************************************************
@@ -526,12 +529,25 @@ protected:
     /*********************************************************************
      * Override reset button
      *********************************************************************/
+public:
+    /** Set the keyboard key combination to reset a level override */
+    void setOverrideResetKeySequence(const QKeySequence& keySequence);
+
+    /** Get the keyboard key combination to reset a level override */
+    QKeySequence overrideResetKeySequence() const;
+
 private slots:
     void slotResetButtonClicked();
+
+protected slots:
+    void slotKeyPressed(const QKeySequence& keySequence);
 
 protected:
     QToolButton *m_resetButton;
     bool m_isOverriding;
+
+private:
+    QKeySequence m_overrideResetKeySequence;
 
     /*********************************************************************
      * External input

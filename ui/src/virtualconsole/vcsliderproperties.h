@@ -130,6 +130,11 @@ protected slots:
     /** Callback for tree item expanded/collapsed */
     void slotItemExpanded();
 
+    void slotMonitorCheckClicked(bool checked);
+
+protected:
+    InputSelectionWidget *m_ovrResetSelWidget;
+
     /*************************************************************************
      * Playback page
      *************************************************************************/
