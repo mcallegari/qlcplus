@@ -62,7 +62,6 @@ MasterTimer::MasterTimer(Doc* doc)
     , d_ptr(new MasterTimerPrivate(this))
     , m_stopAllFunctions(false)
     , m_dmxSourceListMutex(QMutex::Recursive)
-    , m_simpleDeskRegistered(false)
     , m_fader(new GenericFader(doc))
     , m_beatSourceType(None)
     , m_currentBPM(120)
@@ -362,18 +361,20 @@ void MasterTimer::registerDMXSource(DMXSource* source, QString name)
     QMutexLocker lock(&m_dmxSourceListMutex);
     if (m_dmxSourceList.contains(source) == false)
     {
-        if (name == "SimpleDesk")
+        int insertPos = 0;
+
+        for (int i = m_dmxSourceList.count() - 1; i >= 0; i--)
         {
-            m_dmxSourceList.append(source);
-            m_simpleDeskRegistered = true;
+            DMXSource *src = m_dmxSourceList.at(i);
+            if (src->priority() <= source->priority())
+            {
+                insertPos = i + 1;
+                break;
+            }
         }
-        else
-        {
-            if (m_simpleDeskRegistered == true)
-                m_dmxSourceList.insert(m_dmxSourceList.count() - 1, source);
-            else
-                m_dmxSourceList.append(source);
-        }
+
+        m_dmxSourceList.insert(insertPos, source);
+        qDebug() << "DMX source" << name << "registered at pos" << insertPos;
     }
 }
 
@@ -385,14 +386,26 @@ void MasterTimer::unregisterDMXSource(DMXSource* source)
     m_dmxSourceList.removeAll(source);
 }
 
-void MasterTimer::requestHigherPriority(DMXSource *source)
+void MasterTimer::requestNewPriority(DMXSource *source)
 {
     Q_ASSERT(source != NULL);
     QMutexLocker lock(&m_dmxSourceListMutex);
     if (m_dmxSourceList.contains(source) == true)
     {
        int pos = m_dmxSourceList.indexOf(source);
-       m_dmxSourceList.move(pos, m_dmxSourceList.count() - (m_simpleDeskRegistered ? 2 : 1));
+       int newPos = 0;
+
+       for (int i = m_dmxSourceList.count() - 1; i >= 0; i--)
+       {
+           DMXSource *src = m_dmxSourceList.at(i);
+           if (src->priority() <= source->priority())
+           {
+               newPos = i;
+               break;
+           }
+       }
+
+       m_dmxSourceList.move(pos, newPos);
        qDebug() << "DMX source moved from" << pos << "to" << m_dmxSourceList.indexOf(source) << ". Count:" << m_dmxSourceList.count();
     }
 

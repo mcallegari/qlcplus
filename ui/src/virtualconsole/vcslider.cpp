@@ -324,9 +324,9 @@ void VCSlider::slotModeChanged(Doc::Mode mode)
         enableWidgetUI(true);
         if (m_sliderMode == Level || m_sliderMode == Playback)
         {
+            if (m_monitorEnabled == true)
+                m_priority = DMXSource::Override;
             m_doc->masterTimer()->registerDMXSource(this, "Slider");
-            if (channelsMonitorEnabled())
-                m_doc->masterTimer()->requestHigherPriority(this);
         }
     }
     else
@@ -587,7 +587,8 @@ void VCSlider::setChannelsMonitorEnabled(bool enable)
         m_resetButton->show();
         setSliderShadowValue(m_monitorValue);
 
-        m_doc->masterTimer()->requestHigherPriority(this);
+        m_priority = DMXSource::Override;
+        m_doc->masterTimer()->requestNewPriority(this);
     }
     else
         setSliderShadowValue(-1);
@@ -767,6 +768,9 @@ void VCSlider::slotResetButtonClicked()
     m_isOverriding = false;
     m_resetButton->setStyleSheet(QString("QToolButton{ background: %1; }")
                                  .arg(m_slider->palette().background().color().name()));
+
+    m_priority = DMXSource::Auto;
+    m_doc->masterTimer()->requestNewPriority(this);
 }
 
 void VCSlider::slotKeyPressed(const QKeySequence &keySequence)
@@ -1302,7 +1306,8 @@ void VCSlider::slotSliderMoved(int value)
         {
             if (m_monitorEnabled == true && m_isOverriding == false && m_slider->isSliderDown())
             {
-                m_doc->masterTimer()->requestHigherPriority(this);
+                m_priority = DMXSource::Override;
+                m_doc->masterTimer()->requestNewPriority(this);
                 m_resetButton->setStyleSheet(QString("QToolButton{ background: red; }"));
                 m_isOverriding = true;
             }
@@ -1372,7 +1377,8 @@ void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel,
 
             if (m_monitorEnabled == true && m_isOverriding == false)
             {
-                m_doc->masterTimer()->requestHigherPriority(this);
+                m_priority = DMXSource::Override;
+                m_doc->masterTimer()->requestNewPriority(this);
                 m_resetButton->setStyleSheet(QString("QToolButton{ background: red; }"));
                 m_isOverriding = true;
             }

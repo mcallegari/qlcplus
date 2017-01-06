@@ -152,7 +152,7 @@ public:
      * This means the source will be placed at the end of the registered
      * sources list, but always before the Simple Desk
      */
-    virtual void requestHigherPriority(DMXSource* source);
+    virtual void requestNewPriority(DMXSource* source);
 
 private:
     /** Execute one timer tick for each registered DMXSource */
@@ -168,7 +168,6 @@ private:
      * always lock m_functionListMutex first!
      */
     QMutex m_dmxSourceListMutex;
-    bool m_simpleDeskRegistered;
 
     /*************************************************************************
      * Generic Fader
