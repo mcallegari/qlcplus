@@ -326,7 +326,7 @@ void VCSlider::slotModeChanged(Doc::Mode mode)
         {
             if (m_monitorEnabled == true)
                 m_priority = DMXSource::Override;
-            m_doc->masterTimer()->registerDMXSource(this, "Slider");
+            m_doc->masterTimer()->registerDMXSource(this);
         }
     }
     else
@@ -470,7 +470,7 @@ void VCSlider::setSliderMode(SliderMode mode)
         }
 
         if (m_doc->mode() == Doc::Operate)
-            m_doc->masterTimer()->registerDMXSource(this, "Slider");
+            m_doc->masterTimer()->registerDMXSource(this);
     }
     else if (mode == Playback)
     {
@@ -489,7 +489,7 @@ void VCSlider::setSliderMode(SliderMode mode)
         slotSliderMoved(level);
 
         if (m_doc->mode() == Doc::Operate)
-            m_doc->masterTimer()->registerDMXSource(this, "Slider");
+            m_doc->masterTimer()->registerDMXSource(this);
         setPlaybackFunction(this->m_playbackFunction);
     }
     else if (mode == Submaster)

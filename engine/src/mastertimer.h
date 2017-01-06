@@ -137,7 +137,7 @@ public:
      *
      * @param source The DMXSource to register
      */
-    virtual void registerDMXSource(DMXSource* source, QString name);
+    virtual void registerDMXSource(DMXSource* source);
 
     /**
      * Unregister a previously registered DMXSource. This should be called

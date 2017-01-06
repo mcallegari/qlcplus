@@ -171,7 +171,7 @@ VCXYPad::VCXYPad(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     slotModeChanged(m_doc->mode());
     setLiveEdit(m_liveEdit);
 
-    m_doc->masterTimer()->registerDMXSource(this, "XYPad");
+    m_doc->masterTimer()->registerDMXSource(this);
 }
 
 VCXYPad::~VCXYPad()

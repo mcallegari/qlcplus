@@ -43,7 +43,7 @@ SimpleDeskEngine::SimpleDeskEngine(Doc* doc)
     qDebug() << Q_FUNC_INFO;
     Q_ASSERT(doc != NULL);
     m_priority = DMXSource::SimpleDesk;
-    doc->masterTimer()->registerDMXSource(this, "SimpleDesk");
+    doc->masterTimer()->registerDMXSource(this);
 }
 
 SimpleDeskEngine::~SimpleDeskEngine()

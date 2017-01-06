@@ -354,7 +354,7 @@ void MasterTimer::timerTickFunctions(QList<Universe *> universes)
  * DMX Sources
  ****************************************************************************/
 
-void MasterTimer::registerDMXSource(DMXSource* source, QString name)
+void MasterTimer::registerDMXSource(DMXSource* source)
 {
     Q_ASSERT(source != NULL);
 
@@ -374,7 +374,7 @@ void MasterTimer::registerDMXSource(DMXSource* source, QString name)
         }
 
         m_dmxSourceList.insert(insertPos, source);
-        qDebug() << "DMX source" << name << "registered at pos" << insertPos;
+        qDebug() << "DMX source with priority" <<  source->priority() << "registered at pos" << insertPos;
     }
 }
 

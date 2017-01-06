@@ -30,7 +30,7 @@ GenericDMXSource::GenericDMXSource(Doc* doc)
     , m_clearRequest(false)
 {
     Q_ASSERT(m_doc != NULL);
-    m_doc->masterTimer()->registerDMXSource(this, "Generic");
+    m_doc->masterTimer()->registerDMXSource(this);
 }
 
 GenericDMXSource::~GenericDMXSource()
