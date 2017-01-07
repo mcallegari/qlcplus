@@ -271,6 +271,7 @@ protected:
 
 protected slots:
     void slotShowCrossfadePanel(bool enable);
+    void slotLinkedCrossFadeChecked(bool checked);
     void slotSlider1ValueChanged(int value);
     void slotSlider2ValueChanged(int value);
 

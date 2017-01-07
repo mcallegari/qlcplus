@@ -249,7 +249,8 @@ void ChaserRunner::stopStep(int stepIndex)
         {
             qDebug() << "Stopping step idx:" << stepIndex << "(running:" << m_runnerSteps.count() << ")";
             step->m_function->stop(functionParent());
-            step->m_function->setBlendMode(Universe::NormalBlend);
+            // restore the original Function blend mode
+            step->m_function->setBlendMode(step->m_blendMode);
             m_runnerSteps.removeOne(step);
             delete step;
             stopped = true;
@@ -265,11 +266,10 @@ void ChaserRunner::stopStep(int stepIndex)
 void ChaserRunner::setCurrentStep(int step, qreal intensity)
 {
     if (step >= 0 && step < m_chaser->steps().size())
-    {
         m_newStartStepIdx = step;
-    }
     else
         m_newStartStepIdx = 0;
+
     m_intensity = intensity;
     m_next = false;
     m_previous = false;
@@ -423,6 +423,10 @@ void ChaserRunner::adjustIntensity(qreal fraction, int requestedStepIndex, int f
     {
         if (stepIndex == step->m_index && step->m_function != NULL)
         {
+            if (fadeControl == Chaser::LinkedCrossfade)
+                step->m_function->setBlendMode(Universe::AdditiveBlend);
+            else
+                step->m_function->setBlendMode(step->m_blendMode);
             step->m_function->adjustAttribute(fraction, Function::Intensity);
             return;
         }
@@ -471,6 +475,8 @@ void ChaserRunner::startNewStep(int index, MasterTimer* timer, qreal intensity,
 
     ChaserRunnerStep *newStep = new ChaserRunnerStep();
     newStep->m_index = index;
+    newStep->m_blendMode = func->blendMode();
+
     if (fadeControl == Chaser::FromFunction)
     {
         newStep->m_fadeIn = stepFadeIn(index);

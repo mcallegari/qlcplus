@@ -48,6 +48,7 @@ typedef struct
     uint m_fadeIn;          //! Step fade in in ms
     uint m_fadeOut;         //! Step fade out in ms
     uint m_duration;        //! Step hold in ms
+    Universe::BlendMode m_blendMode; //! The original Function blend mode
 } ChaserRunnerStep;
 
 class ChaserRunner : public QObject
@@ -203,7 +204,7 @@ private:
     /**
      * Start a Chaser step Function with the given $index, at the given $intensity
      * and from the given $elapsed time.
-     * $fadeControl specified how the step Function should fade, according to
+     * $fadeControl specifies how the step Function should fade, according to
      * the Chaser::FadeControlMode enumeration:
      * - Chaser::FromFunction will use the original Function fadeIn time
      * - Chaser::Crossfade means that the user is manually overriding the Function intensity with a slider
