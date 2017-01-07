@@ -848,6 +848,9 @@ void RGBMatrix::adjustAttribute(qreal fraction, int attributeIndex)
 
 void RGBMatrix::setBlendMode(Universe::BlendMode mode)
 {
+    if (mode == blendMode())
+        return;
+
     if (m_fader != NULL)
         m_fader->setBlendMode(mode);
     Function::setBlendMode(mode);

@@ -102,7 +102,7 @@ public:
      * Copying
      *********************************************************************/
 public:
-    /** @reimpl */
+    /** @reimp */
     Function* createCopy(Doc* doc, bool addToDoc = true);
 
     /** Copy the contents for this function from another function */
@@ -584,13 +584,13 @@ private:
      * Running
      *********************************************************************/
 public:
-    /** @reimpl */
+    /** @reimp */
     void preRun(MasterTimer* timer);
 
-    /** @reimpl */
+    /** @reimp */
     void write(MasterTimer* timer, QList<Universe *> universes);
 
-    /** @reimpl */
+    /** @reimp */
     void postRun(MasterTimer* timer, QList<Universe*> universes);
 
     /*********************************************************************
@@ -599,6 +599,13 @@ public:
 public:
     /** @reimp */
     void adjustAttribute(qreal fraction, int attributeIndex = 0);
+
+    /*************************************************************************
+     * Blend mode
+     *************************************************************************/
+public:
+    /** @reimp */
+    void setBlendMode(Universe::BlendMode mode);
 };
 
 /** @} */

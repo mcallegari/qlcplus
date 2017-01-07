@@ -1027,6 +1027,7 @@ void EFX::preRun(MasterTimer* timer)
     Q_ASSERT(m_fader == NULL);
     m_fader = new GenericFader(doc());
     m_fader->adjustIntensity(getAttributeValue(Intensity));
+    m_fader->setBlendMode(blendMode());
 
     Function::preRun(timer);
 }
@@ -1107,4 +1108,19 @@ void EFX::adjustAttribute(qreal fraction, int attributeIndex)
 
     if (attributeIndex == Rotation)
         updateRotationCache();
+}
+
+/*************************************************************************
+ * Blend mode
+ *************************************************************************/
+
+void EFX::setBlendMode(Universe::BlendMode mode)
+{
+    if (mode == blendMode())
+        return;
+
+    if (m_fader != NULL)
+        m_fader->setBlendMode(mode);
+
+    Function::setBlendMode(mode);
 }

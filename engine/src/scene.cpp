@@ -743,3 +743,18 @@ void Scene::adjustAttribute(qreal fraction, int attributeIndex)
         m_fader->adjustIntensity(fraction);
     Function::adjustAttribute(fraction, attributeIndex);
 }
+
+/*************************************************************************
+ * Blend mode
+ *************************************************************************/
+
+void Scene::setBlendMode(Universe::BlendMode mode)
+{
+    if (mode == blendMode())
+        return;
+
+    if (m_fader != NULL)
+        m_fader->setBlendMode(mode);
+
+    Function::setBlendMode(mode);
+}
