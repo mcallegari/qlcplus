@@ -627,23 +627,22 @@ void VCSlider::slotFixtureRemoved(quint32 fxi_id)
 
 void VCSlider::slotMonitorDMXValueChanged(int value)
 {
-    if (value != sliderValue())
-    {
-        if (invertedAppearance())
-            m_monitorValue = 255 - value;
-        else
-            m_monitorValue = value;
-        m_levelValueMutex.lock();
-        m_levelValue = m_monitorValue;
-        m_levelValueMutex.unlock();
-        if (m_slider)
-            m_slider->blockSignals(true);
-        setSliderValue(m_monitorValue, true);
-        setTopLabelText(sliderValue());
-        if (m_slider)
-            m_slider->blockSignals(false);
-        updateFeedback();
-    }
+    if (value == sliderValue())
+        return;
+
+    m_monitorValue = invertedAppearance() ? 255 - value : value;
+
+    m_levelValueMutex.lock();
+    m_levelValue = m_monitorValue;
+    m_levelValueMutex.unlock();
+    if (m_slider)
+        m_slider->blockSignals(true);
+    setSliderValue(m_monitorValue, true);
+    setSliderShadowValue(m_monitorValue);
+    setTopLabelText(sliderValue());
+    if (m_slider)
+        m_slider->blockSignals(false);
+    updateFeedback();
 }
 
 /*********************************************************************
@@ -1013,7 +1012,6 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
         if (mixedDMXlevels == false &&
             monitorSliderValue != m_monitorValue)
         {
-            setSliderShadowValue(monitorSliderValue);
             if (m_isOverriding == false)
             {
                 emit monitorDMXValueChanged(monitorSliderValue);
@@ -1021,6 +1019,8 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
                 // the monitor level will kick in
                 return;
             }
+            else
+                setSliderShadowValue(invertedAppearance() ? 255 - monitorSliderValue : monitorSliderValue);
         }
     }
 
