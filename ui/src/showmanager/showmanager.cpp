@@ -276,7 +276,7 @@ void ShowManager::initActions()
 
     m_stopAction = new QAction(QIcon(":/player_stop.png"),
                                  tr("St&op"), this);
-    m_stopAction->setShortcut(QKeySequence("CTRL+O"));
+    m_stopAction->setShortcut(QKeySequence("CTRL+SPACE"));
     connect(m_stopAction, SIGNAL(triggered(bool)),
             this, SLOT(slotStopPlayback()));
 
