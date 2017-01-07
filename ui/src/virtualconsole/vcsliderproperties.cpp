@@ -175,9 +175,12 @@ VCSliderProperties::VCSliderProperties(VCSlider* slider, Doc* doc)
     m_ovrResetSelWidget->setKeySequence(m_slider->overrideResetKeySequence());
     m_ovrResetSelWidget->setInputSource(m_slider->inputSource(VCSlider::overrideResetInputSourceId));
     m_ovrResetSelWidget->setWidgetPage(m_slider->page());
-    m_ovrResetSelWidget->show();
     m_monitorResetControl->addWidget(m_ovrResetSelWidget);
 
+    if (m_sliderMode == VCSlider::Level && m_slider->channelsMonitorEnabled())
+        m_ovrResetSelWidget->show();
+    else
+        m_ovrResetSelWidget->hide();
     m_monitorValuesCheck->setChecked(m_slider->channelsMonitorEnabled());
 
     /*********************************************************************
