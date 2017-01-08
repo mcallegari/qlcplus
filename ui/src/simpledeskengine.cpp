@@ -42,7 +42,8 @@ SimpleDeskEngine::SimpleDeskEngine(Doc* doc)
 {
     qDebug() << Q_FUNC_INFO;
     Q_ASSERT(doc != NULL);
-    doc->masterTimer()->registerDMXSource(this, "SimpleDesk");
+    m_priority = DMXSource::SimpleDesk;
+    doc->masterTimer()->registerDMXSource(this);
 }
 
 SimpleDeskEngine::~SimpleDeskEngine()
@@ -82,7 +83,7 @@ void SimpleDeskEngine::clearContents()
 
 void SimpleDeskEngine::setValue(uint channel, uchar value)
 {
-    qDebug() << Q_FUNC_INFO << "channel:" << channel << ", value:" << value;
+    //qDebug() << Q_FUNC_INFO << "channel:" << channel << ", value:" << value;
 
     QMutexLocker locker(&m_mutex);
     m_values[channel] = value;

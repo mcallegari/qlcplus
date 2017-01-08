@@ -47,9 +47,8 @@ void MasterTimerStub::stopFunction(Function* function)
     function->postRun(this, m_universes);
 }
 
-void MasterTimerStub::registerDMXSource(DMXSource* source, QString name)
+void MasterTimerStub::registerDMXSource(DMXSource* source)
 {
-    Q_UNUSED(name)
     m_dmxSourceList.append(source);
 }
 

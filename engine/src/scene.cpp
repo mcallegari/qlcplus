@@ -537,7 +537,7 @@ void Scene::flash(MasterTimer* timer)
 
     Q_ASSERT(timer != NULL);
     Function::flash(timer);
-    timer->registerDMXSource(this, "Scene");
+    timer->registerDMXSource(this);
 }
 
 void Scene::unFlash(MasterTimer* timer)

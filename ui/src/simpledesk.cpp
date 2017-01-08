@@ -714,8 +714,6 @@ void SimpleDesk::slotUniverseResetClicked()
 
 void SimpleDesk::slotChannelResetClicked(quint32 fxID, quint32 channel)
 {
-    qDebug() << "Reset button clicked";
-
     if (fxID != Fixture::invalidId())
     {
         Fixture *fixture = m_doc->fixture(fxID);

@@ -129,30 +129,30 @@ void MasterTimer_Test::registerUnregisterDMXSource()
 
     DMXSource_Stub s1;
     /* Normal registration */
-    mt->registerDMXSource(&s1, "a1");
+    mt->registerDMXSource(&s1);
     QVERIFY(mt->m_dmxSourceList.size() == 1);
     QVERIFY(mt->m_dmxSourceList.at(0) == &s1);
 
     /* No double additions */
-    mt->registerDMXSource(&s1, "s1");
+    mt->registerDMXSource(&s1);
     QVERIFY(mt->m_dmxSourceList.size() == 1);
     QVERIFY(mt->m_dmxSourceList.at(0) == &s1);
 
     DMXSource_Stub s2;
     /* Normal registration of another source */
-    mt->registerDMXSource(&s2, "s2");
+    mt->registerDMXSource(&s2);
     QVERIFY(mt->m_dmxSourceList.size() == 2);
     QVERIFY(mt->m_dmxSourceList.at(0) == &s1);
     QVERIFY(mt->m_dmxSourceList.at(1) == &s2);
 
     /* No double additions */
-    mt->registerDMXSource(&s2, "s2");
+    mt->registerDMXSource(&s2);
     QVERIFY(mt->m_dmxSourceList.size() == 2);
     QVERIFY(mt->m_dmxSourceList.at(0) == &s1);
     QVERIFY(mt->m_dmxSourceList.at(1) == &s2);
 
     /* No double additions */
-    mt->registerDMXSource(&s1, "s1");
+    mt->registerDMXSource(&s1);
     QVERIFY(mt->m_dmxSourceList.size() == 2);
     QVERIFY(mt->m_dmxSourceList.at(0) == &s1);
     QVERIFY(mt->m_dmxSourceList.at(1) == &s2);
@@ -185,7 +185,7 @@ void MasterTimer_Test::interval()
     mt->timerTick();
     QVERIFY(mt->runningFunctions() == 1);
 
-    mt->registerDMXSource(&dss, "dss");
+    mt->registerDMXSource(&dss);
     QVERIFY(mt->m_dmxSourceList.size() == 1);
 
     /* Wait for one second */
@@ -277,13 +277,13 @@ void MasterTimer_Test::stopAllFunctions()
     fs1.start(mt, FunctionParent::master());
 
     DMXSource_Stub s1;
-    mt->registerDMXSource(&s1, "s1");
+    mt->registerDMXSource(&s1);
 
     Function_Stub fs2(m_doc);
     fs2.start(mt, FunctionParent::master());
 
     DMXSource_Stub s2;
-    mt->registerDMXSource(&s2, "s2");
+    mt->registerDMXSource(&s2);
 
     Function_Stub fs3(m_doc);
     fs3.start(mt, FunctionParent::master());

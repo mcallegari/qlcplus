@@ -193,7 +193,7 @@ VCXYPadProperties::VCXYPadProperties(VCXYPad* xypad, Doc* doc)
         restoreGeometry(var.toByteArray());
     AppUtil::ensureWidgetIsVisible(this);
 
-    m_doc->masterTimer()->registerDMXSource(this, "XYPadCfg");
+    m_doc->masterTimer()->registerDMXSource(this);
 }
 
 VCXYPadProperties::~VCXYPadProperties()

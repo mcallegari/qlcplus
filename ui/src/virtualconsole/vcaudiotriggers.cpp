@@ -415,7 +415,7 @@ void VCAudioTriggers::slotModeChanged(Doc::Mode mode)
         {
             if (bar->m_type == AudioBar::DMXBar)
             {
-                m_doc->masterTimer()->registerDMXSource(this, "AudioTriggers");
+                m_doc->masterTimer()->registerDMXSource(this);
                 break;
             }
         }

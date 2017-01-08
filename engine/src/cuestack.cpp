@@ -413,7 +413,7 @@ void CueStack::setFlashing(bool enable)
     {
         m_flashing = enable;
         if (m_flashing == true)
-            doc()->masterTimer()->registerDMXSource(this, "CueStack");
+            doc()->masterTimer()->registerDMXSource(this);
         else
             doc()->masterTimer()->unregisterDMXSource(this);
     }
