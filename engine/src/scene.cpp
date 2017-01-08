@@ -753,6 +753,8 @@ void Scene::setBlendMode(Universe::BlendMode mode)
     if (mode == blendMode())
         return;
 
+    qDebug() << "Scene" << name() << "blend mode set to" << Universe::blendModeToString(mode);
+
     if (m_fader != NULL)
         m_fader->setBlendMode(mode);
 

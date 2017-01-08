@@ -257,8 +257,14 @@ void ChaserRunner::stopStep(int stepIndex)
         }
     }
 
-    if (stopped && m_runnerSteps.size() == 1) {
-        m_lastRunStepIdx = m_runnerSteps.at(0)->m_index;
+    if (stopped && m_runnerSteps.size() == 1)
+    {
+        ChaserRunnerStep *lastStep = m_runnerSteps.at(0);
+        m_lastRunStepIdx = lastStep->m_index;
+        // when only one step remains in the running list,
+        // it has to run with its original blend mode
+        if (lastStep->m_function)
+            lastStep->m_function->setBlendMode(lastStep->m_blendMode);
         emit currentStepChanged(m_lastRunStepIdx);
     }
 }
@@ -449,7 +455,12 @@ void ChaserRunner::clearRunningList()
     // empty the running queue
     foreach(ChaserRunnerStep *step, m_runnerSteps)
     {
-        step->m_function->stop(functionParent());
+        if (step->m_function)
+        {
+            // restore the original Function blend mode
+            step->m_function->setBlendMode(step->m_blendMode);
+            step->m_function->stop(functionParent());
+        }
         delete step;
     }
     m_runnerSteps.clear();

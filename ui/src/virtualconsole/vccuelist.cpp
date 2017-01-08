@@ -1079,13 +1079,16 @@ void VCCueList::slotLinkedCrossFadeChecked(bool checked)
         int primaryValue = m_primaryLeft ? m_slider1->value() : m_slider2->value();
         int secondaryValue = m_primaryLeft ? m_slider2->value() : m_slider1->value();
 
-        ch->adjustIntensity((qreal)primaryValue / 100, m_primaryIndex, Chaser::Crossfade);
-        ch->adjustIntensity((qreal)secondaryValue / 100, m_secondaryIndex, Chaser::Crossfade);
+        if (primaryValue > 0 && primaryValue < 100)
+            ch->adjustIntensity((qreal)primaryValue / 100, m_primaryIndex, Chaser::Crossfade);
+        if (secondaryValue > 0 && secondaryValue < 100)
+            ch->adjustIntensity((qreal)secondaryValue / 100, m_secondaryIndex, Chaser::Crossfade);
     }
     else
     {
         int secondaryValue = m_primaryLeft ? m_slider2->value() : m_slider1->value();
-        ch->adjustIntensity((qreal)secondaryValue / 100, m_secondaryIndex, Chaser::LinkedCrossfade);
+        if (secondaryValue > 0)
+            ch->adjustIntensity((qreal)secondaryValue / 100, m_secondaryIndex, Chaser::LinkedCrossfade);
     }
 }
 
