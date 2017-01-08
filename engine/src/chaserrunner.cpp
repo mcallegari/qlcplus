@@ -429,7 +429,7 @@ void ChaserRunner::adjustIntensity(qreal fraction, int requestedStepIndex, int f
     {
         if (stepIndex == step->m_index && step->m_function != NULL)
         {
-            if (fadeControl == Chaser::LinkedCrossfade)
+            if (fadeControl == Chaser::LinkedCrossfade && fraction != 1.0)
                 step->m_function->setBlendMode(Universe::AdditiveBlend);
             else
                 step->m_function->setBlendMode(step->m_blendMode);
