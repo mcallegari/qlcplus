@@ -492,7 +492,10 @@ void VCFrame::slotSetPage(int pageNum)
             VCWidget *widget = it.key();
             if (page == m_currentPage)
             {
-                widget->setDisableState(m_disableState);
+                if (m_doc->mode() == Doc::Operate)
+                    widget->setDisableState(m_disableState);
+                else
+                    widget->setEnabled(true);
                 widget->show();
                 widget->updateFeedback();
             }
