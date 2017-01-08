@@ -7,6 +7,11 @@ qlcplus (4.10.6) stable; urgency=low
   * Virtual Console/Slider: improved level monitoring with the possibility to act like a Simple Desk slider (see documentation)
   * Virtual Console/Frame: fixed 4.10.5b regression disabling widgets when switching page in design mode
   * New fixture: American DJ FREQ 5 Strobe (thanks to Martin Bochenek)
+  * New fixture: Martin Rush MH3 (thanks to Ed Middlebrooks)
+  * New fixture: Eurolite LED ACS BAR-12 (thanks to Michael Horber)
+  * New fixtures: Martin Rush MH6 Wash, Cameo Studio PAR 64 RGBWA UV 12W (thanks to Piotr Nowik)
+  * New fixture: ETEC Moving Spot 60E (thanks to Freasy)
+  * New fixture: American DJ Punch LED Pro (thanks to Benedict Stein)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 5 Mar 2017 12:13:14 +0200
 

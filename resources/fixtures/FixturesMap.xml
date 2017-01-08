@@ -77,6 +77,7 @@
   <fixture path="American-DJ-Pinspot-LED-Quad-DMX.qxf" mf="American DJ" md="Pinspot LED Quad DMX"/>
   <fixture path="American-DJ-Profile-Panel-RGB.qxf" mf="American DJ" md="Profile Panel RGB"/>
   <fixture path="American-DJ-ProPAR-56RGB.qxf" mf="American DJ" md="ProPAR 56RGB"/>
+  <fixture path="American-DJ-Punch-LED-Pro.qxf" mf="American DJ" md="Punch LED Pro"/>
   <fixture path="American-DJ-Quad-Gem-DMX.qxf" mf="American DJ" md="Quad Gem DMX"/>
   <fixture path="American-DJ-Quad-Phase.qxf" mf="American DJ" md="Quad Phase"/>
   <fixture path="American-DJ-Quad-Scan-LED.qxf" mf="American DJ" md="Quad Scan LED"/>
@@ -171,6 +172,7 @@
   <fixture path="Cameo-Pixbar-600-PRO.qxf" mf="Cameo" md="Pixbar 600 PRO"/>
   <fixture path="Cameo-Strobe-3x3.5W.qxf" mf="Cameo" md="Strobe 3x3.5W"/>
   <fixture path="Cameo-Strobe-6x10W.qxf" mf="Cameo" md="Strobe 6x10W"/>
+  <fixture path="Cameo-Studio-PAR-64-RGBWA-UV-12W.qxf" mf="Cameo" md="Studio PAR 64 RGBWA UV 12W"/>
   <fixture path="Cameo-Superfly-XS.qxf" mf="Cameo" md="Superfly XS"/>
   <fixture path="Cameo-Wookie-series.qxf" mf="Cameo" md="Wookie series"/>
   <fixture path="Chauvet-200b.qxf" mf="Chauvet" md="200b"/>
@@ -329,9 +331,11 @@
   <fixture path="Equinox-Ultra-Scan-LED.qxf" mf="Equinox" md="Ultra Scan LED"/>
   <fixture path="ETC-ColorSource-Spot.qxf" mf="ETC" md="ColorSource Spot"/>
   <fixture path="ETC-Desire-D40-Vivid.qxf" mf="ETC" md="Desire D40 Vivid"/>
+  <fixture path="ETEC-Moving-Spot-60E.qxf" mf="ETEC" md="Moving Spot 60E"/>
   <fixture path="Eurolite-DMXSuperstrobe-2700.qxf" mf="Eurolite" md="DMX Superstrobe 2700"/>
   <fixture path="Eurolite-GKF-60.qxf" mf="Eurolite" md="GKF-60"/>
   <fixture path="Eurolite-KLS200.qxf" mf="Eurolite" md="KLS200"/>
+  <fixture path="Eurolite-LED-ACS-BAR-12.qxf" mf="Eurolite" md="LED ACS BAR-12"/>
   <fixture path="Eurolite-LED-Bar-RGB-252_10_40__Indoor.qxf" mf="Eurolite" md="LED Bar RGB 252/10 40° Indoor"/>
   <fixture path="Eurolite-LED-CBB-3-COB-RGB-3x15W-Bar.qxf" mf="Eurolite" md="LED CBB-3 COB RBG 3x15W Bar"/>
   <fixture path="Eurolite-LED-CLS-9-QCL-RGBW-9x8W-12.qxf" mf="Eurolite" md="LED CLS-9 QCL RGBW 9x8W 12"/>
@@ -571,6 +575,8 @@
   <fixture path="Martin-Roboscan-812.qxf" mf="Martin" md="Roboscan 812"/>
   <fixture path="Martin-Roboscan-Pro-918.qxf" mf="Martin" md="Roboscan Pro 918"/>
   <fixture path="Martin-Rush-MH1-Profile.qxf" mf="Martin" md="Rush MH1 Profile"/>
+  <fixture path="Martin-Rush-MH3.qxf" mf="Martin" md="Rush MH3"/>
+  <fixture path="Martin-Rush-MH6-Wash.qxf" mf="Martin" md="Rush MH6 Wash"/>
   <fixture path="Martin-RUSH-Par-1-RGBW.qxf" mf="Martin" md="RUSH Par 1 RGBW"/>
   <fixture path="Martin-SCX-500.qxf" mf="Martin" md="SCX-500"/>
   <fixture path="Martin-SCX-600.qxf" mf="Martin" md="SCX-600"/>
