@@ -1098,6 +1098,12 @@ void VCCueList::slotSlider1ValueChanged(int value)
         if (!(ch == NULL || ch->stopped()))
         {
             ch->adjustIntensity((qreal)value / 100, m_primaryLeft ? m_primaryIndex : m_secondaryIndex);
+            if(value < 100 && value > 0 && m_linkCheck->isChecked()){
+                ch->adjustCrosfaderId((qreal) id() + 1, m_primaryLeft ? m_primaryIndex : m_secondaryIndex);
+            } else {
+                ch->adjustCrosfaderId(0, m_primaryLeft ? m_primaryIndex : m_secondaryIndex);
+            }
+
             stopStepIfNeeded(ch);
         }
 
@@ -1121,6 +1127,11 @@ void VCCueList::slotSlider2ValueChanged(int value)
     if (!(ch == NULL || ch->stopped()))
     {
         ch->adjustIntensity((qreal)value / 100, m_primaryLeft ? m_secondaryIndex : m_primaryIndex);
+        if(value < 100 && value > 0 && m_linkCheck->isChecked()){
+            ch->adjustCrosfaderId((qreal) id() + 1, m_primaryLeft ? m_secondaryIndex : m_primaryIndex);
+        } else {
+            ch->adjustCrosfaderId(0, m_primaryLeft ? m_secondaryIndex : m_primaryIndex);
+        }
         stopStepIfNeeded(ch);
     }
 

@@ -127,6 +127,7 @@ Function::Function(Doc* doc, Type t)
 {
     Q_ASSERT(doc != NULL);
     registerAttribute(tr("Intensity"));
+    registerAttribute(tr("CrosfaderId"), 0);
 }
 
 Function::~Function()
@@ -179,6 +180,13 @@ bool Function::copyFrom(const Function* function)
     emit changed(m_id);
 
     return true;
+}
+
+/*****************************************************************************
+ * Adding
+ *****************************************************************************/
+void Function::addFrom(Function* function_from){
+    Q_UNUSED(function_from);
 }
 
 /*****************************************************************************
@@ -1210,14 +1218,23 @@ void Function::adjustAttribute(qreal fraction, int attributeIndex)
         return;
 
     //qDebug() << Q_FUNC_INFO << "idx:" << attributeIndex << ", val:" << fraction;
-    m_attributes[attributeIndex].value = CLAMP(fraction, 0.0, 1.0);
+    if(attributeIndex == Function::CrosfaderId){
+        m_attributes[attributeIndex].value = fraction;
+    } else {
+        m_attributes[attributeIndex].value = CLAMP(fraction, 0.0, 1.0);
+    }
     emit attributeChanged(attributeIndex, m_attributes[attributeIndex].value);
 }
 
 void Function::resetAttributes()
 {
-    for (int i = 0; i < m_attributes.count(); i++)
-        m_attributes[i].value = 1.0;
+    for (int i = 0; i < m_attributes.count(); i++){
+        if(!QString::compare(m_attributes[i].name, "CrosfaderId", Qt::CaseInsensitive)){
+            m_attributes[i].value = 0.0;
+        } else {
+            m_attributes[i].value = 1.0;
+        }
+    }
 }
 
 qreal Function::getAttributeValue(int attributeIndex) const

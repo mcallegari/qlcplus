@@ -36,6 +36,7 @@ contains(FORCECONFIG, release) {
 #  DEFINES        += QT_NO_DEBUG_OUTPUT
 
   # Disable this when making a release
+  #CONFIG         -= debug
   CONFIG         += debug
 }
 

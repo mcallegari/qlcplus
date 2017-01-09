@@ -248,6 +248,7 @@ void ChaserRunner::stopStep(int stepIndex)
         if (stepIndex == step->m_index)
         {
             qDebug() << "Stopping step idx:" << stepIndex << "(running:" << m_runnerSteps.count() << ")";
+            step->m_function->adjustAttribute(0, Function::CrosfaderId);
             step->m_function->stop(functionParent());
             m_runnerSteps.removeOne(step);
             delete step;
@@ -456,6 +457,34 @@ void ChaserRunner::clearRunningList()
         delete step;
     }
     m_runnerSteps.clear();
+}
+
+/****************************************************************************
+ * Attributes
+ ****************************************************************************/
+
+void ChaserRunner::adjustCrosfaderId(qreal id, int stepIndex)
+{
+    if (stepIndex == -1)
+    {
+        // stepIndex == -1 means that we reset all the CrossfaderId
+        foreach(ChaserRunnerStep *step, m_runnerSteps)
+        {
+            step->m_function->adjustAttribute(0, Function::CrosfaderId);
+        }
+        return;
+    }
+
+    // We change the CrossfaderId that we are provided
+    foreach(ChaserRunnerStep *step, m_runnerSteps)
+    {
+        if (stepIndex == step->m_index && step->m_function != NULL)
+        {
+            step->m_function->adjustAttribute(id, Function::CrosfaderId);
+            return;
+        }
+    }
+
 }
 
 /****************************************************************************
