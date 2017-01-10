@@ -106,6 +106,8 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
 
     m_linkCheck = new QCheckBox(tr("Link"));
     grid->addWidget(m_linkCheck, 0, 0, 1, 2, Qt::AlignVCenter | Qt::AlignCenter);
+    connect(m_linkCheck, SIGNAL(clicked(bool)),
+            this, SLOT(slotLinkedCrossFadeChecked(bool)));
 
     m_sl1TopLabel = new QLabel("100%");
     m_sl1TopLabel->setAlignment(Qt::AlignHCenter);
@@ -1065,6 +1067,31 @@ void VCCueList::slotShowCrossfadePanel(bool enable)
     }
 }
 
+void VCCueList::slotLinkedCrossFadeChecked(bool checked)
+{
+    Chaser* ch = chaser();
+
+    if (ch == NULL || ch->stopped())
+        return;
+
+    if (checked == false)
+    {
+        int primaryValue = m_primaryLeft ? m_slider1->value() : m_slider2->value();
+        int secondaryValue = m_primaryLeft ? m_slider2->value() : m_slider1->value();
+
+        if (primaryValue > 0 && primaryValue < 100)
+            ch->adjustIntensity((qreal)primaryValue / 100, m_primaryIndex, Chaser::Crossfade);
+        if (secondaryValue > 0 && secondaryValue < 100)
+            ch->adjustIntensity((qreal)secondaryValue / 100, m_secondaryIndex, Chaser::Crossfade);
+    }
+    else
+    {
+        int secondaryValue = m_primaryLeft ? m_slider2->value() : m_slider1->value();
+        if (secondaryValue > 0)
+            ch->adjustIntensity((qreal)secondaryValue / 100, m_secondaryIndex, Chaser::LinkedCrossfade);
+    }
+}
+
 void VCCueList::slotSlider1ValueChanged(int value)
 {
     if (slidersMode() == Steps)
@@ -1097,7 +1124,13 @@ void VCCueList::slotSlider1ValueChanged(int value)
         Chaser* ch = chaser();
         if (!(ch == NULL || ch->stopped()))
         {
-            ch->adjustIntensity((qreal)value / 100, m_primaryLeft ? m_primaryIndex : m_secondaryIndex);
+            int stepIndex = m_primaryLeft ? m_primaryIndex : m_secondaryIndex;
+
+            if (stepIndex == m_secondaryIndex && m_linkCheck->isChecked())
+                ch->adjustIntensity((qreal)value / 100, stepIndex, Chaser::LinkedCrossfade);
+            else
+                ch->adjustIntensity((qreal)value / 100, stepIndex, Chaser::Crossfade);
+
             stopStepIfNeeded(ch);
         }
 
@@ -1120,7 +1153,13 @@ void VCCueList::slotSlider2ValueChanged(int value)
     Chaser* ch = chaser();
     if (!(ch == NULL || ch->stopped()))
     {
-        ch->adjustIntensity((qreal)value / 100, m_primaryLeft ? m_secondaryIndex : m_primaryIndex);
+        int stepIndex = m_primaryLeft ? m_secondaryIndex : m_primaryIndex;
+
+        if (stepIndex == m_secondaryIndex && m_linkCheck->isChecked())
+            ch->adjustIntensity((qreal)value / 100, stepIndex, Chaser::LinkedCrossfade);
+        else
+            ch->adjustIntensity((qreal)value / 100, stepIndex, Chaser::Crossfade);
+
         stopStepIfNeeded(ch);
     }
 
@@ -1135,18 +1174,8 @@ void VCCueList::stopStepIfNeeded(Chaser* ch)
     if (ch->runningStepsNumber() != 2)
         return;
 
-    int primaryValue;
-    int secondaryValue;
-    if (m_primaryLeft)
-    {
-        primaryValue = m_slider1->value();
-        secondaryValue = m_slider2->value();
-    }
-    else
-    {
-        primaryValue = m_slider2->value();
-        secondaryValue = m_slider1->value();
-    }
+    int primaryValue = m_primaryLeft ? m_slider1->value() : m_slider2->value();
+    int secondaryValue = m_primaryLeft ? m_slider2->value() : m_slider1->value();
 
     if (primaryValue == 0)
     {

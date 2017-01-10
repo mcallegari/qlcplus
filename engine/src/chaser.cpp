@@ -585,12 +585,6 @@ void Chaser::setStepIndex(int idx)
         m_startStepIndex = idx;
 }
 
-void Chaser::setStartIntensity(qreal startIntensity)
-{
-    m_startIntensity = startIntensity;
-    m_hasStartIntensity = true;
-}
-
 void Chaser::previous()
 {
     QMutexLocker runnerLocker(&m_runnerMutex);
@@ -656,10 +650,10 @@ ChaserRunnerStep Chaser::currentRunningStep() const
 {
     ChaserRunnerStep ret;
     ret.m_function = NULL;
-    {
-        QMutexLocker runnerLocker(const_cast<QMutex*>(&m_runnerMutex));
-        if (m_runner != NULL)
-        {
+{
+    QMutexLocker runnerLocker(const_cast<QMutex*>(&m_runnerMutex));
+    if (m_runner != NULL)
+{
             ChaserRunnerStep* step = m_runner->currentRunningStep();
             if (step != NULL)
             {
@@ -670,11 +664,17 @@ ChaserRunnerStep Chaser::currentRunningStep() const
     return ret;
 }
 
-void Chaser::adjustIntensity(qreal fraction, int stepIndex)
+void Chaser::setStartIntensity(qreal startIntensity)
+{
+    m_startIntensity = startIntensity;
+    m_hasStartIntensity = true;
+}
+
+void Chaser::adjustIntensity(qreal fraction, int stepIndex, FadeControlMode fadeControl)
 {
     QMutexLocker runnerLocker(&m_runnerMutex);
     if (m_runner != NULL)
-        m_runner->adjustIntensity(fraction * getAttributeValue(Intensity), stepIndex);
+        m_runner->adjustIntensity(fraction * getAttributeValue(Intensity), stepIndex, fadeControl);
 }
 
 bool Chaser::contains(quint32 functionId)
