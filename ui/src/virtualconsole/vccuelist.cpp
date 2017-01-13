@@ -1574,6 +1574,15 @@ bool VCCueList::loadXML(QXmlStreamReader &root)
             }
             setNextPrevBehavior(nextPrev);
         }
+        else if (root.name() == KXMLQLCVCCueListCrossfade)
+        {
+            QXmlStreamAttributes attrs = root.attributes();
+            if (attrs.hasAttribute(KXMLQLCVCCueListBlend))
+                m_blendCheck->setChecked(true);
+            if (attrs.hasAttribute(KXMLQLCVCCueListLinked))
+                m_linkCheck->setChecked(true);
+            m_crossfadeButton->setChecked(true);
+        }
         else if (root.name() == KXMLQLCVCCueListFunction)
         {
             // Collect legacy file format steps into a list
@@ -1641,6 +1650,16 @@ bool VCCueList::saveXML(QXmlStreamWriter *doc)
 
     /* Next/Prev behavior */
     doc->writeTextElement(KXMLQLCVCCueListNextPrevBehavior, QString::number(nextPrevBehavior()));
+
+    if (m_blendCheck->isChecked() || m_linkCheck->isChecked())
+    {
+        doc->writeStartElement(KXMLQLCVCCueListCrossfade);
+        if (m_blendCheck->isChecked())
+            doc->writeAttribute(KXMLQLCVCCueListBlend, KXMLQLCTrue);
+        if (m_linkCheck->isChecked())
+            doc->writeAttribute(KXMLQLCVCCueListLinked, KXMLQLCTrue);
+        doc->writeEndElement();
+    }
 
     /* Next cue */
     doc->writeStartElement(KXMLQLCVCCueListNext);
