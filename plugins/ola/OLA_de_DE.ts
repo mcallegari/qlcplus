@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="de_DE">
+<TS version="2.1" language="de_DE">
 <context>
     <name>ConfigureOlaIO</name>
     <message>
-        <location filename="configureolaio.ui" line="14"/>
+        <location filename="configureolaio.ui" line="33"/>
         <source>Configure OLA I/O</source>
         <translation>OLA Eingabe/Ausgabe konfigurieren</translation>
     </message>
     <message>
-        <location filename="configureolaio.ui" line="21"/>
+        <location filename="configureolaio.ui" line="40"/>
         <source>Output</source>
         <translation>Ausgang</translation>
     </message>
     <message>
-        <location filename="configureolaio.ui" line="26"/>
+        <location filename="configureolaio.ui" line="45"/>
         <source>OLA Universe</source>
         <translation>OLA Universum</translation>
     </message>
     <message>
-        <location filename="configureolaio.ui" line="34"/>
+        <location filename="configureolaio.ui" line="53"/>
         <source>Run standalone OLA daemon</source>
         <translation>Eigenständigen OLA-Daemon starten</translation>
     </message>

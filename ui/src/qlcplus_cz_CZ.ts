@@ -197,126 +197,141 @@
         <translation>Přidat RGB panel</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="224"/>
+        <location filename="addrgbpanel.ui" line="43"/>
         <source>Panel properties</source>
         <translation>Vlastnosti panelu</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="238"/>
+        <location filename="addrgbpanel.ui" line="57"/>
         <source>Universe</source>
         <oldsource>Universe:</oldsource>
         <translation>Větev</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="245"/>
+        <location filename="addrgbpanel.ui" line="64"/>
         <source>RGB Panel</source>
         <translation>RGB panel</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="252"/>
+        <location filename="addrgbpanel.ui" line="71"/>
         <source>Name</source>
         <oldsource>Name:</oldsource>
         <translation>Název</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="262"/>
+        <location filename="addrgbpanel.ui" line="81"/>
         <source>Address</source>
         <oldsource>Address:</oldsource>
         <translation>Adresa</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="279"/>
+        <location filename="addrgbpanel.ui" line="98"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERROR: Address already used !&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;CHYBA: Tato adresa je již použita u jiného zařízení&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="43"/>
+        <location filename="addrgbpanel.ui" line="198"/>
         <source>Size</source>
         <translation>Velikost</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="57"/>
+        <location filename="addrgbpanel.ui" line="212"/>
         <source>Columns</source>
         <oldsource>Columns:</oldsource>
         <translation>Sloupců</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="64"/>
+        <location filename="addrgbpanel.ui" line="219"/>
         <source>Rows</source>
         <oldsource>Rows:</oldsource>
         <translation>Řádků</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="71"/>
+        <location filename="addrgbpanel.ui" line="226"/>
         <source>Total pixels</source>
         <oldsource>Total pixels:</oldsource>
         <translation>Celkem pixelů</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="116"/>
+        <location filename="addrgbpanel.ui" line="299"/>
+        <source>Direction</source>
+        <translation type="unfinished">Směr</translation>
+    </message>
+    <message>
+        <location filename="addrgbpanel.ui" line="305"/>
+        <source>Horizontal</source>
+        <translation type="unfinished">Vodorovně</translation>
+    </message>
+    <message>
+        <location filename="addrgbpanel.ui" line="315"/>
+        <source>Vertical</source>
+        <translation type="unfinished">Svisle</translation>
+    </message>
+    <message>
+        <location filename="addrgbpanel.ui" line="327"/>
         <source>Orientation</source>
         <translation>Orientace</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="122"/>
+        <location filename="addrgbpanel.ui" line="333"/>
         <source>Top-Right</source>
         <translation>Pravý horní</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="129"/>
+        <location filename="addrgbpanel.ui" line="340"/>
         <source>Top-Left</source>
         <translation>Levý horní</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="139"/>
+        <location filename="addrgbpanel.ui" line="350"/>
         <source>Bottom-Left</source>
         <translation>Levý spodní</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="146"/>
+        <location filename="addrgbpanel.ui" line="357"/>
         <source>Bottom-Right</source>
         <translation>Pravý spodní</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="156"/>
+        <location filename="addrgbpanel.ui" line="120"/>
         <source>Physical</source>
         <translation>Rozměry</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="173"/>
+        <location filename="addrgbpanel.ui" line="137"/>
         <source>Width</source>
         <oldsource>Width:</oldsource>
         <translation>Šířka</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="180"/>
-        <location filename="addrgbpanel.ui" line="203"/>
+        <location filename="addrgbpanel.ui" line="144"/>
+        <location filename="addrgbpanel.ui" line="167"/>
         <source>mm</source>
         <translation>mm</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="196"/>
+        <location filename="addrgbpanel.ui" line="160"/>
         <source>Height</source>
         <oldsource>Height:</oldsource>
         <translation>Výška</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="286"/>
+        <location filename="addrgbpanel.ui" line="105"/>
         <source>Components</source>
         <translation>Komponenty</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="301"/>
+        <location filename="addrgbpanel.ui" line="273"/>
         <source>Displacement</source>
         <translation>Přesun</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="307"/>
+        <location filename="addrgbpanel.ui" line="279"/>
         <source>Snake</source>
         <translation>Had</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="317"/>
+        <location filename="addrgbpanel.ui" line="289"/>
         <source>Zig Zag</source>
         <translation>Cik Cak</translation>
     </message>
@@ -1554,32 +1569,42 @@ Zvolený soubor byl asi smazán nebo přesunut.</translation>
         <translation>Editor kolekcí</translation>
     </message>
     <message>
-        <location filename="collectioneditor.ui" line="45"/>
+        <location filename="collectioneditor.ui" line="39"/>
+        <source>Move the selected functions down</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="collectioneditor.ui" line="56"/>
+        <source>Move the selected functions up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="collectioneditor.ui" line="79"/>
         <source>Collection name</source>
         <translation>Název kolekce</translation>
     </message>
     <message>
-        <location filename="collectioneditor.ui" line="52"/>
+        <location filename="collectioneditor.ui" line="86"/>
         <source>Name of the function being edited</source>
         <translation>Název editované funkce</translation>
     </message>
     <message>
-        <location filename="collectioneditor.ui" line="112"/>
+        <location filename="collectioneditor.ui" line="146"/>
         <source>See what the Collection does when it is run</source>
         <translation>Ukázat co kolekce udělá když poběží</translation>
     </message>
     <message>
-        <location filename="collectioneditor.ui" line="145"/>
+        <location filename="collectioneditor.ui" line="188"/>
         <source>Function</source>
         <translation>Funkce</translation>
     </message>
     <message>
-        <location filename="collectioneditor.ui" line="59"/>
+        <location filename="collectioneditor.ui" line="93"/>
         <source>Add function(s) to the collection</source>
         <translation>Přidat funkci(e) do kolekce</translation>
     </message>
     <message>
-        <location filename="collectioneditor.ui" line="79"/>
+        <location filename="collectioneditor.ui" line="113"/>
         <source>Remove the selected function</source>
         <translation>Odebrat zvolenou funkci</translation>
     </message>
@@ -2232,79 +2257,79 @@ Zvolený soubor byl asi smazán nebo přesunut.</translation>
         <translation>Obecný stmívač</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1095"/>
+        <location filename="fixturemanager.cpp" line="1124"/>
         <source>%1 - Row %2</source>
         <translation>%1 - řádek %2</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1157"/>
+        <location filename="fixturemanager.cpp" line="1195"/>
         <source>Delete Fixtures</source>
         <translation>Smazat zařízení</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1158"/>
+        <location filename="fixturemanager.cpp" line="1196"/>
         <source>Do you want to delete the selected items?</source>
         <translation>Opravdu si přejete SMAZAT zvolené položky? </translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1213"/>
+        <location filename="fixturemanager.cpp" line="1251"/>
         <source>Delete Channels Group</source>
         <translation>Smazat skupinu kanálů</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1214"/>
+        <location filename="fixturemanager.cpp" line="1252"/>
         <source>Do you want to delete the selected groups?</source>
         <translation>Opravdu si přejete SMAZAT zvolené skupiny? </translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1274"/>
+        <location filename="fixturemanager.cpp" line="1312"/>
         <source>Change fixture properties</source>
         <translation>Změnit parametry zařízení</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="932"/>
-        <location filename="fixturemanager.cpp" line="1332"/>
+        <location filename="fixturemanager.cpp" line="1370"/>
         <source>Error</source>
         <translation>Chyba</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="933"/>
-        <location filename="fixturemanager.cpp" line="1333"/>
+        <location filename="fixturemanager.cpp" line="1371"/>
         <source>Please enter a valid address</source>
         <translation>Prosím zadejte platnou adresu</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1409"/>
+        <location filename="fixturemanager.cpp" line="1447"/>
         <source>Ungroup fixtures?</source>
         <translation>Oddělit zařízení ze skupiny?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1410"/>
+        <location filename="fixturemanager.cpp" line="1448"/>
         <source>Do you want to ungroup the selected fixtures?</source>
         <translation>Opravdu si přejete oddělit zvolená zařízení ze skupiny?</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1525"/>
+        <location filename="fixturemanager.cpp" line="1563"/>
         <source>Import Fixtures List</source>
         <translation>Importovat seznam zařízení</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1530"/>
+        <location filename="fixturemanager.cpp" line="1568"/>
         <source>Export Fixtures List As</source>
         <translation>Exportovat seznam zařízení jako</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1536"/>
+        <location filename="fixturemanager.cpp" line="1574"/>
         <source>Fixtures List (*%1)</source>
         <translation>Seznam zařízení (*%1)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1538"/>
+        <location filename="fixturemanager.cpp" line="1576"/>
         <source>All Files (*.*)</source>
         <translation>Všechny soubory (*.*)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1540"/>
+        <location filename="fixturemanager.cpp" line="1578"/>
         <source>All Files (*)</source>
         <translation>Všechny soubory (*)</translation>
     </message>
@@ -2424,12 +2449,12 @@ Zvolený soubor byl asi smazán nebo přesunut.</translation>
         <translation>K provedení přesunu zařízení, prosím zvolte zařízení v obou seznamech.</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="662"/>
+        <location filename="fixtureremap.cpp" line="664"/>
         <source>This might take a while...</source>
         <translation>Tato operace může nějakou chvilku trvat...</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="662"/>
+        <location filename="fixtureremap.cpp" line="664"/>
         <source>Cancel</source>
         <translation>Zrušit</translation>
     </message>
@@ -2490,13 +2515,13 @@ Zvolený soubor byl asi smazán nebo přesunut.</translation>
         <translation>Model</translation>
     </message>
     <message>
-        <location filename="fixturetreewidget.cpp" line="207"/>
-        <location filename="fixturetreewidget.cpp" line="215"/>
+        <location filename="fixturetreewidget.cpp" line="214"/>
+        <location filename="fixturetreewidget.cpp" line="222"/>
         <source>Generic</source>
         <translation>Obecný</translation>
     </message>
     <message>
-        <location filename="fixturetreewidget.cpp" line="227"/>
+        <location filename="fixturetreewidget.cpp" line="234"/>
         <source>Head</source>
         <translation>Hlava</translation>
     </message>
@@ -2674,33 +2699,33 @@ Zvolený soubor byl asi smazán nebo přesunut.</translation>
         <translation>Tento soubor videa nemůže být přehrán v QLC+. Je nám to moc líto.</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="628"/>
+        <location filename="functionmanager.cpp" line="634"/>
         <source>Do you want to DELETE folder:</source>
         <oldsource>Do you want to DELETE foler:</oldsource>
         <translation>Opravdu si přejete si SMAZAT složku:</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="630"/>
+        <location filename="functionmanager.cpp" line="636"/>
         <source>Do you want to DELETE functions:</source>
         <translation>Opravdu si přejete SMAZAT funkce: </translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="642"/>
+        <location filename="functionmanager.cpp" line="648"/>
         <source>(This will also DELETE: </source>
         <translation>Tato operace také VYMAŽE:</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="654"/>
+        <location filename="functionmanager.cpp" line="660"/>
         <source>Delete Functions</source>
         <translation>Smazat funkce</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="760"/>
+        <location filename="functionmanager.cpp" line="766"/>
         <source>Function</source>
         <translation>Funkce</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="886"/>
+        <location filename="functionmanager.cpp" line="892"/>
         <source> (Copy)</source>
         <translation>(kopie)</translation>
     </message>
@@ -4518,30 +4543,30 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
         <translation>Název scény:</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="887"/>
-        <location filename="sceneeditor.cpp" line="888"/>
+        <location filename="sceneeditor.cpp" line="885"/>
+        <location filename="sceneeditor.cpp" line="886"/>
         <source>All fixtures</source>
         <translation>Všechna zařízení</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1192"/>
-        <location filename="sceneeditor.cpp" line="1193"/>
+        <location filename="sceneeditor.cpp" line="1190"/>
+        <location filename="sceneeditor.cpp" line="1191"/>
         <source>Generic</source>
         <translation>Obecný</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1264"/>
+        <location filename="sceneeditor.cpp" line="1262"/>
         <source>Remove fixtures</source>
         <translation>Odebrat zařízení</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1265"/>
+        <location filename="sceneeditor.cpp" line="1263"/>
         <source>Do you want to remove the selected fixture(s)?</source>
         <translation>Opravdu si přejete odebrat označená zařízení? </translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1419"/>
-        <location filename="sceneeditor.cpp" line="1420"/>
+        <location filename="sceneeditor.cpp" line="1417"/>
+        <location filename="sceneeditor.cpp" line="1418"/>
         <source>Channels Groups</source>
         <translation>Skupiny kanálů</translation>
     </message>
@@ -5124,42 +5149,42 @@ Délka: %3
         <translation>Skupiny kanálů</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="943"/>
+        <location filename="simpledesk.cpp" line="950"/>
         <source>Cue Stack - Playback %1</source>
         <translation>Zásobník střihů - Přehrávání %1</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1125"/>
+        <location filename="simpledesk.cpp" line="1138"/>
         <source>No selection</source>
         <translation>Nevybráno</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1148"/>
+        <location filename="simpledesk.cpp" line="1161"/>
         <source>Cue name</source>
         <translation>Název střihu</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1155"/>
+        <location filename="simpledesk.cpp" line="1168"/>
         <source>Multiple Cues</source>
         <translation>Skupina střihů</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1252"/>
+        <location filename="simpledesk.cpp" line="1265"/>
         <source>Delete cue</source>
         <translation>Smazat sřih</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1306"/>
+        <location filename="simpledesk.cpp" line="1319"/>
         <source>Clone Cue Stack</source>
         <translation>Duplikovat zásobník střihu</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1306"/>
+        <location filename="simpledesk.cpp" line="1319"/>
         <source>Clone To Playback#</source>
         <translation>Duplikovat do přehrávání#</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1372"/>
+        <location filename="simpledesk.cpp" line="1385"/>
         <source>Cue %1</source>
         <translation>Střih %1</translation>
     </message>
@@ -5510,68 +5535,73 @@ Délka: %3
     <name>VCCueList</name>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="107"/>
+        <source>Blend</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelist.cpp" line="112"/>
         <source>Link</source>
         <translation>Spojit</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="201"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="210"/>
         <source>Show/Hide crossfade sliders</source>
         <translation>Zobrazit/Skrýt šavle prolínání</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="211"/>
-        <location filename="virtualconsole/vccuelist.cpp" line="964"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="220"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="975"/>
         <source>Play/Pause Cue list</source>
         <translation type="unfinished">Spustit/pozastavit seznam střihů</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="220"/>
-        <location filename="virtualconsole/vccuelist.cpp" line="965"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="229"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="976"/>
         <source>Stop Cue list</source>
         <translation type="unfinished">Zastavit seznam střihů</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="229"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="238"/>
         <source>Go to previous step in the list</source>
         <translation>Přejít na předchotí krok v seznamu</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="238"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="247"/>
         <source>Go to next step in the list</source>
         <translation>Přejít na další krok v seznamu</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="246"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="256"/>
         <source>Cue list</source>
         <translation>Seznam střihů</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="958"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="969"/>
         <source>Play/Stop Cue list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="959"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="970"/>
         <source>Pause Cue list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1367"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1407"/>
         <source>Fade In</source>
         <translation>Zesílení</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1367"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1407"/>
         <source>Fade Out</source>
         <translation>Zeslabení</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1367"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1407"/>
         <source>Duration</source>
         <translation>Délka</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1367"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1407"/>
         <source>Notes</source>
         <translation>Poznámky</translation>
     </message>
@@ -5741,7 +5771,7 @@ Délka: %3
         <translation>Strana: %1</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframe.cpp" line="1270"/>
+        <location filename="virtualconsole/vcframe.cpp" line="1273"/>
         <source>Add</source>
         <translation>Přidat</translation>
     </message>
@@ -5855,37 +5885,37 @@ Délka: %3
         <translation>Animace %1</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="626"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="628"/>
         <source>End Color Reset</source>
         <translation>Konec resetu Barvy</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="665"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="667"/>
         <source>Start color Red component</source>
         <translation>Počátek barvy Červené komponenty</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="667"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="669"/>
         <source>Start color Green component</source>
         <translation>Počátek barvy Zelené komponenty</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="669"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="671"/>
         <source>Start color Blue component</source>
         <translation>Počátek barvy Modré komponenty</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="681"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="683"/>
         <source>End color Red component</source>
         <translation>Konečná barva Červené komponenty</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="683"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="685"/>
         <source>End color Green component</source>
         <translation>Konečná barva Zelené komponenty</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="685"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="687"/>
         <source>End color Blue component</source>
         <translation>Cílová barva Modré komponenty</translation>
     </message>
@@ -5993,7 +6023,6 @@ Délka: %3
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="186"/>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="376"/>
         <source>Input universe</source>
         <translation>Větev vstupu</translation>
     </message>
@@ -6004,7 +6033,6 @@ Délka: %3
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="203"/>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="369"/>
         <source>Input channel</source>
         <translation>Vstupní kanál</translation>
     </message>
@@ -6020,7 +6048,6 @@ Délka: %3
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="236"/>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="339"/>
         <source>Choose...</source>
         <translation>Zvolit...</translation>
     </message>
@@ -6032,7 +6059,6 @@ Délka: %3
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="246"/>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="349"/>
         <source>Auto Detect</source>
         <translation>Automaticky detekovat</translation>
     </message>
@@ -6042,146 +6068,133 @@ Délka: %3
         <translation>Vlastní ovladače</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="397"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="370"/>
         <source> Add start color knobs</source>
         <translation>Přidat počáteční barvu knoflíků</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="419"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="281"/>
         <source> Add end color knobs</source>
         <translation>Přidat konečnou barvu knoflíků</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="430"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="337"/>
         <source> Add end color reset</source>
         <translation>Přidat konečnou resetovací barvu </translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="463"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="348"/>
         <source> Remove</source>
         <translation> Odebrat</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="441"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="312"/>
         <source> Add preset</source>
         <translation> Přidat předvolbu</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="288"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="299"/>
         <source>Type</source>
         <translation>Typ</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="293"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="304"/>
         <source>Value</source>
         <translation>Hodnota</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="386"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="359"/>
         <source> Add start color</source>
         <translation> Přidej počáteční barvu</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="408"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="381"/>
         <source> Add end color</source>
         <translation>Přidej koneční farbu</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="480"/>
         <source>Key combination</source>
-        <translation>Kombinace kláves</translation>
+        <translation type="vanished">Kombinace kláves</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="495"/>
         <source>Remove the control&apos;s keyboard shortcut key</source>
         <oldsource>Remove the button&apos;s keyboard shortcut key</oldsource>
-        <translation>Odebrat zkratkovou klávesu přiřazenou k tlačítku</translation>
+        <translation type="vanished">Odebrat zkratkovou klávesu přiřazenou k tlačítku</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="515"/>
         <source>Set a key combination for this control</source>
         <oldsource>Set a key combination for this button</oldsource>
-        <translation>Nastavit kombinaci kláves pro ovládání tohoto tlačítka</translation>
+        <translation type="vanished">Nastavit kombinaci kláves pro ovládání tohoto tlačítka</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="535"/>
         <source>Keyboard combination that toggles this control</source>
         <oldsource>Keyboard combination that toggles this button</oldsource>
-        <translation>Kombinace kláves která přepne toto tlačítko</translation>
+        <translation type="vanished">Kombinace kláves která přepne toto tlačítko</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="307"/>
         <source>External Input</source>
-        <translation>Externí vstup</translation>
+        <translation type="vanished">Externí vstup</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="326"/>
         <source>The particular input channel within the input universe that sends data to this control</source>
-        <translation>Kanál větve vstupů, který bude odesílat data pro tento ovladač</translation>
+        <translation type="vanished">Kanál větve vstupů, který bude odesílat data pro tento ovladač</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="336"/>
-        <source>Choose an external input universe &amp; channel that this control should listen to</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="346"/>
         <source>When toggled, you can move an external button to assign it to this control</source>
-        <translation>Je-li aktivní, bude dostupná volba externího tlačítka pro přiřazení k řízení tohoto virtuálního tlačítka</translation>
+        <translation type="vanished">Je-li aktivní, bude dostupná volba externího tlačítka pro přiřazení k řízení tohoto virtuálního tlačítka</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="359"/>
         <source>The input universe that sends data to this control</source>
-        <translation>Větev vstupů, která bude odesílat data pro tento ovladač</translation>
+        <translation type="vanished">Větev vstupů, která bude odesílat data pro tento ovladač</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="452"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="323"/>
         <source> Add text</source>
         <translation> Přidej text</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="148"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="152"/>
         <source>No function</source>
         <translation>Bez funkce</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="224"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="228"/>
         <source>Start Color</source>
         <translation>Počáteční barva</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="230"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="234"/>
         <source>Start Color Knob</source>
         <translation>Knoflík Počáteční barvy</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="236"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="240"/>
         <source>End Color</source>
         <translation>Konečná barva</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="242"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="246"/>
         <source>End Color Knob</source>
         <translation>Knoflík konečné barvy</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="248"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="252"/>
         <source>End Color Reset</source>
         <translation>Konečná barva resetu</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="253"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="257"/>
         <source>Animation</source>
         <translation>Animace</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="275"/>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="407"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="279"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="411"/>
         <source>Text</source>
         <translation>Text</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="406"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="410"/>
         <source>Enter a text</source>
         <translation>Zadaj text</translation>
     </message>
@@ -6432,9 +6445,14 @@ Délka: %3
 <context>
     <name>VCSlider</name>
     <message>
-        <location filename="virtualconsole/vcslider.cpp" line="214"/>
+        <location filename="virtualconsole/vcslider.cpp" line="220"/>
         <source>Slider %1</source>
         <translation>Šavle %1</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcslider.cpp" line="581"/>
+        <source>Reset channels override</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6555,168 +6573,173 @@ Délka: %3
         <translation>Z možností</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="300"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="306"/>
         <source>Name</source>
         <translation>Název</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="305"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="311"/>
         <source>Type</source>
         <translation>Typ</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="310"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="316"/>
         <source>Range</source>
         <translation>Rozsah</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="320"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="326"/>
         <source>Select all channels</source>
         <translation>Vybrat všechny kanály</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="323"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="329"/>
         <source>All</source>
         <translation>Všechny</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="330"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="336"/>
         <source>Unselect everything</source>
         <translation>Odznačit vše</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="333"/>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="394"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="339"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="393"/>
         <source>None</source>
         <translation>Nic</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="340"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="346"/>
         <source>Invert selection</source>
         <translation>Obrátit výběr</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="343"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="349"/>
         <source>Invert</source>
         <translation>Obrátit</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="363"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="369"/>
         <source>Choose channels by channel group</source>
         <translation>Zvolte kanály podle skupiny kanálů</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="366"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="372"/>
         <source>By group...</source>
         <translation>Podle skupiny...</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="375"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="434"/>
         <source>Monitor the selected channels and update the slider level</source>
         <translation>Sleduj vybrané kanály a uprav polohu šavle</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="388"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="387"/>
         <source>Click &amp;&amp; Go</source>
         <translation>Rychlá volba</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="404"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="403"/>
         <source>Intensity</source>
         <translation>Intenzita</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="411"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="410"/>
         <source>RGB</source>
         <translation>RGB</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="418"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="417"/>
         <source>CMY</source>
         <translation>CMY</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="425"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="424"/>
         <source>Gobo/Effect/Macro</source>
         <translation>Gobo/Efekt/Makro</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="448"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="444"/>
         <source>Make the slider control the level of a set of channels</source>
         <translation>Šavle ovládá úrovně kanálů</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="451"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="447"/>
         <source>Switch to Level Mode</source>
         <translation>Přepnout do režimu úrovní</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="459"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="455"/>
         <source>Playback</source>
         <translation>Přehrávání</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="465"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="461"/>
         <source>Function</source>
         <translation>Funkce</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="471"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="467"/>
         <source>Function that is attached to the slider</source>
         <translation>Funkce přiřazená k této šavli</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="481"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="477"/>
         <source>Attach a function to the slider</source>
         <translation>Přiřadit funkci k této šavli</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="501"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="497"/>
         <source>Detach the current function from the slider</source>
         <translation>Odebrat zvolenou funkci z této šavle</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="537"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="533"/>
         <source>Make the slider control a function</source>
         <translation>Šavle bude ovládat funkci</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="540"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="536"/>
         <source>Switch to Playback Mode</source>
         <translation>Přepnout do režimu přehrávání</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="548"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="544"/>
         <source>Submaster</source>
         <translation>Submaster</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="554"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="550"/>
         <source>Slider submaster mode is active</source>
         <translation>Režim submaster je aktivní</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="577"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="573"/>
         <source>Make the slider act as a submaster</source>
         <translation>Šavle bude sloužit jako submaster</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="580"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="576"/>
         <source>Switch to Submaster Mode</source>
         <translation>Přepnout do režimu submaster</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.cpp" line="631"/>
+        <location filename="virtualconsole/vcsliderproperties.cpp" line="173"/>
+        <source>Override reset control</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcsliderproperties.cpp" line="650"/>
         <source>Select channels by group</source>
         <translation>Zvolit kanály podle skupiny</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.cpp" line="632"/>
+        <location filename="virtualconsole/vcsliderproperties.cpp" line="651"/>
         <source>Select a channel group</source>
         <translation>Zvolist skupinu kanálů</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.cpp" line="689"/>
+        <location filename="virtualconsole/vcsliderproperties.cpp" line="716"/>
         <source>No function</source>
         <translation>Bez funkce</translation>
     </message>
@@ -6848,19 +6871,17 @@ Délka: %3
         <translation>Absolutní hodnota</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="580"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="392"/>
         <source>Preset Name</source>
         <translation>Název přednastavení</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="441"/>
         <source>Auto Detect</source>
-        <translation>Automaticky detekovat</translation>
+        <translation type="vanished">Automaticky detekovat</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="431"/>
         <source>Choose...</source>
-        <translation>Zvolit...</translation>
+        <translation type="vanished">Zvolit...</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="196"/>
@@ -6893,14 +6914,12 @@ Délka: %3
         <translation>Resetovat faktor násobitele když se hodnota zrychlené volby změní</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="399"/>
         <source>External Input</source>
-        <translation>Externí vstup</translation>
+        <translation type="vanished">Externí vstup</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="506"/>
         <source>Key combination</source>
-        <translation>Kombinace kláves</translation>
+        <translation type="vanished">Kombinace kláves</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="371"/>
@@ -6908,74 +6927,65 @@ Délka: %3
         <translation>Přednastavení</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="380"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="417"/>
         <source>Name</source>
         <translation>Název</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="385"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="422"/>
         <source>Value</source>
         <translation>Hodnota</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="418"/>
         <source>The particular input channel within the input universe that sends data to this preset button</source>
-        <translation>Kanál větve vstupů, který bude odesílat data pro toto tlačítko přednastavení</translation>
+        <translation type="vanished">Kanál větve vstupů, který bude odesílat data pro toto tlačítko přednastavení</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="428"/>
         <source>Choose an external input universe &amp; channel that this preset button should listen to</source>
-        <translation>Zvolte větev  externího vstupu &amp; kanál, který by měl toto tlačítko přednastavení řídit.</translation>
+        <translation type="vanished">Zvolte větev  externího vstupu &amp; kanál, který by měl toto tlačítko přednastavení řídit.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="438"/>
         <source>When toggled, you can move an external control to assign it to this preset button</source>
-        <translation>Je-li aktivní, bude dostupná volba externího tlačítka pro přiřazení k řízení tohoto tlačítka přednastavení</translation>
+        <translation type="vanished">Je-li aktivní, bude dostupná volba externího tlačítka pro přiřazení k řízení tohoto tlačítka přednastavení</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="451"/>
         <source>The input universe that sends data to this preset button</source>
-        <translation>Větev vstupů, která bude odesílat data pro tento ovladač</translation>
+        <translation type="vanished">Větev vstupů, která bude odesílat data pro tento ovladač</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="461"/>
         <source>Input channel</source>
-        <translation>Vstupní kanál</translation>
+        <translation type="vanished">Vstupní kanál</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="468"/>
         <source>Input universe</source>
-        <translation>Vstupní větev</translation>
+        <translation type="vanished">Vstupní větev</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="489"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="402"/>
         <source> Add preset</source>
         <translation> Přidat předvolbu</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="478"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="430"/>
         <source> Remove</source>
         <translation> Odebrat</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="587"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="379"/>
         <source>Preset name</source>
         <translation>Název přednastavení</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="521"/>
         <source>Remove the preset buttons&apos;s keyboard shortcut key</source>
-        <translation>Odebrat zkratkovou klávesu přiřazenou k tlačítku</translation>
+        <translation type="vanished">Odebrat zkratkovou klávesu přiřazenou k tlačítku</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="541"/>
         <source>Set a key combination for this preset button</source>
-        <translation>Nastavit kombinaci kláves pro ovládání tohoto tlačítka</translation>
+        <translation type="vanished">Nastavit kombinaci kláves pro ovládání tohoto tlačítka</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="561"/>
         <source>Keyboard combination that toggles this preset button</source>
-        <translation>Kombinace kláves která přepne toto tlačítko přednastavení</translation>
+        <translation type="vanished">Kombinace kláves která přepne toto tlačítko přednastavení</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="252"/>
@@ -7350,35 +7360,35 @@ Délka: %3
         <translation>Výška</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.cpp" line="361"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="363"/>
         <source>Remove fixtures</source>
         <translation>Odebrat zařízení</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.cpp" line="362"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="364"/>
         <source>Do you want to remove the selected fixtures?</source>
         <translation>Opravdu si přejete odebrat označená zařízení? </translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.cpp" line="715"/>
-        <location filename="virtualconsole/vcxypadproperties.cpp" line="764"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="717"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="766"/>
         <source>Error</source>
         <translation>Chyba</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.cpp" line="716"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="718"/>
         <source>The selected Scene does not include any Pan or Tilt channel.
 Please select one with such channels.</source>
         <translation>Zvolená Scéna neobsahuje žádný kanál Natočení/Naklopení (pan/tilt).
 Vyberte prosím některý z těchto kanálů.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.cpp" line="765"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="767"/>
         <source>Please select at least one fixture or head to create this type of preset !</source>
         <translation type="unfinished">Prosím zvolte alespoň jedno zařízení nebo halvu pro vytvoření tohohle presetu!</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.cpp" line="772"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="774"/>
         <source>Fixture Group</source>
         <translation>Skupina zařízení</translation>
     </message>

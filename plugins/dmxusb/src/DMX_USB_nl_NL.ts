@@ -4,38 +4,38 @@
 <context>
     <name>DMXUSB</name>
     <message>
-        <location filename="dmxusb.cpp" line="135"/>
+        <location filename="dmxusb.cpp" line="139"/>
         <source>This plugin provides DMX output support for</source>
         <translation>Deze plugin zorgt voor DMX output voor</translation>
     </message>
     <message>
-        <location filename="dmxusb.cpp" line="139"/>
+        <location filename="dmxusb.cpp" line="143"/>
         <source>and compatible devices.</source>
         <translation>en compatibile apparaten.</translation>
     </message>
     <message>
-        <location filename="dmxusb.cpp" line="153"/>
+        <location filename="dmxusb.cpp" line="157"/>
         <source>No output support available.</source>
         <translation>Geen output ondersteuning.</translation>
     </message>
     <message>
-        <location filename="dmxusb.cpp" line="155"/>
+        <location filename="dmxusb.cpp" line="159"/>
         <source>Make sure that you have your hardware firmly plugged in. NOTE: FTDI VCP interface is not supported by this plugin.</source>
         <translation>Zorg dat de hardware goed is ingeplugd. NOOT: FTDI VCP interface wordt niet onderstuend door deze plugin.</translation>
     </message>
     <message>
-        <location filename="dmxusb.cpp" line="164"/>
-        <location filename="dmxusb.cpp" line="268"/>
+        <location filename="dmxusb.cpp" line="168"/>
+        <location filename="dmxusb.cpp" line="272"/>
         <source>Device is operating correctly.</source>
         <translation>Apparaat functioneert correct.</translation>
     </message>
     <message>
-        <location filename="dmxusb.cpp" line="166"/>
+        <location filename="dmxusb.cpp" line="170"/>
         <source>Driver in use: %1</source>
         <translation>Gebruikte driver: %1</translation>
     </message>
     <message>
-        <location filename="dmxusb.cpp" line="255"/>
+        <location filename="dmxusb.cpp" line="259"/>
         <source>No input support available.</source>
         <translation>Geen input ondersteuning.</translation>
     </message>
@@ -105,17 +105,17 @@
     <name>EnttecDMXUSBPro</name>
     <message>
         <location filename="enttecdmxusbpro.cpp" line="82"/>
-        <location filename="enttecdmxusbpro.cpp" line="87"/>
+        <location filename="enttecdmxusbpro.cpp" line="84"/>
         <source>Protocol</source>
         <translation>Protocol</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="91"/>
+        <location filename="enttecdmxusbpro.cpp" line="87"/>
         <source>Manufacturer</source>
         <translation>Fabrikant</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="94"/>
+        <location filename="enttecdmxusbpro.cpp" line="89"/>
         <source>Serial number</source>
         <translation>Serienummer</translation>
     </message>
@@ -155,22 +155,22 @@
         <translation>Serienummer</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="208"/>
+        <location filename="enttecdmxusbpro.cpp" line="205"/>
         <source>MIDI Input</source>
         <translation>MIDI Ingang</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="210"/>
+        <location filename="enttecdmxusbpro.cpp" line="207"/>
         <source>DMX Input</source>
         <translation>DMX Ingang</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="215"/>
+        <location filename="enttecdmxusbpro.cpp" line="212"/>
         <source>MIDI Output</source>
         <translation>MIDI Uitgang</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="217"/>
+        <location filename="enttecdmxusbpro.cpp" line="214"/>
         <source>DMX Output</source>
         <translation>DMX Uitgang
 </translation>

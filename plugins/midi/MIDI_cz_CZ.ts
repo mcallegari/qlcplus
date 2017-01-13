@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="cs_CZ">
+<TS version="2.1" language="cs_CZ">
 <context>
     <name>ConfigureMidiPlugin</name>
     <message>
-        <location filename="common/configuremidiplugin.ui" line="14"/>
+        <location filename="common/configuremidiplugin.ui" line="33"/>
         <source>Configure MIDI Plugin</source>
         <translation>Konfigurace MIDI Pluginu</translation>
     </message>
     <message>
-        <location filename="common/configuremidiplugin.ui" line="47"/>
+        <location filename="common/configuremidiplugin.ui" line="66"/>
         <source>Name</source>
         <translation>Název</translation>
     </message>
     <message>
-        <location filename="common/configuremidiplugin.ui" line="52"/>
+        <location filename="common/configuremidiplugin.ui" line="71"/>
         <source>MIDI Channel</source>
         <translation>MIDI Kanál</translation>
     </message>
     <message>
-        <location filename="common/configuremidiplugin.ui" line="57"/>
+        <location filename="common/configuremidiplugin.ui" line="76"/>
         <source>Mode</source>
         <translation>Režim</translation>
     </message>
     <message>
-        <location filename="common/configuremidiplugin.ui" line="62"/>
+        <location filename="common/configuremidiplugin.ui" line="81"/>
         <source>Init Message</source>
         <translation>Inicializační zpráva</translation>
     </message>
     <message>
-        <location filename="common/configuremidiplugin.ui" line="20"/>
+        <location filename="common/configuremidiplugin.ui" line="39"/>
         <source>Refresh</source>
         <translation>Obnovit</translation>
     </message>
@@ -108,82 +108,82 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="195"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="196"/>
         <source>No error occurred.</source>
         <translation>Nenastal žádný problém.</translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="197"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="198"/>
         <source>An error occurred when reading from the file.</source>
         <translation>Nastala chyba při čtení ze souboru.</translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="199"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="200"/>
         <source>An error occurred when writing to the file.</source>
         <translation>Nastala chyba při zápisu do souboru.</translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="201"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="202"/>
         <source>A fatal error occurred.</source>
         <translation>Nastala závažná chyba.</translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="203"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="204"/>
         <source>Resource error occurred.</source>
         <translation>Chyba zdroje.</translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="205"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="206"/>
         <source>The file could not be opened.</source>
         <translation>Sobor nemohl být otevřen.</translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="207"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="208"/>
         <source>The operation was aborted.</source>
         <translation>Operace se souborem byla přerušena.</translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="209"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="210"/>
         <source>A timeout occurred.</source>
         <translation>Vypršel časový limit.</translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="211"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="212"/>
         <source>An unspecified error occurred.</source>
         <translation>Nastala neznámá chyba.</translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="213"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="214"/>
         <source>The file could not be removed.</source>
         <translation>Soubor se nepodařilo odstranit.</translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="215"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="216"/>
         <source>The file could not be renamed.</source>
         <translation>Soubor se nepodařilo přejmenovat.</translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="217"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="218"/>
         <source>The position in the file could not be changed.</source>
         <translation>Pozice v souboru nemohla být změněna.</translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="219"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="220"/>
         <source>The file could not be resized.</source>
         <translation>Nepodařilo se změnit velikost souboru.</translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="221"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="222"/>
         <source>The file could not be accessed.</source>
         <translation>Nepodařilo se přistoupit k souboru.</translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="223"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="224"/>
         <source>The file could not be copied.</source>
         <translation>Soubor se nedá zkopírovat.</translation>
     </message>
     <message>
-        <location filename="../../engine/src/qlcfile.cpp" line="225"/>
+        <location filename="../../engine/src/qlcfile.cpp" line="226"/>
         <source>An unknown error occurred.</source>
         <translation>Nastala neznámá chyba.</translation>
     </message>

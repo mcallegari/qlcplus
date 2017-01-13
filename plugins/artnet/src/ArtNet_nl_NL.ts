@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="nl_NL">
+<TS version="2.1" language="nl_NL">
 <context>
     <name>ArtNetPlugin</name>
     <message>
@@ -9,69 +9,69 @@
         <translation>Deze plugin zorgt voor DMX output voor apparaten die het ArtNet communicatieprotocol ondersteunen.</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="116"/>
+        <location filename="artnetplugin.cpp" line="132"/>
         <source>Output</source>
         <translation>Output</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="120"/>
-        <location filename="artnetplugin.cpp" line="275"/>
+        <location filename="artnetplugin.cpp" line="136"/>
+        <location filename="artnetplugin.cpp" line="287"/>
         <source>Status: Not open</source>
         <translation>Status: Ongeopend</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="123"/>
+        <location filename="artnetplugin.cpp" line="139"/>
         <source>Status: Open</source>
         <translation>Status: Open</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="128"/>
+        <location filename="artnetplugin.cpp" line="144"/>
         <source>No</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="130"/>
+        <location filename="artnetplugin.cpp" line="146"/>
         <source>Yes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="131"/>
+        <location filename="artnetplugin.cpp" line="147"/>
         <source>Can receive nodes information</source>
         <oldsource>Can receive node information</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="134"/>
+        <location filename="artnetplugin.cpp" line="150"/>
         <source>Nodes discovered: </source>
         <translation>Gevonden nodes:</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="137"/>
+        <location filename="artnetplugin.cpp" line="153"/>
         <source>Packets sent: </source>
         <translation>Pakketten verzonden: </translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="271"/>
+        <location filename="artnetplugin.cpp" line="283"/>
         <source>Input</source>
         <translation>Input</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="280"/>
+        <location filename="artnetplugin.cpp" line="292"/>
         <source>Bind failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="282"/>
+        <location filename="artnetplugin.cpp" line="294"/>
         <source>Open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="283"/>
+        <location filename="artnetplugin.cpp" line="295"/>
         <source>Status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="286"/>
+        <location filename="artnetplugin.cpp" line="298"/>
         <source>Packets received: </source>
         <translation>Pakketten ontvangen: </translation>
     </message>
@@ -144,32 +144,32 @@
         <translation>%1 nodes</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="120"/>
+        <location filename="configureartnet.cpp" line="118"/>
         <source>Inputs</source>
         <translation>Inputs</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="126"/>
+        <location filename="configureartnet.cpp" line="124"/>
         <source>Outputs</source>
         <translation>Outputs</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="177"/>
+        <location filename="configureartnet.cpp" line="175"/>
         <source>Full</source>
         <translation>Vol</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="178"/>
+        <location filename="configureartnet.cpp" line="176"/>
         <source>Partial</source>
         <translation>Gedeeltelijk</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="195"/>
+        <location filename="configureartnet.cpp" line="189"/>
         <source>Invalid IP</source>
         <translation>Ongeldig IP</translation>
     </message>
     <message>
-        <location filename="configureartnet.cpp" line="195"/>
+        <location filename="configureartnet.cpp" line="189"/>
         <source>%1 is not a valid IP.
 Please fix it before confirming.</source>
         <translation>%1 is geen geldig IP.

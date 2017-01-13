@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="ja_JP">
+<TS version="2.1" language="ja_JP">
 <context>
     <name>SPIConfiguration</name>
     <message>
-        <location filename="spiconfiguration.ui" line="14"/>
+        <location filename="spiconfiguration.ui" line="33"/>
         <source>Configure SPI Plugin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="spiconfiguration.ui" line="20"/>
+        <location filename="spiconfiguration.ui" line="39"/>
         <source>Transmission frequency:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="spiconfiguration.ui" line="35"/>
+        <location filename="spiconfiguration.ui" line="54"/>
         <source>1Mhz</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="spiconfiguration.ui" line="40"/>
+        <location filename="spiconfiguration.ui" line="59"/>
         <source>2Mhz</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="spiconfiguration.ui" line="45"/>
+        <location filename="spiconfiguration.ui" line="64"/>
         <source>4MHz</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="spiconfiguration.ui" line="50"/>
+        <location filename="spiconfiguration.ui" line="69"/>
         <source>8MHz</source>
         <translation type="unfinished"></translation>
     </message>
@@ -37,7 +37,7 @@
 <context>
     <name>SPIPlugin</name>
     <message>
-        <location filename="spiplugin.cpp" line="132"/>
+        <location filename="spiplugin.cpp" line="138"/>
         <source>This plugin provides DMX output for SPI devices.</source>
         <translation type="unfinished"></translation>
     </message>
