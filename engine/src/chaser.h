@@ -310,7 +310,7 @@ public:
     {
         FromFunction = 0,
         Crossfade,
-        LinkedCrossfade
+        BlendedCrossfade
     };
 
     /** Set the intensity at start */

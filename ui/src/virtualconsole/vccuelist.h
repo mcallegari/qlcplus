@@ -271,7 +271,7 @@ protected:
 
 protected slots:
     void slotShowCrossfadePanel(bool enable);
-    void slotLinkedCrossFadeChecked(bool checked);
+    void slotBlendedCrossfadeChecked(bool checked);
     void slotSlider1ValueChanged(int value);
     void slotSlider2ValueChanged(int value);
 
@@ -279,6 +279,7 @@ protected:
     void stopStepIfNeeded(Chaser* ch);
 
 private:
+    QCheckBox *m_blendCheck;
     QCheckBox *m_linkCheck;
     QLabel *m_sl1TopLabel;
     ClickAndGoSlider* m_slider1;

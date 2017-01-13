@@ -104,49 +104,55 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     QGridLayout* grid = new QGridLayout(this);
     grid->setSpacing(2);
 
+    m_blendCheck = new QCheckBox(tr("Blend"));
+    grid->addWidget(m_blendCheck, 0, 0, 1, 2, Qt::AlignVCenter | Qt::AlignCenter);
+    connect(m_blendCheck, SIGNAL(clicked(bool)),
+            this, SLOT(slotBlendedCrossfadeChecked(bool)));
+
     m_linkCheck = new QCheckBox(tr("Link"));
-    grid->addWidget(m_linkCheck, 0, 0, 1, 2, Qt::AlignVCenter | Qt::AlignCenter);
-    connect(m_linkCheck, SIGNAL(clicked(bool)),
-            this, SLOT(slotLinkedCrossFadeChecked(bool)));
+    grid->addWidget(m_linkCheck, 1, 0, 1, 2, Qt::AlignVCenter | Qt::AlignCenter);
 
     m_sl1TopLabel = new QLabel("100%");
     m_sl1TopLabel->setAlignment(Qt::AlignHCenter);
-    grid->addWidget(m_sl1TopLabel, 1, 0, 1, 1);
+    grid->addWidget(m_sl1TopLabel, 2, 0, 1, 1);
     m_slider1 = new ClickAndGoSlider();
     m_slider1->setSliderStyleSheet(CNG_DEFAULT_STYLE);
     m_slider1->setFixedWidth(32);
     m_slider1->setRange(0, 100);
     m_slider1->setValue(100);
-    grid->addWidget(m_slider1, 2, 0, 1, 1);
+    grid->addWidget(m_slider1, 3, 0, 1, 1);
     m_sl1BottomLabel = new QLabel("");
     m_sl1BottomLabel->setStyleSheet(cfLabelNoStyle);
     m_sl1BottomLabel->setAlignment(Qt::AlignCenter);
-    grid->addWidget(m_sl1BottomLabel, 3, 0, 1, 1);
+    m_sl1BottomLabel->setFixedSize(32, 24);
+    grid->addWidget(m_sl1BottomLabel, 4, 0, 1, 1);
     connect(m_slider1, SIGNAL(valueChanged(int)),
             this, SLOT(slotSlider1ValueChanged(int)));
 
     m_sl2TopLabel = new QLabel("0%");
     m_sl2TopLabel->setAlignment(Qt::AlignHCenter);
-    grid->addWidget(m_sl2TopLabel, 1, 1, 1, 1);
+    grid->addWidget(m_sl2TopLabel, 2, 1, 1, 1);
     m_slider2 = new ClickAndGoSlider();
     m_slider2->setSliderStyleSheet(CNG_DEFAULT_STYLE);
     m_slider2->setFixedWidth(32);
     m_slider2->setRange(0, 100);
     m_slider2->setValue(0);
     m_slider2->setInvertedAppearance(true);
-    grid->addWidget(m_slider2, 2, 1, 1, 1);
+    grid->addWidget(m_slider2, 3, 1, 1, 1);
     m_sl2BottomLabel = new QLabel("");
     m_sl2BottomLabel->setStyleSheet(cfLabelNoStyle);
     m_sl2BottomLabel->setAlignment(Qt::AlignCenter);
-    grid->addWidget(m_sl2BottomLabel, 3, 1, 1, 1);
+    m_sl2BottomLabel->setFixedSize(32, 24);
+    grid->addWidget(m_sl2BottomLabel, 4, 1, 1, 1);
     connect(m_slider2, SIGNAL(valueChanged(int)),
             this, SLOT(slotSlider2ValueChanged(int)));
 
     slotShowCrossfadePanel(false);
 
+    QVBoxLayout *vbox = new QVBoxLayout();
+
     /* Create a list for scenes (cues) */
     m_tree = new QTreeWidget(this);
-    grid->addWidget(m_tree, 0, 2, 3, 1);
     m_tree->setSelectionMode(QAbstractItemView::SingleSelection);
     //m_tree->setAlternatingRowColors(true);
     m_tree->setAllColumnsShowFocus(true);
@@ -173,13 +179,14 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
             this, SLOT(slotItemActivated(QTreeWidgetItem*)));
     connect(m_tree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
             this, SLOT(slotItemChanged(QTreeWidgetItem*,int)));
+    vbox->addWidget(m_tree);
 
     m_progress = new QProgressBar(this);
     m_progress->setOrientation(Qt::Horizontal);
     m_progress->setStyleSheet(progressDisabledStyle);
     m_progress->setProperty("status", 0);
     m_progress->setFixedHeight(20);
-    grid->addWidget(m_progress, 3, 2);
+    vbox->addWidget(m_progress);
 
     m_timer = new QTimer(this);
     connect(m_timer, SIGNAL(timeout()),
@@ -241,7 +248,8 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     connect(m_nextButton, SIGNAL(clicked()), this, SLOT(slotNextCue()));
     hbox->addWidget(m_nextButton);
 
-    grid->addItem(hbox, 4, 2);
+    vbox->addItem(hbox);
+    grid->addItem(vbox, 0, 2, 5);
 
     setFrameStyle(KVCFrameStyleSunken);
     setType(VCWidget::CueListWidget);
@@ -282,6 +290,7 @@ void VCCueList::enableWidgetUI(bool enable)
     m_previousButton->setEnabled(enable);
     m_nextButton->setEnabled(enable);
 
+    m_blendCheck->setEnabled(enable);
     m_linkCheck->setEnabled(enable);
     m_sl1TopLabel->setEnabled(enable);
     m_slider1->setEnabled(enable);
@@ -992,6 +1001,7 @@ void VCCueList::setSlidersMode(VCCueList::SlidersMode mode)
     if (m_slider1->isVisible() == true)
     {
         bool show = (mode == Crossfade) ? true : false;
+        m_blendCheck->setVisible(show);
         m_linkCheck->setVisible(show);
         m_sl2TopLabel->setVisible(show);
         m_slider2->setVisible(show);
@@ -1060,6 +1070,7 @@ void VCCueList::slotShowCrossfadePanel(bool enable)
     m_sl1BottomLabel->setVisible(enable);
     if (slidersMode() == Crossfade)
     {
+        m_blendCheck->setVisible(enable);
         m_linkCheck->setVisible(enable);
         m_sl2TopLabel->setVisible(enable);
         m_slider2->setVisible(enable);
@@ -1067,7 +1078,7 @@ void VCCueList::slotShowCrossfadePanel(bool enable)
     }
 }
 
-void VCCueList::slotLinkedCrossFadeChecked(bool checked)
+void VCCueList::slotBlendedCrossfadeChecked(bool checked)
 {
     Chaser* ch = chaser();
 
@@ -1088,7 +1099,7 @@ void VCCueList::slotLinkedCrossFadeChecked(bool checked)
     {
         int secondaryValue = m_primaryLeft ? m_slider2->value() : m_slider1->value();
         if (secondaryValue > 0)
-            ch->adjustIntensity((qreal)secondaryValue / 100, m_secondaryIndex, Chaser::LinkedCrossfade);
+            ch->adjustIntensity((qreal)secondaryValue / 100, m_secondaryIndex, Chaser::BlendedCrossfade);
     }
 }
 
@@ -1126,8 +1137,8 @@ void VCCueList::slotSlider1ValueChanged(int value)
         {
             int stepIndex = m_primaryLeft ? m_primaryIndex : m_secondaryIndex;
 
-            if (stepIndex == m_secondaryIndex && m_linkCheck->isChecked())
-                ch->adjustIntensity((qreal)value / 100, stepIndex, Chaser::LinkedCrossfade);
+            if (stepIndex == m_secondaryIndex && m_blendCheck->isChecked())
+                ch->adjustIntensity((qreal)value / 100, stepIndex, Chaser::BlendedCrossfade);
             else
                 ch->adjustIntensity((qreal)value / 100, stepIndex, Chaser::Crossfade);
 
@@ -1155,8 +1166,8 @@ void VCCueList::slotSlider2ValueChanged(int value)
     {
         int stepIndex = m_primaryLeft ? m_secondaryIndex : m_primaryIndex;
 
-        if (stepIndex == m_secondaryIndex && m_linkCheck->isChecked())
-            ch->adjustIntensity((qreal)value / 100, stepIndex, Chaser::LinkedCrossfade);
+        if (stepIndex == m_secondaryIndex && m_blendCheck->isChecked())
+            ch->adjustIntensity((qreal)value / 100, stepIndex, Chaser::BlendedCrossfade);
         else
             ch->adjustIntensity((qreal)value / 100, stepIndex, Chaser::Crossfade);
 
