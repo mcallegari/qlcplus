@@ -727,6 +727,7 @@
   <fixture path="Showtec-Stage-Blinder-Series.qxf" mf="Showtec" md="Stage Blinder Series"/>
   <fixture path="Showtec-Sunstrip-Active.qxf" mf="Showtec" md="Sunstrip Active"/>
   <fixture path="Showtec-XB-Wave.qxf" mf="Showtec" md="XB-Wave"/>
+  <fixture path="Showtec-XS-1W-Mini-Moving-Beam.qxf" mf="Showtec" md="XS-1W Mini Moving Beam"/>
   <fixture path="Showtec-ZIPP-LED-DMX.qxf" mf="Showtec" md="ZIPP LED DMX"/>
   <fixture path="StageTech-LeaderScan-Roto.qxf" mf="StageTech" md="LeaderScan Roto"/>
   <fixture path="Stairville-AF-150.qxf" mf="Stairville" md="AF-150"/>
