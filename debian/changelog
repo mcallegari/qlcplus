@@ -17,6 +17,7 @@ qlcplus (4.10.6) stable; urgency=low
   * New fixture: Robe DJ Scan 150 XT (thanks to Allan Madsen)
   * New fixture: Futurelight PRO Slim PAR-12 HCL (thanks to Lukas Jähn)
   * New fixture: Showtec XS-1W Mini Moving Beam (thanks to Habefaro)
+  * New input profile: Zoom R16 (thanks to Benedict Stein)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 5 Mar 2017 12:13:14 +0200
 
