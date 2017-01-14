@@ -302,7 +302,9 @@
   <fixture path="Contest-Evora-Beam-15R.qxf" mf="Contest" md="Evora Beam 15R"/>
   <fixture path="Contest-Evora-Beam-5R.qxf" mf="Contest" md="Evora Beam 5R"/>
   <fixture path="Contest-Evora-DUO-B2R.qxf" mf="Contest" md="Evora DUO B2R"/>
+  <fixture path="Contest-EvoraB2R.qxf" mf="Contest" md="Evora B2R"/>
   <fixture path="Contest-LedColor.qxf" mf="Contest" md="LedColor"/>
+  <fixture path="Contest-Mini-Head-10W.qxf" mf="Contest" md="Mini-Head 10W"/>
   <fixture path="Contest-MiniCube-6TCb.qxf" mf="Contest" md="MiniCube-6TCb"/>
   <fixture path="Contest-Oz-37x15QC.qxf" mf="Contest" md="Oz-37x15QC"/>
   <fixture path="Contest-PSC-930.qxf" mf="Contest" md="PSC-930"/>
@@ -426,6 +428,7 @@
   <fixture path="Futurelight-PHW-250.qxf" mf="Futurelight" md="PHW-250"/>
   <fixture path="Futurelight-PHW-260.qxf" mf="Futurelight" md="PHW-260"/>
   <fixture path="Futurelight-PHW-700.qxf" mf="Futurelight" md="PHW-700"/>
+  <fixture path="Futurelight-PRO-Slim-PAR-12-HCL.qxf" mf="Futurelight" md="PRO Slim PAR-12 HCL"/>
   <fixture path="Futurelight-PSC-1200.qxf" mf="Futurelight" md="PSC-1200"/>
   <fixture path="Futurelight-PSC-250.qxf" mf="Futurelight" md="PSC-250"/>
   <fixture path="Futurelight-PSC-575.qxf" mf="Futurelight" md="PSC-575"/>
@@ -654,6 +657,7 @@
   <fixture path="Robe-ColorSpot-575-AT.qxf" mf="Robe" md="ColorSpot 575 AT"/>
   <fixture path="Robe-ColorSpot-700E-AT.qxf" mf="Robe" md="ColorSpot 700E AT (v1.4)"/>
   <fixture path="Robe-ColorWash-1200E-AT.qxf" mf="Robe" md="ColorWash 1200E AT"/>
+  <fixture path="Robe-DJ-Scan-150-XT.qxf" mf="Robe" md="DJ Scan 150 XT"/>
   <fixture path="Robe-Fog-1500-FT.qxf" mf="Robe" md="Fog 1500 FT"/>
   <fixture path="Robe-Pointe.qxf" mf="Robe" md="Pointe"/>
   <fixture path="Robe-Robin-100-LEDBeam.qxf" mf="Robe" md="Robin 100 LEDBeam"/>

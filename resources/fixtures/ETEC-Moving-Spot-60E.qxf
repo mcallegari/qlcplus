@@ -65,10 +65,10 @@
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="7" Res="Others/open.png">Open(White)</Capability>
   <Capability Min="8" Max="28" Res="GLP/gobo00025.png">Gobo1</Capability>
-  <Capability Min="29" Max="49">Gobo2</Capability>
-  <Capability Min="50" Max="70">Gobo3</Capability>
-  <Capability Min="71" Max="91">Gobo4</Capability>
-  <Capability Min="92" Max="112">Gobo5</Capability>
+  <Capability Min="29" Max="49" Res="SGM/gobo00362.png">Gobo2</Capability>
+  <Capability Min="50" Max="70" Res="SGM/gobo00019.png">Gobo3</Capability>
+  <Capability Min="71" Max="91" Res="SGM/gobo00123.png">Gobo4</Capability>
+  <Capability Min="92" Max="112" Res="SGM/gobo00054.png">Gobo5</Capability>
   <Capability Min="113" Max="133" Res="Others/gobo00027.png">Gobo6</Capability>
   <Capability Min="134" Max="194">Clockwise Gobo scroll</Capability>
   <Capability Min="195" Max="255">Counter-clockwise Gobo scroll</Capability>

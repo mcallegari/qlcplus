@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.6 GIT</Version>
+  <Author>Allan Madsen</Author>
+ </Creator>
+ <Manufacturer>Robe</Manufacturer>
+ <Model>DJ Scan 150 XT</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt</Capability>
+ </Channel>
+ <Channel Name="Colours">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">Open/white</Capability>
+  <Capability Min="8" Max="15" Color="#aaffff">Turquoise</Capability>
+  <Capability Min="16" Max="23" Color="#ff0000">Red</Capability>
+  <Capability Min="24" Max="31" Color="#aaffff">Cyan</Capability>
+  <Capability Min="32" Max="39" Color="#bcd824">Light green</Capability>
+  <Capability Min="40" Max="47" Color="#ff007f">Magenta</Capability>
+  <Capability Min="48" Max="55" Color="#00ffff">Light blue</Capability>
+  <Capability Min="56" Max="63" Color="#eaea00">Yellow</Capability>
+  <Capability Min="64" Max="71" Color="#44ec11">Green</Capability>
+  <Capability Min="72" Max="79" Color="#ffdae2">Pink</Capability>
+  <Capability Min="80" Max="87" Color="#0055ff">Blue</Capability>
+  <Capability Min="88" Max="95" Color="#ff9d14">Orange</Capability>
+  <Capability Min="96" Max="103" Color="#b43cff">UV</Capability>
+  <Capability Min="104" Max="111" Color="#ff0000" Color2="#0000ff">Red/Blue</Capability>
+  <Capability Min="112" Max="119" Color="#ffff00" Color2="#00ff00">Yellow/Green</Capability>
+  <Capability Min="120" Max="127" Color="#00aaff" Color2="#a122d4">Blue/Purple</Capability>
+  <Capability Min="128" Max="190" Res="Others/rainbow.png">Forwards rainbow effect from fast to slow</Capability>
+  <Capability Min="191" Max="192" Res="Others/rainbow.png">Backwards rainbow effect from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Shutter, Strobe, Gobos">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="5">Closed</Capability>
+  <Capability Min="6" Max="63" Res="Others/open.png">Open</Capability>
+  <Capability Min="64" Max="127">Strobe effect from slow to fast (max 8FPS)</Capability>
+  <Capability Min="128" Max="132">Closed</Capability>
+  <Capability Min="133" Max="135">Reset of the fixture</Capability>
+  <Capability Min="136" Max="143" Res="Others/open.png">Open</Capability>
+  <Capability Min="144" Max="151">Closed</Capability>
+  <Capability Min="152" Max="159" Res="Robe/gobo00028.png">Gobo 1</Capability>
+  <Capability Min="160" Max="167">Gobo 2</Capability>
+  <Capability Min="168" Max="175" Res="Robe/gobo00025.png">Gobo 3</Capability>
+  <Capability Min="176" Max="183" Res="Others/gobo00011.png">Gobo 4</Capability>
+  <Capability Min="184" Max="191">Gobo 5</Capability>
+  <Capability Min="192" Max="199">Gobo 6</Capability>
+  <Capability Min="200" Max="207">Gobo 7</Capability>
+  <Capability Min="208" Max="215">Gobo 8</Capability>
+  <Capability Min="216" Max="223">Gobo 9</Capability>
+  <Capability Min="224" Max="231">Gobo 10</Capability>
+  <Capability Min="232" Max="239">Gobo 11</Capability>
+  <Capability Min="240" Max="247">Gobo 12</Capability>
+  <Capability Min="248" Max="255">Gobo 13</Capability>
+ </Channel>
+ <Mode Name="Default">
+  <Physical>
+   <Bulb Type="BLV HIT 150nw,150W,G12" Lumens="265" ColourTemperature="0"/>
+   <Dimensions Weight="9.5" Width="308" Height="275" Depth="483"/>
+   <Lens Name="Other" DegreesMin="19" DegreesMax="19"/>
+   <Focus Type="Fixed" PanMax="147" TiltMax="115"/>
+   <Technical PowerConsumption="250" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Colours</Channel>
+  <Channel Number="3">Shutter, Strobe, Gobos</Channel>
+ </Mode>
+</FixtureDefinition>
