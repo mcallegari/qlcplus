@@ -85,9 +85,6 @@
    <Technical PowerConsumption="35" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Auto Programs</Channel>
-  <Head>
-   <Channel>0</Channel>
-  </Head>
  </Mode>
  <Mode Name="5-Channel">
   <Physical>
@@ -102,6 +99,5 @@
   <Channel Number="2">LED Strobe</Channel>
   <Channel Number="3">LED Rotation</Channel>
   <Channel Number="4">Strobe Programs</Channel>
-  <Head/>
  </Mode>
 </FixtureDefinition>
