@@ -36,6 +36,7 @@
 #include "chasereditor.h"
 #include "mastertimer.h"
 #include "chaserstep.h"
+#include "sequence.h"
 #include "apputil.h"
 #include "fixture.h"
 #include "chaser.h"
@@ -67,7 +68,7 @@ ChaserEditor::ChaserEditor(QWidget* parent, Chaser* chaser, Doc* doc, bool liveM
 
     /* Disable editing of steps number */
     m_tree->setItemDelegateForColumn(COL_NUM, new NoEditDelegate(this));
-    if (m_chaser->isSequence() == true)
+    if (m_chaser->type() == Function::Sequence)
         m_tree->header()->setSectionHidden(COL_NAME, true);
 
     m_cutAction = new QAction(QIcon(":/editcut.png"), tr("Cut"), this);
@@ -340,13 +341,14 @@ void ChaserEditor::slotAddClicked()
     if (item != NULL)
         insertionPoint = m_tree->indexOfTopLevelItem(item) + 1;
 
-    if (m_chaser->isSequence() == true)
+    if (m_chaser->type() == Function::Sequence)
     {
-        ChaserStep step(m_chaser->getBoundSceneID());
+        Sequence *sequence = qobject_cast<Sequence*>(m_chaser);
+        ChaserStep step(sequence->boundSceneID());
         item = new QTreeWidgetItem;
         updateItem(item, step);
         // if this is the first step we add, then copy all DMX channels non-zero values
-        Scene *currScene = qobject_cast<Scene*> (m_doc->function(m_chaser->getBoundSceneID()));
+        Scene *currScene = qobject_cast<Scene*> (m_doc->function(sequence->boundSceneID()));
         QListIterator <SceneValue> it(currScene->values());
         qDebug() << "First step added !!";
         while (it.hasNext() == true)
@@ -644,9 +646,10 @@ void ChaserEditor::slotPasteClicked()
     // If the Chaser is a sequence, then perform a sanity
     // check on each Step to see if they really belong to
     // this scene
-    if (m_chaser->isSequence())
+    if (m_chaser->type() == Function::Sequence)
     {
-        quint32 sceneID = m_chaser->getBoundSceneID();
+        Sequence *sequence = qobject_cast<Sequence*>(m_chaser);
+        quint32 sceneID = sequence->boundSceneID();
         Scene *scene = qobject_cast<Scene*>(m_doc->function(sceneID));
         foreach(ChaserStep step, pasteList)
         {
@@ -1113,7 +1116,7 @@ void ChaserEditor::updateItem(QTreeWidgetItem* item, ChaserStep& step)
 
     item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsEditable);
     item->setText(COL_NUM, QString("%1").arg(m_tree->indexOfTopLevelItem(item) + 1));
-    if (m_chaser->isSequence() == false)
+    if (m_chaser->type() == Function::Chaser)
     {
         item->setText(COL_NAME, function->name());
         item->setIcon(COL_NAME, function->getIcon());

@@ -54,6 +54,7 @@
 #include "efxeditor.h"
 #include "rgbmatrix.h"
 #include "function.h"
+#include "sequence.h"
 #include "apputil.h"
 #include "chaser.h"
 #include "script.h"
@@ -168,13 +169,13 @@ void FunctionManager::slotDocLoaded()
     connect(m_doc, SIGNAL(functionAdded(quint32)), this, SLOT(slotFunctionAdded(quint32)));
     // Refresh in case of sequences loaded after their parent scene
     m_tree->updateTree();
-    // Once the doc is completely loaded, update all the steps of Chasers acting like sequences
-    foreach (Function *f, m_doc->functionsByType(Function::Chaser))
+    // Once the doc is completely loaded, update all the steps of Sequences
+    foreach (Function *f, m_doc->functionsByType(Function::Sequence))
     {
-        Chaser *chaser = qobject_cast<Chaser *>(f);
-        if (chaser->isSequence() && chaser->getBoundSceneID() != Scene::invalidId())
+        Sequence *sequence = qobject_cast<Sequence *>(f);
+        if (sequence->boundSceneID() != Scene::invalidId())
         {
-            Function *sceneFunc = m_doc->function(chaser->getBoundSceneID());
+            Function *sceneFunc = m_doc->function(sequence->boundSceneID());
             if (sceneFunc == NULL || sceneFunc->type() != Function::Scene)
                 continue;
 
@@ -182,7 +183,7 @@ void FunctionManager::slotDocLoaded()
             scene->setChildrenFlag(true);
             int i = 0;
             int sceneValuesCount = scene->values().count();
-            foreach(ChaserStep step, chaser->steps())
+            foreach(ChaserStep step, sequence->steps())
             {
                 // Since I saved only the non-zero values in the XML files, at the first chance I need
                 // to fix the values against the bound scene, and restore all the zero values previously there
@@ -205,7 +206,7 @@ void FunctionManager::slotDocLoaded()
                         else
                             step.values.append(scv);
                     }
-                    chaser->replaceStep(step, i);
+                    sequence->replaceStep(step, i);
                     //qDebug() << "************ STEP FIXED *********** total values: " << step.values.count();
                 }
                 i++;
@@ -395,15 +396,15 @@ void FunctionManager::slotAddChaser()
 
 void FunctionManager::slotAddSequence()
 {
-    Function* f = new Chaser(m_doc);
+    Function* f = new Sequence(m_doc);
     QList <QTreeWidgetItem*> selection(m_tree->selectedItems());
     if (selection.size() == 1)
     {
-        Chaser *chs = qobject_cast<Chaser*>(f);
+        Sequence *sequence = qobject_cast<Sequence*>(f);
         Scene *boundScene = qobject_cast<Scene*>(m_doc->function(m_tree->itemFunctionId(selection.first())));
         boundScene->setChildrenFlag(true);
-        chs->enableSequenceMode(m_tree->itemFunctionId(selection.first()));
-        chs->setRunOrder(Function::SingleShot);
+        sequence->setBoundSceneID(m_tree->itemFunctionId(selection.first()));
+        sequence->setRunOrder(Function::SingleShot);
     }
 
     if (m_doc->addFunction(f) == true)
@@ -799,15 +800,11 @@ void FunctionManager::deleteSelectedFunctions()
     QListIterator <QTreeWidgetItem*> it(m_tree->selectedItems());
     while (it.hasNext() == true)
     {
-        bool isSequence = false;
         QTreeWidgetItem* item(it.next());
         quint32 fid = m_tree->itemFunctionId(item);
         Function *func = m_doc->function(fid);
         if (func == NULL)
             continue;
-
-        if (func->type() == Function::Chaser && qobject_cast<const Chaser*>(func)->isSequence() == true)
-            isSequence = true;
 
         // Stop running tests before deleting function
         if (m_editor != NULL)
@@ -824,7 +821,7 @@ void FunctionManager::deleteSelectedFunctions()
 
         QTreeWidgetItem* parent = item->parent();
         delete item;
-        if (parent != NULL && parent->childCount() == 0 && isSequence == false)
+        if (parent != NULL && parent->childCount() == 0 && func->type() != Function::Sequence)
         {
             if (m_tree->indexOfTopLevelItem(parent) >= 0)
                 m_tree->deleteFolder(parent);
@@ -918,19 +915,24 @@ void FunctionManager::editFunction(Function* function)
         m_editor = new ChaserEditor(m_hsplitter->widget(1), chaser, m_doc);
         connect(this, SIGNAL(functionManagerActive(bool)),
                 m_editor, SLOT(slotFunctionManagerActive(bool)));
-        if (chaser->isSequence() == true)
-        {
-            Function* sfunc = m_doc->function(chaser->getBoundSceneID());
-            m_scene_editor = new SceneEditor(m_vsplitter->widget(1), qobject_cast<Scene*> (sfunc), m_doc, false);
-            connect(this, SIGNAL(functionManagerActive(bool)),
-                    m_scene_editor, SLOT(slotFunctionManagerActive(bool)));
-            /** Signal from chaser editor to scene editor. When a step is clicked apply values immediately */
-            connect(m_editor, SIGNAL(applyValues(QList<SceneValue>&)),
-                    m_scene_editor, SLOT(slotSetSceneValues(QList <SceneValue>&)));
-            /** Signal from scene editor to chaser editor. When a fixture value is changed, update the selected chaser step */
-            connect(m_scene_editor, SIGNAL(fixtureValueChanged(SceneValue)),
-                    m_editor, SLOT(slotUpdateCurrentStep(SceneValue)));
-        }
+    }
+    else if (function->type() == Function::Sequence)
+    {
+        Sequence *sequence = qobject_cast<Sequence*> (function);
+        m_editor = new ChaserEditor(m_hsplitter->widget(1), sequence, m_doc);
+        connect(this, SIGNAL(functionManagerActive(bool)),
+                m_editor, SLOT(slotFunctionManagerActive(bool)));
+
+        Function* sfunc = m_doc->function(sequence->boundSceneID());
+        m_scene_editor = new SceneEditor(m_vsplitter->widget(1), qobject_cast<Scene*> (sfunc), m_doc, false);
+        connect(this, SIGNAL(functionManagerActive(bool)),
+                m_scene_editor, SLOT(slotFunctionManagerActive(bool)));
+        /** Signal from chaser editor to scene editor. When a step is clicked apply values immediately */
+        connect(m_editor, SIGNAL(applyValues(QList<SceneValue>&)),
+                m_scene_editor, SLOT(slotSetSceneValues(QList <SceneValue>&)));
+        /** Signal from scene editor to chaser editor. When a fixture value is changed, update the selected chaser step */
+        connect(m_scene_editor, SIGNAL(fixtureValueChanged(SceneValue)),
+                m_editor, SLOT(slotUpdateCurrentStep(SceneValue)));
     }
     else if (function->type() == Function::Collection)
     {

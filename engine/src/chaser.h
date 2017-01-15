@@ -35,6 +35,8 @@ class ChaserStep;
 class MasterTimer;
 class QXmlStreamReader;
 
+#define KXMLQLCChaserSpeedModes "SpeedModes"
+
 /** @addtogroup engine_functions Functions
  * @{
  */
@@ -61,7 +63,7 @@ public:
     virtual ~Chaser();
 
     /** @reimp */
-    QIcon getIcon() const;
+    virtual QIcon getIcon() const;
 
 private:
     quint32 m_legacyHoldBus;
@@ -159,7 +161,7 @@ public slots:
      */
     void slotFunctionRemoved(quint32 fid);
 
-private:
+protected:
     QList <ChaserStep> m_steps;
     QMutex m_stepListMutex;
 
@@ -167,27 +169,6 @@ private:
      * Sequence mode
      *********************************************************************/
 public:
-    /**
-     * Set this chaser to behave like a sequence and be a child of a scene
-     * @param sceneID The ID of the scene to bound
-     *
-     */
-    void enableSequenceMode(quint32 sceneID);
-
-    /**
-     * Returns if a chaser is a sequence or not
-     *
-     * @return The sequence flag
-     */
-    bool isSequence() const;
-
-    /**
-     * Returns the current bound scene ID
-     *
-     * @return The associated Scene for this Chaser in sequence mode
-     */
-    quint32 getBoundSceneID() const;
-
     /**
      * Set the time where the Chaser is placed over a timeline
      *
@@ -219,10 +200,6 @@ public:
     bool isLocked();
 
 private:
-    /** This Chaser is a Sequence that uses always the same Scene for each step */
-    bool m_isSequence;
-    /** The associated Scene of this Chaser when acting like a Sequence */
-    quint32 m_boundSceneID;
     /** Absolute start time of this Chaser over a timeline (in milliseconds) */
     quint32 m_startTime;
     /** Color to use when displaying the sequence in the Show manager */
@@ -253,7 +230,7 @@ public:
     static QString speedModeToString(SpeedMode mode);
     static SpeedMode stringToSpeedMode(const QString& str);
 
-private:
+protected:
     SpeedMode m_fadeInMode;
     SpeedMode m_fadeOutMode;
     SpeedMode m_holdMode;
@@ -263,10 +240,10 @@ private:
      *********************************************************************/
 public:
     /** @reimpl */
-    bool saveXML(QXmlStreamWriter *doc);
+    virtual bool saveXML(QXmlStreamWriter *doc);
 
     /** @reimpl */
-    bool loadXML(QXmlStreamReader &root);
+    virtual bool loadXML(QXmlStreamReader &root);
 
     /** @reimp */
     void postLoad();

@@ -335,7 +335,7 @@ void FunctionSelection::refillTree()
         if (m_runningOnlyFlag == true && !function->isRunning())
             continue;
 
-        if (function->type() == Function::Chaser && qobject_cast<Chaser*>(function)->isSequence() == true)
+        if (function->type() == Function::Sequence)
             sequences.append(function);
         else if (m_filter & function->type())
         {

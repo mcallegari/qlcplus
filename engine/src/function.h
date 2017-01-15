@@ -101,9 +101,10 @@ public:
         Script     = 1 << 4,
         RGBMatrix  = 1 << 5,
         Show       = 1 << 6,
-        Audio      = 1 << 7
+        Sequence   = 1 << 7,
+        Audio      = 1 << 8
 #if QT_VERSION >= 0x050000
-        , Video    = 1 << 8
+        , Video    = 1 << 9
 #endif
     };
     Q_ENUMS(Type)
@@ -246,7 +247,7 @@ public:
       * Subclasses should reimplement this */
     virtual QIcon getIcon() const;
 
-private:
+protected:
     Type m_type;
 
     /*********************************************************************

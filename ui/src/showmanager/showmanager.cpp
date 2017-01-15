@@ -47,6 +47,7 @@
 #include "sceneeditor.h"
 #include "timingstool.h"
 #include "qlcmacros.h"
+#include "sequence.h"
 #include "chaser.h"
 
 #define SETTINGS_HSPLITTER "showmanager/hsplitter"
@@ -501,21 +502,30 @@ void ShowManager::showRightEditor(Function *function)
         m_currentEditor = new ChaserEditor(m_vsplitter->widget(1), chaser, m_doc);
         if (m_currentEditor != NULL)
         {
+            connect(m_currentEditor, SIGNAL(stepSelectionChanged(int)),
+                    this, SLOT(slotStepSelectionChanged(int)));
+        }
+    }
+    else if (function->type() == Function::Sequence)
+    {
+        Sequence *sequence = qobject_cast<Sequence*> (function);
+        m_currentEditor = new ChaserEditor(m_vsplitter->widget(1), sequence, m_doc);
+        if (m_currentEditor != NULL)
+        {
             ChaserEditor *editor = qobject_cast<ChaserEditor*>(m_currentEditor);
-            if (chaser->isSequence())
-            {
-                editor->showOrderAndDirection(false);
 
-                /** Signal from chaser editor to scene editor.
-                 *  When a step is clicked apply values immediately */
-                connect(m_currentEditor, SIGNAL(applyValues(QList<SceneValue>&)),
-                        m_sceneEditor, SLOT(slotSetSceneValues(QList <SceneValue>&)));
+            editor->showOrderAndDirection(false);
 
-                /** Signal from scene editor to chaser editor.
-                 *  When a fixture value is changed, update the selected chaser step */
-                connect(m_sceneEditor, SIGNAL(fixtureValueChanged(SceneValue)),
-                        m_currentEditor, SLOT(slotUpdateCurrentStep(SceneValue)));
-            }
+            /** Signal from chaser editor to scene editor.
+             *  When a step is clicked apply values immediately */
+            connect(m_currentEditor, SIGNAL(applyValues(QList<SceneValue>&)),
+                    m_sceneEditor, SLOT(slotSetSceneValues(QList <SceneValue>&)));
+
+            /** Signal from scene editor to chaser editor.
+             *  When a fixture value is changed, update the selected chaser step */
+            connect(m_sceneEditor, SIGNAL(fixtureValueChanged(SceneValue)),
+                    m_currentEditor, SLOT(slotUpdateCurrentStep(SceneValue)));
+
             connect(m_currentEditor, SIGNAL(stepSelectionChanged(int)),
                     this, SLOT(slotStepSelectionChanged(int)));
         }
@@ -662,43 +672,40 @@ void ShowManager::slotAddItem()
             }
             else if (selectedFunc->type() == Function::Chaser)
             {
-                Chaser *chaser = qobject_cast<Chaser*>(selectedFunc);
-                if (chaser->isSequence() == true)
+                /** 4.1) add chaser to the currently selected track */
+                if (m_currentTrack != NULL)
                 {
-                    quint32 chsSceneID = chaser->getBoundSceneID();
-                    foreach (Track *track, m_show->tracks())
-                    {
-                        /** 3.1) append to an existing track */
-                        if (track->getSceneID() == chsSceneID)
-                        {
-                            Chaser *newSequence = qobject_cast<Chaser*>(chaser->createCopy(m_doc, true));
-                            newSequence->setName(chaser->name() + tr(" (Copy)"));
-                            // Invalidate start time so the sequence will be created at the cursor position
-                            newSequence->setStartTime(UINT_MAX);
-                            newSequence->setDirection(Function::Forward);
-                            newSequence->setRunOrder(Function::SingleShot);
-                            m_showview->addSequence(newSequence, track);
-                            m_doc->setModified();
-                            return;
-                        }
-                    }
-                    /** 3.2) It is necessary to create a new track (below) */
-                    createTrack = true;
-                    newTrackBoundID = chaser->getBoundSceneID();
-                    m_currentScene = qobject_cast<Scene*>(m_doc->function(newTrackBoundID));
+                    m_showview->addSequence(qobject_cast<Chaser*>(selectedFunc), m_currentTrack);
+                    m_doc->setModified();
+                    return;
                 }
-                else
+                /** 4.2) It is necessary to create a new track (below) */
+                createTrack = true;
+            }
+            else if (selectedFunc->type() == Function::Sequence)
+            {
+                Sequence *sequence = qobject_cast<Sequence*>(selectedFunc);
+                quint32 chsSceneID = sequence->boundSceneID();
+                foreach (Track *track, m_show->tracks())
                 {
-                    /** 4.1) add chaser to the currently selected track */
-                    if (m_currentTrack != NULL)
+                    /** 3.1) append to an existing track */
+                    if (track->getSceneID() == chsSceneID)
                     {
-                        m_showview->addSequence(qobject_cast<Chaser*>(selectedFunc), m_currentTrack);
+                        Sequence *newSequence = qobject_cast<Sequence*>(sequence->createCopy(m_doc, true));
+                        newSequence->setName(sequence->name() + tr(" (Copy)"));
+                        // Invalidate start time so the sequence will be created at the cursor position
+                        newSequence->setStartTime(UINT_MAX);
+                        newSequence->setDirection(Function::Forward);
+                        newSequence->setRunOrder(Function::SingleShot);
+                        m_showview->addSequence(newSequence, track);
                         m_doc->setModified();
                         return;
                     }
-                    /** 4.2) It is necessary to create a new track (below) */
-                    createTrack = true;
                 }
+                /** 3.2) It is necessary to create a new track (below) */
+                createTrack = true;
+                newTrackBoundID = sequence->boundSceneID();
+                m_currentScene = qobject_cast<Scene*>(m_doc->function(newTrackBoundID));
             }
             else if (selectedFunc->type() == Function::Audio)
             {
@@ -778,42 +785,39 @@ void ShowManager::slotAddItem()
             /** 2) create a 10 seconds Sequence on the current track */
             if (selectedFunc->type() == Function::Scene)
             {
-                Function* f = new Chaser(m_doc);
-                Chaser *chaser = qobject_cast<Chaser*> (f);
-                chaser->enableSequenceMode(m_currentScene->id());
+                Function* f = new Sequence(m_doc);
+                Sequence *sequence = qobject_cast<Sequence*> (f);
+                sequence->setBoundSceneID(m_currentScene->id());
                 if (m_doc->addFunction(f) == true)
                 {
-                    chaser->setDirection(Function::Forward);
-                    chaser->setRunOrder(Function::SingleShot);
-                    chaser->setDurationMode(Chaser::PerStep);
+                    sequence->setDirection(Function::Forward);
+                    sequence->setRunOrder(Function::SingleShot);
+                    sequence->setDurationMode(Chaser::PerStep);
                     m_currentScene->setChildrenFlag(true);
                     f->setName(QString("%1 %2").arg(tr("New Sequence")).arg(f->id()));
-                    m_showview->addSequence(chaser, m_currentTrack);
+                    m_showview->addSequence(sequence, m_currentTrack);
                     ChaserStep step(m_currentScene->id(), m_currentScene->fadeInSpeed(), 10000, m_currentScene->fadeOutSpeed());
                     step.note = QString();
                     step.values.append(m_currentScene->values());
-                    chaser->addStep(step);
+                    sequence->addStep(step);
                 }
             }
             else if (selectedFunc->type() == Function::Chaser)
             {
+                /** 4.2) add chaser to the new track */
+                m_showview->addSequence(qobject_cast<Chaser*>(selectedFunc), m_currentTrack);
+            }
+            else if (selectedFunc->type() == Function::Sequence)
+            {
                 /** 3.2) create a new Scene and bind a Sequence clone to it */
-                Chaser *chaser = qobject_cast<Chaser*>(selectedFunc);
-                if (chaser->isSequence() == true)
-                {
-                    Chaser *newSequence = qobject_cast<Chaser*>(chaser->createCopy(m_doc, true));
-                    newSequence->setName(chaser->name() + tr(" (Copy)"));
-                    // Invalidate start time so the sequence will be created at the cursor position
-                    newSequence->setStartTime(UINT_MAX);
-                    newSequence->setDirection(Function::Forward);
-                    newSequence->setRunOrder(Function::SingleShot);
-                    m_showview->addSequence(newSequence, m_currentTrack);
-                }
-                else
-                {
-                    /** 4.2) add chaser to the new track */
-                    m_showview->addSequence(chaser, m_currentTrack);
-                }
+                Sequence *sequence = qobject_cast<Sequence*>(selectedFunc);
+                Sequence *newSequence = qobject_cast<Sequence*>(sequence->createCopy(m_doc, true));
+                newSequence->setName(sequence->name() + tr(" (Copy)"));
+                // Invalidate start time so the sequence will be created at the cursor position
+                newSequence->setStartTime(UINT_MAX);
+                newSequence->setDirection(Function::Forward);
+                newSequence->setRunOrder(Function::SingleShot);
+                m_showview->addSequence(newSequence, m_currentTrack);
             }
             else if (selectedFunc->type() == Function::Audio)
             {
@@ -860,7 +864,7 @@ void ShowManager::slotAddSequence()
     // Overlapping check
     if (checkOverlapping(m_showview->getTimeFromCursor(), 1000) == true)
     {
-        QMessageBox::warning(this, tr("Overlapping error"), tr("Overlapping not allowed. Operation cancelled."));
+        QMessageBox::warning(this, tr("Overlapping error"), tr("Overlapping not allowed. Operation canceled."));
         return;
     }
 
@@ -872,18 +876,18 @@ void ShowManager::slotAddSequence()
         m_currentTrack->setSceneID(m_currentScene->id());
     }
 
-    Function* f = new Chaser(m_doc);
-    Chaser *chaser = qobject_cast<Chaser*> (f);
-    chaser->enableSequenceMode(m_currentScene->id());
+    Function* f = new Sequence(m_doc);
+    Sequence *sequence = qobject_cast<Sequence*> (f);
+    sequence->setBoundSceneID(m_currentScene->id());
 
     if (m_doc->addFunction(f) == true)
     {
-        chaser->setRunOrder(Function::SingleShot);
+        sequence->setRunOrder(Function::SingleShot);
         m_currentScene->setChildrenFlag(true);
         f->setName(QString("%1 %2").arg(tr("New Sequence")).arg(f->id()));
         showSceneEditor(m_currentScene);
         showRightEditor(f);
-        m_showview->addSequence(chaser, m_currentTrack);
+        m_showview->addSequence(sequence, m_currentTrack);
     }
 }
 
@@ -935,7 +939,7 @@ void ShowManager::slotAddAudio()
     // Overlapping check
     if (checkOverlapping(m_showview->getTimeFromCursor(), audio->totalDuration()) == true)
     {
-        QMessageBox::warning(this, tr("Overlapping error"), tr("Overlapping not allowed. Operation cancelled."));
+        QMessageBox::warning(this, tr("Overlapping error"), tr("Overlapping not allowed. Operation canceled."));
         delete f;
         return;
     }
@@ -994,7 +998,7 @@ void ShowManager::slotAddVideo()
     // Overlapping check
     if (checkOverlapping(m_showview->getTimeFromCursor(), video->totalDuration()) == true)
     {
-        QMessageBox::warning(this, tr("Overlapping error"), tr("Overlapping not allowed. Operation cancelled."));
+        QMessageBox::warning(this, tr("Overlapping error"), tr("Overlapping not allowed. Operation canceled."));
         delete f;
         return;
     }
@@ -1038,7 +1042,7 @@ void ShowManager::slotPaste()
     // Overlapping check
     if (checkOverlapping(m_showview->getTimeFromCursor(), copyDuration) == true)
     {
-        QMessageBox::warning(this, tr("Paste error"), tr("Overlapping paste not allowed. Operation cancelled."));
+        QMessageBox::warning(this, tr("Paste error"), tr("Overlapping paste not allowed. Operation canceled."));
         return;
     }
     //qDebug() << "Check overlap... cursor time:" << cursorTime << "msec";
@@ -1053,45 +1057,6 @@ void ShowManager::slotPaste()
         if (clipboardCopy->type() == Function::Chaser)
         {
             Chaser *chaser = qobject_cast<Chaser*>(newCopy);
-            if (chaser->isSequence() == true)
-            {
-                if (m_currentScene == NULL)
-                {
-                    // No scene on the current track -> copy it from source sequence
-                    Scene* clipboardCopyScene = qobject_cast<Scene*>(m_doc->function(chaser->getBoundSceneID()));
-                    if (clipboardCopyScene == NULL)
-                    {
-                        delete newCopy;
-                        return;
-                    }
-                    Scene* newScene = static_cast<Scene*>(clipboardCopyScene->createCopy(m_doc, true));
-                    if (newScene == NULL)
-                    {
-                        delete newCopy;
-                        return;
-                    }
-                    m_currentScene = newScene;
-                    m_currentTrack->setSceneID(m_currentScene->id());
-                }
-                else
-                {
-                    // Verify the Chaser copy steps against the current Scene
-                    foreach(ChaserStep cs, chaser->steps())
-                    {
-                        foreach(SceneValue scv, cs.values)
-                        {
-                            if (m_currentScene->checkValue(scv) == false)
-                            {
-                                QMessageBox::warning(this, tr("Paste error"), tr("Trying to paste on an incompatible Scene. Operation cancelled."));
-                                delete newCopy;
-                                return;
-                            }
-                        }
-                    }
-                }
-                // Bind the sequence to the track Scene ID
-                chaser->enableSequenceMode(m_currentScene->id());
-            }
 
             // Invalidate start time so the chaser will be pasted at the cursor position
             chaser->setStartTime(UINT_MAX);
@@ -1100,10 +1065,60 @@ void ShowManager::slotPaste()
                 delete newCopy;
                 return;
             }
+            m_showview->addSequence(chaser, m_currentTrack);
+        }
+        else if (clipboardCopy->type() == Function::Sequence)
+        {
+            Sequence *sequence = qobject_cast<Sequence*>(newCopy);
+
+            if (m_currentScene == NULL)
+            {
+                // No scene on the current track -> copy it from source sequence
+                Scene* clipboardCopyScene = qobject_cast<Scene*>(m_doc->function(sequence->boundSceneID()));
+                if (clipboardCopyScene == NULL)
+                {
+                    delete newCopy;
+                    return;
+                }
+                Scene* newScene = static_cast<Scene*>(clipboardCopyScene->createCopy(m_doc, true));
+                if (newScene == NULL)
+                {
+                    delete newCopy;
+                    return;
+                }
+                m_currentScene = newScene;
+                m_currentTrack->setSceneID(m_currentScene->id());
+            }
+            else
+            {
+                // Verify the Chaser copy steps against the current Scene
+                foreach(ChaserStep cs, sequence->steps())
+                {
+                    foreach(SceneValue scv, cs.values)
+                    {
+                        if (m_currentScene->checkValue(scv) == false)
+                        {
+                            QMessageBox::warning(this, tr("Paste error"), tr("Trying to paste on an incompatible Scene. Operation canceled."));
+                            delete newCopy;
+                            return;
+                        }
+                    }
+                }
+            }
+
+            // Bind the sequence to the track Scene ID
+            sequence->setBoundSceneID(m_currentScene->id());
+
+            // Invalidate start time so the sequence will be pasted at the cursor position
+            sequence->setStartTime(UINT_MAX);
+            if (m_doc->addFunction(newCopy) == false)
+            {
+                delete newCopy;
+                return;
+            }
             Track *track = m_currentTrack;
-            if (chaser->isSequence())
-                track = m_show->getTrackFromSceneID(m_currentScene->id());
-            m_showview->addSequence(chaser, track);
+            track = m_show->getTrackFromSceneID(m_currentScene->id());
+            m_showview->addSequence(sequence, track);
         }
         else if (clipboardCopy->type() == Function::Audio)
         {
@@ -1291,14 +1306,14 @@ void ShowManager::slotShowItemMoved(ShowItem *item, quint32 time, bool moved)
     if (f == NULL)
         return;
 
-    Chaser *chaser = NULL;
+    Sequence *sequence = NULL;
 
-    if (f->type() == Function::Chaser)
-        chaser = qobject_cast<Chaser*>(f);
+    if (f->type() == Function::Sequence)
+        sequence = qobject_cast<Sequence*>(f);
 
-    if (chaser != NULL && chaser->isSequence())
+    if (sequence != NULL)
     {
-        quint32 sceneID = chaser->getBoundSceneID();
+        quint32 sceneID = sequence->boundSceneID();
 
         Function *sf = m_doc->function(sceneID);
         Scene *newScene = NULL;
@@ -1525,58 +1540,6 @@ void ShowManager::slotStepSelectionChanged(int index)
         seqItem->setSelectedStep(index);
 }
 
-/* *********** TEMPORARY FUNCTION TO BE REMOVED ***************** */
-void ShowManager::temporaryDocFixup()
-{
-    foreach (Function *function, m_doc->functionsByType(Function::Show))
-    {
-        Show *show = qobject_cast<Show*>(function);
-        foreach(Track *track, show->tracks())
-        {
-            foreach (ShowFunction *sf, track->showFunctions())
-            {
-                if (sf->startTime() == UINT_MAX)
-                {
-                    Function *f = m_doc->function(sf->functionID());
-                    if (f != NULL)
-                    {
-                        if (f->type() == Function::Chaser)
-                        {
-                            Chaser *chaser = qobject_cast<Chaser*>(f);
-                            if (chaser->isSequence())
-                            {
-                                sf->setStartTime(chaser->getStartTime());
-                                sf->setDuration(chaser->totalDuration());
-                                sf->setColor(chaser->getColor());
-                                sf->setLocked(chaser->isLocked());
-                            }
-                        }
-                        else if (f->type() == Function::Audio)
-                        {
-                            Audio *audio = qobject_cast<Audio*>(f);
-                            sf->setStartTime(audio->getStartTime());
-                            sf->setDuration(audio->totalDuration());
-                            sf->setColor(audio->getColor());
-                            sf->setLocked(audio->isLocked());
-                        }
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-                        else if (f->type() == Function::Video)
-                        {
-                            Video *video = qobject_cast<Video*>(f);
-                            sf->setStartTime(video->getStartTime());
-                            sf->setDuration(video->totalDuration());
-                            sf->setColor(video->getColor());
-                            sf->setLocked(video->isLocked());
-                        }
-#endif
-                    }
-                }
-            }
-        }
-    }
-}
-/* *********** TEMPORARY FUNCTION TO BE REMOVED ***************** */
-
 void ShowManager::slotDocClearing()
 {
     m_showsCombo->clear();
@@ -1615,7 +1578,6 @@ void ShowManager::slotDocClearing()
 
 void ShowManager::slotDocLoaded()
 {
-    temporaryDocFixup(); // to be removed when ShowFunction kicks in
     m_show = NULL;
     m_currentScene = NULL;
     m_currentTrack = NULL;

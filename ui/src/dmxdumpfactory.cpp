@@ -97,17 +97,14 @@ void DmxDumpFactory::slotUpdateChasersTree()
     foreach(Function *f, m_doc->functionsByType(Function::Chaser))
     {
         Chaser *chaser = qobject_cast<Chaser*>(f);
-        if (chaser->isSequence() == false)
-        {
-            QTreeWidgetItem *item = new QTreeWidgetItem(m_addtoTree);
-            item->setText(KColumnTargetName, chaser->name());
-            item->setText(KColumnTargetID, QString::number(chaser->id()));
-            item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
-            if (m_properties->isChaserSelected(chaser->id()))
-                item->setCheckState(KColumnName, Qt::Checked);
-            else
-                item->setCheckState(KColumnName, Qt::Unchecked);
-        }
+        QTreeWidgetItem *item = new QTreeWidgetItem(m_addtoTree);
+        item->setText(KColumnTargetName, chaser->name());
+        item->setText(KColumnTargetID, QString::number(chaser->id()));
+        item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
+        if (m_properties->isChaserSelected(chaser->id()))
+            item->setCheckState(KColumnName, Qt::Checked);
+        else
+            item->setCheckState(KColumnName, Qt::Unchecked);
     }
 }
 

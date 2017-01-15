@@ -32,6 +32,7 @@
 #include "collection.h"
 #include "rgbmatrix.h"
 #include "function.h"
+#include "sequence.h"
 #include "chaser.h"
 #include "script.h"
 #include "audio.h"
@@ -51,6 +52,7 @@ const QString KCollectionString ( "Collection" );
 const QString KScriptString     (     "Script" );
 const QString KRGBMatrixString  (  "RGBMatrix" );
 const QString KShowString       (       "Show" );
+const QString KSequenceString   (   "Sequence" );
 const QString KAudioString      (      "Audio" );
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 const QString KVideoString      (      "Video" );
@@ -239,29 +241,21 @@ QString Function::typeToString(Type type)
 {
     switch (type)
     {
-    case Scene:
-        return KSceneString;
-    case Chaser:
-        return KChaserString;
-    case EFX:
-        return KEFXString;
-    case Collection:
-        return KCollectionString;
-    case Script:
-        return KScriptString;
-    case RGBMatrix:
-        return KRGBMatrixString;
-    case Show:
-        return KShowString;
-    case Audio:
-        return KAudioString;
+        case Scene:      return KSceneString;
+        case Chaser:     return KChaserString;
+        case EFX:        return KEFXString;
+        case Collection: return KCollectionString;
+        case Script:     return KScriptString;
+        case RGBMatrix:  return KRGBMatrixString;
+        case Show:       return KShowString;
+        case Sequence:   return KSequenceString;
+        case Audio:      return KAudioString;
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-    case Video:
-        return KVideoString;
+        case Video:      return KVideoString;
 #endif
-    case Undefined:
-    default:
-        return KUndefinedString;
+        case Undefined:
+        default:
+            return KUndefinedString;
     }
 }
 
@@ -281,6 +275,8 @@ Function::Type Function::stringToType(const QString& string)
         return RGBMatrix;
     else if (string == KShowString)
         return Show;
+    else if (string == KSequenceString)
+        return Sequence;
     else if (string == KAudioString)
         return Audio;
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
@@ -893,6 +889,8 @@ bool Function::loader(QXmlStreamReader &root, Doc* doc)
         function = new class RGBMatrix(doc);
     else if (type == Function::Show)
         function = new class Show(doc);
+    else if (type == Function::Sequence)
+        function = new class Sequence(doc);
     else if (type == Function::Audio)
         function = new class Audio(doc);
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)

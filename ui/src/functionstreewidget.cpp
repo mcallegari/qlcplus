@@ -21,6 +21,7 @@
 
 #include "functionstreewidget.h"
 #include "function.h"
+#include "sequence.h"
 #include "chaser.h"
 #include "scene.h"
 #include "doc.h"
@@ -53,7 +54,7 @@ void FunctionsTreeWidget::updateTree()
 
     foreach (Function* function, m_doc->functions())
     {
-        if (function->type() == Function::Chaser && qobject_cast<Chaser*>(function)->isSequence() == true)
+        if (function->type() == Function::Sequence)
             sequences.append(function);
         else
             updateFunctionItem(new QTreeWidgetItem(parentItem(function)), function);
@@ -124,9 +125,9 @@ QTreeWidgetItem* FunctionsTreeWidget::parentItem(const Function* function)
     Q_ASSERT(function != NULL);
 
     // Special case for Sequences. They belong to a Scene node
-    if (function->type() == Function::Chaser && qobject_cast<const Chaser*>(function)->isSequence() == true)
+    if (function->type() == Function::Sequence)
     {
-        quint32 sid = qobject_cast<const Chaser*>(function)->getBoundSceneID();
+        quint32 sid = qobject_cast<const Sequence*>(function)->boundSceneID();
         Function *sceneFunc = m_doc->function(sid);
         if (sceneFunc != NULL)
         {
