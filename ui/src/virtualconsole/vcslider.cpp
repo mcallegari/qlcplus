@@ -770,6 +770,7 @@ void VCSlider::slotResetButtonClicked()
 
     m_priority = DMXSource::Auto;
     m_doc->masterTimer()->requestNewPriority(this);
+    emit monitorDMXValueChanged(m_monitorValue);
 }
 
 void VCSlider::slotKeyPressed(const QKeySequence &keySequence)
@@ -1020,7 +1021,10 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
                 return;
             }
             else
+            {
+                m_monitorValue = monitorSliderValue;
                 setSliderShadowValue(invertedAppearance() ? 255 - monitorSliderValue : monitorSliderValue);
+            }
         }
     }
 
