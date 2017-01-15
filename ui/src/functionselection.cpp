@@ -60,7 +60,7 @@ FunctionSelection::FunctionSelection(QWidget* parent, Doc* doc)
     , m_newTrackItem(NULL)
     , m_multiSelection(true)
     , m_runningOnlyFlag(false)
-    , m_filter(Function::Scene | Function::Chaser | Function::Collection |
+    , m_filter(Function::Scene | Function::Chaser | Function::Sequence | Function::Collection |
                Function::EFX | Function::Script | Function::RGBMatrix | Function::Show | Function::Audio
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
                | Function::Video
@@ -101,6 +101,9 @@ FunctionSelection::FunctionSelection(QWidget* parent, Doc* doc)
     connect(m_chaserCheck, SIGNAL(toggled(bool)),
             this, SLOT(slotChaserChecked(bool)));
 
+    connect(m_sequenceCheck, SIGNAL(toggled(bool)),
+            this, SLOT(slotSequenceChecked(bool)));
+
     connect(m_efxCheck, SIGNAL(toggled(bool)),
             this, SLOT(slotEFXChecked(bool)));
 
@@ -138,6 +141,7 @@ int FunctionSelection::exec()
 {
     m_sceneCheck->setChecked(m_filter & Function::Scene);
     m_chaserCheck->setChecked(m_filter & Function::Chaser);
+    m_sequenceCheck->setChecked(m_filter & Function::Sequence);
     m_efxCheck->setChecked(m_filter & Function::EFX);
     m_collectionCheck->setChecked(m_filter & Function::Collection);
     m_scriptCheck->setChecked(m_filter & Function::Script);
@@ -152,6 +156,7 @@ int FunctionSelection::exec()
     {
         m_sceneCheck->setEnabled(false);
         m_chaserCheck->setEnabled(false);
+        m_sequenceCheck->setEnabled(false);
         m_efxCheck->setEnabled(false);
         m_collectionCheck->setEnabled(false);
         m_scriptCheck->setEnabled(false);
@@ -166,6 +171,7 @@ int FunctionSelection::exec()
     {
         m_sceneCheck->setDisabled(m_disableFilters & Function::Scene);
         m_chaserCheck->setDisabled(m_disableFilters & Function::Chaser);
+        m_sequenceCheck->setDisabled(m_disableFilters & Function::Sequence);
         m_efxCheck->setDisabled(m_disableFilters & Function::EFX);
         m_collectionCheck->setDisabled(m_disableFilters & Function::Collection);
         m_scriptCheck->setDisabled(m_disableFilters & Function::Script);
@@ -418,6 +424,15 @@ void FunctionSelection::slotChaserChecked(bool state)
         m_filter = (m_filter | Function::Chaser);
     else
         m_filter = (m_filter & ~Function::Chaser);
+    refillTree();
+}
+
+void FunctionSelection::slotSequenceChecked(bool state)
+{
+    if (state == true)
+        m_filter = (m_filter | Function::Sequence);
+    else
+        m_filter = (m_filter & ~Function::Sequence);
     refillTree();
 }
 

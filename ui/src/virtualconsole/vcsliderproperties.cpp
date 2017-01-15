@@ -677,7 +677,7 @@ void VCSliderProperties::slotAttachPlaybackFunctionClicked()
 {
     FunctionSelection fs(this, m_doc);
     fs.setMultiSelection(false);
-    fs.setFilter(Function::Scene | Function::Chaser | Function::EFX | Function::Audio | Function::RGBMatrix
+    fs.setFilter(Function::Scene | Function::Chaser | Function::Sequence | Function::EFX | Function::Audio | Function::RGBMatrix
                  | Function::Collection
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
                  | Function::Video

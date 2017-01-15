@@ -615,7 +615,7 @@ void ShowManager::slotAddItem()
     }
     fs.showSequences(true);
     fs.setMultiSelection(false);
-    fs.setFilter(Function::Scene | Function::Chaser | Function::Audio | Function::RGBMatrix | Function::EFX);
+    fs.setFilter(Function::Scene | Function::Chaser | Function::Sequence | Function::Audio | Function::RGBMatrix | Function::EFX);
     fs.disableFilters(Function::Show | Function::Script | Function::Collection);
     fs.showNewTrack(true);
 
@@ -1029,15 +1029,7 @@ void ShowManager::slotPaste()
 
     // Get the Function copy and add it to Doc
     Function* clipboardCopy = m_doc->clipboard()->getFunction();
-    quint32 copyDuration = 0;
-    if (clipboardCopy->type() == Function::Chaser)
-        copyDuration = (qobject_cast<Chaser*>(clipboardCopy))->totalDuration();
-    else if (clipboardCopy->type() == Function::Audio)
-        copyDuration = (qobject_cast<Audio*>(clipboardCopy))->totalDuration();
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-    else if (clipboardCopy->type() == Function::Video)
-        copyDuration = (qobject_cast<Video*>(clipboardCopy))->totalDuration();
-#endif
+    quint32 copyDuration = clipboardCopy->totalDuration();
 
     // Overlapping check
     if (checkOverlapping(m_showview->getTimeFromCursor(), copyDuration) == true)
@@ -1681,6 +1673,11 @@ void ShowManager::updateMultiTrackView()
                 {
                     Chaser *chaser = qobject_cast<Chaser*>(fn);
                     m_showview->addSequence(chaser, track, sf);
+                }
+                else if (fn->type() == Function::Sequence)
+                {
+                    Sequence *sequence = qobject_cast<Sequence*>(fn);
+                    m_showview->addSequence(sequence, track, sf);
                 }
                 else if (fn->type() == Function::Audio)
                 {

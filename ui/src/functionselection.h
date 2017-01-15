@@ -135,6 +135,7 @@ protected slots:
     void slotCollectionChecked(bool state);
     void slotEFXChecked(bool state);
     void slotChaserChecked(bool state);
+    void slotSequenceChecked(bool state);
     void slotSceneChecked(bool state);
     void slotScriptChecked(bool state);
     void slotRGBMatrixChecked(bool state);
