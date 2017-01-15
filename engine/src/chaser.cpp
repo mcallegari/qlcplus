@@ -413,6 +413,24 @@ bool Chaser::saveXML(QXmlStreamWriter *doc)
     return true;
 }
 
+bool Chaser::loadXMLSpeedModes(QXmlStreamReader &root)
+{
+    QXmlStreamAttributes attrs = root.attributes();
+    QString str;
+
+    str = attrs.value(KXMLQLCFunctionSpeedFadeIn).toString();
+    setFadeInMode(stringToSpeedMode(str));
+
+    str = attrs.value(KXMLQLCFunctionSpeedFadeOut).toString();
+    setFadeOutMode(stringToSpeedMode(str));
+
+    str = attrs.value(KXMLQLCFunctionSpeedDuration).toString();
+    setDurationMode(stringToSpeedMode(str));
+    root.skipCurrentElement();
+
+    return true;
+}
+
 bool Chaser::loadXML(QXmlStreamReader &root)
 {
     if (root.name() != KXMLQLCFunction)
@@ -449,18 +467,7 @@ bool Chaser::loadXML(QXmlStreamReader &root)
         }
         else if (root.name() == KXMLQLCChaserSpeedModes)
         {
-            QXmlStreamAttributes attrs = root.attributes();
-            QString str;
-
-            str = attrs.value(KXMLQLCFunctionSpeedFadeIn).toString();
-            setFadeInMode(stringToSpeedMode(str));
-
-            str = attrs.value(KXMLQLCFunctionSpeedFadeOut).toString();
-            setFadeOutMode(stringToSpeedMode(str));
-
-            str = attrs.value(KXMLQLCFunctionSpeedDuration).toString();
-            setDurationMode(stringToSpeedMode(str));
-            root.skipCurrentElement();
+            loadXMLSpeedModes(root);
         }
         else if (root.name() == KXMLQLCFunctionStep)
         {
@@ -596,15 +603,14 @@ ChaserRunnerStep Chaser::currentRunningStep() const
 {
     ChaserRunnerStep ret;
     ret.m_function = NULL;
-{
-    QMutexLocker runnerLocker(const_cast<QMutex*>(&m_runnerMutex));
-    if (m_runner != NULL)
-{
-            ChaserRunnerStep* step = m_runner->currentRunningStep();
-            if (step != NULL)
-            {
-                ret = *step;
-            }
+
+    {
+        QMutexLocker runnerLocker(const_cast<QMutex*>(&m_runnerMutex));
+        if (m_runner != NULL)
+        {
+                ChaserRunnerStep* step = m_runner->currentRunningStep();
+                if (step != NULL)
+                    ret = *step;
         }
     }
     return ret;

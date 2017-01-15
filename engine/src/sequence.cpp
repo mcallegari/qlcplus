@@ -176,18 +176,7 @@ bool Sequence::loadXML(QXmlStreamReader &root)
         }
         else if (root.name() == KXMLQLCChaserSpeedModes)
         {
-            QXmlStreamAttributes attrs = root.attributes();
-            QString str;
-
-            str = attrs.value(KXMLQLCFunctionSpeedFadeIn).toString();
-            setFadeInMode(stringToSpeedMode(str));
-
-            str = attrs.value(KXMLQLCFunctionSpeedFadeOut).toString();
-            setFadeOutMode(stringToSpeedMode(str));
-
-            str = attrs.value(KXMLQLCFunctionSpeedDuration).toString();
-            setDurationMode(stringToSpeedMode(str));
-            root.skipCurrentElement();
+            loadXMLSpeedModes(root);
         }
         else if (root.name() == KXMLQLCFunctionStep)
         {

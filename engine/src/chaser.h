@@ -238,6 +238,9 @@ protected:
     /*********************************************************************
      * Save & Load
      *********************************************************************/
+protected:
+    bool loadXMLSpeedModes(QXmlStreamReader &root);
+
 public:
     /** @reimpl */
     virtual bool saveXML(QXmlStreamWriter *doc);
