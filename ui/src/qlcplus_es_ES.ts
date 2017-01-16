@@ -255,17 +255,17 @@
     <message>
         <location filename="addrgbpanel.ui" line="299"/>
         <source>Direction</source>
-        <translation type="unfinished">Dirección</translation>
+        <translation>Dirección</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="305"/>
         <source>Horizontal</source>
-        <translation type="unfinished">Horizontal</translation>
+        <translation>Horizontal</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="315"/>
         <source>Vertical</source>
-        <translation type="unfinished">Vertical</translation>
+        <translation>Vertical</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="327"/>
@@ -1574,12 +1574,12 @@ El archivo seleccionado ha sido movido o borrado.</translation>
     <message>
         <location filename="collectioneditor.ui" line="39"/>
         <source>Move the selected functions down</source>
-        <translation type="unfinished"></translation>
+        <translation>Mover hacia abajo las funciones seleccionadas</translation>
     </message>
     <message>
         <location filename="collectioneditor.ui" line="56"/>
         <source>Move the selected functions up</source>
-        <translation type="unfinished"></translation>
+        <translation>Mover hacia arriba las funciones seleccionadas</translation>
     </message>
     <message>
         <location filename="collectioneditor.ui" line="79"/>
@@ -5548,7 +5548,7 @@ Duración: %3
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="107"/>
         <source>Blend</source>
-        <translation type="unfinished"></translation>
+        <translation>Mezcla</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="112"/>
@@ -6470,7 +6470,7 @@ Duración: %3
     <message>
         <location filename="virtualconsole/vcslider.cpp" line="581"/>
         <source>Reset channels override</source>
-        <translation type="unfinished"></translation>
+        <translation>Restaurar el override de canales</translation>
     </message>
 </context>
 <context>
@@ -6745,7 +6745,7 @@ Duración: %3
     <message>
         <location filename="virtualconsole/vcsliderproperties.cpp" line="173"/>
         <source>Override reset control</source>
-        <translation type="unfinished"></translation>
+        <translation>Control del override de canales</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcsliderproperties.cpp" line="650"/>
