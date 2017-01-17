@@ -630,18 +630,23 @@ void VCSlider::slotMonitorDMXValueChanged(int value)
     if (value == sliderValue())
         return;
 
-    m_monitorValue = invertedAppearance() ? 255 - value : value;
+    m_monitorValue = value;
+
+    value = invertedAppearance() ? 255 - value : value;
 
     m_levelValueMutex.lock();
     m_levelValue = m_monitorValue;
     m_levelValueMutex.unlock();
-    if (m_slider)
-        m_slider->blockSignals(true);
-    setSliderValue(m_monitorValue, true);
-    setSliderShadowValue(m_monitorValue);
-    setTopLabelText(sliderValue());
-    if (m_slider)
-        m_slider->blockSignals(false);
+    if (m_isOverriding == false)
+    {
+        if (m_slider)
+            m_slider->blockSignals(true);
+        setSliderValue(value, true);
+        setTopLabelText(sliderValue());
+        if (m_slider)
+            m_slider->blockSignals(false);
+    }
+    setSliderShadowValue(value);
     updateFeedback();
 }
 
@@ -1013,17 +1018,13 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
         if (mixedDMXlevels == false &&
             monitorSliderValue != m_monitorValue)
         {
+            emit monitorDMXValueChanged(monitorSliderValue);
+
             if (m_isOverriding == false)
             {
-                emit monitorDMXValueChanged(monitorSliderValue);
                 // return here. At the next call of this method,
                 // the monitor level will kick in
                 return;
-            }
-            else
-            {
-                m_monitorValue = monitorSliderValue;
-                setSliderShadowValue(invertedAppearance() ? 255 - monitorSliderValue : monitorSliderValue);
             }
         }
     }
@@ -1187,7 +1188,7 @@ void VCSlider::setSliderShadowValue(int value)
     if (m_widgetMode == WSlider)
     {
         ClickAndGoSlider *sl = qobject_cast<ClickAndGoSlider*> (m_slider);
-        sl->setShadowLevel(value);
+        sl->setShadowLevel(m_slider->invertedAppearance() ? 255 - value : value);
     }
 }
 
