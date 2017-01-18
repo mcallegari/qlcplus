@@ -634,11 +634,11 @@ void VCSlider::slotMonitorDMXValueChanged(int value)
 
     value = invertedAppearance() ? 255 - value : value;
 
-    m_levelValueMutex.lock();
-    m_levelValue = m_monitorValue;
-    m_levelValueMutex.unlock();
     if (m_isOverriding == false)
     {
+        m_levelValueMutex.lock();
+        m_levelValue = m_monitorValue;
+        m_levelValueMutex.unlock();
         if (m_slider)
             m_slider->blockSignals(true);
         setSliderValue(value, true);
