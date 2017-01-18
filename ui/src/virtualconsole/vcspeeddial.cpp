@@ -569,7 +569,8 @@ void VCSpeedDial::updateFeedback()
 
 void VCSpeedDial::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
 {
-    if (isEnabled() == false)
+    /* Don't let input data through in design mode or if disabled */
+    if (acceptsInput() == false)
         return;
 
     quint32 pagedCh = (page() << 16) | channel;
@@ -681,7 +682,7 @@ QKeySequence VCSpeedDial::applyKeySequence() const
 
 void VCSpeedDial::slotKeyPressed(const QKeySequence& keySequence)
 {
-    if (isEnabled() == false)
+    if (acceptsInput() == false)
         return;
 
     if (m_tapKeySequence == keySequence)

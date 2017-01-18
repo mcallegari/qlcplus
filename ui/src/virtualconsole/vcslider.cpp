@@ -1364,8 +1364,8 @@ QString VCSlider::bottomLabelText()
 void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel,
                                      uchar value)
 {
-    /* Don't let input data through in design mode */
-    if (mode() == Doc::Design || isEnabled() == false)
+    /* Don't let input data through in design mode or if disabled */
+    if (acceptsInput() == false)
         return;
 
     quint32 pagedCh = (page() << 16) | channel;

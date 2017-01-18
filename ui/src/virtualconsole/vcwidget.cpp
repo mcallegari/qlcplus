@@ -529,6 +529,14 @@ qreal VCWidget::intensity()
     return m_intensity;
 }
 
+bool VCWidget::acceptsInput()
+{
+    if (mode() == Doc::Design || isEnabled() == false || isDisabled())
+        return false;
+
+    return true;
+}
+
 /*****************************************************************************
  * External input
  *****************************************************************************/

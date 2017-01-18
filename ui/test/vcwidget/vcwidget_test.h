@@ -56,6 +56,7 @@ private slots:
     void move();
     void paint();
     void mousePress();
+    void acceptInput();
 
 private:
     Doc* m_doc;

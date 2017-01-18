@@ -375,6 +375,12 @@ private:
      * External input
      *********************************************************************/
 public:
+
+    /**
+     * Helper method to check if the widget is in a state to accept external inputs
+     */
+    bool acceptsInput();
+
     /**
      * Check the input source with the given id against
      * the given universe and channel

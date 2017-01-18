@@ -1245,7 +1245,7 @@ QKeySequence VCCueList::stopKeySequence() const
 
 void VCCueList::slotKeyPressed(const QKeySequence& keySequence)
 {
-    if (isEnabled() == false)
+    if (acceptsInput() == false)
         return;
 
     if (m_nextKeySequence == keySequence)
@@ -1278,7 +1278,8 @@ void VCCueList::updateFeedback()
 
 void VCCueList::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
 {
-    if (mode() == Doc::Design || isEnabled() == false)
+    /* Don't let input data through in design mode or if disabled */
+    if (acceptsInput() == false)
         return;
 
     quint32 pagedCh = (page() << 16) | channel;

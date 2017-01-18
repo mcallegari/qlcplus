@@ -856,7 +856,7 @@ void VCMatrix::slotModeChanged(Doc::Mode mode)
 
 void VCMatrix::slotKeyPressed(const QKeySequence &keySequence)
 {
-    if (isEnabled() == false)
+    if (acceptsInput() == false)
         return;
 
     for (QHash<QWidget *, VCMatrixControl *>::iterator it = m_controls.begin();
@@ -901,8 +901,8 @@ void VCMatrix::updateFeedback()
 
 void VCMatrix::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
 {
-    /* Don't let input data thru in design mode */
-    if (mode() == Doc::Design || isEnabled() == false)
+    /* Don't let input data through in design mode or if disabled */
+    if (acceptsInput() == false)
         return;
 
     quint32 pagedCh = (page() << 16) | channel;

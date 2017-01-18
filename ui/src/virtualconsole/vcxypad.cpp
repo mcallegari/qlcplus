@@ -846,8 +846,8 @@ void VCXYPad::updateFeedback()
 void VCXYPad::slotInputValueChanged(quint32 universe, quint32 channel,
                                      uchar value)
 {
-    /* Don't let input data thru in design mode */
-    if (mode() == Doc::Design || isEnabled() == false)
+    /* Don't let input data through in design mode or if disabled */
+    if (acceptsInput() == false)
         return;
 
     QPointF pt = m_area->position(false);
@@ -950,7 +950,7 @@ void VCXYPad::slotInputValueChanged(quint32 universe, quint32 channel,
 
 void VCXYPad::slotKeyPressed(const QKeySequence &keySequence)
 {
-    if (isEnabled() == false)
+    if (acceptsInput() == false)
         return;
 
     for (QHash<QWidget*, VCXYPadPreset*>::iterator it = m_presets.begin();
