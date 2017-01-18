@@ -116,9 +116,9 @@ void VCFrame::setDisableState(bool disable)
 
     foreach (VCWidget* widget, this->findChildren<VCWidget*>())
         widget->setDisableState(disable);
+
     m_disableState = disable;
     updateFeedback();
-    //VCWidget::setDisableState(disable);
 }
 
 void VCFrame::setLiveEdit(bool liveEdit)
@@ -492,10 +492,7 @@ void VCFrame::slotSetPage(int pageNum)
             VCWidget *widget = it.key();
             if (page == m_currentPage)
             {
-                if (m_doc->mode() == Doc::Operate)
-                    widget->setDisableState(m_disableState);
-                else
-                    widget->setEnabled(true);
+                widget->setEnabled(true);
                 widget->show();
                 widget->updateFeedback();
             }
