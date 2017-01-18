@@ -117,6 +117,8 @@ void VCFrame::setDisableState(bool disable)
     foreach (VCWidget* widget, this->findChildren<VCWidget*>())
         widget->setDisableState(disable);
     m_disableState = disable;
+    if (!disable)
+        setEnabled(!disable);
     updateFeedback();
     //VCWidget::setDisableState(disable);
 }
