@@ -1582,6 +1582,7 @@ bool VCCueList::loadXML(QXmlStreamReader &root)
             if (attrs.hasAttribute(KXMLQLCVCCueListLinked))
                 m_linkCheck->setChecked(true);
             m_crossfadeButton->setChecked(true);
+            root.skipCurrentElement();
         }
         else if (root.name() == KXMLQLCVCCueListFunction)
         {
