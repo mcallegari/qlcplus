@@ -534,11 +534,19 @@ void VCButton::slotInputValueChanged(quint32 universe, quint32 channel, uchar va
             else if (isOn() == true && value == 0)
                 releaseFunction();
         }
-        else if (value > 0)
+        else
         {
-            // Only toggle when the external button is pressed.
-            // Releasing the button does nothing.
-            pressFunction();
+            if (value > 0)
+            {
+                // Only toggle when the external button is pressed.
+                pressFunction();
+            }
+            else
+            {
+                // Work around the "internal" feedback of some controllers
+                // by updating feedback state after button release.
+                updateFeedback();
+            }
         }
     }
 }
