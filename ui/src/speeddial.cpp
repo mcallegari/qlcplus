@@ -491,21 +491,23 @@ void SpeedDial::slotTapClicked()
     if (m_tapTime == NULL)
     {
         m_tapTime = new QTime(QTime::currentTime());
-        if (m_tapTickTimer == NULL)
-        {
-            m_tapTickTimer = new QTimer();
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-            m_tapTickTimer->setTimerType(Qt::PreciseTimer);
-#endif
-            connect(m_tapTickTimer, SIGNAL(timeout()),
-                    this, SLOT(slotTapTimeout()));
-        }
         m_tapTime->start();
         return;
     }
     // Round the elapsed time to the nearest full 10th ms.
     m_value = m_tapTime->elapsed();
     setSpinValues(m_value);
+
+    if (m_tapTickTimer == NULL)
+    {
+        m_tapTickTimer = new QTimer();
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+        m_tapTickTimer->setTimerType(Qt::PreciseTimer);
+#endif
+        connect(m_tapTickTimer, SIGNAL(timeout()),
+                this, SLOT(slotTapTimeout()));
+    }
+
     m_tapTime->restart();
     if (m_tapTickTimer)
     {
