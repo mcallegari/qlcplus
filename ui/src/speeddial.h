@@ -102,9 +102,12 @@ public:
 
     void stopTimers(bool stopTime = true, bool stopTapTimer = true);
 
+    bool isTapTick();
+
 signals:
     void valueChanged(int ms);
     void tapped();
+    void tapTimeout();
 
     /*************************************************************************
      * Private

@@ -239,7 +239,13 @@ void SpeedDial::stopTimers(bool stopTime, bool stopTapTimer)
         delete m_tapTickTimer;
         m_tapTickTimer = NULL;
         m_tap->setStyleSheet(tapDefaultSS);
+        m_tapTick = false;
     }
+}
+
+bool SpeedDial::isTapTick()
+{
+    return m_tapTick;
 }
 
 /*****************************************************************************
@@ -529,6 +535,7 @@ void SpeedDial::slotTapTimeout()
     {
         stopTimers(true, false);
     }
+    emit tapTimeout();
 }
 
 quint16 SpeedDial::defaultVisibilityMask()
