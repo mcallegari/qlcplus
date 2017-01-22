@@ -672,20 +672,23 @@ void VCWidget::sendFeedback(int value, QSharedPointer<QLCInputSource> src)
         if (src->needsUpdate())
             src->updateOuputValue(value);
 
-        QString chName = QString();
-
-        InputPatch* pat = m_doc->inputOutputMap()->inputPatch(src->universe());
-        if (pat != NULL)
+        if (acceptsInput())
         {
-            QLCInputProfile* profile = pat->profile();
-            if (profile != NULL)
+            QString chName = QString();
+
+            InputPatch* pat = m_doc->inputOutputMap()->inputPatch(src->universe());
+            if (pat != NULL)
             {
-                QLCInputChannel* ich = profile->channel(src->channel());
-                if (ich != NULL)
-                    chName = ich->name();
+                QLCInputProfile* profile = pat->profile();
+                if (profile != NULL)
+                {
+                    QLCInputChannel* ich = profile->channel(src->channel());
+                    if (ich != NULL)
+                        chName = ich->name();
+                }
             }
+            m_doc->inputOutputMap()->sendFeedBack(src->universe(), src->channel(), value, chName);
         }
-        m_doc->inputOutputMap()->sendFeedBack(src->universe(), src->channel(), value, chName);
     }
 }
 
