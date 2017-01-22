@@ -664,32 +664,32 @@ void VCWidget::sendFeedback(int value, quint8 id)
 
 void VCWidget::sendFeedback(int value, QSharedPointer<QLCInputSource> src)
 {
-    if (!src.isNull() && src->isValid() == true)
+    if (src.isNull() || src->isValid() == false)
+        return;
+
+    // if in relative mode, send a "feedback" to this
+    // input source so it can continue to emit values
+    // from the right position
+    if (src->needsUpdate())
+        src->updateOuputValue(value);
+
+    if (acceptsInput() == false)
+        return;
+
+    QString chName = QString();
+
+    InputPatch* pat = m_doc->inputOutputMap()->inputPatch(src->universe());
+    if (pat != NULL)
     {
-        // if in relative mode, send a "feedback" to this
-        // input source so it can continue to emit values
-        // from the right position
-        if (src->needsUpdate())
-            src->updateOuputValue(value);
-
-        if (acceptsInput())
+        QLCInputProfile* profile = pat->profile();
+        if (profile != NULL)
         {
-            QString chName = QString();
-
-            InputPatch* pat = m_doc->inputOutputMap()->inputPatch(src->universe());
-            if (pat != NULL)
-            {
-                QLCInputProfile* profile = pat->profile();
-                if (profile != NULL)
-                {
-                    QLCInputChannel* ich = profile->channel(src->channel());
-                    if (ich != NULL)
-                        chName = ich->name();
-                }
-            }
-            m_doc->inputOutputMap()->sendFeedBack(src->universe(), src->channel(), value, chName);
+            QLCInputChannel* ich = profile->channel(src->channel());
+            if (ich != NULL)
+                chName = ich->name();
         }
     }
+    m_doc->inputOutputMap()->sendFeedBack(src->universe(), src->channel(), value, chName);
 }
 
 void VCWidget::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)

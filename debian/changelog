@@ -7,6 +7,7 @@ qlcplus (4.10.6) stable; urgency=low
   * Virtual Console/Slider: improved level monitoring with the possibility to act like a Simple Desk slider (see documentation)
   * Virtual Console/Frame: fixed 4.10.5b regression disabling widgets when switching page in design mode
   * Virtual Console/Cue List: improved linked crossfade to perform an additive blending between steps (see documentation)
+  * Virtual Console: prevent unwanted feedbacks from widgets in inactive Frame pages (thanks to Lukas)
   * New fixture: American DJ FREQ 5 Strobe (thanks to Martin Bochenek)
   * New fixture: Martin Rush MH3 (thanks to Ed Middlebrooks)
   * New fixture: Eurolite LED ACS BAR-12 (thanks to Michael Horber)
