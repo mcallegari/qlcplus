@@ -110,6 +110,10 @@ class FixtureDef
         "#FFFFFF"
       when "UV"
         "#9400D3"
+      when 'Lime'
+        '#ADFF2F'
+      when 'Indigo'
+        '#4B0082'
       end
     end
   end
@@ -448,7 +452,7 @@ EOF
             f << "            <td><img src=\"gfx/#{icon}\" /></td>\n"
           end
           f << "            <td>#{ch.group.name}</td>\n"
-          f << "            <td>#{ch.group.byte}</td>\n"
+          f << "            <td>#{ch.group.byte == 0 ? 'MSB' : 'LSB'}</td>\n"
           rgb_color = ch.rgb_color
           if rgb_color.nil?
             f << "            <td>#{ch.color}</td>\n"
