@@ -4,8 +4,13 @@
 # Run it every time some fixtures are added to this folder.
 # The packages 'ruby' and 'ruby-libxml' are required to run this
 
-# When invoked with addtional parameter (filename), it will create HTML overview of the fixtures
-# e.g. ./update-fixtures-map.rb index.html
+# When invoked with addtional parameter (filename), it will create
+# HTML overview of the fixtures e.g. ./update-fixtures-map.rb index.html
+
+# rubocop: disable Style/Documentation, Metrics/MethodLength
+# rubocop: disable Metrics/ClassLength, Metrics/AbcSize
+# rubocop: disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity,
+# Metrics/LineLength,
 
 require 'libxml'
 
@@ -50,30 +55,51 @@ class FixtureDef
       @byte = node.attributes['Byte'].to_i
     end
 
+    PAN = 'Pan'
+    TILT = 'Tilt'
+    COLOUR = 'Colour'
+    EFFECT = 'Effect'
+    GOBO = 'Gobo'
+    SHUTTER = 'Shutter'
+    SPEED = 'Speed'
+    PRISM = 'Prism'
+    MAINTENANCE = 'Maintenance'
+    INTENSITY = 'Intensity'
+    BEAM = 'Beam'
+
     def icon
       case @name
-      when 'Pan'
+      when PAN
         'pan.png'
-      when 'Tilt'
+      when TILT
         'tilt.png'
-      when 'Colour'
+      when COLOUR
         'colorwheel.png'
-      when 'Effect'
+      when EFFECT
         'star.png'
-      when 'Gobo'
+      when GOBO
         'gobo.png'
-      when 'Shutter'
+      when SHUTTER
         'shutter.png'
-      when 'Speed'
+      when SPEED
         'speed.png'
-      when 'Prism'
+      when PRISM
         'prism.png'
-      when 'Maintenance'
+      when MAINTENANCE
         'configure.png'
-      when 'Intensity'
+      when INTENSITY
         'intensity.png'
-      when 'Beam'
+      when BEAM
         'beam.png'
+      end
+    end
+
+    def byte_str
+      case @group
+      when MSB
+        'MSB'
+      when LSB
+        'LSB'
       end
     end
   end
@@ -81,38 +107,51 @@ class FixtureDef
   class Channel
     attr_accessor :name, :group, :color, :capabilities
     def initialize(node)
+      @capabilities = []
       return if node.empty?
       @name = node.attributes['Name']
       @group = Group.new(node.find_first('xmlns:Group', NS))
       n = node.find_first('xmlns:Colour', NS)
       @color = n.content unless n.nil?
       n = node.find('xmlns:Capability', NS)
-      @capabilities = n.nil? ? [] : n.map { |c| Capability.new(c) }
+      @capabilities = n.map { |c| Capability.new(c) } unless n.empty?
     end
+
+    RED = 'Red'
+    GREEN = 'Green'
+    BLUE = 'Blue'
+    CYAN = 'Cyan'
+    MAGENTA = 'Magenta'
+    YELLOW = 'Yellow'
+    AMBER = 'Amber'
+    WHITE = 'White'
+    UV = 'UV'
+    LIME = 'Lime'
+    INDIGO = 'Indigo'
 
     def rgb_color
       case color
-      when 'Red'
+      when RED
         '#FF0000'
-      when 'Green'
+      when GREEN
         '#00FF00'
-      when 'Blue'
+      when BLUE
         '#0000FF'
-      when 'Cyan'
+      when CYAN
         '#00FFFF'
-      when 'Magenta'
+      when MAGENTA
         '#FF00FF'
-      when 'Yellow'
+      when YELLOW
         '#FFFF00'
-      when 'Amber'
+      when AMBER
         '#FF7E00'
-      when 'White'
+      when WHITE
         '#FFFFFF'
-      when 'UV'
+      when UV
         '#9400D3'
-      when 'Lime'
+      when LIME
         '#ADFF2F'
-      when 'Indigo'
+      when INDIGO
         '#4B0082'
       end
     end
@@ -193,7 +232,7 @@ class FixtureDef
   class Head
     attr_accessor :channels, :index
     def initialize(node)
-      channels = []
+      @channels = []
       return if node.empty?
       @channels = node.find('xmlns:Channel', NS).map { |c| c.content.to_i }
     end
@@ -208,9 +247,9 @@ class FixtureDef
       @name = node.attributes['Name']
       @physical = Physical.new(node.find_first('xmlns:Physical', NS))
       n = node.find('xmlns:Channel', NS)
-      @channels = n.empty? ? [] : n.map { |c| ChannelRef.new(c) }
+      @channels = n.map { |c| ChannelRef.new(c) } unless n.empty? 
       n = node.find('xmlns:Head', NS)
-      @heads = n.empty? ? [] : n.map { |h| Head.new(h) }
+      @heads = n.map { |h| Head.new(h) } unless n.empty?
       @heads.each_with_index { |h, i| h.index = i + 1 }
     end
   end
@@ -218,8 +257,62 @@ class FixtureDef
   attr_accessor :path, :manufacturer, :model, :type, :creator, :channels, :modes
 
   def initialize(path)
+    @channel = []
+    @modes = []
+
     load(path)
   end
+
+  COLOR_CHANGER = 'Color Changer'
+  DIMMER = 'Dimmer'
+  EFFECT = 'Effect'
+  FAN = 'Fan'
+  FLOWER = 'Flower'
+  HAZER = 'Hazer'
+  LASER = 'Laser'
+  MOVING_HEAD = 'Moving Head'
+  OTHER = 'Other'
+  SCANNER = 'Scanner'
+  SMOKE = 'Smoke'
+  STROBE = 'Strobe'
+
+  def type_icon
+    case @type
+    when COLOR_CHANGER
+      'fixture.png'
+    when DIMMER
+      'dimmer.png'
+    when EFFECT
+      'effect.png'
+    when FAN
+      'fan.png'
+    when FLOWER
+      'flower.png'
+    when HAZER
+      'hazer.png'
+    when LASER
+      'laser.png'
+    when MOVING_HEAD
+      'movinghead.png'
+    when OTHER
+      'other.png'
+    when SCANNER
+      'scanner.png'
+    when SMOKE
+      'smoke.png'
+    when STROBE
+      'strobe.png'
+    else
+      'other.png'
+    end
+  end
+
+  AUTHORS_TO_FIX = {
+    'hjunnila' => 'Heikki Junnila',
+    'jlgriffin' => 'JL Griffin',
+    'griffinwebnet' => 'JL Griffin',
+    ',,,' => ''
+  }
 
   def load(path)
     qxf = File.read(path)
@@ -242,7 +335,9 @@ class FixtureDef
     end
 
     @doc.root.find('//xmlns:Author', NS).each do |node|
-      node.content = node.content.gsub('hjunnila', 'Heikki Junnila').gsub('jlgriffin', 'JL Griffin').gsub('griffinwebnet', 'JL Griffin').gsub(',,,', '')
+      AUTHORS_TO_FIX.each do |old, new|
+        node.content = node.content.gsub(old, new)
+      end
     end
 
     if @doc.root.namespaces.default.nil?
@@ -255,6 +350,7 @@ class FixtureDef
       File.open(path, 'w') { |f| f.write(qxf2) }
       @doc = LibXML::XML::Document.string(qxf2)
     end
+
     @path = path
     @manufacturer = @doc.find_first('/xmlns:FixtureDefinition/xmlns:Manufacturer', NS).content
     @model = @doc.find_first('/xmlns:FixtureDefinition/xmlns:Model', NS).content
@@ -281,7 +377,7 @@ class Fixtures
   end
 
   def heads_have_common_channels(mode)
-    all_head_channels = mode.heads.inject([]) { |result, h| result + h.channels }.sort
+    all_head_channels = mode.heads.inject([]) { |a, e| a + e.channels }.sort
     unique_head_channels = all_head_channels.uniq.sort
 
     all_head_channels != unique_head_channels
@@ -300,8 +396,8 @@ class Fixtures
 
       wrong_pan = f.modes.find { |m| m.physical.focus.pan_max == 0 }
       wrong_tilt = f.modes.find { |m| m.physical.focus.tilt_max == 0 }
-      has_pan = f.channels.find { |c| c.group.name == 'Pan' }
-      has_tilt = f.channels.find { |c| c.group.name == 'Tilt' }
+      has_pan = f.channels.find { |c| c.group.name == FixtureDef::Group::PAN }
+      has_tilt = f.channels.find { |c| c.group.name == FixtureDef::Group::TILT }
       wrong_width = f.modes.find { |m| m.physical.dimensions.width == 0 }
       wrong_height = f.modes.find { |m| m.physical.dimensions.height == 0 }
       wrong_depth = f.modes.find { |m| m.physical.dimensions.depth == 0 }
@@ -339,11 +435,9 @@ class Fixtures
       doc.root.namespaces.namespace = LibXML::XML::Namespace.new(doc.root, nil, 'http://www.qlcplus.org/FixturesMap')
     end
     new_data = doc.to_s(indent: true, encoding: LibXML::XML::Encoding::UTF_8).gsub('http://qlcplus.sourceforge.net/FixturesMap', 'http://www.qlcplus.org/FixturesMap')
-    if orig_data != new_data
-      File.open(filename, 'w') do |f|
-        f.write(new_data)
-      end
-    end
+    return if orig_data == new_data
+
+    File.open(filename, 'w') { |f| f.write(new_data) }
   end
 
   def make_overview(filename = 'index.html')
@@ -390,36 +484,36 @@ class Fixtures
       <th>Conn</th>
     </tr>
 EOF
-      @fixtures.sort_by { |f| f.path.downcase }.each do |fix|
+      @fixtures.sort_by { |fixture| fixture.path.downcase }.each do |fixture|
         f << <<-EOF
     <tr>
-      <td rowspan=#{fix.modes.size}>#{fix.manufacturer}</td>
-      <td rowspan=#{fix.modes.size}>#{fix.model}</td>
-      <td rowspan=#{fix.modes.size}>#{fix.creator.version}</td>
-      <td rowspan=#{fix.modes.size}>#{fix.creator.author}</td>
-      <td rowspan=#{fix.modes.size}>#{fix.type}</td>
+      <td rowspan=#{fixture.modes.size}>#{fixture.manufacturer}</td>
+      <td rowspan=#{fixture.modes.size}>#{fixture.model}</td>
+      <td rowspan=#{fixture.modes.size}>#{fixture.creator.version}</td>
+      <td rowspan=#{fixture.modes.size}>#{fixture.creator.author}</td>
+      <td rowspan=#{fixture.modes.size}><img src="gfx/#{fixture.type_icon}" /> #{fixture.type}</td>
 
 EOF
-        fix.modes.each_with_index do |m, i|
-          f << "    <tr>\n" if i > 0
+        fixture.modes.each_with_index do |mode, index|
+          f << "    <tr>\n" if index > 0
           f << <<-EOF
-      <td>#{m.name}</td>
-      <td>#{m.heads.size}</td>
-      <td>#{m.physical.bulb.lumens}</td>
-      <td>#{m.physical.bulb.type}</td>
-      <td>#{m.physical.bulb.color_temp}</td>
-      <td>#{m.physical.dimensions.width}</td>
-      <td>#{m.physical.dimensions.height}</td>
-      <td>#{m.physical.dimensions.depth}</td>
-      <td>#{m.physical.dimensions.weight}</td>
-      <td>#{m.physical.lens.degrees_min}</td>
-      <td>#{m.physical.lens.degrees_max}</td>
-      <td>#{m.physical.lens.name}</td>
-      <td>#{m.physical.focus.pan_max}</td>
-      <td>#{m.physical.focus.tilt_max}</td>
-      <td>#{m.physical.focus.type}</td>
-      <td>#{m.physical.technical.power_consumption}</td>
-      <td>#{m.physical.technical.dmx_connector}</td>
+      <td>#{mode.name}</td>
+      <td>#{mode.heads.size}</td>
+      <td>#{mode.physical.bulb.lumens}</td>
+      <td>#{mode.physical.bulb.type}</td>
+      <td>#{mode.physical.bulb.color_temp}</td>
+      <td>#{mode.physical.dimensions.width}</td>
+      <td>#{mode.physical.dimensions.height}</td>
+      <td>#{mode.physical.dimensions.depth}</td>
+      <td>#{mode.physical.dimensions.weight}</td>
+      <td>#{mode.physical.lens.degrees_min}</td>
+      <td>#{mode.physical.lens.degrees_max}</td>
+      <td>#{mode.physical.lens.name}</td>
+      <td>#{mode.physical.focus.pan_max}</td>
+      <td>#{mode.physical.focus.tilt_max}</td>
+      <td>#{mode.physical.focus.type}</td>
+      <td>#{mode.physical.technical.power_consumption}</td>
+      <td>#{mode.physical.technical.dmx_connector}</td>
     </tr>
 EOF
         end
@@ -434,37 +528,37 @@ EOF
             <th>byte</th>
             <th>color</th>
 EOF
-        fix.modes.each do |m|
-          f << "            <th colspan=2> #{m.name}</th>\n"
+        fixture.modes.each do |mode|
+          f << "            <th colspan=2> #{mode.name}</th>\n"
         end
 
         f << "          </tr>\n"
 
-        fix.channels.each do |ch|
+        fixture.channels.each do |channel|
           f << "          <tr>\n"
-          f << "            <td>#{ch.name}</td>\n"
-          icon = ch.group.icon
+          f << "            <td>#{channel.name}</td>\n"
+          icon = channel.group.icon
           if icon.nil?
             f << "            <td></td>\n"
           else
             f << "            <td><img src=\"gfx/#{icon}\" /></td>\n"
           end
-          f << "            <td>#{ch.group.name}</td>\n"
-          f << "            <td>#{ch.group.byte == 0 ? 'MSB' : 'LSB'}</td>\n"
-          rgb_color = ch.rgb_color
+          f << "            <td>#{channel.group.name}</td>\n"
+          f << "            <td>#{channel.group.byte_str}</td>\n"
+          rgb_color = channel.rgb_color
           if rgb_color.nil?
-            f << "            <td>#{ch.color}</td>\n"
+            f << "            <td>#{channel.color}</td>\n"
           else
-            f << "            <td style=\"background-color: #{rgb_color}\">#{ch.color}</td>\n"
+            f << "            <td style=\"background-color: #{rgb_color}\">#{channel.color}</td>\n"
           end
 
-          fix.modes.each do |m|
-            mch = m.channels.find { |mc| mc.name == ch.name }
+          fixture.modes.each do |mode|
+            mch = mode.channels.find { |mc| mc.name == channel.name }
             if mch.nil?
               f << "            <td></td>\n"
               f << "            <td></td>\n"
             else
-              heads = m.heads.map { |h| h.index if h.channels.include? mch.number }.compact.join(',')
+              heads = mode.heads.map { |head| head.index if head.channels.include? mch.number }.compact.join(',')
               f << "            <td>#{mch.number}</td>\n"
               f << "            <td>#{heads.empty? ? '&nbsp;' : heads}</td>\n"
             end
@@ -472,22 +566,22 @@ EOF
 
           f << "          </tr>\n"
           if false
-            ch.capabilities.each do |cap|
+            channel.capabilities.each do |capability|
               f << "          <tr>\n"
-              f << "            <td colspan=\"#{5 + fix.modes.size * 2}\"></td>\n"
-              f << "            <td>#{cap.min}</td>\n"
-              f << "            <td>#{cap.max}</td>\n"
-              f << "            <td>#{cap.name}</td>\n"
-              f << "            <td>#{cap.res}</td>\n"
-              if cap.color.nil?
+              f << "            <td colspan=\"#{5 + fixture.modes.size * 2}\"></td>\n"
+              f << "            <td>#{capability.min}</td>\n"
+              f << "            <td>#{capability.max}</td>\n"
+              f << "            <td>#{capability.name}</td>\n"
+              f << "            <td>#{capability.res}</td>\n"
+              if capability.color.nil?
                 f << "            <td>&nbsp;</td>\n"
               else
-                f << "            <td style=\"background-color: #{cap.color}\">#{cap.color}</td>\n"
+                f << "            <td style=\"background-color: #{capability.color}\">#{capability.color}</td>\n"
               end
-              if cap.color2.nil?
+              if capability.color2.nil?
                 f << "            <td>&nbsp;</td>\n"
               else
-                f << "            <td style=\"background-color: #{cap.color2}\">#{cap.color2}</td>\n"
+                f << "            <td style=\"background-color: #{capability.color2}\">#{capability.color2}</td>\n"
               end
               f << "          </tr>\n"
             end
@@ -497,7 +591,7 @@ EOF
         f << <<-EOF
           </tr>
         </table>
-      <td>
+      </td>
 EOF
       end
 
@@ -511,26 +605,26 @@ EOF
 
   def shutter(filename = 'index.html')
     File.open(filename, 'w') do |f|
-      @fixtures.sort_by { |f| f.path.downcase }.each do |fix|
-        shutter_channels = fix.channels.select { |ch| ch.group.name == 'Shutter' && ch.group.byte == 0 }
+      @fixtures.sort_by { |fixture| fixture.path.downcase }.each do |fixture|
+        shutter_channels = fixture.channels.select { |channel| channel.group.name == FixtureDef::Group::Shutter && channel.group.byte == FixtureDef::Group::MSB }
         next if shutter_channels.empty?
 
         f << <<-EOF
-=== #{fix.manufacturer} #{fix.model}
-#{fix.type}
+=== #{fixture.manufacturer} #{fixture.model}
+#{fixture.type}
 
 EOF
-        shutter_channels.each do |ch|
-          f << "-- #{ch.name}\n"
-          ch.capabilities.each do |cap|
+        shutter_channels.each do |channel|
+          f << "-- #{channel.name}\n"
+          channel.capabilities.each do |capability|
             shutter = 'open'
-            if cap.name =~ /close|blackout|off/i
+            if capability.name =~ /close|blackout|off/i
               shutter = 'closed'
-            elsif cap.name =~ /strob|pulse/i
+            elsif capability.name =~ /strob|pulse/i
               shutter = 'strobe'
             end
 
-            f << "#{cap.min} - #{cap.max} #{shutter} #{cap.name}\n"
+            f << "#{capability.min} - #{capability.max} #{shutter} #{capability.name}\n"
           end
         end
       end
