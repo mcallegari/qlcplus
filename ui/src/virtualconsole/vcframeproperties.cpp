@@ -101,7 +101,6 @@ VCFrameProperties::VCFrameProperties(QWidget* parent, VCFrame* frame, Doc *doc)
 
     m_pageSelect = new QComboBox(this);
     slotTotalPagesNumberChanged(m_totalPagesSpin->value());
-    slotPageSelectChanged(0);
     m_pageSelect->setStyleSheet("QLabel { background-color: #000000; font-size: 15px; font-weight: bold;"
                                "color: red; border-radius: 3px; padding: 3px; margin-left: 2px; }");
     m_extInputPages->addWidget(m_pageSelect);
@@ -111,6 +110,7 @@ VCFrameProperties::VCFrameProperties(QWidget* parent, VCFrame* frame, Doc *doc)
     m_shortcutInputWidget->setWidgetPage(m_frame->page());
     m_shortcutInputWidget->show();
     m_extInputPages->addWidget(m_shortcutInputWidget);
+    slotPageSelectChanged(0);
 
     connect(m_totalPagesSpin, SIGNAL(valueChanged(int)),
             this, SLOT(slotTotalPagesNumberChanged(int)));
