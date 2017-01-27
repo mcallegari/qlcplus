@@ -24,9 +24,15 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QToolButton>
+#include <QComboBox>
+#include <QWidget>
 #include <QLabel>
+#include <QList>
+#include <QHash>
+
 
 #include "vcwidget.h"
+#include "vcframepageshortcut.h"
 
 /** @addtogroup ui_vc_widgets
  * @{
@@ -145,6 +151,10 @@ public:
     void setMultipageMode(bool enable);
     virtual bool multipageMode() const;
 
+    QList<VCFramePageShortcut *> shortcuts() const;
+    void addShortcut(VCFramePageShortcut const& preset);
+    void resetShortcuts();
+
     void setTotalPagesNumber(int num);
     int totalPagesNumber();
 
@@ -159,6 +169,7 @@ public:
 public slots:
     void slotPreviousPage();
     void slotNextPage();
+    void slotPageLabelChanged(int index);
     void slotSetPage(int pageNum);
 
 signals:
@@ -169,8 +180,9 @@ protected:
     ushort m_currentPage;
     ushort m_totalPagesNumber;
     QToolButton *m_nextPageBtn, *m_prevPageBtn;
-    QLabel *m_pageLabel;
+    QComboBox *m_pageLabel;
     bool m_pagesLoop;
+    QHash<QWidget*, VCFramePageShortcut*> m_pageShortcuts;
 
     /** Here's where the magic takes place. This holds a map
      *  of pages/widgets to be shown/hidden when page is changed */
