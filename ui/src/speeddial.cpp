@@ -205,8 +205,8 @@ void SpeedDial::setValue(int ms, bool emitValue)
     else
         m_infiniteCheck->setChecked(false);
 
-    // Time has changed, stop blinking
-    stopTimers(false, true);
+    // time has changed - update tap button blinking
+    updateTapTimer();
 
     m_preventSignals = false;
 }
@@ -251,6 +251,30 @@ bool SpeedDial::isTapTick()
 /*****************************************************************************
  * Private
  *****************************************************************************/
+
+void SpeedDial::updateTapTimer()
+{
+    // Synchronize timer ticks
+    if(m_tapTickTimer) 
+        m_tapTickTimer->stop();
+
+    if(m_value != (int) Function::infiniteSpeed()
+       && m_tapTickTimer == NULL)
+    {
+        m_tapTickTimer = new QTimer();
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+        m_tapTickTimer->setTimerType(Qt::PreciseTimer);
+#endif
+        connect(m_tapTickTimer, SIGNAL(timeout()),
+                this, SLOT(slotTapTimeout()));
+    }
+
+    if (m_tapTickTimer)
+    {
+        m_tapTickTimer->setInterval(m_value);
+        m_tapTickTimer->start();
+    }
+}
 
 void SpeedDial::setSpinValues(int ms)
 {
@@ -405,8 +429,8 @@ void SpeedDial::slotDialChanged(int value)
         m_focus->setValue(m_value);
     }
 
-    // stop tap button blinking if it was
-    stopTimers();
+    // update tap button blinking
+    updateTapTimer();
 
     // Store the current value so it can be compared on the next pass to determine the
     // dial's direction of rotation.
@@ -420,8 +444,8 @@ void SpeedDial::slotHoursChanged()
         m_value = spinValues();
         emit valueChanged(m_value);
     }
-    // stop tap button blinking if it was
-    stopTimers();
+    // update tap button blinking
+    updateTapTimer();
 }
 
 void SpeedDial::slotMinutesChanged()
@@ -431,8 +455,8 @@ void SpeedDial::slotMinutesChanged()
         m_value = spinValues();
         emit valueChanged(m_value);
     }
-    // stop tap button blinking if it was
-    stopTimers();
+    // update tap button blinking
+    updateTapTimer();
 }
 
 void SpeedDial::slotSecondsChanged()
@@ -442,8 +466,8 @@ void SpeedDial::slotSecondsChanged()
         m_value = spinValues();
         emit valueChanged(m_value);
     }
-    // stop tap button blinking if it was
-    stopTimers();
+    // update tap button blinking
+    updateTapTimer();
 }
 
 void SpeedDial::slotMSChanged()
@@ -453,8 +477,8 @@ void SpeedDial::slotMSChanged()
         m_value = spinValues();
         emit valueChanged(m_value);
     }
-    // stop tap button blinking if it was
-    stopTimers();
+    // update tap button blinking
+    updateTapTimer();
 }
 
 void SpeedDial::slotInfiniteChecked(bool state)
@@ -504,22 +528,11 @@ void SpeedDial::slotTapClicked()
     m_value = m_tapTime->elapsed();
     setSpinValues(m_value);
 
-    if (m_tapTickTimer == NULL)
-    {
-        m_tapTickTimer = new QTimer();
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-        m_tapTickTimer->setTimerType(Qt::PreciseTimer);
-#endif
-        connect(m_tapTickTimer, SIGNAL(timeout()),
-                this, SLOT(slotTapTimeout()));
-    }
-
     m_tapTime->restart();
-    if (m_tapTickTimer)
-    {
-        m_tapTickTimer->setInterval(m_value);
-        m_tapTickTimer->start();
-    }
+
+    // time has changed - update tap button blinking
+    updateTapTimer();
+
     emit tapped();
 }
 

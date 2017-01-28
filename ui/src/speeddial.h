@@ -113,6 +113,7 @@ signals:
      * Private
      *************************************************************************/
 private:
+    void updateTapTimer();
     void setSpinValues(int ms);
     int spinValues() const;
 
