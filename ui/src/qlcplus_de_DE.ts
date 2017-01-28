@@ -1573,12 +1573,12 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="collectioneditor.ui" line="39"/>
         <source>Move the selected functions down</source>
-        <translation>Ausgewählte Funktion nach unten schieben</translation>
+        <translation>Ausgewählte Funktionen nach unten schieben</translation>
     </message>
     <message>
         <location filename="collectioneditor.ui" line="56"/>
         <source>Move the selected functions up</source>
-        <translation>Ausgewählte Funktion nach oben schieben</translation>
+        <translation>Ausgewählte Funktionen nach oben schieben</translation>
     </message>
     <message>
         <location filename="collectioneditor.ui" line="79"/>
