@@ -255,17 +255,17 @@
     <message>
         <location filename="addrgbpanel.ui" line="299"/>
         <source>Direction</source>
-        <translation type="unfinished">Richtung</translation>
+        <translation>Richtung</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="305"/>
         <source>Horizontal</source>
-        <translation type="unfinished">Horizontal</translation>
+        <translation>Horizontal</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="315"/>
         <source>Vertical</source>
-        <translation type="unfinished">Vertikal</translation>
+        <translation>Vertikal</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="327"/>
@@ -1573,12 +1573,12 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="collectioneditor.ui" line="39"/>
         <source>Move the selected functions down</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgewählte Funktion nach unten schieben</translation>
     </message>
     <message>
         <location filename="collectioneditor.ui" line="56"/>
         <source>Move the selected functions up</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgewählte Funktion nach oben schieben</translation>
     </message>
     <message>
         <location filename="collectioneditor.ui" line="79"/>
@@ -3572,7 +3572,7 @@ Bitte in der Plugindokumentation nachlesen um den Fehler zu beheben.</translatio
         <source>You have enabled the input channel wizard. After clicking OK, wiggle your mapped input profile&apos;s controls. They should appear into the list. Click the wizard button again to stop channel auto-detection.
 
 Note that the wizard cannot tell the difference between a knob and a slider so you will have to do the change manually.</source>
-        <translation>Sie haben den Eingangskanal Assistenten aktiviert. Nach einem Klick auf OK wackeln die zugewiesenen Eingangsprofilkontrollen. Sie sollten in der Liste erscheinen. Zum Stoppen der Autokanalerkennung den Schalter des Assistenten erneut anklicken
+        <translation>Sie haben den Eingangskanal-Assistenten aktiviert. Bewegen Sie nach einem Klick auf OK die Schalter/Regler des zugewiesenen Eingangsprofils. Sie sollten in der Liste erscheinen. Zum Stoppen der Autokanalerkennung den Schalter des Assistenten erneut anklicken
 Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler, die Änderungen müssen manuell durchgeführt werden.</translation>
     </message>
     <message>
@@ -5545,7 +5545,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="107"/>
         <source>Blend</source>
-        <translation type="unfinished"></translation>
+        <translation>Überblenden</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="112"/>
@@ -6467,7 +6467,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcslider.cpp" line="581"/>
         <source>Reset channels override</source>
-        <translation type="unfinished"></translation>
+        <translation>Überschreiben zurücksetzen</translation>
     </message>
 </context>
 <context>
@@ -6743,7 +6743,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcsliderproperties.cpp" line="173"/>
         <source>Override reset control</source>
-        <translation type="unfinished"></translation>
+        <translation>Externer Eingang - Zurücksetzen des Überschreibens</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcsliderproperties.cpp" line="650"/>
