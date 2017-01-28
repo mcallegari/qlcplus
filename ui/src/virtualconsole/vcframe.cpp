@@ -534,7 +534,11 @@ void VCFrame::slotNextPage()
 void VCFrame::slotPageLabelChanged(int index)
 {
     if (index >= 0)
+    {
         slotSetPage(index);
+        m_pageLabel->clearFocus();
+        this->setFocus();
+    }
 }
 
 void VCFrame::slotSetPage(int pageNum)
@@ -545,7 +549,6 @@ void VCFrame::slotSetPage(int pageNum)
             m_currentPage = pageNum;
 
         m_pageLabel->setCurrentIndex(m_currentPage);
-        m_pageLabel->setCurrentText(tr("Page: %1").arg(m_currentPage + 1));
 
         QMapIterator <VCWidget*, int> it(m_pagesMap);
         while (it.hasNext() == true)
