@@ -52,9 +52,10 @@ window.onload = function() {
     }
   }
   else if (msgParams[1] == "SLIDER") {
+    // Slider message is <ID>|SLIDER|<SLIDER VALUE>|<DISPLAY VALUE>
     obj.value = msgParams[2];
     var labelObj = document.getElementById("slv" + msgParams[0]);
-    labelObj.innerHTML = msgParams[2];
+    labelObj.innerHTML = msgParams[3];
   }
   else if (msgParams[1] == "CUE") {
     setCueIndex(msgParams[0], msgParams[2]);

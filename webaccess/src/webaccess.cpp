@@ -796,9 +796,11 @@ QString WebAccess::getButtonHTML(VCButton *btn)
 void WebAccess::slotSliderValueChanged(QString val)
 {
     VCSlider *slider = (VCSlider *)sender();
+    int sliderVal = slider->sliderValue();
 
-    QString wsMessage = QString("%1|SLIDER|%2").arg(slider->id()).arg(val);
-
+    // <ID>|SLIDER|<SLIDER VALUE>|<DISPLAY VALUE>
+    QString wsMessage = QString("%1|SLIDER|%2|%3").arg(slider->id()).arg(sliderVal).arg(val);
+    
     sendWebSocketMessage(wsMessage.toUtf8());
 }
 
@@ -815,8 +817,9 @@ QString WebAccess::getSliderHTML(VCSlider *slider)
 
     str += "<div id=\"slv" + slID + "\" "
             "class=\"vcslLabel\" style=\"top:0px;\">" +
-            QString::number(slider->sliderValue()) + "</div>\n";
+            slider->topLabelText() + "</div>\n";
 
+    //TODO: Take into account slider's min and max values
     str +=  "<input type=\"range\" class=\"vVertical\" "
             "id=\"" + slID + "\" "
             "oninput=\"slVchange(" + slID + ");\" ontouchmove=\"slVchange(" + slID + ");\" "
