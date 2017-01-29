@@ -631,11 +631,12 @@ void VCFrame::updateFeedback()
             sendFeedback(src->lowerValue(), enableInputSourceId);
     }
 
-    QListIterator <VCWidget*> it(this->findChildren<VCWidget*>(QString(), Qt::FindDirectChildrenOnly));
+    QListIterator <VCWidget*> it(this->findChildren<VCWidget*>());
     while (it.hasNext() == true)
     {
         VCWidget* child = it.next();
-        child->updateFeedback();
+        if (child->parent() == this)
+            child->updateFeedback();
     }
 }
 
