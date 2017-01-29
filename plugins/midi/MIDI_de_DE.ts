@@ -70,7 +70,7 @@
         <location filename="common/midiplugin.cpp" line="164"/>
         <location filename="common/midiplugin.cpp" line="272"/>
         <source>Open</source>
-        <translation>Öffnen</translation>
+        <translation>Geöffnet</translation>
     </message>
     <message>
         <location filename="common/midiplugin.cpp" line="166"/>
