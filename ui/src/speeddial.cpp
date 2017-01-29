@@ -522,15 +522,20 @@ void SpeedDial::slotInfiniteChecked(bool state)
         m_value = Function::infiniteSpeed();
         if (m_preventSignals == false)
             emit valueChanged(Function::infiniteSpeed());
+
+        // stop tap button blinking if it was
+        stopTimers();
     }
     else
     {
         m_value = spinValues();
         if (m_preventSignals == false)
             emit valueChanged(m_value);
+        
+
+        // update tap button blinking
+        updateTapTimer();
     }
-    // stop tap button blinking if it was
-    stopTimers();
 }
 
 void SpeedDial::slotSpinFocusGained()
