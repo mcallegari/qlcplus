@@ -153,6 +153,7 @@ private:
     QTime* m_tapTime;
     QTimer* m_tapTickTimer;
     bool m_tapTick;
+    QTimer* m_tapTickElapseTimer;
 
     /*************************************************************************
      * Elements visibility
