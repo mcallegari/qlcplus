@@ -142,6 +142,8 @@ private:
     quint32 m_pluginLine;
     /** The reference of an input profile if activated by the user (otherwise NULL) */
     QLCInputProfile* m_profile;
+    /** The patch parameters cache */
+    QMap<QString, QVariant>m_parametersCache;
 
     /************************************************************************
      * Pages
