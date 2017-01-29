@@ -24,6 +24,7 @@
 #include <QSet>
 
 #include "vcwidget.h"
+#include "speeddial.h"
 
 class VCSpeedDialFunction;
 class VCSpeedDialPreset;
@@ -57,6 +58,7 @@ class QLabel;
 #define KXMLQLCVCSpeedDialResetFactorOnDialChange "ResetFactorOnDialChange"
 #define KXMLQLCVCSpeedDialVisibilityMask "Visibility"
 #define KXMLQLCVCSpeedDialTime "Time"
+#define KXMLQLCVCSpeedDialFeedbackMode "TapFeedbackMode"
 
 // Legacy: infinite checkbox
 #define KXMLQLCVCSpeedDialInfinite "Infinite"
@@ -231,6 +233,13 @@ protected:
     QKeySequence m_divKeySequence;
     QKeySequence m_multDivResetKeySequence;
     QKeySequence m_applyKeySequence;
+
+    /*********************************************************************
+     * Tap feedback type
+     *********************************************************************/
+public:
+    SpeedDial::TapFeedbackType tapFeedbackType();
+    void setTapFeedbackType(SpeedDial::TapFeedbackType type);
 
     /************************************************************************
      * Absolute value range

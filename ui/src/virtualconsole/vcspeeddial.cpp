@@ -344,6 +344,16 @@ void VCSpeedDial::slotUpdate()
     updateFeedback();
 }
 
+SpeedDial::TapFeedbackType VCSpeedDial::tapFeedbackType()
+{
+    return m_dial->tapFeedbackType();
+}
+
+void VCSpeedDial::setTapFeedbackType(SpeedDial::TapFeedbackType type)
+{
+    m_dial->setTapFeedbackType(type);
+}
+
 /*********************************************************************
  * Presets
  *********************************************************************/
@@ -937,6 +947,10 @@ bool VCSpeedDial::loadXML(QXmlStreamReader &root)
 
             setVisibilityMask(mask);
         }
+        else if (root.name() == KXMLQLCVCSpeedDialFeedbackMode)
+        {
+            setTapFeedbackType(static_cast<SpeedDial::TapFeedbackType>(root.readElementText().toInt()));
+        }
         else if (root.name() == KXMLQLCVCSpeedDialTime)
         {
             m_dial->setValue(root.readElementText().toUInt());
@@ -1012,6 +1026,9 @@ bool VCSpeedDial::saveXML(QXmlStreamWriter *doc)
     doc->writeAttribute(KXMLQLCVCSpeedDialAbsoluteValueMax, QString::number(absoluteValueMax()));
     saveXMLInput(doc, inputSource(absoluteInputSourceId));
     doc->writeEndElement();
+
+    /* Tap feedback mode */
+    doc->writeTextElement(KXMLQLCVCSpeedDialFeedbackMode, QString::number(static_cast<int>(tapFeedbackType())));
 
     /* Tap input */
     QSharedPointer<QLCInputSource> tapSrc = inputSource(tapInputSourceId);
