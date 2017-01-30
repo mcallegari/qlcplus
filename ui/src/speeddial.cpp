@@ -198,7 +198,8 @@ SpeedDial::SpeedDial(QWidget* parent)
 
 SpeedDial::~SpeedDial()
 {
-    if(m_tapTickElapseTimer) {
+    if (m_tapTickElapseTimer)
+    {
         delete m_tapTickElapseTimer;
         m_tapTickElapseTimer = NULL;
     }
@@ -278,10 +279,10 @@ void SpeedDial::setTapFeedbackType(SpeedDial::TapFeedbackType type)
 void SpeedDial::updateTapTimer()
 {
     // Synchronize timer ticks
-    if(m_tapTickTimer) 
+    if (m_tapTickTimer)
         m_tapTickTimer->stop();
 
-    if(m_value != (int) Function::infiniteSpeed()
+    if (m_value != (int) Function::infiniteSpeed()
        && m_tapTickTimer == NULL)
     {
         m_tapTickTimer = new QTimer();
