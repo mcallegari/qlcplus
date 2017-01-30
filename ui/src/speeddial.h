@@ -161,9 +161,9 @@ private:
     bool m_preventSignals;
     int m_value;
 
+    bool m_tapTick;
     QTime* m_tapTime;
     QTimer* m_tapTickTimer;
-    bool m_tapTick;
     QTimer* m_tapTickElapseTimer;
     TapFeedbackType m_tapFeedbackType;
 
