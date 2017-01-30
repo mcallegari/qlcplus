@@ -89,9 +89,10 @@ SpeedDial::SpeedDial(QWidget* parent)
     , m_value(0)
     , m_tapTime(NULL)
     , m_tapTickTimer(NULL)
+    , m_tapTickElapseTimer(NULL)
     , m_tapTick(false)
-    , m_visibilityMask(DEFAULT_VISIBILITY_MASK)
     , m_tapFeedbackType(Blink)
+    , m_visibilityMask(DEFAULT_VISIBILITY_MASK)
 {
     new QVBoxLayout(this);
     layout()->setSpacing(0);
