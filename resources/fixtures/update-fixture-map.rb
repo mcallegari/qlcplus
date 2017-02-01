@@ -19,21 +19,32 @@ OLD_NS_URI = 'http://qlcplus.sourceforge.net/FixtureDefinition'
 
 NS = ['xmlns:' + NS_URI]
 
+module Loader
+  def load(node)
+    result = new
+    result.load(node) unless node.nil? || node.empty? 
+    result
+  end
+end
+
 class FixtureDef
   class Creator
     attr_accessor :name, :version, :author
-    def initialize(node)
-      return if node.empty?
+    extend Loader
+
+    def load(node)
       @name = node.find_first('xmlns:Name', NS).content
       @version = node.find_first('xmlns:Version', NS).content
       @author = node.find_first('xmlns:Author', NS).content
     end
+
   end
 
   class Capability
     attr_accessor :min, :max, :name, :res, :color, :color2
-    def initialize(node)
-      return if node.empty?
+    extend Loader
+
+    def load(node)
       @min = node.attributes['Min'].to_i
       @max = node.attributes['Max'].to_i
       @res = node.attributes['Res']
@@ -45,12 +56,12 @@ class FixtureDef
 
   class Group
     attr_accessor :byte, :name
+    extend Loader
 
     MSB = 0
     LSB = 1
 
-    def initialize(node)
-      return if node.empty?
+    def load(node)
       @name = node.content
       @byte = node.attributes['Byte'].to_i
     end
@@ -106,15 +117,19 @@ class FixtureDef
 
   class Channel
     attr_accessor :name, :group, :color, :capabilities
-    def initialize(node)
+    extend Loader
+
+    def initialize
       @capabilities = []
-      return if node.empty?
+    end
+
+    def load(node)
       @name = node.attributes['Name']
-      @group = Group.new(node.find_first('xmlns:Group', NS))
+      @group = Group.load(node.find_first('xmlns:Group', NS))
       n = node.find_first('xmlns:Colour', NS)
       @color = n.content unless n.nil?
       n = node.find('xmlns:Capability', NS)
-      @capabilities = n.map { |c| Capability.new(c) } unless n.empty?
+      @capabilities = n.map { |c| Capability.load(c) } unless n.empty?
     end
 
     RED = 'Red'
@@ -159,8 +174,9 @@ class FixtureDef
 
   class Bulb
     attr_accessor :lumens, :type, :color_temp
-    def initialize(node)
-      return if node.empty?
+    extend Loader
+
+    def load(node)
       @lumens = node.attributes['Lumens']
       @type = node.attributes['Type']
       @color_temp = node.attributes['ColourTemperature']
@@ -169,8 +185,9 @@ class FixtureDef
 
   class Dimensions
     attr_accessor :width, :height, :depth, :weight
-    def initialize(node)
-      return if node.empty?
+    extend Loader
+
+    def load(node)
       @width = node.attributes['Width'].to_i
       @height = node.attributes['Height'].to_i
       @depth = node.attributes['Depth'].to_i
@@ -180,8 +197,9 @@ class FixtureDef
 
   class Lens
     attr_accessor :degrees_min, :degrees_max, :name
-    def initialize(node)
-      return if node.empty?
+    extend Loader
+
+    def load(node)
       @degrees_min = node.attributes['DegreesMin'].to_f
       @degrees_max = node.attributes['DegreesMax'].to_f
       @name = node.attributes['Name']
@@ -190,8 +208,9 @@ class FixtureDef
 
   class Focus
     attr_accessor :pan_max, :tilt_max, :type
-    def initialize(node)
-      return if node.empty?
+    extend Loader
+
+    def load(node)
       @pan_max = node.attributes['PanMax'].to_i
       @tilt_max = node.attributes['TiltMax'].to_i
       @type = node.attributes['Type']
@@ -200,9 +219,9 @@ class FixtureDef
 
   class Technical
     attr_accessor :power_consumption, :dmx_connector
-    def initialize(node)
-      return if node.nil?
-      return if node.empty?
+    extend Loader
+
+    def load(node)
       @power_consumption = node.attributes['PowerConsumption']
       @dmx_connector = node.attributes['DmxConnector']
     end
@@ -210,20 +229,22 @@ class FixtureDef
 
   class Physical
     attr_accessor :bulb, :dimensions, :lens, :focus, :technical
-    def initialize(node)
-      return if node.empty?
-      @bulb = Bulb.new(node.find_first('xmlns:Bulb', NS))
-      @dimensions = Dimensions.new(node.find_first('xmlns:Dimensions', NS))
-      @lens = Lens.new(node.find_first('xmlns:Lens', NS))
-      @focus = Focus.new(node.find_first('xmlns:Focus', NS))
-      @technical = Technical.new(node.find_first('xmlns:Technical', NS))
+    extend Loader
+
+    def load(node)
+      @bulb = Bulb.load(node.find_first('xmlns:Bulb', NS))
+      @dimensions = Dimensions.load(node.find_first('xmlns:Dimensions', NS))
+      @lens = Lens.load(node.find_first('xmlns:Lens', NS))
+      @focus = Focus.load(node.find_first('xmlns:Focus', NS))
+      @technical = Technical.load(node.find_first('xmlns:Technical', NS))
     end
   end
 
   class ChannelRef
     attr_accessor :number, :name
-    def initialize(node)
-      return if node.empty?
+    extend Loader
+
+    def load(node)
       @name = node.content
       @number = node.attributes['Number'].to_i
     end
@@ -231,25 +252,32 @@ class FixtureDef
 
   class Head
     attr_accessor :channels, :index
-    def initialize(node)
+    extend Loader
+    def initialize
       @channels = []
-      return if node.empty?
+    end
+
+    def load(node)
       @channels = node.find('xmlns:Channel', NS).map { |c| c.content.to_i }
     end
   end
 
   class Mode
     attr_accessor :name, :physical, :channels, :heads
-    def initialize(node)
+    extend Loader
+
+    def initialize
       @channels = []
       @heads = []
-      return if node.empty?
+    end
+
+    def load(node)
       @name = node.attributes['Name']
-      @physical = Physical.new(node.find_first('xmlns:Physical', NS))
+      @physical = Physical.load(node.find_first('xmlns:Physical', NS))
       n = node.find('xmlns:Channel', NS)
-      @channels = n.map { |c| ChannelRef.new(c) } unless n.empty? 
+      @channels = n.map { |c| ChannelRef.load(c) } unless n.empty? 
       n = node.find('xmlns:Head', NS)
-      @heads = n.map { |h| Head.new(h) } unless n.empty?
+      @heads = n.map { |h| Head.load(h) } unless n.empty?
       @heads.each_with_index { |h, i| h.index = i + 1 }
     end
   end
@@ -260,7 +288,7 @@ class FixtureDef
     @channel = []
     @modes = []
 
-    load(path)
+    load_file(path)
   end
 
   COLOR_CHANGER = 'Color Changer'
@@ -314,7 +342,7 @@ class FixtureDef
     ',,,' => ''
   }
 
-  def load(path)
+  def load_file(path)
     qxf = File.read(path)
     if qxf.include?(OLD_NS_URI)
       qxf.gsub!(OLD_NS_URI, NS_URI)
@@ -352,12 +380,17 @@ class FixtureDef
     end
 
     @path = path
-    @manufacturer = @doc.find_first('/xmlns:FixtureDefinition/xmlns:Manufacturer', NS).content
-    @model = @doc.find_first('/xmlns:FixtureDefinition/xmlns:Model', NS).content
-    @type = @doc.find_first('/xmlns:FixtureDefinition/xmlns:Type', NS).content
-    @creator = Creator.new(@doc.find_first('/xmlns:FixtureDefinition/xmlns:Creator', NS))
-    @channels = @doc.find('/xmlns:FixtureDefinition/xmlns:Channel', NS).map { |c| Channel.new(c) }
-    @modes = @doc.find('/xmlns:FixtureDefinition/xmlns:Mode', NS).map { |m| Mode.new(m) }
+    node = @doc.find_first('/xmlns:FixtureDefinition', NS)
+    load(node)
+  end
+
+  def load(node)
+    @manufacturer = node.find_first('xmlns:Manufacturer', NS).content
+    @model = node.find_first('xmlns:Model', NS).content
+    @type = node.find_first('xmlns:Type', NS).content
+    @creator = Creator.load(node.find_first('xmlns:Creator', NS))
+    @channels = node.find('xmlns:Channel', NS).map { |c| Channel.load(c) }
+    @modes = node.find('xmlns:Mode', NS).map { |m| Mode.load(m) }
   end
 end
 
