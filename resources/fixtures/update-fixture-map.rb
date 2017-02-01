@@ -19,7 +19,7 @@ OLD_NS_URI = 'http://qlcplus.sourceforge.net/FixtureDefinition'
 
 NS = ['xmlns:' + NS_URI]
 
-module Loader
+module Load
   def load(node)
     result = new
     result.load(node) unless node.nil? || node.empty? 
@@ -27,10 +27,61 @@ module Loader
   end
 end
 
+module Store
+  #add a list of namespaces to the node
+  #the namespaces formal parameter is a hash
+  #with "prefix" and "prefix_uri" as
+  #key, value pairs
+  #prefix for the default namespace is "default"
+  def add_namespaces( node, namespaces )
+    #pass nil as the prefix to create a default node
+    default = namespaces.delete( "default" )
+    node.namespaces.namespace = LibXML::XML::Namespace.new( node, nil, default )
+    namespaces.each do |prefix, prefix_uri|
+      LibXML::XML::Namespace.new( node, prefix, prefix_uri )
+    end
+  end
+
+  #add a list of attributes to the node
+  #the attributes formal parameter is a hash
+  #with "name" and "value" as
+  #key, value pairs
+  def add_attributes( node, attributes )
+    attributes.each do |name, value|
+      LibXML::XML::Attr.new( node, name, value )
+    end
+  end
+
+  #create a node with name
+  #and a hash of namespaces or attributes
+  #passed to options
+  def create_node( name, options = {})
+    node = LibXML::XML::Node.new( name )
+
+    namespaces = options.delete( :namespaces )
+    add_namespaces( node, namespaces ) if namespaces
+
+    attributes = options.delete( :attributes )
+    add_attributes( node, attributes ) if attributes
+    node
+  end
+
+  def create_value_node(name, value, options = {})
+    n = create_node(name, options)
+    n << value
+    n
+  end
+
+  def f_to_s(f)
+    (f.to_i == f) ? f.to_i.to_s : f.to_s
+  end
+end
+
 class FixtureDef
   class Creator
     attr_accessor :name, :version, :author
-    extend Loader
+    extend Load
+    include Store
 
     def load(node)
       @name = node.find_first('xmlns:Name', NS).content
@@ -38,11 +89,20 @@ class FixtureDef
       @author = node.find_first('xmlns:Author', NS).content
     end
 
+    def store
+      n = create_node('Creator')
+      n << create_value_node('Name', @name)
+      n << create_value_node('Version', @version)
+      n << create_value_node('Author', @author)
+      n
+    end
+
   end
 
   class Capability
     attr_accessor :min, :max, :name, :res, :color, :color2
-    extend Loader
+    extend Load
+    include Store
 
     def load(node)
       @min = node.attributes['Min'].to_i
@@ -52,11 +112,23 @@ class FixtureDef
       @color2 = node.attributes['Color2']
       @name = node.content
     end
+
+    def store
+      attrs =  {
+        'Min' => @min.to_s,
+        'Max' => @max.to_s,
+      }
+      attrs['Res'] = @res.to_s unless @res.nil?
+      attrs['Color'] = @color unless @color.nil?
+      attrs['Color2'] = @color2 unless @color2.nil?
+      create_value_node('Capability', @name, attributes: attrs)
+    end
   end
 
   class Group
     attr_accessor :byte, :name
-    extend Loader
+    extend Load
+    include Store
 
     MSB = 0
     LSB = 1
@@ -64,6 +136,12 @@ class FixtureDef
     def load(node)
       @name = node.content
       @byte = node.attributes['Byte'].to_i
+    end
+
+    def store
+      create_value_node('Group', @name, attributes: {
+        'Byte' => @byte.to_s
+      })
     end
 
     PAN = 'Pan'
@@ -117,7 +195,8 @@ class FixtureDef
 
   class Channel
     attr_accessor :name, :group, :color, :capabilities
-    extend Loader
+    extend Load
+    include Store
 
     def initialize
       @capabilities = []
@@ -130,6 +209,14 @@ class FixtureDef
       @color = n.content unless n.nil?
       n = node.find('xmlns:Capability', NS)
       @capabilities = n.map { |c| Capability.load(c) } unless n.empty?
+    end
+
+    def store
+      n = create_node('Channel', attributes: { 'Name' => @name })
+      n << @group.store
+      n << create_value_node('Colour', @color) unless @color.nil?
+      @capabilities.each { |c| n << c.store }
+      n
     end
 
     RED = 'Red'
@@ -174,85 +261,153 @@ class FixtureDef
 
   class Bulb
     attr_accessor :lumens, :type, :color_temp
-    extend Loader
+    extend Load
+    include Store
 
     def load(node)
       @lumens = node.attributes['Lumens']
       @type = node.attributes['Type']
       @color_temp = node.attributes['ColourTemperature']
     end
+
+    def store
+      create_node('Bulb', attributes: {
+        'Type' => @type,
+        'Lumens' => @lumens.to_s,
+        'ColourTemperature' => @color_temp
+      })
+    end
+
   end
 
   class Dimensions
     attr_accessor :width, :height, :depth, :weight
-    extend Loader
+    extend Load
+    include Store
 
     def load(node)
+      @weight = node.attributes['Weight'].to_f
       @width = node.attributes['Width'].to_i
       @height = node.attributes['Height'].to_i
       @depth = node.attributes['Depth'].to_i
       @weight = node.attributes['Weight'].to_f
     end
+
+    def store
+      create_node('Dimensions', attributes: {
+        'Weight' => f_to_s(@weight),
+        'Width' => @width.to_s,
+        'Height' => @height.to_s,
+        'Depth' => @depth.to_s,
+      })
+    end
   end
 
   class Lens
     attr_accessor :degrees_min, :degrees_max, :name
-    extend Loader
+    extend Load
+    include Store
 
     def load(node)
+      @name = node.attributes['Name']
       @degrees_min = node.attributes['DegreesMin'].to_f
       @degrees_max = node.attributes['DegreesMax'].to_f
-      @name = node.attributes['Name']
+    end
+
+    def store
+      create_node('Lens', attributes: {
+        'Name' => @name,
+        'DegreesMin' => f_to_s(@degrees_min),
+        'DegreesMax' => f_to_s(degrees_max)
+      })
     end
   end
 
   class Focus
     attr_accessor :pan_max, :tilt_max, :type
-    extend Loader
+    extend Load
+    include Store
 
     def load(node)
+      @type = node.attributes['Type']
       @pan_max = node.attributes['PanMax'].to_i
       @tilt_max = node.attributes['TiltMax'].to_i
-      @type = node.attributes['Type']
+    end
+
+    def store
+      create_node('Focus', attributes: {
+        'Type' => @type,
+        'PanMax' => @pan_max.to_s,
+        'TiltMax' => @tilt_max.to_s
+      })
     end
   end
 
   class Technical
     attr_accessor :power_consumption, :dmx_connector
-    extend Loader
+    extend Load
+    include Store
 
     def load(node)
-      @power_consumption = node.attributes['PowerConsumption']
+      @power_consumption = node.attributes['PowerConsumption'].to_i
       @dmx_connector = node.attributes['DmxConnector']
+    end
+
+    def store
+      create_node('Technical', attributes: {
+        'PowerConsumption' => @power_consumption.to_s,
+        'DmxConnector' => @dmx_connector
+      })
     end
   end
 
   class Physical
     attr_accessor :bulb, :dimensions, :lens, :focus, :technical
-    extend Loader
+    extend Load
+    include Store
 
     def load(node)
       @bulb = Bulb.load(node.find_first('xmlns:Bulb', NS))
       @dimensions = Dimensions.load(node.find_first('xmlns:Dimensions', NS))
       @lens = Lens.load(node.find_first('xmlns:Lens', NS))
       @focus = Focus.load(node.find_first('xmlns:Focus', NS))
-      @technical = Technical.load(node.find_first('xmlns:Technical', NS))
+      n = node.find_first('xmlns:Technical', NS)
+      @technical = Technical.load(n) unless n.nil?
+    end
+
+    def store
+      n = create_node('Physical')
+      n << @bulb.store
+      n << @dimensions.store
+      n << @lens.store
+      n << @focus.store
+      n << @technical.store unless @technical.nil?
+      n
     end
   end
 
   class ChannelRef
     attr_accessor :number, :name
-    extend Loader
+    extend Load
+    include Store
 
     def load(node)
       @name = node.content
       @number = node.attributes['Number'].to_i
     end
+
+    def store
+      create_value_node('Channel', @name, attributes: {
+        'Number' => @number.to_s
+      })
+    end
   end
 
   class Head
     attr_accessor :channels, :index
-    extend Loader
+    extend Load
+    include Store
+
     def initialize
       @channels = []
     end
@@ -260,11 +415,18 @@ class FixtureDef
     def load(node)
       @channels = node.find('xmlns:Channel', NS).map { |c| c.content.to_i }
     end
+
+    def store
+      n = create_node('Head')
+      @channels.each { |c| n << create_value_node('Channel', c.to_s) }
+      n
+    end
   end
 
   class Mode
     attr_accessor :name, :physical, :channels, :heads
-    extend Loader
+    extend Load
+    include Store
 
     def initialize
       @channels = []
@@ -280,9 +442,20 @@ class FixtureDef
       @heads = n.map { |h| Head.load(h) } unless n.empty?
       @heads.each_with_index { |h, i| h.index = i + 1 }
     end
+
+    def store
+      n = create_node('Mode', attributes: {
+        'Name' => @name
+      })
+      n << @physical.store
+      @channels.each { |c| n << c.store }
+      @heads.each { |h| n << h.store }
+      n
+    end
   end
 
   attr_accessor :path, :manufacturer, :model, :type, :creator, :channels, :modes
+  include Store
 
   def initialize(path)
     @channel = []
@@ -382,15 +555,37 @@ class FixtureDef
     @path = path
     node = @doc.find_first('/xmlns:FixtureDefinition', NS)
     load(node)
+    
+    new_doc = LibXML::XML::Document.string(<<-EOF)
+<?xml version="1.0" encoding="UTF-8"?>\n
+<!DOCTYPE FixtureDefinition>\n
+<FixtureDefinition />
+EOF
+#    new_doc.root = store
+#    LibXML::XML.default_tree_indent_string = ' '
+#    qxf3 = new_doc.to_s(indent: true, encoding: LibXML::XML::Encoding::UTF_8)
+#    File.open(path, 'w') { |f| f.write(qxf3) } unless qxf2 == qxf3
+#    puts (qxf2 == qxf3 ? '= ' : '! ' ) + path
   end
 
   def load(node)
+    @creator = Creator.load(node.find_first('xmlns:Creator', NS))
     @manufacturer = node.find_first('xmlns:Manufacturer', NS).content
     @model = node.find_first('xmlns:Model', NS).content
     @type = node.find_first('xmlns:Type', NS).content
-    @creator = Creator.load(node.find_first('xmlns:Creator', NS))
     @channels = node.find('xmlns:Channel', NS).map { |c| Channel.load(c) }
     @modes = node.find('xmlns:Mode', NS).map { |m| Mode.load(m) }
+  end
+
+  def store
+    n = create_node('FixtureDefinition', namespaces: { 'default' => NS_URI })
+    n << @creator.store
+    n << create_value_node('Manufacturer', @manufacturer)
+    n << create_value_node('Model', @model)
+    n << create_value_node('Type', @type)
+    @channels.each { |c| n << c.store }
+    @modes.each { |m| n << m.store }
+    n
   end
 end
 
