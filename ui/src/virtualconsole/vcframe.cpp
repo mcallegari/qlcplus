@@ -357,9 +357,12 @@ void VCFrame::setMultipageMode(bool enable)
 
         m_pageLabel = new QComboBox(this);
         m_pageLabel->setMaximumWidth(100);
-        //m_pageLabel->setAlignment(Qt::AlignCenter);
-        m_pageLabel->setStyleSheet("QLabel { background-color: #000000; font-size: 15px; font-weight: bold;"
-                                   "color: red; border-radius: 3px; padding: 3px; margin-left: 2px; }");
+        m_pageLabel->setStyleSheet("QComboBox { background-color: #000000; font-size: 15px; font-weight: bold;"
+                                   "color: red; border-radius: 3px; padding: 6px 8px; margin-left: 2px; border: none;}"
+                                   "QComboBox::down-arrow { image: url(:/arrow_down_red.png); margin-right: 10px; }"
+                                   "QComboBox::drop-down { border: 0px; }"
+                                   "QComboBox QAbstractItemView { padding: 0; margin: 0; }"
+                                   "QComboBox::item:selected {background: black; color: red;}");
         m_hbox->addWidget(m_pageLabel);
 
         m_nextPageBtn = new QToolButton(this);
