@@ -818,7 +818,6 @@ QString WebAccess::getSliderHTML(VCSlider *slider)
             "class=\"vcslLabel\" style=\"top:0px;\">" +
             slider->topLabelText() + "</div>\n";
 
-    //TODO: Take into account slider's min and max values
     str +=  "<input type=\"range\" class=\"vVertical\" "
             "id=\"" + slID + "\" "
             "oninput=\"slVchange(" + slID + ");\" ontouchmove=\"slVchange(" + slID + ");\" "
@@ -829,11 +828,11 @@ QString WebAccess::getSliderHTML(VCSlider *slider)
 
     if (slider->sliderMode() == VCSlider::Level)
         str += "min=\"" + QString::number(slider->levelLowLimit()) + "\" max=\"" +
-                QString::number(slider->levelHighLimit()) + "\" step=\"1\" ";
+                QString::number(slider->levelHighLimit()) + "\" ";
     else
-        str += "min=\"0\" max=\"255\" step=\"1\" value=\"";
+        str += "min=\"0\" max=\"255\" ";
 
-    str += "value=\"" + QString::number(slider->sliderValue()) + "\">\n";
+    str += "step=\"1\" value=\"" + QString::number(slider->sliderValue()) + "\">\n";
 
     str += "<div id=\"sln" + slID + "\" "
             "class=\"vcslLabel\" style=\"bottom:0px;\">" +
