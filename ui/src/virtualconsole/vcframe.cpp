@@ -938,6 +938,9 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
     /* Widget commons */
     loadXMLCommon(root);
 
+    // Sorted list for new shortcuts
+    QList<VCFramePageShortcut> newShortcuts;
+
     /* Children */
     while (root.readNextStartElement())
     {
@@ -1013,10 +1016,10 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
         }
         else if (root.name() == KXMLQLCVCFrameMultipage)
         {
+            setMultipageMode(true);
             QXmlStreamAttributes attrs = root.attributes();
             if (attrs.hasAttribute(KXMLQLCVCFramePagesNumber))
                 setTotalPagesNumber(attrs.value(KXMLQLCVCFramePagesNumber).toString().toInt());
-            setMultipageMode(true);
 
             if(attrs.hasAttribute(KXMLQLCVCFrameCurrentPage))
                 slotSetPage(attrs.value(KXMLQLCVCFrameCurrentPage).toString().toInt());
@@ -1046,6 +1049,12 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
                 setPagesLoop(true);
             else
                 setPagesLoop(false);
+        }
+        else if (root.name() == KXMLQLCVCFramePageShortcut)
+        {
+            VCFramePageShortcut shortcut(0xff);
+            if (shortcut.loadXML(root))
+                newShortcuts.insert(qLowerBound(newShortcuts.begin(), newShortcuts.end(), shortcut), shortcut);
         }
         else if (root.name() == KXMLQLCVCFrame)
         {
@@ -1193,7 +1202,17 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
     }
 
     if (multipageMode() == true)
-        slotSetPage(0);
+    {
+        if (newShortcuts.count() == m_totalPagesNumber)
+        {
+            resetShortcuts();
+            foreach (VCFramePageShortcut const& shortcut, newShortcuts)
+                addShortcut(shortcut);
+            slotPageLabelChanged(0);
+        }
+        else
+            qWarning() << Q_FUNC_INFO << "Shortcut number does not match page number";
+    }
 
     if (disableState == true)
         setDisableState(true);
@@ -1298,6 +1317,10 @@ bool VCFrame::saveXML(QXmlStreamWriter *doc)
                 saveXMLInput(doc, prevSrc);
                 doc->writeEndElement();
             }
+
+            /* Page shortcuts */
+            foreach (VCFramePageShortcut *shortcut, shortcuts())
+                shortcut->saveXML(doc);
 
             /* Pages Loop */
             doc->writeTextElement(KXMLQLCVCFramePagesLoop, m_pagesLoop ? KXMLQLCTrue : KXMLQLCFalse);

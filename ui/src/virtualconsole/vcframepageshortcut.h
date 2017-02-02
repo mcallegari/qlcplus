@@ -26,9 +26,22 @@
 
 #include "qlcinputsource.h"
 
+class QXmlStreamReader;
+class QXmlStreamWriter;
+
 /** @addtogroup ui_vc_widgets
  * @{
  */
+
+#define KXMLQLCVCFramePageShortcut       "Shortcut"
+#define KXMLQLCVCFramePageShortcutID     "ID"
+#define KXMLQLCVCFramePageShortcutPage   "Page"
+
+#define KXMLQLCVCFramePageShortcutInput         "Input"
+#define KXMLQLCVCFramePageShortcutInputUniverse "Universe"
+#define KXMLQLCVCFramePageShortcutInputChannel  "Channel"
+
+#define KXMLQLCVCFramePageShortcutKey "Key"
 
 class VCFramePageShortcut
 {
@@ -42,6 +55,17 @@ public:
 public:
     bool operator<(VCFramePageShortcut const& right) const;
     static bool compare(VCFramePageShortcut const* left, VCFramePageShortcut const* right);
+    /************************************************************************
+     * Load & Save
+     ***********************************************************************/
+public:
+    /** Load properties and contents from an XML tree */
+    bool loadXML(QXmlStreamReader &root);
+
+    /** Save properties and contents to an XML document */
+    bool saveXML(QXmlStreamWriter *doc);
+
+public:
     /**
      *  Shortcut unique ID
      */

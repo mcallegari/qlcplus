@@ -18,7 +18,13 @@
   limitations under the License.
 */
 
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
+#include <QDebug>
+
 #include "vcframepageshortcut.h"
+#include "vcwidget.h"
+#include "qlcfile.h"
 
 VCFramePageShortcut::VCFramePageShortcut(int page)
     : m_id(page + 3)
@@ -51,4 +57,95 @@ bool VCFramePageShortcut::operator<(VCFramePageShortcut const& right) const
 bool VCFramePageShortcut::compare(VCFramePageShortcut const* left, VCFramePageShortcut const* right)
 {
     return *left < *right;
+}
+
+bool VCFramePageShortcut::loadXML(QXmlStreamReader &root)
+{
+    if (root.name() != KXMLQLCVCFramePageShortcut)
+    {
+        qWarning() << Q_FUNC_INFO << "Frame page shortcut node not found";
+        return false;
+    }
+
+    if (root.attributes().hasAttribute(KXMLQLCVCFramePageShortcutID) == false)
+    {
+        qWarning() << Q_FUNC_INFO << "Frame page shortcut ID not found";
+        return false;
+    }
+
+    if (root.attributes().hasAttribute(KXMLQLCVCFramePageShortcutPage) == false)
+    {
+        qWarning() << Q_FUNC_INFO << "Frame page shortcut page not found";
+        return false;
+    }
+
+    m_page = root.attributes().value(KXMLQLCVCFramePageShortcutPage).toString().toInt();
+    m_id = root.attributes().value(KXMLQLCVCFramePageShortcutID).toString().toUInt();
+
+    /* Children */
+    while (root.readNextStartElement())
+    {
+        if (root.name() == KXMLQLCVCFramePageShortcutInput)
+        {
+            QXmlStreamAttributes attrs = root.attributes();
+
+            if (attrs.hasAttribute(KXMLQLCVCFramePageShortcutInputUniverse) &&
+                attrs.hasAttribute(KXMLQLCVCFramePageShortcutInputChannel))
+            {
+                quint32 uni = attrs.value(KXMLQLCVCFramePageShortcutInputUniverse).toString().toUInt();
+                quint32 ch = attrs.value(KXMLQLCVCFramePageShortcutInputChannel).toString().toUInt();
+                m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch));
+
+                uchar min = 0, max = UCHAR_MAX;
+                if (attrs.hasAttribute(KXMLQLCVCWidgetInputLowerValue))
+                    min = uchar(attrs.value(KXMLQLCVCWidgetInputLowerValue).toString().toUInt());
+                if (attrs.hasAttribute(KXMLQLCVCWidgetInputUpperValue))
+                    max = uchar(attrs.value(KXMLQLCVCWidgetInputUpperValue).toString().toUInt());
+                m_inputSource->setRange(min, max);
+            }
+            root.skipCurrentElement();
+        }
+        else if (root.name() == KXMLQLCVCFramePageShortcutKey)
+        {
+            m_keySequence = VCWidget::stripKeySequence(QKeySequence(root.readElementText()));
+        }
+        else
+        {
+            qWarning() << Q_FUNC_INFO << "Unknown VCFramePageShortcut tag:" << root.name().toString();
+            root.skipCurrentElement();
+        }
+    }
+
+    return true;
+}
+
+bool VCFramePageShortcut::saveXML(QXmlStreamWriter *doc)
+{
+    Q_ASSERT(doc != NULL);
+
+    doc->writeStartElement(KXMLQLCVCFramePageShortcut);
+    doc->writeAttribute(KXMLQLCVCFramePageShortcutPage, QString::number(m_page));
+    doc->writeAttribute(KXMLQLCVCFramePageShortcutID, QString::number(m_id));
+
+    /* External input source */
+    if (!m_inputSource.isNull() && m_inputSource->isValid())
+    {
+        doc->writeStartElement(KXMLQLCVCFramePageShortcutInput);
+        doc->writeAttribute(KXMLQLCVCFramePageShortcutInputUniverse, QString("%1").arg(m_inputSource->universe()));
+        doc->writeAttribute(KXMLQLCVCFramePageShortcutInputChannel, QString("%1").arg(m_inputSource->channel()));
+        if (m_inputSource->lowerValue() != 0)
+            doc->writeAttribute(KXMLQLCVCWidgetInputLowerValue, QString::number(m_inputSource->lowerValue()));
+        if (m_inputSource->upperValue() != UCHAR_MAX)
+            doc->writeAttribute(KXMLQLCVCWidgetInputUpperValue, QString::number(m_inputSource->upperValue()));
+        doc->writeEndElement();
+    }
+
+    /* Key sequence */
+    if (m_keySequence.isEmpty() == false)
+        doc->writeTextElement(KXMLQLCVCFramePageShortcutKey, m_keySequence.toString());
+
+    /* End the <Preset> tag */
+    doc->writeEndElement();
+
+    return true;
 }
