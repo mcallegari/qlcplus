@@ -796,11 +796,10 @@ QString WebAccess::getButtonHTML(VCButton *btn)
 void WebAccess::slotSliderValueChanged(QString val)
 {
     VCSlider *slider = (VCSlider *)sender();
-    int sliderVal = slider->sliderValue();
 
     // <ID>|SLIDER|<SLIDER VALUE>|<DISPLAY VALUE>
-    QString wsMessage = QString("%1|SLIDER|%2|%3").arg(slider->id()).arg(sliderVal).arg(val);
-    
+    QString wsMessage = QString("%1|SLIDER|%2|%3").arg(slider->id()).arg(slider->sliderValue()).arg(val);
+
     sendWebSocketMessage(wsMessage.toUtf8());
 }
 
@@ -826,9 +825,15 @@ QString WebAccess::getSliderHTML(VCSlider *slider)
             "style=\""
             "width: " + QString::number(slider->height() - 50) + "px; "
             "margin-top: " + QString::number(slider->height() - 50) + "px; "
-            "margin-left: " + QString::number(slider->width() / 2) + "px;\" "
-            "min=\"0\" max=\"255\" step=\"1\" value=\"" +
-            QString::number(slider->sliderValue()) + "\">\n";
+            "margin-left: " + QString::number(slider->width() / 2) + "px;\" ";
+
+    if (slider->sliderMode() == VCSlider::Level)
+        str += "min=\"" + QString::number(slider->levelLowLimit()) + "\" max=\"" +
+                QString::number(slider->levelHighLimit()) + "\" step=\"1\" ";
+    else
+        str += "min=\"0\" max=\"255\" step=\"1\" value=\"";
+
+    str += "value=\"" + QString::number(slider->sliderValue()) + "\">\n";
 
     str += "<div id=\"sln" + slID + "\" "
             "class=\"vcslLabel\" style=\"bottom:0px;\">" +
