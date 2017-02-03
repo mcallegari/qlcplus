@@ -11,74 +11,74 @@
  <Type>Laser</Type>
  <Channel Name="Mode">
   <Group Byte="0">Effect</Group>
-  <Capability Max="69" Min="0">Laser off</Capability>
-  <Capability Max="139" Min="70">Sound mode</Capability>
-  <Capability Max="209" Min="140">Automatic mode</Capability>
-  <Capability Max="255" Min="210">DMX mode</Capability>
+  <Capability Min="0" Max="69">Laser off</Capability>
+  <Capability Min="70" Max="139">Sound mode</Capability>
+  <Capability Min="140" Max="209">Automatic mode</Capability>
+  <Capability Min="210" Max="255">DMX mode</Capability>
  </Channel>
  <Channel Name="Patterns/Animations">
   <Group Byte="0">Effect</Group>
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Max="255" Min="0">With increasing speed</Capability>
+  <Capability Min="0" Max="255">With increasing speed</Capability>
  </Channel>
  <Channel Name="Point Speed">
   <Group Byte="0">Effect</Group>
  </Channel>
  <Channel Name="Movement X">
   <Group Byte="0">Effect</Group>
-  <Capability Max="160" Min="0">Manual</Capability>
-  <Capability Max="189" Min="161">Auto right to left</Capability>
-  <Capability Max="219" Min="190">Auto left to right</Capability>
-  <Capability Max="255" Min="220">Auto changing</Capability>
+  <Capability Min="0" Max="160">Manual</Capability>
+  <Capability Min="161" Max="189">Auto right to left</Capability>
+  <Capability Min="190" Max="219">Auto left to right</Capability>
+  <Capability Min="220" Max="255">Auto changing</Capability>
  </Channel>
  <Channel Name="Movement Y">
   <Group Byte="0">Effect</Group>
-  <Capability Max="160" Min="0">Manual</Capability>
-  <Capability Max="189" Min="161">Auto top to bottom</Capability>
-  <Capability Max="219" Min="190">Auto bottom to top</Capability>
-  <Capability Max="255" Min="220">Auto changing</Capability>
+  <Capability Min="0" Max="160">Manual</Capability>
+  <Capability Min="161" Max="189">Auto top to bottom</Capability>
+  <Capability Min="190" Max="219">Auto bottom to top</Capability>
+  <Capability Min="220" Max="255">Auto changing</Capability>
  </Channel>
  <Channel Name="Zoom">
   <Group Byte="0">Effect</Group>
-  <Capability Max="10" Min="0">No effect</Capability>
-  <Capability Max="92" Min="11">Increasing size</Capability>
-  <Capability Max="146" Min="93">Automatic small to large</Capability>
-  <Capability Max="200" Min="147">Automatic large to small</Capability>
-  <Capability Max="255" Min="201">Automatic small to large to small...</Capability>
+  <Capability Min="0" Max="10">No effect</Capability>
+  <Capability Min="11" Max="92">Increasing size</Capability>
+  <Capability Min="93" Max="146">Automatic small to large</Capability>
+  <Capability Min="147" Max="200">Automatic large to small</Capability>
+  <Capability Min="201" Max="255">Automatic small to large to small...</Capability>
  </Channel>
  <Channel Name="No Function">
   <Group Byte="0">Nothing</Group>
  </Channel>
  <Channel Name="Reset">
   <Group Byte="0">Maintenance</Group>
-  <Capability Max="199" Min="0">no function</Capability>
-  <Capability Max="255" Min="200">Reset over 200</Capability>
+  <Capability Min="0" Max="199">no function</Capability>
+  <Capability Min="200" Max="255">Reset over 200</Capability>
  </Channel>
  <Channel Name="Rotation Y (Height)">
   <Group Byte="0">Effect</Group>
-  <Capability Max="150" Min="0">manual</Capability>
-  <Capability Max="255" Min="151">auto</Capability>
+  <Capability Min="0" Max="150">manual</Capability>
+  <Capability Min="151" Max="255">auto</Capability>
  </Channel>
  <Channel Name="Rotation Z">
   <Group Byte="0">Effect</Group>
-  <Capability Max="180" Min="0">manual</Capability>
-  <Capability Max="217" Min="181">auto CW</Capability>
-  <Capability Max="255" Min="218">auto CCW</Capability>
+  <Capability Min="0" Max="180">manual</Capability>
+  <Capability Min="181" Max="217">auto CW</Capability>
+  <Capability Min="218" Max="255">auto CCW</Capability>
  </Channel>
  <Channel Name="Rotation X (Width)">
   <Group Byte="0">Effect</Group>
-  <Capability Max="150" Min="0">Static rotation</Capability>
-  <Capability Max="255" Min="151">Automatic rotation</Capability>
+  <Capability Min="0" Max="150">Static rotation</Capability>
+  <Capability Min="151" Max="255">Automatic rotation</Capability>
  </Channel>
  <Mode Name="std">
   <Physical>
-   <Bulb Type="Laser" ColourTemperature="0" Lumens="0"/>
+   <Bulb Type="Laser" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="4.5" Width="270" Height="160" Depth="230"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="40"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Mode</Channel>
   <Channel Number="1">Patterns/Animations</Channel>

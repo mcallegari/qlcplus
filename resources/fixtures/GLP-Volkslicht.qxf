@@ -221,10 +221,10 @@
  </Channel>
  <Mode Name="Normal">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="285" Height="356" Weight="7.8" Depth="242"/>
-   <Lens DegreesMax="10" Name="Other" DegreesMin="10"/>
-   <Focus PanMax="660" Type="Head" TiltMax="300"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="7.8" Width="285" Height="356" Depth="242"/>
+   <Lens Name="Other" DegreesMin="10" DegreesMax="10"/>
+   <Focus Type="Head" PanMax="660" TiltMax="300"/>
    <Technical PowerConsumption="180" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan coarse</Channel>

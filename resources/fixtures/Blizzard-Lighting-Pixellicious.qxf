@@ -11,180 +11,180 @@
  <Type>Color Changer</Type>
  <Channel Name="Dimmer">
   <Group Byte="0">Intensity</Group>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
+  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Max="255" Min="0">Slow &lt;--&gt; fast</Capability>
+  <Capability Min="0" Max="255">Slow &lt;--&gt; fast</Capability>
  </Channel>
  <Channel Name="Red Intensity">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="255" Min="0" Color="#ff0000">0% &lt;--&gt; 100%</Capability>
+  <Capability Min="0" Max="255" Color="#ff0000">0% &lt;--&gt; 100%</Capability>
  </Channel>
  <Channel Name="Green Intensity">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="255" Min="0" Color="#00ff00">0% &lt;--&gt; 100%</Capability>
+  <Capability Min="0" Max="255" Color="#00ff00">0% &lt;--&gt; 100%</Capability>
  </Channel>
  <Channel Name="Blue Intensity">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="255" Min="0" Color="#0000ff">0% &lt;--&gt; 100%</Capability>
+  <Capability Min="0" Max="255" Color="#0000ff">0% &lt;--&gt; 100%</Capability>
  </Channel>
  <Channel Name="Auto Programs 1-15">
   <Group Byte="0">Effect</Group>
-  <Capability Max="255" Min="0">1-15</Capability>
+  <Capability Min="0" Max="255">1-15</Capability>
  </Channel>
  <Channel Name="Auto Programs 16-29 + Mix Mode">
   <Group Byte="0">Effect</Group>
-  <Capability Max="255" Min="0">16-29 + mix mode</Capability>
+  <Capability Min="0" Max="255">16-29 + mix mode</Capability>
  </Channel>
  <Channel Name="Auto Program Speed">
   <Group Byte="0">Speed</Group>
-  <Capability Max="255" Min="0">Slow &lt;--&gt; fast</Capability>
+  <Capability Min="0" Max="255">Slow &lt;--&gt; fast</Capability>
  </Channel>
  <Channel Name="Section 1 Red Intensity">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
+  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
  </Channel>
  <Channel Name="Section 2 Red Intensity">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
+  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
  </Channel>
  <Channel Name="Section 3 Red Intensity">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
+  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
  </Channel>
  <Channel Name="Section 4 Red Intensity">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
+  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
  </Channel>
  <Channel Name="Section 5 Red Intensity">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
+  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
  </Channel>
  <Channel Name="Section 6 Red Intensity">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
+  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
  </Channel>
  <Channel Name="Section 7 Red Intensity">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
+  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
  </Channel>
  <Channel Name="Section 8 Red Intensity">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
+  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
  </Channel>
  <Channel Name="Section 9 Red Intensity">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
+  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
  </Channel>
  <Channel Name="Section 1 Green Intensity">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
+  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
  </Channel>
  <Channel Name="Section 2 Green Intensity">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
+  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
  </Channel>
  <Channel Name="Section 3 Green Intensity">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
+  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
  </Channel>
  <Channel Name="Section 4 Green Intensity">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
+  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
  </Channel>
  <Channel Name="Section 5 Green Intensity">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
+  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
  </Channel>
  <Channel Name="Section 6 Green Intensity">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
+  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
  </Channel>
  <Channel Name="Section 7 Green Intensity">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
+  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
  </Channel>
  <Channel Name="Section 8 Green Intensity">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
+  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
  </Channel>
  <Channel Name="Section 9 Green Intensity">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
+  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
  </Channel>
  <Channel Name="Section 1 Blue Intensity">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
+  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
  </Channel>
  <Channel Name="Section 2 Blue Intensity">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
+  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
  </Channel>
  <Channel Name="Section 3 Blue Intensity">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
+  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
  </Channel>
  <Channel Name="Section 4 Blue Intensity">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
+  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
  </Channel>
  <Channel Name="Section 5 Blue Intensity">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
+  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
  </Channel>
  <Channel Name="Section 6 Blue Intensity">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
+  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
  </Channel>
  <Channel Name="Section 7 Blue Intensity">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
+  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
  </Channel>
  <Channel Name="Section 8 Blue Intensity">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
+  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
  </Channel>
  <Channel Name="Section 9 Blue Intensity">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
+  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
  </Channel>
  <Mode Name="35 Channel Mode">
   <Physical>
-   <Bulb Lumens="2160" Type="160 LEDs 5050" ColourTemperature="5500"/>
-   <Dimensions Height="117" Weight="3.5" Width="1000" Depth="107"/>
+   <Bulb Type="160 LEDs 5050" Lumens="2160" ColourTemperature="5500"/>
+   <Dimensions Weight="3.5" Width="1000" Height="117" Depth="107"/>
    <Lens Name="Other" DegreesMin="120" DegreesMax="120"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="51" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
@@ -272,10 +272,10 @@
  </Mode>
  <Mode Name="8 Channel Mode">
   <Physical>
-   <Bulb Lumens="2160" Type="160 LEDs 5050" ColourTemperature="5500"/>
-   <Dimensions Height="117" Weight="3.5" Width="1000" Depth="107"/>
+   <Bulb Type="160 LEDs 5050" Lumens="2160" ColourTemperature="5500"/>
+   <Dimensions Weight="3.5" Width="1000" Height="117" Depth="107"/>
    <Lens Name="Other" DegreesMin="120" DegreesMax="120"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="51" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>

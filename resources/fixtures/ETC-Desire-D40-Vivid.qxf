@@ -88,10 +88,10 @@
  </Channel>
  <Mode Name="Mode 1 Direct">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="3200"/>
-   <Dimensions Width="270" Height="338" Weight="6.8" Depth="305"/>
-   <Lens DegreesMax="0" Name="Fresnel" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="3200"/>
+   <Dimensions Weight="6.8" Width="270" Height="338" Depth="305"/>
+   <Lens Name="Fresnel" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="115" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">1 RED</Channel>
@@ -106,10 +106,10 @@
  </Mode>
  <Mode Name="Mode 2 Stage">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="3200"/>
-   <Dimensions Width="270" Height="338" Weight="6.8" Depth="305"/>
-   <Lens DegreesMax="0" Name="Fresnel" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="3200"/>
+   <Dimensions Weight="6.8" Width="270" Height="338" Depth="305"/>
+   <Lens Name="Fresnel" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="115" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Hue (coarse)</Channel>
@@ -129,10 +129,10 @@
  </Mode>
  <Mode Name="Mode 3 XT Arch">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="3200"/>
-   <Dimensions Width="270" Height="338" Weight="6.8" Depth="305"/>
-   <Lens DegreesMax="0" Name="Fresnel" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="3200"/>
+   <Dimensions Weight="6.8" Width="270" Height="338" Depth="305"/>
+   <Lens Name="Fresnel" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="115" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">8 Intensity</Channel>
@@ -143,10 +143,10 @@
  </Mode>
  <Mode Name="Mode 4 RGB">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="3200"/>
-   <Dimensions Width="270" Height="338" Weight="6.8" Depth="305"/>
-   <Lens DegreesMax="0" Name="Fresnel" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="3200"/>
+   <Dimensions Weight="6.8" Width="270" Height="338" Depth="305"/>
+   <Lens Name="Fresnel" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="115" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">1 RED</Channel>
@@ -157,10 +157,10 @@
  </Mode>
  <Mode Name="Mode 5 Studio">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="3200"/>
-   <Dimensions Width="270" Height="338" Weight="6.8" Depth="305"/>
-   <Lens DegreesMax="0" Name="Fresnel" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="3200"/>
+   <Dimensions Weight="6.8" Width="270" Height="338" Depth="305"/>
+   <Lens Name="Fresnel" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="115" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">8 Intensity</Channel>

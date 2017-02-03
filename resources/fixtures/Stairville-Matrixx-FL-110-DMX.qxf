@@ -48,10 +48,10 @@
  </Channel>
  <Mode Name="3 channel">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="196" Height="139" Weight="2" Depth="225"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2" Width="196" Height="139" Depth="225"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="12" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pattern/Macro</Channel>

@@ -56,11 +56,11 @@
  </Channel>
  <Mode Name="Option Stnd">
   <Physical>
-   <Bulb ColourTemperature="6500" Type="HTI 300W" Lumens="22000"/>
-   <Dimensions Height="225" Width="434" Weight="22.4" Depth="1229"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name=""/>
-   <Focus Type="Head" TiltMax="252" PanMax="360"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="300"/>
+   <Bulb Type="HTI 300W" Lumens="22000" ColourTemperature="6500"/>
+   <Dimensions Weight="22.4" Width="434" Height="225" Depth="1229"/>
+   <Lens Name="" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="360" TiltMax="252"/>
+   <Technical PowerConsumption="300" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Cyan</Channel>
   <Channel Number="1">Magenta</Channel>
@@ -73,11 +73,11 @@
  </Mode>
  <Mode Name="Option 16 b">
   <Physical>
-   <Bulb ColourTemperature="6500" Type="HTI 300W" Lumens="22000"/>
-   <Dimensions Height="225" Width="434" Weight="22.4" Depth="1229"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name=""/>
-   <Focus Type="Head" TiltMax="252" PanMax="360"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="300"/>
+   <Bulb Type="HTI 300W" Lumens="22000" ColourTemperature="6500"/>
+   <Dimensions Weight="22.4" Width="434" Height="225" Depth="1229"/>
+   <Lens Name="" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="360" TiltMax="252"/>
+   <Technical PowerConsumption="300" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Cyan</Channel>
   <Channel Number="1">Magenta</Channel>
@@ -92,11 +92,11 @@
  </Mode>
  <Mode Name=" Option Extn">
   <Physical>
-   <Bulb ColourTemperature="6500" Type="HTI 300W" Lumens="22000"/>
-   <Dimensions Height="225" Width="434" Weight="22.4" Depth="1229"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name=""/>
-   <Focus Type="Head" TiltMax="252" PanMax="360"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="300"/>
+   <Bulb Type="HTI 300W" Lumens="22000" ColourTemperature="6500"/>
+   <Dimensions Weight="22.4" Width="434" Height="225" Depth="1229"/>
+   <Lens Name="" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="360" TiltMax="252"/>
+   <Technical PowerConsumption="300" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Cyan</Channel>
   <Channel Number="1">Magenta</Channel>

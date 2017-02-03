@@ -32,25 +32,25 @@
  </Channel>
  <Channel Name="Color + Gobo">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Res="Others/open.png" Max="7">Open</Capability>
-  <Capability Min="8" Color="#ffff00" Max="14">Gobo 1 yellow</Capability>
-  <Capability Min="15" Color="#ff0000" Max="21">Gobo 2 red</Capability>
-  <Capability Min="22" Color="#00ff00" Max="28">Gobo 3 green</Capability>
-  <Capability Min="29" Color="#0000ff" Max="35">Gobo 4 blue</Capability>
-  <Capability Min="36" Res="Others/rainbow.png" Max="42">Gobo 5 RGB</Capability>
-  <Capability Min="43" Color="#800080" Max="49">Gobo 6 UV</Capability>
-  <Capability Min="50" Color="#66ffff" Max="56">Gobo 7 light blue</Capability>
-  <Capability Min="57" Color2="#66ffff" Color="#800080" Max="63">Gobo 8 UV &amp; light blue</Capability>
-  <Capability Min="64" Res="Others/open.png" Max="71">Open Shake</Capability>
-  <Capability Min="72" Color="#ffff00" Max="78">Gobo 1 yellow shake</Capability>
-  <Capability Min="79" Color="#ff0000" Max="85">Gobo 2 red shake</Capability>
-  <Capability Min="86" Color="#00ff00" Max="92">Gobo 3 green shake</Capability>
-  <Capability Min="93" Color="#0000ff" Max="99">Gobo 4 blue shake</Capability>
-  <Capability Min="100" Res="Others/rainbow.png" Max="106">Gobo 5 RGB shake</Capability>
-  <Capability Min="107" Color="#8000ff" Max="113">Gobo 6 UV shake</Capability>
-  <Capability Min="114" Color="#00ffff" Max="120">Gobo 7 light blue shake</Capability>
-  <Capability Min="121" Color2="#66ffff" Color="#800080" Max="127">Gobo 8 UV &amp; light blue shake</Capability>
-  <Capability Min="128" Res="Others/rainbow.png" Max="255">Gobo wheel rotation slow - fast</Capability>
+  <Capability Min="0" Max="7" Res="Others/open.png">Open</Capability>
+  <Capability Min="8" Max="14" Color="#ffff00">Gobo 1 yellow</Capability>
+  <Capability Min="15" Max="21" Color="#ff0000">Gobo 2 red</Capability>
+  <Capability Min="22" Max="28" Color="#00ff00">Gobo 3 green</Capability>
+  <Capability Min="29" Max="35" Color="#0000ff">Gobo 4 blue</Capability>
+  <Capability Min="36" Max="42" Res="Others/rainbow.png">Gobo 5 RGB</Capability>
+  <Capability Min="43" Max="49" Color="#800080">Gobo 6 UV</Capability>
+  <Capability Min="50" Max="56" Color="#66ffff">Gobo 7 light blue</Capability>
+  <Capability Min="57" Max="63" Color="#800080" Color2="#66ffff">Gobo 8 UV &amp; light blue</Capability>
+  <Capability Min="64" Max="71" Res="Others/open.png">Open Shake</Capability>
+  <Capability Min="72" Max="78" Color="#ffff00">Gobo 1 yellow shake</Capability>
+  <Capability Min="79" Max="85" Color="#ff0000">Gobo 2 red shake</Capability>
+  <Capability Min="86" Max="92" Color="#00ff00">Gobo 3 green shake</Capability>
+  <Capability Min="93" Max="99" Color="#0000ff">Gobo 4 blue shake</Capability>
+  <Capability Min="100" Max="106" Res="Others/rainbow.png">Gobo 5 RGB shake</Capability>
+  <Capability Min="107" Max="113" Color="#8000ff">Gobo 6 UV shake</Capability>
+  <Capability Min="114" Max="120" Color="#00ffff">Gobo 7 light blue shake</Capability>
+  <Capability Min="121" Max="127" Color="#800080" Color2="#66ffff">Gobo 8 UV &amp; light blue shake</Capability>
+  <Capability Min="128" Max="255" Res="Others/rainbow.png">Gobo wheel rotation slow - fast</Capability>
  </Channel>
  <Channel Name="Master Dimmer">
   <Group Byte="0">Intensity</Group>
@@ -68,9 +68,9 @@
  <Mode Name="6 Channel Mode">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Depth="294" Weight="2.4" Width="132" Height="165"/>
-   <Lens DegreesMax="13" Name="Other" DegreesMin="13"/>
-   <Focus Type="Fixed" TiltMax="90" PanMax="180"/>
+   <Dimensions Weight="2.4" Width="132" Height="165" Depth="294"/>
+   <Lens Name="Other" DegreesMin="13" DegreesMax="13"/>
+   <Focus Type="Fixed" PanMax="180" TiltMax="90"/>
    <Technical PowerConsumption="36" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

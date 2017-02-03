@@ -41,10 +41,10 @@
  </Channel>
  <Mode Name="All">
   <Physical>
-   <Bulb Lumens="930" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="132" Height="249" Weight="2" Depth="236"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="930" ColourTemperature="0"/>
+   <Dimensions Weight="2" Width="132" Height="249" Depth="236"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="19" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Function</Channel>

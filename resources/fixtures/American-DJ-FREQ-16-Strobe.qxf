@@ -108,10 +108,10 @@
  </Channel>
  <Mode Name="18 Channels">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1025" Height="65" Weight="3.6" Depth="88"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="3.6" Width="1025" Height="65" Depth="88"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="30" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer 1</Channel>

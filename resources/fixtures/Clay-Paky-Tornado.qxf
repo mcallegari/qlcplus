@@ -48,10 +48,10 @@
  <Mode Name="Standard">
   <Physical>
    <Bulb Type="HMI 575W" Lumens="49000" ColourTemperature="6000"/>
-   <Dimensions Weight="35" Width="1000" Depth="500" Height="1000"/>
+   <Dimensions Weight="35" Width="1000" Height="1000" Depth="500"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Mirror" TiltMax="110" PanMax="150"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="1500"/>
+   <Focus Type="Mirror" PanMax="150" TiltMax="110"/>
+   <Technical PowerConsumption="1500" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Color Wheel</Channel>
   <Channel Number="1">Dimmer &amp; Strobe</Channel>

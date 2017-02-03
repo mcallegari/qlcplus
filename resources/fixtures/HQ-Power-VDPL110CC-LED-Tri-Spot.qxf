@@ -52,9 +52,9 @@
  <Mode Name="7-Channels">
   <Physical>
    <Bulb Type="10W LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Height="100" Weight="1" Width="100" Depth="260"/>
-   <Lens DegreesMax="0" DegreesMin="0" Name="Other"/>
-   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
+   <Dimensions Weight="1" Width="100" Height="100" Depth="260"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="11" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red Dimmer</Channel>

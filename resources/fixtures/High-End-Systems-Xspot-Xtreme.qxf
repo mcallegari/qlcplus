@@ -386,11 +386,11 @@ Reserved</Capability>
  </Channel>
  <Mode Name="38 Channels">
   <Physical>
-   <Bulb Lumens="16000" Type="MSR 700W" ColourTemperature="5500"/>
+   <Bulb Type="MSR 700W" Lumens="16000" ColourTemperature="5500"/>
    <Dimensions Weight="32" Width="523" Height="825" Depth="521"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus TiltMax="240" Type="Fixed" PanMax="630"/>
-   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="1200"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="630" TiltMax="240"/>
+   <Technical PowerConsumption="1200" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan Coarse</Channel>
   <Channel Number="1">Pan Fine</Channel>

@@ -110,11 +110,11 @@
  </Channel>
  <Mode Name="Stage 1">
   <Physical>
-   <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
-   <Dimensions Width="240" Height="210" Depth="160" Weight="2.5"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.5" Width="240" Height="210" Depth="160"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="35"/>
+   <Technical PowerConsumption="35" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Red</Channel>
@@ -128,11 +128,11 @@
  </Mode>
  <Mode Name="ARC 1">
   <Physical>
-   <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
-   <Dimensions Width="240" Height="210" Depth="160" Weight="2.5"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.5" Width="240" Height="210" Depth="160"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="35"/>
+   <Technical PowerConsumption="35" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
@@ -140,11 +140,11 @@
  </Mode>
  <Mode Name="ARC 1+D">
   <Physical>
-   <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
-   <Dimensions Width="240" Height="210" Depth="160" Weight="2.5"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.5" Width="240" Height="210" Depth="160"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="35"/>
+   <Technical PowerConsumption="35" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Red</Channel>

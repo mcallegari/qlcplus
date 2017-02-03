@@ -186,11 +186,11 @@
  </Channel>
  <Mode Name="Standard 5 Channels (CT 7 Preset)">
   <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
-   <Dimensions Height="380" Width="603" Weight="10" Depth="495"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name=""/>
-   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="200"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="10" Width="603" Height="380" Depth="495"/>
+   <Lens Name="" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="200" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">CT Preset</Channel>
@@ -200,11 +200,11 @@
  </Mode>
  <Mode Name="Matrix 20 Channels (CT 7 Preset)">
   <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
-   <Dimensions Height="380" Width="603" Weight="10" Depth="495"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name=""/>
-   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="200"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="10" Width="603" Height="380" Depth="495"/>
+   <Lens Name="" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="200" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Dimmer 1</Channel>
   <Channel Number="1">CT Preset 1</Channel>
@@ -257,11 +257,11 @@
  </Mode>
  <Mode Name="Extended 21 Channels (CT 7 Preset)">
   <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
-   <Dimensions Height="380" Width="603" Weight="10" Depth="495"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name=""/>
-   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="200"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="10" Width="603" Height="380" Depth="495"/>
+   <Lens Name="" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="200" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Dimmer 1</Channel>
@@ -315,11 +315,11 @@
  </Mode>
  <Mode Name="Standard 5 Channels (CT Linear)">
   <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
-   <Dimensions Height="380" Width="603" Weight="10" Depth="495"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name=""/>
-   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="200"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="10" Width="603" Height="380" Depth="495"/>
+   <Lens Name="" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="200" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">CT Linear</Channel>
@@ -329,11 +329,11 @@
  </Mode>
  <Mode Name="Matrix 20 Channels (CT Linear)">
   <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
-   <Dimensions Height="380" Width="603" Weight="10" Depth="495"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name=""/>
-   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="200"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="10" Width="603" Height="380" Depth="495"/>
+   <Lens Name="" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="200" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Dimmer 1</Channel>
   <Channel Number="1">CT Linear 1</Channel>
@@ -386,11 +386,11 @@
  </Mode>
  <Mode Name="Extended 21 Channels (CT Linear)">
   <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
-   <Dimensions Height="380" Width="603" Weight="10" Depth="495"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name=""/>
-   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="200"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="10" Width="603" Height="380" Depth="495"/>
+   <Lens Name="" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="200" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Dimmer 1</Channel>

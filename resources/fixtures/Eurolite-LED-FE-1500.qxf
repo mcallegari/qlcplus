@@ -11,7 +11,7 @@
  <Type>Flower</Type>
  <Channel Name="Operating mode">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Color="#000000" Max="9">Blackout (all light beams off)</Capability>
+  <Capability Min="0" Max="9" Color="#000000">Blackout (all light beams off)</Capability>
   <Capability Min="10" Max="24">Aut0: Laser + RGBWA LEDs + white LEDs</Capability>
   <Capability Min="25" Max="39">Aut1: Laser + RGBWA LEDs</Capability>
   <Capability Min="40" Max="54">Aut2: Laser + white LEDs</Capability>
@@ -30,38 +30,38 @@
  </Channel>
  <Channel Name="RGBWA LEDs">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Color="#000000" Max="9">Blackout (all light beams off)</Capability>
-  <Capability Min="10" Color="#ff0000" Max="14">Red</Capability>
-  <Capability Min="15" Color="#00ff00" Max="19">Green</Capability>
-  <Capability Min="20" Color="#0000ff" Max="24">Blue</Capability>
-  <Capability Min="25" Color="#ffbf00" Max="29">Amber</Capability>
-  <Capability Min="30" Color="#ffffff" Max="34">White</Capability>
-  <Capability Min="35" Color="#ffffff" Max="39" Color2="#ff0000">White + red</Capability>
-  <Capability Min="40" Color="#ff0000" Max="44" Color2="#00ff00">Red + green</Capability>
-  <Capability Min="45" Color="#00ff00" Max="49" Color2="#0000ff">Green + blue</Capability>
-  <Capability Min="50" Color="#0000ff" Max="54" Color2="#ffbf00">Blue + amber</Capability>
-  <Capability Min="55" Color="#ffbf00" Max="59" Color2="#ffffff">Amber + white</Capability>
-  <Capability Min="60" Color="#ffffff" Max="64" Color2="#00ff00">White + green</Capability>
-  <Capability Min="65" Color="#00ff00" Max="69" Color2="#ffbf00">Green + amber</Capability>
-  <Capability Min="70" Color="#ffbf00" Max="74" Color2="#ff0000">Amber + red</Capability>
-  <Capability Min="75" Color="#ff0000" Max="79" Color2="#0000ff">Red + blue</Capability>
-  <Capability Min="80" Color="#0000ff" Max="84" Color2="#ffffff">Blue + white</Capability>
-  <Capability Min="85" Color="#ffffff" Max="89">Red + green + blue</Capability>
-  <Capability Min="90" Color="#ffdf00" Max="94">Red + green + amber</Capability>
-  <Capability Min="95" Color="#ffff80" Max="99">Red + green + white</Capability>
-  <Capability Min="100" Color="#ff6080" Max="104">Red + amber + blue</Capability>
-  <Capability Min="105" Color="#ff80ff" Max="109">Red + white + blue</Capability>
-  <Capability Min="110" Color="#ff9555" Max="114">Red + amber + white</Capability>
-  <Capability Min="115" Color="#92ff92" Max="119">Amber + green + blue</Capability>
-  <Capability Min="120" Color="#80ffff" Max="124">Blue + green + white</Capability>
-  <Capability Min="125" Color="#b9ff5d" Max="129">Amber + green + white</Capability>
-  <Capability Min="130" Color="#ffdfff" Max="134">Amber + white + blue</Capability>
-  <Capability Min="135" Color="#ffdf80" Max="139">Red + green + blue + amber</Capability>
-  <Capability Min="140" Color="#ffffff" Max="144">Red + green + blue + white</Capability>
-  <Capability Min="145" Color="#b9ffb9" Max="149">Blue + green + white + amber</Capability>
-  <Capability Min="150" Color="#ffea55" Max="154">Red + green + amber + white</Capability>
-  <Capability Min="155" Color="#ff95aa" Max="159">White + red + blue + amber</Capability>
-  <Capability Min="160" Color="#ffeaaa" Max="164">Red + green + blue + amber + white</Capability>
+  <Capability Min="0" Max="9" Color="#000000">Blackout (all light beams off)</Capability>
+  <Capability Min="10" Max="14" Color="#ff0000">Red</Capability>
+  <Capability Min="15" Max="19" Color="#00ff00">Green</Capability>
+  <Capability Min="20" Max="24" Color="#0000ff">Blue</Capability>
+  <Capability Min="25" Max="29" Color="#ffbf00">Amber</Capability>
+  <Capability Min="30" Max="34" Color="#ffffff">White</Capability>
+  <Capability Min="35" Max="39" Color="#ffffff" Color2="#ff0000">White + red</Capability>
+  <Capability Min="40" Max="44" Color="#ff0000" Color2="#00ff00">Red + green</Capability>
+  <Capability Min="45" Max="49" Color="#00ff00" Color2="#0000ff">Green + blue</Capability>
+  <Capability Min="50" Max="54" Color="#0000ff" Color2="#ffbf00">Blue + amber</Capability>
+  <Capability Min="55" Max="59" Color="#ffbf00" Color2="#ffffff">Amber + white</Capability>
+  <Capability Min="60" Max="64" Color="#ffffff" Color2="#00ff00">White + green</Capability>
+  <Capability Min="65" Max="69" Color="#00ff00" Color2="#ffbf00">Green + amber</Capability>
+  <Capability Min="70" Max="74" Color="#ffbf00" Color2="#ff0000">Amber + red</Capability>
+  <Capability Min="75" Max="79" Color="#ff0000" Color2="#0000ff">Red + blue</Capability>
+  <Capability Min="80" Max="84" Color="#0000ff" Color2="#ffffff">Blue + white</Capability>
+  <Capability Min="85" Max="89" Color="#ffffff">Red + green + blue</Capability>
+  <Capability Min="90" Max="94" Color="#ffdf00">Red + green + amber</Capability>
+  <Capability Min="95" Max="99" Color="#ffff80">Red + green + white</Capability>
+  <Capability Min="100" Max="104" Color="#ff6080">Red + amber + blue</Capability>
+  <Capability Min="105" Max="109" Color="#ff80ff">Red + white + blue</Capability>
+  <Capability Min="110" Max="114" Color="#ff9555">Red + amber + white</Capability>
+  <Capability Min="115" Max="119" Color="#92ff92">Amber + green + blue</Capability>
+  <Capability Min="120" Max="124" Color="#80ffff">Blue + green + white</Capability>
+  <Capability Min="125" Max="129" Color="#b9ff5d">Amber + green + white</Capability>
+  <Capability Min="130" Max="134" Color="#ffdfff">Amber + white + blue</Capability>
+  <Capability Min="135" Max="139" Color="#ffdf80">Red + green + blue + amber</Capability>
+  <Capability Min="140" Max="144" Color="#ffffff">Red + green + blue + white</Capability>
+  <Capability Min="145" Max="149" Color="#b9ffb9">Blue + green + white + amber</Capability>
+  <Capability Min="150" Max="154" Color="#ffea55">Red + green + amber + white</Capability>
+  <Capability Min="155" Max="159" Color="#ff95aa">White + red + blue + amber</Capability>
+  <Capability Min="160" Max="164" Color="#ffeaaa">Red + green + blue + amber + white</Capability>
   <Capability Min="165" Max="209">Automatic color change (one color)</Capability>
   <Capability Min="210" Max="255">Automatic color change (two colors)</Capability>
  </Channel>
@@ -92,13 +92,13 @@
  </Channel>
  <Channel Name="Laser">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Color="#000000" Max="9">Blackout (laser off)</Capability>
-  <Capability Min="10" Color="#ff0000" Max="49">Red on</Capability>
-  <Capability Min="50" Color="#00ff00" Max="89">Green on</Capability>
-  <Capability Min="90" Color="#00ff00" Max="129" Color2="#ff0000">Change green and red</Capability>
-  <Capability Min="130" Color="#ff0000" Max="169" Color2="#00ff00">Red on + green strobe</Capability>
-  <Capability Min="170" Color="#00ff00" Max="209" Color2="#ff0000">Green on + red strobe</Capability>
-  <Capability Min="210" Color="#ff0000" Max="255" Color2="#00ff00">Red strobe + green strobe</Capability>
+  <Capability Min="0" Max="9" Color="#000000">Blackout (laser off)</Capability>
+  <Capability Min="10" Max="49" Color="#ff0000">Red on</Capability>
+  <Capability Min="50" Max="89" Color="#00ff00">Green on</Capability>
+  <Capability Min="90" Max="129" Color="#00ff00" Color2="#ff0000">Change green and red</Capability>
+  <Capability Min="130" Max="169" Color="#ff0000" Color2="#00ff00">Red on + green strobe</Capability>
+  <Capability Min="170" Max="209" Color="#00ff00" Color2="#ff0000">Green on + red strobe</Capability>
+  <Capability Min="210" Max="255" Color="#ff0000" Color2="#00ff00">Red strobe + green strobe</Capability>
  </Channel>
  <Channel Name="Strobe effect lasers">
   <Group Byte="0">Shutter</Group>
@@ -115,10 +115,10 @@
  </Channel>
  <Mode Name="8-channel">
   <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type="LED/laser"/>
-   <Dimensions Weight="4.2" Depth="313" Width="246" Height="315"/>
-   <Lens DegreesMin="0" Name="Other" DegreesMax="0"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
+   <Bulb Type="LED/laser" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4.2" Width="246" Height="315" Depth="313"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="40" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Operating mode</Channel>

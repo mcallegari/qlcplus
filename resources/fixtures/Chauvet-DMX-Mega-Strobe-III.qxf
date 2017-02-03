@@ -22,8 +22,8 @@
  <Mode Name="Standard">
   <Physical>
    <Bulb Type="CH-750B" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Depth="147" Width="330" Weight="4.2" Height="211"/>
-   <Lens DegreesMax="0" DegreesMin="0" Name="Other"/>
+   <Dimensions Weight="4.2" Width="330" Height="211" Depth="147"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="75" DmxConnector="3-pin"/>
   </Physical>

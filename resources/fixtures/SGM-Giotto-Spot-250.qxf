@@ -31,29 +31,29 @@
  </Channel>
  <Channel Name="Colour (Modified By Channel 20)">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Color="#ffffff" Max="24">White</Capability>
-  <Capability Min="25" Color="#ff0000" Max="49">Red</Capability>
-  <Capability Min="50" Color="#ffff00" Max="74">Yellow</Capability>
-  <Capability Min="75" Color="#00ff00" Max="99">Green</Capability>
-  <Capability Min="100" Color="#00ffff" Max="124">Cyan</Capability>
-  <Capability Min="125" Color="#0000ff" Max="149">Blue</Capability>
-  <Capability Min="150" Color="#ff00ff" Max="174">Magenta</Capability>
-  <Capability Min="175" Color="#ffaaff" Max="200">Pink</Capability>
-  <Capability Min="201" Color="#ffc000" Max="225">Amber</Capability>
-  <Capability Min="226" Color="#ff7f00" Max="255">Orange</Capability>
+  <Capability Min="0" Max="24" Color="#ffffff">White</Capability>
+  <Capability Min="25" Max="49" Color="#ff0000">Red</Capability>
+  <Capability Min="50" Max="74" Color="#ffff00">Yellow</Capability>
+  <Capability Min="75" Max="99" Color="#00ff00">Green</Capability>
+  <Capability Min="100" Max="124" Color="#00ffff">Cyan</Capability>
+  <Capability Min="125" Max="149" Color="#0000ff">Blue</Capability>
+  <Capability Min="150" Max="174" Color="#ff00ff">Magenta</Capability>
+  <Capability Min="175" Max="200" Color="#ffaaff">Pink</Capability>
+  <Capability Min="201" Max="225" Color="#ffc000">Amber</Capability>
+  <Capability Min="226" Max="255" Color="#ff7f00">Orange</Capability>
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Res="Others/open.png" Max="20">Open</Capability>
-  <Capability Min="21" Res="SGM/gobo00003.png" Max="41">Gobo 1</Capability>
-  <Capability Min="42" Res="SGM/gobo00030.png" Max="62">Gobo 2</Capability>
-  <Capability Min="63" Res="SGM/gobo00045.png" Max="83">Gobo 3</Capability>
-  <Capability Min="84" Res="SGM/gobo00009.png" Max="104">Gobo 4</Capability>
-  <Capability Min="105" Res="SGM-Color/gobo00375.png" Max="125">Gobo 5</Capability>
-  <Capability Min="126" Res="SGM-Color/gobo00386.png" Max="146">Gobo 6</Capability>
-  <Capability Min="147" Res="SGM/gobo00058.png" Max="167">Gobo 7</Capability>
-  <Capability Min="168" Res="SGM/gobo00347.png" Max="189">Gobo 8</Capability>
-  <Capability Min="190" Res="Others/rainbow.png" Max="245">Rainbow speed</Capability>
+  <Capability Min="0" Max="20" Res="Others/open.png">Open</Capability>
+  <Capability Min="21" Max="41" Res="SGM/gobo00003.png">Gobo 1</Capability>
+  <Capability Min="42" Max="62" Res="SGM/gobo00030.png">Gobo 2</Capability>
+  <Capability Min="63" Max="83" Res="SGM/gobo00045.png">Gobo 3</Capability>
+  <Capability Min="84" Max="104" Res="SGM/gobo00009.png">Gobo 4</Capability>
+  <Capability Min="105" Max="125" Res="SGM-Color/gobo00375.png">Gobo 5</Capability>
+  <Capability Min="126" Max="146" Res="SGM-Color/gobo00386.png">Gobo 6</Capability>
+  <Capability Min="147" Max="167" Res="SGM/gobo00058.png">Gobo 7</Capability>
+  <Capability Min="168" Max="189" Res="SGM/gobo00347.png">Gobo 8</Capability>
+  <Capability Min="190" Max="245" Res="Others/rainbow.png">Rainbow speed</Capability>
   <Capability Min="246" Max="255">Music change</Capability>
  </Channel>
  <Channel Name="Shutter">
@@ -113,7 +113,7 @@
  </Channel>
  <Channel Name="Effects Gobos">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Res="Others/open.png" Max="31">Open</Capability>
+  <Capability Min="0" Max="31" Res="Others/open.png">Open</Capability>
   <Capability Min="32" Max="62">Tunnel</Capability>
   <Capability Min="63" Max="93">Stripped texture</Capability>
   <Capability Min="94" Max="124">Honeycomb texture</Capability>
@@ -195,11 +195,11 @@
  </Channel>
  <Mode Name="Mode 1">
   <Physical>
-   <Bulb Type="MSD 250W" ColourTemperature="8500" Lumens="18000"/>
-   <Dimensions Weight="24.8" Depth="412" Height="680" Width="360"/>
+   <Bulb Type="MSD 250W" Lumens="18000" ColourTemperature="8500"/>
+   <Dimensions Weight="24.8" Width="360" Height="680" Depth="412"/>
    <Lens Name="Other" DegreesMin="9" DegreesMax="24"/>
    <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="350"/>
+   <Technical PowerConsumption="350" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>

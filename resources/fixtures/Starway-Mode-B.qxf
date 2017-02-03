@@ -11,34 +11,34 @@
  <Type>Moving Head</Type>
  <Channel Name="Colour Wheel">
   <Group Byte="0">Colour</Group>
-  <Capability Color="#ffffff" Min="0" Max="3">White</Capability>
-  <Capability Color="#ffffff" Color2="#c41c1a" Min="4" Max="7">White + Red</Capability>
-  <Capability Color="#c41c1a" Min="8" Max="11">Red</Capability>
-  <Capability Color="#c41c1a" Color2="#ed8229" Min="12" Max="15">Red + Orange</Capability>
-  <Capability Color="#ed8229" Min="16" Max="19">Orange</Capability>
-  <Capability Color="#ed8229" Color2="#7abd82" Min="20" Max="23">Orange + Cyan</Capability>
-  <Capability Color="#7abd82" Min="24" Max="27">Cyan</Capability>
-  <Capability Color="#7abd82" Color2="#05822b" Min="28" Max="31">Cyan + Green</Capability>
-  <Capability Color="#05822b" Min="32" Max="35">Green</Capability>
-  <Capability Color="#05822b" Color2="#9ec233" Min="36" Max="39">Green + Light Green</Capability>
-  <Capability Color="#9ec233" Min="40" Max="43">Light Green</Capability>
-  <Capability Color="#9ec233" Color2="#8f73ad" Min="44" Max="47">Light Green + Lavender</Capability>
-  <Capability Color="#8f73ad" Min="48" Max="51">Lavender</Capability>
-  <Capability Color="#8f73ad" Color2="#ed8080" Min="52" Max="55">Lavender + Pink</Capability>
-  <Capability Color="#ed8080" Min="56" Max="59">Pink</Capability>
-  <Capability Color="#ed8080" Color2="#ffed00" Min="60" Max="63">Pink + Yellow</Capability>
-  <Capability Color="#ffed00" Min="64" Max="67">Yellow</Capability>
-  <Capability Color="#ffed00" Color2="#e30082" Min="68" Max="71">Yellow + Magenta</Capability>
-  <Capability Color="#e30082" Min="72" Max="75">Magenta</Capability>
-  <Capability Color="#e30082" Color2="#00a6eb" Min="76" Max="79">Magenta + Cyan</Capability>
-  <Capability Color="#00a6eb" Min="80" Max="83">Cyan</Capability>
-  <Capability Color="#00a6eb" Color2="#f5c745" Min="84" Max="87">Cyan + CTO 260</Capability>
-  <Capability Color="#f5c745" Min="88" Max="91">CTO 260</Capability>
-  <Capability Color="#f5c745" Color2="#f5d985" Min="92" Max="95">CTO 260 + CTO 190</Capability>
-  <Capability Color="#f5d985" Min="96" Max="99">CTO 190</Capability>
-  <Capability Color="#f5d985" Color2="#96c7b8" Min="100" Max="103">CTO 190 + CTB 8000</Capability>
-  <Capability Color="#96c7b8" Min="104" Max="107">CTB 8000</Capability>
-  <Capability Color="#96c7b8" Color2="#004f99" Min="108" Max="127">CTB 8000 + Blue</Capability>
+  <Capability Min="0" Max="3" Color="#ffffff">White</Capability>
+  <Capability Min="4" Max="7" Color="#ffffff" Color2="#c41c1a">White + Red</Capability>
+  <Capability Min="8" Max="11" Color="#c41c1a">Red</Capability>
+  <Capability Min="12" Max="15" Color="#c41c1a" Color2="#ed8229">Red + Orange</Capability>
+  <Capability Min="16" Max="19" Color="#ed8229">Orange</Capability>
+  <Capability Min="20" Max="23" Color="#ed8229" Color2="#7abd82">Orange + Cyan</Capability>
+  <Capability Min="24" Max="27" Color="#7abd82">Cyan</Capability>
+  <Capability Min="28" Max="31" Color="#7abd82" Color2="#05822b">Cyan + Green</Capability>
+  <Capability Min="32" Max="35" Color="#05822b">Green</Capability>
+  <Capability Min="36" Max="39" Color="#05822b" Color2="#9ec233">Green + Light Green</Capability>
+  <Capability Min="40" Max="43" Color="#9ec233">Light Green</Capability>
+  <Capability Min="44" Max="47" Color="#9ec233" Color2="#8f73ad">Light Green + Lavender</Capability>
+  <Capability Min="48" Max="51" Color="#8f73ad">Lavender</Capability>
+  <Capability Min="52" Max="55" Color="#8f73ad" Color2="#ed8080">Lavender + Pink</Capability>
+  <Capability Min="56" Max="59" Color="#ed8080">Pink</Capability>
+  <Capability Min="60" Max="63" Color="#ed8080" Color2="#ffed00">Pink + Yellow</Capability>
+  <Capability Min="64" Max="67" Color="#ffed00">Yellow</Capability>
+  <Capability Min="68" Max="71" Color="#ffed00" Color2="#e30082">Yellow + Magenta</Capability>
+  <Capability Min="72" Max="75" Color="#e30082">Magenta</Capability>
+  <Capability Min="76" Max="79" Color="#e30082" Color2="#00a6eb">Magenta + Cyan</Capability>
+  <Capability Min="80" Max="83" Color="#00a6eb">Cyan</Capability>
+  <Capability Min="84" Max="87" Color="#00a6eb" Color2="#f5c745">Cyan + CTO 260</Capability>
+  <Capability Min="88" Max="91" Color="#f5c745">CTO 260</Capability>
+  <Capability Min="92" Max="95" Color="#f5c745" Color2="#f5d985">CTO 260 + CTO 190</Capability>
+  <Capability Min="96" Max="99" Color="#f5d985">CTO 190</Capability>
+  <Capability Min="100" Max="103" Color="#f5d985" Color2="#96c7b8">CTO 190 + CTB 8000</Capability>
+  <Capability Min="104" Max="107" Color="#96c7b8">CTB 8000</Capability>
+  <Capability Min="108" Max="127" Color="#96c7b8" Color2="#004f99">CTB 8000 + Blue</Capability>
   <Capability Min="128" Max="191">Rotation (Fast 160 rpm To Slow 0.2 rpm)</Capability>
   <Capability Min="192" Max="255">Rotation (Slow 0.2 rpm to Fast 160 rpm)</Capability>
  </Channel>
@@ -54,21 +54,21 @@
  </Channel>
  <Channel Name="Static Gobo Change">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/open.png" Min="0" Max="7">White</Capability>
-  <Capability Res="ClayPaky/gobo00006.png" Min="8" Max="15">Gobo 1</Capability>
-  <Capability Res="ClayPaky/gobo00007.png" Min="16" Max="23">Gobo 2</Capability>
-  <Capability Res="ClayPaky/gobo00008.png" Min="24" Max="31">Gobo 3</Capability>
-  <Capability Res="ClayPaky/gobo00009.png" Min="32" Max="39">Gobo 4</Capability>
-  <Capability Res="ClayPaky/gobo00010.png" Min="40" Max="47">Gobo 5</Capability>
-  <Capability Res="ClayPaky/gobo00011.png" Min="48" Max="55">Gobo 6</Capability>
-  <Capability Res="ClayPaky/gobo00091.png" Min="56" Max="63">Gobo 7</Capability>
-  <Capability Res="ClayPaky/gobo00085.png" Min="64" Max="71">Gobo 8</Capability>
-  <Capability Res="ClayPaky/gobo00086.png" Min="72" Max="79">Gobo 9</Capability>
-  <Capability Res="ClayPaky/gobo00089.png" Min="80" Max="87">Gobo 10</Capability>
-  <Capability Res="ClayPaky/gobo00095.png" Min="88" Max="95">Gobo 11</Capability>
-  <Capability Res="ClayPaky/gobo00094.png" Min="96" Max="103">Gobo 12</Capability>
-  <Capability Res="ClayPaky/gobo00090.png" Min="104" Max="111">Gobo 13</Capability>
-  <Capability Res="ClayPaky/gobo00088.png" Min="112" Max="127">Gobo 14</Capability>
+  <Capability Min="0" Max="7" Res="Others/open.png">White</Capability>
+  <Capability Min="8" Max="15" Res="ClayPaky/gobo00006.png">Gobo 1</Capability>
+  <Capability Min="16" Max="23" Res="ClayPaky/gobo00007.png">Gobo 2</Capability>
+  <Capability Min="24" Max="31" Res="ClayPaky/gobo00008.png">Gobo 3</Capability>
+  <Capability Min="32" Max="39" Res="ClayPaky/gobo00009.png">Gobo 4</Capability>
+  <Capability Min="40" Max="47" Res="ClayPaky/gobo00010.png">Gobo 5</Capability>
+  <Capability Min="48" Max="55" Res="ClayPaky/gobo00011.png">Gobo 6</Capability>
+  <Capability Min="56" Max="63" Res="ClayPaky/gobo00091.png">Gobo 7</Capability>
+  <Capability Min="64" Max="71" Res="ClayPaky/gobo00085.png">Gobo 8</Capability>
+  <Capability Min="72" Max="79" Res="ClayPaky/gobo00086.png">Gobo 9</Capability>
+  <Capability Min="80" Max="87" Res="ClayPaky/gobo00089.png">Gobo 10</Capability>
+  <Capability Min="88" Max="95" Res="ClayPaky/gobo00095.png">Gobo 11</Capability>
+  <Capability Min="96" Max="103" Res="ClayPaky/gobo00094.png">Gobo 12</Capability>
+  <Capability Min="104" Max="111" Res="ClayPaky/gobo00090.png">Gobo 13</Capability>
+  <Capability Min="112" Max="127" Res="ClayPaky/gobo00088.png">Gobo 14</Capability>
   <Capability Min="128" Max="191">Rotation (Fast to slow)</Capability>
   <Capability Min="192" Max="255">Rotation (Slow to fast)</Capability>
  </Channel>
@@ -134,10 +134,10 @@
  </Channel>
  <Mode Name="Mode 16 Bits">
   <Physical>
-   <Bulb ColourTemperature="5600" Lumens="0" Type="2R YODN"/>
-   <Dimensions Weight="11.5" Width="330" Depth="320" Height="420"/>
+   <Bulb Type="2R YODN" Lumens="0" ColourTemperature="5600"/>
+   <Dimensions Weight="11.5" Width="330" Height="420" Depth="320"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="3.8"/>
-   <Focus PanMax="540" TiltMax="270" Type="Head"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="150" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Colour Wheel</Channel>
@@ -159,10 +159,10 @@
  </Mode>
  <Mode Name="Mode 8 Bits">
   <Physical>
-   <Bulb ColourTemperature="5600" Lumens="0" Type="2R YODN"/>
-   <Dimensions Weight="11.5" Width="330" Depth="320" Height="420"/>
+   <Bulb Type="2R YODN" Lumens="0" ColourTemperature="5600"/>
+   <Dimensions Weight="11.5" Width="330" Height="420" Depth="320"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="3.8"/>
-   <Focus PanMax="540" TiltMax="270" Type="Head"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="150" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Colour Wheel</Channel>

@@ -41,14 +41,14 @@
  <Channel Name="Color Macro">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="10">No function</Capability>
-  <Capability Color2="#ffff00" Min="11" Max="30" Color="#ff0000">R: 100% / G: 0-100% / B: 0%</Capability>
-  <Capability Color2="#00ff00" Min="31" Max="50" Color="#ffff00">R: 100-0% / G: 100% / B: 0%</Capability>
-  <Capability Color2="#00ffff" Min="51" Max="70" Color="#00ff00">R: 0% / G: 100% / B: 0-100%</Capability>
-  <Capability Color2="#00ffff" Min="71" Max="90" Color="#0000ff">R: 0% / G: 100-0% / B: 100%</Capability>
-  <Capability Color2="#ff00ff" Min="91" Max="110" Color="#0000ff">R: 0-100% / G: 0% / B: 100%</Capability>
-  <Capability Color2="#ff00ff" Min="111" Max="130" Color="#ff0000">R: 100% / G: 0% / B: 100-0%</Capability>
-  <Capability Color2="#ffffff" Min="131" Max="150" Color="#ff0000">R: 100% - G: 0-100% - B: 0-100%</Capability>
-  <Capability Color2="#0000ff" Min="151" Max="170" Color="#ffffff">R: 100-0% / G: 100-0% / B: 100%</Capability>
+  <Capability Min="11" Max="30" Color="#ff0000" Color2="#ffff00">R: 100% / G: 0-100% / B: 0%</Capability>
+  <Capability Min="31" Max="50" Color="#ffff00" Color2="#00ff00">R: 100-0% / G: 100% / B: 0%</Capability>
+  <Capability Min="51" Max="70" Color="#00ff00" Color2="#00ffff">R: 0% / G: 100% / B: 0-100%</Capability>
+  <Capability Min="71" Max="90" Color="#0000ff" Color2="#00ffff">R: 0% / G: 100-0% / B: 100%</Capability>
+  <Capability Min="91" Max="110" Color="#0000ff" Color2="#ff00ff">R: 0-100% / G: 0% / B: 100%</Capability>
+  <Capability Min="111" Max="130" Color="#ff0000" Color2="#ff00ff">R: 100% / G: 0% / B: 100-0%</Capability>
+  <Capability Min="131" Max="150" Color="#ff0000" Color2="#ffffff">R: 100% - G: 0-100% - B: 0-100%</Capability>
+  <Capability Min="151" Max="170" Color="#ffffff" Color2="#0000ff">R: 100-0% / G: 100-0% / B: 100%</Capability>
   <Capability Min="171" Max="200" Color="#ffffff">R: 100% / G: 100% / B: 100% / W: 100%</Capability>
   <Capability Min="201" Max="205">Color Temperature 1</Capability>
   <Capability Min="206" Max="210">Color Temperature 2</Capability>
@@ -85,10 +85,10 @@
  </Channel>
  <Mode Name="10 Ch Mode">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="10000"/>
-   <Dimensions Width="208" Height="240" Weight="2.5" Depth="184"/>
-   <Lens DegreesMax="18" Name="Other" DegreesMin="18"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="10000"/>
+   <Dimensions Weight="2.5" Width="208" Height="240" Depth="184"/>
+   <Lens Name="Other" DegreesMin="18" DegreesMax="18"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="73" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
@@ -104,10 +104,10 @@
  </Mode>
  <Mode Name="6 Ch Mode">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="10000"/>
-   <Dimensions Width="208" Height="240" Weight="2.5" Depth="184"/>
-   <Lens DegreesMax="18" Name="Other" DegreesMin="18"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="10000"/>
+   <Dimensions Weight="2.5" Width="208" Height="240" Depth="184"/>
+   <Lens Name="Other" DegreesMin="18" DegreesMax="18"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="73" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
@@ -119,10 +119,10 @@
  </Mode>
  <Mode Name="4 Ch Mode">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="10000"/>
-   <Dimensions Width="208" Height="240" Weight="2.5" Depth="184"/>
-   <Lens DegreesMax="18" Name="Other" DegreesMin="18"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="10000"/>
+   <Dimensions Weight="2.5" Width="208" Height="240" Depth="184"/>
+   <Lens Name="Other" DegreesMin="18" DegreesMax="18"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="73" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>

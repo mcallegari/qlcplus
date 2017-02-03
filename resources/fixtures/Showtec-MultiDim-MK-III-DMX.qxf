@@ -27,10 +27,10 @@
  </Channel>
  <Mode Name="4 Channel">
   <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="212" Height="71" Weight="2.4" Depth="188"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.4" Width="212" Height="71" Depth="188"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="0" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Channel 1</Channel>

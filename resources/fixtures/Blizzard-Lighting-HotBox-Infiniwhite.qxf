@@ -49,7 +49,7 @@
   <Capability Min="0" Max="9">Invalid</Capability>
   <Capability Min="10" Max="29">A 100%</Capability>
   <Capability Min="30" Max="39">A85%+(A+C)15%</Capability>
-  <Capability Color="#ffffff" Min="40" Max="49">A60%+(A+C)40%</Capability>
+  <Capability Min="40" Max="49" Color="#ffffff">A60%+(A+C)40%</Capability>
   <Capability Min="50" Max="69">(A+C)100%</Capability>
   <Capability Min="70" Max="79">(A+C)85%+C15%</Capability>
   <Capability Min="80" Max="89">(A+C)60%+C40%</Capability>
@@ -77,11 +77,11 @@
  </Channel>
  <Mode Name="8-Channel">
   <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Weight="1.6" Width="127" Depth="102" Height="127"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1.6" Width="127" Height="127" Depth="102"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="28"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="47"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="47" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Amber</Channel>
@@ -94,11 +94,11 @@
  </Mode>
  <Mode Name="7-Channel">
   <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Weight="1.6" Width="127" Depth="102" Height="127"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1.6" Width="127" Height="127" Depth="102"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="28"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="47"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="47" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Amber</Channel>
@@ -110,11 +110,11 @@
  </Mode>
  <Mode Name="6-Channel">
   <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Weight="1.6" Width="127" Depth="102" Height="127"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1.6" Width="127" Height="127" Depth="102"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="28"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="47"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="47" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Amber</Channel>
@@ -125,11 +125,11 @@
  </Mode>
  <Mode Name="3-Channel (ACW)">
   <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Weight="1.6" Width="127" Depth="102" Height="127"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1.6" Width="127" Height="127" Depth="102"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="28"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="47"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="47" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Amber</Channel>
   <Channel Number="1">Warm White</Channel>

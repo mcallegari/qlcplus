@@ -34,10 +34,10 @@
  </Channel>
  <Mode Name="Mode 1">
   <Physical>
-   <Bulb Lumens="0" Type="HMI 2500W" ColourTemperature="0"/>
-   <Dimensions Width="620" Height="821" Weight="43.5" Depth="623"/>
-   <Lens DegreesMax="62" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="HMI 2500W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="43.5" Width="620" Height="821" Depth="623"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="62"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="2500" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Lamp</Channel>

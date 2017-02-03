@@ -133,10 +133,10 @@
  </Channel>
  <Mode Name="Normal">
   <Physical>
-   <Bulb Lumens="9500" Type="HTI 150W" ColourTemperature="5000"/>
-   <Dimensions Width="240" Height="203" Weight="15" Depth="550"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="172" Type="Barrel" TiltMax="360"/>
+   <Bulb Type="HTI 150W" Lumens="9500" ColourTemperature="5000"/>
+   <Dimensions Weight="15" Width="240" Height="203" Depth="550"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Barrel" PanMax="172" TiltMax="360"/>
    <Technical PowerConsumption="231" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Shutter, strobe</Channel>
@@ -147,10 +147,10 @@
  </Mode>
  <Mode Name="Extended">
   <Physical>
-   <Bulb Lumens="9500" Type="HTI 150W" ColourTemperature="5000"/>
-   <Dimensions Width="240" Height="203" Weight="15" Depth="550"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="172" Type="Barrel" TiltMax="360"/>
+   <Bulb Type="HTI 150W" Lumens="9500" ColourTemperature="5000"/>
+   <Dimensions Weight="15" Width="240" Height="203" Depth="550"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Barrel" PanMax="172" TiltMax="360"/>
    <Technical PowerConsumption="231" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Shutter, strobe</Channel>

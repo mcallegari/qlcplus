@@ -16,10 +16,10 @@
  </Channel>
  <Mode Name="DMX Mode">
   <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="347" Height="374" Weight="13" Depth="585"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="13" Width="347" Height="374" Depth="585"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="1364" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Fog Output</Channel>

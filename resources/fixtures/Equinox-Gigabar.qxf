@@ -163,10 +163,10 @@
  <Mode Name="17  Channel">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="7.6" Width="1000" Depth="82" Height="320"/>
+   <Dimensions Weight="7.6" Width="1000" Height="320" Depth="82"/>
    <Lens Name="Fresnel" DegreesMin="25" DegreesMax="90"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="135"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="135" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Program</Channel>
   <Channel Number="1">Master Dimmer</Channel>
@@ -209,10 +209,10 @@
  <Mode Name="12 Channel">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="7.6" Width="1000" Depth="82" Height="320"/>
+   <Dimensions Weight="7.6" Width="1000" Height="320" Depth="82"/>
    <Lens Name="Fresnel" DegreesMin="25" DegreesMax="90"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="135"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="135" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">1-Red</Channel>
   <Channel Number="1">1-Green</Channel>
@@ -250,10 +250,10 @@
  <Mode Name="8 Channel">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="7.6" Width="1000" Depth="82" Height="320"/>
+   <Dimensions Weight="7.6" Width="1000" Height="320" Depth="82"/>
    <Lens Name="Fresnel" DegreesMin="25" DegreesMax="90"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="135"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="135" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Program</Channel>
   <Channel Number="1">Master Dimmer</Channel>
@@ -267,10 +267,10 @@
  <Mode Name="7 Channel">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="7.6" Width="1000" Depth="82" Height="320"/>
+   <Dimensions Weight="7.6" Width="1000" Height="320" Depth="82"/>
    <Lens Name="Fresnel" DegreesMin="25" DegreesMax="90"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="135"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="135" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">1-Red</Channel>
   <Channel Number="1">1-Green</Channel>
@@ -283,10 +283,10 @@
  <Mode Name="6 Channel">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="7.6" Width="1000" Depth="82" Height="320"/>
+   <Dimensions Weight="7.6" Width="1000" Height="320" Depth="82"/>
    <Lens Name="Fresnel" DegreesMin="25" DegreesMax="90"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="135"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="135" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">R1 R2</Channel>
   <Channel Number="1">G1 G2</Channel>
@@ -298,10 +298,10 @@
  <Mode Name="5 Channel">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="7.6" Width="1000" Depth="82" Height="320"/>
+   <Dimensions Weight="7.6" Width="1000" Height="320" Depth="82"/>
    <Lens Name="Fresnel" DegreesMin="25" DegreesMax="90"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="135"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="135" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">1-Red</Channel>
   <Channel Number="1">1-Green</Channel>
@@ -312,10 +312,10 @@
  <Mode Name="3 Channel">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="7.6" Width="1000" Depth="82" Height="320"/>
+   <Dimensions Weight="7.6" Width="1000" Height="320" Depth="82"/>
    <Lens Name="Fresnel" DegreesMin="25" DegreesMax="90"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="135"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="135" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">1-Red</Channel>
   <Channel Number="1">1-Green</Channel>
@@ -324,10 +324,10 @@
  <Mode Name="4 Channel">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="7.6" Width="1000" Depth="82" Height="320"/>
+   <Dimensions Weight="7.6" Width="1000" Height="320" Depth="82"/>
    <Lens Name="Fresnel" DegreesMin="25" DegreesMax="90"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="135"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="135" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">CH1</Channel>
   <Channel Number="1">CH2</Channel>

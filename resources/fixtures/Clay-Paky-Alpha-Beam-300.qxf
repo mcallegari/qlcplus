@@ -120,23 +120,23 @@
  <Channel Name="Fixed Gobo Change">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="7" Color="#ffffff">White</Capability>
-  <Capability Res="ClayPaky/gobo00011.png" Min="8" Max="15">Gobo 1</Capability>
-  <Capability Res="ClayPaky/gobo00010.png" Min="16" Max="23">Gobo 2</Capability>
-  <Capability Res="ClayPaky/gobo00009.png" Min="24" Max="31">Gobo 3</Capability>
-  <Capability Res="ClayPaky/gobo00008.png" Min="32" Max="39">Gobo 4</Capability>
-  <Capability Res="ClayPaky/gobo00018.png" Min="40" Max="47">Gobo 5</Capability>
-  <Capability Res="ClayPaky/gobo00005.png" Min="48" Max="55">Gobo 6</Capability>
-  <Capability Res="ClayPaky/gobo00003.png" Min="56" Max="63">Gobo 7</Capability>
-  <Capability Res="ClayPaky/gobo00004.png" Min="64" Max="71">Gobo 8</Capability>
+  <Capability Min="8" Max="15" Res="ClayPaky/gobo00011.png">Gobo 1</Capability>
+  <Capability Min="16" Max="23" Res="ClayPaky/gobo00010.png">Gobo 2</Capability>
+  <Capability Min="24" Max="31" Res="ClayPaky/gobo00009.png">Gobo 3</Capability>
+  <Capability Min="32" Max="39" Res="ClayPaky/gobo00008.png">Gobo 4</Capability>
+  <Capability Min="40" Max="47" Res="ClayPaky/gobo00018.png">Gobo 5</Capability>
+  <Capability Min="48" Max="55" Res="ClayPaky/gobo00005.png">Gobo 6</Capability>
+  <Capability Min="56" Max="63" Res="ClayPaky/gobo00003.png">Gobo 7</Capability>
+  <Capability Min="64" Max="71" Res="ClayPaky/gobo00004.png">Gobo 8</Capability>
   <Capability Min="72" Max="113">Rotation (Fast to Slow)</Capability>
   <Capability Min="114" Max="117">Stop</Capability>
   <Capability Min="118" Max="159">Rotation (Slow to Fast)</Capability>
-  <Capability Res="ClayPaky/gobo00010.png" Min="160" Max="175">Gobo 2 Shake (Slow to Fast)</Capability>
-  <Capability Res="ClayPaky/gobo00009.png" Min="176" Max="191">Gobo 3 Shake (Slow to Fast)</Capability>
-  <Capability Res="ClayPaky/gobo00008.png" Min="192" Max="207">Gobo 4 Shake (Slow to Fast)</Capability>
-  <Capability Res="ClayPaky/gobo00018.png" Min="208" Max="223">Gobo 5 Shake (Slow to Fast)</Capability>
-  <Capability Res="ClayPaky/gobo00005.png" Min="224" Max="239">Gobo 6 Shake (Slow to Fast)</Capability>
-  <Capability Res="ClayPaky/gobo00003.png" Min="240" Max="255">Gobo 7 Shake (Slow to Fast)</Capability>
+  <Capability Min="160" Max="175" Res="ClayPaky/gobo00010.png">Gobo 2 Shake (Slow to Fast)</Capability>
+  <Capability Min="176" Max="191" Res="ClayPaky/gobo00009.png">Gobo 3 Shake (Slow to Fast)</Capability>
+  <Capability Min="192" Max="207" Res="ClayPaky/gobo00008.png">Gobo 4 Shake (Slow to Fast)</Capability>
+  <Capability Min="208" Max="223" Res="ClayPaky/gobo00018.png">Gobo 5 Shake (Slow to Fast)</Capability>
+  <Capability Min="224" Max="239" Res="ClayPaky/gobo00005.png">Gobo 6 Shake (Slow to Fast)</Capability>
+  <Capability Min="240" Max="255" Res="ClayPaky/gobo00003.png">Gobo 7 Shake (Slow to Fast)</Capability>
  </Channel>
  <Channel Name="Frost">
   <Group Byte="0">Effect</Group>
@@ -190,10 +190,10 @@
  </Channel>
  <Mode Name="Option Stnd 1 - LinC Off, FulC Off, Rain On">
   <Physical>
-   <Bulb Lumens="23000" Type="HTI 300W" ColourTemperature="9300"/>
-   <Dimensions Width="385" Height="630" Weight="19.1" Depth="405"/>
-   <Lens DegreesMax="8" Name="Other" DegreesMin="8"/>
-   <Focus PanMax="540" Type="Head" TiltMax="250"/>
+   <Bulb Type="HTI 300W" Lumens="23000" ColourTemperature="9300"/>
+   <Dimensions Weight="19.1" Width="385" Height="630" Depth="405"/>
+   <Lens Name="Other" DegreesMin="8" DegreesMax="8"/>
+   <Focus Type="Head" PanMax="540" TiltMax="250"/>
    <Technical PowerConsumption="300" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Cyan</Channel>
@@ -213,10 +213,10 @@
  </Mode>
  <Mode Name="Option Stnd 2 - LinC Off, FulC On, Rain On">
   <Physical>
-   <Bulb Lumens="23000" Type="HTI 300W" ColourTemperature="9300"/>
-   <Dimensions Width="385" Height="630" Weight="19.1" Depth="405"/>
-   <Lens DegreesMax="8" Name="Other" DegreesMin="8"/>
-   <Focus PanMax="540" Type="Head" TiltMax="250"/>
+   <Bulb Type="HTI 300W" Lumens="23000" ColourTemperature="9300"/>
+   <Dimensions Weight="19.1" Width="385" Height="630" Depth="405"/>
+   <Lens Name="Other" DegreesMin="8" DegreesMax="8"/>
+   <Focus Type="Head" PanMax="540" TiltMax="250"/>
    <Technical PowerConsumption="300" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Cyan</Channel>
@@ -236,10 +236,10 @@
  </Mode>
  <Mode Name="Option Stnd 3 - LinC On, Rain On">
   <Physical>
-   <Bulb Lumens="23000" Type="HTI 300W" ColourTemperature="9300"/>
-   <Dimensions Width="385" Height="630" Weight="19.1" Depth="405"/>
-   <Lens DegreesMax="8" Name="Other" DegreesMin="8"/>
-   <Focus PanMax="540" Type="Head" TiltMax="250"/>
+   <Bulb Type="HTI 300W" Lumens="23000" ColourTemperature="9300"/>
+   <Dimensions Weight="19.1" Width="385" Height="630" Depth="405"/>
+   <Lens Name="Other" DegreesMin="8" DegreesMax="8"/>
+   <Focus Type="Head" PanMax="540" TiltMax="250"/>
    <Technical PowerConsumption="300" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Cyan</Channel>
@@ -259,10 +259,10 @@
  </Mode>
  <Mode Name="Option Stnd 4 - LinC Off, FulC Off, Rain Off">
   <Physical>
-   <Bulb Lumens="23000" Type="HTI 300W" ColourTemperature="9300"/>
-   <Dimensions Width="385" Height="630" Weight="19.1" Depth="405"/>
-   <Lens DegreesMax="8" Name="Other" DegreesMin="8"/>
-   <Focus PanMax="540" Type="Head" TiltMax="250"/>
+   <Bulb Type="HTI 300W" Lumens="23000" ColourTemperature="9300"/>
+   <Dimensions Weight="19.1" Width="385" Height="630" Depth="405"/>
+   <Lens Name="Other" DegreesMin="8" DegreesMax="8"/>
+   <Focus Type="Head" PanMax="540" TiltMax="250"/>
    <Technical PowerConsumption="300" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Cyan</Channel>
@@ -282,10 +282,10 @@
  </Mode>
  <Mode Name="Option Stnd 5 - LinC Off, FulC On, Rain Off">
   <Physical>
-   <Bulb Lumens="23000" Type="HTI 300W" ColourTemperature="9300"/>
-   <Dimensions Width="385" Height="630" Weight="19.1" Depth="405"/>
-   <Lens DegreesMax="8" Name="Other" DegreesMin="8"/>
-   <Focus PanMax="540" Type="Head" TiltMax="250"/>
+   <Bulb Type="HTI 300W" Lumens="23000" ColourTemperature="9300"/>
+   <Dimensions Weight="19.1" Width="385" Height="630" Depth="405"/>
+   <Lens Name="Other" DegreesMin="8" DegreesMax="8"/>
+   <Focus Type="Head" PanMax="540" TiltMax="250"/>
    <Technical PowerConsumption="300" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Cyan</Channel>
@@ -305,10 +305,10 @@
  </Mode>
  <Mode Name="Option Stnd 6 - LinC On, Rain Off">
   <Physical>
-   <Bulb Lumens="23000" Type="HTI 300W" ColourTemperature="9300"/>
-   <Dimensions Width="385" Height="630" Weight="19.1" Depth="405"/>
-   <Lens DegreesMax="8" Name="Other" DegreesMin="8"/>
-   <Focus PanMax="540" Type="Head" TiltMax="250"/>
+   <Bulb Type="HTI 300W" Lumens="23000" ColourTemperature="9300"/>
+   <Dimensions Weight="19.1" Width="385" Height="630" Depth="405"/>
+   <Lens Name="Other" DegreesMin="8" DegreesMax="8"/>
+   <Focus Type="Head" PanMax="540" TiltMax="250"/>
    <Technical PowerConsumption="300" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Cyan</Channel>
@@ -328,10 +328,10 @@
  </Mode>
  <Mode Name="Option Vect">
   <Physical>
-   <Bulb Lumens="23000" Type="HTI 300W" ColourTemperature="9300"/>
-   <Dimensions Width="385" Height="630" Weight="19.1" Depth="405"/>
-   <Lens DegreesMax="8" Name="Other" DegreesMin="8"/>
-   <Focus PanMax="540" Type="Head" TiltMax="250"/>
+   <Bulb Type="HTI 300W" Lumens="23000" ColourTemperature="9300"/>
+   <Dimensions Weight="19.1" Width="385" Height="630" Depth="405"/>
+   <Lens Name="Other" DegreesMin="8" DegreesMax="8"/>
+   <Focus Type="Head" PanMax="540" TiltMax="250"/>
    <Technical PowerConsumption="300" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Cyan</Channel>

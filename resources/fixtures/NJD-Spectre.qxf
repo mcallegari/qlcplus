@@ -15,13 +15,13 @@
  </Channel>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
-  <Capability Color="#ff0000" Min="0" Max="42">Red</Capability>
-  <Capability Color="#ffff00" Min="43" Max="85">Yellow</Capability>
-  <Capability Color="#00ff00" Min="86" Max="127">Green</Capability>
-  <Capability Color="#00ffff" Min="128" Max="170">Cyan</Capability>
-  <Capability Color="#0000ff" Min="171" Max="213">Blue</Capability>
-  <Capability Color="#aa007f" Min="214" Max="254">Magenta</Capability>
-  <Capability Color="#ff0000" Min="255" Max="255">Red</Capability>
+  <Capability Min="0" Max="42" Color="#ff0000">Red</Capability>
+  <Capability Min="43" Max="85" Color="#ffff00">Yellow</Capability>
+  <Capability Min="86" Max="127" Color="#00ff00">Green</Capability>
+  <Capability Min="128" Max="170" Color="#00ffff">Cyan</Capability>
+  <Capability Min="171" Max="213" Color="#0000ff">Blue</Capability>
+  <Capability Min="214" Max="254" Color="#aa007f">Magenta</Capability>
+  <Capability Min="255" Max="255" Color="#ff0000">Red</Capability>
  </Channel>
  <Channel Name="Saturation">
   <Group Byte="0">Effect</Group>
@@ -49,21 +49,21 @@
  </Channel>
  <Channel Name="Colour + Colour Scrolling">
   <Group Byte="0">Colour</Group>
-  <Capability Color="#ff0000" Min="0" Max="42">Red</Capability>
-  <Capability Color="#ffff00" Min="43" Max="85">Yellow</Capability>
-  <Capability Color="#00ff00" Min="86" Max="127">Green</Capability>
-  <Capability Color="#00ffff" Min="128" Max="170">Cyan</Capability>
-  <Capability Color="#0000ff" Min="171" Max="213">Blue</Capability>
-  <Capability Color="#aa007f" Min="214" Max="254">Magenta</Capability>
-  <Capability Color="#ff0000" Min="255" Max="255">Red</Capability>
+  <Capability Min="0" Max="42" Color="#ff0000">Red</Capability>
+  <Capability Min="43" Max="85" Color="#ffff00">Yellow</Capability>
+  <Capability Min="86" Max="127" Color="#00ff00">Green</Capability>
+  <Capability Min="128" Max="170" Color="#00ffff">Cyan</Capability>
+  <Capability Min="171" Max="213" Color="#0000ff">Blue</Capability>
+  <Capability Min="214" Max="254" Color="#aa007f">Magenta</Capability>
+  <Capability Min="255" Max="255" Color="#ff0000">Red</Capability>
  </Channel>
  <Mode Name="DMX 3-channel">
   <Physical>
    <Bulb Type="A1/244" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Height="250" Width="250" Depth="245" Weight="5.2"/>
+   <Dimensions Weight="5.2" Width="250" Height="250" Depth="245"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="1500"/>
+   <Technical PowerConsumption="1500" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Brightness</Channel>
   <Channel Number="1">Colour</Channel>
@@ -72,10 +72,10 @@
  <Mode Name="MX90">
   <Physical>
    <Bulb Type="A1/244" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Height="250" Width="250" Depth="245" Weight="5.2"/>
+   <Dimensions Weight="5.2" Width="250" Height="250" Depth="245"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="1500"/>
+   <Technical PowerConsumption="1500" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">X-position (pan) or dish rotation</Channel>
   <Channel Number="1">Y-position (tilt)</Channel>

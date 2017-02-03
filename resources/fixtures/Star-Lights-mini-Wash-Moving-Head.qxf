@@ -43,11 +43,11 @@
  </Channel>
  <Channel Name="Color Mixing">
   <Group Byte="0">Effect</Group>
-  <Capability Res="Others/rainbow.png" Min="0" Max="255">R. G. B. color mixing</Capability>
+  <Capability Min="0" Max="255" Res="Others/rainbow.png">R. G. B. color mixing</Capability>
  </Channel>
  <Channel Name="Color Mixing Speed">
   <Group Byte="0">Effect</Group>
-  <Capability Res="Others/rainbow.png" Min="0" Max="255">Speed Adjustable from Fast to Slow</Capability>
+  <Capability Min="0" Max="255" Res="Others/rainbow.png">Speed Adjustable from Fast to Slow</Capability>
  </Channel>
  <Channel Name="Red">
   <Group Byte="0">Intensity</Group>
@@ -71,10 +71,10 @@
  </Channel>
  <Mode Name="13 channels">
   <Physical>
-   <Bulb Lumens="1600" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="350" Height="450" Weight="6" Depth="350"/>
-   <Lens DegreesMax="45" Name="Other" DegreesMin="45"/>
-   <Focus PanMax="450" Type="Fixed" TiltMax="270"/>
+   <Bulb Type="LED" Lumens="1600" ColourTemperature="0"/>
+   <Dimensions Weight="6" Width="350" Height="450" Depth="350"/>
+   <Lens Name="Other" DegreesMin="45" DegreesMax="45"/>
+   <Focus Type="Fixed" PanMax="450" TiltMax="270"/>
    <Technical PowerConsumption="150" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

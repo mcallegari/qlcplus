@@ -16,10 +16,10 @@
  </Channel>
  <Mode Name="Mode 1">
   <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="345" Height="225" Weight="19" Depth="685"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="19" Width="345" Height="225" Depth="685"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="1890" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Intensity</Channel>

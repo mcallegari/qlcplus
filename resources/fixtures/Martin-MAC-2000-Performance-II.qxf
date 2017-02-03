@@ -229,11 +229,11 @@
  </Channel>
  <Mode Name="31 Channel - 16 Bit">
   <Physical>
-   <Bulb ColourTemperature="0" Lumens="23000" Type="HMI 1200W"/>
-   <Dimensions Weight="39.5" Height="490" Width="408" Depth="743"/>
+   <Bulb Type="HMI 1200W" Lumens="23000" ColourTemperature="0"/>
+   <Dimensions Weight="39.5" Width="408" Height="490" Depth="743"/>
    <Lens Name="Other" DegreesMin="12" DegreesMax="29"/>
-   <Focus PanMax="540" Type="Head" TiltMax="267"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="1480"/>
+   <Focus Type="Head" PanMax="540" TiltMax="267"/>
+   <Technical PowerConsumption="1480" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Shutter, Strobe, Reset, Lamp On/Off</Channel>
   <Channel Number="1">Dimmer</Channel>
@@ -269,11 +269,11 @@
  </Mode>
  <Mode Name="28 Channel - 8 Bit">
   <Physical>
-   <Bulb ColourTemperature="0" Lumens="23000" Type="HMI 1200W"/>
-   <Dimensions Weight="39.5" Height="490" Width="408" Depth="743"/>
+   <Bulb Type="HMI 1200W" Lumens="23000" ColourTemperature="0"/>
+   <Dimensions Weight="39.5" Width="408" Height="490" Depth="743"/>
    <Lens Name="Other" DegreesMin="12" DegreesMax="29"/>
-   <Focus PanMax="540" Type="Head" TiltMax="267"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="1480"/>
+   <Focus Type="Head" PanMax="540" TiltMax="267"/>
+   <Technical PowerConsumption="1480" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Shutter, Strobe, Reset, Lamp On/Off</Channel>
   <Channel Number="1">Dimmer</Channel>

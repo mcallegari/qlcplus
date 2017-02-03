@@ -157,10 +157,10 @@
  </Channel>
  <Mode Name="Mode 1">
   <Physical>
-   <Bulb ColourTemperature="8500" Lumens="0" Type="MSD 250W"/>
-   <Dimensions Width="340" Height="735" Weight="22" Depth="315"/>
-   <Lens DegreesMax="18" Name="Other" DegreesMin="18"/>
-   <Focus TiltMax="75" PanMax="230" Type="Mirror"/>
+   <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="8500"/>
+   <Dimensions Weight="22" Width="340" Height="735" Depth="315"/>
+   <Lens Name="Other" DegreesMin="18" DegreesMax="18"/>
+   <Focus Type="Mirror" PanMax="230" TiltMax="75"/>
   </Physical>
   <Channel Number="0">Shutter, Strobe, Reset, Lamp</Channel>
   <Channel Number="1">Dimmer</Channel>

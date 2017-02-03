@@ -44,10 +44,10 @@
  </Channel>
  <Mode Name="4-Channel Mode (Red Dot)">
   <Physical>
-   <Bulb Lumens="0" Type="LED 5mm, 25W" ColourTemperature="0"/>
-   <Dimensions Width="210" Height="213" Weight="1.4" Depth="169"/>
-   <Lens DegreesMax="25" Name="PC" DegreesMin="25"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED 5mm, 25W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1.4" Width="210" Height="213" Depth="169"/>
+   <Lens Name="PC" DegreesMin="25" DegreesMax="25"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="35" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
@@ -63,10 +63,10 @@
  </Mode>
  <Mode Name="6-Channel Mode (No Dot)">
   <Physical>
-   <Bulb Lumens="0" Type="LED 5mm, 25W" ColourTemperature="0"/>
-   <Dimensions Width="210" Height="213" Weight="1.4" Depth="169"/>
-   <Lens DegreesMax="25" Name="PC" DegreesMin="25"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED 5mm, 25W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1.4" Width="210" Height="213" Depth="169"/>
+   <Lens Name="PC" DegreesMin="25" DegreesMax="25"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="35" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>

@@ -59,18 +59,18 @@
   <Capability Min="96" Max="103" Color="#c05800">Dark orange</Capability>
   <Capability Min="104" Max="111" Color="#c0c0ff">Light blue</Capability>
   <Capability Min="112" Max="127" Color="#ffffff">Soft white</Capability>
-  <Capability Color2="#ffc0c0" Min="128" Max="143" Color="#ffffff">White / Pink</Capability>
-  <Capability Color2="#00ff00" Min="144" Max="151" Color="#ffc0c0">Pink / Green</Capability>
-  <Capability Color2="#ff00ff" Min="152" Max="159" Color="#00ff00">Green / Magenta</Capability>
-  <Capability Color2="#c0ffc0" Min="160" Max="167" Color="#ff00ff">Magenta / Light green</Capability>
-  <Capability Color2="#ff8000" Min="168" Max="175" Color="#c0ffc0">Light green / Orange</Capability>
-  <Capability Color2="#ffff00" Min="176" Max="183" Color="#ff8000">Orange / Yellow</Capability>
-  <Capability Color2="#0000ff" Min="184" Max="191" Color="#ffff00">Yellow / Blue</Capability>
-  <Capability Color2="#ff0000" Min="192" Max="199" Color="#0000ff">Blue / Red</Capability>
-  <Capability Color2="#0000c0" Min="200" Max="207" Color="#ff0000">Red / UV blue</Capability>
-  <Capability Color2="#c05800" Min="208" Max="215" Color="#0000c0">UV blue / Dark orange</Capability>
-  <Capability Color2="#c0c0ff" Min="216" Max="223" Color="#c05800">Dark orange / Light blue</Capability>
-  <Capability Color2="#ffffff" Min="224" Max="231" Color="#c0c0ff">Light blue / Soft white</Capability>
+  <Capability Min="128" Max="143" Color="#ffffff" Color2="#ffc0c0">White / Pink</Capability>
+  <Capability Min="144" Max="151" Color="#ffc0c0" Color2="#00ff00">Pink / Green</Capability>
+  <Capability Min="152" Max="159" Color="#00ff00" Color2="#ff00ff">Green / Magenta</Capability>
+  <Capability Min="160" Max="167" Color="#ff00ff" Color2="#c0ffc0">Magenta / Light green</Capability>
+  <Capability Min="168" Max="175" Color="#c0ffc0" Color2="#ff8000">Light green / Orange</Capability>
+  <Capability Min="176" Max="183" Color="#ff8000" Color2="#ffff00">Orange / Yellow</Capability>
+  <Capability Min="184" Max="191" Color="#ffff00" Color2="#0000ff">Yellow / Blue</Capability>
+  <Capability Min="192" Max="199" Color="#0000ff" Color2="#ff0000">Blue / Red</Capability>
+  <Capability Min="200" Max="207" Color="#ff0000" Color2="#0000c0">Red / UV blue</Capability>
+  <Capability Min="208" Max="215" Color="#0000c0" Color2="#c05800">UV blue / Dark orange</Capability>
+  <Capability Min="216" Max="223" Color="#c05800" Color2="#c0c0ff">Dark orange / Light blue</Capability>
+  <Capability Min="224" Max="231" Color="#c0c0ff" Color2="#ffffff">Light blue / Soft white</Capability>
   <Capability Min="232" Max="247" Color="#ffffff">Soft white / White</Capability>
   <Capability Min="248" Max="255" Color="#ffffff">Bright white</Capability>
  </Channel>
@@ -202,10 +202,10 @@
  </Channel>
  <Mode Name="Technobeam 18 channel indexed mode">
   <Physical>
-   <Bulb Lumens="18000" Type="MSD 250W" ColourTemperature="6500"/>
-   <Dimensions Width="322" Height="241" Weight="16" Depth="825"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="180" Type="Mirror" TiltMax="95"/>
+   <Bulb Type="MSD 250W" Lumens="18000" ColourTemperature="6500"/>
+   <Dimensions Weight="16" Width="322" Height="241" Depth="825"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Mirror" PanMax="180" TiltMax="95"/>
    <Technical PowerConsumption="375" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan Coarse</Channel>

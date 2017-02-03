@@ -48,10 +48,10 @@
  </Channel>
  <Mode Name="4-CH Mode">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="306" Height="334" Weight="3.8" Depth="184"/>
-   <Lens DegreesMax="65" Name="Other" DegreesMin="65"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="3.8" Width="306" Height="334" Depth="184"/>
+   <Lens Name="Other" DegreesMin="65" DegreesMax="65"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="27" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Color</Channel>

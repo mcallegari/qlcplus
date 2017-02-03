@@ -29,16 +29,16 @@
   <Capability Min="42" Max="47" Color="#00007f">Dark blue</Capability>
   <Capability Min="48" Max="53" Color="#005500">Kelly-Green</Capability>
   <Capability Min="54" Max="63" Color="#ff2701">Orangered</Capability>
-  <Capability Min="64" Max="73" Color2="#ffff00" Color="#ffffff">White + Yellow</Capability>
-  <Capability Min="74" Max="79" Color2="#ffaaff" Color="#ffff00">Yellow + Pink</Capability>
-  <Capability Min="80" Max="85" Color2="#00ff00" Color="#ffaaff">Pink + Green</Capability>
-  <Capability Min="86" Max="91" Color2="#ff0000" Color="#00ff00">Green + Red</Capability>
-  <Capability Min="92" Max="97" Color2="#0000ff" Color="#ff0000">Red + Blue</Capability>
-  <Capability Min="98" Max="103" Color2="#ff5500" Color="#0000ff">Blue + Orange</Capability>
-  <Capability Min="104" Max="109" Color2="#00007f" Color="#ff5500">Orange + Dark blue</Capability>
-  <Capability Min="110" Max="115" Color2="#005500" Color="#00007f">Dark Blue + Kelly-Green</Capability>
-  <Capability Min="116" Max="121" Color2="#ff2701" Color="#005500">Kelly-Green + Orangered</Capability>
-  <Capability Min="122" Max="127" Color2="#ffffff" Color="#ff2701">Orangered + White</Capability>
+  <Capability Min="64" Max="73" Color="#ffffff" Color2="#ffff00">White + Yellow</Capability>
+  <Capability Min="74" Max="79" Color="#ffff00" Color2="#ffaaff">Yellow + Pink</Capability>
+  <Capability Min="80" Max="85" Color="#ffaaff" Color2="#00ff00">Pink + Green</Capability>
+  <Capability Min="86" Max="91" Color="#00ff00" Color2="#ff0000">Green + Red</Capability>
+  <Capability Min="92" Max="97" Color="#ff0000" Color2="#0000ff">Red + Blue</Capability>
+  <Capability Min="98" Max="103" Color="#0000ff" Color2="#ff5500">Blue + Orange</Capability>
+  <Capability Min="104" Max="109" Color="#ff5500" Color2="#00007f">Orange + Dark blue</Capability>
+  <Capability Min="110" Max="115" Color="#00007f" Color2="#005500">Dark Blue + Kelly-Green</Capability>
+  <Capability Min="116" Max="121" Color="#005500" Color2="#ff2701">Kelly-Green + Orangered</Capability>
+  <Capability Min="122" Max="127" Color="#ff2701" Color2="#ffffff">Orangered + White</Capability>
   <Capability Min="128" Max="191" Res="Others/rainbow.png">Rainbow-Effect with positive direction of rotation, speed increasing</Capability>
   <Capability Min="192" Max="255" Res="Others/rainbow.png">Rainbow-Effect with negative direction of rotation, speed increasing</Capability>
  </Channel>
@@ -119,10 +119,10 @@
  <Mode Name="5 Channel">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Height="396" Width="140" Depth="106" Weight="4.3"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus Type="Mirror" TiltMax="90" PanMax="180"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="22"/>
+   <Dimensions Weight="4.3" Width="140" Height="396" Depth="106"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Mirror" PanMax="180" TiltMax="90"/>
+   <Technical PowerConsumption="22" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
@@ -133,10 +133,10 @@
  <Mode Name="8 Channel">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Height="396" Width="140" Depth="106" Weight="4.3"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus Type="Mirror" TiltMax="90" PanMax="180"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="22"/>
+   <Dimensions Weight="4.3" Width="140" Height="396" Depth="106"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Mirror" PanMax="180" TiltMax="90"/>
+   <Technical PowerConsumption="22" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>

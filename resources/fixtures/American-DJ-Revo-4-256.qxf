@@ -1291,10 +1291,10 @@
  </Channel>
  <Mode Name="256-CH">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="306" Height="334" Weight="4" Depth="312"/>
-   <Lens DegreesMax="50" Name="Other" DegreesMin="50"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4" Width="306" Height="334" Depth="312"/>
+   <Lens Name="Other" DegreesMin="50" DegreesMax="50"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="29" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red (0,0)</Channel>

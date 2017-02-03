@@ -138,13 +138,13 @@
  <Channel Name="Macro 27 Ch. Mode">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="15">Dimmer</Capability>
-  <Capability Color="#ff0000" Min="16" Max="23">Red</Capability>
-  <Capability Color="#00ff00" Min="24" Max="31">Green</Capability>
-  <Capability Color="#0000ff" Min="32" Max="39">Blue</Capability>
-  <Capability Color="#ffff00" Min="40" Max="47">Yellow</Capability>
-  <Capability Color="#00ffff" Min="48" Max="55">Cyan</Capability>
-  <Capability Color="#ff00ff" Min="56" Max="63">Magenta</Capability>
-  <Capability Color="#ffffff" Min="64" Max="71">RGB</Capability>
+  <Capability Min="16" Max="23" Color="#ff0000">Red</Capability>
+  <Capability Min="24" Max="31" Color="#00ff00">Green</Capability>
+  <Capability Min="32" Max="39" Color="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="47" Color="#ffff00">Yellow</Capability>
+  <Capability Min="48" Max="55" Color="#00ffff">Cyan</Capability>
+  <Capability Min="56" Max="63" Color="#ff00ff">Magenta</Capability>
+  <Capability Min="64" Max="71" Color="#ffffff">RGB</Capability>
   <Capability Min="72" Max="79">Color 1</Capability>
   <Capability Min="80" Max="87">Color 2</Capability>
   <Capability Min="88" Max="95">Color 3</Capability>
@@ -182,10 +182,10 @@
  </Channel>
  <Mode Name="3 Channel">
   <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
-   <Dimensions Width="150" Depth="165" Weight="7.7" Height="880"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="7.7" Width="150" Height="880" Depth="165"/>
    <Lens Name="Other" DegreesMin="60" DegreesMax="60"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="240" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Red 1</Channel>
@@ -194,10 +194,10 @@
  </Mode>
  <Mode Name="5 Channel">
   <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
-   <Dimensions Width="150" Depth="165" Weight="7.7" Height="880"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="7.7" Width="150" Height="880" Depth="165"/>
    <Lens Name="Other" DegreesMin="60" DegreesMax="60"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="240" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Red 1</Channel>
@@ -214,10 +214,10 @@
  </Mode>
  <Mode Name="24 Channel">
   <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
-   <Dimensions Width="150" Depth="165" Weight="7.7" Height="880"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="7.7" Width="150" Height="880" Depth="165"/>
    <Lens Name="Other" DegreesMin="60" DegreesMax="60"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="240" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Red 1</Channel>
@@ -287,10 +287,10 @@
  </Mode>
  <Mode Name="27 Channel">
   <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
-   <Dimensions Width="150" Depth="165" Weight="7.7" Height="880"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="7.7" Width="150" Height="880" Depth="165"/>
    <Lens Name="Other" DegreesMin="60" DegreesMax="60"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="240" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Macro 27 Ch. Mode</Channel>

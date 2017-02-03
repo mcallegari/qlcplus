@@ -92,10 +92,10 @@
  </Channel>
  <Mode Name="7 Channel (Ch. 1 = 000-050)">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Height="191" Width="232" Depth="194" Weight="1.7"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1.7" Width="232" Height="191" Depth="194"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus PanMax="100" TiltMax="100" Type="Mirror"/>
+   <Focus Type="Mirror" PanMax="100" TiltMax="100"/>
    <Technical PowerConsumption="31" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Control Functions</Channel>
@@ -108,10 +108,10 @@
  </Mode>
  <Mode Name="7 Channel (Ch. 1 = 051-200)">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Height="191" Width="232" Depth="194" Weight="1.7"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1.7" Width="232" Height="191" Depth="194"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus PanMax="100" TiltMax="100" Type="Mirror"/>
+   <Focus Type="Mirror" PanMax="100" TiltMax="100"/>
    <Technical PowerConsumption="31" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Control Functions</Channel>

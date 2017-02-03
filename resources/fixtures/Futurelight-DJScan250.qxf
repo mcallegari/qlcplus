@@ -61,10 +61,10 @@
  </Channel>
  <Mode Name="Mode 1">
   <Physical>
-   <Bulb ColourTemperature="6500" Lumens="0" Type="MSD 250W"/>
-   <Dimensions Width="260" Height="665" Weight="10" Depth="290"/>
-   <Lens DegreesMax="16" Name="Other" DegreesMin="16"/>
-   <Focus TiltMax="75" PanMax="180" Type="Mirror"/>
+   <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="6500"/>
+   <Dimensions Weight="10" Width="260" Height="665" Depth="290"/>
+   <Lens Name="Other" DegreesMin="16" DegreesMax="16"/>
+   <Focus Type="Mirror" PanMax="180" TiltMax="75"/>
    <Technical PowerConsumption="500" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

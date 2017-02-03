@@ -75,14 +75,14 @@
  </Channel>
  <Channel Name="Effects">
   <Group Byte="0">Effect</Group>
-  <Capability Color2="#ffff00" Min="0" Max="20" Color="#ff0000">Red fade to Yellow</Capability>
-  <Capability Color2="#00ff00" Min="21" Max="40" Color="#ffff00">Yellow fade to Green</Capability>
-  <Capability Color2="#00ffff" Min="41" Max="60" Color="#80ff00">Green fade to Aqua</Capability>
-  <Capability Color2="#0000ff" Min="61" Max="80" Color="#00ffff">Aqua fade to Blue</Capability>
-  <Capability Color2="#ff00ff" Min="81" Max="100" Color="#0000ff">Blue fade to Magenta</Capability>
-  <Capability Color2="#ff0000" Min="101" Max="120" Color="#ff00ff">Magenta fade to Red</Capability>
-  <Capability Color2="#ffffff" Min="121" Max="140" Color="#ff0000">Red fade to White</Capability>
-  <Capability Color2="#0000ff" Min="141" Max="160" Color="#ffffff">White fade to Blue</Capability>
+  <Capability Min="0" Max="20" Color="#ff0000" Color2="#ffff00">Red fade to Yellow</Capability>
+  <Capability Min="21" Max="40" Color="#ffff00" Color2="#00ff00">Yellow fade to Green</Capability>
+  <Capability Min="41" Max="60" Color="#80ff00" Color2="#00ffff">Green fade to Aqua</Capability>
+  <Capability Min="61" Max="80" Color="#00ffff" Color2="#0000ff">Aqua fade to Blue</Capability>
+  <Capability Min="81" Max="100" Color="#0000ff" Color2="#ff00ff">Blue fade to Magenta</Capability>
+  <Capability Min="101" Max="120" Color="#ff00ff" Color2="#ff0000">Magenta fade to Red</Capability>
+  <Capability Min="121" Max="140" Color="#ff0000" Color2="#ffffff">Red fade to White</Capability>
+  <Capability Min="141" Max="160" Color="#ffffff" Color2="#0000ff">White fade to Blue</Capability>
   <Capability Min="161" Max="170" Color="#ffffff">White effect</Capability>
   <Capability Min="171" Max="200" Color="#000000">Blackout</Capability>
   <Capability Min="201" Max="205">CTO - 3800K</Capability>
@@ -128,10 +128,10 @@
  </Channel>
  <Mode Name="15 Channel">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="240" Height="375" Weight="5.2" Depth="340"/>
-   <Lens DegreesMax="8" Name="Fresnel" DegreesMin="1"/>
-   <Focus PanMax="540" Type="Head" TiltMax="90"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="5.2" Width="240" Height="375" Depth="340"/>
+   <Lens Name="Fresnel" DegreesMin="1" DegreesMax="8"/>
+   <Focus Type="Head" PanMax="540" TiltMax="90"/>
    <Technical PowerConsumption="148" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -152,10 +152,10 @@
  </Mode>
  <Mode Name="11 Channel">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="240" Height="375" Weight="5.2" Depth="340"/>
-   <Lens DegreesMax="8" Name="Fresnel" DegreesMin="1"/>
-   <Focus PanMax="540" Type="Head" TiltMax="90"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="5.2" Width="240" Height="375" Depth="340"/>
+   <Lens Name="Fresnel" DegreesMin="1" DegreesMax="8"/>
+   <Focus Type="Head" PanMax="540" TiltMax="90"/>
    <Technical PowerConsumption="148" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

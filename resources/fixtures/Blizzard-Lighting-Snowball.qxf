@@ -54,10 +54,10 @@
  </Channel>
  <Mode Name="DMX">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="168" Height="152" Weight="3.5" Depth="174"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="360" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="3.5" Width="168" Height="152" Depth="174"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="360" TiltMax="0"/>
    <Technical PowerConsumption="20" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>

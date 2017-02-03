@@ -92,20 +92,20 @@
  </Channel>
  <Mode Name="1-CH Mode">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="478" Height="134" Weight="4.5" Depth="195"/>
-   <Lens DegreesMax="150" Name="Other" DegreesMin="150"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4.5" Width="478" Height="134" Depth="195"/>
+   <Lens Name="Other" DegreesMin="150" DegreesMax="150"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="40" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Show Modes</Channel>
  </Mode>
  <Mode Name="6-CH Mode">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="478" Height="195" Weight="4.5" Depth="134"/>
-   <Lens DegreesMax="150" Name="Other" DegreesMin="150"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4.5" Width="478" Height="195" Depth="134"/>
+   <Lens Name="Other" DegreesMin="150" DegreesMax="150"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="40" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer / Strobe (Mirror 1)</Channel>

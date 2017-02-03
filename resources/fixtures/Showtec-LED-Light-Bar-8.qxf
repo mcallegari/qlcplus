@@ -192,10 +192,10 @@
  </Channel>
  <Mode Name="d-P1">
   <Physical>
-   <Bulb Lumens="800" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1070" Height="88" Weight="1.74" Depth="65"/>
-   <Lens DegreesMax="30" Name="Other" DegreesMin="30"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="800" ColourTemperature="0"/>
+   <Dimensions Weight="1.74" Width="1070" Height="88" Depth="65"/>
+   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="60" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
@@ -204,10 +204,10 @@
  </Mode>
  <Mode Name="d-P2">
   <Physical>
-   <Bulb Lumens="800" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1070" Height="88" Weight="1.74" Depth="65"/>
-   <Lens DegreesMax="30" Name="Other" DegreesMin="30"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="800" ColourTemperature="0"/>
+   <Dimensions Weight="1.74" Width="1070" Height="88" Depth="65"/>
+   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="60" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
@@ -217,10 +217,10 @@
  </Mode>
  <Mode Name="d-P3">
   <Physical>
-   <Bulb Lumens="800" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1070" Height="88" Weight="1.74" Depth="65"/>
-   <Lens DegreesMax="30" Name="Other" DegreesMin="30"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="800" ColourTemperature="0"/>
+   <Dimensions Weight="1.74" Width="1070" Height="88" Depth="65"/>
+   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="60" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red S1</Channel>
@@ -260,10 +260,10 @@
  </Mode>
  <Mode Name="d-P4">
   <Physical>
-   <Bulb Lumens="800" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1070" Height="88" Weight="1.74" Depth="65"/>
-   <Lens DegreesMax="30" Name="Other" DegreesMin="30"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="800" ColourTemperature="0"/>
+   <Dimensions Weight="1.74" Width="1070" Height="88" Depth="65"/>
+   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="60" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red S1</Channel>
@@ -335,10 +335,10 @@
  </Mode>
  <Mode Name="d-P5">
   <Physical>
-   <Bulb Lumens="800" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1070" Height="88" Weight="1.74" Depth="65"/>
-   <Lens DegreesMax="30" Name="Other" DegreesMin="30"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="800" ColourTemperature="0"/>
+   <Dimensions Weight="1.74" Width="1070" Height="88" Depth="65"/>
+   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="60" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Color</Channel>
@@ -346,10 +346,10 @@
  </Mode>
  <Mode Name="d-P6">
   <Physical>
-   <Bulb Lumens="800" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1070" Height="88" Weight="1.74" Depth="65"/>
-   <Lens DegreesMax="30" Name="Other" DegreesMin="30"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="800" ColourTemperature="0"/>
+   <Dimensions Weight="1.74" Width="1070" Height="88" Depth="65"/>
+   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="60" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>

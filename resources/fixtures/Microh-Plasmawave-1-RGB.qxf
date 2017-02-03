@@ -56,13 +56,13 @@
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7">Original</Capability>
-  <Capability Min="8" Color="#ff0000" Max="15">Red</Capability>
-  <Capability Min="16" Color="#00ff00" Max="23">Green</Capability>
-  <Capability Min="24" Color="#ffff00" Max="31">Yellow</Capability>
-  <Capability Min="32" Color="#0000ff" Max="39">Blue</Capability>
-  <Capability Min="40" Color="#aa55ff" Max="47">Purple</Capability>
-  <Capability Min="48" Color="#55aaff" Max="55">Light blue</Capability>
-  <Capability Min="56" Color="#ffffff" Max="63">White</Capability>
+  <Capability Min="8" Max="15" Color="#ff0000">Red</Capability>
+  <Capability Min="16" Max="23" Color="#00ff00">Green</Capability>
+  <Capability Min="24" Max="31" Color="#ffff00">Yellow</Capability>
+  <Capability Min="32" Max="39" Color="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="47" Color="#aa55ff">Purple</Capability>
+  <Capability Min="48" Max="55" Color="#55aaff">Light blue</Capability>
+  <Capability Min="56" Max="63" Color="#ffffff">White</Capability>
   <Capability Min="64" Max="111">Rolling</Capability>
   <Capability Min="112" Max="159">Jumping</Capability>
   <Capability Min="160" Max="207">Moving</Capability>
@@ -166,9 +166,9 @@
  </Channel>
  <Mode Name="No ILDA">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Height="150" Weight="4.5" Depth="250" Width="340"/>
-   <Lens DegreesMax="0" DegreesMin="0" Name="Other"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4.5" Width="340" Height="150" Depth="250"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="50" DmxConnector="3-pin"/>
   </Physical>
@@ -194,9 +194,9 @@
  </Mode>
  <Mode Name="ILDA">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Height="150" Weight="5.5" Depth="250" Width="350"/>
-   <Lens DegreesMax="0" DegreesMin="0" Name="Other"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="5.5" Width="350" Height="150" Depth="250"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="50" DmxConnector="3-pin"/>
   </Physical>

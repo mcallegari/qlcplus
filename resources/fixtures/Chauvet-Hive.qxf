@@ -135,10 +135,10 @@
  </Channel>
  <Mode Name="20 Channel Mode">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Weight="4.2" Width="330" Depth="240" Height="225"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4.2" Width="330" Height="225" Depth="240"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="174" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pod1_R</Channel>
@@ -194,10 +194,10 @@
  </Mode>
  <Mode Name="3 Channel Mode">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Weight="4.2" Width="330" Depth="240" Height="225"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4.2" Width="330" Height="225" Depth="240"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="174" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Auto Program (3 Ch)</Channel>

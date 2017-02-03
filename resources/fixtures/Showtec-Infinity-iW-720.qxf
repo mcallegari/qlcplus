@@ -273,9 +273,9 @@
  </Channel>
  <Mode Name="29 Channel">
   <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
-   <Dimensions Weight="8" Height="388" Width="290" Depth="204"/>
-   <Lens DegreesMin="7" DegreesMax="50" Name="Other"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="8" Width="290" Height="388" Depth="204"/>
+   <Lens Name="Other" DegreesMin="7" DegreesMax="50"/>
    <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="240" DmxConnector="3-pin"/>
   </Physical>
@@ -335,9 +335,9 @@
  </Mode>
  <Mode Name="14 Channel">
   <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
-   <Dimensions Weight="8" Height="388" Width="290" Depth="204"/>
-   <Lens DegreesMin="7" DegreesMax="50" Name="Other"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="8" Width="290" Height="388" Depth="204"/>
+   <Lens Name="Other" DegreesMin="7" DegreesMax="50"/>
    <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="240" DmxConnector="3-pin"/>
   </Physical>

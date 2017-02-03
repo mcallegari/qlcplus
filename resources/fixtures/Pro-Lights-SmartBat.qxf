@@ -85,11 +85,11 @@
  </Channel>
  <Mode Name="10 Ch Mode">
   <Physical>
-   <Bulb Lumens="0" ColourTemperature="10000" Type="LED"/>
-   <Dimensions Height="184" Depth="145" Width="138" Weight="3.4"/>
-   <Lens DegreesMin="15" DegreesMax="0" Name="Other"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="45"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="10000"/>
+   <Dimensions Weight="3.4" Width="138" Height="184" Depth="145"/>
+   <Lens Name="Other" DegreesMin="15" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="45" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Red</Channel>
@@ -104,11 +104,11 @@
  </Mode>
  <Mode Name="4 Ch Mode">
   <Physical>
-   <Bulb Lumens="0" ColourTemperature="10000" Type="LED"/>
-   <Dimensions Height="184" Depth="145" Width="138" Weight="3.4"/>
-   <Lens DegreesMin="15" DegreesMax="0" Name="Other"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="45"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="10000"/>
+   <Dimensions Weight="3.4" Width="138" Height="184" Depth="145"/>
+   <Lens Name="Other" DegreesMin="15" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="45" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
@@ -117,11 +117,11 @@
  </Mode>
  <Mode Name="6 Ch Mode">
   <Physical>
-   <Bulb Lumens="0" ColourTemperature="10000" Type="LED"/>
-   <Dimensions Height="184" Depth="145" Width="138" Weight="3.4"/>
-   <Lens DegreesMin="15" DegreesMax="0" Name="Other"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="45"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="10000"/>
+   <Dimensions Weight="3.4" Width="138" Height="184" Depth="145"/>
+   <Lens Name="Other" DegreesMin="15" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="45" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Red</Channel>

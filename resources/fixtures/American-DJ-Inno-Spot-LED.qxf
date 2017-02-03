@@ -28,25 +28,25 @@
   <Capability Min="85" Max="98" Color="#00aaff">Light blue</Capability>
   <Capability Min="99" Max="112" Color="#aaff00">Light green</Capability>
   <Capability Min="113" Max="127" Color="#ddff00">Light yellow</Capability>
-  <Capability Res="Others/rainbow.png" Min="128" Max="254">Rainbow effect slow - fast</Capability>
+  <Capability Min="128" Max="254" Res="Others/rainbow.png">Rainbow effect slow - fast</Capability>
   <Capability Min="255" Max="255">Sound active</Capability>
  </Channel>
  <Channel Name="Gobo wheel">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/open.png" Min="0" Max="9">Open</Capability>
-  <Capability Res="SGM/gobo00127.png" Min="10" Max="18">Gobo 1</Capability>
-  <Capability Res="ClayPaky/gobo00066.png" Min="19" Max="27">Gobo 2</Capability>
-  <Capability Res="GLP/gobo00015.png" Min="28" Max="36">Gobo 3</Capability>
-  <Capability Res="SGM/gobo00019.png" Min="37" Max="46">Gobo 4</Capability>
-  <Capability Res="SGM/gobo00357.png" Min="47" Max="55">Gobo 5</Capability>
-  <Capability Res="Chauvet/gobo00026.png" Min="56" Max="63">Gobo 6</Capability>
-  <Capability Res="Others/open.png" Min="64" Max="73">Open shake</Capability>
-  <Capability Res="SGM/gobo00127.png" Min="74" Max="82">Gobo 1 shake</Capability>
-  <Capability Res="ClayPaky/gobo00066.png" Min="83" Max="91">Gobo 2 shake</Capability>
-  <Capability Res="GLP/gobo00015.png" Min="92" Max="100">Gobo 3 shake</Capability>
-  <Capability Res="SGM/gobo00019.png" Min="101" Max="110">Gobo 4 shake</Capability>
-  <Capability Res="SGM/gobo00357.png" Min="111" Max="119">Gobo 5 shake</Capability>
-  <Capability Res="Chauvet/gobo00026.png" Min="120" Max="127">Gobo 6 shake</Capability>
+  <Capability Min="0" Max="9" Res="Others/open.png">Open</Capability>
+  <Capability Min="10" Max="18" Res="SGM/gobo00127.png">Gobo 1</Capability>
+  <Capability Min="19" Max="27" Res="ClayPaky/gobo00066.png">Gobo 2</Capability>
+  <Capability Min="28" Max="36" Res="GLP/gobo00015.png">Gobo 3</Capability>
+  <Capability Min="37" Max="46" Res="SGM/gobo00019.png">Gobo 4</Capability>
+  <Capability Min="47" Max="55" Res="SGM/gobo00357.png">Gobo 5</Capability>
+  <Capability Min="56" Max="63" Res="Chauvet/gobo00026.png">Gobo 6</Capability>
+  <Capability Min="64" Max="73" Res="Others/open.png">Open shake</Capability>
+  <Capability Min="74" Max="82" Res="SGM/gobo00127.png">Gobo 1 shake</Capability>
+  <Capability Min="83" Max="91" Res="ClayPaky/gobo00066.png">Gobo 2 shake</Capability>
+  <Capability Min="92" Max="100" Res="GLP/gobo00015.png">Gobo 3 shake</Capability>
+  <Capability Min="101" Max="110" Res="SGM/gobo00019.png">Gobo 4 shake</Capability>
+  <Capability Min="111" Max="119" Res="SGM/gobo00357.png">Gobo 5 shake</Capability>
+  <Capability Min="120" Max="127" Res="Chauvet/gobo00026.png">Gobo 6 shake</Capability>
   <Capability Min="128" Max="254">Gobo wheel rotation slow - fast</Capability>
   <Capability Min="255" Max="255">Sound active</Capability>
  </Channel>
@@ -102,10 +102,10 @@
  </Channel>
  <Mode Name="10 channel mode">
   <Physical>
-   <Bulb Lumens="22300" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="206" Height="285" Weight="6.5" Depth="242"/>
-   <Lens DegreesMax="17" Name="Other" DegreesMin="17"/>
-   <Focus PanMax="540" Type="Head" TiltMax="270"/>
+   <Bulb Type="LED" Lumens="22300" ColourTemperature="0"/>
+   <Dimensions Weight="6.5" Width="206" Height="285" Depth="242"/>
+   <Lens Name="Other" DegreesMin="17" DegreesMax="17"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="93" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

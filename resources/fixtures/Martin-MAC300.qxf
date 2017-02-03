@@ -110,10 +110,10 @@
  </Channel>
  <Mode Name="Mode 1">
   <Physical>
-   <Bulb Lumens="4765" Type="MSD 250W" ColourTemperature="6500"/>
-   <Dimensions Width="384" Height="536" Weight="21" Depth="330"/>
-   <Lens DegreesMax="35" Name="Other" DegreesMin="18"/>
-   <Focus PanMax="270" Type="Head" TiltMax="265"/>
+   <Bulb Type="MSD 250W" Lumens="4765" ColourTemperature="6500"/>
+   <Dimensions Weight="21" Width="384" Height="536" Depth="330"/>
+   <Lens Name="Other" DegreesMin="18" DegreesMax="35"/>
+   <Focus Type="Head" PanMax="270" TiltMax="265"/>
    <Technical PowerConsumption="350" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
@@ -128,10 +128,10 @@
  </Mode>
  <Mode Name="Mode 2">
   <Physical>
-   <Bulb Lumens="4765" Type="MSD 250W" ColourTemperature="6500"/>
-   <Dimensions Width="384" Height="536" Weight="21" Depth="330"/>
-   <Lens DegreesMax="35" Name="Other" DegreesMin="18"/>
-   <Focus PanMax="270" Type="Head" TiltMax="265"/>
+   <Bulb Type="MSD 250W" Lumens="4765" ColourTemperature="6500"/>
+   <Dimensions Weight="21" Width="384" Height="536" Depth="330"/>
+   <Lens Name="Other" DegreesMin="18" DegreesMax="35"/>
+   <Focus Type="Head" PanMax="270" TiltMax="265"/>
    <Technical PowerConsumption="350" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
@@ -148,10 +148,10 @@
  </Mode>
  <Mode Name="Mode 3">
   <Physical>
-   <Bulb Lumens="4765" Type="MSD 250W" ColourTemperature="6500"/>
-   <Dimensions Width="384" Height="536" Weight="21" Depth="330"/>
-   <Lens DegreesMax="35" Name="Other" DegreesMin="18"/>
-   <Focus PanMax="270" Type="Head" TiltMax="265"/>
+   <Bulb Type="MSD 250W" Lumens="4765" ColourTemperature="6500"/>
+   <Dimensions Weight="21" Width="384" Height="536" Depth="330"/>
+   <Lens Name="Other" DegreesMin="18" DegreesMax="35"/>
+   <Focus Type="Head" PanMax="270" TiltMax="265"/>
    <Technical PowerConsumption="350" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
@@ -168,10 +168,10 @@
  </Mode>
  <Mode Name="Mode 4">
   <Physical>
-   <Bulb Lumens="4765" Type="MSD 250W" ColourTemperature="6500"/>
-   <Dimensions Width="384" Height="536" Weight="21" Depth="330"/>
-   <Lens DegreesMax="35" Name="Other" DegreesMin="18"/>
-   <Focus PanMax="270" Type="Head" TiltMax="265"/>
+   <Bulb Type="MSD 250W" Lumens="4765" ColourTemperature="6500"/>
+   <Dimensions Weight="21" Width="384" Height="536" Depth="330"/>
+   <Lens Name="Other" DegreesMin="18" DegreesMax="35"/>
+   <Focus Type="Head" PanMax="270" TiltMax="265"/>
    <Technical PowerConsumption="350" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Shutter, strobe, reset, lamp</Channel>

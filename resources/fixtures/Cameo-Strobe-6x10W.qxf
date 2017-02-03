@@ -20,8 +20,8 @@
  <Mode Name="2-Channel Mode">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="2.4" Width="380" Depth="105" Height="130"/>
-   <Lens DegreesMin="80" DegreesMax="80" Name="Other"/>
+   <Dimensions Weight="2.4" Width="380" Height="130" Depth="105"/>
+   <Lens Name="Other" DegreesMin="80" DegreesMax="80"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="40" DmxConnector="3-pin"/>
   </Physical>

@@ -36,9 +36,9 @@
   <Capability Min="84" Max="97" Color="#ff5500">CTO (Convert to orange)</Capability>
   <Capability Min="98" Max="111" Color="#00007f">CTB (Convert to blue)</Capability>
   <Capability Min="112" Max="127" Color="#68004e">UV-filter</Capability>
-  <Capability Res="Others/rainbow.png" Min="128" Max="187">Forwards rainbow effect (fast to slow)</Capability>
+  <Capability Min="128" Max="187" Res="Others/rainbow.png">Forwards rainbow effect (fast to slow)</Capability>
   <Capability Min="188" Max="193">No rotation</Capability>
-  <Capability Res="Others/rainbow.png" Min="194" Max="255">Backwards rainbow effect (slow to fast)</Capability>
+  <Capability Min="194" Max="255" Res="Others/rainbow.png">Backwards rainbow effect (slow to fast)</Capability>
  </Channel>
  <Channel Name="Cyan">
   <Group Byte="0">Intensity</Group>
@@ -149,11 +149,11 @@
  </Channel>
  <Mode Name="Mode 1">
   <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="MSD 250W"/>
-   <Dimensions Weight="24" Height="470" Width="420" Depth="370"/>
+   <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="24" Width="420" Height="470" Depth="370"/>
    <Lens Name="Other" DegreesMin="7" DegreesMax="28"/>
-   <Focus PanMax="630" TiltMax="265" Type="Head"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="485"/>
+   <Focus Type="Head" PanMax="630" TiltMax="265"/>
+   <Technical PowerConsumption="485" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>

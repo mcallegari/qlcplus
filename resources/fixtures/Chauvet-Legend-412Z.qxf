@@ -233,11 +233,11 @@
  </Channel>
  <Mode Name="15-channel">
   <Physical>
-   <Bulb Lumens="330" ColourTemperature="0" Type="LED"/>
-   <Dimensions Depth="183" Weight="7.5" Height="355" Width="271"/>
-   <Lens DegreesMin="8" DegreesMax="33" Name="Other"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
-   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="188"/>
+   <Bulb Type="LED" Lumens="330" ColourTemperature="0"/>
+   <Dimensions Weight="7.5" Width="271" Height="355" Depth="183"/>
+   <Lens Name="Other" DegreesMin="8" DegreesMax="33"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="188" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
@@ -257,11 +257,11 @@
  </Mode>
  <Mode Name="27-channel">
   <Physical>
-   <Bulb Lumens="330" ColourTemperature="0" Type="LED"/>
-   <Dimensions Depth="183" Weight="7.5" Height="355" Width="271"/>
-   <Lens DegreesMin="8" DegreesMax="33" Name="Other"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
-   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="188"/>
+   <Bulb Type="LED" Lumens="330" ColourTemperature="0"/>
+   <Dimensions Weight="7.5" Width="271" Height="355" Depth="183"/>
+   <Lens Name="Other" DegreesMin="8" DegreesMax="33"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="188" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
@@ -317,11 +317,11 @@
  </Mode>
  <Mode Name="31-channel">
   <Physical>
-   <Bulb Lumens="330" ColourTemperature="0" Type="LED"/>
-   <Dimensions Depth="183" Weight="7.5" Height="355" Width="271"/>
-   <Lens DegreesMin="8" DegreesMax="33" Name="Other"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
-   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="188"/>
+   <Bulb Type="LED" Lumens="330" ColourTemperature="0"/>
+   <Dimensions Weight="7.5" Width="271" Height="355" Depth="183"/>
+   <Lens Name="Other" DegreesMin="8" DegreesMax="33"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="188" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
@@ -385,11 +385,11 @@
  </Mode>
  <Mode Name="34-channel">
   <Physical>
-   <Bulb Lumens="330" ColourTemperature="0" Type="LED"/>
-   <Dimensions Depth="183" Weight="7.5" Height="355" Width="271"/>
-   <Lens DegreesMin="8" DegreesMax="33" Name="Other"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
-   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="188"/>
+   <Bulb Type="LED" Lumens="330" ColourTemperature="0"/>
+   <Dimensions Weight="7.5" Width="271" Height="355" Depth="183"/>
+   <Lens Name="Other" DegreesMin="8" DegreesMax="33"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="188" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>

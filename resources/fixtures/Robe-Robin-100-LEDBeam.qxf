@@ -425,9 +425,9 @@ random strobe)</Capability>
  <Mode Name="Mode 1 - RGBW">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Depth="149" Height="314" Weight="4.5" Width="233"/>
-   <Lens DegreesMin="7" DegreesMax="40" Name="Other"/>
-   <Focus TiltMax="300" PanMax="450" Type="Head"/>
+   <Dimensions Weight="4.5" Width="233" Height="314" Depth="149"/>
+   <Lens Name="Other" DegreesMin="7" DegreesMax="40"/>
+   <Focus Type="Head" PanMax="450" TiltMax="300"/>
    <Technical PowerConsumption="200" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -499,9 +499,9 @@ random strobe)</Capability>
  <Mode Name="Mode 2 - RGBW">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Depth="149" Height="314" Weight="4.5" Width="233"/>
-   <Lens DegreesMin="7" DegreesMax="40" Name="Other"/>
-   <Focus TiltMax="300" PanMax="450" Type="Head"/>
+   <Dimensions Weight="4.5" Width="233" Height="314" Depth="149"/>
+   <Lens Name="Other" DegreesMin="7" DegreesMax="40"/>
+   <Focus Type="Head" PanMax="450" TiltMax="300"/>
    <Technical PowerConsumption="200" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -527,9 +527,9 @@ random strobe)</Capability>
  <Mode Name="Mode 3 - RGBW">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Depth="149" Height="314" Weight="4.5" Width="233"/>
-   <Lens DegreesMin="7" DegreesMax="40" Name="Other"/>
-   <Focus TiltMax="300" PanMax="450" Type="Head"/>
+   <Dimensions Weight="4.5" Width="233" Height="314" Depth="149"/>
+   <Lens Name="Other" DegreesMin="7" DegreesMax="40"/>
+   <Focus Type="Head" PanMax="450" TiltMax="300"/>
    <Technical PowerConsumption="200" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -550,9 +550,9 @@ random strobe)</Capability>
  <Mode Name="Mode 4">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Depth="149" Height="314" Weight="4.5" Width="233"/>
-   <Lens DegreesMin="7" DegreesMax="40" Name="Other"/>
-   <Focus TiltMax="300" PanMax="450" Type="Head"/>
+   <Dimensions Weight="4.5" Width="233" Height="314" Depth="149"/>
+   <Lens Name="Other" DegreesMin="7" DegreesMax="40"/>
+   <Focus Type="Head" PanMax="450" TiltMax="300"/>
    <Technical PowerConsumption="200" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -568,9 +568,9 @@ random strobe)</Capability>
  <Mode Name="Mode 5 - RGBW">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Depth="149" Height="314" Weight="4.5" Width="233"/>
-   <Lens DegreesMin="7" DegreesMax="40" Name="Other"/>
-   <Focus TiltMax="300" PanMax="450" Type="Head"/>
+   <Dimensions Weight="4.5" Width="233" Height="314" Depth="149"/>
+   <Lens Name="Other" DegreesMin="7" DegreesMax="40"/>
+   <Focus Type="Head" PanMax="450" TiltMax="300"/>
    <Technical PowerConsumption="200" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -642,9 +642,9 @@ random strobe)</Capability>
  <Mode Name="Mode 6 - RGBW">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Depth="149" Height="314" Weight="4.5" Width="233"/>
-   <Lens DegreesMin="7" DegreesMax="40" Name="Other"/>
-   <Focus TiltMax="300" PanMax="450" Type="Head"/>
+   <Dimensions Weight="4.5" Width="233" Height="314" Depth="149"/>
+   <Lens Name="Other" DegreesMin="7" DegreesMax="40"/>
+   <Focus Type="Head" PanMax="450" TiltMax="300"/>
    <Technical PowerConsumption="200" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -718,9 +718,9 @@ random strobe)</Capability>
  <Mode Name="Mode 1 - CMY">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Depth="149" Height="314" Weight="4.5" Width="233"/>
-   <Lens DegreesMin="7" DegreesMax="40" Name="Other"/>
-   <Focus TiltMax="300" PanMax="450" Type="Head"/>
+   <Dimensions Weight="4.5" Width="233" Height="314" Depth="149"/>
+   <Lens Name="Other" DegreesMin="7" DegreesMax="40"/>
+   <Focus Type="Head" PanMax="450" TiltMax="300"/>
    <Technical PowerConsumption="200" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -792,9 +792,9 @@ random strobe)</Capability>
  <Mode Name="Mode 2 - CMY">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Depth="149" Height="314" Weight="4.5" Width="233"/>
-   <Lens DegreesMin="7" DegreesMax="40" Name="Other"/>
-   <Focus TiltMax="300" PanMax="450" Type="Head"/>
+   <Dimensions Weight="4.5" Width="233" Height="314" Depth="149"/>
+   <Lens Name="Other" DegreesMin="7" DegreesMax="40"/>
+   <Focus Type="Head" PanMax="450" TiltMax="300"/>
    <Technical PowerConsumption="200" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -820,9 +820,9 @@ random strobe)</Capability>
  <Mode Name="Mode 3 - CMY">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Depth="149" Height="314" Weight="4.5" Width="233"/>
-   <Lens DegreesMin="7" DegreesMax="40" Name="Other"/>
-   <Focus TiltMax="300" PanMax="450" Type="Head"/>
+   <Dimensions Weight="4.5" Width="233" Height="314" Depth="149"/>
+   <Lens Name="Other" DegreesMin="7" DegreesMax="40"/>
+   <Focus Type="Head" PanMax="450" TiltMax="300"/>
    <Technical PowerConsumption="200" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -843,9 +843,9 @@ random strobe)</Capability>
  <Mode Name="Mode 5 - CMY">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Depth="149" Height="314" Weight="4.5" Width="233"/>
-   <Lens DegreesMin="7" DegreesMax="40" Name="Other"/>
-   <Focus TiltMax="300" PanMax="450" Type="Head"/>
+   <Dimensions Weight="4.5" Width="233" Height="314" Depth="149"/>
+   <Lens Name="Other" DegreesMin="7" DegreesMax="40"/>
+   <Focus Type="Head" PanMax="450" TiltMax="300"/>
    <Technical PowerConsumption="200" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -917,9 +917,9 @@ random strobe)</Capability>
  <Mode Name="Mode 6 - CMY">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Depth="149" Height="314" Weight="4.5" Width="233"/>
-   <Lens DegreesMin="7" DegreesMax="40" Name="Other"/>
-   <Focus TiltMax="300" PanMax="450" Type="Head"/>
+   <Dimensions Weight="4.5" Width="233" Height="314" Depth="149"/>
+   <Lens Name="Other" DegreesMin="7" DegreesMax="40"/>
+   <Focus Type="Head" PanMax="450" TiltMax="300"/>
    <Technical PowerConsumption="200" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

@@ -67,9 +67,9 @@
   <Capability Min="169" Max="172" Color="#00ff00">Green</Capability>
   <Capability Min="173" Max="176" Color="#0000ff">Blue</Capability>
   <Capability Min="177" Max="180" Color="#ffffff">Open</Capability>
-  <Capability Res="Others/rainbow.png" Min="181" Max="203">Scroll CW</Capability>
+  <Capability Min="181" Max="203" Res="Others/rainbow.png">Scroll CW</Capability>
   <Capability Min="204" Max="207">No Scroll</Capability>
-  <Capability Res="Others/rainbow.png" Min="208" Max="230">Scroll CCW</Capability>
+  <Capability Min="208" Max="230" Res="Others/rainbow.png">Scroll CCW</Capability>
   <Capability Min="231" Max="235">Chase Music Fast</Capability>
   <Capability Min="236" Max="239">Chase Music Medium</Capability>
   <Capability Min="240" Max="243">Chase Music Slow</Capability>
@@ -79,32 +79,32 @@
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/open.png" Min="0" Max="3">Open</Capability>
-  <Capability Res="Others/gobo00064.png" Min="4" Max="7">Jessica Rose</Capability>
-  <Capability Res="SGM/gobo00370.png" Min="8" Max="11">Cathedral Spikes</Capability>
-  <Capability Res="ClayPaky/gobo00040.png" Min="12" Max="15">Galaxy Breakup</Capability>
-  <Capability Res="SGM/gobo00364.png" Min="16" Max="19">Fabrick</Capability>
-  <Capability Res="Others/gobo00017.png" Min="20" Max="23">Dipple</Capability>
-  <Capability Res="SGM-Color/gobo00447.png" Min="24" Max="27">Blue Ripple</Capability>
-  <Capability Res="Others/open.png" Min="28" Max="31">Open</Capability>
-  <Capability Res="Others/gobo00064.png" Min="32" Max="35">Jessica Rose</Capability>
-  <Capability Res="SGM/gobo00370.png" Min="36" Max="39">Cathedral Spikes</Capability>
-  <Capability Res="ClayPaky/gobo00040.png" Min="40" Max="43">Galaxy Breakup</Capability>
-  <Capability Res="SGM/gobo00364.png" Min="44" Max="47">Fabrick</Capability>
-  <Capability Res="Others/gobo00017.png" Min="48" Max="51">Dipple</Capability>
-  <Capability Res="SGM-Color/gobo00447.png" Min="52" Max="55">Blue Ripple</Capability>
-  <Capability Res="Others/gobo00064.png" Min="56" Max="66">Rose Shk</Capability>
-  <Capability Res="SGM/gobo00370.png" Min="67" Max="77">Cathedral Shk</Capability>
-  <Capability Res="ClayPaky/gobo00040.png" Min="78" Max="88">Galaxy Shk</Capability>
-  <Capability Res="SGM/gobo00364.png" Min="89" Max="99">Fabrick Shk</Capability>
-  <Capability Res="Others/gobo00017.png" Min="100" Max="110">Dipple Shk</Capability>
-  <Capability Res="SGM-Color/gobo00447.png" Min="111" Max="121">Ripple Shk</Capability>
-  <Capability Res="Others/gobo00064.png" Min="122" Max="132">Rose Shk</Capability>
-  <Capability Res="SGM/gobo00370.png" Min="133" Max="143">Cathedral Shk</Capability>
-  <Capability Res="ClayPaky/gobo00040.png" Min="144" Max="154">Galaxy Shk</Capability>
-  <Capability Res="SGM/gobo00364.png" Min="155" Max="165">Fabrick Shk</Capability>
-  <Capability Res="Others/gobo00017.png" Min="166" Max="176">Dipple Shk</Capability>
-  <Capability Res="SGM-Color/gobo00447.png" Min="177" Max="187">Ripple Shk</Capability>
+  <Capability Min="0" Max="3" Res="Others/open.png">Open</Capability>
+  <Capability Min="4" Max="7" Res="Others/gobo00064.png">Jessica Rose</Capability>
+  <Capability Min="8" Max="11" Res="SGM/gobo00370.png">Cathedral Spikes</Capability>
+  <Capability Min="12" Max="15" Res="ClayPaky/gobo00040.png">Galaxy Breakup</Capability>
+  <Capability Min="16" Max="19" Res="SGM/gobo00364.png">Fabrick</Capability>
+  <Capability Min="20" Max="23" Res="Others/gobo00017.png">Dipple</Capability>
+  <Capability Min="24" Max="27" Res="SGM-Color/gobo00447.png">Blue Ripple</Capability>
+  <Capability Min="28" Max="31" Res="Others/open.png">Open</Capability>
+  <Capability Min="32" Max="35" Res="Others/gobo00064.png">Jessica Rose</Capability>
+  <Capability Min="36" Max="39" Res="SGM/gobo00370.png">Cathedral Spikes</Capability>
+  <Capability Min="40" Max="43" Res="ClayPaky/gobo00040.png">Galaxy Breakup</Capability>
+  <Capability Min="44" Max="47" Res="SGM/gobo00364.png">Fabrick</Capability>
+  <Capability Min="48" Max="51" Res="Others/gobo00017.png">Dipple</Capability>
+  <Capability Min="52" Max="55" Res="SGM-Color/gobo00447.png">Blue Ripple</Capability>
+  <Capability Min="56" Max="66" Res="Others/gobo00064.png">Rose Shk</Capability>
+  <Capability Min="67" Max="77" Res="SGM/gobo00370.png">Cathedral Shk</Capability>
+  <Capability Min="78" Max="88" Res="ClayPaky/gobo00040.png">Galaxy Shk</Capability>
+  <Capability Min="89" Max="99" Res="SGM/gobo00364.png">Fabrick Shk</Capability>
+  <Capability Min="100" Max="110" Res="Others/gobo00017.png">Dipple Shk</Capability>
+  <Capability Min="111" Max="121" Res="SGM-Color/gobo00447.png">Ripple Shk</Capability>
+  <Capability Min="122" Max="132" Res="Others/gobo00064.png">Rose Shk</Capability>
+  <Capability Min="133" Max="143" Res="SGM/gobo00370.png">Cathedral Shk</Capability>
+  <Capability Min="144" Max="154" Res="ClayPaky/gobo00040.png">Galaxy Shk</Capability>
+  <Capability Min="155" Max="165" Res="SGM/gobo00364.png">Fabrick Shk</Capability>
+  <Capability Min="166" Max="176" Res="Others/gobo00017.png">Dipple Shk</Capability>
+  <Capability Min="177" Max="187" Res="SGM-Color/gobo00447.png">Ripple Shk</Capability>
   <Capability Min="188" Max="215">Spin CW</Capability>
   <Capability Min="216" Max="243">Spin CCW</Capability>
   <Capability Min="244" Max="247">Chase Fast</Capability>
@@ -295,11 +295,11 @@
  </Channel>
  <Mode Name="8 Bit">
   <Physical>
-   <Bulb Lumens="8000" Type="LED" ColourTemperature="6500"/>
-   <Dimensions Weight="16.6" Width="377" Depth="220" Height="471"/>
-   <Lens DegreesMin="8" DegreesMax="16" Name=""/>
-   <Focus PanMax="630" TiltMax="300" Type="Head"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="463"/>
+   <Bulb Type="LED" Lumens="8000" ColourTemperature="6500"/>
+   <Dimensions Weight="16.6" Width="377" Height="471" Depth="220"/>
+   <Lens Name="" DegreesMin="8" DegreesMax="16"/>
+   <Focus Type="Head" PanMax="630" TiltMax="300"/>
+   <Technical PowerConsumption="463" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Shutter Strobe</Channel>
   <Channel Number="1">Dimmer</Channel>
@@ -318,11 +318,11 @@
  </Mode>
  <Mode Name="16 Bit">
   <Physical>
-   <Bulb Lumens="8000" Type="LED" ColourTemperature="6500"/>
-   <Dimensions Weight="16.6" Width="377" Depth="220" Height="471"/>
-   <Lens DegreesMin="8" DegreesMax="16" Name=""/>
-   <Focus PanMax="630" TiltMax="300" Type="Head"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="463"/>
+   <Bulb Type="LED" Lumens="8000" ColourTemperature="6500"/>
+   <Dimensions Weight="16.6" Width="377" Height="471" Depth="220"/>
+   <Lens Name="" DegreesMin="8" DegreesMax="16"/>
+   <Focus Type="Head" PanMax="630" TiltMax="300"/>
+   <Technical PowerConsumption="463" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Shutter Strobe</Channel>
   <Channel Number="1">Dimmer</Channel>

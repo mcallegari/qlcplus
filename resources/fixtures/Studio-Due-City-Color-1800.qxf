@@ -57,10 +57,10 @@
  </Channel>
  <Mode Name="7 Channels">
   <Physical>
-   <Bulb Lumens="180000" Type="MHN/SA 1800W Philips" ColourTemperature="5600"/>
-   <Dimensions Width="780" Height="720" Weight="56" Depth="560"/>
-   <Lens DegreesMax="52" Name="Other" DegreesMin="50"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="MHN/SA 1800W Philips" Lumens="180000" ColourTemperature="5600"/>
+   <Dimensions Weight="56" Width="780" Height="720" Depth="560"/>
+   <Lens Name="Other" DegreesMin="50" DegreesMax="52"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="2000" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Motor Speed</Channel>
@@ -73,10 +73,10 @@
  </Mode>
  <Mode Name="6 Channels">
   <Physical>
-   <Bulb Lumens="180000" Type="MHN/SA 1800W Philips" ColourTemperature="5600"/>
-   <Dimensions Width="780" Height="720" Weight="56" Depth="560"/>
-   <Lens DegreesMax="52" Name="Other" DegreesMin="50"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="MHN/SA 1800W Philips" Lumens="180000" ColourTemperature="5600"/>
+   <Dimensions Weight="56" Width="780" Height="720" Depth="560"/>
+   <Lens Name="Other" DegreesMin="50" DegreesMax="52"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="2000" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Motor Speed</Channel>

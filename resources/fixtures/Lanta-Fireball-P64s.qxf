@@ -105,20 +105,20 @@
  </Channel>
  <Mode Name="DMX Mode 1 [1C] Preset Colours">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="290" Height="10" Weight="1.6" Depth="295"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1.6" Width="290" Height="10" Depth="295"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="30" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Preset Colours [1C]</Channel>
  </Mode>
  <Mode Name="DMX Mode 2 [3C] RGB Only">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="290" Height="10" Weight="1.6" Depth="295"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1.6" Width="290" Height="10" Depth="295"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="30" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
@@ -127,10 +127,10 @@
  </Mode>
  <Mode Name="DMX Mode 3 [4C] RGB + Dimmer">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="290" Height="10" Weight="1.6" Depth="295"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1.6" Width="290" Height="10" Depth="295"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="30" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
@@ -140,10 +140,10 @@
  </Mode>
  <Mode Name="DMX Mode 4 [6C] Preset Colours">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="290" Height="10" Weight="1.6" Depth="295"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1.6" Width="290" Height="10" Depth="295"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="30" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>

@@ -41,25 +41,25 @@
   <Capability Min="105" Max="119" Color="#ff00ff">Magenta</Capability>
   <Capability Min="120" Max="134" Color="#add8ef">Light Blue</Capability>
   <Capability Min="135" Max="149" Color="#90ee90">Light Green</Capability>
-  <Capability Res="Others/rainbow.png" Min="150" Max="255">Rainbow &amp; Linear Effect</Capability>
+  <Capability Min="150" Max="255" Res="Others/rainbow.png">Rainbow &amp; Linear Effect</Capability>
  </Channel>
  <Channel Name="Gobo Wheel &amp; Gobo Shake">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/open.png" Min="0" Max="9">No Gobo</Capability>
-  <Capability Res="Others/gobo00059.png" Min="10" Max="19">Gobo 1</Capability>
-  <Capability Res="Others/gobo00060.png" Min="20" Max="29">Gobo 2</Capability>
-  <Capability Res="Others/gobo00061.png" Min="30" Max="39">Gobo 3</Capability>
-  <Capability Res="Others/gobo00062.png" Min="40" Max="49">Gobo 4</Capability>
-  <Capability Res="ClayPaky/gobo00012.png" Min="50" Max="59">Gobo 5</Capability>
-  <Capability Res="Others/gobo00063.png" Min="60" Max="69">Gobo 6</Capability>
-  <Capability Res="Others/gobo00001.png" Min="70" Max="79">Gobo 7</Capability>
-  <Capability Res="Others/gobo00001.png" Min="80" Max="99">Shaking Gobo 7</Capability>
-  <Capability Res="Others/gobo00063.png" Min="100" Max="119">Shaking Gobo 6</Capability>
-  <Capability Res="ClayPaky/gobo00012.png" Min="120" Max="139">Shaking Gobo 5</Capability>
-  <Capability Res="Others/gobo00062.png" Min="140" Max="159">Shaking Gobo 4</Capability>
-  <Capability Res="Others/gobo00061.png" Min="160" Max="179">Shaking Gobo 3</Capability>
-  <Capability Res="Others/gobo00060.png" Min="180" Max="199">Shaking Gobo 2</Capability>
-  <Capability Res="Others/gobo00059.png" Min="200" Max="219">Shaking Gobo 1</Capability>
+  <Capability Min="0" Max="9" Res="Others/open.png">No Gobo</Capability>
+  <Capability Min="10" Max="19" Res="Others/gobo00059.png">Gobo 1</Capability>
+  <Capability Min="20" Max="29" Res="Others/gobo00060.png">Gobo 2</Capability>
+  <Capability Min="30" Max="39" Res="Others/gobo00061.png">Gobo 3</Capability>
+  <Capability Min="40" Max="49" Res="Others/gobo00062.png">Gobo 4</Capability>
+  <Capability Min="50" Max="59" Res="ClayPaky/gobo00012.png">Gobo 5</Capability>
+  <Capability Min="60" Max="69" Res="Others/gobo00063.png">Gobo 6</Capability>
+  <Capability Min="70" Max="79" Res="Others/gobo00001.png">Gobo 7</Capability>
+  <Capability Min="80" Max="99" Res="Others/gobo00001.png">Shaking Gobo 7</Capability>
+  <Capability Min="100" Max="119" Res="Others/gobo00063.png">Shaking Gobo 6</Capability>
+  <Capability Min="120" Max="139" Res="ClayPaky/gobo00012.png">Shaking Gobo 5</Capability>
+  <Capability Min="140" Max="159" Res="Others/gobo00062.png">Shaking Gobo 4</Capability>
+  <Capability Min="160" Max="179" Res="Others/gobo00061.png">Shaking Gobo 3</Capability>
+  <Capability Min="180" Max="199" Res="Others/gobo00060.png">Shaking Gobo 2</Capability>
+  <Capability Min="200" Max="219" Res="Others/gobo00059.png">Shaking Gobo 1</Capability>
   <Capability Min="220" Max="255">Flow Effect</Capability>
  </Channel>
  <Channel Name="Gobo Rotation">
@@ -108,10 +108,10 @@
  </Channel>
  <Mode Name="Basic Mode (9 ch)">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="240" Height="210" Weight="7" Depth="370"/>
-   <Lens DegreesMax="16" Name="Other" DegreesMin="16"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="7" Width="240" Height="210" Depth="370"/>
+   <Lens Name="Other" DegreesMin="16" DegreesMax="16"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="45" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -126,10 +126,10 @@
  </Mode>
  <Mode Name="Advanced Mode (12 ch)">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="240" Height="210" Weight="7" Depth="370"/>
-   <Lens DegreesMax="16" Name="Other" DegreesMin="16"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="7" Width="240" Height="210" Depth="370"/>
+   <Lens Name="Other" DegreesMin="16" DegreesMax="16"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="45" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

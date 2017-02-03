@@ -111,10 +111,10 @@
  </Channel>
  <Mode Name="Mode 1 (16bit)">
   <Physical>
-   <Bulb Lumens="0" Type="MSD 575W" ColourTemperature="0"/>
-   <Dimensions Width="449" Height="583" Weight="32" Depth="467"/>
-   <Lens DegreesMax="28" Name="Fresnel" DegreesMin="7"/>
-   <Focus PanMax="530" Type="Head" TiltMax="280"/>
+   <Bulb Type="MSD 575W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="32" Width="449" Height="583" Depth="467"/>
+   <Lens Name="Fresnel" DegreesMin="7" DegreesMax="28"/>
+   <Focus Type="Head" PanMax="530" TiltMax="280"/>
    <Technical PowerConsumption="900" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -133,10 +133,10 @@
  </Mode>
  <Mode Name="Mode 2 (16bit)">
   <Physical>
-   <Bulb Lumens="0" Type="MSD 575W" ColourTemperature="0"/>
-   <Dimensions Width="449" Height="583" Weight="32" Depth="467"/>
-   <Lens DegreesMax="28" Name="Fresnel" DegreesMin="7"/>
-   <Focus PanMax="530" Type="Head" TiltMax="280"/>
+   <Bulb Type="MSD 575W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="32" Width="449" Height="583" Depth="467"/>
+   <Lens Name="Fresnel" DegreesMin="7" DegreesMax="28"/>
+   <Focus Type="Head" PanMax="530" TiltMax="280"/>
    <Technical PowerConsumption="900" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -155,10 +155,10 @@
  </Mode>
  <Mode Name="Mode 3 (8bit)">
   <Physical>
-   <Bulb Lumens="0" Type="MSD 575W" ColourTemperature="0"/>
-   <Dimensions Width="449" Height="583" Weight="32" Depth="467"/>
-   <Lens DegreesMax="28" Name="Fresnel" DegreesMin="7"/>
-   <Focus PanMax="530" Type="Head" TiltMax="280"/>
+   <Bulb Type="MSD 575W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="32" Width="449" Height="583" Depth="467"/>
+   <Lens Name="Fresnel" DegreesMin="7" DegreesMax="28"/>
+   <Focus Type="Head" PanMax="530" TiltMax="280"/>
    <Technical PowerConsumption="900" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

@@ -109,10 +109,10 @@ QRG</Model>
  </Channel>
  <Mode Name="8 Channel mode">
   <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
-   <Dimensions Height="170" Width="194" Depth="84" Weight="1.5"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1.5" Width="194" Height="170" Depth="84"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="44" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Zone 1</Channel>
@@ -126,10 +126,10 @@ QRG</Model>
  </Mode>
  <Mode Name="5 Channel mode">
   <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
-   <Dimensions Height="170" Width="194" Depth="84" Weight="1.5"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1.5" Width="194" Height="170" Depth="84"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="44" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer (5ch mode)</Channel>
@@ -140,10 +140,10 @@ QRG</Model>
  </Mode>
  <Mode Name="2 Channel mode">
   <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
-   <Dimensions Height="170" Width="194" Depth="84" Weight="1.5"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1.5" Width="194" Height="170" Depth="84"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="44" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Strobe Speed (2ch mode)</Channel>

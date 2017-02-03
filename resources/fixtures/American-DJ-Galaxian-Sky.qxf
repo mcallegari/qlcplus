@@ -64,10 +64,10 @@
  <Mode Name="DMX Mode">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Height="206" Depth="299" Weight="3.5" Width="194"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="17"/>
+   <Dimensions Weight="3.5" Width="194" Height="206" Depth="299"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="17" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Laser On/Off</Channel>
   <Channel Number="1">Patterns</Channel>

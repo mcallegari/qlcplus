@@ -32,10 +32,10 @@
  </Channel>
  <Mode Name="Default mode">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="240" Height="192" Weight="1.8" Depth="260"/>
-   <Lens DegreesMax="25" Name="Other" DegreesMin="25"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1.8" Width="240" Height="192" Depth="260"/>
+   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="40" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>

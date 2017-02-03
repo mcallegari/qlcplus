@@ -141,10 +141,10 @@
  </Channel>
  <Mode Name="5Ch F Mode">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1080" Height="120" Weight="4" Depth="115"/>
-   <Lens DegreesMax="30" Name="Other" DegreesMin="30"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4" Width="1080" Height="120" Depth="115"/>
+   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="50" DmxConnector="Other"/>
   </Physical>
   <Channel Number="0">Strobe/Chaser</Channel>
@@ -155,10 +155,10 @@
  </Mode>
  <Mode Name="8Ch P Mode (2 Section)">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1080" Height="120" Weight="4" Depth="115"/>
-   <Lens DegreesMax="30" Name="Other" DegreesMin="30"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4" Width="1080" Height="120" Depth="115"/>
+   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="50" DmxConnector="Other"/>
   </Physical>
   <Channel Number="0">Strobe/Chaser</Channel>
@@ -182,10 +182,10 @@
  </Mode>
  <Mode Name="14Ch A Mode (4 Section)">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1080" Height="120" Weight="4" Depth="115"/>
-   <Lens DegreesMax="30" Name="Other" DegreesMin="30"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4" Width="1080" Height="120" Depth="115"/>
+   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="50" DmxConnector="Other"/>
   </Physical>
   <Channel Number="0">Strobe/Chaser</Channel>

@@ -65,10 +65,10 @@
  </Channel>
  <Mode Name="8bit">
   <Physical>
-   <Bulb Lumens="9500" Type="HTI 150W" ColourTemperature="5000"/>
-   <Dimensions Width="335" Height="360" Weight="12" Depth="330"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="360" Type="Head" TiltMax="250"/>
+   <Bulb Type="HTI 150W" Lumens="9500" ColourTemperature="5000"/>
+   <Dimensions Weight="12" Width="335" Height="360" Depth="330"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="360" TiltMax="250"/>
    <Technical PowerConsumption="265" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan coarse</Channel>
@@ -80,10 +80,10 @@
  </Mode>
  <Mode Name="16bit">
   <Physical>
-   <Bulb Lumens="9500" Type="HTI 150W" ColourTemperature="5000"/>
-   <Dimensions Width="335" Height="360" Weight="12" Depth="330"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="360" Type="Head" TiltMax="250"/>
+   <Bulb Type="HTI 150W" Lumens="9500" ColourTemperature="5000"/>
+   <Dimensions Weight="12" Width="335" Height="360" Depth="330"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="360" TiltMax="250"/>
    <Technical PowerConsumption="265" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan coarse</Channel>

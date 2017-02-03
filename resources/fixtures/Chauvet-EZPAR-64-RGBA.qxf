@@ -32,7 +32,7 @@
  <Channel Name="Color Macros">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="15">No funciton</Capability>
-  <Capability Res="Others/rainbow.png" Min="16" Max="255">Color macros</Capability>
+  <Capability Min="16" Max="255" Res="Others/rainbow.png">Color macros</Capability>
  </Channel>
  <Channel Name="Speed">
   <Group Byte="0">Speed</Group>
@@ -56,10 +56,10 @@
  </Channel>
  <Mode Name="8 Channel">
   <Physical>
-   <Bulb Lumens="1325" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="276" Height="275" Weight="1.9" Depth="66"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="1325" ColourTemperature="0"/>
+   <Dimensions Weight="1.9" Width="276" Height="275" Depth="66"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="33" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
@@ -73,10 +73,10 @@
  </Mode>
  <Mode Name="4 Channel">
   <Physical>
-   <Bulb Lumens="1325" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="276" Height="275" Weight="1.9" Depth="66"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="1325" ColourTemperature="0"/>
+   <Dimensions Weight="1.9" Width="276" Height="275" Depth="66"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="33" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>

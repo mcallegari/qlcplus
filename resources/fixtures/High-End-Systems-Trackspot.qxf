@@ -109,10 +109,10 @@
  </Channel>
  <Mode Name="High Resolution Mode">
   <Physical>
-   <Bulb Lumens="0" Type="QT 8500" ColourTemperature="0"/>
-   <Dimensions Width="650" Height="178" Weight="11" Depth="221"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="170" Type="Mirror" TiltMax="110"/>
+   <Bulb Type="QT 8500" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="11" Width="650" Height="178" Depth="221"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Mirror" PanMax="170" TiltMax="110"/>
    <Technical PowerConsumption="350" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

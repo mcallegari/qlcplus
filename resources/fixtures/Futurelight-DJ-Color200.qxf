@@ -60,10 +60,10 @@
  </Channel>
  <Mode Name="Mode 1">
   <Physical>
-   <Bulb ColourTemperature="8500" Lumens="0" Type="MSD 250W"/>
-   <Dimensions Width="300" Height="390" Weight="11" Depth="290"/>
-   <Lens DegreesMax="0" Name="PC" DegreesMin="0"/>
-   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
+   <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="8500"/>
+   <Dimensions Weight="11" Width="300" Height="390" Depth="290"/>
+   <Lens Name="PC" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="440" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Colour</Channel>

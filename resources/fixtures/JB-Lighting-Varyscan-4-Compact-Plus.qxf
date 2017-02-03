@@ -119,10 +119,10 @@
  </Channel>
  <Mode Name="Advanced">
   <Physical>
-   <Bulb Lumens="0" Type="HMI 575W" ColourTemperature="0"/>
-   <Dimensions Width="270" Height="650" Weight="19" Depth="290"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="170" Type="Head" TiltMax="110"/>
+   <Bulb Type="HMI 575W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="19" Width="270" Height="650" Depth="290"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="170" TiltMax="110"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
@@ -135,10 +135,10 @@
  </Mode>
  <Mode Name="Simple">
   <Physical>
-   <Bulb Lumens="0" Type="HMI 575W" ColourTemperature="0"/>
-   <Dimensions Width="270" Height="650" Weight="19" Depth="290"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="170" Type="Head" TiltMax="110"/>
+   <Bulb Type="HMI 575W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="19" Width="270" Height="650" Depth="290"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="170" TiltMax="110"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
@@ -149,10 +149,10 @@
  </Mode>
  <Mode Name="Clay Paky GS3">
   <Physical>
-   <Bulb Lumens="0" Type="HMI 575W" ColourTemperature="0"/>
-   <Dimensions Width="270" Height="650" Weight="19" Depth="290"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="170" Type="Head" TiltMax="110"/>
+   <Bulb Type="HMI 575W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="19" Width="270" Height="650" Depth="290"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="170" TiltMax="110"/>
   </Physical>
   <Channel Number="0">Iris &amp; Gobo rotation</Channel>
   <Channel Number="1">Colour</Channel>
