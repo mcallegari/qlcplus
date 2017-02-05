@@ -454,10 +454,8 @@ int VCFrame::currentPage()
 
 void VCFrame::addShortcut(VCFramePageShortcut const& shortcut)
 {
-
-    QWidget *shortcutWidget = NULL;
-    QPushButton *shortcutButton = new QPushButton(this);
-    shortcutWidget = shortcutButton;
+    QWidget *shortcutWidget = new QPushButton(this);
+    shortcutWidget->hide();
     Q_ASSERT(shortcutWidget != NULL);
 
     if (mode() == Doc::Design)
@@ -1208,7 +1206,6 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
             resetShortcuts();
             foreach (VCFramePageShortcut const& shortcut, newShortcuts)
                 addShortcut(shortcut);
-            slotPageLabelChanged(0);
         }
         else
             qWarning() << Q_FUNC_INFO << "Shortcut number does not match page number";
@@ -1350,6 +1347,11 @@ bool VCFrame::saveXML(QXmlStreamWriter *doc)
 
 void VCFrame::postLoad()
 {
+    /* Connect keyPressed events - neccessary if only frame page shortcuts are loaded */
+    /* Quite a dirty workaround, but it works without interfering with other widgets */
+    disconnect(this, SIGNAL(keyPressed(QKeySequence)), this, SLOT(slotFrameKeyPressed(QKeySequence)));
+    connect(this, SIGNAL(keyPressed(QKeySequence)), this, SLOT(slotFrameKeyPressed(QKeySequence)));
+
     QListIterator <VCWidget*> it(findChildren<VCWidget*>());
     while (it.hasNext() == true)
     {
