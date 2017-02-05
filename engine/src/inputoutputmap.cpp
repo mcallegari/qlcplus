@@ -727,6 +727,12 @@ void InputOutputMap::slotPluginConfigurationChanged(QLCIOPlugin* plugin)
         {
             /*success = */ ip->reconnect();
         }
+
+        OutputPatch* fp = m_universeArray.at(i)->feedbackPatch();
+        if (fp != NULL && fp->plugin() == plugin)
+        {
+            /*success = */ fp->reconnect();
+        }
     }
     locker.unlock();
 

@@ -250,7 +250,7 @@
  </Channel>
  <Channel Name="Indigo Highlighter Dim">
   <Group Byte="0">Intensity</Group>
-  <Colour>UV</Colour>
+  <Colour>Indigo</Colour>
   <Capability Min="0" Max="255">0% - 100%</Capability>
  </Channel>
  <Channel Name="Shutter Functions">
