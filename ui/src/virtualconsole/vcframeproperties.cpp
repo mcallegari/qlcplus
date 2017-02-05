@@ -180,7 +180,7 @@ void VCFrameProperties::slotPageSelectChanged(int index)
 {
     if (index >= 0 && m_shortcuts[index] != NULL)
     {
-        m_shortcutInputWidget->setTitle(tr("Page: %1").arg(index + 1));
+        m_shortcutInputWidget->setTitle(tr("External Input - Page: %1").arg(index + 1));
         m_shortcutInputWidget->setInputSource(m_shortcuts[index]->m_inputSource);
         m_shortcutInputWidget->setKeySequence(m_shortcuts[index]->m_keySequence.toString(QKeySequence::NativeText));
     }
@@ -195,7 +195,7 @@ void VCFrameProperties::slotTotalPagesNumberChanged(int number)
         if (i < number)
         {
             // Update page selection for input widget
-            m_pageSelect->addItem(tr("Page: %1").arg(i + 1));
+            m_pageSelect->addItem(tr("Shortcut for page: %1").arg(i + 1));
             if (m_shortcuts.length() <= i)
             {
                 VCFramePageShortcut* vcfps = new VCFramePageShortcut(i);
