@@ -562,7 +562,9 @@ void VCFrame::slotSetPage(int pageNum)
         if (pageNum >= 0 && pageNum < m_totalPagesNumber)
             m_currentPage = pageNum;
 
+        m_pageLabel->blockSignals(true);
         m_pageLabel->setCurrentIndex(m_currentPage);
+        m_pageLabel->blockSignals(false);
 
         QMapIterator <VCWidget*, int> it(m_pagesMap);
         while (it.hasNext() == true)
@@ -585,6 +587,7 @@ void VCFrame::slotSetPage(int pageNum)
         m_doc->setModified();
         emit pageChanged(m_currentPage);
     }
+    updateFeedback();
 }
 
 void VCFrame::slotModeChanged(Doc::Mode mode)
