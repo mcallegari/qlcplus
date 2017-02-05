@@ -723,6 +723,20 @@ void VCFrame::updateFeedback()
             sendFeedback(src->lowerValue(), enableInputSourceId);
     }
 
+    QListIterator <VCFramePageShortcut*> shortcutIt(shortcuts());
+    while (shortcutIt.hasNext() == true)
+    {
+        VCFramePageShortcut* shortcut = shortcutIt.next();
+        QSharedPointer<QLCInputSource> src = shortcut->m_inputSource;
+        if (!src.isNull() && src->isValid() == true)
+        {
+            if (m_currentPage == shortcut->m_page)
+                sendFeedback(src->upperValue(), src);
+            else
+                sendFeedback(src->lowerValue(), src);
+        }
+    }
+
     QListIterator <VCWidget*> it(this->findChildren<VCWidget*>());
     while (it.hasNext() == true)
     {
