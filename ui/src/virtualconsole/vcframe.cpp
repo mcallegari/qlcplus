@@ -426,14 +426,7 @@ bool VCFrame::multipageMode() const
 void VCFrame::setTotalPagesNumber(int num)
 {
     m_totalPagesNumber = num;
-    if (m_pageLabel != NULL)
-    {
-        int page = currentPage();
-        m_pageLabel->clear();
-        for (int i = 1; i <= m_totalPagesNumber; i++)
-            m_pageLabel->addItem(tr("Page: %1").arg(i));
-        m_pageLabel->setCurrentIndex(page);
-    }
+    updatePageLabel();
 }
 
 int VCFrame::totalPagesNumber()
@@ -446,6 +439,18 @@ int VCFrame::currentPage()
     if (m_multiPageMode == false)
         return 0;
     return m_currentPage;
+}
+
+void VCFrame::updatePageLabel()
+{
+    if (m_pageLabel != NULL)
+    {
+        int page = currentPage();
+        m_pageLabel->clear();
+        for (int i = 1; i <= m_totalPagesNumber; i++)
+            m_pageLabel->addItem(tr("Page: %1").arg(i));
+        m_pageLabel->setCurrentIndex(page);
+    }
 }
 
 /*********************************************************************
@@ -468,6 +473,14 @@ void VCFrame::addShortcut(VCFramePageShortcut const& shortcut)
         setInputSource(m_pageShortcuts[shortcutWidget]->m_inputSource,
                        m_pageShortcuts[shortcutWidget]->m_id);
     }
+
+    if (m_pageShortcuts[shortcutWidget]->m_keySequence.isEmpty() == false)
+    {
+        /* Quite a dirty workaround, but it works without interfering with other widgets */
+        disconnect(this, SIGNAL(keyPressed(QKeySequence)), this, SLOT(slotFrameKeyPressed(QKeySequence)));
+        connect(this, SIGNAL(keyPressed(QKeySequence)), this, SLOT(slotFrameKeyPressed(QKeySequence)));
+    }
+    updatePageLabel();
 }
 
 void VCFrame::resetShortcuts()
@@ -782,6 +795,12 @@ bool VCFrame::copyFrom(const VCWidget* widget)
     setMultipageMode(frame->m_multiPageMode);
 
     setPagesLoop(frame->m_pagesLoop);
+
+    resetShortcuts();
+    foreach (VCFramePageShortcut const* shortcut, frame->shortcuts())
+    {
+        addShortcut(*shortcut);
+    }
 
     QListIterator <VCWidget*> it(widget->findChildren<VCWidget*>());
     while (it.hasNext() == true)
@@ -1347,11 +1366,6 @@ bool VCFrame::saveXML(QXmlStreamWriter *doc)
 
 void VCFrame::postLoad()
 {
-    /* Connect keyPressed events - neccessary if only frame page shortcuts are loaded */
-    /* Quite a dirty workaround, but it works without interfering with other widgets */
-    disconnect(this, SIGNAL(keyPressed(QKeySequence)), this, SLOT(slotFrameKeyPressed(QKeySequence)));
-    connect(this, SIGNAL(keyPressed(QKeySequence)), this, SLOT(slotFrameKeyPressed(QKeySequence)));
-
     QListIterator <VCWidget*> it(findChildren<VCWidget*>());
     while (it.hasNext() == true)
     {

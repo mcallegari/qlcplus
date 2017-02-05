@@ -154,6 +154,7 @@ public:
     QList<VCFramePageShortcut *> shortcuts() const;
     void addShortcut(VCFramePageShortcut const& preset);
     void resetShortcuts();
+    void updatePageLabel();
 
     void setTotalPagesNumber(int num);
     int totalPagesNumber();
