@@ -691,6 +691,10 @@ bool VCFrame::copyFrom(const VCWidget* widget)
 
     setPagesLoop(frame->m_pagesLoop);
 
+    setEnableKeySequence(frame->m_enableKeySequence);
+    setNextPageKeySequence(frame->m_nextPageKeySequence);
+    setPreviousPageKeySequence(frame->m_previousPageKeySequence);
+
     QListIterator <VCWidget*> it(widget->findChildren<VCWidget*>());
     while (it.hasNext() == true)
     {
