@@ -744,7 +744,8 @@ void VCFrame::updateFeedback()
     while (it.hasNext() == true)
     {
         VCWidget* child = it.next();
-        child->updateFeedback();
+        if (child->parent() == this)
+            child->updateFeedback();
     }
 }
 
@@ -812,7 +813,11 @@ bool VCFrame::copyFrom(const VCWidget* widget)
     setMultipageMode(frame->m_multiPageMode);
 
     setPagesLoop(frame->m_pagesLoop);
-
+  
+    setEnableKeySequence(frame->m_enableKeySequence);
+    setNextPageKeySequence(frame->m_nextPageKeySequence);
+    setPreviousPageKeySequence(frame->m_previousPageKeySequence);
+  
     resetShortcuts();
     foreach (VCFramePageShortcut const* shortcut, frame->shortcuts())
     {

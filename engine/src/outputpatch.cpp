@@ -90,7 +90,13 @@ bool OutputPatch::reconnect()
 #else
         usleep(GRACE_MS * 1000);
 #endif
-        return m_plugin->openOutput(m_pluginLine, m_universe);
+        bool ret = m_plugin->openOutput(m_pluginLine, m_universe);
+        if (ret == true)
+        {
+            foreach(QString par, m_parametersCache.keys())
+                m_plugin->setParameter(m_universe, m_pluginLine, QLCIOPlugin::Output, par, m_parametersCache[par]);
+        }
+        return ret;
     }
     return false;
 }
@@ -136,6 +142,7 @@ bool OutputPatch::isPatched() const
 
 void OutputPatch::setPluginParameter(QString prop, QVariant value)
 {
+    m_parametersCache[prop] = value;
     if (m_plugin != NULL)
         m_plugin->setParameter(m_universe, m_pluginLine, QLCIOPlugin::Output, prop, value);
 }

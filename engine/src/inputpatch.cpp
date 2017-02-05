@@ -133,7 +133,16 @@ bool InputPatch::reconnect()
 #else
         usleep(GRACE_MS * 1000);
 #endif
-        return m_plugin->openInput(m_pluginLine, m_universe);
+        bool ret = m_plugin->openInput(m_pluginLine, m_universe);
+        if (ret == true)
+        {
+            foreach(QString par, m_parametersCache.keys())
+            {
+                qDebug() << "[InputPatch] restoring parameter:" << par << m_parametersCache[par];
+                m_plugin->setParameter(m_universe, m_pluginLine, QLCIOPlugin::Input, par, m_parametersCache[par]);
+            }
+        }
+        return ret;
     }
     return false;
 }
@@ -188,6 +197,8 @@ bool InputPatch::isPatched() const
 
 void InputPatch::setPluginParameter(QString prop, QVariant value)
 {
+    qDebug() << "[InputPatch] caching parameter:" << prop << value;
+    m_parametersCache[prop] = value;
     if (m_plugin != NULL)
         m_plugin->setParameter(m_universe, m_pluginLine, QLCIOPlugin::Input, prop, value);
 }

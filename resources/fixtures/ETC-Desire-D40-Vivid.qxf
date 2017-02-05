@@ -41,7 +41,7 @@
  </Channel>
  <Channel Name="7 Indigo">
   <Group Byte="0">Intensity</Group>
-  <Colour>Magenta</Colour>
+  <Colour>Indigo</Colour>
   <Capability Min="0" Max="255" Color="#152ac2">Indigo</Capability>
  </Channel>
  <Channel Name="8 Intensity">

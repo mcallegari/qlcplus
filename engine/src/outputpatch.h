@@ -99,6 +99,8 @@ private:
     quint32 m_pluginLine;
     /** The universe that this Output patch is attached to */
     quint32 m_universe;
+    /** The patch parameters cache */
+    QMap<QString, QVariant>m_parametersCache;
 
     /********************************************************************
      * Value dump
