@@ -31,6 +31,7 @@
 #include <QString>
 #include <QSlider>
 #include <QDebug>
+#include <QEvent>
 #include <QLabel>
 #include <math.h>
 #include <QMenu>
@@ -43,6 +44,7 @@
 #include "virtualconsole.h"
 #include "qlcinputsource.h"
 #include "mastertimer.h"
+#include "outputpatch.h"
 #include "collection.h"
 #include "inputpatch.h"
 #include "qlcmacros.h"
@@ -173,6 +175,7 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
 
     m_resetButton = NULL;
     m_isOverriding = false;
+    m_isCatched = false;
 
     /* Bottom label */
     m_bottomLabel = new QLabel(this);
@@ -1358,6 +1361,21 @@ QString VCSlider::bottomLabelText()
 }
 
 /*****************************************************************************
+ * Catching status
+ *****************************************************************************/
+void VCSlider::setCatched(bool catched)
+{
+    m_isCatched = catched;
+}
+
+void VCSlider::changeEvent(QEvent *event)
+{
+    if (event->type() == QEvent::EnabledChange)
+        if (!isEnabled())
+            setCatched(false);
+}
+
+/*****************************************************************************
  * External input
  *****************************************************************************/
 
@@ -1388,10 +1406,18 @@ void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel,
                 m_isOverriding = true;
             }
 
-            if (m_slider->invertedAppearance() == true)
-                m_slider->setValue((m_slider->maximum() - (int) val) + m_slider->minimum());
-            else
-                m_slider->setValue((int) val);
+            OutputPatch* patch = m_doc->inputOutputMap()->feedbackPatch(universe);
+
+            // Only send feedback if the slider is catched by input source
+            // or a feedback is patched to the universe.
+            if (m_isCatched || (patch != NULL && patch->isPatched()))
+                if (m_slider->invertedAppearance() == true)
+                    m_slider->setValue((m_slider->maximum() - (int) val) + m_slider->minimum());
+                else
+                    m_slider->setValue((int) val);
+            else if (val < sliderValue() + 4 && val > sliderValue() - 4)
+                setCatched(true);
+
         }
     }
     else if (checkInputSource(universe, pagedCh, value, sender(), overrideResetInputSourceId))

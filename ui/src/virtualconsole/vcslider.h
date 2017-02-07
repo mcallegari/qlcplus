@@ -557,6 +557,21 @@ protected slots:
     void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
 
     /*********************************************************************
+     * Catching status
+     *********************************************************************/
+private:
+    /** Indicates whether the external control matches the actual slider value **/
+    bool m_isCatched;
+
+public:
+    /** Set the catching status of the slider **/
+    void setCatched(bool catched);
+
+    /** @reimp */
+    /** Used to notice disable events to reset the catch state **/
+    void changeEvent(QEvent * event);
+
+    /*********************************************************************
      * Intensity
      *********************************************************************/
 public:
