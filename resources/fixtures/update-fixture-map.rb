@@ -740,8 +740,8 @@ EOF
       <td>#{mode.physical.focus.pan_max}</td>
       <td>#{mode.physical.focus.tilt_max}</td>
       <td>#{mode.physical.focus.type}</td>
-      <td>#{mode.physical.technical.power_consumption}</td>
-      <td>#{mode.physical.technical.dmx_connector}</td>
+      <td>#{mode.physical.technical ? mode.physical.technical.power_consumption : '<b>Missing</b>'}</td>
+      <td>#{mode.physical.technical ? mode.physical.technical.dmx_connector : '<b>Missing</b>'}</td>
     </tr>
 EOF
         end
