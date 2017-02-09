@@ -176,6 +176,7 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_resetButton = NULL;
     m_isOverriding = false;
     m_isCaught = false;
+    m_lastInputValid = false;
 
     /* Bottom label */
     m_bottomLabel = new QLabel(this);
@@ -779,7 +780,7 @@ void VCSlider::slotResetButtonClicked()
     m_priority = DMXSource::Auto;
     m_doc->masterTimer()->requestNewPriority(this);
     setCaught(false);
-
+    m_lastInputValid = false;
     emit monitorDMXValueChanged(m_monitorValue);
 }
 
@@ -1373,8 +1374,26 @@ void VCSlider::setCaught(bool caught)
 void VCSlider::changeEvent(QEvent *event)
 {
     if (event->type() == QEvent::EnabledChange)
+    {
         if (!isEnabled())
+        {
             setCaught(false);
+            m_lastInputValid = false;
+        }
+    }
+}
+
+bool VCSlider::checkIfCaught(float val)
+{
+    int sliderVal = sliderValue();
+
+    bool result = (val < sliderVal + 4 && val > sliderVal - 4)
+            ||(m_lastInputValid
+               && ((val > sliderVal && sliderVal > m_lastInput)
+                   || (val < sliderVal && sliderVal < m_lastInput)));
+    m_lastInput = (int) val;
+    m_lastInputValid = true;
+    return result;
 }
 
 /*****************************************************************************
@@ -1421,9 +1440,9 @@ void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel,
                 else
                     m_slider->setValue((int) val);
             }
-            else if (val < sliderValue() + 4 && val > sliderValue() - 4)
-                setCaught(true);
-
+            else
+                if (checkIfCaught(val))
+                    setCaught(true);
         }
     }
     else if (checkInputSource(universe, pagedCh, value, sender(), overrideResetInputSourceId))
