@@ -175,7 +175,7 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
 
     m_resetButton = NULL;
     m_isOverriding = false;
-    m_isCatched = false;
+    m_isCaught = false;
 
     /* Bottom label */
     m_bottomLabel = new QLabel(this);
@@ -778,6 +778,8 @@ void VCSlider::slotResetButtonClicked()
 
     m_priority = DMXSource::Auto;
     m_doc->masterTimer()->requestNewPriority(this);
+    setCaught(false);
+
     emit monitorDMXValueChanged(m_monitorValue);
 }
 
@@ -1363,16 +1365,16 @@ QString VCSlider::bottomLabelText()
 /*****************************************************************************
  * Catching status
  *****************************************************************************/
-void VCSlider::setCatched(bool catched)
+void VCSlider::setCaught(bool caught)
 {
-    m_isCatched = catched;
+    m_isCaught = caught;
 }
 
 void VCSlider::changeEvent(QEvent *event)
 {
     if (event->type() == QEvent::EnabledChange)
         if (!isEnabled())
-            setCatched(false);
+            setCaught(false);
 }
 
 /*****************************************************************************
@@ -1398,25 +1400,29 @@ void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel,
                               (float) m_slider->minimum(),
                               (float) m_slider->maximum());
 
-            if (m_monitorEnabled == true && m_isOverriding == false)
-            {
-                m_priority = DMXSource::Override;
-                m_doc->masterTimer()->requestNewPriority(this);
-                m_resetButton->setStyleSheet(QString("QToolButton{ background: red; }"));
-                m_isOverriding = true;
-            }
+
 
             OutputPatch* patch = m_doc->inputOutputMap()->feedbackPatch(universe);
 
-            // Only send feedback if the slider is catched by input source
+            // Only send feedback if the slider is caught by input source
             // or a feedback is patched to the universe.
-            if (m_isCatched || (patch != NULL && patch->isPatched()))
+            if (m_isCaught || (patch != NULL && patch->isPatched()))
+            {
+                if (m_monitorEnabled == true && m_isOverriding == false)
+                {
+                    m_priority = DMXSource::Override;
+                    m_doc->masterTimer()->requestNewPriority(this);
+                    m_resetButton->setStyleSheet(QString("QToolButton{ background: red; }"));
+                    m_isOverriding = true;
+                }
+
                 if (m_slider->invertedAppearance() == true)
                     m_slider->setValue((m_slider->maximum() - (int) val) + m_slider->minimum());
                 else
                     m_slider->setValue((int) val);
+            }
             else if (val < sliderValue() + 4 && val > sliderValue() - 4)
-                setCatched(true);
+                setCaught(true);
 
         }
     }

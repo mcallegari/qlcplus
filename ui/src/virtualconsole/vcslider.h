@@ -561,11 +561,11 @@ protected slots:
      *********************************************************************/
 private:
     /** Indicates whether the external control matches the actual slider value **/
-    bool m_isCatched;
+    bool m_isCaught;
 
 public:
     /** Set the catching status of the slider **/
-    void setCatched(bool catched);
+    void setCaught(bool caught);
 
     /** @reimp */
     /** Used to notice disable events to reset the catch state **/
