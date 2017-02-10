@@ -54,6 +54,7 @@ protected slots:
     void slotMultipageChecked(bool enable);
     void slotPageSelectChanged(int index);
     void slotTotalPagesNumberChanged(int number);
+    void slotPageNameEditingFinished();
 
     void slotInputValueChanged(quint32 universe, quint32 channel);
     void slotKeySequenceChanged(QKeySequence key);

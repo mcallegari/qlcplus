@@ -29,12 +29,14 @@
 VCFramePageShortcut::VCFramePageShortcut(int page)
     : m_id(page + 3)
     , m_page(page)
+    , m_name("")
 {
 }
 
 VCFramePageShortcut::VCFramePageShortcut(VCFramePageShortcut const& shortcut)
     : m_id(shortcut.m_id)
     , m_page(shortcut.m_page)
+    , m_name(shortcut.m_name)
     , m_keySequence(shortcut.m_keySequence)
 {
     if (shortcut.m_inputSource != NULL)
@@ -79,8 +81,15 @@ bool VCFramePageShortcut::loadXML(QXmlStreamReader &root)
         return false;
     }
 
+    if (root.attributes().hasAttribute(KXMLQLCVCFramePageShortcutName) == false)
+    {
+        qWarning() << Q_FUNC_INFO << "Frame page shortcut name not found";
+        return false;
+    }
+
     m_page = root.attributes().value(KXMLQLCVCFramePageShortcutPage).toString().toInt();
     m_id = root.attributes().value(KXMLQLCVCFramePageShortcutID).toString().toUInt();
+    m_name = root.attributes().value(KXMLQLCVCFramePageShortcutName).toString();
 
     /* Children */
     while (root.readNextStartElement())
@@ -126,6 +135,7 @@ bool VCFramePageShortcut::saveXML(QXmlStreamWriter *doc)
     doc->writeStartElement(KXMLQLCVCFramePageShortcut);
     doc->writeAttribute(KXMLQLCVCFramePageShortcutPage, QString::number(m_page));
     doc->writeAttribute(KXMLQLCVCFramePageShortcutID, QString::number(m_id));
+    doc->writeAttribute(KXMLQLCVCFramePageShortcutName, m_name);
 
     /* External input source */
     if (!m_inputSource.isNull() && m_inputSource->isValid())

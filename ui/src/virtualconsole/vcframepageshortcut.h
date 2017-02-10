@@ -36,6 +36,7 @@ class QXmlStreamWriter;
 #define KXMLQLCVCFramePageShortcut       "Shortcut"
 #define KXMLQLCVCFramePageShortcutID     "ID"
 #define KXMLQLCVCFramePageShortcutPage   "Page"
+#define KXMLQLCVCFramePageShortcutName   "Name"
 
 #define KXMLQLCVCFramePageShortcutInput         "Input"
 #define KXMLQLCVCFramePageShortcutInputUniverse "Universe"
@@ -75,6 +76,9 @@ public:
      *  The index of the page to switch to
      */
     int m_page;
+
+    /** The page name */
+    QString m_name;
 
     QSharedPointer<QLCInputSource> m_inputSource;
     QKeySequence m_keySequence;

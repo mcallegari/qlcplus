@@ -152,7 +152,7 @@ public:
     virtual bool multipageMode() const;
 
     QList<VCFramePageShortcut *> shortcuts() const;
-    void addShortcut(VCFramePageShortcut const& preset);
+    void addShortcut(VCFramePageShortcut const& shortcut);
     void resetShortcuts();
     void updatePageLabel();
 

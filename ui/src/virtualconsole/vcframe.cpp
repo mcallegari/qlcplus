@@ -140,8 +140,20 @@ void VCFrame::setLiveEdit(bool liveEdit)
 
 void VCFrame::setCaption(const QString& text)
 {
-    if (m_label != NULL)
-        m_label->setText(text);
+    if (m_label != NULL && !shortcuts().isEmpty() && m_currentPage < shortcuts().length())
+    {
+        // Show caption, if ther is no page name
+        if (shortcuts()[m_currentPage]->m_name == "")
+            m_label->setText(text);
+        else
+        {
+            // Show only page name, if there is no caption
+            if (text == "")
+                m_label->setText(shortcuts()[m_currentPage]->m_name);
+            else
+                m_label->setText(text + " - " + shortcuts()[m_currentPage]->m_name);
+        }
+    }
 
     VCWidget::setCaption(text);
 }
@@ -443,13 +455,16 @@ int VCFrame::currentPage()
 
 void VCFrame::updatePageLabel()
 {
-    if (m_pageLabel != NULL)
+    if (m_pageLabel != NULL && !shortcuts().isEmpty())
     {
+        // Save current page to restore it afterwards
         int page = currentPage();
+        m_pageLabel->blockSignals(true);
         m_pageLabel->clear();
         for (int i = 1; i <= m_totalPagesNumber; i++)
             m_pageLabel->addItem(tr("Page: %1").arg(i));
         m_pageLabel->setCurrentIndex(page);
+        m_pageLabel->blockSignals(false);
     }
 }
 
@@ -565,6 +580,7 @@ void VCFrame::slotSetPage(int pageNum)
         m_pageLabel->blockSignals(true);
         m_pageLabel->setCurrentIndex(m_currentPage);
         m_pageLabel->blockSignals(false);
+        setCaption(caption());
 
         QMapIterator <VCWidget*, int> it(m_pagesMap);
         while (it.hasNext() == true)
@@ -1250,6 +1266,8 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
         }
         else
             qWarning() << Q_FUNC_INFO << "Shortcut number does not match page number";
+        // Set page again to update header
+        slotSetPage(m_currentPage);
     }
 
     if (disableState == true)
