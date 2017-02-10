@@ -42,6 +42,7 @@ build_script:
           sed -i -e 's/ SUBDIRS              += velleman/#SUBDIRS += velleman/g' plugins/plugins.pro
           sed -i -e 's/  SUBDIRS += test/#SUBDIRS += test/g' plugins/artnet/artnet.pro
           sed -i -e 's/SUBDIRS += test/#SUBDIRS += test/g' plugins/enttecwing/enttecwing.pro
+          sed -i -e 's/SUBDIRS += test/#SUBDIRS += test/g' plugins/midi/midi.pro
           qmake FORCECONFIG=release
           make
           echo 'Silently installing QLC+...'

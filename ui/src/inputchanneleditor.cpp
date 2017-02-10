@@ -39,7 +39,7 @@
 
 #define KMidiChannelOffset 4096
 
-#include "../../plugins/midi/common/midiprotocol.h"
+#include "../../plugins/midi/src/common/midiprotocol.h"
 
 /****************************************************************************
  * Initialization

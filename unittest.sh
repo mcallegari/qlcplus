@@ -118,6 +118,7 @@ popd
 #############################################################################
 # Velleman test
 #############################################################################
+
 if [[ "$OSTYPE" == "darwin"* ]]; then
   echo "Skip Velleman test (not supported on OSX)"
 else
@@ -136,16 +137,17 @@ fi
 #############################################################################
 # MIDI tests
 #############################################################################
-#pushd .
-#cd plugins/midi/common/test
-#DYLD_FALLBACK_LIBRARY_PATH=$DYLD_FALLBACK_LIBRARY_PATH:../src \
-#	LD_LIBRARY_PATH=$LD_LIBRARY_PATH:../src ./common_test
-#RESULT=$?
-#if [ $RESULT != 0 ]; then
-#    echo "MIDI Input common unit test failed ($RESULT). Please fix before commit."
-#    exit $RESULT
-#fi
-#popd
+
+$SLEEPCMD
+pushd .
+cd plugins/midi/test
+$TESTPREFIX ./test.sh
+RESULT=$?
+if [ $RESULT != 0 ]; then
+	echo "${RESULT} MIDI unit tests failed. Please fix before commit."
+	exit $RESULT
+fi
+popd
 
 #############################################################################
 # ArtNet tests

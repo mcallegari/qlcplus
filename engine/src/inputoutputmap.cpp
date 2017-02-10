@@ -41,7 +41,7 @@
 #include "qlcfile.h"
 #include "doc.h"
 
-#include "../../plugins/midi/common/midiprotocol.h"
+#include "../../plugins/midi/src/common/midiprotocol.h"
 
 InputOutputMap::InputOutputMap(Doc *doc, quint32 universes)
   : QObject(doc)
