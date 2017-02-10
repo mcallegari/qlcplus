@@ -88,7 +88,7 @@ namespace QLCMIDIProtocol
 #define MIDI_IS_SYSCOMMON(x) (((x & 0xF0) == 0xF0) ? true : false)
 
 /** Convert MIDI value to DMX value and make 127 == 255 (because 2*127=254) */
-#define MIDI2DMX(x) uchar((x == CHAR_MAX) ? UCHAR_MAX : x << 1)
+#define MIDI2DMX(x) uchar((x == 127U) ? 255U : x << 1)
 
 /** Convert DMX value to MIDI value */
 #define DMX2MIDI(x) uchar(x >> 1)
