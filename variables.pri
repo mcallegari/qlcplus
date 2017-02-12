@@ -25,6 +25,10 @@ android|ios: CONFIG += qmlui
 # Build everything in the order specified in .pro files
 CONFIG         += ordered
 
+qmlui {
+    DEFINES+=QMLUI
+}
+
 contains(FORCECONFIG, release) {
   message("Forcing a release build")
   CONFIG += release

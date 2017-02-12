@@ -29,6 +29,7 @@
 #include "qlcfixturemode.h"
 #include "mainviewdmx.h"
 #include "mainview2d.h"
+#include "mainview3d.h"
 #include "doc.h"
 
 ContextManager::ContextManager(QQuickView *view, Doc *doc,
@@ -41,7 +42,7 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
     , m_fixtureManager(fxMgr)
     , m_functionManager(funcMgr)
     , m_universeFilter(Universe::invalid())
-    , m_prevRotation(0)
+    , m_prevRotation(QVector3D(0, 0, 0))
     , m_editingEnabled(false)
 {
     m_source = new GenericDMXSource(m_doc);
@@ -55,6 +56,10 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
     m_2DView = new MainView2D(m_view, m_doc);
     registerContext(m_2DView);
     m_view->rootContext()->setContextProperty("View2D", m_2DView);
+
+    m_3DView = new MainView3D(m_view, m_doc);
+    registerContext(m_3DView);
+    m_view->rootContext()->setContextProperty("View3D", m_3DView);
 
     m_DMXView = new MainViewDMX(m_view, m_doc);
     registerContext(m_DMXView);
@@ -118,6 +123,8 @@ void ContextManager::enableContext(QString name, bool enable, QQuickItem *item)
         m_DMXView->updateFixtureSelection(m_selectedFixtures);
     else if (name == "2D")
         m_2DView->updateFixtureSelection(m_selectedFixtures);
+    else if (name == "3D")
+        m_3DView->updateFixtureSelection(m_selectedFixtures);
 }
 
 void ContextManager::detachContext(QString name)
@@ -139,7 +146,7 @@ void ContextManager::reattachContext(QString name)
     PreviewContext *context = m_contextsMap[name];
     context->setDetached(false);
 
-    if (name == "DMX" || name == "2D" || name == "UNIGRID")
+    if (name == "DMX" || name == "2D" || name == "3D" || name == "UNIGRID")
     {
         QQuickItem *viewObj = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("fixturesAndFunctions"));
         if (viewObj == NULL)
@@ -176,6 +183,7 @@ void ContextManager::resetContexts()
     m_editingEnabled = false;
     m_DMXView->enableContext(m_DMXView->isEnabled());
     m_2DView->enableContext(m_2DView->isEnabled());
+    m_3DView->enableContext(m_3DView->isEnabled());
 
     /** TODO: nothing to do on the other contexts ? */
 }
@@ -246,6 +254,8 @@ void ContextManager::setUniverseFilter(quint32 universeFilter)
         m_DMXView->setUniverseFilter(m_universeFilter);
     if (m_2DView->isEnabled())
         m_2DView->setUniverseFilter(m_universeFilter);
+    if (m_3DView->isEnabled())
+        m_3DView->setUniverseFilter(m_universeFilter);
 
     emit universeFilterChanged(universeFilter);
 }
@@ -275,6 +285,8 @@ void ContextManager::setFixtureSelection(quint32 fxID, bool enable)
         m_DMXView->updateFixtureSelection(fxID, enable);
     if (m_2DView->isEnabled())
         m_2DView->updateFixtureSelection(fxID, enable);
+    if (m_3DView->isEnabled())
+        m_3DView->updateFixtureSelection(fxID, enable);
 
     QMultiHash<int, SceneValue> channels = m_fixtureManager->getFixtureCapabilities(fxID, enable);
     if(channels.keys().isEmpty())
@@ -336,10 +348,36 @@ bool ContextManager::hasSelectedFixtures()
     return true;
 }
 
-void ContextManager::setFixturePosition(quint32 fxID, qreal x, qreal y)
+void ContextManager::setFixturePosition(quint32 fxID, qreal x, qreal y, qreal z)
 {
     MonitorProperties *mProps = m_doc->monitorProperties();
-    mProps->setFixturePosition(fxID, QPointF(x, y));
+    mProps->setFixturePosition(fxID, QVector3D(x, y, z));
+    if (m_3DView->isEnabled())
+        m_3DView->updateFixturePosition(fxID, QVector3D(x, y, z));
+}
+
+QVector3D ContextManager::fixturesPosition() const
+{
+    if (m_selectedFixtures.count() == 1)
+    {
+        MonitorProperties *mProps = m_doc->monitorProperties();
+        foreach(quint32 fxID, m_selectedFixtures)
+            return mProps->fixturePosition(fxID);
+    }
+
+    return QVector3D(0, 0, 0);
+}
+
+void ContextManager::setFixturesPosition(QVector3D position)
+{
+    MonitorProperties *mProps = m_doc->monitorProperties();
+
+    foreach(quint32 fxID, m_selectedFixtures)
+    {
+        mProps->setFixturePosition(fxID, position);
+        if (m_3DView->isEnabled())
+            m_3DView->updateFixturePosition(fxID, position);
+    }
 }
 
 void ContextManager::setFixturesAlignment(int alignment)
@@ -349,11 +387,11 @@ void ContextManager::setFixturesAlignment(int alignment)
 
     MonitorProperties *mProps = m_doc->monitorProperties();
 
-    QPointF firstPos = mProps->fixturePosition(m_selectedFixtures.first());
+    QVector3D firstPos = mProps->fixturePosition(m_selectedFixtures.first());
 
     foreach(quint32 fxID, m_selectedFixtures)
     {
-        QPointF fxPos = mProps->fixturePosition(fxID);
+        QVector3D fxPos = mProps->fixturePosition(fxID);
 
         switch(alignment)
         {
@@ -374,9 +412,9 @@ void ContextManager::createFixtureGroup()
     m_fixtureManager->addFixturesToNewGroup(m_selectedFixtures);
 }
 
-int ContextManager::fixturesRotation() const
+QVector3D ContextManager::fixturesRotation() const
 {
-    int commonRotation = -1;
+    QVector3D commonRotation(0, 0, 0);
     MonitorProperties *mProps = m_doc->monitorProperties();
 
     foreach(quint32 fxID, m_selectedFixtures)
@@ -384,26 +422,26 @@ int ContextManager::fixturesRotation() const
         if (mProps->hasFixturePosition(fxID) == false)
             continue;
 
-        int rot = mProps->fixtureRotation(fxID);
-        if (commonRotation == -1)
+        QVector3D rot = mProps->fixtureRotation(fxID);
+        if (commonRotation == QVector3D(0, 0, 0))
             commonRotation = rot;
         else
         {
             if (rot != commonRotation)
-                return 0;
+                return QVector3D(0, 0, 0);
         }
     }
 
-    if (commonRotation != -1)
+    if (commonRotation == QVector3D(0, 0, 0))
         return commonRotation;
 
-    return 0;
+    return QVector3D(0, 0, 0);
 }
 
-void ContextManager::setFixturesRotation(int degrees)
+void ContextManager::setFixturesRotation(QVector3D degrees)
 {
     bool mixed = false;
-    int commonRotation = -1;
+    QVector3D commonRotation(0, 0, 0);
     MonitorProperties *mProps = m_doc->monitorProperties();
 
     // first, detect if we're setting the rotation
@@ -413,8 +451,8 @@ void ContextManager::setFixturesRotation(int degrees)
         if (mProps->hasFixturePosition(fxID) == false)
             continue;
 
-        int rot = mProps->fixtureRotation(fxID);
-        if (commonRotation == -1)
+        QVector3D rot = mProps->fixtureRotation(fxID);
+        if (commonRotation == QVector3D(0, 0, 0))
             commonRotation = rot;
         else
         {
@@ -428,21 +466,35 @@ void ContextManager::setFixturesRotation(int degrees)
 
     // if mixed, treat degrees as relative
     // otherwise set it directly
-    int delta = degrees - m_prevRotation;
+    float deltaX = degrees.x() - m_prevRotation.x();
+    float deltaY = degrees.y() - m_prevRotation.y();
+    float deltaZ = degrees.z() - m_prevRotation.z();
+
     foreach(quint32 fxID, m_selectedFixtures)
     {
-        int rot = 0;
+        QVector3D rot(0, 0, 0);
         if (mProps->hasFixturePosition(fxID))
             rot = mProps->fixtureRotation(fxID);
 
         if (mixed == false)
             rot = degrees;
         else
-            rot += delta;
+        {
+            rot.setX(rot.x() + deltaX);
+            rot.setY(rot.y() + deltaY);
+            rot.setZ(rot.z() + deltaZ);
+        }
 
         // normalize back to a 0-359 range
-        if (rot < 0) rot += 360;
-        else if (rot >= 360) rot -= 360;
+        if (rot.x() < 0) rot.setX(rot.x() + 360);
+        else if (rot.x() >= 360) rot.setX(rot.x() - 360);
+
+        if (rot.y() < 0) rot.setY(rot.y() + 360);
+        else if (rot.y() >= 360) rot.setY(rot.y() - 360);
+
+        if (rot.z() < 0) rot.setX(rot.z() + 360);
+        else if (rot.z() >= 360) rot.setZ(rot.z() - 360);
+
         mProps->setFixtureRotation(fxID, rot);
         if (m_2DView->isEnabled())
             m_2DView->updateFixtureRotation(fxID, rot);
@@ -452,12 +504,12 @@ void ContextManager::setFixturesRotation(int degrees)
 
 void ContextManager::slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal z)
 {
-    Q_UNUSED(z)
-
     if (m_DMXView->isEnabled())
         m_DMXView->createFixtureItem(fxID);
     if (m_2DView->isEnabled())
         m_2DView->createFixtureItem(fxID, x, y, false);
+    if (m_3DView->isEnabled())
+        m_3DView->createFixtureItem(fxID, x, y, z, false);
 }
 
 void ContextManager::slotChannelValueChanged(quint32 fxID, quint32 channel, quint8 value)
@@ -563,6 +615,8 @@ void ContextManager::slotUniversesWritten(int idx, const QByteArray &ua)
                 m_DMXView->updateFixture(fixture);
             if (m_2DView->isEnabled())
                 m_2DView->updateFixture(fixture);
+            if (m_3DView->isEnabled())
+                m_3DView->updateFixture(fixture);
         }
     }
 }

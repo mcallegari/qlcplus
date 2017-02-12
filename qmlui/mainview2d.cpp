@@ -153,10 +153,11 @@ void MainView2D::createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords
     }
     else
     {
-        QPointF fxOrig = m_monProps->fixturePosition(fxID);
+        QVector3D fxOrig = m_monProps->fixturePosition(fxID);
+        QVector3D fxRot = m_monProps->fixtureRotation(fxID);
         fxRect.setX(fxOrig.x());
         fxRect.setY(fxOrig.y());
-        newFixtureItem->setProperty("rotation", m_monProps->fixtureRotation(fxID));
+        newFixtureItem->setProperty("rotation", fxRot.y());
     }
 
     if (fxMode != NULL)
@@ -205,11 +206,11 @@ void MainView2D::createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords
         x = availablePos.x();
         y = availablePos.y();
         // add the new fixture to the Doc monitor properties
-        m_monProps->setFixturePosition(fxID, QPointF(x, y));
+        m_monProps->setFixturePosition(fxID, QVector3D(x, y, 0));
     }
     else
     {
-        QPointF fxOrig = m_monProps->fixturePosition(fxID);
+        QVector3D fxOrig = m_monProps->fixturePosition(fxID);
         x = fxOrig.x();
         y = fxOrig.y();
     }
@@ -269,7 +270,7 @@ void MainView2D::slotRefreshView()
     {
         if (m_monProps->hasFixturePosition(fixture->id()))
         {
-            QPointF fxPos = m_monProps->fixturePosition(fixture->id());
+            QVector3D fxPos = m_monProps->fixturePosition(fixture->id());
             createFixtureItem(fixture->id(), fxPos.x(), fxPos.y());
         }
         else
@@ -291,11 +292,11 @@ void MainView2D::updateFixture(Fixture *fixture)
 
     for (int headIdx = 0; headIdx < fixture->heads(); headIdx++)
     {
-        quint32 mdIndex = fixture->channelNumber(QLCChannel::Intensity, QLCChannel::MSB, headIdx);
+        quint32 headDimmerIndex = fixture->channelNumber(QLCChannel::Intensity, QLCChannel::MSB, headIdx);
         //qDebug() << "Head" << headIdx << "dimmer channel:" << mdIndex;
         qreal intValue = 1.0;
-        if (mdIndex != QLCChannel::invalid())
-            intValue = (qreal)fixture->channelValueAt(mdIndex) / 255;
+        if (headDimmerIndex != QLCChannel::invalid())
+            intValue = (qreal)fixture->channelValueAt(headDimmerIndex) / 255;
 
         QMetaObject::invokeMethod(fxItem, "setHeadIntensity",
                 Q_ARG(QVariant, headIdx),
@@ -342,7 +343,7 @@ void MainView2D::updateFixture(Fixture *fixture)
         if (UV != QLCChannel::invalid())
             QMetaObject::invokeMethod(fxItem, "setHeadUV", Q_ARG(QVariant, headIdx), Q_ARG(QVariant, fixture->channelValueAt(UV)));
 
-        if (colorSet == false && mdIndex != QLCChannel::invalid())
+        if (colorSet == false && headDimmerIndex != QLCChannel::invalid())
         {
             QMetaObject::invokeMethod(fxItem, "setHeadRGBColor",
                     Q_ARG(QVariant, headIdx),
@@ -367,18 +368,18 @@ void MainView2D::updateFixture(Fixture *fixture)
             case QLCChannel::Pan:
             {
                 if (ch->controlByte() == QLCChannel::MSB)
-                    panDegrees += (fixture->channelValueAt(i) << 8);
+                    panDegrees += (value << 8);
                 else
-                    panDegrees += (fixture->channelValueAt(i));
+                    panDegrees += (value);
                 setPosition = true;
             }
             break;
             case QLCChannel::Tilt:
             {
                 if (ch->controlByte() == QLCChannel::MSB)
-                    tiltDegrees += (fixture->channelValueAt(i) << 8);
+                    tiltDegrees += (value << 8);
                 else
-                    tiltDegrees += (fixture->channelValueAt(i));
+                    tiltDegrees += (value);
                 setPosition = true;
             }
             break;
@@ -465,16 +466,16 @@ void MainView2D::updateFixtureSelection(quint32 fxID, bool enable)
     fxItem->setProperty("isSelected", enable);
 }
 
-void MainView2D::updateFixtureRotation(quint32 fxID, int degrees)
+void MainView2D::updateFixtureRotation(quint32 fxID, QVector3D degrees)
 {
     if (isEnabled() == false || m_itemsMap.contains(fxID) == false)
         return;
 
     QQuickItem *fxItem = m_itemsMap[fxID];
-    fxItem->setProperty("rotation", degrees);
+    fxItem->setProperty("rotation", degrees.y());
 }
 
-void MainView2D::updateFixturePosition(quint32 fxID, QPointF pos)
+void MainView2D::updateFixturePosition(quint32 fxID, QVector3D pos)
 {
     if (isEnabled() == false || m_itemsMap.contains(fxID) == false)
         return;

@@ -20,7 +20,7 @@
 #ifndef MONITORPROPERTIES_H
 #define MONITORPROPERTIES_H
 
-#include <QPointF>
+#include <QVector3D>
 #include <QColor>
 #include <QFont>
 #include <QSize>
@@ -39,8 +39,8 @@ class Doc;
 
 typedef struct
 {
-    QPointF m_position;
-    ushort m_rotation;
+    QVector3D m_position;
+    QVector3D m_rotation;
     QColor m_gelColor;
 } FixtureItemProperties;
 
@@ -76,11 +76,11 @@ public:
 
     bool hasFixturePosition(quint32 fid) { return m_fixtureItems.contains(fid); }
 
-    void setFixturePosition(quint32 fid, QPointF pos);
-    QPointF fixturePosition(quint32 fid) const { return m_fixtureItems[fid].m_position; }
+    void setFixturePosition(quint32 fid, QVector3D pos);
+    QVector3D fixturePosition(quint32 fid) const { return m_fixtureItems[fid].m_position; }
 
-    void setFixtureRotation(quint32 fid, ushort degrees);
-    ushort fixtureRotation(quint32 fid) const { return m_fixtureItems[fid].m_rotation; }
+    void setFixtureRotation(quint32 fid, QVector3D degrees);
+    QVector3D fixtureRotation(quint32 fid) const { return m_fixtureItems[fid].m_rotation; }
 
     void setFixtureGelColor(quint32 fid, QColor col);
     QColor fixtureGelColor(quint32 fid) const { return m_fixtureItems[fid].m_gelColor; }
