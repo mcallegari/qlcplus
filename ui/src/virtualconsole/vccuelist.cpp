@@ -105,12 +105,12 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     grid->setSpacing(2);
 
     m_blendCheck = new QCheckBox(tr("Blend"));
-    grid->addWidget(m_blendCheck, 0, 0, 1, 2, Qt::AlignVCenter | Qt::AlignCenter);
+    grid->addWidget(m_blendCheck, 0, 0, 1, 2, Qt::AlignVCenter | Qt::AlignLeft);
     connect(m_blendCheck, SIGNAL(clicked(bool)),
             this, SLOT(slotBlendedCrossfadeChecked(bool)));
 
     m_linkCheck = new QCheckBox(tr("Link"));
-    grid->addWidget(m_linkCheck, 1, 0, 1, 2, Qt::AlignVCenter | Qt::AlignCenter);
+    grid->addWidget(m_linkCheck, 1, 0, 1, 2, Qt::AlignVCenter | Qt::AlignLeft);
 
     m_sl1TopLabel = new QLabel("100%");
     m_sl1TopLabel->setAlignment(Qt::AlignHCenter);
