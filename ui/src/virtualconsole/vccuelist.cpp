@@ -333,6 +333,9 @@ bool VCCueList::copyFrom(const VCWidget* widget)
     setPlaybackKeySequence(cuelist->playbackKeySequence());
     setStopKeySequence(cuelist->stopKeySequence());
 
+    /* Sliders mode */
+    setSlidersMode(cuelist->slidersMode());
+
     /* Common stuff */
     return VCWidget::copyFrom(widget);
 }
