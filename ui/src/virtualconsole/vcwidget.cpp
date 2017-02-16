@@ -595,7 +595,8 @@ void VCWidget::setInputSource(QSharedPointer<QLCInputSource> const& source, quin
         {
             if (ip->profile() != NULL)
             {
-                QLCInputChannel *ich = ip->profile()->channel(source->channel());
+                // Do not care about the page since input profiles don't do either
+                QLCInputChannel *ich = ip->profile()->channel(source->channel() & 0x8F);
                 if (ich != NULL)
                 {
                     if (ich->movementType() == QLCInputChannel::Relative)
