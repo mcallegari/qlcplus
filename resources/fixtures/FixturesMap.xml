@@ -20,6 +20,7 @@
   <fixture path="American-DJ-DJ-Spot-300.qxf" mf="American DJ" md="DJ Spot 300"/>
   <fixture path="American-DJ-Dotz-Bar-1.4.qxf" mf="American DJ" md="Dotz Bar 1.4"/>
   <fixture path="American-DJ-Dotz-Flood.qxf" mf="American DJ" md="Dotz Flood"/>
+  <fixture path="American-DJ-Dotz-Matrix.qxf" mf="American DJ" md="Dotz Matrix"/>
   <fixture path="American-DJ-Dotz-Par.qxf" mf="American DJ" md="Dotz Par"/>
   <fixture path="American-DJ-Dotz-TPar.qxf" mf="American DJ" md="Dotz TPar"/>
   <fixture path="American-DJ-Double-Phase.qxf" mf="American DJ" md="Double Phase"/>
@@ -110,6 +111,7 @@
   <fixture path="American-DJ-WiFly-EXR-Dotz-Par.qxf" mf="American DJ" md="WiFly EXR Dotz Par"/>
   <fixture path="American-DJ-WiFly-EXR-HEX5-IP.qxf" mf="American DJ" md="WiFly EXR HEX5 IP"/>
   <fixture path="American-Dj-X-Scan-LED-Plus.qxf" mf="American DJ" md="X-Scan LED Plus"/>
+  <fixture path="American-DJ-XS-400.qxf" mf="American DJ" md="XS 400"/>
   <fixture path="American-DJ-XS-600.qxf" mf="American DJ" md="XS 600"/>
   <fixture path="Antari-X-310-Pro-Fazer.qxf" mf="Antari" md="X-310 Pro Fazer"/>
   <fixture path="Ayra-ComPar20.qxf" mf="Ayra" md="ComPar 20"/>
@@ -189,6 +191,7 @@
   <fixture path="Chauvet-COLORado-1-Tour.qxf" mf="Chauvet" md="COLORado 1 Tour"/>
   <fixture path="Chauvet-ColorBand-Pix-IP.qxf" mf="Chauvet" md="ColorBand Pix IP"/>
   <fixture path="Chauvet-ColorBand-Pix-M.qxf" mf="Chauvet" md="ColorBand Pix-M"/>
+  <fixture path="Chauvet-COLORband-T3-USB.qxf" mf="Chauvet" md="COLORband T3 USB"/>
   <fixture path="Chauvet-COLORdash-Accent-Quad.qxf" mf="Chauvet" md="COLORdash Accent Quad"/>
   <fixture path="Chauvet-COLORdash-Accent-RGBW.qxf" mf="Chauvet" md="COLORdash Accent RGBW"/>
   <fixture path="Chauvet-COLORdash-Batten.qxf" mf="Chauvet" md="COLORdash Batten"/>
@@ -220,6 +223,7 @@
   <fixture path="Chauvet-Intimidator-Scan-305-IRC.qxf" mf="Chauvet" md="Intimidator Scan 305 IRC"/>
   <fixture path="Chauvet-Intimidator-Scan-LED-200.qxf" mf="Chauvet" md="Intimidator Scan LED 200"/>
   <fixture path="Chauvet-Intimidator-Scan-LED-300.qxf" mf="Chauvet" md="Intimidator Scan LED 300"/>
+  <fixture path="Chauvet-Intimidator-Spot--355Z-IRC.qxf" mf="Chauvet" md="Intimidator Spot 355Z IRC"/>
   <fixture path="Chauvet-Intimidator-Spot-100-IRC.qxf" mf="Chauvet" md="Intimidator Spot 100 IRC"/>
   <fixture path="Chauvet-Intimidator-Spot-250.qxf" mf="Chauvet" md="Intimidator Spot 250"/>
   <fixture path="Chauvet-Intimidator-Spot-400-IRC.qxf" mf="Chauvet" md="Intimidator Spot 400 IRC"/>
@@ -298,6 +302,7 @@
   <fixture path="Clay-Paky-Stormy.qxf" mf="Clay Paky" md="Stormy"/>
   <fixture path="Clay-Paky-SuperSharpy.qxf" mf="Clay Paky" md="SuperSharpy"/>
   <fixture path="Clay-Paky-Tornado.qxf" mf="Clay Paky" md="Tornado"/>
+  <fixture path="CLF-Tricolor-Mini-Par.qxf" mf="CLF" md="Tricolor Mini Par"/>
   <fixture path="Coemar-Par-Lite-LED-RGB.qxf" mf="Coemar" md="Par Lite LED RGB"/>
   <fixture path="Coemar-ProWash-250-LX.qxf" mf="Coemar" md="ProWash 250 LX"/>
   <fixture path="Coemar-Stage-Lite-LED.qxf" mf="Coemar" md="Stage Lite LED"/>
@@ -817,6 +822,7 @@
   <fixture path="Varytec-Easy-Move-LED-XS-Wash.qxf" mf="Varytec" md="Easy Move LED XS Wash"/>
   <fixture path="Varytec-Easy-Scan-XT-Mini.qxf" mf="Varytec" md="Easy Scan XT Mini"/>
   <fixture path="Varytec-Gigabar-II.qxf" mf="Varytec" md="Gigabar II"/>
+  <fixture path="Varytec-LED-Easy-Move-Mini-Beam-&amp;-Wash-RGBW.qxf" mf="Varytec" md="LED Easy Move Mini Beam &amp; Wash RGBW"/>
   <fixture path="Varytec-LED-Giga-bar-4-MKII.qxf" mf="Varytec" md="LED Giga Bar 4 MKII"/>
   <fixture path="Varytec-LED-Hellball-3.qxf" mf="Varytec" md="LED Hellball 3"/>
   <fixture path="Varytec-LED-Laser-4.qxf" mf="Varytec" md="LED Laser 4"/>
@@ -826,6 +832,7 @@
   <fixture path="Varytec-RGB-LED-Spot-38.qxf" mf="Varytec" md="RGB LED Spot 38"/>
   <fixture path="Varytec-Thunderscan-FX.qxf" mf="Varytec" md="Thunderscan FX"/>
   <fixture path="Velleman-Beam-Driver-250.qxf" mf="Velleman" md="Beam Driver 250"/>
+  <fixture path="Velleman-VDP1500SM.qxf" mf="Velleman" md="VDP1500SM"/>
   <fixture path="Venue-LEDPAR64.qxf" mf="Venue" md="LED PAR64"/>
   <fixture path="Venue-Scanner-4.qxf" mf="Venue" md="Scanner 4"/>
   <fixture path="Venue-ThinPar-38.qxf" mf="Venue" md="ThinPAR 38"/>
