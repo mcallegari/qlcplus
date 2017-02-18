@@ -14,6 +14,7 @@ qlcplus (4.10.6) stable; urgency=low
   * Virtual Console: fixed input profiles channels not honored on frame pages other than the first (thanks to Lukas Jähn)
   * Web access: fixed VC Slider in percentage mode and inverted appearance (thanks to Bartosz Grabias)
   * Web access: support VC Slider reduced range when in level mode
+  * New input profile: Zoom R16 (thanks to Benedict Stein)
   * New fixture: American DJ FREQ 5 Strobe (thanks to Martin Bochenek)
   * New fixture: Martin Rush MH3 (thanks to Ed Middlebrooks)
   * New fixture: Eurolite LED ACS BAR-12 (thanks to Michael Horber)
@@ -22,9 +23,17 @@ qlcplus (4.10.6) stable; urgency=low
   * New fixture: American DJ Punch LED Pro (thanks to Benedict Stein)
   * New fixtures: Contest Mini-Head 10W, Contest Evora B2R (thanks to Fredje Gallon)
   * New fixture: Robe DJ Scan 150 XT (thanks to Allan Madsen)
-  * New fixture: Futurelight PRO Slim PAR-12 HCL (thanks to Lukas Jähn)
+  * New fixtures: Futurelight PRO Slim PAR-12 HCL, PRO Slim PAR-12 MK2 HCL (thanks to Lukas Jähn)
   * New fixture: Showtec XS-1W Mini Moving Beam (thanks to Habefaro)
-  * New input profile: Zoom R16 (thanks to Benedict Stein)
+  * New fixtures: Stage Right Stage Wash 18Wx18 LED PAR, Stage Right 7x20W COB LED Theater PAR (thanks to Collin Ong)
+  * New fixture: Cameo CLPIXBAR450PRO, CLPIXBAR650PRO (thanks to Jean-Daniel Garcia & Jeremie Odermatt)
+  * New fixture: Clay Paky Alpha Beam 1500 (thanks to Louis Gutenschwager)
+  * New fixture: Stairville AFH-600 (thanks to Hannes Braun)
+  * New fixture: Involight LED MH77S (thanks to Jászberényi Szabolcs)
+  * New fixtures: ETEC LED PAR 64 18x10W RGBWA, LED PAR 64 18x15W RGBWA Zoom (thanks to Simon Orlob)
+  * New fixture: Chauvet Swarm Wash FX (thanks to Stephen Olah)
+  * New fixture: Clay Paky Alpha Spot HPE 575 (thanks to Rohmer)
+  * New fixture: Robe LED Blinder 196LT (thanks to Tim Cullingworth)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 5 Mar 2017 12:13:14 +0200
 
