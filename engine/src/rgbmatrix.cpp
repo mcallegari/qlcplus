@@ -916,9 +916,16 @@ void RGBMatrixStep::updateStepColor(int stepIndex, QColor startColor, int stepsC
     if (stepsCount <= 0)
         return;
 
-    m_stepColor.setRed(startColor.red() + (m_crDelta * stepIndex / (stepsCount - 1)));
-    m_stepColor.setGreen(startColor.green() + (m_cgDelta * stepIndex / (stepsCount - 1)));
-    m_stepColor.setBlue(startColor.blue() + (m_cbDelta * stepIndex / (stepsCount - 1)));
+    if (stepsCount == 1)
+    {
+        m_stepColor = startColor;
+    }
+    else
+    {
+        m_stepColor.setRed(startColor.red() + (m_crDelta * stepIndex / (stepsCount - 1)));
+        m_stepColor.setGreen(startColor.green() + (m_cgDelta * stepIndex / (stepsCount - 1)));
+        m_stepColor.setBlue(startColor.blue() + (m_cbDelta * stepIndex / (stepsCount - 1)));
+    }
 
     //qDebug() << "RGBMatrix step" << stepIndex << ", color:" << QString::number(m_stepColor.rgb(), 16);
 }
