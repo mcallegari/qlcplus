@@ -2,7 +2,8 @@ qlcplus (4.10.6) stable; urgency=low
 
   * engine: fixed setting start/end color while a RGB Matrix is running
   * engine: fixed crash when pausing a Show with an unavailable audio file
-  * UI/RGBPanel: added panel direction (thanks to Raivis Rengelis)
+  * UI/RGB Panel: added panel direction (thanks to Raivis Rengelis)
+  * UI/RGB Matrix Editor: allow the preview to run even in operate mode
   * UI/Simple Desk: fixed crash when changing values from a channel group in "fixtures view" mode
   * Virtual Console/Slider: improved level monitoring with the possibility to act like a Simple Desk slider (see documentation)
   * Virtual Console/Frame: fixed 4.10.5b regression disabling widgets when switching page in design mode
@@ -10,6 +11,7 @@ qlcplus (4.10.6) stable; urgency=low
   * Virtual Console/Cue List: improved linked crossfade to perform an additive blending between steps (see documentation)
   * Virtual Console: prevent unwanted feedbacks from widgets in inactive Frame pages (thanks to Lukas Jähn)
   * Virtual Console: fixed manual selection of input channels not considering Frame pages (thanks to Lukas Jähn)
+  * Virtual Console: fixed input profiles channels not honored on frame pages other than the first (thanks to Lukas Jähn)
   * Web access: fixed VC Slider in percentage mode and inverted appearance (thanks to Bartosz Grabias)
   * Web access: support VC Slider reduced range when in level mode
   * New fixture: American DJ FREQ 5 Strobe (thanks to Martin Bochenek)
