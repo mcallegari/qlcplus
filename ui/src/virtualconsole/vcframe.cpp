@@ -474,22 +474,17 @@ void VCFrame::updatePageLabel()
 
 void VCFrame::addShortcut(VCFramePageShortcut const& shortcut)
 {
-    QWidget *shortcutWidget = new QPushButton(this);
-    shortcutWidget->hide();
-    Q_ASSERT(shortcutWidget != NULL);
+    VCFramePageShortcut* pageShortcut = new VCFramePageShortcut(shortcut);
 
-    if (mode() == Doc::Design)
-        shortcutWidget->setEnabled(false);
+    m_pageShortcuts.append(pageShortcut);
 
-    m_pageShortcuts[shortcutWidget] = new VCFramePageShortcut(shortcut);
-
-    if (m_pageShortcuts[shortcutWidget]->m_inputSource != NULL)
+    if (pageShortcut->m_inputSource != NULL)
     {
-        setInputSource(m_pageShortcuts[shortcutWidget]->m_inputSource,
-                       m_pageShortcuts[shortcutWidget]->m_id);
+        setInputSource(pageShortcut->m_inputSource,
+                       pageShortcut->m_id);
     }
 
-    if (m_pageShortcuts[shortcutWidget]->m_keySequence.isEmpty() == false)
+    if (pageShortcut->m_keySequence.isEmpty() == false)
     {
         /* Quite a dirty workaround, but it works without interfering with other widgets */
         disconnect(this, SIGNAL(keyPressed(QKeySequence)), this, SLOT(slotFrameKeyPressed(QKeySequence)));
@@ -500,13 +495,8 @@ void VCFrame::addShortcut(VCFramePageShortcut const& shortcut)
 
 void VCFrame::resetShortcuts()
 {
-    for (QHash<QWidget*, VCFramePageShortcut*>::iterator it = m_pageShortcuts.begin();
-            it != m_pageShortcuts.end(); ++it)
+    foreach (VCFramePageShortcut* shortcut, m_pageShortcuts)
     {
-        QWidget* widget = it.key();
-        delete widget;
-
-        VCFramePageShortcut* shortcut = it.value();
         if (!shortcut->m_inputSource.isNull())
             setInputSource(QSharedPointer<QLCInputSource>(), shortcut->m_id);
         delete shortcut;
@@ -516,9 +506,7 @@ void VCFrame::resetShortcuts()
 
 QList<VCFramePageShortcut*> VCFrame::shortcuts() const
 {
-    QList<VCFramePageShortcut*> shortcutsList = m_pageShortcuts.values();
-    qSort(shortcutsList.begin(), shortcutsList.end(), VCFramePageShortcut::compare);
-    return shortcutsList;
+    return m_pageShortcuts;
 }
 
 void VCFrame::setPagesLoop(bool pagesLoop)
@@ -719,15 +707,9 @@ void VCFrame::slotFrameKeyPressed(const QKeySequence& keySequence)
         slotNextPage();
     else
     {
-        for (QHash<QWidget*, VCFramePageShortcut*>::iterator it = m_pageShortcuts.begin();
-                it != m_pageShortcuts.end(); ++it)
-        {
-            VCFramePageShortcut *shortcut = it.value();
+        foreach (VCFramePageShortcut* shortcut, m_pageShortcuts)
             if (shortcut->m_keySequence == keySequence)
-            {
                 slotSetPage(shortcut->m_page);
-            }
-        }
     }
 }
 
@@ -742,10 +724,8 @@ void VCFrame::updateFeedback()
             sendFeedback(src->lowerValue(), enableInputSourceId);
     }
 
-    QListIterator <VCFramePageShortcut*> shortcutIt(shortcuts());
-    while (shortcutIt.hasNext() == true)
+    foreach (VCFramePageShortcut* shortcut, m_pageShortcuts)
     {
-        VCFramePageShortcut* shortcut = shortcutIt.next();
         QSharedPointer<QLCInputSource> src = shortcut->m_inputSource;
         if (!src.isNull() && src->isValid() == true)
         {
@@ -784,10 +764,8 @@ void VCFrame::slotInputValueChanged(quint32 universe, quint32 channel, uchar val
         slotNextPage();
     else
     {
-        for (QHash<QWidget*, VCFramePageShortcut*>::iterator it = m_pageShortcuts.begin();
-                it != m_pageShortcuts.end(); ++it)
+        foreach (VCFramePageShortcut* shortcut, m_pageShortcuts)
         {
-            VCFramePageShortcut *shortcut = it.value();
             if (shortcut->m_inputSource != NULL &&
                     shortcut->m_inputSource->universe() == universe &&
                     shortcut->m_inputSource->channel() == pagedCh)

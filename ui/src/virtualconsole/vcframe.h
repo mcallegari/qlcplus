@@ -183,7 +183,7 @@ protected:
     QToolButton *m_nextPageBtn, *m_prevPageBtn;
     QComboBox *m_pageLabel;
     bool m_pagesLoop;
-    QHash<QWidget*, VCFramePageShortcut*> m_pageShortcuts;
+    QList<VCFramePageShortcut*> m_pageShortcuts;
 
     /** Here's where the magic takes place. This holds a map
      *  of pages/widgets to be shown/hidden when page is changed */
