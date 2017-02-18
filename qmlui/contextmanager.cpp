@@ -498,12 +498,19 @@ void ContextManager::setFixturesRotation(QVector3D degrees)
         mProps->setFixtureRotation(fxID, rot);
         if (m_2DView->isEnabled())
             m_2DView->updateFixtureRotation(fxID, rot);
+        if (m_3DView->isEnabled())
+            m_3DView->updateFixtureRotation(fxID, rot);
     }
     m_prevRotation = degrees;
 }
 
 void ContextManager::slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal z)
 {
+    if (m_doc->loadStatus() == Doc::Loading)
+        return;
+
+    qDebug() << "[ContextManager] New fixture created" << fxID;
+
     if (m_DMXView->isEnabled())
         m_DMXView->createFixtureItem(fxID);
     if (m_2DView->isEnabled())

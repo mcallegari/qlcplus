@@ -62,21 +62,58 @@ Entity
     {
         id: eSceneLoader
 
-        property int panRotation: 0
-        property int tiltRotation: 0
+        property real panRotation: 0
+        property real tiltRotation: 0
+        property matrix4x4 panMatrix
 
         function bindPanTransform(t, maxDegrees)
         {
             console.log("Binding pan ----")
             fixtureEntity.panMaxDegrees = maxDegrees
             t.rotationZ = Qt.binding(function() { return panRotation })
+
+            panMatrix = t.matrix
+
+            var origMatrix = t.matrix;
+            var origTranslation = t.translation;
+            var origRotation = t.rotation;
+            var origScale = t.scale3D;
+            console.log("origMatrix      = " + origMatrix);
+            console.log("origTranslation = " + origTranslation);
+            console.log("origRotation    = " + origRotation);
+            console.log("origScale       = " + origScale);
         }
 
         function bindTiltTransform(t, maxDegrees)
         {
             console.log("Binding tilt ----")
             fixtureEntity.tiltMaxDegrees = maxDegrees
-            t.rotationX = Qt.binding(function() { return tiltRotation })
+            //tiltRotation = maxDegrees / 2
+            //t.rotationX = Qt.binding(function() { return tiltRotation })
+
+            var origMatrix = t.matrix;
+            var origTranslation = t.translation;
+            var origRotation = t.rotation;
+            var origScale = t.scale3D;
+            console.log("origMatrix      = " + origMatrix);
+            console.log("origTranslation = " + origTranslation);
+            console.log("origRotation    = " + origRotation);
+            console.log("origScale       = " + origScale);
+
+            // Make a deep copy of the original translation. This will not be updated when the
+            // transformation's translation property gets updated due to the animation.
+            var constantTranslation = Qt.vector3d(origTranslation.x, origTranslation.y, origTranslation.z);
+            var rotatedScale = Qt.vector3d(origScale.x, origScale.z, origScale.y);
+
+            t.matrix = Qt.binding(function() {
+                var m = Qt.matrix4x4();
+                m.translate(constantTranslation);
+                m.rotate(tiltRotation, Qt.vector3d(1, 0, 0));
+                m.scale(rotatedScale);
+                //console.log("Modified matrix = " + m)
+                return m;
+
+            })
         }
 
         onStatusChanged:
@@ -100,13 +137,7 @@ Entity
         }
     }
 
-    Transform
-    {
-        id: eTransform
-        translation: Qt.vector3d(0, 0, 0)
-    }
-
-    components: [ eTransform, eSceneLoader ]
+    components: [ eSceneLoader ]
 
     /* This gets re-parented and activated on initializeFixture */
     ObjectPicker

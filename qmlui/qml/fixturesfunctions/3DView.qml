@@ -92,9 +92,9 @@ Rectangle
                 aspectRatio: scene3d.width / scene3d.height
                 nearPlane : 0.1
                 farPlane : 1000.0
-                position: Qt.vector3d(0.0, 2.5, -7.0)
+                position: Qt.vector3d(2.5, 2.5, -7.0)
                 upVector: Qt.vector3d(0.0, 1.0, 0.0)
-                viewCenter: Qt.vector3d(0.0, 0.0, 0.0)
+                viewCenter: Qt.vector3d(2.5, 0.0, 0.0)
             }
 
             OrbitCameraController
@@ -103,6 +103,7 @@ Rectangle
                 camera: camera
                 lookSpeed: 800.0
             }
+
 /*
             FirstPersonCameraController
             {
@@ -165,7 +166,7 @@ Rectangle
                 Transform
                 {
                     id: groundTransform
-                    translation: Qt.vector3d(0, 0, 0)
+                    translation: Qt.vector3d(ground.xSize / 2, -1, 0)
                 }
 
                 PhongMaterial

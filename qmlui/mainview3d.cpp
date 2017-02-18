@@ -23,12 +23,15 @@
 #include <QQmlComponent>
 
 #include <Qt3DCore/QTransform>
+#include <Qt3DRender/QGeometry>
+#include <Qt3DRender/QGeometryRenderer>
 
 #include "doc.h"
 #include "qlcconfig.h"
 #include "mainview3d.h"
 #include "qlccapability.h"
 #include "qlcfixturemode.h"
+#include "monitorproperties.h"
 
 MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
     : PreviewContext(view, doc, "3D", parent)
@@ -54,9 +57,17 @@ MainView3D::~MainView3D()
 
 void MainView3D::enableContext(bool enable)
 {
+    qDebug() << "Enable 3D context..." << enable;
+
     PreviewContext::enableContext(enable);
     if (enable == true)
         slotRefreshView();
+    else
+    {
+        resetItems();
+        m_scene3D = NULL;
+        m_rootEntity = NULL;
+    }
 }
 
 void MainView3D::setUniverseFilter(quint32 universeFilter)
@@ -66,9 +77,22 @@ void MainView3D::setUniverseFilter(quint32 universeFilter)
 
 void MainView3D::resetItems()
 {
-    const auto end = m_entitiesMap.end();
-    for (auto it = m_entitiesMap.begin(); it != end; ++it)
-        delete it.value();
+    qDebug() << "Resetting 3D items...";
+    QMapIterator<quint32, FixtureMesh*> it(m_entitiesMap);
+    while(it.hasNext())
+    {
+        it.next();
+        FixtureMesh *e = it.value();
+        //if (e->m_headItem)
+        //    delete e->m_headItem;
+        //if (e->m_armItem)
+        //    delete e->m_armItem;
+        delete e->m_rootItem;
+    }
+
+    //const auto end = m_entitiesMap.end();
+    //for (auto it = m_entitiesMap.begin(); it != end; ++it)
+    //    delete it.value();
     m_entitiesMap.clear();
 }
 
@@ -175,8 +199,7 @@ void MainView3D::updateFixtureSelection(QList<quint32> fixtures)
 
 void MainView3D::updateFixtureSelection(quint32 fxID, bool enable)
 {
-    Q_UNUSED(fxID)
-    Q_UNUSED(enable)
+    qDebug() << "[View3D] fixture" << fxID << "selected:" << enable;
 
     // TODO: show/hide bounding box
 }
@@ -195,19 +218,50 @@ void MainView3D::updateFixturePosition(quint32 fxID, QVector3D pos)
     mesh->m_rootTransform->setTranslation(QVector3D(pos.x() / 1000.0, pos.y() / 1000.0, pos.z() / 1000.0));
 }
 
+void MainView3D::updateFixtureRotation(quint32 fxID, QVector3D degrees)
+{
+    if (isEnabled() == false || m_entitiesMap.contains(fxID) == false)
+        return;
+
+    FixtureMesh *mesh = m_entitiesMap.value(fxID);
+    if (mesh->m_rootTransform == NULL)
+        return;
+
+    qDebug() << Q_FUNC_INFO << degrees;
+
+    mesh->m_rootTransform->setRotationX(degrees.x());
+    mesh->m_rootTransform->setRotationY(degrees.y());
+    mesh->m_rootTransform->setRotationZ(degrees.z());
+}
+
+void MainView3D::createView()
+{
+    QMetaObject::invokeMethod(this, "slotRefreshView", Qt::QueuedConnection);
+}
+
 void MainView3D::slotRefreshView()
 {
     if (isEnabled() == false)
         return;
 
     resetItems();
-}
 
-void MainView3D::createView()
-{
-    QMetaObject::invokeMethod(this, "createViewDeferred", Qt::QueuedConnection);
-}
+    if (m_scene3D == NULL || m_rootEntity == NULL)
+        initialize3DProperties();
 
+    qDebug() << "Refreshing 3D view...";
+
+    foreach(Fixture *fixture, m_doc->fixtures())
+    {
+        if (m_monProps->hasFixturePosition(fixture->id()))
+        {
+            QVector3D fxPos = m_monProps->fixturePosition(fixture->id());
+            createFixtureItem(fixture->id(), fxPos.x(), fxPos.y(), fxPos.z());
+        }
+        else
+            createFixtureItem(fixture->id(), 0, 0, 0, false);
+    }
+}
 
 Qt3DCore::QTransform *MainView3D::getTransform(QEntity *entity)
 {
@@ -217,8 +271,15 @@ Qt3DCore::QTransform *MainView3D::getTransform(QEntity *entity)
     for (QComponent *component : entity->components()) // C++11
     {
         //qDebug() << component->metaObject()->className();
-        if (component->metaObject()->className() == QString("Qt3DCore::QTransform"))
-            return qobject_cast<Qt3DCore::QTransform*>(component);
+        Qt3DCore::QTransform *transform = qobject_cast<Qt3DCore::QTransform *>(component);
+        if (transform)
+        {
+            //qDebug() << "matrix:" << transform->matrix();
+            //qDebug() << "translation:" << transform->translation();
+            //qDebug() << "rotation:" << transform->rotation();
+            //qDebug() << "scale:" << transform->scale3D();
+            return transform;
+        }
     }
 
     return NULL;
@@ -249,7 +310,16 @@ void MainView3D::initializeFixture(quint32 fxID, QComponent *picker, Qt3DRender:
     // Technically there could be multiple entities referencing the scene loader
     // but sharing is discouraged, and in our case there will be one anyhow.
     QEntity *root = entities[0];
-
+#if 0
+    for (QComponent *component : root->components()) // C++11
+    {
+        //qDebug() << component->metaObject()->className();
+        Qt3DRender::QGeometryRenderer *renderer = qobject_cast<Qt3DRender::QGeometryRenderer*>(component);
+        if (renderer)
+        {
+        }
+    }
+#endif
     qDebug() << "There are" << root->children().count() << "submeshes in the loaded fixture";
 
     FixtureMesh *meshRef = m_entitiesMap.value(fxID);
@@ -259,9 +329,7 @@ void MainView3D::initializeFixture(quint32 fxID, QComponent *picker, Qt3DRender:
     meshRef->m_headItem = root->findChild<QEntity *>("head");
 
     if (baseItem != NULL)
-    {
         meshRef->m_rootTransform = getTransform(baseItem);
-    }
 
     if (meshRef->m_armItem != NULL)
     {
@@ -278,6 +346,7 @@ void MainView3D::initializeFixture(quint32 fxID, QComponent *picker, Qt3DRender:
                         Q_ARG(QVariant, panDeg));
         }
     }
+#if 1
     if (meshRef->m_headItem != NULL)
     {
         int tiltDeg = phy.focusTiltMax();
@@ -303,6 +372,12 @@ void MainView3D::initializeFixture(quint32 fxID, QComponent *picker, Qt3DRender:
             meshRef->m_rootTransform = transform;
             baseItem = meshRef->m_headItem;
         }
+    }
+#endif
+    if (m_monProps->hasFixturePosition(fixture->id()))
+    {
+        QVector3D fxPos = m_monProps->fixturePosition(fixture->id());
+        meshRef->m_rootTransform->setTranslation(QVector3D(fxPos.x() / 1000.0, fxPos.y() / 1000.0, fxPos.z() / 1000.0));
     }
 
     /* Hook the object picker to the base entity */
@@ -333,11 +408,4 @@ void MainView3D::initialize3DProperties()
     }
 }
 
-void MainView3D::createViewDeferred()
-{
-    if (m_scene3D == NULL || m_rootEntity == NULL)
-        initialize3DProperties();
-
-    resetItems();
-}
 

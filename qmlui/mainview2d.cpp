@@ -61,6 +61,8 @@ void MainView2D::enableContext(bool enable)
     PreviewContext::enableContext(enable);
     if (enable == true)
         slotRefreshView();
+    else
+        resetItems();
 }
 
 void MainView2D::setUniverseFilter(quint32 universeFilter)

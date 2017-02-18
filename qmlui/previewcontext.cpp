@@ -34,7 +34,7 @@ PreviewContext::PreviewContext(QQuickView *view, Doc *doc, QString name, QObject
     , m_enabled(false)
     , m_detached(false)
 {
-    connect(m_doc, &Doc::loaded, this, &PreviewContext::slotRefreshView);
+    //connect(m_doc, &Doc::loaded, this, &PreviewContext::slotRefreshView);
 }
 
 QString PreviewContext::contextResource() const

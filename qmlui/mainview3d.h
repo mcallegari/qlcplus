@@ -74,6 +74,8 @@ public:
 
     void updateFixturePosition(quint32 fxID, QVector3D pos);
 
+    void updateFixtureRotation(quint32 fxID, QVector3D degrees);
+
     Q_INVOKABLE void createView();
     Q_INVOKABLE void initializeFixture(quint32 fxID, QComponent *picker, Qt3DRender::QSceneLoader *loader);
 
@@ -87,8 +89,6 @@ private:
 protected slots:
     /** @reimp */
     void slotRefreshView();
-
-    void createViewDeferred();
 
 private:
     MonitorProperties *m_monProps;
