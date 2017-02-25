@@ -141,7 +141,7 @@ Rectangle
                         width: UISettings.iconSizeDefault
                         height: channelsRow.height
 
-                        property alias dmxValue: slider.value
+                        property alias dmxValue: chValueSpin.value
                         property bool dmxMode: true
                         property bool isEnabled: showEnablers ? false : true
 
@@ -228,9 +228,11 @@ Rectangle
                                 x: (parent.width - width) / 2
                                 width: parent.width * 0.95
                                 height: chDelegate.height - (showEnablers ? enableCheckBox.height : 0) - chIcon.height - chValueSpin.height
-                                minimumValue: 0
-                                maximumValue: dmxMode ? 255 : 100
+                                from: 0
+                                to: dmxMode ? 255 : 100
+                                value: dmxValue
                                 enabled: showEnablers ? isEnabled : true
+                                onPositionChanged: dmxValue = valueAt(position)
 
                                 Component.onCompleted:
                                 {
@@ -240,7 +242,7 @@ Rectangle
                                         {
                                             if (showEnablers)
                                                 isEnabled = true
-                                            slider.value = sceneEditor.channelValue(fixtureObj.id, index)
+                                            dmxValue = sceneEditor.channelValue(fixtureObj.id, index)
                                         }
                                     }
                                 }
@@ -252,9 +254,9 @@ Rectangle
                                 height: UISettings.listItemHeight * 0.75
                                 minimumValue: 0
                                 maximumValue: dmxMode ? 255 : 100
+                                suffix: dmxMode ? "" : "%"
                                 showControls: false
                                 horizontalAlignment: Qt.AlignHCenter
-                                value: slider.value
                                 onValueChanged: dmxValue = value
                             }
                         }

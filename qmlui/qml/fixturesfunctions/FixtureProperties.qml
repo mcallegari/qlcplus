@@ -69,7 +69,7 @@ Rectangle
         {
             height: UISettings.listItemHeight * 0.8
             width: parent.width
-            color: UISettings.highlightPressed
+            color: UISettings.sectionHeader
 
             RobotoText
             {

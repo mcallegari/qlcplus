@@ -18,8 +18,7 @@
 */
 
 import QtQuick 2.0
-import QtQuick.Controls 1.0
-import QtQuick.Controls.Styles 1.0
+import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.1
 
 import com.qlcplus.classes 1.0
@@ -260,17 +259,22 @@ Rectangle
 
         Slider
         {
+            id: wSlider
             visible: colorsMask & App.White
             Layout.fillWidth: true
             orientation: Qt.Horizontal
-            minimumValue: 0
-            maximumValue: 255
+            from: 0
+            to: 255
             value: whiteValue
+            handle: Rectangle {
+                x: wSlider.leftPadding + wSlider.visualPosition * (wSlider.availableWidth - width)
+                y: wSlider.topPadding + wSlider.availableHeight / 2 - height / 2
+                implicitWidth: slHandleSize
+                implicitHeight: slHandleSize
+                radius: slHandleSize / 5
+            }
 
-            style: SliderStyle {
-                    handle: Rectangle { width: slHandleSize; height: slHandleSize; radius: slHandleSize / 5 }
-                }
-            onValueChanged: whiteValue = value
+            onPositionChanged: whiteValue = valueAt(position)
         }
 
         CustomSpinBox
@@ -294,17 +298,22 @@ Rectangle
 
         Slider
         {
+            id: aSlider
             visible: colorsMask & App.Amber
             Layout.fillWidth: true
             orientation: Qt.Horizontal
-            minimumValue: 0
-            maximumValue: 255
+            from: 0
+            to: 255
             value: amberValue
+            handle: Rectangle {
+                x: aSlider.leftPadding + aSlider.visualPosition * (aSlider.availableWidth - width)
+                y: aSlider.topPadding + aSlider.availableHeight / 2 - height / 2
+                implicitWidth: slHandleSize
+                implicitHeight: slHandleSize
+                radius: slHandleSize / 5
+            }
 
-            style: SliderStyle {
-                    handle: Rectangle { width: slHandleSize; height: slHandleSize; radius: slHandleSize / 5 }
-                }
-            onValueChanged: amberValue = value
+            onPositionChanged: amberValue = valueAt(position)
         }
 
         CustomSpinBox
@@ -328,17 +337,22 @@ Rectangle
 
         Slider
         {
+            id: uvSlider
             visible: colorsMask & App.UV
             Layout.fillWidth: true
             orientation: Qt.Horizontal
-            minimumValue: 0
-            maximumValue: 255
+            from: 0
+            to: 255
             value: uvValue
+            handle: Rectangle {
+                x: uvSlider.leftPadding + uvSlider.visualPosition * (uvSlider.availableWidth - width)
+                y: uvSlider.topPadding + uvSlider.availableHeight / 2 - height / 2
+                implicitWidth: slHandleSize
+                implicitHeight: slHandleSize
+                radius: slHandleSize / 5
+            }
 
-            style: SliderStyle {
-                    handle: Rectangle { width: slHandleSize; height: slHandleSize; radius: slHandleSize / 5 }
-                }
-            onValueChanged: uvValue = value
+            onPositionChanged: uvValue = valueAt(position)
         }
 
         CustomSpinBox

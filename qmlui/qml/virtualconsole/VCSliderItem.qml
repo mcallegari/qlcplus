@@ -48,7 +48,7 @@ VCWidgetItem
             height: UISettings.listItemHeight
             font: sliderObj ? sliderObj.font : ""
             text: sliderObj ? (sliderObj.valueDisplayStyle === VCSlider.DMXValue ?
-                               slFader.value : parseInt((slFader.value * 100) / 255) + "%") : slFader.value
+                               sliderValue : parseInt((sliderValue * 100) / 255) + "%") : sliderValue
             color: sliderObj ? sliderObj.foregroundColor : "white"
         }
 
@@ -68,7 +68,7 @@ VCWidgetItem
                 // the page Flickable interactivity during this operation
                 virtualConsole.setPageInteraction(!touchPressed)
             }
-            onValueChanged: if (sliderObj) sliderObj.value = value
+            onPositionChanged: if (sliderObj) sliderObj.value = valueAt(position)
         }
 
         // widget name text box
