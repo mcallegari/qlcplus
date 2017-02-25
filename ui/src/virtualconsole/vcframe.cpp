@@ -425,6 +425,7 @@ void VCFrame::setMultipageMode(bool enable)
     {
         if (m_prevPageBtn == NULL && m_nextPageBtn == NULL && m_pageCombo == NULL)
             return;
+        resetShortcuts();
         m_hbox->removeWidget(m_prevPageBtn);
         m_hbox->removeWidget(m_pageCombo);
         m_hbox->removeWidget(m_nextPageBtn);
