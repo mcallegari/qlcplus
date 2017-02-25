@@ -62,7 +62,6 @@ protected slots:
 protected:
     VCFrame *m_frame;
     Doc* m_doc;
-    QComboBox *m_pageCombo;
     InputSelectionWidget *m_inputEnableWidget;
     InputSelectionWidget *m_inputNextPageWidget;
     InputSelectionWidget *m_inputPrevPageWidget;

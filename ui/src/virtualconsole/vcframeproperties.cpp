@@ -98,20 +98,16 @@ VCFrameProperties::VCFrameProperties(QWidget* parent, VCFrame* frame, Doc *doc)
      * Page shortcuts
      ************************************************************************/
     foreach(VCFramePageShortcut const* shortcut, m_frame->shortcuts())
+    {
         m_shortcuts.append(new VCFramePageShortcut(*shortcut));
-
-    m_pageCombo = new QComboBox(this);
-    slotTotalPagesNumberChanged(m_totalPagesSpin->value());
-    m_pageShortcuts->insertWidget(1, m_pageCombo);
+        m_pageCombo->addItem(shortcut->m_name);
+    }
 
     m_shortcutInputWidget = new InputSelectionWidget(m_doc, this);
     m_shortcutInputWidget->setCustomFeedbackVisibility(true);
     m_shortcutInputWidget->setWidgetPage(m_frame->page());
     m_shortcutInputWidget->show();
     m_pageShortcuts->addWidget(m_shortcutInputWidget);
-    // Update page select & widgets to match current page
-    m_pageCombo->setCurrentIndex(frame->currentPage());
-    slotPageSelectChanged(frame->currentPage());
 
     connect(m_totalPagesSpin, SIGNAL(valueChanged(int)),
             this, SLOT(slotTotalPagesNumberChanged(int)));
@@ -177,6 +173,7 @@ void VCFrameProperties::slotMultipageChecked(bool enable)
     {
         m_showHeaderCheck->setChecked(true);
         m_showHeaderCheck->setEnabled(false);
+        slotTotalPagesNumberChanged(m_totalPagesSpin->value());
     }
 }
 
@@ -201,7 +198,9 @@ void VCFrameProperties::slotPageNameEditingFinished()
 
 void VCFrameProperties::slotTotalPagesNumberChanged(int number)
 {
-    qDebug() << "TOTAL PAGE CHANGED TO" << number;
+    if (m_enablePaging->isChecked() == false || number == m_shortcuts.count())
+        return;
+
     if (number < m_shortcuts.count())
     {
         m_pageCombo->removeItem(m_shortcuts.count() - 1);

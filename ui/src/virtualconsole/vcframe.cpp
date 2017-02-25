@@ -481,17 +481,17 @@ int VCFrame::currentPage()
 
 void VCFrame::updatePageCombo()
 {
-    if (m_pageCombo != NULL && !shortcuts().isEmpty())
-    {
-        // Save current page to restore it afterwards
-        int page = currentPage();
-        m_pageCombo->blockSignals(true);
-        m_pageCombo->clear();
-        for (int i = 0; i < m_pageShortcuts.count(); i++)
-            m_pageCombo->addItem(m_pageShortcuts.at(i)->m_name);
-        m_pageCombo->setCurrentIndex(page);
-        m_pageCombo->blockSignals(false);
-    }
+    if (m_pageCombo == NULL || shortcuts().isEmpty())
+        return;
+
+    // Save current page to restore it afterwards
+    int page = currentPage();
+    m_pageCombo->blockSignals(true);
+    m_pageCombo->clear();
+    for (int i = 0; i < m_pageShortcuts.count(); i++)
+        m_pageCombo->addItem(m_pageShortcuts.at(i)->m_name);
+    m_pageCombo->setCurrentIndex(page);
+    m_pageCombo->blockSignals(false);
 }
 
 /*********************************************************************
@@ -515,10 +515,10 @@ void VCFrame::setShortcuts(QList<VCFramePageShortcut *> shortcuts)
 
 void VCFrame::resetShortcuts()
 {
-    foreach (VCFramePageShortcut* shortcut, m_pageShortcuts)
+    int count = m_pageShortcuts.count();
+    for (int i = 0; i < count; i++)
     {
-        if (!shortcut->m_inputSource.isNull())
-            setInputSource(QSharedPointer<QLCInputSource>(), shortcut->m_id);
+        VCFramePageShortcut* shortcut = m_pageShortcuts.takeLast();
         delete shortcut;
     }
     m_pageShortcuts.clear();
