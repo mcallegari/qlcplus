@@ -30,6 +30,7 @@ VCFramePageShortcut::VCFramePageShortcut(int pageIndex, quint8 inputID)
     : m_id(inputID)
     , m_page(pageIndex)
     , m_name(QObject::tr("Page: %1").arg(pageIndex + 1))
+    , m_inputSource(QSharedPointer<QLCInputSource>())
 {
 }
 

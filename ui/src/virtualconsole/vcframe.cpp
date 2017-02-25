@@ -143,16 +143,16 @@ void VCFrame::setCaption(const QString& text)
 {
     if (m_label != NULL && !shortcuts().isEmpty() && m_currentPage < shortcuts().length())
     {
-        // Show caption, if ther is no page name
-        if (shortcuts()[m_currentPage]->m_name == "")
+        // Show caption, if there is no page name
+        if (m_pageShortcuts.at(m_currentPage)->m_name == "")
             m_label->setText(text);
         else
         {
             // Show only page name, if there is no caption
             if (text == "")
-                m_label->setText(shortcuts()[m_currentPage]->m_name);
+                m_label->setText(m_pageShortcuts.at(m_currentPage)->m_name);
             else
-                m_label->setText(text + " - " + shortcuts()[m_currentPage]->m_name);
+                m_label->setText(text + " - " + m_pageShortcuts.at(m_currentPage)->m_name);
         }
     }
 
@@ -508,7 +508,8 @@ void VCFrame::addShortcut()
 void VCFrame::setShortcuts(QList<VCFramePageShortcut *> shortcuts)
 {
     resetShortcuts();
-    m_pageShortcuts = shortcuts;
+    foreach(VCFramePageShortcut const* shortcut, shortcuts)
+        m_pageShortcuts.append(new VCFramePageShortcut(*shortcut));
     updatePageCombo();
 }
 

@@ -100,11 +100,9 @@ VCFrameProperties::VCFrameProperties(QWidget* parent, VCFrame* frame, Doc *doc)
     foreach(VCFramePageShortcut const* shortcut, m_frame->shortcuts())
         m_shortcuts.append(new VCFramePageShortcut(*shortcut));
 
-    m_pageSelect = new QComboBox(this);
+    m_pageCombo = new QComboBox(this);
     slotTotalPagesNumberChanged(m_totalPagesSpin->value());
-    m_pageSelect->setStyleSheet("QLabel { background-color: #000000; font-size: 15px; font-weight: bold;"
-                               "color: red; border-radius: 3px; padding: 3px; margin-left: 2px; }");
-    m_pageShortcuts->insertWidget(1, m_pageSelect);
+    m_pageShortcuts->insertWidget(1, m_pageCombo);
 
     m_shortcutInputWidget = new InputSelectionWidget(m_doc, this);
     m_shortcutInputWidget->setCustomFeedbackVisibility(true);
@@ -112,7 +110,7 @@ VCFrameProperties::VCFrameProperties(QWidget* parent, VCFrame* frame, Doc *doc)
     m_shortcutInputWidget->show();
     m_pageShortcuts->addWidget(m_shortcutInputWidget);
     // Update page select & widgets to match current page
-    m_pageSelect->setCurrentIndex(frame->currentPage());
+    m_pageCombo->setCurrentIndex(frame->currentPage());
     slotPageSelectChanged(frame->currentPage());
 
     connect(m_totalPagesSpin, SIGNAL(valueChanged(int)),
@@ -123,12 +121,11 @@ VCFrameProperties::VCFrameProperties(QWidget* parent, VCFrame* frame, Doc *doc)
     connect(m_shortcutInputWidget, SIGNAL(keySequenceChanged(QKeySequence)),
             this, SLOT(slotKeySequenceChanged(QKeySequence)));
 
-    connect(m_pageSelect, SIGNAL(currentIndexChanged(int)),
+    connect(m_pageCombo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(slotPageSelectChanged(int)));
 
     connect(m_pageName, SIGNAL(editingFinished()),
             this, SLOT(slotPageNameEditingFinished()));
-
 }
 
 VCFrameProperties::~VCFrameProperties()
@@ -197,32 +194,25 @@ void VCFrameProperties::slotPageSelectChanged(int index)
 void VCFrameProperties::slotPageNameEditingFinished()
 {
     // Store current page to restore it afterwards
-    int index = m_pageSelect->currentIndex();
+    int index = m_pageCombo->currentIndex();
     m_shortcuts[index]->m_name = m_pageName->text();
-    m_pageSelect->setItemText(index, tr("Page %1").arg(index + 1) + (m_pageName->text() != "" ? (" - " + m_pageName->text()) : ""));
+    m_pageCombo->setItemText(index, tr("Page %1").arg(index + 1) + (m_pageName->text() != "" ? (" - " + m_pageName->text()) : ""));
 }
 
 void VCFrameProperties::slotTotalPagesNumberChanged(int number)
 {
-    m_pageSelect->clear();
-    // Add pages if number was increased, remove them if decreased
-    for (int i = 0; i < std::max(m_shortcuts.length(), number); i++)
+    qDebug() << "TOTAL PAGE CHANGED TO" << number;
+    if (number < m_shortcuts.count())
     {
-        if (i < number)
-        {
-            if (m_shortcuts.length() <= i)
-            {
-                VCFramePageShortcut* vcfps = new VCFramePageShortcut(i, i + VCFrame::enableInputSourceId + 1);
-                m_shortcuts.append(vcfps);
-            }
-            // Update page selection for input widget
-            if (m_shortcuts[i]->m_name == "")
-                m_pageSelect->addItem(tr("Page %1").arg(i + 1));
-            else
-                m_pageSelect->addItem(tr("Page %1").arg(i + 1) + " - " + m_shortcuts[i]->m_name);
-        }
-        else
-            m_shortcuts.removeAt(i);
+        m_pageCombo->removeItem(m_shortcuts.count() - 1);
+        VCFramePageShortcut *sc = m_shortcuts.takeLast();
+        delete sc;
+    }
+    else
+    {
+        int newIndex = m_shortcuts.count();
+        m_shortcuts.append(new VCFramePageShortcut(newIndex, newIndex + VCFrame::enableInputSourceId + 1));
+        m_pageCombo->addItem(m_shortcuts.last()->m_name);
     }
 }
 
@@ -231,7 +221,7 @@ void VCFrameProperties::slotInputValueChanged(quint32 universe, quint32 channel)
     Q_UNUSED(universe);
     Q_UNUSED(channel);
 
-    VCFramePageShortcut *shortcut = m_shortcuts[m_pageSelect->currentIndex()];
+    VCFramePageShortcut *shortcut = m_shortcuts[m_pageCombo->currentIndex()];
 
     if (shortcut != NULL)
         shortcut->m_inputSource = m_shortcutInputWidget->inputSource();
@@ -239,7 +229,7 @@ void VCFrameProperties::slotInputValueChanged(quint32 universe, quint32 channel)
 
 void VCFrameProperties::slotKeySequenceChanged(QKeySequence key)
 {
-    VCFramePageShortcut *shortcut = m_shortcuts[m_pageSelect->currentIndex()];
+    VCFramePageShortcut *shortcut = m_shortcuts[m_pageCombo->currentIndex()];
 
     if (shortcut != NULL)
         shortcut->m_keySequence = key;
