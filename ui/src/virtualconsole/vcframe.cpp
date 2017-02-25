@@ -75,7 +75,7 @@ VCFrame::VCFrame(QWidget* parent, Doc* doc, bool canCollapse)
     , m_totalPagesNumber(1)
     , m_nextPageBtn(NULL)
     , m_prevPageBtn(NULL)
-    , m_pageLabel(NULL)
+    , m_pageCombo(NULL)
     , m_pagesLoop(false)
 {
     /* Set the class name "VCFrame" as the object name as well */
@@ -352,7 +352,7 @@ void VCFrame::setMultipageMode(bool enable)
 {
     if (enable == true)
     {
-        if (m_prevPageBtn != NULL && m_nextPageBtn != NULL && m_pageLabel != NULL)
+        if (m_prevPageBtn != NULL && m_nextPageBtn != NULL && m_pageCombo != NULL)
             return;
 
         QString btnSS = "QToolButton { background-color: #E0DFDF; border: 1px solid gray; border-radius: 3px; padding: 3px; margin-left: 2px; }";
@@ -367,15 +367,21 @@ void VCFrame::setMultipageMode(bool enable)
         m_prevPageBtn->setStyleSheet(btnSS);
         m_hbox->addWidget(m_prevPageBtn);
 
-        m_pageLabel = new QComboBox(this);
-        m_pageLabel->setMaximumWidth(100);
-        m_pageLabel->setStyleSheet("QComboBox { background-color: #000000; font-size: 15px; font-weight: bold;"
-                                   "color: red; border-radius: 3px; padding: 6px 8px; margin-left: 2px; border: none;}"
-                                   "QComboBox::down-arrow { image: url(:/arrow_down_red.png); margin-right: 10px; }"
-                                   "QComboBox::drop-down { border: 0px; }"
-                                   "QComboBox QAbstractItemView { padding: 0; margin: 0; }"
-                                   "QComboBox::item:selected {background: black; color: red;}");
-        m_hbox->addWidget(m_pageLabel);
+        m_pageCombo = new QComboBox(this);
+        m_pageCombo->setMaximumWidth(100);
+        m_pageCombo->setFixedHeight(32);
+
+        m_pageCombo->setStyleSheet("QComboBox { background-color: black; color: red; margin-left: 2px; padding: 3px; }");
+        if (m_hasCustomFont)
+            m_pageCombo->setFont(font());
+        else
+        {
+            QFont m_font = QApplication::font();
+            m_font.setBold(true);
+            m_font.setPixelSize(12);
+            m_pageCombo->setFont(m_font);
+        }
+        m_hbox->addWidget(m_pageCombo);
 
         m_nextPageBtn = new QToolButton(this);
         m_nextPageBtn->setStyle(AppUtil::saneStyle());
@@ -387,7 +393,7 @@ void VCFrame::setMultipageMode(bool enable)
         m_hbox->addWidget(m_nextPageBtn);
 
         connect (m_prevPageBtn, SIGNAL(clicked()), this, SLOT(slotPreviousPage()));
-        connect (m_pageLabel, SIGNAL(currentIndexChanged(int)), this, SLOT(slotPageLabelChanged(int)));
+        connect (m_pageCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotPageLabelChanged(int)));
         connect (m_nextPageBtn, SIGNAL(clicked()), this, SLOT(slotNextPage()));
 
         if(this->isCollapsed() == false)
@@ -400,7 +406,7 @@ void VCFrame::setMultipageMode(bool enable)
             m_prevPageBtn->hide();
             m_nextPageBtn->hide();
         }
-        m_pageLabel->show();
+        m_pageCombo->show();
 
         if (m_pagesMap.isEmpty())
         {
@@ -414,16 +420,16 @@ void VCFrame::setMultipageMode(bool enable)
     }
     else
     {
-        if (m_prevPageBtn == NULL && m_nextPageBtn == NULL && m_pageLabel == NULL)
+        if (m_prevPageBtn == NULL && m_nextPageBtn == NULL && m_pageCombo == NULL)
             return;
         m_hbox->removeWidget(m_prevPageBtn);
-        m_hbox->removeWidget(m_pageLabel);
+        m_hbox->removeWidget(m_pageCombo);
         m_hbox->removeWidget(m_nextPageBtn);
         delete m_prevPageBtn;
-        delete m_pageLabel;
+        delete m_pageCombo;
         delete m_nextPageBtn;
         m_prevPageBtn = NULL;
-        m_pageLabel = NULL;
+        m_pageCombo = NULL;
         m_nextPageBtn = NULL;
     }
 
@@ -455,16 +461,16 @@ int VCFrame::currentPage()
 
 void VCFrame::updatePageLabel()
 {
-    if (m_pageLabel != NULL && !shortcuts().isEmpty())
+    if (m_pageCombo != NULL && !shortcuts().isEmpty())
     {
         // Save current page to restore it afterwards
         int page = currentPage();
-        m_pageLabel->blockSignals(true);
-        m_pageLabel->clear();
+        m_pageCombo->blockSignals(true);
+        m_pageCombo->clear();
         for (int i = 1; i <= m_totalPagesNumber; i++)
-            m_pageLabel->addItem(tr("Page: %1").arg(i));
-        m_pageLabel->setCurrentIndex(page);
-        m_pageLabel->blockSignals(false);
+            m_pageCombo->addItem(tr("Page: %1").arg(i));
+        m_pageCombo->setCurrentIndex(page);
+        m_pageCombo->blockSignals(false);
     }
 }
 
@@ -553,21 +559,21 @@ void VCFrame::slotPageLabelChanged(int index)
     if (index >= 0)
     {
         slotSetPage(index);
-        m_pageLabel->clearFocus();
+        m_pageCombo->clearFocus();
         this->setFocus();
     }
 }
 
 void VCFrame::slotSetPage(int pageNum)
 {
-    if (m_pageLabel)
+    if (m_pageCombo)
     {
         if (pageNum >= 0 && pageNum < m_totalPagesNumber)
             m_currentPage = pageNum;
 
-        m_pageLabel->blockSignals(true);
-        m_pageLabel->setCurrentIndex(m_currentPage);
-        m_pageLabel->blockSignals(false);
+        m_pageCombo->blockSignals(true);
+        m_pageCombo->setCurrentIndex(m_currentPage);
+        m_pageCombo->blockSignals(false);
         setCaption(caption());
 
         QMapIterator <VCWidget*, int> it(m_pagesMap);

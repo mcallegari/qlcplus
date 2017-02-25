@@ -181,7 +181,7 @@ protected:
     ushort m_currentPage;
     ushort m_totalPagesNumber;
     QToolButton *m_nextPageBtn, *m_prevPageBtn;
-    QComboBox *m_pageLabel;
+    QComboBox *m_pageCombo;
     bool m_pagesLoop;
     QList<VCFramePageShortcut*> m_pageShortcuts;
 

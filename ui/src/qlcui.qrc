@@ -2,7 +2,6 @@
     <qresource prefix="/">
         <file alias="add_dump.png">../../resources/icons/png/add_dump.png</file>
         <file alias="animation.png">../../resources/icons/png/animation.png</file>
-        <file alias="arrow_down_red.png">../../resources/icons/png/arrow_down_red.png</file>
         <file alias="attach.png">../../resources/icons/png/attach.png</file>
         <file alias="audio.png">../../resources/icons/png/audio.png</file>
         <file alias="audioinput.png">../../resources/icons/png/audioinput.png</file>
