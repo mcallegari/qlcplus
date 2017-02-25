@@ -58,6 +58,7 @@
   <fixture path="American-DJ-Inno-Spot-LED.qxf" mf="American DJ" md="Inno Spot LED"/>
   <fixture path="American-DJ-Inno-Spot-Pro.qxf" mf="American DJ" md="Inno Spot Pro"/>
   <fixture path="American-DJ-Jellydome.qxf" mf="American DJ" md="Jellydome"/>
+  <fixture path="American-DJ-LED-Trispot.qxf" mf="American DJ" md="LED Trispot"/>
   <fixture path="American-DJ-Mega-Bar-50RGB.qxf" mf="American DJ" md="Mega Bar 50RGB"/>
   <fixture path="American-DJ-Mega-Bar-LED.qxf" mf="American DJ" md="Mega Bar LED"/>
   <fixture path="American-DJ-Mega-Flash-DMX.qxf" mf="American DJ" md="Mega Flash DMX"/>
@@ -317,6 +318,7 @@
   <fixture path="Contest-MiniCube-6TCb.qxf" mf="Contest" md="MiniCube-6TCb"/>
   <fixture path="Contest-Oz-37x15QC.qxf" mf="Contest" md="Oz-37x15QC"/>
   <fixture path="Contest-PSC-930.qxf" mf="Contest" md="PSC-930"/>
+  <fixture path="Contest-STB-520-1500W-Strobe.qxf" mf="Contest" md="STB-520 1500W Strobe"/>
   <fixture path="Contest-Tri4U.qxf" mf="Contest" md="Tri4U"/>
   <fixture path="DNA-Pro-Slim-18-RGBW.qxf" mf="DNA" md="PRO SLIM 18 RGBW"/>
   <fixture path="DTS-Max-FAR.qxf" mf="DTS" md="Max FAR"/>
@@ -499,6 +501,7 @@
   <fixture path="JB-Systems-Dynamo-250.qxf" mf="JB Systems" md="Dynamo 250"/>
   <fixture path="JB-Systems-Dynaspot.qxf" mf="JB Systems" md="Dynaspot"/>
   <fixture path="JB-Systems-Lounge-Laser-DMX.qxf" mf="JB Systems" md="Lounge Laser DMX"/>
+  <fixture path="JB-Systems-Panther.qxf" mf="JB Systems" md="Panther"/>
   <fixture path="JB-Systems-Plano-Spot-7TC.qxf" mf="JB Systems" md="Plano Spot 7TC"/>
   <fixture path="JB-Systems-Plano-Spot-LED.qxf" mf="JB Systems" md="Plano Spot LED"/>
   <fixture path="JB-Systems-Super-Solar-RGBW.qxf" mf="JB Systems" md="Super Solar RGBW"/>
@@ -743,6 +746,7 @@
   <fixture path="Showtec-XB-Wave.qxf" mf="Showtec" md="XB-Wave"/>
   <fixture path="Showtec-XS-1W-Mini-Moving-Beam.qxf" mf="Showtec" md="XS-1W Mini Moving Beam"/>
   <fixture path="Showtec-ZIPP-LED-DMX.qxf" mf="Showtec" md="ZIPP LED DMX"/>
+  <fixture path="Smoke-Factory-Tour-Hazer-II.qxf" mf="Smoke Factory" md="Tour-Hazer II"/>
   <fixture path="Stage-Right-7x20W-COB-LED-Theater-PAR.qxf" mf="Stage Right" md="7x20W COB LED Theater PAR"/>
   <fixture path="Stage-Right-Stage-Wash-18Wx18-LED-PAR.qxf" mf="Stage Right" md="Stage Wash 18Wx18 LED PAR"/>
   <fixture path="StageTech-LeaderScan-Roto.qxf" mf="StageTech" md="LeaderScan Roto"/>
