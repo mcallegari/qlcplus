@@ -86,13 +86,13 @@ void MonitorFixturePropertiesEditor::slotSetPosition()
     QPointF itemPos(m_xPosSpin->value() * 1000, m_yPosSpin->value() * 1000);
     m_fxItem->setPos(m_gfxView->realPositionToPixels(itemPos.x(), itemPos.y()));
     m_fxItem->setRealPosition(itemPos);
-    m_props->setFixturePosition(m_fxItem->fixtureID(), itemPos);
+    m_props->setFixturePosition(m_fxItem->fixtureID(), QVector3D(itemPos.x(), itemPos.y(), 0));
 }
 
 void MonitorFixturePropertiesEditor::slotRotationChanged(int value)
 {
     m_fxItem->setRotation(value);
-    m_props->setFixtureRotation(m_fxItem->fixtureID(), value);
+    m_props->setFixtureRotation(m_fxItem->fixtureID(), QVector3D(0, value, 0));
 }
 
 void MonitorFixturePropertiesEditor::slotGelColorClicked()

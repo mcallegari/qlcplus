@@ -1040,7 +1040,7 @@ QPointF Doc::getAvailable2DPosition(QRectF &fxRect)
         if (m_monitorProps->hasFixturePosition(fixture->id()) == false)
             continue;
 
-        QPointF fxPos = m_monitorProps->fixturePosition(fixture->id());
+        QVector3D fxPos = m_monitorProps->fixturePosition(fixture->id());
         QLCFixtureMode *fxMode = fixture->fixtureMode();
 
         qreal itemXPos = fxPos.x();

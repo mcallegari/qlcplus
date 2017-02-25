@@ -152,12 +152,13 @@ Rectangle
             height: UISettings.listItemHeight
             minimumValue: -359
             maximumValue: 359
+            suffix: "°"
             decimals: 0
-            value: contextManager.fixturesRotation
+            value: contextManager.fixturesRotation.y
             onValueChanged:
             {
                 if (settingsRoot.visible)
-                    contextManager.fixturesRotation = value
+                    contextManager.fixturesRotation = Qt.vector3d(0.0, value, 0.0)
             }
         }
 

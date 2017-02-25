@@ -322,7 +322,7 @@ Rectangle
                 console.log("drag finished");
                 mmXPos = (fixtureItem.x * gridUnits) / gridCellSize;
                 mmYPos = (fixtureItem.y * gridUnits) / gridCellSize;
-                contextManager.setFixturePosition(fixtureID, mmXPos, mmYPos)
+                contextManager.setFixturePosition(fixtureID, mmXPos, mmYPos, 0)
                 drag.target = null
             }
         }

@@ -71,6 +71,9 @@
     <file alias="2DView.qml">qml/fixturesfunctions/2DView.qml</file>
     <file alias="SettingsView2D.qml">qml/fixturesfunctions/SettingsView2D.qml</file>
     <file alias="Fixture2DItem.qml">qml/fixturesfunctions/Fixture2DItem.qml</file>
+    <file alias="3DView.qml">qml/fixturesfunctions/3DView.qml</file>
+    <file alias="SettingsView3D.qml">qml/fixturesfunctions/SettingsView3D.qml</file>
+    <file alias="Fixture3DItem.qml">qml/fixturesfunctions/Fixture3DItem.qml</file>
     <file alias="FunctionManager.qml">qml/fixturesfunctions/FunctionManager.qml</file>
     <file alias="FunctionDragItem.qml">qml/fixturesfunctions/FunctionDragItem.qml</file>
     <file alias="AddFunctionMenu.qml">qml/fixturesfunctions/AddFunctionMenu.qml</file>
