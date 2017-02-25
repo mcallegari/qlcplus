@@ -212,7 +212,7 @@ void VCFrameProperties::slotTotalPagesNumberChanged(int number)
         {
             if (m_shortcuts.length() <= i)
             {
-                VCFramePageShortcut* vcfps = new VCFramePageShortcut(i);
+                VCFramePageShortcut* vcfps = new VCFramePageShortcut(i, i + VCFrame::enableInputSourceId + 1);
                 m_shortcuts.append(vcfps);
             }
             // Update page selection for input widget
@@ -290,11 +290,8 @@ void VCFrameProperties::accept()
     m_frame->setInputSource(m_inputPrevPageWidget->inputSource(), VCFrame::previousPageInputSourceId);
 
     /* Shortcuts */
-    m_frame->resetShortcuts();
-    for (int i = 0; i < m_shortcuts.count(); i++)
-    {
-        m_frame->addShortcut(*m_shortcuts[i]);
-    }
+    m_frame->setShortcuts(m_shortcuts);
+
     m_frame->slotSetPage(m_frame->currentPage());
 
     QDialog::accept();

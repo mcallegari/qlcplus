@@ -36,6 +36,7 @@
 #include <QFont>
 #include <QList>
 
+#include "vcframepageshortcut.h"
 #include "vcpropertieseditor.h"
 #include "vcframeproperties.h"
 #include "vcaudiotriggers.h"
@@ -417,6 +418,8 @@ void VCFrame::setMultipageMode(bool enable)
                 addWidgetToPageMap(child);
             }
         }
+        for (int i = 0; i < m_totalPagesNumber; i++)
+            addShortcut();
     }
     else
     {
@@ -443,8 +446,24 @@ bool VCFrame::multipageMode() const
 
 void VCFrame::setTotalPagesNumber(int num)
 {
+    if (num == m_totalPagesNumber)
+        return;
+
+    if (num < m_totalPagesNumber)
+    {
+        for (int i = 0; i < (m_totalPagesNumber - num); i++)
+        {
+            m_pageShortcuts.removeLast();
+            if (m_pageCombo)
+                m_pageCombo->removeItem(m_pageCombo->count() - 1);
+        }
+    }
+    else
+    {
+        for (int i = 0; i < (num - m_totalPagesNumber); i++)
+            addShortcut();
+    }
     m_totalPagesNumber = num;
-    updatePageLabel();
 }
 
 int VCFrame::totalPagesNumber()
@@ -459,7 +478,7 @@ int VCFrame::currentPage()
     return m_currentPage;
 }
 
-void VCFrame::updatePageLabel()
+void VCFrame::updatePageCombo()
 {
     if (m_pageCombo != NULL && !shortcuts().isEmpty())
     {
@@ -467,8 +486,8 @@ void VCFrame::updatePageLabel()
         int page = currentPage();
         m_pageCombo->blockSignals(true);
         m_pageCombo->clear();
-        for (int i = 1; i <= m_totalPagesNumber; i++)
-            m_pageCombo->addItem(tr("Page: %1").arg(i));
+        for (int i = 0; i < m_pageShortcuts.count(); i++)
+            m_pageCombo->addItem(m_pageShortcuts.at(i)->m_name);
         m_pageCombo->setCurrentIndex(page);
         m_pageCombo->blockSignals(false);
     }
@@ -478,25 +497,18 @@ void VCFrame::updatePageLabel()
  * Shortcuts
  *********************************************************************/
 
-void VCFrame::addShortcut(VCFramePageShortcut const& shortcut)
+void VCFrame::addShortcut()
 {
-    VCFramePageShortcut* pageShortcut = new VCFramePageShortcut(shortcut);
+    int index = m_pageShortcuts.count();
+    m_pageShortcuts.append(new VCFramePageShortcut(index, index + VCFrame::enableInputSourceId + 1));
+    m_pageCombo->addItem(m_pageShortcuts.last()->m_name);
+}
 
-    m_pageShortcuts.append(pageShortcut);
-
-    if (pageShortcut->m_inputSource != NULL)
-    {
-        setInputSource(pageShortcut->m_inputSource,
-                       pageShortcut->m_id);
-    }
-
-    if (pageShortcut->m_keySequence.isEmpty() == false)
-    {
-        /* Quite a dirty workaround, but it works without interfering with other widgets */
-        disconnect(this, SIGNAL(keyPressed(QKeySequence)), this, SLOT(slotFrameKeyPressed(QKeySequence)));
-        connect(this, SIGNAL(keyPressed(QKeySequence)), this, SLOT(slotFrameKeyPressed(QKeySequence)));
-    }
-    updatePageLabel();
+void VCFrame::setShortcuts(QList<VCFramePageShortcut *> shortcuts)
+{
+    resetShortcuts();
+    m_pageShortcuts = shortcuts;
+    updatePageCombo();
 }
 
 void VCFrame::resetShortcuts()
@@ -817,12 +829,7 @@ bool VCFrame::copyFrom(const VCWidget* widget)
     setEnableKeySequence(frame->m_enableKeySequence);
     setNextPageKeySequence(frame->m_nextPageKeySequence);
     setPreviousPageKeySequence(frame->m_previousPageKeySequence);
-  
-    resetShortcuts();
-    foreach (VCFramePageShortcut const* shortcut, frame->shortcuts())
-    {
-        addShortcut(*shortcut);
-    }
+    setShortcuts(frame->shortcuts());
 
     QListIterator <VCWidget*> it(widget->findChildren<VCWidget*>());
     while (it.hasNext() == true)
@@ -978,7 +985,7 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
     loadXMLCommon(root);
 
     // Sorted list for new shortcuts
-    QList<VCFramePageShortcut> newShortcuts;
+    QList<VCFramePageShortcut *> newShortcuts;
 
     /* Children */
     while (root.readNextStartElement())
@@ -1091,8 +1098,8 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
         }
         else if (root.name() == KXMLQLCVCFramePageShortcut)
         {
-            VCFramePageShortcut shortcut(0xff);
-            if (shortcut.loadXML(root))
+            VCFramePageShortcut *shortcut = new VCFramePageShortcut(0xFF, 0xFF);
+            if (shortcut->loadXML(root))
                 newShortcuts.insert(qLowerBound(newShortcuts.begin(), newShortcuts.end(), shortcut), shortcut);
         }
         else if (root.name() == KXMLQLCVCFrame)
@@ -1244,9 +1251,7 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
     {
         if (newShortcuts.count() == m_totalPagesNumber)
         {
-            resetShortcuts();
-            foreach (VCFramePageShortcut const& shortcut, newShortcuts)
-                addShortcut(shortcut);
+            setShortcuts(newShortcuts);
         }
         else
             qWarning() << Q_FUNC_INFO << "Shortcut number does not match page number";

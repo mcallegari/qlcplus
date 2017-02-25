@@ -47,7 +47,7 @@ class QXmlStreamWriter;
 class VCFramePageShortcut
 {
 public:
-    explicit VCFramePageShortcut(int page);
+    explicit VCFramePageShortcut(int pageIndex, quint8 inputID);
     explicit VCFramePageShortcut(VCFramePageShortcut const& shortcut);
 
     /** Destructor */

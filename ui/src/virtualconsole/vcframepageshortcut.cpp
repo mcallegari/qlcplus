@@ -26,10 +26,10 @@
 #include "vcwidget.h"
 #include "qlcfile.h"
 
-VCFramePageShortcut::VCFramePageShortcut(int page)
-    : m_id(page + 3)
-    , m_page(page)
-    , m_name("")
+VCFramePageShortcut::VCFramePageShortcut(int pageIndex, quint8 inputID)
+    : m_id(inputID)
+    , m_page(pageIndex)
+    , m_name(QObject::tr("Page: %1").arg(pageIndex + 1))
 {
 }
 

@@ -32,7 +32,6 @@
 
 
 #include "vcwidget.h"
-#include "vcframepageshortcut.h"
 
 /** @addtogroup ui_vc_widgets
  * @{
@@ -55,6 +54,7 @@
 #define KXMLQLCVCFramePagesLoop   "PagesLoop"
 
 class VCFrameProperties;
+class VCFramePageShortcut;
 
 class VCFrame : public VCWidget
 {
@@ -152,9 +152,10 @@ public:
     virtual bool multipageMode() const;
 
     QList<VCFramePageShortcut *> shortcuts() const;
-    void addShortcut(VCFramePageShortcut const& shortcut);
+    void addShortcut();
+    void setShortcuts(QList<VCFramePageShortcut *> shortcuts);
     void resetShortcuts();
-    void updatePageLabel();
+    void updatePageCombo();
 
     void setTotalPagesNumber(int num);
     int totalPagesNumber();
