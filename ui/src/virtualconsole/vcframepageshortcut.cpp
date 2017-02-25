@@ -33,20 +33,6 @@ VCFramePageShortcut::VCFramePageShortcut(int pageIndex, quint8 inputID)
 {
 }
 
-VCFramePageShortcut::VCFramePageShortcut(VCFramePageShortcut const& shortcut)
-    : m_id(shortcut.m_id)
-    , m_page(shortcut.m_page)
-    , m_name(shortcut.m_name)
-    , m_keySequence(shortcut.m_keySequence)
-{
-    if (shortcut.m_inputSource != NULL)
-    {
-        m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(shortcut.m_inputSource->universe(),
-                                                       shortcut.m_inputSource->channel()));
-        m_inputSource->setRange(shortcut.m_inputSource->lowerValue(), shortcut.m_inputSource->upperValue());
-    }
-}
-
 VCFramePageShortcut::~VCFramePageShortcut()
 {
 }

@@ -48,7 +48,6 @@ class VCFramePageShortcut
 {
 public:
     explicit VCFramePageShortcut(int pageIndex, quint8 inputID);
-    explicit VCFramePageShortcut(VCFramePageShortcut const& shortcut);
 
     /** Destructor */
     ~VCFramePageShortcut();
