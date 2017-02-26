@@ -252,8 +252,8 @@ Rectangle
                                 id: chValueSpin
                                 width: parent.width
                                 height: UISettings.listItemHeight * 0.75
-                                minimumValue: 0
-                                maximumValue: dmxMode ? 255 : 100
+                                from: 0
+                                to: dmxMode ? 255 : 100
                                 suffix: dmxMode ? "" : "%"
                                 showControls: false
                                 horizontalAlignment: Qt.AlignHCenter

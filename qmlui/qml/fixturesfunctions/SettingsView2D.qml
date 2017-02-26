@@ -70,9 +70,8 @@ Rectangle
                 id: gWidthSpin
                 width: parent.width * 0.45
                 height: UISettings.listItemHeight
-                minimumValue: 1
-                maximumValue: 50
-                decimals: 0
+                from: 1
+                to: 50
                 value: View2D.gridSize.width
                 onValueChanged:
                 {
@@ -93,9 +92,8 @@ Rectangle
                 x: parent.width - width
                 width: parent.width * 0.45
                 height: UISettings.listItemHeight
-                minimumValue: 1
-                maximumValue: 50
-                decimals: 0
+                from: 1
+                to: 50
                 value: View2D.gridSize.height
                 onValueChanged:
                 {
@@ -150,10 +148,9 @@ Rectangle
             visible: fxPropsVisible
             Layout.fillWidth: true
             height: UISettings.listItemHeight
-            minimumValue: -359
-            maximumValue: 359
+            from: -359
+            to: 359
             suffix: "°"
-            decimals: 0
             value: contextManager.fixturesRotation.y
             onValueChanged:
             {

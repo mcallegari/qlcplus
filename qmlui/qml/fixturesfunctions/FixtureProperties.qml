@@ -144,9 +144,8 @@ Rectangle
                 id: fxAddressSpin
                 //width: (parent.width - fxAddress.width - fxQuantity.width) / 2
                 Layout.fillWidth: true
-                minimumValue: 1
-                maximumValue: 512
-                decimals: 0
+                from: 1
+                to: 512
             }
             RobotoText
             {
@@ -160,9 +159,8 @@ Rectangle
                 id: fxQuantitySpin
                 //width: (parent.width - fxAddress.width - fxQuantity.width) / 2
                 Layout.fillWidth: true
-                minimumValue: 1
-                maximumValue: 512
-                decimals: 0
+                from: 1
+                to: 512
             }
 
             // row 4
@@ -177,9 +175,8 @@ Rectangle
             {
                 id: fxModeChSpin
                 Layout.fillWidth: true
-                minimumValue: 1
-                maximumValue: 512
-                decimals: 0
+                from: 1
+                to: 512
                 value: fixtureBrowser.modeChannels(fxMode)
             }
             RobotoText
@@ -194,9 +191,8 @@ Rectangle
             {
                 id: fxGapSpin
                 Layout.fillWidth: true
-                minimumValue: 0
-                maximumValue: 511
-                decimals: 0
+                from: 0
+                to: 511
             }
 
             // row 5

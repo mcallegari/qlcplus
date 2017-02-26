@@ -22,6 +22,7 @@
 
 #include <QObject>
 #include <QQuickView>
+#include <QVector3D>
 
 #include "scenevalue.h"
 

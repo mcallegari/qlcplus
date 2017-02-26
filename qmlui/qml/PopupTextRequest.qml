@@ -127,8 +127,8 @@ Rectangle
             id: digitsSpin
             visible: numCheckBox.checked
             Layout.fillWidth: true
-            minimumValue: 1
-            maximumValue: 10
+            from: 1
+            to: 10
         }
     }
 }

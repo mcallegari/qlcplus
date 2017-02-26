@@ -176,9 +176,8 @@ Rectangle
             id: rSpin
             width: UISettings.bigItemHeight * 0.7
             height: UISettings.listItemHeight
-            minimumValue: 0
-            maximumValue: 255
-            decimals: 0
+            from: 0
+            to: 255
             onValueChanged:
             {
                 selectedColor = Qt.rgba(rSpin.value / 256, gSpin.value / 256, bSpin.value / 256, 1.0)
@@ -197,9 +196,8 @@ Rectangle
             id: gSpin
             width: UISettings.bigItemHeight * 0.7
             height: UISettings.listItemHeight
-            minimumValue: 0
-            maximumValue: 255
-            decimals: 0
+            from: 0
+            to: 255
             onValueChanged:
             {
                 selectedColor = Qt.rgba(rSpin.value / 256, gSpin.value / 256, bSpin.value / 256, 1.0)
@@ -218,9 +216,8 @@ Rectangle
             id: bSpin
             width: UISettings.bigItemHeight * 0.7
             height: UISettings.listItemHeight
-            minimumValue: 0
-            maximumValue: 255
-            decimals: 0
+            from: 0
+            to: 255
             onValueChanged:
             {
                 selectedColor = Qt.rgba(rSpin.value / 256, gSpin.value / 256, bSpin.value / 256, 1.0)
@@ -282,9 +279,8 @@ Rectangle
             visible: colorsMask & App.White
             width: UISettings.bigItemHeight * 0.7
             height: UISettings.listItemHeight
-            minimumValue: 0
-            maximumValue: 255
-            decimals: 0
+            from: 0
+            to: 255
             value: whiteValue
             onValueChanged: whiteValue = value
         }
@@ -321,9 +317,8 @@ Rectangle
             visible: colorsMask & App.Amber
             width: UISettings.bigItemHeight * 0.7
             height: UISettings.listItemHeight
-            minimumValue: 0
-            maximumValue: 255
-            decimals: 0
+            from: 0
+            to: 255
             value: amberValue
             onValueChanged: amberValue = value
         }
@@ -360,9 +355,8 @@ Rectangle
             visible: colorsMask & App.UV
             width: UISettings.bigItemHeight * 0.7
             height: UISettings.listItemHeight
-            minimumValue: 0
-            maximumValue: 255
-            decimals: 0
+            from: 0
+            to: 255
             value: uvValue
             onValueChanged: uvValue = value
         }

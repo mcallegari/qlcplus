@@ -84,10 +84,9 @@ Rectangle
             visible: fxPropsVisible
             height: UISettings.listItemHeight
             width: settingsRoot.width * 0.75
-            minimumValue: -10000
-            maximumValue: 100000
+            from: -10000
+            to: 100000
             suffix: "mm"
-            decimals: 0
             value: contextManager.fixturesPosition.x * 1000
             onValueChanged:
             {
@@ -104,10 +103,9 @@ Rectangle
             visible: fxPropsVisible
             height: UISettings.listItemHeight
             width: settingsRoot.width * 0.75
-            minimumValue: -10000
-            maximumValue: 100000
+            from: -10000
+            to: 100000
             suffix: "mm"
-            decimals: 0
             value: contextManager.fixturesPosition.y * 1000
             onValueChanged:
             {
@@ -124,11 +122,10 @@ Rectangle
             visible: fxPropsVisible
             height: UISettings.listItemHeight
             width: settingsRoot.width * 0.75
-            minimumValue: -10000
-            maximumValue: 100000
+            from: -10000
+            to: 100000
             suffix: "mm"
-            decimals: contextManager.fixturesPosition.z * 1000
-            value: 0
+            value: contextManager.fixturesPosition.z * 1000
             onValueChanged:
             {
                 if (settingsRoot.visible)
@@ -161,10 +158,9 @@ Rectangle
             visible: fxPropsVisible
             height: UISettings.listItemHeight
             width: settingsRoot.width * 0.75
-            minimumValue: -359
-            maximumValue: 359
+            from: -359
+            to: 359
             suffix: "°"
-            decimals: 0
             value: contextManager.fixturesRotation.x
             onValueChanged:
             {
@@ -181,10 +177,9 @@ Rectangle
             visible: fxPropsVisible
             height: UISettings.listItemHeight
             width: settingsRoot.width * 0.75
-            minimumValue: -359
-            maximumValue: 359
+            from: -359
+            to: 359
             suffix: "°"
-            decimals: 0
             value: contextManager.fixturesRotation.y
             onValueChanged:
             {
@@ -201,10 +196,9 @@ Rectangle
             visible: fxPropsVisible
             height: UISettings.listItemHeight
             width: settingsRoot.width * 0.75
-            minimumValue: -359
-            maximumValue: 359
+            from: -359
+            to: 359
             suffix: "°"
-            decimals: 0
             value: contextManager.fixturesRotation.z
             onValueChanged:
             {

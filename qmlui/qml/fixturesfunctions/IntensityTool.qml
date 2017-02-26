@@ -140,8 +140,8 @@ Rectangle
             id: spinBox
             width: intRoot.width / 2
             height: UISettings.listItemHeight
-            minimumValue: 0
-            maximumValue: dmxValues ? 255 : 100
+            from: 0
+            to: dmxValues ? 255 : 100
             value: currentValue
 
             onValueChanged: currentValue = value

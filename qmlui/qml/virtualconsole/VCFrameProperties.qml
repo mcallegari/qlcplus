@@ -144,8 +144,8 @@ Rectangle
                     {
                         Layout.fillWidth: true
                         height: gridItemsHeight
-                        minimumValue: 1
-                        maximumValue: 100
+                        from: 1
+                        to: 100
                     }
                 }
 

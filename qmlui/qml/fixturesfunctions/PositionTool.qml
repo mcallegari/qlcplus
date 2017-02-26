@@ -206,8 +206,8 @@ Rectangle
         {
             id: panSpinBox
             Layout.fillWidth: true
-            minimumValue: 0
-            maximumValue: panMaxDegrees
+            from: 0
+            to: panMaxDegrees
             value: 0
             suffix: "°"
 
@@ -228,8 +228,8 @@ Rectangle
         {
             id: tiltSpinBox
             Layout.fillWidth: true
-            minimumValue: 0
-            maximumValue: tiltMaxDegrees
+            from: 0
+            to: tiltMaxDegrees
             value: 0
             suffix: "°"
 
