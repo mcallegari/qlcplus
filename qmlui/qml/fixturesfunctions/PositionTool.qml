@@ -122,33 +122,32 @@ Rectangle
 
         onPaint:
         {
-            var ctx = gCanvas.getContext('2d');
-            //ctx.save();
-            ctx.globalAlpha = 1.0;
-            ctx.fillStyle = "#111";
-            ctx.lineWidth = 1;
+            var ctx = gCanvas.getContext('2d')
+            ctx.globalAlpha = 1.0
+            ctx.fillStyle = "#111"
+            ctx.lineWidth = 1
 
             ctx.fillRect(0, 0, width, height)
             // draw head basement
-            DrawFuncs.drawBasement(ctx, width, height);
+            DrawFuncs.drawBasement(ctx, width, height)
 
-            ctx.lineWidth = 5;
+            ctx.lineWidth = 5
             // draw TILT curve
-            ctx.strokeStyle = "#2E77FF";
+            ctx.strokeStyle = "#2E77FF"
             DrawFuncs.drawEllipse(ctx, width / 2, height / 2, UISettings.iconSizeDefault, height - 30)
             // draw PAN curve
             ctx.strokeStyle = "#19438F"
             DrawFuncs.drawEllipse(ctx, width / 2, height / 2, width - 30, UISettings.iconSizeDefault)
 
-            ctx.lineWidth = 1;
-            ctx.strokeStyle = "white";
+            ctx.lineWidth = 1
+            ctx.strokeStyle = "white"
 
             // draw TILT cursor position
-            ctx.fillStyle = "red";
+            ctx.fillStyle = "red"
             DrawFuncs.drawCursor(ctx, width / 2, height / 2, UISettings.iconSizeDefault, height - 30, tiltDegrees + 135, UISettings.iconSizeMedium / 2)
 
             // draw PAN cursor position
-            ctx.fillStyle = "green";
+            ctx.fillStyle = "green"
             DrawFuncs.drawCursor(ctx, width / 2, height / 2, width - 30, UISettings.iconSizeDefault, panDegrees + 90, UISettings.iconSizeMedium / 2)
         }
 

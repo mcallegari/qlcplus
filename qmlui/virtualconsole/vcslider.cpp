@@ -28,6 +28,7 @@
 
 VCSlider::VCSlider(Doc *doc, QObject *parent)
     : VCWidget(doc, parent)
+    , m_widgetMode(WSlider)
     , m_valueDisplayStyle(DMXValue)
     , m_invertedAppearance(false)
     , m_sliderMode(Playback)
@@ -54,7 +55,10 @@ void VCSlider::setID(quint32 id)
 
 QString VCSlider::defaultCaption()
 {
-    return tr("Slider %1").arg(id());
+    if (widgetStyle() == WSlider)
+        return tr("Slider %1").arg(id());
+    else
+        return tr("Knob %1").arg(id());
 }
 
 void VCSlider::render(QQuickView *view, QQuickItem *parent)
@@ -123,6 +127,44 @@ void VCSlider::setSliderMode(SliderMode mode)
 
     m_sliderMode = mode;
     emit sliderModeChanged(mode);
+}
+
+/*********************************************************************
+ * Widget style
+ *********************************************************************/
+
+QString VCSlider::widgetStyleToString(VCSlider::SliderWidgetStyle style)
+{
+    if (style == VCSlider::WSlider)
+        return QString("Slider");
+    else if (style == VCSlider::WKnob)
+        return QString("Knob");
+
+    return QString();
+}
+
+VCSlider::SliderWidgetStyle VCSlider::stringToWidgetStyle(QString style)
+{
+    if (style == "Slider")
+        return VCSlider::WSlider;
+    else if (style == "Knob")
+        return VCSlider::WKnob;
+
+    return VCSlider::WSlider;
+}
+
+VCSlider::SliderWidgetStyle VCSlider::widgetStyle() const
+{
+    return m_widgetMode;
+}
+
+void VCSlider::setWidgetStyle(SliderWidgetStyle mode)
+{
+    if (mode == m_widgetMode)
+        return;
+
+    m_widgetMode = mode;
+    emit widgetStyleChanged(mode);
 }
 
 /*****************************************************************************
@@ -286,6 +328,17 @@ bool VCSlider::loadXML(QXmlStreamReader &root)
 
     /* Widget commons */
     loadXMLCommon(root);
+
+    QXmlStreamAttributes attrs = root.attributes();
+
+    /* Widget style */
+    if (attrs.hasAttribute(KXMLQLCVCSliderWidgetStyle))
+        setWidgetStyle(stringToWidgetStyle(attrs.value(KXMLQLCVCSliderWidgetStyle).toString()));
+
+    if (attrs.value(KXMLQLCVCSliderInvertedAppearance).toString() == "false")
+        setInvertedAppearance(false);
+    else
+        setInvertedAppearance(true);
 
     while (root.readNextStartElement())
     {

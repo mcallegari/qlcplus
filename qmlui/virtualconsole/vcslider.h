@@ -53,6 +53,7 @@ class VCSlider : public VCWidget
 {
     Q_OBJECT
 
+    Q_PROPERTY(SliderWidgetStyle widgetStyle READ widgetStyle WRITE setWidgetStyle NOTIFY widgetStyleChanged)
     Q_PROPERTY(ValueDisplayStyle valueDisplayStyle READ valueDisplayStyle WRITE setValueDisplayStyle NOTIFY valueDisplayStyleChanged)
     Q_PROPERTY(bool invertedAppearance READ invertedAppearance WRITE setInvertedAppearance NOTIFY invertedAppearanceChanged)
     Q_PROPERTY(SliderMode sliderMode READ sliderMode WRITE setSliderMode NOTIFY sliderModeChanged)
@@ -77,6 +78,31 @@ public:
 
     /** @reimp */
     QString propertiesResource() const;
+
+    /*********************************************************************
+     * Widget style
+     *********************************************************************/
+public:
+    enum SliderWidgetStyle
+    {
+        WSlider,
+        WKnob
+    };
+    Q_ENUM(SliderWidgetStyle)
+
+    /** Helper methods for SliderWidgetStyle <--> QString conversion */
+    QString widgetStyleToString(SliderWidgetStyle style);
+    SliderWidgetStyle stringToWidgetStyle(QString style);
+
+    /** Get/Set the Slider value display style */
+    SliderWidgetStyle widgetStyle() const;
+    void setWidgetStyle(SliderWidgetStyle mode);
+
+signals:
+    void widgetStyleChanged(SliderWidgetStyle widgetStyle);
+
+protected:
+    SliderWidgetStyle m_widgetMode;
 
     /*********************************************************************
      * Display style

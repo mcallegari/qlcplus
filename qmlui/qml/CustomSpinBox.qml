@@ -27,6 +27,7 @@ SpinBox
     font.family: UISettings.robotoFontName
     font.pixelSize: UISettings.textSizeDefault
     width: 70
+    height: UISettings.listItemHeight
     implicitHeight: UISettings.listItemHeight
     editable: true
     from: 0
@@ -62,6 +63,7 @@ SpinBox
     contentItem: TextInput {
         id: textControl
         z: 2
+        height: control.height
         font: control.font
         text: control.textFromValue(control.value, control.locale) + suffix
         color: UISettings.fgMain

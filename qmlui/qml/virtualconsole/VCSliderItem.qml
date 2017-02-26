@@ -56,6 +56,7 @@ VCWidgetItem
         QLCPlusFader
         {
             id: slFader
+            visible: sliderObj ? sliderObj.widgetStyle === VCSlider.WSlider : false
             anchors.horizontalCenter: parent.horizontalCenter
             Layout.fillHeight: true
             width: parent.width
@@ -69,6 +70,18 @@ VCWidgetItem
                 virtualConsole.setPageInteraction(!touchPressed)
             }
             onPositionChanged: if (sliderObj) sliderObj.value = valueAt(position)
+        }
+
+        QLCPlusKnob
+        {
+            id: slKnob
+            visible: sliderObj ? sliderObj.widgetStyle === VCSlider.WKnob : false
+            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.fillHeight: true
+            //width: parent.width
+            value: sliderValue
+
+            onPositionChanged: if (sliderObj) sliderObj.value = position * 255
         }
 
         // widget name text box
