@@ -144,15 +144,15 @@ void VCFrame::setCaption(const QString& text)
     if (m_label != NULL && !shortcuts().isEmpty() && m_currentPage < shortcuts().length())
     {
         // Show caption, if there is no page name
-        if (m_pageShortcuts.at(m_currentPage)->m_name == "")
+        if (m_pageShortcuts.at(m_currentPage)->name() == "")
             m_label->setText(text);
         else
         {
             // Show only page name, if there is no caption
             if (text == "")
-                m_label->setText(m_pageShortcuts.at(m_currentPage)->m_name);
+                m_label->setText(m_pageShortcuts.at(m_currentPage)->name());
             else
-                m_label->setText(text + " - " + m_pageShortcuts.at(m_currentPage)->m_name);
+                m_label->setText(text + " - " + m_pageShortcuts.at(m_currentPage)->name());
         }
     }
 
@@ -489,7 +489,7 @@ void VCFrame::updatePageCombo()
     m_pageCombo->blockSignals(true);
     m_pageCombo->clear();
     for (int i = 0; i < m_pageShortcuts.count(); i++)
-        m_pageCombo->addItem(m_pageShortcuts.at(i)->m_name);
+        m_pageCombo->addItem(m_pageShortcuts.at(i)->name());
     m_pageCombo->setCurrentIndex(page);
     m_pageCombo->blockSignals(false);
 }
@@ -502,7 +502,7 @@ void VCFrame::addShortcut()
 {
     int index = m_pageShortcuts.count();
     m_pageShortcuts.append(new VCFramePageShortcut(index, index + VCFrame::enableInputSourceId + 1));
-    m_pageCombo->addItem(m_pageShortcuts.last()->m_name);
+    m_pageCombo->addItem(m_pageShortcuts.last()->name());
 }
 
 void VCFrame::setShortcuts(QList<VCFramePageShortcut *> shortcuts)
@@ -728,8 +728,10 @@ void VCFrame::slotFrameKeyPressed(const QKeySequence& keySequence)
     else
     {
         foreach (VCFramePageShortcut* shortcut, m_pageShortcuts)
+        {
             if (shortcut->m_keySequence == keySequence)
                 slotSetPage(shortcut->m_page);
+        }
     }
 }
 
@@ -1102,7 +1104,10 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
         {
             VCFramePageShortcut *shortcut = new VCFramePageShortcut(0xFF, 0xFF);
             if (shortcut->loadXML(root))
-                newShortcuts.insert(qLowerBound(newShortcuts.begin(), newShortcuts.end(), shortcut), shortcut);
+            {
+                shortcut->m_id = VCFrame::enableInputSourceId + shortcut->m_page + 1;
+                newShortcuts.append(shortcut);
+            }
         }
         else if (root.name() == KXMLQLCVCFrame)
         {

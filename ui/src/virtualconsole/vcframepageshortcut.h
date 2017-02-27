@@ -34,15 +34,8 @@ class QXmlStreamWriter;
  */
 
 #define KXMLQLCVCFramePageShortcut       "Shortcut"
-#define KXMLQLCVCFramePageShortcutID     "ID"
 #define KXMLQLCVCFramePageShortcutPage   "Page"
 #define KXMLQLCVCFramePageShortcutName   "Name"
-
-#define KXMLQLCVCFramePageShortcutInput         "Input"
-#define KXMLQLCVCFramePageShortcutInputUniverse "Universe"
-#define KXMLQLCVCFramePageShortcutInputChannel  "Channel"
-
-#define KXMLQLCVCFramePageShortcutKey "Key"
 
 class VCFramePageShortcut
 {
@@ -52,9 +45,9 @@ public:
     /** Destructor */
     ~VCFramePageShortcut();
 
-public:
-    bool operator<(VCFramePageShortcut const& right) const;
-    static bool compare(VCFramePageShortcut const* left, VCFramePageShortcut const* right);
+    QString name() const;
+    void setName(QString name = QString());
+
     /************************************************************************
      * Load & Save
      ***********************************************************************/
@@ -65,23 +58,19 @@ public:
     /** Save properties and contents to an XML document */
     bool saveXML(QXmlStreamWriter *doc);
 
-public:
-    /**
-     *  Shortcut unique ID
-     */
-    quint8 m_id;
-
-    /**
-     *  The index of the page to switch to
-     */
-    int m_page;
-
+protected:
     /** The page name */
     QString m_name;
 
+public:
+    /** The shortcut unique ID */
+    quint8 m_id;
+    /** The associated VCFrame page index */
+    int m_page;
+    /** Reference to the input source to jump to this page */
     QSharedPointer<QLCInputSource> m_inputSource;
+    /** The key sequence to jump to this page */
     QKeySequence m_keySequence;
-
 };
 
 /** @} */

@@ -52,7 +52,7 @@ public:
 
 protected slots:
     void slotMultipageChecked(bool enable);
-    void slotPageSelectChanged(int index);
+    void slotPageComboChanged(int index);
     void slotTotalPagesNumberChanged(int number);
     void slotPageNameEditingFinished();
 

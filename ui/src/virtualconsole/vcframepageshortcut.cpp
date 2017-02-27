@@ -29,23 +29,26 @@
 VCFramePageShortcut::VCFramePageShortcut(int pageIndex, quint8 inputID)
     : m_id(inputID)
     , m_page(pageIndex)
-    , m_name(QObject::tr("Page: %1").arg(pageIndex + 1))
     , m_inputSource(QSharedPointer<QLCInputSource>())
 {
+    setName();
 }
 
 VCFramePageShortcut::~VCFramePageShortcut()
 {
 }
 
-bool VCFramePageShortcut::operator<(VCFramePageShortcut const& right) const
+QString VCFramePageShortcut::name() const
 {
-    return m_id < right.m_id;
+    return m_name;
 }
 
-bool VCFramePageShortcut::compare(VCFramePageShortcut const* left, VCFramePageShortcut const* right)
+void VCFramePageShortcut::setName(QString name)
 {
-    return *left < *right;
+    if (name.isEmpty())
+        m_name = QObject::tr("Page: %1").arg(m_page + 1);
+    else
+        m_name = name;
 }
 
 bool VCFramePageShortcut::loadXML(QXmlStreamReader &root)
@@ -53,12 +56,6 @@ bool VCFramePageShortcut::loadXML(QXmlStreamReader &root)
     if (root.name() != KXMLQLCVCFramePageShortcut)
     {
         qWarning() << Q_FUNC_INFO << "Frame page shortcut node not found";
-        return false;
-    }
-
-    if (root.attributes().hasAttribute(KXMLQLCVCFramePageShortcutID) == false)
-    {
-        qWarning() << Q_FUNC_INFO << "Frame page shortcut ID not found";
         return false;
     }
 
@@ -75,33 +72,17 @@ bool VCFramePageShortcut::loadXML(QXmlStreamReader &root)
     }
 
     m_page = root.attributes().value(KXMLQLCVCFramePageShortcutPage).toString().toInt();
-    m_id = root.attributes().value(KXMLQLCVCFramePageShortcutID).toString().toUInt();
-    m_name = root.attributes().value(KXMLQLCVCFramePageShortcutName).toString();
+    setName(root.attributes().value(KXMLQLCVCFramePageShortcutName).toString());
 
     /* Children */
     while (root.readNextStartElement())
     {
-        if (root.name() == KXMLQLCVCFramePageShortcutInput)
+        if (root.name() == KXMLQLCVCWidgetInput)
         {
-            QXmlStreamAttributes attrs = root.attributes();
-
-            if (attrs.hasAttribute(KXMLQLCVCFramePageShortcutInputUniverse) &&
-                attrs.hasAttribute(KXMLQLCVCFramePageShortcutInputChannel))
-            {
-                quint32 uni = attrs.value(KXMLQLCVCFramePageShortcutInputUniverse).toString().toUInt();
-                quint32 ch = attrs.value(KXMLQLCVCFramePageShortcutInputChannel).toString().toUInt();
-                m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch));
-
-                uchar min = 0, max = UCHAR_MAX;
-                if (attrs.hasAttribute(KXMLQLCVCWidgetInputLowerValue))
-                    min = uchar(attrs.value(KXMLQLCVCWidgetInputLowerValue).toString().toUInt());
-                if (attrs.hasAttribute(KXMLQLCVCWidgetInputUpperValue))
-                    max = uchar(attrs.value(KXMLQLCVCWidgetInputUpperValue).toString().toUInt());
-                m_inputSource->setRange(min, max);
-            }
+            m_inputSource = VCWidget::getXMLInput(root);
             root.skipCurrentElement();
         }
-        else if (root.name() == KXMLQLCVCFramePageShortcutKey)
+        else if (root.name() == KXMLQLCVCWidgetKey)
         {
             m_keySequence = VCWidget::stripKeySequence(QKeySequence(root.readElementText()));
         }
@@ -121,25 +102,15 @@ bool VCFramePageShortcut::saveXML(QXmlStreamWriter *doc)
 
     doc->writeStartElement(KXMLQLCVCFramePageShortcut);
     doc->writeAttribute(KXMLQLCVCFramePageShortcutPage, QString::number(m_page));
-    doc->writeAttribute(KXMLQLCVCFramePageShortcutID, QString::number(m_id));
     doc->writeAttribute(KXMLQLCVCFramePageShortcutName, m_name);
 
     /* External input source */
     if (!m_inputSource.isNull() && m_inputSource->isValid())
-    {
-        doc->writeStartElement(KXMLQLCVCFramePageShortcutInput);
-        doc->writeAttribute(KXMLQLCVCFramePageShortcutInputUniverse, QString("%1").arg(m_inputSource->universe()));
-        doc->writeAttribute(KXMLQLCVCFramePageShortcutInputChannel, QString("%1").arg(m_inputSource->channel()));
-        if (m_inputSource->lowerValue() != 0)
-            doc->writeAttribute(KXMLQLCVCWidgetInputLowerValue, QString::number(m_inputSource->lowerValue()));
-        if (m_inputSource->upperValue() != UCHAR_MAX)
-            doc->writeAttribute(KXMLQLCVCWidgetInputUpperValue, QString::number(m_inputSource->upperValue()));
-        doc->writeEndElement();
-    }
+        VCWidget::saveXMLInput(doc, m_inputSource);
 
     /* Key sequence */
-    if (m_keySequence.isEmpty() == false)
-        doc->writeTextElement(KXMLQLCVCFramePageShortcutKey, m_keySequence.toString());
+    if (m_keySequence.toString().isEmpty() == false)
+        doc->writeTextElement(KXMLQLCVCWidgetKey, m_keySequence.toString());
 
     /* End the <Preset> tag */
     doc->writeEndElement();
