@@ -89,14 +89,11 @@ VCWidget::VCWidget(QWidget* parent, Doc* doc)
     connect(m_doc, SIGNAL(modeChanged(Doc::Mode)),
             this, SLOT(slotModeChanged(Doc::Mode)));
 
-    /* Listen to parent's (only VCWidget-kind) key signals */
-    if (parent->inherits(metaObject()->className()) == true)
-    {
-        connect(parent, SIGNAL(keyPressed(const QKeySequence&)),
-                this, SLOT(slotKeyPressed(const QKeySequence&)));
-        connect(parent,	SIGNAL(keyReleased(const QKeySequence&)),
-                this, SLOT(slotKeyReleased(const QKeySequence&)));
-    }
+    /* Listen to the virtual console key signals */
+    connect(VirtualConsole::instance(), SIGNAL(keyPressed(const QKeySequence&)),
+            this, SLOT(slotKeyPressed(const QKeySequence&)));
+    connect(VirtualConsole::instance(), SIGNAL(keyReleased(const QKeySequence&)),
+            this, SLOT(slotKeyReleased(const QKeySequence&)));
 }
 
 VCWidget::~VCWidget()
