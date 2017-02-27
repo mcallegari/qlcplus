@@ -197,26 +197,12 @@ bool VCXYPadPreset::loadXML(QXmlStreamReader &root)
                 m_fxGroup.append(GroupHead(fxID, head));
             root.skipCurrentElement();
         }
-        else if (root.name() == KXMLQLCVCXYPadPresetInput)
+        else if (root.name() == KXMLQLCVCWidgetInput)
         {
-            QXmlStreamAttributes attrs = root.attributes();
-            if (attrs.hasAttribute(KXMLQLCVCXYPadPresetInputUniverse) &&
-                attrs.hasAttribute(KXMLQLCVCXYPadPresetInputChannel))
-            {
-                quint32 uni = attrs.value(KXMLQLCVCXYPadPresetInputUniverse).toString().toUInt();
-                quint32 ch = attrs.value(KXMLQLCVCXYPadPresetInputChannel).toString().toUInt();
-                m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch));
-
-                uchar min = 0, max = UCHAR_MAX;
-                if (attrs.hasAttribute(KXMLQLCVCWidgetInputLowerValue))
-                    min = uchar(attrs.value(KXMLQLCVCWidgetInputLowerValue).toString().toUInt());
-                if (attrs.hasAttribute(KXMLQLCVCWidgetInputUpperValue))
-                    max = uchar(attrs.value(KXMLQLCVCWidgetInputUpperValue).toString().toUInt());
-                m_inputSource->setRange(min, max);
-            }
+            m_inputSource = VCWidget::getXMLInput(root);
             root.skipCurrentElement();
         }
-        else if (root.name() == KXMLQLCVCXYPadPresetKey)
+        else if (root.name() == KXMLQLCVCWidgetKey)
         {
             m_keySequence = VCWidget::stripKeySequence(QKeySequence(root.readElementText()));
         }
@@ -267,20 +253,11 @@ bool VCXYPadPreset::saveXML(QXmlStreamWriter *doc)
 
     /* External input source */
     if (!m_inputSource.isNull() && m_inputSource->isValid())
-    {
-        doc->writeStartElement(KXMLQLCVCXYPadPresetInput);
-        doc->writeAttribute(KXMLQLCVCXYPadPresetInputUniverse, QString("%1").arg(m_inputSource->universe()));
-        doc->writeAttribute(KXMLQLCVCXYPadPresetInputChannel, QString("%1").arg(m_inputSource->channel()));
-        if (m_inputSource->lowerValue() != 0)
-            doc->writeAttribute(KXMLQLCVCWidgetInputLowerValue, QString::number(m_inputSource->lowerValue()));
-        if (m_inputSource->upperValue() != UCHAR_MAX)
-            doc->writeAttribute(KXMLQLCVCWidgetInputUpperValue, QString::number(m_inputSource->upperValue()));
-        doc->writeEndElement();
-    }
+        VCWidget::saveXMLInput(doc, m_inputSource);
 
     /* Key sequence */
     if (m_keySequence.isEmpty() == false)
-        doc->writeTextElement(KXMLQLCVCXYPadPresetFuncID, m_keySequence.toString());
+        doc->writeTextElement(KXMLQLCVCWidgetKey, m_keySequence.toString());
 
     /* End the <Preset> tag */
     doc->writeEndElement();

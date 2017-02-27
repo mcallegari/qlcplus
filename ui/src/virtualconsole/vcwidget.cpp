@@ -852,14 +852,8 @@ bool VCWidget::loadXMLAppearance(QXmlStreamReader &root)
     return true;
 }
 
-bool VCWidget::loadXMLInput(QXmlStreamReader &root, const quint8 &id)
+QSharedPointer<QLCInputSource> VCWidget::getXMLInput(QXmlStreamReader &root)
 {
-    if (root.device() == NULL || root.hasError())
-        return false;
-
-    if (root.name() != KXMLQLCVCWidgetInput)
-        return false;
-
     QXmlStreamAttributes attrs = root.attributes();
 
     quint32 uni = attrs.value(KXMLQLCVCWidgetInputUniverse).toString().toUInt();
@@ -873,6 +867,19 @@ bool VCWidget::loadXMLInput(QXmlStreamReader &root, const quint8 &id)
         max = uchar(attrs.value(KXMLQLCVCWidgetInputUpperValue).toString().toUInt());
 
     newSrc->setRange(min, max);
+
+    return newSrc;
+}
+
+bool VCWidget::loadXMLInput(QXmlStreamReader &root, const quint8 &id)
+{
+    if (root.device() == NULL || root.hasError())
+        return false;
+
+    if (root.name() != KXMLQLCVCWidgetInput)
+        return false;
+
+    QSharedPointer<QLCInputSource>newSrc = getXMLInput(root);
 
     setInputSource(newSrc, id);
 
@@ -991,7 +998,7 @@ bool VCWidget::saveXMLInput(QXmlStreamWriter *doc)
 }
 
 bool VCWidget::saveXMLInput(QXmlStreamWriter *doc,
-                            const QLCInputSource *src) const
+                            const QLCInputSource *src)
 {
     Q_ASSERT(doc != NULL);
 
@@ -1014,7 +1021,7 @@ bool VCWidget::saveXMLInput(QXmlStreamWriter *doc,
 }
 
 bool VCWidget::saveXMLInput(QXmlStreamWriter *doc,
-                      QSharedPointer<QLCInputSource> const& src) const
+                      QSharedPointer<QLCInputSource> const& src)
 {
     return saveXMLInput(doc, src.data());
 }

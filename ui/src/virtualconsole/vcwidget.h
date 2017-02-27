@@ -501,6 +501,13 @@ public:
      */
     virtual void postLoad();
 
+    static QSharedPointer<QLCInputSource> getXMLInput(QXmlStreamReader &root);
+
+    /** Save input source from a $src input source to $root */
+    static bool saveXMLInput(QXmlStreamWriter *doc, const QLCInputSource *src);
+    /** Save input source from a $src input source to $root */
+    static bool saveXMLInput(QXmlStreamWriter *doc, QSharedPointer<QLCInputSource> const& src);
+
 protected:
     bool loadXMLCommon(QXmlStreamReader &root);
     bool loadXMLAppearance(QXmlStreamReader &appearance_root);
@@ -519,11 +526,6 @@ protected:
     bool saveXMLAppearance(QXmlStreamWriter *doc);
     /** Save the defualt input source to $root */
     bool saveXMLInput(QXmlStreamWriter *doc);
-    /** Save input source from a $src input source to $root */
-    bool saveXMLInput(QXmlStreamWriter *doc, const QLCInputSource *src) const;
-    /** Save input source from a $src input source to $root */
-    bool saveXMLInput(QXmlStreamWriter *doc,
-                      QSharedPointer<QLCInputSource> const& src) const;
 
     /**
      * Write this widget's geometry and visibility to an XML document.
