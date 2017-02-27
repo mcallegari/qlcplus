@@ -509,7 +509,11 @@ void VCFrame::setShortcuts(QList<VCFramePageShortcut *> shortcuts)
 {
     resetShortcuts();
     foreach(VCFramePageShortcut const* shortcut, shortcuts)
+    {
         m_pageShortcuts.append(new VCFramePageShortcut(*shortcut));
+        if (shortcut->m_inputSource != NULL)
+            setInputSource(shortcut->m_inputSource, shortcut->m_id);
+    }
     updatePageCombo();
 }
 
@@ -678,9 +682,6 @@ void VCFrame::adjustIntensity(qreal val)
 void VCFrame::setEnableKeySequence(const QKeySequence &keySequence)
 {
     m_enableKeySequence = QKeySequence(keySequence);
-    /* Quite a dirty workaround, but it works without interfering with other widgets */
-    disconnect(this, SIGNAL(keyPressed(QKeySequence)), this, SLOT(slotFrameKeyPressed(QKeySequence)));
-    connect(this, SIGNAL(keyPressed(QKeySequence)), this, SLOT(slotFrameKeyPressed(QKeySequence)));
 }
 
 QKeySequence VCFrame::enableKeySequence() const
@@ -691,9 +692,6 @@ QKeySequence VCFrame::enableKeySequence() const
 void VCFrame::setNextPageKeySequence(const QKeySequence& keySequence)
 {
     m_nextPageKeySequence = QKeySequence(keySequence);
-    /* Quite a dirty workaround, but it works without interfering with other widgets */
-    disconnect(this, SIGNAL(keyPressed(QKeySequence)), this, SLOT(slotFrameKeyPressed(QKeySequence)));
-    connect(this, SIGNAL(keyPressed(QKeySequence)), this, SLOT(slotFrameKeyPressed(QKeySequence)));
 }
 
 QKeySequence VCFrame::nextPageKeySequence() const
@@ -704,9 +702,6 @@ QKeySequence VCFrame::nextPageKeySequence() const
 void VCFrame::setPreviousPageKeySequence(const QKeySequence& keySequence)
 {
     m_previousPageKeySequence = QKeySequence(keySequence);
-    /* Quite a dirty workaround, but it works without interfering with other widgets */
-    disconnect(this, SIGNAL(keyPressed(QKeySequence)), this, SLOT(slotFrameKeyPressed(QKeySequence)));
-    connect(this, SIGNAL(keyPressed(QKeySequence)), this, SLOT(slotFrameKeyPressed(QKeySequence)));
 }
 
 QKeySequence VCFrame::previousPageKeySequence() const
@@ -714,7 +709,7 @@ QKeySequence VCFrame::previousPageKeySequence() const
     return m_previousPageKeySequence;
 }
 
-void VCFrame::slotFrameKeyPressed(const QKeySequence& keySequence)
+void VCFrame::slotKeyPressed(const QKeySequence& keySequence)
 {
     if (isEnabled() == false)
         return;
@@ -1257,11 +1252,10 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
     if (multipageMode() == true)
     {
         if (newShortcuts.count() == m_totalPagesNumber)
-        {
             setShortcuts(newShortcuts);
-        }
         else
             qWarning() << Q_FUNC_INFO << "Shortcut number does not match page number";
+
         // Set page again to update header
         slotSetPage(m_currentPage);
     }

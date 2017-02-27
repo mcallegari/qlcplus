@@ -236,7 +236,8 @@ public:
     QKeySequence previousPageKeySequence() const;
 
 protected slots:
-    void slotFrameKeyPressed(const QKeySequence& keySequence);
+    /** @reimp */
+    void slotKeyPressed(const QKeySequence& keySequence);
 
 private:
     QKeySequence m_enableKeySequence;
@@ -247,9 +248,11 @@ private:
      * External Input
      *************************************************************************/
 public:
+    /** @reimp */
     void updateFeedback();
 
 protected slots:
+    /** @reimp */
     void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
 
     /*********************************************************************
