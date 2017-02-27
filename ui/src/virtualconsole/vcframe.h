@@ -171,7 +171,6 @@ public:
 public slots:
     void slotPreviousPage();
     void slotNextPage();
-    void slotPageLabelChanged(int index);
     void slotSetPage(int pageNum);
 
 signals:

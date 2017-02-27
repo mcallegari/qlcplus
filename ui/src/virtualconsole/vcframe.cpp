@@ -394,7 +394,7 @@ void VCFrame::setMultipageMode(bool enable)
         m_hbox->addWidget(m_nextPageBtn);
 
         connect (m_prevPageBtn, SIGNAL(clicked()), this, SLOT(slotPreviousPage()));
-        connect (m_pageCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotPageLabelChanged(int)));
+        connect (m_pageCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotSetPage(int)));
         connect (m_nextPageBtn, SIGNAL(clicked()), this, SLOT(slotNextPage()));
 
         if(this->isCollapsed() == false)
@@ -570,16 +570,6 @@ void VCFrame::slotNextPage()
         slotSetPage(m_currentPage + 1);
 
     sendFeedback(m_currentPage, nextPageInputSourceId);
-}
-
-void VCFrame::slotPageLabelChanged(int index)
-{
-    if (index >= 0)
-    {
-        slotSetPage(index);
-        m_pageCombo->clearFocus();
-        this->setFocus();
-    }
 }
 
 void VCFrame::slotSetPage(int pageNum)
