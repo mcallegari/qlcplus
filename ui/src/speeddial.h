@@ -81,7 +81,7 @@ public:
         Infinite     = 1 << 7,
     };
 
-    // Feedback types for flash button
+    // Feedback types for tap button
     enum TapFeedbackType
     {
         Blink,
