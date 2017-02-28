@@ -1,8 +1,9 @@
 /*
   Q Light Controller Plus
-  vcspeeddialpreset.h
+  vcframepageshortcut.h
 
-  Copyright (c) Massimo Callegari
+  Copyright (c) Lukas Jähn
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,8 +18,8 @@
   limitations under the License.
 */
 
-#ifndef VCSPEEDDIALPRESET_H
-#define VCSPEEDDIALPRESET_H
+#ifndef VCFRAMEPAGESHORTCUT_H
+#define VCFRAMEPAGESHORTCUT_H
 
 #include <QSharedPointer>
 #include <QKeySequence>
@@ -32,23 +33,21 @@ class QXmlStreamWriter;
  * @{
  */
 
-#define KXMLQLCVCSpeedDialPreset         "Preset"
-#define KXMLQLCVCSpeedDialPresetID       "ID"
-#define KXMLQLCVCSpeedDialPresetName     "Name"
-#define KXMLQLCVCSpeedDialPresetValue    "Value"
+#define KXMLQLCVCFramePageShortcut       "Shortcut"
+#define KXMLQLCVCFramePageShortcutPage   "Page"
+#define KXMLQLCVCFramePageShortcutName   "Name"
 
-class VCSpeedDialPreset
+class VCFramePageShortcut
 {
 public:
-    explicit VCSpeedDialPreset(quint8 id);
-    explicit VCSpeedDialPreset(VCSpeedDialPreset const& preset);
+    explicit VCFramePageShortcut(int pageIndex, quint8 inputID);
 
     /** Destructor */
-    ~VCSpeedDialPreset();
+    ~VCFramePageShortcut();
 
-public:
-    bool operator<(VCSpeedDialPreset const& right) const;
-    static bool compare(VCSpeedDialPreset const* left, VCSpeedDialPreset const* right);
+    QString name() const;
+    void setName(QString name = QString());
+
     /************************************************************************
      * Load & Save
      ***********************************************************************/
@@ -59,23 +58,21 @@ public:
     /** Save properties and contents to an XML document */
     bool saveXML(QXmlStreamWriter *doc);
 
-public:
-    /**
-     * Preset unique ID
-     *  Note that ids 0-15 are reserved to SpeedDial base controls
-     */
-    quint8 m_id;
-
-    /** The preset name */
+protected:
+    /** The page name */
     QString m_name;
 
-    /** The preset value */
-    int m_value;
-
+public:
+    /** The shortcut unique ID */
+    quint8 m_id;
+    /** The associated VCFrame page index */
+    int m_page;
+    /** Reference to the input source to jump to this page */
     QSharedPointer<QLCInputSource> m_inputSource;
+    /** The key sequence to jump to this page */
     QKeySequence m_keySequence;
 };
 
 /** @} */
 
-#endif // VCSPEEDDIALPRESET_H
+#endif // VCFRAMEPAGESHORTCUT_H

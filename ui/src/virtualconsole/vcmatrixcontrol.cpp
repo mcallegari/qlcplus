@@ -180,27 +180,12 @@ bool VCMatrixControl::loadXML(QXmlStreamReader &root)
                 m_properties[pName] = pValue;
             }
         }
-        else if (root.name() == KXMLQLCVCMatrixControlInput)
+        else if (root.name() == KXMLQLCVCWidgetInput)
         {
-            QXmlStreamAttributes attrs = root.attributes();
-
-            if (attrs.hasAttribute(KXMLQLCVCMatrixControlInputUniverse) &&
-                attrs.hasAttribute(KXMLQLCVCMatrixControlInputChannel))
-            {
-                quint32 uni = attrs.value(KXMLQLCVCMatrixControlInputUniverse).toString().toUInt();
-                quint32 ch = attrs.value(KXMLQLCVCMatrixControlInputChannel).toString().toUInt();
-                m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch));
-
-                uchar min = 0, max = UCHAR_MAX;
-                if (attrs.hasAttribute(KXMLQLCVCWidgetInputLowerValue))
-                    min = uchar(attrs.value(KXMLQLCVCWidgetInputLowerValue).toString().toUInt());
-                if (attrs.hasAttribute(KXMLQLCVCWidgetInputUpperValue))
-                    max = uchar(attrs.value(KXMLQLCVCWidgetInputUpperValue).toString().toUInt());
-                m_inputSource->setRange(min, max);
-            }
+            m_inputSource = VCWidget::getXMLInput(root);
             root.skipCurrentElement();
         }
-        else if (root.name() == KXMLQLCVCMatrixControlKey)
+        else if (root.name() == KXMLQLCVCWidgetKey)
         {
             m_keySequence = VCWidget::stripKeySequence(QKeySequence(root.readElementText()));
         }
@@ -247,20 +232,11 @@ bool VCMatrixControl::saveXML(QXmlStreamWriter *doc)
 
     /* External input source */
     if (!m_inputSource.isNull() && m_inputSource->isValid())
-    {
-        doc->writeStartElement(KXMLQLCVCMatrixControlInput);
-        doc->writeAttribute(KXMLQLCVCMatrixControlInputUniverse, QString("%1").arg(m_inputSource->universe()));
-        doc->writeAttribute(KXMLQLCVCMatrixControlInputChannel, QString("%1").arg(m_inputSource->channel()));
-        if (m_inputSource->lowerValue() != 0)
-            doc->writeAttribute(KXMLQLCVCWidgetInputLowerValue, QString::number(m_inputSource->lowerValue()));
-        if (m_inputSource->upperValue() != UCHAR_MAX)
-            doc->writeAttribute(KXMLQLCVCWidgetInputUpperValue, QString::number(m_inputSource->upperValue()));
-        doc->writeEndElement();
-    }
+        VCWidget::saveXMLInput(doc, m_inputSource);
 
     /* Key sequence */
     if (m_keySequence.isEmpty() == false)
-        doc->writeTextElement(KXMLQLCVCMatrixControlKey, m_keySequence.toString());
+        doc->writeTextElement(KXMLQLCVCWidgetKey, m_keySequence.toString());
 
     /* End the <Control> tag */
     doc->writeEndElement();

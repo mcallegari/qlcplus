@@ -1,5 +1,5 @@
-﻿<RCC>
-    <qresource>
+<RCC>
+    <qresource prefix="/">
         <file alias="add_dump.png">../../resources/icons/png/add_dump.png</file>
         <file alias="animation.png">../../resources/icons/png/animation.png</file>
         <file alias="attach.png">../../resources/icons/png/attach.png</file>
@@ -93,7 +93,7 @@
         <file alias="pan.png">../../resources/icons/png/pan.png</file>
         <file alias="panic.png">../../resources/icons/png/panic.png</file>
         <file alias="player_play.png">../../resources/icons/png/player_play.png</file>
-	<file alias="player_pause.png">../../resources/icons/png/player_pause.png</file>
+        <file alias="player_pause.png">../../resources/icons/png/player_pause.png</file>
         <file alias="player_stop.png">../../resources/icons/png/player_stop.png</file>
         <file alias="prism.png">../../resources/icons/png/prism.png</file>
         <file alias="qlcplus.png">../../resources/icons/png/qlcplus.png</file>

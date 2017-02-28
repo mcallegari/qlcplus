@@ -42,12 +42,6 @@ class QXmlStreamWriter;
 #define KXMLQLCVCMatrixControlProperty "Property"
 #define KXMLQLCVCMatrixControlPropertyName "Name"
 
-#define KXMLQLCVCMatrixControlInput         "Input"
-#define KXMLQLCVCMatrixControlInputUniverse "Universe"
-#define KXMLQLCVCMatrixControlInputChannel  "Channel"
-
-#define KXMLQLCVCMatrixControlKey "Key"
-
 class VCMatrixControl
 {
 
