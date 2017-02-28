@@ -61,6 +61,7 @@ const QSize VCFrame::defaultSize(QSize(200, 200));
 const quint8 VCFrame::nextPageInputSourceId = 0;
 const quint8 VCFrame::previousPageInputSourceId = 1;
 const quint8 VCFrame::enableInputSourceId = 2;
+const quint8 VCFrame::shortcutsBaseInputSourceId = 20;
 
 VCFrame::VCFrame(QWidget* parent, Doc* doc, bool canCollapse)
     : VCWidget(parent, doc)
@@ -371,6 +372,7 @@ void VCFrame::setMultipageMode(bool enable)
         m_pageCombo = new QComboBox(this);
         m_pageCombo->setMaximumWidth(100);
         m_pageCombo->setFixedHeight(32);
+        m_pageCombo->setFocusPolicy(Qt::NoFocus);
 
         m_pageCombo->setStyleSheet("QComboBox { background-color: black; color: red; margin-left: 2px; padding: 3px; }");
         if (m_hasCustomFont)
@@ -501,7 +503,7 @@ void VCFrame::updatePageCombo()
 void VCFrame::addShortcut()
 {
     int index = m_pageShortcuts.count();
-    m_pageShortcuts.append(new VCFramePageShortcut(index, index + VCFrame::enableInputSourceId + 1));
+    m_pageShortcuts.append(new VCFramePageShortcut(index, VCFrame::shortcutsBaseInputSourceId + index));
     m_pageCombo->addItem(m_pageShortcuts.last()->name());
 }
 
@@ -1090,7 +1092,7 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
             VCFramePageShortcut *shortcut = new VCFramePageShortcut(0xFF, 0xFF);
             if (shortcut->loadXML(root))
             {
-                shortcut->m_id = VCFrame::enableInputSourceId + shortcut->m_page + 1;
+                shortcut->m_id = VCFrame::shortcutsBaseInputSourceId + shortcut->m_page;
                 newShortcuts.append(shortcut);
             }
         }

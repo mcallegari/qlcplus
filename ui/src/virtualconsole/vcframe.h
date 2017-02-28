@@ -69,6 +69,7 @@ public:
     static const quint8 nextPageInputSourceId;
     static const quint8 previousPageInputSourceId;
     static const quint8 enableInputSourceId;
+    static const quint8 shortcutsBaseInputSourceId;
 
     /*********************************************************************
      * Initialization

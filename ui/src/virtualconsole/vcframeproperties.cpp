@@ -214,7 +214,7 @@ void VCFrameProperties::slotTotalPagesNumberChanged(int number)
     else
     {
         int newIndex = m_shortcuts.count();
-        m_shortcuts.append(new VCFramePageShortcut(newIndex, newIndex + VCFrame::enableInputSourceId + 1));
+        m_shortcuts.append(new VCFramePageShortcut(newIndex, VCFrame::shortcutsBaseInputSourceId + newIndex));
         m_pageCombo->addItem(m_shortcuts.last()->name());
     }
 }

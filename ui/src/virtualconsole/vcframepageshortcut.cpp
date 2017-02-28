@@ -2,7 +2,7 @@
   Q Light Controller Plus
   vcframepageshortcut.cpp
 
-  Copyright (c) Heikki Junnila
+  Copyright (c) Lukas Jähn
                 Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
