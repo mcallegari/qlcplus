@@ -376,7 +376,7 @@ void FunctionManager::slotAddScene()
         Q_ASSERT(item != NULL);
         f->setName(QString("%1 %2").arg(tr("New Scene")).arg(f->id()));
         m_tree->scrollToItem(item);
-        m_tree->setCurrentItem(item);
+        m_tree->setCurrentItem(item, COL_NAME, QItemSelectionModel::ClearAndSelect);
     }
 }
 
@@ -389,7 +389,7 @@ void FunctionManager::slotAddChaser()
         Q_ASSERT(item != NULL);
         f->setName(QString("%1 %2").arg(tr("New Chaser")).arg(f->id()));
         m_tree->scrollToItem(item);
-        m_tree->setCurrentItem(item);
+        m_tree->setCurrentItem(item, COL_NAME, QItemSelectionModel::ClearAndSelect);
     }
 }
 
@@ -412,7 +412,7 @@ void FunctionManager::slotAddSequence()
         Q_ASSERT(item != NULL);
         f->setName(QString("%1 %2").arg(tr("New Sequence")).arg(f->id()));
         m_tree->scrollToItem(item);
-        m_tree->setCurrentItem(item);
+        m_tree->setCurrentItem(item, COL_NAME, QItemSelectionModel::ClearAndSelect);
     }
 }
 
@@ -425,7 +425,7 @@ void FunctionManager::slotAddCollection()
         Q_ASSERT(item != NULL);
         f->setName(QString("%1 %2").arg(tr("New Collection")).arg(f->id()));
         m_tree->scrollToItem(item);
-        m_tree->setCurrentItem(item);
+        m_tree->setCurrentItem(item, COL_NAME, QItemSelectionModel::ClearAndSelect);
     }
 }
 
@@ -438,7 +438,7 @@ void FunctionManager::slotAddEFX()
         Q_ASSERT(item != NULL);
         f->setName(QString("%1 %2").arg(tr("New EFX")).arg(f->id()));
         m_tree->scrollToItem(item);
-        m_tree->setCurrentItem(item);
+        m_tree->setCurrentItem(item, COL_NAME, QItemSelectionModel::ClearAndSelect);
     }
 }
 
@@ -451,7 +451,7 @@ void FunctionManager::slotAddRGBMatrix()
         Q_ASSERT(item != NULL);
         f->setName(QString("%1 %2").arg(tr("New RGB Matrix")).arg(f->id()));
         m_tree->scrollToItem(item);
-        m_tree->setCurrentItem(item);
+        m_tree->setCurrentItem(item, COL_NAME, QItemSelectionModel::ClearAndSelect);
     }
 }
 
@@ -464,7 +464,7 @@ void FunctionManager::slotAddScript()
         Q_ASSERT(item != NULL);
         f->setName(QString("%1 %2").arg(tr("New Script")).arg(f->id()));
         m_tree->scrollToItem(item);
-        m_tree->setCurrentItem(item);
+        m_tree->setCurrentItem(item, COL_NAME, QItemSelectionModel::ClearAndSelect);
     }
 }
 
@@ -516,7 +516,7 @@ void FunctionManager::slotAddAudio()
         QTreeWidgetItem* item = m_tree->functionItem(f);
         Q_ASSERT(item != NULL);
         m_tree->scrollToItem(item);
-        m_tree->setCurrentItem(item);
+        m_tree->setCurrentItem(item, COL_NAME, QItemSelectionModel::ClearAndSelect);
     }
 }
 
@@ -569,7 +569,7 @@ void FunctionManager::slotAddVideo()
         QTreeWidgetItem* item = m_tree->functionItem(f);
         Q_ASSERT(item != NULL);
         m_tree->scrollToItem(item);
-        m_tree->setCurrentItem(item);
+        m_tree->setCurrentItem(item, COL_NAME, QItemSelectionModel::ClearAndSelect);
     }
 #endif
 }
@@ -891,7 +891,7 @@ void FunctionManager::copyFunction(quint32 fid)
     {
         copy->setName(copy->name() + tr(" (Copy)"));
         QTreeWidgetItem* item = m_tree->functionItem(copy);
-        m_tree->setCurrentItem(item);
+        m_tree->setCurrentItem(item, COL_NAME, QItemSelectionModel::ClearAndSelect);
     }
 }
 
