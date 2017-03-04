@@ -377,12 +377,26 @@ uchar SimpleDesk::getAbsoluteChannelValue(uint address)
     if (m_engine->hasChannel(address))
         return m_engine->value(address);
     else
-        return 0;
+    {
+        QList<Universe*> ua = m_doc->inputOutputMap()->claimUniverses();
+        int uni = address >> 9;
+        uint channel = address & 0x01FF;
+        if (uni >= ua.count())
+            return 0;
+        uchar value = ua.at(uni)->preGMValue(channel);
+        m_doc->inputOutputMap()->releaseUniverses(false);
+        return value;
+    }
 }
 
 void SimpleDesk::setAbsoluteChannelValue(uint address, uchar value)
 {
     m_engine->setValue(address, value);
+}
+
+void SimpleDesk::resetChannel(quint32 address)
+{
+    m_engine->resetChannel(address);
 }
 
 void SimpleDesk::resetUniverse()
