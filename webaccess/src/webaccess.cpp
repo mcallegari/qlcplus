@@ -502,6 +502,18 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
 
             wsAPIMessage.append(WebAccessSimpleDesk::getChannelsMessage(m_doc, m_sd, universe, startAddr, count));
         }
+        else if (apiCmd == "sdResetChannel")
+        {
+            if (cmdList.count() < 3)
+                return;
+
+            quint32 chNum = cmdList[2].toUInt() - 1;
+            m_sd->resetChannel(chNum);
+            wsAPIMessage = "QLC+API|getChannelsValues|";
+            wsAPIMessage.append(WebAccessSimpleDesk::getChannelsMessage(
+                                m_doc, m_sd, m_sd->getCurrentUniverseIndex(),
+                                (m_sd->getCurrentPage() - 1) * m_sd->getSlidersNumber(), m_sd->getSlidersNumber()));
+        }
         else if (apiCmd == "sdResetUniverse")
         {
             m_sd->resetUniverse();
