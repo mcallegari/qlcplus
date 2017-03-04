@@ -242,6 +242,8 @@ void FunctionManager::hideEvent(QHideEvent* ev)
  * Menu, toolbar and actions
  *****************************************************************************/
 
+// test of changing this file for command line Git checkin/sync
+
 void FunctionManager::initActions()
 {
     /* Manage actions */
