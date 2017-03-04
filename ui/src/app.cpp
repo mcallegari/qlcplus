@@ -64,6 +64,12 @@
 #   include "hotplugmonitor.h"
 #endif
 
+// enable Alt-key mnemonics on MacOS, part 1/2
+// This allows MacOS users to type the first letter of dialog buttons and use other Alt (Option) key shortcuts
+#if defined(__APPLE__) || defined(Q_OS_MAC)
+extern void qt_set_sequence_auto_mnemonic(bool b);
+#endif
+
 //#define DEBUG_SPEED
 
 #ifdef DEBUG_SPEED
@@ -209,6 +215,11 @@ void App::init()
     m_tab->setTabPosition(QTabWidget::South);
     setCentralWidget(m_tab);
 
+// enable Alt-key mnemonics on MacOS, part 2/2
+#if defined(__APPLE__) || defined(Q_OS_MAC)
+	qt_set_sequence_auto_mnemonic(true);
+#endif
+
     QLCFile::checkRaspberry();
 
     QVariant var = settings.value(SETTINGS_GEOMETRY);
@@ -270,17 +281,18 @@ void App::init()
     // Create primary views.
     m_tab->setIconSize(QSize(24, 24));
     QWidget* w = new FixtureManager(m_tab, m_doc);
-    m_tab->addTab(w, QIcon(":/fixture.png"), tr("Fixtures"));
+    // Alt/Option-1, 2, 3, etc. direct keyboard shortcuts
+    m_tab->addTab(w, QIcon(":/fixture.png"), "&1 " + tr("Fixtures"));
     w = new FunctionManager(m_tab, m_doc);
-    m_tab->addTab(w, QIcon(":/function.png"), tr("Functions"));
+    m_tab->addTab(w, QIcon(":/function.png"), "&2 " + tr("Functions"));
     w = new ShowManager(m_tab, m_doc);
-    m_tab->addTab(w, QIcon(":/show.png"), tr("Shows"));
+    m_tab->addTab(w, QIcon(":/show.png"), "&3 " + tr("Shows"));
     w = new VirtualConsole(m_tab, m_doc);
-    m_tab->addTab(w, QIcon(":/virtualconsole.png"), tr("Virtual Console"));
+    m_tab->addTab(w, QIcon(":/virtualconsole.png"), "&4 " + tr("Virtual Console"));
     w = new SimpleDesk(m_tab, m_doc);
-    m_tab->addTab(w, QIcon(":/slidermatrix.png"), tr("Simple Desk"));
+    m_tab->addTab(w, QIcon(":/slidermatrix.png"), "&5 " + tr("Simple Desk"));
     w = new InputOutputManager(m_tab, m_doc);
-    m_tab->addTab(w, QIcon(":/input_output.png"), tr("Inputs/Outputs"));
+    m_tab->addTab(w, QIcon(":/input_output.png"), "&6 " + tr("Inputs/Outputs"));
 
     // Listen to blackout changes and toggle m_controlBlackoutAction
     connect(m_doc->inputOutputMap(), SIGNAL(blackoutChanged(bool)), this, SLOT(slotBlackoutChanged(bool)));
