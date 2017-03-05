@@ -76,7 +76,7 @@ function drawPage(data) {
  var cVars = data.split('|');
  for (i = 2; i < cVars.length; i+=3) {
      var chNum = parseInt(cVars[i]);
-     code += "<div class='sdSlider' style='width: 36px; height: 332px; background-color: #aaa; margin-left:2px;'>";
+     code += "<div class='sdSlider' style='width: 36px; height: 372px; background-color: #aaa; margin-left:2px;'>";
      code += getSliderTopCode(cVars[i + 2]);
      code += "<div id='sdslv" + chNum + "' class='sdslLabel' style='top:2px;'>" + cVars[i + 1]  + "</div>";
      code += "<input type='range' class='vVertical' id='" + chNum + "' ";
@@ -84,7 +84,9 @@ function drawPage(data) {
      code += "style='width: 250px; margin-top: 250px; margin-left: 18px; ";
      code += "min='0' max='255' step='1' value='" + cVars[i + 1] + "' >";
      code += "<div id='sdsln" + chNum + "' class='sdslLabel' ";
-     code += "style='bottom:0px;'>" + chNum + "</div>";
+     code += "style='bottom:30px;'>" + chNum + "</div>";
+     code += "<a class='sdButton' style='margin-left: 1px; width: 30px; height: 30px;' href='javascript:resetChannel(" + chNum + ");'>";
+     code += "<img src='fileclose.png' title='Reset channel' width='28'></a>";
      code += "</div>";
  }
  cObj.innerHTML = code;
@@ -121,6 +123,12 @@ function universeChanged(uniIdx) {
  var pgObj = document.getElementById("pageDiv");
  pgObj.innerHTML = currentPage;
  getPage(currentUniverse, currentPage);
+}
+
+function resetChannel(pageCh) {
+ var chNum = ((currentUniverse - 1) * 512) + parseInt(pageCh);
+ var wsMsg = "QLC+API|sdResetChannel|" + chNum;
+ websocket.send(wsMsg);
 }
 
 function resetUniverse() {
