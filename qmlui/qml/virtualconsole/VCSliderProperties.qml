@@ -133,7 +133,7 @@ Rectangle
               GridLayout
               {
                 width: parent.width
-                columns: 2
+                columns: 4
                 columnSpacing: 5
                 rowSpacing: 4
 
@@ -244,6 +244,61 @@ Rectangle
                 }
 
               } // GridLayout
+        } // SectionBox
+
+        SectionBox
+        {
+            visible: widgetRef ? widgetRef.sliderMode === VCSlider.Level : false
+            sectionLabel: qsTr("Level mode")
+
+            sectionContents:
+              GridLayout
+              {
+                  width: parent.width
+                  columns: 2
+                  columnSpacing: 5
+                  rowSpacing: 4
+
+                  RobotoText
+                  {
+                      height: gridItemsHeight
+                      label: qsTr("Channels")
+                  }
+                  RobotoText
+                  {
+                      height: gridItemsHeight
+                      Layout.fillWidth: true
+                      label: ""
+
+                      IconButton
+                      {
+                          id: serviceEntry
+                          z: 2
+                          anchors.right: parent.right
+                          height: gridItemsHeight
+                          width: height
+                          faSource: FontAwesome.fa_bars
+                          faColor: "white"
+                          checkable: true
+                          tooltip: qsTr("Add/Remove channels")
+                          onCheckedChanged:
+                          {
+                              if (checked)
+                              {
+                                  vcRightPanel.width += mainView.width / 3
+                                  sideLoader.width = mainView.width / 3
+                                  sideLoader.source = "qrc:/FixtureGroupEditor.qml"
+                              }
+                              else
+                              {
+                                  vcRightPanel.width = vcRightPanel.width - sideLoader.width
+                                  sideLoader.source = ""
+                                  sideLoader.width = 0
+                              }
+                          }
+                      }
+                  }
+              }
         } // SectionBox
     } // end of Column
 }

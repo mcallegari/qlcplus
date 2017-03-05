@@ -36,6 +36,26 @@ VCWidgetItem
         setCommonProperties(sliderObj)
     }
 
+    Gradient
+    {
+        id: submasterHandleGradient
+        GradientStop { position: 0; color: "#4c4c4c" }
+        GradientStop { position: 0.45; color: "#2c2c2c" }
+        GradientStop { position: 0.50; color: "#000" }
+        GradientStop { position: 0.55; color: "#111111" }
+        GradientStop { position: 1.0; color: "#131313" }
+    }
+
+    Gradient
+    {
+        id: submasterHandleGradientHover
+        GradientStop { position: 0; color: "#6c6c6c" }
+        GradientStop { position: 0.45; color: "#4c4c4c" }
+        GradientStop { position: 0.50; color: "#ffff00" }
+        GradientStop { position: 0.55; color: "#313131" }
+        GradientStop { position: 1.0; color: "#333333" }
+    }
+
     ColumnLayout
     {
         anchors.fill: parent
@@ -62,6 +82,10 @@ VCWidgetItem
             width: parent.width
             rotation: sliderObj ? (sliderObj.invertedAppearance ? 180 : 0) : 0
             value: sliderValue
+            handleGradient: sliderObj ? (sliderObj.sliderMode === VCSlider.Submaster ? submasterHandleGradient : defaultGradient) : defaultGradient
+            handleGradientHover: sliderObj ? (sliderObj.sliderMode === VCSlider.Submaster ? submasterHandleGradientHover : defaultGradientHover) : defaultGradientHover
+            trackColor: sliderObj ? (sliderObj.sliderMode === VCSlider.Submaster ? "#77DD73" : defaultTrackColor) : defaultTrackColor
+
             onTouchPressedChanged:
             {
                 console.log("Slider touch pressed: " + touchPressed)
