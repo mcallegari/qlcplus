@@ -59,6 +59,9 @@
      <property name="elideMode">
       <enum>Qt::ElideNone</enum>
      </property>
+     <property name="usesScrollButtons">
+      <bool>true</bool>
+     </property>
      <widget class="QWidget" name="General">
       <attribute name="title">
        <string>General</string>
