@@ -142,6 +142,7 @@ void VCFrame::setLiveEdit(bool liveEdit)
 
 void VCFrame::setCaption(const QString& text)
 {
+
     if (m_label != NULL && m_multiPageMode != true)
         m_label->setText(text);
     else
@@ -161,6 +162,7 @@ void VCFrame::setCaption(const QString& text)
             }
         }
     }
+
 
     VCWidget::setCaption(text);
 }
