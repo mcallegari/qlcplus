@@ -41,24 +41,24 @@ function()
     {
       algo.taillength = _tail;
       util.initialize();
-    }
+    };
     
     algo.getTail = function()
     {
       return algo.taillength;
-    }
+    };
 
     algo.setFade = function(_fade)
     {
       if (_fade == "Yes") algo.tailfade = 1;
       else if (_fade == "No") algo.tailfade = 0;
-    }
+    };
 
     algo.getFade = function()
     {
       if (algo.tailfade == 0) return "No";
       else if (algo.tailfade == 1) return "Yes";
-    }
+    };
 
     algo.setDirection = function(_direction)
     {
@@ -66,7 +66,7 @@ function()
       else if (_direction == "Left") algo.direction = 1;
       else if (_direction == "In") algo.direction = 2;
       else if (_direction == "Out") algo.direction = 3;
-    }
+    };
 
     algo.getDirection = function()
     {
@@ -74,19 +74,19 @@ function()
       else if (algo.direction == 1) return "Left";
       else if (algo.direction == 2) return "In";
       else if (algo.direction == 3) return "Out";
-    }
+    };
 
     algo.setOrientation = function(_orientation)
     {
       if (_orientation == "Vertical") algo.orientation = 1;
       else if (_orientation == "Horizontal") algo.orientation = 0;
-    }
+    };
 
     algo.getOrientation = function()
     {
       if (algo.orientation == 1) return "Vertical";
       else if (algo.orientation == 0) return "Horizontal";
-    }
+    };
 
     var util = new Object;
     util.initialized = false;
@@ -104,7 +104,7 @@ function()
         util.fadeObject[f] = (_step * (util.fadeSteps - f));
       }
       util.initialized = true;
-    }
+    };
 
     algo.rgbMap = function(width, height, rgb, step)
     {
@@ -182,7 +182,7 @@ function()
         }
       }
       return map;
-    }
+    };
 
     algo.rgbMapStepCount = function(width, height)
     {
@@ -195,10 +195,10 @@ function()
         return (span + tailSteps - (isEven ? 0 : 1));
       else if ((algo.direction == 2) || (algo.direction == 3))
         return Math.round(Math.floor((span + 1) / 2) + tailSteps - 1);
-    }
+    };
 
     // Development tool access
     testAlgo = algo;
     return algo;
     }
-)()
+)();

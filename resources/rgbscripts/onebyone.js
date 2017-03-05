@@ -37,24 +37,26 @@ var testAlgo;
         {
             map[y] = new Array();
             for (var x = 0; x < width; x++)
+            {
                 map[y][x] = 0;
+            }
         }
 
         var xx = step % width;
         var yy = (step - xx) / width;
-        map[yy][xx] = rgb
+        map[yy][xx] = rgb;
 
         return map;
-    }
+    };
 
     algo.rgbMapStepCount = function(width, height)
     {
         return width * height;
-    }
+    };
 
     // Development tool access
     testAlgo = algo;
 
     return algo;
     }
-)()
+)();

@@ -34,79 +34,79 @@ var testAlgo;
 
     algo.setOrientation = function(_orientation)
     {
-    if (_orientation == "Vertical")
-      algo.orientation = 1;
-    else
-      algo.orientation = 0;
-    }
+      if (_orientation == "Vertical")
+        algo.orientation = 1;
+      else
+        algo.orientation = 0;
+    };
 
     algo.getOrientation = function()
     {
-        if (algo.orientation == 1)
-      return "Vertical";
-    else
-      return "Horizontal";
-    }
+      if (algo.orientation == 1)
+        return "Vertical";
+      else
+        return "Horizontal";
+    };
 
     algo.rgbMap = function(width, height, rgb, step)
     {
-        var map = new Array(height);
-        for (var y = 0; y < height; y++)
+      var map = new Array(height);
+      for (var y = 0; y < height; y++)
+      {
+        map[y] = new Array();
+        for (var x = 0; x < width; x++)
         {
-            map[y] = new Array();
-            for (var x = 0; x < width; x++)
+          if (algo.orientation == 1)
+          {
+            if (step < height)
             {
-                if (algo.orientation == 1)
-                {
-                    if (step < height)
-                    {
-                        if (y <= step)
-                            map[y][x] = rgb;
-                        else
-                            map[y][x] = 0;
-                    }
-                    else
-                    {
-                        if (y > step - height)
-                            map[y][x] = rgb;
-                        else
-                            map[y][x] = 0;
-                    }
-                }
-                else
-                {
-                    if (step < width)
-                    {
-                        if (x <= step)
-                            map[y][x] = rgb;
-                        else
-                            map[y][x] = 0;
-                    }
-                    else
-                    {
-                        if (x > step - width)
-                            map[y][x] = rgb;
-                        else
-                            map[y][x] = 0;
-                    }
-                }
+              if (y <= step)
+                  map[y][x] = rgb;
+              else
+                  map[y][x] = 0;
             }
+            else
+            {
+              if (y > step - height)
+                  map[y][x] = rgb;
+              else
+                  map[y][x] = 0;
+            }
+          }
+          else
+          {
+            if (step < width)
+            {
+              if (x <= step)
+                  map[y][x] = rgb;
+              else
+                  map[y][x] = 0;
+            }
+            else
+            {
+              if (x > step - width)
+                  map[y][x] = rgb;
+              else
+                  map[y][x] = 0;
+            }
+          }
         }
+      }
 
-        return map;
-    }
+      return map;
+    };
 
     algo.rgbMapStepCount = function(width, height)
     {
-        if (algo.orientation == 0)
-            return (width * 2) - 1;
-        else
-            return (height * 2) - 1;
-    }
+      if (algo.orientation == 0)
+          return (width * 2) - 1;
+      else
+          return (height * 2) - 1;
+    };
 
     // Development tool access
     testAlgo = algo;
 
     return algo;
     }
-)()
+)();

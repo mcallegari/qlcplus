@@ -63,7 +63,7 @@ var testAlgo;
             }
 
             return map;
-        }
+        };
 
         algo.rgbMapStepCount = function(width, height)
         {
@@ -71,11 +71,11 @@ var testAlgo;
             height = parseInt(height);
             var max = width > height ? width : height;
             return (Math.floor((max + 1) / 2)) * 2 - 1;
-        }
+        };
 
         // Development tool access
         testAlgo = algo;
 
         return algo;
     }
-)()
+)();
