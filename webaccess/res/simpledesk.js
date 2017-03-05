@@ -18,6 +18,13 @@
 */
 
 var websocket;
+
+function getPage(uni, page) {
+ var address = ((page - 1) * channelsPerPage) + 1;
+ var wsMsg = "QLC+API|getChannelsValues|" + uni + "|" + address + "|" + channelsPerPage;
+ websocket.send(wsMsg);
+}
+
 window.onload = function() {
    var url = 'ws://' + window.location.host + '/qlcplusWS';
    websocket = new WebSocket(url);
@@ -92,12 +99,6 @@ function drawPage(data) {
  cObj.innerHTML = code;
 }
 
-function getPage(uni, page) {
- var address = ((page - 1) * channelsPerPage) + 1;
- var wsMsg = "QLC+API|getChannelsValues|" + uni + "|" + address + "|" + channelsPerPage;
- websocket.send(wsMsg);
-}
-
 function nextPage() {
  currentPage++;
  if (currentPage * channelsPerPage > 512)
@@ -108,7 +109,7 @@ function nextPage() {
 }
 
 function previousPage() {
- if (currentPage == 1)
+ if (currentPage === 1)
    currentPage = (512 / channelsPerPage);
  else
    currentPage--;
