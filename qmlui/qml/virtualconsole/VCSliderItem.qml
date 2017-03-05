@@ -81,6 +81,8 @@ VCWidgetItem
             Layout.fillHeight: true
             width: parent.width
             rotation: sliderObj ? (sliderObj.invertedAppearance ? 180 : 0) : 0
+            from: sliderObj ? (sliderObj.sliderMode === VCSlider.Level ? sliderObj.levelLowLimit : 0) : 0
+            to: sliderObj ? (sliderObj.sliderMode === VCSlider.Level ? sliderObj.levelHighLimit : 255) : 255
             value: sliderValue
             handleGradient: sliderObj ? (sliderObj.sliderMode === VCSlider.Submaster ? submasterHandleGradient : defaultGradient) : defaultGradient
             handleGradientHover: sliderObj ? (sliderObj.sliderMode === VCSlider.Submaster ? submasterHandleGradientHover : defaultGradientHover) : defaultGradientHover

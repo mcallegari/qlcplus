@@ -63,6 +63,9 @@ class VCSlider : public VCWidget
     Q_PROPERTY(int value READ value WRITE setValue NOTIFY valueChanged)
     Q_PROPERTY(quint32 playbackFunction READ playbackFunction WRITE setPlaybackFunction NOTIFY playbackFunctionChanged)
 
+    Q_PROPERTY(int levelLowLimit READ levelLowLimit WRITE setLevelLowLimit NOTIFY levelLowLimitChanged)
+    Q_PROPERTY(int levelHighLimit READ levelHighLimit WRITE setLevelHighLimit NOTIFY levelHighLimitChanged)
+
     /*********************************************************************
      * Initialization
      *********************************************************************/
@@ -185,24 +188,12 @@ protected:
      * Level mode
      *********************************************************************/
 public:
-    /**
-     * Set low limit for levels set through the slider
-     *
-     * @param value Low limit
-     */
+    /** Set/Get the lower limit for levels set through the slider */
     void setLevelLowLimit(uchar value);
-
-    /** Get low limit for levels set through the slider */
     uchar levelLowLimit() const;
 
-    /**
-     * Set high limit for levels set through the slider
-     *
-     * @param value High limit
-     */
+    /** Set/Get high limit for levels set through the slider */
     void setLevelHighLimit(uchar value);
-
-    /** Get high limit for levels set through the slider */
     uchar levelHighLimit() const;
 
     /**
@@ -231,6 +222,10 @@ public:
 
     /** Get the list of channels that this slider controls */
     QList <SceneValue> levelChannels();
+
+signals:
+    void levelLowLimitChanged();
+    void levelHighLimitChanged();
 
 protected:
     /**

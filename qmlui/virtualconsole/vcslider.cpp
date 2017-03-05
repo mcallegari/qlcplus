@@ -264,7 +264,11 @@ void VCSlider::setValue(int value)
  *********************************************************************/
 void VCSlider::setLevelLowLimit(uchar value)
 {
+    if (value == m_levelLowLimit)
+        return;
+
     m_levelLowLimit = value;
+    emit levelLowLimitChanged();
 }
 
 uchar VCSlider::levelLowLimit() const
@@ -274,7 +278,11 @@ uchar VCSlider::levelLowLimit() const
 
 void VCSlider::setLevelHighLimit(uchar value)
 {
+    if (value == m_levelLowLimit)
+        return;
+
     m_levelHighLimit = value;
+    emit levelHighLimitChanged();
 }
 
 uchar VCSlider::levelHighLimit() const
