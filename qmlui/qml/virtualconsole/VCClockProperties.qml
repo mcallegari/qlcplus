@@ -148,15 +148,15 @@ Rectangle
                             {
                                 if (checked)
                                 {
-                                    vcRightPanel.width += 350
-                                    funcMgrLoader.width = 350
-                                    funcMgrLoader.source = "qrc:/FunctionManager.qml"
+                                    vcRightPanel.width += mainView.width / 3
+                                    sideLoader.width = mainView.width / 3
+                                    sideLoader.source = "qrc:/FunctionManager.qml"
                                 }
                                 else
                                 {
-                                    vcRightPanel.width = vcRightPanel.width - funcMgrLoader.width
-                                    funcMgrLoader.source = ""
-                                    funcMgrLoader.width = 0
+                                    vcRightPanel.width = vcRightPanel.width - sideLoader.width
+                                    sideLoader.source = ""
+                                    sideLoader.width = 0
                                 }
                             }
                         }
