@@ -34,9 +34,9 @@ ChaserStep::ChaserStep(quint32 aFid, uint aFadeIn, uint aHold, uint aFadeOut)
     , fadeIn(aFadeIn)
     , hold(aHold)
     , fadeOut(aFadeOut)
+    , note(QString())
 {
     duration = fadeIn + hold;
-    note = QString();
 }
 
 ChaserStep::ChaserStep(const ChaserStep& cs)

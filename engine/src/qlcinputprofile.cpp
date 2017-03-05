@@ -40,8 +40,12 @@
  ****************************************************************************/
 
 QLCInputProfile::QLCInputProfile()
+    : m_manufacturer(QString())
+    , m_model(QString())
+    , m_path(QString())
+    , m_type(Midi)
+    , m_midiSendNoteOff(true)
 {
-    m_midiSendNoteOff = true;
 }
 
 QLCInputProfile::QLCInputProfile(const QLCInputProfile& profile)

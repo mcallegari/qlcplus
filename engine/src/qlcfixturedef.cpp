@@ -33,18 +33,17 @@
 #include "fixture.h"
 
 QLCFixtureDef::QLCFixtureDef()
+    : m_isLoaded(false)
+    , m_defFileAbsolutePath(QString())
+    , m_type(QString("Dimmer"))
 {
-    m_isLoaded = false;
-    m_defFileAbsolutePath = QString();
-    m_type = QString("Dimmer");
 }
 
 QLCFixtureDef::QLCFixtureDef(const QLCFixtureDef* fixtureDef)
+    : m_isLoaded(false)
+    , m_defFileAbsolutePath(QString())
+    , m_type(QString("Dimmer"))
 {
-    m_isLoaded = false;
-    m_defFileAbsolutePath = QString();
-    m_type = QString("Dimmer");
-
     if (fixtureDef != NULL)
         *this = *fixtureDef;
 }
@@ -220,11 +219,10 @@ bool QLCFixtureDef::removeChannel(QLCChannel* channel)
 QLCChannel* QLCFixtureDef::channel(const QString& name)
 {
     QListIterator <QLCChannel*> it(m_channels);
-    QLCChannel* ch = NULL;
 
     while (it.hasNext() == true)
     {
-        ch = it.next();
+        QLCChannel* ch = it.next();
         if (ch->name() == name)
             return ch;
     }
@@ -273,11 +271,10 @@ bool QLCFixtureDef::removeMode(QLCFixtureMode* mode)
 QLCFixtureMode *QLCFixtureDef::mode(const QString& name)
 {
     QListIterator <QLCFixtureMode*> it(m_modes);
-    QLCFixtureMode* mode = NULL;
 
     while (it.hasNext() == true)
     {
-        mode = it.next();
+        QLCFixtureMode *mode = it.next();
         if (mode->name() == name)
             return mode;
     }

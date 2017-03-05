@@ -56,18 +56,17 @@
 #define KXMLQLCChannelColourIndigo     QString("Indigo")
 
 QLCChannel::QLCChannel()
+    : m_group(Intensity)
+    , m_controlByte(MSB)
+    , m_colour(NoColour)
 {
-    m_group = Intensity;
-    m_controlByte = MSB;
-    m_colour = NoColour;
 }
 
 QLCChannel::QLCChannel(const QLCChannel* channel)
+    : m_group(Intensity)
+    , m_controlByte(MSB)
+    , m_colour(NoColour)
 {
-    m_group = Intensity;
-    m_controlByte = MSB;
-    m_colour = NoColour;
-
     if (channel != NULL)
         *this = *channel;
 }

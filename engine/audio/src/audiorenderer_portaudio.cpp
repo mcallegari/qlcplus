@@ -27,12 +27,11 @@
 
 AudioRendererPortAudio::AudioRendererPortAudio(QString device, QObject * parent)
     : AudioRenderer(parent)
+    , m_paStream(NULL)
+    , m_device(device)
+    , m_channels(0)
+    , m_frameSize(0)
 {
-    m_channels = 0;
-    m_frameSize = 0;
-
-    m_paStream = NULL;
-    m_device = device;
 }
 
 AudioRendererPortAudio::~AudioRendererPortAudio()

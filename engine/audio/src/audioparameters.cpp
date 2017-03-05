@@ -26,10 +26,10 @@
 #include "audioparameters.h"
 
 AudioParameters::AudioParameters()
+    : m_srate(0)
+    , m_chan(0)
+    , m_format(PCM_S16LE)
 {
-    m_srate = 0;
-    m_chan = 0;
-    m_format = PCM_S16LE;
 }
 
 AudioParameters::AudioParameters(const AudioParameters &other)

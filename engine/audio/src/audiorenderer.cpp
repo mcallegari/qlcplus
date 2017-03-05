@@ -29,6 +29,7 @@ AudioRenderer::AudioRenderer (QObject* parent)
     , m_userStop(true)
     , m_pause(false)
     , m_intensity(1.0)
+    , m_adec(NULL)
     , audioDataRead(0)
     , pendingAudioBytes(0)
 {
@@ -46,7 +47,7 @@ void AudioRenderer::adjustIntensity(qreal fraction)
 
 void AudioRenderer::setFadeIn(uint fadeTime)
 {
-    if (fadeTime == 0)
+    if (fadeTime == 0 || m_adec == NULL)
         return;
 
     quint32 sampleRate = m_adec->audioParameters().sampleRate();
@@ -60,7 +61,7 @@ void AudioRenderer::setFadeIn(uint fadeTime)
 
 void AudioRenderer::setFadeOut(uint fadeTime)
 {
-    if (fadeTime == 0 || m_fadeStep != 0)
+    if (fadeTime == 0 || m_fadeStep != 0  || m_adec == NULL)
         return;
 
     quint32 sampleRate = m_adec->audioParameters().sampleRate();
