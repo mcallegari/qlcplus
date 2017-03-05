@@ -32,69 +32,70 @@ Rectangle
 
     ColumnLayout
     {
-      anchors.fill: parent
-      spacing: 3
+        anchors.fill: parent
+        spacing: 3
 
-      Rectangle
-      {
-        id: topBar
-        width: geContainer.width
-        height: UISettings.iconSizeMedium
-        z: 5
-        gradient: Gradient
+        Rectangle
         {
-            GradientStop { position: 0; color: UISettings.toolbarStartSub }
-            GradientStop { position: 1; color: UISettings.toolbarEnd }
+            id: topBar
+            width: geContainer.width
+            height: UISettings.iconSizeMedium
+            z: 5
+            gradient: Gradient
+            {
+                GradientStop { position: 0; color: UISettings.toolbarStartSub }
+                GradientStop { position: 1; color: UISettings.toolbarEnd }
+            }
+
+            RowLayout
+            {
+                id: topBarRowLayout
+                width: parent.width
+                y: 1
+
+                spacing: 4
+
+                IconButton
+                {
+                    id: addGrpButton
+                    z: 2
+                    width: height
+                    height: topBar.height - 2
+                    imgSource: "qrc:/add.svg"
+                    tooltip: qsTr("Add a new group")
+                    onClicked: contextManager.createFixtureGroup()
+                }
+                IconButton
+                {
+                    id: delItemButton
+                    z: 2
+                    width: height
+                    height: topBar.height - 2
+                    imgSource: "qrc:/remove.svg"
+                    tooltip: qsTr("Remove the selected items")
+                }
+                Rectangle { Layout.fillWidth: true }
+            }
         }
 
-        RowLayout
+        ListView
         {
-            id: topBarRowLayout
-            width: parent.width
-            y: 1
-
-            spacing: 4
-
-            IconButton
-            {
-                id: addGrpButton
-                z: 2
-                width: height
-                height: topBar.height - 2
-                imgSource: "qrc:/add.svg"
-                tooltip: qsTr("Add a new group")
-                onClicked: contextManager.createFixtureGroup()
-            }
-            IconButton
-            {
-                id: delItemButton
-                z: 2
-                width: height
-                height: topBar.height - 2
-                imgSource: "qrc:/remove.svg"
-                tooltip: qsTr("Remove the selected items")
-            }
-            Rectangle { Layout.fillWidth: true }
-        }
-    }
-
-    ListView
-    {
-        id: groupListView
-        width: geContainer.width
-        height: geContainer.height - topBar.height
-        z: 4
-        boundsBehavior: Flickable.StopAtBounds
-        model: fixtureManager.groupsTreeModel
-        delegate:
-            Component
-            {
+            id: groupListView
+            width: geContainer.width
+            height: geContainer.height - topBar.height
+            z: 4
+            boundsBehavior: Flickable.StopAtBounds
+            model: fixtureManager.groupsTreeModel
+            delegate:
+              Component
+              {
                 Loader
                 {
                     width: groupListView.width
-                    source: hasChildren ? "qrc:/TreeNodeDelegate.qml" : "qrc:/FixtureDelegate.qml"
+                    source: hasChildren ? "qrc:/TreeNodeDelegate.qml" : ""
                     onLoaded:
                     {
+                        console.log("[groupEditor] Item " + label + " has children: " + hasChildren)
                         item.textLabel = label
                         item.isSelected = Qt.binding(function() { return isSelected })
 
@@ -103,13 +104,12 @@ Rectangle
                             item.nodePath = path
                             item.nodeIcon = "qrc:/group.svg"
                             item.isExpanded = isExpanded
-                            item.childrenDelegate = "qrc:/FixtureDelegate.qml"
+                            item.subTreeDelegate = "qrc:/FixtureNodeDelegate.qml"
                             item.nodeChildren = childrenModel
                         }
-                        else
-                        {
+
+                        if (item.hasOwnProperty('cRef'))
                             item.cRef = classRef
-                        }
                     }
                     Connections
                     {
@@ -132,8 +132,8 @@ Rectangle
                           onDoubleClicked: { }
                     }
                     */
-                }
-            }
-    }
-  }
+                } // Loader
+              } // Component
+        } // ListView
+    } // ColumnLayout
 }

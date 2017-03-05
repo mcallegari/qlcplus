@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  TreeNodeDelegate.qml
+  FixtureNodeDelegate.qml
 
   Copyright (c) Massimo Callegari
 
@@ -20,6 +20,7 @@
 import QtQuick 2.2
 
 import com.qlcplus.classes 1.0
+import "GenericHelpers.js" as Helpers
 import "."
 
 Column
@@ -28,14 +29,12 @@ Column
     width: 350
     //height: nodeLabel.height + nodeChildrenView.height
 
+    property Fixture cRef
     property string textLabel
     property string nodePath
     property var nodeChildren
     property bool isExpanded: false
     property bool isSelected: false
-    property string nodeIcon: "qrc:/folder.svg"
-    property string childrenDelegate: "qrc:/FunctionDelegate.qml"
-    property string subTreeDelegate: "qrc:/TreeNodeDelegate.qml"
     property Item dragItem
 
     signal toggled(bool expanded, int newHeight)
@@ -72,7 +71,7 @@ Column
             visible: nodeIcon == "" ? false : true
             width: visible ? parent.height : 0
             height: parent.height
-            source: nodeIcon
+            source: cRef ? Helpers.fixtureIconFromType(cRef.type) : ""
         }
 
         TextInput
@@ -169,25 +168,13 @@ Column
                     width: nodeChildrenView.width
                     x: 20
                     //height: 35
-                    source: hasChildren ? subTreeDelegate : childrenDelegate
+                    source: hasChildren ? "" : "qrc:/FixtureChannelDelegate.qml"
                     onLoaded:
                     {
                         item.textLabel = label
                         item.isSelected = Qt.binding(function() { return isSelected })
                         item.dragItem = dragItem
-
-                        if (hasChildren)
-                        {
-                            item.nodePath = nodePath + "/" + path
-                            item.isExpanded = isExpanded
-                            item.nodeChildren = childrenModel
-                            if (item.hasOwnProperty('nodeIcon'))
-                                item.nodeIcon = nodeContainer.nodeIcon
-                            if (item.hasOwnProperty('childrenDelegate'))
-                                item.childrenDelegate = childrenDelegate
-
-                            console.log("Item path: " + item.nodePath + ", label: " + label)
-                        }
+                        item.chIcon = cRef ? fixtureManager.channelIcon(cRef.id, index) : ""
 
                         if (item.hasOwnProperty('cRef'))
                             item.cRef = classRef

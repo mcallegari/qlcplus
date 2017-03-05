@@ -44,12 +44,7 @@ FixtureManager::FixtureManager(QQuickView *view, Doc *doc, QObject *parent)
 
     qmlRegisterType<QLCCapability>("com.qlcplus.classes", 1, 0, "QLCCapability");
 
-    m_fixtureTree = new TreeModel(this);
-    QQmlEngine::setObjectOwnership(m_fixtureTree, QQmlEngine::CppOwnership);
-    QStringList treeColumns;
-    treeColumns << "classRef";
-    m_fixtureTree->setColumnNames(treeColumns);
-    m_fixtureTree->enableSorting(true);
+    m_fixtureTree = NULL;
 
     connect(m_doc, SIGNAL(loaded()),
             this, SLOT(slotDocLoaded()));
@@ -370,6 +365,17 @@ QQmlListProperty<Fixture> FixtureManager::fixtures()
 
 QVariant FixtureManager::groupsTreeModel()
 {
+    if (m_fixtureTree == NULL)
+    {
+        m_fixtureTree = new TreeModel(this);
+        QQmlEngine::setObjectOwnership(m_fixtureTree, QQmlEngine::CppOwnership);
+        QStringList treeColumns;
+        treeColumns << "classRef" << "type" << "id" << "subid";
+        m_fixtureTree->setColumnNames(treeColumns);
+        m_fixtureTree->enableSorting(true);
+        updateFixtureTree();
+    }
+
     return QVariant::fromValue(m_fixtureTree);
 }
 
@@ -529,7 +535,9 @@ QVariantList FixtureManager::presetsChannels(QLCChannel::Group group)
 
 void FixtureManager::updateFixtureTree()
 {
-    // create the fixture groups data model
+    if (m_fixtureTree == NULL)
+        return;
+
     m_fixtureTree->clear();
 
     QStringList uniNames = m_doc->inputOutputMap()->universeNames();
@@ -537,9 +545,33 @@ void FixtureManager::updateFixtureTree()
     // add the current universes as groups
     for (Fixture *fixture : m_doc->fixtures()) // C++11
     {
+        if (fixture->universe() >= (quint32)uniNames.count())
+            continue;
+
+        QString chPath = QString("%1/%2").arg(uniNames.at(fixture->universe())).arg(fixture->name());
+
+        for (quint32 c = 0; c < fixture->channels(); c++)
+        {
+            const QLCChannel* channel = fixture->channel(c);
+            if (channel == NULL)
+                continue;
+
+            QVariantList chParams;
+            chParams.append(QVariant::fromValue(NULL)); // classRef
+            chParams.append("FC"); // type
+            chParams.append(fixture->id()); // id
+            chParams.append(c); // subid
+            m_fixtureTree->addItem(channel->name(), chParams, chPath);
+        }
+
+        // when all the channel 'leaves' have been added, set the parent node data
         QVariantList params;
-        params.append(QVariant::fromValue(fixture));
-        m_fixtureTree->addItem(fixture->name(), params, uniNames.at(fixture->universe()));
+        params.append(QVariant::fromValue(fixture)); // classRef
+        params.append("FX"); // type
+        params.append(fixture->id()); // id
+        params.append(-1); // subid
+
+        m_fixtureTree->setPathData(chPath, params);
     }
 
     // add the actual Fixture Groups
@@ -550,11 +582,34 @@ void FixtureManager::updateFixtureTree()
             Fixture *fixture = m_doc->fixture(fxID);
             if (fixture == NULL)
                 continue;
+
+            QString chPath = QString("%1/%2").arg(grp->name()).arg(fixture->name());
+            for (quint32 c = 0; c < fixture->channels(); c++)
+            {
+                const QLCChannel* channel = fixture->channel(c);
+                if (channel == NULL)
+                    continue;
+
+                QVariantList chParams;
+                chParams.append(QVariant::fromValue(NULL)); // classRef
+                chParams.append("FC"); // type
+                chParams.append(fixture->id()); // id
+                chParams.append(c); // subid
+                m_fixtureTree->addItem(channel->name(), chParams, chPath);
+            }
+
+            // when all the channel 'leaves' have been added, set the parent node data
             QVariantList params;
-            params.append(QVariant::fromValue(fixture));
-            m_fixtureTree->addItem(fixture->name(), params, grp->name());
+            params.append(QVariant::fromValue(fixture)); // classRef
+            params.append("FX"); // type
+            params.append(fixture->id()); // id
+            params.append(-1); // subid
+            m_fixtureTree->setPathData(chPath, params);
         }
     }
+
+    //m_fixtureTree->printTree(); // enable for debug purposes
+
     emit groupsTreeModelChanged();
     emit groupsListModelChanged();
 }
