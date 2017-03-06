@@ -90,10 +90,6 @@ VCSpeedDialProperties::VCSpeedDialProperties(VCSpeedDial* dial, Doc* doc)
     m_absoluteInputWidget->show();
     m_absoluteInputLayout->addWidget(m_absoluteInputWidget);
 
-    /* Tap */
-    m_tapBlinkFeedback->setChecked(m_dial->tapFeedbackType() == SpeedDial::Blink);
-    m_tapFlashFeedback->setChecked(m_dial->tapFeedbackType() == SpeedDial::Flash);
-
     /* Tap input */
     m_tapInputWidget = new InputSelectionWidget(m_doc, this);
     m_tapInputWidget->setInputSource(m_dial->inputSource(VCSpeedDial::tapInputSourceId));
@@ -217,12 +213,6 @@ void VCSpeedDialProperties::accept()
 
     m_dial->setInputSource(m_applyInputWidget->inputSource(), VCSpeedDial::applyInputSourceId);
     m_dial->setApplyKeySequence(m_applyInputWidget->keySequence());
-
-    /* Tap */
-    if (m_tapBlinkFeedback->isChecked())
-        m_dial->setTapFeedbackType(SpeedDial::Blink);
-    else if (m_tapFlashFeedback->isChecked())
-        m_dial->setTapFeedbackType(SpeedDial::Flash);
 
     // Mult & Div
     m_dial->setResetFactorOnDialChange(m_resetFactorOnDialChangeCb->isChecked());
