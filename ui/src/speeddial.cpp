@@ -44,6 +44,7 @@
 #define TIMER_HOLD       250
 #define TIMER_REPEAT     10
 #define TAP_STOP_TIMEOUT 30000
+#define MIN_FLASH_TIME   125
 
 #define DEFAULT_VISIBILITY_MASK 0x00FF
 
@@ -289,8 +290,6 @@ void SpeedDial::updateTapTimer()
         // Limit m_tapTickElapseTimer's interval to 20/200ms for nice effect
         if (m_value > 1000)
             m_tapTickElapseTimer->setInterval(200);
-        else if (m_value < 100)
-            m_tapTickElapseTimer->setInterval(20);
         else
             m_tapTickElapseTimer->setInterval(m_value / 5);
         m_tapTickTimer->start();
@@ -564,9 +563,12 @@ void SpeedDial::slotTapClicked()
 
 void SpeedDial::slotTapTimeout()
 {
+    if (m_value <= MIN_FLASH_TIME)
+        return;
+
     if (m_tapTick == false) 
     {
-        m_tapTickElapseTimer->start(); // turn off tap light after 1/5th of time
+        m_tapTickElapseTimer->start(); // turn off tap light after some time
         m_tap->setStyleSheet(tapTickSS);
     }
     else
