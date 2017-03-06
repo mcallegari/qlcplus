@@ -56,7 +56,7 @@ Rectangle
             height: parent.height - 6
             color: "gray"
             font.family: "FontAwesome"
-            font.pixelSize: parent.height - 6
+            font.pixelSize: height
             text: FontAwesome.fa_search
         }
 
@@ -70,7 +70,7 @@ Rectangle
             color: UISettings.fgMain
             text: fixtureBrowser.searchString
             font.family: "Roboto Condensed"
-            font.pixelSize: parent.height - 6
+            font.pixelSize: height
             selectionColor: UISettings.highlightPressed
             selectByMouse: true
 

@@ -19,74 +19,74 @@
 
 function drawEllipse (ctx, eX, eY, eWidth, eHeight)
 {
-    var step = 2*Math.PI/30
-    var r = eWidth / 2
-    var xFactor = 1.0
-    var yFactor = 1.0
+    var step = 2*Math.PI/30;
+    var r = eWidth / 2;
+    var xFactor = 1.0;
+    var yFactor = 1.0;
     if (eWidth > eHeight)
-        yFactor = eHeight / eWidth
+        yFactor = eHeight / eWidth;
     if (eHeight > eWidth)
     {
-        xFactor = eWidth / eHeight
-        r = eHeight / 2
+        xFactor = eWidth / eHeight;
+        r = eHeight / 2;
     }
 
-    ctx.beginPath()
+    ctx.beginPath();
     for(var theta = 0; theta < 2*Math.PI; theta+=step)
     {
-       var x = eX + xFactor * r * Math.cos(theta)
-       var y = eY - yFactor * r * Math.sin(theta)
-       ctx.lineTo(x,y)
+       var x = eX + xFactor * r * Math.cos(theta);
+       var y = eY - yFactor * r * Math.sin(theta);
+       ctx.lineTo(x,y);
     }
 
-    ctx.closePath()     //close the end to the start point
-    ctx.stroke()
+    ctx.closePath(); //close the end to the start point
+    ctx.stroke();
 }
 
 function degToRad(degrees)
 {
-    return degrees * (Math.PI / 180)
+    return degrees * (Math.PI / 180);
 }
 
 function drawCursor(ctx, eX, eY, eWidth, eHeight, degrees, radius)
 {
-    var r = eWidth / 2
-    var xFactor = 1.0
-    var yFactor = 1.0
+    var r = eWidth / 2;
+    var xFactor = 1.0;
+    var yFactor = 1.0;
     if (eWidth > eHeight)
-        yFactor = eHeight / eWidth
+        yFactor = eHeight / eWidth;
     if (eHeight > eWidth)
     {
-        xFactor = eWidth / eHeight
-        r = eHeight / 2
+        xFactor = eWidth / eHeight;
+        r = eHeight / 2;
     }
 
-    var radPos = degToRad(degrees)
-    var x = eX + xFactor * r * Math.cos(radPos)
-    var y = eY + yFactor * r * Math.sin(radPos)
+    var radPos = degToRad(degrees);
+    var x = eX + xFactor * r * Math.cos(radPos);
+    var y = eY + yFactor * r * Math.sin(radPos);
 
-    ctx.beginPath()
-    ctx.ellipse(x - (radius / 2), y - (radius / 2), radius, radius)
-    ctx.fill()
+    ctx.beginPath();
+    ctx.ellipse(x - (radius / 2), y - (radius / 2), radius, radius);
+    ctx.fill();
     ctx.closePath();    //close the end to the start point
-    ctx.stroke()
+    ctx.stroke();
 }
 
 function drawBasement(ctx, eWidth, eHeight)
 {
     ctx.fillStyle = "#222";
-    ctx.strokeStyle = "#333"
-    ctx.beginPath()
-    var halfWidth = eWidth / 2
-    var thirdWidth = eWidth / 3
-    var baseHeight = eHeight / 7
-    ctx.moveTo(halfWidth - thirdWidth, eHeight)
-    ctx.lineTo(halfWidth - (thirdWidth * 0.75), eHeight - baseHeight)
-    ctx.lineTo(halfWidth + (thirdWidth * 0.75), eHeight - baseHeight)
-    ctx.lineTo(halfWidth + thirdWidth, eHeight)
-    ctx.lineTo(halfWidth - thirdWidth, eHeight)
+    ctx.strokeStyle = "#333";
+    ctx.beginPath();
+    var halfWidth = eWidth / 2;
+    var thirdWidth = eWidth / 3;
+    var baseHeight = eHeight / 7;
+    ctx.moveTo(halfWidth - thirdWidth, eHeight);
+    ctx.lineTo(halfWidth - (thirdWidth * 0.75), eHeight - baseHeight);
+    ctx.lineTo(halfWidth + (thirdWidth * 0.75), eHeight - baseHeight);
+    ctx.lineTo(halfWidth + thirdWidth, eHeight);
+    ctx.lineTo(halfWidth - thirdWidth, eHeight);
 
-    ctx.fill()
+    ctx.fill();
     ctx.closePath();    //close the end to the start point
-    ctx.stroke()
+    ctx.stroke();
 }

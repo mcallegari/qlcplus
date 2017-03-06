@@ -60,11 +60,13 @@
     <file alias="PositionTool.qml">qml/fixturesfunctions/PositionTool.qml</file>
     <file alias="PresetsTool.qml">qml/fixturesfunctions/PresetsTool.qml</file>
     <file alias="PresetCapabilityItem.qml">qml/fixturesfunctions/PresetCapabilityItem.qml</file>
+    <file alias="FixtureChannelDelegate.qml">qml/fixturesfunctions/FixtureChannelDelegate.qml</file>
     <file alias="FixtureBrowser.qml">qml/fixturesfunctions/FixtureBrowser.qml</file>
     <file alias="FixtureProperties.qml">qml/fixturesfunctions/FixtureProperties.qml</file>
     <file alias="FixtureDragItem.qml">qml/fixturesfunctions/FixtureDragItem.qml</file>
     <file alias="FixtureBrowserDelegate.qml">qml/fixturesfunctions/FixtureBrowserDelegate.qml</file>
     <file alias="FixtureGroupEditor.qml">qml/fixturesfunctions/FixtureGroupEditor.qml</file>
+    <file alias="FixtureNodeDelegate.qml">qml/fixturesfunctions/FixtureNodeDelegate.qml</file>
     <file alias="GridEditor.qml">qml/fixturesfunctions/GridEditor.qml</file>
     <file alias="UniverseGridView.qml">qml/fixturesfunctions/UniverseGridView.qml</file>
     <file alias="DMXView.qml">qml/fixturesfunctions/DMXView.qml</file>
@@ -131,7 +133,7 @@
     <!-- JavaScript helpers -->
     <file alias="CanvasDrawFunctions.js">js/CanvasDrawFunctions.js</file>
     <file alias="FixtureDrag.js">js/FixtureDrag.js</file>
-    <file alias="PluginUtils.js">js/PluginUtils.js</file>
+    <file alias="GenericHelpers.js">js/GenericHelpers.js</file>
     <file alias="TimeUtils.js">js/TimeUtils.js</file>
     
   </qresource>

@@ -27,7 +27,7 @@ var testAlgo;
         algo.apiVersion = 1;
         algo.name = "Vertical fall";
         algo.author = "Massimo Callegari";
-	algo.acceptColors = 1;
+        algo.acceptColors = 1;
         
         var util = new Object;
         util.initialized = false;
@@ -35,9 +35,9 @@ var testAlgo;
         util.fallObject = new Array();
         util.objYPos = new Array();
         util.objmap = new Array();
-	
-	util.initialize = function(rgb, width, height)
-	{
+        
+        util.initialize = function(rgb, width, height)
+        {
             var r = (rgb >> 16) & 0x00FF;
             var g = (rgb >> 8) & 0x00FF;
             var b = rgb & 0x00FF;
@@ -70,10 +70,10 @@ var testAlgo;
             }
 
             util.color = rgb;
-	    util.initialized = true;
-	}
-	
-	util.getNextStep = function(width, height)
+            util.initialized = true;
+        };
+
+        util.getNextStep = function(width, height)
         {
             for (var x = 0; x < width; x++)
             {
@@ -102,7 +102,7 @@ var testAlgo;
                     objYPos[x] = -1;
             }
             return objmap;
-        }
+        };
 
         algo.rgbMap = function(width, height, rgb, step)
         {
@@ -110,16 +110,16 @@ var testAlgo;
                 util.initialize(rgb, width, height);
 
             return util.getNextStep(width, height);
-        }
+        };
 
         algo.rgbMapStepCount = function(width, height)
         {
             return 1;
-        }
+        };
 
         // Development tool access
         testAlgo = algo;
 
         return algo;
     }
-)()
+)();

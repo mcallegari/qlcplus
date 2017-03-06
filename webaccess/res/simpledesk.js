@@ -18,6 +18,13 @@
 */
 
 var websocket;
+
+function getPage(uni, page) {
+ var address = ((page - 1) * channelsPerPage) + 1;
+ var wsMsg = "QLC+API|getChannelsValues|" + uni + "|" + address + "|" + channelsPerPage;
+ websocket.send(wsMsg);
+}
+
 window.onload = function() {
    var url = 'ws://' + window.location.host + '/qlcplusWS';
    websocket = new WebSocket(url);
@@ -42,17 +49,17 @@ window.onload = function() {
 };
 
 function getGroupIconName(grp) {
-   if (grp == 0) return "intensity.png";
-   else if (grp == 1) return "colorwheel.png";
-   else if (grp == 2) return "gobo.png";
-   else if (grp == 3) return "speed.png";
-   else if (grp == 4) return "pan.png";
-   else if (grp == 5) return "tilt.png";
-   else if (grp == 6) return "shutter.png";
-   else if (grp == 7) return "prism.png";
-   else if (grp == 8) return "beam.png";
-   else if (grp == 9) return "star.png";
-   else if (grp == 10) return "configure.png";
+   if (grp === 0) return "intensity.png";
+   else if (grp === 1) return "colorwheel.png";
+   else if (grp === 2) return "gobo.png";
+   else if (grp === 3) return "speed.png";
+   else if (grp === 4) return "pan.png";
+   else if (grp === 5) return "tilt.png";
+   else if (grp === 6) return "shutter.png";
+   else if (grp === 7) return "prism.png";
+   else if (grp === 8) return "beam.png";
+   else if (grp === 9) return "star.png";
+   else if (grp === 10) return "configure.png";
    return "";
 }
 
@@ -102,19 +109,13 @@ function nextPage() {
 }
 
 function previousPage() {
- if (currentPage == 1)
+ if (currentPage === 1)
    currentPage = (512 / channelsPerPage);
  else
    currentPage--;
  var pgObj = document.getElementById("pageDiv");
  pgObj.innerHTML = currentPage;
  getPage(currentUniverse, currentPage);
-}
-
-function getPage(uni, page) {
- var address = ((page - 1) * channelsPerPage) + 1;
- var wsMsg = "QLC+API|getChannelsValues|" + uni + "|" + address + "|" + channelsPerPage;
- websocket.send(wsMsg);
 }
 
 function universeChanged(uniIdx) {

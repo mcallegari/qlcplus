@@ -91,7 +91,7 @@ Rectangle
             else if (xDiv < yDiv)
                 View2D.cellPixels = xDiv * View2D.gridScale
 
-            console.log("Cell size calculated: " + View2D.cellPixels)
+            //console.log("Cell size calculated: " + View2D.cellPixels)
 
             contentWidth = View2D.cellPixels * gridSize.width;
             contentHeight = View2D.cellPixels * gridSize.height;

@@ -192,11 +192,9 @@ void QLCFixtureEditor::init()
 
 void QLCFixtureEditor::closeEvent(QCloseEvent* e)
 {
-    int r = 0;
-
     if (m_modified)
     {
-        r = QMessageBox::information(this, tr("Close"),
+        int r = QMessageBox::information(this, tr("Close"),
                                      tr("Do you want to save changes to fixture\n\""
                                         "%1\"\nbefore closing?").arg(m_fixtureDef->name()),
                                      QMessageBox::Yes,
@@ -491,7 +489,6 @@ void QLCFixtureEditor::slotRemoveChannel()
 void QLCFixtureEditor::slotEditChannel()
 {
     QLCChannel* real = NULL;
-    QTreeWidgetItem* item = NULL;
 
     // Initialize the dialog with the selected logical channel or
     // bail out if there is no current selection
@@ -520,7 +517,7 @@ void QLCFixtureEditor::slotEditChannel()
             // Copy the channel's contents to the real channel
             *real = *(ec.channel());
 
-            item = m_channelList->currentItem();
+            QTreeWidgetItem *item = m_channelList->currentItem();
             updateChannelItem(real, item);
             m_channelList->resizeColumnToContents(CH_COL_NAME);
 

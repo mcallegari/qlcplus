@@ -659,7 +659,9 @@ QString WebAccess::getWidgetHTML(VCWidget *widget)
 
 void WebAccess::slotFramePageChanged(int pageNum)
 {
-    VCWidget *frame = (VCWidget *)sender();
+    VCWidget *frame = qobject_cast<VCWidget *>(sender());
+    if (frame == NULL)
+        return;
 
     QString wsMessage = QString("%1|FRAME|%2").arg(frame->id()).arg(pageNum);
     QByteArray ba = wsMessage.toUtf8();
@@ -770,7 +772,9 @@ QString WebAccess::getSoloFrameHTML(VCSoloFrame *frame)
 
 void WebAccess::slotButtonToggled(bool on)
 {
-    VCButton *btn = (VCButton *)sender();
+    VCButton *btn = qobject_cast<VCButton *>(sender());
+    if (btn == NULL)
+        return;
 
     QString wsMessage = QString::number(btn->id());
     if (on == true)
@@ -807,7 +811,9 @@ QString WebAccess::getButtonHTML(VCButton *btn)
 
 void WebAccess::slotSliderValueChanged(QString val)
 {
-    VCSlider *slider = (VCSlider *)sender();
+    VCSlider *slider = qobject_cast<VCSlider *>(sender());
+    if (slider == NULL)
+        return;
 
     // <ID>|SLIDER|<SLIDER VALUE>|<DISPLAY VALUE>
     QString wsMessage = QString("%1|SLIDER|%2|%3").arg(slider->id()).arg(slider->sliderValue()).arg(val);
@@ -897,7 +903,9 @@ QString WebAccess::getAudioTriggersHTML(VCAudioTriggers *triggers)
 
 void WebAccess::slotCueIndexChanged(int idx)
 {
-    VCCueList *cue = (VCCueList *)sender();
+    VCCueList *cue = qobject_cast<VCCueList *>(sender());
+    if (cue == NULL)
+        return;
 
     QString wsMessage = QString("%1|CUE|%2").arg(cue->id()).arg(idx);
 
@@ -1050,7 +1058,9 @@ QString WebAccess::getChildrenHTML(VCWidget *frame, int pagesNum, int currentPag
 
     QString unifiedHTML;
     QStringList pagesHTML;
-    VCFrame *lframe = (VCFrame *)frame;
+    VCFrame *lframe = qobject_cast<VCFrame *>(frame);
+    if (lframe == NULL)
+        return "";
 
     if (lframe->multipageMode() == true)
     {
@@ -1086,25 +1096,25 @@ QString WebAccess::getChildrenHTML(VCWidget *frame, int pagesNum, int currentPag
         switch (widget->type())
         {
             case VCWidget::FrameWidget:
-                str = getFrameHTML((VCFrame *)widget);
+                str = getFrameHTML(qobject_cast<VCFrame *>(widget));
             break;
             case VCWidget::SoloFrameWidget:
-                str = getSoloFrameHTML((VCSoloFrame *)widget);
+                str = getSoloFrameHTML(qobject_cast<VCSoloFrame *>(widget));
             break;
             case VCWidget::ButtonWidget:
-                str = getButtonHTML((VCButton *)widget);
+                str = getButtonHTML(qobject_cast<VCButton *>(widget));
             break;
             case VCWidget::SliderWidget:
-                str = getSliderHTML((VCSlider *)widget);
+                str = getSliderHTML(qobject_cast<VCSlider *>(widget));
             break;
             case VCWidget::LabelWidget:
-                str = getLabelHTML((VCLabel *)widget);
+                str = getLabelHTML(qobject_cast<VCLabel *>(widget));
             break;
             case VCWidget::AudioTriggersWidget:
-                str = getAudioTriggersHTML((VCAudioTriggers *)widget);
+                str = getAudioTriggersHTML(qobject_cast<VCAudioTriggers *>(widget));
             break;
             case VCWidget::CueListWidget:
-                str = getCueListHTML((VCCueList *)widget);
+                str = getCueListHTML(qobject_cast<VCCueList *>(widget));
             break;
             default:
                 str = getWidgetHTML(widget);

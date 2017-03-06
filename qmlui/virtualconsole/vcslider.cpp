@@ -28,11 +28,18 @@
 
 VCSlider::VCSlider(Doc *doc, QObject *parent)
     : VCWidget(doc, parent)
+    , m_channelsTree(NULL)
     , m_widgetMode(WSlider)
     , m_valueDisplayStyle(DMXValue)
     , m_invertedAppearance(false)
     , m_sliderMode(Playback)
     , m_value(0)
+    , m_levelLowLimit(0)
+    , m_levelHighLimit(UCHAR_MAX)
+    , m_levelValue(0)
+    , m_levelValueChanged(false)
+    , m_monitorEnabled(false)
+    , m_monitorValue(0)
     , m_playbackFunction(Function::invalidId())
 {
     setType(VCWidget::SliderWidget);
@@ -83,6 +90,21 @@ void VCSlider::render(QQuickView *view, QQuickItem *parent)
 QString VCSlider::propertiesResource() const
 {
     return QString("qrc:/VCSliderProperties.qml");
+}
+
+QVariant VCSlider::channelsList()
+{
+/*
+    if (m_channelsTree == NULL)
+    {
+        m_channelsTree = new TreeModel(this);
+        QQmlEngine::setObjectOwnership(m_channelsTree, QQmlEngine::CppOwnership);
+        QStringList treeColumns;
+        treeColumns << "classRef" << "uni" << "fxID" << "chIndex";
+        m_channelsTree->setColumnNames(treeColumns);
+    }
+*/
+    return QVariant::fromValue(m_channelsTree);
 }
 
 /*****************************************************************************
@@ -237,6 +259,83 @@ void VCSlider::setValue(int value)
     emit valueChanged(value);
 }
 
+/*********************************************************************
+ * Level mode
+ *********************************************************************/
+void VCSlider::setLevelLowLimit(uchar value)
+{
+    if (value == m_levelLowLimit)
+        return;
+
+    m_levelLowLimit = value;
+    emit levelLowLimitChanged();
+}
+
+uchar VCSlider::levelLowLimit() const
+{
+    return m_levelLowLimit;
+}
+
+void VCSlider::setLevelHighLimit(uchar value)
+{
+    if (value == m_levelLowLimit)
+        return;
+
+    m_levelHighLimit = value;
+    emit levelHighLimitChanged();
+}
+
+uchar VCSlider::levelHighLimit() const
+{
+    return m_levelHighLimit;
+}
+
+void VCSlider::addLevelChannel(quint32 fixture, quint32 channel)
+{
+    SceneValue lch(fixture, channel);
+
+    if (m_levelChannels.contains(lch) == false)
+    {
+        m_levelChannels.append(lch);
+        qSort(m_levelChannels.begin(), m_levelChannels.end());
+    }
+}
+
+void VCSlider::removeLevelChannel(quint32 fixture, quint32 channel)
+{
+    SceneValue lch(fixture, channel);
+    m_levelChannels.removeAll(lch);
+}
+
+void VCSlider::clearLevelChannels()
+{
+    m_levelChannels.clear();
+}
+
+QList<SceneValue> VCSlider::levelChannels()
+{
+    return m_levelChannels;
+}
+
+void VCSlider::setLevelValue(uchar value)
+{
+    m_levelValueMutex.lock();
+    m_levelValue = value;
+    if (m_monitorEnabled == true)
+        m_monitorValue = m_levelValue;
+    m_levelValueChanged = true;
+    m_levelValueMutex.unlock();
+}
+
+uchar VCSlider::levelValue() const
+{
+    return m_levelValue;
+}
+
+/*********************************************************************
+ * Playback mode
+ *********************************************************************/
+
 quint32 VCSlider::playbackFunction() const
 {
     return m_playbackFunction;
@@ -326,6 +425,9 @@ bool VCSlider::loadXML(QXmlStreamReader &root)
         return false;
     }
 
+    SliderMode sliderMode = Playback;
+    QString str;
+
     /* Widget commons */
     loadXMLCommon(root);
 
@@ -357,10 +459,131 @@ bool VCSlider::loadXML(QXmlStreamReader &root)
         {
             loadXMLInputSource(root, INPUT_SLIDER_CONTROL_ID);
         }
+        else if (root.name() == KXMLQLCVCSliderMode)
+        {
+            QXmlStreamAttributes mAttrs = root.attributes();
+            sliderMode = stringToSliderMode(root.readElementText());
+
+            str = mAttrs.value(KXMLQLCVCSliderValueDisplayStyle).toString();
+            setValueDisplayStyle(stringToValueDisplayStyle(str));
+/*
+            if (mAttrs.hasAttribute(KXMLQLCVCSliderClickAndGoType))
+            {
+                str = mAttrs.value(KXMLQLCVCSliderClickAndGoType).toString();
+                setClickAndGoType(ClickAndGoWidget::stringToClickAndGoType(str));
+            }
+
+            if (mAttrs.hasAttribute(KXMLQLCVCSliderLevelMonitor))
+            {
+                if (mAttrs.value(KXMLQLCVCSliderLevelMonitor).toString() == "false")
+                    setChannelsMonitorEnabled(false);
+                else
+                    setChannelsMonitorEnabled(true);
+            }
+*/
+        }
+        else if (root.name() == KXMLQLCVCSliderLevel)
+        {
+            loadXMLLevel(root);
+        }
+        else if (root.name() == KXMLQLCVCSliderPlayback)
+        {
+            loadXMLPlayback(root);
+        }
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown slider tag:" << root.name().toString();
             root.skipCurrentElement();
+        }
+    }
+
+    /* Set the mode last, after everything else has been set */
+    setSliderMode(sliderMode);
+
+    return true;
+}
+
+
+bool VCSlider::loadXMLLevel(QXmlStreamReader &level_root)
+{
+    QString str;
+
+    if (level_root.name() != KXMLQLCVCSliderLevel)
+    {
+        qWarning() << Q_FUNC_INFO << "Slider level node not found";
+        return false;
+    }
+
+    QXmlStreamAttributes attrs = level_root.attributes();
+
+    /* Level low limit */
+    str = attrs.value(KXMLQLCVCSliderLevelLowLimit).toString();
+    setLevelLowLimit(str.toInt());
+
+    /* Level high limit */
+    str = attrs.value(KXMLQLCVCSliderLevelHighLimit).toString();
+    setLevelHighLimit(str.toInt());
+
+    /* Level value */
+    str = attrs.value(KXMLQLCVCSliderLevelValue).toString();
+    setLevelValue(str.toInt());
+
+    QXmlStreamReader::TokenType tType = level_root.readNext();
+
+    if (tType == QXmlStreamReader::EndElement)
+    {
+        level_root.readNext();
+        return true;
+    }
+
+    if (tType == QXmlStreamReader::Characters)
+        tType = level_root.readNext();
+
+    // check if there is a Channel tag defined
+    if (tType == QXmlStreamReader::StartElement)
+    {
+        /* Children */
+        do
+        {
+            if (level_root.name() == KXMLQLCVCSliderChannel)
+            {
+                /* Fixture & channel */
+                str = level_root.attributes().value(KXMLQLCVCSliderChannelFixture).toString();
+                addLevelChannel(
+                    static_cast<quint32>(str.toInt()),
+                    static_cast<quint32> (level_root.readElementText().toInt()));
+            }
+            else
+            {
+                qWarning() << Q_FUNC_INFO << "Unknown slider level tag:" << level_root.name().toString();
+                level_root.skipCurrentElement();
+            }
+        } while (level_root.readNextStartElement());
+    }
+
+    return true;
+}
+
+bool VCSlider::loadXMLPlayback(QXmlStreamReader &pb_root)
+{
+    if (pb_root.name() != KXMLQLCVCSliderPlayback)
+    {
+        qWarning() << Q_FUNC_INFO << "Slider playback node not found";
+        return false;
+    }
+
+    /* Children */
+    while (pb_root.readNextStartElement())
+    {
+        if (pb_root.name() == KXMLQLCVCSliderPlaybackFunction)
+        {
+            /* Function */
+            setPlaybackFunction(pb_root.readElementText().toUInt());
+        }
+        else
+        {
+            qWarning() << Q_FUNC_INFO << "Unknown slider playback tag:" << pb_root.name().toString();
+            pb_root.skipCurrentElement();
         }
     }
 

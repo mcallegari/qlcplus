@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  FixtureDelegate.qml
+  FixtureChannelDelegate.qml
 
   Copyright (c) Massimo Callegari
 
@@ -20,18 +20,17 @@
 import QtQuick 2.0
 
 import com.qlcplus.classes 1.0
-import "GenericHelpers.js" as Helpers
 import "."
 
 Rectangle
 {
-    id: fxDelegate
+    id: chDelegate
     width: 100
     height: UISettings.listItemHeight
 
     color: "transparent"
 
-    property Fixture cRef
+    property string chIcon: ""
     property string textLabel: cRef ? cRef.name : ""
     property bool isSelected: false
     property Item dragItem
@@ -46,28 +45,39 @@ Rectangle
         visible: isSelected
     }
 
-    IconTextEntry
+    Row
     {
-        id: fxEntry
-        width: parent.width
-        height: parent.height
-        tLabel: textLabel
-        iSrc: cRef ? Helpers.fixtureIconFromType(cRef.type) : ""
+        CustomCheckBox
+        {
+            id: chCheckBox
+            height: UISettings.listItemHeight
+            width: height
+        }
+
+        IconTextEntry
+        {
+            id: chEntry
+            height: UISettings.listItemHeight
+            width: chDelegate.width - chCheckBox.width
+            tLabel: textLabel
+            iSrc: chIcon
+
+            MouseArea
+            {
+                anchors.fill: parent
+                hoverEnabled: true
+
+                onClicked: chDelegate.mouseEvent(App.Clicked, cRef.id, cRef.type, chDelegate, mouse.modifiers)
+                onDoubleClicked: chDelegate.mouseEvent(App.DoubleClicked, cRef.id, cRef.type, chDelegate, -1)
+            }
+        }
     }
+
     Rectangle
     {
         width: parent.width
         height: 1
         y: parent.height - 1
         color: "#666"
-    }
-
-    MouseArea
-    {
-        anchors.fill: parent
-        hoverEnabled: true
-
-        onClicked: fxDelegate.mouseEvent(App.Clicked, cRef.id, cRef.type, fxDelegate, mouse.modifiers)
-        onDoubleClicked: fxDelegate.mouseEvent(App.DoubleClicked, cRef.id, cRef.type, fxDelegate, -1)
     }
 }

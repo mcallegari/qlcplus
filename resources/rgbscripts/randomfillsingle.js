@@ -54,7 +54,7 @@ var testAlgo;
             }
 
             return list;
-        }
+        };
 
         /**
          * Create one full map of size($width, $height), where exactly
@@ -78,7 +78,7 @@ var testAlgo;
             }
 
             return map;
-        }
+        };
 
         /**
          * Create map with the real rgb value (because it now changes at each step)
@@ -99,7 +99,7 @@ var testAlgo;
             }
 
             return map;
-        }
+        };
 
         /**
          * The actual "algorithm" for this RGB script. Produces a map of
@@ -145,7 +145,7 @@ var testAlgo;
             // refresh with real color
 
             return util.createStepRgb(width, height, algo.steps[step], rgb);
-        }
+        };
 
         /**
          * Tells RGB Matrix how many steps this algorithm produces with size($width, $height)
@@ -160,11 +160,11 @@ var testAlgo;
             // at a time. Therefore, the maximum number of steps produced by this
             // script on a 5 * 5 grid is 25.
             return width * height;
-        }
+        };
 
         // Development tool access
         testAlgo = algo;
 
         return algo;
     }
-)()
+)();

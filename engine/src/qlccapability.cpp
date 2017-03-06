@@ -37,13 +37,13 @@ QLCCapability::QLCCapability(uchar min, uchar max, const QString& name,
                              const QString &resource, const QColor &color1,
                              const QColor &color2, QObject *parent)
     : QObject(parent)
+    , m_min(min)
+    , m_max(max)
+    , m_name(name)
+    , m_resourceName(resource)
+    , m_resourceColor1(color1)
+    , m_resourceColor2(color2)
 {
-    m_min = min;
-    m_max = max;
-    m_name = name;
-    m_resourceName = resource;
-    m_resourceColor1 = color1;
-    m_resourceColor2 = color2;
 }
 
 QLCCapability *QLCCapability::createCopy()

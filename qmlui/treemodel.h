@@ -38,6 +38,7 @@ public:
         PathRole,
         IsExpandedRole,
         IsSelectedRole,
+        IsCheckedRole,
         ItemsCountRole,
         HasChildrenRole,
         ChildrenModel,
@@ -46,27 +47,45 @@ public:
 
     enum TreeFlags
     {
-        Selected = 0,
-        Expanded
+        Selected = (1 << 0),
+        Expanded = (1 << 1),
+        Checked  = (1 << 2)
     };
 
     TreeModel(QObject *parent = 0);
     ~TreeModel();
 
+    /** Recursive clear of all the tree items */
     void clear();
 
+    /** Set a list of custom column names */
     void setColumnNames(QStringList names);
 
+    /** Enable/disable the alphabetic sort of the tree items */
     void enableSorting(bool enable);
 
+    /** Add a new item to this tree.
+     *  Note that by 'item' here we mean 'leaf' with name $label and path $path.
+     *  If $path is composed (e.g. a/b/c/d) all the top nodes will be created, by
+     *  using the TreeModelItem::addChild method.
+     *  Therefore, $data belongs to the leaf, if you want to add data to a top node,
+     *  use the setPathData method.
+     *  $flags are used to give an item a specific initial state. See TreeFlags */
     TreeModelItem *addItem(QString label, QVariantList data, QString path = QString(), int flags = 0);
 
+    /** Set columns data on a specific item with the provided $path */
+    void setPathData(QString path, QVariantList data);
+
+    /** @reimp */
     Q_INVOKABLE int rowCount(const QModelIndex & parent = QModelIndex()) const;
 
+    /** @reimp */
     QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
 
+    /** @reimp */
     bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
 
+    /** Helper method to print the tree in human readable form */
     void printTree(int tab = 0);
 
 signals:

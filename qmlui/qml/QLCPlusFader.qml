@@ -33,26 +33,30 @@ Slider
     stepSize: 1.0
 
     property bool touchPressed: false
+    property Gradient handleGradient: defaultGradient
+    property Gradient handleGradientHover: defaultGradientHover
+    property color trackColor: defaultTrackColor
 
-    Gradient
-    {
-        id: handleGradient
-        GradientStop { position: 0; color: "#ccc" }
-        GradientStop { position: 0.45; color: "#555" }
-        GradientStop { position: 0.50; color: "#000" }
-        GradientStop { position: 0.55; color: "#555" }
-        GradientStop { position: 1.0; color: "#888" }
-    }
+    property color defaultTrackColor: "#38b0ff"
+    property Gradient defaultGradient:
+        Gradient
+        {
+            GradientStop { position: 0; color: "#ccc" }
+            GradientStop { position: 0.45; color: "#555" }
+            GradientStop { position: 0.50; color: "#000" }
+            GradientStop { position: 0.55; color: "#555" }
+            GradientStop { position: 1.0; color: "#888" }
+        }
 
-    Gradient
-    {
-        id: handleGradientHover
-        GradientStop { position: 0; color: "#eee" }
-        GradientStop { position: 0.45; color: "#999" }
-        GradientStop { position: 0.50; color: "red" }
-        GradientStop { position: 0.55; color: "#999" }
-        GradientStop { position: 1.0; color: "#ccc" }
-    }
+    property Gradient defaultGradientHover:
+        Gradient
+        {
+            GradientStop { position: 0; color: "#eee" }
+            GradientStop { position: 0.45; color: "#999" }
+            GradientStop { position: 0.50; color: "red" }
+            GradientStop { position: 0.55; color: "#999" }
+            GradientStop { position: 1.0; color: "#ccc" }
+        }
 
     MultiPointTouchArea
     {
@@ -79,7 +83,7 @@ Slider
         width: implicitWidth
         height: slider.availableHeight
         radius: 2
-        color: "#38b0ff"
+        color: trackColor
 
         Rectangle {
             width: parent.width

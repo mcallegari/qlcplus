@@ -31,13 +31,13 @@
  ****************************************************************************/
 
 QLCInputChannel::QLCInputChannel()
+    : m_type(Button)
+    , m_movementType(Absolute)
+    , m_movementSensitivity(20)
+    , m_sendExtraPress(false)
+    , m_lower(0)
+    , m_upper(UCHAR_MAX)
 {
-    m_type = Button;
-    m_movementType = Absolute;
-    m_movementSensitivity = 20;
-    m_sendExtraPress = false;
-    m_lower = 0;
-    m_upper = UCHAR_MAX;
 }
 
 QLCInputChannel::QLCInputChannel(const QLCInputChannel& channel)

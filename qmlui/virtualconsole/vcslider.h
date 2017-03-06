@@ -21,6 +21,7 @@
 #define VCSLIDER_H
 
 #include "vcwidget.h"
+#include "treemodel.h"
 
 #define KXMLQLCVCSlider "Slider"
 
@@ -53,12 +54,17 @@ class VCSlider : public VCWidget
 {
     Q_OBJECT
 
+    Q_PROPERTY(QVariant channelsList READ channelsList CONSTANT)
+
     Q_PROPERTY(SliderWidgetStyle widgetStyle READ widgetStyle WRITE setWidgetStyle NOTIFY widgetStyleChanged)
     Q_PROPERTY(ValueDisplayStyle valueDisplayStyle READ valueDisplayStyle WRITE setValueDisplayStyle NOTIFY valueDisplayStyleChanged)
     Q_PROPERTY(bool invertedAppearance READ invertedAppearance WRITE setInvertedAppearance NOTIFY invertedAppearanceChanged)
     Q_PROPERTY(SliderMode sliderMode READ sliderMode WRITE setSliderMode NOTIFY sliderModeChanged)
     Q_PROPERTY(int value READ value WRITE setValue NOTIFY valueChanged)
     Q_PROPERTY(quint32 playbackFunction READ playbackFunction WRITE setPlaybackFunction NOTIFY playbackFunctionChanged)
+
+    Q_PROPERTY(int levelLowLimit READ levelLowLimit WRITE setLevelLowLimit NOTIFY levelLowLimitChanged)
+    Q_PROPERTY(int levelHighLimit READ levelHighLimit WRITE setLevelHighLimit NOTIFY levelHighLimitChanged)
 
     /*********************************************************************
      * Initialization
@@ -78,6 +84,13 @@ public:
 
     /** @reimp */
     QString propertiesResource() const;
+
+    QVariant channelsList();
+
+protected:
+    /** Reference to a tree model representing Groups/Fitures/Channels
+      * This is created only when the UI requests it to confgure the Level mode */
+    TreeModel *m_channelsTree;
 
     /*********************************************************************
      * Widget style
@@ -170,8 +183,78 @@ signals:
 protected:
     int m_value;
 
+
     /*********************************************************************
-     * Playback
+     * Level mode
+     *********************************************************************/
+public:
+    /** Set/Get the lower limit for levels set through the slider */
+    void setLevelLowLimit(uchar value);
+    uchar levelLowLimit() const;
+
+    /** Set/Get high limit for levels set through the slider */
+    void setLevelHighLimit(uchar value);
+    uchar levelHighLimit() const;
+
+    /**
+     * Add a channel from a fixture into the slider's list of
+     * level channels.
+     *
+     * @param fixture Fixture ID
+     * @param channel A channel from the fixture
+     */
+    void addLevelChannel(quint32 fixture, quint32 channel);
+
+    /**
+     * Remove a fixture & channel from the slider's list of
+     * level channels.
+     *
+     * @param fixture Fixture ID
+     * @param channel A channel from the fixture
+     */
+    void removeLevelChannel(quint32 fixture, quint32 channel);
+
+    /**
+     * Clear the list of level channels
+     *
+     */
+    void clearLevelChannels();
+
+    /** Get the list of channels that this slider controls */
+    QList <SceneValue> levelChannels();
+
+signals:
+    void levelLowLimitChanged();
+    void levelHighLimitChanged();
+
+protected:
+    /**
+     * Set the level to all channels that have been assigned to
+     * the slider.
+     *
+     * @param value DMX value
+     */
+    void setLevelValue(uchar value);
+
+    /**
+     * Get the current "level" mode value
+     */
+    uchar levelValue() const;
+
+protected:
+    QList <SceneValue> m_levelChannels;
+    uchar m_levelLowLimit;
+    uchar m_levelHighLimit;
+
+    QMutex m_levelValueMutex;
+    uchar m_levelValue;
+    bool m_levelValueChanged;
+
+    bool m_monitorEnabled;
+    uchar m_monitorValue;
+
+    /*********************************************************************
+     * Playback mode
      *********************************************************************/
 public:
     quint32 playbackFunction() const;
@@ -198,6 +281,9 @@ public slots:
      *********************************************************************/
 public:
     bool loadXML(QXmlStreamReader &root);
+    bool loadXMLLevel(QXmlStreamReader &level_root);
+    bool loadXMLPlayback(QXmlStreamReader &pb_root);
+
     //bool saveXML(QXmlStreamWriter *doc);
 };
 

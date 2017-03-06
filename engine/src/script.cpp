@@ -668,8 +668,6 @@ QString Script::handleJump(const QList<QStringList>& tokens)
 QList <QStringList> Script::tokenizeLine(const QString& str, bool* ok)
 {
     QList<QStringList> tokens;
-    int left = 0;
-    int right = 0;
     QString keyword;
     QString value;
 
@@ -684,6 +682,8 @@ QList <QStringList> Script::tokenizeLine(const QString& str, bool* ok)
     {
         // Truncate everything after the first comment sign
         QString line = str;
+        int left = 0;
+
         while (left != -1)
         {
             left = line.indexOf("//", left);
@@ -701,7 +701,7 @@ QList <QStringList> Script::tokenizeLine(const QString& str, bool* ok)
         while (left < line.length())
         {
             // Find the next colon to get the keyword
-            right = line.indexOf(":", left);
+            int right = line.indexOf(":", left);
             if (right == -1)
             {
                 qDebug() << "Syntax error:" << line.mid(left);

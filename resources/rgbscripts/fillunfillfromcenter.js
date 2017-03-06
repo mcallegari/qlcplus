@@ -38,7 +38,7 @@ var testAlgo;
             algo.orientation = 1;
         else
             algo.orientation = 0;
-    }
+    };
 
     algo.getOrientation = function()
     {
@@ -46,7 +46,7 @@ var testAlgo;
             return "Vertical";
         else
             return "Horizontal";
-    }
+    };
 
     algo.rgbMap = function(width, height, rgb, step)
     {
@@ -92,7 +92,7 @@ var testAlgo;
         }
 
         return map;
-    }
+    };
 
     algo.rgbMapStepCount = function(width, height)
     {
@@ -100,11 +100,11 @@ var testAlgo;
             return Math.floor((parseInt(width) + 1) / 2) * 2 - 1;
         else
             return Math.floor((parseInt(height) + 1) / 2) * 2 - 1;
-    }
+    };
 
     // Development tool access
     testAlgo = algo;
 
     return algo;
     }
-)()
+)();
