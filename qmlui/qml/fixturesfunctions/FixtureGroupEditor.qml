@@ -125,13 +125,6 @@ Rectangle
                             }
                         }
                     }
-                    /*
-                    Connections
-                    {
-                          target: item
-                          onDoubleClicked: { }
-                    }
-                    */
                 } // Loader
               } // Component
         } // ListView

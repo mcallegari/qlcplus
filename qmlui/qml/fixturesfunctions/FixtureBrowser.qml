@@ -29,7 +29,6 @@ Rectangle
     anchors.fill: parent
     color: "transparent"
 
-    property string selectedManufacturer
     property int manufacturerIndex: fixtureBrowser.manufacturerIndex
     property string selectedModel
 
@@ -83,7 +82,7 @@ Rectangle
         id: manufacturerList
         x: 8
         z: 0
-        visible: selectedManufacturer.length == 0 && fixtureBrowser.searchString.length < 3
+        visible: fixtureBrowser.selectedManufacturer.length == 0 && fixtureBrowser.searchString.length < 3
         anchors.top: searchBox.bottom
         anchors.topMargin: 6
         anchors.bottom: parent.bottom
@@ -110,7 +109,7 @@ Rectangle
         }
         highlightFollowsCurrentItem: false
 
-        model: fixtureBrowser.manufacturers()
+        model: fixtureBrowser.manufacturers
         delegate: FixtureBrowserDelegate
         {
             isManufacturer: true
@@ -119,11 +118,10 @@ Rectangle
             {
                 if (type == App.Clicked)
                 {
-                    selectedManufacturer = modelData
                     mfText.label = modelData
-                    fixtureList.model = fixtureBrowser.models(modelData)
-                    fixtureList.currentIndex = -1
                     fixtureBrowser.manufacturerIndex = index
+                    fixtureBrowser.selectedManufacturer = modelData
+                    modelsList.currentIndex = -1
                 }
             }
         }
@@ -136,7 +134,7 @@ Rectangle
     Rectangle
     {
         id: fixtureArea
-        visible: selectedManufacturer.length && fixtureBrowser.searchString.length < 3
+        visible: fixtureBrowser.selectedManufacturer.length && fixtureBrowser.searchString.length < 3
         color: "transparent"
 
         width: parent.width
@@ -185,14 +183,14 @@ Rectangle
                 onClicked:
                 {
                     fxPropsRect.visible = false
-                    selectedManufacturer = ""
+                    fixtureBrowser.selectedManufacturer = ""
                 }
             }
         }
 
         ListView
         {
-            id: fixtureList
+            id: modelsList
             z: 0
 
             width: parent.width
@@ -205,34 +203,32 @@ Rectangle
             highlight:
                 Rectangle
                 {
-                    width: fixtureList.width - 30
+                    width: modelsList.width - 30
                     height: UISettings.listItemHeight - 2
                     color: UISettings.highlight
                     radius: 5
-                    y: fixtureList.currentItem ? fixtureList.currentItem.y + 1 : 0
+                    y: modelsList.currentItem ? modelsList.currentItem.y + 1 : 0
                 }
             highlightFollowsCurrentItem: false
 
+            model: fixtureBrowser.modelsList
             delegate: FixtureBrowserDelegate
             {
                 id: dlg
-                manufacturer: selectedManufacturer
+                manufacturer: fixtureBrowser.selectedManufacturer
                 textLabel: modelData
 
                 onMouseEvent:
                 {
                     if (type == App.Clicked)
                     {
-                        fixtureList.currentIndex = index
-                        fixtureBrowser.model = modelData
-                        fxPropsRect.fxManufacturer = selectedManufacturer
-                        fxPropsRect.fxModel = modelData
-                        fxPropsRect.fxName = modelData
+                        modelsList.currentIndex = index
+                        fixtureBrowser.selectedModel = modelData
                         fxPropsRect.visible = true
                     }
                 }
             }
-            ScrollBar { flickable: fixtureList }
+            ScrollBar { flickable: modelsList }
         }
     }
 
@@ -269,8 +265,6 @@ Rectangle
                             source: hasChildren ? "qrc:/TreeNodeDelegate.qml" : "qrc:/FixtureBrowserDelegate.qml"
                             onLoaded:
                             {
-                                //item.isSelected = Qt.binding(function() { return isSelected })
-
                                 if (hasChildren)
                                 {
                                     item.textLabel = label
@@ -289,9 +283,10 @@ Rectangle
                                     if (type === App.Clicked)
                                     {
                                         console.log("Item clicked with path: " + item.nodePath + "/" + qItem.textLabel)
+                                        model.isSelected = 2
                                         qItem.manufacturer = item.nodePath
-                                        fxPropsRect.fxManufacturer = qItem.manufacturer
-                                        fxPropsRect.fxModel = qItem.textLabel
+                                        fixtureBrowser.selectedManufacturer = qItem.manufacturer
+                                        fixtureBrowser.selectedModel = qItem.textLabel
                                         fxPropsRect.fxName = qItem.textLabel
                                         fxPropsRect.visible = true
                                     }

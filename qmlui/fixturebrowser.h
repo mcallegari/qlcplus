@@ -32,7 +32,17 @@ class FixtureBrowser : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(int manufacturerIndex READ manufacturerIndex WRITE setManufacturerIndex NOTIFY selectedManufacturerIndexChanged)
+    Q_PROPERTY(QStringList manufacturers READ manufacturers CONSTANT)
+    Q_PROPERTY(int manufacturerIndex READ manufacturerIndex WRITE setManufacturerIndex NOTIFY manufacturerIndexChanged)
+    Q_PROPERTY(QString selectedManufacturer READ selectedManufacturer WRITE setSelectedManufacturer NOTIFY selectedManufacturerChanged)
+
+    Q_PROPERTY(QStringList modelsList READ modelsList NOTIFY modelsListChanged)
+    Q_PROPERTY(QString selectedModel READ selectedModel WRITE setSelectedModel NOTIFY selectedModelChanged)
+
+    Q_PROPERTY(QStringList modesList READ modesList NOTIFY modesListChanged)
+    Q_PROPERTY(QString selectedMode READ selectedMode WRITE setSelectedMode NOTIFY selectedModeChanged)
+    Q_PROPERTY(int modeChannelsCount READ modeChannelsCount WRITE setModeChannelsCount NOTIFY modeChannelsCountChanged)
+
     Q_PROPERTY(QString searchString READ searchString WRITE setSearchString NOTIFY searchStringChanged)
     Q_PROPERTY(QVariant searchTreeModel READ searchTreeModel NOTIFY searchListChanged)
     Q_PROPERTY(QVariant modeChannelList READ modeChannelList NOTIFY modeChannelListChanged)
@@ -40,10 +50,27 @@ class FixtureBrowser : public QObject
 public:
     FixtureBrowser(QQuickView *view, Doc *doc, QObject *parent = 0);
 
-    Q_INVOKABLE QStringList manufacturers();
-    Q_INVOKABLE QStringList models(QString manufacturer);
-    Q_INVOKABLE QStringList modes(QString manufacturer, QString model);
-    Q_INVOKABLE int modeChannels(QString modeName);
+    QStringList manufacturers();
+
+    int manufacturerIndex() const;
+    void setManufacturerIndex(int index);
+
+    QString selectedManufacturer() const;
+    void setSelectedManufacturer(QString selectedManufacturer);
+
+    QStringList modelsList();
+
+    QString selectedModel() const;
+    void setSelectedModel(QString selectedModel);
+
+    QStringList modesList();
+
+    QString selectedMode() const;
+    void setSelectedMode(QString selectedMode);
+
+    int modeChannelsCount();
+    void setModeChannelsCount(int modeChannelsCount);
+    QVariant modeChannelList() const;
 
     /** Check if the group of fixtures with the specified $uniIdx, $channels, $quantity and $gap
      *  can be created in the $requested DMX address.
@@ -63,18 +90,24 @@ public:
 
     QVariant searchTreeModel() const;
 
-    QVariant modeChannelList() const;
+public slots:
 
-    int manufacturerIndex() const;
-    void setManufacturerIndex(int index);
 
 signals:
-    void selectedManufacturerIndexChanged(int manufacturerIndex);
-    void modeChanged();
-    void modeChannelsChanged();
+    void manufacturerIndexChanged(int manufacturerIndex);
+    void selectedManufacturerChanged(QString selectedManufacturer);
+
+    void modelsListChanged();
+    void selectedModelChanged(QString selectedModel);
+
+    void modesListChanged();
+    void selectedModeChanged(QString selectedMode);
+
+    void modeChannelsCountChanged();
+    void modeChannelListChanged();
+
     void searchStringChanged(QString searchString);
     void searchListChanged();
-    void modeChannelListChanged();
 
 private:
     void updateSearchTree();
@@ -84,6 +117,15 @@ private:
     QQuickView *m_view;
     /** The index of the currently selected manufacturer */
     int m_manufacturerIndex;
+    /** The currently selected manufacturer as string */
+    QString m_selectedManufacturer;
+    /** The currently selected fixture model as string */
+    QString m_selectedModel;
+    /** The currently selected fixture mode as string */
+    QString m_selectedMode;
+    /** The currently selected mode channels number.
+     *  If no mode is available this can be defined by the user */
+    int m_modeChannelsCount;
     /** Reference of the currently selected fixture definition */
     QLCFixtureDef *m_definition;
     /** Reference of the currently selected fixture mode */

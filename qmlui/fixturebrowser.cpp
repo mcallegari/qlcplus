@@ -33,6 +33,10 @@ FixtureBrowser::FixtureBrowser(QQuickView *view, Doc *doc, QObject *parent)
     , m_doc(doc)
     , m_view(view)
     , m_manufacturerIndex(0)
+    , m_selectedManufacturer(QString())
+    , m_selectedModel(QString())
+    , m_selectedMode(QString())
+    , m_modeChannelsCount(1)
     , m_definition(NULL)
     , m_mode(NULL)
     , m_searchString(QString())
@@ -50,23 +54,53 @@ QStringList FixtureBrowser::manufacturers()
     QStringList mfList = m_doc->fixtureDefCache()->manufacturers();
     mfList.sort();
     m_manufacturerIndex = mfList.indexOf("Generic");
-    emit selectedManufacturerIndexChanged(m_manufacturerIndex);
+    emit manufacturerIndexChanged(m_manufacturerIndex);
     return mfList;
 }
 
-QStringList FixtureBrowser::models(QString manufacturer)
+QString FixtureBrowser::selectedManufacturer() const
 {
-    qDebug() << "[FixtureBrowser] Fixtures list for" << manufacturer;
-    QStringList fxList = m_doc->fixtureDefCache()->models(manufacturer);
+    return m_selectedManufacturer;
+}
+
+void FixtureBrowser::setSelectedManufacturer(QString selectedManufacturer)
+{
+    if (m_selectedManufacturer == selectedManufacturer)
+        return;
+
+    m_selectedManufacturer = selectedManufacturer;
+    emit selectedManufacturerChanged(selectedManufacturer);
+    emit modelsListChanged();
+}
+
+QStringList FixtureBrowser::modelsList()
+{
+    qDebug() << "[FixtureBrowser] Fixtures list for" << m_selectedManufacturer;
+    QStringList fxList = m_doc->fixtureDefCache()->models(m_selectedManufacturer);
     fxList.sort();
     return fxList;
 }
 
-QStringList FixtureBrowser::modes(QString manufacturer, QString model)
+QString FixtureBrowser::selectedModel() const
+{
+    return m_selectedModel;
+}
+
+void FixtureBrowser::setSelectedModel(QString selectedModel)
+{
+    if (m_selectedModel == selectedModel)
+        return;
+
+    m_selectedModel = selectedModel;
+    emit selectedModelChanged(selectedModel);
+    emit modesListChanged();
+}
+
+QStringList FixtureBrowser::modesList()
 {
     QStringList modesList;
 
-    m_definition = m_doc->fixtureDefCache()->fixtureDef(manufacturer, model);
+    m_definition = m_doc->fixtureDefCache()->fixtureDef(m_selectedManufacturer, m_selectedModel);
 
     if (m_definition != NULL)
     {
@@ -77,16 +111,41 @@ QStringList FixtureBrowser::modes(QString manufacturer, QString model)
     return modesList;
 }
 
-int FixtureBrowser::modeChannels(QString modeName)
+QString FixtureBrowser::selectedMode() const
+{
+    return m_selectedMode;
+}
+
+void FixtureBrowser::setSelectedMode(QString selectedMode)
+{
+    if (m_selectedMode == selectedMode)
+        return;
+
+    m_selectedMode = selectedMode;
+    emit selectedModeChanged(selectedMode);
+    emit modeChannelsCountChanged();
+    emit modeChannelListChanged();
+}
+
+int FixtureBrowser::modeChannelsCount()
 {
     if (m_definition != NULL)
     {
-        m_mode = m_definition->mode(modeName);
-        emit modeChannelListChanged();
+        m_mode = m_definition->mode(m_selectedMode);
+
         if (m_mode != NULL)
             return m_mode->channels().count();
     }
-    return 0;
+    return m_modeChannelsCount;
+}
+
+void FixtureBrowser::setModeChannelsCount(int modeChannelsCount)
+{
+    if (m_modeChannelsCount == modeChannelsCount)
+        return;
+
+    m_modeChannelsCount = modeChannelsCount;
+    emit modeChannelsCountChanged();
 }
 
 QVariant FixtureBrowser::modeChannelList() const
@@ -119,7 +178,7 @@ void FixtureBrowser::setManufacturerIndex(int index)
         return;
 
     m_manufacturerIndex = index;
-    emit selectedManufacturerIndexChanged(index);
+    emit manufacturerIndexChanged(index);
 }
 
 int FixtureBrowser::availableChannel(quint32 uniIdx, int channels, int quantity, int gap, int requested)
@@ -212,6 +271,12 @@ void FixtureBrowser::setSearchString(QString searchString)
 {
     if (m_searchString == searchString)
         return;
+
+    if (m_searchString.length() >= SEARCH_MIN_CHARS && searchString.length() < SEARCH_MIN_CHARS)
+    {
+        m_selectedManufacturer = "";
+        emit selectedManufacturerChanged(m_selectedManufacturer);
+    }
 
     m_searchString = searchString;
 

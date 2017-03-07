@@ -30,13 +30,11 @@ Rectangle
     height: columnContainer.height + 8
     color: UISettings.bgLight
 
-    property string fxManufacturer
-    property string fxModel
-    property string fxMode: fxModesCombo.currentText
-    property string fxName
+    property string fxMode: fixtureBrowser.selectedMode
+    property string fxName: fixtureBrowser.selectedModel
     property int fxUniverseIndex: fxUniverseCombo.currentIndex
     property int fxAddress: fxAddressSpin.value
-    property int fxChannels: fxModeChSpin.value
+    property int fxChannels: fixtureBrowser.modeChannelsCount
     property int fxQuantity: fxQuantitySpin.value
     property int fxGap: fxGapSpin.value
 
@@ -142,7 +140,6 @@ Rectangle
             CustomSpinBox
             {
                 id: fxAddressSpin
-                //width: (parent.width - fxAddress.width - fxQuantity.width) / 2
                 Layout.fillWidth: true
                 from: 1
                 to: 512
@@ -157,7 +154,6 @@ Rectangle
             CustomSpinBox
             {
                 id: fxQuantitySpin
-                //width: (parent.width - fxAddress.width - fxQuantity.width) / 2
                 Layout.fillWidth: true
                 from: 1
                 to: 512
@@ -177,7 +173,8 @@ Rectangle
                 Layout.fillWidth: true
                 from: 1
                 to: 512
-                value: fixtureBrowser.modeChannels(fxMode)
+                value: fxChannels
+                onValueChanged: fixtureBrowser.modeChannelsCount = value
             }
             RobotoText
             {
@@ -220,9 +217,10 @@ Rectangle
                         id: fxModesCombo
                         height: propsGrid.itemsHeight
                         Layout.fillWidth: true
-                        model: fixtureBrowser.modes(fxManufacturer, fxModel)
+                        model: fixtureBrowser.modesList
+                        currentText: fxMode
                         onModelChanged: currentIndex = 0
-                        onCurrentTextChanged: fxProps.fxMode = currentText
+                        onCurrentTextChanged: fixtureBrowser.selectedMode = currentText
                     }
                     IconButton
                     {

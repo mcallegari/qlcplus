@@ -38,8 +38,8 @@ SpinBox
     property alias horizontalAlignment: textControl.horizontalAlignment
     property int controlWidth: showControls ? Math.min(UISettings.iconSizeMedium, control.width / 3) : 0
 
-    onFromChanged: if (value < from) value = from
-    onToChanged: if (value > to) value = to
+    onFromChanged: if (value < from) control.value = from
+    onToChanged: if (value > to) control.value = to
 
     MouseArea
     {
