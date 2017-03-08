@@ -24,7 +24,6 @@
 #include <QSet>
 
 #include "vcwidget.h"
-#include "speeddial.h"
 
 class VCSpeedDialFunction;
 class VCSpeedDialPreset;
