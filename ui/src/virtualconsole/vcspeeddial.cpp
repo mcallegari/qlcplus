@@ -73,6 +73,7 @@ VCSpeedDial::VCSpeedDial(QWidget* parent, Doc* doc)
     speedDialHBox->addWidget(m_dial);
     connect(m_dial, SIGNAL(valueChanged(int)), this, SLOT(slotDialValueChanged()));
     connect(m_dial, SIGNAL(tapped()), this, SLOT(slotDialTapped()));
+    connect(m_dial, SIGNAL(tapTimeout()), this, SLOT(slotTapTimeout()));
 
     m_factoredValue = m_dial->value();
 
@@ -322,6 +323,11 @@ void VCSpeedDial::slotDialTapped()
     }
 }
 
+void VCSpeedDial::slotTapTimeout()
+{
+    updateFeedback();
+}
+
 void VCSpeedDial::slotUpdate()
 {
     int currentValue = m_dial->value();
@@ -546,11 +552,16 @@ bool VCSpeedDial::resetFactorOnDialChange() const
 
 void VCSpeedDial::updateFeedback()
 {
+    // Feedback to absolute input source
     int fbv = (int)SCALE(float(m_dial->value()), float(m_absoluteValueMin),
                      float(m_absoluteValueMax), float(0), float(UCHAR_MAX));
 
     sendFeedback(fbv, absoluteInputSourceId);
 
+    // Feedback to tap button
+    sendFeedback(m_dial->isTapTick() ? 255 : 0, tapInputSourceId);
+
+    // Feedback to preset buttons
     for (QHash<QWidget*, VCSpeedDialPreset*>::iterator it = m_presets.begin();
             it != m_presets.end(); ++it)
     {
