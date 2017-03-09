@@ -154,8 +154,10 @@ void SceneEditor::init(bool applyValues)
                                          tr("Disable all channels in current fixture"), this);
     m_copyAction = new QAction(QIcon(":/editcopy.png"),
                                tr("Copy current values to clipboard"), this);
+    m_copyAction->setShortcut(QKeySequence("Ctrl+C"));
     m_pasteAction = new QAction(QIcon(":/editpaste.png"),
                                 tr("Paste clipboard values to current fixture"), this);
+    m_pasteAction->setShortcut(QKeySequence("Ctrl+V"));
     m_copyToAllAction = new QAction(QIcon(":/editcopyall.png"),
                                     tr("Copy current values to all fixtures"), this);
     m_colorToolAction = new QAction(QIcon(":/color.png"),
@@ -172,11 +174,11 @@ void SceneEditor::init(bool applyValues)
                                  tr("Clone this scene and append as a new step to the selected chaser"), this);
 
     m_nextTabAction = new QAction(QIcon(":/forward.png"), tr("Go to next fixture tab"), this);
-    m_nextTabAction->setShortcut(QKeySequence("Alt+Right"));
+    m_nextTabAction->setShortcut(QKeySequence("Ctrl+Shift+Right"));
     connect(m_nextTabAction, SIGNAL(triggered(bool)),
             this, SLOT(slotGoToNextTab()));
     m_prevTabAction = new QAction(QIcon(":/back.png"), tr("Go to previous fixture tab"), this);
-    m_prevTabAction->setShortcut(QKeySequence("Alt+Left"));
+    m_prevTabAction->setShortcut(QKeySequence("Ctrl+Shift+Left"));
     connect(m_prevTabAction, SIGNAL(triggered(bool)),
             this, SLOT(slotGoToPreviousTab()));
 
