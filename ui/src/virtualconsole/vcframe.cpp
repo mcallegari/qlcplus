@@ -142,19 +142,24 @@ void VCFrame::setLiveEdit(bool liveEdit)
 
 void VCFrame::setCaption(const QString& text)
 {
-    if (m_label != NULL && !shortcuts().isEmpty() && m_currentPage < shortcuts().length())
+    if (m_label != NULL)
     {
-        // Show caption, if there is no page name
-        if (m_pageShortcuts.at(m_currentPage)->name() == "")
-            m_label->setText(text);
-        else
+        if(!shortcuts().isEmpty() && m_currentPage < shortcuts().length())
         {
-            // Show only page name, if there is no caption
-            if (text == "")
-                m_label->setText(m_pageShortcuts.at(m_currentPage)->name());
+            // Show caption, if there is no page name
+            if (m_pageShortcuts.at(m_currentPage)->name() == "")
+                m_label->setText(text);
             else
-                m_label->setText(text + " - " + m_pageShortcuts.at(m_currentPage)->name());
+            {
+                // Show only page name, if there is no caption
+                if (text == "")
+                    m_label->setText(m_pageShortcuts.at(m_currentPage)->name());
+                else
+                    m_label->setText(text + " - " + m_pageShortcuts.at(m_currentPage)->name());
+            }
         }
+        else
+            m_label->setText(text);
     }
 
     VCWidget::setCaption(text);
