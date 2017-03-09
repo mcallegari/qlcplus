@@ -291,7 +291,7 @@ void SpeedDial::updateTapTimer()
         if (m_value > 1000)
             m_tapTickElapseTimer->setInterval(200);
         else
-            m_tapTickElapseTimer->setInterval(m_value / 5);
+            m_tapTickElapseTimer->setInterval(m_value / 3);
         m_tapTickTimer->start();
     }
 }
