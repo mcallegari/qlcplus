@@ -709,18 +709,24 @@ void VirtualConsole::connectWidgetToParent(VCWidget *widget, VCWidget *parent)
     if (parent->type() == VCWidget::FrameWidget
             || parent->type() == VCWidget::SoloFrameWidget)
     {
-        VCFrame *frame = (VCFrame *)parent;
-        widget->setPage(frame->currentPage());
-        frame->addWidgetToPageMap(widget);
+        VCFrame *frame = qobject_cast<VCFrame *>(parent);
+        if (frame != NULL)
+        {
+            widget->setPage(frame->currentPage());
+            frame->addWidgetToPageMap(widget);
+        }
     }
     else
         widget->setPage(0);
 
     if (widget->type() == VCWidget::SliderWidget)
     {
-        VCSlider *slider = (VCSlider *)widget;
-        connect(slider, SIGNAL(submasterValueChanged(qreal)),
-                parent, SLOT(slotSubmasterValueChanged(qreal)));
+        VCSlider *slider = qobject_cast<VCSlider *>(widget);
+        if (slider != NULL)
+        {
+            connect(slider, SIGNAL(submasterValueChanged(qreal)),
+                    parent, SLOT(slotSubmasterValueChanged(qreal)));
+        }
     }
 }
 
@@ -729,15 +735,19 @@ void VirtualConsole::disconnectWidgetFromParent(VCWidget *widget, VCWidget *pare
     if (parent->type() == VCWidget::FrameWidget
             || parent->type() == VCWidget::SoloFrameWidget)
     {
-        VCFrame *frame = (VCFrame *)parent;
-        frame->removeWidgetFromPageMap(widget);
+        VCFrame *frame = qobject_cast<VCFrame *>(parent);
+        if (frame != NULL)
+            frame->removeWidgetFromPageMap(widget);
     }
 
     if (widget->type() == VCWidget::SliderWidget)
     {
-        VCSlider *slider = (VCSlider *)widget;
-        disconnect(slider, SIGNAL(submasterValueChanged(qreal)),
-                parent, SLOT(slotSubmasterValueChanged(qreal)));
+        VCSlider *slider = qobject_cast<VCSlider *>(widget);
+        if (slider != NULL)
+        {
+            disconnect(slider, SIGNAL(submasterValueChanged(qreal)),
+                       parent, SLOT(slotSubmasterValueChanged(qreal)));
+        }
     }
 }
 
