@@ -247,63 +247,63 @@ void FunctionManager::initActions()
     /* Manage actions */
     m_addSceneAction = new QAction(QIcon(":/scene.png"),
                                    tr("New &scene"), this);
-    m_addSceneAction->setShortcut(QKeySequence("CTRL+S"));
+    m_addSceneAction->setShortcut(QKeySequence("CTRL+Shift+S"));
     connect(m_addSceneAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddScene()));
 
     m_addChaserAction = new QAction(QIcon(":/chaser.png"),
                                     tr("New c&haser"), this);
-    m_addChaserAction->setShortcut(QKeySequence("CTRL+H"));
+    m_addChaserAction->setShortcut(QKeySequence("CTRL+Shift+C"));
     connect(m_addChaserAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddChaser()));
 
     m_addSequenceAction = new QAction(QIcon(":/sequence.png"),
                                     tr("New se&quence"), this);
-    m_addSequenceAction->setShortcut(QKeySequence("CTRL+Q"));
+    m_addSequenceAction->setShortcut(QKeySequence("CTRL+Shift+Q"));
     connect(m_addSequenceAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddSequence()));
     m_addSequenceAction->setEnabled(false);
 
     m_addCollectionAction = new QAction(QIcon(":/collection.png"),
                                         tr("New c&ollection"), this);
-    m_addCollectionAction->setShortcut(QKeySequence("CTRL+O"));
+    m_addCollectionAction->setShortcut(QKeySequence("CTRL+Shift+O"));
     connect(m_addCollectionAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddCollection()));
 
     m_addEFXAction = new QAction(QIcon(":/efx.png"),
                                  tr("New E&FX"), this);
-    m_addEFXAction->setShortcut(QKeySequence("CTRL+F"));
+    m_addEFXAction->setShortcut(QKeySequence("CTRL+Shift+E"));
     connect(m_addEFXAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddEFX()));
 
     m_addRGBMatrixAction = new QAction(QIcon(":/rgbmatrix.png"),
                                  tr("New &RGB Matrix"), this);
-    m_addRGBMatrixAction->setShortcut(QKeySequence("CTRL+R"));
+    m_addRGBMatrixAction->setShortcut(QKeySequence("CTRL+Shift+R"));
     connect(m_addRGBMatrixAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddRGBMatrix()));
 
     m_addScriptAction = new QAction(QIcon(":/script.png"),
                                  tr("New scrip&t"), this);
-    m_addScriptAction->setShortcut(QKeySequence("CTRL+T"));
+    m_addScriptAction->setShortcut(QKeySequence("CTRL+Shift+T"));
     connect(m_addScriptAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddScript()));
 
     m_addAudioAction = new QAction(QIcon(":/audio.png"),
                                    tr("New au&dio"), this);
-    m_addAudioAction->setShortcut(QKeySequence("CTRL+D"));
+    m_addAudioAction->setShortcut(QKeySequence("CTRL+Shift+A"));
     connect(m_addAudioAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddAudio()));
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     m_addVideoAction = new QAction(QIcon(":/video.png"),
                                    tr("New vid&eo"), this);
-    m_addVideoAction->setShortcut(QKeySequence("CTRL+E"));
+    m_addVideoAction->setShortcut(QKeySequence("CTRL+Shift+V"));
     connect(m_addVideoAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddVideo()));
 #endif
     m_addFolderAction = new QAction(QIcon(":/folder.png"),
                                    tr("New fo&lder"), this);
-    m_addFolderAction->setShortcut(QKeySequence("CTRL+L"));
+    m_addFolderAction->setShortcut(QKeySequence("CTRL+Shift+N"));
     connect(m_addFolderAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddFolder()));
 
@@ -314,20 +314,23 @@ void FunctionManager::initActions()
 
     m_wizardAction = new QAction(QIcon(":/wizard.png"),
                                  tr("Function &Wizard"), this);
-    m_wizardAction->setShortcut(QKeySequence("CTRL+W"));
+    m_wizardAction->setShortcut(QKeySequence("CTRL+Shift+W"));
     connect(m_wizardAction, SIGNAL(triggered(bool)),
             this, SLOT(slotWizard()));
 
     /* Edit actions */
     m_cloneAction = new QAction(QIcon(":/editcopy.png"),
                                 tr("&Clone"), this);
-    m_cloneAction->setShortcut(QKeySequence("CTRL+C"));
+    m_cloneAction->setShortcut(QKeySequence("CTRL+Shift+D")); // D for Duplicate - standard in many OSes/apps
     connect(m_cloneAction, SIGNAL(triggered(bool)),
             this, SLOT(slotClone()));
 
     m_deleteAction = new QAction(QIcon(":/editdelete.png"),
                                  tr("&Delete"), this);
-    m_deleteAction->setShortcut(QKeySequence("Delete"));
+    // enable use of Command-Backspace on MacOS to match other apps
+    QList<QKeySequence> deleteActionShortcuts;
+    deleteActionShortcuts << QKeySequence("Ctrl+Backspace") << QKeySequence("Delete");
+    m_deleteAction->setShortcuts(deleteActionShortcuts);
     connect(m_deleteAction, SIGNAL(triggered(bool)),
             this, SLOT(slotDelete()));
 
@@ -376,7 +379,7 @@ void FunctionManager::slotAddScene()
         Q_ASSERT(item != NULL);
         f->setName(QString("%1 %2").arg(tr("New Scene")).arg(f->id()));
         m_tree->scrollToItem(item);
-        m_tree->setCurrentItem(item);
+        m_tree->setCurrentItem(item, COL_NAME, QItemSelectionModel::ClearAndSelect);
     }
 }
 
@@ -389,7 +392,7 @@ void FunctionManager::slotAddChaser()
         Q_ASSERT(item != NULL);
         f->setName(QString("%1 %2").arg(tr("New Chaser")).arg(f->id()));
         m_tree->scrollToItem(item);
-        m_tree->setCurrentItem(item);
+        m_tree->setCurrentItem(item, COL_NAME, QItemSelectionModel::ClearAndSelect);
     }
 }
 
@@ -412,7 +415,7 @@ void FunctionManager::slotAddSequence()
         Q_ASSERT(item != NULL);
         f->setName(QString("%1 %2").arg(tr("New Sequence")).arg(f->id()));
         m_tree->scrollToItem(item);
-        m_tree->setCurrentItem(item);
+        m_tree->setCurrentItem(item, COL_NAME, QItemSelectionModel::ClearAndSelect);
     }
 }
 
@@ -425,7 +428,7 @@ void FunctionManager::slotAddCollection()
         Q_ASSERT(item != NULL);
         f->setName(QString("%1 %2").arg(tr("New Collection")).arg(f->id()));
         m_tree->scrollToItem(item);
-        m_tree->setCurrentItem(item);
+        m_tree->setCurrentItem(item, COL_NAME, QItemSelectionModel::ClearAndSelect);
     }
 }
 
@@ -438,7 +441,7 @@ void FunctionManager::slotAddEFX()
         Q_ASSERT(item != NULL);
         f->setName(QString("%1 %2").arg(tr("New EFX")).arg(f->id()));
         m_tree->scrollToItem(item);
-        m_tree->setCurrentItem(item);
+        m_tree->setCurrentItem(item, COL_NAME, QItemSelectionModel::ClearAndSelect);
     }
 }
 
@@ -451,7 +454,7 @@ void FunctionManager::slotAddRGBMatrix()
         Q_ASSERT(item != NULL);
         f->setName(QString("%1 %2").arg(tr("New RGB Matrix")).arg(f->id()));
         m_tree->scrollToItem(item);
-        m_tree->setCurrentItem(item);
+        m_tree->setCurrentItem(item, COL_NAME, QItemSelectionModel::ClearAndSelect);
     }
 }
 
@@ -464,7 +467,7 @@ void FunctionManager::slotAddScript()
         Q_ASSERT(item != NULL);
         f->setName(QString("%1 %2").arg(tr("New Script")).arg(f->id()));
         m_tree->scrollToItem(item);
-        m_tree->setCurrentItem(item);
+        m_tree->setCurrentItem(item, COL_NAME, QItemSelectionModel::ClearAndSelect);
     }
 }
 
@@ -516,7 +519,7 @@ void FunctionManager::slotAddAudio()
         QTreeWidgetItem* item = m_tree->functionItem(f);
         Q_ASSERT(item != NULL);
         m_tree->scrollToItem(item);
-        m_tree->setCurrentItem(item);
+        m_tree->setCurrentItem(item, COL_NAME, QItemSelectionModel::ClearAndSelect);
     }
 }
 
@@ -569,7 +572,7 @@ void FunctionManager::slotAddVideo()
         QTreeWidgetItem* item = m_tree->functionItem(f);
         Q_ASSERT(item != NULL);
         m_tree->scrollToItem(item);
-        m_tree->setCurrentItem(item);
+        m_tree->setCurrentItem(item, COL_NAME, QItemSelectionModel::ClearAndSelect);
     }
 #endif
 }
@@ -891,7 +894,7 @@ void FunctionManager::copyFunction(quint32 fid)
     {
         copy->setName(copy->name() + tr(" (Copy)"));
         QTreeWidgetItem* item = m_tree->functionItem(copy);
-        m_tree->setCurrentItem(item);
+        m_tree->setCurrentItem(item, COL_NAME, QItemSelectionModel::ClearAndSelect);
     }
 }
 
