@@ -39,7 +39,7 @@ qlcplus (4.10.6) stable; urgency=low
   * New fixture: Clay Paky Alpha Spot HPE 575 (thanks to Rohmer)
   * New fixture: Robe LED Blinder 196LT (thanks to Tim Cullingworth)
   * New fixture: Chauvet COLORband T3 USB (thanks to Ian Nault)
-  * New fixture: American DJ Dotz Matrix (thanks to Sam Brooks)
+  * New fixtures: American DJ Dotz Matrix, Martin Jem Compact Hazer Pro (thanks to Sam Brooks)
   * New fixture: American DJ XS 400 (thanks to Jared)
   * New fixture: Velleman VDP1500SM (thanks to Freddy Hoogstoel)
   * New fixture: Chauvet Intimidator Spot 355Z IRC (thanks to Michael Clements)
@@ -53,6 +53,13 @@ qlcplus (4.10.6) stable; urgency=low
   * New fixture: ETC ColorSource PAR (thanks to Jon Rosen)
   * New fixture: lightmaXX 5ive STAR LED (thanks to Thomas Weber)
   * New fixture: Talent BL252A (thanks to Massimiliano Palmieri)
+  * New fixtures: Showtec: Infinity iW-1915, Infinity XPLO-15 LED Strobe (thanks to Daniele Fogale)
+  * New fixtures: Showtec: Infinity iB-5R, Compact Par 18 MKII, Phantom 20 LED Beam (thanks to Nicolò Zanon)
+  * New fixture: Griven Gobostorm Plus MK2 (thanks to Attilio Bongiorni)
+  * New fixture: Chauvet Freedom Stick (thanks to Jay Szewczyk)
+  * New fixture: Eurolite TMH-14 (thanks to Chris de Rock)
+  * New fixture: Chauvet Scorpion Dual (thanks to Alan Chavis)
+  * New fixture: American DJ Ultra Hex Bar 12 (thanks to Rhavin)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 5 Mar 2017 12:13:14 +0200
 

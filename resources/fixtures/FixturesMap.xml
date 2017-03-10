@@ -101,6 +101,7 @@
   <fixture path="American-DJ-Ultra-Bar-12.qxf" mf="American DJ" md="Ultra Bar 12"/>
   <fixture path="American-DJ-Ultra-Bar-6.qxf" mf="American DJ" md="Ultra Bar 6"/>
   <fixture path="American-DJ-Ultra-Bar-9.qxf" mf="American DJ" md="Ultra Bar 9"/>
+  <fixture path="American-DJ-Ultra-Hex-Bar-12.qxf" mf="American DJ" md="Ultra Hex Bar 12"/>
   <fixture path="American-DJ-Ultra-Hex-Par3.qxf" mf="American DJ" md="Ultra Hex Par3"/>
   <fixture path="American-DJ-UV-COB-Cannon.qxf" mf="American DJ" md="UV COB Cannon"/>
   <fixture path="American-DJ-UV-LED-Bar-20.qxf" mf="American DJ" md="UV LED Bar 20"/>
@@ -216,6 +217,7 @@
   <fixture path="Chauvet-Double-Derby-X.qxf" mf="Chauvet" md="Double Derby X"/>
   <fixture path="Chauvet-Eclipse-RGB.qxf" mf="Chauvet" md="Eclipse RGB"/>
   <fixture path="Chauvet-EZPAR-64-RGBA.qxf" mf="Chauvet" md="EZPar 64 RGBA"/>
+  <fixture path="Chauvet-Freedom-Stick.qxf" mf="Chauvet" md="Freedom Stick"/>
   <fixture path="Chauvet-GigBar-IRC.qxf" mf="Chauvet" md="GigBar IRC"/>
   <fixture path="Chauvet-Gobo-Zoom-LED-2.0.qxf" mf="Chauvet" md="Gobo Zoom LED 2.0"/>
   <fixture path="Chauvet-Gyser-RGB.qxf" mf="Chauvet" md="Gyser RGB"/>
@@ -260,6 +262,7 @@
   <fixture path="Chauvet-Rogue-RH1-Hybrid.qxf" mf="Chauvet" md="Rogue RH1 Hybrid"/>
   <fixture path="Chauvet-RotoSphere-LED.qxf" mf="Chauvet" md="RotoSphere LED"/>
   <fixture path="Chauvet-Scorpion-Bar-RG.qxf" mf="Chauvet" md="Scorpion Bar RG"/>
+  <fixture path="Chauvet-Scorpion-Dual.qxf" mf="Chauvet" md="Scorpion Dual"/>
   <fixture path="Chauvet-Scorpion-Storm-FX-RGB.qxf" mf="Chauvet" md="Scorpion Storm FX RGB"/>
   <fixture path="Chauvet-Shocker-90-IRC-QRG.qxf" mf="Chauvet" md="Shocker 90 IRC&#10;QRG"/>
   <fixture path="Chauvet-Slim-Par-Pro-RGBA.qxf" mf="Chauvet" md="Slim Par Pro RGBA"/>
@@ -397,6 +400,7 @@
   <fixture path="Eurolite-TF-5.qxf" mf="Eurolite" md="TF-5"/>
   <fixture path="Eurolite-TG-5.qxf" mf="Eurolite" md="TG-5"/>
   <fixture path="Eurolite-TMH-10.qxf" mf="Eurolite" md="TMH-10"/>
+  <fixture path="Eurolite-TMH-14.qxf" mf="Eurolite" md="TMH-14"/>
   <fixture path="Eurolite-TMH-155.qxf" mf="Eurolite" md="TMH-155"/>
   <fixture path="Eurolite-TMH-250.qxf" mf="Eurolite" md="TMH-250"/>
   <fixture path="Eurolite-TMH-8.qxf" mf="Eurolite" md="TMH-8"/>
@@ -474,6 +478,7 @@
   <fixture path="GLP-YPOCColor.qxf" mf="GLP" md="YPOC Color"/>
   <fixture path="GLP-YPOCColor575.qxf" mf="GLP" md="YPOC Color 575"/>
   <fixture path="GLX-Lighting-Power-LED-Beam-38-Narrow.qxf" mf="GLX Lighting" md="Power LED Beam 38 Narrow"/>
+  <fixture path="Griven-Gobostorm-Plus-MK2.qxf" mf="Griven" md="Gobostorm Plus MK2"/>
   <fixture path="Griven-Kolorado-2500.qxf" mf="Griven" md="Kolorado 2500"/>
   <fixture path="High-End-Systems-Studio-Beam.qxf" mf="High End Systems" md="Studio Beam"/>
   <fixture path="High-End-Systems-Studio-Command-1200.qxf" mf="High End Systems" md="Studio Command 1200"/>
@@ -565,6 +570,7 @@
   <fixture path="Martin-EFX-600.qxf" mf="Martin" md="EFX-600"/>
   <fixture path="Martin-EFX-700.qxf" mf="Martin" md="EFX-700"/>
   <fixture path="Martin-EFX-800.qxf" mf="Martin" md="EFX-800"/>
+  <fixture path="Martin-Jem-Compact-Hazer-Pro.qxf" mf="Martin" md="Jem Compact Hazer Pro"/>
   <fixture path="Martin-JEM-K1-Hazer.qxf" mf="Martin" md="JEM K1 Hazer"/>
   <fixture path="Martin-JEM-ZR44.qxf" mf="Martin" md="JEM ZR44"/>
   <fixture path="Martin-MAC-101.qxf" mf="Martin" md="MAC 101"/>
@@ -722,6 +728,7 @@
   <fixture path="Showtec-Acrobat.qxf" mf="Showtec" md="Acrobat"/>
   <fixture path="Showtec-Atmos-F-350.qxf" mf="Showtec" md="Atmos F-350"/>
   <fixture path="Showtec-Blade-Runner.qxf" mf="Showtec" md="Blade Runner"/>
+  <fixture path="Showtec-Compact-Par-18-MKII.qxf" mf="Showtec" md="Compact Par 18 MKII"/>
   <fixture path="Showtec-Compact-Par-18-Tri-MKII.qxf" mf="Showtec" md="Compact Par 18 Tri MKII"/>
   <fixture path="Showtec-Compact-Power-Lightset-COB.qxf" mf="Showtec" md="Compact Power Lightset COB"/>
   <fixture path="Showtec-Dragon-F-350.qxf" mf="Showtec" md="Dragon F-350"/>
@@ -733,8 +740,11 @@
   <fixture path="Showtec-Indigo-150-LED.qxf" mf="Showtec" md="Indigo 150 LED"/>
   <fixture path="Showtec-Indigo-4600.qxf" mf="Showtec" md="Indigo 4600"/>
   <fixture path="Showtec-Indigo-6500.qxf" mf="Showtec" md="Indigo 6500"/>
+  <fixture path="Showtec-Infinity-iB-5R.qxf" mf="Showtec" md="Infinity iB-5R"/>
+  <fixture path="Showtec-Infinity-iW-1915.qxf" mf="Showtec" md="Infinity iW-1915"/>
   <fixture path="Showtec-Infinity-iW-715.qxf" mf="Showtec" md="Infinity iW-715"/>
   <fixture path="Showtec-Infinity-iW-720.qxf" mf="Showtec" md="Infinity iW-720"/>
+  <fixture path="Showtec-Infinity-XPLO-15-LED-Strobe.qxf" mf="Showtec" md="Infinity XPLO-15 LED Strobe"/>
   <fixture path="Showtec-Led-Air-Cone-Pro.qxf" mf="Showtec" md="Led Air Cone Pro"/>
   <fixture path="Showtec-LED-Light-Bar-8.qxf" mf="Showtec" md="LED Light Bar 8"/>
   <fixture path="Showtec-LED-Light-Bar-RGB-V3.qxf" mf="Showtec" md="LED Light Bar RGB V3"/>
@@ -743,6 +753,7 @@
   <fixture path="Showtec-Mini-Max-LED-RGB.qxf" mf="Showtec" md="Mini Max LED RGB"/>
   <fixture path="Showtec-MiniMax-250.qxf" mf="Showtec" md="MiniMax 250"/>
   <fixture path="Showtec-MultiDim-MK-III-DMX.qxf" mf="Showtec" md="MultiDim MK III DMX"/>
+  <fixture path="Showtec-Phantom-20-LED-Beam.qxf" mf="Showtec" md="Phantom 20 LED Beam"/>
   <fixture path="Showtec-Phantom-250-Wash.qxf" mf="Showtec" md="Phantom 250 Wash"/>
   <fixture path="Showtec-Phantom-250.qxf" mf="Showtec" md="Phantom 250"/>
   <fixture path="Showtec-Phantom-50.qxf" mf="Showtec" md="Phantom 50"/>
