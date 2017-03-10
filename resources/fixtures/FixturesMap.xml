@@ -6,6 +6,7 @@
   <fixture path="AGPtek-RGB-6ch-crystal-ball.qxf" mf="AGPtek" md="RGB 6ch crystal ball"/>
   <fixture path="Alkalite-Octopod-DP-80.qxf" mf="Alkalite" md="Octopod DP-80"/>
   <fixture path="American-DJ-12P-Hex.qxf" mf="American DJ" md="12P Hex Pearl"/>
+  <fixture path="American-DJ-5P-Hex.qxf" mf="American DJ" md="5P Hex"/>
   <fixture path="American-DJ-64B-LED-PRO.qxf" mf="American DJ" md="64B LED PRO"/>
   <fixture path="American-DJ-Accu-Fog-1000.qxf" mf="American DJ" md="Accu Fog 1000"/>
   <fixture path="American-DJ-Accu-Spot-250-II.qxf" mf="American DJ" md="Accu Spot 250 II"/>
@@ -155,9 +156,11 @@
   <fixture path="Briteq-LDP-Powerbar-6TC.qxf" mf="Briteq" md="LDP Powerbar 6TC"/>
   <fixture path="Briteq-Pro-Beamer-Zoom.qxf" mf="Briteq" md="Pro Beamer Zoom"/>
   <fixture path="Briteq-Spectra-3D-Laser.qxf" mf="Briteq" md="Spectra 3D Laser"/>
+  <fixture path="Briteq-Tornado-7.qxf" mf="Briteq" md="Tornado 7"/>
   <fixture path="Cameo-CL-Superfly-HP.qxf" mf="Cameo" md="CL Superfly HP"/>
   <fixture path="Cameo-CLBARL10RGBA.qxf" mf="Cameo" md="LED Colour Bar RGBA (CLBAR10RGBA)"/>
   <fixture path="Cameo-CLHB400RGBW.qxf" mf="Cameo" md="CLHB400RGBW"/>
+  <fixture path="Cameo-CLM-PAR-COB-1.qxf" mf="Cameo" md="CLM PAR COB 1"/>
   <fixture path="Cameo-CLPIXBAR450PRO-CLPIXBAR650PRO.qxf" mf="Cameo" md="CLPIXBAR450PRO, CLPIXBAR650PRO"/>
   <fixture path="Cameo-Flat-PAR-CAN-TRI-3W.qxf" mf="Cameo" md="Flat PAR CAN TRI 3W"/>
   <fixture path="Cameo-Gobo-Scanner-60.qxf" mf="Cameo" md="Gobo Scanner 60"/>
@@ -221,6 +224,7 @@
   <fixture path="Chauvet-Hurricane-Haze-2.qxf" mf="Chauvet" md="Hurricane Haze 2"/>
   <fixture path="Chauvet-Intimidator-Barrel-305-IRC.qxf" mf="Chauvet" md="Intimidator Barrel 305 IRC"/>
   <fixture path="Chauvet-Intimidator-Beam-LED-350.qxf" mf="Chauvet" md="Intimidator Beam LED 350"/>
+  <fixture path="Chauvet-Intimidator-Hybrid-140SR.qxf" mf="Chauvet" md="Intimidator Hybrid 140SR"/>
   <fixture path="Chauvet-Intimidator-Scan-305-IRC.qxf" mf="Chauvet" md="Intimidator Scan 305 IRC"/>
   <fixture path="Chauvet-Intimidator-Scan-LED-200.qxf" mf="Chauvet" md="Intimidator Scan LED 200"/>
   <fixture path="Chauvet-Intimidator-Scan-LED-300.qxf" mf="Chauvet" md="Intimidator Scan LED 300"/>
@@ -337,11 +341,13 @@
   <fixture path="Electroconcept-SPC029.qxf" mf="Electroconcept" md="SPC029"/>
   <fixture path="Eliminator-Electro-86.qxf" mf="Eliminator Lighting" md="Electro 86"/>
   <fixture path="Eliminator-Electro-MH25R.qxf" mf="Eliminator Lighting" md="Electro MH25R"/>
+  <fixture path="Elumen8-COB-Tri-4-Pixel-Batten.qxf" mf="Elumen8" md="COB Tri 4 Pixel Batten"/>
   <fixture path="Enterius-EC-133DMX.qxf" mf="Enterius" md="EC-133DMX"/>
   <fixture path="Equinox-Gigabar.qxf" mf="Equinox" md="Gigabar"/>
   <fixture path="Equinox-Party-Par-LED-PAR-56.qxf" mf="Equinox" md="Party Par LED PAR 56"/>
   <fixture path="Equinox-Swing-Batten.qxf" mf="Equinox" md="Swing Batten"/>
   <fixture path="Equinox-Ultra-Scan-LED.qxf" mf="Equinox" md="Ultra Scan LED"/>
+  <fixture path="ETC-ColorSource-PAR.qxf" mf="ETC" md="ColorSource PAR"/>
   <fixture path="ETC-ColorSource-Spot.qxf" mf="ETC" md="ColorSource Spot"/>
   <fixture path="ETC-Desire-D40-Vivid.qxf" mf="ETC" md="Desire D40 Vivid"/>
   <fixture path="ETEC-LED-PAR-64-18x10W-RGBWA.qxf" mf="ETEC" md="LED PAR 64 18x10W RGBWA"/>
@@ -530,6 +536,7 @@
   <fixture path="Ledj-Stage-Color-24.qxf" mf="Ledj" md="Stage Color 24"/>
   <fixture path="Ledj-Tri-LED-back-drop-controller.qxf" mf="Ledj" md="Pro Tri LED back drop controller"/>
   <fixture path="Light-Emotion-LED-Parbar.qxf" mf="Light Emotion" md="LED Parbar"/>
+  <fixture path="lightmaXX-5ive-STAR-LED.qxf" mf="lightmaXX" md="5ive STAR LED"/>
   <fixture path="lightmaXX-CLS-1.qxf" mf="lightmaXX" md="Platinum CLS-1"/>
   <fixture path="lightmaXX-CLS-2.qxf" mf="lightmaXX" md="CLS-2"/>
   <fixture path="lightmaXX-COMPLETE-PAR-56-9x12-W-RGBAW-UV.qxf" mf="lightmaXX" md="Complete PAR 56 9x12W RGBAW-UV"/>
@@ -636,6 +643,7 @@
   <fixture path="Pro-Lights-LumiPAR18QPRO.qxf" mf="Pro-Lights" md="LumiPAR18QPRO"/>
   <fixture path="Pro-Lights-LumiPAR18QTour.qxf" mf="Pro-Lights" md="LumiPAR18QTour"/>
   <fixture path="Pro-Lights-LumiPIX-12Q.qxf" mf="Pro-Lights" md="LumiPIX 12Q"/>
+  <fixture path="Pro-lights-Moonstone.qxf" mf="Pro-Lights" md="Moonstone"/>
   <fixture path="Pro-Lights-Omni-Tri-9.qxf" mf="Pro-Lights" md="Omni Tri-9"/>
   <fixture path="Pro-Lights-SmartBat.qxf" mf="Pro-Lights" md="SmartBat"/>
   <fixture path="Pro-Lights-Strobo-1500DMX.qxf" mf="Pro-Lights" md="Strobo 1500DMX"/>
@@ -683,8 +691,10 @@
   <fixture path="Robe-Robin-600E-Beam.qxf" mf="Robe" md="Robin 600E Beam"/>
   <fixture path="Robe-Robin-600E-Spot.qxf" mf="Robe" md="Robin 600E Spot (v1.1)"/>
   <fixture path="Robe-Robin-600E-Wash.qxf" mf="Robe" md="Robin 600E Wash"/>
+  <fixture path="Robe-Robin-DLX-Spot.qxf" mf="Robe" md="Robin DLX Spot"/>
   <fixture path="Robe-Robin-MiniMe.qxf" mf="Robe" md="Robin MiniMe"/>
   <fixture path="Robe-Scan-575-XT.qxf" mf="Robe" md="Scan 575 XT"/>
+  <fixture path="Robe-Spot-160-XT.qxf" mf="Robe" md="Spot 160 XT"/>
   <fixture path="Robe-Spot-575-XT.qxf" mf="Robe" md="Spot 575 XT"/>
   <fixture path="Robe-Wash-575-XT.qxf" mf="Robe" md="Wash 575 XT"/>
   <fixture path="Robe_ColorMix_240_AT.qxf" mf="Robe" md="ColorMix 240 AT"/>
@@ -713,6 +723,7 @@
   <fixture path="Showtec-Atmos-F-350.qxf" mf="Showtec" md="Atmos F-350"/>
   <fixture path="Showtec-Blade-Runner.qxf" mf="Showtec" md="Blade Runner"/>
   <fixture path="Showtec-Compact-Par-18-Tri-MKII.qxf" mf="Showtec" md="Compact Par 18 Tri MKII"/>
+  <fixture path="Showtec-Compact-Power-Lightset-COB.qxf" mf="Showtec" md="Compact Power Lightset COB"/>
   <fixture path="Showtec-Dragon-F-350.qxf" mf="Showtec" md="Dragon F-350"/>
   <fixture path="Showtec-Dynamic-LED-v3.qxf" mf="Showtec" md="Dynamic LED v3"/>
   <fixture path="Showtec-Event-Spot-1800-Q4.qxf" mf="Showtec" md="Event Spot 1800 Q4"/>
@@ -815,6 +826,7 @@
   <fixture path="Stellar-Labs-LED-PAR38-RGB.qxf" mf="Stellar Labs" md="LED PAR38 RGB (555-11410)"/>
   <fixture path="Studio-Due-City-Color-1800.qxf" mf="Studio Due" md="City Color 1800"/>
   <fixture path="Studio-Due-Shark-150C.qxf" mf="Studio Due" md="Shark 150C"/>
+  <fixture path="Talent-BL252A.qxf" mf="Talent" md="BL252A"/>
   <fixture path="Talent-BL63-10-LED-Bar.qxf" mf="Talent" md="BL63 10&quot; LED Bar"/>
   <fixture path="Triton-Blue-Wally-MH-20.qxf" mf="Triton Blue" md="Wally MH-20"/>
   <fixture path="TSSS-XL35.qxf" mf="TSSS" md="XL35"/>

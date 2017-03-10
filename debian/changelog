@@ -23,7 +23,7 @@ qlcplus (4.10.6) stable; urgency=low
   * New fixture: Martin Rush MH3 (thanks to Ed Middlebrooks)
   * New fixture: Eurolite LED ACS BAR-12 (thanks to Michael Horber)
   * New fixtures: Martin Rush MH6 Wash, Cameo Studio PAR 64 RGBWA UV 12W (thanks to Piotr Nowik)
-  * New fixture: ETEC Moving Spot 60E (thanks to Freasy)
+  * New fixtures: ETEC Moving Spot 60E, Cameo CLM PAR COB 1, Showtec Compact Power Lightset COB (thanks to Freasy)
   * New fixture: American DJ Punch LED Pro (thanks to Benedict Stein)
   * New fixtures: Contest Mini-Head 10W, Contest Evora B2R (thanks to Fredje Gallon)
   * New fixture: Robe DJ Scan 150 XT (thanks to Allan Madsen)
@@ -45,9 +45,14 @@ qlcplus (4.10.6) stable; urgency=low
   * New fixture: Chauvet Intimidator Spot 355Z IRC (thanks to Michael Clements)
   * New fixture: CLF Tricolor Mini Par (thanks to Jaron Blazer)
   * New fixture: Varytec LED Easy Move Mini Beam & Wash RGBW (thanks to Erik)
-  * New fixtures: Smoke Factory Tour-Hazer II, JB Systems Panther (thanks to Thierry Rodolfo)
+  * New fixtures: Smoke Factory Tour-Hazer II, JB Systems Panther, Robe Spot 160 XT (thanks to Thierry Rodolfo)
   * New fixture: American DJ LED Trispot (thanks to Patrick)
-  * New fixture: Contest STB-520 1500W Strobe (thanks to Robert Box)
+  * New fixtures: Contest STB-520 1500W Strobe, Elumen8 COB Tri 4 Pixel Batten, Briteq Tornado 7 (thanks to Robert Box)
+  * New fixtures: American DJ 5P Hex, Pro-Lights Moonstone, Chauvet Intimidator Hybrid 140SR (thanks to Robert Box)
+  * New fixtures: Robe Robin DLX Spot (thanks to Robert Box)
+  * New fixture: ETC ColorSource PAR (thanks to Jon Rosen)
+  * New fixture: lightmaXX 5ive STAR LED (thanks to Thomas Weber)
+  * New fixture: Talent BL252A (thanks to Massimiliano Palmieri)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 5 Mar 2017 12:13:14 +0200
 
