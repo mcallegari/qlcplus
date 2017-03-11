@@ -70,38 +70,5 @@ QLC+ has been tested with the following OSC controllers:
 </ul>
 </P>
 
-<HR />
-
-<H1>Advanced: Generating profile programmatically</H1>
-
-<P><B>WARNING: Consider this part as "unofficial". There is no guarantee that it will work. It may stop working at any time!!!</B></P>
-
-<P>It is possible to generate channels for profile programmatically. It may prove useful e.g. when generating profile with
-lots of similar channels. For start, manually (using QLC+ wizard) create some channels, and then open the profile in a text editor,
-and add the rest of the channels.</P>
-
-<P>Sample code in ruby: Install <a href="https://rubygems.org/gems/digest-crc">digest-crc</a> gem by running:
-
-<pre>
-gem install digest-crc
-</pre>
-
-Script:
-
-<pre>
-require 'digest/crc16_qt'
-dig = Digest::CRC16QT.new
-dig &lt;&lt; ARGV[0]
-crc = dig.checksum
-puts %[ &lt;Channel Number="#{crc}"&gt;]
-puts %[  &lt;Name>#{ARGV[0]}&lt;/Name&gt;]
-puts %[  &lt;Type>Button&lt;/Type&gt;]
-puts " &lt;/Channel&gt;"
-</pre>
-
-Use: 
-<pre>ruby ./crc.rb /myoscmessage</pre>
-
-<P>(Hint contributed by padide.)</P>
 </BODY>
 </HTML>
