@@ -30,6 +30,8 @@ Rectangle
     anchors.fill: parent
     color: "transparent"
 
+    property var modelProvider: null
+
     ColumnLayout
     {
         anchors.fill: parent
@@ -85,7 +87,7 @@ Rectangle
             height: geContainer.height - topBar.height
             z: 4
             boundsBehavior: Flickable.StopAtBounds
-            model: fixtureManager.groupsTreeModel
+            model: modelProvider ? modelProvider.groupsTreeModel : fixtureManager.groupsTreeModel
             delegate:
               Component
               {
@@ -99,6 +101,9 @@ Rectangle
                         item.textLabel = label
                         item.isSelected = Qt.binding(function() { return isSelected })
 
+                        if (item.hasOwnProperty('cRef'))
+                            item.cRef = classRef
+
                         if (hasChildren)
                         {
                             item.nodePath = path
@@ -107,9 +112,6 @@ Rectangle
                             item.subTreeDelegate = "qrc:/FixtureNodeDelegate.qml"
                             item.nodeChildren = childrenModel
                         }
-
-                        if (item.hasOwnProperty('cRef'))
-                            item.cRef = classRef
                     }
                     Connections
                     {
@@ -127,6 +129,7 @@ Rectangle
                     }
                 } // Loader
               } // Component
+            ScrollBar { id: gEditScrollBar; flickable: groupListView }
         } // ListView
     } // ColumnLayout
 }

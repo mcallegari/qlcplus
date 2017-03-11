@@ -104,6 +104,11 @@ QVariant TreeModelItem::data(int index)
     return m_data.at(index);
 }
 
+QVariantList TreeModelItem::data()
+{
+    return m_data;
+}
+
 void TreeModelItem::setData(QVariantList data)
 {
     m_data = data;

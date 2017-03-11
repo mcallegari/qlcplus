@@ -30,9 +30,11 @@ Rectangle
 
     color: "transparent"
 
+    property int chIndex
     property string chIcon: ""
-    property string textLabel: cRef ? cRef.name : ""
+    property string textLabel
     property bool isSelected: false
+    property bool isChecked: false
     property Item dragItem
 
     signal mouseEvent(int type, int iID, int iType, var qItem, int mouseMods)
@@ -51,7 +53,9 @@ Rectangle
         {
             id: chCheckBox
             height: UISettings.listItemHeight
+            checked: isChecked
             width: height
+            onToggle: chDelegate.mouseEvent(App.Checked, chIndex, checked, chDelegate, 0)
         }
 
         IconTextEntry
@@ -67,8 +71,8 @@ Rectangle
                 anchors.fill: parent
                 hoverEnabled: true
 
-                onClicked: chDelegate.mouseEvent(App.Clicked, cRef.id, cRef.type, chDelegate, mouse.modifiers)
-                onDoubleClicked: chDelegate.mouseEvent(App.DoubleClicked, cRef.id, cRef.type, chDelegate, -1)
+                onClicked: chDelegate.mouseEvent(App.Clicked, chIndex, -1, chDelegate, mouse.modifiers)
+                onDoubleClicked: chDelegate.mouseEvent(App.DoubleClicked, chIndex, -1, chDelegate, -1)
             }
         }
     }

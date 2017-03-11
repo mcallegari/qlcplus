@@ -61,8 +61,8 @@ Item
         flickable.contentX = Math.max(flickable.contentX - (flickable.width / 4), 0);
     }
 
-   Binding
-   {
+    Binding
+    {
         target: handle
         property: orientation === Qt.Vertical ? "y" : "x"
         value: orientation === Qt.Vertical ?
@@ -80,6 +80,7 @@ Item
                    (handle.x * (flickable.contentWidth - flickable.width) / clicker.drag.maximumX)
         when: (clicker.drag.active || clicker.pressed)
     }
+
     Rectangle
     {
         id: backScrollbar

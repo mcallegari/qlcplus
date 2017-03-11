@@ -156,7 +156,6 @@ Rectangle
                     label: qsTr("Level")
                 }
 
-                // row 2
                 CustomCheckBox
                 {
                     width: UISettings.iconSizeMedium
@@ -173,7 +172,7 @@ Rectangle
                     label: qsTr("Playback")
                 }
 
-                // row 3
+                // row 2
                 CustomCheckBox
                 {
                     width: UISettings.iconSizeMedium
@@ -190,7 +189,6 @@ Rectangle
                     label: qsTr("Submaster")
                 }
 
-                // row 4
                 CustomCheckBox
                 {
                     width: UISettings.iconSizeMedium
@@ -205,6 +203,23 @@ Rectangle
                     height: gridItemsHeight
                     Layout.fillWidth: true
                     label: qsTr("Grand Master")
+                }
+
+                // row 3
+                CustomCheckBox
+                {
+                    width: UISettings.iconSizeMedium
+                    height: width
+                    exclusiveGroup: sliderModeGroup
+                    checked: widgetRef ? widgetRef.sliderMode === VCSlider.Attribute : false
+                    onCheckedChanged: if (checked && widgetRef) widgetRef.sliderMode = VCSlider.Attribute
+                }
+
+                RobotoText
+                {
+                    height: gridItemsHeight
+                    Layout.fillWidth: true
+                    label: qsTr("Attribute")
                 }
               }
         } // end of SectionBox
@@ -316,6 +331,7 @@ Rectangle
                               {
                                   vcRightPanel.width += mainView.width / 3
                                   sideLoader.width = mainView.width / 3
+                                  sideLoader.modelProvider = widgetRef
                                   sideLoader.source = "qrc:/FixtureGroupEditor.qml"
                               }
                               else

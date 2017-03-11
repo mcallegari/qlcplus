@@ -65,7 +65,7 @@ void TreeModel::enableSorting(bool enable)
 
 TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path, int flags)
 {
-    qDebug() << "Adding item" << label << path;
+    //qDebug() << "Adding item" << label << path;
 
     TreeModelItem *item = NULL;
 
@@ -104,8 +104,8 @@ TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path
             QQmlEngine::setObjectOwnership(item, QQmlEngine::CppOwnership);
             if (item->setChildrenColumns(m_roles) == true)
             {
-                connect(item->children(), SIGNAL(singleSelection(TreeModelItem*)),
-                        this, SLOT(setSingleSelection(TreeModelItem*)));
+                connect(item->children(), SIGNAL(roleChanged(TreeModelItem*,int,const QVariant)),
+                        this, SLOT(slotRoleChanged(TreeModelItem*,int,const QVariant&)));
                 qDebug() << "Tree" << this << "connected to tree" << item->children();
             }
 
@@ -120,8 +120,8 @@ TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path
         {
             if (item->addChild(label, data, m_sorting, "", flags) == true)
             {
-                connect(item->children(), SIGNAL(singleSelection(TreeModelItem*)),
-                        this, SLOT(setSingleSelection(TreeModelItem*)));
+                connect(item->children(), SIGNAL(roleChanged(TreeModelItem*,int,const QVariant&)),
+                        this, SLOT(slotRoleChanged(TreeModelItem*,int,const QVariant&)));
                 qDebug() << "Tree" << this << "connected to tree" << item->children();
             }
         }
@@ -130,8 +130,8 @@ TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path
             QString newPath = path.mid(path.indexOf("/") + 1);
             if (item->addChild(label, data, m_sorting, newPath, flags) == true)
             {
-                connect(item->children(), SIGNAL(singleSelection(TreeModelItem*)),
-                        this, SLOT(setSingleSelection(TreeModelItem*)));
+                connect(item->children(), SIGNAL(roleChanged(TreeModelItem*,int,const QVariant&)),
+                        this, SLOT(slotRoleChanged(TreeModelItem*,int,const QVariant&)));
                 qDebug() << "Tree" << this << "connected to tree" << item->children();
             }
         }
@@ -225,12 +225,8 @@ bool TreeModel::setData(const QModelIndex &index, const QVariant &value, int rol
             if (value.toInt() > 0)
             {
                 item->setSelected(true);
-                emit dataChanged(index, index, QVector<int>(1, role));
                 if (value.toInt() == 1)
-                {
                     setSingleSelection(item);
-                    emit singleSelection(item);
-                }
             }
             else
                 item->setSelected(false);
@@ -244,18 +240,40 @@ bool TreeModel::setData(const QModelIndex &index, const QVariant &value, int rol
         break;
     }
 
+    emit roleChanged(item, role, value);
+    emit dataChanged(index, index, QVector<int>(1, role));
+
     return true;
+}
+
+void TreeModel::slotRoleChanged(TreeModelItem *item, int role, const QVariant &value)
+{
+    if (item == NULL)
+        return;
+
+    switch(role)
+    {
+        case IsSelectedRole:
+        {
+            if (value.toInt() == 1)
+                setSingleSelection(item);
+        }
+        break;
+    }
+
+    if (sender() != this)
+        emit roleChanged(item, role, value);
 }
 
 void TreeModel::setSingleSelection(TreeModelItem *item)
 {
-    bool parentSignalSent = false;
+    //bool parentSignalSent = false;
     //qDebug() << "Set single selection" << this;
     for (int i = 0; i < m_items.count(); i++)
     {
         TreeModelItem *target = m_items.at(i);
 
-        if (target != item)
+        if (target != item && target->isSelected())
         {
             QModelIndex index = createIndex(i, 0, &i);
             target->setSelected(false);
@@ -268,17 +286,8 @@ void TreeModel::setSingleSelection(TreeModelItem *item)
             // then walk down the children path
             if (sender() != target->children())
                 target->children()->setSingleSelection(item);
-
-            // if this slot has been called from a lower node,
-            // then notify any upper node listening
-            if (sender() == target->children() && sender() != this && parentSignalSent == false)
-            {
-                parentSignalSent = true;
-                emit singleSelection(item);
-            }
         }
     }
-
 }
 
 void TreeModel::printTree(int tab)

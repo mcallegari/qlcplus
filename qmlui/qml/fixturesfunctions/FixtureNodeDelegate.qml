@@ -56,6 +56,15 @@ Column
         width: nodeContainer.width
         height: UISettings.listItemHeight
 
+        Rectangle
+        {
+            visible: nodeIcon == "" ? false : true
+            width: visible ? parent.height : 0
+            height: parent.height
+            color: UISettings.bgLight
+            radius: height / 4
+        }
+
         // selection rectangle
         Rectangle
         {
@@ -173,7 +182,9 @@ Column
                     {
                         item.textLabel = label
                         item.isSelected = Qt.binding(function() { return isSelected })
+                        item.isChecked = Qt.binding(function() { return isChecked })
                         item.dragItem = dragItem
+                        item.chIndex = index
                         item.chIcon = cRef ? fixtureManager.channelIcon(cRef.id, index) : ""
 
                         if (item.hasOwnProperty('cRef'))
@@ -194,6 +205,14 @@ Column
                                         if (model.hasChildren)
                                             model.isExpanded = item.isExpanded
                                     }
+                                break;
+                                case App.Checked:
+                                    if (qItem == item)
+                                    {
+                                        console.log("Channel " + index + " got checked")
+                                        model.isChecked = iType
+                                    }
+
                                 break;
                                 case App.DragStarted:
                                     if (qItem == item && !model.isSelected)

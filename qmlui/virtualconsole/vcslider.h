@@ -66,6 +66,8 @@ class VCSlider : public VCWidget
     Q_PROPERTY(int levelLowLimit READ levelLowLimit WRITE setLevelLowLimit NOTIFY levelLowLimitChanged)
     Q_PROPERTY(int levelHighLimit READ levelHighLimit WRITE setLevelHighLimit NOTIFY levelHighLimitChanged)
 
+    Q_PROPERTY(QVariant groupsTreeModel READ groupsTreeModel NOTIFY groupsTreeModelChanged)
+
     /*********************************************************************
      * Initialization
      *********************************************************************/
@@ -152,7 +154,7 @@ protected:
      * Slider Mode
      *********************************************************************/
 public:
-    enum SliderMode { Level, Playback, Submaster, GrandMaster };
+    enum SliderMode { Level, Playback, Submaster, GrandMaster, Attribute };
     Q_ENUM(SliderMode)
 
 public:
@@ -214,18 +216,14 @@ public:
      */
     void removeLevelChannel(quint32 fixture, quint32 channel);
 
-    /**
-     * Clear the list of level channels
-     *
-     */
+    /** Clear the list of level channels */
     void clearLevelChannels();
 
     /** Get the list of channels that this slider controls */
     QList <SceneValue> levelChannels();
 
-signals:
-    void levelLowLimitChanged();
-    void levelHighLimitChanged();
+    /** Returns the data model to display a tree of FixtureGroups/Fixtures */
+    QVariant groupsTreeModel();
 
 protected:
     /**
@@ -236,10 +234,21 @@ protected:
      */
     void setLevelValue(uchar value);
 
-    /**
-     * Get the current "level" mode value
-     */
+    /** Get the current "level" mode value */
     uchar levelValue() const;
+
+protected slots:
+    void slotTreeDataChanged(TreeModelItem *item, int role, const QVariant &value);
+
+private:
+    /** Update the tree of groups/fixtures/channels */
+    void updateFixtureTree(Doc *doc, TreeModel *treeModel);
+
+signals:
+    void levelLowLimitChanged();
+    void levelHighLimitChanged();
+    /** Notify the listeners that the fixture tree model has changed */
+    void groupsTreeModelChanged();
 
 protected:
     QList <SceneValue> m_levelChannels;
@@ -252,6 +261,9 @@ protected:
 
     bool m_monitorEnabled;
     uchar m_monitorValue;
+
+    /** Data model used by the QML UI to represent groups/fixtures/channels */
+    TreeModel *m_fixtureTree;
 
     /*********************************************************************
      * Playback mode

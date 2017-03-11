@@ -134,7 +134,7 @@ signals:
     /** Notify the listeners that the number of Fixtures has changed */
     void fixturesCountChanged();
 
-    /** Notify the listeners that the FixtureGroup tree model has changed */
+    /** Notify the listeners that the fixture tree model has changed */
     void groupsTreeModelChanged();
 
     /** Notify the listeners that the FixtureGroup list model has changed */
@@ -184,9 +184,8 @@ private:
      *  the required $group */
     QVariantList presetsChannels(QLCChannel::Group group);
 
-    /** Update the tree of Groups and Fixtures and emit a signal
-     *  to update the QML UI */
-    void updateFixtureTree();
+    /** Update the tree of groups/fixtures/channels */
+    void updateFixtureTree(Doc *doc, TreeModel *treeModel);
 
     void updateColorsMap(int type, int delta);
 
@@ -199,7 +198,7 @@ private:
     QList<Fixture *> m_fixtureList;
     /** Keep a map of references to the available preset channels and a related Fixture ID */
     QMap<const QLCChannel *, quint32>m_presetsCache;
-    /** Data model used by the QML UI to represent groups and fixtures */
+    /** Data model used by the QML UI to represent groups/fixtures/channels */
     TreeModel *m_fixtureTree;
     /** An array-like map of the current fixture names, filtered by m_universeFilter */
     QVariantList m_fixtureNamesMap;

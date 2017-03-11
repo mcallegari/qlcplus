@@ -76,6 +76,8 @@ public:
     /** Set columns data on a specific item with the provided $path */
     void setPathData(QString path, QVariantList data);
 
+    void setSingleSelection(TreeModelItem *item);
+
     /** @reimp */
     Q_INVOKABLE int rowCount(const QModelIndex & parent = QModelIndex()) const;
 
@@ -89,10 +91,10 @@ public:
     void printTree(int tab = 0);
 
 signals:
-    void singleSelection(TreeModelItem *item);
+    void roleChanged(TreeModelItem *item, int role, const QVariant &value);
 
 protected slots:
-    void setSingleSelection(TreeModelItem *item);
+    void slotRoleChanged(TreeModelItem *item, int role, const QVariant &value);
 
 protected:
     int getItemIndex(QString label);

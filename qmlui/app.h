@@ -57,7 +57,8 @@ public:
         Clicked,
         DoubleClicked,
         DragStarted,
-        DragFinished
+        DragFinished,
+        Checked
     };
     Q_ENUM(MouseEvents)
 

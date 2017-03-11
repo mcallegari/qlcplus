@@ -40,11 +40,7 @@ Rectangle
 
     property int fxCount: fixtureManager.fixturesCount
 
-    onFxModeChanged:
-    {
-        console.log("Mode changed: " + fxMode)
-        updateAvailableAddress()
-    }
+    onFxModeChanged: updateAvailableAddress()
     onFxCountChanged: updateAvailableAddress()
 
     function updateAvailableAddress()

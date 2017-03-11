@@ -19,7 +19,10 @@
 
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
+#include <QQmlEngine>
 
+#include "treemodelitem.h"
+#include "qlcfixturemode.h"
 #include "qlcmacros.h"
 #include "vcslider.h"
 #include "doc.h"
@@ -40,6 +43,7 @@ VCSlider::VCSlider(Doc *doc, QObject *parent)
     , m_levelValueChanged(false)
     , m_monitorEnabled(false)
     , m_monitorValue(0)
+    , m_fixtureTree(NULL)
     , m_playbackFunction(Function::invalidId())
 {
     setType(VCWidget::SliderWidget);
@@ -119,6 +123,7 @@ QString VCSlider::sliderModeToString(SliderMode mode)
         case Playback: return QString("Playback");
         case Submaster: return QString("Submaster");
         case GrandMaster: return QString("GrandMaster");
+        case Attribute: return QString("Attribute");
         default: return QString("Unknown");
     }
 }
@@ -131,6 +136,8 @@ VCSlider::SliderMode VCSlider::stringToSliderMode(const QString& mode)
         return Submaster;
     else if (mode == QString("GrandMaster"))
         return GrandMaster;
+    else if (mode == QString("Attribute"))
+        return Attribute;
     else
         return Playback;
 }
@@ -317,6 +324,117 @@ QList<SceneValue> VCSlider::levelChannels()
     return m_levelChannels;
 }
 
+void VCSlider::updateFixtureTree(Doc *doc, TreeModel *treeModel)
+{
+    if (doc == NULL || treeModel == NULL)
+        return;
+
+    treeModel->clear();
+
+    QStringList uniNames = doc->inputOutputMap()->universeNames();
+
+    // add Fixture Groups first
+    for (FixtureGroup* grp : doc->fixtureGroups()) // C++11
+    {
+        foreach(quint32 fxID, grp->fixtureList())
+        {
+            Fixture *fixture = doc->fixture(fxID);
+            if (fixture == NULL)
+                continue;
+
+            QLCFixtureMode *mode = fixture->fixtureMode();
+            if (mode == NULL)
+                continue;
+
+            int chIdx = 0;
+            QString chPath = QString("%1/%2").arg(grp->name()).arg(fixture->name());
+            for (QLCChannel *channel : mode->channels()) // C++11
+            {
+                bool checked = false;
+                QVariantList chParams;
+                chParams.append(QVariant::fromValue(NULL)); // classRef
+                chParams.append("FCG"); // type
+                chParams.append(fixture->id()); // id
+                chParams.append(grp->id()); // subid
+                chParams.append(chIdx); // chIdx
+
+                if (m_levelChannels.contains(SceneValue(fixture->id(), chIdx)))
+                    checked = true;
+                treeModel->addItem(channel->name(), chParams, chPath, checked ? TreeModel::Checked : 0);
+                chIdx++;
+            }
+
+            // when all the channel 'leaves' have been added, set the parent node data
+            QVariantList params;
+            params.append(QVariant::fromValue(fixture)); // classRef
+            params.append("FXG"); // type
+            params.append(fixture->id()); // id
+            params.append(grp->id()); // subid
+            params.append(0); // chIdx
+            treeModel->setPathData(chPath, params);
+        }
+    }
+
+    // add the current universes as groups
+    for (Fixture *fixture : doc->fixtures()) // C++11
+    {
+        if (fixture->universe() >= (quint32)uniNames.count())
+            continue;
+
+        QString chPath = QString("%1/%2").arg(uniNames.at(fixture->universe())).arg(fixture->name());
+        QLCFixtureMode *mode = fixture->fixtureMode();
+        if (mode == NULL)
+            continue;
+
+        int chIdx = 0;
+        for (QLCChannel *channel : mode->channels()) // C++11
+        {
+            bool checked = false;
+            QVariantList chParams;
+            chParams.append(QVariant::fromValue(NULL)); // classRef
+            chParams.append("FCU"); // type
+            chParams.append(fixture->id()); // id
+            chParams.append(fixture->universe()); // subid
+            chParams.append(chIdx); // chIdx
+
+            if (m_levelChannels.contains(SceneValue(fixture->id(), chIdx)))
+                checked = true;
+            treeModel->addItem(channel->name(), chParams, chPath, checked ? TreeModel::Checked : 0);
+            chIdx++;
+        }
+
+        // when all the channel 'leaves' have been added, set the parent node data
+        QVariantList params;
+        params.append(QVariant::fromValue(fixture)); // classRef
+        params.append("FXU"); // type
+        params.append(fixture->id()); // id
+        params.append(fixture->universe()); // subid
+        params.append(0); // chIdx
+
+        treeModel->setPathData(chPath, params);
+    }
+}
+
+QVariant VCSlider::groupsTreeModel()
+{
+    qDebug() << "Requesting tree model from slider" << m_levelChannels.count();
+    if (m_fixtureTree == NULL)
+    {
+        m_fixtureTree = new TreeModel(this);
+        QQmlEngine::setObjectOwnership(m_fixtureTree, QQmlEngine::CppOwnership);
+        QStringList treeColumns;
+        treeColumns << "classRef" << "type" << "id" << "subid" << "chIdx";
+        m_fixtureTree->setColumnNames(treeColumns);
+        m_fixtureTree->enableSorting(false);
+        updateFixtureTree(m_doc, m_fixtureTree);
+
+        connect(m_fixtureTree, SIGNAL(roleChanged(TreeModelItem*,int,const QVariant&)),
+                this, SLOT(slotTreeDataChanged(TreeModelItem*,int,const QVariant&)));
+    }
+
+    return QVariant::fromValue(m_fixtureTree);
+}
+
 void VCSlider::setLevelValue(uchar value)
 {
     m_levelValueMutex.lock();
@@ -330,6 +448,29 @@ void VCSlider::setLevelValue(uchar value)
 uchar VCSlider::levelValue() const
 {
     return m_levelValue;
+}
+
+void VCSlider::slotTreeDataChanged(TreeModelItem *item, int role, const QVariant &value)
+{
+    qDebug() << "Slider tree data changed" << value.toInt();
+    qDebug() << "Item data:" << item->data();
+
+    if (role == TreeModel::IsCheckedRole)
+    {
+        QVariantList itemData = item->data();
+        // itemData must be "classRef" << "type" << "id" << "subid" << "chIdx";
+        if (itemData.count() != 5)
+            return;
+
+        //QString type = itemData.at(1).toString();
+        quint32 fixtureID = itemData.at(2).toUInt();
+        quint32 chIndex = itemData.at(4).toUInt();
+
+        if (value.toInt() == 0)
+            removeLevelChannel(fixtureID, chIndex);
+        else
+            addLevelChannel(fixtureID, chIndex);
+    }
 }
 
 /*********************************************************************

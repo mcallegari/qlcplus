@@ -54,8 +54,12 @@ public:
     bool isChecked() const;
     void setChecked(bool checked);
 
-    /** Get the user custom fields as variant */
+    /** Get a user custom field with $index as variant */
     QVariant data(int index);
+
+    /** Get all the user custom fields as a variant list */
+    QVariantList data();
+
     /** Set the list of user custom fields */
     void setData(QVariantList data);
 
