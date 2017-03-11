@@ -39,6 +39,7 @@ public:
     void accept();
 
 public slots:
+    void slotOSCPathChanged(QString path);
     int exec();
 
 private:

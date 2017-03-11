@@ -14,6 +14,7 @@ qlcplus (4.10.6) stable; urgency=low
   * Virtual Console/Frame: added the possibility to jump directly to a page and assign page names (thanks to Lukas Jähn)
   * Virtual Console/Cue List: improved linked crossfade to perform an additive blending between steps (see documentation)
   * Virtual Console/Speed Dial: improved tap button blinking and feedbacks (thanks to Lukas Jähn)
+  * Plugins/OSC: added channel number calculator in configuration page to help integrating new controllers
   * Web access: fixed VC Slider in percentage mode and inverted appearance (thanks to Bartosz Grabias)
   * Web access: support VC Slider reduced range when in level mode
   * Web access: improved getChannelsValues and added Simple Desk reset per-channel (sdResetChannel API)
@@ -256,7 +257,7 @@ qlcplus (4.10.3) stable; urgency=low
 qlcplus (4.10.2) stable; urgency=low
 
   * Engine: added support for devices hotplug (DMX USB, MIDI, HID, Peperoni)
-  * Engine: Universe passthrough data is now merged with QLC+ output, it is not affected by QLC+ processing 
+  * Engine: Universe passthrough data is now merged with QLC+ output, it is not affected by QLC+ processing
     (except for blackout) and it appears in the DMX monitor (Jano Svitok)
   * Audio: fixed playback of 24/32 bit wave files and Show Manager waveform preview
   * DMX Dump: it is now possible to dump DMX values on an existing Scene
@@ -394,6 +395,6 @@ qlcplus (4.10.0) stable; urgency=low
   * New fixture: Cameo LED Moving Head 60W CLMHR60W (thanks to Jasper Zevering)
   * New fixtures: Proel PLLED64RGB, Litecraft LED PAR 64 AT3, Robe Robin 300E Beam (thanks to Mihai Andrei)
   * New fixture: Electroconcept SPC029 (thanks to Bulle)
-  * New fixture: Microh Plasmawave 1 RGB (thanks to Rommel) 
+  * New fixture: Microh Plasmawave 1 RGB (thanks to Rommel)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 18 Oct 2015 20:21:22 +0200
