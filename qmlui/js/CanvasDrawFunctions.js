@@ -90,3 +90,85 @@ function drawBasement(ctx, eWidth, eHeight)
     ctx.closePath();    //close the end to the start point
     ctx.stroke();
 }
+
+function Vertex3D()
+{
+    this.x = 0;
+    this.y = 0;
+    this.z = 0;
+}
+
+function Sphere3D(radius, rings, slices)
+{
+    this.vertices = [];
+    this.radius = radius;
+    this.rings = rings;
+    this.slices = slices;
+    this.numberOfVertices = 0;
+
+    var M_PI_2 = Math.PI / 2;
+    var dTheta = (Math.PI * 2) / this.slices;
+    var dPhi = Math.PI / this.rings;
+
+    // Iterate over latitudes (rings)
+    for (var lat = 0; lat < this.rings + 1; ++lat)
+    {
+        var phi = M_PI_2 - lat * dPhi;
+        var cosPhi = Math.cos(phi);
+        var sinPhi = Math.sin(phi);
+
+        // Iterate over longitudes (slices)
+        for (var lon = 0; lon < this.slices + 1; ++lon)
+        {
+            var theta = lon * dTheta;
+            var cosTheta = Math.cos(theta);
+            var sinTheta = Math.sin(theta);
+
+            this.vertices[this.numberOfVertices] = new Vertex3D();
+            var p = this.vertices[this.numberOfVertices]
+
+            p.x = this.radius * cosTheta * cosPhi;
+            p.y = this.radius * sinPhi;
+            p.z = this.radius * sinTheta * cosPhi;
+            this.numberOfVertices++;
+        }
+    }
+}
+
+function rotateX(point, radians)
+{
+    var y = point.y;
+    point.y = (y * Math.cos(radians)) + (point.z * Math.sin(radians) * -1.0);
+    point.z = (y * Math.sin(radians)) + (point.z * Math.cos(radians));
+}
+
+function rotateY(point, radians)
+{
+    var x = point.x;
+    point.x = (x * Math.cos(radians)) + (point.z * Math.sin(radians) * -1.0);
+    point.z = (x * Math.sin(radians)) + (point.z * Math.cos(radians));
+}
+
+function rotateZ(point, radians)
+{
+    var x = point.x;
+    point.x = (x * Math.cos(radians)) + (point.y * Math.sin(radians) * -1.0);
+    point.y = (x * Math.sin(radians)) + (point.y * Math.cos(radians));
+}
+
+function projection(xy, z, xyOffset, zOffset, distance)
+{
+    return ((distance * xy) / (z - zOffset)) + xyOffset;
+}
+
+function getSphereVertex(xDegrees, yDegrees, radius)
+{
+    var v = new Vertex3D();
+    var theta = degToRad(xDegrees);
+    var phi = (Math.PI / 2) - degToRad(yDegrees);
+    v.x = radius * Math.cos(theta) * Math.cos(phi);
+    v.y = radius * Math.sin(phi);
+    v.z = radius * Math.sin(theta) * Math.cos(phi);
+    return v;
+}
+

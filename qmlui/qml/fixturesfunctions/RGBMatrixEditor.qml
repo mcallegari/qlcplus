@@ -148,7 +148,7 @@ Rectangle
 
                 RobotoText
                 {
-                    label: qsTr("Fixture Group");
+                    label: qsTr("Fixture Group")
                     height: editorColumn.itemsHeight
                     onWidthChanged:
                     {

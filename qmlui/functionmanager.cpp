@@ -29,6 +29,7 @@
 #include "sceneeditor.h"
 #include "audioeditor.h"
 #include "collection.h"
+#include "efxeditor.h"
 #include "treemodel.h"
 #include "rgbmatrix.h"
 #include "function.h"
@@ -60,6 +61,7 @@ FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)
     qmlRegisterUncreatableType<Collection>("com.qlcplus.classes", 1, 0, "Collection", "Can't create a Collection");
     qmlRegisterUncreatableType<Chaser>("com.qlcplus.classes", 1, 0, "Chaser", "Can't create a Chaser");
     qmlRegisterUncreatableType<RGBMatrix>("com.qlcplus.classes", 1, 0, "RGBMatrix", "Can't create a RGBMatrix");
+    qmlRegisterUncreatableType<RGBMatrix>("com.qlcplus.classes", 1, 0, "EFX", "Can't create an EFX");
 
     m_functionTree = new TreeModel(this);
     QQmlEngine::setObjectOwnership(m_functionTree, QQmlEngine::CppOwnership);
@@ -381,6 +383,11 @@ void FunctionManager::setEditorFunction(quint32 fID, bool requestUI)
         case Function::Chaser:
         {
             m_currentEditor = new ChaserEditor(m_view, m_doc, this);
+        }
+        break;
+        case Function::EFX:
+        {
+            m_currentEditor = new EFXEditor(m_view, m_doc, this);
         }
         break;
         case Function::Collection:

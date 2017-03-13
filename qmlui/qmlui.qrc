@@ -2,7 +2,7 @@
   <qresource prefix="/">
     <file alias="dimmer-back.svg">svg/dimmer-back.svg</file>
     <file alias="dimmer-fill.svg">svg/dimmer-fill.svg</file>
-    
+
     <file alias="qmldir">qml/qmldir</file>
 
     <!-- Common components -->
@@ -49,8 +49,8 @@
     <file alias="PopupPINRequest.qml">qml/PopupPINRequest.qml</file>
     <file alias="PopupPINSetup.qml">qml/PopupPINSetup.qml</file>
     <file alias="PopupTextRequest.qml">qml/PopupTextRequest.qml</file>
-    <file alias="PopupBox.qml">qml/PopupBox.qml</file>    
-    
+    <file alias="PopupBox.qml">qml/PopupBox.qml</file>
+
     <!-- Fixtures and Functions -->
     <file alias="FixturesAndFunctions.qml">qml/fixturesfunctions/FixturesAndFunctions.qml</file>
     <file alias="RightPanel.qml">qml/fixturesfunctions/RightPanel.qml</file>
@@ -89,6 +89,8 @@
     <file alias="ChaserStepDelegate.qml">qml/fixturesfunctions/ChaserStepDelegate.qml</file>
     <file alias="RGBMatrixEditor.qml">qml/fixturesfunctions/RGBMatrixEditor.qml</file>
     <file alias="RGBMatrixPreview.qml">qml/fixturesfunctions/RGBMatrixPreview.qml</file>
+    <file alias="EFXEditor.qml">qml/fixturesfunctions/EFXEditor.qml</file>
+    <file alias="EFXPreview.qml">qml/fixturesfunctions/EFXPreview.qml</file>
 
     <!-- Input Output Manager -->
     <file alias="InputOutputManager.qml">qml/inputoutput/InputOutputManager.qml</file>
@@ -135,6 +137,6 @@
     <file alias="FixtureDrag.js">js/FixtureDrag.js</file>
     <file alias="GenericHelpers.js">js/GenericHelpers.js</file>
     <file alias="TimeUtils.js">js/TimeUtils.js</file>
-    
+
   </qresource>
 </RCC>
