@@ -2,6 +2,7 @@ qlcplus (4.10.6) stable; urgency=low
 
   * engine: fixed setting start/end color while a RGB Matrix is running
   * engine: fixed crash when pausing a Show with an unavailable audio file
+  * UI: enabled Alt key combinations on macOS to behave like other platforms (thanks to Matt Mayfield)
   * UI/RGB Panel: added panel direction (thanks to Raivis Rengelis)
   * UI/RGB Matrix Editor: allow the preview to run even in operate mode
   * UI/Simple Desk: fixed crash when changing values from a channel group in "fixtures view" mode
