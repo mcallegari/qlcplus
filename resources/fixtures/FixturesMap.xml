@@ -348,6 +348,7 @@
   <fixture path="Enterius-EC-133DMX.qxf" mf="Enterius" md="EC-133DMX"/>
   <fixture path="Equinox-Gigabar.qxf" mf="Equinox" md="Gigabar"/>
   <fixture path="Equinox-Party-Par-LED-PAR-56.qxf" mf="Equinox" md="Party Par LED PAR 56"/>
+  <fixture path="Equinox-Photon.qxf" mf="Equinox" md="Photon"/>
   <fixture path="Equinox-Swing-Batten.qxf" mf="Equinox" md="Swing Batten"/>
   <fixture path="Equinox-Ultra-Scan-LED.qxf" mf="Equinox" md="Ultra Scan LED"/>
   <fixture path="ETC-ColorSource-PAR.qxf" mf="ETC" md="ColorSource PAR"/>

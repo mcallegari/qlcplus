@@ -61,6 +61,7 @@ qlcplus (4.10.6) stable; urgency=low
   * New fixture: Eurolite TMH-14 (thanks to Chris de Rock)
   * New fixture: Chauvet Scorpion Dual (thanks to Alan Chavis)
   * New fixture: American DJ Ultra Hex Bar 12 (thanks to Rhavin)
+  * New fixture: Equinox Photon
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 5 Mar 2017 12:13:14 +0200
 

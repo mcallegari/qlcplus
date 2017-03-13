@@ -24,7 +24,9 @@ function drawEllipse (ctx, eX, eY, eWidth, eHeight)
     var xFactor = 1.0;
     var yFactor = 1.0;
     if (eWidth > eHeight)
+    {
         yFactor = eHeight / eWidth;
+    }
     if (eHeight > eWidth)
     {
         xFactor = eWidth / eHeight;
@@ -54,7 +56,9 @@ function drawCursor(ctx, eX, eY, eWidth, eHeight, degrees, radius)
     var xFactor = 1.0;
     var yFactor = 1.0;
     if (eWidth > eHeight)
+    {
         yFactor = eHeight / eWidth;
+    }
     if (eHeight > eWidth)
     {
         xFactor = eWidth / eHeight;
@@ -125,7 +129,7 @@ function Sphere3D(radius, rings, slices)
             var sinTheta = Math.sin(theta);
 
             this.vertices[this.numberOfVertices] = new Vertex3D();
-            var p = this.vertices[this.numberOfVertices]
+            var p = this.vertices[this.numberOfVertices];
 
             p.x = this.radius * cosTheta * cosPhi;
             p.y = this.radius * sinPhi;
