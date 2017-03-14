@@ -218,7 +218,8 @@ void UDMXDevice::run()
 {
     // One "official" DMX frame can take (1s/44Hz) = 23ms
     int frameTime = (int) floor(((double)1000 / m_frequency) + (double)0.5);
-    int r = 0;
+    int r = -1;
+    char last_dmx[512];
 
     // Wait for device to settle in case the device was opened just recently
     // Also measure, whether timer granularity is OK
@@ -233,22 +234,52 @@ void UDMXDevice::run()
     m_running = true;
     while (m_running == true)
     {
+        char dmx[512];
+        int len;
+        int start = 0;
+
         if (m_handle == NULL)
             goto framesleep;
 
         time.restart();
 
-        /* Write all 512 channels */
+        /* atomically(!) snapshot the data
+         * (this isn't actually atomic at all) */
+        memcpy(&dmx, m_universe.data(), len = m_universe.size());
+
+        /* If the previous write was successful, try to detect the smallest
+         * change window
+         */
+        if(r >= 0) {
+          while(len > 0 && dmx[len-1] == last_dmx[len-1])
+            len--;
+
+          while(start < len && dmx[start] == last_dmx[start])
+            start++;
+
+          if(start < len) {
+            len -= start;
+          }
+          else {
+            /* Didn't detect a change, so just output the whole lot anyway */
+            len   = m_universe.size();
+            start = 0;
+          }
+        }
+
         r = usb_control_msg(m_handle,
                             USB_TYPE_VENDOR | USB_RECIP_DEVICE | USB_ENDPOINT_OUT,
                             UDMX_SET_CHANNEL_RANGE,   /* Command */
-                            m_universe.size(),        /* Number of channels to set */
-                            0,                        /* Starting index */
-                            (char*)m_universe.data(), /* Values to set */
-                            m_universe.size(),        /* Size of values */
+                            len,                      /* Number of channels to set */
+                            start,                    /* Starting index */
+                            dmx + start,              /* Values to set */
+                            len,                      /* Size of values */
                             500);                     /* Timeout 0.5s */
         if (r < 0)
             qWarning() << "uDMX: unable to write universe:" << usb_strerror();
+
+        for(int i = start; i < len; i++)
+          last_dmx[i] = dmx[i];
 
 framesleep:
         // Sleep for the remainder of the DMX frame time
