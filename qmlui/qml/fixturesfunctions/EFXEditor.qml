@@ -95,6 +95,7 @@ Rectangle
         y: topBar.height + 2
         width: parent.width - 10
         height: parent.height - y
+        interactive: !previewBox.isRotating
 
         contentHeight: editorColumn.height
         boundsBehavior: Flickable.StopAtBounds
@@ -114,6 +115,7 @@ Rectangle
             // row 1
             EFXPreview
             {
+                id: previewBox
                 width: editorColumn.colWidth
                 efxData: efxEditor.algorithmData
                 maximumHeight: efxeContainer.height / 3

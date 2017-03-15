@@ -35,8 +35,11 @@ Rectangle
     property int maximumHeight: 0
 
     property int sphereRadius: 20
-    property int sphereRings: 16
+    property int sphereRings: 17
     property int sphereSlices: 16
+    property int sphereRotationX: 0
+    property int sphereRotationY: 0
+    property bool isRotating: false
 
     onEfxDataChanged: patternLayer.requestPaint()
 
@@ -59,114 +62,130 @@ Rectangle
 
         onPaint:
         {
-            var ctx = bgLayer.getContext('2d')
-            ctx.globalAlpha = 1.0
-            ctx.fillStyle = efxBox.sphereView ? "black" : "white"
-            ctx.lineWidth = 1
+            var ctx = bgLayer.getContext('2d');
+            ctx.globalAlpha = 1.0;
+            ctx.fillStyle = efxBox.sphereView ? "black" : "white";
+            ctx.lineWidth = 1;
 
-            ctx.clearRect(0, 0, width, height)
-            ctx.fillRect(0, 0, width, height)
+            ctx.clearRect(0, 0, width, height);
+            ctx.fillRect(0, 0, width, height);
 
             if (efxBox.sphereView == false)
             {
-                ctx.strokeStyle = UISettings.bgLight
-                ctx.beginPath()
-                ctx.moveTo(width / 2, 0)
-                ctx.lineTo(width / 2, height)
-                ctx.stroke()
-                ctx.closePath()
+                ctx.strokeStyle = UISettings.bgLight;
+                ctx.beginPath();
+                ctx.moveTo(width / 2, 0);
+                ctx.lineTo(width / 2, height);
+                ctx.stroke();
+                ctx.closePath();
 
-                ctx.beginPath()
-                ctx.moveTo(0, height / 2)
-                ctx.lineTo(width, height / 2)
-                ctx.stroke()
-                ctx.closePath()
+                ctx.beginPath();
+                ctx.moveTo(0, height / 2);
+                ctx.lineTo(width, height / 2);
+                ctx.stroke();
+                ctx.closePath();
             }
             else
             {
-                var sphere = new DrawFuncs.Sphere3D(sphereRadius, sphereRings, sphereSlices)
-                var rotation = new DrawFuncs.Vertex3D()
-                var distance = height * 2
-                var lastX = -1
-                var lastY = -1
-                var i, x, y
-                var vertex
+                var sphere = new DrawFuncs.Sphere3D(sphereRadius, sphereRings, sphereSlices);
+                var rotation = new DrawFuncs.Vertex3D(DrawFuncs.degToRad(sphereRotationX), DrawFuncs.degToRad(sphereRotationY), 0);
+                var distance = height * 2;
+                var i, j, vertices;
 
-                //console.log("Number of vertices: " + sphere.numberOfVertices)
+                var lastP = new DrawFuncs.Vertex3D();
+                var firstP = new DrawFuncs.Vertex3D();
+
+                function startRenderingPortion()
+                {
+                    DrawFuncs.clearPoint(lastP);
+                    DrawFuncs.clearPoint(firstP);
+                }
+
+                function closeRenderingPortion(ctx, width, height)
+                {
+                    strokeSegmentImpl(ctx, firstP.x, firstP.y, firstP.z, width, height);
+                    DrawFuncs.clearPoint(lastP);
+                    DrawFuncs.clearPoint(firstP);
+                }
+
+                function strokeSegmentImpl(ctx, x, y, z, width, height)
+                {
+                    if (x < 0 || x >= width || y < 0 || y >= height)
+                        return;
+
+                    var eps = 0.01;
+                    if ((z < -eps && lastP.z < eps) || (z < eps && lastP.z < -eps))
+                    {
+                        ctx.strokeStyle = "gray";
+                    }
+                    else
+                    {
+                        ctx.strokeStyle = "white";
+                    }
+
+                    ctx.beginPath();
+                    if (x === lastP.x && y === lastP.y)
+                    {
+                        // draw single point
+                        ctx.moveTo(x, y);
+                        ctx.lineTo(x + 1, y + 1);
+                    }
+                    else
+                    {
+                        ctx.moveTo(lastP.x, lastP.y);
+                        ctx.lineTo(x, y);
+                    }
+                    ctx.stroke();
+                    ctx.closePath();
+
+                    lastP.x = x;
+                    lastP.y = y;
+                    lastP.z = z;
+                }
+
+                function strokeSegment(p0, ctx, width, height)
+                {
+                    var p = new DrawFuncs.Vertex3D(p0); // clone original point to not mess it up with rotation!
+                    DrawFuncs.rotateX(p, rotation.x);
+                    DrawFuncs.rotateY(p, rotation.y);
+                    DrawFuncs.rotateZ(p, rotation.z);
+
+                    var x, y;
+                    x = DrawFuncs.projection(p.x, p.z, width / 2.0, 100.0, distance);
+                    y = DrawFuncs.projection(p.y, p.z, height / 2.0, 100.0, distance);
+
+                    if (lastP.x === DrawFuncs.EMPTY_VALUE && lastP.y === DrawFuncs.EMPTY_VALUE)
+                    {
+                        lastP = new DrawFuncs.Vertex3D(x, y, p.z);
+                        DrawFuncs.fillPointFromPoint(firstP, lastP);
+                        return;
+                    }
+                    strokeSegmentImpl(ctx, x, y, p.z, width, height);
+                }
 
                 // draw each vertex to get the first sphere skeleton
-                for(i = 0; i < sphere.numberOfVertices; i++)
+                for (i = 0; i < sphere.rings.length; i++)
                 {
-                    vertex = sphere.vertices[i]
-                    DrawFuncs.rotateX(vertex, rotation.x)
-                    DrawFuncs.rotateY(vertex, rotation.y)
-                    DrawFuncs.rotateZ(vertex, rotation.z)
-
-                    x = DrawFuncs.projection(vertex.x, vertex.z, width/2.0, 100.0, distance)
-                    y = DrawFuncs.projection(vertex.y, vertex.z, height/2.0, 100.0, distance)
-
-                    if (lastX == -1 && lastY == -1)
+                    startRenderingPortion();
+                    vertices = sphere.rings[i];
+                    for (j = 0; j < vertices.length; j++)
                     {
-                        lastX = x
-                        lastY = y
-                        continue
+                        strokeSegment(vertices[j], ctx, width, height);
                     }
-
-                    if(x >= 0 && x < width && y >= 0 && y < height)
-                    {
-                        if(vertex.z < 0) {
-                            ctx.strokeStyle = "gray"
-                        } else {
-                            ctx.strokeStyle = "white"
-                        }
-                        ctx.beginPath()
-                        ctx.moveTo(lastX, lastY)
-                        ctx.lineTo(x,y)
-                        ctx.stroke()
-                        ctx.closePath()
-                    }
-
-                    lastX = x
-                    lastY = y
+                    closeRenderingPortion(ctx, width, height);
                 }
 
                 // now walk through rings to draw the slices
-                for (i = 0; i < sphere.slices + 1; i++)
+                for (i = 0; i < sphere.slicesCount; i++)
                 {
-                    for (var j = 0; j < sphere.rings + 1; j++)
+                    startRenderingPortion();
+                    for (j = 0; j < sphere.rings.length; j++)
                     {
-                        vertex = sphere.vertices[i + (j * (sphere.slices + 1))]
-                        DrawFuncs.rotateX(vertex, rotation.x)
-                        DrawFuncs.rotateY(vertex, rotation.y)
-                        DrawFuncs.rotateZ(vertex, rotation.z)
-
-                        x = DrawFuncs.projection(vertex.x, vertex.z, width/2.0, 100.0, distance)
-                        y = DrawFuncs.projection(vertex.y, vertex.z, height/2.0, 100.0, distance)
-
-                        if (lastX == -1 && lastY == -1)
-                        {
-                            lastX = x
-                            lastY = y
-                            continue
-                        }
-
-                        if(x >= 0 && x < width && y >= 0 && y < height)
-                        {
-                            if(vertex.z < 0) {
-                                ctx.strokeStyle = "gray"
-                            } else {
-                                ctx.strokeStyle = "white"
-                            }
-                            ctx.beginPath()
-                            ctx.moveTo(lastX, lastY)
-                            ctx.lineTo(x,y)
-                            ctx.stroke()
-                            ctx.closePath()
-                        }
-
-                        lastX = x
-                        lastY = y
+                        vertices = sphere.rings[j];
+                        var p = vertices[i % vertices.length];// for top and bottom vertices.length = 1
+                        strokeSegment(p, ctx, width, height);
                     }
+                    //closeRenderingPortion(ctx, width, height); // don't close back!
                 }
             }
         }
@@ -231,7 +250,7 @@ Rectangle
                   * 3- perform the spherical point calculation
                   */
 
-                var rotation = new DrawFuncs.Vertex3D()
+                var rotation = new DrawFuncs.Vertex3D(DrawFuncs.degToRad(sphereRotationX), DrawFuncs.degToRad(sphereRotationY), 0)
                 var distance = height * 2
                 var vertex1, vertex2
                 scaleFactor = 360 / 255 // to convert 0 - 255 to 0 - 360
@@ -252,6 +271,13 @@ Rectangle
                     vertex1 = DrawFuncs.getSphereVertex(efxData[i] * scaleFactor, efxData[i + 1] * scaleFactor, sphereRadius)
                     vertex2 = DrawFuncs.getSphereVertex(efxData[i + 2] * scaleFactor, efxData[i + 3] * scaleFactor, sphereRadius)
 
+                    DrawFuncs.rotateX(vertex1, rotation.x);
+                    DrawFuncs.rotateY(vertex1, rotation.y);
+                    DrawFuncs.rotateZ(vertex1, rotation.z);
+
+                    DrawFuncs.rotateX(vertex2, rotation.x);
+                    DrawFuncs.rotateY(vertex2, rotation.y);
+                    DrawFuncs.rotateZ(vertex2, rotation.z);
                     //console.log("Drawing: " + vertex1.x + "," + vertex1.y + "," + vertex1.z)
 
                     x1 = DrawFuncs.projection(vertex1.x, vertex1.z, width/2.0, 100.0, distance)
@@ -278,8 +304,53 @@ Rectangle
     MouseArea
     {
         anchors.fill: parent
-        onClicked:
+
+        property int lastXPos
+        property int lastYPos
+
+        onPressed:
         {
+            if (sphereView == false)
+                return
+
+            // initialize local variables to determine the selection orientation
+            lastXPos = mouse.x
+            lastYPos = mouse.y
+        }
+        onPositionChanged:
+        {
+            if (sphereView == false)
+                return
+
+            isRotating = true
+
+            if (Math.abs(mouse.x - lastXPos) > Math.abs(mouse.y - lastYPos))
+            {
+                if (mouse.x < lastXPos)
+                    sphereRotationY++
+                else
+                    sphereRotationY--
+            }
+            else
+            {
+                if (mouse.y < lastYPos)
+                    sphereRotationX++
+                else
+                    sphereRotationX--
+            }
+            lastXPos = mouse.x
+            lastYPos = mouse.y
+            bgLayer.requestPaint()
+            patternLayer.requestPaint()
+        }
+        onReleased:
+        {
+            if (isRotating == true)
+            {
+                isRotating = false
+                return
+            }
+
             sphereView = !sphereView
             bgLayer.requestPaint()
             patternLayer.requestPaint()

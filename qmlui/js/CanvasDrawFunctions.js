@@ -95,69 +95,101 @@ function drawBasement(ctx, eWidth, eHeight)
     ctx.stroke();
 }
 
-function Vertex3D()
+var EMPTY_VALUE = Number.MIN_VALUE;
+
+function fillPointFromPoint(target, src)
 {
-    this.x = 0;
-    this.y = 0;
-    this.z = 0;
+    target.x = src.x;
+    target.y = src.y;
+    target.z = src.z;
+}
+
+function clearPoint(p)
+{
+    p.x = EMPTY_VALUE;
+    p.y = EMPTY_VALUE;
+    p.z = EMPTY_VALUE;
+}
+
+function Vertex3D(x, y, z)
+{
+    if (arguments.length == 3)
+    {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+    else if (arguments.length == 1)
+    {
+        fillPointFromPoint(this, x); // 1 argument means point
+    }
+    else
+    {
+        clearPoint(this); // no arguments mean create empty
+    }
 }
 
 function Sphere3D(radius, rings, slices)
 {
-    this.vertices = [];
     this.radius = radius;
-    this.rings = rings;
-    this.slices = slices;
-    this.numberOfVertices = 0;
+    this.innerRingsCount = rings;
+    this.slicesCount = slices;
 
     var M_PI_2 = Math.PI / 2;
-    var dTheta = (Math.PI * 2) / this.slices;
-    var dPhi = Math.PI / this.rings;
+    var dTheta = (Math.PI * 2) / this.slicesCount;
+    var dPhi = Math.PI / this.innerRingsCount;
+
+    this.rings = [];
+    // always add both poles
+    this.rings.push([new Vertex3D(0, this.radius, 0)]);
 
     // Iterate over latitudes (rings)
-    for (var lat = 0; lat < this.rings + 1; ++lat)
+    for (var lat = 0; lat < this.innerRingsCount; ++lat)
     {
-        var phi = M_PI_2 - lat * dPhi;
+        var phi = M_PI_2 - lat * dPhi - dPhi / 2;
         var cosPhi = Math.cos(phi);
         var sinPhi = Math.sin(phi);
+        //console.log("lat = " + lat + " phi = " + (phi / Math.PI) + " sinPhi = " + sinPhi);
 
+        var vertices = [];
         // Iterate over longitudes (slices)
-        for (var lon = 0; lon < this.slices + 1; ++lon)
+        for (var lon = 0; lon < this.slicesCount; ++lon)
         {
             var theta = lon * dTheta;
             var cosTheta = Math.cos(theta);
             var sinTheta = Math.sin(theta);
-
-            this.vertices[this.numberOfVertices] = new Vertex3D();
-            var p = this.vertices[this.numberOfVertices];
-
+            var p = new Vertex3D();
             p.x = this.radius * cosTheta * cosPhi;
             p.y = this.radius * sinPhi;
             p.z = this.radius * sinTheta * cosPhi;
-            this.numberOfVertices++;
+            vertices.push(p);
         }
+        this.rings.push(vertices);
     }
+
+    // always add both poles
+    this.rings.push([new Vertex3D(0, -this.radius, 0)]);
 }
 
-function rotateX(point, radians)
+function rotateX(vertex, radians)
 {
-    var y = point.y;
-    point.y = (y * Math.cos(radians)) + (point.z * Math.sin(radians) * -1.0);
-    point.z = (y * Math.sin(radians)) + (point.z * Math.cos(radians));
+    var y = vertex.y;
+    vertex.y = (y * Math.cos(radians)) + (vertex.z * Math.sin(radians) * -1.0);
+    vertex.z = (y * Math.sin(radians)) + (vertex.z * Math.cos(radians));
 }
 
-function rotateY(point, radians)
+function rotateY(vertex, radians)
 {
-    var x = point.x;
-    point.x = (x * Math.cos(radians)) + (point.z * Math.sin(radians) * -1.0);
-    point.z = (x * Math.sin(radians)) + (point.z * Math.cos(radians));
+    var x = vertex.x;
+    vertex.x = (x * Math.cos(radians)) + (vertex.z * Math.sin(radians) * -1.0);
+    vertex.z = (x * Math.sin(radians)) + (vertex.z * Math.cos(radians));
 }
 
-function rotateZ(point, radians)
+function rotateZ(vertex, radians)
 {
-    var x = point.x;
-    point.x = (x * Math.cos(radians)) + (point.y * Math.sin(radians) * -1.0);
-    point.y = (x * Math.sin(radians)) + (point.y * Math.cos(radians));
+    var x = vertex.x;
+    vertex.x = (x * Math.cos(radians)) + (vertex.y * Math.sin(radians) * -1.0);
+    vertex.y = (x * Math.sin(radians)) + (vertex.y * Math.cos(radians));
 }
 
 function projection(xy, z, xyOffset, zOffset, distance)

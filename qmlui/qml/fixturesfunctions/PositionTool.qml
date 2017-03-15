@@ -181,7 +181,6 @@ Rectangle
                         tiltSpinBox.value--
                 }
             }
-
         }
     }
 
