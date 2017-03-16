@@ -255,33 +255,26 @@ Rectangle
                 var vertex1, vertex2
                 scaleFactor = 360 / 255 // to convert 0 - 255 to 0 - 360
                 ctx.lineWidth = 2
-/*
-                ctx.beginPath()
-                ctx.fillStyle = "yellow"
-                vertex1 = DrawFuncs.getSphereVertex(90, 90, sphereRadius)
-                console.log("Drawing: " + vertex1.x + "," + vertex1.y + "," + vertex1.z)
+
+                if (efxData.length < 4)
+                    return
+
+                vertex1 = DrawFuncs.getSphereVertex(efxData[0] * scaleFactor, efxData[1] * scaleFactor, sphereRadius)
+                DrawFuncs.rotateX(vertex1, rotation.x);
+                DrawFuncs.rotateY(vertex1, rotation.y);
+                DrawFuncs.rotateZ(vertex1, rotation.z);
+
                 x1 = DrawFuncs.projection(vertex1.x, vertex1.z, width/2.0, 100.0, distance)
                 y1 = DrawFuncs.projection(vertex1.y, vertex1.z, height/2.0, 100.0, distance)
-                ctx.arc(x1, y1, 10, 0, 2 * Math.PI, false);
-                ctx.fill()
-*/
 
-                for (i = 0; i < efxData.length - 2; i+=2)
+                for (i = 2; i < efxData.length - 2; i+=2)
                 {
-                    vertex1 = DrawFuncs.getSphereVertex(efxData[i] * scaleFactor, efxData[i + 1] * scaleFactor, sphereRadius)
                     vertex2 = DrawFuncs.getSphereVertex(efxData[i + 2] * scaleFactor, efxData[i + 3] * scaleFactor, sphereRadius)
-
-                    DrawFuncs.rotateX(vertex1, rotation.x);
-                    DrawFuncs.rotateY(vertex1, rotation.y);
-                    DrawFuncs.rotateZ(vertex1, rotation.z);
 
                     DrawFuncs.rotateX(vertex2, rotation.x);
                     DrawFuncs.rotateY(vertex2, rotation.y);
                     DrawFuncs.rotateZ(vertex2, rotation.z);
                     //console.log("Drawing: " + vertex1.x + "," + vertex1.y + "," + vertex1.z)
-
-                    x1 = DrawFuncs.projection(vertex1.x, vertex1.z, width/2.0, 100.0, distance)
-                    y1 = DrawFuncs.projection(vertex1.y, vertex1.z, height/2.0, 100.0, distance)
 
                     x2 = DrawFuncs.projection(vertex2.x, vertex2.z, width/2.0, 100.0, distance)
                     y2 = DrawFuncs.projection(vertex2.y, vertex2.z, height/2.0, 100.0, distance)
@@ -296,6 +289,10 @@ Rectangle
                     ctx.lineTo(x2, y2)
                     ctx.stroke()
                     ctx.closePath()
+
+                    vertex1 = vertex2
+                    x1 = x2
+                    y1 = y2
                 }
             }
         }
@@ -327,16 +324,16 @@ Rectangle
             if (Math.abs(mouse.x - lastXPos) > Math.abs(mouse.y - lastYPos))
             {
                 if (mouse.x < lastXPos)
-                    sphereRotationY++
-                else
                     sphereRotationY--
+                else
+                    sphereRotationY++
             }
             else
             {
                 if (mouse.y < lastYPos)
-                    sphereRotationX++
-                else
                     sphereRotationX--
+                else
+                    sphereRotationX++
             }
             lastXPos = mouse.x
             lastYPos = mouse.y

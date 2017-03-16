@@ -113,19 +113,21 @@ function clearPoint(p)
 
 function Vertex3D(x, y, z)
 {
-    if (arguments.length == 3)
+    if (arguments.length === 3)
     {
         this.x = x;
         this.y = y;
         this.z = z;
     }
-    else if (arguments.length == 1)
+    else if (arguments.length === 1)
     {
-        fillPointFromPoint(this, x); // 1 argument means point
+        // 1 argument means point
+        fillPointFromPoint(this, x);
     }
     else
     {
-        clearPoint(this); // no arguments mean create empty
+        // no arguments mean create empty
+        clearPoint(this);
     }
 }
 
