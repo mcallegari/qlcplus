@@ -26,14 +26,15 @@ Rectangle
 {
     id: efxBox
     width: 400
-    height: Math.min(width, maximumHeight)
+    height: Math.min(width < minimumHeight ? minimumHeight : width, maximumHeight)
 
     color: "transparent"
 
     property variant efxData
-    property bool sphereView: false
+    property int minimumHeight: 0
     property int maximumHeight: 0
 
+    property bool sphereView: false
     property int sphereRadius: 20
     property int sphereRings: 17
     property int sphereSlices: 16
@@ -145,7 +146,8 @@ Rectangle
 
                 function strokeSegment(p0, ctx, width, height)
                 {
-                    var p = new DrawFuncs.Vertex3D(p0); // clone original point to not mess it up with rotation!
+                    // clone original point to not mess it up with rotation
+                    var p = new DrawFuncs.Vertex3D(p0);
                     DrawFuncs.rotateX(p, rotation.x);
                     DrawFuncs.rotateY(p, rotation.y);
                     DrawFuncs.rotateZ(p, rotation.z);
@@ -182,14 +184,15 @@ Rectangle
                     for (j = 0; j < sphere.rings.length; j++)
                     {
                         vertices = sphere.rings[j];
-                        var p = vertices[i % vertices.length];// for top and bottom vertices.length = 1
+                        // for top and bottom vertices.length = 1
+                        var p = vertices[i % vertices.length];
                         strokeSegment(p, ctx, width, height);
                     }
                     //closeRenderingPortion(ctx, width, height); // don't close back!
                 }
             }
         }
-    }
+    } // bgLayer Canvas
 
     Canvas
     {
@@ -296,7 +299,27 @@ Rectangle
                 }
             }
         }
-    }
+    } // patternLayer Canvas
+
+    Canvas
+    {
+        id: headsLayer
+        width: height
+        height: parent.height
+        anchors.horizontalCenter: parent.horizontalCenter
+        antialiasing: true
+        x: 0
+        y: 0
+        z: 2
+
+        onPaint:
+        {
+            var ctx = patternLayer.getContext('2d')
+            ctx.globalAlpha = 1.0
+            ctx.fillStyle = "transparent"
+            ctx.lineWidth = 1
+        }
+    } // headsLayer Canvas
 
     MouseArea
     {

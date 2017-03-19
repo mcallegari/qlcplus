@@ -21,9 +21,11 @@
 #define EFXEDITOR_H
 
 #include "functioneditor.h"
+#include "treemodel.h"
 
 class Doc;
 class EFX;
+class ListModel;
 class FixtureGroup;
 
 class EFXEditor : public FunctionEditor
@@ -48,6 +50,14 @@ class EFXEditor : public FunctionEditor
 
     Q_PROPERTY(QVariantList algorithmData READ algorithmData NOTIFY algorithmDataChanged)
 
+    Q_PROPERTY(QVariant fixtureList READ fixtureList NOTIFY fixtureListChanged)
+    Q_PROPERTY(QVariant groupsTreeModel READ groupsTreeModel NOTIFY groupsTreeModelChanged)
+
+    Q_PROPERTY(int fadeInSpeed READ fadeInSpeed WRITE setFadeInSpeed NOTIFY fadeInSpeedChanged)
+    Q_PROPERTY(int holdSpeed READ holdSpeed WRITE setHoldSpeed NOTIFY holdSpeedChanged)
+    Q_PROPERTY(int fadeOutSpeed READ fadeOutSpeed WRITE setFadeOutSpeed NOTIFY fadeOutSpeedChanged)
+    Q_PROPERTY(int duration READ duration NOTIFY durationChanged)
+
     Q_PROPERTY(int runOrder READ runOrder WRITE setRunOrder NOTIFY runOrderChanged)
     Q_PROPERTY(int direction READ direction WRITE setDirection NOTIFY directionChanged)
 
@@ -65,7 +75,6 @@ private:
     /************************************************************************
      * Algorithm
      ************************************************************************/
-
 public:
     QStringList algorithms() const;
 
@@ -132,6 +141,55 @@ signals:
     void algorithmYPhaseChanged();
 
     /************************************************************************
+     * Fixtures
+     ************************************************************************/
+public:
+    QVariant fixtureList() const;
+
+    /** Returns the data model to display a tree of FixtureGroups/Fixtures */
+    QVariant groupsTreeModel();
+
+protected:
+    void updateFixtureList();
+
+    /** Update the tree of groups/fixtures/channels */
+    void updateFixtureTree(Doc *doc, TreeModel *treeModel);
+
+signals:
+    /** Notify the listeners that the fixture list model has changed */
+    void fixtureListChanged();
+
+    /** Notify the listeners that the fixture tree model has changed */
+    void groupsTreeModelChanged();
+
+private:
+    /** Reference to a ListModel representing the fixtures list for the QML UI */
+    ListModel *m_fixtureList;
+    /** Data model used by the QML UI to represent groups/fixtures/heads */
+    TreeModel *m_fixtureTree;
+
+    /************************************************************************
+     * Speed
+     ************************************************************************/
+public:
+    int fadeInSpeed() const;
+    void setFadeInSpeed(int fadeInSpeed);
+
+    int holdSpeed() const;
+    void setHoldSpeed(int holdSpeed);
+
+    int fadeOutSpeed() const;
+    void setFadeOutSpeed(int fadeOutSpeed);
+
+    int duration() const;
+
+signals:
+    void fadeInSpeedChanged(int fadeInSpeed);
+    void holdSpeedChanged(int holdSpeed);
+    void fadeOutSpeedChanged(int fadeOutSpeed);
+    void durationChanged(int duration);
+
+    /************************************************************************
      * Run order and direction
      ************************************************************************/
 public:
@@ -148,7 +206,7 @@ signals:
     void directionChanged(int direction);
 
     /************************************************************************
-     * Preview
+     * Algorithm preview
      ************************************************************************/
 public:
     QVariantList algorithmData();

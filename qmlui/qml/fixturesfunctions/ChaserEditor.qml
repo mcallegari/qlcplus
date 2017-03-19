@@ -222,8 +222,8 @@ Rectangle
                     {
                         if (checked)
                         {
-                            rightSidePanel.width += 350
-                            funcMgrLoader.width = 350
+                            rightSidePanel.width += mainView.width / 3
+                            funcMgrLoader.width = mainView.width / 3
                             funcMgrLoader.source = "qrc:/FunctionManager.qml"
                         }
                         else

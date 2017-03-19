@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  FixtureChannelDelegate.qml
+  FixtureHeadDelegate.qml
 
   Copyright (c) Massimo Callegari
 
@@ -24,17 +24,15 @@ import "."
 
 Rectangle
 {
-    id: chDelegate
+    id: headDelegate
     width: 100
     height: UISettings.listItemHeight
 
     color: "transparent"
 
-    property int chIndex
-    property string chIcon: ""
     property string textLabel
     property bool isSelected: false
-    property bool isChecked: false
+    property int headIndex
     property Item dragItem
 
     signal mouseEvent(int type, int iID, int iType, var qItem, int mouseMods)
@@ -47,32 +45,31 @@ Rectangle
         visible: isSelected
     }
 
-    Row
+    IconTextEntry
     {
-        CustomCheckBox
-        {
-            id: chCheckBox
-            height: UISettings.listItemHeight
-            checked: isChecked
-            width: height
-            onToggle: chDelegate.mouseEvent(App.Checked, chIndex, checked, chDelegate, 0)
-        }
+        id: chEntry
+        height: UISettings.listItemHeight
+        width: headDelegate.width
+        tLabel: textLabel
+        faSource: FontAwesome.fa_certificate
+        faColor: UISettings.fgMain
 
-        IconTextEntry
+        MouseArea
         {
-            id: chEntry
-            height: UISettings.listItemHeight
-            width: chDelegate.width - chCheckBox.width
-            tLabel: textLabel
-            iSrc: chIcon
+            anchors.fill: parent
 
-            MouseArea
+            property bool dragActive: drag.active
+
+            onDragActiveChanged:
             {
-                anchors.fill: parent
-
-                onClicked: chDelegate.mouseEvent(App.Clicked, chIndex, -1, chDelegate, mouse.modifiers)
-                onDoubleClicked: chDelegate.mouseEvent(App.DoubleClicked, chIndex, -1, chDelegate, -1)
+                //console.log("Drag changed on function: " + cRef.id)
+                headDelegate.mouseEvent(dragActive ? App.DragStarted : App.DragFinished, headIndex, -1, headDelegate, 0)
             }
+
+            drag.target: dragItem
+
+            onClicked: headDelegate.mouseEvent(App.Clicked, headIndex, -1, headDelegate, mouse.modifiers)
+            onDoubleClicked: headDelegate.mouseEvent(App.DoubleClicked, headIndex, -1, headDelegate, -1)
         }
     }
 
@@ -83,4 +80,5 @@ Rectangle
         y: parent.height - 1
         color: "#666"
     }
+
 }

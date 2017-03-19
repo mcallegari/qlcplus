@@ -27,7 +27,7 @@ Column
 {
     id: nodeContainer
     width: 350
-    //height: nodeLabel.height + nodeChildrenView.height
+    //height: nodeLabel.height + isExpanded ? nodeChildrenView.height : 0
 
     property Fixture cRef
     property string textLabel
@@ -177,15 +177,23 @@ Column
                     width: nodeChildrenView.width
                     x: 20
                     //height: 35
-                    source: hasChildren ? "" : "qrc:/FixtureChannelDelegate.qml"
+                    source: type.startsWith("FC") ? "qrc:/FixtureChannelDelegate.qml" : "qrc:/FixtureHeadDelegate.qml"
                     onLoaded:
                     {
                         item.textLabel = label
                         item.isSelected = Qt.binding(function() { return isSelected })
-                        item.isChecked = Qt.binding(function() { return isChecked })
                         item.dragItem = dragItem
-                        item.chIndex = index
-                        item.chIcon = cRef ? fixtureManager.channelIcon(cRef.id, index) : ""
+
+                        if (type.startsWith("FC"))
+                        {
+                            item.isChecked = Qt.binding(function() { return isChecked })
+                            item.chIndex = index
+                            item.chIcon = cRef ? fixtureManager.channelIcon(cRef.id, index) : ""
+                        }
+                        else
+                        {
+                            item.headIndex = head
+                        }
 
                         if (item.hasOwnProperty('cRef'))
                             item.cRef = classRef
@@ -195,7 +203,7 @@ Column
                         target: item
                         onMouseEvent:
                         {
-                            console.log("Got tree node children mouse event")
+                            console.log("Got tree node child mouse event")
                             switch (type)
                             {
                                 case App.Clicked:

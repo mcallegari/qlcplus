@@ -61,6 +61,7 @@
     <file alias="PresetsTool.qml">qml/fixturesfunctions/PresetsTool.qml</file>
     <file alias="PresetCapabilityItem.qml">qml/fixturesfunctions/PresetCapabilityItem.qml</file>
     <file alias="FixtureChannelDelegate.qml">qml/fixturesfunctions/FixtureChannelDelegate.qml</file>
+    <file alias="FixtureHeadDelegate.qml">qml/fixturesfunctions/FixtureHeadDelegate.qml</file>
     <file alias="FixtureBrowser.qml">qml/fixturesfunctions/FixtureBrowser.qml</file>
     <file alias="FixtureProperties.qml">qml/fixturesfunctions/FixtureProperties.qml</file>
     <file alias="FixtureDragItem.qml">qml/fixturesfunctions/FixtureDragItem.qml</file>

@@ -30,6 +30,9 @@ Rectangle
     anchors.fill: parent
     color: "transparent"
 
+    /** By default, fixtureManager is the model provider, unless a
+      * specific provider is set here. In that case, modelProvider
+      * must provide a 'groupsTreeModel' method */
     property var modelProvider: null
 
     ColumnLayout

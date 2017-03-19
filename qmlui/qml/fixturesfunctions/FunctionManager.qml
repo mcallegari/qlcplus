@@ -310,13 +310,13 @@ Rectangle
                                     fDragItem.modifiers = mouseMods
                                 break;
                                 case App.Clicked:
-                                  if (qItem == item)
-                                  {
-                                      model.isSelected = (mouseMods & Qt.ControlModifier) ? 2 : 1
-                                      if (model.hasChildren)
+                                    if (qItem == item)
+                                    {
+                                        model.isSelected = (mouseMods & Qt.ControlModifier) ? 2 : 1
+                                        if (model.hasChildren)
                                           model.isExpanded = item.isExpanded
-                                  }
-                                  functionManager.selectFunctionID(iID, mouseMods & Qt.ControlModifier)
+                                    }
+                                    functionManager.selectFunctionID(iID, mouseMods & Qt.ControlModifier)
                                 break;
                                 case App.DoubleClicked:
                                     loadFunctionEditor(iID, iType)
