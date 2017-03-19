@@ -566,7 +566,7 @@ void FixtureManager::updateFixtureTree(Doc *doc, TreeModel *treeModel)
             {
                 QVariantList chParams;
                 chParams.append(QVariant::fromValue(NULL)); // classRef
-                chParams.append("FCG"); // type
+                chParams.append("FCG"); // type (FCG = Fixture Channel from Group)
                 chParams.append(fixture->id()); // id
                 chParams.append(grp->id()); // subid
                 chParams.append(chIdx); // chIdx
@@ -602,7 +602,7 @@ void FixtureManager::updateFixtureTree(Doc *doc, TreeModel *treeModel)
         {
             QVariantList chParams;
             chParams.append(QVariant::fromValue(NULL)); // classRef
-            chParams.append("FCU"); // type
+            chParams.append("FCU"); // type (FCU = Fixture Channel from Universe)
             chParams.append(fixture->id()); // id
             chParams.append(fixture->universe()); // subid
             chParams.append(chIdx); // chIdx

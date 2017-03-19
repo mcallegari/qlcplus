@@ -43,7 +43,7 @@ class FixtureBrowser : public QObject
     Q_PROPERTY(QString selectedMode READ selectedMode WRITE setSelectedMode NOTIFY selectedModeChanged)
     Q_PROPERTY(int modeChannelsCount READ modeChannelsCount WRITE setModeChannelsCount NOTIFY modeChannelsCountChanged)
 
-    Q_PROPERTY(QString searchString READ searchString WRITE setSearchString NOTIFY searchStringChanged)
+    Q_PROPERTY(QString searchFilter READ searchFilter WRITE setSearchFilter NOTIFY searchFilterChanged)
     Q_PROPERTY(QVariant searchTreeModel READ searchTreeModel NOTIFY searchListChanged)
     Q_PROPERTY(QVariant modeChannelList READ modeChannelList NOTIFY modeChannelListChanged)
 
@@ -85,8 +85,8 @@ public:
     Q_INVOKABLE int availableChannel(quint32 fixtureID, int requested);
 
     /** Get/Set the fixture search filter */
-    QString searchString() const;
-    void setSearchString(QString searchString);
+    QString searchFilter() const;
+    void setSearchFilter(QString searchFilter);
 
     QVariant searchTreeModel() const;
 
@@ -106,7 +106,7 @@ signals:
     void modeChannelsCountChanged();
     void modeChannelListChanged();
 
-    void searchStringChanged(QString searchString);
+    void searchFilterChanged(QString searchFilter);
     void searchListChanged();
 
 private:
@@ -133,7 +133,7 @@ private:
     /** Reference to the tree model used for searches */
     TreeModel *m_searchTree;
     /** A string holding the search keyword */
-    QString m_searchString;
+    QString m_searchFilter;
 };
 
 #endif // FIXTUREBROWSER_H

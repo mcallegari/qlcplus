@@ -97,12 +97,12 @@ protected slots:
     void slotRoleChanged(TreeModelItem *item, int role, const QVariant &value);
 
 protected:
+    QHash<int, QByteArray> roleNames() const;
     int getItemIndex(QString label);
     int getFolderIndex(QString label);
 
 protected:
     QStringList m_roles;
-    QHash<int, QByteArray> roleNames() const;
     bool m_sorting;
     QList<TreeModelItem *> m_items;
     QMap<QString, TreeModelItem *> m_itemsPathMap;

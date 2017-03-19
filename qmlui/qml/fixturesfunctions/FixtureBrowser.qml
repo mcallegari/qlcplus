@@ -67,13 +67,13 @@ Rectangle
             height: parent.height - 6
             width: searchBox.width - searchIcon.width - 10
             color: UISettings.fgMain
-            text: fixtureBrowser.searchString
+            text: fixtureBrowser.searchFilter
             font.family: "Roboto Condensed"
             font.pixelSize: height
             selectionColor: UISettings.highlightPressed
             selectByMouse: true
 
-            onTextChanged: fixtureBrowser.searchString = text
+            onTextChanged: fixtureBrowser.searchFilter = text
         }
     }
 
@@ -82,7 +82,7 @@ Rectangle
         id: manufacturerList
         x: 8
         z: 0
-        visible: fixtureBrowser.selectedManufacturer.length == 0 && fixtureBrowser.searchString.length < 3
+        visible: fixtureBrowser.selectedManufacturer.length == 0 && fixtureBrowser.searchFilter.length < 3
         anchors.top: searchBox.bottom
         anchors.topMargin: 6
         anchors.bottom: parent.bottom
@@ -134,7 +134,7 @@ Rectangle
     Rectangle
     {
         id: fixtureArea
-        visible: fixtureBrowser.selectedManufacturer.length && fixtureBrowser.searchString.length < 3
+        visible: fixtureBrowser.selectedManufacturer.length && fixtureBrowser.searchFilter.length < 3
         color: "transparent"
 
         width: parent.width
@@ -236,7 +236,7 @@ Rectangle
     {
         id: searchRect
         clip: true
-        visible: fixtureBrowser.searchString.length >= 3 ? true : false
+        visible: fixtureBrowser.searchFilter.length >= 3 ? true : false
 
         contentHeight: searchColumn.height
 

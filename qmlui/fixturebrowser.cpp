@@ -39,7 +39,7 @@ FixtureBrowser::FixtureBrowser(QQuickView *view, Doc *doc, QObject *parent)
     , m_modeChannelsCount(1)
     , m_definition(NULL)
     , m_mode(NULL)
-    , m_searchString(QString())
+    , m_searchFilter(QString())
 {
     Q_ASSERT(m_doc != NULL);
     Q_ASSERT(m_view != NULL);
@@ -262,25 +262,25 @@ int FixtureBrowser::availableChannel(quint32 fixtureID, int requested)
     return -1;
 }
 
-QString FixtureBrowser::searchString() const
+QString FixtureBrowser::searchFilter() const
 {
-    return m_searchString;
+    return m_searchFilter;
 }
 
-void FixtureBrowser::setSearchString(QString searchString)
+void FixtureBrowser::setSearchFilter(QString searchFilter)
 {
-    if (m_searchString == searchString)
+    if (m_searchFilter == searchFilter)
         return;
 
-    if (m_searchString.length() >= SEARCH_MIN_CHARS && searchString.length() < SEARCH_MIN_CHARS)
+    if (m_searchFilter.length() >= SEARCH_MIN_CHARS && searchFilter.length() < SEARCH_MIN_CHARS)
     {
         m_selectedManufacturer = "";
         emit selectedManufacturerChanged(m_selectedManufacturer);
     }
 
-    m_searchString = searchString;
+    m_searchFilter = searchFilter;
 
-    if (searchString.length() >= SEARCH_MIN_CHARS)
+    if (searchFilter.length() >= SEARCH_MIN_CHARS)
         updateSearchTree();
     else
     {
@@ -288,7 +288,7 @@ void FixtureBrowser::setSearchString(QString searchString)
         emit searchListChanged();
     }
 
-    emit searchStringChanged(searchString);
+    emit searchFilterChanged(searchFilter);
 }
 
 QVariant FixtureBrowser::searchTreeModel() const
@@ -310,8 +310,8 @@ void FixtureBrowser::updateSearchTree()
 
         for(QString model : modelsList)
         {
-            if (manufacturer.toLower().contains(m_searchString) ||
-                model.toLower().contains(m_searchString))
+            if (manufacturer.toLower().contains(m_searchFilter) ||
+                model.toLower().contains(m_searchFilter))
             {
                 QVariantList params;
                 TreeModelItem *item = m_searchTree->addItem(model, params, manufacturer);
