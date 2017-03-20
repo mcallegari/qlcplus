@@ -551,6 +551,11 @@ QVariantList EFXEditor::algorithmData()
     return m_algorithmData;
 }
 
+QVariantList EFXEditor::fixturesData()
+{
+    return m_fixturesData;
+}
+
 void EFXEditor::updateAlgorithmData()
 {
     if (m_efx == NULL)
@@ -561,6 +566,8 @@ void EFXEditor::updateAlgorithmData()
 
     m_algorithmData.clear();
 
+    /** 1- fill a QVariantList or XY coordinates representing
+     *  the EFX algorithm */
     for (int i = 0; i < polygon.size(); i++)
     {
         QPointF pt = polygon.at(i);
@@ -568,7 +575,48 @@ void EFXEditor::updateAlgorithmData()
         m_algorithmData.append(pt.y());
     }
 
+    /** 2- for each fixture, find the closest XY coordinate
+     *  along the EFX algorithm, and store the start index and
+     *  the direction of the animation that will happen in the UI
+     *  NOTE: the data array is filled backward to display first fixtures on top */
+    for (EFXFixture *fixture : m_efx->fixtures())
+    {
+        float distance = 1000.0;
+        float x = 0, y = 0;
+        int pathIdx = 0;
+
+        /** Append the delta to apply on each animation step */
+        if (fixture->direction() == Function::Forward)
+            m_fixturesData.prepend(1);
+        else
+            m_fixturesData.prepend(-1);
+
+        /** Pre-determined case. Easy to solve */
+        if (fixture->startOffset() == 0)
+        {
+            if (fixture->direction() == Function::Forward)
+                m_fixturesData.prepend(0);
+            else
+                m_fixturesData.prepend(polygon.count() - 1);
+        }
+        else
+        {
+            /** With a start offset, we need scan the algorithm points
+             *  to find the index of the closest one */
+            m_efx->calculatePoint(fixture->direction(), fixture->startOffset(), 0, &x, &y);
+
+            for (int i = 0; i < polygon.count(); i++)
+            {
+                float tmpDist = qAbs(x - polygon.at(i).x()) + qAbs(y - polygon.at(i).y());
+                if (tmpDist < distance)
+                    pathIdx = i;
+            }
+            m_fixturesData.prepend(pathIdx);
+        }
+    }
+
     emit algorithmDataChanged();
+    emit fixturesDataChanged();
 }
 
 

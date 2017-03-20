@@ -158,9 +158,12 @@ Rectangle
                     {
                         id: previewBox
                         width: editorColumn.colWidth - 5
-                        efxData: efxEditor.algorithmData
                         minimumHeight: efxeContainer.height / 6
                         maximumHeight: efxeContainer.height / 3
+
+                        efxData: efxEditor.algorithmData
+                        fixturesData: efxEditor.fixturesData
+                        animationInterval: efxEditor.duration / (efxData.length / 2)
                     }
 
                     SectionBox

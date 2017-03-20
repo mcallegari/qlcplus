@@ -199,7 +199,7 @@ function projection(xy, z, xyOffset, zOffset, distance)
     return ((distance * xy) / (z - zOffset)) + xyOffset;
 }
 
-function getSphereVertex(xDegrees, yDegrees, radius)
+function getSphereVertex(xDegrees, yDegrees, radius, rotation)
 {
     var v = new Vertex3D();
     var theta = degToRad(xDegrees);
@@ -207,6 +207,11 @@ function getSphereVertex(xDegrees, yDegrees, radius)
     v.x = radius * Math.cos(theta) * Math.cos(phi);
     v.y = radius * Math.sin(phi);
     v.z = radius * Math.sin(theta) * Math.cos(phi);
+
+    rotateX(v, rotation.x);
+    rotateY(v, rotation.y);
+    rotateZ(v, rotation.z);
+
     return v;
 }
 

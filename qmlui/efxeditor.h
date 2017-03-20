@@ -48,8 +48,6 @@ class EFXEditor : public FunctionEditor
     Q_PROPERTY(int algorithmXPhase READ algorithmXPhase WRITE setAlgorithmXPhase NOTIFY algorithmXPhaseChanged)
     Q_PROPERTY(int algorithmYPhase READ algorithmYPhase WRITE setAlgorithmYPhase NOTIFY algorithmYPhaseChanged)
 
-    Q_PROPERTY(QVariantList algorithmData READ algorithmData NOTIFY algorithmDataChanged)
-
     Q_PROPERTY(QVariant fixtureList READ fixtureList NOTIFY fixtureListChanged)
     Q_PROPERTY(QVariant groupsTreeModel READ groupsTreeModel NOTIFY groupsTreeModelChanged)
 
@@ -60,6 +58,9 @@ class EFXEditor : public FunctionEditor
 
     Q_PROPERTY(int runOrder READ runOrder WRITE setRunOrder NOTIFY runOrderChanged)
     Q_PROPERTY(int direction READ direction WRITE setDirection NOTIFY directionChanged)
+
+    Q_PROPERTY(QVariantList algorithmData READ algorithmData NOTIFY algorithmDataChanged)
+    Q_PROPERTY(QVariantList fixturesData READ fixturesData NOTIFY fixturesDataChanged)
 
 public:
     EFXEditor(QQuickView *view, Doc *doc, QObject *parent = 0);
@@ -210,16 +211,20 @@ signals:
      ************************************************************************/
 public:
     QVariantList algorithmData();
+    QVariantList fixturesData();
 
 private:
     void updateAlgorithmData();
 
 signals:
     void algorithmDataChanged();
+    void fixturesDataChanged();
 
 private:
-    // exchange variable with the QML world
+    /** EFX algorithm data exchanged with the QML world */
     QVariantList m_algorithmData;
+    /** Start index and direction of each fixture of the EFX */
+    QVariantList m_fixturesData;
 };
 
 #endif // EFXEDITOR_H
