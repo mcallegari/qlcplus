@@ -388,6 +388,59 @@ Rectangle
                                             } // Row
                                         } // Rectangle
                                 } // ListView
+
+                                Rectangle
+                                {
+                                    id: newFixtureBox
+                                    Layout.fillWidth: true
+                                    Layout.columnSpan: 4
+                                    height: UISettings.bigItemHeight * 0.6
+                                    color: "transparent"
+                                    radius: 10
+                                    visible: addFixture.checked
+
+                                    RobotoText
+                                    {
+                                        id: ntText
+                                        visible: false
+                                        anchors.centerIn: parent
+                                        label: qsTr("Add a new fixture")
+                                    }
+
+                                    DropArea
+                                    {
+                                        id: newFixtureDrop
+                                        anchors.fill: parent
+
+                                        keys: [ "fixture" ]
+
+                                        states: [
+                                            State
+                                            {
+                                                when: newFixtureDrop.containsDrag
+                                                PropertyChanges
+                                                {
+                                                    target: newFixtureBox
+                                                    color: "#3F00FF00"
+                                                }
+                                                PropertyChanges
+                                                {
+                                                    target: ntText
+                                                    visible: true
+                                                }
+                                            }
+                                        ]
+
+                                        onDropped:
+                                        {
+                                            console.log("Item dropped here. x: " + drag.x + " y: " + drag.y)
+
+                                            //if (drag.source.hasOwnProperty("fromFunctionManager"))
+                                            //    widgetRef.addSchedules(drag.source.itemsList)
+                                            console.log("Item type is: " + drag.source.itemsList[0].itemType)
+                                        }
+                                    }
+                                }
                             } // GridLayout
                     } // SectionBox
 

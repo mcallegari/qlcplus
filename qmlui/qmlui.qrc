@@ -25,6 +25,7 @@
     <file alias="FixtureDelegate.qml">qml/FixtureDelegate.qml</file>
     <file alias="FunctionDelegate.qml">qml/FunctionDelegate.qml</file>
     <file alias="GenericButton.qml">qml/GenericButton.qml</file>
+    <file alias="GenericMultiDragItem.qml">qml/GenericMultiDragItem.qml</file>
     <file alias="FontAwesomeVariables.qml">qml/FontAwesomeVariables.qml</file>
     <file alias="IconButton.qml">qml/IconButton.qml</file>
     <file alias="IconPopupButton.qml">qml/IconPopupButton.qml</file>
@@ -79,7 +80,6 @@
     <file alias="SettingsView3D.qml">qml/fixturesfunctions/SettingsView3D.qml</file>
     <file alias="Fixture3DItem.qml">qml/fixturesfunctions/Fixture3DItem.qml</file>
     <file alias="FunctionManager.qml">qml/fixturesfunctions/FunctionManager.qml</file>
-    <file alias="FunctionDragItem.qml">qml/fixturesfunctions/FunctionDragItem.qml</file>
     <file alias="AddFunctionMenu.qml">qml/fixturesfunctions/AddFunctionMenu.qml</file>
     <file alias="AudioEditor.qml">qml/fixturesfunctions/AudioEditor.qml</file>
     <file alias="CollectionEditor.qml">qml/fixturesfunctions/CollectionEditor.qml</file>

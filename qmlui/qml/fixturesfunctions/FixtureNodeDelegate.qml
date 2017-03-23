@@ -31,15 +31,19 @@ Column
 
     property Fixture cRef
     property string textLabel
-    property string nodePath
-    property var nodeChildren
+    property string itemIcon
+    property int itemType: App.FixtureDragItem
     property bool isExpanded: false
     property bool isSelected: false
+    property string nodePath    
+    property var nodeChildren
     property Item dragItem
 
     signal toggled(bool expanded, int newHeight)
     signal mouseEvent(int type, int iID, int iType, var qItem, int mouseMods)
     signal pathChanged(string oldPath, string newPath)
+
+    onCRefChanged: itemIcon = cRef ? Helpers.fixtureIconFromType(cRef.type) : ""
 
     function getItemAtPos(x, y)
     {
@@ -58,7 +62,7 @@ Column
 
         Rectangle
         {
-            visible: nodeIcon == "" ? false : true
+            visible: itemIcon == "" ? false : true
             width: visible ? parent.height : 0
             height: parent.height
             color: UISettings.bgLight
@@ -77,10 +81,10 @@ Column
         Image
         {
             id: nodeIconImg
-            visible: nodeIcon == "" ? false : true
+            visible: itemIcon == "" ? false : true
             width: visible ? parent.height : 0
             height: parent.height
-            source: cRef ? Helpers.fixtureIconFromType(cRef.type) : ""
+            source: itemIcon
         }
 
         TextInput
@@ -143,7 +147,18 @@ Column
         MouseArea
         {
             anchors.fill: parent
-            height: UISettings.listItemHeight
+
+            property bool dragActive: drag.active
+
+            onDragActiveChanged:
+            {
+                console.log("Drag changed on node: " + textLabel)
+                nodeContainer.mouseEvent(dragActive ? App.DragStarted : App.DragFinished, -1, -1, nodeContainer, 0)
+            }
+
+            drag.target: dragItem
+
+            onPressed: nodeContainer.mouseEvent(App.Pressed, -1, -1, nodeContainer, mouse.modifiers)
             onClicked:
             {
                 clickTimer.modifiers = mouse.modifiers
@@ -186,12 +201,14 @@ Column
 
                         if (type.startsWith("FC"))
                         {
+                            item.itemType = App.ChannelDragItem
                             item.isChecked = Qt.binding(function() { return isChecked })
                             item.chIndex = index
-                            item.chIcon = cRef ? fixtureManager.channelIcon(cRef.id, index) : ""
+                            item.itemIcon = cRef ? fixtureManager.channelIcon(cRef.id, index) : ""
                         }
                         else
                         {
+                            item.itemType = App.HeadDragItem
                             item.headIndex = head
                         }
 

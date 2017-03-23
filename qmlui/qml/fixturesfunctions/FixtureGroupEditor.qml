@@ -90,6 +90,9 @@ Rectangle
             height: geContainer.height - topBar.height
             z: 4
             boundsBehavior: Flickable.StopAtBounds
+
+            property bool dragActive: false
+
             model: modelProvider ? modelProvider.groupsTreeModel : fixtureManager.groupsTreeModel
             delegate:
               Component
@@ -103,14 +106,16 @@ Rectangle
                         console.log("[groupEditor] Item " + label + " has children: " + hasChildren)
                         item.textLabel = label
                         item.isSelected = Qt.binding(function() { return isSelected })
+                        item.dragItem = gfhcDragItem
 
                         if (item.hasOwnProperty('cRef'))
                             item.cRef = classRef
 
                         if (hasChildren)
                         {
+                            item.itemIcon = "qrc:/group.svg"
+                            item.itemType = App.GroupDragItem
                             item.nodePath = path
-                            item.nodeIcon = "qrc:/group.svg"
                             item.isExpanded = isExpanded
                             item.subTreeDelegate = "qrc:/FixtureNodeDelegate.qml"
                             item.nodeChildren = childrenModel
@@ -122,17 +127,66 @@ Rectangle
 
                         onMouseEvent:
                         {
-                            if (type === App.Clicked && qItem == item)
+                            switch (type)
                             {
-                                model.isSelected = (mouseMods & Qt.ControlModifier) ? 2 : 1
-                                if (model.hasChildren)
-                                    model.isExpanded = item.isExpanded
+                                case App.Pressed:
+                                    var posnInWindow = qItem.mapToItem(mainView, qItem.x, qItem.y)
+                                    gfhcDragItem.parent = mainView
+                                    gfhcDragItem.x = posnInWindow.x - (gfhcDragItem.width / 4)
+                                    gfhcDragItem.y = posnInWindow.y - (gfhcDragItem.height / 4)
+                                    gfhcDragItem.modifiers = mouseMods
+                                break;
+                                case App.Clicked:
+                                    if (qItem == item)
+                                    {
+                                        model.isSelected = (mouseMods & Qt.ControlModifier) ? 2 : 1
+                                        if (model.hasChildren)
+                                            model.isExpanded = item.isExpanded
+                                    }
+                                    gfhcDragItem.itemsList = []
+                                break;
+                                case App.DragStarted:
+                                    if (qItem == item && !model.isSelected)
+                                    {
+                                        model.isSelected = 1
+                                        // invalidate the modifiers to force a single selection
+                                        mouseMods = -1
+                                        gfhcDragItem.itemsList = []
+                                    }
+
+                                    gfhcDragItem.itemLabel = qItem.textLabel
+                                    if (qItem.hasOwnProperty("itemIcon"))
+                                        gfhcDragItem.itemIcon = qItem.itemIcon
+                                    else
+                                        gfhcDragItem.itemIcon = ""
+                                    gfhcDragItem.itemsList.push(qItem)
+                                    groupListView.dragActive = true
+                                break;
+                                case App.DragFinished:
+                                    gfhcDragItem.Drag.drop()
+                                    gfhcDragItem.parent = groupListView
+                                    gfhcDragItem.x = 0
+                                    gfhcDragItem.y = 0
+                                    groupListView.dragActive = false
+                                break;
                             }
                         }
                     }
                 } // Loader
               } // Component
             ScrollBar { id: gEditScrollBar; flickable: groupListView }
+
+            // Group / Fixture / Head / Channel draggable item
+            GenericMultiDragItem
+            {
+                id: gfhcDragItem
+
+                visible: groupListView.dragActive
+
+                Drag.active: groupListView.dragActive
+                Drag.source: gfhcDragItem
+                Drag.keys: [ "fixture" ]
+            }
         } // ListView
     } // ColumnLayout
 }

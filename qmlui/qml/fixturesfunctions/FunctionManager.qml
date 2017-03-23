@@ -284,6 +284,7 @@ Rectangle
                           if (hasChildren)
                           {
                               console.log("Item path: " + path + ",label: " + label)
+                              item.itemType = App.FolderDragItem
                               item.nodePath = path
                               item.isExpanded = isExpanded
                               item.nodeChildren = childrenModel
@@ -291,6 +292,7 @@ Rectangle
                           else
                           {
                               item.cRef = classRef
+                              item.itemType = App.FunctionDragItem
                               //item.functionType = funcType
                           }
                       }
@@ -333,6 +335,11 @@ Rectangle
                                         functionManager.selectFunctionID(iID, false)
 
                                     fDragItem.itemsList = functionManager.selectedFunctionsID()
+                                    fDragItem.itemLabel = qItem.textLabel
+                                    if (qItem.hasOwnProperty("itemIcon"))
+                                        fDragItem.itemIcon = qItem.itemIcon
+                                    else
+                                        fDragItem.itemIcon = ""
                                     functionsListView.dragActive = true
                                 break;
                                 case App.DragFinished:
@@ -355,17 +362,29 @@ Rectangle
               } // Component
               ScrollBar { id: fMgrScrollBar; flickable: functionsListView }
 
-              FunctionDragItem
+              GenericMultiDragItem
               {
                   id: fDragItem
 
+                  property bool fromFunctionManager: true
+
                   visible: functionsListView.dragActive
-                  fromFunctionManager: true
 
                   Drag.active: functionsListView.dragActive
                   Drag.source: fDragItem
                   Drag.keys: [ "function" ]
 
+                  onItemsListChanged:
+                  {
+                      console.log("Items in list: " + itemsList.length)
+                      if (itemsList.length)
+                      {
+                          var funcRef = functionManager.getFunction(itemsList[0])
+                          itemLabel = funcRef.name
+                          itemIcon = functionManager.functionIcon(funcRef.type)
+                          multipleItems = itemsList.length > 1 ? true : false
+                      }
+                  }
               }
         } // ListView
 

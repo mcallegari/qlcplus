@@ -31,6 +31,7 @@ Rectangle
     color: "transparent"
 
     property string textLabel
+    property int itemType: App.HeadDragItem
     property bool isSelected: false
     property int headIndex
     property Item dragItem
@@ -68,6 +69,7 @@ Rectangle
 
             drag.target: dragItem
 
+            onPressed: headDelegate.mouseEvent(App.Pressed, headIndex, -1, headDelegate, mouse.modifiers)
             onClicked: headDelegate.mouseEvent(App.Clicked, headIndex, -1, headDelegate, mouse.modifiers)
             onDoubleClicked: headDelegate.mouseEvent(App.DoubleClicked, headIndex, -1, headDelegate, -1)
         }

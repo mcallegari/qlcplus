@@ -32,8 +32,12 @@ Rectangle
 
     property Function cRef
     property string textLabel
+    property string itemIcon: ""
+    property int itemType: App.FunctionDragItem
     property bool isSelected: false
     property Item dragItem
+
+    onCRefChanged: itemIcon = functionManager.functionIcon(cRef.type)
 
     signal toggled
     signal destruction(int ID, var qItem)

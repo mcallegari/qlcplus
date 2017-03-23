@@ -269,7 +269,7 @@ Rectangle
                                 {
                                     item.textLabel = label
                                     item.nodePath = path
-                                    item.nodeIcon = ""
+                                    item.itemIcon = ""
                                     item.isExpanded = true
                                     item.childrenDelegate = "qrc:/FixtureBrowserDelegate.qml"
                                     item.nodeChildren = childrenModel

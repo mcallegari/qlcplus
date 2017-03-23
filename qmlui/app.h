@@ -62,6 +62,18 @@ public:
     };
     Q_ENUM(MouseEvents)
 
+    enum DragItemTypes
+    {
+        GenericDragItem,
+        FolderDragItem,
+        FunctionDragItem,
+        GroupDragItem,
+        FixtureDragItem,
+        ChannelDragItem,
+        HeadDragItem
+    };
+    Q_ENUM(DragItemTypes)
+
     enum ChannelColors
     {
         Red     = (1 << 0),
