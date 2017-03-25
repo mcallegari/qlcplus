@@ -150,6 +150,16 @@ public:
     /** Returns the data model to display a tree of FixtureGroups/Fixtures */
     QVariant groupsTreeModel();
 
+    Q_INVOKABLE void addGroup(QVariant reference);
+
+    Q_INVOKABLE void addFixture(QVariant reference);
+
+    Q_INVOKABLE void addHead(int fixtureID, int headIndex);
+
+    Q_INVOKABLE void setFixtureReversed(quint32 fixtureID, int headIndex, bool reversed);
+
+    Q_INVOKABLE void setFixtureOffset(quint32 fixtureID, int headIndex, int offset);
+
 protected:
     void updateFixtureList();
 

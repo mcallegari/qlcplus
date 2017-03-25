@@ -67,7 +67,8 @@ public:
         GenericDragItem,
         FolderDragItem,
         FunctionDragItem,
-        GroupDragItem,
+        UniverseDragItem,
+        FixtureGroupDragItem,
         FixtureDragItem,
         ChannelDragItem,
         HeadDragItem

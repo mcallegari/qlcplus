@@ -104,17 +104,15 @@ Rectangle
                     onLoaded:
                     {
                         console.log("[groupEditor] Item " + label + " has children: " + hasChildren)
+                        item.cRef = classRef
                         item.textLabel = label
                         item.isSelected = Qt.binding(function() { return isSelected })
                         item.dragItem = gfhcDragItem
 
-                        if (item.hasOwnProperty('cRef'))
-                            item.cRef = classRef
-
                         if (hasChildren)
                         {
                             item.itemIcon = "qrc:/group.svg"
-                            item.itemType = App.GroupDragItem
+                            item.itemType = type
                             item.nodePath = path
                             item.isExpanded = isExpanded
                             item.subTreeDelegate = "qrc:/FixtureNodeDelegate.qml"
@@ -168,6 +166,7 @@ Rectangle
                                     gfhcDragItem.x = 0
                                     gfhcDragItem.y = 0
                                     groupListView.dragActive = false
+                                    gfhcDragItem.itemsList = []
                                 break;
                             }
                         }

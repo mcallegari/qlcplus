@@ -566,7 +566,7 @@ void FixtureManager::updateFixtureTree(Doc *doc, TreeModel *treeModel)
             {
                 QVariantList chParams;
                 chParams.append(QVariant::fromValue(NULL)); // classRef
-                chParams.append("FCG"); // type (FCG = Fixture Channel from Group)
+                chParams.append(App::ChannelDragItem); // type
                 chParams.append(fixture->id()); // id
                 chParams.append(grp->id()); // subid
                 chParams.append(chIdx); // chIdx
@@ -575,15 +575,24 @@ void FixtureManager::updateFixtureTree(Doc *doc, TreeModel *treeModel)
             }
 
             // when all the channel 'leaves' have been added, set the parent node data
-            QVariantList params;
-            params.append(QVariant::fromValue(fixture)); // classRef
-            params.append("FXG"); // type
-            params.append(fixture->id()); // id
-            params.append(grp->id()); // subid
-            params.append(0); // chIdx
+            QVariantList fxParams;
+            fxParams.append(QVariant::fromValue(fixture)); // classRef
+            fxParams.append(App::FixtureDragItem); // type
+            fxParams.append(fixture->id()); // id
+            fxParams.append(grp->id()); // subid
+            fxParams.append(0); // chIdx
 
-            treeModel->setPathData(chPath, params);
+            treeModel->setPathData(chPath, fxParams);
         }
+        // add also the fixture group data
+        QVariantList grpParams;
+        grpParams.append(QVariant::fromValue(grp)); // classRef
+        grpParams.append(App::FixtureGroupDragItem); // type
+        grpParams.append(grp->id()); // id
+        grpParams.append(0); // subid
+        grpParams.append(0); // chIdx
+
+        treeModel->setPathData(grp->name(), grpParams);
     }
 
     // add the current universes as groups
@@ -602,7 +611,7 @@ void FixtureManager::updateFixtureTree(Doc *doc, TreeModel *treeModel)
         {
             QVariantList chParams;
             chParams.append(QVariant::fromValue(NULL)); // classRef
-            chParams.append("FCU"); // type (FCU = Fixture Channel from Universe)
+            chParams.append(App::ChannelDragItem); // type
             chParams.append(fixture->id()); // id
             chParams.append(fixture->universe()); // subid
             chParams.append(chIdx); // chIdx
@@ -611,14 +620,27 @@ void FixtureManager::updateFixtureTree(Doc *doc, TreeModel *treeModel)
         }
 
         // when all the channel 'leaves' have been added, set the parent node data
-        QVariantList params;
-        params.append(QVariant::fromValue(fixture)); // classRef
-        params.append("FXU"); // type
-        params.append(fixture->id()); // id
-        params.append(fixture->universe()); // subid
-        params.append(0); // chIdx
+        QVariantList fxParams;
+        fxParams.append(QVariant::fromValue(fixture)); // classRef
+        fxParams.append(App::FixtureDragItem); // type
+        fxParams.append(fixture->id()); // id
+        fxParams.append(fixture->universe()); // subid
+        fxParams.append(0); // chIdx
 
-        treeModel->setPathData(chPath, params);
+        treeModel->setPathData(chPath, fxParams);
+    }
+
+    for (Universe *universe : m_doc->inputOutputMap()->universes())
+    {
+        // add also the fixture group data
+        QVariantList uniParams;
+        uniParams.append(QVariant::fromValue(universe)); // classRef
+        uniParams.append(App::UniverseDragItem); // type
+        uniParams.append(universe->id()); // id
+        uniParams.append(0); // subid
+        uniParams.append(0); // chIdx
+
+        treeModel->setPathData(universe->name(), uniParams);
     }
 
     //treeModel->printTree(); // enable for debug purposes

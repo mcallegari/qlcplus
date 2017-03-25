@@ -192,23 +192,23 @@ Column
                     width: nodeChildrenView.width
                     x: 20
                     //height: 35
-                    source: type.startsWith("FC") ? "qrc:/FixtureChannelDelegate.qml" : "qrc:/FixtureHeadDelegate.qml"
+                    source: type == App.ChannelDragItem ? "qrc:/FixtureChannelDelegate.qml" : "qrc:/FixtureHeadDelegate.qml"
                     onLoaded:
                     {
                         item.textLabel = label
                         item.isSelected = Qt.binding(function() { return isSelected })
                         item.dragItem = dragItem
+                        item.itemType = type
 
-                        if (type.startsWith("FC"))
+                        if (type == App.ChannelDragItem)
                         {
-                            item.itemType = App.ChannelDragItem
                             item.isChecked = Qt.binding(function() { return isChecked })
                             item.chIndex = index
                             item.itemIcon = cRef ? fixtureManager.channelIcon(cRef.id, index) : ""
                         }
                         else
                         {
-                            item.itemType = App.HeadDragItem
+                            item.fixtureID = cRef ? cRef.id : -1
                             item.headIndex = head
                         }
 

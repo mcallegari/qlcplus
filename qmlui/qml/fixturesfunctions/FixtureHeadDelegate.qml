@@ -33,6 +33,7 @@ Rectangle
     property string textLabel
     property int itemType: App.HeadDragItem
     property bool isSelected: false
+    property int fixtureID
     property int headIndex
     property Item dragItem
 

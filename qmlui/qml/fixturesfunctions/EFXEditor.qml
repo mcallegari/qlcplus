@@ -292,7 +292,7 @@ Rectangle
                                     Layout.fillWidth: true
                                     Layout.columnSpan: 4
                                     model: efxEditor.fixtureList
-                                    height: count * UISettings.listItemHeight
+                                    implicitHeight: count * UISettings.listItemHeight
                                     delegate:
                                         Rectangle
                                         {
@@ -366,6 +366,7 @@ Rectangle
                                                         height: parent.height
                                                         width: height
                                                         checked: model.reverse
+                                                        onToggle: efxEditor.setFixtureReversed(fxID, head, checked)
                                                     }
                                                     Rectangle
                                                     {
@@ -383,6 +384,7 @@ Rectangle
                                                     to: 359
                                                     suffix: "°"
                                                     value: model.offset
+                                                    onValueChanged: efxEditor.setFixtureOffset(fxID, head, value)
                                                 }
 
                                             } // Row
@@ -433,11 +435,21 @@ Rectangle
 
                                         onDropped:
                                         {
-                                            console.log("Item dropped here. x: " + drag.x + " y: " + drag.y)
+                                            console.log("Item dropped here. x: " + drag.x + " y: " + drag.y + " (type: " + drag.source.itemsList[0].itemType + ")")
 
-                                            //if (drag.source.hasOwnProperty("fromFunctionManager"))
-                                            //    widgetRef.addSchedules(drag.source.itemsList)
-                                            console.log("Item type is: " + drag.source.itemsList[0].itemType)
+                                            switch(drag.source.itemsList[0].itemType)
+                                            {
+                                                case App.UniverseDragItem:
+                                                case App.FixtureGroupDragItem:
+                                                    efxEditor.addGroup(drag.source.itemsList[0].cRef)
+                                                break;
+                                                case App.FixtureDragItem:
+                                                    efxEditor.addFixture(drag.source.itemsList[0].cRef)
+                                                break;
+                                                case App.HeadDragItem:
+                                                    efxEditor.addHead(drag.source.itemsList[0].fixtureID, drag.source.itemsList[0].headIndex)
+                                                break;
+                                            }
                                         }
                                     }
                                 }

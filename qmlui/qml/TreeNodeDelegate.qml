@@ -28,6 +28,7 @@ Column
     width: 350
     //height: nodeLabel.height + nodeChildrenView.height
 
+    property var cRef
     property string textLabel
     property string itemIcon: "qrc:/folder.svg"
     property int itemType: App.GenericDragItem
@@ -189,6 +190,8 @@ Column
                         item.textLabel = label
                         item.isSelected = Qt.binding(function() { return isSelected })
                         item.dragItem = dragItem
+                        if (hasOwnProperty("type") && item.hasOwnProperty("itemType"))
+                            item.itemType = type
 
                         if (hasChildren)
                         {
