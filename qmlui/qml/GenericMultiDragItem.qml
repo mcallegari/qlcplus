@@ -26,11 +26,9 @@ Item
 {
     property string itemLabel
     property string itemIcon
-    property int modifiers
-    property bool multipleItems: false
-
     /** Generic list of items that this component represents */
     property var itemsList: []
+    property bool multipleItems: itemsList.length > 1 ? true : false
 
     Rectangle
     {

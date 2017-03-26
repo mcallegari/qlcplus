@@ -23,6 +23,7 @@
 
 #include "efxeditor.h"
 #include "listmodel.h"
+#include "qlcfixturemode.h"
 
 #include "efx.h"
 #include "doc.h"
@@ -32,6 +33,8 @@ EFXEditor::EFXEditor(QQuickView *view, Doc *doc, QObject *parent)
     : FunctionEditor(view, doc, parent)
     , m_efx(NULL)
     , m_fixtureTree(NULL)
+    , m_maxPanDegrees(360.0)
+    , m_maxTiltDegrees(270.0)
 {
     m_view->rootContext()->setContextProperty("efxEditor", this);
 
@@ -319,6 +322,16 @@ QVariant EFXEditor::groupsTreeModel()
     return QVariant::fromValue(m_fixtureTree);
 }
 
+qreal EFXEditor::maxPanDegrees() const
+{
+    return m_maxPanDegrees;
+}
+
+qreal EFXEditor::maxTiltDegrees() const
+{
+    return m_maxTiltDegrees;
+}
+
 void EFXEditor::addGroup(QVariant reference)
 {
     //qDebug() << "[EFXEditor::addGroup]" << reference;
@@ -475,6 +488,9 @@ void EFXEditor::updateFixtureList()
     if (m_efx == NULL)
         return;
 
+    qreal oldPanDegrees = m_maxPanDegrees;
+    qreal oldTiltDegrees = m_maxTiltDegrees;
+
     // listRoles << "name" << "fxID" << "head" << "isSelected" << "reverse" << "offset";
 
     for (EFXFixture *ef : m_efx->fixtures()) // C++11
@@ -485,6 +501,12 @@ void EFXEditor::updateFixtureList()
 
         if (fixture == NULL || head.isValid() == false)
             continue;
+
+        if (fixture->fixtureMode() != NULL && fixture->fixtureMode()->physical().focusPanMax() > m_maxPanDegrees)
+            m_maxPanDegrees = fixture->fixtureMode()->physical().focusPanMax();
+
+        if (fixture->fixtureMode() != NULL && fixture->fixtureMode()->physical().focusTiltMax() > m_maxTiltDegrees)
+            m_maxTiltDegrees = fixture->fixtureMode()->physical().focusTiltMax();
 
         if (fixture->heads() > 1)
             fxMap.insert("name", QString("%1 [%2]").arg(fixture->name()).arg(ef->head().head));
@@ -500,6 +522,10 @@ void EFXEditor::updateFixtureList()
     }
 
     emit fixtureListChanged();
+    if (oldPanDegrees != m_maxPanDegrees)
+        emit maxPanDegreesChanged();
+    if (oldTiltDegrees != m_maxTiltDegrees)
+        emit maxTiltDegreesChanged();
     updateAlgorithmData();
 }
 
@@ -647,6 +673,7 @@ void EFXEditor::setHoldSpeed(int holdSpeed)
     m_efx->setDuration(duration);
 
     emit holdSpeedChanged(holdSpeed);
+    emit durationChanged(duration);
 }
 
 int EFXEditor::fadeOutSpeed() const
@@ -778,13 +805,20 @@ void EFXEditor::updateAlgorithmData()
             /** With a start offset, we need scan the algorithm points
              *  to find the index of the closest one */
             m_efx->calculatePoint(fixture->direction(), fixture->startOffset(), 0, &x, &y);
+            qDebug() << "Got position:" << x << y << fixture->startOffset();
 
             for (int i = 0; i < polygon.count(); i++)
             {
-                float tmpDist = qAbs(x - polygon.at(i).x()) + qAbs(y - polygon.at(i).y());
-                if (tmpDist < distance)
+                QPointF delta = QPointF(x, y) - polygon.at(i);
+                qreal pointsDist = delta.manhattanLength();
+
+                if (pointsDist < distance)
+                {
                     pathIdx = i;
+                    distance = pointsDist;
+                }
             }
+            //qDebug() << "Closest point found at index" << pathIdx;
             m_fixturesData.prepend(pathIdx);
         }
     }

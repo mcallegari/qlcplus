@@ -309,14 +309,13 @@ Rectangle
                                     fDragItem.parent = mainView
                                     fDragItem.x = posnInWindow.x - (fDragItem.width / 4)
                                     fDragItem.y = posnInWindow.y - (fDragItem.height / 4)
-                                    fDragItem.modifiers = mouseMods
                                 break;
                                 case App.Clicked:
                                     if (qItem == item)
                                     {
                                         model.isSelected = (mouseMods & Qt.ControlModifier) ? 2 : 1
                                         if (model.hasChildren)
-                                          model.isExpanded = item.isExpanded
+                                            model.isExpanded = item.isExpanded
                                     }
                                     functionManager.selectFunctionID(iID, mouseMods & Qt.ControlModifier)
                                 break;
@@ -382,7 +381,7 @@ Rectangle
                           var funcRef = functionManager.getFunction(itemsList[0])
                           itemLabel = funcRef.name
                           itemIcon = functionManager.functionIcon(funcRef.type)
-                          multipleItems = itemsList.length > 1 ? true : false
+                          //multipleItems = itemsList.length > 1 ? true : false
                       }
                   }
               }

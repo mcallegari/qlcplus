@@ -33,6 +33,9 @@ Rectangle
     property int minimumHeight: 0
     property int maximumHeight: 0
 
+    property real maxPanDegrees: 360.0
+    property real maxTiltDegrees: 270.0
+
     property variant efxData
     property variant fixturesData
     property int animationInterval: 0
@@ -203,6 +206,30 @@ Rectangle
                 }
             }
         }
+
+        RobotoText
+        {
+            anchors.right: parent.right
+            anchors.top: parent.top
+            anchors.margins: 2
+            height: fontSize
+            visible: sphereView ? false : true
+            label: "Pan (" + maxPanDegrees + "°)"
+            labelColor: UISettings.fgMedium
+            fontSize: UISettings.textSizeDefault * 0.6
+        }
+
+        RobotoText
+        {
+            anchors.left: parent.left
+            anchors.bottom: parent.bottom
+            anchors.margins: 2
+            height: fontSize
+            visible: sphereView ? false : true
+            label: "Tilt (" + maxTiltDegrees + "°)"
+            labelColor: UISettings.fgMedium
+            fontSize: UISettings.textSizeDefault * 0.6
+        }
     } // bgLayer Canvas
 
     Canvas
@@ -218,46 +245,46 @@ Rectangle
 
         onPaint:
         {
-            var ctx = patternLayer.getContext('2d')
-            ctx.globalAlpha = 1.0
-            ctx.fillStyle = "transparent"
-            ctx.lineWidth = 1
+            var ctx = patternLayer.getContext('2d');
+            ctx.globalAlpha = 1.0;
+            ctx.fillStyle = "transparent";
+            ctx.lineWidth = 1;
 
-            ctx.clearRect(0, 0, width, height)
-            ctx.fillRect(0, 0, width, height)
+            ctx.clearRect(0, 0, width, height);
+            ctx.fillRect(0, 0, width, height);
 
-            var i
-            var x1, y1, x2, y2
-            var scaleFactor = sphereView ? (360 / 255) : (height / 255)
+            var i;
+            var x1, y1, x2, y2;
+            var scaleFactor = sphereView ? (360 / 255) : (height / 255);
 
             if (sphereView == false)
             {
-                ctx.strokeStyle = "black"
+                ctx.strokeStyle = "black";
 
-                ctx.beginPath()
+                ctx.beginPath();
 
                 for (i = 0; i < efxData.length - 2; i+=2)
                 {
-                    x1 = efxData[i] * scaleFactor
-                    y1 = efxData[i + 1] * scaleFactor
-                    x2 = efxData[i + 2] * scaleFactor
-                    y2 = efxData[i + 3] * scaleFactor
-                    ctx.moveTo(x1, y1)
-                    ctx.lineTo(x2, y2)
+                    x1 = efxData[i] * scaleFactor;
+                    y1 = efxData[i + 1] * scaleFactor;
+                    x2 = efxData[i + 2] * scaleFactor;
+                    y2 = efxData[i + 3] * scaleFactor;
+                    ctx.moveTo(x1, y1);
+                    ctx.lineTo(x2, y2);
                     //console.log("Drawing: " + x1 + "," + y1 + " to " + x2 + "," + y2)
                     //console.log("Drawing: " + efxData[i] + "," + efxData[i + 1] + " to " + efxData[i + 2] + "," + efxData[i + 3])
                 }
 
                 // stroke the last segment to close the path
-                x1 = x2
-                y1 = y2
-                x2 = efxData[0] * scaleFactor
-                y2 = efxData[1] * scaleFactor
-                ctx.moveTo(x1, y1)
-                ctx.lineTo(x2, y2)
+                x1 = x2;
+                y1 = y2;
+                x2 = efxData[0] * scaleFactor;
+                y2 = efxData[1] * scaleFactor;
+                ctx.moveTo(x1, y1);
+                ctx.lineTo(x2, y2);
 
-                ctx.stroke()
-                ctx.closePath()
+                ctx.stroke();
+                ctx.closePath();
             }
             else
             {
@@ -266,57 +293,57 @@ Rectangle
                   * 2- convert from degrees to radians
                   * 3- perform the spherical point calculation
                   */
-                var rotation = new DrawFuncs.Vertex3D(DrawFuncs.degToRad(sphereRotationX), DrawFuncs.degToRad(sphereRotationY), 0)
-                var distance = height * 2
-                var vertex1, vertex2
-                ctx.lineWidth = 2
+                var rotation = new DrawFuncs.Vertex3D(DrawFuncs.degToRad(sphereRotationX), DrawFuncs.degToRad(sphereRotationY), 0);
+                var distance = height * 2;
+                var vertex1, vertex2;
+                ctx.lineWidth = 2;
 
                 if (efxData.length < 4)
-                    return
+                    return;
 
-                vertex1 = DrawFuncs.getSphereVertex(efxData[0] * scaleFactor, efxData[1] * scaleFactor, sphereRadius, rotation)
-                x1 = DrawFuncs.projection(vertex1.x, vertex1.z, width/2.0, 100.0, distance)
-                y1 = DrawFuncs.projection(vertex1.y, vertex1.z, height/2.0, 100.0, distance)
+                vertex1 = DrawFuncs.getSphereVertex(efxData[0] * scaleFactor, efxData[1] * scaleFactor, sphereRadius, rotation);
+                x1 = DrawFuncs.projection(vertex1.x, vertex1.z, width/2.0, 100.0, distance);
+                y1 = DrawFuncs.projection(vertex1.y, vertex1.z, height/2.0, 100.0, distance);
 
                 for (i = 2; i < efxData.length; i+=2)
                 {
-                    vertex2 = DrawFuncs.getSphereVertex(efxData[i] * scaleFactor, efxData[i + 1] * scaleFactor, sphereRadius, rotation)
-                    x2 = DrawFuncs.projection(vertex2.x, vertex2.z, width/2.0, 100.0, distance)
-                    y2 = DrawFuncs.projection(vertex2.y, vertex2.z, height/2.0, 100.0, distance)
+                    vertex2 = DrawFuncs.getSphereVertex(efxData[i] * scaleFactor, efxData[i + 1] * scaleFactor, sphereRadius, rotation);
+                    x2 = DrawFuncs.projection(vertex2.x, vertex2.z, width/2.0, 100.0, distance);
+                    y2 = DrawFuncs.projection(vertex2.y, vertex2.z, height/2.0, 100.0, distance);
 
                     //console.log("Drawing: " + vertex1.x + "," + vertex1.y + "," + vertex1.z)
 
                     if (vertex2.z < 0)
-                        ctx.strokeStyle = "#878700"
+                        ctx.strokeStyle = "#878700";
                     else
-                        ctx.strokeStyle = "yellow"
+                        ctx.strokeStyle = "yellow";
 
-                    ctx.beginPath()
-                    ctx.moveTo(x1, y1)
-                    ctx.lineTo(x2, y2)
-                    ctx.stroke()
-                    ctx.closePath()
+                    ctx.beginPath();
+                    ctx.moveTo(x1, y1);
+                    ctx.lineTo(x2, y2);
+                    ctx.stroke();
+                    ctx.closePath();
 
-                    vertex1 = vertex2
-                    x1 = x2
-                    y1 = y2
+                    vertex1 = vertex2;
+                    x1 = x2;
+                    y1 = y2;
                 }
 
                 // stroke the last segment to close the path
-                vertex2 = DrawFuncs.getSphereVertex(efxData[0] * scaleFactor, efxData[1] * scaleFactor, sphereRadius, rotation)
-                x2 = DrawFuncs.projection(vertex2.x, vertex2.z, width/2.0, 100.0, distance)
-                y2 = DrawFuncs.projection(vertex2.y, vertex2.z, height/2.0, 100.0, distance)
+                vertex2 = DrawFuncs.getSphereVertex(efxData[0] * scaleFactor, efxData[1] * scaleFactor, sphereRadius, rotation);
+                x2 = DrawFuncs.projection(vertex2.x, vertex2.z, width/2.0, 100.0, distance);
+                y2 = DrawFuncs.projection(vertex2.y, vertex2.z, height/2.0, 100.0, distance);
 
                 if (vertex2.z < 0)
-                    ctx.strokeStyle = "#878700"
+                    ctx.strokeStyle = "#878700";
                 else
-                    ctx.strokeStyle = "yellow"
+                    ctx.strokeStyle = "yellow";
 
-                ctx.beginPath()
-                ctx.moveTo(x1, y1)
-                ctx.lineTo(x2, y2)
-                ctx.stroke()
-                ctx.closePath()
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                ctx.lineTo(x2, y2);
+                ctx.stroke();
+                ctx.closePath();
             }
         }
     } // patternLayer Canvas
@@ -334,69 +361,69 @@ Rectangle
 
         onPaint:
         {
-            var ctx = headsLayer.getContext('2d')
-            ctx.globalAlpha = 1.0
-            ctx.fillStyle = "transparent"
-            ctx.lineWidth = 1
-            ctx.strokeStyle = "black"
+            var ctx = headsLayer.getContext('2d');
+            ctx.globalAlpha = 1.0;
+            ctx.fillStyle = "transparent";
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = "black";
 
-            ctx.clearRect(0, 0, width, height)
-            ctx.fillRect(0, 0, width, height)
+            ctx.clearRect(0, 0, width, height);
+            ctx.fillRect(0, 0, width, height);
 
-            var x, y
-            var headRadius = height / 20
-            var halfHeadRadius = headRadius / 2
-            var fontSize = headRadius * 0.8
-            var scaleFactor = sphereView ? (360 / 255) : (height / 255)
-            var distance = height * 2
-            var efxDataHalfLen = efxData.length / 2
-            var rotation = new DrawFuncs.Vertex3D(DrawFuncs.degToRad(sphereRotationX), DrawFuncs.degToRad(sphereRotationY), 0)
-            var fxCountDown = fixturesData.length / 2
+            var x, y;
+            var headRadius = height / 20;
+            var halfHeadRadius = headRadius / 2;
+            var fontSize = headRadius * 0.8;
+            var scaleFactor = sphereView ? (360 / 255) : (height / 255);
+            var distance = height * 2;
+            var efxDataHalfLen = efxData.length / 2;
+            var rotation = new DrawFuncs.Vertex3D(DrawFuncs.degToRad(sphereRotationX), DrawFuncs.degToRad(sphereRotationY), 0);
+            var fxCountDown = fixturesData.length / 2;
 
-            ctx.font = fontSize + "px \"" + UISettings.robotoFontName + "\""
-            ctx.textAlign = "center"
+            ctx.font = fontSize + "px \"" + UISettings.robotoFontName + "\"";
+            ctx.textAlign = "center";
 
             for (var i = 0; i < fixturesData.length; i+=2)
             {
-                var idx = fixturesData[i]
-                var direction = fixturesData[i + 1]
+                var idx = fixturesData[i];
+                var direction = fixturesData[i + 1];
 
-                x = efxData[idx * 2] * scaleFactor
-                y = efxData[(idx * 2) + 1] * scaleFactor
+                x = efxData[idx * 2] * scaleFactor;
+                y = efxData[(idx * 2) + 1] * scaleFactor;
 
-                ctx.fillStyle = "white"
+                ctx.fillStyle = "white";
 
                 if (sphereView == true)
                 {
-                    var vertex = DrawFuncs.getSphereVertex(x, y, sphereRadius, rotation)
+                    var vertex = DrawFuncs.getSphereVertex(x, y, sphereRadius, rotation);
 
-                    x = DrawFuncs.projection(vertex.x, vertex.z, width/2.0, 100.0, distance)
-                    y = DrawFuncs.projection(vertex.y, vertex.z, height/2.0, 100.0, distance)
+                    x = DrawFuncs.projection(vertex.x, vertex.z, width/2.0, 100.0, distance);
+                    y = DrawFuncs.projection(vertex.y, vertex.z, height/2.0, 100.0, distance);
 
                     if (vertex.z < 0)
-                        ctx.fillStyle = "gray"
+                        ctx.fillStyle = "gray";
                 }
 
-                ctx.beginPath()
-                ctx.ellipse(x - halfHeadRadius, y - halfHeadRadius, headRadius, headRadius)
-                ctx.fill()
-                ctx.closePath()
-                ctx.stroke()
+                ctx.beginPath();
+                ctx.ellipse(x - halfHeadRadius, y - halfHeadRadius, headRadius, headRadius);
+                ctx.fill();
+                ctx.closePath();
+                ctx.stroke();
 
-                ctx.beginPath()
-                ctx.fillStyle = "black"
-                ctx.fillText(fxCountDown, x, y + halfHeadRadius / 2)
-                ctx.fill()
-                ctx.closePath()
+                ctx.beginPath();
+                ctx.fillStyle = "black";
+                ctx.fillText(fxCountDown, x, y + halfHeadRadius / 2);
+                ctx.fill();
+                ctx.closePath();
 
-                fixturesData[i] += direction
+                fixturesData[i] += direction;
 
                 if (fixturesData[i] >= efxDataHalfLen && direction > 0)
-                    fixturesData[i] = 0
+                    fixturesData[i] = 0;
                 if (fixturesData[i] < 0 && direction < 0)
-                    fixturesData[i] = efxDataHalfLen - 1
+                    fixturesData[i] = efxDataHalfLen - 1;
 
-                fxCountDown--
+                fxCountDown--;
             }
         }
     } // headsLayer Canvas

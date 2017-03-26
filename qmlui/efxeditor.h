@@ -50,6 +50,8 @@ class EFXEditor : public FunctionEditor
 
     Q_PROPERTY(QVariant fixtureList READ fixtureList NOTIFY fixtureListChanged)
     Q_PROPERTY(QVariant groupsTreeModel READ groupsTreeModel NOTIFY groupsTreeModelChanged)
+    Q_PROPERTY(qreal maxPanDegrees READ maxPanDegrees NOTIFY maxPanDegreesChanged)
+    Q_PROPERTY(qreal maxTiltDegrees READ maxTiltDegrees NOTIFY maxTiltDegreesChanged)
 
     Q_PROPERTY(int fadeInSpeed READ fadeInSpeed WRITE setFadeInSpeed NOTIFY fadeInSpeedChanged)
     Q_PROPERTY(int holdSpeed READ holdSpeed WRITE setHoldSpeed NOTIFY holdSpeedChanged)
@@ -150,6 +152,10 @@ public:
     /** Returns the data model to display a tree of FixtureGroups/Fixtures */
     QVariant groupsTreeModel();
 
+    /** Return the maximum Pan/Tilt degrees gotten from a fixture list update */
+    qreal maxPanDegrees() const;
+    qreal maxTiltDegrees() const;
+
     Q_INVOKABLE void addGroup(QVariant reference);
 
     Q_INVOKABLE void addFixture(QVariant reference);
@@ -173,11 +179,17 @@ signals:
     /** Notify the listeners that the fixture tree model has changed */
     void groupsTreeModelChanged();
 
+    /** Notify the listeners that the Pan/Tilt degrees have changed */
+    void maxPanDegreesChanged();
+    void maxTiltDegreesChanged();
+
 private:
     /** Reference to a ListModel representing the fixtures list for the QML UI */
     ListModel *m_fixtureList;
     /** Data model used by the QML UI to represent groups/fixtures/heads */
     TreeModel *m_fixtureTree;
+
+    qreal m_maxPanDegrees, m_maxTiltDegrees;
 
     /************************************************************************
      * Speed

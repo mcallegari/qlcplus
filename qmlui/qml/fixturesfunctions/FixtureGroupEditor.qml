@@ -132,7 +132,24 @@ Rectangle
                                     gfhcDragItem.parent = mainView
                                     gfhcDragItem.x = posnInWindow.x - (gfhcDragItem.width / 4)
                                     gfhcDragItem.y = posnInWindow.y - (gfhcDragItem.height / 4)
-                                    gfhcDragItem.modifiers = mouseMods
+                                    if (!qItem.isSelected)
+                                    {
+                                        if ((mouseMods & Qt.ControlModifier) == 0)
+                                            gfhcDragItem.itemsList = []
+
+                                        gfhcDragItem.itemsList.push(qItem)
+                                        //console.log("[TOP LEVEL] Got item press event: " + gfhcDragItem.itemsList.length)
+
+                                        if (gfhcDragItem.itemsList.length == 1)
+                                        {
+                                            gfhcDragItem.itemLabel = qItem.textLabel
+                                            if (qItem.hasOwnProperty("itemIcon"))
+                                                gfhcDragItem.itemIcon = qItem.itemIcon
+                                            else
+                                                gfhcDragItem.itemIcon = ""
+                                        }
+                                        gfhcDragItem.multipleItems = gfhcDragItem.itemsList.length > 1 ? true : false
+                                    }
                                 break;
                                 case App.Clicked:
                                     if (qItem == item)
@@ -141,7 +158,6 @@ Rectangle
                                         if (model.hasChildren)
                                             model.isExpanded = item.isExpanded
                                     }
-                                    gfhcDragItem.itemsList = []
                                 break;
                                 case App.DragStarted:
                                     if (qItem == item && !model.isSelected)
@@ -149,15 +165,8 @@ Rectangle
                                         model.isSelected = 1
                                         // invalidate the modifiers to force a single selection
                                         mouseMods = -1
-                                        gfhcDragItem.itemsList = []
                                     }
 
-                                    gfhcDragItem.itemLabel = qItem.textLabel
-                                    if (qItem.hasOwnProperty("itemIcon"))
-                                        gfhcDragItem.itemIcon = qItem.itemIcon
-                                    else
-                                        gfhcDragItem.itemIcon = ""
-                                    gfhcDragItem.itemsList.push(qItem)
                                     groupListView.dragActive = true
                                 break;
                                 case App.DragFinished:

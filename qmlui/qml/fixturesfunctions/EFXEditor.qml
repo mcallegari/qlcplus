@@ -41,6 +41,27 @@ Rectangle
         onItemsCountChanged: console.log("EFX Editor selected items changed !")
     }
 
+    TimeEditTool
+    {
+        id: timeEditTool
+
+        parent: mainView
+        z: 99
+        x: rightSidePanel.x - width
+        visible: false
+        tempoType: efxEditor.tempoType
+
+        onValueChanged:
+        {
+            if (speedType == Function.FadeIn)
+                efxEditor.fadeInSpeed = val
+            else if (speedType == Function.Hold)
+                efxEditor.holdSpeed = val
+            else if (speedType == Function.FadeOut)
+                efxEditor.fadeOutSpeed = val
+        }
+    }
+
     SplitView
     {
         anchors.fill: parent
@@ -160,6 +181,8 @@ Rectangle
                         width: editorColumn.colWidth - 5
                         minimumHeight: efxeContainer.height / 6
                         maximumHeight: efxeContainer.height / 3
+                        maxPanDegrees: efxEditor.maxPanDegrees
+                        maxTiltDegrees: efxEditor.maxTiltDegrees
 
                         efxData: efxEditor.algorithmData
                         fixturesData: efxEditor.fixturesData
@@ -435,20 +458,24 @@ Rectangle
 
                                         onDropped:
                                         {
-                                            console.log("Item dropped here. x: " + drag.x + " y: " + drag.y + " (type: " + drag.source.itemsList[0].itemType + ")")
+                                            console.log("Item(s) dropped here. x: " + drag.x + " y: " + drag.y)
 
-                                            switch(drag.source.itemsList[0].itemType)
+                                            for (var i = 0; i < drag.source.itemsList.length; i++)
                                             {
-                                                case App.UniverseDragItem:
-                                                case App.FixtureGroupDragItem:
-                                                    efxEditor.addGroup(drag.source.itemsList[0].cRef)
-                                                break;
-                                                case App.FixtureDragItem:
-                                                    efxEditor.addFixture(drag.source.itemsList[0].cRef)
-                                                break;
-                                                case App.HeadDragItem:
-                                                    efxEditor.addHead(drag.source.itemsList[0].fixtureID, drag.source.itemsList[0].headIndex)
-                                                break;
+                                                console.log("Item #" + i + " type: " + drag.source.itemsList[i].itemType)
+                                                switch(drag.source.itemsList[i].itemType)
+                                                {
+                                                    case App.UniverseDragItem:
+                                                    case App.FixtureGroupDragItem:
+                                                        efxEditor.addGroup(drag.source.itemsList[i].cRef)
+                                                    break;
+                                                    case App.FixtureDragItem:
+                                                        efxEditor.addFixture(drag.source.itemsList[i].cRef)
+                                                    break;
+                                                    case App.HeadDragItem:
+                                                        efxEditor.addHead(drag.source.itemsList[i].fixtureID, drag.source.itemsList[i].headIndex)
+                                                    break;
+                                                }
                                             }
                                         }
                                     }
@@ -674,7 +701,103 @@ Rectangle
                                 columns: 2
                                 columnSpacing: 5
                                 rowSpacing: 4
-                            }
+
+                                // Row 1
+                                RobotoText
+                                {
+                                    id: fiLabel
+                                    label: qsTr("Fade in")
+                                    height: UISettings.listItemHeight
+                                }
+
+                                Rectangle
+                                {
+                                    Layout.fillWidth: true
+                                    height: UISettings.listItemHeight
+                                    color: UISettings.bgMedium
+
+                                    RobotoText
+                                    {
+                                        anchors.fill: parent
+                                        label: TimeUtils.timeToQlcString(efxEditor.fadeInSpeed, efxEditor.tempoType)
+
+                                        MouseArea
+                                        {
+                                            anchors.fill: parent
+                                            onDoubleClicked:
+                                            {
+                                                timeEditTool.allowFractions = Function.ByTwoFractions
+                                                timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
+                                                                  fiLabel.label, parent.label, Function.FadeIn)
+                                            }
+                                        }
+                                    }
+                                }
+
+                                // Row 2
+                                RobotoText
+                                {
+                                    id: hLabel
+                                    height: UISettings.listItemHeight
+                                    label: qsTr("Hold")
+                                }
+
+                                Rectangle
+                                {
+                                    Layout.fillWidth: true
+                                    height: UISettings.listItemHeight
+                                    color: UISettings.bgMedium
+
+                                    RobotoText
+                                    {
+                                        anchors.fill: parent
+                                        label: TimeUtils.timeToQlcString(efxEditor.holdSpeed, efxEditor.tempoType)
+
+                                        MouseArea
+                                        {
+                                            anchors.fill: parent
+                                            onDoubleClicked:
+                                            {
+                                                timeEditTool.allowFractions = Function.ByTwoFractions
+                                                timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
+                                                                  hLabel.label, parent.label, Function.Hold)
+                                            }
+                                        }
+                                    }
+                                }
+
+                                // Row 3
+                                RobotoText
+                                {
+                                    id: foLabel
+                                    height: UISettings.listItemHeight
+                                    label: qsTr("Fade out")
+                                }
+
+                                Rectangle
+                                {
+                                    Layout.fillWidth: true
+                                    height: UISettings.listItemHeight
+                                    color: UISettings.bgMedium
+
+                                    RobotoText
+                                    {
+                                        anchors.fill: parent
+                                        label: TimeUtils.timeToQlcString(efxEditor.fadeOutSpeed, efxEditor.tempoType)
+
+                                        MouseArea
+                                        {
+                                            anchors.fill: parent
+                                            onDoubleClicked:
+                                            {
+                                                timeEditTool.allowFractions = Function.ByTwoFractions
+                                                timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
+                                                                  foLabel.label, parent.label, Function.FadeOut)
+                                            }
+                                        }
+                                    }
+                                }
+                            } // GridLayout
                     }
 
                     SectionBox

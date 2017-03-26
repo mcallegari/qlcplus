@@ -139,7 +139,7 @@ Column
             onTriggered:
             {
                 isExpanded = !isExpanded
-                nodeContainer.mouseEvent(App.Clicked, -1, -1, nodeContainer, modifiers)
+                nodeContainer.mouseEvent(App.Clicked, cRef ? cRef.id : -1, -1, nodeContainer, modifiers)
                 modifiers = 0
             }
         }
@@ -153,12 +153,12 @@ Column
             onDragActiveChanged:
             {
                 console.log("Drag changed on node: " + textLabel)
-                nodeContainer.mouseEvent(dragActive ? App.DragStarted : App.DragFinished, -1, -1, nodeContainer, 0)
+                nodeContainer.mouseEvent(dragActive ? App.DragStarted : App.DragFinished, cRef ? cRef.id : -1, -1, nodeContainer, 0)
             }
 
             drag.target: dragItem
 
-            onPressed: nodeContainer.mouseEvent(App.Pressed, -1, -1, nodeContainer, mouse.modifiers)
+            onPressed: nodeContainer.mouseEvent(App.Pressed, cRef ? cRef.id : -1, -1, nodeContainer, mouse.modifiers)
             onClicked:
             {
                 clickTimer.modifiers = mouse.modifiers
