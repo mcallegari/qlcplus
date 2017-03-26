@@ -35,6 +35,7 @@ Rectangle
 
     property real maxPanDegrees: 360.0
     property real maxTiltDegrees: 270.0
+    property real halfTiltDegrees: maxTiltDegrees / 2
 
     property variant efxData
     property variant fixturesData
@@ -213,7 +214,7 @@ Rectangle
             anchors.top: parent.top
             anchors.margins: 2
             height: fontSize
-            visible: sphereView ? false : true
+            visible: !sphereView
             label: "Pan (" + maxPanDegrees + "°)"
             labelColor: UISettings.fgMedium
             fontSize: UISettings.textSizeDefault * 0.6
@@ -225,7 +226,7 @@ Rectangle
             anchors.bottom: parent.bottom
             anchors.margins: 2
             height: fontSize
-            visible: sphereView ? false : true
+            visible: !sphereView
             label: "Tilt (" + maxTiltDegrees + "°)"
             labelColor: UISettings.fgMedium
             fontSize: UISettings.textSizeDefault * 0.6
@@ -255,10 +256,10 @@ Rectangle
 
             var i;
             var x1, y1, x2, y2;
-            var scaleFactor = sphereView ? (360 / 255) : (height / 255);
 
             if (sphereView == false)
             {
+                var scaleFactor = height / 255;
                 ctx.strokeStyle = "black";
 
                 ctx.beginPath();
@@ -296,18 +297,21 @@ Rectangle
                 var rotation = new DrawFuncs.Vertex3D(DrawFuncs.degToRad(sphereRotationX), DrawFuncs.degToRad(sphereRotationY), 0);
                 var distance = height * 2;
                 var vertex1, vertex2;
+                var xScaleFactor = maxPanDegrees / 255;
+                var yScaleFactor = maxTiltDegrees / 255;
+
                 ctx.lineWidth = 2;
 
                 if (efxData.length < 4)
                     return;
 
-                vertex1 = DrawFuncs.getSphereVertex(efxData[0] * scaleFactor, efxData[1] * scaleFactor, sphereRadius, rotation);
+                vertex1 = DrawFuncs.getSphereVertex(efxData[0] * xScaleFactor, efxData[1] * yScaleFactor, halfTiltDegrees, sphereRadius, rotation);
                 x1 = DrawFuncs.projection(vertex1.x, vertex1.z, width/2.0, 100.0, distance);
                 y1 = DrawFuncs.projection(vertex1.y, vertex1.z, height/2.0, 100.0, distance);
 
                 for (i = 2; i < efxData.length; i+=2)
                 {
-                    vertex2 = DrawFuncs.getSphereVertex(efxData[i] * scaleFactor, efxData[i + 1] * scaleFactor, sphereRadius, rotation);
+                    vertex2 = DrawFuncs.getSphereVertex(efxData[i] * xScaleFactor, efxData[i + 1] * yScaleFactor, halfTiltDegrees, sphereRadius, rotation);
                     x2 = DrawFuncs.projection(vertex2.x, vertex2.z, width/2.0, 100.0, distance);
                     y2 = DrawFuncs.projection(vertex2.y, vertex2.z, height/2.0, 100.0, distance);
 
@@ -330,7 +334,7 @@ Rectangle
                 }
 
                 // stroke the last segment to close the path
-                vertex2 = DrawFuncs.getSphereVertex(efxData[0] * scaleFactor, efxData[1] * scaleFactor, sphereRadius, rotation);
+                vertex2 = DrawFuncs.getSphereVertex(efxData[0] * xScaleFactor, efxData[1] * yScaleFactor, halfTiltDegrees, sphereRadius, rotation);
                 x2 = DrawFuncs.projection(vertex2.x, vertex2.z, width/2.0, 100.0, distance);
                 y2 = DrawFuncs.projection(vertex2.y, vertex2.z, height/2.0, 100.0, distance);
 
@@ -374,7 +378,8 @@ Rectangle
             var headRadius = height / 20;
             var halfHeadRadius = headRadius / 2;
             var fontSize = headRadius * 0.8;
-            var scaleFactor = sphereView ? (360 / 255) : (height / 255);
+            var xScaleFactor = sphereView ? (maxPanDegrees / 255) : (height / 255);
+            var yScaleFactor = sphereView ? (maxTiltDegrees / 255) : (height / 255);
             var distance = height * 2;
             var efxDataHalfLen = efxData.length / 2;
             var rotation = new DrawFuncs.Vertex3D(DrawFuncs.degToRad(sphereRotationX), DrawFuncs.degToRad(sphereRotationY), 0);
@@ -388,14 +393,14 @@ Rectangle
                 var idx = fixturesData[i];
                 var direction = fixturesData[i + 1];
 
-                x = efxData[idx * 2] * scaleFactor;
-                y = efxData[(idx * 2) + 1] * scaleFactor;
+                x = efxData[idx * 2] * xScaleFactor;
+                y = efxData[(idx * 2) + 1] * yScaleFactor;
 
                 ctx.fillStyle = "white";
 
                 if (sphereView == true)
                 {
-                    var vertex = DrawFuncs.getSphereVertex(x, y, sphereRadius, rotation);
+                    var vertex = DrawFuncs.getSphereVertex(x, y, halfTiltDegrees, sphereRadius, rotation);
 
                     x = DrawFuncs.projection(vertex.x, vertex.z, width/2.0, 100.0, distance);
                     y = DrawFuncs.projection(vertex.y, vertex.z, height/2.0, 100.0, distance);
