@@ -74,13 +74,11 @@ TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path
 
     if (path.isEmpty())
     {
+        /* This is the case of a 'leaf' child */
         item = new TreeModelItem(label);
         QQmlEngine::setObjectOwnership(item, QQmlEngine::CppOwnership);
         item->setData(data);
-        if (flags & Expanded)
-            item->setExpanded(true);
-        if (flags & Checked)
-            item->setChecked(true);
+        item->setFlags(flags);
         int addIndex = getItemIndex(label);
         beginInsertRows(QModelIndex(), addIndex, addIndex);
         m_items.insert(addIndex, item);
@@ -97,10 +95,7 @@ TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path
         {
             item = new TreeModelItem(pathList.at(0));
             item->setPath(pathList.at(0));
-            if (flags & Expanded)
-                item->setExpanded(true);
-            if (flags & Checked)
-                item->setChecked(true);
+            item->setFlags(flags);
             QQmlEngine::setObjectOwnership(item, QQmlEngine::CppOwnership);
             if (item->setChildrenColumns(m_roles) == true)
             {
@@ -109,7 +104,7 @@ TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path
                 qDebug() << "Tree" << this << "connected to tree" << item->children();
             }
 
-            int addIndex = getFolderIndex(label);
+            int addIndex = getNodeIndex(label);
             beginInsertRows(QModelIndex(), addIndex, addIndex);
             m_items.insert(addIndex, item);
             endInsertRows();
@@ -185,11 +180,15 @@ QVariant TreeModel::data(const QModelIndex &index, int role) const
         case PathRole:
             return item->path();
         case IsExpandedRole:
-            return item->isExpanded();
+            return item->flags() & Expanded ? true : false;
         case IsSelectedRole:
-            return item->isSelected();
+            return item->flags() & Selected ? true : false;
+        case IsCheckableRole:
+            return item->flags() & Checkable ? true : false;
         case IsCheckedRole:
-            return item->isChecked();
+            return item->flags() & Checked ? true : false;
+        case IsDraggableRole:
+            return item->flags() & Draggable ? true : false;
         case ItemsCountRole:
             return m_items.count();
         case HasChildrenRole:
@@ -218,22 +217,28 @@ bool TreeModel::setData(const QModelIndex &index, const QVariant &value, int rol
             item->setPath(value.toString());
         break;
         case IsExpandedRole:
-            item->setExpanded(value.toBool());
+            item->setFlag(Expanded, value.toBool());
         break;
         case IsSelectedRole:
         {
             if (value.toInt() > 0)
             {
-                item->setSelected(true);
+                item->setFlag(Selected, true);
                 if (value.toInt() == 1)
                     setSingleSelection(item);
             }
             else
-                item->setSelected(false);
+                item->setFlag(Selected, false);
         }
         break;
+        case IsCheckableRole:
+            item->setFlag(Checkable, value.toBool());
+        break;
         case IsCheckedRole:
-            item->setChecked(value.toBool());
+            item->setFlag(Checked, value.toBool());
+        break;
+        case IsDraggableRole:
+            item->setFlag(Draggable, value.toBool());
         break;
         default:
             return false;
@@ -273,10 +278,10 @@ void TreeModel::setSingleSelection(TreeModelItem *item)
     {
         TreeModelItem *target = m_items.at(i);
 
-        if (target != item && target->isSelected())
+        if (target != item && target->flags() & Selected)
         {
             QModelIndex index = createIndex(i, 0, &i);
-            target->setSelected(false);
+            target->setFlag(Selected, false);
             emit dataChanged(index, index, QVector<int>(1, IsSelectedRole));
         }
 
@@ -319,7 +324,7 @@ int TreeModel::getItemIndex(QString label)
     return index;
 }
 
-int TreeModel::getFolderIndex(QString label)
+int TreeModel::getNodeIndex(QString label)
 {
     int index = rowCount();
     if (m_sorting == true)
@@ -352,7 +357,9 @@ QHash<int, QByteArray> TreeModel::roleNames() const
     // 1: item single (exclusive) selection
     // 2: item multiple selection (when Ctrl-click an item)
     roles[IsSelectedRole] = "isSelected";
+    roles[IsCheckableRole] = "isCheckable";
     roles[IsCheckedRole] = "isChecked";
+    roles[IsDraggableRole] = "isDraggable";
     roles[ItemsCountRole] = "itemsCount";
     roles[HasChildrenRole] = "hasChildren";
     roles[ChildrenModel] = "childrenModel";

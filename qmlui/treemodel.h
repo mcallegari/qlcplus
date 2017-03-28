@@ -38,18 +38,22 @@ public:
         PathRole,
         IsExpandedRole,
         IsSelectedRole,
+        IsCheckableRole,
         IsCheckedRole,
+        IsDraggableRole,
         ItemsCountRole,
         HasChildrenRole,
         ChildrenModel,
         FixedRolesEnd
     };
 
-    enum TreeFlags
+    enum TreeItemsFlags
     {
-        Selected = (1 << 0),
-        Expanded = (1 << 1),
-        Checked  = (1 << 2)
+        Selected  = (1 << 0),
+        Expanded  = (1 << 1),
+        Checkable = (1 << 2),
+        Checked   = (1 << 3),
+        Draggable = (1 << 4)
     };
 
     TreeModel(QObject *parent = 0);
@@ -99,7 +103,7 @@ protected slots:
 protected:
     QHash<int, QByteArray> roleNames() const;
     int getItemIndex(QString label);
-    int getFolderIndex(QString label);
+    int getNodeIndex(QString label);
 
 protected:
     QStringList m_roles;

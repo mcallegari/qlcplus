@@ -26,6 +26,7 @@
 #include "qlcmacros.h"
 #include "vcslider.h"
 #include "doc.h"
+#include "app.h"
 
 #define INPUT_SLIDER_CONTROL_ID     0
 
@@ -350,24 +351,24 @@ void VCSlider::updateFixtureTree(Doc *doc, TreeModel *treeModel)
             QString chPath = QString("%1/%2").arg(grp->name()).arg(fixture->name());
             for (QLCChannel *channel : mode->channels()) // C++11
             {
-                bool checked = false;
+                int flags = TreeModel::Checkable;
                 QVariantList chParams;
                 chParams.append(QVariant::fromValue(NULL)); // classRef
-                chParams.append("FCG"); // type
+                chParams.append(App::ChannelDragItem); // type
                 chParams.append(fixture->id()); // id
                 chParams.append(grp->id()); // subid
                 chParams.append(chIdx); // chIdx
 
                 if (m_levelChannels.contains(SceneValue(fixture->id(), chIdx)))
-                    checked = true;
-                treeModel->addItem(channel->name(), chParams, chPath, checked ? TreeModel::Checked : 0);
+                    flags |= TreeModel::Checked;
+                treeModel->addItem(channel->name(), chParams, chPath, flags);
                 chIdx++;
             }
 
             // when all the channel 'leaves' have been added, set the parent node data
             QVariantList params;
             params.append(QVariant::fromValue(fixture)); // classRef
-            params.append("FXG"); // type
+            params.append(App::FixtureDragItem); // type
             params.append(fixture->id()); // id
             params.append(grp->id()); // subid
             params.append(0); // chIdx
@@ -389,24 +390,24 @@ void VCSlider::updateFixtureTree(Doc *doc, TreeModel *treeModel)
         int chIdx = 0;
         for (QLCChannel *channel : mode->channels()) // C++11
         {
-            bool checked = false;
+            int flags = TreeModel::Checkable;
             QVariantList chParams;
             chParams.append(QVariant::fromValue(NULL)); // classRef
-            chParams.append("FCU"); // type
+            chParams.append(App::ChannelDragItem); // type
             chParams.append(fixture->id()); // id
             chParams.append(fixture->universe()); // subid
             chParams.append(chIdx); // chIdx
 
             if (m_levelChannels.contains(SceneValue(fixture->id(), chIdx)))
-                checked = true;
-            treeModel->addItem(channel->name(), chParams, chPath, checked ? TreeModel::Checked : 0);
+                flags |= TreeModel::Checked;
+            treeModel->addItem(channel->name(), chParams, chPath, flags);
             chIdx++;
         }
 
         // when all the channel 'leaves' have been added, set the parent node data
         QVariantList params;
         params.append(QVariant::fromValue(fixture)); // classRef
-        params.append("FXU"); // type
+        params.append(App::FixtureDragItem); // type
         params.append(fixture->id()); // id
         params.append(fixture->universe()); // subid
         params.append(0); // chIdx

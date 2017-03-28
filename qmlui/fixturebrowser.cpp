@@ -315,7 +315,7 @@ void FixtureBrowser::updateSearchTree()
             {
                 QVariantList params;
                 TreeModelItem *item = m_searchTree->addItem(model, params, manufacturer);
-                item->setExpanded(true);
+                item->setFlag(TreeModel::Expanded, true);
             }
         }
     }

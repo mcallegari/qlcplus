@@ -27,9 +27,7 @@ TreeModelItem::TreeModelItem(QString label, QObject *parent)
     : QObject(parent)
     , m_label(label)
     , m_path(QString())
-    , m_isExpanded(false)
-    , m_isSelected(false)
-    , m_isChecked(false)
+    , m_flags(0)
     , m_children(NULL)
 {
 }
@@ -65,34 +63,22 @@ void TreeModelItem::setPath(QString path)
     m_path = path;
 }
 
-bool TreeModelItem::isExpanded() const
+void TreeModelItem::setFlags(int flags)
 {
-    return m_isExpanded;
+    m_flags = flags;
 }
 
-void TreeModelItem::setExpanded(bool expanded)
+void TreeModelItem::setFlag(int flag, bool enable)
 {
-    m_isExpanded = expanded;
+    if (enable)
+        m_flags |= flag;
+    else
+        m_flags &= ~flag;
 }
 
-bool TreeModelItem::isSelected() const
+int TreeModelItem::flags() const
 {
-    return m_isSelected;
-}
-
-void TreeModelItem::setSelected(bool selected)
-{
-    m_isSelected = selected;
-}
-
-bool TreeModelItem::isChecked() const
-{
-    return m_isChecked;
-}
-
-void TreeModelItem::setChecked(bool checked)
-{
-    m_isChecked = checked;
+    return m_flags;
 }
 
 QVariant TreeModelItem::data(int index)

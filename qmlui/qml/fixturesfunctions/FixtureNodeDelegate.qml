@@ -202,6 +202,7 @@ Column
 
                         if (type == App.ChannelDragItem)
                         {
+                            item.isCheckable = isCheckable
                             item.isChecked = Qt.binding(function() { return isChecked })
                             item.chIndex = index
                             item.itemIcon = cRef ? fixtureManager.channelIcon(cRef.id, index) : ""

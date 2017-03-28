@@ -80,6 +80,15 @@ Rectangle
                     tooltip: qsTr("Remove the selected items")
                 }
                 Rectangle { Layout.fillWidth: true }
+                IconButton
+                {
+                    id: infoButton
+                    z: 2
+                    width: height
+                    height: topBar.height - 2
+                    imgSource: "qrc:/info.svg"
+                    tooltip: qsTr("Inspect the selected items")
+                }
             }
         }
 
@@ -112,7 +121,9 @@ Rectangle
                         if (hasChildren)
                         {
                             item.itemIcon = "qrc:/group.svg"
-                            item.itemType = type
+                            //if (modelData.hasOwnProperty("type"))
+                            if (type)
+                                item.itemType = type
                             item.nodePath = path
                             item.isExpanded = isExpanded
                             item.subTreeDelegate = "qrc:/FixtureNodeDelegate.qml"

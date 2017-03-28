@@ -35,6 +35,7 @@ Rectangle
     property string itemIcon: ""
     property int itemType: App.ChannelDragItem
     property bool isSelected: false
+    property bool isCheckable: false
     property bool isChecked: false
     property Item dragItem
 
@@ -53,6 +54,7 @@ Rectangle
         CustomCheckBox
         {
             id: chCheckBox
+            visible: isCheckable
             height: UISettings.listItemHeight
             checked: isChecked
             width: height

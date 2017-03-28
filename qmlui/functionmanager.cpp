@@ -240,7 +240,7 @@ quint32 FunctionManager::createFunction(int type)
         params.append(QVariant::fromValue(f));
         TreeModelItem *item = m_functionTree->addItem(f->name(), params, f->path(true));
         if (item != NULL)
-            item->setSelected(true);
+            item->setFlag(TreeModel::Selected, true);
         m_selectedIDList.append(QVariant(f->id()));
         emit selectionCountChanged(m_selectedIDList.count());
         emit functionsListChanged();
@@ -604,7 +604,7 @@ void FunctionManager::updateFunctionsTree()
             params.append(QVariant::fromValue(func));
             TreeModelItem *item = m_functionTree->addItem(func->name(), params, func->path(true), expandAll ? TreeModel::Expanded : 0);
             if (m_selectedIDList.contains(QVariant(func->id())))
-                item->setSelected(true);
+                item->setFlag(TreeModel::Selected, true);
         }
 
         switch (func->type())
