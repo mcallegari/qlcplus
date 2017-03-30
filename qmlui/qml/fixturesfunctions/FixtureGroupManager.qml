@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  GroupEditor.qml
+  FixtureGroupManager.qml
 
   Copyright (c) Massimo Callegari
 
@@ -112,7 +112,7 @@ Rectangle
                     source: hasChildren ? "qrc:/TreeNodeDelegate.qml" : ""
                     onLoaded:
                     {
-                        console.log("[groupEditor] Item " + label + " has children: " + hasChildren)
+                        //console.log("[groupEditor] Item " + label + " has children: " + hasChildren)
                         item.cRef = classRef
                         item.textLabel = label
                         item.isSelected = Qt.binding(function() { return isSelected })
@@ -193,7 +193,7 @@ Rectangle
                     }
                 } // Loader
               } // Component
-            ScrollBar { id: gEditScrollBar; flickable: groupListView }
+            CustomScrollBar { id: gEditScrollBar; flickable: groupListView }
 
             // Group / Fixture / Head / Channel draggable item
             GenericMultiDragItem

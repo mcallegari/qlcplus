@@ -180,15 +180,15 @@ QVariant TreeModel::data(const QModelIndex &index, int role) const
         case PathRole:
             return item->path();
         case IsExpandedRole:
-            return item->flags() & Expanded ? true : false;
+            return (item->flags() & Expanded) ? true : false;
         case IsSelectedRole:
-            return item->flags() & Selected ? true : false;
+            return (item->flags() & Selected) ? true : false;
         case IsCheckableRole:
-            return item->flags() & Checkable ? true : false;
+            return (item->flags() & Checkable) ? true : false;
         case IsCheckedRole:
-            return item->flags() & Checked ? true : false;
+            return (item->flags() & Checked) ? true : false;
         case IsDraggableRole:
-            return item->flags() & Draggable ? true : false;
+            return (item->flags() & Draggable) ? true : false;
         case ItemsCountRole:
             return m_items.count();
         case HasChildrenRole:

@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  ScrollBar.qml
+  CustomScrollBar.qml
 
   Copyright (c) Massimo Callegari
   Copied from StackOverflow and customized

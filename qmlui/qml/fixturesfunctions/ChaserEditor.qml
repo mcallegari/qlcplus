@@ -557,7 +557,7 @@ Rectangle
                     }
                     onExited: cStepsList.dragInsertIndex = -1
                 }
-                ScrollBar { flickable: cStepsList }
+                CustomScrollBar { flickable: cStepsList }
             }
 
             SectionBox

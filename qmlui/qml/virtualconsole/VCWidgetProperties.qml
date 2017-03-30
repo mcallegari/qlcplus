@@ -416,7 +416,7 @@ Rectangle
                 }
               } // end of properties column
             } // end of flickable
-            ScrollBar { id: wpBar; flickable: propsFlickable }
+            CustomScrollBar { id: wpBar; flickable: propsFlickable }
         } // end of Rectangle
     } // end of SplitView
 }

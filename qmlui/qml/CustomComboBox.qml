@@ -264,6 +264,6 @@ Rectangle
                     }
             } // Repeater
         } // Flickable
-        ScrollBar { z: 2; flickable: popupFlickable }
+        CustomScrollBar { z: 2; flickable: popupFlickable }
     }
 }

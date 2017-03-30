@@ -332,7 +332,7 @@ Rectangle
                                   vcRightPanel.width += mainView.width / 3
                                   sideLoader.width = mainView.width / 3
                                   sideLoader.modelProvider = widgetRef
-                                  sideLoader.source = "qrc:/FixtureGroupEditor.qml"
+                                  sideLoader.source = "qrc:/FixtureGroupManager.qml"
                               }
                               else
                               {

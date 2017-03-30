@@ -253,7 +253,7 @@ Rectangle
                         tLabel: modelData.mLabel
                         iSrc: modelData.mIcon
                     }
-                ScrollBar { flickable: channelList }
+                CustomScrollBar { flickable: channelList }
             }
         }
     } // end of Column

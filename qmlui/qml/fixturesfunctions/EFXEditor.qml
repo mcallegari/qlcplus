@@ -229,7 +229,7 @@ Rectangle
                                                 rightSidePanel.width += mainView.width / 3
                                                 fxTreeLoader.width = mainView.width / 3
                                                 fxTreeLoader.modelProvider = efxEditor
-                                                fxTreeLoader.source = "qrc:/FixtureGroupEditor.qml"
+                                                fxTreeLoader.source = "qrc:/FixtureGroupManager.qml"
                                             }
                                             else
                                             {
@@ -857,7 +857,7 @@ Rectangle
 
                 } // Column
             } // Flickable
-            ScrollBar { id: sbar; flickable: editorFlickable }
+            CustomScrollBar { id: sbar; flickable: editorFlickable }
         } // Column
     } // SplitView
 }

@@ -80,7 +80,7 @@ SidePanel
                 onToggled:
                 {
                     if (checked == true)
-                        loaderSource = "qrc:/FixtureGroupEditor.qml"
+                        loaderSource = "qrc:/FixtureGroupManager.qml"
                     animatePanel(checked)
                 }
             }

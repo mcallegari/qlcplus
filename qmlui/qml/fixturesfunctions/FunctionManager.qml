@@ -359,7 +359,7 @@ Rectangle
                       }
                   } // Loader
               } // Component
-              ScrollBar { id: fMgrScrollBar; flickable: functionsListView }
+              CustomScrollBar { id: fMgrScrollBar; flickable: functionsListView }
 
               GenericMultiDragItem
               {

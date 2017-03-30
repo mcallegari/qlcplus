@@ -137,7 +137,7 @@ Rectangle
                         }
                     }
                 }
-            ScrollBar { flickable: sfxList }
+            CustomScrollBar { flickable: sfxList }
         }
     }
 }

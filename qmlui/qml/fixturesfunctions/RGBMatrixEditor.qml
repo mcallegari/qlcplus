@@ -547,7 +547,7 @@ Rectangle
             }
         } // Column
     } // Flickable
-    ScrollBar { id: sbar; flickable: editorFlickable }
+    CustomScrollBar { id: sbar; flickable: editorFlickable }
 
     /* *************************************************************
      * Here starts all the Algorithm-specific Component definitions,
