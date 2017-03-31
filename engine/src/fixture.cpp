@@ -100,12 +100,20 @@ QString Fixture::name() const
  * Fixture type
  *****************************************************************************/
 
-QString Fixture::type()
+QString Fixture::typeString()
+{
+    if (m_fixtureDef != NULL)
+        return m_fixtureDef->typeToString(m_fixtureDef->type());
+    else
+        return QString(KXMLFixtureDimmer);
+}
+
+QLCFixtureDef::FixtureType Fixture::type()
 {
     if (m_fixtureDef != NULL)
         return m_fixtureDef->type();
     else
-        return QString(KXMLFixtureDimmer);
+        return QLCFixtureDef::Dimmer;
 }
 
 /*****************************************************************************
@@ -502,32 +510,23 @@ QLCFixtureHead Fixture::head(int index) const
         return QLCFixtureHead();
 }
 
-QIcon Fixture::getIconFromType(QString type) const
+QIcon Fixture::getIconFromType(QLCFixtureDef::FixtureType type) const
 {
-    if (type == "Color Changer")
-        return QIcon(":/fixture.png");
-    else if (type == "Dimmer")
-        return QIcon(":/dimmer.png");
-    else if (type == "Effect")
-        return QIcon(":/effect.png");
-    else if (type == "Fan")
-         return QIcon(":/fan.png");
-    else if (type == "Flower")
-        return QIcon(":/flower.png");
-    else if (type == "Hazer")
-        return QIcon(":/hazer.png");
-    else if (type == "Laser")
-        return QIcon(":/laser.png");
-    else if (type == "Moving Head")
-        return QIcon(":/movinghead.png");
-    else if (type == "Scanner")
-        return QIcon(":/scanner.png");
-    else if (type == "Smoke")
-        return QIcon(":/smoke.png");
-    else if (type == "Strobe")
-        return QIcon(":/strobe.png");
-
-    return QIcon(":/other.png");
+    switch(type)
+    {
+        case QLCFixtureDef::ColorChanger: return QIcon(":/fixture.png");
+        case QLCFixtureDef::Dimmer: return QIcon(":/dimmer.png");
+        case QLCFixtureDef::Effect: return QIcon(":/effect.png");
+        case QLCFixtureDef::Fan: return QIcon(":/fan.png");
+        case QLCFixtureDef::Flower: return QIcon(":/flower.png");
+        case QLCFixtureDef::Hazer: return QIcon(":/hazer.png");
+        case QLCFixtureDef::Laser: return QIcon(":/laser.png");
+        case QLCFixtureDef::MovingHead: return QIcon(":/movinghead.png");
+        case QLCFixtureDef::Scanner: return QIcon(":/scanner.png");
+        case QLCFixtureDef::Smoke: return QIcon(":/smoke.png");
+        case QLCFixtureDef::Strobe: return QIcon(":/strobe.png");
+        default: return QIcon(":/other.png");
+    }
 }
 
 QRectF Fixture::degreesRange(int head) const
@@ -558,7 +557,7 @@ QLCFixtureDef *Fixture::genericDimmerDef(int channels)
     QLCFixtureDef *def = new QLCFixtureDef();
     def->setManufacturer(KXMLFixtureGeneric);
     def->setModel(KXMLFixtureGeneric);
-    def->setType(KXMLFixtureDimmer);
+    def->setType(QLCFixtureDef::Dimmer);
     def->setAuthor("QLC+");
 
     for (int i = 0; i < channels; i++)
@@ -609,7 +608,7 @@ QLCFixtureDef *Fixture::genericRGBPanelDef(int columns, Components components)
     QLCFixtureDef *def = new QLCFixtureDef();
     def->setManufacturer(KXMLFixtureGeneric);
     def->setModel(KXMLFixtureRGBPanel);
-    def->setType("LED Bar");
+    def->setType(QLCFixtureDef::LEDBar);
     def->setAuthor("QLC+");
     for (int i = 0; i < columns; i++)
     {
@@ -1106,7 +1105,7 @@ QString Fixture::status() const
         info += genInfo.arg(tr("Manufacturer")).arg(m_fixtureDef->manufacturer());
         info += genInfo.arg(tr("Model")).arg(m_fixtureDef->model());
         info += genInfo.arg(tr("Mode")).arg(m_fixtureMode->name());
-        info += genInfo.arg(tr("Type")).arg(m_fixtureDef->type());
+        info += genInfo.arg(tr("Type")).arg(m_fixtureDef->typeToString(m_fixtureDef->type()));
     }
 
     // Universe

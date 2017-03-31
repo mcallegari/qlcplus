@@ -118,7 +118,7 @@ void QLCFixtureEditor::init()
     connect(m_modelEdit, SIGNAL(textEdited(const QString&)),
             this, SLOT(slotModelTextEdited(const QString&)));
 
-    m_typeCombo->setCurrentIndex(m_typeCombo->findText(m_fixtureDef->type()));
+    m_typeCombo->setCurrentIndex(m_typeCombo->findText(m_fixtureDef->typeToString(m_fixtureDef->type())));
     connect(m_typeCombo, SIGNAL(activated(const QString&)),
             this, SLOT(slotTypeActivated(const QString&)));
 
@@ -382,7 +382,7 @@ void QLCFixtureEditor::slotAuthorTextEdited(const QString &text)
 
 void QLCFixtureEditor::slotTypeActivated(const QString &text)
 {
-    m_fixtureDef->setType(text);
+    m_fixtureDef->setType(m_fixtureDef->stringToType(text));
     setModified();
 }
 

@@ -35,14 +35,14 @@
 QLCFixtureDef::QLCFixtureDef()
     : m_isLoaded(false)
     , m_defFileAbsolutePath(QString())
-    , m_type(QString("Dimmer"))
+    , m_type(Dimmer)
 {
 }
 
 QLCFixtureDef::QLCFixtureDef(const QLCFixtureDef* fixtureDef)
     : m_isLoaded(false)
     , m_defFileAbsolutePath(QString())
-    , m_type(QString("Dimmer"))
+    , m_type(Dimmer)
 {
     if (fixtureDef != NULL)
         *this = *fixtureDef;
@@ -129,15 +129,53 @@ QString QLCFixtureDef::model() const
     return m_model;
 }
 
-void QLCFixtureDef::setType(const QString& type)
+void QLCFixtureDef::setType(const FixtureType type)
 {
     m_type = type;
 }
 
-QString QLCFixtureDef::type()
+QLCFixtureDef::FixtureType QLCFixtureDef::type()
 {
     checkLoaded();
     return m_type;
+}
+
+QLCFixtureDef::FixtureType QLCFixtureDef::stringToType(const QString& type)
+{
+    if (type == "Color Changer") return ColorChanger;
+    else if (type == "Dimmer") return Dimmer;
+    else if (type == "Effect") return Effect;
+    else if (type == "Fan") return Fan;
+    else if (type == "Flower") return Flower;
+    else if (type == "Hazer") return Hazer;
+    else if (type == "Laser") return Laser;
+    else if (type == "Moving Head") return MovingHead;
+    else if (type == "Scanner") return Scanner;
+    else if (type == "Smoke") return Smoke;
+    else if (type == "Strobe") return Strobe;
+    else if (type == "LED Bar") return LEDBar;
+
+    return Other;
+}
+
+QString QLCFixtureDef::typeToString(QLCFixtureDef::FixtureType type)
+{
+    switch(type)
+    {
+        case ColorChanger: return "Color Changer";
+        case Dimmer: return "Dimmer";
+        case Effect: return "Effect";
+        case Fan: return "Fan";
+        case Flower: return "Flower";
+        case Hazer: return "Hazer";
+        case Laser: return "Laser";
+        case MovingHead: return "Moving Head";
+        case Scanner: return "Scanner";
+        case Smoke: return "Smoke";
+        case Strobe: return "Strobe";
+        case LEDBar: return "LED Bar";
+        default: return "Other";
+    }
 }
 
 void QLCFixtureDef::setAuthor(const QString& author)
@@ -312,7 +350,7 @@ QFile::FileError QLCFixtureDef::saveXML(const QString& fileName)
 
     doc.writeTextElement(KXMLQLCFixtureDefManufacturer, m_manufacturer);
     doc.writeTextElement(KXMLQLCFixtureDefModel, m_model);
-    doc.writeTextElement(KXMLQLCFixtureDefType, m_type);
+    doc.writeTextElement(KXMLQLCFixtureDefType, typeToString(m_type));
 
     /* Channels */
     QListIterator <QLCChannel*> chit(m_channels);
@@ -421,7 +459,7 @@ bool QLCFixtureDef::loadXML(QXmlStreamReader& doc)
             }
             else if (doc.name() == KXMLQLCFixtureDefType)
             {
-                setType(doc.readElementText());
+                setType(stringToType(doc.readElementText()));
             }
             else if (doc.name() == KXMLQLCChannel)
             {

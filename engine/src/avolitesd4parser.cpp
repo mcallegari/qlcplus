@@ -700,7 +700,7 @@ AvolitesD4Parser::Attributes AvolitesD4Parser::stringToAttributeEnum(const QStri
         return AvolitesD4Parser::SPECIAL;
 }
 
-QString AvolitesD4Parser::guessType(QLCFixtureDef* def) const
+QLCFixtureDef::FixtureType AvolitesD4Parser::guessType(QLCFixtureDef* def) const
 {
     Q_ASSERT(def != NULL);
 
@@ -767,19 +767,19 @@ QString AvolitesD4Parser::guessType(QLCFixtureDef* def) const
     }
 
     if (pan >= 2 && tilt >= 2)
-        return QString("Moving Head"); // Quite probable, few scanners with 16bit addressing
+        return QLCFixtureDef::MovingHead; // Quite probable, few scanners with 16bit addressing
     else if (pan == 1 && tilt == 1)
-        return QString("Scanner"); // Quite probable, though some moving heads are only 8bit
+        return QLCFixtureDef::Scanner; // Quite probable, though some moving heads are only 8bit
     else if (gobo > 0)
-        return QString("Flower"); // No pan/tilt, but gobo, fairly certain
+        return QLCFixtureDef::Flower; // No pan/tilt, but gobo, fairly certain
     else if (colour > 0 || (r > 0 && g > 0 && b > 0) || (c > 0 && m > 0 && y > 0))
-        return QString("Color Changer"); // No pan/tilt/gobos, but RGB/CMY mixing or dichro
+        return QLCFixtureDef::ColorChanger; // No pan/tilt/gobos, but RGB/CMY mixing or dichro
     else if (strobe > 0)
-        return QString("Strobe"); // Duh.
+        return QLCFixtureDef::Strobe; // Duh.
     else if (smoke > 0)
-        return QString("Smoke"); // Duh.
+        return QLCFixtureDef::Smoke; // Duh.
     else if (nocol > 0)
-        return QString("Dimmer"); // Kinda..mmmmh..
+        return QLCFixtureDef::Dimmer; // Kinda..mmmmh..
     else
-        return QString("Other"); // Give up
+        return QLCFixtureDef::Other; // Give up
 }
