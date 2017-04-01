@@ -108,7 +108,7 @@ QString Fixture::typeString()
         return QString(KXMLFixtureDimmer);
 }
 
-QLCFixtureDef::FixtureType Fixture::type()
+QLCFixtureDef::FixtureType Fixture::type() const
 {
     if (m_fixtureDef != NULL)
         return m_fixtureDef->type();
@@ -510,23 +510,31 @@ QLCFixtureHead Fixture::head(int index) const
         return QLCFixtureHead();
 }
 
-QIcon Fixture::getIconFromType(QLCFixtureDef::FixtureType type) const
+QString Fixture::iconResource(bool svg) const
 {
-    switch(type)
+    QString prefix = svg ? "qrc" : "";
+    QString ext = svg ? "svg" : "png";
+
+    switch(type())
     {
-        case QLCFixtureDef::ColorChanger: return QIcon(":/fixture.png");
-        case QLCFixtureDef::Dimmer: return QIcon(":/dimmer.png");
-        case QLCFixtureDef::Effect: return QIcon(":/effect.png");
-        case QLCFixtureDef::Fan: return QIcon(":/fan.png");
-        case QLCFixtureDef::Flower: return QIcon(":/flower.png");
-        case QLCFixtureDef::Hazer: return QIcon(":/hazer.png");
-        case QLCFixtureDef::Laser: return QIcon(":/laser.png");
-        case QLCFixtureDef::MovingHead: return QIcon(":/movinghead.png");
-        case QLCFixtureDef::Scanner: return QIcon(":/scanner.png");
-        case QLCFixtureDef::Smoke: return QIcon(":/smoke.png");
-        case QLCFixtureDef::Strobe: return QIcon(":/strobe.png");
-        default: return QIcon(":/other.png");
+        case QLCFixtureDef::ColorChanger: return QString("%1:/fixture.%2").arg(prefix).arg(ext); break;
+        case QLCFixtureDef::Dimmer: return QString("%1:/dimmer.%2").arg(prefix).arg(ext); break;
+        case QLCFixtureDef::Effect: return QString("%1:/effect.%2").arg(prefix).arg(ext); break;
+        case QLCFixtureDef::Fan: return QString("%1:/fan.%2").arg(prefix).arg(ext); break;
+        case QLCFixtureDef::Flower: return QString("%1:/flower.%2").arg(prefix).arg(ext); break;
+        case QLCFixtureDef::Hazer: return QString("%1:/hazer.%2").arg(prefix).arg(ext); break;
+        case QLCFixtureDef::Laser: return QString("%1:/laser.%2").arg(prefix).arg(ext); break;
+        case QLCFixtureDef::MovingHead: return QString("%1:/movinghead.%2").arg(prefix).arg(ext); break;
+        case QLCFixtureDef::Scanner: return QString("%1:/scanner.%2").arg(prefix).arg(ext); break;
+        case QLCFixtureDef::Smoke: return QString("%1:/smoke.%2").arg(prefix).arg(ext); break;
+        case QLCFixtureDef::Strobe: return QString("%1:/strobe.%2").arg(prefix).arg(ext); break;
+        default: return QString("%1:/other.%2").arg(prefix).arg(ext); break;
     }
+}
+
+QIcon Fixture::getIconFromType() const
+{
+    return QIcon(iconResource());
 }
 
 QRectF Fixture::degreesRange(int head) const

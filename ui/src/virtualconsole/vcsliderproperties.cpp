@@ -355,7 +355,7 @@ void VCSliderProperties::levelUpdateFixtureNode(quint32 id)
     }
 
     item->setText(KColumnName, fxi->name());
-    item->setIcon(KColumnName, fxi->getIconFromType(fxi->type()));
+    item->setIcon(KColumnName, fxi->getIconFromType());
     item->setText(KColumnType, fxi->typeString());
 
     levelUpdateChannels(item, fxi);

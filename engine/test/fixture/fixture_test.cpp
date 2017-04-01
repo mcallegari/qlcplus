@@ -159,6 +159,7 @@ void Fixture_Test::type()
     Fixture fxi(this);
     QCOMPARE(fxi.typeString(), QString(KXMLFixtureDimmer));
     QCOMPARE(fxi.type(), QLCFixtureDef::Dimmer);
+    QCOMPARE(fxi.iconResource(), QString(":/dimmer.png"));
 
     QLCFixtureDef* fixtureDef;
     fixtureDef = m_doc->fixtureDefCache()->fixtureDef("Martin", "MAC250+");
@@ -171,6 +172,7 @@ void Fixture_Test::type()
     fxi.setFixtureDefinition(fixtureDef, fixtureMode);
     QCOMPARE(fxi.typeString(), fixtureDef->typeToString(fixtureDef->type()));
     QCOMPARE(fxi.type(), QLCFixtureDef::MovingHead);
+    QCOMPARE(fxi.iconResource(), QString(":/movinghead.png"));
 }
 
 void Fixture_Test::dimmer()

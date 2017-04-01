@@ -122,7 +122,7 @@ void ChannelsSelection::updateFixturesTree()
 
         QTreeWidgetItem *fItem = new QTreeWidgetItem(topItem);
         fItem->setText(KColumnName, fxi->name());
-        fItem->setIcon(KColumnName, fxi->getIconFromType(fxi->type()));
+        fItem->setIcon(KColumnName, fxi->getIconFromType());
         fItem->setText(KColumnID, QString::number(fxi->id()));
 
         for (quint32 c = 0; c < fxi->channels(); c++)
