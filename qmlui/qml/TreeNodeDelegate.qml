@@ -75,8 +75,9 @@ Column
             id: nodeIconImg
             visible: itemIcon == "" ? false : true
             width: visible ? parent.height : 0
-            height: parent.height
+            height: width
             source: itemIcon
+            sourceSize: Qt.size(width, height)
         }
 
         TextInput
@@ -84,7 +85,7 @@ Column
             property string originalText
 
             id: nodeLabel
-            x: nodeIconImg.width + 1
+            x: nodeIconImg.width + 2
             z: 0
             width: parent.width - nodeIconImg.width - 1
             height: UISettings.listItemHeight

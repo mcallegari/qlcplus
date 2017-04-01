@@ -20,7 +20,6 @@
 import QtQuick 2.2
 
 import com.qlcplus.classes 1.0
-import "GenericHelpers.js" as Helpers
 import "."
 
 Column
@@ -43,7 +42,7 @@ Column
     signal mouseEvent(int type, int iID, int iType, var qItem, int mouseMods)
     signal pathChanged(string oldPath, string newPath)
 
-    onCRefChanged: itemIcon = cRef ? Helpers.fixtureIconFromType(cRef.type) : ""
+    onCRefChanged: itemIcon = cRef ? cRef.iconResource(true) : ""
 
     function getItemAtPos(x, y)
     {
@@ -63,10 +62,13 @@ Column
         Rectangle
         {
             visible: itemIcon == "" ? false : true
-            width: visible ? parent.height : 0
-            height: parent.height
+            y: 1
+            width: visible ? parent.height - 2 : 0
+            height: width
             color: UISettings.bgLight
             radius: height / 4
+            border.width: 1
+            border.color: UISettings.fgMedium
         }
 
         // selection rectangle
@@ -82,9 +84,12 @@ Column
         {
             id: nodeIconImg
             visible: itemIcon == "" ? false : true
-            width: visible ? parent.height : 0
-            height: parent.height
+            x: 1
+            y: 1
+            width: visible ? parent.height - 2 : 0
+            height: width
             source: itemIcon
+            sourceSize: Qt.size(width, height)
         }
 
         TextInput
@@ -92,7 +97,7 @@ Column
             property string originalText
 
             id: nodeLabel
-            x: nodeIconImg.width + 1
+            x: nodeIconImg.width + 2
             z: 0
             width: parent.width - nodeIconImg.width - 1
             height: UISettings.listItemHeight

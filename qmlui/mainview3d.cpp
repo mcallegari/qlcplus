@@ -117,9 +117,9 @@ void MainView3D::createFixtureItem(quint32 fxID, qreal x, qreal y, qreal z, bool
     if (newFixtureItem != NULL)
     {
         QString meshPath = "file://" + QString(MESHESDIR) + "/fixtures";
-        if (fixture->type() == "Color Changer")
+        if (fixture->type() == QLCFixtureDef::ColorChanger)
             meshPath.append("/par.dae");
-        else if (fixture->type() == "Moving Head")
+        else if (fixture->type() == QLCFixtureDef::MovingHead)
             meshPath.append("/moving_head.dae");
 
         newFixtureItem->setProperty("fixtureID", fxID);
