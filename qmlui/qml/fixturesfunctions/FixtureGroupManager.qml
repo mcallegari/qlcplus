@@ -26,7 +26,7 @@ import "."
 
 Rectangle
 {
-    id: geContainer
+    id: fgmContainer
     anchors.fill: parent
     color: "transparent"
 
@@ -43,7 +43,7 @@ Rectangle
         Rectangle
         {
             id: topBar
-            width: geContainer.width
+            width: fgmContainer.width
             height: UISettings.iconSizeMedium
             z: 5
             gradient: Gradient
@@ -87,7 +87,39 @@ Rectangle
                     width: height
                     height: topBar.height - 2
                     imgSource: "qrc:/info.svg"
-                    tooltip: qsTr("Inspect the selected items")
+                    tooltip: qsTr("Inspect the selected item")
+                    checkable: true
+
+                    property string previousView: ""
+
+                    onToggled:
+                    {
+                        if (gfhcDragItem.itemsList.length === 0)
+                            return;
+
+                        switch(gfhcDragItem.itemsList[0].itemType)
+                        {
+                            case App.UniverseDragItem:
+                            break;
+                            case App.FixtureGroupDragItem:
+                                if (checked)
+                                {
+                                    fixtureManager.editGroup(gfhcDragItem.itemsList[0].cRef)
+                                    previousView = fixtureAndFunctions.currentViewQML
+                                    fixtureAndFunctions.currentViewQML = "qrc:/FixtureGroupEditor.qml"
+                                }
+                                else
+                                {
+                                    fixtureManager.editGroup(null)
+                                    fixtureAndFunctions.currentViewQML = previousView
+                                    previousView = ""
+                                }
+
+                            break;
+                            case App.FixtureDragItem:
+                            break;
+                        }
+                    }
                 }
             }
         }
@@ -95,8 +127,8 @@ Rectangle
         ListView
         {
             id: groupListView
-            width: geContainer.width
-            height: geContainer.height - topBar.height
+            width: fgmContainer.width
+            height: fgmContainer.height - topBar.height
             z: 4
             boundsBehavior: Flickable.StopAtBounds
 
@@ -151,7 +183,7 @@ Rectangle
                                         gfhcDragItem.itemsList.push(qItem)
                                         //console.log("[TOP LEVEL] Got item press event: " + gfhcDragItem.itemsList.length)
 
-                                        if (gfhcDragItem.itemsList.length == 1)
+                                        if (gfhcDragItem.itemsList.length === 1)
                                         {
                                             gfhcDragItem.itemLabel = qItem.textLabel
                                             if (qItem.hasOwnProperty("itemIcon"))

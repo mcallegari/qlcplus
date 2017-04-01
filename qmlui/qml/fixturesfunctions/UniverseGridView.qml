@@ -58,6 +58,11 @@ Flickable
         gridLabels: fixtureManager.fixtureNamesMap
         gridData: fixtureManager.fixturesMap
 
+        function getItemIcon(itemID, chNumber)
+        {
+            return fixtureManager.channelIcon(itemID, chNumber)
+        }
+
         onPressed:
         {
             universeGridView.interactive = false
