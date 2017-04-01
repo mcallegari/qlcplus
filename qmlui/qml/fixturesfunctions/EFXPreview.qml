@@ -72,34 +72,34 @@ Rectangle
         height: parent.height
         anchors.horizontalCenter: parent.horizontalCenter
         antialiasing: true
+        contextType: "2d"
         x: 0
         y: 0
         z: 0
 
         onPaint:
         {
-            var ctx = bgLayer.getContext('2d');
-            ctx.globalAlpha = 1.0;
-            ctx.fillStyle = sphereView ? "black" : "white";
-            ctx.lineWidth = 1;
+            context.globalAlpha = 1.0;
+            context.fillStyle = sphereView ? "black" : "white";
+            context.lineWidth = 1;
 
-            ctx.clearRect(0, 0, width, height);
-            ctx.fillRect(0, 0, width, height);
+            context.clearRect(0, 0, width, height);
+            context.fillRect(0, 0, width, height);
 
             if (sphereView == false)
             {
-                ctx.strokeStyle = UISettings.bgLight;
-                ctx.beginPath();
-                ctx.moveTo(width / 2, 0);
-                ctx.lineTo(width / 2, height);
-                ctx.stroke();
-                ctx.closePath();
+                context.strokeStyle = UISettings.bgLight;
+                context.beginPath();
+                context.moveTo(width / 2, 0);
+                context.lineTo(width / 2, height);
+                context.stroke();
+                context.closePath();
 
-                ctx.beginPath();
-                ctx.moveTo(0, height / 2);
-                ctx.lineTo(width, height / 2);
-                ctx.stroke();
-                ctx.closePath();
+                context.beginPath();
+                context.moveTo(0, height / 2);
+                context.lineTo(width, height / 2);
+                context.stroke();
+                context.closePath();
             }
             else
             {
@@ -117,14 +117,14 @@ Rectangle
                     DrawFuncs.clearPoint(firstP);
                 }
 
-                function closeRenderingPortion(ctx, width, height)
+                function closeRenderingPortion(width, height)
                 {
-                    strokeSegmentImpl(ctx, firstP.x, firstP.y, firstP.z, width, height);
+                    strokeSegmentImpl(firstP.x, firstP.y, firstP.z, width, height);
                     DrawFuncs.clearPoint(lastP);
                     DrawFuncs.clearPoint(firstP);
                 }
 
-                function strokeSegmentImpl(ctx, x, y, z, width, height)
+                function strokeSegmentImpl(x, y, z, width, height)
                 {
                     if (x < 0 || x >= width || y < 0 || y >= height)
                         return;
@@ -132,34 +132,34 @@ Rectangle
                     var eps = 0.01;
                     if ((z < -eps && lastP.z < eps) || (z < eps && lastP.z < -eps))
                     {
-                        ctx.strokeStyle = "gray";
+                        context.strokeStyle = "gray";
                     }
                     else
                     {
-                        ctx.strokeStyle = "white";
+                        context.strokeStyle = "white";
                     }
 
-                    ctx.beginPath();
+                    context.beginPath();
                     if (x === lastP.x && y === lastP.y)
                     {
                         // draw single point
-                        ctx.moveTo(x, y);
-                        ctx.lineTo(x + 1, y + 1);
+                        context.moveTo(x, y);
+                        context.lineTo(x + 1, y + 1);
                     }
                     else
                     {
-                        ctx.moveTo(lastP.x, lastP.y);
-                        ctx.lineTo(x, y);
+                        context.moveTo(lastP.x, lastP.y);
+                        context.lineTo(x, y);
                     }
-                    ctx.stroke();
-                    ctx.closePath();
+                    context.stroke();
+                    context.closePath();
 
                     lastP.x = x;
                     lastP.y = y;
                     lastP.z = z;
                 }
 
-                function strokeSegment(p0, ctx, width, height)
+                function strokeSegment(p0, width, height)
                 {
                     // clone original point to not mess it up with rotation
                     var p = new DrawFuncs.Vertex3D(p0);
@@ -177,7 +177,7 @@ Rectangle
                         DrawFuncs.fillPointFromPoint(firstP, lastP);
                         return;
                     }
-                    strokeSegmentImpl(ctx, x, y, p.z, width, height);
+                    strokeSegmentImpl(x, y, p.z, width, height);
                 }
 
                 // draw each vertex to get the first sphere skeleton
@@ -187,9 +187,9 @@ Rectangle
                     vertices = sphere.rings[i];
                     for (j = 0; j < vertices.length; j++)
                     {
-                        strokeSegment(vertices[j], ctx, width, height);
+                        strokeSegment(vertices[j], width, height);
                     }
-                    closeRenderingPortion(ctx, width, height);
+                    closeRenderingPortion(width, height);
                 }
 
                 // now walk through rings to draw the slices
@@ -201,9 +201,9 @@ Rectangle
                         vertices = sphere.rings[j];
                         // for top and bottom vertices.length = 1
                         var p = vertices[i % vertices.length];
-                        strokeSegment(p, ctx, width, height);
+                        strokeSegment(p, width, height);
                     }
-                    //closeRenderingPortion(ctx, width, height); // don't close back!
+                    //closeRenderingPortion(width, height); // don't close back!
                 }
             }
         }
@@ -240,19 +240,19 @@ Rectangle
         height: parent.height
         anchors.horizontalCenter: parent.horizontalCenter
         antialiasing: true
+        contextType: "2d"
         x: 0
         y: 0
         z: 1
 
         onPaint:
         {
-            var ctx = patternLayer.getContext('2d');
-            ctx.globalAlpha = 1.0;
-            ctx.fillStyle = "transparent";
-            ctx.lineWidth = 1;
+            context.globalAlpha = 1.0;
+            context.fillStyle = "transparent";
+            context.lineWidth = 1;
 
-            ctx.clearRect(0, 0, width, height);
-            ctx.fillRect(0, 0, width, height);
+            context.clearRect(0, 0, width, height);
+            context.fillRect(0, 0, width, height);
 
             var i;
             var x1, y1, x2, y2;
@@ -260,9 +260,9 @@ Rectangle
             if (sphereView == false)
             {
                 var scaleFactor = height / 255;
-                ctx.strokeStyle = "black";
+                context.strokeStyle = "black";
 
-                ctx.beginPath();
+                context.beginPath();
 
                 for (i = 0; i < efxData.length - 2; i+=2)
                 {
@@ -270,8 +270,8 @@ Rectangle
                     y1 = efxData[i + 1] * scaleFactor;
                     x2 = efxData[i + 2] * scaleFactor;
                     y2 = efxData[i + 3] * scaleFactor;
-                    ctx.moveTo(x1, y1);
-                    ctx.lineTo(x2, y2);
+                    context.moveTo(x1, y1);
+                    context.lineTo(x2, y2);
                     //console.log("Drawing: " + x1 + "," + y1 + " to " + x2 + "," + y2)
                     //console.log("Drawing: " + efxData[i] + "," + efxData[i + 1] + " to " + efxData[i + 2] + "," + efxData[i + 3])
                 }
@@ -281,11 +281,11 @@ Rectangle
                 y1 = y2;
                 x2 = efxData[0] * scaleFactor;
                 y2 = efxData[1] * scaleFactor;
-                ctx.moveTo(x1, y1);
-                ctx.lineTo(x2, y2);
+                context.moveTo(x1, y1);
+                context.lineTo(x2, y2);
 
-                ctx.stroke();
-                ctx.closePath();
+                context.stroke();
+                context.closePath();
             }
             else
             {
@@ -300,7 +300,7 @@ Rectangle
                 var xScaleFactor = maxPanDegrees / 255;
                 var yScaleFactor = maxTiltDegrees / 255;
 
-                ctx.lineWidth = 2;
+                context.lineWidth = 2;
 
                 if (efxData.length < 4)
                     return;
@@ -318,15 +318,15 @@ Rectangle
                     //console.log("Drawing: " + vertex1.x + "," + vertex1.y + "," + vertex1.z)
 
                     if (vertex2.z < 0)
-                        ctx.strokeStyle = "#878700";
+                        context.strokeStyle = "#878700";
                     else
-                        ctx.strokeStyle = "yellow";
+                        context.strokeStyle = "yellow";
 
-                    ctx.beginPath();
-                    ctx.moveTo(x1, y1);
-                    ctx.lineTo(x2, y2);
-                    ctx.stroke();
-                    ctx.closePath();
+                    context.beginPath();
+                    context.moveTo(x1, y1);
+                    context.lineTo(x2, y2);
+                    context.stroke();
+                    context.closePath();
 
                     vertex1 = vertex2;
                     x1 = x2;
@@ -339,15 +339,15 @@ Rectangle
                 y2 = DrawFuncs.projection(vertex2.y, vertex2.z, height/2.0, 100.0, distance);
 
                 if (vertex2.z < 0)
-                    ctx.strokeStyle = "#878700";
+                    context.strokeStyle = "#878700";
                 else
-                    ctx.strokeStyle = "yellow";
+                    context.strokeStyle = "yellow";
 
-                ctx.beginPath();
-                ctx.moveTo(x1, y1);
-                ctx.lineTo(x2, y2);
-                ctx.stroke();
-                ctx.closePath();
+                context.beginPath();
+                context.moveTo(x1, y1);
+                context.lineTo(x2, y2);
+                context.stroke();
+                context.closePath();
             }
         }
     } // patternLayer Canvas
@@ -359,20 +359,20 @@ Rectangle
         height: parent.height
         anchors.horizontalCenter: parent.horizontalCenter
         antialiasing: true
+        contextType: "2d"
         x: 0
         y: 0
         z: 2
 
         onPaint:
         {
-            var ctx = headsLayer.getContext('2d');
-            ctx.globalAlpha = 1.0;
-            ctx.fillStyle = "transparent";
-            ctx.lineWidth = 1;
-            ctx.strokeStyle = "black";
+            context.globalAlpha = 1.0;
+            context.fillStyle = "transparent";
+            context.lineWidth = 1;
+            context.strokeStyle = "black";
 
-            ctx.clearRect(0, 0, width, height);
-            ctx.fillRect(0, 0, width, height);
+            context.clearRect(0, 0, width, height);
+            context.fillRect(0, 0, width, height);
 
             var x, y;
             var headRadius = height / 20;
@@ -385,8 +385,8 @@ Rectangle
             var rotation = new DrawFuncs.Vertex3D(DrawFuncs.degToRad(sphereRotationX), DrawFuncs.degToRad(sphereRotationY), 0);
             var fxCountDown = fixturesData.length / 2;
 
-            ctx.font = fontSize + "px \"" + UISettings.robotoFontName + "\"";
-            ctx.textAlign = "center";
+            context.font = fontSize + "px \"" + UISettings.robotoFontName + "\"";
+            context.textAlign = "center";
 
             for (var i = 0; i < fixturesData.length; i+=2)
             {
@@ -396,7 +396,7 @@ Rectangle
                 x = efxData[idx * 2] * xScaleFactor;
                 y = efxData[(idx * 2) + 1] * yScaleFactor;
 
-                ctx.fillStyle = "white";
+                context.fillStyle = "white";
 
                 if (sphereView == true)
                 {
@@ -406,20 +406,20 @@ Rectangle
                     y = DrawFuncs.projection(vertex.y, vertex.z, height/2.0, 100.0, distance);
 
                     if (vertex.z < 0)
-                        ctx.fillStyle = "gray";
+                        context.fillStyle = "gray";
                 }
 
-                ctx.beginPath();
-                ctx.ellipse(x - halfHeadRadius, y - halfHeadRadius, headRadius, headRadius);
-                ctx.fill();
-                ctx.closePath();
-                ctx.stroke();
+                context.beginPath();
+                context.ellipse(x - halfHeadRadius, y - halfHeadRadius, headRadius, headRadius);
+                context.fill();
+                context.closePath();
+                context.stroke();
 
-                ctx.beginPath();
-                ctx.fillStyle = "black";
-                ctx.fillText(fxCountDown, x, y + halfHeadRadius / 2);
-                ctx.fill();
-                ctx.closePath();
+                context.beginPath();
+                context.fillStyle = "black";
+                context.fillText(fxCountDown, x, y + halfHeadRadius / 2);
+                context.fill();
+                context.closePath();
 
                 fixturesData[i] += direction;
 

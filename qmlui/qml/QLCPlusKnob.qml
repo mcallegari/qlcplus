@@ -42,42 +42,45 @@ Dial
         width: control.width
         height: control.height
         antialiasing: true
+        contextType: "2d"
 
         onPaint:
         {
+            if (!context)
+                return
+
             var startAngle = 90 + 40
             var arcWidth = 4
-            var ctx = kCanvas.getContext('2d');
-            ctx.globalAlpha = 1.0
-
-            ctx.clearRect(0, 0, width, height)
-
-            var outerGrad = ctx.createLinearGradient(0, 0, 0, height)
-            var innerGrad = ctx.createLinearGradient(0, 0, 0, height)
+            var outerGrad = context.createLinearGradient(0, 0, 0, height)
+            var innerGrad = context.createLinearGradient(0, 0, 0, height)
             outerGrad.addColorStop(0, '#777')
             outerGrad.addColorStop(1, '#888')
             innerGrad.addColorStop(0, '#888')
             innerGrad.addColorStop(1, '#777')
 
-            ctx.beginPath()
-            ctx.fillStyle = outerGrad
-            ctx.arc(width / 2, height / 2, (width * 0.5) - arcWidth, 0, 2 * Math.PI)
-            ctx.fill()
-            ctx.closePath()
+            context.globalAlpha = 1.0
+            context.clearRect(0, 0, width, height)
 
-            ctx.beginPath()
-            ctx.fillStyle = innerGrad
-            ctx.arc(width / 2, height / 2, (width * 0.35), 0, 2 * Math.PI)
-            ctx.fill()
-            ctx.closePath()
+            context.beginPath()
+            context.fillStyle = outerGrad
+            context.arc(width / 2, height / 2, (width * 0.5) - arcWidth, 0, 2 * Math.PI)
+            context.fill()
+            context.closePath()
 
-            ctx.beginPath()
-            ctx.strokeStyle = "#00FF00"
-            ctx.lineWidth = arcWidth
-            ctx.arc(width / 2, height / 2, (width / 2) - (arcWidth / 2), DrawFuncs.degToRad(startAngle),
-                    DrawFuncs.degToRad(startAngle + (control.position * 280)))
-            ctx.stroke()
-            ctx.closePath()
+            context.beginPath()
+            context.fillStyle = innerGrad
+            context.arc(width / 2, height / 2, (width * 0.35), 0, 2 * Math.PI)
+            context.fill()
+            context.closePath()
+
+            context.beginPath()
+            context.strokeStyle = "#00FF00"
+            context.lineWidth = arcWidth
+            context.arc(width / 2, height / 2, (width / 2) - (arcWidth / 2),
+                        DrawFuncs.degToRad(startAngle),
+                        DrawFuncs.degToRad(startAngle + (control.position * 280)))
+            context.stroke()
+            context.closePath()
         }
     }
 

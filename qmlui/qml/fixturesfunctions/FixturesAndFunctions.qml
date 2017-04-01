@@ -25,6 +25,7 @@ import "."
 
 Rectangle
 {
+    id: fixtureAndFunctions
     objectName: "fixturesAndFunctions"
     anchors.fill: parent
     color: "transparent"

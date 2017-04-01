@@ -117,38 +117,37 @@ Rectangle
         x: 10
         y: posToolBar.height + 5
         rotation: 0
-
         antialiasing: true
+        contextType: "2d"
 
         onPaint:
         {
-            var ctx = gCanvas.getContext('2d')
-            ctx.globalAlpha = 1.0
-            ctx.fillStyle = "#111"
-            ctx.lineWidth = 1
+            context.globalAlpha = 1.0
+            context.fillStyle = "#111"
+            context.lineWidth = 1
 
-            ctx.fillRect(0, 0, width, height)
+            context.fillRect(0, 0, width, height)
             // draw head basement
-            DrawFuncs.drawBasement(ctx, width, height)
+            DrawFuncs.drawBasement(context, width, height)
 
-            ctx.lineWidth = 5
+            context.lineWidth = 5
             // draw TILT curve
-            ctx.strokeStyle = "#2E77FF"
-            DrawFuncs.drawEllipse(ctx, width / 2, height / 2, UISettings.iconSizeDefault, height - 30)
+            context.strokeStyle = "#2E77FF"
+            DrawFuncs.drawEllipse(context, width / 2, height / 2, UISettings.iconSizeDefault, height - 30)
             // draw PAN curve
-            ctx.strokeStyle = "#19438F"
-            DrawFuncs.drawEllipse(ctx, width / 2, height / 2, width - 30, UISettings.iconSizeDefault)
+            context.strokeStyle = "#19438F"
+            DrawFuncs.drawEllipse(context, width / 2, height / 2, width - 30, UISettings.iconSizeDefault)
 
-            ctx.lineWidth = 1
-            ctx.strokeStyle = "white"
+            context.lineWidth = 1
+            context.strokeStyle = "white"
 
             // draw TILT cursor position
-            ctx.fillStyle = "red"
-            DrawFuncs.drawCursor(ctx, width / 2, height / 2, UISettings.iconSizeDefault, height - 30, tiltDegrees + 135, UISettings.iconSizeMedium / 2)
+            context.fillStyle = "red"
+            DrawFuncs.drawCursor(context, width / 2, height / 2, UISettings.iconSizeDefault, height - 30, tiltDegrees + 135, UISettings.iconSizeMedium / 2)
 
             // draw PAN cursor position
-            ctx.fillStyle = "green"
-            DrawFuncs.drawCursor(ctx, width / 2, height / 2, width - 30, UISettings.iconSizeDefault, panDegrees + 90, UISettings.iconSizeMedium / 2)
+            context.fillStyle = "green"
+            DrawFuncs.drawCursor(context, width / 2, height / 2, width - 30, UISettings.iconSizeDefault, panDegrees + 90, UISettings.iconSizeMedium / 2)
         }
 
         MouseArea

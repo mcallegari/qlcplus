@@ -213,6 +213,7 @@ Rectangle
         id: positionLayer
         anchors.fill: parent
         visible: (panMaxDegrees || tiltMaxDegrees) ? true : false
+        contextType: "2d"
 
         property int panDegrees: 0
         property int tiltDegrees: 0
@@ -226,40 +227,38 @@ Rectangle
             if (positionLayer.visible == false)
                 return;
 
-            var ctx = positionLayer.getContext('2d');
-            //ctx.save();
-            ctx.globalAlpha = 0.7;
-            ctx.lineWidth = 1;
+            context.globalAlpha = 0.7;
+            context.lineWidth = 1;
 
-            ctx.clearRect(0, 0, width, height)
+            context.clearRect(0, 0, width, height)
 
             if (tiltMaxDegrees)
             {
                 // draw TILT curve
-                ctx.strokeStyle = "#2E77FF";
-                DrawFuncs.drawEllipse(ctx, width / 2, height / 2, tiltWidth, height)
+                context.strokeStyle = "#2E77FF";
+                DrawFuncs.drawEllipse(context, width / 2, height / 2, tiltWidth, height)
             }
             if (panMaxDegrees)
             {
                 // draw PAN curve
-                ctx.strokeStyle = "#19438F"
-                DrawFuncs.drawEllipse(ctx, width / 2, height / 2, width, panHeight)
+                context.strokeStyle = "#19438F"
+                DrawFuncs.drawEllipse(context, width / 2, height / 2, width, panHeight)
             }
 
-            ctx.lineWidth = 1;
-            ctx.strokeStyle = "white";
+            context.lineWidth = 1;
+            context.strokeStyle = "white";
 
             if (tiltMaxDegrees)
             {
                 // draw TILT cursor position
-                ctx.fillStyle = "red";
-                DrawFuncs.drawCursor(ctx, width / 2, height / 2, tiltWidth, height, tiltDegrees + 135, cursorRadius)
+                context.fillStyle = "red";
+                DrawFuncs.drawCursor(context, width / 2, height / 2, tiltWidth, height, tiltDegrees + 135, cursorRadius)
             }
             if (panMaxDegrees)
             {
                 // draw PAN cursor position
-                ctx.fillStyle = "green";
-                DrawFuncs.drawCursor(ctx, width / 2, height / 2, width, panHeight, panDegrees + 90, cursorRadius)
+                context.fillStyle = "green";
+                DrawFuncs.drawCursor(context, width / 2, height / 2, width, panHeight, panDegrees + 90, cursorRadius)
             }
         }
     }

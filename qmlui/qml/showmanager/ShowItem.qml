@@ -75,6 +75,7 @@ Item
         id: prCanvas
         z: 2
         anchors.fill: parent
+        contextType: "2d"
 
         onPaint:
         {
@@ -86,14 +87,12 @@ Item
             if (previewData === null || previewData === undefined)
                 return
 
-            var ctx = prCanvas.getContext('2d')
+            context.strokeStyle = "#ddd"
+            context.fillStyle = "transparent"
+            context.lineWidth = 1
 
-            ctx.strokeStyle = "#ddd"
-            ctx.fillStyle = "transparent"
-            ctx.lineWidth = 1
-
-            ctx.beginPath()
-            ctx.clearRect(0, 0, width, height)
+            context.beginPath()
+            context.clearRect(0, 0, width, height)
 
             //console.log("About to paint " + previewData.length + " values")
 
@@ -107,10 +106,10 @@ Item
                 {
                     lastTime += previewData[1]
                     xPos = TimeUtils.timeToSize(lastTime, timeScale)
-                    ctx.moveTo(xPos, 0)
-                    ctx.lineTo(xPos, itemRoot.height)
+                    context.moveTo(xPos, 0)
+                    context.lineTo(xPos, itemRoot.height)
                 }
-                ctx.stroke()
+                context.stroke()
                 return
             }
 
@@ -123,24 +122,24 @@ Item
                 {
                     case ShowManager.FadeIn:
                         var fiEnd = TimeUtils.timeToSize(lastTime + previewData[i + 1], timeScale)
-                        ctx.moveTo(xPos, itemRoot.height)
-                        ctx.lineTo(fiEnd, 0)
+                        context.moveTo(xPos, itemRoot.height)
+                        context.lineTo(fiEnd, 0)
                     break;
                     case ShowManager.StepDivider:
                         lastTime = previewData[i + 1]
                         xPos = TimeUtils.timeToSize(lastTime, timeScale)
-                        ctx.moveTo(xPos, 0)
-                        ctx.lineTo(xPos, itemRoot.height)
+                        context.moveTo(xPos, 0)
+                        context.lineTo(xPos, itemRoot.height)
                     break;
                     case ShowManager.FadeOut:
                         var foEnd = TimeUtils.timeToSize(lastTime + previewData[i + 1], timeScale)
-                        ctx.moveTo(xPos, 0)
-                        ctx.lineTo(foEnd, itemRoot.height)
+                        context.moveTo(xPos, 0)
+                        context.lineTo(foEnd, itemRoot.height)
                     break;
                 }
 
             }
-            ctx.stroke()
+            context.stroke()
         }
     }
 
