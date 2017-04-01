@@ -530,6 +530,8 @@ QString Fixture::iconResource(bool svg) const
         case QLCFixtureDef::Strobe: return QString("%1:/strobe.%2").arg(prefix).arg(ext); break;
         default: return QString("%1:/other.%2").arg(prefix).arg(ext); break;
     }
+
+    return QString("%1:/other.%2").arg(prefix).arg(ext);
 }
 
 QIcon Fixture::getIconFromType() const
