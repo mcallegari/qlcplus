@@ -75,37 +75,19 @@ Rectangle
         }
     }
 
-    Rectangle
+    IconButton
     {
         id: rotateButton
         x: parent.width - width
         y: posToolBar.height
-        width: UISettings.iconSizeDefault
-        height: width
         z: 2
-
-        radius: 3
-        color: rotMouseArea.pressed ? UISettings.bgLight : UISettings.bgMedium
-        border.color: "#666"
-        border.width: 2
-
-        Image
+        imgSource: "qrc:/rotate-right.svg"
+        tooltip: qsTr("Rotate 90° clockwise")
+        onClicked:
         {
-            anchors.fill: parent
-            source: "qrc:/rotate-right.svg"
-            sourceSize: Qt.size(width, height)
-        }
-        MouseArea
-        {
-            id: rotMouseArea
-            anchors.fill: parent
-
-            onClicked:
-            {
-                gCanvas.rotation += 90
-                if (gCanvas.rotation == 360)
-                    gCanvas.rotation = 0
-            }
+            gCanvas.rotation += 90
+            if (gCanvas.rotation == 360)
+                gCanvas.rotation = 0
         }
     }
 
