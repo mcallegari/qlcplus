@@ -528,7 +528,7 @@ QString Fixture::iconResource(bool svg) const
         case QLCFixtureDef::Scanner: return QString("%1:/scanner.%2").arg(prefix).arg(ext); break;
         case QLCFixtureDef::Smoke: return QString("%1:/smoke.%2").arg(prefix).arg(ext); break;
         case QLCFixtureDef::Strobe: return QString("%1:/strobe.%2").arg(prefix).arg(ext); break;
-        default: return QString("%1:/other.%2").arg(prefix).arg(ext); break;
+        default: break;
     }
 
     return QString("%1:/other.%2").arg(prefix).arg(ext);
