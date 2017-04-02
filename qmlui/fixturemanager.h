@@ -42,16 +42,11 @@ class FixtureManager : public QObject
     Q_PROPERTY(QVariantList fixturesMap READ fixturesMap NOTIFY fixturesMapChanged)
     Q_PROPERTY(QVariantList fixtureNamesMap READ fixtureNamesMap NOTIFY fixtureNamesMapChanged)
     Q_PROPERTY(QVariant groupsTreeModel READ groupsTreeModel NOTIFY groupsTreeModelChanged)
-    Q_PROPERTY(QVariant groupsListModel READ groupsListModel NOTIFY groupsListModelChanged)
     Q_PROPERTY(quint32 universeFilter READ universeFilter WRITE setUniverseFilter NOTIFY universeFilterChanged)
 
     Q_PROPERTY(QVariantList goboChannels READ goboChannels NOTIFY goboChannelsChanged)
     Q_PROPERTY(QVariantList colorWheelChannels READ colorWheelChannels NOTIFY colorWheelChannelsChanged)
     Q_PROPERTY(int colorsMask READ colorsMask NOTIFY colorsMaskChanged)
-
-    Q_PROPERTY(QString fixtureGroupName READ fixtureGroupName NOTIFY fixtureGroupNameChanged)
-    Q_PROPERTY(QSize fixtureGroupSize READ fixtureGroupSize WRITE setFixtureGroupSize NOTIFY fixtureGroupSizeChanged)
-    Q_PROPERTY(QVariantList fixtureGroupMap READ fixtureGroupMap NOTIFY fixtureGroupMapChanged)
 
 public:
     FixtureManager(QQuickView *view, Doc *doc, QObject *parent = 0);
@@ -85,9 +80,6 @@ public:
     /** Returns the data model to display a tree of FixtureGroups/Fixtures */
     QVariant groupsTreeModel();
 
-    /** Returns the data model to display a list of FixtureGroups with icons */
-    QVariant groupsListModel();
-
     /** Add a list of fixture IDs to a new fixture group */
     void addFixturesToNewGroup(QList<quint32>fxList);
 
@@ -107,9 +99,6 @@ signals:
 
     /** Notify the listeners that the fixture tree model has changed */
     void groupsTreeModelChanged();
-
-    /** Notify the listeners that the FixtureGroup list model has changed */
-    void groupsListModelChanged();
 
     void newFixtureCreated(quint32 fxID, qreal x, qreal y);
 
@@ -155,33 +144,6 @@ private:
     QVariantList m_fixtureNamesMap;
     /** An array-like map of the current fixtures, filtered by m_universeFilter */
     QVariantList m_fixturesMap;
-
-    /*********************************************************************
-     * Fixture Group Grid Editing
-     *********************************************************************/
-public:
-    /** Set the reference of a FixtureGroup for editing */
-    Q_INVOKABLE void editGroup(QVariant reference);
-
-    /** Get the name of the Fixture Group currently being edited */
-    QString fixtureGroupName() const;
-
-    /** Get/Set the size of the Fixture Group currently being edited */
-    QSize fixtureGroupSize() const;
-    void setFixtureGroupSize(QSize size);
-
-    /** Returns data for representation in a GridEditor QML component */
-    QVariantList fixtureGroupMap();
-
-signals:
-    void fixtureGroupSizeChanged();
-    void fixtureGroupNameChanged();
-    void fixtureGroupMapChanged();
-
-private:
-    FixtureGroup *m_editGroup;
-    /** An array-like map of the current fixtures, filtered by m_universeFilter */
-    QVariantList m_fixtureGroupMap;
 
     /*********************************************************************
      * Channel capabilities

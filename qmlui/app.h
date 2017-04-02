@@ -34,6 +34,7 @@ class ContextManager;
 class VirtualConsole;
 class FunctionManager;
 class QXmlStreamReader;
+class FixtureGroupEditor;
 class InputOutputManager;
 
 #define KXMLQLCWorkspace "Workspace"
@@ -112,6 +113,7 @@ private:
 
     FixtureBrowser *m_fixtureBrowser;
     FixtureManager *m_fixtureManager;
+    FixtureGroupEditor *m_fixtureGroupEditor;
     ContextManager *m_contextManager;
     FunctionManager *m_functionManager;
     InputOutputManager *m_ioManager;

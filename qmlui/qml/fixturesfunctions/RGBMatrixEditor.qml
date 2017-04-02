@@ -160,7 +160,7 @@ Rectangle
                 {
                     Layout.fillWidth: true
                     height: editorColumn.itemsHeight
-                    model: fixtureManager.groupsListModel
+                    model: fixtureGroupEditor.groupsListModel
                     currentValue: rgbMatrixEditor.fixtureGroup
                     onValueChanged: rgbMatrixEditor.fixtureGroup = value
                 }

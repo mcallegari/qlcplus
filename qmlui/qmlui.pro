@@ -34,6 +34,7 @@ HEADERS += \
     contextmanager.h \
     efxeditor.h \
     fixturebrowser.h \
+    fixturegroupeditor.h \
     fixturemanager.h \
     functioneditor.h \
     functionmanager.h \
@@ -59,6 +60,7 @@ SOURCES += main.cpp \
     contextmanager.cpp \
     efxeditor.cpp \
     fixturebrowser.cpp \
+    fixturegroupeditor.cpp \
     fixturemanager.cpp \
     functioneditor.cpp \
     functionmanager.cpp \

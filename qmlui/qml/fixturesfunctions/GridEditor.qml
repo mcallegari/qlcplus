@@ -49,10 +49,14 @@ Rectangle
     /** During a drag operation, this indicates if the selection is valid (green) or not (red) */
     property bool validSelection: true
 
-    /** An array of data composing the currently selected item as follows: address | type */
+    /** An array of absolute indices identifying the currently selected item(s) */
     property variant selectionData
 
+    /** ID of the currently selected item */
     property int currentItemID
+
+    /** A flag indicating if a drag from an external panel is in place */
+    property bool externalDrag: itemDropArea.containsDrag
 
     onGridSizeChanged: calculateCellSize()
     onGridDataChanged: { selectionData = null; dataCanvas.requestPaint() }
@@ -61,11 +65,17 @@ Rectangle
     onValidSelectionChanged: dataCanvas.requestPaint()
 
     signal pressed(int xPos, int yPos, int mods)
-    signal positionChanged(int xPos, int yPos, int mods)
+    signal positionChanged(int xPos, int yPos, int offset, int mods)
     signal released(int xPos, int yPos, int offset, int mods)
 
+    /** Signal emitted when an external drag item enters the grid */
     signal dragEntered(int xPos, int yPos, var dragEvent)
-    signal dragPositionChanged(int xPos, int yPos, var dragEvent)
+
+    /** Signal emitted when an external drag changes position */
+    signal dragPositionChanged(int xPos, int yPos, int offset, var dragEvent)
+
+    /** Signal emitted when an external drag has been dropped */
+    signal dragDropped(int xPos, int yPos, var dragEvent)
 
     property color oddColor: "#2D84B0"
     property color evenColor: "#2C58B0"
@@ -214,6 +224,7 @@ Rectangle
             var needRepaint = false
 
             context.fillStyle = "#7f7f7f"
+            context.clearRect(0, 0, width, height)
             context.fillRect(0, 0, cellSize * gridSize.width, cellSize * gridSize.height)
 
             if (gridData && gridData.length)
@@ -229,7 +240,7 @@ Rectangle
                         subIndex = 0
                         isOdd = gridData[idx + 2]
                     }
-                    console.log("Item ID: " + gridData[idx] + ", subIndex: " + gridData[idx + 1]);
+                    //console.log("Item ID: " + gridData[idx] + ", subIndex: " + gridData[idx + 1]);
                     if (checkIconCache(gridData[idx], subIndex, gridData[idx + 3]) === true)
                         needRepaint = true
 
@@ -247,20 +258,24 @@ Rectangle
                 // if the selection has an offset, clear the original position first
                 if (selectionOffset != 0)
                 {
-                    for (var cIdx = 0; cIdx < selectionData.length; cIdx+=2)
+                    for (var cIdx = 0; cIdx < selectionData.length; cIdx++)
                     {
                         var clearIdx = selectionData[cIdx]
                         fillCell(clearIdx, "#7f7f7f", -1)
                     }
                 }
-                for (var selIdx = 0; selIdx < selectionData.length; selIdx+=2)
+                for (var selIdx = 0; selIdx < selectionData.length; selIdx++)
                 {
                     var gridIdx = selectionData[selIdx] + selectionOffset
                     //console.log("Update selection gridIdx: " + gridIdx)
+
+                    // retrieve the item type from the original grid data,
+                    // unless it comes from an external drag
+                    var itemType = itemDropArea.containsDrag ? -1 : gridData[(selectionData[selIdx] * 4) + 3]
                     if (validSelection)
-                        fillCell(gridIdx, "green", selectionData[selIdx + 1])
+                        fillCell(gridIdx, "green", itemType)
                     else
-                        fillCell(gridIdx, "red", selectionData[selIdx + 1])
+                        fillCell(gridIdx, "red", itemType)
                 }
             }
             if (needRepaint === true)
@@ -294,7 +309,8 @@ Rectangle
                 if (dataCanvas.movingSelection && dataCanvas.checkPosition(mouse))
                 {
                     dataCanvas.setSelectionOffset()
-                    gridRoot.positionChanged(dataCanvas.mouseLastX, dataCanvas.mouseLastY, mouse.modifiers)
+                    gridRoot.positionChanged(dataCanvas.mouseLastX, dataCanvas.mouseLastY,
+                                             dataCanvas.selectionOffset, mouse.modifiers)
                     dataCanvas.requestPaint()
                 }
             }
@@ -318,6 +334,7 @@ Rectangle
 
         DropArea
         {
+            id: itemDropArea
             anchors.fill: parent
             onEntered:
             {
@@ -331,7 +348,8 @@ Rectangle
                 {
                     console.log("Drag position changed: " + dataCanvas.mouseLastX + " " + dataCanvas.mouseLastY)
                     dataCanvas.setSelectionOffset()
-                    gridRoot.dragPositionChanged(dataCanvas.mouseLastX, dataCanvas.mouseLastY, drag)
+                    gridRoot.dragPositionChanged(dataCanvas.mouseLastX, dataCanvas.mouseLastY,
+                                                 dataCanvas.selectionOffset, drag)
                     dataCanvas.requestPaint()
                 }
             }
@@ -346,12 +364,24 @@ Rectangle
                 selectionData = []
                 dataCanvas.requestPaint()
             }
+
+            onDropped:
+            {
+                gridRoot.dragDropped(dataCanvas.mouseLastX, dataCanvas.mouseLastY, drag)
+                dataCanvas.mouseOrigX = -1
+                dataCanvas.mouseOrigY = -1
+                dataCanvas.mouseLastX = -1
+                dataCanvas.mouseLastY = -1
+                dataCanvas.selectionOffset = 0
+                selectionData = []
+            }
         }
     }
 
     // a top layer Canvas that draws only the things that don't change:
     // 1) a grid with a size determined by gridSize
     // 2) DMX channel numbers
+    // 3) Item labels if present in gridLabels
     Canvas
     {
         id: gridCanvas

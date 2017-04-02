@@ -37,7 +37,6 @@ FixtureManager::FixtureManager(QQuickView *view, Doc *doc, QObject *parent)
     , m_doc(doc)
     , m_fixtureTree(NULL)
     , m_universeFilter(Universe::invalid())
-    , m_editGroup(NULL)
     , m_maxPanDegrees(0)
     , m_maxTiltDegrees(0)
     , m_colorsMask(0)
@@ -46,8 +45,7 @@ FixtureManager::FixtureManager(QQuickView *view, Doc *doc, QObject *parent)
 
     qmlRegisterType<QLCCapability>("com.qlcplus.classes", 1, 0, "QLCCapability");
 
-    connect(m_doc, SIGNAL(loaded()),
-            this, SLOT(slotDocLoaded()));
+    connect(m_doc, SIGNAL(loaded()), this, SLOT(slotDocLoaded()));
 }
 
 quint32 FixtureManager::invalidFixture() const
@@ -95,7 +93,6 @@ bool FixtureManager::addFixture(QString manuf, QString model, QString mode, QStr
 
     updateFixtureTree(m_doc, m_fixtureTree);
     emit groupsTreeModelChanged();
-    emit groupsListModelChanged();
     emit fixtureNamesMapChanged();
     emit fixturesMapChanged();
 
@@ -113,7 +110,6 @@ bool FixtureManager::moveFixture(quint32 fixtureID, quint32 newAddress)
 
     updateFixtureTree(m_doc, m_fixtureTree);
     emit groupsTreeModelChanged();
-    emit groupsListModelChanged();
     emit fixtureNamesMapChanged();
     emit fixturesMapChanged();
     return true;
@@ -176,22 +172,6 @@ QVariant FixtureManager::groupsTreeModel()
     return QVariant::fromValue(m_fixtureTree);
 }
 
-QVariant FixtureManager::groupsListModel()
-{
-    QVariantList groupsList;
-
-    foreach(FixtureGroup *grp, m_doc->fixtureGroups())
-    {
-        QVariantMap grpMap;
-        grpMap.insert("mIcon", "qrc:/group.svg");
-        grpMap.insert("mLabel", grp->name());
-        grpMap.insert("mValue", grp->id());
-        groupsList.append(grpMap);
-    }
-
-    return QVariant::fromValue(groupsList);
-}
-
 void FixtureManager::addFixturesToNewGroup(QList<quint32> fxList)
 {
     FixtureGroup *group = new FixtureGroup(m_doc);
@@ -219,7 +199,6 @@ void FixtureManager::addFixturesToNewGroup(QList<quint32> fxList)
 
     updateFixtureTree(m_doc, m_fixtureTree);
     emit groupsTreeModelChanged();
-    emit groupsListModelChanged();
 }
 
 QString FixtureManager::fixtureIcon(quint32 fixtureID)
@@ -260,7 +239,6 @@ void FixtureManager::slotDocLoaded()
 
     updateFixtureTree(m_doc, m_fixtureTree);
     emit groupsTreeModelChanged();
-    emit groupsListModelChanged();
 }
 
 void FixtureManager::updateFixtureTree(Doc *doc, TreeModel *treeModel)
@@ -390,14 +368,7 @@ QVariantList FixtureManager::fixtureSelection(quint32 address)
 
     quint32 startAddr = fixture->address();
     for (quint32 i = 0; i < fixture->channels(); i++)
-    {
         list.append(startAddr + i);
-        QLCChannel::Group group = fixture->channel(i)->group();
-        if (group == QLCChannel::Intensity)
-            list.append(fixture->channel(i)->colour());
-        else
-            list.append(group - 1);
-    }
 
     return list;
 }
@@ -471,71 +442,6 @@ QVariantList FixtureManager::fixturesMap()
 
     }
     return m_fixturesMap;
-}
-
-void FixtureManager::editGroup(QVariant reference)
-{
-    if (reference.canConvert<FixtureGroup *>() == false)
-        return;
-
-    m_editGroup = reference.value<FixtureGroup *>();
-
-    emit fixtureGroupNameChanged();
-    emit fixtureGroupSizeChanged();
-}
-
-QString FixtureManager::fixtureGroupName() const
-{
-    return m_editGroup == NULL ? "" : m_editGroup->name();
-}
-
-QSize FixtureManager::fixtureGroupSize() const
-{
-    if (m_editGroup == NULL)
-        return QSize();
-
-    return m_editGroup->size();
-}
-
-void FixtureManager::setFixtureGroupSize(QSize size)
-{
-    if (m_editGroup == NULL || size == m_editGroup->size())
-        return;
-
-    m_editGroup->setSize(size);
-    emit fixtureGroupSizeChanged();
-}
-
-QVariantList FixtureManager::fixtureGroupMap()
-{
-    /** Data format:
-    * Fixture ID | headIndex | isOdd | fixture type (a lookup for icons)
-    */
-
-   m_fixtureGroupMap.clear();
-
-   if (m_editGroup == NULL)
-       return m_fixtureGroupMap;
-
-   int gridWidth = m_editGroup->size().width();
-
-   for (int y = 0; y < m_editGroup->size().height(); y++)
-   {
-       for (int x = 0; x < gridWidth; x++)
-       {
-            GroupHead head = m_editGroup->head(QLCPoint(x, y));
-            if (head.isValid())
-            {
-                Fixture *fx = m_doc->fixture(head.fxi);
-                m_fixtureGroupMap.append(head.fxi);
-                m_fixtureGroupMap.append((gridWidth * y) + x);
-                m_fixtureGroupMap.append(0);
-                m_fixtureGroupMap.append(fx->type());
-            }
-       }
-   }
-
-   return m_fixtureGroupMap;
 }
 
 /*********************************************************************

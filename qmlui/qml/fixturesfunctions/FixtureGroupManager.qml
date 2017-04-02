@@ -104,13 +104,13 @@ Rectangle
                             case App.FixtureGroupDragItem:
                                 if (checked)
                                 {
-                                    fixtureManager.editGroup(gfhcDragItem.itemsList[0].cRef)
+                                    fixtureGroupEditor.setEditGroup(gfhcDragItem.itemsList[0].cRef)
                                     previousView = fixtureAndFunctions.currentViewQML
                                     fixtureAndFunctions.currentViewQML = "qrc:/FixtureGroupEditor.qml"
                                 }
                                 else
                                 {
-                                    fixtureManager.editGroup(null)
+                                    fixtureGroupEditor.setEditGroup(null)
                                     fixtureAndFunctions.currentViewQML = previousView
                                     previousView = ""
                                 }

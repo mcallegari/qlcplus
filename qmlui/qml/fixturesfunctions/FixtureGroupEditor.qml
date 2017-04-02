@@ -18,52 +18,161 @@
 */
 
 import QtQuick 2.0
+import QtQuick.Layouts 1.0
+
+import com.qlcplus.classes 1.0
 
 import "GenericHelpers.js" as Helpers
 import "."
 
 Flickable
 {
-    id: fixtureGroupEditor
+    id: fGroupEditor
     anchors.fill: parent
-    anchors.margins: 20
+    anchors.margins: viewMargin
     boundsBehavior: Flickable.StopAtBounds
+
+    property int viewMargin: UISettings.listItemHeight * 0.5
 
     function hasSettings() { return false; }
 
-    RobotoText
+    RowLayout
     {
-        id: groupName
+        id: editToolbar
         height: UISettings.textSizeDefault * 2
-        label: fixtureManager.fixtureGroupName
-        labelColor: UISettings.fgLight
-        fontSize: UISettings.textSizeDefault * 1.5
-        fontBold: true
+        width: parent.width
+
+        RobotoText
+        {
+            height: parent.height
+            label: fixtureGroupEditor.groupName
+            labelColor: UISettings.fgLight
+            fontSize: UISettings.textSizeDefault * 1.5
+            fontBold: true
+            textVAlign: Text.AlignVCenter
+        }
+
+        Rectangle { color: "transparent"; Layout.fillWidth: true; }
+
+        RobotoText
+        {
+            label: qsTr("Group size")
+        }
+
+        CustomSpinBox
+        {
+            id: gridWidthSpin
+            from: 1
+            to: 999
+            value: fixtureGroupEditor.groupSize.width
+            onValueChanged: fixtureGroupEditor.groupSize = Qt.size(value, gridHeightSpin.value)
+        }
+
+        RobotoText
+        {
+            label: "x"
+        }
+
+        CustomSpinBox
+        {
+            id: gridHeightSpin
+            from: 1
+            to: 999
+            value: fixtureGroupEditor.groupSize.height
+            onValueChanged: fixtureGroupEditor.groupSize = Qt.size(gridWidthSpin.value, value)
+        }
+
+        IconButton
+        {
+            imgSource: "qrc:/rotate-right.svg"
+            tooltip: qsTr("Rotate 90° clockwise")
+        }
+
+        IconButton
+        {
+            imgSource: "qrc:/reset.svg"
+            tooltip: qsTr("Reset the entire group")
+            onClicked: fixtureGroupEditor.resetGroup()
+        }
     }
 
     GridEditor
     {
         id: groupGrid
-        anchors.top: groupName.bottom
+        y: editToolbar.y + editToolbar.height + 5
         width: parent.width
-        height: parent.height - groupName.height
+        height: parent.height - editToolbar.height - (viewMargin * 2)
 
         function getItemIcon(fixtureID, headNumber)
         {
             return fixtureManager.fixtureIcon(fixtureID)
         }
 
-        gridSize: fixtureManager.fixtureGroupSize
+        gridSize: fixtureGroupEditor.groupSize
         fillDirection: Qt.Horizontal | Qt.Vertical
-        gridData: fixtureManager.fixtureGroupMap
-        evenColor: "white"
+        gridData: fixtureGroupEditor.groupMap
+        evenColor: UISettings.fgLight
 
         onPressed:
         {
-            fixtureGroupEditor.interactive = false
-            var headAddress = (yPos * gridSize.width) + xPos
-            console.log("Head pressed at address: " + headAddress)
-            //setSelectionData(fixtureManager.fixtureSelection(headAddress))
+            fGroupEditor.interactive = false
+            setSelectionData(fixtureGroupEditor.groupSelection(xPos, yPos, mods))
+        }
+
+        onReleased:
+        {
+            if (currentItemID === -1)
+                return
+
+            if (externalDrag == false)
+                fixtureGroupEditor.moveSelection(xPos, yPos, offset)
+            fGroupEditor.interactive = true
+        }
+
+        onPositionChanged:
+        {
+            validSelection = fixtureGroupEditor.checkSelection(xPos, yPos, offset)
+        }
+
+        onDragEntered:
+        {
+            console.log("Drag entered at " + xPos + ", " + yPos)
+            var tmp
+            var mods = 0
+            for (var i = 0; i < dragEvent.source.itemsList.length; i++)
+            {
+                console.log("Item #" + i + " type: " + dragEvent.source.itemsList[i].itemType)
+                switch(dragEvent.source.itemsList[i].itemType)
+                {
+                    case App.FixtureDragItem:
+                        tmp = fixtureGroupEditor.dragSelection(dragEvent.source.itemsList[i].cRef, xPos, yPos, mods)
+                    break;
+                    case App.HeadDragItem:
+                        efxEditor.addHead(dragEvent.source.itemsList[i].fixtureID, dragEvent.source.itemsList[i].headIndex)
+                    break;
+                }
+                mods = 1
+            }
+            setSelectionData(tmp)
+        }
+
+        onDragPositionChanged:
+        {
+            validSelection = fixtureGroupEditor.checkSelection(xPos, yPos, offset)
+        }
+
+        onDragDropped:
+        {
+            console.log("Drag dropped at " + xPos + ", " + yPos)
+            for (var i = 0; i < dragEvent.source.itemsList.length; i++)
+            {
+                switch(dragEvent.source.itemsList[i].itemType)
+                {
+                    case App.FixtureDragItem:
+                        fixtureGroupEditor.addFixture(dragEvent.source.itemsList[i].cRef, xPos, yPos)
+                    break;
+                }
+            }
         }
     }
 }
