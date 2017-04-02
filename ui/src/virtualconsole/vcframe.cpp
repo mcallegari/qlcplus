@@ -442,6 +442,7 @@ void VCFrame::setMultipageMode(bool enable)
         m_prevPageBtn = NULL;
         m_pageCombo = NULL;
         m_nextPageBtn = NULL;
+        setCaption(caption());
     }
 
     m_multiPageMode = enable;
