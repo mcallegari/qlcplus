@@ -204,7 +204,7 @@ Column
                             if (item.hasOwnProperty('childrenDelegate'))
                                 item.childrenDelegate = childrenDelegate
 
-                            console.log("Item path: " + item.nodePath + ", label: " + label)
+                            //console.log("Item path: " + item.nodePath + ", label: " + label)
                         }
 
                         if (item.hasOwnProperty('cRef'))

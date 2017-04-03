@@ -241,6 +241,11 @@ void FixtureManager::slotDocLoaded()
     emit groupsTreeModelChanged();
 }
 
+bool FixtureManager::compareFixtures(Fixture *left, Fixture *right)
+{
+    return *left < *right;
+}
+
 void FixtureManager::updateFixtureTree(Doc *doc, TreeModel *treeModel)
 {
     if (doc == NULL || treeModel == NULL)
@@ -298,8 +303,12 @@ void FixtureManager::updateFixtureTree(Doc *doc, TreeModel *treeModel)
         treeModel->setPathData(grp->name(), grpParams);
     }
 
+    QList<Fixture*> origList = doc->fixtures();
+    // sort the fixture list by address and not by ID
+    std::sort(origList.begin(), origList.end(), compareFixtures);
+
     // add the current universes as groups
-    for (Fixture *fixture : doc->fixtures()) // C++11
+    for (Fixture *fixture : origList) // C++11
     {
         if (fixture->universe() >= (quint32)uniNames.count())
             continue;

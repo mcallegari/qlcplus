@@ -285,7 +285,7 @@ public:
     Fixture* fixture(quint32 id) const;
 
     /**
-     * Get a list of fixtures
+     * Get a list of fixtures ordered by ID
      */
     QList<Fixture*> const& fixtures() const;
 

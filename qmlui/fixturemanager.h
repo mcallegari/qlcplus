@@ -106,6 +106,9 @@ private:
     /** Update the tree of groups/fixtures/channels */
     void updateFixtureTree(Doc *doc, TreeModel *treeModel);
 
+    /** Comparison method to sort a Fixture list by DMX address */
+    static bool compareFixtures(Fixture *left, Fixture *right);
+
 private:
     /** Reference to the QML view root */
     QQuickView *m_view;

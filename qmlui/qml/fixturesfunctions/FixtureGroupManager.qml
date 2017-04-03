@@ -140,7 +140,7 @@ Rectangle
               {
                 Loader
                 {
-                    width: groupListView.width
+                    width: groupListView.width - (gEditScrollBar.visible ? gEditScrollBar.width : 0)
                     source: hasChildren ? "qrc:/TreeNodeDelegate.qml" : ""
                     onLoaded:
                     {
