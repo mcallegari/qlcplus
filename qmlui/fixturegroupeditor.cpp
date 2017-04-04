@@ -114,7 +114,10 @@ QVariantList FixtureGroupEditor::groupSelection(int x, int y, int mouseMods)
 
     int absIndex = (y * m_editGroup->size().width()) + x;
 
-    if (mouseMods == 0 && m_groupSelection.contains(absIndex) == false)
+    if (m_groupSelection.contains(absIndex))
+        return m_groupSelection;
+
+    if (mouseMods == 0)
         m_groupSelection.clear();
 
     GroupHead head = m_editGroup->head(QLCPoint(x, y));
@@ -126,6 +129,8 @@ QVariantList FixtureGroupEditor::groupSelection(int x, int y, int mouseMods)
         return m_groupSelection;
 
     m_groupSelection.append(absIndex);
+
+    qDebug() << "Selection size" << m_groupSelection.count();
 
     return m_groupSelection;
 }
@@ -190,6 +195,30 @@ bool FixtureGroupEditor::checkSelection(int x, int y, int offset)
     }
 
     return true;
+}
+
+void FixtureGroupEditor::moveSelection(int x, int y, int offset)
+{
+    Q_UNUSED(x)
+    Q_UNUSED(y)
+
+    if (m_editGroup == NULL)
+        return;
+
+    for (int i = 0; i < m_groupSelection.count(); i++)
+    {
+        int origPos = m_groupSelection.at(i).toInt();
+        int origYPos = qFloor(origPos / m_editGroup->size().width());
+        int origXPos = origPos - (origYPos * m_editGroup->size().width());
+        int targetPos = origPos + offset;
+        int targetYPos = qFloor(targetPos / m_editGroup->size().width());
+        int targetXPos = targetPos - (targetYPos * m_editGroup->size().width());
+
+        qDebug() << "Moving head from" << origXPos << origYPos << "to" << targetXPos << targetYPos;
+
+        m_editGroup->swap(QLCPoint(origXPos, origYPos), QLCPoint(targetXPos, targetYPos));
+    }
+    updateGroupMap();
 }
 
 void FixtureGroupEditor::updateGroupMap()

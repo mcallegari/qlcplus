@@ -89,6 +89,9 @@ public:
     /** Check if the current selection can be moved by $offset cells */
     Q_INVOKABLE bool checkSelection(int x, int y, int offset);
 
+    /** Move the current selection by $offset cells */
+    Q_INVOKABLE void moveSelection(int x, int y, int offset);
+
 private:
     void updateGroupMap();
 

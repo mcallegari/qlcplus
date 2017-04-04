@@ -34,7 +34,7 @@ Rectangle
     /** The resize constrain to fill the view */
     property int fillDirection: Qt.Horizontal
 
-    /** An array of data organized as follows: Item ID | DMX address | isOdd | item type */
+    /** An array of data organized as follows: Item ID | Absolute Index | isOdd | item type */
     property variant gridData
 
     /** An array of data organized as follows: Item ID | Absolute Index | Length | Label */
@@ -222,6 +222,8 @@ Rectangle
                 return
 
             var needRepaint = false
+            // an array acting as map for quick lookup of item types per absolute index
+            var typesMap = []
 
             context.fillStyle = "#7f7f7f"
             context.clearRect(0, 0, width, height)
@@ -243,6 +245,8 @@ Rectangle
                     //console.log("Item ID: " + gridData[idx] + ", subIndex: " + gridData[idx + 1]);
                     if (checkIconCache(gridData[idx], subIndex, gridData[idx + 3]) === true)
                         needRepaint = true
+
+                    typesMap[gridData[idx + 1]] = gridData[idx + 3]
 
                     if (gridData[idx + 2])
                         fillCell(gridData[idx + 1], oddColor, gridData[idx + 3])
@@ -269,9 +273,9 @@ Rectangle
                     var gridIdx = selectionData[selIdx] + selectionOffset
                     //console.log("Update selection gridIdx: " + gridIdx)
 
-                    // retrieve the item type from the original grid data,
+                    // retrieve the item type from the types map array,
                     // unless it comes from an external drag
-                    var itemType = itemDropArea.containsDrag ? -1 : gridData[(selectionData[selIdx] * 4) + 3]
+                    var itemType = itemDropArea.containsDrag ? -1 : typesMap[selectionData[selIdx]] //gridData[(selectionData[selIdx] * 4) + 3]
                     if (validSelection)
                         fillCell(gridIdx, "green", itemType)
                     else
@@ -318,10 +322,7 @@ Rectangle
             {
                 if (dataCanvas.selectionOffset != 0 && selectionData && selectionData.length)
                 {
-                    var absPosition = (dataCanvas.mouseLastY * gridSize.width) + dataCanvas.mouseLastX
-                    var offset = selectionData[0] + dataCanvas.selectionOffset - absPosition
-                    console.log("Offset with mouse: " + offset)
-                    gridRoot.released(dataCanvas.mouseLastX, dataCanvas.mouseLastY, offset, mouse.modifiers)
+                    gridRoot.released(dataCanvas.mouseLastX, dataCanvas.mouseLastY, dataCanvas.selectionOffset, mouse.modifiers)
                 }
                 dataCanvas.mouseOrigX = -1
                 dataCanvas.mouseOrigY = -1
