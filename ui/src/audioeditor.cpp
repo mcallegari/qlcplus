@@ -48,6 +48,8 @@ AudioEditor::AudioEditor(QWidget* parent, Audio *audio, Doc* doc)
     m_fadeInEdit->setText(Function::speedToString(audio->fadeInSpeed()));
     m_fadeOutEdit->setText(Function::speedToString(audio->fadeOutSpeed()));
 
+    m_loopedCheckBox->setChecked(m_audio->isLooped());
+
     connect(m_nameEdit, SIGNAL(textEdited(const QString&)),
             this, SLOT(slotNameEdited(const QString&)));
     connect(m_fileButton, SIGNAL(clicked()),
@@ -63,6 +65,9 @@ AudioEditor::AudioEditor(QWidget* parent, Audio *audio, Doc* doc)
 
     connect(m_previewButton, SIGNAL(toggled(bool)),
             this, SLOT(slotPreviewToggled(bool)));
+
+    connect(m_loopedCheckBox, SIGNAL(toggled(bool)),
+    		this, SLOT(slotLoopedToggled(bool)));
 
     AudioDecoder *adec = m_audio->getAudioDecoder();
 
@@ -224,6 +229,11 @@ void AudioEditor::slotPreviewStopped(quint32 id)
 {
     if (id == m_audio->id())
         m_previewButton->setChecked(false);
+}
+
+void AudioEditor::slotLoopedToggled(bool state)
+{
+	m_audio->setLooped(state);
 }
 
 FunctionParent AudioEditor::functionParent() const

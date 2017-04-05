@@ -54,6 +54,7 @@ void AudioEditor::setSourceFileName(QString sourceFileName)
     emit sourceFileNameChanged(sourceFileName);
     emit mediaInfoChanged();
     emit functionNameChanged(m_audio->name());
+    emit loopedChanged();
 }
 
 QStringList AudioEditor::mimeTypes() const
@@ -85,5 +86,16 @@ QVariant AudioEditor::mediaInfo() const
     return QVariant::fromValue(infoMap);
 }
 
+bool AudioEditor::isLooped()
+{
+	if (m_audio != NULL)
+		return m_audio->isLooped();
 
+	return false;
+}
 
+void AudioEditor::setLooped(bool looped)
+{
+	if (m_audio != NULL)
+		m_audio->setLooped(looped);
+}

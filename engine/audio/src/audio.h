@@ -146,6 +146,12 @@ public:
 
     void adjustAttribute(qreal fraction, int attributeIndex);
 
+    /** Set the looped attribute of audio */
+    void setLooped(bool looped);
+
+    /** Get the looped attribute of audio */
+    bool isLooped();
+
 signals:
     void sourceFilenameChanged();
 
@@ -169,6 +175,8 @@ private:
     QString m_sourceFileName;
     /** Duration of the media object */
     qint64 m_audioDuration;
+    /** Set audio to be looped */
+    bool m_looped;
 
     /*********************************************************************
      * Save & Load

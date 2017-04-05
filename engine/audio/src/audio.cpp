@@ -48,6 +48,7 @@
 #define KXMLQLCAudioStartTime "StartTime"
 #define KXMLQLCAudioColor "Color"
 #define KXMLQLCAudioLocked "Locked"
+#define KXMLQLCAudioLooped "Looped"
 
 /*****************************************************************************
  * Initialization
@@ -64,6 +65,7 @@ Audio::Audio(Doc* doc)
   , m_locked(false)
   , m_sourceFileName("")
   , m_audioDuration(0)
+  , m_looped(false)
 {
     setName(tr("New Audio"));
 
@@ -242,15 +244,15 @@ void Audio::adjustAttribute(qreal fraction, int attributeIndex)
 
 void Audio::slotEndOfStream()
 {
-    if (m_audio_out != NULL)
-    {
-        m_audio_out->stop();
-        m_audio_out->deleteLater();
-        m_audio_out = NULL;
-        m_decoder->seek(0);
-    }
-    if (!stopped())
-        stop(FunctionParent::master());
+	if (m_audio_out != NULL)
+	{
+		m_audio_out->stop();
+		m_audio_out->deleteLater();
+		m_audio_out = NULL;
+		m_decoder->seek(0);
+	}
+	if (!stopped())
+		stop(FunctionParent::master());
 }
 
 void Audio::slotFunctionRemoved(quint32 fid)
@@ -276,8 +278,11 @@ bool Audio::saveXML(QXmlStreamWriter *doc)
     saveXMLSpeed(doc);
 
     doc->writeStartElement(KXMLQLCAudioSource);
+
     if (m_audioDevice.isEmpty() == false)
         doc->writeAttribute(KXMLQLCAudioDevice, m_audioDevice);
+
+    doc->writeAttribute(KXMLQLCAudioLooped, QString::number(isLooped()));
 
     doc->writeCharacters(m_doc->normalizeComponentPath(m_sourceFileName));
 
@@ -319,6 +324,8 @@ bool Audio::loadXML(QXmlStreamReader &root)
                 setColor(QColor(attrs.value(KXMLQLCAudioColor).toString()));
             if (attrs.hasAttribute(KXMLQLCAudioLocked))
                 setLocked(true);
+            if (attrs.hasAttribute(KXMLQLCAudioLooped))
+            	setLooped(attrs.value(KXMLQLCAudioLooped).toString().toUInt());
             setSourceFileName(m_doc->denormalizeComponentPath(root.readElementText()));
         }
         else if (root.name() == KXMLQLCFunctionSpeed)
@@ -367,6 +374,7 @@ void Audio::preRun(MasterTimer* timer)
         m_audio_out->initialize(ap.sampleRate(), ap.channels(), ap.format());
         m_audio_out->adjustIntensity(getAttributeValue(Intensity));
         m_audio_out->setFadeIn(fadeInSpeed());
+        m_audio_out->setLooped(isLooped());
         m_audio_out->start();
         connect(m_audio_out, SIGNAL(endOfStreamReached()),
                 this, SLOT(slotEndOfStream()));
@@ -413,4 +421,14 @@ void Audio::postRun(MasterTimer* timer, QList<Universe*> universes)
     slotEndOfStream();
 
     Function::postRun(timer, universes);
+}
+
+void Audio::setLooped(bool looped)
+{
+	m_looped = looped;
+}
+
+bool Audio::isLooped()
+{
+	return m_looped;
 }
