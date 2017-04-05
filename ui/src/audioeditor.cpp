@@ -48,7 +48,7 @@ AudioEditor::AudioEditor(QWidget* parent, Audio *audio, Doc* doc)
     m_fadeInEdit->setText(Function::speedToString(audio->fadeInSpeed()));
     m_fadeOutEdit->setText(Function::speedToString(audio->fadeOutSpeed()));
 
-    m_loopedCheckBox->setChecked(m_audio->isLooped());
+    m_loopedCheckBox->setChecked(m_audio->runOrder() == Audio::Loop);
 
     connect(m_nameEdit, SIGNAL(textEdited(const QString&)),
             this, SLOT(slotNameEdited(const QString&)));
@@ -233,7 +233,10 @@ void AudioEditor::slotPreviewStopped(quint32 id)
 
 void AudioEditor::slotLoopedToggled(bool state)
 {
-    m_audio->setLooped(state);
+    if (state)
+        m_audio->setRunOrder(Audio::Loop);
+    else
+        m_audio->setRunOrder(Audio::SingleShot);
 }
 
 FunctionParent AudioEditor::functionParent() const

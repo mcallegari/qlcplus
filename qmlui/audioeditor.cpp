@@ -89,7 +89,7 @@ QVariant AudioEditor::mediaInfo() const
 bool AudioEditor::isLooped()
 {
     if (m_audio != NULL)
-        return m_audio->isLooped();
+        return m_audio->runOrder() == Audio::Loop;
 
     return false;
 }
@@ -97,5 +97,10 @@ bool AudioEditor::isLooped()
 void AudioEditor::setLooped(bool looped)
 {
     if (m_audio != NULL)
-        m_audio->setLooped(looped);
+    {
+        if (looped)
+            m_audio->setRunOrder(Audio::Loop);
+        else
+            m_audio->setRunOrder(Audio::SingleShot);
+    }
 }
