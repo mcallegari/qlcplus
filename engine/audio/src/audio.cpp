@@ -244,15 +244,15 @@ void Audio::adjustAttribute(qreal fraction, int attributeIndex)
 
 void Audio::slotEndOfStream()
 {
-	if (m_audio_out != NULL)
-	{
-		m_audio_out->stop();
-		m_audio_out->deleteLater();
-		m_audio_out = NULL;
-		m_decoder->seek(0);
-	}
-	if (!stopped())
-		stop(FunctionParent::master());
+    if (m_audio_out != NULL)
+    {
+        m_audio_out->stop();
+        m_audio_out->deleteLater();
+        m_audio_out = NULL;
+        m_decoder->seek(0);
+    }
+    if (!stopped())
+        stop(FunctionParent::master());
 }
 
 void Audio::slotFunctionRemoved(quint32 fid)
@@ -325,7 +325,7 @@ bool Audio::loadXML(QXmlStreamReader &root)
             if (attrs.hasAttribute(KXMLQLCAudioLocked))
                 setLocked(true);
             if (attrs.hasAttribute(KXMLQLCAudioLooped))
-            	setLooped(attrs.value(KXMLQLCAudioLooped).toString().toUInt());
+                setLooped(attrs.value(KXMLQLCAudioLooped).toString().toUInt());
             setSourceFileName(m_doc->denormalizeComponentPath(root.readElementText()));
         }
         else if (root.name() == KXMLQLCFunctionSpeed)
@@ -425,10 +425,10 @@ void Audio::postRun(MasterTimer* timer, QList<Universe*> universes)
 
 void Audio::setLooped(bool looped)
 {
-	m_looped = looped;
+    m_looped = looped;
 }
 
 bool Audio::isLooped()
 {
-	return m_looped;
+    return m_looped;
 }

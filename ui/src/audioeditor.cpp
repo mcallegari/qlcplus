@@ -67,7 +67,7 @@ AudioEditor::AudioEditor(QWidget* parent, Audio *audio, Doc* doc)
             this, SLOT(slotPreviewToggled(bool)));
 
     connect(m_loopedCheckBox, SIGNAL(toggled(bool)),
-    		this, SLOT(slotLoopedToggled(bool)));
+            this, SLOT(slotLoopedToggled(bool)));
 
     AudioDecoder *adec = m_audio->getAudioDecoder();
 
@@ -233,7 +233,7 @@ void AudioEditor::slotPreviewStopped(quint32 id)
 
 void AudioEditor::slotLoopedToggled(bool state)
 {
-	m_audio->setLooped(state);
+    m_audio->setLooped(state);
 }
 
 FunctionParent AudioEditor::functionParent() const

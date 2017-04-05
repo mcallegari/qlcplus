@@ -32,7 +32,7 @@ class AudioEditor : public FunctionEditor
     Q_PROPERTY(QString sourceFileName READ sourceFileName WRITE setSourceFileName NOTIFY sourceFileNameChanged)
     Q_PROPERTY(QStringList mimeTypes READ mimeTypes CONSTANT)
     Q_PROPERTY(QVariant mediaInfo READ mediaInfo NOTIFY mediaInfoChanged)
-	Q_PROPERTY(bool looped READ isLooped WRITE setLooped NOTIFY loopedChanged)
+    Q_PROPERTY(bool looped READ isLooped WRITE setLooped NOTIFY loopedChanged)
 
 public:
     AudioEditor(QQuickView *view, Doc *doc, QObject *parent = 0);

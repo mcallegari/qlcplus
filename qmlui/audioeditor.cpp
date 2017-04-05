@@ -88,14 +88,14 @@ QVariant AudioEditor::mediaInfo() const
 
 bool AudioEditor::isLooped()
 {
-	if (m_audio != NULL)
-		return m_audio->isLooped();
+    if (m_audio != NULL)
+        return m_audio->isLooped();
 
-	return false;
+    return false;
 }
 
 void AudioEditor::setLooped(bool looped)
 {
-	if (m_audio != NULL)
-		m_audio->setLooped(looped);
+    if (m_audio != NULL)
+        m_audio->setLooped(looped);
 }
