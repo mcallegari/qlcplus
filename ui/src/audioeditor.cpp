@@ -48,8 +48,6 @@ AudioEditor::AudioEditor(QWidget* parent, Audio *audio, Doc* doc)
     m_fadeInEdit->setText(Function::speedToString(audio->fadeInSpeed()));
     m_fadeOutEdit->setText(Function::speedToString(audio->fadeOutSpeed()));
 
-    m_loopedCheckBox->setChecked(m_audio->runOrder() == Audio::Loop);
-
     connect(m_nameEdit, SIGNAL(textEdited(const QString&)),
             this, SLOT(slotNameEdited(const QString&)));
     connect(m_fileButton, SIGNAL(clicked()),
@@ -65,9 +63,6 @@ AudioEditor::AudioEditor(QWidget* parent, Audio *audio, Doc* doc)
 
     connect(m_previewButton, SIGNAL(toggled(bool)),
             this, SLOT(slotPreviewToggled(bool)));
-
-    connect(m_loopedCheckBox, SIGNAL(toggled(bool)),
-            this, SLOT(slotLoopedToggled(bool)));
 
     AudioDecoder *adec = m_audio->getAudioDecoder();
 
@@ -110,6 +105,16 @@ AudioEditor::AudioEditor(QWidget* parent, Audio *audio, Doc* doc)
     m_audioDevCombo->setCurrentIndex(selIdx);
     connect(m_audioDevCombo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(slotAudioDeviceChanged(int)));
+
+    if(m_audio->runOrder() == Audio::Loop)
+        m_loopCheck->setChecked(true);
+    else
+        m_singleCheck->setChecked(true);
+
+    connect(m_loopCheck, SIGNAL(clicked()),
+            this, SLOT(slotLoopCheckClicked()));
+    connect(m_singleCheck, SIGNAL(clicked()),
+            this, SLOT(slotSingleShotCheckClicked()));
 
     // Set focus to the editor
     m_nameEdit->setFocus();
@@ -231,12 +236,14 @@ void AudioEditor::slotPreviewStopped(quint32 id)
         m_previewButton->setChecked(false);
 }
 
-void AudioEditor::slotLoopedToggled(bool state)
+void AudioEditor::slotSingleShotCheckClicked()
 {
-    if (state)
-        m_audio->setRunOrder(Audio::Loop);
-    else
-        m_audio->setRunOrder(Audio::SingleShot);
+    m_audio->setRunOrder(Audio::SingleShot);
+}
+
+void AudioEditor::slotLoopCheckClicked()
+{
+    m_audio->setRunOrder(Audio::Loop);
 }
 
 FunctionParent AudioEditor::functionParent() const
