@@ -52,6 +52,7 @@ private slots:
     void slotAudioDeviceChanged(int idx);
     void slotPreviewToggled(bool state);
     void slotPreviewStopped(quint32 id);
+    void slotLoopedToggled(bool state);
 
 private:
     FunctionParent functionParent() const;

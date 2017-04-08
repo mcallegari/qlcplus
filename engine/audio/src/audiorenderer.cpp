@@ -32,6 +32,7 @@ AudioRenderer::AudioRenderer (QObject* parent)
     , m_adec(NULL)
     , audioDataRead(0)
     , pendingAudioBytes(0)
+    , m_looped(false)
 {
 }
 
@@ -102,8 +103,16 @@ void AudioRenderer::run()
             audioDataRead = m_adec->read((char *)audioData, 8192);
             if (audioDataRead == 0)
             {
-                emit endOfStreamReached();
-                return;
+                if (m_looped)
+                {
+                    m_adec->seek(0);
+                    continue;
+                }
+                else
+                {
+                    emit endOfStreamReached();
+                    return;
+                }
             }
             if (m_intensity != 1.0 || m_fadeStep != 0)
             {
@@ -170,4 +179,9 @@ void AudioRenderer::run()
     }
 
     reset();
+}
+
+void AudioRenderer::setLooped(bool looped)
+{
+    m_looped = looped;
 }
