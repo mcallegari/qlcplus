@@ -40,6 +40,8 @@ Rectangle
     /** An array of data organized as follows: Item ID | Absolute Index | Length | Label */
     property variant gridLabels
 
+    property real labelsFontSize: cellSize / 3
+
     /** The size in pixels of a grid cell */
     property real cellSize
 
@@ -299,12 +301,11 @@ Rectangle
                 {
                     var itemAbsIndex = (dataCanvas.mouseLastY * gridSize.width) + dataCanvas.mouseLastX
                     currentItemID = dataCanvas.getPressedItemID(itemAbsIndex)
+                    gridRoot.pressed(dataCanvas.mouseLastX, dataCanvas.mouseLastY, mouse.modifiers)
                     if (currentItemID === -1)
-                        return;
-
+                        return
                     dataCanvas.setSelectionOffset()
                     console.log("Clicked item ID: " + currentItemID)
-                    gridRoot.pressed(dataCanvas.mouseLastX, dataCanvas.mouseLastY, mouse.modifiers)
                     dataCanvas.movingSelection = true
                 }
             }
@@ -330,6 +331,7 @@ Rectangle
                 dataCanvas.mouseLastY = -1
                 dataCanvas.selectionOffset = 0
                 dataCanvas.movingSelection = false
+                validSelection = true
             }
         }
 
@@ -397,15 +399,19 @@ Rectangle
 
         onWidthChanged: repaintTimer.restart()
 
-        function drawLabel(absIdx, text, fontSize, color)
+        function drawLabel(x, y, text, fontSize, color)
         {
-            var yCell = parseInt(absIdx / gridSize.width)
-            var xCell = absIdx - (yCell * gridSize.width)
             context.fillStyle = color
 
             //console.log("absIdx: " + absIdx + ", x: " + xCell + ", y: " + yCell + ", label: " + text)
 
-            context.fillText(text, (xCell * cellSize) + 2, (yCell * cellSize) + fontSize)
+            var yOffset = fontSize
+            var labelLines = text.split("\n")
+            for (var l = 0; l < labelLines.length; l++)
+            {
+                context.fillText(labelLines[l], x + 2, y + yOffset)
+                yOffset += fontSize
+            }
         }
 
         onPaint:
@@ -418,10 +424,11 @@ Rectangle
             context.strokeStyle = "black"
             context.lineWidth = 1
 
+            context.rect(0, 0, cellSize * gridSize.width, cellSize * gridSize.height)
             context.clearRect(0, 0, cellSize * gridSize.width, cellSize * gridSize.height)
 
             var cWidth = cellSize * gridSize.width
-            var fontPxSize = cellSize / 3
+            context.font = labelsFontSize + "px \"" + UISettings.robotoFontName + "\""
 
             context.beginPath()
             /* Paint the grid vertical lines */
@@ -450,8 +457,6 @@ Rectangle
                 var ypos = cellSize - 10
                 var rowCount = 0
 
-                context.font = fontPxSize + "px \"" + UISettings.robotoFontName + "\""
-
                 for(var idx = 1; idx <= showIndices; idx++)
                 {
                     context.fillText(idx, xpos, ypos)
@@ -470,7 +475,20 @@ Rectangle
             if (gridLabels && gridLabels.length)
             {
                 for (var li = 0; li < gridLabels.length; li += 4)
-                    drawLabel(gridLabels[li + 1], gridLabels[li + 3], fontPxSize, "white")
+                {
+                    var yCell = parseInt(gridLabels[li + 1] / gridSize.width)
+                    var xCell = gridLabels[li + 1] - (yCell * gridSize.width)
+                    var x = xCell * cellSize
+                    var y = yCell * cellSize
+
+                    context.save()
+                    context.beginPath()
+                    // create a clipping region in case the label is too long
+                    context.rect(x, y, cellSize * gridLabels[li + 2], cellSize)
+                    context.clip()
+                    drawLabel(x, y, gridLabels[li + 3], labelsFontSize, "white")
+                    context.restore()
+                }
             }
         }
     }

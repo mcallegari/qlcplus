@@ -35,6 +35,8 @@ class FixtureGroupEditor : public QObject
     Q_PROPERTY(QString groupName READ groupName NOTIFY groupNameChanged)
     Q_PROPERTY(QSize groupSize READ groupSize WRITE setGroupSize NOTIFY groupSizeChanged)
     Q_PROPERTY(QVariantList groupMap READ groupMap NOTIFY groupMapChanged)
+    Q_PROPERTY(QVariantList groupLabels READ groupLabels NOTIFY groupLabelsChanged)
+    Q_PROPERTY(QVariantList selectionData READ selectionData NOTIFY selectionDataChanged)
 
 public:
     FixtureGroupEditor(QQuickView *view, Doc *doc, QObject *parent = 0);
@@ -65,6 +67,16 @@ private:
      * Fixture Group Grid Editing
      *********************************************************************/
 public:
+    enum TransformType
+    {
+        Rotate90,
+        Rotate180,
+        Rotate270,
+        HorizontalFlip,
+        VerticalFlip
+    };
+    Q_ENUM(TransformType)
+
     /** Set the reference of a FixtureGroup for editing */
     Q_INVOKABLE void setEditGroup(QVariant reference);
 
@@ -75,10 +87,17 @@ public:
     QSize groupSize() const;
     void setGroupSize(QSize size);
 
-    /** Returns data for representation in a GridEditor QML component */
+    /** Returns the heads data for representation in a QML GridEditor */
     QVariantList groupMap();
 
+    /** Returns the head labels data for representation in a QML GridEditor */
+    QVariantList groupLabels();
+
     /** Returns a list of indices with the selected heads */
+    QVariantList selectionData();
+
+    /** Check the head at the provide $x,$y position and
+     *  returns a list of indices with the selected heads */
     Q_INVOKABLE QVariantList groupSelection(int x, int y, int mouseMods);
 
     /** Returns a selection array from the provide $reference */
@@ -92,6 +111,9 @@ public:
     /** Move the current selection by $offset cells */
     Q_INVOKABLE void moveSelection(int x, int y, int offset);
 
+    /** Rotate the current selection by $degrees */
+    Q_INVOKABLE void transformSelection(int transformation);
+
 private:
     void updateGroupMap();
 
@@ -99,10 +121,14 @@ signals:
     void groupSizeChanged();
     void groupNameChanged();
     void groupMapChanged();
+    void groupLabelsChanged();
+    void selectionDataChanged();
 
 private:
-    /** An array-like map of the current fixtures, filtered by m_universeFilter */
+    /** An array-like map of the heads data in  group */
     QVariantList m_groupMap;
+    /** An array-like map of the heads labels in  group */
+    QVariantList m_groupLabels;
     /** An array of data representing the currently selected items on a Grid editor */
     QVariantList m_groupSelection;
 };

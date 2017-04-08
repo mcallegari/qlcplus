@@ -21,8 +21,6 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.0
 
 import com.qlcplus.classes 1.0
-
-import "GenericHelpers.js" as Helpers
 import "."
 
 Flickable
@@ -84,8 +82,10 @@ Flickable
 
         IconButton
         {
-            imgSource: "qrc:/rotate-right.svg"
-            tooltip: qsTr("Rotate 90° clockwise")
+            id: posButton
+            imgSource: "qrc:/position.svg"
+            tooltip: qsTr("Transform the selected items")
+            checkable: true
         }
 
         IconButton
@@ -93,6 +93,68 @@ Flickable
             imgSource: "qrc:/reset.svg"
             tooltip: qsTr("Reset the entire group")
             onClicked: fixtureGroupEditor.resetGroup()
+        }
+    }
+
+    Rectangle
+    {
+        id: transformMenu
+        visible: posButton.checked
+        x: posButton.x - width
+        z: 2
+        border.color: UISettings.bgStronger
+        color: UISettings.bgStrong
+        width: menuBox.width
+        height: menuBox.height
+
+        Column
+        {
+            id: menuBox
+            ContextMenuEntry
+            {
+                entryText: qsTr("Rotate 90° clockwise")
+                onClicked:
+                {
+                    fixtureGroupEditor.transformSelection(FixtureGroupEditor.rotate90)
+                    groupGrid.setSelectionData(fixtureGroupEditor.selectionData)
+                }
+            }
+            ContextMenuEntry
+            {
+                entryText: qsTr("Rotate 180° clockwise")
+                onClicked:
+                {
+                    fixtureGroupEditor.transformSelection(FixtureGroupEditor.rotate180)
+                    groupGrid.setSelectionData(fixtureGroupEditor.selectionData)
+                }
+            }
+            ContextMenuEntry
+            {
+                entryText: qsTr("Rotate 270° clockwise")
+                onClicked:
+                {
+                    fixtureGroupEditor.transformSelection(FixtureGroupEditor.rotate270)
+                    groupGrid.setSelectionData(fixtureGroupEditor.selectionData)
+                }
+            }
+            ContextMenuEntry
+            {
+                entryText: qsTr("Flip horizontally")
+                onClicked:
+                {
+                    fixtureGroupEditor.transformSelection(FixtureGroupEditor.HorizontalFlip)
+                    groupGrid.setSelectionData(fixtureGroupEditor.selectionData)
+                }
+            }
+            ContextMenuEntry
+            {
+                entryText: qsTr("Flip vertically")
+                onClicked:
+                {
+                    fixtureGroupEditor.transformSelection(FixtureGroupEditor.VerticalFlip)
+                    groupGrid.setSelectionData(fixtureGroupEditor.selectionData)
+                }
+            }
         }
     }
 
@@ -111,6 +173,8 @@ Flickable
         gridSize: fixtureGroupEditor.groupSize
         fillDirection: Qt.Horizontal | Qt.Vertical
         gridData: fixtureGroupEditor.groupMap
+        gridLabels: fixtureGroupEditor.groupLabels
+        labelsFontSize: cellSize / 5
         evenColor: UISettings.fgLight
 
         onPressed:
@@ -125,7 +189,10 @@ Flickable
                 return
 
             if (externalDrag == false)
+            {
                 fixtureGroupEditor.moveSelection(xPos, yPos, offset)
+                setSelectionData(fixtureGroupEditor.groupSelection(xPos, yPos, mods))
+            }
             fGroupEditor.interactive = true
         }
 
