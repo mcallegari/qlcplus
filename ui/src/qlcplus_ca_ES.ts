@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="ca_ES">
+<TS version="2.0" language="ca_ES">
 <context>
     <name>AboutBox</name>
     <message>
@@ -963,17 +963,17 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     <message>
         <location filename="audioeditor.ui" line="41"/>
         <source>Playback mode</source>
-        <translation type="unfinished">Modo de reproducció</translation>
+        <translation>Modo de reproducció</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="47"/>
         <source>Single shot</source>
-        <translation type="unfinished">Una sola vegada</translation>
+        <translation>Una sola vegada</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="57"/>
         <source>Loop</source>
-        <translation type="unfinished">Loop</translation>
+        <translation>Loop</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="209"/>
@@ -4183,7 +4183,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="virtualconsole/vcframepageshortcut.cpp" line="49"/>
         <source>Page: %1</source>
-        <translation type="unfinished">Pàgina: %1</translation>
+        <translation>Pàgina: %1</translation>
     </message>
 </context>
 <context>
@@ -5792,7 +5792,7 @@ Durada: %3
     <name>VCFrame</name>
     <message>
         <source>Page: %1</source>
-        <translation type="vanished">Pàgina: %1</translation>
+        <translation>Pàgina: %1</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframe.cpp" line="1430"/>
@@ -5845,7 +5845,7 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="210"/>
         <source>Page Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom de la pàgina</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.cpp" line="63"/>
@@ -6143,42 +6143,42 @@ Durada: %3
     </message>
     <message>
         <source>Key combination</source>
-        <translation type="vanished">Combinació de tecles</translation>
+        <translation>Combinació de tecles</translation>
     </message>
     <message>
         <source>Remove the control&apos;s keyboard shortcut key</source>
         <oldsource>Remove the button&apos;s keyboard shortcut key</oldsource>
-        <translation type="vanished">Treure drecera del teclat per aquest controlador</translation>
+        <translation>Treure drecera del teclat per aquest controlador</translation>
     </message>
     <message>
         <source>Set a key combination for this control</source>
         <oldsource>Set a key combination for this button</oldsource>
-        <translation type="vanished">Seleccionar una combinació de tecles per aquest controlador</translation>
+        <translation>Seleccionar una combinació de tecles per aquest controlador</translation>
     </message>
     <message>
         <source>Keyboard combination that toggles this control</source>
         <oldsource>Keyboard combination that toggles this button</oldsource>
-        <translation type="vanished">Combinació de tecles que activa aquest controlador</translation>
+        <translation>Combinació de tecles que activa aquest controlador</translation>
     </message>
     <message>
         <source>External Input</source>
-        <translation type="vanished">Entrada Externa</translation>
+        <translation>Entrada Externa</translation>
     </message>
     <message>
         <source>The particular input channel within the input universe that sends data to this control</source>
-        <translation type="vanished">El canal d&apos;Entrada dins de aquest univers d&apos;Entrada que envia dades a aquest controlador</translation>
+        <translation>El canal d&apos;Entrada dins de aquest univers d&apos;Entrada que envia dades a aquest controlador</translation>
     </message>
     <message>
         <source>Choose an external input universe &amp; channel that this control should listen to</source>
-        <translation type="vanished">Triar un univers d&apos;Entrada extern i el canal que aquest controlador te que escoltar</translation>
+        <translation>Triar un univers d&apos;Entrada extern i el canal que aquest controlador te que escoltar</translation>
     </message>
     <message>
         <source>When toggled, you can move an external button to assign it to this control</source>
-        <translation type="vanished">Si està actiu, pot moure un controlado extern per assignar-lo a aquest controlador</translation>
+        <translation>Si està actiu, pot moure un controlado extern per assignar-lo a aquest controlador</translation>
     </message>
     <message>
         <source>The input universe that sends data to this control</source>
-        <translation type="vanished">L&apos;univers d&apos;Entrada que envia dades a aquest controlador</translation>
+        <translation>L&apos;univers d&apos;Entrada que envia dades a aquest controlador</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="323"/>
@@ -6910,11 +6910,11 @@ Durada: %3
     </message>
     <message>
         <source>Auto Detect</source>
-        <translation type="vanished">Detectar Automàticament</translation>
+        <translation>Detectar Automàticament</translation>
     </message>
     <message>
         <source>Choose...</source>
-        <translation type="vanished">Triar...</translation>
+        <translation>Triar...</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="196"/>
@@ -6948,11 +6948,11 @@ Durada: %3
     </message>
     <message>
         <source>External Input</source>
-        <translation type="vanished">Entrada Externa</translation>
+        <translation>Entrada Externa</translation>
     </message>
     <message>
         <source>Key combination</source>
-        <translation type="vanished">Combinació de tecles</translation>
+        <translation>Combinació de tecles</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="371"/>
@@ -6971,27 +6971,27 @@ Durada: %3
     </message>
     <message>
         <source>The particular input channel within the input universe that sends data to this preset button</source>
-        <translation type="vanished">El canal d&apos;Entrada dins del univers d&apos;Entrada que envia dades a aquest botó</translation>
+        <translation>El canal d&apos;Entrada dins del univers d&apos;Entrada que envia dades a aquest botó</translation>
     </message>
     <message>
         <source>Choose an external input universe &amp; channel that this preset button should listen to</source>
-        <translation type="vanished">Triar un univers d&apos;Entrada extern i el canal que aquest botó de preset ha d&apos;escoltar</translation>
+        <translation>Triar un univers d&apos;Entrada extern i el canal que aquest botó de preset ha d&apos;escoltar</translation>
     </message>
     <message>
         <source>When toggled, you can move an external control to assign it to this preset button</source>
-        <translation type="vanished">Si està actiu, pot moure un controlador extern per assignar-lo a aquest botó de preset</translation>
+        <translation>Si està actiu, pot moure un controlador extern per assignar-lo a aquest botó de preset</translation>
     </message>
     <message>
         <source>The input universe that sends data to this preset button</source>
-        <translation type="vanished">L&apos;univers d&apos;Entrada que envia dades a aquest botó de preset</translation>
+        <translation>L&apos;univers d&apos;Entrada que envia dades a aquest botó de preset</translation>
     </message>
     <message>
         <source>Input channel</source>
-        <translation type="vanished">Canal d&apos;Entrada</translation>
+        <translation>Canal d&apos;Entrada</translation>
     </message>
     <message>
         <source>Input universe</source>
-        <translation type="vanished">Univers d&apos;Entrada</translation>
+        <translation>Univers d&apos;Entrada</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="402"/>
@@ -7010,15 +7010,15 @@ Durada: %3
     </message>
     <message>
         <source>Remove the preset buttons&apos;s keyboard shortcut key</source>
-        <translation type="vanished">Treure la drecera del teclat per aquest botó de preset</translation>
+        <translation>Treure la drecera del teclat per aquest botó de preset</translation>
     </message>
     <message>
         <source>Set a key combination for this preset button</source>
-        <translation type="vanished">Seleccionar una combinació de tecles per aquest botó de preset</translation>
+        <translation>Seleccionar una combinació de tecles per aquest botó de preset</translation>
     </message>
     <message>
         <source>Keyboard combination that toggles this preset button</source>
-        <translation type="vanished">Combinació de tecles que activa aquest botó de preset</translation>
+        <translation>Combinació de tecles que activa aquest botó de preset</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="252"/>
