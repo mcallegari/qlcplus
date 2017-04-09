@@ -389,6 +389,7 @@
   <fixture path="Eurolite-Led-Theatre-36x3W-CW-WW.qxf" mf="Eurolite" md="LED Theatre 36x3W CW/WW"/>
   <fixture path="Eurolite-LED-TMH-6.qxf" mf="Eurolite" md="LED TMH-6"/>
   <fixture path="Eurolite-LED-TMH-9.qxf" mf="Eurolite" md="LED TMH-9"/>
+  <fixture path="Eurolite-LED-TMH-FE-600.qxf" mf="Eurolite" md="LED TMH FE-600"/>
   <fixture path="Eurolite-LED-Z-200-TCL.qxf" mf="Eurolite" md="LED Z-200 TCL"/>
   <fixture path="Eurolite-PST-15W-QCL-RGB.qxf" mf="Eurolite" md="LED PST-15W QCL"/>
   <fixture path="Eurolite-PST-9W-RGB.qxf" mf="Eurolite" md="LED PST-9W RGB"/>
@@ -561,6 +562,7 @@
   <fixture path="Mac-Mah-Mac-FOG-DMX.qxf" mf="Mac Mah" md="Mac FOG DMX"/>
   <fixture path="Mac-Mah-Mac-Follow-1200.qxf" mf="Mac Mah" md="Mac Follow 1200"/>
   <fixture path="Mac-Mah-WiderPanel.qxf" mf="Mac Mah" md="Wider Panel"/>
+  <fixture path="MARQ-Colormax-Par64.qxf" mf="MARQ" md="Colormax Par64"/>
   <fixture path="MARQ-Gamut-PAR-H7.qxf" mf="MARQ" md="Gamut PAR H7"/>
   <fixture path="Martin-24-7-Hazer.qxf" mf="Martin" md="ZR24/7 Hazer"/>
   <fixture path="Martin-Acrobat.qxf" mf="Martin" md="Acrobat"/>
@@ -670,6 +672,7 @@
   <fixture path="Pulse-LEDBAR-320.qxf" mf="Pulse" md="LED BAR 320"/>
   <fixture path="Pulse-SlimLite-56.qxf" mf="Pulse" md="SlimLite 56"/>
   <fixture path="QTX-HZ-3.qxf" mf="QTX" md="HZ-3"/>
+  <fixture path="QTX-MHS-60.qxf" mf="QTX" md="MHS-60"/>
   <fixture path="QTX-SL-Series.qxf" mf="QTX" md="SL Series"/>
   <fixture path="ReelEfx-DF-50.qxf" mf="ReelEfx" md="DF-50"/>
   <fixture path="Robe-ClubScan-150CT.qxf" mf="Robe" md="ClubScan 150 CT"/>
@@ -762,6 +765,7 @@
   <fixture path="Showtec-Phantom-95-LED-Spot.qxf" mf="Showtec" md="Phantom 95 LED Spot"/>
   <fixture path="Showtec-Pixel-Bar-12.qxf" mf="Showtec" md="Pixel Bar 12"/>
   <fixture path="Showtec-Power-Spot-9-Q6-Tour-V1.qxf" mf="Showtec" md="Power Spot 9 Q6 Tour V1"/>
+  <fixture path="Showtec-Power-Spot-Q5.qxf" mf="Showtec" md="Power Spot 9 Q5"/>
   <fixture path="Showtec-Quatro.qxf" mf="Showtec" md="Quatro"/>
   <fixture path="Showtec-Spectral-CYC650.qxf" mf="Showtec" md="Spectral CYC650"/>
   <fixture path="Showtec-Stage-Blinder-Series.qxf" mf="Showtec" md="Stage Blinder Series"/>
@@ -817,6 +821,7 @@
   <fixture path="Stairville-SC-X50-MKII.qxf" mf="Stairville" md="SC-X50 MKII"/>
   <fixture path="Stairville-SC250H.qxf" mf="Stairville" md="SC250H"/>
   <fixture path="Stairville-SF-1500.qxf" mf="Stairville" md="SF-1500"/>
+  <fixture path="Stairville-Tri-Flat-PAR-Profile-5x3W-RGB.qxf" mf="Stairville" md="Tri Flat PAR Profile 5x3W RGB"/>
   <fixture path="Stairville-TRI-LED-Bundle-Complete.qxf" mf="Stairville" md="Stage TRI LED Bundle Complete"/>
   <fixture path="Stairville-xBrick-Full-Colour-16X3W.qxf" mf="Stairville" md="xBrick Full-Colour 16X3W"/>
   <fixture path="Stairville-xBrick-Full-Colour.qxf" mf="Stairville" md="xBrick Full-Colour"/>

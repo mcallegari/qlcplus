@@ -27,10 +27,11 @@ qlcplus (4.10.6) stable; urgency=low
   * New fixture: Eurolite LED ACS BAR-12 (thanks to Michael Horber)
   * New fixtures: Martin Rush MH6 Wash, Cameo Studio PAR 64 RGBWA UV 12W (thanks to Piotr Nowik)
   * New fixtures: ETEC Moving Spot 60E, Cameo CLM PAR COB 1, Showtec Compact Power Lightset COB (thanks to Freasy)
+  * New fixture: Stairville Tri Flat PAR Profile 5x3W RGB (thanks to Freasy)
   * New fixture: American DJ Punch LED Pro (thanks to Benedict Stein)
   * New fixtures: Contest Mini-Head 10W, Contest Evora B2R (thanks to Fredje Gallon)
   * New fixture: Robe DJ Scan 150 XT (thanks to Allan Madsen)
-  * New fixtures: Futurelight PRO Slim PAR-12 HCL, PRO Slim PAR-12 MK2 HCL (thanks to Lukas Jähn)
+  * New fixtures: Futurelight PRO Slim PAR-12 HCL, PRO Slim PAR-12 MK2 HCL, Showtec Power Spot 9 Q5 (thanks to Lukas Jähn)
   * New fixture: Showtec XS-1W Mini Moving Beam (thanks to Habefaro)
   * New fixtures: Stage Right Stage Wash 18Wx18 LED PAR, Stage Right 7x20W COB LED Theater PAR (thanks to Collin Ong)
   * New fixture: Cameo CLPIXBAR450PRO, CLPIXBAR650PRO (thanks to Jean-Daniel Garcia & Jeremie Odermatt)
@@ -64,6 +65,8 @@ qlcplus (4.10.6) stable; urgency=low
   * New fixture: Chauvet Scorpion Dual (thanks to Alan Chavis)
   * New fixture: American DJ Ultra Hex Bar 12 (thanks to Rhavin)
   * New fixture: Equinox Photon
+  * New fixture: QTX MHS-60 (thanks to Nerijus Mongirdas)
+  * New fixture: Eurolite LED TMH FE-600, MARQ Colormax Par64 (thanks to Klaus Muth)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 30 Apr 2017 12:13:14 +0200
 
