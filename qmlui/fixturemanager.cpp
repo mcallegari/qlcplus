@@ -23,6 +23,7 @@
 #include <QDebug>
 #include <QtMath>
 
+#include "monitorproperties.h"
 #include "fixturemanager.h"
 #include "qlcfixturemode.h"
 #include "qlccapability.h"
@@ -43,6 +44,7 @@ FixtureManager::FixtureManager(QQuickView *view, Doc *doc, QObject *parent)
 {
     Q_ASSERT(m_doc != NULL);
 
+    qmlRegisterUncreatableType<FixtureManager>("com.qlcplus.classes", 1, 0,  "FixtureManager", "Can't create a FixtureManager !");
     qmlRegisterType<QLCCapability>("com.qlcplus.classes", 1, 0, "QLCCapability");
 
     connect(m_doc, SIGNAL(loaded()), this, SLOT(slotDocLoaded()));
@@ -62,13 +64,13 @@ bool FixtureManager::addFixture(QString manuf, QString model, QString mode, QStr
                                 int uniIdx, int address, int channels, int quantity, quint32 gap,
                                 qreal xPos, qreal yPos)
 {
-    qDebug() << Q_FUNC_INFO << manuf << model << quantity;
+    qDebug() << "[addFixture]" << manuf << model << name << address << channels << quantity << gap;
+
+    if (model == "Generic RGB Panel")
+        return addRGBPanel(name, xPos, yPos);
 
     QLCFixtureDef *fxiDef = m_doc->fixtureDefCache()->fixtureDef(manuf, model);
-    Q_ASSERT(fxiDef != NULL);
-
-    QLCFixtureMode *fxiMode = fxiDef->mode(mode);
-    Q_ASSERT(fxiMode != NULL);
+    QLCFixtureMode *fxiMode = fxiDef != NULL ? fxiDef->mode(mode) : NULL;
 
     for (int i = 0; i < quantity; i++)
     {
@@ -82,11 +84,184 @@ bool FixtureManager::addFixture(QString manuf, QString model, QString mode, QStr
             fxi->setName(name);
         fxi->setAddress(address + (i * channels) + (i * gap));
         fxi->setUniverse(uniIdx);
+        if (fxiDef == NULL && fxiMode == NULL)
+        {
+            if (model == "Generic Dimmer")
+            {
+                fxiDef = fxi->genericDimmerDef(channels);
+                fxiMode = fxi->genericDimmerMode(fxiDef, channels);
+            }
+            else
+            {
+                qWarning() << "FIXME: Something really bad happened";
+                return false;
+            }
+        }
+
         fxi->setFixtureDefinition(fxiDef, fxiMode);
 
         m_doc->addFixture(fxi);
         emit newFixtureCreated(fxi->id(), xPos, yPos);
     }
+    m_fixtureList.clear();
+    m_fixtureList = m_doc->fixtures();
+    emit fixturesCountChanged();
+
+    updateFixtureTree(m_doc, m_fixtureTree);
+    emit groupsTreeModelChanged();
+    emit fixtureNamesMapChanged();
+    emit fixturesMapChanged();
+
+    return true;
+}
+
+bool FixtureManager::addRGBPanel(QString name, qreal xPos, qreal yPos)
+{
+    QQuickItem *propItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("RGBPanelProps"));
+    if (propItem == NULL)
+        return false;
+
+    int address = propItem->property("address").toInt();
+    int uniIndex = propItem->property("universeIndex").toInt();
+
+    int rows = propItem->property("rows").toInt();
+    int columns = propItem->property("columns").toInt();
+    int phyWidth = propItem->property("physicalWidth").toInt();
+    qreal phyHeight = propItem->property("physicalHeight").toReal() / (qreal)rows;
+
+    Fixture::Components components = Fixture::Components(propItem->property("components").toInt());
+    Direction direction = Direction(propItem->property("direction").toInt());
+    Orientation orientation = Orientation(propItem->property("startCorner").toInt());
+    Type displacement = Type(propItem->property("displacement").toInt());
+
+    FixtureGroup *grp = new FixtureGroup(m_doc);
+    Q_ASSERT(grp != NULL);
+    grp->setName(name);
+    QSize panelSize(columns, rows);
+    grp->setSize(panelSize);
+    m_doc->addFixtureGroup(grp);
+
+    int transpose = 0;
+    if (direction == Vertical)
+    {
+        int tmp = columns;
+        columns = rows;
+        rows = tmp;
+        transpose = 1;
+    }
+
+    QLCFixtureDef *rowDef = NULL;
+    QLCFixtureMode *rowMode = NULL;
+    MonitorProperties *monProps = m_doc->monitorProperties();
+    int currRow = 0;
+    int rowInc = 1;
+    int xPosStart = 0;
+    int xPosEnd = columns - 1;
+    int xPosInc = 1;
+
+    if (transpose)
+    {
+        if (orientation == TopRight || orientation == BottomRight)
+        {
+            currRow = rows -1;
+            rowInc = -1;
+        }
+        if (orientation == BottomRight || orientation == BottomLeft)
+        {
+            xPosStart = columns - 1;
+            xPosEnd = 0;
+            xPosInc = -1;
+        }
+    }
+    else
+    {
+        if (orientation == BottomLeft || orientation == BottomRight)
+        {
+            currRow = rows -1;
+            rowInc = -1;
+        }
+        if (orientation == TopRight || orientation == BottomRight)
+        {
+            xPosStart = columns - 1;
+            xPosEnd = 0;
+            xPosInc = -1;
+        }
+    }
+
+    for (int i = 0; i < rows; i++)
+    {
+        Fixture *fxi = new Fixture(m_doc);
+        Q_ASSERT(fxi != NULL);
+        fxi->setName(tr("%1 - Row %2").arg(name).arg(i + 1));
+        if (rowDef == NULL)
+            rowDef = fxi->genericRGBPanelDef(columns, components);
+        if (rowMode == NULL)
+            rowMode = fxi->genericRGBPanelMode(rowDef, components, phyWidth, phyHeight);
+        fxi->setFixtureDefinition(rowDef, rowMode);
+
+        // Check universe span
+        if (address + fxi->channels() > 512)
+        {
+            uniIndex++;
+            if (m_doc->inputOutputMap()->getUniverseID(uniIndex) == m_doc->inputOutputMap()->invalidUniverse())
+                m_doc->inputOutputMap()->addUniverse();
+            address = 0;
+        }
+
+        fxi->setUniverse(m_doc->inputOutputMap()->getUniverseID(uniIndex));
+        fxi->setAddress(address);
+        address += fxi->channels();
+        m_doc->addFixture(fxi);
+
+        if (displacement == ZigZag)
+        {
+            int xPos = xPosStart;
+            for (int h = 0; h < fxi->heads(); h++)
+            {
+                if (transpose)
+                    grp->assignHead(QLCPoint(currRow, xPos), GroupHead(fxi->id(), h));
+                else
+                    grp->assignHead(QLCPoint(xPos, currRow), GroupHead(fxi->id(), h));
+                xPos += xPosInc;
+            }
+        }
+        else if (displacement == Snake)
+        {
+            if (i%2 == 0)
+            {
+                int xPos = xPosStart;
+                for (int h = 0; h < fxi->heads(); h++)
+                {
+                    if (transpose)
+                        grp->assignHead(QLCPoint(currRow, xPos), GroupHead(fxi->id(), h));
+                    else
+                        grp->assignHead(QLCPoint(xPos, currRow), GroupHead(fxi->id(), h));
+                    xPos += xPosInc;
+                }
+            }
+            else
+            {
+                int xPos = xPosEnd;
+                for (int h = 0; h < fxi->heads(); h++)
+                {
+                    if (transpose)
+                        grp->assignHead(QLCPoint(currRow, xPos), GroupHead(fxi->id(), h));
+                    else
+                        grp->assignHead(QLCPoint(xPos, currRow), GroupHead(fxi->id(), h));
+                    xPos += (-xPosInc);
+                }
+            }
+        }
+
+        QVector3D pos(xPos, yPos, 0);
+        monProps->setFixturePosition(fxi->id(), pos);
+        if (displacement == Snake && i % 2)
+            monProps->setFixtureRotation(fxi->id(), QVector3D(0, 180, 0));
+        emit newFixtureCreated(fxi->id(), xPos, yPos);
+        yPos += (qreal)phyHeight;
+        currRow += rowInc;
+    }
+
     m_fixtureList.clear();
     m_fixtureList = m_doc->fixtures();
     emit fixturesCountChanged();

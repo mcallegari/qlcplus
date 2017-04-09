@@ -65,6 +65,7 @@
     <file alias="FixtureHeadDelegate.qml">qml/fixturesfunctions/FixtureHeadDelegate.qml</file>
     <file alias="FixtureBrowser.qml">qml/fixturesfunctions/FixtureBrowser.qml</file>
     <file alias="FixtureProperties.qml">qml/fixturesfunctions/FixtureProperties.qml</file>
+    <file alias="RGBPanelProperties.qml">qml/fixturesfunctions/RGBPanelProperties.qml</file>
     <file alias="FixtureDragItem.qml">qml/fixturesfunctions/FixtureDragItem.qml</file>
     <file alias="FixtureBrowserDelegate.qml">qml/fixturesfunctions/FixtureBrowserDelegate.qml</file>
     <file alias="FixtureGroupEditor.qml">qml/fixturesfunctions/FixtureGroupEditor.qml</file>

@@ -61,6 +61,7 @@ public:
     Q_INVOKABLE bool addFixture(QString manuf, QString model, QString mode, QString name,
                                 int uniIdx, int address, int channels, int quantity, quint32 gap,
                                 qreal xPos, qreal yPos);
+    bool addRGBPanel(QString name, qreal xPos, qreal yPos);
     Q_INVOKABLE bool moveFixture(quint32 fixtureID, quint32 newAddress);
 
     /** Generic helper to retrieve a channel icon resource as string, from
@@ -120,6 +121,33 @@ private:
     TreeModel *m_fixtureTree;
     /** A filter for m_fixturesMap to restrict data to a specific universe */
     quint32 m_universeFilter;
+
+    /*********************************************************************
+     * RGB Panel creation
+     *********************************************************************/
+public:
+    enum Orientation
+    {
+        TopLeft,
+        TopRight,
+        BottomLeft,
+        BottomRight
+    };
+    Q_ENUM(Orientation)
+
+    enum Type
+    {
+        Snake,
+        ZigZag
+    };
+    Q_ENUM(Type)
+
+    enum Direction
+    {
+        Horizontal,
+        Vertical
+    };
+    Q_ENUM(Direction)
 
     /*********************************************************************
      * Universe Grid Editing

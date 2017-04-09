@@ -47,6 +47,8 @@ class FixtureBrowser : public QObject
     Q_PROPERTY(QVariant searchTreeModel READ searchTreeModel NOTIFY searchListChanged)
     Q_PROPERTY(QVariant modeChannelList READ modeChannelList NOTIFY modeChannelListChanged)
 
+    Q_PROPERTY(QString fixtureName READ fixtureName WRITE setFixtureName NOTIFY fixtureNameChanged)
+
 public:
     FixtureBrowser(QQuickView *view, Doc *doc, QObject *parent = 0);
 
@@ -62,6 +64,10 @@ public:
 
     QString selectedModel() const;
     void setSelectedModel(QString selectedModel);
+
+    /** Get/Set the name that will be used upon fixtures creation */
+    QString fixtureName() const;
+    void setFixtureName(QString fixtureName);
 
     QStringList modesList();
 
@@ -90,9 +96,6 @@ public:
 
     QVariant searchTreeModel() const;
 
-public slots:
-
-
 signals:
     void manufacturerIndexChanged(int manufacturerIndex);
     void selectedManufacturerChanged(QString selectedManufacturer);
@@ -109,6 +112,8 @@ signals:
     void searchFilterChanged(QString searchFilter);
     void searchListChanged();
 
+    void fixtureNameChanged(QString fixtureName);
+
 private:
     void updateSearchTree();
 
@@ -121,6 +126,8 @@ private:
     QString m_selectedManufacturer;
     /** The currently selected fixture model as string */
     QString m_selectedModel;
+    /** The name used for fixtures creation */
+    QString m_fixtureName;
     /** The currently selected fixture mode as string */
     QString m_selectedMode;
     /** The currently selected mode channels number.

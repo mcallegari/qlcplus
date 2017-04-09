@@ -183,6 +183,7 @@ Rectangle
                 onClicked:
                 {
                     fxPropsRect.visible = false
+                    panelPropsRect.visible = false
                     fixtureBrowser.selectedManufacturer = ""
                 }
             }
@@ -224,7 +225,16 @@ Rectangle
                     {
                         modelsList.currentIndex = index
                         fixtureBrowser.selectedModel = modelData
-                        fxPropsRect.visible = true
+                        if (modelData == "Generic RGB Panel")
+                        {
+                            fxPropsRect.visible = false
+                            panelPropsRect.visible = true
+                        }
+                        else
+                        {
+                            panelPropsRect.visible = false
+                            fxPropsRect.visible = true
+                        }
                     }
                 }
             }
@@ -287,7 +297,6 @@ Rectangle
                                         qItem.manufacturer = item.nodePath
                                         fixtureBrowser.selectedManufacturer = qItem.manufacturer
                                         fixtureBrowser.selectedModel = qItem.textLabel
-                                        fxPropsRect.fxName = qItem.textLabel
                                         fxPropsRect.visible = true
                                     }
                                 }
@@ -302,6 +311,17 @@ Rectangle
     FixtureProperties
     {
         id: fxPropsRect
+        anchors.right: parent.right
+        anchors.left: parent.left
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 8
+        visible: false
+    }
+
+    RGBPanelProperties
+    {
+        objectName: "RGBPanelProps"
+        id: panelPropsRect
         anchors.right: parent.right
         anchors.left: parent.left
         anchors.bottom: parent.bottom

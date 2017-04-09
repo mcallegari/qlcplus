@@ -258,7 +258,7 @@ void FixtureGroupEditor::transformSelection(int transformation)
     QList<GroupHead> headsList;
 
     /** If the selection list is empty, it means the operation
-     *  has to be performed on the full group, so create
+     *  has to be performed on the whole group, so create
      *  a selection with everything in it */
     if (m_groupSelection.isEmpty())
     {

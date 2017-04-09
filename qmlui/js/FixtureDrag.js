@@ -29,7 +29,7 @@ function initProperties()
     manufacturer = fixtureBrowser.selectedManufacturer;
     model = fixtureBrowser.selectedModel;
     mode = fixtureBrowser.selectedMode;
-    name = fxPropsRect.fxName;
+    name = fixtureBrowser.fixtureName;
     universeIndex = fxPropsRect.fxUniverseIndex;
     address = fxPropsRect.fxAddress - 1;
     channels = fixtureBrowser.modeChannelsCount;

@@ -35,6 +35,7 @@ FixtureBrowser::FixtureBrowser(QQuickView *view, Doc *doc, QObject *parent)
     , m_manufacturerIndex(0)
     , m_selectedManufacturer(QString())
     , m_selectedModel(QString())
+    , m_fixtureName(QString())
     , m_selectedMode(QString())
     , m_modeChannelsCount(1)
     , m_definition(NULL)
@@ -77,6 +78,12 @@ QStringList FixtureBrowser::modelsList()
 {
     qDebug() << "[FixtureBrowser] Fixtures list for" << m_selectedManufacturer;
     QStringList fxList = m_doc->fixtureDefCache()->models(m_selectedManufacturer);
+    if (m_selectedManufacturer == "Generic")
+    {
+        fxList << "Generic Dimmer";
+        fxList << "Generic RGB Panel";
+    }
+
     fxList.sort();
     return fxList;
 }
@@ -92,8 +99,23 @@ void FixtureBrowser::setSelectedModel(QString selectedModel)
         return;
 
     m_selectedModel = selectedModel;
+    setFixtureName(m_selectedModel);
     emit selectedModelChanged(selectedModel);
     emit modesListChanged();
+}
+
+QString FixtureBrowser::fixtureName() const
+{
+    return m_fixtureName;
+}
+
+void FixtureBrowser::setFixtureName(QString fixtureName)
+{
+    if (m_fixtureName == fixtureName)
+        return;
+
+    m_fixtureName = fixtureName;
+    emit fixtureNameChanged(fixtureName);
 }
 
 QStringList FixtureBrowser::modesList()

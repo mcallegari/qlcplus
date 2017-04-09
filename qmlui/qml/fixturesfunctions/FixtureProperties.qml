@@ -31,13 +31,12 @@ Rectangle
     color: UISettings.bgLight
 
     property string fxMode: fixtureBrowser.selectedMode
-    property string fxName: fixtureBrowser.selectedModel
+    property string fxName: fixtureBrowser.fixtureName
     property int fxUniverseIndex: fxUniverseCombo.currentIndex
     property int fxAddress: fxAddressSpin.value
     property int fxChannels: fixtureBrowser.modeChannelsCount
     property int fxQuantity: fxQuantitySpin.value
     property int fxGap: fxGapSpin.value
-
     property int fxCount: fixtureManager.fixturesCount
 
     onFxModeChanged: updateAvailableAddress()
@@ -88,9 +87,7 @@ Rectangle
             // row 1
             RobotoText
             {
-                id: fxNameLabel
                 height: propsGrid.itemsHeight
-                //anchors.verticalCenter: parent.verticalCenter
                 label: qsTr("Name")
                 fontSize: propsGrid.itemsFontSize
             }
@@ -101,17 +98,12 @@ Rectangle
                 inputText: fxName
                 Layout.columnSpan: 3
                 Layout.fillWidth: true
-                onInputTextChanged:
-                {
-                    //console.log("Text changed !!")
-                    fxProps.fxName = inputText
-                }
+                onInputTextChanged: fixtureBrowser.fixtureName = inputText
             }
 
             // row 2
             RobotoText
             {
-                id: fxUniverseLabel
                 height: propsGrid.itemsHeight
                 label: qsTr("Universe")
                 fontSize: propsGrid.itemsFontSize
@@ -128,7 +120,6 @@ Rectangle
             // row 3
             RobotoText
             {
-                id: fxAddressLabel
                 height: propsGrid.itemsHeight
                 label: qsTr("Address")
                 fontSize: propsGrid.itemsFontSize
@@ -142,7 +133,6 @@ Rectangle
             }
             RobotoText
             {
-                id: fxQuantityLabel
                 height: propsGrid.itemsHeight
                 label: qsTr("Quantity")
                 fontSize: propsGrid.itemsFontSize
@@ -158,7 +148,6 @@ Rectangle
             // row 4
             RobotoText
             {
-                id: fxModeChLabel
                 height: propsGrid.itemsHeight
                 label: qsTr("Channels")
                 fontSize: propsGrid.itemsFontSize
@@ -174,7 +163,6 @@ Rectangle
             }
             RobotoText
             {
-                id: fxGapLabel
                 height: propsGrid.itemsHeight
                 label: qsTr("Gap")
                 fontSize: propsGrid.itemsFontSize
@@ -191,7 +179,7 @@ Rectangle
             // row 5
             RobotoText
             {
-                id: fxModeLabel
+                visible: fixtureBrowser.modesList.length ? true : false
                 height: propsGrid.itemsHeight
                 label: qsTr("Mode")
                 fontSize: propsGrid.itemsFontSize
@@ -199,6 +187,7 @@ Rectangle
 
             Rectangle
             {
+                visible: fixtureBrowser.modesList.length ? true : false
                 color: "transparent"
                 Layout.columnSpan: 3
                 height: propsGrid.itemsHeight
