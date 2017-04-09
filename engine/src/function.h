@@ -106,7 +106,7 @@ public:
         , Video    = 1 << 8
 #endif
     };
-    Q_ENUMS(Type)
+    Q_ENUM(Type)
 
     /**
      * Common attributes
@@ -274,7 +274,7 @@ protected:
      *********************************************************************/
 public:
     enum RunOrder { Loop = 0, SingleShot, PingPong, Random };
-    Q_ENUMS(RunOrder)
+    Q_ENUM(RunOrder)
 
 public:
     /**
@@ -318,7 +318,7 @@ private:
      *********************************************************************/
 public:
     enum Direction { Forward = 0, Backward };
-    Q_ENUMS(Direction)
+    Q_ENUM(Direction)
 
 public:
     /**
@@ -362,10 +362,10 @@ private:
      *********************************************************************/
 public:
     enum TempoType { Original = -1, Time = 0, Beats = 1 };
-    Q_ENUMS(TempoType)
+    Q_ENUM(TempoType)
 
     enum FractionsType { NoFractions = 0, ByTwoFractions, AllFractions };
-    Q_ENUMS(FractionsType)
+    Q_ENUM(FractionsType)
 
 public:
     /**
@@ -426,7 +426,7 @@ private:
      *********************************************************************/
 public:
     enum SpeedType { FadeIn = 0, Hold, FadeOut, Duration };
-    Q_ENUMS(SpeedType)
+    Q_ENUM(SpeedType)
 
 public:
     /** Set the fade in time in milliseconds */

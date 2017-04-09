@@ -428,6 +428,7 @@ public:
         GRB,
         RGBW
     };
+    Q_ENUM(Components)
 
 public:
     /** Creates and returns a definition for a generic RGB panel row */

@@ -239,7 +239,7 @@ public:
         Common,  //! Impose a common chaser-specific speed to all steps
         PerStep  //! Impose a step-specific speed to each step
     };
-    Q_ENUMS(SpeedMode)
+    Q_ENUM(SpeedMode)
 
     void setFadeInMode(SpeedMode mode);
     SpeedMode fadeInMode() const;
