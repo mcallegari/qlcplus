@@ -32,6 +32,7 @@ SpinBox
     editable: true
     from: 0
     to: 255
+    clip: true
 
     property bool showControls: true
     property string suffix: ""
