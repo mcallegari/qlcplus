@@ -428,7 +428,9 @@ public:
         GRB,
         RGBW
     };
+#if QT_VERSION >= 0x050500
     Q_ENUM(Components)
+#endif
 
 public:
     /** Creates and returns a definition for a generic RGB panel row */

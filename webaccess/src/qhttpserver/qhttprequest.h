@@ -51,8 +51,9 @@ class QHttpRequest : public QObject
     Q_PROPERTY(QString path READ path)
     Q_PROPERTY(QString httpVersion READ httpVersion)
 
-    Q_ENUMS(HttpMethod)
-
+#if QT_VERSION >= 0x050500
+    Q_ENUM(HttpMethod)
+#endif
     /// @cond nodoc
     friend class QHttpConnection;
     /// @endcond
