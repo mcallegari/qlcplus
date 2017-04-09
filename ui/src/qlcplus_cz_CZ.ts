@@ -5785,10 +5785,6 @@ Délka: %3
 <context>
     <name>VCFrame</name>
     <message>
-        <source>Page: %1</source>
-        <translation type="vanished">Strana: %1</translation>
-    </message>
-    <message>
         <location filename="virtualconsole/vcframe.cpp" line="1430"/>
         <source>Add</source>
         <translation>Přidat</translation>
@@ -6134,41 +6130,6 @@ Délka: %3
         <location filename="virtualconsole/vcmatrixproperties.ui" line="381"/>
         <source> Add end color</source>
         <translation>Přidej koneční farbu</translation>
-    </message>
-    <message>
-        <source>Key combination</source>
-        <translation type="vanished">Kombinace kláves</translation>
-    </message>
-    <message>
-        <source>Remove the control&apos;s keyboard shortcut key</source>
-        <oldsource>Remove the button&apos;s keyboard shortcut key</oldsource>
-        <translation type="vanished">Odebrat zkratkovou klávesu přiřazenou k tlačítku</translation>
-    </message>
-    <message>
-        <source>Set a key combination for this control</source>
-        <oldsource>Set a key combination for this button</oldsource>
-        <translation type="vanished">Nastavit kombinaci kláves pro ovládání tohoto tlačítka</translation>
-    </message>
-    <message>
-        <source>Keyboard combination that toggles this control</source>
-        <oldsource>Keyboard combination that toggles this button</oldsource>
-        <translation type="vanished">Kombinace kláves která přepne toto tlačítko</translation>
-    </message>
-    <message>
-        <source>External Input</source>
-        <translation type="vanished">Externí vstup</translation>
-    </message>
-    <message>
-        <source>The particular input channel within the input universe that sends data to this control</source>
-        <translation type="vanished">Kanál větve vstupů, který bude odesílat data pro tento ovladač</translation>
-    </message>
-    <message>
-        <source>When toggled, you can move an external button to assign it to this control</source>
-        <translation type="vanished">Je-li aktivní, bude dostupná volba externího tlačítka pro přiřazení k řízení tohoto virtuálního tlačítka</translation>
-    </message>
-    <message>
-        <source>The input universe that sends data to this control</source>
-        <translation type="vanished">Větev vstupů, která bude odesílat data pro tento ovladač</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="323"/>
@@ -6899,14 +6860,6 @@ Délka: %3
         <translation>Název přednastavení</translation>
     </message>
     <message>
-        <source>Auto Detect</source>
-        <translation type="vanished">Automaticky detekovat</translation>
-    </message>
-    <message>
-        <source>Choose...</source>
-        <translation type="vanished">Zvolit...</translation>
-    </message>
-    <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="196"/>
         <source>Range</source>
         <translation>Rozsah</translation>
@@ -6937,14 +6890,6 @@ Délka: %3
         <translation>Resetovat faktor násobitele když se hodnota zrychlené volby změní</translation>
     </message>
     <message>
-        <source>External Input</source>
-        <translation type="vanished">Externí vstup</translation>
-    </message>
-    <message>
-        <source>Key combination</source>
-        <translation type="vanished">Kombinace kláves</translation>
-    </message>
-    <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="371"/>
         <source>Presets</source>
         <translation>Přednastavení</translation>
@@ -6960,30 +6905,6 @@ Délka: %3
         <translation>Hodnota</translation>
     </message>
     <message>
-        <source>The particular input channel within the input universe that sends data to this preset button</source>
-        <translation type="vanished">Kanál větve vstupů, který bude odesílat data pro toto tlačítko přednastavení</translation>
-    </message>
-    <message>
-        <source>Choose an external input universe &amp; channel that this preset button should listen to</source>
-        <translation type="vanished">Zvolte větev  externího vstupu &amp; kanál, který by měl toto tlačítko přednastavení řídit.</translation>
-    </message>
-    <message>
-        <source>When toggled, you can move an external control to assign it to this preset button</source>
-        <translation type="vanished">Je-li aktivní, bude dostupná volba externího tlačítka pro přiřazení k řízení tohoto tlačítka přednastavení</translation>
-    </message>
-    <message>
-        <source>The input universe that sends data to this preset button</source>
-        <translation type="vanished">Větev vstupů, která bude odesílat data pro tento ovladač</translation>
-    </message>
-    <message>
-        <source>Input channel</source>
-        <translation type="vanished">Vstupní kanál</translation>
-    </message>
-    <message>
-        <source>Input universe</source>
-        <translation type="vanished">Vstupní větev</translation>
-    </message>
-    <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="402"/>
         <source> Add preset</source>
         <translation> Přidat předvolbu</translation>
@@ -6997,18 +6918,6 @@ Délka: %3
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="379"/>
         <source>Preset name</source>
         <translation>Název přednastavení</translation>
-    </message>
-    <message>
-        <source>Remove the preset buttons&apos;s keyboard shortcut key</source>
-        <translation type="vanished">Odebrat zkratkovou klávesu přiřazenou k tlačítku</translation>
-    </message>
-    <message>
-        <source>Set a key combination for this preset button</source>
-        <translation type="vanished">Nastavit kombinaci kláves pro ovládání tohoto tlačítka</translation>
-    </message>
-    <message>
-        <source>Keyboard combination that toggles this preset button</source>
-        <translation type="vanished">Kombinace kláves která přepne toto tlačítko přednastavení</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="252"/>

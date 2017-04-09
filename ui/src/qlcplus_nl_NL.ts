@@ -5786,10 +5786,6 @@ Duur: %3
 <context>
     <name>VCFrame</name>
     <message>
-        <source>Page: %1</source>
-        <translation type="vanished">Pagina: %1</translation>
-    </message>
-    <message>
         <location filename="virtualconsole/vcframe.cpp" line="1430"/>
         <source>Add</source>
         <translation>Toevoegen</translation>
@@ -6135,45 +6131,6 @@ Duur: %3
         <location filename="virtualconsole/vcmatrixproperties.ui" line="381"/>
         <source> Add end color</source>
         <translation>Voeg eind kleur toe</translation>
-    </message>
-    <message>
-        <source>Key combination</source>
-        <translation type="vanished">Toetscombinatie</translation>
-    </message>
-    <message>
-        <source>Remove the control&apos;s keyboard shortcut key</source>
-        <oldsource>Remove the button&apos;s keyboard shortcut key</oldsource>
-        <translation type="vanished">Verwijder de toetscombinatie van deze knop</translation>
-    </message>
-    <message>
-        <source>Set a key combination for this control</source>
-        <oldsource>Set a key combination for this button</oldsource>
-        <translation type="vanished">Stel een toetscombinatie in voor deze knop</translation>
-    </message>
-    <message>
-        <source>Keyboard combination that toggles this control</source>
-        <oldsource>Keyboard combination that toggles this button</oldsource>
-        <translation type="vanished">Toetscombinatie die deze knop aan/uit zet</translation>
-    </message>
-    <message>
-        <source>External Input</source>
-        <translation type="vanished">Externe input</translation>
-    </message>
-    <message>
-        <source>The particular input channel within the input universe that sends data to this control</source>
-        <translation type="vanished">Het specifieke input kanaal in binnen het input universe dat data stuurt naar deze control</translation>
-    </message>
-    <message>
-        <source>Choose an external input universe &amp; channel that this control should listen to</source>
-        <translation type="vanished">Kies een externe input universe en kanaal waarnaar deze control moet luisteren</translation>
-    </message>
-    <message>
-        <source>When toggled, you can move an external button to assign it to this control</source>
-        <translation type="vanished">Indien aangezet is het mogelijk om een externe knop te koppelen aan deze control</translation>
-    </message>
-    <message>
-        <source>The input universe that sends data to this control</source>
-        <translation type="vanished">De input universe die data stuurt naar deze control</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="323"/>
@@ -6904,14 +6861,6 @@ Duur: %3
         <translation>Preset naam</translation>
     </message>
     <message>
-        <source>Auto Detect</source>
-        <translation type="vanished">Autodetectie</translation>
-    </message>
-    <message>
-        <source>Choose...</source>
-        <translation type="vanished">Kies...</translation>
-    </message>
-    <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="196"/>
         <source>Range</source>
         <translation>Bereik</translation>
@@ -6942,14 +6891,6 @@ Duur: %3
         <translation>Reset vermenigvuldigingsfactor als de dial waarde veranderd</translation>
     </message>
     <message>
-        <source>External Input</source>
-        <translation type="vanished">Externe Input</translation>
-    </message>
-    <message>
-        <source>Key combination</source>
-        <translation type="vanished">Toetscombinatie</translation>
-    </message>
-    <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="371"/>
         <source>Presets</source>
         <translation>Presets</translation>
@@ -6965,30 +6906,6 @@ Duur: %3
         <translation>Waarde</translation>
     </message>
     <message>
-        <source>The particular input channel within the input universe that sends data to this preset button</source>
-        <translation type="vanished">Het input kanaal binnen de input universe dat data naar deze preset knop verstuurd</translation>
-    </message>
-    <message>
-        <source>Choose an external input universe &amp; channel that this preset button should listen to</source>
-        <translation type="vanished">Kies een externe input universe &amp; kanaal waar deze preset knop naar moet luisteren</translation>
-    </message>
-    <message>
-        <source>When toggled, you can move an external control to assign it to this preset button</source>
-        <translation type="vanished">Indien aangevinkt kan een external control toegewezen worden aan deze preset knop</translation>
-    </message>
-    <message>
-        <source>The input universe that sends data to this preset button</source>
-        <translation type="vanished">Het input universe dat data verstuurd naar deze preset knop</translation>
-    </message>
-    <message>
-        <source>Input channel</source>
-        <translation type="vanished">Input kanal</translation>
-    </message>
-    <message>
-        <source>Input universe</source>
-        <translation type="vanished">Input Universe</translation>
-    </message>
-    <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="402"/>
         <source> Add preset</source>
         <translation>Preset toevoegen</translation>
@@ -7002,18 +6919,6 @@ Duur: %3
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="379"/>
         <source>Preset name</source>
         <translation>Preset naam</translation>
-    </message>
-    <message>
-        <source>Remove the preset buttons&apos;s keyboard shortcut key</source>
-        <translation type="vanished">Verwijder de toetscombinatie van deze preset knop</translation>
-    </message>
-    <message>
-        <source>Set a key combination for this preset button</source>
-        <translation type="vanished">Stel een toetscombinatie in voor deze preset knop</translation>
-    </message>
-    <message>
-        <source>Keyboard combination that toggles this preset button</source>
-        <translation type="vanished">Toetscombinatie die deze preset knop aan/uit zet</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="252"/>

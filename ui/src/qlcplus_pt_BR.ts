@@ -5793,10 +5793,6 @@ Duration: %3
 <context>
     <name>VCFrame</name>
     <message>
-        <source>Page: %1</source>
-        <translation type="vanished">Página: %1</translation>
-    </message>
-    <message>
         <location filename="virtualconsole/vcframe.cpp" line="1430"/>
         <source>Add</source>
         <translation>Adicionar</translation>
@@ -6142,29 +6138,6 @@ Duration: %3
         <location filename="virtualconsole/vcmatrixproperties.ui" line="381"/>
         <source> Add end color</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Key combination</source>
-        <translation type="obsolete">Combinação de teclas</translation>
-    </message>
-    <message>
-        <source>Remove the control&apos;s keyboard shortcut key</source>
-        <oldsource>Remove the button&apos;s keyboard shortcut key</oldsource>
-        <translation type="obsolete">Remover o atalho do teclado para este botão</translation>
-    </message>
-    <message>
-        <source>Set a key combination for this control</source>
-        <oldsource>Set a key combination for this button</oldsource>
-        <translation type="obsolete">Seleccionar uma combinação de teclas para este botão</translation>
-    </message>
-    <message>
-        <source>Keyboard combination that toggles this control</source>
-        <oldsource>Keyboard combination that toggles this button</oldsource>
-        <translation type="obsolete">Combinação de teclas que activa este botão</translation>
-    </message>
-    <message>
-        <source>External Input</source>
-        <translation type="obsolete">Entrada externa</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="323"/>
@@ -6897,14 +6870,6 @@ Duration: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Auto Detect</source>
-        <translation type="vanished">Detectar automaticamente</translation>
-    </message>
-    <message>
-        <source>Choose...</source>
-        <translation type="vanished">Seleccionar...</translation>
-    </message>
-    <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="196"/>
         <source>Range</source>
         <translation>Gama</translation>
@@ -6935,14 +6900,6 @@ Duration: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>External Input</source>
-        <translation type="vanished">Entrada externa</translation>
-    </message>
-    <message>
-        <source>Key combination</source>
-        <translation type="vanished">Combinação de teclas</translation>
-    </message>
-    <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="371"/>
         <source>Presets</source>
         <translation type="unfinished"></translation>
@@ -6956,14 +6913,6 @@ Duration: %3
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="422"/>
         <source>Value</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Input channel</source>
-        <translation type="obsolete">Canal de entrada</translation>
-    </message>
-    <message>
-        <source>Input universe</source>
-        <translation type="obsolete">Universo de entrada</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="402"/>

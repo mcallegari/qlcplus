@@ -5795,10 +5795,6 @@ Dauer: %3
 <context>
     <name>VCFrame</name>
     <message>
-        <source>Page: %1</source>
-        <translation type="vanished">Seite: %1</translation>
-    </message>
-    <message>
         <location filename="virtualconsole/vcframe.cpp" line="1430"/>
         <source>Add</source>
         <translation>Hinzufügen</translation>
@@ -6139,45 +6135,6 @@ Dauer: %3
         <location filename="virtualconsole/vcmatrixproperties.ui" line="381"/>
         <source> Add end color</source>
         <translation> Endfarbe hinzufügen</translation>
-    </message>
-    <message>
-        <source>Key combination</source>
-        <translation type="vanished">Tastenkombination</translation>
-    </message>
-    <message>
-        <source>Remove the control&apos;s keyboard shortcut key</source>
-        <oldsource>Remove the button&apos;s keyboard shortcut key</oldsource>
-        <translation type="vanished">Tastenkombination des Schalters entfernen</translation>
-    </message>
-    <message>
-        <source>Set a key combination for this control</source>
-        <oldsource>Set a key combination for this button</oldsource>
-        <translation type="vanished">Setze eine Tastenkombination für diesen Schalter</translation>
-    </message>
-    <message>
-        <source>Keyboard combination that toggles this control</source>
-        <oldsource>Keyboard combination that toggles this button</oldsource>
-        <translation type="vanished">Tastenkombination die diesen Schalter umschaltet</translation>
-    </message>
-    <message>
-        <source>External Input</source>
-        <translation type="vanished">Externer Eingang</translation>
-    </message>
-    <message>
-        <source>The particular input channel within the input universe that sends data to this control</source>
-        <translation type="vanished">Der Eingangskanal des Eingangsuniversums, der Daten an dieses Steuerelement sendet</translation>
-    </message>
-    <message>
-        <source>Choose an external input universe &amp; channel that this control should listen to</source>
-        <translation type="vanished">Wähle einen externes Universum und Kanal, auf den dieses Steuerelement hört</translation>
-    </message>
-    <message>
-        <source>When toggled, you can move an external button to assign it to this control</source>
-        <translation type="vanished">Wenn umgeschaltet kann ein externer Knopf bewegt werden um ihm diesem Steuerelement zuzuweisen</translation>
-    </message>
-    <message>
-        <source>The input universe that sends data to this control</source>
-        <translation type="vanished">Das Eingangsuniversum, auf das dieses Steuerelement hört</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="323"/>
@@ -6911,14 +6868,6 @@ Dauer: %3
         <translation>Absoluter Wert</translation>
     </message>
     <message>
-        <source>Auto Detect</source>
-        <translation type="vanished">Automatische Erkennung</translation>
-    </message>
-    <message>
-        <source>Choose...</source>
-        <translation type="vanished">Auswahl...</translation>
-    </message>
-    <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="196"/>
         <source>Range</source>
         <translation>Bereich</translation>
@@ -6944,14 +6893,6 @@ Dauer: %3
         <translation>Multiplikationsfaktor zurücksetzen wenn der Wert geändert wird</translation>
     </message>
     <message>
-        <source>External Input</source>
-        <translation type="vanished">Externer Eingang</translation>
-    </message>
-    <message>
-        <source>Key combination</source>
-        <translation type="vanished">Tastenkombination</translation>
-    </message>
-    <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="371"/>
         <source>Presets</source>
         <translation>Voreinstellungen</translation>
@@ -6967,30 +6908,6 @@ Dauer: %3
         <translation>Wert</translation>
     </message>
     <message>
-        <source>The particular input channel within the input universe that sends data to this preset button</source>
-        <translation type="vanished">Eingangs-Kanal im Eingangsuniversum, der Daten an diesen Voreinstellungsknopf sendet</translation>
-    </message>
-    <message>
-        <source>Choose an external input universe &amp; channel that this preset button should listen to</source>
-        <translation type="vanished">Wähle ein externes Eingangsuniversum- und Kanal, auf das dieser Voreinstellungsknopf reagieren soll</translation>
-    </message>
-    <message>
-        <source>When toggled, you can move an external control to assign it to this preset button</source>
-        <translation type="vanished">Wenn aktiv kann ein externer Regler/Schalter betätigt werden um ihn diesem Voreinstellungsknopf zuzuweisen</translation>
-    </message>
-    <message>
-        <source>The input universe that sends data to this preset button</source>
-        <translation type="vanished">Das Eingangsuniversum, auf das dieser Voreinstellungsknopf reagiert</translation>
-    </message>
-    <message>
-        <source>Input channel</source>
-        <translation type="vanished">Eingangskanal</translation>
-    </message>
-    <message>
-        <source>Input universe</source>
-        <translation type="vanished">Eingangsuniversum</translation>
-    </message>
-    <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="402"/>
         <source> Add preset</source>
         <translation> Einstellung hinzufügen</translation>
@@ -7004,18 +6921,6 @@ Dauer: %3
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="379"/>
         <source>Preset name</source>
         <translation>Name der Voreinstellung</translation>
-    </message>
-    <message>
-        <source>Remove the preset buttons&apos;s keyboard shortcut key</source>
-        <translation type="vanished">Tastenkombination des Voreinstellungsknopfes</translation>
-    </message>
-    <message>
-        <source>Set a key combination for this preset button</source>
-        <translation type="vanished">Setze eine Tastenkombination für diesen Voreinstellungsknopf</translation>
-    </message>
-    <message>
-        <source>Keyboard combination that toggles this preset button</source>
-        <translation type="vanished">Tastenkombination die diesen Voreinstellungsknopf umschaltet</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="252"/>

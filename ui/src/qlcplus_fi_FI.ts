@@ -6109,29 +6109,6 @@ Duration: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Key combination</source>
-        <translation type="obsolete">Näppäinyhdistelmä</translation>
-    </message>
-    <message>
-        <source>Remove the control&apos;s keyboard shortcut key</source>
-        <oldsource>Remove the button&apos;s keyboard shortcut key</oldsource>
-        <translation type="obsolete">Poista näppäinyhdistelmä tästä napista</translation>
-    </message>
-    <message>
-        <source>Set a key combination for this control</source>
-        <oldsource>Set a key combination for this button</oldsource>
-        <translation type="obsolete">Aseta näppäinyhdistelmä tälle napille</translation>
-    </message>
-    <message>
-        <source>Keyboard combination that toggles this control</source>
-        <oldsource>Keyboard combination that toggles this button</oldsource>
-        <translation type="obsolete">Näppäinyhdistelmä, joka kytkee tämän napin päälle/pois</translation>
-    </message>
-    <message>
-        <source>External Input</source>
-        <translation type="obsolete">Ulkoinen ohjaus</translation>
-    </message>
-    <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="323"/>
         <source> Add text</source>
         <translation type="unfinished"></translation>
@@ -6862,14 +6839,6 @@ Duration: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Auto Detect</source>
-        <translation type="obsolete">Automaattinen tunnistus</translation>
-    </message>
-    <message>
-        <source>Choose...</source>
-        <translation type="obsolete">Valitse...</translation>
-    </message>
-    <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="196"/>
         <source>Range</source>
         <translation type="unfinished">Arvoalue</translation>
@@ -6895,14 +6864,6 @@ Duration: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>External Input</source>
-        <translation type="obsolete">Ulkoinen ohjaus</translation>
-    </message>
-    <message>
-        <source>Key combination</source>
-        <translation type="obsolete">Näppäinyhdistelmä</translation>
-    </message>
-    <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="371"/>
         <source>Presets</source>
         <translation type="unfinished"></translation>
@@ -6921,14 +6882,6 @@ Duration: %3
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="422"/>
         <source>Value</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Input channel</source>
-        <translation type="obsolete">Sisääntulon kanava</translation>
-    </message>
-    <message>
-        <source>Input universe</source>
-        <translation type="obsolete">Sisääntulon universumi</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="402"/>

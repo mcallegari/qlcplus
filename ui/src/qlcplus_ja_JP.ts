@@ -5792,10 +5792,6 @@ Duration: %3
 <context>
     <name>VCFrame</name>
     <message>
-        <source>Page: %1</source>
-        <translation type="vanished">Page : %1</translation>
-    </message>
-    <message>
         <location filename="virtualconsole/vcframe.cpp" line="1430"/>
         <source>Add</source>
         <translation>追加</translation>
@@ -6141,29 +6137,6 @@ Duration: %3
         <location filename="virtualconsole/vcmatrixproperties.ui" line="381"/>
         <source> Add end color</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Key combination</source>
-        <translation type="obsolete">キーボードショートカット</translation>
-    </message>
-    <message>
-        <source>Remove the control&apos;s keyboard shortcut key</source>
-        <oldsource>Remove the button&apos;s keyboard shortcut key</oldsource>
-        <translation type="obsolete">キーボードショートカットを削除</translation>
-    </message>
-    <message>
-        <source>Set a key combination for this control</source>
-        <oldsource>Set a key combination for this button</oldsource>
-        <translation type="obsolete">このボタンにキーボードショートカットを設定</translation>
-    </message>
-    <message>
-        <source>Keyboard combination that toggles this control</source>
-        <oldsource>Keyboard combination that toggles this button</oldsource>
-        <translation type="obsolete">このボタンを操作するためのキーボードショートカット</translation>
-    </message>
-    <message>
-        <source>External Input</source>
-        <translation type="obsolete">外部入力</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="323"/>
@@ -6896,14 +6869,6 @@ Duration: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Auto Detect</source>
-        <translation type="vanished">自動判別</translation>
-    </message>
-    <message>
-        <source>Choose...</source>
-        <translation type="vanished">選択...</translation>
-    </message>
-    <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="196"/>
         <source>Range</source>
         <translation>範囲</translation>
@@ -6934,14 +6899,6 @@ Duration: %3
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>External Input</source>
-        <translation type="vanished">外部入力</translation>
-    </message>
-    <message>
-        <source>Key combination</source>
-        <translation type="vanished">キーボードショートカット</translation>
-    </message>
-    <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="371"/>
         <source>Presets</source>
         <translation type="unfinished"></translation>
@@ -6955,10 +6912,6 @@ Duration: %3
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="422"/>
         <source>Value</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Input channel</source>
-        <translation type="obsolete">Input Channel</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="402"/>

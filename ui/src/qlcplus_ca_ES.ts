@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="ca_ES">
+<TS version="2.1" language="ca_ES">
 <context>
     <name>AboutBox</name>
     <message>
@@ -5791,10 +5791,6 @@ Durada: %3
 <context>
     <name>VCFrame</name>
     <message>
-        <source>Page: %1</source>
-        <translation>Pàgina: %1</translation>
-    </message>
-    <message>
         <location filename="virtualconsole/vcframe.cpp" line="1430"/>
         <source>Add</source>
         <translation>Afegir</translation>
@@ -6140,45 +6136,6 @@ Durada: %3
         <location filename="virtualconsole/vcmatrixproperties.ui" line="381"/>
         <source> Add end color</source>
         <translation>Afegir un color de final</translation>
-    </message>
-    <message>
-        <source>Key combination</source>
-        <translation>Combinació de tecles</translation>
-    </message>
-    <message>
-        <source>Remove the control&apos;s keyboard shortcut key</source>
-        <oldsource>Remove the button&apos;s keyboard shortcut key</oldsource>
-        <translation>Treure drecera del teclat per aquest controlador</translation>
-    </message>
-    <message>
-        <source>Set a key combination for this control</source>
-        <oldsource>Set a key combination for this button</oldsource>
-        <translation>Seleccionar una combinació de tecles per aquest controlador</translation>
-    </message>
-    <message>
-        <source>Keyboard combination that toggles this control</source>
-        <oldsource>Keyboard combination that toggles this button</oldsource>
-        <translation>Combinació de tecles que activa aquest controlador</translation>
-    </message>
-    <message>
-        <source>External Input</source>
-        <translation>Entrada Externa</translation>
-    </message>
-    <message>
-        <source>The particular input channel within the input universe that sends data to this control</source>
-        <translation>El canal d&apos;Entrada dins de aquest univers d&apos;Entrada que envia dades a aquest controlador</translation>
-    </message>
-    <message>
-        <source>Choose an external input universe &amp; channel that this control should listen to</source>
-        <translation>Triar un univers d&apos;Entrada extern i el canal que aquest controlador te que escoltar</translation>
-    </message>
-    <message>
-        <source>When toggled, you can move an external button to assign it to this control</source>
-        <translation>Si està actiu, pot moure un controlado extern per assignar-lo a aquest controlador</translation>
-    </message>
-    <message>
-        <source>The input universe that sends data to this control</source>
-        <translation>L&apos;univers d&apos;Entrada que envia dades a aquest controlador</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="323"/>
@@ -6909,14 +6866,6 @@ Durada: %3
         <translation>Nom del preset</translation>
     </message>
     <message>
-        <source>Auto Detect</source>
-        <translation>Detectar Automàticament</translation>
-    </message>
-    <message>
-        <source>Choose...</source>
-        <translation>Triar...</translation>
-    </message>
-    <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="196"/>
         <source>Range</source>
         <translation>Rang</translation>
@@ -6947,14 +6896,6 @@ Durada: %3
         <translation>Restablir el multiplicador quan el valor del selector canvia</translation>
     </message>
     <message>
-        <source>External Input</source>
-        <translation>Entrada Externa</translation>
-    </message>
-    <message>
-        <source>Key combination</source>
-        <translation>Combinació de tecles</translation>
-    </message>
-    <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="371"/>
         <source>Presets</source>
         <translation>Presets</translation>
@@ -6970,30 +6911,6 @@ Durada: %3
         <translation>Valor</translation>
     </message>
     <message>
-        <source>The particular input channel within the input universe that sends data to this preset button</source>
-        <translation>El canal d&apos;Entrada dins del univers d&apos;Entrada que envia dades a aquest botó</translation>
-    </message>
-    <message>
-        <source>Choose an external input universe &amp; channel that this preset button should listen to</source>
-        <translation>Triar un univers d&apos;Entrada extern i el canal que aquest botó de preset ha d&apos;escoltar</translation>
-    </message>
-    <message>
-        <source>When toggled, you can move an external control to assign it to this preset button</source>
-        <translation>Si està actiu, pot moure un controlador extern per assignar-lo a aquest botó de preset</translation>
-    </message>
-    <message>
-        <source>The input universe that sends data to this preset button</source>
-        <translation>L&apos;univers d&apos;Entrada que envia dades a aquest botó de preset</translation>
-    </message>
-    <message>
-        <source>Input channel</source>
-        <translation>Canal d&apos;Entrada</translation>
-    </message>
-    <message>
-        <source>Input universe</source>
-        <translation>Univers d&apos;Entrada</translation>
-    </message>
-    <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="402"/>
         <source> Add preset</source>
         <translation>Afegir preset</translation>
@@ -7007,18 +6924,6 @@ Durada: %3
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="379"/>
         <source>Preset name</source>
         <translation>Nom del preset</translation>
-    </message>
-    <message>
-        <source>Remove the preset buttons&apos;s keyboard shortcut key</source>
-        <translation>Treure la drecera del teclat per aquest botó de preset</translation>
-    </message>
-    <message>
-        <source>Set a key combination for this preset button</source>
-        <translation>Seleccionar una combinació de tecles per aquest botó de preset</translation>
-    </message>
-    <message>
-        <source>Keyboard combination that toggles this preset button</source>
-        <translation>Combinació de tecles que activa aquest botó de preset</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="252"/>
