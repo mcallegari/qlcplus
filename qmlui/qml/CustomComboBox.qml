@@ -190,7 +190,10 @@ Rectangle
                                 currentText = itemText
                                 currentIcon = itemIcon
                                 if (itemValue !== undefined)
+                                {
+                                    cbRoot.currentValue = itemValue
                                     cbRoot.valueChanged(itemValue)
+                                }
                             }
                         }
 
