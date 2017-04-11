@@ -43,6 +43,15 @@ Rectangle
     property int displacement: dispCombo.currentValue
     property int direction: directionCombo.currentValue
 
+    onWidthChanged: panelPreview.requestPaint()
+    onRowsChanged: panelPreview.requestPaint()
+    onPhysicalWidthChanged: panelPreview.requestPaint()
+    onPhysicalHeightChanged: panelPreview.requestPaint()
+    onColumnsChanged: panelPreview.requestPaint()
+    onStartCornerChanged: panelPreview.requestPaint()
+    onDisplacementChanged: panelPreview.requestPaint()
+    onDirectionChanged: panelPreview.requestPaint()
+
     Column
     {
         id: columnContainer
@@ -283,7 +292,129 @@ Rectangle
                     ListElement { mLabel: qsTr("Vertical"); mValue: FixtureManager.Vertical }
                 }
             }
-
         } // end of GridLayout
+
+        Canvas
+        {
+            id: panelPreview
+            width: panelProps.width
+            height: Math.min(mainView.height / 4, width)
+            contextType: "2d"
+
+            onPaint:
+            {
+                var i, j
+                var margin = UISettings.listItemHeight / 2
+                var ratio, scaledWidth, scaledHeight
+                var oddGrad, evenGrad
+
+                if (height / panelProps.physicalHeight < width / panelProps.physicalWidth)
+                {
+                    ratio = (height - margin * 2) / panelProps.physicalHeight
+                }
+                else
+                {
+                    ratio = (width - margin * 2) / panelProps.physicalWidth
+                }
+
+                scaledWidth = panelProps.physicalWidth * ratio
+                scaledHeight = panelProps.physicalHeight * ratio
+
+                if (panelProps.direction === FixtureManager.Horizontal)
+                {
+                    oddGrad = context.createLinearGradient(0 , 0, width, 0)
+                    evenGrad = context.createLinearGradient(0 , 0, width, 0)
+                }
+                else
+                {
+                    oddGrad = context.createLinearGradient(0 , 0, 0, height)
+                    evenGrad = context.createLinearGradient(0 , 0, 0, height)
+                }
+
+                evenGrad.addColorStop(0, UISettings.highlight)
+                evenGrad.addColorStop(1, UISettings.highlightPressed)
+
+                if (panelProps.displacement === FixtureManager.Snake)
+                {
+                    oddGrad.addColorStop(0, UISettings.highlightPressed)
+                    oddGrad.addColorStop(1, UISettings.highlight)
+                }
+                else
+                    oddGrad = evenGrad
+
+                var xPos = (width - scaledWidth) / 2
+                var yPos = (height - scaledHeight) / 2
+                var rowHeight = scaledHeight / panelProps.rows
+                var rowWidth = scaledWidth / panelProps.columns
+
+                context.fillStyle = UISettings.bgStrong
+                context.clearRect(0, 0, width, height)
+                context.fillRect(0, 0, width, height)
+
+                if (panelProps.direction === FixtureManager.Horizontal)
+                {
+                    for (i = 0; i < panelProps.rows; i++)
+                    {
+                        context.fillStyle = i % 2 ? oddGrad : evenGrad
+                        context.fillRect(xPos + margin, margin + (i * rowHeight), scaledWidth, rowHeight)
+                    }
+                }
+                else
+                {
+                    for (i = 0; i < panelProps.columns; i++)
+                    {
+                        context.fillStyle = i % 2 ? oddGrad : evenGrad
+                        context.fillRect(xPos + margin + (i * rowWidth), margin, rowWidth, scaledHeight)
+                    }
+                }
+
+                context.strokeStyle = "black"
+                context.beginPath()
+                /* Paint the grid vertical lines */
+                for (i = 0; i < panelProps.columns; i++)
+                {
+                    var x = xPos + margin + (i * rowWidth)
+                    context.moveTo(x, margin)
+                    context.lineTo(x, margin + scaledHeight)
+                }
+
+                /* Paint the grid horizontal lines */
+                for (i = 0; i < panelProps.rows; i++)
+                {
+                    var y = margin + (i * rowHeight)
+                    context.moveTo(xPos + margin, y)
+                    context.lineTo(xPos + margin + scaledWidth, y)
+                }
+
+                context.closePath()
+                context.stroke()
+
+                var bulletSize = UISettings.listItemHeight / 2
+                var bulletX = 0, bulletY = 0
+
+                switch (panelProps.startCorner)
+                {
+                    case FixtureManager.TopLeft:
+                        bulletX = xPos
+                    break
+                    case FixtureManager.TopRight:
+                        bulletX = xPos + margin + scaledWidth
+                    break
+                    case FixtureManager.BottomLeft:
+                        bulletX = xPos
+                        bulletY = margin + scaledHeight
+                    break
+                    case FixtureManager.BottomRight:
+                        bulletX = xPos + margin + scaledWidth
+                        bulletY = margin + scaledHeight
+                    break
+                }
+
+                context.fillStyle = UISettings.selection
+                context.beginPath()
+                context.ellipse(bulletX, bulletY, bulletSize, bulletSize)
+                context.fill()
+            }
+        }
     } // end of Column
 }
