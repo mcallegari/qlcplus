@@ -303,10 +303,9 @@ Rectangle
 
             onPaint:
             {
-                var i, j
                 var margin = UISettings.listItemHeight / 2
                 var ratio, scaledWidth, scaledHeight
-                var oddGrad, evenGrad
+                var i, oddGrad, evenGrad
 
                 if (height / panelProps.physicalHeight < width / panelProps.physicalWidth)
                 {
@@ -415,6 +414,6 @@ Rectangle
                 context.ellipse(bulletX, bulletY, bulletSize, bulletSize)
                 context.fill()
             }
-        }
+        } // end of Canvas
     } // end of Column
 }
