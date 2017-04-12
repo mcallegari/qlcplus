@@ -38,7 +38,7 @@ var testAlgo;
                 algo.fillSquares = 1;
             else
                 algo.fillSquares = 0;
-        }
+        };
 
         algo.getFill = function()
         {
@@ -46,7 +46,7 @@ var testAlgo;
                 return "Yes";
             else
                 return "No";
-        }
+        };
 
         algo.rgbMap = function(width, height, rgb, step)
         {
@@ -84,7 +84,7 @@ var testAlgo;
             }
 
             return map;
-        }
+        };
 
         algo.rgbMapStepCount = function(width, height)
         {
@@ -92,11 +92,11 @@ var testAlgo;
             height = parseInt(height);
             var max = width > height ? width : height;
             return Math.floor((max + 1) / 2);
-        }
+        };
 
         // Development tool access
         testAlgo = algo;
 
         return algo;
     }
-)()
+)();

@@ -404,8 +404,8 @@
   <Channel Number="4">Red (Fine)</Channel>
   <Channel Number="5">Green (Coarse)</Channel>
   <Channel Number="6">Green (Fine)</Channel>
-  <Channel Number="7">Blue (Fine)</Channel>
-  <Channel Number="8">Blue (Coarse)</Channel>
+  <Channel Number="7">Blue (Coarse)</Channel>
+  <Channel Number="8">Blue (Fine)</Channel>
   <Channel Number="9">CTC</Channel>
   <Channel Number="10">Pan (Coarse)</Channel>
   <Channel Number="11">Pan (Fine)</Channel>

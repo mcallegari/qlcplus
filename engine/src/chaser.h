@@ -216,7 +216,9 @@ public:
         Common,  //! Impose a common chaser-specific speed to all steps
         PerStep  //! Impose a step-specific speed to each step
     };
-    Q_ENUMS(SpeedMode)
+#if QT_VERSION >= 0x050500
+    Q_ENUM(SpeedMode)
+#endif
 
     void setFadeInMode(SpeedMode mode);
     SpeedMode fadeInMode() const;

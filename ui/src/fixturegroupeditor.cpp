@@ -112,7 +112,7 @@ void FixtureGroupEditor::updateTable()
         if (fxi == NULL)
             continue;
 
-        QIcon icon = fxi->getIconFromType(fxi->type());
+        QIcon icon = fxi->getIconFromType();
         QString str = QString("%1 H:%2\nA:%3 U:%4").arg(fxi->name())
                                                .arg(head.head + 1)
                                                .arg(fxi->address() + 1)

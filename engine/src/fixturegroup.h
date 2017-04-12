@@ -156,7 +156,7 @@ public:
     /** Get the fixture head hash */
     QHash <QLCPoint,GroupHead> headHash() const;
 
-    /** Get a list of fixtures assigned to the group */
+    /** Get a list of fixture IDs assigned to the group */
     QList <quint32> fixtureList() const;
 
 private slots:

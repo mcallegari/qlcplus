@@ -204,7 +204,7 @@ private:
     RGBMatrixStep *m_previewStepHandler;
     bool m_gotBeat;
 
-    // exchange variable with the QML world
+    /** exchange variable with the QML world */
     QVariantList m_previewData;
 };
 

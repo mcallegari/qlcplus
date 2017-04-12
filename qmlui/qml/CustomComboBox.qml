@@ -190,7 +190,10 @@ Rectangle
                                 currentText = itemText
                                 currentIcon = itemIcon
                                 if (itemValue !== undefined)
+                                {
+                                    cbRoot.currentValue = itemValue
                                     cbRoot.valueChanged(itemValue)
+                                }
                             }
                         }
 
@@ -264,6 +267,6 @@ Rectangle
                     }
             } // Repeater
         } // Flickable
-        ScrollBar { z: 2; flickable: popupFlickable }
+        CustomScrollBar { z: 2; flickable: popupFlickable }
     }
 }

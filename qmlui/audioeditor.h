@@ -32,6 +32,7 @@ class AudioEditor : public FunctionEditor
     Q_PROPERTY(QString sourceFileName READ sourceFileName WRITE setSourceFileName NOTIFY sourceFileNameChanged)
     Q_PROPERTY(QStringList mimeTypes READ mimeTypes CONSTANT)
     Q_PROPERTY(QVariant mediaInfo READ mediaInfo NOTIFY mediaInfoChanged)
+    Q_PROPERTY(bool looped READ isLooped WRITE setLooped NOTIFY loopedChanged)
 
 public:
     AudioEditor(QQuickView *view, Doc *doc, QObject *parent = 0);
@@ -49,9 +50,14 @@ public:
     /** Get the information of the currently loaded media source */
     QVariant mediaInfo() const;
 
+    /** Get/Set looped attribute for this Audio function */
+    bool isLooped();
+    void setLooped(bool looped);
+
 signals:
     void sourceFileNameChanged(QString sourceFileName);
     void mediaInfoChanged();
+    void loopedChanged();
 
 private:
     /** Reference of the Audio currently being edited */

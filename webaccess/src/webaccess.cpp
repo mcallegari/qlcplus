@@ -502,6 +502,18 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
 
             wsAPIMessage.append(WebAccessSimpleDesk::getChannelsMessage(m_doc, m_sd, universe, startAddr, count));
         }
+        else if (apiCmd == "sdResetChannel")
+        {
+            if (cmdList.count() < 3)
+                return;
+
+            quint32 chNum = cmdList[2].toUInt() - 1;
+            m_sd->resetChannel(chNum);
+            wsAPIMessage = "QLC+API|getChannelsValues|";
+            wsAPIMessage.append(WebAccessSimpleDesk::getChannelsMessage(
+                                m_doc, m_sd, m_sd->getCurrentUniverseIndex(),
+                                (m_sd->getCurrentPage() - 1) * m_sd->getSlidersNumber(), m_sd->getSlidersNumber()));
+        }
         else if (apiCmd == "sdResetUniverse")
         {
             m_sd->resetUniverse();
@@ -647,7 +659,9 @@ QString WebAccess::getWidgetHTML(VCWidget *widget)
 
 void WebAccess::slotFramePageChanged(int pageNum)
 {
-    VCWidget *frame = (VCWidget *)sender();
+    VCWidget *frame = qobject_cast<VCWidget *>(sender());
+    if (frame == NULL)
+        return;
 
     QString wsMessage = QString("%1|FRAME|%2").arg(frame->id()).arg(pageNum);
     QByteArray ba = wsMessage.toUtf8();
@@ -758,7 +772,9 @@ QString WebAccess::getSoloFrameHTML(VCSoloFrame *frame)
 
 void WebAccess::slotButtonToggled(bool on)
 {
-    VCButton *btn = (VCButton *)sender();
+    VCButton *btn = qobject_cast<VCButton *>(sender());
+    if (btn == NULL)
+        return;
 
     QString wsMessage = QString::number(btn->id());
     if (on == true)
@@ -795,9 +811,12 @@ QString WebAccess::getButtonHTML(VCButton *btn)
 
 void WebAccess::slotSliderValueChanged(QString val)
 {
-    VCSlider *slider = (VCSlider *)sender();
+    VCSlider *slider = qobject_cast<VCSlider *>(sender());
+    if (slider == NULL)
+        return;
 
-    QString wsMessage = QString("%1|SLIDER|%2").arg(slider->id()).arg(val);
+    // <ID>|SLIDER|<SLIDER VALUE>|<DISPLAY VALUE>
+    QString wsMessage = QString("%1|SLIDER|%2|%3").arg(slider->id()).arg(slider->sliderValue()).arg(val);
 
     sendWebSocketMessage(wsMessage.toUtf8());
 }
@@ -815,7 +834,7 @@ QString WebAccess::getSliderHTML(VCSlider *slider)
 
     str += "<div id=\"slv" + slID + "\" "
             "class=\"vcslLabel\" style=\"top:0px;\">" +
-            QString::number(slider->sliderValue()) + "</div>\n";
+            slider->topLabelText() + "</div>\n";
 
     str +=  "<input type=\"range\" class=\"vVertical\" "
             "id=\"" + slID + "\" "
@@ -823,9 +842,15 @@ QString WebAccess::getSliderHTML(VCSlider *slider)
             "style=\""
             "width: " + QString::number(slider->height() - 50) + "px; "
             "margin-top: " + QString::number(slider->height() - 50) + "px; "
-            "margin-left: " + QString::number(slider->width() / 2) + "px;\" "
-            "min=\"0\" max=\"255\" step=\"1\" value=\"" +
-            QString::number(slider->sliderValue()) + "\">\n";
+            "margin-left: " + QString::number(slider->width() / 2) + "px;\" ";
+
+    if (slider->sliderMode() == VCSlider::Level)
+        str += "min=\"" + QString::number(slider->levelLowLimit()) + "\" max=\"" +
+                QString::number(slider->levelHighLimit()) + "\" ";
+    else
+        str += "min=\"0\" max=\"255\" ";
+
+    str += "step=\"1\" value=\"" + QString::number(slider->sliderValue()) + "\">\n";
 
     str += "<div id=\"sln" + slID + "\" "
             "class=\"vcslLabel\" style=\"bottom:0px;\">" +
@@ -878,7 +903,9 @@ QString WebAccess::getAudioTriggersHTML(VCAudioTriggers *triggers)
 
 void WebAccess::slotCueIndexChanged(int idx)
 {
-    VCCueList *cue = (VCCueList *)sender();
+    VCCueList *cue = qobject_cast<VCCueList *>(sender());
+    if (cue == NULL)
+        return;
 
     QString wsMessage = QString("%1|CUE|%2").arg(cue->id()).arg(idx);
 
@@ -1031,7 +1058,9 @@ QString WebAccess::getChildrenHTML(VCWidget *frame, int pagesNum, int currentPag
 
     QString unifiedHTML;
     QStringList pagesHTML;
-    VCFrame *lframe = (VCFrame *)frame;
+    VCFrame *lframe = qobject_cast<VCFrame *>(frame);
+    if (lframe == NULL)
+        return "";
 
     if (lframe->multipageMode() == true)
     {
@@ -1067,25 +1096,25 @@ QString WebAccess::getChildrenHTML(VCWidget *frame, int pagesNum, int currentPag
         switch (widget->type())
         {
             case VCWidget::FrameWidget:
-                str = getFrameHTML((VCFrame *)widget);
+                str = getFrameHTML(qobject_cast<VCFrame *>(widget));
             break;
             case VCWidget::SoloFrameWidget:
-                str = getSoloFrameHTML((VCSoloFrame *)widget);
+                str = getSoloFrameHTML(qobject_cast<VCSoloFrame *>(widget));
             break;
             case VCWidget::ButtonWidget:
-                str = getButtonHTML((VCButton *)widget);
+                str = getButtonHTML(qobject_cast<VCButton *>(widget));
             break;
             case VCWidget::SliderWidget:
-                str = getSliderHTML((VCSlider *)widget);
+                str = getSliderHTML(qobject_cast<VCSlider *>(widget));
             break;
             case VCWidget::LabelWidget:
-                str = getLabelHTML((VCLabel *)widget);
+                str = getLabelHTML(qobject_cast<VCLabel *>(widget));
             break;
             case VCWidget::AudioTriggersWidget:
-                str = getAudioTriggersHTML((VCAudioTriggers *)widget);
+                str = getAudioTriggersHTML(qobject_cast<VCAudioTriggers *>(widget));
             break;
             case VCWidget::CueListWidget:
-                str = getCueListHTML((VCCueList *)widget);
+                str = getCueListHTML(qobject_cast<VCCueList *>(widget));
             break;
             default:
                 str = getWidgetHTML(widget);

@@ -483,10 +483,6 @@ bool RGBMatrixEditor::createPreviewItems()
     m_previewHash.clear();
     m_scene->clear();
 
-    // No preview in operate mode, too coslty
-    if (m_doc->mode() == Doc::Operate)
-        return false;
-
     FixtureGroup* grp = m_doc->fixtureGroup(m_matrix->fixtureGroup());
     if (grp == NULL)
     {
@@ -920,12 +916,10 @@ void RGBMatrixEditor::slotModeChanged(Doc::Mode mode)
         if (m_testButton->isChecked() == true)
             m_matrix->stopAndWait();
         m_testButton->setChecked(false);
-        m_previewTimer->stop();
         m_testButton->setEnabled(false);
     }
     else
     {
-        m_previewTimer->start(MasterTimer::tick());
         m_testButton->setEnabled(true);
     }
 }

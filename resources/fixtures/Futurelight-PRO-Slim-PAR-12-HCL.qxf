@@ -131,14 +131,6 @@
   <Channel Number="3">Amber</Channel>
   <Channel Number="4">White</Channel>
   <Channel Number="5">Purple</Channel>
-  <Head>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
-   <Channel>2</Channel>
-   <Channel>3</Channel>
-   <Channel>4</Channel>
-   <Channel>5</Channel>
-  </Head>
  </Mode>
  <Mode Name="8 channel">
   <Physical>
@@ -156,16 +148,6 @@
   <Channel Number="5">Purple</Channel>
   <Channel Number="6">Dimmer</Channel>
   <Channel Number="7">Strobe_8ch</Channel>
-  <Head>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
-   <Channel>2</Channel>
-   <Channel>3</Channel>
-   <Channel>4</Channel>
-   <Channel>5</Channel>
-   <Channel>6</Channel>
-   <Channel>7</Channel>
-  </Head>
  </Mode>
  <Mode Name="12 channel">
   <Physical>
@@ -187,20 +169,6 @@
   <Channel Number="9">Internal programs</Channel>
   <Channel Number="10">Speed internal programs/microphone sensitivity</Channel>
   <Channel Number="11">Dimmer speed</Channel>
-  <Head>
-   <Channel>0</Channel>
-   <Channel>11</Channel>
-   <Channel>10</Channel>
-   <Channel>9</Channel>
-   <Channel>8</Channel>
-   <Channel>7</Channel>
-   <Channel>6</Channel>
-   <Channel>5</Channel>
-   <Channel>4</Channel>
-   <Channel>3</Channel>
-   <Channel>2</Channel>
-   <Channel>1</Channel>
-  </Head>
  </Mode>
  <Mode Name="HSV">
   <Physical>
@@ -213,11 +181,6 @@
   <Channel Number="0">Hue</Channel>
   <Channel Number="1">Saturation</Channel>
   <Channel Number="2">Value (brightness)</Channel>
-  <Head>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
-   <Channel>2</Channel>
-  </Head>
  </Mode>
  <Mode Name="HSI">
   <Physical>
@@ -230,10 +193,5 @@
   <Channel Number="0">Hue</Channel>
   <Channel Number="1">Saturation</Channel>
   <Channel Number="2">Intensity</Channel>
-  <Head>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
-   <Channel>2</Channel>
-  </Head>
  </Mode>
 </FixtureDefinition>

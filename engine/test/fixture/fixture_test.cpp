@@ -157,7 +157,9 @@ void Fixture_Test::lessThan()
 void Fixture_Test::type()
 {
     Fixture fxi(this);
-    QCOMPARE(fxi.type(), QString(KXMLFixtureDimmer));
+    QCOMPARE(fxi.typeString(), QString(KXMLFixtureDimmer));
+    QCOMPARE(fxi.type(), QLCFixtureDef::Dimmer);
+    QCOMPARE(fxi.iconResource(), QString(":/dimmer.png"));
 
     QLCFixtureDef* fixtureDef;
     fixtureDef = m_doc->fixtureDefCache()->fixtureDef("Martin", "MAC250+");
@@ -168,7 +170,9 @@ void Fixture_Test::type()
     QVERIFY(fixtureMode != NULL);
 
     fxi.setFixtureDefinition(fixtureDef, fixtureMode);
-    QCOMPARE(fxi.type(), fixtureDef->type());
+    QCOMPARE(fxi.typeString(), fixtureDef->typeToString(fixtureDef->type()));
+    QCOMPARE(fxi.type(), QLCFixtureDef::MovingHead);
+    QCOMPARE(fxi.iconResource(), QString(":/movinghead.png"));
 }
 
 void Fixture_Test::dimmer()
@@ -279,6 +283,54 @@ void Fixture_Test::channels()
     QCOMPARE(chs, fxi.channels(QLCChannel::Intensity, QLCChannel::Blue));
     chs.clear();
     QCOMPARE(chs, fxi.channels(QLCChannel::Colour, QLCChannel::Blue));
+}
+
+void Fixture_Test::degrees()
+{
+    Fixture fxi(this);
+
+    QLCFixtureDef* fixtureDef;
+    fixtureDef = m_doc->fixtureDefCache()->fixtureDef("Martin", "MAC250+");
+    QVERIFY(fixtureDef != NULL);
+
+    QLCFixtureMode* fixtureMode;
+    fixtureMode = fixtureDef->modes().at(0);
+    QVERIFY(fixtureMode != NULL);
+
+    fxi.setFixtureDefinition(fixtureDef, fixtureMode);
+
+    QCOMPARE(fxi.degreesRange(0).width(), 540.0);
+    QCOMPARE(fxi.degreesRange(0).height(), 270.0);
+}
+
+void Fixture_Test::heads()
+{
+    Fixture fxi(this);
+
+    QLCFixtureDef* fixtureDef;
+    fixtureDef = m_doc->fixtureDefCache()->fixtureDef("Equinox", "Photon");
+    QVERIFY(fixtureDef != NULL);
+
+    QLCFixtureMode* fixtureMode;
+    fixtureMode = fixtureDef->modes().last();
+    QVERIFY(fixtureMode != NULL);
+
+    fxi.setFixtureDefinition(fixtureDef, fixtureMode);
+
+    QCOMPARE(fxi.heads(), 6);
+
+    QLCFixtureHead head = fxi.head(0);
+    QCOMPARE(head.channels().count(), 4);
+    head = fxi.head(1);
+    QCOMPARE(head.channels().count(), 4);
+    head = fxi.head(2);
+    QCOMPARE(head.channels().count(), 4);
+    head = fxi.head(3);
+    QCOMPARE(head.channels().count(), 4);
+    head = fxi.head(4);
+    QCOMPARE(head.channels().count(), 4);
+    head = fxi.head(5);
+    QCOMPARE(head.channels().count(), 4);
 }
 
 void Fixture_Test::loadWrongRoot()

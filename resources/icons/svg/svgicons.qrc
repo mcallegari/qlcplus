@@ -45,6 +45,7 @@
     <file alias="editor.svg">editor.svg</file>
     <file alias="effect.svg">effect.svg</file>
     <file alias="efx.svg">efx.svg</file>
+    <file alias="fan.svg">fan.svg</file>
     <file alias="filenew.svg">filenew.svg</file>
     <file alias="fileopen.svg">fileopen.svg</file>
     <file alias="filesave.svg">filesave.svg</file>
@@ -76,6 +77,7 @@
     <file alias="movinghead.svg">movinghead.svg</file>
     <file alias="olaplugin.svg">olaplugin.svg</file>
     <file alias="oscplugin.svg">oscplugin.svg</file>
+    <file alias="other.svg">other.svg</file>
     <file alias="pan.svg">pan.svg</file>
     <file alias="pingpong.svg">pingpong.svg</file>
     <file alias="play.svg">play.svg</file>

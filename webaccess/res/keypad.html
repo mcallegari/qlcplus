@@ -66,8 +66,10 @@ var mi='-';
 var chanl=[];
 var vall=[];
 var chanlvall=[];
-var channels, values, c, v, first, last, step, range;
-
+var channels, c, v, first, last, step, range;
+var reqchan;
+var addval;
+var values=[];
 window.onload = function() 
 {
   var url = 'ws://' + window.location.host + '/qlcplusWS';
@@ -81,48 +83,118 @@ window.onload = function()
   websocket.onerror = function(ev) {
     alert("QLC+ connection error!");
   };
+  websocket.onmessage = function(ev) {
+    //alert(ev.data);
+    var msg=ev.data;
+    var msgParams = ev.data.split('|');
+    if (msgParams[0] == "QLC+API") 
+    {
+      if (msgParams[1] == "getChannelsValues") 
+      {
+        values=[];
+        for (i = 2; i < msgParams.length; i+=3)
+        {
+            //console.log(msgParams[i+1]);
+            values.push(msgParams[i+1]);
+        }
+        //console.log(values);
+      }
+    }
+  };
 };
 
 function composeCommand(cmd) 
 {
- if (isConnected == true)
- {
-  document.getElementById('commInput').value = document.getElementById('commInput').value + cmd;
- }
- else
-  alert("You must connect to QLC+ WebSocket first !");
+  if (isConnected == true)
+  {
+    document.getElementById('commInput').value = document.getElementById('commInput').value + cmd;
+  }
+  else
+  {
+    alert("You must connect to QLC+ WebSocket first !");
+  }
 }
 
+
+function reqChannelsRange(univ, chan, range)
+{
+  if (isConnected == true)
+  {
+    websocket.send("QLC+API|" + "getChannelsValues" + "|" + univ + "|" + chan + "|" + range);
+  }
+  else
+  {
+    alert("You must connect to QLC+ WebSocket first !");
+  }
+}
+
+
+function resetU()
+{
+  if (isConnected == true)
+  {
+    websocket.send("QLC+API|sdResetUniverse");
+  }
+  else
+  {
+    alert("You must connect to QLC+ WebSocket first !");
+  }
+}
+
+function resetCh(chNum)
+{   
+  document.getElementById('commInput').value = '';
+  if (isConnected == true)
+  {
+    websocket.send("QLC+API|sdResetChannel|" + chNum);
+  }
+  else
+  {
+    alert("You must connect to QLC+ WebSocket first !");
+  }
+}
 // Modified set Channel Function
 function setChannel(c, v)
 { 
   // This function set a channel passed with param c at value passed with param v
+  if (isConnected == true)
   {
-    if (isConnected == true)
-      websocket.send("CH|" + c + "|" + v);
-    else
-      alert("You must connect to QLC+ WebSocket first !");
+    websocket.send("CH|" + c + "|" + v);
+  }
+  else
+  {
+    alert("You must connect to QLC+ WebSocket first !");
   }
 }
 
 function zip() 
 {
   var args = [].slice.call(arguments);
-  var longest = args.reduce(function(a,b){
-      return a.length>b.length ? a : b
+  var longest = args.reduce(function(a,b)
+  {
+    return a.length>b.length ? a : b
   }, []);
-
-  return longest.map(function(_,i){
-      return args.map(function(array){return array[i]})
+  return longest.map(function(_,i)
+  {
+    return args.map(function(array){return array[i]})
   });
 }
 // Evaluate commands
 function chval(c)
 {
-// This function evaluates string that could contain
-//  'T' = THRU, 'B' = BY
-// Returns three values first, last and step values
-// first, last and step should be channels number or values. 
+  // This function evaluates string that could contain
+  //  'T' = THRU, 'B' = BY
+  // Returns three values first, last and step values
+  // first, last and step should be channels number or values. 
+  //addval=0;
+  if (c.split(pl).length>1)
+  {
+    addval=c.split(pl)[1];
+  }
+  if (c.split(mi).length>1)
+  {
+    addval=c.split(mi)[1];
+  }
 
   if (c.split(by).length>1)
   {
@@ -154,16 +226,16 @@ function chval(c)
 
 function chans_vals(c)
 {
-// Main function. Split command at "AT" string.
-// Left part are single channel number, a range of channels and optionally a step value. 
-// Right part are a single value, a range of values and optionally a step value.
-// Calls to chval fucntion to evaluate channels numbers and values.
-// Arrange it on an array used later to assign channels values
-// calling setChannel function in a loop
-
-  chanlvall = []
-  chanl = []
-  vall = []
+  // Main function. Split command at "AT" string.
+  // Left part are single channel number, a range of channels and optionally a step value. 
+  // Right part are a single value, a range of values and optionally a step value.
+  // Calls to chval fucntion to evaluate channels numbers and values.
+  // Arrange it on an array used later to assign channels values
+  // calling setChannel function in a loop
+    //console.log(c);
+  chanlvall = [];
+  chanl = [];
+  vall = [];
   if (c.split(at).length>1)
   {
     a=c.split(at);
@@ -171,7 +243,7 @@ function chans_vals(c)
     chans=chval(a[0]);
     // Call to chval function to assing first, last and step value of channels
     vals=chval(a[1]);
-    console.log(chans, vals);
+    //console.log('canals values', chans, vals);
     // Set a list of channels for a single channel, a range of channels with a given step
     for (var i = chans[0]; i <= chans[1]; i += chans[2])
       chanl.push(i);
@@ -179,27 +251,61 @@ function chans_vals(c)
     if (vals[0] == vals[1])
     {
       for (i = 1; i <= chanl.length; i++)
+      {
         vall.push(vals[0]);
+      }
     }
     else 
     {
-      llarg=chanl.length-1;
-      for (var i = vals[0]; i <= vals[1]; i += Math.round(vals[1]/llarg ))
+      llarg = chanl.length - 1;
+      for (var i = vals[0]; i <= vals[1]; i += Math.round(vals[1] / llarg))
+      {
         vall.push(i);
+      }
     }
+    //for (var i = chans[0]; i <= chans[1]; i += chans[2])
+    //    console.log(chans[i])
+
     // Set an array of channels number with a dmx value for that channel.
     chanlvall = zip(chanl, vall);
     document.getElementById('commInput').value = '';
     // Iterate on array chanvall and set dmx values for every channel number
+    //oldvals=zip(values);
     for (i = 0, len = chanlvall.length; i  < len; i++)
     {
-      // console.log(chanlvall[i][0],chanlvall[i][1]);
       c = chanlvall[i][0];
       v = chanlvall[i][1];
+      // console.log(c, v);
+      // console.log(parseInt(values[c-1]) + parseInt(v * 2.55));
+        if (a.toString().split(pl).length>1)
+        {
+          if ((parseInt(values[c-1]) + parseInt(v * 2.55)) >= 255)
+          {
+            v=255
+          }
+          else 
+          {
+            v = parseInt(values[c-1]) + parseInt(v * 2.55);
+          }
+        }
+        if (a.toString().split(mi).length>1)
+        {
+          if ((parseInt(values[c-1]) + parseInt(v * 2.55)) <= 0)
+          {
+            v=0
+          }
+          else 
+          {
+            v = parseInt(values[c-1]) + parseInt(v * 2.55);
+          }
+        }
       setChannel(c,v);
     }
+    values=[];
+    reqChannelsRange(1, 1, 512);
   }
 }
+
 </script>
 
 </head>
@@ -208,42 +314,43 @@ function chans_vals(c)
 <div class="controlBar">
 <a class="button button-blue" href="/simpleDesk"><span>Back</span></a>
 <div class="swInfo">Q Light Controller Plus</div></div>
-
 <div style="margin: 20px 12px 0 20px; font: bold 27px/1.2em 'Trebuchet MS',Arial, Helvetica; color: #fff;">
 Command: <input style="height: 22px; vertical-align: middle;" id="commInput" value='' type="input">
 </div>
-   
 <table style="margin: 20px;">
 <tr>
- <td><div class="button button-keypad" onclick="composeCommand('7');">7</div></td>
- <td><div class="button button-keypad" onclick="composeCommand('8');">8</div></td>
- <td><div class="button button-keypad" onclick="composeCommand('9');">9</div></td>
- <td><div class="button button-keypad" onclick="composeCommand('A');">AT</div></td>
+  <td><div class="button button-keypad" onclick="composeCommand('7');">7</div></td>
+  <td><div class="button button-keypad" onclick="composeCommand('8');">8</div></td>
+  <td><div class="button button-keypad" onclick="composeCommand('9');">9</div></td>
+  <td><div class="button button-keypad" title="Sets a value for a specified DMX channel or group of channels (range)" onclick="composeCommand('A');">AT</div></td>
 </tr>
 <tr>
   <td><div class="button button-keypad" onclick="composeCommand('4');">4</div></td>
   <td><div class="button button-keypad" onclick="composeCommand('5');">5</div></td>
   <td><div class="button button-keypad" onclick="composeCommand('6');">6</div></td>
-  <td><div class="button button-keypad" onclick="composeCommand('T');">THRU</div></td>
+  <td><div class="button button-keypad" title="Selects a range of DMX channels" onclick="composeCommand('T');">THRU</div></td>
 </tr>
 <tr>
   <td><div class="button button-keypad" onclick="composeCommand('1');">1</div></td>
   <td><div class="button button-keypad" onclick="composeCommand('2');">2</div></td>
   <td><div class="button button-keypad" onclick="composeCommand('3');">3</div></td>
-  <td><div class="button button-keypad" onclick="composeCommand('A255');">FULL</div></td>
+  <td><div class="button button-keypad" title="Sets the maximum value (255) to the selected DMX channels or group of channels" onclick="composeCommand('A255');">FULL</div></td>
 </tr>
 <tr>
-  <td><div class="button button-keypad" onclick="composeCommand('-');">-</div></td>
+  <td><div class="button button-keypad" title="Reduces by given percentage the current channel values" onclick="composeCommand('A-');">-%</div></td>
   <td><div class="button button-keypad" onclick="composeCommand('0');">0</div></td>
-  <td><div class="button button-keypad" onclick="composeCommand('+');">+</div></td>
-  <td><div class="button button-keypad" onclick="composeCommand('A00');">ZERO</div></td>
+  <td><div class="button button-keypad" title="Increases by given percentage the current channel values" onclick="composeCommand('A+');">+%</div></td>
+  <td><div class="button button-keypad" title="Sets the minimum value (0) to the selected DMX channels or group of channels" onclick="composeCommand('A00');">ZERO</div></td>
 </tr>
 <tr>
  <td colspan="3">
-   <div class="button button-enter" onclick="chans_vals(getElementById('commInput').value);">ENTER</div>
+   <div class="button button-enter" title="Send command" onclick="chans_vals(getElementById('commInput').value);">ENTER</div>
   </td>
-  <td><div class="button button-keypad" onclick="composeCommand('B');">BY</div></td>
+  <td><div class="button button-keypad" title="Sets a channels gap within a range" onclick="composeCommand('B');">BY</div></td>
 </tr>
+<tr>
+  <td><div class="button button-keypad" title="Reset All Channels" onclick="resetU();">Reset All</div></td>
+  <td><div class="button button-keypad" title="Reset Channel" onclick="resetCh(getElementById('commInput').value);">Reset Ch</div></td></tr>
 </table>
 
 </body>

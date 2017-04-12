@@ -56,14 +56,17 @@ ChaserRunner::ChaserRunner(const Doc* doc, const Chaser* chaser, quint32 startTi
         quint32 stepsTime = 0;
         foreach(ChaserStep step, chaser->steps())
         {
-            if (startTime < stepsTime + step.duration)
+            uint duration = m_chaser->durationMode() == Chaser::Common ? m_chaser->duration() : step.duration;
+
+            if (startTime < stepsTime + duration)
             {
                 m_newStartStepIdx = idx;
                 m_startOffset = startTime - stepsTime;
+                qDebug() << "New start index:" << m_newStartStepIdx;
                 break;
             }
             idx++;
-            stepsTime += step.duration;
+            stepsTime += duration;
         }
     }
 

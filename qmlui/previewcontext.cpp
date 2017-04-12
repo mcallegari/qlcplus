@@ -34,7 +34,7 @@ PreviewContext::PreviewContext(QQuickView *view, Doc *doc, QString name, QObject
     , m_enabled(false)
     , m_detached(false)
 {
-    connect(m_doc, &Doc::loaded, this, &PreviewContext::slotRefreshView);
+    //connect(m_doc, &Doc::loaded, this, &PreviewContext::slotRefreshView);
 }
 
 QString PreviewContext::contextResource() const
@@ -127,6 +127,7 @@ void PreviewContext::setDetached(bool detached)
         m_view->rootContext()->setContextProperty("ioManager", m_mainView->rootContext()->contextProperty("ioManager"));
         m_view->rootContext()->setContextProperty("fixtureBrowser", m_mainView->rootContext()->contextProperty("fixtureBrowser"));
         m_view->rootContext()->setContextProperty("fixtureManager", m_mainView->rootContext()->contextProperty("fixtureManager"));
+        m_view->rootContext()->setContextProperty("fixtureGroupEditor", m_mainView->rootContext()->contextProperty("fixtureGroupEditor"));
         m_view->rootContext()->setContextProperty("functionManager", m_mainView->rootContext()->contextProperty("functionManager"));
         m_view->rootContext()->setContextProperty("contextManager", m_mainView->rootContext()->contextProperty("contextManager"));
         m_view->rootContext()->setContextProperty("virtualConsole", m_mainView->rootContext()->contextProperty("virtualConsole"));

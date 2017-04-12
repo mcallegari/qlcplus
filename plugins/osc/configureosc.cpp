@@ -51,6 +51,9 @@ ConfigureOSC::ConfigureOSC(OSCPlugin* plugin, QWidget* parent)
     /* Setup UI controls */
     setupUi(this);
 
+    connect(m_oscPathEdit, SIGNAL(textChanged(QString)),
+            this, SLOT(slotOSCPathChanged(QString)));
+
     fillMappingTree();
 }
 
@@ -222,6 +225,11 @@ void ConfigureOSC::accept()
     }
 
     QDialog::accept();
+}
+
+void ConfigureOSC::slotOSCPathChanged(QString path)
+{
+    m_chNumSpin->setValue(qChecksum(path.toUtf8().data(), path.length()));
 }
 
 int ConfigureOSC::exec()

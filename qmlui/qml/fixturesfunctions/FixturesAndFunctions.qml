@@ -25,6 +25,7 @@ import "."
 
 Rectangle
 {
+    id: fixtureAndFunctions
     objectName: "fixturesAndFunctions"
     anchors.fill: parent
     color: "transparent"
@@ -34,7 +35,7 @@ Rectangle
     // string holding the current view. Used by the C++ code
     // for dynamic items creation
     property string currentView: "2D"
-    property bool docLoaded: qlcplus.docLoaded
+    //property bool docLoaded: qlcplus.docLoaded
 
     function enableContext(ctx, setChecked)
     {
@@ -198,6 +199,7 @@ Rectangle
                     }
                     onRightClicked:
                     {
+                        threedView.visible = false
                         contextManager.detachContext("3D")
                     }
                 }

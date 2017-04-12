@@ -80,7 +80,10 @@ void ClickAndGoSlider::paintEvent(QPaintEvent *ev)
         int levHeight = ((float)height() / 255.0) * m_shadowLevel;
         p.drawRect(width() - 6, 0, width(), height());
         p.fillRect(width() - 5, 0, width() - 1, height(), QColor(Qt::darkGray));
-        p.fillRect(width() - 5, height() - levHeight, width() - 1, height(), QColor(Qt::green));
+        if (invertedAppearance())
+            p.fillRect(width() - 5, 0, width() - 1, levHeight, QColor(Qt::green));
+        else
+            p.fillRect(width() - 5, height() - levHeight, width() - 1, height(), QColor(Qt::green));
     }
 
     QSlider::paintEvent(ev);

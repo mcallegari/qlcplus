@@ -37,24 +37,6 @@ Rectangle
 
     signal mouseEvent(int type, int iID, int iType, var qItem, int mouseMods)
 
-    function iconFromType(type)
-    {
-        if (type === "Color Changer")
-            return "qrc:/fixture.svg"
-        else if (type === "Dimmer")
-            return "qrc:/dimmer.svg"
-        else if (type === "Moving Head")
-            return "qrc:/movinghead.svg"
-        else if (type === "Flower")
-            return "qrc:/flower.svg"
-        else if (type === "Effect")
-            return "qrc:/effect.svg"
-        else if (type === "Laser")
-            return "qrc:/laser.svg"
-        else
-            return "qrc:/fixture.svg"
-    }
-
     Rectangle
     {
         anchors.fill: parent
@@ -69,7 +51,7 @@ Rectangle
         width: parent.width
         height: parent.height
         tLabel: textLabel
-        iSrc: cRef ? iconFromType(cRef.type) : ""
+        iSrc: cRef ? cRef.iconResource(true) : ""
     }
     Rectangle
     {
@@ -81,7 +63,6 @@ Rectangle
 
     MouseArea
     {
-        id: fxMouseArea
         anchors.fill: parent
         hoverEnabled: true
 

@@ -18,11 +18,16 @@
 */
 
 #include <QCheckBox>
+#include <QComboBox>
+#include <QDebug>
+#include <algorithm>
 
 #include "inputselectionwidget.h"
+#include "vcframepageshortcut.h"
 #include "vcframeproperties.h"
 #include "vcframe.h"
 #include "doc.h"
+
 
 VCFrameProperties::VCFrameProperties(QWidget* parent, VCFrame* frame, Doc *doc)
     : QDialog(parent)
@@ -88,10 +93,47 @@ VCFrameProperties::VCFrameProperties(QWidget* parent, VCFrame* frame, Doc *doc)
     m_inputNextPageWidget->setWidgetPage(m_frame->page());
     m_inputNextPageWidget->show();
     m_extInputPages->addWidget(m_inputNextPageWidget);
+
+    /************************************************************************
+     * Page shortcuts
+     ************************************************************************/
+    foreach(VCFramePageShortcut const* shortcut, m_frame->shortcuts())
+    {
+        m_shortcuts.append(new VCFramePageShortcut(*shortcut));
+        m_pageCombo->addItem(shortcut->name());
+    }
+
+    m_shortcutInputWidget = new InputSelectionWidget(m_doc, this);
+    m_shortcutInputWidget->setCustomFeedbackVisibility(true);
+    m_shortcutInputWidget->setWidgetPage(m_frame->page());
+    m_shortcutInputWidget->show();
+    m_pageShortcuts->addWidget(m_shortcutInputWidget);
+
+    connect(m_totalPagesSpin, SIGNAL(valueChanged(int)),
+            this, SLOT(slotTotalPagesNumberChanged(int)));
+
+    connect(m_shortcutInputWidget, SIGNAL(inputValueChanged(quint32,quint32)),
+            this, SLOT(slotInputValueChanged(quint32,quint32)));
+
+    connect(m_shortcutInputWidget, SIGNAL(keySequenceChanged(QKeySequence)),
+            this, SLOT(slotKeySequenceChanged(QKeySequence)));
+
+    connect(m_pageName, SIGNAL(editingFinished()),
+            this, SLOT(slotPageNameEditingFinished()));
+
+    connect(m_pageCombo, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(slotPageComboChanged(int)));
+
+    if (m_pageCombo->count())
+        slotPageComboChanged(0);
 }
 
 VCFrameProperties::~VCFrameProperties()
 {
+    foreach (VCFramePageShortcut* shortcut, m_shortcuts)
+    {
+        delete shortcut;
+    }
 }
 
 bool VCFrameProperties::allowChildren() const
@@ -135,8 +177,67 @@ void VCFrameProperties::slotMultipageChecked(bool enable)
     {
         m_showHeaderCheck->setChecked(true);
         m_showHeaderCheck->setEnabled(false);
+        slotTotalPagesNumberChanged(m_totalPagesSpin->value());
     }
 }
+
+void VCFrameProperties::slotPageComboChanged(int index)
+{
+    if (index >= 0 && index < m_shortcuts.count() && m_shortcuts[index] != NULL)
+    {
+        m_shortcutInputWidget->setInputSource(m_shortcuts[index]->m_inputSource);
+        m_shortcutInputWidget->setKeySequence(m_shortcuts[index]->m_keySequence.toString(QKeySequence::NativeText));
+        m_pageName->setText(m_shortcuts[index]->name());
+    }
+}
+
+void VCFrameProperties::slotPageNameEditingFinished()
+{
+    // Store current page to restore it afterwards
+    int index = m_pageCombo->currentIndex();
+    m_shortcuts[index]->setName(m_pageName->text());
+    m_pageCombo->setItemText(index, m_shortcuts[index]->name());
+    //m_pageCombo->setItemText(index, tr("Page %1").arg(index + 1) + (m_pageName->text() != "" ? (" - " + m_pageName->text()) : ""));
+}
+
+void VCFrameProperties::slotTotalPagesNumberChanged(int number)
+{
+    if (m_enablePaging->isChecked() == false || number == m_shortcuts.count())
+        return;
+
+    if (number < m_shortcuts.count())
+    {
+        m_pageCombo->removeItem(m_shortcuts.count() - 1);
+        VCFramePageShortcut *sc = m_shortcuts.takeLast();
+        delete sc;
+    }
+    else
+    {
+        int newIndex = m_shortcuts.count();
+        m_shortcuts.append(new VCFramePageShortcut(newIndex, VCFrame::shortcutsBaseInputSourceId + newIndex));
+        m_pageCombo->addItem(m_shortcuts.last()->name());
+    }
+}
+
+void VCFrameProperties::slotInputValueChanged(quint32 universe, quint32 channel)
+{
+    Q_UNUSED(universe);
+    Q_UNUSED(channel);
+
+    VCFramePageShortcut *shortcut = m_shortcuts[m_pageCombo->currentIndex()];
+
+    if (shortcut != NULL)
+        shortcut->m_inputSource = m_shortcutInputWidget->inputSource();
+}
+
+void VCFrameProperties::slotKeySequenceChanged(QKeySequence key)
+{
+    VCFramePageShortcut *shortcut = m_shortcuts[m_pageCombo->currentIndex()];
+
+    if (shortcut != NULL)
+        shortcut->m_keySequence = key;
+}
+
 
 void VCFrameProperties::accept()
 {
@@ -180,6 +281,11 @@ void VCFrameProperties::accept()
     m_frame->setInputSource(m_inputEnableWidget->inputSource(), VCFrame::enableInputSourceId);
     m_frame->setInputSource(m_inputNextPageWidget->inputSource(), VCFrame::nextPageInputSourceId);
     m_frame->setInputSource(m_inputPrevPageWidget->inputSource(), VCFrame::previousPageInputSourceId);
+
+    /* Shortcuts */
+    m_frame->setShortcuts(m_shortcuts);
+
+    m_frame->slotSetPage(m_frame->currentPage());
 
     QDialog::accept();
 }

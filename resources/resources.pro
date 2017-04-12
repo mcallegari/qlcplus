@@ -8,4 +8,7 @@ SUBDIRS += miditemplates
 SUBDIRS += modifierstemplates
 SUBDIRS += rgbscripts
 SUBDIRS += samples
+qmlui {
+  SUBDIRS += meshes
+}
 

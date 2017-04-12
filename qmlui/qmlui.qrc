@@ -2,7 +2,7 @@
   <qresource prefix="/">
     <file alias="dimmer-back.svg">svg/dimmer-back.svg</file>
     <file alias="dimmer-fill.svg">svg/dimmer-fill.svg</file>
-    
+
     <file alias="qmldir">qml/qmldir</file>
 
     <!-- Common components -->
@@ -14,6 +14,7 @@
     <file alias="ContextMenuEntry.qml">qml/ContextMenuEntry.qml</file>
     <file alias="CustomCheckBox.qml">qml/CustomCheckBox.qml</file>
     <file alias="CustomComboBox.qml">qml/CustomComboBox.qml</file>
+    <file alias="CustomScrollBar.qml">qml/CustomScrollBar.qml</file>
     <file alias="CustomSpinBox.qml">qml/CustomSpinBox.qml</file>
     <file alias="CustomTextEdit.qml">qml/CustomTextEdit.qml</file>
     <file alias="DayTimeTool.qml">qml/DayTimeTool.qml</file>
@@ -25,6 +26,7 @@
     <file alias="FixtureDelegate.qml">qml/FixtureDelegate.qml</file>
     <file alias="FunctionDelegate.qml">qml/FunctionDelegate.qml</file>
     <file alias="GenericButton.qml">qml/GenericButton.qml</file>
+    <file alias="GenericMultiDragItem.qml">qml/GenericMultiDragItem.qml</file>
     <file alias="FontAwesomeVariables.qml">qml/FontAwesomeVariables.qml</file>
     <file alias="IconButton.qml">qml/IconButton.qml</file>
     <file alias="IconPopupButton.qml">qml/IconPopupButton.qml</file>
@@ -34,10 +36,10 @@
     <file alias="MainView.qml">qml/MainView.qml</file>
     <file alias="MenuBarEntry.qml">qml/MenuBarEntry.qml</file>
     <file alias="QLCPlusFader.qml">qml/QLCPlusFader.qml</file>
+    <file alias="QLCPlusKnob.qml">qml/QLCPlusKnob.qml</file>
     <file alias="RobotoText.qml">qml/RobotoText.qml</file>
     <file alias="SectionBox.qml">qml/SectionBox.qml</file>
     <file alias="SidePanel.qml">qml/SidePanel.qml</file>
-    <file alias="ScrollBar.qml">qml/ScrollBar.qml</file>
     <file alias="TimeEditTool.qml">qml/TimeEditTool.qml</file>
     <file alias="TreeNodeDelegate.qml">qml/TreeNodeDelegate.qml</file>
     <file alias="UISettings.qml">qml/UISettings.qml</file>
@@ -48,8 +50,8 @@
     <file alias="PopupPINRequest.qml">qml/PopupPINRequest.qml</file>
     <file alias="PopupPINSetup.qml">qml/PopupPINSetup.qml</file>
     <file alias="PopupTextRequest.qml">qml/PopupTextRequest.qml</file>
-    <file alias="PopupBox.qml">qml/PopupBox.qml</file>    
-    
+    <file alias="PopupBox.qml">qml/PopupBox.qml</file>
+
     <!-- Fixtures and Functions -->
     <file alias="FixturesAndFunctions.qml">qml/fixturesfunctions/FixturesAndFunctions.qml</file>
     <file alias="RightPanel.qml">qml/fixturesfunctions/RightPanel.qml</file>
@@ -59,11 +61,16 @@
     <file alias="PositionTool.qml">qml/fixturesfunctions/PositionTool.qml</file>
     <file alias="PresetsTool.qml">qml/fixturesfunctions/PresetsTool.qml</file>
     <file alias="PresetCapabilityItem.qml">qml/fixturesfunctions/PresetCapabilityItem.qml</file>
+    <file alias="FixtureChannelDelegate.qml">qml/fixturesfunctions/FixtureChannelDelegate.qml</file>
+    <file alias="FixtureHeadDelegate.qml">qml/fixturesfunctions/FixtureHeadDelegate.qml</file>
     <file alias="FixtureBrowser.qml">qml/fixturesfunctions/FixtureBrowser.qml</file>
     <file alias="FixtureProperties.qml">qml/fixturesfunctions/FixtureProperties.qml</file>
+    <file alias="RGBPanelProperties.qml">qml/fixturesfunctions/RGBPanelProperties.qml</file>
     <file alias="FixtureDragItem.qml">qml/fixturesfunctions/FixtureDragItem.qml</file>
     <file alias="FixtureBrowserDelegate.qml">qml/fixturesfunctions/FixtureBrowserDelegate.qml</file>
     <file alias="FixtureGroupEditor.qml">qml/fixturesfunctions/FixtureGroupEditor.qml</file>
+    <file alias="FixtureGroupManager.qml">qml/fixturesfunctions/FixtureGroupManager.qml</file>
+    <file alias="FixtureNodeDelegate.qml">qml/fixturesfunctions/FixtureNodeDelegate.qml</file>
     <file alias="GridEditor.qml">qml/fixturesfunctions/GridEditor.qml</file>
     <file alias="UniverseGridView.qml">qml/fixturesfunctions/UniverseGridView.qml</file>
     <file alias="DMXView.qml">qml/fixturesfunctions/DMXView.qml</file>
@@ -71,8 +78,10 @@
     <file alias="2DView.qml">qml/fixturesfunctions/2DView.qml</file>
     <file alias="SettingsView2D.qml">qml/fixturesfunctions/SettingsView2D.qml</file>
     <file alias="Fixture2DItem.qml">qml/fixturesfunctions/Fixture2DItem.qml</file>
+    <file alias="3DView.qml">qml/fixturesfunctions/3DView.qml</file>
+    <file alias="SettingsView3D.qml">qml/fixturesfunctions/SettingsView3D.qml</file>
+    <file alias="Fixture3DItem.qml">qml/fixturesfunctions/Fixture3DItem.qml</file>
     <file alias="FunctionManager.qml">qml/fixturesfunctions/FunctionManager.qml</file>
-    <file alias="FunctionDragItem.qml">qml/fixturesfunctions/FunctionDragItem.qml</file>
     <file alias="AddFunctionMenu.qml">qml/fixturesfunctions/AddFunctionMenu.qml</file>
     <file alias="AudioEditor.qml">qml/fixturesfunctions/AudioEditor.qml</file>
     <file alias="CollectionEditor.qml">qml/fixturesfunctions/CollectionEditor.qml</file>
@@ -83,6 +92,8 @@
     <file alias="ChaserStepDelegate.qml">qml/fixturesfunctions/ChaserStepDelegate.qml</file>
     <file alias="RGBMatrixEditor.qml">qml/fixturesfunctions/RGBMatrixEditor.qml</file>
     <file alias="RGBMatrixPreview.qml">qml/fixturesfunctions/RGBMatrixPreview.qml</file>
+    <file alias="EFXEditor.qml">qml/fixturesfunctions/EFXEditor.qml</file>
+    <file alias="EFXPreview.qml">qml/fixturesfunctions/EFXPreview.qml</file>
 
     <!-- Input Output Manager -->
     <file alias="InputOutputManager.qml">qml/inputoutput/InputOutputManager.qml</file>
@@ -127,8 +138,8 @@
     <!-- JavaScript helpers -->
     <file alias="CanvasDrawFunctions.js">js/CanvasDrawFunctions.js</file>
     <file alias="FixtureDrag.js">js/FixtureDrag.js</file>
-    <file alias="PluginUtils.js">js/PluginUtils.js</file>
+    <file alias="GenericHelpers.js">js/GenericHelpers.js</file>
     <file alias="TimeUtils.js">js/TimeUtils.js</file>
-    
+
   </qresource>
 </RCC>

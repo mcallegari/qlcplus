@@ -7,6 +7,7 @@ ColorToolFull 0.1 ../ColorToolFull.qml
 ContextMenuEntry 0.1 ../ContextMenuEntry.qml
 CustomCheckBox 0.1 ../CustomCheckBox.qml
 CustomComboBox 0.1 ../CustomComboBox.qml
+CustomScrollBar 0.1 ../CustomScrollBar.qml
 CustomSpinBox 0.1 ../CustomSpinBox.qml
 CustomTextEdit 0.1 ../CustomTextEdit.qml
 DMXPercentageButton 0.1 ../DMXPercentageButton.qml
@@ -20,7 +21,6 @@ MenuBarEntry 0.1 ../MenuBarEntry.qml
 QLCPlusFader 0.1 ../QLCPlusFader.qml
 RobotoText 0.1 ../RobotoText.qml
 SidePanel 0.1 ../SidePanel.qml
-ScrollBar 0.1 ../ScrollBar.qml
 TimeEditTool 0.1 ../TimeEditTool.qml
 TreeNodeDelegate 0.1 ../TreeNodeDelegate.qml
 WindowLoader 0.1 ../WindowLoader.qml

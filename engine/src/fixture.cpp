@@ -100,12 +100,20 @@ QString Fixture::name() const
  * Fixture type
  *****************************************************************************/
 
-QString Fixture::type()
+QString Fixture::typeString()
+{
+    if (m_fixtureDef != NULL)
+        return m_fixtureDef->typeToString(m_fixtureDef->type());
+    else
+        return QString(KXMLFixtureDimmer);
+}
+
+QLCFixtureDef::FixtureType Fixture::type() const
 {
     if (m_fixtureDef != NULL)
         return m_fixtureDef->type();
     else
-        return QString(KXMLFixtureDimmer);
+        return QLCFixtureDef::Dimmer;
 }
 
 /*****************************************************************************
@@ -502,32 +510,33 @@ QLCFixtureHead Fixture::head(int index) const
         return QLCFixtureHead();
 }
 
-QIcon Fixture::getIconFromType(QString type) const
+QString Fixture::iconResource(bool svg) const
 {
-    if (type == "Color Changer")
-        return QIcon(":/fixture.png");
-    else if (type == "Dimmer")
-        return QIcon(":/dimmer.png");
-    else if (type == "Effect")
-        return QIcon(":/effect.png");
-    else if (type == "Fan")
-         return QIcon(":/fan.png");
-    else if (type == "Flower")
-        return QIcon(":/flower.png");
-    else if (type == "Hazer")
-        return QIcon(":/hazer.png");
-    else if (type == "Laser")
-        return QIcon(":/laser.png");
-    else if (type == "Moving Head")
-        return QIcon(":/movinghead.png");
-    else if (type == "Scanner")
-        return QIcon(":/scanner.png");
-    else if (type == "Smoke")
-        return QIcon(":/smoke.png");
-    else if (type == "Strobe")
-        return QIcon(":/strobe.png");
+    QString prefix = svg ? "qrc" : "";
+    QString ext = svg ? "svg" : "png";
 
-    return QIcon(":/other.png");
+    switch(type())
+    {
+        case QLCFixtureDef::ColorChanger: return QString("%1:/fixture.%2").arg(prefix).arg(ext); break;
+        case QLCFixtureDef::Dimmer: return QString("%1:/dimmer.%2").arg(prefix).arg(ext); break;
+        case QLCFixtureDef::Effect: return QString("%1:/effect.%2").arg(prefix).arg(ext); break;
+        case QLCFixtureDef::Fan: return QString("%1:/fan.%2").arg(prefix).arg(ext); break;
+        case QLCFixtureDef::Flower: return QString("%1:/flower.%2").arg(prefix).arg(ext); break;
+        case QLCFixtureDef::Hazer: return QString("%1:/hazer.%2").arg(prefix).arg(ext); break;
+        case QLCFixtureDef::Laser: return QString("%1:/laser.%2").arg(prefix).arg(ext); break;
+        case QLCFixtureDef::MovingHead: return QString("%1:/movinghead.%2").arg(prefix).arg(ext); break;
+        case QLCFixtureDef::Scanner: return QString("%1:/scanner.%2").arg(prefix).arg(ext); break;
+        case QLCFixtureDef::Smoke: return QString("%1:/smoke.%2").arg(prefix).arg(ext); break;
+        case QLCFixtureDef::Strobe: return QString("%1:/strobe.%2").arg(prefix).arg(ext); break;
+        default: break;
+    }
+
+    return QString("%1:/other.%2").arg(prefix).arg(ext);
+}
+
+QIcon Fixture::getIconFromType() const
+{
+    return QIcon(iconResource());
 }
 
 QRectF Fixture::degreesRange(int head) const
@@ -558,7 +567,7 @@ QLCFixtureDef *Fixture::genericDimmerDef(int channels)
     QLCFixtureDef *def = new QLCFixtureDef();
     def->setManufacturer(KXMLFixtureGeneric);
     def->setModel(KXMLFixtureGeneric);
-    def->setType(KXMLFixtureDimmer);
+    def->setType(QLCFixtureDef::Dimmer);
     def->setAuthor("QLC+");
 
     for (int i = 0; i < channels; i++)
@@ -609,7 +618,7 @@ QLCFixtureDef *Fixture::genericRGBPanelDef(int columns, Components components)
     QLCFixtureDef *def = new QLCFixtureDef();
     def->setManufacturer(KXMLFixtureGeneric);
     def->setModel(KXMLFixtureRGBPanel);
-    def->setType("LED Bar");
+    def->setType(QLCFixtureDef::LEDBar);
     def->setAuthor("QLC+");
     for (int i = 0; i < columns; i++)
     {
@@ -1106,7 +1115,7 @@ QString Fixture::status() const
         info += genInfo.arg(tr("Manufacturer")).arg(m_fixtureDef->manufacturer());
         info += genInfo.arg(tr("Model")).arg(m_fixtureDef->model());
         info += genInfo.arg(tr("Mode")).arg(m_fixtureMode->name());
-        info += genInfo.arg(tr("Type")).arg(m_fixtureDef->type());
+        info += genInfo.arg(tr("Type")).arg(m_fixtureDef->typeToString(m_fixtureDef->type()));
     }
 
     // Universe

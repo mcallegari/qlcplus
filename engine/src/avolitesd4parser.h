@@ -27,10 +27,10 @@
 #include <QMap>
 
 #include "qlcchannel.h"
+#include "qlcfixturedef.h"
 
 class QXmlStreamReader;
 class QLCFixtureMode;
-class QLCFixtureDef;
 
 /** @addtogroup engine Engine
  * @{
@@ -110,7 +110,7 @@ private:
     Attributes stringToAttributeEnum(const QString& attr);
 
     /** Attempt to guess the fixture type from the channels/capabilities in $def */
-    QString guessType(QLCFixtureDef *def) const;
+    QLCFixtureDef::FixtureType guessType(QLCFixtureDef *def) const;
 
 private:
     QString m_lastError;

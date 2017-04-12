@@ -284,6 +284,7 @@ Rectangle
                           if (hasChildren)
                           {
                               console.log("Item path: " + path + ",label: " + label)
+                              item.itemType = App.FolderDragItem
                               item.nodePath = path
                               item.isExpanded = isExpanded
                               item.nodeChildren = childrenModel
@@ -291,6 +292,7 @@ Rectangle
                           else
                           {
                               item.cRef = classRef
+                              item.itemType = App.FunctionDragItem
                               //item.functionType = funcType
                           }
                       }
@@ -307,16 +309,15 @@ Rectangle
                                     fDragItem.parent = mainView
                                     fDragItem.x = posnInWindow.x - (fDragItem.width / 4)
                                     fDragItem.y = posnInWindow.y - (fDragItem.height / 4)
-                                    fDragItem.modifiers = mouseMods
                                 break;
                                 case App.Clicked:
-                                  if (qItem == item)
-                                  {
-                                      model.isSelected = (mouseMods & Qt.ControlModifier) ? 2 : 1
-                                      if (model.hasChildren)
-                                          model.isExpanded = item.isExpanded
-                                  }
-                                  functionManager.selectFunctionID(iID, mouseMods & Qt.ControlModifier)
+                                    if (qItem == item)
+                                    {
+                                        model.isSelected = (mouseMods & Qt.ControlModifier) ? 2 : 1
+                                        if (model.hasChildren)
+                                            model.isExpanded = item.isExpanded
+                                    }
+                                    functionManager.selectFunctionID(iID, mouseMods & Qt.ControlModifier)
                                 break;
                                 case App.DoubleClicked:
                                     loadFunctionEditor(iID, iType)
@@ -333,6 +334,11 @@ Rectangle
                                         functionManager.selectFunctionID(iID, false)
 
                                     fDragItem.itemsList = functionManager.selectedFunctionsID()
+                                    fDragItem.itemLabel = qItem.textLabel
+                                    if (qItem.hasOwnProperty("itemIcon"))
+                                        fDragItem.itemIcon = qItem.itemIcon
+                                    else
+                                        fDragItem.itemIcon = ""
                                     functionsListView.dragActive = true
                                 break;
                                 case App.DragFinished:
@@ -353,19 +359,31 @@ Rectangle
                       }
                   } // Loader
               } // Component
-              ScrollBar { id: fMgrScrollBar; flickable: functionsListView }
+              CustomScrollBar { id: fMgrScrollBar; flickable: functionsListView }
 
-              FunctionDragItem
+              GenericMultiDragItem
               {
                   id: fDragItem
 
+                  property bool fromFunctionManager: true
+
                   visible: functionsListView.dragActive
-                  fromFunctionManager: true
 
                   Drag.active: functionsListView.dragActive
                   Drag.source: fDragItem
                   Drag.keys: [ "function" ]
 
+                  onItemsListChanged:
+                  {
+                      console.log("Items in list: " + itemsList.length)
+                      if (itemsList.length)
+                      {
+                          var funcRef = functionManager.getFunction(itemsList[0])
+                          itemLabel = funcRef.name
+                          itemIcon = functionManager.functionIcon(funcRef.type)
+                          //multipleItems = itemsList.length > 1 ? true : false
+                      }
+                  }
               }
         } // ListView
 

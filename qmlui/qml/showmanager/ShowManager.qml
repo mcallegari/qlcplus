@@ -553,7 +553,7 @@ Rectangle
         }
     }
 
-    ScrollBar
+    CustomScrollBar
     {
         id: horScrollbar
         z: 4
@@ -562,6 +562,6 @@ Rectangle
         x: trackWidth
         flickable: timelineHeader
     }
-    ScrollBar { z: 5; flickable: showContents; doubleBars: true }
+    CustomScrollBar { z: 5; flickable: showContents; doubleBars: true }
 
 }

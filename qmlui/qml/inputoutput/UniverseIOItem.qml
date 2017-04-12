@@ -210,24 +210,24 @@ Rectangle
             id: passthrough
             anchors.fill: parent
             visible: ptCheckButton.checked
+            contextType: "2d"
 
             onPaint:
             {
-                var ctx = passthrough.getContext('2d')
                 var vCenter = (height / 2) - 4
                 var wireMargin = width / 20
-                ctx.strokeStyle = "yellow"
-                ctx.lineWidth = 2
-                ctx.beginPath()
-                ctx.clearRect(0, 0, width, height)
+                context.strokeStyle = "yellow"
+                context.lineWidth = 2
+                context.beginPath()
+                context.clearRect(0, 0, width, height)
 
-                ctx.moveTo(0, vCenter)
-                ctx.lineTo(wireMargin, vCenter)
-                ctx.lineTo(wireMargin, height - wireMargin)
-                ctx.lineTo(width - wireMargin, height - wireMargin)
-                ctx.lineTo(width - wireMargin, vCenter)
-                ctx.lineTo(width, vCenter)
-                ctx.stroke()
+                context.moveTo(0, vCenter)
+                context.lineTo(wireMargin, vCenter)
+                context.lineTo(wireMargin, height - wireMargin)
+                context.lineTo(width - wireMargin, height - wireMargin)
+                context.lineTo(width - wireMargin, vCenter)
+                context.lineTo(width, vCenter)
+                context.stroke()
             }
         }
 

@@ -29,7 +29,6 @@ Rectangle
     anchors.fill: parent
     color: "transparent"
 
-    property string selectedManufacturer
     property int manufacturerIndex: fixtureBrowser.manufacturerIndex
     property string selectedModel
 
@@ -56,7 +55,7 @@ Rectangle
             height: parent.height - 6
             color: "gray"
             font.family: "FontAwesome"
-            font.pixelSize: parent.height - 6
+            font.pixelSize: height
             text: FontAwesome.fa_search
         }
 
@@ -68,13 +67,13 @@ Rectangle
             height: parent.height - 6
             width: searchBox.width - searchIcon.width - 10
             color: UISettings.fgMain
-            text: fixtureBrowser.searchString
+            text: fixtureBrowser.searchFilter
             font.family: "Roboto Condensed"
-            font.pixelSize: parent.height - 6
+            font.pixelSize: height
             selectionColor: UISettings.highlightPressed
             selectByMouse: true
 
-            onTextChanged: fixtureBrowser.searchString = text
+            onTextChanged: fixtureBrowser.searchFilter = text
         }
     }
 
@@ -83,7 +82,7 @@ Rectangle
         id: manufacturerList
         x: 8
         z: 0
-        visible: selectedManufacturer.length == 0 && fixtureBrowser.searchString.length < 3
+        visible: fixtureBrowser.selectedManufacturer.length == 0 && fixtureBrowser.searchFilter.length < 3
         anchors.top: searchBox.bottom
         anchors.topMargin: 6
         anchors.bottom: parent.bottom
@@ -110,7 +109,7 @@ Rectangle
         }
         highlightFollowsCurrentItem: false
 
-        model: fixtureBrowser.manufacturers()
+        model: fixtureBrowser.manufacturers
         delegate: FixtureBrowserDelegate
         {
             isManufacturer: true
@@ -119,24 +118,23 @@ Rectangle
             {
                 if (type == App.Clicked)
                 {
-                    selectedManufacturer = modelData
                     mfText.label = modelData
-                    fixtureList.model = fixtureBrowser.models(modelData)
-                    fixtureList.currentIndex = -1
                     fixtureBrowser.manufacturerIndex = index
+                    fixtureBrowser.selectedManufacturer = modelData
+                    modelsList.currentIndex = -1
                 }
             }
         }
 
         Component.onCompleted: manufacturerList.positionViewAtIndex(manufacturerIndex, ListView.Center)
 
-        ScrollBar { flickable: manufacturerList }
+        CustomScrollBar { flickable: manufacturerList }
     }
 
     Rectangle
     {
         id: fixtureArea
-        visible: selectedManufacturer.length && fixtureBrowser.searchString.length < 3
+        visible: fixtureBrowser.selectedManufacturer.length && fixtureBrowser.searchFilter.length < 3
         color: "transparent"
 
         width: parent.width
@@ -185,14 +183,15 @@ Rectangle
                 onClicked:
                 {
                     fxPropsRect.visible = false
-                    selectedManufacturer = ""
+                    panelPropsRect.visible = false
+                    fixtureBrowser.selectedManufacturer = ""
                 }
             }
         }
 
         ListView
         {
-            id: fixtureList
+            id: modelsList
             z: 0
 
             width: parent.width
@@ -205,34 +204,41 @@ Rectangle
             highlight:
                 Rectangle
                 {
-                    width: fixtureList.width - 30
+                    width: modelsList.width - 30
                     height: UISettings.listItemHeight - 2
                     color: UISettings.highlight
                     radius: 5
-                    y: fixtureList.currentItem ? fixtureList.currentItem.y + 1 : 0
+                    y: modelsList.currentItem ? modelsList.currentItem.y + 1 : 0
                 }
             highlightFollowsCurrentItem: false
 
+            model: fixtureBrowser.modelsList
             delegate: FixtureBrowserDelegate
             {
                 id: dlg
-                manufacturer: selectedManufacturer
+                manufacturer: fixtureBrowser.selectedManufacturer
                 textLabel: modelData
 
                 onMouseEvent:
                 {
                     if (type == App.Clicked)
                     {
-                        fixtureList.currentIndex = index
-                        fixtureBrowser.model = modelData
-                        fxPropsRect.fxManufacturer = selectedManufacturer
-                        fxPropsRect.fxModel = modelData
-                        fxPropsRect.fxName = modelData
-                        fxPropsRect.visible = true
+                        modelsList.currentIndex = index
+                        fixtureBrowser.selectedModel = modelData
+                        if (modelData == "Generic RGB Panel")
+                        {
+                            fxPropsRect.visible = false
+                            panelPropsRect.visible = true
+                        }
+                        else
+                        {
+                            panelPropsRect.visible = false
+                            fxPropsRect.visible = true
+                        }
                     }
                 }
             }
-            ScrollBar { flickable: fixtureList }
+            CustomScrollBar { flickable: modelsList }
         }
     }
 
@@ -240,7 +246,7 @@ Rectangle
     {
         id: searchRect
         clip: true
-        visible: fixtureBrowser.searchString.length >= 3 ? true : false
+        visible: fixtureBrowser.searchFilter.length >= 3 ? true : false
 
         contentHeight: searchColumn.height
 
@@ -269,13 +275,11 @@ Rectangle
                             source: hasChildren ? "qrc:/TreeNodeDelegate.qml" : "qrc:/FixtureBrowserDelegate.qml"
                             onLoaded:
                             {
-                                //item.isSelected = Qt.binding(function() { return isSelected })
-
                                 if (hasChildren)
                                 {
                                     item.textLabel = label
                                     item.nodePath = path
-                                    item.nodeIcon = ""
+                                    item.itemIcon = ""
                                     item.isExpanded = true
                                     item.childrenDelegate = "qrc:/FixtureBrowserDelegate.qml"
                                     item.nodeChildren = childrenModel
@@ -289,10 +293,10 @@ Rectangle
                                     if (type === App.Clicked)
                                     {
                                         console.log("Item clicked with path: " + item.nodePath + "/" + qItem.textLabel)
+                                        model.isSelected = 2
                                         qItem.manufacturer = item.nodePath
-                                        fxPropsRect.fxManufacturer = qItem.manufacturer
-                                        fxPropsRect.fxModel = qItem.textLabel
-                                        fxPropsRect.fxName = qItem.textLabel
+                                        fixtureBrowser.selectedManufacturer = qItem.manufacturer
+                                        fixtureBrowser.selectedModel = qItem.textLabel
                                         fxPropsRect.visible = true
                                     }
                                 }
@@ -302,11 +306,22 @@ Rectangle
             } // end of Repeater
         } // end of Column
     } // end of Flickable
-    ScrollBar { flickable: searchRect }
+    CustomScrollBar { flickable: searchRect }
 
     FixtureProperties
     {
         id: fxPropsRect
+        anchors.right: parent.right
+        anchors.left: parent.left
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 8
+        visible: false
+    }
+
+    RGBPanelProperties
+    {
+        objectName: "RGBPanelProps"
+        id: panelPropsRect
         anchors.right: parent.right
         anchors.left: parent.left
         anchors.bottom: parent.bottom

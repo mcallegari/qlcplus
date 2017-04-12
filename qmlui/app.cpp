@@ -36,6 +36,7 @@
 #include "fixturebrowser.h"
 #include "fixturemanager.h"
 #include "functionmanager.h"
+#include "fixturegroupeditor.h"
 #include "inputoutputmanager.h"
 
 #include "qlcfixturedefcache.h"
@@ -103,6 +104,9 @@ void App::startup()
 
     m_fixtureManager = new FixtureManager(this, m_doc);
     rootContext()->setContextProperty("fixtureManager", m_fixtureManager);
+
+    m_fixtureGroupEditor = new FixtureGroupEditor(this, m_doc);
+    rootContext()->setContextProperty("fixtureGroupEditor", m_fixtureGroupEditor);
 
     m_functionManager = new FunctionManager(this, m_doc);
     rootContext()->setContextProperty("functionManager", m_functionManager);

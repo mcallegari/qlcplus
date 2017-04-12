@@ -109,7 +109,7 @@ Rectangle
                     } // WidgetDragItem
                 } // MouseArea
             } // Item
-        ScrollBar { flickable: widgetListView }
+        CustomScrollBar { flickable: widgetListView }
     } // ListView
 }
 

@@ -53,40 +53,40 @@ var testAlgo;
     {
       algo.squaresAmount = _amount;
       util.initialized = false;
-    }
+    };
     
     algo.getAmount = function()
     {
       return algo.squaresAmount;
-    }
+    };
     
     algo.setFade = function(_fade)
     {
       if (_fade == "Fade In")
-	algo.fadeMode = 1;
+        algo.fadeMode = 1;
       else if (_fade == "Fade Out")
-	algo.fadeMode = 2;
+        algo.fadeMode = 2;
       else
-	algo.fadeMode = 0;
-    }
+        algo.fadeMode = 0;
+    };
 
     algo.getFade = function()
     {
       if (algo.fadeMode == 1)
-	return "Fade In";
+        return "Fade In";
       else if (algo.fadeMode == 2)
-	return "Fade Out";
+        return "Fade Out";
       else
-	return "Don't Fade";
-    }
+        return "Don't Fade";
+    };
     
     algo.setFill = function(_fill)
     {
       if (_fill == "Yes")
-	algo.fillSquares = 1;
+        algo.fillSquares = 1;
       else
-	algo.fillSquares = 0;
-    }
+        algo.fillSquares = 0;
+    };
 
     algo.getFill = function()
     {
@@ -94,114 +94,123 @@ var testAlgo;
         return "Yes";
       else
         return "No";
-    }
+    };
 
     util.initialize = function(size)
     {
       if (size > 0)
-	util.squaresMaxSize = size;
+        util.squaresMaxSize = size;
 
       squares = new Array();
       for (var i = 0; i < algo.squaresAmount; i++)
-	squares[i] = new Square(-1, -1, 0);
+      {
+        squares[i] = new Square(-1, -1, 0);
+      }
 
       util.initialized = true;
-    }
+    };
     
     util.getColor = function(step, rgb)
     {
       if (algo.fadeMode == 0)
-	return rgb;
+      {
+        return rgb;
+      }
       else
       {
-	var r = (rgb >> 16) & 0x00FF;
-	var g = (rgb >> 8) & 0x00FF;
-	var b = rgb & 0x00FF;
-	
-	var stepCount = Math.floor(util.squaresMaxSize / 2);
-	var fadeStep = step;
-	if (algo.fadeMode == 2)
-	  fadeStep = stepCount - step;
+        var r = (rgb >> 16) & 0x00FF;
+        var g = (rgb >> 8) & 0x00FF;
+        var b = rgb & 0x00FF;
+        
+        var stepCount = Math.floor(util.squaresMaxSize / 2);
+        var fadeStep = step;
+        if (algo.fadeMode == 2)
+          fadeStep = stepCount - step;
 
-	var newR = (r / stepCount) * fadeStep;
-	var newG = (g / stepCount) * fadeStep;
-	var newB = (b / stepCount) * fadeStep;
-	var newRGB = (newR << 16) + (newG << 8) + newB;
-	return newRGB;
+        var newR = (r / stepCount) * fadeStep;
+        var newG = (g / stepCount) * fadeStep;
+        var newB = (b / stepCount) * fadeStep;
+        var newRGB = (newR << 16) + (newG << 8) + newB;
+        return newRGB;
       }
-    }
+    };
 
     util.getNextStep = function(width, height, rgb)
     {
-        // create an empty, black map
-      	var map = new Array(height);
-	for (var y = 0; y < height; y++)
-	{
-	  map[y] = new Array();
-	  for (var x = 0; x < width; x++)
-	    map[y][x] = 0;
-	}
-	
-	for (var i = 0; i < algo.squaresAmount; i++)
-	{
-	  var color = util.getColor(squares[i].step, rgb);
-	  //alert("Square " + i + " xCenter: " + squares[i].xCenter + " color: " + color.toString(16));
-	  if (squares[i].xCenter == -1)
-	  {
-	    var seed = Math.floor(Math.random()*100)
-            if (seed > 50) continue;
-	    squares[i].xCenter = Math.floor(Math.random() * width);
-	    squares[i].yCenter = Math.floor(Math.random() * height);
-	    map[squares[i].yCenter][squares[i].xCenter] = color;
-	  }
-	  else
-	  {
-	    var firstY = squares[i].yCenter - squares[i].step;
-	    var side = (squares[i].step * 2) + 1;
-	    for (var sy = firstY; sy <= (firstY + side); sy++)
-	    {
-	      if (sy < 0 || sy >= height) continue;
+      // create an empty, black map
+      var map = new Array(height);
+      
+      for (var y = 0; y < height; y++)
+      {
+        map[y] = new Array();
+        for (var x = 0; x < width; x++)
+        {
+          map[y][x] = 0;
+        }
+      }
 
-	      var firstX = squares[i].xCenter - squares[i].step;
+      for (var i = 0; i < algo.squaresAmount; i++)
+      {
+        var color = util.getColor(squares[i].step, rgb);
+        //alert("Square " + i + " xCenter: " + squares[i].xCenter + " color: " + color.toString(16));
+        if (squares[i].xCenter == -1)
+        {
+          var seed = Math.floor(Math.random()*100);
+          if (seed > 50) continue;
+          squares[i].xCenter = Math.floor(Math.random() * width);
+          squares[i].yCenter = Math.floor(Math.random() * height);
+          map[squares[i].yCenter][squares[i].xCenter] = color;
+        }
+        else
+        {
+          var firstY = squares[i].yCenter - squares[i].step;
+          var side = (squares[i].step * 2) + 1;
+          for (var sy = firstY; sy <= (firstY + side); sy++)
+          {
+            if (sy < 0 || sy >= height) continue;
 
-	      for (var sx = firstX; sx <= firstX + side; sx++)
-	      {
-		if (sx < 0 || sx >= width) continue;
-		if (sy == firstY || sy == firstY + side || algo.fillSquares == 1) 
-		  map[sy][sx] = color;
-		else
-		{
-		  if (sx == firstX || sx == firstX + side)
-		    map[sy][sx] = color;
-		}
-	      }
-	    }
-	  }
+            var firstX = squares[i].xCenter - squares[i].step;
 
-	  squares[i].step++;
-	  if (squares[i].step >= (util.squaresMaxSize / 2))
-	  {
-	    squares[i].xCenter = -1;
-	    squares[i].yCenter = -1;
-	    squares[i].step = 0;
-	  }
-	}
-	
-	return map;
-    }
+            for (var sx = firstX; sx <= firstX + side; sx++)
+            {
+              if (sx < 0 || sx >= width) continue;
+              if (sy == firstY || sy == firstY + side || algo.fillSquares == 1)
+              {
+                map[sy][sx] = color;
+              }
+              else
+              {
+                if (sx == firstX || sx == firstX + side)
+                  map[sy][sx] = color;
+              }
+            }
+          }
+        }
+
+        squares[i].step++;
+        if (squares[i].step >= (util.squaresMaxSize / 2))
+        {
+          squares[i].xCenter = -1;
+          squares[i].yCenter = -1;
+          squares[i].step = 0;
+        }
+      }
+
+      return map;
+    };
 
     algo.rgbMap = function(width, height, rgb, step)
     {
-      	if (util.initialized == false)
-	{
-	  if (height < width)
-	    util.initialize(height);
-	  else
-	    util.initialize(width);
-	}
+      if (util.initialized == false)
+      {
+        if (height < width)
+          util.initialize(height);
+        else
+          util.initialize(width);
+      }
 
-	return util.getNextStep(width, height, rgb);
-    }
+      return util.getNextStep(width, height, rgb);
+    };
 
     algo.rgbMapStepCount = function(width, height)
     {
@@ -209,11 +218,11 @@ var testAlgo;
         return height;
       else
         return width;
-    }
+    };
 
     // Development tool access
     testAlgo = algo;
 
     return algo;
     }
-)()
+)();

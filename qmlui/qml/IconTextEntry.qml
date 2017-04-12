@@ -33,6 +33,8 @@ Rectangle
     property string tLabel
     property int tFontSize: UISettings.textSizeDefault
     property int functionType: -1
+    property string faSource: ""
+    property color faColor: "#222"
 
     onFunctionTypeChanged: iSrc = functionManager.functionIcon(functionType)
 
@@ -43,10 +45,21 @@ Rectangle
 
         Image
         {
+            visible: iSrc ? true : false
             source: iSrc
             height: parent.height - 4
             width: height
             sourceSize: Qt.size(width, height)
+        }
+
+        Text
+        {
+            id: faIcon
+            visible: faSource ? true : false
+            color: faColor
+            font.family: "FontAwesome"
+            font.pixelSize: parent.height - 4
+            text: faSource
         }
 
         RobotoText

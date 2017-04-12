@@ -76,6 +76,7 @@ elementFormDefault="qualified"
         <xs:element name="Type" type="channelTypeEnum"/>
         <xs:element name="ExtraPress" type="qlcBool" minOccurs="0"/>
         <xs:element name="Movement" type="movementType" minOccurs="0"/>
+        <xs:element name="Feedbacks" type="feedbackType" minOccurs="0"/>
     </xs:sequence>
     <xs:attribute name="Number" type="xs:integer" use="required"/>
 </xs:complexType>
@@ -106,4 +107,11 @@ elementFormDefault="qualified"
         </xs:extension>
     </xs:simpleContent>
 </xs:complexType>
+
+
+<xs:complexType name="feedbackType">
+    <xs:attribute name="LowerValue" type="xs:unsignedByte"/>
+    <xs:attribute name="UpperValue" type="xs:unsignedByte"/>
+</xs:complexType>
+
 </xs:schema>

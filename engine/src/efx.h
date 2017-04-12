@@ -158,7 +158,7 @@ public:
 
     /**
      * Get a preview of the current algorithm. Puts 128 points to the
-     * given polygon, 255px wide and 255px high at maximum, that represent
+     * given polygon, 255px wide and 255px high at maximum, that represents
      * roughly the path of the pattern on a flat surface directly in front
      * of a moving (head/mirror) fixture.
      *
@@ -174,21 +174,21 @@ public:
      */
     void previewFixtures(QVector<QPolygonF> &polygons) const;
 
-private:
-
-    void preview(QPolygonF &polygon, Function::Direction direction, int startOffset) const;
-
     /**
      * Calculate a single point with the currently selected algorithm,
      * based on the value of iterator (which is basically a step number).
      *
      * @param direction Forward or Backward (input)
-     * @param startOffset 
+     * @param startOffset
      * @param iterator Step number (input)
      * @param x Used to store the calculated X coordinate (output)
      * @param y Used to store the calculated Y coordinate (output)
      */
     void calculatePoint(Function::Direction direction, int startOffset, float iterator, float* x, float* y) const;
+
+private:
+
+    void preview(QPolygonF &polygon, Function::Direction direction, int startOffset) const;
  
     /**
      * Rotate a point of the pattern by rot degrees and scale the point

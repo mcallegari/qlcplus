@@ -22,11 +22,13 @@
 
 #include <QObject>
 #include <QQuickView>
+#include <QVector3D>
 
 #include "scenevalue.h"
 
 class Doc;
 class MainView2D;
+class MainView3D;
 class MainViewDMX;
 class FixtureManager;
 class FunctionManager;
@@ -39,7 +41,8 @@ class ContextManager : public QObject
 
     Q_PROPERTY(quint32 universeFilter READ universeFilter WRITE setUniverseFilter NOTIFY universeFilterChanged)
     Q_PROPERTY(bool hasSelectedFixtures READ hasSelectedFixtures NOTIFY selectedFixturesChanged)
-    Q_PROPERTY(int fixturesRotation READ fixturesRotation WRITE setFixturesRotation)
+    Q_PROPERTY(QVector3D fixturesPosition READ fixturesPosition WRITE setFixturesPosition)
+    Q_PROPERTY(QVector3D fixturesRotation READ fixturesRotation WRITE setFixturesRotation)
 
 public:
     explicit ContextManager(QQuickView *view, Doc *doc,
@@ -83,6 +86,8 @@ private:
     MainViewDMX *m_DMXView;
     /** Reference to the 2D Preview context */
     MainView2D *m_2DView;
+    /** Reference to the 3D Preview context */
+    MainView3D *m_3DView;
     /** Reference to the Fixture Manager */
     FixtureManager *m_fixtureManager;
     /** Reference to the Function Manager */
@@ -120,14 +125,20 @@ public:
 
     bool hasSelectedFixtures();
 
-    Q_INVOKABLE void setFixturePosition(quint32 fxID, qreal x, qreal y);
+    /** Sets the position of the Fixture with the provided $fxID */
+    Q_INVOKABLE void setFixturePosition(quint32 fxID, qreal x, qreal y, qreal z);
+
+    /** Set/Get the position of the currently selected fixtures */
+    QVector3D fixturesPosition() const;
+    void setFixturesPosition(QVector3D position);
 
     Q_INVOKABLE void setFixturesAlignment(int alignment);
 
     Q_INVOKABLE void createFixtureGroup();
 
-    int fixturesRotation() const;
-    void setFixturesRotation(int degrees);
+    /** Set/Get the rotation of the currently selected fixtures */
+    QVector3D fixturesRotation() const;
+    void setFixturesRotation(QVector3D degrees);
 
 protected slots:
     void slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal z = 0);
@@ -155,7 +166,7 @@ private:
     QList<quint32> m_selectedFixtures;
 
     /** Holds the last rotation value to handle relative changes */
-    int m_prevRotation;
+    QVector3D m_prevRotation;
 
     /** A flag indicating if a Function is currently being edited */
     bool m_editingEnabled;

@@ -66,6 +66,7 @@ Audio::Audio(Doc* doc)
   , m_audioDuration(0)
 {
     setName(tr("New Audio"));
+    setRunOrder(Audio::SingleShot);
 
     // Listen to member Function removals
     connect(doc, SIGNAL(functionRemoved(quint32)),
@@ -275,7 +276,11 @@ bool Audio::saveXML(QXmlStreamWriter *doc)
     /* Speed */
     saveXMLSpeed(doc);
 
+    /* Playback mode */
+    saveXMLRunOrder(doc);
+
     doc->writeStartElement(KXMLQLCAudioSource);
+
     if (m_audioDevice.isEmpty() == false)
         doc->writeAttribute(KXMLQLCAudioDevice, m_audioDevice);
 
@@ -325,6 +330,10 @@ bool Audio::loadXML(QXmlStreamReader &root)
         {
             loadXMLSpeed(root);
         }
+        else if (root.name() == KXMLQLCFunctionRunOrder)
+        {
+            loadXMLRunOrder(root);
+        }
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown Audio tag:" << root.name();
@@ -367,6 +376,7 @@ void Audio::preRun(MasterTimer* timer)
         m_audio_out->initialize(ap.sampleRate(), ap.channels(), ap.format());
         m_audio_out->adjustIntensity(getAttributeValue(Intensity));
         m_audio_out->setFadeIn(fadeInSpeed());
+        m_audio_out->setLooped(runOrder() == Audio::Loop);
         m_audio_out->start();
         connect(m_audio_out, SIGNAL(endOfStreamReached()),
                 this, SLOT(slotEndOfStream()));

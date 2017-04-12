@@ -175,9 +175,9 @@ void InputSelectionWidget::slotChooseInputClicked()
     SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
-        m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(sic.universe(), sic.channel()));
+        m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(sic.universe(), (m_widgetPage << 16) | sic.channel()));
         updateInputSource();
-        emit inputValueChanged(sic.universe(), sic.channel());
+        emit inputValueChanged(sic.universe(), (m_widgetPage << 16) | sic.channel());
     }
 }
 

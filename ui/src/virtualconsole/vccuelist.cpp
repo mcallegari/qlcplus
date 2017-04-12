@@ -22,6 +22,7 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <QTreeWidgetItem>
+#include <QFontMetrics>
 #include <QProgressBar>
 #include <QTreeWidget>
 #include <QHeaderView>
@@ -45,6 +46,7 @@
 #include "vccuelist.h"
 #include "qlcmacros.h"
 #include "function.h"
+#include "vcwidget.h"
 #include "qlcfile.h"
 #include "apputil.h"
 #include "chaser.h"
@@ -105,15 +107,18 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     grid->setSpacing(2);
 
     m_blendCheck = new QCheckBox(tr("Blend"));
-    grid->addWidget(m_blendCheck, 0, 0, 1, 2, Qt::AlignVCenter | Qt::AlignCenter);
+    grid->addWidget(m_blendCheck, 0, 0, 1, 2, Qt::AlignVCenter | Qt::AlignLeft);
     connect(m_blendCheck, SIGNAL(clicked(bool)),
             this, SLOT(slotBlendedCrossfadeChecked(bool)));
 
     m_linkCheck = new QCheckBox(tr("Link"));
-    grid->addWidget(m_linkCheck, 1, 0, 1, 2, Qt::AlignVCenter | Qt::AlignCenter);
+    grid->addWidget(m_linkCheck, 1, 0, 1, 2, Qt::AlignVCenter | Qt::AlignLeft);
 
+    QFontMetrics m_fm = QFontMetrics(this->font());
+    
     m_sl1TopLabel = new QLabel("100%");
     m_sl1TopLabel->setAlignment(Qt::AlignHCenter);
+    m_sl1TopLabel->setFixedWidth(m_fm.width("100%"));
     grid->addWidget(m_sl1TopLabel, 2, 0, 1, 1);
     m_slider1 = new ClickAndGoSlider();
     m_slider1->setSliderStyleSheet(CNG_DEFAULT_STYLE);
@@ -131,6 +136,7 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
 
     m_sl2TopLabel = new QLabel("0%");
     m_sl2TopLabel->setAlignment(Qt::AlignHCenter);
+    m_sl2TopLabel->setFixedWidth(m_fm.width("100%"));
     grid->addWidget(m_sl2TopLabel, 2, 1, 1, 1);
     m_slider2 = new ClickAndGoSlider();
     m_slider2->setSliderStyleSheet(CNG_DEFAULT_STYLE);
@@ -332,6 +338,9 @@ bool VCCueList::copyFrom(const VCWidget* widget)
     setPreviousKeySequence(cuelist->previousKeySequence());
     setPlaybackKeySequence(cuelist->playbackKeySequence());
     setStopKeySequence(cuelist->stopKeySequence());
+
+    /* Sliders mode */
+    setSlidersMode(cuelist->slidersMode());
 
     /* Common stuff */
     return VCWidget::copyFrom(widget);
@@ -1159,6 +1168,7 @@ void VCCueList::slotSlider2ValueChanged(int value)
         qWarning() << "[VCCueList] ERROR ! Slider2 value change should never happen !";
         return;
     }
+
     m_sl2TopLabel->setText(QString("%1%").arg(value));
 
     Chaser* ch = chaser();
@@ -1245,7 +1255,7 @@ QKeySequence VCCueList::stopKeySequence() const
 
 void VCCueList::slotKeyPressed(const QKeySequence& keySequence)
 {
-    if (isEnabled() == false)
+    if (acceptsInput() == false)
         return;
 
     if (m_nextKeySequence == keySequence)
@@ -1278,7 +1288,8 @@ void VCCueList::updateFeedback()
 
 void VCCueList::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
 {
-    if (mode() == Doc::Design || isEnabled() == false)
+    /* Don't let input data through in design mode or if disabled */
+    if (acceptsInput() == false)
         return;
 
     quint32 pagedCh = (page() << 16) | channel;
@@ -1406,6 +1417,15 @@ void VCCueList::setCaption(const QString& text)
     QStringList list;
     list << "#" << text << tr("Fade In") << tr("Fade Out") << tr("Duration") << tr("Notes");
     m_tree->setHeaderLabels(list);
+}
+
+void VCCueList::setFont(const QFont& font)
+{
+    VCWidget::setFont(font);
+
+    QFontMetrics m_fm = QFontMetrics(font);
+    m_sl1TopLabel->setFixedWidth(m_fm.width("100%"));
+    m_sl2TopLabel->setFixedWidth(m_fm.width("100%"));
 }
 
 void VCCueList::slotModeChanged(Doc::Mode mode)
@@ -1582,6 +1602,7 @@ bool VCCueList::loadXML(QXmlStreamReader &root)
             if (attrs.hasAttribute(KXMLQLCVCCueListLinked))
                 m_linkCheck->setChecked(true);
             m_crossfadeButton->setChecked(true);
+            root.skipCurrentElement();
         }
         else if (root.name() == KXMLQLCVCCueListFunction)
         {

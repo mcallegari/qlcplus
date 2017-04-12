@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.6 GIT</Version>
+  <Author>Robert Box</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>5P Hex</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">0% - 100%</Capability>
+ </Channel>
+ <Channel Name="Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">0% - 100%</Capability>
+ </Channel>
+ <Channel Name="Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">0% - 100%</Capability>
+ </Channel>
+ <Channel Name="White">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">0% - 100%</Capability>
+ </Channel>
+ <Channel Name="Amber">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Amber</Colour>
+  <Capability Min="0" Max="255">0% - 100%</Capability>
+ </Channel>
+ <Channel Name="UV">
+  <Group Byte="0">Intensity</Group>
+  <Colour>UV</Colour>
+  <Capability Min="0" Max="255">0% - 100%</Capability>
+ </Channel>
+ <Channel Name="Master Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">0% - 100%</Capability>
+ </Channel>
+ <Channel Name="Strobing">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="31">No strobe</Capability>
+  <Capability Min="32" Max="95">Slow - fast</Capability>
+  <Capability Min="96" Max="127">LED on</Capability>
+  <Capability Min="128" Max="159">Pulse slow - fast</Capability>
+  <Capability Min="160" Max="191">LED on</Capability>
+  <Capability Min="192" Max="223">Random slow - fast</Capability>
+  <Capability Min="224" Max="255">LED on</Capability>
+ </Channel>
+ <Channel Name="Color Macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="3" Color="#000000">Off</Capability>
+  <Capability Min="4" Max="7" Color="#ff0000">Red</Capability>
+  <Capability Min="8" Max="11" Color="#00ff00">Green</Capability>
+  <Capability Min="12" Max="15" Color="#0000ff">Blue</Capability>
+  <Capability Min="16" Max="19" Color="#ffffff">White</Capability>
+  <Capability Min="20" Max="23" Color="#ffbf00">Amber</Capability>
+  <Capability Min="24" Max="27" Color="#7200ff">UV</Capability>
+  <Capability Min="28" Max="31" Color="#ffff00">R+G</Capability>
+  <Capability Min="32" Max="35" Color="#ff00ff">R+B</Capability>
+  <Capability Min="36" Max="39" Color="#ff8080">R+W</Capability>
+  <Capability Min="40" Max="43" Color="#ff6000">R+A</Capability>
+  <Capability Min="44" Max="47" Color="#ff009a">R+UV</Capability>
+  <Capability Min="48" Max="51" Color="#00ffff">G+B</Capability>
+  <Capability Min="52" Max="55" Color="#80ff80">G+W</Capability>
+  <Capability Min="56" Max="59" Color="#92ff00">G+A</Capability>
+  <Capability Min="60" Max="63" Color="#5effd4">G+UV</Capability>
+  <Capability Min="64" Max="67" Color="#8080ff">B+W</Capability>
+  <Capability Min="68" Max="71" Color="#ffbfff">B+A</Capability>
+  <Capability Min="72" Max="75" Color="#3400ff">B+UV</Capability>
+  <Capability Min="76" Max="79" Color="#ffdf80">W+A</Capability>
+  <Capability Min="80" Max="83" Color="#bf8bff">W+UV</Capability>
+  <Capability Min="84" Max="87" Color="#ff8c9a">A+UV</Capability>
+  <Capability Min="88" Max="91" Color="#ffffff">R+G+B</Capability>
+  <Capability Min="92" Max="95" Color="#ffff80">R+G+W</Capability>
+  <Capability Min="96" Max="99" Color="#ffdf00">R+G+A</Capability>
+  <Capability Min="100" Max="103" Color="#ffba9a">R+G+UV</Capability>
+  <Capability Min="104" Max="107" Color="#ff80ff">R+B+W</Capability>
+  <Capability Min="108" Max="111" Color="#ff6080">R+B+A</Capability>
+  <Capability Min="112" Max="115" Color="#bf00ff">R+B+UV</Capability>
+  <Capability Min="116" Max="119" Color="#ff9555">R+W+A</Capability>
+  <Capability Min="120" Max="123" Color="#ff6cc5">R+W+UV</Capability>
+  <Capability Min="124" Max="127" Color="#ff5159">R+A+UV</Capability>
+  <Capability Min="128" Max="131" Color="#80ffff">G+B+W</Capability>
+  <Capability Min="132" Max="135" Color="#92ff92">G+B+A</Capability>
+  <Capability Min="136" Max="139" Color="#348bff">G+B+UV</Capability>
+  <Capability Min="140" Max="143" Color="#b9ff5d">G+W+A</Capability>
+  <Capability Min="144" Max="147" Color="#afffe9">G+W+UV</Capability>
+  <Capability Min="148" Max="151" Color="#c8ff79">G+A+UV</Capability>
+  <Capability Min="152" Max="155" Color="#ffdfff">B+W+A</Capability>
+  <Capability Min="156" Max="159" Color="#7b5aff">B+W+UV</Capability>
+  <Capability Min="160" Max="163" Color="#bf69ff">B+A+UV</Capability>
+  <Capability Min="164" Max="167" Color="#ffbcc5">W+A+UV</Capability>
+  <Capability Min="168" Max="171" Color="#ffffff">R+G+B+W</Capability>
+  <Capability Min="172" Max="175" Color="#ffdf80">R+B+G+A</Capability>
+  <Capability Min="176" Max="179" Color="#bf8bff">R+G+B+UV</Capability>
+  <Capability Min="180" Max="183" Color="#ffea55">R+G+W+A</Capability>
+  <Capability Min="184" Max="187" Color="#ffd7c5">R+G+W+UV</Capability>
+  <Capability Min="188" Max="191" Color="#ffbc59">R+G+A+UV</Capability>
+  <Capability Min="192" Max="195" Color="#ff95aa">R+B+W+A</Capability>
+  <Capability Min="196" Max="199" Color="#d65aff">R+B+W+UV</Capability>
+  <Capability Min="200" Max="203" Color="#ff51c5">R+B+A+UV</Capability>
+  <Capability Min="204" Max="207" Color="#ff848a">R+W+A+UV</Capability>
+  <Capability Min="208" Max="211" Color="#b9ffb9">G+B+W+A</Capability>
+  <Capability Min="212" Max="215" Color="#7bb4ff">G+B+W+UV</Capability>
+  <Capability Min="216" Max="219" Color="#bff4ff">G+B+A+UV</Capability>
+  <Capability Min="220" Max="223" Color="#dcffaa">G+W+A+UV</Capability>
+  <Capability Min="224" Max="227" Color="#d69eff">B+W+A+UV</Capability>
+  <Capability Min="228" Max="231" Color="#ffeaaa">R+G+B+W+A</Capability>
+  <Capability Min="232" Max="235" Color="#d6b4ff">R+G+B+W+UV</Capability>
+  <Capability Min="236" Max="239" Color="#ffbcc5">R+G+B+A+UV</Capability>
+  <Capability Min="240" Max="243" Color="#ffd08a">R+G+W+A+UV</Capability>
+  <Capability Min="244" Max="247" Color="#ff89d6">R+B+W+A+UV</Capability>
+  <Capability Min="248" Max="251" Color="#d6f8ff">G+B+W+A+UV</Capability>
+  <Capability Min="252" Max="255" Color="#ffd0d6">R+G+B+W+A+UV</Capability>
+ </Channel>
+ <Channel Name="Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="20">No program</Capability>
+  <Capability Min="21" Max="40">30 color change</Capability>
+  <Capability Min="41" Max="60">6 color change</Capability>
+  <Capability Min="61" Max="80">Color fade</Capability>
+  <Capability Min="81" Max="100">Sound active 30 color change</Capability>
+  <Capability Min="101" Max="120">Sound active 6 color change</Capability>
+  <Capability Min="121" Max="140">Sound active 6 color fade</Capability>
+  <Capability Min="141" Max="255">No program</Capability>
+ </Channel>
+ <Channel Name="Program Speed/Sound Sensitive">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Slow - fast/Least - most sensitive</Capability>
+ </Channel>
+ <Channel Name="Dimmer Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="20">Standard</Capability>
+  <Capability Min="21" Max="40">Stage</Capability>
+  <Capability Min="41" Max="60">TV</Capability>
+  <Capability Min="61" Max="80">Architectural</Capability>
+  <Capability Min="81" Max="100">Theatre</Capability>
+  <Capability Min="101" Max="255">Default setting</Capability>
+ </Channel>
+ <Mode Name="6 Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="1184" ColourTemperature="0"/>
+   <Dimensions Weight="2.02" Width="213" Height="120" Depth="224"/>
+   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="60" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">UV</Channel>
+ </Mode>
+ <Mode Name="7 Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="1184" ColourTemperature="0"/>
+   <Dimensions Weight="2.02" Width="213" Height="120" Depth="224"/>
+   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="60" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">UV</Channel>
+  <Channel Number="6">Master Dimmer</Channel>
+ </Mode>
+ <Mode Name="8 Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="1184" ColourTemperature="0"/>
+   <Dimensions Weight="2.02" Width="213" Height="120" Depth="224"/>
+   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="60" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">UV</Channel>
+  <Channel Number="6">Master Dimmer</Channel>
+  <Channel Number="7">Strobing</Channel>
+ </Mode>
+ <Mode Name="12 Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="1184" ColourTemperature="0"/>
+   <Dimensions Weight="2.02" Width="213" Height="120" Depth="224"/>
+   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="60" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">UV</Channel>
+  <Channel Number="6">Master Dimmer</Channel>
+  <Channel Number="7">Strobing</Channel>
+  <Channel Number="8">Color Macro</Channel>
+  <Channel Number="9">Programs</Channel>
+  <Channel Number="10">Program Speed/Sound Sensitive</Channel>
+  <Channel Number="11">Dimmer Mode</Channel>
+ </Mode>
+</FixtureDefinition>

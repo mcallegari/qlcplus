@@ -37,12 +37,6 @@ class QXmlStreamWriter;
 #define KXMLQLCVCSpeedDialPresetName     "Name"
 #define KXMLQLCVCSpeedDialPresetValue    "Value"
 
-#define KXMLQLCVCSpeedDialPresetInput         "Input"
-#define KXMLQLCVCSpeedDialPresetInputUniverse "Universe"
-#define KXMLQLCVCSpeedDialPresetInputChannel  "Channel"
-
-#define KXMLQLCVCSpeedDialPresetKey "Key"
-
 class VCSpeedDialPreset
 {
 public:

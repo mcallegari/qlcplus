@@ -64,6 +64,10 @@
 #   include "hotplugmonitor.h"
 #endif
 
+#if defined(__APPLE__) || defined(Q_OS_MAC)
+extern void qt_set_sequence_auto_mnemonic(bool b);
+#endif
+
 //#define DEBUG_SPEED
 
 #ifdef DEBUG_SPEED
@@ -209,6 +213,10 @@ void App::init()
     m_tab->setTabPosition(QTabWidget::South);
     setCentralWidget(m_tab);
 
+#if defined(__APPLE__) || defined(Q_OS_MAC)
+    qt_set_sequence_auto_mnemonic(true);
+#endif
+    
     QLCFile::checkRaspberry();
 
     QVariant var = settings.value(SETTINGS_GEOMETRY);

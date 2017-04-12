@@ -38,12 +38,13 @@ function setCueIndex(id, idx) {
  var oldIdx = cueListsIndices[id];
  if (oldIdx != undefined && oldIdx != -1) {
    var oldCueObj = document.getElementById(id + "_" + oldIdx);
-   oldCueObj.style.backgroundColor='#FFFFFF';
+   oldCueObj.style.backgroundColor="#FFFFFF";
  }
  cueListsIndices[id] = idx;
  var currCueObj = document.getElementById(id + "_" + idx);
- if (idx != "-1")
-   currCueObj.style.backgroundColor='#5E7FDF';
+ if (idx != "-1") {
+   currCueObj.style.backgroundColor="#5E7FDF";
+ }
 }
 
 function sendCueCmd(id, cmd) {
@@ -62,11 +63,13 @@ function sendCueCmd(id, cmd) {
 
 function checkMouseOut(id, idx) {
  var obj = document.getElementById(id + "_" + idx);
- if(idx == cueListsIndices[id])
-   obj.style.backgroundColor='#5E7FDF';
- else
-   obj.style.backgroundColor='#FFFFFF';
+ if(idx == cueListsIndices[id]) {
+   obj.style.backgroundColor="#5E7FDF";
  }
+ else {
+   obj.style.backgroundColor="#FFFFFF";
+ }
+}
 
 function enableCue(id, idx) {
  var btnObj = document.getElementById("play" + id);
@@ -96,18 +99,24 @@ function frameToggleCollapse(id) {
   if (frameObj.clientWidth == origWidth)
   {
     frameObj.style.width = "200px";
-    if (mpHeader) mpHeader.style.visibility = 'hidden';
+    if (mpHeader) {
+      mpHeader.style.visibility = "hidden";
+    }
   }
   else
   {
     frameObj.style.width = origWidth + "px";
-    if (mpHeader) mpHeader.style.visibility = 'visible';
+    if (mpHeader) {
+      mpHeader.style.visibility = "visible";
+    }
   }
 
-  if (frameObj.clientHeight == origHeight)
+  if (frameObj.clientHeight == origHeight) {
     frameObj.style.height = "36px";
-  else
+  }
+  else {
     frameObj.style.height = origHeight + "px";
+  }
 }
 
 function frameNextPage(id) {
@@ -115,10 +124,10 @@ function frameNextPage(id) {
  var pagesNum = framesTotalPages[id];
  if (currPage + 1 < pagesNum) {
   var framePageObj = document.getElementById("fp" + id + "_" + currPage);
-  framePageObj.style.visibility = 'hidden';
+  framePageObj.style.visibility = "hidden";
   framesCurrentPage[id]++;
   var frameNextPageObj = document.getElementById("fp" + id + "_" + framesCurrentPage[id]);
-  frameNextPageObj.style.visibility = 'visible';
+  frameNextPageObj.style.visibility = "visible";
   updateFrameLabel(id);
   websocket.send(id + "|NEXT_PG");
  }
@@ -128,10 +137,10 @@ function framePreviousPage(id) {
  var currPage = framesCurrentPage[id];
  if (currPage - 1 >= 0) {
   var framePageObj = document.getElementById("fp" + id + "_" + currPage);
-  framePageObj.style.visibility = 'hidden';
+  framePageObj.style.visibility = "hidden";
   framesCurrentPage[id]--;
   var framePrevPageObj = document.getElementById("fp" + id + "_" + framesCurrentPage[id]);
-  framePrevPageObj.style.visibility = 'visible';
+  framePrevPageObj.style.visibility = "visible";
   updateFrameLabel(id);
   websocket.send(id + "|PREV_PG");
  }
@@ -141,10 +150,10 @@ function setFramePage(id, page) {
  var iPage = parseInt(page);
  if (framesCurrentPage[id] == iPage || iPage >= framesTotalPages[id]) return;
  var framePageObj = document.getElementById("fp" + id + "_" + framesCurrentPage[id]);
- framePageObj.style.visibility = 'hidden';
+ framePageObj.style.visibility = "hidden";
  framesCurrentPage[id] = iPage;
  var frameNewPageObj = document.getElementById("fp" + id + "_" + framesCurrentPage[id]);
- frameNewPageObj.style.visibility = 'visible';
+ frameNewPageObj.style.visibility = "visible";
  updateFrameLabel(id);
 }
 

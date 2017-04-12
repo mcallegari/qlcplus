@@ -372,11 +372,11 @@ void EditChannel::slotEditCapabilityClicked()
 
 void EditChannel::slotWizardClicked()
 {
-    bool overlap = false;
-
     CapabilityWizard cw(this, m_channel);
+
     if (cw.exec() == QDialog::Accepted)
     {
+        bool overlap = false;
         QListIterator <QLCCapability*> it(cw.capabilities());
         while (it.hasNext() == true)
         {
@@ -511,8 +511,6 @@ void EditChannel::refreshCapabilities()
     m_channel->sortCapabilities();
 
     QListIterator <QLCCapability*> it(m_channel->capabilities());
-    QLCCapability* cap = NULL;
-    QTreeWidgetItem* item = NULL;
     QString str;
 
     m_capabilityList->clear();
@@ -522,9 +520,8 @@ void EditChannel::refreshCapabilities()
     /* Fill capabilities */
     while (it.hasNext() == true)
     {
-        cap = it.next();
-
-        item = new QTreeWidgetItem(m_capabilityList);
+        QLCCapability *cap = it.next();
+        QTreeWidgetItem *item = new QTreeWidgetItem(m_capabilityList);
 
         // Min
         str.sprintf("%.3d", cap->min());

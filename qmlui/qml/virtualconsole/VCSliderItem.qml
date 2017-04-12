@@ -36,6 +36,26 @@ VCWidgetItem
         setCommonProperties(sliderObj)
     }
 
+    Gradient
+    {
+        id: submasterHandleGradient
+        GradientStop { position: 0; color: "#4c4c4c" }
+        GradientStop { position: 0.45; color: "#2c2c2c" }
+        GradientStop { position: 0.50; color: "#000" }
+        GradientStop { position: 0.55; color: "#111111" }
+        GradientStop { position: 1.0; color: "#131313" }
+    }
+
+    Gradient
+    {
+        id: submasterHandleGradientHover
+        GradientStop { position: 0; color: "#6c6c6c" }
+        GradientStop { position: 0.45; color: "#4c4c4c" }
+        GradientStop { position: 0.50; color: "#ffff00" }
+        GradientStop { position: 0.55; color: "#313131" }
+        GradientStop { position: 1.0; color: "#333333" }
+    }
+
     ColumnLayout
     {
         anchors.fill: parent
@@ -48,7 +68,7 @@ VCWidgetItem
             height: UISettings.listItemHeight
             font: sliderObj ? sliderObj.font : ""
             text: sliderObj ? (sliderObj.valueDisplayStyle === VCSlider.DMXValue ?
-                               slFader.value : parseInt((slFader.value * 100) / 255) + "%") : slFader.value
+                               sliderValue : parseInt((sliderValue * 100) / 255) + "%") : sliderValue
             color: sliderObj ? sliderObj.foregroundColor : "white"
         }
 
@@ -56,11 +76,18 @@ VCWidgetItem
         QLCPlusFader
         {
             id: slFader
+            visible: sliderObj ? sliderObj.widgetStyle === VCSlider.WSlider : false
             anchors.horizontalCenter: parent.horizontalCenter
             Layout.fillHeight: true
             width: parent.width
             rotation: sliderObj ? (sliderObj.invertedAppearance ? 180 : 0) : 0
+            from: sliderObj ? (sliderObj.sliderMode === VCSlider.Level ? sliderObj.levelLowLimit : 0) : 0
+            to: sliderObj ? (sliderObj.sliderMode === VCSlider.Level ? sliderObj.levelHighLimit : 255) : 255
             value: sliderValue
+            handleGradient: sliderObj ? (sliderObj.sliderMode === VCSlider.Submaster ? submasterHandleGradient : defaultGradient) : defaultGradient
+            handleGradientHover: sliderObj ? (sliderObj.sliderMode === VCSlider.Submaster ? submasterHandleGradientHover : defaultGradientHover) : defaultGradientHover
+            trackColor: sliderObj ? (sliderObj.sliderMode === VCSlider.Submaster ? "#77DD73" : defaultTrackColor) : defaultTrackColor
+
             onTouchPressedChanged:
             {
                 console.log("Slider touch pressed: " + touchPressed)
@@ -68,7 +95,19 @@ VCWidgetItem
                 // the page Flickable interactivity during this operation
                 virtualConsole.setPageInteraction(!touchPressed)
             }
-            onValueChanged: if (sliderObj) sliderObj.value = value
+            onPositionChanged: if (sliderObj) sliderObj.value = valueAt(position)
+        }
+
+        QLCPlusKnob
+        {
+            id: slKnob
+            visible: sliderObj ? sliderObj.widgetStyle === VCSlider.WKnob : false
+            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.fillHeight: true
+            //width: parent.width
+            value: sliderValue
+
+            onPositionChanged: if (sliderObj) sliderObj.value = position * 255
         }
 
         // widget name text box

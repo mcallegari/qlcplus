@@ -18,8 +18,7 @@
 */
 
 import QtQuick 2.0
-import QtQuick.Controls 1.0
-import QtQuick.Controls.Styles 1.0
+import QtQuick.Controls 2.0
 
 import "."
 
@@ -29,31 +28,35 @@ Slider
     width: 32
     height: 100
     orientation: Qt.Vertical
-    minimumValue: 0
-    maximumValue: 255
+    from: 0
+    to: 255
     stepSize: 1.0
 
     property bool touchPressed: false
+    property Gradient handleGradient: defaultGradient
+    property Gradient handleGradientHover: defaultGradientHover
+    property color trackColor: defaultTrackColor
 
-    Gradient
-    {
-        id: handleGradient
-        GradientStop { position: 0; color: "#ccc" }
-        GradientStop { position: 0.45; color: "#555" }
-        GradientStop { position: 0.50; color: "#000" }
-        GradientStop { position: 0.55; color: "#555" }
-        GradientStop { position: 1.0; color: "#888" }
-    }
+    property color defaultTrackColor: "#38b0ff"
+    property Gradient defaultGradient:
+        Gradient
+        {
+            GradientStop { position: 0; color: "#ccc" }
+            GradientStop { position: 0.45; color: "#555" }
+            GradientStop { position: 0.50; color: "#000" }
+            GradientStop { position: 0.55; color: "#555" }
+            GradientStop { position: 1.0; color: "#888" }
+        }
 
-    Gradient
-    {
-        id: handleGradientHover
-        GradientStop { position: 0; color: "#eee" }
-        GradientStop { position: 0.45; color: "#999" }
-        GradientStop { position: 0.50; color: "red" }
-        GradientStop { position: 0.55; color: "#999" }
-        GradientStop { position: 1.0; color: "#ccc" }
-    }
+    property Gradient defaultGradientHover:
+        Gradient
+        {
+            GradientStop { position: 0; color: "#eee" }
+            GradientStop { position: 0.45; color: "#999" }
+            GradientStop { position: 0.50; color: "red" }
+            GradientStop { position: 0.55; color: "#999" }
+            GradientStop { position: 1.0; color: "#ccc" }
+        }
 
     MultiPointTouchArea
     {
@@ -68,32 +71,38 @@ Slider
         {
             //console.log("Touch updated: " + touchPoints[0].y)
             if (touchPoints[0] && touchPoints[0].y >= 0 && touchPoints[0].y < slider.height)
-                slider.value = slider.maximumValue - ((touchPoints[0].y * slider.maximumValue) / slider.height)
+                slider.value = slider.to - ((touchPoints[0].y * slider.to) / slider.height)
         }
     }
 
-    style: SliderStyle
-        {
-        //groove: Rectangle { color: "transparent" }
-        handle:
-            Rectangle
-            {
-                anchors.centerIn: parent
-                color: "transparent"
-                implicitWidth: Math.min(slider.width, UISettings.iconSizeDefault * 0.75)
-                implicitHeight: Math.min(UISettings.iconSizeDefault, slider.width)
+    background: Rectangle {
+        y: slider.leftPadding
+        x: slider.topPadding + slider.availableWidth / 2 - width / 2
+        implicitWidth: 5
+        implicitHeight: slider.height
+        width: implicitWidth
+        height: slider.availableHeight
+        radius: 2
+        color: trackColor
 
-                Rectangle
-                {
-                    anchors.centerIn: parent
-                    width: parent.height
-                    height: Math.min(parent.width, UISettings.iconSizeDefault * 0.75)
-                    rotation: 90
-                    gradient: control.pressed ? handleGradientHover : handleGradient
-                    border.color: "#5c5c5c"
-                    border.width: 1
-                    radius: 4
-                }
-            }
+        Rectangle {
+            width: parent.width
+            height: slider.visualPosition * parent.height
+            color: "#bdbebf"
+            radius: 2
+        }
+    }
+
+    handle:
+        Rectangle
+        {
+            y: slider.leftPadding + slider.visualPosition * (slider.availableHeight - height)
+            x: slider.topPadding + slider.availableWidth / 2 - width / 2
+            implicitHeight: Math.min(slider.width, UISettings.iconSizeDefault * 0.75)
+            implicitWidth: Math.min(UISettings.iconSizeDefault, slider.width)
+            gradient: pressed ? handleGradientHover : handleGradient
+            border.color: "#5c5c5c"
+            border.width: 1
+            radius: 4
         }
 }

@@ -391,6 +391,43 @@ void FixtureGroup_Test::assignFixture4x2()
     QCOMPARE(grp.size(), QSize(4, 2));
 }
 
+void FixtureGroup_Test::assignFixtureAtPoint()
+{
+    FixtureGroup grp(m_doc);
+    grp.setSize(QSize(4, 2));
+    QCOMPARE(grp.headList().size(), 0);
+
+    for (int i = 0; i < 2; i++)
+    {
+        QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("American DJ", "Dotz Bar 1.4");
+        QVERIFY(def != NULL);
+        QLCFixtureMode* mode = def->modes().last();
+        QVERIFY(mode != NULL);
+
+        Fixture* fxi = new Fixture(m_doc);
+        fxi->setFixtureDefinition(def, mode);
+        fxi->setAddress(m_currentAddr);
+        m_currentAddr += fxi->channels();
+        m_doc->addFixture(fxi);
+    }
+
+    grp.assignFixture(0, QLCPoint(0, 0));
+    grp.assignFixture(1, QLCPoint(0, 1));
+
+    QCOMPARE(grp.headList().size(), 8);
+    QCOMPARE(grp.size(), QSize(4, 2));
+
+    QVERIFY(grp.head(QLCPoint(0, 0)) == GroupHead(0, 0));
+    QVERIFY(grp.head(QLCPoint(1, 0)) == GroupHead(0, 1));
+    QVERIFY(grp.head(QLCPoint(2, 0)) == GroupHead(0, 2));
+    QVERIFY(grp.head(QLCPoint(3, 0)) == GroupHead(0, 3));
+
+    QVERIFY(grp.head(QLCPoint(0, 1)) == GroupHead(1, 0));
+    QVERIFY(grp.head(QLCPoint(1, 1)) == GroupHead(1, 1));
+    QVERIFY(grp.head(QLCPoint(2, 1)) == GroupHead(1, 2));
+    QVERIFY(grp.head(QLCPoint(3, 1)) == GroupHead(1, 3));
+}
+
 void FixtureGroup_Test::resignFixture()
 {
     FixtureGroup grp(m_doc);

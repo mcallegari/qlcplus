@@ -99,7 +99,6 @@
  </Channel>
  <Channel Name="Prism/Gobo Macros">
   <Group Byte="0">Prism</Group>
-  <Colour>Lime</Colour>
   <Capability Min="0" Max="31">Open</Capability>
   <Capability Min="32" Max="79">5 Facet Prism </Capability>
   <Capability Min="80" Max="127">8 Facet Prism </Capability>

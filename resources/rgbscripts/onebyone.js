@@ -32,31 +32,31 @@ var testAlgo;
 
     algo.rgbMap = function(width, height, rgb, step)
     {
-	var map = new Array(height);
-	for (var y = 0; y < height; y++)
-	{
-	    map[y] = new Array();
-	    for (var x = 0; x < width; x++)
-	    {
+        var map = new Array(height);
+        for (var y = 0; y < height; y++)
+        {
+            map[y] = new Array();
+            for (var x = 0; x < width; x++)
+            {
                 map[y][x] = 0;
-	    }
-	}
+            }
+        }
 
-        var x = step % width;
-        var y = (step - x) / width;
-        map[y][x] = rgb
+        var xx = step % width;
+        var yy = (step - xx) / width;
+        map[yy][xx] = rgb;
 
-	return map;
-    }
+        return map;
+    };
 
     algo.rgbMapStepCount = function(width, height)
     {
         return width * height;
-    }
+    };
 
     // Development tool access
     testAlgo = algo;
 
     return algo;
     }
-)()
+)();

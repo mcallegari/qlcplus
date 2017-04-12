@@ -24,7 +24,7 @@ import "."
 
 Rectangle
 {
-    id: baseIconEntry
+    id: baseMenuEntry
     width: parent ? (parent.width > itemWidth) ? parent.width : itemWidth : 400
     height: imgSize + 4
 
@@ -33,7 +33,7 @@ Rectangle
     property string entryText: ""
     property color bgColor: "transparent"
     property color hoverColor: UISettings.highlight
-    property color pressedColor: "#054A9E"
+    property color pressColor: UISettings.highlightPressed
     property int itemWidth: imgSize + (textBox ? textBox.width : 100) + 15
 
     signal clicked
@@ -43,6 +43,36 @@ Rectangle
     color: "transparent"
     border.color: "#1D1D1D"
     border.width: 1
+
+    states: [
+        State
+        {
+            when: checked
+            PropertyChanges
+            {
+                target: baseMenuEntry
+                color: checkedColor
+            }
+        },
+        State
+        {
+            when: mouseArea1.pressed
+            PropertyChanges
+            {
+                target: baseMenuEntry
+                color: pressColor
+            }
+        },
+        State
+        {
+            when: mouseArea1.containsMouse
+            PropertyChanges
+            {
+                target: baseMenuEntry
+                color: hoverColor
+            }
+        }
+    ]
 
     Image
     {
@@ -61,7 +91,7 @@ Rectangle
         x: btnIcon.width + 7
         y: 0
         label: entryText
-        height: baseIconEntry.height
+        height: baseMenuEntry.height
         fontSize: UISettings.textSizeDefault
         fontBold: true
     }
@@ -71,9 +101,8 @@ Rectangle
         id: mouseArea1
         anchors.fill: parent
         hoverEnabled: true
-        onEntered: { baseIconEntry.color = hoverColor; baseIconEntry.entered() }
-        onExited: { baseIconEntry.color = bgColor; baseIconEntry.exited() }
-        onPressed: { baseIconEntry.color = pressedColor }
-        onReleased: baseIconEntry.clicked()
+        onEntered: baseMenuEntry.entered()
+        onExited: baseMenuEntry.exited()
+        onReleased: baseMenuEntry.clicked()
     }
 }

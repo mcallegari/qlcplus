@@ -148,7 +148,7 @@ Rectangle
 
                 RobotoText
                 {
-                    label: qsTr("Fixture Group");
+                    label: qsTr("Fixture Group")
                     height: editorColumn.itemsHeight
                     onWidthChanged:
                     {
@@ -160,7 +160,7 @@ Rectangle
                 {
                     Layout.fillWidth: true
                     height: editorColumn.itemsHeight
-                    model: fixtureManager.groupsListModel
+                    model: fixtureGroupEditor.groupsListModel
                     currentValue: rgbMatrixEditor.fixtureGroup
                     onValueChanged: rgbMatrixEditor.fixtureGroup = value
                 }
@@ -547,7 +547,7 @@ Rectangle
             }
         } // Column
     } // Flickable
-    ScrollBar { id: sbar; flickable: editorFlickable }
+    CustomScrollBar { id: sbar; flickable: editorFlickable }
 
     /* *************************************************************
      * Here starts all the Algorithm-specific Component definitions,
@@ -674,8 +674,8 @@ Rectangle
                     CustomSpinBox
                     {
                         height: parent.height
-                        minimumValue: -255
-                        maximumValue: 255
+                        from: -255
+                        to: 255
                         value: toffRow.algoOffset.width
                         onValueChanged:
                         {
@@ -689,8 +689,8 @@ Rectangle
                     CustomSpinBox
                     {
                         height: parent.height
-                        minimumValue: -255
-                        maximumValue: 255
+                        from: -255
+                        to: 255
                         value: toffRow.algoOffset.height
                         onValueChanged:
                         {
@@ -820,8 +820,8 @@ Rectangle
                     CustomSpinBox
                     {
                         height: parent.height
-                        minimumValue: -255
-                        maximumValue: 255
+                        from: -255
+                        to: 255
                         value: ioffRow.algoOffset.width
                         onValueChanged:
                         {
@@ -835,8 +835,8 @@ Rectangle
                     CustomSpinBox
                     {
                         height: parent.height
-                        minimumValue: -255
-                        maximumValue: 255
+                        from: -255
+                        to: 255
                         value: ioffRow.algoOffset.height
                         onValueChanged:
                         {
@@ -881,7 +881,7 @@ Rectangle
             function addSpinBox(propName, min, max, currentValue)
             {
                 spinComponent.createObject(scriptAlgoGrid,
-                              {"propName": propName, "minimumValue": min, "maximumValue": max, "value": currentValue });
+                              {"propName": propName, "from": min, "to": max, "value": currentValue });
                 if (spinComponent.status !== Component.Ready)
                     console.log("Spin component is not ready !!")
             }

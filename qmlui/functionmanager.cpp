@@ -29,6 +29,7 @@
 #include "sceneeditor.h"
 #include "audioeditor.h"
 #include "collection.h"
+#include "efxeditor.h"
 #include "treemodel.h"
 #include "rgbmatrix.h"
 #include "function.h"
@@ -60,6 +61,7 @@ FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)
     qmlRegisterUncreatableType<Collection>("com.qlcplus.classes", 1, 0, "Collection", "Can't create a Collection");
     qmlRegisterUncreatableType<Chaser>("com.qlcplus.classes", 1, 0, "Chaser", "Can't create a Chaser");
     qmlRegisterUncreatableType<RGBMatrix>("com.qlcplus.classes", 1, 0, "RGBMatrix", "Can't create a RGBMatrix");
+    qmlRegisterUncreatableType<RGBMatrix>("com.qlcplus.classes", 1, 0, "EFX", "Can't create an EFX");
 
     m_functionTree = new TreeModel(this);
     QQmlEngine::setObjectOwnership(m_functionTree, QQmlEngine::CppOwnership);
@@ -238,7 +240,7 @@ quint32 FunctionManager::createFunction(int type)
         params.append(QVariant::fromValue(f));
         TreeModelItem *item = m_functionTree->addItem(f->name(), params, f->path(true));
         if (item != NULL)
-            item->setSelected(true);
+            item->setFlag(TreeModel::Selected, true);
         m_selectedIDList.append(QVariant(f->id()));
         emit selectionCountChanged(m_selectedIDList.count());
         emit functionsListChanged();
@@ -381,6 +383,11 @@ void FunctionManager::setEditorFunction(quint32 fID, bool requestUI)
         case Function::Chaser:
         {
             m_currentEditor = new ChaserEditor(m_view, m_doc, this);
+        }
+        break;
+        case Function::EFX:
+        {
+            m_currentEditor = new EFXEditor(m_view, m_doc, this);
         }
         break;
         case Function::Collection:
@@ -597,7 +604,7 @@ void FunctionManager::updateFunctionsTree()
             params.append(QVariant::fromValue(func));
             TreeModelItem *item = m_functionTree->addItem(func->name(), params, func->path(true), expandAll ? TreeModel::Expanded : 0);
             if (m_selectedIDList.contains(QVariant(func->id())))
-                item->setSelected(true);
+                item->setFlag(TreeModel::Selected, true);
         }
 
         switch (func->type())
