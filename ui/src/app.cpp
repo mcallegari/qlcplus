@@ -1128,8 +1128,8 @@ void App::slotFunctionLiveEdit()
 {
     FunctionSelection fs(this, m_doc);
     fs.setMultiSelection(false);
-    fs.setFilter(Function::Scene | Function::Chaser | Function::Sequence | Function::EFX | Function::RGBMatrix);
-    fs.disableFilters(Function::Show | Function::Script | Function::Collection | Function::Audio);
+    fs.setFilter(Function::SceneType | Function::ChaserType | Function::SequenceType | Function::EFXType | Function::RGBMatrixType);
+    fs.disableFilters(Function::ShowType | Function::ScriptType | Function::CollectionType | Function::AudioType);
 
     if (fs.exec() == QDialog::Accepted)
     {

@@ -278,7 +278,7 @@ bool Track::postLoad(Doc* doc)
         if (showFunction->color().isValid() == false)
             showFunction->setColor(ShowFunction::defaultColor(function->type()));
 
-        if (function->type() == Function::Sequence)
+        if (function->type() == Function::SequenceType)
         {
             Sequence* sequence = qobject_cast<Sequence*>(function);
             if (sequence == NULL || getSceneID() == sequence->boundSceneID())

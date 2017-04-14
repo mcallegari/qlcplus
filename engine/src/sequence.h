@@ -72,7 +72,7 @@ public:
     quint32 boundSceneID() const;
 
 private:
-    /** The associated Scene of this Chaser when acting like a Sequence */
+    /** The Scene ID associated to this Sequence */
     quint32 m_boundSceneID;
 
     /*********************************************************************

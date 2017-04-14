@@ -38,7 +38,7 @@ EFXItem::EFXItem(EFX *efx, ShowFunction *func)
     if (func->color().isValid())
         setColor(func->color());
     else
-        setColor(ShowFunction::defaultColor(Function::EFX));
+        setColor(ShowFunction::defaultColor(Function::EFXType));
 
     calculateWidth();
     connect(m_efx, SIGNAL(changed(quint32)), this, SLOT(slotEFXChanged(quint32)));

@@ -241,17 +241,17 @@ QString Function::typeToString(Type type)
 {
     switch (type)
     {
-        case Scene:      return KSceneString;
-        case Chaser:     return KChaserString;
-        case EFX:        return KEFXString;
-        case Collection: return KCollectionString;
-        case Script:     return KScriptString;
-        case RGBMatrix:  return KRGBMatrixString;
-        case Show:       return KShowString;
-        case Sequence:   return KSequenceString;
-        case Audio:      return KAudioString;
+        case SceneType:      return KSceneString;
+        case ChaserType:     return KChaserString;
+        case EFXType:        return KEFXString;
+        case CollectionType: return KCollectionString;
+        case ScriptType:     return KScriptString;
+        case RGBMatrixType:  return KRGBMatrixString;
+        case ShowType:       return KShowString;
+        case SequenceType:   return KSequenceString;
+        case AudioType:      return KAudioString;
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-        case Video:      return KVideoString;
+        case VideoType:      return KVideoString;
 #endif
         case Undefined:
         default:
@@ -262,26 +262,26 @@ QString Function::typeToString(Type type)
 Function::Type Function::stringToType(const QString& string)
 {
     if (string == KSceneString)
-        return Scene;
+        return SceneType;
     else if (string == KChaserString)
-        return Chaser;
+        return ChaserType;
     else if (string == KEFXString)
-        return EFX;
+        return EFXType;
     else if (string == KCollectionString)
-        return Collection;
+        return CollectionType;
     else if (string == KScriptString)
-        return Script;
+        return ScriptType;
     else if (string == KRGBMatrixString)
-        return RGBMatrix;
+        return RGBMatrixType;
     else if (string == KShowString)
-        return Show;
+        return ShowType;
     else if (string == KSequenceString)
-        return Sequence;
+        return SequenceType;
     else if (string == KAudioString)
-        return Audio;
+        return AudioType;
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     else if (string == KVideoString)
-        return Video;
+        return VideoType;
 #endif
     else
         return Undefined;
@@ -875,26 +875,26 @@ bool Function::loader(QXmlStreamReader &root, Doc* doc)
 
     /* Create a new function according to the type */
     Function* function = NULL;
-    if (type == Function::Scene)
+    if (type == Function::SceneType)
         function = new class Scene(doc);
-    else if (type == Function::Chaser)
+    else if (type == Function::ChaserType)
         function = new class Chaser(doc);
-    else if (type == Function::Collection)
+    else if (type == Function::CollectionType)
         function = new class Collection(doc);
-    else if (type == Function::EFX)
+    else if (type == Function::EFXType)
         function = new class EFX(doc);
-    else if (type == Function::Script)
+    else if (type == Function::ScriptType)
         function = new class Script(doc);
-    else if (type == Function::RGBMatrix)
+    else if (type == Function::RGBMatrixType)
         function = new class RGBMatrix(doc);
-    else if (type == Function::Show)
+    else if (type == Function::ShowType)
         function = new class Show(doc);
-    else if (type == Function::Sequence)
+    else if (type == Function::SequenceType)
         function = new class Sequence(doc);
-    else if (type == Function::Audio)
+    else if (type == Function::AudioType)
         function = new class Audio(doc);
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-    else if (type == Function::Video)
+    else if (type == Function::VideoType)
         function = new class Video(doc);
 #endif
     else

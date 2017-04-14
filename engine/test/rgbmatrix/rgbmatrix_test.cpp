@@ -78,7 +78,7 @@ void RGBMatrix_Test::cleanupTestCase()
 void RGBMatrix_Test::initial()
 {
     RGBMatrix mtx(m_doc);
-    QCOMPARE(mtx.type(), Function::RGBMatrix);
+    QCOMPARE(mtx.type(), Function::RGBMatrixType);
     QCOMPARE(mtx.fixtureGroup(), FixtureGroup::invalidId());
     QCOMPARE(mtx.startColor(), QColor(Qt::red));
     QCOMPARE(mtx.endColor(), QColor());

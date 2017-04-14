@@ -28,7 +28,7 @@
 Sequence::Sequence(Doc* doc)
     : Chaser(doc)
 {
-    m_type = Function::Sequence;
+    m_type = Function::SequenceType;
     setName(tr("New Sequence"));
 }
 
@@ -144,7 +144,7 @@ bool Sequence::loadXML(QXmlStreamReader &root)
 
     QXmlStreamAttributes funcAttrs = root.attributes();
 
-    if (funcAttrs.value(KXMLQLCFunctionType).toString() != typeToString(Function::Sequence))
+    if (funcAttrs.value(KXMLQLCFunctionType).toString() != typeToString(Function::SequenceType))
     {
         qWarning() << Q_FUNC_INFO << funcAttrs.value(KXMLQLCFunctionType).toString()
                    << "is not a Sequence";

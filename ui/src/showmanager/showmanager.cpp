@@ -379,7 +379,7 @@ void ShowManager::updateShowsCombo()
             this, SLOT(slotShowsComboChanged(int)));
 
     m_showsCombo->clear();
-    foreach (Function* f, m_doc->functionsByType(Function::Show))
+    foreach (Function* f, m_doc->functionsByType(Function::ShowType))
     {
         // Insert in ascii order
         int insertPosition = 0;
@@ -496,7 +496,7 @@ void ShowManager::showRightEditor(Function *function)
     if (function == NULL || this->isVisible() == false)
         return;
 
-    if (function->type() == Function::Chaser)
+    if (function->type() == Function::ChaserType)
     {
         Chaser *chaser = qobject_cast<Chaser*> (function);
         m_currentEditor = new ChaserEditor(m_vsplitter->widget(1), chaser, m_doc);
@@ -506,7 +506,7 @@ void ShowManager::showRightEditor(Function *function)
                     this, SLOT(slotStepSelectionChanged(int)));
         }
     }
-    else if (function->type() == Function::Sequence)
+    else if (function->type() == Function::SequenceType)
     {
         Sequence *sequence = qobject_cast<Sequence*> (function);
         m_currentEditor = new ChaserEditor(m_vsplitter->widget(1), sequence, m_doc);
@@ -530,20 +530,20 @@ void ShowManager::showRightEditor(Function *function)
                     this, SLOT(slotStepSelectionChanged(int)));
         }
     }
-    else if (function->type() == Function::Audio)
+    else if (function->type() == Function::AudioType)
     {
         m_currentEditor = new AudioEditor(m_vsplitter->widget(1), qobject_cast<Audio*> (function), m_doc);
     }
-    else if (function->type() == Function::RGBMatrix)
+    else if (function->type() == Function::RGBMatrixType)
     {
         m_currentEditor = new RGBMatrixEditor(m_vsplitter->widget(1), qobject_cast<RGBMatrix*> (function), m_doc);
     }
-    else if (function->type() == Function::EFX)
+    else if (function->type() == Function::EFXType)
     {
         m_currentEditor = new EFXEditor(m_vsplitter->widget(1), qobject_cast<EFX*> (function), m_doc);
     }
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-    else if (function->type() == Function::Video)
+    else if (function->type() == Function::VideoType)
     {
         m_currentEditor = new VideoEditor(m_vsplitter->widget(1), qobject_cast<Video*> (function), m_doc);
     }
@@ -615,8 +615,8 @@ void ShowManager::slotAddItem()
     }
     fs.showSequences(true);
     fs.setMultiSelection(false);
-    fs.setFilter(Function::Scene | Function::Chaser | Function::Sequence | Function::Audio | Function::RGBMatrix | Function::EFX);
-    fs.disableFilters(Function::Show | Function::Script | Function::Collection);
+    fs.setFilter(Function::SceneType | Function::ChaserType | Function::SequenceType | Function::AudioType | Function::RGBMatrixType | Function::EFXType);
+    fs.disableFilters(Function::ShowType | Function::ScriptType | Function::CollectionType);
     fs.showNewTrack(true);
 
     if (fs.exec() == QDialog::Accepted)
@@ -664,13 +664,13 @@ void ShowManager::slotAddItem()
                 return;
 
             /** 2) an existing scene */
-            if (selectedFunc->type() == Function::Scene)
+            if (selectedFunc->type() == Function::SceneType)
             {
                 m_currentScene = qobject_cast<Scene*>(selectedFunc);
                 newTrackBoundID = selectedFunc->id();
                 createTrack = true;
             }
-            else if (selectedFunc->type() == Function::Chaser)
+            else if (selectedFunc->type() == Function::ChaserType)
             {
                 /** 4.1) add chaser to the currently selected track */
                 if (m_currentTrack != NULL)
@@ -682,7 +682,7 @@ void ShowManager::slotAddItem()
                 /** 4.2) It is necessary to create a new track (below) */
                 createTrack = true;
             }
-            else if (selectedFunc->type() == Function::Sequence)
+            else if (selectedFunc->type() == Function::SequenceType)
             {
                 Sequence *sequence = qobject_cast<Sequence*>(selectedFunc);
                 quint32 chsSceneID = sequence->boundSceneID();
@@ -707,7 +707,7 @@ void ShowManager::slotAddItem()
                 newTrackBoundID = sequence->boundSceneID();
                 m_currentScene = qobject_cast<Scene*>(m_doc->function(newTrackBoundID));
             }
-            else if (selectedFunc->type() == Function::Audio)
+            else if (selectedFunc->type() == Function::AudioType)
             {
                 /** 5.1) add audio to the currently selected track */
                 if (m_currentTrack != NULL)
@@ -719,7 +719,7 @@ void ShowManager::slotAddItem()
                 /** 5.2) It is necessary to create a new track (below) */
                 createTrack = true;
             }
-            else if (selectedFunc->type() == Function::RGBMatrix)
+            else if (selectedFunc->type() == Function::RGBMatrixType)
             {
                 /** 6.1) add RGB Matrix to the currently selected track */
                 if (m_currentTrack != NULL)
@@ -731,7 +731,7 @@ void ShowManager::slotAddItem()
                 /** 6.2) It is necessary to create a new track (below) */
                 createTrack = true;
             }
-            else if (selectedFunc->type() == Function::EFX)
+            else if (selectedFunc->type() == Function::EFXType)
             {
                 /** 7.1) add EFX to the currently selected track */
                 if (m_currentTrack != NULL)
@@ -744,7 +744,7 @@ void ShowManager::slotAddItem()
                 createTrack = true;
             }
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-            else if (selectedFunc->type() == Function::Video)
+            else if (selectedFunc->type() == Function::VideoType)
             {
                 /** 8.1) add video to the currently selected track */
                 if (m_currentTrack != NULL)
@@ -783,7 +783,7 @@ void ShowManager::slotAddItem()
                 return;
 
             /** 2) create a 10 seconds Sequence on the current track */
-            if (selectedFunc->type() == Function::Scene)
+            if (selectedFunc->type() == Function::SceneType)
             {
                 Function* f = new Sequence(m_doc);
                 Sequence *sequence = qobject_cast<Sequence*> (f);
@@ -802,12 +802,12 @@ void ShowManager::slotAddItem()
                     sequence->addStep(step);
                 }
             }
-            else if (selectedFunc->type() == Function::Chaser)
+            else if (selectedFunc->type() == Function::ChaserType)
             {
                 /** 4.2) add chaser to the new track */
                 m_showview->addSequence(qobject_cast<Chaser*>(selectedFunc), m_currentTrack);
             }
-            else if (selectedFunc->type() == Function::Sequence)
+            else if (selectedFunc->type() == Function::SequenceType)
             {
                 /** 3.2) create a new Scene and bind a Sequence clone to it */
                 Sequence *sequence = qobject_cast<Sequence*>(selectedFunc);
@@ -819,26 +819,26 @@ void ShowManager::slotAddItem()
                 newSequence->setRunOrder(Function::SingleShot);
                 m_showview->addSequence(newSequence, m_currentTrack);
             }
-            else if (selectedFunc->type() == Function::Audio)
+            else if (selectedFunc->type() == Function::AudioType)
             {
                 /** 5.2) add audio to the new track */
                 Audio *audio = qobject_cast<Audio*> (selectedFunc);
                 m_showview->addAudio(audio, m_currentTrack);
             }
-            else if (selectedFunc->type() == Function::RGBMatrix)
+            else if (selectedFunc->type() == Function::RGBMatrixType)
             {
                 /** 6.2) add RGBMatrix to the new track */
                 RGBMatrix *rgbm = qobject_cast<RGBMatrix*> (selectedFunc);
                 m_showview->addRGBMatrix(rgbm, m_currentTrack);
             }
-            else if (selectedFunc->type() == Function::EFX)
+            else if (selectedFunc->type() == Function::EFXType)
             {
                 /** 7.2) add EFX to the new track */
                 EFX *efx = qobject_cast<EFX*> (selectedFunc);
                 m_showview->addEFX(efx, m_currentTrack);
             }
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-            else if (selectedFunc->type() == Function::Video)
+            else if (selectedFunc->type() == Function::VideoType)
             {
                 /** 8.2) add video to the new track */
                 Video *video = qobject_cast<Video*> (selectedFunc);
@@ -1046,7 +1046,7 @@ void ShowManager::slotPaste()
         if (newCopy == NULL)
             return;
 
-        if (clipboardCopy->type() == Function::Chaser)
+        if (clipboardCopy->type() == Function::ChaserType)
         {
             Chaser *chaser = qobject_cast<Chaser*>(newCopy);
 
@@ -1059,7 +1059,7 @@ void ShowManager::slotPaste()
             }
             m_showview->addSequence(chaser, m_currentTrack);
         }
-        else if (clipboardCopy->type() == Function::Sequence)
+        else if (clipboardCopy->type() == Function::SequenceType)
         {
             Sequence *sequence = qobject_cast<Sequence*>(newCopy);
 
@@ -1112,7 +1112,7 @@ void ShowManager::slotPaste()
             track = m_show->getTrackFromSceneID(m_currentScene->id());
             m_showview->addSequence(sequence, track);
         }
-        else if (clipboardCopy->type() == Function::Audio)
+        else if (clipboardCopy->type() == Function::AudioType)
         {
             if (m_doc->addFunction(newCopy) == false)
             {
@@ -1122,7 +1122,7 @@ void ShowManager::slotPaste()
             Audio *audio = qobject_cast<Audio*>(newCopy);
             m_showview->addAudio(audio, m_currentTrack);
         }
-        else if (clipboardCopy->type() == Function::RGBMatrix)
+        else if (clipboardCopy->type() == Function::RGBMatrixType)
         {
             if (m_doc->addFunction(newCopy) == false)
             {
@@ -1132,7 +1132,7 @@ void ShowManager::slotPaste()
             RGBMatrix *rgbm = qobject_cast<RGBMatrix*>(newCopy);
             m_showview->addRGBMatrix(rgbm, m_currentTrack);
         }
-        else if (clipboardCopy->type() == Function::EFX)
+        else if (clipboardCopy->type() == Function::EFXType)
         {
             if (m_doc->addFunction(newCopy) == false)
             {
@@ -1143,7 +1143,7 @@ void ShowManager::slotPaste()
             m_showview->addEFX(efx, m_currentTrack);
         }
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-        else if (clipboardCopy->type() == Function::Video)
+        else if (clipboardCopy->type() == Function::VideoType)
         {
             if (m_doc->addFunction(newCopy) == false)
             {
@@ -1154,7 +1154,7 @@ void ShowManager::slotPaste()
             m_showview->addVideo(video, m_currentTrack);
         }
 #endif
-        else if (clipboardCopy->type() == Function::Scene)
+        else if (clipboardCopy->type() == Function::SceneType)
         {
             if (m_doc->addFunction(newCopy) == false)
             {
@@ -1300,7 +1300,7 @@ void ShowManager::slotShowItemMoved(ShowItem *item, quint32 time, bool moved)
 
     Sequence *sequence = NULL;
 
-    if (f->type() == Function::Sequence)
+    if (f->type() == Function::SequenceType)
         sequence = qobject_cast<Sequence*>(f);
 
     if (sequence != NULL)
@@ -1479,9 +1479,9 @@ void ShowManager::slotShowTimingsTool()
     Function *func = m_doc->function(item->functionID());
     if (func != NULL)
     {
-        if (func->type() == Function::Audio)
+        if (func->type() == Function::AudioType)
             tt->showDurationControls(false);
-        if (func->type() == Function::RGBMatrix || func->type() == Function::EFX)
+        if (func->type() == Function::RGBMatrixType || func->type() == Function::EFXType)
             tt->showDurationOptions(true);
     }
 
@@ -1601,7 +1601,7 @@ void ShowManager::slotFunctionRemoved(quint32 id)
         }
     }
 
-    foreach (Function *function, m_doc->functionsByType(Function::Show))
+    foreach (Function *function, m_doc->functionsByType(Function::ShowType))
     {
         Show *show = qobject_cast<Show*>(function);
         foreach(Track *track, show->tracks())
@@ -1669,33 +1669,33 @@ void ShowManager::updateMultiTrackView()
             Function *fn = m_doc->function(sf->functionID());
             if (fn != NULL)
             {
-                if (fn->type() == Function::Chaser)
+                if (fn->type() == Function::ChaserType)
                 {
                     Chaser *chaser = qobject_cast<Chaser*>(fn);
                     m_showview->addSequence(chaser, track, sf);
                 }
-                else if (fn->type() == Function::Sequence)
+                else if (fn->type() == Function::SequenceType)
                 {
                     Sequence *sequence = qobject_cast<Sequence*>(fn);
                     m_showview->addSequence(sequence, track, sf);
                 }
-                else if (fn->type() == Function::Audio)
+                else if (fn->type() == Function::AudioType)
                 {
                     Audio *audio = qobject_cast<Audio*>(fn);
                     m_showview->addAudio(audio, track, sf);
                 }
-                else if (fn->type() == Function::RGBMatrix)
+                else if (fn->type() == Function::RGBMatrixType)
                 {
                     RGBMatrix *rgbm = qobject_cast<RGBMatrix*>(fn);
                     m_showview->addRGBMatrix(rgbm, track, sf);
                 }
-                else if (fn->type() == Function::EFX)
+                else if (fn->type() == Function::EFXType)
                 {
                     EFX *efx = qobject_cast<EFX*>(fn);
                     m_showview->addEFX(efx, track, sf);
                 }
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-                else if (fn->type() == Function::Video)
+                else if (fn->type() == Function::VideoType)
                 {
                     Video *video = qobject_cast<Video*>(fn);
                     m_showview->addVideo(video, track, sf);

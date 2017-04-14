@@ -46,7 +46,7 @@
  * Initialization
  *****************************************************************************/
 
-EFX::EFX(Doc* doc) : Function(doc, Function::EFX)
+EFX::EFX(Doc* doc) : Function(doc, Function::EFXType)
 {
     m_width = 127;
     m_height = 127;
@@ -169,7 +169,7 @@ void EFX::setDuration(uint ms)
  * UI State
  *****************************************************************************/
 
-FunctionUiState * EFX::createUiState()
+FunctionUiState *EFX::createUiState()
 {
     return new EfxUiState(this);
 }
@@ -848,7 +848,7 @@ bool EFX::loadXML(QXmlStreamReader &root)
         return false;
     }
 
-    if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::EFX))
+    if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::EFXType))
     {
         qWarning("Function is not an EFX!");
         return false;

@@ -170,13 +170,13 @@ void FunctionManager::slotDocLoaded()
     // Refresh in case of sequences loaded after their parent scene
     m_tree->updateTree();
     // Once the doc is completely loaded, update all the steps of Sequences
-    foreach (Function *f, m_doc->functionsByType(Function::Sequence))
+    foreach (Function *f, m_doc->functionsByType(Function::SequenceType))
     {
         Sequence *sequence = qobject_cast<Sequence *>(f);
         if (sequence->boundSceneID() != Scene::invalidId())
         {
             Function *sceneFunc = m_doc->function(sequence->boundSceneID());
-            if (sceneFunc == NULL || sceneFunc->type() != Function::Scene)
+            if (sceneFunc == NULL || sceneFunc->type() != Function::SceneType)
                 continue;
 
             Scene *scene = qobject_cast<Scene*>(sceneFunc);
@@ -809,11 +809,11 @@ void FunctionManager::deleteSelectedFunctions()
         // Stop running tests before deleting function
         if (m_editor != NULL)
         {
-            if (func->type() == Function::RGBMatrix)
+            if (func->type() == Function::RGBMatrixType)
                 static_cast<RGBMatrixEditor*>(m_editor)->stopTest();
-            else if (func->type() == Function::EFX)
+            else if (func->type() == Function::EFXType)
                 static_cast<EFXEditor*>(m_editor)->stopTest();
-            else if (func->type() == Function::Chaser)
+            else if (func->type() == Function::ChaserType)
                 static_cast<ChaserEditor*>(m_editor)->stopTest();
         }
 
@@ -821,7 +821,7 @@ void FunctionManager::deleteSelectedFunctions()
 
         QTreeWidgetItem* parent = item->parent();
         delete item;
-        if (parent != NULL && parent->childCount() == 0 && func->type() != Function::Sequence)
+        if (parent != NULL && parent->childCount() == 0 && func->type() != Function::SequenceType)
         {
             if (m_tree->indexOfTopLevelItem(parent) >= 0)
                 m_tree->deleteFolder(parent);
@@ -902,21 +902,21 @@ void FunctionManager::editFunction(Function* function)
         return;
 
     // Choose the editor by the selected function's type
-    if (function->type() == Function::Scene)
+    if (function->type() == Function::SceneType)
     {
         m_scene_editor = new SceneEditor(m_vsplitter->widget(1), qobject_cast<Scene*> (function), m_doc, true);
         connect(this, SIGNAL(functionManagerActive(bool)),
                 m_scene_editor, SLOT(slotFunctionManagerActive(bool)));
         m_addSequenceAction->setEnabled(true);
     }
-    else if (function->type() == Function::Chaser)
+    else if (function->type() == Function::ChaserType)
     {
         Chaser *chaser = qobject_cast<Chaser*> (function);
         m_editor = new ChaserEditor(m_hsplitter->widget(1), chaser, m_doc);
         connect(this, SIGNAL(functionManagerActive(bool)),
                 m_editor, SLOT(slotFunctionManagerActive(bool)));
     }
-    else if (function->type() == Function::Sequence)
+    else if (function->type() == Function::SequenceType)
     {
         Sequence *sequence = qobject_cast<Sequence*> (function);
         m_editor = new ChaserEditor(m_hsplitter->widget(1), sequence, m_doc);
@@ -934,36 +934,36 @@ void FunctionManager::editFunction(Function* function)
         connect(m_scene_editor, SIGNAL(fixtureValueChanged(SceneValue)),
                 m_editor, SLOT(slotUpdateCurrentStep(SceneValue)));
     }
-    else if (function->type() == Function::Collection)
+    else if (function->type() == Function::CollectionType)
     {
         m_editor = new CollectionEditor(m_hsplitter->widget(1), qobject_cast<Collection*> (function), m_doc);
     }
-    else if (function->type() == Function::EFX)
+    else if (function->type() == Function::EFXType)
     {
         m_editor = new EFXEditor(m_hsplitter->widget(1), qobject_cast<EFX*> (function), m_doc);
         connect(this, SIGNAL(functionManagerActive(bool)),
                 m_editor, SLOT(slotFunctionManagerActive(bool)));
     }
-    else if (function->type() == Function::RGBMatrix)
+    else if (function->type() == Function::RGBMatrixType)
     {
         m_editor = new RGBMatrixEditor(m_hsplitter->widget(1), qobject_cast<RGBMatrix*> (function), m_doc);
         connect(this, SIGNAL(functionManagerActive(bool)),
                 m_editor, SLOT(slotFunctionManagerActive(bool)));
     }
-    else if (function->type() == Function::Script)
+    else if (function->type() == Function::ScriptType)
     {
         m_editor = new ScriptEditor(m_hsplitter->widget(1), qobject_cast<Script*> (function), m_doc);
     }
-    else if (function->type() == Function::Show)
+    else if (function->type() == Function::ShowType)
     {
         m_editor = new ShowEditor(m_hsplitter->widget(1), qobject_cast<Show*> (function), m_doc);
     }
-    else if (function->type() == Function::Audio)
+    else if (function->type() == Function::AudioType)
     {
         m_editor = new AudioEditor(m_hsplitter->widget(1), qobject_cast<Audio*> (function), m_doc);
     }
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-    else if (function->type() == Function::Video)
+    else if (function->type() == Function::VideoType)
     {
         m_editor = new VideoEditor(m_hsplitter->widget(1), qobject_cast<Video*> (function), m_doc);
     }

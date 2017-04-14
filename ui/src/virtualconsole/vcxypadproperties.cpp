@@ -654,7 +654,7 @@ void VCXYPadProperties::slotAddEFXClicked()
 {
     FunctionSelection fs(this, m_doc);
     fs.setMultiSelection(false);
-    fs.setFilter(Function::EFX, true);
+    fs.setFilter(Function::EFXType, true);
     QList <quint32> ids;
     foreach (VCXYPadPreset *preset, m_presetList)
     {
@@ -666,7 +666,7 @@ void VCXYPadProperties::slotAddEFXClicked()
     {
         quint32 fID = fs.selection().first();
         Function *f = m_doc->function(fID);
-        if (f == NULL || f->type() != Function::EFX)
+        if (f == NULL || f->type() != Function::EFXType)
             return;
         VCXYPadPreset *newPreset = new VCXYPadPreset(++m_lastAssignedID);
         newPreset->m_type = VCXYPadPreset::EFX;
@@ -682,7 +682,7 @@ void VCXYPadProperties::slotAddSceneClicked()
 {
     FunctionSelection fs(this, m_doc);
     fs.setMultiSelection(false);
-    fs.setFilter(Function::Scene, true);
+    fs.setFilter(Function::SceneType, true);
     QList <quint32> ids;
     foreach (VCXYPadPreset *preset, m_presetList)
     {
@@ -694,7 +694,7 @@ void VCXYPadProperties::slotAddSceneClicked()
     {
         quint32 fID = fs.selection().first();
         Function *f = m_doc->function(fID);
-        if (f == NULL || f->type() != Function::Scene)
+        if (f == NULL || f->type() != Function::SceneType)
             return;
         Scene *scene = qobject_cast<Scene*>(f);
         bool panTiltFound = false;
@@ -839,7 +839,7 @@ void VCXYPadProperties::slotPresetSelectionChanged()
         if (preset->m_type == VCXYPadPreset::EFX)
         {
             Function *f = m_doc->function(preset->functionID());
-            if (f == NULL || f->type() != Function::EFX)
+            if (f == NULL || f->type() != Function::EFXType)
                 return;
             EFX *efx = qobject_cast<EFX*>(f);
             QPolygonF polygon;

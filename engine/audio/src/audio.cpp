@@ -54,7 +54,7 @@
  *****************************************************************************/
 
 Audio::Audio(Doc* doc)
-  : Function(doc, Function::Audio)
+  : Function(doc, Function::AudioType)
   , m_doc(doc)
   , m_decoder(NULL)
   , m_audio_out(NULL)
@@ -219,7 +219,7 @@ QString Audio::getSourceFileName()
     return m_sourceFileName;
 }
 
-AudioDecoder* Audio::getAudioDecoder()
+AudioDecoder *Audio::getAudioDecoder()
 {
     return m_decoder;
 }
@@ -302,7 +302,7 @@ bool Audio::loadXML(QXmlStreamReader &root)
         return false;
     }
 
-    if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::Audio))
+    if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::AudioType))
     {
         qWarning() << Q_FUNC_INFO << root.attributes().value(KXMLQLCFunctionType).toString()
                    << "is not Audio";

@@ -42,7 +42,7 @@
  * Initialization
  *****************************************************************************/
 
-Scene::Scene(Doc* doc) : Function(doc, Function::Scene)
+Scene::Scene(Doc* doc) : Function(doc, Function::SceneType)
     , m_legacyFadeBus(Bus::invalid())
     , m_hasChildren(false)
     , m_fader(NULL)
@@ -425,7 +425,7 @@ bool Scene::loadXML(QXmlStreamReader &root)
         return false;
     }
 
-    if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::Scene))
+    if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::SceneType))
     {
         qWarning() << Q_FUNC_INFO << "Function is not a scene";
         return false;

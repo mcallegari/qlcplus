@@ -723,7 +723,7 @@ void FixtureRemap::accept()
     {
         switch (func->type())
         {
-            case Function::Scene:
+            case Function::SceneType:
             {
                 Scene *s = qobject_cast<Scene*>(func);
                 qDebug() << "Analyzing Scene #" << s->id();
@@ -738,7 +738,7 @@ void FixtureRemap::accept()
                 }
             }
             break;
-            case Function::Sequence:
+            case Function::SequenceType:
             {
                 Sequence *s = qobject_cast<Sequence*>(func);
                 for (int idx = 0; idx < s->stepsCount(); idx++)
@@ -753,7 +753,7 @@ void FixtureRemap::accept()
                 }
             }
             break;
-            case Function::EFX:
+            case Function::EFXType:
             {
                 EFX *e = qobject_cast<EFX*>(func);
                 // make a copy of this EFX fixtures list

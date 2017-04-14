@@ -50,7 +50,7 @@
  ****************************************************************************/
 
 RGBMatrix::RGBMatrix(Doc* doc)
-    : Function(doc, Function::RGBMatrix)
+    : Function(doc, Function::RGBMatrixType)
     , m_dimmerControl(true)
     , m_fixtureGroupID(FixtureGroup::invalidId())
     , m_group(NULL)
@@ -351,7 +351,7 @@ bool RGBMatrix::loadXML(QXmlStreamReader &root)
         return false;
     }
 
-    if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::RGBMatrix))
+    if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::RGBMatrixType))
     {
         qWarning() << Q_FUNC_INFO << "Function is not an RGB matrix";
         return false;

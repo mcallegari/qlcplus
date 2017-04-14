@@ -691,7 +691,7 @@ void VCXYPad::slotPresetClicked(bool checked)
         }
 
         Function *f = m_doc->function(preset->m_funcID);
-        if (f == NULL || f->type() != Function::EFX)
+        if (f == NULL || f->type() != Function::EFXType)
             return;
         m_efx = new EFX(m_doc);
         m_efx->copyFrom(f);
@@ -727,7 +727,7 @@ void VCXYPad::slotPresetClicked(bool checked)
             return;
 
         Function *f = m_doc->function(preset->m_funcID);
-        if (f == NULL || f->type() != Function::Scene)
+        if (f == NULL || f->type() != Function::SceneType)
             return;
 
         m_scene = qobject_cast<Scene*>(f);

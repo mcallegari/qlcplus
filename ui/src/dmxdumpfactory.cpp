@@ -94,7 +94,7 @@ DmxDumpFactory::~DmxDumpFactory()
 void DmxDumpFactory::slotUpdateChasersTree()
 {
     m_addtoTree->clear();
-    foreach(Function *f, m_doc->functionsByType(Function::Chaser))
+    foreach(Function *f, m_doc->functionsByType(Function::ChaserType))
     {
         Chaser *chaser = qobject_cast<Chaser*>(f);
         QTreeWidgetItem *item = new QTreeWidgetItem(m_addtoTree);
@@ -122,7 +122,7 @@ void DmxDumpFactory::slotSelectSceneButtonClicked()
 {
     FunctionSelection fs(this, m_doc);
     fs.setMultiSelection(false);
-    fs.setFilter(Function::Scene, true);
+    fs.setFilter(Function::SceneType, true);
 
     if (fs.exec() == QDialog::Accepted && fs.selection().size() > 0)
     {

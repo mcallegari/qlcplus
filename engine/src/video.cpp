@@ -38,7 +38,7 @@
  *****************************************************************************/
 
 Video::Video(Doc* doc)
-  : Function(doc, Function::Video)
+  : Function(doc, Function::VideoType)
   , m_doc(doc)
   , m_startTime(UINT_MAX)
   , m_color(147, 140, 20)
@@ -319,7 +319,7 @@ bool Video::loadXML(QXmlStreamReader &root)
         return false;
     }
 
-    if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::Video))
+    if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::VideoType))
     {
         qWarning() << Q_FUNC_INFO << root.attributes().value(KXMLQLCFunctionType).toString()
                    << "is not Video";

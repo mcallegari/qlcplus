@@ -36,7 +36,7 @@ SequenceItem::SequenceItem(Chaser *seq, ShowFunction *func)
     if (func->color().isValid())
         setColor(func->color());
     else
-        setColor(ShowFunction::defaultColor(Function::Chaser));
+        setColor(ShowFunction::defaultColor(Function::ChaserType));
 
     if (func->duration() == 0)
         func->setDuration(seq->totalDuration());

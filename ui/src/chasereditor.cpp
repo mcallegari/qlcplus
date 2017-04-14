@@ -68,7 +68,7 @@ ChaserEditor::ChaserEditor(QWidget* parent, Chaser* chaser, Doc* doc, bool liveM
 
     /* Disable editing of steps number */
     m_tree->setItemDelegateForColumn(COL_NUM, new NoEditDelegate(this));
-    if (m_chaser->type() == Function::Sequence)
+    if (m_chaser->type() == Function::SequenceType)
         m_tree->header()->setSectionHidden(COL_NAME, true);
 
     m_cutAction = new QAction(QIcon(":/editcut.png"), tr("Cut"), this);
@@ -341,7 +341,7 @@ void ChaserEditor::slotAddClicked()
     if (item != NULL)
         insertionPoint = m_tree->indexOfTopLevelItem(item) + 1;
 
-    if (m_chaser->type() == Function::Sequence)
+    if (m_chaser->type() == Function::SequenceType)
     {
         Sequence *sequence = qobject_cast<Sequence*>(m_chaser);
         ChaserStep step(sequence->boundSceneID());
@@ -646,7 +646,7 @@ void ChaserEditor::slotPasteClicked()
     // If the Chaser is a sequence, then perform a sanity
     // check on each Step to see if they really belong to
     // this scene
-    if (m_chaser->type() == Function::Sequence)
+    if (m_chaser->type() == Function::SequenceType)
     {
         Sequence *sequence = qobject_cast<Sequence*>(m_chaser);
         quint32 sceneID = sequence->boundSceneID();
@@ -1116,7 +1116,7 @@ void ChaserEditor::updateItem(QTreeWidgetItem* item, ChaserStep& step)
 
     item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsEditable);
     item->setText(COL_NUM, QString("%1").arg(m_tree->indexOfTopLevelItem(item) + 1));
-    if (m_chaser->type() == Function::Chaser)
+    if (m_chaser->type() == Function::ChaserType)
     {
         item->setText(COL_NAME, function->name());
         item->setIcon(COL_NAME, function->getIcon());

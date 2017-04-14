@@ -606,7 +606,7 @@ VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int
 
     if (widget != NULL && func != NULL)
     {
-        if (func->type() == Function::Scene && type == VCWidget::ButtonWidget)
+        if (func->type() == Function::SceneType && type == VCWidget::ButtonWidget)
         {
             Scene *scene = qobject_cast<Scene*> (func);
 

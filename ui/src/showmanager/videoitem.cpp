@@ -37,7 +37,7 @@ VideoItem::VideoItem(Video *vid, ShowFunction *func)
     if (func->color().isValid())
         setColor(func->color());
     else
-        setColor(ShowFunction::defaultColor(Function::Video));
+        setColor(ShowFunction::defaultColor(Function::VideoType));
 
     if (func->duration() == 0)
         func->setDuration(m_video->totalDuration());

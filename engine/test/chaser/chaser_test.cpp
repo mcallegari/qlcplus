@@ -68,7 +68,7 @@ void Chaser_Test::cleanup()
 void Chaser_Test::initial()
 {
     Chaser c(m_doc);
-    QVERIFY(c.type() == Function::Chaser);
+    QVERIFY(c.type() == Function::ChaserType);
     QVERIFY(c.name() == "New Chaser");
     QVERIFY(c.steps().size() == 0);
     QVERIFY(c.direction() == Chaser::Forward);

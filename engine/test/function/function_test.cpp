@@ -254,19 +254,23 @@ void Function_Test::typeString()
 
     Function_Stub* stub = new Function_Stub(&doc);
     QCOMPARE(stub->typeString(), Function::typeToString(Function::Type(31337)));
-    stub->m_type = Function::Scene;
-    QCOMPARE(stub->typeString(), Function::typeToString(Function::Scene));
-    stub->m_type = Function::Chaser;
-    QCOMPARE(stub->typeString(), Function::typeToString(Function::Chaser));
+    stub->m_type = Function::SceneType;
+    QCOMPARE(stub->typeString(), Function::typeToString(Function::SceneType));
+    stub->m_type = Function::ChaserType;
+    QCOMPARE(stub->typeString(), Function::typeToString(Function::ChaserType));
 }
 
 void Function_Test::typeToString()
 {
     QVERIFY(Function::typeToString(Function::Undefined) == "Undefined");
-    QVERIFY(Function::typeToString(Function::Scene) == "Scene");
-    QVERIFY(Function::typeToString(Function::Chaser) == "Chaser");
-    QVERIFY(Function::typeToString(Function::EFX) == "EFX");
-    QVERIFY(Function::typeToString(Function::Collection) == "Collection");
+    QVERIFY(Function::typeToString(Function::SceneType) == "Scene");
+    QVERIFY(Function::typeToString(Function::ChaserType) == "Chaser");
+    QVERIFY(Function::typeToString(Function::EFXType) == "EFX");
+    QVERIFY(Function::typeToString(Function::CollectionType) == "Collection");
+    QVERIFY(Function::typeToString(Function::RGBMatrixType) == "RGBMatrix");
+    QVERIFY(Function::typeToString(Function::ScriptType) == "Script");
+    QVERIFY(Function::typeToString(Function::SequenceType) == "Sequence");
+    QVERIFY(Function::typeToString(Function::AudioType) == "Audio");
 
     QVERIFY(Function::typeToString(Function::Type(42)) == "Undefined");
     QVERIFY(Function::typeToString(Function::Type(31337)) == "Undefined");
@@ -275,10 +279,14 @@ void Function_Test::typeToString()
 void Function_Test::stringToType()
 {
     QVERIFY(Function::stringToType("Undefined") == Function::Undefined);
-    QVERIFY(Function::stringToType("Scene") == Function::Scene);
-    QVERIFY(Function::stringToType("Chaser") == Function::Chaser);
-    QVERIFY(Function::stringToType("EFX") == Function::EFX);
-    QVERIFY(Function::stringToType("Collection") == Function::Collection);
+    QVERIFY(Function::stringToType("Scene") == Function::SceneType);
+    QVERIFY(Function::stringToType("Chaser") == Function::ChaserType);
+    QVERIFY(Function::stringToType("EFX") == Function::EFXType);
+    QVERIFY(Function::stringToType("Collection") == Function::CollectionType);
+    QVERIFY(Function::stringToType("RGBMatrix") == Function::RGBMatrixType);
+    QVERIFY(Function::stringToType("Script") == Function::ScriptType);
+    QVERIFY(Function::stringToType("Sequence") == Function::SequenceType);
+    QVERIFY(Function::stringToType("Audio") == Function::AudioType);
 
     QVERIFY(Function::stringToType("Foobar") == Function::Undefined);
     QVERIFY(Function::stringToType("Xyzzy") == Function::Undefined);
@@ -517,7 +525,7 @@ void Function_Test::loaderScene()
     QVERIFY(Function::loader(xmlReader, &d) == true);
     QVERIFY(d.functions().size() == 1);
     QVERIFY(d.function(15) != NULL);
-    QVERIFY(d.function(15)->type() == Function::Scene);
+    QVERIFY(d.function(15)->type() == Function::SceneType);
     QVERIFY(d.function(15)->name() == QString("Lipton"));
 }
 
@@ -570,7 +578,7 @@ void Function_Test::loaderChaser()
     QVERIFY(Function::loader(xmlReader, &d) == true);
     QVERIFY(d.functions().size() == 1);
     QVERIFY(d.function(1) != NULL);
-    QVERIFY(d.function(1)->type() == Function::Chaser);
+    QVERIFY(d.function(1)->type() == Function::ChaserType);
     QVERIFY(d.function(1)->name() == QString("Malarkey"));
 }
 
@@ -602,7 +610,7 @@ void Function_Test::loaderCollection()
     QVERIFY(Function::loader(xmlReader, &d) == true);
     QVERIFY(d.functions().size() == 1);
     QVERIFY(d.function(120) != NULL);
-    QVERIFY(d.function(120)->type() == Function::Collection);
+    QVERIFY(d.function(120)->type() == Function::CollectionType);
     QVERIFY(d.function(120)->name() == QString("Spiers"));
 }
 
@@ -692,7 +700,7 @@ void Function_Test::loaderEFX()
     QVERIFY(Function::loader(xmlReader, &d) == true);
     QVERIFY(d.functions().size() == 1);
     QVERIFY(d.function(0) != NULL);
-    QVERIFY(d.function(0)->type() == Function::EFX);
+    QVERIFY(d.function(0)->type() == Function::EFXType);
     QVERIFY(d.function(0)->name() == QString("Guarnere"));
 }
 

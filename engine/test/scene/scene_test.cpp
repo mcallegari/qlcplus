@@ -69,7 +69,7 @@ void Scene_Test::cleanup()
 void Scene_Test::initial()
 {
     Scene s(m_doc);
-    QVERIFY(s.type() == Function::Scene);
+    QVERIFY(s.type() == Function::SceneType);
     QVERIFY(s.name() == "New Scene");
     QVERIFY(s.values().size() == 0);
     QVERIFY(s.id() == Function::invalidId());

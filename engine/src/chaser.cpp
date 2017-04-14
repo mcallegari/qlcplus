@@ -41,14 +41,13 @@
 #define KXMLQLCChaserSpeedModeCommon "Common"
 #define KXMLQLCChaserSpeedModePerStep "PerStep"
 #define KXMLQLCChaserSpeedModeDefault "Default"
-#define KXMLQLCChaserSequenceTag "Sequence"
 
 /*****************************************************************************
  * Initialization
  *****************************************************************************/
 
 Chaser::Chaser(Doc* doc)
-    : Function(doc, Function::Chaser)
+    : Function(doc, Function::ChaserType)
     , m_legacyHoldBus(Bus::invalid())
     , m_startTime(UINT_MAX)
     , m_color(85, 107, 128)
@@ -439,7 +438,7 @@ bool Chaser::loadXML(QXmlStreamReader &root)
         return false;
     }
 
-    if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::Chaser))
+    if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::ChaserType))
     {
         qWarning() << Q_FUNC_INFO << root.attributes().value(KXMLQLCFunctionType).toString()
                    << "is not a Chaser";
@@ -482,6 +481,11 @@ bool Chaser::loadXML(QXmlStreamReader &root)
                 else
                     m_steps.insert(stepNumber, step);
             }
+        }
+        else if (root.name() == "Sequence")
+        {
+            doc()->appendToErrorLog(QString("Unsupported sequences found. Please convert your project at http://www.qlcplus.org/sequence_migration.php"));
+            root.skipCurrentElement();
         }
         else
         {
