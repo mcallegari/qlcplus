@@ -871,6 +871,8 @@ void ShowManager::slotAddSequence()
     if (m_currentTrack->getSceneID() == Function::invalidId())
     {
         m_currentScene = new Scene(m_doc);
+        m_currentScene->setVisible(false);
+
         if (m_doc->addFunction(m_currentScene))
             m_currentScene->setName(tr("Scene for %1 - Track %2").arg(m_show->name()).arg(m_currentTrack->id() + 1));
         m_currentTrack->setSceneID(m_currentScene->id());

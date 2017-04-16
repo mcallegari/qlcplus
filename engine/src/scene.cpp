@@ -380,6 +380,8 @@ bool Scene::saveXML(QXmlStreamWriter *doc)
             currFixID = sv.fxi;
         }
         currFixValues.append(QString::number(sv.channel));
+        // IMPORTANT: if a Scene is hidden, so used as a container by some Sequences,
+        // it must be saved with values set to zero
         currFixValues.append(QString::number(isVisible() ? sv.value : 0));
     }
     /* write last element */

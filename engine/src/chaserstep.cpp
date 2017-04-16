@@ -128,6 +128,9 @@ bool ChaserStep::loadXML(QXmlStreamReader &root, int& stepNumber)
         {
             int sIdx = 0;
 
+            // step values are saved as a string with the following syntax:
+            // fixtureID:channel,value,channel,value:fixtureID:channel,value ... etc
+
             // split the string by Fixture chunks
             QStringList fxArray = stepValues.split(":");
 
@@ -206,6 +209,9 @@ bool ChaserStep::saveXML(QXmlStreamWriter *doc, int stepNumber, bool isSequence)
         quint32 fixtureID = Fixture::invalidId();
         foreach(SceneValue scv, values)
         {
+            // step values are saved as a string with the following syntax:
+            // fixtureID:channel,value,channel,value:fixtureID:channel,value ... etc
+
             // save non-zero values only
             if (scv.value != 0)
             {
