@@ -167,52 +167,8 @@ void FunctionManager::slotDocLoading()
 void FunctionManager::slotDocLoaded()
 {
     connect(m_doc, SIGNAL(functionAdded(quint32)), this, SLOT(slotFunctionAdded(quint32)));
-    // Refresh in case of sequences loaded after their parent scene
-    m_tree->updateTree();
-    // Once the doc is completely loaded, update all the steps of Sequences
-    foreach (Function *f, m_doc->functionsByType(Function::SequenceType))
-    {
-        Sequence *sequence = qobject_cast<Sequence *>(f);
-        if (sequence->boundSceneID() != Scene::invalidId())
-        {
-            Function *sceneFunc = m_doc->function(sequence->boundSceneID());
-            if (sceneFunc == NULL || sceneFunc->type() != Function::SceneType)
-                continue;
 
-            Scene *scene = qobject_cast<Scene*>(sceneFunc);
-            scene->setChildrenFlag(true);
-            int i = 0;
-            int sceneValuesCount = scene->values().count();
-            foreach(ChaserStep step, sequence->steps())
-            {
-                // Since I saved only the non-zero values in the XML files, at the first chance I need
-                // to fix the values against the bound scene, and restore all the zero values previously there
-                //qDebug() << Q_FUNC_INFO << "Scene values: " << scene->values().count() << ", step values: " <<  step.values.count();
-                if (sceneValuesCount != step.values.count())
-                {
-                    int j = 0;
-                    // 1- copy the list
-                    QList <SceneValue> tmpList = step.values;
-                    // 2- clear it
-                    step.values.clear();
-                    // 3- fix it
-                    QListIterator <SceneValue> it(scene->values());
-                    while (it.hasNext() == true)
-                    {
-                        SceneValue scv(it.next());
-                        scv.value = 0;
-                        if (j < tmpList.count() && tmpList.at(j) == scv)
-                            step.values.append(tmpList.at(j++));
-                        else
-                            step.values.append(scv);
-                    }
-                    sequence->replaceStep(step, i);
-                    //qDebug() << "************ STEP FIXED *********** total values: " << step.values.count();
-                }
-                i++;
-            }
-        }
-    }
+    m_tree->updateTree();
 }
 
 void FunctionManager::slotFunctionNameChanged(quint32 id)
@@ -263,7 +219,6 @@ void FunctionManager::initActions()
     m_addSequenceAction->setShortcut(QKeySequence("CTRL+Q"));
     connect(m_addSequenceAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddSequence()));
-    m_addSequenceAction->setEnabled(false);
 
     m_addCollectionAction = new QAction(QIcon(":/collection.png"),
                                         tr("New c&ollection"), this);
@@ -396,24 +351,25 @@ void FunctionManager::slotAddChaser()
 
 void FunctionManager::slotAddSequence()
 {
-    Function* f = new Sequence(m_doc);
-    QList <QTreeWidgetItem*> selection(m_tree->selectedItems());
-    if (selection.size() == 1)
-    {
-        Sequence *sequence = qobject_cast<Sequence*>(f);
-        Scene *boundScene = qobject_cast<Scene*>(m_doc->function(m_tree->itemFunctionId(selection.first())));
-        boundScene->setChildrenFlag(true);
-        sequence->setBoundSceneID(m_tree->itemFunctionId(selection.first()));
-        sequence->setRunOrder(Function::SingleShot);
-    }
+    // a Sequence depends on a Scene, so let's create
+    // a new hidden Scene first
+    Function *scene = new Scene(m_doc);
+    scene->setVisible(false);
 
-    if (m_doc->addFunction(f) == true)
+    if (m_doc->addFunction(scene) == true)
     {
-        QTreeWidgetItem* item = m_tree->functionItem(f);
-        Q_ASSERT(item != NULL);
-        f->setName(QString("%1 %2").arg(tr("New Sequence")).arg(f->id()));
-        m_tree->scrollToItem(item);
-        m_tree->setCurrentItem(item);
+        Function* f = new Sequence(m_doc);
+        Sequence *sequence = qobject_cast<Sequence *>(f);
+        sequence->setBoundSceneID(scene->id());
+
+        if (m_doc->addFunction(sequence) == true)
+        {
+            QTreeWidgetItem* item = m_tree->functionItem(f);
+            Q_ASSERT(item != NULL);
+            f->setName(QString("%1 %2").arg(tr("New Sequence")).arg(f->id()));
+            m_tree->scrollToItem(item);
+            m_tree->setCurrentItem(item);
+        }
     }
 }
 
@@ -821,7 +777,7 @@ void FunctionManager::deleteSelectedFunctions()
 
         QTreeWidgetItem* parent = item->parent();
         delete item;
-        if (parent != NULL && parent->childCount() == 0 && func->type() != Function::SequenceType)
+        if (parent != NULL && parent->childCount() == 0)
         {
             if (m_tree->indexOfTopLevelItem(parent) >= 0)
                 m_tree->deleteFolder(parent);
@@ -896,8 +852,6 @@ void FunctionManager::editFunction(Function* function)
 {
     deleteCurrentEditor();
 
-    m_addSequenceAction->setEnabled(false);
-
     if (function == NULL)
         return;
 
@@ -907,7 +861,6 @@ void FunctionManager::editFunction(Function* function)
         m_scene_editor = new SceneEditor(m_vsplitter->widget(1), qobject_cast<Scene*> (function), m_doc, true);
         connect(this, SIGNAL(functionManagerActive(bool)),
                 m_scene_editor, SLOT(slotFunctionManagerActive(bool)));
-        m_addSequenceAction->setEnabled(true);
     }
     else if (function->type() == Function::ChaserType)
     {
@@ -924,15 +877,18 @@ void FunctionManager::editFunction(Function* function)
                 m_editor, SLOT(slotFunctionManagerActive(bool)));
 
         Function* sfunc = m_doc->function(sequence->boundSceneID());
-        m_scene_editor = new SceneEditor(m_vsplitter->widget(1), qobject_cast<Scene*> (sfunc), m_doc, false);
-        connect(this, SIGNAL(functionManagerActive(bool)),
-                m_scene_editor, SLOT(slotFunctionManagerActive(bool)));
-        /** Signal from chaser editor to scene editor. When a step is clicked apply values immediately */
-        connect(m_editor, SIGNAL(applyValues(QList<SceneValue>&)),
-                m_scene_editor, SLOT(slotSetSceneValues(QList <SceneValue>&)));
-        /** Signal from scene editor to chaser editor. When a fixture value is changed, update the selected chaser step */
-        connect(m_scene_editor, SIGNAL(fixtureValueChanged(SceneValue)),
-                m_editor, SLOT(slotUpdateCurrentStep(SceneValue)));
+        if (sfunc->type() == Function::SceneType)
+        {
+            m_scene_editor = new SceneEditor(m_vsplitter->widget(1), qobject_cast<Scene*> (sfunc), m_doc, false);
+            connect(this, SIGNAL(functionManagerActive(bool)),
+                    m_scene_editor, SLOT(slotFunctionManagerActive(bool)));
+            /** Signal from chaser editor to scene editor. When a step is clicked apply values immediately */
+            connect(m_editor, SIGNAL(applyValues(QList<SceneValue>&)),
+                    m_scene_editor, SLOT(slotSetSceneValues(QList <SceneValue>&)));
+            /** Signal from scene editor to chaser editor. When a fixture value is changed, update the selected chaser step */
+            connect(m_scene_editor, SIGNAL(fixtureValueChanged(SceneValue)),
+                    m_editor, SLOT(slotUpdateCurrentStep(SceneValue)));
+        }
     }
     else if (function->type() == Function::CollectionType)
     {

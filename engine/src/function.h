@@ -50,6 +50,7 @@ class FunctionUiState;
 #define KXMLQLCFunctionType "Type"
 #define KXMLQLCFunctionData "Data"
 #define KXMLQLCFunctionPath "Path"
+#define KXMLQLCFunctionHidden "Hidden"
 #define KXMLQLCFunctionBlendMode "BlendMode"
 
 #define KXMLQLCFunctionValue "Value"
@@ -264,6 +265,19 @@ public:
 
 private:
     QString m_path;
+
+    /*********************************************************************
+     * Visibility
+     *********************************************************************/
+public:
+    /** Set the function visibility status. Hidden Functions will not be displayed in the UI */
+    void setVisible(bool visible);
+
+    /** Retrieve the current visibility status */
+    bool isVisible() const;
+
+private:
+    bool m_visible;
 
     /*********************************************************************
      * Common XML

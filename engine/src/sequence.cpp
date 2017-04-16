@@ -29,6 +29,7 @@ Sequence::Sequence(Doc* doc)
     : Chaser(doc)
 {
     m_type = Function::SequenceType;
+    m_needFixup = true;
     setName(tr("New Sequence"));
 }
 
@@ -159,6 +160,15 @@ bool Sequence::loadXML(QXmlStreamReader &root)
 
     setBoundSceneID(funcAttrs.value(KXMLQLCSequenceBoundScene).toString().toUInt());
 
+    Scene *scene = qobject_cast<Scene *>(doc()->function(boundSceneID()));
+    QList<SceneValue> sceneValues;
+    if (scene != NULL)
+    {
+        sceneValues = scene->values();
+        qSort(sceneValues.begin(), sceneValues.end());
+        m_needFixup = false;
+    }
+
     /* Load Sequence contents */
     while (root.readNextStartElement())
     {
@@ -184,6 +194,9 @@ bool Sequence::loadXML(QXmlStreamReader &root)
             ChaserStep step;
             int stepNumber = -1;
 
+            if (sceneValues.isEmpty() == false)
+                step.values = sceneValues;
+
             if (step.loadXML(root, stepNumber) == true)
             {
                 step.fid = boundSceneID();
@@ -202,4 +215,45 @@ bool Sequence::loadXML(QXmlStreamReader &root)
     }
 
     return true;
+}
+
+void Sequence::postLoad()
+{
+    if (m_needFixup == false)
+        return;
+
+    Doc* doc = this->doc();
+    Q_ASSERT(doc != NULL);
+
+    Scene *scene = qobject_cast<Scene *>(doc->function(boundSceneID()));
+    QList<SceneValue> sceneValues;
+    if (scene != NULL)
+    {
+        sceneValues = scene->values();
+        qSort(sceneValues.begin(), sceneValues.end());
+    }
+
+    int stepIndex = 0;
+
+    QMutableListIterator <ChaserStep> it(m_steps);
+    while (it.hasNext() == true)
+    {
+        ChaserStep step(it.next());
+        if (sceneValues.count() == step.values.count())
+        {
+            stepIndex++;
+            continue;
+        }
+
+        QList <SceneValue> tmpList = step.values;
+        step.values = sceneValues;
+        for (int i = 0; i < tmpList.count(); i++)
+            step.values.replace(step.values.indexOf(tmpList.at(i)), tmpList.at(i));
+
+        replaceStep(step, stepIndex);
+        stepIndex++;
+    }
+    m_needFixup = false;
+
+    qDebug() << "Sequence" << name() << "steps fixed. Values:" << sceneValues.count();
 }

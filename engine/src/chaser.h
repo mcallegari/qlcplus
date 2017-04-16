@@ -251,7 +251,7 @@ public:
     virtual bool loadXML(QXmlStreamReader &root);
 
     /** @reimp */
-    void postLoad();
+    virtual void postLoad();
 
     /*********************************************************************
      * Start/Next/Previous

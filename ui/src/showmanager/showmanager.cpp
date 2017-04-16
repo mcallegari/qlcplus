@@ -793,7 +793,7 @@ void ShowManager::slotAddItem()
                     sequence->setDirection(Function::Forward);
                     sequence->setRunOrder(Function::SingleShot);
                     sequence->setDurationMode(Chaser::PerStep);
-                    m_currentScene->setChildrenFlag(true);
+                    m_currentScene->setVisible(false);
                     f->setName(QString("%1 %2").arg(tr("New Sequence")).arg(f->id()));
                     m_showview->addSequence(sequence, m_currentTrack);
                     ChaserStep step(m_currentScene->id(), m_currentScene->fadeInSpeed(), 10000, m_currentScene->fadeOutSpeed());
@@ -883,7 +883,7 @@ void ShowManager::slotAddSequence()
     if (m_doc->addFunction(f) == true)
     {
         sequence->setRunOrder(Function::SingleShot);
-        m_currentScene->setChildrenFlag(true);
+        m_currentScene->setVisible(false);
         f->setName(QString("%1 %2").arg(tr("New Sequence")).arg(f->id()));
         showSceneEditor(m_currentScene);
         showRightEditor(f);

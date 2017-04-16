@@ -44,7 +44,6 @@
 
 Scene::Scene(Doc* doc) : Function(doc, Function::SceneType)
     , m_legacyFadeBus(Bus::invalid())
-    , m_hasChildren(false)
     , m_fader(NULL)
 {
     setName(tr("New Scene"));
@@ -57,11 +56,6 @@ Scene::~Scene()
 QIcon Scene::getIcon() const
 {
     return QIcon(":/scene.png");
-}
-
-void Scene::setChildrenFlag(bool flag)
-{
-    m_hasChildren = flag;
 }
 
 quint32 Scene::totalDuration()
@@ -386,7 +380,7 @@ bool Scene::saveXML(QXmlStreamWriter *doc)
             currFixID = sv.fxi;
         }
         currFixValues.append(QString::number(sv.channel));
-        currFixValues.append(QString::number(m_hasChildren ? 0 : sv.value));
+        currFixValues.append(QString::number(isVisible() ? sv.value : 0));
     }
     /* write last element */
     saveXMLFixtureValues(doc, currFixID, currFixValues);

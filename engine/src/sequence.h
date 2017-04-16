@@ -75,6 +75,12 @@ private:
     /** The Scene ID associated to this Sequence */
     quint32 m_boundSceneID;
 
+    /** Temporary flag that indicates if the Sequence steps need to be
+     *  adjusted against the bound Scene values. Normally the bound Scene
+     *  has a lower ID, so it is found during the first XML load, but in
+     *  case it is not, steps will be fixed on postLoad */
+    bool m_needFixup;
+
     /*********************************************************************
      * Save & Load
      *********************************************************************/
@@ -84,6 +90,9 @@ public:
 
     /** @reimpl */
     bool loadXML(QXmlStreamReader &root);
+
+    /** @reimp */
+    void postLoad();
 };
 
 /** @} */

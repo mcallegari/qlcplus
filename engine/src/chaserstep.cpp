@@ -126,14 +126,36 @@ bool ChaserStep::loadXML(QXmlStreamReader &root, int& stepNumber)
         QString stepValues = root.readElementText();
         if (stepValues.isEmpty() == false)
         {
-            QStringList varray = stepValues.split(",");
-            for (int i = 0; i < varray.count(); i+=3)
+            int sIdx = 0;
+
+            // split the string by Fixture chunks
+            QStringList fxArray = stepValues.split(":");
+
+            for (int f = 0; f < fxArray.count(); f+=2)
             {
-                values.append(SceneValue(QString(varray.at(i)).toUInt(),
-                                         QString(varray.at(i + 1)).toUInt(),
-                                         uchar(QString(varray.at(i + 2)).toInt())));
+                quint32 fxID = QString(fxArray.at(f)).toUInt();
+
+                // now split the chunk into channel/values
+                QStringList varray = fxArray.at(f + 1).split(",");
+                for (int i = 0; i < varray.count(); i+=2)
+                {
+                    quint32 chIndex = QString(varray.at(i)).toUInt();
+                    SceneValue scv = SceneValue(fxID, chIndex, uchar(QString(varray.at(i + 1)).toInt()));
+
+                    while (sIdx < values.count())
+                    {
+                        if (values.at(sIdx).fxi == scv.fxi && values.at(sIdx).channel == scv.channel)
+                            break;
+                        sIdx++;
+                    }
+
+                    if (sIdx < values.count())
+                        values.replace(sIdx, scv);
+                    else
+                        values.append(scv);
+                }
             }
-            qSort(values.begin(), values.end());
+            //qSort(values.begin(), values.end());
         }
     }
     else
@@ -173,7 +195,6 @@ bool ChaserStep::saveXML(QXmlStreamWriter *doc, int stepNumber, bool isSequence)
     doc->writeAttribute(KXMLQLCFunctionSpeedFadeIn, QString::number(fadeIn));
     doc->writeAttribute(KXMLQLCFunctionSpeedHold, QString::number(hold));
     doc->writeAttribute(KXMLQLCFunctionSpeedFadeOut, QString::number(fadeOut));
-    //tag.setAttribute(KXMLQLCFunctionSpeedDuration, duration); // deprecated from version 4.3.1
     if (note.isEmpty() == false)
         doc->writeAttribute(KXMLQLCStepNote, note);
 
@@ -182,19 +203,27 @@ bool ChaserStep::saveXML(QXmlStreamWriter *doc, int stepNumber, bool isSequence)
         /* it's a sequence step. Save values accordingly */
         doc->writeAttribute(KXMLQLCSequenceSceneValues, QString::number(values.count()));
         QString stepValues;
+        quint32 fixtureID = Fixture::invalidId();
         foreach(SceneValue scv, values)
         {
+            // save non-zero values only
             if (scv.value != 0)
             {
-                if (stepValues.isEmpty() == false)
+                if (scv.fxi != fixtureID)
+                {
+                    if (stepValues.isEmpty() == false)
+                        stepValues.append(QString(":"));
+                    stepValues.append(QString("%1:").arg(scv.fxi));
+                    fixtureID = scv.fxi;
+                }
+                else
                     stepValues.append(QString(","));
-                stepValues.append(QString("%1,%2,%3").arg(scv.fxi).arg(scv.channel).arg(scv.value));
+
+                stepValues.append(QString("%1,%2").arg(scv.channel).arg(scv.value));
             }
         }
         if (stepValues.isEmpty() == false)
-        {
             doc->writeCharacters(stepValues);
-        }
     }
     else
     {
