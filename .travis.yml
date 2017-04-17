@@ -3,6 +3,8 @@ language: cpp
 script:
  - "bash -ex .travis-ci.sh"
 
+after_success: "coveralls"
+ 
 matrix:
   fast_finish: true
   include:
