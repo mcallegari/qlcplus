@@ -207,7 +207,7 @@ QList<QTreeWidgetItem *> ChannelsSelection::getSameChannels(QTreeWidgetItem *ite
 
     const QLCFixtureDef *def = fixture->fixtureDef();
     if (def == NULL)
-        return sameChannelsList;
+        return getDimmerChannels(item);
 
     QString manufacturer = def->manufacturer();
     QString model = def->model();
@@ -242,6 +242,39 @@ QList<QTreeWidgetItem *> ChannelsSelection::getSameChannels(QTreeWidgetItem *ite
     }
 
     return sameChannelsList;
+}
+
+// TODO: remove this when Dimmers have proper definition!
+QList<QTreeWidgetItem *> ChannelsSelection::getDimmerChannels(QTreeWidgetItem *item)
+{
+    QList<QTreeWidgetItem *> dimmerChannelsList;
+    Fixture *fixture = m_doc->fixture(item->text(KColumnID).toUInt());
+    if (fixture == NULL)
+        return dimmerChannelsList;
+
+    const QLCFixtureDef *def = fixture->fixtureDef();
+    Q_ASSERT(def ==  NULL);
+
+    for (int t = 0; t < m_channelsTree->topLevelItemCount(); t++)
+    {
+        QTreeWidgetItem *uniItem = m_channelsTree->topLevelItem(t);
+        for (int f = 0; f < uniItem->childCount(); f++)
+        {
+            QTreeWidgetItem *fixItem = uniItem->child(f);
+            quint32 fxID = fixItem->text(KColumnID).toUInt();
+            Fixture *fxi = m_doc->fixture(fxID);
+            if (fxi != NULL)
+            {
+                if (fxi->fixtureDef() == NULL)
+                {
+                    for (int ch = 0; ch < fixItem->childCount(); ch++)
+                         dimmerChannelsList.append(fixItem->child(ch));
+                }
+            }
+        }
+    }
+
+    return dimmerChannelsList;
 }
 
 void ChannelsSelection::slotItemChecked(QTreeWidgetItem *item, int col)
