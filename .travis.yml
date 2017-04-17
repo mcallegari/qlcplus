@@ -46,7 +46,7 @@ matrix:
         apt:
           sources:
            - ubuntu-toolchain-r-test
-           - sourceline: 'ppa:beineri/opt-qt562'
+           - sourceline: 'ppa:beineri/opt-qt562-trusty'
           packages:
            - *qt5_pkg
     - os: linux
