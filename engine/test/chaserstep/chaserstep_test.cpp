@@ -109,7 +109,6 @@ void ChaserStep_Test::load()
     xmlWriter.writeAttribute("FadeIn", "10");
     xmlWriter.writeAttribute("Hold", "15");
     xmlWriter.writeAttribute("FadeOut", "20");
-    xmlWriter.writeAttribute("Duration", "25");
     xmlWriter.writeAttribute("Note", "Fortytwo");
     xmlWriter.writeCharacters("30");
 
@@ -129,6 +128,51 @@ void ChaserStep_Test::load()
     QCOMPARE(step.duration, uint(25));
     QCOMPARE(step.fid, quint32(30));
     QCOMPARE(step.note, QString("Fortytwo"));
+}
+
+void ChaserStep_Test::load_sequence()
+{
+    int number = -1;
+    ChaserStep step;
+
+    QBuffer buffer;
+    QXmlStreamReader xmlReader(&buffer);
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    xmlWriter.writeStartElement("Step");
+    xmlWriter.writeAttribute("Number", "1");
+    xmlWriter.writeAttribute("FadeIn", "10");
+    xmlWriter.writeAttribute("Hold", "15");
+    xmlWriter.writeAttribute("FadeOut", "20");
+    xmlWriter.writeAttribute("Values", "30");
+    xmlWriter.writeCharacters("5:0,150,2,100,3,75:7:10,100,15,200");
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    xmlReader.setDevice(&buffer);
+    xmlReader.readNextStartElement();
+
+    QVERIFY(step.loadXML(xmlReader, number) == true);
+    QCOMPARE(number, 1);
+    QCOMPARE(step.fadeIn, uint(10));
+    QCOMPARE(step.hold, uint(15));
+    QCOMPARE(step.fadeOut, uint(20));
+    QCOMPARE(step.duration, uint(25));
+    QCOMPARE(step.fid, Function::invalidId());
+    QCOMPARE(step.note, QString(""));
+
+    QList<SceneValue> values = step.values;
+
+    QCOMPARE(step.values.count(), 5);
+    QCOMPARE(values.at(0), SceneValue(5, 0, 150));
+    QCOMPARE(values.at(1), SceneValue(5, 2, 100));
+    QCOMPARE(values.at(2), SceneValue(5, 3, 75));
+    QCOMPARE(values.at(3), SceneValue(7, 10, 100));
+    QCOMPARE(values.at(4), SceneValue(7, 15, 200));
 }
 
 void ChaserStep_Test::save()
@@ -154,9 +198,52 @@ void ChaserStep_Test::save()
     QCOMPARE(xmlReader.attributes().value("FadeIn").toString(), QString("2"));
     QCOMPARE(xmlReader.attributes().value("Hold").toString(), QString("3"));
     QCOMPARE(xmlReader.attributes().value("FadeOut").toString(), QString("4"));
-    //QCOMPARE(tag.attribute("Duration"), QString("4")); // deprecated from version 4.3.2
     QCOMPARE(xmlReader.attributes().value("Number").toString(), QString("5"));
     QCOMPARE(xmlReader.readElementText(), QString("1"));
+}
+
+void ChaserStep_Test::save_sequence()
+{
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+    xmlWriter.writeStartElement("Foo");
+
+    ChaserStep step(1, 2, 3, 4);
+    QList<SceneValue> values;
+    values.append(SceneValue(1, 0, 255));
+    values.append(SceneValue(1, 1, 0));
+    values.append(SceneValue(1, 2, 100));
+    values.append(SceneValue(1, 3, 200));
+
+    values.append(SceneValue(3, 0, 255));
+    values.append(SceneValue(3, 1, 100));
+    values.append(SceneValue(3, 2, 0));
+    values.append(SceneValue(3, 3, 0));
+
+    step.values = values;
+
+    QVERIFY(step.saveXML(&xmlWriter, 1, true) == true);
+
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+
+    xmlReader.readNextStartElement();
+    QCOMPARE(xmlReader.name().toString(), QString("Foo"));
+    xmlReader.readNextStartElement();
+    QCOMPARE(xmlReader.name().toString(), QString("Step"));
+    QCOMPARE(xmlReader.attributes().value("FadeIn").toString(), QString("2"));
+    QCOMPARE(xmlReader.attributes().value("Hold").toString(), QString("3"));
+    QCOMPARE(xmlReader.attributes().value("FadeOut").toString(), QString("4"));
+    QCOMPARE(xmlReader.attributes().value("Number").toString(), QString("1"));
+    QCOMPARE(xmlReader.attributes().value("Values").toString(), QString("8"));
+
+    QString valText = xmlReader.readElementText();
+    QCOMPARE(valText, QString("1:0,255,2,100,3,200:3:0,255,1,100"));
+
 }
 
 QTEST_APPLESS_MAIN(ChaserStep_Test)

@@ -32,7 +32,9 @@ private slots:
     void resolveFunction();
     void variant();
     void load();
+    void load_sequence();
     void save();
+    void save_sequence();
 };
 
 #endif
