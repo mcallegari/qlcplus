@@ -364,7 +364,7 @@ void Function_Test::speedToString()
     QCOMPARE(Function::speedToString(100), QString("100ms"));
 
     QCOMPARE(Function::speedToString(10), QString("10ms"));
-    QCOMPARE(Function::speedToString(Function::infiniteSpeed()), QString("∞"));
+    QCOMPARE(Function::speedToString(Function::infiniteSpeed()), QString(QChar(0x221E)));
 
 }
 
@@ -405,7 +405,7 @@ void Function_Test::stringToSpeed()
     // This string is broken, voluntarily ignore ms
     QCOMPARE(Function::stringToSpeed("59m59s.999ms"), uint(/*999 +*/ 59 * 1000 + 59 * 1000 * 60));
 
-    QCOMPARE(Function::stringToSpeed("∞"), Function::infiniteSpeed());
+    QCOMPARE(Function::stringToSpeed(QString(QChar(0x221E))), Function::infiniteSpeed());
 }
 
 void Function_Test::speedOperations()
