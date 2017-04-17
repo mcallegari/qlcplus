@@ -604,16 +604,14 @@ void ShowManager::slotAddItem()
 
     FunctionSelection fs(this, m_doc);
     // Forbid self-containment
+    QList<quint32> disabledList;
+    foreach (Function* function, m_doc->functions())
     {
-        QList<quint32> disabledList;
-        foreach (Function* function, m_doc->functions())
-        {
-            if (function->contains(m_show->id()))
-                disabledList << function->id();
-        }
-        fs.setDisabledFunctions(disabledList);
+        if (function->contains(m_show->id()))
+            disabledList << function->id();
     }
-    fs.showSequences(true);
+    fs.setDisabledFunctions(disabledList);
+
     fs.setMultiSelection(false);
     fs.setFilter(Function::SceneType | Function::ChaserType | Function::SequenceType | Function::AudioType | Function::RGBMatrixType | Function::EFXType);
     fs.disableFilters(Function::ShowType | Function::ScriptType | Function::CollectionType);

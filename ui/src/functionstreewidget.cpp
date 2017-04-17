@@ -115,6 +115,9 @@ QTreeWidgetItem* FunctionsTreeWidget::parentItem(const Function* function)
 {
     Q_ASSERT(function != NULL);
 
+    if (function->isVisible() == false)
+        return NULL;
+
     QString basePath = Function::typeToString(function->type());
     if (m_foldersMap.contains(QString(basePath + "/")) == false)
     {
@@ -157,6 +160,9 @@ quint32 FunctionsTreeWidget::itemFunctionId(const QTreeWidgetItem* item) const
 QTreeWidgetItem* FunctionsTreeWidget::functionItem(const Function* function)
 {
     Q_ASSERT(function != NULL);
+
+    if (function->isVisible() == false)
+        return NULL;
 
     QTreeWidgetItem* parent = parentItem(function);
     Q_ASSERT(parent != NULL);

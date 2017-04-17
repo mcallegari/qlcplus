@@ -68,7 +68,6 @@ FunctionSelection::FunctionSelection(QWidget* parent, Doc* doc)
                )
     , m_disableFilters(0)
     , m_constFilter(false)
-    , m_showSequences(false)
 {
     Q_ASSERT(doc != NULL);
 
@@ -280,11 +279,6 @@ QList <quint32> FunctionSelection::disabledFunctions() const
     return m_disabledFunctions;
 }
 
-void FunctionSelection::showSequences(bool show)
-{
-    m_showSequences = show;
-}
-
 /*****************************************************************************
  * Selection
  *****************************************************************************/
@@ -336,6 +330,9 @@ void FunctionSelection::refillTree()
     foreach (Function* function, m_doc->functions())
     {
         if (m_runningOnlyFlag == true && !function->isRunning())
+            continue;
+
+        if (function->isVisible() == false)
             continue;
 
         if (m_filter & function->type())
