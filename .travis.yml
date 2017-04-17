@@ -48,7 +48,7 @@ matrix:
            - ubuntu-toolchain-r-test
            - sourceline: 'ppa:beineri/opt-qt562'
           packages:
-           - *base_pkg
+           - *qt5_pkg
     - os: linux
       dist: trusty
       compiler: gcc
@@ -57,17 +57,16 @@ matrix:
         apt:
           sources:
            - ubuntu-toolchain-r-test
-           - sourceline: 'ppa:beineri/opt-qt562'
+           - sourceline: 'ppa:beineri/opt-qt562-trusty'
           packages:
-           - *base_pkg
+           - *qt5_pkg
            - lcov
 
 cache:
   apt: true
 
 before_install:
- - sudo apt-get update -qq
- - if [ "$QT" = "qt5" ]; then sudo apt-get install -qq qt56-meta-minimal qt56script qt56multimedia qt56serialport; fi
+# - sudo apt-get update -qq
  - if [ "$QT" = "qt4" ]; then export QMAKE=qmake; fi
  - if [ "$QT" = "qt5" ]; then export QMAKE=/opt/qt56/bin/qmake; fi
 # - if [ "$TASK" = "coverage" ]; then gem install coveralls-lcov; fi
