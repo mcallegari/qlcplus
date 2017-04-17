@@ -66,21 +66,23 @@ cache:
   apt: true
 
 before_install:
-# - sudo apt-get update -qq
  - if [ "$QT" = "qt4" ]; then export QMAKE=qmake; fi
  - if [ "$QT" = "qt5" ]; then export QMAKE=/opt/qt56/bin/qmake; fi
 # - if [ "$TASK" = "coverage" ]; then gem install coveralls-lcov; fi
 #Report the qmake version
  - $QMAKE -v
+#Remove the old g++/gcc to ensure we're using the latest ones
+ - if [ "$QT" = "qt5" ] && [ "$CXX" = "g++" ]; then sudo rm /usr/bin/g++; sudo rm /usr/bin/gcc; export CXX="g++-5" CC="gcc-5"; fi
+#Report the compiler version
+ - $CXX --version
  # Start xvfb so tests don't fail
  - "export DISPLAY=:99.0"
  - "sh -e /etc/init.d/xvfb start"
-#Remove the old g++/gcc to ensure we're using the latest ones
- - if [ "$QT" = "qt5" ] && [ "$CXX" = "g++" ]; then export CXX="g++-5" CC="gcc-5"; sudo rm /usr/bin/g++; sudo rm /usr/bin/gcc; fi
-#Report the compiler version
- - $CXX --version
+
+install:
+ - if [ "$TASK" = "coverage" ]; then pip install --user cpp-coveralls; fi
 
 after_success:
 # - if [ "$TASK" = "coverage" ]; then coveralls-lcov --repo-token ${COVERALLS_TOKEN} coverage/coverage.info; fi
- - if [ "$TASK" = "coverage" ]; then coveralls --gcov /usr/bin/gcov-6 -b . -E '.*/engine/src/.cpp$' -E '.*/ui/src/.cpp$' --gcov-options '\-lp' > /dev/null; fi
-
+# - if [ "$TASK" = "coverage" ]; then coveralls --gcov /usr/bin/gcov-6 -b . -E '.*/engine/src/.cpp$' -E '.*/ui/src/.cpp$' --gcov-options '\-lp' > /dev/null; fi
+ - if [ "$TASK" = "coverage" ]; then coveralls; fi

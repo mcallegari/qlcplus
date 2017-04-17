@@ -270,6 +270,7 @@ void Function_Test::typeToString()
     QVERIFY(Function::typeToString(Function::RGBMatrixType) == "RGBMatrix");
     QVERIFY(Function::typeToString(Function::ScriptType) == "Script");
     QVERIFY(Function::typeToString(Function::SequenceType) == "Sequence");
+    QVERIFY(Function::typeToString(Function::ShowType) == "Show");
     QVERIFY(Function::typeToString(Function::AudioType) == "Audio");
 
     QVERIFY(Function::typeToString(Function::Type(42)) == "Undefined");
@@ -286,6 +287,7 @@ void Function_Test::stringToType()
     QVERIFY(Function::stringToType("RGBMatrix") == Function::RGBMatrixType);
     QVERIFY(Function::stringToType("Script") == Function::ScriptType);
     QVERIFY(Function::stringToType("Sequence") == Function::SequenceType);
+    QVERIFY(Function::stringToType("Show") == Function::ShowType);
     QVERIFY(Function::stringToType("Audio") == Function::AudioType);
 
     QVERIFY(Function::stringToType("Foobar") == Function::Undefined);
