@@ -1183,7 +1183,7 @@ bool Function::stopAndWait()
 }
 
 /*****************************************************************************
- * Intensity
+ * Attributes
  *****************************************************************************/
 int Function::registerAttribute(QString name, qreal value)
 {
@@ -1270,6 +1270,10 @@ bool Function::contains(quint32 functionId)
     Q_UNUSED(functionId);
     return false;
 }
+
+/*************************************************************************
+ * Blend mode
+ *************************************************************************/
 
 void Function::setBlendMode(Universe::BlendMode mode)
 {

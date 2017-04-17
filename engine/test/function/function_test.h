@@ -49,6 +49,8 @@ private slots:
     void speedToString();
     void stringToSpeed();
     void speedOperations();
+    void attributes();
+    void blendMode();
     void loaderWrongRoot();
     void loaderWrongID();
     void loaderScene();

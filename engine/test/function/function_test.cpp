@@ -50,6 +50,8 @@ void Function_Test::initial()
     QCOMPARE(stub->fadeInSpeed(), uint(0));
     QCOMPARE(stub->fadeOutSpeed(), uint(0));
     QCOMPARE(stub->duration(), uint(0));
+    QCOMPARE(stub->totalDuration(), uint(0));
+    QCOMPARE(stub->getIcon().isNull(), false);
 }
 
 void Function_Test::properties()
@@ -272,6 +274,9 @@ void Function_Test::typeToString()
     QVERIFY(Function::typeToString(Function::SequenceType) == "Sequence");
     QVERIFY(Function::typeToString(Function::ShowType) == "Show");
     QVERIFY(Function::typeToString(Function::AudioType) == "Audio");
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    QVERIFY(Function::typeToString(Function::VideoType) == "Video");
+#endif
 
     QVERIFY(Function::typeToString(Function::Type(42)) == "Undefined");
     QVERIFY(Function::typeToString(Function::Type(31337)) == "Undefined");
@@ -289,6 +294,9 @@ void Function_Test::stringToType()
     QVERIFY(Function::stringToType("Sequence") == Function::SequenceType);
     QVERIFY(Function::stringToType("Show") == Function::ShowType);
     QVERIFY(Function::stringToType("Audio") == Function::AudioType);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    QVERIFY(Function::stringToType("Video") == Function::VideoType);
+#endif
 
     QVERIFY(Function::stringToType("Foobar") == Function::Undefined);
     QVERIFY(Function::stringToType("Xyzzy") == Function::Undefined);
@@ -299,6 +307,7 @@ void Function_Test::runOrderToString()
     QVERIFY(Function::runOrderToString(Function::Loop) == "Loop");
     QVERIFY(Function::runOrderToString(Function::SingleShot) == "SingleShot");
     QVERIFY(Function::runOrderToString(Function::PingPong) == "PingPong");
+    QVERIFY(Function::runOrderToString(Function::Random) == "Random");
 
     QVERIFY(Function::runOrderToString(Function::RunOrder(42)) == "Loop");
     QVERIFY(Function::runOrderToString(Function::RunOrder(69)) == "Loop");
@@ -309,6 +318,7 @@ void Function_Test::stringToRunOrder()
     QVERIFY(Function::stringToRunOrder("Loop") == Function::Loop);
     QVERIFY(Function::stringToRunOrder("SingleShot") == Function::SingleShot);
     QVERIFY(Function::stringToRunOrder("PingPong") == Function::PingPong);
+    QVERIFY(Function::stringToRunOrder("Random") == Function::Random);
 
     QVERIFY(Function::stringToRunOrder("Foobar") == Function::Loop);
     QVERIFY(Function::stringToRunOrder("Xyzzy") == Function::Loop);
@@ -345,9 +355,11 @@ void Function_Test::speedToString()
     QCOMPARE(Function::speedToString(990 + 59 * 1000 + 59 * 1000 * 60 + 99 * 1000 * 60 * 60), QString("99h59m59s990ms"));
     QCOMPARE(Function::speedToString(999 + 59 * 1000 + 59 * 1000 * 60 + 99 * 1000 * 60 * 60), QString("99h59m59s999ms"));
     QCOMPARE(Function::speedToString(1 + 1 * 1000 + 1 * 1000 * 60 + 1 * 1000 * 60 * 60), QString("1h01m01s001ms"));
+    QCOMPARE(Function::speedToString(100), QString("100ms"));
 
     QCOMPARE(Function::speedToString(10), QString("10ms"));
-    QCOMPARE(Function::speedToString(100), QString("100ms"));
+    QCOMPARE(Function::speedToString(Function::infiniteSpeed()), QString("∞"));
+
 }
 
 void Function_Test::stringToSpeed()
@@ -386,6 +398,8 @@ void Function_Test::stringToSpeed()
 
     // This string is broken, voluntarily ignore ms
     QCOMPARE(Function::stringToSpeed("59m59s.999ms"), uint(/*999 +*/ 59 * 1000 + 59 * 1000 * 60));
+
+    QCOMPARE(Function::stringToSpeed("∞"), Function::infiniteSpeed());
 }
 
 void Function_Test::speedOperations()
@@ -423,6 +437,54 @@ void Function_Test::speedOperations()
     QCOMPARE(Function::speedSubtract(Function::infiniteSpeed(), 10), Function::infiniteSpeed());
     QCOMPARE(Function::speedSubtract(10, Function::infiniteSpeed()), uint(0));
     QCOMPARE(Function::speedSubtract(Function::infiniteSpeed(), Function::infiniteSpeed()), uint(0));
+}
+
+void Function_Test::attributes()
+{
+    Doc doc(this);
+
+    Function_Stub* stub = new Function_Stub(&doc);
+
+    QCOMPARE(stub->attributes().count(), 1); // Intensity is always there
+    QCOMPARE(stub->getAttributeValue(Function::Intensity), 1.0);
+    stub->adjustAttribute(0.5, Function::Intensity);
+    QCOMPARE(stub->getAttributeValue(Function::Intensity), 0.5);
+
+    stub->registerAttribute("Foo", 1.0);
+    QCOMPARE(stub->attributes().count(), 2);
+    QCOMPARE(stub->getAttributeIndex("Foo"), 1);
+    QCOMPARE(stub->getAttributeValue(1), 1.0);
+    stub->adjustAttribute(0.7, 1);
+    QCOMPARE(stub->getAttributeValue(1), 0.7);
+
+    // check non existent attribute
+    QCOMPARE(stub->getAttributeIndex("Bar"), -1);
+
+    stub->resetAttributes();
+    QCOMPARE(stub->getAttributeValue(Function::Intensity), 1.0);
+    QCOMPARE(stub->getAttributeValue(1), 1.0);
+
+    QCOMPARE(stub->renameAttribute(1, "Boo"), true);
+    QCOMPARE(stub->renameAttribute(5, "Yah"), false);
+    QCOMPARE(stub->getAttributeIndex("Boo"), 1);
+
+    stub->unregisterAttribute("Boo");
+    QCOMPARE(stub->attributes().count(), 1);
+
+    QCOMPARE(stub->getAttributeValue(1), 0.0);
+}
+
+void Function_Test::blendMode()
+{
+    Doc doc(this);
+
+    Function_Stub* stub = new Function_Stub(&doc);
+
+    QCOMPARE(stub->blendMode(), Universe::NormalBlend);
+
+    stub->setBlendMode(Universe::AdditiveBlend);
+
+    QCOMPARE(stub->blendMode(), Universe::AdditiveBlend);
 }
 
 void Function_Test::loaderWrongRoot()
