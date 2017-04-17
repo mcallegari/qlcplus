@@ -66,9 +66,8 @@ cache:
   apt: true
 
 before_install:
-# - sudo apt-get update -qq
  - if [ "$QT" = "qt4" ]; then export QMAKE=qmake; fi
- - if [ "$QT" = "qt5" ]; then export QMAKE=/opt/qt56/bin/qmake; fi
+ - if [ "$QT" = "qt5" ]; then sudo apt-get update -qq; export QMAKE=/opt/qt56/bin/qmake; fi
 # - if [ "$TASK" = "coverage" ]; then gem install coveralls-lcov; fi
 #Report the qmake version
  - $QMAKE -v
