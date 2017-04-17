@@ -42,6 +42,7 @@ void Function_Test::initial()
     Doc doc(this);
 
     Function_Stub* stub = new Function_Stub(&doc);
+    QCOMPARE(stub->id(), Function::invalidId());
     QCOMPARE(stub->name(), QString());
     QCOMPARE(stub->runOrder(), Function::Loop);
     QCOMPARE(stub->direction(), Function::Forward);
@@ -51,7 +52,12 @@ void Function_Test::initial()
     QCOMPARE(stub->fadeOutSpeed(), uint(0));
     QCOMPARE(stub->duration(), uint(0));
     QCOMPARE(stub->totalDuration(), uint(0));
+    QCOMPARE(stub->overrideFadeInSpeed(), Function::defaultSpeed());
+    QCOMPARE(stub->overrideFadeOutSpeed(), Function::defaultSpeed());
+    QCOMPARE(stub->overrideDuration(), Function::defaultSpeed());
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     QCOMPARE(stub->getIcon().isNull(), false);
+#endif
 }
 
 void Function_Test::properties()
