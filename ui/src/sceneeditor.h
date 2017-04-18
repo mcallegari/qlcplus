@@ -189,7 +189,7 @@ private:
     void setTabChannelState(bool status, Fixture* fixture, quint32 channel);
 
 signals:
-    void fixtureValueChanged(SceneValue val);
+    void fixtureValueChanged(SceneValue val, bool enabled);
 
 private slots:
     void slotValueChanged(quint32 fxi, quint32 channel, uchar value);

@@ -27,9 +27,10 @@
 
 Sequence::Sequence(Doc* doc)
     : Chaser(doc)
+    , m_boundSceneID(Function::invalidId())
+    , m_needFixup(true)
 {
     m_type = Function::SequenceType;
-    m_needFixup = true;
     setName(tr("New Sequence"));
 }
 

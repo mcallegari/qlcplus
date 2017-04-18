@@ -523,8 +523,8 @@ void ShowManager::showRightEditor(Function *function)
 
             /** Signal from scene editor to chaser editor.
              *  When a fixture value is changed, update the selected chaser step */
-            connect(m_sceneEditor, SIGNAL(fixtureValueChanged(SceneValue)),
-                    m_currentEditor, SLOT(slotUpdateCurrentStep(SceneValue)));
+            connect(m_sceneEditor, SIGNAL(fixtureValueChanged(SceneValue,bool)),
+                    m_currentEditor, SLOT(slotUpdateCurrentStep(SceneValue,bool)));
 
             connect(m_currentEditor, SIGNAL(stepSelectionChanged(int)),
                     this, SLOT(slotStepSelectionChanged(int)));

@@ -886,8 +886,8 @@ void FunctionManager::editFunction(Function* function)
             connect(m_editor, SIGNAL(applyValues(QList<SceneValue>&)),
                     m_scene_editor, SLOT(slotSetSceneValues(QList <SceneValue>&)));
             /** Signal from scene editor to chaser editor. When a fixture value is changed, update the selected chaser step */
-            connect(m_scene_editor, SIGNAL(fixtureValueChanged(SceneValue)),
-                    m_editor, SLOT(slotUpdateCurrentStep(SceneValue)));
+            connect(m_scene_editor, SIGNAL(fixtureValueChanged(SceneValue, bool)),
+                    m_editor, SLOT(slotUpdateCurrentStep(SceneValue, bool)));
         }
     }
     else if (function->type() == Function::CollectionType)

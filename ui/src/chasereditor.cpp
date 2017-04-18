@@ -305,25 +305,64 @@ void ChaserEditor::slotNameEdited(const QString& text)
     m_chaser->setName(text);
 }
 
-void ChaserEditor::slotUpdateCurrentStep(SceneValue sv)
+void ChaserEditor::slotUpdateCurrentStep(SceneValue sv, bool enabled)
 {
     //qDebug() << "Value changed: " << sv.fxi << sv.channel << sv.value;
     QList <QTreeWidgetItem*> selected(m_tree->selectedItems());
 
-    if (selected.size() > 0)
+    if (selected.size() == 0)
+        return;
+
+    QTreeWidgetItem* item(selected.first());
+    int idx = m_tree->indexOfTopLevelItem(item);
+    ChaserStep step = m_chaser->steps().at(idx);
+    int svIndex = step.values.indexOf(sv);
+
+    if (enabled == true)
     {
-        QTreeWidgetItem* item(selected.first());
-        int idx = m_tree->indexOfTopLevelItem(item);
-        ChaserStep step = m_chaser->steps().at(idx);
-        for (int i = 0; i < step.values.count(); i++)
+        if (svIndex == -1)
         {
-            if (step.values.at(i) == sv)
+            // this means the provided Scene value is new - for EVERY step
+            step.values.append(sv);
+            qSort(step.values.begin(), step.values.end());
+            m_chaser->replaceStep(step, idx);
+
+            int newValIndex = step.values.indexOf(sv);
+
+            // all the non-selected steps should include the new value, but set to 0
+            sv.value = 0;
+
+            for (int i = 0; i < m_chaser->stepsCount(); i++)
             {
-                step.values.replace(i, sv);
-                m_chaser->replaceStep(step, idx);
-                //qDebug() << Q_FUNC_INFO << "Value replaced at pos: " << i;
-                return;
+                // skip the original selected step, otherwise
+                // the original Scene value would be overwritten
+                if (i == idx)
+                    continue;
+
+                ChaserStep cs = m_chaser->stepAt(i);
+                cs.values.insert(newValIndex, sv);
+                m_chaser->replaceStep(cs, i);
+                //qDebug() << "[slotUpdateCurrentStep] Value added to step: " << i << cs.values.count();
             }
+        }
+        else
+        {
+            step.values.replace(svIndex, sv);
+            m_chaser->replaceStep(step, idx);
+            //qDebug() << "[slotUpdateCurrentStep] Value replaced at pos: " << svIndex;
+        }
+    }
+    else
+    {
+        if (svIndex == -1)
+            return;
+
+        for (int i = 0; i < m_chaser->stepsCount(); i++)
+        {
+            ChaserStep cs = m_chaser->stepAt(i);
+            cs.values.removeAt(svIndex);
+            m_chaser->replaceStep(cs, i);
+            //qDebug() << "[slotUpdateCurrentStep] Value removed from step: " << i << cs.values.count();
         }
     }
 }
