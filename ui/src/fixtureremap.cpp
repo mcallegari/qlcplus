@@ -743,13 +743,13 @@ void FixtureRemap::accept()
                 Sequence *s = qobject_cast<Sequence*>(func);
                 for (int idx = 0; idx < s->stepsCount(); idx++)
                 {
-                    ChaserStep cs = s->stepAt(idx);
-                    QList <SceneValue> newList = remapSceneValues(cs.values, sourceList, targetList);
+                    ChaserStep *cs = s->stepAt(idx);
+                    QList <SceneValue> newList = remapSceneValues(cs->values, sourceList, targetList);
                     //qDebug() << "Step" << idx << "remapped" << cs.values.count() << "to" << newList.count();
                     // this is crucial: here all the "unmapped" channels will be lost forever !
-                    cs.values.clear();
-                    cs.values = newList;
-                    s->replaceStep(cs, idx);
+                    cs->values.clear();
+                    cs->values = newList;
+                    //s->replaceStep(cs, idx);
                 }
             }
             break;

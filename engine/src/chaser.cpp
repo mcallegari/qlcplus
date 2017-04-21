@@ -213,11 +213,12 @@ int Chaser::stepsCount()
     return m_steps.count();
 }
 
-ChaserStep Chaser::stepAt(int idx)
+ChaserStep *Chaser::stepAt(int idx)
 {
     if (idx >= 0 && idx < m_steps.count())
-        return m_steps.at(idx);
-    return ChaserStep();
+        return &(m_steps[idx]);
+
+    return NULL;
 }
 
 QList <ChaserStep> Chaser::steps() const

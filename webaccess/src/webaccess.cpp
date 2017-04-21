@@ -939,9 +939,9 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
                     "onclick=\"enableCue(" + QString::number(cue->id()) + ", " + QString::number(i) + ");\" "
                     "onmouseover=\"this.style.backgroundColor='#CCD9FF';\" "
                     "onmouseout=\"checkMouseOut(" + QString::number(cue->id()) + ", " + QString::number(i) + ");\">\n";
-            ChaserStep step = chaser->stepAt(i);
+            ChaserStep *step = chaser->stepAt(i);
             str += "<td>" + QString::number(i + 1) + "</td>";
-            Function* function = doc->function(step.fid);
+            Function* function = doc->function(step->fid);
             if (function != NULL)
             {
                 str += "<td>" + function->name() + "</td>";
@@ -958,10 +958,10 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
                     break;
                     case Chaser::PerStep:
                     {
-                        if (step.fadeIn == Function::infiniteSpeed())
+                        if (step->fadeIn == Function::infiniteSpeed())
                             str += "<td>&#8734;</td>";
                         else
-                            str += "<td>" + Function::speedToString(step.fadeIn) + "</td>";
+                            str += "<td>" + Function::speedToString(step->fadeIn) + "</td>";
                     }
                     break;
                     default:
@@ -985,10 +985,10 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
                     break;
                     case Chaser::PerStep:
                     {
-                        if (step.fadeOut == Function::infiniteSpeed())
+                        if (step->fadeOut == Function::infiniteSpeed())
                             str += "<td>&#8734;</td>";
                         else
-                            str += "<td>" + Function::speedToString(step.fadeOut) + "</td>";
+                            str += "<td>" + Function::speedToString(step->fadeOut) + "</td>";
                     }
                     break;
                     default:
@@ -1008,10 +1008,10 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
                     break;
                     case Chaser::PerStep:
                     {
-                        if (step.fadeOut == Function::infiniteSpeed())
+                        if (step->fadeOut == Function::infiniteSpeed())
                             str += "<td>&#8734;</td>";
                         else
-                            str += "<td>" + Function::speedToString(step.duration) + "</td>";
+                            str += "<td>" + Function::speedToString(step->duration) + "</td>";
                     }
                     break;
                     default:
@@ -1019,7 +1019,7 @@ QString WebAccess::getCueListHTML(VCCueList *cue)
                         str += "<td></td>";
                 }
 
-                str += "<td>" + step.note + "</td>\n";
+                str += "<td>" + step->note + "</td>\n";
             }
             str += "</td>\n";
         }

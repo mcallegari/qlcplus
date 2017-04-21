@@ -135,7 +135,7 @@ public:
      *
      * @return The requested Chaser Step
      */
-    ChaserStep stepAt(int idx);
+    ChaserStep *stepAt(int idx);
 
     /**
      * Get the chaser's list of steps

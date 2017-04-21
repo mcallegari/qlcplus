@@ -63,7 +63,46 @@ Function* ChaserStep::resolveFunction(const Doc* doc) const
         return doc->function(fid);
 }
 
-#if 1
+int ChaserStep::setValue(SceneValue value, int index, bool *created)
+{
+    if (index == -1)
+    {
+        index = values.indexOf(value);
+        if (index == -1)
+        {
+            values.append(value);
+            qSort(values.begin(), values.end());
+            if (created != NULL)
+                *created = true;
+            return values.indexOf(value);
+        }
+    }
+
+    if (values.at(index) == value)
+        values.replace(index, value);
+    else
+        values.insert(index, value);
+
+    if (created != NULL)
+        *created = false;
+
+    return index;
+}
+
+int ChaserStep::unSetValue(SceneValue value, int index)
+{
+    if (index == -1)
+    {
+        index = values.indexOf(value);
+        if (index == -1)
+            return -1;
+    }
+
+    values.removeAt(index);
+
+    return index;
+}
+
 QVariant ChaserStep::toVariant() const
 {
     qDebug() << "-------------  ChaserStep::toVariant";
@@ -93,7 +132,6 @@ ChaserStep ChaserStep::fromVariant(const QVariant& var)
     }
     return cs;
 }
-#endif
 
 bool ChaserStep::loadXML(QXmlStreamReader &root, int& stepNumber)
 {
