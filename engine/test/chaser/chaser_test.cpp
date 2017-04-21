@@ -183,6 +183,35 @@ void Chaser_Test::steps()
     QVERIFY(c.steps().size() == 2);
     QVERIFY(c.steps().at(0) == ChaserStep(2));
     QVERIFY(c.steps().at(1) == ChaserStep(1));
+
+    /* Move an invalid step will fail */
+    QVERIFY(c.moveStep(5, 1) == false);
+
+    QVERIFY(c.moveStep(1, 0) == true);
+    QVERIFY(c.steps().size() == 2);
+    QVERIFY(c.steps().at(0) == ChaserStep(1));
+    QVERIFY(c.steps().at(1) == ChaserStep(2));
+}
+
+void Chaser_Test::stepAt()
+{
+    Chaser c(m_doc);
+    c.setID(42);
+    QVERIFY(c.addStep(ChaserStep(0, 1000, 5000, 0)) == true);
+    QVERIFY(c.stepsCount() == 1);
+
+    QVERIFY(c.stepAt(10) == NULL);
+    ChaserStep *cs = c.stepAt(0);
+    QVERIFY(cs != NULL);
+
+    QVERIFY(cs->fadeIn == 1000);
+    QVERIFY(cs->hold == 5000);
+
+    cs->fadeIn = 500;
+    cs->hold = 8000;
+
+    QVERIFY(cs->fadeIn == 500);
+    QVERIFY(cs->hold == 8000);
 }
 
 void Chaser_Test::functionRemoval()
