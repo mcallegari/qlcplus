@@ -218,8 +218,7 @@ bool FixtureConsole::hasSelections()
 
 void FixtureConsole::setValues(const QList <SceneValue>& list, bool fromSelection)
 {
-    if (fromSelection == false)
-        setChecked(false);
+    QList<ConsoleChannel *> toUncheckList = m_channels;
 
     QListIterator <SceneValue> it(list);
     while (it.hasNext() == true)
@@ -230,10 +229,18 @@ void FixtureConsole::setValues(const QList <SceneValue>& list, bool fromSelectio
             ConsoleChannel* cc = channel(val.channel);
             if (cc != NULL)
             {
-                cc->setChecked(true);
+                if (cc->isChecked() == false)
+                    cc->setChecked(true);
                 cc->setValue(val.value);
+                toUncheckList.removeOne(cc);
             }
         }
+    }
+
+    if (fromSelection == false)
+    {
+        foreach (ConsoleChannel *cc, toUncheckList)
+            cc->setChecked(false);
     }
 }
 
