@@ -31,6 +31,7 @@ private slots:
     void comparison();
     void resolveFunction();
     void variant();
+    void values();
     void load();
     void load_sequence();
     void save();

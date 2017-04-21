@@ -78,13 +78,25 @@ int ChaserStep::setValue(SceneValue value, int index, bool *created)
         }
     }
 
-    if (values.at(index) == value)
-        values.replace(index, value);
-    else
-        values.insert(index, value);
+    if (index < 0 || index >= values.count())
+    {
+        if (created != NULL)
+            *created = false;
+        return -1;
+    }
 
-    if (created != NULL)
-        *created = false;
+    if (values.at(index) == value)
+    {
+        values.replace(index, value);
+        if (created != NULL)
+            *created = false;
+    }
+    else
+    {
+        values.insert(index, value);
+        if (created != NULL)
+            *created = true;
+    }
 
     return index;
 }
@@ -98,14 +110,17 @@ int ChaserStep::unSetValue(SceneValue value, int index)
             return -1;
     }
 
+    if (index < 0 || index >= values.count())
+        return -1;
+
     values.removeAt(index);
+
 
     return index;
 }
 
 QVariant ChaserStep::toVariant() const
 {
-    qDebug() << "-------------  ChaserStep::toVariant";
     QList <QVariant> list;
     list << fid;
     list << fadeIn;
@@ -119,7 +134,6 @@ QVariant ChaserStep::toVariant() const
 ChaserStep ChaserStep::fromVariant(const QVariant& var)
 {
     ChaserStep cs;
-    qDebug() << "-------------  ChaserStep::fromVariant";
     QList <QVariant> list(var.toList());
     if (list.size() == 6)
     {

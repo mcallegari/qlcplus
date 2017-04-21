@@ -88,6 +88,61 @@ void ChaserStep_Test::variant()
     QCOMPARE(pets.duration, uint(5));
 }
 
+#include <QDebug>
+
+void ChaserStep_Test::values()
+{
+    ChaserStep step(1, 2, 3, 4);
+    QVERIFY(step.values.count() == 0);
+
+    /* append a new value */
+    QVERIFY(step.setValue(SceneValue(5, 6, 7)) == 0);
+    QVERIFY(step.values.count() == 1);
+
+    /* insert a new value at position */
+    QVERIFY(step.setValue(SceneValue(5, 7, 8), 0) == 0);
+    QVERIFY(step.values.count() == 2);
+    QVERIFY(step.values.at(0) == SceneValue(5, 7, 8));
+    QVERIFY(step.values.at(1) == SceneValue(5, 6, 7));
+
+    /* insert a new value in the middle */
+    QVERIFY(step.setValue(SceneValue(5, 8, 9), 1) == 1);
+    QVERIFY(step.values.count() == 3);
+    QVERIFY(step.values.at(0) == SceneValue(5, 7, 8));
+    QVERIFY(step.values.at(1) == SceneValue(5, 8, 9));
+    QVERIFY(step.values.at(2) == SceneValue(5, 6, 7));
+
+    /* replace an existing value */
+    QVERIFY(step.setValue(SceneValue(5, 8, 19), 1) == 1);
+    QVERIFY(step.values.count() == 3);
+    QVERIFY(step.values.at(1) == SceneValue(5, 8, 19));
+
+    bool created = false;
+    /* check created on new value */
+    QVERIFY(step.setValue(SceneValue(6, 7, 8), -1, &created) == 3);
+    QVERIFY(created == true);
+    QVERIFY(step.values.count() == 4);
+
+    /* check that the previous operation sorted the values */
+    QVERIFY(step.values.at(0) == SceneValue(5, 6, 7));
+    QVERIFY(step.values.at(1) == SceneValue(5, 7, 8));
+    QVERIFY(step.values.at(2) == SceneValue(5, 8, 19));
+    QVERIFY(step.values.at(3) == SceneValue(6, 7, 8));
+
+    /* check created on existing value */
+    QVERIFY(step.setValue(SceneValue(5, 8, 9), 2, &created) == 2);
+    QVERIFY(created == false);
+    QVERIFY(step.values.at(2) == SceneValue(5, 8, 9));
+    QVERIFY(step.values.count() == 4);
+
+    /* unset an invalid value */
+    QVERIFY(step.unSetValue(SceneValue(10, 20, 30)) == -1);
+
+    /* unset a valid value */
+    QVERIFY(step.unSetValue(SceneValue(5, 8, 9), 1) == 1);
+    QVERIFY(step.values.count() == 3);
+}
+
 void ChaserStep_Test::load()
 {
     int number = -1;
