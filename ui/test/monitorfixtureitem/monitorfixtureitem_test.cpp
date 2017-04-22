@@ -119,7 +119,7 @@ void MonitorFixtureItem_Test::computeAlpha()
     if (masterDimmer == QLCChannel::invalid() && head1Dimmer == QLCChannel::invalid())
     {
        {
-           QByteArray values(fxi->channels(), 255);
+           QByteArray values(fxi->channels(), (char)255);
            QCOMPARE(mfi->computeAlpha(h1, values), (uchar)255u);
            QCOMPARE(mfi->computeAlpha(h2, values), (uchar)255u);
        }
@@ -139,7 +139,7 @@ void MonitorFixtureItem_Test::computeAlpha()
     else if (masterDimmer != QLCChannel::invalid() && head1Dimmer == QLCChannel::invalid())
     {
        {
-           QByteArray values(fxi->channels(), 255);
+           QByteArray values(fxi->channels(), (char)255);
            QCOMPARE(mfi->computeAlpha(h1, values), (uchar)255u);
            QCOMPARE(mfi->computeAlpha(h2, values), (uchar)255u);
        }
@@ -159,7 +159,7 @@ void MonitorFixtureItem_Test::computeAlpha()
     else if (masterDimmer == QLCChannel::invalid() && head1Dimmer != QLCChannel::invalid())
     {
        {
-           QByteArray values(fxi->channels(), 255);
+           QByteArray values(fxi->channels(), (char)255);
            QCOMPARE(mfi->computeAlpha(h1, values), (uchar)255u);
            QCOMPARE(mfi->computeAlpha(h2, values), (uchar)255u);
        }
@@ -181,7 +181,7 @@ void MonitorFixtureItem_Test::computeAlpha()
        // change both master & head dimmer
 
        {
-           QByteArray values(fxi->channels(), 255);
+           QByteArray values(fxi->channels(), (char)255);
            QCOMPARE(mfi->computeAlpha(h1, values), (uchar)255u);
            QCOMPARE(mfi->computeAlpha(h2, values), (uchar)255u);
        }
@@ -201,14 +201,14 @@ void MonitorFixtureItem_Test::computeAlpha()
        // change only master dimmer
 
        {
-           QByteArray values(fxi->channels(), 255);
+           QByteArray values(fxi->channels(), (char)255);
            values[masterDimmer] = 127;
            QCOMPARE(mfi->computeAlpha(h1, values), (uchar)127u);
            QCOMPARE(mfi->computeAlpha(h2, values), (uchar)127u);
        }
 
        {
-           QByteArray values(fxi->channels(), 255);
+           QByteArray values(fxi->channels(), (char)255);
            values[masterDimmer] = 0;
            QCOMPARE(mfi->computeAlpha(h1, values), (uchar)0u);
            QCOMPARE(mfi->computeAlpha(h2, values), (uchar)0u);
@@ -217,15 +217,15 @@ void MonitorFixtureItem_Test::computeAlpha()
        // change only head dimmer
 
        {
-           QByteArray values(fxi->channels(), 255);
+           QByteArray values(fxi->channels(), (char)255);
            values[head1Dimmer] = 100;
-           values[head2Dimmer] = 200;
+           values[head2Dimmer] = (char)200;
            QCOMPARE(mfi->computeAlpha(h1, values), (uchar)100u);
            QCOMPARE(mfi->computeAlpha(h2, values), (uchar)200u);
        }
 
        {
-           QByteArray values(fxi->channels(), 255);
+           QByteArray values(fxi->channels(), (char)255);
            values[head1Dimmer] = 0;
            values[head2Dimmer] = 0;
            QCOMPARE(mfi->computeAlpha(h1, values), (uchar)0u);

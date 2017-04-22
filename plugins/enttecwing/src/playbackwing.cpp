@@ -211,7 +211,7 @@ void PlaybackWing::parseData(const QByteArray& data)
         /* Each byte has 8 button values as binary bits */
         for (int bit = 7; bit >= 0; bit--)
         {
-            char value;
+            uchar value;
 
             /* Calculate the key number, which is 10-49, since
                sliders are mapped to 0-9. */

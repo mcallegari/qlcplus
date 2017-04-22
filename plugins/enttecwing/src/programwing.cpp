@@ -163,7 +163,7 @@ QString ProgramWing::name() const
 
 void ProgramWing::parseData(const QByteArray& data)
 {
-    char value;
+    uchar value;
     int size;
     int byte;
 
@@ -216,9 +216,9 @@ void ProgramWing::parseData(const QByteArray& data)
         unsigned char cvalue = cacheValue(m_channelMap[channel]);
 
         value = data[WING_PROGRAM_BYTE_ENCODER + encoder];
-        if (value == char(255))
+        if (value == 255)
             setCacheValue(m_channelMap[channel], ++cvalue);
-        else if (value == char(1))
+        else if (value == 1)
             setCacheValue(m_channelMap[channel], --cvalue);
     }
 }
