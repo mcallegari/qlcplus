@@ -53,8 +53,6 @@ public:
     /** @reimp */
     QString pluginInfo();
 
-
-
     /*********************************************************************
      * Outputs
      *********************************************************************/
@@ -98,7 +96,8 @@ public:
     QString inputInfo(quint32 input);
 
     /** Tell the plugin to emit valueChanged signal */
-    void emitValueChanged(quint32 universe, quint32 input, quint32 channel, uchar value) {
+    void emitValueChanged(quint32 universe, quint32 input, quint32 channel, uchar value)
+    {
         emit valueChanged(universe, input, channel, value);
     }
 

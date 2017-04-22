@@ -33,6 +33,7 @@ private slots:
 
     void defaults();
     void patch();
+    void parameters();
 
 private:
     Doc* m_doc;
