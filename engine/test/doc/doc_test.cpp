@@ -27,6 +27,7 @@
 #define private public
 
 #include "qlcfixturedefcache.h"
+#include "monitorproperties.h"
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
 #include "qlcphysical.h"
@@ -300,9 +301,9 @@ void Doc_Test::deleteFixture()
     QVERIFY(f3ptr == NULL);
 }
 
-void Doc_Test::fixture()
+void Doc_Test::replaceFixtures()
 {
-    Fixture* f1 = new Fixture(m_doc);
+    Fixture *f1 = new Fixture(m_doc);
     f1->setName("One");
     f1->setChannels(5);
     f1->setAddress(m_currentAddr);
@@ -310,7 +311,7 @@ void Doc_Test::fixture()
     m_doc->addFixture(f1);
     m_currentAddr += f1->channels();
 
-    Fixture* f2 = new Fixture(m_doc);
+    Fixture *f2 = new Fixture(m_doc);
     f2->setName("Two");
     f2->setChannels(5);
     f2->setAddress(m_currentAddr);
@@ -318,7 +319,74 @@ void Doc_Test::fixture()
     m_doc->addFixture(f2);
     m_currentAddr += f2->channels();
 
-    Fixture* f3 = new Fixture(m_doc);
+    Fixture *f3 = new Fixture(m_doc);
+    f3->setName("Three");
+    f3->setChannels(5);
+    f3->setAddress(m_currentAddr);
+    f3->setUniverse(0);
+    m_doc->addFixture(f3);
+    m_currentAddr += f3->channels();
+
+    QVERIFY(m_doc->fixtures().count() == 3);
+    QVERIFY(m_doc->fixture(f1->id()) == f1);
+    QVERIFY(m_doc->fixture(f2->id()) == f2);
+    QVERIFY(m_doc->fixture(f3->id()) == f3);
+
+    Fixture *f4 = new Fixture(m_doc);
+    f4->setName("Four");
+    f4->setID(0);
+
+    QLCFixtureDef* fixtureDef;
+    fixtureDef = m_doc->fixtureDefCache()->fixtureDef("Showtec", "MiniMax 250");
+    Q_ASSERT(fixtureDef != NULL);
+    QLCFixtureMode* fixtureMode;
+    fixtureMode = fixtureDef->modes().at(0);
+    Q_ASSERT(fixtureMode != NULL);
+    f4->setFixtureDefinition(fixtureDef, fixtureMode);
+    f4->setAddress(100);
+    f4->setUniverse(0);
+
+    Fixture *f5 = new Fixture(m_doc);
+    f5->setName("Five");
+    f5->setID(1);
+    f5->setChannels(5);
+    f5->setAddress(200);
+    f2->setUniverse(0);
+
+    QList<Fixture *> newFixtures;
+    newFixtures << f4 << f5;
+
+    QVERIFY(m_doc->replaceFixtures(newFixtures) == true);
+
+    QVERIFY(m_doc->fixtures().count() == 2);
+
+    /* check that a copy of the new Fixtures has been made */
+    QVERIFY(m_doc->fixture(f4->id()) != f4);
+    QVERIFY(m_doc->fixture(f5->id()) != f5);
+
+    QVERIFY(m_doc->fixture(f4->id())->name() == "Four");
+    QVERIFY(m_doc->fixture(f5->id())->name() == "Five");
+}
+
+void Doc_Test::fixture()
+{
+    Fixture *f1 = new Fixture(m_doc);
+    f1->setName("One");
+    f1->setChannels(5);
+    f1->setAddress(m_currentAddr);
+    f1->setUniverse(0);
+    m_doc->addFixture(f1);
+    m_currentAddr += f1->channels();
+
+    Fixture *f2 = new Fixture(m_doc);
+    f2->setName("Two");
+    f2->setChannels(5);
+    f2->setAddress(m_currentAddr);
+    f2->setUniverse(0);
+    m_doc->addFixture(f2);
+    m_currentAddr += f2->channels();
+
+    Fixture *f3 = new Fixture(m_doc);
     f3->setName("Three");
     f3->setChannels(5);
     f3->setAddress(m_currentAddr);
@@ -477,8 +545,118 @@ void Doc_Test::removeFixtureGroup()
     QVERIFY(m_doc->fixtureGroup(2) != NULL);
 }
 
+void Doc_Test::channelGroups()
+{
+    QSignalSpy spy(m_doc, SIGNAL(channelsGroupAdded(quint32)));
+    QSignalSpy spy2(m_doc, SIGNAL(channelsGroupRemoved(quint32)));
+
+    QVERIFY(m_doc->channelsGroups().count() == 0);
+
+    ChannelsGroup *group = new ChannelsGroup(m_doc);
+    ChannelsGroup *group2 = new ChannelsGroup(m_doc);
+    ChannelsGroup *group3 = new ChannelsGroup(m_doc);
+
+    /* Add a new channel group */
+    QVERIFY(m_doc->addChannelsGroup(group) == true);
+    QVERIFY(m_doc->channelsGroups().at(0)->id() == 0);
+    QVERIFY(m_doc->channelsGroups().count() == 1);
+    QCOMPARE(spy.size(), 1);
+    QCOMPARE(spy[0].size(), 1);
+    QCOMPARE(spy[0][0].toUInt(), quint32(0));
+
+    QVERIFY(m_doc->addChannelsGroup(group2) == true);
+    QVERIFY(m_doc->channelsGroups().at(0)->id() == 0);
+    QVERIFY(m_doc->channelsGroups().at(1)->id() == 1);
+    QVERIFY(m_doc->channelsGroups().count() == 2);
+    QCOMPARE(spy.size(), 2);
+    QCOMPARE(spy[1].size(), 1);
+    QCOMPARE(spy[1][0].toUInt(), quint32(1));
+
+    /* delete an invalid channel group */
+    QVERIFY(m_doc->deleteChannelsGroup(42) == false);
+    QVERIFY(m_doc->channelsGroups().count() == 2);
+
+    /* delete a valid channel group */
+    QVERIFY(m_doc->deleteChannelsGroup(0) == true);
+    QVERIFY(m_doc->channelsGroups().count() == 1);
+    QVERIFY(m_doc->channelsGroups().at(0)->id() == 1);
+    QCOMPARE(spy2.size(), 1);
+    QCOMPARE(spy2[0].size(), 1);
+    QCOMPARE(spy2[0][0].toUInt(), quint32(0));
+
+    /* get an invalid channel group */
+    QVERIFY(m_doc->channelsGroup(42) == NULL);
+
+    /* get a valid channel group */
+    QVERIFY(m_doc->channelsGroup(1) == group2);
+
+    QVERIFY(m_doc->addChannelsGroup(group3) == true);
+    QVERIFY(m_doc->channelsGroups().count() == 2);
+    QCOMPARE(spy.size(), 3);
+    QCOMPARE(spy[2].size(), 1);
+    QCOMPARE(spy[2][0].toUInt(), quint32(2));
+
+    QVERIFY(m_doc->channelsGroups().at(1)->id() == 2);
+
+    /* attempt to perform an invalid move */
+    QVERIFY(m_doc->moveChannelGroup(42, 0) == false);
+    QVERIFY(m_doc->moveChannelGroup(2, -100) == false);
+
+    /* do a valid move */
+    QVERIFY(m_doc->moveChannelGroup(2, -1) == true);
+    QVERIFY(m_doc->channelsGroups().count() == 2);
+    QVERIFY(m_doc->channelsGroups().at(0)->id() == 2);
+    QVERIFY(m_doc->channelsGroups().at(1)->id() == 1);
+}
+
+void Doc_Test::monitorProperties()
+{
+    QRectF fxRect(100, 100, 300, 300);
+
+    QVERIFY(m_doc->m_monitorProps == NULL);
+    QVERIFY(m_doc->getAvailable2DPosition(fxRect) == QPointF(0, 0));
+
+    QVERIFY(m_doc->monitorProperties() != NULL);
+    QVERIFY(m_doc->getAvailable2DPosition(fxRect) == QPointF(100, 100));
+
+    Fixture* f1 = new Fixture(m_doc);
+    f1->setName("One");
+    f1->setChannels(2);
+    f1->setAddress(0);
+    f1->setUniverse(0);
+    m_doc->addFixture(f1);
+
+    Chaser* c = new Chaser(m_doc);
+    m_doc->addFunction(c);
+
+    Fixture* f2 = new Fixture(m_doc);
+    f2->setName("Two");
+    f2->setChannels(1);
+    f2->setAddress(20);
+    f2->setUniverse(1);
+    m_doc->addFixture(f2);
+
+    Collection* o = new Collection(m_doc);
+    m_doc->addFunction(o);
+
+    Fixture* f3 = new Fixture(m_doc);
+    f3->setName("Three");
+    f3->setChannels(1);
+    f3->setAddress(40);
+    f3->setUniverse(2);
+    m_doc->addFixture(f3);
+
+    MonitorProperties *props = m_doc->monitorProperties();
+    props->setFixturePosition(f1->id(), QVector3D(0, 0, 0));
+    props->setFixturePosition(f2->id(), QVector3D(300, 0, 0));
+    props->setFixturePosition(f3->id(), QVector3D(600, 0, 0));
+
+    QVERIFY(m_doc->getAvailable2DPosition(fxRect) == QPointF(950, 100));
+}
+
 void Doc_Test::addFunction()
 {
+    QVERIFY(m_doc->nextFunctionID() == 0);
     QVERIFY(m_doc->functions().size() == 0);
 
     Scene* s = new Scene(m_doc);
@@ -520,6 +698,8 @@ void Doc_Test::addFunction()
     QVERIFY(e->id() == 3);
     QVERIFY(m_doc->functions().size() == 4);
     QVERIFY(m_doc->isModified() == true);
+
+    QVERIFY(m_doc->nextFunctionID() == 4);
 }
 
 void Doc_Test::deleteFunction()
@@ -578,8 +758,11 @@ void Doc_Test::function()
     QVERIFY(m_doc->function(s3->id()) == s3);
 
     quint32 id = s2->id();
-    m_doc->deleteFunction(id);
+    QVERIFY(m_doc->deleteFunction(id) == true);
     QVERIFY(m_doc->function(id) == NULL);
+
+    m_doc->setStartupFunction(s1->id());
+    QVERIFY(m_doc->startupFunction() == s1->id());
 }
 
 void Doc_Test::load()
@@ -743,7 +926,7 @@ void Doc_Test::save()
     xmlReader.readNextStartElement();
     QVERIFY(xmlReader.name().toString() == "Engine");
 
-    uint fixtures = 0, groups = 0, functions = 0, ioMap = 0;
+    uint fixtures = 0, groups = 0, functions = 0, ioMap = 0, monitor = 0;
 
     // Merely tests that the start of each hierarchy is found from the XML document.
     // Their contents are tested individually in their own separate tests.
@@ -757,6 +940,8 @@ void Doc_Test::save()
             groups++;
         else if (xmlReader.name() == "InputOutputMap")
             ioMap++;
+        else if (xmlReader.name() == "Monitor")
+            monitor++;
         else if (xmlReader.name() == "Bus")
             QFAIL("Bus tags should not be saved anymore!");
         else
@@ -770,6 +955,7 @@ void Doc_Test::save()
     QVERIFY(groups == 2);
     QVERIFY(functions == 4);
     QVERIFY(ioMap == 1);
+    QVERIFY(monitor == 1);
 
     /* Saving doesn't implicitly reset modified status */
     QVERIFY(m_doc->isModified() == true);
