@@ -36,6 +36,12 @@ private slots:
     void initial();
     void createCopy();
 
+    void loadWrongRoot();
+    void loadWrongType();
+    void loadWithScene();
+    void loadWithoutScene();
+    void save();
+
 private:
     Doc* m_doc;
 };

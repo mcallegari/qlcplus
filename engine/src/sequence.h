@@ -71,7 +71,7 @@ public:
      */
     quint32 boundSceneID() const;
 
-private:
+protected:
     /** The Scene ID associated to this Sequence */
     quint32 m_boundSceneID;
 
