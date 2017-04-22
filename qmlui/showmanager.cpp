@@ -21,6 +21,7 @@
 #include "track.h"
 #include "show.h"
 #include "doc.h"
+#include "chaser.h"
 
 ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
     : PreviewContext(view, doc, "SHOWMGR", parent)
