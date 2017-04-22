@@ -55,9 +55,6 @@ void Function_Test::initial()
     QCOMPARE(stub->overrideFadeInSpeed(), Function::defaultSpeed());
     QCOMPARE(stub->overrideFadeOutSpeed(), Function::defaultSpeed());
     QCOMPARE(stub->overrideDuration(), Function::defaultSpeed());
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-    QCOMPARE(stub->getIcon().isNull(), false);
-#endif
 }
 
 void Function_Test::properties()
