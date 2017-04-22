@@ -1,4 +1,4 @@
-qlcplus (4.10.6) stable; urgency=low
+qlcplus (4.11.0) stable; urgency=low
 
   * engine: fixed setting start/end color while a RGB Matrix is running
   * engine: fixed crash when pausing a Show with an unavailable audio file
