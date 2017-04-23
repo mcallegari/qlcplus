@@ -39,7 +39,7 @@ td { width: 80px; height: 60px; }
  height: 60px;
  cursor: pointer;
  vertical-align: middle;
- background: #4477a1;
+ background: #4CA145;
  background: -webkit-gradient(linear, left top, left bottom, from(#80CB80), to(#4CA145) );
  background: -moz-linear-gradient(-90deg, #80CB80, #4CA145);
  border: 0;
@@ -49,6 +49,24 @@ td { width: 80px; height: 60px; }
  background: #81a8cb;
  background: -webkit-gradient(linear, left top, left bottom, from(#4CA145), to(#80CB80) );
  background: -moz-linear-gradient(-90deg, #80CB80, #4CA145);
+}
+
+.button-reset {
+ display: table-cell;
+ width: 160px;
+ height: 60px;
+ cursor: pointer;
+ vertical-align: middle;
+ background: #c53e3e;
+ background: -webkit-gradient(linear, left top, left bottom, from(#cb7e7e), to(#c53e3e) );
+ background: -moz-linear-gradient(-90deg, #cb7e7e, #c53e3e);
+ border: 0;
+}
+
+.button-reset:hover {
+ background: #cb7e7e;
+ background: -webkit-gradient(linear, left top, left bottom, from(#c53e3e), to(#cb7e7e) );
+ background: -moz-linear-gradient(-90deg, #c53e3e, #cb7e7e);
 }
 </style>
 
@@ -129,7 +147,7 @@ function reqChannelsRange(univ, chan, range)
 }
 
 
-function resetU()
+function resetUniverse()
 {
   if (isConnected == true)
   {
@@ -348,9 +366,13 @@ Command: <input style="height: 22px; vertical-align: middle;" id="commInput" val
   </td>
   <td><div class="button button-keypad" title="Sets a channels gap within a range" onclick="composeCommand('B');">BY</div></td>
 </tr>
+</table>
+<br><br>
+<table style="margin: 20px;">
 <tr>
-  <td><div class="button button-keypad" title="Reset All Channels" onclick="resetU();">Reset All</div></td>
-  <td><div class="button button-keypad" title="Reset Channel" onclick="resetCh(getElementById('commInput').value);">Reset Ch</div></td></tr>
+ <td style="width: 165px"><div class="button button-reset" title="Reset All Channels" onclick="resetUniverse();">Reset All</div></td>
+ <td style="width: 165px"><div class="button button-reset" title="Reset Selected Channel" onclick="resetCh(getElementById('commInput').value);">Reset Channel</div></td>
+</tr>
 </table>
 
 </body>
