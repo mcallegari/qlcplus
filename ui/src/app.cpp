@@ -1384,8 +1384,12 @@ bool App::loadXML(QXmlStreamReader& doc, bool goToConsole, bool fromMemory)
         fromMemory == false)
     {
         QMessageBox msg(QMessageBox::Warning, tr("Warning"),
-                        tr("Some errors occurred while loading the project:") + "\n\n" + m_doc->errorLog(),
+                        tr("Some errors occurred while loading the project:") + "<br><br>" + m_doc->errorLog(),
                         QMessageBox::Ok);
+        msg.setTextFormat(Qt::RichText);
+        QSpacerItem* horizontalSpacer = new QSpacerItem(800, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        QGridLayout* layout = (QGridLayout*)msg.layout();
+        layout->addItem(horizontalSpacer, layout->rowCount(), 0, 1, layout->columnCount());
         msg.exec();
     }
 

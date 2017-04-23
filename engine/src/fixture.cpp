@@ -889,7 +889,7 @@ bool Fixture::loadXML(QXmlStreamReader &xmlDoc, Doc *doc,
         fixtureDef = fixtureDefCache->fixtureDef(manufacturer, model);
         if (fixtureDef == NULL)
         {
-            doc->appendToErrorLog(QString("No fixture definition found for <%1> <%2>")
+            doc->appendToErrorLog(QString("No fixture definition found for <b>%1</b> <b>%2</b>")
                                   .arg(manufacturer)
                                   .arg(model));
         }
@@ -899,7 +899,7 @@ bool Fixture::loadXML(QXmlStreamReader &xmlDoc, Doc *doc,
             fixtureMode = fixtureDef->mode(modeName);
             if (fixtureMode == NULL)
             {
-                doc->appendToErrorLog(QString("Fixture mode <%1> not found for <%2> <%3>")
+                doc->appendToErrorLog(QString("Fixture mode <b>%1</b> not found for <b>%2</b> <b>%3</b>")
                                       .arg(modeName).arg(manufacturer).arg(model));
 
                 /* Set this also NULL so that a generic dimmer will be
@@ -912,7 +912,7 @@ bool Fixture::loadXML(QXmlStreamReader &xmlDoc, Doc *doc,
     /* Number of channels */
     if (channels <= 0)
     {
-        doc->appendToErrorLog(QString("%1 channels of fixture <%2> are our of bounds")
+        doc->appendToErrorLog(QString("%1 channels of fixture <b>%2</b> are our of bounds")
                               .arg(QString::number(channels))
                               .arg(name));
         channels = 1;

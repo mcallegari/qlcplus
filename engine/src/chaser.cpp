@@ -485,7 +485,8 @@ bool Chaser::loadXML(QXmlStreamReader &root)
         }
         else if (root.name() == "Sequence")
         {
-            doc()->appendToErrorLog(QString("Unsupported sequences found. Please convert your project at http://www.qlcplus.org/sequence_migration.php"));
+            doc()->appendToErrorLog(QString("<b>Unsupported sequences found</b>. Please convert your project "
+                                            "at <a href=http://www.qlcplus.org/sequence_migration.php>http://www.qlcplus.org/sequence_migration.php</a>"));
             root.skipCurrentElement();
         }
         else

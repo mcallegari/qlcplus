@@ -1218,7 +1218,7 @@ void Doc::appendToErrorLog(QString error)
         return;
 
     m_errorLog.append(error);
-    m_errorLog.append("\n");
+    m_errorLog.append("<br>");
 }
 
 void Doc::clearErrorLog()
