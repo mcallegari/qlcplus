@@ -230,6 +230,45 @@ void ChaserStep_Test::load_sequence()
     QCOMPARE(values.at(4), SceneValue(7, 15, 200));
 }
 
+void ChaserStep_Test::load_legacy_sequence()
+{
+    int number = -1;
+    ChaserStep step;
+
+    QBuffer buffer;
+    QXmlStreamReader xmlReader(&buffer);
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    xmlWriter.writeStartElement("Step");
+    xmlWriter.writeAttribute("Number", "1");
+    xmlWriter.writeAttribute("FadeIn", "10");
+    xmlWriter.writeAttribute("Hold", "15");
+    xmlWriter.writeAttribute("FadeOut", "20");
+    xmlWriter.writeAttribute("Values", "30");
+    xmlWriter.writeCharacters("5,0,150,5,2,100,5,3,75,7,10,100,7,15,200");
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    xmlReader.setDevice(&buffer);
+    xmlReader.readNextStartElement();
+
+    QVERIFY(step.loadXML(xmlReader, number) == true);
+    QCOMPARE(number, 1);
+    QCOMPARE(step.fadeIn, uint(10));
+    QCOMPARE(step.hold, uint(15));
+    QCOMPARE(step.fadeOut, uint(20));
+    QCOMPARE(step.duration, uint(25));
+    QCOMPARE(step.fid, Function::invalidId());
+    QCOMPARE(step.note, QString(""));
+
+    /* check that no values have been loaded */
+    QCOMPARE(step.values.count(), 0);
+}
+
 void ChaserStep_Test::save()
 {
     QBuffer buffer;

@@ -188,6 +188,9 @@ bool ChaserStep::loadXML(QXmlStreamReader &root, int& stepNumber)
 
             for (int f = 0; f < fxArray.count(); f+=2)
             {
+                if (f + 1 >= fxArray.count())
+                    break;;
+
                 quint32 fxID = QString(fxArray.at(f)).toUInt();
 
                 // now split the chunk into channel/values
