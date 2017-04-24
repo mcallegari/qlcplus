@@ -321,10 +321,14 @@ void Scene_Test::save()
     s.setFadeInSpeed(100);
     s.setFadeOutSpeed(1000);
     s.setDuration(10000);
+
+    QVERIFY(s.fixtures().count() == 0);
     s.setValue(0, 0, 100);
     s.setValue(3, 0, 150);
     s.setValue(3, 3, 10);
     s.setValue(3, 5, 100);
+    /* verify that 2 fixture IDs have been added */
+    QVERIFY(s.fixtures().count() == 2);
 
     QBuffer buffer;
     buffer.open(QIODevice::WriteOnly | QIODevice::Text);

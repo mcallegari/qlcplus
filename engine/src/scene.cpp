@@ -118,7 +118,10 @@ FunctionUiState * Scene::createUiState()
 void Scene::setValue(const SceneValue& scv, bool blind, bool checkHTP)
 {
     if (!m_fixtures.contains(scv.fxi))
-        qWarning() << Q_FUNC_INFO << "Setting value for unknown fixture" << scv.fxi;
+    {
+        qWarning() << Q_FUNC_INFO << "Setting value for unknown fixture" << scv.fxi << ". Adding it.";
+        m_fixtures.append(scv.fxi);
+    }
 
     m_valueListMutex.lock();
 
