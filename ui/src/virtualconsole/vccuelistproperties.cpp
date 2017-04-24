@@ -216,7 +216,7 @@ void VCCueListProperties::slotChaserAttachClicked()
 {
     FunctionSelection fs(this, m_doc);
     fs.setMultiSelection(false);
-    fs.setFilter(Function::ChaserType, true);
+    fs.setFilter(Function::ChaserType | Function::SequenceType, true);
     if (fs.exec() == QDialog::Accepted && fs.selection().size() > 0)
     {
         m_chaserId = fs.selection().first();
