@@ -4,6 +4,7 @@ qlcplus (4.11.0) stable; urgency=low
   * engine: fixed crash when pausing a Show with an unavailable audio file
   * UI: enabled Alt key combinations on macOS to behave like other platforms (thanks to Matt Mayfield)
   * UI/RGB Panel: added panel direction (thanks to Raivis Rengelis)
+  * UI/Scene Editor: preserve fixture tab order when fixtures with no channels set are present
   * UI/RGB Matrix Editor: allow the preview to run even in operate mode
   * UI/Audio Editor: added the possibility to loop an audio file (thanks to Raivis Rengelis)
   * UI/Simple Desk: fixed crash when changing values from a channel group in "fixtures view" mode
@@ -17,6 +18,7 @@ qlcplus (4.11.0) stable; urgency=low
   * Virtual Console/Cue List: improved linked crossfade to perform an additive blending between steps (see documentation)
   * Virtual Console/Speed Dial: improved tap button blinking and feedbacks (thanks to Lukas Jähn)
   * Plugins/OSC: added channel number calculator in configuration page to help integrating new controllers
+  * Plugins/Loopback: fixed spurious values emitted when a lot of channels are looped
   * Web access: fixed VC Slider in percentage mode and inverted appearance (thanks to Bartosz Grabias)
   * Web access: support VC Slider reduced range when in level mode
   * Web access: improved getChannelsValues and added Simple Desk reset per-channel (sdResetChannel API)
