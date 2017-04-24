@@ -1115,11 +1115,13 @@ void VCSlider::writeDMXPlayback(MasterTimer* timer, QList<Universe *> ua)
         {
             if (function->stopped() == true)
             {
+#if 0 // temporarily revert #699 until a better solution is found
                 // Since this function is started by a fader, its fade in time
                 // is decided by the fader movement.
-                function->start(
-                        timer, functionParent(),
-                        0, 0, Function::defaultSpeed(), Function::defaultSpeed());
+                function->start(timer, functionParent(),
+                                0, 0, Function::defaultSpeed(), Function::defaultSpeed());
+#endif
+                function->start(timer, functionParent());
             }
             emit functionStarting(m_playbackFunction, pIntensity);
             function->adjustAttribute(pIntensity * intensity(), Function::Intensity);
