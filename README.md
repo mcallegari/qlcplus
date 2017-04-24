@@ -1,9 +1,13 @@
 Q Light Controller Plus 4
+=========================
+
+![QLC+ LOGO](resources/icons/png/qlcplus.png)
 
 Copyright (c) Heikki Junnila
 	      Massimo Callegari
 
 QLC+ homepage: http://www.qlcplus.org/
+
 QLC+ on GitHub: https://github.com/mcallegari/qlcplus
 
 DEVELOPERS AT WORK
@@ -26,11 +30,10 @@ attempt to re-compile the whole package with "make".
 
 Apache 2.0 License
 ------------------
+
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
+You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -40,6 +43,7 @@ limitations under the License.
 
 Requirements - Linux
 --------------------
+
 * Qt >= 4.6 development libraries & tools
 * libudev-dev, libmad0-dev, libsndfile1-dev, libfftw3-dev
 
@@ -58,6 +62,7 @@ Requirements - Linux
 
 Requirements - Windows
 ----------------------
+
 * MSYS2 environment (https://msys2.github.io/)
 * Qt >= 5.0.x (http://download.qt.io/official_releases/qt/)
 
@@ -76,6 +81,7 @@ Requirements - Windows
 
 Requirements - Mac OS X
 -----------------------
+
 * XCode (http://developer.apple.com/technologies/tools/xcode.html)
 * Qt SDK >= 5.0.x (http://download.qt.io/official_releases/qt/)
 * macports (https://www.macports.org/)
@@ -100,41 +106,47 @@ Please refer to the online wiki pages: https://github.com/mcallegari/qlcplus/wik
 
 Support & Bug Reports
 ---------------------
+
 For discussions, feedbacks, ideas and new fixtures, go to:
 http://www.qlcplus.org/forum/index.php
+
 For developers wiki and code patches, go to:
 https://github.com/mcallegari/qlcplus
 
 Contributors
 ------------
-QLC+:
-Jano Svitok (bugfix, new features and improvements)
-David Garyga (bugfix, new features and improvements)
-Robert Box (fixtures review)
-Thomas Achtner (ENTTEC wing improvements)
-Joep Admiraal (MIDI SysEx init messages, Dutch translation)
-Florian Euchner (FX5 USB DMX support)
-Stefan Riemens (new features)
-Simon Newton, Peter Newman (OLA plugin)
-Janosch Frank (webaccess improvements)
-Karri Kaksonen (DMX USB Eurolite USB DMX512 Pro support)
-Stefan Krupop (HID DMXControl Projects e.V. Nodle U1 support)
-Nathan Durnan (RGB scripts, new features)
-Giorgio Rebecchi (new features)
-Heiko Fanieng, Jannis Achstetter (German translation)
-NiKoyes, Jérôme Lebleu (French translation)
-Raymond Van Laake (Dutch translation)
-Luis García Tornel (Spanish translation)
-Jan Lachman (Czech translation)
-Nuno Almeida, Carlos Eduardo Porto de Oliveira (Portuguese translation)
-Santiago Benejam Torres (Catalan translation)
-Koichiro Saito (Japanese translation)
 
-QLC:
-Stefan Krumm (Bugfixes, new features)
-Christian Suehs (Bugfixes, new features)
-Christopher Staite (Bugfixes)
-Klaus Weidenbach (Bugfixes, German translation)
-Lutz Hillebrand (uDMX plugin)
-Matthew Jaggard (Velleman plugin)
-Ptit Vachon (French translation)
+### QLC+:
+
+* Jano Svitok (bugfix, new features and improvements)
+* David Garyga (bugfix, new features and improvements)
+* Robert Box (fixtures review)
+* Thomas Achtner (ENTTEC wing improvements)
+* Joep Admiraal (MIDI SysEx init messages, Dutch translation)
+* Florian Euchner (FX5 USB DMX support)
+* Stefan Riemens (new features)
+* Simon Newton, Peter Newman (OLA plugin)
+* Janosch Frank (webaccess improvements)
+* Karri Kaksonen (DMX USB Eurolite USB DMX512 Pro support)
+* Stefan Krupop (HID DMXControl Projects e.V. Nodle U1 support)
+* Nathan Durnan (RGB scripts, new features)
+* Giorgio Rebecchi (new features)
+* Heiko Fanieng, Jannis Achstetter (German translation)
+* NiKoyes, Jérôme Lebleu (French translation)
+* Raymond Van Laake (Dutch translation)
+* Luis García Tornel (Spanish translation)
+* Jan Lachman (Czech translation)
+* Nuno Almeida, Carlos Eduardo Porto de Oliveira (Portuguese translation)
+* Santiago Benejam Torres (Catalan translation)
+* Koichiro Saito (Japanese translation)
+
+### QLC:
+
+* Stefan Krumm (Bugfixes, new features)
+* Christian Suehs (Bugfixes, new features)
+* Christopher Staite (Bugfixes)
+* Klaus Weidenbach (Bugfixes, German translation)
+* Lutz Hillebrand (uDMX plugin)
+* Matthew Jaggard (Velleman plugin)
+* Ptit Vachon (French translation)
+
