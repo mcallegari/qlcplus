@@ -84,10 +84,10 @@
  </Channel>
  <Mode Name="10 Ch Mode">
   <Physical>
-   <Bulb Lumens="3000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="302" Height="239" Weight="5" Depth="259"/>
-   <Lens DegreesMax="33" Name="Other" DegreesMin="33"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="3000" ColourTemperature="0"/>
+   <Dimensions Weight="5" Width="302" Height="239" Depth="259"/>
+   <Lens Name="Other" DegreesMin="33" DegreesMax="33"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="200" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
@@ -103,10 +103,10 @@
  </Mode>
  <Mode Name="5 Ch Mode">
   <Physical>
-   <Bulb Lumens="3000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="302" Height="239" Weight="5" Depth="259"/>
-   <Lens DegreesMax="33" Name="Other" DegreesMin="33"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="3000" ColourTemperature="0"/>
+   <Dimensions Weight="5" Width="302" Height="239" Depth="259"/>
+   <Lens Name="Other" DegreesMin="33" DegreesMax="33"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="200" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
@@ -117,10 +117,10 @@
  </Mode>
  <Mode Name="4 Ch Mode">
   <Physical>
-   <Bulb Lumens="3000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="302" Height="239" Weight="5" Depth="259"/>
-   <Lens DegreesMax="33" Name="Other" DegreesMin="33"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="3000" ColourTemperature="0"/>
+   <Dimensions Weight="5" Width="302" Height="239" Depth="259"/>
+   <Lens Name="Other" DegreesMin="33" DegreesMax="33"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="200" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>

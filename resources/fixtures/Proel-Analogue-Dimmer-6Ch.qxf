@@ -35,10 +35,10 @@
  </Channel>
  <Mode Name="6Ch Mode">
   <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="482" Height="85" Weight="7.1" Depth="370"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="7.1" Width="482" Height="85" Depth="370"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="0" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Ch1 Dimmer</Channel>
@@ -68,10 +68,10 @@
  </Mode>
  <Mode Name="1Ch Group Mode">
   <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="482" Height="85" Weight="7.1" Depth="370"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="7.1" Width="482" Height="85" Depth="370"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="0" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Ch1 Dimmer</Channel>

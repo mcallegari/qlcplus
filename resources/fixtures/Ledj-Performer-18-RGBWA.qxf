@@ -56,10 +56,10 @@
  </Channel>
  <Mode Name="9 channel">
   <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
-   <Dimensions Weight="2.6" Width="297" Depth="325" Height="255"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.6" Width="297" Height="255" Depth="325"/>
    <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
-   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="190" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Master dimmer</Channel>
@@ -74,10 +74,10 @@
  </Mode>
  <Mode Name="5 channel">
   <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
-   <Dimensions Weight="2.6" Width="297" Depth="325" Height="255"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.6" Width="297" Height="255" Depth="325"/>
    <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
-   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="190" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red intensity</Channel>

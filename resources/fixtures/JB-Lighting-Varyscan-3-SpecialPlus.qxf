@@ -142,10 +142,10 @@
  </Channel>
  <Mode Name="Simple">
   <Physical>
-   <Bulb Lumens="0" Type="MSD 250W" ColourTemperature="0"/>
-   <Dimensions Width="244" Height="500" Weight="12" Depth="172"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="170" Type="Mirror" TiltMax="110"/>
+   <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="12" Width="244" Height="500" Depth="172"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Mirror" PanMax="170" TiltMax="110"/>
    <Technical PowerConsumption="740" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -157,10 +157,10 @@
  </Mode>
  <Mode Name="Advanced">
   <Physical>
-   <Bulb Lumens="0" Type="MSD 250W" ColourTemperature="0"/>
-   <Dimensions Width="244" Height="500" Weight="12" Depth="172"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="170" Type="Mirror" TiltMax="110"/>
+   <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="12" Width="244" Height="500" Depth="172"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Mirror" PanMax="170" TiltMax="110"/>
    <Technical PowerConsumption="740" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

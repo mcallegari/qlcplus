@@ -9,31 +9,101 @@
 
 # rubocop: disable Style/Documentation, Metrics/MethodLength
 # rubocop: disable Metrics/ClassLength, Metrics/AbcSize
-# rubocop: disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity,
-# Metrics/LineLength,
+# rubocop: disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/LineLength,
 
 require 'libxml'
+require 'optparse'
 
 NS_URI = 'http://www.qlcplus.org/FixtureDefinition'
 OLD_NS_URI = 'http://qlcplus.sourceforge.net/FixtureDefinition'
 
 NS = ['xmlns:' + NS_URI]
 
+module Load
+  def load(node)
+    result = new
+    result.load(node) unless node.nil? || node.empty?
+    result
+  end
+end
+
+module Store
+  # add a list of namespaces to the node
+  # the namespaces formal parameter is a hash
+  # with "prefix" and "prefix_uri" as
+  # key, value pairs
+  # prefix for the default namespace is "default"
+  def add_namespaces(node, namespaces)
+    # pass nil as the prefix to create a default node
+    default = namespaces.delete('default')
+    node.namespaces.namespace = LibXML::XML::Namespace.new(node, nil, default)
+    namespaces.each do |prefix, prefix_uri|
+      LibXML::XML::Namespace.new(node, prefix, prefix_uri)
+    end
+  end
+
+  # add a list of attributes to the node
+  # the attributes formal parameter is a hash
+  # with "name" and "value" as
+  # key, value pairs
+  def add_attributes(node, attributes)
+    attributes.each do |name, value|
+      LibXML::XML::Attr.new(node, name, value)
+    end
+  end
+
+  # create a node with name
+  # and a hash of namespaces or attributes
+  # passed to options
+  def create_node(name, options = {})
+    node = LibXML::XML::Node.new(name)
+
+    namespaces = options.delete(:namespaces)
+    add_namespaces(node, namespaces) if namespaces
+
+    attributes = options.delete(:attributes)
+    add_attributes(node, attributes) if attributes
+    node
+  end
+
+  def create_value_node(name, value, options = {})
+    n = create_node(name, options)
+    n << value
+    n
+  end
+
+  def f_to_s(f)
+    (f.to_i == f) ? f.to_i.to_s : f.to_s
+  end
+end
+
 class FixtureDef
   class Creator
     attr_accessor :name, :version, :author
-    def initialize(node)
-      return if node.empty?
+    extend Load
+    include Store
+
+    def load(node)
       @name = node.find_first('xmlns:Name', NS).content
       @version = node.find_first('xmlns:Version', NS).content
       @author = node.find_first('xmlns:Author', NS).content
+    end
+
+    def store
+      n = create_node('Creator')
+      n << create_value_node('Name', @name)
+      n << create_value_node('Version', @version)
+      n << create_value_node('Author', @author)
+      n
     end
   end
 
   class Capability
     attr_accessor :min, :max, :name, :res, :color, :color2
-    def initialize(node)
-      return if node.empty?
+    extend Load
+    include Store
+
+    def load(node)
       @min = node.attributes['Min'].to_i
       @max = node.attributes['Max'].to_i
       @res = node.attributes['Res']
@@ -41,18 +111,36 @@ class FixtureDef
       @color2 = node.attributes['Color2']
       @name = node.content
     end
+
+    def store
+      attrs = {
+        'Min' => @min.to_s,
+        'Max' => @max.to_s
+      }
+      attrs['Res'] = @res.to_s unless @res.nil?
+      attrs['Color'] = @color unless @color.nil?
+      attrs['Color2'] = @color2 unless @color2.nil?
+      create_value_node('Capability', @name, attributes: attrs)
+    end
   end
 
   class Group
     attr_accessor :byte, :name
+    extend Load
+    include Store
 
     MSB = 0
     LSB = 1
 
-    def initialize(node)
-      return if node.empty?
+    def load(node)
       @name = node.content
       @byte = node.attributes['Byte'].to_i
+    end
+
+    def store
+      create_value_node('Group', @name, attributes: {
+                          'Byte' => @byte.to_s
+                        })
     end
 
     PAN = 'Pan'
@@ -106,15 +194,28 @@ class FixtureDef
 
   class Channel
     attr_accessor :name, :group, :color, :capabilities
-    def initialize(node)
+    extend Load
+    include Store
+
+    def initialize
       @capabilities = []
-      return if node.empty?
+    end
+
+    def load(node)
       @name = node.attributes['Name']
-      @group = Group.new(node.find_first('xmlns:Group', NS))
+      @group = Group.load(node.find_first('xmlns:Group', NS))
       n = node.find_first('xmlns:Colour', NS)
       @color = n.content unless n.nil?
       n = node.find('xmlns:Capability', NS)
-      @capabilities = n.map { |c| Capability.new(c) } unless n.empty?
+      @capabilities = n.map { |c| Capability.load(c) } unless n.empty?
+    end
+
+    def store
+      n = create_node('Channel', attributes: { 'Name' => @name })
+      n << @group.store
+      n << create_value_node('Colour', @color) unless @color.nil?
+      @capabilities.each { |c| n << c.store }
+      n
     end
 
     RED = 'Red'
@@ -159,108 +260,206 @@ class FixtureDef
 
   class Bulb
     attr_accessor :lumens, :type, :color_temp
-    def initialize(node)
-      return if node.empty?
+    extend Load
+    include Store
+
+    def load(node)
       @lumens = node.attributes['Lumens']
       @type = node.attributes['Type']
       @color_temp = node.attributes['ColourTemperature']
+    end
+
+    def store
+      create_node('Bulb', attributes: {
+                    'Type' => @type,
+                    'Lumens' => @lumens.to_s,
+                    'ColourTemperature' => @color_temp
+                  })
     end
   end
 
   class Dimensions
     attr_accessor :width, :height, :depth, :weight
-    def initialize(node)
-      return if node.empty?
+    extend Load
+    include Store
+
+    def load(node)
+      @weight = node.attributes['Weight'].to_f
       @width = node.attributes['Width'].to_i
       @height = node.attributes['Height'].to_i
       @depth = node.attributes['Depth'].to_i
       @weight = node.attributes['Weight'].to_f
     end
+
+    def store
+      create_node('Dimensions', attributes: {
+                    'Weight' => f_to_s(@weight),
+                    'Width' => @width.to_s,
+                    'Height' => @height.to_s,
+                    'Depth' => @depth.to_s
+                  })
+    end
   end
 
   class Lens
     attr_accessor :degrees_min, :degrees_max, :name
-    def initialize(node)
-      return if node.empty?
+    extend Load
+    include Store
+
+    def load(node)
+      @name = node.attributes['Name']
       @degrees_min = node.attributes['DegreesMin'].to_f
       @degrees_max = node.attributes['DegreesMax'].to_f
-      @name = node.attributes['Name']
+    end
+
+    def store
+      create_node('Lens', attributes: {
+                    'Name' => @name,
+                    'DegreesMin' => f_to_s(@degrees_min),
+                    'DegreesMax' => f_to_s(degrees_max)
+                  })
     end
   end
 
   class Focus
     attr_accessor :pan_max, :tilt_max, :type
-    def initialize(node)
-      return if node.empty?
+    extend Load
+    include Store
+
+    def load(node)
+      @type = node.attributes['Type']
       @pan_max = node.attributes['PanMax'].to_i
       @tilt_max = node.attributes['TiltMax'].to_i
-      @type = node.attributes['Type']
+    end
+
+    def store
+      create_node('Focus', attributes: {
+                    'Type' => @type,
+                    'PanMax' => @pan_max.to_s,
+                    'TiltMax' => @tilt_max.to_s
+                  })
     end
   end
 
   class Technical
     attr_accessor :power_consumption, :dmx_connector
-    def initialize(node)
-      return if node.nil?
-      return if node.empty?
-      @power_consumption = node.attributes['PowerConsumption']
+    extend Load
+    include Store
+
+    def load(node)
+      @power_consumption = node.attributes['PowerConsumption'].to_i
       @dmx_connector = node.attributes['DmxConnector']
+    end
+
+    def store
+      create_node('Technical', attributes: {
+                    'PowerConsumption' => @power_consumption.to_s,
+                    'DmxConnector' => @dmx_connector
+                  })
     end
   end
 
   class Physical
     attr_accessor :bulb, :dimensions, :lens, :focus, :technical
-    def initialize(node)
-      return if node.empty?
-      @bulb = Bulb.new(node.find_first('xmlns:Bulb', NS))
-      @dimensions = Dimensions.new(node.find_first('xmlns:Dimensions', NS))
-      @lens = Lens.new(node.find_first('xmlns:Lens', NS))
-      @focus = Focus.new(node.find_first('xmlns:Focus', NS))
-      @technical = Technical.new(node.find_first('xmlns:Technical', NS))
+    extend Load
+    include Store
+
+    def load(node)
+      @bulb = Bulb.load(node.find_first('xmlns:Bulb', NS))
+      @dimensions = Dimensions.load(node.find_first('xmlns:Dimensions', NS))
+      @lens = Lens.load(node.find_first('xmlns:Lens', NS))
+      @focus = Focus.load(node.find_first('xmlns:Focus', NS))
+      n = node.find_first('xmlns:Technical', NS)
+      @technical = Technical.load(n) unless n.nil?
+    end
+
+    def store
+      n = create_node('Physical')
+      n << @bulb.store
+      n << @dimensions.store
+      n << @lens.store
+      n << @focus.store
+      n << @technical.store unless @technical.nil?
+      n
     end
   end
 
   class ChannelRef
     attr_accessor :number, :name
-    def initialize(node)
-      return if node.empty?
+    extend Load
+    include Store
+
+    def load(node)
       @name = node.content
       @number = node.attributes['Number'].to_i
+    end
+
+    def store
+      create_value_node('Channel', @name, attributes: {
+                          'Number' => @number.to_s
+                        })
     end
   end
 
   class Head
     attr_accessor :channels, :index
-    def initialize(node)
+    extend Load
+    include Store
+
+    def initialize
       @channels = []
-      return if node.empty?
+    end
+
+    def load(node)
       @channels = node.find('xmlns:Channel', NS).map { |c| c.content.to_i }
+    end
+
+    def store
+      n = create_node('Head')
+      @channels.each { |c| n << create_value_node('Channel', c.to_s) }
+      n
     end
   end
 
   class Mode
     attr_accessor :name, :physical, :channels, :heads
-    def initialize(node)
+    extend Load
+    include Store
+
+    def initialize
       @channels = []
       @heads = []
-      return if node.empty?
+    end
+
+    def load(node)
       @name = node.attributes['Name']
-      @physical = Physical.new(node.find_first('xmlns:Physical', NS))
+      @physical = Physical.load(node.find_first('xmlns:Physical', NS))
       n = node.find('xmlns:Channel', NS)
-      @channels = n.map { |c| ChannelRef.new(c) } unless n.empty? 
+      @channels = n.map { |c| ChannelRef.load(c) } unless n.empty?
       n = node.find('xmlns:Head', NS)
-      @heads = n.map { |h| Head.new(h) } unless n.empty?
+      @heads = n.map { |h| Head.load(h) } unless n.empty?
       @heads.each_with_index { |h, i| h.index = i + 1 }
+    end
+
+    def store
+      n = create_node('Mode', attributes: {
+                        'Name' => @name
+                      })
+      n << @physical.store
+      @channels.each { |c| n << c.store }
+      @heads.each { |h| n << h.store }
+      n
     end
   end
 
   attr_accessor :path, :manufacturer, :model, :type, :creator, :channels, :modes
+  include Store
 
   def initialize(path)
     @channel = []
     @modes = []
 
-    load(path)
+    load_file(path)
   end
 
   COLOR_CHANGER = 'Color Changer'
@@ -314,7 +513,7 @@ class FixtureDef
     ',,,' => ''
   }
 
-  def load(path)
+  def load_file(path)
     qxf = File.read(path)
     if qxf.include?(OLD_NS_URI)
       qxf.gsub!(OLD_NS_URI, NS_URI)
@@ -352,12 +551,39 @@ class FixtureDef
     end
 
     @path = path
-    @manufacturer = @doc.find_first('/xmlns:FixtureDefinition/xmlns:Manufacturer', NS).content
-    @model = @doc.find_first('/xmlns:FixtureDefinition/xmlns:Model', NS).content
-    @type = @doc.find_first('/xmlns:FixtureDefinition/xmlns:Type', NS).content
-    @creator = Creator.new(@doc.find_first('/xmlns:FixtureDefinition/xmlns:Creator', NS))
-    @channels = @doc.find('/xmlns:FixtureDefinition/xmlns:Channel', NS).map { |c| Channel.new(c) }
-    @modes = @doc.find('/xmlns:FixtureDefinition/xmlns:Mode', NS).map { |m| Mode.new(m) }
+    node = @doc.find_first('/xmlns:FixtureDefinition', NS)
+    load(node)
+
+    # new_doc = LibXML::XML::Document.string(<<-EOF)
+    # <?xml version="1.0" encoding="UTF-8"?>\n
+    # <!DOCTYPE FixtureDefinition>\n
+    # <FixtureDefinition />
+    # EOF
+    #    new_doc.root = store
+    #    LibXML::XML.default_tree_indent_string = ' '
+    #    qxf3 = new_doc.to_s(indent: true, encoding: LibXML::XML::Encoding::UTF_8)
+    #    File.open(path, 'w') { |f| f.write(qxf3) } unless qxf2 == qxf3
+    #    puts (qxf2 == qxf3 ? '= ' : '! ' ) + path
+  end
+
+  def load(node)
+    @creator = Creator.load(node.find_first('xmlns:Creator', NS))
+    @manufacturer = node.find_first('xmlns:Manufacturer', NS).content
+    @model = node.find_first('xmlns:Model', NS).content
+    @type = node.find_first('xmlns:Type', NS).content
+    @channels = node.find('xmlns:Channel', NS).map { |c| Channel.load(c) }
+    @modes = node.find('xmlns:Mode', NS).map { |m| Mode.load(m) }
+  end
+
+  def store
+    n = create_node('FixtureDefinition', namespaces: { 'default' => NS_URI })
+    n << @creator.store
+    n << create_value_node('Manufacturer', @manufacturer)
+    n << create_value_node('Model', @model)
+    n << create_value_node('Type', @type)
+    @channels.each { |c| n << c.store }
+    @modes.each { |m| n << m.store }
+    n
   end
 end
 
@@ -376,60 +602,18 @@ class Fixtures
     end
   end
 
-  def heads_have_common_channels(mode)
-    all_head_channels = mode.heads.inject([]) { |a, e| a + e.channels }.sort
-    unique_head_channels = all_head_channels.uniq.sort
-
-    all_head_channels != unique_head_channels
-  end
-
   def update_fixtures_map(filename = 'FixturesMap.xml')
     orig_data = File.read(filename)
     doc = LibXML::XML::Document.string(orig_data)
     doc.root.children.map(&:remove!)
-    total_wrong = 0
     @fixtures.sort_by { |f| f.path.downcase }.each do |f|
       node = LibXML::XML::Node.new('fixture')
       LibXML::XML::Attr.new(node, 'path', f.path)
       LibXML::XML::Attr.new(node, 'mf', f.manufacturer)
       LibXML::XML::Attr.new(node, 'md', f.model)
 
-      wrong_pan = f.modes.find { |m| m.physical.focus.pan_max == 0 }
-      wrong_tilt = f.modes.find { |m| m.physical.focus.tilt_max == 0 }
-      has_pan = f.channels.find { |c| c.group.name == FixtureDef::Group::PAN }
-      has_tilt = f.channels.find { |c| c.group.name == FixtureDef::Group::TILT }
-      wrong_width = f.modes.find { |m| m.physical.dimensions.width == 0 }
-      wrong_height = f.modes.find { |m| m.physical.dimensions.height == 0 }
-      wrong_depth = f.modes.find { |m| m.physical.dimensions.depth == 0 }
-      wrong_weight = f.modes.find { |m| m.physical.dimensions.weight == 0 }
-      wrong_heads = f.modes.find { |m| heads_have_common_channels(m) }
-      wrong_msb = f.channels.select do |c|
-        c.group.byte == FixtureDef::Group::MSB &&
-        (c.name.downcase.include?('fine') || c.name.downcase.include?('least')) &&
-        (f.model != 'Event Bar LED' || c.name != 'Movement (Fine)')
-      end
-      wrong_lsb = f.channels.select { |c| c.group.byte == FixtureDef::Group::LSB && c.name.downcase.include?('coarse') }
-
-      problems = []
-      problems << 'PAN' if wrong_pan && has_pan
-      problems << 'TILT' if wrong_tilt && has_tilt
-      problems << 'WIDTH' if wrong_width
-      problems << 'HEIGHT' if wrong_height
-      problems << 'DEPTH' if wrong_depth
-      problems << 'WEIGHT' if wrong_weight
-      problems << 'HEADS' if wrong_heads
-      problems << "MSB: #{wrong_msb.map(&:name).join(',')}" unless wrong_msb.empty?
-      problems << "LSB: #{wrong_msb.map(&:name).join(',')}" unless wrong_lsb.empty?
-
-      unless problems.empty?
-        puts "#{f.path}: #{problems.join ' '}"
-        total_wrong += 1
-      end
-
       doc.root << node
     end
-
-    puts "wrong: #{total_wrong}"
 
     if doc.root.namespaces.default.nil?
       doc.root.namespaces.namespace = LibXML::XML::Namespace.new(doc.root, nil, 'http://www.qlcplus.org/FixturesMap')
@@ -440,7 +624,7 @@ class Fixtures
     File.open(filename, 'w') { |f| f.write(new_data) }
   end
 
-  def make_overview(filename = 'index.html')
+  def make_overview(filename, include_capabilities)
     File.open(filename, 'w') do |f|
       f << <<-EOF
 <html>
@@ -512,8 +696,8 @@ EOF
       <td>#{mode.physical.focus.pan_max}</td>
       <td>#{mode.physical.focus.tilt_max}</td>
       <td>#{mode.physical.focus.type}</td>
-      <td>#{mode.physical.technical.power_consumption}</td>
-      <td>#{mode.physical.technical.dmx_connector}</td>
+      <td>#{mode.physical.technical ? mode.physical.technical.power_consumption : '<b>Missing</b>'}</td>
+      <td>#{mode.physical.technical ? mode.physical.technical.dmx_connector : '<b>Missing</b>'}</td>
     </tr>
 EOF
         end
@@ -565,26 +749,25 @@ EOF
           end
 
           f << "          </tr>\n"
-          if false
-            channel.capabilities.each do |capability|
-              f << "          <tr>\n"
-              f << "            <td colspan=\"#{5 + fixture.modes.size * 2}\"></td>\n"
-              f << "            <td>#{capability.min}</td>\n"
-              f << "            <td>#{capability.max}</td>\n"
-              f << "            <td>#{capability.name}</td>\n"
-              f << "            <td>#{capability.res}</td>\n"
-              if capability.color.nil?
-                f << "            <td>&nbsp;</td>\n"
-              else
-                f << "            <td style=\"background-color: #{capability.color}\">#{capability.color}</td>\n"
-              end
-              if capability.color2.nil?
-                f << "            <td>&nbsp;</td>\n"
-              else
-                f << "            <td style=\"background-color: #{capability.color2}\">#{capability.color2}</td>\n"
-              end
-              f << "          </tr>\n"
+          next unless include_capabilities
+          channel.capabilities.each do |capability|
+            f << "          <tr>\n"
+            f << "            <td colspan=\"#{5 + fixture.modes.size * 2}\"></td>\n"
+            f << "            <td>#{capability.min}</td>\n"
+            f << "            <td>#{capability.max}</td>\n"
+            f << "            <td>#{capability.name}</td>\n"
+            f << "            <td>#{capability.res}</td>\n"
+            if capability.color.nil?
+              f << "            <td>&nbsp;</td>\n"
+            else
+              f << "            <td style=\"background-color: #{capability.color}\">#{capability.color}</td>\n"
             end
+            if capability.color2.nil?
+              f << "            <td>&nbsp;</td>\n"
+            else
+              f << "            <td style=\"background-color: #{capability.color2}\">#{capability.color2}</td>\n"
+            end
+            f << "          </tr>\n"
           end
         end
 
@@ -637,13 +820,131 @@ LibXML::XML::Error.set_handler do |error|
   puts error.to_s
 end
 
-fm = Fixtures.new
-fm.load_fixtures('.')
-fm.update_fixtures_map
+class FixtureTool
+  def main(argv)
+    @opts = parse_parameters(argv)
+    execute_commands
+  end
 
-puts "Total fixtures: #{fm.fixtures.size}"
+  def parse_parameters(argv)
+    options = {
+      update_map: false,
+      check_fixture: [],
+      fix: false,
+      overview: nil,
+      capabilities: false
+    }
 
-if ARGV.size > 0
-  fm.make_overview(ARGV[0])
-  # fm.shutter(ARGV[0])
+    OptionParser.new do |opts|
+      opts.banner = 'Usage: update-fixture-map.rb [options]'
+
+      opts.on('-u', '--update-map', 'Update FixtureMap.xml') do
+        options[:update_map] = true
+      end
+
+      opts.on('-c PATH', '--check-fixture PATH', 'Check fixture validity') do |path|
+        options[:check_fixture] ||= []
+        options[:check_fixture] << path
+      end
+
+      opts.on('-a', '--check-all-fixtures', 'Check validity of all fixtures') do
+        options[:check_fixture] ||= []
+        options[:check_fixture] << '*.qxf'
+      end
+
+      opts.on('-f', '--fix', 'Try to fix problems in fixtures') do
+        options[:fix] = true
+      end
+
+      opts.on('-o', '--overview PATH', 'Create HTML listing of fixtures') do |path|
+        options[:overview] = path
+      end
+
+      opts.on('--capabilities', 'Include capabilities in HTML listing') do
+        options[:capabilities] = true
+      end
+
+      opts.on('-h', '--help', 'Prints this help') do
+        puts opts
+        exit
+      end
+    end.parse!(argv)
+    options
+  end
+
+  def execute_commands
+    @total = 0
+    @total_wrong = 0
+
+    fixtures_to_check.each do |path|
+      @total += 1
+      validate_fixture(path, @opts[:fix])
+    end
+
+    puts "wrong: #{@total_wrong} out of #{@total}" if @total > 0
+  
+    update_map if @opts[:update_map]
+
+    create_overview(@opts[:overview], @opts[:capabilities]) if @opts[:overview]
+  end
+
+  def fixtures_to_check
+    @opts[:check_fixture].map { |path| Dir.glob(path) }.flatten.sort_by { |path| path.downcase }
+  end
+
+  def validate_fixture(path, _fix)
+    f = FixtureDef.new(path)
+    wrong_pan = f.modes.find { |m| m.physical.focus.pan_max == 0 }
+    wrong_tilt = f.modes.find { |m| m.physical.focus.tilt_max == 0 }
+    has_pan = f.channels.find { |c| c.group.name == FixtureDef::Group::PAN }
+    has_tilt = f.channels.find { |c| c.group.name == FixtureDef::Group::TILT }
+    wrong_width = f.modes.find { |m| m.physical.dimensions.width == 0 }
+    wrong_height = f.modes.find { |m| m.physical.dimensions.height == 0 }
+    wrong_depth = f.modes.find { |m| m.physical.dimensions.depth == 0 }
+    wrong_weight = f.modes.find { |m| m.physical.dimensions.weight == 0 }
+    wrong_heads = f.modes.find { |m| heads_have_common_channels(m) }
+    wrong_msb = f.channels.select do |c|
+      c.group.byte == FixtureDef::Group::MSB &&
+      (c.name.downcase.include?('fine') || c.name.downcase.include?('least')) &&
+        (f.model != 'Event Bar LED' || c.name != 'Movement (Fine)')
+    end
+    wrong_lsb = f.channels.select { |c| c.group.byte == FixtureDef::Group::LSB && c.name.downcase.include?('coarse') }
+
+    problems = []
+    problems << 'PAN' if wrong_pan && has_pan
+    problems << 'TILT' if wrong_tilt && has_tilt
+    problems << 'WIDTH' if wrong_width
+    problems << 'HEIGHT' if wrong_height
+    problems << 'DEPTH' if wrong_depth
+    problems << 'WEIGHT' if wrong_weight
+    problems << 'HEADS' if wrong_heads
+    problems << "MSB: #{wrong_msb.map(&:name).join(',')}" unless wrong_msb.empty?
+    problems << "LSB: #{wrong_msb.map(&:name).join(',')}" unless wrong_lsb.empty?
+
+    return if problems.empty?
+    puts "#{f.path}: #{problems.join ' '}"
+    @total_wrong += 1
+  end
+
+  def heads_have_common_channels(mode)
+    all_head_channels = mode.heads.inject([]) { |a, e| a + e.channels }.sort
+    unique_head_channels = all_head_channels.uniq.sort
+
+    all_head_channels != unique_head_channels
+  end
+
+  def update_map
+    fm = Fixtures.new
+    fm.load_fixtures('.')
+    fm.update_fixtures_map
+    puts "Total fixtures: #{fm.fixtures.size}"
+  end
+
+  def create_overview(path, include_capabilities)
+    fm = Fixtures.new
+    fm.load_fixtures('.')
+    fm.make_overview(path, include_capabilities)
+  end
 end
+
+FixtureTool.new.main(ARGV)

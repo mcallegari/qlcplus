@@ -145,10 +145,10 @@
  </Channel>
  <Mode Name="RAW, RGB">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="2800"/>
-   <Dimensions Width="241" Height="304" Weight="3.7" Depth="241"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="2800"/>
+   <Dimensions Weight="3.7" Width="241" Height="304" Depth="241"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="0" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Shutter</Channel>
@@ -166,10 +166,10 @@
  </Mode>
  <Mode Name="Basic">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="2800"/>
-   <Dimensions Width="241" Height="304" Weight="3.7" Depth="241"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="2800"/>
+   <Dimensions Weight="3.7" Width="241" Height="304" Depth="241"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="123" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Shutter</Channel>

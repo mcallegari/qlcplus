@@ -23,11 +23,11 @@
  </Channel>
  <Mode Name="Mode 1">
   <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Weight="21" Width="544" Depth="344" Height="459"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
-   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="675"/>
+   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="21" Width="544" Height="459" Depth="344"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="675" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Haze Density</Channel>
   <Channel Number="1">Fan Speed</Channel>

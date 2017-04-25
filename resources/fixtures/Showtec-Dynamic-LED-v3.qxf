@@ -73,21 +73,21 @@
   <Capability Min="46" Max="68" Color="#0000ff">Blue</Capability>
   <Capability Min="69" Max="91" Color="#ffaa00">Orange</Capability>
   <Capability Min="92" Max="114" Color="#ffffff">White</Capability>
-  <Capability Min="115" Max="137" Color2="#ffffff" Color="#ffaa00">Orange + White</Capability>
-  <Capability Min="138" Max="160" Color2="#00ff00" Color="#ff0000">Red + Green</Capability>
-  <Capability Min="161" Max="183" Color2="#0000ff" Color="#ff0000">Red + Blue</Capability>
-  <Capability Min="184" Max="206" Color2="#0000ff" Color="#00ff00">Green + Blue</Capability>
+  <Capability Min="115" Max="137" Color="#ffaa00" Color2="#ffffff">Orange + White</Capability>
+  <Capability Min="138" Max="160" Color="#ff0000" Color2="#00ff00">Red + Green</Capability>
+  <Capability Min="161" Max="183" Color="#ff0000" Color2="#0000ff">Red + Blue</Capability>
+  <Capability Min="184" Max="206" Color="#00ff00" Color2="#0000ff">Green + Blue</Capability>
   <Capability Min="207" Max="229">Red + Green + Blue</Capability>
   <Capability Min="230" Max="252">Red + Green + Blue + White</Capability>
   <Capability Min="253" Max="255">Sound 2 Light</Capability>
  </Channel>
  <Mode Name="d-P1 (FX Control Mode)">
   <Physical>
-   <Bulb Type="RGBY LED" ColourTemperature="0" Lumens="0"/>
-   <Dimensions Weight="4.7" Height="150" Width="935" Depth="150"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="PC"/>
+   <Bulb Type="RGBY LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4.7" Width="935" Height="150" Depth="150"/>
+   <Lens Name="PC" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="40"/>
+   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Programs (FX Control Mode)</Channel>
   <Channel Number="1">Speed / Sensitivity</Channel>
@@ -100,11 +100,11 @@
  </Mode>
  <Mode Name="d-P2 (Color Control Mode)">
   <Physical>
-   <Bulb Type="RGBY LED" ColourTemperature="0" Lumens="0"/>
-   <Dimensions Weight="4.7" Height="150" Width="935" Depth="150"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="PC"/>
+   <Bulb Type="RGBY LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4.7" Width="935" Height="150" Depth="150"/>
+   <Lens Name="PC" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="40"/>
+   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Programs (Color Control Mode)</Channel>
   <Channel Number="1">Strobe (Flash)</Channel>

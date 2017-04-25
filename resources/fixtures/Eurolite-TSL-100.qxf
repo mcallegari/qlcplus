@@ -19,20 +19,20 @@
  </Channel>
  <Channel Name="Color-wheel">
   <Group Byte="0">Colour</Group>
-  <Capability Color="#ffffff" Min="0" Max="14">Open / White</Capability>
-  <Capability Color="#ffaa00" Min="16" Max="29">Orange&#13;</Capability>
-  <Capability Color="#00007f" Min="30" Max="44">Blue</Capability>
-  <Capability Color="#00aa00" Min="45" Max="59">Green</Capability>
-  <Capability Color="#ffff00" Min="60" Max="74">Yellow</Capability>
-  <Capability Color="#ff007f" Min="75" Max="89">Pink</Capability>
-  <Capability Color="#0055ff" Min="90" Max="104">Light Blue</Capability>
-  <Capability Color="#55ff7f" Min="105" Max="119">Light Green</Capability>
-  <Capability Color="#ffff7f" Min="120" Max="127">Light Yellow</Capability>
-  <Capability Res="Others/rainbow.png" Min="128" Max="255">Rainbow effect with increasing speed</Capability>
+  <Capability Min="0" Max="14" Color="#ffffff">Open / White</Capability>
+  <Capability Min="16" Max="29" Color="#ffaa00">Orange&#13;</Capability>
+  <Capability Min="30" Max="44" Color="#00007f">Blue</Capability>
+  <Capability Min="45" Max="59" Color="#00aa00">Green</Capability>
+  <Capability Min="60" Max="74" Color="#ffff00">Yellow</Capability>
+  <Capability Min="75" Max="89" Color="#ff007f">Pink</Capability>
+  <Capability Min="90" Max="104" Color="#0055ff">Light Blue</Capability>
+  <Capability Min="105" Max="119" Color="#55ff7f">Light Green</Capability>
+  <Capability Min="120" Max="127" Color="#ffff7f">Light Yellow</Capability>
+  <Capability Min="128" Max="255" Res="Others/rainbow.png">Rainbow effect with increasing speed</Capability>
  </Channel>
  <Channel Name="Gobo-wheel, gobo shake">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/open.png" Min="0" Max="7">Open</Capability>
+  <Capability Min="0" Max="7" Res="Others/open.png">Open</Capability>
   <Capability Min="8" Max="14">Gobo 1</Capability>
   <Capability Min="15" Max="21">Gobo 2</Capability>
   <Capability Min="22" Max="28">Gobo 3</Capability>
@@ -41,7 +41,7 @@
   <Capability Min="43" Max="49">Gobo 6</Capability>
   <Capability Min="50" Max="56">Gobo 7</Capability>
   <Capability Min="57" Max="63">Gobo 8</Capability>
-  <Capability Res="Others/open.png" Min="64" Max="70">Open shake</Capability>
+  <Capability Min="64" Max="70" Res="Others/open.png">Open shake</Capability>
   <Capability Min="71" Max="77">Gobo 1 shake</Capability>
   <Capability Min="78" Max="84">Gobo 2 shake</Capability>
   <Capability Min="85" Max="91">Gobo 3 shake</Capability>
@@ -94,9 +94,9 @@
  <Mode Name="Standard">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Height="300" Weight="6" Width="205" Depth="390"/>
+   <Dimensions Weight="6" Width="205" Height="300" Depth="390"/>
    <Lens Name="Other" DegreesMin="13" DegreesMax="13"/>
-   <Focus PanMax="150" Type="Mirror" TiltMax="110"/>
+   <Focus Type="Mirror" PanMax="150" TiltMax="110"/>
    <Technical PowerConsumption="50" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

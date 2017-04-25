@@ -99,10 +99,10 @@
  </Channel>
  <Mode Name="12 channels">
   <Physical>
-   <Bulb Lumens="100" Type="18x3W LED, RGB" ColourTemperature="0"/>
-   <Dimensions Width="173" Height="249" Weight="4" Depth="173"/>
-   <Lens DegreesMax="15" Name="PC" DegreesMin="15"/>
-   <Focus PanMax="540" Type="Head" TiltMax="270"/>
+   <Bulb Type="18x3W LED, RGB" Lumens="100" ColourTemperature="0"/>
+   <Dimensions Weight="4" Width="173" Height="249" Depth="173"/>
+   <Lens Name="PC" DegreesMin="15" DegreesMax="15"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="50" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan coarse</Channel>
@@ -120,10 +120,10 @@
  </Mode>
  <Mode Name="4 channels">
   <Physical>
-   <Bulb Lumens="100" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="173" Height="249" Weight="4" Depth="173"/>
-   <Lens DegreesMax="15" Name="PC" DegreesMin="15"/>
-   <Focus PanMax="540" Type="Head" TiltMax="270"/>
+   <Bulb Type="LED" Lumens="100" ColourTemperature="0"/>
+   <Dimensions Weight="4" Width="173" Height="249" Depth="173"/>
+   <Lens Name="PC" DegreesMin="15" DegreesMax="15"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="50" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan coarse</Channel>

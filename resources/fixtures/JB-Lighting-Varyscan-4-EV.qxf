@@ -98,10 +98,10 @@
  </Channel>
  <Mode Name="Normal">
   <Physical>
-   <Bulb Lumens="0" Type="HMI 1200W" ColourTemperature="0"/>
-   <Dimensions Width="450" Height="895" Weight="34" Depth="320"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="170" Type="Mirror" TiltMax="90"/>
+   <Bulb Type="HMI 1200W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="34" Width="450" Height="895" Depth="320"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Mirror" PanMax="170" TiltMax="90"/>
    <Technical PowerConsumption="1430" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

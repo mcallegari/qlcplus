@@ -51,10 +51,10 @@
  </Channel>
  <Mode Name="2-Channel">
   <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
-   <Dimensions Depth="87" Weight="2.8" Width="256" Height="285"/>
-   <Lens DegreesMax="21" Name="Other" DegreesMin="21"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.8" Width="256" Height="285" Depth="87"/>
+   <Lens Name="Other" DegreesMin="21" DegreesMax="21"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="83" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Warm White</Channel>
@@ -62,10 +62,10 @@
  </Mode>
  <Mode Name="3-Channel">
   <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
-   <Dimensions Depth="87" Weight="2.8" Width="256" Height="285"/>
-   <Lens DegreesMax="21" Name="Other" DegreesMin="21"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.8" Width="256" Height="285" Depth="87"/>
+   <Lens Name="Other" DegreesMin="21" DegreesMax="21"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="83" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
@@ -74,10 +74,10 @@
  </Mode>
  <Mode Name="7-Channel">
   <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
-   <Dimensions Depth="87" Weight="2.8" Width="256" Height="285"/>
-   <Lens DegreesMax="21" Name="Other" DegreesMin="21"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.8" Width="256" Height="285" Depth="87"/>
+   <Lens Name="Other" DegreesMin="21" DegreesMax="21"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="83" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>

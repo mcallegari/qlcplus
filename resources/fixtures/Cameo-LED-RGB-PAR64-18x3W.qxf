@@ -41,11 +41,11 @@
  </Channel>
  <Mode Name="6-Channel Mode">
   <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Depth="270" Height="263" Weight="2.3" Width="270"/>
-   <Lens DegreesMin="25" DegreesMax="25" Name="Other"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.3" Width="270" Height="263" Depth="270"/>
+   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="60"/>
+   <Technical PowerConsumption="60" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">RED</Channel>

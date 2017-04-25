@@ -112,10 +112,10 @@
  <Mode Name="8-Ch">
   <Physical>
    <Bulb Type="LED" Lumens="1456" ColourTemperature="0"/>
-   <Dimensions Height="275" Depth="320" Weight="7" Width="230"/>
+   <Dimensions Weight="7" Width="230" Height="275" Depth="320"/>
    <Lens Name="Other" DegreesMin="11" DegreesMax="11"/>
-   <Focus Type="Fixed" TiltMax="270" PanMax="540"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="100"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="100" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
@@ -129,10 +129,10 @@
  <Mode Name="13-Ch">
   <Physical>
    <Bulb Type="LED" Lumens="1456" ColourTemperature="0"/>
-   <Dimensions Height="275" Depth="320" Weight="7" Width="230"/>
+   <Dimensions Weight="7" Width="230" Height="275" Depth="320"/>
    <Lens Name="Other" DegreesMin="11" DegreesMax="11"/>
-   <Focus Type="Fixed" TiltMax="270" PanMax="540"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="100"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="100" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>

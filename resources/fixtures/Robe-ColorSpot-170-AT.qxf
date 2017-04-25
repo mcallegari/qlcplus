@@ -78,9 +78,9 @@
   <Capability Min="93" Max="93" Color="#ffc0ff">Pink</Capability>
   <Capability Min="105" Max="105" Color="#0000c0">Dark Blue</Capability>
   <Capability Min="116" Max="116" Color="#ff8000">Orange</Capability>
-  <Capability Res="Others/rainbow.png" Min="128" Max="189">Forwards rainbow fast to slow</Capability>
+  <Capability Min="128" Max="189" Res="Others/rainbow.png">Forwards rainbow fast to slow</Capability>
   <Capability Min="190" Max="193">No rotation</Capability>
-  <Capability Res="Others/rainbow.png" Min="194" Max="255">Backwards rainbow slow to fast</Capability>
+  <Capability Min="194" Max="255" Res="Others/rainbow.png">Backwards rainbow slow to fast</Capability>
  </Channel>
  <Channel Name="Focus">
   <Group Byte="0">Beam</Group>
@@ -119,10 +119,10 @@
  </Channel>
  <Mode Name="Mode 1 (16bit)">
   <Physical>
-   <Bulb Lumens="0" Type="CDM 150W" ColourTemperature="0"/>
-   <Dimensions Width="326" Height="416" Weight="11" Depth="362"/>
-   <Lens DegreesMax="19" Name="Other" DegreesMin="19"/>
-   <Focus PanMax="530" Type="Fixed" TiltMax="280"/>
+   <Bulb Type="CDM 150W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="11" Width="326" Height="416" Depth="362"/>
+   <Lens Name="Other" DegreesMin="19" DegreesMax="19"/>
+   <Focus Type="Fixed" PanMax="530" TiltMax="280"/>
    <Technical PowerConsumption="300" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -140,10 +140,10 @@
  </Mode>
  <Mode Name="Mode 2 (16bit)">
   <Physical>
-   <Bulb Lumens="0" Type="CDM 150W" ColourTemperature="0"/>
-   <Dimensions Width="326" Height="416" Weight="11" Depth="362"/>
-   <Lens DegreesMax="19" Name="Other" DegreesMin="19"/>
-   <Focus PanMax="530" Type="Fixed" TiltMax="280"/>
+   <Bulb Type="CDM 150W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="11" Width="326" Height="416" Depth="362"/>
+   <Lens Name="Other" DegreesMin="19" DegreesMax="19"/>
+   <Focus Type="Fixed" PanMax="530" TiltMax="280"/>
    <Technical PowerConsumption="300" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -161,10 +161,10 @@
  </Mode>
  <Mode Name="Mode 3 (8bit)">
   <Physical>
-   <Bulb Lumens="0" Type="CDM 150W" ColourTemperature="0"/>
-   <Dimensions Width="326" Height="416" Weight="11" Depth="362"/>
-   <Lens DegreesMax="19" Name="Other" DegreesMin="19"/>
-   <Focus PanMax="530" Type="Fixed" TiltMax="280"/>
+   <Bulb Type="CDM 150W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="11" Width="326" Height="416" Depth="362"/>
+   <Lens Name="Other" DegreesMin="19" DegreesMax="19"/>
+   <Focus Type="Fixed" PanMax="530" TiltMax="280"/>
    <Technical PowerConsumption="300" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -180,10 +180,10 @@
  </Mode>
  <Mode Name="Mode 4 (16bit)">
   <Physical>
-   <Bulb Lumens="0" Type="CDM 150W" ColourTemperature="0"/>
-   <Dimensions Width="326" Height="416" Weight="11" Depth="362"/>
-   <Lens DegreesMax="19" Name="Other" DegreesMin="19"/>
-   <Focus PanMax="530" Type="Fixed" TiltMax="280"/>
+   <Bulb Type="CDM 150W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="11" Width="326" Height="416" Depth="362"/>
+   <Lens Name="Other" DegreesMin="19" DegreesMax="19"/>
+   <Focus Type="Fixed" PanMax="530" TiltMax="280"/>
    <Technical PowerConsumption="300" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

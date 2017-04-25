@@ -50,10 +50,10 @@
  </Channel>
  <Mode Name="Ch3 Mode">
   <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="5600"/>
-   <Dimensions Width="472" Height="255" Weight="6.7" Depth="152"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="" Lumens="0" ColourTemperature="5600"/>
+   <Dimensions Weight="6.7" Width="472" Height="255" Depth="152"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="3000" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Flash Intensity</Channel>
@@ -62,10 +62,10 @@
  </Mode>
  <Mode Name="Ch4 Mode">
   <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="5600"/>
-   <Dimensions Width="472" Height="255" Weight="6.7" Depth="152"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="" Lumens="0" ColourTemperature="5600"/>
+   <Dimensions Weight="6.7" Width="472" Height="255" Depth="152"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="3000" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Flash Intensity</Channel>
@@ -75,10 +75,10 @@
  </Mode>
  <Mode Name="Ch1 Mode">
   <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="5600"/>
-   <Dimensions Width="472" Height="255" Weight="6.7" Depth="152"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="" Lumens="0" ColourTemperature="5600"/>
+   <Dimensions Weight="6.7" Width="472" Height="255" Depth="152"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="3000" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Flash Rate</Channel>

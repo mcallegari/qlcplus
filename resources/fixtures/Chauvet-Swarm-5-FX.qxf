@@ -36,16 +36,16 @@
   <Capability Min="20" Max="24" Color="#0000ff">Blue</Capability>
   <Capability Min="25" Max="29" Color="#ffff00">Amber</Capability>
   <Capability Min="30" Max="34" Color="#ffffff">White</Capability>
-  <Capability Color2="#ff0000" Min="35" Max="39" Color="#ffffff">White + Red</Capability>
-  <Capability Color2="#55aa00" Min="40" Max="44" Color="#ff0000">Red + Green</Capability>
-  <Capability Color2="#0000ff" Min="45" Max="49" Color="#55aa00">Green + Blue</Capability>
-  <Capability Color2="#ffff00" Min="50" Max="54" Color="#0000ff">Blue + Amber</Capability>
-  <Capability Color2="#ffffff" Min="55" Max="59" Color="#ffff00">Amber + White</Capability>
-  <Capability Color2="#55aa00" Min="60" Max="64" Color="#ffffff">White + Green</Capability>
-  <Capability Color2="#ffff00" Min="65" Max="69" Color="#55aa00">Green + Amber</Capability>
-  <Capability Color2="#ff0000" Min="70" Max="74" Color="#ffff00">Amber + Red</Capability>
-  <Capability Color2="#0000ff" Min="75" Max="79" Color="#ff0000">Red + Blue</Capability>
-  <Capability Color2="#ffffff" Min="80" Max="84" Color="#0000ff">Blue + White</Capability>
+  <Capability Min="35" Max="39" Color="#ffffff" Color2="#ff0000">White + Red</Capability>
+  <Capability Min="40" Max="44" Color="#ff0000" Color2="#55aa00">Red + Green</Capability>
+  <Capability Min="45" Max="49" Color="#55aa00" Color2="#0000ff">Green + Blue</Capability>
+  <Capability Min="50" Max="54" Color="#0000ff" Color2="#ffff00">Blue + Amber</Capability>
+  <Capability Min="55" Max="59" Color="#ffff00" Color2="#ffffff">Amber + White</Capability>
+  <Capability Min="60" Max="64" Color="#ffffff" Color2="#55aa00">White + Green</Capability>
+  <Capability Min="65" Max="69" Color="#55aa00" Color2="#ffff00">Green + Amber</Capability>
+  <Capability Min="70" Max="74" Color="#ffff00" Color2="#ff0000">Amber + Red</Capability>
+  <Capability Min="75" Max="79" Color="#ff0000" Color2="#0000ff">Red + Blue</Capability>
+  <Capability Min="80" Max="84" Color="#0000ff" Color2="#ffffff">Blue + White</Capability>
   <Capability Min="85" Max="89">Red + Green + Blue</Capability>
   <Capability Min="90" Max="94">Red + Green + Amber</Capability>
   <Capability Min="95" Max="99">Red + Green + White</Capability>
@@ -122,10 +122,10 @@
  </Channel>
  <Mode Name="Standard Mode">
   <Physical>
-   <Bulb Lumens="1" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="248" Height="298" Weight="4.5" Depth="310"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="1" ColourTemperature="0"/>
+   <Dimensions Weight="4.5" Width="248" Height="298" Depth="310"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="62" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Automatic Programs/Control Mode</Channel>

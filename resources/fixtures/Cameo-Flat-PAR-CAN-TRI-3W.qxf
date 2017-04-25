@@ -58,22 +58,22 @@
  </Channel>
  <Mode Name="2-Channel Mode">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Weight="1.2" Height="180" Width="176" Depth="113"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1.2" Width="176" Height="180" Depth="113"/>
    <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="25"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="25" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Master dimmer</Channel>
   <Channel Number="1">Colour macro</Channel>
  </Mode>
  <Mode Name="3-Channel Mode 1">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Weight="1.2" Height="180" Width="176" Depth="113"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1.2" Width="176" Height="180" Depth="113"/>
    <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="25"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="25" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Master dimmer</Channel>
   <Channel Number="1">Stroboscope rate</Channel>
@@ -81,11 +81,11 @@
  </Mode>
  <Mode Name="3-Channel Mode 2">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Weight="1.2" Height="180" Width="176" Depth="113"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1.2" Width="176" Height="180" Depth="113"/>
    <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="25"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="25" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
@@ -93,11 +93,11 @@
  </Mode>
  <Mode Name="6-Channel Mode">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Weight="1.2" Height="180" Width="176" Depth="113"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1.2" Width="176" Height="180" Depth="113"/>
    <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="25"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="25" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Master dimmer</Channel>
   <Channel Number="1">Stroboscope rate</Channel>

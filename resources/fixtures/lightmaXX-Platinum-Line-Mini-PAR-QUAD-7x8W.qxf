@@ -58,10 +58,10 @@
  </Channel>
  <Mode Name="7 channel">
   <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Weight="2" Height="160" Width="170" Depth="170"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2" Width="170" Height="160" Depth="170"/>
    <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="59" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Master</Channel>
@@ -74,10 +74,10 @@
  </Mode>
  <Mode Name="4 channel">
   <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Weight="2" Height="160" Width="170" Depth="170"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2" Width="170" Height="160" Depth="170"/>
    <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="59" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
@@ -87,10 +87,10 @@
  </Mode>
  <Mode Name="3 channel">
   <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Weight="2" Height="160" Width="170" Depth="170"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2" Width="170" Height="160" Depth="170"/>
    <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="59" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
@@ -99,10 +99,10 @@
  </Mode>
  <Mode Name="2 channel">
   <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Weight="2" Height="160" Width="170" Depth="170"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2" Width="170" Height="160" Depth="170"/>
    <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="59" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">2ch Macro 1</Channel>

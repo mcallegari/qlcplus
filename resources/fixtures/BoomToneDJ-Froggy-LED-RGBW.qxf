@@ -60,11 +60,11 @@
  </Channel>
  <Mode Name="6 Ch Mode">
   <Physical>
-   <Bulb ColourTemperature="7600" Lumens="0" Type="LED"/>
-   <Dimensions Depth="110" Width="140" Height="250" Weight="1.9"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="7600"/>
+   <Dimensions Weight="1.9" Width="140" Height="250" Depth="110"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus TiltMax="270" PanMax="540" Type="Head"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="30"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Strobe</Channel>
@@ -75,11 +75,11 @@
  </Mode>
  <Mode Name="11 Ch Mode">
   <Physical>
-   <Bulb ColourTemperature="7600" Lumens="0" Type="LED"/>
-   <Dimensions Depth="110" Width="140" Height="250" Weight="1.9"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="7600"/>
+   <Dimensions Weight="1.9" Width="140" Height="250" Depth="110"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus TiltMax="270" PanMax="540" Type="Head"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="30"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Strobe</Channel>

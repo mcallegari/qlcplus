@@ -51,10 +51,10 @@
  </Channel>
  <Mode Name="1 Channel Mode">
   <Physical>
-   <Bulb Lumens="0" Type="240V/75W GU10" ColourTemperature="0"/>
-   <Dimensions Width="1000" Depth="80" Weight="5.3" Height="130"/>
-   <Lens DegreesMin="0" Name="Other" DegreesMax="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="240V/75W GU10" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="5.3" Width="1000" Height="130" Depth="80"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="750" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">01</Channel>
@@ -64,10 +64,10 @@
  </Mode>
  <Mode Name="2 Channels Mode">
   <Physical>
-   <Bulb Lumens="0" Type="240V/75W GU10" ColourTemperature="0"/>
-   <Dimensions Width="1000" Depth="80" Weight="5.3" Height="130"/>
-   <Lens DegreesMin="0" Name="Other" DegreesMax="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="240V/75W GU10" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="5.3" Width="1000" Height="130" Depth="80"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="750" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">01</Channel>
@@ -81,10 +81,10 @@
  </Mode>
  <Mode Name="5 Channels Mode">
   <Physical>
-   <Bulb Lumens="0" Type="240V/75W GU10" ColourTemperature="0"/>
-   <Dimensions Width="1000" Depth="80" Weight="5.3" Height="130"/>
-   <Lens DegreesMin="0" Name="Other" DegreesMax="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="240V/75W GU10" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="5.3" Width="1000" Height="130" Depth="80"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="750" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">01</Channel>
@@ -110,10 +110,10 @@
  </Mode>
  <Mode Name="10 Channels Mode">
   <Physical>
-   <Bulb Lumens="0" Type="240V/75W GU10" ColourTemperature="0"/>
-   <Dimensions Width="1000" Depth="80" Weight="5.3" Height="130"/>
-   <Lens DegreesMin="0" Name="Other" DegreesMax="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="240V/75W GU10" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="5.3" Width="1000" Height="130" Depth="80"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="750" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">01</Channel>

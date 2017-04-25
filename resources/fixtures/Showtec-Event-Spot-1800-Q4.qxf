@@ -136,10 +136,10 @@
  </Channel>
  <Mode Name="TOUR">
   <Physical>
-   <Bulb Lumens="600" ColourTemperature="0" Type="LED"/>
-   <Dimensions Weight="5.5" Width="154" Depth="287" Height="154"/>
+   <Bulb Type="LED" Lumens="600" ColourTemperature="0"/>
+   <Dimensions Weight="5.5" Width="154" Height="154" Depth="287"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="40" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer Master</Channel>
@@ -155,10 +155,10 @@
  </Mode>
  <Mode Name="TR16">
   <Physical>
-   <Bulb Lumens="600" ColourTemperature="0" Type="LED"/>
-   <Dimensions Weight="5.5" Width="154" Depth="287" Height="154"/>
+   <Bulb Type="LED" Lumens="600" ColourTemperature="0"/>
+   <Dimensions Weight="5.5" Width="154" Height="154" Depth="287"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="40" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer Master</Channel>
@@ -179,10 +179,10 @@
  </Mode>
  <Mode Name="ARC1">
   <Physical>
-   <Bulb Lumens="600" ColourTemperature="0" Type="LED"/>
-   <Dimensions Weight="5.5" Width="154" Depth="287" Height="154"/>
+   <Bulb Type="LED" Lumens="600" ColourTemperature="0"/>
+   <Dimensions Weight="5.5" Width="154" Height="154" Depth="287"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="40" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
@@ -191,10 +191,10 @@
  </Mode>
  <Mode Name="AR1.D">
   <Physical>
-   <Bulb Lumens="600" ColourTemperature="0" Type="LED"/>
-   <Dimensions Weight="5.5" Width="154" Depth="287" Height="154"/>
+   <Bulb Type="LED" Lumens="600" ColourTemperature="0"/>
+   <Dimensions Weight="5.5" Width="154" Height="154" Depth="287"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="40" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer Master</Channel>
@@ -204,10 +204,10 @@
  </Mode>
  <Mode Name="ARC2">
   <Physical>
-   <Bulb Lumens="600" ColourTemperature="0" Type="LED"/>
-   <Dimensions Weight="5.5" Width="154" Depth="287" Height="154"/>
+   <Bulb Type="LED" Lumens="600" ColourTemperature="0"/>
+   <Dimensions Weight="5.5" Width="154" Height="154" Depth="287"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="40" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
@@ -217,10 +217,10 @@
  </Mode>
  <Mode Name="AR2.D">
   <Physical>
-   <Bulb Lumens="600" ColourTemperature="0" Type="LED"/>
-   <Dimensions Weight="5.5" Width="154" Depth="287" Height="154"/>
+   <Bulb Type="LED" Lumens="600" ColourTemperature="0"/>
+   <Dimensions Weight="5.5" Width="154" Height="154" Depth="287"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="40" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer Master</Channel>
@@ -231,10 +231,10 @@
  </Mode>
  <Mode Name="AR2.S">
   <Physical>
-   <Bulb Lumens="600" ColourTemperature="0" Type="LED"/>
-   <Dimensions Weight="5.5" Width="154" Depth="287" Height="154"/>
+   <Bulb Type="LED" Lumens="600" ColourTemperature="0"/>
+   <Dimensions Weight="5.5" Width="154" Height="154" Depth="287"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="40" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer Master</Channel>

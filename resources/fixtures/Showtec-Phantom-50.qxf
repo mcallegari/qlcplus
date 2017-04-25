@@ -136,10 +136,10 @@
  </Channel>
  <Mode Name="13ch - Advanced">
   <Physical>
-   <Bulb Lumens="18500" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="204" Height="340" Weight="5.64" Depth="210"/>
-   <Lens DegreesMax="17" Name="" DegreesMin="17"/>
-   <Focus PanMax="540" Type="Head" TiltMax="270"/>
+   <Bulb Type="LED" Lumens="18500" ColourTemperature="0"/>
+   <Dimensions Weight="5.64" Width="204" Height="340" Depth="210"/>
+   <Lens Name="" DegreesMin="17" DegreesMax="17"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="50" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -158,10 +158,10 @@
  </Mode>
  <Mode Name="8ch - Basic">
   <Physical>
-   <Bulb Lumens="18500" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="204" Height="340" Weight="5.64" Depth="210"/>
-   <Lens DegreesMax="17" Name="" DegreesMin="17"/>
-   <Focus PanMax="540" Type="Head" TiltMax="270"/>
+   <Bulb Type="LED" Lumens="18500" ColourTemperature="0"/>
+   <Dimensions Weight="5.64" Width="204" Height="340" Depth="210"/>
+   <Lens Name="" DegreesMin="17" DegreesMax="17"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="50" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

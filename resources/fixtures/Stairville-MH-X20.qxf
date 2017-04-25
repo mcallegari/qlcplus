@@ -122,10 +122,10 @@
  </Channel>
  <Mode Name="11 Ch">
   <Physical>
-   <Bulb Type="LED" ColourTemperature="0" Lumens="9800"/>
-   <Dimensions Width="200" Depth="210" Height="290" Weight="4.2"/>
+   <Bulb Type="LED" Lumens="9800" ColourTemperature="0"/>
+   <Dimensions Weight="4.2" Width="200" Height="290" Depth="210"/>
    <Lens Name="PC" DegreesMin="0" DegreesMax="0"/>
-   <Focus TiltMax="270" Type="Fixed" PanMax="540"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="40" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -142,10 +142,10 @@
  </Mode>
  <Mode Name="6 Ch">
   <Physical>
-   <Bulb Type="LED" ColourTemperature="0" Lumens="9800"/>
-   <Dimensions Width="200" Depth="210" Height="290" Weight="4.2"/>
+   <Bulb Type="LED" Lumens="9800" ColourTemperature="0"/>
+   <Dimensions Weight="4.2" Width="200" Height="290" Depth="210"/>
    <Lens Name="PC" DegreesMin="0" DegreesMax="0"/>
-   <Focus TiltMax="270" Type="Fixed" PanMax="540"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="40" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

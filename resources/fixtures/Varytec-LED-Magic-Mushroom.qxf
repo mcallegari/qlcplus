@@ -30,10 +30,10 @@
  </Channel>
  <Mode Name="4-Channel Mode">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="406" Height="279" Weight="5" Depth="279"/>
-   <Lens DegreesMax="70" Name="Other" DegreesMin="70"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="5" Width="406" Height="279" Depth="279"/>
+   <Lens Name="Other" DegreesMin="70" DegreesMax="70"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="30" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Blue</Channel>

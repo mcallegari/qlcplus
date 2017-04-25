@@ -326,10 +326,10 @@
  </Channel>
  <Mode Name="33ch">
   <Physical>
-   <Bulb Lumens="16000" Type="MSD 275W" ColourTemperature="8000"/>
-   <Dimensions Width="355" Height="600" Weight="20" Depth="395"/>
-   <Lens DegreesMax="40" Name="Other" DegreesMin="2"/>
-   <Focus PanMax="540" Type="Head" TiltMax="270"/>
+   <Bulb Type="MSD 275W" Lumens="16000" ColourTemperature="8000"/>
+   <Dimensions Weight="20" Width="355" Height="600" Depth="395"/>
+   <Lens Name="Other" DegreesMin="2" DegreesMax="40"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="450" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan Coarse</Channel>
@@ -368,10 +368,10 @@
  </Mode>
  <Mode Name="24ch">
   <Physical>
-   <Bulb Lumens="16000" Type="MSD 275W" ColourTemperature="8000"/>
-   <Dimensions Width="355" Height="600" Weight="20" Depth="395"/>
-   <Lens DegreesMax="40" Name="Other" DegreesMin="2"/>
-   <Focus PanMax="540" Type="Head" TiltMax="270"/>
+   <Bulb Type="MSD 275W" Lumens="16000" ColourTemperature="8000"/>
+   <Dimensions Weight="20" Width="355" Height="600" Depth="395"/>
+   <Lens Name="Other" DegreesMin="2" DegreesMax="40"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="450" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan Coarse</Channel>

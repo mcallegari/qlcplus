@@ -318,11 +318,11 @@
  </Channel>
  <Mode Name="Extended">
   <Physical>
-   <Bulb ColourTemperature="6000" Type="HTI 1000W" Lumens="0"/>
-   <Dimensions Height="749" Width="473" Weight="33" Depth="565"/>
-   <Lens DegreesMin="13.5" DegreesMax="59" Name="Other"/>
-   <Focus PanMax="540" Type="Head" TiltMax="268"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="1200"/>
+   <Bulb Type="HTI 1000W" Lumens="0" ColourTemperature="6000"/>
+   <Dimensions Weight="33" Width="473" Height="749" Depth="565"/>
+   <Lens Name="Other" DegreesMin="13.5" DegreesMax="59"/>
+   <Focus Type="Head" PanMax="540" TiltMax="268"/>
+   <Technical PowerConsumption="1200" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Strobe/shutter</Channel>
   <Channel Number="1">Dimmer fade</Channel>
@@ -351,11 +351,11 @@
  </Mode>
  <Mode Name="Basic">
   <Physical>
-   <Bulb ColourTemperature="6000" Type="HTI 1000W" Lumens="0"/>
-   <Dimensions Height="749" Width="473" Weight="33" Depth="565"/>
-   <Lens DegreesMin="13.5" DegreesMax="59" Name="Other"/>
-   <Focus PanMax="540" Type="Head" TiltMax="268"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="1200"/>
+   <Bulb Type="HTI 1000W" Lumens="0" ColourTemperature="6000"/>
+   <Dimensions Weight="33" Width="473" Height="749" Depth="565"/>
+   <Lens Name="Other" DegreesMin="13.5" DegreesMax="59"/>
+   <Focus Type="Head" PanMax="540" TiltMax="268"/>
+   <Technical PowerConsumption="1200" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Strobe/shutter</Channel>
   <Channel Number="1">Dimmer fade</Channel>

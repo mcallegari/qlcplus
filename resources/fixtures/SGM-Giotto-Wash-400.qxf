@@ -27,14 +27,14 @@
  </Channel>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Color="#ffffff" Max="20">White</Capability>
-  <Capability Min="21" Color="#ff0000" Max="40">Red</Capability>
-  <Capability Min="41" Color="#0000ff" Max="60">Blue</Capability>
-  <Capability Min="61" Color="#ff7f00" Max="80">Orange</Capability>
-  <Capability Min="81" Color="#00ff00" Max="100">Green</Capability>
-  <Capability Min="101" Color="#ffff00" Max="120">Yellow</Capability>
-  <Capability Min="121" Color="#ffaaff" Max="140">Pink</Capability>
-  <Capability Min="141" Color="#ebffc8" Max="160">Wood/UV filter</Capability>
+  <Capability Min="0" Max="20" Color="#ffffff">White</Capability>
+  <Capability Min="21" Max="40" Color="#ff0000">Red</Capability>
+  <Capability Min="41" Max="60" Color="#0000ff">Blue</Capability>
+  <Capability Min="61" Max="80" Color="#ff7f00">Orange</Capability>
+  <Capability Min="81" Max="100" Color="#00ff00">Green</Capability>
+  <Capability Min="101" Max="120" Color="#ffff00">Yellow</Capability>
+  <Capability Min="121" Max="140" Color="#ffaaff">Pink</Capability>
+  <Capability Min="141" Max="160" Color="#ebffc8">Wood/UV filter</Capability>
   <Capability Min="161" Max="166">Rainbow speed 1</Capability>
   <Capability Min="167" Max="172">Rainbow speed 2</Capability>
   <Capability Min="173" Max="178">Rainbow speed 3</Capability>
@@ -143,11 +143,11 @@
  </Channel>
  <Mode Name="Mode 1">
   <Physical>
-   <Bulb Type="MSD 400" ColourTemperature="6000" Lumens="32000"/>
-   <Dimensions Weight="24.8" Depth="412" Height="681" Width="360"/>
+   <Bulb Type="MSD 400" Lumens="32000" ColourTemperature="6000"/>
+   <Dimensions Weight="24.8" Width="360" Height="681" Depth="412"/>
    <Lens Name="Other" DegreesMin="9" DegreesMax="24"/>
    <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="520"/>
+   <Technical PowerConsumption="520" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan fine</Channel>

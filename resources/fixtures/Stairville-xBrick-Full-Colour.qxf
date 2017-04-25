@@ -79,10 +79,10 @@
  </Channel>
  <Mode Name="5 channel">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="310" Height="175" Weight="3" Depth="72"/>
-   <Lens DegreesMax="30" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="3" Width="310" Height="175" Depth="72"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="30"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="60" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red1</Channel>
@@ -93,10 +93,10 @@
  </Mode>
  <Mode Name="13 channel">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="310" Height="175" Weight="3" Depth="72"/>
-   <Lens DegreesMax="30" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="3" Width="310" Height="175" Depth="72"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="30"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="60" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red1</Channel>

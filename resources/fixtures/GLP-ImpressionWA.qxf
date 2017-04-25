@@ -93,10 +93,10 @@
  </Channel>
  <Mode Name="Normal">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="340" Height="370" Weight="8" Depth="145"/>
-   <Lens DegreesMax="25" Name="Other" DegreesMin="10"/>
-   <Focus PanMax="660" Type="Head" TiltMax="300"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="8" Width="340" Height="370" Depth="145"/>
+   <Lens Name="Other" DegreesMin="10" DegreesMax="25"/>
+   <Focus Type="Head" PanMax="660" TiltMax="300"/>
   </Physical>
   <Channel Number="0">Pan coarse</Channel>
   <Channel Number="1">Pan fine</Channel>
@@ -111,10 +111,10 @@
  </Mode>
  <Mode Name="Compressed">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="340" Height="370" Weight="8" Depth="145"/>
-   <Lens DegreesMax="25" Name="Other" DegreesMin="10"/>
-   <Focus PanMax="660" Type="Head" TiltMax="300"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="8" Width="340" Height="370" Depth="145"/>
+   <Lens Name="Other" DegreesMin="10" DegreesMax="25"/>
+   <Focus Type="Head" PanMax="660" TiltMax="300"/>
   </Physical>
   <Channel Number="0">Pan coarse</Channel>
   <Channel Number="1">Pan fine</Channel>
@@ -127,10 +127,10 @@
  </Mode>
  <Mode Name="Extended">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="340" Height="370" Weight="8" Depth="145"/>
-   <Lens DegreesMax="25" Name="Other" DegreesMin="10"/>
-   <Focus PanMax="660" Type="Fixed" TiltMax="300"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="8" Width="340" Height="370" Depth="145"/>
+   <Lens Name="Other" DegreesMin="10" DegreesMax="25"/>
+   <Focus Type="Fixed" PanMax="660" TiltMax="300"/>
   </Physical>
   <Channel Number="0">Pan coarse</Channel>
   <Channel Number="1">Pan fine</Channel>

@@ -92,10 +92,10 @@
  </Channel>
  <Mode Name="10-CH Mode">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="452" Height="354" Weight="12.2" Depth="415"/>
-   <Lens DegreesMax="24" Name="Other" DegreesMin="24"/>
-   <Focus PanMax="360" Type="Head" TiltMax="265"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="12.2" Width="452" Height="354" Depth="415"/>
+   <Lens Name="Other" DegreesMin="24" DegreesMax="24"/>
+   <Focus Type="Head" PanMax="360" TiltMax="265"/>
    <Technical PowerConsumption="240" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

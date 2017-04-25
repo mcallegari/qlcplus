@@ -35,15 +35,15 @@
   <Capability Min="99" Max="109" Color="#ffff00" Color2="#aa55ff">Yellow &amp; Purple</Capability>
   <Capability Min="110" Max="120" Color="#aa55ff">Purple</Capability>
   <Capability Min="121" Max="127" Color="#aa55ff" Color2="#ffffff">Purple &amp; White</Capability>
-  <Capability Res="Others/rainbow.png" Min="128" Max="186">Clockwise Colour Fast-Slow</Capability>
+  <Capability Min="128" Max="186" Res="Others/rainbow.png">Clockwise Colour Fast-Slow</Capability>
   <Capability Min="187" Max="196">Stop</Capability>
-  <Capability Res="Others/rainbow.png" Min="197" Max="255">Counter-Clockwise Slow-Fast</Capability>
+  <Capability Min="197" Max="255" Res="Others/rainbow.png">Counter-Clockwise Slow-Fast</Capability>
  </Channel>
  <Mode Name="3 Channel">
   <Physical>
-   <Bulb ColourTemperature="0" Type="45 Watt LED" Lumens="0"/>
-   <Dimensions Height="121" Width="236" Depth="292" Weight="4"/>
-   <Lens DegreesMin="34" DegreesMax="52" Name="Other"/>
+   <Bulb Type="45 Watt LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4" Width="236" Height="121" Depth="292"/>
+   <Lens Name="Other" DegreesMin="34" DegreesMax="52"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="69" DmxConnector="3-pin"/>
   </Physical>

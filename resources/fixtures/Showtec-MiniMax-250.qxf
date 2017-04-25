@@ -70,10 +70,10 @@
  </Channel>
  <Mode Name="Standard">
   <Physical>
-   <Bulb Lumens="0" Type="ELC 250W" ColourTemperature="3400"/>
-   <Dimensions Width="220" Height="350" Weight="6" Depth="220"/>
-   <Lens DegreesMax="17" Name="Other" DegreesMin="17"/>
-   <Focus PanMax="510" Type="Fixed" TiltMax="260"/>
+   <Bulb Type="ELC 250W" Lumens="0" ColourTemperature="3400"/>
+   <Dimensions Weight="6" Width="220" Height="350" Depth="220"/>
+   <Lens Name="Other" DegreesMin="17" DegreesMax="17"/>
+   <Focus Type="Fixed" PanMax="510" TiltMax="260"/>
    <Technical PowerConsumption="250" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -85,10 +85,10 @@
  </Mode>
  <Mode Name="Extended">
   <Physical>
-   <Bulb Lumens="0" Type="ELC 250W" ColourTemperature="3400"/>
-   <Dimensions Width="220" Height="350" Weight="6" Depth="220"/>
-   <Lens DegreesMax="17" Name="Other" DegreesMin="17"/>
-   <Focus PanMax="510" Type="Fixed" TiltMax="260"/>
+   <Bulb Type="ELC 250W" Lumens="0" ColourTemperature="3400"/>
+   <Dimensions Weight="6" Width="220" Height="350" Depth="220"/>
+   <Lens Name="Other" DegreesMin="17" DegreesMax="17"/>
+   <Focus Type="Fixed" PanMax="510" TiltMax="260"/>
    <Technical PowerConsumption="250" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

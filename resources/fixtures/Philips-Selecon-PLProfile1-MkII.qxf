@@ -187,10 +187,10 @@
  </Channel>
  <Mode Name="16-Bit">
   <Physical>
-   <Bulb Lumens="2000" Type="True RGBW 120 Watt LED chip" ColourTemperature="0"/>
-   <Dimensions Width="310" Height="405" Weight="7.8" Depth="665"/>
-   <Lens DegreesMax="44" Name="Other" DegreesMin="18"/>
-   <Focus PanMax="360" Type="Barrel" TiltMax="90"/>
+   <Bulb Type="True RGBW 120 Watt LED chip" Lumens="2000" ColourTemperature="0"/>
+   <Dimensions Weight="7.8" Width="310" Height="405" Depth="665"/>
+   <Lens Name="Other" DegreesMin="18" DegreesMax="44"/>
+   <Focus Type="Barrel" PanMax="360" TiltMax="90"/>
    <Technical PowerConsumption="140" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Intensity - High Byte</Channel>
@@ -211,10 +211,10 @@
  </Mode>
  <Mode Name="8-Bit">
   <Physical>
-   <Bulb Lumens="2000" Type="True RGBW 120 Watt LED chip" ColourTemperature="0"/>
-   <Dimensions Width="310" Height="405" Weight="7.8" Depth="665"/>
-   <Lens DegreesMax="44" Name="Other" DegreesMin="18"/>
-   <Focus PanMax="360" Type="Barrel" TiltMax="90"/>
+   <Bulb Type="True RGBW 120 Watt LED chip" Lumens="2000" ColourTemperature="0"/>
+   <Dimensions Weight="7.8" Width="310" Height="405" Depth="665"/>
+   <Lens Name="Other" DegreesMin="18" DegreesMax="44"/>
+   <Focus Type="Barrel" PanMax="360" TiltMax="90"/>
    <Technical PowerConsumption="140" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Intensity</Channel>
@@ -229,10 +229,10 @@
  </Mode>
  <Mode Name="5-Channel">
   <Physical>
-   <Bulb Lumens="2000" Type="True RGBW 120 Watt LED chip" ColourTemperature="0"/>
-   <Dimensions Width="310" Height="405" Weight="7.8" Depth="665"/>
-   <Lens DegreesMax="44" Name="Other" DegreesMin="18"/>
-   <Focus PanMax="360" Type="Barrel" TiltMax="90"/>
+   <Bulb Type="True RGBW 120 Watt LED chip" Lumens="2000" ColourTemperature="0"/>
+   <Dimensions Weight="7.8" Width="310" Height="405" Depth="665"/>
+   <Lens Name="Other" DegreesMin="18" DegreesMax="44"/>
+   <Focus Type="Barrel" PanMax="360" TiltMax="90"/>
    <Technical PowerConsumption="140" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Intensity</Channel>

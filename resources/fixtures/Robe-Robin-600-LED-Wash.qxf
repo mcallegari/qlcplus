@@ -270,10 +270,10 @@
  </Channel>
  <Mode Name="Mode 1">
   <Physical>
-   <Bulb Lumens="37000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="343" Height="444" Weight="10.6" Depth="203"/>
-   <Lens DegreesMax="60" Name="Other" DegreesMin="15"/>
-   <Focus PanMax="450" Type="Head" TiltMax="300"/>
+   <Bulb Type="LED" Lumens="37000" ColourTemperature="0"/>
+   <Dimensions Weight="10.6" Width="343" Height="444" Depth="203"/>
+   <Lens Name="Other" DegreesMin="15" DegreesMax="60"/>
+   <Focus Type="Head" PanMax="450" TiltMax="300"/>
    <Technical PowerConsumption="415" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -316,10 +316,10 @@
  </Mode>
  <Mode Name="Mode 2">
   <Physical>
-   <Bulb Lumens="37000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="343" Height="444" Weight="10.6" Depth="203"/>
-   <Lens DegreesMax="60" Name="Other" DegreesMin="15"/>
-   <Focus PanMax="450" Type="Head" TiltMax="300"/>
+   <Bulb Type="LED" Lumens="37000" ColourTemperature="0"/>
+   <Dimensions Weight="10.6" Width="343" Height="444" Depth="203"/>
+   <Lens Name="Other" DegreesMin="15" DegreesMax="60"/>
+   <Focus Type="Head" PanMax="450" TiltMax="300"/>
    <Technical PowerConsumption="415" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -346,10 +346,10 @@
  </Mode>
  <Mode Name="Mode 3">
   <Physical>
-   <Bulb Lumens="37000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="343" Height="444" Weight="10.6" Depth="203"/>
-   <Lens DegreesMax="60" Name="Other" DegreesMin="15"/>
-   <Focus PanMax="450" Type="Head" TiltMax="300"/>
+   <Bulb Type="LED" Lumens="37000" ColourTemperature="0"/>
+   <Dimensions Weight="10.6" Width="343" Height="444" Depth="203"/>
+   <Lens Name="Other" DegreesMin="15" DegreesMax="60"/>
+   <Focus Type="Head" PanMax="450" TiltMax="300"/>
    <Technical PowerConsumption="415" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -370,10 +370,10 @@
  </Mode>
  <Mode Name="Mode 4">
   <Physical>
-   <Bulb Lumens="37000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="343" Height="444" Weight="10.6" Depth="203"/>
-   <Lens DegreesMax="60" Name="Other" DegreesMin="15"/>
-   <Focus PanMax="450" Type="Head" TiltMax="300"/>
+   <Bulb Type="LED" Lumens="37000" ColourTemperature="0"/>
+   <Dimensions Weight="10.6" Width="343" Height="444" Depth="203"/>
+   <Lens Name="Other" DegreesMin="15" DegreesMax="60"/>
+   <Focus Type="Head" PanMax="450" TiltMax="300"/>
    <Technical PowerConsumption="415" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -389,10 +389,10 @@
  </Mode>
  <Mode Name="Mode 5">
   <Physical>
-   <Bulb Lumens="37000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="343" Height="444" Weight="10.6" Depth="203"/>
-   <Lens DegreesMax="60" Name="Other" DegreesMin="15"/>
-   <Focus PanMax="450" Type="Head" TiltMax="300"/>
+   <Bulb Type="LED" Lumens="37000" ColourTemperature="0"/>
+   <Dimensions Weight="10.6" Width="343" Height="444" Depth="203"/>
+   <Lens Name="Other" DegreesMin="15" DegreesMax="60"/>
+   <Focus Type="Head" PanMax="450" TiltMax="300"/>
    <Technical PowerConsumption="415" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

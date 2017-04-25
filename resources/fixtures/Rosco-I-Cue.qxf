@@ -27,10 +27,10 @@
  </Channel>
  <Mode Name="2 channel">
   <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="160" Height="260" Weight="1.6" Depth="265"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="230" Type="Fixed" TiltMax="57"/>
+   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1.6" Width="160" Height="260" Depth="265"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="230" TiltMax="57"/>
    <Technical PowerConsumption="17" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan - coarse</Channel>
@@ -38,10 +38,10 @@
  </Mode>
  <Mode Name="4 channel">
   <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="160" Height="260" Weight="1.6" Depth="265"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="230" Type="Fixed" TiltMax="57"/>
+   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1.6" Width="160" Height="260" Depth="265"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="230" TiltMax="57"/>
    <Technical PowerConsumption="17" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan - coarse</Channel>

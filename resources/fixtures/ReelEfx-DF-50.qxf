@@ -15,10 +15,10 @@
  </Channel>
  <Mode Name="1 channel">
   <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="210" Height="350" Weight="16" Depth="380"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="16" Width="210" Height="350" Depth="380"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="1000" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">hazer</Channel>

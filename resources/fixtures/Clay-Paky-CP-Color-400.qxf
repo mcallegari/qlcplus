@@ -50,11 +50,11 @@
  </Channel>
  <Mode Name="4 DMX, CMY">
   <Physical>
-   <Bulb Type="MSR 400W" ColourTemperature="5600" Lumens="32000"/>
-   <Dimensions Width="237" Height="314" Depth="424" Weight="43.9"/>
+   <Bulb Type="MSR 400W" Lumens="32000" ColourTemperature="5600"/>
+   <Dimensions Weight="43.9" Width="237" Height="314" Depth="424"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="700"/>
+   <Technical PowerConsumption="700" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Cyan</Channel>
   <Channel Number="1">Magenta</Channel>
@@ -63,11 +63,11 @@
  </Mode>
  <Mode Name="4 DMX, RGB">
   <Physical>
-   <Bulb Type="MSR 400W" ColourTemperature="5600" Lumens="32000"/>
-   <Dimensions Width="237" Height="314" Depth="424" Weight="43.9"/>
+   <Bulb Type="MSR 400W" Lumens="32000" ColourTemperature="5600"/>
+   <Dimensions Weight="43.9" Width="237" Height="314" Depth="424"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="700"/>
+   <Technical PowerConsumption="700" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
@@ -76,11 +76,11 @@
  </Mode>
  <Mode Name="5 DMX, CMY">
   <Physical>
-   <Bulb Type="MSR 400W" ColourTemperature="5600" Lumens="32000"/>
-   <Dimensions Width="237" Height="314" Depth="424" Weight="43.9"/>
+   <Bulb Type="MSR 400W" Lumens="32000" ColourTemperature="5600"/>
+   <Dimensions Weight="43.9" Width="237" Height="314" Depth="424"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="700"/>
+   <Technical PowerConsumption="700" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Cyan</Channel>
   <Channel Number="1">Magenta</Channel>
@@ -90,11 +90,11 @@
  </Mode>
  <Mode Name="5 DMX, RGB">
   <Physical>
-   <Bulb Type="MSR 400W" ColourTemperature="5600" Lumens="32000"/>
-   <Dimensions Width="237" Height="314" Depth="424" Weight="43.9"/>
+   <Bulb Type="MSR 400W" Lumens="32000" ColourTemperature="5600"/>
+   <Dimensions Weight="43.9" Width="237" Height="314" Depth="424"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="700"/>
+   <Technical PowerConsumption="700" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>

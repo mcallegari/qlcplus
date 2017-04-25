@@ -35,10 +35,10 @@
  </Channel>
  <Mode Name="DMX">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="455" Height="240" Weight="4" Depth="125"/>
-   <Lens DegreesMax="19" Name="Other" DegreesMin="19"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4" Width="455" Height="240" Depth="125"/>
+   <Lens Name="Other" DegreesMin="19" DegreesMax="19"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="35" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>

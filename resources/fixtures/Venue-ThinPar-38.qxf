@@ -51,10 +51,10 @@
  </Channel>
  <Mode Name="7-CH Mode">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="185" Height="63" Weight="0.8" Depth="206"/>
-   <Lens DegreesMax="23" Name="" DegreesMin="14"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="0.8" Width="185" Height="63" Depth="206"/>
+   <Lens Name="" DegreesMin="14" DegreesMax="23"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="9" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
@@ -67,10 +67,10 @@
  </Mode>
  <Mode Name="3-CH Mode">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="185" Height="63" Weight="0.8" Depth="206"/>
-   <Lens DegreesMax="23" Name="" DegreesMin="14"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="0.8" Width="185" Height="63" Depth="206"/>
+   <Lens Name="" DegreesMin="14" DegreesMax="23"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="9" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>

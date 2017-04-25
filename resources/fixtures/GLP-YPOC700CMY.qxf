@@ -246,10 +246,10 @@
  </Channel>
  <Mode Name="Mode 1">
   <Physical>
-   <Bulb Lumens="59000" Type="HTI 700W" ColourTemperature="7500"/>
-   <Dimensions Width="490" Height="646" Weight="29" Depth="380"/>
-   <Lens DegreesMax="32" Name="Other" DegreesMin="14"/>
-   <Focus PanMax="530" Type="Head" TiltMax="280"/>
+   <Bulb Type="HTI 700W" Lumens="59000" ColourTemperature="7500"/>
+   <Dimensions Weight="29" Width="490" Height="646" Depth="380"/>
+   <Lens Name="Other" DegreesMin="14" DegreesMax="32"/>
+   <Focus Type="Head" PanMax="530" TiltMax="280"/>
    <Technical PowerConsumption="800" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Pan coarse</Channel>

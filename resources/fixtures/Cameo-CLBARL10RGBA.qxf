@@ -68,17 +68,17 @@
   <Capability Min="6" Max="11" Color="#00ff00">G</Capability>
   <Capability Min="12" Max="17" Color="#0000ff">B</Capability>
   <Capability Min="18" Max="23" Color="#ffbf00">A</Capability>
-  <Capability Color2="#ffbf00" Min="24" Max="29" Color="#ff0000">RA</Capability>
-  <Capability Color2="#00ff00" Min="30" Max="35" Color="#ff0000">RG</Capability>
-  <Capability Color2="#0000ff" Min="36" Max="41" Color="#ff0000">RB</Capability>
-  <Capability Color2="#0000ff" Min="42" Max="47" Color="#00ff00">GB</Capability>
-  <Capability Color2="#0000ff" Min="48" Max="53" Color="#ffbf00">AB</Capability>
-  <Capability Color2="#00ff00" Min="54" Max="59" Color="#ffbf00">AG</Capability>
-  <Capability Color2="#0000ff" Min="60" Max="65" Color="#ffff00">RGB</Capability>
-  <Capability Color2="#ffbf00" Min="66" Max="71" Color="#ffff00">RGA</Capability>
-  <Capability Color2="#ffbf00" Min="72" Max="77" Color="#ff00ff">RBA</Capability>
-  <Capability Color2="#ffbf00" Min="78" Max="83" Color="#00ffff">GBA</Capability>
-  <Capability Color2="#ffbf00" Min="84" Max="89" Color="#ffffff">RGBA</Capability>
+  <Capability Min="24" Max="29" Color="#ff0000" Color2="#ffbf00">RA</Capability>
+  <Capability Min="30" Max="35" Color="#ff0000" Color2="#00ff00">RG</Capability>
+  <Capability Min="36" Max="41" Color="#ff0000" Color2="#0000ff">RB</Capability>
+  <Capability Min="42" Max="47" Color="#00ff00" Color2="#0000ff">GB</Capability>
+  <Capability Min="48" Max="53" Color="#ffbf00" Color2="#0000ff">AB</Capability>
+  <Capability Min="54" Max="59" Color="#ffbf00" Color2="#00ff00">AG</Capability>
+  <Capability Min="60" Max="65" Color="#ffff00" Color2="#0000ff">RGB</Capability>
+  <Capability Min="66" Max="71" Color="#ffff00" Color2="#ffbf00">RGA</Capability>
+  <Capability Min="72" Max="77" Color="#ff00ff" Color2="#ffbf00">RBA</Capability>
+  <Capability Min="78" Max="83" Color="#00ffff" Color2="#ffbf00">GBA</Capability>
+  <Capability Min="84" Max="89" Color="#ffffff" Color2="#ffbf00">RGBA</Capability>
   <Capability Min="90" Max="100">Colour jumping</Capability>
   <Capability Min="101" Max="110">Colour fading</Capability>
   <Capability Min="111" Max="120">Dreaming</Capability>
@@ -106,17 +106,17 @@
   <Capability Min="21" Max="25" Color="#00ff00">G</Capability>
   <Capability Min="26" Max="30" Color="#0000ff">B</Capability>
   <Capability Min="31" Max="35" Color="#ffbf00">A</Capability>
-  <Capability Color2="#ffbf00" Min="36" Max="40" Color="#ff0000">RA</Capability>
-  <Capability Color2="#00ff00" Min="41" Max="45" Color="#ff0000">RG</Capability>
-  <Capability Color2="#0000ff" Min="46" Max="50" Color="#ff0000">RB</Capability>
-  <Capability Color2="#0000ff" Min="51" Max="55" Color="#00ff00">GB</Capability>
-  <Capability Color2="#0000ff" Min="56" Max="60" Color="#ffbf00">AB</Capability>
-  <Capability Color2="#00ff00" Min="61" Max="65" Color="#ffbf00">AG</Capability>
-  <Capability Color2="#0000ff" Min="66" Max="70" Color="#ffff00">RGB</Capability>
-  <Capability Color2="#ffbf00" Min="71" Max="75" Color="#ffff00">RGA</Capability>
-  <Capability Color2="#ffbf00" Min="76" Max="80" Color="#ff00ff">RBA</Capability>
-  <Capability Color2="#ffbf00" Min="81" Max="85" Color="#00ffff">GBA</Capability>
-  <Capability Color2="#ffbf00" Min="86" Max="90" Color="#ffffff">RGBA</Capability>
+  <Capability Min="36" Max="40" Color="#ff0000" Color2="#ffbf00">RA</Capability>
+  <Capability Min="41" Max="45" Color="#ff0000" Color2="#00ff00">RG</Capability>
+  <Capability Min="46" Max="50" Color="#ff0000" Color2="#0000ff">RB</Capability>
+  <Capability Min="51" Max="55" Color="#00ff00" Color2="#0000ff">GB</Capability>
+  <Capability Min="56" Max="60" Color="#ffbf00" Color2="#0000ff">AB</Capability>
+  <Capability Min="61" Max="65" Color="#ffbf00" Color2="#00ff00">AG</Capability>
+  <Capability Min="66" Max="70" Color="#ffff00" Color2="#0000ff">RGB</Capability>
+  <Capability Min="71" Max="75" Color="#ffff00" Color2="#ffbf00">RGA</Capability>
+  <Capability Min="76" Max="80" Color="#ff00ff" Color2="#ffbf00">RBA</Capability>
+  <Capability Min="81" Max="85" Color="#00ffff" Color2="#ffbf00">GBA</Capability>
+  <Capability Min="86" Max="90" Color="#ffffff" Color2="#ffbf00">RGBA</Capability>
   <Capability Min="91" Max="100">Color Jump</Capability>
   <Capability Min="101" Max="110">Color Fade</Capability>
   <Capability Min="111" Max="120">Dreaming</Capability>
@@ -217,10 +217,10 @@
  </Channel>
  <Mode Name="2-Channel">
   <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Height="63" Width="1018" Depth="87" Weight="2.5"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.5" Width="1018" Height="63" Depth="87"/>
    <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="40" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
@@ -228,10 +228,10 @@
  </Mode>
  <Mode Name="4-Channel">
   <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Height="63" Width="1018" Depth="87" Weight="2.5"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.5" Width="1018" Height="63" Depth="87"/>
    <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="40" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
@@ -241,10 +241,10 @@
  </Mode>
  <Mode Name="6-Channel">
   <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Height="63" Width="1018" Depth="87" Weight="2.5"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.5" Width="1018" Height="63" Depth="87"/>
    <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="40" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
@@ -256,10 +256,10 @@
  </Mode>
  <Mode Name="3-Channel">
   <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Height="63" Width="1018" Depth="87" Weight="2.5"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.5" Width="1018" Height="63" Depth="87"/>
    <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="40" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Colour Macros</Channel>
@@ -268,10 +268,10 @@
  </Mode>
  <Mode Name="19-Channel">
   <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Height="63" Width="1018" Depth="87" Weight="2.5"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.5" Width="1018" Height="63" Depth="87"/>
    <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="40" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Color Mode</Channel>

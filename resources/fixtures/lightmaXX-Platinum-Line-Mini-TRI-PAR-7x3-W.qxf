@@ -47,8 +47,8 @@
   <Capability Min="70" Max="74" Color="#00ff00">Green</Capability>
   <Capability Min="75" Max="79" Color="#00ffbf">Aquamarine</Capability>
   <Capability Min="80" Max="84" Color="#00ffff">Cyan</Capability>
-  <Capability Res="Others/rainbow.png" Min="85" Max="169">7-color jump from slow to fast</Capability>
-  <Capability Res="Others/rainbow.png" Min="170" Max="255">Color fade from slow to fast</Capability>
+  <Capability Min="85" Max="169" Res="Others/rainbow.png">7-color jump from slow to fast</Capability>
+  <Capability Min="170" Max="255" Res="Others/rainbow.png">Color fade from slow to fast</Capability>
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
@@ -56,10 +56,10 @@
  </Channel>
  <Mode Name="6 channel mode">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="170" Height="170" Weight="2" Depth="160"/>
-   <Lens DegreesMax="25" Name="Other" DegreesMin="25"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2" Width="170" Height="170" Depth="160"/>
+   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="30" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Master</Channel>

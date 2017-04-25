@@ -86,10 +86,10 @@
  </Channel>
  <Mode Name="Standard">
   <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Width="260" Depth="148" Height="310" Weight="4.5"/>
-   <Lens DegreesMin="15" DegreesMax="15" Name="Other"/>
-   <Focus TiltMax="220" Type="Head" PanMax="630"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4.5" Width="260" Height="310" Depth="148"/>
+   <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
+   <Focus Type="Head" PanMax="630" TiltMax="220"/>
    <Technical PowerConsumption="100" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -109,10 +109,10 @@
  </Mode>
  <Mode Name="9 Channels">
   <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Width="260" Depth="148" Height="310" Weight="4.5"/>
-   <Lens DegreesMin="15" DegreesMax="15" Name="Other"/>
-   <Focus TiltMax="220" Type="Head" PanMax="630"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4.5" Width="260" Height="310" Depth="148"/>
+   <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
+   <Focus Type="Head" PanMax="630" TiltMax="220"/>
    <Technical PowerConsumption="100" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

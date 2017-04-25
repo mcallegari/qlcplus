@@ -104,10 +104,10 @@
  </Channel>
  <Mode Name="Mode 1">
   <Physical>
-   <Bulb ColourTemperature="0" Lumens="1030" Type="CDM 150W"/>
-   <Dimensions Width="269" Height="537" Weight="9" Depth="263"/>
-   <Lens DegreesMax="16" Name="Other" DegreesMin="16"/>
-   <Focus TiltMax="77" PanMax="230" Type="Mirror"/>
+   <Bulb Type="CDM 150W" Lumens="1030" ColourTemperature="0"/>
+   <Dimensions Weight="9" Width="269" Height="537" Depth="263"/>
+   <Lens Name="Other" DegreesMin="16" DegreesMax="16"/>
+   <Focus Type="Mirror" PanMax="230" TiltMax="77"/>
    <Technical PowerConsumption="200" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer, strobe, reset</Channel>
