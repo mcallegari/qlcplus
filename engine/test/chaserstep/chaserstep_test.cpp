@@ -135,12 +135,21 @@ void ChaserStep_Test::values()
     QVERIFY(step.values.at(2) == SceneValue(5, 8, 9));
     QVERIFY(step.values.count() == 4);
 
+    /* check creating an invalid value */
+    QVERIFY(step.setValue(SceneValue(7, 8, 9), 42, &created) == -1);
+    QVERIFY(created == false);
+
+    /* check new value append */
+    QVERIFY(step.setValue(SceneValue(7, 8, 9), 4, &created) == 4);
+    QVERIFY(created == true);
+    QVERIFY(step.values.count() == 5);
+
     /* unset an invalid value */
     QVERIFY(step.unSetValue(SceneValue(10, 20, 30)) == -1);
 
     /* unset a valid value */
     QVERIFY(step.unSetValue(SceneValue(5, 8, 9), 1) == 1);
-    QVERIFY(step.values.count() == 3);
+    QVERIFY(step.values.count() == 4);
 }
 
 void ChaserStep_Test::load()

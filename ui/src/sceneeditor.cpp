@@ -493,30 +493,29 @@ void SceneEditor::slotPaste()
 {
     QLCClipboard *clipboard = m_doc->clipboard();
 
-    /* QObject cast fails unless the widget is a FixtureConsole */
-    if (clipboard->hasSceneValues())
+    if (clipboard->hasSceneValues() == false)
+        return;
+
+    if (m_tabViewAction->isChecked())
     {
-        if (m_tabViewAction->isChecked())
+        FixtureConsole* fc = fixtureConsoleTab(m_currentTab);
+        if (fc != NULL)
+            fc->setValues(clipboard->getSceneValues(), m_copyFromSelection);
+    }
+    else
+    {
+        foreach(FixtureConsole *fc, m_consoleList.values())
         {
-            FixtureConsole* fc = fixtureConsoleTab(m_currentTab);
-            if (fc != NULL)
-                fc->setValues(clipboard->getSceneValues(), m_copyFromSelection);
-        }
-        else
-        {
-            foreach(FixtureConsole *fc, m_consoleList.values())
+            if (fc == NULL)
+                continue;
+            quint32 fxi = fc->fixture();
+            QList<SceneValue>thisFixtureVals;
+            foreach(SceneValue val, clipboard->getSceneValues())
             {
-                if (fc == NULL)
-                    continue;
-                quint32 fxi = fc->fixture();
-                QList<SceneValue>thisFixtureVals;
-                foreach(SceneValue val, clipboard->getSceneValues())
-                {
-                    if (val.fxi == fxi)
-                        thisFixtureVals.append(val);
-                }
-                fc->setValues(thisFixtureVals, m_copyFromSelection);
+                if (val.fxi == fxi)
+                    thisFixtureVals.append(val);
             }
+            fc->setValues(thisFixtureVals, m_copyFromSelection);
         }
     }
 }

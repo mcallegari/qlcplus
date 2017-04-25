@@ -78,14 +78,23 @@ int ChaserStep::setValue(SceneValue value, int index, bool *created)
         }
     }
 
-    if (index < 0 || index >= values.count())
+    /* do not allow creation past the values begin/end */
+    if (index < 0 || index > values.count())
     {
         if (created != NULL)
             *created = false;
+        qWarning() << "[ChaserStep] index not allowed:" << index;
         return -1;
     }
 
-    if (values.at(index) == value)
+    /* but do allow appending a new value */
+    if (index == values.count())
+    {
+        values.append(value);
+        if (created != NULL)
+            *created = true;
+    }
+    else if (values.at(index) == value)
     {
         values.replace(index, value);
         if (created != NULL)

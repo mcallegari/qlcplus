@@ -685,7 +685,7 @@ void ChaserEditor::slotPasteClicked()
                 {
                     if (scene->checkValue(scv) == false)
                     {
-                        QMessageBox::warning(this, tr("Paste error"), tr("Trying to paste on an incompatible Scene. Operation cancelled."));
+                        QMessageBox::warning(this, tr("Paste error"), tr("Trying to paste on an incompatible Scene. Operation canceled."));
                         return;
                     }
                 }
