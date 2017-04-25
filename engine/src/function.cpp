@@ -507,23 +507,45 @@ Function::FunctionSpeedsEditProxy Function::speedsEdit()
     return FunctionSpeedsEditProxy(m_speeds, *this);
 }
 
-void Function::setOverrideSpeeds(FunctionSpeeds const& speeds)
-{
-    m_overrideSpeeds = speeds;
-}
-
-FunctionSpeeds const& Function::overrideSpeeds() const
-{
-    return m_overrideSpeeds;
-}
-
-FunctionSpeeds& Function::overrideSpeeds()
-{
-    return m_overrideSpeeds;
-}
-
 void Function::tap()
 {
+}
+
+quint32 Function::alternateSpeedsCount() const
+{
+    return 0;
+}
+
+void Function::setAlternateSpeeds(quint32 alternateIdx, FunctionSpeeds const& speeds)
+{
+    Q_UNUSED(alternateIdx);
+    qWarning() << Q_FUNC_INFO << "Function" << typeString()
+               << "does not have any \"other speed\"";
+    m_alternateSpeedsBase = speeds;
+}
+
+FunctionSpeeds const& Function::alternateSpeeds(quint32 alternateIdx) const
+{
+    Q_UNUSED(alternateIdx);
+    qWarning() << Q_FUNC_INFO << "Function" << typeString()
+               << "does not have any \"other speed\"";
+    return m_alternateSpeedsBase;
+}
+
+FunctionSpeeds& Function::alternateSpeedsEdit(quint32 alternateIdx)
+{
+    Q_UNUSED(alternateIdx);
+    qWarning() << Q_FUNC_INFO << "Function" << typeString()
+               << "does not have any \"other speed\"";
+    return m_alternateSpeedsBase;
+}
+
+QString Function::alternateSpeedsString(quint32 alternateIdx) const
+{
+    Q_UNUSED(alternateIdx);
+    qWarning() << Q_FUNC_INFO << "Function" << typeString()
+               << "does not have any \"other speed\"";
+    return "";
 }
 
 // TODO alternate speeds
@@ -849,7 +871,7 @@ void Function::start(MasterTimer* timer, FunctionParent source, quint32 startTim
 
     m_elapsed = startTime;
     m_elapsedBeats = 0;
-    m_overrideSpeeds = overrideSpeeds;
+    m_alternateSpeedsBase = overrideSpeeds;
 
     m_stop = false;
     timer->startFunction(this);

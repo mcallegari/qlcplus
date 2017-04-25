@@ -129,6 +129,55 @@ bool RGBMatrix::copyFrom(const Function* function)
     return Function::copyFrom(function);
 }
 
+quint32 RGBMatrix::alternateSpeedsCount() const
+{
+    return 2;
+}
+
+void RGBMatrix::setAlternateSpeeds(quint32 alternateIdx, FunctionSpeeds const& speeds)
+{
+    if (alternateIdx > 1)
+        return Function::setAlternateSpeeds(alternateIdx, speeds);
+
+    if (alternateIdx == 0)
+        m_alternateSpeedsBase = speeds;
+    else
+        m_alternateSpeedsInternal = speeds;
+}
+
+FunctionSpeeds const& RGBMatrix::alternateSpeeds(quint32 alternateIdx) const
+{
+    if (alternateIdx > 1)
+        return Function::alternateSpeeds(alternateIdx);
+
+    if (alternateIdx == 0)
+        return m_alternateSpeedsBase;
+    else
+        return m_alternateSpeedsInternal;
+}
+
+FunctionSpeeds& RGBMatrix::alternateSpeedsEdit(quint32 alternateIdx)
+{
+    if (alternateIdx > 1)
+        return Function::alternateSpeedsEdit(alternateIdx);
+
+    if (alternateIdx == 0)
+        return m_alternateSpeedsBase;
+    else
+        return m_alternateSpeedsInternal;
+}
+
+QString RGBMatrix::alternateSpeedsString(quint32 alternateIdx) const
+{
+    if (alternateIdx > 1)
+        return Function::alternateSpeedsString(alternateIdx);
+
+    if (alternateIdx == 0)
+        return "Override";
+    else
+        return "Internal";
+}
+
 /****************************************************************************
  * Fixtures
  ****************************************************************************/
@@ -554,10 +603,10 @@ void RGBMatrix::postRun(MasterTimer* timer, QList<Universe *> universes)
             }
             else
             {
-                if (m_overrideSpeeds.fadeOut() == Speed::originalValue())
+                if (m_alternateSpeedsBase.fadeOut() == Speed::originalValue())
                     fc.setFadeTime(speeds().fadeOut());
                 else
-                    fc.setFadeTime(m_overrideSpeeds.fadeOut());
+                    fc.setFadeTime(m_alternateSpeedsBase.fadeOut());
                 fc.setTarget(0);
             }
             timer->faderAdd(fc);
@@ -599,10 +648,10 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
     quint32 mdFxi = Fixture::invalidId();
 
     uint fadeTime;
-    if (m_overrideSpeeds.fadeIn() == Speed::originalValue())
+    if (m_alternateSpeedsBase.fadeIn() == Speed::originalValue())
         fadeTime = speeds().fadeIn();
     else
-        fadeTime = m_overrideSpeeds.fadeIn();
+        fadeTime = m_alternateSpeedsBase.fadeIn();
 
     // Create/modify fade channels for ALL pixels in the color map.
     for (int y = 0; y < map.size(); y++)

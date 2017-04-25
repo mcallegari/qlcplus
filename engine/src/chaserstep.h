@@ -81,9 +81,6 @@ public:
     FunctionSpeeds speeds;     //! The speeds of this step
     QList <SceneValue> values;   //! specific DMX values for this step (chaser in sequence mode)
     QString note;
-
-public:
-    FunctionSpeeds m_overrideSpeeds;
 };
 
 /** @} */

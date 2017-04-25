@@ -76,6 +76,12 @@ public:
 
     void setChildrenFlag(bool flag);
 
+    quint32 alternateSpeedsCount() const override;
+    void setAlternateSpeeds(quint32 alternateIdx, FunctionSpeeds const& speeds) override;
+    FunctionSpeeds const& alternateSpeeds(quint32 alternateIdx) const override;
+    FunctionSpeeds& alternateSpeedsEdit(quint32 alternateIdx) override;
+    QString alternateSpeedsString(quint32 alternateIdx) const override;
+
 private:
     quint32 m_legacyFadeBus;
 

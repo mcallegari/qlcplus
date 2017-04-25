@@ -108,6 +108,12 @@ public:
     /** Set the duration in milliseconds */
     virtual void setDuration(uint ms);
 
+    quint32 alternateSpeedsCount() const override;
+    void setAlternateSpeeds(quint32 alternateIdx, FunctionSpeeds const& speeds) override;
+    FunctionSpeeds const& alternateSpeeds(quint32 alternateIdx) const override;
+    FunctionSpeeds& alternateSpeedsEdit(quint32 alternateIdx) override;
+    QString alternateSpeedsString(quint32 alternateIdx) const override;
+
     /*********************************************************************
      * UI State
      *********************************************************************/

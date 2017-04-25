@@ -690,8 +690,8 @@ bool ChaserRunner::write(MasterTimer* timer, QList<Universe *> universes)
                 m_updateOverrideSpeeds = false;
                 if (step->m_function != NULL)
                 {
-                    step->m_function->overrideSpeeds().setFadeIn(step->m_speeds.fadeIn());
-                    step->m_function->overrideSpeeds().setFadeOut(step->m_speeds.fadeOut());
+                    step->m_function->alternateSpeedsEdit(0).setFadeIn(step->m_speeds.fadeIn());
+                    step->m_function->alternateSpeedsEdit(0).setFadeOut(step->m_speeds.fadeOut());
                 }
             }
         }

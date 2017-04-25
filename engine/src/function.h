@@ -424,13 +424,14 @@ public:
     FunctionSpeeds const& speeds() const;
     FunctionSpeedsEditProxy speedsEdit();
 
-    void setOverrideSpeeds(FunctionSpeeds const& speeds);
-    FunctionSpeeds const& overrideSpeeds() const;
-    FunctionSpeeds& overrideSpeeds();
-
     /** Tell the function that it has been "tapped". Default implementation does nothing. */
     virtual void tap();
 
+    virtual quint32 alternateSpeedsCount() const;
+    virtual void setAlternateSpeeds(quint32 alternateIdx, FunctionSpeeds const& speeds);
+    virtual FunctionSpeeds const& alternateSpeeds(quint32 alternateIdx) const;
+    virtual FunctionSpeeds& alternateSpeedsEdit(quint32 alternateIdx);
+    virtual QString alternateSpeedsString(quint32 alternateIdx) const;
     // TODO alternate speeds
     // replace overrideblabla by alternate.
     // Alternate idx0 is the "global" speed of the function.
@@ -444,7 +445,7 @@ public:
 
 protected:
     FunctionSpeeds m_speeds;
-    FunctionSpeeds m_overrideSpeeds;
+    FunctionSpeeds m_alternateSpeedsBase;
 
     /*********************************************************************
      * UI State

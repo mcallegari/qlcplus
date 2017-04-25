@@ -222,6 +222,16 @@ private:
     bool m_locked;
 
     /*********************************************************************
+     * Speeds
+     *********************************************************************/
+public:
+    quint32 alternateSpeedsCount() const override;
+    void setAlternateSpeeds(quint32 alternateIdx, FunctionSpeeds const& speeds) override;
+    FunctionSpeeds const& alternateSpeeds(quint32 alternateIdx) const override;
+    FunctionSpeeds& alternateSpeedsEdit(quint32 alternateIdx) override;
+    QString alternateSpeedsString(quint32 alternateIdx) const override;
+
+    /*********************************************************************
      * Speeds modes
      *********************************************************************/
 public:
