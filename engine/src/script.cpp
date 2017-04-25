@@ -187,6 +187,26 @@ QStringList Script::dataLines() const
     return m_data.split(QRegExp("(\r\n|\n\r|\r|\n)"), QString::KeepEmptyParts);
 }
 
+QList<quint32> Script::functionList() const
+{
+    QList<quint32> list;
+
+    for (int i = 0; i < m_lines.count(); i++)
+    {
+        QList <QStringList> tokens = m_lines[i];
+        if (tokens.isEmpty() == true)
+            continue;
+
+        if (tokens[0].size() >= 2 && tokens[0][0] == Script::startFunctionCmd)
+        {
+            list.append(tokens[0][1].toUInt());
+            list.append(i);
+        }
+    }
+
+    return list;
+}
+
 QList<int> Script::syntaxErrorsLines()
 {
     return m_syntaxErrorLines;

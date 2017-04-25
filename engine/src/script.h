@@ -94,6 +94,10 @@ public:
     /** Get the script data lines as a list of  strings */
     QStringList dataLines() const;
 
+    /** Convenience method to retrieve Functions used by this Script.
+     *  The returned list is formatted as: Function ID / line number */
+    QList<quint32> functionList() const;
+
     QList<int> syntaxErrorsLines();
 
 private:

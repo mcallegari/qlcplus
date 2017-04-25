@@ -33,9 +33,11 @@
 #include "qlcphysical.h"
 #include "collection.h"
 #include "qlcchannel.h"
+#include "sequence.h"
 #include "qlcfile.h"
 #include "fixture.h"
 #include "chaser.h"
+#include "script.h"
 #include "scene.h"
 #include "efx.h"
 #include "bus.h"
@@ -106,10 +108,13 @@ void Doc_Test::denormalizeComponentPath()
 void Doc_Test::defaults()
 {
     QVERIFY(m_doc->m_fixtureDefCache != NULL);
+    QVERIFY(m_doc->m_modifiersCache != NULL);
+    QVERIFY(m_doc->m_audioPluginCache != NULL);
     QVERIFY(m_doc->m_ioMap != NULL);
     QVERIFY(m_doc->m_masterTimer != NULL);
 
     QVERIFY(m_doc->m_loadStatus == Doc::Cleared);
+    QVERIFY(m_doc->loadStatus() == Doc::Cleared);
     QVERIFY(m_doc->m_modified == false);
     QVERIFY(m_doc->m_latestFixtureId == 0);
     QVERIFY(m_doc->m_fixtures.size() == 0);
@@ -336,10 +341,10 @@ void Doc_Test::replaceFixtures()
     f4->setName("Four");
     f4->setID(0);
 
-    QLCFixtureDef* fixtureDef;
+    QLCFixtureDef *fixtureDef;
     fixtureDef = m_doc->fixtureDefCache()->fixtureDef("Showtec", "MiniMax 250");
     Q_ASSERT(fixtureDef != NULL);
-    QLCFixtureMode* fixtureMode;
+    QLCFixtureMode *fixtureMode;
     fixtureMode = fixtureDef->modes().at(0);
     Q_ASSERT(fixtureMode != NULL);
     f4->setFixtureDefinition(fixtureDef, fixtureMode);
@@ -407,15 +412,15 @@ void Doc_Test::totalPowerConsumption()
     int fuzzy = 0;
 
     /* Load Showtec - MiniMax 250 with 250W power consumption */
-    QLCFixtureDef* fixtureDef;
+    QLCFixtureDef *fixtureDef;
     fixtureDef = m_doc->fixtureDefCache()->fixtureDef("Showtec", "MiniMax 250");
     Q_ASSERT(fixtureDef != NULL);
-    QLCFixtureMode* fixtureMode;
+    QLCFixtureMode *fixtureMode;
     fixtureMode = fixtureDef->modes().at(0);
     Q_ASSERT(fixtureMode != NULL);
 
     /* Add a new fixture */
-    Fixture* f1 = new Fixture(m_doc);
+    Fixture *f1 = new Fixture(m_doc);
     f1->setName("250W (total 250W)");
     f1->setChannels(6);
     f1->setAddress(0);
@@ -429,7 +434,7 @@ void Doc_Test::totalPowerConsumption()
     QVERIFY(fuzzy == 0);
 
     /* Add the same fixture once more */
-    Fixture* f2 = new Fixture(m_doc);
+    Fixture *f2 = new Fixture(m_doc);
     f2->setName("250W (total 500W)");
     f2->setChannels(6);
     f2->setAddress(10);
@@ -443,7 +448,7 @@ void Doc_Test::totalPowerConsumption()
     QVERIFY(fuzzy == 0);
 
     /* Test generic dimmer and fuzzy */
-    Fixture* f3 = new Fixture(m_doc);
+    Fixture *f3 = new Fixture(m_doc);
     f3->setName("Generic Dimmer");
     f3->setChannels(6);
     f3->setAddress(20);
@@ -455,7 +460,7 @@ void Doc_Test::totalPowerConsumption()
     fuzzy = 0;
 
     /* Test fuzzy count */
-    Fixture* f4 = new Fixture(m_doc);
+    Fixture *f4 = new Fixture(m_doc);
     f4->setName("Generic Dimmer 2");
     f4->setChannels(6);
     f4->setAddress(30);
@@ -472,7 +477,7 @@ void Doc_Test::addFixtureGroup()
     QCOMPARE(m_doc->fixtureGroups().size(), 0);
     QCOMPARE(m_doc->m_latestFixtureGroupId, quint32(0));
 
-    FixtureGroup* grp = new FixtureGroup(m_doc);
+    FixtureGroup *grp = new FixtureGroup(m_doc);
     QCOMPARE(m_doc->addFixtureGroup(grp), true);
     QCOMPARE(grp->id(), quint32(0));
     QCOMPARE(m_doc->m_latestFixtureGroupId, quint32(0));
@@ -619,27 +624,27 @@ void Doc_Test::monitorProperties()
     QVERIFY(m_doc->monitorProperties() != NULL);
     QVERIFY(m_doc->getAvailable2DPosition(fxRect) == QPointF(100, 100));
 
-    Fixture* f1 = new Fixture(m_doc);
+    Fixture *f1 = new Fixture(m_doc);
     f1->setName("One");
     f1->setChannels(2);
     f1->setAddress(0);
     f1->setUniverse(0);
     m_doc->addFixture(f1);
 
-    Chaser* c = new Chaser(m_doc);
+    Chaser *c = new Chaser(m_doc);
     m_doc->addFunction(c);
 
-    Fixture* f2 = new Fixture(m_doc);
+    Fixture *f2 = new Fixture(m_doc);
     f2->setName("Two");
     f2->setChannels(1);
     f2->setAddress(20);
     f2->setUniverse(1);
     m_doc->addFixture(f2);
 
-    Collection* o = new Collection(m_doc);
+    Collection *o = new Collection(m_doc);
     m_doc->addFunction(o);
 
-    Fixture* f3 = new Fixture(m_doc);
+    Fixture *f3 = new Fixture(m_doc);
     f3->setName("Three");
     f3->setChannels(1);
     f3->setAddress(40);
@@ -704,13 +709,13 @@ void Doc_Test::addFunction()
 
 void Doc_Test::deleteFunction()
 {
-    Scene* s1 = new Scene(m_doc);
+    Scene *s1 = new Scene(m_doc);
     m_doc->addFunction(s1);
 
-    Scene* s2 = new Scene(m_doc);
+    Scene *s2 = new Scene(m_doc);
     m_doc->addFunction(s2);
 
-    Scene* s3 = new Scene(m_doc);
+    Scene *s3 = new Scene(m_doc);
     m_doc->addFunction(s3);
 
     m_doc->resetModified();
@@ -744,13 +749,13 @@ void Doc_Test::deleteFunction()
 
 void Doc_Test::function()
 {
-    Scene* s1 = new Scene(m_doc);
+    Scene *s1 = new Scene(m_doc);
     m_doc->addFunction(s1);
 
-    Scene* s2 = new Scene(m_doc);
+    Scene *s2 = new Scene(m_doc);
     m_doc->addFunction(s2);
 
-    Scene* s3 = new Scene(m_doc);
+    Scene *s3 = new Scene(m_doc);
     m_doc->addFunction(s3);
 
     QVERIFY(m_doc->function(s1->id()) == s1);
@@ -763,6 +768,97 @@ void Doc_Test::function()
 
     m_doc->setStartupFunction(s1->id());
     QVERIFY(m_doc->startupFunction() == s1->id());
+}
+
+void Doc_Test::usage()
+{
+    Scene *s1 = new Scene(m_doc);
+    m_doc->addFunction(s1);
+
+    Scene *s2 = new Scene(m_doc);
+    m_doc->addFunction(s2);
+
+    Scene *s3 = new Scene(m_doc);
+    m_doc->addFunction(s3);
+
+    Scene *s4 = new Scene(m_doc);
+    m_doc->addFunction(s4);
+
+    Scene *s5 = new Scene(m_doc);
+    m_doc->addFunction(s5);
+
+    Chaser *c1 = new Chaser(m_doc);
+    ChaserStep cs1(s1->id());
+    ChaserStep cs2(s5->id());
+    c1->addStep(cs1);
+    c1->addStep(cs2);
+    m_doc->addFunction(c1);
+
+    Collection *col1 = new Collection(m_doc);
+    col1->addFunction(s2->id());
+    col1->addFunction(s5->id());
+    m_doc->addFunction(col1);
+
+    Sequence *seq1 = new Sequence(m_doc);
+    seq1->setBoundSceneID(s4->id());
+    m_doc->addFunction(seq1);
+
+    Script *sc1 = new Script(m_doc);
+    sc1->appendData(QString("startfunction:%1").arg(c1->id()));
+    m_doc->addFunction(sc1);
+
+    QVERIFY(m_doc->functions().count() == 9);
+
+    QList<quint32> usage;
+
+    /* check the usage of an invalid ID */
+    usage = m_doc->getUsage(100);
+    QVERIFY(usage.count() == 0);
+
+    /* check the usage of an unused function */
+    usage = m_doc->getUsage(s3->id());
+    QVERIFY(usage.count() == 0);
+
+    /* check usage of a Scene used by a Chaser */
+    usage = m_doc->getUsage(s1->id());
+    QVERIFY(usage.count() == 2);
+    QVERIFY(usage.at(0) == c1->id());
+    QVERIFY(usage.at(1) == 0); // step 0
+
+    /* check usage of a Scene used by a Sequence */
+    usage = m_doc->getUsage(s4->id());
+    QVERIFY(usage.count() == 2);
+    QVERIFY(usage.at(0) == seq1->id());
+    QVERIFY(usage.at(1) == 0); // no info
+
+    /* check usage of a Scene used by a Collection */
+    usage = m_doc->getUsage(s2->id());
+    QVERIFY(usage.count() == 2);
+    QVERIFY(usage.at(0) == col1->id());
+    QVERIFY(usage.at(1) == 0); // index 0
+
+    /* check usage of a Chaser used by a Script */
+    usage = m_doc->getUsage(c1->id());
+    QVERIFY(usage.count() == 2);
+    QVERIFY(usage.at(0) == sc1->id());
+    QVERIFY(usage.at(1) == 0); // line 1
+
+    /* check usage of shared function */
+    usage = m_doc->getUsage(s5->id());
+    QVERIFY(usage.count() == 4);
+    QVERIFY(usage.at(0) == c1->id());
+    QVERIFY(usage.at(1) == 1); // step 1
+    QVERIFY(usage.at(2) == col1->id());
+    QVERIFY(usage.at(3) == 1); // index 1
+
+    /* test also the function by type method */
+    QList<Function *> byType = m_doc->functionsByType(Function::SceneType);
+    QVERIFY(byType.count() == 5);
+    QVERIFY(byType.at(0) == s1);
+    QVERIFY(byType.at(1) == s2);
+    QVERIFY(byType.at(2) == s3);
+    QVERIFY(byType.at(3) == s4);
+    QVERIFY(byType.at(4) == s5);
 }
 
 void Doc_Test::load()
@@ -809,6 +905,7 @@ void Doc_Test::load()
     QVERIFY(m_doc->fixtures().size() == 0);
     QVERIFY(m_doc->functions().size() == 0);
     QVERIFY(m_doc->loadXML(xmlReader) == true);
+    QVERIFY(m_doc->loadStatus() == Doc::Loaded);
     QVERIFY(m_doc->fixtures().size() == 3);
     QVERIFY(m_doc->functions().size() == 4);
     QVERIFY(m_doc->fixtureGroups().size() == 3);

@@ -38,8 +38,10 @@
 #include "collection.h"
 #include "function.h"
 #include "universe.h"
+#include "sequence.h"
 #include "fixture.h"
 #include "chaser.h"
+#include "script.h"
 #include "scene.h"
 #include "show.h"
 #include "efx.h"
@@ -991,6 +993,91 @@ void Doc::setStartupFunction(quint32 fid)
 quint32 Doc::startupFunction()
 {
     return m_startupFunctionId;
+}
+
+QList<quint32> Doc::getUsage(quint32 fid)
+{
+    QList<quint32> usageList;
+
+    foreach (Function *f, m_functions)
+    {
+        if (f->id() == fid)
+            continue;
+
+        switch(f->type())
+        {
+            case Function::CollectionType:
+            {
+                Collection *c = qobject_cast<Collection *>(f);
+                int pos = c->functions().indexOf(fid);
+                if (pos != -1)
+                {
+                    usageList.append(f->id());
+                    usageList.append(pos);
+                }
+            }
+            break;
+            case Function::ChaserType:
+
+            {
+                Chaser *c = qobject_cast<Chaser *>(f);
+                for (int i = 0; i < c->stepsCount(); i++)
+                {
+                    ChaserStep *cs = c->stepAt(i);
+                    if (cs->fid == fid)
+                    {
+                        usageList.append(f->id());
+                        usageList.append(i);
+                    }
+                }
+            }
+            break;
+            case Function::SequenceType:
+            {
+                Sequence *s = qobject_cast<Sequence *>(f);
+                if (s->boundSceneID() == fid)
+                {
+                    usageList.append(f->id());
+                    usageList.append(0);
+                }
+            }
+            break;
+            case Function::ScriptType:
+            {
+                Script *s = qobject_cast<Script *>(f);
+                QList<quint32> l = s->functionList();
+                for (int i = 0; i < l.count(); i+=2)
+                {
+                    if (l.at(i) == fid)
+                    {
+                        usageList.append(s->id());
+                        usageList.append(l.at(i + 1)); // line number
+                    }
+                }
+            }
+            break;
+            case Function::ShowType:
+            {
+                Show *s = qobject_cast<Show *>(f);
+                foreach (Track *t, s->tracks())
+                {
+                    foreach(ShowFunction *sf, t->showFunctions())
+                    {
+                        if (sf->functionID() == fid)
+                        {
+                            usageList.append(f->id());
+                            usageList.append(t->id());
+                        }
+                    }
+                }
+            }
+            break;
+            default:
+            break;
+        }
+    }
+
+    return usageList;
 }
 
 void Doc::slotFunctionChanged(quint32 fid)

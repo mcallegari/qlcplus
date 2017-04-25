@@ -491,6 +491,15 @@ public:
      */
     quint32 startupFunction();
 
+    /**
+     * Find the usage of a Function with the specified $fid
+     * within Doc
+     *
+     * @param fid the Function ID to look up for
+     * @return a list of Function IDs and, if available, the step position
+     */
+    QList<quint32> getUsage(quint32 fid);
+
 protected:
     /**
      * Create a new function Id
