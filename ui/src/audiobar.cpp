@@ -57,6 +57,7 @@ AudioBar *AudioBar::createCopy()
     copy->m_absDmxChannels = m_absDmxChannels;
     copy->m_function = m_function;
     copy->m_widget = m_widget;
+    copy->m_widgetID = m_widgetID;
     copy->m_minThreshold = m_minThreshold;
     copy->m_maxThreshold = m_maxThreshold;
     copy->m_divisor = m_divisor;
@@ -142,7 +143,7 @@ void AudioBar::attachWidget(quint32 wID)
     m_tapped = false;
 }
 
-VCWidget * AudioBar::widget()
+VCWidget *AudioBar::widget()
 {
     if (m_widget == NULL)
         m_widget = VirtualConsole::instance()->widget(m_widgetID);
@@ -245,25 +246,49 @@ bool AudioBar::loadXML(QXmlStreamReader &root, Doc *doc)
         m_maxThreshold = attrs.value(KXMLQLCAudioBarMaxThreshold).toString().toInt();
         m_divisor = attrs.value(KXMLQLCAudioBarDivisor).toString().toInt();
 
-        if (m_type == AudioBar::DMXBar)
+        switch(m_type)
         {
-            root.readNextStartElement();
-
-            if (root.name() == KXMLQLCAudioBarDMXChannels)
+            case AudioBar::FunctionBar:
             {
-                QString dmxValues = root.readElementText();
-                if (dmxValues.isEmpty() == false)
+                if (attrs.hasAttribute(KXMLQLCAudioBarFunction))
                 {
-                    QList<SceneValue> channels;
-                    QStringList varray = dmxValues.split(",");
-                    for (int i = 0; i < varray.count(); i+=2)
-                    {
-                        channels.append(SceneValue(QString(varray.at(i)).toUInt(),
-                                                     QString(varray.at(i + 1)).toUInt(), 0));
-                    }
-                    attachDmxChannels(doc, channels);
+                    quint32 fid = attrs.value(KXMLQLCAudioBarFunction).toString().toUInt();
+                    Function *func = doc->function(fid);
+                    if (func != NULL)
+                        m_function = func;
                 }
             }
+            break;
+            case AudioBar::VCWidgetBar:
+            {
+                if (attrs.hasAttribute(KXMLQLCAudioBarWidget))
+                {
+                    quint32 wid = attrs.value(KXMLQLCAudioBarWidget).toString().toUInt();
+                    m_widgetID = wid;
+                }
+            }
+            break;
+            case AudioBar::DMXBar:
+            {
+                root.readNextStartElement();
+
+                if (root.name() == KXMLQLCAudioBarDMXChannels)
+                {
+                    QString dmxValues = root.readElementText();
+                    if (dmxValues.isEmpty() == false)
+                    {
+                        QList<SceneValue> channels;
+                        QStringList varray = dmxValues.split(",");
+                        for (int i = 0; i < varray.count(); i+=2)
+                        {
+                            channels.append(SceneValue(QString(varray.at(i)).toUInt(),
+                                                         QString(varray.at(i + 1)).toUInt(), 0));
+                        }
+                        attachDmxChannels(doc, channels);
+                    }
+                }
+            }
+            break;
         }
     }
 
@@ -304,9 +329,9 @@ bool AudioBar::saveXML(QXmlStreamWriter *doc, QString tagName, int index)
     {
         doc->writeAttribute(KXMLQLCAudioBarFunction, QString::number(m_function->id()));
     }
-    else if (m_type == AudioBar::VCWidgetBar && m_widget != NULL)
+    else if (m_type == AudioBar::VCWidgetBar && m_widgetID != VCWidget::invalidId())
     {
-        doc->writeAttribute(KXMLQLCAudioBarWidget, QString::number(m_widget->id()));
+        doc->writeAttribute(KXMLQLCAudioBarWidget, QString::number(m_widgetID));
     }
 
     /* End <tagName> tag */

@@ -577,24 +577,6 @@ bool VCAudioTriggers::loadXML(QXmlStreamReader &root)
         else if (root.name() == KXMLQLCVolumeBar)
         {
             m_volumeBar->loadXML(root, m_doc);
-            if (m_volumeBar->m_type == AudioBar::FunctionBar)
-            {
-                if (attrs.hasAttribute(KXMLQLCAudioBarFunction))
-                {
-                    quint32 fid = attrs.value(KXMLQLCAudioBarFunction).toString().toUInt();
-                    Function *func = m_doc->function(fid);
-                    if (func != NULL)
-                        m_volumeBar->m_function = func;
-                }
-            }
-            else if (m_volumeBar->m_type == AudioBar::VCWidgetBar)
-            {
-                if (attrs.hasAttribute(KXMLQLCAudioBarWidget))
-                {
-                    quint32 wid = attrs.value(KXMLQLCAudioBarWidget).toString().toUInt();
-                    m_volumeBar->m_widgetID = wid;
-                }
-            }
         }
         else if (root.name() == KXMLQLCSpectrumBar)
         {
@@ -602,27 +584,7 @@ bool VCAudioTriggers::loadXML(QXmlStreamReader &root)
             {
                 int idx = attrs.value(KXMLQLCAudioBarIndex).toString().toInt();
                 if (idx >= 0 && idx < m_spectrumBars.count())
-                {
                     m_spectrumBars[idx]->loadXML(root, m_doc);
-                    if (m_spectrumBars[idx]->m_type == AudioBar::FunctionBar)
-                    {
-                        if (attrs.hasAttribute(KXMLQLCAudioBarFunction))
-                        {
-                            quint32 fid = attrs.value(KXMLQLCAudioBarFunction).toString().toUInt();
-                            Function *func = m_doc->function(fid);
-                            if (func != NULL)
-                                m_spectrumBars[idx]->m_function = func;
-                        }
-                    }
-                    else if (m_spectrumBars[idx]->m_type == AudioBar::VCWidgetBar)
-                    {
-                        if (attrs.hasAttribute(KXMLQLCAudioBarWidget))
-                        {
-                            quint32 wid = attrs.value(KXMLQLCAudioBarWidget).toString().toUInt();
-                            m_spectrumBars[idx]->m_widgetID = wid;
-                        }
-                    }
-                }
             }
         }
         else
