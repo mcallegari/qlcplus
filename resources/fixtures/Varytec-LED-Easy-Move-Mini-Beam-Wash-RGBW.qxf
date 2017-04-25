@@ -3,11 +3,11 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.6 GIT</Version>
+  <Version>4.11.0 GIT</Version>
   <Author>Erik</Author>
  </Creator>
  <Manufacturer>Varytec</Manufacturer>
- <Model>LED Easy Move Mini Beam &amp; Wash RGBW</Model>
+ <Model>LED Easy Move Mini Beam + Wash RGBW</Model>
  <Type>Moving Head</Type>
  <Channel Name="Pan">
   <Group Byte="0">Pan</Group>

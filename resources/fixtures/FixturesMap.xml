@@ -855,7 +855,7 @@
   <fixture path="Varytec-Easy-Move-LED-XS-Wash.qxf" mf="Varytec" md="Easy Move LED XS Wash"/>
   <fixture path="Varytec-Easy-Scan-XT-Mini.qxf" mf="Varytec" md="Easy Scan XT Mini"/>
   <fixture path="Varytec-Gigabar-II.qxf" mf="Varytec" md="Gigabar II"/>
-  <fixture path="Varytec-LED-Easy-Move-Mini-Beam-&amp;-Wash-RGBW.qxf" mf="Varytec" md="LED Easy Move Mini Beam &amp; Wash RGBW"/>
+  <fixture path="Varytec-LED-Easy-Move-Mini-Beam-Wash-RGBW.qxf" mf="Varytec" md="LED Easy Move Mini Beam + Wash RGBW"/>
   <fixture path="Varytec-LED-Giga-bar-4-MKII.qxf" mf="Varytec" md="LED Giga Bar 4 MKII"/>
   <fixture path="Varytec-LED-Hellball-3.qxf" mf="Varytec" md="LED Hellball 3"/>
   <fixture path="Varytec-LED-Laser-4.qxf" mf="Varytec" md="LED Laser 4"/>
