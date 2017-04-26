@@ -866,6 +866,11 @@ void FixtureManager::initActions()
                                tr("Remap fixtures..."), this);
     connect(m_remapAction, SIGNAL(triggered(bool)),
             this, SLOT(slotRemap()));
+
+    m_wsInfoAction = new QAction(QIcon(":/info.png"),
+				 tr("Workspace Info"), this);
+    connect(m_wsInfoAction, SIGNAL(triggered(bool)),
+	    this, SLOT(slotWsInfo()));
 }
 
 void FixtureManager::updateGroupMenu()
@@ -915,6 +920,7 @@ void FixtureManager::initToolBar()
     toolbar->addAction(m_importAction);
     toolbar->addAction(m_exportAction);
     toolbar->addAction(m_remapAction);
+    toolbar->addAction(m_wsInfoAction);
 
     QToolButton* btn = qobject_cast<QToolButton*> (toolbar->widgetForAction(m_groupAction));
     Q_ASSERT(btn != NULL);
@@ -1717,6 +1723,22 @@ void FixtureManager::slotExport()
 
     doc.writeEndDocument();
     file.close();
+}
+
+void FixtureManager::slotWsInfo()
+{
+  int gesPower = 0;
+  double gesWeight = 0;
+  QListIterator <Fixture*> fxit(m_doc->fixtures());
+  while (fxit.hasNext() == true)
+    {
+      Fixture* fxi(fxit.next());
+      Q_ASSERT(fxi != NULL);
+      gesPower += fxi->getPowerConsumption();
+      gesWeight += fxi->getWeight();
+    }
+  qDebug() << "Power: " << gesPower << "; Weight: " << gesWeight;
+  m_info->setText(QString("<BODY><h1>Workspace Info</h1><p>Power Consumption: %1W<br/>Weight: %2Kg</p></BODY>").arg(gesPower).arg(gesWeight));
 }
 
 void FixtureManager::slotContextMenuRequested(const QPoint&)
