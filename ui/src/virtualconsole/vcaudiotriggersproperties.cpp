@@ -140,23 +140,7 @@ void AudioTriggersConfiguration::updateTreeItem(QTreeWidgetItem *item, int idx)
         if (bar->m_function != NULL)
         {
             item->setText(KColumnInfo, bar->m_function->name());
-            switch (bar->m_function->type())
-            {
-            case Function::Scene: item->setIcon(KColumnInfo, QIcon(":/scene.png")); break;
-            case Function::Chaser:
-                if (qobject_cast<const Chaser*>(bar->m_function)->isSequence() == true)
-                    item->setIcon(KColumnInfo, QIcon(":/sequence.png"));
-                else
-                    item->setIcon(KColumnInfo, QIcon(":/chaser.png"));
-            break;
-            case Function::EFX:item->setIcon(KColumnInfo, QIcon(":/efx.png")); break;
-            case Function::Collection:item->setIcon(KColumnInfo, QIcon(":/collection.png")); break;
-            case Function::RGBMatrix:item->setIcon(KColumnInfo, QIcon(":/rgbmatrix.png")); break;
-            case Function::Script:item->setIcon(KColumnInfo, QIcon(":/script.png")); break;
-            case Function::Show:item->setIcon(KColumnInfo, QIcon(":/show.png")); break;
-            case Function::Audio:item->setIcon(KColumnInfo, QIcon(":/audio.png")); break;
-            default: item->setIcon(KColumnInfo, QIcon(":/function.png")); break;
-            }
+            item->setIcon(KColumnInfo, bar->m_function->getIcon());
         }
         else
         {

@@ -39,7 +39,7 @@ var testAlgo;
                 list[i] = i;
 
             return list;
-        }
+        };
 
         util.createStep = function(length, si, lastStep)
         {
@@ -55,7 +55,7 @@ var testAlgo;
             }
 
             return map;
-        }
+        };
 
         util.createStepRgb = function(width, height, step, rgb)
         {
@@ -73,7 +73,7 @@ var testAlgo;
             }
 
             return map;
-        }
+        };
 
         algo.rgbMap = function(width, height, rgb, step)
         {
@@ -99,16 +99,16 @@ var testAlgo;
             }
 
             return util.createStepRgb(width, height, algo.steps[step], rgb);
-        }
+        };
 
         algo.rgbMapStepCount = function(width, height)
         {
             return width;
-        }
+        };
 
         // Development tool access
         testAlgo = algo;
 
         return algo;
     }
-)()
+)();

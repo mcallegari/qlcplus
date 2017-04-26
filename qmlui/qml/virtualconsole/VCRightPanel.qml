@@ -73,18 +73,20 @@ SidePanel
                 exclusiveGroup: vcButtonsGroup
                 tooltip: qsTr("Enable/Disable the widgets edit mode")
 
-                onToggled:
+                onCheckedChanged:
                 {
                     virtualConsole.editMode = checked
                     if (checked == true)
                         loaderSource = "qrc:/VCWidgetProperties.qml"
+                    else
+                        border.color = "#1D1D1D"
                     animatePanel(checked)
                 }
 
-                SequentialAnimation on color
+                SequentialAnimation on border.color
                 {
-                    PropertyAnimation { to: "orange"; duration: 500 }
-                    PropertyAnimation { to: UISettings.highlight; duration: 500 }
+                    PropertyAnimation { to: "red"; duration: 1000 }
+                    PropertyAnimation { to: "white"; duration: 1000 }
                     running: editModeButton.checked
                     loops: Animation.Infinite
                 }

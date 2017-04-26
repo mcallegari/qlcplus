@@ -26,11 +26,10 @@
 TreeModelItem::TreeModelItem(QString label, QObject *parent)
     : QObject(parent)
     , m_label(label)
+    , m_path(QString())
+    , m_flags(0)
+    , m_children(NULL)
 {
-    m_path = QString();
-    m_isExpanded = false;
-    m_isSelected = false;
-    m_children = NULL;
 }
 
 TreeModelItem::~TreeModelItem()
@@ -64,24 +63,22 @@ void TreeModelItem::setPath(QString path)
     m_path = path;
 }
 
-bool TreeModelItem::isExpanded() const
+void TreeModelItem::setFlags(int flags)
 {
-    return m_isExpanded;
+    m_flags = flags;
 }
 
-void TreeModelItem::setExpanded(bool expanded)
+void TreeModelItem::setFlag(int flag, bool enable)
 {
-    m_isExpanded = expanded;
+    if (enable)
+        m_flags |= flag;
+    else
+        m_flags &= ~flag;
 }
 
-bool TreeModelItem::isSelected() const
+int TreeModelItem::flags() const
 {
-    return m_isSelected;
-}
-
-void TreeModelItem::setSelected(bool selected)
-{
-    m_isSelected = selected;
+    return m_flags;
 }
 
 QVariant TreeModelItem::data(int index)
@@ -91,6 +88,11 @@ QVariant TreeModelItem::data(int index)
         return QVariant();
 
     return m_data.at(index);
+}
+
+QVariantList TreeModelItem::data()
+{
+    return m_data;
 }
 
 void TreeModelItem::setData(QVariantList data)
@@ -112,7 +114,7 @@ bool TreeModelItem::setChildrenColumns(QStringList columns)
     return childrenTreeCreated;
 }
 
-bool TreeModelItem::addChild(QString label, QVariantList data, bool sorting, QString path)
+bool TreeModelItem::addChild(QString label, QVariantList data, bool sorting, QString path, int flags)
 {
     bool childrenTreeCreated = false;
     if (m_children == NULL)
@@ -122,7 +124,7 @@ bool TreeModelItem::addChild(QString label, QVariantList data, bool sorting, QSt
         childrenTreeCreated = true;
     }
     m_children->enableSorting(sorting);
-    m_children->addItem(label, data, path);
+    m_children->addItem(label, data, path, flags);
 
     return childrenTreeCreated;
 }

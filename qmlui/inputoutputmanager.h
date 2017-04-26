@@ -23,13 +23,14 @@
 #include <QStringList>
 #include <QQuickItem>
 #include <QVariant>
-#include <QObject>
+
+#include "previewcontext.h"
 
 class Doc;
 class Universe;
 class InputOutputMap;
 
-class InputOutputManager : public QObject
+class InputOutputManager : public PreviewContext
 {
     Q_OBJECT
 
@@ -43,13 +44,12 @@ class InputOutputManager : public QObject
     Q_PROPERTY(int bpmNumber READ bpmNumber WRITE setBpmNumber NOTIFY bpmNumberChanged)
 
 public:
-    InputOutputManager(Doc *doc, QObject *parent = 0);
+    InputOutputManager(QQuickView *view, Doc *doc, QObject *parent = 0);
 
 protected slots:
     void slotDocLoaded();
 
 private:
-    Doc *m_doc;
     InputOutputMap* m_ioMap;
 
     /*********************************************************************

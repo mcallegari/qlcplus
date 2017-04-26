@@ -208,7 +208,7 @@ VCWidgetItem
             }
             else if (drop.keys[0] === "function")
             {
-                frameObj.addFunction(dropArea, drag.source.funcID, pos, false)
+                frameObj.addFunctions(dropArea, drag.source.itemsList, pos, drag.source.modifiers)
             }
         }
 

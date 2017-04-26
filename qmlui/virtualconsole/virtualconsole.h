@@ -29,8 +29,11 @@
 
 class QXmlStreamReader;
 class QXmlStreamWriter;
+class QLCInputSource;
+class ContextManager;
 class VCWidget;
 class VCFrame;
+class VCPage;
 class Doc;
 
 #define KXMLQLCVirtualConsole "VirtualConsole"
@@ -46,7 +49,7 @@ class VirtualConsole : public PreviewContext
     Q_PROPERTY(int selectedWidgetsCount READ selectedWidgetsCount NOTIFY selectedWidgetsCountChanged)
 
 public:
-    VirtualConsole(QQuickView *view, Doc *doc, QObject *parent = 0);
+    VirtualConsole(QQuickView *view, Doc *doc, ContextManager *ctxManager, QObject *parent = 0);
 
     /** Return the number of pixels in 1mm */
     qreal pixelDensity() const;
@@ -64,6 +67,10 @@ signals:
 protected:
     bool m_editMode;
 
+    /** Reference to the Context Manager. Used to track VC pages as
+     *  regular contexts */
+    ContextManager *m_contextManager;
+
     /*********************************************************************
      * Pages
      *********************************************************************/
@@ -72,7 +79,7 @@ public:
 
     /** Get the Virtual Console's frame representing the given $page,
      *  where all the widgets are placed */
-    Q_INVOKABLE VCFrame* page(int page) const;
+    Q_INVOKABLE VCPage* page(int page) const;
 
     /** Return the reference of the currently selected VC page */
     Q_INVOKABLE QQuickItem *currentPageItem() const;
@@ -110,8 +117,8 @@ signals:
     void pagesCountChanged();
 
 protected:
-    /** A list of VCFrames representing the main VC pages */
-    QVector<VCFrame*> m_pages;
+    /** A list of VCPage representing the main VC pages */
+    QVector<VCPage*> m_pages;
 
     /** The index of the currently selected VC page */
     int m_selectedPage;
@@ -198,6 +205,71 @@ protected:
      *  Items are stacked in a precise order to handle the enter/exit events
      *  of a drag item and highlight only the last item entered */
     QList<QQuickItem *>m_dropTargets;
+
+    /*********************************************************************
+     * External input
+     *********************************************************************/
+public:
+    /** Enable the autodetection process for an external controller.
+     *  This method creates an empty QLCInputSource in the specified
+     *  $widget and fills it later once the first input signal is received */
+    Q_INVOKABLE bool createAndDetectInputSource(VCWidget *widget);
+
+    /** Enable the autodetection process for a key sequence.
+     *  This method creates an empty QKeySequence in the specified
+     *  $widget and updates it later once the first key press is received */
+    Q_INVOKABLE bool createAndDetectInputKey(VCWidget *widget);
+
+    /** Enable the autodetection process for a specific input source
+     *  bound to an external controller. */
+    Q_INVOKABLE bool enableInputSourceAutoDetection(VCWidget *widget, quint32 id, quint32 universe, quint32 channel);
+
+    /** Update the control ID of the specified $widget for a source coming
+     *  from $universe and $channel */
+    Q_INVOKABLE void updateInputSourceControlID(VCWidget *widget, quint32 id, quint32 universe, quint32 channel);
+
+    /** Enable the autodetection process for a specific key sequence */
+    Q_INVOKABLE bool enableKeyAutoDetection(VCWidget *widget, quint32 id, QString keyText);
+
+    /** Update the control ID of a key sequence with $keyText for the specified $widget */
+    Q_INVOKABLE void updateKeySequenceControlID(VCWidget *widget, quint32 id, QString keyText);
+
+    /** Disable a previously started autodetection process */
+    Q_INVOKABLE void disableAutoDetection();
+
+    /** Delete an existing input source from the specified $widget.
+     *  $type, $universe and $channel are also needed to remove the
+     *  source from a VC Page multi hash map */
+    Q_INVOKABLE void deleteInputSource(VCWidget *widget, quint32 id, quint32 universe, quint32 channel);
+
+    /** Delete an existing key sequence from the specified $widget */
+    Q_INVOKABLE void deleteKeySequence(VCWidget *widget, quint32 id, QString keyText);
+
+    /** @reimp */
+    void handleKeyEvent(QKeyEvent *e, bool pressed);
+
+protected slots:
+    /**
+     * Slot that receives external input data from the InputOutputMap class.
+     *
+     * @param universe Input universe
+     * @param channel Input channel
+     * @param value New value for universe & value
+     */
+    void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
+
+protected:
+    /** Flag that indicates that an input source autodetection is running
+     *  to properly behave when an input signal is received */
+    bool m_inputDetectionEnabled;
+
+    /** Temporary reference to a VC widget which is in the process
+     *  of auto detecting an input source */
+    VCWidget *m_autoDetectionWidget;
+
+    QSharedPointer<QLCInputSource> m_autoDetectionSource;
+    QKeySequence m_autoDetectionKey;
+    quint32 m_autoDetectionKeyId;
 
     /*********************************************************************
      * Load & Save

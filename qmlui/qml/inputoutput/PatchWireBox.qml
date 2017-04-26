@@ -24,6 +24,7 @@ Canvas
     id: wireBox
     width: 50
     height: 120
+    contextType: "2d"
 
     property int patchesNumber: 0
 
@@ -31,41 +32,40 @@ Canvas
 
     onPaint:
     {
-        var ctx = wireBox.getContext('2d')
         var nodeSize = 8
         var vCenter = (height / 2) - (nodeSize / 2)
-        ctx.strokeStyle = "yellow"
-        ctx.fillStyle = "yellow"
-        ctx.lineWidth = 2
-        ctx.beginPath()
-        ctx.clearRect(0, 0, width, height)
+        context.strokeStyle = "yellow"
+        context.fillStyle = "yellow"
+        context.lineWidth = 2
+        context.beginPath()
+        context.clearRect(0, 0, width, height)
 
         var yDelta = height / patchesNumber
 
         if (patchesNumber > 0)
         {
             var yPos = (yDelta / 2) - (nodeSize / 2)
-            var targetX = width - nodeSize - ctx.lineWidth
+            var targetX = width - nodeSize - context.lineWidth
 
-            ctx.ellipse(ctx.lineWidth, vCenter - (nodeSize / 2), nodeSize, nodeSize)
-            ctx.fill()
+            context.ellipse(context.lineWidth, vCenter - (nodeSize / 2), nodeSize, nodeSize)
+            context.fill()
 
-            ctx.beginPath()
-            ctx.moveTo(ctx.lineWidth, vCenter)
-            ctx.lineTo(targetX / 2, vCenter)
-            ctx.stroke()
+            context.beginPath()
+            context.moveTo(context.lineWidth, vCenter)
+            context.lineTo(targetX / 2, vCenter)
+            context.stroke()
 
             for (var i = 0; i < patchesNumber; i++)
             {
-                ctx.beginPath()
-                ctx.ellipse(targetX, yPos - (nodeSize / 2), nodeSize, nodeSize)
-                ctx.fill()
+                context.beginPath()
+                context.ellipse(targetX, yPos - (nodeSize / 2), nodeSize, nodeSize)
+                context.fill()
 
-                ctx.beginPath()
-                ctx.moveTo(targetX / 2, vCenter)
-                ctx.lineTo(targetX / 2, yPos)
-                ctx.lineTo(targetX, yPos)
-                ctx.stroke()
+                context.beginPath()
+                context.moveTo(targetX / 2, vCenter)
+                context.lineTo(targetX / 2, yPos)
+                context.lineTo(targetX, yPos)
+                context.stroke()
 
                 yPos += yDelta
             }

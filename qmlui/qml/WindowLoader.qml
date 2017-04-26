@@ -17,40 +17,35 @@
   limitations under the License.
 */
 
-
 import QtQuick 2.1
-import QtQuick.Controls 1.0
-import QtQuick.Window 2.0
 
 import "."
 
-ApplicationWindow
+/** This is a wrapper item to achieve 3 things:
+  * 1) load a detached context on a surface with the application background
+  * 2) centralize the reattach process via context manager
+  * 3) expose a dedicated mainView reference which is used by combo boxes and side panels
+  *    to calculate absolute positions within a window
+  */
+
+Rectangle
 {
-    id: window
-    width: 800
-    height: 600
+    id: mainView
+    anchors.fill: parent
     color: UISettings.bgMain
 
-    property string viewSource
-    property string loadedContext: ""
-
-    onClosing:
+    function closeWindow()
     {
-        // force the Loader to destroy the QML item
-        viewSource = ""
-        contextManager.reattachContext(loadedContext)
+        console.log("Closing window of context: " + contextName)
+        contextManager.enableContext(contextName, false, wLoader.item.contextItem)
     }
 
     Loader
     {
+        id: wLoader
         anchors.fill: parent
         source: viewSource
-        onLoaded:
-        {
-            window.loadedContext = item.contextName
-            //console.log("Detached context: " + window.loadedContext)
-            contextManager.detachContext(loadedContext)
-        }
+        onLoaded: if (item.page) item.page = contextPage
     }
 }
 

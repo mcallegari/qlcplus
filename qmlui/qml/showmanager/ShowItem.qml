@@ -75,6 +75,7 @@ Item
         id: prCanvas
         z: 2
         anchors.fill: parent
+        contextType: "2d"
 
         onPaint:
         {
@@ -86,14 +87,12 @@ Item
             if (previewData === null || previewData === undefined)
                 return
 
-            var ctx = prCanvas.getContext('2d')
+            context.strokeStyle = "#ddd"
+            context.fillStyle = "transparent"
+            context.lineWidth = 1
 
-            ctx.strokeStyle = "#ddd"
-            ctx.fillStyle = "transparent"
-            ctx.lineWidth = 1
-
-            ctx.beginPath()
-            ctx.clearRect(0, 0, width, height)
+            context.beginPath()
+            context.clearRect(0, 0, width, height)
 
             //console.log("About to paint " + previewData.length + " values")
 
@@ -107,10 +106,10 @@ Item
                 {
                     lastTime += previewData[1]
                     xPos = TimeUtils.timeToSize(lastTime, timeScale)
-                    ctx.moveTo(xPos, 0)
-                    ctx.lineTo(xPos, itemRoot.height)
+                    context.moveTo(xPos, 0)
+                    context.lineTo(xPos, itemRoot.height)
                 }
-                ctx.stroke()
+                context.stroke()
                 return
             }
 
@@ -123,24 +122,24 @@ Item
                 {
                     case ShowManager.FadeIn:
                         var fiEnd = TimeUtils.timeToSize(lastTime + previewData[i + 1], timeScale)
-                        ctx.moveTo(xPos, itemRoot.height)
-                        ctx.lineTo(fiEnd, 0)
+                        context.moveTo(xPos, itemRoot.height)
+                        context.lineTo(fiEnd, 0)
                     break;
                     case ShowManager.StepDivider:
                         lastTime = previewData[i + 1]
                         xPos = TimeUtils.timeToSize(lastTime, timeScale)
-                        ctx.moveTo(xPos, 0)
-                        ctx.lineTo(xPos, itemRoot.height)
+                        context.moveTo(xPos, 0)
+                        context.lineTo(xPos, itemRoot.height)
                     break;
                     case ShowManager.FadeOut:
                         var foEnd = TimeUtils.timeToSize(lastTime + previewData[i + 1], timeScale)
-                        ctx.moveTo(xPos, 0)
-                        ctx.lineTo(foEnd, itemRoot.height)
+                        context.moveTo(xPos, 0)
+                        context.lineTo(foEnd, itemRoot.height)
                     break;
                 }
 
             }
-            ctx.stroke()
+            context.stroke()
         }
     }
 
@@ -161,16 +160,31 @@ Item
             color: sfRef ? sfRef.color : UISettings.bgLight
             border.width: isSelected ? 2 : 1
             border.color: isSelected ? UISettings.selection : "white"
+            clip: true
 
             Drag.active: sfMouseArea.drag.active
             Drag.keys: [ "function" ]
 
+            Image
+            {
+                x: 3
+                y: itemRoot.height - height - 3
+                visible: infoText ? false : true
+                width: itemRoot.height / 3
+                height: width
+                source: funcRef ? functionManager.functionIcon(funcRef.type) : ""
+                sourceSize: Qt.size(width, height)
+            }
+
             RobotoText
             {
                 x: 3
+                y: 3
                 width: parent.width - 6
+                height: parent.height - 6
                 label: funcRef ? funcRef.name : ""
-                fontSize: UISettings.textSizeDefault * 0.5
+                fontSize: UISettings.textSizeDefault * 0.7
+                textVAlign: Text.AlignTop
                 wrapText: true
             }
 
@@ -178,10 +192,11 @@ Item
             {
                 id: infoTextBox
                 x: 3
-                y: itemRoot.height - height
-                width: 100
-                height: 20
-                fontSize: 9
+                y: itemRoot.height - height - 3
+                width: itemRoot.width - 6
+                height: itemRoot.height / 4
+                fontSize: UISettings.textSizeDefault * 0.6
+                textHAlign: Text.AlignLeft
                 wrapText: true
                 label: infoText
             }
@@ -195,7 +210,8 @@ Item
             showManager.enableFlicking(false)
             drag.target = showItemBody
             itemRoot.z = 2
-            infoTextBox.height = 20
+            infoTextBox.height = itemRoot.height / 4
+            infoTextBox.textHAlign = Text.AlignLeft
         }
         onPositionChanged:
         {
@@ -210,9 +226,11 @@ Item
             {
                 console.log("Show item drag finished: " + showItemBody.x + " " + showItemBody.y);
                 drag.target = null
+                infoText = ""
+
                 var newTime = TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale)
-                var newTrackIdx = parseInt((itemRoot.y + showItemBody.y) / height)
-                if (newTime >= 0)
+                var newTrackIdx = Math.round((itemRoot.y + showItemBody.y) / itemRoot.height)
+                if (newTime >= 0 && newTrackIdx >= 0)
                 {
                     var res = showManager.checkAndMoveItem(sfRef, trackIndex, newTrackIdx, newTime)
 
@@ -224,7 +242,6 @@ Item
 
                 showItemBody.x = 0
                 showItemBody.y = 0
-                infoText = ""
             }
             itemRoot.z = 1
             showManager.enableFlicking(true)
@@ -235,6 +252,8 @@ Item
             itemRoot.isSelected = !itemRoot.isSelected
             showManager.setItemSelection(trackIndex, sfRef, itemRoot, itemRoot.isSelected)
         }
+
+        onDoubleClicked: functionManager.setEditorFunction(sfRef.functionID, true)
 
         onExited: Tooltip.hideText()
         onCanceled: Tooltip.hideText()
@@ -281,7 +300,8 @@ Item
                     var hdlPos = mapToItem(itemRoot.parent, horLeftHandler.x, horLeftHandler.y)
                     itemRoot.width = itemRoot.width + (itemRoot.x - hdlPos.x + mouse.x)
                     itemRoot.x = hdlPos.x - mouse.x
-                    infoTextBox.height = 40
+                    infoTextBox.height = itemRoot.height / 2
+                    infoTextBox.textHAlign = Text.AlignLeft
                     infoText = qsTr("Position: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale))
                     infoText += "\n" + qsTr("Duration: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.width, timeScale))
                     horLeftHandler.x = 0
@@ -293,6 +313,11 @@ Item
                 {
                     if (sfRef)
                     {
+                        if (itemRoot.x < 0)
+                        {
+                            itemRoot.width += itemRoot.x
+                            itemRoot.x = 0
+                        }
                         sfRef.startTime = TimeUtils.posToMs(itemRoot.x, timeScale)
                         sfRef.duration = TimeUtils.posToMs(itemRoot.width, timeScale)
                         if (funcRef && showManager.stretchFunctions === true)
@@ -335,10 +360,11 @@ Item
                 //console.log("Mouse position: " + mp.x)
                 if (drag.active == true)
                 {
-                    infoTextBox.height = 20
                     var obj = mapToItem(itemRoot, mouseX, mouseY)
                     //console.log("Mapped position: " + obj.x)
                     itemRoot.width = obj.x + (horRightHdlMa.width - mouse.x)
+                    infoTextBox.height = itemRoot.height / 4
+                    infoTextBox.textHAlign = Text.AlignRight
                     infoText = qsTr("Duration: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.width, timeScale))
                 }
             }

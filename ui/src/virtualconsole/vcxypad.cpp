@@ -171,7 +171,7 @@ VCXYPad::VCXYPad(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     slotModeChanged(m_doc->mode());
     setLiveEdit(m_liveEdit);
 
-    m_doc->masterTimer()->registerDMXSource(this, "XYPad");
+    m_doc->masterTimer()->registerDMXSource(this);
 }
 
 VCXYPad::~VCXYPad()
@@ -691,7 +691,7 @@ void VCXYPad::slotPresetClicked(bool checked)
         }
 
         Function *f = m_doc->function(preset->m_funcID);
-        if (f == NULL || f->type() != Function::EFX)
+        if (f == NULL || f->type() != Function::EFXType)
             return;
         m_efx = new EFX(m_doc);
         m_efx->copyFrom(f);
@@ -727,7 +727,7 @@ void VCXYPad::slotPresetClicked(bool checked)
             return;
 
         Function *f = m_doc->function(preset->m_funcID);
-        if (f == NULL || f->type() != Function::Scene)
+        if (f == NULL || f->type() != Function::SceneType)
             return;
 
         m_scene = qobject_cast<Scene*>(f);
@@ -846,8 +846,8 @@ void VCXYPad::updateFeedback()
 void VCXYPad::slotInputValueChanged(quint32 universe, quint32 channel,
                                      uchar value)
 {
-    /* Don't let input data thru in design mode */
-    if (mode() == Doc::Design || isEnabled() == false)
+    /* Don't let input data through in design mode or if disabled */
+    if (acceptsInput() == false)
         return;
 
     QPointF pt = m_area->position(false);
@@ -950,7 +950,7 @@ void VCXYPad::slotInputValueChanged(quint32 universe, quint32 channel,
 
 void VCXYPad::slotKeyPressed(const QKeySequence &keySequence)
 {
-    if (isEnabled() == false)
+    if (acceptsInput() == false)
         return;
 
     for (QHash<QWidget*, VCXYPadPreset*>::iterator it = m_presets.begin();

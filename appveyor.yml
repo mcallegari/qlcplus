@@ -1,4 +1,4 @@
-version: 4.10.5.{build}
+version: 4.11.0.{build}
 
 environment:
     MSYSTEM: MSYS
@@ -16,8 +16,8 @@ install:
     #- pacman --noconfirm --needed -S pacman-mirrors
     #- pacman --noconfirm -Sy
     - pacman --noconfirm --needed -S unzip mingw32/mingw-w64-i686-libmad mingw32/mingw-w64-i686-libsndfile mingw32/mingw-w64-i686-flac mingw32/mingw-w64-i686-fftw mingw32/mingw-w64-i686-nsis
-    - wget http://qlcplus.sourceforge.net/mingw-w64-i686-qt5-5.6.0-1-any.pkg.tar.xz -P /c/projects
-    - pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-qt5-5.6.0-1-any.pkg.tar.xz
+    - wget http://www.qlcplus.org/misc/mingw-w64-i686-qt5-5.6.2-4-any.pkg.tar.xz -P /c/projects
+    - pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-qt5-5.6.2-4-any.pkg.tar.xz
 
 build_script:
     - ps: >-
@@ -28,9 +28,9 @@ build_script:
           export
           gcc -v
           # get and prepare the D2XX SDK
-          mkdir -p /c/Qt/CDM21200
-          wget http://qlcplus.sourceforge.net/CDM%20v2.12.16%20WHQL%20Certified.zip -O /c/Qt/CDM21200/cdm.zip
-          cd /c/Qt/CDM21200
+          mkdir -p /c/Qt/D2XXSDK
+          wget http://www.ftdichip.com/Drivers/CDM/CDM%20v2.12.24%20WHQL%20Certified.zip -O /c/Qt/D2XXSDK/cdm.zip
+          cd /c/Qt/D2XXSDK
           unzip cdm.zip
           cd i386
           gendef.exe - ftd2xx.dll > ftd2xx.def
@@ -42,6 +42,7 @@ build_script:
           sed -i -e 's/ SUBDIRS              += velleman/#SUBDIRS += velleman/g' plugins/plugins.pro
           sed -i -e 's/  SUBDIRS += test/#SUBDIRS += test/g' plugins/artnet/artnet.pro
           sed -i -e 's/SUBDIRS += test/#SUBDIRS += test/g' plugins/enttecwing/enttecwing.pro
+          sed -i -e 's/SUBDIRS += test/#SUBDIRS += test/g' plugins/midi/midi.pro
           qmake FORCECONFIG=release
           make
           echo 'Silently installing QLC+...'
@@ -51,11 +52,11 @@ build_script:
           sed -i -e 's/Qt/projects/g' qlcplusQt5.nsi
           makensis -X'SetCompressor /FINAL lzma' qlcplusQt5.nsi
           #set CURRDATE=`date +%Y%m%d`
-          mv QLC+_4.10.5.exe /c/projects/qlcplus/QLC+_$APPVEYOR_BUILD_VERSION.exe
+          mv QLC+_*.exe /c/projects/qlcplus/QLC+_$APPVEYOR_BUILD_VERSION.exe
           ls /c/projects/qlcplus/*.exe
           exit 0
         '@
 
 artifacts:
   - path: QLC+_$(APPVEYOR_BUILD_VERSION).exe
-    name: qlcplus_4_10_5
+    name: qlcplus_4_11_0

@@ -56,7 +56,7 @@
   <Capability Min="0" Max="255">Tilt</Capability>
  </Channel>
  <Channel Name="Image rotation fine">
-  <Group Byte="0">Gobo</Group>
+  <Group Byte="1">Gobo</Group>
   <Capability Min="0" Max="255">Fine position index</Capability>
  </Channel>
  <Channel Name="Pan fine">

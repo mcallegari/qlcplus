@@ -23,21 +23,24 @@ Rectangle
 {
     anchors.fill: parent
     color: "black"
+    clip: true
 
     property string contextName: "2D"
+    property alias contextItem: twoDView
 
     onWidthChanged: twoDView.calculateCellSize()
     onHeightChanged: twoDView.calculateCellSize()
 
-    Component.onCompleted: contextManager.enableContext("2D", true)
-    Component.onDestruction: contextManager.enableContext("2D", false)
+    Component.onDestruction: contextManager.enableContext("2D", false, twoDView)
 
     function setZoom(amount)
     {
-        if (twoDView.gridScale + amount < 1.0)
-            twoDView.gridScale = 1.0
+        if (View2D.gridScale + amount < 1.0)
+            View2D.gridScale = 1.0
         else
-            twoDView.gridScale += amount
+            View2D.gridScale += amount
+
+        twoDView.calculateCellSize()
     }
 
     function hasSettings()
@@ -62,44 +65,43 @@ Rectangle
         //contentHeight: parent.height
 
         property size gridSize: View2D.gridSize
-
-        property real gridScale: 1.0
         property real gridUnits: View2D.gridUnits
 
-        property real baseCellSize
+        Component.onCompleted:
+        {
+            calculateCellSize()
+            contextManager.enableContext("2D", true, twoDView)
+        }
 
-        Component.onCompleted: calculateCellSize()
-
-        onGridSizeChanged: calculateCellSize();
-        onGridScaleChanged: calculateCellSize();
-        onGridUnitsChanged: calculateCellSize();
+        onGridSizeChanged: calculateCellSize()
+        onGridUnitsChanged: calculateCellSize()
 
         function calculateCellSize()
         {
             if (width <= 0 || height <= 0)
                 return;
             var w = twoDSettings.visible ? (width - twoDSettings.width) : width
-            var xDiv = w / gridSize.width;
-            var yDiv = height / gridSize.height;
-            twoDContents.x = 0;
-            twoDContents.y = 0;
+            var xDiv = w / gridSize.width
+            var yDiv = height / gridSize.height
+            twoDContents.x = 0
+            twoDContents.y = 0
 
             if (yDiv < xDiv)
-                baseCellSize = yDiv * gridScale;
+                View2D.cellPixels = yDiv * View2D.gridScale
             else if (xDiv < yDiv)
-                baseCellSize = xDiv * gridScale;
+                View2D.cellPixels = xDiv * View2D.gridScale
 
-            //console.log("Cell size calculated: " + baseCellSize)
+            //console.log("Cell size calculated: " + View2D.cellPixels)
 
-            contentWidth = baseCellSize * gridSize.width;
-            contentHeight = baseCellSize * gridSize.height;
+            contentWidth = View2D.cellPixels * gridSize.width;
+            contentHeight = View2D.cellPixels * gridSize.height;
 
             if (contentWidth < w)
                 twoDContents.x = (w - contentWidth) / 2;
             if (contentHeight < height)
                 twoDContents.y = (height - contentHeight) / 2;
 
-            if (baseCellSize > 0)
+            if (View2D.cellPixels > 0)
                 twoDContents.requestPaint();
         }
 
@@ -130,8 +132,9 @@ Rectangle
             z: 0
 
             antialiasing: true
+            contextType: "2d"
 
-            property real cellSize: twoDView.baseCellSize
+            property real cellSize: View2D.cellPixels
             property int gridUnits: twoDView.gridUnits
 
             function setFlickableStatus(status)
@@ -142,32 +145,30 @@ Rectangle
 
             onPaint:
             {
-                var ctx = twoDContents.getContext('2d');
+                context.globalAlpha = 1.0
+                context.strokeStyle = "#5F5F5F"
+                context.fillStyle = "black"
+                context.lineWidth = 1
 
-                ctx.globalAlpha = 1.0
-                ctx.strokeStyle = "#2A2A2A"
-                ctx.fillStyle = "black"
-                ctx.lineWidth = 1
-
-                ctx.beginPath()
-                ctx.clearRect(0, 0, width, height)
-                ctx.fillRect(0, 0, width, height)
-                ctx.rect(0, 0, width, height)
+                context.beginPath()
+                context.clearRect(0, 0, width, height)
+                context.fillRect(0, 0, width, height)
+                context.rect(0, 0, width, height)
 
                 for (var vl = 1; vl < twoDView.gridSize.width; vl++)
                 {
                     var xPos = cellSize * vl
-                    ctx.moveTo(xPos, 0)
-                    ctx.lineTo(xPos, height)
+                    context.moveTo(xPos, 0)
+                    context.lineTo(xPos, height)
                 }
                 for (var hl = 1; hl < twoDView.gridSize.height; hl++)
                 {
                     var yPos = cellSize * hl
-                    ctx.moveTo(0, yPos)
-                    ctx.lineTo(width, yPos)
+                    context.moveTo(0, yPos)
+                    context.lineTo(width, yPos)
                 }
-                ctx.closePath()
-                ctx.stroke()
+                context.closePath()
+                context.stroke()
             }
 
             MouseArea
@@ -265,11 +266,11 @@ Rectangle
                 {
                     //console.log("Wheel delta: " + wheel.angleDelta.y)
                     if (wheel.angleDelta.y > 0)
-                        twoDView.gridScale += 0.5;
+                        setZoom(0.5)
                     else
                     {
-                        if (twoDView.gridScale > 1.0)
-                            twoDView.gridScale -= 0.5;
+                        if (View2D.gridScale > 1.0)
+                            setZoom(-0.5)
                     }
                 }
             }

@@ -232,7 +232,7 @@
   <Capability Min="0" Max="255">0-100%</Capability>
  </Channel>
  <Channel Name="Fine Zoom">
-  <Group Byte="0">Beam</Group>
+  <Group Byte="1">Beam</Group>
   <Capability Min="0" Max="255">16-bit</Capability>
  </Channel>
  <Channel Name="Prism 2">

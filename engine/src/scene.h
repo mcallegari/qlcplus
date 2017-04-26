@@ -74,6 +74,9 @@ public:
      */
     ~Scene();
 
+    /** @reimp */
+    QIcon getIcon() const;
+
     void setChildrenFlag(bool flag);
 
     quint32 alternateSpeedsCount() const override;
@@ -85,17 +88,14 @@ public:
 private:
     quint32 m_legacyFadeBus;
 
-    /** flag that says if a scene is used by some Chaser in sequence mode */
-    bool m_hasChildren;
-
     /*********************************************************************
      * Copying
      *********************************************************************/
 public:
-    /** @reimpl */
+    /** @reimp */
     Function* createCopy(Doc* doc, bool addToDoc = true);
 
-    /** @reimpl */
+    /** @reimp */
     bool copyFrom(const Function* function);
 
     /*********************************************************************
@@ -205,13 +205,13 @@ private:
      * Load & Save
      *********************************************************************/
 public:
-    /** @reimpl */
+    /** @reimp */
     bool saveXML(QXmlStreamWriter *doc);
 
-    /** @reimpl */
+    /** @reimp */
     bool loadXML(QXmlStreamReader &root);
 
-    /** @reimpl */
+    /** @reimp */
     void postLoad();
 
 private:
@@ -221,26 +221,26 @@ private:
      * Flash
      *********************************************************************/
 public:
-    /** @reimpl */
+    /** @reimp */
     void flash(MasterTimer* timer);
 
-    /** @reimpl */
+    /** @reimp */
     void unFlash(MasterTimer* timer);
 
-    /** @reimpl from DMXSource */
+    /** @reimp from DMXSource */
     void writeDMX(MasterTimer* timer, QList<Universe*> ua);
 
     /*********************************************************************
      * Running
      *********************************************************************/
 public:
-    /** @reimpl */
+    /** @reimp */
     void preRun(MasterTimer* timer);
 
-    /** @reimpl */
+    /** @reimp */
     void write(MasterTimer* timer, QList<Universe*> ua);
 
-    /** @reimpl */
+    /** @reimp */
     void postRun(MasterTimer* timer, QList<Universe*> ua);
 
 private:
@@ -254,8 +254,15 @@ private:
      * Attributes
      *********************************************************************/
 public:
-    /** @reimpl */
+    /** @reimp */
     void adjustAttribute(qreal fraction, int attributeIndex);
+
+    /*************************************************************************
+     * Blend mode
+     *************************************************************************/
+public:
+    /** @reimp */
+    void setBlendMode(Universe::BlendMode mode);
 };
 
 /** @} */

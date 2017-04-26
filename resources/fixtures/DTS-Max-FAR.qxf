@@ -199,7 +199,7 @@
   <Capability Min="138" Max="255">Right Rotation</Capability>
  </Channel>
  <Channel Name="Gobo Index Fine">
-  <Group Byte="0">Gobo</Group>
+  <Group Byte="1">Gobo</Group>
  </Channel>
  <Channel Name="Gobo Shake">
   <Group Byte="0">Gobo</Group>
@@ -309,7 +309,7 @@
   <Group Byte="0">Beam</Group>
  </Channel>
  <Channel Name="Focus Fine">
-  <Group Byte="0">Beam</Group>
+  <Group Byte="1">Beam</Group>
  </Channel>
  <Channel Name="Zoom">
   <Group Byte="0">Beam</Group>

@@ -951,4 +951,27 @@ void VCWidget_Test::mousePress()
     QCOMPARE(stub->pos(), QPoint(10, 10));
 }
 
+void VCWidget_Test::acceptInput()
+{
+    QWidget w;
+
+    StubWidget stub(&w, m_doc);
+
+    QVERIFY(stub.acceptsInput() == false);
+
+    m_doc->setMode(Doc::Operate);
+
+    QVERIFY(stub.acceptsInput() == true);
+
+    stub.setDisabled(true);
+    QVERIFY(stub.acceptsInput() == false);
+    stub.setDisabled(false);
+    QVERIFY(stub.acceptsInput() == true);
+
+    stub.setEnabled(false);
+    QVERIFY(stub.acceptsInput() == false);
+    stub.setEnabled(true);
+    QVERIFY(stub.acceptsInput() == true);
+}
+
 QTEST_MAIN(VCWidget_Test)

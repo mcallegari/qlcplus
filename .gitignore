@@ -25,6 +25,8 @@ ui_*
 object_*
 engine/src/qlcconfig.h
 *.swp
+*.qmlc
+moc_predefs.h
 
 # Binaries
 *.exe

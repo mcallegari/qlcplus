@@ -409,6 +409,48 @@ void QLCFixtureMode_Test::copy()
     delete anotherDef;
 }
 
+void QLCFixtureMode_Test::intensityChannels()
+{
+    QLCFixtureDef def;
+
+    QLCChannel * masterCh = new QLCChannel();
+    masterCh->setGroup(QLCChannel::Intensity);
+    masterCh->setControlByte(QLCChannel::MSB);
+    masterCh->setColour(QLCChannel::NoColour);
+    def.addChannel(masterCh);
+
+    QLCChannel * h1Ch = new QLCChannel();
+    h1Ch->setGroup(QLCChannel::Intensity);
+    h1Ch->setControlByte(QLCChannel::MSB);
+    h1Ch->setColour(QLCChannel::NoColour);
+    def.addChannel(h1Ch);
+
+    QLCChannel * h2Ch = new QLCChannel();
+    h2Ch->setGroup(QLCChannel::Intensity);
+    h2Ch->setControlByte(QLCChannel::MSB);
+    h2Ch->setColour(QLCChannel::NoColour);
+    def.addChannel(h2Ch);
+
+    QLCFixtureMode mode(&def);
+    mode.insertChannel(masterCh, 0);
+    mode.insertChannel(h1Ch, 1);
+    mode.insertChannel(h2Ch, 2);
+
+    QLCFixtureHead h1;
+    h1.addChannel(1);
+    mode.insertHead(0, h1);
+
+    QLCFixtureHead h2;
+    h2.addChannel(2);
+    mode.insertHead(1, h2);
+
+    mode.cacheHeads();
+
+    QCOMPARE(mode.masterIntensityChannel(), 0U);
+    QCOMPARE(mode.heads()[0].channelNumber(QLCChannel::Intensity, QLCChannel::MSB), 1U);
+    QCOMPARE(mode.heads()[1].channelNumber(QLCChannel::Intensity, QLCChannel::MSB), 2U);
+}
+
 void QLCFixtureMode_Test::load()
 {
     QBuffer buffer;

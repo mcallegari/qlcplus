@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="it_IT">
+<TS version="2.1" language="it_IT">
 <context>
     <name>ConfigureHID</name>
     <message>
-        <location filename="configurehid.ui" line="14"/>
+        <location filename="configurehid.ui" line="33"/>
         <source>Configure HID Plugin</source>
         <translation>Configurare la plugin di HID</translation>
     </message>
     <message>
-        <location filename="configurehid.ui" line="33"/>
+        <location filename="configurehid.ui" line="52"/>
         <source>Input Line</source>
         <translation>Linea di ingresso</translation>
     </message>
     <message>
-        <location filename="configurehid.ui" line="38"/>
+        <location filename="configurehid.ui" line="57"/>
         <source>Name</source>
         <translation>Nome</translation>
     </message>
     <message>
-        <location filename="configurehid.ui" line="46"/>
+        <location filename="configurehid.ui" line="65"/>
         <source>Refresh</source>
         <translation>Aggiorna</translation>
     </message>

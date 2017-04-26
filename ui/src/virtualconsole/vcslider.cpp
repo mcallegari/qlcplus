@@ -55,6 +55,9 @@
 #include "efx.h"
 #include "doc.h"
 
+const quint8 VCSlider::sliderInputSourceId = 0;
+const quint8 VCSlider::overrideResetInputSourceId = 1;
+
 const QSize VCSlider::defaultSize(QSize(60, 200));
 
 const QString submasterStyleSheet =
@@ -167,6 +170,9 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
             this, SLOT(slotClickAndGoLevelAndPresetChanged(uchar, QImage)));
     connect(this, SIGNAL(monitorDMXValueChanged(int)),
             this, SLOT(slotMonitorDMXValueChanged(int)));
+
+    m_resetButton = NULL;
+    m_isOverriding = false;
 
     /* Bottom label */
     m_bottomLabel = new QLabel(this);
@@ -286,6 +292,8 @@ void VCSlider::enableWidgetUI(bool enable)
         m_slider->setEnabled(enable);
     m_bottomLabel->setEnabled(enable);
     m_cngButton->setEnabled(enable);
+    if (m_resetButton)
+        m_resetButton->setEnabled(enable);
 }
 
 /*****************************************************************************
@@ -301,9 +309,7 @@ void VCSlider::editProperties()
         if (m_cngType == ClickAndGoWidget::None)
             m_cngButton->hide();
         else
-        {
             m_cngButton->show();
-        }
     }
 }
 
@@ -317,7 +323,11 @@ void VCSlider::slotModeChanged(Doc::Mode mode)
     {
         enableWidgetUI(true);
         if (m_sliderMode == Level || m_sliderMode == Playback)
-            m_doc->masterTimer()->registerDMXSource(this, "Slider");
+        {
+            if (m_monitorEnabled == true)
+                m_priority = DMXSource::Override;
+            m_doc->masterTimer()->registerDMXSource(this);
+        }
     }
     else
     {
@@ -460,7 +470,7 @@ void VCSlider::setSliderMode(SliderMode mode)
         }
 
         if (m_doc->mode() == Doc::Operate)
-            m_doc->masterTimer()->registerDMXSource(this, "Slider");
+            m_doc->masterTimer()->registerDMXSource(this);
     }
     else if (mode == Playback)
     {
@@ -479,7 +489,7 @@ void VCSlider::setSliderMode(SliderMode mode)
         slotSliderMoved(level);
 
         if (m_doc->mode() == Doc::Operate)
-            m_doc->masterTimer()->registerDMXSource(this, "Slider");
+            m_doc->masterTimer()->registerDMXSource(this);
         setPlaybackFunction(this->m_playbackFunction);
     }
     else if (mode == Submaster)
@@ -552,6 +562,36 @@ uchar VCSlider::levelHighLimit() const
 void VCSlider::setChannelsMonitorEnabled(bool enable)
 {
     m_monitorEnabled = enable;
+
+    if (m_resetButton != NULL)
+    {
+        disconnect(m_resetButton, SIGNAL(clicked(bool)),
+                this, SLOT(slotResetButtonClicked()));
+        delete m_resetButton;
+        m_resetButton = NULL;
+    }
+
+    if (enable)
+    {
+        m_resetButton = new QToolButton(this);
+        m_cngButton->setFixedSize(32, 32);
+        m_resetButton->setIconSize(QSize(32, 32));
+        m_resetButton->setStyle(AppUtil::saneStyle());
+        m_resetButton->setIcon(QIcon(":/fileclose.png"));
+        m_resetButton->setToolTip(tr("Reset channels override"));
+        layout()->addWidget(m_resetButton);
+        layout()->setAlignment(m_resetButton, Qt::AlignHCenter);
+
+        connect(m_resetButton, SIGNAL(clicked(bool)),
+                this, SLOT(slotResetButtonClicked()));
+        m_resetButton->show();
+        setSliderShadowValue(m_monitorValue);
+
+        m_priority = DMXSource::Override;
+        m_doc->masterTimer()->requestNewPriority(this);
+    }
+    else
+        setSliderShadowValue(-1);
 }
 
 bool VCSlider::channelsMonitorEnabled() const
@@ -574,14 +614,6 @@ uchar VCSlider::levelValue() const
     return m_levelValue;
 }
 
-void VCSlider::emitSubmasterValue()
-{
-    Q_ASSERT(sliderMode() == Submaster);
-
-    emit submasterValueChanged(SCALE(float(m_levelValue), float(0),
-                float(UCHAR_MAX), float(0), float(1)) * intensity());
-}
-
 void VCSlider::slotFixtureRemoved(quint32 fxi_id)
 {
     QMutableListIterator <LevelChannel> it(m_levelChannels);
@@ -595,23 +627,27 @@ void VCSlider::slotFixtureRemoved(quint32 fxi_id)
 
 void VCSlider::slotMonitorDMXValueChanged(int value)
 {
-    if (value != sliderValue())
+    if (value == sliderValue())
+        return;
+
+    m_monitorValue = value;
+
+    value = invertedAppearance() ? 255 - value : value;
+
+    if (m_isOverriding == false)
     {
-        if (invertedAppearance())
-            m_monitorValue = 255 - value;
-        else
-            m_monitorValue = value;
         m_levelValueMutex.lock();
         m_levelValue = m_monitorValue;
         m_levelValueMutex.unlock();
         if (m_slider)
             m_slider->blockSignals(true);
-        setSliderValue(m_monitorValue, true);
+        setSliderValue(value, true);
         setTopLabelText(sliderValue());
         if (m_slider)
             m_slider->blockSignals(false);
-        updateFeedback();
     }
+    setSliderShadowValue(value);
+    updateFeedback();
 }
 
 /*********************************************************************
@@ -715,6 +751,40 @@ void VCSlider::slotClickAndGoLevelAndPresetChanged(uchar level, QImage img)
 
     QPixmap px = QPixmap::fromImage(img);
     m_cngButton->setIcon(px);
+}
+
+/*********************************************************************
+ * Override reset button
+ *********************************************************************/
+
+void VCSlider::setOverrideResetKeySequence(const QKeySequence &keySequence)
+{
+    m_overrideResetKeySequence = QKeySequence(keySequence);
+}
+
+QKeySequence VCSlider::overrideResetKeySequence() const
+{
+    return m_overrideResetKeySequence;
+}
+
+void VCSlider::slotResetButtonClicked()
+{
+    m_isOverriding = false;
+    m_resetButton->setStyleSheet(QString("QToolButton{ background: %1; }")
+                                 .arg(m_slider->palette().background().color().name()));
+
+    m_priority = DMXSource::Auto;
+    m_doc->masterTimer()->requestNewPriority(this);
+    emit monitorDMXValueChanged(m_monitorValue);
+}
+
+void VCSlider::slotKeyPressed(const QKeySequence &keySequence)
+{
+    if (isEnabled() == false)
+        return;
+
+    if (m_overrideResetKeySequence == keySequence)
+        slotResetButtonClicked();
 }
 
 /*****************************************************************************
@@ -839,6 +909,18 @@ FunctionParent VCSlider::functionParent() const
     return FunctionParent(FunctionParent::ManualVCWidget, id());
 }
 
+/*********************************************************************
+ * Submaster
+ *********************************************************************/
+
+void VCSlider::emitSubmasterValue()
+{
+    Q_ASSERT(sliderMode() == Submaster);
+
+    emit submasterValueChanged(SCALE(float(m_levelValue), float(0),
+                float(UCHAR_MAX), float(0), float(1)) * intensity());
+}
+
 /*****************************************************************************
  * DMXSource
  *****************************************************************************/
@@ -937,9 +1019,13 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
             monitorSliderValue != m_monitorValue)
         {
             emit monitorDMXValueChanged(monitorSliderValue);
-            // return here. At the next call of this method,
-            // the monitor level will kick in
-            return;
+
+            if (m_isOverriding == false)
+            {
+                // return here. At the next call of this method,
+                // the monitor level will kick in
+                return;
+            }
         }
     }
 
@@ -994,7 +1080,7 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
             }
 
             if (uni < universes.count())
-                universes[uni]->write(dmx_ch, modLevel * intensity());
+                universes[uni]->write(dmx_ch, modLevel * intensity(), m_isOverriding ? true : false);
         }
     }
     m_levelValueChanged = false;
@@ -1029,8 +1115,12 @@ void VCSlider::writeDMXPlayback(MasterTimer* timer, QList<Universe *> ua)
         {
             if (function->stopped() == true)
             {
+#if 0 // temporarily revert #699 until a better solution is found
                 // Since this function is started by a fader, its fade in time
                 // is decided by the fader movement.
+                function->start(timer, functionParent(),
+                                0, 0, Function::defaultSpeed(), Function::defaultSpeed());
+#endif
                 function->start(timer, functionParent());
             }
             emit functionStarting(m_playbackFunction, pIntensity);
@@ -1095,6 +1185,15 @@ void VCSlider::setSliderValue(uchar value, bool noScale)
     }
 }
 
+void VCSlider::setSliderShadowValue(int value)
+{
+    if (m_widgetMode == WSlider)
+    {
+        ClickAndGoSlider *sl = qobject_cast<ClickAndGoSlider*> (m_slider);
+        sl->setShadowLevel(m_slider->invertedAppearance() ? 255 - value : value);
+    }
+}
+
 int VCSlider::sliderValue() const
 {
     if (m_slider)
@@ -1120,7 +1219,7 @@ void VCSlider::setWidgetStyle(SliderWidgetStyle mode)
                 this, SLOT(slotSliderMoved(int)));
 
         QLayoutItem* item;
-        while ( ( item = m_hbox->takeAt( 0 ) ) != NULL )
+        while ((item = m_hbox->takeAt(0)) != NULL)
         {
             delete item->widget();
             delete item;
@@ -1142,7 +1241,7 @@ void VCSlider::setWidgetStyle(SliderWidgetStyle mode)
                 this, SLOT(slotSliderMoved(int)));
 
         QLayoutItem* item;
-        while ( ( item = m_hbox->takeAt( 0 ) ) != NULL )
+        while ((item = m_hbox->takeAt(0)) != NULL)
         {
             delete item->widget();
             delete item;
@@ -1210,27 +1309,34 @@ void VCSlider::slotSliderMoved(int value)
 {
     switch (sliderMode())
     {
-    case Level:
-    {
-        setLevelValue(value);
-        setClickAndGoWidgetFromLevel(value);
-    }
-    break;
+        case Level:
+        {
+            if (m_monitorEnabled == true && m_isOverriding == false && m_slider->isSliderDown())
+            {
+                m_priority = DMXSource::Override;
+                m_doc->masterTimer()->requestNewPriority(this);
+                m_resetButton->setStyleSheet(QString("QToolButton{ background: red; }"));
+                m_isOverriding = true;
+            }
+            setLevelValue(value);
+            setClickAndGoWidgetFromLevel(value);
+        }
+        break;
 
-    case Playback:
-    {
-        setPlaybackValue(value);
-    }
-    break;
+        case Playback:
+        {
+            setPlaybackValue(value);
+        }
+        break;
 
-    case Submaster:
-    {
-        setLevelValue(value);
-        emitSubmasterValue();
-    }
-    break;
+        case Submaster:
+        {
+            setLevelValue(value);
+            emitSubmasterValue();
+        }
+        break;
 
-    default:
+        default:
         break;
     }
 
@@ -1260,25 +1366,40 @@ QString VCSlider::bottomLabelText()
 void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel,
                                      uchar value)
 {
-    /* Don't let input data thru in design mode */
-    if (mode() == Doc::Design || isEnabled() == false)
+    /* Don't let input data through in design mode or if disabled */
+    if (acceptsInput() == false)
         return;
 
-    if (checkInputSource(universe, (page() << 16) | channel, value, sender()))
+    quint32 pagedCh = (page() << 16) | channel;
+
+    if (checkInputSource(universe, pagedCh, value, sender(), sliderInputSourceId))
     {
         /* Scale from input value range to this slider's range */
-        float val;
+
         if (m_slider)
         {
-            val = SCALE((float) value, (float) 0, (float) UCHAR_MAX,
-                        (float) m_slider->minimum(),
-                        (float) m_slider->maximum());
+            float val = SCALE((float) value, (float) 0, (float) UCHAR_MAX,
+                              (float) m_slider->minimum(),
+                              (float) m_slider->maximum());
+
+            if (m_monitorEnabled == true && m_isOverriding == false)
+            {
+                m_priority = DMXSource::Override;
+                m_doc->masterTimer()->requestNewPriority(this);
+                m_resetButton->setStyleSheet(QString("QToolButton{ background: red; }"));
+                m_isOverriding = true;
+            }
 
             if (m_slider->invertedAppearance() == true)
                 m_slider->setValue((m_slider->maximum() - (int) val) + m_slider->minimum());
             else
                 m_slider->setValue((int) val);
         }
+    }
+    else if (checkInputSource(universe, pagedCh, value, sender(), overrideResetInputSourceId))
+    {
+        if (value > 0)
+            slotResetButtonClicked();
     }
 }
 
@@ -1366,6 +1487,12 @@ bool VCSlider::loadXML(QXmlStreamReader &root)
                 else
                     setChannelsMonitorEnabled(true);
             }
+        }
+        else if (root.name() == KXMLQLCVCSliderOverrideReset)
+        {
+            QString str = loadXMLSources(root, overrideResetInputSourceId);
+            if (str.isEmpty() == false)
+                m_overrideResetKeySequence = stripKeySequence(QKeySequence(str));
         }
         else if (root.name() == KXMLQLCVCSliderLevel)
         {
@@ -1505,7 +1632,7 @@ bool VCSlider::saveXML(QXmlStreamWriter *doc)
     saveXMLAppearance(doc);
 
     /* External input */
-    saveXMLInput(doc);
+    saveXMLInput(doc, inputSource(sliderInputSourceId));
 
     /* SliderMode */
     doc->writeStartElement(KXMLQLCVCSliderMode);
@@ -1531,6 +1658,15 @@ bool VCSlider::saveXML(QXmlStreamWriter *doc)
 
     /* End the <SliderMode> tag */
     doc->writeEndElement();
+
+    if (sliderMode() == Level && channelsMonitorEnabled() == true)
+    {
+        doc->writeStartElement(KXMLQLCVCSliderOverrideReset);
+        if (m_overrideResetKeySequence.toString().isEmpty() == false)
+            doc->writeTextElement(KXMLQLCVCWidgetKey, m_overrideResetKeySequence.toString());
+        saveXMLInput(doc, inputSource(overrideResetInputSourceId));
+        doc->writeEndElement();
+    }
 
     /* Level */
     doc->writeStartElement(KXMLQLCVCSliderLevel);

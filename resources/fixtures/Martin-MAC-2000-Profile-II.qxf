@@ -114,7 +114,7 @@
   <Capability Min="128" Max="252">CW (fast &gt; slow)</Capability>
  </Channel>
  <Channel Name="Gobo Wheel 1, Fine Position">
-  <Group Byte="0">Gobo</Group>
+  <Group Byte="1">Gobo</Group>
   <Capability Min="0" Max="255">Fine Position (LSB), Min &lt; Max</Capability>
  </Channel>
  <Channel Name="Gobo Wheel 2, Gobo &amp; Function">
@@ -151,7 +151,7 @@
   <Capability Min="253" Max="255">No rotation</Capability>
  </Channel>
  <Channel Name="Gobo Wheel 2, Fine Position">
-  <Group Byte="0">Gobo</Group>
+  <Group Byte="1">Gobo</Group>
   <Capability Min="0" Max="255">Fine Position (LSB), Min &lt; Max</Capability>
  </Channel>
  <Channel Name="Effect Wheel Selection and Macros">

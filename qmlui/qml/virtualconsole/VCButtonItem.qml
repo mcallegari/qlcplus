@@ -62,6 +62,7 @@ VCWidgetItem
     onButtonObjChanged:
     {
         setCommonProperties(buttonObj)
+        setBgImageMargins(4)
         checkActionType()
     }
     onBtnActionChanged: checkActionType()
@@ -158,6 +159,32 @@ VCWidgetItem
         }
     }
 
+    MultiPointTouchArea
+    {
+        anchors.fill: parent
+        mouseEnabled: false
+        maximumTouchPoints: 1
+
+        onPressed:
+        {
+            if (virtualConsole.editMode)
+                return;
+
+            if (buttonObj.actionType === VCButton.Flash)
+                buttonObj.requestStateChange(true)
+        }
+        onReleased:
+        {
+            if (virtualConsole.editMode)
+                return;
+
+            if (buttonObj.actionType === VCButton.Flash)
+                buttonObj.requestStateChange(false)
+            else if (buttonObj.actionType === VCButton.Toggle)
+                buttonObj.requestStateChange(!buttonObj.isOn)
+        }
+    }
+
     DropArea
     {
         id: dropArea
@@ -170,7 +197,8 @@ VCWidgetItem
         onDropped:
         {
             // attach function here
-            buttonObj.functionID = drag.source.funcID
+            if (drag.source.hasOwnProperty("fromFunctionManager"))
+                buttonObj.functionID = drag.source.itemsList[0]
         }
 
         states: [

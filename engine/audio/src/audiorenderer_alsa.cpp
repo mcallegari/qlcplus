@@ -44,6 +44,7 @@ AudioRendererAlsa::AudioRendererAlsa(QString device, QObject * parent)
     else
         dev_name = device;
 
+    m_inited = false;
     m_use_mmap = false;
     pcm_name = strdup(dev_name.toLatin1().data());
     pcm_handle = NULL;
@@ -217,7 +218,6 @@ qint64 AudioRendererAlsa::latency()
 QList<AudioDeviceInfo> AudioRendererAlsa::getDevicesInfo()
 {
     QList<AudioDeviceInfo> devList;
-    int err;
     int cardIdx = -1;
 
     while( snd_card_next( &cardIdx ) == 0 && cardIdx >= 0 )
@@ -226,6 +226,7 @@ QList<AudioDeviceInfo> AudioRendererAlsa::getDevicesInfo()
         snd_ctl_card_info_t *cardInfo;
         char str[64];
         int devIdx = -1;
+        int err;
 
         // Open this card's control interface. We specify only the card number -- not
         // any device nor sub-device too
@@ -386,10 +387,11 @@ long AudioRendererAlsa::alsa_write(unsigned char *data, long size)
 
 void AudioRendererAlsa::drain()
 {
-    long m = 0;
     snd_pcm_uframes_t l = snd_pcm_bytes_to_frames(pcm_handle, m_prebuf_fill);
+
     while (l > 0)
     {
+        long m = 0;
         if ((m = alsa_write(m_prebuf, l)) >= 0)
         {
             l -= m;

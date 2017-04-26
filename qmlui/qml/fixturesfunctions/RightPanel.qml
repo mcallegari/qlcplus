@@ -18,6 +18,7 @@
 */
 
 import QtQuick 2.0
+import QtQuick.Layouts 1.0
 
 import com.qlcplus.classes 1.0
 import "."
@@ -25,15 +26,17 @@ import "."
 SidePanel
 {
     id: rightSidePanel
+    objectName: "funcRightPanel"
 
-    property int editorFuncID: -1
-
-    function createFunctionAndEditor(fType, fEditor)
+    function createFunctionAndEditor(fType)
     {
-        // reset the current editor first
+        // reset the currently loaded item first
         loaderSource = ""
+
+        var fEditor = functionManager.getEditorResource(fType)
         var newFuncID = functionManager.createFunction(fType)
-        functionManager.setEditorFunction(newFuncID)
+        functionManager.setEditorFunction(newFuncID, false)
+
         if (fType === Function.Show)
         {
             showManager.currentShowID = newFuncID
@@ -50,7 +53,20 @@ SidePanel
         }
     }
 
-    onContentLoaded: item.functionID = itemID
+    function requestEditor(funcID, funcType)
+    {
+        // reset the currently loaded item first
+        loaderSource = ""
+        itemID = funcID
+        loaderSource = functionManager.getEditorResource(funcType)
+        animatePanel(true)
+    }
+
+    onContentLoaded:
+    {
+        if (item.hasOwnProperty("functionID"))
+            item.functionID = itemID
+    }
 
     Rectangle
     {
@@ -59,9 +75,10 @@ SidePanel
         color: "transparent"
         z: 2
 
-        Column
+        ColumnLayout
         {
             anchors.horizontalCenter: parent.horizontalCenter
+            height: parent.height
             spacing: 3
 
             IconButton
@@ -77,6 +94,11 @@ SidePanel
                 {
                     if (checked)
                         loaderSource = "qrc:/FunctionManager.qml"
+                    else
+                    {
+                        functionManager.selectFunctionID(-1, false)
+                        functionManager.setEditorFunction(-1, false)
+                    }
                     animatePanel(checked)
                 }
             }
@@ -97,7 +119,7 @@ SidePanel
                     visible: false
                     x: -width
 
-                    onEntryClicked: createFunctionAndEditor(fType, fEditor)
+                    onEntryClicked: createFunctionAndEditor(fType)
                 }
             }
             IconButton
@@ -108,28 +130,71 @@ SidePanel
                 height: iconSize
                 imgSource: "qrc:/remove.svg"
                 tooltip: qsTr("Remove the selected functions")
-                counter: functionManager.selectionCount
+                counter: functionManager.selectionCount && !functionManager.isEditing
                 onClicked:
                 {
                     var selNames = functionManager.selectedFunctionsName()
                     console.log(selNames)
 
                     actionManager.requestActionPopup(ActionManager.DeleteFunctions,
-                                                     qsTr("Are you sure you want to remove the following functions ?\n" + selNames),
+                                                     qsTr("Are you sure you want to remove the following functions ?\n") + selNames,
                                                      ActionManager.OK | ActionManager.Cancel,
                                                      functionManager.selectedFunctionsID())
                 }
             }
             IconButton
             {
+                id: renameFunction
+                z: 2
+                width: iconSize
+                height: iconSize
+                imgSource: "qrc:/rename.svg"
+                tooltip: qsTr("Rename the selected functions")
+                counter: functionManager.selectionCount && !functionManager.isEditing
+                onClicked:
+                {
+                    var selNames = functionManager.selectedFunctionsName()
+                    var dataArray = functionManager.selectedFunctionsID()
+                    // push the first selected name at the beginning of the array
+                    dataArray.unshift(selNames[0])
+
+                    actionManager.requestActionPopup(ActionManager.RenameFunctions,
+                                                     "qrc:/PopupTextRequest.qml",
+                                                     ActionManager.OK | ActionManager.Cancel, dataArray)
+                }
+            }
+            IconButton
+            {
                 id: sceneDump
-                objectName: "dumpButton"
                 z: 2
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/dmxdump.svg"
                 tooltip: qsTr("Dump to a Scene")
-                visible: false
+                counter: functionManager.dumpValuesCount
+
+                Rectangle
+                {
+                    x: -3
+                    y: -3
+                    width: sceneDump.width * 0.4
+                    height: width
+                    color: "red"
+                    border.width: 1
+                    border.color: UISettings.fgMain
+                    radius: 3
+                    clip: true
+
+                    RobotoText
+                    {
+                        anchors.centerIn: parent
+                        height: parent.height * 0.7
+                        label: functionManager.dumpValuesCount
+                        fontSize: height
+                    }
+
+                }
+
                 onClicked:
                 {
                     contextManager.dumpDmxChannels()
@@ -150,6 +215,24 @@ SidePanel
                 checkable: true
                 counter: functionManager.selectionCount
                 onToggled: functionManager.setPreview(checked)
+            }
+
+            /* filler object */
+            Rectangle
+            {
+                Layout.fillHeight: true
+                width: iconSize
+                color: "transparent"
+            }
+
+            IconButton
+            {
+                z: 2
+                width: iconSize
+                height: iconSize
+                imgSource: "qrc:/reset.svg"
+                tooltip: qsTr("Reset dump channels") + " (CTRL+R)"
+                onClicked: contextManager.resetDumpValues()
             }
         }
     }

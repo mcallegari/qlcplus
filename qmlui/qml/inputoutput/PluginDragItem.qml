@@ -19,7 +19,7 @@
 
 import QtQuick 2.0
 
-import "PluginUtils.js" as PluginUtils
+import "GenericHelpers.js" as Helpers
 import "."
 
 Rectangle
@@ -60,7 +60,7 @@ Rectangle
                 id: pIcon
                 anchors.fill: parent
                 anchors.margins: 3
-                source: PluginUtils.iconFromName(pluginName)
+                source: Helpers.pluginIconFromName(pluginName)
                 sourceSize: Qt.size(width, height)
                 fillMode: Image.Stretch
             }

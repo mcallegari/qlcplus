@@ -121,21 +121,15 @@
   <Channel Number="14">4Blue</Channel>
   <Head>
    <Channel>3</Channel>
-   <Channel>2</Channel>
-   <Channel>1</Channel>
    <Channel>5</Channel>
    <Channel>4</Channel>
   </Head>
   <Head>
-   <Channel>2</Channel>
-   <Channel>1</Channel>
    <Channel>7</Channel>
    <Channel>6</Channel>
    <Channel>8</Channel>
   </Head>
   <Head>
-   <Channel>2</Channel>
-   <Channel>1</Channel>
    <Channel>11</Channel>
    <Channel>10</Channel>
    <Channel>9</Channel>
@@ -144,8 +138,6 @@
    <Channel>14</Channel>
    <Channel>13</Channel>
    <Channel>12</Channel>
-   <Channel>2</Channel>
-   <Channel>1</Channel>
   </Head>
  </Mode>
 </FixtureDefinition>

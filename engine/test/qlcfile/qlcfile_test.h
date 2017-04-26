@@ -27,9 +27,10 @@ class QLCFile_Test : public QObject
     Q_OBJECT
 
 private slots:
-    void readXML();
+    void XMLReader();
     void getXMLHeader();
     void errorString();
+    void version();
 };
 
 #endif

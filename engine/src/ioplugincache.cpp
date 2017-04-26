@@ -36,12 +36,10 @@
 IOPluginCache::IOPluginCache(QObject* parent)
     : QObject(parent)
 {
-    qDebug() << Q_FUNC_INFO;
 }
 
 IOPluginCache::~IOPluginCache()
 {
-    qDebug() << Q_FUNC_INFO;
     while (m_plugins.isEmpty() == false)
         delete m_plugins.takeFirst();
 }

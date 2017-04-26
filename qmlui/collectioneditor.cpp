@@ -29,6 +29,9 @@ CollectionEditor::CollectionEditor(QQuickView *view, Doc *doc, QObject *parent)
     m_view->rootContext()->setContextProperty("collectionEditor", this);
 
     m_functionsList = new ListModel(this);
+    QStringList listRoles;
+    listRoles << "funcID" << "isSelected";
+    m_functionsList->setRoleNames(listRoles);
 }
 
 void CollectionEditor::setFunctionID(quint32 ID)
@@ -57,18 +60,36 @@ bool CollectionEditor::addFunction(quint32 fid, int insertIndex)
     return false;
 }
 
-bool CollectionEditor::removeFunction(quint32 fid)
+bool CollectionEditor::moveFunction(quint32 fid, int newIndex)
 {
     if (m_collection != NULL)
     {
-        if (m_collection->removeFunction(fid) == true)
-        {
-            updateFunctionsList();
-            return true;
-        }
+        m_collection->removeFunction(fid);
+        m_collection->addFunction(fid, newIndex);
+        updateFunctionsList();
+        return true;
     }
 
     return false;
+}
+
+void CollectionEditor::deleteItems(QVariantList list)
+{
+    if (m_collection == NULL)
+        return;
+
+    /** Retrieve the list of the current Functions */
+    QList<quint32> funcList = m_collection->functions();
+
+    for (QVariant index : list) // C++11
+    {
+        int idx = index.toInt();
+        if (idx < 0 || idx >= funcList.count())
+            continue;
+
+        m_collection->removeFunction(funcList.at(idx));
+    }
+    updateFunctionsList();
 }
 
 void CollectionEditor::updateFunctionsList()
@@ -76,9 +97,6 @@ void CollectionEditor::updateFunctionsList()
     if (m_collection != NULL)
     {
         m_functionsList->clear();
-        QStringList listRoles;
-        listRoles << "funcID" << "isSelected";
-        m_functionsList->setRoleNames(listRoles);
 
         foreach(quint32 fId, m_collection->functions())
         {

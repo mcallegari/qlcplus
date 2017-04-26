@@ -48,16 +48,26 @@
 #define KXMLQLCVCWidgetBackgroundImage "BackgroundImage"
 #define KXMLQLCVCWidgetBackgroundImageNone "None"
 
-#define KXMLQLCVCWidgetInput "Input"
-#define KXMLQLCVCWidgetInputUniverse "Universe"
-#define KXMLQLCVCWidgetInputChannel "Channel"
-
 #define KXMLQLCWindowState "WindowState"
 #define KXMLQLCWindowStateVisible "Visible"
 #define KXMLQLCWindowStateX "X"
 #define KXMLQLCWindowStateY "Y"
 #define KXMLQLCWindowStateWidth "Width"
 #define KXMLQLCWindowStateHeight "Height"
+
+#define KXMLQLCVCWidgetKey "Key"
+#define KXMLQLCVCWidgetInput "Input"
+#define KXMLQLCVCWidgetInputUniverse "Universe"
+#define KXMLQLCVCWidgetInputChannel "Channel"
+#define KXMLQLCVCWidgetInputLowerValue "LowerValue"
+#define KXMLQLCVCWidgetInputUpperValue "UpperValue"
+
+typedef struct
+{
+    quint8 id;
+    QString name;
+    bool allowKeyboard;
+} ExternalControlInfo;
 
 class VCWidget : public QObject
 {
@@ -76,6 +86,10 @@ class VCWidget : public QObject
     Q_PROPERTY(QColor foregroundColor READ foregroundColor WRITE setForegroundColor NOTIFY foregroundColorChanged)
     Q_PROPERTY(QFont font READ font WRITE setFont NOTIFY fontChanged)
     Q_PROPERTY(int page READ page WRITE setPage NOTIFY pageChanged)
+
+    Q_PROPERTY(int externalControlsCount READ externalControlsCount CONSTANT)
+    Q_PROPERTY(QVariant externalControlsList READ externalControlsList CONSTANT)
+    Q_PROPERTY(QVariant inputSourcesList READ inputSourcesList NOTIFY inputSourcesListChanged)
 
     /*********************************************************************
      * Initialization
@@ -201,7 +215,7 @@ public:
     bool isDisabled();
 
     /** Set the widget's disable state flag */
-    void setDisabled(bool disable);
+    virtual void setDisabled(bool disable);
 
 signals:
     void disabledStateChanged(bool state);
@@ -226,6 +240,9 @@ protected:
      * Caption
      *********************************************************************/
 public:
+    /** Virtual method to retrieve the widget default name which is "Widget ID" */
+    virtual QString defaultCaption();
+
     /** Get this widget's caption text */
     QString caption() const;
 
@@ -268,7 +285,7 @@ protected:
      *********************************************************************/
 public:
     /** Set the widget's background image */
-    void setBackgroundImage(const QString& path);
+    void setBackgroundImage(QString path);
 
     /** Get the widget's background image */
     QString backgroundImage() const;
@@ -346,6 +363,9 @@ protected:
      * Widget Function
      *********************************************************************/
 public:
+    /** Return true if the widget's parent is a Solo Frame */
+    bool hasSoloParent();
+
     /** This is a virtual method for VCWidgets attached to a Function.
      *  At the moment only Buttons, Sliders (in playback mode), Cue Lists
      *  and Audio Triggers can benefit from this.
@@ -393,6 +413,93 @@ private:
     bool m_isEditing;
 
     /*********************************************************************
+     * External inputs
+     *********************************************************************/
+public:
+    enum InputSourceTypes { Controller, Keyboard };
+    Q_ENUM(InputSourceTypes)
+
+    /************************
+     * Controls
+     ************************/
+    /** Register some external control information known by this widget
+     *
+     *  @param id a unique id identifying the external control
+     *  @param name a translatable string to be displayed by the UI
+     *  @param allowKeyboard a boolean flag indicating if the external control
+     *         can be a keyboard sequence
+     */
+    void registerExternalControl(quint8 id, QString name, bool allowKeyboard);
+
+    /** Returns the number of external controls registered by this widget */
+    int externalControlsCount() const;
+
+    /** Returns a list of the registered external controls suitable for the UI */
+    QVariant externalControlsList() const;
+
+    /************************
+     * Input sources
+     ************************/
+    /**
+     * Add an external input $source to the sources known by thie widget.
+     *
+     * @param source The input source to add
+     */
+    void addInputSource(QSharedPointer<QLCInputSource> const& source);
+
+    /** Update an existing input source with the provided $universe and $channel */
+    bool updateInputSource(const QSharedPointer<QLCInputSource> &source, quint32 universe, quint32 channel);
+
+    /** Update the control ID of an existing input source bound to $universe and $channel */
+    bool updateInputSourceControlID(quint32 universe, quint32 channel, quint32 id);
+
+    /** Delete an existing input source from this widget */
+    void deleteInputSurce(quint32 id, quint32 universe, quint32 channel);
+
+    /** Return a list of references to the input sources currently
+     *  added to this widget */
+    QList <QSharedPointer<QLCInputSource> > inputSources() const;
+
+    /** Return a list of input sources to be used by the UI */
+    QVariant inputSourcesList() const;
+
+    /** Return a input source reference that matches the specified $id, $universe and $channel */
+    QSharedPointer<QLCInputSource> inputSource(quint32 id, quint32 universe, quint32 channel) const;
+
+    /************************
+     * Key sequences
+     ************************/
+    /** Add a new key sequence to this widget, bound to the specified control $id */
+    void addKeySequence(const QKeySequence& keySequence, const quint32& id = 0);
+
+    /** Delete an existing key sequence from this widget */
+    void deleteKeySequence(const QKeySequence& keySequence);
+
+    /** Update an existing key sequence with the specified $id */
+    void updateKeySequence(QKeySequence oldSequence, QKeySequence newSequence, const quint32 id = 0);
+
+    /** Update the control ID of an existing key sequence */
+    void updateKeySequenceControlID(QKeySequence sequence, quint32 id);
+
+public slots:
+    /** Virtual slot called when an input value changed */
+    virtual void slotInputValueChanged(quint8 id, uchar value);
+
+signals:
+    void inputSourcesListChanged();
+
+protected:
+    /** A list of the external controls known by this widget */
+    QList <ExternalControlInfo> m_externalControlList;
+
+    /** The list of input sources that can control this widget */
+    QList <QSharedPointer<QLCInputSource> > m_inputSources;
+
+    /** The map of key sequences that can control this widget,
+     *  arranged by sequence / control ID */
+    QMap <QKeySequence, quint32> m_keySequenceMap;
+
+    /*********************************************************************
      * Load & Save
      *********************************************************************/
 public:
@@ -422,6 +529,18 @@ protected:
      */
     bool loadXMLWindowState(QXmlStreamReader &root, int* x, int* y,
                             int* w, int* h, bool* visible);
+
+    /** Load an input source from $root with the given $id */
+    bool loadXMLInputSource(QXmlStreamReader &root, const quint8& id = 0);
+
+    /** Load an input key sequence from $root with the given $id */
+    bool loadXMLInputKey(QXmlStreamReader &root, const quint8& id = 0);
+
+    /** Parse the $root XML section and:
+     *  - set an input source with the given $id
+     *  - if present, set an input key sequence with the given $id
+     */
+    bool loadXMLSources(QXmlStreamReader &root, const quint8& id);
 
     /** Save the widget common properties */
     bool saveXMLCommon(QXmlStreamWriter *doc);

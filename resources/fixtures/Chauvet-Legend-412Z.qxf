@@ -295,17 +295,14 @@
    <Channel>9</Channel>
    <Channel>8</Channel>
    <Channel>7</Channel>
-   <Channel>5</Channel>
   </Head>
   <Head>
    <Channel>14</Channel>
    <Channel>13</Channel>
    <Channel>12</Channel>
    <Channel>11</Channel>
-   <Channel>5</Channel>
   </Head>
   <Head>
-   <Channel>5</Channel>
    <Channel>18</Channel>
    <Channel>17</Channel>
    <Channel>16</Channel>
@@ -314,7 +311,6 @@
   <Head>
    <Channel>22</Channel>
    <Channel>21</Channel>
-   <Channel>5</Channel>
    <Channel>20</Channel>
    <Channel>19</Channel>
   </Head>
@@ -435,6 +431,7 @@
    <Channel>8</Channel>
    <Channel>7</Channel>
    <Channel>6</Channel>
+   <Channel>10</Channel>
   </Head>
   <Head>
    <Channel>14</Channel>
@@ -442,6 +439,7 @@
    <Channel>12</Channel>
    <Channel>16</Channel>
    <Channel>15</Channel>
+   <Channel>17</Channel>
   </Head>
   <Head>
    <Channel>22</Channel>
@@ -449,6 +447,7 @@
    <Channel>20</Channel>
    <Channel>19</Channel>
    <Channel>18</Channel>
+   <Channel>23</Channel>
   </Head>
   <Head>
    <Channel>28</Channel>
@@ -456,6 +455,7 @@
    <Channel>26</Channel>
    <Channel>25</Channel>
    <Channel>24</Channel>
+   <Channel>29</Channel>
   </Head>
  </Mode>
 </FixtureDefinition>

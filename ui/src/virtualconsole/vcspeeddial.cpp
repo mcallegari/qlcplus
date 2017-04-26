@@ -73,6 +73,7 @@ VCSpeedDial::VCSpeedDial(QWidget* parent, Doc* doc)
     speedDialHBox->addWidget(m_dial);
     connect(m_dial, SIGNAL(valueChanged(int)), this, SLOT(slotDialValueChanged()));
     connect(m_dial, SIGNAL(tapped()), this, SLOT(slotDialTapped()));
+    connect(m_dial, SIGNAL(tapTimeout()), this, SLOT(slotTapTimeout()));
 
     m_factoredValue = m_dial->value();
 
@@ -306,7 +307,6 @@ void VCSpeedDial::slotDialValueChanged()
     else
         slotMultDivChanged();
 
-    updateFeedback();
     m_updateTimer->start(UPDATE_TIMEOUT);
 }
 
@@ -323,6 +323,11 @@ void VCSpeedDial::slotDialTapped()
     }
 }
 
+void VCSpeedDial::slotTapTimeout()
+{
+    updateFeedback();
+}
+
 void VCSpeedDial::slotUpdate()
 {
     int currentValue = m_dial->value();
@@ -333,11 +338,10 @@ void VCSpeedDial::slotUpdate()
         QWidget* widget = it.key();
         VCSpeedDialPreset* preset = it.value();
 
-        {
-            QPushButton* button = reinterpret_cast<QPushButton*>(widget);
-            button->setDown(preset->m_value == currentValue);
-        }
+        QPushButton* button = reinterpret_cast<QPushButton*>(widget);
+        button->setDown(preset->m_value == currentValue);
     }
+    updateFeedback();
 }
 
 /*********************************************************************
@@ -548,32 +552,36 @@ bool VCSpeedDial::resetFactorOnDialChange() const
 
 void VCSpeedDial::updateFeedback()
 {
+    // Feedback to absolute input source
     int fbv = (int)SCALE(float(m_dial->value()), float(m_absoluteValueMin),
                      float(m_absoluteValueMax), float(0), float(UCHAR_MAX));
 
     sendFeedback(fbv, absoluteInputSourceId);
 
+    // Feedback to tap button
+    sendFeedback(m_dial->isTapTick() ? 255 : 0, tapInputSourceId);
+
+    // Feedback to preset buttons
     for (QHash<QWidget*, VCSpeedDialPreset*>::iterator it = m_presets.begin();
             it != m_presets.end(); ++it)
     {
         VCSpeedDialPreset* preset = it.value();
         if (preset->m_inputSource != NULL)
         {
-            {
-                QPushButton* button = reinterpret_cast<QPushButton*>(it.key());
-                if (preset->m_inputSource.isNull() == false)
-                    sendFeedback(button->isDown() ?
-                                 preset->m_inputSource->upperValue() :
-                                 preset->m_inputSource->lowerValue(),
-                                 preset->m_inputSource);
-            }
+            QPushButton* button = reinterpret_cast<QPushButton*>(it.key());
+            if (preset->m_inputSource.isNull() == false)
+                sendFeedback(button->isDown() ?
+                             preset->m_inputSource->upperValue() :
+                             preset->m_inputSource->lowerValue(),
+                             preset->m_inputSource);
         }
     }
 }
 
 void VCSpeedDial::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
 {
-    if (isEnabled() == false)
+    /* Don't let input data through in design mode or if disabled */
+    if (acceptsInput() == false)
         return;
 
     quint32 pagedCh = (page() << 16) | channel;
@@ -685,7 +693,7 @@ QKeySequence VCSpeedDial::applyKeySequence() const
 
 void VCSpeedDial::slotKeyPressed(const QKeySequence& keySequence)
 {
-    if (isEnabled() == false)
+    if (acceptsInput() == false)
         return;
 
     if (m_tapKeySequence == keySequence)

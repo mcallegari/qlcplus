@@ -52,7 +52,7 @@ public:
      * @param fid The function ID to add
      * @return true if successful, otherwise false
      */
-    Q_INVOKABLE bool addFunction(quint32 fid, int insertIndex = -1);
+    Q_INVOKABLE bool addFunctions(QVariantList idsList, int insertIndex = -1);
 
     int playbackIndex() const;
     void setPlaybackIndex(int playbackIndex);

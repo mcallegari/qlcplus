@@ -51,6 +51,7 @@ VCSliderProperties::VCSliderProperties(VCSlider* slider, Doc* doc)
     Q_ASSERT(doc != NULL);
     Q_ASSERT(slider != NULL);
     m_slider = slider;
+    m_ovrResetSelWidget = NULL;
 
     setupUi(this);
 
@@ -144,7 +145,7 @@ VCSliderProperties::VCSliderProperties(VCSlider* slider, Doc* doc)
 
     m_inputSelWidget = new InputSelectionWidget(m_doc, this);
     m_inputSelWidget->setKeyInputVisibility(false);
-    m_inputSelWidget->setInputSource(m_slider->inputSource());
+    m_inputSelWidget->setInputSource(m_slider->inputSource(VCSlider::sliderInputSourceId));
     m_inputSelWidget->setWidgetPage(m_slider->page());
     m_inputSelWidget->show();
     m_extControlLayout->addWidget(m_inputSelWidget);
@@ -165,7 +166,21 @@ VCSliderProperties::VCSliderProperties(VCSlider* slider, Doc* doc)
             this, SLOT(slotItemExpanded()));
     connect(m_levelList, SIGNAL(collapsed(QModelIndex)),
             this, SLOT(slotItemExpanded()));
+    connect(m_monitorValuesCheck, SIGNAL(clicked(bool)),
+            this, SLOT(slotMonitorCheckClicked(bool)));
 
+    m_ovrResetSelWidget = new InputSelectionWidget(m_doc, this);
+    m_ovrResetSelWidget->setTitle(tr("Override reset control"));
+    m_ovrResetSelWidget->setCustomFeedbackVisibility(true);
+    m_ovrResetSelWidget->setKeySequence(m_slider->overrideResetKeySequence());
+    m_ovrResetSelWidget->setInputSource(m_slider->inputSource(VCSlider::overrideResetInputSourceId));
+    m_ovrResetSelWidget->setWidgetPage(m_slider->page());
+    m_monitorResetControl->addWidget(m_ovrResetSelWidget);
+
+    if (m_sliderMode == VCSlider::Level && m_slider->channelsMonitorEnabled())
+        m_ovrResetSelWidget->show();
+    else
+        m_ovrResetSelWidget->hide();
     m_monitorValuesCheck->setChecked(m_slider->channelsMonitorEnabled());
 
     /*********************************************************************
@@ -179,6 +194,8 @@ VCSliderProperties::VCSliderProperties(VCSlider* slider, Doc* doc)
 
 VCSliderProperties::~VCSliderProperties()
 {
+    delete m_inputSelWidget;
+    delete m_ovrResetSelWidget;
 }
 
 /*****************************************************************************
@@ -258,16 +275,18 @@ void VCSliderProperties::setLevelPageVisibility(bool visible)
     m_levelByGroupButton->setVisible(visible);
     m_clickngoGroup->setVisible(visible);
     m_monitorValuesCheck->setVisible(visible);
+    if (m_monitorValuesCheck->isChecked() && m_ovrResetSelWidget != NULL)
+        m_ovrResetSelWidget->setVisible(visible);
 
     if (visible == true)
     {
         m_switchToLevelModeButton->hide();
-        m_levelSpacer->changeSize(0, 0, QSizePolicy::Fixed, QSizePolicy::Expanding);
+        //m_levelSpacer->changeSize(0, 0, QSizePolicy::Fixed, QSizePolicy::Expanding);
     }
     else
     {
         m_switchToLevelModeButton->show();
-        m_levelSpacer->changeSize(0, 0, QSizePolicy::Fixed, QSizePolicy::Fixed);
+        //m_levelSpacer->changeSize(0, 0, QSizePolicy::Fixed, QSizePolicy::Fixed);
     }
 }
 
@@ -336,8 +355,8 @@ void VCSliderProperties::levelUpdateFixtureNode(quint32 id)
     }
 
     item->setText(KColumnName, fxi->name());
-    item->setIcon(KColumnName, fxi->getIconFromType(fxi->type()));
-    item->setText(KColumnType, fxi->type());
+    item->setIcon(KColumnName, fxi->getIconFromType());
+    item->setText(KColumnType, fxi->typeString());
 
     levelUpdateChannels(item, fxi);
 
@@ -642,6 +661,14 @@ void VCSliderProperties::slotItemExpanded()
     m_levelList->header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
+void VCSliderProperties::slotMonitorCheckClicked(bool checked)
+{
+    if (checked == true)
+        m_ovrResetSelWidget->show();
+    else
+        m_ovrResetSelWidget->hide();
+}
+
 /*****************************************************************************
  * Playback page
  *****************************************************************************/
@@ -650,13 +677,13 @@ void VCSliderProperties::slotAttachPlaybackFunctionClicked()
 {
     FunctionSelection fs(this, m_doc);
     fs.setMultiSelection(false);
-    fs.setFilter(Function::Scene | Function::Chaser | Function::EFX | Function::Audio | Function::RGBMatrix
-                 | Function::Collection
+    fs.setFilter(Function::SceneType | Function::ChaserType | Function::SequenceType | Function::EFXType |
+                 Function::AudioType | Function::RGBMatrixType | Function::CollectionType
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-                 | Function::Video
+                 | Function::VideoType
 #endif
                  , false);
-    fs.disableFilters(Function::Script | Function::Show);
+    fs.disableFilters(Function::ScriptType | Function::ShowType);
 
     if (fs.exec() != QDialog::Accepted)
         return;
@@ -845,7 +872,11 @@ void VCSliderProperties::accept()
     }
 
     if (m_slider->sliderMode() == VCSlider::Level)
+    {
         m_slider->setChannelsMonitorEnabled(m_monitorValuesCheck->isChecked());
+        m_slider->setOverrideResetKeySequence(m_ovrResetSelWidget->keySequence());
+        m_slider->setInputSource(m_ovrResetSelWidget->inputSource(), VCSlider::overrideResetInputSourceId);
+    }
 
     m_slider->setCaption(m_nameEdit->text());
 
@@ -862,7 +893,7 @@ void VCSliderProperties::accept()
         m_slider->setInvertedAppearance(true);
 
     /* External input */
-    m_slider->setInputSource(m_inputSelWidget->inputSource());
+    m_slider->setInputSource(m_inputSelWidget->inputSource(), VCSlider::sliderInputSourceId);
 
     /* Close dialog */
     QDialog::accept();

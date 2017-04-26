@@ -187,7 +187,7 @@ void Loopback::writeUniverse(quint32 universe, quint32 output, const QByteArray 
     if (!m_outputMap.contains(output))
         return;
 
-    QByteArray & chData = m_channelData[output];
+    QByteArray &chData = m_channelData[output];
 
     if (m_inputMap.contains(output))
     {
@@ -197,12 +197,12 @@ void Loopback::writeUniverse(quint32 universe, quint32 output, const QByteArray 
         {
             if (chData[i] != data[i])
             {
-                emit valueChanged(inputUniverse, output, i, data[i]);
+                chData[i] = data[i];
+                //qDebug() << "Data changed at" << i << QString::number(chData[i]) << QString::number(data[i]);
+                emit valueChanged(inputUniverse, output, i, chData[i]);
             }
         }
     }
-
-    chData = data;
 }
 
 void Loopback::sendFeedBack(quint32 universe, quint32 input, quint32 channel, uchar value, const QString &)

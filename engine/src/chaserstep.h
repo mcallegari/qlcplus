@@ -55,6 +55,10 @@ public:
     /** Return the actual function pointer for $fid from $doc */
     Function* resolveFunction(const Doc* doc) const;
 
+    int setValue(SceneValue value, int index = -1, bool *created = NULL);
+
+    int unSetValue(SceneValue value, int index = -1);
+
     /************************************************************************
      * QVariant operations
      ***********************************************************************/

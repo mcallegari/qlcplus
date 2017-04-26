@@ -64,14 +64,13 @@ Rectangle
                     Layout.columnSpan: 2
                     Layout.fillWidth: true
 
-                    tFontSize: 14
+                    tFontSize: UISettings.textSizeDefault
 
                     tLabel: func ? func.name : ""
                     functionType: func ? func.type : -1
 
                     IconButton
                     {
-                        id: fontButton
                         anchors.top: parent.top
                         anchors.right: parent.right
                         imgSource: "qrc:/reset.svg"
@@ -94,7 +93,7 @@ Rectangle
                 width: parent.width
                 columns: 2
                 columnSpacing: 5
-                rowSpacing: 4
+                rowSpacing: 3
 
                 ExclusiveGroup { id: pressBehaviourGroup }
 
@@ -102,14 +101,14 @@ Rectangle
                 RobotoText
                 {
                     height: gridItemsHeight
-                    fontSize: UISettings.textSizeDefault * 0.75
+                    Layout.fillWidth: true
                     label: qsTr("Toggle Function on/off")
                 }
 
                 CustomCheckBox
                 {
-                    width: gridItemsHeight
-                    height: gridItemsHeight
+                    width: UISettings.iconSizeMedium
+                    height: width
                     exclusiveGroup: pressBehaviourGroup
                     checked: widgetRef ? widgetRef.actionType === VCButton.Toggle : false
                     onCheckedChanged: if (checked && widgetRef) widgetRef.actionType = VCButton.Toggle
@@ -119,14 +118,14 @@ Rectangle
                 RobotoText
                 {
                     height: gridItemsHeight
-                    fontSize: UISettings.textSizeDefault * 0.75
+                    Layout.fillWidth: true
                     label: qsTr("Flash Function (only for Scenes)")
                 }
 
                 CustomCheckBox
                 {
-                    width: gridItemsHeight
-                    height: gridItemsHeight
+                    width: UISettings.iconSizeMedium
+                    height: width
                     exclusiveGroup: pressBehaviourGroup
                     checked: widgetRef ? widgetRef.actionType === VCButton.Flash : false
                     onCheckedChanged: if (checked && widgetRef) widgetRef.actionType = VCButton.Flash
@@ -136,14 +135,14 @@ Rectangle
                 RobotoText
                 {
                     height: gridItemsHeight
-                    fontSize: UISettings.textSizeDefault * 0.75
+                    Layout.fillWidth: true
                     label: qsTr("Toggle Blackout")
                 }
 
                 CustomCheckBox
                 {
-                    width: gridItemsHeight
-                    height: gridItemsHeight
+                    width: UISettings.iconSizeMedium
+                    height: width
                     exclusiveGroup: pressBehaviourGroup
                     checked: widgetRef ? widgetRef.actionType === VCButton.Blackout : false
                     onCheckedChanged: if (checked && widgetRef) widgetRef.actionType = VCButton.Blackout
@@ -153,14 +152,14 @@ Rectangle
                 RobotoText
                 {
                     height: gridItemsHeight
-                    fontSize: UISettings.textSizeDefault * 0.75
+                    Layout.fillWidth: true
                     label: qsTr("Stop all Functions")
                 }
 
                 CustomCheckBox
                 {
-                    width: gridItemsHeight
-                    height: gridItemsHeight
+                    width: UISettings.iconSizeMedium
+                    height: width
                     exclusiveGroup: pressBehaviourGroup
                     checked: widgetRef ? widgetRef.actionType === VCButton.StopAll : false
                     onCheckedChanged: if (checked && widgetRef) widgetRef.actionType = VCButton.StopAll

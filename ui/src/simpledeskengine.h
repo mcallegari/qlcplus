@@ -85,6 +85,8 @@ public:
     void resetChannel(uint channel);
 
 private:
+    /** A map of channel absolute addresses and their values.
+      * Note that only channels overridden by Simple Desk are here */
     QHash <uint,uchar> m_values;
 
     /************************************************************************

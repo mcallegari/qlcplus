@@ -43,14 +43,15 @@ public:
 
     /** Set the ID of the Function being edit */
     virtual void setFunctionID(quint32 ID);
+
     /** Return the ID of the Function being edited */
     virtual quint32 functionID() const;
+
     /** Return the type of the Function being edited */
     virtual Function::Type functionType() const;
 
-    /** Return the preview status of the Function being edited */
+    /** Get/Set the preview status of the Function being edited */
     virtual bool previewEnabled() const;
-    /** Enable/Disable the preview of the Function being edited */
     virtual void setPreviewEnabled(bool enable);
 
     /** Get/Set the name of the Function being edited */
@@ -60,6 +61,10 @@ public:
     /** Get/Set the tempo type of the Function being edited */
     virtual int tempoType() const;
     virtual void setTempoType(int tempoType);
+
+    /** Generic method to delete items of an editor.
+      * $list might be a list of indices, IDs or something else */
+    virtual void deleteItems(QVariantList list);
 
 signals:
     void functionNameChanged(QString functionName);

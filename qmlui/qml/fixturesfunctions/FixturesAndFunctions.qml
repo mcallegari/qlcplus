@@ -21,11 +21,11 @@ import QtQuick 2.3
 import QtQuick.Controls 1.2
 import QtQuick.Layouts 1.1
 
-import "DetachWindow.js" as WinLoader
 import "."
 
 Rectangle
 {
+    id: fixtureAndFunctions
     objectName: "fixturesAndFunctions"
     anchors.fill: parent
     color: "transparent"
@@ -35,7 +35,7 @@ Rectangle
     // string holding the current view. Used by the C++ code
     // for dynamic items creation
     property string currentView: "2D"
-    property bool docLoaded: qlcplus.docLoaded
+    //property bool docLoaded: qlcplus.docLoaded
 
     function enableContext(ctx, setChecked)
     {
@@ -130,7 +130,7 @@ Rectangle
                     onRightClicked:
                     {
                         uniView.visible = false
-                        WinLoader.createWindow("qrc:/UniverseGridView.qml")
+                        contextManager.detachContext("UNIGRID")
                     }
                 }
                 MenuBarEntry
@@ -153,7 +153,7 @@ Rectangle
                     onRightClicked:
                     {
                         dmxView.visible = false
-                        WinLoader.createWindow("qrc:/DMXView.qml")
+                        contextManager.detachContext("DMX")
                     }
                 }
                 MenuBarEntry
@@ -177,7 +177,7 @@ Rectangle
                     onRightClicked:
                     {
                         twodView.visible = false
-                        WinLoader.createWindow("qrc:/2DView.qml")
+                        contextManager.detachContext("2D")
                     }
                 }
                 MenuBarEntry
@@ -199,7 +199,8 @@ Rectangle
                     }
                     onRightClicked:
                     {
-                        WinLoader.createWindow("qrc:/3DView.qml")
+                        threedView.visible = false
+                        contextManager.detachContext("3D")
                     }
                 }
 
@@ -245,7 +246,6 @@ Rectangle
         {
             id: previewLoader
             z: 0
-            //objectName: "editorLoader"
             anchors.top: viewToolbar.bottom
             width: centerView.width
             height: parent.height - viewToolbar.height

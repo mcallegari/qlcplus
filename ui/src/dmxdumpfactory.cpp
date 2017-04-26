@@ -94,20 +94,17 @@ DmxDumpFactory::~DmxDumpFactory()
 void DmxDumpFactory::slotUpdateChasersTree()
 {
     m_addtoTree->clear();
-    foreach(Function *f, m_doc->functionsByType(Function::Chaser))
+    foreach(Function *f, m_doc->functionsByType(Function::ChaserType))
     {
         Chaser *chaser = qobject_cast<Chaser*>(f);
-        if (chaser->isSequence() == false)
-        {
-            QTreeWidgetItem *item = new QTreeWidgetItem(m_addtoTree);
-            item->setText(KColumnTargetName, chaser->name());
-            item->setText(KColumnTargetID, QString::number(chaser->id()));
-            item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
-            if (m_properties->isChaserSelected(chaser->id()))
-                item->setCheckState(KColumnName, Qt::Checked);
-            else
-                item->setCheckState(KColumnName, Qt::Unchecked);
-        }
+        QTreeWidgetItem *item = new QTreeWidgetItem(m_addtoTree);
+        item->setText(KColumnTargetName, chaser->name());
+        item->setText(KColumnTargetID, QString::number(chaser->id()));
+        item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
+        if (m_properties->isChaserSelected(chaser->id()))
+            item->setCheckState(KColumnName, Qt::Checked);
+        else
+            item->setCheckState(KColumnName, Qt::Unchecked);
     }
 }
 
@@ -125,7 +122,7 @@ void DmxDumpFactory::slotSelectSceneButtonClicked()
 {
     FunctionSelection fs(this, m_doc);
     fs.setMultiSelection(false);
-    fs.setFilter(Function::Scene, true);
+    fs.setFilter(Function::SceneType, true);
 
     if (fs.exec() == QDialog::Accepted && fs.selection().size() > 0)
     {

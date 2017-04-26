@@ -42,9 +42,9 @@ Rectangle
         wPropsLoader.active = false
         wPropsLoader.source = wObj ? wObj.propertiesResource : ""
         wPropsLoader.active = true
-        vcRightPanel.width = vcRightPanel.width - funcMgrLoader.width
-        funcMgrLoader.source = ""
-        funcMgrLoader.width = 0
+        vcRightPanel.width = vcRightPanel.width - sideLoader.width
+        sideLoader.source = ""
+        sideLoader.width = 0
     }
 
     onSelectedWidgetsCountChanged:
@@ -96,14 +96,23 @@ Rectangle
         anchors.fill: parent
         Loader
         {
-            id: funcMgrLoader
+            id: sideLoader
             visible: width
             width: 0
             height: wPropsRoot.height
             source: ""
 
+            property var modelProvider: null
+
+            onLoaded:
+            {
+                if (modelProvider && item.hasOwnProperty('modelProvider'))
+                    item.modelProvider = modelProvider
+            }
+
             Rectangle
             {
+                z: 1
                 width: 2
                 height: parent.height
                 x: parent.width - 2
@@ -162,7 +171,7 @@ Rectangle
                         {
                             Layout.fillWidth: true
                             height: UISettings.listItemHeight
-                            color: UISettings.bgStronger
+                            color: UISettings.bgMedium
                             inputText: wObj ? wObj.caption : ""
 
                             onTextChanged:
@@ -247,8 +256,8 @@ Rectangle
 
                             IconButton
                             {
-                                width: UISettings.listItemHeight
-                                height: UISettings.listItemHeight
+                                width: UISettings.iconSizeMedium
+                                height: width
                                 anchors.right: parent.right
                                 imgSource: "qrc:/font.svg"
                                 //bgColor: "#aaa"
@@ -299,8 +308,8 @@ Rectangle
                             IconButton
                             {
                                 id: imgButton
-                                width: UISettings.listItemHeight
-                                height: UISettings.listItemHeight
+                                width: UISettings.iconSizeMedium
+                                height: width
                                 anchors.right: parent.right
                                 imgSource: "qrc:/background.svg"
 
@@ -389,9 +398,25 @@ Rectangle
 
                     onLoaded: item.widgetRef = wObj
                 }
+
+                SectionBox
+                {
+                    width: parent.width
+                    visible: wObj ? true : false
+                    sectionLabel: qsTr("External Controls")
+                    isExpanded: false
+
+                    sectionContents:
+                        ExternalControls
+                        {
+                            width: parent.width
+
+                            objRef: wObj
+                        }
+                }
               } // end of properties column
             } // end of flickable
-            ScrollBar { id: wpBar; flickable: propsFlickable }
+            CustomScrollBar { id: wpBar; flickable: propsFlickable }
         } // end of Rectangle
     } // end of SplitView
 }

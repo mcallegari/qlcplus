@@ -72,7 +72,7 @@ void EFX_Test::cleanup()
 void EFX_Test::initial()
 {
     EFX e(m_doc);
-    QCOMPARE(e.type(), Function::EFX);
+    QCOMPARE(e.type(), Function::EFXType);
     QCOMPARE(e.name(), QString("New EFX"));
     QCOMPARE(e.id(), Function::invalidId());
 

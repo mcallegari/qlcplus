@@ -29,26 +29,17 @@ Rectangle
     width: 400
     height: columnContainer.height + 8
     color: UISettings.bgLight
-    radius: 4
-    border.color: "#444"
 
-    property string fxManufacturer
-    property string fxModel
-    property string fxMode: fxModesCombo.currentText
-    property string fxName
+    property string fxMode: fixtureBrowser.selectedMode
+    property string fxName: fixtureBrowser.fixtureName
     property int fxUniverseIndex: fxUniverseCombo.currentIndex
     property int fxAddress: fxAddressSpin.value
-    property int fxChannels: fxModeChSpin.value
+    property int fxChannels: fixtureBrowser.modeChannelsCount
     property int fxQuantity: fxQuantitySpin.value
     property int fxGap: fxGapSpin.value
-
     property int fxCount: fixtureManager.fixturesCount
 
-    onFxModeChanged:
-    {
-        console.log("Mode changed: " + fxMode)
-        updateAvailableAddress()
-    }
+    onFxModeChanged: updateAvailableAddress()
     onFxCountChanged: updateAvailableAddress()
 
     function updateAvailableAddress()
@@ -71,8 +62,7 @@ Rectangle
         {
             height: UISettings.listItemHeight * 0.8
             width: parent.width
-            color: UISettings.highlightPressed
-            radius: 3
+            color: UISettings.sectionHeader
 
             RobotoText
             {
@@ -97,9 +87,7 @@ Rectangle
             // row 1
             RobotoText
             {
-                id: fxNameLabel
                 height: propsGrid.itemsHeight
-                //anchors.verticalCenter: parent.verticalCenter
                 label: qsTr("Name")
                 fontSize: propsGrid.itemsFontSize
             }
@@ -110,17 +98,12 @@ Rectangle
                 inputText: fxName
                 Layout.columnSpan: 3
                 Layout.fillWidth: true
-                onInputTextChanged:
-                {
-                    console.log("Text changed !!")
-                    fxProps.fxName = inputText
-                }
+                onInputTextChanged: fixtureBrowser.fixtureName = inputText
             }
 
             // row 2
             RobotoText
             {
-                id: fxUniverseLabel
                 height: propsGrid.itemsHeight
                 label: qsTr("Universe")
                 fontSize: propsGrid.itemsFontSize
@@ -137,7 +120,6 @@ Rectangle
             // row 3
             RobotoText
             {
-                id: fxAddressLabel
                 height: propsGrid.itemsHeight
                 label: qsTr("Address")
                 fontSize: propsGrid.itemsFontSize
@@ -145,15 +127,12 @@ Rectangle
             CustomSpinBox
             {
                 id: fxAddressSpin
-                //width: (parent.width - fxAddress.width - fxQuantity.width) / 2
                 Layout.fillWidth: true
-                minimumValue: 1
-                maximumValue: 512
-                decimals: 0
+                from: 1
+                to: 512
             }
             RobotoText
             {
-                id: fxQuantityLabel
                 height: propsGrid.itemsHeight
                 label: qsTr("Quantity")
                 fontSize: propsGrid.itemsFontSize
@@ -161,17 +140,14 @@ Rectangle
             CustomSpinBox
             {
                 id: fxQuantitySpin
-                //width: (parent.width - fxAddress.width - fxQuantity.width) / 2
                 Layout.fillWidth: true
-                minimumValue: 1
-                maximumValue: 512
-                decimals: 0
+                from: 1
+                to: 512
             }
 
             // row 4
             RobotoText
             {
-                id: fxModeChLabel
                 height: propsGrid.itemsHeight
                 label: qsTr("Channels")
                 fontSize: propsGrid.itemsFontSize
@@ -180,14 +156,13 @@ Rectangle
             {
                 id: fxModeChSpin
                 Layout.fillWidth: true
-                minimumValue: 1
-                maximumValue: 512
-                decimals: 0
-                value: fixtureBrowser.modeChannels(fxMode)
+                from: 1
+                to: 512
+                value: fxChannels
+                onValueChanged: fixtureBrowser.modeChannelsCount = value
             }
             RobotoText
             {
-                id: fxGapLabel
                 height: propsGrid.itemsHeight
                 label: qsTr("Gap")
                 fontSize: propsGrid.itemsFontSize
@@ -197,15 +172,14 @@ Rectangle
             {
                 id: fxGapSpin
                 Layout.fillWidth: true
-                minimumValue: 0
-                maximumValue: 511
-                decimals: 0
+                from: 0
+                to: 511
             }
 
             // row 5
             RobotoText
             {
-                id: fxModeLabel
+                visible: fixtureBrowser.modesList.length ? true : false
                 height: propsGrid.itemsHeight
                 label: qsTr("Mode")
                 fontSize: propsGrid.itemsFontSize
@@ -213,6 +187,7 @@ Rectangle
 
             Rectangle
             {
+                visible: fixtureBrowser.modesList.length ? true : false
                 color: "transparent"
                 Layout.columnSpan: 3
                 height: propsGrid.itemsHeight
@@ -227,9 +202,10 @@ Rectangle
                         id: fxModesCombo
                         height: propsGrid.itemsHeight
                         Layout.fillWidth: true
-                        model: fixtureBrowser.modes(fxManufacturer, fxModel)
+                        model: fixtureBrowser.modesList
+                        currentText: fxMode
                         onModelChanged: currentIndex = 0
-                        onCurrentTextChanged: fxProps.fxMode = currentText
+                        onCurrentTextChanged: fixtureBrowser.selectedMode = currentText
                     }
                     IconButton
                     {
@@ -238,13 +214,36 @@ Rectangle
                         height: width
                         imgSource: "qrc:/info.svg"
                         checkable: true
-                        onToggled:
-                        {
-
-                        }
                     }
                 }
             }
+        } // end of GridLayout
+
+        Rectangle
+        {
+            visible: fxModeInfo.checked
+            height: UISettings.bigItemHeight * 1.5
+            width: parent.width - 8
+
+            clip: true
+            color: UISettings.bgMedium
+
+            ListView
+            {
+                id: channelList
+                anchors.fill: parent
+                boundsBehavior: Flickable.StopAtBounds
+                model: fixtureBrowser.modeChannelList
+                delegate:
+                    IconTextEntry
+                    {
+                        width: channelList.width
+                        height: UISettings.listItemHeight
+                        tLabel: modelData.mLabel
+                        iSrc: modelData.mIcon
+                    }
+                CustomScrollBar { flickable: channelList }
+            }
         }
-    }
+    } // end of Column
 }

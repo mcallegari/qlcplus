@@ -317,7 +317,7 @@ QKeySequence VCAudioTriggers::keySequence() const
 
 void VCAudioTriggers::slotKeyPressed(const QKeySequence& keySequence)
 {
-    if (isEnabled() == false)
+    if (acceptsInput() == false)
         return;
 
     if (m_keySequence == keySequence)
@@ -331,7 +331,8 @@ void VCAudioTriggers::slotKeyPressed(const QKeySequence& keySequence)
 
 void VCAudioTriggers::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
 {
-    if (isEnabled() == false)
+    /* Don't let input data through in design mode or if disabled */
+    if (acceptsInput() == false)
         return;
 
     if (checkInputSource(universe, (page() << 16) | channel, value, sender()) && value > 0)
@@ -415,7 +416,7 @@ void VCAudioTriggers::slotModeChanged(Doc::Mode mode)
         {
             if (bar->m_type == AudioBar::DMXBar)
             {
-                m_doc->masterTimer()->registerDMXSource(this, "AudioTriggers");
+                m_doc->masterTimer()->registerDMXSource(this);
                 break;
             }
         }
@@ -576,24 +577,6 @@ bool VCAudioTriggers::loadXML(QXmlStreamReader &root)
         else if (root.name() == KXMLQLCVolumeBar)
         {
             m_volumeBar->loadXML(root, m_doc);
-            if (m_volumeBar->m_type == AudioBar::FunctionBar)
-            {
-                if (attrs.hasAttribute(KXMLQLCAudioBarFunction))
-                {
-                    quint32 fid = attrs.value(KXMLQLCAudioBarFunction).toString().toUInt();
-                    Function *func = m_doc->function(fid);
-                    if (func != NULL)
-                        m_volumeBar->m_function = func;
-                }
-            }
-            else if (m_volumeBar->m_type == AudioBar::VCWidgetBar)
-            {
-                if (attrs.hasAttribute(KXMLQLCAudioBarWidget))
-                {
-                    quint32 wid = attrs.value(KXMLQLCAudioBarWidget).toString().toUInt();
-                    m_volumeBar->m_widgetID = wid;
-                }
-            }
         }
         else if (root.name() == KXMLQLCSpectrumBar)
         {
@@ -601,27 +584,7 @@ bool VCAudioTriggers::loadXML(QXmlStreamReader &root)
             {
                 int idx = attrs.value(KXMLQLCAudioBarIndex).toString().toInt();
                 if (idx >= 0 && idx < m_spectrumBars.count())
-                {
                     m_spectrumBars[idx]->loadXML(root, m_doc);
-                    if (m_spectrumBars[idx]->m_type == AudioBar::FunctionBar)
-                    {
-                        if (attrs.hasAttribute(KXMLQLCAudioBarFunction))
-                        {
-                            quint32 fid = attrs.value(KXMLQLCAudioBarFunction).toString().toUInt();
-                            Function *func = m_doc->function(fid);
-                            if (func != NULL)
-                                m_spectrumBars[idx]->m_function = func;
-                        }
-                    }
-                    else if (m_spectrumBars[idx]->m_type == AudioBar::VCWidgetBar)
-                    {
-                        if (attrs.hasAttribute(KXMLQLCAudioBarWidget))
-                        {
-                            quint32 wid = attrs.value(KXMLQLCAudioBarWidget).toString().toUInt();
-                            m_spectrumBars[idx]->m_widgetID = wid;
-                        }
-                    }
-                }
             }
         }
         else

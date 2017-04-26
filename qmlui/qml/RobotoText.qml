@@ -34,7 +34,8 @@ Rectangle
     property real fontSize: UISettings.textSizeDefault
     property bool fontBold: false
     property bool wrapText: false
-    property int textAlign: Text.AlignLeft
+    property int textHAlign: Text.AlignLeft
+    property int textVAlign: wrapText ? Text.AlignVCenter : Text.AlignTop
 
     Text
     {
@@ -48,8 +49,8 @@ Rectangle
         font.bold: fontBold
         color: labelColor
         wrapMode: wrapText ? Text.Wrap : Text.NoWrap
-        horizontalAlignment: textAlign
-        verticalAlignment: wrapText ? Text.AlignVCenter : Text.AlignTop
+        horizontalAlignment: textHAlign
+        verticalAlignment: textVAlign
     }
 }
 

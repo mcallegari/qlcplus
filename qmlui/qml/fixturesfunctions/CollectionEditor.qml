@@ -34,15 +34,10 @@ Rectangle
 
     signal requestView(int ID, string qmlSrc)
 
-    Component.onDestruction: functionManager.setEditorFunction(-1)
-
     ModelSelector
     {
         id: ceSelector
-        onItemsCountChanged:
-        {
-            console.log("Collection Editor selected items changed !")
-        }
+        //onItemsCountChanged: console.log("Collection Editor selected items changed !")
     }
 
     SplitView
@@ -107,6 +102,7 @@ Rectangle
                                 rightSidePanel.width = rightSidePanel.width / 2
                             }
 
+                            functionManager.setEditorFunction(-1, false)
                             requestView(-1, "qrc:/FunctionManager.qml")
                         }
                     }
@@ -162,7 +158,13 @@ Rectangle
                     height: UISettings.iconSizeMedium
                     imgSource: "qrc:/remove.svg"
                     tooltip: qsTr("Remove the selected function")
-                    onClicked: {   }
+                    onClicked:
+                    {
+                        actionManager.requestActionPopup(ActionManager.DeleteEditorItems,
+                                                         qsTr("Are you sure you want to remove the selected functions ?"),
+                                                         ActionManager.OK | ActionManager.Cancel,
+                                                         ceSelector.itemsList())
+                    }
                 }
             }
 
@@ -178,22 +180,56 @@ Rectangle
 
                 model: collectionEditor.functionsList
                 delegate:
-                    CollectionFunctionDelegate
+                    Item
                     {
                         width: cFunctionList.width
-                        functionID: model.funcID
-                        isSelected: model.isSelected
-                        indexInList: index
-                        highlightIndex: cFunctionList.dragInsertIndex
+                        height: UISettings.listItemHeight
 
-                        onClicked:
+                        MouseArea
                         {
-                            ceSelector.selectItem(indexInList, cFunctionList.model, mouseMods & Qt.ControlModifier)
+                            id: delegateRoot
+                            width: cFunctionList.width
+                            height: parent.height
+
+                            drag.target: cfDelegate
+                            drag.threshold: height / 2
+
+                            onClicked: ceSelector.selectItem(index, cFunctionList.model, mouse.modifiers & Qt.ControlModifier)
+
+                            onReleased:
+                            {
+                                if (cfDelegate.Drag.target === cfDropArea)
+                                {
+                                    cfDelegate.Drag.drop()
+                                }
+                                else
+                                {
+                                    // return the dragged item to its original position
+                                    parent = delegateRoot
+                                    cfDelegate.x = 0
+                                    cfDelegate.y = 0
+                                }
+                            }
+
+                            CollectionFunctionDelegate
+                            {
+                                id: cfDelegate
+                                width: cFunctionList.width
+                                functionID: model.funcID
+                                isSelected: model.isSelected
+                                indexInList: index
+                                highlightIndex: cFunctionList.dragInsertIndex
+
+                                Drag.active: delegateRoot.drag.active
+                                Drag.source: cfDelegate
+                                Drag.keys: [ "function" ]
+                            }
                         }
                     }
 
                 DropArea
                 {
+                    id: cfDropArea
                     anchors.fill: parent
                     // accept only functions
                     keys: [ "function" ]
@@ -201,8 +237,26 @@ Rectangle
                     onDropped:
                     {
                         console.log("Item dropped here. x: " + drag.x + " y: " + drag.y)
-                        console.log("Item fID: " + drag.source.funcID)
-                        collectionEditor.addFunction(drag.source.funcID, cFunctionList.dragInsertIndex)
+
+                        /* Check if the dragging was started from a Function Manager */
+                        if (drag.source.hasOwnProperty("fromFunctionManager"))
+                        {
+                            var insertIndex = cFunctionList.dragInsertIndex
+                            if (insertIndex == -1)
+                                insertIndex = 0
+
+                            for (var i = 0; i < drag.source.itemsList.length; i++)
+                            {
+                                console.log("Adding function with ID: " + drag.source.itemsList[i])
+                                collectionEditor.addFunction(drag.source.itemsList[i], insertIndex + i)
+                            }
+                        }
+                        else if (drag.source.hasOwnProperty("functionID"))
+                        {
+                            console.log("Item fID: " + drag.source.functionID)
+                            collectionEditor.moveFunction(drag.source.functionID, cFunctionList.dragInsertIndex)
+                        }
+
                         cFunctionList.dragInsertIndex = -1
                     }
                     onPositionChanged:

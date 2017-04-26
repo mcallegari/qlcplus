@@ -204,8 +204,48 @@ Rectangle
                 }
             }
         }
-    }
 
+        Canvas
+        {
+            id: passthrough
+            anchors.fill: parent
+            visible: ptCheckButton.checked
+            contextType: "2d"
+
+            onPaint:
+            {
+                var vCenter = (height / 2) - 4
+                var wireMargin = width / 20
+                context.strokeStyle = "yellow"
+                context.lineWidth = 2
+                context.beginPath()
+                context.clearRect(0, 0, width, height)
+
+                context.moveTo(0, vCenter)
+                context.lineTo(wireMargin, vCenter)
+                context.lineTo(wireMargin, height - wireMargin)
+                context.lineTo(width - wireMargin, height - wireMargin)
+                context.lineTo(width - wireMargin, vCenter)
+                context.lineTo(width, vCenter)
+                context.stroke()
+            }
+        }
+
+        IconButton
+        {
+            id: ptCheckButton
+            anchors.bottom: parent.bottom
+            anchors.right: parent.right
+            checkedColor: UISettings.selection
+            width: UISettings.iconSizeMedium * 0.8
+            height: UISettings.iconSizeMedium * 0.8
+            faSource: FontAwesome.fa_long_arrow_right
+            checkable: true
+            tooltip: qsTr("Passthrough")
+            checked: universe ? universe.passthrough : false
+            onToggled: if (universe) universe.passthrough = checked
+        }
+    }
 
     // Output patches wires box
     PatchWireBox

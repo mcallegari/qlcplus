@@ -33,25 +33,9 @@ Rectangle
     property Fixture cRef
     property string textLabel: cRef ? cRef.name : ""
     property bool isSelected: false
+    property Item dragItem
 
-    signal clicked(int ID, var qItem, int mouseMods)
-    signal doubleClicked(int fID, int fType)
-
-    function iconFromType(type)
-    {
-        if (type === "Color Changer")
-            return "qrc:/fixture.svg"
-        else if (type === "Dimmer")
-            return "qrc:/dimmer.svg"
-        else if (type === "Moving Head")
-            return "qrc:/movinghead.svg"
-        else if (type === "Flower")
-            return "qrc:/flower.svg"
-        else if (type === "Effect")
-            return "qrc:/effect.svg"
-        else
-            return "qrc:/fixture.svg"
-    }
+    signal mouseEvent(int type, int iID, int iType, var qItem, int mouseMods)
 
     Rectangle
     {
@@ -67,7 +51,7 @@ Rectangle
         width: parent.width
         height: parent.height
         tLabel: textLabel
-        iSrc: cRef ? iconFromType(cRef.type) : ""
+        iSrc: cRef ? cRef.iconResource(true) : ""
     }
     Rectangle
     {
@@ -79,11 +63,10 @@ Rectangle
 
     MouseArea
     {
-        id: fxMouseArea
         anchors.fill: parent
         hoverEnabled: true
 
-        onClicked: fxDelegate.clicked(cRef.id, fxDelegate, mouse.modifiers)
-        onDoubleClicked: fxDelegate.doubleClicked(cRef.id, -1)
+        onClicked: fxDelegate.mouseEvent(App.Clicked, cRef.id, cRef.type, fxDelegate, mouse.modifiers)
+        onDoubleClicked: fxDelegate.mouseEvent(App.DoubleClicked, cRef.id, cRef.type, fxDelegate, -1)
     }
 }

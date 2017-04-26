@@ -22,6 +22,7 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <QTreeWidgetItem>
+#include <QFontMetrics>
 #include <QProgressBar>
 #include <QTreeWidget>
 #include <QHeaderView>
@@ -45,6 +46,7 @@
 #include "vccuelist.h"
 #include "qlcmacros.h"
 #include "function.h"
+#include "vcwidget.h"
 #include "qlcfile.h"
 #include "apputil.h"
 #include "chaser.h"
@@ -90,6 +92,7 @@ const QString cfLabelNoStyle =
 VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     , m_chaserID(Function::invalidId())
     , m_nextPrevBehavior(DefaultRunFirst)
+    , m_playbackLayout(PlayPauseStop)
     , m_timer(NULL)
     , m_primaryIndex(0)
     , m_secondaryIndex(0)
@@ -103,47 +106,59 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     QGridLayout* grid = new QGridLayout(this);
     grid->setSpacing(2);
 
-    m_linkCheck = new QCheckBox(tr("Link"));
-    grid->addWidget(m_linkCheck, 0, 0, 1, 2, Qt::AlignVCenter | Qt::AlignCenter);
+    m_blendCheck = new QCheckBox(tr("Blend"));
+    grid->addWidget(m_blendCheck, 0, 0, 1, 2, Qt::AlignVCenter | Qt::AlignLeft);
+    connect(m_blendCheck, SIGNAL(clicked(bool)),
+            this, SLOT(slotBlendedCrossfadeChecked(bool)));
 
+    m_linkCheck = new QCheckBox(tr("Link"));
+    grid->addWidget(m_linkCheck, 1, 0, 1, 2, Qt::AlignVCenter | Qt::AlignLeft);
+
+    QFontMetrics m_fm = QFontMetrics(this->font());
+    
     m_sl1TopLabel = new QLabel("100%");
     m_sl1TopLabel->setAlignment(Qt::AlignHCenter);
-    grid->addWidget(m_sl1TopLabel, 1, 0, 1, 1);
+    m_sl1TopLabel->setFixedWidth(m_fm.width("100%"));
+    grid->addWidget(m_sl1TopLabel, 2, 0, 1, 1);
     m_slider1 = new ClickAndGoSlider();
     m_slider1->setSliderStyleSheet(CNG_DEFAULT_STYLE);
     m_slider1->setFixedWidth(32);
     m_slider1->setRange(0, 100);
     m_slider1->setValue(100);
-    grid->addWidget(m_slider1, 2, 0, 1, 1);
+    grid->addWidget(m_slider1, 3, 0, 1, 1);
     m_sl1BottomLabel = new QLabel("");
     m_sl1BottomLabel->setStyleSheet(cfLabelNoStyle);
     m_sl1BottomLabel->setAlignment(Qt::AlignCenter);
-    grid->addWidget(m_sl1BottomLabel, 3, 0, 1, 1);
+    m_sl1BottomLabel->setFixedSize(32, 24);
+    grid->addWidget(m_sl1BottomLabel, 4, 0, 1, 1);
     connect(m_slider1, SIGNAL(valueChanged(int)),
             this, SLOT(slotSlider1ValueChanged(int)));
 
     m_sl2TopLabel = new QLabel("0%");
     m_sl2TopLabel->setAlignment(Qt::AlignHCenter);
-    grid->addWidget(m_sl2TopLabel, 1, 1, 1, 1);
+    m_sl2TopLabel->setFixedWidth(m_fm.width("100%"));
+    grid->addWidget(m_sl2TopLabel, 2, 1, 1, 1);
     m_slider2 = new ClickAndGoSlider();
     m_slider2->setSliderStyleSheet(CNG_DEFAULT_STYLE);
     m_slider2->setFixedWidth(32);
     m_slider2->setRange(0, 100);
     m_slider2->setValue(0);
     m_slider2->setInvertedAppearance(true);
-    grid->addWidget(m_slider2, 2, 1, 1, 1);
+    grid->addWidget(m_slider2, 3, 1, 1, 1);
     m_sl2BottomLabel = new QLabel("");
     m_sl2BottomLabel->setStyleSheet(cfLabelNoStyle);
     m_sl2BottomLabel->setAlignment(Qt::AlignCenter);
-    grid->addWidget(m_sl2BottomLabel, 3, 1, 1, 1);
+    m_sl2BottomLabel->setFixedSize(32, 24);
+    grid->addWidget(m_sl2BottomLabel, 4, 1, 1, 1);
     connect(m_slider2, SIGNAL(valueChanged(int)),
             this, SLOT(slotSlider2ValueChanged(int)));
 
     slotShowCrossfadePanel(false);
 
+    QVBoxLayout *vbox = new QVBoxLayout();
+
     /* Create a list for scenes (cues) */
     m_tree = new QTreeWidget(this);
-    grid->addWidget(m_tree, 0, 2, 3, 1);
     m_tree->setSelectionMode(QAbstractItemView::SingleSelection);
     //m_tree->setAlternatingRowColors(true);
     m_tree->setAllColumnsShowFocus(true);
@@ -170,13 +185,14 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
             this, SLOT(slotItemActivated(QTreeWidgetItem*)));
     connect(m_tree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
             this, SLOT(slotItemChanged(QTreeWidgetItem*,int)));
+    vbox->addWidget(m_tree);
 
     m_progress = new QProgressBar(this);
     m_progress->setOrientation(Qt::Horizontal);
     m_progress->setStyleSheet(progressDisabledStyle);
     m_progress->setProperty("status", 0);
     m_progress->setFixedHeight(20);
-    grid->addWidget(m_progress, 3, 2);
+    vbox->addWidget(m_progress);
 
     m_timer = new QTimer(this);
     connect(m_timer, SIGNAL(timeout()),
@@ -238,7 +254,8 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     connect(m_nextButton, SIGNAL(clicked()), this, SLOT(slotNextCue()));
     hbox->addWidget(m_nextButton);
 
-    grid->addItem(hbox, 4, 2);
+    vbox->addItem(hbox);
+    grid->addItem(vbox, 0, 2, 5);
 
     setFrameStyle(KVCFrameStyleSunken);
     setType(VCWidget::CueListWidget);
@@ -279,6 +296,7 @@ void VCCueList::enableWidgetUI(bool enable)
     m_previousButton->setEnabled(enable);
     m_nextButton->setEnabled(enable);
 
+    m_blendCheck->setEnabled(enable);
     m_linkCheck->setEnabled(enable);
     m_sl1TopLabel->setEnabled(enable);
     m_slider1->setEnabled(enable);
@@ -320,6 +338,9 @@ bool VCCueList::copyFrom(const VCWidget* widget)
     setPreviousKeySequence(cuelist->previousKeySequence());
     setPlaybackKeySequence(cuelist->playbackKeySequence());
     setStopKeySequence(cuelist->stopKeySequence());
+
+    /* Sliders mode */
+    setSlidersMode(cuelist->slidersMode());
 
     /* Common stuff */
     return VCWidget::copyFrom(widget);
@@ -615,19 +636,27 @@ void VCCueList::slotPlayback()
 
     if (ch->isRunning())
     {
-        //stopChaser();
-        if (ch->isPaused())
+        if (playbackLayout() == PlayPauseStop)
         {
-            m_playbackButton->setStyleSheet(QString("QToolButton{ background: %1; }")
-                                            .arg(m_stopButton->palette().background().color().name()));
-            m_playbackButton->setIcon(QIcon(":/player_pause.png"));
+            if (ch->isPaused())
+            {
+                m_playbackButton->setStyleSheet(QString("QToolButton{ background: %1; }")
+                                                .arg(m_stopButton->palette().background().color().name()));
+                m_playbackButton->setIcon(QIcon(":/player_pause.png"));
+            }
+            else
+            {
+                m_playbackButton->setStyleSheet("QToolButton{ background: #5B81FF; }");
+                m_playbackButton->setIcon(QIcon(":/player_play.png"));
+            }
+            ch->setPause(!ch->isPaused());
         }
-        else
+        else if (playbackLayout() == PlayStopPause)
         {
-            m_playbackButton->setStyleSheet("QToolButton{ background: #5B81FF; }");
-            m_playbackButton->setIcon(QIcon(":/player_play.png"));
+            stopChaser();
+            m_stopButton->setStyleSheet(QString("QToolButton{ background: %1; }")
+                                            .arg(m_playbackButton->palette().background().color().name()));
         }
-        ch->setPause(!ch->isPaused());
     }
     else
     {
@@ -649,17 +678,34 @@ void VCCueList::slotStop()
 
     if (ch->isRunning())
     {
-        stopChaser();
+        if (playbackLayout() == PlayPauseStop)
+        {
+            stopChaser();
+            m_playbackButton->setStyleSheet(QString("QToolButton{ background: %1; }")
+                                            .arg(m_stopButton->palette().background().color().name()));
+            m_progress->setFormat("");
+            m_progress->setValue(0);
+        }
+        else if (playbackLayout() == PlayStopPause)
+        {
+            if (ch->isPaused())
+            {
+                m_stopButton->setStyleSheet(QString("QToolButton{ background: %1; }")
+                                                .arg(m_playbackButton->palette().background().color().name()));
+                m_stopButton->setIcon(QIcon(":/player_pause.png"));
+            }
+            else
+            {
+                m_stopButton->setStyleSheet("QToolButton{ background: #5B81FF; }");
+            }
+            ch->setPause(!ch->isPaused());
+        }
     }
     else
     {
         m_primaryIndex = 0;
         m_tree->setCurrentItem(m_tree->topLevelItem(getFirstIndex()));
     }
-    m_playbackButton->setStyleSheet(QString("QToolButton{ background: %1; }")
-                                    .arg(m_stopButton->palette().background().color().name()));
-    m_progress->setFormat("");
-    m_progress->setValue(0);
 }
 
 void VCCueList::slotNextCue()
@@ -681,15 +727,15 @@ void VCCueList::slotNextCue()
         {
             case DefaultRunFirst:
                 startChaser(getFirstIndex());
-                break;
+            break;
             case RunNext:
                 startChaser(getNextIndex());
-                break;
+            break;
             case Select:
                 m_tree->setCurrentItem(m_tree->topLevelItem(getNextIndex()));
-                break;
+            break;
             case Nothing:
-                break;
+            break;
             default:
                 Q_ASSERT(false);
         }
@@ -715,15 +761,15 @@ void VCCueList::slotPreviousCue()
         {
             case DefaultRunFirst:
                 startChaser(getLastIndex());
-                break;
+            break;
             case RunNext:
                 startChaser(getPrevIndex());
-                break;
+            break;
             case Select:
                 m_tree->setCurrentItem(m_tree->topLevelItem(getPrevIndex()));
-                break;
+            break;
             case Nothing:
-                break;
+            break;
             default:
                 Q_ASSERT(false);
         }
@@ -802,7 +848,10 @@ void VCCueList::slotFunctionRunning(quint32 fid)
 {
     if (fid == m_chaserID)
     {
-        m_playbackButton->setIcon(QIcon(":/player_pause.png"));
+        if (playbackLayout() == PlayPauseStop)
+            m_playbackButton->setIcon(QIcon(":/player_pause.png"));
+        else if (playbackLayout() == PlayStopPause)
+            m_playbackButton->setIcon(QIcon(":/player_stop.png"));
         m_timer->start(PROGRESS_INTERVAL);
         updateFeedback();
     }
@@ -823,6 +872,9 @@ void VCCueList::slotFunctionStopped(quint32 fid)
             item->setBackground(COL_NUM, m_defCol);
 
         emit stepChanged(-1);
+
+        m_progress->setFormat("");
+        m_progress->setValue(0);
 
         qDebug() << Q_FUNC_INFO << "Cue stopped";
         updateFeedback();
@@ -901,7 +953,7 @@ void VCCueList::stopChaser()
     ch->stop(functionParent());
 }
 
-void VCCueList::setNextPrevBehavior(unsigned int nextPrev)
+void VCCueList::setNextPrevBehavior(NextPrevBehavior nextPrev)
 {
     Q_ASSERT(nextPrev == DefaultRunFirst
             || nextPrev == RunNext
@@ -910,9 +962,40 @@ void VCCueList::setNextPrevBehavior(unsigned int nextPrev)
     m_nextPrevBehavior = nextPrev;
 }
 
-unsigned int VCCueList::nextPrevBehavior() const
+VCCueList::NextPrevBehavior VCCueList::nextPrevBehavior() const
 {
     return m_nextPrevBehavior;
+}
+
+void VCCueList::setPlaybackLayout(VCCueList::PlaybackLayout layout)
+{
+    if (layout == m_playbackLayout)
+        return;
+
+    if (layout == PlayStopPause)
+    {
+        m_stopButton->setIcon(QIcon(":/player_pause.png"));
+        m_playbackButton->setToolTip(tr("Play/Stop Cue list"));
+        m_stopButton->setToolTip(tr("Pause Cue list"));
+    }
+    else if (layout == PlayPauseStop)
+    {
+        m_stopButton->setIcon(QIcon(":/player_stop.png"));
+        m_playbackButton->setToolTip(tr("Play/Pause Cue list"));
+        m_stopButton->setToolTip(tr("Stop Cue list"));
+    }
+    else
+    {
+        qWarning() << "Playback layout" << layout << "doesn't exist !";
+        layout = PlayPauseStop;
+    }
+
+    m_playbackLayout = layout;
+}
+
+VCCueList::PlaybackLayout VCCueList::playbackLayout() const
+{
+    return m_playbackLayout;
 }
 
 VCCueList::SlidersMode VCCueList::slidersMode() const
@@ -927,6 +1010,7 @@ void VCCueList::setSlidersMode(VCCueList::SlidersMode mode)
     if (m_slider1->isVisible() == true)
     {
         bool show = (mode == Crossfade) ? true : false;
+        m_blendCheck->setVisible(show);
         m_linkCheck->setVisible(show);
         m_sl2TopLabel->setVisible(show);
         m_slider2->setVisible(show);
@@ -995,10 +1079,36 @@ void VCCueList::slotShowCrossfadePanel(bool enable)
     m_sl1BottomLabel->setVisible(enable);
     if (slidersMode() == Crossfade)
     {
+        m_blendCheck->setVisible(enable);
         m_linkCheck->setVisible(enable);
         m_sl2TopLabel->setVisible(enable);
         m_slider2->setVisible(enable);
         m_sl2BottomLabel->setVisible(enable);
+    }
+}
+
+void VCCueList::slotBlendedCrossfadeChecked(bool checked)
+{
+    Chaser* ch = chaser();
+
+    if (ch == NULL || ch->stopped())
+        return;
+
+    if (checked == false)
+    {
+        int primaryValue = m_primaryLeft ? m_slider1->value() : m_slider2->value();
+        int secondaryValue = m_primaryLeft ? m_slider2->value() : m_slider1->value();
+
+        if (primaryValue > 0 && primaryValue < 100)
+            ch->adjustIntensity((qreal)primaryValue / 100, m_primaryIndex, Chaser::Crossfade);
+        if (secondaryValue > 0 && secondaryValue < 100)
+            ch->adjustIntensity((qreal)secondaryValue / 100, m_secondaryIndex, Chaser::Crossfade);
+    }
+    else
+    {
+        int secondaryValue = m_primaryLeft ? m_slider2->value() : m_slider1->value();
+        if (secondaryValue > 0)
+            ch->adjustIntensity((qreal)secondaryValue / 100, m_secondaryIndex, Chaser::BlendedCrossfade);
     }
 }
 
@@ -1034,7 +1144,13 @@ void VCCueList::slotSlider1ValueChanged(int value)
         Chaser* ch = chaser();
         if (!(ch == NULL || ch->stopped()))
         {
-            ch->adjustIntensity((qreal)value / 100, m_primaryLeft ? m_primaryIndex : m_secondaryIndex);
+            int stepIndex = m_primaryLeft ? m_primaryIndex : m_secondaryIndex;
+
+            if (stepIndex == m_secondaryIndex && m_blendCheck->isChecked())
+                ch->adjustIntensity((qreal)value / 100, stepIndex, Chaser::BlendedCrossfade);
+            else
+                ch->adjustIntensity((qreal)value / 100, stepIndex, Chaser::Crossfade);
+
             stopStepIfNeeded(ch);
         }
 
@@ -1052,12 +1168,19 @@ void VCCueList::slotSlider2ValueChanged(int value)
         qWarning() << "[VCCueList] ERROR ! Slider2 value change should never happen !";
         return;
     }
+
     m_sl2TopLabel->setText(QString("%1%").arg(value));
 
     Chaser* ch = chaser();
     if (!(ch == NULL || ch->stopped()))
     {
-        ch->adjustIntensity((qreal)value / 100, m_primaryLeft ? m_secondaryIndex : m_primaryIndex);
+        int stepIndex = m_primaryLeft ? m_secondaryIndex : m_primaryIndex;
+
+        if (stepIndex == m_secondaryIndex && m_blendCheck->isChecked())
+            ch->adjustIntensity((qreal)value / 100, stepIndex, Chaser::BlendedCrossfade);
+        else
+            ch->adjustIntensity((qreal)value / 100, stepIndex, Chaser::Crossfade);
+
         stopStepIfNeeded(ch);
     }
 
@@ -1072,18 +1195,8 @@ void VCCueList::stopStepIfNeeded(Chaser* ch)
     if (ch->runningStepsNumber() != 2)
         return;
 
-    int primaryValue;
-    int secondaryValue;
-    if (m_primaryLeft)
-    {
-        primaryValue = m_slider1->value();
-        secondaryValue = m_slider2->value();
-    }
-    else
-    {
-        primaryValue = m_slider2->value();
-        secondaryValue = m_slider1->value();
-    }
+    int primaryValue = m_primaryLeft ? m_slider1->value() : m_slider2->value();
+    int secondaryValue = m_primaryLeft ? m_slider2->value() : m_slider1->value();
 
     if (primaryValue == 0)
     {
@@ -1142,7 +1255,7 @@ QKeySequence VCCueList::stopKeySequence() const
 
 void VCCueList::slotKeyPressed(const QKeySequence& keySequence)
 {
-    if (isEnabled() == false)
+    if (acceptsInput() == false)
         return;
 
     if (m_nextKeySequence == keySequence)
@@ -1175,7 +1288,8 @@ void VCCueList::updateFeedback()
 
 void VCCueList::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
 {
-    if (mode() == Doc::Design || isEnabled() == false)
+    /* Don't let input data through in design mode or if disabled */
+    if (acceptsInput() == false)
         return;
 
     quint32 pagedCh = (page() << 16) | channel;
@@ -1303,6 +1417,15 @@ void VCCueList::setCaption(const QString& text)
     QStringList list;
     list << "#" << text << tr("Fade In") << tr("Fade Out") << tr("Duration") << tr("Notes");
     m_tree->setHeaderLabels(list);
+}
+
+void VCCueList::setFont(const QFont& font)
+{
+    VCWidget::setFont(font);
+
+    QFontMetrics m_fm = QFontMetrics(font);
+    m_sl1TopLabel->setFixedWidth(m_fm.width("100%"));
+    m_sl2TopLabel->setFixedWidth(m_fm.width("100%"));
 }
 
 void VCCueList::slotModeChanged(Doc::Mode mode)
@@ -1448,9 +1571,19 @@ bool VCCueList::loadXML(QXmlStreamReader &root)
         {
             setChaser(root.readElementText().toUInt());
         }
+        else if (root.name() == KXMLQLCVCCueListPlaybackLayout)
+        {
+            PlaybackLayout layout = PlaybackLayout(root.readElementText().toInt());
+            if (layout != PlayPauseStop && layout != PlayStopPause)
+            {
+                qWarning() << Q_FUNC_INFO << "Playback layout" << layout << "does not exist.";
+                layout = PlayPauseStop;
+            }
+            setPlaybackLayout(layout);
+        }
         else if (root.name() == KXMLQLCVCCueListNextPrevBehavior)
         {
-            unsigned int nextPrev = root.readElementText().toUInt();
+            NextPrevBehavior nextPrev = NextPrevBehavior(root.readElementText().toInt());
             if (nextPrev != DefaultRunFirst
                     && nextPrev != RunNext
                     && nextPrev != Select
@@ -1460,6 +1593,16 @@ bool VCCueList::loadXML(QXmlStreamReader &root)
                 nextPrev = DefaultRunFirst;
             }
             setNextPrevBehavior(nextPrev);
+        }
+        else if (root.name() == KXMLQLCVCCueListCrossfade)
+        {
+            QXmlStreamAttributes attrs = root.attributes();
+            if (attrs.hasAttribute(KXMLQLCVCCueListBlend))
+                m_blendCheck->setChecked(true);
+            if (attrs.hasAttribute(KXMLQLCVCCueListLinked))
+                m_linkCheck->setChecked(true);
+            m_crossfadeButton->setChecked(true);
+            root.skipCurrentElement();
         }
         else if (root.name() == KXMLQLCVCCueListFunction)
         {
@@ -1521,8 +1664,23 @@ bool VCCueList::saveXML(QXmlStreamWriter *doc)
 
     /* Chaser */
     doc->writeTextElement(KXMLQLCVCCueListChaser, QString::number(chaserID()));
+
+    /* Playback layout */
+    if (playbackLayout() != PlayPauseStop)
+        doc->writeTextElement(KXMLQLCVCCueListPlaybackLayout, QString::number(playbackLayout()));
+
     /* Next/Prev behavior */
     doc->writeTextElement(KXMLQLCVCCueListNextPrevBehavior, QString::number(nextPrevBehavior()));
+
+    if (m_blendCheck->isChecked() || m_linkCheck->isChecked())
+    {
+        doc->writeStartElement(KXMLQLCVCCueListCrossfade);
+        if (m_blendCheck->isChecked())
+            doc->writeAttribute(KXMLQLCVCCueListBlend, KXMLQLCTrue);
+        if (m_linkCheck->isChecked())
+            doc->writeAttribute(KXMLQLCVCCueListLinked, KXMLQLCTrue);
+        doc->writeEndElement();
+    }
 
     /* Next cue */
     doc->writeStartElement(KXMLQLCVCCueListNext);

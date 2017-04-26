@@ -94,6 +94,7 @@ Rectangle
         enabled: !disabled
         anchors.fill: parent
         hoverEnabled: true
+        acceptedButtons: Qt.LeftButton | Qt.RightButton
         onClicked: btnRoot.clicked(mouse.button)
         onPressAndHold:
         {

@@ -77,7 +77,7 @@
   <Capability Min="0" Max="255">Pan movement with 16 bit resolution</Capability>
  </Channel>
  <Channel Name="Tilt 16 bit">
-  <Group Byte="1">Pan</Group>
+  <Group Byte="1">Tilt</Group>
   <Capability Min="0" Max="255">Tilt movement with 16 bit resolution</Capability>
  </Channel>
  <Mode Name="4 channel">

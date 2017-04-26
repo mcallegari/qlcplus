@@ -39,6 +39,8 @@ public:
     {
         None,
         DeleteFunctions,
+        RenameFunctions,
+        DeleteEditorItems,
         DeleteShowItems,
         DeleteVCPage,
         DeleteVCWidgets,

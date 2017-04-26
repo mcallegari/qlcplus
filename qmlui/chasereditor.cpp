@@ -30,16 +30,20 @@ ChaserEditor::ChaserEditor(QQuickView *view, Doc *doc, QObject *parent)
     m_view->rootContext()->setContextProperty("chaserEditor", this);
 
     m_stepsList = new ListModel(this);
+    QStringList listRoles;
+    listRoles << "funcID" << "isSelected" << "fadeIn" << "hold" << "fadeOut" << "duration" << "note";
+    m_stepsList->setRoleNames(listRoles);
 }
 
 void ChaserEditor::setFunctionID(quint32 ID)
 {
-    disconnect(m_chaser, SIGNAL(currentStepChanged(int)), this, SLOT(slotStepChanged(int)));
+    if (m_chaser)
+        disconnect(m_chaser, &Chaser::currentStepChanged, this, &ChaserEditor::slotStepChanged);
 
     m_chaser = qobject_cast<Chaser *>(m_doc->function(ID));
     FunctionEditor::setFunctionID(ID);
     if (m_chaser != NULL)
-        connect(m_chaser, SIGNAL(currentStepChanged(int)), this, SLOT(slotStepChanged(int)));
+        connect(m_chaser, &Chaser::currentStepChanged, this, &ChaserEditor::slotStepChanged);
 
     updateStepsList();
 }
@@ -49,21 +53,31 @@ QVariant ChaserEditor::stepsList() const
     return QVariant::fromValue(m_stepsList);
 }
 
-bool ChaserEditor::addFunction(quint32 fid, int insertIndex)
+bool ChaserEditor::addFunctions(QVariantList idsList, int insertIndex)
 {
-    if (m_chaser == NULL)
+    if (m_chaser == NULL || idsList.count() == 0)
         return false;
 
-    ChaserStep step(fid);
-    if (m_chaser->durationMode() == Chaser::PerStep)
+    if (insertIndex == -1)
+        insertIndex = m_chaser->stepsCount();
+
+    for (QVariant vID : idsList) // C++11
     {
-        Function *func = m_doc->function(fid);
-        step.duration = func->totalDuration();
-        if (step.duration == 0)
-            step.duration = 5000;
-        step.hold = step.duration;
+        quint32 fid = vID.toUInt();
+        ChaserStep step(fid);
+        if (m_chaser->durationMode() == Chaser::PerStep)
+        {
+            Function *func = m_doc->function(fid);
+            if (func == NULL)
+                continue;
+
+            step.duration = func->totalDuration();
+            if (step.duration == 0)
+                step.duration = 1000;
+            step.hold = step.duration;
+        }
+        m_chaser->addStep(step, insertIndex++);
     }
-    m_chaser->addStep(step, insertIndex);
     updateStepsList();
     return true;
 }
@@ -92,11 +106,7 @@ void ChaserEditor::setPreviewEnabled(bool enable)
 
 void ChaserEditor::slotStepChanged(int index)
 {
-    if (index == m_playbackIndex)
-        return;
-
-    m_playbackIndex = index;
-    emit playbackIndexChanged(index);
+    setPlaybackIndex(index);
 }
 
 void ChaserEditor::updateStepsList()
@@ -105,10 +115,6 @@ void ChaserEditor::updateStepsList()
 
     if (m_chaser != NULL)
     {
-        QStringList listRoles;
-        listRoles << "funcID" << "isSelected" << "fadeIn" << "hold" << "fadeOut" << "duration" << "note";
-        m_stepsList->setRoleNames(listRoles);
-
         foreach(ChaserStep step, m_chaser->steps())
         {
             QVariantMap stepMap;
@@ -223,7 +229,7 @@ void ChaserEditor::setSelectedValue(Function::SpeedType type, QString param, uin
                     step.fadeOut = value;
                 break;
                 case Function::Duration:
-                    step.duration = value;
+                    step.duration = duration = value;
                     step.hold = Function::speedSubtract(duration, step.fadeIn);
                     m_stepsList->setDataWithRole(idx, "hold", step.hold);
                 break;

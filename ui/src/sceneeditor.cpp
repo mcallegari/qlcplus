@@ -199,7 +199,7 @@ void SceneEditor::init(bool applyValues)
     m_chaserCombo->setMaximumWidth(250);
     m_chaserCombo->addItem(tr("None"), Function::invalidId());
     slotChaserComboActivated(0);
-    foreach (Function *function, m_doc->functionsByType(Function::Chaser))
+    foreach (Function *function, m_doc->functionsByType(Function::ChaserType))
     {
         m_chaserCombo->addItem(function->name(), function->id());
         if (function->id() == selectId)
@@ -493,30 +493,29 @@ void SceneEditor::slotPaste()
 {
     QLCClipboard *clipboard = m_doc->clipboard();
 
-    /* QObject cast fails unless the widget is a FixtureConsole */
-    if (clipboard->hasSceneValues())
+    if (clipboard->hasSceneValues() == false)
+        return;
+
+    if (m_tabViewAction->isChecked())
     {
-        if (m_tabViewAction->isChecked())
+        FixtureConsole* fc = fixtureConsoleTab(m_currentTab);
+        if (fc != NULL)
+            fc->setValues(clipboard->getSceneValues(), m_copyFromSelection);
+    }
+    else
+    {
+        foreach(FixtureConsole *fc, m_consoleList.values())
         {
-            FixtureConsole* fc = fixtureConsoleTab(m_currentTab);
-            if (fc != NULL)
-                fc->setValues(clipboard->getSceneValues(), m_copyFromSelection);
-        }
-        else
-        {
-            foreach(FixtureConsole *fc, m_consoleList.values())
+            if (fc == NULL)
+                continue;
+            quint32 fxi = fc->fixture();
+            QList<SceneValue>thisFixtureVals;
+            foreach(SceneValue val, clipboard->getSceneValues())
             {
-                if (fc == NULL)
-                    continue;
-                quint32 fxi = fc->fixture();
-                QList<SceneValue>thisFixtureVals;
-                foreach(SceneValue val, clipboard->getSceneValues())
-                {
-                    if (val.fxi == fxi)
-                        thisFixtureVals.append(val);
-                }
-                fc->setValues(thisFixtureVals, m_copyFromSelection);
+                if (val.fxi == fxi)
+                    thisFixtureVals.append(val);
             }
+            fc->setValues(thisFixtureVals, m_copyFromSelection);
         }
     }
 }
@@ -576,11 +575,10 @@ void SceneEditor::slotPositionTool()
              if (!range.isValid())
                  range = fxi->degreesRange(i);
 
-             quint32 panMsbChannel = fxi->panMsbChannel(i);
-             quint32 panLsbChannel = fxi->panLsbChannel(i);
-             quint32 tiltMsbChannel = fxi->tiltMsbChannel(i);
-             quint32 tiltLsbChannel = fxi->tiltLsbChannel(i);
- 
+             quint32 panMsbChannel = fxi->channelNumber(QLCChannel::Pan, QLCChannel::MSB, i);
+             quint32 panLsbChannel = fxi->channelNumber(QLCChannel::Pan, QLCChannel::LSB, i);
+             quint32 tiltMsbChannel = fxi->channelNumber(QLCChannel::Tilt, QLCChannel::MSB, i);
+             quint32 tiltLsbChannel = fxi->channelNumber(QLCChannel::Tilt, QLCChannel::LSB, i);
 
              if (panMsbChannel != QLCChannel::invalid())
              {
@@ -752,11 +750,10 @@ void SceneEditor::slotPositionSelectorChanged(const QPointF& position)
 
         for (int i = 0; i < fxi->heads(); ++i )
         {
-             quint32 panMsbChannel = fxi->panMsbChannel(i);
-             quint32 panLsbChannel = fxi->panLsbChannel(i);
-             quint32 tiltMsbChannel = fxi->tiltMsbChannel(i);
-             quint32 tiltLsbChannel = fxi->tiltLsbChannel(i);
- 
+             quint32 panMsbChannel = fxi->channelNumber(QLCChannel::Pan, QLCChannel::MSB, i);
+             quint32 panLsbChannel = fxi->channelNumber(QLCChannel::Pan, QLCChannel::LSB, i);
+             quint32 tiltMsbChannel = fxi->channelNumber(QLCChannel::Tilt, QLCChannel::MSB, i);
+             quint32 tiltLsbChannel = fxi->channelNumber(QLCChannel::Tilt, QLCChannel::LSB, i);
 
              if (panMsbChannel != QLCChannel::invalid())
              {
@@ -1070,9 +1067,9 @@ bool SceneEditor::isPositionToolAvailable()
 
         for (int i = 0; i < fxi->heads(); ++i)
         {
-            if (fxi->panMsbChannel(i) != QLCChannel::invalid())
+            if (fxi->channelNumber(QLCChannel::Pan, QLCChannel::MSB, i) != QLCChannel::invalid())
                 return true;
-            if (fxi->tiltMsbChannel(i) != QLCChannel::invalid())
+            if (fxi->channelNumber(QLCChannel::Tilt, QLCChannel::MSB, i) != QLCChannel::invalid())
                 return true;
         } 
     }
@@ -1557,7 +1554,7 @@ void SceneEditor::slotValueChanged(quint32 fxi, quint32 channel, uchar value)
             m_scene->setValue(SceneValue(fxi, channel, value), m_blindAction->isChecked(), false);
         else
             m_scene->setValue(SceneValue(fxi, channel, value), m_blindAction->isChecked(), true);
-        emit fixtureValueChanged(SceneValue(fxi, channel, value));
+        emit fixtureValueChanged(SceneValue(fxi, channel, value), true);
     }
 
     if (m_source != NULL)
@@ -1576,7 +1573,10 @@ void SceneEditor::slotChecked(quint32 fxi, quint32 channel, bool state)
         {
             m_scene->unsetValue(fxi, channel);
             if (m_source != NULL)
+            {
                 m_source->unset(fxi, channel);
+                emit fixtureValueChanged(SceneValue(fxi, channel, 0), false);
+            }
         }
     }
 }

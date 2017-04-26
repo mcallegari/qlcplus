@@ -69,7 +69,7 @@ void Scene_Test::cleanup()
 void Scene_Test::initial()
 {
     Scene s(m_doc);
-    QVERIFY(s.type() == Function::Scene);
+    QVERIFY(s.type() == Function::SceneType);
     QVERIFY(s.name() == "New Scene");
     QVERIFY(s.values().size() == 0);
     QVERIFY(s.id() == Function::invalidId());
@@ -321,10 +321,14 @@ void Scene_Test::save()
     s.speedsEdit().setFadeIn(100);
     s.speedsEdit().setFadeOut(1000);
     s.speedsEdit().setDuration(10000);
+
+    QVERIFY(s.fixtures().count() == 0);
     s.setValue(0, 0, 100);
     s.setValue(3, 0, 150);
     s.setValue(3, 3, 10);
     s.setValue(3, 5, 100);
+    /* verify that 2 fixture IDs have been added */
+    QVERIFY(s.fixtures().count() == 2);
 
     QBuffer buffer;
     buffer.open(QIODevice::WriteOnly | QIODevice::Text);

@@ -60,6 +60,7 @@ by double clicking on the Cue List widget.<br>
    <IMG SRC="qrc:/attach.png"> Associate a <A HREF="file:concept.html#Chaser">Chaser</A> with the Cue List using
    the <A HREF="file:selectfunction.html">Select Function</A> dialog.<br>
    <IMG SRC="qrc:/detach.png"> Detach the selected Chaser from the Cue List.<br><br>
+   <b>Playback buttons layout</b>: Select how the playback can be controlled with the two available buttons.<br>
    <b>Behavior of the Next/Previous buttons when the chaser is not active</b>: Select the behaviour
    of the Next and Previous buttons when the Chaser is not running. Basically this option determines
    the action that should be taken when the Chaser is started for the first time or when the Chaser
@@ -150,28 +151,34 @@ The following items are displayed at the bottom of the Cue List widget:<br><br>
   </TD>
  </TR>
  <TR>
-  <TD><IMG src="qrc:/player_play.png"> <IMG src="qrc:/player_pause.png"></TD>
   <TD>
-    Play/Pause/Resume the playback of the Cue List from the currently selected cue.<br>
-    When pressed for the first time, the currently selected cue will be started and the button icon
-    will turn to <IMG src="qrc:/player_pause.png"><br>
-    Pressing the button again, will pause the playback of the currently running cues,
-    freezing everything that was running to the current state (lights will stay on, motors will stop moving, etc).
-    The button background will turn to a light blue, to indicate that the next stage is "resuming", and the button icon
-    will go back to <IMG src="qrc:/player_play.png"><br>
-    Pressing the button for the third time, will resume the paused cues exactly from where they were left.
-    The button background will reset to default and the icon will be turned once again to <IMG src="qrc:/player_pause.png"><br>
-    <b>Note:</b> It is possible to pause fade in and hold phases, but not a fade out.
+    <IMG src="qrc:/player_play.png"><BR>
+    <IMG src="qrc:/player_pause.png"><BR>
+    <IMG src="qrc:/player_stop.png">
   </TD>
- </TR>
- <TR>
-  <TD><IMG src="qrc:/player_stop.png"></TD>
   <TD>
-    Stop the playback of the Cue List running cues.<br>
-    When pressed once, the currently running cue will be stopped, and the selected
-    cue will stay on the last played. Any paused state will be reset and lights will be shut down.<br>
-    When pressing this button for the second time, the selected cue
-    will be brought back to the first cue of the Chaser (or the last if the running order is reversed)
+    There are 3 playback states that a Cue list can assume: <b>running</b>, <b>paused</b> and <b>stopped</b>.<br>
+    The layout of the playback control buttons can be decided in the configuration dialog, and the playback
+    rules applied are always as follows:<br>
+    
+    <IMG src="qrc:/player_play.png"><br>
+    When clicked from a stopped state, the playback starts from the currently selected cue. If no cue is
+    selected, the playback starts from the first cue according to the associated Chaser running order.<br>
+    Once clicked, the button icon changes depending on the chosen buttons layout, which could be "pause" or "stop".<br>
+    When clicked from a paused state, the playback will be resumed from where it was left.<br><br>
+    
+    <IMG src="qrc:/player_pause.png"><br>
+    When clicked, the playback of the currently running cues is paused, freezing everything that was running 
+    to the current state (lights will stay on, motors will stop moving, etc).<br>
+    The button background will turn into a light blue, to indicate that clicking it again will resume
+    the cue playback from where it was left.<br>
+    <b>Note:</b> It is possible to pause fade in and hold phases, but not a fade out.<br><br>
+    
+    <IMG src="qrc:/player_stop.png"><br>
+    When clicked, the currently running cue will be stopped, and the cue selection
+    will stay on the last played cue. Any paused state will be reset and lights will be shut down.<br>
+    If the buttons layout is "Play/Pause + Stop", pressing this button for the second time, will bring back 
+    the selected cue to the first cue of the Chaser (or the last if the running order is reversed)
   </TD>
  </TR>
  <TR>
@@ -193,14 +200,22 @@ The following items are displayed at the bottom of the Cue List widget:<br><br>
 
 <P>
   There are two faders that can be used to manually control crossfade between two consecutive cues.<br><br>
-  Each slider is connected to a Cue List cue and to help to understand their purpose we'll call them 
+  Each slider is connected to a cue and to help understanding their purpose we'll call them 
   "current cue" and "next cue" sliders.<br>
-  The label at the bottom of each slider will show
-  the number of the cue that the slider is controlling and a color to show the status of that cue.<br><br>
-  The checkbox at the top will link the sliders together to facilitate crossfading between cues.<br>
-  When the Cue list is running the sliders control the intensity of the 
-  associated cues, overriding their Fade In and Fade Out speeds and so allowing manual control
-  of the transition.<br><br>
+  The label at the bottom of each slider will show the number of the cue that the slider is controlling 
+  and a color to show the status of that cue.<br><br>
+  There are two check boxes at the top:<br>
+  <ul>
+   <li><b>Blend</b>: if checked, will activate an additive blend mode between the two cues being crossfaded.<br>
+    This means that the DMX channels affected by the faded cues will be subject to a sort of "morphing" between each other.<br>
+    In this way, DMX channels with the same value will not change at all.
+   </li>
+   <li><b>Link</b>: will link the sliders together to facilitate crossfading between cues, for example by
+    using a single external fader instead of two.
+   </li>
+  </ul>
+  When the Cue list is running, the crossfade sliders control the intensity of the associated cues, 
+  overriding their Fade In and Fade Out speeds and so allowing manual control of the transition.<br><br>
   The slider for the <span style="background-color:#4E8DDE">current cue</span> has a blue label. 
   This will be at 100% when the playback of the Cue List is started.<br>
   The slider for the next cue</span> has an <span style="background-color:orange">orange label</span> and will be 

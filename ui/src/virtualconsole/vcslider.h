@@ -54,7 +54,6 @@ class VCSliderProperties;
 
 #define KXMLQLCVCSliderInvertedAppearance "InvertedAppearance"
 
-#define KXMLQLCVCSliderBus "Bus"
 #define KXMLQLCVCSliderBusLowLimit "LowLimit"
 #define KXMLQLCVCSliderBusHighLimit "HighLimit"
 
@@ -63,6 +62,7 @@ class VCSliderProperties;
 #define KXMLQLCVCSliderLevelHighLimit "HighLimit"
 #define KXMLQLCVCSliderLevelValue "Value"
 #define KXMLQLCVCSliderLevelMonitor "Monitor"
+#define KXMLQLCVCSliderOverrideReset "Reset"
 
 #define KXMLQLCVCSliderChannel "Channel"
 #define KXMLQLCVCSliderChannelFixture "Fixture"
@@ -78,6 +78,9 @@ class VCSlider : public VCWidget, public DMXSource
     friend class VCSliderProperties;
 
 public:
+    static const quint8 sliderInputSourceId;
+    static const quint8 overrideResetInputSourceId;
+
     static const QSize defaultSize;
 
     /*********************************************************************
@@ -262,27 +265,27 @@ public:
     QList <VCSlider::LevelChannel> levelChannels();
 
     /**
-     * Set low limit for levels set thru the slider
+     * Set low limit for levels set through the slider
      *
      * @param value Low limit
      */
     void setLevelLowLimit(uchar value);
 
     /**
-     * Get low limit for levels set thru the slider
+     * Get low limit for levels set through the slider
      *
      */
     uchar levelLowLimit() const;
 
     /**
-     * Set high limit for levels set thru the slider
+     * Set high limit for levels set through the slider
      *
      * @param value High limit
      */
     void setLevelHighLimit(uchar value);
 
     /**
-     * Get high limit for levels set thru the slider
+     * Get high limit for levels set through the slider
      */
     uchar levelHighLimit() const;
 
@@ -309,12 +312,6 @@ protected:
      * Get the current "level" mode value
      */
     uchar levelValue() const;
-
-public:
-    /**
-     * Send submasterValueChanged signal
-     */
-    void emitSubmasterValue();
 
 signals:
     void monitorDMXValueChanged(int value);
@@ -393,6 +390,12 @@ private:
     /*********************************************************************
      * Submaster
      *********************************************************************/
+public:
+    /**
+     * Send submasterValueChanged signal
+     */
+    void emitSubmasterValue();
+
 signals:
     void submasterValueChanged(qreal value);
 
@@ -440,6 +443,8 @@ public:
 public:
     void setSliderValue(uchar value, bool noScale = false);
 
+    void setSliderShadowValue(int value);
+
     int sliderValue() const;
 
     void setWidgetStyle(SliderWidgetStyle mode);
@@ -457,7 +462,7 @@ private slots:
 
 protected:
     QHBoxLayout* m_hbox;
-    QAbstractSlider* m_slider; //!< either QClickAndGoSlider or KnobWidget
+    QAbstractSlider* m_slider; //!< either ClickAndGoSlider or KnobWidget
     bool m_externalMovement;
     SliderWidgetStyle m_widgetMode;
 
@@ -520,6 +525,29 @@ protected:
     QMenu *m_menu;
     ClickAndGoWidget *m_cngWidget;
     QColor m_cngRGBvalue;
+
+    /*********************************************************************
+     * Override reset button
+     *********************************************************************/
+public:
+    /** Set the keyboard key combination to reset a level override */
+    void setOverrideResetKeySequence(const QKeySequence& keySequence);
+
+    /** Get the keyboard key combination to reset a level override */
+    QKeySequence overrideResetKeySequence() const;
+
+private slots:
+    void slotResetButtonClicked();
+
+protected slots:
+    void slotKeyPressed(const QKeySequence& keySequence);
+
+protected:
+    QToolButton *m_resetButton;
+    bool m_isOverriding;
+
+private:
+    QKeySequence m_overrideResetKeySequence;
 
     /*********************************************************************
      * External input

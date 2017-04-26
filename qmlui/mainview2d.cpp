@@ -29,26 +29,26 @@
 #include "monitorproperties.h"
 
 MainView2D::MainView2D(QQuickView *view, Doc *doc, QObject *parent)
-    : PreviewContext(view, doc, parent)
+    : PreviewContext(view, doc, "2D", parent)
 {
-    m_gridSize = QSize(5, 5);
-    m_gridScale = 1.0;
-    m_cellPixels = 100;
+    m_monProps = m_doc->monitorProperties();
+
+    setGridSize(QSize(5 ,5));
+    setGridUnits(1000);
+    setGridScale(1.0);
+    setCellPixels(100);
+
     m_xOffset = 0;
     m_yOffset = 0;
-    m_gridUnits = 1000;
 
-    m_view2D = NULL;
     m_contents2D = NULL;
 
-    m_monProps = m_doc->monitorProperties();
+    setContextResource("qrc:/2DView.qml");
+    setContextTitle(tr("2D View"));
 
     fixtureComponent = new QQmlComponent(m_view->engine(), QUrl("qrc:/Fixture2DItem.qml"));
     if (fixtureComponent->isError())
         qDebug() << fixtureComponent->errors();
-
-    connect(m_doc, SIGNAL(loaded()),
-            this, SLOT(slotRefreshView()));
 }
 
 MainView2D::~MainView2D()
@@ -61,6 +61,8 @@ void MainView2D::enableContext(bool enable)
     PreviewContext::enableContext(enable);
     if (enable == true)
         slotRefreshView();
+    else
+        resetItems();
 }
 
 void MainView2D::setUniverseFilter(quint32 universeFilter)
@@ -96,20 +98,19 @@ void MainView2D::resetItems()
 
 void MainView2D::initialize2DProperties()
 {
-    m_view2D = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("twoDView"));
-    m_contents2D = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("twoDContents"));
-
-    if (m_view2D == NULL || m_contents2D == NULL)
-        return;
-
-    m_gridScale = m_view2D->property("gridScale").toReal();
-    m_cellPixels = m_view2D->property("baseCellSize").toReal();
-
     setGridSize(m_monProps->gridSize());
     if (m_monProps->gridUnits() == MonitorProperties::Feet)
         setGridUnits(304.8);
     else
         setGridUnits(1000.0);
+
+    m_contents2D = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("twoDContents"));
+
+    if (m_contents2D == NULL)
+    {
+        qDebug() << "ERROR: got invalid contents2D" << m_contents2D;
+        return;
+    }
 
     m_xOffset = m_contents2D->property("x").toReal();
     m_yOffset = m_contents2D->property("y").toReal();
@@ -120,8 +121,8 @@ void MainView2D::createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords
     if (isEnabled() == false)
         return;
 
-    //if (m_view2D == NULL || m_contents2D == NULL)
-        initialize2DProperties();
+    if (m_contents2D == NULL)
+       initialize2DProperties();
 
     qDebug() << "[MainView2D] Creating fixture with ID" << fxID << "x:" << x << "y:" << y;
 
@@ -143,6 +144,8 @@ void MainView2D::createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords
         {
             if (x != 0 || y != 0)
             {
+                m_xOffset = m_contents2D->property("x").toReal();
+                m_yOffset = m_contents2D->property("y").toReal();
                 x = ((x - m_xOffset) * m_gridUnits) / m_cellPixels;
                 y = ((y - m_yOffset) * m_gridUnits) / m_cellPixels;
             }
@@ -152,10 +155,11 @@ void MainView2D::createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords
     }
     else
     {
-        QPointF fxOrig = m_monProps->fixturePosition(fxID);
+        QVector3D fxOrig = m_monProps->fixturePosition(fxID);
+        QVector3D fxRot = m_monProps->fixtureRotation(fxID);
         fxRect.setX(fxOrig.x());
         fxRect.setY(fxOrig.y());
-        newFixtureItem->setProperty("rotation", m_monProps->fixtureRotation(fxID));
+        newFixtureItem->setProperty("rotation", fxRot.y());
     }
 
     if (fxMode != NULL)
@@ -175,13 +179,13 @@ void MainView2D::createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords
         //qDebug() << "Current mode fixture heads:" << fxMode->heads().count();
         newFixtureItem->setProperty("headsNumber", fxMode->heads().count());
 
-        if (fixture->panMsbChannel() != QLCChannel::invalid())
+        if (fixture->channelNumber(QLCChannel::Pan, QLCChannel::MSB) != QLCChannel::invalid())
         {
             int panDeg = phy.focusPanMax();
             if (panDeg == 0) panDeg = 360;
             newFixtureItem->setProperty("panMaxDegrees", panDeg);
         }
-        if (fixture->tiltMsbChannel() != QLCChannel::invalid())
+        if (fixture->channelNumber(QLCChannel::Tilt, QLCChannel::MSB) != QLCChannel::invalid())
         {
             int tiltDeg = phy.focusTiltMax();
             if (tiltDeg == 0) tiltDeg = 270;
@@ -204,11 +208,11 @@ void MainView2D::createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords
         x = availablePos.x();
         y = availablePos.y();
         // add the new fixture to the Doc monitor properties
-        m_monProps->setFixturePosition(fxID, QPointF(x, y));
+        m_monProps->setFixturePosition(fxID, QVector3D(x, y, 0));
     }
     else
     {
-        QPointF fxOrig = m_monProps->fixturePosition(fxID);
+        QVector3D fxOrig = m_monProps->fixturePosition(fxID);
         x = fxOrig.x();
         y = fxOrig.y();
     }
@@ -257,18 +261,18 @@ void MainView2D::slotRefreshView()
     if (isEnabled() == false)
         return;
 
+    resetItems();
+
     initialize2DProperties();
 
-    if (m_view2D == NULL || m_contents2D == NULL)
+    if (m_contents2D == NULL)
         return;
-
-    resetItems();
 
     foreach(Fixture *fixture, m_doc->fixtures())
     {
         if (m_monProps->hasFixturePosition(fixture->id()))
         {
-            QPointF fxPos = m_monProps->fixturePosition(fixture->id());
+            QVector3D fxPos = m_monProps->fixturePosition(fixture->id());
             createFixtureItem(fixture->id(), fxPos.x(), fxPos.y());
         }
         else
@@ -290,11 +294,11 @@ void MainView2D::updateFixture(Fixture *fixture)
 
     for (int headIdx = 0; headIdx < fixture->heads(); headIdx++)
     {
-        quint32 mdIndex = fixture->masterIntensityChannel(headIdx);
+        quint32 headDimmerIndex = fixture->channelNumber(QLCChannel::Intensity, QLCChannel::MSB, headIdx);
         //qDebug() << "Head" << headIdx << "dimmer channel:" << mdIndex;
         qreal intValue = 1.0;
-        if (mdIndex != QLCChannel::invalid())
-            intValue = (qreal)fixture->channelValueAt(mdIndex) / 255;
+        if (headDimmerIndex != QLCChannel::invalid())
+            intValue = (qreal)fixture->channelValueAt(headDimmerIndex) / 255;
 
         QMetaObject::invokeMethod(fxItem, "setHeadIntensity",
                 Q_ARG(QVariant, headIdx),
@@ -308,11 +312,12 @@ void MainView2D::updateFixture(Fixture *fixture)
             g = fixture->channelValueAt(rgbCh.at(1));
             b = fixture->channelValueAt(rgbCh.at(2));
 
-            QMetaObject::invokeMethod(fxItem, "setHeadColor",
+            QMetaObject::invokeMethod(fxItem, "setHeadRGBColor",
                     Q_ARG(QVariant, headIdx),
                     Q_ARG(QVariant, QColor(r, g, b)));
             colorSet = true;
         }
+
         QVector <quint32> cmyCh = fixture->cmyChannels(headIdx);
         if (cmyCh.size() == 3)
         {
@@ -322,14 +327,27 @@ void MainView2D::updateFixture(Fixture *fixture)
             y = fixture->channelValueAt(cmyCh.at(2));
             QColor col;
             col.setCmyk(c, m, y, 0);
-            QMetaObject::invokeMethod(fxItem, "setHeadColor",
+            QMetaObject::invokeMethod(fxItem, "setHeadRGBColor",
                     Q_ARG(QVariant, headIdx),
                     Q_ARG(QVariant, QColor(col.red(), col.green(), col.blue())));
             colorSet = true;
         }
-        if (colorSet == false && mdIndex != QLCChannel::invalid())
+
+        quint32 white = fixture->channelNumber(QLCChannel::White, QLCChannel::MSB, headIdx);
+        if (white != QLCChannel::invalid())
+            QMetaObject::invokeMethod(fxItem, "setHeadWhite", Q_ARG(QVariant, headIdx), Q_ARG(QVariant, fixture->channelValueAt(white)));
+
+        quint32 amber = fixture->channelNumber(QLCChannel::Amber, QLCChannel::MSB, headIdx);
+        if (amber != QLCChannel::invalid())
+            QMetaObject::invokeMethod(fxItem, "setHeadAmber", Q_ARG(QVariant, headIdx), Q_ARG(QVariant, fixture->channelValueAt(amber)));
+
+        quint32 UV = fixture->channelNumber(QLCChannel::UV, QLCChannel::MSB, headIdx);
+        if (UV != QLCChannel::invalid())
+            QMetaObject::invokeMethod(fxItem, "setHeadUV", Q_ARG(QVariant, headIdx), Q_ARG(QVariant, fixture->channelValueAt(UV)));
+
+        if (colorSet == false && headDimmerIndex != QLCChannel::invalid())
         {
-            QMetaObject::invokeMethod(fxItem, "setHeadColor",
+            QMetaObject::invokeMethod(fxItem, "setHeadRGBColor",
                     Q_ARG(QVariant, headIdx),
                     Q_ARG(QVariant, QColor(Qt::white)));
         }
@@ -352,18 +370,18 @@ void MainView2D::updateFixture(Fixture *fixture)
             case QLCChannel::Pan:
             {
                 if (ch->controlByte() == QLCChannel::MSB)
-                    panDegrees += (fixture->channelValueAt(i) << 8);
+                    panDegrees += (value << 8);
                 else
-                    panDegrees += (fixture->channelValueAt(i));
+                    panDegrees += (value);
                 setPosition = true;
             }
             break;
             case QLCChannel::Tilt:
             {
                 if (ch->controlByte() == QLCChannel::MSB)
-                    tiltDegrees += (fixture->channelValueAt(i) << 8);
+                    tiltDegrees += (value << 8);
                 else
-                    tiltDegrees += (fixture->channelValueAt(i));
+                    tiltDegrees += (value);
                 setPosition = true;
             }
             break;
@@ -378,7 +396,7 @@ void MainView2D::updateFixture(Fixture *fixture)
                         QColor wheelColor = cap->resourceColor1();
                         if (wheelColor.isValid())
                         {
-                            QMetaObject::invokeMethod(fxItem, "setHeadColor",
+                            QMetaObject::invokeMethod(fxItem, "setHeadRGBColor",
                                     Q_ARG(QVariant, 0),
                                     Q_ARG(QVariant, wheelColor));
                             colorSet = true;
@@ -450,16 +468,16 @@ void MainView2D::updateFixtureSelection(quint32 fxID, bool enable)
     fxItem->setProperty("isSelected", enable);
 }
 
-void MainView2D::updateFixtureRotation(quint32 fxID, int degrees)
+void MainView2D::updateFixtureRotation(quint32 fxID, QVector3D degrees)
 {
     if (isEnabled() == false || m_itemsMap.contains(fxID) == false)
         return;
 
     QQuickItem *fxItem = m_itemsMap[fxID];
-    fxItem->setProperty("rotation", degrees);
+    fxItem->setProperty("rotation", degrees.y());
 }
 
-void MainView2D::updateFixturePosition(quint32 fxID, QPointF pos)
+void MainView2D::updateFixturePosition(quint32 fxID, QVector3D pos)
 {
     if (isEnabled() == false || m_itemsMap.contains(fxID) == false)
         return;
@@ -500,6 +518,34 @@ void MainView2D::setGridUnits(float units)
             m_monProps->setGridUnits(MonitorProperties::Meters);
         emit gridUnitsChanged();
     }
+}
+
+qreal MainView2D::gridScale() const
+{
+    return m_gridScale;
+}
+
+void MainView2D::setGridScale(qreal gridScale)
+{
+    if (m_gridScale == gridScale)
+        return;
+
+    m_gridScale = gridScale;
+    emit gridScaleChanged(gridScale);
+}
+
+qreal MainView2D::cellPixels() const
+{
+    return m_cellPixels;
+}
+
+void MainView2D::setCellPixels(qreal cellPixels)
+{
+    if (m_cellPixels == cellPixels)
+        return;
+
+    m_cellPixels = cellPixels;
+    emit cellPixelsChanged(cellPixels);
 }
 
 

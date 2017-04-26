@@ -25,8 +25,6 @@ import QtQuick.Window 2.0
 
 import "."
 
-import "DetachWindow.js" as WinLoader
-
 Rectangle
 {
     id: mainView
@@ -109,17 +107,12 @@ Rectangle
                 id: actEntry
                 imgSource: "qrc:/qlcplus.svg"
                 entryText: qsTr("Actions")
-                onClicked:
-                {
-                    actionsMenu.visible = true
-                    contextMenuArea.enabled = true
-                    contextMenuArea.z = 98
-                }
+                onClicked: actionsMenu.visible = true
             }
             MenuBarEntry
             {
                 id: edEntry
-                imgSource: "editor.svg"
+                imgSource: "qrc:/editor.svg"
                 entryText: qsTr("Fixtures & Functions")
                 checkable: true
                 checked: true
@@ -133,7 +126,7 @@ Rectangle
             MenuBarEntry
             {
                 id: vcEntry
-                imgSource: "virtualconsole.svg"
+                imgSource: "qrc:/virtualconsole.svg"
                 entryText: qsTr("Virtual Console")
                 checkable: true
                 exclusiveGroup: menuBarGroup
@@ -145,13 +138,13 @@ Rectangle
                 onRightClicked:
                 {
                     vcEntry.visible = false
-                    WinLoader.createWindow("qrc:/VirtualConsole.qml")
+                    contextManager.detachContext("VC")
                 }
             }
             MenuBarEntry
             {
                 id: sdEntry
-                imgSource: "simpledesk.svg"
+                imgSource: "qrc:/simpledesk.svg"
                 entryText: qsTr("Simple Desk")
                 checkable: true
                 exclusiveGroup: menuBarGroup
@@ -163,13 +156,13 @@ Rectangle
                 onRightClicked:
                 {
                     sdEntry.visible = false
-                    WinLoader.createWindow("qrc:/SimpleDesk.qml")
+                    contextManager.detachContext("SDESK")
                 }
             }
             MenuBarEntry
             {
                 id: smEntry
-                imgSource: "showmanager.svg"
+                imgSource: "qrc:/showmanager.svg"
                 entryText: qsTr("Show Manager")
                 checkable: true
                 exclusiveGroup: menuBarGroup
@@ -181,13 +174,13 @@ Rectangle
                 onRightClicked:
                 {
                     smEntry.visible = false
-                    WinLoader.createWindow("qrc:/ShowManager.qml")
+                    contextManager.detachContext("SHOWMGR")
                 }
             }
             MenuBarEntry
             {
                 id: ioEntry
-                imgSource: "inputoutput.svg"
+                imgSource: "qrc:/inputoutput.svg"
                 entryText: qsTr("Input/Output")
                 checkable: true
                 exclusiveGroup: menuBarGroup
@@ -199,7 +192,7 @@ Rectangle
                 onRightClicked:
                 {
                     ioEntry.visible = false
-                    WinLoader.createWindow("qrc:/InputOutputManager.qml")
+                    contextManager.detachContext("IOMGR")
                 }
             }
             Rectangle
@@ -213,6 +206,7 @@ Rectangle
                 label: "BPM: " + (ioManager.bpmNumber > 0 ? ioManager.bpmNumber : qsTr("Off"))
                 color: gsMouseArea.containsMouse ? UISettings.bgLight : "transparent"
                 fontSize: UISettings.textSizeDefault
+
                 MouseArea
                 {
                     id: gsMouseArea
@@ -226,6 +220,7 @@ Rectangle
                     parent: mainView
                     y: mainToolbar.height
                     x: beatIndicator.x - width
+                    z: 51
                     visible: false
                 }
             }
@@ -264,7 +259,10 @@ Rectangle
     ActionsMenu
     {
         id: actionsMenu
+        x: 1
         y: actEntry.height + 1
+        visible: false
+        z: visible ? 99 : 0
     }
 
     /** Mouse area enabled when actionsMenu is visible
@@ -274,19 +272,10 @@ Rectangle
     MouseArea
     {
         id: contextMenuArea
-        z: 0
-        enabled: false
+        z: actionsMenu.visible ? 98 : 0
+        enabled: actionsMenu.visible
         anchors.fill: parent
-        onClicked:
-        {
-            console.log("Root clicked")
-            if (actionsMenu.visible == true)
-            {
-                contextMenuArea.enabled = false
-                contextMenuArea.z = 0;
-                actionsMenu.visible = false
-            }
-        }
+        onClicked: actionsMenu.visible = false
     }
 
     Rectangle

@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.6 GIT</Version>
+  <Author>Jászberényi Szabolcs</Author>
+ </Creator>
+ <Manufacturer>Involight</Manufacturer>
+ <Model>LED MH77S</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan Coarse">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan Coarse</Capability>
+ </Channel>
+ <Channel Name="Pan Fine">
+  <Group Byte="1">Pan</Group>
+  <Capability Min="0" Max="255">Pan Fine</Capability>
+ </Channel>
+ <Channel Name="Tilt Coarse">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt Coarse</Capability>
+ </Channel>
+ <Channel Name="Tilt Fine">
+  <Group Byte="1">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt fine</Capability>
+ </Channel>
+ <Channel Name="Pan/Tilt Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">PAN &amp; TILT Movement Speed</Capability>
+ </Channel>
+ <Channel Name="Strobe Effect">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="3">No strobe (shutter closed)</Capability>
+  <Capability Min="4" Max="251">Strobe</Capability>
+  <Capability Min="252" Max="255">No strobe (shutter open)</Capability>
+ </Channel>
+ <Channel Name="Master dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Master Dimmer</Capability>
+ </Channel>
+ <Channel Name="Color Wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="4" Color="#ffffff">White</Capability>
+  <Capability Min="5" Max="9" Color="#ffffff" Color2="#ff0000">White &amp; Red</Capability>
+  <Capability Min="10" Max="14" Color="#ff0000">Red</Capability>
+  <Capability Min="15" Max="19" Color="#ff0000" Color2="#ff5500">Red &amp; Orange</Capability>
+  <Capability Min="20" Max="24" Color="#ff5500">Orange</Capability>
+  <Capability Min="25" Max="29" Color="#ff5500" Color2="#00ff00">Orange &amp; Green</Capability>
+  <Capability Min="30" Max="34" Color="#00ff00">Green</Capability>
+  <Capability Min="35" Max="39" Color="#00ff00" Color2="#00aaff">Green &amp; Light blue</Capability>
+  <Capability Min="40" Max="44" Color="#00aaff">Light blue</Capability>
+  <Capability Min="45" Max="49" Color="#00aaff" Color2="#aa00ff">Light blue &amp; Purple</Capability>
+  <Capability Min="50" Max="54" Color="#aa00ff">Purple</Capability>
+  <Capability Min="55" Max="59" Color="#aa00ff" Color2="#ffff00">Purple &amp; Yellow</Capability>
+  <Capability Min="60" Max="64" Color="#ffff00">Yellow</Capability>
+  <Capability Min="65" Max="69" Color="#ffff00" Color2="#0000ff">Yellow &amp; Blue</Capability>
+  <Capability Min="70" Max="74" Color="#0000ff">Blue</Capability>
+  <Capability Min="75" Max="79" Color="#0000ff" Color2="#ff007f">Blue &amp; Magenta</Capability>
+  <Capability Min="80" Max="84" Color="#ff007f">Magenta</Capability>
+  <Capability Min="85" Max="89" Color="#ff007f" Color2="#ffffff">Magenta &amp; White</Capability>
+  <Capability Min="90" Max="255" Res="Others/rainbow.png">Rainbow with speed controll</Capability>
+ </Channel>
+ <Channel Name="Gobo Wheel">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="4" Res="Others/open.png">Open</Capability>
+  <Capability Min="5" Max="9" Res="Others/gobo00027.png">Gobo 1</Capability>
+  <Capability Min="10" Max="14" Res="SGM/gobo00361.png">Gobo 2</Capability>
+  <Capability Min="15" Max="19" Res="SGM/gobo00093.png">Gobo 3</Capability>
+  <Capability Min="20" Max="24" Res="Chauvet/gobo00045.png">Gobo 4</Capability>
+  <Capability Min="25" Max="29" Res="Robe/gobo00024.png">Gobo 5</Capability>
+  <Capability Min="30" Max="34" Res="Chauvet/gobo00001.png">Gobo 6</Capability>
+  <Capability Min="35" Max="39" Res="SGM/gobo00092.png">Gobo 7</Capability>
+  <Capability Min="40" Max="129">Gobo Change, speed descending</Capability>
+  <Capability Min="130" Max="134" Res="Others/open.png">Open</Capability>
+  <Capability Min="135" Max="220">Gobo Change, speed ascending</Capability>
+  <Capability Min="221" Max="225" Res="Others/gobo00027.png">Gobo 1 Shake, speed controll</Capability>
+  <Capability Min="226" Max="230" Res="SGM/gobo00361.png">Gobo 2 Shake, speed controll</Capability>
+  <Capability Min="231" Max="235" Res="SGM/gobo00093.png">Gobo 3 Shake, speed controll</Capability>
+  <Capability Min="236" Max="240" Res="Chauvet/gobo00045.png">Gobo 4 Shake, speed controll</Capability>
+  <Capability Min="241" Max="245" Res="Robe/gobo00024.png">Gobo 5 Shake, speed controll</Capability>
+  <Capability Min="246" Max="250" Res="Chauvet/gobo00001.png">Gobo 6 Shake, speed controll</Capability>
+  <Capability Min="251" Max="255" Res="SGM/gobo00092.png">Gobo 7 Shake, speed controll</Capability>
+ </Channel>
+ <Channel Name="Gobo Rotation">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="63">Fix rotation 0-360</Capability>
+  <Capability Min="64" Max="127">Rotation CW, speed controll</Capability>
+  <Capability Min="128" Max="191">Rotation CCW, speed controll</Capability>
+  <Capability Min="192" Max="255">CW-CCW rotation, speed controll</Capability>
+ </Channel>
+ <Channel Name="Focus">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">Focus</Capability>
+ </Channel>
+ <Channel Name="Prism">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="127">Open</Capability>
+  <Capability Min="128" Max="255">Prism</Capability>
+ </Channel>
+ <Channel Name="Prism Rotation">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="63">Fix position 0-360</Capability>
+  <Capability Min="64" Max="127">CW-CCW rotation, speed controll</Capability>
+  <Capability Min="128" Max="191">Prism is rotating CW, speed controll</Capability>
+  <Capability Min="192" Max="255">Prism is rotating CCW, speed controll</Capability>
+ </Channel>
+ <Channel Name="Macro program">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="52">Split-color manual setup</Capability>
+  <Capability Min="53" Max="80" Res="Others/rainbow.png">Rainbow effect, speed controll</Capability>
+  <Capability Min="81" Max="255">Macro programs</Capability>
+ </Channel>
+ <Channel Name="Function">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="25">No function</Capability>
+  <Capability Min="26" Max="45">Reset except PAN, TILT and software</Capability>
+  <Capability Min="46" Max="103">No function</Capability>
+  <Capability Min="104" Max="119">Reset PAN and TILT motors</Capability>
+  <Capability Min="120" Max="190">No function</Capability>
+  <Capability Min="191" Max="205">Reset all</Capability>
+  <Capability Min="206" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Color Wheel effect">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4" Color="#ffffff">White</Capability>
+  <Capability Min="5" Max="9" Color="#ffffff" Color2="#ff0000">White &amp; Red</Capability>
+  <Capability Min="10" Max="14" Color="#ff0000">Red</Capability>
+  <Capability Min="15" Max="19" Color="#ff0000" Color2="#ff5500">Red &amp; Orange</Capability>
+  <Capability Min="20" Max="24" Color="#ff5500">Orange</Capability>
+  <Capability Min="25" Max="29" Color="#ff5500" Color2="#00ff00">Orange &amp; Green</Capability>
+  <Capability Min="30" Max="34" Color="#00ff00">Green</Capability>
+  <Capability Min="35" Max="39" Color="#00ff00" Color2="#00aaff">Green &amp; Light blue</Capability>
+  <Capability Min="40" Max="44" Color="#00aaff">Light blue</Capability>
+  <Capability Min="45" Max="49" Color="#00aaff" Color2="#aa00ff">Light blue &amp; Purple</Capability>
+  <Capability Min="50" Max="54" Color="#aa00ff">Purple</Capability>
+  <Capability Min="55" Max="59" Color="#aa00ff" Color2="#ffff00">Purple &amp; Yellow</Capability>
+  <Capability Min="60" Max="64" Color="#ffff00">Yellow</Capability>
+  <Capability Min="65" Max="69" Color="#ffff00" Color2="#0000ff">Yellow &amp; Blue</Capability>
+  <Capability Min="70" Max="74" Color="#0000ff">Blue</Capability>
+  <Capability Min="75" Max="79" Color="#0000ff" Color2="#ff007f">Blue &amp; Magenta</Capability>
+  <Capability Min="80" Max="84" Color="#ff007f">Magenta</Capability>
+  <Capability Min="85" Max="89" Color="#ff007f" Color2="#ffffff">Magenta &amp; White</Capability>
+  <Capability Min="90" Max="94" Color="#ffffff">White</Capability>
+  <Capability Min="95" Max="114" Color="#ff0000">Red</Capability>
+  <Capability Min="115" Max="134" Color="#ff5500">Orange</Capability>
+  <Capability Min="135" Max="154" Color="#00ff00">Green</Capability>
+  <Capability Min="155" Max="174" Color="#00aaff">Light blue</Capability>
+  <Capability Min="175" Max="194" Color="#aa00ff">Purple</Capability>
+  <Capability Min="195" Max="214" Color="#ffff00">Yellow</Capability>
+  <Capability Min="215" Max="234" Color="#0000ff">Blue</Capability>
+  <Capability Min="235" Max="254" Color="#ff007f">Magenta</Capability>
+  <Capability Min="255" Max="255" Color="#ffffff">White</Capability>
+ </Channel>
+ <Channel Name="Color Wheel Rotating Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Color Wheel Rotating Speed</Capability>
+ </Channel>
+ <Channel Name="Prism on-off speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Prism on-off speed</Capability>
+ </Channel>
+ <Channel Name="Gobo Wheel Rotation Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Gobo Wheel Rotation Speed</Capability>
+ </Channel>
+ <Mode Name="15 Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="10.5" Width="330" Height="320" Depth="455"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="540" TiltMax="280"/>
+   <Technical PowerConsumption="120" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Pan Coarse</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt Coarse</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan/Tilt Speed</Channel>
+  <Channel Number="5">Strobe Effect</Channel>
+  <Channel Number="6">Master dimmer</Channel>
+  <Channel Number="7">Color Wheel</Channel>
+  <Channel Number="8">Gobo Wheel</Channel>
+  <Channel Number="9">Gobo Rotation</Channel>
+  <Channel Number="10">Focus</Channel>
+  <Channel Number="11">Prism</Channel>
+  <Channel Number="12">Prism Rotation</Channel>
+  <Channel Number="13">Macro program</Channel>
+  <Channel Number="14">Function</Channel>
+ </Mode>
+ <Mode Name="19 Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="10.5" Width="330" Height="320" Depth="455"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="540" TiltMax="280"/>
+   <Technical PowerConsumption="120" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Pan Coarse</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt Coarse</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan/Tilt Speed</Channel>
+  <Channel Number="5">Strobe Effect</Channel>
+  <Channel Number="6">Master dimmer</Channel>
+  <Channel Number="7">Color Wheel</Channel>
+  <Channel Number="8">Gobo Wheel</Channel>
+  <Channel Number="9">Gobo Rotation</Channel>
+  <Channel Number="10">Focus</Channel>
+  <Channel Number="11">Prism</Channel>
+  <Channel Number="12">Prism Rotation</Channel>
+  <Channel Number="13">Macro program</Channel>
+  <Channel Number="14">Function</Channel>
+  <Channel Number="15">Color Wheel effect</Channel>
+  <Channel Number="16">Color Wheel Rotating Speed</Channel>
+  <Channel Number="17">Prism on-off speed</Channel>
+  <Channel Number="18">Gobo Wheel Rotation Speed</Channel>
+ </Mode>
+</FixtureDefinition>

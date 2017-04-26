@@ -41,7 +41,7 @@ public:
     void stopFunction(Function* function);
     QList <Function*> m_functionList;
 
-    void registerDMXSource(DMXSource* source, QString name);
+    void registerDMXSource(DMXSource* source);
     void unregisterDMXSource(DMXSource* source);
     QList <DMXSource*> m_dmxSourceList;
 

@@ -24,7 +24,6 @@
 #include <QHash>
 
 #include "showfunction.h"
-#include "chaser.h"
 #include "scene.h"
 
 class QXmlStreamReader;

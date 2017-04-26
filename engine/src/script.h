@@ -62,14 +62,17 @@ public:
     Script(Doc* doc);
     virtual ~Script();
 
+    /** @reimp */
+    QIcon getIcon() const;
+
     /************************************************************************
      * Copying
      ************************************************************************/
 public:
-    /** @reimpl */
+    /** @reimp */
     Function* createCopy(Doc* doc, bool addToDoc = true);
 
-    /** @reimpl */
+    /** @reimp */
     bool copyFrom(const Function* function);
 
     /************************************************************************
@@ -87,6 +90,10 @@ public:
 
     /** Get the script data lines as a list of  strings */
     QStringList dataLines() const;
+
+    /** Convenience method to retrieve Functions used by this Script.
+     *  The returned list is formatted as: Function ID / line number */
+    QList<quint32> functionList() const;
 
     QList<int> syntaxErrorsLines();
 

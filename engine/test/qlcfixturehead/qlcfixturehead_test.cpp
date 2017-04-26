@@ -131,25 +131,25 @@ void QLCFixtureHead_Test::channels()
 
     head.addChannel(0);
     QCOMPARE(head.channels().size(), 1);
-    QCOMPARE(head.channels().contains(0), true);
+    QVERIFY(head.channels().contains(0) == true);
 
     head.addChannel(0);
     QCOMPARE(head.channels().size(), 1);
-    QCOMPARE(head.channels().contains(0), true);
+    QVERIFY(head.channels().contains(0) == true);
 
     head.addChannel(5000);
     QCOMPARE(head.channels().size(), 2);
-    QCOMPARE(head.channels().contains(0), true);
-    QCOMPARE(head.channels().contains(5000), true);
+    QVERIFY(head.channels().contains(0) == true);
+    QVERIFY(head.channels().contains(5000) == true);
 
     head.removeChannel(1);
     QCOMPARE(head.channels().size(), 2);
-    QCOMPARE(head.channels().contains(0), true);
-    QCOMPARE(head.channels().contains(5000), true);
+    QVERIFY(head.channels().contains(0) == true);
+    QVERIFY(head.channels().contains(5000) == true);
 
     head.removeChannel(0);
     QCOMPARE(head.channels().size(), 1);
-    QCOMPARE(head.channels().contains(5000), true);
+    QVERIFY(head.channels().contains(5000) == true);
 
     head.removeChannel(5000);
     QCOMPARE(head.channels().size(), 0);
@@ -183,13 +183,13 @@ void QLCFixtureHead_Test::cacheChannelsRgbMaster()
     head.addChannel(3);
     head.cacheChannels(&mode);
 
-    QCOMPARE(head.panMsbChannel(), QLCChannel::invalid());
-    QCOMPARE(head.panLsbChannel(), QLCChannel::invalid());
-    QCOMPARE(head.tiltMsbChannel(), QLCChannel::invalid());
-    QCOMPARE(head.tiltLsbChannel(), QLCChannel::invalid());
+    QCOMPARE(head.channelNumber(QLCChannel::Pan, QLCChannel::MSB), QLCChannel::invalid());
+    QCOMPARE(head.channelNumber(QLCChannel::Pan, QLCChannel::LSB), QLCChannel::invalid());
+    QCOMPARE(head.channelNumber(QLCChannel::Tilt, QLCChannel::MSB), QLCChannel::invalid());
+    QCOMPARE(head.channelNumber(QLCChannel::Tilt, QLCChannel::LSB), QLCChannel::invalid());
     QCOMPARE(head.rgbChannels(), QVector <quint32> () << 0 << 1 << 2);
     QCOMPARE(head.cmyChannels(), QVector <quint32> ());
-    QCOMPARE(head.masterIntensityChannel(), quint32(3));
+    QCOMPARE(head.channelNumber(QLCChannel::Intensity, QLCChannel::MSB), quint32(3));
 }
 
 void QLCFixtureHead_Test::cacheChannelsCmyMaster()
@@ -220,13 +220,13 @@ void QLCFixtureHead_Test::cacheChannelsCmyMaster()
     head.addChannel(3);
     head.cacheChannels(&mode);
 
-    QCOMPARE(head.panMsbChannel(), QLCChannel::invalid());
-    QCOMPARE(head.panLsbChannel(), QLCChannel::invalid());
-    QCOMPARE(head.tiltMsbChannel(), QLCChannel::invalid());
-    QCOMPARE(head.tiltLsbChannel(), QLCChannel::invalid());
+    QCOMPARE(head.channelNumber(QLCChannel::Pan, QLCChannel::MSB), QLCChannel::invalid());
+    QCOMPARE(head.channelNumber(QLCChannel::Pan, QLCChannel::LSB), QLCChannel::invalid());
+    QCOMPARE(head.channelNumber(QLCChannel::Tilt, QLCChannel::MSB), QLCChannel::invalid());
+    QCOMPARE(head.channelNumber(QLCChannel::Tilt, QLCChannel::LSB), QLCChannel::invalid());
     QCOMPARE(head.rgbChannels(), QVector <quint32> ());
     QCOMPARE(head.cmyChannels(), QVector <quint32> () << 0 << 1 << 3);
-    QCOMPARE(head.masterIntensityChannel(), quint32(2));
+    QCOMPARE(head.channelNumber(QLCChannel::Intensity, QLCChannel::MSB), quint32(2));
 }
 
 void QLCFixtureHead_Test::cacheChannelsPanTilt()
@@ -257,29 +257,29 @@ void QLCFixtureHead_Test::cacheChannelsPanTilt()
     head.addChannel(3);
     head.cacheChannels(&mode);
 
-    QCOMPARE(head.panMsbChannel(), quint32(0));
-    QCOMPARE(head.panLsbChannel(), quint32(1));
-    QCOMPARE(head.tiltMsbChannel(), quint32(2));
-    QCOMPARE(head.tiltLsbChannel(), quint32(3));
+    QCOMPARE(head.channelNumber(QLCChannel::Pan, QLCChannel::MSB), quint32(0));
+    QCOMPARE(head.channelNumber(QLCChannel::Pan, QLCChannel::LSB), quint32(1));
+    QCOMPARE(head.channelNumber(QLCChannel::Tilt, QLCChannel::MSB), quint32(2));
+    QCOMPARE(head.channelNumber(QLCChannel::Tilt, QLCChannel::LSB), quint32(3));
     QCOMPARE(head.rgbChannels(), QVector <quint32> ());
     QCOMPARE(head.cmyChannels(), QVector <quint32> ());
-    QCOMPARE(head.masterIntensityChannel(), QLCChannel::invalid());
+    QCOMPARE(head.channelNumber(QLCChannel::Intensity, QLCChannel::MSB), QLCChannel::invalid());
 
     head.cacheChannels((QLCFixtureMode*) 0xDEADBEEF);
-    QCOMPARE(head.panMsbChannel(), quint32(0));
-    QCOMPARE(head.panLsbChannel(), quint32(1));
-    QCOMPARE(head.tiltMsbChannel(), quint32(2));
-    QCOMPARE(head.tiltLsbChannel(), quint32(3));
+    QCOMPARE(head.channelNumber(QLCChannel::Pan, QLCChannel::MSB), quint32(0));
+    QCOMPARE(head.channelNumber(QLCChannel::Pan, QLCChannel::LSB), quint32(1));
+    QCOMPARE(head.channelNumber(QLCChannel::Tilt, QLCChannel::MSB), quint32(2));
+    QCOMPARE(head.channelNumber(QLCChannel::Tilt, QLCChannel::LSB), quint32(3));
     QCOMPARE(head.rgbChannels(), QVector <quint32> ());
     QCOMPARE(head.cmyChannels(), QVector <quint32> ());
-    QCOMPARE(head.masterIntensityChannel(), QLCChannel::invalid());
+    QCOMPARE(head.channelNumber(QLCChannel::Intensity, QLCChannel::MSB), QLCChannel::invalid());
 }
 
 void QLCFixtureHead_Test::doublePanTilt()
 {
-    // Test that the first found Pan/Tilt channel is used
-    // - for the case the user forgets to set the latter to LSB
-    // - in most cases the Pan MSB channel comes first
+    /** Test that a mistake in the fixture definition (LSB channel set to MSB)
+     *  will overwrite the correct MSB channel. */
+
     QLCFixtureMode mode(m_fixtureDef);
     QCOMPARE(mode.channels().size(), 0);
 
@@ -306,10 +306,10 @@ void QLCFixtureHead_Test::doublePanTilt()
     head.addChannel(3);
     head.cacheChannels(&mode);
 
-    QCOMPARE(head.panMsbChannel(), quint32(0));
-    QCOMPARE(head.panLsbChannel(), QLCChannel::invalid());
-    QCOMPARE(head.tiltMsbChannel(), quint32(2));
-    QCOMPARE(head.tiltLsbChannel(), QLCChannel::invalid());
+    QCOMPARE(head.channelNumber(QLCChannel::Pan, QLCChannel::MSB), quint32(1));
+    QCOMPARE(head.channelNumber(QLCChannel::Pan, QLCChannel::LSB), QLCChannel::invalid());
+    QCOMPARE(head.channelNumber(QLCChannel::Tilt, QLCChannel::MSB), quint32(3));
+    QCOMPARE(head.channelNumber(QLCChannel::Tilt, QLCChannel::LSB), QLCChannel::invalid());
 }
 
 void QLCFixtureHead_Test::cacheChannelsColor()
@@ -343,13 +343,6 @@ void QLCFixtureHead_Test::cacheChannelsColor()
     QCOMPARE(quint32(head.colorWheels().count()), quint32(2));
     QCOMPARE(head.colorWheels().at(0), quint32(1));
     QCOMPARE(head.colorWheels().at(1), quint32(3));
-}
-
-void QLCFixtureHead_Test::dimmerHead()
-{
-    QLCDimmerHead dh(5);
-    QCOMPARE(dh.masterIntensityChannel(), quint32(5));
-    QCOMPARE(dh.m_channelsCached, true);
 }
 
 void QLCFixtureHead_Test::cleanupTestCase()

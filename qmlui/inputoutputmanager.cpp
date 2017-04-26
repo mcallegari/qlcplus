@@ -30,9 +30,8 @@
 #include "universe.h"
 #include "doc.h"
 
-InputOutputManager::InputOutputManager(Doc *doc, QObject *parent)
-    : QObject(parent)
-    , m_doc(doc)
+InputOutputManager::InputOutputManager(QQuickView *view, Doc *doc, QObject *parent)
+    : PreviewContext(view, doc, "IOMGR", parent)
     , m_selectedItem(NULL)
     , m_selectedUniverseIndex(-1)
     , m_beatType("INTERNAL")
@@ -40,6 +39,9 @@ InputOutputManager::InputOutputManager(Doc *doc, QObject *parent)
     Q_ASSERT(m_doc != NULL);
     m_ioMap = m_doc->inputOutputMap();
     Q_ASSERT(m_ioMap != NULL);
+
+    setContextResource("qrc:/InputOutputManager.qml");
+    setContextTitle(tr("Input/Output Manager"));
 
     qmlRegisterType<Universe>("com.qlcplus.classes", 1, 0, "Universe");
     qmlRegisterType<InputPatch>("com.qlcplus.classes", 1, 0, "InputPatch");

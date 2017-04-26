@@ -78,7 +78,7 @@ void VCClockProperties::addScheduleItem(VCClockSchedule schedule)
     {
         QTreeWidgetItem *item = new QTreeWidgetItem(m_scheduleTree);
         item->setText(KColumnName, func->name());
-        item->setIcon(KColumnName, Function::typeToIcon(func->type()));
+        item->setIcon(KColumnName, func->getIcon());
         item->setData(KColumnName, Qt::UserRole, func->id());
         QTimeEdit *timeEdit = new QTimeEdit();
         timeEdit->setDisplayFormat("HH:mm:ss");

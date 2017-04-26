@@ -175,9 +175,9 @@ void InputSelectionWidget::slotChooseInputClicked()
     SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
-        m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(sic.universe(), sic.channel()));
+        m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(sic.universe(), (m_widgetPage << 16) | sic.channel()));
         updateInputSource();
-        emit inputValueChanged(sic.universe(), sic.channel());
+        emit inputValueChanged(sic.universe(), (m_widgetPage << 16) | sic.channel());
     }
 }
 
@@ -207,6 +207,8 @@ void InputSelectionWidget::updateInputSource()
         chName = KInputNone;
         m_lowerSpin->setEnabled(false);
         m_upperSpin->setEnabled(false);
+        m_customFbButton->setChecked(false);
+        m_feedbackGroup->setVisible(false);
     }
     else
     {
@@ -228,7 +230,14 @@ void InputSelectionWidget::updateInputSource()
         m_lowerSpin->setValue((m_inputSource->lowerValue() != 0) ? m_inputSource->lowerValue() : min);
         m_upperSpin->setValue((m_inputSource->upperValue() != UCHAR_MAX) ? m_inputSource->upperValue() : max);
         if (m_lowerSpin->value() != 0 || m_upperSpin->value() != UCHAR_MAX)
+        {
             m_customFbButton->setChecked(true);
+        }
+        else
+        {
+            m_customFbButton->setChecked(false);
+            m_feedbackGroup->setVisible(false);
+        }
         m_lowerSpin->blockSignals(false);
         m_upperSpin->blockSignals(false);
         m_lowerSpin->setEnabled(true);

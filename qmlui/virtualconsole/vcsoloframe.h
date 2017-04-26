@@ -35,6 +35,10 @@ public:
     VCSoloFrame(Doc* doc = NULL, VirtualConsole *vc = NULL, QObject *parent = 0);
     ~VCSoloFrame();
 
+    /** @reimp */
+    QString defaultCaption();
+
+    /** @reimp */
     void render(QQuickView *view, QQuickItem *parent);
 
     /*********************************************************************

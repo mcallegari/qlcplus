@@ -20,6 +20,8 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 
+#include "qlcinputchannel.h"
+#include "inputpatch.h"
 #include "vcwidget.h"
 #include "doc.h"
 
@@ -143,6 +145,7 @@ VCWidget::WidgetType VCWidget::stringToType(QString str)
 {
     if (str == "Button") return ButtonWidget;
     else if (str == "Slider") return SliderWidget;
+    else if (str == "Knob") return SliderWidget;
     else if (str == "XYPad") return XYPadWidget;
     else if (str == "Frame") return FrameWidget;
     else if (str == "Solo frame") return SoloFrameWidget;
@@ -230,6 +233,11 @@ bool VCWidget::isVisible() const
     return m_isVisible;
 }
 
+QString VCWidget::defaultCaption()
+{
+    return QString();
+}
+
 /*****************************************************************************
  * Caption
  *****************************************************************************/
@@ -287,15 +295,17 @@ void VCWidget::resetBackgroundColor()
 /*********************************************************************
  * Background image
  *********************************************************************/
-void VCWidget::setBackgroundImage(const QString& path)
+void VCWidget::setBackgroundImage(QString path)
 {
-    if (m_backgroundImage == path)
+    QString strippedPath = path.replace("file://", "");
+
+    if (m_backgroundImage == strippedPath)
         return;
 
     m_hasCustomBackgroundColor = false;
-    m_backgroundImage = path;
+    m_backgroundImage = strippedPath;
     setDocModified();
-    emit backgroundImageChanged(path);
+    emit backgroundImageChanged(strippedPath);
 }
 
 QString VCWidget::backgroundImage() const
@@ -390,6 +400,26 @@ int VCWidget::page()
     return m_page;
 }
 
+/*********************************************************************
+ * Widget Function
+ *********************************************************************/
+
+bool VCWidget::hasSoloParent()
+{
+    VCWidget *wParent = qobject_cast<VCWidget*>(parent());
+
+    if (wParent == NULL)
+        return false;
+
+    if (wParent->type() == VCWidget::FrameWidget)
+        return wParent->hasSoloParent();
+
+    if (wParent->type() == VCWidget::SoloFrameWidget)
+        return true;
+
+    return false;
+}
+
 void VCWidget::notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensity)
 {
     Q_UNUSED(widget)
@@ -432,6 +462,228 @@ void VCWidget::setIsEditing(bool edit)
 QString VCWidget::propertiesResource() const
 {
     return QString();
+}
+
+/*********************************************************************
+ * External input
+ *********************************************************************/
+
+void VCWidget::registerExternalControl(quint8 id, QString name, bool allowKeyboard)
+{
+    ExternalControlInfo info;
+    info.id = id;
+    info.name = name;
+    info.allowKeyboard = allowKeyboard;
+
+    m_externalControlList.append(info);
+}
+
+int VCWidget::externalControlsCount() const
+{
+    return m_externalControlList.count();
+}
+
+QVariant VCWidget::externalControlsList() const
+{
+    QVariantList controlsList;
+
+    for (ExternalControlInfo info : m_externalControlList) // C++11
+    {
+        QVariantMap cMap;
+        cMap.insert("mLabel", info.name);
+        cMap.insert("mValue", info.id);
+        controlsList.append(cMap);
+    }
+
+    return QVariant::fromValue(controlsList);
+}
+
+void VCWidget::addInputSource(QSharedPointer<QLCInputSource> const& source)
+{
+    if (source.isNull() || m_externalControlList.isEmpty())
+        return;
+
+    /** If the source ID is invalid, assign the first known ID to it.
+     *  This is needed during the auto detection process, when the user
+     *  haven't decided yet the source type */
+    if (source->id() == QLCInputSource::invalidID)
+        source->setID(m_externalControlList.first().id);
+
+    m_inputSources.append(source);
+
+    // TODO: hook synthetic emitting sources here
+
+    emit inputSourcesListChanged();
+}
+
+bool VCWidget::updateInputSource(QSharedPointer<QLCInputSource> const& source, quint32 universe, quint32 channel)
+{
+    if (source.isNull())
+        return false;
+
+    source->setUniverse(universe);
+    source->setChannel(channel);
+    source->setPage(page());
+
+    emit inputSourcesListChanged();
+
+    return true;
+}
+
+bool VCWidget::updateInputSourceControlID(quint32 universe, quint32 channel, quint32 id)
+{
+    for (QSharedPointer<QLCInputSource> source : m_inputSources) // C++11
+    {
+        if (source->universe() == universe && source->channel() == channel)
+        {
+            source->setID(id);
+            return true;
+        }
+    }
+    return false;
+}
+
+void VCWidget::deleteInputSurce(quint32 id, quint32 universe, quint32 channel)
+{
+    for (int i = 0; i < m_inputSources.count(); i++)
+    {
+        QSharedPointer<QLCInputSource> source = m_inputSources.at(i);
+
+        if (source->id() == id && source->universe() == universe && source->channel() == channel)
+        {
+            m_inputSources.takeAt(i);
+            delete source.data();
+
+            emit inputSourcesListChanged();
+            break;
+        }
+    }
+}
+
+QList<QSharedPointer<QLCInputSource> > VCWidget::inputSources() const
+{
+    return m_inputSources;
+}
+
+QVariant VCWidget::inputSourcesList() const
+{
+    QVariantList sourcesList;
+
+    for (QSharedPointer<QLCInputSource> source : m_inputSources) // C++11
+    {
+        if (source.isNull())
+            continue;
+
+        QString uniName;
+        QString chName;
+        uchar min = 0, max = UCHAR_MAX;
+        bool supportCustomFeedback = false;
+
+        if (!source->isValid() || m_doc->inputOutputMap()->inputSourceNames(source, uniName, chName) == false)
+        {
+            uniName = tr("None");
+            chName = tr("None");
+        }
+
+        InputPatch *ip = m_doc->inputOutputMap()->inputPatch(source->universe());
+        if (ip != NULL && ip->profile() != NULL)
+        {
+            QLCInputChannel *ich = ip->profile()->channel(source->channel());
+            if (ich != NULL && ich->type() == QLCInputChannel::Button)
+            {
+                min = ich->lowerValue();
+                max = ich->upperValue();
+                supportCustomFeedback = true;
+            }
+        }
+
+        QVariantMap sourceMap;
+        if (source->isValid() == false)
+            sourceMap.insert("invalid", true);
+        sourceMap.insert("type", Controller);
+        sourceMap.insert("id", source->id());
+        sourceMap.insert("uniString", uniName);
+        sourceMap.insert("chString", chName);
+        sourceMap.insert("universe", source->universe());
+        sourceMap.insert("channel", source->channel());
+        sourceMap.insert("lower", source->lowerValue() != 0 ? source->lowerValue() : min);
+        sourceMap.insert("upper", source->upperValue() != UCHAR_MAX ? source->upperValue() : max);
+        sourceMap.insert("customFeedback", supportCustomFeedback);
+        sourcesList.append(sourceMap);
+    }
+
+    QMapIterator<QKeySequence, quint32> it(m_keySequenceMap);
+    while(it.hasNext())
+    {
+        it.next();
+
+        QKeySequence seq = it.key();
+        quint32 id = it.value();
+
+        QVariantMap keyMap;
+        keyMap.insert("type", Keyboard);
+        keyMap.insert("id", id);
+
+        if (seq.isEmpty())
+        {
+            keyMap.insert("invalid", true);
+            keyMap.insert("keySequence", "");
+        }
+        else
+            keyMap.insert("keySequence", seq.toString());
+        sourcesList.append(keyMap);
+    }
+
+    return QVariant::fromValue(sourcesList);
+}
+
+void VCWidget::slotInputValueChanged(quint8 id, uchar value)
+{
+    Q_UNUSED(id)
+    Q_UNUSED(value)
+}
+
+QSharedPointer<QLCInputSource> VCWidget::inputSource(quint32 id, quint32 universe, quint32 channel) const
+{
+    for (QSharedPointer<QLCInputSource> source : m_inputSources) // C++11
+    {
+        if (source->id() == id && source->universe() == universe && source->channel() == channel)
+            return source;
+    }
+
+    return QSharedPointer<QLCInputSource>();
+}
+
+void VCWidget::addKeySequence(const QKeySequence &keySequence, const quint32 &id)
+{
+    m_keySequenceMap[keySequence] = id;
+
+    emit inputSourcesListChanged();
+}
+
+void VCWidget::deleteKeySequence(const QKeySequence &keySequence)
+{
+    m_keySequenceMap.remove(keySequence);
+
+    emit inputSourcesListChanged();
+}
+
+void VCWidget::updateKeySequence(QKeySequence oldSequence, QKeySequence newSequence, const quint32 id)
+{
+    if (m_keySequenceMap.contains(oldSequence) == false)
+        qDebug() << "Old key sequence not found !";
+
+    m_keySequenceMap.remove(oldSequence);
+    m_keySequenceMap[newSequence] = id;
+
+    emit inputSourcesListChanged();
+}
+
+void VCWidget::updateKeySequenceControlID(QKeySequence sequence, quint32 id)
+{
+    m_keySequenceMap[sequence] = id;
+
+    emit inputSourcesListChanged();
 }
 
 /*****************************************************************************
@@ -559,6 +811,78 @@ bool VCWidget::loadXMLWindowState(QXmlStreamReader &root, int* x, int* y,
         qWarning() << Q_FUNC_INFO << "Window state not found";
         return false;
     }
+}
+
+bool VCWidget::loadXMLInputSource(QXmlStreamReader &root, const quint8 &id)
+{
+    if (root.device() == NULL || root.hasError())
+        return false;
+
+    if (root.name() != KXMLQLCVCWidgetInput)
+        return false;
+
+    QXmlStreamAttributes attrs = root.attributes();
+
+    quint32 uni = attrs.value(KXMLQLCVCWidgetInputUniverse).toString().toUInt();
+    quint32 ch = attrs.value(KXMLQLCVCWidgetInputChannel).toString().toUInt();
+    uchar min = 0, max = UCHAR_MAX;
+
+    QSharedPointer<QLCInputSource>inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch));
+    inputSource->setID(id);
+
+    if (attrs.hasAttribute(KXMLQLCVCWidgetInputLowerValue))
+        min = uchar(attrs.value(KXMLQLCVCWidgetInputLowerValue).toString().toUInt());
+    if (attrs.hasAttribute(KXMLQLCVCWidgetInputUpperValue))
+        max = uchar(attrs.value(KXMLQLCVCWidgetInputUpperValue).toString().toUInt());
+
+    inputSource->setRange(min, max);
+
+    addInputSource(inputSource);
+
+    root.skipCurrentElement();
+
+    return true;
+}
+
+bool VCWidget::loadXMLInputKey(QXmlStreamReader &root, const quint8 &id)
+{
+    if (root.device() == NULL || root.hasError())
+        return false;
+
+    if (root.name() != KXMLQLCVCWidgetKey)
+        return false;
+
+    QKeySequence seq(root.readElementText());
+    if (seq.isEmpty())
+    {
+        qDebug() << "Empty key sequence detected";
+        return false;
+    }
+
+    addKeySequence(seq, id);
+
+    return true;
+}
+
+bool VCWidget::loadXMLSources(QXmlStreamReader &root, const quint8 &id)
+{
+    while (root.readNextStartElement())
+    {
+        if (root.name() == KXMLQLCVCWidgetInput)
+        {
+            loadXMLInputSource(root, id);
+        }
+        else if (root.name() == KXMLQLCVCWidgetKey)
+        {
+            loadXMLInputKey(root, id);
+        }
+        else
+        {
+            qWarning() << Q_FUNC_INFO << "Unknown source tag" << root.name().toString();
+            root.skipCurrentElement();
+        }
+    }
+    return true;
 }
 
 bool VCWidget::saveXMLCommon(QXmlStreamWriter *doc)

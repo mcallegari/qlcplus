@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.6.0</Version>
+  <Version>4.10.6 GIT</Version>
   <Author>Massimo Callegari</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -251,22 +251,22 @@
   <Colour>White</Colour>
   <Capability Min="0" Max="255">White intensity (0% to 100%)</Capability>
  </Channel>
- <Mode Name="1 Channel mode">
+ <Mode Name="1 Channel">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="973" Height="132" Weight="6.3" Depth="73"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="240"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="6.3" Width="973" Height="132" Depth="73"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="240"/>
    <Technical PowerConsumption="81" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Show macros</Channel>
  </Mode>
- <Mode Name="6 Channels mode">
+ <Mode Name="6 Channel">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="973" Height="132" Weight="6.3" Depth="73"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="240"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="6.3" Width="973" Height="132" Depth="73"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="240"/>
    <Technical PowerConsumption="81" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Tilt</Channel>
@@ -276,12 +276,12 @@
   <Channel Number="4">Chase speed</Channel>
   <Channel Number="5">Master dimmer</Channel>
  </Mode>
- <Mode Name="35 Channels mode">
+ <Mode Name="35 Channel">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="973" Height="132" Weight="6.3" Depth="73"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="240"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="6.3" Width="973" Height="132" Depth="73"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="240"/>
    <Technical PowerConsumption="81" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Tilt</Channel>
@@ -320,64 +320,48 @@
   <Channel Number="33">Blue (Lens 8)</Channel>
   <Channel Number="34">White (Lens 8)</Channel>
   <Head>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
    <Channel>3</Channel>
    <Channel>4</Channel>
    <Channel>5</Channel>
    <Channel>6</Channel>
   </Head>
   <Head>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
    <Channel>7</Channel>
    <Channel>8</Channel>
    <Channel>9</Channel>
    <Channel>10</Channel>
   </Head>
   <Head>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
    <Channel>11</Channel>
    <Channel>12</Channel>
    <Channel>13</Channel>
    <Channel>14</Channel>
   </Head>
   <Head>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
    <Channel>17</Channel>
    <Channel>18</Channel>
    <Channel>15</Channel>
    <Channel>16</Channel>
   </Head>
   <Head>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
    <Channel>19</Channel>
    <Channel>20</Channel>
    <Channel>21</Channel>
    <Channel>22</Channel>
   </Head>
   <Head>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
    <Channel>23</Channel>
    <Channel>24</Channel>
    <Channel>25</Channel>
    <Channel>26</Channel>
   </Head>
   <Head>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
    <Channel>27</Channel>
    <Channel>28</Channel>
    <Channel>29</Channel>
    <Channel>30</Channel>
   </Head>
   <Head>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
    <Channel>34</Channel>
    <Channel>31</Channel>
    <Channel>32</Channel>
@@ -386,10 +370,10 @@
  </Mode>
  <Mode Name="39 Channels mode">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="973" Height="132" Weight="6.3" Depth="73"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="240"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="6.3" Width="973" Height="132" Depth="73"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="240"/>
    <Technical PowerConsumption="81" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Tilt</Channel>
@@ -432,64 +416,48 @@
   <Channel Number="37">Blue (Lens 8)</Channel>
   <Channel Number="38">White (Lens 8)</Channel>
   <Head>
-   <Channel>0</Channel>
-   <Channel>5</Channel>
    <Channel>7</Channel>
    <Channel>8</Channel>
    <Channel>9</Channel>
    <Channel>10</Channel>
   </Head>
   <Head>
-   <Channel>0</Channel>
-   <Channel>5</Channel>
    <Channel>11</Channel>
    <Channel>12</Channel>
    <Channel>13</Channel>
    <Channel>14</Channel>
   </Head>
   <Head>
-   <Channel>0</Channel>
-   <Channel>5</Channel>
    <Channel>17</Channel>
    <Channel>18</Channel>
    <Channel>15</Channel>
    <Channel>16</Channel>
   </Head>
   <Head>
-   <Channel>0</Channel>
-   <Channel>5</Channel>
    <Channel>19</Channel>
    <Channel>20</Channel>
    <Channel>21</Channel>
    <Channel>22</Channel>
   </Head>
   <Head>
-   <Channel>0</Channel>
-   <Channel>5</Channel>
    <Channel>23</Channel>
    <Channel>24</Channel>
    <Channel>25</Channel>
    <Channel>26</Channel>
   </Head>
   <Head>
-   <Channel>0</Channel>
-   <Channel>5</Channel>
    <Channel>27</Channel>
    <Channel>28</Channel>
    <Channel>29</Channel>
    <Channel>30</Channel>
   </Head>
   <Head>
-   <Channel>0</Channel>
-   <Channel>5</Channel>
    <Channel>34</Channel>
    <Channel>31</Channel>
    <Channel>32</Channel>
    <Channel>33</Channel>
   </Head>
   <Head>
-   <Channel>0</Channel>
-   <Channel>5</Channel>
    <Channel>35</Channel>
    <Channel>36</Channel>
    <Channel>37</Channel>

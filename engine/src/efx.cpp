@@ -46,7 +46,7 @@
  * Initialization
  *****************************************************************************/
 
-EFX::EFX(Doc* doc) : Function(doc, Function::EFX)
+EFX::EFX(Doc* doc) : Function(doc, Function::EFXType)
 {
     m_width = 127;
     m_height = 127;
@@ -87,6 +87,11 @@ EFX::~EFX()
 {
     while (m_fixtures.isEmpty() == false)
         delete m_fixtures.takeFirst();
+}
+
+QIcon EFX::getIcon() const
+{
+    return QIcon(":/efx.png");
 }
 
 /*****************************************************************************
@@ -164,7 +169,7 @@ void EFX::setDuration(uint ms)
  * UI State
  *****************************************************************************/
 
-FunctionUiState * EFX::createUiState()
+FunctionUiState *EFX::createUiState()
 {
     return new EfxUiState(this);
 }
@@ -267,9 +272,9 @@ void EFX::previewFixtures(QVector <QPolygonF>& polygons) const
 
 void EFX::preview(QPolygonF &polygon, Function::Direction direction, int startOffset) const
 {
-    int stepCount = 128;
+    float stepCount = 128.0;
     int step = 0;
-    float stepSize = (float)(1) / ((float)(stepCount) / (M_PI * 2.0));
+    float stepSize = 1.0 / (stepCount / (M_PI * 2.0));
 
     float i = 0;
     float x = 0;
@@ -839,7 +844,7 @@ bool EFX::loadXML(QXmlStreamReader &root)
         return false;
     }
 
-    if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::EFX))
+    if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::EFXType))
     {
         qWarning("Function is not an EFX!");
         return false;
@@ -1018,6 +1023,7 @@ void EFX::preRun(MasterTimer* timer)
     Q_ASSERT(m_fader == NULL);
     m_fader = new GenericFader(doc());
     m_fader->adjustIntensity(getAttributeValue(Intensity));
+    m_fader->setBlendMode(blendMode());
 
     Function::preRun(timer);
 }
@@ -1098,4 +1104,19 @@ void EFX::adjustAttribute(qreal fraction, int attributeIndex)
 
     if (attributeIndex == Rotation)
         updateRotationCache();
+}
+
+/*************************************************************************
+ * Blend mode
+ *************************************************************************/
+
+void EFX::setBlendMode(Universe::BlendMode mode)
+{
+    if (mode == blendMode())
+        return;
+
+    if (m_fader != NULL)
+        m_fader->setBlendMode(mode);
+
+    Function::setBlendMode(mode);
 }

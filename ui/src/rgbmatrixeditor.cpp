@@ -37,12 +37,12 @@
 #include "fixtureselection.h"
 #include "speeddialwidget.h"
 #include "rgbmatrixeditor.h"
+#include "qlcmacros.h"
 #include "rgbimage.h"
+#include "sequence.h"
 #include "rgbitem.h"
 #include "rgbtext.h"
-#include "qlcmacros.h"
 #include "apputil.h"
-#include "chaser.h"
 #include "scene.h"
 
 #define SETTINGS_GEOMETRY "rgbmatrixeditor/geometry"
@@ -480,10 +480,6 @@ bool RGBMatrixEditor::createPreviewItems()
     m_previewHash.clear();
     m_scene->clear();
 
-    // No preview in operate mode, too coslty
-    if (m_doc->mode() == Doc::Operate)
-        return false;
-
     FixtureGroup* grp = m_doc->fixtureGroup(m_matrix->fixtureGroup());
     if (grp == NULL)
     {
@@ -914,12 +910,10 @@ void RGBMatrixEditor::slotModeChanged(Doc::Mode mode)
         if (m_testButton->isChecked() == true)
             m_matrix->stopAndWait();
         m_testButton->setChecked(false);
-        m_previewTimer->stop();
         m_testButton->setEnabled(false);
     }
     else
     {
-        m_previewTimer->start(MasterTimer::tick());
         m_testButton->setEnabled(true);
     }
 }
@@ -989,7 +983,7 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
                 grpScene->setValue(head.fxi, rgbCh.at(2), 0);
             }
 
-            quint32 master = fxi->masterIntensityChannel(head.head);
+            quint32 master = fxi->channelNumber(QLCChannel::Intensity, QLCChannel::MSB, head.head);
             if (master != QLCChannel::invalid())
                 grpScene->setValue(head.fxi, master, 0);
         }
@@ -1012,16 +1006,22 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
         if (m_matrix->runOrder() == RGBMatrix::PingPong)
             totalSteps = (totalSteps * 2) - 1;
 
-        Chaser *chaser = new Chaser(m_doc);
-        chaser->setName(m_matrix->name());
-        chaser->enableSequenceMode(grpScene->id());
-        chaser->setDurationMode(Chaser::PerStep);
-        chaser->setSpeeds(m_matrix->speeds());
-        chaser->setStartTime(0);
-        if (chaser->speeds().fadeIn() != 0)
-            chaser->setFadeInMode(Chaser::PerStep);
-        if (chaser->speeds().fadeOut() != 0)
-            chaser->setFadeOutMode(Chaser::PerStep);
+        Sequence *sequence = new Sequence(m_doc);
+        sequence->setName(m_matrix->name());
+        sequence->setBoundSceneID(grpScene->id());
+        sequence->setDurationMode(Chaser::PerStep);
+        sequence->speedsEdit().setDuration(m_matrix->speeds().duration());
+        sequence->setStartTime(0);
+        if (m_matrix->speeds().fadeIn() != 0)
+        {
+            sequence->setFadeInMode(Chaser::PerStep);
+            sequence->speedsEdit().setFadeIn(m_matrix->speeds().fadeIn());
+        }
+        if (m_matrix->fadeOutSpeed() != 0)
+        {
+            sequence->setFadeOutMode(Chaser::PerStep);
+            sequence->speedsEdit().setFadeOut(m_matrix->speeds().fadeOut());
+        }
 
         for (int i = 0; i < totalSteps; i++)
         {
@@ -1050,7 +1050,7 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
                         step.values.append(SceneValue(head.fxi, rgbCh.at(2), rgb.blue()));
                     }
 
-                    quint32 master = fxi->masterIntensityChannel(head.head);
+                    quint32 master = fxi->channelNumber(QLCChannel::Intensity, QLCChannel::MSB, head.head);
                     if (master != QLCChannel::invalid())
                         step.values.append(SceneValue(head.fxi, master, 255));
                 }
@@ -1059,7 +1059,7 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
             // we absolutely need ordered values. So do it now !
             qSort(step.values.begin(), step.values.end());
 
-            chaser->addStep(step);
+            sequence->addStep(step);
             currentStep += increment;
             if (currentStep == totalSteps && m_matrix->runOrder() == RGBMatrix::PingPong)
             {
@@ -1069,7 +1069,7 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
             m_previewHandler->updateStepColor(currentStep, m_matrix->startColor(), m_matrix->stepsCount());
         }
 
-        m_doc->addFunction(chaser);
+        m_doc->addFunction(sequence);
 
         if (testRunning == true)
             m_testButton->click();
@@ -1089,10 +1089,8 @@ void RGBMatrixEditor::slotPropertyComboChanged(QString value)
     if (m_matrix->algorithm() == NULL ||
         m_matrix->algorithm()->type() == RGBAlgorithm::Script)
     {
-        RGBScript *script = static_cast<RGBScript*> (m_matrix->algorithm());
         QComboBox *combo = (QComboBox *)sender();
         QString pName = combo->property("pName").toString();
-        script->setProperty(pName, value);
         m_matrix->setProperty(pName, value);
     }
 }
@@ -1103,10 +1101,8 @@ void RGBMatrixEditor::slotPropertySpinChanged(int value)
     if (m_matrix->algorithm() == NULL ||
         m_matrix->algorithm()->type() == RGBAlgorithm::Script)
     {
-        RGBScript *script = static_cast<RGBScript*> (m_matrix->algorithm());
         QSpinBox *spin = (QSpinBox *)sender();
         QString pName = spin->property("pName").toString();
-        script->setProperty(pName, QString::number(value));
         m_matrix->setProperty(pName, QString::number(value));
     }
 }

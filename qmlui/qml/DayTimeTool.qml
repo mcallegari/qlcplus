@@ -65,8 +65,8 @@ Rectangle
         {
             width: dtRow.fieldsWidth
             height: dttRoot.height
-            minimumValue: 0
-            maximumValue: 23
+            from: 0
+            to: 23
             suffix: "h"
             value: tHours
             onValueChanged:
@@ -79,8 +79,8 @@ Rectangle
         {
             width: dtRow.fieldsWidth
             height: dttRoot.height
-            minimumValue: 0
-            maximumValue: 59
+            from: 0
+            to: 59
             suffix: "m"
             value: tMinutes
             onValueChanged:
@@ -93,8 +93,8 @@ Rectangle
         {
             width: dtRow.fieldsWidth
             height: dttRoot.height
-            minimumValue: 0
-            maximumValue: 59
+            from: 0
+            to: 59
             suffix: "s"
             value: tSeconds
             onValueChanged:

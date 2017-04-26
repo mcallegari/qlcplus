@@ -40,6 +40,7 @@ SUBDIRS += rgbtext
 SUBDIRS += scene
 SUBDIRS += scenevalue
 SUBDIRS += script
+SUBDIRS += sequence
 SUBDIRS += universe
 
 # Stubs

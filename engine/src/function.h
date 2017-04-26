@@ -51,6 +51,7 @@ class FunctionUiState;
 #define KXMLQLCFunctionType "Type"
 #define KXMLQLCFunctionData "Data"
 #define KXMLQLCFunctionPath "Path"
+#define KXMLQLCFunctionHidden "Hidden"
 #define KXMLQLCFunctionBlendMode "BlendMode"
 
 #define KXMLQLCFunctionValue "Value"
@@ -88,20 +89,23 @@ public:
      */
     enum Type
     {
-        Undefined  = 0,
-        Scene      = 1 << 0,
-        Chaser     = 1 << 1,
-        EFX        = 1 << 2,
-        Collection = 1 << 3,
-        Script     = 1 << 4,
-        RGBMatrix  = 1 << 5,
-        Show       = 1 << 6,
-        Audio      = 1 << 7
+        Undefined      = 0,
+        SceneType      = 1 << 0,
+        ChaserType     = 1 << 1,
+        EFXType        = 1 << 2,
+        CollectionType = 1 << 3,
+        ScriptType     = 1 << 4,
+        RGBMatrixType  = 1 << 5,
+        ShowType       = 1 << 6,
+        SequenceType   = 1 << 7,
+        AudioType      = 1 << 8
 #if QT_VERSION >= 0x050000
-        , Video    = 1 << 8
+        , VideoType    = 1 << 9
 #endif
     };
-    Q_ENUMS(Type)
+#if QT_VERSION >= 0x050500
+    Q_ENUM(Type)
+#endif
 
     /**
      * Common attributes
@@ -237,14 +241,11 @@ public:
      */
     static Type stringToType(const QString& str);
 
-    /**
-     * Convert a type to an icon
-     *
-     * @param type The type to convert
-     */
-    static QIcon typeToIcon(Function::Type type);
+    /** Virtual method to retrieve a QIcon based on a Function type.
+      * Subclasses should reimplement this */
+    virtual QIcon getIcon() const;
 
-private:
+protected:
     Type m_type;
 
     /*********************************************************************
@@ -261,6 +262,19 @@ private:
     QString m_path;
 
     /*********************************************************************
+     * Visibility
+     *********************************************************************/
+public:
+    /** Set the function visibility status. Hidden Functions will not be displayed in the UI */
+    void setVisible(bool visible);
+
+    /** Retrieve the current visibility status */
+    bool isVisible() const;
+
+private:
+    bool m_visible;
+
+    /*********************************************************************
      * Common XML
      *********************************************************************/
 protected:
@@ -272,7 +286,9 @@ protected:
      *********************************************************************/
 public:
     enum RunOrder { Loop = 0, SingleShot, PingPong, Random };
-    Q_ENUMS(RunOrder)
+#if QT_VERSION >= 0x050500
+    Q_ENUM(RunOrder)
+#endif
 
 public:
     /**
@@ -316,7 +332,9 @@ private:
      *********************************************************************/
 public:
     enum Direction { Forward = 0, Backward };
-    Q_ENUMS(Direction)
+#if QT_VERSION >= 0x050500
+    Q_ENUM(Direction)
+#endif
 
 public:
     /**
@@ -355,6 +373,7 @@ protected:
 private:
     Direction m_direction;
 
+protected slots:
     /**
      * This slot is connected to the Master Timer and it is invoked
      * when this Function is in 'Beats' tempo type and the BPM
@@ -369,8 +388,11 @@ private:
      * Speed
      *********************************************************************/
 public:
-    enum SpeedsType { FadeIn = 0, Hold, FadeOut, Duration };
-    Q_ENUMS(SpeedsType)
+    // TODO move this to FunctionSpeeds
+    enum SpeedType { FadeIn = 0, Hold, FadeOut, Duration };
+#if QT_VERSION >= 0x050500
+    Q_ENUM(SpeedType)
+#endif
 
 public:
     /*********************************************************************

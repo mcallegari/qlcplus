@@ -18,6 +18,7 @@
 */
 
 #include "videoprovider.h"
+#include "qlcfile.h"
 #include "doc.h"
 
 #include <QApplication>
@@ -47,7 +48,7 @@ void VideoProvider::slotFunctionAdded(quint32 id)
     if (func == NULL)
         return;
 
-    if(func->type() == Function::Video)
+    if(func->type() == Function::VideoType)
     {
         VideoWidget *vWidget = new VideoWidget(qobject_cast<Video *>(func));
         m_videoMap[id] = vWidget;
@@ -77,6 +78,13 @@ VideoWidget::VideoWidget(Video *video, QObject *parent)
 
     m_videoPlayer = new QMediaPlayer(this, QMediaPlayer::VideoSurface);
     m_videoPlayer->moveToThread(QCoreApplication::instance()->thread());
+
+    if (QLCFile::getQtRuntimeVersion() >= 50700 && m_videoWidget == NULL)
+    {
+        m_videoWidget = new QVideoWidget;
+        m_videoWidget->setStyleSheet("background-color:black;");
+        m_videoPlayer->setVideoOutput(m_videoWidget);
+    }
 
     connect(m_videoPlayer, SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus)),
             this, SLOT(slotStatusChanged(QMediaPlayer::MediaStatus)));
@@ -178,7 +186,7 @@ void VideoWidget::slotMetaDataChanged(QString key, QVariant data)
 
 void VideoWidget::slotPlaybackVideo()
 {
-    if (m_videoWidget == NULL)
+    if (QLCFile::getQtRuntimeVersion() < 50700 && m_videoWidget == NULL)
     {
         m_videoWidget = new QVideoWidget;
         m_videoWidget->setStyleSheet("background-color:black;");

@@ -77,7 +77,7 @@ Rectangle
             width: parent.width
             label: qsTr("Global Audio")
             wrapText: true
-            textAlign: Text.AlignHCenter
+            textHAlign: Text.AlignHCenter
             fontSize: UISettings.textSizeDefault
         }
     }

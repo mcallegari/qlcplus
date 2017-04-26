@@ -46,6 +46,8 @@ private slots:
     void stringToRunOrder();
     void directionToString();
     void stringToDirection();
+    void attributes();
+    void blendMode();
     void loaderWrongRoot();
     void loaderWrongID();
     void loaderScene();

@@ -74,7 +74,7 @@ Rectangle
             height: parent.height - 65
             label: message
             wrapText: true
-            textAlign: Text.AlignHCenter
+            textHAlign: Text.AlignHCenter
         }
 
         Loader
@@ -99,9 +99,9 @@ Rectangle
                 target: popupLoader.item
                 onRequestButtonStatus:
                 {
-                    if (button == ActionManager.OK)
+                    if (button === ActionManager.OK)
                         okButton.disabled = disable
-                    else if (button == ActionManager.Cancel)
+                    else if (button === ActionManager.Cancel)
                         cancelButton.disabled = disable
                 }
             }

@@ -146,6 +146,8 @@ void Universe::setPassthrough(bool enable)
     m_passthrough = enable;
 
     connectInputPatch();
+
+    emit passthroughChanged();
 }
 
 bool Universe::passthrough() const

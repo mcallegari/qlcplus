@@ -50,7 +50,7 @@
  ****************************************************************************/
 
 RGBMatrix::RGBMatrix(Doc* doc)
-    : Function(doc, Function::RGBMatrix)
+    : Function(doc, Function::RGBMatrixType)
     , m_dimmerControl(true)
     , m_fixtureGroupID(FixtureGroup::invalidId())
     , m_group(NULL)
@@ -76,6 +76,11 @@ RGBMatrix::~RGBMatrix()
     delete m_algorithm;
     delete m_roundTime;
     delete m_stepHandler;
+}
+
+QIcon RGBMatrix::getIcon() const
+{
+    return QIcon(":/rgbmatrix.png");
 }
 
 void RGBMatrix::setDimmerControl(bool dimmerControl)
@@ -207,6 +212,25 @@ void RGBMatrix::setAlgorithm(RGBAlgorithm* algo)
         QMutexLocker algorithmLocker(&m_algorithmMutex);
         delete m_algorithm;
         m_algorithm = algo;
+
+        /** If there's been a change of Script algorithm "on the fly",
+         *  then re-apply the properties currently set in this RGBMatrix */
+        if (m_algorithm != NULL && m_algorithm->type() == RGBAlgorithm::Script)
+        {
+            RGBScript *script = static_cast<RGBScript*> (m_algorithm);
+            QHashIterator<QString, QString> it(m_properties);
+            while(it.hasNext())
+            {
+                it.next();
+                if (script->setProperty(it.key(), it.value()) == false)
+                {
+                    /** If the new algorithm doesn't expose a property,
+                     *  then remove it from the cached list, otherwise
+                     *  it would be carried around forever (and saved on XML) */
+                    m_properties.take(it.key());
+                }
+            }
+        }
     }
     m_stepsCount = stepsCount();
 
@@ -263,7 +287,10 @@ void RGBMatrix::setStartColor(const QColor& c)
     {
         QMutexLocker algorithmLocker(&m_algorithmMutex);
         if (m_algorithm != NULL)
+        {
             m_algorithm->setColors(m_startColor, m_endColor);
+            updateColorDelta();
+        }
     }
     emit changed(id());
 }
@@ -279,7 +306,10 @@ void RGBMatrix::setEndColor(const QColor &c)
     {
         QMutexLocker algorithmLocker(&m_algorithmMutex);
         if (m_algorithm != NULL)
+        {
             m_algorithm->setColors(m_startColor, m_endColor);
+            updateColorDelta();
+        }
     }
     emit changed(id());
 }
@@ -302,12 +332,30 @@ void RGBMatrix::setProperty(QString propName, QString value)
 {
     QMutexLocker algoLocker(&m_algorithmMutex);
     m_properties[propName] = value;
+    if (m_algorithm != NULL && m_algorithm->type() == RGBAlgorithm::Script)
+    {
+        RGBScript *script = static_cast<RGBScript*> (m_algorithm);
+        script->setProperty(propName, value);
+    }
+    m_stepsCount = stepsCount();
 }
 
 QString RGBMatrix::property(QString propName)
 {
     QMutexLocker algoLocker(&m_algorithmMutex);
-    return m_properties[propName];
+
+    /** If the property is cached, then return it right away */
+    if (m_properties.contains(propName))
+        return m_properties[propName];
+
+    /** Otherwise, let's retrieve it from the Script */
+    if (m_algorithm != NULL && m_algorithm->type() == RGBAlgorithm::Script)
+    {
+        RGBScript *script = static_cast<RGBScript*> (m_algorithm);
+        return script->property(propName);
+    }
+
+    return QString();
 }
 
 /****************************************************************************
@@ -322,7 +370,7 @@ bool RGBMatrix::loadXML(QXmlStreamReader &root)
         return false;
     }
 
-    if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::RGBMatrix))
+    if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::RGBMatrixType))
     {
         qWarning() << Q_FUNC_INFO << "Function is not an RGB matrix";
         return false;
@@ -517,13 +565,13 @@ void RGBMatrix::write(MasterTimer* timer, QList<Universe *> universes)
 
         if (isPaused() == false)
         {
-            // Get new map every time when elapsed is reset to zero
+            // Get a new map every time elapsed is reset to zero
             if (elapsed() < MasterTimer::tick())
             {
                 if (speeds().tempoType() == Speed::Beats)
                     m_stepBeatDuration = Speed::beatsToMs(speeds().duration(), timer->beatTimeDuration());
 
-                //qDebug() << "RGBMatrix stepColor:" << QString::number(m_stepColor.rgb(), 16);
+                //qDebug() << "RGBMatrix step" << m_stepHandler->currentStepIndex() << ", color:" << QString::number(m_stepHandler->stepColor().rgb(), 16);
                 RGBMap map = m_algorithm->rgbMap(m_group->size(), m_stepHandler->stepColor().rgb(), m_stepHandler->currentStepIndex());
                 updateMapChannels(map, m_group);
             }
@@ -644,9 +692,6 @@ void RGBMatrix::roundCheck()
 
 void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
 {
-    quint32 mdAssigned = QLCChannel::invalid();
-    quint32 mdFxi = Fixture::invalidId();
-
     uint fadeTime;
     if (m_alternateSpeedsBase.fadeIn() == Speed::originalValue())
         fadeTime = speeds().fadeIn();
@@ -664,16 +709,36 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
             if (fxi == NULL)
                 continue;
 
-            if (grpHead.fxi != mdFxi)
-            {
-                mdAssigned = QLCChannel::invalid();
-                mdFxi = grpHead.fxi;
-            }
-
             QLCFixtureHead head = fxi->head(grpHead.head);
 
             QVector <quint32> rgb = head.rgbChannels();
             QVector <quint32> cmy = head.cmyChannels();
+
+            quint32 masterDim = fxi->masterIntensityChannel();
+            quint32 headDim = head.channelNumber(QLCChannel::Intensity, QLCChannel::MSB);
+
+            // Collect all dimmers that affect current head:
+            // They are the master dimmer (affects whole fixture)
+            // and per-head dimmer.
+            //
+            // If there are no RGB or CMY channels, the least important* dimmer channel 
+            // is used to create grayscale image.
+            //
+            // The rest of the dimmer channels are set to full if dimmer control is
+            // enabled.
+            //
+            // Note: If there is only one head, and only one dimmer channel,
+            // make it a master dimmer in fixture definition.
+            //
+            // *least important - per head dimmer if present, 
+            // otherwise per fixture dimmer if present
+            QVector <quint32> dim;
+            if (masterDim != QLCChannel::invalid())
+                dim << masterDim;
+
+            if (headDim != QLCChannel::invalid())
+                dim << headDim;
+
             if (rgb.size() == 3)
             {
                 // RGB color mixing
@@ -724,24 +789,30 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
                     m_fader->add(fc);
                 }
             }
-
-            if (m_dimmerControl &&
-                head.masterIntensityChannel() != QLCChannel::invalid())
+            else if (!dim.empty())
             {
-                //qDebug() << "RGBMatrix: found dimmer at" << head.masterIntensityChannel();
-                // Simple intensity (dimmer) channel
+                // Set dimmer to value of the color (e.g. for PARs)
                 QColor col(map[y][x]);
-                FadeChannel fc(doc(), grpHead.fxi, head.masterIntensityChannel());
-                if (col.value() == 0 && mdAssigned != head.masterIntensityChannel())
-                    fc.setTarget(0);
-                else
-                {
-                    fc.setTarget(255);
-                    if (mdAssigned == QLCChannel::invalid())
-                        mdAssigned = head.masterIntensityChannel();
-                }
+
+                FadeChannel fc(doc(), grpHead.fxi, dim.last());
+                // the weights are taken from
+                // https://en.wikipedia.org/wiki/YUV#SDTV_with_BT.601
+                fc.setTarget((0.299 * col.redF() + 0.587 * col.greenF() + 0.114 * col.blueF()) * 255);
                 insertStartValues(fc, fadeTime);
                 m_fader->add(fc);
+                dim.pop_back();
+            }
+
+            if (m_dimmerControl)
+            {
+                // Set the rest of the dimmer channels to full on
+                foreach(quint32 ch, dim)
+                {
+                    FadeChannel fc(doc(), grpHead.fxi, ch);
+                    fc.setTarget(255);
+                    insertStartValues(fc, fadeTime);
+                    m_fader->add(fc);
+                }
             }
         }
     }
@@ -800,6 +871,9 @@ void RGBMatrix::adjustAttribute(qreal fraction, int attributeIndex)
 
 void RGBMatrix::setBlendMode(Universe::BlendMode mode)
 {
+    if (mode == blendMode())
+        return;
+
     if (m_fader != NULL)
         m_fader->setBlendMode(mode);
     Function::setBlendMode(mode);
@@ -845,6 +919,8 @@ void RGBMatrixStep::calculateColorDelta(QColor startColor, QColor endColor)
         m_crDelta = endColor.red() - startColor.red();
         m_cgDelta = endColor.green() - startColor.green();
         m_cbDelta = endColor.blue() - startColor.blue();
+
+        //qDebug() << "Color deltas:" << m_crDelta << m_cgDelta << m_cbDelta;
     }
 }
 
@@ -863,9 +939,18 @@ void RGBMatrixStep::updateStepColor(int stepIndex, QColor startColor, int stepsC
     if (stepsCount <= 0)
         return;
 
-    m_stepColor.setRed(startColor.red() + (m_crDelta * stepIndex / stepsCount));
-    m_stepColor.setGreen(startColor.green() + (m_cgDelta * stepIndex / stepsCount));
-    m_stepColor.setBlue(startColor.blue() + (m_cbDelta * stepIndex / stepsCount));
+    if (stepsCount == 1)
+    {
+        m_stepColor = startColor;
+    }
+    else
+    {
+        m_stepColor.setRed(startColor.red() + (m_crDelta * stepIndex / (stepsCount - 1)));
+        m_stepColor.setGreen(startColor.green() + (m_cgDelta * stepIndex / (stepsCount - 1)));
+        m_stepColor.setBlue(startColor.blue() + (m_cbDelta * stepIndex / (stepsCount - 1)));
+    }
+
+    //qDebug() << "RGBMatrix step" << stepIndex << ", color:" << QString::number(m_stepColor.rgb(), 16);
 }
 
 void RGBMatrixStep::initializeDirection(Function::Direction direction, QColor startColor, QColor endColor, int stepsCount)

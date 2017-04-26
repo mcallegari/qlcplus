@@ -145,3 +145,8 @@ void FunctionEditor::setTempoType(int tempoType)
     emit tempoTypeChanged(tempoType);
 }
 
+void FunctionEditor::deleteItems(QVariantList list)
+{
+    Q_UNUSED(list)
+}
+

@@ -29,6 +29,7 @@ QtObject
     property color bgStronger: "#161616"
     property color bgStrong:   "#232323"
     property color bgMedium:   "#333"
+    property color bgControl:  "#444"
     property color bgLight:    "#5F5F5F"
     property color bgLighter:  "#8F8F8F"
 
@@ -36,7 +37,7 @@ QtObject
     property color fgMedium: "#888"
     property color fgLight:  "#aaa"
 
-    property color sectionHeader:    "#555"
+    property color sectionHeader:    "#31456B"
     property color highlight:        "#0978FF"
     property color highlightPressed: "#044089"
     property color hover:            "#B6B6B6"

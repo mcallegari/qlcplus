@@ -1,6 +1,7 @@
 [Desktop Entry]
 Type=Application
 Name=Q Light Controller Plus
+Name[fr]=Contrôleur de luminaires QLC+
 GenericName=Lighting control
 GenericName[cz]=Řízení světel
 GenericName[de]=Lichtsteuerung
@@ -14,4 +15,3 @@ Exec=qlcplus --open %f
 Icon=qlcplus
 MimeType=application/x-qlc-workspace;
 Categories=Qt;AudioVideo;
-

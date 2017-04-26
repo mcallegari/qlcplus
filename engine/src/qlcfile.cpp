@@ -43,91 +43,6 @@
 
 bool QLCFile::m_isRaspberry = false;
 
-#ifdef QT_XML_LIB
-QDomDocument QLCFile::readXML(const QString& path)
-{
-    if (path.isEmpty() == true)
-    {
-        qWarning() << Q_FUNC_INFO
-                   << "Empty path given. Not attempting to load file.";
-        return QDomDocument();
-    }
-
-    QDomDocument doc;
-    QFile file(path);
-    if (file.open(QIODevice::ReadOnly) == true)
-    {
-        QString msg;
-        int line = 0;
-        int col = 0;
-        if (doc.setContent(&file, false, &msg, &line, &col) == false)
-        {
-            qWarning() << Q_FUNC_INFO << "Error loading file" << path
-                       << ":" << msg << ", line:" << line << ", col:" << col;
-        }
-    }
-    else
-    {
-        qWarning() << Q_FUNC_INFO << "Unable to open file:" << path;
-    }
-
-    file.close();
-
-    return doc;
-}
-
-QDomDocument QLCFile::getXMLHeader(const QString& content, const QString& author)
-{
-    if (content.isEmpty() == true)
-        return QDomDocument();
-
-    QDomImplementation dom;
-    QDomDocument doc(dom.createDocumentType(content, QString(), QString()));
-
-    QDomProcessingInstruction instr = doc.createProcessingInstruction(
-        "xml", "version='1.0' encoding='UTF-8'");
-
-    doc.appendChild(instr);
-
-    QDomElement root;
-    QDomElement tag;
-    QDomElement subtag;
-    QDomText text;
-
-    root = doc.createElement(content);
-    root.setAttribute("xmlns", KXMLQLCplusNamespace + content);
-
-    doc.appendChild(root);
-
-    /* Creator tag */
-    tag = doc.createElement(KXMLQLCCreator);
-    root.appendChild(tag);
-
-    /* Creator name */
-    subtag = doc.createElement(KXMLQLCCreatorName);
-    tag.appendChild(subtag);
-    text = doc.createTextNode(APPNAME);
-    subtag.appendChild(text);
-
-    /* Creator version */
-    subtag = doc.createElement(KXMLQLCCreatorVersion);
-    tag.appendChild(subtag);
-    text = doc.createTextNode(QString(APPVERSION));
-    subtag.appendChild(text);
-
-    /* Author */
-    subtag = doc.createElement(KXMLQLCCreatorAuthor);
-    tag.appendChild(subtag);
-    if (author.isEmpty() == true)
-        text = doc.createTextNode(currentUserName());
-    else
-        text = doc.createTextNode(author);
-    subtag.appendChild(text);
-
-    return doc;
-}
-#endif
-
 QXmlStreamReader *QLCFile::getXMLReader(const QString &path)
 {
     QXmlStreamReader *reader = NULL;
@@ -156,6 +71,7 @@ void QLCFile::releaseXMLReader(QXmlStreamReader *reader)
 {
     if (reader == NULL)
         return;
+
     if (reader->device() != NULL)
     {
         if (reader->device()->isOpen())
@@ -331,4 +247,15 @@ QDir QLCFile::userDirectory(QString path, QString fallBackPath, QStringList exte
     dir.setNameFilters(extensions);
 
     return dir;
+}
+
+quint32 QLCFile::getQtRuntimeVersion()
+{
+    QString ver(qVersion());
+    if (ver.isEmpty())
+        return 0;
+
+    QStringList digits = ver.split(".");
+
+    return digits.at(0).toInt() * 10000 + digits.at(1).toInt() * 100 + digits.at(2).toInt();
 }

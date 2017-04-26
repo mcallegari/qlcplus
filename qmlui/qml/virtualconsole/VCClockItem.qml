@@ -18,10 +18,12 @@
 */
 
 import QtQuick 2.0
+import QtQuick.Layouts 1.0
 
 import com.qlcplus.classes 1.0
 
 import "TimeUtils.js" as TimeUtils
+import "."
 
 VCWidgetItem
 {
@@ -87,51 +89,69 @@ VCWidgetItem
         }
     }
 
-    Text
-    {
-        x: 2
-        width: parent.width - 4
-        height: parent.height
-        font: clockObj ? clockObj.font : ""
-        text: timeString
-        verticalAlignment: Text.AlignVCenter
-        horizontalAlignment: Text.AlignHCenter
-        wrapMode: Text.Wrap
-        lineHeight: 0.8
-        color: clockObj ? clockObj.foregroundColor : "#111"
-    }
-
-    MouseArea
+    Row
     {
         anchors.fill: parent
-        acceptedButtons: Qt.LeftButton | Qt.RightButton
-        onClicked:
+
+        Text
         {
-            if (clockType == VCClock.Stopwatch || clockType == VCClock.Countdown)
+            width: parent.width - enableChk.width
+            height: clockRoot.height
+            font: clockObj ? clockObj.font : ""
+            text: timeString
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            wrapMode: Text.Wrap
+            lineHeight: 0.8
+            color: clockObj ? clockObj.foregroundColor : "#111"
+
+            MouseArea
             {
-                if (mouse.button === Qt.LeftButton)
+                anchors.fill: parent
+                acceptedButtons: Qt.LeftButton | Qt.RightButton
+                onClicked:
                 {
-                    clockTimer.running = !clockTimer.running
-                    return;
-                }
-                else
-                {
-                    if (clockType == VCClock.Stopwatch)
-                        timeCounter = 0
-                    else
-                        timeCounter = clockObj.targetTime
-                    updateTime(false)
+                    if (clockType == VCClock.Stopwatch || clockType == VCClock.Countdown)
+                    {
+                        if (mouse.button === Qt.LeftButton)
+                        {
+                            clockTimer.running = !clockTimer.running
+                            return;
+                        }
+                        else
+                        {
+                            if (clockType == VCClock.Stopwatch)
+                                timeCounter = 0
+                            else
+                                timeCounter = clockObj.targetTime
+                            updateTime(false)
+                        }
+                    }
                 }
             }
-        }
-    }
 
-    Timer
-    {
-        id: clockTimer
-        running: false
-        interval: 100
-        repeat: true
-        onTriggered: updateTime(true)
+            Timer
+            {
+                id: clockTimer
+                running: false
+                interval: 100
+                repeat: true
+                onTriggered: updateTime(true)
+            }
+        }
+
+        // enable button
+        IconButton
+        {
+            id: enableChk
+            anchors.verticalCenter: parent.verticalCenter
+            height: Math.min(clockRoot.height, UISettings.iconSizeDefault)
+            width: height
+            checkable: true
+            tooltip: qsTr("Enable/Disable this scheduler")
+            imgSource: "qrc:/apply.svg"
+            checked: clockObj ? clockObj.enableSchedule : false
+            onToggled: if (clockObj) clockObj.enableSchedule = checked
+        }
     }
 }

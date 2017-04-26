@@ -56,12 +56,10 @@ protected:
 signals:
 
 protected slots:
+    /** @reimp */
     void slotRefreshView();
 
 private:
-    /** References to the 2D view and 2D contents for items creation */
-    QQuickItem *m_viewDMX;
-
     /** Pre-cached QML component for quick item creation */
     QQmlComponent *fixtureComponent;
 };

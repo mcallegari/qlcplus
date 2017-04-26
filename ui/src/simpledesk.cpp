@@ -377,12 +377,26 @@ uchar SimpleDesk::getAbsoluteChannelValue(uint address)
     if (m_engine->hasChannel(address))
         return m_engine->value(address);
     else
-        return 0;
+    {
+        QList<Universe*> ua = m_doc->inputOutputMap()->claimUniverses();
+        int uni = address >> 9;
+        uint channel = address & 0x01FF;
+        if (uni >= ua.count())
+            return 0;
+        uchar value = ua.at(uni)->preGMValue(channel);
+        m_doc->inputOutputMap()->releaseUniverses(false);
+        return value;
+    }
 }
 
 void SimpleDesk::setAbsoluteChannelValue(uint address, uchar value)
 {
     m_engine->setValue(address, value);
+}
+
+void SimpleDesk::resetChannel(quint32 address)
+{
+    m_engine->resetChannel(address);
 }
 
 void SimpleDesk::resetUniverse()
@@ -714,8 +728,6 @@ void SimpleDesk::slotUniverseResetClicked()
 
 void SimpleDesk::slotChannelResetClicked(quint32 fxID, quint32 channel)
 {
-    qDebug() << "Reset button clicked";
-
     if (fxID != Fixture::invalidId())
     {
         Fixture *fixture = m_doc->fixture(fxID);
@@ -731,13 +743,16 @@ void SimpleDesk::slotChannelResetClicked(quint32 fxID, quint32 channel)
             if (fixture == NULL)
                 return;
 
-            FixtureConsole *fc = m_consoleList[fxID];
-            if (fc != NULL)
+            if (m_consoleList.contains(fxID))
             {
-                if (fixture->id() % 2 == 0)
-                    fc->setChannelStylesheet(channel, ssOdd);
-                else
-                    fc->setChannelStylesheet(channel, ssEven);
+                FixtureConsole *fc = m_consoleList[fxID];
+                if (fc != NULL)
+                {
+                    if (fixture->id() % 2 == 0)
+                        fc->setChannelStylesheet(channel, ssOdd);
+                    else
+                        fc->setChannelStylesheet(channel, ssEven);
+                }
             }
         }
         else
@@ -787,9 +802,12 @@ void SimpleDesk::slotUniverseSliderValueChanged(quint32 fid, quint32 chan, uchar
             if (m_viewModeButton->isChecked() == true &&
                 m_engine->hasChannel(chanAbsAddr) == false)
             {
-                FixtureConsole *fc = m_consoleList[fid];
-                if (fc != NULL)
-                    fc->setChannelStylesheet(chan, ssOverride);
+                if (m_consoleList.contains(fid))
+                {
+                    FixtureConsole *fc = m_consoleList[fid];
+                    if (fc != NULL)
+                        fc->setChannelStylesheet(chan, ssOverride);
+                }
             }
             m_engine->setValue(chanAbsAddr, value);
 
@@ -844,6 +862,9 @@ void SimpleDesk::slotUniversesWritten(int idx, const QByteArray& ua)
     {
         foreach(FixtureConsole *fc, m_consoleList.values())
         {
+            if (fc == NULL)
+                continue;
+
             quint32 fxi = fc->fixture();
             Fixture *fixture = m_doc->fixture(fxi);
             if (fixture != NULL)
@@ -998,7 +1019,6 @@ void SimpleDesk::slotGroupValueChanged(quint32 groupID, uchar value)
         if (fixture == NULL)
             continue;
         quint32 absAddr = fixture->universeAddress() + scv.channel;
-        m_engine->setValue(absAddr, value);
 
         // Update sliders on screen
         if (m_viewModeButton->isChecked() == false)
@@ -1018,14 +1038,21 @@ void SimpleDesk::slotGroupValueChanged(quint32 groupID, uchar value)
         }
         else
         {
-            FixtureConsole *fc = m_consoleList[fixture->id()];
-            if(fc != NULL)
+            if (m_consoleList.contains(fixture->id()))
             {
-                fc->blockSignals(true);
-                fc->setValue(scv.channel, value, false);
-                fc->blockSignals(false);
+                FixtureConsole *fc = m_consoleList[fixture->id()];
+                if(fc != NULL)
+                {
+                    fc->blockSignals(true);
+                    if (m_engine->hasChannel(absAddr) == false)
+                        fc->setChannelStylesheet(scv.channel, ssOverride);
+                    fc->setValue(scv.channel, value, false);
+                    fc->blockSignals(false);
+                }
             }
         }
+
+        m_engine->setValue(absAddr, value);
     }
 }
 

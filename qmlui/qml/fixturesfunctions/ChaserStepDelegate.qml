@@ -44,6 +44,7 @@ Rectangle
     property bool isSelected: false
     property int indexInList: -1
     property int highlightIndex: -1
+    property int highlightEditTime: -1
 
     property int col1Width: 25
     property int col2Width: UISettings.bigItemHeight * 1.5
@@ -53,7 +54,7 @@ Rectangle
     property int col6Width: UISettings.bigItemHeight
 
     signal clicked(int ID, var qItem, int mouseMods)
-    signal doubleClicked(int ID, int type)
+    signal doubleClicked(int ID, var qItem, int type)
 
     onFunctionIDChanged:
     {
@@ -70,6 +71,28 @@ Rectangle
             topDragLine.visible = false
     }
 
+    onHighlightEditTimeChanged:
+    {
+        var item = null
+
+        switch(highlightEditTime)
+        {
+            case Function.FadeIn: item = fadeInText; break;
+            case Function.Hold: item = holdText; break;
+            case Function.FadeOut: item = fadeOutText; break;
+            case Function.Duration: item = durationText; break;
+        }
+
+        if (item)
+        {
+            editBox.visible = true
+            editBox.x = item.x
+            editBox.width = item.width
+        }
+        else
+            editBox.visible = false
+    }
+
     // Highlight rectangle
     Rectangle
     {
@@ -77,6 +100,17 @@ Rectangle
         radius: 3
         color: UISettings.highlight
         visible: isSelected
+    }
+
+    // highlight the time being edited
+    Rectangle
+    {
+        id: editBox
+        visible: false
+        height: parent.height
+        color: "transparent"
+        border.width: 2
+        border.color: "yellow"
     }
 
     Timer
@@ -107,19 +141,19 @@ Rectangle
         {
             clickTimer.stop()
             clickTimer.modifiers = 0
-            console.log("Double click happened at " + mouse.x + "," + mouse.y)
+            //console.log("Double click happened at " + mouse.x + "," + mouse.y)
 
             var item = fieldsRow.childAt(mouse.x, mouse.y)
             if (item === funcIconName)
                 console.log("Func name clicked")
             else if (item === fadeInText)
-                stepDelegate.doubleClicked(functionID, Function.FadeIn)
+                stepDelegate.doubleClicked(functionID, item, Function.FadeIn)
             else if (item === holdText)
-                stepDelegate.doubleClicked(functionID, Function.Hold)
+                stepDelegate.doubleClicked(functionID, item, Function.Hold)
             else if (item === fadeOutText)
-                stepDelegate.doubleClicked(functionID, Function.FadeOut)
+                stepDelegate.doubleClicked(functionID, item, Function.FadeOut)
             else if (item === durationText)
-                stepDelegate.doubleClicked(functionID, Function.Duration)
+                stepDelegate.doubleClicked(functionID, item, Function.Duration)
             else if (mouse.x >= noteText.x)
                 console.log("Note clicked")
         }
@@ -149,7 +183,7 @@ Rectangle
             label: indexInList + 1
             fontSize: labelFontSize
             wrapText: true
-            textAlign: Text.AlignHCenter
+            textHAlign: Text.AlignHCenter
         }
         Rectangle { height: parent.height; width: 1; color: UISettings.fgMedium }
 
@@ -171,7 +205,7 @@ Rectangle
             label: stepFadeIn
             fontSize: labelFontSize
             wrapText: true
-            textAlign: Text.AlignHCenter
+            textHAlign: Text.AlignHCenter
         }
         Rectangle { height: parent.height; width: 1; color: UISettings.fgMedium }
 
@@ -183,7 +217,7 @@ Rectangle
             label: stepHold
             fontSize: labelFontSize
             wrapText: true
-            textAlign: Text.AlignHCenter
+            textHAlign: Text.AlignHCenter
         }
         Rectangle { height: parent.height; width: 1; color: UISettings.fgMedium }
 
@@ -195,7 +229,7 @@ Rectangle
             label: stepFadeOut
             fontSize: labelFontSize
             wrapText: true
-            textAlign: Text.AlignHCenter
+            textHAlign: Text.AlignHCenter
         }
         Rectangle { height: parent.height; width: 1; color: UISettings.fgMedium }
 
@@ -207,7 +241,7 @@ Rectangle
             label: stepDuration
             fontSize: labelFontSize
             wrapText: true
-            textAlign: Text.AlignHCenter
+            textHAlign: Text.AlignHCenter
         }
         Rectangle { height: parent.height; width: 1; color: UISettings.fgMedium }
 

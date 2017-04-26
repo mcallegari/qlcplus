@@ -28,7 +28,7 @@ Rectangle
     width: addFuncMenuEntries.width
     height: addFuncMenuEntries.height
     color: UISettings.bgMedium
-    signal entryClicked(int fType, string fEditor)
+    signal entryClicked(int fType)
 
     Column
     {
@@ -37,55 +37,55 @@ Rectangle
         {
             imgSource: "qrc:/scene.svg"
             entryText: qsTr("New Scene")
-            onClicked: entryClicked(Function.Scene, "qrc:/SceneEditor.qml")
+            onClicked: entryClicked(Function.Scene)
         }
         ContextMenuEntry
         {
             imgSource: "qrc:/chaser.svg"
             entryText: qsTr("New Chaser")
-            onClicked: entryClicked(Function.Chaser, "qrc:/ChaserEditor.qml")
+            onClicked: entryClicked(Function.Chaser)
         }
         ContextMenuEntry
         {
             imgSource: "qrc:/efx.svg"
             entryText: qsTr("New EFX")
-            onClicked: entryClicked(Function.EFX, "qrc:/EFXEditor.qml")
+            onClicked: entryClicked(Function.EFX)
         }
         ContextMenuEntry
         {
             imgSource: "qrc:/collection.svg"
             entryText: qsTr("New Collection")
-            onClicked: entryClicked(Function.Collection, "qrc:/CollectionEditor.qml")
+            onClicked: entryClicked(Function.Collection)
         }
         ContextMenuEntry
         {
             imgSource: "qrc:/rgbmatrix.svg"
             entryText: qsTr("New RGB Matrix")
-            onClicked: entryClicked(Function.RGBMatrix, "qrc:/RGBMatrixEditor.qml")
+            onClicked: entryClicked(Function.RGBMatrix)
         }
         ContextMenuEntry
         {
             imgSource: "qrc:/showmanager.svg"
             entryText: qsTr("New Show")
-            onClicked: entryClicked(Function.Show, "qrc:/ShowManager.qml")
+            onClicked: entryClicked(Function.Show)
         }
         ContextMenuEntry
         {
             imgSource: "qrc:/script.svg"
             entryText: qsTr("New Script")
-            onClicked: entryClicked(Function.Script, "qrc:/ScriptEditor.qml")
+            onClicked: entryClicked(Function.Script)
         }
         ContextMenuEntry
         {
             imgSource: "qrc:/audio.svg"
             entryText: qsTr("New Audio")
-            onClicked: entryClicked(Function.Audio, "qrc:/AudioEditor.qml")
+            onClicked: entryClicked(Function.Audio)
         }
         ContextMenuEntry
         {
             imgSource: "qrc:/video.svg"
             entryText: qsTr("New Video")
-            onClicked: entryClicked(Function.Video, "qrc:/VideoEditor.qml")
+            onClicked: entryClicked(Function.Video)
         }
     }
 }

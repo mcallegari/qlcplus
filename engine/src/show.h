@@ -46,11 +46,14 @@ public:
     Show(Doc* doc);
     virtual ~Show();
 
+    /** @reimp */
+    QIcon getIcon() const;
+
     /*********************************************************************
      * Copying
      *********************************************************************/
 public:
-    /** @reimpl */
+    /** @reimp */
     Function* createCopy(Doc* doc, bool addToDoc = true);
 
     /** Copy the contents for this function from another function */

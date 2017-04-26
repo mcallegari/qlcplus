@@ -39,7 +39,7 @@
 CollectionEditor::CollectionEditor(QWidget* parent, Collection* fc, Doc* doc)
     : QWidget(parent)
     , m_doc(doc)
-    , m_fc(fc)
+    , m_collection(fc)
 {
     Q_ASSERT(doc != NULL);
     Q_ASSERT(fc != NULL);
@@ -50,10 +50,12 @@ CollectionEditor::CollectionEditor(QWidget* parent, Collection* fc, Doc* doc)
             this, SLOT(slotNameEdited(const QString&)));
     connect(m_add, SIGNAL(clicked()), this, SLOT(slotAdd()));
     connect(m_remove, SIGNAL(clicked()), this, SLOT(slotRemove()));
+    connect(m_moveUp, SIGNAL(clicked()), this, SLOT(slotMoveUp()));
+    connect(m_moveDown, SIGNAL(clicked()), this, SLOT(slotMoveDown()));
     connect(m_testButton, SIGNAL(clicked()),
             this, SLOT(slotTestClicked()));
 
-    m_nameEdit->setText(m_fc->name());
+    m_nameEdit->setText(m_collection->name());
     m_nameEdit->setSelection(0, m_nameEdit->text().length());
 
     updateFunctionList();
@@ -64,13 +66,13 @@ CollectionEditor::CollectionEditor(QWidget* parent, Collection* fc, Doc* doc)
 
 CollectionEditor::~CollectionEditor()
 {
-    if(m_testButton->isChecked ())
-        m_fc->stopAndWait ();
+    if (m_testButton->isChecked())
+        m_collection->stopAndWait ();
 }
 
 void CollectionEditor::slotNameEdited(const QString& text)
 {
-    m_fc->setName(text);
+    m_collection->setName(text);
 }
 
 void CollectionEditor::slotAdd()
@@ -78,10 +80,10 @@ void CollectionEditor::slotAdd()
     FunctionSelection fs(this, m_doc);
     {
         QList<quint32> disabledList;
-        disabledList << m_fc->id();
+        disabledList << m_collection->id();
         foreach (Function* function, m_doc->functions())
         {
-            if (function->contains(m_fc->id()))
+            if (function->contains(m_collection->id()))
                 disabledList << function->id();
         }
         fs.setDisabledFunctions(disabledList);
@@ -91,28 +93,101 @@ void CollectionEditor::slotAdd()
     {
         QListIterator <quint32> it(fs.selection());
         while (it.hasNext() == true)
-            m_fc->addFunction(it.next());
+            m_collection->addFunction(it.next());
         updateFunctionList();
     }
 }
 
 void CollectionEditor::slotRemove()
 {
-    QTreeWidgetItem* item = m_tree->currentItem();
-    if (item != NULL)
+    QList <QTreeWidgetItem*> items(m_tree->selectedItems());
+    QListIterator <QTreeWidgetItem*> it(items);
+
+    while (it.hasNext() == true)
     {
+        QTreeWidgetItem* item(it.next());
         quint32 id = item->data(0, PROP_ID).toUInt();
-        m_fc->removeFunction(id);
+        m_collection->removeFunction(id);
         delete item;
     }
+}
+
+void CollectionEditor::slotMoveUp()
+{
+    QList <QTreeWidgetItem*> items(m_tree->selectedItems());
+    QListIterator <QTreeWidgetItem*> it(items);
+
+    // Check, whether even one of the items would "bleed" over the edge and
+    // cancel the operation if that is the case.
+    while (it.hasNext() == true)
+    {
+        QTreeWidgetItem* item(it.next());
+        int index = m_tree->indexOfTopLevelItem(item);
+        if (index == 0)
+            return;
+    }
+
+    // Move the items
+    it.toFront();
+    while (it.hasNext() == true)
+    {
+        QTreeWidgetItem* item(it.next());
+        int index = m_tree->indexOfTopLevelItem(item);
+        m_tree->takeTopLevelItem(index);
+        m_tree->insertTopLevelItem(index - 1, item);
+
+        quint32 id = item->data(0, PROP_ID).toUInt();
+        m_collection->removeFunction(id);
+        m_collection->addFunction(id, index - 1);
+    }
+
+    // Select the moved items
+    it.toFront();
+    while (it.hasNext() == true)
+        it.next()->setSelected(true);
+}
+
+void CollectionEditor::slotMoveDown()
+{
+    QList <QTreeWidgetItem*> items(m_tree->selectedItems());
+    QListIterator <QTreeWidgetItem*> it(items);
+
+    // Check, whether even one of the items would "bleed" over the edge and
+    // cancel the operation if that is the case.
+    while (it.hasNext() == true)
+    {
+        QTreeWidgetItem* item(it.next());
+        int index = m_tree->indexOfTopLevelItem(item);
+        if (index == m_tree->topLevelItemCount() - 1)
+            return;
+    }
+
+    // Move the items
+    it.toBack();
+    while (it.hasPrevious() == true)
+    {
+        QTreeWidgetItem* item(it.previous());
+        int index = m_tree->indexOfTopLevelItem(item);
+        m_tree->takeTopLevelItem(index);
+        m_tree->insertTopLevelItem(index + 1, item);
+
+        quint32 id = item->data(0, PROP_ID).toUInt();
+        m_collection->removeFunction(id);
+        m_collection->addFunction(id, index + 1);
+    }
+
+    // Select the items
+    it.toFront();
+    while (it.hasNext() == true)
+        it.next()->setSelected(true);
 }
 
 void CollectionEditor::slotTestClicked()
 {
     if (m_testButton->isChecked() == true)
-        m_fc->start(m_doc->masterTimer(), functionParent());
+        m_collection->start(m_doc->masterTimer(), functionParent());
     else
-        m_fc->stopAndWait();
+        m_collection->stopAndWait();
 }
 
 FunctionParent CollectionEditor::functionParent() const
@@ -124,7 +199,7 @@ void CollectionEditor::updateFunctionList()
 {
     m_tree->clear();
 
-    foreach(QVariant fid, m_fc->functions())
+    foreach(QVariant fid, m_collection->functions())
     {
         Function* function = m_doc->function(fid.toUInt());
         Q_ASSERT(function != NULL);
@@ -132,6 +207,6 @@ void CollectionEditor::updateFunctionList()
         QTreeWidgetItem* item = new QTreeWidgetItem(m_tree);
         item->setText(0, function->name());
         item->setData(0, PROP_ID, function->id());
-        item->setIcon(0, Function::typeToIcon(function->type()));
+        item->setIcon(0, function->getIcon());
     }
 }

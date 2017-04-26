@@ -77,24 +77,32 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
             //qDebug() << "Add CMY comp at address:" << cmyComp;
         }
 
-        if (head.masterIntensityChannel() != QLCChannel::invalid())
+        fxiItem->m_dimmer = head.channelNumber(QLCChannel::Intensity, QLCChannel::MSB);
+        if (fxiItem->m_dimmer != QLCChannel::invalid())
         {
-            fxiItem->m_masterDimmer = head.masterIntensityChannel();
+            qDebug() << "Set dimmer to:" << fxiItem->m_dimmer;
+        }
+
+        fxiItem->m_masterDimmer = fxi->masterIntensityChannel();
+        if (fxiItem->m_masterDimmer != QLCChannel::invalid())
+        {
             qDebug() << "Set master dimmer to:" << fxiItem->m_masterDimmer;
+        }
+
+        if ((fxiItem->m_dimmer != QLCChannel::invalid()) || (fxiItem->m_masterDimmer != QLCChannel::invalid()))
+        {
             fxiItem->m_back = new QGraphicsEllipseItem(this);
             fxiItem->m_back->setPen(QPen(Qt::white, 1));
             fxiItem->m_back->setBrush(QBrush(Qt::black));
         }
         else
         {
-            fxiItem->m_masterDimmer = QLCChannel::invalid();
             fxiItem->m_back = NULL;
         }
 
-        fxiItem->m_panChannel = QLCChannel::invalid();
-        if (head.panMsbChannel() != QLCChannel::invalid())
+        fxiItem->m_panChannel = head.channelNumber(QLCChannel::Pan, QLCChannel::MSB);
+        if (fxiItem->m_panChannel != QLCChannel::invalid())
         {
-            fxiItem->m_panChannel = head.panMsbChannel();
             // retrieve the PAN max degrees from the fixture mode
             fxiItem->m_panMaxDegrees = 360; // fallback. Very unprecise
             QLCFixtureMode *mode = fxi->fixtureMode();
@@ -107,10 +115,9 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
             qDebug() << "Pan channel on" << fxiItem->m_panChannel << "max degrees:" << fxiItem->m_panMaxDegrees;
         }
 
-        fxiItem->m_tiltChannel = QLCChannel::invalid();
-        if (head.tiltMsbChannel() != QLCChannel::invalid())
+        fxiItem->m_tiltChannel = head.channelNumber(QLCChannel::Tilt, QLCChannel::MSB);
+        if (fxiItem->m_tiltChannel != QLCChannel::invalid())
         {
-            fxiItem->m_tiltChannel = head.tiltMsbChannel();
             // retrieve the TILT max degrees from the fixture mode
             fxiItem->m_tiltMaxDegrees = 270; // fallback. Very unprecise
             QLCFixtureMode *mode = fxi->fixtureMode();
@@ -324,7 +331,7 @@ void MonitorFixtureItem::setSize(QSize size)
     update();
 }
 
-QColor MonitorFixtureItem::computeColor(FixtureHead *head, const QByteArray & values)
+QColor MonitorFixtureItem::computeColor(const FixtureHead *head, const QByteArray & values)
 {
     foreach (quint32 c, head->m_colorWheels)
     {
@@ -359,16 +366,29 @@ QColor MonitorFixtureItem::computeColor(FixtureHead *head, const QByteArray & va
 
     return QColor(255,255,255);
 }
-uchar MonitorFixtureItem::computeAlpha(FixtureHead *head, const QByteArray & values)
+uchar MonitorFixtureItem::computeAlpha(const FixtureHead *head, const QByteArray & values)
 {
-    uchar alpha = 255;
-    if (head->m_masterDimmer != UINT_MAX /*QLCChannel::invalid()*/)
-        alpha = values.at(head->m_masterDimmer);
+    // postpone division as late as possible to improve accuracy
+    unsigned mul = 255U;
+    unsigned div = 1U;
 
-    return alpha; 
+    if (head->m_masterDimmer != UINT_MAX /*QLCChannel::invalid()*/)
+    {
+        mul *= static_cast<uchar>(values.at(head->m_masterDimmer));
+        div *= 255U;
+    }
+
+    if (head->m_dimmer != UINT_MAX /*QLCChannel::invalid()*/)
+    {
+        mul *= static_cast<uchar>(values.at(head->m_dimmer));
+        div *= 255U;
+    }
+
+    //qDebug() << mul << "/" << div << "=" << (mul /div);
+    return mul / div;
 }
 
-FixtureHead::ShutterState MonitorFixtureItem::computeShutter(FixtureHead *head, const QByteArray & values)
+FixtureHead::ShutterState MonitorFixtureItem::computeShutter(const FixtureHead *head, const QByteArray & values)
 {
     FixtureHead::ShutterState result = FixtureHead::Open;
 

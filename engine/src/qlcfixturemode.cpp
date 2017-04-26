@@ -32,12 +32,14 @@
 
 QLCFixtureMode::QLCFixtureMode(QLCFixtureDef* fixtureDef)
     : m_fixtureDef(fixtureDef)
+    , m_masterIntensityChannel(QLCChannel::invalid())
 {
     Q_ASSERT(fixtureDef != NULL);
 }
 
 QLCFixtureMode::QLCFixtureMode(QLCFixtureDef* fixtureDef, const QLCFixtureMode* mode)
     : m_fixtureDef(fixtureDef)
+    , m_masterIntensityChannel(QLCChannel::invalid())
 {
     Q_ASSERT(fixtureDef != NULL);
     Q_ASSERT(mode != NULL);
@@ -57,6 +59,7 @@ QLCFixtureMode& QLCFixtureMode::operator=(const QLCFixtureMode& mode)
         m_name = mode.m_name;
         m_physical = mode.m_physical;
         m_heads = mode.m_heads;
+        m_masterIntensityChannel = QLCChannel::invalid();
 
         /* Clear the existing list of channels */
         m_channels.clear();
@@ -224,6 +227,11 @@ quint32 QLCFixtureMode::channelNumber(QLCChannel::Group group, QLCChannel::Contr
     return QLCChannel::invalid();
 }
 
+quint32 QLCFixtureMode::masterIntensityChannel() const
+{
+    return m_masterIntensityChannel;
+}
+
 /*****************************************************************************
  * Heads
  *****************************************************************************/
@@ -270,6 +278,18 @@ void QLCFixtureMode::cacheHeads()
     {
         QLCFixtureHead& head(m_heads[i]);
         head.cacheChannels(this);
+    }
+
+    for (int i = 0; i < m_channels.size(); i++)
+    {
+        if (m_channels.at(i)->group() == QLCChannel::Intensity &&
+            m_channels.at(i)->controlByte() == QLCChannel::MSB &&
+            m_channels.at(i)->colour() == QLCChannel::NoColour &&
+            headForChannel(i) == -1)
+        {
+            m_masterIntensityChannel = i;
+            break;
+        }
     }
 }
 

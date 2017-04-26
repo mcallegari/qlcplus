@@ -51,7 +51,6 @@ class VCFrame : public VCWidget
     Q_PROPERTY(bool isCollapsed READ isCollapsed WRITE setCollapsed NOTIFY collapsedChanged)
     Q_PROPERTY(bool multiPageMode READ multiPageMode WRITE setMultiPageMode NOTIFY multiPageModeChanged)
     Q_PROPERTY(int currentPage READ currentPage NOTIFY currentPageChanged)
-    Q_PROPERTY(int PIN READ PIN WRITE setPIN NOTIFY PINChanged)
 
     /*********************************************************************
      * Initialization
@@ -62,26 +61,17 @@ public:
     virtual ~VCFrame();
 
     /** @reimp */
+    virtual QString defaultCaption();
+
+    /** @reimp */
     virtual void render(QQuickView *view, QQuickItem *parent);
 
     /** @reimp */
     QString propertiesResource() const;
 
-    /** Method used to indicate if this Frame has a SoloFrame parent
-     *  at any lower level. This is used to determine if
-     *  children widget should be connected to handle the Solo Frame
-     *  feature */
-    void setHasSoloParent(bool hasSoloParent);
-
-    /** Returns if this Frame has a Solo Frame parent at any lower level */
-    bool hasSoloParent() const;
-
 protected:
     /** Reference to the Virtual Console, used to add new widgets */
     VirtualConsole *m_vc;
-
-    /** Flag that holds if this frame has a Solo parent widget */
-    bool m_hasSoloParent;
 
     /*********************************************************************
      * Children
@@ -102,19 +92,26 @@ public:
      *  If $modifierPressed is false, a VC Button is created to represent the Function
      *  otherwise a VC Slider is created.
      *  $parent is used only to render the new widget */
-    Q_INVOKABLE void addFunction(QQuickItem *parent, quint32 funcID, QPoint pos, bool modifierPressed);
+    Q_INVOKABLE void addFunctions(QQuickItem *parent, QVariantList idsList, QPoint pos, int keyModifiers);
 
     /** Delete all the frame children */
     void deleteChildren();
 
     /** Add a child widget to the frame page map */
-    void addWidgetToPageMap(VCWidget *widget);
+    virtual void addWidgetToPageMap(VCWidget *widget);
 
     /** Remove the child $widget from the frame page map */
-    void removeWidgetFromPageMap(VCWidget *widget);
+    virtual void removeWidgetFromPageMap(VCWidget *widget);
 
 protected:
     void setupWidget(VCWidget *widget);
+
+    /*********************************************************************
+     * Disable state
+     *********************************************************************/
+public:
+    /** @reimp */
+    void setDisabled(bool disable);
 
     /*********************************************************************
      * Header
@@ -195,38 +192,22 @@ protected:
     /** Flag to cycle through pages when reaching the end */
     bool m_pagesLoop;
 
-    /** Here's where the magic takes place. This holds a map
-     *  of pages/widgets to be shown/hidden when page is changed */
+    /** This holds a map of pages/widgets to be
+     *  shown/hidden when page is changed */
     QMap <VCWidget *, int> m_pagesMap;
-
-    /*********************************************************************
-     * PIN
-     *********************************************************************/
-public:
-    /** Get/Set a protection PIN for this Frame. Note that only top level frames
-     *  will expose this functionality */
-    int PIN() const;
-    void setPIN(int newPIN);
-
-    /** Validate the Frame PIN for the entire session */
-    void validatePIN();
-
-    /** Returns true if this Frame has a PIN set and has not been validated for the session.
-     *  Otherwise false is returned, and the Frame can be displayed by everyone */
-    Q_INVOKABLE bool requirePIN() const;
-
-signals:
-    void PINChanged(int PIN);
-
-protected:
-    int m_PIN;
-    bool m_validatedPIN;
 
     /*********************************************************************
      * Widget Function
      *********************************************************************/
 protected slots:
     virtual void slotFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensity = 1.0);
+
+    /*********************************************************************
+     * External input
+     *********************************************************************/
+public slots:
+    /** @reimp */
+    void slotInputValueChanged(quint8 id, uchar value);
 
     /*********************************************************************
      * Load & Save

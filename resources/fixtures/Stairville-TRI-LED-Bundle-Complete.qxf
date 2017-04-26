@@ -189,25 +189,21 @@
   <Channel Number="13">Green Spot 4</Channel>
   <Channel Number="14">Blue Spot 4</Channel>
   <Head>
-   <Channel>1</Channel>
    <Channel>5</Channel>
    <Channel>4</Channel>
    <Channel>3</Channel>
   </Head>
   <Head>
-   <Channel>1</Channel>
    <Channel>8</Channel>
    <Channel>7</Channel>
    <Channel>6</Channel>
   </Head>
   <Head>
-   <Channel>1</Channel>
    <Channel>11</Channel>
    <Channel>10</Channel>
    <Channel>9</Channel>
   </Head>
   <Head>
-   <Channel>1</Channel>
    <Channel>14</Channel>
    <Channel>13</Channel>
    <Channel>12</Channel>
@@ -254,6 +250,16 @@
   <Channel Number="5">Blue Spot 3-4</Channel>
   <Channel Number="6">Flash</Channel>
   <Channel Number="7">Dimmer</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
  </Mode>
  <Mode Name="2 Channels">
   <Physical>

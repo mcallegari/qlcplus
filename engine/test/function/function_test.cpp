@@ -42,6 +42,7 @@ void Function_Test::initial()
     Doc doc(this);
 
     Function_Stub* stub = new Function_Stub(&doc);
+    QCOMPARE(stub->id(), Function::invalidId());
     QCOMPARE(stub->name(), QString());
     QCOMPARE(stub->runOrder(), Function::Loop);
     QCOMPARE(stub->direction(), Function::Forward);
@@ -50,6 +51,9 @@ void Function_Test::initial()
     QCOMPARE(stub->speeds().fadeIn(), uint(0));
     QCOMPARE(stub->speeds().fadeOut(), uint(0));
     QCOMPARE(stub->speeds().duration(), uint(0));
+    QCOMPARE(stub->alternateSpeeds(0).fadeIn(), Function::defaultSpeed());
+    QCOMPARE(stub->alternateSpeeds(0).fadeOut(), Function::defaultSpeed());
+    QCOMPARE(stub->alternateSpeeds(0).duration(), Function::defaultSpeed());
 }
 
 void Function_Test::properties()
@@ -254,19 +258,27 @@ void Function_Test::typeString()
 
     Function_Stub* stub = new Function_Stub(&doc);
     QCOMPARE(stub->typeString(), Function::typeToString(Function::Type(31337)));
-    stub->m_type = Function::Scene;
-    QCOMPARE(stub->typeString(), Function::typeToString(Function::Scene));
-    stub->m_type = Function::Chaser;
-    QCOMPARE(stub->typeString(), Function::typeToString(Function::Chaser));
+    stub->m_type = Function::SceneType;
+    QCOMPARE(stub->typeString(), Function::typeToString(Function::SceneType));
+    stub->m_type = Function::ChaserType;
+    QCOMPARE(stub->typeString(), Function::typeToString(Function::ChaserType));
 }
 
 void Function_Test::typeToString()
 {
     QVERIFY(Function::typeToString(Function::Undefined) == "Undefined");
-    QVERIFY(Function::typeToString(Function::Scene) == "Scene");
-    QVERIFY(Function::typeToString(Function::Chaser) == "Chaser");
-    QVERIFY(Function::typeToString(Function::EFX) == "EFX");
-    QVERIFY(Function::typeToString(Function::Collection) == "Collection");
+    QVERIFY(Function::typeToString(Function::SceneType) == "Scene");
+    QVERIFY(Function::typeToString(Function::ChaserType) == "Chaser");
+    QVERIFY(Function::typeToString(Function::EFXType) == "EFX");
+    QVERIFY(Function::typeToString(Function::CollectionType) == "Collection");
+    QVERIFY(Function::typeToString(Function::RGBMatrixType) == "RGBMatrix");
+    QVERIFY(Function::typeToString(Function::ScriptType) == "Script");
+    QVERIFY(Function::typeToString(Function::SequenceType) == "Sequence");
+    QVERIFY(Function::typeToString(Function::ShowType) == "Show");
+    QVERIFY(Function::typeToString(Function::AudioType) == "Audio");
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    QVERIFY(Function::typeToString(Function::VideoType) == "Video");
+#endif
 
     QVERIFY(Function::typeToString(Function::Type(42)) == "Undefined");
     QVERIFY(Function::typeToString(Function::Type(31337)) == "Undefined");
@@ -275,10 +287,18 @@ void Function_Test::typeToString()
 void Function_Test::stringToType()
 {
     QVERIFY(Function::stringToType("Undefined") == Function::Undefined);
-    QVERIFY(Function::stringToType("Scene") == Function::Scene);
-    QVERIFY(Function::stringToType("Chaser") == Function::Chaser);
-    QVERIFY(Function::stringToType("EFX") == Function::EFX);
-    QVERIFY(Function::stringToType("Collection") == Function::Collection);
+    QVERIFY(Function::stringToType("Scene") == Function::SceneType);
+    QVERIFY(Function::stringToType("Chaser") == Function::ChaserType);
+    QVERIFY(Function::stringToType("EFX") == Function::EFXType);
+    QVERIFY(Function::stringToType("Collection") == Function::CollectionType);
+    QVERIFY(Function::stringToType("RGBMatrix") == Function::RGBMatrixType);
+    QVERIFY(Function::stringToType("Script") == Function::ScriptType);
+    QVERIFY(Function::stringToType("Sequence") == Function::SequenceType);
+    QVERIFY(Function::stringToType("Show") == Function::ShowType);
+    QVERIFY(Function::stringToType("Audio") == Function::AudioType);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    QVERIFY(Function::stringToType("Video") == Function::VideoType);
+#endif
 
     QVERIFY(Function::stringToType("Foobar") == Function::Undefined);
     QVERIFY(Function::stringToType("Xyzzy") == Function::Undefined);
@@ -289,6 +309,7 @@ void Function_Test::runOrderToString()
     QVERIFY(Function::runOrderToString(Function::Loop) == "Loop");
     QVERIFY(Function::runOrderToString(Function::SingleShot) == "SingleShot");
     QVERIFY(Function::runOrderToString(Function::PingPong) == "PingPong");
+    QVERIFY(Function::runOrderToString(Function::Random) == "Random");
 
     QVERIFY(Function::runOrderToString(Function::RunOrder(42)) == "Loop");
     QVERIFY(Function::runOrderToString(Function::RunOrder(69)) == "Loop");
@@ -299,6 +320,7 @@ void Function_Test::stringToRunOrder()
     QVERIFY(Function::stringToRunOrder("Loop") == Function::Loop);
     QVERIFY(Function::stringToRunOrder("SingleShot") == Function::SingleShot);
     QVERIFY(Function::stringToRunOrder("PingPong") == Function::PingPong);
+    QVERIFY(Function::stringToRunOrder("Random") == Function::Random);
 
     QVERIFY(Function::stringToRunOrder("Foobar") == Function::Loop);
     QVERIFY(Function::stringToRunOrder("Xyzzy") == Function::Loop);
@@ -320,6 +342,54 @@ void Function_Test::stringToDirection()
 
     QVERIFY(Function::stringToDirection("Foobar") == Function::Forward);
     QVERIFY(Function::stringToDirection("Xyzzy") == Function::Forward);
+}
+
+void Function_Test::attributes()
+{
+    Doc doc(this);
+
+    Function_Stub* stub = new Function_Stub(&doc);
+
+    QCOMPARE(stub->attributes().count(), 1); // Intensity is always there
+    QCOMPARE(stub->getAttributeValue(Function::Intensity), 1.0);
+    stub->adjustAttribute(0.5, Function::Intensity);
+    QCOMPARE(stub->getAttributeValue(Function::Intensity), 0.5);
+
+    stub->registerAttribute("Foo", 1.0);
+    QCOMPARE(stub->attributes().count(), 2);
+    QCOMPARE(stub->getAttributeIndex("Foo"), 1);
+    QCOMPARE(stub->getAttributeValue(1), 1.0);
+    stub->adjustAttribute(0.7, 1);
+    QCOMPARE(stub->getAttributeValue(1), 0.7);
+
+    // check non existent attribute
+    QCOMPARE(stub->getAttributeIndex("Bar"), -1);
+
+    stub->resetAttributes();
+    QCOMPARE(stub->getAttributeValue(Function::Intensity), 1.0);
+    QCOMPARE(stub->getAttributeValue(1), 1.0);
+
+    QCOMPARE(stub->renameAttribute(1, "Boo"), true);
+    QCOMPARE(stub->renameAttribute(5, "Yah"), false);
+    QCOMPARE(stub->getAttributeIndex("Boo"), 1);
+
+    stub->unregisterAttribute("Boo");
+    QCOMPARE(stub->attributes().count(), 1);
+
+    QCOMPARE(stub->getAttributeValue(1), 0.0);
+}
+
+void Function_Test::blendMode()
+{
+    Doc doc(this);
+
+    Function_Stub* stub = new Function_Stub(&doc);
+
+    QCOMPARE(stub->blendMode(), Universe::NormalBlend);
+
+    stub->setBlendMode(Universe::AdditiveBlend);
+
+    QCOMPARE(stub->blendMode(), Universe::AdditiveBlend);
 }
 
 void Function_Test::loaderWrongRoot()
@@ -424,7 +494,7 @@ void Function_Test::loaderScene()
     QVERIFY(Function::loader(xmlReader, &d) == true);
     QVERIFY(d.functions().size() == 1);
     QVERIFY(d.function(15) != NULL);
-    QVERIFY(d.function(15)->type() == Function::Scene);
+    QVERIFY(d.function(15)->type() == Function::SceneType);
     QVERIFY(d.function(15)->name() == QString("Lipton"));
 }
 
@@ -477,7 +547,7 @@ void Function_Test::loaderChaser()
     QVERIFY(Function::loader(xmlReader, &d) == true);
     QVERIFY(d.functions().size() == 1);
     QVERIFY(d.function(1) != NULL);
-    QVERIFY(d.function(1)->type() == Function::Chaser);
+    QVERIFY(d.function(1)->type() == Function::ChaserType);
     QVERIFY(d.function(1)->name() == QString("Malarkey"));
 }
 
@@ -509,7 +579,7 @@ void Function_Test::loaderCollection()
     QVERIFY(Function::loader(xmlReader, &d) == true);
     QVERIFY(d.functions().size() == 1);
     QVERIFY(d.function(120) != NULL);
-    QVERIFY(d.function(120)->type() == Function::Collection);
+    QVERIFY(d.function(120)->type() == Function::CollectionType);
     QVERIFY(d.function(120)->name() == QString("Spiers"));
 }
 
@@ -599,7 +669,7 @@ void Function_Test::loaderEFX()
     QVERIFY(Function::loader(xmlReader, &d) == true);
     QVERIFY(d.functions().size() == 1);
     QVERIFY(d.function(0) != NULL);
-    QVERIFY(d.function(0)->type() == Function::EFX);
+    QVERIFY(d.function(0)->type() == Function::EFXType);
     QVERIFY(d.function(0)->name() == QString("Guarnere"));
 }
 

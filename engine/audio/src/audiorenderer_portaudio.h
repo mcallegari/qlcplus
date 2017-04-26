@@ -76,10 +76,6 @@ private:
 
     int m_channels;
     int m_frameSize;
-
-    int m_buffersFilled;
-    int m_writeBufferIndex;
-    int m_readBufferIndex;
 };
 
 /** @} */

@@ -29,84 +29,85 @@
 #include "qlcfile.h"
 #include "qlcconfig.h"
 
-void QLCFile_Test::readXML()
+void QLCFile_Test::XMLReader()
 {
-#ifdef QT_XML_LIB
-    QDomDocument doc;
+    QXmlStreamReader *reader = QLCFile::getXMLReader("readonly.xml.in");
 
-    doc = QLCFile::readXML(QString());
-    QVERIFY(doc.isNull() == true);
+    QVERIFY(reader != NULL);
+    QVERIFY(reader->device() != NULL);
+    QVERIFY(reader->device()->isOpen() == true);
 
-    doc = QLCFile::readXML("foobar");
-    QVERIFY(doc.isNull() == true);
+    /* check releasing an invalid reader does nothing */
+    QLCFile::releaseXMLReader(NULL);
 
-    doc = QLCFile::readXML("broken.xml");
-    QVERIFY(doc.isNull() == false);
-    QCOMPARE(doc.firstChild().toElement().tagName(), QString("Workspace"));
-    QCOMPARE(doc.firstChild().firstChild().toElement().tagName(), QString("Creator"));
+    /* release the real reader */
+    QLCFile::releaseXMLReader(reader);
+    reader = NULL;
 
-    QString source("readonly.xml.in");
-    QString path("readonly.xml");
-    QFile(source).copy(path);
-
-#if !defined(WIN32) && !defined(Q_OS_WIN)
-	QFile::Permissions perms = QFile::permissions(path);
-	QFile::setPermissions(path, 0);
-    doc = QLCFile::readXML(path);
-    QVERIFY(doc.isNull() == true);
-	QFile::setPermissions(path, perms);
-#endif
-
-    doc = QLCFile::readXML(path);
-    QVERIFY(doc.isNull() == false);
-    QCOMPARE(doc.firstChild().toElement().tagName(), QString("Workspace"));
-    QCOMPARE(doc.firstChild().firstChild().toElement().tagName(), QString("Creator"));
-#endif
+    /* check a file that cannot be created */
+    reader = QLCFile::getXMLReader("foo.xml");
+    QVERIFY(reader == NULL);
 }
 
 void QLCFile_Test::getXMLHeader()
 {
-#ifdef QT_XML_LIB
-    bool insideCreatorTag = false, author = false, appname = false,
-         appversion = false;
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter doc(&buffer);
+    doc.setAutoFormatting(true);
+    doc.setAutoFormattingIndent(1);
+    doc.setCodec("UTF-8");
 
-    doc = QLCFile::getXMLHeader(QString());
-    QVERIFY(doc.isNull() == true);
+    QLCFile::writeXMLHeader(&doc, "DocumentTag", "TestUnit");
+    doc.writeEndDocument();
 
-    doc = QLCFile::getXMLHeader("Settings");
-    QVERIFY(doc.isNull() == false);
-    QCOMPARE(doc.doctype().name(), QString("Settings"));
+    doc.setDevice(NULL);
+    buffer.close();
 
-    QDomNode node(doc.firstChild());
-    node = node.nextSibling();
-    QCOMPARE(node.toElement().tagName(), QString("Settings"));
-    node = node.firstChild();
-    QCOMPARE(node.toElement().tagName(), QString("Creator"));
-    node = node.firstChild();
-    while (node.isNull() == false)
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+
+    while (!xmlReader.atEnd())
     {
-        // Verify that program enters this while loop
-        insideCreatorTag = true;
-
-        QDomElement tag(node.toElement());
-        if (tag.tagName() == KXMLQLCCreatorAuthor)
-            author = true; // User might not have a full name so don't check the contents
-        else if (tag.tagName() == KXMLQLCCreatorName)
-            appname = true;
-        else if (tag.tagName() == KXMLQLCCreatorVersion)
-            appversion = true;
-        else
-            QFAIL(QString("Unrecognized tag: %1").arg(tag.tagName()).toUtf8().constData());
-
-        node = node.nextSibling();
+        if (xmlReader.readNext() == QXmlStreamReader::DTD)
+            break;
     }
 
-    QCOMPARE(insideCreatorTag, true);
-    QCOMPARE(author, true);
-    QCOMPARE(appname, true);
-    QCOMPARE(appversion, true);
-#endif
+    bool creatorTag = false, author = false, appname = false,
+         appversion = false;
+
+    QVERIFY(xmlReader.hasError() == false);
+    QVERIFY(xmlReader.dtdName() == "DocumentTag");
+
+    QVERIFY(xmlReader.readNextStartElement() == true);
+
+    QVERIFY(xmlReader.name() == "DocumentTag");
+
+    while (xmlReader.readNextStartElement())
+    {
+        if (xmlReader.name() == KXMLQLCCreatorAuthor)
+        {
+            author = true;
+            QVERIFY(xmlReader.readElementText() == "TestUnit");
+        }
+        else if (xmlReader.name() == KXMLQLCCreator)
+            creatorTag = true;
+        else if (xmlReader.name() == KXMLQLCCreatorName)
+        {
+            appname = true;
+            xmlReader.skipCurrentElement();
+        }
+        else if (xmlReader.name() == KXMLQLCCreatorVersion)
+        {
+            appversion = true;
+            xmlReader.skipCurrentElement();
+        }
+    }
+
+    QVERIFY(creatorTag == true);
+    QVERIFY(appname == true);
+    QVERIFY(appversion == true);
+    QVERIFY(author == true);
 }
 
 void QLCFile_Test::errorString()
@@ -143,6 +144,11 @@ void QLCFile_Test::errorString()
              tr("The file could not be copied."));
     QCOMPARE(QLCFile::errorString(QFile::FileError(31337)),
              tr("An unknown error occurred."));
+}
+
+void QLCFile_Test::version()
+{
+    QVERIFY(QLCFile::getQtRuntimeVersion() > 40000);
 }
 
 QTEST_APPLESS_MAIN(QLCFile_Test)

@@ -104,7 +104,10 @@ void GenericFader::write(QList<Universe*> ua, bool paused)
             // Remove all HTP channels that reach their target _zero_ value.
             // They have no effect either way so removing them saves CPU a bit.
             if (fc.current() == 0 && fc.target() == 0)
+            {
                 it.remove();
+                continue;
+            }
         }
 /*
         else

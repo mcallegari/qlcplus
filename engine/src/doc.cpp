@@ -38,8 +38,10 @@
 #include "collection.h"
 #include "function.h"
 #include "universe.h"
+#include "sequence.h"
 #include "fixture.h"
 #include "chaser.h"
+#include "script.h"
 #include "scene.h"
 #include "show.h"
 #include "efx.h"
@@ -272,8 +274,11 @@ QSharedPointer<AudioCapture> Doc::audioInputCapture()
 
 void Doc::destroyAudioCapture()
 {
-    qDebug() << "Destroying audio capture";
-    m_inputCapture.clear();
+    if (m_inputCapture.isNull() == false)
+    {
+        qDebug() << "Destroying audio capture";
+        m_inputCapture.clear();
+    }
 }
 
 /*****************************************************************************
@@ -486,6 +491,8 @@ bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
     while (fxit.hasNext() == true)
     {
         Fixture* fxi = m_fixtures.take(fxit.next());
+        disconnect(fxi, SIGNAL(changed(quint32)),
+                   this, SLOT(slotFixtureChanged(quint32)));
         delete fxi;
         m_fixturesListCacheUpToDate = false;
     }
@@ -502,6 +509,7 @@ bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
         newFixture->setName(fixture->name());
         newFixture->setAddress(fixture->address());
         newFixture->setUniverse(fixture->universe());
+
         if (fixture->fixtureDef() == NULL ||
             (fixture->fixtureDef()->manufacturer() == KXMLFixtureGeneric &&
              fixture->fixtureDef()->model() == KXMLFixtureGeneric))
@@ -987,6 +995,91 @@ quint32 Doc::startupFunction()
     return m_startupFunctionId;
 }
 
+QList<quint32> Doc::getUsage(quint32 fid)
+{
+    QList<quint32> usageList;
+
+    foreach (Function *f, m_functions)
+    {
+        if (f->id() == fid)
+            continue;
+
+        switch(f->type())
+        {
+            case Function::CollectionType:
+            {
+                Collection *c = qobject_cast<Collection *>(f);
+                int pos = c->functions().indexOf(fid);
+                if (pos != -1)
+                {
+                    usageList.append(f->id());
+                    usageList.append(pos);
+                }
+            }
+            break;
+            case Function::ChaserType:
+
+            {
+                Chaser *c = qobject_cast<Chaser *>(f);
+                for (int i = 0; i < c->stepsCount(); i++)
+                {
+                    ChaserStep *cs = c->stepAt(i);
+                    if (cs->fid == fid)
+                    {
+                        usageList.append(f->id());
+                        usageList.append(i);
+                    }
+                }
+            }
+            break;
+            case Function::SequenceType:
+            {
+                Sequence *s = qobject_cast<Sequence *>(f);
+                if (s->boundSceneID() == fid)
+                {
+                    usageList.append(f->id());
+                    usageList.append(0);
+                }
+            }
+            break;
+            case Function::ScriptType:
+            {
+                Script *s = qobject_cast<Script *>(f);
+                QList<quint32> l = s->functionList();
+                for (int i = 0; i < l.count(); i+=2)
+                {
+                    if (l.at(i) == fid)
+                    {
+                        usageList.append(s->id());
+                        usageList.append(l.at(i + 1)); // line number
+                    }
+                }
+            }
+            break;
+            case Function::ShowType:
+            {
+                Show *s = qobject_cast<Show *>(f);
+                foreach (Track *t, s->tracks())
+                {
+                    foreach(ShowFunction *sf, t->showFunctions())
+                    {
+                        if (sf->functionID() == fid)
+                        {
+                            usageList.append(f->id());
+                            usageList.append(t->id());
+                        }
+                    }
+                }
+            }
+            break;
+            default:
+            break;
+        }
+    }
+
+    return usageList;
+}
+
 void Doc::slotFunctionChanged(quint32 fid)
 {
     setModified();
@@ -1034,7 +1127,7 @@ QPointF Doc::getAvailable2DPosition(QRectF &fxRect)
         if (m_monitorProps->hasFixturePosition(fixture->id()) == false)
             continue;
 
-        QPointF fxPos = m_monitorProps->fixturePosition(fixture->id());
+        QVector3D fxPos = m_monitorProps->fixturePosition(fixture->id());
         QLCFixtureMode *fxMode = fixture->fixtureMode();
 
         qreal itemXPos = fxPos.x();
@@ -1212,7 +1305,7 @@ void Doc::appendToErrorLog(QString error)
         return;
 
     m_errorLog.append(error);
-    m_errorLog.append("\n");
+    m_errorLog.append("<br>");
 }
 
 void Doc::clearErrorLog()

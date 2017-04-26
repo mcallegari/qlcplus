@@ -35,6 +35,8 @@ class ChaserStep;
 class MasterTimer;
 class QXmlStreamReader;
 
+#define KXMLQLCChaserSpeedModes "SpeedModes"
+
 /** @addtogroup engine_functions Functions
  * @{
  */
@@ -60,6 +62,9 @@ public:
     Chaser(Doc* doc);
     virtual ~Chaser();
 
+    /** @reimp */
+    virtual QIcon getIcon() const;
+
 private:
     quint32 m_legacyHoldBus;
 
@@ -67,7 +72,7 @@ private:
      * Copying
      *********************************************************************/
 public:
-    /** @reimpl */
+    /** @reimp */
     Function* createCopy(Doc* doc, bool addToDoc = true);
 
     /** Copy the contents for this function from another function */
@@ -130,7 +135,7 @@ public:
      *
      * @return The requested Chaser Step
      */
-    ChaserStep stepAt(int idx);
+    ChaserStep *stepAt(int idx);
 
     /**
      * Get the chaser's list of steps
@@ -150,7 +155,7 @@ public slots:
      */
     void slotFunctionRemoved(quint32 fid);
 
-private:
+protected:
     QList <ChaserStep> m_steps;
     QMutex m_stepListMutex;
 
@@ -158,27 +163,6 @@ private:
      * Sequence mode
      *********************************************************************/
 public:
-    /**
-     * Set this chaser to behave like a sequence and be a child of a scene
-     * @param sceneID The ID of the scene to bound
-     *
-     */
-    void enableSequenceMode(quint32 sceneID);
-
-    /**
-     * Returns if a chaser is a sequence or not
-     *
-     * @return The sequence flag
-     */
-    bool isSequence() const;
-
-    /**
-     * Returns the current bound scene ID
-     *
-     * @return The associated Scene for this Chaser in sequence mode
-     */
-    quint32 getBoundSceneID() const;
-
     /**
      * Set the time where the Chaser is placed over a timeline
      *
@@ -210,10 +194,6 @@ public:
     bool isLocked();
 
 private:
-    /** This Chaser is a Sequence that uses always the same Scene for each step */
-    bool m_isSequence;
-    /** The associated Scene of this Chaser when acting like a Sequence */
-    quint32 m_boundSceneID;
     /** Absolute start time of this Chaser over a timeline (in milliseconds) */
     quint32 m_startTime;
     /** Color to use when displaying the sequence in the Show manager */
@@ -240,7 +220,9 @@ public:
         Common,  //! Impose a common chaser-specific speeds to all steps
         PerStep  //! Impose a step-specific speeds to each step
     };
-    Q_ENUMS(SpeedMode)
+#if QT_VERSION >= 0x050500
+    Q_ENUM(SpeedMode)
+#endif
 
     void setFadeInMode(SpeedMode mode);
     SpeedMode fadeInMode() const;
@@ -254,7 +236,7 @@ public:
     static QString speedModeToString(SpeedMode mode);
     static SpeedMode stringToSpeedMode(const QString& str);
 
-private:
+protected:
     SpeedMode m_fadeInMode;
     SpeedMode m_fadeOutMode;
     SpeedMode m_durationMode;
@@ -262,24 +244,24 @@ private:
     /*********************************************************************
      * Save & Load
      *********************************************************************/
+protected:
+    bool loadXMLSpeedModes(QXmlStreamReader &root);
+
 public:
     /** @reimpl */
-    bool saveXML(QXmlStreamWriter *doc);
+    virtual bool saveXML(QXmlStreamWriter *doc);
 
     /** @reimpl */
-    bool loadXML(QXmlStreamReader &root);
+    virtual bool loadXML(QXmlStreamReader &root);
 
     /** @reimp */
-    void postLoad();
+    virtual void postLoad();
 
     /*********************************************************************
      * Start/Next/Previous
      * ChaserRunner wrappers
      *********************************************************************/
 public:
-    /** Set the intensity at start */
-    void setStartIntensity(qreal startIntensity);
-
     /** @reimpl */
     void tap();
 
@@ -310,8 +292,18 @@ public:
     /** Get the first step of the running list. If none is running this returns NULL */
     ChaserRunnerStep currentRunningStep() const;
 
+    enum FadeControlMode
+    {
+        FromFunction = 0,
+        Crossfade,
+        BlendedCrossfade
+    };
+
+    /** Set the intensity at start */
+    void setStartIntensity(qreal startIntensity);
+
     /** Adjust the intensities of chaser steps. */
-    void adjustIntensity(qreal fraction, int stepIndex = -1);
+    void adjustIntensity(qreal fraction, int stepIndex = -1, FadeControlMode fadeControl = FromFunction);
 
 private:
     /** Step index at chaser start */

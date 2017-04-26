@@ -25,20 +25,58 @@
 
 class QLCFixtureMode;
 class QLCFixtureDef;
+class TreeModel;
 class Doc;
 
 class FixtureBrowser : public QObject
 {
     Q_OBJECT
 
+    Q_PROPERTY(QStringList manufacturers READ manufacturers CONSTANT)
+    Q_PROPERTY(int manufacturerIndex READ manufacturerIndex WRITE setManufacturerIndex NOTIFY manufacturerIndexChanged)
+    Q_PROPERTY(QString selectedManufacturer READ selectedManufacturer WRITE setSelectedManufacturer NOTIFY selectedManufacturerChanged)
+
+    Q_PROPERTY(QStringList modelsList READ modelsList NOTIFY modelsListChanged)
+    Q_PROPERTY(QString selectedModel READ selectedModel WRITE setSelectedModel NOTIFY selectedModelChanged)
+
+    Q_PROPERTY(QStringList modesList READ modesList NOTIFY modesListChanged)
+    Q_PROPERTY(QString selectedMode READ selectedMode WRITE setSelectedMode NOTIFY selectedModeChanged)
+    Q_PROPERTY(int modeChannelsCount READ modeChannelsCount WRITE setModeChannelsCount NOTIFY modeChannelsCountChanged)
+
+    Q_PROPERTY(QString searchFilter READ searchFilter WRITE setSearchFilter NOTIFY searchFilterChanged)
+    Q_PROPERTY(QVariant searchTreeModel READ searchTreeModel NOTIFY searchListChanged)
+    Q_PROPERTY(QVariant modeChannelList READ modeChannelList NOTIFY modeChannelListChanged)
+
+    Q_PROPERTY(QString fixtureName READ fixtureName WRITE setFixtureName NOTIFY fixtureNameChanged)
+
 public:
     FixtureBrowser(QQuickView *view, Doc *doc, QObject *parent = 0);
 
-    Q_INVOKABLE QStringList manufacturers();
-    Q_INVOKABLE int genericIndex();
-    Q_INVOKABLE QStringList models(QString manufacturer);
-    Q_INVOKABLE QStringList modes(QString manufacturer, QString model);
-    Q_INVOKABLE int modeChannels(QString modeName);
+    QStringList manufacturers();
+
+    int manufacturerIndex() const;
+    void setManufacturerIndex(int index);
+
+    QString selectedManufacturer() const;
+    void setSelectedManufacturer(QString selectedManufacturer);
+
+    QStringList modelsList();
+
+    QString selectedModel() const;
+    void setSelectedModel(QString selectedModel);
+
+    /** Get/Set the name that will be used upon fixtures creation */
+    QString fixtureName() const;
+    void setFixtureName(QString fixtureName);
+
+    QStringList modesList();
+
+    QString selectedMode() const;
+    void setSelectedMode(QString selectedMode);
+
+    int modeChannelsCount();
+    void setModeChannelsCount(int modeChannelsCount);
+    QVariant modeChannelList() const;
 
     /** Check if the group of fixtures with the specified $uniIdx, $channels, $quantity and $gap
      *  can be created in the $requested DMX address.
@@ -52,16 +90,57 @@ public:
     /** Check if a Fixture with $fixtureID can be moved to the $requested DMX address */
     Q_INVOKABLE int availableChannel(quint32 fixtureID, int requested);
 
-signals:
-    void modeChanged();
-    void modeChannelsChanged();
+    /** Get/Set the fixture search filter */
+    QString searchFilter() const;
+    void setSearchFilter(QString searchFilter);
 
-protected slots:
+    QVariant searchTreeModel() const;
+
+signals:
+    void manufacturerIndexChanged(int manufacturerIndex);
+    void selectedManufacturerChanged(QString selectedManufacturer);
+
+    void modelsListChanged();
+    void selectedModelChanged(QString selectedModel);
+
+    void modesListChanged();
+    void selectedModeChanged(QString selectedMode);
+
+    void modeChannelsCountChanged();
+    void modeChannelListChanged();
+
+    void searchFilterChanged(QString searchFilter);
+    void searchListChanged();
+
+    void fixtureNameChanged(QString fixtureName);
+
+private:
+    void updateSearchTree();
 
 private:
     Doc *m_doc;
     QQuickView *m_view;
+    /** The index of the currently selected manufacturer */
+    int m_manufacturerIndex;
+    /** The currently selected manufacturer as string */
+    QString m_selectedManufacturer;
+    /** The currently selected fixture model as string */
+    QString m_selectedModel;
+    /** The name used for fixtures creation */
+    QString m_fixtureName;
+    /** The currently selected fixture mode as string */
+    QString m_selectedMode;
+    /** The currently selected mode channels number.
+     *  If no mode is available this can be defined by the user */
+    int m_modeChannelsCount;
+    /** Reference of the currently selected fixture definition */
     QLCFixtureDef *m_definition;
+    /** Reference of the currently selected fixture mode */
+    QLCFixtureMode *m_mode;
+    /** Reference to the tree model used for searches */
+    TreeModel *m_searchTree;
+    /** A string holding the search keyword */
+    QString m_searchFilter;
 };
 
 #endif // FIXTUREBROWSER_H

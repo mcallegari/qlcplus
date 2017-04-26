@@ -48,11 +48,13 @@ const QString Script::systemCmd = QString("systemcommand");
 const QString Script::labelCmd = QString("label");
 const QString Script::jumpCmd = QString("jump");
 
+const QStringList knownKeywords(QStringList() << "ch" << "val" << "arg");
+
 /****************************************************************************
  * Initialization
  ****************************************************************************/
 
-Script::Script(Doc* doc) : Function(doc, Function::Script)
+Script::Script(Doc* doc) : Function(doc, Function::ScriptType)
     , m_currentCommand(0)
     , m_waitCount(0)
     , m_fader(NULL)
@@ -65,6 +67,11 @@ Script::~Script()
     if (m_fader != NULL)
         delete m_fader;
     m_fader = NULL;
+}
+
+QIcon Script::getIcon() const
+{
+    return QIcon(":/script.png");
 }
 
 Function* Script::createCopy(Doc* doc, bool addToDoc)
@@ -158,6 +165,26 @@ QStringList Script::dataLines() const
     return m_data.split(QRegExp("(\r\n|\n\r|\r|\n)"), QString::KeepEmptyParts);
 }
 
+QList<quint32> Script::functionList() const
+{
+    QList<quint32> list;
+
+    for (int i = 0; i < m_lines.count(); i++)
+    {
+        QList <QStringList> tokens = m_lines[i];
+        if (tokens.isEmpty() == true)
+            continue;
+
+        if (tokens[0].size() >= 2 && tokens[0][0] == Script::startFunctionCmd)
+        {
+            list.append(tokens[0][1].toUInt());
+            list.append(i);
+        }
+    }
+
+    return list;
+}
+
 QList<int> Script::syntaxErrorsLines()
 {
     return m_syntaxErrorLines;
@@ -175,7 +202,7 @@ bool Script::loadXML(QXmlStreamReader &root)
         return false;
     }
 
-    if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::Script))
+    if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::ScriptType))
     {
         qWarning() << Q_FUNC_INFO << root.attributes().value(KXMLQLCFunctionType).toString()
                    << "is not a script";
@@ -639,8 +666,6 @@ QString Script::handleJump(const QList<QStringList>& tokens)
 QList <QStringList> Script::tokenizeLine(const QString& str, bool* ok)
 {
     QList<QStringList> tokens;
-    int left = 0;
-    int right = 0;
     QString keyword;
     QString value;
 
@@ -655,6 +680,8 @@ QList <QStringList> Script::tokenizeLine(const QString& str, bool* ok)
     {
         // Truncate everything after the first comment sign
         QString line = str;
+        int left = 0;
+
         while (left != -1)
         {
             left = line.indexOf("//", left);
@@ -672,7 +699,7 @@ QList <QStringList> Script::tokenizeLine(const QString& str, bool* ok)
         while (left < line.length())
         {
             // Find the next colon to get the keyword
-            right = line.indexOf(":", left);
+            int right = line.indexOf(":", left);
             if (right == -1)
             {
                 qDebug() << "Syntax error:" << line.mid(left);
@@ -727,10 +754,19 @@ QList <QStringList> Script::tokenizeLine(const QString& str, bool* ok)
                 }
             }
 
-            tokens << (QStringList() << keyword.trimmed() << value.trimmed());
-            qDebug() << "Tokens:" << tokens;
+            if (tokens.count() > 0 && knownKeywords.contains(keyword.trimmed()) == false)
+            {
+                qDebug() << "Syntax error. Unknown keyword detected:" << keyword.trimmed();
+                if (ok != NULL)
+                    *ok = false;
+                break;
+            }
+            else
+                tokens << (QStringList() << keyword.trimmed() << value.trimmed());
         }
     }
+
+    qDebug() << "Tokens:" << tokens;
 
     return tokens;
 }

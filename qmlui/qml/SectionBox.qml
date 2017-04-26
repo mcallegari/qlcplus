@@ -46,7 +46,7 @@ Rectangle
 
             RobotoText
             {
-                x: 2
+                anchors.centerIn: parent
                 label: boxRoot.sectionLabel
                 height: UISettings.listItemHeight
                 fontSize: UISettings.textSizeDefault

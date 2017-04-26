@@ -102,14 +102,18 @@ public:
 
     void stopTimers(bool stopTime = true, bool stopTapTimer = true);
 
+    bool isTapTick();
+
 signals:
     void valueChanged(int ms);
     void tapped();
+    void tapTimeout();
 
     /*************************************************************************
      * Private
      *************************************************************************/
 private:
+    void updateTapTimer();
     void setSpinValues(int ms);
     int spinValues() const;
 
@@ -146,9 +150,10 @@ private:
     bool m_preventSignals;
     int m_value;
 
+    bool m_tapTick;
     QTime* m_tapTime;
     QTimer* m_tapTickTimer;
-    bool m_tapTick;
+    QTimer* m_tapTickElapseTimer;
 
     /*************************************************************************
      * Elements visibility

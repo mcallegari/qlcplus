@@ -46,7 +46,7 @@ CONFIG(ftd2xx) {
 
     win32 {
         # Windows target
-        FTD2XXDIR    = C:/Qt/CDM21200
+        FTD2XXDIR    = C:/Qt/D2XXSDK
         LIBS        += -L$$FTD2XXDIR/i386 -lftd2xx
         LIBS     += $$FTD2XXDIR/i386/libftd2xx.a
         INCLUDEPATH += $$FTD2XXDIR
@@ -99,9 +99,9 @@ SOURCES += dmxinterface.cpp \
            stageprofi.cpp \
            vinceusbdmx512.cpp
 
-INCLUDEPATH += ../../midi/common
-HEADERS += ../../midi/common/midiprotocol.h
-SOURCES += ../../midi/common/midiprotocol.cpp
+INCLUDEPATH += ../../midi/src/common
+HEADERS += ../../midi/src/common/midiprotocol.h
+SOURCES += ../../midi/src/common/midiprotocol.cpp
 
 unix|macx: SOURCES += nanodmx.cpp euroliteusbdmxpro.cpp
 

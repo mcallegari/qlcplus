@@ -42,9 +42,8 @@
  * Initialization
  *****************************************************************************/
 
-Scene::Scene(Doc* doc) : Function(doc, Function::Scene)
+Scene::Scene(Doc* doc) : Function(doc, Function::SceneType)
     , m_legacyFadeBus(Bus::invalid())
-    , m_hasChildren(false)
     , m_fader(NULL)
 {
     setName(tr("New Scene"));
@@ -54,9 +53,9 @@ Scene::~Scene()
 {
 }
 
-void Scene::setChildrenFlag(bool flag)
+QIcon Scene::getIcon() const
 {
-    m_hasChildren = flag;
+    return QIcon(":/scene.png");
 }
 
 quint32 Scene::alternateSpeedsCount() const
@@ -148,7 +147,10 @@ FunctionUiState * Scene::createUiState()
 void Scene::setValue(const SceneValue& scv, bool blind, bool checkHTP)
 {
     if (!m_fixtures.contains(scv.fxi))
-        qWarning() << Q_FUNC_INFO << "Setting value for unknown fixture" << scv.fxi;
+    {
+        qWarning() << Q_FUNC_INFO << "Setting value for unknown fixture" << scv.fxi << ". Adding it.";
+        m_fixtures.append(scv.fxi);
+    }
 
     m_valueListMutex.lock();
 
@@ -277,8 +279,8 @@ QColor Scene::colorValue(quint32 fxi)
 void Scene::clear()
 {
     m_values.clear();
+    m_fixtures.clear();
 }
-
 
 /*********************************************************************
  * Channel Groups
@@ -348,7 +350,8 @@ void Scene::slotFixtureRemoved(quint32 fxi_id)
 
 void Scene::addFixture(quint32 fixtureId)
 {
-    m_fixtures.append(fixtureId);
+    if (m_fixtures.contains(fixtureId) == false)
+        m_fixtures.append(fixtureId);
 }
 
 bool Scene::removeFixture(quint32 fixtureId)
@@ -393,35 +396,37 @@ bool Scene::saveXML(QXmlStreamWriter *doc)
     }
 
     /* Scene contents */
-    QList<quint32> writtenFixtures;
-    QMapIterator <SceneValue, uchar> it(m_values);
-    qint32 currFixID = -1;
-    QStringList currFixValues;
-    while (it.hasNext() == true)
+    // make a copy of the Scene values cause we need to empty it in the process
+    QList<SceneValue> values = m_values.keys();
+
+    // loop through the Scene Fixtures in the order they've been added
+    foreach (quint32 fxId, m_fixtures)
     {
-        SceneValue sv = it.next().key();
-        if (currFixID == -1) currFixID = sv.fxi;
-        if ((qint32)sv.fxi != currFixID)
+        QStringList currFixValues;
+        bool found = false;
+
+        // look for the values that match the current Fixture ID
+        for (int j = 0; j < values.count(); j++)
         {
-            saveXMLFixtureValues(doc, currFixID, currFixValues);
-            writtenFixtures << currFixID;
-            currFixValues.clear();
-            currFixID = sv.fxi;
+            SceneValue scv = values.at(j);
+            if (scv.fxi != fxId)
+            {
+                if (found == true)
+                    break;
+                else
+                    continue;
+            }
+
+            found = true;
+            currFixValues.append(QString::number(scv.channel));
+            // IMPORTANT: if a Scene is hidden, so used as a container by some Sequences,
+            // it must be saved with values set to zero
+            currFixValues.append(QString::number(isVisible() ? scv.value : 0));
+            values.removeAt(j);
+            j--;
         }
-        currFixValues.append(QString::number(sv.channel));
-        currFixValues.append(QString::number(m_hasChildren ? 0 : sv.value));
-    }
-    /* write last element */
-    saveXMLFixtureValues(doc, currFixID, currFixValues);
-    writtenFixtures << currFixID;
 
-    // Write fixtures with no scene value
-    foreach(quint32 fixtureID, m_fixtures)
-    {
-        if (writtenFixtures.contains(fixtureID))
-            continue;
-
-        saveXMLFixtureValues(doc, fixtureID, QStringList());
+        saveXMLFixtureValues(doc, fxId, currFixValues);
     }
 
     /* End the <Function> tag */
@@ -448,7 +453,7 @@ bool Scene::loadXML(QXmlStreamReader &root)
         return false;
     }
 
-    if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::Scene))
+    if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::SceneType))
     {
         qWarning() << Q_FUNC_INFO << "Function is not a scene";
         return false;
@@ -560,7 +565,7 @@ void Scene::flash(MasterTimer* timer)
 
     Q_ASSERT(timer != NULL);
     Function::flash(timer);
-    timer->registerDMXSource(this, "Scene");
+    timer->registerDMXSource(this);
 }
 
 void Scene::unFlash(MasterTimer* timer)
@@ -624,6 +629,7 @@ void Scene::write(MasterTimer* timer, QList<Universe*> ua)
         m_valueListMutex.lock();
         m_fader = new GenericFader(doc());
         m_fader->adjustIntensity(getAttributeValue(Intensity));
+        m_fader->setBlendMode(blendMode());
 
         QMapIterator <SceneValue, uchar> it(m_values);
         while (it.hasNext() == true)
@@ -772,4 +778,21 @@ void Scene::adjustAttribute(qreal fraction, int attributeIndex)
     if (m_fader != NULL && attributeIndex == Intensity)
         m_fader->adjustIntensity(fraction);
     Function::adjustAttribute(fraction, attributeIndex);
+}
+
+/*************************************************************************
+ * Blend mode
+ *************************************************************************/
+
+void Scene::setBlendMode(Universe::BlendMode mode)
+{
+    if (mode == blendMode())
+        return;
+
+    qDebug() << "Scene" << name() << "blend mode set to" << Universe::blendModeToString(mode);
+
+    if (m_fader != NULL)
+        m_fader->setBlendMode(mode);
+
+    Function::setBlendMode(mode);
 }

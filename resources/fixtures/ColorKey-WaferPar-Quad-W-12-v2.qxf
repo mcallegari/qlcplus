@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.6 GIT</Version>
+  <Author>Taylor</Author>
+ </Creator>
+ <Manufacturer>ColorKey</Manufacturer>
+ <Model>WaferPar Quad-W 12</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Macro">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">No Function</Capability>
+  <Capability Min="11" Max="50">Macro 1</Capability>
+  <Capability Min="51" Max="100">Macro 2</Capability>
+  <Capability Min="101" Max="150">Macro 3 </Capability>
+  <Capability Min="151" Max="200">Macro 4</Capability>
+  <Capability Min="201" Max="255">Macro 5</Capability>
+ </Channel>
+ <Channel Name="Colors">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="39">All Colors</Capability>
+  <Capability Min="40" Max="49" Color="#ff0000">Red</Capability>
+  <Capability Min="50" Max="59" Color="#00ff00">Green</Capability>
+  <Capability Min="60" Max="69" Color="#0000ff">Blue</Capability>
+  <Capability Min="70" Max="79" Color="#ffff00">Yellow</Capability>
+  <Capability Min="80" Max="89" Color="#00ffff">Cyan</Capability>
+  <Capability Min="90" Max="99" Color="#ff00ff">Purple</Capability>
+  <Capability Min="100" Max="109" Color="#ffffff">White</Capability>
+  <Capability Min="110" Max="119" Color="#ff0000" Color2="#00ff00">Red + Green</Capability>
+  <Capability Min="120" Max="129" Color="#ff0000" Color2="#0000ff">Red + Blue</Capability>
+  <Capability Min="130" Max="139" Color="#ff0000" Color2="#ffffff">Red + White</Capability>
+  <Capability Min="140" Max="149" Color="#00ff00" Color2="#0000ff">Green + Blue</Capability>
+  <Capability Min="150" Max="159" Color="#00ff00" Color2="#ffffff">Green + White</Capability>
+  <Capability Min="160" Max="169" Color="#0000ff" Color2="#ffffff">Blue + White</Capability>
+  <Capability Min="170" Max="179">Red + Green + White</Capability>
+  <Capability Min="180" Max="189">Red + Blue + White</Capability>
+  <Capability Min="190" Max="199">Green + Blue + White</Capability>
+  <Capability Min="200" Max="209">Red + Green + Blue</Capability>
+  <Capability Min="210" Max="255">Red + Green + Blue + White</Capability>
+ </Channel>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed</Capability>
+ </Channel>
+ <Channel Name="Master Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Master Dimming</Capability>
+ </Channel>
+ <Channel Name="Red Dimming">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">Red Dimming</Capability>
+ </Channel>
+ <Channel Name="Green Dimming">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">Green Dimming</Capability>
+ </Channel>
+ <Channel Name="Blue Dimming">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">Blue Dimming</Capability>
+ </Channel>
+ <Channel Name="White Dimming">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">White Dimming</Capability>
+ </Channel>
+ <Mode Name="8-Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="3.62" Width="203" Height="203" Depth="89"/>
+   <Lens Name="PC" DegreesMin="35" DegreesMax="35"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="120" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Macro</Channel>
+  <Channel Number="1">Colors</Channel>
+  <Channel Number="2">Speed</Channel>
+  <Channel Number="3">Master Dimmer</Channel>
+  <Channel Number="4">Red Dimming</Channel>
+  <Channel Number="5">Green Dimming</Channel>
+  <Channel Number="6">Blue Dimming</Channel>
+  <Channel Number="7">White Dimming</Channel>
+ </Mode>
+</FixtureDefinition>

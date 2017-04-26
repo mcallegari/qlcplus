@@ -184,10 +184,6 @@
   </Physical>
   <Channel Number="0">Function</Channel>
   <Channel Number="1">Speed/Sensitivity</Channel>
-  <Head>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
-  </Head>
  </Mode>
  <Mode Name="3 Channel">
   <Physical>
@@ -200,11 +196,6 @@
   <Channel Number="0">Red 1</Channel>
   <Channel Number="1">Green 1</Channel>
   <Channel Number="2">Blue 1</Channel>
-  <Head>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
-   <Channel>2</Channel>
-  </Head>
  </Mode>
  <Mode Name="4 Channel">
   <Physical>
@@ -218,12 +209,6 @@
   <Channel Number="1">Red 1</Channel>
   <Channel Number="2">Green 1</Channel>
   <Channel Number="3">Blue 1</Channel>
-  <Head>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
-   <Channel>2</Channel>
-   <Channel>3</Channel>
-  </Head>
  </Mode>
  <Mode Name="7 Channel">
   <Physical>
@@ -240,15 +225,6 @@
   <Channel Number="4">Function</Channel>
   <Channel Number="5">Speed/Sensitivity</Channel>
   <Channel Number="6">Flash</Channel>
-  <Head>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
-   <Channel>2</Channel>
-   <Channel>3</Channel>
-   <Channel>4</Channel>
-   <Channel>5</Channel>
-   <Channel>6</Channel>
-  </Head>
  </Mode>
  <Mode Name="14 Channel">
   <Physical>
@@ -273,25 +249,21 @@
   <Channel Number="12">Blue 4</Channel>
   <Channel Number="13">Flash</Channel>
   <Head>
-   <Channel>0</Channel>
    <Channel>1</Channel>
    <Channel>2</Channel>
    <Channel>3</Channel>
   </Head>
   <Head>
-   <Channel>0</Channel>
    <Channel>4</Channel>
    <Channel>5</Channel>
    <Channel>6</Channel>
   </Head>
   <Head>
-   <Channel>0</Channel>
    <Channel>8</Channel>
    <Channel>9</Channel>
    <Channel>7</Channel>
   </Head>
   <Head>
-   <Channel>0</Channel>
    <Channel>12</Channel>
    <Channel>10</Channel>
    <Channel>11</Channel>
@@ -332,50 +304,42 @@
   <Channel Number="24">Blue 8</Channel>
   <Channel Number="25">Flash</Channel>
   <Head>
-   <Channel>0</Channel>
    <Channel>1</Channel>
    <Channel>2</Channel>
    <Channel>3</Channel>
   </Head>
   <Head>
-   <Channel>0</Channel>
    <Channel>4</Channel>
    <Channel>5</Channel>
    <Channel>6</Channel>
   </Head>
   <Head>
-   <Channel>0</Channel>
    <Channel>8</Channel>
    <Channel>9</Channel>
    <Channel>7</Channel>
   </Head>
   <Head>
-   <Channel>0</Channel>
    <Channel>12</Channel>
    <Channel>10</Channel>
    <Channel>11</Channel>
   </Head>
   <Head>
-   <Channel>0</Channel>
    <Channel>13</Channel>
    <Channel>14</Channel>
    <Channel>15</Channel>
   </Head>
   <Head>
-   <Channel>0</Channel>
    <Channel>16</Channel>
    <Channel>17</Channel>
    <Channel>18</Channel>
   </Head>
   <Head>
-   <Channel>0</Channel>
    <Channel>19</Channel>
    <Channel>20</Channel>
    <Channel>21</Channel>
   </Head>
   <Head>
    <Channel>23</Channel>
-   <Channel>0</Channel>
    <Channel>24</Channel>
    <Channel>22</Channel>
   </Head>

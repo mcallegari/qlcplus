@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.6 GIT</Version>
+  <Author>Thierry Rodolfo</Author>
+ </Creator>
+ <Manufacturer>Robe</Manufacturer>
+ <Model>Spot 160 XT</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Movement by 530°</Capability>
+ </Channel>
+ <Channel Name="Pan Fine">
+  <Group Byte="1">Pan</Group>
+  <Capability Min="0" Max="255">Fine control of movement</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Movement by 280°</Capability>
+ </Channel>
+ <Channel Name="Tilt Fine">
+  <Group Byte="1">Tilt</Group>
+  <Capability Min="0" Max="255">Fine control of movement</Capability>
+ </Channel>
+ <Channel Name="Speed of Pan/Tilt Movement">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="0">Max. speed (tracking mode)</Capability>
+  <Capability Min="1" Max="249">From max. speed to min. speed (vector mode)</Capability>
+  <Capability Min="250" Max="252">Max. speed (tracking mode), blackout while colour or gobo changes</Capability>
+  <Capability Min="253" Max="255">Max. speed (vector mode), blackout while pan/tilt moving or colour or gobo changes</Capability>
+ </Channel>
+ <Channel Name="Colours">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0" Color="#ffffff">Open</Capability>
+  <Capability Min="1" Max="9" Color="#ffffff" Color2="#1998dd">White-Turquoise</Capability>
+  <Capability Min="10" Max="10" Color="#1998dd">Turquoise</Capability>
+  <Capability Min="11" Max="20" Color="#1998dd" Color2="#de0f5a">Turquoise-Red</Capability>
+  <Capability Min="21" Max="21" Color="#de0f5a">Red</Capability>
+  <Capability Min="22" Max="31" Color="#de0f5a" Color2="#1dafef">Red-Cyan</Capability>
+  <Capability Min="32" Max="32" Color="#1dafef">Cyan</Capability>
+  <Capability Min="33" Max="41" Color="#1dafef" Color2="#26ef2b">Cyan-Light green</Capability>
+  <Capability Min="42" Max="42" Color="#26ef2b">Light green</Capability>
+  <Capability Min="43" Max="52" Color="#26ef2b" Color2="#b50a49">Light green-Magenta</Capability>
+  <Capability Min="53" Max="53" Color="#b50a49">Magenta</Capability>
+  <Capability Min="54" Max="63" Color="#b50a49" Color2="#5f6fef">Magenta-Light blue</Capability>
+  <Capability Min="64" Max="64" Color="#5f6fef">Light blue</Capability>
+  <Capability Min="65" Max="73" Color="#5f6fef" Color2="#e7de30">Light blue-Yellow</Capability>
+  <Capability Min="74" Max="74" Color="#e7de30">Yellow</Capability>
+  <Capability Min="75" Max="84" Color="#e7de30" Color2="#169f19">Yellow-Green</Capability>
+  <Capability Min="85" Max="85" Color="#169f19">Green</Capability>
+  <Capability Min="86" Max="95" Color="#169f19" Color2="#ef6fae">Green-Pink</Capability>
+  <Capability Min="96" Max="96" Color="#ef6fae">Pink</Capability>
+  <Capability Min="97" Max="105" Color="#ef6fae" Color2="#03108f">Pink-Blue</Capability>
+  <Capability Min="106" Max="106" Color="#03108f">Blue</Capability>
+  <Capability Min="107" Max="116" Color="#03108f" Color2="#ef5f1e">Blue-Orange</Capability>
+  <Capability Min="117" Max="127" Color="#ef5f1e">Orange</Capability>
+  <Capability Min="128" Max="189" Res="Others/rainbow.png">Forwards rainbow effect from fast to slow</Capability>
+  <Capability Min="190" Max="193">No rotation</Capability>
+  <Capability Min="194" Max="255" Res="Others/rainbow.png">Backwards rainbow effect from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Rotating Gobos">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="11" Res="Others/open.png">Open position (hole)</Capability>
+  <Capability Min="12" Max="23" Res="SGM-Color/gobo00548.png">Gobo 1</Capability>
+  <Capability Min="24" Max="35" Res="SGM/gobo00095.png">Gobo 2</Capability>
+  <Capability Min="36" Max="47" Res="SGM-Color/gobo00554.png">Gobo 3</Capability>
+  <Capability Min="48" Max="59" Res="Robe/gobo00006.png">Gobo 4</Capability>
+  <Capability Min="60" Max="71" Res="SGM-Color/gobo00546.png">Gobo 5</Capability>
+  <Capability Min="72" Max="83" Res="Chauvet/gobo00034.png">Gobo 6</Capability>
+  <Capability Min="84" Max="95" Res="SGM-Color/gobo00547.png">Gobo 7</Capability>
+  <Capability Min="96" Max="115" Res="SGM-Color/gobo00548.png">Gobo shake 1</Capability>
+  <Capability Min="116" Max="135" Res="SGM/gobo00095.png">Gobo shake 2</Capability>
+  <Capability Min="136" Max="155" Res="SGM-Color/gobo00554.png">Gobo shake 3</Capability>
+  <Capability Min="156" Max="175" Res="Robe/gobo00006.png">Gobo shake 4</Capability>
+  <Capability Min="176" Max="195" Res="SGM-Color/gobo00546.png">Gobo shake 5</Capability>
+  <Capability Min="196" Max="215" Res="Chauvet/gobo00034.png">Gobo shake 6</Capability>
+  <Capability Min="216" Max="235" Res="SGM-Color/gobo00547.png">Gobo shake 7</Capability>
+  <Capability Min="236" Max="255">Gobo wheel rotation from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Gobo Rotation">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="127">Gobo rotation</Capability>
+  <Capability Min="128" Max="189">Forwards from fast to slow</Capability>
+  <Capability Min="190" Max="193">No rotation</Capability>
+  <Capability Min="194" Max="255">Backwards from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Shutter, Strobe, Reset">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0">Shutter closed</Capability>
+  <Capability Min="1" Max="63">Light intensity from 0 to 100%</Capability>
+  <Capability Min="64" Max="95">Shutter open</Capability>
+  <Capability Min="96" Max="127">Strobe effect from slow to fast (max. 8 flashes/s)</Capability>
+  <Capability Min="128" Max="139">Reset, shutter closed</Capability>
+  <Capability Min="140" Max="159">Shutter closed</Capability>
+  <Capability Min="160" Max="175">Pulse effect in sequences with increasing speed</Capability>
+  <Capability Min="176" Max="191">Pulse effect in sequences with decreasing speed</Capability>
+  <Capability Min="192" Max="223">Random strobe effect with increasing speed</Capability>
+  <Capability Min="224" Max="255">Shutter open</Capability>
+ </Channel>
+ <Mode Name="9-channel, 16-Bit">
+  <Physical>
+   <Bulb Type="HSD 150W" Lumens="5454" ColourTemperature="7000"/>
+   <Dimensions Weight="10.5" Width="292" Height="415" Depth="378"/>
+   <Lens Name="" DegreesMin="19" DegreesMax="19"/>
+   <Focus Type="Head" PanMax="530" TiltMax="280"/>
+   <Technical PowerConsumption="300" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan Fine</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Speed of Pan/Tilt Movement</Channel>
+  <Channel Number="5">Colours</Channel>
+  <Channel Number="6">Rotating Gobos</Channel>
+  <Channel Number="7">Gobo Rotation</Channel>
+  <Channel Number="8">Shutter, Strobe, Reset</Channel>
+ </Mode>
+ <Mode Name="8-channel, 16-Bit">
+  <Physical>
+   <Bulb Type="HSD 150W" Lumens="5454" ColourTemperature="7000"/>
+   <Dimensions Weight="10.5" Width="292" Height="415" Depth="378"/>
+   <Lens Name="" DegreesMin="19" DegreesMax="19"/>
+   <Focus Type="Head" PanMax="530" TiltMax="280"/>
+   <Technical PowerConsumption="300" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan Fine</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Colours</Channel>
+  <Channel Number="5">Rotating Gobos</Channel>
+  <Channel Number="6">Gobo Rotation</Channel>
+  <Channel Number="7">Shutter, Strobe, Reset</Channel>
+ </Mode>
+ <Mode Name="7-channel, 8-Bit">
+  <Physical>
+   <Bulb Type="HSD 150W" Lumens="5454" ColourTemperature="7000"/>
+   <Dimensions Weight="10.5" Width="292" Height="415" Depth="378"/>
+   <Lens Name="" DegreesMin="19" DegreesMax="19"/>
+   <Focus Type="Head" PanMax="530" TiltMax="280"/>
+   <Technical PowerConsumption="300" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Speed of Pan/Tilt Movement</Channel>
+  <Channel Number="3">Colours</Channel>
+  <Channel Number="4">Rotating Gobos</Channel>
+  <Channel Number="5">Gobo Rotation</Channel>
+  <Channel Number="6">Shutter, Strobe, Reset</Channel>
+ </Mode>
+ <Mode Name="6-channel, 8-Bit">
+  <Physical>
+   <Bulb Type="HSD 150W" Lumens="5454" ColourTemperature="7000"/>
+   <Dimensions Weight="10.5" Width="292" Height="415" Depth="378"/>
+   <Lens Name="" DegreesMin="19" DegreesMax="19"/>
+   <Focus Type="Head" PanMax="530" TiltMax="280"/>
+   <Technical PowerConsumption="300" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Colours</Channel>
+  <Channel Number="3">Rotating Gobos</Channel>
+  <Channel Number="4">Gobo Rotation</Channel>
+  <Channel Number="5">Shutter, Strobe, Reset</Channel>
+ </Mode>
+</FixtureDefinition>

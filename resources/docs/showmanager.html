@@ -83,16 +83,19 @@ The main differences are:
 <TABLE BORDER=1 class="qlcTable">
  <TR>
   <TD><IMG SRC="qrc:/show.png"/></TD>
+  <TD>CTRL+H</TD>
   <TD>Create a new <A HREF="file:concept.html#Show">Show</A>. A Show is represented as a multitrack
   workspace where tracks, sequences and audio elements can be added</TD>
  </TR>
  <TR></TR>
  <TR>
   <TD><B>Shows list</B></TD>
+  <TD></TD>
   <TD>This drop down box lists the currently created Shows. Clicking on a Show will display it.</TD>
  </TR>
  <TR>
   <TD><IMG SRC="qrc:/edit_add.png"/></TD>
+  <TD>CTRL+N</TD>
   <TD>Create a new track or add existing functions to the Show. When clicking on this button
   a window is displayed, allowing you to perform the following operations:
   <ul>
@@ -125,12 +128,14 @@ The main differences are:
  </TR>
  <TR>
   <TD><IMG SRC="qrc:/sequence.png"/></TD>
+  <TD>CTRL+E</TD>
   <TD>Create a new <A HREF="file:concept.html#Sequence">Sequence</A> item and bind it to the
       selected track.
   </TD>
  </TR>
  <TR>
   <TD><IMG SRC="qrc:/audio.png"/></TD>
+  <TD>CTRL+A</TD>
   <TD>Create a new <A HREF="file:concept.html#Audio">Audio</A> item. An audio item simply represents
   an audio file. Audio items can be added on any track, but if you want to to create a separate
   track for it, just create an new track.<br>
@@ -143,10 +148,12 @@ The main differences are:
  <TR></TR>
  <TR>
   <TD><IMG SRC="qrc:/editcopy.png"/></TD>
+  <TD>CTRL+C</TD>
   <TD>Copy the currently selected item into QLC+ clipboard</TD>
  </TR>
  <TR>
   <TD><IMG SRC="qrc:/editpaste.png"/></TD>
+  <TD>CTRL+V</TD>
   <TD>Paste QLC+ clipboard content at the cursor position. When performing this 
   operation two checks are performed:
     <UL>
@@ -158,6 +165,7 @@ The main differences are:
  </TR>
  <TR>
   <TD><IMG SRC="qrc:/editdelete.png"/></TD>
+  <TD>Del</TD>
   <TD>Delete the currently selected item. This can be a sequence, an audio item or a track.
   Note that deleting a track will delete also all its sequences/audio children.<br>
   <B>Note: Show Manager will only perform a "visual removal" of functions. To permanently 
@@ -166,14 +174,17 @@ The main differences are:
  <TR></TR>
  <TR>
   <TD><IMG SRC="qrc:/color.png"/></TD>
+  <TD>CTRL+R</TD>
   <TD>Assign a custom color to the selected item</TD>
  </TR>
  <TR>
   <TD><IMG SRC="qrc:/lock.png"/></TD>
+  <TD>CTRL+K</TD>
   <TD>Lock or unlock then selected item. Once an item is locked, it cannot be dragged on the timeline anymore</TD>
  </TR>
  <TR>
   <TD><IMG SRC="qrc:/speed.png"/></TD>
+  <TD>CTRL+T</TD>
   <TD>Open a window where you can adjust the selected item start time and total duration.
       The behaviour of the latter will depend on the selected item.<br>
       On Audio and Video items it does nothing.<br>
@@ -183,6 +194,7 @@ The main differences are:
  </TR>
  <TR>
   <TD><IMG SRC="qrc:/grid.png"/></TD>
+  <TD>CTRL+G</TD>
   <TD>Enable/disable the "Snap to grid" functionality. The view will be filled with vertical bars
   corresponding to the header markers (time or BPM)<br>
   Snapping to grid will correct your items by dragging them to the nearest reference bar</TD>
@@ -190,15 +202,18 @@ The main differences are:
  <TR></TR>
  <TR>
   <TD><B>00:00:00.000</B></TD>
+  <TD></TD>
   <TD>This field displays the cursor time position both if the playback is stopped or activated</TD>
  </TR>
  <TR></TR>
  <TR>
   <TD><IMG SRC="qrc:/player_play.png"/><IMG SRC="qrc:/player_pause.png"/></TD>
+  <TD>Space</TD>
   <TD>Start the current Show playback from the cursor position, or pause it and leave the lights on.</TD>
  </TR>
  <TR>
   <TD><IMG SRC="qrc:/player_stop.png"/></TD>
+  <TD>CTRL+Space</TD>
   <TD>Stop the current Show playback. Clicking once will stop the cursor at the current position
   for resuming later. Clicking twice will restore the cursor to 0 seconds.<br>
   <b>Hint:</b> When resuming a show with audio tracks, please keep in mind that audio accuracy depends on
@@ -208,11 +223,13 @@ The main differences are:
  <TR></TR>
  <TR>
   <TD><B>Time markers</B></TD>
+  <TD></TD>
   <TD>This drop down menu lets you to choose the desired time division to display for your Show.<br>
   This can be either 'Time'. 'BPM 4/4', 'BPM 3/4' or 'BPM 2/2'</TD>
  </TR>
  <TR>
   <TD><B>BPMs</B></TD>
+  <TD></TD>
   <TD>When a BPM time division mode is selected, this field lets you decide the appropriate BPM
   to set for you Show. This ranges from 20 to 240.<br>
   This can be quite useful when dealing with electronic music or BPM synchronized shows</TD>

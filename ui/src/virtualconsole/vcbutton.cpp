@@ -485,7 +485,7 @@ QKeySequence VCButton::keySequence() const
 
 void VCButton::slotKeyPressed(const QKeySequence& keySequence)
 {
-    if (isEnabled() == false)
+    if (acceptsInput() == false)
         return;
 
     if (m_keySequence == keySequence)
@@ -494,7 +494,7 @@ void VCButton::slotKeyPressed(const QKeySequence& keySequence)
 
 void VCButton::slotKeyReleased(const QKeySequence& keySequence)
 {
-    if (isEnabled() == false)
+    if (acceptsInput() == false)
         return;
 
     if (m_keySequence == keySequence)
@@ -519,7 +519,8 @@ void VCButton::updateFeedback()
 
 void VCButton::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
 {
-    if (isEnabled() == false)
+    /* Don't let input data through in design mode or if disabled */
+    if (acceptsInput() == false)
         return;
 
     if (checkInputSource(universe, (page() << 16) | channel, value, sender()))

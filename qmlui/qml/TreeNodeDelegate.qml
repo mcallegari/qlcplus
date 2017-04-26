@@ -19,6 +19,7 @@
 
 import QtQuick 2.2
 
+import com.qlcplus.classes 1.0
 import "."
 
 Column
@@ -27,22 +28,36 @@ Column
     width: 350
     //height: nodeLabel.height + nodeChildrenView.height
 
+    property var cRef
     property string textLabel
-    property string nodePath
-    property var nodeChildren
+    property string itemIcon: "qrc:/folder.svg"
+    property int itemType: App.GenericDragItem
+
     property bool isExpanded: false
     property bool isSelected: false
-    property string nodeIcon: "qrc:/folder.svg"
+
+    property string nodePath
+    property var nodeChildren
     property string childrenDelegate: "qrc:/FunctionDelegate.qml"
+    property string subTreeDelegate: "qrc:/TreeNodeDelegate.qml"
+    property Item dragItem
 
     signal toggled(bool expanded, int newHeight)
-    signal clicked(int ID, var qItem, int mouseMods)
-    signal doubleClicked(int ID, int Type)
+    signal mouseEvent(int type, int iID, int iType, var qItem, int mouseMods)
     signal pathChanged(string oldPath, string newPath)
+
+    function getItemAtPos(x, y)
+    {
+        var child = nodeChildrenView.itemAt(x, y)
+        if (child.item.hasOwnProperty("nodePath"))
+            return child.item.getItemAtPos(x, y - child.item.y)
+
+        return child.item
+    }
 
     Rectangle
     {
-        color: "transparent"
+        color: nodeIconImg.visible ? "transparent" : UISettings.sectionHeader
         width: nodeContainer.width
         height: UISettings.listItemHeight
 
@@ -58,9 +73,11 @@ Column
         Image
         {
             id: nodeIconImg
-            width: parent.height
-            height: parent.height
-            source: nodeIcon
+            visible: itemIcon == "" ? false : true
+            width: visible ? parent.height : 0
+            height: width
+            source: itemIcon
+            sourceSize: Qt.size(width, height)
         }
 
         TextInput
@@ -68,7 +85,7 @@ Column
             property string originalText
 
             id: nodeLabel
-            x: nodeIconImg.width + 1
+            x: nodeIconImg.width + 2
             z: 0
             width: parent.width - nodeIconImg.width - 1
             height: UISettings.listItemHeight
@@ -115,7 +132,7 @@ Column
             onTriggered:
             {
                 isExpanded = !isExpanded
-                nodeContainer.clicked(-1, nodeContainer, modifiers)
+                nodeContainer.mouseEvent(App.Clicked, -1, -1, nodeContainer, modifiers)
                 modifiers = 0
             }
         }
@@ -123,10 +140,20 @@ Column
         MouseArea
         {
             anchors.fill: parent
-            height: UISettings.listItemHeight
+
+            property bool dragActive: drag.active
+
+            onDragActiveChanged:
+            {
+                console.log("Drag changed on node: " + textLabel)
+                nodeContainer.mouseEvent(dragActive ? App.DragStarted : App.DragFinished, -1, -1, nodeContainer, 0)
+            }
+
+            drag.target: dragItem
+
+            onPressed: nodeContainer.mouseEvent(App.Pressed, -1, -1, nodeContainer, mouse.modifiers)
             onClicked:
             {
-
                 clickTimer.modifiers = mouse.modifiers
                 clickTimer.start()
             }
@@ -155,49 +182,63 @@ Column
             {
                 Loader
                 {
-                    id: childrenLoader
                     width: nodeChildrenView.width
                     x: 20
                     //height: 35
-                    source: hasChildren ? "qrc:/TreeNodeDelegate.qml" : childrenDelegate
+                    source: hasChildren ? subTreeDelegate : childrenDelegate
                     onLoaded:
                     {
                         item.textLabel = label
                         item.isSelected = Qt.binding(function() { return isSelected })
+                        item.dragItem = dragItem
+                        if (hasOwnProperty("type") && item.hasOwnProperty("itemType"))
+                            item.itemType = type
 
                         if (hasChildren)
                         {
                             item.nodePath = nodePath + "/" + path
                             item.isExpanded = isExpanded
                             item.nodeChildren = childrenModel
-                            item.nodeIcon = nodeContainer.nodeIcon
-                            item.childrenDelegate = childrenDelegate
+                            if (item.hasOwnProperty('itemIcon'))
+                                item.itemIcon = nodeContainer.itemIcon
+                            if (item.hasOwnProperty('childrenDelegate'))
+                                item.childrenDelegate = childrenDelegate
 
-                            console.log("Item path: " + item.nodePath + ", label: " + label)
+                            //console.log("Item path: " + item.nodePath + ", label: " + label)
                         }
-                        else
-                        {
+
+                        if (item.hasOwnProperty('cRef'))
                             item.cRef = classRef
-                        }
                     }
                     Connections
                     {
                         target: item
-                        onClicked:
+                        onMouseEvent:
                         {
-                            if (qItem == item)
+                            console.log("Got tree node children mouse event")
+                            switch (type)
                             {
-                                model.isSelected = (mouseMods & Qt.ControlModifier) ? 2 : 1
-                                if (model.hasChildren)
-                                    model.isExpanded = item.isExpanded
+                                case App.Clicked:
+                                    if (qItem == item)
+                                    {
+                                        model.isSelected = (mouseMods & Qt.ControlModifier) ? 2 : 1
+                                        if (model.hasChildren)
+                                            model.isExpanded = item.isExpanded
+                                    }
+                                break;
+                                case App.DragStarted:
+                                    if (qItem == item && !model.isSelected)
+                                    {
+                                        model.isSelected = 1
+                                        // invalidate the modifiers to force a single selection
+                                        mouseMods = -1
+                                    }
+                                break;
                             }
-                            nodeContainer.clicked(ID, qItem, mouseMods)
+
+                            // forward the event to the parent node
+                            nodeContainer.mouseEvent(type, iID, iType, qItem, mouseMods)
                         }
-                    }
-                    Connections
-                    {
-                        target: item
-                        onDoubleClicked: nodeContainer.doubleClicked(ID, Type)
                     }
                     Connections
                     {

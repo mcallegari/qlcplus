@@ -193,7 +193,7 @@ VCXYPadProperties::VCXYPadProperties(VCXYPad* xypad, Doc* doc)
         restoreGeometry(var.toByteArray());
     AppUtil::ensureWidgetIsVisible(this);
 
-    m_doc->masterTimer()->registerDMXSource(this, "XYPadCfg");
+    m_doc->masterTimer()->registerDMXSource(this);
 }
 
 VCXYPadProperties::~VCXYPadProperties()
@@ -201,6 +201,8 @@ VCXYPadProperties::~VCXYPadProperties()
     QSettings settings;
     settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
     m_doc->masterTimer()->unregisterDMXSource(this);
+
+    delete m_presetInputWidget;
 }
 
 /****************************************************************************
@@ -319,10 +321,10 @@ void VCXYPadProperties::slotAddClicked()
             QVector <QLCFixtureHead> const& heads = fixture->fixtureMode()->heads();
             for (int i = 0; i < heads.size(); ++i)
             {
-                if (heads[i].panMsbChannel() == QLCChannel::invalid() &&
-                    heads[i].tiltMsbChannel() == QLCChannel::invalid() &&
-                    heads[i].panLsbChannel() == QLCChannel::invalid() &&
-                    heads[i].tiltLsbChannel() == QLCChannel::invalid())
+                if (heads[i].channelNumber(QLCChannel::Pan, QLCChannel::MSB) == QLCChannel::invalid() &&
+                    heads[i].channelNumber(QLCChannel::Tilt, QLCChannel::MSB) == QLCChannel::invalid() &&
+                    heads[i].channelNumber(QLCChannel::Pan, QLCChannel::LSB) == QLCChannel::invalid() &&
+                    heads[i].channelNumber(QLCChannel::Tilt, QLCChannel::LSB) == QLCChannel::invalid())
                 {
                     // Disable heads without pan or tilt channels
                     disabled << GroupHead(fixture->id(), i);
@@ -652,7 +654,7 @@ void VCXYPadProperties::slotAddEFXClicked()
 {
     FunctionSelection fs(this, m_doc);
     fs.setMultiSelection(false);
-    fs.setFilter(Function::EFX, true);
+    fs.setFilter(Function::EFXType, true);
     QList <quint32> ids;
     foreach (VCXYPadPreset *preset, m_presetList)
     {
@@ -664,7 +666,7 @@ void VCXYPadProperties::slotAddEFXClicked()
     {
         quint32 fID = fs.selection().first();
         Function *f = m_doc->function(fID);
-        if (f == NULL || f->type() != Function::EFX)
+        if (f == NULL || f->type() != Function::EFXType)
             return;
         VCXYPadPreset *newPreset = new VCXYPadPreset(++m_lastAssignedID);
         newPreset->m_type = VCXYPadPreset::EFX;
@@ -680,7 +682,7 @@ void VCXYPadProperties::slotAddSceneClicked()
 {
     FunctionSelection fs(this, m_doc);
     fs.setMultiSelection(false);
-    fs.setFilter(Function::Scene, true);
+    fs.setFilter(Function::SceneType, true);
     QList <quint32> ids;
     foreach (VCXYPadPreset *preset, m_presetList)
     {
@@ -692,7 +694,7 @@ void VCXYPadProperties::slotAddSceneClicked()
     {
         quint32 fID = fs.selection().first();
         Function *f = m_doc->function(fID);
-        if (f == NULL || f->type() != Function::Scene)
+        if (f == NULL || f->type() != Function::SceneType)
             return;
         Scene *scene = qobject_cast<Scene*>(f);
         bool panTiltFound = false;
@@ -837,7 +839,7 @@ void VCXYPadProperties::slotPresetSelectionChanged()
         if (preset->m_type == VCXYPadPreset::EFX)
         {
             Function *f = m_doc->function(preset->functionID());
-            if (f == NULL || f->type() != Function::EFX)
+            if (f == NULL || f->type() != Function::EFXType)
                 return;
             EFX *efx = qobject_cast<EFX*>(f);
             QPolygonF polygon;
@@ -894,9 +896,8 @@ void VCXYPadProperties::slotInputValueChanged(quint32 universe, quint32 channel)
 
     VCXYPadPreset *preset = getSelectedPreset();
 
-    if (preset != NULL) {
+    if (preset != NULL)
         preset->m_inputSource = m_presetInputWidget->inputSource();
-    }
 }
 
 void VCXYPadProperties::slotKeySequenceChanged(QKeySequence key)

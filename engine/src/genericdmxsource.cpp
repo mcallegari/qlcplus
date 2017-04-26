@@ -27,9 +27,10 @@
 GenericDMXSource::GenericDMXSource(Doc* doc)
     : m_doc(doc)
     , m_outputEnabled(false)
+    , m_clearRequest(false)
 {
     Q_ASSERT(m_doc != NULL);
-    m_doc->masterTimer()->registerDMXSource(this, "Generic");
+    m_doc->masterTimer()->registerDMXSource(this);
 }
 
 GenericDMXSource::~GenericDMXSource()
@@ -54,7 +55,8 @@ void GenericDMXSource::unset(quint32 fxi, quint32 ch)
 void GenericDMXSource::unsetAll()
 {
     m_mutex.lock();
-    m_values.clear();
+    // will be processed at the next writeDMX
+    m_clearRequest = true;
     m_mutex.unlock();
 }
 
@@ -109,6 +111,11 @@ void GenericDMXSource::writeDMX(MasterTimer* timer, QList<Universe *> ua)
             ua[universe]->write(address, it.value());
         if (grp != QLCChannel::Intensity)
             it.remove();
+    }
+    if (m_clearRequest)
+    {
+        m_clearRequest = false;
+        m_values.clear();
     }
     m_mutex.unlock();
 }

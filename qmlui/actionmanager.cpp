@@ -44,6 +44,10 @@ void ActionManager::requestActionPopup(ActionManager::ActionType type, QString m
         return;
     }
 
+    // save the requested action to be processed when the user
+    // confirms or rejects from the popup
+    m_deferredAction = QPair<ActionType, QVariantList> (type, data);
+
     qDebug() << "[ActionManager] buttonsMask:" << buttonsMask << data;
 
     if (message.startsWith("qrc:"))
@@ -51,10 +55,6 @@ void ActionManager::requestActionPopup(ActionManager::ActionType type, QString m
     else
         popupItem->setProperty("message", message);
     popupItem->setProperty("buttonsMask", buttonsMask);
-
-    // save the requested action to be processed when the user
-    // confirms or rejects from the popup
-    m_deferredAction = QPair<ActionType, QVariantList> (type, data);
 
     popupItem->setProperty("visible", true);
 }
@@ -70,29 +70,22 @@ void ActionManager::acceptAction()
     switch(action)
     {
         case DeleteFunctions:
-        {
             m_functionManager->deleteFunctions(data);
-        }
+        break;
+        case DeleteEditorItems:
+            m_functionManager->deleteEditorItems(data);
         break;
         case DeleteShowItems:
-        {
             m_showManager->deleteShowItems(data);
-        }
         break;
         case DeleteVCPage:
-        {
             m_virtualConsole->deletePage(data.first().toInt());
-        }
         break;
         case DeleteVCWidgets:
-        {
             m_virtualConsole->deleteVCWidgets(data);
-        }
         break;
         case VCPagePINRequest:
-        {
             m_virtualConsole->setSelectedPage(data.first().toInt());
-        }
         break;
         default: break;
     }

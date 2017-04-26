@@ -31,40 +31,22 @@ Rectangle
     color: "transparent"
     clip: true
 
-    property int functionID: -1
-
     signal requestView(int ID, string qmlSrc)
-
-    //Component.onDestruction: functionManager.clearTree()
 
     function loadFunctionEditor(funcID, funcType)
     {
         //console.log("Request to open Function editor. ID: " + funcID + " type: " + funcType)
-        functionManager.setEditorFunction(funcID)
+        functionManager.setEditorFunction(funcID, false)
         functionManager.viewPosition = functionsListView.contentY
+        var editorRes = functionManager.getEditorResource(funcType)
 
-        switch(funcType)
+        if (funcType === Function.Show)
         {
-            case Function.Scene:
-                fmContainer.requestView(funcID, "qrc:/SceneEditor.qml")
-            break;
-            case Function.Collection:
-                fmContainer.requestView(funcID, "qrc:/CollectionEditor.qml")
-            break;
-            case Function.Chaser:
-                fmContainer.requestView(funcID, "qrc:/ChaserEditor.qml")
-            break;
-            case Function.RGBMatrix:
-                fmContainer.requestView(funcID, "qrc:/RGBMatrixEditor.qml")
-            break;
-            case Function.Audio:
-                fmContainer.requestView(funcID, "qrc:/AudioEditor.qml")
-            break;
-            case Function.Show:
-                showManager.currentShowID = funcID
-                mainView.switchToContext("SHOWMGR", "qrc:/ShowManager.qml")
-            break;
+            showManager.currentShowID = funcID
+            mainView.switchToContext("SHOWMGR", editorRes)
         }
+        else
+            fmContainer.requestView(funcID, editorRes)
     }
 
     function setFunctionFilter(fType, checked)
@@ -217,8 +199,57 @@ Rectangle
                 counter: functionManager.videoCount
                 onCheckedChanged: setFunctionFilter(Function.Video, checked)
             }
+
             Rectangle { Layout.fillWidth: true }
+
+            IconButton
+            {
+                id: searchFunc
+                z: 2
+                width: height
+                height: topBar.height - 2
+                bgColor: UISettings.bgMain
+                faColor: checked ? "white" : "gray"
+                faSource: FontAwesome.fa_search
+                checkable: true
+                tooltip: qsTr("Set a Function search filter")
+                onToggled:
+                {
+                    functionManager.searchFilter = ""
+                    if (checked)
+                        sTextInput.forceActiveFocus()
+                }
+            }
         }
+      }
+
+      Rectangle
+      {
+          id: searchBox
+          visible: searchFunc.checked
+          width: fmContainer.width
+          height: UISettings.iconSizeMedium
+          z: 5
+          color: UISettings.bgMain
+          radius: 5
+          border.width: 2
+          border.color: "#111"
+
+          TextInput
+          {
+              id: sTextInput
+              y: 3
+              height: parent.height - 6
+              width: searchBox.width
+              color: UISettings.fgMain
+              text: functionManager.searchFilter
+              font.family: "Roboto Condensed"
+              font.pixelSize: parent.height - 6
+              selectionColor: UISettings.highlightPressed
+              selectByMouse: true
+
+              onTextChanged: functionManager.searchFilter = text
+          }
       }
 
       ListView
@@ -226,11 +257,14 @@ Rectangle
           id: functionsListView
           width: fmContainer.width
           height: fmContainer.height - topBar.height
+          //anchors.fill: parent
           z: 4
           boundsBehavior: Flickable.StopAtBounds
           Layout.fillHeight: true
 
           Component.onCompleted: contentY = functionManager.viewPosition
+
+          property bool dragActive: false
 
           model: functionManager.functionsList
           delegate:
@@ -245,10 +279,12 @@ Rectangle
                       {
                           item.textLabel = label
                           item.isSelected = Qt.binding(function() { return isSelected })
+                          item.dragItem = fDragItem
 
                           if (hasChildren)
                           {
                               console.log("Item path: " + path + ",label: " + label)
+                              item.itemType = App.FolderDragItem
                               item.nodePath = path
                               item.isExpanded = isExpanded
                               item.nodeChildren = childrenModel
@@ -256,26 +292,63 @@ Rectangle
                           else
                           {
                               item.cRef = classRef
+                              item.itemType = App.FunctionDragItem
                               //item.functionType = funcType
                           }
                       }
                       Connections
                       {
                           target: item
-                          onDoubleClicked: loadFunctionEditor(ID, Type)
-                      }
-                      Connections
-                      {
-                          target: item
-                          onClicked:
+                          onMouseEvent:
                           {
-                              if (qItem == item)
+                              //console.log("Got a mouse event in Function Manager: " + type)
+                              switch (type)
                               {
-                                  model.isSelected = (mouseMods & Qt.ControlModifier) ? 2 : 1
-                                  if (model.hasChildren)
-                                      model.isExpanded = item.isExpanded
+                                case App.Pressed:
+                                    var posnInWindow = qItem.mapToItem(mainView, qItem.x, qItem.y)
+                                    fDragItem.parent = mainView
+                                    fDragItem.x = posnInWindow.x - (fDragItem.width / 4)
+                                    fDragItem.y = posnInWindow.y - (fDragItem.height / 4)
+                                break;
+                                case App.Clicked:
+                                    if (qItem == item)
+                                    {
+                                        model.isSelected = (mouseMods & Qt.ControlModifier) ? 2 : 1
+                                        if (model.hasChildren)
+                                            model.isExpanded = item.isExpanded
+                                    }
+                                    functionManager.selectFunctionID(iID, mouseMods & Qt.ControlModifier)
+                                break;
+                                case App.DoubleClicked:
+                                    loadFunctionEditor(iID, iType)
+                                break;
+                                case App.DragStarted:
+                                    if (qItem == item && !model.isSelected)
+                                    {
+                                        model.isSelected = 1
+                                        // invalidate the modifiers to force a single selection
+                                        mouseMods = -1
+                                    }
+
+                                    if (mouseMods == -1)
+                                        functionManager.selectFunctionID(iID, false)
+
+                                    fDragItem.itemsList = functionManager.selectedFunctionsID()
+                                    fDragItem.itemLabel = qItem.textLabel
+                                    if (qItem.hasOwnProperty("itemIcon"))
+                                        fDragItem.itemIcon = qItem.itemIcon
+                                    else
+                                        fDragItem.itemIcon = ""
+                                    functionsListView.dragActive = true
+                                break;
+                                case App.DragFinished:
+                                    fDragItem.Drag.drop()
+                                    fDragItem.parent = functionsListView
+                                    fDragItem.x = 0
+                                    fDragItem.y = 0
+                                    functionsListView.dragActive = false
+                                break;
                               }
-                              functionManager.selectFunctionID(ID, mouseMods & Qt.ControlModifier)
                           }
                       }
                       Connections
@@ -286,7 +359,33 @@ Rectangle
                       }
                   } // Loader
               } // Component
-              ScrollBar { flickable: functionsListView }
+              CustomScrollBar { id: fMgrScrollBar; flickable: functionsListView }
+
+              GenericMultiDragItem
+              {
+                  id: fDragItem
+
+                  property bool fromFunctionManager: true
+
+                  visible: functionsListView.dragActive
+
+                  Drag.active: functionsListView.dragActive
+                  Drag.source: fDragItem
+                  Drag.keys: [ "function" ]
+
+                  onItemsListChanged:
+                  {
+                      console.log("Items in list: " + itemsList.length)
+                      if (itemsList.length)
+                      {
+                          var funcRef = functionManager.getFunction(itemsList[0])
+                          itemLabel = funcRef.name
+                          itemIcon = functionManager.functionIcon(funcRef.type)
+                          //multipleItems = itemsList.length > 1 ? true : false
+                      }
+                  }
+              }
         } // ListView
+
     } // ColumnLayout
 }

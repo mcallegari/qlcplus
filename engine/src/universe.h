@@ -65,6 +65,7 @@ class Universe: public QObject
 
     Q_PROPERTY(QString name READ name NOTIFY nameChanged)
     Q_PROPERTY(quint32 id READ id CONSTANT)
+    Q_PROPERTY(bool passthrough READ passthrough WRITE setPassthrough NOTIFY passthroughChanged)
     Q_PROPERTY(InputPatch* inputPatch READ inputPatch NOTIFY inputPatchChanged)
     Q_PROPERTY(int outputPatchesCount READ outputPatchesCount NOTIFY outputPatchesCountChanged)
 
@@ -169,6 +170,7 @@ protected:
 
 signals:
     void nameChanged();
+    void passthroughChanged();
 
 protected:
     /** The universe ID */

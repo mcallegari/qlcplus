@@ -36,6 +36,7 @@
 #include "fixturebrowser.h"
 #include "fixturemanager.h"
 #include "functionmanager.h"
+#include "fixturegroupeditor.h"
 #include "inputoutputmanager.h"
 
 #include "qlcfixturedefcache.h"
@@ -59,7 +60,13 @@ App::App()
     , m_doc(NULL)
     , m_docLoaded(false)
 {
+    QSettings settings;
+
     updateRecentFilesList();
+
+    QVariant dir = settings.value(SETTINGS_WORKINGPATH);
+    if (dir.isValid() == true)
+        m_workingPath = dir.toString();
 }
 
 App::~App()
@@ -72,9 +79,10 @@ void App::startup()
     qmlRegisterType<Fixture>("com.qlcplus.classes", 1, 0, "Fixture");
     qmlRegisterType<Function>("com.qlcplus.classes", 1, 0, "Function");
     qmlRegisterType<ModelSelector>("com.qlcplus.classes", 1, 0, "ModelSelector");
+    qmlRegisterType<App>("com.qlcplus.classes", 1, 0, "App");
 
     setTitle("Q Light Controller Plus");
-    setIcon(QIcon(":/qlcplus.png"));
+    setIcon(QIcon(":/qlcplus.svg"));
 
     if (QFontDatabase::addApplicationFont(":/RobotoCondensed-Regular.ttf") < 0)
         qWarning() << "Roboto font cannot be loaded !";
@@ -88,11 +96,7 @@ void App::startup()
 
     initDoc();
 
-    //connect(m_doc, SIGNAL(loaded()),
-    //        this, SIGNAL(docLoadedChanged()));
-    //qmlRegisterType<App>("com.qlcplus.app", 1, 0, "App");
-
-    m_ioManager = new InputOutputManager(m_doc);
+    m_ioManager = new InputOutputManager(this, m_doc);
     rootContext()->setContextProperty("ioManager", m_ioManager);
 
     m_fixtureBrowser = new FixtureBrowser(this, m_doc);
@@ -101,13 +105,16 @@ void App::startup()
     m_fixtureManager = new FixtureManager(this, m_doc);
     rootContext()->setContextProperty("fixtureManager", m_fixtureManager);
 
+    m_fixtureGroupEditor = new FixtureGroupEditor(this, m_doc);
+    rootContext()->setContextProperty("fixtureGroupEditor", m_fixtureGroupEditor);
+
     m_functionManager = new FunctionManager(this, m_doc);
     rootContext()->setContextProperty("functionManager", m_functionManager);
 
     m_contextManager = new ContextManager(this, m_doc, m_fixtureManager, m_functionManager);
     rootContext()->setContextProperty("contextManager", m_contextManager);
 
-    m_virtualConsole = new VirtualConsole(this, m_doc);
+    m_virtualConsole = new VirtualConsole(this, m_doc, m_contextManager);
     rootContext()->setContextProperty("virtualConsole", m_virtualConsole);
 
     m_showManager = new ShowManager(this, m_doc);
@@ -122,12 +129,15 @@ void App::startup()
     // register an uncreatable type just to use the enums in QML
     qmlRegisterUncreatableType<ActionManager>("com.qlcplus.classes", 1, 0,  "ActionManager", "Can't create an ActionManager !");
 
+    m_contextManager->registerContext(m_virtualConsole);
+    m_contextManager->registerContext(m_showManager);
+    m_contextManager->registerContext(m_ioManager);
+
     // Start up in non-modified state
     m_doc->resetModified();
 
     // and here we go !
     setSource(QUrl("qrc:/MainView.qml"));
-    //m_contextManager->activateContext("2D");
 }
 
 void App::show()
@@ -149,6 +159,14 @@ void App::keyPressEvent(QKeyEvent *e)
         m_contextManager->handleKeyPress(e);
 
     QQuickView::keyPressEvent(e);
+}
+
+void App::keyReleaseEvent(QKeyEvent *e)
+{
+    if (m_contextManager)
+        m_contextManager->handleKeyRelease(e);
+
+    QQuickView::keyReleaseEvent(e);
 }
 
 void App::clearDocument()
@@ -179,8 +197,7 @@ void App::initDoc()
     Q_ASSERT(m_doc == NULL);
     m_doc = new Doc(this);
 
-    connect(m_doc, SIGNAL(modified(bool)), this, SLOT(slotDocModified(bool)));
-    connect(m_doc, SIGNAL(modeChanged(Doc::Mode)), this, SLOT(slotModeChanged(Doc::Mode)));
+    connect(m_doc, &Doc::modified, this, &App::slotDocModified);
 
     /* Load user fixtures first so that they override system fixtures */
     m_doc->fixtureDefCache()->load(QLCFixtureDefCache::userDefinitionDirectory());
@@ -234,29 +251,6 @@ void App::createKioskCloseButton(const QRect &rect)
     Q_UNUSED(rect)
 }
 
-void App::slotModeOperate()
-{
-
-}
-
-void App::slotModeDesign()
-{
-
-}
-
-void App::slotModeToggle()
-{
-    if (m_doc->mode() == Doc::Design)
-        slotModeOperate();
-    else
-        slotModeDesign();
-}
-
-void App::slotModeChanged(Doc::Mode mode)
-{
-    Q_UNUSED(mode)
-}
-
 /*********************************************************************
  * Load & Save
  *********************************************************************/
@@ -269,49 +263,6 @@ void App::setFileName(const QString &fileName)
 QString App::fileName() const
 {
     return m_fileName;
-}
-
-bool App::loadWorkspace(const QString &fileName)
-{
-    /* Clear existing document data */
-    clearDocument();
-    m_docLoaded = false;
-    emit docLoadedChanged();
-
-    QString localFilename =  fileName;
-    if (localFilename.startsWith("file:"))
-        localFilename = QUrl(fileName).toLocalFile();
-
-    if (loadXML(localFilename) == QFile::NoError)
-    {
-        setTitle(QString("Q Light Controller Plus - %1").arg(localFilename));
-        setFileName(localFilename);
-        m_docLoaded = true;
-        updateRecentFilesList(localFilename);
-        emit docLoadedChanged();
-        m_contextManager->resetContexts();
-        m_doc->resetModified();
-        return true;
-    }
-    return false;
-}
-
-bool App::newWorkspace()
-{
-    /*
-    QString msg(tr("Do you wish to save the current workspace?\n" \
-                   "Changes will be lost if you don't save them."));
-    if (saveModifiedDoc(tr("New Workspace"), msg) == false)
-    {
-        return false;
-    }
-    */
-
-    clearDocument();
-    m_fixtureManager->slotDocLoaded();
-    m_functionManager->slotDocLoaded();
-    m_contextManager->resetContexts();
-    return true;
 }
 
 void App::updateRecentFilesList(QString filename)
@@ -343,6 +294,69 @@ QStringList App::recentFiles() const
     return m_recentFiles;
 }
 
+QString App::workingPath() const
+{
+    return m_workingPath;
+}
+
+void App::setWorkingPath(QString workingPath)
+{
+    QString strippedPath = workingPath.replace("file://", "");
+
+    if (m_workingPath == strippedPath)
+        return;
+
+    m_workingPath = strippedPath;
+
+    QSettings settings;
+    settings.setValue(SETTINGS_WORKINGPATH, m_workingPath);
+
+    emit workingPathChanged(strippedPath);
+}
+
+bool App::newWorkspace()
+{
+    /*
+    QString msg(tr("Do you wish to save the current workspace?\n" \
+                   "Changes will be lost if you don't save them."));
+    if (saveModifiedDoc(tr("New Workspace"), msg) == false)
+    {
+        return false;
+    }
+    */
+
+    clearDocument();
+    m_fixtureManager->slotDocLoaded();
+    m_functionManager->slotDocLoaded();
+    m_contextManager->resetContexts();
+    return true;
+}
+
+bool App::loadWorkspace(const QString &fileName)
+{
+    /* Clear existing document data */
+    clearDocument();
+    m_docLoaded = false;
+    emit docLoadedChanged();
+
+    QString localFilename =  fileName;
+    if (localFilename.startsWith("file:"))
+        localFilename = QUrl(fileName).toLocalFile();
+
+    if (loadXML(localFilename) == QFile::NoError)
+    {
+        setTitle(QString("Q Light Controller Plus - %1").arg(localFilename));
+        setFileName(localFilename);
+        m_docLoaded = true;
+        updateRecentFilesList(localFilename);
+        emit docLoadedChanged();
+        m_contextManager->resetContexts();
+        m_doc->resetModified();
+        return true;
+    }
+    return false;
+}
+
 QFileDevice::FileError App::loadXML(const QString &fileName)
 {
     QFile::FileError retval = QFile::NoError;
@@ -367,6 +381,10 @@ QFileDevice::FileError App::loadXML(const QString &fileName)
         QLCFile::releaseXMLReader(doc);
         return QFile::ResourceError;
     }
+
+    /* Set the workspace path before loading the new XML. In this way local files
+       can be loaded even if the workspace file has been moved */
+    m_doc->setWorkspacePath(QFileInfo(fileName).absolutePath());
 
     if (doc->dtdName() == KXMLQLCWorkspace)
     {
@@ -460,5 +478,6 @@ bool App::loadXML(QXmlStreamReader &doc, bool goToConsole, bool fromMemory)
 
     return true;
 }
+
 
 

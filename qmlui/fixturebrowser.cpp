@@ -17,51 +17,112 @@
   limitations under the License.
 */
 
+#include <QQmlEngine>
 #include <QQuickItem>
 #include <QQmlContext>
 
 #include "fixturebrowser.h"
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
+#include "treemodelitem.h"
+#include "treemodel.h"
 #include "doc.h"
 
 FixtureBrowser::FixtureBrowser(QQuickView *view, Doc *doc, QObject *parent)
     : QObject(parent)
     , m_doc(doc)
     , m_view(view)
+    , m_manufacturerIndex(0)
+    , m_selectedManufacturer(QString())
+    , m_selectedModel(QString())
+    , m_fixtureName(QString())
+    , m_selectedMode(QString())
+    , m_modeChannelsCount(1)
     , m_definition(NULL)
+    , m_mode(NULL)
+    , m_searchFilter(QString())
 {
     Q_ASSERT(m_doc != NULL);
     Q_ASSERT(m_view != NULL);
+
+    m_searchTree = new TreeModel(this);
+    QQmlEngine::setObjectOwnership(m_searchTree, QQmlEngine::CppOwnership);
+    m_searchTree->enableSorting(true);
 }
 
 QStringList FixtureBrowser::manufacturers()
 {
     QStringList mfList = m_doc->fixtureDefCache()->manufacturers();
     mfList.sort();
+    m_manufacturerIndex = mfList.indexOf("Generic");
+    emit manufacturerIndexChanged(m_manufacturerIndex);
     return mfList;
 }
 
-int FixtureBrowser::genericIndex()
+QString FixtureBrowser::selectedManufacturer() const
 {
-    QStringList mfList = m_doc->fixtureDefCache()->manufacturers();
-    mfList.sort();
-    return mfList.indexOf("Generic");
+    return m_selectedManufacturer;
 }
 
-QStringList FixtureBrowser::models(QString manufacturer)
+void FixtureBrowser::setSelectedManufacturer(QString selectedManufacturer)
 {
-    qDebug() << "[FixtureBrowser] Fixtures list for" << manufacturer;
-    QStringList fxList = m_doc->fixtureDefCache()->models(manufacturer);
+    if (m_selectedManufacturer == selectedManufacturer)
+        return;
+
+    m_selectedManufacturer = selectedManufacturer;
+    emit selectedManufacturerChanged(selectedManufacturer);
+    emit modelsListChanged();
+}
+
+QStringList FixtureBrowser::modelsList()
+{
+    qDebug() << "[FixtureBrowser] Fixtures list for" << m_selectedManufacturer;
+    QStringList fxList = m_doc->fixtureDefCache()->models(m_selectedManufacturer);
+    if (m_selectedManufacturer == "Generic")
+    {
+        fxList << "Generic Dimmer";
+        fxList << "Generic RGB Panel";
+    }
+
     fxList.sort();
     return fxList;
 }
 
-QStringList FixtureBrowser::modes(QString manufacturer, QString model)
+QString FixtureBrowser::selectedModel() const
+{
+    return m_selectedModel;
+}
+
+void FixtureBrowser::setSelectedModel(QString selectedModel)
+{
+    if (m_selectedModel == selectedModel)
+        return;
+
+    m_selectedModel = selectedModel;
+    setFixtureName(m_selectedModel);
+    emit selectedModelChanged(selectedModel);
+    emit modesListChanged();
+}
+
+QString FixtureBrowser::fixtureName() const
+{
+    return m_fixtureName;
+}
+
+void FixtureBrowser::setFixtureName(QString fixtureName)
+{
+    if (m_fixtureName == fixtureName)
+        return;
+
+    m_fixtureName = fixtureName;
+    emit fixtureNameChanged(fixtureName);
+}
+
+QStringList FixtureBrowser::modesList()
 {
     QStringList modesList;
 
-    m_definition = m_doc->fixtureDefCache()->fixtureDef(manufacturer, model);
+    m_definition = m_doc->fixtureDefCache()->fixtureDef(m_selectedManufacturer, m_selectedModel);
 
     if (m_definition != NULL)
     {
@@ -72,15 +133,74 @@ QStringList FixtureBrowser::modes(QString manufacturer, QString model)
     return modesList;
 }
 
-int FixtureBrowser::modeChannels(QString modeName)
+QString FixtureBrowser::selectedMode() const
+{
+    return m_selectedMode;
+}
+
+void FixtureBrowser::setSelectedMode(QString selectedMode)
+{
+    if (m_selectedMode == selectedMode)
+        return;
+
+    m_selectedMode = selectedMode;
+    emit selectedModeChanged(selectedMode);
+    emit modeChannelsCountChanged();
+    emit modeChannelListChanged();
+}
+
+int FixtureBrowser::modeChannelsCount()
 {
     if (m_definition != NULL)
     {
-        QLCFixtureMode *mode = m_definition->mode(modeName);
-        if (mode != NULL)
-            return mode->channels().count();
+        m_mode = m_definition->mode(m_selectedMode);
+
+        if (m_mode != NULL)
+            return m_mode->channels().count();
     }
-    return 0;
+    return m_modeChannelsCount;
+}
+
+void FixtureBrowser::setModeChannelsCount(int modeChannelsCount)
+{
+    if (m_modeChannelsCount == modeChannelsCount)
+        return;
+
+    m_modeChannelsCount = modeChannelsCount;
+    emit modeChannelsCountChanged();
+}
+
+QVariant FixtureBrowser::modeChannelList() const
+{
+    QVariantList channelList;
+
+    if (m_mode != NULL)
+    {
+        int i = 1;
+        for (QLCChannel *channel : m_mode->channels()) // C++11
+        {
+            QVariantMap chMap;
+            chMap.insert("mIcon", channel->getIconNameFromGroup(channel->group(), true));
+            chMap.insert("mLabel", QString("%1: %2").arg(i++).arg(channel->name()));
+            channelList.append(chMap);
+        }
+    }
+
+    return QVariant::fromValue(channelList);
+}
+
+int FixtureBrowser::manufacturerIndex() const
+{
+    return m_manufacturerIndex;
+}
+
+void FixtureBrowser::setManufacturerIndex(int index)
+{
+    if (m_manufacturerIndex == index)
+        return;
+
+    m_manufacturerIndex = index;
+    emit manufacturerIndexChanged(index);
 }
 
 int FixtureBrowser::availableChannel(quint32 uniIdx, int channels, int quantity, int gap, int requested)
@@ -162,5 +282,65 @@ int FixtureBrowser::availableChannel(quint32 fixtureID, int requested)
     }
 
     return -1;
+}
+
+QString FixtureBrowser::searchFilter() const
+{
+    return m_searchFilter;
+}
+
+void FixtureBrowser::setSearchFilter(QString searchFilter)
+{
+    if (m_searchFilter == searchFilter)
+        return;
+
+    if (m_searchFilter.length() >= SEARCH_MIN_CHARS && searchFilter.length() < SEARCH_MIN_CHARS)
+    {
+        m_selectedManufacturer = "";
+        emit selectedManufacturerChanged(m_selectedManufacturer);
+    }
+
+    m_searchFilter = searchFilter;
+
+    if (searchFilter.length() >= SEARCH_MIN_CHARS)
+        updateSearchTree();
+    else
+    {
+        m_searchTree->clear();
+        emit searchListChanged();
+    }
+
+    emit searchFilterChanged(searchFilter);
+}
+
+QVariant FixtureBrowser::searchTreeModel() const
+{
+    return QVariant::fromValue(m_searchTree);
+}
+
+void FixtureBrowser::updateSearchTree()
+{
+    m_searchTree->clear();
+
+    QStringList mfList = m_doc->fixtureDefCache()->manufacturers();
+    mfList.sort();
+
+    for(QString manufacturer : mfList) // C++11
+    {
+        QStringList modelsList = m_doc->fixtureDefCache()->models(manufacturer);
+        modelsList.sort();
+
+        for(QString model : modelsList)
+        {
+            if (manufacturer.toLower().contains(m_searchFilter) ||
+                model.toLower().contains(m_searchFilter))
+            {
+                QVariantList params;
+                TreeModelItem *item = m_searchTree->addItem(model, params, manufacturer);
+                item->setFlag(TreeModel::Expanded, true);
+            }
+        }
+    }
+    emit searchListChanged();
 }
 

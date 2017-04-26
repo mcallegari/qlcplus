@@ -21,7 +21,6 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 
-import "DetachWindow.js" as WinLoader
 import com.qlcplus.classes 1.0
 import "."
 
@@ -30,6 +29,7 @@ Rectangle
     id: vcContainer
     anchors.fill: parent
     color: "transparent"
+    objectName: "virtualConsole"
 
     property string contextName: "VC"
     property int selectedPage: virtualConsole.selectedPage
@@ -48,6 +48,17 @@ Rectangle
         if (selectedPage < 0)
             return;
         pageLoader.source = "qrc:/VCPageArea.qml"
+    }
+
+    function enableContext(ctx, setChecked)
+    {
+        console.log("VC enable context " + ctx)
+        for (var i = 0; i < pagesRepeater.count; i++)
+        {
+            console.log("Item " + i + " name: " + pagesRepeater.itemAt(i).contextName)
+            if (pagesRepeater.itemAt(i).contextName === ctx)
+                pagesRepeater.itemAt(i).visible = true
+        }
     }
 
     VCRightPanel
@@ -88,11 +99,13 @@ Rectangle
 
                 Repeater
                 {
+                    id: pagesRepeater
                     model: virtualConsole.pagesCount
                     delegate:
                         MenuBarEntry
                         {
                             property VCWidget wObj: virtualConsole.page(index)
+                            property string contextName: "PAGE-" + index
 
                             entryText: wObj ? wObj.caption : qsTr("Page " + index)
                             checkable: true
@@ -111,7 +124,7 @@ Rectangle
                                         var page = [ index ]
 
                                         actionManager.requestActionPopup(ActionManager.VCPagePINRequest,
-                                                                         "qrc:/PINRequest.qml",
+                                                                         "qrc:/PopupPINRequest.qml",
                                                                          ActionManager.OK | ActionManager.Cancel, page)
                                     }
                                     else
@@ -121,7 +134,7 @@ Rectangle
                             onRightClicked:
                             {
                                 visible = false
-                                WinLoader.createVCWindow("qrc:/VCPageArea.qml", index)
+                                contextManager.detachContext("PAGE-" + index)
                             }
                             onTextChanged:
                             {

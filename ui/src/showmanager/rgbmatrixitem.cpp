@@ -37,7 +37,7 @@ RGBMatrixItem::RGBMatrixItem(RGBMatrix *rgbm, ShowFunction *func)
     if (func->color().isValid())
         setColor(func->color());
     else
-        setColor(ShowFunction::defaultColor(Function::RGBMatrix));
+        setColor(ShowFunction::defaultColor(Function::RGBMatrixType));
 
     calculateWidth();
     connect(m_matrix, SIGNAL(changed(quint32)), this, SLOT(slotRGBMatrixChanged(quint32)));

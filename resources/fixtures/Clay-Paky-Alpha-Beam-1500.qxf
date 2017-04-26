@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.6 GIT</Version>
+  <Author>Louis Gutenschwager</Author>
+ </Creator>
+ <Manufacturer>Clay Paky</Manufacturer>
+ <Model>Alpha Beam 1500</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Cyan">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Cyan</Colour>
+  <Capability Min="0" Max="255">Cyan intensity (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Magenta">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Magenta</Colour>
+  <Capability Min="0" Max="255">Magenta intensity (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Yellow">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Yellow</Colour>
+  <Capability Min="0" Max="255">Yellow intensity (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Colour Wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9" Color="#ffffff">White</Capability>
+  <Capability Min="10" Max="18" Color="#ffffff" Color2="#ff0000">White + Red</Capability>
+  <Capability Min="19" Max="27" Color="#ff0000">Red</Capability>
+  <Capability Min="28" Max="36" Color="#ff0000" Color2="#eeeeee">Red + CTO 3200</Capability>
+  <Capability Min="37" Max="45" Color="#eeeeee">CTO 3200</Capability>
+  <Capability Min="46" Max="54" Color="#eeeeee" Color2="#00ff00">CTO 3200 + Green</Capability>
+  <Capability Min="55" Max="63" Color="#00ff00">Green</Capability>
+  <Capability Min="64" Max="73" Color="#00ff00" Color2="#00ffff">Green + Aquamarine</Capability>
+  <Capability Min="74" Max="82" Color="#00ffff">Aquamarine</Capability>
+  <Capability Min="83" Max="91" Color="#00ffff" Color2="#ffaa00">Aquamarine + Orange</Capability>
+  <Capability Min="92" Max="100" Color="#ffaa00">Orange</Capability>
+  <Capability Min="101" Max="109" Color="#ffaa00" Color2="#0000ff">Orange + Blue</Capability>
+  <Capability Min="110" Max="118" Color="#0000ff">Blue</Capability>
+  <Capability Min="119" Max="127" Color="#0000ff" Color2="#ffffff">Blue + White</Capability>
+  <Capability Min="128" Max="255">slow -&gt; Fast rotation</Capability>
+ </Channel>
+ <Channel Name="Stop / Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="3">closed</Capability>
+  <Capability Min="4" Max="103">Slow -&gt; Fast Strobe</Capability>
+  <Capability Min="104" Max="107">Open</Capability>
+  <Capability Min="108" Max="207">Slow -&gt; Fast Pulsation</Capability>
+  <Capability Min="208" Max="212">Open</Capability>
+  <Capability Min="213" Max="225">Random Slow Strobe</Capability>
+  <Capability Min="226" Max="238">Random Medium Strobe</Capability>
+  <Capability Min="239" Max="251">Random Fast Strobe</Capability>
+  <Capability Min="252" Max="255">Open</Capability>
+ </Channel>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Dimmer (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Dimmer Fine">
+  <Group Byte="1">Intensity</Group>
+  <Capability Min="0" Max="255">Dimmer fine (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Iris">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="127">Min -&gt; Max Aperture</Capability>
+  <Capability Min="128" Max="131">Max Aperture</Capability>
+  <Capability Min="132" Max="171">Slow to Fast Pulsation</Capability>
+  <Capability Min="172" Max="211">Slow Pulsation, Fast Opening</Capability>
+  <Capability Min="212" Max="251">Fast Pulsation, Fast Opening</Capability>
+  <Capability Min="252" Max="255">Max Aperture</Capability>
+ </Channel>
+ <Channel Name="Static Gobo Change">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="7" Color="#ffffff">White</Capability>
+  <Capability Min="8" Max="15" Res="ClayPaky/gobo00006.png">Gobo 1</Capability>
+  <Capability Min="16" Max="23" Res="ClayPaky/gobo00007.png">Gobo 2</Capability>
+  <Capability Min="24" Max="31" Res="ClayPaky/gobo00008.png">Gobo 3</Capability>
+  <Capability Min="32" Max="39" Res="ClayPaky/gobo00004.png">Gobo 4</Capability>
+  <Capability Min="40" Max="47" Res="ClayPaky/gobo00003.png">Gobo 5</Capability>
+  <Capability Min="48" Max="55" Res="ClayPaky/gobo00005.png">Gobo 6</Capability>
+  <Capability Min="56" Max="63" Res="ClayPaky/gobo00001.png">Gobo 7</Capability>
+  <Capability Min="64" Max="71" Res="ClayPaky/gobo00002.png">Gobo 8</Capability>
+  <Capability Min="72" Max="113">Fast -&gt; Slow Rotation</Capability>
+  <Capability Min="114" Max="117">Stop</Capability>
+  <Capability Min="118" Max="159">Slow -&gt; Fast Rotation</Capability>
+  <Capability Min="160" Max="171">Gobo 1 Shake Slow -&gt; Fast</Capability>
+  <Capability Min="172" Max="183">Gobo 2 Shake Slow -&gt; Fast</Capability>
+  <Capability Min="184" Max="195">Gobo 3 Shake Slow -&gt; Fast</Capability>
+  <Capability Min="196" Max="207">Gobo 4 Shake Slow -&gt; Fast</Capability>
+  <Capability Min="208" Max="219">Gobo 5 Shake Slow -&gt; Fast</Capability>
+  <Capability Min="220" Max="231">Gobo 6 Shake Slow -&gt; Fast</Capability>
+  <Capability Min="232" Max="243">Gobo 7 Shake Slow -&gt; Fast</Capability>
+  <Capability Min="244" Max="255">Gobo 8 Shake Slow -&gt; Fast</Capability>
+ </Channel>
+ <Channel Name="Rotating Gobo Change">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="18">White</Capability>
+  <Capability Min="19" Max="37" Res="ClayPaky/gobo00017.png">Gobo 1</Capability>
+  <Capability Min="38" Max="55" Res="ClayPaky/gobo00016.png">Gobo 2</Capability>
+  <Capability Min="56" Max="74" Res="ClayPaky/gobo00015.png">Gobo 3</Capability>
+  <Capability Min="75" Max="92" Res="ClayPaky/gobo00014.png">Gobo 4</Capability>
+  <Capability Min="93" Max="111" Res="ClayPaky/gobo00013.png">Gobo 5</Capability>
+  <Capability Min="112" Max="129" Res="ClayPaky/gobo00012.png">Gobo 6</Capability>
+  <Capability Min="130" Max="150">Gobo 1 Shake, Slow -&gt; Fast</Capability>
+  <Capability Min="151" Max="171">Gobo 2 Shake, Slow -&gt; Fast</Capability>
+  <Capability Min="172" Max="192">Gobo 3 Shake, Slow -&gt; Fast</Capability>
+  <Capability Min="193" Max="213">Gobo 4 Shake, Slow -&gt; Fast</Capability>
+  <Capability Min="214" Max="234">Gobo 5 Shake, Slow -&gt; Fast</Capability>
+  <Capability Min="235" Max="255">Gobo 6 Shake, Slow -&gt; Fast</Capability>
+ </Channel>
+ <Channel Name="Gobo Rotation">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="0">0 degree Position</Capability>
+  <Capability Min="21" Max="21">90 degree Position</Capability>
+  <Capability Min="42" Max="42">180 degree Position</Capability>
+  <Capability Min="63" Max="63">270 degree Position</Capability>
+  <Capability Min="84" Max="84">360 degree Position</Capability>
+  <Capability Min="105" Max="105">450 degree Position</Capability>
+  <Capability Min="127" Max="127">540 degree Position</Capability>
+  <Capability Min="128" Max="190">CW Fast -&gt; Slow Rotation</Capability>
+  <Capability Min="191" Max="192">Stop</Capability>
+  <Capability Min="193" Max="255">CCW Slow -&gt; Fast Rotation</Capability>
+ </Channel>
+ <Channel Name="Rotating Prism Change">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="63">White</Capability>
+  <Capability Min="64" Max="127">5 Face Prism</Capability>
+  <Capability Min="128" Max="191">Ovalyzer</Capability>
+  <Capability Min="192" Max="255">6 Face Prism</Capability>
+ </Channel>
+ <Channel Name="Prism Rotation">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="0">0 degree Position</Capability>
+  <Capability Min="21" Max="21">90 degree Position</Capability>
+  <Capability Min="42" Max="42">180 degree Position</Capability>
+  <Capability Min="63" Max="63">270 degree Position</Capability>
+  <Capability Min="84" Max="84">360 degree Position</Capability>
+  <Capability Min="105" Max="105">450 degree Position</Capability>
+  <Capability Min="127" Max="127">540 degree Position</Capability>
+  <Capability Min="128" Max="190">CW Fast -&gt; Slow Rotation</Capability>
+  <Capability Min="191" Max="192">Stop</Capability>
+  <Capability Min="193" Max="255">CCW Slow -&gt; Fast Rotation</Capability>
+ </Channel>
+ <Channel Name="Light Frost">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Frost Excluded</Capability>
+  <Capability Min="128" Max="255">Frost Inserted</Capability>
+ </Channel>
+ <Channel Name="Medium Frost">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Frost Excluded</Capability>
+  <Capability Min="128" Max="255">Frost Inserted</Capability>
+ </Channel>
+ <Channel Name="Heavy Frost">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Frost Excluded - Inserted</Capability>
+ </Channel>
+ <Channel Name="Focus">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">Distant -&gt; Near</Capability>
+ </Channel>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan 0 - 540°</Capability>
+ </Channel>
+ <Channel Name="Pan Fine">
+  <Group Byte="1">Pan</Group>
+  <Capability Min="0" Max="255">Pan Fine</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt 0 - 252°</Capability>
+ </Channel>
+ <Channel Name="Tilt Fine">
+  <Group Byte="1">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt Fine</Capability>
+ </Channel>
+ <Channel Name="Function">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="12">Unused</Capability>
+  <Capability Min="13" Max="13">Fast Speed (Pan-Tilt Function)</Capability>
+  <Capability Min="26" Max="26">Normal Speed (Pan-Tilt Function)</Capability>
+  <Capability Min="39" Max="39">Conventional (Dimmer Curve Function)</Capability>
+  <Capability Min="51" Max="51">Linear  (Dimmer Curve Function)</Capability>
+  <Capability Min="52" Max="255">Unused</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="25">Unused</Capability>
+  <Capability Min="26" Max="76">Effects Reset</Capability>
+  <Capability Min="77" Max="127">Pan / Tilt Reset</Capability>
+  <Capability Min="128" Max="255">Complete Reset</Capability>
+ </Channel>
+ <Channel Name="Lamp Control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="25">Unused</Capability>
+  <Capability Min="26" Max="100">Lamp Off</Capability>
+  <Capability Min="101" Max="179">Lamp On (Half Power)</Capability>
+  <Capability Min="180" Max="255">Lamp On (Full Power)</Capability>
+ </Channel>
+ <Channel Name="Pan - Tilt Time">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="255">See Time Table</Capability>
+ </Channel>
+ <Channel Name="Colour Time">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="255">See Time Table</Capability>
+ </Channel>
+ <Channel Name="Beam Time">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="255">See Time Table</Capability>
+ </Channel>
+ <Channel Name="Gobo Time">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="255">See Time Table</Capability>
+ </Channel>
+ <Mode Name="Standard">
+  <Physical>
+   <Bulb Type="Osram Lok-it 1500W" Lumens="135000" ColourTemperature="6000"/>
+   <Dimensions Weight="40" Width="488" Height="846" Depth="480"/>
+   <Lens Name="Other" DegreesMin="4" DegreesMax="4"/>
+   <Focus Type="Head" PanMax="540" TiltMax="252"/>
+   <Technical PowerConsumption="1500" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
+  <Channel Number="0">Cyan</Channel>
+  <Channel Number="1">Magenta</Channel>
+  <Channel Number="2">Yellow</Channel>
+  <Channel Number="3">Colour Wheel</Channel>
+  <Channel Number="4">Stop / Strobe</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Dimmer Fine</Channel>
+  <Channel Number="7">Iris</Channel>
+  <Channel Number="8">Static Gobo Change</Channel>
+  <Channel Number="9">Rotating Gobo Change</Channel>
+  <Channel Number="10">Gobo Rotation</Channel>
+  <Channel Number="11">Rotating Prism Change</Channel>
+  <Channel Number="12">Prism Rotation</Channel>
+  <Channel Number="13">Light Frost</Channel>
+  <Channel Number="14">Medium Frost</Channel>
+  <Channel Number="15">Heavy Frost</Channel>
+  <Channel Number="16">Focus</Channel>
+  <Channel Number="17">Pan</Channel>
+  <Channel Number="18">Pan Fine</Channel>
+  <Channel Number="19">Tilt</Channel>
+  <Channel Number="20">Tilt Fine</Channel>
+  <Channel Number="21">Function</Channel>
+  <Channel Number="22">Reset</Channel>
+  <Channel Number="23">Lamp Control</Channel>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>10</Channel>
+   <Channel>9</Channel>
+   <Channel>8</Channel>
+   <Channel>15</Channel>
+   <Channel>14</Channel>
+   <Channel>13</Channel>
+   <Channel>12</Channel>
+   <Channel>3</Channel>
+   <Channel>2</Channel>
+   <Channel>1</Channel>
+   <Channel>0</Channel>
+   <Channel>7</Channel>
+   <Channel>6</Channel>
+   <Channel>5</Channel>
+   <Channel>4</Channel>
+   <Channel>19</Channel>
+   <Channel>18</Channel>
+   <Channel>17</Channel>
+   <Channel>16</Channel>
+   <Channel>23</Channel>
+   <Channel>22</Channel>
+   <Channel>21</Channel>
+   <Channel>20</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="Vector">
+  <Physical>
+   <Bulb Type="Osram Lok-it 1500W" Lumens="135000" ColourTemperature="6000"/>
+   <Dimensions Weight="40" Width="488" Height="846" Depth="480"/>
+   <Lens Name="Other" DegreesMin="4" DegreesMax="4"/>
+   <Focus Type="Head" PanMax="540" TiltMax="252"/>
+   <Technical PowerConsumption="1500" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
+  <Channel Number="0">Cyan</Channel>
+  <Channel Number="1">Magenta</Channel>
+  <Channel Number="2">Yellow</Channel>
+  <Channel Number="3">Colour Wheel</Channel>
+  <Channel Number="4">Stop / Strobe</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Dimmer Fine</Channel>
+  <Channel Number="7">Iris</Channel>
+  <Channel Number="8">Static Gobo Change</Channel>
+  <Channel Number="9">Rotating Gobo Change</Channel>
+  <Channel Number="10">Gobo Rotation</Channel>
+  <Channel Number="11">Rotating Prism Change</Channel>
+  <Channel Number="12">Prism Rotation</Channel>
+  <Channel Number="13">Light Frost</Channel>
+  <Channel Number="14">Medium Frost</Channel>
+  <Channel Number="15">Heavy Frost</Channel>
+  <Channel Number="16">Focus</Channel>
+  <Channel Number="17">Pan</Channel>
+  <Channel Number="18">Pan Fine</Channel>
+  <Channel Number="19">Tilt</Channel>
+  <Channel Number="20">Tilt Fine</Channel>
+  <Channel Number="21">Function</Channel>
+  <Channel Number="22">Reset</Channel>
+  <Channel Number="23">Lamp Control</Channel>
+  <Channel Number="24">Pan - Tilt Time</Channel>
+  <Channel Number="25">Colour Time</Channel>
+  <Channel Number="26">Beam Time</Channel>
+  <Channel Number="27">Gobo Time</Channel>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>10</Channel>
+   <Channel>9</Channel>
+   <Channel>8</Channel>
+   <Channel>15</Channel>
+   <Channel>14</Channel>
+   <Channel>13</Channel>
+   <Channel>12</Channel>
+   <Channel>3</Channel>
+   <Channel>2</Channel>
+   <Channel>1</Channel>
+   <Channel>0</Channel>
+   <Channel>7</Channel>
+   <Channel>6</Channel>
+   <Channel>5</Channel>
+   <Channel>4</Channel>
+   <Channel>27</Channel>
+   <Channel>26</Channel>
+   <Channel>25</Channel>
+   <Channel>24</Channel>
+   <Channel>19</Channel>
+   <Channel>18</Channel>
+   <Channel>17</Channel>
+   <Channel>16</Channel>
+   <Channel>23</Channel>
+   <Channel>22</Channel>
+   <Channel>21</Channel>
+   <Channel>20</Channel>
+  </Head>
+ </Mode>
+</FixtureDefinition>

@@ -854,6 +854,7 @@ void VCXYPadFixture_Test::write16bitReverse()
     QList<Universe*> ua;
     ua.append(new Universe(0, new GrandMaster()));
 
+#ifdef Q_PROCESSOR_X86_64
     for (qreal i = 0; i <= 1.01; i += (qreal(1) / qreal(USHRT_MAX)))
     {
         xy.writeDMX(i, 1.0 - i, ua);
@@ -875,6 +876,7 @@ void VCXYPadFixture_Test::write16bitReverse()
         QCOMPARE(ua[0]->preGMValues()[2], char(y >> 8));
         QCOMPARE(ua[0]->preGMValues()[3], char(y & 0xFF));
     }
+#endif
 }
 
 void VCXYPadFixture_Test::writeRange()

@@ -93,9 +93,24 @@ Rectangle
         headsRepeater.itemAt(headIndex).headLevel = intensity
     }
 
-    function setHeadColor(headIndex, color)
+    function setHeadRGBColor(headIndex, color)
     {
         headsRepeater.itemAt(headIndex).headColor = color
+    }
+
+    function setHeadWhite(headIndex, level)
+    {
+        headsRepeater.itemAt(headIndex).whiteLevel = level / 255
+    }
+
+    function setHeadAmber(headIndex, level)
+    {
+        headsRepeater.itemAt(headIndex).amberLevel = level / 255
+    }
+
+    function setHeadUV(headIndex, level)
+    {
+        headsRepeater.itemAt(headIndex).uvLevel = level / 255
     }
 
     function setPosition(pan, tilt)
@@ -198,6 +213,7 @@ Rectangle
         id: positionLayer
         anchors.fill: parent
         visible: (panMaxDegrees || tiltMaxDegrees) ? true : false
+        contextType: "2d"
 
         property int panDegrees: 0
         property int tiltDegrees: 0
@@ -211,40 +227,38 @@ Rectangle
             if (positionLayer.visible == false)
                 return;
 
-            var ctx = positionLayer.getContext('2d');
-            //ctx.save();
-            ctx.globalAlpha = 0.7;
-            ctx.lineWidth = 1;
+            context.globalAlpha = 0.7;
+            context.lineWidth = 1;
 
-            ctx.clearRect(0, 0, width, height)
+            context.clearRect(0, 0, width, height)
 
             if (tiltMaxDegrees)
             {
                 // draw TILT curve
-                ctx.strokeStyle = "#2E77FF";
-                DrawFuncs.drawEllipse(ctx, width / 2, height / 2, tiltWidth, height)
+                context.strokeStyle = "#2E77FF";
+                DrawFuncs.drawEllipse(context, width / 2, height / 2, tiltWidth, height)
             }
             if (panMaxDegrees)
             {
                 // draw PAN curve
-                ctx.strokeStyle = "#19438F"
-                DrawFuncs.drawEllipse(ctx, width / 2, height / 2, width, panHeight)
+                context.strokeStyle = "#19438F"
+                DrawFuncs.drawEllipse(context, width / 2, height / 2, width, panHeight)
             }
 
-            ctx.lineWidth = 1;
-            ctx.strokeStyle = "white";
+            context.lineWidth = 1;
+            context.strokeStyle = "white";
 
             if (tiltMaxDegrees)
             {
                 // draw TILT cursor position
-                ctx.fillStyle = "red";
-                DrawFuncs.drawCursor(ctx, width / 2, height / 2, tiltWidth, height, tiltDegrees + 135, cursorRadius)
+                context.fillStyle = "red";
+                DrawFuncs.drawCursor(context, width / 2, height / 2, tiltWidth, height, tiltDegrees + 135, cursorRadius)
             }
             if (panMaxDegrees)
             {
                 // draw PAN cursor position
-                ctx.fillStyle = "green";
-                DrawFuncs.drawCursor(ctx, width / 2, height / 2, width, panHeight, panDegrees + 90, cursorRadius)
+                context.fillStyle = "green";
+                DrawFuncs.drawCursor(context, width / 2, height / 2, width, panHeight, panDegrees + 90, cursorRadius)
             }
         }
     }
@@ -266,7 +280,7 @@ Rectangle
             //labelColor: "black"
             fontSize: UISettings.textSizeDefault / 2
             wrapText: true
-            textAlign: Text.AlignHCenter
+            textHAlign: Text.AlignHCenter
         }
     }
 
@@ -277,7 +291,7 @@ Rectangle
         hoverEnabled: true
         preventStealing: false
 
-        drag.threshold: UISettings.iconSizeDefault
+        drag.threshold: 10 //UISettings.iconSizeDefault
 
         onEntered: fixtureLabel.visible = true
         onExited: showLabel ? fixtureLabel.visible = true : fixtureLabel.visible = false
@@ -292,8 +306,12 @@ Rectangle
         {
             if (!fxMouseArea.pressed)
                 return
-            drag.target = fixtureItem
-            isSelected = true
+
+            if (drag.target == null)
+            {
+                drag.target = fixtureItem
+                isSelected = true
+            }
         }
 
         onReleased:
@@ -303,7 +321,7 @@ Rectangle
                 console.log("drag finished");
                 mmXPos = (fixtureItem.x * gridUnits) / gridCellSize;
                 mmYPos = (fixtureItem.y * gridUnits) / gridCellSize;
-                contextManager.setFixturePosition(fixtureID, mmXPos, mmYPos)
+                contextManager.setFixturePosition(fixtureID, mmXPos, mmYPos, 0)
                 drag.target = null
             }
         }

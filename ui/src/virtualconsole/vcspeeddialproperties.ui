@@ -7,14 +7,14 @@
 
   Copyright (c) 2015 Massimo Callegari
 
-  Licensed under the Apache License, Version 2.0 (the "License");
+  Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
 
       http://www.apache.org/licenses/LICENSE-2.0.txt
 
   Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
+  distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
@@ -373,199 +373,11 @@
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
         <layout class="QGridLayout" name="gridLayout_10">
-         <item row="0" column="0" rowspan="9">
-          <widget class="QTreeWidget" name="m_presetsTree">
-           <column>
-            <property name="text">
-             <string>Name</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>Value</string>
-            </property>
-           </column>
-          </widget>
-         </item>
-         <item row="9" column="0">
-          <widget class="QGroupBox" name="m_externalInputGroup">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
+         <item row="2" column="2">
+          <widget class="QLineEdit" name="m_presetNameEdit">
+           <property name="toolTip">
+            <string>Preset name</string>
            </property>
-           <property name="title">
-            <string>External Input</string>
-           </property>
-           <layout class="QGridLayout" name="gridLayout_4">
-            <item row="2" column="0">
-             <spacer name="horizontalSpacer_2">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>298</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="1" column="1" colspan="2">
-             <widget class="QLineEdit" name="m_presetInputChannelEdit">
-              <property name="toolTip">
-               <string>The particular input channel within the input universe that sends data to this preset button</string>
-              </property>
-              <property name="readOnly">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="2">
-             <widget class="QPushButton" name="m_choosePresetInputButton">
-              <property name="toolTip">
-               <string>Choose an external input universe &amp; channel that this preset button should listen to</string>
-              </property>
-              <property name="text">
-               <string>Choose...</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1">
-             <widget class="QPushButton" name="m_adPresetInputButton">
-              <property name="toolTip">
-               <string>When toggled, you can move an external control to assign it to this preset button</string>
-              </property>
-              <property name="text">
-               <string>Auto Detect</string>
-              </property>
-              <property name="checkable">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1" colspan="2">
-             <widget class="QLineEdit" name="m_presetInputUniverseEdit">
-              <property name="toolTip">
-               <string>The input universe that sends data to this preset button</string>
-              </property>
-              <property name="readOnly">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="m_inputChannelLabel">
-              <property name="text">
-               <string>Input channel</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="m_inputUniverseLabel">
-              <property name="text">
-               <string>Input universe</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item row="1" column="1" colspan="2">
-          <widget class="QPushButton" name="m_removePresetButton">
-           <property name="text">
-            <string> Remove</string>
-           </property>
-           <property name="icon">
-            <iconset resource="../qlcui.qrc">
-             <normaloff>:/edit_remove.png</normaloff>:/edit_remove.png</iconset>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1" colspan="2">
-          <widget class="QPushButton" name="m_addPresetButton">
-           <property name="text">
-            <string> Add preset</string>
-           </property>
-           <property name="icon">
-            <iconset resource="../qlcui.qrc">
-             <normaloff>:/edit_add.png</normaloff>:/edit_add.png</iconset>
-           </property>
-          </widget>
-         </item>
-         <item row="9" column="1" colspan="2">
-          <widget class="QGroupBox" name="groupBox_8">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="title">
-            <string>Key combination</string>
-           </property>
-           <layout class="QGridLayout" name="gridLayout_11">
-            <property name="leftMargin">
-             <number>3</number>
-            </property>
-            <property name="topMargin">
-             <number>9</number>
-            </property>
-            <property name="rightMargin">
-             <number>3</number>
-            </property>
-            <item row="1" column="0">
-             <widget class="QToolButton" name="m_detachPresetKey">
-              <property name="toolTip">
-               <string>Remove the preset buttons's keyboard shortcut key</string>
-              </property>
-              <property name="text">
-               <string notr="true">...</string>
-              </property>
-              <property name="icon">
-               <iconset resource="../qlcui.qrc">
-                <normaloff>:/fileclose.png</normaloff>:/fileclose.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>32</width>
-                <height>32</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QToolButton" name="m_attachPresetKey">
-              <property name="toolTip">
-               <string>Set a key combination for this preset button</string>
-              </property>
-              <property name="text">
-               <string notr="true">...</string>
-              </property>
-              <property name="icon">
-               <iconset resource="../qlcui.qrc">
-                <normaloff>:/key_bindings.png</normaloff>:/key_bindings.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>32</width>
-                <height>32</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="0" colspan="2">
-             <widget class="QLineEdit" name="m_presetKeyEdit">
-              <property name="toolTip">
-               <string>Keyboard combination that toggles this preset button</string>
-              </property>
-              <property name="readOnly">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-           </layout>
           </widget>
          </item>
          <item row="2" column="1">
@@ -581,15 +393,47 @@
            </property>
           </widget>
          </item>
-         <item row="2" column="2">
-          <widget class="QLineEdit" name="m_presetNameEdit">
-           <property name="toolTip">
-            <string>Preset name</string>
+         <item row="9" column="0" colspan="3">
+          <layout class="QVBoxLayout" name="m_presetInputLayout"/>
+         </item>
+         <item row="0" column="1" colspan="2">
+          <widget class="QPushButton" name="m_addPresetButton">
+           <property name="text">
+            <string> Add preset</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../qlcui.qrc">
+             <normaloff>:/edit_add.png</normaloff>:/edit_add.png</iconset>
            </property>
           </widget>
          </item>
          <item row="3" column="1" colspan="2">
           <widget class="SpeedDial" name="m_speedDialWidget" native="true"/>
+         </item>
+         <item row="0" column="0" rowspan="9">
+          <widget class="QTreeWidget" name="m_presetsTree">
+           <column>
+            <property name="text">
+             <string>Name</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Value</string>
+            </property>
+           </column>
+          </widget>
+         </item>
+         <item row="1" column="1" colspan="2">
+          <widget class="QPushButton" name="m_removePresetButton">
+           <property name="text">
+            <string> Remove</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../qlcui.qrc">
+             <normaloff>:/edit_remove.png</normaloff>:/edit_remove.png</iconset>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>

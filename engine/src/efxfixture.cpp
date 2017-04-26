@@ -95,14 +95,15 @@ void EFXFixture::setHead(GroupHead const & head)
 
     QList<Mode> modes;
 
-    if((fxi->panMsbChannel(head.head) != QLCChannel::invalid()) ||
-            (fxi->tiltMsbChannel(head.head) != QLCChannel::invalid()))
+    if (fxi->channelNumber(QLCChannel::Pan, QLCChannel::MSB, head.head) != QLCChannel::invalid() ||
+        fxi->channelNumber(QLCChannel::Tilt, QLCChannel::MSB, head.head) != QLCChannel::invalid())
         modes << PanTilt;
 
-    if((fxi->masterIntensityChannel(head.head) != QLCChannel::invalid()))
+    if (fxi->masterIntensityChannel() != QLCChannel::invalid() ||
+        fxi->channelNumber(QLCChannel::Intensity, QLCChannel::MSB, head.head) != QLCChannel::invalid())
         modes << Dimmer;
 
-    if((fxi->rgbChannels (head.head).size () >= 3))
+    if (fxi->rgbChannels(head.head).size() >= 3)
         modes << RGB;
 
     if (!modes.contains(m_mode))
@@ -156,10 +157,13 @@ bool EFXFixture::isValid() const
         return false;
     else if (head().head >= fxi->heads())
         return false;
-    else if (m_mode == PanTilt && fxi->panMsbChannel(head().head) == QLCChannel::invalid() && // Maybe a device can pan OR tilt
-             fxi->tiltMsbChannel(head().head) == QLCChannel::invalid())   // but not both. Teh sux0r.
+    else if (m_mode == PanTilt &&
+             fxi->channelNumber(QLCChannel::Pan, QLCChannel::MSB, head().head) == QLCChannel::invalid() && // Maybe a device can pan OR tilt
+             fxi->channelNumber(QLCChannel::Tilt, QLCChannel::MSB, head().head) == QLCChannel::invalid())   // but not both
         return false;
-    else if (m_mode == Dimmer && fxi->masterIntensityChannel(head().head) == QLCChannel::invalid() )
+    else if (m_mode == Dimmer &&
+             fxi->masterIntensityChannel() == QLCChannel::invalid() &&
+             fxi->channelNumber(QLCChannel::Intensity, QLCChannel::MSB, head().head) == QLCChannel::invalid())
         return false;
     else if (m_mode == RGB && fxi->rgbChannels(head().head).size () == 0)
         return false;
@@ -193,14 +197,15 @@ QStringList EFXFixture::modeList()
 
     QStringList modes;
 
-    if((fxi->panMsbChannel(head().head) != QLCChannel::invalid()) ||
-            (fxi->tiltMsbChannel(head().head) != QLCChannel::invalid()) )
+    if(fxi->channelNumber(QLCChannel::Pan, QLCChannel::MSB, head().head) != QLCChannel::invalid() ||
+       fxi->channelNumber(QLCChannel::Tilt, QLCChannel::MSB, head().head) != QLCChannel::invalid())
         modes << KXMLQLCEFXFixtureModePanTilt;
 
-    if((fxi->masterIntensityChannel(head().head) != QLCChannel::invalid()))
+    if(fxi->masterIntensityChannel() != QLCChannel::invalid() ||
+       fxi->channelNumber(QLCChannel::Intensity, QLCChannel::MSB, head().head) != QLCChannel::invalid())
         modes << KXMLQLCEFXFixtureModeDimmer;
 
-    if((fxi->rgbChannels (head().head).size () >= 3))
+    if(fxi->rgbChannels(head().head).size() >= 3)
         modes << KXMLQLCEFXFixtureModeRGB;
 
     return modes;
@@ -448,40 +453,45 @@ void EFXFixture::setPointPanTilt(QList<Universe *> universes, float pan, float t
     Q_ASSERT(fxi != NULL);
 
     /* Write coarse point data to universes */
-    if (fxi->panMsbChannel(head().head) != QLCChannel::invalid())
+    quint32 panMsbChannel = fxi->channelNumber(QLCChannel::Pan, QLCChannel::MSB, head().head);
+    quint32 panLsbChannel = fxi->channelNumber(QLCChannel::Pan, QLCChannel::LSB, head().head);
+    quint32 tiltMsbChannel = fxi->channelNumber(QLCChannel::Tilt, QLCChannel::MSB, head().head);
+    quint32 tiltLsbChannel = fxi->channelNumber(QLCChannel::Tilt, QLCChannel::LSB, head().head);
+
+    if (panMsbChannel != QLCChannel::invalid())
     {
         if (m_parent->isRelative())
-            universes[fxi->universe()]->writeRelative(fxi->address() + fxi->panMsbChannel(head().head), static_cast<char>(pan));
+            universes[fxi->universe()]->writeRelative(fxi->address() + panMsbChannel, static_cast<char>(pan));
         else
-            universes[fxi->universe()]->write(fxi->address() + fxi->panMsbChannel(head().head), static_cast<char>(pan));
+            universes[fxi->universe()]->write(fxi->address() + panMsbChannel, static_cast<char>(pan));
     }
-    if (fxi->tiltMsbChannel(head().head) != QLCChannel::invalid())
+    if (tiltMsbChannel != QLCChannel::invalid())
     {
         if (m_parent->isRelative())
-            universes[fxi->universe()]->writeRelative(fxi->address() + fxi->tiltMsbChannel(head().head), static_cast<char> (tilt));
+            universes[fxi->universe()]->writeRelative(fxi->address() + tiltMsbChannel, static_cast<char> (tilt));
         else
-            universes[fxi->universe()]->write(fxi->address() + fxi->tiltMsbChannel(head().head), static_cast<char> (tilt));
+            universes[fxi->universe()]->write(fxi->address() + tiltMsbChannel, static_cast<char> (tilt));
     }
 
     /* Write fine point data to universes if applicable */
-    if (fxi->panLsbChannel(head().head) != QLCChannel::invalid())
+    if (panLsbChannel != QLCChannel::invalid())
     {
         /* Leave only the fraction */
         char value = static_cast<char> ((pan - floor(pan)) * double(UCHAR_MAX));
         if (m_parent->isRelative())
-            universes[fxi->universe()]->writeRelative(fxi->address() + fxi->panLsbChannel(head().head), value);
+            universes[fxi->universe()]->writeRelative(fxi->address() + panLsbChannel, value);
         else
-            universes[fxi->universe()]->write(fxi->address() + fxi->panLsbChannel(head().head), value);
+            universes[fxi->universe()]->write(fxi->address() + panLsbChannel, value);
     }
 
-    if (fxi->tiltLsbChannel(head().head) != QLCChannel::invalid())
+    if (tiltLsbChannel != QLCChannel::invalid())
     {
         /* Leave only the fraction */
         char value = static_cast<char> ((tilt - floor(tilt)) * double(UCHAR_MAX));
         if (m_parent->isRelative())
-            universes[fxi->universe()]->writeRelative(fxi->address() + fxi->tiltLsbChannel(head().head), value);
+            universes[fxi->universe()]->writeRelative(fxi->address() + tiltLsbChannel, value);
         else
-            universes[fxi->universe()]->write(fxi->address() + fxi->tiltLsbChannel(head().head), value);
+            universes[fxi->universe()]->write(fxi->address() + tiltLsbChannel, value);
     }
 }
 
@@ -492,10 +502,16 @@ void EFXFixture::setPointDimmer(QList<Universe *> universes, float dimmer)
     Fixture* fxi = doc()->fixture(head().fxi);
     Q_ASSERT(fxi != NULL);
 
+    quint32 intChannel = fxi->channelNumber(QLCChannel::Intensity, QLCChannel::MSB, head().head);
+
     /* Don't write dimmer data directly to universes but use FadeChannel to avoid steps at EFX loop restart */
-    if (fxi->masterIntensityChannel(head().head) != QLCChannel::invalid())
+    if (intChannel != QLCChannel::invalid())
     {
-        setFadeChannel(fxi->masterIntensityChannel(head().head),  dimmer);
+        setFadeChannel(intChannel, dimmer);
+    }
+    else if (fxi->masterIntensityChannel() != QLCChannel::invalid())
+    {
+        setFadeChannel(fxi->masterIntensityChannel(), dimmer);
     }
 }
 

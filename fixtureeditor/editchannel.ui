@@ -7,14 +7,14 @@
 
   Copyright (c) 2015 Massimo Callegari
 
-  Licensed under the Apache License, Version 2.0 (the "License");
+  Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
 
       http://www.apache.org/licenses/LICENSE-2.0.txt
 
   Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
+  distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
@@ -25,8 +25,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>550</height>
+    <width>608</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -85,119 +85,6 @@
      </property>
     </widget>
    </item>
-   <item row="4" column="0" colspan="3">
-    <widget class="QGroupBox" name="groupBox_2">
-     <property name="title">
-      <string>Capabilities</string>
-     </property>
-     <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="1">
-       <widget class="QToolButton" name="m_addCapabilityButton">
-        <property name="toolTip">
-         <string>Add a new capability</string>
-        </property>
-        <property name="text">
-         <string notr="true">...</string>
-        </property>
-        <property name="icon">
-         <iconset resource="../ui/src/qlcui.qrc">
-          <normaloff>:/edit_add.png</normaloff>:/edit_add.png</iconset>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>32</width>
-          <height>32</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <spacer>
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>84</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="3" column="1">
-       <widget class="QToolButton" name="m_wizardButton">
-        <property name="toolTip">
-         <string>Capability wizard</string>
-        </property>
-        <property name="text">
-         <string notr="true">...</string>
-        </property>
-        <property name="icon">
-         <iconset resource="../ui/src/qlcui.qrc">
-          <normaloff>:/wizard.png</normaloff>:/wizard.png</iconset>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>32</width>
-          <height>32</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QToolButton" name="m_removeCapabilityButton">
-        <property name="toolTip">
-         <string>Remove the selected capability</string>
-        </property>
-        <property name="text">
-         <string notr="true">...</string>
-        </property>
-        <property name="icon">
-         <iconset resource="../ui/src/qlcui.qrc">
-          <normaloff>:/edit_remove.png</normaloff>:/edit_remove.png</iconset>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>32</width>
-          <height>32</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0" rowspan="4">
-       <widget class="QTreeWidget" name="m_capabilityList">
-        <property name="alternatingRowColors">
-         <bool>true</bool>
-        </property>
-        <property name="rootIsDecorated">
-         <bool>false</bool>
-        </property>
-        <property name="itemsExpandable">
-         <bool>false</bool>
-        </property>
-        <property name="allColumnsShowFocus">
-         <bool>true</bool>
-        </property>
-        <column>
-         <property name="text">
-          <string>Minimum value</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Maximum value</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Description</string>
-         </property>
-        </column>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
    <item row="0" column="1" colspan="2">
     <widget class="QLineEdit" name="m_nameEdit">
      <property name="toolTip">
@@ -205,10 +92,29 @@
      </property>
     </widget>
    </item>
+   <item row="1" column="1">
+    <widget class="QComboBox" name="m_groupCombo">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="toolTip">
+      <string>The group this channel belongs to</string>
+     </property>
+    </widget>
+   </item>
    <item row="5" column="0" colspan="3">
     <layout class="QHBoxLayout" name="m_capValueGroup">
      <item>
       <widget class="QGroupBox" name="m_valueGroup">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="title">
         <string>Capability Values</string>
        </property>
@@ -332,20 +238,6 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="2">
-         <widget class="QToolButton" name="m_color2Button">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="text">
-           <string notr="true"/>
-          </property>
-          <property name="icon">
-           <iconset resource="../ui/src/qlcui.qrc">
-            <normaloff>:/color.png</normaloff>:/color.png</iconset>
-          </property>
-         </widget>
-        </item>
         <item row="2" column="2">
          <widget class="QToolButton" name="m_color1Button">
           <property name="text">
@@ -357,10 +249,17 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="2">
-         <widget class="QToolButton" name="m_pictureButton">
+        <item row="3" column="2">
+         <widget class="QToolButton" name="m_color2Button">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="text">
-           <string notr="true">...</string>
+           <string notr="true"/>
+          </property>
+          <property name="icon">
+           <iconset resource="../ui/src/qlcui.qrc">
+            <normaloff>:/color.png</normaloff>:/color.png</iconset>
           </property>
          </widget>
         </item>
@@ -378,6 +277,13 @@
           </property>
          </widget>
         </item>
+        <item row="1" column="2">
+         <widget class="QToolButton" name="m_pictureButton">
+          <property name="text">
+           <string notr="true">...</string>
+          </property>
+         </widget>
+        </item>
         <item row="3" column="1">
          <widget class="QLabel" name="label_3">
           <property name="text">
@@ -389,19 +295,6 @@
       </widget>
      </item>
     </layout>
-   </item>
-   <item row="1" column="1">
-    <widget class="QComboBox" name="m_groupCombo">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="toolTip">
-      <string>The group this channel belongs to</string>
-     </property>
-    </widget>
    </item>
    <item row="1" column="2" rowspan="2">
     <widget class="QGroupBox" name="m_controlByteGroup">
@@ -434,6 +327,125 @@
      <property name="standardButtons">
       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
+    </widget>
+   </item>
+   <item row="4" column="0" colspan="3">
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="title">
+      <string>Capabilities</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="1">
+       <widget class="QToolButton" name="m_addCapabilityButton">
+        <property name="toolTip">
+         <string>Add a new capability</string>
+        </property>
+        <property name="text">
+         <string notr="true">...</string>
+        </property>
+        <property name="icon">
+         <iconset resource="../ui/src/qlcui.qrc">
+          <normaloff>:/edit_add.png</normaloff>:/edit_add.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <spacer>
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>84</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="3" column="1">
+       <widget class="QToolButton" name="m_wizardButton">
+        <property name="toolTip">
+         <string>Capability wizard</string>
+        </property>
+        <property name="text">
+         <string notr="true">...</string>
+        </property>
+        <property name="icon">
+         <iconset resource="../ui/src/qlcui.qrc">
+          <normaloff>:/wizard.png</normaloff>:/wizard.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QToolButton" name="m_removeCapabilityButton">
+        <property name="toolTip">
+         <string>Remove the selected capability</string>
+        </property>
+        <property name="text">
+         <string notr="true">...</string>
+        </property>
+        <property name="icon">
+         <iconset resource="../ui/src/qlcui.qrc">
+          <normaloff>:/edit_remove.png</normaloff>:/edit_remove.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0" rowspan="4">
+       <widget class="QTreeWidget" name="m_capabilityList">
+        <property name="alternatingRowColors">
+         <bool>true</bool>
+        </property>
+        <property name="rootIsDecorated">
+         <bool>false</bool>
+        </property>
+        <property name="itemsExpandable">
+         <bool>false</bool>
+        </property>
+        <property name="allColumnsShowFocus">
+         <bool>true</bool>
+        </property>
+        <column>
+         <property name="text">
+          <string>Minimum value</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Maximum value</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Description</string>
+         </property>
+        </column>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
   </layout>

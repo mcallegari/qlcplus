@@ -43,7 +43,11 @@
 #define KXMLQLCMonitorFixtureID "ID"
 #define KXMLQLCMonitorFixtureXPos "XPos"
 #define KXMLQLCMonitorFixtureYPos "YPos"
+#define KXMLQLCMonitorFixtureZPos "ZPos"
 #define KXMLQLCMonitorFixtureRotation "Rotation"
+#define KXMLQLCMonitorFixtureXRotation "XRot"
+#define KXMLQLCMonitorFixtureYRotation "YRot"
+#define KXMLQLCMonitorFixtureZRotation "ZRot"
 #define KXMLQLCMonitorFixtureGelColor "GelColor"
 
 MonitorProperties::MonitorProperties()
@@ -63,13 +67,13 @@ void MonitorProperties::removeFixture(quint32 fid)
         m_fixtureItems.take(fid);
 }
 
-void MonitorProperties::setFixturePosition(quint32 fid, QPointF pos)
+void MonitorProperties::setFixturePosition(quint32 fid, QVector3D pos)
 {
     qDebug() << Q_FUNC_INFO << "X:" << pos.x() << "Y:" << pos.y();
     m_fixtureItems[fid].m_position = pos;
 }
 
-void MonitorProperties::setFixtureRotation(quint32 fid, ushort degrees)
+void MonitorProperties::setFixtureRotation(quint32 fid, QVector3D degrees)
 {
     m_fixtureItems[fid].m_rotation = degrees;
 }
@@ -167,16 +171,31 @@ bool MonitorProperties::loadXML(QXmlStreamReader &root, const Doc * mainDocument
             if (tAttrs.hasAttribute(KXMLQLCMonitorFixtureID))
             {
                 quint32 fid = tAttrs.value(KXMLQLCMonitorFixtureID).toString().toUInt();
-                QPointF pos(0, 0);
+                QVector3D pos(0, 0, 0);
+                QVector3D rot(0, 0, 0);
                 if (tAttrs.hasAttribute(KXMLQLCMonitorFixtureXPos))
                     pos.setX(tAttrs.value(KXMLQLCMonitorFixtureXPos).toString().toDouble());
                 if (tAttrs.hasAttribute(KXMLQLCMonitorFixtureYPos))
                     pos.setY(tAttrs.value(KXMLQLCMonitorFixtureYPos).toString().toDouble());
+                if (tAttrs.hasAttribute(KXMLQLCMonitorFixtureZPos))
+                    pos.setZ(tAttrs.value(KXMLQLCMonitorFixtureZPos).toString().toDouble());
                 setFixturePosition(fid, pos);
 
+#ifdef QMLUI
+                if (tAttrs.hasAttribute(KXMLQLCMonitorFixtureXRotation))
+                    rot.setX(tAttrs.value(KXMLQLCMonitorFixtureXRotation).toString().toDouble());
+                if (tAttrs.hasAttribute(KXMLQLCMonitorFixtureYRotation))
+                    rot.setY(tAttrs.value(KXMLQLCMonitorFixtureYRotation).toString().toDouble());
+                if (tAttrs.hasAttribute(KXMLQLCMonitorFixtureZRotation))
+                    rot.setZ(tAttrs.value(KXMLQLCMonitorFixtureZRotation).toString().toDouble());
+                setFixtureRotation(fid, rot);
+#else
                 if (tAttrs.hasAttribute(KXMLQLCMonitorFixtureRotation))
-                    setFixtureRotation(fid, tAttrs.value(KXMLQLCMonitorFixtureRotation).toString().toUShort());
-
+                {
+                    rot.setY(tAttrs.value(KXMLQLCMonitorFixtureRotation).toString().toDouble());
+                    setFixtureRotation(fid, rot);
+                }
+#endif
                 if (tAttrs.hasAttribute(KXMLQLCMonitorFixtureGelColor))
                     setFixtureGelColor(fid, QColor(tAttrs.value(KXMLQLCMonitorFixtureGelColor).toString()));
                 root.skipCurrentElement();
@@ -235,14 +254,25 @@ bool MonitorProperties::saveXML(QXmlStreamWriter *doc, const Doc *mainDocument) 
 
     foreach (quint32 fid, fixtureItemsID())
     {
-        QPointF pos = fixturePosition(fid);
+        QVector3D pos = fixturePosition(fid);
+        QVector3D rotation = fixtureRotation(fid);
+
         doc->writeStartElement(KXMLQLCMonitorFixtureItem);
         doc->writeAttribute(KXMLQLCMonitorFixtureID, QString::number(fid));
         doc->writeAttribute(KXMLQLCMonitorFixtureXPos, QString::number(pos.x()));
         doc->writeAttribute(KXMLQLCMonitorFixtureYPos, QString::number(pos.y()));
-        if (fixtureRotation(fid) != 0)
-            doc->writeAttribute(KXMLQLCMonitorFixtureRotation, QString::number(fixtureRotation(fid)));
-
+#ifdef QMLUI
+        doc->writeAttribute(KXMLQLCMonitorFixtureZPos, QString::number(pos.z()));
+        if (rotation.x() != 0)
+            doc->writeAttribute(KXMLQLCMonitorFixtureXRotation, QString::number(rotation.x()));
+        if (rotation.y() != 0)
+            doc->writeAttribute(KXMLQLCMonitorFixtureYRotation, QString::number(rotation.y()));
+        if (rotation.z() != 0)
+            doc->writeAttribute(KXMLQLCMonitorFixtureZRotation, QString::number(rotation.z()));
+#else
+        if (fixtureRotation(fid) != QVector3D(0, 0, 0))
+            doc->writeAttribute(KXMLQLCMonitorFixtureRotation, QString::number(rotation.y()));
+#endif
         QColor col = fixtureGelColor(fid);
         if (col.isValid())
             doc->writeAttribute(KXMLQLCMonitorFixtureGelColor, col.name());

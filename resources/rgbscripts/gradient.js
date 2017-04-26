@@ -53,7 +53,7 @@ var testAlgo;
       else if (_preset == "Ocean") algo.presetIndex = 3;
       else algo.presetIndex = 0;
       util.initialize();
-    }
+    };
     
     algo.getPreset = function()
     {
@@ -62,39 +62,39 @@ var testAlgo;
       else if (algo.presetIndex == 2) return "Abstract";
       else if (algo.presetIndex == 3) return "Ocean";
       else return "Rainbow";
-    }
+    };
     
     algo.setSize = function(_size)
     {
       algo.presetSize = _size;
       util.initialize();
-    }
+    };
     
     algo.getSize = function()
     {
       return algo.presetSize;
-    }
+    };
     
     algo.setOrientation = function(_orientation)
     {
       if (_orientation == "Vertical")
-	algo.orientation = 1;
+        algo.orientation = 1;
       else if (_orientation == "Radial")
-	algo.orientation = 2;
+        algo.orientation = 2;
       else
         algo.orientation = 0;
       util.initialize();
-    }
+    };
 
     algo.getOrientation = function()
     {
       if (algo.orientation == 1)
-	return "Vertical";
+        return "Vertical";
       else if (algo.orientation == 2)
-	return "Radial";
+        return "Radial";
       else
-	return "Horizontal";
-    }
+        return "Horizontal";
+    };
 
     util.initialize = function()
     {
@@ -104,82 +104,82 @@ var testAlgo;
       util.gradientData = new Array();
       for (var i = 0; i < util.presets[algo.presetIndex].length; i++)
       {
-	var sColor = util.presets[algo.presetIndex][i];
-	var eColor = util.presets[algo.presetIndex][i + 1];
-	if (eColor == undefined)
-	  eColor = util.presets[algo.presetIndex][0];
+        var sColor = util.presets[algo.presetIndex][i];
+        var eColor = util.presets[algo.presetIndex][i + 1];
+        if (eColor == undefined)
+          eColor = util.presets[algo.presetIndex][0];
 
-	util.gradientData[gradIdx++] = sColor;
-	var sr = (sColor >> 16) & 0x00FF;
-	var sg = (sColor >> 8) & 0x00FF;
-	var sb = sColor & 0x00FF;
-	var er = (eColor >> 16) & 0x00FF;
-	var eg = (eColor >> 8) & 0x00FF;
-	var eb = eColor & 0x00FF;
+        util.gradientData[gradIdx++] = sColor;
+        var sr = (sColor >> 16) & 0x00FF;
+        var sg = (sColor >> 8) & 0x00FF;
+        var sb = sColor & 0x00FF;
+        var er = (eColor >> 16) & 0x00FF;
+        var eg = (eColor >> 8) & 0x00FF;
+        var eb = eColor & 0x00FF;
 
-	var stepR = ((er - sr) / (algo.presetSize));
-	var stepG = ((eg - sg) / (algo.presetSize));
-	var stepB = ((eb - sb) / (algo.presetSize));
+        var stepR = ((er - sr) / (algo.presetSize));
+        var stepG = ((eg - sg) / (algo.presetSize));
+        var stepB = ((eb - sb) / (algo.presetSize));
 
-	for (var s = 1; s < algo.presetSize; s++)
-	{
-	  var gradR = Math.floor(sr + (stepR * s)) & 0x00FF;
-	  var gradG = Math.floor(sg + (stepG * s)) & 0x00FF;
-	  var gradB = Math.floor(sb + (stepB * s)) & 0x00FF;
-	  var gradRGB = (gradR << 16) + (gradG << 8) + gradB;
-	  util.gradientData[gradIdx++] = gradRGB;
-	}
+        for (var s = 1; s < algo.presetSize; s++)
+        {
+          var gradR = Math.floor(sr + (stepR * s)) & 0x00FF;
+          var gradG = Math.floor(sg + (stepG * s)) & 0x00FF;
+          var gradB = Math.floor(sb + (stepB * s)) & 0x00FF;
+          var gradRGB = (gradR << 16) + (gradG << 8) + gradB;
+          util.gradientData[gradIdx++] = gradRGB;
+        }
       }
       util.initialized = true;
-    }
+    };
 
     algo.rgbMap = function(width, height, rgb, step)
     {
-        if (util.initialized == false)
-	{
-	  util.initialize(width);
-	}
+      if (util.initialized == false)
+      {
+        util.initialize(width);
+      }
 
-	var gradStep = 0;
-	var map = new Array(height);
-	for (var y = 0; y < height; y++)
-	{
-	    map[y] = new Array();
+      var gradStep = 0;
+      var map = new Array(height);
+      for (var y = 0; y < height; y++)
+      {
+          map[y] = new Array();
 
-	    if (algo.orientation == 1)
-	      gradStep = step + y;
+          if (algo.orientation == 1)
+            gradStep = step + y;
 
-	    for (var x = 0; x < width; x++)
-	    {
-	      if (algo.orientation == 0)
-		gradStep = step + x;
-	      else if (algo.orientation == 2)
-	      {
-		var xdis = x - ((width-1)/2);
-		var ydis = y - ((height-1)/2);
-		gradStep = step + Math.round( Math.sqrt((xdis * xdis) + (ydis * ydis)));
-	      }
-	      if (gradStep >= util.gradientData.length)
-		gradStep = (gradStep % util.gradientData.length);
+          for (var x = 0; x < width; x++)
+          {
+            if (algo.orientation == 0)
+        gradStep = step + x;
+            else if (algo.orientation == 2)
+            {
+        var xdis = x - ((width-1)/2);
+        var ydis = y - ((height-1)/2);
+        gradStep = step + Math.round( Math.sqrt((xdis * xdis) + (ydis * ydis)));
+            }
+            if (gradStep >= util.gradientData.length)
+        gradStep = (gradStep % util.gradientData.length);
 
-	      map[y][x] = util.gradientData[gradStep];
-	    }
-	}
+            map[y][x] = util.gradientData[gradStep];
+          }
+      }
 
-	return map;
-    }
+      return map;
+    };
 
     algo.rgbMapStepCount = function(width, height)
     {
-	if (util.initialized == false)
-	  util.initialize();
+      if (util.initialized == false)
+        util.initialize();
 
-        return util.gradientData.length;
-    }
+      return util.gradientData.length;
+    };
 
     // Development tool access
     testAlgo = algo;
 
     return algo;
   }
-)()
+)();

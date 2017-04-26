@@ -91,7 +91,6 @@ private:
     VCSpeedDialPreset* getSelectedPreset();
     void addPreset(VCSpeedDialPreset* control);
     void removePreset(quint8 id);
-    void updatePresetInputSource(QSharedPointer<QLCInputSource> const& source);
 
 protected slots:
     void slotTreeSelectionChanged();
@@ -100,16 +99,13 @@ protected slots:
     void slotPresetNameEdited(QString const& newName);
     void slotSpeedDialWidgetValueChanged(int ms);
 
-    void slotAutoDetectPresetInputToggled(bool checked);
-    void slotPresetInputValueChanged(quint32 universe, quint32 channel);
-    void slotChoosePresetInputClicked();
-
-    void slotAttachPresetKey();
-    void slotDetachPresetKey();
+    void slotInputValueChanged(quint32 universe, quint32 channel);
+    void slotKeySequenceChanged(QKeySequence key);
 
 protected:
     quint8 m_lastAssignedID;
     QList<VCSpeedDialPreset*> m_presets;
+    InputSelectionWidget *m_presetInputWidget;
 };
 
 /** @} */

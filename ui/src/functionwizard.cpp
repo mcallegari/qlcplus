@@ -199,7 +199,7 @@ void FunctionWizard::addFixture(quint32 fxi_id)
 
         QTreeWidgetItem* item = new QTreeWidgetItem(groupItem);
         item->setText(KFixtureColumnName, fxi->name());
-        item->setIcon(KFixtureColumnName, fxi->getIconFromType(fxi->type()));
+        item->setIcon(KFixtureColumnName, fxi->getIconFromType());
         item->setData(KFixtureColumnName, Qt::UserRole, fxi_id);
         item->setText(KFixtureColumnCaps, caps.join(", "));
     }
@@ -338,20 +338,20 @@ void FunctionWizard::updateAvailableFunctionsTree()
             this, SLOT(slotFunctionItemChanged(QTreeWidgetItem*,int)));
 }
 
-QTreeWidgetItem *FunctionWizard::getFunctionGroupItem(Function::Type type)
+QTreeWidgetItem *FunctionWizard::getFunctionGroupItem(const Function *func)
 {
     for (int i = 0; i < m_resFuncsTree->topLevelItemCount(); i++)
     {
         QTreeWidgetItem *item = m_resFuncsTree->topLevelItem(i);
         int grpType = item->data(KFunctionName, Qt::UserRole).toInt();
-        if (grpType == type)
+        if (grpType == func->type())
             return item;
     }
     // if we're here then the group doesn't exist. Create it
     QTreeWidgetItem* newGrp = new QTreeWidgetItem(m_resFuncsTree);
-    newGrp->setText(KFixtureColumnName, Function::typeToString(type));
-    newGrp->setIcon(KFixtureColumnName, Function::typeToIcon(type));
-    newGrp->setData(KFunctionName, Qt::UserRole, type);
+    newGrp->setText(KFixtureColumnName, Function::typeToString(func->type()));
+    newGrp->setIcon(KFixtureColumnName, func->getIcon());
+    newGrp->setData(KFunctionName, Qt::UserRole, func->type());
     newGrp->setExpanded(true);
     return newGrp;
 }
@@ -399,21 +399,21 @@ void FunctionWizard::updateResultFunctionsTree()
 
                 foreach(Scene *scene, palette->scenes())
                 {
-                    QTreeWidgetItem *item = new QTreeWidgetItem(getFunctionGroupItem(Function::Scene));
+                    QTreeWidgetItem *item = new QTreeWidgetItem(getFunctionGroupItem(scene));
                     item->setText(KFunctionName, scene->name());
-                    item->setIcon(KFunctionName, Function::typeToIcon(Function::Scene));
+                    item->setIcon(KFunctionName, scene->getIcon());
                 }
                 foreach(Chaser *chaser, palette->chasers())
                 {
-                    QTreeWidgetItem *item = new QTreeWidgetItem(getFunctionGroupItem(Function::Chaser));
+                    QTreeWidgetItem *item = new QTreeWidgetItem(getFunctionGroupItem(chaser));
                     item->setText(KFunctionName, chaser->name());
-                    item->setIcon(KFunctionName, Function::typeToIcon(Function::Chaser));
+                    item->setIcon(KFunctionName, chaser->getIcon());
                 }
                 foreach(RGBMatrix *matrix, palette->matrices())
                 {
-                    QTreeWidgetItem *item = new QTreeWidgetItem(getFunctionGroupItem(Function::RGBMatrix));
+                    QTreeWidgetItem *item = new QTreeWidgetItem(getFunctionGroupItem(matrix));
                     item->setText(KFunctionName, matrix->name());
-                    item->setIcon(KFunctionName, Function::typeToIcon(Function::RGBMatrix));
+                    item->setIcon(KFunctionName, matrix->getIcon());
                 }
             }
         }
@@ -606,7 +606,7 @@ VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int
 
     if (widget != NULL && func != NULL)
     {
-        if (func->type() == Function::Scene && type == VCWidget::ButtonWidget)
+        if (func->type() == Function::SceneType && type == VCWidget::ButtonWidget)
         {
             Scene *scene = qobject_cast<Scene*> (func);
 

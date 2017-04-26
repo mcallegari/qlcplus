@@ -86,7 +86,7 @@ protected:
     void updateAvailableFunctionsTree();
 
     /** Create or retrieve an existing item to group functions of the same type */
-    QTreeWidgetItem *getFunctionGroupItem(Function::Type type);
+    QTreeWidgetItem *getFunctionGroupItem(const Function *func);
 
     /** Populate the result functions tree based on selected preset functions */
     void updateResultFunctionsTree();

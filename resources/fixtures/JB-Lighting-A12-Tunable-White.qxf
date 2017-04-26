@@ -425,33 +425,27 @@
   <Channel Number="35">Warm White - 4. Ring (Right Half Ring - F)</Channel>
   <Head>
    <Channel>14</Channel>
-   <Channel>6</Channel>
    <Channel>15</Channel>
   </Head>
   <Head>
    <Channel>19</Channel>
    <Channel>18</Channel>
-   <Channel>6</Channel>
   </Head>
   <Head>
    <Channel>23</Channel>
    <Channel>22</Channel>
-   <Channel>6</Channel>
   </Head>
   <Head>
-   <Channel>6</Channel>
    <Channel>27</Channel>
    <Channel>26</Channel>
   </Head>
   <Head>
-   <Channel>6</Channel>
    <Channel>31</Channel>
    <Channel>30</Channel>
   </Head>
   <Head>
    <Channel>35</Channel>
    <Channel>34</Channel>
-   <Channel>6</Channel>
   </Head>
  </Mode>
 </FixtureDefinition>

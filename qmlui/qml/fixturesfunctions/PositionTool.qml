@@ -75,37 +75,19 @@ Rectangle
         }
     }
 
-    Rectangle
+    IconButton
     {
         id: rotateButton
         x: parent.width - width
         y: posToolBar.height
-        width: UISettings.iconSizeDefault
-        height: width
         z: 2
-
-        radius: 3
-        color: rotMouseArea.pressed ? UISettings.bgLight : UISettings.bgMedium
-        border.color: "#666"
-        border.width: 2
-
-        Image
+        imgSource: "qrc:/rotate-right.svg"
+        tooltip: qsTr("Rotate 90° clockwise")
+        onClicked:
         {
-            anchors.fill: parent
-            source: "qrc:/rotate-right.svg"
-            sourceSize: Qt.size(width, height)
-        }
-        MouseArea
-        {
-            id: rotMouseArea
-            anchors.fill: parent
-
-            onClicked:
-            {
-                gCanvas.rotation += 90
-                if (gCanvas.rotation == 360)
-                    gCanvas.rotation = 0
-            }
+            gCanvas.rotation += 90
+            if (gCanvas.rotation == 360)
+                gCanvas.rotation = 0
         }
     }
 
@@ -117,39 +99,37 @@ Rectangle
         x: 10
         y: posToolBar.height + 5
         rotation: 0
-
         antialiasing: true
+        contextType: "2d"
 
         onPaint:
         {
-            var ctx = gCanvas.getContext('2d');
-            //ctx.save();
-            ctx.globalAlpha = 1.0;
-            ctx.fillStyle = "#111";
-            ctx.lineWidth = 1;
+            context.globalAlpha = 1.0
+            context.fillStyle = "#111"
+            context.lineWidth = 1
 
-            ctx.fillRect(0, 0, width, height)
+            context.fillRect(0, 0, width, height)
             // draw head basement
-            DrawFuncs.drawBasement(ctx, width, height);
+            DrawFuncs.drawBasement(context, width, height)
 
-            ctx.lineWidth = 5;
+            context.lineWidth = 5
             // draw TILT curve
-            ctx.strokeStyle = "#2E77FF";
-            DrawFuncs.drawEllipse(ctx, width / 2, height / 2, UISettings.iconSizeDefault, height - 30)
+            context.strokeStyle = "#2E77FF"
+            DrawFuncs.drawEllipse(context, width / 2, height / 2, UISettings.iconSizeDefault, height - 30)
             // draw PAN curve
-            ctx.strokeStyle = "#19438F"
-            DrawFuncs.drawEllipse(ctx, width / 2, height / 2, width - 30, UISettings.iconSizeDefault)
+            context.strokeStyle = "#19438F"
+            DrawFuncs.drawEllipse(context, width / 2, height / 2, width - 30, UISettings.iconSizeDefault)
 
-            ctx.lineWidth = 1;
-            ctx.strokeStyle = "white";
+            context.lineWidth = 1
+            context.strokeStyle = "white"
 
             // draw TILT cursor position
-            ctx.fillStyle = "red";
-            DrawFuncs.drawCursor(ctx, width / 2, height / 2, UISettings.iconSizeDefault, height - 30, tiltDegrees + 135, UISettings.iconSizeMedium / 2)
+            context.fillStyle = "red"
+            DrawFuncs.drawCursor(context, width / 2, height / 2, UISettings.iconSizeDefault, height - 30, tiltDegrees + 135, UISettings.iconSizeMedium / 2)
 
             // draw PAN cursor position
-            ctx.fillStyle = "green";
-            DrawFuncs.drawCursor(ctx, width / 2, height / 2, width - 30, UISettings.iconSizeDefault, panDegrees + 90, UISettings.iconSizeMedium / 2)
+            context.fillStyle = "green"
+            DrawFuncs.drawCursor(context, width / 2, height / 2, width - 30, UISettings.iconSizeDefault, panDegrees + 90, UISettings.iconSizeMedium / 2)
         }
 
         MouseArea
@@ -182,7 +162,6 @@ Rectangle
                         tiltSpinBox.value--
                 }
             }
-
         }
     }
 
@@ -206,8 +185,8 @@ Rectangle
         {
             id: panSpinBox
             Layout.fillWidth: true
-            minimumValue: 0
-            maximumValue: panMaxDegrees
+            from: 0
+            to: panMaxDegrees
             value: 0
             suffix: "°"
 
@@ -228,8 +207,8 @@ Rectangle
         {
             id: tiltSpinBox
             Layout.fillWidth: true
-            minimumValue: 0
-            maximumValue: tiltMaxDegrees
+            from: 0
+            to: tiltMaxDegrees
             value: 0
             suffix: "°"
 

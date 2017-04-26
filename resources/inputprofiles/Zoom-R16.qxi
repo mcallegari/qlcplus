@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE InputProfile>
+<InputProfile xmlns="http://www.qlcplus.org/InputProfile">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.5</Version>
+  <Author>Benedict Stein</Author>
+ </Creator>
+ <Manufacturer>Zoom</Manufacturer>
+ <Model>R16</Model>
+ <Type>MIDI</Type>
+ <MIDISendNoteOff>False</MIDISendNoteOff>
+ <Channel Number="60">
+  <Name>Spinwheel</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="20"/>
+ </Channel>
+ <Channel Number="128">
+  <Name>01-Rec</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="129">
+  <Name>02-Rec</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="130">
+  <Name>03-Rec</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="131">
+  <Name>04-Rec</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="132">
+  <Name>05-Rec</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="133">
+  <Name>06-Rec</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="134">
+  <Name>07-Rec</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="135">
+  <Name>08-Rec</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="136">
+  <Name>01-Solo</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="137">
+  <Name>02-Solo</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="138">
+  <Name>03-Solo</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="139">
+  <Name>04-Solo</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="140">
+  <Name>05-Solo</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="141">
+  <Name>06-Solo</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="142">
+  <Name>07-Solo</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="143">
+  <Name>08-Solo</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="144">
+  <Name>01-Mute</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="145">
+  <Name>02-Mute</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="146">
+  <Name>03-Mute</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="147">
+  <Name>04-Mute</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="148">
+  <Name>05-Mute</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="149">
+  <Name>06-Mute</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="150">
+  <Name>07-Mute</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="151">
+  <Name>08-Mute</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="174">
+  <Name>1-8Tr</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="175">
+  <Name>9-16Tr</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="182">
+  <Name>F1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="183">
+  <Name>F2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="184">
+  <Name>F3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="185">
+  <Name>F4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="186">
+  <Name>F5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="219">
+  <Name>Recording-Rew</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="220">
+  <Name>Recording-FF</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="221">
+  <Name>Recording-Stop</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="222">
+  <Name>Recording-Play</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="223">
+  <Name>Recording-Rec</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="224">
+  <Name>Arrow-Up</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="225">
+  <Name>Arrow-Down</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="226">
+  <Name>Arrow-Left</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="227">
+  <Name>Arrow-Right</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="513">
+  <Name>Fader 1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="4609">
+  <Name>Fader 2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="8705">
+  <Name>Fader 3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="12801">
+  <Name>Fader 4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="16897">
+  <Name>Fader 5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="20993">
+  <Name>Fader 6</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="25089">
+  <Name>Fader 7</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="29185">
+  <Name>Fader 8</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="33281">
+  <Name>Fader - Master</Name>
+  <Type>Slider</Type>
+ </Channel>
+</InputProfile>

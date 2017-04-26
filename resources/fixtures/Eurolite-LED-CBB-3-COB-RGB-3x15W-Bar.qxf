@@ -227,19 +227,16 @@
   <Channel Number="12">Strobe</Channel>
   <Channel Number="13">Dimmer Speed</Channel>
   <Head>
-   <Channel>11</Channel>
    <Channel>2</Channel>
    <Channel>0</Channel>
    <Channel>1</Channel>
   </Head>
   <Head>
-   <Channel>11</Channel>
    <Channel>3</Channel>
    <Channel>4</Channel>
    <Channel>5</Channel>
   </Head>
   <Head>
-   <Channel>11</Channel>
    <Channel>8</Channel>
    <Channel>6</Channel>
    <Channel>7</Channel>

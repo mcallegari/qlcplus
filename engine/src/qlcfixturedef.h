@@ -87,6 +87,22 @@ public:
      * Fixture information
      *********************************************************************/
 public:
+    enum FixtureType
+    {
+        ColorChanger,
+        Dimmer,
+        Effect,
+        Fan,
+        Flower,
+        Hazer,
+        Laser,
+        MovingHead,
+        Scanner,
+        Smoke,
+        Strobe,
+        LEDBar,
+        Other
+    };
 
     /** Get the temporary definition file absolute path */
     QString definitionSourceFile() const;
@@ -109,11 +125,17 @@ public:
     /** Get the fixture's model string */
     QString model() const;
 
-    /** Set the fixture's type string */
-    void setType(const QString& type);
+    /** Set the fixture's type */
+    void setType(const FixtureType type);
 
-    /** Get the fixture's type string */
-    QString type();
+    /** Get the fixture's type */
+    FixtureType type();
+
+    /** Convert a fixture type to string */
+    static QString typeToString(FixtureType type);
+
+    /** Convert string into a fixture type */
+    static FixtureType stringToType(const QString &type);
 
     /** Set the definition's author */
     void setAuthor(const QString& author);
@@ -129,7 +151,7 @@ protected:
     QString m_defFileAbsolutePath;
     QString m_manufacturer;
     QString m_model;
-    QString m_type;
+    FixtureType m_type;
     QString m_author;
 
     /*********************************************************************

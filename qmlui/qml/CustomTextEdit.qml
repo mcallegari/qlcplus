@@ -52,6 +52,18 @@ Rectangle
         ctEdit.forceActiveFocus()
     }
 
+    function appendText(text)
+    {
+        if (ctEdit.selectedText)
+        {
+            var sIdx = ctEdit.selectionStart
+            ctEdit.remove(sIdx, ctEdit.selectionEnd)
+            ctEdit.insert(sIdx, text)
+        }
+        else
+            ctEdit.text += text
+    }
+
     border.color: "#222"
 
     onFocusChanged: if (focus) selectAndFocus()

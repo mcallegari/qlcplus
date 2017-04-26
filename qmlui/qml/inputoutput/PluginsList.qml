@@ -64,8 +64,6 @@ Rectangle
                     drag.target: pluginItem
                     drag.threshold: height / 2
 
-                    onPressed: pluginItem.color = "#444"
-
                     onReleased:
                     {
                         if (pluginItem.Drag.target !== null)
@@ -96,6 +94,7 @@ Rectangle
                     {
                         id: pluginItem
                         x: 3
+                        color: delegateRoot.pressed ? "#444" : "transparent"
 
                         // this key must match the one in UniverseIOItem, to avoid dragging
                         // an input plugin on output and vice-versa

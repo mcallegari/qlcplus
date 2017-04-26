@@ -30,11 +30,13 @@
 
 quint32 QLCInputSource::invalidUniverse = UINT_MAX;
 quint32 QLCInputSource::invalidChannel = UINT_MAX;
+quint32 QLCInputSource::invalidID = UINT_MAX;
 
 QLCInputSource::QLCInputSource(QThread *parent)
     : QThread(parent)
     , m_universe(invalidUniverse)
     , m_channel(invalidChannel)
+    , m_id(invalidID)
     , m_lower(0)
     , m_upper(255)
     , m_workingMode(Absolute)
@@ -107,6 +109,16 @@ void QLCInputSource::setPage(ushort pgNum)
 ushort QLCInputSource::page() const
 {
     return (ushort)(m_channel >> 16);
+}
+
+void QLCInputSource::setID(quint32 id)
+{
+    m_id = id;
+}
+
+quint32 QLCInputSource::id() const
+{
+    return m_id;
 }
 
 void QLCInputSource::setRange(uchar lower, uchar upper)

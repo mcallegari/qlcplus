@@ -29,10 +29,11 @@ Rectangle
     border.color: "#222"
     border.width: 2
 
+    property int colorsMask: 0
     property color selectedColor
     property int cellSize: width / 9
 
-    signal colorChanged(real r, real g, real b, real white, real amber, real uv)
+    signal colorChanged(real r, real g, real b, int w, int a, int uv)
     signal released()
 
     onSelectedColorChanged:

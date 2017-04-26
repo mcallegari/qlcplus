@@ -173,7 +173,7 @@
   <Capability Min="240" Max="255">Random Iris Effect</Capability>
  </Channel>
  <Channel Name="Focus Fine">
-  <Group Byte="0">Effect</Group>
+  <Group Byte="1">Effect</Group>
   <Capability Min="0" Max="255">Fine movement control </Capability>
  </Channel>
  <Mode Name="Advanced">

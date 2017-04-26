@@ -74,6 +74,7 @@ private:
     QMutex m_mutex;
     QMap <QPair<quint32,quint32>,uchar> m_values;
     bool m_outputEnabled;
+    bool m_clearRequest;
 };
 
 /** @} */

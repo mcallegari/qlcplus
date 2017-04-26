@@ -54,7 +54,7 @@
  *****************************************************************************/
 
 Audio::Audio(Doc* doc)
-  : Function(doc, Function::Audio)
+  : Function(doc, Function::AudioType)
   , m_doc(doc)
   , m_decoder(NULL)
   , m_audio_out(NULL)
@@ -66,6 +66,7 @@ Audio::Audio(Doc* doc)
   , m_audioDuration(0)
 {
     setName(tr("New Audio"));
+    setRunOrder(Audio::SingleShot);
 
     // Listen to member Function removals
     connect(doc, SIGNAL(functionRemoved(quint32)),
@@ -81,6 +82,11 @@ Audio::~Audio()
     }
     if (m_decoder != NULL)
         delete m_decoder;
+}
+
+QIcon Audio::getIcon() const
+{
+    return QIcon(":/audio.png");
 }
 
 /*****************************************************************************
@@ -200,7 +206,7 @@ QString Audio::getSourceFileName()
     return m_sourceFileName;
 }
 
-AudioDecoder* Audio::getAudioDecoder()
+AudioDecoder *Audio::getAudioDecoder()
 {
     return m_decoder;
 }
@@ -257,7 +263,11 @@ bool Audio::saveXML(QXmlStreamWriter *doc)
     /* Speeds */
     m_speeds.saveXML(doc);
 
+    /* Playback mode */
+    saveXMLRunOrder(doc);
+
     doc->writeStartElement(KXMLQLCAudioSource);
+
     if (m_audioDevice.isEmpty() == false)
         doc->writeAttribute(KXMLQLCAudioDevice, m_audioDevice);
 
@@ -279,7 +289,7 @@ bool Audio::loadXML(QXmlStreamReader &root)
         return false;
     }
 
-    if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::Audio))
+    if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::AudioType))
     {
         qWarning() << Q_FUNC_INFO << root.attributes().value(KXMLQLCFunctionType).toString()
                    << "is not Audio";
@@ -306,6 +316,10 @@ bool Audio::loadXML(QXmlStreamReader &root)
         else if (root.name() == KXMLQLCFunctionSpeeds)
         {
             m_speeds.loadXML(root);
+        }
+        else if (root.name() == KXMLQLCFunctionRunOrder)
+        {
+            loadXMLRunOrder(root);
         }
         else
         {
@@ -349,6 +363,7 @@ void Audio::preRun(MasterTimer* timer)
         m_audio_out->initialize(ap.sampleRate(), ap.channels(), ap.format());
         m_audio_out->adjustIntensity(getAttributeValue(Intensity));
         m_audio_out->setFadeIn(m_speeds.fadeIn());
+        m_audio_out->setLooped(runOrder() == Audio::Loop);
         m_audio_out->start();
         connect(m_audio_out, SIGNAL(endOfStreamReached()),
                 this, SLOT(slotEndOfStream()));
@@ -361,10 +376,13 @@ void Audio::setPause(bool enable)
 {
     if (isRunning())
     {
-        if (enable)
-            m_audio_out->suspend();
-        else
-            m_audio_out->resume();
+        if (m_audio_out != NULL)
+        {
+            if (enable)
+                m_audio_out->suspend();
+            else
+                m_audio_out->resume();
+        }
 
         Function::setPause(enable);
     }

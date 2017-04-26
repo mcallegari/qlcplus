@@ -195,10 +195,12 @@ void EditChannel::setupCapabilityGroup()
     m_maxSpin->blockSignals(true);
     m_descriptionEdit->blockSignals(true);
 
-    m_minSpin->setValue(m_currentCapability->min());
-    m_maxSpin->setValue(m_currentCapability->max());
     m_minSpin->setRange(0, m_currentCapability->max());
     m_maxSpin->setRange(m_currentCapability->min(), 255);
+
+    m_minSpin->setValue(m_currentCapability->min());
+    m_maxSpin->setValue(m_currentCapability->max());
+
     m_descriptionEdit->setText(m_currentCapability->name());
     m_descriptionEdit->setValidator(CAPS_VALIDATOR(this));
     m_minSpin->setFocus();
@@ -318,6 +320,7 @@ void EditChannel::slotAddCapabilityClicked()
         delete newCapability;
         return;
     }
+
     m_currentCapability = newCapability;
     refreshCapabilities();
     m_capabilityList->setCurrentItem(m_capabilityList->topLevelItem(idx));
@@ -369,11 +372,11 @@ void EditChannel::slotEditCapabilityClicked()
 
 void EditChannel::slotWizardClicked()
 {
-    bool overlap = false;
-
     CapabilityWizard cw(this, m_channel);
+
     if (cw.exec() == QDialog::Accepted)
     {
+        bool overlap = false;
         QListIterator <QLCCapability*> it(cw.capabilities());
         while (it.hasNext() == true)
         {
@@ -508,8 +511,6 @@ void EditChannel::refreshCapabilities()
     m_channel->sortCapabilities();
 
     QListIterator <QLCCapability*> it(m_channel->capabilities());
-    QLCCapability* cap = NULL;
-    QTreeWidgetItem* item = NULL;
     QString str;
 
     m_capabilityList->clear();
@@ -519,9 +520,8 @@ void EditChannel::refreshCapabilities()
     /* Fill capabilities */
     while (it.hasNext() == true)
     {
-        cap = it.next();
-
-        item = new QTreeWidgetItem(m_capabilityList);
+        QLCCapability *cap = it.next();
+        QTreeWidgetItem *item = new QTreeWidgetItem(m_capabilityList);
 
         // Min
         str.sprintf("%.3d", cap->min());

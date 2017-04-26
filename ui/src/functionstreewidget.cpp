@@ -48,19 +48,11 @@ void FunctionsTreeWidget::updateTree()
 
     clearTree();
 
-    // these need their parent scene to be loaded first
-    QList<Function*> sequences;
-
     foreach (Function* function, m_doc->functions())
     {
-        if (function->type() == Function::Chaser && qobject_cast<Chaser*>(function)->isSequence() == true)
-            sequences.append(function);
-        else
+        if (function->isVisible())
             updateFunctionItem(new QTreeWidgetItem(parentItem(function)), function);
     }
-
-    foreach (Function* function, sequences)
-        updateFunctionItem(new QTreeWidgetItem(parentItem(function)), function);
 
     blockSignals(false);
 }
@@ -91,7 +83,7 @@ void FunctionsTreeWidget::functionNameChanged(quint32 fid)
 QTreeWidgetItem *FunctionsTreeWidget::addFunction(quint32 fid)
 {
     Function* function = m_doc->function(fid);
-    if (function == NULL)
+    if (function == NULL || function->isVisible() == false)
         return NULL;
 
     QTreeWidgetItem* item = functionItem(function);
@@ -113,7 +105,7 @@ void FunctionsTreeWidget::updateFunctionItem(QTreeWidgetItem* item, const Functi
     Q_ASSERT(item != NULL);
     Q_ASSERT(function != NULL);
     item->setText(COL_NAME, function->name());
-    item->setIcon(COL_NAME, functionIcon(function));
+    item->setIcon(COL_NAME, function->getIcon());
     item->setData(COL_NAME, Qt::UserRole, function->id());
     item->setData(COL_NAME, Qt::UserRole + 1, function->type());
     item->setFlags(item->flags() & ~Qt::ItemIsDropEnabled);
@@ -123,27 +115,8 @@ QTreeWidgetItem* FunctionsTreeWidget::parentItem(const Function* function)
 {
     Q_ASSERT(function != NULL);
 
-    // Special case for Sequences. They belong to a Scene node
-    if (function->type() == Function::Chaser && qobject_cast<const Chaser*>(function)->isSequence() == true)
-    {
-        quint32 sid = qobject_cast<const Chaser*>(function)->getBoundSceneID();
-        Function *sceneFunc = m_doc->function(sid);
-        if (sceneFunc != NULL)
-        {
-            QTreeWidgetItem *sceneTopItem = folderItem(sceneFunc->path());
-            if (sceneTopItem != NULL)
-            {
-                for (int i = 0; i < sceneTopItem->childCount(); i++)
-                {
-                    QTreeWidgetItem *child = sceneTopItem->child(i);
-                    Q_ASSERT(child != NULL);
-
-                    if (sid == itemFunctionId(child))
-                        return child;
-                }
-            }
-        }
-    }
+    if (function->isVisible() == false)
+        return NULL;
 
     QString basePath = Function::typeToString(function->type());
     if (m_foldersMap.contains(QString(basePath + "/")) == false)
@@ -151,7 +124,7 @@ QTreeWidgetItem* FunctionsTreeWidget::parentItem(const Function* function)
         // Parent item for the given type doesn't exist yet so create one
         QTreeWidgetItem* item = new QTreeWidgetItem(this);
         item->setText(COL_NAME, basePath);
-        item->setIcon(COL_NAME, functionIcon(function));
+        item->setIcon(COL_NAME, function->getIcon());
         item->setData(COL_NAME, Qt::UserRole, Function::invalidId());
         item->setData(COL_NAME, Qt::UserRole + 1, function->type());
         item->setText(COL_PATH, QString(basePath + "/"));
@@ -188,6 +161,9 @@ QTreeWidgetItem* FunctionsTreeWidget::functionItem(const Function* function)
 {
     Q_ASSERT(function != NULL);
 
+    if (function->isVisible() == false)
+        return NULL;
+
     QTreeWidgetItem* parent = parentItem(function);
     Q_ASSERT(parent != NULL);
 
@@ -196,30 +172,9 @@ QTreeWidgetItem* FunctionsTreeWidget::functionItem(const Function* function)
         QTreeWidgetItem* item = parent->child(i);
         if (itemFunctionId(item) == function->id())
             return item;
-        // Sequences are in a further sublevel. Check if there is any
-        if (item->childCount() > 0)
-        {
-            for (int j = 0; j < item->childCount(); j++)
-            {
-                QTreeWidgetItem* seqItem = item->child(j);
-                if (itemFunctionId(seqItem) == function->id())
-                    return item;
-            }
-        }
     }
 
     return NULL;
-}
-
-QIcon FunctionsTreeWidget::functionIcon(const Function* function) const
-{
-    if (function->type() == Function::Chaser)
-    {
-        if (qobject_cast<const Chaser*>(function)->isSequence() == true)
-            return QIcon(":/sequence.png");
-    }
-
-    return Function::typeToIcon(function->type());
 }
 
 /*********************************************************************
@@ -447,19 +402,6 @@ void FunctionsTreeWidget::dropEvent(QDropEvent *event)
             Function *func = m_doc->function(fid);
             if (func != NULL)
                 func->setPath(dropItem->text(COL_PATH));
-            // if item is a Scene with Sequence children attached,
-            // set the new path of children too
-            if (item->childCount() > 0)
-            {
-                for (int i = 0; i < item->childCount(); i++)
-                {
-                    QTreeWidgetItem *child = item->child(i);
-                    quint32 childFID = child->data(COL_NAME, Qt::UserRole).toUInt();
-                    Function *childFunc = m_doc->function(childFID);
-                    if (childFunc != NULL)
-                        childFunc->setPath(dropItem->text(COL_PATH));
-                }
-            }
         }
         else
         {

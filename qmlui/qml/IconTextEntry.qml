@@ -33,28 +33,10 @@ Rectangle
     property string tLabel
     property int tFontSize: UISettings.textSizeDefault
     property int functionType: -1
+    property string faSource: ""
+    property color faColor: "#222"
 
-    onFunctionTypeChanged:
-    {
-        if (functionType == -1)
-        {
-            iSrc = ""
-            return
-        }
-
-        switch (functionType)
-        {
-            case Function.Scene: iSrc = "qrc:/scene.svg"; break;
-            case Function.Chaser: iSrc = "qrc:/chaser.svg"; break;
-            case Function.EFX: iSrc = "qrc:/efx.svg"; break;
-            case Function.Collection: iSrc = "qrc:/collection.svg"; break;
-            case Function.Script: iSrc = "qrc:/script.svg"; break;
-            case Function.RGBMatrix: iSrc = "qrc:/rgbmatrix.svg"; break;
-            case Function.Show: iSrc = "qrc:/showmanager.svg"; break;
-            case Function.Audio: iSrc = "qrc:/audio.svg"; break;
-            case Function.Video: iSrc = "qrc:/video.svg"; break;
-        }
-    }
+    onFunctionTypeChanged: iSrc = functionManager.functionIcon(functionType)
 
     RowLayout
     {
@@ -63,10 +45,21 @@ Rectangle
 
         Image
         {
+            visible: iSrc ? true : false
             source: iSrc
             height: parent.height - 4
             width: height
             sourceSize: Qt.size(width, height)
+        }
+
+        Text
+        {
+            id: faIcon
+            visible: faSource ? true : false
+            color: faColor
+            font.family: "FontAwesome"
+            font.pixelSize: parent.height - 4
+            text: faSource
         }
 
         RobotoText

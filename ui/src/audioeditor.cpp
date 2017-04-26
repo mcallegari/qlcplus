@@ -106,6 +106,16 @@ AudioEditor::AudioEditor(QWidget* parent, Audio *audio, Doc* doc)
     connect(m_audioDevCombo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(slotAudioDeviceChanged(int)));
 
+    if(m_audio->runOrder() == Audio::Loop)
+        m_loopCheck->setChecked(true);
+    else
+        m_singleCheck->setChecked(true);
+
+    connect(m_loopCheck, SIGNAL(clicked()),
+            this, SLOT(slotLoopCheckClicked()));
+    connect(m_singleCheck, SIGNAL(clicked()),
+            this, SLOT(slotSingleShotCheckClicked()));
+
     // Set focus to the editor
     m_nameEdit->setFocus();
 }
@@ -224,6 +234,16 @@ void AudioEditor::slotPreviewStopped(quint32 id)
 {
     if (id == m_audio->id())
         m_previewButton->setChecked(false);
+}
+
+void AudioEditor::slotSingleShotCheckClicked()
+{
+    m_audio->setRunOrder(Audio::SingleShot);
+}
+
+void AudioEditor::slotLoopCheckClicked()
+{
+    m_audio->setRunOrder(Audio::Loop);
 }
 
 FunctionParent AudioEditor::functionParent() const

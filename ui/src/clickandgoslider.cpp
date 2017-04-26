@@ -19,10 +19,12 @@
 
 #include "clickandgoslider.h"
 #include <QStyleOptionSlider>
+#include <QPainter>
 #include <QStyle>
 
 ClickAndGoSlider::ClickAndGoSlider(QWidget *parent) : QSlider(parent)
 {
+    m_shadowLevel = -1;
 }
 
 void ClickAndGoSlider::setSliderStyleSheet(const QString &styleSheet)
@@ -33,7 +35,13 @@ void ClickAndGoSlider::setSliderStyleSheet(const QString &styleSheet)
         m_styleSheet = styleSheet;
 }
 
-void ClickAndGoSlider::mousePressEvent ( QMouseEvent * event )
+void ClickAndGoSlider::setShadowLevel(int level)
+{
+    m_shadowLevel = level;
+    update();
+}
+
+void ClickAndGoSlider::mousePressEvent(QMouseEvent *event)
 {
     if (event->modifiers() == Qt::ControlModifier)
     {
@@ -62,6 +70,23 @@ void ClickAndGoSlider::mousePressEvent ( QMouseEvent * event )
         event->accept();
     }
     QSlider::mousePressEvent(event);
+}
+
+void ClickAndGoSlider::paintEvent(QPaintEvent *ev)
+{
+    if (m_shadowLevel >= 0)
+    {
+        QPainter p(this);
+        int levHeight = ((float)height() / 255.0) * m_shadowLevel;
+        p.drawRect(width() - 6, 0, width(), height());
+        p.fillRect(width() - 5, 0, width() - 1, height(), QColor(Qt::darkGray));
+        if (invertedAppearance())
+            p.fillRect(width() - 5, 0, width() - 1, levHeight, QColor(Qt::green));
+        else
+            p.fillRect(width() - 5, height() - levHeight, width() - 1, height(), QColor(Qt::green));
+    }
+
+    QSlider::paintEvent(ev);
 }
 
 void ClickAndGoSlider::showEvent(QShowEvent *)

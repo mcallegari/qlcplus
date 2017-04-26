@@ -26,15 +26,15 @@ var universeIndex, address, channels, quantity, gap;
 
 function initProperties()
 {
-    manufacturer = fxPropsRect.fxManufacturer
-    model = fxPropsRect.fxModel
-    mode = fxPropsRect.fxMode
-    name = fxPropsRect.fxName
-    universeIndex = fxPropsRect.fxUniverseIndex
-    address = fxPropsRect.fxAddress - 1
-    channels = fxPropsRect.fxChannels
-    quantity = fxPropsRect.fxQuantity
-    gap = fxPropsRect.fxGap
+    manufacturer = fixtureBrowser.selectedManufacturer;
+    model = fixtureBrowser.selectedModel;
+    mode = fixtureBrowser.selectedMode;
+    name = fixtureBrowser.fixtureName;
+    universeIndex = fxPropsRect.fxUniverseIndex;
+    address = fxPropsRect.fxAddress - 1;
+    channels = fixtureBrowser.modeChannelsCount;
+    quantity = fxPropsRect.fxQuantity;
+    gap = fxPropsRect.fxGap;
     console.log("mf: " + manufacturer + ", mdl: " + model + ", mode: " + mode);
     console.log("addr: " + address + ", ch: " + channels);
 }
@@ -90,18 +90,15 @@ function endDrag(mouse)
         return;
 
     var currContext = previewLoader.item.contextName;
-    console.log("Current context: " + currContext)
-    var x = 0;
-    var y = 0;
-    if (currContext === "2D")
-    {
-        x = draggedItem.x - leftSidePanel.width;
-        y = draggedItem.y - previewLoader.y - viewToolbar.height
-    }
+    console.log("Current context: " + currContext);
+    var x = draggedItem.x - leftSidePanel.width;
+    var y = draggedItem.y - previewLoader.y - viewToolbar.height;
 
-    fixtureManager.addFixture(manufacturer, model, mode, name,
-                              universeIndex, draggedItem.address, channels, quantity, gap,
-                              x, y);
+    console.log("Item x: " + x + ", y: " + y);
+
+    if (x >= 0 && y >= 0)
+        fixtureManager.addFixture(manufacturer, model, mode, name, universeIndex,
+                                  draggedItem.address, channels, quantity, gap, x, y);
     draggedItem.destroy();
     draggedItem = null;
 }

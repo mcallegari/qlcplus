@@ -38,6 +38,7 @@ private slots:
     void size();
     void assignFixtureNoSize();
     void assignFixture4x2();
+    void assignFixtureAtPoint();
     void resignFixture();
     void resignHead();
     void fixtureRemoved();

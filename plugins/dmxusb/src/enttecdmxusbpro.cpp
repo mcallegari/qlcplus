@@ -77,22 +77,16 @@ QString EnttecDMXUSBPro::additionalInfo() const
     QString info;
 
     info += QString("<P>");
+
     if (m_dmxKingMode == true)
-    {
-        info += QString("<B>%1:</B> %2").arg(tr("Protocol"))
-                                             .arg("ultraDMX USB Pro");
-    }
+        info += QString("<B>%1:</B> %2").arg(tr("Protocol")).arg("ultraDMX USB Pro");
     else
-    {
-        info += QString("<B>%1:</B> %2").arg(tr("Protocol"))
-                                             .arg("ENTTEC");
-    }
+        info += QString("<B>%1:</B> %2").arg(tr("Protocol")).arg("ENTTEC");
+
     info += QString("<BR>");
-    info += QString("<B>%1:</B> %2").arg(tr("Manufacturer"))
-                                         .arg(vendor());
+    info += QString("<B>%1:</B> %2").arg(tr("Manufacturer")).arg(vendor());
     info += QString("<BR>");
-    info += QString("<B>%1:</B> %2").arg(tr("Serial number"))
-                                         .arg(serial());
+    info += QString("<B>%1:</B> %2").arg(tr("Serial number")).arg(m_proSerial.isEmpty() ? serial() : m_proSerial);
     info += QString("</P>");
 
     return info;
@@ -156,6 +150,9 @@ bool EnttecDMXUSBPro::open(quint32 line, bool input)
 
     if (interface()->clearRts() == false)
         return close(line, input);
+
+    if (m_proSerial.isEmpty())
+        extractSerial();
 
     // specific port configuration are needed
     // only by ENTTEC
@@ -304,7 +301,7 @@ void EnttecDMXUSBPro::run()
         bool ok = false;
         bool midiMessage = false;
         // Skip bytes until we find the start of the next message
-        if ( (byte = interface()->readByte(&ok)) != ENTTEC_PRO_START_OF_MSG)
+        if ((byte = interface()->readByte(&ok)) != ENTTEC_PRO_START_OF_MSG)
         {
             // If nothing was read, sleep for a while
             if (ok == false)
@@ -326,7 +323,7 @@ void EnttecDMXUSBPro::run()
 
         // Get payload length
         dataLength = (ushort) interface()->readByte() | ((ushort) interface()->readByte() << 8);
-        qDebug() << "Packet data lenght:" << dataLength;
+        //qDebug() << "Packet data length:" << dataLength;
 
         if (midiMessage == false)
         {
@@ -341,23 +338,22 @@ void EnttecDMXUSBPro::run()
             byte = interface()->readByte();
             if (byte != char(0))
                 qWarning() << Q_FUNC_INFO << "Non-standard DMX startcode received:" << (uchar) byte;
+            dataLength -= 2;
         }
 
-        // Read payload bytes
-        ushort i = 0;
-        for (i = 0; i < dataLength; i++)
+        // Read the whole payload
+        QByteArray payload = interface()->read(dataLength);
+        //qDebug() << "Data read:" << payload.length();
+
+        for (ushort i = 0; i < payload.length(); i++)
         {
-            byte = interface()->readByte();
+            byte = uchar(payload.at(i));
 
             if (midiMessage == false)
             {
-                if (byte == (uchar) ENTTEC_PRO_END_OF_MSG)
+                if (i < 512 && byte != (uchar) m_universe[i])
                 {
-                    // Stop when the end of message is received
-                    break;
-                }
-                else if (byte != (uchar) m_universe[i])
-                {
+                    //qDebug() << "Value at" << i << "changed to" << QString::number(byte);
                     // Store and emit changed values
                     m_universe[i] = byte;
                     emit valueChanged(UINT_MAX, m_inputBaseLine, i, byte);

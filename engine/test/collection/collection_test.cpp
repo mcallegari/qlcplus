@@ -57,7 +57,7 @@ void Collection_Test::cleanup()
 void Collection_Test::initial()
 {
     Collection c(m_doc);
-    QVERIFY(c.type() == Function::Collection);
+    QVERIFY(c.type() == Function::CollectionType);
     QVERIFY(c.name() == "New Collection");
     QVERIFY(c.functions().size() == 0);
     QVERIFY(c.id() == Function::invalidId());

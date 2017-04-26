@@ -110,6 +110,7 @@ HEADERS += bus.h \
            sceneuistate.h \
            scenevalue.h \
            script.h \
+           sequence.h \
            show.h \
            showfunction.h \
            showrunner.h \
@@ -191,6 +192,7 @@ SOURCES += bus.cpp \
            sceneuistate.cpp \
            scenevalue.cpp \
            script.cpp \
+           sequence.cpp \
            show.cpp \
            showfunction.cpp \
            showrunner.cpp \
