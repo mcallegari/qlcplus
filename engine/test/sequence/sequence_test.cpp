@@ -89,9 +89,9 @@ void Sequence_Test::createCopy()
 
     Sequence* seq = new Sequence(m_doc);
     seq->setName("First");
-    seq->setFadeInSpeed(42);
-    seq->setFadeOutSpeed(69);
-    seq->setDuration(1337);
+    seq->speedsEdit().setFadeIn(42);
+    seq->speedsEdit().setFadeOut(69);
+    seq->speedsEdit().setDuration(1337);
     seq->setDirection(Sequence::Backward);
     seq->setRunOrder(Sequence::SingleShot);
     seq->setBoundSceneID(scene->id());
@@ -121,9 +121,9 @@ void Sequence_Test::createCopy()
 
     Sequence* copy = qobject_cast<Sequence*> (f);
     QVERIFY(copy != NULL);
-    QVERIFY(copy->fadeInSpeed() == 42);
-    QVERIFY(copy->fadeOutSpeed() == 69);
-    QVERIFY(copy->duration() == 1337);
+    QVERIFY(copy->speeds().fadeIn() == 42);
+    QVERIFY(copy->speeds().fadeOut() == 69);
+    QVERIFY(copy->speeds().duration() == 1337);
     QVERIFY(copy->direction() == Sequence::Backward);
     QVERIFY(copy->runOrder() == Sequence::SingleShot);
     QVERIFY(copy->boundSceneID() == scene->id());
@@ -269,9 +269,9 @@ void Sequence_Test::loadWithScene()
     QVERIFY(m_doc->addFunction(seq) == true);
     QVERIFY(seq->id() == 1);
     QVERIFY(seq->boundSceneID() == 0);
-    QVERIFY(seq->fadeInSpeed() == 42);
-    QVERIFY(seq->fadeOutSpeed() == 69);
-    QVERIFY(seq->duration() == 1337);
+    QVERIFY(seq->speeds().fadeIn() == 42);
+    QVERIFY(seq->speeds().fadeOut() == 69);
+    QVERIFY(seq->speeds().duration() == 1337);
 
     QVERIFY(seq->fadeInMode() == Chaser::Common);
     QVERIFY(seq->fadeOutMode() == Chaser::Default);
@@ -402,9 +402,9 @@ void Sequence_Test::loadWithoutScene()
     QVERIFY(m_doc->addFunction(seq) == true);
     QVERIFY(seq->id() == 0);
     QVERIFY(seq->boundSceneID() == 1);
-    QVERIFY(seq->fadeInSpeed() == 42);
-    QVERIFY(seq->fadeOutSpeed() == 69);
-    QVERIFY(seq->duration() == 1337);
+    QVERIFY(seq->speeds().fadeIn() == 42);
+    QVERIFY(seq->speeds().fadeOut() == 69);
+    QVERIFY(seq->speeds().duration() == 1337);
 
     QVERIFY(seq->fadeInMode() == Chaser::Common);
     QVERIFY(seq->fadeOutMode() == Chaser::Default);
@@ -496,9 +496,9 @@ void Sequence_Test::save()
 {
     Sequence* seq = new Sequence(m_doc);
     seq->setName("First");
-    seq->setFadeInSpeed(42);
-    seq->setFadeOutSpeed(69);
-    seq->setDuration(1337);
+    seq->speedsEdit().setFadeIn(42);
+    seq->speedsEdit().setFadeOut(69);
+    seq->speedsEdit().setDuration(1337);
     seq->setDirection(Sequence::Backward);
     seq->setRunOrder(Sequence::SingleShot);
     seq->setBoundSceneID(0);

@@ -268,6 +268,67 @@ bool Chaser::isLocked()
     return m_locked;
 }
 
+/*********************************************************************
+ * Speeds
+ *********************************************************************/
+
+quint32 Chaser::alternateSpeedsCount() const
+{
+    return 2 + m_steps.size();
+}
+
+void Chaser::setAlternateSpeeds(quint32 alternateIdx, FunctionSpeeds const& speeds)
+{
+    if (alternateIdx >= alternateSpeedsCount())
+        return Function::setAlternateSpeeds(alternateIdx, speeds);
+
+    if (alternateIdx == 0)
+        m_alternateSpeedsBase = speeds;
+    else if (alternateIdx == 1)
+        m_alternateSpeedsCommon = speeds;
+    else
+        m_steps[alternateIdx - 2].speeds = speeds;
+}
+
+FunctionSpeeds const& Chaser::alternateSpeeds(quint32 alternateIdx) const
+{
+    if (alternateIdx >= alternateSpeedsCount())
+        return Function::alternateSpeeds(alternateIdx);
+
+    if (alternateIdx == 0)
+        return m_alternateSpeedsBase;
+    else if (alternateIdx == 1)
+        return m_alternateSpeedsCommon;
+    else
+        return m_steps[alternateIdx - 2].speeds;
+}
+
+FunctionSpeeds& Chaser::alternateSpeedsEdit(quint32 alternateIdx)
+{
+    if (alternateIdx >= alternateSpeedsCount())
+        return Function::alternateSpeedsEdit(alternateIdx);
+
+    if (alternateIdx == 0)
+        return m_alternateSpeedsBase;
+    else if (alternateIdx == 1)
+        return m_alternateSpeedsCommon;
+    else
+        return m_steps[alternateIdx - 2].speeds;
+}
+
+QString Chaser::alternateSpeedsString(quint32 alternateIdx) const
+{
+    if (alternateIdx >= alternateSpeedsCount())
+        return Function::alternateSpeedsString(alternateIdx);
+
+    if (alternateIdx == 0)
+        return "Override";
+    else if (alternateIdx == 1)
+        return "Internal";
+    else
+        return QString("Step %1: %2").arg(alternateIdx - 2).arg(m_steps[alternateIdx - 2].note);
+}
+
 /*****************************************************************************
  * Speeds modes
  *****************************************************************************/

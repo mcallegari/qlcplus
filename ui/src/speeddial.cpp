@@ -273,7 +273,7 @@ void SpeedDial::updateTapTimer()
     if (m_tapTickTimer)
         m_tapTickTimer->stop();
 
-    if (m_value != (int) Function::infiniteSpeed()
+    if (m_value != (int) Speed::infiniteValue()
        && m_tapTickTimer == NULL)
     {
         m_tapTickTimer = new QTimer();

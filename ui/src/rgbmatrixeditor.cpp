@@ -1017,7 +1017,7 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
             sequence->setFadeInMode(Chaser::PerStep);
             sequence->speedsEdit().setFadeIn(m_matrix->speeds().fadeIn());
         }
-        if (m_matrix->fadeOutSpeed() != 0)
+        if (m_matrix->speeds().fadeOut() != 0)
         {
             sequence->setFadeOutMode(Chaser::PerStep);
             sequence->speedsEdit().setFadeOut(m_matrix->speeds().fadeOut());

@@ -134,6 +134,10 @@ bool RGBMatrix::copyFrom(const Function* function)
     return Function::copyFrom(function);
 }
 
+/************************************************************************
+ * Speeds
+ ************************************************************************/
+
 quint32 RGBMatrix::alternateSpeedsCount() const
 {
     return 2;

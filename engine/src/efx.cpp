@@ -165,6 +165,59 @@ void EFX::setDuration(uint ms)
     }
 }
 
+/************************************************************************
+ * Speeds
+ ************************************************************************/
+
+quint32 EFX::alternateSpeedsCount() const
+{
+    return 2;
+}
+
+void EFX::setAlternateSpeeds(quint32 alternateIdx, FunctionSpeeds const& speeds)
+{
+    if (alternateIdx > 1)
+        return Function::setAlternateSpeeds(alternateIdx, speeds);
+
+    if (alternateIdx == 0)
+        m_alternateSpeedsBase = speeds;
+    else
+        m_alternateSpeedsInternal = speeds;
+}
+
+FunctionSpeeds const& EFX::alternateSpeeds(quint32 alternateIdx) const
+{
+    if (alternateIdx > 1)
+        return Function::alternateSpeeds(alternateIdx);
+
+    if (alternateIdx == 0)
+        return m_alternateSpeedsBase;
+    else
+        return m_alternateSpeedsInternal;
+}
+
+FunctionSpeeds& EFX::alternateSpeedsEdit(quint32 alternateIdx)
+{
+    if (alternateIdx > 1)
+        return Function::alternateSpeedsEdit(alternateIdx);
+
+    if (alternateIdx == 0)
+        return m_alternateSpeedsBase;
+    else
+        return m_alternateSpeedsInternal;
+}
+
+QString EFX::alternateSpeedsString(quint32 alternateIdx) const
+{
+    if (alternateIdx > 1)
+        return Function::alternateSpeedsString(alternateIdx);
+
+    if (alternateIdx == 0)
+        return "Override";
+    else
+        return "Internal";
+}
+
 /*****************************************************************************
  * UI State
  *****************************************************************************/

@@ -69,14 +69,10 @@ bool Sequence::copyFrom(const Function *function)
         return false;
 
     // Copy sequence stuff
-    m_steps = sequence->m_steps;
-    m_fadeInMode = sequence->m_fadeInMode;
-    m_fadeOutMode = sequence->m_fadeOutMode;
-    m_holdMode = sequence->m_holdMode;
     m_boundSceneID = sequence->m_boundSceneID;
 
-    // Copy common function stuff
-    return Function::copyFrom(function);
+    // Copy common chaser stuff
+    return Chaser::copyFrom(function);
 }
 
 void Sequence::setBoundSceneID(quint32 sceneID)
@@ -106,7 +102,7 @@ bool Sequence::saveXML(QXmlStreamWriter *doc)
     doc->writeAttribute(KXMLQLCSequenceBoundScene, QString::number(boundSceneID()));
 
     /* Speed */
-    saveXMLSpeed(doc);
+    m_speeds.saveXML(doc);
 
     /* Direction */
     saveXMLDirection(doc);
@@ -116,9 +112,9 @@ bool Sequence::saveXML(QXmlStreamWriter *doc)
 
     /* Speed modes */
     doc->writeStartElement(KXMLQLCChaserSpeedModes);
-    doc->writeAttribute(KXMLQLCFunctionSpeedFadeIn, speedModeToString(fadeInMode()));
-    doc->writeAttribute(KXMLQLCFunctionSpeedFadeOut, speedModeToString(fadeOutMode()));
-    doc->writeAttribute(KXMLQLCFunctionSpeedDuration, speedModeToString(durationMode()));
+    doc->writeAttribute(KXMLQLCFunctionSpeedsFadeIn, speedModeToString(fadeInMode()));
+    doc->writeAttribute(KXMLQLCFunctionSpeedsFadeOut, speedModeToString(fadeOutMode()));
+    doc->writeAttribute(KXMLQLCFunctionSpeedsDuration, speedModeToString(durationMode()));
     doc->writeEndElement();
 
     /* Steps */
@@ -173,9 +169,9 @@ bool Sequence::loadXML(QXmlStreamReader &root)
     /* Load Sequence contents */
     while (root.readNextStartElement())
     {
-        if (root.name() == KXMLQLCFunctionSpeed)
+        if (root.name() == KXMLQLCFunctionSpeeds)
         {
-            loadXMLSpeed(root);
+            m_speeds.loadXML(root);
         }
         else if (root.name() == KXMLQLCFunctionDirection)
         {

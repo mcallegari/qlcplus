@@ -51,9 +51,9 @@ void Function_Test::initial()
     QCOMPARE(stub->speeds().fadeIn(), uint(0));
     QCOMPARE(stub->speeds().fadeOut(), uint(0));
     QCOMPARE(stub->speeds().duration(), uint(0));
-    QCOMPARE(stub->alternateSpeeds(0).fadeIn(), Function::defaultSpeed());
-    QCOMPARE(stub->alternateSpeeds(0).fadeOut(), Function::defaultSpeed());
-    QCOMPARE(stub->alternateSpeeds(0).duration(), Function::defaultSpeed());
+    QCOMPARE(stub->alternateSpeeds(0).fadeIn(), Speed::originalValue());
+    QCOMPARE(stub->alternateSpeeds(0).fadeOut(), Speed::originalValue());
+    QCOMPARE(stub->alternateSpeeds(0).duration(), Speed::originalValue());
 }
 
 void Function_Test::properties()

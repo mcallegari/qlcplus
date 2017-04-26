@@ -211,6 +211,9 @@ public:
     FunctionSpeeds& alternateSpeedsEdit(quint32 alternateIdx) override;
     QString alternateSpeedsString(quint32 alternateIdx) const override;
 
+private:
+    FunctionSpeeds m_alternateSpeedsCommon;
+
     /*********************************************************************
      * Speeds modes
      *********************************************************************/

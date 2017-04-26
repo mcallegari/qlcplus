@@ -247,9 +247,9 @@ bool FunctionSpeeds::loadXML(QXmlStreamReader &speedsRoot)
     return true;
 }
 
-bool FunctionSpeeds::saveXML(QXmlStreamWriter *doc) const
+bool FunctionSpeeds::saveXML(QXmlStreamWriter *doc, QString nodeName) const
 {
-    doc->writeStartElement(KXMLQLCFunctionSpeeds);
+    doc->writeStartElement(nodeName);
     doc->writeAttribute(KXMLQLCFunctionSpeedsType, Speed::tempoTypeToString(m_fadeIn.tempoType));
     doc->writeAttribute(KXMLQLCFunctionSpeedsFadeIn, QString::number(m_fadeIn.value));
     doc->writeAttribute(KXMLQLCFunctionSpeedsHold, QString::number(m_hold.value));

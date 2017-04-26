@@ -197,21 +197,21 @@ void Chaser_Test::stepAt()
 {
     Chaser c(m_doc);
     c.setID(42);
-    QVERIFY(c.addStep(ChaserStep(0, 1000, 5000, 0)) == true);
+    QVERIFY(c.addStep(ChaserStep(0, FunctionSpeeds(1000, 5000, 0))) == true);
     QVERIFY(c.stepsCount() == 1);
 
     QVERIFY(c.stepAt(10) == NULL);
     ChaserStep *cs = c.stepAt(0);
     QVERIFY(cs != NULL);
 
-    QVERIFY(cs->fadeIn == 1000);
-    QVERIFY(cs->hold == 5000);
+    QVERIFY(cs->speeds.fadeIn() == 1000);
+    QVERIFY(cs->speeds.hold() == 5000);
 
-    cs->fadeIn = 500;
-    cs->hold = 8000;
+    cs->speeds.setFadeIn(500);
+    cs->speeds.setHold(8000);
 
-    QVERIFY(cs->fadeIn == 500);
-    QVERIFY(cs->hold == 8000);
+    QVERIFY(cs->speeds.fadeIn() == 500);
+    QVERIFY(cs->speeds.hold() == 8000);
 }
 
 void Chaser_Test::functionRemoval()

@@ -280,7 +280,7 @@ bool Track::postLoad(Doc* doc)
 
         if (function->type() == Function::SequenceType)
         {
-            Sequence* sequence = qobject_cast<Sequence*>(function);
+            const Sequence* sequence = qobject_cast<const Sequence*>(function);
             if (sequence == NULL || getSceneID() == sequence->boundSceneID())
                 continue;
 

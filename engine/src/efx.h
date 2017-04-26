@@ -109,13 +109,20 @@ public:
     bool copyFrom(const Function* function);
 
     /** Set the duration in milliseconds */
-    virtual void setDuration(uint ms);
+    void setDuration(uint ms);
 
+    /************************************************************************
+     * Speeds
+     ************************************************************************/
+public:
     quint32 alternateSpeedsCount() const override;
     void setAlternateSpeeds(quint32 alternateIdx, FunctionSpeeds const& speeds) override;
     FunctionSpeeds const& alternateSpeeds(quint32 alternateIdx) const override;
     FunctionSpeeds& alternateSpeedsEdit(quint32 alternateIdx) override;
     QString alternateSpeedsString(quint32 alternateIdx) const override;
+
+private:
+    FunctionSpeeds m_alternateSpeedsInternal;
 
     /*********************************************************************
      * UI State

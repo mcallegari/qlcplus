@@ -273,7 +273,7 @@ void ChaserEditor::selectStepAtTime(quint32 time)
             timeIncr = m_chaser->speeds().duration();
         else // Chaser::PerStep
         {
-            timeIncr += m_chaser->stepAt(i).speeds.duration();
+            timeIncr += m_chaser->stepAt(i)->speeds.duration();
         }
         if (time < stepTime + timeIncr)
         {

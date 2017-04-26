@@ -96,7 +96,7 @@ public:
     bool loadXML(QXmlStreamReader &speedRoot);
 
     /** Save speeds values in $doc */
-    bool saveXML(QXmlStreamWriter *doc) const;
+    bool saveXML(QXmlStreamWriter *doc, QString nodeName = KXMLQLCFunctionSpeeds) const;
 };
 
 /** @} */

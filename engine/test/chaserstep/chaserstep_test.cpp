@@ -91,7 +91,7 @@ void ChaserStep_Test::variant()
 
 void ChaserStep_Test::values()
 {
-    ChaserStep step(1, 2, 3, 4);
+    ChaserStep step(1, FunctionSpeeds(2, 3, 4));
     QVERIFY(step.values.count() == 0);
 
     /* append a new value */
@@ -221,10 +221,10 @@ void ChaserStep_Test::load_sequence()
 
     QVERIFY(step.loadXML(xmlReader, number) == true);
     QCOMPARE(number, 1);
-    QCOMPARE(step.fadeIn, uint(10));
-    QCOMPARE(step.hold, uint(15));
-    QCOMPARE(step.fadeOut, uint(20));
-    QCOMPARE(step.duration, uint(25));
+    QCOMPARE(step.speeds.fadeIn(), uint(10));
+    QCOMPARE(step.speeds.hold(), uint(15));
+    QCOMPARE(step.speeds.fadeOut(), uint(20));
+    QCOMPARE(step.speeds.duration(), uint(25));
     QCOMPARE(step.fid, Function::invalidId());
     QCOMPARE(step.note, QString(""));
 
@@ -266,10 +266,10 @@ void ChaserStep_Test::load_legacy_sequence()
 
     QVERIFY(step.loadXML(xmlReader, number) == true);
     QCOMPARE(number, 1);
-    QCOMPARE(step.fadeIn, uint(10));
-    QCOMPARE(step.hold, uint(15));
-    QCOMPARE(step.fadeOut, uint(20));
-    QCOMPARE(step.duration, uint(25));
+    QCOMPARE(step.speeds.fadeIn(), uint(10));
+    QCOMPARE(step.speeds.hold(), uint(15));
+    QCOMPARE(step.speeds.fadeOut(), uint(20));
+    QCOMPARE(step.speeds.duration(), uint(25));
     QCOMPARE(step.fid, Function::invalidId());
     QCOMPARE(step.note, QString(""));
 
@@ -311,7 +311,7 @@ void ChaserStep_Test::save_sequence()
     QXmlStreamWriter xmlWriter(&buffer);
     xmlWriter.writeStartElement("Foo");
 
-    ChaserStep step(1, 2, 3, 4);
+    ChaserStep step(1, FunctionSpeeds(2, 3, 4));
     QList<SceneValue> values;
     values.append(SceneValue(1, 0, 255));
     values.append(SceneValue(1, 1, 0));
