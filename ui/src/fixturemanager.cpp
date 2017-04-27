@@ -571,10 +571,21 @@ void FixtureManager::slotSelectionChanged()
         }
         else
         {
-            QString info("<HTML><BODY><H1>%1</H1><P>%2</P></BODY></HTML>");
+	    int powerConsumption = 0;
+	    double weight = 0;
+	    for(int i = 0; i < m_fixtures_tree->selectedItems().first()->childCount(); i++){
+	        QVariant fxi = m_fixtures_tree->selectedItems().first()->child(i)->data(KColumnName, PROP_FIXTURE);
+	        if(fxi.isValid()){
+	            Fixture *f = m_doc->fixture(fxi.toUInt());
+	            powerConsumption += f->getPowerConsumption();
+	            weight += f->getWeight();
+	        }
+	    }
+	    QString info("<HTML><BODY><H1>%1</H1><P>%2</P><P>Complete power consumption: %3W<BR/>Complete weight: %4Kg</BODY></HTML>");
             if (m_info == NULL)
                 createInfo();
-            m_info->setText(info.arg(tr("All fixtures")).arg(tr("This group contains all fixtures.")));
+            m_info->setText(info.arg(tr("All fixtures")).arg(tr("This group contains all fixtures."))
+			    .arg(powerConsumption).arg(weight));
         }
     }
     else
@@ -1727,18 +1738,19 @@ void FixtureManager::slotExport()
 
 void FixtureManager::slotWsInfo()
 {
-  int gesPower = 0;
-  double gesWeight = 0;
-  QListIterator <Fixture*> fxit(m_doc->fixtures());
-  while (fxit.hasNext() == true)
+    int gesPower = 0;
+    double gesWeight = 0;
+    QListIterator <Fixture*> fxit(m_doc->fixtures());
+    while (fxit.hasNext() == true)
     {
-      Fixture* fxi(fxit.next());
-      Q_ASSERT(fxi != NULL);
-      gesPower += fxi->getPowerConsumption();
-      gesWeight += fxi->getWeight();
+        Fixture* fxi(fxit.next());
+        Q_ASSERT(fxi != NULL);
+        gesPower += fxi->getPowerConsumption();
+        gesWeight += fxi->getWeight();
     }
-  qDebug() << "Power: " << gesPower << "; Weight: " << gesWeight;
-  m_info->setText(QString("<BODY><h1>Workspace Info</h1><p>Power Consumption: %1W<br/>Weight: %2Kg</p></BODY>").arg(gesPower).arg(gesWeight));
+    qDebug() << "Power: " << gesPower << "; Weight: " << gesWeight;
+    m_info->setText(QString("<BODY><h1>Workspace Info</h1><p>Power Consumption: %1W<br/>Weight: %2Kg</p></BODY>")
+		    .arg(gesPower).arg(gesWeight));
 }
 
 void FixtureManager::slotContextMenuRequested(const QPoint&)
