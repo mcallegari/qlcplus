@@ -3,10 +3,10 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.8.5 GIT</Version>
+  <Version>4.11.0 GIT</Version>
   <Author>Mitsch</Author>
  </Creator>
- <Manufacturer>Img Stage Line</Manufacturer>
+ <Manufacturer>IMG Stageline</Manufacturer>
  <Model>Parl 4-SET</Model>
  <Type>Color Changer</Type>
  <Channel Name="spotlight S 1: red">
@@ -110,11 +110,11 @@
  </Channel>
  <Mode Name="16-Channel">
   <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
-   <Dimensions Weight="9.2" Width="1060" Depth="90" Height="330"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="110"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="9.2" Width="1060" Height="330" Depth="90"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="110" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">spotlight S 1: red</Channel>
   <Channel Number="1">spotlight S 1: green</Channel>
@@ -159,11 +159,11 @@
  </Mode>
  <Mode Name="13-Channel">
   <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
-   <Dimensions Weight="9.2" Width="1060" Depth="90" Height="330"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="110"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="9.2" Width="1060" Height="330" Depth="90"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="110" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">spotlight S 1: red</Channel>
   <Channel Number="1">spotlight S 1: green</Channel>
@@ -201,11 +201,11 @@
  </Mode>
  <Mode Name="4-Channel">
   <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
-   <Dimensions Weight="9.2" Width="1060" Depth="90" Height="330"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="110"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="9.2" Width="1060" Height="330" Depth="90"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="110" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">red</Channel>
   <Channel Number="1">green</Channel>

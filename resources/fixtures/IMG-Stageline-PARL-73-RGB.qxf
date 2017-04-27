@@ -3,10 +3,10 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.2 GIT</Version>
+  <Version>4.11.0 GIT</Version>
   <Author>Lukakiro</Author>
  </Creator>
- <Manufacturer>Img Stage Line</Manufacturer>
+ <Manufacturer>IMG Stageline</Manufacturer>
  <Model>Parl 73-RGB</Model>
  <Type>Color Changer</Type>
  <Channel Name="Dimmer">

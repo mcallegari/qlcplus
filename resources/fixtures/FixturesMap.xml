@@ -272,6 +272,7 @@
   <fixture path="Chauvet-SlimPAR-56.qxf" mf="Chauvet" md="SlimPAR 56"/>
   <fixture path="Chauvet-SlimPAR-64-RGBA.qxf" mf="Chauvet" md="SlimPAR 64 RGBA"/>
   <fixture path="Chauvet-SlimPAR-64.qxf" mf="Chauvet" md="SlimPAR 64"/>
+  <fixture path="Chauvet-SlimPar-Hex-6.qxf" mf="Chauvet" md="SlimPar Hex 6"/>
   <fixture path="Chauvet-SlimPAR-Pro-H-USB.qxf" mf="Chauvet" md="SlimPAR Pro H USB"/>
   <fixture path="Chauvet-SlimPar-Pro-Tri.qxf" mf="Chauvet" md="SlimPar Pro Tri"/>
   <fixture path="Chauvet-SlimPAR-QUAD-12-IRC.qxf" mf="Chauvet" md="SlimPAR QUAD 12 IRC"/>
@@ -461,6 +462,7 @@
   <fixture path="Futurelight-XF-200.qxf" mf="Futurelight" md="XF-200"/>
   <fixture path="Generic-Generic-RGB.qxf" mf="Generic" md="Generic RGB"/>
   <fixture path="Generic-Generic-Smoke.qxf" mf="Generic" md="Generic Smoke"/>
+  <fixture path="Geni-Mojo-Spin-Master-Series.qxf" mf="Geni" md="Mojo Spin Master Series"/>
   <fixture path="Geni-OBY-5.qxf" mf="Geni" md="OBY 5"/>
   <fixture path="Geni-OBY-600.qxf" mf="Geni" md="OBY 600"/>
   <fixture path="Ghost-Green-30.qxf" mf="Ghost" md="Green 30"/>
@@ -491,8 +493,9 @@
   <fixture path="HQ-Power-Power-Space-250.qxf" mf="HQ Power" md="Power Space 250"/>
   <fixture path="HQ-Power-VDPL110CC-LED-Tri-Spot.qxf" mf="HQ Power" md="VDPL110CC LED Tri Spot"/>
   <fixture path="i-Pix-BB4.qxf" mf="i-Pix" md="BB4"/>
-  <fixture path="Img-Stage-Line-PARL-4Set.qxf" mf="Img Stage Line" md="Parl 4-SET"/>
-  <fixture path="Img-Stage-Line-Parl-73-RGB.qxf" mf="Img Stage Line" md="Parl 73-RGB"/>
+  <fixture path="IMG-Stageline-PARL-20-DMX.qxf" mf="IMG Stageline" md="PARL 20 DMX"/>
+  <fixture path="IMG-Stageline-PARL-4Set.qxf" mf="IMG Stageline" md="Parl 4-SET"/>
+  <fixture path="IMG-Stageline-PARL-73-RGB.qxf" mf="IMG Stageline" md="Parl 73-RGB"/>
   <fixture path="Involight-FM900-DMX.qxf" mf="Involight" md="FM900 DMX"/>
   <fixture path="Involight-LED-CC60S.qxf" mf="Involight" md="LED CC60S"/>
   <fixture path="Involight-LED-MH60S.qxf" mf="Involight" md="LED MH60S"/>
