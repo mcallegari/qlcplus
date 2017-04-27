@@ -1740,6 +1740,7 @@ void FixtureManager::slotWsInfo()
 {
     int gesPower = 0;
     double gesWeight = 0;
+    QHash<QString,int> fList;
     QListIterator <Fixture*> fxit(m_doc->fixtures());
     while (fxit.hasNext() == true)
     {
@@ -1747,10 +1748,20 @@ void FixtureManager::slotWsInfo()
         Q_ASSERT(fxi != NULL);
         gesPower += fxi->getPowerConsumption();
         gesWeight += fxi->getWeight();
+	if(fList.contains(fxi->fixtureDef()->name())){
+	    fList.insert(fxi->fixtureDef()->name(), fList.value(fxi->fixtureDef()->name()) + 1);
+	}else{
+	    fList.insert(fxi->fixtureDef()->name(), 1);
+	}
+    }
+    QString fixturesList = "";
+    QList<QString> fKeys = fList.keys();
+    for(int i = 0; i < fKeys.count(); i++){
+        fixturesList += QString("%1 %2<BR/>").arg(fList.value(fKeys[i])).arg(fKeys[i]);
     }
     qDebug() << "Power: " << gesPower << "; Weight: " << gesWeight;
-    m_info->setText(QString("<BODY><h1>Workspace Info</h1><p>Power Consumption: %1W<br/>Weight: %2Kg</p></BODY>")
-		    .arg(gesPower).arg(gesWeight));
+    m_info->setText(QString("<BODY><h1>Workspace Info</h1><p>Power Consumption: %1W<br/>Weight: %2Kg</p><p>%3</p></BODY>")
+		    .arg(gesPower).arg(gesWeight).arg(fixturesList));
 }
 
 void FixtureManager::slotContextMenuRequested(const QPoint&)
