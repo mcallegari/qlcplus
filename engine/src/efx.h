@@ -118,11 +118,15 @@ public:
     quint32 alternateSpeedsCount() const override;
     void setAlternateSpeeds(quint32 alternateIdx, FunctionSpeeds const& speeds) override;
     FunctionSpeeds const& alternateSpeeds(quint32 alternateIdx) const override;
-    FunctionSpeeds& alternateSpeedsEdit(quint32 alternateIdx) override;
+    FunctionSpeedsEditProxy alternateSpeedsEdit(quint32 alternateIdx) override;
     QString alternateSpeedsString(quint32 alternateIdx) const override;
 
+    void setInnerSpeeds(FunctionSpeeds const& speeds);
+    FunctionSpeeds const& innerSpeeds() const;
+    FunctionSpeedsEditProxy innerSpeedsEdit();
+
 private:
-    FunctionSpeeds m_alternateSpeedsInternal;
+    FunctionSpeeds m_innerSpeeds;
 
     /*********************************************************************
      * UI State

@@ -179,7 +179,7 @@ void EFX::setAlternateSpeeds(quint32 alternateIdx, FunctionSpeeds const& speeds)
     if (alternateIdx >= alternateSpeedsCount())
         return Function::setAlternateSpeeds(alternateIdx, speeds);
 
-    m_alternateSpeedsInternal = speeds;
+    return setInnerSpeeds(speeds);
 }
 
 FunctionSpeeds const& EFX::alternateSpeeds(quint32 alternateIdx) const
@@ -187,15 +187,15 @@ FunctionSpeeds const& EFX::alternateSpeeds(quint32 alternateIdx) const
     if (alternateIdx >= alternateSpeedsCount())
         return Function::alternateSpeeds(alternateIdx);
 
-    return m_alternateSpeedsInternal;
+    return innerSpeeds();
 }
 
-FunctionSpeeds& EFX::alternateSpeedsEdit(quint32 alternateIdx)
+FunctionSpeedsEditProxy EFX::alternateSpeedsEdit(quint32 alternateIdx)
 {
     if (alternateIdx >= alternateSpeedsCount())
         return Function::alternateSpeedsEdit(alternateIdx);
 
-    return m_alternateSpeedsInternal;
+    return innerSpeedsEdit();
 }
 
 QString EFX::alternateSpeedsString(quint32 alternateIdx) const
@@ -203,7 +203,23 @@ QString EFX::alternateSpeedsString(quint32 alternateIdx) const
     if (alternateIdx >= alternateSpeedsCount())
         return Function::alternateSpeedsString(alternateIdx);
 
-    return "Internal";
+    return "Inner";
+}
+
+void EFX::setInnerSpeeds(FunctionSpeeds const& speeds)
+{
+    m_innerSpeeds = speeds;
+    emit changed(id());
+}
+
+FunctionSpeeds const& EFX::innerSpeeds() const
+{
+    return m_innerSpeeds;
+}
+
+FunctionSpeedsEditProxy EFX::innerSpeedsEdit()
+{
+    return FunctionSpeedsEditProxy(m_innerSpeeds, this);
 }
 
 /*****************************************************************************

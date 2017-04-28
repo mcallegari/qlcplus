@@ -283,9 +283,12 @@ void Chaser::setAlternateSpeeds(quint32 alternateIdx, FunctionSpeeds const& spee
         return Function::setAlternateSpeeds(alternateIdx, speeds);
 
     if (alternateIdx == 0)
-        m_alternateSpeedsCommon = speeds;
+        return setCommonSpeeds(speeds);
     else
+    {
         m_steps[alternateIdx - 1].speeds = speeds;
+        emit changed(id());
+    }
 }
 
 FunctionSpeeds const& Chaser::alternateSpeeds(quint32 alternateIdx) const
@@ -294,20 +297,20 @@ FunctionSpeeds const& Chaser::alternateSpeeds(quint32 alternateIdx) const
         return Function::alternateSpeeds(alternateIdx);
 
     if (alternateIdx == 0)
-        return m_alternateSpeedsCommon;
+        return commonSpeeds();
     else
         return m_steps[alternateIdx - 1].speeds;
 }
 
-FunctionSpeeds& Chaser::alternateSpeedsEdit(quint32 alternateIdx)
+FunctionSpeedsEditProxy Chaser::alternateSpeedsEdit(quint32 alternateIdx)
 {
     if (alternateIdx >= alternateSpeedsCount())
         return Function::alternateSpeedsEdit(alternateIdx);
 
     if (alternateIdx == 0)
-        return m_alternateSpeedsCommon;
+        return commonSpeedsEdit();
     else
-        return m_steps[alternateIdx - 1].speeds;
+        return FunctionSpeedsEditProxy(m_steps[alternateIdx - 1].speeds, this);
 }
 
 QString Chaser::alternateSpeedsString(quint32 alternateIdx) const
@@ -319,6 +322,37 @@ QString Chaser::alternateSpeedsString(quint32 alternateIdx) const
         return "Common";
     else
         return QString("Step %1: %2").arg(alternateIdx - 1).arg(m_steps[alternateIdx - 1].note);
+}
+
+void Chaser::setCommonSpeeds(FunctionSpeeds const& speeds)
+{
+    m_commonSpeeds = speeds;
+    emit changed(id());
+}
+
+FunctionSpeeds const& Chaser::commonSpeeds() const
+{
+    return m_commonSpeeds;
+}
+
+FunctionSpeedsEditProxy Chaser::commonSpeedsEdit()
+{
+    return FunctionSpeedsEditProxy(m_commonSpeeds, this);
+}
+
+void Chaser::setStepSpeeds(quint32 stepIdx, FunctionSpeeds const& speeds)
+{
+    return setAlternateSpeeds(stepIdx + 1, speeds);
+}
+
+FunctionSpeeds const& Chaser::stepSpeeds(quint32 stepIdx) const
+{
+    return alternateSpeeds(stepIdx + 1);
+}
+
+FunctionSpeedsEditProxy Chaser::stepSpeedsEdit(quint32 stepIdx)
+{
+    return alternateSpeedsEdit(stepIdx + 1);
 }
 
 /*****************************************************************************

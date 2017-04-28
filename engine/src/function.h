@@ -73,6 +73,8 @@ typedef struct
     qreal value;
 } Attribute;
 
+class FunctionSpeedsEditProxy;
+
 class Function : public QObject
 {
     Q_OBJECT
@@ -400,47 +402,6 @@ public:
      *********************************************************************/
     void emitChanged();
 
-    class FunctionSpeedsEditProxy
-    {
-      private:
-        FunctionSpeeds& m_speeds;
-        Function& m_function;
-        bool m_changed;
-
-      public:
-        FunctionSpeedsEditProxy(FunctionSpeeds &speeds, Function &function)
-            : m_speeds(speeds), m_function(function), m_changed(false) {}
-        ~FunctionSpeedsEditProxy()
-        {
-            if (m_changed)
-                m_function.emitChanged();
-        }
-        FunctionSpeedsEditProxy& setFadeIn(quint32 ms)
-        {
-            m_speeds.setFadeIn(ms);
-            m_changed = true;
-            return *this;
-        }
-        FunctionSpeedsEditProxy& setFadeOut(quint32 ms)
-        {
-            m_speeds.setFadeOut(ms);
-            m_changed = true;
-            return *this;
-        }
-        FunctionSpeedsEditProxy& setHold(quint32 ms)
-        {
-            m_speeds.setHold(ms);
-            m_changed = true;
-            return *this;
-        }
-        FunctionSpeedsEditProxy& setDuration(quint32 ms)
-        {
-            m_speeds.setDuration(ms);
-            m_changed = true;
-            return *this;
-        }
-    };
-
 public:
     void setSpeeds(FunctionSpeeds const& speeds);
     FunctionSpeeds const& speeds() const;
@@ -452,7 +413,7 @@ public:
     virtual quint32 alternateSpeedsCount() const;
     virtual void setAlternateSpeeds(quint32 alternateIdx, FunctionSpeeds const& speeds);
     virtual FunctionSpeeds const& alternateSpeeds(quint32 alternateIdx) const;
-    virtual FunctionSpeeds& alternateSpeedsEdit(quint32 alternateIdx);
+    virtual FunctionSpeedsEditProxy alternateSpeedsEdit(quint32 alternateIdx);
     virtual QString alternateSpeedsString(quint32 alternateIdx) const;
 
 protected:
@@ -815,6 +776,47 @@ public:
 
 private:
     Universe::BlendMode m_blendMode;
+};
+
+class FunctionSpeedsEditProxy
+{
+private:
+    FunctionSpeeds& m_speeds;
+    Function* m_function;
+    bool m_changed;
+
+public:
+    FunctionSpeedsEditProxy(FunctionSpeeds &speeds, Function *function = nullptr)
+        : m_speeds(speeds), m_function(function), m_changed(false) {}
+    ~FunctionSpeedsEditProxy()
+    {
+        if (m_changed && m_function)
+            m_function->emitChanged();
+    }
+    FunctionSpeedsEditProxy& setFadeIn(quint32 ms)
+    {
+        m_speeds.setFadeIn(ms);
+        m_changed = true;
+        return *this;
+    }
+    FunctionSpeedsEditProxy& setFadeOut(quint32 ms)
+    {
+        m_speeds.setFadeOut(ms);
+        m_changed = true;
+        return *this;
+    }
+    FunctionSpeedsEditProxy& setHold(quint32 ms)
+    {
+        m_speeds.setHold(ms);
+        m_changed = true;
+        return *this;
+    }
+    FunctionSpeedsEditProxy& setDuration(quint32 ms)
+    {
+        m_speeds.setDuration(ms);
+        m_changed = true;
+        return *this;
+    }
 };
 
 /** @} */

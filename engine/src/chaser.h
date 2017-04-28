@@ -208,11 +208,19 @@ public:
     quint32 alternateSpeedsCount() const override;
     void setAlternateSpeeds(quint32 alternateIdx, FunctionSpeeds const& speeds) override;
     FunctionSpeeds const& alternateSpeeds(quint32 alternateIdx) const override;
-    FunctionSpeeds& alternateSpeedsEdit(quint32 alternateIdx) override;
+    FunctionSpeedsEditProxy alternateSpeedsEdit(quint32 alternateIdx) override;
     QString alternateSpeedsString(quint32 alternateIdx) const override;
 
+    void setCommonSpeeds(FunctionSpeeds const& speeds);
+    FunctionSpeeds const& commonSpeeds() const;
+    FunctionSpeedsEditProxy commonSpeedsEdit();
+
+    void setStepSpeeds(quint32 stepIdx, FunctionSpeeds const& speeds);
+    FunctionSpeeds const& stepSpeeds(quint32 stepIdx) const;
+    FunctionSpeedsEditProxy stepSpeedsEdit(quint32 stepIdx);
+
 private:
-    FunctionSpeeds m_alternateSpeedsCommon;
+    FunctionSpeeds m_commonSpeeds;
 
     /*********************************************************************
      * Speeds modes

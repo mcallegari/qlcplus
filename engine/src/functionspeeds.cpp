@@ -220,9 +220,9 @@ void FunctionSpeeds::setBeatsDuration(quint32 duration, float bpm)
     setDuration(Speed::beatsToMs(duration, bpm));
 }
 
-bool FunctionSpeeds::loadXML(QXmlStreamReader &speedsRoot)
+bool FunctionSpeeds::loadXML(QXmlStreamReader &speedsRoot, QString const& nodeName)
 {
-    if (speedsRoot.name() != KXMLQLCFunctionSpeeds)
+    if (speedsRoot.name() != nodeName)
         return false;
 
     QXmlStreamAttributes attrs = speedsRoot.attributes();
@@ -247,7 +247,7 @@ bool FunctionSpeeds::loadXML(QXmlStreamReader &speedsRoot)
     return true;
 }
 
-bool FunctionSpeeds::saveXML(QXmlStreamWriter *doc, QString nodeName) const
+bool FunctionSpeeds::saveXML(QXmlStreamWriter *doc, QString const& nodeName) const
 {
     doc->writeStartElement(nodeName);
     doc->writeAttribute(KXMLQLCFunctionSpeedsType, Speed::tempoTypeToString(m_fadeIn.tempoType));

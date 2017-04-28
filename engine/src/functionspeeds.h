@@ -93,10 +93,10 @@ public:
     void setBeatsDuration(quint32 duration, float bpm);
 
     /** Load the contents of a speeds node */
-    bool loadXML(QXmlStreamReader &speedRoot);
+    bool loadXML(QXmlStreamReader &speedRoot, QString const& nodeName = KXMLQLCFunctionSpeeds);
 
     /** Save speeds values in $doc */
-    bool saveXML(QXmlStreamWriter *doc, QString nodeName = KXMLQLCFunctionSpeeds) const;
+    bool saveXML(QXmlStreamWriter *doc, QString const& nodeName = KXMLQLCFunctionSpeeds) const;
 };
 
 /** @} */

@@ -496,9 +496,9 @@ FunctionSpeeds const& Function::speeds() const
     return m_speeds;
 }
 
-Function::FunctionSpeedsEditProxy Function::speedsEdit()
+FunctionSpeedsEditProxy Function::speedsEdit()
 {
-    return FunctionSpeedsEditProxy(m_speeds, *this);
+    return FunctionSpeedsEditProxy(m_speeds, this);
 }
 
 void Function::tap()
@@ -526,12 +526,12 @@ FunctionSpeeds const& Function::alternateSpeeds(quint32 alternateIdx) const
     return m_dummyAlternateSpeeds;
 }
 
-FunctionSpeeds& Function::alternateSpeedsEdit(quint32 alternateIdx)
+FunctionSpeedsEditProxy Function::alternateSpeedsEdit(quint32 alternateIdx)
 {
     Q_UNUSED(alternateIdx);
     qWarning() << Q_FUNC_INFO << "Function" << typeString()
                << "does not have any \"other speed\"";
-    return m_dummyAlternateSpeeds;
+    return FunctionSpeedsEditProxy(m_dummyAlternateSpeeds);
 }
 
 QString Function::alternateSpeedsString(quint32 alternateIdx) const

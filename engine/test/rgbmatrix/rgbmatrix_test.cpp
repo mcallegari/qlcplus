@@ -87,7 +87,7 @@ void RGBMatrix_Test::initial()
     QVERIFY(mtx.m_fader == NULL);
     QCOMPARE(mtx.m_stepHandler->currentStepIndex(), 0);
     QCOMPARE(mtx.name(), tr("New RGB Matrix"));
-    QCOMPARE(mtx.speeds().duration(), uint(500));
+    QCOMPARE(mtx.innerSpeeds().duration(), uint(500));
     QVERIFY(mtx.algorithm() != NULL);
     QCOMPARE(mtx.algorithm()->name(), QString("Stripes"));
 }
@@ -189,9 +189,12 @@ void RGBMatrix_Test::loadSave()
     mtx->setName("Xyzzy");
     mtx->setDirection(Function::Backward);
     mtx->setRunOrder(Function::PingPong);
-    mtx->speedsEdit().setFadeIn(10);
-    mtx->speedsEdit().setFadeOut(20);
-    mtx->speedsEdit().setDuration(1200);
+    mtx->speedsEdit().setFadeIn(1);
+    mtx->speedsEdit().setFadeOut(2);
+    mtx->speedsEdit().setDuration(120);
+    mtx->innerSpeedsEdit().setFadeIn(10);
+    mtx->innerSpeedsEdit().setFadeOut(20);
+    mtx->innerSpeedsEdit().setDuration(1200);
     mtx->setDimmerControl(false);
     m_doc->addFunction(mtx);
 
@@ -222,6 +225,14 @@ void RGBMatrix_Test::loadSave()
             QCOMPARE(xmlReader.attributes().value("FadeIn").toString(), QString("10"));
             QCOMPARE(xmlReader.attributes().value("Hold").toString(), QString("1190"));
             QCOMPARE(xmlReader.attributes().value("FadeOut").toString(), QString("20"));
+            speed++;
+            xmlReader.skipCurrentElement();
+        }
+        else if (xmlReader.name() == "OuterSpeeds")
+        {
+            QCOMPARE(xmlReader.attributes().value("FadeIn").toString(), QString("1"));
+            QCOMPARE(xmlReader.attributes().value("Hold").toString(), QString("119"));
+            QCOMPARE(xmlReader.attributes().value("FadeOut").toString(), QString("2"));
             speed++;
             xmlReader.skipCurrentElement();
         }
@@ -267,7 +278,7 @@ void RGBMatrix_Test::loadSave()
         }
     }
 
-    QCOMPARE(speed, 1);
+    QCOMPARE(speed, 2);
     QCOMPARE(dir, 1);
     QCOMPARE(run, 1);
     QCOMPARE(algo, 1);
@@ -290,9 +301,12 @@ void RGBMatrix_Test::loadSave()
     QCOMPARE(mtx2.fixtureGroup(), uint(42));
     QVERIFY(mtx2.algorithm() != NULL);
     QCOMPARE(mtx2.algorithm()->name(), mtx->algorithm()->name());
-    QCOMPARE(mtx2.speeds().duration(), uint(1200));
-    QCOMPARE(mtx2.speeds().fadeIn(), uint(10));
-    QCOMPARE(mtx2.speeds().fadeOut(), uint(20));
+    QCOMPARE(mtx2.innerSpeeds().duration(), uint(1200));
+    QCOMPARE(mtx2.innerSpeeds().fadeIn(), uint(10));
+    QCOMPARE(mtx2.innerSpeeds().fadeOut(), uint(20));
+    QCOMPARE(mtx2.speeds().duration(), uint(120));
+    QCOMPARE(mtx2.speeds().fadeIn(), uint(1));
+    QCOMPARE(mtx2.speeds().fadeOut(), uint(2));
 
     buffer.close();
     buffer.setData(QByteArray());
