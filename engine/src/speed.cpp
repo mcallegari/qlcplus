@@ -182,6 +182,8 @@ QString Speed::msToString(quint32 ms)
 
 quint32 Speed::add(quint32 left, quint32 right)
 {
+    if (left == originalValue() && right == originalValue())
+        return originalValue();
     left = normalize(left);
     right = normalize(right);
     if (left == infiniteValue() || right == infiniteValue())
