@@ -171,51 +171,39 @@ void EFX::setDuration(uint ms)
 
 quint32 EFX::alternateSpeedsCount() const
 {
-    return 2;
+    return 1;
 }
 
 void EFX::setAlternateSpeeds(quint32 alternateIdx, FunctionSpeeds const& speeds)
 {
-    if (alternateIdx > 1)
+    if (alternateIdx >= alternateSpeedsCount())
         return Function::setAlternateSpeeds(alternateIdx, speeds);
 
-    if (alternateIdx == 0)
-        m_alternateSpeedsBase = speeds;
-    else
-        m_alternateSpeedsInternal = speeds;
+    m_alternateSpeedsInternal = speeds;
 }
 
 FunctionSpeeds const& EFX::alternateSpeeds(quint32 alternateIdx) const
 {
-    if (alternateIdx > 1)
+    if (alternateIdx >= alternateSpeedsCount())
         return Function::alternateSpeeds(alternateIdx);
 
-    if (alternateIdx == 0)
-        return m_alternateSpeedsBase;
-    else
-        return m_alternateSpeedsInternal;
+    return m_alternateSpeedsInternal;
 }
 
 FunctionSpeeds& EFX::alternateSpeedsEdit(quint32 alternateIdx)
 {
-    if (alternateIdx > 1)
+    if (alternateIdx >= alternateSpeedsCount())
         return Function::alternateSpeedsEdit(alternateIdx);
 
-    if (alternateIdx == 0)
-        return m_alternateSpeedsBase;
-    else
-        return m_alternateSpeedsInternal;
+    return m_alternateSpeedsInternal;
 }
 
 QString EFX::alternateSpeedsString(quint32 alternateIdx) const
 {
-    if (alternateIdx > 1)
+    if (alternateIdx >= alternateSpeedsCount())
         return Function::alternateSpeedsString(alternateIdx);
 
-    if (alternateIdx == 0)
-        return "Override";
-    else
-        return "Internal";
+    return "Internal";
 }
 
 /*****************************************************************************

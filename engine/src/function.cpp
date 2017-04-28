@@ -74,6 +74,8 @@ const QString KBeatsTypeString  (      "Beats" );
  * Initialization
  *****************************************************************************/
 
+FunctionSpeeds Function::m_dummyAlternateSpeeds = FunctionSpeeds();
+
 Function::Function(QObject *parent)
     : QObject(parent)
     , m_id(Function::invalidId())
@@ -84,7 +86,7 @@ Function::Function(QObject *parent)
     , m_direction(Forward)
     , m_beatResyncNeeded(false)
     , m_speeds(0, 0, 0)
-    , m_alternateSpeedsBase(Speed::originalValue(), Speed::originalValue(), Speed::originalValue())
+    , m_overrideSpeeds(Speed::originalValue(), Speed::originalValue(), Speed::originalValue())
     , m_uiState()
     , m_flashing(false)
     , m_elapsed(0)
@@ -106,7 +108,7 @@ Function::Function(Doc* doc, Type t)
     , m_direction(Forward)
     , m_beatResyncNeeded(false)
     , m_speeds(0, 0, 0)
-    , m_alternateSpeedsBase(Speed::originalValue(), Speed::originalValue(), Speed::originalValue())
+    , m_overrideSpeeds(Speed::originalValue(), Speed::originalValue(), Speed::originalValue())
     , m_uiState()
     , m_flashing(false)
     , m_elapsed(0)
@@ -511,9 +513,9 @@ quint32 Function::alternateSpeedsCount() const
 void Function::setAlternateSpeeds(quint32 alternateIdx, FunctionSpeeds const& speeds)
 {
     Q_UNUSED(alternateIdx);
+    Q_UNUSED(speeds);
     qWarning() << Q_FUNC_INFO << "Function" << typeString()
                << "does not have any \"other speed\"";
-    m_alternateSpeedsBase = speeds;
 }
 
 FunctionSpeeds const& Function::alternateSpeeds(quint32 alternateIdx) const
@@ -521,7 +523,7 @@ FunctionSpeeds const& Function::alternateSpeeds(quint32 alternateIdx) const
     Q_UNUSED(alternateIdx);
     qWarning() << Q_FUNC_INFO << "Function" << typeString()
                << "does not have any \"other speed\"";
-    return m_alternateSpeedsBase;
+    return m_dummyAlternateSpeeds;
 }
 
 FunctionSpeeds& Function::alternateSpeedsEdit(quint32 alternateIdx)
@@ -529,7 +531,7 @@ FunctionSpeeds& Function::alternateSpeedsEdit(quint32 alternateIdx)
     Q_UNUSED(alternateIdx);
     qWarning() << Q_FUNC_INFO << "Function" << typeString()
                << "does not have any \"other speed\"";
-    return m_alternateSpeedsBase;
+    return m_dummyAlternateSpeeds;
 }
 
 QString Function::alternateSpeedsString(quint32 alternateIdx) const
@@ -537,57 +539,8 @@ QString Function::alternateSpeedsString(quint32 alternateIdx) const
     Q_UNUSED(alternateIdx);
     qWarning() << Q_FUNC_INFO << "Function" << typeString()
                << "does not have any \"other speed\"";
-    return "";
+    return "NONE";
 }
-
-// TODO alternate speeds
-//quint32 Function::getNum__SUBSPEEDPH__SpeedsCount() const
-//{
-//    return 0;
-//}
-//
-//void Function::set__SUBSPEEDPH__Speeds(quint32 other, FunctionSpeeds const& speeds)
-//{
-//    Q_UNUSED(other);
-//    Q_UNUSED(speeds);
-//    qWarning() << Q_FUNC_INFO << "Function" << typeString()
-//        << "does not have any \"other speed\"";
-//}
-//
-//void Function::set__SUBSPEEDPH__FadeIn(quint32 other, quint32 ms)
-//{
-//    Q_UNUSED(other);
-//    Q_UNUSED(ms);
-//    return Function::set__SUBSPEEDPH__Speeds(0, FunctionSpeeds());
-//}
-//
-//void Function::set__SUBSPEEDPH__Hold(quint32 other, quint32 ms)
-//{
-//    Q_UNUSED(other);
-//    Q_UNUSED(ms);
-//    return Function::set__SUBSPEEDPH__Speeds(0, FunctionSpeeds());
-//}
-//
-//void Function::set__SUBSPEEDPH__FadeOut(quint32 other, quint32 ms)
-//{
-//    Q_UNUSED(other);
-//    Q_UNUSED(ms);
-//    return Function::set__SUBSPEEDPH__Speeds(0, FunctionSpeeds());
-//}
-//
-//void Function::set__SUBSPEEDPH__Duration(quint32 other, quint32 ms)
-//{
-//    Q_UNUSED(other);
-//    Q_UNUSED(ms);
-//    return Function::set__SUBSPEEDPH__Speeds(0, FunctionSpeeds());
-//}
-//
-//QString Function::get__SUBSPEEDPH__String(quint32 other) const
-//{
-//    Q_UNUSED(other);
-//    Function::set__SUBSPEEDPH__Speeds(0, FunctionSpeeds());
-//    return "";
-//}
 
 /*****************************************************************************
  * UI State
@@ -869,7 +822,7 @@ void Function::start(MasterTimer* timer, FunctionParent source, quint32 startTim
 
     m_elapsed = startTime;
     m_elapsedBeats = 0;
-    m_alternateSpeedsBase = overrideSpeeds;
+    m_overrideSpeeds = overrideSpeeds;
 
     m_stop = false;
     timer->startFunction(this);

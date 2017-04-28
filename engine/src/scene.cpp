@@ -58,40 +58,6 @@ QIcon Scene::getIcon() const
     return QIcon(":/scene.png");
 }
 
-quint32 Scene::alternateSpeedsCount() const
-{
-    return 1;
-}
-
-void Scene::setAlternateSpeeds(quint32 alternateIdx, FunctionSpeeds const& speeds)
-{
-    if (alternateIdx != 0)
-        return Function::setAlternateSpeeds(0, speeds);
-
-    m_alternateSpeedsBase = speeds;
-}
-
-FunctionSpeeds const& Scene::alternateSpeeds(quint32 alternateIdx) const
-{
-    if (alternateIdx != 0)
-        return Function::alternateSpeeds(alternateIdx);
-    return m_alternateSpeedsBase;
-}
-
-FunctionSpeeds& Scene::alternateSpeedsEdit(quint32 alternateIdx)
-{
-    if (alternateIdx != 0)
-        return Function::alternateSpeedsEdit(alternateIdx);
-    return m_alternateSpeedsBase;
-}
-
-QString Scene::alternateSpeedsString(quint32 alternateIdx) const
-{
-    if (alternateIdx != 0)
-        return Function::alternateSpeedsString(alternateIdx);
-    return "Override";
-}
-
 /*****************************************************************************
  * Copying
  *****************************************************************************/
@@ -651,10 +617,10 @@ void Scene::write(MasterTimer* timer, QList<Universe*> ua)
             else
             {
                 uint fadeIn;
-                if (m_alternateSpeedsBase.fadeIn() == Speed::originalValue())
+                if (m_overrideSpeeds.fadeIn() == Speed::originalValue())
                     fadeIn = speeds().fadeIn();
                 else
-                    fadeIn = m_alternateSpeedsBase.fadeIn();
+                    fadeIn = m_overrideSpeeds.fadeIn();
 
                 if (speeds().tempoType() == Speed::Beats)
                 {
@@ -721,10 +687,10 @@ void Scene::postRun(MasterTimer* timer, QList<Universe *> ua)
             else
             {
                 uint fadeout;
-                if (m_alternateSpeedsBase.fadeOut() == Speed::originalValue())
+                if (m_overrideSpeeds.fadeOut() == Speed::originalValue())
                     fadeout = speeds().fadeOut();
                 else
-                    fadeout = m_alternateSpeedsBase.fadeOut();
+                    fadeout = m_overrideSpeeds.fadeOut();
 
                 if (speeds().tempoType() == Speed::Beats)
                     fc.setFadeTime(Speed::beatsToMs(fadeout, timer->beatTimeDuration()));

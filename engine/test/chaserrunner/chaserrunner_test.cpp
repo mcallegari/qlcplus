@@ -183,7 +183,7 @@ void ChaserRunner_Test::currentFadeIn()
     QCOMPARE(cr.stepFadeIn(cr.currentStepIndex()), Speed::originalValue());
 
     // Check that override speed does not override steps settings
-    m_chaser->m_alternateSpeedsBase.setFadeIn(1234);
+    m_chaser->m_overrideSpeeds.setFadeIn(1234);
 
     m_chaser->setFadeInMode(Chaser::Default);
     cr.m_lastRunStepIdx = 0;
@@ -254,7 +254,7 @@ void ChaserRunner_Test::currentFadeOut()
     QCOMPARE(cr.stepFadeOut(cr.currentStepIndex()), Speed::originalValue());
 
     // Check that override speed does not override steps settings
-    m_chaser->m_alternateSpeedsBase.setFadeOut(1234);
+    m_chaser->m_overrideSpeeds.setFadeOut(1234);
 
     m_chaser->setFadeOutMode(Chaser::Default);
     cr.m_lastRunStepIdx = 0;
@@ -324,7 +324,7 @@ void ChaserRunner_Test::currentDuration()
     QCOMPARE(cr.stepDuration(cr.currentStepIndex()), uint(300)); // Fall back to common speed
 
     // Check that override speed does not override steps settings
-    m_chaser->m_alternateSpeedsBase.setDuration(1234);
+    m_chaser->m_overrideSpeeds.setDuration(1234);
 
     m_chaser->setDurationMode(Chaser::Default);
     cr.m_lastRunStepIdx = 0;

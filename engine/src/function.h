@@ -454,20 +454,12 @@ public:
     virtual FunctionSpeeds const& alternateSpeeds(quint32 alternateIdx) const;
     virtual FunctionSpeeds& alternateSpeedsEdit(quint32 alternateIdx);
     virtual QString alternateSpeedsString(quint32 alternateIdx) const;
-    // TODO alternate speeds
-    // replace overrideblabla by alternate.
-    // Alternate idx0 is the "global" speed of the function.
-    // virtual quint32 getNum__SUBSPEEDPH__SpeedsCount() const;
-    // virtual void set__SUBSPEEDPH__Speeds(quint32 alternateIdx, FunctionSpeeds const& speeds);
-    // virtual void set__SUBSPEEDPH__FadeIn(quint32 alternateIdx, quint32 ms);
-    // virtual void set__SUBSPEEDPH__Hold(quint32 alternateIdx, quint32 ms);
-    // virtual void set__SUBSPEEDPH__FadeOut(quint32 alternateIdx, quint32 ms);
-    // virtual void set__SUBSPEEDPH__Duration(quint32 alternateIdx, quint32 ms);
-    // virtual void get__SUBSPEEDPH__String(quint32 alternateIdx) const;
 
 protected:
     FunctionSpeeds m_speeds;
-    FunctionSpeeds m_alternateSpeedsBase;
+    FunctionSpeeds m_overrideSpeeds;
+private:
+    static FunctionSpeeds m_dummyAlternateSpeeds;
 
     /*********************************************************************
      * UI State
@@ -658,7 +650,6 @@ public:
      * @param timer The MasterTimer that should run the function
      * @param child Use true if called from another function
      * @param overrideSpeeds Override the function's default speeds
-     * @param overrideTempoType Override the tempo type of the function
      */
     void start(MasterTimer* timer, FunctionParent parent, quint32 startTime = 0,
                FunctionSpeeds const& overrideSpeeds = FunctionSpeeds());
