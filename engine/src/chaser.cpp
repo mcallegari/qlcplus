@@ -42,6 +42,8 @@
 #define KXMLQLCChaserSpeedModePerStep "PerStep"
 #define KXMLQLCChaserSpeedModeDefault "Default"
 
+#define KXMLQLCChaserOuterSpeeds "OuterSpeeds"
+
 /*****************************************************************************
  * Initialization
  *****************************************************************************/
@@ -61,6 +63,9 @@ Chaser::Chaser(Doc* doc)
     , m_runner(NULL)
 {
     setName(tr("New Chaser"));
+
+    m_speeds = FunctionSpeeds(0, Speed::infiniteValue(), 0);
+    m_commonSpeeds = FunctionSpeeds(0, 0, 0);
 
     // Listen to member Function removals
     connect(doc, SIGNAL(functionRemoved(quint32)),
@@ -106,6 +111,7 @@ bool Chaser::copyFrom(const Function* function)
         return false;
 
     // Copy chaser stuff
+    m_commonSpeeds = chaser->m_commonSpeeds;
     m_steps = chaser->m_steps;
     m_fadeInMode = chaser->m_fadeInMode;
     m_fadeOutMode = chaser->m_fadeOutMode;
@@ -427,7 +433,10 @@ bool Chaser::saveXML(QXmlStreamWriter *doc)
     saveXMLCommon(doc);
 
     /* Speeds */
-    m_speeds.saveXML(doc);
+    // Legacy speed is now the common speed
+    // m_speeds is loaded as a new "OuterSpeeds" node
+    m_commonSpeeds.saveXML(doc);
+    m_speeds.saveXML(doc, KXMLQLCChaserOuterSpeeds);
 
     /* Direction */
     saveXMLDirection(doc);
@@ -499,7 +508,13 @@ bool Chaser::loadXML(QXmlStreamReader &root)
         }
         else if (root.name() == KXMLQLCFunctionSpeeds)
         {
-            m_speeds.loadXML(root);
+            // Legacy "Speed" node is now the common speed
+            m_commonSpeeds.loadXML(root);
+        }
+        else if (root.name() == KXMLQLCChaserOuterSpeeds)
+        {
+            // m_speeds is loaded as a new "OuterSpeeds" node
+            m_speeds.loadXML(root, KXMLQLCChaserOuterSpeeds);
         }
         else if (root.name() == KXMLQLCFunctionDirection)
         {
@@ -548,7 +563,7 @@ void Chaser::postLoad()
     if (m_legacyHoldBus != Bus::invalid())
     {
         quint32 value = Bus::instance()->value(m_legacyHoldBus);
-        speedsEdit().setDuration((value / MasterTimer::frequency()) * 1000);
+        commonSpeedsEdit().setDuration((value / MasterTimer::frequency()) * 1000);
     }
 
     Doc* doc = this->doc();

@@ -67,8 +67,9 @@ RGBMatrix::RGBMatrix(Doc* doc)
     , m_stepBeatDuration(0)
 {
     setName(tr("New RGB Matrix"));
-    setSpeeds(FunctionSpeeds(0, Speed::infiniteValue(), 0));
-    setAlternateSpeeds(0, FunctionSpeeds(0, 500, 0));
+
+    m_speeds = FunctionSpeeds(0, Speed::infiniteValue(), 0);
+    m_innerSpeeds = FunctionSpeeds(0, 500, 0);
 
     RGBScript scr = doc->rgbScriptsCache()->script("Stripes");
     setAlgorithm(scr.clone());
@@ -393,7 +394,7 @@ bool RGBMatrix::loadXML(QXmlStreamReader &root)
     {
         if (root.name() == KXMLQLCFunctionSpeeds)
         {
-            // Legacy "Speed" node is now the internal speed
+            // Legacy "Speed" node is now the inner speed
             m_innerSpeeds.loadXML(root);
         }
         else if (root.name() == KXMLQLCRGBMatrixOuterSpeeds)
@@ -457,7 +458,7 @@ bool RGBMatrix::saveXML(QXmlStreamWriter *doc)
     saveXMLCommon(doc);
 
     /* Speeds */
-    // Legacy speed is now the internal speed
+    // Legacy speed is now the inner speed
     // m_speeds is loaded as a new "OuterSpeeds" node
     m_innerSpeeds.saveXML(doc);
     m_speeds.saveXML(doc, KXMLQLCRGBMatrixOuterSpeeds);

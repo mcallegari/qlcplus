@@ -501,6 +501,21 @@ FunctionSpeedsEditProxy Function::speedsEdit()
     return FunctionSpeedsEditProxy(m_speeds, this);
 }
 
+void Function::setOverrideSpeeds(FunctionSpeeds const& speeds)
+{
+    m_overrideSpeeds = speeds;
+}
+
+FunctionSpeeds const& Function::overrideSpeeds() const
+{
+    return m_overrideSpeeds;
+}
+
+FunctionSpeedsEditProxy Function::overrideSpeedsEdit()
+{
+    return FunctionSpeedsEditProxy(m_overrideSpeeds);
+}
+
 void Function::tap()
 {
 }

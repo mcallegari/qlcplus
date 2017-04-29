@@ -257,6 +257,9 @@ void Chaser_Test::copyFrom()
     c1.setName("First");
     c1.setDirection(Chaser::Backward);
     c1.setRunOrder(Chaser::PingPong);
+    c1.commonSpeedsEdit().setFadeIn(4);
+    c1.commonSpeedsEdit().setFadeOut(6);
+    c1.commonSpeedsEdit().setDuration(133);
     c1.speedsEdit().setFadeIn(42);
     c1.speedsEdit().setFadeOut(69);
     c1.speedsEdit().setDuration(1337);
@@ -271,6 +274,9 @@ void Chaser_Test::copyFrom()
     QVERIFY(c2.copyFrom(&c1) == true);
     QCOMPARE(spy.size(), 1);
     QVERIFY(c2.name() == c1.name());
+    QVERIFY(c2.commonSpeeds().fadeIn() == 4);
+    QVERIFY(c2.commonSpeeds().fadeOut() == 6);
+    QVERIFY(c2.commonSpeeds().duration() == 133);
     QVERIFY(c2.speeds().fadeIn() == 42);
     QVERIFY(c2.speeds().fadeOut() == 69);
     QVERIFY(c2.speeds().duration() == 1337);
@@ -289,6 +295,9 @@ void Chaser_Test::copyFrom()
     /* Make a third Chaser */
     Chaser c3(m_doc);
     c3.setName("Third");
+    c3.commonSpeedsEdit().setFadeIn(14);
+    c3.commonSpeedsEdit().setFadeOut(16);
+    c3.commonSpeedsEdit().setDuration(1133);
     c3.speedsEdit().setFadeIn(142);
     c3.speedsEdit().setFadeOut(169);
     c3.speedsEdit().setDuration(11337);
@@ -302,6 +311,9 @@ void Chaser_Test::copyFrom()
        that steps are not appended but replaced completely. */
     QVERIFY(c2.copyFrom(&c3) == true);
     QVERIFY(c2.name() == c3.name());
+    QVERIFY(c2.commonSpeeds().fadeIn() == 14);
+    QVERIFY(c2.commonSpeeds().fadeOut() == 16);
+    QVERIFY(c2.commonSpeeds().duration() == 1133);
     QVERIFY(c2.speeds().fadeIn() == 142);
     QVERIFY(c2.speeds().fadeOut() == 169);
     QVERIFY(c2.speeds().duration() == 11337);
@@ -319,6 +331,9 @@ void Chaser_Test::createCopy()
 
     Chaser* c1 = new Chaser(m_doc);
     c1->setName("First");
+    c1->commonSpeedsEdit().setFadeIn(4);
+    c1->commonSpeedsEdit().setFadeOut(6);
+    c1->commonSpeedsEdit().setDuration(133);
     c1->speedsEdit().setFadeIn(42);
     c1->speedsEdit().setFadeOut(69);
     c1->speedsEdit().setDuration(1337);
@@ -338,6 +353,9 @@ void Chaser_Test::createCopy()
 
     Chaser* copy = qobject_cast<Chaser*> (f);
     QVERIFY(copy != NULL);
+    QVERIFY(copy->commonSpeeds().fadeIn() == 4);
+    QVERIFY(copy->commonSpeeds().fadeOut() == 6);
+    QVERIFY(copy->commonSpeeds().duration() == 133);
     QVERIFY(copy->speeds().fadeIn() == 42);
     QVERIFY(copy->speeds().fadeOut() == 69);
     QVERIFY(copy->speeds().duration() == 1337);
@@ -444,7 +462,7 @@ void Chaser_Test::loadSuccessLegacy()
 
     // postLoad() removes nonexistent functions so let's check this here
     c.postLoad();
-    QCOMPARE(c.speeds().duration(), MasterTimer::frequency() * MasterTimer::tick());
+    QCOMPARE(c.commonSpeeds().duration(), MasterTimer::frequency() * MasterTimer::tick());
 }
 
 void Chaser_Test::loadSuccess()
@@ -457,6 +475,12 @@ void Chaser_Test::loadSuccess()
     xmlWriter.writeAttribute("Type", "Chaser");
 
     xmlWriter.writeStartElement("Speed");
+    xmlWriter.writeAttribute("FadeIn", "4");
+    xmlWriter.writeAttribute("Hold", "129");
+    xmlWriter.writeAttribute("FadeOut", "6");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeStartElement("OuterSpeeds");
     xmlWriter.writeAttribute("FadeIn", "42");
     xmlWriter.writeAttribute("Hold", "1295");
     xmlWriter.writeAttribute("FadeOut", "69");
@@ -512,6 +536,9 @@ void Chaser_Test::loadSuccess()
 
     Chaser c(m_doc);
     QVERIFY(c.loadXML(xmlReader) == true);
+    QVERIFY(c.commonSpeeds().fadeIn() == 4);
+    QVERIFY(c.commonSpeeds().fadeOut() == 6);
+    QVERIFY(c.commonSpeeds().duration() == 133);
     QVERIFY(c.speeds().fadeIn() == 42);
     QVERIFY(c.speeds().fadeOut() == 69);
     QVERIFY(c.speeds().duration() == 1337);
@@ -750,6 +777,9 @@ void Chaser_Test::save()
     Chaser c(m_doc);
     c.setDirection(Chaser::Backward);
     c.setRunOrder(Chaser::SingleShot);
+    c.commonSpeedsEdit().setFadeIn(4);
+    c.commonSpeedsEdit().setFadeOut(6);
+    c.commonSpeedsEdit().setDuration(133);
     c.speedsEdit().setFadeIn(42);
     c.speedsEdit().setFadeOut(69);
     c.speedsEdit().setDuration(1337);
@@ -801,6 +831,11 @@ void Chaser_Test::save()
             QVERIFY(fid == 0 || fid == 1 || fid == 2 || fid == 3);
             fids++;
         }
+        else if (xmlReader.name() == "OuterSpeeds")
+        {
+            speed++;
+            xmlReader.skipCurrentElement();
+        }
         else if (xmlReader.name() == "Speed")
         {
             speed++;
@@ -821,7 +856,7 @@ void Chaser_Test::save()
         }
     }
 
-    QCOMPARE(speed, 1);
+    QCOMPARE(speed, 2);
     QCOMPARE(speedmodes, 1);
     QCOMPARE(dir, 1);
     QCOMPARE(run, 1);
@@ -851,7 +886,7 @@ void Chaser_Test::tap()
 
     c->preRun(m_doc->masterTimer());
     QVERIFY(c->m_runner != NULL);
-    QCOMPARE(c->speeds().duration(), uint(0));
+    QCOMPARE(c->commonSpeeds().duration(), uint(0));
     c->write(m_doc->masterTimer(), QList<Universe*>());
     QCOMPARE(c->m_runner->m_next, false);
     c->tap();
@@ -887,7 +922,7 @@ void Chaser_Test::write()
     m_doc->addFixture(fxi);
 
     Chaser* c = new Chaser(m_doc);
-    c->speedsEdit().setDuration(MasterTimer::tick() * 10);
+    c->commonSpeedsEdit().setDuration(MasterTimer::tick() * 10);
     m_doc->addFunction(c);
 
     Scene* s1 = new Scene(m_doc);
@@ -907,7 +942,7 @@ void Chaser_Test::write()
     c->start(&timer, FunctionParent::master());
 
     timer.timerTick();
-    for (uint i = MasterTimer::tick(); i < c->speeds().duration(); i += MasterTimer::tick())
+    for (uint i = MasterTimer::tick(); i < c->commonSpeeds().duration(); i += MasterTimer::tick())
     {
         timer.timerTick();
         QVERIFY(c->isRunning() == true);
@@ -916,7 +951,7 @@ void Chaser_Test::write()
         QVERIFY(s2->isRunning() == false);
     }
 
-    for (uint i = 0; i < c->speeds().duration(); i += MasterTimer::tick())
+    for (uint i = 0; i < c->commonSpeeds().duration(); i += MasterTimer::tick())
     {
         timer.timerTick();
         QVERIFY(c->isRunning() == true);
@@ -977,7 +1012,7 @@ void Chaser_Test::quickChaser()
 
     Chaser* c = new Chaser(m_doc);
     // A really quick chaser
-    c->speedsEdit().setDuration(0);
+    c->commonSpeedsEdit().setDuration(0);
     m_doc->addFunction(c);
 
     Scene* s1 = new Scene(m_doc);

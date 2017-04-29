@@ -162,22 +162,22 @@ bool ChaserStep::loadXML(QXmlStreamReader &root, int& stepNumber)
     }
     QXmlStreamAttributes attrs = root.attributes();
 
-    if (attrs.hasAttribute(KXMLQLCFunctionSpeedsFadeIn) == true)
+    if (attrs.hasAttribute(KXMLQLCFunctionSpeedsFadeIn))
         speeds.setFadeIn(attrs.value(KXMLQLCFunctionSpeedsFadeIn).toString().toUInt());
-    if (attrs.hasAttribute(KXMLQLCFunctionSpeedsHold) == true)
+    if (attrs.hasAttribute(KXMLQLCFunctionSpeedsHold))
         speeds.setHold(attrs.value(KXMLQLCFunctionSpeedsHold).toString().toUInt());
-    if (attrs.hasAttribute(KXMLQLCFunctionSpeedsFadeOut) == true)
+    if (attrs.hasAttribute(KXMLQLCFunctionSpeedsFadeOut))
         speeds.setFadeOut(attrs.value(KXMLQLCFunctionSpeedsFadeOut).toString().toUInt());
 
-    if (attrs.hasAttribute(KXMLQLCFunctionSpeedsDuration) == true)
+    if (attrs.hasAttribute(KXMLQLCFunctionSpeedsDuration))
         speeds.setDuration(attrs.value(KXMLQLCFunctionSpeedsDuration).toString().toUInt());
 
-    if (attrs.hasAttribute(KXMLQLCFunctionNumber) == true)
+    if (attrs.hasAttribute(KXMLQLCFunctionNumber))
         stepNumber = attrs.value(KXMLQLCFunctionNumber).toString().toInt();
-    if (attrs.hasAttribute(KXMLQLCStepNote) == true)
+    if (attrs.hasAttribute(KXMLQLCStepNote))
         note = attrs.value(KXMLQLCStepNote).toString();
 
-    if (attrs.hasAttribute(KXMLQLCSequenceSceneValues) == true)
+    if (attrs.hasAttribute(KXMLQLCSequenceSceneValues))
     {
         QString stepValues = root.readElementText();
         if (stepValues.isEmpty() == false)

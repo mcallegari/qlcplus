@@ -407,6 +407,10 @@ public:
     FunctionSpeeds const& speeds() const;
     FunctionSpeedsEditProxy speedsEdit();
 
+    void setOverrideSpeeds(FunctionSpeeds const& speeds);
+    FunctionSpeeds const& overrideSpeeds() const;
+    FunctionSpeedsEditProxy overrideSpeedsEdit();
+
     /** Tell the function that it has been "tapped". Default implementation does nothing. */
     virtual void tap();
 

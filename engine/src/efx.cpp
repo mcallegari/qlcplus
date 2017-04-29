@@ -50,8 +50,8 @@
 
 EFX::EFX(Doc* doc) : Function(doc, Function::EFXType)
 {
-    setSpeeds(FunctionSpeeds(0, Speed::infiniteValue(), 0));
-    setInnerSpeeds(FunctionSpeeds(0, 20000, 0)); // 20s duration
+    m_speeds = FunctionSpeeds(0, Speed::infiniteValue(), 0);
+    m_innerSpeeds = FunctionSpeeds(0, 20000, 0); // 20s duration
 
     m_width = 127;
     m_height = 127;
@@ -829,7 +829,7 @@ bool EFX::saveXML(QXmlStreamWriter *doc)
     doc->writeTextElement(KXMLQLCEFXPropagationMode, propagationModeToString(m_propagationMode));
 
     /* Speeds */
-    // Legacy speed is now the internal speed
+    // Legacy speed is now the inner speed
     // m_speeds is loaded as a new "OuterSpeeds" node
     m_innerSpeeds.saveXML(doc);
     m_speeds.saveXML(doc, KXMLQLCEFXOuterSpeeds);
@@ -918,7 +918,7 @@ bool EFX::loadXML(QXmlStreamReader &root)
         }
         else if (root.name() == KXMLQLCFunctionSpeeds)
         {
-            // Legacy "Speed" node is now the internal speed
+            // Legacy "Speed" node is now the inner speed
             m_innerSpeeds.loadXML(root);
         }
         else if (root.name() == KXMLQLCEFXOuterSpeeds)

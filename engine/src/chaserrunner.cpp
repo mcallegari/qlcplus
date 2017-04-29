@@ -56,7 +56,7 @@ ChaserRunner::ChaserRunner(const Doc* doc, const Chaser* chaser, quint32 startTi
         quint32 stepsTime = 0;
         foreach(ChaserStep step, chaser->steps())
         {
-            uint duration = m_chaser->durationMode() == Chaser::Common ? m_chaser->speeds().duration() : step.speeds.duration();
+            uint duration = m_chaser->durationMode() == Chaser::Common ? m_chaser->commonSpeeds().duration() : step.speeds.duration();
 
             if (startTime < stepsTime + duration)
             {
@@ -122,7 +122,7 @@ quint32 ChaserRunner::stepFadeIn(int stepIdx) const
     {
     case Chaser::Common:
         // All steps' fade in speed is dictated by the chaser
-        fadeIn = m_chaser->speeds().fadeIn();
+        fadeIn = m_chaser->commonSpeeds().fadeIn();
         break;
     case Chaser::PerStep:
         // Each step specifies its own fade in speed
@@ -148,7 +148,7 @@ quint32 ChaserRunner::stepFadeOut(int stepIdx) const
     {
     case Chaser::Common:
         // All steps' fade out speed is dictated by the chaser
-        fadeOut = m_chaser->speeds().fadeOut();
+        fadeOut = m_chaser->commonSpeeds().fadeOut();
         break;
     case Chaser::PerStep:
         // Each step specifies its own fade out speed
@@ -176,14 +176,14 @@ uint ChaserRunner::stepHold(int stepIdx) const
     case Chaser::Default:
     case Chaser::Common:
         // All steps' hold is dictated by the chaser
-        hold = m_chaser->speeds().hold();
+        hold = m_chaser->commonSpeeds().hold();
         break;
     case Chaser::PerStep:
         // Each step specifies its own hold
         if (stepIdx >= 0 && stepIdx < m_chaser->steps().size())
             hold = m_chaser->steps().at(stepIdx).speeds.hold();
         else
-            hold = m_chaser->speeds().hold();
+            hold = m_chaser->commonSpeeds().hold();
         break;
     }
 
@@ -199,14 +199,14 @@ uint ChaserRunner::stepDuration(int stepIdx) const
     case Chaser::Default:
     case Chaser::Common:
         // All steps' duration is dictated by the chaser
-        duration = m_chaser->speeds().duration();
+        duration = m_chaser->commonSpeeds().duration();
         break;
     case Chaser::PerStep:
         // Each step specifies its own duration
         if (stepIdx >= 0 && stepIdx < m_chaser->steps().size())
             duration = m_chaser->steps().at(stepIdx).speeds.duration();
         else
-            duration = m_chaser->speeds().duration();
+            duration = m_chaser->commonSpeeds().duration();
         break;
     }
 
@@ -681,15 +681,15 @@ bool ChaserRunner::write(MasterTimer* timer, QList<Universe *> universes)
 
     foreach(ChaserRunnerStep *step, m_runnerSteps)
     {
-        if (m_chaser->speeds().tempoType() == Speed::Beats && timer->isBeat())
+        if (m_chaser->commonSpeeds().tempoType() == Speed::Beats && timer->isBeat())
         {
             step->m_elapsedBeats += 1000;
             qDebug() << "Function" << step->m_function->name() << "duration:" << step->m_speeds.duration() << "beats:" << step->m_elapsedBeats;
         }
 
         if (step->m_speeds.duration() != Speed::infiniteValue() &&
-            ((m_chaser->speeds().tempoType() == Speed::Ms && step->m_elapsed >= step->m_speeds.duration()) ||
-             (m_chaser->speeds().tempoType() == Speed::Beats && step->m_elapsedBeats >= step->m_speeds.duration())))
+            ((m_chaser->commonSpeeds().tempoType() == Speed::Ms && step->m_elapsed >= step->m_speeds.duration()) ||
+             (m_chaser->commonSpeeds().tempoType() == Speed::Beats && step->m_elapsedBeats >= step->m_speeds.duration())))
         {
             if (step->m_speeds.duration() != 0)
                 prevStepRoundElapsed = step->m_elapsed % step->m_speeds.duration();
@@ -711,8 +711,8 @@ bool ChaserRunner::write(MasterTimer* timer, QList<Universe *> universes)
                 m_updateOverrideSpeeds = false;
                 if (step->m_function != NULL)
                 {
-                    step->m_function->alternateSpeedsEdit(0).setFadeIn(step->m_speeds.fadeIn());
-                    step->m_function->alternateSpeedsEdit(0).setFadeOut(step->m_speeds.fadeOut());
+                    step->m_function->overrideSpeedsEdit().setFadeIn(step->m_speeds.fadeIn());
+                    step->m_function->overrideSpeedsEdit().setFadeOut(step->m_speeds.fadeOut());
                 }
             }
         }

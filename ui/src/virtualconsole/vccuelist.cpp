@@ -437,7 +437,7 @@ void VCCueList::updateStepList()
         switch (ch->fadeInMode())
         {
             case Chaser::Common:
-                item->setText(COL_FADEIN, Speed::msToString(ch->speeds().fadeIn()));
+                item->setText(COL_FADEIN, Speed::msToString(ch->commonSpeeds().fadeIn()));
                 break;
             case Chaser::PerStep:
                 item->setText(COL_FADEIN, Speed::msToString(step.speeds.fadeIn()));
@@ -450,7 +450,7 @@ void VCCueList::updateStepList()
         switch (ch->fadeOutMode())
         {
             case Chaser::Common:
-                item->setText(COL_FADEOUT, Speed::msToString(ch->speeds().fadeOut()));
+                item->setText(COL_FADEOUT, Speed::msToString(ch->commonSpeeds().fadeOut()));
                 break;
             case Chaser::PerStep:
                 item->setText(COL_FADEOUT, Speed::msToString(step.speeds.fadeOut()));
@@ -463,7 +463,7 @@ void VCCueList::updateStepList()
         switch (ch->durationMode())
         {
             case Chaser::Common:
-                item->setText(COL_DURATION, Speed::msToString(ch->speeds().duration()));
+                item->setText(COL_DURATION, Speed::msToString(ch->commonSpeeds().duration()));
                 break;
             case Chaser::PerStep:
                 item->setText(COL_DURATION, Speed::msToString(step.speeds.duration()));
