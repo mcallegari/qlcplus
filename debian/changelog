@@ -63,14 +63,18 @@ qlcplus (4.11.0) stable; urgency=low
   * New fixtures: Showtec: Infinity iB-5R, Compact Par 18 MKII, Phantom 20 LED Beam (thanks to Nicolò Zanon)
   * New fixture: Griven Gobostorm Plus MK2 (thanks to Attilio Bongiorni)
   * New fixture: Chauvet Freedom Stick (thanks to Jay Szewczyk)
-  * New fixture: Eurolite TMH-14 (thanks to Chris de Rock)
+  * New fixture: Eurolite TMH-14, Chauvet Intimidator Trio (thanks to Chris de Rock)
   * New fixture: Chauvet Scorpion Dual (thanks to Alan Chavis)
   * New fixture: American DJ Ultra Hex Bar 12 (thanks to Rhavin)
   * New fixture: Equinox Photon
   * New fixture: QTX MHS-60 (thanks to Nerijus Mongirdas)
-  * New fixture: Eurolite LED TMH FE-600, MARQ Colormax Par64 (thanks to Klaus Muth)
+  * New fixture: Eurolite LED TMH FE-600, MARQ Colormax Par64, Stairville CLB2.4 Compact LED PAR System (thanks to Klaus Muth)
   * New fixture: Chauvet SlimPar Hex 6 (thanks to Yinon Sahar)
   * New fixture: IMG Stageline PARL 20 DMX (thanks to Felix Pickenäcker)
+  * New fixture: Pro-Lights SmartBatHEX (thanks to Lorenzo Andreani)
+  * New fixture: American DJ Ikon Profile (thanks to Ham Sadler)
+  * New fixture: HQ Power Aeron Wash 575, JB Systems Space Color Laser (thanks to Ricardo Mendes)
+  * New fixture: American DJ VPar (thanks to Eric Eskam)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 30 Apr 2017 12:13:14 +0200
 
