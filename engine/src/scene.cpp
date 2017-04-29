@@ -202,7 +202,10 @@ QColor Scene::colorValue(quint32 fxi)
         if (fixture == NULL)
             continue;
 
-        const QLCChannel* channel(fixture->channel(scv.channel));
+        const QLCChannel* channel = fixture->channel(scv.channel);
+        if (channel == NULL)
+            continue;
+
         if (channel->group() == QLCChannel::Intensity)
         {
             QLCChannel::PrimaryColour col = channel->colour();
