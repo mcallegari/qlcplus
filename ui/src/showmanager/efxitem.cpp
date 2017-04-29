@@ -66,7 +66,7 @@ void EFXItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
 
     float xpos = 0;
     float timeScale = 50/(float)m_timeScale;
-    quint32 efxDuration = m_efx->speeds().duration();
+    quint32 efxDuration = m_efx->innerSpeeds().duration();
 
     ShowItem::paint(painter, option, widget);
 
@@ -91,7 +91,7 @@ void EFXItem::setTimeScale(int val)
 void EFXItem::setDuration(quint32 msec, bool stretch)
 {
     if (stretch == true)
-        m_efx->setDuration(msec);
+        m_efx->innerSpeedsEdit().setDuration(msec);
     else
     {
         if (m_function)

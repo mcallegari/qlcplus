@@ -125,6 +125,7 @@ bool RGBMatrix::copyFrom(const Function* function)
     if (mtx == NULL)
         return false;
 
+    setInnerSpeeds(mtx->innerSpeeds());
     setDimmerControl(mtx->dimmerControl());
     setFixtureGroup(mtx->fixtureGroup());
     if (mtx->algorithm() != NULL)
@@ -458,8 +459,8 @@ bool RGBMatrix::saveXML(QXmlStreamWriter *doc)
     /* Speeds */
     // Legacy speed is now the internal speed
     // m_speeds is loaded as a new "OuterSpeeds" node
-    m_speeds.saveXML(doc, KXMLQLCRGBMatrixOuterSpeeds);
     m_innerSpeeds.saveXML(doc);
+    m_speeds.saveXML(doc, KXMLQLCRGBMatrixOuterSpeeds);
 
     /* Direction */
     saveXMLDirection(doc);

@@ -42,12 +42,17 @@
 
 #include "efxuistate.h"
 
+#define KXMLQLCEFXOuterSpeeds "OuterSpeeds"
+
 /*****************************************************************************
  * Initialization
  *****************************************************************************/
 
 EFX::EFX(Doc* doc) : Function(doc, Function::EFXType)
 {
+    setSpeeds(FunctionSpeeds(0, Speed::infiniteValue(), 0));
+    setInnerSpeeds(FunctionSpeeds(0, 20000, 0)); // 20s duration
+
     m_width = 127;
     m_height = 127;
     m_xOffset = 127;
@@ -71,8 +76,6 @@ EFX::EFX(Doc* doc) : Function(doc, Function::EFXType)
 
     m_fader = NULL;
 
-    setDuration(20000); // 20s
-
     m_legacyHoldBus = Bus::invalid();
     m_legacyFadeBus = Bus::invalid();
 
@@ -85,8 +88,7 @@ EFX::EFX(Doc* doc) : Function(doc, Function::EFXType)
 
 EFX::~EFX()
 {
-    while (m_fixtures.isEmpty() == false)
-        delete m_fixtures.takeFirst();
+    qDeleteAll(m_fixtures);
 }
 
 QIcon EFX::getIcon() const
@@ -123,9 +125,10 @@ bool EFX::copyFrom(const Function* function)
     if (efx == NULL)
         return false;
 
-    while (m_fixtures.isEmpty() == false)
-        delete m_fixtures.takeFirst();
+    m_innerSpeeds = efx->m_innerSpeeds;
 
+    qDeleteAll(m_fixtures);
+    m_fixtures.clear();
     QListIterator <EFXFixture*> it(efx->m_fixtures);
     while (it.hasNext() == true)
     {
@@ -154,15 +157,6 @@ bool EFX::copyFrom(const Function* function)
     m_algorithm = efx->m_algorithm;
 
     return Function::copyFrom(function);
-}
-
-void EFX::setDuration(uint ms)
-{
-    speedsEdit().setDuration(ms);
-    for(int i = 0; i < m_fixtures.size(); ++i)
-    {
-        m_fixtures[i]->durationChanged();
-    }
 }
 
 /************************************************************************
@@ -835,7 +829,10 @@ bool EFX::saveXML(QXmlStreamWriter *doc)
     doc->writeTextElement(KXMLQLCEFXPropagationMode, propagationModeToString(m_propagationMode));
 
     /* Speeds */
-    m_speeds.saveXML(doc);
+    // Legacy speed is now the internal speed
+    // m_speeds is loaded as a new "OuterSpeeds" node
+    m_innerSpeeds.saveXML(doc);
+    m_speeds.saveXML(doc, KXMLQLCEFXOuterSpeeds);
 
     /* Direction */
     saveXMLDirection(doc);
@@ -921,7 +918,13 @@ bool EFX::loadXML(QXmlStreamReader &root)
         }
         else if (root.name() == KXMLQLCFunctionSpeeds)
         {
-            m_speeds.loadXML(root);
+            // Legacy "Speed" node is now the internal speed
+            m_innerSpeeds.loadXML(root);
+        }
+        else if (root.name() == KXMLQLCEFXOuterSpeeds)
+        {
+            // m_speeds is loaded as a new "OuterSpeeds" node
+            m_speeds.loadXML(root, KXMLQLCEFXOuterSpeeds);
         }
         else if (root.name() == KXMLQLCEFXFixture)
         {
@@ -1050,14 +1053,14 @@ void EFX::postLoad()
     if (m_legacyFadeBus != Bus::invalid())
     {
         quint32 value = Bus::instance()->value(m_legacyFadeBus);
-        speedsEdit().setFadeIn((value / MasterTimer::frequency()) * 1000);
-        speedsEdit().setFadeOut((value / MasterTimer::frequency()) * 1000);
+        innerSpeedsEdit().setFadeIn((value / MasterTimer::frequency()) * 1000);
+        innerSpeedsEdit().setFadeOut((value / MasterTimer::frequency()) * 1000);
     }
 
     if (m_legacyHoldBus != Bus::invalid())
     {
         quint32 value = Bus::instance()->value(m_legacyHoldBus);
-        setDuration((value / MasterTimer::frequency()) * 1000);
+        innerSpeedsEdit().setDuration((value / MasterTimer::frequency()) * 1000);
     }
 }
 
@@ -1082,6 +1085,9 @@ void EFX::preRun(MasterTimer* timer)
     m_fader->adjustIntensity(getAttributeValue(Intensity));
     m_fader->setBlendMode(blendMode());
 
+    // Remember duration
+    m_prevInnerDuration = m_innerSpeeds.duration();
+
     Function::preRun(timer);
 }
 
@@ -1093,6 +1099,14 @@ void EFX::write(MasterTimer* timer, QList<Universe*> universes)
 
     if (isPaused())
         return;
+
+    // If duration has changed, notify fixtures
+    if (m_prevInnerDuration != m_innerSpeeds.duration())
+    {
+        for (int i = 0; i < m_fixtures.size(); ++i)
+            m_fixtures[i]->durationChanged();
+        m_prevInnerDuration = m_innerSpeeds.duration();
+    }
 
     QListIterator <EFXFixture*> it(m_fixtures);
     while (it.hasNext() == true)

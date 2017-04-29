@@ -120,8 +120,6 @@ private slots:
     void slotSerialRadioToggled(bool state);
     void slotAsymmetricRadioToggled(bool state);
 
-    void slotFadeInChanged(int ms);
-    void slotFadeOutChanged(int ms);
     void slotHoldChanged(int ms);
     void slotDialDestroyed(QObject* dial);
 

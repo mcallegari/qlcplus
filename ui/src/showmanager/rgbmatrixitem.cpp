@@ -65,7 +65,7 @@ void RGBMatrixItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
 
     float xpos = 0;
     float timeScale = 50/(float)m_timeScale;
-    quint32 matrixDuration = m_matrix->speeds().duration();
+    quint32 matrixDuration = m_matrix->innerSpeeds().duration();
 
     ShowItem::paint(painter, option, widget);
 
@@ -93,7 +93,7 @@ void RGBMatrixItem::setTimeScale(int val)
 void RGBMatrixItem::setDuration(quint32 msec, bool stretch)
 {
     if (stretch == true)
-        m_matrix->speedsEdit().setDuration(msec);
+        m_matrix->innerSpeedsEdit().setDuration(msec);
     else
     {
         if (m_function)

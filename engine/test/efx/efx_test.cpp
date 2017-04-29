@@ -2317,6 +2317,9 @@ void EFX_Test::copyFrom()
     e1.setXPhase(163);
     e1.setYPhase(94);
     e1.setPropagationMode(EFX::Serial);
+    e1.innerSpeedsEdit().setFadeIn(4);
+    e1.innerSpeedsEdit().setFadeOut(6);
+    e1.innerSpeedsEdit().setDuration(133);
     e1.speedsEdit().setFadeIn(42);
     e1.speedsEdit().setFadeOut(69);
     e1.speedsEdit().setDuration(1337);
@@ -2347,6 +2350,9 @@ void EFX_Test::copyFrom()
     QVERIFY(e2.xPhase() == 163);
     QVERIFY(e2.yPhase() == 94);
     QVERIFY(e2.propagationMode() == EFX::Serial);
+    QCOMPARE(e2.innerSpeeds().fadeIn(), uint(4));
+    QCOMPARE(e2.innerSpeeds().fadeOut(), uint(6));
+    QCOMPARE(e2.innerSpeeds().duration(), uint(133));
     QCOMPARE(e2.speeds().fadeIn(), uint(42));
     QCOMPARE(e2.speeds().fadeOut(), uint(69));
     QCOMPARE(e2.speeds().duration(), uint(1337));
@@ -2378,6 +2384,9 @@ void EFX_Test::copyFrom()
     e3.setXPhase(136);
     e3.setYPhase(49);
     e3.setPropagationMode(EFX::Parallel);
+    e3.innerSpeedsEdit().setFadeIn(6);
+    e3.innerSpeedsEdit().setHold(4);
+    e3.innerSpeedsEdit().setFadeOut(133);
     e3.speedsEdit().setFadeIn(69);
     e3.speedsEdit().setHold(42);
     e3.speedsEdit().setFadeOut(1337);
@@ -2404,6 +2413,10 @@ void EFX_Test::copyFrom()
     QVERIFY(e2.xPhase() == 136);
     QVERIFY(e2.yPhase() == 49);
     QVERIFY(e2.propagationMode() == EFX::Parallel);
+    QCOMPARE(e2.innerSpeeds().fadeIn(), uint(6));
+    QCOMPARE(e2.innerSpeeds().hold(), uint(4));
+    QCOMPARE(e2.innerSpeeds().fadeOut(), uint(133));
+    QCOMPARE(e2.innerSpeeds().duration(), uint(10));
     QCOMPARE(e2.speeds().fadeIn(), uint(69));
     QCOMPARE(e2.speeds().hold(), uint(42));
     QCOMPARE(e2.speeds().fadeOut(), uint(1337));
@@ -2438,6 +2451,9 @@ void EFX_Test::createCopy()
     e1->setXPhase(163);
     e1->setYPhase(94);
     e1->setPropagationMode(EFX::Serial);
+    e1->innerSpeedsEdit().setFadeIn(4);
+    e1->innerSpeedsEdit().setFadeOut(6);
+    e1->innerSpeedsEdit().setDuration(133);
     e1->speedsEdit().setFadeIn(42);
     e1->speedsEdit().setFadeOut(69);
     e1->speedsEdit().setDuration(1337);
@@ -2472,6 +2488,9 @@ void EFX_Test::createCopy()
     QVERIFY(copy->xPhase() == 163);
     QVERIFY(copy->yPhase() == 94);
     QVERIFY(copy->propagationMode() == EFX::Serial);
+    QCOMPARE(copy->innerSpeeds().fadeIn(), uint(4));
+    QCOMPARE(copy->innerSpeeds().fadeOut(), uint(6));
+    QCOMPARE(copy->innerSpeeds().duration(), uint(133));
     QCOMPARE(copy->speeds().fadeIn(), uint(42));
     QCOMPARE(copy->speeds().fadeOut(), uint(69));
     QCOMPARE(copy->speeds().duration(), uint(1337));
@@ -2693,9 +2712,9 @@ void EFX_Test::loadSuccessLegacy()
     Bus::instance()->setValue(13, 100);
     e.postLoad();
 
-    QVERIFY(e.speeds().fadeIn() == uint(1000));
-    QVERIFY(e.speeds().fadeOut() == uint(1000));
-    QVERIFY(e.speeds().duration() == uint(2000));
+    QVERIFY(e.innerSpeeds().fadeIn() == uint(1000));
+    QVERIFY(e.innerSpeeds().fadeOut() == uint(1000));
+    QVERIFY(e.innerSpeeds().duration() == uint(2000));
 }
 
 void EFX_Test::loadSuccess()
@@ -2711,6 +2730,12 @@ void EFX_Test::loadSuccess()
     xmlWriter.writeTextElement("PropagationMode", "Serial");
 
     xmlWriter.writeStartElement("Speed");
+    xmlWriter.writeAttribute("FadeIn", "130");
+    xmlWriter.writeAttribute("FadeOut", "140");
+    xmlWriter.writeAttribute("Duration", "150");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeStartElement("OuterSpeeds");
     xmlWriter.writeAttribute("FadeIn", "1300");
     xmlWriter.writeAttribute("FadeOut", "1400");
     xmlWriter.writeAttribute("Duration", "1500");
@@ -2790,6 +2815,10 @@ void EFX_Test::loadSuccess()
     QVERIFY(e.fixtures().at(1)->direction() == EFX::Backward);
     QVERIFY(e.fixtures().at(2)->head().fxi == 45);
     QVERIFY(e.fixtures().at(2)->direction() == EFX::Backward);
+
+    QVERIFY(e.innerSpeeds().fadeIn() == uint(130));
+    QVERIFY(e.innerSpeeds().fadeOut() == uint(140));
+    QVERIFY(e.innerSpeeds().duration() == uint(150));
 
     QVERIFY(e.speeds().fadeIn() == uint(1300));
     QVERIFY(e.speeds().fadeOut() == uint(1400));
@@ -2885,6 +2914,9 @@ void EFX_Test::save()
     e1.setName("First");
     e1.setDirection(EFX::Backward);
     e1.setRunOrder(EFX::SingleShot);
+    e1.innerSpeedsEdit().setFadeIn(4);
+    e1.innerSpeedsEdit().setFadeOut(6);
+    e1.innerSpeedsEdit().setDuration(133);
     e1.speedsEdit().setFadeIn(42);
     e1.speedsEdit().setFadeOut(69);
     e1.speedsEdit().setDuration(1337);
@@ -2938,7 +2970,8 @@ void EFX_Test::save()
     bool dir = false, off = false, run = false, algo = false, w = false,
          h = false, rot = false, isRelative = false, xoff = false, yoff = false,
          xfreq = false, yfreq = false, xpha = false, ypha = false,
-         prop = false, speed = false;
+         prop = false;
+    int speed = 0;
     int fixtureid = 0, fixturehead = 0, fixturedirection = 0, fixtureStartOffset = 0;
     QList <QString> fixtures;
 
@@ -2946,10 +2979,18 @@ void EFX_Test::save()
     {
         if (xmlReader.name() == "Speed")
         {
+            QCOMPARE(xmlReader.attributes().value("FadeIn").toString().toUInt(), uint(4));
+            QCOMPARE(xmlReader.attributes().value("Hold").toString().toUInt(), uint(129));
+            QCOMPARE(xmlReader.attributes().value("FadeOut").toString().toUInt(), uint(6));
+            ++speed;
+            xmlReader.skipCurrentElement();
+        }
+        else if (xmlReader.name() == "OuterSpeeds")
+        {
             QCOMPARE(xmlReader.attributes().value("FadeIn").toString().toUInt(), uint(42));
             QCOMPARE(xmlReader.attributes().value("Hold").toString().toUInt(), uint(1295));
             QCOMPARE(xmlReader.attributes().value("FadeOut").toString().toUInt(), uint(69));
-            speed = true;
+            ++speed;
             xmlReader.skipCurrentElement();
         }
         else if (xmlReader.name() == "Direction")
@@ -3141,7 +3182,7 @@ void EFX_Test::save()
     QVERIFY(dir == true);
     QVERIFY(off == true);
     QVERIFY(run == true);
-    QVERIFY(speed == true);
+    QCOMPARE(speed, 2);
     QVERIFY(algo == true);
     QVERIFY(w == true);
     QVERIFY(h == true);

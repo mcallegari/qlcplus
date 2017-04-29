@@ -512,7 +512,7 @@ void EFXFixture_Test::nextStepLoop()
     MasterTimerStub mts(m_doc, ua);
 
     EFX e(m_doc);
-    e.setDuration(1000); // 1s
+    e.innerSpeedsEdit().setDuration(1000); // 1s
 
     EFXFixture* ef = new EFXFixture(&e);
     ef->setHead(GroupHead(0,0));
@@ -551,7 +551,7 @@ void EFXFixture_Test::nextStepLoopZeroDuration()
     MasterTimerStub mts(m_doc, ua);
 
     EFX e(m_doc);
-    e.setDuration(0); // 0s
+    e.innerSpeedsEdit().setDuration(0); // 0s
 
     EFXFixture* ef = new EFXFixture(&e);
     ef->setHead(GroupHead(0,0));
@@ -590,7 +590,7 @@ void EFXFixture_Test::nextStepSingleShot()
     MasterTimerStub mts(m_doc, ua);
 
     EFX e(m_doc);
-    e.setDuration(1000); // 1s
+    e.innerSpeedsEdit().setDuration(1000); // 1s
     e.setRunOrder(EFX::SingleShot);
 
     EFXFixture* ef = new EFXFixture(&e);

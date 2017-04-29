@@ -108,9 +108,6 @@ public:
     /** Copy the contents for this function from another function */
     bool copyFrom(const Function* function);
 
-    /** Set the duration in milliseconds */
-    void setDuration(uint ms);
-
     /************************************************************************
      * Speeds
      ************************************************************************/
@@ -127,6 +124,7 @@ public:
 
 private:
     FunctionSpeeds m_innerSpeeds;
+    quint32 m_prevInnerDuration;
 
     /*********************************************************************
      * UI State

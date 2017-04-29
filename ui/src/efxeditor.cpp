@@ -560,8 +560,8 @@ void EFXEditor::createSpeedDials()
     {
         m_speedDials = new SpeedDialWidget(this);
         m_speedDials->setAttribute(Qt::WA_DeleteOnClose);
-        connect(m_speedDials, SIGNAL(fadeInChanged(int)), this, SLOT(slotFadeInChanged(int)));
-        connect(m_speedDials, SIGNAL(fadeOutChanged(int)), this, SLOT(slotFadeOutChanged(int)));
+        m_speedDials->setFadeInVisible(false);
+        m_speedDials->setFadeOutVisible(false);
         connect(m_speedDials, SIGNAL(holdChanged(int)), this, SLOT(slotHoldChanged(int)));
         connect(m_speedDials, SIGNAL(destroyed(QObject*)), this, SLOT(slotDialDestroyed(QObject*)));
     }
@@ -577,9 +577,7 @@ void EFXEditor::updateSpeedDials()
     createSpeedDials();
 
     m_speedDials->setWindowTitle(m_efx->name());
-    m_speedDials->setFadeIn(m_efx->speeds().fadeIn());
-    m_speedDials->setFadeOut(m_efx->speeds().fadeOut());
-    m_speedDials->setHold(m_efx->speeds().hold());
+    m_speedDials->setHold(m_efx->innerSpeeds().hold());
 }
 
 void EFXEditor::slotNameEdited(const QString &text)
@@ -787,7 +785,7 @@ void EFXEditor::slotRaiseFixtureClicked()
             updateStartOffsetColumn(item, ef);
 
             updateIndices(index - 1, index);
-	    redrawPreview();
+            redrawPreview();
         }
     }
 
@@ -819,7 +817,7 @@ void EFXEditor::slotLowerFixtureClicked()
             updateStartOffsetColumn(item, ef);
 
             updateIndices(index, index + 1);
-	    redrawPreview();
+            redrawPreview();
         }
     }
 
@@ -848,20 +846,9 @@ void EFXEditor::slotAsymmetricRadioToggled(bool state)
         m_efx->setPropagationMode(EFX::Asymmetric);
 }
 
-void EFXEditor::slotFadeInChanged(int ms)
-{
-    m_efx->speedsEdit().setFadeIn(ms);
-    slotRestartTest();
-}
-
-void EFXEditor::slotFadeOutChanged(int ms)
-{
-    m_efx->speedsEdit().setFadeOut(ms);
-}
-
 void EFXEditor::slotHoldChanged(int ms)
 {
-    m_efx->speedsEdit().setHold(ms);
+    m_efx->innerSpeedsEdit().setHold(ms);
     redrawPreview();
 }
 
@@ -1052,9 +1039,9 @@ void EFXEditor::redrawPreview()
 
     QVector <QPolygonF> fixturePoints;
     m_efx->previewFixtures(fixturePoints);
- 
+
     m_previewArea->setPolygon(polygon);
     m_previewArea->setFixturePolygons(fixturePoints);
 
-    m_previewArea->draw(m_efx->speeds().duration() / polygon.size());
+    m_previewArea->draw(m_efx->innerSpeeds().duration() / polygon.size());
 }
