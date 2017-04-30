@@ -43,7 +43,6 @@
 #include "show.h"
 #include "efx.h"
 #include "doc.h"
-#include "functionuistate.h"
 
 const QString KSceneString      (      "Scene" );
 const QString KChaserString     (     "Chaser" );
@@ -91,7 +90,6 @@ Function::Function(QObject *parent)
     , m_overrideFadeInSpeed(defaultSpeed())
     , m_overrideFadeOutSpeed(defaultSpeed())
     , m_overrideDuration(defaultSpeed())
-    , m_uiState()
     , m_flashing(false)
     , m_elapsed(0)
     , m_elapsedBeats(0)
@@ -120,7 +118,6 @@ Function::Function(Doc* doc, Type t)
     , m_overrideFadeInSpeed(defaultSpeed())
     , m_overrideFadeOutSpeed(defaultSpeed())
     , m_overrideDuration(defaultSpeed())
-    , m_uiState()
     , m_flashing(false)
     , m_elapsed(0)
     , m_elapsedBeats(0)
@@ -179,7 +176,7 @@ bool Function::copyFrom(const Function* function)
     m_path = function->path(true);
     m_visible = function->isVisible();
     m_blendMode = function->blendMode();
-    uiState()->copyFrom(function->uiState());
+    m_uiState = function->uiStateMap();
 
     emit changed(m_id);
 
@@ -821,22 +818,19 @@ uint Function::defaultSpeed()
  * UI State
  *****************************************************************************/
 
-FunctionUiState * Function::uiState()
+QVariant Function::uiStateValue(QString property)
 {
-    if (m_uiState == NULL)
-        m_uiState = createUiState();
-
-    return m_uiState;
+    return m_uiState.value(property, QVariant());
 }
 
-const FunctionUiState * Function::uiState() const
+void Function::setUiStateValue(QString property, QVariant value)
 {
-    return m_uiState;
+    m_uiState[property] = value;
 }
 
-FunctionUiState * Function::createUiState()
+QMap<QString, QVariant> Function::uiStateMap() const
 {
-   return new FunctionUiState(this);
+    return m_uiState;
 }
 
 /*****************************************************************************

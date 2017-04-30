@@ -36,8 +36,6 @@
 #include "doc.h"
 #include "bus.h"
 
-#include "sceneuistate.h"
-
 /*****************************************************************************
  * Initialization
  *****************************************************************************/
@@ -100,15 +98,6 @@ bool Scene::copyFrom(const Function* function)
     m_channelGroupsLevels = scene->m_channelGroupsLevels;
 
     return Function::copyFrom(function);
-}
-
-/*****************************************************************************
- * UI State
- *****************************************************************************/
-
-FunctionUiState * Scene::createUiState()
-{
-    return new SceneUiState(this);
 }
 
 /*****************************************************************************

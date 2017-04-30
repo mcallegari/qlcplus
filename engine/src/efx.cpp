@@ -40,8 +40,6 @@
 #include "efx.h"
 #include "bus.h"
 
-#include "efxuistate.h"
-
 /*****************************************************************************
  * Initialization
  *****************************************************************************/
@@ -163,15 +161,6 @@ void EFX::setDuration(uint ms)
     {
         m_fixtures[i]->durationChanged();
     }
-}
-
-/*****************************************************************************
- * UI State
- *****************************************************************************/
-
-FunctionUiState *EFX::createUiState()
-{
-    return new EfxUiState(this);
 }
 
 quint32 EFX::totalDuration()
