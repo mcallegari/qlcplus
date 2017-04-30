@@ -27,6 +27,7 @@
 #include <QMutex>
 #include <QList>
 #include <QIcon>
+#include <QMap>
 
 #include "universe.h"
 #include "functionparent.h"
