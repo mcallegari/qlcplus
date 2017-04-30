@@ -47,6 +47,7 @@ void Function_Test::initial()
     QCOMPARE(stub->runOrder(), Function::Loop);
     QCOMPARE(stub->direction(), Function::Forward);
     QCOMPARE(stub->elapsed(), quint32(0));
+    QCOMPARE(stub->elapsedBeats(), quint32(0));
     QCOMPARE(stub->stopped(), true);
     QCOMPARE(stub->fadeInSpeed(), uint(0));
     QCOMPARE(stub->fadeOutSpeed(), uint(0));
@@ -55,6 +56,9 @@ void Function_Test::initial()
     QCOMPARE(stub->overrideFadeInSpeed(), Function::defaultSpeed());
     QCOMPARE(stub->overrideFadeOutSpeed(), Function::defaultSpeed());
     QCOMPARE(stub->overrideDuration(), Function::defaultSpeed());
+    QVERIFY(stub->saveXML(NULL) == false);
+    QXmlStreamReader reader;
+    QVERIFY(stub->loadXML(reader) == false);
 }
 
 void Function_Test::properties()
@@ -96,6 +100,16 @@ void Function_Test::properties()
     QCOMPARE(spy.size(), 5);
     QCOMPARE(spy[4][0].toUInt(), stub->id());
     QCOMPARE(stub->duration(), uint(69));
+
+    QVERIFY(stub->isVisible() == true);
+    stub->setVisible(false);
+    QVERIFY(stub->isVisible() == false);
+
+    QVERIFY(stub->uiStateMap().size() == 0);
+    QVERIFY(stub->uiStateValue("foo").isNull() == true);
+    stub->setUiStateValue("foo", 42);
+    QVERIFY(stub->uiStateMap().size() == 1);
+    QVERIFY(stub->uiStateValue("foo").toInt() == 42);
 }
 
 void Function_Test::copyFrom()
@@ -362,7 +376,6 @@ void Function_Test::speedToString()
 
     QCOMPARE(Function::speedToString(10), QString("10ms"));
     QCOMPARE(Function::speedToString(Function::infiniteSpeed()), QString(QChar(0x221E)));
-
 }
 
 void Function_Test::stringToSpeed()
@@ -440,6 +453,50 @@ void Function_Test::speedOperations()
     QCOMPARE(Function::speedSubtract(Function::infiniteSpeed(), 10), Function::infiniteSpeed());
     QCOMPARE(Function::speedSubtract(10, Function::infiniteSpeed()), uint(0));
     QCOMPARE(Function::speedSubtract(Function::infiniteSpeed(), Function::infiniteSpeed()), uint(0));
+}
+
+void Function_Test::tempo()
+{
+    Doc doc(this);
+    Function_Stub* stub = new Function_Stub(&doc);
+
+    QVERIFY(stub->tempoType() == Function::Time);
+
+    QVERIFY(Function::tempoTypeToString(Function::Time) == QString("Time"));
+    QVERIFY(Function::tempoTypeToString(Function::Beats) == QString("Beats"));
+
+    QVERIFY(Function::stringToTempoType("Time") == Function::Time);
+    QVERIFY(Function::stringToTempoType("Beats") == Function::Beats);
+
+    QVERIFY(Function::timeToBeats(0, 0) == 0);
+    QVERIFY(Function::timeToBeats(60000, 500) == 120000);
+
+    QVERIFY(Function::beatsToTime(0, 0) == 0);
+    QVERIFY(Function::beatsToTime(60000, 500) == 30000);
+
+    /* check that setting the same tempo type does nothing */
+    stub->setTempoType(Function::Time);
+    QVERIFY(stub->tempoType() == Function::Time);
+
+    stub->setFadeInSpeed(1000);
+    stub->setDuration(4000);
+    stub->setFadeOutSpeed(2000);
+
+    /* check Time -> Beats switch */
+    stub->setTempoType(Function::Beats);
+    QVERIFY(stub->fadeInSpeed() == 2000);
+    QVERIFY(stub->duration() == 8000);
+    QVERIFY(stub->fadeOutSpeed() == 4000);
+
+    /* check Beats -> Time switch */
+    stub->setTempoType(Function::Time);
+    QVERIFY(stub->fadeInSpeed() == 1000);
+    QVERIFY(stub->duration() == 4000);
+    QVERIFY(stub->fadeOutSpeed() == 2000);
+
+    QVERIFY(stub->overrideTempoType() == Function::Original);
+    stub->setOverrideTempoType(Function::Beats);
+    QVERIFY(stub->overrideTempoType() == Function::Beats);
 }
 
 void Function_Test::attributes()
