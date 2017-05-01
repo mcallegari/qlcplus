@@ -60,13 +60,19 @@ public:
      */
     static const QVector <quint32> &speedMultiplierValuesTimes1000();
 
+    /** The special value index for the non-alternate speed */
+    static quint32 baseSpeedsIdx();
+
     /************************************************************************
      * Initialization
      ***********************************************************************/
 public:
     /** Construct a new VCSpeedDialFunction with the given attributes */
     VCSpeedDialFunction(quint32 aFid = Function::invalidId(),
-            SpeedMultiplier aFadeIn = None, SpeedMultiplier aFadeOut = None, SpeedMultiplier aDuration = One);
+                        quint32 aAlternateSpeedsIdx = baseSpeedsIdx(),
+                        SpeedMultiplier aFadeIn = None,
+                        SpeedMultiplier aFadeOut = None,
+                        SpeedMultiplier aDuration = One);
 
     /************************************************************************
      * Load & Save
@@ -81,6 +87,7 @@ public:
 
 public:
     quint32 functionId;
+    quint32 alternateSpeedsIdx;
     SpeedMultiplier fadeInMultiplier;
     SpeedMultiplier fadeOutMultiplier;
     SpeedMultiplier durationMultiplier;
