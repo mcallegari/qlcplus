@@ -33,6 +33,7 @@
 #include "treemodel.h"
 #include "rgbmatrix.h"
 #include "function.h"
+#include "sequence.h"
 #include "chaser.h"
 #include "script.h"
 #include "scene.h"
@@ -52,7 +53,7 @@ FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)
     , m_filter(0)
     , m_searchFilter(QString())
 {
-    m_sceneCount = m_chaserCount = m_efxCount = 0;
+    m_sceneCount = m_chaserCount = m_sequenceCount = m_efxCount = 0;
     m_collectionCount = m_rgbMatrixCount = m_scriptCount = 0;
     m_showCount = m_audioCount = m_videoCount = 0;
 
@@ -61,7 +62,7 @@ FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)
     qmlRegisterUncreatableType<Collection>("com.qlcplus.classes", 1, 0, "Collection", "Can't create a Collection");
     qmlRegisterUncreatableType<Chaser>("com.qlcplus.classes", 1, 0, "Chaser", "Can't create a Chaser");
     qmlRegisterUncreatableType<RGBMatrix>("com.qlcplus.classes", 1, 0, "RGBMatrix", "Can't create a RGBMatrix");
-    qmlRegisterUncreatableType<RGBMatrix>("com.qlcplus.classes", 1, 0, "EFX", "Can't create an EFX");
+    qmlRegisterUncreatableType<EFX>("com.qlcplus.classes", 1, 0, "EFX", "Can't create an EFX");
 
     m_functionTree = new TreeModel(this);
     QQmlEngine::setObjectOwnership(m_functionTree, QQmlEngine::CppOwnership);
@@ -169,6 +170,26 @@ quint32 FunctionManager::createFunction(int type)
             emit chaserCountChanged();
         }
         break;
+        case Function::SequenceType:
+        {
+            /* a Sequence depends on a Scene, so let's create
+             * a new hidden Scene first */
+            Function *scene = new Scene(m_doc);
+            scene->setVisible(false);
+
+            if (m_doc->addFunction(scene) == true)
+            {
+                f = new Sequence(m_doc);
+                name = tr("New Sequence");
+                Sequence *sequence = qobject_cast<Sequence *>(f);
+                sequence->setBoundSceneID(scene->id());
+                m_sequenceCount++;
+                emit sequenceCountChanged();
+            }
+            else
+                delete scene;
+        }
+        break;
         case Function::EFXType:
         {
             f = new EFX(m_doc);
@@ -264,6 +285,7 @@ QString FunctionManager::functionIcon(int type)
     {
         case Function::SceneType: return "qrc:/scene.svg";
         case Function::ChaserType: return "qrc:/chaser.svg";
+        case Function::SequenceType: return "qrc:/sequence.svg";
         case Function::EFXType: return "qrc:/efx.svg";
         case Function::CollectionType: return "qrc:/collection.svg";
         case Function::ScriptType: return "qrc:/script.svg";
@@ -342,7 +364,8 @@ QString FunctionManager::getEditorResource(int type)
     switch(type)
     {
         case Function::SceneType: return "qrc:/SceneEditor.qml";
-        case Function::ChaserType: return "qrc:/ChaserEditor.qml";
+        case Function::ChaserType:
+        case Function::SequenceType: return "qrc:/ChaserEditor.qml";
         case Function::EFXType: return "qrc:/EFXEditor.qml";
         case Function::CollectionType: return "qrc:/CollectionEditor.qml";
         case Function::RGBMatrixType: return "qrc:/RGBMatrixEditor.qml";
@@ -381,6 +404,7 @@ void FunctionManager::setEditorFunction(quint32 fID, bool requestUI)
         }
         break;
         case Function::ChaserType:
+        case Function::SequenceType:
         {
             m_currentEditor = new ChaserEditor(m_view, m_doc, this);
         }
@@ -586,7 +610,7 @@ void FunctionManager::updateFunctionsTree()
 {
     bool expandAll = m_searchFilter.length() >= SEARCH_MIN_CHARS;
 
-    m_sceneCount = m_chaserCount = m_efxCount = 0;
+    m_sceneCount = m_chaserCount = m_sequenceCount = m_efxCount = 0;
     m_collectionCount = m_rgbMatrixCount = m_scriptCount = 0;
     m_showCount = m_audioCount = m_videoCount = 0;
 
@@ -611,6 +635,7 @@ void FunctionManager::updateFunctionsTree()
         {
             case Function::SceneType: m_sceneCount++; break;
             case Function::ChaserType: m_chaserCount++; break;
+            case Function::SequenceType: m_sequenceCount++; break;
             case Function::EFXType: m_efxCount++; break;
             case Function::CollectionType: m_collectionCount++; break;
             case Function::RGBMatrixType: m_rgbMatrixCount++; break;

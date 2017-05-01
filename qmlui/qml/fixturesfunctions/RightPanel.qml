@@ -37,7 +37,7 @@ SidePanel
         var newFuncID = functionManager.createFunction(fType)
         functionManager.setEditorFunction(newFuncID, false)
 
-        if (fType === Function.Show)
+        if (fType === Function.ShowType)
         {
             showManager.currentShowID = newFuncID
             mainView.switchToContext("SHOWMGR", fEditor)
