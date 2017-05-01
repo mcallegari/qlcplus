@@ -83,6 +83,7 @@
     <file alias="Fixture3DItem.qml">qml/fixturesfunctions/Fixture3DItem.qml</file>
     <file alias="FunctionManager.qml">qml/fixturesfunctions/FunctionManager.qml</file>
     <file alias="AddFunctionMenu.qml">qml/fixturesfunctions/AddFunctionMenu.qml</file>
+    <file alias="EditorTopBar.qml">qml/fixturesfunctions/EditorTopBar.qml</file>
     <file alias="AudioEditor.qml">qml/fixturesfunctions/AudioEditor.qml</file>
     <file alias="CollectionEditor.qml">qml/fixturesfunctions/CollectionEditor.qml</file>
     <file alias="CollectionFunctionDelegate.qml">qml/fixturesfunctions/CollectionFunctionDelegate.qml</file>

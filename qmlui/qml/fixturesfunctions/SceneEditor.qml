@@ -41,58 +41,15 @@ Rectangle
 
     Column
     {
-        Rectangle
+        EditorTopBar
         {
-            color: UISettings.bgMedium
-            width: seContainer.width
-            height: UISettings.iconSizeMedium
+            text: sceneEditor.functionName
+            onTextChanged: sceneEditor.functionName = text
 
-            Rectangle
+            onBackClicked:
             {
-                id: backBox
-                width: UISettings.iconSizeMedium
-                height: width
-                color: "transparent"
-
-                Image
-                {
-                    id: leftArrow
-                    anchors.fill: parent
-                    rotation: 180
-                    source: "qrc:/arrow-right.svg"
-                    sourceSize: Qt.size(width, height)
-                }
-                MouseArea
-                {
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    onEntered: backBox.color = "#666"
-                    onExited: backBox.color = "transparent"
-                    onClicked:
-                    {
-                        functionManager.setEditorFunction(-1, false)
-                        requestView(-1, "qrc:/FunctionManager.qml")
-                    }
-                }
-            }
-
-            TextInput
-            {
-                id: sNameEdit
-                x: leftArrow.width + 5
-                height: UISettings.iconSizeMedium
-                width: seContainer.width - backBox.width - removeFxButton.width - 10
-                color: UISettings.fgMain
-                clip: true
-                text: sceneEditor.sceneName
-                verticalAlignment: TextInput.AlignVCenter
-                font.family: UISettings.robotoFontName
-                font.pixelSize: UISettings.textSizeDefault
-                echoMode: TextInput.Normal
-                selectByMouse: true
-                Layout.fillWidth: true
-
-                onTextChanged: sceneEditor.sceneName = text
+                functionManager.setEditorFunction(-1, false)
+                requestView(-1, "qrc:/FunctionManager.qml")
             }
 
             IconButton

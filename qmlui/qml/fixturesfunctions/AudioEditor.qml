@@ -35,57 +35,16 @@ Rectangle
 
     signal requestView(int ID, string qmlSrc)
 
-    Rectangle
+    EditorTopBar
     {
         id: topBar
-        color: UISettings.bgMedium
-        width: parent.width
-        height: UISettings.iconSizeMedium
-        z: 2
+        text: audioEditor.functionName
+        onTextChanged: audioEditor.functionName = text
 
-        Rectangle
+        onBackClicked:
         {
-            id: backBox
-            width: UISettings.iconSizeMedium
-            height: width
-            color: "transparent"
-
-            Image
-            {
-                id: leftArrow
-                anchors.fill: parent
-                rotation: 180
-                source: "qrc:/arrow-right.svg"
-                sourceSize: Qt.size(width, height)
-            }
-            MouseArea
-            {
-                anchors.fill: parent
-                hoverEnabled: true
-                onEntered: backBox.color = "#666"
-                onExited: backBox.color = "transparent"
-                onClicked:
-                {
-                    functionManager.setEditorFunction(-1, false)
-                    requestView(-1, "qrc:/FunctionManager.qml")
-                }
-            }
-        }
-        TextInput
-        {
-            id: cNameEdit
-            x: leftArrow.width + 5
-            height: UISettings.iconSizeMedium
-            width: peContainer.width - leftArrow.width - 5
-            color: UISettings.fgMain
-            clip: true
-            verticalAlignment: TextInput.AlignVCenter
-            font.family: UISettings.robotoFontName
-            font.pixelSize: UISettings.textSizeDefault
-            selectByMouse: true
-            text: audioEditor.functionName
-            Layout.fillWidth: true
-            onTextChanged: audioEditor.functionName = text
+            functionManager.setEditorFunction(-1, false)
+            requestView(-1, "qrc:/FunctionManager.qml")
         }
     }
 
