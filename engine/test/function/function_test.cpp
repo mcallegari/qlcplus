@@ -47,6 +47,7 @@ void Function_Test::initial()
     QCOMPARE(stub->runOrder(), Function::Loop);
     QCOMPARE(stub->direction(), Function::Forward);
     QCOMPARE(stub->elapsed(), quint32(0));
+    QCOMPARE(stub->elapsedBeats(), quint32(0));
     QCOMPARE(stub->stopped(), true);
     QCOMPARE(stub->speeds().fadeIn(), uint(0));
     QCOMPARE(stub->speeds().fadeOut(), uint(0));
@@ -54,6 +55,9 @@ void Function_Test::initial()
     QCOMPARE(stub->alternateSpeeds(0).fadeIn(), Speed::originalValue());
     QCOMPARE(stub->alternateSpeeds(0).fadeOut(), Speed::originalValue());
     QCOMPARE(stub->alternateSpeeds(0).duration(), Speed::originalValue());
+    QVERIFY(stub->saveXML(NULL) == false);
+    QXmlStreamReader reader;
+    QVERIFY(stub->loadXML(reader) == false);
 }
 
 void Function_Test::properties()
@@ -95,6 +99,16 @@ void Function_Test::properties()
     QCOMPARE(spy.size(), 5);
     QCOMPARE(spy[4][0].toUInt(), stub->id());
     QCOMPARE(stub->speeds().duration(), uint(69));
+
+    QVERIFY(stub->isVisible() == true);
+    stub->setVisible(false);
+    QVERIFY(stub->isVisible() == false);
+
+    QVERIFY(stub->uiStateMap().size() == 0);
+    QVERIFY(stub->uiStateValue("foo").isNull() == true);
+    stub->setUiStateValue("foo", 42);
+    QVERIFY(stub->uiStateMap().size() == 1);
+    QVERIFY(stub->uiStateValue("foo").toInt() == 42);
 }
 
 void Function_Test::copyFrom()

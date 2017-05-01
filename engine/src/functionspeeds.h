@@ -58,7 +58,7 @@ public:
      *
      * @param type the speed tempo type
      */
-    void setTempoType(Speed::TempoType tempoType, float bpm);
+    void setTempoType(Speed::TempoType tempoType, float beatTime);
 
     /**
      * Get the FunctionSpeeds current speed tempo type
@@ -74,23 +74,23 @@ public:
     quint32 duration() const;
     void setDuration(quint32 duration);
 
-    quint32 msFadeIn(float bpm) const;
-    void setMsFadeIn(quint32 fadeIn, float bpm);
-    quint32 msHold(float bpm) const;
-    void setMsHold(quint32 hold, float bpm);
-    quint32 msFadeOut(float bpm) const;
-    void setMsFadeOut(quint32 fadeOut, float bpm);
-    quint32 msDuration(float bpm) const;
-    void setMsDuration(quint32 duration, float bpm);
+    quint32 msFadeIn(float beatTime) const;
+    void setMsFadeIn(quint32 fadeIn, float beatTime);
+    quint32 msHold(float beatTime) const;
+    void setMsHold(quint32 hold, float beatTime);
+    quint32 msFadeOut(float beatTime) const;
+    void setMsFadeOut(quint32 fadeOut, float beatTime);
+    quint32 msDuration(float beatTime) const;
+    void setMsDuration(quint32 duration, float beatTime);
 
-    quint32 beatsFadeIn(float bpm) const;
-    void setBeatsFadeIn(quint32 fadeIn, float bpm);
-    quint32 beatsHold(float bpm) const;
-    void setBeatsHold(quint32 hold, float bpm);
-    quint32 beatsFadeOut(float bpm) const;
-    void setBeatsFadeOut(quint32 fadeOut, float bpm);
-    quint32 beatsDuration(float bpm) const;
-    void setBeatsDuration(quint32 duration, float bpm);
+    quint32 beatsFadeIn(float beatTime) const;
+    void setBeatsFadeIn(quint32 fadeIn, float beatTime);
+    quint32 beatsHold(float beatTime) const;
+    void setBeatsHold(quint32 hold, float beatTime);
+    quint32 beatsFadeOut(float beatTime) const;
+    void setBeatsFadeOut(quint32 fadeOut, float beatTime);
+    quint32 beatsDuration(float beatTime) const;
+    void setBeatsDuration(quint32 duration, float beatTime);
 
     /** Load the contents of a speeds node */
     bool loadXML(QXmlStreamReader &speedRoot, QString const& nodeName = KXMLQLCFunctionSpeeds);

@@ -35,6 +35,8 @@ private slots:
 
     void initial();
     void values();
+    void colorValue();
+    void channelGroup();
     void fixtureRemoval();
     void loadSuccess();
     void loadWrongType();

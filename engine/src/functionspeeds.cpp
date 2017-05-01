@@ -32,11 +32,11 @@ FunctionSpeeds::FunctionSpeeds(quint32 fadeIn, quint32 hold, quint32 fadeOut)
 {
 }
 
-void FunctionSpeeds::setTempoType(Speed::TempoType tempoType, float bpm)
+void FunctionSpeeds::setTempoType(Speed::TempoType tempoType, float beatTime)
 {
-    m_fadeIn.switchTempoType(tempoType, bpm);
-    m_hold.switchTempoType(tempoType, bpm);
-    m_fadeOut.switchTempoType(tempoType, bpm);
+    m_fadeIn.switchTempoType(tempoType, beatTime);
+    m_hold.switchTempoType(tempoType, beatTime);
+    m_fadeOut.switchTempoType(tempoType, beatTime);
 }
 
 Speed::TempoType FunctionSpeeds::tempoType() const
@@ -92,132 +92,132 @@ void FunctionSpeeds::setDuration(quint32 duration)
     }
 }
 
-quint32 FunctionSpeeds::msFadeIn(float bpm) const
+quint32 FunctionSpeeds::msFadeIn(float beatTime) const
 {
     if (tempoType() == Speed::Ms)
         return fadeIn();
 
-    return Speed::msToBeats(fadeIn(), bpm);
+    return Speed::msToBeats(fadeIn(), beatTime);
 }
 
-void FunctionSpeeds::setMsFadeIn(quint32 fadeIn, float bpm)
+void FunctionSpeeds::setMsFadeIn(quint32 fadeIn, float beatTime)
 {
     if (tempoType() == Speed::Ms)
         setFadeIn(fadeIn);
 
-    setFadeIn(Speed::msToBeats(fadeIn, bpm));
+    setFadeIn(Speed::msToBeats(fadeIn, beatTime));
 }
 
-quint32 FunctionSpeeds::msHold(float bpm) const
+quint32 FunctionSpeeds::msHold(float beatTime) const
 {
     if (tempoType() == Speed::Ms)
         return hold();
 
-    return Speed::msToBeats(hold(), bpm);
+    return Speed::msToBeats(hold(), beatTime);
 }
 
-void FunctionSpeeds::setMsHold(quint32 hold, float bpm)
+void FunctionSpeeds::setMsHold(quint32 hold, float beatTime)
 {
     if (tempoType() == Speed::Ms)
         setHold(hold);
 
-    setHold(Speed::msToBeats(hold, bpm));
+    setHold(Speed::msToBeats(hold, beatTime));
 }
 
-quint32 FunctionSpeeds::msFadeOut(float bpm) const
+quint32 FunctionSpeeds::msFadeOut(float beatTime) const
 {
     if (tempoType() == Speed::Ms)
         return fadeOut();
 
-    return Speed::msToBeats(fadeOut(), bpm);
+    return Speed::msToBeats(fadeOut(), beatTime);
 }
 
-void FunctionSpeeds::setMsFadeOut(quint32 fadeOut, float bpm)
+void FunctionSpeeds::setMsFadeOut(quint32 fadeOut, float beatTime)
 {
     if (tempoType() == Speed::Ms)
         setFadeOut(fadeOut);
 
-    setFadeOut(Speed::msToBeats(fadeOut, bpm));
+    setFadeOut(Speed::msToBeats(fadeOut, beatTime));
 }
 
-quint32 FunctionSpeeds::msDuration(float bpm) const
+quint32 FunctionSpeeds::msDuration(float beatTime) const
 {
     if (tempoType() == Speed::Ms)
         return duration();
 
-    return Speed::msToBeats(duration(), bpm);
+    return Speed::msToBeats(duration(), beatTime);
 }
 
-void FunctionSpeeds::setMsDuration(quint32 duration, float bpm)
+void FunctionSpeeds::setMsDuration(quint32 duration, float beatTime)
 {
     if (tempoType() == Speed::Ms)
         setDuration(fadeOut());
 
-    setDuration(Speed::msToBeats(duration, bpm));
+    setDuration(Speed::msToBeats(duration, beatTime));
 }
 
-quint32 FunctionSpeeds::beatsFadeIn(float bpm) const
+quint32 FunctionSpeeds::beatsFadeIn(float beatTime) const
 {
     if (tempoType() == Speed::Beats)
         return fadeIn();
 
-    return Speed::beatsToMs(fadeIn(), bpm);
+    return Speed::beatsToMs(fadeIn(), beatTime);
 }
 
-void FunctionSpeeds::setBeatsFadeIn(quint32 fadeIn, float bpm)
+void FunctionSpeeds::setBeatsFadeIn(quint32 fadeIn, float beatTime)
 {
     if (tempoType() == Speed::Beats)
         setFadeIn(fadeIn);
 
-    setFadeIn(Speed::beatsToMs(fadeIn, bpm));
+    setFadeIn(Speed::beatsToMs(fadeIn, beatTime));
 }
 
-quint32 FunctionSpeeds::beatsHold(float bpm) const
+quint32 FunctionSpeeds::beatsHold(float beatTime) const
 {
     if (tempoType() == Speed::Beats)
         return hold();
 
-    return Speed::beatsToMs(hold(), bpm);
+    return Speed::beatsToMs(hold(), beatTime);
 }
 
-void FunctionSpeeds::setBeatsHold(quint32 hold, float bpm)
+void FunctionSpeeds::setBeatsHold(quint32 hold, float beatTime)
 {
     if (tempoType() == Speed::Beats)
         setHold(hold);
 
-    setHold(Speed::beatsToMs(hold, bpm));
+    setHold(Speed::beatsToMs(hold, beatTime));
 }
 
-quint32 FunctionSpeeds::beatsFadeOut(float bpm) const
+quint32 FunctionSpeeds::beatsFadeOut(float beatTime) const
 {
     if (tempoType() == Speed::Beats)
         return fadeOut();
 
-    return Speed::beatsToMs(fadeOut(), bpm);
+    return Speed::beatsToMs(fadeOut(), beatTime);
 }
 
-void FunctionSpeeds::setBeatsFadeOut(quint32 fadeOut, float bpm)
+void FunctionSpeeds::setBeatsFadeOut(quint32 fadeOut, float beatTime)
 {
     if (tempoType() == Speed::Beats)
         setFadeOut(fadeOut);
 
-    setFadeOut(Speed::beatsToMs(fadeOut, bpm));
+    setFadeOut(Speed::beatsToMs(fadeOut, beatTime));
 }
 
-quint32 FunctionSpeeds::beatsDuration(float bpm) const
+quint32 FunctionSpeeds::beatsDuration(float beatTime) const
 {
     if (tempoType() == Speed::Beats)
         return duration();
 
-    return Speed::beatsToMs(duration(), bpm);
+    return Speed::beatsToMs(duration(), beatTime);
 }
 
-void FunctionSpeeds::setBeatsDuration(quint32 duration, float bpm)
+void FunctionSpeeds::setBeatsDuration(quint32 duration, float beatTime)
 {
     if (tempoType() == Speed::Beats)
         setDuration(fadeOut());
 
-    setDuration(Speed::beatsToMs(duration, bpm));
+    setDuration(Speed::beatsToMs(duration, beatTime));
 }
 
 bool FunctionSpeeds::loadXML(QXmlStreamReader &speedsRoot, QString const& nodeName)

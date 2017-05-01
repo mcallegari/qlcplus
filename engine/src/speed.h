@@ -42,7 +42,8 @@ struct Speed
         , tempoType(Ms)
     {}
 
-    void switchTempoType(TempoType newType, float bpm = qSNaN());
+    // beatTime in ms
+    void switchTempoType(TempoType newType, float beatTime = qSNaN());
 
     QString tempoTypeString() const;
     static TempoType stringToTempoType(QString const& str);
@@ -62,9 +63,9 @@ struct Speed
     static quint32 stringToBeats(QString const& str);
     static QString beatsToString(quint32 beats);
 
-    // beats is *1000, beatTime in s
+    // beatTime in ms, beats is *1000
     static quint32 beatsToMs(quint32 beats, float beatTime);
-    // beatTime in s, return in beats *1000
+    // beatTime in ms, return in beats *1000
     static quint32 msToBeats(quint32 ms, float beatTime);
 };
 

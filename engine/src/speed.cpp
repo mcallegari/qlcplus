@@ -28,18 +28,15 @@
 const QString KTimeTypeString  ( "Time" );
 const QString KBeatsTypeString ( "Beats" );
 
-void Speed::switchTempoType(TempoType newType, float bpm)
+void Speed::switchTempoType(TempoType newType, float beatTime)
 {
     if (newType == tempoType)
         return;
 
     tempoType = newType;
 
-    if (std::isnan(bpm))
+    if (std::isnan(beatTime))
         return;
-
-    /* Calculate the duration in s of a single beat */
-    float beatTime = 60.0 / bpm;
 
     switch (tempoType)
     {
@@ -226,19 +223,16 @@ QString Speed::beatsToString(quint32 beats)
     return QString("%1 beats").arg(val);
 }
 
-// beats is *1000, beatTime is in s
 quint32 Speed::beatsToMs(quint32 beats, float beatTime)
 {
     if (beats == originalValue() || beats == infiniteValue())
         return beats;
-    return normalize((float)beats * beatTime);
+    return normalize(((float)beats * beatTime) / 1000);
 }
 
-// beatTime in s
 quint32 Speed::msToBeats(quint32 ms, float beatTime)
 {
     if (ms == originalValue() || ms == infiniteValue())
         return ms;
-    return normalize((float)ms / beatTime);
+    return normalize(((float)ms / beatTime) * 1000);
 }
-

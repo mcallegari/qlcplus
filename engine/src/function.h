@@ -27,6 +27,7 @@
 #include <QMutex>
 #include <QList>
 #include <QIcon>
+#include <QMap>
 
 #include "universe.h"
 #include "functionparent.h"
@@ -430,14 +431,18 @@ private:
      * UI State
      *********************************************************************/
 public:
-    FunctionUiState * uiState();
-    const FunctionUiState * uiState() const;
+    /** Get/Set a generic UI property specific to this Function */
+    QVariant uiStateValue(QString property);
+    void setUiStateValue(QString property, QVariant value);
+
+    /** Get the whole UI state map */
+    QMap<QString, QVariant> uiStateMap() const;
 
 private:
-    virtual FunctionUiState * createUiState();
-
-private:
-    FunctionUiState * m_uiState;
+    /** A generic map to temporary store key/value
+     *  pairs that the UI can use to remember how an editor
+     *  was configured. Note: this is not saved into XML */
+    QMap<QString, QVariant> m_uiState;
 
     /*********************************************************************
      * Fixtures

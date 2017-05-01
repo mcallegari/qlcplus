@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.11.0 GIT</Version>
+  <Author>Felix Pickenäcker</Author>
+ </Creator>
+ <Manufacturer>IMG Stageline</Manufacturer>
+ <Model>PARL 20 DMX</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255" Color="#ff0000">Red intensity (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255" Color="#00ff00">Green intensity (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255" Color="#0000ff">Blue intensity (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="White">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255" Color="#ffffff">White intensity (0 - 100%)</Capability>
+ </Channel>
+ <Channel Name="Intensity">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Intensity</Capability>
+ </Channel>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="6">Off</Capability>
+  <Capability Min="7" Max="255">On</Capability>
+ </Channel>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="8">Off</Capability>
+  <Capability Min="9" Max="255">On</Capability>
+ </Channel>
+ <Mode Name="5 Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="1000" ColourTemperature="0"/>
+   <Dimensions Weight="2" Width="145" Height="145" Depth="190"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="15"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="56" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Intensity</Channel>
+ </Mode>
+ <Mode Name="2 Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="1000" ColourTemperature="0"/>
+   <Dimensions Weight="2" Width="145" Height="145" Depth="190"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="15"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="56" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Colour</Channel>
+  <Channel Number="1">Intensity</Channel>
+ </Mode>
+ <Mode Name="6 Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="1000" ColourTemperature="0"/>
+   <Dimensions Weight="2" Width="145" Height="145" Depth="190"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="15"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="56" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Shutter</Channel>
+  <Channel Number="5">Intensity</Channel>
+ </Mode>
+</FixtureDefinition>

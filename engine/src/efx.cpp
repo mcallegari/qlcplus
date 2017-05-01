@@ -40,8 +40,6 @@
 #include "efx.h"
 #include "bus.h"
 
-#include "efxuistate.h"
-
 #define KXMLQLCEFXOuterSpeeds "OuterSpeeds"
 
 /*****************************************************************************
@@ -214,15 +212,6 @@ FunctionSpeeds const& EFX::innerSpeeds() const
 FunctionSpeedsEditProxy EFX::innerSpeedsEdit()
 {
     return FunctionSpeedsEditProxy(m_innerSpeeds, this);
-}
-
-/*****************************************************************************
- * UI State
- *****************************************************************************/
-
-FunctionUiState *EFX::createUiState()
-{
-    return new EfxUiState(this);
 }
 
 /*****************************************************************************

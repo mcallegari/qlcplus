@@ -36,8 +36,6 @@
 #include "doc.h"
 #include "bus.h"
 
-#include "sceneuistate.h"
-
 /*****************************************************************************
  * Initialization
  *****************************************************************************/
@@ -95,15 +93,6 @@ bool Scene::copyFrom(const Function* function)
     m_channelGroupsLevels = scene->m_channelGroupsLevels;
 
     return Function::copyFrom(function);
-}
-
-/*****************************************************************************
- * UI State
- *****************************************************************************/
-
-FunctionUiState * Scene::createUiState()
-{
-    return new SceneUiState(this);
 }
 
 /*****************************************************************************
@@ -197,7 +186,10 @@ QColor Scene::colorValue(quint32 fxi)
         if (fixture == NULL)
             continue;
 
-        const QLCChannel* channel(fixture->channel(scv.channel));
+        const QLCChannel* channel = fixture->channel(scv.channel);
+        if (channel == NULL)
+            continue;
+
         if (channel->group() == QLCChannel::Intensity)
         {
             QLCChannel::PrimaryColour col = channel->colour();

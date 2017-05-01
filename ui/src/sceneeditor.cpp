@@ -42,6 +42,7 @@
 #include "qlcfixturedef.h"
 #include "channelsgroup.h"
 #include "qlcclipboard.h"
+#include "positiontool.h"
 #include "sceneeditor.h"
 #include "mastertimer.h"
 #include "qlcchannel.h"
@@ -49,9 +50,7 @@
 #include "fixture.h"
 #include "chaser.h"
 #include "scene.h"
-#include "sceneuistate.h"
 #include "doc.h"
-#include "positiontool.h"
 
 #define KColumnName         0
 #define KColumnManufacturer 1
@@ -61,6 +60,12 @@
 #define KTabGeneral         0
 
 #define SETTINGS_CHASER "sceneeditor/chaser"
+
+#define UI_STATE_TAB_INDEX "tabIndex"
+#define UI_STATE_TAB_MODE  "tabMode"
+#define UI_STATE_SHOW_DIAL "showDial"
+#define UI_STATE_TABBED_FIXTURES  0
+#define UI_STATE_ALL_FIXTURES     1
 
 SceneEditor::SceneEditor(QWidget* parent, Scene* scene, Doc* doc, bool applyValues)
     : QWidget(parent)
@@ -88,7 +93,17 @@ SceneEditor::SceneEditor(QWidget* parent, Scene* scene, Doc* doc, bool applyValu
     if (m_tab->count() == 0)
         slotTabChanged(KTabGeneral);
     else
-        m_tab->setCurrentIndex(sceneUiState()->currentTab());
+    {
+        QVariant tabIndex = scene->uiStateValue(UI_STATE_TAB_INDEX);
+        if (tabIndex.isValid())
+            m_tab->setCurrentIndex(tabIndex.toInt());
+        else
+            m_tab->setCurrentIndex(0);
+    }
+
+    QVariant showDial = scene->uiStateValue(UI_STATE_SHOW_DIAL);
+    if (showDial.isNull() == false && showDial.toBool() == true)
+        m_speedDialAction->setChecked(true);
 
     m_initFinished = true;
 
@@ -146,7 +161,10 @@ void SceneEditor::slotSetSceneValues(QList <SceneValue>&sceneValues)
 
 void SceneEditor::init(bool applyValues)
 {
+    QVariant tabMode = m_scene->uiStateValue(UI_STATE_TAB_MODE);
+
     this->layout()->setContentsMargins(8, 3, 8, 3);
+
     /* Actions */
     m_enableCurrentAction = new QAction(QIcon(":/check.png"),
                                         tr("Enable all channels in current fixture"), this);
@@ -187,7 +205,8 @@ void SceneEditor::init(bool applyValues)
     m_blindAction->setCheckable(true);
 
     m_tabViewAction->setCheckable(true);
-    m_tabViewAction->setChecked(sceneUiState()->displayMode() == SceneUiState::Tabbed);
+    if (tabMode.isNull() || tabMode.toInt() == UI_STATE_TABBED_FIXTURES)
+        m_tabViewAction->setChecked(true);
 
     // Chaser combo init
     quint32 selectId = Function::invalidId();
@@ -338,7 +357,10 @@ void SceneEditor::init(bool applyValues)
     }
 
     // Create the actual tab view
-    slotViewModeChanged(sceneUiState()->displayMode() == SceneUiState::Tabbed, applyValues);
+    if (tabMode.isNull() || tabMode.toInt() == UI_STATE_TABBED_FIXTURES)
+        slotViewModeChanged(true, applyValues);
+    else
+        slotViewModeChanged(false, applyValues);
 }
 
 void SceneEditor::setSceneValue(const SceneValue& scv)
@@ -354,10 +376,6 @@ void SceneEditor::setSceneValue(const SceneValue& scv)
         fc->setSceneValue(scv);
 }
 
-SceneUiState * SceneEditor::sceneUiState()
-{
-    return qobject_cast<SceneUiState*>(m_scene->uiState());
-}
 
 void SceneEditor::setBlindModeEnabled(bool active)
 {
@@ -373,7 +391,7 @@ void SceneEditor::slotTabChanged(int tab)
     m_currentTab = tab;
     QLCClipboard *clipboard = m_doc->clipboard();
 
-    sceneUiState()->setCurrentTab(tab);
+    m_scene->setUiStateValue(UI_STATE_TAB_INDEX, tab);
 
     if (tab == KTabGeneral)
     {
@@ -811,13 +829,17 @@ void SceneEditor::slotPositionSelectorChanged(const QPointF& position)
 void SceneEditor::slotSpeedDialToggle(bool state)
 {
     if (state == true)
+    {
         createSpeedDials();
+    }
     else
     {
         if (m_speedDials != NULL)
             m_speedDials->deleteLater();
         m_speedDials = NULL;
     }
+
+    m_scene->setUiStateValue(UI_STATE_SHOW_DIAL, state);
 }
 
 void SceneEditor::slotBlindToggled(bool state)
@@ -859,7 +881,7 @@ void SceneEditor::slotModeChanged(Doc::Mode mode)
 
 }
 
-void SceneEditor::slotViewModeChanged(bool toggled, bool applyValues)
+void SceneEditor::slotViewModeChanged(bool tabbed, bool applyValues)
 {
     m_tab->blockSignals(true);
     for (int i = m_tab->count() - 1; i >= m_fixtureFirstTabIndex; i--)
@@ -873,7 +895,7 @@ void SceneEditor::slotViewModeChanged(bool toggled, bool applyValues)
     m_tab->blockSignals(false);
 
     // all fixtures view mode
-    if (toggled == false)
+    if (tabbed == false)
     {
         QListIterator <Fixture*> it(selectedFixtures());
         if (it.hasNext() == true)
@@ -949,19 +971,24 @@ void SceneEditor::slotViewModeChanged(bool toggled, bool applyValues)
             }
         }
     }
-    sceneUiState()->setDisplayMode(toggled ? SceneUiState::Tabbed : SceneUiState::AllChannels);
+
+    m_scene->setUiStateValue(UI_STATE_TAB_MODE, tabbed ? UI_STATE_TABBED_FIXTURES : UI_STATE_ALL_FIXTURES);
 
     if (m_tab->count() == 0)
+    {
         slotTabChanged(KTabGeneral);
+    }
     else
     {
-        int prevTabIdx = sceneUiState()->currentTab();
+        QVariant tabIndex = m_scene->uiStateValue(UI_STATE_TAB_INDEX);
+        int prevTabIdx = tabIndex.isValid() ? tabIndex.toInt() : 0;
         if (prevTabIdx > m_tab->count())
             m_tab->setCurrentIndex(m_fixtureFirstTabIndex);
         else
-            m_tab->setCurrentIndex(sceneUiState()->currentTab());
+            m_tab->setCurrentIndex(prevTabIdx);
     }
-    sceneUiState()->setCurrentTab(m_tab->currentIndex());
+
+    m_scene->setUiStateValue(UI_STATE_TAB_INDEX, m_tab->currentIndex());
 }
 
 void SceneEditor::slotRecord()

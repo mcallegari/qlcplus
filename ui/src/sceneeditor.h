@@ -101,7 +101,7 @@ private slots:
     void slotRecord();
     void slotChaserComboActivated(int index);
     void slotModeChanged(Doc::Mode mode);
-    void slotViewModeChanged(bool toggled, bool applyValues = true);
+    void slotViewModeChanged(bool tabbed, bool applyValues = true);
 
 private:
     bool isColorToolAvailable();

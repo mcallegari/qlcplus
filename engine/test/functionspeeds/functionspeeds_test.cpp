@@ -31,8 +31,6 @@
 #undef private
 #undef protected
 
-#include "doc.h"
-
 void FunctionSpeeds_Test::initTestCase()
 {
 }
@@ -137,6 +135,46 @@ void FunctionSpeeds_Test::operations()
     QCOMPARE(Speed::sub(Speed::infiniteValue(), 10), Speed::infiniteValue());
     QCOMPARE(Speed::sub(10, Speed::infiniteValue()), uint(0));
     QCOMPARE(Speed::sub(Speed::infiniteValue(), Speed::infiniteValue()), uint(0));
+}
+
+void FunctionSpeeds_Test::tempo()
+{
+    float beatTime = 500;
+
+    FunctionSpeeds speeds;
+    QCOMPARE(speeds.tempoType(), Speed::Ms);
+
+    QCOMPARE(Speed::tempoTypeToString(Speed::Ms), QString("Time"));
+    QCOMPARE(Speed::tempoTypeToString(Speed::Beats), QString("Beats"));
+
+    QCOMPARE(Speed::stringToTempoType("Time"), Speed::Ms);
+    QCOMPARE(Speed::stringToTempoType("Beats"), Speed::Beats);
+
+    QCOMPARE(Speed::msToBeats(0, 0), quint32(0));
+    QCOMPARE(Speed::msToBeats(60000, 500), quint32(120000));
+
+    QCOMPARE(Speed::beatsToMs(0, 0), quint32(0));
+    QCOMPARE(Speed::beatsToMs(60000, 500), quint32(30000));
+
+    /* check that setting the same tempo type does nothing */
+    speeds.setTempoType(Speed::Ms, beatTime);
+    QCOMPARE(speeds.tempoType(), Speed::Ms);
+
+    speeds.setFadeIn(1000);
+    speeds.setDuration(4000);
+    speeds.setFadeOut(2000);
+
+    /* check Time -> Beats switch */
+    speeds.setTempoType(Speed::Beats, beatTime);
+    QCOMPARE(speeds.fadeIn(), quint32(2000));
+    QCOMPARE(speeds.duration(), quint32(8000));
+    QCOMPARE(speeds.fadeOut(), quint32(4000));
+
+    /* check Beats -> Time switch */
+    speeds.setTempoType(Speed::Ms, beatTime);
+    QCOMPARE(speeds.fadeIn(), quint32(1000));
+    QCOMPARE(speeds.duration(), quint32(4000));
+    QCOMPARE(speeds.fadeOut(), quint32(2000));
 }
 
 void FunctionSpeeds_Test::XML()

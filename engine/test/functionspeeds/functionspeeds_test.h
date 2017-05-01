@@ -33,6 +33,7 @@ private slots:
     void msToString();
     void stringToMs();
     void operations();
+    void tempo();
     void XML();
 };
 

@@ -85,6 +85,56 @@ void Universe_Test::channelCapabilities()
     QCOMPARE(m_uni->totalChannels(), ushort(5));
 }
 
+void Universe_Test::blendModes()
+{
+    QVERIFY(Universe::blendModeToString(Universe::NormalBlend) == "Normal");
+    QVERIFY(Universe::blendModeToString(Universe::MaskBlend) == "Mask");
+    QVERIFY(Universe::blendModeToString(Universe::AdditiveBlend) == "Additive");
+    QVERIFY(Universe::blendModeToString(Universe::SubtractiveBlend) == "Subtractive");
+
+    QVERIFY(Universe::stringToBlendMode("Foo") == Universe::NormalBlend);
+    QVERIFY(Universe::stringToBlendMode("Normal") == Universe::NormalBlend);
+    QVERIFY(Universe::stringToBlendMode("Mask") == Universe::MaskBlend);
+    QVERIFY(Universe::stringToBlendMode("Additive") == Universe::AdditiveBlend);
+    QVERIFY(Universe::stringToBlendMode("Subtractive") == Universe::SubtractiveBlend);
+
+    m_uni->setChannelCapability(0, QLCChannel::Intensity);
+    m_uni->setChannelCapability(4, QLCChannel::Intensity);
+    m_uni->setChannelCapability(9, QLCChannel::Intensity);
+    m_uni->setChannelCapability(11, QLCChannel::Intensity);
+
+    QVERIFY(m_uni->write(0, 255) == true);
+    QVERIFY(m_uni->write(4, 128) == true);
+    QVERIFY(m_uni->write(9, 100) == true);
+    QCOMPARE(quint8(m_uni->postGMValues()->at(0)), quint8(255));
+    QCOMPARE(quint8(m_uni->postGMValues()->at(4)), quint8(128));
+    QCOMPARE(quint8(m_uni->postGMValues()->at(9)), quint8(100));
+    QCOMPARE(quint8(m_uni->postGMValues()->at(11)), quint8(0));
+
+    /* check masking on 0 remains 0 */
+    QVERIFY(m_uni->writeBlended(11, 128, Universe::MaskBlend) == true);
+    QCOMPARE(quint8(m_uni->postGMValues()->at(11)), quint8(0));
+
+    /* check 180 masked on 128 gets halved */
+    QVERIFY(m_uni->writeBlended(4, 180, Universe::MaskBlend) == true);
+    QCOMPARE(quint8(m_uni->postGMValues()->at(4)), quint8(90));
+
+    /* chek adding 50 to 100 is actually 150 */
+    QVERIFY(m_uni->writeBlended(9, 50, Universe::AdditiveBlend) == true);
+    QCOMPARE(quint8(m_uni->postGMValues()->at(9)), quint8(150));
+
+    /* chek subtracting 55 to 255 is actually 200 */
+    QVERIFY(m_uni->writeBlended(0, 55, Universe::SubtractiveBlend) == true);
+    QCOMPARE(quint8(m_uni->postGMValues()->at(0)), quint8(200));
+
+    QVERIFY(m_uni->writeBlended(0, 255, Universe::SubtractiveBlend) == true);
+    QCOMPARE(quint8(m_uni->postGMValues()->at(0)), quint8(0));
+
+    /* check an unknown blend mode */
+    QVERIFY(m_uni->writeBlended(9, 255, Universe::BlendMode(42)) == true);
+    QCOMPARE(quint8(m_uni->postGMValues()->at(9)), quint8(150));
+}
+
 void Universe_Test::grandMasterIntensityReduce()
 {
     m_uni->setChannelCapability(0, QLCChannel::Intensity);
