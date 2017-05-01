@@ -219,7 +219,7 @@ public:
     FunctionSpeeds const& stepSpeeds(quint32 stepIdx) const;
     FunctionSpeedsEditProxy stepSpeedsEdit(quint32 stepIdx);
 
-private:
+protected:
     FunctionSpeeds m_commonSpeeds;
 
     /*********************************************************************

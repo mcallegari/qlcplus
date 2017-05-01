@@ -89,6 +89,9 @@ void Sequence_Test::createCopy()
 
     Sequence* seq = new Sequence(m_doc);
     seq->setName("First");
+    seq->commonSpeedsEdit().setFadeIn(4);
+    seq->commonSpeedsEdit().setFadeOut(6);
+    seq->commonSpeedsEdit().setDuration(133);
     seq->speedsEdit().setFadeIn(42);
     seq->speedsEdit().setFadeOut(69);
     seq->speedsEdit().setDuration(1337);
@@ -121,6 +124,9 @@ void Sequence_Test::createCopy()
 
     Sequence* copy = qobject_cast<Sequence*> (f);
     QVERIFY(copy != NULL);
+    QVERIFY(copy->commonSpeeds().fadeIn() == 4);
+    QVERIFY(copy->commonSpeeds().fadeOut() == 6);
+    QVERIFY(copy->commonSpeeds().duration() == 133);
     QVERIFY(copy->speeds().fadeIn() == 42);
     QVERIFY(copy->speeds().fadeOut() == 69);
     QVERIFY(copy->speeds().duration() == 1337);
@@ -189,6 +195,12 @@ void Sequence_Test::loadWithScene()
     xmlWriter.writeAttribute("BoundScene", "0");
 
     xmlWriter.writeStartElement("Speed");
+    xmlWriter.writeAttribute("FadeIn", "4");
+    xmlWriter.writeAttribute("FadeOut", "6");
+    xmlWriter.writeAttribute("Duration", "133");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeStartElement("OuterSpeeds");
     xmlWriter.writeAttribute("FadeIn", "42");
     xmlWriter.writeAttribute("FadeOut", "69");
     xmlWriter.writeAttribute("Duration", "1337");
@@ -269,6 +281,9 @@ void Sequence_Test::loadWithScene()
     QVERIFY(m_doc->addFunction(seq) == true);
     QVERIFY(seq->id() == 1);
     QVERIFY(seq->boundSceneID() == 0);
+    QVERIFY(seq->commonSpeeds().fadeIn() == 4);
+    QVERIFY(seq->commonSpeeds().fadeOut() == 6);
+    QVERIFY(seq->commonSpeeds().duration() == 133);
     QVERIFY(seq->speeds().fadeIn() == 42);
     QVERIFY(seq->speeds().fadeOut() == 69);
     QVERIFY(seq->speeds().duration() == 1337);
@@ -343,6 +358,12 @@ void Sequence_Test::loadWithoutScene()
     xmlWriter.writeAttribute("BoundScene", "1");
 
     xmlWriter.writeStartElement("Speed");
+    xmlWriter.writeAttribute("FadeIn", "4");
+    xmlWriter.writeAttribute("FadeOut", "6");
+    xmlWriter.writeAttribute("Duration", "133");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeStartElement("OuterSpeeds");
     xmlWriter.writeAttribute("FadeIn", "42");
     xmlWriter.writeAttribute("FadeOut", "69");
     xmlWriter.writeAttribute("Duration", "1337");
@@ -402,6 +423,9 @@ void Sequence_Test::loadWithoutScene()
     QVERIFY(m_doc->addFunction(seq) == true);
     QVERIFY(seq->id() == 0);
     QVERIFY(seq->boundSceneID() == 1);
+    QVERIFY(seq->commonSpeeds().fadeIn() == 4);
+    QVERIFY(seq->commonSpeeds().fadeOut() == 6);
+    QVERIFY(seq->commonSpeeds().duration() == 133);
     QVERIFY(seq->speeds().fadeIn() == 42);
     QVERIFY(seq->speeds().fadeOut() == 69);
     QVERIFY(seq->speeds().duration() == 1337);
@@ -496,6 +520,9 @@ void Sequence_Test::save()
 {
     Sequence* seq = new Sequence(m_doc);
     seq->setName("First");
+    seq->commonSpeedsEdit().setFadeIn(4);
+    seq->commonSpeedsEdit().setFadeOut(6);
+    seq->commonSpeedsEdit().setDuration(133);
     seq->speedsEdit().setFadeIn(42);
     seq->speedsEdit().setFadeOut(69);
     seq->speedsEdit().setDuration(1337);
@@ -557,6 +584,11 @@ void Sequence_Test::save()
                 QCOMPARE(text, QString("0:0,100,1,180"));
             fstep++;
         }
+        else if (xmlReader.name() == "OuterSpeeds")
+        {
+            speed++;
+            xmlReader.skipCurrentElement();
+        }
         else if (xmlReader.name() == "Speed")
         {
             speed++;
@@ -577,7 +609,7 @@ void Sequence_Test::save()
         }
     }
 
-    QCOMPARE(speed, 1);
+    QCOMPARE(speed, 2);
     QCOMPARE(speedmodes, 1);
     QCOMPARE(dir, 1);
     QCOMPARE(run, 1);

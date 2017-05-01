@@ -25,6 +25,8 @@
 
 #define KXMLQLCSequenceBoundScene "BoundScene"
 
+#define KXMLQLCSequenceOuterSpeeds "OuterSpeeds"
+
 Sequence::Sequence(Doc* doc)
     : Chaser(doc)
     , m_boundSceneID(Function::invalidId())
@@ -69,10 +71,15 @@ bool Sequence::copyFrom(const Function *function)
         return false;
 
     // Copy sequence stuff
+    m_commonSpeeds = sequence->m_commonSpeeds;
+    m_steps = sequence->m_steps;
+    m_fadeInMode = sequence->m_fadeInMode;
+    m_fadeOutMode = sequence->m_fadeOutMode;
+    m_durationMode = sequence->m_durationMode;
     m_boundSceneID = sequence->m_boundSceneID;
 
-    // Copy common chaser stuff
-    return Chaser::copyFrom(function);
+    // Copy common function stuff
+    return Function::copyFrom(function);
 }
 
 void Sequence::setBoundSceneID(quint32 sceneID)
@@ -102,7 +109,10 @@ bool Sequence::saveXML(QXmlStreamWriter *doc)
     doc->writeAttribute(KXMLQLCSequenceBoundScene, QString::number(boundSceneID()));
 
     /* Speed */
-    m_speeds.saveXML(doc);
+    // Legacy speed is now the common speed
+    // m_speeds is loaded as a new "OuterSpeeds" node
+    m_commonSpeeds.saveXML(doc);
+    m_speeds.saveXML(doc, KXMLQLCSequenceOuterSpeeds);
 
     /* Direction */
     saveXMLDirection(doc);
@@ -171,7 +181,13 @@ bool Sequence::loadXML(QXmlStreamReader &root)
     {
         if (root.name() == KXMLQLCFunctionSpeeds)
         {
-            m_speeds.loadXML(root);
+            // Legacy "Speed" node is now the common speed
+            m_commonSpeeds.loadXML(root);
+        }
+        else if (root.name() == KXMLQLCSequenceOuterSpeeds)
+        {
+            // m_speeds is loaded as a new "OuterSpeeds" node
+            m_speeds.loadXML(root, KXMLQLCSequenceOuterSpeeds);
         }
         else if (root.name() == KXMLQLCFunctionDirection)
         {

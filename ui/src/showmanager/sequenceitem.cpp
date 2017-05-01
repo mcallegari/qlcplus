@@ -77,11 +77,11 @@ void SequenceItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
         uint stepFadeOut = step.speeds.fadeOut();
         uint stepDuration = step.speeds.duration();
         if (m_chaser->fadeInMode() == Chaser::Common)
-            stepFadeIn = m_chaser->speeds().fadeIn();
+            stepFadeIn = m_chaser->commonSpeeds().fadeIn();
         if (m_chaser->fadeOutMode() == Chaser::Common)
-            stepFadeOut = m_chaser->speeds().fadeOut();
+            stepFadeOut = m_chaser->commonSpeeds().fadeOut();
         if (m_chaser->durationMode() == Chaser::Common)
-            stepDuration = m_chaser->speeds().duration();
+            stepDuration = m_chaser->commonSpeeds().duration();
 
         // draw fade in line
         if (stepFadeIn > 0)
