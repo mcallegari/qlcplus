@@ -330,6 +330,11 @@ QString Chaser::alternateSpeedsString(quint32 alternateIdx) const
         return QString("Step %1: %2").arg(alternateIdx - 1).arg(m_steps[alternateIdx - 1].note);
 }
 
+quint32 Chaser::commonSpeedsIdx()
+{
+    return 0;
+}
+
 void Chaser::setCommonSpeeds(FunctionSpeeds const& speeds)
 {
     m_commonSpeeds = speeds;

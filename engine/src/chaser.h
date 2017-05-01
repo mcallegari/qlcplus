@@ -211,6 +211,7 @@ public:
     FunctionSpeedsEditProxy alternateSpeedsEdit(quint32 alternateIdx) override;
     QString alternateSpeedsString(quint32 alternateIdx) const override;
 
+    static quint32 commonSpeedsIdx();
     void setCommonSpeeds(FunctionSpeeds const& speeds);
     FunctionSpeeds const& commonSpeeds() const;
     FunctionSpeedsEditProxy commonSpeedsEdit();

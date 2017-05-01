@@ -22,8 +22,11 @@
 #include <QDebug>
 
 #include "vcspeeddialfunction.h"
+#include "chaser.h"
+#include "efx.h"
 #include "function.h"
 #include "doc.h"
+#include "rgbmatrix.h"
 
 #define KXMLQLCVCSpeedDialFunctionAlternateSpeedsIdx "AlternateSpeedsIdx"
 
@@ -39,7 +42,7 @@ VCSpeedDialFunction::VCSpeedDialFunction(quint32 aFid, quint32 aAlternateSpeedsI
 {
 }
 
-bool VCSpeedDialFunction::loadXML(QXmlStreamReader &root, SpeedMultiplier aFadeIn,
+bool VCSpeedDialFunction::loadXML(QXmlStreamReader &root, Doc* doc, SpeedMultiplier aFadeIn,
                                   SpeedMultiplier aFadeOut, SpeedMultiplier aDuration)
 {
     if (root.name() != KXMLQLCFunction)
@@ -60,7 +63,30 @@ bool VCSpeedDialFunction::loadXML(QXmlStreamReader &root, SpeedMultiplier aFadeI
     if (attrs.hasAttribute(KXMLQLCVCSpeedDialFunctionAlternateSpeedsIdx))
         alternateSpeedsIdx = attrs.value(KXMLQLCVCSpeedDialFunctionAlternateSpeedsIdx).toString().toUInt();
     else
-        alternateSpeedsIdx = baseSpeedsIdx();
+    {
+        // Legacy VCSpeedDialFunction:
+        // Use common/inner alternateSpeedsIds for chaser, sequence, rgbmatrix and efx
+        Function* function = doc->function(functionId);
+        if (function != NULL)
+        {
+            switch (function->type())
+            {
+                case Function::ChaserType:
+                case Function::SequenceType:
+                    alternateSpeedsIdx = Chaser::commonSpeedsIdx();
+                    break;
+                case Function::EFXType:
+                    alternateSpeedsIdx = EFX::innerSpeedsIdx();
+                    break;
+                case Function::RGBMatrixType:
+                    alternateSpeedsIdx = RGBMatrix::innerSpeedsIdx();
+                    break;
+                default:
+                    alternateSpeedsIdx = baseSpeedsIdx();
+                    break;
+            }
+        }
+    }
 
     // For each multiplier: If not present in XML, use default value.
     if (attrs.hasAttribute(KXMLQLCFunctionSpeedsFadeIn))
@@ -91,9 +117,8 @@ bool VCSpeedDialFunction::saveXML(QXmlStreamWriter *doc) const
     doc->writeAttribute(KXMLQLCFunctionSpeedsFadeOut, QString::number(fadeOutMultiplier));
     doc->writeAttribute(KXMLQLCFunctionSpeedsDuration, QString::number(durationMultiplier));
 
-    /* Alternate speed (no need for base speed) */
-    if (alternateSpeedsIdx != baseSpeedsIdx())
-        doc->writeAttribute(KXMLQLCVCSpeedDialFunctionAlternateSpeedsIdx, QString::number(alternateSpeedsIdx));
+    /* Alternate speed */
+    doc->writeAttribute(KXMLQLCVCSpeedDialFunctionAlternateSpeedsIdx, QString::number(alternateSpeedsIdx));
 
     /* Function ID */
     doc->writeCharacters(QString::number(functionId));

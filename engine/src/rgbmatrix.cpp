@@ -180,6 +180,11 @@ QString RGBMatrix::alternateSpeedsString(quint32 alternateIdx) const
     return "Inner";
 }
 
+quint32 RGBMatrix::innerSpeedsIdx()
+{
+    return 0;
+}
+
 void RGBMatrix::setInnerSpeeds(FunctionSpeeds const& speeds)
 {
     m_innerSpeeds = speeds;

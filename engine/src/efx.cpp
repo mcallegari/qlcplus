@@ -198,6 +198,11 @@ QString EFX::alternateSpeedsString(quint32 alternateIdx) const
     return "Inner";
 }
 
+quint32 EFX::innerSpeedsIdx()
+{
+    return 0;
+}
+
 void EFX::setInnerSpeeds(FunctionSpeeds const& speeds)
 {
     m_innerSpeeds = speeds;

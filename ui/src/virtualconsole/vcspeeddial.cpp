@@ -824,7 +824,7 @@ bool VCSpeedDial::loadXML(QXmlStreamReader &root)
         {
             // Function
             VCSpeedDialFunction speeddialfunction;
-            if (speeddialfunction.loadXML(root, defaultFadeInMultiplier,
+            if (speeddialfunction.loadXML(root, m_doc, defaultFadeInMultiplier,
                                           defaultFadeOutMultiplier,
                                           defaultDurationMultiplier))
             {
