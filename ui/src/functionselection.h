@@ -160,8 +160,14 @@ public:
     /** Get a list of disabled functionIDs */
     QList <quint32> disabledFunctions() const;
 
+    void setDisabledAlternateSpeeds(const QList<QPair<quint32, int> >& indexes);
+    void showAlternateSpeeds(bool show = false);
+
 protected:
     QList <quint32> m_disabledFunctions;
+
+    QList<QPair<quint32, int> > m_disabledAlternateSpeeds;
+    bool m_showAlternateSpeeds;
 
     /*********************************************************************
      * Selection
@@ -171,11 +177,15 @@ public:
     void setSelection(QList<quint32> selection);
 
     /** Get a list of selected function IDs */
-    const QList <quint32> selection() const;
+    QList<quint32> selection() const;
+
+    QList<QPair<quint32, int> > alternateSpeedSelection() const;
 
 protected:
     /** The list of selected function IDs */
-    QList <quint32> m_selection;
+    QSet <quint32> m_selection;
+
+    QSet<QPair<quint32, int> > m_alternateSpeedSelection;
 
     /*********************************************************************
      * Internal
