@@ -33,7 +33,10 @@
 #include "apputil.h"
 #include "doc.h"
 
-#define PROP_ID  Qt::UserRole
+#define PROP_NAME_ID   Qt::UserRole
+#define PROP_NAME_ALTERNATESPEEDSIDX  Qt::UserRole + 1
+
+#define PROP_SPEED_MULT Qt::UserRole
 
 #define COL_NAME     0
 #define COL_FADEIN   1
@@ -254,15 +257,26 @@ void VCSpeedDialProperties::slotAddClicked()
     fs.setMultiSelection(true);
     fs.showAlternateSpeeds(true);
     QList <quint32> ids;
+    QList<QPair<quint32, int> > alternateSpeedIndexes;
     foreach (const VCSpeedDialFunction &speeddialfunction, functions())
-        ids.append(speeddialfunction.functionId);
+    {
+        if (speeddialfunction.alternateSpeedsIdx == VCSpeedDialFunction::baseSpeedsIdx())
+            ids.append(speeddialfunction.functionId);
+        else
+            alternateSpeedIndexes.append(qMakePair(
+                        speeddialfunction.functionId,
+                        speeddialfunction.alternateSpeedsIdx));
+    }
     fs.setDisabledFunctions(ids);
+    fs.setDisabledAlternateSpeeds(alternateSpeedIndexes);
     if (fs.exec() == QDialog::Accepted)
     {
         foreach (quint32 id, fs.selection())
             createFunctionItem(id);
+        QPair<quint32, int> speed;
+        foreach (speed, fs.alternateSpeedSelection())
+            createFunctionItem(VCSpeedDialFunction(speed.first, speed.second));
     }
-    // TODO ici ajouter des lignes pour les alternate speeds
 }
 
 void VCSpeedDialProperties::slotRemoveClicked()
@@ -280,13 +294,17 @@ QList <VCSpeedDialFunction> VCSpeedDialProperties::functions() const
         QTreeWidgetItem* item = m_tree->topLevelItem(i);
         Q_ASSERT(item != NULL);
 
-        QVariant id = item->data(COL_NAME, PROP_ID);
+        QVariant id = item->data(COL_NAME, PROP_NAME_ID);
+        QVariant alternateSpeedsIdx = item->data(COL_NAME, PROP_NAME_ALTERNATESPEEDSIDX);
         if (id.isValid() == true)
         {
-            VCSpeedDialFunction speeddialfunction(id.toUInt());
-            speeddialfunction.fadeInMultiplier = static_cast<VCSpeedDialFunction::SpeedMultiplier>(item->data(COL_FADEIN, PROP_ID).toUInt());
-            speeddialfunction.fadeOutMultiplier = static_cast<VCSpeedDialFunction::SpeedMultiplier>(item->data(COL_FADEOUT, PROP_ID).toUInt());
-            speeddialfunction.durationMultiplier = static_cast<VCSpeedDialFunction::SpeedMultiplier>(item->data(COL_DURATION, PROP_ID).toUInt());
+            VCSpeedDialFunction speeddialfunction(id.toUInt(), alternateSpeedsIdx.toUInt());
+            speeddialfunction.fadeInMultiplier = static_cast<VCSpeedDialFunction::SpeedMultiplier>(
+                    item->data(COL_FADEIN, PROP_SPEED_MULT).toUInt());
+            speeddialfunction.fadeOutMultiplier = static_cast<VCSpeedDialFunction::SpeedMultiplier>(
+                    item->data(COL_FADEOUT, PROP_SPEED_MULT).toUInt());
+            speeddialfunction.durationMultiplier = static_cast<VCSpeedDialFunction::SpeedMultiplier>(
+                    item->data(COL_DURATION, PROP_SPEED_MULT).toUInt());
             list.append(speeddialfunction);
         }
     }
@@ -300,17 +318,24 @@ void VCSpeedDialProperties::createFunctionItem(const VCSpeedDialFunction &speedd
     if (function != NULL)
     {
         QTreeWidgetItem* item = new QTreeWidgetItem(m_tree);
-        item->setText(COL_NAME, function->name());
-        item->setData(COL_NAME, PROP_ID, speeddialfunction.functionId);
+        if (speeddialfunction.alternateSpeedsIdx == VCSpeedDialFunction::baseSpeedsIdx())
+            item->setText(COL_NAME, function->name());
+        else
+        {
+            item->setText(COL_NAME, function->name() + "."
+                    + function->alternateSpeedsString(speeddialfunction.alternateSpeedsIdx));
+        }
+        item->setData(COL_NAME, PROP_NAME_ID, speeddialfunction.functionId);
+        item->setData(COL_NAME, PROP_NAME_ALTERNATESPEEDSIDX, speeddialfunction.alternateSpeedsIdx);
 
         const QStringList &multiplierNames = VCSpeedDialFunction::speedMultiplierNames();
 
         item->setText(COL_FADEIN, multiplierNames[speeddialfunction.fadeInMultiplier]);
-        item->setData(COL_FADEIN, PROP_ID, speeddialfunction.fadeInMultiplier);
+        item->setData(COL_FADEIN, PROP_SPEED_MULT, speeddialfunction.fadeInMultiplier);
         item->setText(COL_FADEOUT, multiplierNames[speeddialfunction.fadeOutMultiplier]);
-        item->setData(COL_FADEOUT, PROP_ID, speeddialfunction.fadeOutMultiplier);
+        item->setData(COL_FADEOUT, PROP_SPEED_MULT, speeddialfunction.fadeOutMultiplier);
         item->setText(COL_DURATION, multiplierNames[speeddialfunction.durationMultiplier]);
-        item->setData(COL_DURATION, PROP_ID, speeddialfunction.durationMultiplier);
+        item->setData(COL_DURATION, PROP_SPEED_MULT, speeddialfunction.durationMultiplier);
         item->setFlags(item->flags() | Qt::ItemIsEditable);
     }
 }
