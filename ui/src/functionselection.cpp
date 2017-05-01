@@ -359,29 +359,22 @@ void FunctionSelection::refillTree()
                 item->setFlags(0); // Disable the item
             else
                 item->setSelected(selection.contains(function->id()));
-        }
-    }
 
-    // Now we add the alternate speeds if necessary
-    if (m_showAlternateSpeeds)
-    {
-        foreach(Function* function, m_doc->functions())
-        {
-            if (m_runningOnlyFlag && !function->isRunning())
-                continue;
-
-            for (int i = 0; i < (int)function->alternateSpeedsCount(); ++i)
+            if (m_showAlternateSpeeds)
             {
-                QTreeWidgetItem* item = m_funcTree->addAlternateSpeeds(function->id(), i);
-                if (m_disabledAlternateSpeeds.contains(qMakePair(function->id(), i)))
-                    item->setFlags(0); // Disables the item
-                else
+                for (unsigned i = 0; i < function->alternateSpeedsCount(); ++i)
                 {
-                    item->setSelected(alternateSpeedSelection.contains(qMakePair(function->id(), i)));
-                    if (item->parent() != NULL)
+                    QTreeWidgetItem* item = m_funcTree->addAlternateSpeeds(function->id(), i);
+                    if (m_disabledAlternateSpeeds.contains(qMakePair(function->id(), i)))
+                        item->setFlags(0); // Disables the item
+                    else
                     {
-                        item->parent()->setFlags(item->parent()->flags() | Qt::ItemIsEnabled);
-                        item->setFlags(item->flags() | Qt::ItemIsEnabled);
+                        item->setSelected(alternateSpeedSelection.contains(qMakePair(function->id(), i)));
+                        if (item->parent() != NULL)
+                        {
+                            item->parent()->setFlags(item->parent()->flags() | Qt::ItemIsEnabled);
+                            item->setFlags(item->flags() | Qt::ItemIsEnabled);
+                        }
                     }
                 }
             }

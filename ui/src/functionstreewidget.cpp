@@ -103,7 +103,7 @@ QTreeWidgetItem *FunctionsTreeWidget::addFunction(quint32 fid)
 QTreeWidgetItem *FunctionsTreeWidget::addAlternateSpeeds(quint32 fid, int idx)
 {
     Function* function = m_doc->function(fid);
-    if (function == NULL)
+    if (function == NULL || function->isVisible() == false)
         return NULL;
 
     QTreeWidgetItem* parentItem = functionItem(function);
