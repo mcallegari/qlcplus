@@ -76,17 +76,89 @@ are filled with the said values.<br>
 Handlers can be simply moved with the mouse by dragging them around or by manually
 changing the values of the original or modified DMX values.<br>
 <br>
-QLC+ delivers a few templates that might cover the most common cases.<br>
-For example the "Invert" template can invert a Pan/Tilt channel where a product doesn't have
-this feature by factory default.<br>
-The "Logarithmic" template can improve the fade transitions of LED-based fixtures, trying to
-bring them back to a more linear effect.<br>
 To create a new template just select an existing template, give it a new name and add/remove handlers
 as needed with the <IMG SRC="qrc:/edit_add.png"> and <IMG SRC="qrc:/edit_remove.png"> buttons.<br>
 When done, just click the <IMG SRC="qrc:/filesave.png"> button and your template will be saved
 in your user templates folder. Please refer to the 
 <A HREF="file:questionsandanswers.html">Questions and Answers</A> page to locate this folder.
 </P>
+
+<H2>Channel Modifier Templates</H2>
+
+<P>QLC+ delivers a few templates that might cover the most common cases.</P>
+
+<TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD><B>Always Full</B></TD>
+  <TD>Fix ("park") the channel value to 100% (255), regardless of other QLC+ mechanisms (except blackout and universe passthrough).
+      Useful for e.g. dimmer channels.
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Always Half</B></TD>
+  <TD>Fix ("park") the channel value to 50% (127). Useful for keeping Pan/Tilt channels at a neutral position.
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Always Off</B></TD>
+  <TD>Fix ("park") the channel value to 0% (0).
+      Useful for disabling wrong fixtures.
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Exponential Deep</B></TD>
+  <TD>
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Exponential Medium</B></TD>
+  <TD>
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Exponential Shallow</B></TD>
+  <TD>
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Exponential Simple</B></TD>
+  <TD>
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Inverted</B></TD>
+  <TD>Invert a Pan/Tilt channel where a product doesn't have
+this feature by factory default.
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Linear</B></TD>
+  <TD>Default curve, same as when no modifier is set.
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Logarithmic Deep</B></TD>
+  <TD rowspan="3">This template can improve the fade transitions of LED-based fixtures, trying to
+bring them back to a more linear effect
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Logarithmic Medium</B></TD>
+ </TR>
+ <TR>
+  <TD><B>Logarithmic Shallow</B></TD>
+ </TR>
+ <TR>
+  <TD><B>Preheat 5%</B></TD>
+  <TD>May extend lamp life by keeping them at 5% minimum
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Threshold</B></TD>
+  <TD>Converts dimmer channel to switch channel (off below 128, full above)
+  </TD>
+ </TR>
+</TABLE>
 
 </BODY>
 </HTML>
