@@ -1,0 +1,9 @@
+<!DOCTYPE MidiTemplate>
+<MidiTemplate>
+ <Creator>
+  <Author>Branson Matheson</Author>
+ </Creator>
+ <Description>Sets the APC40 MK2 into Ableton mode. Disables native toggle and allows for mapping button LEDs.</Description>
+ <Name>APC40 Mk2 Ableton mode</Name>
+ <InitMessage>F0 47 7F 29 60 00 04 41 09 00 05 F7</InitMessage>
+</MidiTemplate>
