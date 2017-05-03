@@ -24,6 +24,7 @@ qlcplus (4.11.0) stable; urgency=low
   * Web access: improved getChannelsValues and added Simple Desk reset per-channel (sdResetChannel API)
   * Web access: implemented keypad increase/decrease buttons (thanks to Santiago Benejam Torres)
   * New input profile: Zoom R16 (thanks to Benedict Stein)
+  * New MIDI template: Akai APC40 MK2 (thanks to Branson Matheson)
   * New fixture: American DJ FREQ 5 Strobe (thanks to Martin Bochenek)
   * New fixture: Martin Rush MH3 (thanks to Ed Middlebrooks)
   * New fixture: Eurolite LED ACS BAR-12 (thanks to Michael Horber)
