@@ -97,12 +97,12 @@ void InputOutputMap::setBlackout(bool blackout)
     for (quint32 i = 0; i < universesCount(); i++)
     {
         Universe *universe = m_universeArray.at(i);
-        if (universe->outputPatch() != NULL)
+        if (blackout == true)
         {
-            if (blackout == true)
-                universe->outputPatch()->dump(universe->id(), zeros);
+            universe->dumpOutput(zeros);
             // notify the universe listeners that some channels have changed
         }
+
         locker.unlock();
         if (blackout == true)
             emit universesWritten(i, zeros);
