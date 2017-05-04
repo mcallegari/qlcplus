@@ -702,7 +702,8 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
             // is used to create grayscale image.
             //
             // The rest of the dimmer channels are set to full if dimmer control is
-            // enabled.
+            // enabled and target color is > 0 (see
+            // http://www.qlcplus.org/forum/viewtopic.php?f=29&t=11090)
             //
             // Note: If there is only one head, and only one dimmer channel,
             // make it a master dimmer in fixture definition.
@@ -716,26 +717,28 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
             if (headDim != QLCChannel::invalid())
                 dim << headDim;
 
+            uint col = map[y][x];
+
             if (rgb.size() == 3)
             {
                 // RGB color mixing
                 {
                     FadeChannel fc(doc(), grpHead.fxi, rgb.at(0));
-                    fc.setTarget(qRed(map[y][x]));
+                    fc.setTarget(qRed(col));
                     insertStartValues(fc, fadeTime);
                     m_fader->add(fc);
                 }
 
                 {
                     FadeChannel fc(doc(), grpHead.fxi, rgb.at(1));
-                    fc.setTarget(qGreen(map[y][x]));
+                    fc.setTarget(qGreen(col));
                     insertStartValues(fc, fadeTime);
                     m_fader->add(fc);
                 }
 
                 {
                     FadeChannel fc(doc(), grpHead.fxi, rgb.at(2));
-                    fc.setTarget(qBlue(map[y][x]));
+                    fc.setTarget(qBlue(col));
                     insertStartValues(fc, fadeTime);
                     m_fader->add(fc);
                 }
@@ -743,25 +746,25 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
             else if (cmy.size() == 3)
             {
                 // CMY color mixing
-                QColor col(map[y][x]);
+                QColor cmyCol(col);
 
                 {
                     FadeChannel fc(doc(), grpHead.fxi, cmy.at(0));
-                    fc.setTarget(col.cyan());
+                    fc.setTarget(cmyCol.cyan());
                     insertStartValues(fc, fadeTime);
                     m_fader->add(fc);
                 }
 
                 {
                     FadeChannel fc(doc(), grpHead.fxi, cmy.at(1));
-                    fc.setTarget(col.magenta());
+                    fc.setTarget(cmyCol.magenta());
                     insertStartValues(fc, fadeTime);
                     m_fader->add(fc);
                 }
 
                 {
                     FadeChannel fc(doc(), grpHead.fxi, cmy.at(2));
-                    fc.setTarget(col.yellow());
+                    fc.setTarget(cmyCol.yellow());
                     insertStartValues(fc, fadeTime);
                     m_fader->add(fc);
                 }
@@ -769,12 +772,10 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
             else if (!dim.empty())
             {
                 // Set dimmer to value of the color (e.g. for PARs)
-                QColor col(map[y][x]);
-
                 FadeChannel fc(doc(), grpHead.fxi, dim.last());
                 // the weights are taken from
                 // https://en.wikipedia.org/wiki/YUV#SDTV_with_BT.601
-                fc.setTarget((0.299 * col.redF() + 0.587 * col.greenF() + 0.114 * col.blueF()) * 255);
+                fc.setTarget(0.299 * qRed(col) + 0.587 * qGreen(col) + 0.114 * qBlue(col));
                 insertStartValues(fc, fadeTime);
                 m_fader->add(fc);
                 dim.pop_back();
@@ -786,7 +787,7 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
                 foreach(quint32 ch, dim)
                 {
                     FadeChannel fc(doc(), grpHead.fxi, ch);
-                    fc.setTarget(255);
+                    fc.setTarget(col == 0 ? 0 : 255);
                     insertStartValues(fc, fadeTime);
                     m_fader->add(fc);
                 }
