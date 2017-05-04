@@ -540,6 +540,16 @@ void Universe::dumpOutput(const QByteArray &data)
     m_totalChannelsChanged = false;
 }
 
+void Universe::dumpBlackout()
+{
+    dumpOutput(*m_modifiedZeroValues);
+}
+
+const QByteArray& Universe::blackoutData()
+{
+    return *m_modifiedZeroValues;
+}
+
 void Universe::flushInput()
 {
     if (m_inputPatch == NULL)
