@@ -52,6 +52,7 @@ class FunctionManager : public QObject
 
     Q_PROPERTY(int sceneCount READ sceneCount NOTIFY sceneCountChanged)
     Q_PROPERTY(int chaserCount READ chaserCount NOTIFY chaserCountChanged)
+    Q_PROPERTY(int sequenceCount READ sequenceCount NOTIFY sequenceCountChanged)
     Q_PROPERTY(int efxCount READ efxCount NOTIFY efxCountChanged)
     Q_PROPERTY(int collectionCount READ collectionCount NOTIFY collectionCountChanged)
     Q_PROPERTY(int rgbMatrixCount READ rgbMatrixCount NOTIFY rgbMatrixCountChanged)
@@ -126,6 +127,7 @@ public:
 
     int sceneCount() const { return m_sceneCount; }
     int chaserCount() const { return m_chaserCount; }
+    int sequenceCount() const { return m_sequenceCount; }
     int efxCount() const { return m_efxCount; }
     int collectionCount() const { return m_collectionCount; }
     int rgbMatrixCount() const { return m_rgbMatrixCount; }
@@ -146,6 +148,7 @@ signals:
     void searchFilterChanged();
     void sceneCountChanged();
     void chaserCountChanged();
+    void sequenceCountChanged();
     void efxCountChanged();
     void collectionCountChanged();
     void rgbMatrixCountChanged();
@@ -180,7 +183,7 @@ private:
     quint32 m_filter;
     QString m_searchFilter;
 
-    int m_sceneCount, m_chaserCount, m_efxCount;
+    int m_sceneCount, m_chaserCount, m_sequenceCount, m_efxCount;
     int m_collectionCount, m_rgbMatrixCount, m_scriptCount;
     int m_showCount, m_audioCount, m_videoCount;
 

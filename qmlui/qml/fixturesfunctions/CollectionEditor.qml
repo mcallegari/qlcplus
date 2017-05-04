@@ -64,70 +64,27 @@ Rectangle
         {
             Layout.fillWidth: true
 
-            Rectangle
+            EditorTopBar
             {
-                color: UISettings.bgMedium
-                //width: funcMgrLoader.width ? ceContainer.width / 2 : ceContainer.width
-                width: parent.width
-                height: UISettings.iconSizeMedium
-                z: 2
+                text: collectionEditor.functionName
+                onTextChanged: collectionEditor.functionName = text
 
-                Rectangle
+                onBackClicked:
                 {
-                    id: backBox
-                    width: UISettings.iconSizeMedium
-                    height: width
-                    color: "transparent"
-
-                    Image
+                    if (funcMgrLoader.width)
                     {
-                        id: leftArrow
-                        anchors.fill: parent
-                        rotation: 180
-                        source: "qrc:/arrow-right.svg"
-                        sourceSize: Qt.size(width, height)
+                        funcMgrLoader.source = ""
+                        funcMgrLoader.width = 0
+                        rightSidePanel.width = rightSidePanel.width / 2
                     }
-                    MouseArea
-                    {
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        onEntered: backBox.color = "#666"
-                        onExited: backBox.color = "transparent"
-                        onClicked:
-                        {
-                            if (funcMgrLoader.width)
-                            {
-                                funcMgrLoader.source = "";
-                                funcMgrLoader.width = 0;
-                                rightSidePanel.width = rightSidePanel.width / 2
-                            }
 
-                            functionManager.setEditorFunction(-1, false)
-                            requestView(-1, "qrc:/FunctionManager.qml")
-                        }
-                    }
-                }
-                TextInput
-                {
-                    id: cNameEdit
-                    x: leftArrow.width + 5
-                    height: UISettings.iconSizeMedium
-                    width: ceContainer.width - backBox.width - addFunc.width - removeFunc.width
-                    color: UISettings.fgMain
-                    clip: true
-                    text: collectionEditor.functionName
-                    verticalAlignment: TextInput.AlignVCenter
-                    font.family: UISettings.robotoFontName
-                    font.pixelSize: UISettings.textSizeDefault
-                    selectByMouse: true
-                    Layout.fillWidth: true
-                    onTextChanged: collectionEditor.functionName = text
+                    functionManager.setEditorFunction(-1, false)
+                    requestView(-1, "qrc:/FunctionManager.qml")
                 }
 
                 IconButton
                 {
                     id: addFunc
-                    x: parent.width - (UISettings.iconSizeMedium * 2) - 10
                     width: height
                     height: UISettings.iconSizeMedium
                     imgSource: "qrc:/add.svg"
@@ -153,7 +110,6 @@ Rectangle
                 IconButton
                 {
                     id: removeFunc
-                    x: parent.width - UISettings.iconSizeMedium - 5
                     width: height
                     height: UISettings.iconSizeMedium
                     imgSource: "qrc:/remove.svg"

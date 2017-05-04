@@ -495,15 +495,13 @@ void EFXEditor::updateModeColumn(QTreeWidgetItem* item, EFXFixture* ef)
     {
         QComboBox* combo = new QComboBox(m_tree);
         combo->setAutoFillBackground(true);
-
         combo->addItems(ef->modeList());
-
-        const int index = combo->findText(ef->modeToString(ef->mode ()) );
-        combo->setCurrentIndex(index);
-        //combo->setCurrentText (ef->modeToString (ef->mode ()));
-
-        m_tree->setItemWidget(item, KColumnMode, combo);
         combo->setProperty(PROPERTY_FIXTURE, (qulonglong) ef);
+        m_tree->setItemWidget(item, KColumnMode, combo);
+
+        const int index = combo->findText(ef->modeToString(ef->mode()));
+        combo->setCurrentIndex(index);
+
         connect(combo, SIGNAL(currentIndexChanged(int)),
                 this, SLOT(slotFixtureModeChanged(int)));
     }
@@ -781,10 +779,12 @@ void EFXEditor::slotRaiseFixtureClicked()
             item = m_tree->takeTopLevelItem(index);
 
             m_tree->insertTopLevelItem(index - 1, item);
-            m_tree->setCurrentItem(item);
-            updateStartOffsetColumn(item, ef);
 
+            updateModeColumn(item, ef);
+            updateStartOffsetColumn(item, ef);
             updateIndices(index - 1, index);
+            m_tree->setCurrentItem(item);
+
             redrawPreview();
         }
     }
@@ -813,10 +813,12 @@ void EFXEditor::slotLowerFixtureClicked()
         {
             item = m_tree->takeTopLevelItem(index);
             m_tree->insertTopLevelItem(index + 1, item);
-            m_tree->setCurrentItem(item);
-            updateStartOffsetColumn(item, ef);
 
+            updateModeColumn(item, ef);
+            updateStartOffsetColumn(item, ef);
             updateIndices(index, index + 1);
+            m_tree->setCurrentItem(item);
+
             redrawPreview();
         }
     }

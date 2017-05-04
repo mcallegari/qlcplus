@@ -122,7 +122,7 @@ FixtureRemap::FixtureRemap(Doc *doc, QWidget *parent)
     connect(m_targetTree, SIGNAL(collapsed(QModelIndex)),
             this, SLOT(slotUpdateConnections()));
 
-    // retrieve the original project name for QLC+ main class
+    // retrieve the original project name from the QLC+ App class
     App *mainApp = (App *)m_doc->parent();
     QString prjName = mainApp->fileName();
 
@@ -927,6 +927,8 @@ void FixtureRemap::accept()
      * 8 - save the remapped project into a new file
      * ********************************************************************** */
     App *mainApp = (App *)m_doc->parent();
+    if (m_targetProjectLabel->text().endsWith(".qxw") == false)
+        m_targetProjectLabel->setText(m_targetProjectLabel->text() + ".qxw");
     mainApp->setFileName(m_targetProjectLabel->text());
     mainApp->slotFileSave();
 

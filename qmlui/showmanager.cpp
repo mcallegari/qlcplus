@@ -557,6 +557,7 @@ QVariantList ShowManager::previewData(Function *f) const
     switch (f->type())
     {
         case Function::ChaserType:
+        case Function::SequenceType:
         {
             Chaser *chaser = qobject_cast<Chaser *>(f);
             quint32 stepsTimeCounter = 0;
