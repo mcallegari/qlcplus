@@ -61,6 +61,7 @@ RGBMatrixEditor::RGBMatrixEditor(QWidget* parent, RGBMatrix* mtx, Doc* doc)
     , m_matrix(mtx)
     , m_previewHandler(new RGBMatrixStep())
     , m_speedDials(NULL)
+    , m_outerSpeedsSpeedDials(NULL)
     , m_scene(new QGraphicsScene(this))
     , m_previewTimer(new QTimer(this))
     , m_previewIterator(0)
@@ -109,16 +110,9 @@ void RGBMatrixEditor::stopTest()
 void RGBMatrixEditor::slotFunctionManagerActive(bool active)
 {
     if (active == true)
-    {
-        if (m_speedDials == NULL)
-            updateSpeedDials();
-    }
+        updateSpeedDials();
     else
-    {
-        if (m_speedDials != NULL)
-            m_speedDials->deleteLater();
-        m_speedDials = NULL;
-    }
+        deleteSpeedDials();
 }
 
 void RGBMatrixEditor::init()
@@ -241,7 +235,7 @@ void RGBMatrixEditor::updateSpeedDials()
 
     m_speedDials = new SpeedDialWidget(this);
     m_speedDials->setAttribute(Qt::WA_DeleteOnClose);
-    m_speedDials->setWindowTitle(m_matrix->name());
+    m_speedDials->setWindowTitle(m_matrix->name() + " " + "Inner Speeds");
     m_speedDials->show();
     m_speedDials->setFadeIn(m_matrix->innerSpeeds().fadeIn());
     m_speedDials->setFadeOut(m_matrix->innerSpeeds().fadeOut());
@@ -251,6 +245,28 @@ void RGBMatrixEditor::updateSpeedDials()
     connect(m_speedDials, SIGNAL(holdChanged(int)), this, SLOT(slotHoldChanged(int)));
     connect(m_speedDials, SIGNAL(holdTapped()), this, SLOT(slotDurationTapped()));
     connect(m_speedDials, SIGNAL(destroyed(QObject*)), this, SLOT(slotDialDestroyed(QObject*)));
+
+    m_outerSpeedsSpeedDials = new SpeedDialWidget(this);
+    m_outerSpeedsSpeedDials->setWindowTitle(m_matrix->name() + " " + "Outer Speeds");
+    m_outerSpeedsSpeedDials->show();
+    m_outerSpeedsSpeedDials->setFadeIn(m_matrix->speeds().fadeIn());
+    m_outerSpeedsSpeedDials->setHold(m_matrix->speeds().hold());
+    m_outerSpeedsSpeedDials->setFadeOut(m_matrix->speeds().fadeOut());
+    connect(m_outerSpeedsSpeedDials, SIGNAL(fadeInChanged(int)), this, SLOT(slotOuterFadeInChanged(int)));
+    connect(m_outerSpeedsSpeedDials, SIGNAL(holdChanged(int)), this, SLOT(slotOuterHoldChanged(int)));
+    connect(m_outerSpeedsSpeedDials, SIGNAL(fadeOutChanged(int)), this, SLOT(slotOuterFadeOutChanged(int)));
+    connect(m_outerSpeedsSpeedDials, SIGNAL(destroyed(QObject*)), this, SLOT(slotOuterDialDestroyed(QObject*)));
+}
+
+void RGBMatrixEditor::deleteSpeedDials()
+{
+    if (m_speedDials != NULL)
+    {
+        m_speedDials->deleteLater();
+        m_outerSpeedsSpeedDials->deleteLater();
+        m_speedDials = NULL;
+        m_outerSpeedsSpeedDials = NULL;
+    }
 }
 
 void RGBMatrixEditor::fillPatternCombo()
@@ -580,7 +596,10 @@ void RGBMatrixEditor::slotNameEdited(const QString& text)
 {
     m_matrix->setName(text);
     if (m_speedDials != NULL)
-        m_speedDials->setWindowTitle(text);
+    {
+        m_speedDials->setWindowTitle(text + " " + "Inner Speeds");
+        m_outerSpeedsSpeedDials->setWindowTitle(text + " " + "Outer Speeds");
+    }
 }
 
 void RGBMatrixEditor::slotSpeedDialToggle(bool state)
@@ -588,14 +607,15 @@ void RGBMatrixEditor::slotSpeedDialToggle(bool state)
     if (state == true)
         updateSpeedDials();
     else
-    {
-        if (m_speedDials != NULL)
-            m_speedDials->deleteLater();
-        m_speedDials = NULL;
-    }
+        deleteSpeedDials();
 }
 
 void RGBMatrixEditor::slotDialDestroyed(QObject *)
+{
+    m_speedDialButton->setChecked(false);
+}
+
+void RGBMatrixEditor::slotOuterDialDestroyed(QObject *)
 {
     m_speedDialButton->setChecked(false);
 }
@@ -871,6 +891,21 @@ void RGBMatrixEditor::slotFadeOutChanged(int ms)
 void RGBMatrixEditor::slotHoldChanged(int ms)
 {
     m_matrix->innerSpeedsEdit().setHold(ms);
+}
+
+void RGBMatrixEditor::slotOuterFadeInChanged(int ms)
+{
+    m_matrix->speedsEdit().setFadeIn(ms);
+}
+
+void RGBMatrixEditor::slotOuterHoldChanged(int ms)
+{
+    m_matrix->speedsEdit().setHold(ms);
+}
+
+void RGBMatrixEditor::slotOuterFadeOutChanged(int ms)
+{
+    m_matrix->speedsEdit().setFadeOut(ms);
 }
 
 void RGBMatrixEditor::slotDurationTapped()

@@ -58,6 +58,7 @@ private:
     void init();
 
     void updateSpeedDials();
+    void deleteSpeedDials();
     void fillPatternCombo();
     void fillFixtureGroupCombo();
     void fillAnimationCombo();
@@ -97,11 +98,18 @@ private slots:
 
     void slotDimmerControlClicked();
 
+    // inner speeds
     void slotFadeInChanged(int ms);
     void slotFadeOutChanged(int ms);
     void slotHoldChanged(int ms);
     void slotDurationTapped();
     void slotDialDestroyed(QObject* dial);
+
+    // outer speeds
+    void slotOuterFadeInChanged(int ms);
+    void slotOuterHoldChanged(int ms);
+    void slotOuterFadeOutChanged(int ms);
+    void slotOuterDialDestroyed(QObject* dial);
 
     void slotTestClicked();
     void slotRestartTest();
@@ -127,6 +135,7 @@ private:
     QList <RGBScript> m_scripts;
 
     SpeedDialWidget *m_speedDials;
+    SpeedDialWidget *m_outerSpeedsSpeedDials;
 
     QGraphicsScene* m_scene;
     QTimer* m_previewTimer;
