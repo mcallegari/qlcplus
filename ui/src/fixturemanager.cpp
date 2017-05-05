@@ -588,13 +588,13 @@ void FixtureManager::slotSelectionChanged()
             if (m_info == NULL)
                 createInfo();
 
-            info += QString("<H1>%1</H1><P>%2 of <B>%3</B></P>")
-                    .arg(uniName).arg(tr("This group contains all fixtures"))
+            info += QString("<H1>%1</H1><P>%2 <B>%3</B></P>")
+                    .arg(uniName).arg(tr("This group contains all fixtures of"))
                     .arg(uniName);
 
             info += QString("<BR><P><B>%1</B>: %2Kg<BR><B>%3</B>: %4W</P>")
                     .arg(tr("Total estimated weight")).arg(QString::number(totalWeight))
-                    .arg(tr("Estimated maximum power consumption")).arg(totalPower);
+                    .arg(tr("Maximum estimated power consumption")).arg(totalPower);
 
             info += "</BODY></HTML>";
 
@@ -635,7 +635,7 @@ void FixtureManager::slotSelectionChanged()
 
                 info += QString("<BR><P><B>%1</B>: %2Kg<BR><B>%3</B>: %4W</P>")
                         .arg(tr("Total estimated weight")).arg(QString::number(totalWeight))
-                        .arg(tr("Estimated maximum power consumption")).arg(totalPower);
+                        .arg(tr("Maximum estimated power consumption")).arg(totalPower);
             }
             else
             {
