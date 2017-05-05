@@ -23,6 +23,7 @@
 #include <QStringList>
 #include <QWidget>
 #include <QEvent>
+#include <QCheckBox>
 
 /**
  * Launcher is a very simple dialog for choosing whether to execute the main
@@ -47,6 +48,8 @@ public:
 
     /** Destructor */
     ~Launcher();
+ private:
+    QCheckBox *web;
 
 private slots:
     /** Slot for fixture editor button click */

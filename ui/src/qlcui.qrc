@@ -76,6 +76,7 @@
         <file alias="hazer.png">../../resources/icons/png/hazer.png</file>
         <file alias="help.png">../../resources/icons/png/help.png</file>
         <file alias="image.png">../../resources/icons/png/image.png</file>
+        <file alias="info.png">../../resources/icons/png/info.png</file>
         <file alias="input.png">../../resources/icons/png/input.png</file>
         <file alias="input_output.png">../../resources/icons/png/input_output.png</file>
         <file alias="intensity.png">../../resources/icons/png/intensity.png</file>

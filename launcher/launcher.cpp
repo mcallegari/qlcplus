@@ -25,6 +25,7 @@
 #include <QPixmap>
 #include <QLabel>
 #include <QUrl>
+#include <QCheckBox>
 
 #include <unistd.h>
 
@@ -58,6 +59,10 @@ Launcher::Launcher(QWidget* parent) : QWidget(parent)
     qlc->setToolTip(tr("Launch the main %1 application").arg(APPNAME));
     connect(qlc, SIGNAL(clicked()), this, SLOT(slotQLCClicked()));
     lay->addWidget(qlc, 1, 2, 1, 1);
+
+    web = new QCheckBox(tr("Enable Webaccess"), this);
+    web->setToolTip(tr("Enable webaccess on port 9999"));
+    lay->addWidget(web, 2, 2, 1, 1);
 }
 
 Launcher::~Launcher()
@@ -71,7 +76,11 @@ void Launcher::slotFXEDClicked()
 
 void Launcher::slotQLCClicked()
 {
-    launchQLC(QApplication::arguments());
+  QStringList arguments = QApplication::arguments();
+  if(web->isChecked()){
+    arguments << "--web";
+  }
+    launchQLC(arguments);
 }
 
 void Launcher::launchFXED(const QStringList& arguments)

@@ -480,6 +480,8 @@ public:
      * @return A sort-of HTML-RTF-gibberish for Fixture Manager
      */
     QString status() const;
+    int getPowerConsumption();
+    double getWeight();
 };
 
 /** @} */

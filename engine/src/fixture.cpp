@@ -1236,3 +1236,23 @@ QString Fixture::status() const
 
     return info;
 }
+
+int Fixture::getPowerConsumption()
+{
+  if (m_fixtureMode != NULL)
+    {
+        QLCPhysical physical = m_fixtureMode->physical();
+	return physical.powerConsumption();
+    }
+  return 0;
+}
+
+double Fixture::getWeight()
+{
+  if (m_fixtureMode != NULL)
+    {
+        QLCPhysical physical = m_fixtureMode->physical();
+	return physical.weight();
+    }
+  return 0;
+}

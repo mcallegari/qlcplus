@@ -200,6 +200,8 @@ private slots:
     void slotImport();
     void slotExport();
 
+    void slotWsInfo();
+
     /** Callback for right mouse button clicks over a fixture item */
     void slotContextMenuRequested(const QPoint& pos);
 
@@ -219,6 +221,8 @@ private:
 
     QAction* m_importAction;
     QAction* m_exportAction;
+
+    QAction* m_wsInfoAction;
     QMenu* m_groupMenu;
 };
 
