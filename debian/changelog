@@ -4,6 +4,7 @@ qlcplus (4.11.0) stable; urgency=low
   * engine: fixed crash when pausing a Show with an unavailable audio file
   * UI: enabled Alt key combinations on macOS to behave like other platforms (thanks to Matt Mayfield)
   * UI/RGB Panel: added panel direction (thanks to Raivis Rengelis)
+  * UI/Fixture Manager: added weight and power consumption information on fixtures/universe selection (Chris de Rock idea)
   * UI/Scene Editor: preserve fixture tab order when fixtures with no channels set are present
   * UI/RGB Matrix Editor: allow the preview to run even in operate mode
   * UI/Audio Editor: added the possibility to loop an audio file (thanks to Raivis Rengelis)
@@ -24,7 +25,7 @@ qlcplus (4.11.0) stable; urgency=low
   * Web access: improved getChannelsValues and added Simple Desk reset per-channel (sdResetChannel API)
   * Web access: implemented keypad increase/decrease buttons (thanks to Santiago Benejam Torres)
   * New input profile: Zoom R16 (thanks to Benedict Stein)
-  * New MIDI template: Akai APC40 MK2 (thanks to Branson Matheson)
+  * New MIDI template: Akai APC40 MK2 Ableton mode (thanks to Branson Matheson)
   * New fixture: American DJ FREQ 5 Strobe (thanks to Martin Bochenek)
   * New fixture: Martin Rush MH3 (thanks to Ed Middlebrooks)
   * New fixture: Eurolite LED ACS BAR-12 (thanks to Michael Horber)
