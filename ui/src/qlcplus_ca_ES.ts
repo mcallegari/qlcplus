@@ -2301,19 +2301,19 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     <message>
         <location filename="fixturemanager.cpp" line="592"/>
         <source>This group contains all fixtures of</source>
-        <translation type="unfinished"></translation>
+        <translation>Aquest grup conté tots els fixtures de</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="596"/>
         <location filename="fixturemanager.cpp" line="637"/>
         <source>Total estimated weight</source>
-        <translation type="unfinished"></translation>
+        <translation>Pes total estimat</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="597"/>
         <location filename="fixturemanager.cpp" line="638"/>
         <source>Maximum estimated power consumption</source>
-        <translation type="unfinished"></translation>
+        <translation>Consum d&apos;energia màxim estimat</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="981"/>
@@ -2777,7 +2777,7 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     <message>
         <location filename="functionselection.ui" line="122"/>
         <source>EFX</source>
-        <translation type="unfinished"></translation>
+        <translation>EFX</translation>
     </message>
     <message>
         <location filename="functionselection.ui" line="129"/>
@@ -2802,7 +2802,7 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     <message>
         <location filename="functionselection.ui" line="180"/>
         <source>Sequences</source>
-        <translation type="unfinished"></translation>
+        <translation>Seqüències</translation>
     </message>
     <message>
         <location filename="functionselection.ui" line="99"/>
@@ -3221,7 +3221,6 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputoutputmanager.cpp" line="362"/>
         <source>The universe you are trying to delete is patched. Are you sure you want to delete it ?</source>
-        <translatorcomment>Patched Retall. Assignat pot ser una bona alternativa.</translatorcomment>
         <translation>L&apos;univers que està intentant esborrar està assignat. Estau segur de voler esborrar-lo?</translation>
     </message>
     <message>
@@ -3286,7 +3285,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputoutputpatcheditor.ui" line="168"/>
         <source>Delete the selected input profile</source>
-        <translation>Eliminar el perfil d&apos;Entrada seleccionat</translation>
+        <translation>Esborrar el perfil d&apos;Entrada seleccionat</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.ui" line="188"/>
@@ -3383,13 +3382,12 @@ Si us plau, consulteu la documentació dels plugins per solucionar això.</trans
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="750"/>
         <source>Delete profile</source>
-        <translatorcomment>Eliminar o Esborrar. Revisar altres entrades semblants.</translatorcomment>
-        <translation>Eliminar perfil</translation>
+        <translation>Esborrar perfil</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="751"/>
         <source>Do you wish to permanently delete profile &quot;%1&quot;?</source>
-        <translation>Voleu eliminar permanentment aquest perfil &quot;%1&quot;?</translation>
+        <translation>Voleu esborar permanentment aquest perfil &quot;%1&quot;?</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="779"/>
@@ -3576,12 +3574,12 @@ Si us plau, consulteu la documentació dels plugins per solucionar això.</trans
     <message>
         <location filename="inputprofileeditor.cpp" line="333"/>
         <source>Delete channels</source>
-        <translation>Eliminar canals</translation>
+        <translation>Esborrar canals</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="334"/>
         <source>Delete all %1 selected channels?</source>
-        <translation>Eliminar els %1 canals seleccionats?</translation>
+        <translation>Esborrar els %1 canals seleccionats?</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="451"/>
@@ -3924,7 +3922,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="showmanager/multitrackview.cpp" line="322"/>
         <source>Delete Functions</source>
-        <translation>Eliminar Funcions</translation>
+        <translation>Esborrar Funcions</translation>
     </message>
     <message>
         <location filename="showmanager/multitrackview.cpp" line="354"/>
@@ -4597,7 +4595,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="sceneeditor.cpp" line="1289"/>
         <source>Do you want to remove the selected fixture(s)?</source>
-        <translation>Vol eleiminar el(s) fixture(s) seleccionats?</translation>
+        <translation>Vol eliminar el(s) fixture(s) seleccionats?</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="1443"/>
@@ -4935,7 +4933,7 @@ Durada: %3
     <message>
         <location filename="showmanager/showmanager.cpp" line="244"/>
         <source>&amp;Delete</source>
-        <translation>&amp;Eliminar</translation>
+        <translation>&amp;Esborrar</translation>
     </message>
     <message>
         <location filename="showmanager/showmanager.cpp" line="251"/>
@@ -5326,7 +5324,7 @@ Durada: %3
     <message>
         <location filename="showmanager/trackitem.cpp" line="66"/>
         <source>Delete</source>
-        <translation>Eliminar</translation>
+        <translation>Esborrar</translation>
     </message>
 </context>
 <context>
@@ -7576,7 +7574,7 @@ Si us plau seleccionau un d&apos;aquests canals.</translation>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="382"/>
         <source>Delete</source>
-        <translation>Eliminar</translation>
+        <translation>Esborrar</translation>
     </message>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="385"/>
@@ -7683,12 +7681,12 @@ Si us plau seleccionau un d&apos;aquests canals.</translation>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="1162"/>
         <source>Do you wish to delete the selected widgets?</source>
-        <translation>Vol eliminar el widget seleccionat?</translation>
+        <translation>Vol esborrar el widget seleccionat?</translation>
     </message>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="1163"/>
         <source>Delete widgets</source>
-        <translation>Eliminar widgets</translation>
+        <translation>Esborrar widgets</translation>
     </message>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="1216"/>
