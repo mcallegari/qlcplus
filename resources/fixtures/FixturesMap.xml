@@ -196,6 +196,7 @@
   <fixture path="Chauvet-COLORado-1-Quad-Zoom-Tour.qxf" mf="Chauvet" md="COLORado 1 Quad Zoom Tour"/>
   <fixture path="Chauvet-COLORado-1-Solo.qxf" mf="Chauvet" md="COLORado 1 Solo"/>
   <fixture path="Chauvet-COLORado-1-Tour.qxf" mf="Chauvet" md="COLORado 1 Tour"/>
+  <fixture path="Chauvet-COLORado-3P.qxf" mf="Chauvet" md="COLORado 3P"/>
   <fixture path="Chauvet-ColorBand-Pix-IP.qxf" mf="Chauvet" md="ColorBand Pix IP"/>
   <fixture path="Chauvet-ColorBand-Pix-M.qxf" mf="Chauvet" md="ColorBand Pix-M"/>
   <fixture path="Chauvet-COLORband-T3-USB.qxf" mf="Chauvet" md="COLORband T3 USB"/>
@@ -251,6 +252,7 @@
   <fixture path="Chauvet-LEDrain64.qxf" mf="Chauvet" md="LEDrain64"/>
   <fixture path="Chauvet-LEDSplash-Jr.qxf" mf="Chauvet" md="LEDSplash Jr"/>
   <fixture path="Chauvet-Legend-230SR-Beam.qxf" mf="Chauvet" md="Legend 230SR Beam"/>
+  <fixture path="Chauvet-Legend-330SR-Spot.qxf" mf="Chauvet" md="Legend 330SR Spot"/>
   <fixture path="Chauvet-Legend-412Z.qxf" mf="Chauvet" md="Legend 412Z"/>
   <fixture path="Chauvet-Mayhem.qxf" mf="Chauvet" md="Mayhem"/>
   <fixture path="Chauvet-Mini-Kinta.qxf" mf="Chauvet" md="Mini Kinta"/>
@@ -275,6 +277,7 @@
   <fixture path="Chauvet-SlimPAR-56.qxf" mf="Chauvet" md="SlimPAR 56"/>
   <fixture path="Chauvet-SlimPAR-64-RGBA.qxf" mf="Chauvet" md="SlimPAR 64 RGBA"/>
   <fixture path="Chauvet-SlimPAR-64.qxf" mf="Chauvet" md="SlimPAR 64"/>
+  <fixture path="Chauvet-SlimPAR-HEX-3.qxf" mf="Chauvet" md="SlimPar HEX 3"/>
   <fixture path="Chauvet-SlimPar-Hex-6.qxf" mf="Chauvet" md="SlimPar Hex 6"/>
   <fixture path="Chauvet-SlimPAR-Pro-H-USB.qxf" mf="Chauvet" md="SlimPAR Pro H USB"/>
   <fixture path="Chauvet-SlimPar-Pro-Tri.qxf" mf="Chauvet" md="SlimPar Pro Tri"/>
@@ -572,6 +575,7 @@
   <fixture path="Mac-Mah-WiderPanel.qxf" mf="Mac Mah" md="Wider Panel"/>
   <fixture path="MARQ-Colormax-Par64.qxf" mf="MARQ" md="Colormax Par64"/>
   <fixture path="MARQ-Gamut-PAR-H7.qxf" mf="MARQ" md="Gamut PAR H7"/>
+  <fixture path="MARQ-Gesture-Beam-Wash-102.qxf" mf="MARQ" md="Gesture Beam/Wash 102"/>
   <fixture path="Martin-24-7-Hazer.qxf" mf="Martin" md="ZR24/7 Hazer"/>
   <fixture path="Martin-Acrobat.qxf" mf="Martin" md="Acrobat"/>
   <fixture path="Martin-Atomic-3000.qxf" mf="Martin" md="Atomic 3000"/>
