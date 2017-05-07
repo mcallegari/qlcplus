@@ -107,7 +107,6 @@ private slots:
 
     // outer speeds
     void slotOuterFadeInChanged(int ms);
-    void slotOuterHoldChanged(int ms);
     void slotOuterFadeOutChanged(int ms);
     void slotOuterDialDestroyed(QObject* dial);
 

@@ -639,6 +639,19 @@ void RGBMatrix::write(MasterTimer* timer, QList<Universe *> universes)
         }
     }
 
+    // Adjust intensity from fadeIn
+    {
+        qreal currentFadeInIntensity;
+        quint32 fadeIn = (m_overrideSpeeds.fadeIn() == Speed::originalValue()
+                ? m_speeds.fadeIn()
+                : m_overrideSpeeds.fadeIn());
+        if (elapsed() < fadeIn)
+            currentFadeInIntensity = ((qreal)fadeIn - (qreal)elapsed()) / (qreal)fadeIn;
+        else
+            currentFadeInIntensity = 1;
+        m_fader->adjustIntensity(getAttributeValue(Intensity) * currentFadeInIntensity);
+    }
+
     // Run the generic fader that takes care of fading in/out individual channels
     m_fader->write(universes, isPaused());
 

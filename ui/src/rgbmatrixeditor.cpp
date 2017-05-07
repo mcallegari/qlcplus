@@ -250,10 +250,10 @@ void RGBMatrixEditor::updateSpeedDials()
     m_outerSpeedsSpeedDials->setWindowTitle(m_matrix->name() + " " + "Outer Speeds");
     m_outerSpeedsSpeedDials->show();
     m_outerSpeedsSpeedDials->setFadeIn(m_matrix->speeds().fadeIn());
-    m_outerSpeedsSpeedDials->setHold(m_matrix->speeds().hold());
+    m_outerSpeedsSpeedDials->setHoldEnabled(false);
+    m_outerSpeedsSpeedDials->setHoldVisible(false);
     m_outerSpeedsSpeedDials->setFadeOut(m_matrix->speeds().fadeOut());
     connect(m_outerSpeedsSpeedDials, SIGNAL(fadeInChanged(int)), this, SLOT(slotOuterFadeInChanged(int)));
-    connect(m_outerSpeedsSpeedDials, SIGNAL(holdChanged(int)), this, SLOT(slotOuterHoldChanged(int)));
     connect(m_outerSpeedsSpeedDials, SIGNAL(fadeOutChanged(int)), this, SLOT(slotOuterFadeOutChanged(int)));
     connect(m_outerSpeedsSpeedDials, SIGNAL(destroyed(QObject*)), this, SLOT(slotOuterDialDestroyed(QObject*)));
 }
@@ -896,11 +896,6 @@ void RGBMatrixEditor::slotHoldChanged(int ms)
 void RGBMatrixEditor::slotOuterFadeInChanged(int ms)
 {
     m_matrix->speedsEdit().setFadeIn(ms);
-}
-
-void RGBMatrixEditor::slotOuterHoldChanged(int ms)
-{
-    m_matrix->speedsEdit().setHold(ms);
 }
 
 void RGBMatrixEditor::slotOuterFadeOutChanged(int ms)
