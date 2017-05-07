@@ -1,8 +1,8 @@
 usr/*
 
 # udev rules
-etc/udev/rules.d/z65-dmxusb.rules
-etc/udev/rules.d/z65-peperoni.rules
-etc/udev/rules.d/z65-anyma-udmx.rules
-etc/udev/rules.d/z65-spi.rules
-etc/udev/rules.d/z65-fx5-hid.rules
+etc/udev/rules.d/z65-dmxusb.rules         lib/udev/rules.d
+etc/udev/rules.d/z65-peperoni.rules       lib/udev/rules.d
+etc/udev/rules.d/z65-anyma-udmx.rules     lib/udev/rules.d
+etc/udev/rules.d/z65-spi.rules            lib/udev/rules.d
+etc/udev/rules.d/z65-fx5-hid.rules        lib/udev/rules.d
