@@ -793,14 +793,6 @@ void Function::incrementElapsedBeats()
     m_elapsedBeats += 1000;
 }
 
-void Function::roundElapsed(quint32 roundTime)
-{
-    if (roundTime == 0)
-        m_elapsed = 0;
-    else
-        m_elapsed %= roundTime;
-}
-
 /*****************************************************************************
  * Start & Stop
  *****************************************************************************/

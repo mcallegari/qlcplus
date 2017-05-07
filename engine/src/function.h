@@ -602,8 +602,6 @@ protected:
     /** Increment the elapsed beats by one */
     void incrementElapsedBeats();
 
-    void roundElapsed(quint32 roundTime);
-
 private:
     /* The elapsed time in ms when tempoType is Time */
     quint32 m_elapsed;

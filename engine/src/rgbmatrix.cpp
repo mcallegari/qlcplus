@@ -62,7 +62,9 @@ RGBMatrix::RGBMatrix(Doc* doc)
     , m_endColor(QColor())
     , m_stepHandler(new RGBMatrixStep())
     , m_fader(NULL)
-    , m_roundTime(new QElapsedTimer())
+    , m_roundTimeReference(0)
+    , m_roundBeatsReference(0)
+    , m_roundCheck(true)
     , m_stepsCount(0)
     , m_stepBeatDuration(0)
 {
@@ -78,7 +80,6 @@ RGBMatrix::RGBMatrix(Doc* doc)
 RGBMatrix::~RGBMatrix()
 {
     delete m_algorithm;
-    delete m_roundTime;
     delete m_stepHandler;
 }
 
@@ -514,6 +515,36 @@ bool RGBMatrix::saveXML(QXmlStreamWriter *doc)
  * Running
  ****************************************************************************/
 
+void RGBMatrix::resetRoundTime()
+{
+    m_roundTimeReference = elapsed();
+    m_roundBeatsReference = elapsedBeats();
+}
+
+void RGBMatrix::roundRoundTime()
+{
+    if (m_innerSpeeds.tempoType() == Speed::Beats)
+    {
+        m_roundBeatsReference =
+            elapsedBeats() - (roundBeats() % m_innerSpeeds.duration());
+    }
+    else
+    {
+        m_roundTimeReference =
+            elapsed() - (roundTime() % m_innerSpeeds.duration());
+    }
+}
+
+quint32 RGBMatrix::roundTime()
+{
+    return elapsed() - m_roundTimeReference;
+}
+
+quint32 RGBMatrix::roundBeats()
+{
+    return elapsedBeats() - m_roundBeatsReference;
+}
+
 void RGBMatrix::tap()
 {
     if (stopped() == false)
@@ -521,11 +552,9 @@ void RGBMatrix::tap()
         FixtureGroup* grp = doc()->fixtureGroup(fixtureGroup());
         // Filter out taps that are too close to each other
         if (grp != NULL &&
-            uint(m_roundTime->elapsed()) >=
-                (m_innerSpeeds.duration() / 4))
+            uint(roundTime()) >= (m_innerSpeeds.duration() / 4))
         {
             roundCheck();
-            resetElapsed();
         }
     }
 }
@@ -566,9 +595,10 @@ void RGBMatrix::preRun(MasterTimer* timer)
         }
     }
 
-    m_roundTime->restart();
-
     Function::preRun(timer);
+
+    resetRoundTime();
+    m_roundCheck = true;
 }
 
 void RGBMatrix::write(MasterTimer* timer, QList<Universe *> universes)
@@ -594,9 +624,11 @@ void RGBMatrix::write(MasterTimer* timer, QList<Universe *> universes)
 
         if (isPaused() == false)
         {
+
             // Get a new map every time elapsed is reset to zero
-            if (elapsed() < MasterTimer::tick())
+            if (m_roundCheck)
             {
+                m_roundCheck = false;
                 if (m_innerSpeeds.tempoType() == Speed::Beats)
                     m_stepBeatDuration = Speed::beatsToMs(m_innerSpeeds.duration(), timer->beatTimeDuration());
 
@@ -627,7 +659,7 @@ void RGBMatrix::write(MasterTimer* timer, QList<Universe *> universes)
          *    change to case #2, to resync the matrix to the next beat
          */
         if (m_innerSpeeds.tempoType() == Speed::Ms &&
-            elapsed() >= m_innerSpeeds.duration())
+            roundTime() >= m_innerSpeeds.duration())
         {
             roundCheck();
         }
@@ -637,13 +669,12 @@ void RGBMatrix::write(MasterTimer* timer, QList<Universe *> universes)
             {
                 incrementElapsedBeats();
                 qDebug() << "Elapsed beats:" << elapsedBeats() << ", time elapsed:" << elapsed() << ", step time:" << m_stepBeatDuration;
-                if (elapsedBeats() % m_innerSpeeds.duration() == 0)
+                if (roundBeats() >= m_innerSpeeds.duration())
                 {
                     roundCheck();
-                    resetElapsed();
                 }
             }
-            else if (elapsed() >= m_stepBeatDuration && (uint)timer->timeToNextBeat() > m_stepBeatDuration / 16)
+            else if (roundTime() >= m_stepBeatDuration && (uint)timer->timeToNextBeat() > m_stepBeatDuration / 16)
             {
                 qDebug() << "Elapsed exceeded";
                 roundCheck();
@@ -712,12 +743,8 @@ void RGBMatrix::roundCheck()
     if (m_stepHandler->checkNextStep(runOrder(), m_startColor, m_endColor, m_stepsCount) == false)
         stop(FunctionParent::master());
 
-    m_roundTime->restart();
-
-    if (m_innerSpeeds.tempoType() == Speed::Beats)
-        roundElapsed(m_stepBeatDuration);
-    else
-        roundElapsed(m_innerSpeeds.duration());
+    roundRoundTime();
+    m_roundCheck = true;
 }
 
 void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)

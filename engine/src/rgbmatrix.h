@@ -237,7 +237,7 @@ public:
     void postRun(MasterTimer* timer, QList<Universe*> universes);
 
 private:
-    /** Check what should be done when elapsed() >= duration() */
+    /** Check what should be done when elapsed() >= innerDuration() */
     void roundCheck();
 
     /** Update new FadeChannels to m_fader when $map has changed since last time */
@@ -251,8 +251,19 @@ private:
      *  of the current RGB Matrix step, including fade transitions */
     GenericFader* m_fader;
 
+    // TODO doc
+    void resetRoundTime();
+    void roundRoundTime();
+    quint32 roundTime();
+    quint32 roundBeats();
+
     /** Reference to a timer counting the time in ms between steps */
-    QElapsedTimer* m_roundTime;
+    // TODO doc
+    quint32 m_roundTimeReference;
+    // TODO doc
+    quint32 m_roundBeatsReference;
+    // TODO doc
+    bool m_roundCheck;
 
     /** The number of steps returned by the currently loaded algorithm */
     int m_stepsCount;
