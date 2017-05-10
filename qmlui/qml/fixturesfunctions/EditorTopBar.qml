@@ -31,11 +31,13 @@ RowLayout
     z: 2
 
     property alias text: fNameEdit.text
+    property bool allowEdit: true
 
     signal backClicked()
 
     IconButton
     {
+        visible: allowEdit
         width: UISettings.iconSizeMedium
         height: width
         rotation: 180
@@ -54,6 +56,7 @@ RowLayout
         TextInput
         {
             id: fNameEdit
+            visible: allowEdit
             anchors.fill: parent
             color: UISettings.fgMain
             clip: true

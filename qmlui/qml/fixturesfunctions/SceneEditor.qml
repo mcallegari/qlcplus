@@ -30,6 +30,7 @@ Rectangle
     color: "transparent"
 
     property int functionID
+    property bool allowNameEdit: true
 
     signal requestView(int ID, string qmlSrc)
 
@@ -43,6 +44,7 @@ Rectangle
     {
         EditorTopBar
         {
+            allowEdit: allowNameEdit
             text: sceneEditor.functionName
             onTextChanged: sceneEditor.functionName = text
 

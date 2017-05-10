@@ -33,7 +33,6 @@ class SceneEditor : public FunctionEditor
     Q_OBJECT
 
     Q_PROPERTY(QVariant fixtureList READ fixtureList NOTIFY fixtureListChanged)
-    Q_PROPERTY(QString sceneName READ sceneName WRITE setSceneName NOTIFY sceneNameChanged)
 
 public:
     SceneEditor(QQuickView *view, Doc *doc, QObject *parent = 0);
@@ -45,10 +44,6 @@ public:
     /** Return a QVariant list of references to the Fixtures
      *  involved in the Scene editing */
     QVariant fixtureList() const;
-
-    /** Get/Set the name of the currently edited Scene */
-    QString sceneName() const;
-    void setSceneName(QString sceneName);
 
     /** Enable/disable the preview of the current Scene.
      *  In this editor, the preview is done with a GenericDMXSource */
@@ -75,12 +70,14 @@ public:
 
     Q_INVOKABLE void setFixtureSelection(quint32 fxID);
 
+protected slots:
+    void slotSceneValueChanged(SceneValue scv);
+
 private:
     void updateFixtureList();
 
 signals:
     void fixtureListChanged();
-    void sceneNameChanged();
 
 private:
     /** Reference of the Scene currently being edited */

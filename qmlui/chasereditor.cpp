@@ -20,6 +20,7 @@
 #include "chasereditor.h"
 #include "chaserstep.h"
 #include "listmodel.h"
+#include "sequence.h"
 #include "chaser.h"
 
 ChaserEditor::ChaserEditor(QQuickView *view, Doc *doc, QObject *parent)
@@ -46,6 +47,14 @@ void ChaserEditor::setFunctionID(quint32 ID)
         connect(m_chaser, &Chaser::currentStepChanged, this, &ChaserEditor::slotStepChanged);
 
     updateStepsList();
+}
+
+bool ChaserEditor::isSequence() const
+{
+    if (m_chaser != NULL && m_chaser->type() == Function::SequenceType)
+        return true;
+
+    return false;
 }
 
 QVariant ChaserEditor::stepsList() const
@@ -82,6 +91,49 @@ bool ChaserEditor::addFunctions(QVariantList idsList, int insertIndex)
     return true;
 }
 
+bool ChaserEditor::addStep(int insertIndex)
+{
+    if (m_chaser == NULL || m_chaser->type() != Function::SequenceType)
+    {
+        qDebug() << "This is not a Sequence";
+        return false;
+    }
+
+    Sequence *sequence = qobject_cast<Sequence*>(m_chaser);
+    ChaserStep step(sequence->boundSceneID());
+    Scene *currScene = qobject_cast<Scene*> (m_doc->function(sequence->boundSceneID()));
+
+    if (currScene == NULL)
+    {
+        qDebug() << "The Sequence bound Scene is NULL";
+        return false;
+    }
+
+    if (m_chaser->stepsCount() == 0)
+    {
+        QListIterator <SceneValue> it(currScene->values());
+        while (it.hasNext() == true)
+        {
+            SceneValue chan(it.next());
+            step.values.append(chan);
+            //qDebug() << "Value added: " << chan.value;
+        }
+    }
+    else
+    {
+        if (insertIndex == -1)
+            step.values = m_chaser->stepAt(m_chaser->stepsCount() - 1)->values;
+        else
+            step.values = m_chaser->stepAt(insertIndex)->values;
+    }
+
+    qDebug() << "Values added: " << step.values.count();
+
+    m_chaser->addStep(step, insertIndex);
+    updateStepsList();
+    return true;
+}
+
 int ChaserEditor::playbackIndex() const
 {
     return m_playbackIndex;
@@ -91,6 +143,18 @@ void ChaserEditor::setPlaybackIndex(int playbackIndex)
 {
     if (m_playbackIndex == playbackIndex)
         return;
+
+    if (m_chaser != NULL && m_chaser->type() == Function::SequenceType && playbackIndex >= 0)
+    {
+        Sequence *sequence = qobject_cast<Sequence*>(m_chaser);
+        Scene *currScene = qobject_cast<Scene*> (m_doc->function(sequence->boundSceneID()));
+
+        if (currScene != NULL)
+        {
+            for(SceneValue scv : m_chaser->stepAt(playbackIndex)->values)
+                currScene->setValue(scv);
+        }
+    }
 
     m_playbackIndex = playbackIndex;
     emit playbackIndexChanged(playbackIndex);

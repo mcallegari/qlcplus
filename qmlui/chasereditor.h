@@ -29,6 +29,7 @@ class ChaserEditor : public FunctionEditor
 {
     Q_OBJECT
 
+    Q_PROPERTY(bool isSequence READ isSequence CONSTANT)
     Q_PROPERTY(QVariant stepsList READ stepsList NOTIFY stepsListChanged)
     Q_PROPERTY(int runOrder READ runOrder WRITE setRunOrder NOTIFY runOrderChanged)
     Q_PROPERTY(int direction READ direction WRITE setDirection NOTIFY directionChanged)
@@ -44,15 +45,30 @@ public:
     /** Set the ID of the Chaser being edited */
     void setFunctionID(quint32 ID);
 
+    /** Returns if the Chaser being edited is a Sequence */
+    bool isSequence() const;
+
+    /** Return the Chaser step list formatted as explained in m_stepsList */
     QVariant stepsList() const;
 
     /**
      * Add a function to the Chaser being edited.
      *
-     * @param fid The function ID to add
+     * @param idsList A list of function IDs to add
+     * @param insertIndex a specific insertion index (-1 means append)
+     *
      * @return true if successful, otherwise false
      */
     Q_INVOKABLE bool addFunctions(QVariantList idsList, int insertIndex = -1);
+
+    /**
+     * Add a new step to the Sequence being edited.
+     *
+     * @param insertIndex a specific insertion index (-1 means append)
+     *
+     * @return true if successful, otherwise false
+     */
+    Q_INVOKABLE bool addStep(int insertIndex = -1);
 
     int playbackIndex() const;
     void setPlaybackIndex(int playbackIndex);
@@ -78,7 +94,10 @@ signals:
 private:
     /** Reference of the Chaser currently being edited */
     Chaser *m_chaser;
-    /** Reference to a ListModel representing the steps list for the QML UI */
+    /** Reference to a ListModel representing the steps list for the QML UI,
+     *  organized as follows:
+     *  funcID | isSelected | fadeIn | fadeOut | hold | duration | note
+     */
     ListModel *m_stepsList;
     /** Index of the current step being played. -1 when stopped */
     int m_playbackIndex;

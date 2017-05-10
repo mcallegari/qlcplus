@@ -34,6 +34,7 @@ Rectangle
     property int functionID: -1
     property int editStepIndex: -1
     property int editStepType
+    property bool isSequence: chaserEditor.isSequence
 
     signal requestView(int ID, string qmlSrc)
 
@@ -143,6 +144,12 @@ Rectangle
                 x: parent.width - 2
                 color: UISettings.bgLighter
             }
+
+            onLoaded:
+            {
+                if (isSequence)
+                    item.allowNameEdit = false
+            }
         }
 
         Column
@@ -173,21 +180,32 @@ Rectangle
                     width: height
                     height: UISettings.iconSizeMedium - 2
                     imgSource: "qrc:/add.svg"
-                    checkable: true
-                    tooltip: qsTr("Add a function")
+                    checkable: isSequence ? false : true
+                    tooltip: qsTr("Add a new step")
+                    onClicked:
+                    {
+                        if (isSequence)
+                        {
+                            chaserEditor.addStep(chaserEditor.playbackIndex)
+                        }
+                    }
+
                     onCheckedChanged:
                     {
-                        if (checked)
+                        if (!isSequence)
                         {
-                            rightSidePanel.width += mainView.width / 3
-                            funcMgrLoader.width = mainView.width / 3
-                            funcMgrLoader.source = "qrc:/FunctionManager.qml"
-                        }
-                        else
-                        {
-                            rightSidePanel.width = rightSidePanel.width - funcMgrLoader.width
-                            funcMgrLoader.source = ""
-                            funcMgrLoader.width = 0
+                            if (checked)
+                            {
+                                rightSidePanel.width += mainView.width / 3
+                                funcMgrLoader.width = mainView.width / 3
+                                funcMgrLoader.source = "qrc:/FunctionManager.qml"
+                            }
+                            else
+                            {
+                                rightSidePanel.width = rightSidePanel.width - funcMgrLoader.width
+                                funcMgrLoader.source = ""
+                                funcMgrLoader.width = 0
+                            }
                         }
                     }
                 }
@@ -198,8 +216,35 @@ Rectangle
                     width: height
                     height: UISettings.iconSizeMedium - 2
                     imgSource: "qrc:/remove.svg"
-                    tooltip: qsTr("Remove the selected functions")
+                    tooltip: qsTr("Remove the selected steps")
                     onClicked: {   }
+                }
+
+                IconButton
+                {
+                    id: showFixtures
+                    visible: isSequence
+                    width: height
+                    height: UISettings.iconSizeMedium - 2
+                    imgSource: "qrc:/fixture.svg"
+                    tooltip: qsTr("Show/Hide the Sequence fixtures")
+                    checkable: true
+
+                    onCheckedChanged:
+                    {
+                        if (checked)
+                        {
+                            rightSidePanel.width += mainView.width / 4
+                            funcMgrLoader.width = mainView.width / 4
+                            funcMgrLoader.source = "qrc:/SceneEditor.qml"
+                        }
+                        else
+                        {
+                            rightSidePanel.width = rightSidePanel.width - funcMgrLoader.width
+                            funcMgrLoader.source = ""
+                            funcMgrLoader.width = 0
+                        }
+                    }
                 }
             }
 
@@ -233,6 +278,7 @@ Rectangle
                     RobotoText
                     {
                         id: nameCol
+                        visible: !isSequence
                         width: UISettings.bigItemHeight * 1.5
                         height: parent.height
                         label: qsTr("Function")
@@ -243,6 +289,7 @@ Rectangle
                     Rectangle
                     {
                         id: nameColDrag
+                        visible: !isSequence
                         height: parent.height
                         width: 1
                         color: UISettings.fgMedium
@@ -455,6 +502,7 @@ Rectangle
                     ChaserStepDelegate
                     {
                         width: ceContainer.width
+                        showFunctionName: !isSequence
                         functionID: model.funcID
                         isSelected: model.isSelected
                         stepFadeIn: TimeUtils.timeToQlcString(model.fadeIn, chaserEditor.tempoType)
@@ -477,7 +525,8 @@ Rectangle
                         onClicked:
                         {
                             ceSelector.selectItem(indexInList, cStepsList.model, mouseMods & Qt.ControlModifier)
-                            if (mouseMods & Qt.ControlModifier === false)
+                            console.log("mouse mods: " + mouseMods)
+                            if ((mouseMods & Qt.ControlModifier) == 0)
                                 chaserEditor.playbackIndex = index
                         }
 
@@ -514,7 +563,7 @@ Rectangle
                     onExited: cStepsList.dragInsertIndex = -1
                 }
                 CustomScrollBar { flickable: cStepsList }
-            }
+            } // end of ListView
 
             SectionBox
             {
@@ -652,7 +701,7 @@ Rectangle
                         Layout.fillWidth: true
                     }
                 } // end of GridLayout
-            } // end of Rectangle
+            } // end of SectionBox
         } // end of Column
     } // end of SplitView
 }
