@@ -106,6 +106,8 @@ bool Scene::copyFrom(const Function* function)
 
 void Scene::setValue(const SceneValue& scv, bool blind, bool checkHTP)
 {
+    bool valChanged = false;
+
     if (!m_fixtures.contains(scv.fxi))
     {
         qWarning() << Q_FUNC_INFO << "Setting value for unknown fixture" << scv.fxi << ". Adding it.";
@@ -116,11 +118,18 @@ void Scene::setValue(const SceneValue& scv, bool blind, bool checkHTP)
 
     QMap<SceneValue, uchar>::iterator it = m_values.find(scv);
     if (it == m_values.end())
+    {
         m_values.insert(scv, scv.value);
+        valChanged = true;
+    }
     else
     {
-        const_cast<uchar&>(it.key().value) = scv.value;
-        it.value() = scv.value;
+        if (it.value() != scv.value)
+        {
+            const_cast<uchar&>(it.key().value) = scv.value;
+            it.value() = scv.value;
+            valChanged = true;
+        }
     }
 
     // if the scene is running, we must
@@ -141,6 +150,8 @@ void Scene::setValue(const SceneValue& scv, bool blind, bool checkHTP)
     m_valueListMutex.unlock();
 
     emit changed(this->id());
+    if (valChanged)
+        emit valueChanged(scv);
 }
 
 void Scene::setValue(quint32 fxi, quint32 ch, uchar value)

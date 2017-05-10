@@ -141,6 +141,9 @@ public:
      */
     void clear();
 
+signals:
+    void valueChanged(SceneValue scv);
+
 protected:
     QMap <SceneValue, uchar> m_values;
     QMutex m_valueListMutex;

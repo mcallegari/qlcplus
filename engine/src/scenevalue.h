@@ -95,6 +95,8 @@ public:
     uchar value;
 };
 
+QDebug operator<<(QDebug debug, const SceneValue &sv);
+
 /** @} */
 
 #endif
