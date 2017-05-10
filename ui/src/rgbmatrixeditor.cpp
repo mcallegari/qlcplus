@@ -35,7 +35,7 @@
 #include <QMutex>
 
 #include "fixtureselection.h"
-#include "speeddialwidget.h"
+#include "multispeeddialwidget.h"
 #include "rgbmatrixeditor.h"
 #include "qlcmacros.h"
 #include "rgbimage.h"
@@ -51,6 +51,9 @@
 #define ITEM_SIZE 28
 #define ITEM_PADDING 2
 
+#define DIALS_INNER_IDX 0
+#define DIALS_OUTER_IDX 1
+
 /****************************************************************************
  * Initialization
  ****************************************************************************/
@@ -61,7 +64,6 @@ RGBMatrixEditor::RGBMatrixEditor(QWidget* parent, RGBMatrix* mtx, Doc* doc)
     , m_matrix(mtx)
     , m_previewHandler(new RGBMatrixStep())
     , m_speedDials(NULL)
-    , m_outerSpeedsSpeedDials(NULL)
     , m_scene(new QGraphicsScene(this))
     , m_previewTimer(new QTimer(this))
     , m_previewIterator(0)
@@ -233,29 +235,31 @@ void RGBMatrixEditor::updateSpeedDials()
     if (m_speedDials != NULL)
         return;
 
-    m_speedDials = new SpeedDialWidget(this);
+    m_speedDials = new MultiSpeedDialWidget(2, this);
     m_speedDials->setAttribute(Qt::WA_DeleteOnClose);
-    m_speedDials->setWindowTitle(m_matrix->name() + " " + "Inner Speeds");
-    m_speedDials->show();
-    m_speedDials->setFadeIn(m_matrix->innerSpeeds().fadeIn());
-    m_speedDials->setFadeOut(m_matrix->innerSpeeds().fadeOut());
-    m_speedDials->setHold(m_matrix->innerSpeeds().hold());
-    connect(m_speedDials, SIGNAL(fadeInChanged(int)), this, SLOT(slotFadeInChanged(int)));
-    connect(m_speedDials, SIGNAL(fadeOutChanged(int)), this, SLOT(slotFadeOutChanged(int)));
-    connect(m_speedDials, SIGNAL(holdChanged(int)), this, SLOT(slotHoldChanged(int)));
-    connect(m_speedDials, SIGNAL(holdTapped()), this, SLOT(slotDurationTapped()));
+    m_speedDials->setWindowTitle(m_matrix->name());
+
+    m_speedDials->setFadeInTitle(DIALS_INNER_IDX, "Inner Fade In");
+    m_speedDials->setFadeIn(DIALS_INNER_IDX, m_matrix->innerSpeeds().fadeIn());
+    m_speedDials->setFadeOutTitle(DIALS_INNER_IDX, "Inner Fade Out");
+    m_speedDials->setFadeOut(DIALS_INNER_IDX, m_matrix->innerSpeeds().fadeOut());
+    m_speedDials->setHoldTitle(DIALS_INNER_IDX, "Inner Hold");
+    m_speedDials->setHold(DIALS_INNER_IDX, m_matrix->innerSpeeds().hold());
+
+    m_speedDials->setFadeInTitle(DIALS_OUTER_IDX, "Outer Fade In");
+    m_speedDials->setFadeIn(DIALS_OUTER_IDX, m_matrix->speeds().fadeIn());
+    m_speedDials->setFadeOutTitle(DIALS_OUTER_IDX, "Outer Fade Out");
+    m_speedDials->setFadeOut(DIALS_OUTER_IDX, m_matrix->speeds().fadeOut());
+    m_speedDials->setHoldEnabled(DIALS_OUTER_IDX, false);
+    m_speedDials->setHoldVisible(DIALS_OUTER_IDX, false);
+
+    connect(m_speedDials, SIGNAL(fadeInChanged(int, int)), this, SLOT(slotFadeInChanged(int, int)));
+    connect(m_speedDials, SIGNAL(fadeOutChanged(int, int)), this, SLOT(slotFadeOutChanged(int, int)));
+    connect(m_speedDials, SIGNAL(holdChanged(int, int)), this, SLOT(slotHoldChanged(int, int)));
+    connect(m_speedDials, SIGNAL(holdTapped(int)), this, SLOT(slotDurationTapped(int)));
     connect(m_speedDials, SIGNAL(destroyed(QObject*)), this, SLOT(slotDialDestroyed(QObject*)));
 
-    m_outerSpeedsSpeedDials = new SpeedDialWidget(this);
-    m_outerSpeedsSpeedDials->setWindowTitle(m_matrix->name() + " " + "Outer Speeds");
-    m_outerSpeedsSpeedDials->show();
-    m_outerSpeedsSpeedDials->setFadeIn(m_matrix->speeds().fadeIn());
-    m_outerSpeedsSpeedDials->setHoldEnabled(false);
-    m_outerSpeedsSpeedDials->setHoldVisible(false);
-    m_outerSpeedsSpeedDials->setFadeOut(m_matrix->speeds().fadeOut());
-    connect(m_outerSpeedsSpeedDials, SIGNAL(fadeInChanged(int)), this, SLOT(slotOuterFadeInChanged(int)));
-    connect(m_outerSpeedsSpeedDials, SIGNAL(fadeOutChanged(int)), this, SLOT(slotOuterFadeOutChanged(int)));
-    connect(m_outerSpeedsSpeedDials, SIGNAL(destroyed(QObject*)), this, SLOT(slotOuterDialDestroyed(QObject*)));
+    m_speedDials->show();
 }
 
 void RGBMatrixEditor::deleteSpeedDials()
@@ -263,9 +267,7 @@ void RGBMatrixEditor::deleteSpeedDials()
     if (m_speedDials != NULL)
     {
         m_speedDials->deleteLater();
-        m_outerSpeedsSpeedDials->deleteLater();
         m_speedDials = NULL;
-        m_outerSpeedsSpeedDials = NULL;
     }
 }
 
@@ -596,10 +598,7 @@ void RGBMatrixEditor::slotNameEdited(const QString& text)
 {
     m_matrix->setName(text);
     if (m_speedDials != NULL)
-    {
-        m_speedDials->setWindowTitle(text + " " + "Inner Speeds");
-        m_outerSpeedsSpeedDials->setWindowTitle(text + " " + "Outer Speeds");
-    }
+        m_speedDials->setWindowTitle(text);
 }
 
 void RGBMatrixEditor::slotSpeedDialToggle(bool state)
@@ -611,11 +610,6 @@ void RGBMatrixEditor::slotSpeedDialToggle(bool state)
 }
 
 void RGBMatrixEditor::slotDialDestroyed(QObject *)
-{
-    m_speedDialButton->setChecked(false);
-}
-
-void RGBMatrixEditor::slotOuterDialDestroyed(QObject *)
 {
     m_speedDialButton->setChecked(false);
 }
@@ -878,34 +872,40 @@ void RGBMatrixEditor::slotDimmerControlClicked()
     m_matrix->setDimmerControl(m_dimmerControlCb->isChecked());
 }
 
-void RGBMatrixEditor::slotFadeInChanged(int ms)
+void RGBMatrixEditor::slotFadeInChanged(int idx, int ms)
 {
-    m_matrix->innerSpeedsEdit().setFadeIn(ms);
+    if (idx == DIALS_INNER_IDX)
+        m_matrix->innerSpeedsEdit().setFadeIn(ms);
+    else // idx == DIALS_OUTER_IDX
+        m_matrix->speedsEdit().setFadeIn(ms);
 }
 
-void RGBMatrixEditor::slotFadeOutChanged(int ms)
+void RGBMatrixEditor::slotFadeOutChanged(int idx, int ms)
 {
-    m_matrix->innerSpeedsEdit().setFadeOut(ms);
+    if (idx == DIALS_INNER_IDX)
+        m_matrix->innerSpeedsEdit().setFadeOut(ms);
+    else // idx == DIALS_OUTER_IDX
+        m_matrix->speedsEdit().setFadeOut(ms);
 }
 
-void RGBMatrixEditor::slotHoldChanged(int ms)
+void RGBMatrixEditor::slotHoldChanged(int idx, int ms)
 {
-    m_matrix->innerSpeedsEdit().setHold(ms);
+    if (idx == DIALS_INNER_IDX)
+        m_matrix->innerSpeedsEdit().setHold(ms);
+    else // idx == DIALS_OUTER_IDX
+    {
+        // This is not supposed to happen
+    }
 }
 
-void RGBMatrixEditor::slotOuterFadeInChanged(int ms)
+void RGBMatrixEditor::slotDurationTapped(int idx)
 {
-    m_matrix->speedsEdit().setFadeIn(ms);
-}
-
-void RGBMatrixEditor::slotOuterFadeOutChanged(int ms)
-{
-    m_matrix->speedsEdit().setFadeOut(ms);
-}
-
-void RGBMatrixEditor::slotDurationTapped()
-{
-    m_matrix->tap();
+    if (idx == DIALS_INNER_IDX)
+        m_matrix->tap();
+    else // idx == DIALS_OUTER_IDX
+    {
+        // This is not supposed to happen
+    }
 }
 
 void RGBMatrixEditor::slotTestClicked()

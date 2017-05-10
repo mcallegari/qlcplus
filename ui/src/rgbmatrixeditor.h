@@ -28,7 +28,7 @@
 #include "qlcpoint.h"
 #include "doc.h"
 
-class SpeedDialWidget;
+class MultiSpeedDialWidget;
 class QGraphicsScene;
 class RGBItem;
 class QTimer;
@@ -99,16 +99,11 @@ private slots:
     void slotDimmerControlClicked();
 
     // inner speeds
-    void slotFadeInChanged(int ms);
-    void slotFadeOutChanged(int ms);
-    void slotHoldChanged(int ms);
-    void slotDurationTapped();
+    void slotFadeInChanged(int idx, int ms);
+    void slotFadeOutChanged(int idx, int ms);
+    void slotHoldChanged(int idx, int ms);
+    void slotDurationTapped(int idx);
     void slotDialDestroyed(QObject* dial);
-
-    // outer speeds
-    void slotOuterFadeInChanged(int ms);
-    void slotOuterFadeOutChanged(int ms);
-    void slotOuterDialDestroyed(QObject* dial);
 
     void slotTestClicked();
     void slotRestartTest();
@@ -133,8 +128,7 @@ private:
 
     QList <RGBScript> m_scripts;
 
-    SpeedDialWidget *m_speedDials;
-    SpeedDialWidget *m_outerSpeedsSpeedDials;
+    MultiSpeedDialWidget *m_speedDials;
 
     QGraphicsScene* m_scene;
     QTimer* m_previewTimer;
