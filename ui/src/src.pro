@@ -84,6 +84,7 @@ HEADERS += aboutbox.h \
            inputprofileeditor.h \
            inputselectionwidget.h \
            knobwidget.h \
+           multispeeddialwidget.h \
            palettegenerator.h \
            playbackslider.h \
            positiontool.h \
@@ -259,6 +260,7 @@ SOURCES += aboutbox.cpp \
            inputprofileeditor.cpp \
            inputselectionwidget.cpp \
            knobwidget.cpp \
+           multispeeddialwidget.cpp \
            palettegenerator.cpp \
            playbackslider.cpp \
            positiontool.cpp \

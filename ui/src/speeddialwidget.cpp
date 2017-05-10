@@ -28,76 +28,26 @@
 #include "speeddial.h"
 #include "apputil.h"
 
-#define WINDOW_FLAGS Qt::WindowFlags( \
-    (Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::Window | \
-     Qt::WindowStaysOnTopHint | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint))
-
-#define SETTINGS_GEOMETRY "speeddialwidget/geometry"
-#define SETTINGS_DIRECTION "speeddialwidget/direction"
-
 SpeedDialWidget::SpeedDialWidget(QWidget* parent)
-    : QWidget(parent)
-    , m_fadeIn(NULL)
-    , m_fadeOut(NULL)
-    , m_hold(NULL)
-    , m_optionalTextGroup(NULL)
-    , m_optionalTextEdit(NULL)
+    : MultiSpeedDialWidget(1, parent)
 {
-    QSettings settings;
-    QVariant var;
-    QBoxLayout* lay = NULL;
+    // disconnect(m_fadeIn[0], SIGNAL(valueChanged(int)), this, SIGNAL(fadeInChanged(quint32, int)));
+    // disconnect(m_fadeIn[0], SIGNAL(tapped()), this, SIGNAL(fadeInTapped(quint32)));
+    // disconnect(m_fadeOut[0], SIGNAL(valueChanged(int)), this, SIGNAL(fadeOutChanged(quint32, int)));
+    // disconnect(m_fadeOut[0], SIGNAL(tapped()), this, SIGNAL(fadeOutTapped(quint32)));
+    // disconnect(m_hold[0], SIGNAL(valueChanged(int)), this, SIGNAL(holdChanged(quint32, int)));
+    // disconnect(m_hold[0], SIGNAL(tapped()), this, SIGNAL(holdTapped(quint32)));
 
-    setWindowFlags(WINDOW_FLAGS);
-
-    /* Layout with customizable direction */
-    var = settings.value(SETTINGS_DIRECTION);
-    if (var.isValid() == true)
-        lay = new QBoxLayout(QBoxLayout::Direction(var.toInt()), this);
-    else
-        lay = new QBoxLayout(QBoxLayout::TopToBottom, this);
-
-    /* Create dials */
-    m_fadeIn = new SpeedDial(this);
-    m_fadeIn->setTitle(tr("Fade In"));
-    layout()->addWidget(m_fadeIn);
-    connect(m_fadeIn, SIGNAL(valueChanged(int)), this, SIGNAL(fadeInChanged(int)));
-    connect(m_fadeIn, SIGNAL(tapped()), this, SIGNAL(fadeInTapped()));
-
-    m_fadeOut = new SpeedDial(this);
-    m_fadeOut->setTitle(tr("Fade Out"));
-    layout()->addWidget(m_fadeOut);
-    connect(m_fadeOut, SIGNAL(valueChanged(int)), this, SIGNAL(fadeOutChanged(int)));
-    connect(m_fadeOut, SIGNAL(tapped()), this, SIGNAL(fadeOutTapped()));
-
-    m_hold = new SpeedDial(this);
-    m_hold->setTitle(tr("Hold"));
-    layout()->addWidget(m_hold);
-    connect(m_hold, SIGNAL(valueChanged(int)), this, SIGNAL(holdChanged(int)));
-    connect(m_hold, SIGNAL(tapped()), this, SIGNAL(holdTapped()));
-
-    /* Optional text */
-    m_optionalTextGroup = new QGroupBox(this);
-    layout()->addWidget(m_optionalTextGroup);
-    new QVBoxLayout(m_optionalTextGroup);
-    m_optionalTextEdit = new QLineEdit(m_optionalTextGroup);
-    m_optionalTextGroup->layout()->addWidget(m_optionalTextEdit);
-    m_optionalTextGroup->setVisible(false);
-    connect(m_optionalTextEdit, SIGNAL(textEdited(const QString&)),
-            this, SIGNAL(optionalTextEdited(const QString&)));
-
-    lay->addStretch();
-
-    /* Position */
-    var = settings.value(SETTINGS_GEOMETRY);
-    if (var.isValid() == true)
-        this->restoreGeometry(var.toByteArray());
-    AppUtil::ensureWidgetIsVisible(this);
+    connect(m_fadeIn[0], SIGNAL(valueChanged(int)), this, SIGNAL(fadeInChanged(int)));
+    connect(m_fadeIn[0], SIGNAL(tapped()), this, SIGNAL(fadeInTapped()));
+    connect(m_fadeOut[0], SIGNAL(valueChanged(int)), this, SIGNAL(fadeOutChanged(int)));
+    connect(m_fadeOut[0], SIGNAL(tapped()), this, SIGNAL(fadeOutTapped()));
+    connect(m_hold[0], SIGNAL(valueChanged(int)), this, SIGNAL(holdChanged(int)));
+    connect(m_hold[0], SIGNAL(tapped()), this, SIGNAL(holdTapped()));
 }
 
 SpeedDialWidget::~SpeedDialWidget()
 {
-    QSettings settings;
-    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
 }
 
 /****************************************************************************
@@ -106,100 +56,75 @@ SpeedDialWidget::~SpeedDialWidget()
 
 void SpeedDialWidget::setFadeInTitle(const QString& title)
 {
-    m_fadeIn->setTitle(title);
+    return MultiSpeedDialWidget::setFadeInTitle(0, title);
 }
 
 void SpeedDialWidget::setFadeInEnabled(bool enable)
 {
-    m_fadeIn->setEnabled(enable);
+    return MultiSpeedDialWidget::setFadeInEnabled(0, enable);
 }
 
 void SpeedDialWidget::setFadeInVisible(bool set)
 {
-    m_fadeIn->setVisible(set);
+    return MultiSpeedDialWidget::setFadeInVisible(0, set);
 }
 
 void SpeedDialWidget::setFadeIn(int ms)
 {
-    m_fadeIn->setValue(ms);
+    return MultiSpeedDialWidget::setFadeIn(0, ms);
 }
 
 int SpeedDialWidget::fadeIn() const
 {
-    return m_fadeIn->value();
+    return MultiSpeedDialWidget::fadeIn(0);
 }
 
 void SpeedDialWidget::setFadeOutTitle(const QString& title)
 {
-    m_fadeOut->setTitle(title);
+    return MultiSpeedDialWidget::setFadeOutTitle(0, title);
 }
 
 void SpeedDialWidget::setFadeOutEnabled(bool enable)
 {
-    m_fadeOut->setEnabled(enable);
+    return MultiSpeedDialWidget::setFadeOutEnabled(0, enable);
 }
 
 void SpeedDialWidget::setFadeOutVisible(bool set)
 {
-    m_fadeOut->setVisible(set);
+    return MultiSpeedDialWidget::setFadeOutVisible(0, set);
 }
 
 void SpeedDialWidget::setFadeOut(int ms)
 {
-    m_fadeOut->setValue(ms);
+    return MultiSpeedDialWidget::setFadeOut(0, ms);
 }
 
 int SpeedDialWidget::fadeOut() const
 {
-    return m_fadeOut->value();
+    return MultiSpeedDialWidget::fadeOut(0);
 }
 
 void SpeedDialWidget::setHoldTitle(const QString& title)
 {
-    m_hold->setTitle(title);
+    return MultiSpeedDialWidget::setHoldTitle(0, title);
 }
 
 void SpeedDialWidget::setHoldEnabled(bool enable)
 {
-    m_hold->setEnabled(enable);
+    return MultiSpeedDialWidget::setHoldEnabled(0, enable);
 }
 
 void SpeedDialWidget::setHoldVisible(bool set)
 {
-    m_hold->setVisible(set);
+    return MultiSpeedDialWidget::setHoldVisible(0, set);
 }
 
 void SpeedDialWidget::setHold(int ms)
 {
-    m_hold->setValue(ms);
+    return MultiSpeedDialWidget::setHold(0, ms);
 }
 
 int SpeedDialWidget::hold() const
 {
-    return m_hold->value();
-}
-
-/************************************************************************
- * Optional text
- ************************************************************************/
-
-void SpeedDialWidget::setOptionalTextTitle(const QString& title)
-{
-    m_optionalTextGroup->setTitle(title);
-    m_optionalTextGroup->setVisible(!title.isEmpty());
-}
-
-QString SpeedDialWidget::optionalTextTitle() const
-{
-    return m_optionalTextGroup->title();
-}
-
-void SpeedDialWidget::setOptionalText(const QString& text)
-{
-    m_optionalTextEdit->setText(text);
-}
-
-QString SpeedDialWidget::optionalText() const
-{
-    return m_optionalTextEdit->text();
+    return MultiSpeedDialWidget::hold(0);
 }

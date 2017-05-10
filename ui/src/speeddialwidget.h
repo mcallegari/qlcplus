@@ -20,7 +20,7 @@
 #ifndef SPEEDDIALWIDGET_H
 #define SPEEDDIALWIDGET_H
 
-#include <QWidget>
+#include "multispeeddialwidget.h"
 
 class SpeedDial;
 class QGroupBox;
@@ -30,11 +30,7 @@ class QLineEdit;
  * @{
  */
 
-#define SPEED_DIAL_FLAGS Qt::WindowFlags( \
-    (Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::Window | Qt::WindowStaysOnTopHint | \
-     Qt::WindowMinimizeButtonHint) & (~Qt::WindowCloseButtonHint))
-
-class SpeedDialWidget : public QWidget
+class SpeedDialWidget : public MultiSpeedDialWidget
 {
     Q_OBJECT
 
@@ -73,28 +69,6 @@ signals:
 
     void holdChanged(int ms);
     void holdTapped();
-
-private:
-    SpeedDial* m_fadeIn;
-    SpeedDial* m_fadeOut;
-    SpeedDial* m_hold;
-
-    /************************************************************************
-     * Optional text
-     ************************************************************************/
-public:
-    void setOptionalTextTitle(const QString& title);
-    QString optionalTextTitle() const;
-
-    void setOptionalText(const QString& text);
-    QString optionalText() const;
-
-signals:
-    void optionalTextEdited(const QString& text);
-
-private:
-    QGroupBox* m_optionalTextGroup;
-    QLineEdit* m_optionalTextEdit;
 };
 
 /** @} */
