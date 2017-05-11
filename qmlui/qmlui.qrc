@@ -91,6 +91,7 @@
     <file alias="SceneFixtureConsole.qml">qml/fixturesfunctions/SceneFixtureConsole.qml</file>
     <file alias="ChaserEditor.qml">qml/fixturesfunctions/ChaserEditor.qml</file>
     <file alias="ChaserStepDelegate.qml">qml/fixturesfunctions/ChaserStepDelegate.qml</file>
+    <file alias="SequenceEditor.qml">qml/fixturesfunctions/SequenceEditor.qml</file>
     <file alias="RGBMatrixEditor.qml">qml/fixturesfunctions/RGBMatrixEditor.qml</file>
     <file alias="RGBMatrixPreview.qml">qml/fixturesfunctions/RGBMatrixPreview.qml</file>
     <file alias="EFXEditor.qml">qml/fixturesfunctions/EFXEditor.qml</file>

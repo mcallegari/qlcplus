@@ -144,12 +144,6 @@ Rectangle
                 x: parent.width - 2
                 color: UISettings.bgLighter
             }
-
-            onLoaded:
-            {
-                if (isSequence)
-                    item.allowNameEdit = false
-            }
         }
 
         Column
@@ -158,6 +152,8 @@ Rectangle
 
             EditorTopBar
             {
+                id: topbar
+                visible: !isSequence
                 text: chaserEditor.functionName
                 onTextChanged: chaserEditor.functionName = text
 
@@ -180,32 +176,22 @@ Rectangle
                     width: height
                     height: UISettings.iconSizeMedium - 2
                     imgSource: "qrc:/add.svg"
-                    checkable: isSequence ? false : true
+                    checkable: true
                     tooltip: qsTr("Add a new step")
-                    onClicked:
-                    {
-                        if (isSequence)
-                        {
-                            chaserEditor.addStep(chaserEditor.playbackIndex)
-                        }
-                    }
 
                     onCheckedChanged:
                     {
-                        if (!isSequence)
+                        if (checked)
                         {
-                            if (checked)
-                            {
-                                rightSidePanel.width += mainView.width / 3
-                                funcMgrLoader.width = mainView.width / 3
-                                funcMgrLoader.source = "qrc:/FunctionManager.qml"
-                            }
-                            else
-                            {
-                                rightSidePanel.width = rightSidePanel.width - funcMgrLoader.width
-                                funcMgrLoader.source = ""
-                                funcMgrLoader.width = 0
-                            }
+                            rightSidePanel.width += mainView.width / 3
+                            funcMgrLoader.width = mainView.width / 3
+                            funcMgrLoader.source = "qrc:/FunctionManager.qml"
+                        }
+                        else
+                        {
+                            rightSidePanel.width = rightSidePanel.width - funcMgrLoader.width
+                            funcMgrLoader.source = ""
+                            funcMgrLoader.width = 0
                         }
                     }
                 }
@@ -218,33 +204,6 @@ Rectangle
                     imgSource: "qrc:/remove.svg"
                     tooltip: qsTr("Remove the selected steps")
                     onClicked: {   }
-                }
-
-                IconButton
-                {
-                    id: showFixtures
-                    visible: isSequence
-                    width: height
-                    height: UISettings.iconSizeMedium - 2
-                    imgSource: "qrc:/fixture.svg"
-                    tooltip: qsTr("Show/Hide the Sequence fixtures")
-                    checkable: true
-
-                    onCheckedChanged:
-                    {
-                        if (checked)
-                        {
-                            rightSidePanel.width += mainView.width / 4
-                            funcMgrLoader.width = mainView.width / 4
-                            funcMgrLoader.source = "qrc:/SceneEditor.qml"
-                        }
-                        else
-                        {
-                            rightSidePanel.width = rightSidePanel.width - funcMgrLoader.width
-                            funcMgrLoader.source = ""
-                            funcMgrLoader.width = 0
-                        }
-                    }
                 }
             }
 
@@ -483,7 +442,7 @@ Rectangle
             {
                 id: cStepsList
                 width: parent.width
-                height: ceContainer.height - UISettings.iconSizeDefault - chListHeader.height - chModes.height
+                height: ceContainer.height - (topbar.visible ? topbar.height : 0) - chListHeader.height - chModes.height
                 boundsBehavior: Flickable.StopAtBounds
                 clip: true
 

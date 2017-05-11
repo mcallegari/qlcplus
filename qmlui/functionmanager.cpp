@@ -365,8 +365,8 @@ QString FunctionManager::getEditorResource(int type)
     switch(type)
     {
         case Function::SceneType: return "qrc:/SceneEditor.qml";
-        case Function::ChaserType:
-        case Function::SequenceType: return "qrc:/ChaserEditor.qml";
+        case Function::ChaserType: return "qrc:/ChaserEditor.qml";
+        case Function::SequenceType: return "qrc:/SequenceEditor.qml";
         case Function::EFXType: return "qrc:/EFXEditor.qml";
         case Function::CollectionType: return "qrc:/CollectionEditor.qml";
         case Function::RGBMatrixType: return "qrc:/RGBMatrixEditor.qml";
