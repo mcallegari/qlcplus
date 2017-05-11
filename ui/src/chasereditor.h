@@ -29,7 +29,7 @@ class Chaser;
 class Function;
 class ChaserStep;
 class MasterTimer;
-class SpeedDialWidget;
+class MultiSpeedDialWidget;
 class QTreeWidgetItem;
 
 /** @addtogroup ui_functions
@@ -119,9 +119,9 @@ private slots:
      * Speed
      ************************************************************************/
 private slots:
-    void slotFadeInDialChanged(int ms);
-    void slotFadeOutDialChanged(int ms);
-    void slotHoldDialChanged(int ms);
+    void slotFadeInDialChanged(int idx, int ms);
+    void slotFadeOutDialChanged(int idx, int ms);
+    void slotHoldDialChanged(int idx, int ms);
 
     void slotFadeInToggled();
     void slotFadeOutToggled();
@@ -134,7 +134,7 @@ private:
     void updateSpeedDials();
 
 private:
-    SpeedDialWidget *m_speedDials;
+    MultiSpeedDialWidget *m_speedDials;
 
     /************************************************************************
      * Test
