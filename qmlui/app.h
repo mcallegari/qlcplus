@@ -92,8 +92,11 @@ public:
     };
     Q_ENUM(ChannelColors)
 
-    /** Method to turn the key a start the engine */
+    /** Method to turn the key and start the engine */
     void startup();
+
+    /** Toggle between windowed and fullscreeen mode */
+    Q_INVOKABLE void toggleFullscreen();
 
     void enableKioskMode();
     void createKioskCloseButton(const QRect& rect);

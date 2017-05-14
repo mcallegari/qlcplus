@@ -128,6 +128,18 @@ Rectangle
             onClicked: { }
             onEntered: recentMenu.visible = false
         }
+        ContextMenuEntry
+        {
+            id: fullScreen
+            imgSource: "qrc:/fullscreen.svg"
+            entryText: qsTr("Toggle fullscreen")
+            onEntered: recentMenu.visible = false
+            onClicked:
+            {
+                menuRoot.visible = false
+                qlcplus.toggleFullscreen()
+            }
+        }
     }
 }
 

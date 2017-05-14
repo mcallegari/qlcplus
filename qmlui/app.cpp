@@ -140,12 +140,30 @@ void App::startup()
     setSource(QUrl("qrc:/MainView.qml"));
 }
 
+void App::toggleFullscreen()
+{
+    static int wstate = windowState();
+
+    if (windowState() & Qt::WindowFullScreen)
+    {
+        if (wstate & Qt::WindowMaximized)
+            showMaximized();
+        else
+            showNormal();
+        wstate = windowState();
+    }
+    else
+    {
+        wstate = windowState();
+        showFullScreen();
+    }
+}
+
 void App::show()
 {
     setGeometry(0, 0, 800, 600);
     //setGeometry(0, 0, 1272, 689); // youtube recording
     showMaximized();
-    //showFullScreen();
 }
 
 qreal App::pixelDensity() const
