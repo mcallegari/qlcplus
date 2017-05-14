@@ -74,20 +74,6 @@ public:
      * Properties
      *********************************************************************/
 public:
-    /**
-     * Set the time where the Video object is placed over a timeline
-     *
-     * @param time The start time in milliseconds of the Video object
-     */
-    void setStartTime(quint32 time);
-
-    /**
-     * Returns the time where the Video object is placed over a timeline
-     *
-     * @return Start time in milliseconds of the Video object
-     */
-    quint32 getStartTime() const;
-
     /** @reimpl */
     void setTotalDuration(quint32 duration);
 
@@ -123,22 +109,6 @@ public:
      * Returns the video codec detected from the media source
      */
     QString videoCodec();
-
-    /**
-     * Set the color to be used by a VideoItem
-     */
-    void setColor(QColor color);
-
-    /**
-     * Get the color of this Video object
-     */
-    QColor getColor();
-
-    /** Set the lock state of the item */
-    void setLocked(bool locked);
-
-    /** Get the lock state of the item */
-    bool isLocked();
 
     /**
      * Set the source file name used by this Video object
@@ -182,12 +152,6 @@ signals:
     void requestBrightnessAdjust(int value);
 
 private:
-    /** Absolute start time of video over a timeline (in milliseconds) */
-    quint32 m_startTime;
-    /** Color to use when displaying the video object in the Show manager */
-    QColor m_color;
-    /** Flag to indicate if a Video item is locked in the Show Manager timeline */
-    bool m_locked;
     /** URL of the video media source */
     QString m_sourceUrl;
     /** Duration of the video content */

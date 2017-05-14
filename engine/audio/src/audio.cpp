@@ -45,9 +45,6 @@
 
 #define KXMLQLCAudioSource "Source"
 #define KXMLQLCAudioDevice "Device"
-#define KXMLQLCAudioStartTime "StartTime"
-#define KXMLQLCAudioColor "Color"
-#define KXMLQLCAudioLocked "Locked"
 
 /*****************************************************************************
  * Initialization
@@ -59,9 +56,6 @@ Audio::Audio(Doc* doc)
   , m_decoder(NULL)
   , m_audio_out(NULL)
   , m_audioDevice(QString())
-  , m_startTime(UINT_MAX)
-  , m_color(96, 128, 83)
-  , m_locked(false)
   , m_sourceFileName("")
   , m_audioDuration(0)
 {
@@ -120,7 +114,6 @@ bool Audio::copyFrom(const Function* function)
 
     setSourceFileName(aud->m_sourceFileName);
     m_audioDuration = aud->m_audioDuration;
-    m_color = aud->m_color;
 
     return Function::copyFrom(function);
 }
@@ -133,16 +126,6 @@ QStringList Audio::getCapabilities()
 /*********************************************************************
  * Properties
  *********************************************************************/
-void Audio::setStartTime(quint32 time)
-{
-    m_startTime = time;
-}
-
-quint32 Audio::getStartTime() const
-{
-    return m_startTime;
-}
-
 quint32 Audio::totalDuration()
 {
     return (quint32)m_audioDuration;
@@ -154,26 +137,6 @@ void Audio::setTotalDuration(quint32 msec)
     m_audioDuration = msec;
 
     emit totalDurationChanged();
-}
-
-void Audio::setColor(QColor color)
-{
-    m_color = color;
-}
-
-QColor Audio::getColor()
-{
-    return m_color;
-}
-
-void Audio::setLocked(bool locked)
-{
-    m_locked = locked;
-}
-
-bool Audio::isLocked()
-{
-    return m_locked;
 }
 
 bool Audio::setSourceFileName(QString filename)
@@ -318,12 +281,6 @@ bool Audio::loadXML(QXmlStreamReader &root)
             QXmlStreamAttributes attrs = root.attributes();
             if (attrs.hasAttribute(KXMLQLCAudioDevice))
                 setAudioDevice(attrs.value(KXMLQLCAudioDevice).toString());
-            if (attrs.hasAttribute(KXMLQLCAudioStartTime))
-                setStartTime(attrs.value(KXMLQLCAudioStartTime).toString().toUInt());
-            if (attrs.hasAttribute(KXMLQLCAudioColor))
-                setColor(QColor(attrs.value(KXMLQLCAudioColor).toString()));
-            if (attrs.hasAttribute(KXMLQLCAudioLocked))
-                setLocked(true);
             setSourceFileName(m_doc->denormalizeComponentPath(root.readElementText()));
         }
         else if (root.name() == KXMLQLCFunctionSpeed)

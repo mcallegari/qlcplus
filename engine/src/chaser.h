@@ -183,29 +183,9 @@ public:
      */
     quint32 getStartTime() const;
 
-    /**
-     * Set the color to be used by a SequenceItem
-     */
-    void setColor(QColor color);
-
-    /**
-     * Get the color of this sequence
-     */
-    QColor getColor();
-
-    /** Set the lock state of the item */
-    void setLocked(bool locked);
-
-    /** Get the lock state of the item */
-    bool isLocked();
-
 private:
     /** Absolute start time of this Chaser over a timeline (in milliseconds) */
     quint32 m_startTime;
-    /** Color to use when displaying the sequence in the Show manager */
-    QColor m_color;
-    /** Flag to indicate if a Sequence item is locked in the Show Manager timeline */
-    bool m_locked;
 
     /*********************************************************************
      * Speed modes

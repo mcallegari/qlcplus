@@ -27,9 +27,6 @@
 #include "doc.h"
 
 #define KXMLQLCVideoSource "Source"
-#define KXMLQLCVideoStartTime "StartTime"
-#define KXMLQLCVideoColor "Color"
-#define KXMLQLCVideoLocked "Locked"
 #define KXMLQLCVideoScreen "Screen"
 #define KXMLQLCVideoFullscreen "Fullscreen"
 
@@ -40,9 +37,6 @@
 Video::Video(Doc* doc)
   : Function(doc, Function::VideoType)
   , m_doc(doc)
-  , m_startTime(UINT_MAX)
-  , m_color(147, 140, 20)
-  , m_locked(false)
   , m_sourceUrl("")
   , m_videoDuration(0)
   , m_resolution(QSize(0,0))
@@ -97,7 +91,6 @@ bool Video::copyFrom(const Function* function)
 
     setSourceUrl(vid->m_sourceUrl);
     m_videoDuration = vid->m_videoDuration;
-    m_color = vid->m_color;
 
     return Function::copyFrom(function);
 }
@@ -133,16 +126,6 @@ QStringList Video::getCapabilities()
 /*********************************************************************
  * Properties
  *********************************************************************/
-void Video::setStartTime(quint32 time)
-{
-    m_startTime = time;
-}
-
-quint32 Video::getStartTime() const
-{
-    return m_startTime;
-}
-
 void Video::setTotalDuration(quint32 duration)
 {
     m_videoDuration = (qint64)duration;
@@ -185,26 +168,6 @@ void Video::setVideoCodec(QString codec)
 QString Video::videoCodec()
 {
     return m_videoCodec;
-}
-
-void Video::setColor(QColor color)
-{
-    m_color = color;
-}
-
-QColor Video::getColor()
-{
-    return m_color;
-}
-
-void Video::setLocked(bool locked)
-{
-    m_locked = locked;
-}
-
-bool Video::isLocked()
-{
-    return m_locked;
 }
 
 bool Video::setSourceUrl(QString filename)
@@ -333,12 +296,6 @@ bool Video::loadXML(QXmlStreamReader &root)
         if (root.name() == KXMLQLCVideoSource)
         {
             QXmlStreamAttributes attrs = root.attributes();
-            if (attrs.hasAttribute(KXMLQLCVideoStartTime))
-                setStartTime(attrs.value(KXMLQLCVideoStartTime).toString().toUInt());
-            if (attrs.hasAttribute(KXMLQLCVideoColor))
-                setColor(QColor(attrs.value(KXMLQLCVideoColor).toString()));
-            if (attrs.hasAttribute(KXMLQLCVideoLocked))
-                setLocked(true);
             if (attrs.hasAttribute(KXMLQLCVideoScreen))
                 setScreen(attrs.value(KXMLQLCVideoScreen).toString().toInt());
             if (attrs.hasAttribute(KXMLQLCVideoFullscreen))
