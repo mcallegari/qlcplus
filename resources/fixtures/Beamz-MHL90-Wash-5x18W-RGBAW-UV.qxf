@@ -3,10 +3,10 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.4 GIT</Version>
+  <Version>4.11.0 GIT</Version>
   <Author>DJ MoreBass (DK)</Author>
  </Creator>
- <Manufacturer>Beamz</Manufacturer>
+ <Manufacturer>beamZ</Manufacturer>
  <Model>MHL90 Wash 5x18W RGBAW-UV</Model>
  <Type>Moving Head</Type>
  <Channel Name="Pan">

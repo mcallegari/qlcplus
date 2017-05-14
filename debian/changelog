@@ -73,12 +73,17 @@ qlcplus (4.11.0) stable; urgency=low
   * New fixture: Eurolite LED TMH FE-600, MARQ Colormax Par64, Stairville CLB2.4 Compact LED PAR System (thanks to Klaus Muth)
   * New fixture: Chauvet SlimPar Hex 6 (thanks to Yinon Sahar)
   * New fixture: IMG Stageline PARL 20 DMX (thanks to Felix Pickenäcker)
-  * New fixture: Pro-Lights SmartBatHEX (thanks to Lorenzo Andreani)
+  * New fixtures: Pro-Lights SmartBatHEX, Fury FY250W, Fury FY250S (thanks to Lorenzo Andreani)
   * New fixture: American DJ Ikon Profile (thanks to Ham Sadler)
   * New fixture: HQ Power Aeron Wash 575, JB Systems Space Color Laser (thanks to Ricardo Mendes)
   * New fixture: American DJ VPar (thanks to Eric Eskam)
-  * New fixture: MARQ Gesture Beam/Wash 102 (thanks to John Yiannikakis)
+  * New fixtures: MARQ Gesture Beam/Wash 102, Colormax Bat, Gesture Spot 100 (thanks to John Yiannikakis)
   * New fixtures: Chauvet COLORado 3P, Legend 330SR Spot, SlimPar HEX 3 (thanks to Kevin Zepp)
+  * New fixture: American DJ Mini Dekker (thanks to Chris Davis)
+  * New fixtures: American DJ Vizi BSW 300, Blizzard Lighting Flurry 5 (thanks to George Qualley)
+  * New fixtures: Pro-Lights PIXIEWASH, Accent1Q, CromoSpot300 (thanks to Tolmino Muccitelli)
+  * New fixtures: Involight LED MH50S, LED PAR 180, SBL 2000 (thanks to Facek)
+  * New fixture: Pro-Lights Miniruby (thanks to Dario Gonzalez)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 30 Apr 2017 12:13:14 +0200
 

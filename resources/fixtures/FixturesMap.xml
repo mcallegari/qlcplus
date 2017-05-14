@@ -72,6 +72,7 @@
   <fixture path="American-DJ-Mega-Tri-Par.qxf" mf="American DJ" md="Mega Tri Par"/>
   <fixture path="American-DJ-Mega-TriPar-Profile-Plus.qxf" mf="American DJ" md="Mega TriPar Profile Plus"/>
   <fixture path="American-DJ-Micro-Wash-RGBW.qxf" mf="American DJ" md="Micro Wash RGBW"/>
+  <fixture path="American-DJ-Mini-Dekker.qxf" mf="American DJ" md="Mini Dekker"/>
   <fixture path="American-DJ-Monster-Fun.qxf" mf="American DJ" md="Monster Fun"/>
   <fixture path="American-DJ-Nucleus-LED.qxf" mf="American DJ" md="Nucleus LED"/>
   <fixture path="American-DJ-Nucleus-PRO.qxf" mf="American DJ" md="Nucleus PRO"/>
@@ -110,6 +111,7 @@
   <fixture path="American-DJ-VBar.qxf" mf="American DJ" md="VBar"/>
   <fixture path="American-DJ-Vizi-Beam-5R.qxf" mf="American DJ" md="Vizi Beam 5R"/>
   <fixture path="American-DJ-Vizi-Beam-RXONE.qxf" mf="American DJ" md="Vizi Beam RXONE"/>
+  <fixture path="American-DJ-Vizi-BSW-300.qxf" mf="American DJ" md="Vizi BSW 300"/>
   <fixture path="American-DJ-Vizi-LED-Spot.qxf" mf="American DJ" md="Vizi LED Spot"/>
   <fixture path="American-DJ-Vizi-Roller-Beam-2R.qxf" mf="American DJ" md="Vizi Roller Beam 2R"/>
   <fixture path="American-DJ-VPar.qxf" mf="American DJ" md="VPar"/>
@@ -125,8 +127,9 @@
   <fixture path="Ayrton-Arcaline-100-RGB.qxf" mf="Ayrton" md="Arcaline 100 RGB"/>
   <fixture path="Beamz-LCB-252.qxf" mf="beamZ" md="LCB-252"/>
   <fixture path="BeamZ-LS-3DRG.qxf" mf="beamZ" md="LS-3DRG"/>
-  <fixture path="Beamz-MHL90-Wash-5x18W-RGBAW-UV.qxf" mf="Beamz" md="MHL90 Wash 5x18W RGBAW-UV"/>
+  <fixture path="Beamz-MHL90-Wash-5x18W-RGBAW-UV.qxf" mf="beamZ" md="MHL90 Wash 5x18W RGBAW-UV"/>
   <fixture path="Blizzard-Lighting-Blade-RGBW.qxf" mf="Blizzard Lighting" md="Blade RGBW"/>
+  <fixture path="Blizzard-Lighting-Flurry-5.qxf" mf="Blizzard Lighting" md="Flurry 5"/>
   <fixture path="Blizzard-Lighting-Hotbox-EXA.qxf" mf="Blizzard Lighting" md="Hotbox EXA"/>
   <fixture path="Blizzard-Lighting-HotBox-Infiniwhite.qxf" mf="Blizzard Lighting" md="HotBox Infiniwhite"/>
   <fixture path="Blizzard-Lighting-Hotbox-RGBAW.qxf" mf="Blizzard Lighting" md="Hotbox 5 RGBAW"/>
@@ -505,8 +508,11 @@
   <fixture path="IMG-Stageline-PARL-73-RGB.qxf" mf="IMG Stageline" md="Parl 73-RGB"/>
   <fixture path="Involight-FM900-DMX.qxf" mf="Involight" md="FM900 DMX"/>
   <fixture path="Involight-LED-CC60S.qxf" mf="Involight" md="LED CC60S"/>
+  <fixture path="Involight-LED-MH50S.qxf" mf="Involight" md="LED MH50S"/>
   <fixture path="Involight-LED-MH60S.qxf" mf="Involight" md="LED MH60S"/>
   <fixture path="Involight-LED-MH77S.qxf" mf="Involight" md="LED MH77S"/>
+  <fixture path="involight-LED-PAR-180.qxf" mf="Involight" md="LED PAR 180"/>
+  <fixture path="Involight-SBL2000.qxf" mf="Involight" md="SBL2000"/>
   <fixture path="iSolution-5-Series.qxf" mf="iSolution" md="iMove 5 Series"/>
   <fixture path="iSolution-iColor-4.qxf" mf="iSolution" md="iColor 4"/>
   <fixture path="iSolution-iMove-250w.qxf" mf="iSolution" md="iMove 250W"/>
@@ -573,9 +579,11 @@
   <fixture path="Mac-Mah-Mac-FOG-DMX.qxf" mf="Mac Mah" md="Mac FOG DMX"/>
   <fixture path="Mac-Mah-Mac-Follow-1200.qxf" mf="Mac Mah" md="Mac Follow 1200"/>
   <fixture path="Mac-Mah-WiderPanel.qxf" mf="Mac Mah" md="Wider Panel"/>
+  <fixture path="MARQ-Colormax-Bat.qxf" mf="MARQ" md="Colormax Bat"/>
   <fixture path="MARQ-Colormax-Par64.qxf" mf="MARQ" md="Colormax Par64"/>
   <fixture path="MARQ-Gamut-PAR-H7.qxf" mf="MARQ" md="Gamut PAR H7"/>
   <fixture path="MARQ-Gesture-Beam-Wash-102.qxf" mf="MARQ" md="Gesture Beam/Wash 102"/>
+  <fixture path="MARQ-Gesture-Spot-100-.qxf" mf="MARQ" md="Gesture Spot 100 "/>
   <fixture path="Martin-24-7-Hazer.qxf" mf="Martin" md="ZR24/7 Hazer"/>
   <fixture path="Martin-Acrobat.qxf" mf="Martin" md="Acrobat"/>
   <fixture path="Martin-Atomic-3000.qxf" mf="Martin" md="Atomic 3000"/>
@@ -653,9 +661,13 @@
   <fixture path="PR-Lighting-XL-700-Wash-PR-2705.qxf" mf="PR Lighting" md="XL 700 Wash (PR-2705)"/>
   <fixture path="PR-Lighting-XLED-1037.qxf" mf="PR Lighting" md="XLED 1037"/>
   <fixture path="PR-Lighting-XR-230-Spot.qxf" mf="PR Lighting" md="XR 230 Spot"/>
+  <fixture path="Pro-Lights-Accent1Q.qxf" mf="Pro-Lights" md="Accent1Q"/>
   <fixture path="Pro-Lights-ARCLED7314HD.qxf" mf="Pro-Lights" md="ArcLed-7314HD"/>
   <fixture path="Pro-Lights-CromoSpot-150.qxf" mf="Pro-Lights" md="CromoSpot150"/>
+  <fixture path="Pro-Lights-CromoSpot-300.qxf" mf="Pro-Lights" md="CromoSpot300"/>
   <fixture path="Pro-Lights-Explo-3000D.qxf" mf="Pro-Lights" md="Explo 3000D"/>
+  <fixture path="Pro-Lights-Fury-FY250S.qxf" mf="Pro-Lights" md="Fury FY250S"/>
+  <fixture path="Pro-Lights-Fury-FY250W.qxf" mf="Pro-Lights" md="Fury FY250W"/>
   <fixture path="Pro-Lights-GoboMix.qxf" mf="Pro-Lights" md="GoboMix"/>
   <fixture path="Pro-Lights-LedPar-64363-RGB.qxf" mf="Pro-Lights" md="LedPar 64363 RGB"/>
   <fixture path="Pro-Lights-LumiPar-18-Tri.qxf" mf="Pro-Lights" md="LumiPar 18 Tri"/>
@@ -664,8 +676,10 @@
   <fixture path="Pro-Lights-LumiPAR18QPRO.qxf" mf="Pro-Lights" md="LumiPAR18QPRO"/>
   <fixture path="Pro-Lights-LumiPAR18QTour.qxf" mf="Pro-Lights" md="LumiPAR18QTour"/>
   <fixture path="Pro-Lights-LumiPIX-12Q.qxf" mf="Pro-Lights" md="LumiPIX 12Q"/>
+  <fixture path="Pro-Lights-Miniruby.qxf" mf="Pro-Lights" md="Miniruby"/>
   <fixture path="Pro-lights-Moonstone.qxf" mf="Pro-Lights" md="Moonstone"/>
   <fixture path="Pro-Lights-Omni-Tri-9.qxf" mf="Pro-Lights" md="Omni Tri-9"/>
+  <fixture path="Pro-Lights-PIXIEWASH.qxf" mf="Pro-Lights" md="PIXIEWASH"/>
   <fixture path="Pro-Lights-SmartBat.qxf" mf="Pro-Lights" md="SmartBat"/>
   <fixture path="Pro-Lights-SmartBatHEX.qxf" mf="Pro-Lights" md="SmartBatHEX"/>
   <fixture path="Pro-Lights-Strobo-1500DMX.qxf" mf="Pro-Lights" md="Strobo 1500DMX"/>
@@ -875,6 +889,7 @@
   <fixture path="Varytec-LED-Laser-4.qxf" mf="Varytec" md="LED Laser 4"/>
   <fixture path="Varytec-LED-Magic-Mushroom.qxf" mf="Varytec" md="LED Magic Mushroom"/>
   <fixture path="Varytec-LED-Pad-7-BA-D.qxf" mf="Varytec" md="LED Pad 7 BA-D"/>
+  <fixture path="Varytec-LED-PAR-64-Floor-5in1.qxf" mf="Varytec" md="LED Par 64 Floor 5in1&#10;7x10W RGBWA"/>
   <fixture path="Varytec-LED-PAR56.qxf" mf="Varytec" md="LED PAR56"/>
   <fixture path="Varytec-RGB-LED-Spot-38.qxf" mf="Varytec" md="RGB LED Spot 38"/>
   <fixture path="Varytec-Thunderscan-FX.qxf" mf="Varytec" md="Thunderscan FX"/>
