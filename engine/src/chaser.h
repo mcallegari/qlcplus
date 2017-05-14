@@ -78,12 +78,6 @@ public:
     /** Copy the contents for this function from another function */
     bool copyFrom(const Function* function);
 
-    /*****************************************************************************
-     * Sorting
-     *****************************************************************************/
-    /** Comparator function for qSort() */
-    bool operator< (const Chaser& chs) const;
-
     /*********************************************************************
      * Chaser contents
      *********************************************************************/
@@ -164,28 +158,6 @@ public slots:
 protected:
     QList <ChaserStep> m_steps;
     QMutex m_stepListMutex;
-
-    /*********************************************************************
-     * Sequence mode
-     *********************************************************************/
-public:
-    /**
-     * Set the time where the Chaser is placed over a timeline
-     *
-     * @param time The start time in milliseconds of the Chaser
-     */
-    void setStartTime(quint32 time);
-
-    /**
-     * Returns the time where the Chaser is placed over a timeline
-     *
-     * @return Start time in milliseconds of the Chaser
-     */
-    quint32 getStartTime() const;
-
-private:
-    /** Absolute start time of this Chaser over a timeline (in milliseconds) */
-    quint32 m_startTime;
 
     /*********************************************************************
      * Speed modes

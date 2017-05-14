@@ -49,7 +49,6 @@
 Chaser::Chaser(Doc* doc)
     : Function(doc, Function::ChaserType)
     , m_legacyHoldBus(Bus::invalid())
-    , m_startTime(UINT_MAX)
     , m_fadeInMode(Default)
     , m_fadeOutMode(Default)
     , m_holdMode(Common)
@@ -108,21 +107,9 @@ bool Chaser::copyFrom(const Function* function)
     m_fadeInMode = chaser->m_fadeInMode;
     m_fadeOutMode = chaser->m_fadeOutMode;
     m_holdMode = chaser->m_holdMode;
-    m_startTime = chaser->m_startTime;
 
     // Copy common function stuff
     return Function::copyFrom(function);
-}
-
-/*****************************************************************************
- * Sorting
- *****************************************************************************/
-bool Chaser::operator<(const Chaser& chs) const
-{
-    if (m_startTime < chs.getStartTime())
-        return true;
-    else
-        return false;
 }
 
 /*****************************************************************************
@@ -276,16 +263,6 @@ void Chaser::slotFunctionRemoved(quint32 fid)
 
     if (count > 0)
         emit changed(this->id());
-}
-
-void Chaser::setStartTime(quint32 time)
-{
-    m_startTime = time;
-}
-
-quint32 Chaser::getStartTime() const
-{
-    return m_startTime;
 }
 
 /*****************************************************************************

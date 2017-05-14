@@ -691,8 +691,6 @@ void ShowManager::slotAddItem()
                     {
                         Sequence *newSequence = qobject_cast<Sequence*>(sequence->createCopy(m_doc, true));
                         newSequence->setName(sequence->name() + tr(" (Copy)"));
-                        // Invalidate start time so the sequence will be created at the cursor position
-                        newSequence->setStartTime(UINT_MAX);
                         newSequence->setDirection(Function::Forward);
                         newSequence->setRunOrder(Function::SingleShot);
                         m_showview->addSequence(newSequence, track);
@@ -811,8 +809,6 @@ void ShowManager::slotAddItem()
                 Sequence *sequence = qobject_cast<Sequence*>(selectedFunc);
                 Sequence *newSequence = qobject_cast<Sequence*>(sequence->createCopy(m_doc, true));
                 newSequence->setName(sequence->name() + tr(" (Copy)"));
-                // Invalidate start time so the sequence will be created at the cursor position
-                newSequence->setStartTime(UINT_MAX);
                 newSequence->setDirection(Function::Forward);
                 newSequence->setRunOrder(Function::SingleShot);
                 m_showview->addSequence(newSequence, m_currentTrack);
@@ -1050,8 +1046,6 @@ void ShowManager::slotPaste()
         {
             Chaser *chaser = qobject_cast<Chaser*>(newCopy);
 
-            // Invalidate start time so the chaser will be pasted at the cursor position
-            chaser->setStartTime(UINT_MAX);
             if (m_doc->addFunction(newCopy) == false)
             {
                 delete newCopy;
@@ -1101,8 +1095,6 @@ void ShowManager::slotPaste()
             // Bind the sequence to the track Scene ID
             sequence->setBoundSceneID(m_currentScene->id());
 
-            // Invalidate start time so the sequence will be pasted at the cursor position
-            sequence->setStartTime(UINT_MAX);
             if (m_doc->addFunction(newCopy) == false)
             {
                 delete newCopy;
