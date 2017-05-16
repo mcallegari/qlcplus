@@ -317,6 +317,12 @@ public:
     /** Adjust the intensities of chaser steps. */
     void adjustIntensity(qreal fraction, int stepIndex = -1, FadeControlMode fadeControl = FromFunction);
 
+    // TODO doc
+//    void resetRoundTime(ChaserRunnerStep* step);
+//    void roundRoundTime(const ChaserRunnerStep* prevStep, ChaserRunnerStep* step);
+    quint32 roundTime(const ChaserRunnerStep* step) const;
+    quint32 roundBeats(const ChaserRunnerStep* step) const;
+
 private:
     /** Step index at chaser start */
     int m_startStepIndex;

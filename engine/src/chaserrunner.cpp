@@ -43,7 +43,6 @@ ChaserRunner::ChaserRunner(const Doc* doc, const Chaser* chaser, quint32 startTi
     , m_previous(false)
     , m_newStartStepIdx(-1)
     , m_lastRunStepIdx(-1)
-    , m_roundTime(new QElapsedTimer())
     , m_order()
     , m_intensity(1.0)
 {
@@ -72,7 +71,6 @@ ChaserRunner::ChaserRunner(const Doc* doc, const Chaser* chaser, quint32 startTi
 
     m_direction = m_chaser->direction();
     connect(chaser, SIGNAL(changed(quint32)), this, SLOT(slotChaserChanged()));
-    m_roundTime->restart();
 
     fillOrder();
 }
@@ -80,7 +78,6 @@ ChaserRunner::ChaserRunner(const Doc* doc, const Chaser* chaser, quint32 startTi
 ChaserRunner::~ChaserRunner()
 {
     clearRunningList();
-    delete m_roundTime;
 }
 
 /****************************************************************************
@@ -217,6 +214,41 @@ uint ChaserRunner::stepDuration(int stepIdx) const
  * Step control
  ****************************************************************************/
 
+void ChaserRunner::resetRoundTime(ChaserRunnerStep* step)
+{
+    qDebug() << "resetRoundTime to" << m_chaser->elapsed();
+    step->m_roundTimeReference = m_chaser->elapsed();
+    step->m_roundBeatsReference = m_chaser->elapsedBeats();
+}
+
+void ChaserRunner::roundRoundTime(const ChaserRunnerStep* prevStep, ChaserRunnerStep* step)
+{
+    qDebug() << "roundRoundTime";
+    if (m_chaser->commonSpeeds().tempoType() == Speed::Beats)
+    {
+        step->m_roundBeatsReference =
+            m_chaser->elapsedBeats() -
+            (roundBeats(prevStep) % stepDuration(prevStep->m_index));
+    }
+    else
+    {
+        step->m_roundTimeReference =
+            m_chaser->elapsed() -
+            (roundTime(prevStep) % stepDuration(prevStep->m_index));
+    }
+}
+
+quint32 ChaserRunner::roundTime(const ChaserRunnerStep* step) const
+{
+    qDebug() << "roundTime: elapsed=" << m_chaser->elapsed() << ", ref=" << step->m_roundTimeReference;
+    return m_chaser->elapsed() - step->m_roundTimeReference;
+}
+
+quint32 ChaserRunner::roundBeats(const ChaserRunnerStep* step) const
+{
+    return m_chaser->elapsedBeats() - step->m_roundBeatsReference;
+}
+
 void ChaserRunner::next()
 {
     m_next = true;
@@ -231,7 +263,9 @@ void ChaserRunner::previous()
 
 void ChaserRunner::tap()
 {
-    if (uint(m_roundTime->elapsed()) >= (stepDuration(m_lastRunStepIdx) / 4))
+    ChaserRunnerStep* step = currentRunningStep();
+    if (step != NULL &&
+        (roundTime(step) >= (stepDuration(m_lastRunStepIdx) / 4)))
         next();
 }
 
@@ -467,7 +501,7 @@ void ChaserRunner::clearRunningList()
  ****************************************************************************/
 
 void ChaserRunner::startNewStep(int index, MasterTimer* timer, qreal intensity,
-                                int fadeControl, quint32 elapsed)
+                                int fadeControl)
 {
     if (m_chaser == NULL || m_chaser->steps().count() == 0)
         return;
@@ -498,13 +532,18 @@ void ChaserRunner::startNewStep(int index, MasterTimer* timer, qreal intensity,
     newStep->m_speeds.setFadeOut(stepFadeOut(index));
     newStep->m_speeds.setDuration(stepDuration(index));
 
-    if (m_startOffset != 0)
-        newStep->m_elapsed = m_startOffset + MasterTimer::tick();
-    else
-        newStep->m_elapsed = MasterTimer::tick() + elapsed;
-    newStep->m_elapsedBeats = 0; //(newStep->m_elapsed / timer->beatTimeDuration()) * 1000;
-
-    m_startOffset = 0;
+    {
+        const ChaserRunnerStep* currentStep = currentRunningStep();
+        if (currentStep == NULL)
+            resetRoundTime(newStep);
+        else
+            roundRoundTime(currentStep, newStep);
+        if (m_startOffset != 0)
+        {
+            newStep->m_roundTimeReference -= m_startOffset;
+            m_startOffset = 0;
+        }
+    }
 
     newStep->m_function = func;
 
@@ -523,7 +562,6 @@ void ChaserRunner::startNewStep(int index, MasterTimer* timer, qreal intensity,
     // Start the fire up !
     newStep->m_function->start(timer, functionParent(), 0, newStep->m_speeds);
     m_runnerSteps.append(newStep);
-    m_roundTime->restart();
 }
 
 int ChaserRunner::getNextStepIndex()
@@ -676,33 +714,24 @@ bool ChaserRunner::write(MasterTimer* timer, QList<Universe *> universes)
         emit currentStepChanged(m_lastRunStepIdx);
     }
 
-    quint32 prevStepRoundElapsed = 0;
-
-
     foreach(ChaserRunnerStep *step, m_runnerSteps)
     {
-        if (m_chaser->commonSpeeds().tempoType() == Speed::Beats && timer->isBeat())
-        {
-            step->m_elapsedBeats += 1000;
-            qDebug() << "Function" << step->m_function->name() << "duration:" << step->m_speeds.duration() << "beats:" << step->m_elapsedBeats;
-        }
-
         if (step->m_speeds.duration() != Speed::infiniteValue() &&
-            ((m_chaser->commonSpeeds().tempoType() == Speed::Ms && step->m_elapsed >= step->m_speeds.duration()) ||
-             (m_chaser->commonSpeeds().tempoType() == Speed::Beats && step->m_elapsedBeats >= step->m_speeds.duration())))
+            ((m_chaser->commonSpeeds().tempoType() == Speed::Ms && roundTime(step) >= step->m_speeds.duration()) ||
+             (m_chaser->commonSpeeds().tempoType() == Speed::Beats && roundBeats(step) >= step->m_speeds.duration())))
         {
-            if (step->m_speeds.duration() != 0)
-                prevStepRoundElapsed = step->m_elapsed % step->m_speeds.duration();
-
+            qDebug() << "next step";
             step->m_function->stop(functionParent());
             delete step;
             m_runnerSteps.removeOne(step);
         }
         else
         {
-            if (step->m_elapsed < UINT_MAX)
-                step->m_elapsed += MasterTimer::tick();
-
+            qDebug() << "not next step: duration=" << step->m_speeds.duration() << ", roundTime=" << roundTime(step);
+            if (m_chaser->commonSpeeds().tempoType() == Speed::Beats)
+                qDebug() << "BEATS";
+            else
+                qDebug() << "ms";
             // When the speeds of the chaser change, they need to be updated to the lower
             // level (only current function) as well. Otherwise the new speeds would take
             // effect only on the next step change.
@@ -723,7 +752,7 @@ bool ChaserRunner::write(MasterTimer* timer, QList<Universe *> universes)
         m_lastRunStepIdx = getNextStepIndex();
         if (m_lastRunStepIdx != -1)
         {
-            startNewStep(m_lastRunStepIdx, timer, m_intensity, false, prevStepRoundElapsed);
+            startNewStep(m_lastRunStepIdx, timer, m_intensity, false);
             emit currentStepChanged(m_lastRunStepIdx);
         }
         else

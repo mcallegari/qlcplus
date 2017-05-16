@@ -894,7 +894,7 @@ void VCCueList::slotProgressTimeout()
         int newstatus;
         if (step.m_speeds.fadeIn() == Speed::originalValue())
             newstatus = 1;
-        else if (step.m_elapsed > step.m_speeds.fadeIn())
+        else if (ch->roundTime(&step) > step.m_speeds.fadeIn())
             newstatus = 1;
         else
             newstatus = 0;
@@ -911,8 +911,8 @@ void VCCueList::slotProgressTimeout()
         {
             if (newstatus == 0 && step.m_speeds.fadeIn() != Speed::originalValue())
             {
-                double progress = ((double)step.m_elapsed / (double)step.m_speeds.fadeIn()) * (double)m_progress->width();
-                m_progress->setFormat(QString("-%1").arg(Speed::msToString(step.m_speeds.fadeIn() - step.m_elapsed)));
+                double progress = ((double)ch->roundTime(&step) / (double)step.m_speeds.fadeIn()) * (double)m_progress->width();
+                m_progress->setFormat(QString("-%1").arg(Speed::msToString(step.m_speeds.fadeIn() - ch->roundTime(&step))));
                 m_progress->setValue(progress);
             }
             else
@@ -924,8 +924,8 @@ void VCCueList::slotProgressTimeout()
         }
         else
         {
-            double progress = ((double)step.m_elapsed / (double)step.m_speeds.duration()) * (double)m_progress->width();
-            m_progress->setFormat(QString("-%1").arg(Speed::msToString(step.m_speeds.duration() - step.m_elapsed)));
+            double progress = ((double)ch->roundTime(&step) / (double)step.m_speeds.duration()) * (double)m_progress->width();
+            m_progress->setFormat(QString("-%1").arg(Speed::msToString(step.m_speeds.duration() - ch->roundTime(&step))));
             m_progress->setValue(progress);
         }
     }

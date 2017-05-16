@@ -774,7 +774,7 @@ quint32 Function::elapsedBeats() const
 
 void Function::resetElapsed()
 {
-    qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO << "id" << id();
     m_elapsed = 0;
     m_elapsedBeats = 0;
 }

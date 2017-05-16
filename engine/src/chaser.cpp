@@ -699,6 +699,16 @@ void Chaser::adjustIntensity(qreal fraction, int stepIndex, FadeControlMode fade
         m_runner->adjustIntensity(fraction * getAttributeValue(Intensity), stepIndex, fadeControl);
 }
 
+quint32 Chaser::roundTime(const ChaserRunnerStep* step) const
+{
+    return elapsed() - step->m_roundTimeReference;
+}
+
+quint32 Chaser::roundBeats(const ChaserRunnerStep* step) const
+{
+    return elapsedBeats() - step->m_roundBeatsReference;
+}
+
 bool Chaser::contains(quint32 functionId) const
 {
     Doc* doc = this->doc();
@@ -778,6 +788,8 @@ void Chaser::write(MasterTimer* timer, QList<Universe *> universes)
     }
 
     incrementElapsed();
+    if (timer->isBeat())
+        incrementElapsedBeats();
 }
 
 void Chaser::postRun(MasterTimer* timer, QList<Universe *> universes)
