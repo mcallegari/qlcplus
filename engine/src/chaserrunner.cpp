@@ -727,11 +727,11 @@ bool ChaserRunner::write(MasterTimer* timer, QList<Universe *> universes)
         }
         else
         {
-            qDebug() << "not next step: duration=" << step->m_speeds.duration() << ", roundTime=" << roundTime(step);
-            if (m_chaser->commonSpeeds().tempoType() == Speed::Beats)
-                qDebug() << "BEATS";
-            else
-                qDebug() << "ms";
+            qDebug() << "not next step: duration=" << step->m_speeds.duration()
+                     << ", roundTime=" << roundTime(step)
+                     << ((m_chaser->commonSpeeds().tempoType() == Speed::Beats)
+                             ? "BEATS"
+                             : "MS");
             // When the speeds of the chaser change, they need to be updated to the lower
             // level (only current function) as well. Otherwise the new speeds would take
             // effect only on the next step change.
