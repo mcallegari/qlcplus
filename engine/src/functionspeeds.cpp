@@ -230,7 +230,7 @@ bool FunctionSpeeds::loadXML(QXmlStreamReader &speedsRoot, QString const& nodeNa
 
     if (attrs.hasAttribute(KXMLQLCFunctionSpeedsType))
     {
-        Speed::TempoType tempoType = Speed::stringToTempoType(attrs.value(KXMLQLCFunctionSpeedsFadeIn).toString());
+        Speed::TempoType tempoType = Speed::stringToTempoType(attrs.value(KXMLQLCFunctionSpeedsType).toString());
         m_fadeIn.tempoType = tempoType;
         m_hold.tempoType = tempoType;
         m_fadeOut.tempoType = tempoType;
