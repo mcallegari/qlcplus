@@ -58,7 +58,6 @@ Chaser::Chaser(Doc* doc)
     , m_fadeOutMode(Default)
     , m_durationMode(Common)
     , m_startStepIndex(-1)
-    , m_hasStartIntensity(false)
     , m_runnerMutex(QMutex::Recursive)
     , m_runner(NULL)
 {
@@ -686,12 +685,6 @@ ChaserRunnerStep Chaser::currentRunningStep() const
     return ret;
 }
 
-void Chaser::setStartIntensity(qreal startIntensity)
-{
-    m_startIntensity = startIntensity;
-    m_hasStartIntensity = true;
-}
-
 void Chaser::adjustIntensity(qreal fraction, int stepIndex, FadeControlMode fadeControl)
 {
     QMutexLocker runnerLocker(&m_runnerMutex);
@@ -754,10 +747,7 @@ void Chaser::preRun(MasterTimer* timer)
         QMutexLocker runnerLocker(&m_runnerMutex);
         createRunner(elapsed(), m_startStepIndex);
         qreal intensity = getAttributeValue(Intensity);
-        if (m_hasStartIntensity)
-            intensity *= m_startIntensity;
         m_runner->adjustIntensity(intensity);
-        m_hasStartIntensity = false;
         m_startStepIndex = -1;
         connect(m_runner, SIGNAL(currentStepChanged(int)), this, SIGNAL(currentStepChanged(int)));
     }

@@ -939,8 +939,7 @@ void VCCueList::startChaser(int startIndex)
     if (ch == NULL)
         return;
     ch->setStepIndex(startIndex);
-    ch->setStartIntensity(getPrimaryIntensity());
-    ch->adjustAttribute(intensity(), Function::Intensity);
+    ch->adjustAttribute(intensity() * getPrimaryIntensity(), Function::Intensity);
     ch->start(m_doc->masterTimer(), functionParent());
     emit functionStarting(m_chaserID);
 }

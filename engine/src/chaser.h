@@ -311,9 +311,6 @@ public:
         BlendedCrossfade
     };
 
-    /** Set the intensity at start */
-    void setStartIntensity(qreal startIntensity);
-
     /** Adjust the intensities of chaser steps. */
     void adjustIntensity(qreal fraction, int stepIndex = -1, FadeControlMode fadeControl = FromFunction);
 
@@ -326,10 +323,6 @@ public:
 private:
     /** Step index at chaser start */
     int m_startStepIndex;
-
-    /** Intensity at start */
-    qreal m_startIntensity;
-    bool m_hasStartIntensity;
 
 public:
     bool contains(quint32 functionId) const override;
