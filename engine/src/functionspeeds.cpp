@@ -76,19 +76,20 @@ void FunctionSpeeds::setFadeOut(quint32 fadeOut)
 
 quint32 FunctionSpeeds::duration() const
 {
+    if (m_fadeIn.value == Speed::originalValue() || m_hold.value == Speed::originalValue())
+        return m_hold.value;
     return Speed::add(m_fadeIn.value, m_hold.value);
 }
 
 void FunctionSpeeds::setDuration(quint32 duration)
 {
-    if (m_fadeIn.value <= duration)
-    {
-        m_hold.value = duration - m_fadeIn.value;
-    }
+    if (m_fadeIn.value == Speed::originalValue() || duration == Speed::originalValue())
+        m_hold.value = duration;
     else
     {
-        m_hold.value = 0;
-        m_fadeIn.value = duration;
+        m_hold.value = Speed::sub(duration, m_fadeIn.value);
+        if (m_hold.value == 0)
+            m_fadeIn.value = duration;
     }
 }
 
