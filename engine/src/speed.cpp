@@ -63,9 +63,15 @@ QString Speed::tempoTypeString() const
 Speed::TempoType Speed::stringToTempoType(QString const& str)
 {
     if (str == KTimeTypeString)
+    {
+        qDebug() << "READ MS" << str << KTimeTypeString;
         return Ms;
+    }
     else
+    {
+        qDebug() << "READ BEATS" << str << KTimeTypeString;
         return Beats;
+    }
 }
 
 QString Speed::tempoTypeToString(TempoType tempoType)

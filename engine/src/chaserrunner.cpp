@@ -135,6 +135,8 @@ quint32 ChaserRunner::stepFadeIn(int stepIdx) const
         break;
     }
 
+    qDebug() << Q_FUNC_INFO << "stepFadeIn res" << fadeIn;
+
     return fadeIn;
 }
 
@@ -520,10 +522,12 @@ void ChaserRunner::startNewStep(int index, MasterTimer* timer, qreal intensity,
 
     if (fadeControl == Chaser::FromFunction)
     {
+        qDebug() << Q_FUNC_INFO << "fadeControl from function";
         newStep->m_speeds.setFadeIn(stepFadeIn(index));
     }
     else
     {
+        qDebug() << Q_FUNC_INFO << "fadeControl not from function, fadeIn is 0";
         newStep->m_speeds.setFadeIn(0);
         if (fadeControl == Chaser::BlendedCrossfade)
             func->setBlendMode(Universe::AdditiveBlend);
