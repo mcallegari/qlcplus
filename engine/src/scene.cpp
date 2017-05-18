@@ -92,6 +92,8 @@ bool Scene::copyFrom(const Function* function)
 
     m_values.clear();
     m_values = scene->m_values;
+    m_fixtures.clear();
+    m_fixtures = scene->m_fixtures;
     m_channelGroups.clear();
     m_channelGroups = scene->m_channelGroups;
     m_channelGroupsLevels.clear();
