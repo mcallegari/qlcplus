@@ -482,8 +482,14 @@ void ChaserRunner::adjustIntensity(qreal fraction, int requestedStepIndex, int f
     startNewStep(stepIndex, m_doc->masterTimer(), fraction, fadeControl);
 }
 
+qreal ChaserRunner::intensity() const
+{
+    return m_intensity;
+}
+
 void ChaserRunner::clearRunningList()
 {
+    qDebug() << Q_FUNC_INFO;
     // empty the running queue
     foreach(ChaserRunnerStep *step, m_runnerSteps)
     {
@@ -491,6 +497,7 @@ void ChaserRunner::clearRunningList()
         {
             // restore the original Function blend mode
             step->m_function->setBlendMode(step->m_blendMode);
+            // stop the function
             step->m_function->stop(functionParent());
         }
         delete step;
@@ -774,5 +781,18 @@ void ChaserRunner::postRun(MasterTimer* timer, QList<Universe*> universes)
     Q_UNUSED(timer);
 
     qDebug() << Q_FUNC_INFO;
+    // Set the functions outer fadeout to the chaser outer fadeout
+    foreach(ChaserRunnerStep *step, m_runnerSteps)
+    {
+        if (step->m_function)
+        {
+            quint32 fadeOut;
+            if (m_chaser->overrideSpeeds().fadeOut() == Speed::originalValue())
+                fadeOut = m_chaser->speeds().fadeOut();
+            else
+                fadeOut = m_chaser->overrideSpeeds().fadeOut();
+            step->m_function->overrideSpeedsEdit().setFadeOut(fadeOut);
+        }
+    }
     clearRunningList();
 }

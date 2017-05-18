@@ -768,10 +768,27 @@ void Chaser::write(MasterTimer* timer, QList<Universe *> universes)
     if (isPaused())
         return;
 
+    qreal intensity = getAttributeValue(Intensity);
+    // adjust intensity from fadeIn
+    {
+        quint32 fadeIn = (m_overrideSpeeds.fadeIn() == Speed::originalValue()
+                ? m_speeds.fadeIn()
+                : m_overrideSpeeds.fadeIn());
+        if (elapsed() < fadeIn)
+        {
+            qDebug() << Q_FUNC_INFO << "fadeIn" << fadeIn << "/ elapsed" << elapsed();
+            qDebug() << Q_FUNC_INFO << "overrideFadeIn" << m_overrideSpeeds.fadeIn() << ", speeds.fadeIn" << m_speeds.fadeIn();
+            qreal currentFadeInIntensity = (qreal)elapsed() / (qreal)fadeIn;
+            intensity *= currentFadeInIntensity;
+        }
+    }
     {
         QMutexLocker runnerLocker(&m_runnerMutex);
         QMutexLocker stepListLocker(&m_stepListMutex);
         Q_ASSERT(m_runner != NULL);
+
+        if (m_runner->intensity() != intensity)
+            m_runner->adjustIntensity(intensity);
 
         if (m_runner->write(timer, universes) == false)
             stop(FunctionParent::master());

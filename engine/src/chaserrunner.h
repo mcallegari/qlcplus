@@ -197,6 +197,8 @@ public:
      */
     void adjustIntensity(qreal fraction, int stepIndex = -1, int fadeControl = 0);
 
+    qreal intensity() const;
+
 private:
     qreal m_intensity;
 

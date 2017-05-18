@@ -647,12 +647,13 @@ void RGBMatrix::write(MasterTimer* timer, QList<Universe *> universes)
                 : m_overrideSpeeds.fadeIn());
         if (elapsed() < fadeIn)
         {
-            qDebug() << Q_FUNC_INFO << "fadeIn" << fadeIn << "/ elapsed" << elapsed();
+            qDebug() << Q_FUNC_INFO << "elapsed" << Speed::msToString(elapsed()) << "/ fadeIn" << Speed::msToString(fadeIn);
             qDebug() << Q_FUNC_INFO << "overrideFadeIn" << m_overrideSpeeds.fadeIn() << ", speeds.fadeIn" << m_speeds.fadeIn();
-            currentFadeInIntensity = ((qreal)elapsed() - (qreal)fadeIn) / (qreal)fadeIn;
+            currentFadeInIntensity = (qreal)elapsed() / (qreal)fadeIn;
         }
         else
             currentFadeInIntensity = 1;
+        qDebug() << Q_FUNC_INFO << "intensity" << (getAttributeValue(Intensity) * currentFadeInIntensity);
         m_fader->adjustIntensity(getAttributeValue(Intensity) * currentFadeInIntensity);
     }
 
