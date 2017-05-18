@@ -37,7 +37,7 @@
 #include "qlcchannel.h"
 
 #include "fixtureselection.h"
-#include "speeddialwidget.h"
+#include "multispeeddialwidget.h"
 #include "efxpreviewarea.h"
 #include "efxeditor.h"
 #include "fixture.h"
@@ -58,6 +58,9 @@
 
 #define KTabGeneral 0
 #define KTabMovement 1
+
+#define DIALS_INNER_IDX 0
+#define DIALS_OUTER_IDX 1
 
 /*****************************************************************************
  * Initialization
@@ -554,11 +557,23 @@ void EFXEditor::createSpeedDials()
 {
     if (m_speedDials == NULL)
     {
-        m_speedDials = new SpeedDialWidget(this);
+        m_speedDials = new MultiSpeedDialWidget(2, this);
         m_speedDials->setAttribute(Qt::WA_DeleteOnClose);
-        m_speedDials->setFadeInVisible(false);
-        m_speedDials->setFadeOutVisible(false);
-        connect(m_speedDials, SIGNAL(holdChanged(int)), this, SLOT(slotHoldChanged(int)));
+
+        m_speedDials->setFadeInEnabled(DIALS_INNER_IDX, false);
+        m_speedDials->setFadeInVisible(DIALS_INNER_IDX, false);
+        m_speedDials->setFadeOutEnabled(DIALS_INNER_IDX, false);
+        m_speedDials->setFadeOutVisible(DIALS_INNER_IDX, false);
+        m_speedDials->setHoldTitle(DIALS_INNER_IDX, "Inner Hold");
+
+        m_speedDials->setFadeInTitle(DIALS_INNER_IDX, "Outer Fade In");
+        m_speedDials->setFadeOutTitle(DIALS_INNER_IDX, "Outer Fade Out");
+        m_speedDials->setHoldEnabled(DIALS_OUTER_IDX, false);
+        m_speedDials->setHoldVisible(DIALS_OUTER_IDX, false);
+
+        connect(m_speedDials, SIGNAL(fadeInChanged(int, int)), this, SLOT(slotFadeInChanged(int, int)));
+        connect(m_speedDials, SIGNAL(fadeOutChanged(int, int)), this, SLOT(slotFadeOutChanged(int, int)));
+        connect(m_speedDials, SIGNAL(holdChanged(int, int)), this, SLOT(slotHoldChanged(int, int)));
         connect(m_speedDials, SIGNAL(destroyed(QObject*)), this, SLOT(slotDialDestroyed(QObject*)));
     }
 
@@ -573,7 +588,9 @@ void EFXEditor::updateSpeedDials()
     createSpeedDials();
 
     m_speedDials->setWindowTitle(m_efx->name());
-    m_speedDials->setHold(m_efx->innerSpeeds().hold());
+    m_speedDials->setHold(DIALS_INNER_IDX, m_efx->innerSpeeds().hold());
+    m_speedDials->setFadeIn(DIALS_OUTER_IDX, m_efx->speeds().fadeIn());
+    m_speedDials->setFadeOut(DIALS_OUTER_IDX, m_efx->speeds().fadeIn());
 }
 
 void EFXEditor::slotNameEdited(const QString &text)
@@ -848,10 +865,42 @@ void EFXEditor::slotAsymmetricRadioToggled(bool state)
         m_efx->setPropagationMode(EFX::Asymmetric);
 }
 
-void EFXEditor::slotHoldChanged(int ms)
+void EFXEditor::slotFadeInChanged(int idx, int ms)
 {
-    m_efx->innerSpeedsEdit().setHold(ms);
-    redrawPreview();
+    if (idx == DIALS_INNER_IDX)
+    {
+        // This is not supposed to happen
+    }
+    else // idx == DIALS_OUTER_IDX
+    {
+        m_efx->speedsEdit().setFadeIn(ms);
+    }
+}
+
+void EFXEditor::slotHoldChanged(int idx, int ms)
+{
+    if (idx == DIALS_INNER_IDX)
+    {
+        m_efx->innerSpeedsEdit().setHold(ms);
+        redrawPreview();
+    }
+    else // idx == DIALS_OUTER_IDX
+    {
+        // This is not supposed to happen
+    }
+}
+
+
+void EFXEditor::slotFadeOutChanged(int idx, int ms)
+{
+    if (idx == DIALS_INNER_IDX)
+    {
+        // This is not supposed to happen
+    }
+    else // idx == DIALS_OUTER_IDX
+    {
+        m_efx->speedsEdit().setFadeOut(ms);
+    }
 }
 
 void EFXEditor::slotFixtureRemoved()

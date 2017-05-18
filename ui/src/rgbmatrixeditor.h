@@ -98,7 +98,7 @@ private slots:
 
     void slotDimmerControlClicked();
 
-    // inner speeds
+    // speeds
     void slotFadeInChanged(int idx, int ms);
     void slotFadeOutChanged(int idx, int ms);
     void slotHoldChanged(int idx, int ms);

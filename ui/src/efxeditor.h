@@ -29,7 +29,7 @@
 #include "efx.h"
 #include "doc.h"
 
-class SpeedDialWidget;
+class MultiSpeedDialWidget;
 class EFXPreviewArea;
 class Doc;
 
@@ -120,14 +120,17 @@ private slots:
     void slotSerialRadioToggled(bool state);
     void slotAsymmetricRadioToggled(bool state);
 
-    void slotHoldChanged(int ms);
+    // speeds
+    void slotFadeInChanged(int idx, int ms);
+    void slotFadeOutChanged(int idx, int ms);
+    void slotHoldChanged(int idx, int ms);
     void slotDialDestroyed(QObject* dial);
 
     void slotFixtureRemoved();
     void slotFixtureChanged();
 
 private:
-    SpeedDialWidget *m_speedDials;
+    MultiSpeedDialWidget *m_speedDials;
 
     /*********************************************************************
      * Movement page
