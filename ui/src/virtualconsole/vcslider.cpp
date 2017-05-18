@@ -835,10 +835,9 @@ void VCSlider::setPlaybackValue(uchar value)
     if (m_externalMovement == true)
         return;
 
-    m_playbackValueMutex.lock();
+    QMutexLocker locker(&m_playbackValueMutex);
     m_playbackValue = value;
     m_playbackValueChanged = true;
-    m_playbackValueMutex.unlock();
 }
 
 uchar VCSlider::playbackValue() const
@@ -1090,42 +1089,40 @@ void VCSlider::writeDMXPlayback(MasterTimer* timer, QList<Universe *> ua)
 {
     Q_UNUSED(ua);
 
+    QMutexLocker locker(&m_playbackValueMutex);
+
+    if (m_playbackValueChanged == false)
+        return;
+
     Function* function = m_doc->function(m_playbackFunction);
     if (function == NULL || mode() == Doc::Design)
         return;
 
-    /* Grab current values inside a locked mutex */
-    m_playbackValueMutex.lock();
     uchar value = m_playbackValue;
-    bool changed = m_playbackValueChanged;
     qreal pIntensity = qreal(value) / qreal(UCHAR_MAX);
     m_playbackValueChanged = false;
-    m_playbackValueMutex.unlock();
 
-    if (changed == true)
+    if (value == 0)
     {
-        if (value == 0)
+        // Make sure we ignore the fade out time
+        function->adjustAttribute(0, Function::Intensity);
+        if (function->stopped() == false)
+            function->stop(functionParent());
+    }
+    else
+    {
+        if (function->stopped() == true)
         {
-            // Make sure we ignore the fade out time
-            function->adjustAttribute(0, Function::Intensity);
-            if (function->stopped() == false)
-                function->stop(functionParent());
-        }
-        else
-        {
-            if (function->stopped() == true)
-            {
 #if 0 // temporarily revert #699 until a better solution is found
-                // Since this function is started by a fader, its fade in time
-                // is decided by the fader movement.
-                function->start(timer, functionParent(),
-                                0, 0, Function::defaultSpeed(), Function::defaultSpeed());
+            // Since this function is started by a fader, its fade in time
+            // is decided by the fader movement.
+            function->start(timer, functionParent(),
+                            0, 0, Function::defaultSpeed(), Function::defaultSpeed());
 #endif
-                function->start(timer, functionParent());
-            }
-            emit functionStarting(m_playbackFunction, pIntensity);
-            function->adjustAttribute(pIntensity * intensity(), Function::Intensity);
+            function->start(timer, functionParent());
         }
+        emit functionStarting(m_playbackFunction, pIntensity);
+        function->adjustAttribute(pIntensity * intensity(), Function::Intensity);
     }
 }
 
