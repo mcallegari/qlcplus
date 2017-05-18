@@ -1047,14 +1047,14 @@ void EFX::postLoad()
     if (m_legacyFadeBus != Bus::invalid())
     {
         quint32 value = Bus::instance()->value(m_legacyFadeBus);
-        innerSpeedsEdit().setFadeIn((value / MasterTimer::frequency()) * 1000);
-        innerSpeedsEdit().setFadeOut((value / MasterTimer::frequency()) * 1000);
+        speedsEdit().setFadeIn((value / MasterTimer::frequency()) * 1000);
+        speedsEdit().setFadeOut((value / MasterTimer::frequency()) * 1000);
     }
 
     if (m_legacyHoldBus != Bus::invalid())
     {
         quint32 value = Bus::instance()->value(m_legacyHoldBus);
-        innerSpeedsEdit().setDuration((value / MasterTimer::frequency()) * 1000);
+        innerSpeedsEdit().setHold((value / MasterTimer::frequency()) * 1000);
     }
 }
 
@@ -1117,6 +1117,20 @@ void EFX::write(MasterTimer* timer, QList<Universe*> universes)
     /* Check for stop condition */
     if (ready == m_fixtures.count())
         stop(FunctionParent::master());
+
+    // Adjust intensity from fadeIn
+    {
+        qreal currentFadeInIntensity;
+        quint32 fadeIn = (m_overrideSpeeds.fadeIn() == Speed::originalValue()
+                ? m_speeds.fadeIn()
+                : m_overrideSpeeds.fadeIn());
+        if (elapsed() < fadeIn)
+            currentFadeInIntensity = (qreal)elapsed() / (qreal)fadeIn;
+        else
+            currentFadeInIntensity = 1;
+        m_fader->adjustIntensity(getAttributeValue(Intensity) * currentFadeInIntensity);
+    }
+
     m_fader->write(universes);
 }
 
@@ -1135,9 +1149,44 @@ void EFX::postRun(MasterTimer* timer, QList<Universe *> universes)
     }
 
     Q_ASSERT(m_fader != NULL);
-    m_fader->removeAll();
-    delete m_fader;
-    m_fader = NULL;
+    {
+        QHashIterator<FadeChannel, FadeChannel> it(m_fader->channels());
+        while (it.hasNext())
+        {
+            it.next();
+            FadeChannel fc = it.value();
+            // fade out only intensity channels
+            if (fc.group(doc()) != QLCChannel::Intensity)
+                continue;
+
+            bool canFade = true;
+            Fixture *fixture = doc()->fixture(fc.fixture());
+            if (fixture != NULL)
+                canFade = fixture->channelCanFade(fc.channel());
+            fc.setStart(fc.current(m_fader->intensity()));
+            fc.setCurrent(fc.current(m_fader->intensity()));
+
+            fc.setElapsed(0);
+            fc.setReady(false);
+            if (canFade == false)
+            {
+                fc.setFadeTime(0);
+                fc.setTarget(fc.current(getAttributeValue(Intensity)));
+            }
+            else
+            {
+                if (m_overrideSpeeds.fadeOut() == Speed::originalValue())
+                    fc.setFadeTime(speeds().fadeOut());
+                else
+                    fc.setFadeTime(m_overrideSpeeds.fadeOut());
+                fc.setTarget(0);
+            }
+            timer->faderAdd(fc);
+        }
+
+        delete m_fader;
+        m_fader = NULL;
+    }
 
     Function::postRun(timer, universes);
 }

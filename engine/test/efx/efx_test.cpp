@@ -2712,8 +2712,8 @@ void EFX_Test::loadSuccessLegacy()
     Bus::instance()->setValue(13, 100);
     e.postLoad();
 
-    QVERIFY(e.innerSpeeds().fadeIn() == uint(1000));
-    QVERIFY(e.innerSpeeds().fadeOut() == uint(1000));
+    QVERIFY(e.speeds().fadeIn() == uint(1000));
+    QVERIFY(e.speeds().fadeOut() == uint(1000));
     QVERIFY(e.innerSpeeds().duration() == uint(2000));
 }
 
