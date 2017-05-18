@@ -571,7 +571,7 @@ qreal VCCueList::getPrimaryIntensity() const
         value = 1.0;
     else
         value = (qreal)((m_primaryLeft ? m_slider1 : m_slider2)->value()) / 100;
-    return value;
+    return intensity() * value;
 }
 
 void VCCueList::notifyFunctionStarting(quint32 fid, qreal intensity)
@@ -939,7 +939,7 @@ void VCCueList::startChaser(int startIndex)
     if (ch == NULL)
         return;
     ch->setStepIndex(startIndex);
-    ch->adjustAttribute(intensity() * getPrimaryIntensity(), Function::Intensity);
+    ch->adjustAttribute(getPrimaryIntensity(), Function::Intensity);
     ch->start(m_doc->masterTimer(), functionParent());
     emit functionStarting(m_chaserID);
 }
