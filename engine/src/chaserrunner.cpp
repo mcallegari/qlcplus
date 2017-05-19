@@ -135,8 +135,6 @@ quint32 ChaserRunner::stepFadeIn(int stepIdx) const
         break;
     }
 
-    qDebug() << Q_FUNC_INFO << "stepFadeIn res" << fadeIn;
-
     return fadeIn;
 }
 
@@ -218,14 +216,12 @@ uint ChaserRunner::stepDuration(int stepIdx) const
 
 void ChaserRunner::resetRoundTime(ChaserRunnerStep* step)
 {
-    qDebug() << "resetRoundTime to" << m_chaser->elapsed();
     step->m_roundTimeReference = m_chaser->elapsed();
     step->m_roundBeatsReference = m_chaser->elapsedBeats();
 }
 
 void ChaserRunner::roundRoundTime(const ChaserRunnerStep* prevStep, ChaserRunnerStep* step)
 {
-    qDebug() << "roundRoundTime";
     if (m_chaser->commonSpeeds().tempoType() == Speed::Beats)
     {
         step->m_roundBeatsReference =
@@ -242,7 +238,6 @@ void ChaserRunner::roundRoundTime(const ChaserRunnerStep* prevStep, ChaserRunner
 
 quint32 ChaserRunner::roundTime(const ChaserRunnerStep* step) const
 {
-    qDebug() << "roundTime: elapsed=" << m_chaser->elapsed() << ", ref=" << step->m_roundTimeReference;
     return m_chaser->elapsed() - step->m_roundTimeReference;
 }
 
@@ -489,7 +484,6 @@ qreal ChaserRunner::intensity() const
 
 void ChaserRunner::clearRunningList()
 {
-    qDebug() << Q_FUNC_INFO;
     // empty the running queue
     foreach(ChaserRunnerStep *step, m_runnerSteps)
     {
@@ -529,12 +523,12 @@ void ChaserRunner::startNewStep(int index, MasterTimer* timer, qreal intensity,
 
     if (fadeControl == Chaser::FromFunction)
     {
-        qDebug() << Q_FUNC_INFO << "fadeControl from function";
+        // qDebug() << Q_FUNC_INFO << "fadeControl from function";
         newStep->m_speeds.setFadeIn(stepFadeIn(index));
     }
     else
     {
-        qDebug() << Q_FUNC_INFO << "fadeControl not from function, fadeIn is 0";
+        // qDebug() << Q_FUNC_INFO << "fadeControl not from function, fadeIn is 0";
         newStep->m_speeds.setFadeIn(0);
         if (fadeControl == Chaser::BlendedCrossfade)
             func->setBlendMode(Universe::AdditiveBlend);
@@ -731,18 +725,12 @@ bool ChaserRunner::write(MasterTimer* timer, QList<Universe *> universes)
             ((m_chaser->commonSpeeds().tempoType() == Speed::Ms && roundTime(step) >= step->m_speeds.duration()) ||
              (m_chaser->commonSpeeds().tempoType() == Speed::Beats && roundBeats(step) >= step->m_speeds.duration())))
         {
-            qDebug() << "next step";
             step->m_function->stop(functionParent());
             delete step;
             m_runnerSteps.removeOne(step);
         }
         else
         {
-            qDebug() << "not next step: duration=" << step->m_speeds.duration()
-                     << ", roundTime=" << roundTime(step)
-                     << ((m_chaser->commonSpeeds().tempoType() == Speed::Beats)
-                             ? "BEATS"
-                             : "MS");
             // When the speeds of the chaser change, they need to be updated to the lower
             // level (only current function) as well. Otherwise the new speeds would take
             // effect only on the next step change.
@@ -780,7 +768,6 @@ void ChaserRunner::postRun(MasterTimer* timer, QList<Universe*> universes)
     Q_UNUSED(universes);
     Q_UNUSED(timer);
 
-    qDebug() << Q_FUNC_INFO;
     // Set the functions outer fadeout to the chaser outer fadeout
     foreach(ChaserRunnerStep *step, m_runnerSteps)
     {

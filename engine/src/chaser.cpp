@@ -729,8 +729,6 @@ void Chaser::write(MasterTimer* timer, QList<Universe *> universes)
                 : m_overrideSpeeds.fadeIn());
         if (elapsed() < fadeIn)
         {
-            qDebug() << Q_FUNC_INFO << "fadeIn" << fadeIn << "/ elapsed" << elapsed();
-            qDebug() << Q_FUNC_INFO << "overrideFadeIn" << m_overrideSpeeds.fadeIn() << ", speeds.fadeIn" << m_speeds.fadeIn();
             qreal currentFadeInIntensity = (qreal)elapsed() / (qreal)fadeIn;
             intensity *= currentFadeInIntensity;
         }
