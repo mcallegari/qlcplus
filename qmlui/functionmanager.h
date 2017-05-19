@@ -188,6 +188,7 @@ private:
     int m_showCount, m_audioCount, m_videoCount;
 
     FunctionEditor *m_currentEditor;
+    FunctionEditor *m_sceneEditor;
 
     /*********************************************************************
      * DMX values (dumping and Scene editor)

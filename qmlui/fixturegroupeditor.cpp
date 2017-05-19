@@ -19,6 +19,7 @@
 
 #include <qmath.h>
 #include <QImage>
+#include <QDebug>
 
 #include "fixturegroupeditor.h"
 #include "doc.h"

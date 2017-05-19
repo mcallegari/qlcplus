@@ -1041,7 +1041,6 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
         sequence->setBoundSceneID(grpScene->id());
         sequence->setDurationMode(Chaser::PerStep);
         sequence->commonSpeedsEdit().setDuration(m_matrix->innerSpeeds().duration());
-        sequence->setStartTime(0);
         if (m_matrix->innerSpeeds().fadeIn() != 0)
         {
             sequence->setFadeInMode(Chaser::PerStep);

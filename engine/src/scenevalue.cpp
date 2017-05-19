@@ -108,3 +108,9 @@ bool SceneValue::saveXML(QXmlStreamWriter *doc) const
 
     return true;
 }
+
+QDebug operator<<(QDebug debug, const SceneValue &sv)
+{
+    debug.nospace() << "SceneValue(" << sv.fxi << ", " << sv.channel << ", " << sv.value << ")";
+    return debug;
+}

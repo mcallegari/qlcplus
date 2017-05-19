@@ -22,7 +22,6 @@
 #define CHASER_H
 
 #include <QMutex>
-#include <QColor>
 #include <QList>
 
 #include "function.h"
@@ -77,12 +76,6 @@ public:
 
     /** Copy the contents for this function from another function */
     bool copyFrom(const Function* function);
-
-    /*****************************************************************************
-     * Sorting
-     *****************************************************************************/
-    /** Comparator function for qSort() */
-    bool operator< (const Chaser& chs) const;
 
     /*********************************************************************
      * Chaser contents
@@ -159,48 +152,7 @@ protected:
     QList <ChaserStep> m_steps;
     QMutex m_stepListMutex;
 
-    /*********************************************************************
-     * Sequence mode
-     *********************************************************************/
 public:
-    /**
-     * Set the time where the Chaser is placed over a timeline
-     *
-     * @param time The start time in milliseconds of the Chaser
-     */
-    void setStartTime(quint32 time);
-
-    /**
-     * Returns the time where the Chaser is placed over a timeline
-     *
-     * @return Start time in milliseconds of the Chaser
-     */
-    quint32 getStartTime() const;
-
-    /**
-     * Set the color to be used by a SequenceItem
-     */
-    void setColor(QColor color);
-
-    /**
-     * Get the color of this sequence
-     */
-    QColor getColor();
-
-    /** Set the lock state of the item */
-    void setLocked(bool locked);
-
-    /** Get the lock state of the item */
-    bool isLocked();
-
-private:
-    /** Absolute start time of this Chaser over a timeline (in milliseconds) */
-    quint32 m_startTime;
-    /** Color to use when displaying the sequence in the Show manager */
-    QColor m_color;
-    /** Flag to indicate if a Sequence item is locked in the Show Manager timeline */
-    bool m_locked;
-
     /*********************************************************************
      * Speeds
      *********************************************************************/

@@ -93,24 +93,24 @@ void InputOutputMap::setBlackout(bool blackout)
     QMutexLocker locker(&m_universeMutex);
     m_blackout = blackout;
 
-    QByteArray zeros(512, 0);
     for (quint32 i = 0; i < universesCount(); i++)
     {
         Universe *universe = m_universeArray.at(i);
-        if (universe->outputPatch() != NULL)
-        {
-            if (blackout == true)
-                universe->outputPatch()->dump(universe->id(), zeros);
-            // notify the universe listeners that some channels have changed
-        }
-        locker.unlock();
+        QByteArray data;
+
         if (blackout == true)
-            emit universesWritten(i, zeros);
+        {
+            universe->dumpBlackout();
+            data = universe->blackoutData();
+        }
         else
         {
-            const QByteArray postGM = universe->postGMValues()->mid(0, universe->usedChannels());
-            emit universesWritten(i, postGM);
+            data = universe->postGMValues()->mid(0, universe->usedChannels());
         }
+
+        // notify the universe listeners that some channels have changed
+        locker.unlock();
+        emit universesWritten(i, data);
         locker.relock();
     }
 

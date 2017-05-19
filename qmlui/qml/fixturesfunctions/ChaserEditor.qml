@@ -34,6 +34,7 @@ Rectangle
     property int functionID: -1
     property int editStepIndex: -1
     property int editStepType
+    property bool isSequence: chaserEditor.isSequence
 
     signal requestView(int ID, string qmlSrc)
 
@@ -151,6 +152,8 @@ Rectangle
 
             EditorTopBar
             {
+                id: topbar
+                visible: !isSequence
                 text: chaserEditor.functionName
                 onTextChanged: chaserEditor.functionName = text
 
@@ -174,7 +177,8 @@ Rectangle
                     height: UISettings.iconSizeMedium - 2
                     imgSource: "qrc:/add.svg"
                     checkable: true
-                    tooltip: qsTr("Add a function")
+                    tooltip: qsTr("Add a new step")
+
                     onCheckedChanged:
                     {
                         if (checked)
@@ -198,7 +202,7 @@ Rectangle
                     width: height
                     height: UISettings.iconSizeMedium - 2
                     imgSource: "qrc:/remove.svg"
-                    tooltip: qsTr("Remove the selected functions")
+                    tooltip: qsTr("Remove the selected steps")
                     onClicked: {   }
                 }
             }
@@ -233,6 +237,7 @@ Rectangle
                     RobotoText
                     {
                         id: nameCol
+                        visible: !isSequence
                         width: UISettings.bigItemHeight * 1.5
                         height: parent.height
                         label: qsTr("Function")
@@ -243,6 +248,7 @@ Rectangle
                     Rectangle
                     {
                         id: nameColDrag
+                        visible: !isSequence
                         height: parent.height
                         width: 1
                         color: UISettings.fgMedium
@@ -436,7 +442,7 @@ Rectangle
             {
                 id: cStepsList
                 width: parent.width
-                height: ceContainer.height - UISettings.iconSizeDefault - chListHeader.height - chModes.height
+                height: ceContainer.height - (topbar.visible ? topbar.height : 0) - chListHeader.height - chModes.height
                 boundsBehavior: Flickable.StopAtBounds
                 clip: true
 
@@ -455,6 +461,7 @@ Rectangle
                     ChaserStepDelegate
                     {
                         width: ceContainer.width
+                        showFunctionName: !isSequence
                         functionID: model.funcID
                         isSelected: model.isSelected
                         stepFadeIn: TimeUtils.timeToQlcString(model.fadeIn, chaserEditor.tempoType)
@@ -477,7 +484,8 @@ Rectangle
                         onClicked:
                         {
                             ceSelector.selectItem(indexInList, cStepsList.model, mouseMods & Qt.ControlModifier)
-                            if (mouseMods & Qt.ControlModifier === false)
+                            console.log("mouse mods: " + mouseMods)
+                            if ((mouseMods & Qt.ControlModifier) == 0)
                                 chaserEditor.playbackIndex = index
                         }
 
@@ -514,7 +522,7 @@ Rectangle
                     onExited: cStepsList.dragInsertIndex = -1
                 }
                 CustomScrollBar { flickable: cStepsList }
-            }
+            } // end of ListView
 
             SectionBox
             {
@@ -652,7 +660,7 @@ Rectangle
                         Layout.fillWidth: true
                     }
                 } // end of GridLayout
-            } // end of Rectangle
+            } // end of SectionBox
         } // end of Column
     } // end of SplitView
 }

@@ -57,6 +57,7 @@
     <file alias="font.svg">font.svg</file>
     <file alias="forward.svg">forward.svg</file>
     <file alias="frame.svg">frame.svg</file>
+    <file alias="fullscreen.svg">fullscreen.svg</file>
     <file alias="functions.svg">functions.svg</file>
     <file alias="gobo.svg">gobo.svg</file>
     <file alias="green.svg">green.svg</file>

@@ -22,7 +22,6 @@
 #include <QXmlStreamWriter>
 #include <QCoreApplication>
 #include <QDebug>
-#include <QColor>
 #include <QFile>
 
 #include "qlcfixturedef.h"
@@ -51,9 +50,6 @@
 Chaser::Chaser(Doc* doc)
     : Function(doc, Function::ChaserType)
     , m_legacyHoldBus(Bus::invalid())
-    , m_startTime(UINT_MAX)
-    , m_color(85, 107, 128)
-    , m_locked(false)
     , m_fadeInMode(Default)
     , m_fadeOutMode(Default)
     , m_durationMode(Common)
@@ -115,22 +111,9 @@ bool Chaser::copyFrom(const Function* function)
     m_fadeInMode = chaser->m_fadeInMode;
     m_fadeOutMode = chaser->m_fadeOutMode;
     m_durationMode = chaser->m_durationMode;
-    m_startTime = chaser->m_startTime;
-    m_color = chaser->m_color;
 
     // Copy common function stuff
     return Function::copyFrom(function);
-}
-
-/*****************************************************************************
- * Sorting
- *****************************************************************************/
-bool Chaser::operator<(const Chaser& chs) const
-{
-    if (m_startTime < chs.getStartTime())
-        return true;
-    else
-        return false;
 }
 
 /*****************************************************************************
@@ -241,36 +224,6 @@ void Chaser::slotFunctionRemoved(quint32 fid)
 
     if (count > 0)
         emit changed(this->id());
-}
-
-void Chaser::setStartTime(quint32 time)
-{
-    m_startTime = time;
-}
-
-quint32 Chaser::getStartTime() const
-{
-    return m_startTime;
-}
-
-void Chaser::setColor(QColor color)
-{
-    m_color = color;
-}
-
-QColor Chaser::getColor()
-{
-    return m_color;
-}
-
-void Chaser::setLocked(bool locked)
-{
-    m_locked = locked;
-}
-
-bool Chaser::isLocked()
-{
-    return m_locked;
 }
 
 /*********************************************************************

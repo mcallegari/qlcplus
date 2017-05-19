@@ -58,6 +58,7 @@ FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)
     m_showCount = m_audioCount = m_videoCount = 0;
 
     m_currentEditor = NULL;
+    m_sceneEditor = NULL;
 
     qmlRegisterUncreatableType<Collection>("com.qlcplus.classes", 1, 0, "Collection", "Can't create a Collection");
     qmlRegisterUncreatableType<Chaser>("com.qlcplus.classes", 1, 0, "Chaser", "Can't create a Chaser");
@@ -364,8 +365,8 @@ QString FunctionManager::getEditorResource(int type)
     switch(type)
     {
         case Function::SceneType: return "qrc:/SceneEditor.qml";
-        case Function::ChaserType:
-        case Function::SequenceType: return "qrc:/ChaserEditor.qml";
+        case Function::ChaserType: return "qrc:/ChaserEditor.qml";
+        case Function::SequenceType: return "qrc:/SequenceEditor.qml";
         case Function::EFXType: return "qrc:/EFXEditor.qml";
         case Function::CollectionType: return "qrc:/CollectionEditor.qml";
         case Function::RGBMatrixType: return "qrc:/RGBMatrixEditor.qml";
@@ -384,6 +385,11 @@ void FunctionManager::setEditorFunction(quint32 fID, bool requestUI)
     {
         delete m_currentEditor;
         m_currentEditor = NULL;
+    }
+    if (m_sceneEditor != NULL)
+    {
+        delete m_sceneEditor;
+        m_sceneEditor = NULL;
     }
 
     if ((int)fID == -1)
@@ -404,8 +410,15 @@ void FunctionManager::setEditorFunction(quint32 fID, bool requestUI)
         }
         break;
         case Function::ChaserType:
+        {
+             m_currentEditor = new ChaserEditor(m_view, m_doc, this);
+        }
+        break;
         case Function::SequenceType:
         {
+            Sequence *sequence = qobject_cast<Sequence *>(f);
+            m_sceneEditor = new SceneEditor(m_view, m_doc, this);
+            m_sceneEditor->setFunctionID(sequence->boundSceneID());
             m_currentEditor = new ChaserEditor(m_view, m_doc, this);
         }
         break;
@@ -651,6 +664,7 @@ void FunctionManager::updateFunctionsTree()
 
     emit sceneCountChanged();
     emit chaserCountChanged();
+    emit sequenceCountChanged();
     emit efxCountChanged();
     emit collectionCountChanged();
     emit rgbMatrixCountChanged();

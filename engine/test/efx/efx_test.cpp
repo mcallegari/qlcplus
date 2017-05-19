@@ -3123,16 +3123,15 @@ void EFX_Test::save()
                         expectBackward = true;
                         expectStartOffset = 27;
                     }
+                    else if (text == "12")
+                    {
+                        expectHead = 3;
+                        expectBackward = false;
+                        expectStartOffset = 0;
+                    }
                     else
                     {
-                        if (text == "12")
-                        {
-                            expectHead = 3;
-                        }
-                        else
-                        {
-                            expectHead = 7;
-                        }
+                        expectHead = 7;
                         expectBackward = false;
                         expectStartOffset = 0;
                     }
@@ -3177,6 +3176,7 @@ void EFX_Test::save()
 
     QCOMPARE(fixtures.size(), 3);
     QCOMPARE(fixtureid, 3);
+    QCOMPARE(fixturehead, 3);
     QCOMPARE(fixturedirection, 3);
     QCOMPARE(fixtureStartOffset, 3);
     QVERIFY(dir == true);

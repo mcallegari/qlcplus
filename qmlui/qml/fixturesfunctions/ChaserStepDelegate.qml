@@ -32,6 +32,7 @@ Rectangle
 
     property int functionID: -1
     property Function func
+    property bool showFunctionName: true
     property string stepLabel
     property string stepFadeIn
     property string stepHold
@@ -102,7 +103,7 @@ Rectangle
         visible: isSelected
     }
 
-    // highlight the time being edited
+    // Highlight the time being edited
     Rectangle
     {
         id: editBox
@@ -189,13 +190,14 @@ Rectangle
 
         IconTextEntry
         {
+            visible: showFunctionName
             id: funcIconName
             width: col2Width
             height: 35
             anchors.verticalCenter: parent.verticalCenter
             tLabel: stepLabel
         }
-        Rectangle { height: parent.height; width: 1; color: UISettings.fgMedium }
+        Rectangle { visible: showFunctionName; height: parent.height; width: 1; color: UISettings.fgMedium }
 
         RobotoText
         {
