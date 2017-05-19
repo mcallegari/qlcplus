@@ -162,6 +162,8 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     layout()->setAlignment(m_cngButton, Qt::AlignHCenter);
     m_cngButton->hide();
 
+    connect(this, SIGNAL(playbackValueChanged(uchar)),
+            this, SLOT(setPlaybackValue(uchar)));
     connect(m_cngWidget, SIGNAL(levelChanged(uchar)),
             this, SLOT(slotClickAndGoLevelChanged(uchar)));
     connect(m_cngWidget, SIGNAL(colorChanged(QRgb)),
@@ -832,7 +834,7 @@ quint32 VCSlider::playbackFunction() const
 
 void VCSlider::setPlaybackValue(uchar value)
 {
-    if (m_externalMovement == true)
+    if (m_externalMovement == true || value == m_playbackValue)
         return;
 
     QMutexLocker locker(&m_playbackValueMutex);
@@ -1322,7 +1324,7 @@ void VCSlider::slotSliderMoved(int value)
 
         case Playback:
         {
-            setPlaybackValue(value);
+            emit playbackValueChanged(value);
         }
         break;
 

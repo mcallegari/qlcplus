@@ -357,13 +357,6 @@ public:
     quint32 playbackFunction() const;
 
     /**
-     * Set the level of the currently selected playback function.
-     *
-     * @param level The current playback function's level.
-     */
-    void setPlaybackValue(uchar value);
-
-    /**
      * Get the level of the currently selected playback function.
      *
      * @return The current playback function level.
@@ -373,10 +366,20 @@ public:
     /** @reimp */
     virtual void notifyFunctionStarting(quint32 fid, qreal intensity);
 
+signals:
+    void playbackValueChanged(uchar value);
+
 protected slots:
     void slotPlaybackFunctionRunning(quint32 fid);
     void slotPlaybackFunctionStopped(quint32 fid);
     void slotPlaybackFunctionIntensityChanged(int attrIndex, qreal fraction);
+
+    /**
+     * Set the level of the currently selected playback function.
+     *
+     * @param level The current playback function's level.
+     */
+    void setPlaybackValue(uchar value);
 
 protected:
     quint32 m_playbackFunction;
