@@ -28,6 +28,7 @@
 #include "chasereditor.h"
 #include "sceneeditor.h"
 #include "audioeditor.h"
+#include "videoeditor.h"
 #include "collection.h"
 #include "efxeditor.h"
 #include "treemodel.h"
@@ -72,10 +73,8 @@ FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)
     m_functionTree->setColumnNames(treeColumns);
     m_functionTree->enableSorting(true);
 
-    connect(m_doc, SIGNAL(loaded()),
-            this, SLOT(slotDocLoaded()));
-    connect(m_doc, SIGNAL(functionAdded(quint32)),
-            this, SLOT(slotFunctionAdded()));
+    connect(m_doc, &Doc::loaded, this, &FunctionManager::slotDocLoaded);
+    connect(m_doc, &Doc::functionAdded, this, &FunctionManager::slotFunctionAdded);
 }
 
 QVariant FunctionManager::functionsList()
@@ -442,6 +441,11 @@ void FunctionManager::setEditorFunction(quint32 fID, bool requestUI)
             m_currentEditor = new AudioEditor(m_view, m_doc, this);
         }
         break;
+        case Function::VideoType:
+        {
+            m_currentEditor = new VideoEditor(m_view, m_doc, this);
+        }
+        break;
         case Function::ShowType: break; // a Show is edited by the Show Manager
         default:
         {
@@ -682,7 +686,7 @@ void FunctionManager::slotDocLoaded()
     updateFunctionsTree();
 }
 
-void FunctionManager::slotFunctionAdded()
+void FunctionManager::slotFunctionAdded(quint32)
 {
     if (m_doc->loadStatus() != Doc::Loaded)
         return;

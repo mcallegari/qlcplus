@@ -31,6 +31,7 @@
 #include "showmanager.h"
 #include "actionmanager.h"
 #include "modelselector.h"
+#include "videoprovider.h"
 #include "contextmanager.h"
 #include "virtualconsole.h"
 #include "fixturebrowser.h"
@@ -57,6 +58,7 @@ App::App()
     , m_fixtureManager(NULL)
     , m_contextManager(NULL)
     , m_ioManager(NULL)
+    , m_videoProvider(NULL)
     , m_doc(NULL)
     , m_docLoaded(false)
 {
@@ -189,6 +191,12 @@ void App::keyReleaseEvent(QKeyEvent *e)
 
 void App::clearDocument()
 {
+    if (m_videoProvider)
+    {
+        delete m_videoProvider;
+        m_videoProvider = NULL;
+    }
+
     m_doc->masterTimer()->stop();
     m_doc->clearContents();
     m_virtualConsole->resetContents();
@@ -198,6 +206,7 @@ void App::clearDocument()
     setFileName(QString());
     m_doc->resetModified();
     m_doc->masterTimer()->start();
+
 }
 
 Doc *App::doc()
@@ -246,8 +255,8 @@ void App::initDoc()
      * otherwise the qlcconfig.h creation should have been moved into the
      * audio folder, which doesn't make much sense */
     m_doc->audioPluginCache()->load(QLCFile::systemDirectory(AUDIOPLUGINDIR, KExtPlugin));
+    m_videoProvider = new VideoProvider(this, m_doc);
 
-    /* Restore outputmap settings */
     Q_ASSERT(m_doc->inputOutputMap() != NULL);
 
     /* Load input plugins & profiles */
@@ -370,6 +379,7 @@ bool App::loadWorkspace(const QString &fileName)
         emit docLoadedChanged();
         m_contextManager->resetContexts();
         m_doc->resetModified();
+        m_videoProvider = new VideoProvider(this, m_doc);
         return true;
     }
     return false;

@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  AudioEditor.qml
+  VideoEditor.qml
 
   Copyright (c) Massimo Callegari
 
@@ -30,15 +30,15 @@ Rectangle
     color: "transparent"
 
     property int functionID: -1
-    property var mediaInfo: audioEditor.mediaInfo
+    property var mediaInfo: videoEditor.mediaInfo
 
     signal requestView(int ID, string qmlSrc)
 
     EditorTopBar
     {
         id: topBar
-        text: audioEditor.functionName
-        onTextChanged: audioEditor.functionName = text
+        text: videoEditor.functionName
+        onTextChanged: videoEditor.functionName = text
 
         onBackClicked:
         {
@@ -49,26 +49,26 @@ Rectangle
 
     FileDialog
     {
-        id: openAudioDialog
+        id: openVideoDialog
         visible: false
 
         onAccepted:
         {
-            //console.log("You chose: " + openAudioDialog.fileUrl)
-            var url = "" + openAudioDialog.fileUrl
-            audioEditor.sourceFileName = url.replace("file://", "")
+            var url = "" + openVideoDialog.fileUrl
+            videoEditor.sourceFileName = url.replace("file://", "")
         }
     }
-
-    onWidthChanged: aeGrid.width = width
 
     GridLayout
     {
         id: aeGrid
+        y: topBar.height
+        width: parent.width
+
         columns: 2
         columnSpacing: 5
         rowSpacing: 10
-        y: topBar.height
+
 
         // row 1
         RobotoText
@@ -89,7 +89,7 @@ Rectangle
                 fontSize: UISettings.textSizeDefault * 0.8
                 labelColor: UISettings.fgLight
                 wrapText: true
-                label: audioEditor.sourceFileName
+                label: videoEditor.sourceFileName
             }
             IconButton
             {
@@ -99,14 +99,14 @@ Rectangle
 
                 onClicked:
                 {
-                    var extList = audioEditor.mimeTypes
-                    var exts = qsTr("Audio files") + " ("
+                    var extList = videoEditor.mimeTypes
+                    var exts = qsTr("Video files") + " ("
                     for (var i = 0; i < extList.length; i++)
                         exts += extList[i] + " "
                     exts += ")"
-                    openAudioDialog.nameFilters = [ exts, qsTr("All files (*)") ]
-                    openAudioDialog.visible = true
-                    openAudioDialog.open()
+                    openVideoDialog.nameFilters = [ exts, qsTr("All files (*)") ]
+                    openVideoDialog.visible = true
+                    openVideoDialog.open()
                 }
             }
         }
@@ -117,38 +117,49 @@ Rectangle
         {
             height: UISettings.listItemHeight
             Layout.fillWidth: true
-            label: mediaInfo ? mediaInfo.duration : ""
+            label: mediaInfo && mediaInfo.Duration ? mediaInfo.Duration : ""
             labelColor: UISettings.fgLight
         }
 
         // row 3
-        RobotoText { label: qsTr("Channels"); height: UISettings.listItemHeight }
+        RobotoText { label: qsTr("Resolution"); height: UISettings.listItemHeight }
         RobotoText
         {
             height: UISettings.listItemHeight
             Layout.fillWidth: true
-            label: mediaInfo ? mediaInfo.channels : ""
+            label: mediaInfo && mediaInfo.Resolution ? "" + mediaInfo.Resolution.width + "x" + mediaInfo.Resolution.height : ""
             labelColor: UISettings.fgLight
         }
 
         // row 4
-        RobotoText { label: qsTr("Sample Rate"); height: UISettings.listItemHeight }
+        RobotoText { label: qsTr("Video Codec"); height: UISettings.listItemHeight }
         RobotoText
         {
             height: UISettings.listItemHeight
             Layout.fillWidth: true
-            label: mediaInfo ? mediaInfo.sampleRate : ""
+            label: mediaInfo && mediaInfo.VideoCodec ? mediaInfo.VideoCodec : ""
             labelColor: UISettings.fgLight
         }
 
         // row 5
-        RobotoText { label: qsTr("Bitrate"); height: UISettings.listItemHeight }
+        RobotoText { label: qsTr("Audio Codec"); height: UISettings.listItemHeight }
         RobotoText
         {
             height: UISettings.listItemHeight
             Layout.fillWidth: true
-            label: mediaInfo ? mediaInfo.bitrate : ""
+            label: mediaInfo && mediaInfo.AudioCodec ? mediaInfo.AudioCodec : ""
             labelColor: UISettings.fgLight
         }
+
+        // row 5
+        RobotoText { label: qsTr("Output screen"); height: UISettings.listItemHeight }
+        CustomComboBox
+        {
+            height: editorColumn.itemsHeight
+            Layout.fillWidth: true
+            model: videoEditor.screenList
+            currentIndex: videoEditor.screenIndex
+        }
+
     }
 }
