@@ -31,6 +31,7 @@
 #include <QString>
 #include <QSlider>
 #include <QDebug>
+#include <QEvent>
 #include <QLabel>
 #include <math.h>
 #include <QMenu>
@@ -43,6 +44,7 @@
 #include "virtualconsole.h"
 #include "qlcinputsource.h"
 #include "mastertimer.h"
+#include "outputpatch.h"
 #include "collection.h"
 #include "inputpatch.h"
 #include "qlcmacros.h"
@@ -175,6 +177,8 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
 
     m_resetButton = NULL;
     m_isOverriding = false;
+    m_isCaught = false;
+    m_lastInputValid = false;
 
     /* Bottom label */
     m_bottomLabel = new QLabel(this);
@@ -777,6 +781,8 @@ void VCSlider::slotResetButtonClicked()
 
     m_priority = DMXSource::Auto;
     m_doc->masterTimer()->requestNewPriority(this);
+    setCaught(false);
+    m_lastInputValid = false;
     emit monitorDMXValueChanged(m_monitorValue);
 }
 
@@ -941,8 +947,6 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
     QMutexLocker locker(&m_levelValueMutex);
 
     uchar modLevel = m_levelValue;
-    bool mixedDMXlevels = false;
-    int monitorSliderValue = -1;
 
     int r = 0, g = 0, b = 0, c = 0, m = 0, y = 0;
 
@@ -978,6 +982,9 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
 
     if (m_monitorEnabled == true && m_levelValueChanged == false)
     {
+        bool mixedDMXlevels = false;
+        int monitorSliderValue = -1;
+
         QListIterator <LevelChannel> it(m_levelChannels);
         while (it.hasNext() == true)
         {
@@ -1359,6 +1366,39 @@ QString VCSlider::bottomLabelText()
 }
 
 /*****************************************************************************
+ * Catching status
+ *****************************************************************************/
+void VCSlider::setCaught(bool caught)
+{
+    m_isCaught = caught;
+}
+
+void VCSlider::changeEvent(QEvent *event)
+{
+    if (event->type() == QEvent::EnabledChange)
+    {
+        if (!isEnabled())
+        {
+            setCaught(false);
+            m_lastInputValid = false;
+        }
+    }
+}
+
+bool VCSlider::checkIfCaught(float val)
+{
+    int sliderVal = sliderValue();
+
+    bool result = (val < sliderVal + 4 && val > sliderVal - 4)
+            ||(m_lastInputValid
+               && ((val > sliderVal && sliderVal > m_lastInput)
+                   || (val < sliderVal && sliderVal < m_lastInput)));
+    m_lastInput = (int) val;
+    m_lastInputValid = true;
+    return result;
+}
+
+/*****************************************************************************
  * External input
  *****************************************************************************/
 
@@ -1381,18 +1421,30 @@ void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel,
                               (float) m_slider->minimum(),
                               (float) m_slider->maximum());
 
-            if (m_monitorEnabled == true && m_isOverriding == false)
-            {
-                m_priority = DMXSource::Override;
-                m_doc->masterTimer()->requestNewPriority(this);
-                m_resetButton->setStyleSheet(QString("QToolButton{ background: red; }"));
-                m_isOverriding = true;
-            }
 
-            if (m_slider->invertedAppearance() == true)
-                m_slider->setValue((m_slider->maximum() - (int) val) + m_slider->minimum());
+
+            OutputPatch* patch = m_doc->inputOutputMap()->feedbackPatch(universe);
+
+            // Only send feedback if the slider is caught by input source
+            // or a feedback is patched to the universe.
+            if (m_isCaught || (patch != NULL && patch->isPatched()))
+            {
+                if (m_monitorEnabled == true && m_isOverriding == false)
+                {
+                    m_priority = DMXSource::Override;
+                    m_doc->masterTimer()->requestNewPriority(this);
+                    m_resetButton->setStyleSheet(QString("QToolButton{ background: red; }"));
+                    m_isOverriding = true;
+                }
+
+                if (m_slider->invertedAppearance() == true)
+                    m_slider->setValue((m_slider->maximum() - (int) val) + m_slider->minimum());
+                else
+                    m_slider->setValue((int) val);
+            }
             else
-                m_slider->setValue((int) val);
+                if (checkIfCaught(val))
+                    setCaught(true);
         }
     }
     else if (checkInputSource(universe, pagedCh, value, sender(), overrideResetInputSourceId))
