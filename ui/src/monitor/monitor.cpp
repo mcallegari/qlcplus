@@ -459,7 +459,7 @@ void Monitor::initDMXToolbar()
             this, SLOT(slotUniverseSelected(int)));
     m_DMXToolBar->addWidget(uniCombo);
 
-    if (QLCFile::isRaspberry() == true)
+    if (QLCFile::hasWindowManager() == false)
     {
         QWidget* widget = new QWidget(this);
         widget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
@@ -540,7 +540,7 @@ void Monitor::initGraphicsToolbar()
     m_labelsAction->setChecked(m_props->labelsVisible());
     connect(m_labelsAction, SIGNAL(triggered(bool)), this, SLOT(slotShowLabels(bool)));
 
-    if (QLCFile::isRaspberry() == true)
+    if (QLCFile::hasWindowManager() == false)
     {
         QWidget* widget = new QWidget(this);
         widget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);

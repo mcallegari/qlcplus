@@ -163,7 +163,7 @@ DocBrowser::DocBrowser(QWidget* parent)
             m_browser, SLOT(home()));
     connect(m_aboutQtAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAboutQt()));
-    if (QLCFile::isRaspberry() == true)
+    if (QLCFile::hasWindowManager() == false)
     {
         m_toolbar->addAction(m_closeAction);
         connect(m_closeAction, SIGNAL(triggered(bool)),

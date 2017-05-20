@@ -238,7 +238,7 @@ QString WebAccessConfiguration::getHTML(Doc *doc)
                  "<link href=\"common.css\" rel=\"stylesheet\" type=\"text/css\" media=\"screen\">\n";
 
     QString extraButtons = "";
-    if (QLCFile::isRaspberry() == true)
+    if (QLCFile::hasWindowManager() == false)
     {
         extraButtons = "<a class=\"button button-blue\" href=\"/system\"><span>" + tr("System") + "</span></a>\n";
     }
