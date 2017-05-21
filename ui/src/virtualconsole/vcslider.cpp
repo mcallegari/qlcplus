@@ -30,6 +30,7 @@
 #include <QPainter>
 #include <QString>
 #include <QSlider>
+#include <QTimer>
 #include <QDebug>
 #include <QLabel>
 #include <math.h>
@@ -105,6 +106,8 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
 
     m_widgetMode = WSlider;
 
+    m_requestedValue = 0;
+
     setType(VCWidget::SliderWidget);
     setCaption(QString());
     setFrameStyle(KVCFrameStyleSunken);
@@ -140,6 +143,11 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
             this, SLOT(slotSliderMoved(int)));
     m_externalMovement = false;
 
+    m_updateTimer = new QTimer(this);
+    connect(m_updateTimer, SIGNAL(timeout()),
+            this, SLOT(slotUpdateSliderValue()));
+    m_updateTimer->setSingleShot(true);
+
     /* Put stretchable space after the slider (to its right side) */
     m_hbox->addStretch();
 
@@ -162,8 +170,6 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     layout()->setAlignment(m_cngButton, Qt::AlignHCenter);
     m_cngButton->hide();
 
-    connect(this, SIGNAL(playbackValueChanged(uchar)),
-            this, SLOT(setPlaybackValue(uchar)));
     connect(m_cngWidget, SIGNAL(levelChanged(uchar)),
             this, SLOT(slotClickAndGoLevelChanged(uchar)));
     connect(m_cngWidget, SIGNAL(colorChanged(QRgb)),
@@ -857,8 +863,7 @@ void VCSlider::notifyFunctionStarting(quint32 fid, qreal functionIntensity)
 
     if (m_slider != NULL)
     {
-        int value = SCALE(1.0 - functionIntensity,
-                          0, 1.0,
+        int value = SCALE(1.0 - functionIntensity, 0, 1.0,
                           m_slider->minimum(), m_slider->maximum());
         if (m_slider->value() > value)
         {
@@ -1178,9 +1183,13 @@ void VCSlider::setSliderValue(uchar value, bool noScale)
         }
 
         if (m_slider->invertedAppearance() == true)
-            m_slider->setValue(m_slider->maximum() - (int) val);
+            m_requestedValue = (uchar)m_slider->maximum() - val + (uchar)m_slider->minimum();
         else
-            m_slider->setValue((int) val);
+            m_requestedValue = val;
+
+        /* Request the UI to update */
+        if (m_requestedValue != m_slider->value())
+            m_updateTimer->start(5);
     }
 }
 
@@ -1304,8 +1313,17 @@ void VCSlider::updateFeedback()
     sendFeedback(fbv);
 }
 
+void VCSlider::slotUpdateSliderValue()
+{
+    if (m_slider)
+        m_slider->setValue(m_requestedValue);
+}
+
 void VCSlider::slotSliderMoved(int value)
 {
+    if (m_slider->isSliderDown())
+        m_requestedValue = value;
+
     switch (sliderMode())
     {
         case Level:
@@ -1324,7 +1342,7 @@ void VCSlider::slotSliderMoved(int value)
 
         case Playback:
         {
-            emit playbackValueChanged(value);
+            setPlaybackValue(value);
         }
         break;
 
@@ -1362,8 +1380,7 @@ QString VCSlider::bottomLabelText()
  * External input
  *****************************************************************************/
 
-void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel,
-                                     uchar value)
+void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
 {
     /* Don't let input data through in design mode or if disabled */
     if (acceptsInput() == false)
@@ -1377,10 +1394,6 @@ void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel,
 
         if (m_slider)
         {
-            float val = SCALE((float) value, (float) 0, (float) UCHAR_MAX,
-                              (float) m_slider->minimum(),
-                              (float) m_slider->maximum());
-
             if (m_monitorEnabled == true && m_isOverriding == false)
             {
                 m_priority = DMXSource::Override;
@@ -1389,10 +1402,7 @@ void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel,
                 m_isOverriding = true;
             }
 
-            if (m_slider->invertedAppearance() == true)
-                m_slider->setValue((m_slider->maximum() - (int) val) + m_slider->minimum());
-            else
-                m_slider->setValue((int) val);
+            setSliderValue(value);
         }
     }
     else if (checkInputSource(universe, pagedCh, value, sender(), overrideResetInputSourceId))
