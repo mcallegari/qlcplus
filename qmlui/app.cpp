@@ -83,7 +83,7 @@ void App::startup()
     qmlRegisterType<ModelSelector>("com.qlcplus.classes", 1, 0, "ModelSelector");
     qmlRegisterType<App>("com.qlcplus.classes", 1, 0, "App");
 
-    setTitle("Q Light Controller Plus");
+    setTitle(APPNAME);
     setIcon(QIcon(":/qlcplus.svg"));
 
     if (QFontDatabase::addApplicationFont(":/RobotoCondensed-Regular.ttf") < 0)
@@ -372,7 +372,7 @@ bool App::loadWorkspace(const QString &fileName)
 
     if (loadXML(localFilename) == QFile::NoError)
     {
-        setTitle(QString("Q Light Controller Plus - %1").arg(localFilename));
+        setTitle(QString("%1 - %2").arg(APPNAME).arg(localFilename));
         setFileName(localFilename);
         m_docLoaded = true;
         updateRecentFilesList(localFilename);
