@@ -52,9 +52,9 @@ void Function_Test::initial()
     QCOMPARE(stub->speeds().fadeIn(), uint(0));
     QCOMPARE(stub->speeds().fadeOut(), uint(0));
     QCOMPARE(stub->speeds().duration(), uint(0));
-    QCOMPARE(stub->alternateSpeeds(0).fadeIn(), Speed::originalValue());
-    QCOMPARE(stub->alternateSpeeds(0).fadeOut(), Speed::originalValue());
-    QCOMPARE(stub->alternateSpeeds(0).duration(), Speed::originalValue());
+    QCOMPARE(stub->overrideSpeeds().fadeIn(), Speed::originalValue());
+    QCOMPARE(stub->overrideSpeeds().fadeOut(), Speed::originalValue());
+    QCOMPARE(stub->overrideSpeeds().duration(), Speed::originalValue());
     QVERIFY(stub->saveXML(NULL) == false);
     QXmlStreamReader reader;
     QVERIFY(stub->loadXML(reader) == false);

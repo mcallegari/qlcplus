@@ -293,7 +293,7 @@ void Collection::preRun(MasterTimer* timer)
                     this, SLOT(slotChildStarted(quint32)));
 
             function->adjustAttribute(getAttributeValue(Function::Intensity), Function::Intensity);
-            function->start(timer, functionParent(), 0, alternateSpeeds(0));
+            function->start(timer, functionParent(), 0, overrideSpeeds());
         }
         m_tick = 1;
     }
