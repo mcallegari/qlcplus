@@ -41,7 +41,7 @@
 #include "qlcconfig.h"
 #include "qlcfile.h"
 
-bool QLCFile::m_isRaspberry = false;
+bool QLCFile::m_hasWindowManager = true;
 
 QXmlStreamReader *QLCFile::getXMLReader(const QString &path)
 {
@@ -168,24 +168,14 @@ QString QLCFile::currentUserName()
 #endif
 }
 
-void QLCFile::checkRaspberry()
+void QLCFile::setHasWindowManager(bool enable)
 {
-#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
-    QFile cpuInfoFile("/proc/cpuinfo");
-    if (cpuInfoFile.exists() == true)
-    {
-        cpuInfoFile.open(QFile::ReadOnly);
-        QString content = QLatin1String(cpuInfoFile.readAll());
-        cpuInfoFile.close();
-        if (content.contains("BCM2708") || content.contains("BCM2709"))
-            m_isRaspberry = true;
-    }
-#endif
+    m_hasWindowManager = enable;
 }
 
-bool QLCFile::isRaspberry()
+bool QLCFile::hasWindowManager()
 {
-    return m_isRaspberry;
+    return m_hasWindowManager;
 }
 
 QDir QLCFile::systemDirectory(QString path, QString extension)
@@ -222,7 +212,7 @@ QDir QLCFile::userDirectory(QString path, QString fallBackPath, QStringList exte
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     // If the current user is root, return the system fixture dir.
     // Otherwise return a path under user's home dir.
-    if (geteuid() == 0 && QLCFile::isRaspberry() == false)
+    if (geteuid() == 0 && QLCFile::hasWindowManager())
         dir = QDir(fallBackPath);
     else
         dir.setPath(QString("%1/%2").arg(getenv("HOME")).arg(path));

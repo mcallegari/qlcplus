@@ -85,6 +85,7 @@
     <file alias="AddFunctionMenu.qml">qml/fixturesfunctions/AddFunctionMenu.qml</file>
     <file alias="EditorTopBar.qml">qml/fixturesfunctions/EditorTopBar.qml</file>
     <file alias="AudioEditor.qml">qml/fixturesfunctions/AudioEditor.qml</file>
+    <file alias="VideoEditor.qml">qml/fixturesfunctions/VideoEditor.qml</file>
     <file alias="CollectionEditor.qml">qml/fixturesfunctions/CollectionEditor.qml</file>
     <file alias="CollectionFunctionDelegate.qml">qml/fixturesfunctions/CollectionFunctionDelegate.qml</file>
     <file alias="SceneEditor.qml">qml/fixturesfunctions/SceneEditor.qml</file>

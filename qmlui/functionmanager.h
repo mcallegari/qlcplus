@@ -162,7 +162,7 @@ signals:
 
 public slots:
     void slotDocLoaded();
-    void slotFunctionAdded();
+    void slotFunctionAdded(quint32 fid);
 
 private:
     /** Reference of the QML view */

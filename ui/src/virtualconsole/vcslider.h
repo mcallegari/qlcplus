@@ -357,18 +357,18 @@ public:
     quint32 playbackFunction() const;
 
     /**
-     * Set the level of the currently selected playback function.
-     *
-     * @param level The current playback function's level.
-     */
-    void setPlaybackValue(uchar value);
-
-    /**
      * Get the level of the currently selected playback function.
      *
      * @return The current playback function level.
      */
     uchar playbackValue() const;
+
+    /**
+     * Set the level of the currently selected playback function.
+     *
+     * @param level The current playback function's level.
+     */
+    void setPlaybackValue(uchar value);
 
     /** @reimp */
     virtual void notifyFunctionStarting(quint32 fid, qreal intensity);
@@ -457,6 +457,9 @@ public:
 
     void updateFeedback();
 
+protected slots:
+    void slotUpdateSliderValue();
+
 private slots:
     void slotSliderMoved(int value);
 
@@ -465,6 +468,10 @@ protected:
     QAbstractSlider* m_slider; //!< either ClickAndGoSlider or KnobWidget
     bool m_externalMovement;
     SliderWidgetStyle m_widgetMode;
+    uchar m_requestedValue;
+
+    /** timer for updating the UI slider value */
+    QTimer* m_updateTimer;
 
     /*********************************************************************
      * Bottom label

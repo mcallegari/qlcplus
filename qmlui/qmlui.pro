@@ -49,7 +49,9 @@ HEADERS += \
     sceneeditor.h \
     showmanager.h \
     treemodel.h \
-    treemodelitem.h
+    treemodelitem.h \
+    videoeditor.h \
+    videoprovider.h
 
 SOURCES += main.cpp \
     app.cpp \
@@ -75,8 +77,9 @@ SOURCES += main.cpp \
     sceneeditor.cpp \
     showmanager.cpp \
     treemodel.cpp \
-    treemodelitem.cpp
-
+    treemodelitem.cpp \
+    videoeditor.cpp \
+    videoprovider.cpp
 
 #############################################
 #  Virtual Console

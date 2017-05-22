@@ -365,7 +365,7 @@
   <fixture path="ETC-ColorSource-Spot.qxf" mf="ETC" md="ColorSource Spot"/>
   <fixture path="ETC-Desire-D40-Vivid.qxf" mf="ETC" md="Desire D40 Vivid"/>
   <fixture path="ETEC-LED-PAR-64-18x10W-RGBWA.qxf" mf="ETEC" md="LED PAR 64 18x10W RGBWA"/>
-  <fixture path="ETEC-LED-PAR-64-18x15W-RGBWA .qxf" mf="ETEC" md="LED PAR 64 18x15W RGBWA Zoom"/>
+  <fixture path="ETEC-LED-PAR-64-18x15W-RGBWA.qxf" mf="ETEC" md="LED PAR 64 18x15W RGBWA Zoom"/>
   <fixture path="ETEC-Moving-Spot-60E.qxf" mf="ETEC" md="Moving Spot 60E"/>
   <fixture path="Eurolite-DMXSuperstrobe-2700.qxf" mf="Eurolite" md="DMX Superstrobe 2700"/>
   <fixture path="Eurolite-GKF-60.qxf" mf="Eurolite" md="GKF-60"/>

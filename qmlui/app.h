@@ -36,6 +36,7 @@ class FunctionManager;
 class QXmlStreamReader;
 class FixtureGroupEditor;
 class InputOutputManager;
+class VideoProvider;
 
 #define KXMLQLCWorkspace "Workspace"
 
@@ -123,6 +124,7 @@ private:
     VirtualConsole *m_virtualConsole;
     ShowManager *m_showManager;
     ActionManager *m_actionManager;
+    VideoProvider *m_videoProvider;
 
     /*********************************************************************
      * Doc

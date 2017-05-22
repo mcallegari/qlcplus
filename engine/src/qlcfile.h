@@ -108,14 +108,14 @@ public:
     static QString currentUserName();
 
     /**
-     * Method called just once to set the m_isRaspberry flag
+     * Method called just once to set the m_hasWindowManager flag
      */
-    static void checkRaspberry();
+    static void setHasWindowManager(bool enable);
 
     /**
-     * Return if the current platform is a Raspberry Pi
+     * Return if the current platform provides a window manager
      */
-    static bool isRaspberry();
+    static bool hasWindowManager();
 
     /**
      * @brief systemDirectory returns a system dependant QDir based
@@ -141,7 +141,7 @@ public:
     static quint32 getQtRuntimeVersion();
 
 private:
-    static bool m_isRaspberry;
+    static bool m_hasWindowManager;
 };
 
 /** @} */
