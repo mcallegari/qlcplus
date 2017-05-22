@@ -38,6 +38,8 @@
 class QXmlStreamReader;
 class QXmlStreamWriter;
 
+// FunctionSpeeds groups the components of a function's speeds:
+// fadeIn, hold, fadeOut, and duration(which is fadeIn+hold)
 class FunctionSpeeds
 {
 private:
@@ -60,11 +62,13 @@ public:
      */
     void setTempoType(Speed::TempoType tempoType, float beatTime);
 
-    /**
-     * Get the FunctionSpeeds current speed tempo type
-     */
+    /** Get the FunctionSpeeds current speed tempo type */
     Speed::TempoType tempoType() const;
 
+    /**
+     * Get/Set the value of the desired speed component.
+     * The unit is the current Type of the FunctionSpeeds
+     */
     quint32 fadeIn() const;
     void setFadeIn(quint32 fadeIn);
     quint32 hold() const;
@@ -74,6 +78,10 @@ public:
     quint32 duration() const;
     void setDuration(quint32 duration);
 
+    /**
+     * Get/Set the value of the desired speed component in ms.
+     * beatTime in ms.
+     */
     quint32 msFadeIn(float beatTime) const;
     void setMsFadeIn(quint32 fadeIn, float beatTime);
     quint32 msHold(float beatTime) const;
@@ -83,6 +91,10 @@ public:
     quint32 msDuration(float beatTime) const;
     void setMsDuration(quint32 duration, float beatTime);
 
+    /**
+     * Get/Set the value of the desired speed component in beats(*1000).
+     * beatTime in ms.
+     */
     quint32 beatsFadeIn(float beatTime) const;
     void setBeatsFadeIn(quint32 fadeIn, float beatTime);
     quint32 beatsHold(float beatTime) const;
@@ -92,10 +104,10 @@ public:
     quint32 beatsDuration(float beatTime) const;
     void setBeatsDuration(quint32 duration, float beatTime);
 
-    /** Load the contents of a speeds node */
+    /** Load the contents of a function speeds node */
     bool loadXML(QXmlStreamReader &speedRoot, QString const& nodeName = KXMLQLCFunctionSpeeds);
 
-    /** Save speeds values in $doc */
+    /** Save function speeds values in $doc */
     bool saveXML(QXmlStreamWriter *doc, QString const& nodeName = KXMLQLCFunctionSpeeds) const;
 };
 

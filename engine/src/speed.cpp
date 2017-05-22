@@ -116,34 +116,6 @@ quint32 stringSplit(QString& string, QString splitNeedle)
 }
 }
 
-quint32 Speed::stringToMs(QString const& str)
-{
-    quint32 ms = 0;
-
-    if (str == infiniteSymbol())
-        return infiniteValue();
-
-    QString string(str);
-
-    ms += stringSplit(string, "h") * 1000 * 60 * 60;
-    ms += stringSplit(string, "m") * 1000 * 60;
-    ms += stringSplit(string, "s") * 1000;
-
-    if (string.contains("."))
-    {
-        // lround avoids toDouble precison issues (.03 transforms to .029)
-        ms += lround(string.toDouble() * 1000.0);
-    }
-    else
-    {
-        if (string.contains("ms"))
-            string = string.split("ms").at(0);
-        ms += string.toUInt();
-    }
-
-    return ms;
-}
-
 QString Speed::msToString(quint32 ms)
 {
     QString str;
@@ -177,6 +149,49 @@ QString Speed::msToString(quint32 ms)
     return str;
 }
 
+quint32 Speed::stringToMs(QString const& str)
+{
+    quint32 ms = 0;
+
+    if (str == infiniteSymbol())
+        return infiniteValue();
+
+    QString string(str);
+
+    ms += stringSplit(string, "h") * 1000 * 60 * 60;
+    ms += stringSplit(string, "m") * 1000 * 60;
+    ms += stringSplit(string, "s") * 1000;
+
+    if (string.contains("."))
+    {
+        // lround avoids toDouble precison issues (.03 transforms to .029)
+        ms += lround(string.toDouble() * 1000.0);
+    }
+    else
+    {
+        if (string.contains("ms"))
+            string = string.split("ms").at(0);
+        ms += string.toUInt();
+    }
+
+    return ms;
+}
+
+QString Speed::beatsToString(quint32 beats)
+{
+    if (beats == infiniteValue())
+        return infiniteSymbol();
+    double val = double(beats) / 1000.0;
+    return QString("%1 beats").arg(val);
+}
+
+quint32 Speed::stringToBeats(QString const& str)
+{
+    if (str == infiniteSymbol())
+        return infiniteValue();
+    return str.toDouble() * 1000;
+}
+
 quint32 Speed::add(quint32 left, quint32 right)
 {
     if (left == originalValue() && right == originalValue())
@@ -206,21 +221,6 @@ quint32 Speed::normalize(quint32 value)
     if ((int)value < 0)
         return infiniteValue();
     return value;
-}
-
-quint32 Speed::stringToBeats(QString const& str)
-{
-    if (str == infiniteSymbol())
-        return infiniteValue();
-    return str.toDouble() * 1000;
-}
-
-QString Speed::beatsToString(quint32 beats)
-{
-    if (beats == infiniteValue())
-        return infiniteSymbol();
-    double val = double(beats) / 1000.0;
-    return QString("%1 beats").arg(val);
 }
 
 quint32 Speed::beatsToMs(quint32 beats, float beatTime)
