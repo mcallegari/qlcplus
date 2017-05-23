@@ -2280,7 +2280,7 @@ El archivo seleccionado ha sido movido o borrado.</translation>
     <message>
         <location filename="fixturemanager.cpp" line="592"/>
         <source>This group contains all fixtures of</source>
-        <translation>Este grupo contiene tolos los fixtures de</translation>
+        <translation type="unfinished">Este grupo contiene todos los fixtures de</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="596"/>
