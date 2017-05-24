@@ -927,17 +927,17 @@ El archivo seleccionado ha sido movido o borrado.</translation>
     <message>
         <location filename="audioeditor.ui" line="41"/>
         <source>Playback mode</source>
-        <translation type="unfinished">Modo de reproducción</translation>
+        <translation>Modo de reproducción</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="47"/>
         <source>Single shot</source>
-        <translation type="unfinished">Una sola vez</translation>
+        <translation>Una sola vez</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="57"/>
         <source>Loop</source>
-        <translation type="unfinished">Loop</translation>
+        <translation>Loop</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="209"/>
@@ -2280,19 +2280,19 @@ El archivo seleccionado ha sido movido o borrado.</translation>
     <message>
         <location filename="fixturemanager.cpp" line="592"/>
         <source>This group contains all fixtures of</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Este grupo contiene todos los fixtures de</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="596"/>
         <location filename="fixturemanager.cpp" line="637"/>
         <source>Total estimated weight</source>
-        <translation type="unfinished"></translation>
+        <translation>Peso total estimado</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="597"/>
         <location filename="fixturemanager.cpp" line="638"/>
         <source>Maximum estimated power consumption</source>
-        <translation type="unfinished"></translation>
+        <translation>Consumo eléctrico máximo estimado</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="981"/>
@@ -2785,7 +2785,7 @@ El archivo seleccionado ha sido movido o borrado.</translation>
     <message>
         <location filename="functionselection.ui" line="122"/>
         <source>EFX</source>
-        <translation type="unfinished"></translation>
+        <translation>EFX</translation>
     </message>
     <message>
         <location filename="functionselection.ui" line="129"/>
@@ -2805,7 +2805,7 @@ El archivo seleccionado ha sido movido o borrado.</translation>
     <message>
         <location filename="functionselection.ui" line="180"/>
         <source>Sequences</source>
-        <translation type="unfinished"></translation>
+        <translation>Secuencias</translation>
     </message>
     <message>
         <location filename="functionselection.ui" line="99"/>
@@ -4205,7 +4205,7 @@ Tenga en cuenta que el asistente no puede diferenciar entre una perilla y un sli
     <message>
         <location filename="virtualconsole/vcframepageshortcut.cpp" line="49"/>
         <source>Page: %1</source>
-        <translation type="unfinished">Página: %1</translation>
+        <translation>Página: %1</translation>
     </message>
 </context>
 <context>
@@ -5860,7 +5860,7 @@ Duración: %3
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="210"/>
         <source>Page Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre de la página</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.cpp" line="63"/>
