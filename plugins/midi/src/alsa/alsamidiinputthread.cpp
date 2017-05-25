@@ -64,13 +64,12 @@ bool AlsaMidiInputThread::addDevice(AlsaMidiInputDevice* device)
 
     Q_ASSERT(device != NULL);
 
-    m_mutex.lock();
+    QMutexLocker locker(&m_mutex);
 
     /* Check, whether the hash table already contains the device */
     uint uid = device->uid().toUInt();
     if (m_devices.contains(uid) == true)
     {
-        m_mutex.unlock();
         return false;
     }
 
@@ -85,8 +84,6 @@ bool AlsaMidiInputThread::addDevice(AlsaMidiInputDevice* device)
     if (m_running == false && isRunning() == false)
         start();
 
-    m_mutex.unlock();
-
     return true;
 }
 
@@ -96,24 +93,23 @@ bool AlsaMidiInputThread::removeDevice(AlsaMidiInputDevice* device)
 
     Q_ASSERT(device != NULL);
 
-    m_mutex.lock();
+    bool empty = false;
 
-    uint uid = device->uid().toUInt();
-    if (m_devices.remove(uid) > 0)
     {
-        unsubscribeDevice(device);
-        m_changed = true;
+        QMutexLocker locker(&m_mutex);
+
+        uint uid = device->uid().toUInt();
+        if (m_devices.remove(uid) > 0)
+        {
+           unsubscribeDevice(device);
+           m_changed = true;
+        }
+
+        empty = (m_devices.size() == 0);
     }
 
-    if (m_devices.size() == 0)
-    {
-        m_mutex.unlock();
+    if (empty)
         stop();
-    }
-    else
-    {
-        m_mutex.unlock();
-    }
 
     return true;
 }
@@ -155,9 +151,10 @@ void AlsaMidiInputThread::stop()
 {
     qDebug() << Q_FUNC_INFO;
 
-    m_mutex.lock();
-    m_running = false;
-    m_mutex.unlock();
+    {
+        QMutexLocker locker(&m_mutex);
+        m_running = false;
+    }
 
     wait();
 }
@@ -169,7 +166,7 @@ void AlsaMidiInputThread::run()
     struct pollfd* pfd = 0;
     int npfd = 0;
 
-    m_mutex.lock();
+    QMutexLocker locker(&m_mutex);
     m_running = true;
     while (m_running == true)
     {
@@ -182,22 +179,21 @@ void AlsaMidiInputThread::run()
             m_changed = false;
         }
 
-        m_mutex.unlock();
+        locker.unlock();
 
         // Poll for MIDI events from the polled descriptors outside of mutex lock
         if (poll(pfd, npfd, POLL_TIMEOUT_MS) > 0)
             readEvent();
 
-        m_mutex.lock();
+        locker.relock();
     }
-    m_mutex.unlock();
 
     qDebug() << Q_FUNC_INFO << "end";
 }
 
 void AlsaMidiInputThread::readEvent()
 {
-    m_mutex.lock();
+    QMutexLocker locker(&m_mutex);
 
     /* Wait for input data */
     do
@@ -305,7 +301,5 @@ void AlsaMidiInputThread::readEvent()
                 device->emitValueChanged(channel, 0);
         }
     } while (snd_seq_event_input_pending(m_alsa, 0) > 0);
-
-    m_mutex.unlock();
 }
 

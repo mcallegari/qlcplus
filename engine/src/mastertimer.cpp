@@ -319,32 +319,33 @@ void MasterTimer::timerTickFunctions(QList<Universe *> universes)
         firstIteration = false;
     }
 
-    m_functionListMutex.lock();
-    while (m_startQueue.size() > 0)
     {
-        QList<Function*> startQueue(m_startQueue);
-        m_startQueue.clear();
-        m_functionListMutex.unlock();
-
-        foreach (Function* f, startQueue)
+        QMutexLocker locker(&m_functionListMutex);
+        while (m_startQueue.size() > 0)
         {
-            if (m_functionList.contains(f))
-            {
-                f->postRun(this, universes);
-            }
-            else
-            {
-                m_functionList.append(f);
-                functionListHasChanged = true;
-            }
-            f->preRun(this);
-            f->write(this, universes);
-            emit functionStarted(f->id());
-        }
+            QList<Function*> startQueue(m_startQueue);
+            m_startQueue.clear();
+            locker.unlock();
 
-        m_functionListMutex.lock();
+            foreach (Function* f, startQueue)
+            {
+                if (m_functionList.contains(f))
+                {
+                    f->postRun(this, universes);
+                }
+                else
+                {
+                    m_functionList.append(f);
+                    functionListHasChanged = true;
+                }
+                f->preRun(this);
+                f->write(this, universes);
+                emit functionStarted(f->id());
+            }
+
+            locker.relock();
+        }
     }
-    m_functionListMutex.unlock();
 
     if (functionListHasChanged)
         emit functionListChanged();

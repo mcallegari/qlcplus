@@ -40,24 +40,21 @@ GenericDMXSource::~GenericDMXSource()
 
 void GenericDMXSource::set(quint32 fxi, quint32 ch, uchar value)
 {
-    m_mutex.lock();
+    QMutexLocker locker(&m_mutex);
     m_values[QPair<quint32,quint32>(fxi, ch)] = value;
-    m_mutex.unlock();
 }
 
 void GenericDMXSource::unset(quint32 fxi, quint32 ch)
 {
-    m_mutex.lock();
+    QMutexLocker locker(&m_mutex);
     m_values.remove(QPair<quint32,quint32>(fxi, ch));
-    m_mutex.unlock();
 }
 
 void GenericDMXSource::unsetAll()
 {
-    m_mutex.lock();
+    QMutexLocker locker(&m_mutex);
     // will be processed at the next writeDMX
     m_clearRequest = true;
-    m_mutex.unlock();
 }
 
 void GenericDMXSource::setOutputEnabled(bool enable)
@@ -95,7 +92,7 @@ void GenericDMXSource::writeDMX(MasterTimer* timer, QList<Universe *> ua)
 {
     Q_UNUSED(timer);
 
-    m_mutex.lock();
+    QMutexLocker locker(&m_mutex);
     QMutableMapIterator <QPair<quint32,quint32>,uchar> it(m_values);
     while (it.hasNext() == true && m_outputEnabled == true)
     {
@@ -117,5 +114,4 @@ void GenericDMXSource::writeDMX(MasterTimer* timer, QList<Universe *> ua)
         m_clearRequest = false;
         m_values.clear();
     }
-    m_mutex.unlock();
 }
