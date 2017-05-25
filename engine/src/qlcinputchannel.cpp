@@ -75,36 +75,25 @@ QLCInputChannel::Type QLCInputChannel::type() const
 
 QString QLCInputChannel::typeToString(Type type)
 {
-    QString str;
-
     switch (type)
     {
         case Button:
-            str = QString(KXMLQLCInputChannelButton);
-        break;
+            return KXMLQLCInputChannelButton;
         case Knob:
-            str = QString(KXMLQLCInputChannelKnob);
-        break;
+            return KXMLQLCInputChannelKnob;
         case Encoder:
-            str = QString(KXMLQLCInputChannelEncoder);
-        break;
+            return KXMLQLCInputChannelEncoder;
         case Slider:
-            str = QString(KXMLQLCInputChannelSlider);
-        break;
+            return KXMLQLCInputChannelSlider;
         case NextPage:
-            str = QString(KXMLQLCInputChannelPageUp);
-        break;
+            return KXMLQLCInputChannelPageUp;
         case PrevPage:
-            str = QString(KXMLQLCInputChannelPageDown);
-        break;
+            return KXMLQLCInputChannelPageDown;
         case PageSet:
-            str = QString(KXMLQLCInputChannelPageSet);
-        break;
+            return KXMLQLCInputChannelPageSet;
         default:
-            str = QString(KXMLQLCInputChannelNone);
+            return KXMLQLCInputChannelNone;
     }
-
-    return str;
 }
 
 QLCInputChannel::Type QLCInputChannel::stringToType(const QString& type)
