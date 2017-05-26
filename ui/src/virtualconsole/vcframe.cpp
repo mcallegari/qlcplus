@@ -1058,6 +1058,8 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
         else if (root.name() == KXMLQLCVCFrameMultipage)
         {
             setMultipageMode(true);
+            // add initial shortcut
+            addShortcut();
             QXmlStreamAttributes attrs = root.attributes();
             if (attrs.hasAttribute(KXMLQLCVCFramePagesNumber))
                 setTotalPagesNumber(attrs.value(KXMLQLCVCFramePagesNumber).toString().toInt());
