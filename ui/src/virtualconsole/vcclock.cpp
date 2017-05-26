@@ -30,6 +30,8 @@
 #include "vcclock.h"
 #include "doc.h"
 
+#define HYSTERESIS 3 // Hysteresis for pause/reset external input
+
 #define KXMLQLCVCClockType "Type"
 #define KXMLQLCVCClockHours "Hours"
 #define KXMLQLCVCClockMinutes "Minutes"
@@ -38,6 +40,12 @@
 #define KXMLQLCVCClockSchedule "Schedule"
 #define KXMLQLCVCClockScheduleFunc "Function"
 #define KXMLQLCVCClockScheduleTime "Time"
+
+#define KXMLQLCVCClockPlay "PlayPause"
+#define KXMLQLCVCClockReset "Reset"
+
+const quint8 VCClock::playInputSourceId = 0;
+const quint8 VCClock::resetInputSourceId = 1;
 
 VCClock::VCClock(QWidget* parent, Doc* doc)
     : VCWidget(parent, doc)
@@ -101,10 +109,11 @@ void VCClock::slotModeChanged(Doc::Mode mode)
 void VCClock::setClockType(VCClock::ClockType type)
 {
     m_clocktype = type;
+    updateFeedback();
     update();
 }
 
-VCClock::ClockType VCClock::clockType()
+VCClock::ClockType VCClock::clockType() const
 {
     return m_clocktype;
 }
@@ -169,16 +178,6 @@ void VCClock::setCountdown(int h, int m, int s)
     m_currentTime = m_targetTime;
 }
 
-void VCClock::resetTime()
-{
-    if (m_clocktype == Stopwatch)
-        m_currentTime = 0;
-    else if (m_clocktype == Countdown)
-        m_currentTime = m_targetTime;
-
-    update();
-}
-
 void VCClock::slotUpdateTime()
 {
     if (mode() == Doc::Operate)
@@ -216,7 +215,134 @@ void VCClock::slotUpdateTime()
             }
         }
     }
+    updateFeedback();
     update();
+}
+
+void VCClock::slotResetTimer()
+{
+    if (clockType() == Stopwatch)
+        m_currentTime = 0;
+    else if (clockType() == Countdown)
+        m_currentTime = m_targetTime;
+
+    updateFeedback();
+    update();
+}
+
+void VCClock::slotPlayPauseTimer()
+{
+    if (clockType() == Stopwatch || clockType() == Countdown)
+        m_isPaused = !m_isPaused;
+
+    updateFeedback();
+    update();
+}
+
+/*****************************************************************************
+ * Key Sequences
+ *****************************************************************************/
+
+void VCClock::setPlayKeySequence(const QKeySequence& keySequence)
+{
+    m_playKeySequence = QKeySequence(keySequence);
+}
+
+QKeySequence VCClock::playKeySequence() const
+{
+    return m_playKeySequence;
+}
+
+void VCClock::setResetKeySequence(const QKeySequence& keySequence)
+{
+    m_resetKeySequence = QKeySequence(keySequence);
+}
+
+QKeySequence VCClock::resetKeySequence() const
+{
+    return m_resetKeySequence;
+}
+
+void VCClock::slotKeyPressed(const QKeySequence& keySequence)
+{
+    if (acceptsInput() == false)
+        return;
+
+    if (m_playKeySequence == keySequence)
+        slotPlayPauseTimer();
+    else if (m_resetKeySequence == keySequence)
+        slotResetTimer();
+}
+
+void VCClock::updateFeedback()
+{
+    if (clockType() == Stopwatch)
+    {
+        sendFeedback(!m_isPaused ? UCHAR_MAX : 0, playInputSourceId);
+        sendFeedback(m_currentTime == 0 ? UCHAR_MAX : 0, resetInputSourceId);
+    }
+    else if (clockType() == Countdown)
+    {
+        sendFeedback(!m_isPaused ? UCHAR_MAX : 0, playInputSourceId);
+        sendFeedback(m_currentTime == m_targetTime ? UCHAR_MAX : 0, resetInputSourceId);
+    }
+    else
+    {
+        sendFeedback(0, playInputSourceId);
+        sendFeedback(0, resetInputSourceId);
+    }
+}
+
+/*****************************************************************************
+ * External Input
+ *****************************************************************************/
+
+void VCClock::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
+{
+    /* Don't let input data through in design mode or if disabled */
+    if (acceptsInput() == false)
+        return;
+
+    quint32 pagedCh = (page() << 16) | channel;
+
+    if (checkInputSource(universe, pagedCh, value, sender(), playInputSourceId))
+    {
+        // Use hysteresis for values, in case the timer is being controlled
+        // by a slider. The value has to go to zero before the next non-zero
+        // value is accepted as input. And the non-zero values have to visit
+        // above $HYSTERESIS before a zero is accepted again.
+        if (m_playLatestValue == 0 && value > 0)
+        {
+            slotPlayPauseTimer();
+            m_playLatestValue = value;
+        }
+        else if (m_playLatestValue > HYSTERESIS && value == 0)
+        {
+            m_playLatestValue = 0;
+        }
+
+        if (value > HYSTERESIS)
+            m_playLatestValue = value;
+    }
+    else if (checkInputSource(universe, pagedCh, value, sender(), resetInputSourceId))
+    {
+        // Use hysteresis for values, in case the timer is being controlled
+        // by a slider. The value has to go to zero before the next non-zero
+        // value is accepted as input. And the non-zero values have to visit
+        // above $HYSTERESIS before a zero is accepted again.
+        if (m_resetLatestValue == 0 && value > 0)
+        {
+            slotResetTimer();
+            m_resetLatestValue = value;
+        }
+        else if (m_resetLatestValue > HYSTERESIS && value == 0)
+        {
+            m_resetLatestValue = 0;
+        }
+
+        if (value > HYSTERESIS)
+            m_resetLatestValue = value;
+    }
 }
 
 /*****************************************************************************
@@ -235,6 +361,25 @@ VCWidget* VCClock::createCopy(VCWidget* parent)
     }
 
     return clock;
+}
+
+bool VCClock::copyFrom(const VCWidget* widget)
+{
+    const VCClock* clock = qobject_cast<const VCClock*> (widget);
+    if (clock == NULL)
+        return false;
+
+    // TODO: copy schedules
+
+    /* Clock type */
+    setClockType(clock->clockType());
+
+    /* Key sequence */
+    setPlayKeySequence(clock->playKeySequence());
+    setResetKeySequence(clock->resetKeySequence());
+
+    /* Common stuff */
+    return VCWidget::copyFrom(widget);
 }
 
 /*****************************************************************************
@@ -303,6 +448,17 @@ bool VCClock::loadXML(QXmlStreamReader &root)
             if (sch.loadXML(root) == true)
                 addSchedule(sch);
         }
+        else if (root.name() == KXMLQLCVCClockPlay)
+        {
+            QString str = loadXMLSources(root, playInputSourceId);
+            if (str.isEmpty() == false)
+                m_playKeySequence = stripKeySequence(QKeySequence(str));
+        }else if (root.name() == KXMLQLCVCClockReset)
+        {
+            QString str = loadXMLSources(root, resetInputSourceId);
+            if (str.isEmpty() == false)
+                m_resetKeySequence = stripKeySequence(QKeySequence(str));
+        }
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown clock tag:" << root.name().toString();
@@ -340,6 +496,23 @@ bool VCClock::saveXML(QXmlStreamWriter *doc)
 
     foreach(VCClockSchedule sch, schedules())
         sch.saveXML(doc);
+
+    if (type != Clock)
+    {
+        /* Play/Pause */
+        doc->writeStartElement(KXMLQLCVCClockPlay);
+        if (m_playKeySequence.toString().isEmpty() == false)
+            doc->writeTextElement(KXMLQLCVCWidgetKey, m_playKeySequence.toString());
+        saveXMLInput(doc, inputSource(playInputSourceId));
+        doc->writeEndElement();
+
+        /* Reset */
+        doc->writeStartElement(KXMLQLCVCClockReset);
+        if (m_resetKeySequence.toString().isEmpty() == false)
+            doc->writeTextElement(KXMLQLCVCWidgetKey, m_resetKeySequence.toString());
+        saveXMLInput(doc, inputSource(resetInputSourceId));
+        doc->writeEndElement();
+    }
 
     /* End the <Clock> tag */
     doc->writeEndElement();
@@ -390,18 +563,11 @@ void VCClock::mousePressEvent(QMouseEvent *e)
 
     if (e->button() == Qt::RightButton)
     {
-        if (clockType() == Stopwatch)
-            m_currentTime = 0;
-        else if (clockType() == Countdown)
-            m_currentTime = m_targetTime;
-        update();
+        slotResetTimer();
     }
     else if (e->button() == Qt::LeftButton)
     {
-        if (clockType() == Stopwatch || clockType() == Countdown)
-            m_isPaused = !m_isPaused;
-
-        update();
+        slotPlayPauseTimer();
     }
     VCWidget::mousePressEvent(e);
 }
