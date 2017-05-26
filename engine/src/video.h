@@ -36,6 +36,8 @@ class Video : public Function
     Q_OBJECT
     Q_DISABLE_COPY(Video)
 
+    Q_PROPERTY(QString sourceUrl READ sourceUrl WRITE setSourceUrl NOTIFY sourceChanged)
+
     /*********************************************************************
      * Initialization
      *********************************************************************/
@@ -156,7 +158,7 @@ private:
     QString m_sourceUrl;
     /** Duration of the video content */
     qint64 m_videoDuration;
-    /** The video codec as strings */
+    /** The audio and video codec as strings */
     QString m_audioCodec, m_videoCodec;
     /** Resolution of the video content */
     QSize m_resolution;

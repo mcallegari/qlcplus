@@ -35,6 +35,7 @@ class VideoEditor : public FunctionEditor
     Q_PROPERTY(QVariant mediaInfo READ mediaInfo NOTIFY mediaInfoChanged)
     Q_PROPERTY(QStringList screenList READ screenList CONSTANT)
     Q_PROPERTY(int screenIndex READ screenIndex WRITE setScreenIndex NOTIFY screenIndexChanged)
+    Q_PROPERTY(bool fullscreen READ isFullscreen WRITE setFullscreen NOTIFY fullscreenChanged)
     Q_PROPERTY(bool looped READ isLooped WRITE setLooped NOTIFY loopedChanged)
 
 public:
@@ -54,14 +55,19 @@ public:
     /** Get the information of the currently loaded media source */
     QVariant mediaInfo() const;
 
-    /** Get/Set looped attribute for this Audio function */
-    bool isLooped();
-    void setLooped(bool looped);
-
     QStringList screenList() const;
 
+    /** Get/Set the screen index of this Video function */
     int screenIndex() const;
     void setScreenIndex(int screenIndex);
+
+    /** Get/Set the fullscreen flag of this Video function */
+    bool isFullscreen() const;
+    void setFullscreen(bool fullscreen);
+
+    /** Get/Set looped attribute for this Video function */
+    bool isLooped();
+    void setLooped(bool looped);
 
 protected slots:
     void slotDurationChanged(qint64 duration);
@@ -70,9 +76,9 @@ protected slots:
 signals:
     void sourceFileNameChanged(QString sourceFileName);
     void mediaInfoChanged();
-    void loopedChanged();
-
     void screenIndexChanged(int screenIndex);
+    void fullscreenChanged(bool fullscreen);
+    void loopedChanged();
 
 private:
     /** Reference of the Video currently being edited */

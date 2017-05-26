@@ -24,7 +24,10 @@
 #include <QQuickItem>
 #include <QMediaPlayer>
 
+#include "video.h"
+
 class Doc;
+class VideoContent;
 
 class VideoProvider: public QObject
 {
@@ -33,9 +36,18 @@ public:
     VideoProvider(QQuickView *view, Doc *doc, QObject *parent = 0);
     ~VideoProvider();
 
+    /** Get/Set the shared fullscreen context */
+    QQuickView *fullscreenContext();
+    void setFullscreenContext(QQuickView *context);
+
 protected slots:
     void slotFunctionAdded(quint32 id);
     void slotFunctionRemoved(quint32 id);
+
+    void slotRequestPlayback();
+    void slotRequestPause(bool enable);
+    void slotRequestStop();
+    void slotBrightnessAdjust(int value);
 
 private:
     /** Reference of the QML view */
@@ -43,7 +55,42 @@ private:
     /** Reference of the project workspace */
     Doc *m_doc;
 
-    QMap<quint32, QQuickItem *> m_videoMap;
+    QMap<quint32, VideoContent *> m_videoMap;
+
+    /** A single instance for fullscreen rendering shared between videos */
+    QQuickView *m_fullscreenContext;
+};
+
+class VideoContent: public QObject
+{
+    Q_OBJECT
+
+    Q_PROPERTY(quint32 id READ id CONSTANT)
+
+public:
+    VideoContent(Video *video, VideoProvider *parent = NULL);
+
+    quint32 id() const;
+    Q_INVOKABLE void destroyContext();
+
+    void playVideo();
+    void stopVideo();
+
+public slots:
+    void slotDetectResolution();
+    void slotMetaDataChanged(const QString &key, const QVariant &value);
+
+protected:
+    /** Reference to the parent video provider */
+    VideoProvider *m_provider;
+    /** reference to the actual Video Function */
+    Video *m_video;
+    /** temporary media player to retrieve the video resolution */
+    QMediaPlayer *m_mediaPlayer;
+    /** the video position considering its resolution and the target screen */
+    QRect m_geometry;
+    /** Quick context for windowed video playback */
+    QQuickView *m_viewContext;
 };
 
 #endif // VIDEOPROVIDER_H

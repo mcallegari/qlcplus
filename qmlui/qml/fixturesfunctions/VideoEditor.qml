@@ -20,6 +20,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.1
+import QtQuick.Controls 1.0
 
 import com.qlcplus.classes 1.0
 import "."
@@ -151,15 +152,95 @@ Rectangle
             labelColor: UISettings.fgLight
         }
 
-        // row 5
+        // row 6
         RobotoText { label: qsTr("Output screen"); height: UISettings.listItemHeight }
         CustomComboBox
         {
-            height: editorColumn.itemsHeight
+            height: UISettings.listItemHeight
             Layout.fillWidth: true
             model: videoEditor.screenList
             currentIndex: videoEditor.screenIndex
+            onCurrentIndexChanged: videoEditor.screenIndex = currentIndex
         }
 
+        // row 7
+        RobotoText { label: qsTr("Output mode"); height: UISettings.listItemHeight }
+        GridLayout
+        {
+            height: UISettings.listItemHeight
+            Layout.fillWidth: true
+
+            ExclusiveGroup { id: outputModeGroup }
+
+            CustomCheckBox
+            {
+                width: UISettings.iconSizeMedium
+                height: width
+                exclusiveGroup: outputModeGroup
+                checked: !videoEditor.fullscreen
+                onToggle: if (checked) videoEditor.fullscreen = false
+            }
+            RobotoText
+            {
+                height: UISettings.listItemHeight
+                Layout.fillWidth: true
+                label: qsTr("Windowed")
+            }
+
+            CustomCheckBox
+            {
+                width: UISettings.iconSizeMedium
+                height: width
+                exclusiveGroup: outputModeGroup
+                checked: videoEditor.fullscreen
+                onToggle: if (checked) videoEditor.fullscreen = true
+            }
+            RobotoText
+            {
+                height: UISettings.listItemHeight
+                Layout.fillWidth: true
+                label: qsTr("Fullscreen")
+            }
+        }
+
+        // row 8
+        RobotoText { label: qsTr("Playback mode"); height: UISettings.listItemHeight }
+        GridLayout
+        {
+            height: UISettings.listItemHeight
+            Layout.fillWidth: true
+
+            ExclusiveGroup { id: playbackModeGroup }
+
+            CustomCheckBox
+            {
+                width: UISettings.iconSizeMedium
+                height: width
+                exclusiveGroup: playbackModeGroup
+                checked: !videoEditor.looped
+                onToggle: if (checked) videoEditor.looped = false
+            }
+            RobotoText
+            {
+                height: UISettings.listItemHeight
+                Layout.fillWidth: true
+                label: qsTr("Single shot")
+            }
+
+            CustomCheckBox
+            {
+                width: UISettings.iconSizeMedium
+                height: width
+                exclusiveGroup: playbackModeGroup
+                checked: videoEditor.looped
+                onToggle: if (checked) videoEditor.looped = true
+            }
+            RobotoText
+            {
+                height: UISettings.listItemHeight
+                Layout.fillWidth: true
+                label: qsTr("Looped")
+            }
+        }
     }
 }
