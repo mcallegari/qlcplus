@@ -69,6 +69,8 @@ App::App()
     QVariant dir = settings.value(SETTINGS_WORKINGPATH);
     if (dir.isValid() == true)
         m_workingPath = dir.toString();
+
+    connect(this, &App::screenChanged, this, &App::slotScreenChanged);
 }
 
 App::~App()
@@ -163,8 +165,11 @@ void App::toggleFullscreen()
 
 void App::show()
 {
-    setGeometry(0, 0, 800, 600);
-    //setGeometry(0, 0, 1272, 689); // youtube recording
+    QScreen *currScreen = screen();
+    QRect rect(0, 0, 800, 600);
+    //QRect rect(0, 0, 1272, 689); // youtube recording
+    rect.moveTopLeft(currScreen->geometry().topLeft());
+    setGeometry(rect);
     showMaximized();
 }
 
@@ -187,6 +192,13 @@ void App::keyReleaseEvent(QKeyEvent *e)
         m_contextManager->handleKeyRelease(e);
 
     QQuickView::keyReleaseEvent(e);
+}
+
+void App::slotScreenChanged(QScreen *screen)
+{
+    m_pixelDensity = screen->physicalDotsPerInch() *  0.039370;
+    qDebug() << "Screen changed to" << screen->name() << ". New pixel density:" << m_pixelDensity;
+    rootContext()->setContextProperty("screenPixelDensity", m_pixelDensity);
 }
 
 void App::clearDocument()

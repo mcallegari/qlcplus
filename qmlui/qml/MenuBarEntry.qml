@@ -26,7 +26,7 @@ Rectangle
 {
     id: menuEntry
     implicitWidth: entryContents.width + 10
-    height: parent.height
+    implicitHeight: parent.height
     gradient: (checked || mouseArea1.containsMouse) ? selGradient : bgGradient
 
     property color checkedColor: UISettings.toolbarSelectionMain
@@ -82,7 +82,6 @@ Rectangle
 
         Image
         {
-            id: btnIcon
             height: imgSource == "" ? 0 : parent.height - 4
             width: height
             x: 2
@@ -93,14 +92,14 @@ Rectangle
 
         Rectangle
         {
-            height: parent.height
+            height: menuEntry.height
             width: tbLoader.width
             color: "transparent"
 
             Loader
             {
                 id: tbLoader
-                height: parent.height
+                //height: parent.height
                 //width: item.width
 
                 source: menuEntry.editable ? "qrc:/EditableTextBox.qml" : "qrc:/RobotoText.qml"
@@ -111,14 +110,14 @@ Rectangle
                     {
                         item.color = "transparent"
                         item.inputText = Qt.binding(function() { return entryText })
-                        item.maximumHeight = parent.height
+                        item.maximumHeight = Qt.binding(function() { return menuEntry.height })
                         item.wrapText = false
                     }
                     else
                     {
                         item.label = Qt.binding(function() { return entryText })
-                        item.height = parent.height
-                        item.fontSize = mFontSize
+                        item.height = Qt.binding(function() { return menuEntry.height })
+                        item.fontSize = Qt.binding(function() { return mFontSize })
                         item.fontBold = true
                     }
                     width = Qt.binding(function() { return item.width })

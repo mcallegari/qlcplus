@@ -24,7 +24,7 @@ Rectangle
 {
     id: rtRoot
     width: wrapText ? 100 : textBox.width
-    height: UISettings.iconSizeDefault
+    implicitHeight: UISettings.iconSizeDefault
 
     color: "transparent"
     clip: true

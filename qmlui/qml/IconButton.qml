@@ -27,8 +27,8 @@ import "."
 Rectangle
 {
     id: baseIconButton
-    width: UISettings.iconSizeDefault
-    height: UISettings.iconSizeDefault
+    implicitWidth: UISettings.iconSizeDefault
+    implicitHeight: UISettings.iconSizeDefault
     visible: counter ? true : false
 
     property color bgColor: UISettings.bgLight

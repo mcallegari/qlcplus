@@ -111,6 +111,9 @@ protected:
     void keyPressEvent(QKeyEvent * e);
     void keyReleaseEvent(QKeyEvent * e);
 
+protected slots:
+    void slotScreenChanged(QScreen *screen);
+
 private:
     /** The number of pixels in one millimiter */
     qreal m_pixelDensity;

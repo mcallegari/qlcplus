@@ -225,7 +225,7 @@ Rectangle
                 IconButton
                 {
                     id: settingsButton
-                    height: viewToolbar.height - 2
+                    implicitHeight: viewToolbar.height - 2
                     checkable: true
                     imgSource: "qrc:/configure.svg"
                     onToggled: previewLoader.item.showSettings(checked)
@@ -234,7 +234,7 @@ Rectangle
                 ZoomItem
                 {
                     width: UISettings.iconSizeMedium * 2
-                    height: viewToolbar.height - 2
+                    implicitHeight: viewToolbar.height - 2
                     fontColor: "#222"
                     onZoomOutClicked: previewLoader.item.setZoom(-0.5)
                     onZoomInClicked: previewLoader.item.setZoom(0.5)

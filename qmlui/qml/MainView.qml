@@ -199,6 +199,7 @@ Rectangle
             {
                 // acts like an horizontal spacer
                 Layout.fillWidth: true
+                height: parent.height
                 color: "transparent"
             }
             RobotoText
