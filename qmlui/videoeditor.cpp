@@ -175,3 +175,28 @@ void VideoEditor::setLooped(bool looped)
             m_video->setRunOrder(Video::SingleShot);
     }
 }
+
+bool VideoEditor::hasCustomGeometry() const
+{
+    if (m_video != NULL && m_video->customGeometry().isNull() == false)
+        return true;
+
+    return false;
+}
+
+QRect VideoEditor::customGeometry() const
+{
+    if (m_video != NULL)
+        return m_video->customGeometry();
+
+    return QRect();
+}
+
+void VideoEditor::setCustomGeometry(QRect customGeometry)
+{
+    if (m_video == NULL || m_video->customGeometry() == customGeometry)
+        return;
+
+    m_video->setCustomGeometry(customGeometry);
+    emit customGeometryChanged(customGeometry);
+}

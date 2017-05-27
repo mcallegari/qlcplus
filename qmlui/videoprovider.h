@@ -54,9 +54,8 @@ private:
     QQuickView *m_view;
     /** Reference of the project workspace */
     Doc *m_doc;
-
+    /** Map of the currently available Video functions */
     QMap<quint32, VideoContent *> m_videoMap;
-
     /** A single instance for fullscreen rendering shared between videos */
     QQuickView *m_fullscreenContext;
 };
@@ -78,7 +77,10 @@ public:
 
 public slots:
     void slotDetectResolution();
+
+protected slots:
     void slotMetaDataChanged(const QString &key, const QVariant &value);
+    void slotWindowClosing();
 
 protected:
     /** Reference to the parent video provider */

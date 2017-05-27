@@ -35,6 +35,11 @@ Rectangle
 
     signal requestView(int ID, string qmlSrc)
 
+    function updateCustomGeometry()
+    {
+        videoEditor.customGeometry = Qt.rect(geomXSpin.value, geomYSpin.value, geomWSpin.value, geomHSpin.value)
+    }
+
     EditorTopBar
     {
         id: topBar
@@ -300,18 +305,22 @@ Rectangle
             RobotoText { label: "X" }
             CustomSpinBox
             {
+                id: geomXSpin
                 width: Layout.fillWidth
                 from: 0
                 to: 99999
                 value: videoEditor.customGeometry.x
+                onValueChanged: updateCustomGeometry()
             }
             RobotoText { label: "Y" }
             CustomSpinBox
             {
+                id: geomYSpin
                 width: Layout.fillWidth
                 from: 0
                 to: 99999
                 value: videoEditor.customGeometry.y
+                onValueChanged: updateCustomGeometry()
             }
         }
 
@@ -331,18 +340,22 @@ Rectangle
             RobotoText { label: qsTr("W") }
             CustomSpinBox
             {
+                id: geomWSpin
                 width: Layout.fillWidth
                 from: 0
                 to: 99999
                 value: videoEditor.customGeometry.width
+                onValueChanged: updateCustomGeometry()
             }
             RobotoText { label: qsTr("H") }
             CustomSpinBox
             {
+                id: geomHSpin
                 width: Layout.fillWidth
                 from: 0
                 to: 99999
                 value: videoEditor.customGeometry.height
+                onValueChanged: updateCustomGeometry()
             }
         }
     }

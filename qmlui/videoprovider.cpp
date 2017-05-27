@@ -159,9 +159,23 @@ void VideoContent::playVideo()
 
         m_viewContext = new QQuickView(QUrl("qrc:/VideoContext.qml"));
         m_viewContext->rootContext()->setContextProperty("videoContent", this);
-        m_viewContext->setGeometry(m_geometry);
-        if (vScreen)
-            m_viewContext->setPosition(vScreen->geometry().topLeft());
+
+        if (m_video->customGeometry().isNull())
+        {
+            m_viewContext->setGeometry(m_geometry);
+            if (vScreen)
+                m_viewContext->setPosition(vScreen->geometry().topLeft());
+        }
+        else
+        {
+            QPoint topLeft = vScreen ? vScreen->geometry().topLeft() : QPoint(0, 0);
+            topLeft.setX(topLeft.x() + m_video->customGeometry().x());
+            topLeft.setY(topLeft.y() + m_video->customGeometry().y());
+            m_viewContext->setGeometry(m_video->customGeometry());
+            m_viewContext->setPosition(topLeft);
+        }
+
+        connect(m_viewContext, SIGNAL(closing(QQuickCloseEvent*)), this, SLOT(slotWindowClosing()));
     }
 
     QMetaObject::invokeMethod(m_viewContext->rootObject(), "addVideo",
@@ -182,6 +196,8 @@ void VideoContent::stopVideo()
     {
         m_viewContext->deleteLater();
         m_viewContext = NULL;
+        if (m_video->fullscreen())
+            m_provider->setFullscreenContext(NULL);
     }
 }
 
@@ -203,13 +219,16 @@ void VideoContent::slotMetaDataChanged(const QString &key, const QVariant &value
 {
     if (key == "Resolution")
     {
-        QSize size = value.toSize();
-        m_geometry.setWidth(size.width());
-        m_geometry.setHeight(size.height());
+        m_geometry.setSize(value.toSize());
 
         disconnect(m_mediaPlayer, SIGNAL(metaDataChanged(QString,QVariant)),
                     this, SLOT(slotMetaDataChanged(QString,QVariant)));
         m_mediaPlayer->deleteLater();
         m_mediaPlayer = NULL;
     }
+}
+
+void VideoContent::slotWindowClosing()
+{
+    stopVideo();
 }

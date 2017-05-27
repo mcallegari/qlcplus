@@ -37,6 +37,8 @@ class Video : public Function
     Q_DISABLE_COPY(Video)
 
     Q_PROPERTY(QString sourceUrl READ sourceUrl WRITE setSourceUrl NOTIFY sourceChanged)
+    Q_PROPERTY(QRect customGeometry READ customGeometry WRITE setCustomGeometry NOTIFY customGeometryChanged)
+    Q_PROPERTY(bool fullscreen READ fullscreen WRITE setFullscreen)
 
     /*********************************************************************
      * Initialization
@@ -82,70 +84,39 @@ public:
     /** @reimpl */
     quint32 totalDuration();
 
-    /**
-     * Sets the video resolution as a QSize variable
-     */
+    /** Get/Set the video resolution as a QSize variable */
+    QSize resolution();
     void setResolution(QSize size);
 
-    /**
-     * Returns the video resolution as a QSize variable
-     */
-    QSize resolution();
+    /** Get/Set the video custom geometry as a QRect variable */
+    QRect customGeometry();
+    void setCustomGeometry(QRect rect);
 
-    /**
-     * Sets the audio codec for this Video Function
-     */
+    /** Get/Set the audio codec for this Video Function */
+    QString audioCodec();
     void setAudioCodec(QString codec);
 
-    /**
-     * Returns the audio codec detected from the media source
-     */
-    QString audioCodec();
-
-    /**
-     * Sets the video codec for this Video Function
-     */
+    /** Get/Set the video codec for this Video Function */
+    QString videoCodec();
     void setVideoCodec(QString codec);
 
-    /**
-     * Returns the video codec detected from the media source
-     */
-    QString videoCodec();
-
-    /**
-     * Set the source file name used by this Video object
-     */
+    /** Get/Set the source URL used by this Video object */
+    QString sourceUrl();
     bool setSourceUrl(QString filename);
 
-    /**
-     * Retrieve the source file name used by this Video object
-     */
-    QString sourceUrl();
-
-    /**
-     * Set the screen index where to render the video
-     */
+    /** Get/Set the screen index where to render the video */
+    int screen();
     void setScreen(int index);
 
-    /**
-     * Retrieve the screen index where the video is rendered
-     */
-    int screen();
-
-    /**
-     * Set the video to be rendered in windowed or fullscreen mode
-     */
-    void setFullscreen(bool enable);
-
-    /**
-     * Retrieves if the video has to be rendered in windowed or fullscreen mode
-     */
+    /** Get/Set the video to be rendered in windowed or fullscreen mode */
     bool fullscreen();
+    void setFullscreen(bool enable);
 
     void adjustAttribute(qreal fraction, int attributeIndex);
 
 signals:
     void sourceChanged(QString url);
+    void customGeometryChanged(QRect rect);
     void totalTimeChanged(qint64);
     void metaDataChanged(QString key, QVariant data);
     void requestPlayback();
@@ -162,6 +133,9 @@ private:
     QString m_audioCodec, m_videoCodec;
     /** Resolution of the video content */
     QSize m_resolution;
+    /** If set, specifies the custom geometry (position and size)
+     *  to be used when rendering the video */
+    QRect m_customGeometry;
     /** Index of the screen where to render the video */
     int m_screen;
     /** Flag that indicates if the video has to go fullscreen */

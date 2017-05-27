@@ -49,13 +49,27 @@ Rectangle
 
         Rectangle
         {
-            anchors.fill: parent
+            id: videoRect
+            //anchors.fill: parent
             color: "black"
 
             property VideoFunction video: null
 
             onVideoChanged:
             {
+                if (video.customGeometry.width !== 0 && video.customGeometry.height !== 0)
+                {
+                    if (video.fullscreen)
+                    {
+                        x = video.customGeometry.x
+                        y = video.customGeometry.y
+                    }
+                    width = video.customGeometry.width
+                    height = video.customGeometry.height
+                }
+                else
+                    anchors.fill = parent
+
                 player.source = video.sourceUrl.indexOf("://") !== -1 ? video.sourceUrl : "file://" + video.sourceUrl
                 console.log("QML video source: " + player.source)
             }
