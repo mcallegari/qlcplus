@@ -43,6 +43,11 @@ SpinBox
     onFromChanged: if (value < from) control.value = from
     onToChanged: if (value > to) control.value = to
 
+    onFocusChanged:
+    {
+        if (focus) contentItem.selectAll()
+    }
+
     MouseArea
     {
         anchors.fill: parent
