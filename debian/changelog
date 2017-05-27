@@ -18,6 +18,7 @@ qlcplus (4.11.0) stable; urgency=low
   * Virtual Console/Frame: added the possibility to jump directly to a page and assign page names (thanks to Lukas Jähn)
   * Virtual Console/Cue List: improved linked crossfade to perform an additive blending between steps (see documentation)
   * Virtual Console/Speed Dial: improved tap button blinking and feedbacks (thanks to Lukas Jähn)
+  * Virtual Console/Clock: added external input support for countdown and stopwatch modes (thanks to Lukas Jähn)
   * Plugins/OSC: added channel number calculator in configuration page to help integrating new controllers
   * Plugins/Loopback: fixed spurious values emitted when a lot of channels are looped
   * Web access: fixed VC Slider in percentage mode and inverted appearance (thanks to Bartosz Grabias)
@@ -84,6 +85,7 @@ qlcplus (4.11.0) stable; urgency=low
   * New fixtures: Pro-Lights PIXIEWASH, Accent1Q, CromoSpot300 (thanks to Tolmino Muccitelli)
   * New fixtures: Involight LED MH50S, LED PAR 180, SBL 2000 (thanks to Facek)
   * New fixture: Pro-Lights Miniruby (thanks to Dario Gonzalez)
+  * New fixture: Sagitter Smart DL Wash (thanks to Simu)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 30 Apr 2017 12:13:14 +0200
 
