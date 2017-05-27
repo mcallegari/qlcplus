@@ -79,6 +79,7 @@ SidePanel
         {
             anchors.horizontalCenter: parent.horizontalCenter
             height: parent.height
+            width: iconSize
             spacing: 3
 
             IconButton

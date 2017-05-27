@@ -68,8 +68,7 @@ Rectangle
 
         columns: 2
         columnSpacing: 5
-        rowSpacing: 10
-
+        rowSpacing: 5
 
         // row 1
         RobotoText
@@ -153,62 +152,11 @@ Rectangle
         }
 
         // row 6
-        RobotoText { label: qsTr("Output screen"); height: UISettings.listItemHeight }
-        CustomComboBox
-        {
-            height: UISettings.listItemHeight
-            Layout.fillWidth: true
-            model: videoEditor.screenList
-            currentIndex: videoEditor.screenIndex
-            onCurrentIndexChanged: videoEditor.screenIndex = currentIndex
-        }
-
-        // row 7
-        RobotoText { label: qsTr("Output mode"); height: UISettings.listItemHeight }
-        GridLayout
-        {
-            height: UISettings.listItemHeight
-            Layout.fillWidth: true
-
-            ExclusiveGroup { id: outputModeGroup }
-
-            CustomCheckBox
-            {
-                width: UISettings.iconSizeMedium
-                height: width
-                exclusiveGroup: outputModeGroup
-                checked: !videoEditor.fullscreen
-                onToggle: if (checked) videoEditor.fullscreen = false
-            }
-            RobotoText
-            {
-                height: UISettings.listItemHeight
-                Layout.fillWidth: true
-                label: qsTr("Windowed")
-            }
-
-            CustomCheckBox
-            {
-                width: UISettings.iconSizeMedium
-                height: width
-                exclusiveGroup: outputModeGroup
-                checked: videoEditor.fullscreen
-                onToggle: if (checked) videoEditor.fullscreen = true
-            }
-            RobotoText
-            {
-                height: UISettings.listItemHeight
-                Layout.fillWidth: true
-                label: qsTr("Fullscreen")
-            }
-        }
-
-        // row 8
         RobotoText { label: qsTr("Playback mode"); height: UISettings.listItemHeight }
-        GridLayout
+        RowLayout
         {
             height: UISettings.listItemHeight
-            Layout.fillWidth: true
+            //Layout.fillWidth: true
 
             ExclusiveGroup { id: playbackModeGroup }
 
@@ -223,7 +171,6 @@ Rectangle
             RobotoText
             {
                 height: UISettings.listItemHeight
-                Layout.fillWidth: true
                 label: qsTr("Single shot")
             }
 
@@ -238,8 +185,164 @@ Rectangle
             RobotoText
             {
                 height: UISettings.listItemHeight
-                Layout.fillWidth: true
                 label: qsTr("Looped")
+            }
+        }
+
+        // row 7
+        RobotoText { label: qsTr("Output screen"); height: UISettings.listItemHeight }
+        CustomComboBox
+        {
+            id: screenCombo
+            height: UISettings.listItemHeight
+            Layout.fillWidth: true
+            model: videoEditor.screenList
+            currentIndex: videoEditor.screenIndex
+            onCurrentIndexChanged: videoEditor.screenIndex = currentIndex
+        }
+
+        // row 8
+        RobotoText { label: qsTr("Output mode"); height: UISettings.listItemHeight }
+        RowLayout
+        {
+            height: UISettings.listItemHeight
+
+            ExclusiveGroup { id: outputModeGroup }
+
+            CustomCheckBox
+            {
+                width: UISettings.iconSizeMedium
+                height: width
+                exclusiveGroup: outputModeGroup
+                checked: !videoEditor.fullscreen
+                onToggle: if (checked) videoEditor.fullscreen = false
+            }
+            RobotoText
+            {
+                height: UISettings.listItemHeight
+                label: qsTr("Windowed")
+            }
+
+            CustomCheckBox
+            {
+                width: UISettings.iconSizeMedium
+                height: width
+                exclusiveGroup: outputModeGroup
+                checked: videoEditor.fullscreen
+                onToggle: if (checked) videoEditor.fullscreen = true
+            }
+            RobotoText
+            {
+                height: UISettings.listItemHeight
+                label: qsTr("Fullscreen")
+            }
+        }
+
+        // row 9
+        RobotoText { label: qsTr("Geometry"); height: UISettings.listItemHeight }
+        RowLayout
+        {
+            height: UISettings.listItemHeight
+
+            ExclusiveGroup { id: geometryGroup }
+
+            CustomCheckBox
+            {
+                width: UISettings.iconSizeMedium
+                height: width
+                exclusiveGroup: geometryGroup
+                checked: videoEditor.customGeometry.width == 0 && videoEditor.customGeometry.height == 0
+            }
+            RobotoText
+            {
+                height: UISettings.listItemHeight
+                label: qsTr("Original")
+            }
+
+            CustomCheckBox
+            {
+                id: custGeomCheck
+                width: UISettings.iconSizeMedium
+                height: width
+                exclusiveGroup: geometryGroup
+                checked: videoEditor.customGeometry.width != 0 && videoEditor.customGeometry.height != 0
+                onToggle:
+                {
+                    if (checked)
+                    {
+                        if (!mediaInfo || !mediaInfo.Resolution)
+                            return
+
+                        videoEditor.customGeometry = Qt.rect(0, 0, mediaInfo.Resolution.width, mediaInfo.Resolution.height)
+                    }
+                }
+            }
+            RobotoText
+            {
+                height: UISettings.listItemHeight
+                label: qsTr("Custom")
+            }
+        }
+
+        // row 10
+        RobotoText
+        {
+            visible: custGeomCheck.checked
+            height: UISettings.listItemHeight
+            label: qsTr("Position");
+        }
+        RowLayout
+        {
+            visible: custGeomCheck.checked
+            height: UISettings.listItemHeight
+            width: Layout.fillWidth
+
+            RobotoText { label: "X" }
+            CustomSpinBox
+            {
+                width: Layout.fillWidth
+                from: 0
+                to: 99999
+                value: videoEditor.customGeometry.x
+            }
+            RobotoText { label: "Y" }
+            CustomSpinBox
+            {
+                width: Layout.fillWidth
+                from: 0
+                to: 99999
+                value: videoEditor.customGeometry.y
+            }
+        }
+
+        // row 11
+        RobotoText
+        {
+            visible: custGeomCheck.checked
+            height: UISettings.listItemHeight
+            label: qsTr("Size");
+        }
+        RowLayout
+        {
+            visible: custGeomCheck.checked
+            height: UISettings.listItemHeight
+            width: Layout.fillWidth
+
+            RobotoText { label: qsTr("W") }
+            CustomSpinBox
+            {
+                width: Layout.fillWidth
+                from: 0
+                to: 99999
+                value: videoEditor.customGeometry.width
+            }
+            RobotoText { label: qsTr("H") }
+            CustomSpinBox
+            {
+                width: Layout.fillWidth
+                from: 0
+                to: 99999
+                value: videoEditor.customGeometry.height
             }
         }
     }

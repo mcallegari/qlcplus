@@ -40,6 +40,7 @@ SidePanel
         Column
         {
             anchors.horizontalCenter: parent.horizontalCenter
+            width: iconSize
             spacing: 3
 
             ExclusiveGroup { id: vcButtonsGroup }
