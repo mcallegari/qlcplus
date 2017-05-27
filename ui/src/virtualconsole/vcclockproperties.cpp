@@ -21,6 +21,7 @@
 
 #include "vcclockproperties.h"
 #include "functionselection.h"
+#include "inputselectionwidget.h"
 
 #define KColumnName     0
 #define KColumnTime     1
@@ -33,6 +34,24 @@ VCClockProperties::VCClockProperties(VCClock *clock, Doc *doc)
     Q_ASSERT(clock != NULL);
 
     setupUi(this);
+
+    m_playInputWidget = new InputSelectionWidget(m_doc, this);
+    m_playInputWidget->setTitle(tr("Play/Pause control"));
+    m_playInputWidget->setCustomFeedbackVisibility(true);
+    m_playInputWidget->setKeySequence(m_clock->playKeySequence());
+    m_playInputWidget->setInputSource(m_clock->inputSource(VCClock::playInputSourceId));
+    m_playInputWidget->setWidgetPage(m_clock->page());
+    m_playInputWidget->show();
+    m_externalInputLayout->addWidget(m_playInputWidget);
+
+    m_resetInputWidget = new InputSelectionWidget(m_doc, this);
+    m_resetInputWidget->setTitle(tr("Reset control"));
+    m_resetInputWidget->setCustomFeedbackVisibility(true);
+    m_resetInputWidget->setKeySequence(m_clock->resetKeySequence());
+    m_resetInputWidget->setInputSource(m_clock->inputSource(VCClock::resetInputSourceId));
+    m_resetInputWidget->setWidgetPage(m_clock->page());
+    m_resetInputWidget->show();
+    m_externalInputLayout->addWidget(m_resetInputWidget);
 
     switch(m_clock->clockType())
     {
@@ -48,6 +67,12 @@ VCClockProperties::VCClockProperties(VCClock *clock, Doc *doc)
         }
         break;
         case VCClock::Clock:
+        {
+            m_clockRadio->setChecked(true);
+            m_playInputWidget->hide();
+            m_resetInputWidget->hide();
+        }
+        break;
         default:
             m_clockRadio->setChecked(true);
         break;
@@ -56,6 +81,12 @@ VCClockProperties::VCClockProperties(VCClock *clock, Doc *doc)
     foreach(VCClockSchedule sch, m_clock->schedules())
         addScheduleItem(sch);
 
+    connect(m_clockRadio, SIGNAL(clicked()),
+            this, SLOT(slotTypeSelectChanged()));
+    connect(m_countdownRadio, SIGNAL(clicked()),
+            this, SLOT(slotTypeSelectChanged()));
+    connect(m_stopWatchRadio, SIGNAL(clicked()),
+            this, SLOT(slotTypeSelectChanged()));
     connect(m_addScheduleBtn, SIGNAL(clicked()),
             this, SLOT(slotAddSchedule()));
     connect(m_removeScheduleBtn, SIGNAL(clicked()),
@@ -116,7 +147,29 @@ void VCClockProperties::accept()
         m_clock->addSchedule(sch);
     }
 
+    /* Key sequences */
+    m_clock->setPlayKeySequence(m_playInputWidget->keySequence());
+    m_clock->setResetKeySequence(m_resetInputWidget->keySequence());
+
+    /* Input sources */
+    m_clock->setInputSource(m_playInputWidget->inputSource(), VCClock::playInputSourceId);
+    m_clock->setInputSource(m_resetInputWidget->inputSource(), VCClock::resetInputSourceId);
+
     QDialog::accept();
+}
+
+void VCClockProperties::slotTypeSelectChanged()
+{
+    if (m_clockRadio->isChecked())
+    {
+        m_resetInputWidget->hide();
+        m_playInputWidget->hide();
+    }
+    else
+    {
+        m_resetInputWidget->show();
+        m_playInputWidget->show();
+    }
 }
 
 void VCClockProperties::slotAddSchedule()
