@@ -32,8 +32,8 @@ ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
     , m_selectedTrack(-1)
     , m_itemsColor(Qt::gray)
 {
-    qmlRegisterType<Track>("com.qlcplus.classes", 1, 0, "Track");
-    qmlRegisterType<ShowFunction>("com.qlcplus.classes", 1, 0, "ShowFunction");
+    qmlRegisterType<Track>("org.qlcplus.classes", 1, 0, "Track");
+    qmlRegisterType<ShowFunction>("org.qlcplus.classes", 1, 0, "ShowFunction");
 
     setContextResource("qrc:/ShowManager.qml");
     setContextTitle(tr("Show Manager"));

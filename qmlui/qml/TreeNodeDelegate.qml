@@ -19,7 +19,7 @@
 
 import QtQuick 2.2
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 import "."
 
 Column

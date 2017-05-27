@@ -44,8 +44,8 @@ FixtureManager::FixtureManager(QQuickView *view, Doc *doc, QObject *parent)
 {
     Q_ASSERT(m_doc != NULL);
 
-    qmlRegisterUncreatableType<FixtureManager>("com.qlcplus.classes", 1, 0,  "FixtureManager", "Can't create a FixtureManager !");
-    qmlRegisterType<QLCCapability>("com.qlcplus.classes", 1, 0, "QLCCapability");
+    qmlRegisterUncreatableType<FixtureManager>("org.qlcplus.classes", 1, 0,  "FixtureManager", "Can't create a FixtureManager !");
+    qmlRegisterType<QLCCapability>("org.qlcplus.classes", 1, 0, "QLCCapability");
 
     connect(m_doc, SIGNAL(loaded()), this, SLOT(slotDocLoaded()));
 }

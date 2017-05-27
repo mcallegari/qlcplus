@@ -18,7 +18,7 @@
 */
 
 import QtQuick 2.3
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 
 import "."
 

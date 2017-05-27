@@ -32,7 +32,7 @@ VideoProvider::VideoProvider(QQuickView *view, Doc *doc, QObject *parent)
 {
     Q_ASSERT(doc != NULL);
 
-    qmlRegisterUncreatableType<Video>("com.qlcplus.classes", 1, 0, "VideoFunction", "Can't create a Video !");
+    qmlRegisterUncreatableType<Video>("org.qlcplus.classes", 1, 0, "VideoFunction", "Can't create a Video !");
 
     for (Function *f : m_doc->functionsByType(Function::VideoType))
         slotFunctionAdded(f->id());

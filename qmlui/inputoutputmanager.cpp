@@ -43,9 +43,9 @@ InputOutputManager::InputOutputManager(QQuickView *view, Doc *doc, QObject *pare
     setContextResource("qrc:/InputOutputManager.qml");
     setContextTitle(tr("Input/Output Manager"));
 
-    qmlRegisterType<Universe>("com.qlcplus.classes", 1, 0, "Universe");
-    qmlRegisterType<InputPatch>("com.qlcplus.classes", 1, 0, "InputPatch");
-    qmlRegisterType<OutputPatch>("com.qlcplus.classes", 1, 0, "OutputPatch");
+    qmlRegisterType<Universe>("org.qlcplus.classes", 1, 0, "Universe");
+    qmlRegisterType<InputPatch>("org.qlcplus.classes", 1, 0, "InputPatch");
+    qmlRegisterType<OutputPatch>("org.qlcplus.classes", 1, 0, "OutputPatch");
 
     connect(m_doc, SIGNAL(loaded()), this, SLOT(slotDocLoaded()));
     connect(m_ioMap, SIGNAL(beat()), this, SIGNAL(beat()), Qt::QueuedConnection);

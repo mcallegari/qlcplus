@@ -78,10 +78,10 @@ App::~App()
 
 void App::startup()
 {
-    qmlRegisterType<Fixture>("com.qlcplus.classes", 1, 0, "Fixture");
-    qmlRegisterType<Function>("com.qlcplus.classes", 1, 0, "Function");
-    qmlRegisterType<ModelSelector>("com.qlcplus.classes", 1, 0, "ModelSelector");
-    qmlRegisterType<App>("com.qlcplus.classes", 1, 0, "App");
+    qmlRegisterType<Fixture>("org.qlcplus.classes", 1, 0, "Fixture");
+    qmlRegisterType<Function>("org.qlcplus.classes", 1, 0, "Function");
+    qmlRegisterType<ModelSelector>("org.qlcplus.classes", 1, 0, "ModelSelector");
+    qmlRegisterType<App>("org.qlcplus.classes", 1, 0, "App");
 
     setTitle(APPNAME);
     setIcon(QIcon(":/qlcplus.svg"));
@@ -123,13 +123,13 @@ void App::startup()
     rootContext()->setContextProperty("showManager", m_showManager);
 
     // register an uncreatable type just to use the enums in QML
-    qmlRegisterUncreatableType<ShowManager>("com.qlcplus.classes", 1, 0, "ShowManager", "Can't create a ShowManager !");
+    qmlRegisterUncreatableType<ShowManager>("org.qlcplus.classes", 1, 0, "ShowManager", "Can't create a ShowManager !");
 
     m_actionManager = new ActionManager(this, m_functionManager, m_showManager, m_virtualConsole);
     rootContext()->setContextProperty("actionManager", m_actionManager);
 
     // register an uncreatable type just to use the enums in QML
-    qmlRegisterUncreatableType<ActionManager>("com.qlcplus.classes", 1, 0,  "ActionManager", "Can't create an ActionManager !");
+    qmlRegisterUncreatableType<ActionManager>("org.qlcplus.classes", 1, 0,  "ActionManager", "Can't create an ActionManager !");
 
     m_contextManager->registerContext(m_virtualConsole);
     m_contextManager->registerContext(m_showManager);
