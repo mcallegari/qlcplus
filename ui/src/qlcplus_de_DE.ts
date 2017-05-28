@@ -927,17 +927,17 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="audioeditor.ui" line="41"/>
         <source>Playback mode</source>
-        <translation type="unfinished">Abspielmodus</translation>
+        <translation>Abspielmodus</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="47"/>
         <source>Single shot</source>
-        <translation type="unfinished">Einmal</translation>
+        <translation>Einmal</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="57"/>
         <source>Loop</source>
-        <translation type="unfinished">Wiederholen</translation>
+        <translation>Wiederholen</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="209"/>
@@ -2279,19 +2279,19 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="fixturemanager.cpp" line="592"/>
         <source>This group contains all fixtures of</source>
-        <translation type="unfinished"></translation>
+        <translation>Diese Gruppe enthält alle Geräte von</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="596"/>
         <location filename="fixturemanager.cpp" line="637"/>
         <source>Total estimated weight</source>
-        <translation type="unfinished"></translation>
+        <translation>Geschätztes Gesamtgewicht</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="597"/>
         <location filename="fixturemanager.cpp" line="638"/>
         <source>Maximum estimated power consumption</source>
-        <translation type="unfinished"></translation>
+        <translation>Geschätzte maximale elektrische Leistungsaufnahme</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="981"/>
@@ -2784,7 +2784,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="functionselection.ui" line="122"/>
         <source>EFX</source>
-        <translation type="unfinished"></translation>
+        <translation>Effekt</translation>
     </message>
     <message>
         <location filename="functionselection.ui" line="129"/>
@@ -2804,7 +2804,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="functionselection.ui" line="180"/>
         <source>Sequences</source>
-        <translation type="unfinished"></translation>
+        <translation>Sequenzen</translation>
     </message>
     <message>
         <location filename="functionselection.ui" line="99"/>
@@ -4203,7 +4203,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="virtualconsole/vcframepageshortcut.cpp" line="49"/>
         <source>Page: %1</source>
-        <translation type="unfinished">Seite: %1</translation>
+        <translation>Seite: %1</translation>
     </message>
 </context>
 <context>
@@ -5441,7 +5441,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="265"/>
         <source>The function that this button controls</source>
-        <translation>Die Funktion, die dieser Schalter stuert</translation>
+        <translation>Die Funktion, die dieser Schalter steuert</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="275"/>
@@ -5524,7 +5524,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcclockproperties.ui" line="47"/>
         <source>General</source>
-        <translation type="unfinished">Allgemein</translation>
+        <translation>Allgemein</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcclockproperties.ui" line="53"/>
@@ -5579,22 +5579,22 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcclockproperties.ui" line="205"/>
         <source>Input</source>
-        <translation type="unfinished">Eingang</translation>
+        <translation>Eingang</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcclockproperties.ui" line="214"/>
         <source>No input control available for Clock type</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine externe Steuerung für Uhrtyp verfügbar</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcclockproperties.cpp" line="39"/>
         <source>Play/Pause control</source>
-        <translation type="unfinished">Kontrollelement Abspielen/Pausieren</translation>
+        <translation>Kontrollelement Abspielen/Pausieren</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcclockproperties.cpp" line="48"/>
         <source>Reset control</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrollelement zurücksetzen</translation>
     </message>
 </context>
 <context>
@@ -5882,7 +5882,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="210"/>
         <source>Page Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Seitenname</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.cpp" line="63"/>
