@@ -208,6 +208,16 @@
        <item>
         <layout class="QVBoxLayout" name="m_externalInputLayout"/>
        </item>
+       <item>
+        <widget class="QLabel" name="m_noControlLabel">
+         <property name="text">
+          <string>No input control available for Clock type</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
     </widget>

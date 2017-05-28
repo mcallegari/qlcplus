@@ -53,6 +53,8 @@ VCClockProperties::VCClockProperties(VCClock *clock, Doc *doc)
     m_resetInputWidget->show();
     m_externalInputLayout->addWidget(m_resetInputWidget);
 
+    m_noControlLabel->hide();
+
     switch(m_clock->clockType())
     {
         case VCClock::Stopwatch:
@@ -71,6 +73,7 @@ VCClockProperties::VCClockProperties(VCClock *clock, Doc *doc)
             m_clockRadio->setChecked(true);
             m_playInputWidget->hide();
             m_resetInputWidget->hide();
+            m_noControlLabel->show();
         }
         break;
         default:
@@ -164,11 +167,13 @@ void VCClockProperties::slotTypeSelectChanged()
     {
         m_resetInputWidget->hide();
         m_playInputWidget->hide();
+        m_noControlLabel->show();
     }
     else
     {
         m_resetInputWidget->show();
         m_playInputWidget->show();
+        m_noControlLabel->hide();
     }
 }
 
