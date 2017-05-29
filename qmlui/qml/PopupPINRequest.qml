@@ -116,8 +116,6 @@ Rectangle
             CustomCheckBox
             {
                 id: validateCheck
-                width: UISettings.iconSizeDefault
-                height: width
             }
 
             RobotoText

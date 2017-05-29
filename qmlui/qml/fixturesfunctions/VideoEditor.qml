@@ -17,10 +17,10 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
-import QtQuick.Layouts 1.1
-import QtQuick.Dialogs 1.1
-import QtQuick.Controls 1.0
+import QtQuick 2.6
+import QtQuick.Layouts 1.0
+import QtQuick.Dialogs 1.2
+import QtQuick.Controls 2.1
 
 import org.qlcplus.classes 1.0
 import "."
@@ -78,19 +78,18 @@ Rectangle
         // row 1
         RobotoText
         {
-            height: selFileBtn.height
+            height: UISettings.iconSizeDefault
             //anchors.verticalCenter: parent.verticalCenter
             label: qsTr("File name")
         }
-        Rectangle
+        RowLayout
         {
             Layout.fillWidth: true
-            height: selFileBtn.height
-            color: "transparent"
+            height: UISettings.iconSizeDefault
 
             RobotoText
             {
-                width: selFileBtn.x - 5
+                Layout.fillWidth: true
                 fontSize: UISettings.textSizeDefault * 0.8
                 labelColor: UISettings.fgLight
                 wrapText: true
@@ -98,8 +97,6 @@ Rectangle
             }
             IconButton
             {
-                id: selFileBtn
-                x: parent.width - width - 3
                 RobotoText { anchors.centerIn: parent; label: "..." }
 
                 onClicked:
@@ -112,6 +109,50 @@ Rectangle
                     openVideoDialog.nameFilters = [ exts, qsTr("All files (*)") ]
                     openVideoDialog.visible = true
                     openVideoDialog.open()
+                }
+            }
+
+            IconButton
+            {
+                imgSource: "qrc:/global.svg"
+                tooltip: qsTr("Set a URL")
+                onClicked: getUrlDialog.open()
+
+                Dialog
+                {
+                    id: getUrlDialog
+                    x: (mainView.width - width) / 2
+                    y: (mainView.height - height) / 2
+                    parent: mainView
+
+                    modal: true
+                    title: qsTr("Enter a URL")
+                    standardButtons: Dialog.Ok | Dialog.Cancel
+
+                    onVisibleChanged: mainView.setDimScreen(visible)
+
+/*
+                    header:
+                        Rectangle
+                        {
+                            color: UISettings.highlight
+                            height: UISettings.listItemHeight
+                        }
+
+                    background:
+                        Rectangle
+                        {
+                            color: UISettings.bgMedium
+                            border.color: UISettings.bgLight
+                            border.width: 2
+                        }
+*/
+                    CustomTextEdit
+                    {
+                        implicitWidth: UISettings.bigItemHeight * 3
+                        implicitHeight: UISettings.listItemHeight
+                    }
+
                 }
             }
         }
@@ -163,15 +204,15 @@ Rectangle
             height: UISettings.listItemHeight
             //Layout.fillWidth: true
 
-            ExclusiveGroup { id: playbackModeGroup }
+            ButtonGroup { id: playbackModeGroup }
 
             CustomCheckBox
             {
-                width: UISettings.iconSizeMedium
-                height: width
-                exclusiveGroup: playbackModeGroup
+                implicitWidth: UISettings.iconSizeMedium
+                implicitHeight: implicitWidth
+                ButtonGroup.group: playbackModeGroup
                 checked: !videoEditor.looped
-                onToggle: if (checked) videoEditor.looped = false
+                onClicked: if (checked) videoEditor.looped = false
             }
             RobotoText
             {
@@ -181,11 +222,11 @@ Rectangle
 
             CustomCheckBox
             {
-                width: UISettings.iconSizeMedium
-                height: width
-                exclusiveGroup: playbackModeGroup
+                implicitWidth: UISettings.iconSizeMedium
+                implicitHeight: implicitWidth
+                ButtonGroup.group: playbackModeGroup
                 checked: videoEditor.looped
-                onToggle: if (checked) videoEditor.looped = true
+                onClicked: if (checked) videoEditor.looped = true
             }
             RobotoText
             {
@@ -212,15 +253,15 @@ Rectangle
         {
             height: UISettings.listItemHeight
 
-            ExclusiveGroup { id: outputModeGroup }
+            ButtonGroup { id: outputModeGroup }
 
             CustomCheckBox
             {
-                width: UISettings.iconSizeMedium
-                height: width
-                exclusiveGroup: outputModeGroup
+                implicitWidth: UISettings.iconSizeMedium
+                implicitHeight: implicitWidth
+                ButtonGroup.group: outputModeGroup
                 checked: !videoEditor.fullscreen
-                onToggle: if (checked) videoEditor.fullscreen = false
+                onClicked: if (checked) videoEditor.fullscreen = false
             }
             RobotoText
             {
@@ -230,11 +271,11 @@ Rectangle
 
             CustomCheckBox
             {
-                width: UISettings.iconSizeMedium
-                height: width
-                exclusiveGroup: outputModeGroup
+                implicitWidth: UISettings.iconSizeMedium
+                implicitHeight: implicitWidth
+                ButtonGroup.group: outputModeGroup
                 checked: videoEditor.fullscreen
-                onToggle: if (checked) videoEditor.fullscreen = true
+                onClicked: if (checked) videoEditor.fullscreen = true
             }
             RobotoText
             {
@@ -249,13 +290,13 @@ Rectangle
         {
             height: UISettings.listItemHeight
 
-            ExclusiveGroup { id: geometryGroup }
+            ButtonGroup { id: geometryGroup }
 
             CustomCheckBox
             {
-                width: UISettings.iconSizeMedium
-                height: width
-                exclusiveGroup: geometryGroup
+                implicitWidth: UISettings.iconSizeMedium
+                implicitHeight: implicitWidth
+                ButtonGroup.group: geometryGroup
                 checked: videoEditor.customGeometry.width == 0 && videoEditor.customGeometry.height == 0
             }
             RobotoText
@@ -267,11 +308,11 @@ Rectangle
             CustomCheckBox
             {
                 id: custGeomCheck
-                width: UISettings.iconSizeMedium
-                height: width
-                exclusiveGroup: geometryGroup
+                implicitWidth: UISettings.iconSizeMedium
+                implicitHeight: implicitWidth
+                ButtonGroup.group: geometryGroup
                 checked: videoEditor.customGeometry.width != 0 && videoEditor.customGeometry.height != 0
-                onToggle:
+                onClicked:
                 {
                     if (checked)
                     {

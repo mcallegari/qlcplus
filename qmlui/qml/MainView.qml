@@ -21,8 +21,6 @@ import QtQuick 2.2
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 
-import QtQuick.Window 2.0
-
 import "."
 
 Rectangle
@@ -68,6 +66,11 @@ Rectangle
         mainViewLoader.source = qmlRes
     }
 
+    function setDimScreen(enable)
+    {
+        dimScreen.visible = enable
+    }
+
     FontLoader
     {
         source: "qrc:/RobotoCondensed-Regular.ttf"
@@ -89,11 +92,6 @@ Rectangle
         {
             GradientStop { position: 0; color: UISettings.toolbarStartMain }
             GradientStop { position: 1; color: UISettings.toolbarEnd }
-        }
-
-        Component.onCompleted:
-        {
-            console.log("density: " + Screen.pixelDensity + ", ratio: " + Screen.devicePixelRatio)
         }
 
         RowLayout
@@ -294,6 +292,16 @@ Rectangle
             source: "qrc:/FixturesAndFunctions.qml"
         }
     }
+
+    Rectangle
+    {
+        id: dimScreen
+        anchors.fill: parent
+        visible: false
+        z: 99
+        color: Qt.rgba(0, 0, 0, 0.5)
+    }
+
     PopupBox
     {
         anchors.fill: parent

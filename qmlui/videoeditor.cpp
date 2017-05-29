@@ -102,6 +102,7 @@ QVariant VideoEditor::mediaInfo() const
 void VideoEditor::slotDurationChanged(qint64 duration)
 {
     infoMap.insert("Duration",Function::speedToString(duration));
+    m_video->setTotalDuration(duration);
     emit mediaInfoChanged();
 }
 

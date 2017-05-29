@@ -294,8 +294,8 @@ Rectangle
             }
             ZoomItem
             {
-                width: UISettings.mediumItemHeight * 1.3
-                height: parent.height - 2
+                implicitWidth: UISettings.mediumItemHeight * 1.3
+                implicitHeight: parent.height - 2
                 fontColor: "#222"
                 onZoomOutClicked:
                 {

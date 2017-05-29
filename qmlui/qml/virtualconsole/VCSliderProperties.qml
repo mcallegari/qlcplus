@@ -19,7 +19,7 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
-import QtQuick.Controls 1.2
+import QtQuick.Controls 2.1
 
 import org.qlcplus.classes 1.0
 import "."
@@ -54,17 +54,17 @@ Rectangle
                 columnSpacing: 5
                 rowSpacing: 4
 
-                ExclusiveGroup { id: valueStyleGroup }
-                ExclusiveGroup { id: invDisplayGroup }
+                ButtonGroup { id: valueStyleGroup }
+                ButtonGroup { id: invDisplayGroup }
 
                 // row 1
                 CustomCheckBox
                 {
-                    width: UISettings.iconSizeMedium
-                    height: width
-                    exclusiveGroup: valueStyleGroup
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+                    ButtonGroup.group: valueStyleGroup
                     checked: widgetRef ? widgetRef.valueDisplayStyle === VCSlider.DMXValue : true
-                    onCheckedChanged: if (checked && widgetRef) widgetRef.valueDisplayStyle = VCSlider.DMXValue
+                    onClicked: if (checked && widgetRef) widgetRef.valueDisplayStyle = VCSlider.DMXValue
                 }
 
                 RobotoText
@@ -76,11 +76,11 @@ Rectangle
 
                 CustomCheckBox
                 {
-                    width: UISettings.iconSizeMedium
-                    height: width
-                    exclusiveGroup: valueStyleGroup
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+                    ButtonGroup.group: valueStyleGroup
                     checked: widgetRef ? widgetRef.valueDisplayStyle === VCSlider.PercentageValue : false
-                    onCheckedChanged: if (checked && widgetRef) widgetRef.valueDisplayStyle = VCSlider.PercentageValue
+                    onClicked: if (checked && widgetRef) widgetRef.valueDisplayStyle = VCSlider.PercentageValue
                 }
 
                 RobotoText
@@ -93,11 +93,11 @@ Rectangle
                 // row 2
                 CustomCheckBox
                 {
-                    width: UISettings.iconSizeMedium
-                    height: width
-                    exclusiveGroup: invDisplayGroup
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+                    ButtonGroup.group: invDisplayGroup
                     checked: widgetRef ? !widgetRef.invertedAppearance : true
-                    onCheckedChanged: if (checked && widgetRef) widgetRef.invertedAppearance = false
+                    onClicked: if (checked && widgetRef) widgetRef.invertedAppearance = false
                 }
 
                 RobotoText
@@ -109,11 +109,11 @@ Rectangle
 
                 CustomCheckBox
                 {
-                    width: UISettings.iconSizeMedium
-                    height: width
-                    exclusiveGroup: invDisplayGroup
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+                    ButtonGroup.group: invDisplayGroup
                     checked: widgetRef ? widgetRef.invertedAppearance : false
-                    onCheckedChanged: if (checked && widgetRef) widgetRef.invertedAppearance = true
+                    onClicked: if (checked && widgetRef) widgetRef.invertedAppearance = true
                 }
 
                 RobotoText
@@ -137,16 +137,16 @@ Rectangle
                 columnSpacing: 5
                 rowSpacing: 4
 
-                ExclusiveGroup { id: sliderModeGroup }
+                ButtonGroup { id: sliderModeGroup }
 
                 // row 1
                 CustomCheckBox
                 {
-                    width: UISettings.iconSizeMedium
-                    height: width
-                    exclusiveGroup: sliderModeGroup
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+                    ButtonGroup.group: sliderModeGroup
                     checked: widgetRef ? widgetRef.sliderMode === VCSlider.Level : true
-                    onCheckedChanged: if (checked && widgetRef) widgetRef.sliderMode = VCSlider.Level
+                    onClicked: if (checked && widgetRef) widgetRef.sliderMode = VCSlider.Level
                 }
 
                 RobotoText
@@ -158,11 +158,11 @@ Rectangle
 
                 CustomCheckBox
                 {
-                    width: UISettings.iconSizeMedium
-                    height: width
-                    exclusiveGroup: sliderModeGroup
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+                    ButtonGroup.group: sliderModeGroup
                     checked: widgetRef ? widgetRef.sliderMode === VCSlider.Playback : false
-                    onCheckedChanged: if (checked && widgetRef) widgetRef.sliderMode = VCSlider.Playback
+                    onClicked: if (checked && widgetRef) widgetRef.sliderMode = VCSlider.Playback
                 }
 
                 RobotoText
@@ -175,11 +175,11 @@ Rectangle
                 // row 2
                 CustomCheckBox
                 {
-                    width: UISettings.iconSizeMedium
-                    height: width
-                    exclusiveGroup: sliderModeGroup
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+                    ButtonGroup.group: sliderModeGroup
                     checked: widgetRef ? widgetRef.sliderMode === VCSlider.Submaster : false
-                    onCheckedChanged: if (checked && widgetRef) widgetRef.sliderMode = VCSlider.Submaster
+                    onClicked: if (checked && widgetRef) widgetRef.sliderMode = VCSlider.Submaster
                 }
 
                 RobotoText
@@ -191,11 +191,11 @@ Rectangle
 
                 CustomCheckBox
                 {
-                    width: UISettings.iconSizeMedium
-                    height: width
-                    exclusiveGroup: sliderModeGroup
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+                    ButtonGroup.group: sliderModeGroup
                     checked: widgetRef ? widgetRef.sliderMode === VCSlider.GrandMaster : false
-                    onCheckedChanged: if (checked && widgetRef) widgetRef.sliderMode = VCSlider.GrandMaster
+                    onClicked: if (checked && widgetRef) widgetRef.sliderMode = VCSlider.GrandMaster
                 }
 
                 RobotoText
@@ -208,11 +208,11 @@ Rectangle
                 // row 3
                 CustomCheckBox
                 {
-                    width: UISettings.iconSizeMedium
-                    height: width
-                    exclusiveGroup: sliderModeGroup
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+                    ButtonGroup.group: sliderModeGroup
                     checked: widgetRef ? widgetRef.sliderMode === VCSlider.Attribute : false
-                    onCheckedChanged: if (checked && widgetRef) widgetRef.sliderMode = VCSlider.Attribute
+                    onClicked: if (checked && widgetRef) widgetRef.sliderMode = VCSlider.Attribute
                 }
 
                 RobotoText
