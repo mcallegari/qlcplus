@@ -78,14 +78,14 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc,
         m_pages.append(page);
     }
 
-    qmlRegisterType<VCWidget>("com.qlcplus.classes", 1, 0, "VCWidget");
-    qmlRegisterType<VCFrame>("com.qlcplus.classes", 1, 0, "VCFrame");
-    qmlRegisterType<VCPage>("com.qlcplus.classes", 1, 0, "VCPage");
-    qmlRegisterType<VCButton>("com.qlcplus.classes", 1, 0, "VCButton");
-    qmlRegisterType<VCLabel>("com.qlcplus.classes", 1, 0, "VCLabel");
-    qmlRegisterType<VCSlider>("com.qlcplus.classes", 1, 0, "VCSlider");
-    qmlRegisterType<VCClock>("com.qlcplus.classes", 1, 0, "VCClock");
-    qmlRegisterType<VCClockSchedule>("com.qlcplus.classes", 1, 0, "VCClockSchedule");
+    qmlRegisterType<VCWidget>("org.qlcplus.classes", 1, 0, "VCWidget");
+    qmlRegisterType<VCFrame>("org.qlcplus.classes", 1, 0, "VCFrame");
+    qmlRegisterType<VCPage>("org.qlcplus.classes", 1, 0, "VCPage");
+    qmlRegisterType<VCButton>("org.qlcplus.classes", 1, 0, "VCButton");
+    qmlRegisterType<VCLabel>("org.qlcplus.classes", 1, 0, "VCLabel");
+    qmlRegisterType<VCSlider>("org.qlcplus.classes", 1, 0, "VCSlider");
+    qmlRegisterType<VCClock>("org.qlcplus.classes", 1, 0, "VCClock");
+    qmlRegisterType<VCClockSchedule>("org.qlcplus.classes", 1, 0, "VCClockSchedule");
 
     connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar,QString)),
             this, SLOT(slotInputValueChanged(quint32,quint32,uchar)));

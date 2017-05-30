@@ -111,40 +111,37 @@ void Scene::setValue(const SceneValue& scv, bool blind, bool checkHTP)
         m_fixtures.append(scv.fxi);
     }
 
-    m_valueListMutex.lock();
+    {
+        QMutexLocker locker(&m_valueListMutex);
 
-    QMap<SceneValue, uchar>::iterator it = m_values.find(scv);
-    if (it == m_values.end())
-    {
-        m_values.insert(scv, scv.value);
-        valChanged = true;
-    }
-    else
-    {
-        if (it.value() != scv.value)
+        QMap<SceneValue, uchar>::iterator it = m_values.find(scv);
+        if (it == m_values.end())
+        {
+            m_values.insert(scv, scv.value);
+            valChanged = true;
+        }
+        else if (it.value() != scv.value)
         {
             const_cast<uchar&>(it.key().value) = scv.value;
             it.value() = scv.value;
             valChanged = true;
         }
-    }
 
-    // if the scene is running, we must
-    // update/add the changed channel
-    if (blind == false && m_fader != NULL)
-    {
-        FadeChannel fc(doc(), scv.fxi, scv.channel);
-        fc.setStart(scv.value);
-        fc.setTarget(scv.value);
-        fc.setCurrent(scv.value);
-        fc.setFadeTime(0);
-        if (checkHTP == false)
-            m_fader->forceAdd(fc);
-        else
-            m_fader->add(fc);
+        // if the scene is running, we must
+        // update/add the changed channel
+        if (blind == false && m_fader != NULL)
+        {
+            FadeChannel fc(doc(), scv.fxi, scv.channel);
+            fc.setStart(scv.value);
+            fc.setTarget(scv.value);
+            fc.setCurrent(scv.value);
+            fc.setFadeTime(0);
+            if (checkHTP == false)
+                m_fader->forceAdd(fc);
+            else
+                m_fader->add(fc);
+         }
     }
-
-    m_valueListMutex.unlock();
 
     emit changed(this->id());
     if (valChanged)
@@ -161,9 +158,10 @@ void Scene::unsetValue(quint32 fxi, quint32 ch)
     if (!m_fixtures.contains(fxi))
         qWarning() << Q_FUNC_INFO << "Unsetting value for unknown fixture" << fxi;
 
-    m_valueListMutex.lock();
-    m_values.remove(SceneValue(fxi, ch, 0));
-    m_valueListMutex.unlock();
+    {
+        QMutexLocker locker(&m_valueListMutex);
+        m_values.remove(SceneValue(fxi, ch, 0));
+    }
 
     emit changed(this->id());
 }
@@ -597,7 +595,8 @@ void Scene::write(MasterTimer* timer, QList<Universe*> ua)
 
     if (m_fader == NULL)
     {
-        m_valueListMutex.lock();
+        QMutexLocker locker(&m_valueListMutex);
+
         m_fader = new GenericFader(doc());
         m_fader->adjustIntensity(getAttributeValue(Intensity));
         m_fader->setBlendMode(blendMode());
@@ -643,7 +642,6 @@ void Scene::write(MasterTimer* timer, QList<Universe*> ua)
             insertStartValue(fc, timer, ua);
             m_fader->add(fc);
         }
-        m_valueListMutex.unlock();
     }
 
     //qDebug() << "[Scene] writing channels:" << m_fader->channels().count();

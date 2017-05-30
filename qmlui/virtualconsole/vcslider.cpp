@@ -438,12 +438,11 @@ QVariant VCSlider::groupsTreeModel()
 
 void VCSlider::setLevelValue(uchar value)
 {
-    m_levelValueMutex.lock();
+    QMutexLocker locker(&m_levelValueMutex);
     m_levelValue = value;
     if (m_monitorEnabled == true)
         m_monitorValue = m_levelValue;
     m_levelValueChanged = true;
-    m_levelValueMutex.unlock();
 }
 
 uchar VCSlider::levelValue() const

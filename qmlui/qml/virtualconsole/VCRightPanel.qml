@@ -20,7 +20,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.0
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 import "."
 
 SidePanel
@@ -40,6 +40,7 @@ SidePanel
         Column
         {
             anchors.horizontalCenter: parent.horizontalCenter
+            width: iconSize
             spacing: 3
 
             ExclusiveGroup { id: vcButtonsGroup }

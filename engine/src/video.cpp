@@ -40,6 +40,7 @@ Video::Video(Doc* doc)
   , m_sourceUrl("")
   , m_videoDuration(0)
   , m_resolution(QSize(0,0))
+  , m_customGeometry(QRect())
   , m_screen(0)
   , m_fullscreen(false)
 {
@@ -127,15 +128,29 @@ QStringList Video::getCapabilities()
  * Properties
  *********************************************************************/
 
+QSize Video::resolution()
+{
+    return m_resolution;
+}
+
 void Video::setResolution(QSize size)
 {
     m_resolution = size;
     emit metaDataChanged("Resolution", QVariant(m_resolution));
 }
 
-QSize Video::resolution()
+QRect Video::customGeometry()
 {
-    return m_resolution;
+    return m_customGeometry;
+}
+
+void Video::setCustomGeometry(QRect rect)
+{
+    if (rect == m_customGeometry)
+        return;
+
+    m_customGeometry = rect;
+    emit customGeometryChanged(rect);
 }
 
 void Video::setAudioCodec(QString codec)
@@ -201,6 +216,9 @@ int Video::screen()
 
 void Video::setFullscreen(bool enable)
 {
+    if (m_fullscreen == enable)
+        return;
+
     m_fullscreen = enable;
     emit changed(id());
 }

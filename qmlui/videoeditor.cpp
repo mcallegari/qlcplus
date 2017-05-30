@@ -140,6 +140,23 @@ void VideoEditor::setScreenIndex(int screenIndex)
     emit screenIndexChanged(screenIndex);
 }
 
+bool VideoEditor::isFullscreen() const
+{
+    if (m_video != NULL)
+        return m_video->fullscreen();
+
+    return false;
+}
+
+void VideoEditor::setFullscreen(bool fullscreen)
+{
+    if (m_video == NULL || m_video->fullscreen() == fullscreen)
+        return;
+
+    m_video->setFullscreen(fullscreen);
+    emit fullscreenChanged(fullscreen);
+}
+
 bool VideoEditor::isLooped()
 {
     if (m_video != NULL)
@@ -157,4 +174,29 @@ void VideoEditor::setLooped(bool looped)
         else
             m_video->setRunOrder(Video::SingleShot);
     }
+}
+
+bool VideoEditor::hasCustomGeometry() const
+{
+    if (m_video != NULL && m_video->customGeometry().isNull() == false)
+        return true;
+
+    return false;
+}
+
+QRect VideoEditor::customGeometry() const
+{
+    if (m_video != NULL)
+        return m_video->customGeometry();
+
+    return QRect();
+}
+
+void VideoEditor::setCustomGeometry(QRect customGeometry)
+{
+    if (m_video == NULL || m_video->customGeometry() == customGeometry)
+        return;
+
+    m_video->setCustomGeometry(customGeometry);
+    emit customGeometryChanged(customGeometry);
 }

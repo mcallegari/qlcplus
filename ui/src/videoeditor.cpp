@@ -63,7 +63,6 @@ VideoEditor::VideoEditor(QWidget* parent, Video *video, Doc* doc)
     m_vcodecLabel->setText(video->videoCodec());
     m_acodecLabel->setText(video->audioCodec());
 
-
     int screenCount = 0;
     QDesktopWidget *desktop = qApp->desktop();
     if (desktop != NULL)

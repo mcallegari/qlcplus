@@ -515,376 +515,376 @@
 <context>
     <name>App</name>
     <message>
-        <location filename="app.cpp" line="367"/>
+        <location filename="app.cpp" line="365"/>
         <source>Cannot exit in Operate mode</source>
         <translation>No puede salir en Modo Operación</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="368"/>
+        <location filename="app.cpp" line="366"/>
         <source>You must switch back to Design mode to close the application.</source>
         <translation>Tiene que cambiar a Modo Diseño para cerrar la aplicación.</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="376"/>
+        <location filename="app.cpp" line="374"/>
         <source>Close</source>
         <translation>Cerrar</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="376"/>
+        <location filename="app.cpp" line="374"/>
         <source>Do you wish to save the current workspace before closing the application?</source>
         <translation>¿Desea guardar el espacio de trabajo antes de cerrar la aplicacion?</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="433"/>
+        <location filename="app.cpp" line="431"/>
         <source>Starting Q Light Controller Plus</source>
         <oldsource>Starting Q Light Controller</oldsource>
         <translation>Iniciando Q Light Controller Plus</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="517"/>
+        <location filename="app.cpp" line="515"/>
         <source> - New Workspace</source>
         <translation> - Nuevo Espacio de trabajo</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="585"/>
+        <location filename="app.cpp" line="583"/>
         <source>Switch to Design Mode</source>
         <translation>Cambiar a Modo Diseño</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="586"/>
+        <location filename="app.cpp" line="584"/>
         <source>There are still running functions.
 Really stop them and switch back to Design mode?</source>
         <translation>Todavía hay funciones ejecutándose.
 ¿Desea detenerlas y volver a Modo Diseño?</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="621"/>
+        <location filename="app.cpp" line="619"/>
         <source>Design</source>
         <translation>Diseño</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="622"/>
+        <location filename="app.cpp" line="620"/>
         <source>Switch to design mode</source>
         <translation>Cambiar a Modo Diseño</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="633"/>
+        <location filename="app.cpp" line="631"/>
         <source>Operate</source>
         <translation>Operación</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="634"/>
-        <location filename="app.cpp" line="662"/>
+        <location filename="app.cpp" line="632"/>
+        <location filename="app.cpp" line="660"/>
         <source>Switch to operate mode</source>
         <translation>Cambiar a Modo Operación</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="645"/>
+        <location filename="app.cpp" line="643"/>
         <source>&amp;New</source>
         <translation>&amp;Nuevo</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="646"/>
+        <location filename="app.cpp" line="644"/>
         <source>CTRL+N</source>
         <comment>File|New</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="649"/>
+        <location filename="app.cpp" line="647"/>
         <source>&amp;Open</source>
         <translation>&amp;Abrir</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="650"/>
+        <location filename="app.cpp" line="648"/>
         <source>CTRL+O</source>
         <comment>File|Open</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="653"/>
+        <location filename="app.cpp" line="651"/>
         <source>&amp;Save</source>
         <translation>&amp;Guardar</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="654"/>
+        <location filename="app.cpp" line="652"/>
         <source>CTRL+S</source>
         <comment>File|Save</comment>
         <translation>CTRL+S</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="657"/>
+        <location filename="app.cpp" line="655"/>
         <source>Save &amp;As...</source>
         <translation>Guardar &amp;como...</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="661"/>
+        <location filename="app.cpp" line="659"/>
         <source>&amp;Operate</source>
         <translation>&amp;Operación</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="666"/>
+        <location filename="app.cpp" line="664"/>
         <source>&amp;Monitor</source>
         <translation>&amp;Monitor</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="673"/>
+        <location filename="app.cpp" line="671"/>
         <source>Toggle &amp;Blackout</source>
         <translation>Activar/Desactivar &amp;Blackout</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="663"/>
+        <location filename="app.cpp" line="661"/>
         <source>CTRL+F12</source>
         <comment>Control|Toggle operate/design mode</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="667"/>
+        <location filename="app.cpp" line="665"/>
         <source>CTRL+M</source>
         <comment>Control|Monitor</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="678"/>
+        <location filename="app.cpp" line="676"/>
         <source>Live edit a function</source>
         <translation>Edita una función en vivo</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="718"/>
+        <location filename="app.cpp" line="716"/>
         <source>Toggle Full Screen</source>
         <translation>Cambiar a Pantalla Completa</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="720"/>
+        <location filename="app.cpp" line="718"/>
         <source>CTRL+F11</source>
         <comment>Control|Toggle Full Screen</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="724"/>
+        <location filename="app.cpp" line="722"/>
         <source>&amp;Index</source>
         <translation>&amp;Indice</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="725"/>
+        <location filename="app.cpp" line="723"/>
         <source>SHIFT+F1</source>
         <comment>Help|Index</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="728"/>
+        <location filename="app.cpp" line="726"/>
         <source>&amp;About QLC+</source>
         <oldsource>&amp;About QLC</oldsource>
         <translation>Acerca &amp;QLC+</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="281"/>
+        <location filename="app.cpp" line="279"/>
         <source>Fixtures</source>
         <translation>Fixtures</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="283"/>
+        <location filename="app.cpp" line="281"/>
         <source>Functions</source>
         <translation>Funciones</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="285"/>
+        <location filename="app.cpp" line="283"/>
         <source>Shows</source>
         <translation>Shows</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="287"/>
+        <location filename="app.cpp" line="285"/>
         <source>Virtual Console</source>
         <translation>Consola Virtual</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="289"/>
+        <location filename="app.cpp" line="287"/>
         <source>Simple Desk</source>
         <translation>Mesa Simple</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="291"/>
+        <location filename="app.cpp" line="289"/>
         <source>Inputs/Outputs</source>
         <translation>Entradas/Salidas</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="390"/>
+        <location filename="app.cpp" line="388"/>
         <source>Close the application?</source>
         <translation>¿Cerrar la aplicación?</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="391"/>
+        <location filename="app.cpp" line="389"/>
         <source>Do you wish to close the application?</source>
         <translation>¿Desea cerrar la aplicación?</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="568"/>
+        <location filename="app.cpp" line="566"/>
         <source>Exit</source>
         <translation>Salir</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="670"/>
+        <location filename="app.cpp" line="668"/>
         <source>Address Tool</source>
         <translation>Herramienta de Direccionamiento</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="682"/>
+        <location filename="app.cpp" line="680"/>
         <source>Toggle Virtual Console Live edit</source>
         <translation>Activa/Desactiva la edición en vivo de la Consola Virtual</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="687"/>
+        <location filename="app.cpp" line="685"/>
         <source>Dump DMX values to a function</source>
         <translation>Volcar valores DMX a una función</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="688"/>
+        <location filename="app.cpp" line="686"/>
         <source>CTRL+D</source>
         <comment>Control|Dump DMX</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="691"/>
+        <location filename="app.cpp" line="689"/>
         <source>Stop ALL functions!</source>
         <translation>¡Detener TODAS las funciones!</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="696"/>
+        <location filename="app.cpp" line="694"/>
         <source>Fade 1 second and stop</source>
         <translation>Fade out de 1 segundo y detener</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="701"/>
+        <location filename="app.cpp" line="699"/>
         <source>Fade 5 seconds and stop</source>
         <translation>Fade out de 5 segundos y detener</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="706"/>
+        <location filename="app.cpp" line="704"/>
         <source>Fade 10 second and stop</source>
         <translation>Fade out de 10 segundos y detener</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="711"/>
+        <location filename="app.cpp" line="709"/>
         <source>Fade 30 second and stop</source>
         <translation>Fade out de 30 segundos y detener</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="733"/>
+        <location filename="app.cpp" line="731"/>
         <source>Quit QLC+</source>
         <translation>Salir de QLC+</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="741"/>
+        <location filename="app.cpp" line="739"/>
         <source>Workspace</source>
         <translation>Espacio de Trabajo</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="799"/>
+        <location filename="app.cpp" line="797"/>
         <source>Unable to read from file</source>
         <translation>Imposible leer desde archivo</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="802"/>
+        <location filename="app.cpp" line="800"/>
         <source>Unable to write to file</source>
         <translation>Imposible escribir a archivo</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="805"/>
+        <location filename="app.cpp" line="803"/>
         <source>A fatal error occurred</source>
         <translation>Ocurrió un error fatal</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="808"/>
+        <location filename="app.cpp" line="806"/>
         <source>Unable to access resource</source>
         <translation>Imposible acceder a recurso</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="811"/>
+        <location filename="app.cpp" line="809"/>
         <source>Unable to open file for reading or writing</source>
         <translation>Imposible abrir archivo para leer o escribir</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="814"/>
+        <location filename="app.cpp" line="812"/>
         <source>Operation was aborted</source>
         <translation>La operación ha sido abortada</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="817"/>
+        <location filename="app.cpp" line="815"/>
         <source>Operation timed out</source>
         <translation>Operacion caducada</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="821"/>
+        <location filename="app.cpp" line="819"/>
         <source>An unspecified error has occurred. Nice.</source>
         <translation>Ocurrió un error desconocido. Genial.</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="825"/>
+        <location filename="app.cpp" line="823"/>
         <source>File error</source>
         <translation>Error de archivo</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="919"/>
-        <location filename="app.cpp" line="935"/>
-        <location filename="app.cpp" line="1216"/>
+        <location filename="app.cpp" line="917"/>
+        <location filename="app.cpp" line="933"/>
+        <location filename="app.cpp" line="1214"/>
         <source>Do you wish to save the current workspace?
 Changes will be lost if you don&apos;t save them.</source>
         <translation>¿Desea guardar el espacio de trabajo actual?
 Los cambios se perderán si no los guarda.</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="921"/>
+        <location filename="app.cpp" line="919"/>
         <source>New Workspace</source>
         <translation>Nuevo Espacio de Trabajo</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="937"/>
-        <location filename="app.cpp" line="945"/>
-        <location filename="app.cpp" line="1218"/>
+        <location filename="app.cpp" line="935"/>
+        <location filename="app.cpp" line="943"/>
+        <location filename="app.cpp" line="1216"/>
         <source>Open Workspace</source>
         <translation>Abrir Espacio de Trabajo</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="953"/>
-        <location filename="app.cpp" line="1036"/>
+        <location filename="app.cpp" line="951"/>
+        <location filename="app.cpp" line="1034"/>
         <source>Workspaces (*%1)</source>
         <translation>Espacios de Trabajo (*%1)</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="955"/>
-        <location filename="app.cpp" line="1038"/>
+        <location filename="app.cpp" line="953"/>
+        <location filename="app.cpp" line="1036"/>
         <source>All Files (*.*)</source>
         <translation>Todos los archivos (*.*)</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="957"/>
-        <location filename="app.cpp" line="1040"/>
+        <location filename="app.cpp" line="955"/>
+        <location filename="app.cpp" line="1038"/>
         <source>All Files (*)</source>
         <translation>Todos los archivos (*)</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="1030"/>
+        <location filename="app.cpp" line="1028"/>
         <source>Save Workspace As</source>
         <translation>Guardar el espacio de trabajo como</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="1209"/>
+        <location filename="app.cpp" line="1207"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="1210"/>
+        <location filename="app.cpp" line="1208"/>
         <source>File not found !
 The selected file has been moved or deleted.</source>
         <translation>¡Archivo no encontrado!
 El archivo seleccionado ha sido movido o borrado.</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="1386"/>
+        <location filename="app.cpp" line="1384"/>
         <source>Warning</source>
         <translation>Atención</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="1387"/>
+        <location filename="app.cpp" line="1385"/>
         <source>Some errors occurred while loading the project:</source>
         <translation>Algunos errores ocurrieron al cargar el proyecto:</translation>
     </message>
@@ -927,17 +927,17 @@ El archivo seleccionado ha sido movido o borrado.</translation>
     <message>
         <location filename="audioeditor.ui" line="41"/>
         <source>Playback mode</source>
-        <translation type="unfinished">Modo de reproducción</translation>
+        <translation>Modo de reproducción</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="47"/>
         <source>Single shot</source>
-        <translation type="unfinished">Una sola vez</translation>
+        <translation>Una sola vez</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="57"/>
         <source>Loop</source>
-        <translation type="unfinished">Loop</translation>
+        <translation>Loop</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="209"/>
@@ -2280,19 +2280,19 @@ El archivo seleccionado ha sido movido o borrado.</translation>
     <message>
         <location filename="fixturemanager.cpp" line="592"/>
         <source>This group contains all fixtures of</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Este grupo contiene todos los fixtures de</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="596"/>
         <location filename="fixturemanager.cpp" line="637"/>
         <source>Total estimated weight</source>
-        <translation type="unfinished"></translation>
+        <translation>Peso total estimado</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="597"/>
         <location filename="fixturemanager.cpp" line="638"/>
         <source>Maximum estimated power consumption</source>
-        <translation type="unfinished"></translation>
+        <translation>Consumo eléctrico máximo estimado</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="981"/>
@@ -2785,7 +2785,7 @@ El archivo seleccionado ha sido movido o borrado.</translation>
     <message>
         <location filename="functionselection.ui" line="122"/>
         <source>EFX</source>
-        <translation type="unfinished"></translation>
+        <translation>EFX</translation>
     </message>
     <message>
         <location filename="functionselection.ui" line="129"/>
@@ -2805,7 +2805,7 @@ El archivo seleccionado ha sido movido o borrado.</translation>
     <message>
         <location filename="functionselection.ui" line="180"/>
         <source>Sequences</source>
-        <translation type="unfinished"></translation>
+        <translation>Secuencias</translation>
     </message>
     <message>
         <location filename="functionselection.ui" line="99"/>
@@ -4205,7 +4205,7 @@ Tenga en cuenta que el asistente no puede diferenciar entre una perilla y un sli
     <message>
         <location filename="virtualconsole/vcframepageshortcut.cpp" line="49"/>
         <source>Page: %1</source>
-        <translation type="unfinished">Página: %1</translation>
+        <translation>Página: %1</translation>
     </message>
 </context>
 <context>
@@ -5000,115 +5000,115 @@ Duración: %3
     </message>
     <message>
         <location filename="showmanager/showmanager.cpp" line="693"/>
-        <location filename="showmanager/showmanager.cpp" line="813"/>
+        <location filename="showmanager/showmanager.cpp" line="811"/>
         <source> (Copy)</source>
         <translation> (Copiar)</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="766"/>
+        <location filename="showmanager/showmanager.cpp" line="764"/>
         <source>Track %1</source>
         <translation>Pista %1</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="795"/>
-        <location filename="showmanager/showmanager.cpp" line="887"/>
+        <location filename="showmanager/showmanager.cpp" line="793"/>
+        <location filename="showmanager/showmanager.cpp" line="883"/>
         <source>New Sequence</source>
         <translation>Nueva Secuencia</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="865"/>
-        <location filename="showmanager/showmanager.cpp" line="942"/>
-        <location filename="showmanager/showmanager.cpp" line="1001"/>
+        <location filename="showmanager/showmanager.cpp" line="861"/>
+        <location filename="showmanager/showmanager.cpp" line="938"/>
+        <location filename="showmanager/showmanager.cpp" line="997"/>
         <source>Overlapping error</source>
         <translation>Error de superposición</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="865"/>
-        <location filename="showmanager/showmanager.cpp" line="942"/>
-        <location filename="showmanager/showmanager.cpp" line="1001"/>
+        <location filename="showmanager/showmanager.cpp" line="861"/>
+        <location filename="showmanager/showmanager.cpp" line="938"/>
+        <location filename="showmanager/showmanager.cpp" line="997"/>
         <source>Overlapping not allowed. Operation canceled.</source>
         <translation>Superposición no permitida. Operación cancelada.</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="875"/>
+        <location filename="showmanager/showmanager.cpp" line="871"/>
         <source>Scene for %1 - Track %2</source>
         <translation>Escena para %1 - Pista %2</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="900"/>
+        <location filename="showmanager/showmanager.cpp" line="896"/>
         <source>Open Audio File</source>
         <translation>Abrir archivo de Audio</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="909"/>
+        <location filename="showmanager/showmanager.cpp" line="905"/>
         <source>Audio Files (%1)</source>
         <translation>Archivos de Audio (%1)</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="911"/>
-        <location filename="showmanager/showmanager.cpp" line="970"/>
+        <location filename="showmanager/showmanager.cpp" line="907"/>
+        <location filename="showmanager/showmanager.cpp" line="966"/>
         <source>All Files (*.*)</source>
         <translation>Todos los archivos (*.*)</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="913"/>
-        <location filename="showmanager/showmanager.cpp" line="972"/>
+        <location filename="showmanager/showmanager.cpp" line="909"/>
+        <location filename="showmanager/showmanager.cpp" line="968"/>
         <source>All Files (*)</source>
         <translation>Todos los archivos (*)</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="935"/>
+        <location filename="showmanager/showmanager.cpp" line="931"/>
         <source>Unsupported audio file</source>
         <translation>Archivo de audio no soportado</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="935"/>
+        <location filename="showmanager/showmanager.cpp" line="931"/>
         <source>This audio file cannot be played with QLC+. Sorry.</source>
         <translation>Este archivo de audio no puede ser rerpoducido con QLC+. Mil disculpas.</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="959"/>
+        <location filename="showmanager/showmanager.cpp" line="955"/>
         <source>Open Video File</source>
         <translation>Abrir Archivo de video</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="968"/>
+        <location filename="showmanager/showmanager.cpp" line="964"/>
         <source>Video Files (%1)</source>
         <translation>Archivos de Video (%1)</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="994"/>
+        <location filename="showmanager/showmanager.cpp" line="990"/>
         <source>Unsupported video file</source>
         <translation>Archivo de video no soportado</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="994"/>
+        <location filename="showmanager/showmanager.cpp" line="990"/>
         <source>This video file cannot be played with QLC+. Sorry.</source>
         <translation>Este archivo de video no puede ser rerpoducido con QLC+. Mil disculpas.</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="1037"/>
-        <location filename="showmanager/showmanager.cpp" line="1093"/>
+        <location filename="showmanager/showmanager.cpp" line="1033"/>
+        <location filename="showmanager/showmanager.cpp" line="1087"/>
         <source>Paste error</source>
         <translation>Error de pegado</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="1037"/>
+        <location filename="showmanager/showmanager.cpp" line="1033"/>
         <source>Overlapping paste not allowed. Operation canceled.</source>
         <translation>Superposición no permitida. Operación cancelada.</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="1093"/>
+        <location filename="showmanager/showmanager.cpp" line="1087"/>
         <source>Trying to paste on an incompatible Scene. Operation canceled.</source>
         <translation>Intentando pegar en una Escena incompatible. Operación cancelada.</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="1408"/>
+        <location filename="showmanager/showmanager.cpp" line="1400"/>
         <source>Track name setup</source>
         <translation>Ajuste de nombre de Pista</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="1409"/>
+        <location filename="showmanager/showmanager.cpp" line="1401"/>
         <source>Track name:</source>
         <translation>Nombre de Pista:</translation>
     </message>
@@ -5525,54 +5525,79 @@ Duración: %3
         <translation>Propiedades del reloj</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcclockproperties.ui" line="43"/>
+        <location filename="virtualconsole/vcclockproperties.ui" line="47"/>
+        <source>General</source>
+        <translation type="unfinished">General</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcclockproperties.ui" line="53"/>
         <source>Clock type</source>
         <translation>Tipo de reloj</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcclockproperties.ui" line="49"/>
+        <location filename="virtualconsole/vcclockproperties.ui" line="59"/>
         <source>Stopwatch</source>
         <translation>Cronómetro</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcclockproperties.ui" line="56"/>
+        <location filename="virtualconsole/vcclockproperties.ui" line="66"/>
         <source>h</source>
         <translation>h</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcclockproperties.ui" line="66"/>
+        <location filename="virtualconsole/vcclockproperties.ui" line="76"/>
         <source>Countdown</source>
         <translation>Cuenta atrás</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcclockproperties.ui" line="73"/>
+        <location filename="virtualconsole/vcclockproperties.ui" line="83"/>
         <source>m</source>
         <translation>m</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcclockproperties.ui" line="83"/>
+        <location filename="virtualconsole/vcclockproperties.ui" line="93"/>
         <source>s</source>
         <translation>s</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcclockproperties.ui" line="99"/>
+        <location filename="virtualconsole/vcclockproperties.ui" line="109"/>
         <source>Clock</source>
         <translation>Reloj</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcclockproperties.ui" line="112"/>
+        <location filename="virtualconsole/vcclockproperties.ui" line="122"/>
         <source>Schedule</source>
         <translation>Calendario</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcclockproperties.ui" line="178"/>
+        <location filename="virtualconsole/vcclockproperties.ui" line="188"/>
         <source>Function</source>
         <translation>Función</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcclockproperties.ui" line="183"/>
+        <location filename="virtualconsole/vcclockproperties.ui" line="193"/>
         <source>Time</source>
         <translation>Hora</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcclockproperties.ui" line="205"/>
+        <source>Input</source>
+        <translation type="unfinished">Entrada</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcclockproperties.ui" line="214"/>
+        <source>No input control available for Clock type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcclockproperties.cpp" line="39"/>
+        <source>Play/Pause control</source>
+        <translation type="unfinished">Reproducción/Pausa control</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcclockproperties.cpp" line="48"/>
+        <source>Reset control</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5810,7 +5835,7 @@ Duración: %3
 <context>
     <name>VCFrame</name>
     <message>
-        <location filename="virtualconsole/vcframe.cpp" line="1430"/>
+        <location filename="virtualconsole/vcframe.cpp" line="1439"/>
         <source>Add</source>
         <translation>Añadir</translation>
     </message>
@@ -5860,7 +5885,7 @@ Duración: %3
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="210"/>
         <source>Page Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre de la página</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.cpp" line="63"/>
@@ -6455,12 +6480,12 @@ Duración: %3
 <context>
     <name>VCSlider</name>
     <message>
-        <location filename="virtualconsole/vcslider.cpp" line="220"/>
+        <location filename="virtualconsole/vcslider.cpp" line="228"/>
         <source>Slider %1</source>
         <translation>Slider %1</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcslider.cpp" line="581"/>
+        <location filename="virtualconsole/vcslider.cpp" line="589"/>
         <source>Reset channels override</source>
         <translation>Restaurar el override de canales</translation>
     </message>
@@ -7447,32 +7472,32 @@ Por favor elija una que tenga esos canales.</translation>
         <translation>Loop</translation>
     </message>
     <message>
-        <location filename="videoeditor.cpp" line="129"/>
+        <location filename="videoeditor.cpp" line="122"/>
         <source>Open Video File</source>
         <translation>Abrir Archivo de video</translation>
     </message>
     <message>
-        <location filename="videoeditor.cpp" line="137"/>
+        <location filename="videoeditor.cpp" line="130"/>
         <source>Video Files (%1)</source>
         <translation>Archivos de Video (%1)</translation>
     </message>
     <message>
-        <location filename="videoeditor.cpp" line="139"/>
+        <location filename="videoeditor.cpp" line="132"/>
         <source>All Files (*.*)</source>
         <translation>Todos los archivos (*.*)</translation>
     </message>
     <message>
-        <location filename="videoeditor.cpp" line="141"/>
+        <location filename="videoeditor.cpp" line="134"/>
         <source>All Files (*)</source>
         <translation>Todos los archivos (*)</translation>
     </message>
     <message>
-        <location filename="videoeditor.cpp" line="169"/>
+        <location filename="videoeditor.cpp" line="162"/>
         <source>Video source URL</source>
         <translation>URL del origen del video</translation>
     </message>
     <message>
-        <location filename="videoeditor.cpp" line="170"/>
+        <location filename="videoeditor.cpp" line="163"/>
         <source>Enter a URL:</source>
         <translation>Ingresar una URL:</translation>
     </message>

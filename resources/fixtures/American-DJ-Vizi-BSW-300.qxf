@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.0 GIT</Version>
+  <Version>4.10.6 GIT</Version>
   <Author>George Qualley IV</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -18,7 +18,7 @@
   <Capability Min="0" Max="255">Pan (Fine)</Capability>
  </Channel>
  <Channel Name="Tilt">
-  <Group Byte="1">Tilt</Group>
+  <Group Byte="0">Tilt</Group>
   <Capability Min="0" Max="255">Tilt</Capability>
  </Channel>
  <Channel Name="Tilt (Fine)">
@@ -35,7 +35,23 @@
   <Capability Min="40" Max="47" Color="#ff8000">Orange</Capability>
   <Capability Min="48" Max="55" Color="#ff00ff">Magenta</Capability>
   <Capability Min="56" Max="64" Color="#66ccff">Light Blue</Capability>
-  <Capability Min="65" Max="127">Color Indexing</Capability>
+  <Capability Min="65" Max="67">Color Indexing</Capability>
+  <Capability Min="68" Max="68" Color="#ff0000" Color2="#ffffff">Red/White</Capability>
+  <Capability Min="69" Max="75">Color Indexing</Capability>
+  <Capability Min="76" Max="76" Color="#ff0000" Color2="#0000ff">Red/Blue</Capability>
+  <Capability Min="77" Max="83">Color Indexing</Capability>
+  <Capability Min="84" Max="84" Color="#0000ff" Color2="#00ff00">Blue/Green</Capability>
+  <Capability Min="85" Max="91">Color Indexing</Capability>
+  <Capability Min="92" Max="92" Color="#00ff00" Color2="#ffff00">Green/Yellow</Capability>
+  <Capability Min="93" Max="99">Color Indexing</Capability>
+  <Capability Min="100" Max="100" Color="#ffff00" Color2="#ff8000">Yellow/Orange</Capability>
+  <Capability Min="101" Max="107">Color Indexing</Capability>
+  <Capability Min="108" Max="108" Color="#ff8000" Color2="#ff00ff">Orange/Magenta</Capability>
+  <Capability Min="109" Max="114">Color Indexing</Capability>
+  <Capability Min="115" Max="115" Color="#ff00ff" Color2="#66ffff">Magenta/Light Blue</Capability>
+  <Capability Min="116" Max="122">Color Indexing</Capability>
+  <Capability Min="123" Max="123" Color="#66ffff" Color2="#ffffff">Light Blue/White</Capability>
+  <Capability Min="124" Max="127">Color Indexing</Capability>
   <Capability Min="128" Max="189" Res="Others/rainbow.png">Clockwise Rotation (Fast -&gt; Slow)</Capability>
   <Capability Min="190" Max="193">Stop</Capability>
   <Capability Min="194" Max="255" Res="Others/rainbow.png">Counter-Clockwise Rotation (Slow -&gt; Fast)</Capability>
@@ -50,7 +66,21 @@
   <Capability Min="40" Max="47" Color="#00ff00">Green</Capability>
   <Capability Min="48" Max="55" Color="#ffffe6">CTO 5600K</Capability>
   <Capability Min="56" Max="64" Color="#00ffff">Cyan</Capability>
-  <Capability Min="65" Max="127">Color Indexing</Capability>
+  <Capability Min="65" Max="67">Color Indexing</Capability>
+  <Capability Min="68" Max="68" Color="#ffffff" Color2="#ff66ff">White/Pink</Capability>
+  <Capability Min="69" Max="75">Color Indexing</Capability>
+  <Capability Min="76" Max="76" Color="#ff66ff" Color2="#ffffe5">Pink/CTO 3200</Capability>
+  <Capability Min="77" Max="82">Color Indexing</Capability>
+  <Capability Min="83" Max="83" Color="#ffffef" Color2="#800080">CTO 3200/UV</Capability>
+  <Capability Min="84" Max="90">Color Indexing</Capability>
+  <Capability Min="91" Max="91" Color="#800080" Color2="#ffff00">UV/Yellow</Capability>
+  <Capability Min="92" Max="98">Color Indexing</Capability>
+  <Capability Min="99" Max="99" Color="#ffff00" Color2="#00ff00">Yellow/Green</Capability>
+  <Capability Min="100" Max="105">Color Indexing</Capability>
+  <Capability Min="106" Max="106" Color="#00ff00" Color2="#fffff2">Green/CTO 5600</Capability>
+  <Capability Min="107" Max="114">Color Indexing</Capability>
+  <Capability Min="115" Max="115" Color="#fffff2" Color2="#00ffff">CTO 5600/Cyan</Capability>
+  <Capability Min="116" Max="127">Color Indexing</Capability>
   <Capability Min="128" Max="189" Res="Others/rainbow.png">Clockwise Rotation (Fast -&gt; Slow)</Capability>
   <Capability Min="190" Max="193">Stop</Capability>
   <Capability Min="194" Max="255" Res="Others/rainbow.png">Counter-Clockwise Rotation (Fast -&gt; Slow)</Capability>
@@ -220,18 +250,18 @@
   <Channel Number="4">Color Wheel 1</Channel>
   <Channel Number="5">Color Wheel 2</Channel>
   <Channel Number="6">Gobo Wheel 1 (Glass Gobos)</Channel>
-  <Channel Number="7">Gobo Wheel 2</Channel>
-  <Channel Number="8">Shutter</Channel>
-  <Channel Number="9">Master Dimmer</Channel>
-  <Channel Number="10">Dimmer (Fine)</Channel>
-  <Channel Number="11">Prism (6 Facet)</Channel>
-  <Channel Number="12">Prism Rotation</Channel>
-  <Channel Number="13">Frost</Channel>
-  <Channel Number="14">Focus</Channel>
-  <Channel Number="15">Shows</Channel>
-  <Channel Number="16">Dimmer Curve</Channel>
-  <Channel Number="17">Pan/Tilt Speed</Channel>
-  <Channel Number="18">Special Functions</Channel>
-  <Channel Number="19">Gobo Wheel 1 Rotation</Channel>
+  <Channel Number="7">Gobo Wheel 1 Rotation</Channel>
+  <Channel Number="8">Gobo Wheel 2</Channel>
+  <Channel Number="9">Shutter</Channel>
+  <Channel Number="10">Master Dimmer</Channel>
+  <Channel Number="11">Dimmer (Fine)</Channel>
+  <Channel Number="12">Prism (6 Facet)</Channel>
+  <Channel Number="13">Prism Rotation</Channel>
+  <Channel Number="14">Frost</Channel>
+  <Channel Number="15">Focus</Channel>
+  <Channel Number="16">Shows</Channel>
+  <Channel Number="17">Dimmer Curve</Channel>
+  <Channel Number="18">Pan/Tilt Speed</Channel>
+  <Channel Number="19">Special Functions</Channel>
  </Mode>
 </FixtureDefinition>

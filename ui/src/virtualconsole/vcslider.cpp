@@ -609,12 +609,11 @@ bool VCSlider::channelsMonitorEnabled() const
 
 void VCSlider::setLevelValue(uchar value)
 {
-    m_levelValueMutex.lock();
+    QMutexLocker locker(&m_levelValueMutex);
     m_levelValue = value;
     if (m_monitorEnabled == true)
         m_monitorValue = m_levelValue;
     m_levelValueChanged = true;
-    m_levelValueMutex.unlock();
 }
 
 uchar VCSlider::levelValue() const
@@ -644,9 +643,11 @@ void VCSlider::slotMonitorDMXValueChanged(int value)
 
     if (m_isOverriding == false)
     {
-        m_levelValueMutex.lock();
-        m_levelValue = m_monitorValue;
-        m_levelValueMutex.unlock();
+        {
+            QMutexLocker locker(&m_levelValueMutex);
+            m_levelValue = m_monitorValue;
+        }
+
         if (m_slider)
             m_slider->blockSignals(true);
         setSliderValue(value, true);

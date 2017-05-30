@@ -69,6 +69,8 @@ App::App()
     QVariant dir = settings.value(SETTINGS_WORKINGPATH);
     if (dir.isValid() == true)
         m_workingPath = dir.toString();
+
+    connect(this, &App::screenChanged, this, &App::slotScreenChanged);
 }
 
 App::~App()
@@ -78,10 +80,10 @@ App::~App()
 
 void App::startup()
 {
-    qmlRegisterType<Fixture>("com.qlcplus.classes", 1, 0, "Fixture");
-    qmlRegisterType<Function>("com.qlcplus.classes", 1, 0, "Function");
-    qmlRegisterType<ModelSelector>("com.qlcplus.classes", 1, 0, "ModelSelector");
-    qmlRegisterType<App>("com.qlcplus.classes", 1, 0, "App");
+    qmlRegisterType<Fixture>("org.qlcplus.classes", 1, 0, "Fixture");
+    qmlRegisterType<Function>("org.qlcplus.classes", 1, 0, "Function");
+    qmlRegisterType<ModelSelector>("org.qlcplus.classes", 1, 0, "ModelSelector");
+    qmlRegisterType<App>("org.qlcplus.classes", 1, 0, "App");
 
     setTitle(APPNAME);
     setIcon(QIcon(":/qlcplus.svg"));
@@ -123,13 +125,13 @@ void App::startup()
     rootContext()->setContextProperty("showManager", m_showManager);
 
     // register an uncreatable type just to use the enums in QML
-    qmlRegisterUncreatableType<ShowManager>("com.qlcplus.classes", 1, 0, "ShowManager", "Can't create a ShowManager !");
+    qmlRegisterUncreatableType<ShowManager>("org.qlcplus.classes", 1, 0, "ShowManager", "Can't create a ShowManager !");
 
     m_actionManager = new ActionManager(this, m_functionManager, m_showManager, m_virtualConsole);
     rootContext()->setContextProperty("actionManager", m_actionManager);
 
     // register an uncreatable type just to use the enums in QML
-    qmlRegisterUncreatableType<ActionManager>("com.qlcplus.classes", 1, 0,  "ActionManager", "Can't create an ActionManager !");
+    qmlRegisterUncreatableType<ActionManager>("org.qlcplus.classes", 1, 0,  "ActionManager", "Can't create an ActionManager !");
 
     m_contextManager->registerContext(m_virtualConsole);
     m_contextManager->registerContext(m_showManager);
@@ -163,8 +165,11 @@ void App::toggleFullscreen()
 
 void App::show()
 {
-    setGeometry(0, 0, 800, 600);
-    //setGeometry(0, 0, 1272, 689); // youtube recording
+    QScreen *currScreen = screen();
+    QRect rect(0, 0, 800, 600);
+    //QRect rect(0, 0, 1272, 689); // youtube recording
+    rect.moveTopLeft(currScreen->geometry().topLeft());
+    setGeometry(rect);
     showMaximized();
 }
 
@@ -187,6 +192,13 @@ void App::keyReleaseEvent(QKeyEvent *e)
         m_contextManager->handleKeyRelease(e);
 
     QQuickView::keyReleaseEvent(e);
+}
+
+void App::slotScreenChanged(QScreen *screen)
+{
+    m_pixelDensity = screen->physicalDotsPerInch() *  0.039370;
+    qDebug() << "Screen changed to" << screen->name() << ". New pixel density:" << m_pixelDensity;
+    rootContext()->setContextProperty("screenPixelDensity", m_pixelDensity);
 }
 
 void App::clearDocument()

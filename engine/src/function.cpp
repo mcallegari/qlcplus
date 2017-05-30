@@ -738,11 +738,15 @@ void Function::postRun(MasterTimer* timer, QList<Universe *> universes)
     Q_UNUSED(universes);
 
     qDebug() << "Function postRun. Name:" << m_name << "ID: " << m_id;
-    m_stopMutex.lock();
-    resetElapsed();
-    resetAttributes();
-    m_functionStopped.wakeAll();
-    m_stopMutex.unlock();
+
+    {
+        QMutexLocker locker(&m_stopMutex);
+
+        resetElapsed();
+        resetAttributes();
+
+        m_functionStopped.wakeAll();
+    }
 
     m_running = false;
     emit stopped(m_id);
@@ -879,9 +883,8 @@ bool Function::startedAsChild() const
 
 bool Function::stopAndWait()
 {
-    bool result = true;
+    QMutexLocker locker(&m_stopMutex);
 
-    m_stopMutex.lock();
     stop(FunctionParent::master());
 
     QElapsedTimer watchdog;
@@ -891,17 +894,13 @@ bool Function::stopAndWait()
     while (m_running == true)
     {
         if (watchdog.elapsed() > 2000)
-        {
-              result = false;
-              break;
-        }
+            return false;
 
         // wait until the function has stopped
         m_functionStopped.wait(&m_stopMutex, 100);
     }
 
-    m_stopMutex.unlock();
-    return result;
+    return true;
 }
 
 /*****************************************************************************

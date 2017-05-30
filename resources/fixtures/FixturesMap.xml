@@ -739,6 +739,7 @@
   <fixture path="Sagitter-Miniscan-2001.qxf" mf="Sagitter" md="Miniscan 2001"/>
   <fixture path="Sagitter-Slimpar-18-RGB.qxf" mf="Sagitter" md="Slimpar 18 RGB"/>
   <fixture path="Sagitter-Slimpar-7DL.qxf" mf="Sagitter" md="Slimpar 7DL"/>
+  <fixture path="Sagitter-Smart-DL-Wash.qxf" mf="Sagitter" md="Smart DL Wash"/>
   <fixture path="Scanic-Astute-LED-108.qxf" mf="Scanic" md="Astute LED 108"/>
   <fixture path="SGM-Colorlab-250.qxf" mf="SGM" md="Colorlab 250"/>
   <fixture path="SGM-G-Profile.qxf" mf="SGM" md="G-Profile"/>

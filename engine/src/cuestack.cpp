@@ -150,10 +150,12 @@ void CueStack::appendCue(const Cue& cue)
 {
     qDebug() << Q_FUNC_INFO;
 
-    m_mutex.lock();
-    m_cues.append(cue);
-    int index = m_cues.size() - 1;
-    m_mutex.unlock();
+    int index = 0;
+    {
+        QMutexLocker locker(&m_mutex);
+        m_cues.append(cue);
+        index = m_cues.size() - 1;
+    }
 
     emit added(index);
 }
@@ -162,41 +164,50 @@ void CueStack::insertCue(int index, const Cue& cue)
 {
     qDebug() << Q_FUNC_INFO;
 
-    m_mutex.lock();
-    if (index >= 0 && index < m_cues.size())
-    {
-        m_cues.insert(index, cue);
-        emit added(index);
+    bool cueAdded = false;
 
-        if (m_currentIndex >= index)
+    {
+        QMutexLocker locker(&m_mutex);
+
+        if (index >= 0 && index < m_cues.size())
         {
-            m_currentIndex++;
-            emit currentCueChanged(m_currentIndex);
-        }
+            m_cues.insert(index, cue);
+            cueAdded = true;
+            emit added(index);
 
-        m_mutex.unlock();
+            if (m_currentIndex >= index)
+            {
+                m_currentIndex++;
+                emit currentCueChanged(m_currentIndex);
+            }
+        }
     }
-    else
-    {
-        m_mutex.unlock();
+
+    if (!cueAdded)    
         appendCue(cue);
-    }
 }
 
 void CueStack::replaceCue(int index, const Cue& cue)
 {
     qDebug() << Q_FUNC_INFO;
 
-    m_mutex.lock();
-    if (index >= 0 && index < m_cues.size())
+    bool cueChanged = false;
     {
-        m_cues[index] = cue;
-        m_mutex.unlock();
+        QMutexLocker locker(&m_mutex);
+
+        if (index >= 0 && index < m_cues.size())
+        {
+           m_cues[index] = cue;
+           cueChanged = true;
+        }
+    }
+
+    if (cueChanged)
+    {
         emit changed(index);
     }
     else
     {
-        m_mutex.unlock();
         appendCue(cue);
     }
 }
@@ -205,7 +216,7 @@ void CueStack::removeCue(int index)
 {
     qDebug() << Q_FUNC_INFO;
 
-    m_mutex.lock();
+    QMutexLocker locker(&m_mutex);
     if (index >= 0 && index < m_cues.size())
     {
         m_cues.removeAt(index);
@@ -217,7 +228,6 @@ void CueStack::removeCue(int index)
             emit currentCueChanged(m_currentIndex);
         }
     }
-    m_mutex.unlock();
 }
 
 void CueStack::removeCues(const QList <int>& indexes)
@@ -229,9 +239,11 @@ void CueStack::removeCues(const QList <int>& indexes)
     QList <int> indexList = indexes;
     qSort(indexList.begin(), indexList.end());
 
-    m_mutex.lock();
     QListIterator <int> it(indexList);
     it.toBack();
+
+    QMutexLocker locker(&m_mutex);
+
     while (it.hasPrevious() == true)
     {
         int index(it.previous());
@@ -247,7 +259,6 @@ void CueStack::removeCues(const QList <int>& indexes)
             }
         }
     }
-    m_mutex.unlock();
 }
 
 QList <Cue> CueStack::cues() const
@@ -259,9 +270,8 @@ void CueStack::setCurrentIndex(int index)
 {
     qDebug() << Q_FUNC_INFO;
 
-    m_mutex.lock();
+    QMutexLocker locker(&m_mutex);
     m_currentIndex = CLAMP(index, -1, m_cues.size() - 1);
-    m_mutex.unlock();
 }
 
 int CueStack::currentIndex() const
@@ -539,11 +549,11 @@ int CueStack::previous()
     if (m_cues.size() == 0)
         return -1;
 
-    m_mutex.lock();
+    QMutexLocker locker(&m_mutex);
+
     m_currentIndex--;
     if (m_currentIndex < 0)
         m_currentIndex = m_cues.size() - 1;
-    m_mutex.unlock();
 
     return m_currentIndex;
 }
@@ -555,11 +565,10 @@ int CueStack::next()
     if (m_cues.size() == 0)
         return -1;
 
-    m_mutex.lock();
+    QMutexLocker locker(&m_mutex);
     m_currentIndex++;
     if (m_currentIndex >= m_cues.size())
         m_currentIndex = 0;
-    m_mutex.unlock();
 
     return m_currentIndex;
 }
@@ -570,12 +579,15 @@ void CueStack::switchCue(int from, int to, const QList<Universe *> ua)
 
     Cue newCue;
     Cue oldCue;
-    m_mutex.lock();
-    if (to >= 0 && to < m_cues.size())
-        newCue = m_cues[to];
-    if (from >= 0 && from < m_cues.size())
-        oldCue = m_cues[from];
-    m_mutex.unlock();
+
+    {
+        QMutexLocker locker(&m_mutex);
+
+        if (to >= 0 && to < m_cues.size())
+            newCue = m_cues[to];
+        if (from >= 0 && from < m_cues.size())
+            oldCue = m_cues[from];
+    }
 
     // Fade out the HTP channels of the previous cue
     QHashIterator <uint,uchar> oldit(oldCue.values());
