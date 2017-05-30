@@ -1184,36 +1184,43 @@ void ChaserEditor::updateItem(QTreeWidgetItem* item, ChaserStep& step)
 
     switch (m_chaser->fadeInMode())
     {
-    case Chaser::Common:
-        step.speeds.setFadeIn(m_chaser->commonSpeeds().fadeIn());
-    case Chaser::PerStep:
-        item->setText(COL_FADEIN, Speed::msToString(step.speeds.fadeIn()));
+        case Chaser::Common:
+            step.speeds.setFadeIn(m_chaser->commonSpeeds().fadeIn());
+            item->setText(COL_FADEIN, Speed::msToString(step.speeds.fadeIn()));
         break;
-    default:
-        item->setText(COL_FADEIN, QString());
+        case Chaser::PerStep:
+            item->setText(COL_FADEIN, Speed::msToString(step.speeds.fadeIn()));
+        break;
+        default:
+            item->setText(COL_FADEIN, QString());
         break;
     }
 
     switch (m_chaser->fadeOutMode())
     {
-    case Chaser::Common:
-        step.speeds.setFadeOut(m_chaser->commonSpeeds().fadeOut());
-    case Chaser::PerStep:
-        item->setText(COL_FADEOUT, Speed::msToString(step.speeds.fadeOut()));
+        case Chaser::Common:
+            step.speeds.setFadeOut(m_chaser->commonSpeeds().fadeOut());
+            item->setText(COL_FADEOUT, Speed::msToString(step.speeds.fadeOut()));
         break;
-    default:
-        item->setText(COL_FADEOUT, QString());
+        case Chaser::PerStep:
+            item->setText(COL_FADEOUT, Speed::msToString(step.speeds.fadeOut()));
+        break;
+        default:
+            item->setText(COL_FADEOUT, QString());
         break;
     }
 
     switch (m_chaser->durationMode())
     {
-    default:
-    case Chaser::Common:
-        step.speeds.setHold(m_chaser->commonSpeeds().hold());
-    case Chaser::PerStep:
-        item->setText(COL_HOLD, Speed::msToString(step.speeds.hold()));
-        item->setText(COL_DURATION, Speed::msToString(step.speeds.duration()));
+        default:
+        case Chaser::Common:
+            step.speeds.setHold(m_chaser->commonSpeeds().hold());
+            item->setText(COL_HOLD, Speed::msToString(step.speeds.hold()));
+            item->setText(COL_DURATION, Speed::msToString(step.speeds.duration()));
+        break;
+        case Chaser::PerStep:
+            item->setText(COL_HOLD, Speed::msToString(step.speeds.hold()));
+            item->setText(COL_DURATION, Speed::msToString(step.speeds.duration()));
         break;
     }
 
