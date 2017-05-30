@@ -527,14 +527,14 @@ void Function::setAlternateSpeeds(quint32 alternateIdx, FunctionSpeeds const& sp
     Q_UNUSED(alternateIdx);
     Q_UNUSED(speeds);
     qWarning() << Q_FUNC_INFO << "Function" << typeString()
-               << "does not have any \"other speed\"";
+               << "does not have any \"alternate speed\"";
 }
 
 FunctionSpeeds const& Function::alternateSpeeds(quint32 alternateIdx) const
 {
     Q_UNUSED(alternateIdx);
     qWarning() << Q_FUNC_INFO << "Function" << typeString()
-               << "does not have any \"other speed\"";
+               << "does not have any \"alternate speed\"";
     return m_dummyAlternateSpeeds;
 }
 
@@ -542,7 +542,7 @@ FunctionSpeedsEditProxy Function::alternateSpeedsEdit(quint32 alternateIdx)
 {
     Q_UNUSED(alternateIdx);
     qWarning() << Q_FUNC_INFO << "Function" << typeString()
-               << "does not have any \"other speed\"";
+               << "does not have any \"alternate speed\"";
     return FunctionSpeedsEditProxy(m_dummyAlternateSpeeds);
 }
 
@@ -550,8 +550,8 @@ QString Function::alternateSpeedsString(quint32 alternateIdx) const
 {
     Q_UNUSED(alternateIdx);
     qWarning() << Q_FUNC_INFO << "Function" << typeString()
-               << "does not have any \"other speed\"";
-    return "NONE";
+               << "does not have any \"alternate speed\"";
+    return "";
 }
 
 /*****************************************************************************

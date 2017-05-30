@@ -387,43 +387,118 @@ protected slots:
 private:
     bool m_beatResyncNeeded;
 
-    /*********************************************************************
-     * Speed
-     *********************************************************************/
-public:
-    // TODO move this to FunctionSpeeds
-    enum SpeedType { FadeIn = 0, Hold, FadeOut, Duration };
-#if QT_VERSION >= 0x050500
-    Q_ENUM(SpeedType)
-#endif
-
 public:
     /*********************************************************************
      * Speeds
      *********************************************************************/
-    void emitChanged();
 
-public:
+    /**
+     * A function a 3 groups of speeds:
+     * - The main speeds of the function.
+     *     These speeds define the fadein/fadeout of the function when it is
+     *     started and stopped.
+     * - The override speeds of the function.
+     *     These speeds are used to override the main speeds of the function.
+     *     They are set at function start and cleared on function stop.
+     * - The alternate speeds of the function.
+     *     These speeds are implemenation dependant.
+     *     A function implementation may have one of more alternate speeds.
+     *     Alternate speeds are used to define function-specific speeds.
+     *     The default for a function is to have no alternate speeds.
+     */
+
+    /**
+     * Set the main speeds of the function
+     *
+     * @param speeds The new speeds of the function
+     */
     void setSpeeds(FunctionSpeeds const& speeds);
+
+    /**
+     * Get the main speeds of the function
+     */
     FunctionSpeeds const& speeds() const;
+
+    /**
+     * Get an editor for the main speeds of the function
+     */
     FunctionSpeedsEditProxy speedsEdit();
 
+    /**
+     * Set the override speeds of the function
+     *
+     * @param speeds the new override speeds of the function
+     */
     void setOverrideSpeeds(FunctionSpeeds const& speeds);
+
+    /**
+     * Get the override speeds of the function
+     */
     FunctionSpeeds const& overrideSpeeds() const;
+
+    /**
+     * Get an editor for the override speeds of the function
+     */
     FunctionSpeedsEditProxy overrideSpeedsEdit();
 
-    /** Tell the function that it has been "tapped". Default implementation does nothing. */
+    /**
+     * Get the number of alternate speeds of the function.
+     * Default implementation returns 0.
+     */
+    virtual quint32 alternateSpeedsCount() const;
+
+    /**
+     * Set alternate speeds of the function.
+     * Default implementation does nothing.
+     *
+     * @param alternateIdx the index of the alternate speeds to set
+     * @param speeds the new alternate speeds at this index
+     */
+    virtual void setAlternateSpeeds(quint32 alternateIdx, FunctionSpeeds const& speeds);
+
+    /**
+     * Get alternate speeds of the function.
+     * Default implementation returns an unused, dummy FunctionSpeeds.
+     *
+     * @param alternateIdx the index of the alternate speeds to get
+     */
+    virtual FunctionSpeeds const& alternateSpeeds(quint32 alternateIdx) const;
+
+    /**
+     * Get an editor for alternate speeds of the function.
+     * Default implementation returns an editor for an unused, dummy
+     * FunctionSpeeds.
+     *
+     * @param alternateIdx the index of the alternate speeds to edit
+     */
+    virtual FunctionSpeedsEditProxy alternateSpeedsEdit(quint32 alternateIdx);
+
+    /**
+     * Get a string representation for alternate speeds of the function.
+     * Default implementation returns an empty string.
+     *
+     * @param alternateIdx the index of the alternate speeds to get a string
+     * representation from
+     */
+    virtual QString alternateSpeedsString(quint32 alternateIdx) const;
+
+    /**
+     * Tell the function that it has been "tapped".
+     * Default implementation does nothing.
+     */
     virtual void tap();
 
-    virtual quint32 alternateSpeedsCount() const;
-    virtual void setAlternateSpeeds(quint32 alternateIdx, FunctionSpeeds const& speeds);
-    virtual FunctionSpeeds const& alternateSpeeds(quint32 alternateIdx) const;
-    virtual FunctionSpeedsEditProxy alternateSpeedsEdit(quint32 alternateIdx);
-    virtual QString alternateSpeedsString(quint32 alternateIdx) const;
+    /**
+     * Emit changed() signal.
+     * This function is called by FunctionSpeedEditProxy to notify that a speed
+     * has been changed.
+     */
+    void emitChanged();
 
 protected:
     FunctionSpeeds m_speeds;
     FunctionSpeeds m_overrideSpeeds;
+
 private:
     static FunctionSpeeds m_dummyAlternateSpeeds;
 
@@ -583,20 +658,26 @@ signals:
      *********************************************************************/
 public:
     /**
-     * Get number of elapsed ticks for this function (0 unless the function
+     * Get number of elapsed ms for this function (0 unless the function
      * is running).
      *
-     * @return Number of elapsed timer ticks since the function was started
+     * @return Number of elapsed ms since the function was started
      */
     quint32 elapsed() const;
 
+    /**
+     * Get number of elapsed beats for this function (0 unless the function
+     * is running).
+     *
+     * @return Number of elapsed beats since the function was started
+     */
     quint32 elapsedBeats() const;
 
 protected:
     /** Reset elapsed timer ticks to zero */
     void resetElapsed();
 
-    /** Increment the elapsed timer ticks by one */
+    /** Increment the elapsed ms by the value of one timer tick */
     void incrementElapsed();
 
     /** Increment the elapsed beats by one */
@@ -675,15 +756,22 @@ public:
     bool startedAsChild() const;
 
 private:
-    /** Running state flags. The rules are:
+    /**
+     * Running state flags. The rules are:
      *  - m_stop resets also m_paused
      *  - m_paused and m_running can be both true
      *  - if m_paused is true, a start(...) call will just reset it to false
-     *  These are private to prevent Functions from modifying them. */
+     * These are private to prevent Functions from modifying them.
+     */
     bool m_stop;
     bool m_running;
     bool m_paused;
 
+    /**
+     * The running sources of the function.
+     * As long as at least one running source is present, the function will keep
+     * running.
+     */
     QList<FunctionParent> m_sources;
     QMutex m_sourcesMutex;
 
@@ -693,7 +781,7 @@ private:
     /*************************************************************************
      * Attributes
      *************************************************************************/
-public:
+protected:
     /**
      * Register a new attribute for this function.
      * If the attribute already exists, it will be overwritten.
@@ -720,6 +808,7 @@ public:
      */
     bool renameAttribute(int idx, QString newName);
 
+public:
     /**
      * Adjust the intensity of the function by a fraction.
      *
@@ -785,6 +874,11 @@ private:
     Universe::BlendMode m_blendMode;
 };
 
+/**
+ * A FunctionSpeedsEditProxy is created when edit*Speeds() is called.
+ * FunctionSpeedsEditProxy registers edits, and fires the functions' changed()
+ * signal if an adit has been done.
+ */
 class FunctionSpeedsEditProxy
 {
 private:
@@ -793,32 +887,35 @@ private:
     bool m_changed;
 
 public:
-    FunctionSpeedsEditProxy(FunctionSpeeds &speeds, Function *function = nullptr)
-        : m_speeds(speeds), m_function(function), m_changed(false) {}
+    FunctionSpeedsEditProxy(FunctionSpeeds &speeds,
+                            Function *function = nullptr)
+      : m_speeds(speeds), m_function(function), m_changed(false)
+    {
+    }
     ~FunctionSpeedsEditProxy()
     {
         if (m_changed && m_function)
             m_function->emitChanged();
     }
-    FunctionSpeedsEditProxy& setFadeIn(quint32 ms)
+    FunctionSpeedsEditProxy &setFadeIn(quint32 ms)
     {
         m_speeds.setFadeIn(ms);
         m_changed = true;
         return *this;
     }
-    FunctionSpeedsEditProxy& setFadeOut(quint32 ms)
+    FunctionSpeedsEditProxy &setFadeOut(quint32 ms)
     {
         m_speeds.setFadeOut(ms);
         m_changed = true;
         return *this;
     }
-    FunctionSpeedsEditProxy& setHold(quint32 ms)
+    FunctionSpeedsEditProxy &setHold(quint32 ms)
     {
         m_speeds.setHold(ms);
         m_changed = true;
         return *this;
     }
-    FunctionSpeedsEditProxy& setDuration(quint32 ms)
+    FunctionSpeedsEditProxy &setDuration(quint32 ms)
     {
         m_speeds.setDuration(ms);
         m_changed = true;

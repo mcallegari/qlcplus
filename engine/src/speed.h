@@ -26,12 +26,15 @@
 
 // Speed contains a speed value
 // and helper functions to manipulate speed values
-struct Speed
+class Speed
 {
+    Q_OBJECT
+
+public:
     explicit Speed(quint32 ms = Speed::originalValue())
-        : value(ms)
-        , tempoType(Ms)
-    {}
+      : value(ms), tempoType(Ms)
+    {
+    }
 
     /*********************************************************************
     * Tempo type
@@ -42,7 +45,9 @@ struct Speed
         Ms = 0,
         Beats = 1,
     };
-    Q_ENUMS(TempoType);
+#if QT_VERSION >= 0x050500
+    Q_ENUM(TempoType)
+#endif
 
     /**
      * The current speed value.
