@@ -799,6 +799,7 @@ protected:
      */
     bool unregisterAttribute(QString name);
 
+public:
     /**
      * Rename an existing atribute
      *
@@ -808,7 +809,6 @@ protected:
      */
     bool renameAttribute(int idx, QString newName);
 
-public:
     /**
      * Adjust the intensity of the function by a fraction.
      *

@@ -28,7 +28,7 @@
 // and helper functions to manipulate speed values
 class Speed
 {
-    Q_OBJECT
+    Q_GADGET
 
 public:
     explicit Speed(quint32 ms = Speed::originalValue())

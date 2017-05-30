@@ -42,7 +42,7 @@ class QXmlStreamWriter;
 // fadeIn, hold, fadeOut, and duration(which is fadeIn+hold)
 class FunctionSpeeds
 {
-    Q_OBJECT
+    Q_GADGET
 
 private:
     Speed m_fadeIn;
@@ -50,7 +50,13 @@ private:
     Speed m_fadeOut;
 
 public:
-    enum SpeedComponentType { FadeIn = 0, Hold, FadeOut, Duration };
+    enum SpeedComponentType
+    {
+        FadeIn = 0,
+        Hold,
+        FadeOut,
+        Duration
+    };
 #if QT_VERSION >= 0x050500
     Q_ENUM(SpeedComponentType)
 #endif
