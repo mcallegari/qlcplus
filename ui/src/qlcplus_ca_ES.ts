@@ -5519,7 +5519,7 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcclockproperties.ui" line="47"/>
         <source>General</source>
-        <translation type="unfinished">General</translation>
+        <translation>General</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcclockproperties.ui" line="53"/>
@@ -5574,22 +5574,22 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcclockproperties.ui" line="205"/>
         <source>Input</source>
-        <translation type="unfinished">Entrada</translation>
+        <translation>Entrada</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcclockproperties.ui" line="214"/>
         <source>No input control available for Clock type</source>
-        <translation type="unfinished"></translation>
+        <translation>No hi ha controls d&apos;entrada disponibles per al tipus Rellotge</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcclockproperties.cpp" line="39"/>
         <source>Play/Pause control</source>
-        <translation type="unfinished">Reprodueix/Pausa control</translation>
+        <translation>Reprodueix/Pausa control</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcclockproperties.cpp" line="48"/>
         <source>Reset control</source>
-        <translation type="unfinished"></translation>
+        <translation>Restablir el control</translation>
     </message>
 </context>
 <context>
