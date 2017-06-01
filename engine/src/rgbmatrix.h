@@ -131,12 +131,23 @@ public:
      * Speeds
      ************************************************************************/
 public:
+    /**
+     * An RGBMatrix has 1 alternate speeds group.
+     * The main speeds of the RGBMatrix are its "outer speeds".
+     * The alternate speeds of the RGBMatrix are its "inner speeds".
+     *
+     * The outer speeds define the fade in and fade out times at the start and
+     * at the end of the run of the RGBMatrix.
+     * The inner speeds define the speeds of each step of the RGBMatrix.
+     */
+
     quint32 alternateSpeedsCount() const override;
     void setAlternateSpeeds(quint32 alternateIdx, FunctionSpeeds const& speeds) override;
     FunctionSpeeds const& alternateSpeeds(quint32 alternateIdx) const override;
     FunctionSpeedsEditProxy alternateSpeedsEdit(quint32 alternateIdx) override;
     QString alternateSpeedsString(quint32 alternateIdx) const override;
 
+    /** Get the index of the inner speeds in the alternate speeds list. */
     static quint32 innerSpeedsIdx();
     void setInnerSpeeds(FunctionSpeeds const& speeds);
     FunctionSpeeds const& innerSpeeds() const;
@@ -247,23 +258,30 @@ private:
     void insertStartValues(FadeChannel& fc, uint fadeTime) const;
 
 private:
+    /** The time elapsed since the start of the round, in ms. */
+    quint32 roundTime();
+    /** The time elapsed since the start of the round, in beats. */
+    quint32 roundBeats();
+    /** Reset the round time, should be called at the startup of the RGBMatrix. */
+    void resetRoundTime();
+    /** Round the round time, should be called when a step is elapsed. */
+    void roundRoundTime();
+
+    /**
+     * Reference to the start time of the current step. In ms.
+     * The formula elapsed() - m_roundTimeReference() will give the elapsed time
+     * in the current step.
+     */
+    quint32 m_roundTimeReference;
+    /** Reference to the start time of the current step. In beats. */
+    quint32 m_roundBeatsReference;
+    /** Set to true when a step is elapsed. */
+    bool m_roundCheck;
+
+private:
     /** Reference of a GenericFader in charge of actually sending DMX data
      *  of the current RGB Matrix step, including fade transitions */
     GenericFader* m_fader;
-
-    // TODO doc
-    void resetRoundTime();
-    void roundRoundTime();
-    quint32 roundTime();
-    quint32 roundBeats();
-
-    /** Reference to a timer counting the time in ms between steps */
-    // TODO doc
-    quint32 m_roundTimeReference;
-    // TODO doc
-    quint32 m_roundBeatsReference;
-    // TODO doc
-    bool m_roundCheck;
 
     /** The number of steps returned by the currently loaded algorithm */
     int m_stepsCount;
