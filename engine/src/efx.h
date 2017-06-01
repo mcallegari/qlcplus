@@ -112,13 +112,25 @@ public:
      * Speeds
      ************************************************************************/
 public:
+    /**
+     * An EFX has 1 alternate speeds group.
+     * The main speeds of the EFX are its "outer speeds".
+     * The alternate speeds of the EFX are its "inner speeds".
+     *
+     * The outer speeds define the fade in and fade out times at the start and
+     * at the end of the run of the EFX. They only affect dimmer values.
+     * The inner speeds define the speeds of each loop of the EFX.
+     */
+
     quint32 alternateSpeedsCount() const override;
     void setAlternateSpeeds(quint32 alternateIdx, FunctionSpeeds const& speeds) override;
     FunctionSpeeds const& alternateSpeeds(quint32 alternateIdx) const override;
     FunctionSpeedsEditProxy alternateSpeedsEdit(quint32 alternateIdx) override;
     QString alternateSpeedsString(quint32 alternateIdx) const override;
 
+    /** Get the index of the inner speeds in the alternate speeds list. */
     static quint32 innerSpeedsIdx();
+
     void setInnerSpeeds(FunctionSpeeds const& speeds);
     FunctionSpeeds const& innerSpeeds() const;
     FunctionSpeedsEditProxy innerSpeedsEdit();

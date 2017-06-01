@@ -149,6 +149,7 @@ public:
 
     /** Get the index of the inner speeds in the alternate speeds list. */
     static quint32 innerSpeedsIdx();
+
     void setInnerSpeeds(FunctionSpeeds const& speeds);
     FunctionSpeeds const& innerSpeeds() const;
     FunctionSpeedsEditProxy innerSpeedsEdit();
