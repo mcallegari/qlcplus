@@ -157,13 +157,28 @@ public:
      * Speeds
      *********************************************************************/
 public:
+    /**
+     * A Chaser has 1+stepsCount alternate speeds group.
+     * The main speeds of the Chaser are its "outer speeds".
+     * The first alternate speeds of the Chaser are its "common speeds".
+     * The other alternate speeds of the Chaser are its steps speeds.
+     *
+     * The outer speeds define the fade in and fade out times at the start and
+     * at the end of the run of the Chaser.
+     * The common speeds define the speeds of each step of the Chaser when in
+     * "Common" mode.
+     * The steps speeds define the speeds for each step of the Chaser.
+     */
+
     quint32 alternateSpeedsCount() const override;
     void setAlternateSpeeds(quint32 alternateIdx, FunctionSpeeds const& speeds) override;
     FunctionSpeeds const& alternateSpeeds(quint32 alternateIdx) const override;
     FunctionSpeedsEditProxy alternateSpeedsEdit(quint32 alternateIdx) override;
     QString alternateSpeedsString(quint32 alternateIdx) const override;
 
+    /** Get the index of the common speeds in the alternate speeds list. */
     static quint32 commonSpeedsIdx();
+
     void setCommonSpeeds(FunctionSpeeds const& speeds);
     FunctionSpeeds const& commonSpeeds() const;
     FunctionSpeedsEditProxy commonSpeedsEdit();
@@ -266,10 +281,9 @@ public:
     /** Adjust the intensities of chaser steps. */
     void adjustIntensity(qreal fraction, int stepIndex = -1, FadeControlMode fadeControl = FromFunction);
 
-    // TODO doc
-//    void resetRoundTime(ChaserRunnerStep* step);
-//    void roundRoundTime(const ChaserRunnerStep* prevStep, ChaserRunnerStep* step);
+    /** The time elapsed since the start of the round, in ms. */
     quint32 roundTime(const ChaserRunnerStep* step) const;
+    /** The time elapsed since the start of the round, in beats. */
     quint32 roundBeats(const ChaserRunnerStep* step) const;
 
 private:

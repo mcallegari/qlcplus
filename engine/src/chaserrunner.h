@@ -43,9 +43,13 @@ struct ChaserRunnerStep
 {
     int m_index;            //! Index of the step from the original Chaser
     Function* m_function;   //! Currently active function
-    // TODO doc
+    /**
+     * Reference to the start time of the current step. In ms.
+     * The formula elapsed() - m_roundTimeReference() will give the elapsed time
+     * in the current step.
+     */
     quint32 m_roundTimeReference;
-    // TODO doc
+    /** Reference to the start time of the current step. In beats. */
     quint32 m_roundBeatsReference;
     FunctionSpeeds m_speeds; //! Step speeds
     Universe::BlendMode m_blendMode; //! The original Function blend mode
@@ -70,11 +74,31 @@ private:
      * Speeds
      ************************************************************************/
 private:
-    // TODO doc
-    void resetRoundTime(ChaserRunnerStep* step);
-    void roundRoundTime(const ChaserRunnerStep* prevStep, ChaserRunnerStep* step);
+    /**
+     * The time elapsed since the start of the round, in ms.
+     *
+     * @param step the current running step
+     */
     quint32 roundTime(const ChaserRunnerStep* step) const;
+    /**
+     * The time elapsed since the start of the round, in beats.
+     *
+     * @param step the current running step
+     */
     quint32 roundBeats(const ChaserRunnerStep* step) const;
+    /**
+     * Reset the round time, should be called at the startup of the RGBMatrix.
+     *
+     * @param step the current running step
+     */
+    void resetRoundTime(ChaserRunnerStep* step);
+    /**
+     * Round the round time, should be called when a step is elapsed.
+     *
+     * @param prevStep the current running step
+     * @param step the new running step
+     */
+    void roundRoundTime(const ChaserRunnerStep* prevStep, ChaserRunnerStep* step);
 
     /** Get the currently active fade in value (See Chaser::SpeedsMode) */
     quint32 stepFadeIn(int stepIdx) const;
