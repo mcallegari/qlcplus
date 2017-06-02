@@ -141,8 +141,14 @@ Rectangle
                                 id: pinRequestPopup
                                 onAccepted:
                                 {
-                                    if (virtualConsole.validatePagePIN(index, currentPIN, sessionValidate) === false)
+                                    if (virtualConsole.validatePagePIN(index, currentPIN, sessionValidate) === true)
+                                    {
+                                        virtualConsole.selectedPage = index
+                                    }
+                                    else
+                                    {
                                         pinErrorPopup.open()
+                                    }
 
                                 }
                             }

@@ -28,7 +28,11 @@ CustomPopupDialog
     property string currentPIN: ""
     property alias sessionValidate: validateCheck.checked
 
-    onOpened: currentPinEdit.selectAndFocus()
+    onOpened:
+    {
+        currentPinEdit.inputText = ""
+        currentPinEdit.selectAndFocus()
+    }
 
     contentItem:
         GridLayout
