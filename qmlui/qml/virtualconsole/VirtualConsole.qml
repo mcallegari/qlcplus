@@ -19,7 +19,7 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
-import QtQuick.Controls 1.2
+import QtQuick.Controls 2.1
 
 import org.qlcplus.classes 1.0
 import "."
@@ -95,7 +95,7 @@ Rectangle
                 id: rowLayout1
                 anchors.fill: parent
                 spacing: 5
-                ExclusiveGroup { id: vcToolbarGroup }
+                ButtonGroup { id: vcToolbarGroup }
 
                 Repeater
                 {
@@ -108,12 +108,12 @@ Rectangle
                             property string contextName: "PAGE-" + index
 
                             entryText: wObj ? wObj.caption : qsTr("Page " + index)
-                            checkable: true
-                            editable: true
+                            mFontSize: UISettings.textSizeDefault
+                            //editable: true
                             checked: index === virtualConsole.selectedPage ? true : false
                             checkedColor: UISettings.toolbarSelectionSub
                             bgGradient: vcTbGradient
-                            exclusiveGroup: vcToolbarGroup
+                            ButtonGroup.group: vcToolbarGroup
 
                             onCheckedChanged:
                             {

@@ -19,7 +19,7 @@
 
 import QtQuick 2.2
 import QtQuick.Layouts 1.1
-import QtQuick.Controls 1.2
+import QtQuick.Controls 2.1
 
 import "."
 
@@ -99,22 +99,24 @@ Rectangle
             spacing: 5
             anchors.fill: parent
 
-            ExclusiveGroup { id: menuBarGroup }
+            ButtonGroup { id: menuBarGroup }
+
             MenuBarEntry
             {
                 id: actEntry
                 imgSource: "qrc:/qlcplus.svg"
                 entryText: qsTr("Actions")
                 onClicked: actionsMenu.visible = true
+                autoExclusive: false
+                checkable: false
             }
             MenuBarEntry
             {
                 id: edEntry
                 imgSource: "qrc:/editor.svg"
                 entryText: qsTr("Fixtures & Functions")
-                checkable: true
                 checked: true
-                exclusiveGroup: menuBarGroup
+                ButtonGroup.group: menuBarGroup
                 onCheckedChanged:
                 {
                     if (checked == true)
@@ -126,8 +128,7 @@ Rectangle
                 id: vcEntry
                 imgSource: "qrc:/virtualconsole.svg"
                 entryText: qsTr("Virtual Console")
-                checkable: true
-                exclusiveGroup: menuBarGroup
+                ButtonGroup.group: menuBarGroup
                 onCheckedChanged:
                 {
                     if (checked == true)
@@ -144,8 +145,7 @@ Rectangle
                 id: sdEntry
                 imgSource: "qrc:/simpledesk.svg"
                 entryText: qsTr("Simple Desk")
-                checkable: true
-                exclusiveGroup: menuBarGroup
+                ButtonGroup.group: menuBarGroup
                 onCheckedChanged:
                 {
                     if (checked == true)
@@ -162,8 +162,7 @@ Rectangle
                 id: smEntry
                 imgSource: "qrc:/showmanager.svg"
                 entryText: qsTr("Show Manager")
-                checkable: true
-                exclusiveGroup: menuBarGroup
+                ButtonGroup.group: menuBarGroup
                 onCheckedChanged:
                 {
                     if (checked == true)
@@ -180,8 +179,7 @@ Rectangle
                 id: ioEntry
                 imgSource: "qrc:/inputoutput.svg"
                 entryText: qsTr("Input/Output")
-                checkable: true
-                exclusiveGroup: menuBarGroup
+                ButtonGroup.group: menuBarGroup
                 onCheckedChanged:
                 {
                     if (checked == true)
