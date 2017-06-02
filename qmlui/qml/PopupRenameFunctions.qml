@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  PopupTextRequest.qml
+  PopupRenameFunctions.qml
 
   Copyright (c) Massimo Callegari
 
@@ -23,37 +23,13 @@ import QtQuick.Layouts 1.1
 import org.qlcplus.classes 1.0
 import "."
 
-Rectangle
+CustomPopupDialog
 {
-    id: compRoot
+    property string baseName
+    property var functionIDs
+    property int count: functionIDs ? functionIDs.length : 0
 
-    color: "transparent"
-
-    signal requestButtonStatus(int button, bool disable)
-    signal requestPopupClose()
-
-    function buttonsEnableMask()
-    {
-        return ActionManager.OK | ActionManager.Cancel
-    }
-
-    function acceptAction()
-    {
-        var data = actionManager.actionData()
-        // remove the first original string
-        data.shift()
-
-        functionManager.renameFunctions(data, newNameEdit.inputText, startNumSpin.value, digitsSpin.value)
-
-        actionManager.acceptAction()
-        compRoot.requestPopupClose()
-    }
-
-    function rejectAction()
-    {
-        actionManager.rejectAction()
-        compRoot.requestPopupClose()
-    }
+    onOpened: newNameEdit.selectAndFocus()
 
     GridLayout
     {
@@ -76,6 +52,7 @@ Rectangle
             id: newNameEdit
             Layout.fillWidth: true
             Layout.columnSpan: 3
+            inputText: baseName
         }
 
         // Row 2
@@ -83,52 +60,49 @@ Rectangle
         {
             Layout.fillWidth: true
             Layout.columnSpan: 4
+            spacing: 5
+            visible: count
 
             CustomCheckBox
             {
                 id: numCheckBox
+                autoExclusive: false
             }
             RobotoText
             {
                 label: qsTr("Enable numbering")
-            }
-
-            Component.onCompleted:
-            {
-                var data = actionManager.actionData()
-                newNameEdit.inputText = data[0]
-                newNameEdit.selectAndFocus()
-                if (data.length - 1 == 1)
-                    visible = false
             }
         }
 
         // Row 3
         RobotoText
         {
-            visible: numCheckBox.checked
+            visible: count
             label: qsTr("Start number")
         }
         CustomSpinBox
         {
             id: startNumSpin
-            visible: numCheckBox.checked
+            visible: count
             Layout.fillWidth: true
             value: 1
         }
 
         RobotoText
         {
-            visible: numCheckBox.checked
+            visible: count
             label: qsTr("Digits")
         }
         CustomSpinBox
         {
             id: digitsSpin
-            visible: numCheckBox.checked
+            visible: count
             Layout.fillWidth: true
             from: 1
             to: 10
         }
     }
+
+    onAccepted: functionManager.renameFunctions(functionIDs, newNameEdit.inputText,
+                                                numCheckBox.checked, startNumSpin.value, digitsSpin.value)
 }

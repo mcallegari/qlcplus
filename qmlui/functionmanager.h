@@ -112,15 +112,15 @@ public:
     bool isEditing() const;
 
     /** Delete the list of Function IDs in $IDList. This happens AFTER a popup confirmation */
-    void deleteFunctions(QVariantList IDList);
+    Q_INVOKABLE void deleteFunctions(QVariantList IDList);
 
     /** Generic method to delete a list of item IDs specified in $list.
      *  This is used from within a Function editor and items can be of any type
      *  such as Functions, Fixtures, etc. as long as they have an ID.
      *  This happens AFTER a popup confirmation */
-    void deleteEditorItems(QVariantList list);
+    Q_INVOKABLE void deleteEditorItems(QVariantList list);
 
-    Q_INVOKABLE void renameFunctions(QVariantList IDList, QString newName, int startNumber, int digits);
+    Q_INVOKABLE void renameFunctions(QVariantList IDList, QString newName, bool numbering, int startNumber, int digits);
 
     /** Returns the number of the currently selected Functions */
     int selectionCount() const;

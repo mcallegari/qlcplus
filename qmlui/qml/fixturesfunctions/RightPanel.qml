@@ -135,12 +135,26 @@ SidePanel
                 onClicked:
                 {
                     var selNames = functionManager.selectedFunctionsName()
-                    console.log(selNames)
+                    //console.log(selNames)
+                    deleteItemsText.text = qsTr("Are you sure you want to remove the following functions ?\n") + selNames
+                    deleteItemsPopup.open()
+                }
 
-                    actionManager.requestActionPopup(ActionManager.DeleteFunctions,
-                                                     qsTr("Are you sure you want to remove the following functions ?\n") + selNames,
-                                                     ActionManager.OK | ActionManager.Cancel,
-                                                     functionManager.selectedFunctionsID())
+                CustomPopupDialog
+                {
+                    id: deleteItemsPopup
+
+                    title: qsTr("Delete functions")
+
+                    Text
+                    {
+                        id: deleteItemsText
+                        font.family: UISettings.robotoFontName
+                        font.pixelSize: UISettings.textSizeDefault
+                        color: UISettings.fgMain
+                    }
+
+                    onAccepted: functionManager.deleteFunctions(functionManager.selectedFunctionsID())
                 }
             }
             IconButton
@@ -155,13 +169,15 @@ SidePanel
                 onClicked:
                 {
                     var selNames = functionManager.selectedFunctionsName()
-                    var dataArray = functionManager.selectedFunctionsID()
-                    // push the first selected name at the beginning of the array
-                    dataArray.unshift(selNames[0])
+                    renameFuncPopup.baseName = selNames[0]
+                    renameFuncPopup.functionIDs = functionManager.selectedFunctionsID()
+                    renameFuncPopup.open()
+                }
 
-                    actionManager.requestActionPopup(ActionManager.RenameFunctions,
-                                                     "qrc:/PopupTextRequest.qml",
-                                                     ActionManager.OK | ActionManager.Cancel, dataArray)
+                PopupRenameFunctions
+                {
+                    id: renameFuncPopup
+                    title: qsTr("Rename functions")
                 }
             }
             IconButton

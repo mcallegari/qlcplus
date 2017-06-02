@@ -69,9 +69,6 @@ void ActionManager::acceptAction()
 
     switch(action)
     {
-        case DeleteFunctions:
-            m_functionManager->deleteFunctions(data);
-        break;
         case DeleteEditorItems:
             m_functionManager->deleteEditorItems(data);
         break;

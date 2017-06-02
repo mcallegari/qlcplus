@@ -38,8 +38,6 @@ public:
     enum ActionType
     {
         None,
-        DeleteFunctions,
-        RenameFunctions,
         DeleteEditorItems,
         DeleteShowItems,
         DeleteVCPage,
