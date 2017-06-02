@@ -51,6 +51,7 @@
     <file alias="PopupPINSetup.qml">qml/PopupPINSetup.qml</file>
     <file alias="PopupTextRequest.qml">qml/PopupTextRequest.qml</file>
     <file alias="PopupBox.qml">qml/PopupBox.qml</file>
+    <file alias="CustomPopupDialog.qml">qml/CustomPopupDialog.qml</file>
 
     <!-- Fixtures and Functions -->
     <file alias="FixturesAndFunctions.qml">qml/fixturesfunctions/FixturesAndFunctions.qml</file>

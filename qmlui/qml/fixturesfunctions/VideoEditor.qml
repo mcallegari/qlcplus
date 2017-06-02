@@ -116,43 +116,23 @@ Rectangle
             {
                 imgSource: "qrc:/global.svg"
                 tooltip: qsTr("Set a URL")
-                onClicked: getUrlDialog.open()
+                onClicked: getUrlDialog.visible = true
 
-                Dialog
+                CustomPopupDialog
                 {
                     id: getUrlDialog
-                    x: (mainView.width - width) / 2
-                    y: (mainView.height - height) / 2
-                    parent: mainView
-
-                    modal: true
                     title: qsTr("Enter a URL")
-                    standardButtons: Dialog.Ok | Dialog.Cancel
 
-                    onVisibleChanged: mainView.setDimScreen(visible)
-
-/*
-                    header:
-                        Rectangle
-                        {
-                            color: UISettings.highlight
-                            height: UISettings.listItemHeight
-                        }
-
-                    background:
-                        Rectangle
-                        {
-                            color: UISettings.bgMedium
-                            border.color: UISettings.bgLight
-                            border.width: 2
-                        }
-*/
                     CustomTextEdit
                     {
                         implicitWidth: UISettings.bigItemHeight * 3
                         implicitHeight: UISettings.listItemHeight
+                        inputText: "http://"
+                        Component.onCompleted: selectAndFocus()
                     }
 
+                    onAccepted: console.log("Accepted")
+                    onRejected: console.log("Rejected")
                 }
             }
         }
