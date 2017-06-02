@@ -36,7 +36,7 @@ RadioButton
 
     ToolTip
     {
-        visible: hovered
+        visible: tooltip && hovered
         text: tooltip
         delay: 1000
         timeout: 5000
