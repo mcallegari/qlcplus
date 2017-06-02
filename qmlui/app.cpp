@@ -29,7 +29,6 @@
 #include "app.h"
 #include "mainview2d.h"
 #include "showmanager.h"
-#include "actionmanager.h"
 #include "modelselector.h"
 #include "videoprovider.h"
 #include "contextmanager.h"
@@ -126,12 +125,6 @@ void App::startup()
 
     // register an uncreatable type just to use the enums in QML
     qmlRegisterUncreatableType<ShowManager>("org.qlcplus.classes", 1, 0, "ShowManager", "Can't create a ShowManager !");
-
-    m_actionManager = new ActionManager(this, m_functionManager, m_showManager, m_virtualConsole);
-    rootContext()->setContextProperty("actionManager", m_actionManager);
-
-    // register an uncreatable type just to use the enums in QML
-    qmlRegisterUncreatableType<ActionManager>("org.qlcplus.classes", 1, 0,  "ActionManager", "Can't create an ActionManager !");
 
     m_contextManager->registerContext(m_virtualConsole);
     m_contextManager->registerContext(m_showManager);

@@ -122,12 +122,16 @@ SidePanel
                 onClicked:
                 {
                     var selNames = virtualConsole.selectedWidgetNames()
-                    console.log(selNames)
+                    //console.log(selNames)
+                    deleteWidgetsPopup.message = qsTr("Are you sure you want to remove the following widgets ?") + "\n" + selNames
+                    deleteWidgetsPopup.open()
+                }
 
-                    actionManager.requestActionPopup(ActionManager.DeleteVCWidgets,
-                                                     qsTr("Are you sure you want to remove the following widgets ?\n" + selNames),
-                                                     ActionManager.OK | ActionManager.Cancel,
-                                                     virtualConsole.selectedWidgetIDs())
+                CustomPopupDialog
+                {
+                    id: deleteWidgetsPopup
+                    title: qsTr("Delete functions")
+                    onAccepted: virtualConsole.deleteVCWidgets(virtualConsole.selectedWidgetIDs())
                 }
             }
         }

@@ -291,6 +291,8 @@ Rectangle
         }
     }
 
+    /* Rectangle covering the whole window to
+     * have a dimmered background for popups */
     Rectangle
     {
         id: dimScreen
@@ -298,10 +300,5 @@ Rectangle
         visible: false
         z: 99
         color: Qt.rgba(0, 0, 0, 0.5)
-    }
-
-    PopupBox
-    {
-        anchors.fill: parent
     }
 }

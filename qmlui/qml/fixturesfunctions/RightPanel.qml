@@ -130,30 +130,20 @@ SidePanel
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/remove.svg"
-                tooltip: qsTr("Remove the selected functions")
+                tooltip: qsTr("Delete the selected functions")
                 counter: functionManager.selectionCount && !functionManager.isEditing
                 onClicked:
                 {
                     var selNames = functionManager.selectedFunctionsName()
                     //console.log(selNames)
-                    deleteItemsText.text = qsTr("Are you sure you want to remove the following functions ?\n") + selNames
+                    deleteItemsPopup.message = qsTr("Are you sure you want to delete the following functions ?") + "\n" + selNames
                     deleteItemsPopup.open()
                 }
 
                 CustomPopupDialog
                 {
                     id: deleteItemsPopup
-
                     title: qsTr("Delete functions")
-
-                    Text
-                    {
-                        id: deleteItemsText
-                        font.family: UISettings.robotoFontName
-                        font.pixelSize: UISettings.textSizeDefault
-                        color: UISettings.fgMain
-                    }
-
                     onAccepted: functionManager.deleteFunctions(functionManager.selectedFunctionsID())
                 }
             }

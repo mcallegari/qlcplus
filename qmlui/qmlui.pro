@@ -28,7 +28,6 @@ DEFINES += MESHESDIR=\\\"$$INSTALLROOT/$$DATADIR/meshes\\\"
 HEADERS += \
     app.h \
     audioeditor.h \
-    actionmanager.h \
     chasereditor.h \
     collectioneditor.h \
     contextmanager.h \
@@ -56,7 +55,6 @@ HEADERS += \
 SOURCES += main.cpp \
     app.cpp \
     audioeditor.cpp \
-    actionmanager.cpp \
     chasereditor.cpp \
     collectioneditor.cpp \
     contextmanager.cpp \

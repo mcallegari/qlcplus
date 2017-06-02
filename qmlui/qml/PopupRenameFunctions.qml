@@ -31,77 +31,78 @@ CustomPopupDialog
 
     onOpened: newNameEdit.selectAndFocus()
 
-    GridLayout
-    {
-        id: renameGrid
-        width: parent.width
-        height: UISettings.listItemHeight * rows
-        columns: 4
-        rows: 3
-        rowSpacing: 5
-        columnSpacing: 5
-
-        // Row 1
-        RobotoText
+    contentItem:
+        GridLayout
         {
-            label: qsTr("New name")
-        }
+            id: renameGrid
+            //width: parent.width
+            //height: UISettings.listItemHeight * rows
+            columns: 4
+            rows: 3
+            rowSpacing: 5
+            columnSpacing: 5
 
-        CustomTextEdit
-        {
-            id: newNameEdit
-            Layout.fillWidth: true
-            Layout.columnSpan: 3
-            inputText: baseName
-        }
-
-        // Row 2
-        Row
-        {
-            Layout.fillWidth: true
-            Layout.columnSpan: 4
-            spacing: 5
-            visible: count
-
-            CustomCheckBox
-            {
-                id: numCheckBox
-                autoExclusive: false
-            }
+            // Row 1
             RobotoText
             {
-                label: qsTr("Enable numbering")
+                label: qsTr("New name")
+            }
+
+            CustomTextEdit
+            {
+                id: newNameEdit
+                Layout.fillWidth: true
+                Layout.columnSpan: 3
+                inputText: baseName
+            }
+
+            // Row 2
+            Row
+            {
+                Layout.fillWidth: true
+                Layout.columnSpan: 4
+                spacing: 5
+                visible: count
+
+                CustomCheckBox
+                {
+                    id: numCheckBox
+                    autoExclusive: false
+                }
+                RobotoText
+                {
+                    label: qsTr("Enable numbering")
+                }
+            }
+
+            // Row 3
+            RobotoText
+            {
+                visible: count
+                label: qsTr("Start number")
+            }
+            CustomSpinBox
+            {
+                id: startNumSpin
+                visible: count
+                Layout.fillWidth: true
+                value: 1
+            }
+
+            RobotoText
+            {
+                visible: count
+                label: qsTr("Digits")
+            }
+            CustomSpinBox
+            {
+                id: digitsSpin
+                visible: count
+                Layout.fillWidth: true
+                from: 1
+                to: 10
             }
         }
-
-        // Row 3
-        RobotoText
-        {
-            visible: count
-            label: qsTr("Start number")
-        }
-        CustomSpinBox
-        {
-            id: startNumSpin
-            visible: count
-            Layout.fillWidth: true
-            value: 1
-        }
-
-        RobotoText
-        {
-            visible: count
-            label: qsTr("Digits")
-        }
-        CustomSpinBox
-        {
-            id: digitsSpin
-            visible: count
-            Layout.fillWidth: true
-            from: 1
-            to: 10
-        }
-    }
 
     onAccepted: functionManager.renameFunctions(functionIDs, newNameEdit.inputText,
                                                 numCheckBox.checked, startNumSpin.value, digitsSpin.value)

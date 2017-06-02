@@ -35,6 +35,13 @@ Dialog
     standardButtons: Dialog.Ok | Dialog.Cancel
     onVisibleChanged: mainView.setDimScreen(visible)
 
+    property string message: ""
+
+    function setButtonStatus(index, status)
+    {
+        buttonBoxControl.itemAt(index).enabled = status
+    }
+
     header:
         Label
         {
@@ -63,6 +70,16 @@ Dialog
             color: UISettings.bgMedium
             border.color: UISettings.bgLight
             border.width: 2
+        }
+
+    contentItem:
+        Text
+        {
+            visible: message
+            font.family: UISettings.robotoFontName
+            font.pixelSize: UISettings.textSizeDefault
+            color: UISettings.fgMain
+            text: message
         }
 
     footer:

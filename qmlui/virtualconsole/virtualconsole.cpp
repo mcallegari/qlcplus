@@ -225,7 +225,7 @@ bool VirtualConsole::setPagePIN(int index, QString currentPIN, QString newPIN)
             return false;
     }
 
-    /* Check if the current PIN matches with the Frame PIN */
+    /* Check if the current PIN matches with the page PIN */
     if (m_pages.at(index)->PIN() != 0 &&
         m_pages.at(index)->PIN() != currentPIN.toInt())
         return false;

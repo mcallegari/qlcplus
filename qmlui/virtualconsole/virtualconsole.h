@@ -91,7 +91,7 @@ public:
     Q_INVOKABLE void addPage(int index);
 
     /** Delete a VC page at $index */
-    void deletePage(int index);
+    Q_INVOKABLE void deletePage(int index);
 
     /** Set a protection PIN for the page at $index */
     Q_INVOKABLE bool setPagePIN(int index, QString currentPIN, QString newPIN);
@@ -163,7 +163,7 @@ public:
     Q_INVOKABLE void setWidgetsFont(QFont font);
 
     /** Delete the VC widgets with the IDs specified in $IDList */
-    void deleteVCWidgets(QVariantList IDList);
+    Q_INVOKABLE void deleteVCWidgets(QVariantList IDList);
 
     /** Return a reference to the currently selected VC widget */
     VCWidget *selectedWidget() const;

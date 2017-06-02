@@ -114,12 +114,14 @@ Rectangle
                     height: UISettings.iconSizeMedium
                     imgSource: "qrc:/remove.svg"
                     tooltip: qsTr("Remove the selected function")
-                    onClicked:
+                    onClicked: deleteItemsPopup.open()
+
+                    CustomPopupDialog
                     {
-                        actionManager.requestActionPopup(ActionManager.DeleteEditorItems,
-                                                         qsTr("Are you sure you want to remove the selected functions ?"),
-                                                         ActionManager.OK | ActionManager.Cancel,
-                                                         ceSelector.itemsList())
+                        id: deleteItemsPopup
+                        title: qsTr("Delete functions")
+                        message: qsTr("Are you sure you want to remove the selected functions ?")
+                        onAccepted: functionManager.deleteEditorItems(ceSelector.itemsList())
                     }
                 }
             }

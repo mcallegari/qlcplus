@@ -120,13 +120,7 @@ Rectangle
                                 if (wObj && checked == true)
                                 {
                                     if (wObj.requirePIN())
-                                    {
-                                        var page = [ index ]
-
-                                        actionManager.requestActionPopup(ActionManager.VCPagePINRequest,
-                                                                         "qrc:/PopupPINRequest.qml",
-                                                                         ActionManager.OK | ActionManager.Cancel, page)
-                                    }
+                                        pinRequestPopup.open()
                                     else
                                         virtualConsole.selectedPage = index
                                 }
@@ -140,6 +134,24 @@ Rectangle
                             {
                                 if (wObj)
                                     wObj.caption = text
+                            }
+
+                            PopupPINRequest
+                            {
+                                id: pinRequestPopup
+                                onAccepted:
+                                {
+                                    if (virtualConsole.validatePagePIN(index, currentPIN, sessionValidate) === false)
+                                        pinErrorPopup.open()
+
+                                }
+                            }
+
+                            CustomPopupDialog
+                            {
+                                id: pinErrorPopup
+                                title: qsTr("Error")
+                                message: qsTr("Invalid PIN entered")
                             }
                         }
                 }
