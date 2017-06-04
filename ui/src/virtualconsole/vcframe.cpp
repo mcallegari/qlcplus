@@ -121,6 +121,8 @@ void VCFrame::setDisableState(bool disable)
         widget->setDisableState(disable);
 
     m_disableState = disable;
+    if (!disable)
+        setEnabled(!disable);
     updateFeedback();
 }
 
