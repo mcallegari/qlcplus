@@ -18,7 +18,7 @@
 */
 
 import QtQuick 2.0
-import QtQuick.Controls 1.0
+import QtQuick.Controls 2.1
 
 import "."
 
@@ -65,7 +65,7 @@ SidePanel
             anchors.leftMargin: 1
             spacing: 3
 
-            ExclusiveGroup { id: ioInputGroup }
+            ButtonGroup { id: ioInputGroup }
 
             IconButton
             {
@@ -76,7 +76,7 @@ SidePanel
                 height: iconSize
                 imgSource: "qrc:/audiocard.svg"
                 checkable: true
-                exclusiveGroup: ioInputGroup
+                ButtonGroup.group: ioInputGroup
                 tooltip: qsTr("Show the audio input sources")
                 onToggled:
                 {
@@ -95,7 +95,7 @@ SidePanel
                 height: iconSize
                 imgSource: "qrc:/inputoutput.svg"
                 checkable: true
-                exclusiveGroup: ioInputGroup
+                ButtonGroup.group: ioInputGroup
                 tooltip: qsTr("Show the universe input sources")
                 onToggled:
                 {
@@ -114,7 +114,7 @@ SidePanel
                 height: iconSize
                 imgSource: ""
                 checkable: true
-                exclusiveGroup: ioInputGroup
+                ButtonGroup.group: ioInputGroup
                 tooltip: qsTr("Show the universe input profiles")
                 onToggled:
                 {

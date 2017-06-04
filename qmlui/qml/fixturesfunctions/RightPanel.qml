@@ -112,7 +112,7 @@ SidePanel
                 imgSource: "qrc:/add.svg"
                 tooltip: qsTr("Add a new function")
                 checkable: true
-                onToggled: addFunctionMenu.visible = !addFunctionMenu.visible
+                onCheckedChanged: addFunctionMenu.visible = !addFunctionMenu.visible
 
                 AddFunctionMenu
                 {

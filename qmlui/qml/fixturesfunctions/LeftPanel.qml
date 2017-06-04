@@ -19,7 +19,7 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.0
-import QtQuick.Controls 1.0
+import QtQuick.Controls 2.2
 
 import "."
 
@@ -39,8 +39,8 @@ SidePanel
         color: "transparent"
         z: 2
 
-        ExclusiveGroup { id: fxManagerGroup }
-        ExclusiveGroup { id: capabilitiesGroup }
+        ButtonGroup { id: fxManagerGroup }
+        ButtonGroup { id: capabilitiesGroup }
 
         ColumnLayout
         {
@@ -58,7 +58,8 @@ SidePanel
                 imgSource: "qrc:/fixture.svg"
                 checkable: true
                 tooltip: qsTr("Add Fixtures")
-                exclusiveGroup: fxManagerGroup
+                ButtonGroup.group: fxManagerGroup
+                autoExclusive: false
                 onToggled:
                 {
                     if (checked == true)
@@ -76,7 +77,8 @@ SidePanel
                 imgSource: "qrc:/group.svg"
                 checkable: true
                 tooltip: qsTr("Fixture Groups")
-                exclusiveGroup: fxManagerGroup
+                ButtonGroup.group: fxManagerGroup
+                autoExclusive: false
                 onToggled:
                 {
                     if (checked == true)
@@ -95,9 +97,10 @@ SidePanel
                 checkable: true
                 tooltip: qsTr("Intensity")
                 counter: 0
-                exclusiveGroup: capabilitiesGroup
+                ButtonGroup.group: capabilitiesGroup
                 onCheckedChanged: intTool.visible = !intTool.visible
                 onCounterChanged: if (counter == 0) intTool.visible = false
+
                 IntensityTool
                 {
                     id: intTool
@@ -118,9 +121,10 @@ SidePanel
                 checkable: true
                 tooltip: qsTr("Color")
                 counter: 0
-                exclusiveGroup: capabilitiesGroup
+                ButtonGroup.group: capabilitiesGroup
                 onCheckedChanged: colTool.visible = !colTool.visible
                 onCounterChanged: if (counter == 0) colTool.visible = false
+
                 ColorTool
                 {
                     id: colTool
@@ -145,7 +149,7 @@ SidePanel
                 checkable: true
                 tooltip: qsTr("Position")
                 counter: 0
-                exclusiveGroup: capabilitiesGroup
+                ButtonGroup.group: capabilitiesGroup
                 onCheckedChanged: posTool.visible = !posTool.visible
                 onCounterChanged: if (counter == 0) posTool.visible = false
 
@@ -174,7 +178,7 @@ SidePanel
                 checkable: true
                 tooltip: qsTr("Color Wheel")
                 counter: 0
-                exclusiveGroup: capabilitiesGroup
+                ButtonGroup.group: capabilitiesGroup
 
                 onCheckedChanged: cWheelTool.visible = !cWheelTool.visible
                 onCounterChanged: if (counter == 0) cWheelTool.visible = false
@@ -199,10 +203,11 @@ SidePanel
                 checkable: true
                 tooltip: qsTr("Gobos")
                 counter: 0
-                exclusiveGroup: capabilitiesGroup
+                ButtonGroup.group: capabilitiesGroup
 
                 onCheckedChanged: gobosTool.visible = !gobosTool.visible
                 onCounterChanged: if (counter == 0) gobosTool.visible = false
+
                 PresetsTool
                 {
                     id: gobosTool

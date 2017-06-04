@@ -18,7 +18,7 @@
 */
 
 import QtQuick 2.0
-import QtQuick.Controls 1.0
+import QtQuick.Controls 2.1
 
 import org.qlcplus.classes 1.0
 import "."
@@ -43,7 +43,7 @@ SidePanel
             width: iconSize
             spacing: 3
 
-            ExclusiveGroup { id: vcButtonsGroup }
+            ButtonGroup { id: vcButtonsGroup }
 
             IconButton
             {
@@ -53,7 +53,7 @@ SidePanel
                 height: iconSize
                 imgSource: "qrc:/add.svg"
                 checkable: true
-                exclusiveGroup: vcButtonsGroup
+                ButtonGroup.group: vcButtonsGroup
                 tooltip: qsTr("Add a new widget to the console")
                 onToggled:
                 {
@@ -71,7 +71,7 @@ SidePanel
                 height: iconSize
                 imgSource: "qrc:/edit.svg"
                 checkable: true
-                exclusiveGroup: vcButtonsGroup
+                ButtonGroup.group: vcButtonsGroup
                 tooltip: qsTr("Enable/Disable the widgets edit mode")
 
                 onCheckedChanged:
@@ -101,7 +101,7 @@ SidePanel
                 imgSource: "qrc:/functions.svg"
                 tooltip: qsTr("Function Manager")
                 checkable: true
-                exclusiveGroup: vcButtonsGroup
+                ButtonGroup.group: vcButtonsGroup
                 onToggled:
                 {
                     if (checked == true)
