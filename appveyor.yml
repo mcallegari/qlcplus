@@ -16,8 +16,8 @@ install:
     #- pacman --noconfirm --needed -S pacman-mirrors
     #- pacman --noconfirm -Sy
     - pacman --noconfirm --needed -S unzip mingw32/mingw-w64-i686-libmad mingw32/mingw-w64-i686-libsndfile mingw32/mingw-w64-i686-flac mingw32/mingw-w64-i686-fftw mingw32/mingw-w64-i686-nsis
-    - wget http://www.qlcplus.org/misc/mingw-w64-i686-qt5-5.6.2-4-any.pkg.tar.xz -P /c/projects
-    - pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-qt5-5.6.2-4-any.pkg.tar.xz
+    - wget http://www.qlcplus.org/misc/mingw-w64-i686-qt5-5.9.0-1-any.pkg.tar.xz -P /c/projects
+    - pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-qt5-5.9.0-1-any.pkg.tar.xz
 
 build_script:
     - ps: >-
