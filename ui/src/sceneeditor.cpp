@@ -105,6 +105,8 @@ SceneEditor::SceneEditor(QWidget* parent, Scene* scene, Doc* doc, bool applyValu
     if (showDial.isNull() == false && showDial.toBool() == true)
         m_speedDialAction->setChecked(true);
 
+    m_tab->setElideMode(Qt::ElideNone);
+
     m_initFinished = true;
 
     // Set focus to the editor
