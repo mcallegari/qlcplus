@@ -457,8 +457,8 @@ public:
 
     void updateFeedback();
 
-protected slots:
-    void slotUpdateSliderValue();
+signals:
+    void requestSliderUpdate(int value);
 
 private slots:
     void slotSliderMoved(int value);
@@ -468,10 +468,6 @@ protected:
     QAbstractSlider* m_slider; //!< either ClickAndGoSlider or KnobWidget
     bool m_externalMovement;
     SliderWidgetStyle m_widgetMode;
-    uchar m_requestedValue;
-
-    /** timer for updating the UI slider value */
-    QTimer* m_updateTimer;
 
     /*********************************************************************
      * Bottom label

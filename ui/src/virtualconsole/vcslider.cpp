@@ -106,8 +106,6 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
 
     m_widgetMode = WSlider;
 
-    m_requestedValue = 0;
-
     setType(VCWidget::SliderWidget);
     setCaption(QString());
     setFrameStyle(KVCFrameStyleSunken);
@@ -141,12 +139,10 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
 
     connect(m_slider, SIGNAL(valueChanged(int)),
             this, SLOT(slotSliderMoved(int)));
-    m_externalMovement = false;
+    connect(this, SIGNAL(requestSliderUpdate(int)),
+            m_slider, SLOT(setValue(int)));
 
-    m_updateTimer = new QTimer(this);
-    connect(m_updateTimer, SIGNAL(timeout()),
-            this, SLOT(slotUpdateSliderValue()));
-    m_updateTimer->setSingleShot(true);
+    m_externalMovement = false;
 
     /* Put stretchable space after the slider (to its right side) */
     m_hbox->addStretch();
@@ -1171,26 +1167,57 @@ QString VCSlider::topLabelText()
 
 void VCSlider::setSliderValue(uchar value, bool noScale)
 {
+    if (m_slider == NULL)
+        return;
+
     float val = value;
 
-    if (m_slider)
+    /* Scale from input value range to this slider's range */
+    if (!noScale)
     {
-        /* Scale from input value range to this slider's range */
-        if (!noScale)
+        val = SCALE((float) value, (float) 0, (float) UCHAR_MAX,
+                (float) m_slider->minimum(),
+                (float) m_slider->maximum());
+    }
+
+    if (m_slider->invertedAppearance() == true)
+        val = (uchar)m_slider->maximum() - val + (uchar)m_slider->minimum();
+
+    /* Request the UI to update */
+    if (m_slider->isSliderDown() == false && val != m_slider->value())
+       emit requestSliderUpdate(val);
+
+    switch (sliderMode())
+    {
+        case Level:
         {
-            val = SCALE((float) value, (float) 0, (float) UCHAR_MAX,
-                    (float) m_slider->minimum(),
-                    (float) m_slider->maximum());
+            if (m_monitorEnabled == true && m_isOverriding == false && m_slider->isSliderDown())
+            {
+                m_priority = DMXSource::Override;
+                m_doc->masterTimer()->requestNewPriority(this);
+                m_resetButton->setStyleSheet(QString("QToolButton{ background: red; }"));
+                m_isOverriding = true;
+            }
+            setLevelValue(value);
+            setClickAndGoWidgetFromLevel(value);
         }
+        break;
 
-        if (m_slider->invertedAppearance() == true)
-            m_requestedValue = (uchar)m_slider->maximum() - val + (uchar)m_slider->minimum();
-        else
-            m_requestedValue = val;
+        case Playback:
+        {
+            setPlaybackValue(value);
+        }
+        break;
 
-        /* Request the UI to update */
-        if (m_requestedValue != m_slider->value())
-            m_updateTimer->start(5);
+        case Submaster:
+        {
+            setLevelValue(value);
+            emitSubmasterValue();
+        }
+        break;
+
+        default:
+        break;
     }
 }
 
@@ -1270,6 +1297,8 @@ void VCSlider::setWidgetStyle(SliderWidgetStyle mode)
         connect(m_slider, SIGNAL(valueChanged(int)),
                 this, SLOT(slotSliderMoved(int)));
     }
+    connect(this, SIGNAL(requestSliderUpdate(int)),
+            m_slider, SLOT(setValue(int)));
     m_widgetMode = mode;
     update();
 }
@@ -1314,52 +1343,16 @@ void VCSlider::updateFeedback()
     sendFeedback(fbv);
 }
 
-void VCSlider::slotUpdateSliderValue()
-{
-    if (m_slider)
-        m_slider->setValue(m_requestedValue);
-}
-
 void VCSlider::slotSliderMoved(int value)
 {
-    if (m_slider->isSliderDown())
-        m_requestedValue = value;
-
-    switch (sliderMode())
-    {
-        case Level:
-        {
-            if (m_monitorEnabled == true && m_isOverriding == false && m_slider->isSliderDown())
-            {
-                m_priority = DMXSource::Override;
-                m_doc->masterTimer()->requestNewPriority(this);
-                m_resetButton->setStyleSheet(QString("QToolButton{ background: red; }"));
-                m_isOverriding = true;
-            }
-            setLevelValue(value);
-            setClickAndGoWidgetFromLevel(value);
-        }
-        break;
-
-        case Playback:
-        {
-            setPlaybackValue(value);
-        }
-        break;
-
-        case Submaster:
-        {
-            setLevelValue(value);
-            emitSubmasterValue();
-        }
-        break;
-
-        default:
-        break;
-    }
-
     /* Set text for the top label */
     setTopLabelText(value);
+
+    /* Do the rest only if the slider is being moved by the user */
+    if (m_slider->isSliderDown() == false)
+        return;
+
+    setSliderValue(value);
 
     updateFeedback();
 }
