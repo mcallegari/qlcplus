@@ -72,7 +72,7 @@ protected slots:
     void slotAudioPreviewStereo();
 
 private:
-    /** Calculate sequence width for paint() and boundingRect() */
+    /** Calculate audio width for paint() and boundingRect() */
     void calculateWidth();
 
 public:

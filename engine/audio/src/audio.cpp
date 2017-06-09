@@ -61,6 +61,7 @@ Audio::Audio(Doc* doc)
 {
     setName(tr("New Audio"));
     setRunOrder(Audio::SingleShot);
+    m_speeds = FunctionSpeeds(0, Speed::infiniteValue(), 0);
 
     // Listen to member Function removals
     connect(doc, SIGNAL(functionRemoved(quint32)),
@@ -127,6 +128,11 @@ QStringList Audio::getCapabilities()
  * Properties
  *********************************************************************/
 
+quint32 Audio::audioDuration() const
+{
+    return m_audioDuration;
+}
+
 bool Audio::setSourceFileName(QString filename)
 {
     if (m_sourceFileName.isEmpty() == false)
@@ -148,7 +154,7 @@ bool Audio::setSourceFileName(QString filename)
     else
     {
         setName(tr("File not found"));
-        //m_audioDuration = 0;
+        m_audioDuration = 0;
         emit changed(id());
         return true;
     }
@@ -158,7 +164,7 @@ bool Audio::setSourceFileName(QString filename)
     if (m_decoder == NULL)
         return false;
 
-    m_speeds.setDuration(m_decoder->totalTime());
+    m_audioDuration = m_decoder->totalTime();
 
     emit changed(id());
 
@@ -358,8 +364,19 @@ void Audio::write(MasterTimer* timer, QList<Universe *> universes)
 
     if (m_speeds.fadeOut() != 0)
     {
-        if (m_audio_out != NULL && m_speeds.duration() - elapsed() <= m_speeds.fadeOut())
-            m_audio_out->setFadeOut(m_speeds.fadeOut());
+        quint32 duration;
+        if (m_overrideSpeeds.duration() != Speed::originalValue() &&
+            m_overrideSpeeds.duration() < m_audioDuration)
+            duration = m_overrideSpeeds.duration();
+        else
+            duration = m_audioDuration;
+        quint32 fadeOut;
+        if (m_overrideSpeeds.fadeOut() != Speed::originalValue())
+            fadeOut = m_overrideSpeeds.fadeOut();
+        else
+            fadeOut = m_speeds.fadeOut();
+        if (m_audio_out != NULL && duration - elapsed() <= fadeOut)
+            m_audio_out->setFadeOut(fadeOut);
     }
 }
 

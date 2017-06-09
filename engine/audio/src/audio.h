@@ -75,6 +75,11 @@ public:
      *********************************************************************/
 public:
     /**
+     * Get the duration of the loaded audio track
+     */
+    quint32 audioDuration() const;
+
+    /**
      * Set the source file name used by this Audio object
      */
     bool setSourceFileName(QString filename);

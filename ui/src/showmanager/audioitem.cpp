@@ -45,7 +45,7 @@ AudioItem::AudioItem(Audio *aud, ShowFunction *func)
         setColor(ShowFunction::defaultColor(Function::AudioType));
 
     if (func->duration() == 0)
-        func->setDuration(aud->speeds().duration());
+        func->setDuration(aud->audioDuration());
 
     calculateWidth();
     connect(m_audio, SIGNAL(changed(quint32)),
@@ -69,7 +69,7 @@ AudioItem::AudioItem(Audio *aud, ShowFunction *func)
 void AudioItem::calculateWidth()
 {
     int newWidth = 0;
-    qint64 audio_duration = m_audio->speeds().duration();
+    quint64 audio_duration = m_audio->audioDuration();
 
     if (audio_duration != 0)
         newWidth = ((50/(float)getTimeScale()) * (float)audio_duration) / 1000;
@@ -121,9 +121,9 @@ void AudioItem::setTimeScale(int val)
 
 void AudioItem::setDuration(quint32 msec, bool stretch)
 {
-    Q_UNUSED(msec)
-    Q_UNUSED(stretch)
     // nothing to do
+    Q_UNUSED(msec);
+    Q_UNUSED(stretch);
 }
 
 QString AudioItem::functionName()
@@ -140,10 +140,9 @@ Audio *AudioItem::getAudio()
 
 void AudioItem::slotAudioChanged(quint32)
 {
+    m_function->setDuration(m_audio->audioDuration());
     prepareGeometryChange();
     calculateWidth();
-    if (m_function)
-        m_function->setDuration(m_audio->speeds().duration());
 }
 
 void AudioItem::slotAudioPreviewLeft()
@@ -264,12 +263,12 @@ void PreviewThread::run()
         qint64 dataRead = 1;
         unsigned char audioData[onePixelReadLen * 4];
         quint32 audioDataOffset = 0;
-        QPixmap *preview = new QPixmap((50 * m_item->m_audio->speeds().duration()) / 1000, 76);
+        QPixmap *preview = new QPixmap((50 * m_item->m_audio->audioDuration()) / 1000, 76);
         preview->fill(Qt::transparent);
         QPainter p(preview);
         int xpos = 0;
 
-        qDebug() << "Audio duration: " << m_item->m_audio->speeds().duration() <<
+        qDebug() << "Audio duration: " << m_item->m_audio->audioDuration() <<
                     ", pixmap width: " << preview->width() <<
                     ", maxValue: " << maxValue << ", samples:" << sampleSize;
         qDebug() << "Samples per second: " << oneSecondSamples << ", for one pixel: " << onePixelSamples <<
