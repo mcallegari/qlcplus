@@ -728,7 +728,10 @@ void VCButton::releaseFunction()
 void VCButton::slotFunctionRunning(quint32 fid)
 {
     if (fid == m_function && m_action == Toggle)
+    {
         setOn(true);
+        emit functionStarting(m_function);
+    }
 }
 
 void VCButton::slotFunctionStopped(quint32 fid)
