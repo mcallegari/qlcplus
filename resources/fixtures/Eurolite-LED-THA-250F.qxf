@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.5a</Version>
+  <Author>Andrea Ugolini</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED THA-250F</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Intensity 0 to 100%</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="31">LED OFF</Capability>
+  <Capability Min="32" Max="95">Linear strobe effect with increasing speed</Capability>
+  <Capability Min="96" Max="159">Pulse strobe effect with increasing speed</Capability>
+  <Capability Min="160" Max="223">Random strobe effect with increasing speed</Capability>
+  <Capability Min="224" Max="255">LED ON</Capability>
+ </Channel>
+ <Channel Name="Focus">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">Focus movement (8bit) from narrow to wide</Capability>
+ </Channel>
+ <Mode Name="3 Channel">
+  <Physical>
+   <Bulb Type="LED COB 250 W, white" Lumens="7000" ColourTemperature="2800"/>
+   <Dimensions Weight="5.5" Width="3356" Height="3985" Depth="4573"/>
+   <Lens Name="PC" DegreesMin="13" DegreesMax="45"/>
+   <Focus Type="Head" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="265" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
+  <Channel Number="0">Focus</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Dimmer</Channel>
+ </Mode>
+</FixtureDefinition>

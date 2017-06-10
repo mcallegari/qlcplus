@@ -94,6 +94,7 @@
   <fixture path="American-DJ-Starball-LED-DMX.qxf" mf="American DJ" md="Starball LED DMX"/>
   <fixture path="American-DJ-Starburst.qxf" mf="American DJ" md="Starburst"/>
   <fixture path="American-DJ-Stinger-II.qxf" mf="American DJ" md="Stinger II"/>
+  <fixture path="American-DJ-Stinger-Spot.qxf" mf="American DJ" md="Stinger Spot"/>
   <fixture path="American-DJ-Stinger.qxf" mf="American DJ" md="Stinger"/>
   <fixture path="American-DJ-Sweeper-Beam-LED.qxf" mf="American DJ" md="Sweeper Beam LED"/>
   <fixture path="American-DJ-Sweeper-Beam-Quad-LED.qxf" mf="American DJ" md="Sweeper Beam Quad LED"/>
@@ -396,6 +397,7 @@
   <fixture path="Eurolite-LED-SLS-5-BCL.qxf" mf="Eurolite" md="LED SLS 5 BCL"/>
   <fixture path="Eurolite-LED-SLS-X-QCL.qxf" mf="Eurolite" md="LED SLS-* QCL"/>
   <fixture path="Eurolite-LED-Strobe-PRO-DMX.qxf" mf="Eurolite" md="LED Strobe PRO DMX"/>
+  <fixture path="Eurolite-LED-THA-250F.qxf" mf="Eurolite" md="LED THA-250F"/>
   <fixture path="Eurolite-Led-Theatre-36x3W-CW-WW.qxf" mf="Eurolite" md="LED Theatre 36x3W CW/WW"/>
   <fixture path="Eurolite-LED-TMH-6.qxf" mf="Eurolite" md="LED TMH-6"/>
   <fixture path="Eurolite-LED-TMH-9.qxf" mf="Eurolite" md="LED TMH-9"/>
@@ -683,6 +685,7 @@
   <fixture path="Pro-Lights-SmartBat.qxf" mf="Pro-Lights" md="SmartBat"/>
   <fixture path="Pro-Lights-SmartBatHEX.qxf" mf="Pro-Lights" md="SmartBatHEX"/>
   <fixture path="Pro-Lights-Strobo-1500DMX.qxf" mf="Pro-Lights" md="Strobo 1500DMX"/>
+  <fixture path="Pro-Lights-StudioCOBFC.qxf" mf="Pro-Lights" md="StudioCOBFC"/>
   <fixture path="Pro-Lights-UVStrip18.qxf" mf="Pro-Lights" md="UVStrip18"/>
   <fixture path="Pro-Lights-V200.qxf" mf="Pro-Lights" md="V200"/>
   <fixture path="Pro-Lights-XP250.qxf" mf="Pro-Lights" md="XP250"/>
@@ -810,6 +813,7 @@
   <fixture path="Stairville-AF-40-DMX.qxf" mf="Stairville" md="AF-40 DMX"/>
   <fixture path="Stairville-AFH-600.qxf" mf="Stairville" md="AFH-600"/>
   <fixture path="Stairville-Beam-Moving-Head-B5R.qxf" mf="Stairville" md="Beam Moving Head B5R"/>
+  <fixture path="Stairville-Blade-Sting-8-RGBW-Beam-Mover.qxf" mf="Stairville" md="Blade Sting 8 RGBW Beam Mover"/>
   <fixture path="Stairville-CLB2.4-CompactLED.qxf" mf="Stairville" md="CLB2.4 Compact LED PAR System"/>
   <fixture path="Stairville-Compact-LED-Bar-CLB8.qxf" mf="Stairville" md="Compact LED-Bar CLB8"/>
   <fixture path="Stairville-DCL-Flat-Par-18x4W-CW-WW.qxf" mf="Stairville" md="DCL Flat Par 18x4W CW/WW"/>
