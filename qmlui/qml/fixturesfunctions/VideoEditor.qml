@@ -123,13 +123,14 @@ Rectangle
                     id: getUrlDialog
                     title: qsTr("Enter a URL")
 
-                    CustomTextEdit
-                    {
-                        implicitWidth: UISettings.bigItemHeight * 3
-                        implicitHeight: UISettings.listItemHeight
-                        inputText: "http://"
-                        Component.onCompleted: selectAndFocus()
-                    }
+                    contentItem:
+                        CustomTextEdit
+                        {
+                            implicitWidth: UISettings.bigItemHeight * 3
+                            implicitHeight: UISettings.listItemHeight
+                            inputText: "http://"
+                            Component.onCompleted: selectAndFocus()
+                        }
 
                     onAccepted: console.log("Accepted")
                     onRejected: console.log("Rejected")

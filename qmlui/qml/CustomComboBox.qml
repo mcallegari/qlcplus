@@ -25,6 +25,17 @@ ComboBox
 {
     id: control
 
+    /*! model: provides a data model for the popup.
+        A model can be either a string list (QStringList) or a named model
+        to provide icons and values (QVariant)
+        A QML model with icons should look like this:
+        ListModel
+        {
+            ListElement { mLabel: qsTr("Foo"); mIcon:"qrc:/foo.svg"; mValue: 0 }
+            ListElement { mLabel: qsTr("Bar"); mIcon:"qrc:/bar.svg"; mValue: 1 }
+        }
+     */
+
     textRole: "mLabel"
 
     property string currentIcon
@@ -80,7 +91,6 @@ ComboBox
             contentItem:
                 Row
                 {
-                    x: 2
                     spacing: 2
                     Image
                     {

@@ -47,7 +47,6 @@ SidePanel
             itemID = newFuncID
             loaderSource = fEditor
             animatePanel(true)
-            addFunctionMenu.visible = false
             addFunction.checked = false
             funcEditor.checked = true
         }
@@ -112,12 +111,11 @@ SidePanel
                 imgSource: "qrc:/add.svg"
                 tooltip: qsTr("Add a new function")
                 checkable: true
-                onCheckedChanged: addFunctionMenu.visible = !addFunctionMenu.visible
 
                 AddFunctionMenu
                 {
                     id: addFunctionMenu
-                    visible: false
+                    visible: addFunction.checked
                     x: -width
 
                     onEntryClicked: createFunctionAndEditor(fType)
