@@ -26,12 +26,12 @@
 #include "chaserstep.h"
 #include "trackitem.h"
 
-SequenceItem::SequenceItem(Chaser *seq, ShowFunction *func)
+SequenceItem::SequenceItem(Chaser *chaser, ShowFunction *func)
     : ShowItem(func)
-    , m_chaser(seq)
+    , m_chaser(chaser)
     , m_selectedStep(-1)
 {
-    Q_ASSERT(seq != NULL);
+    Q_ASSERT(chaser != NULL);
 
     if (func->color().isValid())
         setColor(func->color());
@@ -39,7 +39,7 @@ SequenceItem::SequenceItem(Chaser *seq, ShowFunction *func)
         setColor(ShowFunction::defaultColor(Function::ChaserType));
 
     if (func->duration() == 0)
-        func->setDuration(seq->speeds().duration());
+        func->setDuration(chaser->totalRoundDuration());
 
     calculateWidth();
 
@@ -50,10 +50,10 @@ SequenceItem::SequenceItem(Chaser *seq, ShowFunction *func)
 void SequenceItem::calculateWidth()
 {
     int newWidth = 0;
-    unsigned long seq_duration = m_chaser->speeds().duration();
+    unsigned long seq_duration = m_chaser->totalRoundDuration();
 
     if (seq_duration != 0)
-        newWidth = ((50/(float)getTimeScale()) * (float)seq_duration) / 1000;
+        newWidth = ((50 / (float)getTimeScale()) * (float)seq_duration) / 1000;
 
     if (newWidth < (50 / m_timeScale))
         newWidth = 50 / m_timeScale;
@@ -133,8 +133,8 @@ void SequenceItem::setTimeScale(int val)
 
 void SequenceItem::setDuration(quint32 msec, bool stretch)
 {
-    Q_UNUSED(stretch)
-    m_chaser->speedsEdit().setDuration(msec);
+    Q_UNUSED(stretch);
+    m_chaser->setTotalRoundDuration(msec);
 }
 
 QString SequenceItem::functionName()
@@ -160,7 +160,7 @@ void SequenceItem::slotSequenceChanged(quint32)
     prepareGeometryChange();
     calculateWidth();
     if (m_function)
-        m_function->setDuration(m_chaser->speeds().duration());
+        m_function->setDuration(m_chaser->totalRoundDuration());
     updateTooltip();
 }
 

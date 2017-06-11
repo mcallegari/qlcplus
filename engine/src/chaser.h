@@ -121,7 +121,7 @@ public:
     bool moveStep(int sourceIdx, int destIdx);
 
     /** Get the Chaser steps number */
-    int stepsCount();
+    int stepsCount() const;
 
     /**
      * Get a chaser step from a given index
@@ -186,6 +186,12 @@ public:
     void setStepSpeeds(quint32 stepIdx, FunctionSpeeds const& speeds);
     FunctionSpeeds const& stepSpeeds(quint32 stepIdx) const;
     FunctionSpeedsEditProxy stepSpeedsEdit(quint32 stepIdx);
+
+    // Stretches the duration of each step to get to a total duration of msec ms
+    void setTotalRoundDuration(quint32 msec);
+    // Get the sum of all step duration
+    quint32 totalRoundDuration() const;
+
 
 protected:
     FunctionSpeeds m_commonSpeeds;

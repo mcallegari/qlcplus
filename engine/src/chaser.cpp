@@ -196,14 +196,14 @@ bool Chaser::moveStep(int sourceIdx, int destIdx)
     return true;
 }
 
-int Chaser::stepsCount()
+int Chaser::stepsCount() const
 {
-    return m_steps.count();
+    return m_steps.size();
 }
 
 ChaserStep *Chaser::stepAt(int idx)
 {
-    if (idx >= 0 && idx < m_steps.count())
+    if (idx >= 0 && idx < m_steps.size())
         return &(m_steps[idx]);
 
     return NULL;
@@ -316,6 +316,45 @@ FunctionSpeeds const& Chaser::stepSpeeds(quint32 stepIdx) const
 FunctionSpeedsEditProxy Chaser::stepSpeedsEdit(quint32 stepIdx)
 {
     return alternateSpeedsEdit(stepIdx + 1);
+}
+
+void Chaser::setTotalRoundDuration(quint32 msec)
+{
+    if (durationMode() == Chaser::Common)
+    {
+        int stepsCount = m_steps.size();
+        if (stepsCount == 0)
+            stepsCount = 1;
+        m_commonSpeeds.setDuration(msec / stepsCount);
+    }
+    else
+    {
+        // scale all the Chaser steps to resize
+        // to the desired duration
+        double dtDuration = (double)totalRoundDuration();
+        for (int i = 0; i < stepsCount(); i++)
+        {
+            quint32 origDuration = m_steps[i].speeds.duration();
+            m_steps[i].speeds.setDuration(((double)origDuration * msec) /
+                                          dtDuration);
+        }
+    }
+    emit changed(this->id());
+}
+
+quint32 Chaser::totalRoundDuration() const
+{
+    quint32 totalDuration = 0;
+
+    if (durationMode() == Chaser::Common)
+        totalDuration = commonSpeeds().duration() * stepsCount();
+    else
+    {
+        foreach (const ChaserStep &step, m_steps)
+            totalDuration += step.speeds.duration();
+    }
+
+    return totalDuration;
 }
 
 /*****************************************************************************
