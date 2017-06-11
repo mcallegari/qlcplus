@@ -18,6 +18,8 @@
     <file alias="CustomSpinBox.qml">qml/CustomSpinBox.qml</file>
     <file alias="CustomTextEdit.qml">qml/CustomTextEdit.qml</file>
     <file alias="DayTimeTool.qml">qml/DayTimeTool.qml</file>
+    <file alias="DMXAddressTool.qml">qml/DMXAddressTool.qml</file>
+    <file alias="DMXAddressWidget.qml">qml/DMXAddressWidget.qml</file>
     <file alias="DMXPercentageButton.qml">qml/DMXPercentageButton.qml</file>
     <file alias="EditableTextBox.qml">qml/EditableTextBox.qml</file>
     <file alias="ExternalControls.qml">qml/ExternalControls.qml</file>

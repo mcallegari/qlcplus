@@ -133,6 +133,30 @@ Popup
             onClicked: { }
             onEntered: recentMenu.visible = false
         }
+
+        ContextMenuEntry
+        {
+            imgSource: "qrc:/diptool.svg"
+            entryText: qsTr("Address tool")
+            onClicked:
+            {
+                close()
+                addrToolDialog.open()
+            }
+            onEntered: recentMenu.visible = false
+
+            CustomPopupDialog
+            {
+                id: addrToolDialog
+                title: qsTr("DMX Address tool")
+                standardButtons: Dialog.Close
+
+                contentItem:
+                    DMXAddressTool { }
+            }
+
+        }
+
         ContextMenuEntry
         {
             id: fullScreen
