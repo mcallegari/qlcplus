@@ -18,19 +18,15 @@
 */
 
 import QtQuick 2.0
+import QtQuick.Controls 2.1
 import QtQuick.Dialogs 1.2
 
 import "."
 
-Rectangle
+Popup
 {
     id: menuRoot
-    radius: 2
-    border.width: 1
-    border.color: UISettings.bgStronger
-    color: UISettings.bgStrong
-    width: actionsMenuEntries.width
-    height: actionsMenuEntries.height
+    padding: 0
 
     FileDialog
     {
@@ -50,6 +46,15 @@ Rectangle
             console.log("Canceled")
         }
     }
+
+    background:
+        Rectangle
+        {
+            //radius: 2
+            border.width: 1
+            border.color: UISettings.bgStronger
+            color: UISettings.bgStrong
+        }
 
     Column
     {

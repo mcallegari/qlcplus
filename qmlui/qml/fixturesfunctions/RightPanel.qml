@@ -119,6 +119,7 @@ SidePanel
                     x: -width
 
                     onEntryClicked: createFunctionAndEditor(fType)
+                    onClosed: addFunction.checked = false
                 }
             }
             IconButton

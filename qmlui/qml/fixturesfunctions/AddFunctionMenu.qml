@@ -18,17 +18,23 @@
 */
 
 import QtQuick 2.0
+import QtQuick.Controls 2.1
 
 import org.qlcplus.classes 1.0
 import "."
 
-Rectangle
+Popup
 {
     id: menuRoot
-    width: addFuncMenuEntries.width
-    height: addFuncMenuEntries.height
-    color: UISettings.bgMedium
+    padding: 0
+
     signal entryClicked(int fType)
+
+    background:
+        Rectangle
+        {
+            color: UISettings.bgMedium
+        }
 
     Column
     {

@@ -109,7 +109,6 @@ CustomComboBox
 
                     Image
                     {
-                        id: btnIcon
                         visible: model.mIcon ? true : false
                         height: control.height - 4
                         width: height
@@ -142,7 +141,6 @@ CustomComboBox
 
                     RobotoText
                     {
-                        id: textitem
                         x: 3
                         label: mLabel
                         height: parent.height

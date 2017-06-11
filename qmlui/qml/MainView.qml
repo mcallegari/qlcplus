@@ -262,19 +262,6 @@ Rectangle
         z: visible ? 99 : 0
     }
 
-    /** Mouse area enabled when actionsMenu is visible
-     *  It fills the whole application window to grab
-     *  a click outside the menu and close it
-     */
-    MouseArea
-    {
-        id: contextMenuArea
-        z: actionsMenu.visible ? 98 : 0
-        enabled: actionsMenu.visible
-        anchors.fill: parent
-        onClicked: actionsMenu.visible = false
-    }
-
     Rectangle
     {
         id: mainViewArea
