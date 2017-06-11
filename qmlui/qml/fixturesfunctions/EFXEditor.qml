@@ -468,7 +468,7 @@ Rectangle
                                     height: editorColumn.itemsHeight
                                     model: efxEditor.algorithms
                                     currentIndex: efxEditor.algorithmIndex
-                                    onCurrentTextChanged: efxEditor.algorithmIndex = currentIndex
+                                    onCurrentIndexChanged: efxEditor.algorithmIndex = currentIndex
                                 }
 
                                 // row 2
