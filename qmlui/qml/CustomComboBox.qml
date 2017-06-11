@@ -111,9 +111,9 @@ ComboBox
 
             onClicked:
             {
-                currentIndex = index
                 displayText = text
                 currentIcon = itemIcon
+                currentIndex = index
 
                 if (itemValue !== undefined)
                     control.valueChanged(itemValue)
