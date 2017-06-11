@@ -52,6 +52,7 @@ Flickable
         id: uniGrid
         anchors.top: uniText.bottom
         width: parent.width
+        height: cellSize * gridSize.height
 
         showIndices: 512
         gridSize: Qt.size(24, 22)

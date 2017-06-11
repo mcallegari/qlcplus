@@ -97,7 +97,9 @@ Rectangle
         else
             cellSize = Math.min(Math.min(horSize, vertSize), UISettings.bigItemHeight)
 
-        gridRoot.height = cellSize * gridSize.height
+        // autosize height only if it needs to exceed the initial height
+        if (cellSize * gridSize.height > height)
+            height = cellSize * gridSize.height
 
         //console.log("Grid View cell size: " + cellSize)
         dataCanvas.requestPaint()
@@ -436,7 +438,7 @@ Rectangle
             {
                 var xPos = cellSize * vl
                 context.moveTo(xPos, 0)
-                context.lineTo(xPos, height)
+                context.lineTo(xPos, cellSize * gridSize.height)
             }
 
             /* Paint the grid horizontal lines */
