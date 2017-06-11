@@ -147,6 +147,9 @@ void VideoContent::playVideo()
     if (m_video->fullscreen())
         m_viewContext = m_provider->fullscreenContext();
 
+    if (m_video->isPicture())
+        m_geometry.setSize(m_video->resolution());
+
     qDebug() << "Video screen:" << m_video->screen() << ", geometry:" << m_geometry;
 
     if (m_viewContext == NULL)
@@ -178,8 +181,16 @@ void VideoContent::playVideo()
         connect(m_viewContext, SIGNAL(closing(QQuickCloseEvent*)), this, SLOT(slotWindowClosing()));
     }
 
-    QMetaObject::invokeMethod(m_viewContext->rootObject(), "addVideo",
-        Q_ARG(QVariant, QVariant::fromValue(m_video)));
+    if (m_video->isPicture())
+    {
+        QMetaObject::invokeMethod(m_viewContext->rootObject(), "addPicture",
+                                  Q_ARG(QVariant, QVariant::fromValue(m_video)));
+    }
+    else
+    {
+        QMetaObject::invokeMethod(m_viewContext->rootObject(), "addVideo",
+                                  Q_ARG(QVariant, QVariant::fromValue(m_video)));
+    }
 
     if (m_video->fullscreen())
     {
@@ -203,6 +214,9 @@ void VideoContent::stopVideo()
 
 void VideoContent::slotDetectResolution()
 {
+    if (m_video->isPicture())
+        return;
+
     m_mediaPlayer = new QMediaPlayer();
 
     connect(m_mediaPlayer, SIGNAL(metaDataChanged(QString,QVariant)),

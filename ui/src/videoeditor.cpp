@@ -123,7 +123,7 @@ void VideoEditor::slotSourceFileClicked()
     dialog.setAcceptMode(QFileDialog::AcceptOpen);
 
     /* Append file filters to the dialog */
-    QStringList extList = Video::getCapabilities();
+    QStringList extList = Video::getVideoCapabilities();
 
     QStringList filters;
     qDebug() << Q_FUNC_INFO << "Extensions: " << extList.join(" ");

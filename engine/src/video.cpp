@@ -30,6 +30,9 @@
 #define KXMLQLCVideoScreen "Screen"
 #define KXMLQLCVideoFullscreen "Fullscreen"
 
+const QStringList Video::m_defaultVideoCaps = QStringList() << "*.avi" << "*.wmv" << "*.mkv" << "*.mp4" << "*.mpg" << "*.mpeg" << "*.flv";
+const QStringList Video::m_defaultPictureCaps = QStringList() << "*.png" << "*.bmp" << "*.jpg" << "*.jpeg" << "*.gif";
+
 /*****************************************************************************
  * Initialization
  *****************************************************************************/
@@ -38,6 +41,7 @@ Video::Video(Doc* doc)
   : Function(doc, Function::VideoType)
   , m_doc(doc)
   , m_sourceUrl("")
+  , m_isPicture(false)
   , m_videoDuration(0)
   , m_resolution(QSize(0,0))
   , m_customGeometry(QRect())
@@ -96,13 +100,15 @@ bool Video::copyFrom(const Function* function)
     return Function::copyFrom(function);
 }
 
-QStringList Video::getCapabilities()
+QStringList Video::getVideoCapabilities()
 {
     QStringList caps;
     QStringList mimeTypes = QMediaPlayer::supportedMimeTypes();
     qDebug() << "Supported video types:" << caps;
     if (mimeTypes.isEmpty())
-        caps << "*.avi" << "*.wmv" << "*.mkv" << "*.mp4" << "*.mpg" << "*.mpeg" << "*.flv";
+    {
+        return m_defaultVideoCaps;
+    }
     else
     {
         foreach(QString mime, mimeTypes)
@@ -122,6 +128,11 @@ QStringList Video::getCapabilities()
         }
     }
     return caps;
+}
+
+QStringList Video::getPictureCapabilities()
+{
+    return m_defaultPictureCaps;
 }
 
 /*********************************************************************
@@ -190,6 +201,11 @@ bool Video::setSourceUrl(QString filename)
     m_sourceUrl = filename;
     qDebug() << Q_FUNC_INFO << "Source name set:" << m_sourceUrl;
 
+    QString fileExt = "*" + filename.mid(filename.lastIndexOf('.'));
+
+    if (m_defaultPictureCaps.contains(fileExt))
+        m_isPicture = true;
+
     if (m_sourceUrl.contains("://"))
     {
         QUrl url(m_sourceUrl);
@@ -206,6 +222,11 @@ bool Video::setSourceUrl(QString filename)
     emit sourceChanged(m_sourceUrl);
 
     return true;
+}
+
+bool Video::isPicture() const
+{
+    return m_isPicture;
 }
 
 QString Video::sourceUrl()

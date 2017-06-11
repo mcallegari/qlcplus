@@ -31,15 +31,24 @@ Rectangle
     //height: 600
     color: "black"
 
-    property int videoCount: 0
+    property int mediaCount: 0
 
     function addVideo(vContent)
     {
         videoComponent.createObject(ctxRoot,
-                       {"video": vContent });
+                       {"video": vContent, "z": 1 });
         if (videoComponent.status !== Component.Ready)
             console.log("Video component is not ready !!")
-        videoCount++
+        mediaCount++
+    }
+
+    function addPicture(pContent)
+    {
+        pictureComponent.createObject(ctxRoot,
+                       {"picture": pContent, "z": 2 });
+        if (pictureComponent.status !== Component.Ready)
+            console.log("Picture component is not ready !!")
+        mediaCount++
     }
 
     // Component representing a video content
@@ -85,8 +94,8 @@ Rectangle
                 onStopped:
                 {
                     console.log("Video stopped")
-                    videoCount--
-                    if (videoCount == 0)
+                    mediaCount--
+                    if (mediaCount == 0)
                         videoContent.destroyContext()
                 }
             }
@@ -96,6 +105,36 @@ Rectangle
                 id: videoOutput
                 source: player
                 anchors.fill: parent
+            }
+        }
+    }
+
+    // Component representing a picture content
+    Component
+    {
+        id: pictureComponent
+
+        Image
+        {
+            property VideoFunction picture: null
+
+            onPictureChanged:
+            {
+                if (picture.customGeometry.width !== 0 && picture.customGeometry.height !== 0)
+                {
+                    if (picture.fullscreen)
+                    {
+                        x = video.customGeometry.x
+                        y = video.customGeometry.y
+                    }
+                    width = picture.customGeometry.width
+                    height = picture.customGeometry.height
+                }
+                else
+                    anchors.fill = parent
+
+                source = picture.sourceUrl.indexOf("://") !== -1 ? picture.sourceUrl : "file://" + picture.sourceUrl
+                console.log("QML picture source: " + source)
             }
         }
     }

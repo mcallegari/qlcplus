@@ -31,7 +31,8 @@ class VideoEditor : public FunctionEditor
     Q_OBJECT
 
     Q_PROPERTY(QString sourceFileName READ sourceFileName WRITE setSourceFileName NOTIFY sourceFileNameChanged)
-    Q_PROPERTY(QStringList mimeTypes READ mimeTypes CONSTANT)
+    Q_PROPERTY(QStringList videoExtensions READ videoExtensions CONSTANT)
+    Q_PROPERTY(QStringList pictureExtensions READ pictureExtensions CONSTANT)
     Q_PROPERTY(QVariant mediaInfo READ mediaInfo NOTIFY mediaInfoChanged)
     Q_PROPERTY(QStringList screenList READ screenList CONSTANT)
     Q_PROPERTY(int screenIndex READ screenIndex WRITE setScreenIndex NOTIFY screenIndexChanged)
@@ -51,8 +52,11 @@ public:
     QString sourceFileName() const;
     void setSourceFileName(QString sourceFileName);
 
-    /** Get the supported file types that can be decoded */
-    QStringList mimeTypes() const;
+    /** Get the supported video file types that can be decoded */
+    QStringList videoExtensions() const;
+
+    /** Get the supported picture file types that can be rendered */
+    QStringList pictureExtensions() const;
 
     /** Get the information of the currently loaded media source */
     QVariant mediaInfo() const;

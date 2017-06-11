@@ -72,7 +72,13 @@ public slots:
      *********************************************************************/
 public:
     /** Get the list of the extensions supported by the video decoding system */
-    static QStringList getCapabilities();
+    static QStringList getVideoCapabilities();
+
+    /** Get the list of the extensions supported for picture rendering */
+    static QStringList getPictureCapabilities();
+
+    static const QStringList m_defaultVideoCaps;
+    static const QStringList m_defaultPictureCaps;
 
     /*********************************************************************
      * Properties
@@ -104,6 +110,9 @@ public:
     QString sourceUrl();
     bool setSourceUrl(QString filename);
 
+    /** Return if the loaded source is a picture */
+    bool isPicture() const;
+
     /** Get/Set the screen index where to render the video */
     int screen();
     void setScreen(int index);
@@ -127,6 +136,8 @@ signals:
 private:
     /** URL of the video media source */
     QString m_sourceUrl;
+    /** Flag that indicates if the loaded source is a picture (or a video) */
+    bool m_isPicture;
     /** Duration of the video content */
     qint64 m_videoDuration;
     /** The audio and video codec as strings */

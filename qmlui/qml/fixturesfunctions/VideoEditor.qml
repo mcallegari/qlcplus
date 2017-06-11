@@ -101,12 +101,18 @@ Rectangle
 
                 onClicked:
                 {
-                    var extList = videoEditor.mimeTypes
-                    var exts = qsTr("Video files") + " ("
-                    for (var i = 0; i < extList.length; i++)
-                        exts += extList[i] + " "
-                    exts += ")"
-                    openVideoDialog.nameFilters = [ exts, qsTr("All files (*)") ]
+                    var videoExtList = videoEditor.videoExtensions
+                    var picExtList = videoEditor.pictureExtensions
+                    var vexts = qsTr("Video files") + " ("
+                    for (var i = 0; i < videoExtList.length; i++)
+                        vexts += videoExtList[i] + " "
+                    vexts += ")"
+                    var pexts = qsTr("Picture files") + " ("
+                    for (var i = 0; i < picExtList.length; i++)
+                        pexts += picExtList[i] + " "
+                    pexts += ")"
+
+                    openVideoDialog.nameFilters = [ vexts, pexts, qsTr("All files (*)") ]
                     openVideoDialog.visible = true
                     openVideoDialog.open()
                 }
@@ -126,14 +132,14 @@ Rectangle
                     contentItem:
                         CustomTextEdit
                         {
+                            id: urlInputBox
                             implicitWidth: UISettings.bigItemHeight * 3
                             implicitHeight: UISettings.listItemHeight
                             inputText: "http://"
                             Component.onCompleted: selectAndFocus()
                         }
 
-                    onAccepted: console.log("Accepted")
-                    onRejected: console.log("Rejected")
+                    onAccepted: videoEditor.sourceFileName = urlInputBox.inputText
                 }
             }
         }
