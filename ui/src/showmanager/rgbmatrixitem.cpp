@@ -64,17 +64,17 @@ void RGBMatrixItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
     Q_UNUSED(widget);
 
     float xpos = 0;
-    float timeScale = 50/(float)m_timeScale;
-    quint32 matrixDuration = m_matrix->innerSpeeds().duration();
+    float timeScale = 50 / (float)m_timeScale;
+    quint32 matrixRoundDuration = m_matrix->totalRoundDuration();
 
     ShowItem::paint(painter, option, widget);
 
-    if (matrixDuration)
+    if (matrixRoundDuration)
     {
-        int loopCount = qFloor(m_function->duration() / matrixDuration);
+        int loopCount = qFloor(m_function->duration() / matrixRoundDuration);
         for (int i = 0; i < loopCount; i++)
         {
-            xpos += ((timeScale * (float)matrixDuration) / 1000);
+            xpos += ((timeScale * (float)matrixRoundDuration) / 1000);
             // draw loop vertical delimiter
             painter->setPen(QPen(Qt::white, 1));
             painter->drawLine(xpos, 1, xpos, TRACK_HEIGHT - 5);
@@ -93,7 +93,7 @@ void RGBMatrixItem::setTimeScale(int val)
 void RGBMatrixItem::setDuration(quint32 msec, bool stretch)
 {
     if (stretch == true)
-        m_matrix->innerSpeedsEdit().setDuration(msec);
+        m_matrix->setTotalRoundDuration(msec);
     else
     {
         if (m_function)
@@ -120,7 +120,7 @@ void RGBMatrixItem::slotRGBMatrixChanged(quint32)
 {
     prepareGeometryChange();
     if (m_function)
-        m_function->setDuration(m_matrix->speeds().duration());
+        m_function->setDuration(m_matrix->totalRoundDuration());
     calculateWidth();
     updateTooltip();
 }

@@ -202,6 +202,36 @@ FunctionSpeedsEditProxy RGBMatrix::innerSpeedsEdit()
     return FunctionSpeedsEditProxy(m_innerSpeeds, this);
 }
 
+void RGBMatrix::setTotalRoundDuration(quint32 msec)
+{
+    QMutexLocker algorithmLocker(&m_algorithmMutex);
+
+    if (m_algorithm == NULL)
+        return;
+
+    FixtureGroup* grp = doc()->fixtureGroup(fixtureGroup());
+    if (grp == NULL)
+        return;
+
+    int steps = m_algorithm->rgbMapStepCount(grp->size());
+    innerSpeedsEdit().setDuration(msec / steps);
+}
+
+quint32 RGBMatrix::totalRoundDuration() const
+{
+    QMutexLocker algorithmLocker(&m_algorithmMutex);
+
+    if (m_algorithm == NULL)
+        return 0;
+
+    FixtureGroup* grp = doc()->fixtureGroup(fixtureGroup());
+    if (grp == NULL)
+        return 0;
+
+    int steps = m_algorithm->rgbMapStepCount(grp->size());
+    return steps * m_innerSpeeds.duration();
+}
+
 /****************************************************************************
  * Fixtures
  ****************************************************************************/

@@ -154,6 +154,11 @@ public:
     FunctionSpeeds const& innerSpeeds() const;
     FunctionSpeedsEditProxy innerSpeedsEdit();
 
+    // Stretches the duration of each step to get to a total duration of msec ms
+    void setTotalRoundDuration(quint32 msec);
+    // Get the sum of all step duration
+    quint32 totalRoundDuration() const;
+
 private:
     FunctionSpeeds m_innerSpeeds;
 
@@ -189,7 +194,7 @@ public:
 
 private:
     RGBAlgorithm* m_algorithm;
-    QMutex m_algorithmMutex;
+    mutable QMutex m_algorithmMutex;
 
     /************************************************************************
      * Color
