@@ -47,7 +47,7 @@ EFXItem::EFXItem(EFX *efx, ShowFunction *func)
 void EFXItem::calculateWidth()
 {
     int newWidth = 0;
-    qint64 efx_duration = m_function->duration();
+    qint64 efx_duration = m_efx->innerSpeeds().duration();
 
     if (efx_duration != 0)
         newWidth = ((50/(float)getTimeScale()) * (float)efx_duration) / 1000;
@@ -65,15 +65,17 @@ void EFXItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
     Q_UNUSED(widget);
 
     float xpos = 0;
-    float timeScale = 50/(float)m_timeScale;
-    quint32 efxDuration = m_efx->innerSpeeds().duration();
+    float timeScale = 50 / (float)m_timeScale;
+    quint32 efxRoundDuration = m_efx->innerSpeeds().duration();
 
     ShowItem::paint(painter, option, widget);
 
-    int loopCount = (efxDuration == 0) ? 0 : qFloor(m_function->duration() / efxDuration);
+    int loopCount = (efxRoundDuration == 0)
+                        ? 0
+                        : qFloor(m_function->duration() / efxRoundDuration);
     for (int i = 0; i < loopCount; i++)
     {
-        xpos += ((timeScale * (float)efxDuration) / 1000);
+        xpos += ((timeScale * (float)efxRoundDuration) / 1000);
         // draw loop vertical delimiter
         painter->setPen(QPen(Qt::white, 1));
         painter->drawLine(xpos, 1, xpos, TRACK_HEIGHT - 5);
@@ -118,7 +120,7 @@ void EFXItem::slotEFXChanged(quint32)
 {
     prepareGeometryChange();
     if (m_function)
-        m_function->setDuration(m_efx->speeds().duration());
+        m_function->setDuration(m_efx->innerSpeeds().duration());
     calculateWidth();
     updateTooltip();
 }
