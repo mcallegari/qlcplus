@@ -46,6 +46,7 @@ Video::Video(Doc* doc)
 {
     setName(tr("New Video"));
     setRunOrder(Video::SingleShot);
+    m_speeds = FunctionSpeeds(0, Speed::infiniteValue(), 0);
 
     // Listen to member Function removals
     connect(doc, SIGNAL(functionRemoved(quint32)),
@@ -127,6 +128,17 @@ QStringList Video::getCapabilities()
 /*********************************************************************
  * Properties
  *********************************************************************/
+
+void Video::setVideoDuration(qint64 duration)
+{
+    m_videoDuration = duration;
+    emit videoDurationChanged(duration);
+}
+
+quint32 Video::videoDuration() const
+{
+    return m_videoDuration;
+}
 
 QSize Video::resolution()
 {

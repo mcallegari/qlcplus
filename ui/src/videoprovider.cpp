@@ -126,7 +126,7 @@ void VideoWidget::slotSourceUrlChanged(QString url)
 void VideoWidget::slotTotalTimeChanged(qint64 duration)
 {
     qDebug() << "Video duration: " << duration;
-    m_video->speedsEdit().setDuration(duration);
+    m_video->setVideoDuration(duration);
 }
 
 void VideoWidget::slotStatusChanged(QMediaPlayer::MediaStatus status)

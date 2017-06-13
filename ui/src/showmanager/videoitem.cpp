@@ -40,12 +40,12 @@ VideoItem::VideoItem(Video *vid, ShowFunction *func)
         setColor(ShowFunction::defaultColor(Function::VideoType));
 
     if (func->duration() == 0)
-        func->setDuration(m_video->speeds().duration());
+        func->setDuration(m_video->videoDuration());
 
     calculateWidth();
     connect(m_video, SIGNAL(changed(quint32)),
             this, SLOT(slotVideoChanged(quint32)));
-    connect(m_video, SIGNAL(totalTimeChanged(qint64)),
+    connect(m_video, SIGNAL(videoDurationChanged(qint64)),
             this, SLOT(slotVideoDurationChanged(qint64)));
 
     m_fullscreenAction = new QAction(tr("Fullscreen"), this);
@@ -75,7 +75,7 @@ void VideoItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 {
     float xpos = 0;
     float timeScale = 50/(float)m_timeScale;
-    quint32 videoDuration = m_video->speeds().duration();
+    quint32 videoDuration = m_video->videoDuration();
 
     ShowItem::paint(painter, option, widget);
 
@@ -141,7 +141,7 @@ void VideoItem::slotVideoChanged(quint32)
 {
     prepareGeometryChange();
     if (m_function)
-        m_function->setDuration(m_video->speeds().duration());
+        m_function->setDuration(m_video->videoDuration());
     calculateWidth();
     updateTooltip();
 }
@@ -150,7 +150,7 @@ void VideoItem::slotVideoDurationChanged(qint64)
 {
     prepareGeometryChange();
     if (m_function && m_function->duration() == 0)
-        m_function->setDuration(m_video->speeds().duration());
+        m_function->setDuration(m_video->videoDuration());
     calculateWidth();
     updateTooltip();
 }

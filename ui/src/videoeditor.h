@@ -54,7 +54,7 @@ private slots:
     void slotLoopCheckClicked();
     void slotPreviewToggled(bool state);
     void slotPreviewStopped(quint32 id);
-    void slotDurationChanged(qint64 duration);
+    void slotVideoDurationChanged(qint64 duration);
     void slotMetaDataChanged(QString key, QVariant data);
 
 private:

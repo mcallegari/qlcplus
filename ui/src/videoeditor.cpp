@@ -41,8 +41,8 @@ VideoEditor::VideoEditor(QWidget* parent, Video *video, Doc* doc)
     m_nameEdit->setText(m_video->name());
     m_nameEdit->setSelection(0, m_nameEdit->text().length());
 
-    connect(m_video, SIGNAL(totalTimeChanged(qint64)),
-            this, SLOT(slotDurationChanged(qint64)));
+    connect(m_video, SIGNAL(videoDurationChanged(qint64)),
+            this, SLOT(slotVideoDurationChanged(qint64)));
     connect(m_video, SIGNAL(metaDataChanged(QString,QVariant)),
             this, SLOT(slotMetaDataChanged(QString,QVariant)));
 
@@ -217,7 +217,7 @@ void VideoEditor::slotPreviewStopped(quint32 id)
     }
 }
 
-void VideoEditor::slotDurationChanged(qint64 duration)
+void VideoEditor::slotVideoDurationChanged(qint64 duration)
 {
     m_durationLabel->setText(Speed::msToString(duration));
 }

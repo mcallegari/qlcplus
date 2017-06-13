@@ -78,6 +78,16 @@ public:
      * Properties
      *********************************************************************/
 public:
+    /**
+     * Set the duration of the loaded video track
+     * This is done once the video is loaded
+     */
+    void setVideoDuration(qint64 duration);
+
+    /**
+     * Get the duration of the loaded video track
+     */
+    quint32 videoDuration() const;
 
     /** Get/Set the video resolution as a QSize variable */
     QSize resolution();
@@ -112,12 +122,12 @@ public:
 signals:
     void sourceChanged(QString url);
     void customGeometryChanged(QRect rect);
-    void totalTimeChanged(qint64);
     void metaDataChanged(QString key, QVariant data);
     void requestPlayback();
     void requestPause(bool enable);
     void requestStop();
     void requestBrightnessAdjust(int value);
+    void videoDurationChanged(qint64 duration);
 
 private:
     /** URL of the video media source */
