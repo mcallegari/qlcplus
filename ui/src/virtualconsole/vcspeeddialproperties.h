@@ -59,6 +59,7 @@ private:
 private slots:
     void slotAddClicked();
     void slotRemoveClicked();
+    void applySlotFactorsToAllClicked();
 
 private:
     /** Generate a QList of functions currently in the tree widget */
