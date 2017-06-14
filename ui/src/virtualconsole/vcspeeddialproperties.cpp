@@ -270,12 +270,11 @@ void VCSpeedDialProperties::slotRemoveClicked()
         delete it.next();
 }
 
-void VCSpeedDialProperties::applySlotFactorsToAllClicked()
+void VCSpeedDialProperties::applySelectedFactorsToAllClicked()
 {
     QList <QTreeWidgetItem*> selectedItems = m_tree->selectedItems();
     if (selectedItems.isEmpty())
         return;
-
     QTreeWidgetItem* selected = m_tree->selectedItems().first();
 
     VCSpeedDialFunction::SpeedMultiplier fadeInMultiplier = static_cast<VCSpeedDialFunction::SpeedMultiplier>(selected->data(COL_FADEIN, PROP_ID).toUInt());
@@ -292,21 +291,14 @@ void VCSpeedDialProperties::applySlotFactorsToAllClicked()
         QVariant id = item->data(COL_NAME, PROP_ID);
         if (id.isValid() == true)
         {
-            VCSpeedDialFunction speeddialfunction(id.toUInt());
-
-            speeddialfunction.fadeInMultiplier = fadeInMultiplier;
-            speeddialfunction.fadeOutMultiplier = fadeOutMultiplier;
-            speeddialfunction.durationMultiplier = durationMultiplier;
-
-            item->setText(COL_FADEIN, multiplierNames[speeddialfunction.fadeInMultiplier]);
-            item->setData(COL_FADEIN, PROP_ID, speeddialfunction.fadeInMultiplier);
-            item->setText(COL_FADEOUT, multiplierNames[speeddialfunction.fadeOutMultiplier]);
-            item->setData(COL_FADEOUT, PROP_ID, speeddialfunction.fadeOutMultiplier);
-            item->setText(COL_DURATION, multiplierNames[speeddialfunction.durationMultiplier]);
-            item->setData(COL_DURATION, PROP_ID, speeddialfunction.durationMultiplier);
+            item->setText(COL_FADEIN, multiplierNames[fadeInMultiplier]);
+            item->setData(COL_FADEIN, PROP_ID, fadeInMultiplier);
+            item->setText(COL_FADEOUT, multiplierNames[fadeOutMultiplier]);
+            item->setData(COL_FADEOUT, PROP_ID, fadeOutMultiplier);
+            item->setText(COL_DURATION, multiplierNames[durationMultiplier]);
+            item->setData(COL_DURATION, PROP_ID, durationMultiplier);
         }
     }
-
 }
 
 QList <VCSpeedDialFunction> VCSpeedDialProperties::functions() const

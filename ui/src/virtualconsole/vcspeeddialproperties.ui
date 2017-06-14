@@ -550,7 +550,7 @@
    <sender>m_applyToAllButton</sender>
    <signal>clicked()</signal>
    <receiver>VCSpeedDialProperties</receiver>
-   <slot>applySlotFactorsToAllClicked()</slot>
+   <slot>applySelectedFactorsToAllClicked()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>376</x>
