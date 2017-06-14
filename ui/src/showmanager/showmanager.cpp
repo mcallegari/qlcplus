@@ -933,7 +933,7 @@ void ShowManager::slotAddAudio()
         return;
     }
     // Overlapping check
-    if (checkOverlapping(m_showview->getTimeFromCursor(), audio->speeds().duration()) == true)
+    if (checkOverlapping(m_showview->getTimeFromCursor(), audio->audioDuration()) == true)
     {
         QMessageBox::warning(this, tr("Overlapping error"), tr("Overlapping not allowed. Operation canceled."));
         delete f;
@@ -992,7 +992,7 @@ void ShowManager::slotAddVideo()
         return;
     }
     // Overlapping check
-    if (checkOverlapping(m_showview->getTimeFromCursor(), video->speeds().duration()) == true)
+    if (checkOverlapping(m_showview->getTimeFromCursor(), video->videoDuration()) == true)
     {
         QMessageBox::warning(this, tr("Overlapping error"), tr("Overlapping not allowed. Operation canceled."));
         delete f;
@@ -1026,6 +1026,19 @@ void ShowManager::slotPaste()
     // Get the Function copy and add it to Doc
     Function* clipboardCopy = m_doc->clipboard()->getFunction();
     quint32 copyDuration = clipboardCopy->speeds().duration();
+
+    if (clipboardCopy->type() == Function::ChaserType)
+        copyDuration = qobject_cast<Chaser*>(clipboardCopy)->totalRoundDuration();
+    else if (clipboardCopy->type() == Function::SequenceType)
+        copyDuration = qobject_cast<Sequence*>(clipboardCopy)->totalRoundDuration();
+    else if (clipboardCopy->type() == Function::AudioType)
+        copyDuration = qobject_cast<Audio*>(clipboardCopy)->audioDuration();
+    else if (clipboardCopy->type() == Function::RGBMatrixType)
+        copyDuration = qobject_cast<RGBMatrix*>(clipboardCopy)->totalRoundDuration();
+    else if (clipboardCopy->type() == Function::EFXType)
+        copyDuration = qobject_cast<EFX*>(clipboardCopy)->innerSpeeds().duration();
+    else if (clipboardCopy->type() == Function::VideoType)
+        copyDuration = qobject_cast<Video*>(clipboardCopy)->videoDuration();
 
     // Overlapping check
     if (checkOverlapping(m_showview->getTimeFromCursor(), copyDuration) == true)
