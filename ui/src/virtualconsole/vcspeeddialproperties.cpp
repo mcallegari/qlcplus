@@ -277,6 +277,12 @@ void VCSpeedDialProperties::applySelectedFactorsToAllClicked()
         return;
     QTreeWidgetItem* selected = m_tree->selectedItems().first();
 
+    // clear focus on the combobox to apply the selected value
+    QApplication* app = static_cast<QApplication*>(QApplication::instance());
+    QWidget* focusedWidget = app->focusWidget();
+    if (focusedWidget) focusWidget()->clearFocus();
+    m_tree->focusWidget();
+
     VCSpeedDialFunction::SpeedMultiplier fadeInMultiplier = static_cast<VCSpeedDialFunction::SpeedMultiplier>(selected->data(COL_FADEIN, PROP_ID).toUInt());
     VCSpeedDialFunction::SpeedMultiplier fadeOutMultiplier = static_cast<VCSpeedDialFunction::SpeedMultiplier>(selected->data(COL_FADEOUT, PROP_ID).toUInt());
     VCSpeedDialFunction::SpeedMultiplier durationMultiplier = static_cast<VCSpeedDialFunction::SpeedMultiplier>(selected->data(COL_DURATION, PROP_ID).toUInt());
