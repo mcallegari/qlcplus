@@ -56,6 +56,10 @@
 #include "efx.h"
 #include "doc.h"
 
+/** Number of DMXSource cycles to wait to consider a
+ *  playback value change stable */
+#define PLAYBACK_CHANGE_THRESHOLD   5  // roughly this is 100ms
+
 const quint8 VCSlider::sliderInputSourceId = 0;
 const quint8 VCSlider::overrideResetInputSourceId = 1;
 
@@ -102,7 +106,7 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
 
     m_playbackFunction = Function::invalidId();
     m_playbackValue = 0;
-    m_playbackValueChanged = false;
+    m_playbackChangeCounter = 0;
 
     m_widgetMode = WSlider;
 
@@ -842,7 +846,7 @@ void VCSlider::setPlaybackValue(uchar value)
 
     QMutexLocker locker(&m_playbackValueMutex);
     m_playbackValue = value;
-    m_playbackValueChanged = true;
+    m_playbackChangeCounter = 5;
 }
 
 uchar VCSlider::playbackValue() const
@@ -898,7 +902,7 @@ void VCSlider::slotPlaybackFunctionStopped(quint32 fid)
 
 void VCSlider::slotPlaybackFunctionIntensityChanged(int attrIndex, qreal fraction)
 {
-    if (attrIndex != 0)
+    if (attrIndex != Function::Intensity || m_playbackChangeCounter)
         return;
 
     m_externalMovement = true;
@@ -1096,7 +1100,7 @@ void VCSlider::writeDMXPlayback(MasterTimer* timer, QList<Universe *> ua)
 
     QMutexLocker locker(&m_playbackValueMutex);
 
-    if (m_playbackValueChanged == false)
+    if (m_playbackChangeCounter == 0)
         return;
 
     Function* function = m_doc->function(m_playbackFunction);
@@ -1105,7 +1109,6 @@ void VCSlider::writeDMXPlayback(MasterTimer* timer, QList<Universe *> ua)
 
     uchar value = m_playbackValue;
     qreal pIntensity = qreal(value) / qreal(UCHAR_MAX);
-    m_playbackValueChanged = false;
 
     if (value == 0)
     {
@@ -1129,6 +1132,7 @@ void VCSlider::writeDMXPlayback(MasterTimer* timer, QList<Universe *> ua)
         emit functionStarting(m_playbackFunction, pIntensity);
         function->adjustAttribute(pIntensity * intensity(), Function::Intensity);
     }
+    m_playbackChangeCounter--;
 }
 
 /*****************************************************************************
@@ -1385,8 +1389,6 @@ void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel, uchar va
 
     if (checkInputSource(universe, pagedCh, value, sender(), sliderInputSourceId))
     {
-        /* Scale from input value range to this slider's range */
-
         if (m_slider)
         {
             if (m_monitorEnabled == true && m_isOverriding == false)

@@ -381,7 +381,7 @@ protected slots:
 protected:
     quint32 m_playbackFunction;
     uchar m_playbackValue;
-    bool m_playbackValueChanged;
+    int m_playbackChangeCounter;
     QMutex m_playbackValueMutex;
 
 private:
