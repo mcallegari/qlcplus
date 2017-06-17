@@ -28,7 +28,7 @@ Rectangle
 
     color: "red"
 
-    property int dipWidth: UISettings.iconSizeMedium * 0.75 // (width / 10) - (10 * dipRow.spacing)
+    property int dipWidth: ((width - (10 * dipRow.spacing)) / 10)
 
     property bool editable: true
     property bool flipHorizontally: false
@@ -42,7 +42,8 @@ Rectangle
         id: actText
         x: dipRow.x
         y: flipVertically ? parent.height - height - 3 : 3
-        height: UISettings.iconSizeMedium
+        height: dipBox.height * 0.20
+        fontSize: Math.min(UISettings.textSizeDefault , height - 2)
         label: "ON"
     }
 
@@ -67,15 +68,16 @@ Rectangle
                     {
                         visible: flipVertically
                         width: dipBox.dipWidth
-                        height: UISettings.iconSizeMedium
+                        height: dipBox.height * 0.20
                         label: flipHorizontally ? 10 - index : index + 1
+                        fontSize: Math.min(UISettings.textSizeDefault , height - 2)
                         textHAlign: Text.AlignHCenter
                     }
 
                     Rectangle
                     {
                         id:  dipBitBox
-                        height: UISettings.bigItemHeight / 2
+                        height: dipBox.height * 0.50
                         width: dipBox.dipWidth
                         color: UISettings.bgMedium
 
@@ -114,8 +116,9 @@ Rectangle
                     {
                         visible: !flipVertically
                         width: dipBox.dipWidth
-                        height: UISettings.iconSizeMedium
+                        height: dipBox.height * 0.20
                         label: flipHorizontally ? 10 - index : index + 1
+                        fontSize: Math.min(UISettings.textSizeDefault , height - 2)
                         textHAlign: Text.AlignHCenter
                     }
                 }

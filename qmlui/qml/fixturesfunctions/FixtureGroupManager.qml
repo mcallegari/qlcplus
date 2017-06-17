@@ -96,27 +96,39 @@ Rectangle
                         if (gfhcDragItem.itemsList.length === 0)
                             return;
 
+                        if (checked)
+                            previousView = fixtureAndFunctions.currentViewQML
+
                         switch(gfhcDragItem.itemsList[0].itemType)
                         {
                             case App.UniverseDragItem:
+                                if (checked)
+                                {
+                                    fixtureManager.universeFilter = gfhcDragItem.itemsList[0].cRef.id
+                                    fixtureAndFunctions.currentViewQML = "qrc:/UniverseSummary.qml"
+                                }
+
                             break;
                             case App.FixtureGroupDragItem:
                                 if (checked)
                                 {
                                     fixtureGroupEditor.setEditGroup(gfhcDragItem.itemsList[0].cRef)
-                                    previousView = fixtureAndFunctions.currentViewQML
                                     fixtureAndFunctions.currentViewQML = "qrc:/FixtureGroupEditor.qml"
                                 }
                                 else
                                 {
                                     fixtureGroupEditor.setEditGroup(null)
-                                    fixtureAndFunctions.currentViewQML = previousView
-                                    previousView = ""
                                 }
 
                             break;
                             case App.FixtureDragItem:
                             break;
+                        }
+
+                        if (!checked)
+                        {
+                            fixtureAndFunctions.currentViewQML = previousView
+                            previousView = ""
                         }
                     }
                 }

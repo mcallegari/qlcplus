@@ -17,13 +17,17 @@
   limitations under the License.
 */
 
+#include <QQuickItemGrabResult>
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <QFontDatabase>
+#include <QPrintDialog>
 #include <QQmlContext>
 #include <QQuickItem>
 #include <QSettings>
 #include <QKeyEvent>
+#include <QPrinter>
+#include <QPainter>
 #include <QScreen>
 
 #include "app.h"
@@ -281,6 +285,61 @@ void App::enableKioskMode()
 void App::createKioskCloseButton(const QRect &rect)
 {
     Q_UNUSED(rect)
+}
+
+/*********************************************************************
+ * Printer
+ *********************************************************************/
+
+void App::printItem(QQuickItem *item)
+{
+    if (item == NULL)
+        return;
+
+    m_printerImage = item->grabToImage();
+    connect(m_printerImage.data(), &QQuickItemGrabResult::ready, this, &App::slotItemReadyForPrinting);
+}
+
+void App::slotItemReadyForPrinting()
+{
+    QPrinter printer;
+    QPrintDialog *dlg = new QPrintDialog(&printer, 0);
+    if(dlg->exec() == QDialog::Accepted)
+    {
+        QRectF pageRect = printer.pageRect();
+        QSize imgSize = m_printerImage->image().size();
+        int totalHeight = imgSize.height();
+        int yOffset = 0;
+
+        qDebug() << "Page size:" << pageRect << ", image size:" << imgSize;
+        QPainter painter(&printer);
+        painter.setRenderHint(QPainter::Antialiasing, false);
+        painter.setRenderHint(QPainter::SmoothPixmapTransform);
+
+        QImage img = m_printerImage->image();
+        int actualWidth = imgSize.width();
+
+        // if the grabbed image is larger than the page, fit it to the page width
+        if (pageRect.width() < imgSize.width())
+        {
+            img = m_printerImage->image().scaledToWidth(pageRect.width(), Qt::SmoothTransformation);
+            actualWidth = pageRect.width();
+        }
+
+        // handle multi-page printing
+        while(totalHeight > 0)
+        {
+            painter.drawImage(QPoint(0, 0), img, QRectF(0, yOffset, actualWidth, pageRect.height()));
+            yOffset += pageRect.height();
+            totalHeight -= pageRect.height();
+            if (totalHeight > 0)
+                printer.newPage();
+        }
+
+        painter.end();
+    }
+
+    m_printerImage.clear();
 }
 
 /*********************************************************************

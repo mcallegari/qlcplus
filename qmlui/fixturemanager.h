@@ -72,6 +72,10 @@ public:
     quint32 universeFilter() const;
     void setUniverseFilter(quint32 universeFilter);
 
+    /** Returns a data structure with all the information of
+     *  the Fixtures of the Universe with the specified $id */
+    Q_INVOKABLE QVariantList universeInfo(quint32 id);
+
     /** Returns the number of fixtures currently loaded in the project */
     int fixturesCount();
 
@@ -121,6 +125,8 @@ private:
     TreeModel *m_fixtureTree;
     /** A filter for m_fixturesMap to restrict data to a specific universe */
     quint32 m_universeFilter;
+
+    QVariantList m_universeInfo;
 
     /*********************************************************************
      * RGB Panel creation
