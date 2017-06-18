@@ -1009,6 +1009,9 @@ bool VirtualConsole::loadPropertiesXML(QXmlStreamReader &root)
         slider->setDefaultFontSize(pixelDensity() * 3.5);
         slider->setSliderMode(VCSlider::GrandMaster);
 
+        slider->setGrandMasterChannelMode(gmLegacyChannelMode);
+        slider->setGrandMasterValueMode(gmLegacyValueMode);
+
         if (gmLegacySliderMode == GrandMaster::Inverted)
             slider->setInvertedAppearance(true);
 
