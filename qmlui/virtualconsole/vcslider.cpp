@@ -150,13 +150,34 @@ VCSlider::SliderMode VCSlider::sliderMode() const
 
 void VCSlider::setSliderMode(SliderMode mode)
 {
-    Q_ASSERT(mode >= Level && mode <= GrandMaster);
+    Q_ASSERT(mode >= Level && mode <= Attribute);
 
     if (m_sliderMode == mode)
         return;
 
     m_sliderMode = mode;
+
     emit sliderModeChanged(mode);
+
+    setLevelLowLimit(0);
+    setLevelHighLimit(UCHAR_MAX);
+
+    switch(mode)
+    {
+        case Level:
+        case Playback:
+            setLevelValue(0);
+        break;
+        case Submaster:
+            setLevelValue(UCHAR_MAX);
+        break;
+        case GrandMaster:
+            setValueDisplayStyle(PercentageValue);
+            setLevelValue(UCHAR_MAX);
+        break;
+        case Attribute:
+        break;
+    }
 }
 
 /*********************************************************************
@@ -264,6 +285,22 @@ void VCSlider::setValue(int value)
         return;
 
     m_value = value;
+
+    switch(sliderMode())
+    {
+        case Level:
+        break;
+        case Playback:
+        break;
+        case Submaster:
+        break;
+        case GrandMaster:
+            m_doc->inputOutputMap()->setGrandMasterValue(value);
+        break;
+        case Attribute:
+        break;
+    }
+
     emit valueChanged(value);
 }
 
@@ -438,11 +475,16 @@ QVariant VCSlider::groupsTreeModel()
 
 void VCSlider::setLevelValue(uchar value)
 {
+    if (value == m_levelValue)
+        return;
+
     QMutexLocker locker(&m_levelValueMutex);
     m_levelValue = value;
     if (m_monitorEnabled == true)
         m_monitorValue = m_levelValue;
     m_levelValueChanged = true;
+
+    setValue(value);
 }
 
 uchar VCSlider::levelValue() const
@@ -543,6 +585,38 @@ FunctionParent VCSlider::functionParent() const
 }
 
 /*********************************************************************
+ * Grand Master mode
+ *********************************************************************/
+
+GrandMaster::ValueMode VCSlider::grandMasterValueMode() const
+{
+    return m_doc->inputOutputMap()->grandMasterValueMode();
+}
+
+void VCSlider::setGrandMasterValueMode(GrandMaster::ValueMode mode)
+{
+    if (mode == m_doc->inputOutputMap()->grandMasterValueMode())
+        return;
+
+    m_doc->inputOutputMap()->setGrandMasterValueMode(mode);
+    emit grandMasterValueModeChanged(mode);
+}
+
+GrandMaster::ChannelMode VCSlider::grandMasterChannelMode() const
+{
+    return m_doc->inputOutputMap()->grandMasterChannelMode();
+}
+
+void VCSlider::setGrandMasterChannelMode(GrandMaster::ChannelMode mode)
+{
+    if (mode == m_doc->inputOutputMap()->grandMasterChannelMode())
+        return;
+
+    m_doc->inputOutputMap()->setGrandMasterChannelMode(mode);
+    emit grandMasterChannelModeChanged(mode);
+}
+
+/*********************************************************************
  * External input
  *********************************************************************/
 
@@ -566,7 +640,6 @@ bool VCSlider::loadXML(QXmlStreamReader &root)
         return false;
     }
 
-    SliderMode sliderMode = Playback;
     QString str;
 
     /* Widget commons */
@@ -603,7 +676,7 @@ bool VCSlider::loadXML(QXmlStreamReader &root)
         else if (root.name() == KXMLQLCVCSliderMode)
         {
             QXmlStreamAttributes mAttrs = root.attributes();
-            sliderMode = stringToSliderMode(root.readElementText());
+            setSliderMode(stringToSliderMode(root.readElementText()));
 
             str = mAttrs.value(KXMLQLCVCSliderValueDisplayStyle).toString();
             setValueDisplayStyle(stringToValueDisplayStyle(str));
@@ -637,9 +710,6 @@ bool VCSlider::loadXML(QXmlStreamReader &root)
             root.skipCurrentElement();
         }
     }
-
-    /* Set the mode last, after everything else has been set */
-    setSliderMode(sliderMode);
 
     return true;
 }

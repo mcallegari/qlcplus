@@ -278,6 +278,9 @@ public:
     /** Load properties and contents from an XML tree */
     bool loadXML(QXmlStreamReader &root);
 
+    /** Load input source from $root to $uni and $ch */
+    bool loadXMLLegacyInput(QXmlStreamReader &root, quint32* uni, quint32* ch) const;
+
     /** Load the Virtual Console global properties XML tree */
     bool loadPropertiesXML(QXmlStreamReader &root);
 

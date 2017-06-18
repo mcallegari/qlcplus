@@ -22,6 +22,7 @@
 
 #include "vcwidget.h"
 #include "treemodel.h"
+#include "grandmaster.h"
 
 #define KXMLQLCVCSlider "Slider"
 
@@ -62,6 +63,9 @@ class VCSlider : public VCWidget
     Q_PROPERTY(SliderMode sliderMode READ sliderMode WRITE setSliderMode NOTIFY sliderModeChanged)
     Q_PROPERTY(int value READ value WRITE setValue NOTIFY valueChanged)
     Q_PROPERTY(quint32 playbackFunction READ playbackFunction WRITE setPlaybackFunction NOTIFY playbackFunctionChanged)
+
+    Q_PROPERTY(GrandMaster::ValueMode grandMasterValueMode READ grandMasterValueMode WRITE setGrandMasterValueMode NOTIFY grandMasterValueModeChanged)
+    Q_PROPERTY(GrandMaster::ChannelMode grandMasterChannelMode READ grandMasterChannelMode WRITE setGrandMasterChannelMode NOTIFY grandMasterChannelModeChanged)
 
     Q_PROPERTY(int levelLowLimit READ levelLowLimit WRITE setLevelLowLimit NOTIFY levelLowLimitChanged)
     Q_PROPERTY(int levelHighLimit READ levelHighLimit WRITE setLevelHighLimit NOTIFY levelHighLimitChanged)
@@ -185,7 +189,6 @@ signals:
 protected:
     int m_value;
 
-
     /*********************************************************************
      * Level mode
      *********************************************************************/
@@ -280,6 +283,21 @@ signals:
 
 protected:
     quint32 m_playbackFunction;
+
+    /*********************************************************************
+     * Grand Master mode
+     *********************************************************************/
+public:
+
+    GrandMaster::ValueMode grandMasterValueMode() const;
+    void setGrandMasterValueMode(GrandMaster::ValueMode mode);
+
+    GrandMaster::ChannelMode grandMasterChannelMode() const;
+    void setGrandMasterChannelMode(GrandMaster::ChannelMode mode);
+
+signals:
+    void grandMasterValueModeChanged(GrandMaster::ValueMode mode);
+    void grandMasterChannelModeChanged(GrandMaster::ChannelMode mode);
 
     /*********************************************************************
      * External input

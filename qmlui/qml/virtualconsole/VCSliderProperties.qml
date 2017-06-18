@@ -259,7 +259,7 @@ Rectangle
                 }
 
               } // GridLayout
-        } // SectionBox
+        } // SectionBox Playback mode
 
         SectionBox
         {
@@ -344,6 +344,93 @@ Rectangle
                       }
                   }
               }
-        } // SectionBox
+        } // SectionBox Level mode
+
+        SectionBox
+        {
+            visible: widgetRef ? widgetRef.sliderMode === VCSlider.GrandMaster : false
+            sectionLabel: qsTr("Grand Master mode")
+
+            sectionContents:
+              GridLayout
+              {
+                  width: parent.width
+                  columns: 4
+                  columnSpacing: 5
+                  rowSpacing: 4
+
+                  ButtonGroup { id: gmValueModeGroup }
+                  ButtonGroup { id: gmChannelModeGroup }
+
+                  // row 1
+                  CustomCheckBox
+                  {
+                      implicitWidth: UISettings.iconSizeMedium
+                      implicitHeight: implicitWidth
+                      ButtonGroup.group: gmValueModeGroup
+                      checked: widgetRef ? widgetRef.grandMasterValueMode === GrandMaster.Reduce : true
+                      onClicked: if (checked && widgetRef) widgetRef.grandMasterValueMode = GrandMaster.Reduce
+                  }
+
+                  RobotoText
+                  {
+                      height: gridItemsHeight
+                      Layout.fillWidth: true
+                      label: qsTr("Reduce values")
+                  }
+
+                  // row 2
+                  CustomCheckBox
+                  {
+                      implicitWidth: UISettings.iconSizeMedium
+                      implicitHeight: implicitWidth
+                      ButtonGroup.group: gmValueModeGroup
+                      checked: widgetRef ? widgetRef.grandMasterValueMode === GrandMaster.Limit : true
+                      onClicked: if (checked && widgetRef) widgetRef.grandMasterValueMode = GrandMaster.Limit
+                  }
+
+                  RobotoText
+                  {
+                      height: gridItemsHeight
+                      Layout.fillWidth: true
+                      label: qsTr("Limit values")
+                  }
+
+                  // row 3
+                  CustomCheckBox
+                  {
+                      implicitWidth: UISettings.iconSizeMedium
+                      implicitHeight: implicitWidth
+                      ButtonGroup.group: gmChannelModeGroup
+                      checked: widgetRef ? widgetRef.grandMasterChannelMode === GrandMaster.Intensity : true
+                      onClicked: if (checked && widgetRef) widgetRef.grandMasterChannelMode = GrandMaster.Intensity
+                  }
+
+                  RobotoText
+                  {
+                      height: gridItemsHeight
+                      Layout.fillWidth: true
+                      label: qsTr("Intensity channels")
+                  }
+
+                  // row 4
+                  CustomCheckBox
+                  {
+                      implicitWidth: UISettings.iconSizeMedium
+                      implicitHeight: implicitWidth
+                      ButtonGroup.group: gmChannelModeGroup
+                      checked: widgetRef ? widgetRef.grandMasterChannelMode === GrandMaster.AllChannels : true
+                      onClicked: if (checked && widgetRef) widgetRef.grandMasterChannelMode = GrandMaster.AllChannels
+                  }
+
+                  RobotoText
+                  {
+                      height: gridItemsHeight
+                      Layout.fillWidth: true
+                      label: qsTr("All channels")
+                  }
+              }
+        } // SectionBox Grand Master mode
+
     } // end of Column
 }
