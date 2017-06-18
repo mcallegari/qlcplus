@@ -208,7 +208,7 @@ VCWidgetItem
                 PropertyChanges
                 {
                     target: buttonRoot
-                    color: "#9DFF52"
+                    color: UISettings.activeDropArea
                 }
             }
         ]
