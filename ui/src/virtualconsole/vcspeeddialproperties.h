@@ -24,10 +24,10 @@
 
 #include "ui_vcspeeddialproperties.h"
 #include "qlcinputsource.h"
+#include "vcspeeddialfunction.h"
 
 class InputSelectionWidget;
 class VCSpeedDial;
-class VCSpeedDialFunction;
 class VCSpeedDialPreset;
 class SpeedDialWidget;
 class Doc;
@@ -59,7 +59,8 @@ private:
 private slots:
     void slotAddClicked();
     void slotRemoveClicked();
-    void applySelectedFactorsToAllClicked();
+    void copySelectedFactorsClicked();
+    void pasteFactorsToSelectedClicked();
 
 private:
     /** Generate a QList of functions currently in the tree widget */
@@ -67,6 +68,12 @@ private:
 
     /** Create a tree item for the given function $id */
     void createFunctionItem(const VCSpeedDialFunction &speeddialfunction);
+
+    struct {
+        VCSpeedDialFunction::SpeedMultiplier fadeInMultiplier;
+        VCSpeedDialFunction::SpeedMultiplier fadeOutMultiplier;
+        VCSpeedDialFunction::SpeedMultiplier durationMultiplier;
+    } copiedFactorValues;
 
     /************************************************************************
      * Input page

@@ -270,12 +270,12 @@ void VCSpeedDialProperties::slotRemoveClicked()
         delete it.next();
 }
 
-void VCSpeedDialProperties::applySelectedFactorsToAllClicked()
+void VCSpeedDialProperties::copySelectedFactorsClicked()
 {
-    QList <QTreeWidgetItem*> selectedItems = m_tree->selectedItems();
-    if (selectedItems.isEmpty())
+    QList <QTreeWidgetItem*> allSelected = m_tree->selectedItems();
+    if (allSelected.isEmpty())
         return;
-    QTreeWidgetItem* selected = m_tree->selectedItems().first();
+    QTreeWidgetItem* selected = allSelected.first();
 
     // clear focus on the combobox to apply the selected value
     QApplication* app = static_cast<QApplication*>(QApplication::instance());
@@ -283,26 +283,30 @@ void VCSpeedDialProperties::applySelectedFactorsToAllClicked()
     if (focusedWidget) focusWidget()->clearFocus();
     m_tree->focusWidget();
 
-    VCSpeedDialFunction::SpeedMultiplier fadeInMultiplier = static_cast<VCSpeedDialFunction::SpeedMultiplier>(selected->data(COL_FADEIN, PROP_ID).toUInt());
-    VCSpeedDialFunction::SpeedMultiplier fadeOutMultiplier = static_cast<VCSpeedDialFunction::SpeedMultiplier>(selected->data(COL_FADEOUT, PROP_ID).toUInt());
-    VCSpeedDialFunction::SpeedMultiplier durationMultiplier = static_cast<VCSpeedDialFunction::SpeedMultiplier>(selected->data(COL_DURATION, PROP_ID).toUInt());
+    copiedFactorValues.fadeInMultiplier = static_cast<VCSpeedDialFunction::SpeedMultiplier>(selected->data(COL_FADEIN, PROP_ID).toUInt());
+    copiedFactorValues.fadeOutMultiplier = static_cast<VCSpeedDialFunction::SpeedMultiplier>(selected->data(COL_FADEOUT, PROP_ID).toUInt());
+    copiedFactorValues.durationMultiplier = static_cast<VCSpeedDialFunction::SpeedMultiplier>(selected->data(COL_DURATION, PROP_ID).toUInt());
 
+    m_pasteFactorsButton->setEnabled(true);
+}
+
+void VCSpeedDialProperties::pasteFactorsToSelectedClicked()
+{
+    // is only called after the paste button has been enabled and copiedFactorValues is filled with data
     const QStringList &multiplierNames = VCSpeedDialFunction::speedMultiplierNames();
 
-    for (int i = 0; i < m_tree->topLevelItemCount(); i++)
-    {
-        QTreeWidgetItem* item = m_tree->topLevelItem(i);
+    foreach (QTreeWidgetItem* item, m_tree->selectedItems()) {
         Q_ASSERT(item != NULL);
 
         QVariant id = item->data(COL_NAME, PROP_ID);
         if (id.isValid() == true)
         {
-            item->setText(COL_FADEIN, multiplierNames[fadeInMultiplier]);
-            item->setData(COL_FADEIN, PROP_ID, fadeInMultiplier);
-            item->setText(COL_FADEOUT, multiplierNames[fadeOutMultiplier]);
-            item->setData(COL_FADEOUT, PROP_ID, fadeOutMultiplier);
-            item->setText(COL_DURATION, multiplierNames[durationMultiplier]);
-            item->setData(COL_DURATION, PROP_ID, durationMultiplier);
+            item->setText(COL_FADEIN, multiplierNames[copiedFactorValues.fadeInMultiplier]);
+            item->setData(COL_FADEIN, PROP_ID, copiedFactorValues.fadeInMultiplier);
+            item->setText(COL_FADEOUT, multiplierNames[copiedFactorValues.fadeOutMultiplier]);
+            item->setData(COL_FADEOUT, PROP_ID, copiedFactorValues.fadeOutMultiplier);
+            item->setText(COL_DURATION, multiplierNames[copiedFactorValues.durationMultiplier]);
+            item->setData(COL_DURATION, PROP_ID, copiedFactorValues.durationMultiplier);
         }
     }
 }

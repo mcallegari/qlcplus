@@ -96,13 +96,13 @@
         </widget>
        </item>
        <item row="2" column="2">
-        <widget class="QToolButton" name="m_applyToAllButton">
+        <widget class="QToolButton" name="m_copyFactorsButton">
          <property name="toolTip">
-          <string>Apply factors from selected function to all</string>
+          <string>Copy the factors of the selected function</string>
          </property>
          <property name="icon">
           <iconset resource="../qlcui.qrc">
-           <normaloff>:/editcopyall.png</normaloff>:/editcopyall.png</iconset>
+           <normaloff>:/editcopy.png</normaloff>:/editcopy.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -113,6 +113,26 @@
         </widget>
        </item>
        <item row="3" column="2">
+        <widget class="QToolButton" name="m_pasteFactorsButton">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="toolTip">
+          <string>Paste copied factors to all selected functions</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../qlcui.qrc">
+           <normaloff>:/editpaste.png</normaloff>:/editpaste.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="2">
         <spacer name="verticalSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -125,7 +145,7 @@
          </property>
         </spacer>
        </item>
-       <item row="0" column="0" rowspan="4" colspan="2">
+       <item row="0" column="0" rowspan="5" colspan="2">
         <widget class="QTreeWidget" name="m_tree">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -547,10 +567,10 @@
    </hints>
   </connection>
   <connection>
-   <sender>m_applyToAllButton</sender>
+   <sender>m_copyFactorsButton</sender>
    <signal>clicked()</signal>
    <receiver>VCSpeedDialProperties</receiver>
-   <slot>applySelectedFactorsToAllClicked()</slot>
+   <slot>copySelectedFactorsClicked()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>376</x>
@@ -559,6 +579,22 @@
     <hint type="destinationlabel">
      <x>396</x>
      <y>223</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_pasteFactorsButton</sender>
+   <signal>clicked()</signal>
+   <receiver>VCSpeedDialProperties</receiver>
+   <slot>pasteFactorsToSelectedClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>376</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>396</x>
+     <y>283</y>
     </hint>
    </hints>
   </connection>
