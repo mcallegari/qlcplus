@@ -18,6 +18,8 @@
     <file alias="CustomSpinBox.qml">qml/CustomSpinBox.qml</file>
     <file alias="CustomTextEdit.qml">qml/CustomTextEdit.qml</file>
     <file alias="DayTimeTool.qml">qml/DayTimeTool.qml</file>
+    <file alias="DMXAddressTool.qml">qml/DMXAddressTool.qml</file>
+    <file alias="DMXAddressWidget.qml">qml/DMXAddressWidget.qml</file>
     <file alias="DMXPercentageButton.qml">qml/DMXPercentageButton.qml</file>
     <file alias="EditableTextBox.qml">qml/EditableTextBox.qml</file>
     <file alias="ExternalControls.qml">qml/ExternalControls.qml</file>
@@ -49,8 +51,8 @@
     <!-- Popup system -->
     <file alias="PopupPINRequest.qml">qml/PopupPINRequest.qml</file>
     <file alias="PopupPINSetup.qml">qml/PopupPINSetup.qml</file>
-    <file alias="PopupTextRequest.qml">qml/PopupTextRequest.qml</file>
-    <file alias="PopupBox.qml">qml/PopupBox.qml</file>
+    <file alias="PopupRenameFunctions.qml">qml/PopupRenameFunctions.qml</file>
+    <file alias="CustomPopupDialog.qml">qml/CustomPopupDialog.qml</file>
 
     <!-- Fixtures and Functions -->
     <file alias="FixturesAndFunctions.qml">qml/fixturesfunctions/FixturesAndFunctions.qml</file>
@@ -73,6 +75,7 @@
     <file alias="FixtureNodeDelegate.qml">qml/fixturesfunctions/FixtureNodeDelegate.qml</file>
     <file alias="GridEditor.qml">qml/fixturesfunctions/GridEditor.qml</file>
     <file alias="UniverseGridView.qml">qml/fixturesfunctions/UniverseGridView.qml</file>
+    <file alias="UniverseSummary.qml">qml/fixturesfunctions/UniverseSummary.qml</file>
     <file alias="DMXView.qml">qml/fixturesfunctions/DMXView.qml</file>
     <file alias="FixtureDMXItem.qml">qml/fixturesfunctions/FixtureDMXItem.qml</file>
     <file alias="2DView.qml">qml/fixturesfunctions/2DView.qml</file>

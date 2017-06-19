@@ -42,6 +42,7 @@ QtObject
     property color highlightPressed: "#044089"
     property color hover:            "#B6B6B6"
     property color selection:        "yellow"
+    property color activeDropArea:   "#9DFF52"
 
     property color toolbarStartMain: "#1a1a1a"
     property color toolbarStartSub:  "#222"

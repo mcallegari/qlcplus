@@ -19,7 +19,7 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
-import QtQuick.Controls 1.2
+import QtQuick.Controls 2.1
 
 import org.qlcplus.classes 1.0
 import "."
@@ -83,18 +83,17 @@ Rectangle
                     GradientStop { position: 1; color: UISettings.toolbarEnd }
                 }
 
-            ExclusiveGroup { id: seqExGroup }
+            ButtonGroup { id: seqExGroup }
 
             MenuBarEntry
             {
                 id: stepsView
                 width: parent.width / 2
                 entryText: qsTr("Steps")
-                checkable: true
                 checked: true
                 checkedColor: UISettings.toolbarSelectionSub
                 bgGradient: cBarGradient
-                exclusiveGroup: seqExGroup
+                ButtonGroup.group: seqExGroup
                 mFontSize: UISettings.textSizeDefault
             }
 
@@ -104,10 +103,9 @@ Rectangle
                 width: parent.width / 2
                 anchors.left: stepsView.right
                 entryText: qsTr("Fixtures")
-                checkable: true
                 checkedColor: UISettings.toolbarSelectionSub
                 bgGradient: cBarGradient
-                exclusiveGroup: seqExGroup
+                ButtonGroup.group: seqExGroup
                 mFontSize: UISettings.textSizeDefault
             }
         }

@@ -86,6 +86,9 @@ qlcplus (4.11.0) stable; urgency=low
   * New fixtures: Involight LED MH50S, LED PAR 180, SBL 2000 (thanks to Facek)
   * New fixture: Pro-Lights Miniruby (thanks to Dario Gonzalez)
   * New fixture: Sagitter Smart DL Wash (thanks to Simu)
+  * New fixtures: Eurolite LED THA-250F, Pro-Lights StudioCOBFC (thanks to Andrea Ugolini)
+  * New fixture: American DJ Stinger Spot (thanks to Jason R. Johnston)
+  * New fixture: Stairville Blade Sting 8 RGBW Beam Mover
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 30 Apr 2017 12:13:14 +0200
 

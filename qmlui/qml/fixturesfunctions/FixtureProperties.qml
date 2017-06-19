@@ -203,9 +203,8 @@ Rectangle
                         height: propsGrid.itemsHeight
                         Layout.fillWidth: true
                         model: fixtureBrowser.modesList
-                        currentText: fxMode
                         onModelChanged: currentIndex = 0
-                        onCurrentTextChanged: fixtureBrowser.selectedMode = currentText
+                        onDisplayTextChanged: fixtureBrowser.selectedMode = displayText
                     }
                     IconButton
                     {
@@ -221,7 +220,7 @@ Rectangle
 
         Rectangle
         {
-            visible: fxModeInfo.checked
+            visible: fxModeInfo.checked && fixtureBrowser.modesList.length
             height: UISettings.bigItemHeight * 1.5
             width: parent.width - 8
 

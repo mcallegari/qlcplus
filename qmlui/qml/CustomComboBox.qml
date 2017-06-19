@@ -17,256 +17,219 @@
   limitations under the License.
 */
 
-import QtQuick 2.0
+import QtQuick 2.9
+import QtQuick.Controls 2.2
 import "."
 
-Rectangle
+ComboBox
 {
-    id: cbRoot
-    implicitHeight: UISettings.listItemHeight
-    width: 150
-    color: cbMouseArea.containsMouse ? UISettings.bgLight : UISettings.bgMedium
-    border.width: 1
-    border.color: "#222"
-    radius: 3
+    id: control
 
     /*! model: provides a data model for the popup.
         A model can be either a string list (QStringList) or a named model
         to provide icons and values (QVariant)
-
         A QML model with icons should look like this:
-
         ListModel
         {
             ListElement { mLabel: qsTr("Foo"); mIcon:"qrc:/foo.svg"; mValue: 0 }
             ListElement { mLabel: qsTr("Bar"); mIcon:"qrc:/bar.svg"; mValue: 1 }
         }
      */
-    property alias model: popupRepeater.model
-    property alias currentIndex: popupRepeater.currentIndex
-    property string currentText
+
+    textRole: "mLabel"
+
     property string currentIcon
     property int currentValue
 
     signal valueChanged(int value)
 
-    //onModelChanged: popupRepeater.currentIndex = 0
+    delegate:
+        ItemDelegate
+        {
+            width: parent.width
+            implicitHeight: UISettings.listItemHeight
+            highlighted: control.highlightedIndex === index
+            hoverEnabled: control.hoverEnabled
+            padding: 0
+            leftPadding: 3
 
-    onVisibleChanged:
-    {
-        if (visible == false && dropDownMenu)
-            dropDownMenu.visible = false
-    }
+            property int currentIdx: control.currentIndex
+            text: model.mLabel ? model.mLabel : (modelData.mLabel ? modelData.mLabel : modelData)
+            property string itemIcon: model.mIcon ? model.mIcon : (modelData && modelData.mIcon ? modelData.mIcon : "")
+            property int itemValue: (model.mValue !== undefined) ? model.mValue : ((modelData.mValue !== undefined) ? modelData.mValue : index)
 
-    function positionMenu()
-    {
-        var posnInWindow = cbRoot.mapToItem(mainView, 0, 0);
-        var totalHeight = popupRepeater.count * popupRepeater.itemHeight
-        console.log("Total height: " + totalHeight + ", mainview: " + mainView.height)
-        dropDownMenu.height = Math.min(totalHeight, mainView.height - 50)
-        if (posnInWindow.y + cbRoot.height + dropDownMenu.height > mainView.height)
-          dropDownMenu.y = Math.max(posnInWindow.y - totalHeight, 25)
-        else
-          dropDownMenu.y = posnInWindow.y + cbRoot.height
-        dropDownMenu.x = posnInWindow.x
-    }
+            Component.onCompleted:
+            {
+                if (index === control.currentIndex)
+                {
+                    displayText = text
+                    currentIcon = itemIcon
+                }
+                if (control.currentValue && itemValue === control.currentValue)
+                {
+                    displayText = text
+                    currentIcon = itemIcon
+                    currentIndex = index
+                }
+                //console.log("Combo item completed index: " + index)
+            }
 
-    Row
-    {
-        x: 4
+            onCurrentIdxChanged:
+            {
+                if (index == currentIdx)
+                {
+                    displayText = text
+                    currentIcon = itemIcon
+                    if (itemValue !== undefined)
+                    {
+                        control.currentValue = itemValue
+                        control.valueChanged(itemValue)
+                    }
+                }
+            }
+
+            contentItem:
+                Row
+                {
+                    spacing: 2
+                    Image
+                    {
+                        id: iconItem
+                        visible: itemIcon ? true : false
+                        height: UISettings.listItemHeight - 4
+                        width: height
+                        y: 2
+                        source: itemIcon
+                        sourceSize: Qt.size(width, height)
+                    }
+
+                    RobotoText
+                    {
+                        id: textitem
+                        label: text
+                        height: UISettings.listItemHeight
+                        fontSize: UISettings.textSizeDefault
+                    }
+                }
+
+            background:
+                Rectangle
+                {
+                    visible: control.down || control.highlighted || control.visualFocus
+                    color: highlighted ? UISettings.highlight : hovered ? UISettings.bgMedium : "transparent"
+                }
+
+            onClicked:
+            {
+                displayText = text
+                currentIcon = itemIcon
+                currentIndex = index
+
+                if (itemValue !== undefined)
+                    control.valueChanged(itemValue)
+            }
+
+            Rectangle { height: 1; width: parent.width; y: parent.height - 1 }
+        }
+
+    indicator:
         Image
         {
-            id: mainIcon
-            visible: currentIcon ? true : false
-            height: cbRoot.height - 4
-            width: height
-            y: 2
-            source: currentIcon ? currentIcon : ""
-            sourceSize: Qt.size(width, height)
+            x: control.mirrored ? control.padding : control.width - width - control.padding
+            y: control.topPadding + (control.availableHeight - height) / 2
+            source: "qrc:/arrow-down.svg"
+            sourceSize: Qt.size(UISettings.iconSizeMedium * 0.7, UISettings.iconSizeMedium * 0.35)
+            opacity: enabled ? 1 : 0.3
         }
-        RobotoText
-        {
-            height: cbRoot.height
-            width: cbRoot.width - 4 - arrowButton.width - (mainIcon.visible ? mainIcon.width : 0)
-            label: currentText
-            fontSize: UISettings.textSizeDefault
-            fontBold: true
-        }
-        Rectangle
-        {
-            id: arrowButton
-            width: UISettings.iconSizeMedium
-            height: cbRoot.height
-            color: "transparent" //"#404040"
 
+    contentItem:
+        Row
+        {
+            x: 2
+            spacing: 2
             Image
             {
-                anchors.centerIn: parent
-                source: "qrc:/arrow-down.svg"
-                sourceSize: Qt.size(UISettings.iconSizeMedium * 0.7, UISettings.iconSizeMedium * 0.35)
+                visible: currentIcon ? true : false
+                height: control.height - 4
+                width: height
+                y: 2
+                source: currentIcon ? currentIcon : ""
+                sourceSize: Qt.size(width, height)
+                opacity: control.enabled ? 1 : 0.3
+            }
+
+            RobotoText
+            {
+                label: control.displayText
+                height: control.height
+                fontSize: UISettings.textSizeDefault
+                opacity: control.enabled ? 1 : 0.3
             }
         }
-    }
-    MouseArea
-    {
-        id: cbMouseArea
-        anchors.fill: parent
-        hoverEnabled: true
 
-        onClicked:
+    background:
+        Rectangle
         {
-            positionMenu()
-            dropDownMenu.visible = !dropDownMenu.visible
-            dropDownMenu.forceActiveFocus()
-        }
-        onWheel:
-        {
-            var newIdx
-            if (wheel.angleDelta.y > 0)
-                newIdx = Math.max(0, popupRepeater.currentIndex - 1)
-            else
-                newIdx = Math.min(popupRepeater.currentIndex + 1, popupRepeater.count - 1)
+            visible: !control.flat || control.down
+            implicitWidth: 150
+            implicitHeight: UISettings.listItemHeight
+            color: control.hovered ? UISettings.bgLight : UISettings.bgMedium
+            border.width: 1
+            border.color: UISettings.bgStrong
+            radius: 3
 
-            if (newIdx !== popupRepeater.currentIndex)
+            MouseArea
             {
-                popupRepeater.currentIndex = newIdx
-                console.log("Wheel event. Index: " + popupRepeater.currentIndex)
-            }
-        }
-    }
+                anchors.fill: parent
 
-    Rectangle
-    {
-        id: dropDownMenu
-        y: cbRoot.height
-        z: 99
-        width: cbRoot.width
-        color: UISettings.bgLight
-        border.width: 1
-        border.color: UISettings.bgLighter
-        parent: mainView
-        visible: false
-        clip: true
+                onClicked: control.popup.visible ? control.popup.close() : control.popup.open()
 
-        Keys.onEscapePressed: visible = false
+                onWheel:
+                {
+                    var newIdx
+                    if (wheel.angleDelta.y > 0)
+                        newIdx = Math.max(0, currentIndex - 1)
+                    else
+                        newIdx = Math.min(currentIndex + 1, count - 1)
 
-        Flickable
-        {
-            id: popupFlickable
-            width: parent.width
-            height: parent.height
-            boundsBehavior: Flickable.StopAtBounds
-            contentHeight: popupRepeater.height
-            contentWidth: parent.width
-
-            Repeater
-            {
-                id: popupRepeater
-                width: parent.width
-                height: count * itemHeight
-
-                property int itemHeight: UISettings.listItemHeight
-                property int currentIndex: 0
-
-                delegate:
-                    Rectangle
+                    if (newIdx !== currentIndex)
                     {
-                        id: delegateRoot
-                        width: dropDownMenu.width
-                        height: popupRepeater.itemHeight
-                        y: index * height
-                        color: "transparent"
-
-                        property int currentIdx: popupRepeater.currentIndex
-                        property int currentVal: cbRoot.currentValue
-                        property string itemText: model.mLabel ? model.mLabel : (modelData.mLabel ? modelData.mLabel : modelData)
-                        property string itemIcon: model.mIcon ? model.mIcon : (modelData.mIcon ? modelData.mIcon : "")
-                        property int itemValue: (model.mValue !== undefined) ? model.mValue : ((modelData.mValue !== undefined) ? modelData.mValue : index)
-
-                        onCurrentIdxChanged:
-                        {
-                            if (index == currentIdx)
-                            {
-                                currentText = itemText
-                                currentIcon = itemIcon
-                                if (itemValue !== undefined)
-                                {
-                                    cbRoot.currentValue = itemValue
-                                    cbRoot.valueChanged(itemValue)
-                                }
-                            }
-                        }
-
-                        onCurrentValChanged:
-                        {
-                            if (itemValue == currentVal)
-                            {
-                                currentText = itemText
-                                currentIcon = itemIcon
-                            }
-                        }
-
-                        Component.onCompleted:
-                        {
-                            if (index === currentIdx)
-                            {
-                                currentText = itemText
-                                currentIcon = itemIcon
-                            }
-                            if (currentValue && itemValue === currentValue)
-                            {
-                                currentText = itemText
-                                currentIcon = itemIcon
-                                popupRepeater.currentIndex = index
-                            }
-                        }
-
-                        Row
-                        {
-                            x: 2
-                            spacing: 2
-                            Image
-                            {
-                                id: iconItem
-                                visible: itemIcon ? true : false
-                                height: delegateRoot.height - 4
-                                width: height
-                                y: 2
-                                source: itemIcon
-                                sourceSize: Qt.size(width, height)
-                            }
-
-                            RobotoText
-                            {
-                                id: textitem
-                                label: itemText
-                                height: delegateRoot.height
-                                fontSize: UISettings.textSizeDefault
-                            }
-                        }
-
-                        Rectangle { height: 1; width: parent.width; y: parent.height - 1 }
-
-                        MouseArea
-                        {
-                            anchors.fill: parent
-                            hoverEnabled: true
-                            onEntered: delegateRoot.color = UISettings.highlight
-                            onExited: delegateRoot.color = "transparent"
-                            onClicked:
-                            {
-                                popupRepeater.currentIndex = index
-                                currentText = itemText
-                                currentIcon = itemIcon
-                                dropDownMenu.visible = false
-
-                                if (itemValue !== undefined)
-                                    cbRoot.valueChanged(itemValue)
-                            }
-                        }
+                        currentIndex = newIdx
+                        console.log("Wheel event. Index: " + currentIndex)
                     }
-            } // Repeater
-        } // Flickable
-        CustomScrollBar { z: 2; flickable: popupFlickable }
-    }
+                }
+            }
+        }
+
+    popup:
+        Popup
+        {
+            y: control.height
+            width: control.width
+            implicitHeight: contentItem.implicitHeight
+            padding: 0
+
+            contentItem:
+                ListView
+                {
+                    id: popupList
+                    clip: true
+                    implicitHeight: contentHeight
+                    model: control.delegateModel
+                    currentIndex: control.highlightedIndex
+                    boundsBehavior: Flickable.StopAtBounds
+                    highlightRangeMode: ListView.ApplyRange
+                    highlightMoveDuration: 0
+
+                    CustomScrollBar { flickable: popupList }
+                }
+
+            background:
+                Rectangle
+                {
+                    color: UISettings.bgLight
+                    border.width: 1
+                    border.color: UISettings.bgLighter
+                }
+        }
 }

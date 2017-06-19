@@ -671,7 +671,7 @@ void VCWidget::sendFeedback(int value, QSharedPointer<QLCInputSource> src)
     if (src->needsUpdate())
         src->updateOuputValue(value);
 
-    if (acceptsInput() == false && isHidden())
+    if (acceptsInput() == false)
         return;
 
     QString chName = QString();

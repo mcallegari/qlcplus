@@ -75,10 +75,25 @@ void VideoEditor::setSourceFileName(QString sourceFileName)
         return;
 
     m_video->setSourceUrl(sourceFileName);
-    if (sourceFileName.contains("://"))
-        m_mediaPlayer->setMedia(QUrl(sourceFileName));
+
+    if (m_video->isPicture())
+    {
+        QPixmap img(sourceFileName);
+        if (!img.isNull())
+        {
+            m_video->setResolution(img.size());
+            m_video->setTotalDuration(1000);
+            slotMetaDataChanged("Resolution", QVariant(img.size()));
+            slotMetaDataChanged("Duration", 1000);
+        }
+    }
     else
-        m_mediaPlayer->setMedia(QUrl::fromLocalFile(sourceFileName));
+    {
+        if (sourceFileName.contains("://"))
+            m_mediaPlayer->setMedia(QUrl(sourceFileName));
+        else
+            m_mediaPlayer->setMedia(QUrl::fromLocalFile(sourceFileName));
+    }
 
     emit sourceFileNameChanged(sourceFileName);
     emit mediaInfoChanged();
@@ -86,12 +101,20 @@ void VideoEditor::setSourceFileName(QString sourceFileName)
     emit loopedChanged();
 }
 
-QStringList VideoEditor::mimeTypes() const
+QStringList VideoEditor::videoExtensions() const
 {
     if (m_video == NULL)
         return QStringList();
 
-    return m_video->getCapabilities();
+    return m_video->getVideoCapabilities();
+}
+
+QStringList VideoEditor::pictureExtensions() const
+{
+    if (m_video == NULL)
+        return QStringList();
+
+    return m_video->getPictureCapabilities();
 }
 
 QVariant VideoEditor::mediaInfo() const
@@ -102,6 +125,7 @@ QVariant VideoEditor::mediaInfo() const
 void VideoEditor::slotDurationChanged(qint64 duration)
 {
     infoMap.insert("Duration",Function::speedToString(duration));
+    m_video->setTotalDuration(duration);
     emit mediaInfoChanged();
 }
 

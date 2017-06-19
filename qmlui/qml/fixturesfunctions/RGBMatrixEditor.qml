@@ -157,7 +157,7 @@ Rectangle
                     height: editorColumn.itemsHeight
                     model: rgbMatrixEditor.algorithms
                     currentIndex: rgbMatrixEditor.algorithmIndex
-                    onCurrentTextChanged:
+                    onCurrentIndexChanged:
                     {
                         rgbMatrixEditor.algorithmIndex = currentIndex
                         paramSection.sectionContents = null

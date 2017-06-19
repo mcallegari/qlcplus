@@ -7,10 +7,13 @@ ColorToolFull 0.1 ColorToolFull.qml
 ContextMenuEntry 0.1 ContextMenuEntry.qml
 CustomCheckBox 0.1 CustomCheckBox.qml
 CustomComboBox 0.1 CustomComboBox.qml
+CustomPopupDialog 0.1 CustomPopupDialog.qml
 CustomSpinBox 0.1 CustomSpinBox.qml
 CustomScrollBar 0.1 CustomScrollBar.qml
 CustomTextEdit 0.1 CustomTextEdit.qml
 DayTimeTool 0.1 DayTimeTool.qml
+DMXAddressTool 0.1 DMXAddressTool.qml
+DMXAddressWidget 0.1 DMXAddressWidget.qml
 DMXPercentageButton 0.1 DMXPercentageButton.qml
 EditableTextBox 0.1 EditableTextBox.qml
 ExternalControls.qml 0.1 ExternalControls.qml

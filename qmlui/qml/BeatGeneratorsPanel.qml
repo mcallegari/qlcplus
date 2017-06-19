@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.3
-import QtQuick.Controls 1.2
+import QtQuick 2.6
+import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.1
 import "."
 
@@ -37,7 +37,7 @@ Rectangle
             generatorsList.model = ioManager.beatGeneratorsList()
     }
 
-    ExclusiveGroup { id: selGeneratorGroup }
+    ButtonGroup { id: selGeneratorGroup }
 
     Column
     {
@@ -108,9 +108,9 @@ Rectangle
 
                         CustomCheckBox
                         {
-                            exclusiveGroup: selGeneratorGroup
+                            ButtonGroup.group: selGeneratorGroup
                             checked: ioManager.beatType === modelData.type
-                            onCheckedChanged: if (checked) ioManager.beatType = modelData.type
+                            onClicked: if (checked) ioManager.beatType = modelData.type
                         }
                         Rectangle
                         {

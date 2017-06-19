@@ -55,10 +55,10 @@ Rectangle
         {
             id: chCheckBox
             visible: isCheckable
-            height: UISettings.listItemHeight
+            implicitWidth: UISettings.listItemHeight
+            implicitHeight: implicitWidth
             checked: isChecked
-            width: height
-            onToggle: chDelegate.mouseEvent(App.Checked, chIndex, checked, chDelegate, 0)
+            onCheckedChanged: chDelegate.mouseEvent(App.Checked, chIndex, checked, chDelegate, 0)
         }
 
         IconTextEntry

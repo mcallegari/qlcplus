@@ -22,6 +22,7 @@
 
 #include <QQmlEngine>
 #include <QQuickView>
+#include <QQuickItem>
 #include <QObject>
 #include "doc.h"
 
@@ -151,6 +152,19 @@ signals:
 private:
     Doc* m_doc;
     bool m_docLoaded;
+
+    /*********************************************************************
+     * Printer
+     *********************************************************************/
+public:
+    /** Send $item content to a printer */
+    Q_INVOKABLE void printItem(QQuickItem *item);
+
+protected slots:
+    void slotItemReadyForPrinting();
+
+private:
+    QSharedPointer<QQuickItemGrabResult> m_printerImage;
 
     /*********************************************************************
      * Load & Save

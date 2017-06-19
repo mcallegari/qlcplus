@@ -36,6 +36,7 @@
     <file alias="cuelist.svg">cuelist.svg</file>
     <file alias="cyan.svg">cyan.svg</file>
     <file alias="dimmer.svg">dimmer.svg</file>
+    <file alias="diptool.svg">diptool.svg</file>
     <file alias="dmxdump.svg">dmxdump.svg</file>
     <file alias="dmxusbplugin.svg">dmxusbplugin.svg</file>
     <file alias="dmxview.svg">dmxview.svg</file>
@@ -59,6 +60,7 @@
     <file alias="frame.svg">frame.svg</file>
     <file alias="fullscreen.svg">fullscreen.svg</file>
     <file alias="functions.svg">functions.svg</file>
+    <file alias="global.svg">global.svg</file>
     <file alias="gobo.svg">gobo.svg</file>
     <file alias="green.svg">green.svg</file>
     <file alias="group.svg">group.svg</file>
@@ -83,6 +85,7 @@
     <file alias="pingpong.svg">pingpong.svg</file>
     <file alias="play.svg">play.svg</file>
     <file alias="position.svg">position.svg</file>
+    <file alias="printer.svg">printer.svg</file>
     <file alias="prism.svg">prism.svg</file>
     <file alias="qlcplus.svg">qlcplus.svg</file>
     <file alias="random.svg">random.svg</file>

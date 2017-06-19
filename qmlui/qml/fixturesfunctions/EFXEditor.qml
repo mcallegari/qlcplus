@@ -345,10 +345,10 @@ Rectangle
                                                     CustomCheckBox
                                                     {
                                                         anchors.centerIn: parent
-                                                        height: parent.height
-                                                        width: height
+                                                        implicitWidth: parent.height
+                                                        implicitHeight: implicitWidth
                                                         checked: model.reverse
-                                                        onToggle: efxEditor.setFixtureReversed(fxID, head, checked)
+                                                        onCheckedChanged: efxEditor.setFixtureReversed(fxID, head, checked)
                                                     }
                                                     Rectangle
                                                     {
@@ -468,7 +468,7 @@ Rectangle
                                     height: editorColumn.itemsHeight
                                     model: efxEditor.algorithms
                                     currentIndex: efxEditor.algorithmIndex
-                                    onCurrentTextChanged: efxEditor.algorithmIndex = currentIndex
+                                    onCurrentIndexChanged: efxEditor.algorithmIndex = currentIndex
                                 }
 
                                 // row 2
@@ -480,8 +480,8 @@ Rectangle
 
                                     CustomCheckBox
                                     {
-                                        height: UISettings.listItemHeight
-                                        width: height
+                                        implicitWidth: UISettings.listItemHeight
+                                        implicitHeight: implicitWidth
                                     }
 
                                     RobotoText

@@ -509,7 +509,7 @@ void FunctionManager::deleteEditorItems(QVariantList list)
         m_currentEditor->deleteItems(list);
 }
 
-void FunctionManager::renameFunctions(QVariantList IDList, QString newName, int startNumber, int digits)
+void FunctionManager::renameFunctions(QVariantList IDList, QString newName, bool numbering, int startNumber, int digits)
 {
     if (IDList.isEmpty())
         return;
@@ -531,9 +531,14 @@ void FunctionManager::renameFunctions(QVariantList IDList, QString newName, int 
             if (f == NULL)
                 continue;
 
-            QString fName = QString("%1 %2").arg(newName.simplified()).arg(currNumber, digits, 10, QChar('0'));
-            f->setName(fName);
-            currNumber++;
+            if (numbering)
+            {
+                QString fName = QString("%1 %2").arg(newName.simplified()).arg(currNumber, digits, 10, QChar('0'));
+                f->setName(fName);
+                currNumber++;
+            }
+            else
+                f->setName(newName.simplified());
         }
     }
 

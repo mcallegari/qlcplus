@@ -18,24 +18,13 @@
 */
 
 import QtQuick 2.0
+import QtQuick.Controls 2.1
 
 import "."
 
-Rectangle
+CustomComboBox
 {
-    id: ipbRoot
-    width: UISettings.iconSizeDefault
-    height: UISettings.iconSizeDefault
-    color: "transparent"
-
-    /*! iconFromPopup: if true, the button icon will be the one of the currently selected item.
-                       if false, the icon will never change, and will be $iconSource */
-    property bool iconFromPopup: true
-
-    /*! iconSource: the icon displayed on this button. It is set automatically when selecting
-                    a popup entry if $iconFromPopup is true, otherwise it can be specified
-                    by the parent item */
-    property string iconSource: ""
+    id: control
 
     /*! model: provides a data model for the popup.
         A model with icons should look like this:
@@ -51,187 +40,140 @@ Rectangle
                 ListElement { mLabel: qsTr("Bar"); mTextIcon: "B"; mValue: 1 }
             }
      */
-    property alias model: menuListView.model
 
-    property int popupPosition: Qt.AlignBottom
-
-    /*! currentIndex: the index of the currently selected entry of the popup */
-    property alias currentIndex: menuListView.currentIndex
-
-    /*! currentValue: the value of the currently selected entry of the popup */
-    property int currentValue
-
-    signal valueChanged(var value)
-
-    //onModelChanged: menuListView.currentIndex = 0
-
-    onVisibleChanged:
-    {
-        if (visible == false)
-            dropDownMenu.visible = false
-    }
-
-    function positionMenu()
-    {
-        var posnInWindow = ipbRoot.mapToItem(mainView, 0, 0);
-        var totalHeight = menuListView.count * UISettings.listItemHeight
-        //console.log("Total height: " + totalHeight)
-        if (posnInWindow.y + ipbRoot.height + totalHeight > mainView.height)
-          dropDownMenu.y = posnInWindow.y - totalHeight
-        else
-          dropDownMenu.y = posnInWindow.y + ipbRoot.height
-        dropDownMenu.x = posnInWindow.x
-        dropDownMenu.height = totalHeight
-    }
-
-    IconButton
-    {
-        id: buttonBox
-        anchors.fill: parent
-        imgSource: iconSource
-
-        RobotoText
+    contentItem:
+        IconButton
         {
-            id: textIcon
-            height: parent.height * 0.75
-            anchors.centerIn: parent
-            label: ""
-            fontSize: parent.height * 0.75
-            fontBold: true
-        }
-
-        onClicked:
-        {
-            positionMenu()
-            dropDownMenu.visible = !dropDownMenu.visible
-        }
-    }
-
-    Rectangle
-    {
-        id: dropDownMenu
-        y: ipbRoot.height
-        width: UISettings.bigItemHeight * 2
-        color: UISettings.bgMedium
-        border.width: 1
-        border.color: UISettings.bgLight
-        parent: mainView
-        visible: false
-
-        ListView
-        {
-            id: menuListView
+            id: buttonBox
             anchors.fill: parent
-            currentIndex: 0
-            boundsBehavior: Flickable.StopAtBounds
+            imgSource: currentIcon
 
-            delegate:
-                Rectangle
+            RobotoText
+            {
+                id: textIcon
+                height: parent.height * 0.75
+                anchors.centerIn: parent
+                label: ""
+                fontSize: parent.height * 0.75
+                fontBold: true
+            }
+
+            onClicked:
+            {
+                control.popup.width = UISettings.bigItemHeight * 2
+                control.popup.visible ? control.popup.close() : control.popup.open()
+            }
+        }
+
+    delegate:
+        ItemDelegate
+        {
+            width: UISettings.bigItemHeight * 2
+            implicitHeight: UISettings.iconSizeDefault
+            highlighted: control.highlightedIndex === index
+            hoverEnabled: control.hoverEnabled
+            padding: 0
+            leftPadding: 3
+
+            Component.onCompleted:
+            {
+                // check for corresponding index
+                if (index === control.currentIndex)
                 {
-                    id: delegateRoot
-                    width: menuListView.width
-                    height: UISettings.listItemHeight
-                    color: "transparent"
+                    if (model.mIcon)
+                        control.currentIcon = mIcon
 
-                    Component.onCompleted:
+                    if (model.mTextIcon)
+                        textIcon.label = mTextIcon
+
+                    buttonBox.tooltip = mLabel
+                }
+                // check for corresponding value
+                if (currentValue && mValue === currentValue)
+                {
+                    if (model.mIcon)
+                        control.currentIcon = mIcon
+
+                    if (model.mTextIcon)
+                        textIcon.label = mTextIcon
+
+                    control.currentIndex = index
+                    buttonBox.tooltip = mLabel
+                }
+            }
+
+            contentItem:
+                Row
+                {
+                    spacing: 2
+
+                    Image
                     {
-                        // check for corresponding index
-                        if (index == menuListView.currentIndex &&
-                            iconFromPopup == true)
-                        {
-                            if (model.mIcon)
-                                ipbRoot.iconSource = mIcon
-
-                            if (model.mTextIcon)
-                                textIcon.label = mTextIcon
-
-                            buttonBox.tooltip = mLabel
-                        }
-                        // check for corresponding value
-                        if (currentValue && mValue === currentValue)
-                        {
-                            if (model.mIcon)
-                                ipbRoot.iconSource = mIcon
-
-                            if (model.mTextIcon)
-                                textIcon.label = mTextIcon
-
-                            menuListView.currentIndex = index
-                            buttonBox.tooltip = mLabel
-                        }
+                        visible: model.mIcon ? true : false
+                        height: control.height - 4
+                        width: height
+                        x: 3
+                        y: 2
+                        source: model.mIcon ? mIcon : ""
+                        sourceSize: Qt.size(width, height)
                     }
 
-                    Row
+                    Rectangle
                     {
-                        x: 2
-                        spacing: 2
-
-                        Image
-                        {
-                            id: btnIcon
-                            visible: model.mIcon ? true : false
-                            height: delegateRoot.height - 4
-                            width: height
-                            x: 3
-                            y: 2
-                            source: model.mIcon ? mIcon : ""
-                            sourceSize: Qt.size(width, height)
-                        }
-
-                        Rectangle
-                        {
-                            visible: model.mTextIcon ? true : false
-                            y: 2
-                            height: delegateRoot.height - 4
-                            width: height
-                            color: UISettings.bgLight
-                            radius: 3
-                            border.width: 1
-                            border.color: UISettings.bgStrong
-
-                            RobotoText
-                            {
-                                id: txtIcon
-                                height: parent.height
-                                anchors.centerIn: parent
-                                label: model.mTextIcon ? mTextIcon : ""
-                                fontSize: parent.height * 0.9
-                            }
-                        }
+                        visible: model.mTextIcon ? true : false
+                        y: 2
+                        height: control.height - 4
+                        width: height
+                        color: UISettings.bgLight
+                        radius: 3
+                        border.width: 1
+                        border.color: UISettings.bgStrong
 
                         RobotoText
                         {
-                            id: textitem
-                            x: 3
-                            label: mLabel
+                            id: txtIcon
                             height: parent.height
+                            anchors.centerIn: parent
+                            label: model.mTextIcon ? mTextIcon : ""
+                            fontSize: parent.height * 0.9
                         }
                     }
 
-                    Rectangle { height: 1; width: parent.width; y: parent.height - 1 }
-
-                    MouseArea
+                    RobotoText
                     {
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        onEntered: delegateRoot.color = UISettings.highlight
-                        onExited: delegateRoot.color = "transparent"
-                        onClicked:
-                        {
-                            if (iconFromPopup == true)
-                            {
-                                if (model.mIcon)
-                                    ipbRoot.iconSource = mIcon
-                                if (model.mTextIcon)
-                                    textIcon.label = mTextIcon
-                                buttonBox.tooltip = mLabel
-                            }
-                            menuListView.currentIndex = index
-                            dropDownMenu.visible = false
-                            ipbRoot.valueChanged(mValue)
-                        }
+                        x: 3
+                        label: mLabel
+                        height: parent.height
                     }
                 }
+
+            background:
+                Rectangle
+                {
+                    visible: control.down || control.highlighted || control.visualFocus
+                    color: highlighted ? UISettings.highlight : hovered ? UISettings.bgMedium : "transparent"
+                }
+
+            onClicked:
+            {
+                displayText = mLabel
+                if (model.mIcon)
+                    control.currentIcon = mIcon
+                if (model.mTextIcon)
+                    textIcon.label = mTextIcon
+                currentIndex = index
+                buttonBox.tooltip = mLabel
+                control.valueChanged(mValue)
+            }
+
+            Rectangle { height: 1; width: parent.width; y: parent.height - 1 }
         }
-    }
+
+    background:
+        Rectangle
+        {
+            color: "transparent"
+            implicitWidth: UISettings.iconSizeDefault
+            implicitHeight: UISettings.iconSizeDefault
+        }
 }

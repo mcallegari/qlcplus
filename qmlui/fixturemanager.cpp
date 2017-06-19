@@ -319,6 +319,32 @@ void FixtureManager::setUniverseFilter(quint32 universeFilter)
     emit fixturesMapChanged();
 }
 
+QVariantList FixtureManager::universeInfo(quint32 id)
+{
+    m_universeInfo.clear();
+
+    QList<Fixture*> origList = m_doc->fixtures();
+    // sort the fixture list by address and not by ID
+    std::sort(origList.begin(), origList.end(), compareFixtures);
+
+    // add the current universes as groups
+    for (Fixture *fixture : origList) // C++11
+    {
+        if (fixture->universe() != id)
+            continue;
+
+        QVariantMap fxMap;
+        fxMap.insert("classRef", QVariant::fromValue(fixture));
+        fxMap.insert("manuf", fixture->fixtureDef() ? fixture->fixtureDef()->manufacturer() : "");
+        fxMap.insert("fmodel", fixture->fixtureDef() ? fixture->fixtureDef()->model() : "");
+        fxMap.insert("weight", fixture->fixtureMode() ? fixture->fixtureMode()->physical().weight() : 0);
+        fxMap.insert("power", fixture->fixtureMode() ? fixture->fixtureMode()->physical().powerConsumption() : 0);
+        m_universeInfo.append(fxMap);
+    }
+
+    return m_universeInfo;
+}
+
 int FixtureManager::fixturesCount()
 {
     return m_doc->fixtures().count();

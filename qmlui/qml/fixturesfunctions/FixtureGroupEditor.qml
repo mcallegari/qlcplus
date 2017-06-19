@@ -34,65 +34,73 @@ Flickable
 
     function hasSettings() { return false; }
 
-    RowLayout
+    Rectangle
     {
-        id: editToolbar
-        height: UISettings.textSizeDefault * 2
+        height: UISettings.iconSizeDefault
         width: parent.width
+        color: UISettings.bgStrong
 
-        RobotoText
+        RowLayout
         {
-            height: parent.height
-            label: fixtureGroupEditor.groupName
-            labelColor: UISettings.fgLight
-            fontSize: UISettings.textSizeDefault * 1.5
-            fontBold: true
-            textVAlign: Text.AlignVCenter
-        }
+            id: editToolbar
+            anchors.fill: parent
+            anchors.leftMargin: viewMargin
+            anchors.rightMargin: viewMargin
 
-        Rectangle { color: "transparent"; Layout.fillWidth: true; }
+            RobotoText
+            {
+                height: parent.height
+                label: fixtureGroupEditor.groupName
+                labelColor: UISettings.fgLight
+                fontSize: UISettings.textSizeDefault * 1.5
+                fontBold: true
+                textVAlign: Text.AlignVCenter
+            }
 
-        RobotoText
-        {
-            label: qsTr("Group size")
-        }
+            Rectangle { color: "transparent"; Layout.fillWidth: true; }
 
-        CustomSpinBox
-        {
-            id: gridWidthSpin
-            from: 1
-            to: 999
-            value: fixtureGroupEditor.groupSize.width
-            onValueChanged: fixtureGroupEditor.groupSize = Qt.size(value, gridHeightSpin.value)
-        }
+            RobotoText
+            {
+                label: qsTr("Group size")
+            }
 
-        RobotoText
-        {
-            label: "x"
-        }
+            CustomSpinBox
+            {
+                id: gridWidthSpin
+                from: 1
+                to: 999
+                value: fixtureGroupEditor.groupSize.width
+                onValueChanged: fixtureGroupEditor.groupSize = Qt.size(value, gridHeightSpin.value)
+            }
 
-        CustomSpinBox
-        {
-            id: gridHeightSpin
-            from: 1
-            to: 999
-            value: fixtureGroupEditor.groupSize.height
-            onValueChanged: fixtureGroupEditor.groupSize = Qt.size(gridWidthSpin.value, value)
-        }
+            RobotoText
+            {
+                label: "x"
+            }
 
-        IconButton
-        {
-            id: posButton
-            imgSource: "qrc:/position.svg"
-            tooltip: qsTr("Transform the selected items")
-            checkable: true
-        }
+            CustomSpinBox
+            {
+                id: gridHeightSpin
+                from: 1
+                to: 999
+                value: fixtureGroupEditor.groupSize.height
+                onValueChanged: fixtureGroupEditor.groupSize = Qt.size(gridWidthSpin.value, value)
+            }
 
-        IconButton
-        {
-            imgSource: "qrc:/reset.svg"
-            tooltip: qsTr("Reset the entire group")
-            onClicked: fixtureGroupEditor.resetGroup()
+            IconButton
+            {
+                id: posButton
+                imgSource: "qrc:/position.svg"
+                tooltip: qsTr("Transform the selected items")
+                checkable: true
+            }
+
+            IconButton
+            {
+                imgSource: "qrc:/reset.svg"
+                tooltip: qsTr("Reset the entire group")
+                onClicked: fixtureGroupEditor.resetGroup()
+            }
         }
     }
 
@@ -161,9 +169,9 @@ Flickable
     GridEditor
     {
         id: groupGrid
-        y: editToolbar.y + editToolbar.height + 5
+        y: editToolbar.y + editToolbar.height + viewMargin
         width: parent.width
-        height: parent.height - editToolbar.height - (viewMargin * 2)
+        height: parent.height - editToolbar.height - (viewMargin * 3)
 
         function getItemIcon(fixtureID, headNumber)
         {
