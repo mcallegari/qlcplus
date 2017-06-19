@@ -44,6 +44,7 @@
 #define TIMER_HOLD       250
 #define TIMER_REPEAT     10
 #define TAP_STOP_TIMEOUT 30000
+#define MIN_FLASH_TIME   125
 
 #define DEFAULT_VISIBILITY_MASK 0x00FF
 
@@ -87,9 +88,10 @@ SpeedDial::SpeedDial(QWidget* parent)
     , m_previousDialValue(0)
     , m_preventSignals(false)
     , m_value(0)
+    , m_tapTick(false)
     , m_tapTime(NULL)
     , m_tapTickTimer(NULL)
-    , m_tapTick(false)
+    , m_tapTickElapseTimer(NULL)
     , m_visibilityMask(DEFAULT_VISIBILITY_MASK)
 {
     new QVBoxLayout(this);
@@ -183,12 +185,25 @@ SpeedDial::SpeedDial(QWidget* parent)
     m_timer->setInterval(TIMER_HOLD);
     connect(m_timer, SIGNAL(timeout()), this, SLOT(slotPlusMinusTimeout()));
 
+    m_tapTickElapseTimer = new QTimer();
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    m_tapTickElapseTimer->setTimerType(Qt::PreciseTimer);
+#endif
+    m_tapTickElapseTimer->setSingleShot(true);
+    connect(m_tapTickElapseTimer, SIGNAL(timeout()),
+                this, SLOT(slotTapTimeout()));
+    
     //Hide elements according to current visibility mask
     setVisibilityMask(m_visibilityMask);
 }
 
 SpeedDial::~SpeedDial()
 {
+    if (m_tapTickElapseTimer)
+    {
+        delete m_tapTickElapseTimer;
+        m_tapTickElapseTimer = NULL;
+    }
     stopTimers();
 }
 
@@ -205,8 +220,8 @@ void SpeedDial::setValue(int ms, bool emitValue)
     else
         m_infiniteCheck->setChecked(false);
 
-    // Time has changed, stop blinking
-    stopTimers(false, true);
+    // time has changed - update tap button blinking
+    updateTapTimer();
 
     m_preventSignals = false;
 }
@@ -239,12 +254,47 @@ void SpeedDial::stopTimers(bool stopTime, bool stopTapTimer)
         delete m_tapTickTimer;
         m_tapTickTimer = NULL;
         m_tap->setStyleSheet(tapDefaultSS);
+        m_tapTick = false;
     }
+}
+
+bool SpeedDial::isTapTick()
+{
+    return m_tapTick;
 }
 
 /*****************************************************************************
  * Private
  *****************************************************************************/
+
+void SpeedDial::updateTapTimer()
+{
+    // Synchronize timer ticks
+    if (m_tapTickTimer)
+        m_tapTickTimer->stop();
+
+    if (m_value != (int) Function::infiniteSpeed()
+       && m_tapTickTimer == NULL)
+    {
+        m_tapTickTimer = new QTimer();
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+        m_tapTickTimer->setTimerType(Qt::PreciseTimer);
+#endif
+        connect(m_tapTickTimer, SIGNAL(timeout()),
+                this, SLOT(slotTapTimeout()));
+    }
+
+    if (m_tapTickTimer)
+    {
+        m_tapTickTimer->setInterval(m_value);
+        // Limit m_tapTickElapseTimer's interval to 20/200ms for nice effect
+        if (m_value > 1000)
+            m_tapTickElapseTimer->setInterval(200);
+        else
+            m_tapTickElapseTimer->setInterval(m_value / 3);
+        m_tapTickTimer->start();
+    }
+}
 
 void SpeedDial::setSpinValues(int ms)
 {
@@ -399,8 +449,8 @@ void SpeedDial::slotDialChanged(int value)
         m_focus->setValue(m_value);
     }
 
-    // stop tap button blinking if it was
-    stopTimers();
+    // update tap button blinking
+    updateTapTimer();
 
     // Store the current value so it can be compared on the next pass to determine the
     // dial's direction of rotation.
@@ -414,8 +464,8 @@ void SpeedDial::slotHoursChanged()
         m_value = spinValues();
         emit valueChanged(m_value);
     }
-    // stop tap button blinking if it was
-    stopTimers();
+    // update tap button blinking
+    updateTapTimer();
 }
 
 void SpeedDial::slotMinutesChanged()
@@ -425,8 +475,8 @@ void SpeedDial::slotMinutesChanged()
         m_value = spinValues();
         emit valueChanged(m_value);
     }
-    // stop tap button blinking if it was
-    stopTimers();
+    // update tap button blinking
+    updateTapTimer();
 }
 
 void SpeedDial::slotSecondsChanged()
@@ -436,8 +486,8 @@ void SpeedDial::slotSecondsChanged()
         m_value = spinValues();
         emit valueChanged(m_value);
     }
-    // stop tap button blinking if it was
-    stopTimers();
+    // update tap button blinking
+    updateTapTimer();
 }
 
 void SpeedDial::slotMSChanged()
@@ -447,8 +497,8 @@ void SpeedDial::slotMSChanged()
         m_value = spinValues();
         emit valueChanged(m_value);
     }
-    // stop tap button blinking if it was
-    stopTimers();
+    // update tap button blinking
+    updateTapTimer();
 }
 
 void SpeedDial::slotInfiniteChecked(bool state)
@@ -467,15 +517,20 @@ void SpeedDial::slotInfiniteChecked(bool state)
         m_value = Function::infiniteSpeed();
         if (m_preventSignals == false)
             emit valueChanged(Function::infiniteSpeed());
+
+        // stop tap button blinking if it was
+        stopTimers();
     }
     else
     {
         m_value = spinValues();
         if (m_preventSignals == false)
             emit valueChanged(m_value);
+        
+
+        // update tap button blinking
+        updateTapTimer();
     }
-    // stop tap button blinking if it was
-    stopTimers();
 }
 
 void SpeedDial::slotSpinFocusGained()
@@ -491,42 +546,42 @@ void SpeedDial::slotTapClicked()
     if (m_tapTime == NULL)
     {
         m_tapTime = new QTime(QTime::currentTime());
-        if (m_tapTickTimer == NULL)
-        {
-            m_tapTickTimer = new QTimer();
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-            m_tapTickTimer->setTimerType(Qt::PreciseTimer);
-#endif
-            connect(m_tapTickTimer, SIGNAL(timeout()),
-                    this, SLOT(slotTapTimeout()));
-        }
         m_tapTime->start();
         return;
     }
     // Round the elapsed time to the nearest full 10th ms.
     m_value = m_tapTime->elapsed();
     setSpinValues(m_value);
+
     m_tapTime->restart();
-    if (m_tapTickTimer)
-    {
-        m_tapTickTimer->setInterval(m_value);
-        m_tapTickTimer->start();
-    }
+
+    // time has changed - update tap button blinking
+    updateTapTimer();
+
     emit tapped();
 }
 
 void SpeedDial::slotTapTimeout()
 {
-    if (m_tapTick == false)
+    if (m_value <= MIN_FLASH_TIME)
+        return;
+
+    if (m_tapTick == false) 
+    {
+        m_tapTickElapseTimer->start(); // turn off tap light after some time
         m_tap->setStyleSheet(tapTickSS);
+    }
     else
+    {
         m_tap->setStyleSheet(tapDefaultSS);
+    }
     m_tapTick = !m_tapTick;
 
     if (m_tapTime && m_tapTime->elapsed() >= TAP_STOP_TIMEOUT)
     {
         stopTimers(true, false);
     }
+    emit tapTimeout();
 }
 
 quint16 SpeedDial::defaultVisibilityMask()

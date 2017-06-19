@@ -20,7 +20,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 import "."
 
 Column
@@ -170,16 +170,16 @@ Column
             CustomSpinBox
             {
                 width: (cfRow.width - cfLower.width - cfUpper.width - 20) / 2
-                minimumValue: 0
-                maximumValue: 255
+                from: 0
+                to: 255
                 value: lowerFb
             }
             RobotoText { id: cfUpper; height: UISettings.listItemHeight; label: qsTr("Upper") }
             CustomSpinBox
             {
                 width: (cfRow.width - cfLower.width - cfUpper.width - 20) / 2
-                minimumValue: 0
-                maximumValue: 255
+                from: 0
+                to: 255
                 value: upperFb
             }
         }

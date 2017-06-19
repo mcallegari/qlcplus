@@ -22,7 +22,7 @@ import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.1
 import QtQuick.Controls 1.2
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 import "."
 
 Rectangle
@@ -42,9 +42,9 @@ Rectangle
         wPropsLoader.active = false
         wPropsLoader.source = wObj ? wObj.propertiesResource : ""
         wPropsLoader.active = true
-        vcRightPanel.width = vcRightPanel.width - funcMgrLoader.width
-        funcMgrLoader.source = ""
-        funcMgrLoader.width = 0
+        vcRightPanel.width = vcRightPanel.width - sideLoader.width
+        sideLoader.source = ""
+        sideLoader.width = 0
     }
 
     onSelectedWidgetsCountChanged:
@@ -96,14 +96,23 @@ Rectangle
         anchors.fill: parent
         Loader
         {
-            id: funcMgrLoader
+            id: sideLoader
             visible: width
             width: 0
             height: wPropsRoot.height
             source: ""
 
+            property var modelProvider: null
+
+            onLoaded:
+            {
+                if (modelProvider && item.hasOwnProperty('modelProvider'))
+                    item.modelProvider = modelProvider
+            }
+
             Rectangle
             {
+                z: 1
                 width: 2
                 height: parent.height
                 x: parent.width - 2
@@ -407,7 +416,7 @@ Rectangle
                 }
               } // end of properties column
             } // end of flickable
-            ScrollBar { id: wpBar; flickable: propsFlickable }
+            CustomScrollBar { id: wpBar; flickable: propsFlickable }
         } // end of Rectangle
     } // end of SplitView
 }

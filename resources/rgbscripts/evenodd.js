@@ -58,7 +58,7 @@ var testAlgo;
             }
 
             return map;
-        }
+        };
 
         /**
          * Tells RGB Matrix how many steps this algorithm produces with size($width, $height)
@@ -71,11 +71,11 @@ var testAlgo;
         {
             // Only two steps; one for even pixels and another for odd pixels
             return 2;
-        }
+        };
 
         // Development tool access
         testAlgo = algo;
 
         return algo;
     }
-)()
+)();

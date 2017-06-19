@@ -41,18 +41,14 @@ Frames have the following additional options, divided into 2 tabs:<br>
 </ul>
 
 <a name="pages"><H3>Pages tab</H3></a>
-<P>Starting from version 4.5.0, QLC+ gives the possibility of turning Virtual Console Frames 
-into multi-page widgets, useful when dealing with a lot of widgets or controllers supporting pages.<br>
-The multi-page functionality is disabled by default.<br>
-<B>Important note: this functionality will work only with an <A HREF="file:howto-input-profiles.html">input profile</A>
-with a previous page <IMG SRC="qrc:/back.png" ALIGN="absmiddle"> and a
-next page <IMG SRC="qrc:/forward.png" ALIGN="absmiddle">button set.</B><br>
-Following these options to configure this functionality:
+<P>Virtual Console Frames can be turned into multi-page widgets, useful when dealing with a lot of widgets or controllers supporting pages.<br>
+The multi-page functionality is disabled by default, but can be enabled in this tab.<br>
+Following the options to configure this functionality:
 </P>
 <ul>
  <li><b>Enable</b>: This check box enables/disables the multi-page functionality. When enabled,
      VC frames will display additional controls in the header bar (if the header bar is also enabled). 
-     These are: Previous page button, page number label, next page button.
+     These are: Previous page button, page name and next page button.
  </li>
  <li><b>Number of pages</b>: With this counter it is possible to determine the number of pages the
      frame is going to handle.
@@ -66,6 +62,10 @@ Following these options to configure this functionality:
  </li>
  <li><b>External input - Next page</b>: You can set an external input signal or a 
      keyboard combination here which will cause the previous page of the frame to be displayed.
+ </li>
+ <li><b>Page shortcuts</b>: in the bottom section of the pages tab, it is possible to assign
+        to each page a custom name, an external input signal or a keyboard combination.<br>
+        In this way a page can be accessed directly without going through the intermediate pages.<br>
  </li>
 </ul>
 

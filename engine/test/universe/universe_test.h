@@ -36,6 +36,7 @@ private slots:
 
     void initial();
     void channelCapabilities();
+    void blendModes();
     void grandMasterIntensityReduce();
     void grandMasterIntensityLimit();
     void grandMasterAllChannelsReduce();

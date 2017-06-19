@@ -61,5 +61,5 @@ Rectangle
             Component.onDestruction: contextManager.enableContext("DMX", false, flowLayout)
         }
     }
-    ScrollBar { flickable: fixtureDMXView }
+    CustomScrollBar { flickable: fixtureDMXView }
 }

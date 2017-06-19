@@ -100,6 +100,18 @@ explaining the key commands that you can find on the right side of the pad.<br>
       Example: <B>1 THRU 10 BY 2 AT 100</B> (sets channels 1, 3, 5, 7, and 9 to value 100)
   </TD>
  </TR>
+ <TR>
+  <TD>+%</TD>
+  <TD>increases by given percent the current values of the channels<br>
+      Example: <B>1 THRU 10 BY 2 +% 20</B> (increases by 20% the current values of the channels 1, 3, 5, 7, and 9)
+  </TD>
+ </TR>
+ <TR>
+  <TD>-%</TD>
+  <TD>reduces by given percent the current values of the channels<br>
+      Example: <B>1 THRU 10 BY 2 -% 20</B> (reduces by 20% the current values of the channels 1, 3, 5, 7, and 9)
+  </TD>
+ </TR>
 </TABLE>
 <BR>
 Please keep in mind that:
@@ -107,8 +119,6 @@ Please keep in mind that:
  <LI>Every command is sent to QLC+ only when pressing the ENTER button</LI>
  <LI>DMX addresses are contiguous between universes, so Universe 1 ranges from 1 to 512,
      Universe 2 from 513 to 1024 and so on</LI>
- <LI>At the moment the +/- keys do nothing. They will be implemented in the future to
-     increase/decrease the current value of a channel or group of channels by a certain amount</LI>
  <LI>You can manually write commands in the top text box once you learn the keypad commands syntax</LI>
 </UL>
   

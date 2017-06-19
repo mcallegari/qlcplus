@@ -38,7 +38,7 @@
  *****************************************************************************/
 
 Collection::Collection(Doc* doc)
-    : Function(doc, Function::Collection)
+    : Function(doc, Function::CollectionType)
     , m_functionListMutex(QMutex::Recursive)
 {
     setName(tr("New Collection"));
@@ -207,7 +207,7 @@ bool Collection::loadXML(QXmlStreamReader &root)
         return false;
     }
 
-    if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::Collection))
+    if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::CollectionType))
     {
         qWarning() << Q_FUNC_INFO << root.attributes().value(KXMLQLCFunctionType).toString()
                    << "is not a collection";

@@ -18,45 +18,36 @@
 */
 
 import QtQuick 2.2
-import QtQuick.Controls 1.2
+import QtQuick.Controls 2.1
 
 import "."
 
-Rectangle
+Button
 {
-    id: menuEntry
-    implicitWidth: entryContents.width + 10
-    height: parent.height
-    gradient: (checked || mouseArea1.containsMouse) ? selGradient : bgGradient
+    id: control
+    //implicitWidth: contentItem.width + 10
+    implicitHeight: parent.height
 
-    property color checkedColor: UISettings.toolbarSelectionMain
+    hoverEnabled: true
+    checkable: true
+    padding: 0
+    topPadding: 0
+    bottomPadding: 0
 
-    property bool checkable: false
-    property bool editable: false
     property string imgSource: ""
     property string entryText: ""
     property real mFontSize: UISettings.textSizeDefault * 0.70
-    property bool checked: false
+
     property Gradient bgGradient: defBgGradient
     property Gradient selGradient: defSelectionGradient
-    property ExclusiveGroup exclusiveGroup: null
+    property color checkedColor: UISettings.toolbarSelectionMain
 
-    onExclusiveGroupChanged:
-    {
-        if (exclusiveGroup)
-            exclusiveGroup.bindCheckable(menuEntry)
-    }
-
-    signal clicked
     signal rightClicked
-    signal toggled
-    signal textChanged(var text)
 
     Gradient
     {
         id: defBgGradient
         GradientStop { position: 0 ; color: "transparent" }
-        //GradientStop { position: 1 ; color: "#111" }
     }
     Gradient
     {
@@ -65,113 +56,62 @@ Rectangle
         GradientStop { position: 1 ; color: "#171717" }
     }
 
-    Rectangle
-    {
-        anchors.fill: parent
-        color: "#33ffffff"
-        visible: mouseArea1.pressed
-    }
-
-    Row
-    {
-        id: entryContents
-        height: parent.height
-        spacing: 2
-        //anchors.fill: parent
-        //anchors.leftMargin: 3
-
-        Image
+    contentItem:
+        Row
         {
-            id: btnIcon
-            height: imgSource == "" ? 0 : parent.height - 4
-            width: height
-            x: 2
-            y: 2
-            source: imgSource
-            sourceSize: Qt.size(width, height)
+            id: entryContents
+            width: btnIcon.width + btnLabel.width
+
+            Image
+            {
+                id: btnIcon
+                height: control.imgSource == "" ? 0 : control.height - control.topPadding - control.bottomPadding
+                width: height
+                x: 2
+                y: 2
+                source: control.imgSource
+                sourceSize: Qt.size(width, height)
+            }
+
+            RobotoText
+            {
+                id: btnLabel
+                height: control.height
+                label: control.entryText
+                fontSize: control.mFontSize
+                fontBold: true
+
+                Rectangle
+                {
+                    id: selRect
+                    y: parent.height - height - 2
+                    height: UISettings.listItemHeight * 0.1
+                    width: parent.width
+                    radius: height / 2
+                    color: checked ? checkedColor : "transparent"
+
+                }
+            }
         }
 
+    background:
         Rectangle
         {
-            height: parent.height
-            width: tbLoader.width
-            color: "transparent"
-
-            Loader
-            {
-                id: tbLoader
-                height: parent.height
-                //width: item.width
-
-                source: menuEntry.editable ? "qrc:/EditableTextBox.qml" : "qrc:/RobotoText.qml"
-
-                onLoaded:
-                {
-                    if (menuEntry.editable == true)
-                    {
-                        item.color = "transparent"
-                        item.inputText = Qt.binding(function() { return entryText })
-                        item.maximumHeight = parent.height
-                        item.wrapText = false
-                    }
-                    else
-                    {
-                        item.label = Qt.binding(function() { return entryText })
-                        item.height = parent.height
-                        item.fontSize = mFontSize
-                        item.fontBold = true
-                    }
-                    width = Qt.binding(function() { return item.width })
-                }
-
-                Connections
-                {
-                    ignoreUnknownSignals: true
-                    target: tbLoader.item
-                    onTextChanged: menuEntry.textChanged(text)
-                }
-            }
-
-            Rectangle
-            {
-                id: selRect
-                radius: 2
-                color: checked ? checkedColor : "transparent"
-                height: UISettings.listItemHeight * 0.1
-                width: tbLoader.width
-                y: parent.height - height - 1
-            }
+            gradient: (checked || hovered) ? selGradient : bgGradient
+            opacity: enabled ? 1 : 0.3
         }
-    }
+
 
     MouseArea
     {
-        id: mouseArea1
         anchors.fill: parent
-        hoverEnabled: true
-        acceptedButtons: Qt.LeftButton | Qt.RightButton
+        acceptedButtons: Qt.RightButton
+
         onClicked:
         {
-            if (mouse.button === Qt.LeftButton)
-            {
-                if (checkable == true)
-                {
-                    if (checked == false)
-                        checked = true
-                    menuEntry.toggled(checked)
-                }
-                else
-                    menuEntry.clicked()
-            }
-            else
-                menuEntry.rightClicked()
-        }
-        onDoubleClicked:
-        {
-            if (menuEntry.editable)
-            {
-                tbLoader.item.enableEditing()
-            }
+            if (mouse.button === Qt.RightButton)
+                control.rightClicked()
         }
     }
 }
+

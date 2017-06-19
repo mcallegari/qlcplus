@@ -106,8 +106,25 @@ void FixtureGroup::assignFixture(quint32 id, const QLCPoint& pt)
 {
     Fixture* fxi = doc()->fixture(id);
     Q_ASSERT(fxi != NULL);
+    QLCPoint tmp = pt;
+
     for (int i = 0; i < fxi->heads(); i++)
-        assignHead(pt, GroupHead(fxi->id(), i));
+    {
+        if (pt.isNull())
+        {
+            assignHead(pt, GroupHead(fxi->id(), i));
+        }
+        else
+        {
+            assignHead(tmp, GroupHead(fxi->id(), i));
+            tmp.setX(tmp.x() + 1);
+            if (tmp.x() >= size().width())
+            {
+                tmp.setX(0);
+                tmp.setY(tmp.y() + 1);
+            }
+        }
+    }
 }
 
 void FixtureGroup::assignHead(const QLCPoint& pt, const GroupHead& head)
@@ -140,13 +157,10 @@ void FixtureGroup::assignHead(const QLCPoint& pt, const GroupHead& head)
                     if (m_heads.contains(tmp) == false)
                     {
                         m_heads[tmp] = head;
-                        assigned = true;
-                        break;
+                        emit changed(this->id());
+                        return;
                     }
                 }
-
-                if (assigned == true)
-                    break;
             }
 
             ymax++;

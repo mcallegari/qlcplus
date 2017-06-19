@@ -19,9 +19,9 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
-import QtQuick.Controls 1.2
+import QtQuick.Controls 2.1
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 import "."
 
 Rectangle
@@ -95,7 +95,7 @@ Rectangle
                 columnSpacing: 5
                 rowSpacing: 3
 
-                ExclusiveGroup { id: pressBehaviourGroup }
+                ButtonGroup { id: pressBehaviourGroup }
 
                 // row 1
                 RobotoText
@@ -107,11 +107,11 @@ Rectangle
 
                 CustomCheckBox
                 {
-                    width: UISettings.iconSizeMedium
-                    height: width
-                    exclusiveGroup: pressBehaviourGroup
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+                    ButtonGroup.group: pressBehaviourGroup
                     checked: widgetRef ? widgetRef.actionType === VCButton.Toggle : false
-                    onCheckedChanged: if (checked && widgetRef) widgetRef.actionType = VCButton.Toggle
+                    onClicked: if (checked && widgetRef) widgetRef.actionType = VCButton.Toggle
                 }
 
                 // row 2
@@ -124,11 +124,11 @@ Rectangle
 
                 CustomCheckBox
                 {
-                    width: UISettings.iconSizeMedium
-                    height: width
-                    exclusiveGroup: pressBehaviourGroup
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+                    ButtonGroup.group: pressBehaviourGroup
                     checked: widgetRef ? widgetRef.actionType === VCButton.Flash : false
-                    onCheckedChanged: if (checked && widgetRef) widgetRef.actionType = VCButton.Flash
+                    onClicked: if (checked && widgetRef) widgetRef.actionType = VCButton.Flash
                 }
 
                 // row 3
@@ -141,11 +141,11 @@ Rectangle
 
                 CustomCheckBox
                 {
-                    width: UISettings.iconSizeMedium
-                    height: width
-                    exclusiveGroup: pressBehaviourGroup
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+                    ButtonGroup.group: pressBehaviourGroup
                     checked: widgetRef ? widgetRef.actionType === VCButton.Blackout : false
-                    onCheckedChanged: if (checked && widgetRef) widgetRef.actionType = VCButton.Blackout
+                    onClicked: if (checked && widgetRef) widgetRef.actionType = VCButton.Blackout
                 }
 
                 // row 4
@@ -158,11 +158,11 @@ Rectangle
 
                 CustomCheckBox
                 {
-                    width: UISettings.iconSizeMedium
-                    height: width
-                    exclusiveGroup: pressBehaviourGroup
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+                    ButtonGroup.group: pressBehaviourGroup
                     checked: widgetRef ? widgetRef.actionType === VCButton.StopAll : false
-                    onCheckedChanged: if (checked && widgetRef) widgetRef.actionType = VCButton.StopAll
+                    onClicked: if (checked && widgetRef) widgetRef.actionType = VCButton.StopAll
                 }
 
               } // GridLayout

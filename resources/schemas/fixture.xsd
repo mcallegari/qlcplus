@@ -124,6 +124,7 @@ elementFormDefault="qualified"
         <xs:enumeration value="White"/>
         <xs:enumeration value="UV"/>
         <xs:enumeration value="Lime"/>
+        <xs:enumeration value="Indigo"/>
     </xs:restriction>
 </xs:simpleType>
 

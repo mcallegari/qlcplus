@@ -20,7 +20,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 
 VCWidgetItem
 {
@@ -208,7 +208,7 @@ VCWidgetItem
                 PropertyChanges
                 {
                     target: buttonRoot
-                    color: "#9DFF52"
+                    color: UISettings.activeDropArea
                 }
             }
         ]

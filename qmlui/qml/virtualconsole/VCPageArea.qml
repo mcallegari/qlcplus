@@ -41,6 +41,6 @@ Rectangle
             onClicked: virtualConsole.resetWidgetSelection()
         }
     }
-    ScrollBar { flickable: vcPage; doubleBars: true }
-    ScrollBar { orientation: Qt.Horizontal; flickable: vcPage }
+    CustomScrollBar { flickable: vcPage; doubleBars: true }
+    CustomScrollBar { orientation: Qt.Horizontal; flickable: vcPage }
 }

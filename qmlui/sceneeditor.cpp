@@ -57,6 +57,7 @@ void SceneEditor::setFunctionID(quint32 id)
 
     if (id == Function::invalidId())
     {
+        disconnect(m_scene, &Scene::valueChanged, this, &SceneEditor::slotSceneValueChanged);
         m_scene = NULL;
         m_source->unsetAll();
         m_source->setOutputEnabled(false);
@@ -67,6 +68,8 @@ void SceneEditor::setFunctionID(quint32 id)
         return;
     }
     m_scene = qobject_cast<Scene *>(m_doc->function(id));
+
+    connect(m_scene, &Scene::valueChanged, this, &SceneEditor::slotSceneValueChanged);
 
     updateFixtureList();
     if (bottomPanel != NULL)
@@ -80,22 +83,6 @@ void SceneEditor::setFunctionID(quint32 id)
 QVariant SceneEditor::fixtureList() const
 {
     return QVariant::fromValue(m_fixtureList);
-}
-
-QString SceneEditor::sceneName() const
-{
-    if (m_scene == NULL)
-        return "";
-    return m_scene->name();
-}
-
-void SceneEditor::setSceneName(QString sceneName)
-{
-    if (m_scene == NULL || m_scene->name() == sceneName)
-        return;
-
-    m_scene->setName(sceneName);
-    emit sceneNameChanged();
 }
 
 void SceneEditor::setPreviewEnabled(bool enable)
@@ -165,6 +152,7 @@ void SceneEditor::setChannelValue(quint32 fxID, quint32 channel, uchar value)
         return;
 
     bool blindMode = false;
+
     if (m_source->isOutputEnabled() == false)
         blindMode = true;
 
@@ -186,7 +174,30 @@ void SceneEditor::setChannelValue(quint32 fxID, quint32 channel, uchar value)
         }
     }
     if (blindMode == false)
-        m_source->set(fxID, channel,value);
+        m_source->set(fxID, channel, value);
+}
+
+void SceneEditor::slotSceneValueChanged(SceneValue scv)
+{
+    qDebug() << "slotSceneValueChanged---- " << scv;
+    bool blindMode = false;
+
+    if (m_source->isOutputEnabled() == false)
+        blindMode = true;
+
+    if (m_sceneConsole)
+    {
+        int fxIndex = m_fixtureIDs.indexOf(scv.fxi);
+        if (m_fxConsoleMap.contains(fxIndex))
+        {
+            QMetaObject::invokeMethod(m_fxConsoleMap[fxIndex], "setChannelValue",
+                    Q_ARG(QVariant, scv.channel),
+                    Q_ARG(QVariant, scv.value));
+        }
+    }
+
+    if (blindMode == false)
+        m_source->set(scv.fxi, scv.channel, scv.value);
 }
 
 void SceneEditor::unsetChannel(quint32 fxID, quint32 channel)
@@ -207,7 +218,7 @@ void SceneEditor::setFixtureSelection(quint32 fxID)
 
     int fxIndex = m_fixtureIDs.indexOf(fxID);
     QMetaObject::invokeMethod(m_sceneConsole, "scrollToItem",
-            Q_ARG(QVariant, fxIndex));
+                              Q_ARG(QVariant, fxIndex));
 }
 
 void SceneEditor::updateFixtureList()

@@ -21,7 +21,9 @@
 #define VCFRAMEPROPERTIES_H
 
 #include <QDialog>
+#include <QComboBox>
 #include "ui_vcframeproperties.h"
+#include "vcframepageshortcut.h"
 
 class InputSelectionWidget;
 class VCFrame;
@@ -50,6 +52,12 @@ public:
 
 protected slots:
     void slotMultipageChecked(bool enable);
+    void slotPageComboChanged(int index);
+    void slotTotalPagesNumberChanged(int number);
+    void slotPageNameEditingFinished();
+
+    void slotInputValueChanged(quint32 universe, quint32 channel);
+    void slotKeySequenceChanged(QKeySequence key);
 
 protected:
     VCFrame *m_frame;
@@ -57,6 +65,8 @@ protected:
     InputSelectionWidget *m_inputEnableWidget;
     InputSelectionWidget *m_inputNextPageWidget;
     InputSelectionWidget *m_inputPrevPageWidget;
+    QList<VCFramePageShortcut*> m_shortcuts;
+    InputSelectionWidget *m_shortcutInputWidget;
 
 public slots:
     void accept();

@@ -18,17 +18,15 @@
 */
 
 import QtQuick 2.0
+import QtQuick.Controls 2.1
 import QtQuick.Dialogs 1.2
 
-Rectangle
+import "."
+
+Popup
 {
     id: menuRoot
-    radius: 2
-    border.width: 1
-    border.color: "#1D1D1D"
-    color: "#202020"
-    width: actionsMenuEntries.width
-    height: actionsMenuEntries.height
+    padding: 0
 
     FileDialog
     {
@@ -48,6 +46,15 @@ Rectangle
             console.log("Canceled")
         }
     }
+
+    background:
+        Rectangle
+        {
+            //radius: 2
+            border.width: 1
+            border.color: UISettings.bgStronger
+            color: UISettings.bgStrong
+        }
 
     Column
     {
@@ -86,7 +93,7 @@ Rectangle
                 x: menuRoot.width
                 width: recentColumn.width
                 height: recentColumn.height
-                color: "#202020"
+                color: UISettings.bgStrong
                 visible: false
 
                 Column
@@ -125,6 +132,42 @@ Rectangle
             entryText: qsTr("Save project as...")
             onClicked: { }
             onEntered: recentMenu.visible = false
+        }
+
+        ContextMenuEntry
+        {
+            imgSource: "qrc:/diptool.svg"
+            entryText: qsTr("Address tool")
+            onClicked:
+            {
+                close()
+                addrToolDialog.open()
+            }
+            onEntered: recentMenu.visible = false
+
+            CustomPopupDialog
+            {
+                id: addrToolDialog
+                title: qsTr("DMX Address tool")
+                standardButtons: Dialog.Close
+
+                contentItem:
+                    DMXAddressTool { }
+            }
+
+        }
+
+        ContextMenuEntry
+        {
+            id: fullScreen
+            imgSource: "qrc:/fullscreen.svg"
+            entryText: qsTr("Toggle fullscreen")
+            onEntered: recentMenu.visible = false
+            onClicked:
+            {
+                menuRoot.visible = false
+                qlcplus.toggleFullscreen()
+            }
         }
     }
 }

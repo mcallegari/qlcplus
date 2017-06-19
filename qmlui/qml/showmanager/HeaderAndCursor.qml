@@ -120,6 +120,7 @@ Rectangle
         width: visibleWidth * 3
         height: headerHeight
         antialiasing: true
+        contextType: "2d"
 
         // tick size is the main time divider
         // on a timeScale equal to 1.0 it is 100 pixels
@@ -132,15 +133,14 @@ Rectangle
 
         onPaint:
         {
-            var ctx = timeHeader.getContext('2d')
             var fontSize = headerHeight * 0.55
-            ctx.globalAlpha = 1.0
-            ctx.lineWidth = 1
+            context.globalAlpha = 1.0
+            context.lineWidth = 1
 
-            ctx.fillStyle = "black"
-            ctx.strokeStyle = "white"
-            ctx.font = fontSize + "px \"" + UISettings.robotoFontName + "\""
-            ctx.fillRect(0, 0, width, headerHeight)
+            context.fillStyle = "black"
+            context.strokeStyle = "white"
+            context.font = fontSize + "px \"" + UISettings.robotoFontName + "\""
+            context.fillRect(0, 0, width, headerHeight)
 
             var divNum = width / tickSize
             var xPos = parseInt((x + width) / tickSize) * tickSize
@@ -149,26 +149,26 @@ Rectangle
 
             //console.log("xPos: " + xPos + ", msTime: " + msTime)
 
-            ctx.beginPath();
-            ctx.fillStyle = "white"
+            context.beginPath();
+            context.fillStyle = "white"
 
             for (var i = 0; i < divNum; i++)
             {
                 // don't even bother to paint if we're outside the timeline
                 if (msTime >= 0)
                 {
-                    ctx.moveTo(xPos, 0)
-                    ctx.lineTo(xPos, height)
+                    context.moveTo(xPos, 0)
+                    context.lineTo(xPos, height)
 
-                    ctx.fillText(TimeUtils.msToString(msTime), xPos + 3, height - fontSize)
+                    context.fillText(TimeUtils.msToString(msTime), xPos + 3, height - fontSize)
                 }
                 xPos -= tickSize
                 msTime -= timeScale * 1000
 
                 //console.log("xPos: " + xPos + ", msTime: " + msTime)
             }
-            ctx.closePath()
-            ctx.stroke()
+            context.closePath()
+            context.stroke()
         }
     }
 

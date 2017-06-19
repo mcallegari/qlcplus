@@ -1,38 +1,83 @@
 language: cpp
+sudo: required
 
 script:
  - "bash -ex .travis-ci.sh"
 
+addons:
+  apt:
+    packages: &base_pkg
+      #base packages for all builds
+      - gdb
+      - libasound2-dev 
+      - libusb-dev 
+      - libftdi-dev 
+      - shared-mime-info 
+      - libudev-dev 
+      - libmad0-dev 
+      - libsndfile1-dev 
+      - liblo-dev
+      - libfftw3-dev
+    packages: &qt5_pkg
+      - *base_pkg
+      - qt56-meta-minimal
+      - qt56script
+      - qt56multimedia
+      - qt56serialport
+      - g++-5
+
 matrix:
   fast_finish: true
   include:
-    # Clang won't work on Linux until -Wno-unused-local-typedefs is flagged by compiler not OS
-    #- compiler: clang
-    #  env: TASK='compile'
-    - compiler: gcc
+    - os: linux
+      dist: trusty
+      compiler: gcc
       env: TASK='compile' QT='qt4'
-    - compiler: gcc
+      addons:
+        apt:
+          packages:
+           - *base_pkg
+           - libqt4-dev
+    - os: linux
+      dist: trusty
+      compiler: gcc
       env: TASK='compile' QT='qt5'
+      addons:
+        apt:
+          sources:
+           - ubuntu-toolchain-r-test
+           - sourceline: 'ppa:beineri/opt-qt562-trusty'
+          packages:
+           - *qt5_pkg
+    - os: linux
+      dist: trusty
+      compiler: gcc
+      env: TASK='coverage' QT='qt5'
+      addons:
+        apt:
+          sources:
+           - ubuntu-toolchain-r-test
+           - sourceline: 'ppa:beineri/opt-qt562-trusty'
+          packages:
+           - *qt5_pkg
+           - lcov
 
-cache: apt
+cache:
+  apt: true
 
 before_install:
- - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
- #- sudo add-apt-repository ppa:h-rayflood/llvm-upper -y
- - sudo add-apt-repository ppa:beineri/opt-qt562 -y
- - sudo apt-get update -qq
- - sudo apt-get install -qq gdb libasound2-dev libusb-dev libftdi-dev shared-mime-info libudev-dev libmad0-dev libsndfile1-dev liblo-dev libfftw3-dev
- # Install the relevant bits depending on which version of Qt, export a QMAKE variable with the qmake binary in it.
- - if [ "$QT" = "qt4" ]; then sudo apt-get install -qq libqt4-dev; export QMAKE=qmake; fi
- - if [ "$QT" = "qt5" ]; then sudo apt-get install -qq qt56-meta-minimal qt56script qt56multimedia qt56serialport; export QMAKE=/opt/qt56/bin/qmake; fi
+ - if [ "$QT" = "qt4" ]; then export QMAKE=qmake; fi
+ - if [ "$QT" = "qt5" ]; then export QMAKE=/opt/qt56/bin/qmake; fi
+ - if [ "$TASK" = "coverage" ]; then gem install coveralls-lcov; fi
 #Report the qmake version
  - $QMAKE -v
- # Start xvfb so tests don't fail
- - "export DISPLAY=:99.0"
- - "sh -e /etc/init.d/xvfb start"
- - if [ "$QT" = "qt5" ] && [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-5; fi
- - if [ "$QT" = "qt5" ] && [ "$CXX" = "g++" ]; then export CXX="g++-5" CC="gcc-5"; fi
 #Remove the old g++/gcc to ensure we're using the latest ones
- - if [ "$QT" = "qt5" ] && [ "$CXX" = "g++-5" ]; then sudo rm /usr/bin/g++; sudo rm /usr/bin/gcc; fi
+ - if [ "$QT" = "qt5" ] && [ "$CXX" = "g++" ]; then sudo rm /usr/bin/g++; sudo rm /usr/bin/gcc; export CXX="g++-5" CC="gcc-5"; fi
 #Report the compiler version
  - $CXX --version
+ # Start xvfb so UI tests don't fail
+ - "export DISPLAY=:99.0"
+ - "sh -e /etc/init.d/xvfb start"
+
+after_success:
+ - if [ "$TASK" = "coverage" ]; then coveralls-lcov --repo-token ${COVERALLS_TOKEN} coverage/coverage.info; fi

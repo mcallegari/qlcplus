@@ -7,14 +7,14 @@
 
   Copyright (c) 2015 Massimo Callegari
 
-  Licensed under the Apache License, Version 2.0 (the "License");
+  Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
 
       http://www.apache.org/licenses/LICENSE-2.0.txt
 
   Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
+  distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
@@ -93,6 +93,36 @@
       <string>Filter</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="1">
+       <widget class="QCheckBox" name="m_chaserCheck">
+        <property name="toolTip">
+         <string>Display chasers in the list</string>
+        </property>
+        <property name="text">
+         <string>Chasers</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QCheckBox" name="m_sceneCheck">
+        <property name="toolTip">
+         <string>Display scenes in the list</string>
+        </property>
+        <property name="text">
+         <string>Scenes</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QCheckBox" name="m_efxCheck">
+        <property name="toolTip">
+         <string>Display EFX's in the list</string>
+        </property>
+        <property name="text">
+         <string>EFX</string>
+        </property>
+       </widget>
+      </item>
       <item row="1" column="1">
        <widget class="QCheckBox" name="m_collectionCheck">
         <property name="toolTip">
@@ -113,17 +143,28 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
-       <widget class="QCheckBox" name="m_chaserCheck">
-        <property name="toolTip">
-         <string>Display chasers in the list</string>
-        </property>
+      <item row="1" column="3">
+       <widget class="QCheckBox" name="m_audioCheck">
         <property name="text">
-         <string>Chasers</string>
+         <string>Audio</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="2">
+      <item row="1" column="4">
+       <widget class="QCheckBox" name="m_videoCheck">
+        <property name="text">
+         <string>Video</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="4">
+       <widget class="QCheckBox" name="m_showCheck">
+        <property name="text">
+         <string>Shows</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
        <widget class="QCheckBox" name="m_rgbMatrixCheck">
         <property name="toolTip">
          <string>Display RGB Matrices in the list</string>
@@ -133,44 +174,10 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="0">
-       <widget class="QCheckBox" name="m_efxCheck">
-        <property name="toolTip">
-         <string>Display EFX's in the list</string>
-        </property>
+      <item row="0" column="2">
+       <widget class="QCheckBox" name="m_sequenceCheck">
         <property name="text">
-         <string>EFX's</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QCheckBox" name="m_sceneCheck">
-        <property name="toolTip">
-         <string>Display scenes in the list</string>
-        </property>
-        <property name="text">
-         <string>Scenes</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="3">
-       <widget class="QCheckBox" name="m_showCheck">
-        <property name="text">
-         <string>Shows</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="3">
-       <widget class="QCheckBox" name="m_audioCheck">
-        <property name="text">
-         <string>Audio</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="4">
-       <widget class="QCheckBox" name="m_videoCheck">
-        <property name="text">
-         <string>Video</string>
+         <string>Sequences</string>
         </property>
        </widget>
       </item>

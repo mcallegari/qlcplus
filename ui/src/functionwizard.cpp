@@ -199,7 +199,7 @@ void FunctionWizard::addFixture(quint32 fxi_id)
 
         QTreeWidgetItem* item = new QTreeWidgetItem(groupItem);
         item->setText(KFixtureColumnName, fxi->name());
-        item->setIcon(KFixtureColumnName, fxi->getIconFromType(fxi->type()));
+        item->setIcon(KFixtureColumnName, fxi->getIconFromType());
         item->setData(KFixtureColumnName, Qt::UserRole, fxi_id);
         item->setText(KFixtureColumnCaps, caps.join(", "));
     }
@@ -606,7 +606,7 @@ VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int
 
     if (widget != NULL && func != NULL)
     {
-        if (func->type() == Function::Scene && type == VCWidget::ButtonWidget)
+        if (func->type() == Function::SceneType && type == VCWidget::ButtonWidget)
         {
             Scene *scene = qobject_cast<Scene*> (func);
 

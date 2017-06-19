@@ -53,7 +53,10 @@ bool IOPluginStub::openOutput(quint32 output, quint32 universe)
 {
     Q_UNUSED(universe)
     if (m_openOutputs.contains(output) == false && output < 4)
+    {
         m_openOutputs.append(output);
+        addToMap(universe, output, Output);
+    }
     return true;
 }
 
@@ -99,7 +102,10 @@ bool IOPluginStub::openInput(quint32 input, quint32 universe)
     Q_UNUSED(universe)
 
     if (m_openInputs.contains(input) == false && input < 4)
+    {
         m_openInputs.append(input);
+        addToMap(universe, input, Input);
+    }
     return true;
 }
 

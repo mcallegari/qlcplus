@@ -43,17 +43,17 @@ QByteArray PlaybackWing_Test::data()
     data[2] = 'D'; /* HEADER */
     data[3] = 'D'; /* HEADER */
 
-    data[4] = PLB_FIRMWARE; /* Firmware */
+    data[4] = (char)PLB_FIRMWARE; /* Firmware */
 
-    data[5] = PLB_FLAGS; /* Flags */
+    data[5] = (char)PLB_FLAGS; /* Flags */
 
     data[6] = 0; /* Unused */
 
-    data[7] = 255; /* Buttons */
-    data[8] = 255; /* Buttons */
-    data[9] = 255; /* Buttons */
-    data[10] = 255; /* Buttons */
-    data[11] = 255; /* Buttons */
+    data[7] = (char)255; /* Buttons */
+    data[8] = (char)255; /* Buttons */
+    data[9] = (char)255; /* Buttons */
+    data[10] = (char)255; /* Buttons */
+    data[11] = (char)255; /* Buttons */
 
     data[12] = 0; /* Unused */
     data[13] = 0; /* Unused */
@@ -160,63 +160,63 @@ void PlaybackWing_Test::buttons_data()
     QTest::newRow("Button 0") << ba << 10 << 255;
 
     QTest::newRow("Button 1") << ba << 11 << 0;
-    ba[11] = 191; /* 1011 1111 */
+    ba[11] = (char)191; /* 1011 1111 */
     QTest::newRow("Button 1") << ba << 11 << 255;
 
     QTest::newRow("Button 2") << ba << 12 << 0;
-    ba[11] = 223; /* 1101 1111 */
+    ba[11] = (char)223; /* 1101 1111 */
     QTest::newRow("Button 2") << ba << 12 << 255;
 
     QTest::newRow("Button 3") << ba << 13 << 0;
-    ba[11] = 239; /* 1110 1111 */
+    ba[11] = (char)239; /* 1110 1111 */
     QTest::newRow("Button 3") << ba << 13 << 255;
 
     QTest::newRow("Button 4") << ba << 14 << 0;
-    ba[11] = 247; /* 1111 0111 */
+    ba[11] = (char)247; /* 1111 0111 */
     QTest::newRow("Button 4") << ba << 14 << 255;
 
     QTest::newRow("Button 5") << ba << 15 << 0;
-    ba[11] = 251; /* 1111 1011 */
+    ba[11] = (char)251; /* 1111 1011 */
     QTest::newRow("Button 5") << ba << 15 << 255;
 
     QTest::newRow("Button 6") << ba << 16 << 0;
-    ba[11] = 253; /* 1111 1101 */
+    ba[11] = (char)253; /* 1111 1101 */
     QTest::newRow("Button 6") << ba << 16 << 255;
 
     QTest::newRow("Button 7") << ba << 17 << 0;
-    ba[11] = 254; /* 1111 1110 */
+    ba[11] = (char)254; /* 1111 1110 */
     QTest::newRow("Button 7") << ba << 17 << 255;
 
     QTest::newRow("Button 8") << ba << 18 << 0;
-    ba[10] = 127; /* 0111 1111 */
+    ba[10] = (char)127; /* 0111 1111 */
     QTest::newRow("Button 8") << ba << 18 << 255;
 
     QTest::newRow("Button 9") << ba << 19 << 0;
-    ba[10] = 191; /* 1011 1111 */
+    ba[10] = (char)191; /* 1011 1111 */
     QTest::newRow("Button 9") << ba << 19 << 255;
 
     QTest::newRow("Button 10") << ba << 20 << 0;
-    ba[10] = 223; /* 1101 1111 */
+    ba[10] = (char)223; /* 1101 1111 */
     QTest::newRow("Button 10") << ba << 20 << 255;
 
     QTest::newRow("Button 11") << ba << 21 << 0;
-    ba[10] = 239; /* 1110 1111 */
+    ba[10] = (char)239; /* 1110 1111 */
     QTest::newRow("Button 11") << ba << 21 << 255;
 
     QTest::newRow("Button 12") << ba << 22 << 0;
-    ba[10] = 247; /* 1111 0111 */
+    ba[10] = (char)247; /* 1111 0111 */
     QTest::newRow("Button 12") << ba << 22 << 255;
 
     QTest::newRow("Button 13") << ba << 23 << 0;
-    ba[10] = 251; /* 1111 1011 */
+    ba[10] = (char)251; /* 1111 1011 */
     QTest::newRow("Button 13") << ba << 23 << 255;
 
     QTest::newRow("Button 14") << ba << 24 << 0;
-    ba[10] = 253; /* 1111 1101 */
+    ba[10] = (char)253; /* 1111 1101 */
     QTest::newRow("Button 14") << ba << 24 << 255;
 
     QTest::newRow("Button 15") << ba << 25 << 0;
-    ba[10] = 254; /* 1111 1110 */
+    ba[10] = (char)254; /* 1111 1110 */
     QTest::newRow("Button 15") << ba << 25 << 255;
 
     QTest::newRow("Button 16") << ba << 26 << 0;
@@ -224,51 +224,51 @@ void PlaybackWing_Test::buttons_data()
     QTest::newRow("Button 16") << ba << 26 << 255;
 
     QTest::newRow("Button 17") << ba << 27 << 0;
-    ba[9] = 191; /* 1011 1111 */
+    ba[9] = (char)191; /* 1011 1111 */
     QTest::newRow("Button 17") << ba << 27 << 255;
 
     QTest::newRow("Button 18") << ba << 28 << 0;
-    ba[9] = 223; /* 1101 1111 */
+    ba[9] = (char)223; /* 1101 1111 */
     QTest::newRow("Button 18") << ba << 28 << 255;
 
     QTest::newRow("Button 19") << ba << 29 << 0;
-    ba[9] = 239; /* 1110 1111 */
+    ba[9] = (char)239; /* 1110 1111 */
     QTest::newRow("Button 19") << ba << 29 << 255;
 
     QTest::newRow("Button 20") << ba << 30 << 0;
-    ba[9] = 247; /* 1111 0111 */
+    ba[9] = (char)247; /* 1111 0111 */
     QTest::newRow("Button 20") << ba << 30 << 255;
 
     QTest::newRow("Button 21") << ba << 31 << 0;
-    ba[9] = 251; /* 1111 1011 */
+    ba[9] = (char)251; /* 1111 1011 */
     QTest::newRow("Button 21") << ba << 31 << 255;
 
     QTest::newRow("Button 22") << ba << 32 << 0;
-    ba[8] = 191; /* 1011 1111 */
+    ba[8] = (char)191; /* 1011 1111 */
     QTest::newRow("Button 22") << ba << 32 << 255;
 
     QTest::newRow("Button 23") << ba << 33 << 0;
-    ba[8] = 223; /* 1101 1111 */
+    ba[8] = (char)223; /* 1101 1111 */
     QTest::newRow("Button 23") << ba << 33 << 255;
 
     QTest::newRow("Button 24") << ba << 34 << 0;
-    ba[8] = 239; /* 1110 1111 */
+    ba[8] = (char)239; /* 1110 1111 */
     QTest::newRow("Button 24") << ba << 34 << 255;
 
     QTest::newRow("Button 25") << ba << 35 << 0;
-    ba[8] = 247; /* 1111 0111 */
+    ba[8] = (char)247; /* 1111 0111 */
     QTest::newRow("Button 25") << ba << 35 << 255;
 
     QTest::newRow("Button 26") << ba << 36 << 0;
-    ba[8] = 251; /* 1111 1011 */
+    ba[8] = (char)251; /* 1111 1011 */
     QTest::newRow("Button 26") << ba << 36 << 255;
 
     QTest::newRow("Button 27") << ba << 37 << 0;
-    ba[9] = 253; /* 1111 1101 */
+    ba[9] = (char)253; /* 1111 1101 */
     QTest::newRow("Button 27") << ba << 37 << 255;
 
     QTest::newRow("Button 28") << ba << 38 << 0;
-    ba[9] = 254; /* 1111 1110 */
+    ba[9] = (char)254; /* 1111 1110 */
     QTest::newRow("Button 28") << ba << 38 << 255;
 
     QTest::newRow("Button 29") << ba << 39 << 0;
@@ -276,11 +276,11 @@ void PlaybackWing_Test::buttons_data()
     QTest::newRow("Button 29") << ba << 39 << 255;
 
     QTest::newRow("Button 30") << ba << 40 << 0;
-    ba[8] = 253; /* 1111 1101 */
+    ba[8] = (char)253; /* 1111 1101 */
     QTest::newRow("Button 30") << ba << 40 << 255;
 
     QTest::newRow("Button 31") << ba << 41 << 0;
-    ba[8] = 254; /* 1111 1110 */
+    ba[8] = (char)254; /* 1111 1110 */
     QTest::newRow("Button 31") << ba << 41 << 255;
 }
 
@@ -304,19 +304,19 @@ void PlaybackWing_Test::faders_data()
 
     ba[15] = 127;
     QTest::newRow("Fader 0") << ba << 0 << 127;
-    ba[16] = 191;
+    ba[16] = (char)191;
     QTest::newRow("Fader 1") << ba << 1 << 191;
-    ba[17] = 223;
+    ba[17] = (char)223;
     QTest::newRow("Fader 2") << ba << 2 << 223;
-    ba[18] = 239;
+    ba[18] = (char)239;
     QTest::newRow("Fader 3") << ba << 3 << 239;
-    ba[19] = 247;
+    ba[19] = (char)247;
     QTest::newRow("Fader 4") << ba << 4 << 247;
-    ba[20] = 251;
+    ba[20] = (char)251;
     QTest::newRow("Fader 5") << ba << 5 << 251;
-    ba[21] = 253;
+    ba[21] = (char)253;
     QTest::newRow("Fader 6") << ba << 6 << 253;
-    ba[22] = 254;
+    ba[22] = (char)254;
     QTest::newRow("Fader 7") << ba << 7 << 254;
     ba[23] = 1;
     QTest::newRow("Fader 8") << ba << 8 << 1;

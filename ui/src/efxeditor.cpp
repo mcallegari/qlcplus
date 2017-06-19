@@ -44,8 +44,6 @@
 #include "apputil.h"
 #include "doc.h"
 
-#include "efxuistate.h"
-
 #define SETTINGS_GEOMETRY "efxeditor/geometry"
 
 #define KColumnNumber  0
@@ -55,6 +53,8 @@
 #define KColumnStartOffset 4
 
 #define PROPERTY_FIXTURE "fixture"
+#define UI_STATE_TAB_INDEX "tabIndex"
+#define UI_STATE_SHOW_DIAL "showDial"
 
 #define KTabGeneral 0
 #define KTabMovement 1
@@ -82,12 +82,11 @@ EFXEditor::EFXEditor(QWidget* parent, EFX* efx, Doc* doc)
     initGeneralPage();
     initMovementPage();
 
-    // Start new (==empty) scenes from the first tab and ones with something in them
-    // on the first fixture page.
-    if (m_tab->count() == 0)
-        slotTabChanged(KTabGeneral);
+    QVariant tabIndex = efx->uiStateValue(UI_STATE_TAB_INDEX);
+    if (tabIndex.isNull())
+        m_tab->setCurrentIndex(0);
     else
-        m_tab->setCurrentIndex(efxUiState()->currentTab());
+        m_tab->setCurrentIndex(tabIndex.toInt());
 
     /* Tab widget */
     connect(m_tab, SIGNAL(currentChanged(int)),
@@ -100,6 +99,10 @@ EFXEditor::EFXEditor(QWidget* parent, EFX* efx, Doc* doc)
     connect(m_doc, SIGNAL(modeChanged(Doc::Mode)), this, SLOT(slotModeChanged(Doc::Mode)));
 
     updateSpeedDials();
+
+    QVariant showDial = efx->uiStateValue(UI_STATE_SHOW_DIAL);
+    if (showDial.isNull() == false && showDial.toBool() == true)
+        m_speedDial->setChecked(true);
 
     // Set focus to the editor
     m_nameEdit->setFocus();
@@ -342,7 +345,7 @@ void EFXEditor::slotModeChanged(Doc::Mode mode)
 
 void EFXEditor::slotTabChanged(int tab)
 {
-    efxUiState()->setCurrentTab(tab);
+    m_efx->setUiStateValue(UI_STATE_TAB_INDEX, tab);
 
     //When preview animation is opened restart animation but avoid restart if test is running.
     if(tab == 1 && (m_testButton->isChecked () == false))
@@ -382,11 +385,6 @@ void EFXEditor::continueRunning(bool running)
 FunctionParent EFXEditor::functionParent() const
 {
     return FunctionParent::master();
-}
-
-EfxUiState * EFXEditor::efxUiState()
-{
-    return qobject_cast<EfxUiState*>(m_efx->uiState());
 }
 
 /*****************************************************************************
@@ -497,15 +495,13 @@ void EFXEditor::updateModeColumn(QTreeWidgetItem* item, EFXFixture* ef)
     {
         QComboBox* combo = new QComboBox(m_tree);
         combo->setAutoFillBackground(true);
-
         combo->addItems(ef->modeList());
-
-        const int index = combo->findText(ef->modeToString(ef->mode ()) );
-        combo->setCurrentIndex(index);
-        //combo->setCurrentText (ef->modeToString (ef->mode ()));
-
-        m_tree->setItemWidget(item, KColumnMode, combo);
         combo->setProperty(PROPERTY_FIXTURE, (qulonglong) ef);
+        m_tree->setItemWidget(item, KColumnMode, combo);
+
+        const int index = combo->findText(ef->modeToString(ef->mode()));
+        combo->setCurrentIndex(index);
+
         connect(combo, SIGNAL(currentIndexChanged(int)),
                 this, SLOT(slotFixtureModeChanged(int)));
     }
@@ -595,16 +591,18 @@ void EFXEditor::slotNameEdited(const QString &text)
 
 void EFXEditor::slotSpeedDialToggle(bool state)
 {
-    efxUiState()->setShowSpeedDial(state);
-
     if (state == true)
+    {
         updateSpeedDials();
+    }
     else
     {
         if (m_speedDials != NULL)
             m_speedDials->deleteLater();
         m_speedDials = NULL;
     }
+
+    m_efx->setUiStateValue(UI_STATE_SHOW_DIAL, state);
 }
 
 void EFXEditor::slotFixtureItemChanged(QTreeWidgetItem* item, int column)
@@ -787,11 +785,13 @@ void EFXEditor::slotRaiseFixtureClicked()
             item = m_tree->takeTopLevelItem(index);
 
             m_tree->insertTopLevelItem(index - 1, item);
-            m_tree->setCurrentItem(item);
-            updateStartOffsetColumn(item, ef);
 
+            updateModeColumn(item, ef);
+            updateStartOffsetColumn(item, ef);
             updateIndices(index - 1, index);
-	    redrawPreview();
+            m_tree->setCurrentItem(item);
+
+            redrawPreview();
         }
     }
 
@@ -819,11 +819,13 @@ void EFXEditor::slotLowerFixtureClicked()
         {
             item = m_tree->takeTopLevelItem(index);
             m_tree->insertTopLevelItem(index + 1, item);
-            m_tree->setCurrentItem(item);
-            updateStartOffsetColumn(item, ef);
 
+            updateModeColumn(item, ef);
+            updateStartOffsetColumn(item, ef);
             updateIndices(index, index + 1);
-	    redrawPreview();
+            m_tree->setCurrentItem(item);
+
+            redrawPreview();
         }
     }
 

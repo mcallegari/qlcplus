@@ -21,6 +21,7 @@
 #include "track.h"
 #include "show.h"
 #include "doc.h"
+#include "chaser.h"
 
 ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
     : PreviewContext(view, doc, "SHOWMGR", parent)
@@ -31,8 +32,8 @@ ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
     , m_selectedTrack(-1)
     , m_itemsColor(Qt::gray)
 {
-    qmlRegisterType<Track>("com.qlcplus.classes", 1, 0, "Track");
-    qmlRegisterType<ShowFunction>("com.qlcplus.classes", 1, 0, "ShowFunction");
+    qmlRegisterType<Track>("org.qlcplus.classes", 1, 0, "Track");
+    qmlRegisterType<ShowFunction>("org.qlcplus.classes", 1, 0, "ShowFunction");
 
     setContextResource("qrc:/ShowManager.qml");
     setContextTitle(tr("Show Manager"));
@@ -555,7 +556,8 @@ QVariantList ShowManager::previewData(Function *f) const
 
     switch (f->type())
     {
-        case Function::Chaser:
+        case Function::ChaserType:
+        case Function::SequenceType:
         {
             Chaser *chaser = qobject_cast<Chaser *>(f);
             quint32 stepsTimeCounter = 0;

@@ -21,7 +21,7 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 import "TimeUtils.js" as TimeUtils
 import "."
 
@@ -34,6 +34,7 @@ Rectangle
     property int functionID: -1
     property int editStepIndex: -1
     property int editStepType
+    property bool isSequence: chaserEditor.isSequence
 
     signal requestView(int ID, string qmlSrc)
 
@@ -149,81 +150,41 @@ Rectangle
         {
             Layout.fillWidth: true
 
-            Rectangle
+            EditorTopBar
             {
-                color: UISettings.bgMedium
-                width: parent.width
-                height: UISettings.iconSizeMedium
-                z: 2
+                id: topbar
+                visible: !isSequence
+                text: chaserEditor.functionName
+                onTextChanged: chaserEditor.functionName = text
 
-                Rectangle
+                onBackClicked:
                 {
-                    id: backBox
-                    width: UISettings.iconSizeMedium
-                    height: width
-                    color: "transparent"
-
-                    Image
+                    if (funcMgrLoader.width)
                     {
-                        id: leftArrow
-                        anchors.fill: parent
-                        rotation: 180
-                        source: "qrc:/arrow-right.svg"
-                        sourceSize: Qt.size(width, height)
+                        funcMgrLoader.source = ""
+                        funcMgrLoader.width = 0
+                        rightSidePanel.width = rightSidePanel.width / 2
                     }
-                    MouseArea
-                    {
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        onEntered: backBox.color = "#666"
-                        onExited: backBox.color = "transparent"
-                        onClicked:
-                        {
-                            if (funcMgrLoader.width)
-                            {
-                                funcMgrLoader.source = "";
-                                funcMgrLoader.width = 0;
-                                rightSidePanel.width = rightSidePanel.width / 2
-                            }
 
-                            functionManager.setEditorFunction(-1, false)
-                            requestView(-1, "qrc:/FunctionManager.qml")
-                        }
-                    }
-                }
-                TextInput
-                {
-                    id: cNameEdit
-                    x: leftArrow.width + 5
-                    height: UISettings.iconSizeMedium
-                    width: ceContainer.width - backBox.width - addFunc.width - removeFunc.width - 10
-                    color: UISettings.fgMain
-                    clip: true
-                    text: chaserEditor.functionName
-                    verticalAlignment: TextInput.AlignVCenter
-                    font.family: UISettings.robotoFontName
-                    font.pixelSize: UISettings.textSizeDefault
-                    selectByMouse: true
-                    Layout.fillWidth: true
-
-                    onTextChanged: chaserEditor.functionName = text
+                    functionManager.setEditorFunction(-1, false)
+                    requestView(-1, "qrc:/FunctionManager.qml")
                 }
 
                 IconButton
                 {
                     id: addFunc
-                    x: parent.width - (UISettings.iconSizeMedium * 2) - 10
                     width: height
                     height: UISettings.iconSizeMedium - 2
                     imgSource: "qrc:/add.svg"
                     checkable: true
-                    tooltip: qsTr("Add a function")
+                    tooltip: qsTr("Add a new step")
+
                     onCheckedChanged:
                     {
                         if (checked)
                         {
-                            rightSidePanel.width += 350
-                            funcMgrLoader.width = 350
+                            rightSidePanel.width += mainView.width / 3
+                            funcMgrLoader.width = mainView.width / 3
                             funcMgrLoader.source = "qrc:/FunctionManager.qml"
                         }
                         else
@@ -238,11 +199,10 @@ Rectangle
                 IconButton
                 {
                     id: removeFunc
-                    x: parent.width - UISettings.iconSizeMedium - 5
                     width: height
                     height: UISettings.iconSizeMedium - 2
                     imgSource: "qrc:/remove.svg"
-                    tooltip: qsTr("Remove the selected function")
+                    tooltip: qsTr("Remove the selected steps")
                     onClicked: {   }
                 }
             }
@@ -277,6 +237,7 @@ Rectangle
                     RobotoText
                     {
                         id: nameCol
+                        visible: !isSequence
                         width: UISettings.bigItemHeight * 1.5
                         height: parent.height
                         label: qsTr("Function")
@@ -287,6 +248,7 @@ Rectangle
                     Rectangle
                     {
                         id: nameColDrag
+                        visible: !isSequence
                         height: parent.height
                         width: 1
                         color: UISettings.fgMedium
@@ -480,7 +442,7 @@ Rectangle
             {
                 id: cStepsList
                 width: parent.width
-                height: ceContainer.height - UISettings.iconSizeDefault - chListHeader.height - chModes.height
+                height: ceContainer.height - (topbar.visible ? topbar.height : 0) - chListHeader.height - chModes.height
                 boundsBehavior: Flickable.StopAtBounds
                 clip: true
 
@@ -499,6 +461,7 @@ Rectangle
                     ChaserStepDelegate
                     {
                         width: ceContainer.width
+                        showFunctionName: !isSequence
                         functionID: model.funcID
                         isSelected: model.isSelected
                         stepFadeIn: TimeUtils.timeToQlcString(model.fadeIn, chaserEditor.tempoType)
@@ -521,7 +484,8 @@ Rectangle
                         onClicked:
                         {
                             ceSelector.selectItem(indexInList, cStepsList.model, mouseMods & Qt.ControlModifier)
-                            if (mouseMods & Qt.ControlModifier === false)
+                            console.log("mouse mods: " + mouseMods)
+                            if ((mouseMods & Qt.ControlModifier) == 0)
                                 chaserEditor.playbackIndex = index
                         }
 
@@ -557,8 +521,8 @@ Rectangle
                     }
                     onExited: cStepsList.dragInsertIndex = -1
                 }
-                ScrollBar { flickable: cStepsList }
-            }
+                CustomScrollBar { flickable: cStepsList }
+            } // end of ListView
 
             SectionBox
             {
@@ -696,7 +660,7 @@ Rectangle
                         Layout.fillWidth: true
                     }
                 } // end of GridLayout
-            } // end of Rectangle
+            } // end of SectionBox
         } // end of Column
     } // end of SplitView
 }

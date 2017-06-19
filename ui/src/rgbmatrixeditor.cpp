@@ -37,12 +37,12 @@
 #include "fixtureselection.h"
 #include "speeddialwidget.h"
 #include "rgbmatrixeditor.h"
+#include "qlcmacros.h"
 #include "rgbimage.h"
+#include "sequence.h"
 #include "rgbitem.h"
 #include "rgbtext.h"
-#include "qlcmacros.h"
 #include "apputil.h"
-#include "chaser.h"
 #include "scene.h"
 
 #define SETTINGS_GEOMETRY "rgbmatrixeditor/geometry"
@@ -483,10 +483,6 @@ bool RGBMatrixEditor::createPreviewItems()
     m_previewHash.clear();
     m_scene->clear();
 
-    // No preview in operate mode, too coslty
-    if (m_doc->mode() == Doc::Operate)
-        return false;
-
     FixtureGroup* grp = m_doc->fixtureGroup(m_matrix->fixtureGroup());
     if (grp == NULL)
     {
@@ -920,12 +916,10 @@ void RGBMatrixEditor::slotModeChanged(Doc::Mode mode)
         if (m_testButton->isChecked() == true)
             m_matrix->stopAndWait();
         m_testButton->setChecked(false);
-        m_previewTimer->stop();
         m_testButton->setEnabled(false);
     }
     else
     {
-        m_previewTimer->start(MasterTimer::tick());
         m_testButton->setEnabled(true);
     }
 }
@@ -1018,21 +1012,21 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
         if (m_matrix->runOrder() == RGBMatrix::PingPong)
             totalSteps = (totalSteps * 2) - 1;
 
-        Chaser *chaser = new Chaser(m_doc);
-        chaser->setName(m_matrix->name());
-        chaser->enableSequenceMode(grpScene->id());
-        chaser->setDurationMode(Chaser::PerStep);
-        chaser->setDuration(m_matrix->duration());
-        chaser->setStartTime(0);
+        Sequence *sequence = new Sequence(m_doc);
+        sequence->setName(m_matrix->name());
+        sequence->setBoundSceneID(grpScene->id());
+        sequence->setDurationMode(Chaser::PerStep);
+        sequence->setDuration(m_matrix->duration());
+
         if (m_matrix->fadeInSpeed() != 0)
         {
-            chaser->setFadeInMode(Chaser::PerStep);
-            chaser->setFadeInSpeed(m_matrix->fadeInSpeed());
+            sequence->setFadeInMode(Chaser::PerStep);
+            sequence->setFadeInSpeed(m_matrix->fadeInSpeed());
         }
         if (m_matrix->fadeOutSpeed() != 0)
         {
-            chaser->setFadeOutMode(Chaser::PerStep);
-            chaser->setFadeOutSpeed(m_matrix->fadeOutSpeed());
+            sequence->setFadeOutMode(Chaser::PerStep);
+            sequence->setFadeOutSpeed(m_matrix->fadeOutSpeed());
         }
 
         for (int i = 0; i < totalSteps; i++)
@@ -1072,7 +1066,7 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
             // we absolutely need ordered values. So do it now !
             qSort(step.values.begin(), step.values.end());
 
-            chaser->addStep(step);
+            sequence->addStep(step);
             currentStep += increment;
             if (currentStep == totalSteps && m_matrix->runOrder() == RGBMatrix::PingPong)
             {
@@ -1082,7 +1076,7 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
             m_previewHandler->updateStepColor(currentStep, m_matrix->startColor(), m_matrix->stepsCount());
         }
 
-        m_doc->addFunction(chaser);
+        m_doc->addFunction(sequence);
 
         if (testRunning == true)
             m_testButton->click();

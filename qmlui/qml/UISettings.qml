@@ -29,6 +29,7 @@ QtObject
     property color bgStronger: "#161616"
     property color bgStrong:   "#232323"
     property color bgMedium:   "#333"
+    property color bgControl:  "#444"
     property color bgLight:    "#5F5F5F"
     property color bgLighter:  "#8F8F8F"
 
@@ -41,6 +42,7 @@ QtObject
     property color highlightPressed: "#044089"
     property color hover:            "#B6B6B6"
     property color selection:        "yellow"
+    property color activeDropArea:   "#9DFF52"
 
     property color toolbarStartMain: "#1a1a1a"
     property color toolbarStartSub:  "#222"

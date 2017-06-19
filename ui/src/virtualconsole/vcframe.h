@@ -24,7 +24,12 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QToolButton>
+#include <QComboBox>
+#include <QWidget>
 #include <QLabel>
+#include <QList>
+#include <QHash>
+
 
 #include "vcwidget.h"
 
@@ -49,6 +54,7 @@
 #define KXMLQLCVCFramePagesLoop   "PagesLoop"
 
 class VCFrameProperties;
+class VCFramePageShortcut;
 
 class VCFrame : public VCWidget
 {
@@ -63,6 +69,7 @@ public:
     static const quint8 nextPageInputSourceId;
     static const quint8 previousPageInputSourceId;
     static const quint8 enableInputSourceId;
+    static const quint8 shortcutsBaseInputSourceId;
 
     /*********************************************************************
      * Initialization
@@ -145,6 +152,12 @@ public:
     void setMultipageMode(bool enable);
     virtual bool multipageMode() const;
 
+    QList<VCFramePageShortcut *> shortcuts() const;
+    void addShortcut();
+    void setShortcuts(QList<VCFramePageShortcut *> shortcuts);
+    void resetShortcuts();
+    void updatePageCombo();
+
     void setTotalPagesNumber(int num);
     int totalPagesNumber();
 
@@ -169,8 +182,9 @@ protected:
     ushort m_currentPage;
     ushort m_totalPagesNumber;
     QToolButton *m_nextPageBtn, *m_prevPageBtn;
-    QLabel *m_pageLabel;
+    QComboBox *m_pageCombo;
     bool m_pagesLoop;
+    QList<VCFramePageShortcut*> m_pageShortcuts;
 
     /** Here's where the magic takes place. This holds a map
      *  of pages/widgets to be shown/hidden when page is changed */
@@ -222,7 +236,8 @@ public:
     QKeySequence previousPageKeySequence() const;
 
 protected slots:
-    void slotFrameKeyPressed(const QKeySequence& keySequence);
+    /** @reimp */
+    void slotKeyPressed(const QKeySequence& keySequence);
 
 private:
     QKeySequence m_enableKeySequence;
@@ -233,9 +248,11 @@ private:
      * External Input
      *************************************************************************/
 public:
+    /** @reimp */
     void updateFeedback();
 
 protected slots:
+    /** @reimp */
     void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
 
     /*********************************************************************

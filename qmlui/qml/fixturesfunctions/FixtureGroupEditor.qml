@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  GroupEditor.qml
+  FixtureGroupEditor.qml
 
   Copyright (c) Massimo Callegari
 
@@ -18,122 +18,236 @@
 */
 
 import QtQuick 2.0
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 1.2
+import QtQuick.Layouts 1.0
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 import "."
 
-Rectangle
+Flickable
 {
-    id: geContainer
+    id: fGroupEditor
     anchors.fill: parent
-    color: "transparent"
+    anchors.margins: viewMargin
+    boundsBehavior: Flickable.StopAtBounds
 
-    ColumnLayout
+    property int viewMargin: UISettings.listItemHeight * 0.5
+
+    function hasSettings() { return false; }
+
+    Rectangle
     {
-      anchors.fill: parent
-      spacing: 3
-
-      Rectangle
-      {
-        id: topBar
-        width: geContainer.width
-        height: UISettings.iconSizeMedium
-        z: 5
-        gradient: Gradient
-        {
-            GradientStop { position: 0; color: UISettings.toolbarStartSub }
-            GradientStop { position: 1; color: UISettings.toolbarEnd }
-        }
+        height: UISettings.iconSizeDefault
+        width: parent.width
+        color: UISettings.bgStrong
 
         RowLayout
         {
-            id: topBarRowLayout
-            width: parent.width
-            y: 1
+            id: editToolbar
+            anchors.fill: parent
+            anchors.leftMargin: viewMargin
+            anchors.rightMargin: viewMargin
 
-            spacing: 4
+            RobotoText
+            {
+                height: parent.height
+                label: fixtureGroupEditor.groupName
+                labelColor: UISettings.fgLight
+                fontSize: UISettings.textSizeDefault * 1.5
+                fontBold: true
+                textVAlign: Text.AlignVCenter
+            }
+
+            Rectangle { color: "transparent"; Layout.fillWidth: true; }
+
+            RobotoText
+            {
+                label: qsTr("Group size")
+            }
+
+            CustomSpinBox
+            {
+                id: gridWidthSpin
+                from: 1
+                to: 999
+                value: fixtureGroupEditor.groupSize.width
+                onValueChanged: fixtureGroupEditor.groupSize = Qt.size(value, gridHeightSpin.value)
+            }
+
+            RobotoText
+            {
+                label: "x"
+            }
+
+            CustomSpinBox
+            {
+                id: gridHeightSpin
+                from: 1
+                to: 999
+                value: fixtureGroupEditor.groupSize.height
+                onValueChanged: fixtureGroupEditor.groupSize = Qt.size(gridWidthSpin.value, value)
+            }
 
             IconButton
             {
-                id: addGrpButton
-                z: 2
-                width: height
-                height: topBar.height - 2
-                imgSource: "qrc:/add.svg"
-                tooltip: qsTr("Add a new group")
-                onClicked: contextManager.createFixtureGroup()
+                id: posButton
+                imgSource: "qrc:/position.svg"
+                tooltip: qsTr("Transform the selected items")
+                checkable: true
             }
+
             IconButton
             {
-                id: delItemButton
-                z: 2
-                width: height
-                height: topBar.height - 2
-                imgSource: "qrc:/remove.svg"
-                tooltip: qsTr("Remove the selected items")
+                imgSource: "qrc:/reset.svg"
+                tooltip: qsTr("Reset the entire group")
+                onClicked: fixtureGroupEditor.resetGroup()
             }
-            Rectangle { Layout.fillWidth: true }
         }
     }
 
-    ListView
+    Rectangle
     {
-        id: groupListView
-        width: geContainer.width
-        height: geContainer.height - topBar.height
-        z: 4
-        boundsBehavior: Flickable.StopAtBounds
-        model: fixtureManager.groupsTreeModel
-        delegate:
-            Component
+        id: transformMenu
+        visible: posButton.checked
+        x: posButton.x - width
+        z: 2
+        border.color: UISettings.bgStronger
+        color: UISettings.bgStrong
+        width: menuBox.width
+        height: menuBox.height
+
+        Column
+        {
+            id: menuBox
+            ContextMenuEntry
             {
-                Loader
+                entryText: qsTr("Rotate 90° clockwise")
+                onClicked:
                 {
-                    width: groupListView.width
-                    source: hasChildren ? "qrc:/TreeNodeDelegate.qml" : "qrc:/FixtureDelegate.qml"
-                    onLoaded:
-                    {
-                        item.textLabel = label
-                        item.isSelected = Qt.binding(function() { return isSelected })
-
-                        if (hasChildren)
-                        {
-                            item.nodePath = path
-                            item.nodeIcon = "qrc:/group.svg"
-                            item.isExpanded = isExpanded
-                            item.childrenDelegate = "qrc:/FixtureDelegate.qml"
-                            item.nodeChildren = childrenModel
-                        }
-                        else
-                        {
-                            item.cRef = classRef
-                        }
-                    }
-                    Connections
-                    {
-                        target: item
-
-                        onMouseEvent:
-                        {
-                            if (type === App.Clicked && qItem == item)
-                            {
-                                model.isSelected = (mouseMods & Qt.ControlModifier) ? 2 : 1
-                                if (model.hasChildren)
-                                    model.isExpanded = item.isExpanded
-                            }
-                        }
-                    }
-                    /*
-                    Connections
-                    {
-                          target: item
-                          onDoubleClicked: { }
-                    }
-                    */
+                    fixtureGroupEditor.transformSelection(FixtureGroupEditor.rotate90)
+                    groupGrid.setSelectionData(fixtureGroupEditor.selectionData)
                 }
             }
+            ContextMenuEntry
+            {
+                entryText: qsTr("Rotate 180° clockwise")
+                onClicked:
+                {
+                    fixtureGroupEditor.transformSelection(FixtureGroupEditor.rotate180)
+                    groupGrid.setSelectionData(fixtureGroupEditor.selectionData)
+                }
+            }
+            ContextMenuEntry
+            {
+                entryText: qsTr("Rotate 270° clockwise")
+                onClicked:
+                {
+                    fixtureGroupEditor.transformSelection(FixtureGroupEditor.rotate270)
+                    groupGrid.setSelectionData(fixtureGroupEditor.selectionData)
+                }
+            }
+            ContextMenuEntry
+            {
+                entryText: qsTr("Flip horizontally")
+                onClicked:
+                {
+                    fixtureGroupEditor.transformSelection(FixtureGroupEditor.HorizontalFlip)
+                    groupGrid.setSelectionData(fixtureGroupEditor.selectionData)
+                }
+            }
+            ContextMenuEntry
+            {
+                entryText: qsTr("Flip vertically")
+                onClicked:
+                {
+                    fixtureGroupEditor.transformSelection(FixtureGroupEditor.VerticalFlip)
+                    groupGrid.setSelectionData(fixtureGroupEditor.selectionData)
+                }
+            }
+        }
     }
-  }
+
+    GridEditor
+    {
+        id: groupGrid
+        y: editToolbar.y + editToolbar.height + viewMargin
+        width: parent.width
+        height: parent.height - editToolbar.height - (viewMargin * 3)
+
+        function getItemIcon(fixtureID, headNumber)
+        {
+            return fixtureManager.fixtureIcon(fixtureID)
+        }
+
+        gridSize: fixtureGroupEditor.groupSize
+        fillDirection: Qt.Horizontal | Qt.Vertical
+        gridData: fixtureGroupEditor.groupMap
+        gridLabels: fixtureGroupEditor.groupLabels
+        labelsFontSize: cellSize / 5
+        evenColor: UISettings.fgLight
+
+        onPressed:
+        {
+            fGroupEditor.interactive = false
+            setSelectionData(fixtureGroupEditor.groupSelection(xPos, yPos, mods))
+        }
+
+        onReleased:
+        {
+            if (currentItemID === -1)
+                return
+
+            if (externalDrag == false)
+            {
+                fixtureGroupEditor.moveSelection(xPos, yPos, offset)
+                setSelectionData(fixtureGroupEditor.groupSelection(xPos, yPos, mods))
+            }
+            fGroupEditor.interactive = true
+        }
+
+        onPositionChanged:
+        {
+            validSelection = fixtureGroupEditor.checkSelection(xPos, yPos, offset)
+        }
+
+        onDragEntered:
+        {
+            console.log("Drag entered at " + xPos + ", " + yPos)
+            var tmp
+            var mods = 0
+            for (var i = 0; i < dragEvent.source.itemsList.length; i++)
+            {
+                console.log("Item #" + i + " type: " + dragEvent.source.itemsList[i].itemType)
+                switch(dragEvent.source.itemsList[i].itemType)
+                {
+                    case App.FixtureDragItem:
+                        tmp = fixtureGroupEditor.dragSelection(dragEvent.source.itemsList[i].cRef, xPos, yPos, mods)
+                    break;
+                    case App.HeadDragItem:
+                        efxEditor.addHead(dragEvent.source.itemsList[i].fixtureID, dragEvent.source.itemsList[i].headIndex)
+                    break;
+                }
+                mods = 1
+            }
+            setSelectionData(tmp)
+        }
+
+        onDragPositionChanged:
+        {
+            validSelection = fixtureGroupEditor.checkSelection(xPos, yPos, offset)
+        }
+
+        onDragDropped:
+        {
+            console.log("Drag dropped at " + xPos + ", " + yPos)
+            for (var i = 0; i < dragEvent.source.itemsList.length; i++)
+            {
+                switch(dragEvent.source.itemsList[i].itemType)
+                {
+                    case App.FixtureDragItem:
+                        fixtureGroupEditor.addFixture(dragEvent.source.itemsList[i].cRef, xPos, yPos)
+                    break;
+                }
+            }
+        }
+    }
 }

@@ -21,6 +21,8 @@
 #define VCSLIDER_H
 
 #include "vcwidget.h"
+#include "treemodel.h"
+#include "grandmaster.h"
 
 #define KXMLQLCVCSlider "Slider"
 
@@ -53,11 +55,22 @@ class VCSlider : public VCWidget
 {
     Q_OBJECT
 
+    Q_PROPERTY(QVariant channelsList READ channelsList CONSTANT)
+
+    Q_PROPERTY(SliderWidgetStyle widgetStyle READ widgetStyle WRITE setWidgetStyle NOTIFY widgetStyleChanged)
     Q_PROPERTY(ValueDisplayStyle valueDisplayStyle READ valueDisplayStyle WRITE setValueDisplayStyle NOTIFY valueDisplayStyleChanged)
     Q_PROPERTY(bool invertedAppearance READ invertedAppearance WRITE setInvertedAppearance NOTIFY invertedAppearanceChanged)
     Q_PROPERTY(SliderMode sliderMode READ sliderMode WRITE setSliderMode NOTIFY sliderModeChanged)
     Q_PROPERTY(int value READ value WRITE setValue NOTIFY valueChanged)
     Q_PROPERTY(quint32 playbackFunction READ playbackFunction WRITE setPlaybackFunction NOTIFY playbackFunctionChanged)
+
+    Q_PROPERTY(GrandMaster::ValueMode grandMasterValueMode READ grandMasterValueMode WRITE setGrandMasterValueMode NOTIFY grandMasterValueModeChanged)
+    Q_PROPERTY(GrandMaster::ChannelMode grandMasterChannelMode READ grandMasterChannelMode WRITE setGrandMasterChannelMode NOTIFY grandMasterChannelModeChanged)
+
+    Q_PROPERTY(int levelLowLimit READ levelLowLimit WRITE setLevelLowLimit NOTIFY levelLowLimitChanged)
+    Q_PROPERTY(int levelHighLimit READ levelHighLimit WRITE setLevelHighLimit NOTIFY levelHighLimitChanged)
+
+    Q_PROPERTY(QVariant groupsTreeModel READ groupsTreeModel NOTIFY groupsTreeModelChanged)
 
     /*********************************************************************
      * Initialization
@@ -77,6 +90,38 @@ public:
 
     /** @reimp */
     QString propertiesResource() const;
+
+    QVariant channelsList();
+
+protected:
+    /** Reference to a tree model representing Groups/Fitures/Channels
+      * This is created only when the UI requests it to confgure the Level mode */
+    TreeModel *m_channelsTree;
+
+    /*********************************************************************
+     * Widget style
+     *********************************************************************/
+public:
+    enum SliderWidgetStyle
+    {
+        WSlider,
+        WKnob
+    };
+    Q_ENUM(SliderWidgetStyle)
+
+    /** Helper methods for SliderWidgetStyle <--> QString conversion */
+    QString widgetStyleToString(SliderWidgetStyle style);
+    SliderWidgetStyle stringToWidgetStyle(QString style);
+
+    /** Get/Set the Slider value display style */
+    SliderWidgetStyle widgetStyle() const;
+    void setWidgetStyle(SliderWidgetStyle mode);
+
+signals:
+    void widgetStyleChanged(SliderWidgetStyle widgetStyle);
+
+protected:
+    SliderWidgetStyle m_widgetMode;
 
     /*********************************************************************
      * Display style
@@ -113,7 +158,7 @@ protected:
      * Slider Mode
      *********************************************************************/
 public:
-    enum SliderMode { Level, Playback, Submaster, GrandMaster };
+    enum SliderMode { Level, Playback, Submaster, GrandMaster, Attribute };
     Q_ENUM(SliderMode)
 
 public:
@@ -145,7 +190,86 @@ protected:
     int m_value;
 
     /*********************************************************************
-     * Playback
+     * Level mode
+     *********************************************************************/
+public:
+    /** Set/Get the lower limit for levels set through the slider */
+    void setLevelLowLimit(uchar value);
+    uchar levelLowLimit() const;
+
+    /** Set/Get high limit for levels set through the slider */
+    void setLevelHighLimit(uchar value);
+    uchar levelHighLimit() const;
+
+    /**
+     * Add a channel from a fixture into the slider's list of
+     * level channels.
+     *
+     * @param fixture Fixture ID
+     * @param channel A channel from the fixture
+     */
+    void addLevelChannel(quint32 fixture, quint32 channel);
+
+    /**
+     * Remove a fixture & channel from the slider's list of
+     * level channels.
+     *
+     * @param fixture Fixture ID
+     * @param channel A channel from the fixture
+     */
+    void removeLevelChannel(quint32 fixture, quint32 channel);
+
+    /** Clear the list of level channels */
+    void clearLevelChannels();
+
+    /** Get the list of channels that this slider controls */
+    QList <SceneValue> levelChannels();
+
+    /** Returns the data model to display a tree of FixtureGroups/Fixtures */
+    QVariant groupsTreeModel();
+
+protected:
+    /**
+     * Set the level to all channels that have been assigned to
+     * the slider.
+     *
+     * @param value DMX value
+     */
+    void setLevelValue(uchar value);
+
+    /** Get the current "level" mode value */
+    uchar levelValue() const;
+
+protected slots:
+    void slotTreeDataChanged(TreeModelItem *item, int role, const QVariant &value);
+
+private:
+    /** Update the tree of groups/fixtures/channels */
+    void updateFixtureTree(Doc *doc, TreeModel *treeModel);
+
+signals:
+    void levelLowLimitChanged();
+    void levelHighLimitChanged();
+    /** Notify the listeners that the fixture tree model has changed */
+    void groupsTreeModelChanged();
+
+protected:
+    QList <SceneValue> m_levelChannels;
+    uchar m_levelLowLimit;
+    uchar m_levelHighLimit;
+
+    QMutex m_levelValueMutex;
+    uchar m_levelValue;
+    bool m_levelValueChanged;
+
+    bool m_monitorEnabled;
+    uchar m_monitorValue;
+
+    /** Data model used by the QML UI to represent groups/fixtures/channels */
+    TreeModel *m_fixtureTree;
+
+    /*********************************************************************
+     * Playback mode
      *********************************************************************/
 public:
     quint32 playbackFunction() const;
@@ -161,6 +285,21 @@ protected:
     quint32 m_playbackFunction;
 
     /*********************************************************************
+     * Grand Master mode
+     *********************************************************************/
+public:
+
+    GrandMaster::ValueMode grandMasterValueMode() const;
+    void setGrandMasterValueMode(GrandMaster::ValueMode mode);
+
+    GrandMaster::ChannelMode grandMasterChannelMode() const;
+    void setGrandMasterChannelMode(GrandMaster::ChannelMode mode);
+
+signals:
+    void grandMasterValueModeChanged(GrandMaster::ValueMode mode);
+    void grandMasterChannelModeChanged(GrandMaster::ChannelMode mode);
+
+    /*********************************************************************
      * External input
      *********************************************************************/
 public slots:
@@ -172,6 +311,9 @@ public slots:
      *********************************************************************/
 public:
     bool loadXML(QXmlStreamReader &root);
+    bool loadXMLLevel(QXmlStreamReader &level_root);
+    bool loadXMLPlayback(QXmlStreamReader &pb_root);
+
     //bool saveXML(QXmlStreamWriter *doc);
 };
 

@@ -41,7 +41,7 @@
  * Initialization
  *****************************************************************************/
 
-Show::Show(Doc* doc) : Function(doc, Function::Show)
+Show::Show(Doc* doc) : Function(doc, Function::ShowType)
   , m_timeDivType(QString("Time"))
   , m_timeDivBPM(120)
   , m_latestTrackId(0)
@@ -313,7 +313,7 @@ bool Show::loadXML(QXmlStreamReader &root)
         return false;
     }
 
-    if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::Show))
+    if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::ShowType))
     {
         qWarning() << Q_FUNC_INFO << root.attributes().value(KXMLQLCFunctionType).toString()
                    << "is not a show";

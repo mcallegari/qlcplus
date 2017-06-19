@@ -172,7 +172,7 @@ void FixtureTreeWidget::updateFixtureItem(QTreeWidgetItem* item, Fixture* fixtur
         return;
 
     item->setText(KColumnName, fixture->name());
-    item->setIcon(KColumnName, fixture->getIconFromType(fixture->type()));
+    item->setIcon(KColumnName, fixture->getIconFromType());
     item->setData(KColumnName, PROP_ID, QString::number(fixture->id()));
     if (m_channelSelection)
     {

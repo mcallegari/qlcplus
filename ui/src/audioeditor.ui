@@ -7,14 +7,14 @@
 
   Copyright (c) 2015 Massimo Callegari
 
-  Licensed under the Apache License, Version 2.0 (the "License");
+  Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
 
       http://www.apache.org/licenses/LICENSE-2.0.txt
 
   Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
+  distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
@@ -26,7 +26,7 @@
     <x>0</x>
     <y>0</y>
     <width>449</width>
-    <height>404</height>
+    <height>513</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -35,7 +35,47 @@
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
     <layout class="QGridLayout" name="gridLayout_2">
-     <item row="3" column="4" colspan="2">
+     <item row="12" column="0" colspan="5">
+      <widget class="QGroupBox" name="groupBox">
+       <property name="title">
+        <string>Playback mode</string>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QRadioButton" name="m_singleCheck">
+          <property name="text">
+           <string>Single shot</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="m_loopCheck">
+          <property name="text">
+           <string>Loop</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item row="1" column="0" colspan="5">
+      <widget class="Line" name="line">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0" colspan="3">
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>Channels</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="3" colspan="2">
       <widget class="QLabel" name="m_durationLabel">
        <property name="font">
         <font>
@@ -48,7 +88,7 @@
        </property>
       </widget>
      </item>
-     <item row="5" column="4" colspan="2">
+     <item row="5" column="3" colspan="2">
       <widget class="QLabel" name="m_srateLabel">
        <property name="font">
         <font>
@@ -61,7 +101,7 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="1" colspan="3">
+     <item row="0" column="1" colspan="2">
       <widget class="QLabel" name="m_nameLabel">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
@@ -74,28 +114,28 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="5">
+     <item row="2" column="4">
       <widget class="QToolButton" name="m_fileButton">
        <property name="text">
         <string notr="true">...</string>
        </property>
       </widget>
      </item>
-     <item row="11" column="0" colspan="4">
+     <item row="11" column="0" colspan="3">
       <widget class="QLabel" name="label_9">
        <property name="text">
         <string>Audio device</string>
        </property>
       </widget>
      </item>
-     <item row="9" column="1" colspan="3">
+     <item row="9" column="1" colspan="2">
       <widget class="QLabel" name="label_7">
        <property name="text">
         <string>Fade out</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="4">
+     <item row="2" column="3">
       <widget class="QLabel" name="m_filenameLabel">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -117,7 +157,7 @@
        </property>
       </widget>
      </item>
-     <item row="8" column="4" colspan="2">
+     <item row="8" column="3" colspan="2">
       <widget class="QLineEdit" name="m_fadeInEdit">
        <property name="text">
         <string notr="true">.00</string>
@@ -127,14 +167,17 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="4" colspan="2">
+     <item row="0" column="3" colspan="2">
       <widget class="QLineEdit" name="m_nameEdit">
        <property name="toolTip">
         <string>Name of the function being edited</string>
        </property>
       </widget>
      </item>
-     <item row="4" column="4" colspan="2">
+     <item row="11" column="3" colspan="2">
+      <widget class="QComboBox" name="m_audioDevCombo"/>
+     </item>
+     <item row="4" column="3" colspan="2">
       <widget class="QLabel" name="m_channelsLabel">
        <property name="font">
         <font>
@@ -147,7 +190,7 @@
        </property>
       </widget>
      </item>
-     <item row="6" column="4" colspan="2">
+     <item row="6" column="3" colspan="2">
       <widget class="QLabel" name="m_bitrateLabel">
        <property name="font">
         <font>
@@ -160,17 +203,14 @@
        </property>
       </widget>
      </item>
-     <item row="11" column="4" colspan="2">
-      <widget class="QComboBox" name="m_audioDevCombo"/>
-     </item>
-     <item row="6" column="0" colspan="4">
+     <item row="6" column="0" colspan="3">
       <widget class="QLabel" name="label_2">
        <property name="text">
         <string>Bitrate</string>
        </property>
       </widget>
      </item>
-     <item row="9" column="4" colspan="2">
+     <item row="9" column="3" colspan="2">
       <widget class="QLineEdit" name="m_fadeOutEdit">
        <property name="text">
         <string notr="true">.00</string>
@@ -200,61 +240,6 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="0" colspan="6">
-      <widget class="Line" name="line">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="0" colspan="4">
-      <widget class="QLabel" name="label_4">
-       <property name="text">
-        <string>Channels</string>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="0" colspan="4">
-      <widget class="QLabel" name="label_3">
-       <property name="text">
-        <string>Sample rate</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0" colspan="4">
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>Duration</string>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="0" colspan="6">
-      <widget class="Line" name="line_2">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="12" column="0" colspan="6">
-      <spacer name="verticalSpacer">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="2" column="0" colspan="4">
-      <widget class="QLabel" name="label_5">
-       <property name="text">
-        <string>File name</string>
-       </property>
-      </widget>
-     </item>
      <item row="8" column="0">
       <widget class="QToolButton" name="m_speedDialButton">
        <property name="toolTip">
@@ -275,17 +260,58 @@
        </property>
       </widget>
      </item>
-     <item row="8" column="1" colspan="3">
-      <widget class="QLabel" name="label_6">
+     <item row="13" column="0" colspan="5">
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="2" column="0" colspan="3">
+      <widget class="QLabel" name="label_5">
        <property name="text">
-        <string>Fade in</string>
+        <string>File name</string>
        </property>
       </widget>
      </item>
-     <item row="10" column="0" colspan="6">
+     <item row="7" column="0" colspan="5">
+      <widget class="Line" name="line_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0" colspan="3">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>Sample rate</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0" colspan="3">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Duration</string>
+       </property>
+      </widget>
+     </item>
+     <item row="10" column="0" colspan="5">
       <widget class="Line" name="line_3">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="1" colspan="2">
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string>Fade in</string>
        </property>
       </widget>
      </item>
@@ -293,6 +319,15 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>m_nameEdit</tabstop>
+  <tabstop>m_fileButton</tabstop>
+  <tabstop>m_fadeInEdit</tabstop>
+  <tabstop>m_fadeOutEdit</tabstop>
+  <tabstop>m_audioDevCombo</tabstop>
+  <tabstop>m_speedDialButton</tabstop>
+  <tabstop>m_previewButton</tabstop>
+ </tabstops>
  <resources>
   <include location="qlcui.qrc"/>
   <include location="qlcui.qrc"/>

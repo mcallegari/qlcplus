@@ -27,6 +27,7 @@
 #include <QMutex>
 #include <QList>
 #include <QIcon>
+#include <QMap>
 
 #include "universe.h"
 #include "functionparent.h"
@@ -50,6 +51,7 @@ class FunctionUiState;
 #define KXMLQLCFunctionType "Type"
 #define KXMLQLCFunctionData "Data"
 #define KXMLQLCFunctionPath "Path"
+#define KXMLQLCFunctionHidden "Hidden"
 #define KXMLQLCFunctionBlendMode "BlendMode"
 
 #define KXMLQLCFunctionValue "Value"
@@ -93,20 +95,23 @@ public:
      */
     enum Type
     {
-        Undefined  = 0,
-        Scene      = 1 << 0,
-        Chaser     = 1 << 1,
-        EFX        = 1 << 2,
-        Collection = 1 << 3,
-        Script     = 1 << 4,
-        RGBMatrix  = 1 << 5,
-        Show       = 1 << 6,
-        Audio      = 1 << 7
+        Undefined      = 0,
+        SceneType      = 1 << 0,
+        ChaserType     = 1 << 1,
+        EFXType        = 1 << 2,
+        CollectionType = 1 << 3,
+        ScriptType     = 1 << 4,
+        RGBMatrixType  = 1 << 5,
+        ShowType       = 1 << 6,
+        SequenceType   = 1 << 7,
+        AudioType      = 1 << 8
 #if QT_VERSION >= 0x050000
-        , Video    = 1 << 8
+        , VideoType    = 1 << 9
 #endif
     };
-    Q_ENUMS(Type)
+#if QT_VERSION >= 0x050500
+    Q_ENUM(Type)
+#endif
 
     /**
      * Common attributes
@@ -246,7 +251,7 @@ public:
       * Subclasses should reimplement this */
     virtual QIcon getIcon() const;
 
-private:
+protected:
     Type m_type;
 
     /*********************************************************************
@@ -263,6 +268,19 @@ private:
     QString m_path;
 
     /*********************************************************************
+     * Visibility
+     *********************************************************************/
+public:
+    /** Set the function visibility status. Hidden Functions will not be displayed in the UI */
+    void setVisible(bool visible);
+
+    /** Retrieve the current visibility status */
+    bool isVisible() const;
+
+private:
+    bool m_visible;
+
+    /*********************************************************************
      * Common XML
      *********************************************************************/
 protected:
@@ -274,7 +292,9 @@ protected:
      *********************************************************************/
 public:
     enum RunOrder { Loop = 0, SingleShot, PingPong, Random };
-    Q_ENUMS(RunOrder)
+#if QT_VERSION >= 0x050500
+    Q_ENUM(RunOrder)
+#endif
 
 public:
     /**
@@ -318,7 +338,9 @@ private:
      *********************************************************************/
 public:
     enum Direction { Forward = 0, Backward };
-    Q_ENUMS(Direction)
+#if QT_VERSION >= 0x050500
+    Q_ENUM(Direction)
+#endif
 
 public:
     /**
@@ -362,10 +384,11 @@ private:
      *********************************************************************/
 public:
     enum TempoType { Original = -1, Time = 0, Beats = 1 };
-    Q_ENUMS(TempoType)
-
     enum FractionsType { NoFractions = 0, ByTwoFractions, AllFractions };
-    Q_ENUMS(FractionsType)
+#if QT_VERSION >= 0x050500
+    Q_ENUM(TempoType)
+    Q_ENUM(FractionsType)
+#endif
 
 public:
     /**
@@ -426,7 +449,9 @@ private:
      *********************************************************************/
 public:
     enum SpeedType { FadeIn = 0, Hold, FadeOut, Duration };
-    Q_ENUMS(SpeedType)
+#if QT_VERSION >= 0x050500
+    Q_ENUM(SpeedType)
+#endif
 
 public:
     /** Set the fade in time in milliseconds */
@@ -515,14 +540,18 @@ private:
      * UI State
      *********************************************************************/
 public:
-    FunctionUiState * uiState();
-    const FunctionUiState * uiState() const;
+    /** Get/Set a generic UI property specific to this Function */
+    QVariant uiStateValue(QString property);
+    void setUiStateValue(QString property, QVariant value);
+
+    /** Get the whole UI state map */
+    QMap<QString, QVariant> uiStateMap() const;
 
 private:
-    virtual FunctionUiState * createUiState();
-
-private:
-    FunctionUiState * m_uiState;
+    /** A generic map to temporary store key/value
+     *  pairs that the UI can use to remember how an editor
+     *  was configured. Note: this is not saved into XML */
+    QMap<QString, QVariant> m_uiState;
 
     /*********************************************************************
      * Fixtures

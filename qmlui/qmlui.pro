@@ -8,6 +8,8 @@ TARGET = qlcplus-qml
 
 QT += qml quick widgets svg
 QT += multimedia multimediawidgets
+QT += printsupport
+QT += 3dcore 3drender 3dquick 3dquickextras
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
@@ -15,29 +17,31 @@ QML_IMPORT_PATH =
 # Engine
 INCLUDEPATH     += ../engine/src ../engine/audio/src
 INCLUDEPATH     += virtualconsole
+INCLUDEPATH     += ../plugins/interfaces
 DEPENDPATH      += ../engine/src
 QMAKE_LIBDIR    += ../engine/src
 LIBS            += -lqlcplusengine
 #win32:QMAKE_LFLAGS += -shared
 win32:RC_FILE = qmlui.rc
 
-# Plugins
-INCLUDEPATH     += ../plugins/interfaces
+DEFINES += MESHESDIR=\\\"$$INSTALLROOT/$$DATADIR/meshes\\\"
 
 HEADERS += \
     app.h \
     audioeditor.h \
-    actionmanager.h \
     chasereditor.h \
     collectioneditor.h \
     contextmanager.h \
+    efxeditor.h \
     fixturebrowser.h \
+    fixturegroupeditor.h \
     fixturemanager.h \
     functioneditor.h \
     functionmanager.h \
     inputoutputmanager.h \
     listmodel.h \
     mainview2d.h \
+    mainview3d.h \
     mainviewdmx.h \
     modelselector.h \
     previewcontext.h \
@@ -45,22 +49,26 @@ HEADERS += \
     sceneeditor.h \
     showmanager.h \
     treemodel.h \
-    treemodelitem.h
+    treemodelitem.h \
+    videoeditor.h \
+    videoprovider.h
 
 SOURCES += main.cpp \
     app.cpp \
     audioeditor.cpp \
-    actionmanager.cpp \
     chasereditor.cpp \
     collectioneditor.cpp \
     contextmanager.cpp \
+    efxeditor.cpp \
     fixturebrowser.cpp \
+    fixturegroupeditor.cpp \
     fixturemanager.cpp \
     functioneditor.cpp \
     functionmanager.cpp \
     inputoutputmanager.cpp \
     listmodel.cpp \
     mainview2d.cpp \
+    mainview3d.cpp \
     mainviewdmx.cpp \
     modelselector.cpp \
     previewcontext.cpp \
@@ -68,8 +76,9 @@ SOURCES += main.cpp \
     sceneeditor.cpp \
     showmanager.cpp \
     treemodel.cpp \
-    treemodelitem.cpp
-    
+    treemodelitem.cpp \
+    videoeditor.cpp \
+    videoprovider.cpp
 
 #############################################
 #  Virtual Console

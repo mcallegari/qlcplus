@@ -23,7 +23,7 @@ function sendCMD(cmd) {
 }
 
 window.onload = function() {
- var url = 'ws://' + window.location.host + '/qlcplusWS';
+ var url = "ws://" + window.location.host + "/qlcplusWS";
  websocket = new WebSocket(url);
  websocket.onopen = function(ev) {
   //alert(\"Websocket open!\");
@@ -39,7 +39,7 @@ window.onload = function() {
 
  websocket.onmessage = function(ev) {
   //alert(ev.data);
-  var msgParams = ev.data.split('|');
+  var msgParams = ev.data.split("|");
   var obj = document.getElementById(msgParams[0]);
   if (msgParams[1] == "BUTTON") {
     if (msgParams[2] == 1) { 
@@ -52,17 +52,20 @@ window.onload = function() {
     }
   }
   else if (msgParams[1] == "SLIDER") {
+    // Slider message is <ID>|SLIDER|<SLIDER VALUE>|<DISPLAY VALUE>
     obj.value = msgParams[2];
     var labelObj = document.getElementById("slv" + msgParams[0]);
-    labelObj.innerHTML = msgParams[2];
+    labelObj.innerHTML = msgParams[3];
   }
   else if (msgParams[1] == "CUE") {
     setCueIndex(msgParams[0], msgParams[2]);
     var playBbj = document.getElementById("play" + msgParams[0]);
-    if (msgParams[2] == "-1")
+    if (msgParams[2] == "-1") {
       playBbj.innerHTML = "<img src=\"player_play.png\" width=\"27\">";
-    else
+    }
+    else {
       playBbj.innerHTML = "<img src=\"player_pause.png\" width=\"27\">";
+    }
   }
   else if (msgParams[1] == "FRAME") {
     setFramePage(msgParams[0], msgParams[2]);

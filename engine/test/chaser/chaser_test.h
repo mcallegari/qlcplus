@@ -36,6 +36,7 @@ private slots:
     void initial();
     void directionRunOrder();
     void steps();
+    void stepAt();
     void functionRemoval();
     void copyFrom();
     void createCopy();

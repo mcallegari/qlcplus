@@ -35,6 +35,8 @@ class ChaserStep;
 class MasterTimer;
 class QXmlStreamReader;
 
+#define KXMLQLCChaserSpeedModes "SpeedModes"
+
 /** @addtogroup engine_functions Functions
  * @{
  */
@@ -61,7 +63,7 @@ public:
     virtual ~Chaser();
 
     /** @reimp */
-    QIcon getIcon() const;
+    virtual QIcon getIcon() const;
 
 private:
     quint32 m_legacyHoldBus;
@@ -75,12 +77,6 @@ public:
 
     /** Copy the contents for this function from another function */
     bool copyFrom(const Function* function);
-
-    /*****************************************************************************
-     * Sorting
-     *****************************************************************************/
-    /** Comparator function for qSort() */
-    bool operator< (const Chaser& chs) const;
 
     /*********************************************************************
      * Chaser contents
@@ -133,7 +129,7 @@ public:
      *
      * @return The requested Chaser Step
      */
-    ChaserStep stepAt(int idx);
+    ChaserStep *stepAt(int idx);
 
     /**
      * Get the chaser's list of steps
@@ -159,76 +155,9 @@ public slots:
      */
     void slotFunctionRemoved(quint32 fid);
 
-private:
+protected:
     QList <ChaserStep> m_steps;
     QMutex m_stepListMutex;
-
-    /*********************************************************************
-     * Sequence mode
-     *********************************************************************/
-public:
-    /**
-     * Set this chaser to behave like a sequence and be a child of a scene
-     * @param sceneID The ID of the scene to bound
-     *
-     */
-    void enableSequenceMode(quint32 sceneID);
-
-    /**
-     * Returns if a chaser is a sequence or not
-     *
-     * @return The sequence flag
-     */
-    bool isSequence() const;
-
-    /**
-     * Returns the current bound scene ID
-     *
-     * @return The associated Scene for this Chaser in sequence mode
-     */
-    quint32 getBoundSceneID() const;
-
-    /**
-     * Set the time where the Chaser is placed over a timeline
-     *
-     * @param time The start time in milliseconds of the Chaser
-     */
-    void setStartTime(quint32 time);
-
-    /**
-     * Returns the time where the Chaser is placed over a timeline
-     *
-     * @return Start time in milliseconds of the Chaser
-     */
-    quint32 getStartTime() const;
-
-    /**
-     * Set the color to be used by a SequenceItem
-     */
-    void setColor(QColor color);
-
-    /**
-     * Get the color of this sequence
-     */
-    QColor getColor();
-
-    /** Set the lock state of the item */
-    void setLocked(bool locked);
-
-    /** Get the lock state of the item */
-    bool isLocked();
-
-private:
-    /** This Chaser is a Sequence that uses always the same Scene for each step */
-    bool m_isSequence;
-    /** The associated Scene of this Chaser when acting like a Sequence */
-    quint32 m_boundSceneID;
-    /** Absolute start time of this Chaser over a timeline (in milliseconds) */
-    quint32 m_startTime;
-    /** Color to use when displaying the sequence in the Show manager */
-    QColor m_color;
-    /** Flag to indicate if a Sequence item is locked in the Show Manager timeline */
-    bool m_locked;
 
     /*********************************************************************
      * Speed modes
@@ -239,7 +168,9 @@ public:
         Common,  //! Impose a common chaser-specific speed to all steps
         PerStep  //! Impose a step-specific speed to each step
     };
-    Q_ENUMS(SpeedMode)
+#if QT_VERSION >= 0x050500
+    Q_ENUM(SpeedMode)
+#endif
 
     void setFadeInMode(SpeedMode mode);
     SpeedMode fadeInMode() const;
@@ -253,7 +184,7 @@ public:
     static QString speedModeToString(SpeedMode mode);
     static SpeedMode stringToSpeedMode(const QString& str);
 
-private:
+protected:
     SpeedMode m_fadeInMode;
     SpeedMode m_fadeOutMode;
     SpeedMode m_holdMode;
@@ -261,15 +192,18 @@ private:
     /*********************************************************************
      * Save & Load
      *********************************************************************/
+protected:
+    bool loadXMLSpeedModes(QXmlStreamReader &root);
+
 public:
     /** @reimpl */
-    bool saveXML(QXmlStreamWriter *doc);
+    virtual bool saveXML(QXmlStreamWriter *doc);
 
     /** @reimpl */
-    bool loadXML(QXmlStreamReader &root);
+    virtual bool loadXML(QXmlStreamReader &root);
 
     /** @reimp */
-    void postLoad();
+    virtual void postLoad();
 
     /*********************************************************************
      * Start/Next/Previous

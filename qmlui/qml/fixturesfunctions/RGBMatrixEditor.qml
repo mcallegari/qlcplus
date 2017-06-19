@@ -21,7 +21,7 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.2
 import QtQuick.Dialogs 1.1
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 
 import "TimeUtils.js" as TimeUtils
 import "."
@@ -57,57 +57,16 @@ Rectangle
         }
     }
 
-    Rectangle
+    EditorTopBar
     {
         id: topBar
-        color: UISettings.bgMedium
-        width: rgbmeContainer.width
-        height: UISettings.iconSizeMedium
-        z: 2
+        text: rgbMatrixEditor.functionName
+        onTextChanged: rgbMatrixEditor.functionName = text
 
-        Rectangle
+        onBackClicked:
         {
-            id: backBox
-            width: UISettings.iconSizeMedium
-            height: width
-            color: "transparent"
-
-            Image
-            {
-                id: leftArrow
-                anchors.fill: parent
-                rotation: 180
-                source: "qrc:/arrow-right.svg"
-                sourceSize: Qt.size(width, height)
-            }
-            MouseArea
-            {
-                anchors.fill: parent
-                hoverEnabled: true
-                onEntered: backBox.color = "#666"
-                onExited: backBox.color = "transparent"
-                onClicked:
-                {
-                    functionManager.setEditorFunction(-1, false)
-                    requestView(-1, "qrc:/FunctionManager.qml")
-                }
-            }
-        }
-        TextInput
-        {
-            id: cNameEdit
-            x: leftArrow.width + 5
-            height: UISettings.iconSizeMedium
-            width: topBar.width - x
-            color: UISettings.fgMain
-            clip: true
-            text: rgbMatrixEditor.functionName
-            verticalAlignment: TextInput.AlignVCenter
-            font.family: UISettings.robotoFontName
-            font.pixelSize: UISettings.textSizeDefault
-            selectByMouse: true
-            Layout.fillWidth: true
-            onTextChanged: rgbMatrixEditor.functionName = text
+            functionManager.setEditorFunction(-1, false)
+            requestView(-1, "qrc:/FunctionManager.qml")
         }
     }
 
@@ -148,7 +107,7 @@ Rectangle
 
                 RobotoText
                 {
-                    label: qsTr("Fixture Group");
+                    label: qsTr("Fixture Group")
                     height: editorColumn.itemsHeight
                     onWidthChanged:
                     {
@@ -160,7 +119,7 @@ Rectangle
                 {
                     Layout.fillWidth: true
                     height: editorColumn.itemsHeight
-                    model: fixtureManager.groupsListModel
+                    model: fixtureGroupEditor.groupsListModel
                     currentValue: rgbMatrixEditor.fixtureGroup
                     onValueChanged: rgbMatrixEditor.fixtureGroup = value
                 }
@@ -198,7 +157,7 @@ Rectangle
                     height: editorColumn.itemsHeight
                     model: rgbMatrixEditor.algorithms
                     currentIndex: rgbMatrixEditor.algorithmIndex
-                    onCurrentTextChanged:
+                    onCurrentIndexChanged:
                     {
                         rgbMatrixEditor.algorithmIndex = currentIndex
                         paramSection.sectionContents = null
@@ -547,7 +506,7 @@ Rectangle
             }
         } // Column
     } // Flickable
-    ScrollBar { id: sbar; flickable: editorFlickable }
+    CustomScrollBar { id: sbar; flickable: editorFlickable }
 
     /* *************************************************************
      * Here starts all the Algorithm-specific Component definitions,
@@ -674,8 +633,8 @@ Rectangle
                     CustomSpinBox
                     {
                         height: parent.height
-                        minimumValue: -255
-                        maximumValue: 255
+                        from: -255
+                        to: 255
                         value: toffRow.algoOffset.width
                         onValueChanged:
                         {
@@ -689,8 +648,8 @@ Rectangle
                     CustomSpinBox
                     {
                         height: parent.height
-                        minimumValue: -255
-                        maximumValue: 255
+                        from: -255
+                        to: 255
                         value: toffRow.algoOffset.height
                         onValueChanged:
                         {
@@ -820,8 +779,8 @@ Rectangle
                     CustomSpinBox
                     {
                         height: parent.height
-                        minimumValue: -255
-                        maximumValue: 255
+                        from: -255
+                        to: 255
                         value: ioffRow.algoOffset.width
                         onValueChanged:
                         {
@@ -835,8 +794,8 @@ Rectangle
                     CustomSpinBox
                     {
                         height: parent.height
-                        minimumValue: -255
-                        maximumValue: 255
+                        from: -255
+                        to: 255
                         value: ioffRow.algoOffset.height
                         onValueChanged:
                         {
@@ -881,7 +840,7 @@ Rectangle
             function addSpinBox(propName, min, max, currentValue)
             {
                 spinComponent.createObject(scriptAlgoGrid,
-                              {"propName": propName, "minimumValue": min, "maximumValue": max, "value": currentValue });
+                              {"propName": propName, "from": min, "to": max, "value": currentValue });
                 if (spinComponent.status !== Component.Ready)
                     console.log("Spin component is not ready !!")
             }

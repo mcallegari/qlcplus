@@ -63,7 +63,6 @@ VideoEditor::VideoEditor(QWidget* parent, Video *video, Doc* doc)
     m_vcodecLabel->setText(video->videoCodec());
     m_acodecLabel->setText(video->audioCodec());
 
-
     int screenCount = 0;
     QDesktopWidget *desktop = qApp->desktop();
     if (desktop != NULL)
@@ -106,12 +105,6 @@ VideoEditor::VideoEditor(QWidget* parent, Video *video, Doc* doc)
 VideoEditor::~VideoEditor()
 {
     m_video->stopAndWait();
-/*
-    disconnect(m_video, SIGNAL(totalTimeChanged(qint64)),
-               this, SLOT(slotDurationChanged(qint64)));
-    disconnect(m_video, SIGNAL(metaDataChanged(QString,QVariant)),
-               this, SLOT(slotMetaDataChanged(QString,QVariant)));
-*/
 }
 
 void VideoEditor::slotNameEdited(const QString& text)
@@ -130,7 +123,7 @@ void VideoEditor::slotSourceFileClicked()
     dialog.setAcceptMode(QFileDialog::AcceptOpen);
 
     /* Append file filters to the dialog */
-    QStringList extList = Video::getCapabilities();
+    QStringList extList = Video::getVideoCapabilities();
 
     QStringList filters;
     qDebug() << Q_FUNC_INFO << "Extensions: " << extList.join(" ");

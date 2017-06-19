@@ -30,7 +30,7 @@ void QLCFixtureDef_Test::initial()
     QVERIFY(fd->manufacturer().isEmpty());
     QVERIFY(fd->model().isEmpty());
     QVERIFY(fd->name() == " ");
-    QVERIFY(fd->type() == "Dimmer");
+    QVERIFY(fd->typeToString(fd->type()) == "Dimmer");
     delete fd;
 }
 
@@ -64,8 +64,8 @@ void QLCFixtureDef_Test::name()
 void QLCFixtureDef_Test::type()
 {
     QLCFixtureDef* fd = new QLCFixtureDef();
-    fd->setType("Scanner");
-    QVERIFY(fd->type() == "Scanner");
+    fd->setType(QLCFixtureDef::Scanner);
+    QVERIFY(fd->typeToString(fd->type()) == "Scanner");
     delete fd;
 }
 
@@ -287,7 +287,7 @@ void QLCFixtureDef_Test::copy()
     QLCFixtureDef* fd = new QLCFixtureDef();
     fd->setManufacturer("Martin");
     fd->setModel("MAC600");
-    fd->setType("Moving Head");
+    fd->setType(QLCFixtureDef::MovingHead);
 
     QLCChannel* ch = new QLCChannel();
     ch->setName("TestChannel");
@@ -301,7 +301,7 @@ void QLCFixtureDef_Test::copy()
     QLCFixtureDef* copy = new QLCFixtureDef(fd);
     QVERIFY(copy->manufacturer() == "Martin");
     QVERIFY(copy->model() == "MAC600");
-    QVERIFY(copy->type() == "Moving Head");
+    QVERIFY(copy->typeToString(copy->type()) == "Moving Head");
 
     /* Verify that modes and channels get copied and that the channels in
        the copied mode are from the copied fixtureDef and not the one that
@@ -326,7 +326,7 @@ void QLCFixtureDef_Test::saveLoadXML()
     QLCFixtureDef* def = new QLCFixtureDef;
     def->setManufacturer("Foobar");
     def->setModel("Xyzzy");
-    def->setType("Blinder");
+    def->setType(QLCFixtureDef::Other);
 
     QLCChannel* ch = new QLCChannel;
     ch->setName("Whatever");

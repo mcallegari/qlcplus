@@ -60,15 +60,14 @@ FunctionSelection::FunctionSelection(QWidget* parent, Doc* doc)
     , m_newTrackItem(NULL)
     , m_multiSelection(true)
     , m_runningOnlyFlag(false)
-    , m_filter(Function::Scene | Function::Chaser | Function::Collection |
-               Function::EFX | Function::Script | Function::RGBMatrix | Function::Show | Function::Audio
+    , m_filter(Function::SceneType | Function::ChaserType | Function::SequenceType | Function::CollectionType |
+               Function::EFXType | Function::ScriptType | Function::RGBMatrixType | Function::ShowType | Function::AudioType
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-               | Function::Video
+               | Function::VideoType
 #endif
                )
     , m_disableFilters(0)
     , m_constFilter(false)
-    , m_showSequences(false)
 {
     Q_ASSERT(doc != NULL);
 
@@ -100,6 +99,9 @@ FunctionSelection::FunctionSelection(QWidget* parent, Doc* doc)
 
     connect(m_chaserCheck, SIGNAL(toggled(bool)),
             this, SLOT(slotChaserChecked(bool)));
+
+    connect(m_sequenceCheck, SIGNAL(toggled(bool)),
+            this, SLOT(slotSequenceChecked(bool)));
 
     connect(m_efxCheck, SIGNAL(toggled(bool)),
             this, SLOT(slotEFXChecked(bool)));
@@ -136,22 +138,24 @@ FunctionSelection::FunctionSelection(QWidget* parent, Doc* doc)
 
 int FunctionSelection::exec()
 {
-    m_sceneCheck->setChecked(m_filter & Function::Scene);
-    m_chaserCheck->setChecked(m_filter & Function::Chaser);
-    m_efxCheck->setChecked(m_filter & Function::EFX);
-    m_collectionCheck->setChecked(m_filter & Function::Collection);
-    m_scriptCheck->setChecked(m_filter & Function::Script);
-    m_rgbMatrixCheck->setChecked(m_filter & Function::RGBMatrix);
-    m_showCheck->setChecked(m_filter & Function::Show);
-    m_audioCheck->setChecked(m_filter & Function::Audio);
+    m_sceneCheck->setChecked(m_filter & Function::SceneType);
+    m_chaserCheck->setChecked(m_filter & Function::ChaserType);
+    m_sequenceCheck->setChecked(m_filter & Function::SequenceType);
+    m_efxCheck->setChecked(m_filter & Function::EFXType);
+    m_collectionCheck->setChecked(m_filter & Function::CollectionType);
+    m_scriptCheck->setChecked(m_filter & Function::ScriptType);
+    m_rgbMatrixCheck->setChecked(m_filter & Function::RGBMatrixType);
+    m_showCheck->setChecked(m_filter & Function::ShowType);
+    m_audioCheck->setChecked(m_filter & Function::AudioType);
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-    m_videoCheck->setChecked(m_filter & Function::Video);
+    m_videoCheck->setChecked(m_filter & Function::VideoType);
 #endif
 
     if (m_constFilter == true)
     {
         m_sceneCheck->setEnabled(false);
         m_chaserCheck->setEnabled(false);
+        m_sequenceCheck->setEnabled(false);
         m_efxCheck->setEnabled(false);
         m_collectionCheck->setEnabled(false);
         m_scriptCheck->setEnabled(false);
@@ -164,16 +168,17 @@ int FunctionSelection::exec()
     }
     else
     {
-        m_sceneCheck->setDisabled(m_disableFilters & Function::Scene);
-        m_chaserCheck->setDisabled(m_disableFilters & Function::Chaser);
-        m_efxCheck->setDisabled(m_disableFilters & Function::EFX);
-        m_collectionCheck->setDisabled(m_disableFilters & Function::Collection);
-        m_scriptCheck->setDisabled(m_disableFilters & Function::Script);
-        m_rgbMatrixCheck->setDisabled(m_disableFilters & Function::RGBMatrix);
-        m_showCheck->setDisabled(m_disableFilters & Function::Show);
-        m_audioCheck->setDisabled(m_disableFilters & Function::Audio);
+        m_sceneCheck->setDisabled(m_disableFilters & Function::SceneType);
+        m_chaserCheck->setDisabled(m_disableFilters & Function::ChaserType);
+        m_sequenceCheck->setDisabled(m_disableFilters & Function::SequenceType);
+        m_efxCheck->setDisabled(m_disableFilters & Function::EFXType);
+        m_collectionCheck->setDisabled(m_disableFilters & Function::CollectionType);
+        m_scriptCheck->setDisabled(m_disableFilters & Function::ScriptType);
+        m_rgbMatrixCheck->setDisabled(m_disableFilters & Function::RGBMatrixType);
+        m_showCheck->setDisabled(m_disableFilters & Function::ShowType);
+        m_audioCheck->setDisabled(m_disableFilters & Function::AudioType);
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-        m_videoCheck->setDisabled(m_disableFilters & Function::Video);
+        m_videoCheck->setDisabled(m_disableFilters & Function::VideoType);
 #endif
     }
 
@@ -274,11 +279,6 @@ QList <quint32> FunctionSelection::disabledFunctions() const
     return m_disabledFunctions;
 }
 
-void FunctionSelection::showSequences(bool show)
-{
-    m_showSequences = show;
-}
-
 /*****************************************************************************
  * Selection
  *****************************************************************************/
@@ -326,41 +326,22 @@ void FunctionSelection::refillTree()
         m_newTrackItem->setData(KColumnName, Qt::UserRole, Function::invalidId());
     }
 
-    // these need their parent scene to be loaded first
-    QList<Function*> sequences;
-
     /* Fill the tree */
     foreach (Function* function, m_doc->functions())
     {
         if (m_runningOnlyFlag == true && !function->isRunning())
             continue;
 
-        if (function->type() == Function::Chaser && qobject_cast<Chaser*>(function)->isSequence() == true)
-            sequences.append(function);
-        else if (m_filter & function->type())
+        if (function->isVisible() == false)
+            continue;
+
+        if (m_filter & function->type())
         {
             QTreeWidgetItem* item = m_funcTree->addFunction(function->id());
             if (disabledFunctions().contains(function->id()))
                 item->setFlags(0); // Disable the item
             else
                 item->setSelected(selection.contains(function->id()));
-        }
-    }
-
-    foreach (Function* function, sequences)
-    {
-        // Show sequence attached to its scene when chasers are filtered out
-        if ((m_filter & Function::Chaser) || (m_showSequences && (m_filter & Function::Scene)))
-        {
-            QTreeWidgetItem* item = m_funcTree->addFunction(function->id());
-            if (disabledFunctions().contains(function->id()))
-                item->setFlags(0); // Disables the item
-            else
-            {
-                item->setSelected(selection.contains(function->id()));
-                if (item->parent() != NULL)
-                    item->parent()->setFlags(item->parent()->flags() | Qt::ItemIsEnabled);
-            }
         }
     }
 
@@ -406,72 +387,81 @@ void FunctionSelection::slotItemDoubleClicked(QTreeWidgetItem* item)
 void FunctionSelection::slotSceneChecked(bool state)
 {
     if (state == true)
-        m_filter = (m_filter | Function::Scene);
+        m_filter = (m_filter | Function::SceneType);
     else
-        m_filter = (m_filter & ~Function::Scene);
+        m_filter = (m_filter & ~Function::SceneType);
     refillTree();
 }
 
 void FunctionSelection::slotChaserChecked(bool state)
 {
     if (state == true)
-        m_filter = (m_filter | Function::Chaser);
+        m_filter = (m_filter | Function::ChaserType);
     else
-        m_filter = (m_filter & ~Function::Chaser);
+        m_filter = (m_filter & ~Function::ChaserType);
+    refillTree();
+}
+
+void FunctionSelection::slotSequenceChecked(bool state)
+{
+    if (state == true)
+        m_filter = (m_filter | Function::SequenceType);
+    else
+        m_filter = (m_filter & ~Function::SequenceType);
     refillTree();
 }
 
 void FunctionSelection::slotEFXChecked(bool state)
 {
     if (state == true)
-        m_filter = (m_filter | Function::EFX);
+        m_filter = (m_filter | Function::EFXType);
     else
-        m_filter = (m_filter & ~Function::EFX);
+        m_filter = (m_filter & ~Function::EFXType);
     refillTree();
 }
 
 void FunctionSelection::slotCollectionChecked(bool state)
 {
     if (state == true)
-        m_filter = (m_filter | Function::Collection);
+        m_filter = (m_filter | Function::CollectionType);
     else
-        m_filter = (m_filter & ~Function::Collection);
+        m_filter = (m_filter & ~Function::CollectionType);
     refillTree();
 }
 
 void FunctionSelection::slotScriptChecked(bool state)
 {
     if (state == true)
-        m_filter = (m_filter | Function::Script);
+        m_filter = (m_filter | Function::ScriptType);
     else
-        m_filter = (m_filter & ~Function::Script);
+        m_filter = (m_filter & ~Function::ScriptType);
     refillTree();
 }
 
 void FunctionSelection::slotRGBMatrixChecked(bool state)
 {
     if (state == true)
-        m_filter = (m_filter | Function::RGBMatrix);
+        m_filter = (m_filter | Function::RGBMatrixType);
     else
-        m_filter = (m_filter & ~Function::RGBMatrix);
+        m_filter = (m_filter & ~Function::RGBMatrixType);
     refillTree();
 }
 
 void FunctionSelection::slotShowChecked(bool state)
 {
     if (state == true)
-        m_filter = (m_filter | Function::Show);
+        m_filter = (m_filter | Function::ShowType);
     else
-        m_filter = (m_filter & ~Function::Show);
+        m_filter = (m_filter & ~Function::ShowType);
     refillTree();
 }
 
 void FunctionSelection::slotAudioChecked(bool state)
 {
     if (state == true)
-        m_filter = (m_filter | Function::Audio);
+        m_filter = (m_filter | Function::AudioType);
     else
-        m_filter = (m_filter & ~Function::Audio);
+        m_filter = (m_filter & ~Function::AudioType);
     refillTree();
 }
 
@@ -479,9 +469,9 @@ void FunctionSelection::slotAudioChecked(bool state)
 void FunctionSelection::slotVideoChecked(bool state)
 {
     if (state == true)
-        m_filter = (m_filter | Function::Video);
+        m_filter = (m_filter | Function::VideoType);
     else
-        m_filter = (m_filter & ~Function::Video);
+        m_filter = (m_filter & ~Function::VideoType);
     refillTree();
 }
 #endif

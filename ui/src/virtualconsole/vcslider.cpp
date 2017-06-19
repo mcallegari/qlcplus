@@ -30,6 +30,7 @@
 #include <QPainter>
 #include <QString>
 #include <QSlider>
+#include <QTimer>
 #include <QDebug>
 #include <QLabel>
 #include <math.h>
@@ -54,6 +55,10 @@
 #include "scene.h"
 #include "efx.h"
 #include "doc.h"
+
+/** Number of DMXSource cycles to wait to consider a
+ *  playback value change stable */
+#define PLAYBACK_CHANGE_THRESHOLD   5  // roughly this is 100ms
 
 const quint8 VCSlider::sliderInputSourceId = 0;
 const quint8 VCSlider::overrideResetInputSourceId = 1;
@@ -101,7 +106,7 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
 
     m_playbackFunction = Function::invalidId();
     m_playbackValue = 0;
-    m_playbackValueChanged = false;
+    m_playbackChangeCounter = 0;
 
     m_widgetMode = WSlider;
 
@@ -138,6 +143,9 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
 
     connect(m_slider, SIGNAL(valueChanged(int)),
             this, SLOT(slotSliderMoved(int)));
+    connect(this, SIGNAL(requestSliderUpdate(int)),
+            m_slider, SLOT(setValue(int)));
+
     m_externalMovement = false;
 
     /* Put stretchable space after the slider (to its right side) */
@@ -601,12 +609,11 @@ bool VCSlider::channelsMonitorEnabled() const
 
 void VCSlider::setLevelValue(uchar value)
 {
-    m_levelValueMutex.lock();
+    QMutexLocker locker(&m_levelValueMutex);
     m_levelValue = value;
     if (m_monitorEnabled == true)
         m_monitorValue = m_levelValue;
     m_levelValueChanged = true;
-    m_levelValueMutex.unlock();
 }
 
 uchar VCSlider::levelValue() const
@@ -636,9 +643,11 @@ void VCSlider::slotMonitorDMXValueChanged(int value)
 
     if (m_isOverriding == false)
     {
-        m_levelValueMutex.lock();
-        m_levelValue = m_monitorValue;
-        m_levelValueMutex.unlock();
+        {
+            QMutexLocker locker(&m_levelValueMutex);
+            m_levelValue = m_monitorValue;
+        }
+
         if (m_slider)
             m_slider->blockSignals(true);
         setSliderValue(value, true);
@@ -832,13 +841,12 @@ quint32 VCSlider::playbackFunction() const
 
 void VCSlider::setPlaybackValue(uchar value)
 {
-    if (m_externalMovement == true)
+    if (m_externalMovement == true || value == m_playbackValue)
         return;
 
-    m_playbackValueMutex.lock();
+    QMutexLocker locker(&m_playbackValueMutex);
     m_playbackValue = value;
-    m_playbackValueChanged = true;
-    m_playbackValueMutex.unlock();
+    m_playbackChangeCounter = 5;
 }
 
 uchar VCSlider::playbackValue() const
@@ -856,8 +864,7 @@ void VCSlider::notifyFunctionStarting(quint32 fid, qreal functionIntensity)
 
     if (m_slider != NULL)
     {
-        int value = SCALE(1.0 - functionIntensity,
-                          0, 1.0,
+        int value = SCALE(1.0 - functionIntensity, 0, 1.0,
                           m_slider->minimum(), m_slider->maximum());
         if (m_slider->value() > value)
         {
@@ -895,12 +902,13 @@ void VCSlider::slotPlaybackFunctionStopped(quint32 fid)
 
 void VCSlider::slotPlaybackFunctionIntensityChanged(int attrIndex, qreal fraction)
 {
-    if (attrIndex != 0)
+    if (attrIndex != Function::Intensity || m_playbackChangeCounter)
         return;
 
     m_externalMovement = true;
     if (m_slider)
         m_slider->setValue(int(floor((qreal(m_slider->maximum()) * fraction) + 0.5)));
+    updateFeedback();
     m_externalMovement = false;
 }
 
@@ -1090,41 +1098,41 @@ void VCSlider::writeDMXPlayback(MasterTimer* timer, QList<Universe *> ua)
 {
     Q_UNUSED(ua);
 
+    QMutexLocker locker(&m_playbackValueMutex);
+
+    if (m_playbackChangeCounter == 0)
+        return;
+
     Function* function = m_doc->function(m_playbackFunction);
     if (function == NULL || mode() == Doc::Design)
         return;
 
-    /* Grab current values inside a locked mutex */
-    m_playbackValueMutex.lock();
     uchar value = m_playbackValue;
-    bool changed = m_playbackValueChanged;
     qreal pIntensity = qreal(value) / qreal(UCHAR_MAX);
-    m_playbackValueChanged = false;
-    m_playbackValueMutex.unlock();
 
-    if (changed == true)
+    if (value == 0)
     {
-        if (value == 0)
-        {
-            // Make sure we ignore the fade out time
-            function->adjustAttribute(0, Function::Intensity);
-            if (function->stopped() == false)
-                function->stop(functionParent());
-        }
-        else
-        {
-            if (function->stopped() == true)
-            {
-                // Since this function is started by a fader, its fade in time
-                // is decided by the fader movement.
-                function->start(
-                        timer, functionParent(),
-                        0, 0, Function::defaultSpeed(), Function::defaultSpeed());
-            }
-            emit functionStarting(m_playbackFunction, pIntensity);
-            function->adjustAttribute(pIntensity * intensity(), Function::Intensity);
-        }
+        // Make sure we ignore the fade out time
+        function->adjustAttribute(0, Function::Intensity);
+        if (function->stopped() == false)
+            function->stop(functionParent());
     }
+    else
+    {
+        if (function->stopped() == true)
+        {
+#if 0 // temporarily revert #699 until a better solution is found
+            // Since this function is started by a fader, its fade in time
+            // is decided by the fader movement.
+            function->start(timer, functionParent(),
+                            0, 0, Function::defaultSpeed(), Function::defaultSpeed());
+#endif
+            function->start(timer, functionParent());
+        }
+        emit functionStarting(m_playbackFunction, pIntensity);
+        function->adjustAttribute(pIntensity * intensity(), Function::Intensity);
+    }
+    m_playbackChangeCounter--;
 }
 
 /*****************************************************************************
@@ -1164,22 +1172,57 @@ QString VCSlider::topLabelText()
 
 void VCSlider::setSliderValue(uchar value, bool noScale)
 {
+    if (m_slider == NULL)
+        return;
+
     float val = value;
 
-    if (m_slider)
+    /* Scale from input value range to this slider's range */
+    if (!noScale)
     {
-        /* Scale from input value range to this slider's range */
-        if (!noScale)
-        {
-            val = SCALE((float) value, (float) 0, (float) UCHAR_MAX,
-                    (float) m_slider->minimum(),
-                    (float) m_slider->maximum());
-        }
+        val = SCALE((float) value, (float) 0, (float) UCHAR_MAX,
+                (float) m_slider->minimum(),
+                (float) m_slider->maximum());
+    }
 
-        if (m_slider->invertedAppearance() == true)
-            m_slider->setValue(m_slider->maximum() - (int) val);
-        else
-            m_slider->setValue((int) val);
+    if (m_slider->invertedAppearance() == true)
+        val = (uchar)m_slider->maximum() - val + (uchar)m_slider->minimum();
+
+    /* Request the UI to update */
+    if (m_slider->isSliderDown() == false && val != m_slider->value())
+       emit requestSliderUpdate(val);
+
+    switch (sliderMode())
+    {
+        case Level:
+        {
+            if (m_monitorEnabled == true && m_isOverriding == false && m_slider->isSliderDown())
+            {
+                m_priority = DMXSource::Override;
+                m_doc->masterTimer()->requestNewPriority(this);
+                m_resetButton->setStyleSheet(QString("QToolButton{ background: red; }"));
+                m_isOverriding = true;
+            }
+            setLevelValue(value);
+            setClickAndGoWidgetFromLevel(value);
+        }
+        break;
+
+        case Playback:
+        {
+            setPlaybackValue(value);
+        }
+        break;
+
+        case Submaster:
+        {
+            setLevelValue(value);
+            emitSubmasterValue();
+        }
+        break;
+
+        default:
+        break;
     }
 }
 
@@ -1259,6 +1302,8 @@ void VCSlider::setWidgetStyle(SliderWidgetStyle mode)
         connect(m_slider, SIGNAL(valueChanged(int)),
                 this, SLOT(slotSliderMoved(int)));
     }
+    connect(this, SIGNAL(requestSliderUpdate(int)),
+            m_slider, SLOT(setValue(int)));
     m_widgetMode = mode;
     update();
 }
@@ -1305,41 +1350,14 @@ void VCSlider::updateFeedback()
 
 void VCSlider::slotSliderMoved(int value)
 {
-    switch (sliderMode())
-    {
-        case Level:
-        {
-            if (m_monitorEnabled == true && m_isOverriding == false && m_slider->isSliderDown())
-            {
-                m_priority = DMXSource::Override;
-                m_doc->masterTimer()->requestNewPriority(this);
-                m_resetButton->setStyleSheet(QString("QToolButton{ background: red; }"));
-                m_isOverriding = true;
-            }
-            setLevelValue(value);
-            setClickAndGoWidgetFromLevel(value);
-        }
-        break;
-
-        case Playback:
-        {
-            setPlaybackValue(value);
-        }
-        break;
-
-        case Submaster:
-        {
-            setLevelValue(value);
-            emitSubmasterValue();
-        }
-        break;
-
-        default:
-        break;
-    }
-
     /* Set text for the top label */
     setTopLabelText(value);
+
+    /* Do the rest only if the slider is being moved by the user */
+    if (m_slider->isSliderDown() == false)
+        return;
+
+    setSliderValue(value);
 
     updateFeedback();
 }
@@ -1361,8 +1379,7 @@ QString VCSlider::bottomLabelText()
  * External input
  *****************************************************************************/
 
-void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel,
-                                     uchar value)
+void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
 {
     /* Don't let input data through in design mode or if disabled */
     if (acceptsInput() == false)
@@ -1372,14 +1389,8 @@ void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel,
 
     if (checkInputSource(universe, pagedCh, value, sender(), sliderInputSourceId))
     {
-        /* Scale from input value range to this slider's range */
-
         if (m_slider)
         {
-            float val = SCALE((float) value, (float) 0, (float) UCHAR_MAX,
-                              (float) m_slider->minimum(),
-                              (float) m_slider->maximum());
-
             if (m_monitorEnabled == true && m_isOverriding == false)
             {
                 m_priority = DMXSource::Override;
@@ -1388,10 +1399,7 @@ void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel,
                 m_isOverriding = true;
             }
 
-            if (m_slider->invertedAppearance() == true)
-                m_slider->setValue((m_slider->maximum() - (int) val) + m_slider->minimum());
-            else
-                m_slider->setValue((int) val);
+            setSliderValue(value);
         }
     }
     else if (checkInputSource(universe, pagedCh, value, sender(), overrideResetInputSourceId))

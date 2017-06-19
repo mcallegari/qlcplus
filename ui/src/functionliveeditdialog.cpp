@@ -62,7 +62,7 @@ FunctionLiveEditDialog::FunctionLiveEditDialog(Doc *doc, quint32 fid, QWidget *p
 
     switch(func->type())
     {
-        case Function::Scene:
+        case Function::SceneType:
         {
             bool blindMode = true;
             if (func->isRunning())
@@ -72,13 +72,13 @@ FunctionLiveEditDialog::FunctionLiveEditDialog(Doc *doc, quint32 fid, QWidget *p
             m_editor = sceneEditor;
         }
         break;
-        case Function::Chaser:
+        case Function::ChaserType:
             m_editor = new ChaserEditor(m_scrollArea, qobject_cast<Chaser*> (func), m_doc, true);
         break;
-        case Function::EFX:
+        case Function::EFXType:
             m_editor = new EFXEditor(m_scrollArea, qobject_cast<EFX*> (func), m_doc);
         break;
-        case Function::RGBMatrix:
+        case Function::RGBMatrixType:
             m_editor = new RGBMatrixEditor(m_scrollArea, qobject_cast<RGBMatrix*> (func), m_doc);
         break;
         default:

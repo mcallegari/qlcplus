@@ -27,25 +27,24 @@
 #include "doc.h"
 
 #define KXMLQLCVideoSource "Source"
-#define KXMLQLCVideoStartTime "StartTime"
-#define KXMLQLCVideoColor "Color"
-#define KXMLQLCVideoLocked "Locked"
 #define KXMLQLCVideoScreen "Screen"
 #define KXMLQLCVideoFullscreen "Fullscreen"
+
+const QStringList Video::m_defaultVideoCaps = QStringList() << "*.avi" << "*.wmv" << "*.mkv" << "*.mp4" << "*.mpg" << "*.mpeg" << "*.flv";
+const QStringList Video::m_defaultPictureCaps = QStringList() << "*.png" << "*.bmp" << "*.jpg" << "*.jpeg" << "*.gif";
 
 /*****************************************************************************
  * Initialization
  *****************************************************************************/
 
 Video::Video(Doc* doc)
-  : Function(doc, Function::Video)
+  : Function(doc, Function::VideoType)
   , m_doc(doc)
-  , m_startTime(UINT_MAX)
-  , m_color(147, 140, 20)
-  , m_locked(false)
   , m_sourceUrl("")
+  , m_isPicture(false)
   , m_videoDuration(0)
   , m_resolution(QSize(0,0))
+  , m_customGeometry(QRect())
   , m_screen(0)
   , m_fullscreen(false)
 {
@@ -97,18 +96,19 @@ bool Video::copyFrom(const Function* function)
 
     setSourceUrl(vid->m_sourceUrl);
     m_videoDuration = vid->m_videoDuration;
-    m_color = vid->m_color;
 
     return Function::copyFrom(function);
 }
 
-QStringList Video::getCapabilities()
+QStringList Video::getVideoCapabilities()
 {
     QStringList caps;
     QStringList mimeTypes = QMediaPlayer::supportedMimeTypes();
     qDebug() << "Supported video types:" << caps;
     if (mimeTypes.isEmpty())
-        caps << "*.avi" << "*.wmv" << "*.mkv" << "*.mp4" << "*.mpg" << "*.mpeg" << "*.flv";
+    {
+        return m_defaultVideoCaps;
+    }
     else
     {
         foreach(QString mime, mimeTypes)
@@ -130,19 +130,14 @@ QStringList Video::getCapabilities()
     return caps;
 }
 
+QStringList Video::getPictureCapabilities()
+{
+    return m_defaultPictureCaps;
+}
+
 /*********************************************************************
  * Properties
  *********************************************************************/
-void Video::setStartTime(quint32 time)
-{
-    m_startTime = time;
-}
-
-quint32 Video::getStartTime() const
-{
-    return m_startTime;
-}
-
 void Video::setTotalDuration(quint32 duration)
 {
     m_videoDuration = (qint64)duration;
@@ -154,15 +149,29 @@ quint32 Video::totalDuration()
     return (quint32)m_videoDuration;
 }
 
+QSize Video::resolution()
+{
+    return m_resolution;
+}
+
 void Video::setResolution(QSize size)
 {
     m_resolution = size;
     emit metaDataChanged("Resolution", QVariant(m_resolution));
 }
 
-QSize Video::resolution()
+QRect Video::customGeometry()
 {
-    return m_resolution;
+    return m_customGeometry;
+}
+
+void Video::setCustomGeometry(QRect rect)
+{
+    if (rect == m_customGeometry)
+        return;
+
+    m_customGeometry = rect;
+    emit customGeometryChanged(rect);
 }
 
 void Video::setAudioCodec(QString codec)
@@ -187,30 +196,15 @@ QString Video::videoCodec()
     return m_videoCodec;
 }
 
-void Video::setColor(QColor color)
-{
-    m_color = color;
-}
-
-QColor Video::getColor()
-{
-    return m_color;
-}
-
-void Video::setLocked(bool locked)
-{
-    m_locked = locked;
-}
-
-bool Video::isLocked()
-{
-    return m_locked;
-}
-
 bool Video::setSourceUrl(QString filename)
 {
     m_sourceUrl = filename;
     qDebug() << Q_FUNC_INFO << "Source name set:" << m_sourceUrl;
+
+    QString fileExt = "*" + filename.mid(filename.lastIndexOf('.'));
+
+    if (m_defaultPictureCaps.contains(fileExt))
+        m_isPicture = true;
 
     if (m_sourceUrl.contains("://"))
     {
@@ -228,6 +222,11 @@ bool Video::setSourceUrl(QString filename)
     emit sourceChanged(m_sourceUrl);
 
     return true;
+}
+
+bool Video::isPicture() const
+{
+    return m_isPicture;
 }
 
 QString Video::sourceUrl()
@@ -248,6 +247,9 @@ int Video::screen()
 
 void Video::setFullscreen(bool enable)
 {
+    if (m_fullscreen == enable)
+        return;
+
     m_fullscreen = enable;
     emit changed(id());
 }
@@ -319,7 +321,7 @@ bool Video::loadXML(QXmlStreamReader &root)
         return false;
     }
 
-    if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::Video))
+    if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::VideoType))
     {
         qWarning() << Q_FUNC_INFO << root.attributes().value(KXMLQLCFunctionType).toString()
                    << "is not Video";
@@ -333,12 +335,6 @@ bool Video::loadXML(QXmlStreamReader &root)
         if (root.name() == KXMLQLCVideoSource)
         {
             QXmlStreamAttributes attrs = root.attributes();
-            if (attrs.hasAttribute(KXMLQLCVideoStartTime))
-                setStartTime(attrs.value(KXMLQLCVideoStartTime).toString().toUInt());
-            if (attrs.hasAttribute(KXMLQLCVideoColor))
-                setColor(QColor(attrs.value(KXMLQLCVideoColor).toString()));
-            if (attrs.hasAttribute(KXMLQLCVideoLocked))
-                setLocked(true);
             if (attrs.hasAttribute(KXMLQLCVideoScreen))
                 setScreen(attrs.value(KXMLQLCVideoScreen).toString().toInt());
             if (attrs.hasAttribute(KXMLQLCVideoFullscreen))

@@ -19,9 +19,9 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
-import QtQuick.Controls 1.2
+import QtQuick.Controls 2.1
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 import "."
 
 Rectangle
@@ -60,8 +60,9 @@ Rectangle
 
                 CustomCheckBox
                 {
-                    width: UISettings.iconSizeMedium
-                    height: width
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+                    ButtonGroup.group: ButtonGroup { }
                     checked: widgetRef ? widgetRef.showHeader : false
                     onCheckedChanged: if (widgetRef) widgetRef.showHeader = checked
                 }
@@ -76,8 +77,9 @@ Rectangle
 
                 CustomCheckBox
                 {
-                    width: UISettings.iconSizeMedium
-                    height: width
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+                    ButtonGroup.group: ButtonGroup { }
                     checked: widgetRef ? widgetRef.showEnable : false
                     onCheckedChanged: if (widgetRef) widgetRef.showEnable = checked
                 }
@@ -106,8 +108,9 @@ Rectangle
 
                 CustomCheckBox
                 {
-                    width: UISettings.iconSizeMedium
-                    height: width
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+                    ButtonGroup.group: ButtonGroup { }
                     checked: widgetRef ? widgetRef.multiPageMode : false
                     onCheckedChanged: if (widgetRef) widgetRef.multiPageMode = checked
                 }
@@ -122,8 +125,9 @@ Rectangle
 
                 CustomCheckBox
                 {
-                    width: UISettings.iconSizeMedium
-                    height: width
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+                    ButtonGroup.group: ButtonGroup { }
                     //checked: widgetRef ? widgetRef.multiPageMode : false
                     //onCheckedChanged: if (checked && widgetRef) widgetRef.multiPageMode = checked
                 }
@@ -144,8 +148,8 @@ Rectangle
                     {
                         Layout.fillWidth: true
                         height: gridItemsHeight
-                        minimumValue: 1
-                        maximumValue: 100
+                        from: 1
+                        to: 100
                     }
                 }
 

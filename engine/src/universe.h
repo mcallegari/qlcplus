@@ -228,6 +228,17 @@ public:
      */
     void dumpOutput(const QByteArray& data);
 
+    /**
+     * @brief dumpBlackout
+     */
+    void dumpBlackout();
+
+    /**
+     * @brief blackoutData
+     * @return
+     */
+    const QByteArray& blackoutData();
+
     void flushInput();
 
 protected slots:

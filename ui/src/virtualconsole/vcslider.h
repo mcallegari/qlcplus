@@ -357,18 +357,18 @@ public:
     quint32 playbackFunction() const;
 
     /**
-     * Set the level of the currently selected playback function.
-     *
-     * @param level The current playback function's level.
-     */
-    void setPlaybackValue(uchar value);
-
-    /**
      * Get the level of the currently selected playback function.
      *
      * @return The current playback function level.
      */
     uchar playbackValue() const;
+
+    /**
+     * Set the level of the currently selected playback function.
+     *
+     * @param level The current playback function's level.
+     */
+    void setPlaybackValue(uchar value);
 
     /** @reimp */
     virtual void notifyFunctionStarting(quint32 fid, qreal intensity);
@@ -381,7 +381,7 @@ protected slots:
 protected:
     quint32 m_playbackFunction;
     uchar m_playbackValue;
-    bool m_playbackValueChanged;
+    int m_playbackChangeCounter;
     QMutex m_playbackValueMutex;
 
 private:
@@ -456,6 +456,9 @@ public:
     SliderWidgetStyle stringToWidgetStyle(QString style);
 
     void updateFeedback();
+
+signals:
+    void requestSliderUpdate(int value);
 
 private slots:
     void slotSliderMoved(int value);

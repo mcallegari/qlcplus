@@ -26,24 +26,24 @@
 #include "audioparameters.h"
 
 AudioParameters::AudioParameters()
+    : m_srate(0)
+    , m_chan(0)
+    , m_format(PCM_S16LE)
 {
-    m_srate = 0;
-    m_chan = 0;
-    m_format = PCM_S16LE;
 }
 
 AudioParameters::AudioParameters(const AudioParameters &other)
+    : m_srate(other.sampleRate())
+    , m_chan( other.channels())
+    , m_format(other.format())
 {
-    m_srate = other.sampleRate();
-    m_chan = other.channels();
-    m_format = other.format();
 }
 
 AudioParameters::AudioParameters(quint32 srate, int chan, AudioFormat  format)
+    : m_srate(srate)
+    , m_chan(chan)
+    , m_format(format)
 {
-    m_srate = srate;
-    m_chan = chan;
-    m_format = format;
 }
 
 void AudioParameters::operator=(const AudioParameters &p)
@@ -98,3 +98,4 @@ int AudioParameters::sampleSize(AudioFormat format)
     }
     return 2;
 }
+

@@ -54,6 +54,7 @@
 #include "efxeditor.h"
 #include "rgbmatrix.h"
 #include "function.h"
+#include "sequence.h"
 #include "apputil.h"
 #include "chaser.h"
 #include "script.h"
@@ -166,52 +167,8 @@ void FunctionManager::slotDocLoading()
 void FunctionManager::slotDocLoaded()
 {
     connect(m_doc, SIGNAL(functionAdded(quint32)), this, SLOT(slotFunctionAdded(quint32)));
-    // Refresh in case of sequences loaded after their parent scene
-    m_tree->updateTree();
-    // Once the doc is completely loaded, update all the steps of Chasers acting like sequences
-    foreach (Function *f, m_doc->functionsByType(Function::Chaser))
-    {
-        Chaser *chaser = qobject_cast<Chaser *>(f);
-        if (chaser->isSequence() && chaser->getBoundSceneID() != Scene::invalidId())
-        {
-            Function *sceneFunc = m_doc->function(chaser->getBoundSceneID());
-            if (sceneFunc == NULL || sceneFunc->type() != Function::Scene)
-                continue;
 
-            Scene *scene = qobject_cast<Scene*>(sceneFunc);
-            scene->setChildrenFlag(true);
-            int i = 0;
-            int sceneValuesCount = scene->values().count();
-            foreach(ChaserStep step, chaser->steps())
-            {
-                // Since I saved only the non-zero values in the XML files, at the first chance I need
-                // to fix the values against the bound scene, and restore all the zero values previously there
-                //qDebug() << Q_FUNC_INFO << "Scene values: " << scene->values().count() << ", step values: " <<  step.values.count();
-                if (sceneValuesCount != step.values.count())
-                {
-                    int j = 0;
-                    // 1- copy the list
-                    QList <SceneValue> tmpList = step.values;
-                    // 2- clear it
-                    step.values.clear();
-                    // 3- fix it
-                    QListIterator <SceneValue> it(scene->values());
-                    while (it.hasNext() == true)
-                    {
-                        SceneValue scv(it.next());
-                        scv.value = 0;
-                        if (j < tmpList.count() && tmpList.at(j) == scv)
-                            step.values.append(tmpList.at(j++));
-                        else
-                            step.values.append(scv);
-                    }
-                    chaser->replaceStep(step, i);
-                    //qDebug() << "************ STEP FIXED *********** total values: " << step.values.count();
-                }
-                i++;
-            }
-        }
-    }
+    m_tree->updateTree();
 }
 
 void FunctionManager::slotFunctionNameChanged(quint32 id)
@@ -262,7 +219,6 @@ void FunctionManager::initActions()
     m_addSequenceAction->setShortcut(QKeySequence("CTRL+Q"));
     connect(m_addSequenceAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddSequence()));
-    m_addSequenceAction->setEnabled(false);
 
     m_addCollectionAction = new QAction(QIcon(":/collection.png"),
                                         tr("New c&ollection"), this);
@@ -395,24 +351,25 @@ void FunctionManager::slotAddChaser()
 
 void FunctionManager::slotAddSequence()
 {
-    Function* f = new Chaser(m_doc);
-    QList <QTreeWidgetItem*> selection(m_tree->selectedItems());
-    if (selection.size() == 1)
-    {
-        Chaser *chs = qobject_cast<Chaser*>(f);
-        Scene *boundScene = qobject_cast<Scene*>(m_doc->function(m_tree->itemFunctionId(selection.first())));
-        boundScene->setChildrenFlag(true);
-        chs->enableSequenceMode(m_tree->itemFunctionId(selection.first()));
-        chs->setRunOrder(Function::SingleShot);
-    }
+    // a Sequence depends on a Scene, so let's create
+    // a new hidden Scene first
+    Function *scene = new Scene(m_doc);
+    scene->setVisible(false);
 
-    if (m_doc->addFunction(f) == true)
+    if (m_doc->addFunction(scene) == true)
     {
-        QTreeWidgetItem* item = m_tree->functionItem(f);
-        Q_ASSERT(item != NULL);
-        f->setName(QString("%1 %2").arg(tr("New Sequence")).arg(f->id()));
-        m_tree->scrollToItem(item);
-        m_tree->setCurrentItem(item);
+        Function* f = new Sequence(m_doc);
+        Sequence *sequence = qobject_cast<Sequence *>(f);
+        sequence->setBoundSceneID(scene->id());
+
+        if (m_doc->addFunction(sequence) == true)
+        {
+            QTreeWidgetItem* item = m_tree->functionItem(f);
+            Q_ASSERT(item != NULL);
+            f->setName(QString("%1 %2").arg(tr("New Sequence")).arg(f->id()));
+            m_tree->scrollToItem(item);
+            m_tree->setCurrentItem(item);
+        }
     }
 }
 
@@ -531,7 +488,7 @@ void FunctionManager::slotAddVideo()
     dialog.setAcceptMode(QFileDialog::AcceptOpen);
 
     /* Append file filters to the dialog */
-    QStringList extList = Video::getCapabilities();
+    QStringList extList = Video::getVideoCapabilities();
 
     QStringList filters;
     qDebug() << Q_FUNC_INFO << "Extensions: " << extList.join(" ");
@@ -799,32 +756,40 @@ void FunctionManager::deleteSelectedFunctions()
     QListIterator <QTreeWidgetItem*> it(m_tree->selectedItems());
     while (it.hasNext() == true)
     {
-        bool isSequence = false;
         QTreeWidgetItem* item(it.next());
         quint32 fid = m_tree->itemFunctionId(item);
         Function *func = m_doc->function(fid);
         if (func == NULL)
             continue;
 
-        if (func->type() == Function::Chaser && qobject_cast<const Chaser*>(func)->isSequence() == true)
-            isSequence = true;
-
         // Stop running tests before deleting function
         if (m_editor != NULL)
         {
-            if (func->type() == Function::RGBMatrix)
+            if (func->type() == Function::RGBMatrixType)
                 static_cast<RGBMatrixEditor*>(m_editor)->stopTest();
-            else if (func->type() == Function::EFX)
+            else if (func->type() == Function::EFXType)
                 static_cast<EFXEditor*>(m_editor)->stopTest();
-            else if (func->type() == Function::Chaser)
+            else if (func->type() == Function::ChaserType || func->type() == Function::SequenceType)
                 static_cast<ChaserEditor*>(m_editor)->stopTest();
         }
 
-        m_doc->deleteFunction(fid);
+        /* When deleting a Sequence, check if the bound Scene ID is still used
+         * in the Doc. If not, get rid of it cause otherwise it would stay in the project
+         * forever since bound Scenes are hidden */
+        if (func->type() == Function::SequenceType)
+        {
+            Sequence *seq = qobject_cast<Sequence *>(func);
+            quint32 boundSceneID = seq->boundSceneID();
+            m_doc->deleteFunction(fid);
+            if (m_doc->getUsage(boundSceneID).count() == 0)
+                m_doc->deleteFunction(boundSceneID);
+        }
+        else
+            m_doc->deleteFunction(fid);
 
         QTreeWidgetItem* parent = item->parent();
         delete item;
-        if (parent != NULL && parent->childCount() == 0 && isSequence == false)
+        if (parent != NULL && parent->childCount() == 0)
         {
             if (m_tree->indexOfTopLevelItem(parent) >= 0)
                 m_tree->deleteFolder(parent);
@@ -899,28 +864,33 @@ void FunctionManager::editFunction(Function* function)
 {
     deleteCurrentEditor();
 
-    m_addSequenceAction->setEnabled(false);
-
     if (function == NULL)
         return;
 
     // Choose the editor by the selected function's type
-    if (function->type() == Function::Scene)
+    if (function->type() == Function::SceneType)
     {
         m_scene_editor = new SceneEditor(m_vsplitter->widget(1), qobject_cast<Scene*> (function), m_doc, true);
         connect(this, SIGNAL(functionManagerActive(bool)),
                 m_scene_editor, SLOT(slotFunctionManagerActive(bool)));
-        m_addSequenceAction->setEnabled(true);
     }
-    else if (function->type() == Function::Chaser)
+    else if (function->type() == Function::ChaserType)
     {
         Chaser *chaser = qobject_cast<Chaser*> (function);
         m_editor = new ChaserEditor(m_hsplitter->widget(1), chaser, m_doc);
         connect(this, SIGNAL(functionManagerActive(bool)),
                 m_editor, SLOT(slotFunctionManagerActive(bool)));
-        if (chaser->isSequence() == true)
+    }
+    else if (function->type() == Function::SequenceType)
+    {
+        Sequence *sequence = qobject_cast<Sequence*> (function);
+        m_editor = new ChaserEditor(m_hsplitter->widget(1), sequence, m_doc);
+        connect(this, SIGNAL(functionManagerActive(bool)),
+                m_editor, SLOT(slotFunctionManagerActive(bool)));
+
+        Function* sfunc = m_doc->function(sequence->boundSceneID());
+        if (sfunc->type() == Function::SceneType)
         {
-            Function* sfunc = m_doc->function(chaser->getBoundSceneID());
             m_scene_editor = new SceneEditor(m_vsplitter->widget(1), qobject_cast<Scene*> (sfunc), m_doc, false);
             connect(this, SIGNAL(functionManagerActive(bool)),
                     m_scene_editor, SLOT(slotFunctionManagerActive(bool)));
@@ -928,40 +898,40 @@ void FunctionManager::editFunction(Function* function)
             connect(m_editor, SIGNAL(applyValues(QList<SceneValue>&)),
                     m_scene_editor, SLOT(slotSetSceneValues(QList <SceneValue>&)));
             /** Signal from scene editor to chaser editor. When a fixture value is changed, update the selected chaser step */
-            connect(m_scene_editor, SIGNAL(fixtureValueChanged(SceneValue)),
-                    m_editor, SLOT(slotUpdateCurrentStep(SceneValue)));
+            connect(m_scene_editor, SIGNAL(fixtureValueChanged(SceneValue, bool)),
+                    m_editor, SLOT(slotUpdateCurrentStep(SceneValue, bool)));
         }
     }
-    else if (function->type() == Function::Collection)
+    else if (function->type() == Function::CollectionType)
     {
         m_editor = new CollectionEditor(m_hsplitter->widget(1), qobject_cast<Collection*> (function), m_doc);
     }
-    else if (function->type() == Function::EFX)
+    else if (function->type() == Function::EFXType)
     {
         m_editor = new EFXEditor(m_hsplitter->widget(1), qobject_cast<EFX*> (function), m_doc);
         connect(this, SIGNAL(functionManagerActive(bool)),
                 m_editor, SLOT(slotFunctionManagerActive(bool)));
     }
-    else if (function->type() == Function::RGBMatrix)
+    else if (function->type() == Function::RGBMatrixType)
     {
         m_editor = new RGBMatrixEditor(m_hsplitter->widget(1), qobject_cast<RGBMatrix*> (function), m_doc);
         connect(this, SIGNAL(functionManagerActive(bool)),
                 m_editor, SLOT(slotFunctionManagerActive(bool)));
     }
-    else if (function->type() == Function::Script)
+    else if (function->type() == Function::ScriptType)
     {
         m_editor = new ScriptEditor(m_hsplitter->widget(1), qobject_cast<Script*> (function), m_doc);
     }
-    else if (function->type() == Function::Show)
+    else if (function->type() == Function::ShowType)
     {
         m_editor = new ShowEditor(m_hsplitter->widget(1), qobject_cast<Show*> (function), m_doc);
     }
-    else if (function->type() == Function::Audio)
+    else if (function->type() == Function::AudioType)
     {
         m_editor = new AudioEditor(m_hsplitter->widget(1), qobject_cast<Audio*> (function), m_doc);
     }
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-    else if (function->type() == Function::Video)
+    else if (function->type() == Function::VideoType)
     {
         m_editor = new VideoEditor(m_hsplitter->widget(1), qobject_cast<Video*> (function), m_doc);
     }

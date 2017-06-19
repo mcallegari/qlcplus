@@ -21,6 +21,7 @@
 #include <QXmlStreamWriter>
 #include <QDebug>
 
+#include "sequence.h"
 #include "track.h"
 #include "scene.h"
 #include "doc.h"
@@ -277,15 +278,16 @@ bool Track::postLoad(Doc* doc)
         if (showFunction->color().isValid() == false)
             showFunction->setColor(ShowFunction::defaultColor(function->type()));
 
-        if (function->type() == Function::Chaser)
+        if (function->type() == Function::SequenceType)
         {
-            Chaser* chaser = qobject_cast<Chaser*>(function);
-            if (chaser == NULL || !chaser->isSequence() || getSceneID() == chaser->getBoundSceneID())
+            Sequence* sequence = qobject_cast<Sequence*>(function);
+            if (sequence == NULL || getSceneID() == sequence->boundSceneID())
                 continue;
+
             if (getSceneID() == Function::invalidId())
             {
                 // No scene ID, use the one from this sequence
-                setSceneID(chaser->getBoundSceneID());
+                setSceneID(sequence->boundSceneID());
             }
             else
             {

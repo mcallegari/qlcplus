@@ -20,7 +20,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.0
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 import "."
 
 SidePanel
@@ -37,7 +37,7 @@ SidePanel
         var newFuncID = functionManager.createFunction(fType)
         functionManager.setEditorFunction(newFuncID, false)
 
-        if (fType === Function.Show)
+        if (fType === Function.ShowType)
         {
             showManager.currentShowID = newFuncID
             mainView.switchToContext("SHOWMGR", fEditor)
@@ -47,7 +47,6 @@ SidePanel
             itemID = newFuncID
             loaderSource = fEditor
             animatePanel(true)
-            addFunctionMenu.visible = false
             addFunction.checked = false
             funcEditor.checked = true
         }
@@ -79,6 +78,7 @@ SidePanel
         {
             anchors.horizontalCenter: parent.horizontalCenter
             height: parent.height
+            width: iconSize
             spacing: 3
 
             IconButton
@@ -111,15 +111,15 @@ SidePanel
                 imgSource: "qrc:/add.svg"
                 tooltip: qsTr("Add a new function")
                 checkable: true
-                onToggled: addFunctionMenu.visible = !addFunctionMenu.visible
 
                 AddFunctionMenu
                 {
                     id: addFunctionMenu
-                    visible: false
+                    visible: addFunction.checked
                     x: -width
 
                     onEntryClicked: createFunctionAndEditor(fType)
+                    onClosed: addFunction.checked = false
                 }
             }
             IconButton
@@ -129,17 +129,21 @@ SidePanel
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/remove.svg"
-                tooltip: qsTr("Remove the selected functions")
+                tooltip: qsTr("Delete the selected functions")
                 counter: functionManager.selectionCount && !functionManager.isEditing
                 onClicked:
                 {
                     var selNames = functionManager.selectedFunctionsName()
-                    console.log(selNames)
+                    //console.log(selNames)
+                    deleteItemsPopup.message = qsTr("Are you sure you want to delete the following functions ?") + "\n" + selNames
+                    deleteItemsPopup.open()
+                }
 
-                    actionManager.requestActionPopup(ActionManager.DeleteFunctions,
-                                                     qsTr("Are you sure you want to remove the following functions ?\n") + selNames,
-                                                     ActionManager.OK | ActionManager.Cancel,
-                                                     functionManager.selectedFunctionsID())
+                CustomPopupDialog
+                {
+                    id: deleteItemsPopup
+                    title: qsTr("Delete functions")
+                    onAccepted: functionManager.deleteFunctions(functionManager.selectedFunctionsID())
                 }
             }
             IconButton
@@ -154,13 +158,15 @@ SidePanel
                 onClicked:
                 {
                     var selNames = functionManager.selectedFunctionsName()
-                    var dataArray = functionManager.selectedFunctionsID()
-                    // push the first selected name at the beginning of the array
-                    dataArray.unshift(selNames[0])
+                    renameFuncPopup.baseName = selNames[0]
+                    renameFuncPopup.functionIDs = functionManager.selectedFunctionsID()
+                    renameFuncPopup.open()
+                }
 
-                    actionManager.requestActionPopup(ActionManager.RenameFunctions,
-                                                     "qrc:/PopupTextRequest.qml",
-                                                     ActionManager.OK | ActionManager.Cancel, dataArray)
+                PopupRenameFunctions
+                {
+                    id: renameFuncPopup
+                    title: qsTr("Rename functions")
                 }
             }
             IconButton

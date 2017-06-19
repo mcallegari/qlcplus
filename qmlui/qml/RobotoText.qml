@@ -23,8 +23,9 @@ import "."
 Rectangle
 {
     id: rtRoot
-    width: wrapText ? 100 : textBox.width
+    width: wrapText ? 100 : textBox.paintedWidth
     height: UISettings.iconSizeDefault
+    //implicitHeight: UISettings.iconSizeDefault
 
     color: "transparent"
     clip: true
@@ -40,7 +41,7 @@ Rectangle
     Text
     {
         id: textBox
-        width: wrapText ? parent.width : Text.paintedWidth
+        width: parent.width
         height: wrapText ? parent.height : Text.paintedHeight
         anchors.verticalCenter: parent.verticalCenter
         text: label

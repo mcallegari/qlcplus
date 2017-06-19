@@ -131,7 +131,7 @@ void ShortcutWing::parseData(const QByteArray& data)
         for (int bit = 7; bit >= 0; bit--)
         {
             int key;
-            char value;
+            uchar value;
 
             key = (size - byte - 1) * 8;
             key += (7 - bit);

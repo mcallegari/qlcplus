@@ -18,8 +18,7 @@
 */
 
 import QtQuick 2.0
-import QtQuick.Controls 1.2
-import QtQuick.Controls.Styles 1.2
+import QtQuick.Controls 2.0
 
 import "."
 
@@ -95,7 +94,7 @@ Rectangle
         {
             id: rectMask
             color: "transparent"
-            width: (parent.height * slider.value) / (dmxValues ? 256 : 100)
+            width: (parent.height * currentValue) / (dmxValues ? 256 : 100)
             y: parent.height
             height: parent.width
             transformOrigin: Item.TopLeft
@@ -120,16 +119,13 @@ Rectangle
             id: slider
             anchors.fill: parent
             orientation: Qt.Vertical
-            minimumValue: 0
-            maximumValue: dmxValues ? 255 : 100
+            from: 0
+            to: dmxValues ? 255 : 100
             stepSize: 1.0
+            background: Rectangle { color: "transparent" }
+            handle: Rectangle { color: "transparent" }
 
-            style: SliderStyle
-            {
-                groove: Rectangle { color: "transparent" }
-                handle: Rectangle { color: "transparent" }
-            }
-            onValueChanged: currentValue = slider.value
+            onPositionChanged: currentValue = valueAt(position)
         }
     }
 
@@ -144,11 +140,11 @@ Rectangle
             id: spinBox
             width: intRoot.width / 2
             height: UISettings.listItemHeight
-            minimumValue: 0
-            maximumValue: dmxValues ? 255 : 100
-            value: slider.value
+            from: 0
+            to: dmxValues ? 255 : 100
+            value: currentValue
 
-            onValueChanged: slider.value = value
+            onValueChanged: currentValue = value
         }
 
         DMXPercentageButton
@@ -158,18 +154,18 @@ Rectangle
             dmxMode: dmxValues
             onClicked:
             {
-                var slVal = slider.value
+                var slVal = currentValue
                 var newVal
                 dmxValues = !dmxValues
                 if (dmxValues == false)
                 {
                     newVal = (slVal / 255) * 100
-                    slider.maximumValue = 100
+                    slider.to = 100
                 }
                 else
                 {
                     newVal = (slVal / 100) * 255
-                    slider.maximumValue = 255
+                    slider.to = 255
                 }
                 slider.value = newVal
             }

@@ -44,12 +44,6 @@ class QXmlStreamWriter;
 #define KXMLQLCVCXYPadPresetFixtureID   "ID"
 #define KXMLQLCVCXYPadPresetFixtureHead "Head"
 
-#define KXMLQLCVCXYPadPresetInput         "Input"
-#define KXMLQLCVCXYPadPresetInputUniverse "Universe"
-#define KXMLQLCVCXYPadPresetInputChannel  "Channel"
-
-#define KXMLQLCVCXYPadPresetKey "Key"
-
 class VCXYPadPreset
 {
 public:

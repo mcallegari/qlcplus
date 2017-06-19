@@ -145,6 +145,7 @@ VCWidget::WidgetType VCWidget::stringToType(QString str)
 {
     if (str == "Button") return ButtonWidget;
     else if (str == "Slider") return SliderWidget;
+    else if (str == "Knob") return SliderWidget;
     else if (str == "XYPad") return XYPadWidget;
     else if (str == "Frame") return FrameWidget;
     else if (str == "Solo frame") return SoloFrameWidget;

@@ -20,163 +20,130 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 import "."
 
-Rectangle
+CustomPopupDialog
 {
-    id: pinRoot
-
-    color: "transparent"
-
-    signal requestButtonStatus(int button, bool disable)
-    signal requestPopupClose()
+    id: pinDialogRoot
 
     property string currentPIN: ""
     property string newPIN: ""
     property string confirmPIN: ""
 
-    /* This is raised to true when user confirm and something goes wrong */
-    property bool errorStatus: false
-
-    function buttonsEnableMask()
+    onOpened:
     {
+        setButtonStatus(0, false)
         currentPinEdit.selectAndFocus()
-        return ActionManager.Cancel
-    }
-
-    function acceptAction()
-    {
-        var result = virtualConsole.setPagePIN(virtualConsole.selectedPage, currentPIN, newPIN)
-
-        if (result === true)
-            pinRoot.requestPopupClose()
-        else
-            errorStatus = true
-    }
-
-    function rejectAction()
-    {
-        if (errorStatus)
-            errorStatus = false
-        else
-            pinRoot.requestPopupClose()
     }
 
     function checkPIN()
     {
-        var disableStatus = true
+        var enableStatus = false
         console.log("newPin: " + newPIN + ",confirm: " + confirmPIN)
         if (newPIN.length === confirmPIN.length && newPIN === confirmPIN)
         {
-            disableStatus = false
+            enableStatus = true
         }
 
-        mismatchAlert.visible = disableStatus
-        pinRoot.requestButtonStatus(ActionManager.OK, disableStatus)
+        mismatchAlert.visible = !enableStatus
+        setButtonStatus(0, enableStatus)
     }
 
-    RobotoText
-    {
-        anchors.fill: parent
-        visible: errorStatus
-        wrapText: true
-        label: qsTr("The entered PINs are either invalid or incorrect")
-    }
-
-    GridLayout
-    {
-        id: pinGrid
-        visible: !errorStatus
-        width: parent.width
-        height: UISettings.listItemHeight * rows
-        columns: 2
-        rows: mismatchAlert.visible ? 4 : 3
-        rowSpacing: 5
-        columnSpacing: 5
-
-        // Row 1
-        RobotoText
+    contentItem:
+        GridLayout
         {
-            height: UISettings.listItemHeight
-            label: qsTr("Current PIN")
-        }
+            id: pinGrid
+            width: parent.width
+            height: UISettings.listItemHeight * rows
+            columns: 2
+            rows: mismatchAlert.visible ? 4 : 3
+            rowSpacing: 5
+            columnSpacing: 5
 
-        CustomTextEdit
-        {
-            id: currentPinEdit
-            Layout.fillWidth: true
-            echoMode: TextInput.Password
-            inputMethodHints: Qt.ImhFormattedNumbersOnly // accept 0-9 digits only
-            maximumLength: 4
-            nextTabItem: newPinEdit
-            previousTabItem: confirmPinEdit
-
-            onTextChanged:
+            // Row 1
+            RobotoText
             {
-                currentPIN = text
-                pinRoot.checkPIN()
+                height: UISettings.listItemHeight
+                label: qsTr("Current PIN")
+            }
+
+            CustomTextEdit
+            {
+                id: currentPinEdit
+                Layout.fillWidth: true
+                echoMode: TextInput.Password
+                inputMethodHints: Qt.ImhFormattedNumbersOnly // accept 0-9 digits only
+                maximumLength: 4
+                nextTabItem: newPinEdit
+                previousTabItem: confirmPinEdit
+
+                onTextChanged:
+                {
+                    currentPIN = text
+                    pinDialogRoot.checkPIN()
+                }
+            }
+
+            // Row 2
+            RobotoText
+            {
+                height: UISettings.listItemHeight
+                label: qsTr("New PIN")
+            }
+
+            CustomTextEdit
+            {
+                id: newPinEdit
+                Layout.fillWidth: true
+                echoMode: TextInput.Password
+                inputMethodHints: Qt.ImhFormattedNumbersOnly // accept 0-9 digits only
+                maximumLength: 4
+                nextTabItem: confirmPinEdit
+                previousTabItem: currentPinEdit
+
+                onTextChanged:
+                {
+                    newPIN = text
+                    pinDialogRoot.checkPIN()
+                }
+            }
+
+            // Row 3
+            RobotoText
+            {
+                height: UISettings.listItemHeight
+                label: qsTr("Confirm PIN")
+            }
+
+            CustomTextEdit
+            {
+                id: confirmPinEdit
+                Layout.fillWidth: true
+                echoMode: TextInput.Password
+                inputMethodHints: Qt.ImhFormattedNumbersOnly // accept 0-9 digits only
+                maximumLength: 4
+                nextTabItem: currentPinEdit
+                previousTabItem: newPinEdit
+
+                onTextChanged:
+                {
+                    confirmPIN = text
+                    pinDialogRoot.checkPIN()
+                }
+            }
+
+            // Row 4
+            RobotoText
+            {
+                id: mismatchAlert
+                visible: false
+                Layout.columnSpan: 2
+                Layout.fillWidth: true
+                height: UISettings.listItemHeight
+                labelColor: "red"
+                label: qsTr("New PIN mismatch")
             }
         }
-
-        // Row 2
-        RobotoText
-        {
-            height: UISettings.listItemHeight
-            label: qsTr("New PIN")
-        }
-
-        CustomTextEdit
-        {
-            id: newPinEdit
-            Layout.fillWidth: true
-            echoMode: TextInput.Password
-            inputMethodHints: Qt.ImhFormattedNumbersOnly // accept 0-9 digits only
-            maximumLength: 4
-            nextTabItem: confirmPinEdit
-            previousTabItem: currentPinEdit
-
-            onTextChanged:
-            {
-                newPIN = text
-                pinRoot.checkPIN()
-            }
-        }
-
-        // Row 3
-        RobotoText
-        {
-            height: UISettings.listItemHeight
-            label: qsTr("Confirm PIN")
-        }
-
-        CustomTextEdit
-        {
-            id: confirmPinEdit
-            Layout.fillWidth: true
-            echoMode: TextInput.Password
-            inputMethodHints: Qt.ImhFormattedNumbersOnly // accept 0-9 digits only
-            maximumLength: 4
-            nextTabItem: currentPinEdit
-            previousTabItem: newPinEdit
-
-            onTextChanged:
-            {
-                confirmPIN = text
-                pinRoot.checkPIN()
-            }
-        }
-
-        // Row 4
-        RobotoText
-        {
-            id: mismatchAlert
-            visible: false
-            Layout.columnSpan: 2
-            Layout.fillWidth: true
-            height: UISettings.listItemHeight
-            labelColor: "red"
-            label: qsTr("New PIN mismatch")
-        }
-    }
 }
+

@@ -64,6 +64,10 @@
 #   include "hotplugmonitor.h"
 #endif
 
+#if defined(__APPLE__) || defined(Q_OS_MAC)
+extern void qt_set_sequence_auto_mnemonic(bool b);
+#endif
+
 //#define DEBUG_SPEED
 
 #ifdef DEBUG_SPEED
@@ -131,7 +135,7 @@ App::~App()
     QSettings settings;
 
     // Don't save kiosk-mode window geometry because that will screw things up
-    if (m_doc->isKiosk() == false && QLCFile::isRaspberry() == false)
+    if (m_doc->isKiosk() == false && QLCFile::hasWindowManager())
         settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
     else
         settings.setValue(SETTINGS_GEOMETRY, QVariant());
@@ -209,7 +213,9 @@ void App::init()
     m_tab->setTabPosition(QTabWidget::South);
     setCentralWidget(m_tab);
 
-    QLCFile::checkRaspberry();
+#if defined(__APPLE__) || defined(Q_OS_MAC)
+    qt_set_sequence_auto_mnemonic(true);
+#endif
 
     QVariant var = settings.value(SETTINGS_GEOMETRY);
     if (var.isValid() == true)
@@ -224,7 +230,7 @@ void App::init()
             resize(size);
         else
         {
-            if (QLCFile::isRaspberry())
+            if (QLCFile::hasWindowManager() == false)
             {
                 QRect geometry = qApp->desktop()->availableGeometry();
                 if (m_noGui == true)
@@ -237,7 +243,7 @@ void App::init()
                     int h = geometry.height();
                     if (m_overscan == true)
                     {
-                        // if we're on a Raspberry Pi, introduce a 5% margin
+                        // if overscan is requested, introduce a 5% margin
                         w = (float)geometry.width() * 0.95;
                         h = (float)geometry.height() * 0.95;
                     }
@@ -720,7 +726,7 @@ void App::initActions()
     m_helpAboutAction = new QAction(QIcon(":/qlcplus.png"), tr("&About QLC+"), this);
     connect(m_helpAboutAction, SIGNAL(triggered(bool)), this, SLOT(slotHelpAbout()));
 
-    if (QLCFile::isRaspberry())
+    if (QLCFile::hasWindowManager() == false)
     {
         m_quitAction = new QAction(QIcon(":/exit.png"), tr("Quit QLC+"), this);
         m_quitAction->setShortcut(QKeySequence("CTRL+ALT+Backspace"));
@@ -747,7 +753,7 @@ void App::initToolBar()
     m_toolbar->addAction(m_controlFullScreenAction);
     m_toolbar->addAction(m_helpIndexAction);
     m_toolbar->addAction(m_helpAboutAction);
-    if (QLCFile::isRaspberry())
+    if (QLCFile::hasWindowManager() == false)
         m_toolbar->addAction(m_quitAction);
 
     /* Create an empty widget between help items to flush them to the right */
@@ -1120,8 +1126,8 @@ void App::slotFunctionLiveEdit()
 {
     FunctionSelection fs(this, m_doc);
     fs.setMultiSelection(false);
-    fs.setFilter(Function::Scene | Function::Chaser | Function::EFX | Function::RGBMatrix);
-    fs.disableFilters(Function::Show | Function::Script | Function::Collection | Function::Audio);
+    fs.setFilter(Function::SceneType | Function::ChaserType | Function::SequenceType | Function::EFXType | Function::RGBMatrixType);
+    fs.disableFilters(Function::ShowType | Function::ScriptType | Function::CollectionType | Function::AudioType);
 
     if (fs.exec() == QDialog::Accepted)
     {
@@ -1376,8 +1382,12 @@ bool App::loadXML(QXmlStreamReader& doc, bool goToConsole, bool fromMemory)
         fromMemory == false)
     {
         QMessageBox msg(QMessageBox::Warning, tr("Warning"),
-                        tr("Some errors occurred while loading the project:") + "\n\n" + m_doc->errorLog(),
+                        tr("Some errors occurred while loading the project:") + "<br><br>" + m_doc->errorLog(),
                         QMessageBox::Ok);
+        msg.setTextFormat(Qt::RichText);
+        QSpacerItem* horizontalSpacer = new QSpacerItem(800, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        QGridLayout* layout = (QGridLayout*)msg.layout();
+        layout->addItem(horizontalSpacer, layout->rowCount(), 0, 1, layout->columnCount());
         msg.exec();
     }
 

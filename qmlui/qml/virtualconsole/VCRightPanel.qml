@@ -18,9 +18,9 @@
 */
 
 import QtQuick 2.0
-import QtQuick.Controls 1.0
+import QtQuick.Controls 2.1
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 import "."
 
 SidePanel
@@ -40,9 +40,10 @@ SidePanel
         Column
         {
             anchors.horizontalCenter: parent.horizontalCenter
+            width: iconSize
             spacing: 3
 
-            ExclusiveGroup { id: vcButtonsGroup }
+            ButtonGroup { id: vcButtonsGroup }
 
             IconButton
             {
@@ -52,7 +53,7 @@ SidePanel
                 height: iconSize
                 imgSource: "qrc:/add.svg"
                 checkable: true
-                exclusiveGroup: vcButtonsGroup
+                ButtonGroup.group: vcButtonsGroup
                 tooltip: qsTr("Add a new widget to the console")
                 onToggled:
                 {
@@ -70,7 +71,7 @@ SidePanel
                 height: iconSize
                 imgSource: "qrc:/edit.svg"
                 checkable: true
-                exclusiveGroup: vcButtonsGroup
+                ButtonGroup.group: vcButtonsGroup
                 tooltip: qsTr("Enable/Disable the widgets edit mode")
 
                 onCheckedChanged:
@@ -100,7 +101,7 @@ SidePanel
                 imgSource: "qrc:/functions.svg"
                 tooltip: qsTr("Function Manager")
                 checkable: true
-                exclusiveGroup: vcButtonsGroup
+                ButtonGroup.group: vcButtonsGroup
                 onToggled:
                 {
                     if (checked == true)
@@ -121,12 +122,16 @@ SidePanel
                 onClicked:
                 {
                     var selNames = virtualConsole.selectedWidgetNames()
-                    console.log(selNames)
+                    //console.log(selNames)
+                    deleteWidgetsPopup.message = qsTr("Are you sure you want to remove the following widgets ?") + "\n" + selNames
+                    deleteWidgetsPopup.open()
+                }
 
-                    actionManager.requestActionPopup(ActionManager.DeleteVCWidgets,
-                                                     qsTr("Are you sure you want to remove the following widgets ?\n" + selNames),
-                                                     ActionManager.OK | ActionManager.Cancel,
-                                                     virtualConsole.selectedWidgetIDs())
+                CustomPopupDialog
+                {
+                    id: deleteWidgetsPopup
+                    title: qsTr("Delete functions")
+                    onAccepted: virtualConsole.deleteVCWidgets(virtualConsole.selectedWidgetIDs())
                 }
             }
         }

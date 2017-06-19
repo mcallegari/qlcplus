@@ -34,9 +34,9 @@ ChaserStep::ChaserStep(quint32 aFid, uint aFadeIn, uint aHold, uint aFadeOut)
     , fadeIn(aFadeIn)
     , hold(aHold)
     , fadeOut(aFadeOut)
+    , note(QString())
 {
     duration = fadeIn + hold;
-    note = QString();
 }
 
 ChaserStep::ChaserStep(const ChaserStep& cs)
@@ -63,10 +63,73 @@ Function* ChaserStep::resolveFunction(const Doc* doc) const
         return doc->function(fid);
 }
 
-#if 1
+int ChaserStep::setValue(SceneValue value, int index, bool *created)
+{
+    if (index == -1)
+    {
+        index = values.indexOf(value);
+        if (index == -1)
+        {
+            values.append(value);
+            qSort(values.begin(), values.end());
+            if (created != NULL)
+                *created = true;
+            return values.indexOf(value);
+        }
+    }
+
+    /* do not allow creation past the values begin/end */
+    if (index < 0 || index > values.count())
+    {
+        if (created != NULL)
+            *created = false;
+        qWarning() << "[ChaserStep] index not allowed:" << index;
+        return -1;
+    }
+
+    /* but do allow appending a new value */
+    if (index == values.count())
+    {
+        values.append(value);
+        if (created != NULL)
+            *created = true;
+    }
+    else if (values.at(index) == value)
+    {
+        values.replace(index, value);
+        if (created != NULL)
+            *created = false;
+    }
+    else
+    {
+        values.insert(index, value);
+        if (created != NULL)
+            *created = true;
+    }
+
+    return index;
+}
+
+int ChaserStep::unSetValue(SceneValue value, int index)
+{
+    if (index == -1)
+    {
+        index = values.indexOf(value);
+        if (index == -1)
+            return -1;
+    }
+
+    if (index < 0 || index >= values.count())
+        return -1;
+
+    values.removeAt(index);
+
+
+    return index;
+}
+
 QVariant ChaserStep::toVariant() const
 {
-    qDebug() << "-------------  ChaserStep::toVariant";
     QList <QVariant> list;
     list << fid;
     list << fadeIn;
@@ -80,7 +143,6 @@ QVariant ChaserStep::toVariant() const
 ChaserStep ChaserStep::fromVariant(const QVariant& var)
 {
     ChaserStep cs;
-    qDebug() << "-------------  ChaserStep::fromVariant";
     QList <QVariant> list(var.toList());
     if (list.size() == 6)
     {
@@ -93,7 +155,6 @@ ChaserStep ChaserStep::fromVariant(const QVariant& var)
     }
     return cs;
 }
-#endif
 
 bool ChaserStep::loadXML(QXmlStreamReader &root, int& stepNumber)
 {
@@ -126,14 +187,42 @@ bool ChaserStep::loadXML(QXmlStreamReader &root, int& stepNumber)
         QString stepValues = root.readElementText();
         if (stepValues.isEmpty() == false)
         {
-            QStringList varray = stepValues.split(",");
-            for (int i = 0; i < varray.count(); i+=3)
+            int sIdx = 0;
+
+            // step values are saved as a string with the following syntax:
+            // fixtureID:channel,value,channel,value:fixtureID:channel,value ... etc
+
+            // split the string by Fixture chunks
+            QStringList fxArray = stepValues.split(":");
+
+            for (int f = 0; f < fxArray.count(); f+=2)
             {
-                values.append(SceneValue(QString(varray.at(i)).toUInt(),
-                                         QString(varray.at(i + 1)).toUInt(),
-                                         uchar(QString(varray.at(i + 2)).toInt())));
+                if (f + 1 >= fxArray.count())
+                    break;;
+
+                quint32 fxID = QString(fxArray.at(f)).toUInt();
+
+                // now split the chunk into channel/values
+                QStringList varray = fxArray.at(f + 1).split(",");
+                for (int i = 0; i < varray.count(); i+=2)
+                {
+                    quint32 chIndex = QString(varray.at(i)).toUInt();
+                    SceneValue scv = SceneValue(fxID, chIndex, uchar(QString(varray.at(i + 1)).toInt()));
+
+                    while (sIdx < values.count())
+                    {
+                        if (values.at(sIdx).fxi == scv.fxi && values.at(sIdx).channel == scv.channel)
+                            break;
+                        sIdx++;
+                    }
+
+                    if (sIdx < values.count())
+                        values.replace(sIdx, scv);
+                    else
+                        values.append(scv);
+                }
             }
-            qSort(values.begin(), values.end());
+            //qSort(values.begin(), values.end());
         }
     }
     else
@@ -173,7 +262,6 @@ bool ChaserStep::saveXML(QXmlStreamWriter *doc, int stepNumber, bool isSequence)
     doc->writeAttribute(KXMLQLCFunctionSpeedFadeIn, QString::number(fadeIn));
     doc->writeAttribute(KXMLQLCFunctionSpeedHold, QString::number(hold));
     doc->writeAttribute(KXMLQLCFunctionSpeedFadeOut, QString::number(fadeOut));
-    //tag.setAttribute(KXMLQLCFunctionSpeedDuration, duration); // deprecated from version 4.3.1
     if (note.isEmpty() == false)
         doc->writeAttribute(KXMLQLCStepNote, note);
 
@@ -182,19 +270,30 @@ bool ChaserStep::saveXML(QXmlStreamWriter *doc, int stepNumber, bool isSequence)
         /* it's a sequence step. Save values accordingly */
         doc->writeAttribute(KXMLQLCSequenceSceneValues, QString::number(values.count()));
         QString stepValues;
+        quint32 fixtureID = Fixture::invalidId();
         foreach(SceneValue scv, values)
         {
+            // step values are saved as a string with the following syntax:
+            // fixtureID:channel,value,channel,value:fixtureID:channel,value ... etc
+
+            // save non-zero values only
             if (scv.value != 0)
             {
-                if (stepValues.isEmpty() == false)
+                if (scv.fxi != fixtureID)
+                {
+                    if (stepValues.isEmpty() == false)
+                        stepValues.append(QString(":"));
+                    stepValues.append(QString("%1:").arg(scv.fxi));
+                    fixtureID = scv.fxi;
+                }
+                else
                     stepValues.append(QString(","));
-                stepValues.append(QString("%1,%2,%3").arg(scv.fxi).arg(scv.channel).arg(scv.value));
+
+                stepValues.append(QString("%1,%2").arg(scv.channel).arg(scv.value));
             }
         }
         if (stepValues.isEmpty() == false)
-        {
             doc->writeCharacters(stepValues);
-        }
     }
     else
     {

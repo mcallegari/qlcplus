@@ -25,6 +25,8 @@
 #include "ui_vcclockproperties.h"
 #include "vcclock.h"
 
+class InputSelectionWidget;
+
 /** @addtogroup ui_vc_props
  * @{
  */
@@ -44,12 +46,17 @@ public slots:
     void accept();
 
 protected slots:
+    void slotTypeSelectChanged();
     void slotAddSchedule();
     void slotRemoveSchedule();
 
 private:
     VCClock *m_clock;
     Doc* m_doc;
+
+protected:
+    InputSelectionWidget *m_playInputWidget;
+    InputSelectionWidget *m_resetInputWidget;
 };
 
 /** @} */

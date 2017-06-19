@@ -135,6 +135,7 @@ protected slots:
     void slotCollectionChecked(bool state);
     void slotEFXChecked(bool state);
     void slotChaserChecked(bool state);
+    void slotSequenceChecked(bool state);
     void slotSceneChecked(bool state);
     void slotScriptChecked(bool state);
     void slotRGBMatrixChecked(bool state);
@@ -159,12 +160,8 @@ public:
     /** Get a list of disabled functionIDs */
     QList <quint32> disabledFunctions() const;
 
-    /** Show Sequences even if Chasers are not displayed */
-    void showSequences(bool show = false);
-
 protected:
     QList <quint32> m_disabledFunctions;
-    bool m_showSequences;
 
     /*********************************************************************
      * Selection

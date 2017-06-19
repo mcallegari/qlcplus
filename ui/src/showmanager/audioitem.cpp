@@ -42,7 +42,7 @@ AudioItem::AudioItem(Audio *aud, ShowFunction *func)
     if (func->color().isValid())
         setColor(func->color());
     else
-        setColor(ShowFunction::defaultColor(Function::Audio));
+        setColor(ShowFunction::defaultColor(Function::AudioType));
 
     if (func->duration() == 0)
         func->setDuration(aud->totalDuration());

@@ -19,8 +19,8 @@
 
 import QtQuick 2.0
 
-import com.qlcplus.classes 1.0
-import "PluginUtils.js" as PluginUtils
+import org.qlcplus.classes 1.0
+import "GenericHelpers.js" as Helpers
 import "."
 
 Rectangle
@@ -92,7 +92,7 @@ Rectangle
                 anchors.verticalCenter: parent.verticalCenter
                 height: patchBox.height * 0.75
                 width: height
-                source: patch ? PluginUtils.iconFromName(patch.pluginName) : ""
+                source: patch ? Helpers.pluginIconFromName(patch.pluginName) : ""
                 sourceSize: Qt.size(width, height)
                 fillMode: Image.Stretch
             }

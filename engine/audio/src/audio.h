@@ -75,20 +75,6 @@ public:
      *********************************************************************/
 public:
     /**
-     * Set the time where the Audio object is placed over a timeline
-     *
-     * @param time The start time in milliseconds of the Audio object
-     */
-    void setStartTime(quint32 time);
-
-    /**
-     * Returns the time where the Audio object is placed over a timeline
-     *
-     * @return Start time in milliseconds of the Audio object
-     */
-    quint32 getStartTime() const;
-
-    /**
      * Returns the duration of the source audio file loaded
      *
      * @return Duration in milliseconds of the source audio file
@@ -101,22 +87,6 @@ public:
      * @param The playback total duration in milliseconds
      */
     void setTotalDuration(quint32 msec);
-
-    /**
-     * Set the color to be used by a AudioItem
-     */
-    void setColor(QColor color);
-
-    /**
-     * Get the color of this Audio object
-     */
-    QColor getColor();
-
-    /** Set the lock state of the item */
-    void setLocked(bool locked);
-
-    /** Get the lock state of the item */
-    bool isLocked();
 
     /**
      * Set the source file name used by this Audio object

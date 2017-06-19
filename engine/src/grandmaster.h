@@ -52,12 +52,14 @@ public:
         Limit, /** Limit maximum values to current GM value */
         Reduce /** Reduce channel values by a fraction (0-100%) */
     };
+    Q_ENUM(ValueMode)
 
     enum ChannelMode
     {
         Intensity,  /** GM applied only for Intensity channels */
         AllChannels /** GM applied for all channels */
     };
+    Q_ENUM(ChannelMode)
 
     enum SliderMode
     {

@@ -21,7 +21,7 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 import "."
 
 Rectangle
@@ -55,11 +55,24 @@ Rectangle
             label: qsTr("Set a PIN")
             onClicked:
             {
-                var page = [ virtualConsole.selectedPage ]
+                pinSetupPopup.open()
+            }
 
-                actionManager.requestActionPopup(ActionManager.SetVCPagePIN,
-                                                 "qrc:/PopupPINSetup.qml",
-                                                 ActionManager.OK | ActionManager.Cancel, page)
+            PopupPINSetup
+            {
+                id: pinSetupPopup
+                onAccepted:
+                {
+                    if (virtualConsole.setPagePIN(virtualConsole.selectedPage, currentPIN, newPIN) === false)
+                        pinErrorPopup.open()
+                }
+            }
+
+            CustomPopupDialog
+            {
+                id: pinErrorPopup
+                title: qsTr("Error")
+                message: qsTr("The entered PINs are either invalid or incorrect")
             }
         }
 
@@ -91,15 +104,15 @@ Rectangle
             hoverColor: "red"
             height: gridItemsHeight
             autoHeight: true
-            label: qsTr("Remove this page")
-            onClicked:
-            {
-                var page = []
-                page[0] = virtualConsole.selectedPage
+            label: qsTr("Delete this page")
+            onClicked: deletePagePopup.open()
 
-                actionManager.requestActionPopup(ActionManager.DeleteVCPage,
-                                                 qsTr("Are you sure you want to remove the selected page ?"),
-                                                 ActionManager.OK | ActionManager.Cancel, page)
+            CustomPopupDialog
+            {
+                id: deletePagePopup
+                title: qsTr("Delete page")
+                message: qsTr("Are you sure you want to delete the selected page ?")
+                onAccepted: virtualConsole.deletePage(virtualConsole.selectedPage)
             }
         }
     }

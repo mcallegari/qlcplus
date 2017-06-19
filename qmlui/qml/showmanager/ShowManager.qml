@@ -20,7 +20,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 
 import "TimeUtils.js" as TimeUtils
 import "."
@@ -183,12 +183,16 @@ Rectangle
                 onClicked:
                 {
                     var selNames = showManager.selectedItemNames()
-                    console.log(selNames)
+                    //console.log(selNames)
+                    deleteItemsPopup.message = qsTr("Are you sure you want to remove the following items ?\n(Note that the original functions will not be deleted)") + "\n" + selNames,
+                    deleteItemsPopup.open()
+                }
 
-                    actionManager.requestActionPopup(ActionManager.DeleteShowItems,
-                                                     qsTr("Are you sure you want to remove the following items ?\n(Note that the original functions will not be deleted)\n" + selNames),
-                                                     ActionManager.OK | ActionManager.Cancel,
-                                                     showManager.selectedItemRefs())
+                CustomPopupDialog
+                {
+                    id: deleteItemsPopup
+                    title: qsTr("Delete show items")
+                    onAccepted: showManager.deleteShowItems(showManager.selectedItemRefs())
                 }
             }
 
@@ -294,8 +298,8 @@ Rectangle
             }
             ZoomItem
             {
-                width: UISettings.mediumItemHeight * 1.3
-                height: parent.height - 2
+                implicitWidth: UISettings.mediumItemHeight * 1.3
+                implicitHeight: parent.height - 2
                 fontColor: "#222"
                 onZoomOutClicked:
                 {
@@ -553,7 +557,7 @@ Rectangle
         }
     }
 
-    ScrollBar
+    CustomScrollBar
     {
         id: horScrollbar
         z: 4
@@ -562,6 +566,6 @@ Rectangle
         x: trackWidth
         flickable: timelineHeader
     }
-    ScrollBar { z: 5; flickable: showContents; doubleBars: true }
+    CustomScrollBar { z: 5; flickable: showContents; doubleBars: true }
 
 }

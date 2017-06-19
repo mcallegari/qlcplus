@@ -101,7 +101,7 @@ private slots:
     void slotRecord();
     void slotChaserComboActivated(int index);
     void slotModeChanged(Doc::Mode mode);
-    void slotViewModeChanged(bool toggled, bool applyValues = true);
+    void slotViewModeChanged(bool tabbed, bool applyValues = true);
 
 private:
     bool isColorToolAvailable();
@@ -189,7 +189,7 @@ private:
     void setTabChannelState(bool status, Fixture* fixture, quint32 channel);
 
 signals:
-    void fixtureValueChanged(SceneValue val);
+    void fixtureValueChanged(SceneValue val, bool enabled);
 
 private slots:
     void slotValueChanged(quint32 fxi, quint32 channel, uchar value);

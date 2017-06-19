@@ -169,7 +169,7 @@ public:
      */
     Q_INVOKABLE void addItems(QQuickItem *parent, int trackIdx, int startTime, QVariantList idsList);
 
-    void deleteShowItems(QVariantList data);
+    Q_INVOKABLE void deleteShowItems(QVariantList data);
 
     /** Method invoked when moving an existing Show Item on the timeline.
      *  The new position is checked for overlapping against existing items on the

@@ -18,7 +18,7 @@
 */
 
 import QtQuick 2.3
-import QtQuick.Controls 1.2
+import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.1
 import "."
 
@@ -57,17 +57,16 @@ Rectangle
             id: rowLayout1
             anchors.fill: parent
             spacing: 5
-            ExclusiveGroup { id: menuBarGroup2 }
+            ButtonGroup { id: ctMenuBarGroup }
 
             MenuBarEntry
             {
                 id: basicView
                 entryText: qsTr("Basic")
-                checkable: true
                 checked: true
                 checkedColor: "green"
                 bgGradient: cBarGradient
-                exclusiveGroup: menuBarGroup2
+                ButtonGroup.group: ctMenuBarGroup
                 mFontSize: UISettings.textSizeDefault
                 onCheckedChanged:
                 {
@@ -80,10 +79,9 @@ Rectangle
             {
                 id: rgbView
                 entryText: qsTr("Full")
-                checkable: true
                 checkedColor: "green"
                 bgGradient: cBarGradient
-                exclusiveGroup: menuBarGroup2
+                ButtonGroup.group: ctMenuBarGroup
                 mFontSize: UISettings.textSizeDefault
                 onCheckedChanged:
                 {
@@ -95,10 +93,9 @@ Rectangle
             {
                 id: filtersView
                 entryText: qsTr("Filters")
-                checkable: true
                 checkedColor: "green"
                 bgGradient: cBarGradient
-                exclusiveGroup: menuBarGroup2
+                ButtonGroup.group: ctMenuBarGroup
                 mFontSize: UISettings.textSizeDefault
                 onCheckedChanged:
                 {

@@ -28,6 +28,7 @@
 #include <QHash>
 
 #include "qlcchannel.h"
+#include "qlcfixturedef.h"
 
 class QString;
 
@@ -36,7 +37,6 @@ class ChannelModifier;
 class QLCFixtureMode;
 class QLCFixtureHead;
 class FixtureConsole;
-class QLCFixtureDef;
 class Doc;
 
 /** @addtogroup engine Engine
@@ -67,7 +67,7 @@ class Fixture : public QObject
 
     Q_PROPERTY(quint32 id READ id CONSTANT)
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY changed)
-    Q_PROPERTY(QString type READ type CONSTANT)
+    Q_PROPERTY(int type READ type CONSTANT)
     Q_PROPERTY(quint32 universe READ universe WRITE setUniverse NOTIFY changed)
     Q_PROPERTY(quint32 address READ address WRITE setAddress NOTIFY changed)
     Q_PROPERTY(quint32 channels READ channels WRITE setChannels NOTIFY changed)
@@ -151,7 +151,9 @@ public:
      *
      * @return Fixture type
      */
-    QString type();
+    QString typeString();
+
+    QLCFixtureDef::FixtureType type() const;
 
     /*********************************************************************
      * Universe
@@ -391,7 +393,9 @@ public:
      */
     QLCFixtureHead head(int index) const;
 
-    QIcon getIconFromType(QString type) const;
+    Q_INVOKABLE QString iconResource(bool svg = false) const;
+
+    QIcon getIconFromType() const;
 
     QRectF degreesRange(int head) const;
 
@@ -424,6 +428,9 @@ public:
         GRB,
         RGBW
     };
+#if QT_VERSION >= 0x050500
+    Q_ENUM(Components)
+#endif
 
 public:
     /** Creates and returns a definition for a generic RGB panel row */

@@ -36,6 +36,10 @@ class Video : public Function
     Q_OBJECT
     Q_DISABLE_COPY(Video)
 
+    Q_PROPERTY(QString sourceUrl READ sourceUrl WRITE setSourceUrl NOTIFY sourceChanged)
+    Q_PROPERTY(QRect customGeometry READ customGeometry WRITE setCustomGeometry NOTIFY customGeometryChanged)
+    Q_PROPERTY(bool fullscreen READ fullscreen WRITE setFullscreen)
+
     /*********************************************************************
      * Initialization
      *********************************************************************/
@@ -68,112 +72,60 @@ public slots:
      *********************************************************************/
 public:
     /** Get the list of the extensions supported by the video decoding system */
-    static QStringList getCapabilities();
+    static QStringList getVideoCapabilities();
+
+    /** Get the list of the extensions supported for picture rendering */
+    static QStringList getPictureCapabilities();
+
+    static const QStringList m_defaultVideoCaps;
+    static const QStringList m_defaultPictureCaps;
 
     /*********************************************************************
      * Properties
      *********************************************************************/
 public:
-    /**
-     * Set the time where the Video object is placed over a timeline
-     *
-     * @param time The start time in milliseconds of the Video object
-     */
-    void setStartTime(quint32 time);
-
-    /**
-     * Returns the time where the Video object is placed over a timeline
-     *
-     * @return Start time in milliseconds of the Video object
-     */
-    quint32 getStartTime() const;
-
     /** @reimpl */
     void setTotalDuration(quint32 duration);
 
     /** @reimpl */
     quint32 totalDuration();
 
-    /**
-     * Sets the video resolution as a QSize variable
-     */
+    /** Get/Set the video resolution as a QSize variable */
+    QSize resolution();
     void setResolution(QSize size);
 
-    /**
-     * Returns the video resolution as a QSize variable
-     */
-    QSize resolution();
+    /** Get/Set the video custom geometry as a QRect variable */
+    QRect customGeometry();
+    void setCustomGeometry(QRect rect);
 
-    /**
-     * Sets the audio codec for this Video Function
-     */
+    /** Get/Set the audio codec for this Video Function */
+    QString audioCodec();
     void setAudioCodec(QString codec);
 
-    /**
-     * Returns the audio codec detected from the media source
-     */
-    QString audioCodec();
-
-    /**
-     * Sets the video codec for this Video Function
-     */
+    /** Get/Set the video codec for this Video Function */
+    QString videoCodec();
     void setVideoCodec(QString codec);
 
-    /**
-     * Returns the video codec detected from the media source
-     */
-    QString videoCodec();
-
-    /**
-     * Set the color to be used by a VideoItem
-     */
-    void setColor(QColor color);
-
-    /**
-     * Get the color of this Video object
-     */
-    QColor getColor();
-
-    /** Set the lock state of the item */
-    void setLocked(bool locked);
-
-    /** Get the lock state of the item */
-    bool isLocked();
-
-    /**
-     * Set the source file name used by this Video object
-     */
+    /** Get/Set the source URL used by this Video object */
+    QString sourceUrl();
     bool setSourceUrl(QString filename);
 
-    /**
-     * Retrieve the source file name used by this Video object
-     */
-    QString sourceUrl();
+    /** Return if the loaded source is a picture */
+    bool isPicture() const;
 
-    /**
-     * Set the screen index where to render the video
-     */
+    /** Get/Set the screen index where to render the video */
+    int screen();
     void setScreen(int index);
 
-    /**
-     * Retrieve the screen index where the video is rendered
-     */
-    int screen();
-
-    /**
-     * Set the video to be rendered in windowed or fullscreen mode
-     */
-    void setFullscreen(bool enable);
-
-    /**
-     * Retrieves if the video has to be rendered in windowed or fullscreen mode
-     */
+    /** Get/Set the video to be rendered in windowed or fullscreen mode */
     bool fullscreen();
+    void setFullscreen(bool enable);
 
     void adjustAttribute(qreal fraction, int attributeIndex);
 
 signals:
     void sourceChanged(QString url);
+    void customGeometryChanged(QRect rect);
     void totalTimeChanged(qint64);
     void metaDataChanged(QString key, QVariant data);
     void requestPlayback();
@@ -182,20 +134,19 @@ signals:
     void requestBrightnessAdjust(int value);
 
 private:
-    /** Absolute start time of video over a timeline (in milliseconds) */
-    quint32 m_startTime;
-    /** Color to use when displaying the video object in the Show manager */
-    QColor m_color;
-    /** Flag to indicate if a Video item is locked in the Show Manager timeline */
-    bool m_locked;
     /** URL of the video media source */
     QString m_sourceUrl;
+    /** Flag that indicates if the loaded source is a picture (or a video) */
+    bool m_isPicture;
     /** Duration of the video content */
     qint64 m_videoDuration;
-    /** The video codec as strings */
+    /** The audio and video codec as strings */
     QString m_audioCodec, m_videoCodec;
     /** Resolution of the video content */
     QSize m_resolution;
+    /** If set, specifies the custom geometry (position and size)
+     *  to be used when rendering the video */
+    QRect m_customGeometry;
     /** Index of the screen where to render the video */
     int m_screen;
     /** Flag that indicates if the video has to go fullscreen */

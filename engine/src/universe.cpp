@@ -540,6 +540,16 @@ void Universe::dumpOutput(const QByteArray &data)
     m_totalChannelsChanged = false;
 }
 
+void Universe::dumpBlackout()
+{
+    dumpOutput(*m_modifiedZeroValues);
+}
+
+const QByteArray& Universe::blackoutData()
+{
+    return *m_modifiedZeroValues;
+}
+
 void Universe::flushInput()
 {
     if (m_inputPatch == NULL)
@@ -674,6 +684,20 @@ void Universe::setChannelModifier(ushort channel, ChannelModifier *modifier)
 
     (*m_modifiedZeroValues)[channel] =
         (modifier == NULL ? uchar(0) : modifier->getValue(0));
+
+    if (modifier != NULL)
+    {
+        if (channel >= m_totalChannels)
+        {
+            m_totalChannels = channel + 1;
+            m_totalChannelsChanged = true;
+        }
+
+        if (channel >= m_usedChannels)
+            m_usedChannels = channel + 1;
+    }
+
+    updatePostGMValue(channel);
 }
 
 ChannelModifier *Universe::channelModifier(ushort channel)

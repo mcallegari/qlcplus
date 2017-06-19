@@ -355,8 +355,8 @@ void VCSliderProperties::levelUpdateFixtureNode(quint32 id)
     }
 
     item->setText(KColumnName, fxi->name());
-    item->setIcon(KColumnName, fxi->getIconFromType(fxi->type()));
-    item->setText(KColumnType, fxi->type());
+    item->setIcon(KColumnName, fxi->getIconFromType());
+    item->setText(KColumnType, fxi->typeString());
 
     levelUpdateChannels(item, fxi);
 
@@ -677,13 +677,13 @@ void VCSliderProperties::slotAttachPlaybackFunctionClicked()
 {
     FunctionSelection fs(this, m_doc);
     fs.setMultiSelection(false);
-    fs.setFilter(Function::Scene | Function::Chaser | Function::EFX | Function::Audio | Function::RGBMatrix
-                 | Function::Collection
+    fs.setFilter(Function::SceneType | Function::ChaserType | Function::SequenceType | Function::EFXType |
+                 Function::AudioType | Function::RGBMatrixType | Function::CollectionType
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-                 | Function::Video
+                 | Function::VideoType
 #endif
                  , false);
-    fs.disableFilters(Function::Script | Function::Show);
+    fs.disableFilters(Function::ScriptType | Function::ShowType);
 
     if (fs.exec() != QDialog::Accepted)
         return;

@@ -44,15 +44,21 @@ private slots:
     void createFixtureId();
     void addFixture();
     void deleteFixture();
+    void replaceFixtures();
     void fixture();
     void totalPowerConsumption();
 
     void addFixtureGroup();
     void removeFixtureGroup();
 
+    void channelGroups();
+
+    void monitorProperties();
+
     void addFunction();
     void deleteFunction();
     void function();
+    void usage();
 
     void load();
     void loadWrongRoot();

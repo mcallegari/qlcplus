@@ -18,11 +18,10 @@
 */
 
 import QtQuick 2.0
-import QtQuick.Controls 1.0
-import QtQuick.Controls.Styles 1.0
+import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.1
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 import "."
 
 Rectangle
@@ -73,6 +72,7 @@ Rectangle
         // try to scale always to a little bit more
         // than half of the tool width
         scale: (rootBox.width / 1.75) / 256
+        contextType: "2d"
 
         function getHTMLColor(r, g, b)
         {
@@ -82,31 +82,29 @@ Rectangle
             //return "#" + r.toString(16) + g.toString(16) + b.toString(16);
         }
 
-        function fillWithGradient(ctx, r, g, b, xPos)
+        function fillWithGradient(r, g, b, xPos)
         {
-            ctx.beginPath();
-            var grad = ctx.createLinearGradient(xPos, 0, xPos, 255);
+            context.beginPath();
+            var grad = context.createLinearGradient(xPos, 0, xPos, 255);
             grad.addColorStop(0, 'black');
             grad.addColorStop(0.5, getHTMLColor(r,g,b));
             grad.addColorStop(1, 'white');
-            ctx.strokeStyle = grad;
-            ctx.moveTo(xPos, 0);
-            ctx.lineTo(xPos, 255);
-            ctx.closePath();
-            ctx.stroke();
+            context.strokeStyle = grad;
+            context.moveTo(xPos, 0);
+            context.lineTo(xPos, 255);
+            context.closePath();
+            context.stroke();
         }
 
         onPaint:
         {
-            var ctx = colorBox.getContext('2d');
-            //ctx.save();
-            ctx.globalAlpha = 1.0;
+            context.globalAlpha = 1.0;
             var i = 0;
             var x = 0;
             var r = 0xFF;
             var g = 0;
             var b = 0;
-            ctx.lineWidth = 1;
+            context.lineWidth = 1;
 
             var baseColors = [ 0xFF0000, 0xFFFF00, 0x00FF00, 0x00FFFF, 0x0000FF, 0xFF00FF, 0xFF0000 ];
 
@@ -124,7 +122,7 @@ Rectangle
 
                 for (i = x; i < x + 42; i++)
                 {
-                    fillWithGradient(ctx, r, g, b, i);
+                    fillWithGradient(r, g, b, i);
                     r+=rD;
                     g+=gD;
                     b+=bD;
@@ -139,8 +137,7 @@ Rectangle
 
             function setPickedColor(mouse)
             {
-                var ctx = colorBox.getContext('2d')
-                var imgData = ctx.getImageData(mouse.x, mouse.y, 1, 1).data
+                var imgData = colorBox.context.getImageData(mouse.x, mouse.y, 1, 1).data
                 var r = imgData[0]
                 var g = imgData[1]
                 var b = imgData[2]
@@ -177,9 +174,8 @@ Rectangle
             id: rSpin
             width: UISettings.bigItemHeight * 0.7
             height: UISettings.listItemHeight
-            minimumValue: 0
-            maximumValue: 255
-            decimals: 0
+            from: 0
+            to: 255
             onValueChanged:
             {
                 selectedColor = Qt.rgba(rSpin.value / 256, gSpin.value / 256, bSpin.value / 256, 1.0)
@@ -198,9 +194,8 @@ Rectangle
             id: gSpin
             width: UISettings.bigItemHeight * 0.7
             height: UISettings.listItemHeight
-            minimumValue: 0
-            maximumValue: 255
-            decimals: 0
+            from: 0
+            to: 255
             onValueChanged:
             {
                 selectedColor = Qt.rgba(rSpin.value / 256, gSpin.value / 256, bSpin.value / 256, 1.0)
@@ -219,9 +214,8 @@ Rectangle
             id: bSpin
             width: UISettings.bigItemHeight * 0.7
             height: UISettings.listItemHeight
-            minimumValue: 0
-            maximumValue: 255
-            decimals: 0
+            from: 0
+            to: 255
             onValueChanged:
             {
                 selectedColor = Qt.rgba(rSpin.value / 256, gSpin.value / 256, bSpin.value / 256, 1.0)
@@ -260,17 +254,22 @@ Rectangle
 
         Slider
         {
+            id: wSlider
             visible: colorsMask & App.White
             Layout.fillWidth: true
             orientation: Qt.Horizontal
-            minimumValue: 0
-            maximumValue: 255
+            from: 0
+            to: 255
             value: whiteValue
+            handle: Rectangle {
+                x: wSlider.leftPadding + wSlider.visualPosition * (wSlider.availableWidth - width)
+                y: wSlider.topPadding + wSlider.availableHeight / 2 - height / 2
+                implicitWidth: slHandleSize
+                implicitHeight: slHandleSize
+                radius: slHandleSize / 5
+            }
 
-            style: SliderStyle {
-                    handle: Rectangle { width: slHandleSize; height: slHandleSize; radius: slHandleSize / 5 }
-                }
-            onValueChanged: whiteValue = value
+            onPositionChanged: whiteValue = valueAt(position)
         }
 
         CustomSpinBox
@@ -278,9 +277,8 @@ Rectangle
             visible: colorsMask & App.White
             width: UISettings.bigItemHeight * 0.7
             height: UISettings.listItemHeight
-            minimumValue: 0
-            maximumValue: 255
-            decimals: 0
+            from: 0
+            to: 255
             value: whiteValue
             onValueChanged: whiteValue = value
         }
@@ -294,17 +292,22 @@ Rectangle
 
         Slider
         {
+            id: aSlider
             visible: colorsMask & App.Amber
             Layout.fillWidth: true
             orientation: Qt.Horizontal
-            minimumValue: 0
-            maximumValue: 255
+            from: 0
+            to: 255
             value: amberValue
+            handle: Rectangle {
+                x: aSlider.leftPadding + aSlider.visualPosition * (aSlider.availableWidth - width)
+                y: aSlider.topPadding + aSlider.availableHeight / 2 - height / 2
+                implicitWidth: slHandleSize
+                implicitHeight: slHandleSize
+                radius: slHandleSize / 5
+            }
 
-            style: SliderStyle {
-                    handle: Rectangle { width: slHandleSize; height: slHandleSize; radius: slHandleSize / 5 }
-                }
-            onValueChanged: amberValue = value
+            onPositionChanged: amberValue = valueAt(position)
         }
 
         CustomSpinBox
@@ -312,9 +315,8 @@ Rectangle
             visible: colorsMask & App.Amber
             width: UISettings.bigItemHeight * 0.7
             height: UISettings.listItemHeight
-            minimumValue: 0
-            maximumValue: 255
-            decimals: 0
+            from: 0
+            to: 255
             value: amberValue
             onValueChanged: amberValue = value
         }
@@ -328,17 +330,22 @@ Rectangle
 
         Slider
         {
+            id: uvSlider
             visible: colorsMask & App.UV
             Layout.fillWidth: true
             orientation: Qt.Horizontal
-            minimumValue: 0
-            maximumValue: 255
+            from: 0
+            to: 255
             value: uvValue
+            handle: Rectangle {
+                x: uvSlider.leftPadding + uvSlider.visualPosition * (uvSlider.availableWidth - width)
+                y: uvSlider.topPadding + uvSlider.availableHeight / 2 - height / 2
+                implicitWidth: slHandleSize
+                implicitHeight: slHandleSize
+                radius: slHandleSize / 5
+            }
 
-            style: SliderStyle {
-                    handle: Rectangle { width: slHandleSize; height: slHandleSize; radius: slHandleSize / 5 }
-                }
-            onValueChanged: uvValue = value
+            onPositionChanged: uvValue = valueAt(position)
         }
 
         CustomSpinBox
@@ -346,9 +353,8 @@ Rectangle
             visible: colorsMask & App.UV
             width: UISettings.bigItemHeight * 0.7
             height: UISettings.listItemHeight
-            minimumValue: 0
-            maximumValue: 255
-            decimals: 0
+            from: 0
+            to: 255
             value: uvValue
             onValueChanged: uvValue = value
         }

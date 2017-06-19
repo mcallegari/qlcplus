@@ -19,9 +19,9 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
-import QtQuick.Controls 1.2
+import QtQuick.Controls 2.1
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 import "."
 
 Rectangle
@@ -95,7 +95,7 @@ Rectangle
                 id: rowLayout1
                 anchors.fill: parent
                 spacing: 5
-                ExclusiveGroup { id: vcToolbarGroup }
+                ButtonGroup { id: vcToolbarGroup }
 
                 Repeater
                 {
@@ -108,25 +108,19 @@ Rectangle
                             property string contextName: "PAGE-" + index
 
                             entryText: wObj ? wObj.caption : qsTr("Page " + index)
-                            checkable: true
-                            editable: true
+                            mFontSize: UISettings.textSizeDefault
+                            //editable: true
                             checked: index === virtualConsole.selectedPage ? true : false
                             checkedColor: UISettings.toolbarSelectionSub
                             bgGradient: vcTbGradient
-                            exclusiveGroup: vcToolbarGroup
+                            ButtonGroup.group: vcToolbarGroup
 
                             onCheckedChanged:
                             {
                                 if (wObj && checked == true)
                                 {
                                     if (wObj.requirePIN())
-                                    {
-                                        var page = [ index ]
-
-                                        actionManager.requestActionPopup(ActionManager.VCPagePINRequest,
-                                                                         "qrc:/PopupPINRequest.qml",
-                                                                         ActionManager.OK | ActionManager.Cancel, page)
-                                    }
+                                        pinRequestPopup.open()
                                     else
                                         virtualConsole.selectedPage = index
                                 }
@@ -140,6 +134,30 @@ Rectangle
                             {
                                 if (wObj)
                                     wObj.caption = text
+                            }
+
+                            PopupPINRequest
+                            {
+                                id: pinRequestPopup
+                                onAccepted:
+                                {
+                                    if (virtualConsole.validatePagePIN(index, currentPIN, sessionValidate) === true)
+                                    {
+                                        virtualConsole.selectedPage = index
+                                    }
+                                    else
+                                    {
+                                        pinErrorPopup.open()
+                                    }
+
+                                }
+                            }
+
+                            CustomPopupDialog
+                            {
+                                id: pinErrorPopup
+                                title: qsTr("Error")
+                                message: qsTr("Invalid PIN entered")
                             }
                         }
                 }

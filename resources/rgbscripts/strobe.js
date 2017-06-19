@@ -37,14 +37,20 @@ var testAlgo;
         * @param rgb Tells the color requested by user in the UI.
         * @return A two-dimensional array[height][width].
         */
-      algo.rgbMap = function (width, height, rgb, step) {
+      algo.rgbMap = function (width, height, rgb, step) 
+      {
         var map = new Array(height);
-        for (var y = 0; y < height; y++) {
+        for (var y = 0; y < height; y++) 
+        {
           map[y] = [];
-          for (var x = 0; x < width; x++) {
-            if ((step % 2) === 0) {
+          for (var x = 0; x < width; x++) 
+          {
+            if ((step % 2) === 0) 
+            {
               map[y][x] = rgb;
-            } else {
+            } 
+            else 
+            {
               map[y][x] = 0;
             }
           }
@@ -59,7 +65,8 @@ var testAlgo;
       * @param height The height of the map
       * @return Number of steps required for a map of size($width, $height)
       */
-      algo.rgbMapStepCount = function (width, height) {
+      algo.rgbMapStepCount = function (width, height) 
+      {
         return 2;
       };
 

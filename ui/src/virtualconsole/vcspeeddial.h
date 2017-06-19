@@ -166,6 +166,9 @@ private slots:
     /** Catch dial tap button clicks and patch them to controlled functions */
     void slotDialTapped();
 
+    /** Catch dial tap timeouts to send feedback */
+    void slotTapTimeout();
+
 private:
     QList <VCSpeedDialFunction> m_functions;
     SpeedDial* m_dial;

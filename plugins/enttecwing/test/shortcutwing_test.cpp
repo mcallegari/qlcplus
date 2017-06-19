@@ -43,18 +43,18 @@ QByteArray ShortcutWing_Test::data()
     data[2] = 'D'; /* HEADER */
     data[3] = 'D'; /* HEADER */
 
-    data[4] = SHC_FIRMWARE; /* Firmware */
+    data[4] = (char)SHC_FIRMWARE; /* Firmware */
 
-    data[5] = SHC_FLAGS; /* Flags */
+    data[5] = (char)SHC_FLAGS; /* Flags */
 
-    data[6] = 255; /* 4 Buttons */
-    data[7] = 255; /* 8 Buttons */
-    data[8] = 255; /* 8 Buttons */
-    data[9] = 255; /* 8 Buttons */
-    data[10] = 255; /* 8 Buttons */
-    data[11] = 255; /* 8 Buttons */
-    data[12] = 255; /* 8 Buttons */
-    data[13] = 255; /* 8 Buttons */
+    data[6] = (char)255; /* 4 Buttons */
+    data[7] = (char)255; /* 8 Buttons */
+    data[8] = (char)255; /* 8 Buttons */
+    data[9] = (char)255; /* 8 Buttons */
+    data[10] = (char)255; /* 8 Buttons */
+    data[11] = (char)255; /* 8 Buttons */
+    data[12] = (char)255; /* 8 Buttons */
+    data[13] = (char)255; /* 8 Buttons */
 
     data[14] = 0; /* Unused */
     data[15] = 0; /* Unused */
@@ -161,31 +161,31 @@ void ShortcutWing_Test::buttons_data()
     QTest::newRow("Button 0") << ba << 0 << 255;
 
     QTest::newRow("Button 1") << ba << 1 << 0;
-    ba[13] = 191; /* 1011 1111 */
+    ba[13] = (char)191; /* 1011 1111 */
     QTest::newRow("Button 1") << ba << 1 << 255;
 
     QTest::newRow("Button 2") << ba << 2 << 0;
-    ba[13] = 223; /* 1101 1111 */
+    ba[13] = (char)223; /* 1101 1111 */
     QTest::newRow("Button 2") << ba << 2 << 255;
 
     QTest::newRow("Button 3") << ba << 3 << 0;
-    ba[13] = 239; /* 1110 1111 */
+    ba[13] = (char)239; /* 1110 1111 */
     QTest::newRow("Button 3") << ba << 3 << 255;
 
     QTest::newRow("Button 4") << ba << 4 << 0;
-    ba[13] = 247; /* 1111 0111 */
+    ba[13] = (char)247; /* 1111 0111 */
     QTest::newRow("Button 4") << ba << 4 << 255;
 
     QTest::newRow("Button 5") << ba << 5 << 0;
-    ba[13] = 251; /* 1111 1011 */
+    ba[13] = (char)251; /* 1111 1011 */
     QTest::newRow("Button 5") << ba << 5 << 255;
 
     QTest::newRow("Button 6") << ba << 6 << 0;
-    ba[13] = 253; /* 1111 1101 */
+    ba[13] = (char)253; /* 1111 1101 */
     QTest::newRow("Button 6") << ba << 6 << 255;
 
     QTest::newRow("Button 7") << ba << 7 << 0;
-    ba[13] = 254; /* 1111 1110 */
+    ba[13] = (char)254; /* 1111 1110 */
     QTest::newRow("Button 7") << ba << 7 << 255;
 
     QTest::newRow("Button 8") << ba << 8 << 0;
@@ -193,31 +193,31 @@ void ShortcutWing_Test::buttons_data()
     QTest::newRow("Button 8") << ba << 8 << 255;
 
     QTest::newRow("Button 9") << ba << 9 << 0;
-    ba[12] = 191; /* 1011 1111 */
+    ba[12] = (char)191; /* 1011 1111 */
     QTest::newRow("Button 9") << ba << 9 << 255;
 
     QTest::newRow("Button 10") << ba << 10 << 0;
-    ba[12] = 223; /* 1101 1111 */
+    ba[12] = (char)223; /* 1101 1111 */
     QTest::newRow("Button 10") << ba << 10 << 255;
 
     QTest::newRow("Button 11") << ba << 11 << 0;
-    ba[12] = 239; /* 1110 1111 */
+    ba[12] = (char)239; /* 1110 1111 */
     QTest::newRow("Button 11") << ba << 11 << 255;
 
     QTest::newRow("Button 12") << ba << 12 << 0;
-    ba[12] = 247; /* 1111 0111 */
+    ba[12] = (char)247; /* 1111 0111 */
     QTest::newRow("Button 12") << ba << 12 << 255;
 
     QTest::newRow("Button 13") << ba << 13 << 0;
-    ba[12] = 251; /* 1111 1011 */
+    ba[12] = (char)251; /* 1111 1011 */
     QTest::newRow("Button 13") << ba << 13 << 255;
 
     QTest::newRow("Button 14") << ba << 14 << 0;
-    ba[12] = 253; /* 1111 1101 */
+    ba[12] = (char)253; /* 1111 1101 */
     QTest::newRow("Button 14") << ba << 14 << 255;
 
     QTest::newRow("Button 15") << ba << 15 << 0;
-    ba[12] = 254; /* 1111 1110 */
+    ba[12] = (char)254; /* 1111 1110 */
     QTest::newRow("Button 15") << ba << 15 << 255;
 
     QTest::newRow("Button 16") << ba << 16 << 0;
@@ -225,31 +225,31 @@ void ShortcutWing_Test::buttons_data()
     QTest::newRow("Button 16") << ba << 16 << 255;
 
     QTest::newRow("Button 17") << ba << 17 << 0;
-    ba[11] = 191; /* 1011 1111 */
+    ba[11] = (char)191; /* 1011 1111 */
     QTest::newRow("Button 17") << ba << 17 << 255;
 
     QTest::newRow("Button 18") << ba << 18 << 0;
-    ba[11] = 223; /* 1101 1111 */
+    ba[11] = (char)223; /* 1101 1111 */
     QTest::newRow("Button 18") << ba << 18 << 255;
 
     QTest::newRow("Button 19") << ba << 19 << 0;
-    ba[11] = 239; /* 1110 1111 */
+    ba[11] = (char)239; /* 1110 1111 */
     QTest::newRow("Button 19") << ba << 19 << 255;
 
     QTest::newRow("Button 20") << ba << 20 << 0;
-    ba[11] = 247; /* 1111 0111 */
+    ba[11] = (char)247; /* 1111 0111 */
     QTest::newRow("Button 20") << ba << 20 << 255;
 
     QTest::newRow("Button 21") << ba << 21 << 0;
-    ba[11] = 251; /* 1111 1011 */
+    ba[11] = (char)251; /* 1111 1011 */
     QTest::newRow("Button 21") << ba << 21 << 255;
 
     QTest::newRow("Button 22") << ba << 22 << 0;
-    ba[11] = 253; /* 1111 1101 */
+    ba[11] = (char)253; /* 1111 1101 */
     QTest::newRow("Button 22") << ba << 22 << 255;
 
     QTest::newRow("Button 23") << ba << 23 << 0;
-    ba[11] = 254; /* 1111 1110 */
+    ba[11] = (char)254; /* 1111 1110 */
     QTest::newRow("Button 23") << ba << 23 << 255;
 
     QTest::newRow("Button 24") << ba << 24 << 0;
@@ -257,31 +257,31 @@ void ShortcutWing_Test::buttons_data()
     QTest::newRow("Button 24") << ba << 24 << 255;
 
     QTest::newRow("Button 25") << ba << 25 << 0;
-    ba[10] = 191; /* 1011 1111 */
+    ba[10] = (char)191; /* 1011 1111 */
     QTest::newRow("Button 25") << ba << 25 << 255;
 
     QTest::newRow("Button 26") << ba << 26 << 0;
-    ba[10] = 223; /* 1101 1111 */
+    ba[10] = (char)223; /* 1101 1111 */
     QTest::newRow("Button 26") << ba << 26 << 255;
 
     QTest::newRow("Button 27") << ba << 27 << 0;
-    ba[10] = 239; /* 1110 1111 */
+    ba[10] = (char)239; /* 1110 1111 */
     QTest::newRow("Button 27") << ba << 27 << 255;
 
     QTest::newRow("Button 28") << ba << 28 << 0;
-    ba[10] = 247; /* 1111 0111 */
+    ba[10] = (char)247; /* 1111 0111 */
     QTest::newRow("Button 28") << ba << 28 << 255;
 
     QTest::newRow("Button 29") << ba << 29 << 0;
-    ba[10] = 251; /* 1111 1011 */
+    ba[10] = (char)251; /* 1111 1011 */
     QTest::newRow("Button 29") << ba << 29 << 255;
 
     QTest::newRow("Button 30") << ba << 30 << 0;
-    ba[10] = 253; /* 1111 1101 */
+    ba[10] = (char)253; /* 1111 1101 */
     QTest::newRow("Button 30") << ba << 30 << 255;
 
     QTest::newRow("Button 31") << ba << 31 << 0;
-    ba[10] = 254; /* 1111 1110 */
+    ba[10] = (char)254; /* 1111 1110 */
     QTest::newRow("Button 31") << ba << 31 << 255;
 
     QTest::newRow("Button 32") << ba << 32 << 0;
@@ -289,31 +289,31 @@ void ShortcutWing_Test::buttons_data()
     QTest::newRow("Button 32") << ba << 32 << 255;
 
     QTest::newRow("Button 33") << ba << 33 << 0;
-    ba[9] = 191; /* 1011 1111 */
+    ba[9] = (char)191; /* 1011 1111 */
     QTest::newRow("Button 33") << ba << 33 << 255;
 
     QTest::newRow("Button 34") << ba << 34 << 0;
-    ba[9] = 223; /* 1101 1111 */
+    ba[9] = (char)223; /* 1101 1111 */
     QTest::newRow("Button 34") << ba << 34 << 255;
 
     QTest::newRow("Button 35") << ba << 35 << 0;
-    ba[9] = 239; /* 1110 1111 */
+    ba[9] = (char)239; /* 1110 1111 */
     QTest::newRow("Button 35") << ba << 35 << 255;
 
     QTest::newRow("Button 36") << ba << 36 << 0;
-    ba[9] = 247; /* 1111 0111 */
+    ba[9] = (char)247; /* 1111 0111 */
     QTest::newRow("Button 36") << ba << 36 << 255;
 
     QTest::newRow("Button 37") << ba << 37 << 0;
-    ba[9] = 251; /* 1111 1011 */
+    ba[9] = (char)251; /* 1111 1011 */
     QTest::newRow("Button 37") << ba << 37 << 255;
 
     QTest::newRow("Button 38") << ba << 38 << 0;
-    ba[9] = 253; /* 1111 1101 */
+    ba[9] = (char)253; /* 1111 1101 */
     QTest::newRow("Button 38") << ba << 38 << 255;
 
     QTest::newRow("Button 39") << ba << 39 << 0;
-    ba[9] = 254; /* 1111 1110 */
+    ba[9] = (char)254; /* 1111 1110 */
     QTest::newRow("Button 39") << ba << 39 << 255;
 
     QTest::newRow("Button 40") << ba << 40 << 0;
@@ -321,31 +321,31 @@ void ShortcutWing_Test::buttons_data()
     QTest::newRow("Button 40") << ba << 40 << 255;
 
     QTest::newRow("Button 41") << ba << 41 << 0;
-    ba[8] = 191; /* 1011 1111 */
+    ba[8] = (char)191; /* 1011 1111 */
     QTest::newRow("Button 41") << ba << 41 << 255;
 
     QTest::newRow("Button 42") << ba << 42 << 0;
-    ba[8] = 223; /* 1101 1111 */
+    ba[8] = (char)223; /* 1101 1111 */
     QTest::newRow("Button 42") << ba << 42 << 255;
 
     QTest::newRow("Button 43") << ba << 43 << 0;
-    ba[8] = 239; /* 1110 1111 */
+    ba[8] = (char)239; /* 1110 1111 */
     QTest::newRow("Button 43") << ba << 43 << 255;
 
     QTest::newRow("Button 44") << ba << 44 << 0;
-    ba[8] = 247; /* 1111 0111 */
+    ba[8] = (char)247; /* 1111 0111 */
     QTest::newRow("Button 44") << ba << 44 << 255;
 
     QTest::newRow("Button 45") << ba << 45 << 0;
-    ba[8] = 251; /* 1111 1011 */
+    ba[8] = (char)251; /* 1111 1011 */
     QTest::newRow("Button 45") << ba << 45 << 255;
 
     QTest::newRow("Button 46") << ba << 46 << 0;
-    ba[8] = 253; /* 1111 1101 */
+    ba[8] = (char)253; /* 1111 1101 */
     QTest::newRow("Button 46") << ba << 46 << 255;
 
     QTest::newRow("Button 47") << ba << 47 << 0;
-    ba[8] = 254; /* 1111 1110 */
+    ba[8] = (char)254; /* 1111 1110 */
     QTest::newRow("Button 47") << ba << 47 << 255;
 
     QTest::newRow("Button 48") << ba << 48 << 0;
@@ -353,31 +353,31 @@ void ShortcutWing_Test::buttons_data()
     QTest::newRow("Button 48") << ba << 48 << 255;
 
     QTest::newRow("Button 49") << ba << 49 << 0;
-    ba[7] = 191; /* 1011 1111 */
+    ba[7] = (char)191; /* 1011 1111 */
     QTest::newRow("Button 49") << ba << 49 << 255;
 
     QTest::newRow("Button 50") << ba << 50 << 0;
-    ba[7] = 223; /* 1101 1111 */
+    ba[7] = (char)223; /* 1101 1111 */
     QTest::newRow("Button 50") << ba << 50 << 255;
 
     QTest::newRow("Button 51") << ba << 51 << 0;
-    ba[7] = 239; /* 1110 1111 */
+    ba[7] = (char)239; /* 1110 1111 */
     QTest::newRow("Button 51") << ba << 51 << 255;
 
     QTest::newRow("Button 52") << ba << 52 << 0;
-    ba[7] = 247; /* 1111 0111 */
+    ba[7] = (char)247; /* 1111 0111 */
     QTest::newRow("Button 52") << ba << 52 << 255;
 
     QTest::newRow("Button 53") << ba << 53 << 0;
-    ba[7] = 251; /* 1111 1011 */
+    ba[7] = (char)251; /* 1111 1011 */
     QTest::newRow("Button 53") << ba << 53 << 255;
 
     QTest::newRow("Button 54") << ba << 54 << 0;
-    ba[7] = 253; /* 1111 1101 */
+    ba[7] = (char)253; /* 1111 1101 */
     QTest::newRow("Button 54") << ba << 54 << 255;
 
     QTest::newRow("Button 55") << ba << 55 << 0;
-    ba[7] = 254; /* 1111 1110 */
+    ba[7] = (char)254; /* 1111 1110 */
     QTest::newRow("Button 55") << ba << 55 << 255;
 
     QTest::newRow("Button 56") << ba << 56 << 0;
@@ -385,15 +385,15 @@ void ShortcutWing_Test::buttons_data()
     QTest::newRow("Button 56") << ba << 56 << 255;
 
     QTest::newRow("Button 57") << ba << 57 << 0;
-    ba[6] = 191; /* 1011 1111 */
+    ba[6] = (char)191; /* 1011 1111 */
     QTest::newRow("Button 57") << ba << 57 << 255;
 
     QTest::newRow("Button 58") << ba << 58 << 0;
-    ba[6] = 223; /* 1101 1111 */
+    ba[6] = (char)223; /* 1101 1111 */
     QTest::newRow("Button 58") << ba << 58 << 255;
 
     QTest::newRow("Button 59") << ba << 59 << 0;
-    ba[6] = 239; /* 1110 1111 */
+    ba[6] = (char)239; /* 1110 1111 */
     QTest::newRow("Button 59") << ba << 59 << 255;
 }
 

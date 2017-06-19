@@ -18,82 +18,114 @@
 */
 
 import QtQuick 2.3
-import QtQuick.Controls 1.2
-import QtQuick.Controls.Styles 1.3
+import QtQuick.Controls 2.0
 import "."
 
 SpinBox
 {
-    id: spinbox
+    id: control
     font.family: UISettings.robotoFontName
     font.pixelSize: UISettings.textSizeDefault
-    width: 70
+    width: UISettings.bigItemHeight
+    height: UISettings.listItemHeight
+    implicitWidth: UISettings.bigItemHeight
     implicitHeight: UISettings.listItemHeight
+    editable: true
+    from: 0
+    to: 255
+    clip: true
 
     property bool showControls: true
+    property string suffix: ""
+    property alias horizontalAlignment: textControl.horizontalAlignment
+    property int controlWidth: showControls ? Math.min(UISettings.iconSizeMedium, control.width / 3) : 0
 
-    style:
-        SpinBoxStyle
+    onFromChanged: if (value < from) control.value = from
+    onToChanged: if (value > to) control.value = to
+
+    onFocusChanged:
+    {
+        if (focus) contentItem.selectAll()
+    }
+
+    MouseArea
+    {
+        anchors.fill: parent
+        onWheel:
         {
-            // taken from SpinBoxStyle.qml original code
-            // fundamental for the whole spinbox layout !
-            padding
-            {
-                top: 1
-                left: 2
-                right: controlWidth + 2
-                bottom: 0
-            }
-            background:
-                Rectangle
-                {
-                    color: UISettings.bgMedium
-                    border.color: "#222"
-                    radius: 3
-                }
-            textColor: UISettings.fgMain
-
-            property int controlWidth: showControls ? Math.min(UISettings.iconSizeMedium, spinbox.width / 3) : 0
-
-            incrementControl:
-                Rectangle
-                {
-                    visible: showControls
-                    implicitHeight: 10
-                    implicitWidth: controlWidth
-                    border.color: "#222"
-                    radius: 3
-                    color: styleData.upHovered && !styleData.upPressed
-                        ? "#555" : (styleData.upPressed ? "#222" : "#444")
-                    Image
-                    {
-                        anchors.centerIn: parent
-                        source: "qrc:/arrow-up.svg"
-                        height: parent.height - 8
-                        sourceSize: Qt.size(parent.width, parent.height - 8)
-                        //opacity: spinbox.enabled ? (styleData.upPressed ? 1 : 0.6) : 0.5
-                    }
-                }
-
-            decrementControl:
-                Rectangle
-                {
-                    visible: showControls
-                    implicitHeight: 10
-                    implicitWidth: controlWidth
-                    border.color: "#222"
-                    radius: 3
-                    color: styleData.downHovered && !styleData.downPressed
-                        ? "#555" : (styleData.downPressed ? "#222" : "#444")
-                    Image
-                    {
-                        anchors.centerIn: parent
-                        source: "qrc:/arrow-up.svg"
-                        rotation: 180
-                        height: parent.height - 8
-                        sourceSize: Qt.size(parent.width, parent.height - 8)
-                        //opacity: spinbox.enabled ? (styleData.downPressed ? 1 : 0.6) : 0.5
-                    }
-                }
+            if (wheel.angleDelta.y > 0)
+                control.value++
+            else
+                control.value--
         }
+    }
+
+    textFromValue: function(value) {
+        return value + suffix
+    }
+
+    valueFromText: function(text) {
+        return parseInt(text.replace(suffix, ""))
+    }
+
+    background: Rectangle {
+        implicitWidth: parent.width
+        color: UISettings.bgMedium
+        border.color: "#222"
+        radius: 3
+    }
+
+    contentItem: TextInput {
+        id: textControl
+        z: 2
+        height: control.height
+        font: control.font
+        text: control.textFromValue(control.value, control.locale)
+        color: UISettings.fgMain
+        selectByMouse: true
+        selectionColor: UISettings.highlightPressed
+        selectedTextColor: "white"
+        horizontalAlignment: Qt.AlignRight
+        verticalAlignment: Qt.AlignVCenter
+
+        readOnly: !control.editable
+        validator: control.validator
+        inputMethodHints: Qt.ImhFormattedNumbersOnly
+    }
+
+    up.indicator: Rectangle {
+        visible: showControls
+        x: parent.width - width
+        implicitHeight: parent.height / 2
+        implicitWidth: controlWidth
+        color: up.pressed ? UISettings.bgLight : UISettings.bgControl
+        border.color: UISettings.bgStrong
+
+        Image
+        {
+            anchors.centerIn: parent
+            source: "qrc:/arrow-up.svg"
+            height: parent.height - 8
+            sourceSize: Qt.size(parent.width, parent.height - 8)
+        }
+    }
+
+    down.indicator: Rectangle {
+        visible: showControls
+        x: parent.width - width
+        y: parent.height / 2
+        implicitWidth: controlWidth
+        implicitHeight: parent.height / 2
+        color: down.pressed ? UISettings.bgLight : UISettings.bgControl
+        border.color: UISettings.bgStrong
+
+        Image
+        {
+            anchors.centerIn: parent
+            source: "qrc:/arrow-up.svg"
+            rotation: 180
+            height: parent.height - 8
+            sourceSize: Qt.size(parent.width, parent.height - 8)
+        }
+    }
 }

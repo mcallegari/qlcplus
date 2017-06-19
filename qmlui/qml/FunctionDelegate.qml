@@ -18,7 +18,7 @@
 */
 
 import QtQuick 2.0
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 
 import "."
 
@@ -32,8 +32,12 @@ Rectangle
 
     property Function cRef
     property string textLabel
+    property string itemIcon: ""
+    property int itemType: App.FunctionDragItem
     property bool isSelected: false
     property Item dragItem
+
+    onCRefChanged: itemIcon = functionManager.functionIcon(cRef.type)
 
     signal toggled
     signal destruction(int ID, var qItem)

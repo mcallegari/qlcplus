@@ -32,6 +32,7 @@
 #include "collection.h"
 #include "rgbmatrix.h"
 #include "function.h"
+#include "sequence.h"
 #include "chaser.h"
 #include "script.h"
 #include "audio.h"
@@ -42,7 +43,6 @@
 #include "show.h"
 #include "efx.h"
 #include "doc.h"
-#include "functionuistate.h"
 
 const QString KSceneString      (      "Scene" );
 const QString KChaserString     (     "Chaser" );
@@ -51,6 +51,7 @@ const QString KCollectionString ( "Collection" );
 const QString KScriptString     (     "Script" );
 const QString KRGBMatrixString  (  "RGBMatrix" );
 const QString KShowString       (       "Show" );
+const QString KSequenceString   (   "Sequence" );
 const QString KAudioString      (      "Audio" );
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 const QString KVideoString      (      "Video" );
@@ -77,6 +78,7 @@ Function::Function(QObject *parent)
     , m_id(Function::invalidId())
     , m_type(Undefined)
     , m_path(QString())
+    , m_visible(true)
     , m_runOrder(Loop)
     , m_direction(Forward)
     , m_tempoType(Time)
@@ -88,7 +90,6 @@ Function::Function(QObject *parent)
     , m_overrideFadeInSpeed(defaultSpeed())
     , m_overrideFadeOutSpeed(defaultSpeed())
     , m_overrideDuration(defaultSpeed())
-    , m_uiState()
     , m_flashing(false)
     , m_elapsed(0)
     , m_elapsedBeats(0)
@@ -105,6 +106,7 @@ Function::Function(Doc* doc, Type t)
     , m_id(Function::invalidId())
     , m_type(t)
     , m_path(QString())
+    , m_visible(true)
     , m_runOrder(Loop)
     , m_direction(Forward)
     , m_tempoType(Time)
@@ -116,7 +118,6 @@ Function::Function(Doc* doc, Type t)
     , m_overrideFadeInSpeed(defaultSpeed())
     , m_overrideFadeOutSpeed(defaultSpeed())
     , m_overrideDuration(defaultSpeed())
-    , m_uiState()
     , m_flashing(false)
     , m_elapsed(0)
     , m_elapsedBeats(0)
@@ -173,8 +174,9 @@ bool Function::copyFrom(const Function* function)
     m_fadeOutSpeed = function->fadeOutSpeed();
     m_duration = function->duration();
     m_path = function->path(true);
+    m_visible = function->isVisible();
     m_blendMode = function->blendMode();
-    uiState()->copyFrom(function->uiState());
+    m_uiState = function->uiStateMap();
 
     emit changed(m_id);
 
@@ -239,53 +241,47 @@ QString Function::typeToString(Type type)
 {
     switch (type)
     {
-    case Scene:
-        return KSceneString;
-    case Chaser:
-        return KChaserString;
-    case EFX:
-        return KEFXString;
-    case Collection:
-        return KCollectionString;
-    case Script:
-        return KScriptString;
-    case RGBMatrix:
-        return KRGBMatrixString;
-    case Show:
-        return KShowString;
-    case Audio:
-        return KAudioString;
+        case SceneType:      return KSceneString;
+        case ChaserType:     return KChaserString;
+        case EFXType:        return KEFXString;
+        case CollectionType: return KCollectionString;
+        case ScriptType:     return KScriptString;
+        case RGBMatrixType:  return KRGBMatrixString;
+        case ShowType:       return KShowString;
+        case SequenceType:   return KSequenceString;
+        case AudioType:      return KAudioString;
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-    case Video:
-        return KVideoString;
+        case VideoType:      return KVideoString;
 #endif
-    case Undefined:
-    default:
-        return KUndefinedString;
+        case Undefined:
+        default:
+            return KUndefinedString;
     }
 }
 
 Function::Type Function::stringToType(const QString& string)
 {
     if (string == KSceneString)
-        return Scene;
+        return SceneType;
     else if (string == KChaserString)
-        return Chaser;
+        return ChaserType;
     else if (string == KEFXString)
-        return EFX;
+        return EFXType;
     else if (string == KCollectionString)
-        return Collection;
+        return CollectionType;
     else if (string == KScriptString)
-        return Script;
+        return ScriptType;
     else if (string == KRGBMatrixString)
-        return RGBMatrix;
+        return RGBMatrixType;
     else if (string == KShowString)
-        return Show;
+        return ShowType;
+    else if (string == KSequenceString)
+        return SequenceType;
     else if (string == KAudioString)
-        return Audio;
+        return AudioType;
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     else if (string == KVideoString)
-        return Video;
+        return VideoType;
 #endif
     else
         return Undefined;
@@ -316,6 +312,20 @@ QString Function::path(bool simplified) const
 }
 
 /*********************************************************************
+ * Visibility
+ *********************************************************************/
+
+void Function::setVisible(bool visible)
+{
+    m_visible = visible;
+}
+
+bool Function::isVisible() const
+{
+    return m_visible;
+}
+
+/*********************************************************************
  * Common
  *********************************************************************/
 
@@ -326,6 +336,8 @@ bool Function::saveXMLCommon(QXmlStreamWriter *doc) const
     doc->writeAttribute(KXMLQLCFunctionID, QString::number(id()));
     doc->writeAttribute(KXMLQLCFunctionType, Function::typeToString(type()));
     doc->writeAttribute(KXMLQLCFunctionName, name());
+    if (isVisible() == false)
+        doc->writeAttribute(KXMLQLCFunctionHidden, "True");
     if (path(true).isEmpty() == false)
         doc->writeAttribute(KXMLQLCFunctionPath, path(true));
     if (blendMode() != Universe::NormalBlend)
@@ -806,22 +818,19 @@ uint Function::defaultSpeed()
  * UI State
  *****************************************************************************/
 
-FunctionUiState * Function::uiState()
+QVariant Function::uiStateValue(QString property)
 {
-    if (m_uiState == NULL)
-        m_uiState = createUiState();
-
-    return m_uiState;
+    return m_uiState.value(property, QVariant());
 }
 
-const FunctionUiState * Function::uiState() const
+void Function::setUiStateValue(QString property, QVariant value)
 {
-    return m_uiState;
+    m_uiState[property] = value;
 }
 
-FunctionUiState * Function::createUiState()
+QMap<QString, QVariant> Function::uiStateMap() const
 {
-   return new FunctionUiState(this);
+    return m_uiState;
 }
 
 /*****************************************************************************
@@ -863,10 +872,13 @@ bool Function::loader(QXmlStreamReader &root, Doc* doc)
     QString name = attrs.value(KXMLQLCFunctionName).toString();
     Type type = Function::stringToType(attrs.value(KXMLQLCFunctionType).toString());
     QString path;
+    bool visible = true;
     Universe::BlendMode blendMode = Universe::NormalBlend;
 
     if (attrs.hasAttribute(KXMLQLCFunctionPath))
         path = attrs.value(KXMLQLCFunctionPath).toString();
+    if (attrs.hasAttribute(KXMLQLCFunctionHidden))
+        visible = false;
     if (attrs.hasAttribute(KXMLQLCFunctionBlendMode))
         blendMode = Universe::stringToBlendMode(attrs.value(KXMLQLCFunctionBlendMode).toString());
 
@@ -879,24 +891,26 @@ bool Function::loader(QXmlStreamReader &root, Doc* doc)
 
     /* Create a new function according to the type */
     Function* function = NULL;
-    if (type == Function::Scene)
+    if (type == Function::SceneType)
         function = new class Scene(doc);
-    else if (type == Function::Chaser)
+    else if (type == Function::ChaserType)
         function = new class Chaser(doc);
-    else if (type == Function::Collection)
+    else if (type == Function::CollectionType)
         function = new class Collection(doc);
-    else if (type == Function::EFX)
+    else if (type == Function::EFXType)
         function = new class EFX(doc);
-    else if (type == Function::Script)
+    else if (type == Function::ScriptType)
         function = new class Script(doc);
-    else if (type == Function::RGBMatrix)
+    else if (type == Function::RGBMatrixType)
         function = new class RGBMatrix(doc);
-    else if (type == Function::Show)
+    else if (type == Function::ShowType)
         function = new class Show(doc);
-    else if (type == Function::Audio)
+    else if (type == Function::SequenceType)
+        function = new class Sequence(doc);
+    else if (type == Function::AudioType)
         function = new class Audio(doc);
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-    else if (type == Function::Video)
+    else if (type == Function::VideoType)
         function = new class Video(doc);
 #endif
     else
@@ -904,6 +918,7 @@ bool Function::loader(QXmlStreamReader &root, Doc* doc)
 
     function->setName(name);
     function->setPath(path);
+    function->setVisible(visible);
     function->setBlendMode(blendMode);
     if (function->loadXML(root) == true)
     {
@@ -983,12 +998,15 @@ void Function::postRun(MasterTimer* timer, QList<Universe *> universes)
     Q_UNUSED(universes);
 
     qDebug() << "Function postRun. Name:" << m_name << "ID: " << m_id;
-    m_stopMutex.lock();
-    resetElapsed();
-    resetAttributes();
 
-    m_functionStopped.wakeAll();
-    m_stopMutex.unlock();
+    {
+        QMutexLocker locker(&m_stopMutex);
+
+        resetElapsed();
+        resetAttributes();
+
+        m_functionStopped.wakeAll();
+    }
 
     m_running = false;
     emit stopped(m_id);
@@ -1136,9 +1154,8 @@ bool Function::startedAsChild() const
 
 bool Function::stopAndWait()
 {
-    bool result = true;
+    QMutexLocker locker(&m_stopMutex);
 
-    m_stopMutex.lock();
     stop(FunctionParent::master());
 
     QElapsedTimer watchdog;
@@ -1148,21 +1165,17 @@ bool Function::stopAndWait()
     while (m_running == true)
     {
         if (watchdog.elapsed() > 2000)
-        {
-              result = false;
-              break;
-        }
+            return false;
 
         // wait until the function has stopped
         m_functionStopped.wait(&m_stopMutex, 100);
     }
 
-    m_stopMutex.unlock();
-    return result;
+    return true;
 }
 
 /*****************************************************************************
- * Intensity
+ * Attributes
  *****************************************************************************/
 int Function::registerAttribute(QString name, qreal value)
 {
@@ -1249,6 +1262,10 @@ bool Function::contains(quint32 functionId)
     Q_UNUSED(functionId);
     return false;
 }
+
+/*************************************************************************
+ * Blend mode
+ *************************************************************************/
 
 void Function::setBlendMode(Universe::BlendMode mode)
 {

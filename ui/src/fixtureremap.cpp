@@ -38,6 +38,7 @@
 #include "chaserstep.h"
 #include "audiobar.h"
 #include "vcslider.h"
+#include "sequence.h"
 #include "vcxypad.h"
 #include "vcframe.h"
 #include "chaser.h"
@@ -121,7 +122,7 @@ FixtureRemap::FixtureRemap(Doc *doc, QWidget *parent)
     connect(m_targetTree, SIGNAL(collapsed(QModelIndex)),
             this, SLOT(slotUpdateConnections()));
 
-    // retrieve the original project name for QLC+ main class
+    // retrieve the original project name from the QLC+ App class
     App *mainApp = (App *)m_doc->parent();
     QString prjName = mainApp->fileName();
 
@@ -176,7 +177,7 @@ void FixtureRemap::fillFixturesTree(Doc *doc, QTreeWidget *tree)
         quint32 baseAddr = fxi->address();
         QTreeWidgetItem *fItem = new QTreeWidgetItem(topItem);
         fItem->setText(KColumnName, fxi->name());
-        fItem->setIcon(KColumnName, fxi->getIconFromType(fxi->type()));
+        fItem->setIcon(KColumnName, fxi->getIconFromType());
         fItem->setText(KColumnAddress, QString("%1 - %2").arg(baseAddr + 1).arg(baseAddr + fxi->channels()));
         fItem->setText(KColumnUniverse, QString::number(uni));
         fItem->setText(KColumnID, QString::number(fxi->id()));
@@ -258,7 +259,7 @@ void FixtureRemap::slotAddTargetFixture()
         quint32 baseAddr = fxi->address();
         QTreeWidgetItem *fItem = new QTreeWidgetItem(topItem);
         fItem->setText(KColumnName, fxi->name());
-        fItem->setIcon(KColumnName, fxi->getIconFromType(fxi->type()));
+        fItem->setIcon(KColumnName, fxi->getIconFromType());
         fItem->setText(KColumnAddress, QString("%1 - %2").arg(baseAddr + 1).arg(baseAddr + fxi->channels()));
         fItem->setText(KColumnUniverse, QString::number(universe));
         fItem->setText(KColumnID, QString::number(fxi->id()));
@@ -372,7 +373,7 @@ void FixtureRemap::slotCloneSourceFixture()
     quint32 baseAddr = tgtFix->address();
     QTreeWidgetItem *fItem = new QTreeWidgetItem(topItem);
     fItem->setText(KColumnName, tgtFix->name());
-    fItem->setIcon(KColumnName, tgtFix->getIconFromType(tgtFix->type()));
+    fItem->setIcon(KColumnName, tgtFix->getIconFromType());
     fItem->setText(KColumnAddress, QString("%1 - %2").arg(baseAddr + 1).arg(baseAddr + tgtFix->channels()));
     fItem->setText(KColumnUniverse, QString::number(tgtFix->universe()));
     fItem->setText(KColumnID, QString::number(tgtFix->id()));
@@ -722,7 +723,7 @@ void FixtureRemap::accept()
     {
         switch (func->type())
         {
-            case Function::Scene:
+            case Function::SceneType:
             {
                 Scene *s = qobject_cast<Scene*>(func);
                 qDebug() << "Analyzing Scene #" << s->id();
@@ -737,25 +738,22 @@ void FixtureRemap::accept()
                 }
             }
             break;
-            case Function::Chaser:
+            case Function::SequenceType:
             {
-                Chaser *c = qobject_cast<Chaser*>(func);
-                if (c->isSequence() == true)
+                Sequence *s = qobject_cast<Sequence*>(func);
+                for (int idx = 0; idx < s->stepsCount(); idx++)
                 {
-                    for (int idx = 0; idx < c->stepsCount(); idx++)
-                    {
-                        ChaserStep cs = c->stepAt(idx);
-                        QList <SceneValue> newList = remapSceneValues(cs.values, sourceList, targetList);
-                        //qDebug() << "Step" << idx << "remapped" << cs.values.count() << "to" << newList.count();
-                        // this is crucial: here all the "unmapped" channels will be lost forever !
-                        cs.values.clear();
-                        cs.values = newList;
-                        c->replaceStep(cs, idx);
-                    }
+                    ChaserStep *cs = s->stepAt(idx);
+                    QList <SceneValue> newList = remapSceneValues(cs->values, sourceList, targetList);
+                    //qDebug() << "Step" << idx << "remapped" << cs.values.count() << "to" << newList.count();
+                    // this is crucial: here all the "unmapped" channels will be lost forever !
+                    cs->values.clear();
+                    cs->values = newList;
+                    //s->replaceStep(cs, idx);
                 }
             }
             break;
-            case Function::EFX:
+            case Function::EFXType:
             {
                 EFX *e = qobject_cast<EFX*>(func);
                 // make a copy of this EFX fixtures list
@@ -929,6 +927,8 @@ void FixtureRemap::accept()
      * 8 - save the remapped project into a new file
      * ********************************************************************** */
     App *mainApp = (App *)m_doc->parent();
+    if (m_targetProjectLabel->text().endsWith(".qxw") == false)
+        m_targetProjectLabel->setText(m_targetProjectLabel->text() + ".qxw");
     mainApp->setFileName(m_targetProjectLabel->text());
     mainApp->slotFileSave();
 

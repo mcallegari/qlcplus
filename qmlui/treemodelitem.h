@@ -42,18 +42,19 @@ public:
     QString path() const;
     void setPath(QString path);
 
-    /** Get/Set if the item should be expanded when
-     *  displayed in the UI */
-    bool isExpanded() const;
-    void setExpanded(bool expanded);
+    /** Set all the item flags at once */
+    void setFlags(int flags);
 
-    /** Get/Set if the item should be selected when
-     *  displayed in the UI */
-    bool isSelected() const;
-    void setSelected(bool selected);
+    /** Get/Set a single flag of the item */
+    void setFlag(int flag, bool enable);
+    int flags() const;
 
-    /** Get the user custom fields as variant */
+    /** Get a user custom field with $index as variant */
     QVariant data(int index);
+
+    /** Get all the user custom fields as a variant list */
+    QVariantList data();
+
     /** Set the list of user custom fields */
     void setData(QVariantList data);
 
@@ -74,8 +75,7 @@ public:
 private:
     QString m_label;
     QString m_path;
-    bool m_isExpanded;
-    bool m_isSelected;
+    int m_flags;
     QVariantList m_data;
     TreeModel *m_children;
 };

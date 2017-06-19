@@ -360,6 +360,9 @@ public:
     void setCaption(const QString& text);
 
     /** @reimp */
+    void setFont(const QFont& font);
+
+    /** @reimp */
     void slotModeChanged(Doc::Mode mode);
 
     /** @reimp */

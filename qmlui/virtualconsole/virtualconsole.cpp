@@ -78,14 +78,16 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc,
         m_pages.append(page);
     }
 
-    qmlRegisterType<VCWidget>("com.qlcplus.classes", 1, 0, "VCWidget");
-    qmlRegisterType<VCFrame>("com.qlcplus.classes", 1, 0, "VCFrame");
-    qmlRegisterType<VCPage>("com.qlcplus.classes", 1, 0, "VCPage");
-    qmlRegisterType<VCButton>("com.qlcplus.classes", 1, 0, "VCButton");
-    qmlRegisterType<VCLabel>("com.qlcplus.classes", 1, 0, "VCLabel");
-    qmlRegisterType<VCSlider>("com.qlcplus.classes", 1, 0, "VCSlider");
-    qmlRegisterType<VCClock>("com.qlcplus.classes", 1, 0, "VCClock");
-    qmlRegisterType<VCClockSchedule>("com.qlcplus.classes", 1, 0, "VCClockSchedule");
+    qmlRegisterUncreatableType<GrandMaster>("org.qlcplus.classes", 1, 0, "GrandMaster", "Can't create a GrandMaster !");
+
+    qmlRegisterType<VCWidget>("org.qlcplus.classes", 1, 0, "VCWidget");
+    qmlRegisterType<VCFrame>("org.qlcplus.classes", 1, 0, "VCFrame");
+    qmlRegisterType<VCPage>("org.qlcplus.classes", 1, 0, "VCPage");
+    qmlRegisterType<VCButton>("org.qlcplus.classes", 1, 0, "VCButton");
+    qmlRegisterType<VCLabel>("org.qlcplus.classes", 1, 0, "VCLabel");
+    qmlRegisterType<VCSlider>("org.qlcplus.classes", 1, 0, "VCSlider");
+    qmlRegisterType<VCClock>("org.qlcplus.classes", 1, 0, "VCClock");
+    qmlRegisterType<VCClockSchedule>("org.qlcplus.classes", 1, 0, "VCClockSchedule");
 
     connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar,QString)),
             this, SLOT(slotInputValueChanged(quint32,quint32,uchar)));
@@ -225,7 +227,7 @@ bool VirtualConsole::setPagePIN(int index, QString currentPIN, QString newPIN)
             return false;
     }
 
-    /* Check if the current PIN matches with the Frame PIN */
+    /* Check if the current PIN matches with the page PIN */
     if (m_pages.at(index)->PIN() != 0 &&
         m_pages.at(index)->PIN() != currentPIN.toInt())
         return false;
@@ -899,6 +901,24 @@ bool VirtualConsole::loadXML(QXmlStreamReader &root)
     return true;
 }
 
+bool VirtualConsole::loadXMLLegacyInput(QXmlStreamReader &root, quint32* uni, quint32* ch) const
+{
+    if (root.name() != KXMLQLCVCWidgetInput)
+    {
+        qWarning() << Q_FUNC_INFO << "Input node not found!";
+        return false;
+    }
+    else
+    {
+        QXmlStreamAttributes attrs = root.attributes();
+        *uni = attrs.value(KXMLQLCVCWidgetInputUniverse).toString().toUInt();
+        *ch = attrs.value(KXMLQLCVCWidgetInputChannel).toString().toUInt();
+        root.skipCurrentElement();
+    }
+
+    return true;
+}
+
 bool VirtualConsole::loadPropertiesXML(QXmlStreamReader &root)
 {
     if (root.name() != KXMLQLCVCProperties)
@@ -906,6 +926,11 @@ bool VirtualConsole::loadPropertiesXML(QXmlStreamReader &root)
         qWarning() << Q_FUNC_INFO << "Virtual Console properties node not found";
         return false;
     }
+
+    GrandMaster::ChannelMode gmLegacyChannelMode = GrandMaster::Intensity;
+    GrandMaster::ValueMode gmLegacyValueMode = GrandMaster::Reduce;
+    GrandMaster::SliderMode gmLegacySliderMode = GrandMaster::Normal;
+    QSharedPointer<QLCInputSource> gmLegacyInputSource;
 
     QString str;
     while (root.readNextStartElement())
@@ -931,21 +956,20 @@ bool VirtualConsole::loadPropertiesXML(QXmlStreamReader &root)
                 m_pages.at(0)->setGeometry(QRect(0, 0, sz.width(), sz.height()));
             root.skipCurrentElement();
         }
-#if 0
         else if (root.name() == KXMLQLCVCPropertiesGrandMaster)
         {
             QXmlStreamAttributes attrs = root.attributes();
 
             str = attrs.value(KXMLQLCVCPropertiesGrandMasterChannelMode).toString();
-            setGrandMasterChannelMode(GrandMaster::stringToChannelMode(str));
+            gmLegacyChannelMode = GrandMaster::stringToChannelMode(str);
 
             str = attrs.value(KXMLQLCVCPropertiesGrandMasterValueMode).toString();
-            setGrandMasterValueMode(GrandMaster::stringToValueMode(str));
+            gmLegacyValueMode = GrandMaster::stringToValueMode(str);
 
             if (attrs.hasAttribute(KXMLQLCVCPropertiesGrandMasterSliderMode))
             {
                 str = attrs.value(KXMLQLCVCPropertiesGrandMasterSliderMode).toString();
-                setGrandMasterSliderMode(GrandMaster::stringToSliderMode(str));
+                gmLegacySliderMode = GrandMaster::stringToSliderMode(str);
             }
 
             QXmlStreamReader::TokenType tType = root.readNext();
@@ -960,19 +984,42 @@ bool VirtualConsole::loadPropertiesXML(QXmlStreamReader &root)
                     quint32 universe = InputOutputMap::invalidUniverse();
                     quint32 channel = QLCChannel::invalid();
                     /* External input */
-                    if (loadXMLInput(root, &universe, &channel) == true)
-                        setGrandMasterInputSource(universe, channel);
+                    if (loadXMLLegacyInput(root, &universe, &channel) == true)
+                        gmLegacyInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(universe, channel));
                 }
                 root.skipCurrentElement();
             }
         }
-#endif
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown Virtual Console property tag:"
                        << root.name().toString();
             root.skipCurrentElement();
         }
+    }
+
+    /* Now check if there's the need to create a GrandMaster
+     * as a VC Slider in GrandMaster mode */
+    if (gmLegacyChannelMode != GrandMaster::Intensity || gmLegacyValueMode != GrandMaster::Reduce ||
+        gmLegacySliderMode != GrandMaster::Normal || gmLegacyInputSource.isNull() == false)
+    {
+        VCSlider *slider = new VCSlider(m_doc, m_pages.at(0));
+        QQmlEngine::setObjectOwnership(slider, QQmlEngine::CppOwnership);
+        slider->setGeometry(QRect(0, 0, pixelDensity() * 10, m_pages.at(0)->geometry().height()));
+        slider->setDefaultFontSize(pixelDensity() * 3.5);
+        slider->setSliderMode(VCSlider::GrandMaster);
+
+        slider->setGrandMasterChannelMode(gmLegacyChannelMode);
+        slider->setGrandMasterValueMode(gmLegacyValueMode);
+
+        if (gmLegacySliderMode == GrandMaster::Inverted)
+            slider->setInvertedAppearance(true);
+
+        if (gmLegacyInputSource.isNull() == false)
+            slider->addInputSource(gmLegacyInputSource);
+
+        m_pages.at(0)->addWidgetToPageMap(slider);
+        addWidgetToMap(slider);
     }
 
     return true;

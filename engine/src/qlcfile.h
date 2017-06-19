@@ -65,27 +65,7 @@ class QString;
 class QLCFile
 {
 public:
-#ifdef QT_XML_LIB
     /**
-     * Read an XML file to a QDomDocument structure
-     *
-     * @param path Path to the file to read
-     * @return QDomDocument (null doc if not successful)
-     */
-    static QDomDocument readXML(const QString& path);
-
-    /**
-     * Get a common XML file header as a QDomDocument
-     *
-     * @param content The content type (Settings, Workspace)
-     * @param author The file's author (overridden by current user name if empty)
-     * @return A new QDomDocument containing the header
-     */
-    static QDomDocument getXMLHeader(const QString& content, const QString& author = QString());
-#endif
-
-    /**
-     * !!! this should replace readXML in the end !!!
      * Request a QXmlStreamReader for an XML file
      *
      * @param path Path to the file to read
@@ -100,7 +80,6 @@ public:
     static void releaseXMLReader(QXmlStreamReader *reader);
 
     /**
-     * !!! this should replace getXMLHeader in the end !!!
      * Write a common XML header on the given document
      *
      * @param xml The instance of a XML writer
@@ -129,14 +108,14 @@ public:
     static QString currentUserName();
 
     /**
-     * Method called just once to set the m_isRaspberry flag
+     * Method called just once to set the m_hasWindowManager flag
      */
-    static void checkRaspberry();
+    static void setHasWindowManager(bool enable);
 
     /**
-     * Return if the current platform is a Raspberry Pi
+     * Return if the current platform provides a window manager
      */
-    static bool isRaspberry();
+    static bool hasWindowManager();
 
     /**
      * @brief systemDirectory returns a system dependant QDir based
@@ -156,8 +135,13 @@ public:
      */
     static QDir userDirectory(QString path, QString fallBackPath, QStringList extensions);
 
+    /**
+     * @brief getQtVersion get the runtime Qt version as number. E.g. 50602
+     */
+    static quint32 getQtRuntimeVersion();
+
 private:
-    static bool m_isRaspberry;
+    static bool m_hasWindowManager;
 };
 
 /** @} */

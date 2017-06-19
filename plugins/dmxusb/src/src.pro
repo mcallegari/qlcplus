@@ -99,9 +99,9 @@ SOURCES += dmxinterface.cpp \
            stageprofi.cpp \
            vinceusbdmx512.cpp
 
-INCLUDEPATH += ../../midi/common
-HEADERS += ../../midi/common/midiprotocol.h
-SOURCES += ../../midi/common/midiprotocol.cpp
+INCLUDEPATH += ../../midi/src/common
+HEADERS += ../../midi/src/common/midiprotocol.h
+SOURCES += ../../midi/src/common/midiprotocol.cpp
 
 unix|macx: SOURCES += nanodmx.cpp euroliteusbdmxpro.cpp
 

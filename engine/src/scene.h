@@ -85,9 +85,6 @@ public:
 private:
     quint32 m_legacyFadeBus;
 
-    /** flag that says if a scene is used by some Chaser in sequence mode */
-    bool m_hasChildren;
-
     /*********************************************************************
      * Copying
      *********************************************************************/
@@ -97,12 +94,6 @@ public:
 
     /** @reimp */
     bool copyFrom(const Function* function);
-
-    /*********************************************************************
-     * UI State
-     *********************************************************************/
-private:
-    virtual FunctionUiState * createUiState();
 
     /*********************************************************************
      * Values
@@ -149,6 +140,9 @@ public:
      * Clear all values
      */
     void clear();
+
+signals:
+    void valueChanged(SceneValue scv);
 
 protected:
     QMap <SceneValue, uchar> m_values;

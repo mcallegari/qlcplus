@@ -17,25 +17,30 @@
   limitations under the License.
 */
 
+#include <QQuickItemGrabResult>
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <QFontDatabase>
+#include <QPrintDialog>
 #include <QQmlContext>
 #include <QQuickItem>
 #include <QSettings>
 #include <QKeyEvent>
+#include <QPrinter>
+#include <QPainter>
 #include <QScreen>
 
 #include "app.h"
 #include "mainview2d.h"
 #include "showmanager.h"
-#include "actionmanager.h"
 #include "modelselector.h"
+#include "videoprovider.h"
 #include "contextmanager.h"
 #include "virtualconsole.h"
 #include "fixturebrowser.h"
 #include "fixturemanager.h"
 #include "functionmanager.h"
+#include "fixturegroupeditor.h"
 #include "inputoutputmanager.h"
 
 #include "qlcfixturedefcache.h"
@@ -56,6 +61,7 @@ App::App()
     , m_fixtureManager(NULL)
     , m_contextManager(NULL)
     , m_ioManager(NULL)
+    , m_videoProvider(NULL)
     , m_doc(NULL)
     , m_docLoaded(false)
 {
@@ -66,6 +72,8 @@ App::App()
     QVariant dir = settings.value(SETTINGS_WORKINGPATH);
     if (dir.isValid() == true)
         m_workingPath = dir.toString();
+
+    connect(this, &App::screenChanged, this, &App::slotScreenChanged);
 }
 
 App::~App()
@@ -75,12 +83,12 @@ App::~App()
 
 void App::startup()
 {
-    qmlRegisterType<Fixture>("com.qlcplus.classes", 1, 0, "Fixture");
-    qmlRegisterType<Function>("com.qlcplus.classes", 1, 0, "Function");
-    qmlRegisterType<ModelSelector>("com.qlcplus.classes", 1, 0, "ModelSelector");
-    qmlRegisterType<App>("com.qlcplus.classes", 1, 0, "App");
+    qmlRegisterType<Fixture>("org.qlcplus.classes", 1, 0, "Fixture");
+    qmlRegisterType<Function>("org.qlcplus.classes", 1, 0, "Function");
+    qmlRegisterType<ModelSelector>("org.qlcplus.classes", 1, 0, "ModelSelector");
+    qmlRegisterType<App>("org.qlcplus.classes", 1, 0, "App");
 
-    setTitle("Q Light Controller Plus");
+    setTitle(APPNAME);
     setIcon(QIcon(":/qlcplus.svg"));
 
     if (QFontDatabase::addApplicationFont(":/RobotoCondensed-Regular.ttf") < 0)
@@ -104,6 +112,9 @@ void App::startup()
     m_fixtureManager = new FixtureManager(this, m_doc);
     rootContext()->setContextProperty("fixtureManager", m_fixtureManager);
 
+    m_fixtureGroupEditor = new FixtureGroupEditor(this, m_doc);
+    rootContext()->setContextProperty("fixtureGroupEditor", m_fixtureGroupEditor);
+
     m_functionManager = new FunctionManager(this, m_doc);
     rootContext()->setContextProperty("functionManager", m_functionManager);
 
@@ -117,13 +128,7 @@ void App::startup()
     rootContext()->setContextProperty("showManager", m_showManager);
 
     // register an uncreatable type just to use the enums in QML
-    qmlRegisterUncreatableType<ShowManager>("com.qlcplus.classes", 1, 0, "ShowManager", "Can't create a ShowManager !");
-
-    m_actionManager = new ActionManager(this, m_functionManager, m_showManager, m_virtualConsole);
-    rootContext()->setContextProperty("actionManager", m_actionManager);
-
-    // register an uncreatable type just to use the enums in QML
-    qmlRegisterUncreatableType<ActionManager>("com.qlcplus.classes", 1, 0,  "ActionManager", "Can't create an ActionManager !");
+    qmlRegisterUncreatableType<ShowManager>("org.qlcplus.classes", 1, 0, "ShowManager", "Can't create a ShowManager !");
 
     m_contextManager->registerContext(m_virtualConsole);
     m_contextManager->registerContext(m_showManager);
@@ -136,12 +141,33 @@ void App::startup()
     setSource(QUrl("qrc:/MainView.qml"));
 }
 
+void App::toggleFullscreen()
+{
+    static int wstate = windowState();
+
+    if (windowState() & Qt::WindowFullScreen)
+    {
+        if (wstate & Qt::WindowMaximized)
+            showMaximized();
+        else
+            showNormal();
+        wstate = windowState();
+    }
+    else
+    {
+        wstate = windowState();
+        showFullScreen();
+    }
+}
+
 void App::show()
 {
-    setGeometry(0, 0, 800, 600);
-    //setGeometry(0, 0, 1272, 689); // youtube recording
+    QScreen *currScreen = screen();
+    QRect rect(0, 0, 800, 600);
+    //QRect rect(0, 0, 1272, 689); // youtube recording
+    rect.moveTopLeft(currScreen->geometry().topLeft());
+    setGeometry(rect);
     showMaximized();
-    //showFullScreen();
 }
 
 qreal App::pixelDensity() const
@@ -165,8 +191,21 @@ void App::keyReleaseEvent(QKeyEvent *e)
     QQuickView::keyReleaseEvent(e);
 }
 
+void App::slotScreenChanged(QScreen *screen)
+{
+    m_pixelDensity = screen->physicalDotsPerInch() *  0.039370;
+    qDebug() << "Screen changed to" << screen->name() << ". New pixel density:" << m_pixelDensity;
+    rootContext()->setContextProperty("screenPixelDensity", m_pixelDensity);
+}
+
 void App::clearDocument()
 {
+    if (m_videoProvider)
+    {
+        delete m_videoProvider;
+        m_videoProvider = NULL;
+    }
+
     m_doc->masterTimer()->stop();
     m_doc->clearContents();
     m_virtualConsole->resetContents();
@@ -176,6 +215,7 @@ void App::clearDocument()
     setFileName(QString());
     m_doc->resetModified();
     m_doc->masterTimer()->start();
+
 }
 
 Doc *App::doc()
@@ -224,8 +264,8 @@ void App::initDoc()
      * otherwise the qlcconfig.h creation should have been moved into the
      * audio folder, which doesn't make much sense */
     m_doc->audioPluginCache()->load(QLCFile::systemDirectory(AUDIOPLUGINDIR, KExtPlugin));
+    m_videoProvider = new VideoProvider(this, m_doc);
 
-    /* Restore outputmap settings */
     Q_ASSERT(m_doc->inputOutputMap() != NULL);
 
     /* Load input plugins & profiles */
@@ -245,6 +285,61 @@ void App::enableKioskMode()
 void App::createKioskCloseButton(const QRect &rect)
 {
     Q_UNUSED(rect)
+}
+
+/*********************************************************************
+ * Printer
+ *********************************************************************/
+
+void App::printItem(QQuickItem *item)
+{
+    if (item == NULL)
+        return;
+
+    m_printerImage = item->grabToImage();
+    connect(m_printerImage.data(), &QQuickItemGrabResult::ready, this, &App::slotItemReadyForPrinting);
+}
+
+void App::slotItemReadyForPrinting()
+{
+    QPrinter printer;
+    QPrintDialog *dlg = new QPrintDialog(&printer, 0);
+    if(dlg->exec() == QDialog::Accepted)
+    {
+        QRectF pageRect = printer.pageRect();
+        QSize imgSize = m_printerImage->image().size();
+        int totalHeight = imgSize.height();
+        int yOffset = 0;
+
+        qDebug() << "Page size:" << pageRect << ", image size:" << imgSize;
+        QPainter painter(&printer);
+        painter.setRenderHint(QPainter::Antialiasing, false);
+        painter.setRenderHint(QPainter::SmoothPixmapTransform);
+
+        QImage img = m_printerImage->image();
+        int actualWidth = imgSize.width();
+
+        // if the grabbed image is larger than the page, fit it to the page width
+        if (pageRect.width() < imgSize.width())
+        {
+            img = m_printerImage->image().scaledToWidth(pageRect.width(), Qt::SmoothTransformation);
+            actualWidth = pageRect.width();
+        }
+
+        // handle multi-page printing
+        while(totalHeight > 0)
+        {
+            painter.drawImage(QPoint(0, 0), img, QRectF(0, yOffset, actualWidth, pageRect.height()));
+            yOffset += pageRect.height();
+            totalHeight -= pageRect.height();
+            if (totalHeight > 0)
+                printer.newPage();
+        }
+
+        painter.end();
+    }
+
+    m_printerImage.clear();
 }
 
 /*********************************************************************
@@ -341,13 +436,14 @@ bool App::loadWorkspace(const QString &fileName)
 
     if (loadXML(localFilename) == QFile::NoError)
     {
-        setTitle(QString("Q Light Controller Plus - %1").arg(localFilename));
+        setTitle(QString("%1 - %2").arg(APPNAME).arg(localFilename));
         setFileName(localFilename);
         m_docLoaded = true;
         updateRecentFilesList(localFilename);
         emit docLoadedChanged();
         m_contextManager->resetContexts();
         m_doc->resetModified();
+        m_videoProvider = new VideoProvider(this, m_doc);
         return true;
     }
     return false;

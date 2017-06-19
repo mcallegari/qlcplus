@@ -20,7 +20,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 import "."
 
 VCWidgetItem
@@ -31,7 +31,7 @@ VCWidgetItem
     property bool isSolo: false
     property bool isCollapsed: frameObj ? frameObj.isCollapsed : false
 
-    color: dropActive ? "#9DFF52" : (frameObj ? frameObj.backgroundColor : "darkgray")
+    color: dropActive ? UISettings.activeDropArea : (frameObj ? frameObj.backgroundColor : "darkgray")
     clip: true
 
     onFrameObjChanged:

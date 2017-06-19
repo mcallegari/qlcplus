@@ -19,7 +19,7 @@
 
 import QtQuick 2.0
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 import "FixtureDrag.js" as FxDragJS
 import "."
 
@@ -42,8 +42,9 @@ Item
     Rectangle
     {
         anchors.fill: parent
-        color: "#11ffffff"
-        visible: fxMouseArea.pressed
+        radius: 3
+        color: UISettings.highlight
+        visible: isSelected
     }
 
     Image
@@ -99,7 +100,6 @@ Item
         drag.target: FixtureDragItem { }
         drag.threshold: 30
 
-        //onPressed: if(drag.active) FxDragJS.startDrag(mouse);
         onPressed:
         {
             if (fxDraggableItem.isManufacturer == false)
