@@ -826,7 +826,7 @@ void VirtualConsole::handleKeyEvent(QKeyEvent *e, bool pressed)
 
 void VirtualConsole::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
 {
-    qDebug() << "Inut signal received. Universe:" << universe << ", channel:" << channel << ", value:" << value;
+    qDebug() << "Input signal received. Universe:" << universe << ", channel:" << channel << ", value:" << value;
     if (m_inputDetectionEnabled == false)
     {
         for(VCPage *page : m_pages) // C++11

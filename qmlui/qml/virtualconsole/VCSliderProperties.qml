@@ -343,6 +343,20 @@ Rectangle
                           }
                       }
                   }
+
+                  CustomCheckBox
+                  {
+                      implicitWidth: UISettings.iconSizeMedium
+                      implicitHeight: implicitWidth
+                      autoExclusive: false
+                      checked: widgetRef ? widgetRef.monitorEnabled : true
+                      onClicked: if (widgetRef) widgetRef.monitorEnabled = checked
+                  }
+                  RobotoText
+                  {
+                      height: gridItemsHeight
+                      label: qsTr("Monitor channel levels")
+                  }
               }
         } // SectionBox Level mode
 
