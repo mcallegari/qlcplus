@@ -42,6 +42,7 @@
 #include "virtualconsole.h"
 #include "simpledesk.h"
 #include "webaccess.h"
+#include "webaccessauth.h"
 #include "app.h"
 #include "doc.h"
 
@@ -71,6 +72,9 @@ namespace QLCArgs
 
     /** If true, create and run a class to enable a web server for remote controlling */
     bool enableWebAccess = false;
+
+    /* Path to passwords file for web access basic authentication */
+    QString webAccessPasswordFile;
 
     /** If true, enable a 5% of overscan when in fullscreen mode (Raspberry Only) */
     bool enableOverscan = false;
@@ -181,6 +185,7 @@ void printUsage()
     cout << "  -p or --operate\t\tStart in operate mode" << endl;
     cout << "  -v or --version\t\tPrint version information" << endl;
     cout << "  -w or --web\t\t\tEnable remote web access" << endl;
+    cout << "  --web-passwords <file>\t\tEnable web access basic authentication" << endl;
     cout << endl;
 }
 
@@ -270,6 +275,11 @@ bool parseArgs()
         {
             QLCArgs::enableWebAccess = true;
         }
+        else if(arg == "--web-passwords")
+        {
+            if(it.hasNext())
+                QLCArgs::webAccessPasswordFile = it.next();
+        }
         else if (arg == "-v" || arg == "--version")
         {
             /* Don't print anything, since version is always
@@ -354,8 +364,23 @@ int main(int argc, char** argv)
 
     if (QLCArgs::enableWebAccess == true)
     {
+        WebAccessAuth *webAccessAuth = new WebAccessAuth(QString("QLC+ web access"));
+
+        if(! QLCArgs::webAccessPasswordFile.isEmpty())
+        {
+            if(! webAccessAuth->loadPasswordsFile(QLCArgs::webAccessPasswordFile))
+            {
+                // TODO: Think about it once more.
+                //       Maybe we should instead try to create an empty file?
+                //       (I'm thinking about future users management panel)
+                QTextStream cerr(stderr, QIODevice::WriteOnly);
+                cerr << "Cannot open web passwords file '" << QLCArgs::webAccessPasswordFile << "'" << endl;
+                return 1;
+            }
+        }
+
         WebAccess *webAccess = new WebAccess(app.doc(), VirtualConsole::instance(),
-                                               SimpleDesk::instance());
+                                               SimpleDesk::instance(), webAccessAuth);
 
         QObject::connect(webAccess, SIGNAL(toggleDocMode()),
                 &app, SLOT(slotModeToggle()));

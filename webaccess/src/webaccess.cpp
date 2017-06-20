@@ -23,6 +23,7 @@
 
 #include "webaccess.h"
 
+#include "webaccessauth.h"
 #include "webaccessconfiguration.h"
 #include "webaccesssimpledesk.h"
 #include "webaccessnetwork.h"
@@ -55,11 +56,12 @@
 
 #define AUTOSTART_PROJECT_NAME "autostart.qxw"
 
-WebAccess::WebAccess(Doc *doc, VirtualConsole *vcInstance, SimpleDesk *sdInstance, QObject *parent) :
+WebAccess::WebAccess(Doc *doc, VirtualConsole *vcInstance, SimpleDesk *sdInstance, WebAccessAuth *authInstance, QObject *parent) :
     QObject(parent)
   , m_doc(doc)
   , m_vc(vcInstance)
   , m_sd(sdInstance)
+  , m_auth(authInstance)
   , m_pendingProjectLoaded(false)
 {
     Q_ASSERT(m_doc != NULL);
@@ -94,6 +96,9 @@ WebAccess::~WebAccess()
 
 void WebAccess::slotHandleRequest(QHttpRequest *req, QHttpResponse *resp)
 {
+    if(m_auth && ! m_auth->authenticateRequest(req, resp))
+        return;
+    
     QString reqUrl = req->url().toString();
     QString content;
 
