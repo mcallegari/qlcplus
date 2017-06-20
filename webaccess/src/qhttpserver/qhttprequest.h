@@ -129,7 +129,7 @@ public:
     /** Headers are stored as lowercase so the input @c field will be lowercased.
         @param field Name of the header field
         @return Value of the header or empty string if not found. */
-    QString header(const QString &field);
+    QString header(const QString &field) const;
 
     /// IP Address of the client in dotted decimal format.
     const QString &remoteAddress() const;
