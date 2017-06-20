@@ -17,7 +17,6 @@
   limitations under the License.
 */
 
-#include <iostream>
 #include <QDebug>
 #include <QByteArray>
 #include <QCryptographicHash>
@@ -53,7 +52,7 @@ bool WebAccessAuth::loadPasswordsFile(const QString& filePath)
 
         if(colonIndex == -1)
         {
-            qDebug() << "WebAccessAuth::loadPasswordsFile: Skipping invalid line '" << line << "'";
+            qDebug() << "Skipping invalid line '" << line << "'";
             continue;
         }
         
@@ -88,8 +87,9 @@ bool WebAccessAuth::authenticateRequest(const QHttpRequest* req, QHttpResponse* 
     std::cout << "Got authentication header: " << authentication.toStdString().c_str() << std::endl;
     int colonIndex = authentication.indexOf(':');
     
+    // Disallow empty passwords
     if(colonIndex == -1)
-    {   // Technically this should be 400 Bad Request, but 401 Unauthorized is fine
+    {
         this->sendUnauthorizedResponse(res);
         return false;
     }
@@ -131,6 +131,5 @@ void WebAccessAuth::sendUnauthorizedResponse(QHttpResponse* res) const
 
 QString WebAccessAuth::hashPassword(const QString& password) const
 {
-    std::cout << "Hashing password: '" << password.toStdString().c_str() << "'" << std::endl;
     return QCryptographicHash::hash(password.toUtf8(), PASSWORD_HASH_ALGORITHM).toHex();
 }
