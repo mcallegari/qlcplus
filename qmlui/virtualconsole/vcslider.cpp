@@ -29,6 +29,7 @@
 #include "app.h"
 
 #define INPUT_SLIDER_CONTROL_ID     0
+#define INPUT_SLIDER_RESET_ID       1
 
 VCSlider::VCSlider(Doc *doc, QObject *parent)
     : VCWidget(doc, parent)
@@ -51,6 +52,7 @@ VCSlider::VCSlider(Doc *doc, QObject *parent)
     setBackgroundColor(QColor("#444"));
 
     registerExternalControl(INPUT_SLIDER_CONTROL_ID, tr("Slider Control"), false);
+    registerExternalControl(INPUT_SLIDER_RESET_ID, tr("Reset Control"), false);
 }
 
 VCSlider::~VCSlider()
@@ -297,7 +299,7 @@ void VCSlider::setValue(int value, bool setDMX, bool updateFeedback)
     switch(sliderMode())
     {
         case Level:
-            if (m_monitorEnabled == true && m_isOverriding == false && sender() != this)
+            if (m_monitorEnabled == true && m_isOverriding == false && setDMX)
             {
                 m_priority = DMXSource::Override;
                 m_doc->masterTimer()->requestNewPriority(this);
@@ -374,6 +376,10 @@ void VCSlider::setMonitorEnabled(bool enable)
         return;
 
     m_monitorEnabled = enable;
+
+    m_priority = DMXSource::Override;
+    m_doc->masterTimer()->requestNewPriority(this);
+
     emit monitorEnabledChanged();
 }
 
@@ -739,7 +745,7 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
                     if (monitorSliderValue == -1)
                     {
                         monitorSliderValue = chValue;
-                        //qDebug() << "Monitor DMX value:" << monitorSliderValue << "level value:" << m_value;
+                        //qDebug() << caption() << "Monitor DMX value:" << monitorSliderValue << "level value:" << m_value;
                     }
                     else
                     {
@@ -761,7 +767,7 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
         if (mixedDMXlevels == false &&
             monitorSliderValue != m_monitorValue)
         {
-            qDebug() << "Monitor DMX value:" << monitorSliderValue << "level value:" << m_value;
+            //qDebug() << caption() << "Monitor DMX value:" << monitorSliderValue << "level value:" << m_value;
 
             m_monitorValue = monitorSliderValue;
             emit monitorValueChanged();
@@ -949,6 +955,10 @@ bool VCSlider::loadXML(QXmlStreamReader &root)
                 else
                     setMonitorEnabled(true);
             }
+        }
+        else if (root.name() == KXMLQLCVCSliderOverrideReset)
+        {
+            loadXMLSources(root, INPUT_SLIDER_RESET_ID);
         }
         else if (root.name() == KXMLQLCVCSliderLevel)
         {

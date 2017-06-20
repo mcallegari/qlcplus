@@ -43,6 +43,7 @@
 #define KXMLQLCVCSliderLevelHighLimit "HighLimit"
 #define KXMLQLCVCSliderLevelValue "Value"
 #define KXMLQLCVCSliderLevelMonitor "Monitor"
+#define KXMLQLCVCSliderOverrideReset "Reset"
 
 #define KXMLQLCVCSliderChannel "Channel"
 #define KXMLQLCVCSliderChannelFixture "Fixture"
@@ -243,19 +244,7 @@ public:
 
     /** Returns the data model to display a tree of FixtureGroups/Fixtures */
     QVariant groupsTreeModel();
-#if 0
-protected:
-    /**
-     * Set the level to all channels that have been assigned to
-     * the slider.
-     *
-     * @param value DMX value
-     */
-    void setLevelValue(uchar value);
 
-    /** Get the current "level" mode value */
-    uchar levelValue() const;
-#endif
 protected slots:
     void slotTreeDataChanged(TreeModelItem *item, int role, const QVariant &value);
 
@@ -278,7 +267,6 @@ protected:
     uchar m_levelHighLimit;
 
     QMutex m_levelValueMutex;
-    //uchar m_levelValue;
     bool m_levelValueChanged;
 
     bool m_monitorEnabled;
