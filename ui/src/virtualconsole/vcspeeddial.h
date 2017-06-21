@@ -274,13 +274,10 @@ protected:
 
 private slots:
     void slotUpdate();
-    void slotTapBlinkUpdate();
 
 private:
     /** timer for updating the preset buttons */
     QTimer* m_updateTimer;
-    /** timer for updating tap button */
-    QTimer* m_tapBlinkTimer;
 
     /*************************************************************************
      * Load & Save

@@ -160,11 +160,6 @@ VCSpeedDial::VCSpeedDial(QWidget* parent, Doc* doc)
             this, SLOT(slotUpdate()));
     m_updateTimer->setSingleShot(true);
 
-    /* Tap blink timer */
-    m_tapBlinkTimer = new QTimer(this);
-    connect(m_tapBlinkTimer, SIGNAL(timeout()),
-            this, SLOT(slotTapBlinkUpdate()));
-    qDebug() << "Hello!";
     slotModeChanged(m_doc->mode());
     setLiveEdit(m_liveEdit);
 }
@@ -317,7 +312,6 @@ void VCSpeedDial::slotDialValueChanged()
 
 void VCSpeedDial::slotDialTapped()
 {
-    m_tapBlinkTimer->start(m_dial->value());
     foreach (const VCSpeedDialFunction &speeddialfunction, m_functions)
     {
         Function* function = m_doc->function(speeddialfunction.functionId);
@@ -348,16 +342,6 @@ void VCSpeedDial::slotUpdate()
         button->setDown(preset->m_value == currentValue);
     }
     updateFeedback();
-}
-
-void VCSpeedDial::slotTapBlinkUpdate()
-{
-    static bool val = false;
-    val = ! val;
-    
-    sendFeedback( val ? 0xff : 0, tapInputSourceId );
-//    int currentValue = m_dial->value();
-
 }
 
 /*********************************************************************
