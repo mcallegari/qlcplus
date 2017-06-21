@@ -84,7 +84,6 @@ bool WebAccessAuth::authenticateRequest(const QHttpRequest* req, QHttpResponse* 
     }
 
     auto authentication = QString(QByteArray::fromBase64(auth.right(auth.size() - 6).toUtf8()));
-    std::cout << "Got authentication header: " << authentication.toStdString().c_str() << std::endl;
     int colonIndex = authentication.indexOf(':');
     
     // Disallow empty passwords

@@ -364,19 +364,13 @@ int main(int argc, char** argv)
 
     if (QLCArgs::enableWebAccess == true)
     {
-        WebAccessAuth *webAccessAuth = new WebAccessAuth(QString("QLC+ web access"));
+        WebAccessAuth *webAccessAuth = 0;
 
         if(! QLCArgs::webAccessPasswordFile.isEmpty())
         {
+            webAccessAuth = new WebAccessAuth(QString("QLC+ web access"));
             if(! webAccessAuth->loadPasswordsFile(QLCArgs::webAccessPasswordFile))
-            {
-                // TODO: Think about it once more.
-                //       Maybe we should instead try to create an empty file?
-                //       (I'm thinking about future users management panel)
-                QTextStream cerr(stderr, QIODevice::WriteOnly);
-                cerr << "Cannot open web passwords file '" << QLCArgs::webAccessPasswordFile << "'" << endl;
-                return 1;
-            }
+                QTextStream(stderr, QIODevice::WriteOnly) << "Error while loading web passwords file" << endl;
         }
 
         WebAccess *webAccess = new WebAccess(app.doc(), VirtualConsole::instance(),
