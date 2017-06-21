@@ -181,7 +181,7 @@ void WebAccess::slotHandleRequest(QHttpRequest *req, QHttpResponse *resp)
     }
     else if (reqUrl == "/config")
     {
-        content = WebAccessConfiguration::getHTML(m_doc);
+        content = WebAccessConfiguration::getHTML(m_doc, m_auth);
     }
     else if (reqUrl == "/simpleDesk")
     {

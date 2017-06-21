@@ -138,6 +138,11 @@ void WebAccessAuth::deleteUser(const QString& username)
     m_passwords.remove(username);
 }
 
+QList<QString> WebAccessAuth::getUsernames() const
+{
+    return m_passwords.keys();
+}
+
 void WebAccessAuth::sendUnauthorizedResponse(QHttpResponse* res) const
 {
     const static QByteArray text = QString(

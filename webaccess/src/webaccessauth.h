@@ -22,6 +22,7 @@
 
 #include <QString>
 #include <QMap>
+#include <QList>
 
 class QHttpRequest;
 class QHttpResponse;
@@ -74,6 +75,8 @@ public:
      * Removes user from password table if it exists.
      */
     void deleteUser(const QString& username);
+    
+    QList<QString> getUsernames() const;
 
 private:
     void sendUnauthorizedResponse(QHttpResponse* res) const;
