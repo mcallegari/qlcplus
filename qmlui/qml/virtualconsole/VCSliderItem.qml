@@ -77,6 +77,28 @@ VCWidgetItem
         GradientStop { position: 1.0; color: "#DB2020" }
     }
 
+    Rectangle
+    {
+        visible: sliderObj && sliderObj.monitorEnabled
+        y: slFader.y
+        x: parent.width - width
+        height: slFader.height
+        width: UISettings.listItemHeight * 0.2
+        rotation: sliderObj ? (sliderObj.invertedAppearance ? 0 : 180) : 180
+        color: UISettings.bgLight
+        border.width: 1
+        border.color: UISettings.bgStrong
+
+        Rectangle
+        {
+            x: 1
+            y: 1
+            color: "#00FF00"
+            height: sliderObj ? parent.height * (sliderObj.monitorValue / 255) : 0
+            width: parent.width - 2
+        }
+    }
+
     ColumnLayout
     {
         anchors.fill: parent
@@ -162,6 +184,15 @@ VCWidgetItem
             onWidthChanged: calculateTextHeight()
             onFontChanged: calculateTextHeight()
             onTextChanged: calculateTextHeight()
+        }
+
+        IconButton
+        {
+            visible: sliderObj ? sliderObj.monitorEnabled : false
+            anchors.horizontalCenter: parent.horizontalCenter
+            imgSource: "qrc:/reset.svg"
+            bgColor: sliderObj && sliderObj.isOverriding ? "red" : UISettings.bgLight
+            onClicked: if (sliderObj) sliderObj.isOverriding = false
         }
     }
 
