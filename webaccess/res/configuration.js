@@ -17,6 +17,8 @@
   limitations under the License.
 */
 
+var websocket;
+
 function ioChanged(cmd, uni, val)
 {
   websocket.send("QLC+IO|" + cmd + "|" + uni + "|" + val);
@@ -24,17 +26,17 @@ function ioChanged(cmd, uni, val)
 
 function authChangePassword(username)
 {
-  var newPasswordElement = document.getElementById('auth-password-' + username);
+  var newPasswordElement = document.getElementById("auth-password-" + username);
 
-  websocket.send('QLC+AUTH|ADD_USER|' + username + '|' + newPasswordElement.value);
+  websocket.send("QLC+AUTH|ADD_USER|" + username + "|" + newPasswordElement.value);
 
-  newPasswordElement.value = '';
+  newPasswordElement.value = "";
 }
 
 function authDeleteUser(username)
 {
-  var passwordRow = document.getElementById('auth-row-' + username);
-  if(confirm('Do you really want to remove "' + username + "' from list?")) {
+  var passwordRow = document.getElementById("auth-row-" + username);
+  if(confirm("Do you really want to remove \"" + username + "\" from list?")) {
     websocket.send('QLC+AUTH|DEL_USER|' + username);
     passwordRow.parentNode.removeChild(passwordRow);
   }
@@ -42,16 +44,16 @@ function authDeleteUser(username)
 
 function authAddUser(trChangePassword, trDeleteUser, trFieldsRequired, trNewPasswordPlaceholder)
 {
-  var usernameElement = document.getElementById('auth-new-username');
-  var passwordElement = document.getElementById('auth-new-password');
+  var usernameElement = document.getElementById("auth-new-username");
+  var passwordElement = document.getElementById("auth-new-password");
   var username = usernameElement.value;
 
   if(! username || ! passwordElement.value)
     return alert(trFieldsRequired);
   
-  websocket.send('QLC+AUTH|ADD_USER|' + username + '|' + passwordElement.value);
+  websocket.send("QLC+AUTH|ADD_USER|" + username + "|" + passwordElement.value);
 
-  var tableElement = document.getElementById('auth-passwords-table');
+  var tableElement = document.getElementById("auth-passwords-table");
   var rowCount = tableElement.rows.length;
   var row = tableElement.insertRow(rowCount - 1);
 
@@ -61,21 +63,21 @@ function authAddUser(trChangePassword, trDeleteUser, trFieldsRequired, trNewPass
 
   usernameCell.innerText = username;
   
-  var passwordInput = document.createElement('input');
-  passwordInput.type = 'password';
-  passwordInput.id = 'auth-password-' + username;
+  var passwordInput = document.createElement("input");
+  passwordInput.type = "password";
+  passwordInput.id = "auth-password-" + username;
   passwordInput.placeholder = trNewPasswordPlaceholder;
   
   passwordCell.appendChild(passwordInput);
 
-  var changePasswordButton = document.createElement('button');
-  changePasswordButton.onclick = function() { authChangePassword(username) };
+  var changePasswordButton = document.createElement("button");
+  changePasswordButton.onclick = function() { authChangePassword(username); };
   changePasswordButton.innerText = trChangePassword;
   
   actionsCell.appendChild(changePasswordButton);
 
-  var deleteUserButton = document.createElement('button');
-  deleteUserButton.onclick = function() { authDeleteUser(username) };
+  var deleteUserButton = document.createElement("button");
+  deleteUserButton.onclick = function() { authDeleteUser(username); };
   deleteUserButton.innerText = trDeleteUser;
   
   actionsCell.appendChild(deleteUserButton);
