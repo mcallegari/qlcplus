@@ -37,7 +37,7 @@ function authDeleteUser(username)
 {
   var passwordRow = document.getElementById("auth-row-" + username);
   if(confirm("Do you really want to remove \"" + username + "\" from list?")) {
-    websocket.send('QLC+AUTH|DEL_USER|' + username);
+    websocket.send("QLC+AUTH|DEL_USER|" + username);
     passwordRow.parentNode.removeChild(passwordRow);
   }
 }
@@ -48,8 +48,9 @@ function authAddUser(trChangePassword, trDeleteUser, trFieldsRequired, trNewPass
   var passwordElement = document.getElementById("auth-new-password");
   var username = usernameElement.value;
 
-  if(! username || ! passwordElement.value)
+  if(! username || ! passwordElement.value) {
     return alert(trFieldsRequired);
+  }
   
   websocket.send("QLC+AUTH|ADD_USER|" + username + "|" + passwordElement.value);
 
