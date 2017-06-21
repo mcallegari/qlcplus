@@ -35,6 +35,7 @@ class WebAccessAuth
 private:
     QMap<QString, QString> m_passwords;
     QString m_realm;
+    QString m_passwordsFile;
 public:
     WebAccessAuth(const QString& realm);
 
@@ -44,9 +45,15 @@ public:
      * where passwordHash is SHA256 hash of user's passsword
      * 
      * Note: duplicate usernames will be silently skipped
-     *       (the first entry in file will be used)
+     *       (the last entry in file will be used)
      */
     bool loadPasswordsFile(const QString& filePath);
+
+    /**
+     * Saves current contents of password table into
+     * file provided in latest invokation of loadPasswordsFile
+     */
+    bool savePasswordsFile() const;
 
     /**
      * Note: This function has to be called before any
@@ -56,6 +63,17 @@ public:
      *       is served by this function
      */
     bool authenticateRequest(const QHttpRequest* req, QHttpResponse* res) const;
+
+    /**
+     * Adds user to password table. If given username already
+     * exists __it is replaced__.
+     */
+    void addUser(const QString& username, const QString& password);
+
+    /**
+     * Removes user from password table if it exists.
+     */
+    void deleteUser(const QString& username);
 
 private:
     void sendUnauthorizedResponse(QHttpResponse* res) const;

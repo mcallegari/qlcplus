@@ -38,9 +38,11 @@ WebAccessAuth::WebAccessAuth(const QString& realm)
 
 bool WebAccessAuth::loadPasswordsFile(const QString& filePath)
 {
+    m_passwordsFile = filePath;
+
     QFile file(filePath);
     
-    if(! file.open(QIODevice::OpenModeFlag::ReadOnly))
+    if(! file.open(QIODevice::OpenModeFlag::ReadOnly | QIODevice::Text))
         return false;
     
     QTextStream stream(&file);
@@ -59,8 +61,28 @@ bool WebAccessAuth::loadPasswordsFile(const QString& filePath)
         auto username = line.left(colonIndex);
         auto passwordHash = line.mid(colonIndex + 1);
 
-        // Silently skips duplicate usernames due to unique keys in maps
+        // Silently overrides duplicate usernames due to unique keys in maps
         this->m_passwords.insert(username, passwordHash);
+    }
+
+    return true;
+}
+
+bool WebAccessAuth::savePasswordsFile() const
+{
+    if(m_passwordsFile.isEmpty())
+        return false;
+    
+    QFile file(m_passwordsFile);
+    
+    if(! file.open(QIODevice::OpenModeFlag::WriteOnly | QIODevice::Text))
+        return false;
+    
+    QTextStream stream(&file);
+    
+    for(auto& username : m_passwords.keys())
+    {
+        stream << username << ':' << m_passwords.value(username) << endl;
     }
 
     return true;
@@ -104,6 +126,16 @@ bool WebAccessAuth::authenticateRequest(const QHttpRequest* req, QHttpResponse* 
     }
 
     return true;
+}
+
+void WebAccessAuth::addUser(const QString& username, const QString& password)
+{
+    m_passwords.insert(username, this->hashPassword(password));
+}
+
+void WebAccessAuth::deleteUser(const QString& username)
+{
+    m_passwords.remove(username);
 }
 
 void WebAccessAuth::sendUnauthorizedResponse(QHttpResponse* res) const

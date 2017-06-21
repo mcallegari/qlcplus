@@ -327,6 +327,36 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
 
         return;
     }
+    else if(cmdList[0] == "QLC+AUTH" && m_auth)
+    {
+        if (cmdList.at(1) == "ADD_USER")
+        {
+            QString username = cmdList.at(2);
+            QString password = cmdList.at(3);
+            if(username.isEmpty() || password.isEmpty())
+            {
+                QString wsMessage = QString("ALERT|" + tr("Username and password are required fields."));
+                conn->webSocketWrite(QHttpConnection::TextFrame, wsMessage.toUtf8());
+                return;
+            }
+            m_auth->addUser(username, password);
+        }
+        else if (cmdList.at(1) == "DEL_USER")
+        {
+            QString username = cmdList.at(2);
+            if(! username.isEmpty())
+                m_auth->deleteUser(username);
+        }
+        else
+            qDebug() << "[webaccess] Command" << cmdList[1] << "not supported !";
+        
+        if(! m_auth->savePasswordsFile())
+        {
+            QString wsMessage = QString("ALERT|" + tr("Error while saving passwords file."));
+            conn->webSocketWrite(QHttpConnection::TextFrame, wsMessage.toUtf8());
+            return;
+        }
+    }
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     else if(cmdList[0] == "QLC+SYS")
     {
