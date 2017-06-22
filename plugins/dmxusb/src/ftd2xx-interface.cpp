@@ -193,7 +193,7 @@ QList<DMXInterface *> FTD2XXInterface::interfaces(QList<DMXInterface *> discover
             bool found = false;
             for (int c = 0; c < discoveredList.count(); c++)
             {
-                if (discoveredList.at(c)->checkInfo(serial, name, vendor, -1, -1) == true)
+                if (discoveredList.at(c)->checkInfo(serial, name, vendor, usbBus(), usbAddr()) == true)
                 {
                     found = true;
                     break;
