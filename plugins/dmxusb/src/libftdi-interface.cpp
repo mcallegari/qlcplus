@@ -92,9 +92,6 @@ QString LibFTDIInterface::readLabel(uchar label, int *ESTA_code)
     array.remove(0, 6); // 4 bytes of Enttec protocol + 2 of ESTA ID
     array.replace(ENTTEC_PRO_END_OF_MSG, '\0'); // replace Enttec termination with string termination
 
-    //for (int i = 0; i < array.size(); i++)
-    //    qDebug() << "-Data: " << array[i];
-
     ftdi_usb_close(&m_handle);
 
     return QString(array);
@@ -186,6 +183,8 @@ QList<DMXInterface *> LibFTDIInterface::interfaces(QList<DMXInterface *> discove
         if (validInterface(dev_descriptor.idVendor, dev_descriptor.idProduct) == false)
             continue;
 
+        //qCritical() << usbBus << usbAddr;
+
         char ser[256];
         memset(ser, 0, 256);
         char nme[256];
@@ -242,15 +241,87 @@ bool LibFTDIInterface::open()
     if (isOpen() == true)
         return true;
 
-    if (ftdi_usb_open_bus_addr(&m_handle, usbBus(), usbAddr()) < 0)
+    bool Opened = false;
+
+#ifdef LIBFTDI1
+    libusb_device *dev;
+    libusb_device **devs;
+    struct libusb_device_descriptor dev_descriptor;
+    int i = 0;
+
+    if (libusb_get_device_list(m_handle.usb_ctx, &devs) < 0)
     {
-        qWarning() << Q_FUNC_INFO << name() << ftdi_get_error_string(&m_handle);
+        qDebug() << "usb_find_devices() failed";
         return false;
     }
-    else
+
+    while ((dev = devs[i++]) != NULL)
     {
-        return true;
+        libusb_get_device_descriptor(dev, &dev_descriptor);
+
+#else
+    struct usb_bus *bus;
+    struct usb_device *dev;
+    struct usb_device_descriptor dev_descriptor;
+
+    usb_init();
+
+    if (usb_find_busses() < 0)
+    {
+        qDebug() << "usb_find_busses() failed";
+        return interfacesList;
     }
+    if (usb_find_devices() < 0)
+    {
+        qDebug() << "usb_find_devices() failed";
+        return interfacesList;
+    }
+
+    for (bus = usb_get_busses(); bus; bus = bus->next)
+    {
+      for (dev = bus->devices; dev; dev = dev->next)
+      {
+        dev_descriptor = dev->descriptor;
+#endif
+        Q_ASSERT(dev != NULL);
+
+        uint8_t usbBus;
+        uint8_t usbAddr;
+
+#ifdef LIBFTDI1
+        usbBus = libusb_get_bus_number(dev);
+        usbAddr = libusb_get_device_address(dev);
+#else
+        usbBus = dev->bus->location;
+        usbAddr = dev->devnum;
+#endif
+
+        if (this->usbBus() == usbBus && this->usbAddr() == usbAddr)
+        {
+            if (ftdi_usb_open_dev(&m_handle, dev) < 0)
+            {
+                qWarning() << Q_FUNC_INFO << name() << ftdi_get_error_string(&m_handle);
+            }
+            else
+            {
+                Opened = true;
+                break;
+            }
+        }
+
+#ifndef LIBFTDI1
+      }
+#endif
+    }
+
+#ifdef LIBFTDI1
+    libusb_free_device_list(devs, 0);
+#endif
+
+    if (!Opened)
+        qWarning() << Q_FUNC_INFO << name() << QString("Could not open the interface using USB Bus %1 Port %2").arg(this->usbBus()).arg(this->usbAddr());
+
+    return Opened;
 }
 
 bool LibFTDIInterface::openByPID(const int PID)
@@ -431,5 +502,4 @@ uchar LibFTDIInterface::readByte(bool* ok)
 
     return 0;
 }
-
 
