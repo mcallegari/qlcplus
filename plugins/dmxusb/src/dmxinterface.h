@@ -42,7 +42,7 @@ public:
      * @param id The ID of the device (used only when FTD2XX is the backend)
      */
     DMXInterface(const QString& serial, const QString& name, const QString &vendor,
-                 quint16 VID, quint16 PID, quint32 id = 0);
+                 quint16 VID, quint16 PID, quint32 id = 0, uint8_t usbBus = -1, uint8_t usbAddr = -1);
 
     /** Destructor */
     virtual ~DMXInterface();
@@ -67,6 +67,12 @@ public:
     /** Get the widget's FTD2XX ID number */
     quint32 id() const;
 
+    /** Get the widget's USB bus */
+    uint8_t usbBus() const;
+
+    /** Get the widget's USB device address */
+    uint8_t usbAddr() const;
+
     /** Virtual method to retrieve the original USB
      *  bus location of the device.
      *  Used only in Linux to perform a sysfs lookup */
@@ -79,6 +85,8 @@ private:
     quint16 m_vendorID;
     quint16 m_productID;
     quint32 m_id;
+    uint8_t m_usbBus;
+    uint8_t m_usbAddr;
 
     /************************************************************************
      * Widget enumeration
@@ -108,7 +116,7 @@ public:
      */
     static bool validInterface(quint16 vendor, quint16 product);
 
-    bool checkInfo(QString &serial, QString &name, QString &vendor);
+    bool checkInfo(QString &serial, QString &name, QString &vendor, uint8_t &usbBus, uint8_t &usbAddr);
 
     /**
      * Get a map of [serial = type] bindings that tells which serials should
@@ -170,3 +178,4 @@ public:
 };
 
 #endif
+

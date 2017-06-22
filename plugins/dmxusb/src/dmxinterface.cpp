@@ -21,13 +21,15 @@
 #include "dmxinterface.h"
 
 DMXInterface::DMXInterface(const QString& serial, const QString& name, const QString &vendor,
-                           quint16 VID, quint16 PID, quint32 id)
+                           quint16 VID, quint16 PID, quint32 id, uint8_t usbBus, uint8_t usbAddr)
     : m_serial(serial)
     , m_name(name)
     , m_vendor(vendor)
     , m_vendorID(VID)
     , m_productID(PID)
     , m_id(id)
+    , m_usbBus(usbBus)
+    , m_usbAddr(usbAddr)
 {
 }
 
@@ -65,6 +67,16 @@ quint32 DMXInterface::id() const
     return m_id;
 }
 
+uint8_t DMXInterface::usbBus() const
+{
+    return m_usbBus;
+}
+
+uint8_t DMXInterface::usbAddr() const
+{
+    return m_usbAddr;
+}
+
 quint8 DMXInterface::busLocation()
 {
     return 0;
@@ -87,9 +99,9 @@ bool DMXInterface::validInterface(quint16 vendor, quint16 product)
     return true;
 }
 
-bool DMXInterface::checkInfo(QString &serial, QString &name, QString &vendor)
+bool DMXInterface::checkInfo(QString &serial, QString &name, QString &vendor, uint8_t &usbBus, uint8_t &usbAddr)
 {
-    if (m_serial == serial && m_name == name && m_vendor == vendor)
+    if (m_serial == serial && m_name == name && m_vendor == vendor && m_usbBus == usbBus && m_usbAddr == usbAddr)
         return true;
     return false;
 }
@@ -109,5 +121,4 @@ void DMXInterface::storeTypeMap(const QMap <QString,QVariant> map)
     QSettings settings;
     settings.setValue(SETTINGS_TYPE_MAP, map);
 }
-
 

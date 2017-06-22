@@ -32,8 +32,8 @@
 #include "enttecdmxusbpro.h"
 
 LibFTDIInterface::LibFTDIInterface(const QString& serial, const QString& name, const QString& vendor,
-                                   quint16 VID, quint16 PID, quint32 id)
-    : DMXInterface(serial, name, vendor, VID, PID , id)
+                                   quint16 VID, quint16 PID, quint32 id, uint8_t usbBus, uint8_t usbAddr)
+    : DMXInterface(serial, name, vendor, VID, PID , id, usbBus, usbAddr)
 {
     bzero(&m_handle, sizeof(struct ftdi_context));
     ftdi_init(&m_handle);
@@ -48,8 +48,7 @@ LibFTDIInterface::~LibFTDIInterface()
 
 QString LibFTDIInterface::readLabel(uchar label, int *ESTA_code)
 {
-    if (ftdi_usb_open_desc(&m_handle, DMXInterface::FTDIVID, DMXInterface::FTDIPID,
-                           name().toLatin1().data(), serial().toLatin1().data()) < 0)
+    if (ftdi_usb_open_bus_addr(&m_handle, usbBus(), usbAddr()) < 0)
 
         return QString();
 
@@ -95,6 +94,7 @@ QString LibFTDIInterface::readLabel(uchar label, int *ESTA_code)
 
     //for (int i = 0; i < array.size(); i++)
     //    qDebug() << "-Data: " << array[i];
+
     ftdi_usb_close(&m_handle);
 
     return QString(array);
@@ -144,6 +144,7 @@ QList<DMXInterface *> LibFTDIInterface::interfaces(QList<DMXInterface *> discove
     while ((dev = devs[i++]) != NULL)
     {
         libusb_get_device_descriptor(dev, &dev_descriptor);
+
 #else
     struct usb_bus *bus;
     struct usb_device *dev;
@@ -170,6 +171,17 @@ QList<DMXInterface *> LibFTDIInterface::interfaces(QList<DMXInterface *> discove
 #endif
         Q_ASSERT(dev != NULL);
 
+        uint8_t usbBus;
+        uint8_t usbAddr;
+
+#ifdef LIBFTDI1
+        usbBus = libusb_get_bus_number(dev);
+        usbAddr = libusb_get_device_address(dev);
+#else
+        usbBus = dev->bus->location;
+        usbAddr = dev->devnum;
+#endif
+
         // Skip non wanted devices
         if (validInterface(dev_descriptor.idVendor, dev_descriptor.idProduct) == false)
             continue;
@@ -186,13 +198,14 @@ QList<DMXInterface *> LibFTDIInterface::interfaces(QList<DMXInterface *> discove
         QString vendor(vend);
 
         qDebug() << Q_FUNC_INFO << "DMX USB VID:" << QString::number(dev_descriptor.idVendor, 16) <<
-                    "PID:" << QString::number(dev_descriptor.idProduct, 16);
+                    "PID:" << QString::number(dev_descriptor.idProduct, 16) <<
+                    "UsbBus:" << QString::number(usbBus) << "UsbAddr:" << QString::number(usbAddr);
         qDebug() << Q_FUNC_INFO << "DMX USB serial: " << serial << "name:" << name << "vendor:" << vendor;
 
         bool found = false;
         for (int c = 0; c < discoveredList.count(); c++)
         {
-            if (discoveredList.at(c)->checkInfo(serial, name, vendor) == true)
+            if (discoveredList.at(c)->checkInfo(serial, name, vendor, usbBus, usbAddr) == true)
             {
                 found = true;
                 break;
@@ -201,7 +214,7 @@ QList<DMXInterface *> LibFTDIInterface::interfaces(QList<DMXInterface *> discove
         if (found == false)
         {
             LibFTDIInterface *iface = new LibFTDIInterface(serial, name, vendor, dev_descriptor.idVendor,
-                                                           dev_descriptor.idProduct, id++);
+                                                           dev_descriptor.idProduct, id++, usbBus, usbAddr);
 #ifdef LIBFTDI1
             iface->setBusLocation(libusb_get_port_number(dev));
 #else
@@ -229,13 +242,7 @@ bool LibFTDIInterface::open()
     if (isOpen() == true)
         return true;
 
-    QByteArray sba = serial().toLatin1();
-    const char *ser = NULL;
-    if (serial().isEmpty() == false)
-        ser = (const char *)sba.data();
-
-    if (ftdi_usb_open_desc(&m_handle, vendorID(), productID(),
-                           name().toLatin1(), ser) < 0)
+    if (ftdi_usb_open_bus_addr(&m_handle, usbBus(), usbAddr()) < 0)
     {
         qWarning() << Q_FUNC_INFO << name() << ftdi_get_error_string(&m_handle);
         return false;
@@ -424,4 +431,5 @@ uchar LibFTDIInterface::readByte(bool* ok)
 
     return 0;
 }
+
 
