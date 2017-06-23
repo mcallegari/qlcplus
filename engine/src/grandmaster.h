@@ -52,14 +52,18 @@ public:
         Limit, /** Limit maximum values to current GM value */
         Reduce /** Reduce channel values by a fraction (0-100%) */
     };
+#if QT_VERSION >= 0x050500
     Q_ENUM(ValueMode)
+#endif
 
     enum ChannelMode
     {
         Intensity,  /** GM applied only for Intensity channels */
         AllChannels /** GM applied for all channels */
     };
+#if QT_VERSION >= 0x050500
     Q_ENUM(ChannelMode)
+#endif
 
     enum SliderMode
     {
