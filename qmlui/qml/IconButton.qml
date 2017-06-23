@@ -127,7 +127,7 @@ Button
                 },
                 State
                 {
-                    when: pressed
+                    when: ctrlMouseArea.pressed
                     PropertyChanges
                     {
                         target: contentBody
@@ -147,6 +147,7 @@ Button
 
             MouseArea
             {
+                id: ctrlMouseArea
                 anchors.fill: parent
                 onReleased:
                 {

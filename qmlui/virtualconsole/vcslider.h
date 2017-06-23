@@ -22,6 +22,7 @@
 
 #include "vcwidget.h"
 #include "treemodel.h"
+#include "dmxsource.h"
 #include "grandmaster.h"
 
 #define KXMLQLCVCSlider "Slider"
@@ -42,6 +43,7 @@
 #define KXMLQLCVCSliderLevelHighLimit "HighLimit"
 #define KXMLQLCVCSliderLevelValue "Value"
 #define KXMLQLCVCSliderLevelMonitor "Monitor"
+#define KXMLQLCVCSliderOverrideReset "Reset"
 
 #define KXMLQLCVCSliderChannel "Channel"
 #define KXMLQLCVCSliderChannelFixture "Fixture"
@@ -51,7 +53,7 @@
 
 class FunctionParent;
 
-class VCSlider : public VCWidget
+class VCSlider : public VCWidget, public DMXSource
 {
     Q_OBJECT
 
@@ -62,13 +64,17 @@ class VCSlider : public VCWidget
     Q_PROPERTY(bool invertedAppearance READ invertedAppearance WRITE setInvertedAppearance NOTIFY invertedAppearanceChanged)
     Q_PROPERTY(SliderMode sliderMode READ sliderMode WRITE setSliderMode NOTIFY sliderModeChanged)
     Q_PROPERTY(int value READ value WRITE setValue NOTIFY valueChanged)
+
+    Q_PROPERTY(int levelLowLimit READ levelLowLimit WRITE setLevelLowLimit NOTIFY levelLowLimitChanged)
+    Q_PROPERTY(int levelHighLimit READ levelHighLimit WRITE setLevelHighLimit NOTIFY levelHighLimitChanged)
+    Q_PROPERTY(bool monitorEnabled READ monitorEnabled WRITE setMonitorEnabled NOTIFY monitorEnabledChanged)
+    Q_PROPERTY(int monitorValue READ monitorValue NOTIFY monitorValueChanged)
+    Q_PROPERTY(bool isOverriding READ isOverriding WRITE setIsOverriding NOTIFY isOverridingChanged)
+
     Q_PROPERTY(quint32 playbackFunction READ playbackFunction WRITE setPlaybackFunction NOTIFY playbackFunctionChanged)
 
     Q_PROPERTY(GrandMaster::ValueMode grandMasterValueMode READ grandMasterValueMode WRITE setGrandMasterValueMode NOTIFY grandMasterValueModeChanged)
     Q_PROPERTY(GrandMaster::ChannelMode grandMasterChannelMode READ grandMasterChannelMode WRITE setGrandMasterChannelMode NOTIFY grandMasterChannelModeChanged)
-
-    Q_PROPERTY(int levelLowLimit READ levelLowLimit WRITE setLevelLowLimit NOTIFY levelLowLimitChanged)
-    Q_PROPERTY(int levelHighLimit READ levelHighLimit WRITE setLevelHighLimit NOTIFY levelHighLimitChanged)
 
     Q_PROPERTY(QVariant groupsTreeModel READ groupsTreeModel NOTIFY groupsTreeModelChanged)
 
@@ -181,7 +187,7 @@ protected:
      *********************************************************************/
 public:
     int value() const;
-    void setValue(int value);
+    void setValue(int value, bool setDMX = true, bool updateFeedback = true);
 
 signals:
     void valueChanged(int value);
@@ -200,6 +206,17 @@ public:
     /** Set/Get high limit for levels set through the slider */
     void setLevelHighLimit(uchar value);
     uchar levelHighLimit() const;
+
+    /** Get/Set the channels monitor status when in Level mode */
+    void setMonitorEnabled(bool enable);
+    bool monitorEnabled() const;
+
+    /** Get the current monitor value when in Level mode */
+    int monitorValue() const;
+
+    /** Get/Set if the slider is overriding a monitoring level */
+    bool isOverriding() const;
+    void setIsOverriding(bool enable);
 
     /**
      * Add a channel from a fixture into the slider's list of
@@ -228,18 +245,6 @@ public:
     /** Returns the data model to display a tree of FixtureGroups/Fixtures */
     QVariant groupsTreeModel();
 
-protected:
-    /**
-     * Set the level to all channels that have been assigned to
-     * the slider.
-     *
-     * @param value DMX value
-     */
-    void setLevelValue(uchar value);
-
-    /** Get the current "level" mode value */
-    uchar levelValue() const;
-
 protected slots:
     void slotTreeDataChanged(TreeModelItem *item, int role, const QVariant &value);
 
@@ -250,6 +255,9 @@ private:
 signals:
     void levelLowLimitChanged();
     void levelHighLimitChanged();
+    void monitorEnabledChanged();
+    void monitorValueChanged();
+    void isOverridingChanged();
     /** Notify the listeners that the fixture tree model has changed */
     void groupsTreeModelChanged();
 
@@ -259,11 +267,11 @@ protected:
     uchar m_levelHighLimit;
 
     QMutex m_levelValueMutex;
-    uchar m_levelValue;
     bool m_levelValueChanged;
 
     bool m_monitorEnabled;
     uchar m_monitorValue;
+    bool m_isOverriding;
 
     /** Data model used by the QML UI to represent groups/fixtures/channels */
     TreeModel *m_fixtureTree;
@@ -298,6 +306,20 @@ public:
 signals:
     void grandMasterValueModeChanged(GrandMaster::ValueMode mode);
     void grandMasterChannelModeChanged(GrandMaster::ChannelMode mode);
+
+    /*********************************************************************
+     * DMXSource
+     *********************************************************************/
+public:
+    /** @reimpl */
+    void writeDMX(MasterTimer* timer, QList<Universe*> universes);
+
+protected:
+    /** writeDMX for Level mode */
+    void writeDMXLevel(MasterTimer* timer, QList<Universe*> universes);
+
+    /** writeDMX for Playback mode */
+    void writeDMXPlayback(MasterTimer* timer, QList<Universe*> universes);
 
     /*********************************************************************
      * External input
