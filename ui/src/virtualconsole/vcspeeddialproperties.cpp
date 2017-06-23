@@ -270,6 +270,47 @@ void VCSpeedDialProperties::slotRemoveClicked()
         delete it.next();
 }
 
+void VCSpeedDialProperties::copySelectedFactorsClicked()
+{
+    QList <QTreeWidgetItem*> allSelected = m_tree->selectedItems();
+    if (allSelected.isEmpty())
+        return;
+    QTreeWidgetItem* selected = allSelected.first();
+
+    // clear focus on the combobox to apply the selected value
+    QApplication* app = static_cast<QApplication*>(QApplication::instance());
+    QWidget* focusedWidget = app->focusWidget();
+    if (focusedWidget) focusWidget()->clearFocus();
+    m_tree->focusWidget();
+
+    copiedFactorValues.fadeInMultiplier = static_cast<VCSpeedDialFunction::SpeedMultiplier>(selected->data(COL_FADEIN, PROP_ID).toUInt());
+    copiedFactorValues.fadeOutMultiplier = static_cast<VCSpeedDialFunction::SpeedMultiplier>(selected->data(COL_FADEOUT, PROP_ID).toUInt());
+    copiedFactorValues.durationMultiplier = static_cast<VCSpeedDialFunction::SpeedMultiplier>(selected->data(COL_DURATION, PROP_ID).toUInt());
+
+    m_pasteFactorsButton->setEnabled(true);
+}
+
+void VCSpeedDialProperties::pasteFactorsToSelectedClicked()
+{
+    // is only called after the paste button has been enabled and copiedFactorValues is filled with data
+    const QStringList &multiplierNames = VCSpeedDialFunction::speedMultiplierNames();
+
+    foreach (QTreeWidgetItem* item, m_tree->selectedItems()) {
+        Q_ASSERT(item != NULL);
+
+        QVariant id = item->data(COL_NAME, PROP_ID);
+        if (id.isValid() == true)
+        {
+            item->setText(COL_FADEIN, multiplierNames[copiedFactorValues.fadeInMultiplier]);
+            item->setData(COL_FADEIN, PROP_ID, copiedFactorValues.fadeInMultiplier);
+            item->setText(COL_FADEOUT, multiplierNames[copiedFactorValues.fadeOutMultiplier]);
+            item->setData(COL_FADEOUT, PROP_ID, copiedFactorValues.fadeOutMultiplier);
+            item->setText(COL_DURATION, multiplierNames[copiedFactorValues.durationMultiplier]);
+            item->setData(COL_DURATION, PROP_ID, copiedFactorValues.durationMultiplier);
+        }
+    }
+}
+
 QList <VCSpeedDialFunction> VCSpeedDialProperties::functions() const
 {
     QList <VCSpeedDialFunction> list;
