@@ -59,8 +59,8 @@ private:
 private slots:
     void slotAddClicked();
     void slotRemoveClicked();
-    void copySelectedFactorsClicked();
-    void pasteFactorsToSelectedClicked();
+    void slotCopyFactorsClicked();
+    void slotPasteFactorsClicked();
 
 private:
     /** Generate a QList of functions currently in the tree widget */
@@ -69,11 +69,8 @@ private:
     /** Create a tree item for the given function $id */
     void createFunctionItem(const VCSpeedDialFunction &speeddialfunction);
 
-    struct {
-        VCSpeedDialFunction::SpeedMultiplier fadeInMultiplier;
-        VCSpeedDialFunction::SpeedMultiplier fadeOutMultiplier;
-        VCSpeedDialFunction::SpeedMultiplier durationMultiplier;
-    } copiedFactorValues;
+    /** Reference to the tree item used for copy & paste */
+    QTreeWidgetItem *m_copyItem;
 
     /************************************************************************
      * Input page

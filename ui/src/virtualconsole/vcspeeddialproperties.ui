@@ -570,7 +570,7 @@
    <sender>m_copyFactorsButton</sender>
    <signal>clicked()</signal>
    <receiver>VCSpeedDialProperties</receiver>
-   <slot>copySelectedFactorsClicked()</slot>
+   <slot>slotCopyFactorsClicked()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>376</x>
@@ -586,7 +586,7 @@
    <sender>m_pasteFactorsButton</sender>
    <signal>clicked()</signal>
    <receiver>VCSpeedDialProperties</receiver>
-   <slot>pasteFactorsToSelectedClicked()</slot>
+   <slot>slotPasteFactorsClicked()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>376</x>
