@@ -1654,6 +1654,14 @@ void ShowManager::updateMultiTrackView()
         if (firstTrack == NULL)
             firstTrack = track;
 
+        quint32 boundSceneID = track->getSceneID();
+        if (boundSceneID != Function::invalidId())
+        {
+            Function *f = m_doc->function(boundSceneID);
+            if (f == NULL || f->type() != Function::SceneType)
+                track->setSceneID(Function::invalidId());
+        }
+
         m_showview->addTrack(track);
 
         foreach(ShowFunction *sf, track->showFunctions())
