@@ -151,6 +151,11 @@ quint32 Video::videoDuration() const
     return m_videoDuration;
 }
 
+quint32 Video::totalRoundDuration() const
+{
+    return videoDuration();
+}
+
 QSize Video::resolution()
 {
     return m_resolution;

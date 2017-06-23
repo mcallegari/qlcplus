@@ -219,6 +219,11 @@ FunctionSpeedsEditProxy EFX::innerSpeedsEdit()
     return FunctionSpeedsEditProxy(m_innerSpeeds, this);
 }
 
+quint32 EFX::totalRoundDuration() const
+{
+    return m_innerSpeeds.duration();
+}
+
 /*****************************************************************************
  * Algorithm
  *****************************************************************************/

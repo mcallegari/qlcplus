@@ -69,6 +69,8 @@ public:
      * Copying
      ************************************************************************/
 public:
+    quint32 totalRoundDuration() const override;
+
     /** @reimp */
     Function* createCopy(Doc* doc, bool addToDoc = true);
 

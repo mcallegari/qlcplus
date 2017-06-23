@@ -200,13 +200,13 @@ void VCClock::slotTimerTimeout()
         return;
     }
 
-    for(VCClockSchedule *sch : m_scheduleList) // C++11
+    for (VCClockSchedule *sch : m_scheduleList) // C++11
     {
         if (sch->m_cachedDuration == -1)
         {
             Function *f = m_doc->function(sch->functionID());
             if (f != NULL)
-                sch->m_cachedDuration = f->totalDuration() / 1000;
+                sch->m_cachedDuration = f->totalRoundDuration() / 1000;
         }
 
         /**

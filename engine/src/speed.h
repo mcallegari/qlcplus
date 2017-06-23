@@ -67,7 +67,7 @@ public:
      * @param newType the tempo type
      * @param beatTime the current beat time, should be taken from MasterTimer
      */
-    void switchTempoType(TempoType newType, float beatTime = qSNaN());
+    void setTempoType(TempoType newType, float beatTime = qSNaN());
 
     /**
      * Get the string representation for the current tempo type

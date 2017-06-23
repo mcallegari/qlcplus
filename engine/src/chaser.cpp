@@ -60,7 +60,7 @@ Chaser::Chaser(Doc* doc)
     setName(tr("New Chaser"));
 
     m_speeds = FunctionSpeeds(0, Speed::infiniteValue(), 0);
-    m_commonSpeeds = FunctionSpeeds(0, 0, 0);
+    m_commonSpeeds = FunctionSpeeds(0, 1000, 0);
 
     // Listen to member Function removals
     connect(doc, SIGNAL(functionRemoved(quint32)),

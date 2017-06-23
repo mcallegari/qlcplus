@@ -144,6 +144,21 @@ QList<quint32> Collection::functions() const
     return m_functions;
 }
 
+quint32 Collection::totalRoundDuration() const
+{
+    quint32 totalDuration = 0;
+
+    foreach (QVariant fid, functions())
+    {
+        Function *function = doc()->function(fid.toUInt());
+        quint32 functionRoundDuration = function->totalRoundDuration();
+        if (functionRoundDuration > totalDuration)
+            totalDuration = functionRoundDuration;
+    }
+
+    return totalDuration;
+}
+
 void Collection::slotFunctionRemoved(quint32 fid)
 {
     removeFunction(fid);

@@ -95,6 +95,8 @@ public:
      */
     quint32 videoDuration() const;
 
+    quint32 totalRoundDuration() const override;
+
     /** Get/Set the video resolution as a QSize variable */
     QSize resolution();
     void setResolution(QSize size);

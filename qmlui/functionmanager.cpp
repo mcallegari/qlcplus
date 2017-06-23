@@ -151,102 +151,95 @@ quint32 FunctionManager::createFunction(int type)
     {
         f = new Scene(m_doc);
         name = tr("New Scene");
-            m_sceneCount++;
-            emit sceneCountChanged();
-        }
-        break;
-        case Function::ChaserType:
-        {
-            f = new Chaser(m_doc);
-            name = tr("New Chaser");
-            if (f != NULL)
-            {
-                /* give the Chaser a meaningful common duration, to avoid
-                 * that awful effect of playing steps with 0 duration */
-                Chaser *chaser = qobject_cast<Chaser*>(f);
-                chaser->setDuration(1000);
-            }
-            m_chaserCount++;
-            emit chaserCountChanged();
-        }
-        break;
-        case Function::SequenceType:
-        {
-            /* a Sequence depends on a Scene, so let's create
-             * a new hidden Scene first */
-            Function *scene = new Scene(m_doc);
-            scene->setVisible(false);
+        m_sceneCount++;
+        emit sceneCountChanged();
+    }
+    break;
+    case Function::ChaserType:
+    {
+        f = new Chaser(m_doc);
+        name = tr("New Chaser");
+        m_chaserCount++;
+        emit chaserCountChanged();
+    }
+    break;
+    case Function::SequenceType:
+    {
+        /* a Sequence depends on a Scene, so let's create
+         * a new hidden Scene first */
+        Function *scene = new Scene(m_doc);
+        scene->setVisible(false);
 
-            if (m_doc->addFunction(scene) == true)
-            {
-                f = new Sequence(m_doc);
-                name = tr("New Sequence");
-                Sequence *sequence = qobject_cast<Sequence *>(f);
-                sequence->setBoundSceneID(scene->id());
-                m_sequenceCount++;
-                emit sequenceCountChanged();
-            }
-            else
-                delete scene;
-        }
-        break;
-        case Function::EFXType:
+        if (m_doc->addFunction(scene) == true)
         {
-            f = new EFX(m_doc);
-            name = tr("New EFX");
-            m_efxCount++;
-            emit efxCountChanged();
+            f = new Sequence(m_doc);
+            name = tr("New Sequence");
+            Sequence *sequence = qobject_cast<Sequence *>(f);
+            sequence->setBoundSceneID(scene->id());
+            m_sequenceCount++;
+            emit sequenceCountChanged();
         }
-        break;
-        case Function::CollectionType:
-        {
-            f = new Collection(m_doc);
-            name = tr("New Collection");
-            m_collectionCount++;
-            emit collectionCountChanged();
-        }
-        break;
-        case Function::RGBMatrixType:
-        {
-            f = new RGBMatrix(m_doc);
-            name = tr("New RGB Matrix");
-            m_rgbMatrixCount++;
-            emit rgbMatrixCountChanged();
-        }
-        break;
-        case Function::ScriptType:
-        {
-            f = new Script(m_doc);
-            name = tr("New Script");
-            m_scriptCount++;
-            emit scriptCountChanged();
-        }
-        break;
-        case Function::ShowType:
-        {
-            f = new Show(m_doc);
-            name = tr("New Show");
-            m_showCount++;
-            emit showCountChanged();
-        }
-        break;
-        case Function::AudioType:
-        {
-            f = new Audio(m_doc);
-            name = tr("New Audio");
-            m_audioCount++;
-            emit audioCountChanged();
-        }
-        break;
-        case Function::VideoType:
-        {
-            f = new Video(m_doc);
-            name = tr("New Video");
-            m_videoCount++;
-            emit videoCountChanged();
-        }
-        break;
-        default:
+        else
+            delete scene;
+    }
+    break;
+    case Function::EFXType:
+    {
+        f = new EFX(m_doc);
+        name = tr("New EFX");
+        m_efxCount++;
+        emit efxCountChanged();
+    }
+    break;
+    case Function::CollectionType:
+    {
+        f = new Collection(m_doc);
+        name = tr("New Collection");
+        m_collectionCount++;
+        emit collectionCountChanged();
+    }
+    break;
+    case Function::RGBMatrixType:
+    {
+        f = new RGBMatrix(m_doc);
+        name = tr("New RGB Matrix");
+        m_rgbMatrixCount++;
+        emit rgbMatrixCountChanged();
+    }
+    break;
+    case Function::ScriptType:
+    {
+        f = new Script(m_doc);
+        name = tr("New Script");
+        m_scriptCount++;
+        emit scriptCountChanged();
+    }
+    break;
+    case Function::ShowType:
+    {
+        f = new Show(m_doc);
+        name = tr("New Show");
+        m_showCount++;
+        emit showCountChanged();
+    }
+    break;
+    case Function::AudioType:
+    {
+        f = new Audio(m_doc);
+        name = tr("New Audio");
+        m_audioCount++;
+        emit audioCountChanged();
+    }
+    break;
+    case Function::VideoType:
+    {
+        f = new Video(m_doc);
+        name = tr("New Video");
+        m_videoCount++;
+        emit videoCountChanged();
+    }
+    break;
+    default:
         break;
     }
     if (f == NULL)

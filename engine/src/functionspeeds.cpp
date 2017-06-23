@@ -34,9 +34,9 @@ FunctionSpeeds::FunctionSpeeds(quint32 fadeIn, quint32 hold, quint32 fadeOut)
 
 void FunctionSpeeds::setTempoType(Speed::TempoType tempoType, float beatTime)
 {
-    m_fadeIn.switchTempoType(tempoType, beatTime);
-    m_hold.switchTempoType(tempoType, beatTime);
-    m_fadeOut.switchTempoType(tempoType, beatTime);
+    m_fadeIn.setTempoType(tempoType, beatTime);
+    m_hold.setTempoType(tempoType, beatTime);
+    m_fadeOut.setTempoType(tempoType, beatTime);
 }
 
 Speed::TempoType FunctionSpeeds::tempoType() const

@@ -463,9 +463,9 @@ void RGBMatrixEditor::setScriptIntProperty(QString paramName, int value)
 int RGBMatrixEditor::fadeInSpeed() const
 {
     if (m_matrix == NULL)
-        return Function::defaultSpeed();
+        return 0;
 
-    return m_matrix->fadeInSpeed();
+    return m_matrix->innerSpeeds().fadeIn();
 }
 
 void RGBMatrixEditor::setFadeInSpeed(int fadeInSpeed)
@@ -473,19 +473,19 @@ void RGBMatrixEditor::setFadeInSpeed(int fadeInSpeed)
     if (m_matrix == NULL)
         return;
 
-    if (m_matrix->fadeInSpeed() == (uint)fadeInSpeed)
+    if (m_matrix->innerSpeeds().fadeIn() == (uint)fadeInSpeed)
         return;
 
-    m_matrix->setFadeInSpeed(fadeInSpeed);
+    m_matrix->innerSpeedsEdit().setFadeIn(fadeInSpeed);
     emit fadeInSpeedChanged(fadeInSpeed);
 }
 
 int RGBMatrixEditor::holdSpeed() const
 {
     if (m_matrix == NULL)
-        return Function::defaultSpeed();
+        return 0;
 
-    return m_matrix->duration();
+    return m_matrix->innerSpeeds().hold();
 }
 
 void RGBMatrixEditor::setHoldSpeed(int holdSpeed)
@@ -493,21 +493,19 @@ void RGBMatrixEditor::setHoldSpeed(int holdSpeed)
     if (m_matrix == NULL)
         return;
 
-    if (m_matrix->duration() - m_matrix->fadeInSpeed() == (uint)holdSpeed)
+    if (m_matrix->innerSpeeds().hold() == (uint)holdSpeed)
         return;
 
-    uint duration = Function::speedAdd(m_matrix->fadeInSpeed(), holdSpeed);
-    m_matrix->setDuration(duration);
-
+    m_matrix->innerSpeedsEdit().setHold(holdSpeed);
     emit holdSpeedChanged(holdSpeed);
 }
 
 int RGBMatrixEditor::fadeOutSpeed() const
 {
     if (m_matrix == NULL)
-        return Function::defaultSpeed();
+        return 0;
 
-    return m_matrix->fadeOutSpeed();
+    return m_matrix->innerSpeeds().fadeOut();
 }
 
 void RGBMatrixEditor::setFadeOutSpeed(int fadeOutSpeed)
@@ -515,10 +513,10 @@ void RGBMatrixEditor::setFadeOutSpeed(int fadeOutSpeed)
     if (m_matrix == NULL)
         return;
 
-    if (m_matrix->fadeOutSpeed() == (uint)fadeOutSpeed)
+    if (m_matrix->innerSpeeds().fadeOut() == (uint)fadeOutSpeed)
         return;
 
-    m_matrix->setFadeOutSpeed(fadeOutSpeed);
+    m_matrix->innerSpeedsEdit().setFadeOut(fadeOutSpeed);
     emit fadeOutSpeedChanged(fadeOutSpeed);
 }
 
@@ -579,22 +577,22 @@ QVariantList RGBMatrixEditor::previewData() const
 
 void RGBMatrixEditor::slotPreviewTimeout()
 {
-    if (m_matrix == NULL || m_group == NULL || m_matrix->duration() <= 0)
+    if (m_matrix == NULL || m_group == NULL || m_matrix->innerSpeeds().duration() <= 0)
         return;
 
     RGBMap map;
 
-    if (m_matrix->tempoType() == Function::Time)
+    if (m_matrix->innerSpeeds().tempoType() == Speed::Ms)
     {
         m_previewElapsed += MasterTimer::tick();
     }
-    else if (m_matrix->tempoType() == Function::Beats && m_gotBeat)
+    else if (m_matrix->innerSpeeds().tempoType() == Speed::Beats && m_gotBeat)
     {
         m_gotBeat = false;
         m_previewElapsed += 1000;
     }
 
-    if (m_previewElapsed >= m_matrix->duration())
+    if (m_previewElapsed >= m_matrix->innerSpeeds().duration())
     {
         m_previewStepHandler->checkNextStep(m_matrix->runOrder(), m_matrix->startColor(),
                                             m_matrix->endColor(), m_matrix->stepsCount());

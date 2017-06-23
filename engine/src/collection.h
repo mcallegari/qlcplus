@@ -85,6 +85,8 @@ public:
      */
     QList <quint32> functions() const;
 
+    quint32 totalRoundDuration() const override;
+
 signals:
     void functionsChanged();
 

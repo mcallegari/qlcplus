@@ -64,7 +64,7 @@ void ShowManager::setCurrentShowID(int currentShowID)
     if (m_currentShow != NULL)
     {
         connect(m_currentShow, &Show::timeChanged, this, &ShowManager::slotTimeChanged);
-        emit showDurationChanged(m_currentShow->totalDuration());
+        emit showDurationChanged(m_currentShow->totalShowDuration());
         emit showNameChanged(m_currentShow->name());
     }
     else
@@ -210,7 +210,8 @@ void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVar
 
         ShowFunction *showFunc = selectedTrack->createShowFunction(functionID);
         showFunc->setStartTime(startTime);
-        showFunc->setDuration(func->totalDuration() ? func->totalDuration() : 5000);
+        quint32 totalDuration = func->totalRoundDuration();
+        showFunc->setDuration((totalDuration > 0) ? totalDuration : 5000);
         showFunc->setColor(ShowFunction::defaultColor(func->type()));
 
         QQuickItem *newItem = qobject_cast<QQuickItem*>(siComponent->create());
@@ -226,7 +227,7 @@ void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVar
         startTime += showFunc->duration();
     }
 
-    emit showDurationChanged(m_currentShow->totalDuration());
+    emit showDurationChanged(m_currentShow->totalShowDuration());
 }
 
 void ShowManager::deleteShowItems(QVariantList data)
@@ -373,7 +374,7 @@ int ShowManager::showDuration() const
     if (m_currentShow == NULL)
         return 0;
 
-    return m_currentShow->totalDuration();
+    return m_currentShow->totalShowDuration();
 }
 
 int ShowManager::currentTime() const
@@ -564,15 +565,15 @@ QVariantList ShowManager::previewData(Function *f) const
 
             foreach (ChaserStep step, chaser->steps())
             {
-                uint stepFadeIn = step.fadeIn;
-                uint stepFadeOut = step.fadeOut;
-                uint stepDuration = step.duration;
+                uint stepFadeIn = step.speeds.fadeIn();
+                uint stepFadeOut = step.speeds.fadeOut();
+                uint stepDuration = step.speeds.duration();
                 if (chaser->fadeInMode() == Chaser::Common)
-                    stepFadeIn = chaser->fadeInSpeed();
+                    stepFadeIn = chaser->speeds().fadeIn();
                 if (chaser->fadeOutMode() == Chaser::Common)
-                    stepFadeOut = chaser->fadeOutSpeed();
+                    stepFadeOut = chaser->speeds().fadeOut();
                 if (chaser->durationMode() == Chaser::Common)
-                    stepDuration = chaser->duration();
+                    stepDuration = chaser->speeds().duration();
 
                 stepsTimeCounter += stepDuration;
 
@@ -595,8 +596,11 @@ QVariantList ShowManager::previewData(Function *f) const
 
         /* All the other Function types */
         default:
+        {
             data.append(RepeatingDuration);
-            data.append(f->totalDuration());
+            quint32 totalDuration = f->totalRoundDuration();
+            data.append((totalDuration > 0) ? totalDuration : 5000);
+        }
         break;
     }
 

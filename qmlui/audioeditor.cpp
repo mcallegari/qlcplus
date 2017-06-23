@@ -76,7 +76,7 @@ QVariant AudioEditor::mediaInfo() const
         {
             AudioParameters ap = adec->audioParameters();
 
-            infoMap.insert("duration", Function::speedToString(m_audio->totalDuration()));
+            infoMap.insert("duration", Speed::msToString(m_audio->audioDuration()));
             infoMap.insert("sampleRate", QString("%1 Hz").arg(ap.sampleRate()));
             infoMap.insert("channels", ap.channels());
             infoMap.insert("bitrate", QString("%1 kb/s").arg(adec->bitrate()));

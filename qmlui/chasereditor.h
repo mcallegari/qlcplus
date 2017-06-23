@@ -34,9 +34,9 @@ class ChaserEditor : public FunctionEditor
     Q_PROPERTY(int runOrder READ runOrder WRITE setRunOrder NOTIFY runOrderChanged)
     Q_PROPERTY(int direction READ direction WRITE setDirection NOTIFY directionChanged)
     Q_PROPERTY(int tempoType READ tempoType WRITE setTempoType NOTIFY tempoTypeChanged)
-    Q_PROPERTY(int stepsFadeIn READ stepsFadeIn WRITE setStepsFadeIn NOTIFY stepsFadeInChanged)
-    Q_PROPERTY(int stepsFadeOut READ stepsFadeOut WRITE setStepsFadeOut NOTIFY stepsFadeOutChanged)
-    Q_PROPERTY(int stepsDuration READ stepsDuration WRITE setStepsDuration NOTIFY stepsDurationChanged)
+    Q_PROPERTY(int stepsFadeInMode READ stepsFadeInMode WRITE setStepsFadeInMode NOTIFY stepsFadeInModeChanged)
+    Q_PROPERTY(int stepsFadeOutMode READ stepsFadeOutMode WRITE setStepsFadeOutMode NOTIFY stepsFadeOutModeChanged)
+    Q_PROPERTY(int stepsDurationMode READ stepsDurationMode WRITE setStepsDurationMode NOTIFY stepsDurationModeChanged)
     Q_PROPERTY(int playbackIndex READ playbackIndex WRITE setPlaybackIndex NOTIFY playbackIndexChanged)
 
 public:
@@ -82,7 +82,10 @@ protected:
     /** Set the steps $param to $value.
      *  If $selectedOnly is true, $value is applied only to the selected steps,
      *  otherwise it will be applied to all the steps */
-    void setSelectedValue(Function::SpeedType type, QString param, uint value, bool selectedOnly = true);
+    void setSelectedValue(FunctionSpeeds::SpeedComponentType type,
+                          QString param,
+                          uint value,
+                          bool selectedOnly = true);
 
 protected slots:
     /** Slot invoked during Chaser playback when the step index changes */
@@ -123,16 +126,16 @@ public:
     void setTempoType(int tempoType);
 
     /** Get/Set the steps fade in mode of the Chaser being edited */
-    int stepsFadeIn() const;
-    void setStepsFadeIn(int stepsFadeIn);
+    int stepsFadeInMode() const;
+    void setStepsFadeInMode(int stepsFadeInMode);
 
     /** Get/Set the steps fade out mode of the Chaser being edited */
-    int stepsFadeOut() const;
-    void setStepsFadeOut(int stepsFadeOut);
+    int stepsFadeOutMode() const;
+    void setStepsFadeOutMode(int stepsFadeOutMode);
 
     /** Get/Set the steps duration mode of the Chaser being edited */
-    int stepsDuration() const;
-    void setStepsDuration(int stepsDuration);
+    int stepsDurationMode() const;
+    void setStepsDurationMode(int stepsDurationMode);
 
     /** Set the speed value with $type of the step at $index */
     Q_INVOKABLE void setStepSpeed(int index, int value, int type);
@@ -142,9 +145,9 @@ signals:
     void runOrderChanged(int runOrder);
     void directionChanged(int direction);
     void tempoTypeChanged(int tempoType);
-    void stepsFadeInChanged(int stepsFadeIn);
-    void stepsFadeOutChanged(int stepsFadeOut);
-    void stepsDurationChanged(int stepsDuration);
+    void stepsFadeInModeChanged(int stepsFadeInMode);
+    void stepsFadeOutModeChanged(int stepsFadeOutMode);
+    void stepsDurationModeChanged(int stepsDurationMode);
 };
 
 #endif // CHASEREDITOR_H

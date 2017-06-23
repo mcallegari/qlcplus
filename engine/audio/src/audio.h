@@ -79,6 +79,8 @@ public:
      */
     quint32 audioDuration() const;
 
+    quint32 totalRoundDuration() const override;
+
     /**
      * Set the source file name used by this Audio object
      */

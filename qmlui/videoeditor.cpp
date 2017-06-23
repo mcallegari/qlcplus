@@ -82,7 +82,7 @@ void VideoEditor::setSourceFileName(QString sourceFileName)
         if (!img.isNull())
         {
             m_video->setResolution(img.size());
-            m_video->setTotalDuration(1000);
+            m_video->setVideoDuration(1000);
             slotMetaDataChanged("Resolution", QVariant(img.size()));
             slotMetaDataChanged("Duration", 1000);
         }
@@ -124,8 +124,8 @@ QVariant VideoEditor::mediaInfo() const
 
 void VideoEditor::slotDurationChanged(qint64 duration)
 {
-    infoMap.insert("Duration",Function::speedToString(duration));
-    m_video->setTotalDuration(duration);
+    infoMap.insert("Duration", Speed::msToString(duration));
+    m_video->setVideoDuration(duration);
     emit mediaInfoChanged();
 }
 

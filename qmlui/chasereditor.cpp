@@ -80,10 +80,9 @@ bool ChaserEditor::addFunctions(QVariantList idsList, int insertIndex)
             if (func == NULL)
                 continue;
 
-            step.duration = func->totalDuration();
-            if (step.duration == 0)
-                step.duration = 1000;
-            step.hold = step.duration;
+            step.speeds.setDuration(func->totalRoundDuration());
+            if (step.speeds.duration() == 0)
+                step.speeds.setDuration(1000);
         }
         m_chaser->addStep(step, insertIndex++);
     }
@@ -190,46 +189,44 @@ void ChaserEditor::updateStepsList()
             switch (m_chaser->fadeInMode())
             {
                 case Chaser::Common:
-                    stepMap.insert("fadeIn", m_chaser->fadeInSpeed());
+                    stepMap.insert("fadeIn", m_chaser->commonSpeeds().fadeIn());
                 break;
                 case Chaser::PerStep:
-                    stepMap.insert("fadeIn", step.fadeIn);
+                    stepMap.insert("fadeIn", step.speeds.fadeIn());
                 break;
                 default:
-                    stepMap.insert("fadeIn", func->fadeInSpeed());
+                    stepMap.insert("fadeIn", func->speeds().fadeIn());
                 break;
             }
 
             switch (m_chaser->fadeOutMode())
             {
                 case Chaser::Common:
-                    stepMap.insert("fadeOut", m_chaser->fadeOutSpeed());
+                    stepMap.insert("fadeOut", m_chaser->commonSpeeds().fadeOut());
                 break;
                 case Chaser::PerStep:
-                    stepMap.insert("fadeOut", step.fadeOut);
+                    stepMap.insert("fadeOut", step.speeds.fadeOut());
                     break;
                 default:
-                    stepMap.insert("fadeOut", func->fadeOutSpeed());
+                    stepMap.insert("fadeOut", func->speeds().fadeOut());
                 break;
             }
 
             switch (m_chaser->durationMode())
             {
                 case Chaser::Common:
-                    step.duration = m_chaser->duration();
-                    step.hold = Function::speedSubtract(step.duration, step.fadeIn);
-                    stepMap.insert("hold", (int)step.hold);
-                    stepMap.insert("duration", (int)step.duration);
+                    step.speeds.setHold(m_chaser->commonSpeeds().hold());
+                    stepMap.insert("hold", (int)step.speeds.hold());
+                    stepMap.insert("duration", (int)step.speeds.duration());
                 break;
                 case Chaser::PerStep:
-                    stepMap.insert("hold", (int)step.hold);
-                    stepMap.insert("duration", (int)step.duration);
+                    stepMap.insert("hold", (int)step.speeds.hold());
+                    stepMap.insert("duration", (int)step.speeds.duration());
                 break;
                 default:
-                    step.duration = func->totalDuration();
-                    step.hold = Function::speedSubtract(func->totalDuration(), func->fadeInSpeed());
-                    stepMap.insert("hold", (int)step.hold);
-                    stepMap.insert("duration", (int)step.duration);
+                    step.speeds.setHold(func->speeds().hold());
+                    stepMap.insert("hold", (int)step.speeds.hold());
+                    stepMap.insert("duration", (int)step.speeds.duration());
                 break;
             }
 
@@ -240,7 +237,10 @@ void ChaserEditor::updateStepsList()
     emit stepsListChanged();
 }
 
-void ChaserEditor::setSelectedValue(Function::SpeedType type, QString param, uint value, bool selectedOnly)
+void ChaserEditor::setSelectedValue(FunctionSpeeds::SpeedComponentType type,
+                                    QString param,
+                                    uint value,
+                                    bool selectedOnly)
 {
     if (m_chaser == NULL)
         return;
@@ -258,45 +258,45 @@ void ChaserEditor::setSelectedValue(Function::SpeedType type, QString param, uin
             m_stepsList->setDataWithRole(idx, param, value);
 
             ChaserStep step = m_chaser->steps().at(i);
-            uint duration = m_chaser->durationMode() == Chaser::Common ? m_chaser->duration() : step.duration;
+            uint duration = m_chaser->durationMode() == Chaser::Common
+                                ? m_chaser->commonSpeeds().duration()
+                                : step.speeds.duration();
 
             /* Now update also the Chaser step */
             switch(type)
             {
-                case Function::FadeIn:
-                    step.fadeIn = value;
+                case FunctionSpeeds::FadeIn:
+                    step.speeds.setFadeIn(value);
                     if (m_chaser->durationMode() == Chaser::Common)
                     {
-                        step.hold = Function::speedSubtract(duration, step.fadeIn);
-                        m_stepsList->setDataWithRole(idx, "hold", step.hold);
+                        step.speeds.setHold(Speed::sub(duration, step.speeds.fadeIn()));
+                        m_stepsList->setDataWithRole(idx, "hold", step.speeds.hold());
                     }
                     else
                     {
-                        step.duration = Function::speedAdd(step.fadeIn, step.hold);
-                        m_stepsList->setDataWithRole(idx, "duration", step.duration);
+                        m_stepsList->setDataWithRole(idx, "duration", step.speeds.duration());
                     }
-                break;
-                case Function::Hold:
-                    step.hold = value;
+                    break;
+                case FunctionSpeeds::Hold:
+                    step.speeds.setHold(value);
                     if (m_chaser->durationMode() == Chaser::Common)
                     {
-                        step.fadeIn = Function::speedSubtract(duration, step.hold);
-                        m_stepsList->setDataWithRole(idx, "fadeIn", step.hold);
+                        step.speeds.setFadeIn(Speed::sub(duration, step.speeds.hold()));
+                        m_stepsList->setDataWithRole(idx, "fadeIn", step.speeds.fadeIn());
                     }
                     else
                     {
-                        step.duration = Function::speedAdd(step.fadeIn, step.hold);
-                        m_stepsList->setDataWithRole(idx, "duration", step.duration);
+                        m_stepsList->setDataWithRole(idx, "duration", step.speeds.duration());
                     }
-                break;
-                case Function::FadeOut:
-                    step.fadeOut = value;
-                break;
-                case Function::Duration:
-                    step.duration = duration = value;
-                    step.hold = Function::speedSubtract(duration, step.fadeIn);
-                    m_stepsList->setDataWithRole(idx, "hold", step.hold);
-                break;
+                    break;
+                case FunctionSpeeds::FadeOut:
+                    step.speeds.setFadeOut(value);
+                    break;
+                case FunctionSpeeds::Duration:
+                    step.speeds.setDuration(duration);
+                    m_stepsList->setDataWithRole(idx, "hold", step.speeds.hold());
+                    m_stepsList->setDataWithRole(idx, "fadeIn", step.speeds.fadeIn());
+                    break;
             }
 
             m_chaser->replaceStep(step, i);
@@ -345,41 +345,29 @@ void ChaserEditor::setDirection(int direction)
 /*********************************************************************
  * Steps speed mode
  *********************************************************************/
+
 int ChaserEditor::tempoType() const
 {
     if (m_chaser == NULL)
-        return Function::Time;
+        return Speed::Ms;
 
-    return m_chaser->tempoType();
+    return m_chaser->commonSpeeds().tempoType();
 }
 
 void ChaserEditor::setTempoType(int tempoType)
 {
-    if (m_chaser == NULL || m_chaser->tempoType() == Function::TempoType(tempoType))
+    if (m_chaser == NULL || m_chaser->commonSpeeds().tempoType() == Speed::TempoType(tempoType))
         return;
-
-    m_chaser->setTempoType(Function::TempoType(tempoType));
 
     int beatDuration = m_doc->masterTimer()->beatTimeDuration();
     int index = 0;
 
+    m_chaser->speedsEdit().setTempoType(Speed::TempoType(tempoType), beatDuration);
+    m_chaser->commonSpeedsEdit().setTempoType(Speed::TempoType(tempoType), beatDuration);
+
     foreach(ChaserStep step, m_chaser->steps())
     {
-        // Time -> Beats
-        if (tempoType == Function::Beats)
-        {
-            step.fadeIn = Function::timeToBeats(step.fadeIn, beatDuration);
-            step.hold = Function::timeToBeats(step.hold, beatDuration);
-            step.fadeOut = Function::timeToBeats(step.fadeOut, beatDuration);
-        }
-        // Beats -> Time
-        else
-        {
-            step.fadeIn = Function::beatsToTime(step.fadeIn, beatDuration);
-            step.hold = Function::beatsToTime(step.hold, beatDuration);
-            step.fadeOut = Function::beatsToTime(step.fadeOut, beatDuration);
-        }
-        step.duration = step.fadeIn + step.hold;
+        step.speeds.setTempoType(Speed::TempoType(tempoType), beatDuration);
         m_chaser->replaceStep(step, index);
         index++;
     }
@@ -388,7 +376,7 @@ void ChaserEditor::setTempoType(int tempoType)
     updateStepsList();
 }
 
-int ChaserEditor::stepsFadeIn() const
+int ChaserEditor::stepsFadeInMode() const
 {
     if (m_chaser == NULL)
         return Chaser::Default;
@@ -396,18 +384,18 @@ int ChaserEditor::stepsFadeIn() const
     return m_chaser->fadeInMode();
 }
 
-void ChaserEditor::setStepsFadeIn(int stepsFadeIn)
+void ChaserEditor::setStepsFadeInMode(int stepsFadeInMode)
 {
-    if (m_chaser == NULL || m_chaser->fadeInMode() == Chaser::SpeedMode(stepsFadeIn))
+    if (m_chaser == NULL || m_chaser->fadeInMode() == Chaser::SpeedMode(stepsFadeInMode))
         return;
 
-    m_chaser->setFadeInMode(Chaser::SpeedMode(stepsFadeIn));
+    m_chaser->setFadeInMode(Chaser::SpeedMode(stepsFadeInMode));
 
-    emit stepsFadeInChanged(stepsFadeIn);
+    emit stepsFadeInModeChanged(stepsFadeInMode);
     updateStepsList();
 }
 
-int ChaserEditor::stepsFadeOut() const
+int ChaserEditor::stepsFadeOutMode() const
 {
     if (m_chaser == NULL)
         return Chaser::Default;
@@ -415,18 +403,18 @@ int ChaserEditor::stepsFadeOut() const
     return m_chaser->fadeOutMode();
 }
 
-void ChaserEditor::setStepsFadeOut(int stepsFadeOut)
+void ChaserEditor::setStepsFadeOutMode(int stepsFadeOutMode)
 {
-    if (m_chaser == NULL || m_chaser->fadeOutMode() == Chaser::SpeedMode(stepsFadeOut))
+    if (m_chaser == NULL || m_chaser->fadeOutMode() == Chaser::SpeedMode(stepsFadeOutMode))
         return;
 
-    m_chaser->setFadeOutMode(Chaser::SpeedMode(stepsFadeOut));
+    m_chaser->setFadeOutMode(Chaser::SpeedMode(stepsFadeOutMode));
 
-    emit stepsFadeOutChanged(stepsFadeOut);
+    emit stepsFadeOutModeChanged(stepsFadeOutMode);
     updateStepsList();
 }
 
-int ChaserEditor::stepsDuration() const
+int ChaserEditor::stepsDurationMode() const
 {
     if (m_chaser == NULL)
         return Chaser::Default;
@@ -434,14 +422,14 @@ int ChaserEditor::stepsDuration() const
     return m_chaser->durationMode();
 }
 
-void ChaserEditor::setStepsDuration(int stepsDuration)
+void ChaserEditor::setStepsDurationMode(int stepsDurationMode)
 {
-    if (m_chaser == NULL || m_chaser->durationMode() == Chaser::SpeedMode(stepsDuration))
+    if (m_chaser == NULL || m_chaser->durationMode() == Chaser::SpeedMode(stepsDurationMode))
         return;
 
-    m_chaser->setDurationMode(Chaser::SpeedMode(stepsDuration));
+    m_chaser->setDurationMode(Chaser::SpeedMode(stepsDurationMode));
 
-    emit stepsDurationChanged(stepsDuration);
+    emit stepsDurationModeChanged(stepsDurationMode);
     updateStepsList();
 }
 
@@ -450,39 +438,39 @@ void ChaserEditor::setStepSpeed(int index, int value, int type)
     if (m_chaser == NULL || index < 0 || index >= m_chaser->stepsCount())
         return;
 
-    switch(Function::SpeedType(type))
+    switch (FunctionSpeeds::SpeedComponentType(type))
     {
-        case Function::FadeIn:
+        case FunctionSpeeds::FadeIn:
         {
             if (m_chaser->fadeInMode() == Chaser::Common)
             {
-                m_chaser->setFadeInSpeed(value);
-                setSelectedValue(Function::FadeIn, "fadeIn", uint(value), false);
+                m_chaser->commonSpeedsEdit().setFadeIn(value);
+                setSelectedValue(FunctionSpeeds::FadeIn, "fadeIn", uint(value), false);
             }
             else if (m_chaser->fadeInMode() == Chaser::PerStep)
-                setSelectedValue(Function::FadeIn, "fadeIn", uint(value));
+                setSelectedValue(FunctionSpeeds::FadeIn, "fadeIn", uint(value));
         }
         break;
-        case Function::Hold:
-            setSelectedValue(Function::Hold, "hold", uint(value));
+        case FunctionSpeeds::Hold:
+            setSelectedValue(FunctionSpeeds::Hold, "hold", uint(value));
         break;
-        case Function::FadeOut:
+        case FunctionSpeeds::FadeOut:
             if (m_chaser->fadeOutMode() == Chaser::Common)
             {
-                m_chaser->setFadeOutSpeed(value);
-                setSelectedValue(Function::FadeOut, "fadeOut", uint(value), false);
+                m_chaser->commonSpeedsEdit().setFadeOut(value);
+                setSelectedValue(FunctionSpeeds::FadeOut, "fadeOut", uint(value), false);
             }
             else if (m_chaser->fadeOutMode() == Chaser::PerStep)
-                setSelectedValue(Function::FadeOut, "fadeOut", uint(value));
+                setSelectedValue(FunctionSpeeds::FadeOut, "fadeOut", uint(value));
         break;
-        case Function::Duration:
+        case FunctionSpeeds::Duration:
             if (m_chaser->durationMode() == Chaser::Common)
             {
-                m_chaser->setDuration(value);
-                setSelectedValue(Function::Duration, "duration", uint(value), false);
+                m_chaser->commonSpeedsEdit().setDuration(value);
+                setSelectedValue(FunctionSpeeds::Duration, "duration", uint(value), false);
             }
             else
-                setSelectedValue(Function::Duration, "duration", uint(value));
+                setSelectedValue(FunctionSpeeds::Duration, "duration", uint(value));
         break;
     }
 

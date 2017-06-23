@@ -513,6 +513,11 @@ FunctionSpeedsEditProxy Function::overrideSpeedsEdit()
     return FunctionSpeedsEditProxy(m_overrideSpeeds);
 }
 
+quint32 Function::totalRoundDuration() const
+{
+    return Speed::normalize(m_speeds.duration());
+}
+
 void Function::tap()
 {
 }

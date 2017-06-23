@@ -86,4 +86,4 @@ protected:
     bool m_previewEnabled;
 };
 
-#endif // SCENEEDITOR_H
+#endif // FUNCTIONEDITOR_H

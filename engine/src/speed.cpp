@@ -28,7 +28,7 @@
 const QString KTimeTypeString  ( "Time" );
 const QString KBeatsTypeString ( "Beats" );
 
-void Speed::switchTempoType(TempoType newType, float beatTime)
+void Speed::setTempoType(TempoType newType, float beatTime)
 {
     if (newType == tempoType)
         return;

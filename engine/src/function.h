@@ -441,6 +441,8 @@ public:
      */
     FunctionSpeedsEditProxy overrideSpeedsEdit();
 
+    virtual quint32 totalRoundDuration() const;
+
     /**
      * Get the number of alternate speeds of the function.
      * Default implementation returns 0.
@@ -918,6 +920,12 @@ public:
     FunctionSpeedsEditProxy &setDuration(quint32 ms)
     {
         m_speeds.setDuration(ms);
+        m_changed = true;
+        return *this;
+    }
+    FunctionSpeedsEditProxy &setTempoType(Speed::TempoType tempoType, float beatTime)
+    {
+        m_speeds.setTempoType(tempoType, beatTime);
         m_changed = true;
         return *this;
     }

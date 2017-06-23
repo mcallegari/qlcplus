@@ -133,6 +133,11 @@ quint32 Audio::audioDuration() const
     return m_audioDuration;
 }
 
+quint32 Audio::totalRoundDuration() const
+{
+    return audioDuration();
+}
+
 bool Audio::setSourceFileName(QString filename)
 {
     if (m_sourceFileName.isEmpty() == false)

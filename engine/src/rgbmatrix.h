@@ -157,7 +157,7 @@ public:
     // Stretches the duration of each step to get to a total duration of msec ms
     void setTotalRoundDuration(quint32 msec);
     // Get the sum of all step duration
-    quint32 totalRoundDuration() const;
+    quint32 totalRoundDuration() const override;
 
 private:
     FunctionSpeeds m_innerSpeeds;

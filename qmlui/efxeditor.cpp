@@ -636,9 +636,9 @@ void EFXEditor::updateFixtureTree(Doc *doc, TreeModel *treeModel)
 int EFXEditor::fadeInSpeed() const
 {
     if (m_efx == NULL)
-        return Function::defaultSpeed();
+        return 0;
 
-    return m_efx->fadeInSpeed();
+    return m_efx->innerSpeeds().fadeIn();
 }
 
 void EFXEditor::setFadeInSpeed(int fadeInSpeed)
@@ -646,19 +646,19 @@ void EFXEditor::setFadeInSpeed(int fadeInSpeed)
     if (m_efx == NULL)
         return;
 
-    if (m_efx->fadeInSpeed() == (uint)fadeInSpeed)
+    if (m_efx->innerSpeeds().fadeIn() == (uint)fadeInSpeed)
         return;
 
-    m_efx->setFadeInSpeed(fadeInSpeed);
+    m_efx->innerSpeedsEdit().setFadeIn(fadeInSpeed);
     emit fadeInSpeedChanged(fadeInSpeed);
 }
 
 int EFXEditor::holdSpeed() const
 {
     if (m_efx == NULL)
-        return Function::defaultSpeed();
+        return 0;
 
-    return m_efx->duration();
+    return m_efx->innerSpeeds().duration();
 }
 
 void EFXEditor::setHoldSpeed(int holdSpeed)
@@ -666,22 +666,21 @@ void EFXEditor::setHoldSpeed(int holdSpeed)
     if (m_efx == NULL)
         return;
 
-    if (m_efx->duration() - m_efx->fadeInSpeed() == (uint)holdSpeed)
+    if (m_efx->innerSpeeds().hold() == (uint)holdSpeed)
         return;
 
-    uint duration = Function::speedAdd(m_efx->fadeInSpeed(), holdSpeed);
-    m_efx->setDuration(duration);
+    m_efx->innerSpeedsEdit().setHold(holdSpeed);
 
     emit holdSpeedChanged(holdSpeed);
-    emit durationChanged(duration);
+    emit durationChanged(m_efx->innerSpeeds().duration());
 }
 
 int EFXEditor::fadeOutSpeed() const
 {
     if (m_efx == NULL)
-        return Function::defaultSpeed();
+        return 0;
 
-    return m_efx->fadeOutSpeed();
+    return m_efx->innerSpeeds().fadeOut();
 }
 
 void EFXEditor::setFadeOutSpeed(int fadeOutSpeed)
@@ -689,19 +688,19 @@ void EFXEditor::setFadeOutSpeed(int fadeOutSpeed)
     if (m_efx == NULL)
         return;
 
-    if (m_efx->fadeOutSpeed() == (uint)fadeOutSpeed)
+    if (m_efx->innerSpeeds().fadeOut() == (uint)fadeOutSpeed)
         return;
 
-    m_efx->setFadeOutSpeed(fadeOutSpeed);
+    m_efx->innerSpeedsEdit().setFadeOut(fadeOutSpeed);
     emit fadeOutSpeedChanged(fadeOutSpeed);
 }
 
 int EFXEditor::duration() const
 {
     if (m_efx == NULL)
-        return Function::defaultSpeed();
+        return 0;
 
-    return m_efx->duration();
+    return m_efx->innerSpeeds().duration();
 }
 
 /************************************************************************

@@ -49,6 +49,9 @@ public:
     /** @reimp */
     QIcon getIcon() const;
 
+    quint32 totalShowDuration() const;
+    quint32 totalRoundDuration() const override;
+
     /*********************************************************************
      * Copying
      *********************************************************************/

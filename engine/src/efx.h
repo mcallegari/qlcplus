@@ -135,6 +135,8 @@ public:
     FunctionSpeeds const& innerSpeeds() const;
     FunctionSpeedsEditProxy innerSpeedsEdit();
 
+    quint32 totalRoundDuration() const override;
+
 private:
     FunctionSpeeds m_innerSpeeds;
     quint32 m_prevInnerDuration;
