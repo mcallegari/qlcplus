@@ -218,10 +218,10 @@ bool AudioDecoderMAD::findHeader()
         {
             size_t remaining = 0;
 
-            if (!m_stream.next_frame)
+            if (m_stream.next_frame)
             {
-                remaining = m_stream.bufend - m_stream.this_frame;
-                memmove (m_input_buf, m_stream.this_frame, remaining);
+                remaining = m_stream.bufend - m_stream.next_frame;
+                memmove (m_input_buf, m_stream.next_frame, remaining);
             }
 
             m_input_bytes = m_input.read(m_input_buf + remaining, INPUT_BUFFER_SIZE - remaining);
