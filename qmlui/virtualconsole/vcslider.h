@@ -48,7 +48,7 @@
 #define KXMLQLCVCSliderChannel "Channel"
 #define KXMLQLCVCSliderChannelFixture "Fixture"
 
-#define KXMLQLCVCSliderPlayback "Playback"
+#define KXMLQLCVCSliderPlayback "Playback" // LEGACY
 #define KXMLQLCVCSliderPlaybackFunction "Function"
 
 class FunctionParent;
@@ -71,7 +71,9 @@ class VCSlider : public VCWidget, public DMXSource
     Q_PROPERTY(int monitorValue READ monitorValue NOTIFY monitorValueChanged)
     Q_PROPERTY(bool isOverriding READ isOverriding WRITE setIsOverriding NOTIFY isOverridingChanged)
 
-    Q_PROPERTY(quint32 playbackFunction READ playbackFunction WRITE setPlaybackFunction NOTIFY playbackFunctionChanged)
+    Q_PROPERTY(quint32 controlledFunction READ controlledFunction WRITE setControlledFunction NOTIFY controlledFunctionChanged)
+    Q_PROPERTY(int controlledAttribute READ controlledAttribute WRITE setControlledAttribute NOTIFY controlledAttributeChanged)
+    Q_PROPERTY(QStringList availableAttributes READ availableAttributes NOTIFY availableAttributesChanged)
 
     Q_PROPERTY(GrandMaster::ValueMode grandMasterValueMode READ grandMasterValueMode WRITE setGrandMasterValueMode NOTIFY grandMasterValueModeChanged)
     Q_PROPERTY(GrandMaster::ChannelMode grandMasterChannelMode READ grandMasterChannelMode WRITE setGrandMasterChannelMode NOTIFY grandMasterChannelModeChanged)
@@ -164,7 +166,7 @@ protected:
      * Slider Mode
      *********************************************************************/
 public:
-    enum SliderMode { Level, Playback, Submaster, GrandMaster, Attribute };
+    enum SliderMode { Level, Adjust, Submaster, GrandMaster };
     Q_ENUM(SliderMode)
 
 public:
@@ -174,7 +176,7 @@ public:
 
     /** Get/Set the current slider mode */
     SliderMode sliderMode() const;
-    void setSliderMode(SliderMode mode);
+    void setSliderMode(SliderMode mode, bool init = false);
 
 signals:
     void sliderModeChanged(SliderMode mode);
@@ -277,20 +279,28 @@ protected:
     TreeModel *m_fixtureTree;
 
     /*********************************************************************
-     * Playback mode
+     * Atribute mode
      *********************************************************************/
 public:
-    quint32 playbackFunction() const;
-    void setPlaybackFunction(quint32 playbackFunction);
+    quint32 controlledFunction() const;
+    void setControlledFunction(quint32 fid);
+
+    int controlledAttribute() const;
+    void setControlledAttribute(int attr);
+
+    QStringList availableAttributes() const;
 
 private:
     FunctionParent functionParent() const;
 
 signals:
-    void playbackFunctionChanged(quint32 playbackFunction);
+    void controlledFunctionChanged(quint32 fid);
+    void controlledAttributeChanged(int attr);
+    void availableAttributesChanged();
 
 protected:
-    quint32 m_playbackFunction;
+    quint32 m_controlledFunction;
+    int m_controlledAttribute;
 
     /*********************************************************************
      * Grand Master mode
@@ -318,8 +328,8 @@ protected:
     /** writeDMX for Level mode */
     void writeDMXLevel(MasterTimer* timer, QList<Universe*> universes);
 
-    /** writeDMX for Playback mode */
-    void writeDMXPlayback(MasterTimer* timer, QList<Universe*> universes);
+    /** writeDMX for Adjust mode */
+    void writeDMXAdjust(MasterTimer* timer, QList<Universe*> universes);
 
     /*********************************************************************
      * External input
@@ -334,7 +344,7 @@ public slots:
 public:
     bool loadXML(QXmlStreamReader &root);
     bool loadXMLLevel(QXmlStreamReader &level_root);
-    bool loadXMLPlayback(QXmlStreamReader &pb_root);
+    bool loadXMLLegacyPlayback(QXmlStreamReader &pb_root);
 
     //bool saveXML(QXmlStreamWriter *doc);
 };

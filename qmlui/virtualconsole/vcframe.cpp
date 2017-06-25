@@ -220,7 +220,7 @@ void VCFrame::addWidgetMatrix(QQuickItem *parent, QString matrixType, QPoint pos
     VCFrame *frame;
     int totalWidth = (matrixSize.width() * widgetSize.width()) + (m_vc->pixelDensity() * 2);
     int totalHeight = (matrixSize.height() * widgetSize.height()) + (m_vc->pixelDensity() * 2);
-    int xPos, yPos = m_vc->pixelDensity();
+    int yPos = m_vc->pixelDensity();
 
     qDebug() << "Matrix size" << matrixSize << "widget size" << widgetSize;
     qDebug() << "Frame total width" << totalWidth << ", height" << totalHeight;
@@ -243,7 +243,7 @@ void VCFrame::addWidgetMatrix(QQuickItem *parent, QString matrixType, QPoint pos
 
     for (int row = 0; row < matrixSize.height(); row++)
     {
-        xPos = m_vc->pixelDensity();
+        int xPos = m_vc->pixelDensity();
 
         for (int col = 0; col < matrixSize.width(); col++)
         {
@@ -280,7 +280,7 @@ void VCFrame::addFunctions(QQuickItem *parent, QVariantList idsList, QPoint pos,
             QQmlEngine::setObjectOwnership(slider, QQmlEngine::CppOwnership);
             slider->setGeometry(QRect(currPos.x(), currPos.y(), m_vc->pixelDensity() * 10, m_vc->pixelDensity() * 35));
             slider->setCaption(func->name());
-            slider->setPlaybackFunction(funcID);
+            slider->setControlledFunction(funcID);
             setupWidget(slider);
             m_vc->addWidgetToMap(slider);
             slider->render(m_vc->view(), parent);
