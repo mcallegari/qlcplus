@@ -31,6 +31,7 @@ Slider
     from: 0
     to: 255
     stepSize: 1.0
+    wheelEnabled: true
 
     property Gradient handleGradient: defaultGradient
     property Gradient handleGradientHover: defaultGradientHover
