@@ -88,6 +88,18 @@ public:
      *  $parent is used only to render the new widget */
     Q_INVOKABLE void addWidget(QQuickItem *parent, QString wType, QPoint pos);
 
+    /** Add a matrix of widgets with the specified parameters:
+     *
+     *  @param parent the parent item to render the matrix
+     *  @param matrixType is the type of matrix (buttons, sliders)
+     *  @param pos the matrix position within this frame
+     *  @param matrixSize the matrix size (columns x rows)
+     *  @param widgetSize the individual widget size in pixel
+     *  @param soloFrame the type of Frame to create as container for the widget matrix
+     */
+    Q_INVOKABLE void addWidgetMatrix(QQuickItem *parent, QString matrixType, QPoint pos,
+                                     QSize matrixSize, QSize widgetSize, bool soloFrame = false);
+
     /** Add a Function with ID $funcID at position $pos to this frame.
      *  If $modifierPressed is false, a VC Button is created to represent the Function
      *  otherwise a VC Slider is created.

@@ -63,7 +63,6 @@ VCSlider::~VCSlider()
     m_doc->masterTimer()->unregisterDMXSource(this);
 }
 
-
 void VCSlider::setID(quint32 id)
 {
     VCWidget::setID(id);
@@ -106,16 +105,6 @@ QString VCSlider::propertiesResource() const
 
 QVariant VCSlider::channelsList()
 {
-/*
-    if (m_channelsTree == NULL)
-    {
-        m_channelsTree = new TreeModel(this);
-        QQmlEngine::setObjectOwnership(m_channelsTree, QQmlEngine::CppOwnership);
-        QStringList treeColumns;
-        treeColumns << "classRef" << "uni" << "fxID" << "chIndex";
-        m_channelsTree->setColumnNames(treeColumns);
-    }
-*/
     return QVariant::fromValue(m_channelsTree);
 }
 

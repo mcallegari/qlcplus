@@ -197,7 +197,12 @@ VCWidgetItem
             if (drop.keys[0] === "vcwidget")
             {
                 if (drag.source.widgetType)
-                    frameObj.addWidget(dropArea, drag.source.widgetType, pos)
+                {
+                    if (drag.source.widgetType === "buttonmatrix" || drag.source.widgetType === "slidermatrix")
+                        virtualConsole.requestAddMatrixPopup(frameObj, dropArea, drag.source.widgetType, pos)
+                    else
+                        frameObj.addWidget(dropArea, drag.source.widgetType, pos)
+                }
                 else
                 {
                     // reparent the QML item first

@@ -215,6 +215,47 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
     }
 }
 
+void VCFrame::addWidgetMatrix(QQuickItem *parent, QString matrixType, QPoint pos, QSize matrixSize, QSize widgetSize, bool soloFrame)
+{
+    VCFrame *frame;
+    int totalWidth = (matrixSize.width() * widgetSize.width()) + (m_vc->pixelDensity() * 2);
+    int totalHeight = (matrixSize.height() * widgetSize.height()) + (m_vc->pixelDensity() * 2);
+    int xPos, yPos = m_vc->pixelDensity();
+
+    qDebug() << "Matrix size" << matrixSize << "widget size" << widgetSize;
+    qDebug() << "Frame total width" << totalWidth << ", height" << totalHeight;
+
+    if (soloFrame)
+    {
+        VCSoloFrame *solo = new VCSoloFrame(m_doc, m_vc, this);
+        frame = qobject_cast<VCFrame *>(solo);
+    }
+    else
+    {
+        frame = new VCFrame(m_doc, m_vc, this);
+    }
+
+    QQmlEngine::setObjectOwnership(frame, QQmlEngine::CppOwnership);
+    frame->setGeometry(QRect(pos.x(), pos.y(), totalWidth, totalHeight));
+    frame->setShowHeader(false);
+    setupWidget(frame);
+    m_vc->addWidgetToMap(frame);
+
+    for (int row = 0; row < matrixSize.height(); row++)
+    {
+        xPos = m_vc->pixelDensity();
+
+        for (int col = 0; col < matrixSize.width(); col++)
+        {
+            frame->addWidget(NULL, matrixType == "buttonmatrix" ? typeToString(ButtonWidget) : typeToString(SliderWidget), QPoint(xPos, yPos));
+            xPos += widgetSize.width();
+        }
+        yPos += widgetSize.height();
+    }
+
+    frame->render(m_vc->view(), parent);
+}
+
 void VCFrame::addFunctions(QQuickItem *parent, QVariantList idsList, QPoint pos, int keyModifiers)
 {
     // reset all the drop targets, otherwise two overlapping
