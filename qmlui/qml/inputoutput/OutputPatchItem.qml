@@ -49,11 +49,12 @@ Rectangle
         {
             x: 8
             width: parent.width - 16
-            spacing: 3
+            spacing: 5
 
             Column
             {
                 height: patchBox.height
+                spacing: 1
 
                 IconButton
                 {

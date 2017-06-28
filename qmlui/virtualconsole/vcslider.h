@@ -279,7 +279,7 @@ protected:
     TreeModel *m_fixtureTree;
 
     /*********************************************************************
-     * Atribute mode
+     * Adjust mode
      *********************************************************************/
 public:
     quint32 controlledFunction() const;
