@@ -43,6 +43,8 @@ class OutputPatch : public QObject
 
     Q_PROPERTY(QString outputName READ outputName NOTIFY outputNameChanged)
     Q_PROPERTY(QString pluginName READ pluginName NOTIFY pluginNameChanged)
+    Q_PROPERTY(bool paused READ paused WRITE setPaused NOTIFY pausedChanged)
+    Q_PROPERTY(bool blackout READ blackout WRITE setBlackout NOTIFY blackoutChanged)
 
     /********************************************************************
      * Initialization
@@ -106,9 +108,27 @@ private:
      * Value dump
      ********************************************************************/
 public:
+    /** Get/Set the output patch pause state */
+    bool paused() const;
+    void setPaused(bool paused);
+
+    /** Get/Set the output patch blackout state */
+    bool blackout() const;
+    void setBlackout(bool blackout);
+
     /** Write the contents of a 512 channel value buffer to the plugin.
       * Called periodically by OutputMap. No need to call manually. */
     void dump(quint32 universe, const QByteArray &data);
+
+signals:
+    void pausedChanged(bool paused);
+    void blackoutChanged(bool blackout);
+
+private:
+    /** A buffer used when this output patch is paused */
+    QByteArray m_pauseBuffer;
+    bool m_paused;
+    bool m_blackout;
 };
 
 /** @} */
