@@ -402,6 +402,25 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
             if(! username.isEmpty())
                 m_auth->deleteUser(username);
         }
+        else if (cmdList.at(1) == "SET_USER_LEVEL")
+        {
+            QString username = cmdList.at(2);
+            int level = cmdList.at(3).toInt();
+            if(username.isEmpty())
+            {
+                QString wsMessage = QString("ALERT|" + tr("Username is required."));
+                conn->webSocketWrite(QHttpConnection::TextFrame, wsMessage.toUtf8());
+                return;
+            }
+            if(level <= 0)
+            {
+                QString wsMessage = QString("ALERT|" + tr("User level has to be a positive integer."));
+                conn->webSocketWrite(QHttpConnection::TextFrame, wsMessage.toUtf8());
+                return;
+            }
+
+            m_auth->setUserLevel(username, (WebAccessUserLevel)level);
+        }
         else
             qDebug() << "[webaccess] Command" << cmdList[1] << "not supported !";
         

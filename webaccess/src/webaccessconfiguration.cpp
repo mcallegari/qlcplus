@@ -216,21 +216,48 @@ QString WebAccessConfiguration::getPasswordsConfigHTML(WebAccessAuth *auth)
 {
     QString html = "";
     html += "<table class=\"hovertable\" id=\"auth-passwords-table\" style=\"width: 100%;\">";
-    html += "<tr><th>" + tr("Username") + "</th><th>" + tr("Password") + "</th>";
-    html += "<th>" + tr("Action") + "</th></tr>";
+    html += 
+        "<tr>"
+            "<th>" + tr("Username") + "</th>"
+            "<th>" + tr("Password") + "</th>"
+            "<th>" + tr("Access level") + "</th>"
+            "<th>" + tr("Action") + "</th>"
+        "</tr>";
 
     auto users = auth->getUsers();
 
     for(auto& user : users)
     {
         auto& username = user.username;
-        
+        int level = user.level;
+
         html += "<tr id=\"auth-row-" + username + "\">";
         html += "<td>" + username + "</td>";
-        html += "<td><input type=\"password\" id=\"auth-password-" + username + "\" placeholder=\"" + tr("New password...") + "\"></td>";
+        html += "<td><input type=\"password\" id=\"auth-password-" + username + "\""
+                " placeholder=\"" + tr("Leave blank to not change") + "\"></td>";
         html += "<td>";
-            html += "<button role=\"button\" onclick=\"authChangePassword('" + username + "')\">"
-                 + tr("Change password") + "</button>";
+            html += "<select id=\"auth-level-" + username + "\">";
+
+            html += "<option value=\"" + QString::number(WebAccessUserLevel::VC_ONLY) + "\"";
+            if(level >= WebAccessUserLevel::VC_ONLY && level < WebAccessUserLevel::SIMPLE_DESK_AND_VC)
+                html += "selected";
+            html += ">" + tr("Only Virtual Console") + "</option>";
+
+            html += "<option value=\"" + QString::number(WebAccessUserLevel::SIMPLE_DESK_AND_VC) + "\"";
+            if(level >= WebAccessUserLevel::SIMPLE_DESK_AND_VC && level < WebAccessUserLevel::SUPER_ADMIN)
+                html += "selected";
+            html += ">" + tr("Virtual Console and Simple Desk") + "</option>";
+
+            html += "<option value=\"" + QString::number(WebAccessUserLevel::SUPER_ADMIN) + "\"";
+            if(level >= WebAccessUserLevel::SUPER_ADMIN)
+                html += "selected";
+            html += ">" + tr("Everything") + "</option>";
+
+            html += "</select>";
+        html += "</td>";
+        html += "<td>";
+            html += "<button role=\"button\" onclick=\"authChangeUser('" + username + "')\">"
+                 + tr("Change") + "</button>";
             html += "<button role=\"button\" onclick=\"authDeleteUser('" + username + "')\">"
                  + tr("Delete user") + "</button>";
         html += "</td>";
@@ -241,16 +268,32 @@ QString WebAccessConfiguration::getPasswordsConfigHTML(WebAccessAuth *auth)
     html += "<td><input type=\"text\" id=\"auth-new-username\" placeholder=\"" + tr("New username...") + "\"></td>";
     html += "<td><input type=\"password\" id=\"auth-new-password\" placeholder=\"" + tr("New password...") + "\"></td>";
     html += "<td>";
+        html += "<select id=\"auth-new-level\">";
+
+        html += "<option value=\"" + QString::number(WebAccessUserLevel::VC_ONLY) + "\">" 
+            + tr("Only Virtual Console") + "</option>";
+        html += "<option value=\"" + QString::number(WebAccessUserLevel::SIMPLE_DESK_AND_VC) + "\">"
+            + tr("Virtual Console and Simple Desk") + "</option>";
+        html += "<option value=\"" + QString::number(WebAccessUserLevel::SUPER_ADMIN) + "\">" 
+            + tr("Everything") + "</option>";
+
+        html += "</select>";
+    html += "</td>";
+    html += "<td>";
         // Script will dynamically add rows with users so it needs to know translations
         html += "<button role=\"button\" onclick=\"authAddUser(" 
-                "'" + tr("Change password") + "','" + tr("Delete user") + "','" + tr("Username and password are required fields.") + "'"
+                "'" + tr("Change") + "','" + tr("Delete user") + "'"
+                ",'" + tr("Username and password are required fields.") + "'"
                 ",'" + tr("New password...") + "'"
                 ")\" class=\"authAddUser\">"
                 + tr("Add user") + "</button>";
     html += "</td>";
     html += "</tr>";
-
     html += "</table>";
+    html += "<i style=\"color: #CCCCCC\">";
+    html += tr("Note: if there isn't at least one user with access level \"Everything\" on the list"
+               " authorization will be disabled.");
+    html += "</i>";
 
     return html;
 }

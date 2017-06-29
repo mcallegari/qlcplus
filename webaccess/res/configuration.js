@@ -24,12 +24,16 @@ function ioChanged(cmd, uni, val)
   websocket.send("QLC+IO|" + cmd + "|" + uni + "|" + val);
 }
 
-function authChangePassword(username)
+function authChangeUser(username)
 {
   var newPasswordElement = document.getElementById("auth-password-" + username);
+  var newLevelElement = document.getElementById("auth-level-" + username);
 
-  websocket.send("QLC+AUTH|ADD_USER|" + username + "|" + newPasswordElement.value);
-
+  if(newPasswordElement.value)
+    websocket.send("QLC+AUTH|ADD_USER|" + username + "|" + newPasswordElement.value + "|" + newLevelElement.value);
+  else
+    websocket.send("QLC+AUTH|SET_USER_LEVEL|" + username + "|" + newLevelElement.value);
+  
   newPasswordElement.value = "";
 }
 
@@ -42,25 +46,29 @@ function authDeleteUser(username)
   }
 }
 
-function authAddUser(trChangePassword, trDeleteUser, trFieldsRequired, trNewPasswordPlaceholder)
+function authAddUser(trChangeUser, trDeleteUser, trFieldsRequired, trNewPasswordPlaceholder)
 {
   var usernameElement = document.getElementById("auth-new-username");
   var passwordElement = document.getElementById("auth-new-password");
+  var levelElement = document.getElementById("auth-new-level");
   var username = usernameElement.value;
+  var level = levelElement.value;
 
   if(! username || ! passwordElement.value) {
     return alert(trFieldsRequired);
   }
   
-  websocket.send("QLC+AUTH|ADD_USER|" + username + "|" + passwordElement.value);
+  websocket.send("QLC+AUTH|ADD_USER|" + username + "|" + passwordElement.value + "|" + level);
 
   var tableElement = document.getElementById("auth-passwords-table");
   var rowCount = tableElement.rows.length;
   var row = tableElement.insertRow(rowCount - 1);
+  row.id = "auth-row-" + username;
 
   var usernameCell = row.insertCell(0);
   var passwordCell = row.insertCell(1);
-  var actionsCell  = row.insertCell(2);
+  var levelCell = row.insertCell(2);
+  var actionsCell  = row.insertCell(3);
 
   usernameCell.innerText = username;
   
@@ -71,11 +79,26 @@ function authAddUser(trChangePassword, trDeleteUser, trFieldsRequired, trNewPass
   
   passwordCell.appendChild(passwordInput);
 
-  var changePasswordButton = document.createElement("button");
-  changePasswordButton.onclick = function() { authChangePassword(username); };
-  changePasswordButton.innerText = trChangePassword;
-  
-  actionsCell.appendChild(changePasswordButton);
+  var levelInput = document.createElement("select");
+  levelInput.id = "auth-level-" + username;
+  var levels = levelElement.getElementsByTagName("option");
+  for(var i = 0; i < levels.length; i++) {
+    var l = levels[i];
+    var option = document.createElement("option");
+    option.value = l.value;
+    option.innerText = l.innerText;
+    option.selected = (l.value == level);
+    
+    levelInput.appendChild(option);
+  }
+
+  levelCell.appendChild(levelInput);
+
+  var changeUserButton = document.createElement("button");
+  changeUserButton.onclick = function() { authChangeUser(username); };
+  changeUserButton.innerText = trChangeUser;
+
+  actionsCell.appendChild(changeUserButton);
 
   var deleteUserButton = document.createElement("button");
   deleteUserButton.onclick = function() { authDeleteUser(username); };

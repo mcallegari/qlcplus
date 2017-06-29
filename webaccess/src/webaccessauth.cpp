@@ -135,6 +135,17 @@ void WebAccessAuth::addUser(const QString& username, const QString& password, We
     m_passwords.insert(username, user);
 }
 
+bool WebAccessAuth::setUserLevel(const QString& username, WebAccessUserLevel level)
+{
+    auto userIt = m_passwords.find(username);
+    if(userIt == m_passwords.end())
+        return false;
+    
+    (*userIt).level = level;
+    m_passwords.insert(username, *userIt);
+    return true;
+}
+
 void WebAccessAuth::deleteUser(const QString& username)
 {
     m_passwords.remove(username);
@@ -156,7 +167,7 @@ void WebAccessAuth::sendUnauthorizedResponse(QHttpResponse* res) const
             "<body>"
                 "<h1>401 Unauthorized</h1>"
                 "<p>Access to this resource requires proper authorization"
-                "and you have failed to authenticate.</p>"
+                " and you have failed to authenticate.</p>"
             "</body>"
         "</html>"
     ).toUtf8();

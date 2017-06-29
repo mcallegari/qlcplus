@@ -112,6 +112,13 @@ public:
     void addUser(const QString& username, const QString& password, WebAccessUserLevel level);
 
     /**
+     * Sets user access level
+     *
+     * Returns true when user with given username exists
+     */
+    bool setUserLevel(const QString& username, WebAccessUserLevel level);
+
+    /**
      * Removes user from password table if it exists.
      */
     void deleteUser(const QString& username);
