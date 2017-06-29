@@ -219,10 +219,12 @@ QString WebAccessConfiguration::getPasswordsConfigHTML(WebAccessAuth *auth)
     html += "<tr><th>" + tr("Username") + "</th><th>" + tr("Password") + "</th>";
     html += "<th>" + tr("Action") + "</th></tr>";
 
-    auto users = auth->getUsernames();
+    auto users = auth->getUsers();
 
-    for(auto& username : users)
+    for(auto& user : users)
     {
+        auto& username = user.username;
+        
         html += "<tr id=\"auth-row-" + username + "\">";
         html += "<td>" + username + "</td>";
         html += "<td><input type=\"password\" id=\"auth-password-" + username + "\" placeholder=\"" + tr("New password...") + "\"></td>";

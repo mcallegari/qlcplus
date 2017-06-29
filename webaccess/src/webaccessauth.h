@@ -27,6 +27,40 @@
 class QHttpRequest;
 class QHttpResponse;
 
+enum WebAccessUserLevel
+{
+    GUEST = 0,
+    LOGGED_IN = 1,
+    VC_ONLY = 10,
+    SIMPLE_DESK_AND_VC = 20,
+    SUPER_ADMIN = 100,
+    NOT_PROVIDED = 100,
+};
+
+struct WebAccessUser
+{
+    QString username;
+    QString passwordHash;
+    WebAccessUserLevel level;
+
+    WebAccessUser(
+        const QString& _username,
+        const QString& _passwordHash,
+        WebAccessUserLevel _level
+    )
+    : username(_username)
+    , passwordHash(_passwordHash)
+    , level(_level)
+    {}
+
+    WebAccessUser()
+    : username()
+    , passwordHash()
+    , level(WebAccessUserLevel::GUEST)
+    {}
+
+};
+
 /**
  * This class implements HTTP basic authentication scheme
  * as defined in RFC7617
@@ -34,7 +68,7 @@ class QHttpResponse;
 class WebAccessAuth
 {
 private:
-    QMap<QString, QString> m_passwords;
+    QMap<QString, WebAccessUser> m_passwords;
     QString m_realm;
     QString m_passwordsFile;
 public:
@@ -42,8 +76,10 @@ public:
 
     /**
      * Loads file with entries in form:
-     *     username:passwordHash
-     * where passwordHash is SHA256 hash of user's passsword
+     *     username:passwordHash[:userLevel]
+     * where:
+     *   - passwordHash is SHA256 hash of user's passsword
+     *   - userLevel is an integer
      * 
      * Note: duplicate usernames will be silently skipped
      *       (the last entry in file will be used)
@@ -59,28 +95,32 @@ public:
     /**
      * Note: This function has to be called before any
      *       content is sent, because it adds some headers
-     * 
-     * Note: if this function returns false the request
-     *       is served by this function
      */
-    bool authenticateRequest(const QHttpRequest* req, QHttpResponse* res) const;
+    WebAccessUser authenticateRequest(const QHttpRequest* req, QHttpResponse* res) const;
+
+    /**
+     * Send HTTP 403 response
+     *
+     * Note: This function ends the response
+     */
+    void sendUnauthorizedResponse(QHttpResponse* res) const;
 
     /**
      * Adds user to password table. If given username already
      * exists __it is replaced__.
      */
-    void addUser(const QString& username, const QString& password);
+    void addUser(const QString& username, const QString& password, WebAccessUserLevel level);
 
     /**
      * Removes user from password table if it exists.
      */
     void deleteUser(const QString& username);
     
-    QList<QString> getUsernames() const;
+    QList<WebAccessUser> getUsers() const;
 
 private:
-    void sendUnauthorizedResponse(QHttpResponse* res) const;
     QString hashPassword(const QString& password) const;
+    bool hasAtLeastOneAdmin() const;
 };
 
 #endif // WEBACCESSAUTH_H
