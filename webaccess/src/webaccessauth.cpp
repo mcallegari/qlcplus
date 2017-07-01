@@ -24,25 +24,29 @@
 #include <QTextStream>
 
 #include "webaccessauth.h"
+#include "qlcconfig.h"
 
 #include "qhttprequest.h"
 #include "qhttpresponse.h"
 
 #define PASSWORD_HASH_ALGORITHM QCryptographicHash::Algorithm::Sha256
+#define DEFAULT_PASSWORD_FILE "web_passwd"
 
 WebAccessAuth::WebAccessAuth(const QString& realm)
     : m_passwords()
     , m_realm(realm)
 {
+    m_passwordsFile = QString("%1/%2/%3").arg(getenv("HOME")).arg(USERQLCPLUSDIR).arg(DEFAULT_PASSWORD_FILE);
 }
 
 bool WebAccessAuth::loadPasswordsFile(const QString& filePath)
 {
-    m_passwordsFile = filePath;
+    if (!filePath.isEmpty())
+        m_passwordsFile = filePath;
 
     QFile file(filePath);
     
-    if(! file.open(QIODevice::OpenModeFlag::ReadOnly | QIODevice::Text))
+    if(!file.open(QIODevice::OpenModeFlag::ReadOnly | QIODevice::Text))
         return false;
     
     QTextStream stream(&file);

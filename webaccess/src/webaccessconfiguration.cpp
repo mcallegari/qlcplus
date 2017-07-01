@@ -337,31 +337,35 @@ QString WebAccessConfiguration::getHTML(Doc *doc, WebAccessAuth *auth)
                        "</div>\n";
 
     // ********************* IO mapping ***********************
-    bodyHTML += "<div style=\"margin: 30px 7% 30px 7%; width: 86%; height: 300px;\" >\n";
+    bodyHTML += "<div style=\"margin: 30px 7% 30px 7%; width: 86%;\" >\n";
     bodyHTML += "<div style=\"font-family: verdana,arial,sans-serif; font-size:20px; text-align:center; color:#CCCCCC;\">";
     bodyHTML += tr("Universes configuration") + "</div><br>\n";
     bodyHTML += getIOConfigHTML(doc);
+    bodyHTML += "</div>";
 
     // ********************* audio devices ********************
-    bodyHTML += "<div style=\"margin: 30px 7% 30px 7%; width: 86%; height: 300px;\" >\n";
+    bodyHTML += "<div style=\"margin: 30px 7% 30px 7%;\" >\n";
     bodyHTML += "<div style=\"font-family: verdana,arial,sans-serif; font-size:20px; text-align:center; color:#CCCCCC;\">";
     bodyHTML += tr("Audio configuration") + "</div><br>\n";
     bodyHTML += getAudioConfigHTML(doc);
+    bodyHTML += "</div>";
 
     // **************** User loaded fixtures ******************
 
-    bodyHTML += "<div style=\"margin: 30px 7% 30px 7%; width: 86%; height: 300px;\" >\n";
+    bodyHTML += "<div style=\"margin: 30px 7% 30px 7%;\" >\n";
     bodyHTML += "<div style=\"font-family: verdana,arial,sans-serif; font-size:20px; text-align:center; color:#CCCCCC;\">";
     bodyHTML += tr("User loaded fixtures") + "</div><br>\n";
     bodyHTML += getUserFixturesConfigHTML();
+    bodyHTML += "</div>";
 
     // ******************* User management ********************
     if(auth)
     {
-        bodyHTML += "<div style=\"margin: 30px 7% 30px 7%; width: 86%; height: 300px;\" >\n";
+        bodyHTML += "<div style=\"margin: 30px 7% 30px 7%;\" >\n";
         bodyHTML += "<div style=\"font-family: verdana,arial,sans-serif; font-size:20px; text-align:center; color:#CCCCCC;\">";
         bodyHTML += tr("Authorized users") + "</div><br>\n";
         bodyHTML += getPasswordsConfigHTML(auth);
+        bodyHTML += "</div>";
     }
 
     QString str = HTML_HEADER + m_JScode + m_CSScode + "</head>\n<body>\n" + bodyHTML + "</body>\n</html>";

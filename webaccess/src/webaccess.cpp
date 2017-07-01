@@ -56,16 +56,19 @@
 
 #define AUTOSTART_PROJECT_NAME "autostart.qxw"
 
-WebAccess::WebAccess(Doc *doc, VirtualConsole *vcInstance, SimpleDesk *sdInstance, WebAccessAuth *authInstance, QObject *parent) :
+WebAccess::WebAccess(Doc *doc, VirtualConsole *vcInstance, SimpleDesk *sdInstance, QString passwdFile, QObject *parent) :
     QObject(parent)
   , m_doc(doc)
   , m_vc(vcInstance)
   , m_sd(sdInstance)
-  , m_auth(authInstance)
+  , m_auth(NULL)
   , m_pendingProjectLoaded(false)
 {
     Q_ASSERT(m_doc != NULL);
     Q_ASSERT(m_vc != NULL);
+
+    m_auth = new WebAccessAuth(QString("QLC+ web access"));
+    m_auth->loadPasswordsFile(passwdFile);
 
     m_httpServer = new QHttpServer(this);
     connect(m_httpServer, SIGNAL(newRequest(QHttpRequest*, QHttpResponse*)),

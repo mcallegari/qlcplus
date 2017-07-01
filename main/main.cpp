@@ -185,7 +185,7 @@ void printUsage()
     cout << "  -p or --operate\t\tStart in operate mode" << endl;
     cout << "  -v or --version\t\tPrint version information" << endl;
     cout << "  -w or --web\t\t\tEnable remote web access" << endl;
-    cout << "  --web-passwords <file>\t\tEnable web access basic authentication" << endl;
+    cout << "  -a or --web-auth-file <file>\t\tSpecify a file where to store web access basic authentication credentials" << endl;
     cout << endl;
 }
 
@@ -275,7 +275,7 @@ bool parseArgs()
         {
             QLCArgs::enableWebAccess = true;
         }
-        else if(arg == "--web-passwords")
+        else if(arg == "-a" || arg == "--web-auth-file")
         {
             if(it.hasNext())
                 QLCArgs::webAccessPasswordFile = it.next();
@@ -364,17 +364,8 @@ int main(int argc, char** argv)
 
     if (QLCArgs::enableWebAccess == true)
     {
-        WebAccessAuth *webAccessAuth = 0;
-
-        if(! QLCArgs::webAccessPasswordFile.isEmpty())
-        {
-            webAccessAuth = new WebAccessAuth(QString("QLC+ web access"));
-            if(! webAccessAuth->loadPasswordsFile(QLCArgs::webAccessPasswordFile))
-                QTextStream(stderr, QIODevice::WriteOnly) << "Error while loading web passwords file" << endl;
-        }
-
         WebAccess *webAccess = new WebAccess(app.doc(), VirtualConsole::instance(),
-                                               SimpleDesk::instance(), webAccessAuth);
+                                               SimpleDesk::instance(), QLCArgs::webAccessPasswordFile);
 
         QObject::connect(webAccess, SIGNAL(toggleDocMode()),
                 &app, SLOT(slotModeToggle()));
