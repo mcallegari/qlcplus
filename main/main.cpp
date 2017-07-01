@@ -188,8 +188,8 @@ void printUsage()
     cout << "  -p or --operate\t\tStart in operate mode" << endl;
     cout << "  -v or --version\t\tPrint version information" << endl;
     cout << "  -w or --web\t\t\tEnable remote web access" << endl;
-    cout << "  -wa or --web-auth\t\t\tEnable remote web access with users authentication" << endl;
-    cout << "  -a or --web-auth-file <file>\t\tSpecify a file where to store web access basic authentication credentials" << endl;
+    cout << "  -wa or --web-auth\t\tEnable remote web access with users authentication" << endl;
+    cout << "  -a or --web-auth-file <file>\tSpecify a file where to store web access basic authentication credentials" << endl;
     cout << endl;
 }
 
