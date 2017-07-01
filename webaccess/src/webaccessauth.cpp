@@ -44,7 +44,7 @@ bool WebAccessAuth::loadPasswordsFile(const QString& filePath)
     if (!filePath.isEmpty())
         m_passwordsFile = filePath;
 
-    QFile file(filePath);
+    QFile file(m_passwordsFile);
     
     if(!file.open(QIODevice::OpenModeFlag::ReadOnly | QIODevice::Text))
         return false;
