@@ -46,6 +46,7 @@ class FixtureManager : public QObject
 
     Q_PROPERTY(QVariantList goboChannels READ goboChannels NOTIFY goboChannelsChanged)
     Q_PROPERTY(QVariantList colorWheelChannels READ colorWheelChannels NOTIFY colorWheelChannelsChanged)
+    Q_PROPERTY(QVariantList shutterChannels READ shutterChannels NOTIFY shutterChannelsChanged)
     Q_PROPERTY(int colorsMask READ colorsMask NOTIFY colorsMaskChanged)
 
 public:
@@ -221,6 +222,10 @@ public:
      *  The names are in the format: Product - Channel name */
     QVariantList colorWheelChannels();
 
+    /** Returns the names of the currently selected fixtures with shutter channels.
+     *  The names are in the format: Product - Channel name */
+    QVariantList shutterChannels();
+
     /** Returns the list of QLCCapability in QVariant format for
      *  the channel cached at the given index */
     Q_INVOKABLE QVariantList presetCapabilities(int index);
@@ -255,6 +260,9 @@ signals:
     /** Notify the listeners that the list of fixtures with color wheel channels has changed */
     void colorWheelChannelsChanged();
 
+    /** Notify the listeners that the list of fixtures with shutter channels has changed */
+    void shutterChannelsChanged();
+
     /** Notify the listeners that the available colors changed */
     void colorsMaskChanged(int colorsMask);
 
@@ -264,6 +272,8 @@ private:
     QVariantList presetsChannels(QLCChannel::Group group);
 
     void updateColorsMap(int type, int delta);
+
+    void updateCapabilityCounter(bool update, QString capName, int delta);
 
 private:
     /** Keep a map of references to the available preset channels and a related Fixture ID */

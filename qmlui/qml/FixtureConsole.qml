@@ -80,7 +80,7 @@ Rectangle
         Rectangle
         {
             id: fxNameBar
-            color: "#111"
+            color: UISettings.bgStronger
             width: parent.width
             height: UISettings.listItemHeight
             clip: true
@@ -174,6 +174,13 @@ Rectangle
                             visible: showEnablers ? !isEnabled : false
                         }
 
+                        Rectangle
+                        {
+                            width: parent.width
+                            height: chIcon.height + 1
+                            color: UISettings.bgLight
+                        }
+
                         Column
                         {
                             id: chColumn
@@ -222,6 +229,7 @@ Rectangle
                                 sourceSize: Qt.size(width, height)
                                 source: fixtureObj ? fixtureManager.channelIcon(fixtureObj.id, index) : ""
                             }
+
                             QLCPlusFader
                             {
                                 id: slider
@@ -247,6 +255,7 @@ Rectangle
                                     }
                                 }
                             }
+
                             CustomSpinBox
                             {
                                 id: chValueSpin
@@ -256,6 +265,7 @@ Rectangle
                                 to: dmxMode ? 255 : 100
                                 suffix: dmxMode ? "" : "%"
                                 showControls: false
+                                padding: 0
                                 horizontalAlignment: Qt.AlignHCenter
                                 onValueChanged: dmxValue = value
                             }

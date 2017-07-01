@@ -696,11 +696,28 @@ void FixtureManager::setPresetValue(int index, quint8 value)
     emit presetChanged(ch, value);
 }
 
+void FixtureManager::updateCapabilityCounter(bool update, QString capName, int delta)
+{
+    if (update == false)
+        return;
+
+    QQuickItem *capItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>(capName));
+    if (capItem != NULL)
+    {
+        capItem->setProperty("counter", capItem->property("counter").toInt() + delta);
+        if (capName == "capPosition")
+        {
+            capItem->setProperty("panDegrees", m_maxPanDegrees);
+            capItem->setProperty("tiltDegrees", m_maxTiltDegrees);
+        }
+    }
+}
+
 QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 fxID, bool enable)
 {
     int capDelta = enable ? 1 : -1;
     bool hasDimmer = false, hasColor = false, hasPosition = false;
-    bool hasColorWheel = false, hasGobos = false;
+    bool hasShutter = false, hasColorWheel = false, hasGobos = false;
     int origColorsMask = m_colorsMask;
 
     QMultiHash<int, SceneValue> channelsMap;
@@ -771,6 +788,25 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 fxID,
                 channelsMap.insert(chType, SceneValue(fxID, ch));
             }
             break;
+            case QLCChannel::Shutter:
+            {
+                hasShutter = true;
+                if (enable)
+                {
+                    if (m_presetsCache.contains(channel) == false)
+                    {
+                        m_presetsCache[channel] = fxID;
+                        emit shutterChannelsChanged();
+                    }
+                }
+                else
+                {
+                    m_presetsCache.remove(channel);
+                    emit shutterChannelsChanged();
+                }
+                channelsMap.insert(chType, SceneValue(fxID, ch));
+            }
+            break;
             case QLCChannel::Colour:
             {
                 hasColorWheel = true;
@@ -817,39 +853,12 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 fxID,
     if (origColorsMask != m_colorsMask)
         emit colorsMaskChanged(m_colorsMask);
 
-    if (hasDimmer)
-    {
-        QQuickItem *capItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("capIntensity"));
-        if (capItem != NULL)
-            capItem->setProperty("counter", capItem->property("counter").toInt() + capDelta);
-    }
-    if (hasColor)
-    {
-        QQuickItem *capItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("capColor"));
-        capItem->setProperty("counter", capItem->property("counter").toInt() + capDelta);
-    }
-    if (hasPosition)
-    {
-        QQuickItem *capItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("capPosition"));
-        if (capItem != NULL)
-        {
-            capItem->setProperty("counter", capItem->property("counter").toInt() + capDelta);
-            capItem->setProperty("panDegrees", m_maxPanDegrees);
-            capItem->setProperty("tiltDegrees", m_maxTiltDegrees);
-        }
-    }
-    if (hasColorWheel)
-    {
-        QQuickItem *capItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("capColorWheel"));
-        if (capItem != NULL)
-            capItem->setProperty("counter", capItem->property("counter").toInt() + capDelta);
-    }
-    if (hasGobos)
-    {
-        QQuickItem *capItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("capGobos"));
-        if (capItem != NULL)
-            capItem->setProperty("counter", capItem->property("counter").toInt() + capDelta);
-    }
+    updateCapabilityCounter(hasDimmer, "capIntensity", capDelta);
+    updateCapabilityCounter(hasColor, "capColor", capDelta);
+    updateCapabilityCounter(hasPosition, "capPosition", capDelta);
+    updateCapabilityCounter(hasShutter, "capShutter", capDelta);
+    updateCapabilityCounter(hasColorWheel, "capColorWheel", capDelta);
+    updateCapabilityCounter(hasGobos, "capGobos", capDelta);
 
     return channelsMap;
 }
@@ -1022,6 +1031,11 @@ QVariantList FixtureManager::goboChannels()
 QVariantList FixtureManager::colorWheelChannels()
 {
     return presetsChannels(QLCChannel::Colour);
+}
+
+QVariantList FixtureManager::shutterChannels()
+{
+    return presetsChannels(QLCChannel::Shutter);
 }
 
 QVariantList FixtureManager::presetCapabilities(int index)

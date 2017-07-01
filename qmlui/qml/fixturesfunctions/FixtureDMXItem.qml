@@ -42,7 +42,7 @@ Rectangle
 
     width: channelsRow.width
     height: fxColumn.height
-    color: "#777"
+    color: UISettings.bgLighter
     border.width: 1
     border.color: "#222"
 
