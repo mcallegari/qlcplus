@@ -289,7 +289,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
     if (conn == NULL)
         return;
     
-    WebAccessUser* user = (WebAccessUser*)conn->userData;
+    WebAccessUser* user = static_cast<WebAccessUser*>(conn->userData);
 
     qDebug() << "[websocketDataHandler]" << data;
 

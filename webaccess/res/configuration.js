@@ -29,10 +29,11 @@ function authChangeUser(username)
   var newPasswordElement = document.getElementById("auth-password-" + username);
   var newLevelElement = document.getElementById("auth-level-" + username);
 
-  if(newPasswordElement.value)
+  if(newPasswordElement.value) {
     websocket.send("QLC+AUTH|ADD_USER|" + username + "|" + newPasswordElement.value + "|" + newLevelElement.value);
-  else
+  } else {
     websocket.send("QLC+AUTH|SET_USER_LEVEL|" + username + "|" + newLevelElement.value);
+  }
   
   newPasswordElement.value = "";
 }
@@ -87,7 +88,7 @@ function authAddUser(trChangeUser, trDeleteUser, trFieldsRequired, trNewPassword
     var option = document.createElement("option");
     option.value = l.value;
     option.innerText = l.innerText;
-    option.selected = (l.value == level);
+    option.selected = (l.value === level);
     
     levelInput.appendChild(option);
   }
