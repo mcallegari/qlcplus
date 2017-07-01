@@ -638,9 +638,9 @@ void ContextManager::slotFunctionEditingChanged(bool status)
  * DMX channels dump
  *********************************************************************/
 
-void ContextManager::dumpDmxChannels()
+void ContextManager::dumpDmxChannels(QString name)
 {
-    m_functionManager->dumpOnNewScene(m_selectedFixtures);
+    m_functionManager->dumpOnNewScene(m_selectedFixtures, name);
 }
 
 void ContextManager::resetDumpValues()

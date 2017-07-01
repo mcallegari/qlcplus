@@ -590,7 +590,7 @@ void FunctionManager::resetDumpValues()
     emit dumpValuesCountChanged();
 }
 
-void FunctionManager::dumpOnNewScene(QList<quint32> selectedFixtures)
+void FunctionManager::dumpOnNewScene(QList<quint32> selectedFixtures, QString name)
 {
     if (selectedFixtures.isEmpty() || m_dumpValues.isEmpty())
         return;
@@ -609,12 +609,13 @@ void FunctionManager::dumpOnNewScene(QList<quint32> selectedFixtures)
             newScene->setValue(sv);
     }
 
-    newScene->setName(QString("%1 %2").arg(newScene->name()).arg(m_doc->nextFunctionID() + 1));
+    if (name.isEmpty())
+        newScene->setName(QString("%1 %2").arg(newScene->name()).arg(m_doc->nextFunctionID() + 1));
+    else
+        newScene->setName(name);
 
     if (m_doc->addFunction(newScene) == true)
-    {
         slotDocLoaded();
-    }
     else
         delete newScene;
 }
