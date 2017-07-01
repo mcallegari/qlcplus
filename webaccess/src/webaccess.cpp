@@ -56,7 +56,8 @@
 
 #define AUTOSTART_PROJECT_NAME "autostart.qxw"
 
-WebAccess::WebAccess(Doc *doc, VirtualConsole *vcInstance, SimpleDesk *sdInstance, QString passwdFile, QObject *parent) :
+WebAccess::WebAccess(Doc *doc, VirtualConsole *vcInstance, SimpleDesk *sdInstance,
+                     bool enableAuth, QString passwdFile, QObject *parent) :
     QObject(parent)
   , m_doc(doc)
   , m_vc(vcInstance)
@@ -67,8 +68,11 @@ WebAccess::WebAccess(Doc *doc, VirtualConsole *vcInstance, SimpleDesk *sdInstanc
     Q_ASSERT(m_doc != NULL);
     Q_ASSERT(m_vc != NULL);
 
-    m_auth = new WebAccessAuth(QString("QLC+ web access"));
-    m_auth->loadPasswordsFile(passwdFile);
+    if (enableAuth)
+    {
+        m_auth = new WebAccessAuth(QString("QLC+ web access"));
+        m_auth->loadPasswordsFile(passwdFile);
+    }
 
     m_httpServer = new QHttpServer(this);
     connect(m_httpServer, SIGNAL(newRequest(QHttpRequest*, QHttpResponse*)),
@@ -95,6 +99,9 @@ WebAccess::~WebAccess()
 #endif
     foreach(QHttpConnection *conn, m_webSocketsList)
         delete conn;
+
+    if (m_auth)
+        delete m_auth;
 }
 
 void WebAccess::slotHandleRequest(QHttpRequest *req, QHttpResponse *resp)
@@ -140,7 +147,7 @@ void WebAccess::slotHandleRequest(QHttpRequest *req, QHttpResponse *resp)
     }
     else if (reqUrl == "/loadProject")
     {
-        if(user.level < WebAccessUserLevel::SUPER_ADMIN)
+        if(m_auth && user.level < WebAccessUserLevel::SUPER_ADMIN)
         {
             m_auth->sendUnauthorizedResponse(resp);
             return;
@@ -175,7 +182,7 @@ void WebAccess::slotHandleRequest(QHttpRequest *req, QHttpResponse *resp)
     }
     else if (reqUrl == "/loadFixture")
     {
-        if(user.level < WebAccessUserLevel::SUPER_ADMIN)
+        if(m_auth && user.level < WebAccessUserLevel::SUPER_ADMIN)
         {
             m_auth->sendUnauthorizedResponse(resp);
             return;
@@ -208,7 +215,7 @@ void WebAccess::slotHandleRequest(QHttpRequest *req, QHttpResponse *resp)
     }
     else if (reqUrl == "/config")
     {
-        if(user.level < WebAccessUserLevel::SUPER_ADMIN)
+        if(m_auth && user.level < WebAccessUserLevel::SUPER_ADMIN)
         {
             m_auth->sendUnauthorizedResponse(resp);
             return;
@@ -217,7 +224,7 @@ void WebAccess::slotHandleRequest(QHttpRequest *req, QHttpResponse *resp)
     }
     else if (reqUrl == "/simpleDesk")
     {
-        if(user.level < WebAccessUserLevel::SIMPLE_DESK_AND_VC)
+        if(m_auth && user.level < WebAccessUserLevel::SIMPLE_DESK_AND_VC)
         {
             m_auth->sendUnauthorizedResponse(resp);
             return;
@@ -227,7 +234,7 @@ void WebAccess::slotHandleRequest(QHttpRequest *req, QHttpResponse *resp)
   #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     else if (reqUrl == "/system")
     {
-        if(user.level < WebAccessUserLevel::SUPER_ADMIN)
+        if(m_auth && user.level < WebAccessUserLevel::SUPER_ADMIN)
         {
             m_auth->sendUnauthorizedResponse(resp);
             return;
@@ -309,7 +316,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
     }
     else if (cmdList[0] == "QLC+IO")
     {
-        if(user && user->level < WebAccessUserLevel::SUPER_ADMIN)
+        if(m_auth && user && user->level < WebAccessUserLevel::SUPER_ADMIN)
             return;
         
         if (cmdList.count() < 3)
@@ -437,7 +444,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     else if(cmdList[0] == "QLC+SYS")
     {
-        if(user && user->level < WebAccessUserLevel::SUPER_ADMIN)
+        if(m_auth && user && user->level < WebAccessUserLevel::SUPER_ADMIN)
             return;
         
         if (cmdList.at(1) == "NETWORK")
@@ -481,7 +488,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
 #endif
     else if (cmdList[0] == "QLC+API")
     {
-        if(user && user->level < WebAccessUserLevel::VC_ONLY)
+        if(m_auth && user && user->level < WebAccessUserLevel::VC_ONLY)
             return;
         
         if (cmdList.count() < 2)
@@ -609,7 +616,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
         }
         else if (apiCmd == "getChannelsValues")
         {
-            if(user && user->level < WebAccessUserLevel::SIMPLE_DESK_AND_VC)
+            if(m_auth && user && user->level < WebAccessUserLevel::SIMPLE_DESK_AND_VC)
                 return;
             
             if (cmdList.count() < 4)
@@ -625,7 +632,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
         }
         else if (apiCmd == "sdResetChannel")
         {
-            if(user && user->level < WebAccessUserLevel::SIMPLE_DESK_AND_VC)
+            if(m_auth && user && user->level < WebAccessUserLevel::SIMPLE_DESK_AND_VC)
                 return;
 
             if (cmdList.count() < 3)
@@ -640,7 +647,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
         }
         else if (apiCmd == "sdResetUniverse")
         {
-            if(user && user->level < WebAccessUserLevel::SIMPLE_DESK_AND_VC)
+            if(m_auth && user && user->level < WebAccessUserLevel::SIMPLE_DESK_AND_VC)
                 return;
 
             m_sd->resetUniverse();
@@ -656,7 +663,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
     }
     else if(cmdList[0] == "CH")
     {
-        if(user && user->level < WebAccessUserLevel::SIMPLE_DESK_AND_VC)
+        if(m_auth && user && user->level < WebAccessUserLevel::SIMPLE_DESK_AND_VC)
             return;
         
         if (cmdList.count() < 3)
@@ -674,7 +681,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
     if (data.contains("|") == false)
         return;
 
-    if(user && user->level < WebAccessUserLevel::VC_ONLY)
+    if(m_auth && user && user->level < WebAccessUserLevel::VC_ONLY)
         return;
     
     quint32 widgetID = cmdList[0].toUInt();
