@@ -105,4 +105,8 @@ function authAddUser(trChangeUser, trDeleteUser, trFieldsRequired, trNewPassword
   deleteUserButton.innerText = trDeleteUser;
   
   actionsCell.appendChild(deleteUserButton);
+
+  // Reset new user form
+  usernameElement.value = "";
+  passwordElement.value = "";
 }
