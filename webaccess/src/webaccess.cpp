@@ -755,7 +755,7 @@ void WebAccess::slotHandleWebSocketClose(QHttpConnection *conn)
 {
     if(conn->userData)
     {
-        WebAccessUser* user = (WebAccessUser*)conn->userData;
+        WebAccessUser* user = static_cast<WebAccessUser*>(conn->userData);
         delete user;
         conn->userData = 0;
     }

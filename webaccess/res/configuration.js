@@ -83,8 +83,7 @@ function authAddUser(trChangeUser, trDeleteUser, trFieldsRequired, trNewPassword
   var levelInput = document.createElement("select");
   levelInput.id = "auth-level-" + username;
   var levels = levelElement.getElementsByTagName("option");
-  for(var i = 0; i < levels.length; i++) {
-    var l = levels[i];
+  for(var l of levels) {
     var option = document.createElement("option");
     option.value = l.value;
     option.innerText = l.innerText;
