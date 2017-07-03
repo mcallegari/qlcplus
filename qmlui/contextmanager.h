@@ -179,7 +179,7 @@ private:
      * DMX channels dump
      *********************************************************************/
 public:
-    Q_INVOKABLE void dumpDmxChannels();
+    Q_INVOKABLE void dumpDmxChannels(QString name);
 
     /** Resets the current values used for dumping or preview */
     Q_INVOKABLE void resetDumpValues();

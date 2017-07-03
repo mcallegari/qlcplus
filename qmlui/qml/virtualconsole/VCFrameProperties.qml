@@ -62,7 +62,7 @@ Rectangle
                 {
                     implicitWidth: UISettings.iconSizeMedium
                     implicitHeight: implicitWidth
-                    ButtonGroup.group: ButtonGroup { }
+                    autoExclusive: false
                     checked: widgetRef ? widgetRef.showHeader : false
                     onCheckedChanged: if (widgetRef) widgetRef.showHeader = checked
                 }
@@ -79,7 +79,7 @@ Rectangle
                 {
                     implicitWidth: UISettings.iconSizeMedium
                     implicitHeight: implicitWidth
-                    ButtonGroup.group: ButtonGroup { }
+                    autoExclusive: false
                     checked: widgetRef ? widgetRef.showEnable : false
                     onCheckedChanged: if (widgetRef) widgetRef.showEnable = checked
                 }
@@ -110,7 +110,7 @@ Rectangle
                 {
                     implicitWidth: UISettings.iconSizeMedium
                     implicitHeight: implicitWidth
-                    ButtonGroup.group: ButtonGroup { }
+                    autoExclusive: false
                     checked: widgetRef ? widgetRef.multiPageMode : false
                     onCheckedChanged: if (widgetRef) widgetRef.multiPageMode = checked
                 }
@@ -127,7 +127,7 @@ Rectangle
                 {
                     implicitWidth: UISettings.iconSizeMedium
                     implicitHeight: implicitWidth
-                    ButtonGroup.group: ButtonGroup { }
+                    autoExclusive: false
                     //checked: widgetRef ? widgetRef.multiPageMode : false
                     //onCheckedChanged: if (checked && widgetRef) widgetRef.multiPageMode = checked
                 }

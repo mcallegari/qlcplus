@@ -206,7 +206,7 @@ public:
     /** Reset the currently set channel values */
     void resetDumpValues();
 
-    void dumpOnNewScene(QList<quint32> selectedFixtures);
+    void dumpOnNewScene(QList<quint32> selectedFixtures, QString name);
 
     void setChannelValue(quint32 fxID, quint32 channel, uchar value);
 

@@ -18,6 +18,7 @@
 */
 
 import QtQuick 2.0
+import QtQuick.Layouts 1.1
 
 import org.qlcplus.classes 1.0
 import "GenericHelpers.js" as Helpers
@@ -41,12 +42,7 @@ Rectangle
         x: profileBox.visible ? 5 : 0
         z: 1
         radius: 3
-        gradient: Gradient
-        {
-            id: bgGradient
-            GradientStop { position: 0.75 ; color: "#999" }
-            GradientStop { position: 1 ; color: "#333" }
-        }
+        color: UISettings.bgLighter
         border.width: 2
         border.color: "#111"
 
@@ -81,14 +77,14 @@ Rectangle
             }
         }
 
-        Row
+        RowLayout
         {
             x: 8
+            width: parent.width - 16
             spacing: 3
 
             Image
             {
-                id: pluginIcon
                 anchors.verticalCenter: parent.verticalCenter
                 height: patchBox.height * 0.75
                 width: height
@@ -99,7 +95,7 @@ Rectangle
             RobotoText
             {
                 height: patchBox.height
-                width: patchBox.width - pluginIcon.width - 6
+                Layout.fillWidth: true
                 label: patch ? patch.inputName : ""
                 labelColor: "black"
                 wrapText: true
@@ -112,7 +108,7 @@ Rectangle
     {
         id: profileBox
         width: parent.width
-        height: UISettings.bigItemHeight * 0.8
+        height: UISettings.bigItemHeight * 0.85
         visible: patch ? (patch.profileName === "None" ? false : true) : false
 
         border.width: 2

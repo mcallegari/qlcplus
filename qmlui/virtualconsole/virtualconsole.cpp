@@ -607,6 +607,19 @@ VCWidget *VirtualConsole::selectedWidget() const
     return m_widgetsMap[m_itemsMap.firstKey()];
 }
 
+void VirtualConsole::requestAddMatrixPopup(VCFrame *frame, QQuickItem *parent, QString widgetType, QPoint pos)
+{
+    QQuickItem *vcItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("virtualConsole"));
+    if (vcItem == NULL)
+        return;
+
+    QMetaObject::invokeMethod(vcItem, "requestMatrixPopup",
+            Q_ARG(QVariant, QVariant::fromValue(frame)),
+            Q_ARG(QVariant, QVariant::fromValue(parent)),
+            Q_ARG(QVariant, widgetType),
+            Q_ARG(QVariant, pos));
+}
+
 /*********************************************************************
  * Drag & Drop
  *********************************************************************/

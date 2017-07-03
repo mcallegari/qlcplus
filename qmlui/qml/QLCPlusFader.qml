@@ -18,7 +18,7 @@
 */
 
 import QtQuick 2.0
-import QtQuick.Controls 2.0
+import QtQuick.Controls 2.2
 
 import "."
 
@@ -31,8 +31,8 @@ Slider
     from: 0
     to: 255
     stepSize: 1.0
+    wheelEnabled: true
 
-    property bool touchPressed: false
     property Gradient handleGradient: defaultGradient
     property Gradient handleGradientHover: defaultGradientHover
     property color trackColor: defaultTrackColor
@@ -58,40 +58,26 @@ Slider
             GradientStop { position: 1.0; color: "#ccc" }
         }
 
-    MultiPointTouchArea
-    {
-        anchors.fill: parent
-        mouseEnabled: false
-        maximumTouchPoints: 1
-
-        onPressed: touchPressed = true
-        onReleased: touchPressed = false
-
-        onTouchUpdated:
+    background:
+        Rectangle
         {
-            //console.log("Touch updated: " + touchPoints[0].y)
-            if (touchPoints[0] && touchPoints[0].y >= 0 && touchPoints[0].y < slider.height)
-                slider.value = slider.to - ((touchPoints[0].y * slider.to) / slider.height)
-        }
-    }
-
-    background: Rectangle {
-        y: slider.leftPadding
-        x: slider.topPadding + slider.availableWidth / 2 - width / 2
-        implicitWidth: 5
-        implicitHeight: slider.height
-        width: implicitWidth
-        height: slider.availableHeight
-        radius: 2
-        color: trackColor
-
-        Rectangle {
-            width: parent.width
-            height: slider.visualPosition * parent.height
-            color: "#bdbebf"
+            y: slider.leftPadding
+            x: slider.topPadding + slider.availableWidth / 2 - width / 2
+            implicitWidth: 5
+            implicitHeight: slider.height
+            width: implicitWidth
+            height: slider.availableHeight
             radius: 2
+            color: trackColor
+
+            Rectangle
+            {
+                width: parent.width
+                height: slider.visualPosition * parent.height
+                color: "#bdbebf"
+                radius: 2
+            }
         }
-    }
 
     handle:
         Rectangle

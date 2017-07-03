@@ -25,6 +25,7 @@
 #include "qlcfixturemode.h"
 #include "qlcmacros.h"
 #include "vcslider.h"
+#include "function.h"
 #include "doc.h"
 #include "app.h"
 
@@ -37,7 +38,7 @@ VCSlider::VCSlider(Doc *doc, QObject *parent)
     , m_widgetMode(WSlider)
     , m_valueDisplayStyle(DMXValue)
     , m_invertedAppearance(false)
-    , m_sliderMode(Playback)
+    , m_sliderMode(Adjust)
     , m_value(0)
     , m_levelLowLimit(0)
     , m_levelHighLimit(UCHAR_MAX)
@@ -46,7 +47,8 @@ VCSlider::VCSlider(Doc *doc, QObject *parent)
     , m_monitorValue(0)
     , m_isOverriding(false)
     , m_fixtureTree(NULL)
-    , m_playbackFunction(Function::invalidId())
+    , m_controlledFunction(Function::invalidId())
+    , m_controlledAttribute(Function::Intensity)
 {
     setType(VCWidget::SliderWidget);
     setBackgroundColor(QColor("#444"));
@@ -62,7 +64,6 @@ VCSlider::~VCSlider()
        design mode must unregister the slider. */
     m_doc->masterTimer()->unregisterDMXSource(this);
 }
-
 
 void VCSlider::setID(quint32 id)
 {
@@ -106,16 +107,6 @@ QString VCSlider::propertiesResource() const
 
 QVariant VCSlider::channelsList()
 {
-/*
-    if (m_channelsTree == NULL)
-    {
-        m_channelsTree = new TreeModel(this);
-        QQmlEngine::setObjectOwnership(m_channelsTree, QQmlEngine::CppOwnership);
-        QStringList treeColumns;
-        treeColumns << "classRef" << "uni" << "fxID" << "chIndex";
-        m_channelsTree->setColumnNames(treeColumns);
-    }
-*/
     return QVariant::fromValue(m_channelsTree);
 }
 
@@ -128,10 +119,9 @@ QString VCSlider::sliderModeToString(SliderMode mode)
     switch (mode)
     {
         case Level: return QString("Level");
-        case Playback: return QString("Playback");
         case Submaster: return QString("Submaster");
         case GrandMaster: return QString("GrandMaster");
-        case Attribute: return QString("Attribute");
+        case Adjust: return QString("Attribute");
         default: return QString("Unknown");
     }
 }
@@ -144,10 +134,8 @@ VCSlider::SliderMode VCSlider::stringToSliderMode(const QString& mode)
         return Submaster;
     else if (mode == QString("GrandMaster"))
         return GrandMaster;
-    else if (mode == QString("Attribute"))
-        return Attribute;
     else
-        return Playback;
+        return Adjust;
 }
 
 VCSlider::SliderMode VCSlider::sliderMode() const
@@ -155,11 +143,11 @@ VCSlider::SliderMode VCSlider::sliderMode() const
     return m_sliderMode;
 }
 
-void VCSlider::setSliderMode(SliderMode mode)
+void VCSlider::setSliderMode(SliderMode mode, bool init)
 {
-    Q_ASSERT(mode >= Level && mode <= Attribute);
+    Q_ASSERT(mode >= Level && mode <= GrandMaster);
 
-    if (m_sliderMode == mode)
+    if (init == false && m_sliderMode == mode)
         return;
 
     m_sliderMode = mode;
@@ -172,7 +160,7 @@ void VCSlider::setSliderMode(SliderMode mode)
     switch(mode)
     {
         case Level:
-        case Playback:
+        case Adjust:
             setValue(0);
             m_doc->masterTimer()->registerDMXSource(this);
         break;
@@ -184,8 +172,6 @@ void VCSlider::setSliderMode(SliderMode mode)
             setValueDisplayStyle(PercentageValue);
             setValue(UCHAR_MAX);
             m_doc->masterTimer()->unregisterDMXSource(this);
-        break;
-        case Attribute:
         break;
     }
 }
@@ -307,14 +293,12 @@ void VCSlider::setValue(int value, bool setDMX, bool updateFeedback)
                 emit isOverridingChanged();
             }
         break;
-        case Playback:
-        break;
         case Submaster:
         break;
         case GrandMaster:
             m_doc->inputOutputMap()->setGrandMasterValue(value);
         break;
-        case Attribute:
+        case Adjust:
         break;
     }
 
@@ -572,22 +556,22 @@ void VCSlider::slotTreeDataChanged(TreeModelItem *item, int role, const QVariant
 }
 
 /*********************************************************************
- * Playback mode
+ * Attribute mode
  *********************************************************************/
 
-quint32 VCSlider::playbackFunction() const
+quint32 VCSlider::controlledFunction() const
 {
-    return m_playbackFunction;
+    return m_controlledFunction;
 }
 
-void VCSlider::setPlaybackFunction(quint32 playbackFunction)
+void VCSlider::setControlledFunction(quint32 fid)
 {
     bool running = false;
 
-    if (m_playbackFunction == playbackFunction)
+    if (m_controlledFunction == fid)
         return;
 
-    Function* current = m_doc->function(m_playbackFunction);
+    Function* current = m_doc->function(m_controlledFunction);
     if (current != NULL)
     {
         /* Get rid of old function connections */
@@ -606,7 +590,7 @@ void VCSlider::setPlaybackFunction(quint32 playbackFunction)
         }
     }
 
-    Function* function = m_doc->function(playbackFunction);
+    Function* function = m_doc->function(fid);
     if (function != NULL)
     {
         /* Connect to the new function */
@@ -618,21 +602,60 @@ void VCSlider::setPlaybackFunction(quint32 playbackFunction)
         connect(function, SIGNAL(flashing(quint32,bool)),
                 this, SLOT(slotFunctionFlashing(quint32,bool)));
 */
-        m_playbackFunction = playbackFunction;
+        m_controlledFunction = fid;
+        m_controlledAttribute = Function::Intensity;
+
         if ((isEditing() && caption().isEmpty()) || caption() == defaultCaption())
             setCaption(function->name());
 
         if(running)
             function->start(m_doc->masterTimer(), functionParent());
-        emit playbackFunctionChanged(playbackFunction);
+
+        emit controlledFunctionChanged(fid);
+        emit availableAttributesChanged();
     }
     else
     {
         /* No function attachment */
-        m_playbackFunction = Function::invalidId();
-        emit playbackFunctionChanged(-1);
+        m_controlledFunction = Function::invalidId();
+        emit controlledFunctionChanged(-1);
     }
     setDocModified();
+}
+
+int VCSlider::controlledAttribute() const
+{
+    return m_controlledAttribute;
+}
+
+void VCSlider::setControlledAttribute(int attr)
+{
+    if (m_controlledAttribute == attr)
+        return;
+
+    Function* function = m_doc->function(m_controlledFunction);
+    if (function == NULL || attr >= function->attributes().count())
+        return;
+
+    m_controlledAttribute = attr;
+    emit controlledAttributeChanged(attr);
+
+    int newValue = int(floor((qreal(m_levelHighLimit) * function->getAttributeValue(attr)) + 0.5));
+    setValue(newValue, false, true);
+}
+
+QStringList VCSlider::availableAttributes() const
+{
+    QStringList list;
+
+    Function* function = m_doc->function(m_controlledFunction);
+    if (function == NULL)
+        return list;
+
+    for (Attribute attr : function->attributes())
+        list << attr.name;
+
+    return list;
 }
 
 FunctionParent VCSlider::functionParent() const
@@ -680,8 +703,8 @@ void VCSlider::writeDMX(MasterTimer* timer, QList<Universe*> universes)
 {
     if (sliderMode() == Level)
         writeDMXLevel(timer, universes);
-    else if (sliderMode() == Playback)
-        writeDMXPlayback(timer, universes);
+    else if (sliderMode() == Adjust)
+        writeDMXAdjust(timer, universes);
 }
 
 void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
@@ -691,8 +714,6 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
     QMutexLocker locker(&m_levelValueMutex);
 
     uchar modLevel = m_value;
-    bool mixedDMXlevels = false;
-    int monitorSliderValue = -1;
 /*
     int r = 0, g = 0, b = 0, c = 0, m = 0, y = 0;
 
@@ -728,6 +749,9 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
 */
     if (m_monitorEnabled == true && m_levelValueChanged == false)
     {
+        bool mixedDMXlevels = false;
+        int monitorSliderValue = -1;
+
         for (SceneValue scv : m_levelChannels)
         {
             Fixture* fxi = m_doc->fixture(scv.fxi);
@@ -836,7 +860,7 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
     m_levelValueChanged = false;
 }
 
-void VCSlider::writeDMXPlayback(MasterTimer* timer, QList<Universe *> ua)
+void VCSlider::writeDMXAdjust(MasterTimer* timer, QList<Universe *> ua)
 {
     Q_UNUSED(ua);
 
@@ -845,34 +869,42 @@ void VCSlider::writeDMXPlayback(MasterTimer* timer, QList<Universe *> ua)
     //if (m_playbackChangeCounter == 0)
     //    return;
 
-    Function* function = m_doc->function(m_playbackFunction);
+    Function* function = m_doc->function(m_controlledFunction);
     if (function == NULL)
         return;
 
     uchar value = m_value;
     qreal pIntensity = qreal(value) / qreal(UCHAR_MAX);
 
-    if (value == 0)
+    if (m_controlledAttribute == Function::Intensity)
     {
-        // Make sure we ignore the fade out time
-        function->adjustAttribute(0, Function::Intensity);
-        if (function->stopped() == false)
-            function->stop(functionParent());
+        if (value == 0)
+        {
+            // Make sure we ignore the fade out time
+            function->adjustAttribute(0, Function::Intensity);
+            if (function->stopped() == false)
+                function->stop(functionParent());
+        }
+        else
+        {
+            if (function->stopped() == true)
+            {
+#if 0 // temporarily revert #699 until a better solution is found
+                // Since this function is started by a fader, its fade in time
+                // is decided by the fader movement.
+                function->start(timer, functionParent(),
+                                0, 0, Function::defaultSpeed(), Function::defaultSpeed());
+#endif
+                function->start(timer, functionParent());
+                qDebug() << "Function started";
+            }
+            //emit functionStarting(m_playbackFunction, pIntensity);  // TODO
+            function->adjustAttribute(pIntensity * intensity(), Function::Intensity);
+        }
     }
     else
     {
-        if (function->stopped() == true)
-        {
-#if 0 // temporarily revert #699 until a better solution is found
-            // Since this function is started by a fader, its fade in time
-            // is decided by the fader movement.
-            function->start(timer, functionParent(),
-                            0, 0, Function::defaultSpeed(), Function::defaultSpeed());
-#endif
-            function->start(timer, functionParent());
-        }
-        //emit functionStarting(m_playbackFunction, pIntensity);  // TODO
-        function->adjustAttribute(pIntensity * intensity(), Function::Intensity);
+        function->adjustAttribute(pIntensity * intensity(), m_controlledAttribute);
     }
     //m_playbackChangeCounter--;
 }
@@ -937,7 +969,7 @@ bool VCSlider::loadXML(QXmlStreamReader &root)
         else if (root.name() == KXMLQLCVCSliderMode)
         {
             QXmlStreamAttributes mAttrs = root.attributes();
-            setSliderMode(stringToSliderMode(root.readElementText()));
+            setSliderMode(stringToSliderMode(root.readElementText()), true);
 
             str = mAttrs.value(KXMLQLCVCSliderValueDisplayStyle).toString();
             setValueDisplayStyle(stringToValueDisplayStyle(str));
@@ -964,9 +996,9 @@ bool VCSlider::loadXML(QXmlStreamReader &root)
         {
             loadXMLLevel(root);
         }
-        else if (root.name() == KXMLQLCVCSliderPlayback)
+        else if (root.name() == KXMLQLCVCSliderPlayback) // LEGACY
         {
-            loadXMLPlayback(root);
+            loadXMLLegacyPlayback(root);
         }
         else
         {
@@ -1039,7 +1071,7 @@ bool VCSlider::loadXMLLevel(QXmlStreamReader &level_root)
     return true;
 }
 
-bool VCSlider::loadXMLPlayback(QXmlStreamReader &pb_root)
+bool VCSlider::loadXMLLegacyPlayback(QXmlStreamReader &pb_root)
 {
     if (pb_root.name() != KXMLQLCVCSliderPlayback)
     {
@@ -1053,7 +1085,7 @@ bool VCSlider::loadXMLPlayback(QXmlStreamReader &pb_root)
         if (pb_root.name() == KXMLQLCVCSliderPlaybackFunction)
         {
             /* Function */
-            setPlaybackFunction(pb_root.readElementText().toUInt());
+            setControlledFunction(pb_root.readElementText().toUInt());
         }
         else
         {

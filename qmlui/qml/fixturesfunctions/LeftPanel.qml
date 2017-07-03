@@ -106,7 +106,7 @@ SidePanel
                     id: intTool
                     parent: mainView
                     x: leftSidePanel.width
-                    y: mainToolbar.height + 40
+                    y: UISettings.bigItemHeight
                     visible: false
                 }
             }
@@ -130,7 +130,7 @@ SidePanel
                     id: colTool
                     parent: mainView
                     x: leftSidePanel.width
-                    y: mainToolbar.height + 40
+                    y: UISettings.bigItemHeight
                     visible: false
                     colorsMask: fixtureManager.colorsMask
 
@@ -161,10 +161,36 @@ SidePanel
                     id: posTool
                     parent: mainView
                     x: leftSidePanel.width
-                    y: mainToolbar.height + 40
+                    y: UISettings.bigItemHeight
                     visible: false
                     panMaxDegrees: posToolButton.panDegrees
                     tiltMaxDegrees: posToolButton.tiltDegrees
+                }
+            }
+
+            IconButton
+            {
+                objectName: "capShutter"
+                z: 2
+                width: iconSize
+                height: iconSize
+                imgSource: "qrc:/shutter.svg"
+                checkable: true
+                tooltip: qsTr("Shutter")
+                counter: 0
+                ButtonGroup.group: capabilitiesGroup
+
+                onCheckedChanged: cShutterTool.visible = !cShutterTool.visible
+                onCounterChanged: if (counter == 0) cShutterTool.visible = false
+
+                PresetsTool
+                {
+                    id: cShutterTool
+                    parent: mainView
+                    x: leftSidePanel.width
+                    y: UISettings.bigItemHeight
+                    visible: false
+                    onVisibleChanged: if (visible) updatePresets(fixtureManager.shutterChannels)
                 }
             }
 
@@ -188,8 +214,9 @@ SidePanel
                     id: cWheelTool
                     parent: mainView
                     x: leftSidePanel.width
-                    y: mainToolbar.height + 40
+                    y: UISettings.bigItemHeight
                     visible: false
+                    onVisibleChanged: if (visible) updatePresets(fixtureManager.colorWheelChannels)
                 }
             }
 
@@ -213,9 +240,9 @@ SidePanel
                     id: gobosTool
                     parent: mainView
                     x: leftSidePanel.width
-                    y: mainToolbar.height + 40
+                    y: UISettings.bigItemHeight
                     visible: false
-                    goboPresets: true
+                    onVisibleChanged: if (visible) updatePresets(fixtureManager.goboChannels)
                 }
             }
 

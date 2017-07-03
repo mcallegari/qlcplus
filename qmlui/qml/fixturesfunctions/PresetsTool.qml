@@ -32,16 +32,16 @@ Rectangle
     border.width: 2
     clip: true
 
-    property bool goboPresets: false // false for color wheel, true for gobos
+    property alias presetModel: prList.model
     property int selectedIndex: -1
 
-    onVisibleChanged:
+    function updatePresets(presetModel)
     {
         if (visible === true)
         {
             selectedIndex = -1
             prList.model = null // force reload
-            prList.model = goboPresets ? fixtureManager.goboChannels : fixtureManager.colorWheelChannels
+            prList.model = presetModel
             capRepeater.model = null // force reload
             capRepeater.model = fixtureManager.presetCapabilities(selectedIndex)
         }
@@ -67,7 +67,7 @@ Rectangle
             anchors.fill: parent
             orientation: ListView.Horizontal
             boundsBehavior: Flickable.StopAtBounds
-            //model: goboPresets ? fixtureManager.goboChannels : fixtureManager.colorWheelChannels
+
             delegate:
                 Rectangle
                 {

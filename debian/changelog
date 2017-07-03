@@ -1,7 +1,12 @@
+qlcplus (4.11.1) stable; urgency=low
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 27 Aug 2017 12:13:14 +0200
+
 qlcplus (4.11.0) stable; urgency=low
 
   * engine: fixed setting start/end color while a RGB Matrix is running
   * engine: fixed crash when pausing a Show with an unavailable audio file
+  * engine: major rework of Sequences. Projects using them need to be migrated
   * UI: enabled Alt key combinations on macOS to behave like other platforms (thanks to Matt Mayfield)
   * UI/RGB Panel: added panel direction (thanks to Raivis Rengelis)
   * UI/Fixture Manager: added weight and power consumption information on fixtures/universe selection (Chris de Rock idea)
@@ -18,6 +23,7 @@ qlcplus (4.11.0) stable; urgency=low
   * Virtual Console/Frame: added the possibility to jump directly to a page and assign page names (thanks to Lukas Jähn)
   * Virtual Console/Cue List: improved linked crossfade to perform an additive blending between steps (see documentation)
   * Virtual Console/Speed Dial: improved tap button blinking and feedbacks (thanks to Lukas Jähn)
+  * Virtual Console/Speed Dial: it is now possible to copy/paste factors (thanks to Jan Dahms)
   * Virtual Console/Clock: added external input support for countdown and stopwatch modes (thanks to Lukas Jähn)
   * Plugins/OSC: added channel number calculator in configuration page to help integrating new controllers
   * Plugins/Loopback: fixed spurious values emitted when a lot of channels are looped
@@ -90,7 +96,7 @@ qlcplus (4.11.0) stable; urgency=low
   * New fixture: American DJ Stinger Spot (thanks to Jason R. Johnston)
   * New fixture: Stairville Blade Sting 8 RGBW Beam Mover
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 30 Apr 2017 12:13:14 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 24 Jun 2017 12:13:14 +0200
 
 qlcplus (4.10.5b) stable; urgency=high
 

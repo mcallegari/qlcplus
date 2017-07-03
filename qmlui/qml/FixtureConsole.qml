@@ -80,7 +80,7 @@ Rectangle
         Rectangle
         {
             id: fxNameBar
-            color: "#111"
+            color: UISettings.bgStronger
             width: parent.width
             height: UISettings.listItemHeight
             clip: true
@@ -149,7 +149,7 @@ Rectangle
                         {
                             // if the slider is not pressed, then it means
                             // it is just monitoring values, with no user intervention
-                            if (slider.pressed == false && slider.touchPressed == false)
+                            if (slider.pressed == false)
                                 return
 
                             var val = dmxMode ? dmxValue : dmxValue * 2.55
@@ -172,6 +172,13 @@ Rectangle
                             color: "black"
                             opacity: 0.7
                             visible: showEnablers ? !isEnabled : false
+                        }
+
+                        Rectangle
+                        {
+                            width: parent.width
+                            height: chIcon.height + 1
+                            color: UISettings.bgLight
                         }
 
                         Column
@@ -222,6 +229,7 @@ Rectangle
                                 sourceSize: Qt.size(width, height)
                                 source: fixtureObj ? fixtureManager.channelIcon(fixtureObj.id, index) : ""
                             }
+
                             QLCPlusFader
                             {
                                 id: slider
@@ -247,6 +255,7 @@ Rectangle
                                     }
                                 }
                             }
+
                             CustomSpinBox
                             {
                                 id: chValueSpin
@@ -256,6 +265,7 @@ Rectangle
                                 to: dmxMode ? 255 : 100
                                 suffix: dmxMode ? "" : "%"
                                 showControls: false
+                                padding: 0
                                 horizontalAlignment: Qt.AlignHCenter
                                 onValueChanged: dmxValue = value
                             }

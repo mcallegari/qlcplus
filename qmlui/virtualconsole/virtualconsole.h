@@ -168,6 +168,8 @@ public:
     /** Return a reference to the currently selected VC widget */
     VCWidget *selectedWidget() const;
 
+    Q_INVOKABLE void requestAddMatrixPopup(VCFrame *frame, QQuickItem *parent, QString widgetType, QPoint pos);
+
 signals:
     /** Notify the listeners that the currenly selected VC widget has changed */
     void selectedWidgetChanged();

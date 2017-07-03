@@ -201,12 +201,59 @@ SidePanel
 
                 }
 
+                CustomPopupDialog
+                {
+                    id: sceneNameDialog
+                    title: qsTr("Enter a name for the scene")
+
+                    property bool show: !dontAskCheck.checked
+
+                    contentItem:
+                        GridLayout
+                        {
+                            columns: 2
+                            columnSpacing: 5
+
+                            RobotoText { label: qsTr("Scene name") }
+
+                            CustomTextEdit
+                            {
+                                id: nameInputBox
+                                implicitWidth: UISettings.bigItemHeight * 3
+                                implicitHeight: UISettings.listItemHeight
+                                inputText: qsTr("New Scene")
+                                Component.onCompleted: selectAndFocus()
+                            }
+                            CustomCheckBox
+                            {
+                                id: dontAskCheck
+                                Layout.alignment: Qt.AlignRight
+                            }
+                            RobotoText { label: qsTr("Don't ask again") }
+                        }
+
+                    onAccepted:
+                    {
+                        contextManager.dumpDmxChannels(nameInputBox.inputText)
+                        loaderSource = "qrc:/FunctionManager.qml"
+                        animatePanel(true)
+                        funcEditor.checked = true
+                    }
+                }
+
                 onClicked:
                 {
-                    contextManager.dumpDmxChannels()
-                    loaderSource = "qrc:/FunctionManager.qml"
-                    animatePanel(true)
-                    funcEditor.checked = true
+                    if (sceneNameDialog.show)
+                    {
+                        sceneNameDialog.open()
+                    }
+                    else
+                    {
+                        contextManager.dumpDmxChannels("")
+                        loaderSource = "qrc:/FunctionManager.qml"
+                        animatePanel(true)
+                        funcEditor.checked = true
+                    }
                 }
             }
             IconButton

@@ -133,13 +133,6 @@ VCWidgetItem
                                  (sliderMode === VCSlider.GrandMaster ? grandMasterHandleGradientHover : defaultGradientHover)
             trackColor: sliderMode === VCSlider.Submaster ? "#77DD73" : defaultTrackColor
 
-            onTouchPressedChanged:
-            {
-                console.log("Slider touch pressed: " + touchPressed)
-                // QML tends to propagate touch events, so temporarily disable
-                // the page Flickable interactivity during this operation
-                virtualConsole.setPageInteraction(!touchPressed)
-            }
             onPositionChanged: if (sliderObj) sliderObj.value = valueAt(position)
         }
 
@@ -209,7 +202,7 @@ VCWidgetItem
         {
             // attach function here
             if (drag.source.hasOwnProperty("fromFunctionManager"))
-                sliderObj.playbackFunction = drag.source.itemsList[0]
+                sliderObj.controlledFunction = drag.source.itemsList[0]
         }
 
         states: [
