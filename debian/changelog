@@ -1,6 +1,7 @@
 qlcplus (4.11.1) stable; urgency=low
 
   * Virtual Console/Slider: fix DMX values not updated when interacting with the mouse wheel, keyboard or Click And Go button
+  * Web access: added basic authentication support (thanks to Bartosz Grabias)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 27 Aug 2017 12:13:14 +0200
 
