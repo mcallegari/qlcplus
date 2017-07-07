@@ -7,14 +7,14 @@
 
   Copyright (c) 2015 Massimo Callegari
 
-  Licensed under the Apache License, Version 2.0 (the "License");
+  Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
 
       http://www.apache.org/licenses/LICENSE-2.0.txt
 
   Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
+  distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
@@ -108,7 +108,7 @@
          </column>
         </widget>
        </item>
-       <item row="1" column="0" rowspan="2" colspan="2">
+       <item row="1" column="0" rowspan="3" colspan="2">
         <widget class="QTextBrowser" name="m_infoBrowser">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -120,6 +120,9 @@
        </item>
        <item row="1" column="2">
         <widget class="QToolButton" name="m_configureButton">
+         <property name="toolTip">
+          <string>Configure the selected plugin</string>
+         </property>
          <property name="text">
           <string notr="true">...</string>
          </property>
@@ -132,6 +135,29 @@
            <width>32</width>
            <height>32</height>
           </size>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2">
+        <widget class="QToolButton" name="m_hotplugButton">
+         <property name="toolTip">
+          <string>Enable/Disable USB hotplugging (requires restart)</string>
+         </property>
+         <property name="text">
+          <string notr="true">...</string>
+         </property>
+         <property name="icon">
+          <iconset resource="qlcui.qrc">
+           <normaloff>:/attach.png</normaloff>:/attach.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
