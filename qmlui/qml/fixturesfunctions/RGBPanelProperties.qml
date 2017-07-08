@@ -154,6 +154,7 @@ Rectangle
                     ListElement { mLabel: "BRG"; mValue: Fixture.BRG }
                     ListElement { mLabel: "GBR"; mValue: Fixture.GBR }
                     ListElement { mLabel: "GRB"; mValue: Fixture.GRB }
+                    ListElement { mLabel: "RBG"; mValue: Fixture.RBG }
                     ListElement { mLabel: "RGBW"; mValue: Fixture.RGBW }
                 }
             }
