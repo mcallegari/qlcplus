@@ -29,12 +29,12 @@ class QHttpResponse;
 
 enum WebAccessUserLevel
 {
-    GUEST = 0,
-    LOGGED_IN = 1,
-    VC_ONLY = 10,
-    SIMPLE_DESK_AND_VC = 20,
-    SUPER_ADMIN = 100,
-    NOT_PROVIDED = 100,
+    GUEST_LEVEL = 0,
+    LOGGED_IN_LEVEL = 1,
+    VC_ONLY_LEVEL = 10,
+    SIMPLE_DESK_AND_VC_LEVEL = 20,
+    SUPER_ADMIN_LEVEL = 100,
+    NOT_PROVIDED_LEVEL = 100,
 };
 
 struct WebAccessUser
@@ -56,7 +56,7 @@ struct WebAccessUser
     WebAccessUser()
     : username()
     , passwordHash()
-    , level(WebAccessUserLevel::GUEST)
+    , level(GUEST_LEVEL)
     {}
 
 };
@@ -67,10 +67,7 @@ struct WebAccessUser
  */
 class WebAccessAuth
 {
-private:
-    QMap<QString, WebAccessUser> m_passwords;
-    QString m_realm;
-    QString m_passwordsFile;
+
 public:
     WebAccessAuth(const QString& realm);
 
@@ -128,6 +125,11 @@ public:
 private:
     QString hashPassword(const QString& password) const;
     bool hasAtLeastOneAdmin() const;
+
+private:
+    QMap<QString, WebAccessUser> m_passwords;
+    QString m_realm;
+    QString m_passwordsFile;
 };
 
 #endif // WEBACCESSAUTH_H

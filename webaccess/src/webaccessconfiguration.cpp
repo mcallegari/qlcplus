@@ -238,18 +238,18 @@ QString WebAccessConfiguration::getPasswordsConfigHTML(WebAccessAuth *auth)
         html += "<td>";
             html += "<select id=\"auth-level-" + username + "\">";
 
-            html += "<option value=\"" + QString::number(WebAccessUserLevel::VC_ONLY) + "\"";
-            if(level >= WebAccessUserLevel::VC_ONLY && level < WebAccessUserLevel::SIMPLE_DESK_AND_VC)
+            html += "<option value=\"" + QString::number(VC_ONLY_LEVEL) + "\"";
+            if(level >= VC_ONLY_LEVEL && level < SIMPLE_DESK_AND_VC_LEVEL)
                 html += "selected";
             html += ">" + tr("Only Virtual Console") + "</option>";
 
-            html += "<option value=\"" + QString::number(WebAccessUserLevel::SIMPLE_DESK_AND_VC) + "\"";
-            if(level >= WebAccessUserLevel::SIMPLE_DESK_AND_VC && level < WebAccessUserLevel::SUPER_ADMIN)
+            html += "<option value=\"" + QString::number(SIMPLE_DESK_AND_VC_LEVEL) + "\"";
+            if(level >= SIMPLE_DESK_AND_VC_LEVEL && level < SUPER_ADMIN_LEVEL)
                 html += "selected";
             html += ">" + tr("Virtual Console and Simple Desk") + "</option>";
 
-            html += "<option value=\"" + QString::number(WebAccessUserLevel::SUPER_ADMIN) + "\"";
-            if(level >= WebAccessUserLevel::SUPER_ADMIN)
+            html += "<option value=\"" + QString::number(SUPER_ADMIN_LEVEL) + "\"";
+            if(level >= SUPER_ADMIN_LEVEL)
                 html += "selected";
             html += ">" + tr("Everything") + "</option>";
 
@@ -270,11 +270,11 @@ QString WebAccessConfiguration::getPasswordsConfigHTML(WebAccessAuth *auth)
     html += "<td>";
         html += "<select id=\"auth-new-level\">";
 
-        html += "<option value=\"" + QString::number(WebAccessUserLevel::VC_ONLY) + "\">" 
+        html += "<option value=\"" + QString::number(VC_ONLY_LEVEL) + "\">"
             + tr("Only Virtual Console") + "</option>";
-        html += "<option value=\"" + QString::number(WebAccessUserLevel::SIMPLE_DESK_AND_VC) + "\">"
+        html += "<option value=\"" + QString::number(SIMPLE_DESK_AND_VC_LEVEL) + "\">"
             + tr("Virtual Console and Simple Desk") + "</option>";
-        html += "<option value=\"" + QString::number(WebAccessUserLevel::SUPER_ADMIN) + "\">" 
+        html += "<option value=\"" + QString::number(SUPER_ADMIN_LEVEL) + "\">"
             + tr("Everything") + "</option>";
 
         html += "</select>";

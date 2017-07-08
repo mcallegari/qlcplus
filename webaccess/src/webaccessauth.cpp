@@ -64,7 +64,7 @@ bool WebAccessAuth::loadPasswordsFile(const QString& filePath)
 
         auto username = parts[0];
         auto passwordHash = parts[1];
-        int userLevel = (parts.size() >= 3) ? (parts[2].toInt()) : (WebAccessUserLevel::NOT_PROVIDED);
+        int userLevel = (parts.size() >= 3) ? (parts[2].toInt()) : (NOT_PROVIDED_LEVEL);
 
         WebAccessUser user(username, passwordHash, (WebAccessUserLevel)userLevel);
 
@@ -100,7 +100,7 @@ WebAccessUser WebAccessAuth::authenticateRequest(const QHttpRequest* req, QHttpR
 {
     // Disable authentication when no administrative accounts are proviced
     if(! this->hasAtLeastOneAdmin())
-        return WebAccessUser("", "", WebAccessUserLevel::NOT_PROVIDED);
+        return WebAccessUser("", "", NOT_PROVIDED_LEVEL);
     
     QString header = QString("Basic realm=\"") + m_realm + QString("\"");
     res->setHeader("WWW-Authenticate", header);
@@ -191,7 +191,7 @@ bool WebAccessAuth::hasAtLeastOneAdmin() const
 {
     for(auto& user : m_passwords)
     {
-        if(user.level >= WebAccessUserLevel::SUPER_ADMIN)
+        if(user.level >= SUPER_ADMIN_LEVEL)
             return true;
     }
 
