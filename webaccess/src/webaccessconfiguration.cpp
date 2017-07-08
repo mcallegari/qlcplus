@@ -224,11 +224,9 @@ QString WebAccessConfiguration::getPasswordsConfigHTML(WebAccessAuth *auth)
             "<th>" + tr("Action") + "</th>"
         "</tr>";
 
-    auto users = auth->getUsers();
-
-    for(auto& user : users)
+    foreach (WebAccessUser user, auth->getUsers())
     {
-        auto& username = user.username;
+        QString username = user.username;
         int level = user.level;
 
         html += "<tr id=\"auth-row-" + username + "\">";
@@ -239,17 +237,17 @@ QString WebAccessConfiguration::getPasswordsConfigHTML(WebAccessAuth *auth)
             html += "<select id=\"auth-level-" + username + "\">";
 
             html += "<option value=\"" + QString::number(VC_ONLY_LEVEL) + "\"";
-            if(level >= VC_ONLY_LEVEL && level < SIMPLE_DESK_AND_VC_LEVEL)
+            if (level >= VC_ONLY_LEVEL && level < SIMPLE_DESK_AND_VC_LEVEL)
                 html += "selected";
             html += ">" + tr("Only Virtual Console") + "</option>";
 
             html += "<option value=\"" + QString::number(SIMPLE_DESK_AND_VC_LEVEL) + "\"";
-            if(level >= SIMPLE_DESK_AND_VC_LEVEL && level < SUPER_ADMIN_LEVEL)
+            if (level >= SIMPLE_DESK_AND_VC_LEVEL && level < SUPER_ADMIN_LEVEL)
                 html += "selected";
             html += ">" + tr("Virtual Console and Simple Desk") + "</option>";
 
             html += "<option value=\"" + QString::number(SUPER_ADMIN_LEVEL) + "\"";
-            if(level >= SUPER_ADMIN_LEVEL)
+            if (level >= SUPER_ADMIN_LEVEL)
                 html += "selected";
             html += ">" + tr("Everything") + "</option>";
 
@@ -359,7 +357,7 @@ QString WebAccessConfiguration::getHTML(Doc *doc, WebAccessAuth *auth)
     bodyHTML += "</div>";
 
     // ******************* User management ********************
-    if(auth)
+    if (auth)
     {
         bodyHTML += "<div style=\"margin: 30px 7% 30px 7%;\" >\n";
         bodyHTML += "<div style=\"font-family: verdana,arial,sans-serif; font-size:20px; text-align:center; color:#CCCCCC;\">";
