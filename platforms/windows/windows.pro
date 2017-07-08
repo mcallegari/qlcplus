@@ -6,6 +6,7 @@ QT_LIBS_PATH = $$dirname(QMAKE_QMAKE)
 QT_PLUGINS_PATH = $$QT_LIBS_PATH/../share/qt5/plugins
 QT_QML_PATH = $$QT_LIBS_PATH/../share/qt5/qml
 SYS_LIBS_PATH = $$(SystemDrive)/msys64/mingw32/bin
+#SYS_LIBS_PATH = D:/msys64/mingw32/bin
 
 # Qt Libraries
 qtlibs.path  = $$INSTALLROOT/$$LIBSDIR
@@ -42,7 +43,19 @@ lessThan(QT_MAJOR_VERSION, 5) {
     qmlui: {
         release:qtlibs.files += $$QT_LIBS_PATH/Qt5Qml.dll \
                                 $$QT_LIBS_PATH/Qt5Quick.dll \
-                                $$QT_LIBS_PATH/Qt5Svg.dll
+                                $$QT_LIBS_PATH/Qt5QuickControls2.dll \
+                                $$QT_LIBS_PATH/Qt5QuickTemplates2.dll \
+                                $$QT_LIBS_PATH/Qt5Svg.dll \
+                                $$QT_LIBS_PATH/Qt53DCore.dll \
+                                $$QT_LIBS_PATH/Qt53DExtras.dll \
+                                $$QT_LIBS_PATH/Qt53DInput.dll \
+                                $$QT_LIBS_PATH/Qt53DLogic.dll \
+                                $$QT_LIBS_PATH/Qt53DQuick.dll \
+                                $$QT_LIBS_PATH/Qt53DQuickExtras.dll \
+                                $$QT_LIBS_PATH/Qt53DRender.dll \
+                                $$QT_LIBS_PATH/Qt5Concurrent.dll \
+                                $$QT_LIBS_PATH/Qt5Gamepad.dll \
+                                $$QT_LIBS_PATH/Qt5PrintSupport.dll
     }
 
     # Qt Libraries
@@ -71,7 +84,7 @@ greaterThan(QT_MAJOR_VERSION, 4) {
     debug:qtplatform.files = $$QT_PLUGINS_PATH/platforms/qwindowsd.dll
     release:qtplatform.files = $$QT_PLUGINS_PATH/platforms/qwindows.dll
     INSTALLS += qtplatform
-	
+
     qtaudio.path = $$INSTALLROOT/$$LIBSDIR/audio
     debug:qtaudio.files = $$QT_PLUGINS_PATH/audio/qtaudio_windowsd.dll
     release:qtaudio.files = $$QT_PLUGINS_PATH/audio/qtaudio_windows.dll
@@ -86,9 +99,12 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 
     qmlui: {
         qtimageformats.path = $$INSTALLROOT/$$LIBSDIR/imageformats
-        debug:qtimageformats.files = $$QT_PLUGINS_PATH/imageformats/qsvgd.dll
-        release:qtimageformats.files = $$QT_PLUGINS_PATH/imageformats/qsvg.dll
+        qtimageformats.files = $$QT_PLUGINS_PATH/imageformats/qsvg.dll
         INSTALLS += qtimageformats
+
+        qtprintsupport.path = $$INSTALLROOT/$$LIBSDIR/printsupport
+        qtprintsupport.files = $$QT_PLUGINS_PATH/printsupport/windowsprintersupport.dll
+        INSTALLS += qtprintsupport
 
         qmldeps.path   = $$INSTALLROOT/$$LIBSDIR
         qmldeps.files += $$QT_QML_PATH/QtQml \
@@ -100,7 +116,7 @@ greaterThan(QT_MAJOR_VERSION, 4) {
         qmlpostinstall.path = $$INSTALLROOT/$$LIBSDIR
         qmlpostinstall.commands = cd $$INSTALLROOT/$$LIBSDIR && \
                                   find . -name plugins.qmltypes -type f -delete && \
-                                  find . -name *.qml -type f -delete && \
+                                  #find . -name *.qml -type f -delete && \
                                   rm -rf QtQuick/Extras QtQuick/Particles.2 QtQuick/XmlListModel
         INSTALLS  += qmlpostinstall
     }
