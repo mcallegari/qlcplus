@@ -46,24 +46,24 @@ bool WebAccessAuth::loadPasswordsFile(const QString& filePath)
 
     QFile file(m_passwordsFile);
     
-    if(!file.open(QIODevice::OpenModeFlag::ReadOnly | QIODevice::Text))
+    if (!file.open(QIODevice::OpenModeFlag::ReadOnly | QIODevice::Text))
         return false;
     
     QTextStream stream(&file);
     QString line;
 
-    while(! (line = stream.readLine()).isNull()) 
+    while (!(line = stream.readLine()).isNull())
     {
-        auto parts = line.split(':');
+        QStringList parts = line.split(':');
         
-        if(parts.size() < 2)
+        if (parts.size() < 2)
         {
             qDebug() << "Skipping invalid line '" << line << "'";
             continue;
         }
 
-        auto username = parts[0];
-        auto passwordHash = parts[1];
+        QString username = parts[0];
+        QString passwordHash = parts[1];
         int userLevel = (parts.size() >= 3) ? (parts[2].toInt()) : (NOT_PROVIDED_LEVEL);
 
         WebAccessUser user(username, passwordHash, (WebAccessUserLevel)userLevel);
@@ -77,19 +77,19 @@ bool WebAccessAuth::loadPasswordsFile(const QString& filePath)
 
 bool WebAccessAuth::savePasswordsFile() const
 {
-    if(m_passwordsFile.isEmpty())
+    if (m_passwordsFile.isEmpty())
         return false;
     
     QFile file(m_passwordsFile);
     
-    if(! file.open(QIODevice::OpenModeFlag::WriteOnly | QIODevice::Text))
+    if (!file.open(QIODevice::OpenModeFlag::WriteOnly | QIODevice::Text))
         return false;
     
     QTextStream stream(&file);
     
-    for(auto& username : m_passwords.keys())
+    foreach (QString username, m_passwords.keys())
     {
-        auto user = m_passwords.value(username);
+        WebAccessUser user = m_passwords.value(username);
         stream << user.username << ':' << user.passwordHash << ':' << (int)user.level << endl;
     }
 
@@ -99,7 +99,7 @@ bool WebAccessAuth::savePasswordsFile() const
 WebAccessUser WebAccessAuth::authenticateRequest(const QHttpRequest* req, QHttpResponse* res) const
 {
     // Disable authentication when no administrative accounts are proviced
-    if(! this->hasAtLeastOneAdmin())
+    if (!this->hasAtLeastOneAdmin())
         return WebAccessUser("", "", NOT_PROVIDED_LEVEL);
     
     QString header = QString("Basic realm=\"") + m_realm + QString("\"");
@@ -107,28 +107,22 @@ WebAccessUser WebAccessAuth::authenticateRequest(const QHttpRequest* req, QHttpR
 
     QString auth = req->header("Authorization");
     // Tell the browser that authorization is required
-    if(! auth.startsWith("Basic "))
-    {
+    if (!auth.startsWith("Basic "))
         return WebAccessUser();
-    }
 
-    auto authentication = QString(QByteArray::fromBase64(auth.right(auth.size() - 6).toUtf8()));
+    QString authentication = QString(QByteArray::fromBase64(auth.right(auth.size() - 6).toUtf8()));
     int colonIndex = authentication.indexOf(':');
     
     // Disallow empty passwords
-    if(colonIndex == -1)
-    {
+    if (colonIndex == -1)
         return WebAccessUser();
-    }
 
-    auto username = authentication.left(colonIndex);
-    auto passwordHash = this->hashPassword(authentication.mid(colonIndex + 1));
+    QString username = authentication.left(colonIndex);
+    QString passwordHash = this->hashPassword(authentication.mid(colonIndex + 1));
 
-    auto userIterator = m_passwords.find(username);
+    QMap<QString, WebAccessUser>::const_iterator userIterator = m_passwords.find(username);
     if(userIterator == m_passwords.end() || (*userIterator).passwordHash != passwordHash)
-    {
         return WebAccessUser();
-    }
 
     return *userIterator;
 }
@@ -141,8 +135,8 @@ void WebAccessAuth::addUser(const QString& username, const QString& password, We
 
 bool WebAccessAuth::setUserLevel(const QString& username, WebAccessUserLevel level)
 {
-    auto userIt = m_passwords.find(username);
-    if(userIt == m_passwords.end())
+    QMap<QString, WebAccessUser>::iterator userIt = m_passwords.find(username);
+    if (userIt == m_passwords.end())
         return false;
     
     (*userIt).level = level;
@@ -189,7 +183,7 @@ QString WebAccessAuth::hashPassword(const QString& password) const
 
 bool WebAccessAuth::hasAtLeastOneAdmin() const
 {
-    for(auto& user : m_passwords)
+    foreach (WebAccessUser user, m_passwords.values())
     {
         if(user.level >= SUPER_ADMIN_LEVEL)
             return true;
