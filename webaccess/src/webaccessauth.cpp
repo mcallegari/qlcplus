@@ -30,7 +30,12 @@
 #include "qhttprequest.h"
 #include "qhttpresponse.h"
 
-#define PASSWORD_HASH_ALGORITHM QCryptographicHash::Sha256
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+  #define PASSWORD_HASH_ALGORITHM QCryptographicHash::Sha256
+#else
+  // Qt4 doesn't leave much choices. Both MD5 and SHA1 have been broken :(
+  #define PASSWORD_HASH_ALGORITHM QCryptographicHash::Sha1
+#endif
 #define DEFAULT_PASSWORD_FILE "web_passwd"
 
 WebAccessAuth::WebAccessAuth(const QString& realm)
