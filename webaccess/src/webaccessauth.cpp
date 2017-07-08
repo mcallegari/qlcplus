@@ -19,9 +19,10 @@
 
 #include <QDebug>
 #include <QByteArray>
-#include <QCryptographicHash>
 #include <QFile>
 #include <QTextStream>
+#include <QStringList>
+#include <QCryptographicHash>
 
 #include "webaccessauth.h"
 #include "qlcconfig.h"
@@ -46,7 +47,7 @@ bool WebAccessAuth::loadPasswordsFile(const QString& filePath)
 
     QFile file(m_passwordsFile);
     
-    if (!file.open(QIODevice::OpenModeFlag::ReadOnly | QIODevice::Text))
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
         return false;
     
     QTextStream stream(&file);
@@ -82,7 +83,7 @@ bool WebAccessAuth::savePasswordsFile() const
     
     QFile file(m_passwordsFile);
     
-    if (!file.open(QIODevice::OpenModeFlag::WriteOnly | QIODevice::Text))
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
         return false;
     
     QTextStream stream(&file);
