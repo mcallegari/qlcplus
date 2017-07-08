@@ -30,7 +30,7 @@
 #include "qhttprequest.h"
 #include "qhttpresponse.h"
 
-#define PASSWORD_HASH_ALGORITHM QCryptographicHash::Algorithm::Sha256
+#define PASSWORD_HASH_ALGORITHM QCryptographicHash::Sha256
 #define DEFAULT_PASSWORD_FILE "web_passwd"
 
 WebAccessAuth::WebAccessAuth(const QString& realm)
