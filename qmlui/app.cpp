@@ -233,7 +233,7 @@ void App::initDoc()
     Q_ASSERT(m_doc == NULL);
     m_doc = new Doc(this);
 
-    connect(m_doc, &Doc::modified, this, &App::slotDocModified);
+    connect(m_doc, SIGNAL(modified(bool)), this, SLOT(slotDocModified(bool)));
 
     /* Load user fixtures first so that they override system fixtures */
     m_doc->fixtureDefCache()->load(QLCFixtureDefCache::userDefinitionDirectory());

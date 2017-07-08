@@ -20,6 +20,7 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <QQmlEngine>
+#include <qmath.h>
 
 #include "treemodelitem.h"
 #include "qlcfixturemode.h"

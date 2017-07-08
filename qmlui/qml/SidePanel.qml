@@ -90,7 +90,7 @@ Rectangle
         target: sidePanelRoot
         properties: "width"
         to: expandedWidth
-        duration: 200
+        duration: 100
         onStopped: sidePanelRoot.width = expandedWidth
     }
 
@@ -100,7 +100,7 @@ Rectangle
         target: sidePanelRoot
         properties: "width"
         to: collapseWidth
-        duration: 200
+        duration: 100
         onStopped: sidePanelRoot.width = collapseWidth
     }
 
