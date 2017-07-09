@@ -20,10 +20,10 @@ addons:
       - libfftw3-dev
     packages: &qt5_pkg
       - *base_pkg
-      - qt59-meta-minimal
-      - qt59script
-      - qt59multimedia
-      - qt59serialport
+      - qt56-meta-minimal
+      - qt56script
+      - qt56multimedia
+      - qt56serialport
       - g++-5
 
 matrix:
@@ -46,7 +46,7 @@ matrix:
         apt:
           sources:
            - ubuntu-toolchain-r-test
-           - sourceline: 'ppa:beineri/opt-qt591-trusty'
+           - sourceline: 'ppa:beineri/opt-qt562-trusty'
           packages:
            - *qt5_pkg
     - os: linux
@@ -57,7 +57,7 @@ matrix:
         apt:
           sources:
            - ubuntu-toolchain-r-test
-           - sourceline: 'ppa:beineri/opt-qt591-trusty'
+           - sourceline: 'ppa:beineri/opt-qt562-trusty'
           packages:
            - *qt5_pkg
            - lcov
@@ -67,7 +67,7 @@ cache:
 
 before_install:
  - if [ "$QT" = "qt4" ]; then export QMAKE=qmake; fi
- - if [ "$QT" = "qt5" ]; then export QMAKE=/opt/qt59/bin/qmake; fi
+ - if [ "$QT" = "qt5" ]; then export QMAKE=/opt/qt56/bin/qmake; fi
  - if [ "$TASK" = "coverage" ]; then gem install coveralls-lcov; fi
 #Report the qmake version
  - $QMAKE -v
