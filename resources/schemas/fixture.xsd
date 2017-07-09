@@ -74,7 +74,7 @@ elementFormDefault="qualified"
     <xs:sequence>
         <xs:element name="Group" type="groupType"/>
         <xs:element name="Colour" type="colorType" minOccurs="0"/>
-        <xs:element name="Capability" type="capabilityType" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element name="Capability" type="capabilityType" minOccurs="1" maxOccurs="unbounded"/>
     </xs:sequence>
     <xs:attribute name="Name" type="xs:string" use="required"/>
 </xs:complexType>
