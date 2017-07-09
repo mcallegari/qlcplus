@@ -43,6 +43,7 @@ class FixtureManager : public QObject
     Q_PROPERTY(QVariantList fixtureNamesMap READ fixtureNamesMap NOTIFY fixtureNamesMapChanged)
     Q_PROPERTY(QVariant groupsTreeModel READ groupsTreeModel NOTIFY groupsTreeModelChanged)
     Q_PROPERTY(quint32 universeFilter READ universeFilter WRITE setUniverseFilter NOTIFY universeFilterChanged)
+    Q_PROPERTY(QString searchFilter READ searchFilter WRITE setSearchFilter NOTIFY searchFilterChanged)
 
     Q_PROPERTY(QVariantList goboChannels READ goboChannels NOTIFY goboChannelsChanged)
     Q_PROPERTY(QVariantList colorWheelChannels READ colorWheelChannels NOTIFY colorWheelChannelsChanged)
@@ -62,7 +63,9 @@ public:
     Q_INVOKABLE bool addFixture(QString manuf, QString model, QString mode, QString name,
                                 int uniIdx, int address, int channels, int quantity, quint32 gap,
                                 qreal xPos, qreal yPos);
+
     bool addRGBPanel(QString name, qreal xPos, qreal yPos);
+
     Q_INVOKABLE bool moveFixture(quint32 fixtureID, quint32 newAddress);
 
     /** Generic helper to retrieve a channel icon resource as string, from
@@ -73,6 +76,10 @@ public:
     quint32 universeFilter() const;
     void setUniverseFilter(quint32 universeFilter);
 
+    /** Get/Set a string to filter Group/Fixture/Channel names */
+    QString searchFilter() const;
+    void setSearchFilter(QString searchFilter);
+
     /** Returns a data structure with all the information of
      *  the Fixtures of the Universe with the specified $id */
     Q_INVOKABLE QVariantList universeInfo(quint32 id);
@@ -82,6 +89,11 @@ public:
 
     /** Returns a QML-readable list of references to Fixture classes */
     QQmlListProperty<Fixture> fixtures();
+
+    /** Update the tree of groups/fixtures/channels */
+    static void updateFixtureTree(Doc *doc, TreeModel *treeModel,
+                                  QString searchFilter = QString(),
+                                  QList<SceneValue> checkedChannels = QList<SceneValue>());
 
     /** Returns the data model to display a tree of FixtureGroups/Fixtures */
     QVariant groupsTreeModel();
@@ -100,6 +112,9 @@ signals:
     /** Notify the listeners that the universe filter has changed */
     void universeFilterChanged(quint32 universeFilter);
 
+    /** Notify the listeners that the search filter has changed */
+    void searchFilterChanged();
+
     /** Notify the listeners that the number of Fixtures has changed */
     void fixturesCountChanged();
 
@@ -109,9 +124,6 @@ signals:
     void newFixtureCreated(quint32 fxID, qreal x, qreal y);
 
 private:
-    /** Update the tree of groups/fixtures/channels */
-    void updateFixtureTree(Doc *doc, TreeModel *treeModel);
-
     /** Comparison method to sort a Fixture list by DMX address */
     static bool compareFixtures(Fixture *left, Fixture *right);
 
@@ -126,6 +138,8 @@ private:
     TreeModel *m_fixtureTree;
     /** A filter for m_fixturesMap to restrict data to a specific universe */
     quint32 m_universeFilter;
+    /** A string to filter the displayed tree items */
+    QString m_searchFilter;
 
     QVariantList m_universeInfo;
 

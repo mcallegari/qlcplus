@@ -208,26 +208,27 @@ Column
                     source: type == App.ChannelDragItem ? "qrc:/FixtureChannelDelegate.qml" : "qrc:/FixtureHeadDelegate.qml"
                     onLoaded:
                     {
+                        console.log("Channel node, fixture " + cRef + " index: " + chIdx)
                         item.textLabel = label
                         item.isSelected = Qt.binding(function() { return isSelected })
                         item.dragItem = dragItem
                         item.itemType = type
 
+                        if (item.hasOwnProperty('cRef'))
+                            item.cRef = classRef
+
                         if (type == App.ChannelDragItem)
                         {
                             item.isCheckable = isCheckable
                             item.isChecked = Qt.binding(function() { return isChecked })
-                            item.chIndex = index
-                            item.itemIcon = cRef ? fixtureManager.channelIcon(cRef.id, index) : ""
+                            item.chIndex = chIdx
+                            item.itemIcon = cRef ? fixtureManager.channelIcon(cRef.id, chIdx) : ""
                         }
                         else
                         {
                             item.fixtureID = cRef ? cRef.id : -1
                             item.headIndex = head
                         }
-
-                        if (item.hasOwnProperty('cRef'))
-                            item.cRef = classRef
                     }
                     Connections
                     {

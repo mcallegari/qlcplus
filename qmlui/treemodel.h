@@ -68,6 +68,9 @@ public:
     /** Enable/disable the alphabetic sort of the tree items */
     void enableSorting(bool enable);
 
+    /** Enable/disable checkable flag of tree items */
+    void setCheckable(bool enable);
+
     /** Add a new item to this tree.
      *  Note that by 'item' here we mean 'leaf' with name $label and path $path.
      *  If $path is composed (e.g. a/b/c/d) all the top nodes will be created, by
@@ -108,6 +111,7 @@ protected:
 protected:
     QStringList m_roles;
     bool m_sorting;
+    bool m_checkable;
     QList<TreeModelItem *> m_items;
     QMap<QString, TreeModelItem *> m_itemsPathMap;
 };

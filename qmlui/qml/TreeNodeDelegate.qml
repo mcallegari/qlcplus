@@ -194,21 +194,22 @@ Column
                         if (hasOwnProperty("type") && item.hasOwnProperty("itemType"))
                             item.itemType = type
 
+                        if (item.hasOwnProperty('itemIcon'))
+                            item.itemIcon = nodeContainer.itemIcon
+
+                        if (item.hasOwnProperty('cRef'))
+                            item.cRef = classRef
+
                         if (hasChildren)
                         {
                             item.nodePath = nodePath + "/" + path
                             item.isExpanded = isExpanded
                             item.nodeChildren = childrenModel
-                            if (item.hasOwnProperty('itemIcon'))
-                                item.itemIcon = nodeContainer.itemIcon
                             if (item.hasOwnProperty('childrenDelegate'))
                                 item.childrenDelegate = childrenDelegate
 
                             //console.log("Item path: " + item.nodePath + ", label: " + label)
                         }
-
-                        if (item.hasOwnProperty('cRef'))
-                            item.cRef = classRef
                     }
                     Connections
                     {
