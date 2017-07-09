@@ -35,8 +35,6 @@
 #define PROPERTY_VID         "ID_VENDOR_ID"
 #define PROPERTY_PID         "ID_MODEL_ID"
 
-broken
-
 HPMPrivate::HPMPrivate(HotPlugMonitor* parent)
     : QThread(parent)
     , m_run(false)
