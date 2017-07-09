@@ -67,7 +67,7 @@ cache:
 
 before_install:
  - if [ "$QT" = "qt4" ]; then export QMAKE=qmake; fi
- - if [ "$QT" = "qt5" ]; then export QMAKE=/opt/qt59/bin/qmake; fi
+ - if [ "$QT" = "qt5" ]; then export QMAKE=/opt/qt59/bin/qmake; . /opt/qt59/bin/qt59-env.sh; fi
  - if [ "$TASK" = "coverage" ]; then gem install coveralls-lcov; fi
 #Report the qmake version
  - $QMAKE -v
