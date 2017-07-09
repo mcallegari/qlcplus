@@ -40,6 +40,7 @@ AddRGBPanel::AddRGBPanel(QWidget *parent, const Doc *doc)
     m_compCombo->addItem("BRG");
     m_compCombo->addItem("GBR");
     m_compCombo->addItem("GRB");
+    m_compCombo->addItem("RBG");
     m_compCombo->addItem("RGBW");
 
     checkAddressAvailability();
@@ -171,6 +172,8 @@ Fixture::Components AddRGBPanel::components()
     else if (m_compCombo->currentIndex() == 4)
         return Fixture::GRB;
     else if (m_compCombo->currentIndex() == 5)
+        return Fixture::RBG;
+    else if (m_compCombo->currentIndex() == 6)
         return Fixture::RGBW;
 
     return Fixture::RGB;

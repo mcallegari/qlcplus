@@ -661,6 +661,12 @@ QLCFixtureDef *Fixture::genericRGBPanelDef(int columns, Components components)
             def->addChannel(red);
             def->addChannel(blue);
         }
+        else if (components == RBG)
+        {
+            def->addChannel(red);
+            def->addChannel(blue);
+            def->addChannel(green);
+        }
         else if (components == RGBW)
         {
             QLCChannel* white = new QLCChannel();
@@ -697,6 +703,8 @@ QLCFixtureMode *Fixture::genericRGBPanelMode(QLCFixtureDef *def, Components comp
         mode->setName("GBR");
     else if (components == GRB)
         mode->setName("GRB");
+    else if (components == RBG)
+        mode->setName("RBG");
     else if (components == RGBW)
     {
         mode->setName("RGBW");
@@ -947,6 +955,7 @@ bool Fixture::loadXML(QXmlStreamReader &xmlDoc, Doc *doc,
         else if (modeName == "BRG") components = BRG;
         else if (modeName == "GBR") components = GBR;
         else if (modeName == "GRB") components = GRB;
+        else if (modeName == "RBG") components = RBG;
         else if (modeName == "RGBW")
         {
             components = RGBW;
