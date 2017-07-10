@@ -49,13 +49,15 @@ SOURCES = qhttpserver/http_parser.c \
 HEADERS += commonjscss.h \
            webaccess.h \
            webaccessconfiguration.h \
-           webaccesssimpledesk.h
+           webaccesssimpledesk.h \
+           webaccessauth.h
 
 unix:!macx: HEADERS += webaccessnetwork.h
 
 SOURCES += webaccess.cpp \
            webaccessconfiguration.cpp \
-           webaccesssimpledesk.cpp
+           webaccesssimpledesk.cpp \
+           webaccessauth.cpp
 
 unix:!macx: SOURCES += webaccessnetwork.cpp
            

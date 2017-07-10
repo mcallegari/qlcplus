@@ -26,6 +26,8 @@
 class WebAccessNetwork;
 #endif
 
+class WebAccessAuth;
+
 class VCAudioTriggers;
 class VirtualConsole;
 class VCSoloFrame;
@@ -47,7 +49,8 @@ class WebAccess : public QObject
 {
     Q_OBJECT
 public:
-    explicit WebAccess(Doc *doc, VirtualConsole *vcInstance, SimpleDesk *sdInstance, QObject *parent = 0);
+    explicit WebAccess(Doc *doc, VirtualConsole *vcInstance, SimpleDesk *sdInstance,
+                       bool enableAuth, QString passwdFile = QString(), QObject *parent = 0);
     /** Destructor */
     ~WebAccess();
 
@@ -88,6 +91,7 @@ protected:
     Doc *m_doc;
     VirtualConsole *m_vc;
     SimpleDesk *m_sd;
+    WebAccessAuth *m_auth;
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
     WebAccessNetwork *m_netConfig;
 #endif

@@ -31,8 +31,6 @@
 .button span {
  display: block;
  padding: 0 10px 0 10px;
- background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(.25, rgba(0, 0, 0, 0.05)), color-stop(.25, transparent), to(transparent));
- background-image: -moz-linear-gradient(45deg, rgba(0, 0, 0, 0.05) 25%, transparent 25%, transparent);
 }
 
 .button:hover {

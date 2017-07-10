@@ -20,8 +20,10 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <QQmlEngine>
+#include <qmath.h>
 
 #include "treemodelitem.h"
+#include "fixturemanager.h"
 #include "qlcfixturemode.h"
 #include "qlcmacros.h"
 #include "vcslider.h"
@@ -47,6 +49,7 @@ VCSlider::VCSlider(Doc *doc, QObject *parent)
     , m_monitorValue(0)
     , m_isOverriding(false)
     , m_fixtureTree(NULL)
+    , m_searchFilter(QString())
     , m_controlledFunction(Function::invalidId())
     , m_controlledAttribute(Function::Intensity)
 {
@@ -421,97 +424,6 @@ QList<SceneValue> VCSlider::levelChannels()
     return m_levelChannels;
 }
 
-void VCSlider::updateFixtureTree(Doc *doc, TreeModel *treeModel)
-{
-    if (doc == NULL || treeModel == NULL)
-        return;
-
-    treeModel->clear();
-
-    QStringList uniNames = doc->inputOutputMap()->universeNames();
-
-    // add Fixture Groups first
-    for (FixtureGroup* grp : doc->fixtureGroups()) // C++11
-    {
-        foreach(quint32 fxID, grp->fixtureList())
-        {
-            Fixture *fixture = doc->fixture(fxID);
-            if (fixture == NULL)
-                continue;
-
-            QLCFixtureMode *mode = fixture->fixtureMode();
-            if (mode == NULL)
-                continue;
-
-            int chIdx = 0;
-            QString chPath = QString("%1/%2").arg(grp->name()).arg(fixture->name());
-            for (QLCChannel *channel : mode->channels()) // C++11
-            {
-                int flags = TreeModel::Checkable;
-                QVariantList chParams;
-                chParams.append(QVariant::fromValue(NULL)); // classRef
-                chParams.append(App::ChannelDragItem); // type
-                chParams.append(fixture->id()); // id
-                chParams.append(grp->id()); // subid
-                chParams.append(chIdx); // chIdx
-
-                if (m_levelChannels.contains(SceneValue(fixture->id(), chIdx)))
-                    flags |= TreeModel::Checked;
-                treeModel->addItem(channel->name(), chParams, chPath, flags);
-                chIdx++;
-            }
-
-            // when all the channel 'leaves' have been added, set the parent node data
-            QVariantList params;
-            params.append(QVariant::fromValue(fixture)); // classRef
-            params.append(App::FixtureDragItem); // type
-            params.append(fixture->id()); // id
-            params.append(grp->id()); // subid
-            params.append(0); // chIdx
-            treeModel->setPathData(chPath, params);
-        }
-    }
-
-    // add the current universes as groups
-    for (Fixture *fixture : doc->fixtures()) // C++11
-    {
-        if (fixture->universe() >= (quint32)uniNames.count())
-            continue;
-
-        QString chPath = QString("%1/%2").arg(uniNames.at(fixture->universe())).arg(fixture->name());
-        QLCFixtureMode *mode = fixture->fixtureMode();
-        if (mode == NULL)
-            continue;
-
-        int chIdx = 0;
-        for (QLCChannel *channel : mode->channels()) // C++11
-        {
-            int flags = TreeModel::Checkable;
-            QVariantList chParams;
-            chParams.append(QVariant::fromValue(NULL)); // classRef
-            chParams.append(App::ChannelDragItem); // type
-            chParams.append(fixture->id()); // id
-            chParams.append(fixture->universe()); // subid
-            chParams.append(chIdx); // chIdx
-
-            if (m_levelChannels.contains(SceneValue(fixture->id(), chIdx)))
-                flags |= TreeModel::Checked;
-            treeModel->addItem(channel->name(), chParams, chPath, flags);
-            chIdx++;
-        }
-
-        // when all the channel 'leaves' have been added, set the parent node data
-        QVariantList params;
-        params.append(QVariant::fromValue(fixture)); // classRef
-        params.append(App::FixtureDragItem); // type
-        params.append(fixture->id()); // id
-        params.append(fixture->universe()); // subid
-        params.append(0); // chIdx
-
-        treeModel->setPathData(chPath, params);
-    }
-}
-
 QVariant VCSlider::groupsTreeModel()
 {
     qDebug() << "Requesting tree model from slider" << m_levelChannels.count();
@@ -523,13 +435,39 @@ QVariant VCSlider::groupsTreeModel()
         treeColumns << "classRef" << "type" << "id" << "subid" << "chIdx";
         m_fixtureTree->setColumnNames(treeColumns);
         m_fixtureTree->enableSorting(false);
-        updateFixtureTree(m_doc, m_fixtureTree);
+        m_fixtureTree->setCheckable(true);
+
+        FixtureManager::updateFixtureTree(m_doc, m_fixtureTree, m_searchFilter, m_levelChannels);
 
         connect(m_fixtureTree, SIGNAL(roleChanged(TreeModelItem*,int,const QVariant&)),
                 this, SLOT(slotTreeDataChanged(TreeModelItem*,int,const QVariant&)));
     }
 
     return QVariant::fromValue(m_fixtureTree);
+}
+
+QString VCSlider::searchFilter() const
+{
+    return m_searchFilter;
+}
+
+void VCSlider::setSearchFilter(QString searchFilter)
+{
+    if (m_searchFilter == searchFilter)
+        return;
+
+    int currLen = m_searchFilter.length();
+
+    m_searchFilter = searchFilter;
+
+    if (searchFilter.length() >= SEARCH_MIN_CHARS ||
+        (currLen >= SEARCH_MIN_CHARS && searchFilter.length() < SEARCH_MIN_CHARS))
+    {
+        FixtureManager::updateFixtureTree(m_doc, m_fixtureTree, m_searchFilter, m_levelChannels);
+        emit groupsTreeModelChanged();
+    }
+
+    emit searchFilterChanged();
 }
 
 void VCSlider::slotTreeDataChanged(TreeModelItem *item, int role, const QVariant &value)

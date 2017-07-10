@@ -81,6 +81,24 @@ Rectangle
                 Rectangle { Layout.fillWidth: true }
                 IconButton
                 {
+                    id: searchItem
+                    z: 2
+                    width: height
+                    height: topBar.height - 2
+                    bgColor: UISettings.bgMain
+                    faColor: checked ? "white" : "gray"
+                    faSource: FontAwesome.fa_search
+                    checkable: true
+                    tooltip: qsTr("Set a Group/Fixture/Channel search filter")
+                    onToggled:
+                    {
+                        fixtureManager.searchFilter = ""
+                        if (checked)
+                            sTextInput.forceActiveFocus()
+                    }
+                }
+                IconButton
+                {
                     id: infoButton
                     z: 2
                     width: height
@@ -135,11 +153,40 @@ Rectangle
             }
         }
 
+        Rectangle
+        {
+            id: searchBox
+            visible: searchItem.checked
+            width: fgmContainer.width
+            height: UISettings.iconSizeMedium
+            z: 5
+            color: UISettings.bgMain
+            radius: 5
+            border.width: 2
+            border.color: "#111"
+
+            TextInput
+            {
+                id: sTextInput
+                y: 3
+                height: parent.height - 6
+                width: parent.width
+                color: UISettings.fgMain
+                text: modelProvider ? modelProvider.searchFilter : fixtureManager.searchFilter
+                font.family: "Roboto Condensed"
+                font.pixelSize: parent.height - 6
+                selectionColor: UISettings.highlightPressed
+                selectByMouse: true
+
+                onTextChanged: modelProvider ? modelProvider.searchFilter = text : fixtureManager.searchFilter = text
+            }
+        }
+
         ListView
         {
             id: groupListView
             width: fgmContainer.width
-            height: fgmContainer.height - topBar.height
+            height: fgmContainer.height - topBar.height - (searchBox.visible ? searchBox.height : 0)
             z: 4
             boundsBehavior: Flickable.StopAtBounds
 

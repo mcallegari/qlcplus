@@ -20,6 +20,7 @@
 #include <QSettings>
 
 #include "webaccessconfiguration.h"
+#include "webaccessauth.h"
 #include "audioplugincache.h"
 #include "inputoutputmap.h"
 #include "commonjscss.h"
@@ -211,15 +212,94 @@ QString WebAccessConfiguration::getUserFixturesConfigHTML()
     return html;
 }
 
-QString WebAccessConfiguration::getHTML(Doc *doc)
+QString WebAccessConfiguration::getPasswordsConfigHTML(WebAccessAuth *auth)
+{
+    QString html = "";
+    html += "<table class=\"hovertable\" id=\"auth-passwords-table\" style=\"width: 100%;\">";
+    html += 
+        "<tr>"
+            "<th>" + tr("Username") + "</th>"
+            "<th>" + tr("Password") + "</th>"
+            "<th>" + tr("Access level") + "</th>"
+            "<th>" + tr("Action") + "</th>"
+        "</tr>";
+
+    foreach (WebAccessUser user, auth->getUsers())
+    {
+        QString username = user.username;
+        int level = user.level;
+
+        html += "<tr id=\"auth-row-" + username + "\">";
+        html += "<td>" + username + "</td>";
+        html += "<td><input type=\"password\" id=\"auth-password-" + username + "\""
+                " placeholder=\"" + tr("Leave blank to not change") + "\"></td>";
+        html += "<td>";
+            html += "<select id=\"auth-level-" + username + "\">";
+
+            html += "<option value=\"" + QString::number(VC_ONLY_LEVEL) + "\"";
+            if (level >= VC_ONLY_LEVEL && level < SIMPLE_DESK_AND_VC_LEVEL)
+                html += "selected";
+            html += ">" + tr("Only Virtual Console") + "</option>";
+
+            html += "<option value=\"" + QString::number(SIMPLE_DESK_AND_VC_LEVEL) + "\"";
+            if (level >= SIMPLE_DESK_AND_VC_LEVEL && level < SUPER_ADMIN_LEVEL)
+                html += "selected";
+            html += ">" + tr("Virtual Console and Simple Desk") + "</option>";
+
+            html += "<option value=\"" + QString::number(SUPER_ADMIN_LEVEL) + "\"";
+            if (level >= SUPER_ADMIN_LEVEL)
+                html += "selected";
+            html += ">" + tr("Everything") + "</option>";
+
+            html += "</select>";
+        html += "</td>";
+        html += "<td>";
+            html += "<button role=\"button\" onclick=\"authChangeUser('" + username + "')\">"
+                 + tr("Change") + "</button>";
+            html += "<button role=\"button\" onclick=\"authDeleteUser('" + username + "')\">"
+                 + tr("Delete user") + "</button>";
+        html += "</td>";
+        html += "</tr>";
+    }
+
+    html += "<tr>";
+    html += "<td><input type=\"text\" id=\"auth-new-username\" placeholder=\"" + tr("New username...") + "\"></td>";
+    html += "<td><input type=\"password\" id=\"auth-new-password\" placeholder=\"" + tr("New password...") + "\"></td>";
+    html += "<td>";
+        html += "<select id=\"auth-new-level\">";
+
+        html += "<option value=\"" + QString::number(VC_ONLY_LEVEL) + "\">"
+            + tr("Only Virtual Console") + "</option>";
+        html += "<option value=\"" + QString::number(SIMPLE_DESK_AND_VC_LEVEL) + "\">"
+            + tr("Virtual Console and Simple Desk") + "</option>";
+        html += "<option value=\"" + QString::number(SUPER_ADMIN_LEVEL) + "\">"
+            + tr("Everything") + "</option>";
+
+        html += "</select>";
+    html += "</td>";
+    html += "<td>";
+        // Script will dynamically add rows with users so it needs to know translations
+        html += "<button role=\"button\" onclick=\"authAddUser(" 
+                "'" + tr("Change") + "','" + tr("Delete user") + "'"
+                ",'" + tr("Username and password are required fields.") + "'"
+                ",'" + tr("New password...") + "'"
+                ")\" class=\"authAddUser\">"
+                + tr("Add user") + "</button>";
+    html += "</td>";
+    html += "</tr>";
+    html += "</table>";
+    html += "<i style=\"color: #CCCCCC\">";
+    html += tr("Note: if there isn't at least one user with access level \"Everything\" on the list"
+               " authorization will be disabled.");
+    html += "</i>";
+
+    return html;
+}
+
+QString WebAccessConfiguration::getHTML(Doc *doc, WebAccessAuth *auth)
 {
     QString m_JScode = "<script type=\"text/javascript\" src=\"websocket.js\"></script>\n";
-    m_JScode += "<script  type=\"text/javascript\">\n";
-    m_JScode += "function ioChanged(cmd, uni, val)\n"
-            "{\n"
-            " websocket.send(\"QLC+IO|\" + cmd + \"|\" + uni + \"|\" + val);\n"
-            "};\n\n";
-    m_JScode += "</script>\n";
+    m_JScode += "<script type=\"text/javascript\" src=\"configuration.js\"></script>\n";
 
     QString m_CSScode =
                  "<style type=\"text/css\" media=\"screen\">\n"
@@ -255,23 +335,36 @@ QString WebAccessConfiguration::getHTML(Doc *doc)
                        "</div>\n";
 
     // ********************* IO mapping ***********************
-    bodyHTML += "<div style=\"margin: 30px 7% 30px 7%; width: 86%; height: 300px;\" >\n";
+    bodyHTML += "<div style=\"margin: 30px 7% 30px 7%; width: 86%;\" >\n";
     bodyHTML += "<div style=\"font-family: verdana,arial,sans-serif; font-size:20px; text-align:center; color:#CCCCCC;\">";
     bodyHTML += tr("Universes configuration") + "</div><br>\n";
     bodyHTML += getIOConfigHTML(doc);
+    bodyHTML += "</div>";
 
     // ********************* audio devices ********************
-    bodyHTML += "<div style=\"margin: 30px 7% 30px 7%; width: 86%; height: 300px;\" >\n";
+    bodyHTML += "<div style=\"margin: 30px 7% 30px 7%;\" >\n";
     bodyHTML += "<div style=\"font-family: verdana,arial,sans-serif; font-size:20px; text-align:center; color:#CCCCCC;\">";
     bodyHTML += tr("Audio configuration") + "</div><br>\n";
     bodyHTML += getAudioConfigHTML(doc);
+    bodyHTML += "</div>";
 
     // **************** User loaded fixtures ******************
 
-    bodyHTML += "<div style=\"margin: 30px 7% 30px 7%; width: 86%; height: 300px;\" >\n";
+    bodyHTML += "<div style=\"margin: 30px 7% 30px 7%;\" >\n";
     bodyHTML += "<div style=\"font-family: verdana,arial,sans-serif; font-size:20px; text-align:center; color:#CCCCCC;\">";
     bodyHTML += tr("User loaded fixtures") + "</div><br>\n";
     bodyHTML += getUserFixturesConfigHTML();
+    bodyHTML += "</div>";
+
+    // ******************* User management ********************
+    if (auth)
+    {
+        bodyHTML += "<div style=\"margin: 30px 7% 30px 7%;\" >\n";
+        bodyHTML += "<div style=\"font-family: verdana,arial,sans-serif; font-size:20px; text-align:center; color:#CCCCCC;\">";
+        bodyHTML += tr("Authorized users") + "</div><br>\n";
+        bodyHTML += getPasswordsConfigHTML(auth);
+        bodyHTML += "</div>";
+    }
 
     QString str = HTML_HEADER + m_JScode + m_CSScode + "</head>\n<body>\n" + bodyHTML + "</body>\n</html>";
 

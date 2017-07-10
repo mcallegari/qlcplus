@@ -26,6 +26,7 @@
 TreeModel::TreeModel(QObject *parent)
     : QAbstractListModel(parent)
     , m_sorting(false)
+    , m_checkable(false)
 {
 
 }
@@ -63,6 +64,11 @@ void TreeModel::enableSorting(bool enable)
     m_sorting = enable;
 }
 
+void TreeModel::setCheckable(bool enable)
+{
+    m_checkable = enable;
+}
+
 TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path, int flags)
 {
     //qDebug() << "Adding item" << label << path;
@@ -71,6 +77,9 @@ TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path
 
     if (data.count() != m_roles.count())
         qDebug() << "Adding an item with a different number of roles" << data.count() << m_roles.count();
+
+    if (m_checkable)
+        flags |= Checkable;
 
     if (path.isEmpty())
     {

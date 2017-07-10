@@ -1,5 +1,10 @@
 qlcplus (4.11.1) stable; urgency=low
 
+  * UI/RGB Panel: added RBG pixel type (thanks to Peter Marks)
+  * UI/Input Output Manager: added a button to enable/disable USB hotplugging (disabled by default)
+  * Virtual Console/Slider: fix DMX values not updated when interacting with the mouse wheel, keyboard or Click And Go button
+  * Web access: added basic authentication support (thanks to Bartosz Grabias)
+
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 27 Aug 2017 12:13:14 +0200
 
 qlcplus (4.11.0) stable; urgency=low

@@ -114,6 +114,9 @@ private:
 private:
     bool m_isWebSocket;
     QTimer *m_pollTimer;
+
+public:
+    void* userData;
 };
 
 /// @endcond

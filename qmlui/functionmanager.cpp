@@ -128,14 +128,13 @@ void FunctionManager::setSearchFilter(QString searchFilter)
     if (m_searchFilter == searchFilter)
         return;
 
-    int curreLen = m_searchFilter.length();
+    int currLen = m_searchFilter.length();
 
     m_searchFilter = searchFilter;
 
-    if (searchFilter.length() >= SEARCH_MIN_CHARS)
-        updateFunctionsTree();
-    else if(curreLen >= SEARCH_MIN_CHARS && searchFilter.length() < SEARCH_MIN_CHARS)
-        updateFunctionsTree();
+    if (searchFilter.length() >= SEARCH_MIN_CHARS ||
+        (currLen >= SEARCH_MIN_CHARS && searchFilter.length() < SEARCH_MIN_CHARS))
+            updateFunctionsTree();
 
     emit searchFilterChanged();
 }

@@ -243,7 +243,7 @@ Rectangle
               id: sTextInput
               y: 3
               height: parent.height - 6
-              width: searchBox.width
+              width: parent.width
               color: UISettings.fgMain
               text: functionManager.searchFilter
               font.family: "Roboto Condensed"
@@ -259,7 +259,7 @@ Rectangle
       {
           id: functionsListView
           width: fmContainer.width
-          height: fmContainer.height - topBar.height
+          height: fmContainer.height - topBar.height - (searchBox.visible ? searchBox.height : 0)
           //anchors.fill: parent
           z: 4
           boundsBehavior: Flickable.StopAtBounds

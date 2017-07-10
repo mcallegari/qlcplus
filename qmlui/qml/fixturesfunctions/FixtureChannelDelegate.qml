@@ -66,7 +66,7 @@ Rectangle
             id: chEntry
             height: UISettings.listItemHeight
             width: chDelegate.width - chCheckBox.width
-            tLabel: textLabel
+            tLabel: "" + (chIndex + 1) + ": " + textLabel
             iSrc: itemIcon
 
             MouseArea

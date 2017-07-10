@@ -79,6 +79,7 @@ class VCSlider : public VCWidget, public DMXSource
     Q_PROPERTY(GrandMaster::ChannelMode grandMasterChannelMode READ grandMasterChannelMode WRITE setGrandMasterChannelMode NOTIFY grandMasterChannelModeChanged)
 
     Q_PROPERTY(QVariant groupsTreeModel READ groupsTreeModel NOTIFY groupsTreeModelChanged)
+    Q_PROPERTY(QString searchFilter READ searchFilter WRITE setSearchFilter NOTIFY searchFilterChanged)
 
     /*********************************************************************
      * Initialization
@@ -247,12 +248,12 @@ public:
     /** Returns the data model to display a tree of FixtureGroups/Fixtures */
     QVariant groupsTreeModel();
 
+    /** Get/Set a string to filter Group/Fixture/Channel names */
+    QString searchFilter() const;
+    void setSearchFilter(QString searchFilter);
+
 protected slots:
     void slotTreeDataChanged(TreeModelItem *item, int role, const QVariant &value);
-
-private:
-    /** Update the tree of groups/fixtures/channels */
-    void updateFixtureTree(Doc *doc, TreeModel *treeModel);
 
 signals:
     void levelLowLimitChanged();
@@ -262,6 +263,8 @@ signals:
     void isOverridingChanged();
     /** Notify the listeners that the fixture tree model has changed */
     void groupsTreeModelChanged();
+    /** Notify the listeners that the search filter has changed */
+    void searchFilterChanged();
 
 protected:
     QList <SceneValue> m_levelChannels;
@@ -277,6 +280,8 @@ protected:
 
     /** Data model used by the QML UI to represent groups/fixtures/channels */
     TreeModel *m_fixtureTree;
+    /** A string to filter the displayed tree items */
+    QString m_searchFilter;
 
     /*********************************************************************
      * Adjust mode

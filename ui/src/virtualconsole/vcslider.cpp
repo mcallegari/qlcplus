@@ -728,8 +728,8 @@ void VCSlider::setClickAndGoWidgetFromLevel(uchar level)
 
 void VCSlider::slotClickAndGoLevelChanged(uchar level)
 {
-    if (m_slider)
-        m_slider->setValue(level);
+    setSliderValue(level);
+    updateFeedback();
 
     QColor col = m_cngWidget->getColorAt(level);
     QPixmap px(42, 42);
@@ -746,8 +746,8 @@ void VCSlider::slotClickAndGoColorChanged(QRgb color)
     m_cngButton->setIcon(px);
 
     // place the slider half way to reach white@255 and black@0
-    if (m_slider)
-        m_slider->setValue(128);
+    setSliderValue(128);
+    updateFeedback();
 
     // let's force a value change to cover all the HTP/LTP cases
     m_levelValueChanged = true;
@@ -755,8 +755,8 @@ void VCSlider::slotClickAndGoColorChanged(QRgb color)
 
 void VCSlider::slotClickAndGoLevelAndPresetChanged(uchar level, QImage img)
 {
-    if (m_slider)
-        m_slider->setValue(level);
+    setSliderValue(level);
+    updateFeedback();
 
     QPixmap px = QPixmap::fromImage(img);
     m_cngButton->setIcon(px);

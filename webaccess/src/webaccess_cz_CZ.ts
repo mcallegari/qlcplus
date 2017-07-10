@@ -4,78 +4,99 @@
 <context>
     <name>WebAccess</name>
     <message>
-        <location filename="webaccess.cpp" line="135"/>
+        <location filename="webaccess.cpp" line="169"/>
         <source>Loading project...</source>
         <translation>Načítání projektu...</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="166"/>
+        <location filename="webaccess.cpp" line="205"/>
         <source>Fixture stored and loaded</source>
         <translation>Zařízení uložena a načtena</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="332"/>
+        <location filename="webaccess.cpp" line="396"/>
+        <source>Username and password are required fields.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccess.cpp" line="402"/>
+        <location filename="webaccess.cpp" line="427"/>
+        <source>User level has to be a positive integer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccess.cpp" line="421"/>
+        <source>Username is required.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccess.cpp" line="439"/>
+        <source>Error while saving passwords file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccess.cpp" line="454"/>
         <source>Network configuration changed. Reboot to apply the changes.</source>
         <translation>Konfigurace sítě byla změněna. Restartuje pro aplikování změn.</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="351"/>
+        <location filename="webaccess.cpp" line="473"/>
         <source>Autostart configuration changed</source>
         <translation>Postartovní konfigurace změněna</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="643"/>
+        <location filename="webaccess.cpp" line="803"/>
         <source>Widget not supported (yet) for web access</source>
         <translation>Ovládací prvek (zatím) není podporován pro vzdálený přístup</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="690"/>
-        <location filename="webaccess.cpp" line="740"/>
+        <location filename="webaccess.cpp" line="854"/>
+        <location filename="webaccess.cpp" line="905"/>
         <source>Page</source>
         <translation>Strana</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="872"/>
+        <location filename="webaccess.cpp" line="1047"/>
         <source>Enable</source>
         <translation>Zapnout</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="899"/>
+        <location filename="webaccess.cpp" line="1076"/>
         <source>Name</source>
         <translation>Název</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="900"/>
+        <location filename="webaccess.cpp" line="1077"/>
         <source>Fade In</source>
         <translation>Zesílení</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="901"/>
+        <location filename="webaccess.cpp" line="1078"/>
         <source>Fade Out</source>
         <translation>Zeslabení</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="902"/>
+        <location filename="webaccess.cpp" line="1079"/>
         <source>Duration</source>
         <translation>Trvání</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="903"/>
+        <location filename="webaccess.cpp" line="1080"/>
         <source>Notes</source>
         <translation>Poznámky</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1134"/>
+        <location filename="webaccess.cpp" line="1313"/>
         <source>Load project</source>
         <translation>Načíst projekt</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1136"/>
+        <location filename="webaccess.cpp" line="1315"/>
         <source>Simple Desk</source>
         <translation>Jednoduchý pult</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1138"/>
+        <location filename="webaccess.cpp" line="1317"/>
         <source>Configuration</source>
         <translation>Konfigurace</translation>
     </message>
@@ -83,39 +104,125 @@
 <context>
     <name>WebAccessConfiguration</name>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="135"/>
+        <location filename="webaccessconfiguration.cpp" line="136"/>
         <source>Passthrough</source>
         <translation>Průchozí</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="209"/>
+        <location filename="webaccessconfiguration.cpp" line="210"/>
         <source>Load fixture</source>
         <translation>Načíst zařízení</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="243"/>
+        <location filename="webaccessconfiguration.cpp" line="221"/>
+        <source>Username</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="222"/>
+        <source>Password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="223"/>
+        <source>Access level</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="224"/>
+        <source>Action</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="237"/>
+        <source>Leave blank to not change</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="244"/>
+        <location filename="webaccessconfiguration.cpp" line="274"/>
+        <source>Only Virtual Console</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="249"/>
+        <location filename="webaccessconfiguration.cpp" line="276"/>
+        <source>Virtual Console and Simple Desk</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="254"/>
+        <location filename="webaccessconfiguration.cpp" line="278"/>
+        <source>Everything</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="260"/>
+        <location filename="webaccessconfiguration.cpp" line="285"/>
+        <source>Change</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="262"/>
+        <location filename="webaccessconfiguration.cpp" line="285"/>
+        <source>Delete user</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="268"/>
+        <source>New username...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="269"/>
+        <location filename="webaccessconfiguration.cpp" line="287"/>
+        <source>New password...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="286"/>
+        <source>Username and password are required fields.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="289"/>
+        <source>Add user</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="294"/>
+        <source>Note: if there isn&apos;t at least one user with access level &quot;Everything&quot; on the list authorization will be disabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="325"/>
         <source>System</source>
         <translation>Systém</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="252"/>
+        <location filename="webaccessconfiguration.cpp" line="334"/>
         <source>Back</source>
         <translation>Zpět</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="260"/>
+        <location filename="webaccessconfiguration.cpp" line="342"/>
         <source>Universes configuration</source>
         <translation>Konfigurace větví</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="266"/>
+        <location filename="webaccessconfiguration.cpp" line="349"/>
         <source>Audio configuration</source>
         <translation>Konfigurace zvuku</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="273"/>
+        <location filename="webaccessconfiguration.cpp" line="357"/>
         <source>User loaded fixtures</source>
         <translation>Uživatelem načtená zařízení</translation>
+    </message>
+    <message>
+        <location filename="webaccessconfiguration.cpp" line="366"/>
+        <source>Authorized users</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

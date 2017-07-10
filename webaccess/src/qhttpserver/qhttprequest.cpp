@@ -35,7 +35,7 @@ QHttpRequest::~QHttpRequest()
 {
 }
 
-QString QHttpRequest::header(const QString &field)
+QString QHttpRequest::header(const QString &field) const
 {
     return m_headers.value(field.toLower(), "");
 }
