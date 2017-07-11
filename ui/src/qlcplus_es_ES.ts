@@ -2280,7 +2280,7 @@ El archivo seleccionado ha sido movido o borrado.</translation>
     <message>
         <location filename="fixturemanager.cpp" line="592"/>
         <source>This group contains all fixtures of</source>
-        <translation type="unfinished">Este grupo contiene todos los fixtures de</translation>
+        <translation>Este grupo contiene todos los fixtures de</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="596"/>
@@ -3283,12 +3283,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputoutputpatcheditor.ui" line="124"/>
         <source>Configure the selected plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Configurar el plugin seleccionado</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.ui" line="144"/>
         <source>Enable/Disable USB hotplugging (requires restart)</source>
-        <translation type="unfinished"></translation>
+        <translation>Habilitar/Deshabilitar hotplug de USB (requiere reiniciar)</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.ui" line="168"/>
@@ -5537,7 +5537,7 @@ Duración: %3
     <message>
         <location filename="virtualconsole/vcclockproperties.ui" line="47"/>
         <source>General</source>
-        <translation type="unfinished">General</translation>
+        <translation>General</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcclockproperties.ui" line="53"/>
@@ -5592,22 +5592,22 @@ Duración: %3
     <message>
         <location filename="virtualconsole/vcclockproperties.ui" line="205"/>
         <source>Input</source>
-        <translation type="unfinished">Entrada</translation>
+        <translation>Entrada</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcclockproperties.ui" line="214"/>
         <source>No input control available for Clock type</source>
-        <translation type="unfinished"></translation>
+        <translation>Ningún control de entrada disponible para el tipo Reloj</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcclockproperties.cpp" line="39"/>
         <source>Play/Pause control</source>
-        <translation type="unfinished">Reproducción/Pausa control</translation>
+        <translation>Control de Reproducción/Pausa</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcclockproperties.cpp" line="48"/>
         <source>Reset control</source>
-        <translation type="unfinished"></translation>
+        <translation>Reiniciar control</translation>
     </message>
 </context>
 <context>
@@ -6861,12 +6861,12 @@ Duración: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="101"/>
         <source>Copy the factors of the selected function</source>
-        <translation type="unfinished"></translation>
+        <translation>Copiar los factores de la fución seleccionada</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="121"/>
         <source>Paste copied factors to all selected functions</source>
-        <translation type="unfinished"></translation>
+        <translation>Pegar los factores copiados a todas las funciones seleccionadas</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="182"/>
