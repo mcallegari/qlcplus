@@ -16,23 +16,23 @@
     <message>
         <location filename="webaccess.cpp" line="396"/>
         <source>Username and password are required fields.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre de usuario y contraseña son campos obligatorios.</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="402"/>
         <location filename="webaccess.cpp" line="427"/>
         <source>User level has to be a positive integer.</source>
-        <translation type="unfinished"></translation>
+        <translation>El nivel de usuario tiene que ser un entero positivo.</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="421"/>
         <source>Username is required.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre de usuario es obligatorio.</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="439"/>
         <source>Error while saving passwords file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Error al guardar el archivo de contraseña.</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="454"/>
@@ -116,83 +116,83 @@
     <message>
         <location filename="webaccessconfiguration.cpp" line="221"/>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre de usuario</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="222"/>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Contraseña</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="223"/>
         <source>Access level</source>
-        <translation type="unfinished"></translation>
+        <translation>Nivel de acceso</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="224"/>
         <source>Action</source>
-        <translation type="unfinished"></translation>
+        <translation>Acción</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="237"/>
         <source>Leave blank to not change</source>
-        <translation type="unfinished"></translation>
+        <translation>Dejar en blanco para no cambiar</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="244"/>
         <location filename="webaccessconfiguration.cpp" line="274"/>
         <source>Only Virtual Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Sólo Consola Virtual</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="249"/>
         <location filename="webaccessconfiguration.cpp" line="276"/>
         <source>Virtual Console and Simple Desk</source>
-        <translation type="unfinished"></translation>
+        <translation>Consola Virtual y Mesa Simple</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="254"/>
         <location filename="webaccessconfiguration.cpp" line="278"/>
         <source>Everything</source>
-        <translation type="unfinished"></translation>
+        <translation>Todo</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="260"/>
         <location filename="webaccessconfiguration.cpp" line="285"/>
         <source>Change</source>
-        <translation type="unfinished"></translation>
+        <translation>Cambiar</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="262"/>
         <location filename="webaccessconfiguration.cpp" line="285"/>
         <source>Delete user</source>
-        <translation type="unfinished"></translation>
+        <translation>Borrar usuario</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="268"/>
         <source>New username...</source>
-        <translation type="unfinished"></translation>
+        <translation>Nuevo nombre de usuario...</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="269"/>
         <location filename="webaccessconfiguration.cpp" line="287"/>
         <source>New password...</source>
-        <translation type="unfinished"></translation>
+        <translation>Nueva contraseña...</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="286"/>
         <source>Username and password are required fields.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre de usuario y contraseña son campos obligatorios.</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="289"/>
         <source>Add user</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir usuario</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="294"/>
         <source>Note: if there isn&apos;t at least one user with access level &quot;Everything&quot; on the list authorization will be disabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nota: si no hay al menos un usuario con nivel de acceso &quot;Todo&quot; en la lista de autorización, se desactivará.</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="325"/>
@@ -222,7 +222,7 @@
     <message>
         <location filename="webaccessconfiguration.cpp" line="366"/>
         <source>Authorized users</source>
-        <translation type="unfinished"></translation>
+        <translation>Usuarios autorizados</translation>
     </message>
 </context>
 <context>
