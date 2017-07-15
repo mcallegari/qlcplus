@@ -37,6 +37,7 @@ ComboBox
      */
 
     textRole: "mLabel"
+    wheelEnabled: true
 
     property string currentIcon
     property int currentValue
@@ -177,28 +178,6 @@ ComboBox
             border.width: 1
             border.color: UISettings.bgStrong
             radius: 3
-
-            MouseArea
-            {
-                anchors.fill: parent
-
-                onClicked: control.popup.visible ? control.popup.close() : control.popup.open()
-
-                onWheel:
-                {
-                    var newIdx
-                    if (wheel.angleDelta.y > 0)
-                        newIdx = Math.max(0, currentIndex - 1)
-                    else
-                        newIdx = Math.min(currentIndex + 1, count - 1)
-
-                    if (newIdx !== currentIndex)
-                    {
-                        currentIndex = newIdx
-                        console.log("Wheel event. Index: " + currentIndex)
-                    }
-                }
-            }
         }
 
     popup:
