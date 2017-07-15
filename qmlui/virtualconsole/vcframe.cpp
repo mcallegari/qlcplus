@@ -339,6 +339,7 @@ void VCFrame::deleteChildren()
 void VCFrame::setupWidget(VCWidget *widget)
 {
     widget->setDefaultFontSize(m_vc->pixelDensity() * 2.7);
+    widget->setPage(currentPage());
 
     addWidgetToPageMap(widget);
 }
@@ -471,7 +472,11 @@ void VCFrame::setMultiPageMode(bool multiPageMode)
 
 void VCFrame::setTotalPagesNumber(int num)
 {
+    if (m_totalPagesNumber == num)
+        return;
+
     m_totalPagesNumber = num;
+    emit totalPagesNumberChanged(num);
 }
 
 int VCFrame::totalPagesNumber() const
@@ -517,7 +522,11 @@ void VCFrame::setCurrentPage(int pageNum)
 
 void VCFrame::setPagesLoop(bool pagesLoop)
 {
+    if (m_pagesLoop == pagesLoop)
+        return;
+
     m_pagesLoop = pagesLoop;
+    emit pagesLoopChanged(pagesLoop);
 }
 
 bool VCFrame::pagesLoop() const
