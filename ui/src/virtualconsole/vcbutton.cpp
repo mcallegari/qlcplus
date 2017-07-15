@@ -527,9 +527,9 @@ void VCButton::slotInputValueChanged(quint32 universe, quint32 channel, uchar va
         {
             // Keep the button depressed only while the external button is kept down.
             // Raise the button when the external button is raised.
-            if (state() == false && value > 0)
+            if (state() == Inactive && value > 0)
                 pressFunction();
-            else if (state() == true && value == 0)
+            else if (state() == Active && value == 0)
                 releaseFunction();
         }
         else if (value > 0)
@@ -686,11 +686,14 @@ void VCButton::pressFunction()
             }
         }
     }
-    else if (m_action == Flash && state() == false)
+    else if (m_action == Flash && state() == Inactive)
     {
         f = m_doc->function(m_function);
         if (f != NULL)
+        {
             f->flash(m_doc->masterTimer());
+            setState(Active);
+        }
     }
     else if (m_action == Blackout)
     {
@@ -720,8 +723,10 @@ void VCButton::releaseFunction()
     {
         Function* f = m_doc->function(m_function);
         if (f != NULL)
+        {
             f->unFlash(m_doc->masterTimer());
-        setState(Inactive);
+            setState(Inactive);
+        }
     }
 }
 
@@ -971,11 +976,11 @@ void VCButton::paintEvent(QPaintEvent* e)
     /* This should look like a normal button */
     option.features = QStyleOptionButton::None;
 
-    /* Sunken or raised based on isOn() status */
-    if (state() == true)
-        option.state = QStyle::State_Sunken;
-    else
+    /* Sunken or raised based on state() status */
+    if (state() == Inactive)
         option.state = QStyle::State_Raised;
+    else
+        option.state = QStyle::State_Sunken;
 
     /* Custom icons are always enabled, to see them in full color also in design mode */
     if (m_action == Toggle || m_action == Flash)
