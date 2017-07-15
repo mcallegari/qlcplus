@@ -588,8 +588,10 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
                     case VCWidget::ButtonWidget:
                     {
                         VCButton *button = qobject_cast<VCButton*>(widget);
-                        if (button->isOn())
+                        if (button->state() == VCButton::Active)
                             wsAPIMessage.append("255");
+                        else if (button->state() == VCButton::Monitoring)
+                            wsAPIMessage.append("127");
                         else
                             wsAPIMessage.append("0");
                     }
@@ -692,15 +694,12 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
 
     if (widget != NULL)
     {
-                
         switch(widget->type())
         {
             case VCWidget::ButtonWidget:
             {
                 VCButton *button = qobject_cast<VCButton*>(widget);
-                if ((value == 0 && button->isOn()) ||
-                    (value != 0 && button->isOn() == false))
-                        button->pressFunction();
+                button->pressFunction();
             }
             break;
             case VCWidget::SliderWidget:
@@ -920,15 +919,19 @@ QString WebAccess::getSoloFrameHTML(VCSoloFrame *frame)
     return str;
 }
 
-void WebAccess::slotButtonToggled(bool on)
+void WebAccess::slotButtonStateChanged(int state)
 {
     VCButton *btn = qobject_cast<VCButton *>(sender());
     if (btn == NULL)
         return;
 
+    qDebug() << "Button state changed" << state;
+
     QString wsMessage = QString::number(btn->id());
-    if (on == true)
-        wsMessage.append("|BUTTON|1");
+    if (state == VCButton::Active)
+        wsMessage.append("|BUTTON|255");
+    else if (state == VCButton::Monitoring)
+        wsMessage.append("|BUTTON|127");
     else
         wsMessage.append("|BUTTON|0");
 
@@ -938,8 +941,10 @@ void WebAccess::slotButtonToggled(bool on)
 QString WebAccess::getButtonHTML(VCButton *btn)
 {
     QString onCSS = "";
-    if (btn->isOn())
+    if (btn->state() == VCButton::Active)
         onCSS = "border: 3px solid #00E600;";
+    else if (btn->state() == VCButton::Monitoring)
+        onCSS = "border: 3px solid #FFAA00;";
 
     QString str = "<div class=\"vcbutton-wrapper\" style=\""
             "left: " + QString::number(btn->x()) + "px; "
@@ -953,8 +958,8 @@ QString WebAccess::getButtonHTML(VCButton *btn)
             "background-color: " + btn->backgroundColor().name() + "; " + onCSS + "\">" +
             btn->caption() + "</a>\n</div>\n";
 
-    connect(btn, SIGNAL(pressedState(bool)),
-            this, SLOT(slotButtonToggled(bool)));
+    connect(btn, SIGNAL(stateChanged(int)),
+            this, SLOT(slotButtonStateChanged(int)));
 
     return str;
 }

@@ -75,7 +75,7 @@ void VCButton_Test::initial()
     QCOMPARE(btn.function(), Function::invalidId());
     QCOMPARE(btn.startupIntensity(), qreal(1.0));
     QCOMPARE(btn.isStartupIntensityEnabled(), false);
-    QCOMPARE(btn.isOn(), false);
+    QCOMPARE(btn.state(), VCButton::Inactive);
     QCOMPARE(btn.action(), VCButton::Toggle);
     QCOMPARE(btn.iconPath(), QString());
     QVERIFY(btn.m_chooseIconAction != NULL);
@@ -240,19 +240,19 @@ void VCButton_Test::on()
     VCButton btn(&w, m_doc);
     btn.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(0, 1)));
 
-    QCOMPARE(btn.isOn(), false);
+    QCOMPARE(btn.state(), VCButton::Inactive);
 
-    btn.setOn(false);
-    QCOMPARE(btn.isOn(), false);
+    btn.setState(VCButton::Inactive);
+    QCOMPARE(btn.state(), VCButton::Inactive);
 
-    btn.setOn(true);
-    QCOMPARE(btn.isOn(), true);
+    btn.setState(VCButton::Active);
+    QCOMPARE(btn.state(), VCButton::Active);
 
-    btn.setOn(true);
-    QCOMPARE(btn.isOn(), true);
+    btn.setState(VCButton::Active);
+    QCOMPARE(btn.state(), VCButton::Active);
 
-    btn.setOn(false);
-    QCOMPARE(btn.isOn(), false);
+    btn.setState(VCButton::Inactive);
+    QCOMPARE(btn.state(), VCButton::Inactive);
 }
 
 void VCButton_Test::keySequence()
@@ -535,15 +535,15 @@ void VCButton_Test::toggle()
     btn.slotKeyReleased(QKeySequence(keySequenceB));
     m_doc->masterTimer()->timerTick(); // Allow MasterTimer to take the function under execution
     QCOMPARE(sc->stopped(), false);
-    QCOMPARE(btn.isOn(), true);
+    QCOMPARE(btn.state(), VCButton::Active);
 
     ev = QMouseEvent(QEvent::MouseButtonPress, QPoint(0, 0), Qt::LeftButton, 0, 0);
     btn.mousePressEvent(&ev);
     QCOMPARE(sc->m_stop, true);
-    QCOMPARE(btn.isOn(), true);
+    QCOMPARE(btn.state(), VCButton::Active);
 
     btn.slotFunctionStopped(sc->id());
-    QCOMPARE(btn.isOn(), false);
+    QCOMPARE(btn.state(), VCButton::Inactive);
     VCButton another(&w, m_doc);
     QVERIFY(btn.palette().color(QPalette::Button) != another.palette().color(QPalette::Button));
     QTest::qWait(500);
@@ -573,20 +573,20 @@ void VCButton_Test::flash()
     m_doc->setMode(Doc::Operate);
     btn.slotKeyPressed(QKeySequence(keySequenceB));
     QCOMPARE(m_doc->masterTimer()->m_functionList.size(), 0);
-    QCOMPARE(btn.isOn(), true);
+    QCOMPARE(btn.state(), VCButton::Active);
     QCOMPARE(sc->getAttributeValue(Function::Intensity), qreal(1.0));
     QCOMPARE(spy.size(), 1);
     QCOMPARE(spy[0][0].toUInt(), sc->id());
     QCOMPARE(spy[0][1].toBool(), true);
 
     btn.slotKeyReleased(QKeySequence(keySequenceB));
-    QCOMPARE(btn.isOn(), false);
+    QCOMPARE(btn.state(), VCButton::Inactive);
     QCOMPARE(spy.size(), 2);
     QCOMPARE(spy[1][0].toUInt(), sc->id());
     QCOMPARE(spy[1][1].toBool(), false);
 
     btn.slotFunctionFlashing(sc->id() + 1, true);
-    QCOMPARE(btn.isOn(), false);
+    QCOMPARE(btn.state(), VCButton::Inactive);
 
     m_doc->setMode(Doc::Design);
 }
@@ -610,33 +610,33 @@ void VCButton_Test::input()
     btn.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(0, 0)));
 
     btn.slotInputValueChanged(0, 0, 255);
-    QCOMPARE(btn.isOn(), false);
+    QCOMPARE(btn.state(), VCButton::Inactive);
 
     m_doc->setMode(Doc::Operate);
 
     btn.slotInputValueChanged(0, 0, 255);
-    QCOMPARE(btn.isOn(), true);
+    QCOMPARE(btn.state(), VCButton::Active);
 
     btn.slotInputValueChanged(0, 0, 1);
-    QCOMPARE(btn.isOn(), true);
+    QCOMPARE(btn.state(), VCButton::Active);
 
     btn.slotInputValueChanged(0, 0, 0);
-    QCOMPARE(btn.isOn(), false);
+    QCOMPARE(btn.state(), VCButton::Inactive);
 
     btn.slotInputValueChanged(0, 0, 0);
-    QCOMPARE(btn.isOn(), false);
+    QCOMPARE(btn.state(), VCButton::Inactive);
 
     btn.slotInputValueChanged(0, 0, 1);
-    QCOMPARE(btn.isOn(), true);
+    QCOMPARE(btn.state(), VCButton::Active);
 
     btn.slotInputValueChanged(0, 0, 0);
-    QCOMPARE(btn.isOn(), false);
+    QCOMPARE(btn.state(), VCButton::Inactive);
 
     btn.setAction(VCButton::Toggle);
 
     btn.slotInputValueChanged(0, 0, 255);
     m_doc->masterTimer()->timerTick();
-    QCOMPARE(btn.isOn(), true);
+    QCOMPARE(btn.state(), VCButton::Active);
     QCOMPARE(sc->getAttributeValue(Function::Intensity), btn.startupIntensity());
 
     btn.slotInputValueChanged(0, 0, 0);
@@ -678,10 +678,10 @@ void VCButton_Test::paint()
 
     QTest::qWait(1);
 
-    btn.setOn(true);
+    btn.setState(VCButton::Active);
     btn.update();
     QTest::qWait(1);
-    btn.setOn(false);
+    btn.setState(VCButton::Inactive);
     btn.update();
     QTest::qWait(1);
     btn.setIconPath("../../../resources/icons/png/qlcplus.png");
@@ -721,25 +721,25 @@ void VCButton_Test::toggleAndFlash()
     toggleBtn.slotKeyPressed(QKeySequence(keySequenceA));
     // tell MasterTimer to process start queue
     m_doc->masterTimer()->timerTick();
-    QCOMPARE(toggleBtn.isOn(), true);
-    QCOMPARE(flashBtn.isOn(), false);
+    QCOMPARE(toggleBtn.state(), VCButton::Active);
+    QCOMPARE(flashBtn.state(), VCButton::Inactive);
 
     // push flash button
     flashBtn.slotKeyPressed(QKeySequence(keySequenceB));
-    QCOMPARE(toggleBtn.isOn(), true);
-    QCOMPARE(flashBtn.isOn(), true);
+    QCOMPARE(toggleBtn.state(), VCButton::Active);
+    QCOMPARE(flashBtn.state(), VCButton::Active);
 
     // flash button released
     flashBtn.slotKeyReleased(QKeySequence(keySequenceB));
-    QCOMPARE(toggleBtn.isOn(), true);
-    QCOMPARE(flashBtn.isOn(), false);
+    QCOMPARE(toggleBtn.state(), VCButton::Active);
+    QCOMPARE(flashBtn.state(), VCButton::Inactive);
 
     // push toggle button once more
     toggleBtn.slotKeyPressed(QKeySequence(keySequenceA));
     // tell MasterTimer to process start queue
     m_doc->masterTimer()->timerTick();
-    QCOMPARE(toggleBtn.isOn(), false);
-    QCOMPARE(flashBtn.isOn(), false);
+    QCOMPARE(toggleBtn.state(), VCButton::Inactive);
+    QCOMPARE(flashBtn.state(), VCButton::Inactive);
     QCOMPARE(sc->m_stop, true);
     toggleBtn.slotFunctionStopped(sc->id());
 }

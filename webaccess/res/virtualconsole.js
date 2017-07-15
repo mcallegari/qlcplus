@@ -20,11 +20,10 @@
 /* VCButton */
 function buttonClick(id) {
  var obj = document.getElementById(id);
- if (obj.value == "0" || obj.value == undefined) {
+ if (obj.value === undefined || obj.value === "0" || obj.value === "127") {
   obj.value = "255";
   obj.style.border = "3px solid #00E600";
- }
- else {
+ } else {
   obj.value = "0";
   obj.style.border = "3px solid #A0A0A0";
  }
@@ -36,7 +35,7 @@ var cueListsIndices = new Array();
 
 function setCueIndex(id, idx) {
  var oldIdx = cueListsIndices[id];
- if (oldIdx != undefined && oldIdx != -1) {
+ if (oldIdx != undefined && oldIdx !== -1) {
    var oldCueObj = document.getElementById(id + "_" + oldIdx);
    oldCueObj.style.backgroundColor="#FFFFFF";
  }
@@ -50,7 +49,7 @@ function setCueIndex(id, idx) {
 function sendCueCmd(id, cmd) {
  if (cmd == "PLAY") {
    var obj = document.getElementById("play" + id);
-   if (cueListsIndices[id] == -1) {
+   if (cueListsIndices[id] === -1) {
      obj.innerHTML = "<img src=\"player_pause.png\" width=\"27\">";
      setCueIndex(id, 0);
    }

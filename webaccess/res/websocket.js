@@ -41,12 +41,14 @@ window.onload = function() {
   //alert(ev.data);
   var msgParams = ev.data.split("|");
   var obj = document.getElementById(msgParams[0]);
-  if (msgParams[1] == "BUTTON") {
-    if (msgParams[2] == 1) { 
+  if (msgParams[1] === "BUTTON") {
+    if (msgParams[2] === "255") {
       obj.value = "255";
       obj.style.border = "3px solid #00E600"; 
-    }
-    else { 
+    } else if (msgParams[2] === "127") {
+      obj.value = "127";
+      obj.style.border = "3px solid #FFAA00";
+    } else {
       obj.value = "0";
       obj.style.border = "3px solid #A0A0A0";
     }
