@@ -102,3 +102,24 @@ bool VCLabel::loadXML(QXmlStreamReader &root)
 
     return true;
 }
+
+bool VCLabel::saveXML(QXmlStreamWriter *doc)
+{
+    Q_ASSERT(doc != NULL);
+
+    /* VC label entry */
+    doc->writeStartElement(KXMLQLCVCLabel);
+
+    saveXMLCommon(doc);
+
+    /* Window state */
+    saveXMLWindowState(doc);
+
+    /* Appearance */
+    saveXMLAppearance(doc);
+
+    /* End the <Label> tag */
+    doc->writeEndElement();
+
+    return true;
+}

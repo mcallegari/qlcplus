@@ -121,7 +121,7 @@ public:
     virtual void removeWidgetFromPageMap(VCWidget *widget);
 
 protected:
-    void setupWidget(VCWidget *widget);
+    void setupWidget(VCWidget *widget, int page);
 
     /*********************************************************************
      * Disable state

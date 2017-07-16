@@ -1013,7 +1013,7 @@ bool VCWidget::saveXMLInputControl(QXmlStreamWriter *doc, quint8 controlId, QStr
         if (source->id() != controlId)
             continue;
 
-        if (found == false)
+        if (found == false && tagName.isEmpty() == false)
             doc->writeStartElement(tagName);
 
         found = true;
@@ -1037,7 +1037,7 @@ bool VCWidget::saveXMLInputControl(QXmlStreamWriter *doc, quint8 controlId, QStr
             continue;
         }
 
-        if (found == false)
+        if (found == false && tagName.isEmpty() == false)
             doc->writeStartElement(tagName);
 
         found = true;
