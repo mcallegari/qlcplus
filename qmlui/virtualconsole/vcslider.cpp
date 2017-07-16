@@ -1034,3 +1034,92 @@ bool VCSlider::loadXMLLegacyPlayback(QXmlStreamReader &pb_root)
 
     return true;
 }
+
+bool VCSlider::saveXML(QXmlStreamWriter *doc)
+{
+    Q_ASSERT(doc != NULL);
+
+    /* VC slider entry */
+    doc->writeStartElement(KXMLQLCVCSlider);
+
+    saveXMLCommon(doc);
+
+    /* Widget style */
+    doc->writeAttribute(KXMLQLCVCSliderWidgetStyle, widgetStyleToString(widgetStyle()));
+
+    /* Inverted appearance */
+    if (invertedAppearance() == true)
+        doc->writeAttribute(KXMLQLCVCSliderInvertedAppearance, "true");
+    else
+        doc->writeAttribute(KXMLQLCVCSliderInvertedAppearance, "false");
+
+    /* Window state */
+    saveXMLWindowState(doc);
+
+    /* Appearance */
+    saveXMLAppearance(doc);
+
+    /* Main external control */
+    saveXMLInputControl(doc, INPUT_SLIDER_CONTROL_ID, "");
+
+    /* SliderMode */
+    doc->writeStartElement(KXMLQLCVCSliderMode);
+
+    /* Value display style */
+    doc->writeAttribute(KXMLQLCVCSliderValueDisplayStyle, valueDisplayStyleToString(valueDisplayStyle()));
+
+#if 0 // TODO
+    /* Click And Go type */
+    str = ClickAndGoWidget::clickAndGoTypeToString(m_cngType);
+    doc->writeAttribute(KXMLQLCVCSliderClickAndGoType, str);
+#endif
+
+    /* Monitor channels */
+    if (sliderMode() == Level && monitorEnabled() == true)
+        doc->writeAttribute(KXMLQLCVCSliderLevelMonitor, "true");
+
+    doc->writeCharacters(sliderModeToString(m_sliderMode));
+
+    /* End the <SliderMode> tag */
+    doc->writeEndElement();
+
+    /* Override reset external control */
+    if (sliderMode() == Level && monitorEnabled() == true)
+        saveXMLInputControl(doc, INPUT_SLIDER_RESET_ID, KXMLQLCVCSliderOverrideReset);
+
+    /* Level */
+    doc->writeStartElement(KXMLQLCVCSliderLevel);
+    /* Level low limit */
+    doc->writeAttribute(KXMLQLCVCSliderLevelLowLimit, QString::number(levelLowLimit()));
+    /* Level high limit */
+    doc->writeAttribute(KXMLQLCVCSliderLevelHighLimit, QString::number(levelHighLimit()));
+    /* Level value */
+    doc->writeAttribute(KXMLQLCVCSliderLevelValue, QString::number(value()));
+
+    /* Level channels */
+    for (SceneValue scv : m_levelChannels)
+    {
+        doc->writeStartElement(KXMLQLCVCSliderChannel);
+        doc->writeAttribute(KXMLQLCVCSliderChannelFixture, QString::number(scv.fxi));
+        doc->writeCharacters(QString::number(scv.channel));
+        doc->writeEndElement();
+    }
+
+    /* End the <Level> tag */
+    doc->writeEndElement();
+
+    if (controlledFunction() != Function::invalidId())
+    {
+        /* Playback */
+        doc->writeStartElement(KXMLQLCVCSliderPlayback);
+        /* Playback function */
+        doc->writeTextElement(KXMLQLCVCSliderPlaybackFunction, QString::number(controlledFunction()));
+        /* End the <Playback> tag */
+        doc->writeEndElement();
+    }
+
+    /* End the <Slider> tag */
+    doc->writeEndElement();
+
+    return true;
+}
