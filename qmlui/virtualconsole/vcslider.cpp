@@ -79,9 +79,9 @@ void VCSlider::setID(quint32 id)
 QString VCSlider::defaultCaption()
 {
     if (widgetStyle() == WSlider)
-        return tr("Slider %1").arg(id());
+        return tr("Slider %1").arg(id() + 1);
     else
-        return tr("Knob %1").arg(id());
+        return tr("Knob %1").arg(id() + 1);
 }
 
 void VCSlider::render(QQuickView *view, QQuickItem *parent)

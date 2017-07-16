@@ -43,7 +43,7 @@ void VCLabel::setID(quint32 id)
 
 QString VCLabel::defaultCaption()
 {
-    return tr("Label %1").arg(id());
+    return tr("Label %1").arg(id() + 1);
 }
 
 void VCLabel::render(QQuickView *view, QQuickItem *parent)

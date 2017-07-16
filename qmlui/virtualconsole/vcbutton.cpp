@@ -54,7 +54,7 @@ void VCButton::setID(quint32 id)
 
 QString VCButton::defaultCaption()
 {
-    return tr("Button %1").arg(id());
+    return tr("Button %1").arg(id() + 1);
 }
 
 void VCButton::render(QQuickView *view, QQuickItem *parent)

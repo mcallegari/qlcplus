@@ -63,6 +63,9 @@ public:
     virtual ~VCFrame();
 
     /** @reimp */
+    void setID(quint32 id);
+
+    /** @reimp */
     virtual QString defaultCaption();
 
     /** @reimp */
