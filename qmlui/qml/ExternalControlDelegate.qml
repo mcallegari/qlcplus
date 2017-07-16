@@ -27,9 +27,10 @@ Column
 {
     width: parent.width
 
-    property var dObjRef
+    property var dObjRef: null
     property bool invalid: false
     property int controlID
+    property alias controlIndex: controlsCombo.currentIndex
     property int universe
     property int channel
     property string uniName
@@ -53,6 +54,7 @@ Column
         }
         CustomComboBox
         {
+            id: controlsCombo
             Layout.fillWidth: true
             Layout.columnSpan: 2
             height: UISettings.listItemHeight

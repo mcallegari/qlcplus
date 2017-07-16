@@ -27,8 +27,9 @@ Column
 {
     width: parent.width
 
-    property var dObjRef
+    property var dObjRef: null
     property int controlID
+    property alias controlIndex: controlsCombo.currentIndex
     property string sequence
     property bool invalid: false
 
@@ -46,15 +47,20 @@ Column
         }
         CustomComboBox
         {
+            id: controlsCombo
             Layout.fillWidth: true
             Layout.columnSpan: 3
             height: UISettings.listItemHeight
             model: dObjRef ? dObjRef.externalControlsList : null
-            currentValue: controlID
+            //currentValue: controlID
             onValueChanged:
             {
-                controlID = value
-                virtualConsole.updateKeySequenceControlID(dObjRef, controlID, sequence)
+                if (dObjRef && value != controlID)
+                {
+                    console.log("Key control changed " + value)
+                    controlID = value
+                    virtualConsole.updateKeySequenceControlID(dObjRef, controlID, sequence)
+                }
             }
         }
 
