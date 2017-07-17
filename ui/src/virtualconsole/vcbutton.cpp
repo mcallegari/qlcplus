@@ -736,7 +736,7 @@ void VCButton::slotFunctionRunning(quint32 fid)
     {
         if (state() == Inactive)
             setState(Monitoring);
-        //emit functionStarting(m_function);
+        emit functionStarting(m_function);
     }
 }
 
@@ -818,13 +818,16 @@ QMenu* VCButton::customMenu(QMenu* parentMenu)
 
 void VCButton::adjustIntensity(qreal val)
 {
-    Function* func = m_doc->function(m_function);
-    if (func != NULL)
+    if (state() != Monitoring)
     {
-        if (isStartupIntensityEnabled())
-            func->adjustAttribute(startupIntensity() * val, Function::Intensity);
-        else
-            func->adjustAttribute(val, Function::Intensity);
+        Function* func = m_doc->function(m_function);
+        if (func != NULL)
+        {
+            if (isStartupIntensityEnabled())
+                func->adjustAttribute(startupIntensity() * val, Function::Intensity);
+            else
+                func->adjustAttribute(val, Function::Intensity);
+        }
     }
 
     VCWidget::adjustIntensity(val);
