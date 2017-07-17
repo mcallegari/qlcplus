@@ -30,16 +30,33 @@ Popup
 
     FileDialog
     {
-        id: fileDialog
+        id: openDialog
         visible: false
         folder: "file://" + qlcplus.workingPath
 
         onAccepted:
         {
-            console.log("You chose: " + fileDialog.fileUrl)
-            qlcplus.loadWorkspace(fileDialog.fileUrl)
+            console.log("You chose: " + openDialog.fileUrl)
+            qlcplus.loadWorkspace(openDialog.fileUrl)
             console.log("Folder: " + folder.toString())
             qlcplus.workingPath = folder.toString()
+        }
+        onRejected:
+        {
+            console.log("Canceled")
+        }
+    }
+
+    FileDialog
+    {
+        id: saveDialog
+        visible: false
+        selectExisting: false
+
+        onAccepted:
+        {
+            console.log("You chose: " + saveDialog.fileUrl)
+            qlcplus.saveWorkspace(saveDialog.fileUrl)
         }
         onRejected:
         {
@@ -78,11 +95,11 @@ Popup
             entryText: qsTr("Open project")
             onClicked:
             {
-                fileDialog.title = qsTr("Open a workspace")
-                fileDialog.nameFilters = [ qsTr("Workspace files") + " (*.qxw)", qsTr("All files") + " (*)" ]
-                fileDialog.visible = true
+                openDialog.title = qsTr("Open a workspace")
+                openDialog.nameFilters = [ qsTr("Workspace files") + " (*.qxw)", qsTr("All files") + " (*)" ]
+                openDialog.visible = true
                 menuRoot.visible = false
-                fileDialog.open()
+                openDialog.open()
             }
             onEntered: recentMenu.visible = true
             //onExited: recentMenu.visible = false
@@ -122,16 +139,38 @@ Popup
             id: fileSave
             imgSource: "qrc:/filesave.svg"
             entryText: qsTr("Save project")
-            onClicked: { }
             onEntered: recentMenu.visible = false
+
+            onClicked:
+            {
+                menuRoot.visible = false
+
+                if (qlcplus.fileName())
+                    qlcplus.saveWorkspace(qlcplus.fileName())
+                else
+                {
+                    saveDialog.title = qsTr("Save workspace as")
+                    saveDialog.nameFilters = [ qsTr("Workspace files") + " (*.qxw)", qsTr("All files") + " (*)" ]
+                    saveDialog.visible = true
+                    saveDialog.open()
+                }
+            }
         }
         ContextMenuEntry
         {
             id: fileSaveAs
             imgSource: "qrc:/filesaveas.svg"
             entryText: qsTr("Save project as...")
-            onClicked: { }
             onEntered: recentMenu.visible = false
+
+            onClicked:
+            {
+                saveDialog.title = qsTr("Save workspace as")
+                saveDialog.nameFilters = [ qsTr("Workspace files") + " (*.qxw)", qsTr("All files") + " (*)" ]
+                saveDialog.visible = true
+                menuRoot.visible = false
+                saveDialog.open()
+            }
         }
 
         ContextMenuEntry

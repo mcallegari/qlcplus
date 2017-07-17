@@ -54,7 +54,7 @@ void VCButton::setID(quint32 id)
 
 QString VCButton::defaultCaption()
 {
-    return tr("Button %1").arg(id());
+    return tr("Button %1").arg(id() + 1);
 }
 
 void VCButton::render(QQuickView *view, QQuickItem *parent)
@@ -436,6 +436,10 @@ bool VCButton::loadXML(QXmlStreamReader &root)
         {
             loadXMLInputSource(root, INPUT_PRESSURE_ID);
         }
+        else if (root.name() == KXMLQLCVCWidgetKey)
+        {
+            loadXMLInputKey(root, INPUT_PRESSURE_ID);
+        }
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown button tag:" << root.name().toString();
@@ -475,22 +479,15 @@ bool VCButton::saveXML(QXmlStreamWriter *doc)
     doc->writeCharacters(actionToString(actionType()));
     doc->writeEndElement();
 
-#if 0 // TODO
-    /* Key sequence */
-    if (m_keySequence.isEmpty() == false)
-        doc->writeTextElement(KXMLQLCVCButtonKey, m_keySequence.toString());
-#endif
+    /* External control */
+    saveXMLInputControl(doc, INPUT_PRESSURE_ID, "");
+
     /* Intensity adjustment */
     doc->writeStartElement(KXMLQLCVCButtonIntensity);
     doc->writeAttribute(KXMLQLCVCButtonIntensityAdjust,
                      isStartupIntensityEnabled() ? KXMLQLCTrue : KXMLQLCFalse);
     doc->writeCharacters(QString::number(int(startupIntensity() * 100)));
     doc->writeEndElement();
-
-#if 0 // TODO
-    /* External input */
-    saveXMLInput(doc);
-#endif
 
     /* End the <Button> tag */
     doc->writeEndElement();

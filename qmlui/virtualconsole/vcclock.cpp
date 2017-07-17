@@ -82,7 +82,7 @@ void VCClock::setID(quint32 id)
 
 QString VCClock::defaultCaption()
 {
-    return tr("Clock %1").arg(id());
+    return tr("Clock %1").arg(id() + 1);
 }
 
 void VCClock::render(QQuickView *view, QQuickItem *parent)

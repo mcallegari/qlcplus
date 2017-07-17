@@ -52,6 +52,7 @@
 
 #define SETTINGS_WORKINGPATH "workspace/workingpath"
 #define SETTINGS_RECENTFILE "workspace/recent"
+#define KXMLQLCWorkspaceWindow "CurrentWindow"
 
 #define MAX_RECENT_FILES    10
 
@@ -64,6 +65,7 @@ App::App()
     , m_videoProvider(NULL)
     , m_doc(NULL)
     , m_docLoaded(false)
+    , m_fileName(QString())
 {
     QSettings settings;
 
@@ -215,7 +217,6 @@ void App::clearDocument()
     setFileName(QString());
     m_doc->resetModified();
     m_doc->masterTimer()->start();
-
 }
 
 Doc *App::doc()
@@ -223,9 +224,9 @@ Doc *App::doc()
     return m_doc;
 }
 
-void App::slotDocModified(bool state)
+bool App::docModified() const
 {
-    Q_UNUSED(state)
+    return m_doc->isModified();
 }
 
 void App::initDoc()
@@ -233,7 +234,7 @@ void App::initDoc()
     Q_ASSERT(m_doc == NULL);
     m_doc = new Doc(this);
 
-    connect(m_doc, SIGNAL(modified(bool)), this, SLOT(slotDocModified(bool)));
+    connect(m_doc, SIGNAL(modified(bool)), this, SIGNAL(docModifiedChanged()));
 
     /* Load user fixtures first so that they override system fixtures */
     m_doc->fixtureDefCache()->load(QLCFixtureDefCache::userDefinitionDirectory());
@@ -449,6 +450,25 @@ bool App::loadWorkspace(const QString &fileName)
     return false;
 }
 
+bool App::saveWorkspace(const QString &fileName)
+{
+    QString localFilename = fileName;
+    if (localFilename.startsWith("file:"))
+        localFilename = QUrl(fileName).toLocalFile();
+
+    /* Always use the workspace suffix */
+    if (localFilename.right(4) != KExtWorkspace)
+        localFilename += KExtWorkspace;
+
+    if (saveXML(localFilename) == QFile::NoError)
+    {
+        setTitle(QString("%1 - %2").arg(APPNAME).arg(localFilename));
+        return true;
+    }
+
+    return false;
+}
+
 QFileDevice::FileError App::loadXML(const QString &fileName)
 {
     QFile::FileError retval = QFile::NoError;
@@ -569,6 +589,71 @@ bool App::loadXML(QXmlStreamReader &doc, bool goToConsole, bool fromMemory)
     }
 
     return true;
+}
+
+QFile::FileError App::saveXML(const QString& fileName)
+{
+    QString tempFileName(fileName);
+    tempFileName += ".temp";
+    QFile file(tempFileName);
+    if (file.open(QIODevice::WriteOnly) == false)
+        return file.error();
+
+    QXmlStreamWriter doc(&file);
+    doc.setAutoFormatting(true);
+    doc.setAutoFormattingIndent(1);
+    doc.setCodec("UTF-8");
+
+    doc.writeStartDocument();
+    doc.writeDTD(QString("<!DOCTYPE %1>").arg(KXMLQLCWorkspace));
+
+    doc.writeStartElement(KXMLQLCWorkspace);
+    doc.writeAttribute("xmlns", QString("%1%2").arg(KXMLQLCplusNamespace).arg(KXMLQLCWorkspace));
+    /* Currently active window */
+    //QWidget* widget = m_tab->currentWidget();
+    //if (widget != NULL)
+    //    doc.writeAttribute(KXMLQLCWorkspaceWindow, QString(widget->metaObject()->className()));
+
+    doc.writeStartElement(KXMLQLCCreator);
+    doc.writeTextElement(KXMLQLCCreatorName, APPNAME);
+    doc.writeTextElement(KXMLQLCCreatorVersion, APPVERSION);
+    doc.writeTextElement(KXMLQLCCreatorAuthor, QLCFile::currentUserName());
+    doc.writeEndElement(); // close KXMLQLCCreator
+
+    /* Write engine components to the XML document */
+    m_doc->saveXML(&doc);
+
+    /* Write virtual console to the XML document */
+    m_virtualConsole->saveXML(&doc);
+
+    /* Write Simple Desk to the XML document */
+    //SimpleDesk::instance()->saveXML(&doc);
+
+    doc.writeEndElement(); // close KXMLQLCWorkspace
+
+    /* End the document and close all the open elements */
+    doc.writeEndDocument();
+    file.close();
+
+    // Save to actual requested file name
+    QFile currFile(fileName);
+    if (currFile.exists() && !currFile.remove())
+    {
+        qWarning() << "Could not erase" << fileName;
+        return currFile.error();
+    }
+    if (!file.rename(fileName))
+    {
+        qWarning() << "Could not rename" << tempFileName << "to" << fileName;
+        return file.error();
+    }
+
+    /* Set the file name for the current Doc instance and
+       set it also in an unmodified state. */
+    setFileName(fileName);
+    m_doc->resetModified();
+
+    return QFile::NoError;
 }
 
 

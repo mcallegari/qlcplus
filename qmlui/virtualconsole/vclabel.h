@@ -50,8 +50,11 @@ public:
      *********************************************************************/
 
 public:
+    /** @reimp */
     bool loadXML(QXmlStreamReader &root);
-    //bool saveXML(QXmlStreamWriter *doc);
+
+    /** @reimp */
+    bool saveXML(QXmlStreamWriter *doc);
 };
 
 #endif

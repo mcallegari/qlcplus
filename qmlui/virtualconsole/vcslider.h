@@ -347,11 +347,13 @@ public slots:
      * Load & Save
      *********************************************************************/
 public:
+    /** @reimp */
     bool loadXML(QXmlStreamReader &root);
     bool loadXMLLevel(QXmlStreamReader &level_root);
     bool loadXMLLegacyPlayback(QXmlStreamReader &pb_root);
 
-    //bool saveXML(QXmlStreamWriter *doc);
+    /** @reimp */
+    bool saveXML(QXmlStreamWriter *doc);
 };
 
 #endif

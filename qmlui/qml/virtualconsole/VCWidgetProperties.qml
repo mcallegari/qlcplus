@@ -176,7 +176,10 @@ Rectangle
 
                             onTextChanged:
                             {
-                                if(wObj && selectedWidgetsCount < 2)
+                                if (!wObj)
+                                    return
+
+                                if (selectedWidgetsCount < 2)
                                     wObj.caption = text
                                 else
                                     virtualConsole.setWidgetsCaption(text)

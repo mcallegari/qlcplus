@@ -754,7 +754,7 @@ void VirtualConsole::updateKeySequenceControlID(VCWidget *widget, quint32 id, QS
     if (widget == NULL)
         return;
 
-    qDebug() << "Setting control ID" << id << "to widget" << widget->caption();
+    qDebug() << "Setting control ID" << id << "to widget" << widget->caption() << "sequence" << keyText;
 
     QKeySequence seq(keyText);
 
@@ -819,7 +819,8 @@ void VirtualConsole::handleKeyEvent(QKeyEvent *e, bool pressed)
     {
         Q_ASSERT(m_autoDetectionWidget != NULL);
 
-        if (pressed == false)
+        /** consider only the key release */
+        if (pressed == true)
             return;
 
         QKeySequence seq(e->key() | e->modifiers());
@@ -830,10 +831,7 @@ void VirtualConsole::handleKeyEvent(QKeyEvent *e, bool pressed)
             page->mapKeySequence(seq, m_autoDetectionKeyId, m_autoDetectionWidget, true);
 
         /** At last, disable the autodetection process */
-        m_inputDetectionEnabled = false;
-        m_autoDetectionWidget = NULL;
-        m_autoDetectionKey = QKeySequence();
-        m_autoDetectionKeyId = UINT_MAX;
+        disableAutoDetection();
     }
 }
 
@@ -860,9 +858,7 @@ void VirtualConsole::slotInputValueChanged(quint32 universe, quint32 channel, uc
             page->mapInputSource(m_autoDetectionSource, m_autoDetectionWidget, true);
 
         /** At last, disable the autodetection process */
-        m_inputDetectionEnabled = false;
-        m_autoDetectionWidget = NULL;
-        m_autoDetectionSource.clear();
+        disableAutoDetection();
     }
 }
 

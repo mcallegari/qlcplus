@@ -50,7 +50,9 @@ class VCFrame : public VCWidget
     Q_PROPERTY(bool showEnable READ showEnable WRITE setShowEnable NOTIFY showEnableChanged)
     Q_PROPERTY(bool isCollapsed READ isCollapsed WRITE setCollapsed NOTIFY collapsedChanged)
     Q_PROPERTY(bool multiPageMode READ multiPageMode WRITE setMultiPageMode NOTIFY multiPageModeChanged)
+    Q_PROPERTY(bool pagesLoop READ pagesLoop WRITE setPagesLoop NOTIFY pagesLoopChanged)
     Q_PROPERTY(int currentPage READ currentPage NOTIFY currentPageChanged)
+    Q_PROPERTY(int totalPagesNumber READ totalPagesNumber WRITE setTotalPagesNumber NOTIFY totalPagesNumberChanged)
 
     /*********************************************************************
      * Initialization
@@ -59,6 +61,9 @@ class VCFrame : public VCWidget
 public:
     VCFrame(Doc* doc = NULL, VirtualConsole *vc = NULL, QObject *parent = 0);
     virtual ~VCFrame();
+
+    /** @reimp */
+    void setID(quint32 id);
 
     /** @reimp */
     virtual QString defaultCaption();
@@ -116,7 +121,7 @@ public:
     virtual void removeWidgetFromPageMap(VCWidget *widget);
 
 protected:
-    void setupWidget(VCWidget *widget);
+    void setupWidget(VCWidget *widget, int page);
 
     /*********************************************************************
      * Disable state
@@ -192,7 +197,9 @@ public:
 
 signals:
     void multiPageModeChanged(bool multiPageMode);
+    void pagesLoopChanged(bool loop);
     void currentPageChanged(int page);
+    void totalPagesNumberChanged(int num);
 
 protected:
     /** Flag to enable/disable multiple pages on this frame */
