@@ -1033,7 +1033,7 @@ bool VCWidget::saveXMLInputControl(QXmlStreamWriter *doc, quint8 controlId, QStr
     {
         if (i.value() != controlId)
         {
-            i++;
+            ++i;
             continue;
         }
 
@@ -1044,7 +1044,7 @@ bool VCWidget::saveXMLInputControl(QXmlStreamWriter *doc, quint8 controlId, QStr
 
         doc->writeTextElement(KXMLQLCVCWidgetKey, i.key().toString());
 
-        i++;
+        ++i;
     }
 
 
