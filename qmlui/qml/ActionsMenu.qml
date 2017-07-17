@@ -32,7 +32,9 @@ Popup
     {
         id: openDialog
         visible: false
+        title: qsTr("Open a workspace")
         folder: "file://" + qlcplus.workingPath
+        nameFilters: [ qsTr("Workspace files") + " (*.qxw)", qsTr("All files") + " (*)" ]
 
         onAccepted:
         {
@@ -51,7 +53,9 @@ Popup
     {
         id: saveDialog
         visible: false
+        title: qsTr("Save workspace as")
         selectExisting: false
+        nameFilters: [ qsTr("Workspace files") + " (*.qxw)", qsTr("All files") + " (*)" ]
 
         onAccepted:
         {
@@ -61,6 +65,41 @@ Popup
         onRejected:
         {
             console.log("Canceled")
+        }
+    }
+
+    CustomPopupDialog
+    {
+        id: saveFirstPopup
+        title: qsTr("Your project has changes")
+        message: qsTr("Do you wish to save the current workspace first ?\nChanges will be lost if you don't save them.")
+        standardButtons: Dialog.Yes | Dialog.No | Dialog.Cancel
+
+        property bool openAction: false
+
+        onClicked:
+        {
+            if (role === Dialog.Yes)
+            {
+                if (qlcplus.fileName())
+                    qlcplus.saveWorkspace(qlcplus.fileName())
+                else
+                {
+                    //saveDialog.visible = true
+                    saveDialog.open()
+                }
+            }
+            else if (role === Dialog.No)
+            {
+                if (openAction)
+                    openDialog.open()
+                else
+                    qlcplus.newWorkspace()
+            }
+            else if (role === Dialog.Cancel)
+            {
+                console.log("Cancel clicked")
+            }
         }
     }
 
@@ -83,8 +122,15 @@ Popup
             entryText: qsTr("New project")
             onClicked:
             {
-                qlcplus.newWorkspace()
                 menuRoot.visible = false
+
+                if (qlcplus.docModified)
+                {
+                    saveFirstPopup.openAction = false
+                    saveFirstPopup.open()
+                }
+                else
+                    qlcplus.newWorkspace()
             }
             onEntered: recentMenu.visible = false
         }
@@ -95,11 +141,15 @@ Popup
             entryText: qsTr("Open project")
             onClicked:
             {
-                openDialog.title = qsTr("Open a workspace")
-                openDialog.nameFilters = [ qsTr("Workspace files") + " (*.qxw)", qsTr("All files") + " (*)" ]
-                openDialog.visible = true
                 menuRoot.visible = false
-                openDialog.open()
+
+                if (qlcplus.docModified)
+                {
+                    saveFirstPopup.openAction = true
+                    saveFirstPopup.open()
+                }
+                else
+                    openDialog.open()
             }
             onEntered: recentMenu.visible = true
             //onExited: recentMenu.visible = false
@@ -148,12 +198,7 @@ Popup
                 if (qlcplus.fileName())
                     qlcplus.saveWorkspace(qlcplus.fileName())
                 else
-                {
-                    saveDialog.title = qsTr("Save workspace as")
-                    saveDialog.nameFilters = [ qsTr("Workspace files") + " (*.qxw)", qsTr("All files") + " (*)" ]
-                    saveDialog.visible = true
                     saveDialog.open()
-                }
             }
         }
         ContextMenuEntry
@@ -165,9 +210,6 @@ Popup
 
             onClicked:
             {
-                saveDialog.title = qsTr("Save workspace as")
-                saveDialog.nameFilters = [ qsTr("Workspace files") + " (*.qxw)", qsTr("All files") + " (*)" ]
-                saveDialog.visible = true
                 menuRoot.visible = false
                 saveDialog.open()
             }
