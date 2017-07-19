@@ -274,7 +274,7 @@ bool AudioDecoderMAD::findHeader()
         result = true;
         count++;
 
-        qDebug() << "Detecting header" << count << m_stream.error << m_stream.sync << header.bitrate << header.layer;
+        //qDebug() << "Detecting header" << count << m_stream.error << m_stream.sync << header.bitrate << header.layer;
 
         // try to detect xing header
         if (count == 1)
