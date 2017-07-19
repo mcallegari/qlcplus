@@ -1,5 +1,6 @@
 qlcplus (4.11.1) stable; urgency=low
 
+  * engine: fixed audio files detection by prioritizing sndfile over mad
   * UI/RGB Panel: added RBG pixel type (thanks to Peter Marks)
   * UI/Input Output Manager: added a button to enable/disable USB hotplugging (disabled by default)
   * UI/Function Live Edit: restore basic live editing of Sequences

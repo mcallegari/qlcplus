@@ -57,22 +57,25 @@ public:
     /** @reimpl */
     AudioDecoder *createCopy();
 
-    /** @reimpl */
+    /** @reimp */
+    int priority() const;
+
+    /** @reimp */
     bool initialize(const QString &path);
 
-    /** @reimpl */
+    /** @reimp */
     qint64 totalTime();
 
-    /** @reimpl */
+    /** @reimp */
     int bitrate();
 
-    /** @reimpl */
+    /** @reimp */
     qint64 read(char *data, qint64 size);
 
-    /** @reimpl */
+    /** @reimp */
     void seek(qint64);
 
-    /** @reimpl */
+    /** @reimp */
     QStringList supportedFormats();
 
 private:
