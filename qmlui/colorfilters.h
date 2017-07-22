@@ -30,7 +30,7 @@
 typedef struct
 {
     QString m_name; // the filter's name
-    QColor m_rgb;   // RGB / CMYC color
+    QColor m_rgb;   // RGB / CMY color
     QColor m_wauv;  // White / Amber / UV values
 } ColorInfo;
 
@@ -59,6 +59,7 @@ public:
     bool isUser() const;
     void setIsUser(bool user);
 
+    /** Get the list of filters loaded from XML suitable for QML */
     QVariantList filtersList();
 
 signals:
@@ -67,16 +68,22 @@ signals:
     /********************************************************************
      * Editing
      ********************************************************************/
+public:
 
+    /** Add a new color filter with the given $name */
     Q_INVOKABLE void addFilter(QString name, QColor rgb, QColor wauv);
 
+    /** Remove an existing filter at $index position */
     Q_INVOKABLE void removeFilterAt(int index);
+
+    /** Rename an existing filter at $index position with $newName */
+    Q_INVOKABLE void renameFilterAt(int index, QString newName);
 
 protected:
     QString m_name;
     QString m_path;
     bool m_isUser;
-    QList<ColorInfo> m_colors;
+    QList<ColorInfo> m_filterList;
 
     /********************************************************************
      * Load & Save

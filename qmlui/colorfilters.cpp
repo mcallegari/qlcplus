@@ -66,7 +66,7 @@ QVariantList ColorFilters::filtersList()
 {
     QVariantList list;
 
-    for (ColorInfo cInfo : m_colors)
+    for (ColorInfo cInfo : m_filterList)
     {
         QVariantMap fMap;
         fMap.insert("name", cInfo.m_name);
@@ -76,6 +76,39 @@ QVariantList ColorFilters::filtersList()
     }
 
     return list;
+}
+
+void ColorFilters::addFilter(QString name, QColor rgb, QColor wauv)
+{
+    ColorInfo cInfo;
+
+    if (name.isEmpty())
+        return;
+
+    cInfo.m_name = name;
+    cInfo.m_rgb = rgb;
+    cInfo.m_wauv = wauv;
+
+    m_filterList.append(cInfo);
+    emit filtersListChanged();
+}
+
+void ColorFilters::removeFilterAt(int index)
+{
+    if (index < 0 || index >= m_filterList.count())
+        return;
+
+    m_filterList.removeAt(index);
+    emit filtersListChanged();
+}
+
+void ColorFilters::renameFilterAt(int index, QString newName)
+{
+    if (index < 0 || index >= m_filterList.count())
+        return;
+
+    m_filterList[index].m_name = newName;
+    emit filtersListChanged();
 }
 
 /********************************************************************
@@ -100,7 +133,7 @@ QFileDevice::FileError ColorFilters::saveXML(const QString &fileName)
 
     doc.writeTextElement(KXMLColorFiltersName, m_name);
 
-    for (ColorInfo cInfo : m_colors)
+    for (ColorInfo cInfo : m_filterList)
     {
         doc.writeStartElement(KXMLColorFiltersColor);
         doc.writeAttribute(KXMLColorFiltersName, cInfo.m_name);
@@ -169,7 +202,7 @@ QFileDevice::FileError ColorFilters::loadXML(const QString &fileName)
                         cInfo.m_wauv = QColor(attrs.value(KXMLColorFiltersWAUV).toString());
 
                     if (cInfo.m_name.isEmpty() == false && (cInfo.m_rgb.isValid() || cInfo.m_wauv.isValid()))
-                        m_colors.append(cInfo);
+                        m_filterList.append(cInfo);
 
                     doc->skipCurrentElement();
                     count++;
