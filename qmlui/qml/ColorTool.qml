@@ -126,6 +126,7 @@ Rectangle
 
         onLoaded:
         {
+            item.width = width
             item.colorsMask = Qt.binding(function() { return colorToolBox.colorsMask })
             item.selectedColor = colorToolBox.selectedColor
         }
@@ -137,13 +138,5 @@ Rectangle
              onColorChanged: colorToolBox.colorChanged(r, g, b, w, a, uv)
              onReleased: if (closeOnSelect) colorToolBox.visible = false
         }
-        /*
-        Connections
-        {
-             target: toolLoader.item
-             ignoreUnknownSignals: true
-             onReleased: if (closeOnSelect) colorToolBox.visible = false
-        }
-        */
     }
 }

@@ -25,6 +25,7 @@
 #include <QMultiHash>
 #include <QObject>
 #include <QList>
+#include <QDir>
 
 #include "scenevalue.h"
 #include "treemodel.h"
@@ -32,6 +33,7 @@
 class Doc;
 class Fixture;
 class FixtureGroup;
+class ColorFilters;
 
 class FixtureManager : public QObject
 {
@@ -49,6 +51,10 @@ class FixtureManager : public QObject
     Q_PROPERTY(QVariantList colorWheelChannels READ colorWheelChannels NOTIFY colorWheelChannelsChanged)
     Q_PROPERTY(QVariantList shutterChannels READ shutterChannels NOTIFY shutterChannelsChanged)
     Q_PROPERTY(int colorsMask READ colorsMask NOTIFY colorsMaskChanged)
+
+    Q_PROPERTY(QStringList colorFiltersList READ colorFiltersList NOTIFY colorFiltersListChanged)
+    Q_PROPERTY(int colorFilterIndex READ colorFilterIndex WRITE setColorFilterIndex NOTIFY colorFilterIndexChanged)
+    Q_PROPERTY(ColorFilters *selectedFilters READ selectedFilters NOTIFY selectedFiltersChanged)
 
 public:
     FixtureManager(QQuickView *view, Doc *doc, QObject *parent = 0);
@@ -196,6 +202,44 @@ private:
     QVariantList m_fixtureNamesMap;
     /** An array-like map of the current fixtures, filtered by m_universeFilter */
     QVariantList m_fixturesMap;
+
+    /*********************************************************************
+     * Color filters
+     *********************************************************************/
+public:
+
+    /** Returns a list of the currently installed color filters XMLs */
+    QStringList colorFiltersList();
+
+    /** Get/Set the currently selected color filter index */
+    int colorFilterIndex() const;
+    void setColorFilterIndex(int colorFilterIndex);
+
+    /** Return a refererence to the currently selected color filters */
+    ColorFilters *selectedFilters();
+
+protected:
+    /** Returns a QDir for the system color filters location */
+    QDir systemColorFiltersDirectory();
+
+    /** Returns a QDir for the user color filters location */
+    QDir userColorFiltersDirectory();
+
+    /** Scan the given $dir for color filters file and loads them.
+     *  $user is used to mark a filter as user or system type */
+    bool loadColorFilters(const QDir& dir, bool user = false);
+
+    /** Empty the color filters list and destroy them */
+    void resetColorFilters();
+
+signals:
+    void colorFiltersListChanged();
+    void colorFilterIndexChanged(int colorFilterIndex);
+    void selectedFiltersChanged();
+
+private:
+    QList<ColorFilters *> m_colorFilters;
+    int m_colorFilterIndex;
 
     /*********************************************************************
      * Channel capabilities

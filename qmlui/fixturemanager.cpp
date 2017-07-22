@@ -28,6 +28,9 @@
 #include "qlcfixturemode.h"
 #include "qlccapability.h"
 #include "qlcfixturedef.h"
+#include "colorfilters.h"
+#include "qlcconfig.h"
+#include "qlcfile.h"
 #include "fixture.h"
 #include "doc.h"
 #include "app.h"
@@ -39,6 +42,7 @@ FixtureManager::FixtureManager(QQuickView *view, Doc *doc, QObject *parent)
     , m_fixtureTree(NULL)
     , m_universeFilter(Universe::invalid())
     , m_searchFilter(QString())
+    , m_colorFilterIndex(0)
     , m_maxPanDegrees(0)
     , m_maxTiltDegrees(0)
     , m_colorsMask(0)
@@ -46,7 +50,8 @@ FixtureManager::FixtureManager(QQuickView *view, Doc *doc, QObject *parent)
     Q_ASSERT(m_doc != NULL);
 
     qmlRegisterUncreatableType<FixtureManager>("org.qlcplus.classes", 1, 0,  "FixtureManager", "Can't create a FixtureManager !");
-    qmlRegisterType<QLCCapability>("org.qlcplus.classes", 1, 0, "QLCCapability");
+    qmlRegisterUncreatableType<QLCCapability>("org.qlcplus.classes", 1, 0, "QLCCapability", "Can't create a QLCCapability !");
+    qmlRegisterUncreatableType<ColorFilters>("org.qlcplus.classes", 1, 0, "ColorFilters", "Can't create a ColorFilters !");
 
     connect(m_doc, SIGNAL(loaded()), this, SLOT(slotDocLoaded()));
 }
@@ -728,6 +733,108 @@ QVariantList FixtureManager::fixturesMap()
 
     }
     return m_fixturesMap;
+}
+
+/*********************************************************************
+ * Color filters
+ *********************************************************************/
+
+QDir FixtureManager::systemColorFiltersDirectory()
+{
+    return QLCFile::systemDirectory(QString(COLORFILTERSDIR), QString(KExtColorFilters));
+}
+
+QDir FixtureManager::userColorFiltersDirectory()
+{
+    return QLCFile::userDirectory(QString(USERCOLORFILTERSDIR), QString(COLORFILTERSDIR),
+                                  QStringList() << QString("*%1").arg(KExtColorFilters));
+}
+
+bool FixtureManager::loadColorFilters(const QDir &dir, bool user)
+{
+    qDebug() << Q_FUNC_INFO << dir.path();
+
+    if (dir.exists() == false || dir.isReadable() == false)
+        return false;
+
+    /* Attempt to read all specified files from the given directory */
+    QStringListIterator it(dir.entryList());
+    while (it.hasNext() == true)
+    {
+        QString path(dir.absoluteFilePath(it.next()));
+
+        if (path.toLower().endsWith(KExtColorFilters) == true)
+        {
+            ColorFilters* colFilter = new ColorFilters();
+            Q_ASSERT(colFilter != NULL);
+
+            QFile::FileError error = colFilter->loadXML(path);
+            if (error == QFile::NoError)
+            {
+                colFilter->setIsUser(user);
+                m_colorFilters.append(colFilter);
+            }
+            else
+            {
+                qWarning() << Q_FUNC_INFO << "Color filters loading from"
+                           << path << "failed:" << QLCFile::errorString(error);
+                delete colFilter;
+                colFilter = NULL;
+            }
+        }
+        else
+            qWarning() << Q_FUNC_INFO << "Unrecognized color filters extension:" << path;
+    }
+
+    return true;
+}
+
+void FixtureManager::resetColorFilters()
+{
+    while(!m_colorFilters.isEmpty())
+    {
+        ColorFilters *cf = m_colorFilters.takeLast();
+        delete cf;
+    }
+}
+
+QStringList FixtureManager::colorFiltersList()
+{
+    QStringList list;
+
+    if (m_colorFilters.isEmpty())
+    {
+        loadColorFilters(systemColorFiltersDirectory(), false);
+        loadColorFilters(userColorFiltersDirectory(), true);
+    }
+
+    for (ColorFilters *filters : m_colorFilters)
+        list.append(filters->name());
+
+    return list;
+}
+
+int FixtureManager::colorFilterIndex() const
+{
+    return m_colorFilterIndex;
+}
+
+void FixtureManager::setColorFilterIndex(int colorFilterIndex)
+{
+    if (m_colorFilterIndex == colorFilterIndex)
+        return;
+
+    m_colorFilterIndex = colorFilterIndex;
+    emit colorFilterIndexChanged(m_colorFilterIndex);
+    emit selectedFiltersChanged();
+}
+
+ColorFilters *FixtureManager::selectedFilters()
+{
+    if (m_colorFilterIndex < 0 || m_colorFilterIndex >= m_colorFilters.count())
+        return NULL;
+
+    return m_colorFilters.at(m_colorFilterIndex);
 }
 
 /*********************************************************************

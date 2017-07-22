@@ -24,13 +24,12 @@ LIBS            += -lqlcplusengine
 #win32:QMAKE_LFLAGS += -shared
 win32:RC_FILE = qmlui.rc
 
-DEFINES += MESHESDIR=\\\"$$INSTALLROOT/$$DATADIR/meshes\\\"
-
 HEADERS += \
     app.h \
     audioeditor.h \
     chasereditor.h \
     collectioneditor.h \
+    colorfilters.h \
     contextmanager.h \
     efxeditor.h \
     fixturebrowser.h \
@@ -58,6 +57,7 @@ SOURCES += main.cpp \
     audioeditor.cpp \
     chasereditor.cpp \
     collectioneditor.cpp \
+    colorfilters.cpp \
     contextmanager.cpp \
     efxeditor.cpp \
     fixturebrowser.cpp \
