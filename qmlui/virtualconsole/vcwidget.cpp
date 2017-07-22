@@ -1028,7 +1028,7 @@ bool VCWidget::saveXMLInputControl(QXmlStreamWriter *doc, quint8 controlId, QStr
         doc->writeEndElement();
     }
 
-    QMap<QKeySequence, quint32>::const_iterator i = m_keySequenceMap.constBegin();
+    auto i = m_keySequenceMap.constBegin();
     while (i != m_keySequenceMap.constEnd())
     {
         if (i.value() != controlId)
