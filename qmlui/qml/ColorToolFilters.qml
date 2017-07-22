@@ -128,6 +128,7 @@ Rectangle
 
                     Rectangle
                     {
+                        id: colorDisp
                         y: 1
                         width: UISettings.bigItemHeight
                         height: parent.height - 2
@@ -144,8 +145,10 @@ Rectangle
                         anchors.fill: parent
                         onClicked:
                         {
-                            selectedColor = modelData.rgb
-                            rootBox.colorChanged(selectedColor.r, selectedColor.g, selectedColor.b, 0, 0, 0)
+                            rootBox.colorChanged(colorDisp.color.r, colorDisp.color.g, colorDisp.color.b, 0, 0, 0)
+                            rSpin.value = colorDisp.color.r * 255
+                            gSpin.value = colorDisp.color.g * 255
+                            bSpin.value = colorDisp.color.b * 255
                             filtersList.currentIndex = index
                         }
                     }
@@ -279,18 +282,18 @@ Rectangle
             }
 
             // row 4
+            RobotoText
+            {
+                height: UISettings.listItemHeight
+                label: qsTr("CMY")
+            }
+
             CustomCheckBox
             {
                 id: cmyCheck
                 implicitHeight: UISettings.listItemHeight
                 implicitWidth: implicitHeight
                 autoExclusive: false
-            }
-
-            RobotoText
-            {
-                height: UISettings.listItemHeight
-                label: qsTr("CMY")
             }
 
             RobotoText

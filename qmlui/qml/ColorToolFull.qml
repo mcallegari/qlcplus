@@ -131,7 +131,6 @@ Rectangle
                 rSpin.value = r
                 gSpin.value = g
                 bSpin.value = b
-                setHTMLColor(r, g, b)
 
                 selectedColor = Qt.rgba(r / 256, g / 256, b / 256, 1.0)
             }
@@ -142,7 +141,7 @@ Rectangle
         }
     }
 
-    GridLayout
+    Grid
     {
         id: tColumn
         x: colorBox.x + (colorBox.width * colorBox.scale) + 5
