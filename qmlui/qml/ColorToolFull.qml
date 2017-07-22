@@ -22,6 +22,7 @@ import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.1
 
 import org.qlcplus.classes 1.0
+import "GenericHelpers.js" as Helpers
 import "."
 
 Rectangle
@@ -55,12 +56,6 @@ Rectangle
         colorChanged(selectedColor.r, selectedColor.g, selectedColor.b, whiteValue, amberValue, uvValue)
     }
 
-    function setHTMLColor(r, g, b)
-    {
-        htmlText.inputText = "#" + ("0" + r.toString(16)).slice(-2) +
-                ("0" + g.toString(16)).slice(-2) + ("0" + b.toString(16)).slice(-2)
-    }
-
     Canvas
     {
         id: colorBox
@@ -74,20 +69,12 @@ Rectangle
         scale: (rootBox.width / 1.75) / 256
         contextType: "2d"
 
-        function getHTMLColor(r, g, b)
-        {
-            var color = r << 16 | g << 8 | b;
-            var colStr = color.toString(16);
-            return "#" + "000000".substr(0, 6 - colStr.length) + colStr;
-            //return "#" + r.toString(16) + g.toString(16) + b.toString(16);
-        }
-
         function fillWithGradient(r, g, b, xPos)
         {
             context.beginPath();
             var grad = context.createLinearGradient(xPos, 0, xPos, 255);
             grad.addColorStop(0, 'black');
-            grad.addColorStop(0.5, getHTMLColor(r,g,b));
+            grad.addColorStop(0.5, Helpers.getHTMLColor(r,g,b));
             grad.addColorStop(1, 'white');
             context.strokeStyle = grad;
             context.moveTo(xPos, 0);
@@ -155,7 +142,7 @@ Rectangle
         }
     }
 
-    Grid
+    GridLayout
     {
         id: tColumn
         x: colorBox.x + (colorBox.width * colorBox.scale) + 5
@@ -179,7 +166,7 @@ Rectangle
             onValueChanged:
             {
                 selectedColor = Qt.rgba(rSpin.value / 256, gSpin.value / 256, bSpin.value / 256, 1.0)
-                setHTMLColor(rSpin.value, gSpin.value, bSpin.value)
+                htmlText.inputText = Helpers.getHTMLColor(rSpin.value, gSpin.value, bSpin.value)
             }
         }
 
@@ -199,7 +186,7 @@ Rectangle
             onValueChanged:
             {
                 selectedColor = Qt.rgba(rSpin.value / 256, gSpin.value / 256, bSpin.value / 256, 1.0)
-                setHTMLColor(rSpin.value, gSpin.value, bSpin.value)
+                htmlText.inputText = Helpers.getHTMLColor(rSpin.value, gSpin.value, bSpin.value)
             }
         }
 
@@ -219,7 +206,7 @@ Rectangle
             onValueChanged:
             {
                 selectedColor = Qt.rgba(rSpin.value / 256, gSpin.value / 256, bSpin.value / 256, 1.0)
-                setHTMLColor(rSpin.value, gSpin.value, bSpin.value)
+                htmlText.inputText = Helpers.getHTMLColor(rSpin.value, gSpin.value, bSpin.value)
             }
         }
 

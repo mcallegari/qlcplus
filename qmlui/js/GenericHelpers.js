@@ -32,3 +32,10 @@ function pluginIconFromName(name)
         default: return "";
     }
 }
+
+function getHTMLColor(r, g, b)
+{
+    var color = r << 16 | g << 8 | b;
+    var colStr = color.toString(16);
+    return "#" + "000000".substr(0, 6 - colStr.length) + colStr;
+}
