@@ -23,8 +23,8 @@ import "."
 Rectangle
 {
     id: customTextEditRect
-    implicitWidth: 200
-    implicitHeight: UISettings.listItemHeight
+    width: 200
+    height: UISettings.listItemHeight
     clip: true
     radius: 3
     color: UISettings.bgMedium
