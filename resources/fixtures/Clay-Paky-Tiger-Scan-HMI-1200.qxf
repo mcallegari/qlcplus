@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.11.1 GIT</Version>
+  <Author>Daris Tomasoni</Author>
+ </Creator>
+ <Manufacturer>Clay Paky</Manufacturer>
+ <Model>Tiger Scan HMI 1200</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Gobo Rotation">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="127">Rotation [0-540°]</Capability>
+  <Capability Min="128" Max="190">Left Gobo Rotation [Fast-Slow]</Capability>
+  <Capability Min="191" Max="192">Stop</Capability>
+  <Capability Min="193" Max="255">Right Gobo Rotation [Slow-Fast]</Capability>
+ </Channel>
+ <Channel Name="Color Wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15" Color="#ffffff">White</Capability>
+  <Capability Min="16" Max="31" Color="#ff0000">Red</Capability>
+  <Capability Min="32" Max="47" Color="#ffff00">Yellow</Capability>
+  <Capability Min="48" Max="63" Color="#aa55ff">Violet</Capability>
+  <Capability Min="64" Max="76" Color="#00ff00">Green</Capability>
+  <Capability Min="77" Max="95" Color="#ffaa00">Orange</Capability>
+  <Capability Min="96" Max="111" Color="#0000ff">Blue</Capability>
+  <Capability Min="112" Max="127" Color="#ff7fff">Pink</Capability>
+  <Capability Min="128" Max="255">Rainbow Rotation [0-300 rpm]</Capability>
+ </Channel>
+ <Channel Name="Gobo Selection">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="51" Res="Others/open.png">Open</Capability>
+  <Capability Min="52" Max="102" Res="ClayPaky/gobo00096.png">Gobo 1</Capability>
+  <Capability Min="103" Max="153" Res="ClayPaky/gobo00054.png">Gobo 2</Capability>
+  <Capability Min="154" Max="204" Res="ClayPaky/gobo00097.png">Gobo 3</Capability>
+  <Capability Min="205" Max="255" Res="ClayPaky/gobo00022.png">Gobo 4</Capability>
+ </Channel>
+ <Channel Name="Dimmer / Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="127">Dimmer[min-max]</Capability>
+  <Capability Min="128" Max="255">Strobe [1-7 flashes/sec]</Capability>
+ </Channel>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan Movement</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt Movement</Capability>
+ </Channel>
+ <Mode Name="6 Channel">
+  <Physical>
+   <Bulb Type="HMI 1200W" Lumens="49000" ColourTemperature="6000"/>
+   <Dimensions Weight="35.5" Width="1230" Height="445" Depth="435"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Mirror" PanMax="150" TiltMax="110"/>
+   <Technical PowerConsumption="1300" DmxConnector="5-pin"/>
+  </Physical>
+  <Channel Number="0">Gobo Rotation</Channel>
+  <Channel Number="1">Color Wheel</Channel>
+  <Channel Number="2">Gobo Selection</Channel>
+  <Channel Number="3">Dimmer / Strobe</Channel>
+  <Channel Number="4">Pan</Channel>
+  <Channel Number="5">Tilt</Channel>
+ </Mode>
+</FixtureDefinition>
