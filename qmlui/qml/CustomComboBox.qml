@@ -18,6 +18,7 @@
 */
 
 import QtQuick 2.9
+import QtQuick.Window 2.3
 import QtQuick.Controls 2.2
 import "."
 
@@ -185,7 +186,9 @@ ComboBox
         {
             y: control.height
             width: control.width
-            implicitHeight: contentItem.implicitHeight
+            height: Math.min(contentItem.implicitHeight, control.Window.height - topMargin - bottomMargin)
+            topMargin: 0
+            bottomMargin: 0
             padding: 0
 
             contentItem:
@@ -194,7 +197,7 @@ ComboBox
                     id: popupList
                     clip: true
                     implicitHeight: contentHeight
-                    model: control.delegateModel
+                    model: control.popup.visible ? control.delegateModel : null
                     currentIndex: control.highlightedIndex
                     boundsBehavior: Flickable.StopAtBounds
                     highlightRangeMode: ListView.ApplyRange
