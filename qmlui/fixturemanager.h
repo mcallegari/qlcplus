@@ -207,9 +207,11 @@ private:
      * Color filters
      *********************************************************************/
 public:
-
     /** Returns a list of the currently installed color filters XMLs */
     QStringList colorFiltersList();
+
+    /** Create a new empty color filters file in the user folder */
+    Q_INVOKABLE void createColorFilters();
 
     /** Get/Set the currently selected color filter index */
     int colorFilterIndex() const;

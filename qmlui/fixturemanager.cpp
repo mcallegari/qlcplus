@@ -22,6 +22,7 @@
 #include <QVariant>
 #include <QDebug>
 #include <QtMath>
+#include <QDir>
 
 #include "monitorproperties.h"
 #include "fixturemanager.h"
@@ -812,6 +813,35 @@ QStringList FixtureManager::colorFiltersList()
         list.append(filters->name());
 
     return list;
+}
+
+void FixtureManager::createColorFilters()
+{
+    int newID = 1;
+
+    /* count the existing user filters */
+    for (ColorFilters *filter : m_colorFilters)
+        if (filter->isUser())
+            newID++;
+
+    ColorFilters *newFilter = new ColorFilters();
+    /* set a possibly unique name */
+    newFilter->setName(tr("New filters %1").arg(newID));
+    newFilter->setIsUser(true);
+
+    QString targetName = QString("%1%2%3%4").arg(userColorFiltersDirectory().absolutePath())
+                                            .arg(QDir::separator())
+                                            .arg(newFilter->name().replace(' ', '_'))
+                                            .arg(KExtColorFilters);
+
+    qDebug() << "Target name is" << targetName;
+
+    newFilter->saveXML(targetName);
+
+    m_colorFilters.append(newFilter);
+
+    emit colorFiltersListChanged();
+    setColorFilterIndex(m_colorFilters.count() - 1);
 }
 
 int FixtureManager::colorFilterIndex() const

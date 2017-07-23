@@ -48,8 +48,9 @@ public:
     /** Standard constructor */
     ColorFilters(QObject *parent = 0);
 
-    /** Get the color filters name */
+    /** Get/Set the color filters name */
     QString name() const;
+    void setName(QString name);
 
     /** Get the path where the color filters are stored in. Don't use
         this as a unique ID since this varies between platforms. */
@@ -69,9 +70,13 @@ signals:
      * Editing
      ********************************************************************/
 public:
-
     /** Add a new color filter with the given $name */
-    Q_INVOKABLE void addFilter(QString name, QColor rgb, QColor wauv);
+    Q_INVOKABLE void addFilter(QString name, quint8 red, quint8 green, quint8 blue,
+                               quint8 white, quint8 amber, quint8 uv);
+
+    /** Modify an existing filter at $index position */
+    Q_INVOKABLE void changeFilterAt(int index, quint8 red, quint8 green, quint8 blue,
+                                    quint8 white, quint8 amber, quint8 uv);
 
     /** Remove an existing filter at $index position */
     Q_INVOKABLE void removeFilterAt(int index);
@@ -89,10 +94,13 @@ protected:
      * Load & Save
      ********************************************************************/
 public:
-    /** Save the modifier into an XML file */
+    /** Save the filter with a previously set m_path */
+    Q_INVOKABLE void save();
+
+    /** Save the filter into an XML file */
     QFile::FileError saveXML(const QString& fileName);
 
-    /** Load this modifier's content from the given file */
+    /** Load this filter's content from the given file */
     QFile::FileError loadXML(const QString& fileName);
 };
 

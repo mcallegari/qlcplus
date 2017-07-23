@@ -47,6 +47,11 @@ QString ColorFilters::name() const
     return m_name;
 }
 
+void ColorFilters::setName(QString name)
+{
+    m_name = name;
+}
+
 QString ColorFilters::path() const
 {
     return m_path;
@@ -78,7 +83,8 @@ QVariantList ColorFilters::filtersList()
     return list;
 }
 
-void ColorFilters::addFilter(QString name, QColor rgb, QColor wauv)
+void ColorFilters::addFilter(QString name, quint8 red, quint8 green, quint8 blue,
+                             quint8 white, quint8 amber, quint8 uv)
 {
     ColorInfo cInfo;
 
@@ -86,10 +92,21 @@ void ColorFilters::addFilter(QString name, QColor rgb, QColor wauv)
         return;
 
     cInfo.m_name = name;
-    cInfo.m_rgb = rgb;
-    cInfo.m_wauv = wauv;
+    cInfo.m_rgb = QColor(red, green, blue);
+    cInfo.m_wauv = QColor(white, amber, uv);
 
     m_filterList.append(cInfo);
+    emit filtersListChanged();
+}
+
+void ColorFilters::changeFilterAt(int index, quint8 red, quint8 green, quint8 blue,
+                                  quint8 white, quint8 amber, quint8 uv)
+{
+    if (index < 0 || index >= m_filterList.count())
+        return;
+
+    m_filterList[index].m_rgb = QColor(red, green, blue);
+    m_filterList[index].m_wauv = QColor(white, amber, uv);
     emit filtersListChanged();
 }
 
@@ -114,6 +131,11 @@ void ColorFilters::renameFilterAt(int index, QString newName)
 /********************************************************************
  * Load & Save
  ********************************************************************/
+void ColorFilters::save()
+{
+    saveXML(m_path);
+}
+
 QFileDevice::FileError ColorFilters::saveXML(const QString &fileName)
 {
     QFile::FileError error;
@@ -225,6 +247,8 @@ QFileDevice::FileError ColorFilters::loadXML(const QString &fileName)
             qDebug() << count << "filters loaded";
         }
     }
+
+    m_path = fileName;
 
     QLCFile::releaseXMLReader(doc);
 

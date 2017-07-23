@@ -35,13 +35,20 @@ Rectangle
     border.width: 2
 
     property ColorFilters cfRef: fixtureManager.selectedFilters
-
     property int colorsMask: 0
-    property color selectedColor
+    property bool isUpdating: false
 
     signal colorChanged(real r, real g, real b, int w, int a, int uv)
 
-    //onSelectedColorChanged: colorChanged(selectedColor.r, selectedColor.g, selectedColor.b, whiteValue, amberValue, uvValue)
+    function updateFilter()
+    {
+        if (!cfRef)
+            return
+
+        cfRef.changeFilterAt(filtersList.currentIndex,
+                             rSpin.value, gSpin.value, bSpin.value,
+                             wSpin.value, aSpin.value, uvSpin.value)
+    }
 
     ColumnLayout
     {
@@ -57,6 +64,7 @@ Rectangle
 
             CustomComboBox
             {
+                z: 2
                 Layout.fillWidth: true
                 model: fixtureManager.colorFiltersList
                 currentIndex: fixtureManager.colorFilterIndex
@@ -65,43 +73,20 @@ Rectangle
 
             IconButton
             {
+                id: actionsButton
                 height: UISettings.listItemHeight
                 width: height
-                imgSource: "qrc:/add.svg"
-                tooltip: qsTr("Add new color filters")
-            }
-
-            IconButton
-            {
-                height: UISettings.listItemHeight
-                width: height
-                imgSource: "qrc:/remove.svg"
-                tooltip: qsTr("Delete the current color filters")
-                enabled: cfRef && cfRef.isUser ? true : false
-            }
-
-            IconButton
-            {
-                height: UISettings.listItemHeight
-                width: height
-                imgSource: "qrc:/rename.svg"
-                tooltip: qsTr("Rename the current color filters")
-                enabled: cfRef && cfRef.isUser ? true : false
-            }
-
-            IconButton
-            {
-                height: UISettings.listItemHeight
-                width: height
-                imgSource: "qrc:/filesave.svg"
-                tooltip: qsTr("Save the current color filters")
-                enabled: cfRef && cfRef.isUser ? true : false
+                faSource: FontAwesome.fa_bars
+                faColor: "white"
+                tooltip: qsTr("Open filters menu")
+                onClicked: actionsMenu.open()
             }
         }
 
         ListView
         {
             id: filtersList
+            z: 1
             Layout.fillWidth: true
             Layout.fillHeight: true
             clip: true
@@ -126,13 +111,16 @@ Rectangle
                     width: filtersList.width
                     color: "transparent"
 
+                    property color rgbCol: modelData.rgb
+                    property color wauvCol: modelData.wauv
+
                     Rectangle
                     {
                         id: colorDisp
                         y: 1
                         width: UISettings.bigItemHeight
                         height: parent.height - 2
-                        color: modelData.rgb
+                        color: rgbCol
                     }
                     RobotoText
                     {
@@ -146,10 +134,15 @@ Rectangle
                         onClicked:
                         {
                             rootBox.colorChanged(colorDisp.color.r, colorDisp.color.g, colorDisp.color.b, 0, 0, 0)
-                            rSpin.value = colorDisp.color.r * 255
-                            gSpin.value = colorDisp.color.g * 255
-                            bSpin.value = colorDisp.color.b * 255
+                            isUpdating = true
+                            rSpin.value = rgbCol.r * 255
+                            gSpin.value = rgbCol.g * 255
+                            bSpin.value = rgbCol.b * 255
+                            wSpin.value = wauvCol.r * 255
+                            aSpin.value = wauvCol.g * 255
+                            uvSpin.value = wauvCol.b * 255
                             filtersList.currentIndex = index
+                            isUpdating = false
                         }
                     }
                 }
@@ -159,6 +152,7 @@ Rectangle
 
         Grid
         {
+            z: 1
             width: parent.width
 
             columns: 4
@@ -180,8 +174,10 @@ Rectangle
                 to: 255
                 onValueChanged:
                 {
-                    selectedColor = Qt.rgba(rSpin.value / 256, gSpin.value / 256, bSpin.value / 256, 1.0)
+                    if (isUpdating)
+                        return
                     htmlText.inputText = Helpers.getHTMLColor(rSpin.value, gSpin.value, bSpin.value)
+                    rootBox.updateFilter()
                 }
             }
 
@@ -200,6 +196,9 @@ Rectangle
                 to: 255
                 onValueChanged:
                 {
+                    if (isUpdating)
+                        return
+                    rootBox.updateFilter()
                 }
             }
 
@@ -219,8 +218,10 @@ Rectangle
                 to: 255
                 onValueChanged:
                 {
-                    selectedColor = Qt.rgba(rSpin.value / 256, gSpin.value / 256, bSpin.value / 256, 1.0)
+                    if (isUpdating)
+                        return
                     htmlText.inputText = Helpers.getHTMLColor(rSpin.value, gSpin.value, bSpin.value)
+                    rootBox.updateFilter()
                 }
             }
 
@@ -239,6 +240,9 @@ Rectangle
                 to: 255
                 onValueChanged:
                 {
+                    if (isUpdating)
+                        return
+                    rootBox.updateFilter()
                 }
             }
 
@@ -258,8 +262,10 @@ Rectangle
                 to: 255
                 onValueChanged:
                 {
-                    selectedColor = Qt.rgba(rSpin.value / 256, gSpin.value / 256, bSpin.value / 256, 1.0)
+                    if (isUpdating)
+                        return
                     htmlText.inputText = Helpers.getHTMLColor(rSpin.value, gSpin.value, bSpin.value)
+                    rootBox.updateFilter()
                 }
             }
 
@@ -278,6 +284,9 @@ Rectangle
                 to: 255
                 onValueChanged:
                 {
+                    if (isUpdating)
+                        return
+                    rootBox.updateFilter()
                 }
             }
 
@@ -310,5 +319,79 @@ Rectangle
             }
         } // GridLayout
 
+    } // ColumnLayout
+
+    Popup
+    {
+        id: actionsMenu
+        x: actionsButton.x +  actionsButton.width
+        padding: 0
+
+        background:
+            Rectangle
+            {
+                color: UISettings.bgStrong
+                border.color: UISettings.bgStronger
+            }
+
+
+        Column
+        {
+            ContextMenuEntry
+            {
+                height: UISettings.listItemHeight
+                imgSource: "qrc:/filenew.svg"
+                imgSize: UISettings.listItemHeight
+                entryText: qsTr("Add a new color filters file")
+                onClicked: fixtureManager.createColorFilters()
+            }
+
+            ContextMenuEntry
+            {
+                height: UISettings.listItemHeight
+                imgSource: "qrc:/rename.svg"
+                imgSize: UISettings.listItemHeight
+                entryText: qsTr("Rename the current color filters")
+                enabled: cfRef && cfRef.isUser ? true : false
+            }
+
+            ContextMenuEntry
+            {
+                height: UISettings.listItemHeight
+                imgSource: "qrc:/filesave.svg"
+                imgSize: UISettings.listItemHeight
+                entryText: qsTr("Save the current color filters")
+                enabled: cfRef && cfRef.isUser ? true : false
+                onClicked: if (cfRef) cfRef.save()
+            }
+
+            ContextMenuEntry
+            {
+                height: UISettings.listItemHeight
+                imgSource: "qrc:/add.svg"
+                imgSize: UISettings.listItemHeight
+                entryText: qsTr("Add a new filter")
+                enabled: cfRef && cfRef.isUser ? true : false
+                onClicked:
+                {
+                    if (!cfRef)
+                        return
+
+                    cfRef.addFilter("New filter " + (filtersList.currentIndex + 1),
+                                    rSpin.value, gSpin.value, bSpin.value,
+                                    wSpin.value, aSpin.value, uvSpin.value)
+                }
+            }
+
+            ContextMenuEntry
+            {
+                height: UISettings.listItemHeight
+                imgSource: "qrc:/remove.svg"
+                imgSize: UISettings.listItemHeight
+                entryText: qsTr("Delete the selected filter")
+                enabled: cfRef && cfRef.isUser ? true : false
+                onClicked: if (cfRef) cfRef.removeFilterAt(filtersList.currentIndex)
+            }
+        }
     }
 }

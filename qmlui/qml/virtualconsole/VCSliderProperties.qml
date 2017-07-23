@@ -313,7 +313,6 @@ Rectangle
 
                       IconButton
                       {
-                          id: serviceEntry
                           z: 2
                           anchors.right: parent.right
                           height: gridItemsHeight
