@@ -105,4 +105,12 @@ Rectangle
         onExited: baseMenuEntry.exited()
         onReleased: baseMenuEntry.clicked()
     }
+
+    Rectangle
+    {
+        anchors.fill: parent
+        color: "black"
+        opacity: 0.6
+        visible: !parent.enabled
+    }
 }
