@@ -294,7 +294,7 @@ else:unix|android|ios {
 qmlui {
     conf.commands += echo \"$$LITERAL_HASH define MESHESDIR \\\"$$INSTALLROOT/$$MESHESDIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define COLORFILTERSDIR \\\"$$INSTALLROOT/$$COLORFILTERSDIR\\\"\" >> $$CONFIGFILE &&
-    conf.commands += echo \"$$LITERAL_HASH define USERCOLORFILTERSDIR \\\"$$INSTALLROOT/$$USERCOLORFILTERSDIR\\\"\" >> $$CONFIGFILE &&
+    conf.commands += echo \"$$LITERAL_HASH define USERCOLORFILTERSDIR \\\"$$USERCOLORFILTERSDIR\\\"\" >> $$CONFIGFILE &&
 }
     conf.commands += echo \"$$LITERAL_HASH endif\" >> $$CONFIGFILE
 }
