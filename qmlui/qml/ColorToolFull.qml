@@ -35,25 +35,36 @@ Rectangle
     border.width: 2
 
     property int colorsMask: 0
-    property color selectedColor
-
-    property int whiteValue: 0
-    property int amberValue: 0
-    property int uvValue: 0
+    property color currentRGB
+    property color currentWAUV
 
     property int slHandleSize: UISettings.listItemHeight * 0.8
 
-    signal colorChanged(real r, real g, real b, int w, int a, int uv)
+    signal colorChanged(real r, real g, real b, real w, real a, real uv)
     signal released()
 
-    onSelectedColorChanged: emitCurrentColor()
-    onWhiteValueChanged: emitCurrentColor()
-    onAmberValueChanged: emitCurrentColor()
-    onUvValueChanged: emitCurrentColor()
+    onCurrentRGBChanged:
+    {
+        rSpin.value = currentRGB.r * 255
+        gSpin.value = currentRGB.g * 255
+        bSpin.value = currentRGB.b * 255
+        htmlText.inputText = Helpers.getHTMLColor(currentRGB.r * 255, currentRGB.g * 255, currentRGB.b * 255)
+        emitCurrentColor()
+    }
+    onCurrentWAUVChanged:
+    {
+        wSpin.value = currentWAUV.r * 255
+        aSpin.value = currentWAUV.g * 255
+        uvSpin.value = currentWAUV.b * 255
+        wSlider.value = currentWAUV.r * 255
+        aSlider.value = currentWAUV.g * 255
+        uvSlider.value = currentWAUV.b * 255
+        emitCurrentColor()
+    }
 
     function emitCurrentColor()
     {
-        colorChanged(selectedColor.r, selectedColor.g, selectedColor.b, whiteValue, amberValue, uvValue)
+        colorChanged(currentRGB.r, currentRGB.g, currentRGB.b, currentWAUV.r, currentWAUV.g, currentWAUV.b)
     }
 
     Canvas
@@ -128,11 +139,11 @@ Rectangle
                 var r = imgData[0]
                 var g = imgData[1]
                 var b = imgData[2]
-                rSpin.value = r
+                /*rSpin.value = r
                 gSpin.value = g
-                bSpin.value = b
+                bSpin.value = b*/
 
-                selectedColor = Qt.rgba(r / 256, g / 256, b / 256, 1.0)
+                currentRGB = Qt.rgba(r / 255, g / 255, b / 255, 1.0)
             }
 
             onPressed: setPickedColor(mouse)
@@ -162,11 +173,7 @@ Rectangle
             height: UISettings.listItemHeight
             from: 0
             to: 255
-            onValueChanged:
-            {
-                selectedColor = Qt.rgba(rSpin.value / 256, gSpin.value / 256, bSpin.value / 256, 1.0)
-                htmlText.inputText = Helpers.getHTMLColor(rSpin.value, gSpin.value, bSpin.value)
-            }
+            onValueChanged: currentRGB = Qt.rgba(value / 255, currentRGB.g, currentRGB.b, 1.0)
         }
 
         RobotoText
@@ -182,11 +189,7 @@ Rectangle
             height: UISettings.listItemHeight
             from: 0
             to: 255
-            onValueChanged:
-            {
-                selectedColor = Qt.rgba(rSpin.value / 256, gSpin.value / 256, bSpin.value / 256, 1.0)
-                htmlText.inputText = Helpers.getHTMLColor(rSpin.value, gSpin.value, bSpin.value)
-            }
+            onValueChanged: currentRGB = Qt.rgba(currentRGB.r, value / 255, currentRGB.b, 1.0)
         }
 
         RobotoText
@@ -202,11 +205,7 @@ Rectangle
             height: UISettings.listItemHeight
             from: 0
             to: 255
-            onValueChanged:
-            {
-                selectedColor = Qt.rgba(rSpin.value / 256, gSpin.value / 256, bSpin.value / 256, 1.0)
-                htmlText.inputText = Helpers.getHTMLColor(rSpin.value, gSpin.value, bSpin.value)
-            }
+            onValueChanged: currentRGB = Qt.rgba(currentRGB.r, currentRGB.g, value / 255, 1.0)
         }
 
         RobotoText
@@ -246,7 +245,6 @@ Rectangle
             orientation: Qt.Horizontal
             from: 0
             to: 255
-            value: whiteValue
             handle: Rectangle {
                 x: wSlider.leftPadding + wSlider.visualPosition * (wSlider.availableWidth - width)
                 y: wSlider.topPadding + wSlider.availableHeight / 2 - height / 2
@@ -255,18 +253,18 @@ Rectangle
                 radius: slHandleSize / 5
             }
 
-            onPositionChanged: whiteValue = valueAt(position)
+            onPositionChanged: currentWAUV = Qt.rgba(valueAt(position) / 255, currentWAUV.g, currentWAUV.b, 1.0)
         }
 
         CustomSpinBox
         {
+            id: wSpin
             visible: colorsMask & App.White
             width: UISettings.bigItemHeight * 0.7
             height: UISettings.listItemHeight
             from: 0
             to: 255
-            value: whiteValue
-            onValueChanged: whiteValue = value
+            onValueChanged: currentWAUV = Qt.rgba(value / 255, currentWAUV.g, currentWAUV.b, 1.0)
         }
 
         RobotoText
@@ -284,7 +282,6 @@ Rectangle
             orientation: Qt.Horizontal
             from: 0
             to: 255
-            value: amberValue
             handle: Rectangle {
                 x: aSlider.leftPadding + aSlider.visualPosition * (aSlider.availableWidth - width)
                 y: aSlider.topPadding + aSlider.availableHeight / 2 - height / 2
@@ -293,18 +290,18 @@ Rectangle
                 radius: slHandleSize / 5
             }
 
-            onPositionChanged: amberValue = valueAt(position)
+            onPositionChanged: currentWAUV = Qt.rgba(currentWAUV.r, valueAt(position) / 255, currentWAUV.b, 1.0)
         }
 
         CustomSpinBox
         {
+            id: aSpin
             visible: colorsMask & App.Amber
             width: UISettings.bigItemHeight * 0.7
             height: UISettings.listItemHeight
             from: 0
             to: 255
-            value: amberValue
-            onValueChanged: amberValue = value
+            onValueChanged: currentWAUV = Qt.rgba(currentWAUV.r, value / 255, currentWAUV.b, 1.0)
         }
 
         RobotoText
@@ -322,7 +319,6 @@ Rectangle
             orientation: Qt.Horizontal
             from: 0
             to: 255
-            value: uvValue
             handle: Rectangle {
                 x: uvSlider.leftPadding + uvSlider.visualPosition * (uvSlider.availableWidth - width)
                 y: uvSlider.topPadding + uvSlider.availableHeight / 2 - height / 2
@@ -331,18 +327,19 @@ Rectangle
                 radius: slHandleSize / 5
             }
 
-            onPositionChanged: uvValue = valueAt(position)
+            onPositionChanged: currentWAUV = Qt.rgba(currentWAUV.r, currentWAUV.g, valueAt(position) / 255, 1.0)
         }
 
         CustomSpinBox
         {
+            id: uvSpin
             visible: colorsMask & App.UV
             width: UISettings.bigItemHeight * 0.7
             height: UISettings.listItemHeight
             from: 0
             to: 255
-            value: uvValue
-            onValueChanged: uvValue = value
+            value: currentWAUV.b * 255
+            onValueChanged: currentWAUV = Qt.rgba(currentWAUV.r, currentWAUV.g, value / 255, 1.0)
         }
     }
 
@@ -360,7 +357,26 @@ Rectangle
         {
             width: UISettings.mediumItemHeight
             height: UISettings.listItemHeight
-            color: selectedColor
+            color: currentRGB
+
+            Rectangle
+            {
+                anchors.fill: parent
+                color: "white"
+                opacity: currentWAUV.r
+            }
+            Rectangle
+            {
+                anchors.fill: parent
+                color: "#FF7E00"
+                opacity: currentWAUV.g
+            }
+            Rectangle
+            {
+                anchors.fill: parent
+                color: "#9400D3"
+                opacity: currentWAUV.b
+            }
         }
     }
 }

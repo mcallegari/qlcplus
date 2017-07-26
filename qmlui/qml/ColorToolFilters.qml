@@ -37,17 +37,58 @@ Rectangle
     property ColorFilters cfRef: fixtureManager.selectedFilters
     property int colorsMask: 0
     property bool isUpdating: false
+    property color currentRGB
+    property color currentWAUV
 
-    signal colorChanged(real r, real g, real b, int w, int a, int uv)
+    property color filterRGB
+    property color filterWAUV
+
+    property int currentFilterIndex: -1
+
+    signal colorChanged(real r, real g, real b, real w, real a, real uv)
+
+    onFilterRGBChanged:
+    {
+        rSpin.value = filterRGB.r * 255
+        gSpin.value = filterRGB.g * 255
+        bSpin.value = filterRGB.b * 255
+        htmlText.inputText = Helpers.getHTMLColor(filterRGB.r * 255, filterRGB.g * 255, filterRGB.b * 255)
+        emitCurrentColor()
+    }
+    onFilterWAUVChanged:
+    {
+        wSpin.value = filterWAUV.r * 255
+        aSpin.value = filterWAUV.g * 255
+        uvSpin.value = filterWAUV.b * 255
+        emitCurrentColor()
+    }
+
+    function emitCurrentColor()
+    {
+        if (isUpdating)
+            return
+        colorChanged(filterRGB.r, filterRGB.g, filterRGB.b, filterWAUV.r, filterWAUV.g, filterWAUV.b)
+    }
 
     function updateFilter()
     {
-        if (!cfRef)
+        if (!cfRef || !cfRef.isUser)
             return
 
-        cfRef.changeFilterAt(filtersList.currentIndex,
-                             rSpin.value, gSpin.value, bSpin.value,
-                             wSpin.value, aSpin.value, uvSpin.value)
+        var idx = rootBox.currentFilterIndex
+        cfRef.changeFilterAt(idx, filterRGB.r * 255, filterRGB.g * 255, filterRGB.b * 255,
+                                  filterWAUV.r * 255, filterWAUV.g * 255, filterWAUV.b * 255)
+        rootBox.currentFilterIndex = idx
+    }
+
+    function setColors(rgb, wauv, index)
+    {
+        rootBox.currentFilterIndex = index
+        isUpdating = true
+        filterRGB = rgb
+        filterWAUV = wauv
+        isUpdating = false
+        emitCurrentColor()
     }
 
     ColumnLayout
@@ -68,7 +109,12 @@ Rectangle
                 Layout.fillWidth: true
                 model: fixtureManager.colorFiltersList
                 currentIndex: fixtureManager.colorFilterIndex
-                onCurrentIndexChanged: fixtureManager.colorFilterIndex = currentIndex
+                onCurrentIndexChanged:
+                {
+
+                    fixtureManager.colorFilterIndex = currentIndex
+                    rootBox.currentFilterIndex = 0
+                }
             }
 
             IconButton
@@ -93,23 +139,14 @@ Rectangle
             boundsBehavior: Flickable.StopAtBounds
 
             model: cfRef ? cfRef.filtersList : null
-
-            highlightFollowsCurrentItem: false
-            highlight:
-                Rectangle
-                {
-                    y: filtersList.currentItem.y
-                    height: UISettings.listItemHeight
-                    width: filtersList.width
-                    color: UISettings.highlight
-                }
+            currentIndex: rootBox.currentFilterIndex
 
             delegate:
                 Rectangle
                 {
                     height: UISettings.listItemHeight
                     width: filtersList.width
-                    color: "transparent"
+                    color: index === rootBox.currentFilterIndex ? UISettings.highlight : "transparent"
 
                     property color rgbCol: modelData.rgb
                     property color wauvCol: modelData.wauv
@@ -121,6 +158,25 @@ Rectangle
                         width: UISettings.bigItemHeight
                         height: parent.height - 2
                         color: rgbCol
+
+                        Rectangle
+                        {
+                            anchors.fill: parent
+                            color: "white"
+                            opacity: wauvCol.r
+                        }
+                        Rectangle
+                        {
+                            anchors.fill: parent
+                            color: "#FF7E00"
+                            opacity: wauvCol.g
+                        }
+                        Rectangle
+                        {
+                            anchors.fill: parent
+                            color: "#9400D3"
+                            opacity: wauvCol.b
+                        }
                     }
                     RobotoText
                     {
@@ -131,19 +187,7 @@ Rectangle
                     MouseArea
                     {
                         anchors.fill: parent
-                        onClicked:
-                        {
-                            rootBox.colorChanged(colorDisp.color.r, colorDisp.color.g, colorDisp.color.b, 0, 0, 0)
-                            isUpdating = true
-                            rSpin.value = rgbCol.r * 255
-                            gSpin.value = rgbCol.g * 255
-                            bSpin.value = rgbCol.b * 255
-                            wSpin.value = wauvCol.r * 255
-                            aSpin.value = wauvCol.g * 255
-                            uvSpin.value = wauvCol.b * 255
-                            filtersList.currentIndex = index
-                            isUpdating = false
-                        }
+                        onClicked: rootBox.setColors(rgbCol, wauvCol, index)
                     }
                 }
 
@@ -174,9 +218,7 @@ Rectangle
                 to: 255
                 onValueChanged:
                 {
-                    if (isUpdating)
-                        return
-                    htmlText.inputText = Helpers.getHTMLColor(rSpin.value, gSpin.value, bSpin.value)
+                    filterRGB = Qt.rgba(value / 255, filterRGB.g, filterRGB.b, 1.0)
                     rootBox.updateFilter()
                 }
             }
@@ -196,8 +238,7 @@ Rectangle
                 to: 255
                 onValueChanged:
                 {
-                    if (isUpdating)
-                        return
+                    filterWAUV = Qt.rgba(value / 255, filterWAUV.g, filterWAUV.b, 1.0)
                     rootBox.updateFilter()
                 }
             }
@@ -218,9 +259,7 @@ Rectangle
                 to: 255
                 onValueChanged:
                 {
-                    if (isUpdating)
-                        return
-                    htmlText.inputText = Helpers.getHTMLColor(rSpin.value, gSpin.value, bSpin.value)
+                    filterRGB = Qt.rgba(filterRGB.r, value / 255, filterRGB.b, 1.0)
                     rootBox.updateFilter()
                 }
             }
@@ -240,8 +279,7 @@ Rectangle
                 to: 255
                 onValueChanged:
                 {
-                    if (isUpdating)
-                        return
+                    filterWAUV = Qt.rgba(filterWAUV.r, value / 255, filterWAUV.b, 1.0)
                     rootBox.updateFilter()
                 }
             }
@@ -262,9 +300,7 @@ Rectangle
                 to: 255
                 onValueChanged:
                 {
-                    if (isUpdating)
-                        return
-                    htmlText.inputText = Helpers.getHTMLColor(rSpin.value, gSpin.value, bSpin.value)
+                    filterRGB = Qt.rgba(filterRGB.r, filterRGB.g, value / 255, 1.0)
                     rootBox.updateFilter()
                 }
             }
@@ -284,8 +320,7 @@ Rectangle
                 to: 255
                 onValueChanged:
                 {
-                    if (isUpdating)
-                        return
+                    filterWAUV = Qt.rgba(filterWAUV.r, filterWAUV.g, value / 255, 1.0)
                     rootBox.updateFilter()
                 }
             }
@@ -334,7 +369,6 @@ Rectangle
                 border.color: UISettings.bgStronger
             }
 
-
         Column
         {
             ContextMenuEntry
@@ -343,7 +377,12 @@ Rectangle
                 imgSource: "qrc:/filenew.svg"
                 imgSize: UISettings.listItemHeight
                 entryText: qsTr("Add a new color filters file")
-                onClicked: fixtureManager.createColorFilters()
+                onClicked:
+                {
+                    fixtureManager.createColorFilters()
+                    rootBox.currentFilterIndex = -1
+                    actionsMenu.close()
+                }
             }
 
             ContextMenuEntry
@@ -360,9 +399,15 @@ Rectangle
                 height: UISettings.listItemHeight
                 imgSource: "qrc:/filesave.svg"
                 imgSize: UISettings.listItemHeight
-                entryText: qsTr("Save the current color filters")
+                entryText: qsTr("Save the current color filters file")
                 enabled: cfRef && cfRef.isUser ? true : false
-                onClicked: if (cfRef) cfRef.save()
+                onClicked:
+                {
+                    if (!cfRef || !cfRef.isUser)
+                        return
+                    cfRef.save()
+                    actionsMenu.close()
+                }
             }
 
             ContextMenuEntry
@@ -374,12 +419,14 @@ Rectangle
                 enabled: cfRef && cfRef.isUser ? true : false
                 onClicked:
                 {
-                    if (!cfRef)
+                    if (!cfRef || !cfRef.isUser)
                         return
 
-                    cfRef.addFilter("New filter " + (filtersList.currentIndex + 1),
+                    cfRef.addFilter("New filter " + filtersList.count,
                                     rSpin.value, gSpin.value, bSpin.value,
                                     wSpin.value, aSpin.value, uvSpin.value)
+                    rootBox.currentFilterIndex = filtersList.count - 1
+                    actionsMenu.close()
                 }
             }
 
@@ -390,7 +437,34 @@ Rectangle
                 imgSize: UISettings.listItemHeight
                 entryText: qsTr("Delete the selected filter")
                 enabled: cfRef && cfRef.isUser ? true : false
-                onClicked: if (cfRef) cfRef.removeFilterAt(filtersList.currentIndex)
+                onClicked:
+                {
+                    if (!cfRef || !cfRef.isUser)
+                        return
+                    cfRef.removeFilterAt(rootBox.currentFilterIndex)
+                    rootBox.currentFilterIndex = -1
+                    actionsMenu.close()
+                }
+            }
+
+            ContextMenuEntry
+            {
+                height: UISettings.listItemHeight
+                imgSource: "qrc:/edit-paste.svg"
+                imgSize: UISettings.listItemHeight
+                entryText: qsTr("Paste the latest picked color as new filter")
+                enabled: cfRef && cfRef.isUser ? true : false
+                onClicked:
+                {
+                    if (!cfRef || !cfRef.isUser)
+                        return
+
+                    cfRef.addFilter("New filter " + (rootBox.currentFilterIndex + 1),
+                                    currentRGB.r * 255, currentRGB.g * 255, currentRGB.b * 255,
+                                    currentWAUV.r * 255, currentWAUV.g * 255, currentWAUV.b * 255)
+                    rootBox.currentFilterIndex = filtersList.count
+                    actionsMenu.close()
+                }
             }
         }
     }
