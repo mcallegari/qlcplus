@@ -305,23 +305,23 @@ void VCSpeedDialProperties::slotPasteFactorsClicked()
     // is only called after the paste button has been enabled and copiedFactorValues is filled with data
     const QStringList &multiplierNames = VCSpeedDialFunction::speedMultiplierNames();
 
-    VCSpeedDialFunction::SpeedMultiplier fadeInMultiplier = static_cast<VCSpeedDialFunction::SpeedMultiplier>(m_copyItem->data(COL_FADEIN, PROP_ID).toUInt());
-    VCSpeedDialFunction::SpeedMultiplier fadeOutMultiplier = static_cast<VCSpeedDialFunction::SpeedMultiplier>(m_copyItem->data(COL_FADEOUT, PROP_ID).toUInt());
-    VCSpeedDialFunction::SpeedMultiplier durationMultiplier = static_cast<VCSpeedDialFunction::SpeedMultiplier>(m_copyItem->data(COL_DURATION, PROP_ID).toUInt());
+    VCSpeedDialFunction::SpeedMultiplier fadeInMultiplier = static_cast<VCSpeedDialFunction::SpeedMultiplier>(m_copyItem->data(COL_FADEIN, PROP_SPEED_MULT).toUInt());
+    VCSpeedDialFunction::SpeedMultiplier fadeOutMultiplier = static_cast<VCSpeedDialFunction::SpeedMultiplier>(m_copyItem->data(COL_FADEOUT, PROP_SPEED_MULT).toUInt());
+    VCSpeedDialFunction::SpeedMultiplier durationMultiplier = static_cast<VCSpeedDialFunction::SpeedMultiplier>(m_copyItem->data(COL_DURATION, PROP_SPEED_MULT).toUInt());
 
     foreach (QTreeWidgetItem* item, m_tree->selectedItems())
     {
         Q_ASSERT(item != NULL);
 
-        QVariant id = item->data(COL_NAME, PROP_ID);
+        QVariant id = item->data(COL_NAME, PROP_SPEED_MULT);
         if (id.isValid() == true)
         {
             item->setText(COL_FADEIN, multiplierNames[fadeInMultiplier]);
-            item->setData(COL_FADEIN, PROP_ID, fadeInMultiplier);
+            item->setData(COL_FADEIN, PROP_SPEED_MULT, fadeInMultiplier);
             item->setText(COL_FADEOUT, multiplierNames[fadeOutMultiplier]);
-            item->setData(COL_FADEOUT, PROP_ID, fadeOutMultiplier);
+            item->setData(COL_FADEOUT, PROP_SPEED_MULT, fadeOutMultiplier);
             item->setText(COL_DURATION, multiplierNames[durationMultiplier]);
-            item->setData(COL_DURATION, PROP_ID, durationMultiplier);
+            item->setData(COL_DURATION, PROP_SPEED_MULT, durationMultiplier);
         }
     }
 }
