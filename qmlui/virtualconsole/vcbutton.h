@@ -204,7 +204,10 @@ public slots:
      *********************************************************************/
 
 public:
+    /** @reimp */
     bool loadXML(QXmlStreamReader &root);
+
+    /** @reimp */
     bool saveXML(QXmlStreamWriter *doc);
 };
 

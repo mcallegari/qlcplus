@@ -10,6 +10,7 @@
     <file alias="BeatGeneratorsPanel.qml">qml/BeatGeneratorsPanel.qml</file>
     <file alias="ColorTool.qml">qml/ColorTool.qml</file>
     <file alias="ColorToolBasic.qml">qml/ColorToolBasic.qml</file>
+    <file alias="ColorToolFilters.qml">qml/ColorToolFilters.qml</file>
     <file alias="ColorToolFull.qml">qml/ColorToolFull.qml</file>
     <file alias="ContextMenuEntry.qml">qml/ContextMenuEntry.qml</file>
     <file alias="CustomCheckBox.qml">qml/CustomCheckBox.qml</file>

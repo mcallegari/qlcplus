@@ -16,23 +16,23 @@
     <message>
         <location filename="webaccess.cpp" line="396"/>
         <source>Username and password are required fields.</source>
-        <translation type="unfinished"></translation>
+        <translation>El nom d&apos;usuari i la contrasenya són camps obligatoris.</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="402"/>
         <location filename="webaccess.cpp" line="427"/>
         <source>User level has to be a positive integer.</source>
-        <translation type="unfinished"></translation>
+        <translation>El nivell d&apos;usuari ha de ser un enter positiu.</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="421"/>
         <source>Username is required.</source>
-        <translation type="unfinished"></translation>
+        <translation>El nom d&apos;usuari es obligatori.</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="439"/>
         <source>Error while saving passwords file.</source>
-        <translation type="unfinished"></translation>
+        <translation>S&apos;ha produït un error en desar el fitxer de contrasenyes.</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="454"/>
@@ -116,83 +116,83 @@
     <message>
         <location filename="webaccessconfiguration.cpp" line="221"/>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom d&apos;usuari</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="222"/>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Contrassenya</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="223"/>
         <source>Access level</source>
-        <translation type="unfinished"></translation>
+        <translation>Nivell d&apos;accès</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="224"/>
         <source>Action</source>
-        <translation type="unfinished"></translation>
+        <translation>Acció</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="237"/>
         <source>Leave blank to not change</source>
-        <translation type="unfinished"></translation>
+        <translation>Deixar en blanc per no canviar</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="244"/>
         <location filename="webaccessconfiguration.cpp" line="274"/>
         <source>Only Virtual Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Només Consola Virtual</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="249"/>
         <location filename="webaccessconfiguration.cpp" line="276"/>
         <source>Virtual Console and Simple Desk</source>
-        <translation type="unfinished"></translation>
+        <translation>Consola Virtual i Taula Simple</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="254"/>
         <location filename="webaccessconfiguration.cpp" line="278"/>
         <source>Everything</source>
-        <translation type="unfinished"></translation>
+        <translation>Tot</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="260"/>
         <location filename="webaccessconfiguration.cpp" line="285"/>
         <source>Change</source>
-        <translation type="unfinished"></translation>
+        <translation>Canviar</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="262"/>
         <location filename="webaccessconfiguration.cpp" line="285"/>
         <source>Delete user</source>
-        <translation type="unfinished"></translation>
+        <translation>Suprimeix l&apos;usuari</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="268"/>
         <source>New username...</source>
-        <translation type="unfinished"></translation>
+        <translation>Nou nom d&apos;usuari...</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="269"/>
         <location filename="webaccessconfiguration.cpp" line="287"/>
         <source>New password...</source>
-        <translation type="unfinished"></translation>
+        <translation>Nova contrassenya...</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="286"/>
         <source>Username and password are required fields.</source>
-        <translation type="unfinished"></translation>
+        <translation>El nom d&apos;usuari i la contrasenya són camps obligatoris.</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="289"/>
         <source>Add user</source>
-        <translation type="unfinished"></translation>
+        <translation>Afegir usuari</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="294"/>
         <source>Note: if there isn&apos;t at least one user with access level &quot;Everything&quot; on the list authorization will be disabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nota: si no hi ha almenys un usuari amb nivell d&apos;accés &quot;Tot&quot; a la llista d&apos;autorització, es desactivarà.</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="325"/>
@@ -222,7 +222,7 @@
     <message>
         <location filename="webaccessconfiguration.cpp" line="366"/>
         <source>Authorized users</source>
-        <translation type="unfinished"></translation>
+        <translation>Usuaris autoritzats</translation>
     </message>
 </context>
 <context>

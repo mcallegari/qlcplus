@@ -265,6 +265,11 @@ macx|win32 {
     conf.commands += echo \"$$LITERAL_HASH define USERRGBSCRIPTDIR \\\"$$USERRGBSCRIPTDIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define GOBODIR \\\"$$GOBODIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define WEBFILESDIR \\\"$$WEBFILESDIR\\\"\" >> $$CONFIGFILE &&
+qmlui {
+    conf.commands += echo \"$$LITERAL_HASH define MESHESDIR \\\"$$MESHESDIR\\\"\" >> $$CONFIGFILE &&
+    conf.commands += echo \"$$LITERAL_HASH define COLORFILTERSDIR \\\"$$COLORFILTERSDIR\\\"\" >> $$CONFIGFILE &&
+    conf.commands += echo \"$$LITERAL_HASH define USERCOLORFILTERSDIR \\\"$$USERCOLORFILTERSDIR\\\"\" >> $$CONFIGFILE &&
+}
     conf.commands += echo \"$$LITERAL_HASH endif\" >> $$CONFIGFILE
 }
 else:unix|android|ios {
@@ -290,6 +295,11 @@ else:unix|android|ios {
     conf.commands += echo \"$$LITERAL_HASH define USERRGBSCRIPTDIR \\\"$$USERRGBSCRIPTDIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define GOBODIR \\\"$$INSTALLROOT/$$GOBODIR\\\"\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define WEBFILESDIR \\\"$$INSTALLROOT/$$WEBFILESDIR\\\"\" >> $$CONFIGFILE &&
+qmlui {
+    conf.commands += echo \"$$LITERAL_HASH define MESHESDIR \\\"$$INSTALLROOT/$$MESHESDIR\\\"\" >> $$CONFIGFILE &&
+    conf.commands += echo \"$$LITERAL_HASH define COLORFILTERSDIR \\\"$$INSTALLROOT/$$COLORFILTERSDIR\\\"\" >> $$CONFIGFILE &&
+    conf.commands += echo \"$$LITERAL_HASH define USERCOLORFILTERSDIR \\\"$$USERCOLORFILTERSDIR\\\"\" >> $$CONFIGFILE &&
+}
     conf.commands += echo \"$$LITERAL_HASH endif\" >> $$CONFIGFILE
 }
 

@@ -31,7 +31,7 @@ VCSoloFrame::~VCSoloFrame()
 
 QString VCSoloFrame::defaultCaption()
 {
-    return tr("Solo Frame %1").arg(id());
+    return tr("Solo Frame %1").arg(id() + 1);
 }
 
 void VCSoloFrame::render(QQuickView *view, QQuickItem *parent)

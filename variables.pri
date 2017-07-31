@@ -230,6 +230,27 @@ macx:SAMPLESDIR        = $$INSTALLROOT/$$DATADIR
 android:SAMPLESDIR     = $$INSTALLROOT/$$DATADIR
 ios:SAMPLESDIR         = $$INSTALLROOT/$$DATADIR
 
+# 3D Meshes
+win32:MESHESDIR      = Meshes
+unix:!macx:MESHESDIR = $$DATADIR/meshes
+macx:MESHESDIR       = $$DATADIR/Meshes
+android:MESHESDIR    = $$DATADIR/meshes
+ios:MESHESDIR        = Meshes
+
+# Color filters
+win32:COLORFILTERSDIR      = ColorFilters
+unix:!macx:COLORFILTERSDIR = $$DATADIR/colorfilters
+macx:COLORFILTERSDIR       = $$DATADIR/ColorFilters
+android:COLORFILTERSDIR    = $$DATADIR/colorfilters
+ios:COLORFILTERSDIR        = ColorFilters
+
+# User Color filters
+win32:USERCOLORFILTERSDIR      = $$USERDATADIR/ColorFilters
+unix:!macx:USERCOLORFILTERSDIR = $$USERDATADIR/colorfilters
+macx:USERCOLORFILTERSDIR       = $$USERDATADIR/ColorFilters
+android:USERCOLORFILTERSDIR    = $$USERDATADIR/colorfilters
+ios:USERCOLORFILTERSDIR        = $$USERDATADIR/ColorFilters
+
 # udev rules
 unix:!macx:UDEVRULESDIR = /etc/udev/rules.d
 

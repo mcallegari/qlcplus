@@ -1,9 +1,18 @@
 qlcplus (4.11.1) stable; urgency=low
 
+  * engine: fixed audio files detection by prioritizing sndfile over mad
   * UI/RGB Panel: added RBG pixel type (thanks to Peter Marks)
   * UI/Input Output Manager: added a button to enable/disable USB hotplugging (disabled by default)
+  * UI/Function Live Edit: restore basic live editing of Sequences
   * Virtual Console/Slider: fix DMX values not updated when interacting with the mouse wheel, keyboard or Click And Go button
   * Web access: added basic authentication support (thanks to Bartosz Grabias)
+  * New fixtures: IMG Stageline BEAM-40 WS/RGBW, Fun-Generation LED Diamond Dome (thanks to Tolmino Muccitelli)
+  * New fixture: Elation Cuepix Batten (thanks to Saul Vielmetti)
+  * New fixture: Clay Paky Tiger Scan HMI 575/1200 (thanks to Daris Tomasoni)
+  * New fixture: Litecraft WashX.21 (thanks to Hannes Braun)
+  * New fixtures: Briteq Stagepainter 12, Nicols IP Wash 120, Showtec LED Powerline 16 Bar (thanks to Fredje Gallon)
+  * New fixtures: Litecraft PowerBar AT10.sx, Stairville MH-z1915 (thanks to Thorben / Fredje)
+  * New fixtures: Martin MAC 700 Wash, ADB Warp M (thanks to Thorben)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 27 Aug 2017 12:13:14 +0200
 

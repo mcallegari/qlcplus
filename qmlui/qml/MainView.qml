@@ -109,6 +109,17 @@ Rectangle
                 onClicked: actionsMenu.visible = true
                 autoExclusive: false
                 checkable: false
+
+                Image
+                {
+                    visible: qlcplus.docModified
+                    source: "qrc:/filesave.svg"
+                    x: 1
+                    y: parent.height - height - 1
+                    height: parent.height / 3
+                    width: height
+                    sourceSize: Qt.size(width, height)
+                }
             }
             MenuBarEntry
             {

@@ -18,6 +18,7 @@
 */
 
 import QtQuick 2.9
+import QtQuick.Window 2.3
 import QtQuick.Controls 2.2
 import "."
 
@@ -37,6 +38,7 @@ ComboBox
      */
 
     textRole: "mLabel"
+    wheelEnabled: true
 
     property string currentIcon
     property int currentValue
@@ -177,28 +179,6 @@ ComboBox
             border.width: 1
             border.color: UISettings.bgStrong
             radius: 3
-
-            MouseArea
-            {
-                anchors.fill: parent
-
-                onClicked: control.popup.visible ? control.popup.close() : control.popup.open()
-
-                onWheel:
-                {
-                    var newIdx
-                    if (wheel.angleDelta.y > 0)
-                        newIdx = Math.max(0, currentIndex - 1)
-                    else
-                        newIdx = Math.min(currentIndex + 1, count - 1)
-
-                    if (newIdx !== currentIndex)
-                    {
-                        currentIndex = newIdx
-                        console.log("Wheel event. Index: " + currentIndex)
-                    }
-                }
-            }
         }
 
     popup:
@@ -206,7 +186,9 @@ ComboBox
         {
             y: control.height
             width: control.width
-            implicitHeight: contentItem.implicitHeight
+            height: Math.min(contentItem.implicitHeight, control.Window.height - topMargin - bottomMargin)
+            topMargin: 0
+            bottomMargin: 0
             padding: 0
 
             contentItem:
@@ -215,7 +197,7 @@ ComboBox
                     id: popupList
                     clip: true
                     implicitHeight: contentHeight
-                    model: control.delegateModel
+                    model: control.popup.visible ? control.delegateModel : null
                     currentIndex: control.highlightedIndex
                     boundsBehavior: Flickable.StopAtBounds
                     highlightRangeMode: ListView.ApplyRange

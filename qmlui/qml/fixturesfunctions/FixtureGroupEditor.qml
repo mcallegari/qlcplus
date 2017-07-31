@@ -19,6 +19,7 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.0
+import QtQuick.Controls 2.1
 
 import org.qlcplus.classes 1.0
 import "."
@@ -92,7 +93,7 @@ Flickable
                 id: posButton
                 imgSource: "qrc:/position.svg"
                 tooltip: qsTr("Transform the selected items")
-                checkable: true
+                onClicked: transformMenu.open()
             }
 
             IconButton
@@ -104,20 +105,21 @@ Flickable
         }
     }
 
-    Rectangle
+    Popup
     {
         id: transformMenu
-        visible: posButton.checked
-        x: posButton.x - width
-        z: 2
-        border.color: UISettings.bgStronger
-        color: UISettings.bgStrong
-        width: menuBox.width
-        height: menuBox.height
+        x: posButton.x - width + viewMargin
+        padding: 0
+
+        background:
+            Rectangle
+            {
+                color: UISettings.bgStrong
+                border.color: UISettings.bgStronger
+            }
 
         Column
         {
-            id: menuBox
             ContextMenuEntry
             {
                 entryText: qsTr("Rotate 90° clockwise")

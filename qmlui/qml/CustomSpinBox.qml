@@ -34,6 +34,7 @@ SpinBox
     from: 0
     to: 255
     clip: true
+    wheelEnabled: true
 
     property bool showControls: true
     property string suffix: ""
@@ -46,18 +47,6 @@ SpinBox
     onFocusChanged:
     {
         if (focus) contentItem.selectAll()
-    }
-
-    MouseArea
-    {
-        anchors.fill: parent
-        onWheel:
-        {
-            if (wheel.angleDelta.y > 0)
-                control.value++
-            else
-                control.value--
-        }
     }
 
     textFromValue: function(value) {

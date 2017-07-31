@@ -30,15 +30,15 @@ Rectangle
     border.width: 2
 
     property int colorsMask: 0
-    property color selectedColor
+    property color currentRGB
     property int cellSize: width / 9
 
-    signal colorChanged(real r, real g, real b, int w, int a, int uv)
+    signal colorChanged(real r, real g, real b, real w, real a, real uv)
     signal released()
 
-    onSelectedColorChanged:
+    onCurrentRGBChanged:
     {
-        colorChanged(selectedColor.r, selectedColor.g, selectedColor.b, 0, 0, 0)
+        colorChanged(currentRGB.r, currentRGB.g, currentRGB.b, 0, 0, 0)
     }
 
     property var baseColors: [ 0xFF0000, 0xFF9900, 0xFFFF00, 0x00FF00, 0x00FFFF, 0x0000FF, 0x9900FF, 0xFF00FF ]
@@ -89,7 +89,7 @@ Rectangle
                             anchors.fill: parent
                             onClicked:
                             {
-                                selectedColor = color
+                                currentRGB = color
                                 rootBox.released()
                             }
                         }
@@ -124,7 +124,7 @@ Rectangle
                             anchors.fill: parent
                             onClicked:
                             {
-                                selectedColor = color
+                                currentRGB = color
                                 rootBox.released()
                             }
                         }
@@ -168,7 +168,7 @@ Rectangle
                                         anchors.fill: parent
                                         onClicked:
                                         {
-                                            selectedColor = color
+                                            currentRGB = color
                                             rootBox.released()
                                         }
                                     }
@@ -195,7 +195,7 @@ Rectangle
         {
             width: UISettings.mediumItemHeight
             height: UISettings.listItemHeight
-            color: selectedColor
+            color: currentRGB
         }
     }
 

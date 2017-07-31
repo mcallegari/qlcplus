@@ -33,10 +33,11 @@ Rectangle
 
     property bool closeOnSelect: false
     property int colorsMask: 0
-    property color selectedColor
+    property color currentRGB
+    property color currentWAUV
     property string colorToolQML: "qrc:/ColorToolBasic.qml"
 
-    signal colorChanged(real r, real g, real b, int w, int a, int uv)
+    signal colorChanged(real r, real g, real b, real w, real a, real uv)
 
     Rectangle
     {
@@ -126,24 +127,25 @@ Rectangle
 
         onLoaded:
         {
+            item.width = width
             item.colorsMask = Qt.binding(function() { return colorToolBox.colorsMask })
-            item.selectedColor = colorToolBox.selectedColor
+            if (item.hasOwnProperty("currentRGB"))
+                item.currentRGB = colorToolBox.currentRGB
+            if (item.hasOwnProperty("currentWAUV"))
+                item.currentWAUV = colorToolBox.currentWAUV
         }
 
         Connections
         {
              target: toolLoader.item
              ignoreUnknownSignals: true
-             onColorChanged: colorToolBox.colorChanged(r, g, b, w, a, uv)
+             onColorChanged:
+             {
+                 currentRGB = Qt.rgba(r, g, b, 1.0)
+                 currentWAUV = Qt.rgba(w, a, uv, 1.0)
+                 colorToolBox.colorChanged(r, g, b, w, a, uv)
+             }
              onReleased: if (closeOnSelect) colorToolBox.visible = false
         }
-        /*
-        Connections
-        {
-             target: toolLoader.item
-             ignoreUnknownSignals: true
-             onReleased: if (closeOnSelect) colorToolBox.visible = false
-        }
-        */
     }
 }

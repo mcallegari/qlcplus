@@ -55,7 +55,8 @@ public:
     QList<AudioDeviceInfo> audioDevicesList() const;
 
 private:
-    QStringList m_pluginsPathList;
+    /** a map of the vailable plugins ordered by priority */
+    QMap<int, QString> m_pluginsMap;
     QList<AudioDeviceInfo> m_audioDevicesList;
 };
 

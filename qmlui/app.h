@@ -46,6 +46,7 @@ class App : public QQuickView
     Q_OBJECT
     Q_DISABLE_COPY(App)
     Q_PROPERTY(bool docLoaded READ docLoaded NOTIFY docLoadedChanged)
+    Q_PROPERTY(bool docModified READ docModified NOTIFY docModifiedChanged)
     Q_PROPERTY(QStringList recentFiles READ recentFiles NOTIFY recentFilesChanged)
     Q_PROPERTY(QString workingPath READ workingPath WRITE setWorkingPath NOTIFY workingPathChanged)
 
@@ -140,14 +141,14 @@ public:
 
     bool docLoaded() { return m_docLoaded; }
 
-private slots:
-    void slotDocModified(bool state);
+    bool docModified() const;
 
 private:
     void initDoc();
 
 signals:
     void docLoadedChanged();
+    void docModifiedChanged();
 
 private:
     Doc* m_doc;
@@ -171,7 +172,7 @@ private:
      *********************************************************************/
 public:
     /** Get/Set the name of the current workspace file */
-    QString fileName() const;
+    Q_INVOKABLE QString fileName() const;
     void setFileName(const QString& fileName);
 
     /** Return the list of the recently opened files */
@@ -187,6 +188,9 @@ public:
     /** Load the workspace with the given $fileName */
     Q_INVOKABLE bool loadWorkspace(const QString& fileName);
 
+    /** Save the current workspace with the given $fileName */
+    Q_INVOKABLE bool saveWorkspace(const QString& fileName);
+
     /**
      * Load workspace contents from a XML file with the given name.
      *
@@ -201,6 +205,15 @@ public:
      * @param doc The XML document to load from.
      */
     bool loadXML(QXmlStreamReader &doc, bool goToConsole = false, bool fromMemory = false);
+
+    /**
+     * Save workspace contents to a file with the given name. Changes the
+     * current workspace file name to the given fileName.
+     *
+     * @param fileName The name of the file to save to.
+     * @return QFile::NoError if successful.
+     */
+    QFile::FileError saveXML(const QString& fileName);
 
 private:
     /**
