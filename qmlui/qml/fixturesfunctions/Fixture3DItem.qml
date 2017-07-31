@@ -36,6 +36,16 @@ Entity
     property int panMaxDegrees: 0
     property int tiltMaxDegrees: 0
 
+    function setIntensity(intensity)
+    {
+        eSpotLight.intensity = intensity
+    }
+
+    function setColor(color)
+    {
+        eSpotLight.color = color
+    }
+
     function setPosition(pan, tilt)
     {
         //console.log("[3Ditem] set position " + pan + ", " + tilt)
@@ -71,55 +81,20 @@ Entity
             console.log("Binding pan ----")
             fixtureEntity.panMaxDegrees = maxDegrees
             t.rotationZ = Qt.binding(function() { return panRotation })
-
-            panMatrix = t.matrix
-
-            var origMatrix = t.matrix;
-            var origTranslation = t.translation;
-            var origRotation = t.rotation;
-            var origScale = t.scale3D;
-            console.log("origMatrix      = " + origMatrix);
-            console.log("origTranslation = " + origTranslation);
-            console.log("origRotation    = " + origRotation);
-            console.log("origScale       = " + origScale);
         }
 
         function bindTiltTransform(t, maxDegrees)
         {
             console.log("Binding tilt ----")
             fixtureEntity.tiltMaxDegrees = maxDegrees
-            //tiltRotation = maxDegrees / 2
-            //t.rotationX = Qt.binding(function() { return tiltRotation })
-
-            var origMatrix = t.matrix;
-            var origTranslation = t.translation;
-            var origRotation = t.rotation;
-            var origScale = t.scale3D;
-            console.log("origMatrix      = " + origMatrix);
-            console.log("origTranslation = " + origTranslation);
-            console.log("origRotation    = " + origRotation);
-            console.log("origScale       = " + origScale);
-
-            // Make a deep copy of the original translation. This will not be updated when the
-            // transformation's translation property gets updated due to the animation.
-            var constantTranslation = Qt.vector3d(origTranslation.x, origTranslation.y, origTranslation.z);
-            var rotatedScale = Qt.vector3d(origScale.x, origScale.z, origScale.y);
-
-            t.matrix = Qt.binding(function() {
-                var m = Qt.matrix4x4();
-                m.translate(constantTranslation);
-                m.rotate(tiltRotation, Qt.vector3d(1, 0, 0));
-                m.scale(rotatedScale);
-                //console.log("Modified matrix = " + m)
-                return m;
-
-            })
+            tiltRotation = maxDegrees / 2
+            t.rotationX = Qt.binding(function() { return tiltRotation })
         }
 
         onStatusChanged:
         {
             if (status == SceneLoader.Ready)
-                View3D.initializeFixture(fixtureID, eObjectPicker, eSceneLoader)
+                View3D.initializeFixture(fixtureID, eObjectPicker, eSceneLoader, eSpotLight)
         }
 
         NumberAnimation on panRotation
@@ -139,6 +114,16 @@ Entity
 
     components: [ eSceneLoader ]
 
+    SpotLight
+    {
+        id: eSpotLight
+        localDirection: Qt.vector3d(0.0, 0.0, -1.0)
+        color: "white"
+        cutOffAngle: 15
+        constantAttenuation: 1
+        intensity: 0.8
+    }
+
     /* This gets re-parented and activated on initializeFixture */
     ObjectPicker
     {
@@ -149,7 +134,11 @@ Entity
 
         property var lastPos
 
-        onClicked: contextManager.setFixtureSelection(fixtureID, true)
+        onClicked:
+        {
+            console.log("Item clicked")
+            contextManager.setFixtureSelection(fixtureID, true)
+        }
         onPressed: lastPos = pick.worldIntersection
         //onReleased: console.log("Item release")
         //onEntered: console.log("Item entered")

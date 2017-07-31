@@ -291,6 +291,9 @@ void MainView2D::updateFixture(Fixture *fixture)
     QQuickItem *fxItem = m_itemsMap[fixture->id()];
     bool colorSet = false;
     bool goboSet = false;
+    bool setPosition = false;
+    int panDegrees = 0;
+    int tiltDegrees = 0;
 
     for (int headIdx = 0; headIdx < fixture->heads(); headIdx++)
     {
@@ -352,10 +355,6 @@ void MainView2D::updateFixture(Fixture *fixture)
                     Q_ARG(QVariant, QColor(Qt::white)));
         }
     }
-
-    bool setPosition = false;
-    int panDegrees = 0;
-    int tiltDegrees = 0;
 
     // now scan all the channels for "common" capabilities
     for (quint32 i = 0; i < fixture->channels(); i++)

@@ -114,26 +114,30 @@ void MainView3D::createFixtureItem(quint32 fxID, qreal x, qreal y, qreal z, bool
 
     QEntity *newFixtureItem = qobject_cast<QEntity *>(fixtureComponent->create());
 
-    if (newFixtureItem != NULL)
+    if (newFixtureItem == NULL)
     {
-        QString meshPath = "file://" + QString(MESHESDIR) + "/fixtures";
-        if (fixture->type() == QLCFixtureDef::ColorChanger)
-            meshPath.append("/par.dae");
-        else if (fixture->type() == QLCFixtureDef::MovingHead)
-            meshPath.append("/moving_head.dae");
-
-        newFixtureItem->setProperty("fixtureID", fxID);
-        newFixtureItem->setProperty("itemSource", meshPath);
-
-        newFixtureItem->setParent(m_rootEntity);
-
-        FixtureMesh *mesh = new FixtureMesh;
-        mesh->m_rootItem = newFixtureItem;
-        mesh->m_rootTransform = NULL;
-        mesh->m_armItem = NULL;
-        mesh->m_headItem = NULL;
-        m_entitiesMap[fxID] = mesh;
+        qWarning() << "Error during fixture component creation";
+        return;
     }
+
+    QString meshPath = "file://" + QString(MESHESDIR) + "/fixtures";
+    if (fixture->type() == QLCFixtureDef::ColorChanger)
+        meshPath.append("/par.dae");
+    else if (fixture->type() == QLCFixtureDef::MovingHead)
+        meshPath.append("/moving_head.dae");
+
+    newFixtureItem->setProperty("fixtureID", fxID);
+    newFixtureItem->setProperty("itemSource", meshPath);
+
+    newFixtureItem->setParent(m_rootEntity);
+
+    FixtureMesh *mesh = new FixtureMesh;
+    mesh->m_rootItem = newFixtureItem;
+    mesh->m_rootTransform = NULL;
+    mesh->m_armItem = NULL;
+    mesh->m_headItem = NULL;
+    m_entitiesMap[fxID] = mesh;
+
 }
 
 void MainView3D::updateFixture(Fixture *fixture)
@@ -147,8 +151,45 @@ void MainView3D::updateFixture(Fixture *fixture)
     QEntity *fxItem = m_entitiesMap[fixture->id()]->m_rootItem;
 
     bool setPosition = false;
+    //bool colorSet = false;
     int panDegrees = 0;
     int tiltDegrees = 0;
+
+    quint32 headDimmerIndex = fixture->channelNumber(QLCChannel::Intensity, QLCChannel::MSB);
+    //qDebug() << "Head" << headIdx << "dimmer channel:" << mdIndex;
+    qreal intValue = 1.0;
+    if (headDimmerIndex != QLCChannel::invalid())
+        intValue = (qreal)fixture->channelValueAt(headDimmerIndex) / 255;
+
+    QMetaObject::invokeMethod(fxItem, "setIntensity",
+            Q_ARG(QVariant, intValue * 2.0));
+
+    QVector <quint32> rgbCh = fixture->rgbChannels();
+    if (rgbCh.size() == 3)
+    {
+        quint8 r = 0, g = 0, b = 0;
+        r = fixture->channelValueAt(rgbCh.at(0));
+        g = fixture->channelValueAt(rgbCh.at(1));
+        b = fixture->channelValueAt(rgbCh.at(2));
+
+        QMetaObject::invokeMethod(fxItem, "setColor",
+                Q_ARG(QVariant, QColor(r, g, b)));
+        //colorSet = true;
+    }
+
+    QVector <quint32> cmyCh = fixture->cmyChannels();
+    if (cmyCh.size() == 3)
+    {
+        quint8 c = 0, m = 0, y = 0;
+        c = fixture->channelValueAt(cmyCh.at(0));
+        m = fixture->channelValueAt(cmyCh.at(1));
+        y = fixture->channelValueAt(cmyCh.at(2));
+        QColor col;
+        col.setCmyk(c, m, y, 0);
+        QMetaObject::invokeMethod(fxItem, "setColor",
+                Q_ARG(QVariant, QColor(col.red(), col.green(), col.blue())));
+        //colorSet = true;
+    }
 
     // now scan all the channels for "common" capabilities
     for (quint32 i = 0; i < fixture->channels(); i++)
@@ -285,7 +326,7 @@ Qt3DCore::QTransform *MainView3D::getTransform(QEntity *entity)
     return NULL;
 }
 
-void MainView3D::initializeFixture(quint32 fxID, QComponent *picker, Qt3DRender::QSceneLoader *loader)
+void MainView3D::initializeFixture(quint32 fxID, QComponent *picker, QSceneLoader *loader, QSpotLight *light)
 {
     if (m_entitiesMap.contains(fxID) == false)
         return;
@@ -314,7 +355,7 @@ void MainView3D::initializeFixture(quint32 fxID, QComponent *picker, Qt3DRender:
     for (QComponent *component : root->components()) // C++11
     {
         //qDebug() << component->metaObject()->className();
-        Qt3DRender::QGeometryRenderer *renderer = qobject_cast<Qt3DRender::QGeometryRenderer*>(component);
+        QGeometryRenderer *renderer = qobject_cast<QGeometryRenderer*>(component);
         if (renderer)
         {
         }
@@ -336,7 +377,7 @@ void MainView3D::initializeFixture(quint32 fxID, QComponent *picker, Qt3DRender:
         int panDeg = phy.focusPanMax();
         if (panDeg == 0) panDeg = 360;
 
-        qDebug() << "Fixture" << fxID << "has an arm entity !";
+        qDebug() << "Fixture" << fxID << "has an arm entity";
         if (fixture->channelNumber(QLCChannel::Pan, QLCChannel::MSB) != QLCChannel::invalid())
         {
             Qt3DCore::QTransform *transform = getTransform(meshRef->m_armItem);
@@ -346,13 +387,13 @@ void MainView3D::initializeFixture(quint32 fxID, QComponent *picker, Qt3DRender:
                         Q_ARG(QVariant, panDeg));
         }
     }
-#if 1
+
     if (meshRef->m_headItem != NULL)
     {
         int tiltDeg = phy.focusTiltMax();
         if (tiltDeg == 0) tiltDeg = 270;
 
-        qDebug() << "Fixture" << fxID << "has an head entity !";
+        qDebug() << "Fixture" << fxID << "has a head entity";
         Qt3DCore::QTransform *transform = getTransform(meshRef->m_headItem);
 
         if (baseItem != NULL)
@@ -372,8 +413,9 @@ void MainView3D::initializeFixture(quint32 fxID, QComponent *picker, Qt3DRender:
             meshRef->m_rootTransform = transform;
             baseItem = meshRef->m_headItem;
         }
+        meshRef->m_headItem->addComponent(light);
     }
-#endif
+
     if (m_monProps->hasFixturePosition(fixture->id()))
     {
         QVector3D fxPos = m_monProps->fixturePosition(fixture->id());
@@ -397,7 +439,7 @@ void MainView3D::initialize3DProperties()
         return;
     }
 
-    m_rootEntity = m_scene3D->property("entity").value<Qt3DCore::QEntity *>();
+    m_rootEntity = m_scene3D->property("entity").value<QEntity *>();
 
     qDebug() << Q_FUNC_INFO << m_rootEntity;
 

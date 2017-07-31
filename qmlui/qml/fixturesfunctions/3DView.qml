@@ -33,6 +33,7 @@ Rectangle
 
     property string contextName: "3D"
     property alias contextItem: sceneRoot
+    property real cameraZ: -7.0
 
     Component.onDestruction: contextManager.enableContext("3D", false, sceneRoot)
 
@@ -48,10 +49,7 @@ Rectangle
 
     function setZoom(amount)
     {
-        if (cameraZ - amount < 1.0)
-            cameraZ = 1.0
-        else
-            cameraZ -= amount
+        cameraZ += amount
     }
 
     MouseArea
@@ -62,9 +60,9 @@ Rectangle
         onWheel:
         {
             if (wheel.angleDelta.y > 0)
-                camera.position.z += 0.3
+                cameraZ += 0.3
             else
-                camera.position.z -= 0.3
+                cameraZ -= 0.3
         }
     }
 
@@ -92,7 +90,7 @@ Rectangle
                 aspectRatio: scene3d.width / scene3d.height
                 nearPlane : 0.1
                 farPlane : 1000.0
-                position: Qt.vector3d(2.5, 2.5, -7.0)
+                position: Qt.vector3d(2.5, 2.5, cameraZ)
                 upVector: Qt.vector3d(0.0, 1.0, 0.0)
                 viewCenter: Qt.vector3d(2.5, 0.0, 0.0)
             }
@@ -125,9 +123,9 @@ Rectangle
             }
 
             // Event Source will be set by the Qt3DQuickWindow
-            InputSettings {  }
+            InputSettings { id: inputSettings }
 
-            components: [ renderSettings ]
+            components: [ renderSettings, inputSettings ]
 
             Entity
             {
