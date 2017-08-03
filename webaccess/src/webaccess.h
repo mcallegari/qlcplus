@@ -33,8 +33,8 @@ class VirtualConsole;
 class VCSoloFrame;
 class SimpleDesk;
 class VCCueList;
-class VCWidget;
 class VCButton;
+class VCWidget;
 class VCSlider;
 class VCLabel;
 class VCFrame;
@@ -78,7 +78,7 @@ protected slots:
     void slotHandleWebSocketClose(QHttpConnection *conn);
 
     void slotVCLoaded();
-    void slotButtonToggled(bool on);
+    void slotButtonStateChanged(int state);
     void slotSliderValueChanged(QString val);
     void slotCueIndexChanged(int idx);
     void slotFramePageChanged(int pageNum);

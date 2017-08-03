@@ -237,7 +237,7 @@ void VCButtonProperties::accept()
     else
         m_button->setAction(VCButton::Flash);
 
-    m_button->updateOnState();
+    m_button->updateState();
 
     QDialog::accept();
 }

@@ -84,7 +84,7 @@ VCButton::VCButton(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
 
     setType(VCWidget::ButtonWidget);
     setCaption(QString());
-    setOn(false);
+    setState(Inactive);
     m_action = Action(-1); // avoid use of uninitialized value
     setAction(Toggle);
     setFrameStyle(KVCFrameStyleNone);
@@ -166,7 +166,7 @@ bool VCButton::copyFrom(const VCWidget* widget)
     enableStartupIntensity(button->isStartupIntensityEnabled());
     setStartupIntensity(button->startupIntensity());
     setAction(button->action());
-    m_on = button->m_on;
+    m_state = button->m_state;
 
     /* Copy common stuff */
     return VCWidget::copyFrom(widget);
@@ -428,45 +428,43 @@ void VCButton::slotFunctionRemoved(quint32 fid)
  * Button state
  *****************************************************************************/
 
-bool VCButton::isOn() const
+VCButton::ButtonState VCButton::state() const
 {
-    return m_on;
+    return m_state;
 }
 
-void VCButton::setOn(bool on)
+void VCButton::setState(ButtonState state)
 {
-    m_on = on;
+    if (state == m_state)
+        return;
 
-    emit pressedState(m_on);
+    m_state = state;
+
+    emit stateChanged(m_state);
 
     updateFeedback();
 
     update();
 }
 
-void VCButton::updateOnState()
+void VCButton::updateState()
 {
-    bool on;
+    ButtonState state = Inactive;
+
     if (m_action == Blackout)
     {
-        on = m_doc->inputOutputMap()->blackout();
+        if (m_doc->inputOutputMap()->blackout())
+            state = Active;
     }
-    else if (m_action == StopAll)
+    else if (m_action == Toggle)
     {
-        on = false;
-    }
-    else if (m_action == Flash)
-    {
-        on = false;
-    }
-    else // (m_action == Toggle)
-    {
-        on = false;
         Function* function = m_doc->function(m_function);
-        on = (function != NULL) && function->isRunning();
+        if (function != NULL && function->isRunning())
+            state = Active;
     }
-    if (m_on != on)
-        setOn(on);
+
+    if (m_state != state)
+        setState(state);
 }
 
 /*****************************************************************************
@@ -506,7 +504,7 @@ void VCButton::updateFeedback()
     QSharedPointer<QLCInputSource> src = inputSource();
     if (!src.isNull() && src->isValid() == true)
     {
-        if (m_on == true)
+        if (m_state == true)
             sendFeedback(src->upperValue());
         else
             sendFeedback(src->lowerValue());
@@ -529,9 +527,9 @@ void VCButton::slotInputValueChanged(quint32 universe, quint32 channel, uchar va
         {
             // Keep the button depressed only while the external button is kept down.
             // Raise the button when the external button is raised.
-            if (isOn() == false && value > 0)
+            if (state() == Inactive && value > 0)
                 pressFunction();
-            else if (isOn() == true && value == 0)
+            else if (state() == Active && value == 0)
                 releaseFunction();
         }
         else if (value > 0)
@@ -671,7 +669,7 @@ void VCButton::pressFunction()
             // if the button is in a SoloFrame and the function is running but was
             // started by a different function (a chaser or collection), turn other
             // functions off and start this one.
-            if (isOn() == true && !(isChildOfSoloFrame() && f->startedAsChild()))
+            if (state() == Active && !(isChildOfSoloFrame() && f->startedAsChild()))
             {
                 f->stop(functionParent());
             }
@@ -683,15 +681,19 @@ void VCButton::pressFunction()
                     f->adjustAttribute(intensity(), Function::Intensity);
 
                 f->start(m_doc->masterTimer(), functionParent());
+                setState(Active);
                 emit functionStarting(m_function);
             }
         }
     }
-    else if (m_action == Flash && isOn() == false)
+    else if (m_action == Flash && state() == Inactive)
     {
         f = m_doc->function(m_function);
         if (f != NULL)
+        {
             f->flash(m_doc->masterTimer());
+            setState(Active);
+        }
     }
     else if (m_action == Blackout)
     {
@@ -717,11 +719,14 @@ void VCButton::releaseFunction()
     if (mode() == Doc::Design)
         return;
 
-    if (m_action == Flash && isOn() == true)
+    if (m_action == Flash && state() == Active)
     {
         Function* f = m_doc->function(m_function);
         if (f != NULL)
+        {
             f->unFlash(m_doc->masterTimer());
+            setState(Inactive);
+        }
     }
 }
 
@@ -729,7 +734,8 @@ void VCButton::slotFunctionRunning(quint32 fid)
 {
     if (fid == m_function && m_action == Toggle)
     {
-        setOn(true);
+        if (state() == Inactive)
+            setState(Monitoring);
         emit functionStarting(m_function);
     }
 }
@@ -738,7 +744,7 @@ void VCButton::slotFunctionStopped(quint32 fid)
 {
     if (fid == m_function && m_action == Toggle)
     {
-        setOn(false);
+        setState(Inactive);
         blink(250);
     }
 }
@@ -759,7 +765,7 @@ void VCButton::slotFunctionFlashing(quint32 fid, bool state)
         return;
     }
 
-    setOn(state);
+    setState(state ? Active : Inactive);
 }
 
 void VCButton::blink(int ms)
@@ -781,7 +787,7 @@ void VCButton::slotBlink()
 
 void VCButton::slotBlackoutChanged(bool state)
 {
-    setOn(state);
+    setState(state ? Active : Inactive);
 }
 
 bool VCButton::isChildOfSoloFrame() const
@@ -812,13 +818,16 @@ QMenu* VCButton::customMenu(QMenu* parentMenu)
 
 void VCButton::adjustIntensity(qreal val)
 {
-    Function* func = m_doc->function(m_function);
-    if (func != NULL)
+    if (state() != Monitoring)
     {
-        if (isStartupIntensityEnabled())
-            func->adjustAttribute(startupIntensity() * val, Function::Intensity);
-        else
-            func->adjustAttribute(val, Function::Intensity);
+        Function* func = m_doc->function(m_function);
+        if (func != NULL)
+        {
+            if (isStartupIntensityEnabled())
+                func->adjustAttribute(startupIntensity() * val, Function::Intensity);
+            else
+                func->adjustAttribute(val, Function::Intensity);
+        }
     }
 
     VCWidget::adjustIntensity(val);
@@ -900,7 +909,7 @@ bool VCButton::loadXML(QXmlStreamReader &root)
     }
 
     /* All buttons start raised... */
-    setOn(false);
+    setState(Inactive);
 
     return true;
 }
@@ -970,11 +979,11 @@ void VCButton::paintEvent(QPaintEvent* e)
     /* This should look like a normal button */
     option.features = QStyleOptionButton::None;
 
-    /* Sunken or raised based on isOn() status */
-    if (isOn() == true)
-        option.state = QStyle::State_Sunken;
-    else
+    /* Sunken or raised based on state() status */
+    if (state() == Inactive)
         option.state = QStyle::State_Raised;
+    else
+        option.state = QStyle::State_Sunken;
 
     /* Custom icons are always enabled, to see them in full color also in design mode */
     if (m_action == Toggle || m_action == Flash)
@@ -1034,8 +1043,10 @@ void VCButton::paintEvent(QPaintEvent* e)
     {
         painter.setPen(QPen(QColor(160, 160, 160, 255), 2));
 
-        if (isOn() == true)
+        if (state() == Active)
             painter.setBrush(QBrush(QColor(0, 230, 0, 255)));
+        else if (state() == Monitoring)
+            painter.setBrush(QBrush(QColor(255, 170, 0, 255)));
         else
             painter.setBrush(QBrush(QColor(110, 110, 110, 255)));
 
@@ -1050,14 +1061,17 @@ void VCButton::paintEvent(QPaintEvent* e)
         // Style #3
         painter.setBrush(Qt::NoBrush);
 
-        if (isOn() == true)
+        if (state() != Inactive)
         {
             int borderWidth = (rect().width() > 80)?3:2;
             painter.setPen(QPen(QColor(20, 20, 20, 255), borderWidth * 2));
             painter.drawRoundedRect(borderWidth, borderWidth,
                                     rect().width() - borderWidth * 2, rect().height() - (borderWidth * 2),
                                     borderWidth + 1,  borderWidth + 1);
-            painter.setPen(QPen(QColor(0, 230, 0, 255), borderWidth));
+            if (state() == Monitoring)
+                painter.setPen(QPen(QColor(255, 170, 0, 255), borderWidth));
+            else
+                painter.setPen(QPen(QColor(0, 230, 0, 255), borderWidth));
             painter.drawRoundedRect(borderWidth, borderWidth,
                                     rect().width() - borderWidth * 2, rect().height() - (borderWidth * 2),
                                     borderWidth, borderWidth);
