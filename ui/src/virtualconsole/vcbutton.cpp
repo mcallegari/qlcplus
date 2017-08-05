@@ -504,10 +504,10 @@ void VCButton::updateFeedback()
     QSharedPointer<QLCInputSource> src = inputSource();
     if (!src.isNull() && src->isValid() == true)
     {
-        if (m_state == true)
-            sendFeedback(src->upperValue());
-        else
+        if (m_state == Inactive)
             sendFeedback(src->lowerValue());
+        else
+            sendFeedback(src->upperValue());
     }
 }
 
