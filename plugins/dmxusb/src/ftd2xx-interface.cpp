@@ -193,7 +193,10 @@ QList<DMXInterface *> FTD2XXInterface::interfaces(QList<DMXInterface *> discover
             bool found = false;
             for (int c = 0; c < discoveredList.count(); c++)
             {
-                if (discoveredList.at(c)->checkInfo(serial, name, vendor) == true)
+                // TODO: maybe these can be set to correct values?
+                uint8_t usbBus = -1;
+                uint8_t usbAddr = -1;
+                if (discoveredList.at(c)->checkInfo(serial, name, vendor, usbBus, usbAddr) == true)
                 {
                     found = true;
                     break;
@@ -436,6 +439,4 @@ uchar FTD2XXInterface::readByte(bool* ok)
 
     return 0;
 }
-
-
 
