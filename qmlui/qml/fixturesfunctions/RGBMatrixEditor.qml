@@ -251,7 +251,7 @@ Rectangle
                         y: rightSidePanel.y
                         visible: false
                         closeOnSelect: true
-                        selectedColor: rgbMatrixEditor.startColor
+                        currentRGB: rgbMatrixEditor.startColor
 
                         onColorChanged:
                         {
@@ -287,7 +287,7 @@ Rectangle
                         y: rightSidePanel.y
                         visible: false
                         closeOnSelect: true
-                        selectedColor: rgbMatrixEditor.endColor
+                        currentRGB: rgbMatrixEditor.endColor
 
                         onColorChanged: rgbMatrixEditor.endColor = Qt.rgba(r, g, b, 1.0)
                     }
