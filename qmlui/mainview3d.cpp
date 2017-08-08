@@ -35,19 +35,19 @@
 
 MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
     : PreviewContext(view, doc, "3D", parent)
+    , m_monProps(doc->monitorProperties())
+    , m_scene3D(NULL)
+    , m_rootEntity(NULL)
+    , m_quadMaterial(NULL)
 {
     setContextResource("qrc:/3DView.qml");
     setContextTitle(tr("3D View"));
 
     qRegisterMetaType<Qt3DCore::QEntity*>();
 
-    m_monProps = m_doc->monitorProperties();
-    m_scene3D = NULL;
-    m_rootEntity = NULL;
-
-    fixtureComponent = new QQmlComponent(m_view->engine(), QUrl("qrc:/Fixture3DItem.qml"));
-    if (fixtureComponent->isError())
-        qDebug() << fixtureComponent->errors();
+    m_fixtureComponent = new QQmlComponent(m_view->engine(), QUrl("qrc:/Fixture3DItem.qml"));
+    if (m_fixtureComponent->isError())
+        qDebug() << m_fixtureComponent->errors();
 }
 
 MainView3D::~MainView3D()
@@ -60,13 +60,25 @@ void MainView3D::enableContext(bool enable)
     qDebug() << "Enable 3D context..." << enable;
 
     PreviewContext::enableContext(enable);
-    if (enable == true)
-        slotRefreshView();
-    else
+    if (enable == false)
     {
         resetItems();
         m_scene3D = NULL;
         m_rootEntity = NULL;
+        m_quadMaterial = NULL;
+    }
+}
+
+void MainView3D::initialize3DProperties()
+{
+    m_scene3D = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("scene3DItem"));
+
+    qDebug() << Q_FUNC_INFO << m_scene3D;
+
+    if (m_scene3D == NULL)
+    {
+        qDebug() << "Scene3DItem not found !";
+        return;
     }
 }
 
@@ -96,6 +108,20 @@ void MainView3D::resetItems()
     m_entitiesMap.clear();
 }
 
+void MainView3D::sceneReady(QEntity *sceneEntity)
+{
+    qDebug() << "Scene entity ready" << sceneEntity;
+    m_rootEntity = sceneEntity;
+}
+
+void MainView3D::quadReady(QMaterial *quadMaterial)
+{
+    qDebug() << "Quad material ready";
+    m_quadMaterial = quadMaterial;
+
+    QMetaObject::invokeMethod(this, "slotRefreshView", Qt::QueuedConnection);
+}
+
 void MainView3D::createFixtureItem(quint32 fxID, qreal x, qreal y, qreal z, bool mmCoords)
 {
     Q_UNUSED(mmCoords)
@@ -103,7 +129,7 @@ void MainView3D::createFixtureItem(quint32 fxID, qreal x, qreal y, qreal z, bool
     if (isEnabled() == false)
         return;
 
-    if (m_scene3D == NULL || m_rootEntity == NULL)
+    if (m_scene3D == NULL)
         initialize3DProperties();
 
     qDebug() << "[MainView3D] Creating fixture with ID" << fxID << "x:" << x << "y:" << y << "z:" << z;
@@ -112,13 +138,13 @@ void MainView3D::createFixtureItem(quint32 fxID, qreal x, qreal y, qreal z, bool
     if (fixture == NULL)
         return;
 
-    QEntity *newFixtureItem = qobject_cast<QEntity *>(fixtureComponent->create());
-
-    if (newFixtureItem == NULL)
-    {
-        qWarning() << "Error during fixture component creation";
-        return;
-    }
+    FixtureMesh *mesh = new FixtureMesh;
+    mesh->m_rootItem = NULL;
+    mesh->m_rootTransform = NULL;
+    mesh->m_armItem = NULL;
+    mesh->m_headItem = NULL;
+    mesh->m_lightIndex = getNewLightIndex();
+    m_entitiesMap[fxID] = mesh;
 
     QString meshPath = "file://" + QString(MESHESDIR) + "/fixtures";
     if (fixture->type() == QLCFixtureDef::ColorChanger)
@@ -126,18 +152,181 @@ void MainView3D::createFixtureItem(quint32 fxID, qreal x, qreal y, qreal z, bool
     else if (fixture->type() == QLCFixtureDef::MovingHead)
         meshPath.append("/moving_head.dae");
 
-    newFixtureItem->setProperty("fixtureID", fxID);
-    newFixtureItem->setProperty("itemSource", meshPath);
+    QMetaObject::invokeMethod(m_rootEntity, "addFixture",
+                              Q_ARG(QVariant, fxID),
+                              Q_ARG(QVariant, meshPath));
+}
 
-    newFixtureItem->setParent(m_rootEntity);
+Qt3DCore::QTransform *MainView3D::getTransform(QEntity *entity)
+{
+    if (entity == NULL)
+        return NULL;
 
-    FixtureMesh *mesh = new FixtureMesh;
-    mesh->m_rootItem = newFixtureItem;
-    mesh->m_rootTransform = NULL;
-    mesh->m_armItem = NULL;
-    mesh->m_headItem = NULL;
-    m_entitiesMap[fxID] = mesh;
+    for (QComponent *component : entity->components()) // C++11
+    {
+        //qDebug() << component->metaObject()->className();
+        Qt3DCore::QTransform *transform = qobject_cast<Qt3DCore::QTransform *>(component);
+        if (transform)
+        {
+            //qDebug() << "matrix:" << transform->matrix();
+            //qDebug() << "translation:" << transform->translation();
+            //qDebug() << "rotation:" << transform->rotation();
+            //qDebug() << "scale:" << transform->scale3D();
+            return transform;
+        }
+    }
 
+    return NULL;
+}
+
+QMaterial *MainView3D::getMaterial(QEntity *entity)
+{
+    if (entity == NULL)
+        return NULL;
+
+    for (QComponent *component : entity->components()) // C++11
+    {
+        //qDebug() << component->metaObject()->className();
+        QMaterial *material = qobject_cast<QMaterial *>(component);
+        if (material)
+            return material;
+    }
+
+    return NULL;
+}
+
+unsigned int MainView3D::getNewLightIndex()
+{
+    unsigned int newIdx = UINT_MAX;
+
+    for (FixtureMesh *mesh : m_entitiesMap.values())
+    {
+        if (mesh->m_lightIndex < newIdx)
+            newIdx = mesh->m_lightIndex;
+    }
+
+    return newIdx == UINT_MAX ? 0 : newIdx + 1;
+}
+
+void MainView3D::initializeFixture(quint32 fxID, QEntity *fxEntity, QComponent *picker,
+                                   QSceneLoader *loader, QLayer *layer, QEffect *effect)
+{
+    if (m_entitiesMap.contains(fxID) == false)
+        return;
+
+    Fixture *fixture = m_doc->fixture(fxID);
+    if (fixture == NULL)
+        return;
+
+    QLCPhysical phy;
+    QLCFixtureMode *fxMode = fixture->fixtureMode();
+
+    if (fxMode != NULL)
+        phy = fxMode->physical();
+
+    qDebug() << "Initialize fixture" << fixture->id();
+
+    // The QSceneLoader instance is a component of an entity. The loaded scene
+    // tree is added under this entity.
+    QVector<QEntity *> entities = loader->entities();
+
+    if (entities.isEmpty())
+        return;
+
+    // Technically there could be multiple entities referencing the scene loader
+    // but sharing is discouraged, and in our case there will be one anyhow.
+    QEntity *root = entities[0];
+#if 0
+    for (QComponent *component : root->components()) // C++11
+    {
+        //qDebug() << component->metaObject()->className();
+        QGeometryRenderer *renderer = qobject_cast<QGeometryRenderer*>(component);
+        if (renderer)
+        {
+        }
+    }
+#endif
+    qDebug() << "There are" << root->children().count() << "submeshes in the loaded fixture";
+
+    fxEntity->setParent(m_rootEntity);
+    FixtureMesh *meshRef = m_entitiesMap.value(fxID);
+    meshRef->m_rootItem = fxEntity;
+    meshRef->m_rootTransform = getTransform(meshRef->m_rootItem);
+
+    /* Get all the model entities and add them to the deferred pipeline */
+    for (QEntity *ent : root->findChildren<QEntity *>())
+    {
+        QMaterial *material = getMaterial(ent);
+        if (material != NULL)
+            material->setEffect(effect);
+
+        ent->addComponent(layer);
+    }
+
+    QEntity *baseItem = root->findChild<QEntity *>("base");
+    meshRef->m_armItem = root->findChild<QEntity *>("arm");
+    meshRef->m_headItem = root->findChild<QEntity *>("head");
+
+    if (meshRef->m_armItem != NULL)
+    {
+        int panDeg = phy.focusPanMax();
+        if (panDeg == 0) panDeg = 360;
+
+        qDebug() << "Fixture" << fxID << "has an arm entity";
+        if (fixture->channelNumber(QLCChannel::Pan, QLCChannel::MSB) != QLCChannel::invalid())
+        {
+            Qt3DCore::QTransform *transform = getTransform(meshRef->m_armItem);
+            if (transform != NULL)
+                QMetaObject::invokeMethod(meshRef->m_rootItem, "bindPanTransform",
+                        Q_ARG(QVariant, QVariant::fromValue(transform)),
+                        Q_ARG(QVariant, panDeg));
+        }
+    }
+
+    if (meshRef->m_headItem != NULL)
+    {
+        int tiltDeg = phy.focusTiltMax();
+        if (tiltDeg == 0) tiltDeg = 270;
+
+        qDebug() << "Fixture" << fxID << "has a head entity";
+        Qt3DCore::QTransform *transform = getTransform(meshRef->m_headItem);
+
+        if (baseItem != NULL)
+        {
+            if (fixture->channelNumber(QLCChannel::Tilt, QLCChannel::MSB) != QLCChannel::invalid())
+            {
+                /* If there is a base item and a tilt channel,
+                 * this is either a moving head or a scanner */
+                if (transform != NULL)
+                    QMetaObject::invokeMethod(meshRef->m_rootItem, "bindTiltTransform",
+                            Q_ARG(QVariant, QVariant::fromValue(transform)),
+                            Q_ARG(QVariant, tiltDeg));
+            }
+        }
+        else
+        {
+            meshRef->m_rootTransform = transform;
+            baseItem = meshRef->m_headItem;
+        }
+
+        if (m_quadEntity)
+        {
+            QMetaObject::invokeMethod(m_quadMaterial, "addLight",
+                    Q_ARG(QVariant, QVariant::fromValue(meshRef->m_rootItem)),
+                    Q_ARG(QVariant, meshRef->m_lightIndex + 1),
+                    Q_ARG(QVariant, QVariant::fromValue(meshRef->m_rootTransform)));
+        }
+    }
+
+    if (m_monProps->hasFixturePosition(fixture->id()))
+    {
+        QVector3D fxPos = m_monProps->fixturePosition(fixture->id());
+        meshRef->m_rootTransform->setTranslation(QVector3D(fxPos.x() / 1000.0, fxPos.y() / 1000.0, fxPos.z() / 1000.0));
+    }
+
+    /* Hook the object picker to the base entity */
+    picker->setParent(baseItem);
+    baseItem->addComponent(picker);
 }
 
 void MainView3D::updateFixture(Fixture *fixture)
@@ -148,7 +337,7 @@ void MainView3D::updateFixture(Fixture *fixture)
     if (m_entitiesMap.contains(fixture->id()) == false)
         return;
 
-    QEntity *fxItem = m_entitiesMap[fixture->id()]->m_rootItem;
+    QEntity *fixtureItem = m_entitiesMap[fixture->id()]->m_rootItem;
 
     bool setPosition = false;
     //bool colorSet = false;
@@ -161,8 +350,7 @@ void MainView3D::updateFixture(Fixture *fixture)
     if (headDimmerIndex != QLCChannel::invalid())
         intValue = (qreal)fixture->channelValueAt(headDimmerIndex) / 255;
 
-    QMetaObject::invokeMethod(fxItem, "setIntensity",
-            Q_ARG(QVariant, intValue * 2.0));
+    fixtureItem->setProperty("intensity", intValue);
 
     QVector <quint32> rgbCh = fixture->rgbChannels();
     if (rgbCh.size() == 3)
@@ -172,8 +360,7 @@ void MainView3D::updateFixture(Fixture *fixture)
         g = fixture->channelValueAt(rgbCh.at(1));
         b = fixture->channelValueAt(rgbCh.at(2));
 
-        QMetaObject::invokeMethod(fxItem, "setColor",
-                Q_ARG(QVariant, QColor(r, g, b)));
+        fixtureItem->setProperty("lightColor", QColor(r, g, b));
         //colorSet = true;
     }
 
@@ -186,8 +373,7 @@ void MainView3D::updateFixture(Fixture *fixture)
         y = fixture->channelValueAt(cmyCh.at(2));
         QColor col;
         col.setCmyk(c, m, y, 0);
-        QMetaObject::invokeMethod(fxItem, "setColor",
-                Q_ARG(QVariant, QColor(col.red(), col.green(), col.blue())));
+        fixtureItem->setProperty("lightColor", QColor(col.red(), col.green(), col.blue()));
         //colorSet = true;
     }
 
@@ -227,7 +413,7 @@ void MainView3D::updateFixture(Fixture *fixture)
 
     if (setPosition == true)
     {
-        QMetaObject::invokeMethod(fxItem, "setPosition",
+        QMetaObject::invokeMethod(fixtureItem, "setPosition",
                 Q_ARG(QVariant, panDegrees),
                 Q_ARG(QVariant, tiltDegrees));
     }
@@ -256,7 +442,23 @@ void MainView3D::updateFixturePosition(quint32 fxID, QVector3D pos)
 
     qDebug() << Q_FUNC_INFO << pos;
 
+    /* move the root mesh first */
     mesh->m_rootTransform->setTranslation(QVector3D(pos.x() / 1000.0, pos.y() / 1000.0, pos.z() / 1000.0));
+
+    /* recalculate the light position */
+    QVector3D newLightPos = mesh->m_rootTransform->translation();
+    if (mesh->m_armItem)
+    {
+        Qt3DCore::QTransform *armTransform = getTransform(mesh->m_armItem);
+        newLightPos += armTransform->translation();
+    }
+    if (mesh->m_headItem)
+    {
+        Qt3DCore::QTransform *headTransform = getTransform(mesh->m_headItem);
+        newLightPos += headTransform->translation();
+    }
+    mesh->m_rootItem->setProperty("position", newLightPos);
+
 }
 
 void MainView3D::updateFixtureRotation(quint32 fxID, QVector3D degrees)
@@ -275,11 +477,6 @@ void MainView3D::updateFixtureRotation(quint32 fxID, QVector3D degrees)
     mesh->m_rootTransform->setRotationZ(degrees.z());
 }
 
-void MainView3D::createView()
-{
-    QMetaObject::invokeMethod(this, "slotRefreshView", Qt::QueuedConnection);
-}
-
 void MainView3D::slotRefreshView()
 {
     if (isEnabled() == false)
@@ -287,7 +484,7 @@ void MainView3D::slotRefreshView()
 
     resetItems();
 
-    if (m_scene3D == NULL || m_rootEntity == NULL)
+    if (m_scene3D == NULL)
         initialize3DProperties();
 
     qDebug() << "Refreshing 3D view...";
@@ -303,151 +500,4 @@ void MainView3D::slotRefreshView()
             createFixtureItem(fixture->id(), 0, 0, 0, false);
     }
 }
-
-Qt3DCore::QTransform *MainView3D::getTransform(QEntity *entity)
-{
-    if (entity == NULL)
-        return NULL;
-
-    for (QComponent *component : entity->components()) // C++11
-    {
-        //qDebug() << component->metaObject()->className();
-        Qt3DCore::QTransform *transform = qobject_cast<Qt3DCore::QTransform *>(component);
-        if (transform)
-        {
-            //qDebug() << "matrix:" << transform->matrix();
-            //qDebug() << "translation:" << transform->translation();
-            //qDebug() << "rotation:" << transform->rotation();
-            //qDebug() << "scale:" << transform->scale3D();
-            return transform;
-        }
-    }
-
-    return NULL;
-}
-
-void MainView3D::initializeFixture(quint32 fxID, QComponent *picker, QSceneLoader *loader, QSpotLight *light)
-{
-    if (m_entitiesMap.contains(fxID) == false)
-        return;
-
-    Fixture *fixture = m_doc->fixture(fxID);
-    if (fixture == NULL)
-        return;
-
-    QLCPhysical phy;
-    QLCFixtureMode *fxMode = fixture->fixtureMode();
-
-    if (fxMode != NULL)
-        phy = fxMode->physical();
-
-    // The QSceneLoader instance is a component of an entity. The loaded scene
-    // tree is added under this entity.
-    QVector<QEntity *> entities = loader->entities();
-
-    if (entities.isEmpty())
-        return;
-
-    // Technically there could be multiple entities referencing the scene loader
-    // but sharing is discouraged, and in our case there will be one anyhow.
-    QEntity *root = entities[0];
-#if 0
-    for (QComponent *component : root->components()) // C++11
-    {
-        //qDebug() << component->metaObject()->className();
-        QGeometryRenderer *renderer = qobject_cast<QGeometryRenderer*>(component);
-        if (renderer)
-        {
-        }
-    }
-#endif
-    qDebug() << "There are" << root->children().count() << "submeshes in the loaded fixture";
-
-    FixtureMesh *meshRef = m_entitiesMap.value(fxID);
-
-    QEntity *baseItem = root->findChild<QEntity *>("base");
-    meshRef->m_armItem = root->findChild<QEntity *>("arm");
-    meshRef->m_headItem = root->findChild<QEntity *>("head");
-
-    if (baseItem != NULL)
-        meshRef->m_rootTransform = getTransform(baseItem);
-
-    if (meshRef->m_armItem != NULL)
-    {
-        int panDeg = phy.focusPanMax();
-        if (panDeg == 0) panDeg = 360;
-
-        qDebug() << "Fixture" << fxID << "has an arm entity";
-        if (fixture->channelNumber(QLCChannel::Pan, QLCChannel::MSB) != QLCChannel::invalid())
-        {
-            Qt3DCore::QTransform *transform = getTransform(meshRef->m_armItem);
-            if (transform != NULL)
-                QMetaObject::invokeMethod(loader, "bindPanTransform",
-                        Q_ARG(QVariant, QVariant::fromValue(transform)),
-                        Q_ARG(QVariant, panDeg));
-        }
-    }
-
-    if (meshRef->m_headItem != NULL)
-    {
-        int tiltDeg = phy.focusTiltMax();
-        if (tiltDeg == 0) tiltDeg = 270;
-
-        qDebug() << "Fixture" << fxID << "has a head entity";
-        Qt3DCore::QTransform *transform = getTransform(meshRef->m_headItem);
-
-        if (baseItem != NULL)
-        {
-            if (fixture->channelNumber(QLCChannel::Tilt, QLCChannel::MSB) != QLCChannel::invalid())
-            {
-                /* If there is a base item and a tilt channel,
-                 * this is either a moving head or a scanner */
-                if (transform != NULL)
-                    QMetaObject::invokeMethod(loader, "bindTiltTransform",
-                            Q_ARG(QVariant, QVariant::fromValue(transform)),
-                            Q_ARG(QVariant, tiltDeg));
-            }
-        }
-        else
-        {
-            meshRef->m_rootTransform = transform;
-            baseItem = meshRef->m_headItem;
-        }
-        meshRef->m_headItem->addComponent(light);
-    }
-
-    if (m_monProps->hasFixturePosition(fixture->id()))
-    {
-        QVector3D fxPos = m_monProps->fixturePosition(fixture->id());
-        meshRef->m_rootTransform->setTranslation(QVector3D(fxPos.x() / 1000.0, fxPos.y() / 1000.0, fxPos.z() / 1000.0));
-    }
-
-    /* Hook the object picker to the base entity */
-    picker->setParent(baseItem);
-    baseItem->addComponent(picker);
-}
-
-void MainView3D::initialize3DProperties()
-{
-    m_scene3D = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("scene3DItem"));
-
-    qDebug() << Q_FUNC_INFO << m_scene3D;
-
-    if (m_scene3D == NULL)
-    {
-        qDebug() << "Scene3DItem not found !";
-        return;
-    }
-
-    m_rootEntity = m_scene3D->property("entity").value<QEntity *>();
-
-    qDebug() << Q_FUNC_INFO << m_rootEntity;
-
-    if (m_rootEntity == NULL)
-    {
-        qDebug() << "m_rootEntity not found !";
-        return;
-    }
-}
-
 

@@ -82,9 +82,6 @@
     <file alias="2DView.qml">qml/fixturesfunctions/2DView.qml</file>
     <file alias="SettingsView2D.qml">qml/fixturesfunctions/SettingsView2D.qml</file>
     <file alias="Fixture2DItem.qml">qml/fixturesfunctions/Fixture2DItem.qml</file>
-    <file alias="3DView.qml">qml/fixturesfunctions/3DView.qml</file>
-    <file alias="SettingsView3D.qml">qml/fixturesfunctions/SettingsView3D.qml</file>
-    <file alias="Fixture3DItem.qml">qml/fixturesfunctions/Fixture3DItem.qml</file>
     <file alias="FunctionManager.qml">qml/fixturesfunctions/FunctionManager.qml</file>
     <file alias="AddFunctionMenu.qml">qml/fixturesfunctions/AddFunctionMenu.qml</file>
     <file alias="EditorTopBar.qml">qml/fixturesfunctions/EditorTopBar.qml</file>
@@ -102,6 +99,27 @@
     <file alias="RGBMatrixPreview.qml">qml/fixturesfunctions/RGBMatrixPreview.qml</file>
     <file alias="EFXEditor.qml">qml/fixturesfunctions/EFXEditor.qml</file>
     <file alias="EFXPreview.qml">qml/fixturesfunctions/EFXPreview.qml</file>
+    
+    <!-- 3D View -->
+    <file alias="3DView.qml">qml/fixturesfunctions/3DView/3DView.qml</file>
+    <file alias="DeferredRenderer.qml">qml/fixturesfunctions/3DView/DeferredRenderer.qml</file>
+    <file alias="LightPassEffect.qml">qml/fixturesfunctions/3DView/LightPassEffect.qml</file>
+    <file alias="Fixture3DItem.qml">qml/fixturesfunctions/3DView/Fixture3DItem.qml</file>
+    <file alias="GBuffer.qml">qml/fixturesfunctions/3DView/GBuffer.qml</file>
+    <file alias="GBufferDebugger.qml">qml/fixturesfunctions/3DView/GBufferDebugger.qml</file>
+    <file alias="GeometryPassEffect.qml">qml/fixturesfunctions/3DView/GeometryPassEffect.qml</file>
+    <file alias="SceneEntity.qml">qml/fixturesfunctions/3DView/SceneEntity.qml</file>
+    <file alias="ScreenQuadEntity.qml">qml/fixturesfunctions/3DView/ScreenQuadEntity.qml</file>
+    <file alias="SettingsView3D.qml">qml/fixturesfunctions/3DView/SettingsView3D.qml</file>
+    
+    <file alias="debug_es2.frag">qml/fixturesfunctions/3DView/shaders/debug_es2.frag</file>
+    <file alias="debug_es2.vert">qml/fixturesfunctions/3DView/shaders/debug_es2.vert</file>
+    <file alias="debug_gl3.frag">qml/fixturesfunctions/3DView/shaders/debug_gl3.frag</file>
+    <file alias="debug_gl3.vert">qml/fixturesfunctions/3DView/shaders/debug_gl3.vert</file>
+    <file alias="final_es2.frag">qml/fixturesfunctions/3DView/shaders/final_es2.frag</file>
+    <file alias="final_es2.vert">qml/fixturesfunctions/3DView/shaders/final_es2.vert</file>
+    <file alias="final_gl3.frag">qml/fixturesfunctions/3DView/shaders/final_gl3.frag</file>
+    <file alias="final_gl3.vert">qml/fixturesfunctions/3DView/shaders/final_gl3.vert</file>
 
     <!-- Input Output Manager -->
     <file alias="InputOutputManager.qml">qml/inputoutput/InputOutputManager.qml</file>

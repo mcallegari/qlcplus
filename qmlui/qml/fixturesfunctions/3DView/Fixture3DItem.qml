@@ -17,7 +17,7 @@
   limitations under the License.
 */
 
-import QtQuick 2.7
+import QtQuick 2.7 as QQ2
 
 import Qt3D.Core 2.0
 import Qt3D.Render 2.0
@@ -32,19 +32,28 @@ Entity
 
     property int fixtureID: fixtureManager.invalidFixture()
     property alias itemSource: eSceneLoader.source
+    property Layer layer
+    property Effect effect
 
     property int panMaxDegrees: 0
     property int tiltMaxDegrees: 0
 
-    function setIntensity(intensity)
-    {
-        eSpotLight.intensity = intensity
-    }
+    property real panRotation: 0
+    property real tiltRotation: 0
 
-    function setColor(color)
-    {
-        eSpotLight.color = color
-    }
+    property Transform panTransform
+    property Transform tiltTransform
+
+    /* LIght properties. These are bound to uniforms in ScreenQuadEntity */
+    property int lightIndex
+    property real intensity: 0.0
+    property color lightColor: Qt.rgba(0, 0, 0, 1)
+    property vector3d position: Qt.vector3d(0, 0, 0)
+    property vector3d direction: Qt.vector3d(0, -1, 0)
+    property real cutOff: 15.0
+
+    onPositionChanged: console.log("Light position changed: " + position)
+    //onDirectionChanged: console.log("Light direction changed: " + direction)
 
     function setPosition(pan, tilt)
     {
@@ -52,7 +61,7 @@ Entity
         if (panMaxDegrees)
         {
             panAnim.stop()
-            panAnim.from = eSceneLoader.panRotation
+            panAnim.from = panRotation
             panAnim.to = (panMaxDegrees / 0xFFFF) * pan
             panAnim.start()
         }
@@ -60,7 +69,7 @@ Entity
         if (tiltMaxDegrees)
         {
             tiltAnim.stop()
-            tiltAnim.from = eSceneLoader.tiltRotation
+            tiltAnim.from = tiltRotation
             var degTo = parseInt(((tiltMaxDegrees / 0xFFFF) * tilt) - (tiltMaxDegrees / 2))
             //console.log("Tilt to " + degTo + ", max: " + tiltMaxDegrees)
             tiltAnim.to = degTo
@@ -68,67 +77,56 @@ Entity
         }
     }
 
+    function bindPanTransform(t, maxDegrees)
+    {
+        console.log("Binding pan ----")
+        panTransform = t
+        fixtureEntity.panMaxDegrees = maxDegrees
+        t.rotationY = Qt.binding(function() { return panRotation })
+    }
+
+    function bindTiltTransform(t, maxDegrees)
+    {
+        console.log("Binding tilt ----")
+        tiltTransform = t
+        fixtureEntity.tiltMaxDegrees = maxDegrees
+        tiltRotation = maxDegrees / 2
+        t.rotationX = Qt.binding(function() { return tiltRotation })
+    }
+
+    QQ2.NumberAnimation on panRotation
+    {
+        id: panAnim
+        duration: 2000
+        easing.type: Easing.Linear
+    }
+
+    QQ2.NumberAnimation on tiltRotation
+    {
+        id: tiltAnim
+        duration: 2000
+        easing.type: Easing.Linear
+    }
+
+    property Transform transform: Transform { }
+
     SceneLoader
     {
         id: eSceneLoader
 
-        property real panRotation: 0
-        property real tiltRotation: 0
-        property matrix4x4 panMatrix
-
-        function bindPanTransform(t, maxDegrees)
-        {
-            console.log("Binding pan ----")
-            fixtureEntity.panMaxDegrees = maxDegrees
-            t.rotationZ = Qt.binding(function() { return panRotation })
-        }
-
-        function bindTiltTransform(t, maxDegrees)
-        {
-            console.log("Binding tilt ----")
-            fixtureEntity.tiltMaxDegrees = maxDegrees
-            tiltRotation = maxDegrees / 2
-            t.rotationX = Qt.binding(function() { return tiltRotation })
-        }
-
         onStatusChanged:
         {
             if (status == SceneLoader.Ready)
-                View3D.initializeFixture(fixtureID, eObjectPicker, eSceneLoader, eSpotLight)
-        }
-
-        NumberAnimation on panRotation
-        {
-            id: panAnim
-            duration: 2000
-            easing.type: Easing.Linear
-        }
-
-        NumberAnimation on tiltRotation
-        {
-            id: tiltAnim
-            duration: 2000
-            easing.type: Easing.Linear
+                View3D.initializeFixture(fixtureID, fixtureEntity, eObjectPicker, eSceneLoader, layer, effect)
         }
     }
 
-    components: [ eSceneLoader ]
-
-    SpotLight
-    {
-        id: eSpotLight
-        localDirection: Qt.vector3d(0.0, 0.0, -1.0)
-        color: "white"
-        cutOffAngle: 15
-        constantAttenuation: 1
-        intensity: 0.8
-    }
+    components: [ eSceneLoader, transform ]
 
     /* This gets re-parented and activated on initializeFixture */
     ObjectPicker
     {
         id: eObjectPicker
-        objectName: "ePicker"
         //hoverEnabled: true
         dragEnabled: true
 
@@ -139,7 +137,7 @@ Entity
             console.log("Item clicked")
             contextManager.setFixtureSelection(fixtureID, true)
         }
-        onPressed: lastPos = pick.worldIntersection
+        //onPressed: lastPos = pick.worldIntersection
         //onReleased: console.log("Item release")
         //onEntered: console.log("Item entered")
         //onExited: console.log("Item exited")

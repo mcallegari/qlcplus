@@ -26,7 +26,9 @@
 #include <Qt3DCore/QEntity>
 #include <Qt3DCore/QTransform>
 #include <Qt3DRender/QSceneLoader>
-#include <Qt3DRender/QSpotLight>
+#include <Qt3DRender/QMaterial>
+#include <Qt3DRender/QLayer>
+#include <Qt3DRender/QEffect>
 
 #include "previewcontext.h"
 
@@ -47,7 +49,8 @@ typedef struct
     QEntity *m_armItem;
     /** Reference to the head entity used by moving heads */
     QEntity *m_headItem;
-
+    /** The attached light index */
+    unsigned int m_lightIndex;
 } FixtureMesh;
 
 class MainView3D : public PreviewContext
@@ -66,7 +69,13 @@ public:
 
     void resetItems();
 
+    Q_INVOKABLE void sceneReady(QEntity *sceneEntity);
+    Q_INVOKABLE void quadReady(QMaterial *quadMaterial);
+
     void createFixtureItem(quint32 fxID, qreal x, qreal y, qreal z, bool mmCoords = true);
+
+    Q_INVOKABLE void initializeFixture(quint32 fxID, QEntity *fxEntity, QComponent *picker,
+                                       QSceneLoader *loader, QLayer *layer, QEffect *effect);
 
     void updateFixture(Fixture *fixture);
 
@@ -78,15 +87,14 @@ public:
 
     void updateFixtureRotation(quint32 fxID, QVector3D degrees);
 
-    Q_INVOKABLE void createView();
-    Q_INVOKABLE void initializeFixture(quint32 fxID, QComponent *picker, QSceneLoader *loader, QSpotLight *light);
-
 protected:
     /** First time 3D view variables initializations */
     void initialize3DProperties();
 
 private:
     Qt3DCore::QTransform *getTransform(QEntity *entity);
+    QMaterial *getMaterial(QEntity *entity);
+    unsigned int getNewLightIndex();
 
 protected slots:
     /** @reimp */
@@ -96,13 +104,17 @@ private:
     MonitorProperties *m_monProps;
 
     /** Pre-cached QML component for quick item creation */
-    QQmlComponent *fixtureComponent;
+    QQmlComponent *m_fixtureComponent;
 
     /** Reference to the Scene3D component */
     QQuickItem *m_scene3D;
 
-    /** Reference to the scene3D root entity for items creation */
+    /** Reference to the scene root entity for items creation */
     QEntity *m_rootEntity;
+
+    /** Reference to the light pass entity and material for uniform updates */
+    QEntity *m_quadEntity;
+    QMaterial *m_quadMaterial;
 
     /** Map of QLC+ fixture IDs and QML Entity items */
     QMap<quint32, FixtureMesh*> m_entitiesMap;
