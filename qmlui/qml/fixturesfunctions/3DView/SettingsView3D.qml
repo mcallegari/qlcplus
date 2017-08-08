@@ -34,6 +34,9 @@ Rectangle
 
     property bool fxPropsVisible: contextManager.hasSelectedFixtures
 
+    property vector3d fxPosition: contextManager.fixturesPosition
+    property vector3d fxRotation: contextManager.fixturesRotation
+
     GridLayout
     {
         x: 5
@@ -80,18 +83,17 @@ Rectangle
         RobotoText { visible: fxPropsVisible; label: "X" }
         CustomSpinBox
         {
-            id: fxXPos
             visible: fxPropsVisible
             height: UISettings.listItemHeight
-            width: settingsRoot.width * 0.75
+            Layout.fillWidth: true
             from: -10000
             to: 100000
             suffix: "mm"
-            value: contextManager.fixturesPosition.x * 1000
+            value: fxPosition.x
             onValueChanged:
             {
                 if (settingsRoot.visible)
-                    contextManager.fixturesPosition = Qt.vector3d(value, fxYPos.value, fxZPos.value)
+                    contextManager.fixturesPosition = Qt.vector3d(value, fxPosition.y, fxPosition.z)
             }
         }
 
@@ -99,18 +101,17 @@ Rectangle
         RobotoText { visible: fxPropsVisible; label: "Y" }
         CustomSpinBox
         {
-            id: fxYPos
             visible: fxPropsVisible
             height: UISettings.listItemHeight
-            width: settingsRoot.width * 0.75
+            Layout.fillWidth: true
             from: -10000
             to: 100000
             suffix: "mm"
-            value: contextManager.fixturesPosition.y * 1000
+            value: fxPosition.y
             onValueChanged:
             {
                 if (settingsRoot.visible)
-                    contextManager.fixturesPosition = Qt.vector3d(fxXPos.value, value, fxZPos.value)
+                    contextManager.fixturesPosition = Qt.vector3d(fxPosition.x, value, fxPosition.z)
             }
         }
 
@@ -118,18 +119,17 @@ Rectangle
         RobotoText { visible: fxPropsVisible; label: "Z" }
         CustomSpinBox
         {
-            id: fxZPos
             visible: fxPropsVisible
             height: UISettings.listItemHeight
-            width: settingsRoot.width * 0.75
+            Layout.fillWidth: true
             from: -10000
             to: 100000
             suffix: "mm"
-            value: contextManager.fixturesPosition.z * 1000
+            value: fxPosition.z
             onValueChanged:
             {
                 if (settingsRoot.visible)
-                    contextManager.fixturesPosition = Qt.vector3d(fxXPos.value, fxYPos.value, value)
+                    contextManager.fixturesPosition = Qt.vector3d(fxPosition.x, fxPosition.y, value)
             }
         }
 
@@ -154,18 +154,17 @@ Rectangle
         RobotoText { visible: fxPropsVisible; label: "X" }
         CustomSpinBox
         {
-            id: fxXRot
             visible: fxPropsVisible
             height: UISettings.listItemHeight
-            width: settingsRoot.width * 0.75
+            Layout.fillWidth: true
             from: -359
             to: 359
             suffix: "°"
-            value: contextManager.fixturesRotation.x
+            value: fxRotation.x
             onValueChanged:
             {
                 if (settingsRoot.visible)
-                    contextManager.fixturesRotation = Qt.vector3d(value, fxYRot.value, fxZRot.value)
+                    contextManager.fixturesRotation = Qt.vector3d(value, fxRotation.y, fxRotation.y)
             }
         }
 
@@ -173,18 +172,17 @@ Rectangle
         RobotoText { visible: fxPropsVisible; label: "Y" }
         CustomSpinBox
         {
-            id: fxYRot
             visible: fxPropsVisible
             height: UISettings.listItemHeight
-            width: settingsRoot.width * 0.75
+            Layout.fillWidth: true
             from: -359
             to: 359
             suffix: "°"
-            value: contextManager.fixturesRotation.y
+            value: fxRotation.y
             onValueChanged:
             {
                 if (settingsRoot.visible)
-                    contextManager.fixturesRotation = Qt.vector3d(fxXRot.value, value, fxZRot.value)
+                    contextManager.fixturesRotation = Qt.vector3d(fxRotation.x, value, fxRotation.z)
             }
         }
 
@@ -192,18 +190,17 @@ Rectangle
         RobotoText { visible: fxPropsVisible; label: "Z" }
         CustomSpinBox
         {
-            id: fxZRot
             visible: fxPropsVisible
             height: UISettings.listItemHeight
-            width: settingsRoot.width * 0.75
+            Layout.fillWidth: true
             from: -359
             to: 359
             suffix: "°"
-            value: contextManager.fixturesRotation.z
+            value: fxRotation.z
             onValueChanged:
             {
                 if (settingsRoot.visible)
-                    contextManager.fixturesRotation = Qt.vector3d(fxXRot.value, fxYRot.value, value)
+                    contextManager.fixturesRotation = Qt.vector3d(fxRotation.x, fxRotation.y, value)
             }
         }
     }

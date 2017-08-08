@@ -52,6 +52,9 @@ Entity
     property vector3d direction: Qt.vector3d(0, -1, 0)
     property real cutOff: 15.0
 
+    onPanTransformChanged: console.log("Pan transform changed " + panTransform)
+    onTiltTransformChanged: console.log("Tilt transform changed " + tiltTransform)
+
     onPositionChanged: console.log("Light position changed: " + position)
     //onDirectionChanged: console.log("Light direction changed: " + direction)
 
@@ -80,7 +83,7 @@ Entity
     function bindPanTransform(t, maxDegrees)
     {
         console.log("Binding pan ----")
-        panTransform = t
+        fixtureEntity.panTransform = t
         fixtureEntity.panMaxDegrees = maxDegrees
         t.rotationY = Qt.binding(function() { return panRotation })
     }
@@ -88,7 +91,7 @@ Entity
     function bindTiltTransform(t, maxDegrees)
     {
         console.log("Binding tilt ----")
-        tiltTransform = t
+        fixtureEntity.tiltTransform = t
         fixtureEntity.tiltMaxDegrees = maxDegrees
         tiltRotation = maxDegrees / 2
         t.rotationX = Qt.binding(function() { return tiltRotation })
@@ -113,6 +116,8 @@ Entity
     SceneLoader
     {
         id: eSceneLoader
+
+        onSourceChanged: console.log("Loader source changed " + eSceneLoader)
 
         onStatusChanged:
         {

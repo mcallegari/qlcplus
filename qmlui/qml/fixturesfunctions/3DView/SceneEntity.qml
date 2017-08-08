@@ -27,19 +27,11 @@ import Qt3D.Extras 2.0
 Entity
 {
     id: sceneRootEntity
+    objectName: "sceneRootEntity"
 
     readonly property Camera camera: camera
     readonly property Layer layer: sceneLayer
-
-    Component.onCompleted: View3D.sceneReady(sceneRootEntity, sceneLayer, geometryPassEffect)
-
-    function addFixture(fixtureID, source)
-    {
-        var component = Qt.createComponent("qrc:/Fixture3DItem.qml");
-        component.createObject(sceneRootEntity,
-                               { "fixtureID": fixtureID, "itemSource": source,
-                                 "layer": sceneLayer, "effect": geometryPassEffect });
-    }
+    readonly property Effect effect: geometryPassEffect
 
     // Global elements
     Camera

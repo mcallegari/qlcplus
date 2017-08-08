@@ -26,6 +26,7 @@ import Qt3D.Extras 2.0
 Entity
 {
     id: root
+    objectName: "quadEntity"
 
     readonly property Layer layer: screenQuadLayer
     readonly property Effect lightPassEffect: LightPassEffect { }
@@ -46,20 +47,27 @@ Entity
         components : [
             Layer { id: screenQuadLayer },
 
-            PlaneMesh {
+            PlaneMesh
+            {
                 width: 2.0
                 height: 2.0
                 meshResolution: Qt.size(2, 2)
             },
 
-            Transform { // We rotate the plane so that it faces us
+            Transform
+            {
+                // We rotate the plane so that it faces us
                 rotation: fromAxisAndAngle(Qt.vector3d(1, 0, 0), 90)
             },
 
-            Material {
+            Material
+            {
                 id: lightPassMaterial
+                objectName: "lightPassMaterial"
 
                 property int lightsNumber: 1
+
+                Component.onCompleted: View3D.quadReady()
 
                 function addLight(fxItem, index, t)
                 {
@@ -111,8 +119,6 @@ Entity
                     Parameter { name: "lightsArray[0].quadraticAttenuation"; value: 0.0 },
                     Parameter { name: "lightsNumber"; value : lightPassMaterial.lightsNumber }
                 ]
-
-                Component.onCompleted: View3D.quadReady(lightPassMaterial)
             }
         ]
     }

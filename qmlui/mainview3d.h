@@ -69,8 +69,8 @@ public:
 
     void resetItems();
 
-    Q_INVOKABLE void sceneReady(QEntity *sceneEntity);
-    Q_INVOKABLE void quadReady(QMaterial *quadMaterial);
+    Q_INVOKABLE void sceneReady();
+    Q_INVOKABLE void quadReady();
 
     void createFixtureItem(quint32 fxID, qreal x, qreal y, qreal z, bool mmCoords = true);
 
@@ -99,6 +99,8 @@ private:
 protected slots:
     /** @reimp */
     void slotRefreshView();
+    /** Helper method to create fixtures in the event loop thread */
+    void slotCreateFixture(quint32 fxID);
 
 private:
     MonitorProperties *m_monProps;
@@ -110,7 +112,7 @@ private:
     QQuickItem *m_scene3D;
 
     /** Reference to the scene root entity for items creation */
-    QEntity *m_rootEntity;
+    QEntity *m_sceneRootEntity;
 
     /** Reference to the light pass entity and material for uniform updates */
     QEntity *m_quadEntity;

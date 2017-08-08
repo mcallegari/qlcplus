@@ -37,7 +37,7 @@ MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
     : PreviewContext(view, doc, "3D", parent)
     , m_monProps(doc->monitorProperties())
     , m_scene3D(NULL)
-    , m_rootEntity(NULL)
+    , m_sceneRootEntity(NULL)
     , m_quadMaterial(NULL)
 {
     setContextResource("qrc:/3DView.qml");
@@ -64,7 +64,7 @@ void MainView3D::enableContext(bool enable)
     {
         resetItems();
         m_scene3D = NULL;
-        m_rootEntity = NULL;
+        m_sceneRootEntity = NULL;
         m_quadMaterial = NULL;
     }
 }
@@ -80,6 +80,29 @@ void MainView3D::initialize3DProperties()
         qDebug() << "Scene3DItem not found !";
         return;
     }
+
+    m_sceneRootEntity = m_scene3D->findChild<QEntity *>("sceneRootEntity");
+    if (m_sceneRootEntity == NULL)
+    {
+        qDebug() << "sceneRootEntity not found !";
+        return;
+    }
+
+    m_quadEntity = m_scene3D->findChild<QEntity *>("quadEntity");
+    if (m_quadEntity == NULL)
+    {
+        qDebug() << "quadEntity not found !";
+        return;
+    }
+
+    m_quadMaterial = m_quadEntity->findChild<QMaterial *>("lightPassMaterial");
+    if (m_quadMaterial == NULL)
+    {
+        qDebug() << "lightPassMaterial not found !";
+        return;
+    }
+
+    qDebug() << m_sceneRootEntity << m_quadEntity << m_quadMaterial;
 }
 
 void MainView3D::setUniverseFilter(quint32 universeFilter)
@@ -108,18 +131,39 @@ void MainView3D::resetItems()
     m_entitiesMap.clear();
 }
 
-void MainView3D::sceneReady(QEntity *sceneEntity)
+void MainView3D::sceneReady()
 {
-    qDebug() << "Scene entity ready" << sceneEntity;
-    m_rootEntity = sceneEntity;
+    qDebug() << "Scene entity ready";
 }
 
-void MainView3D::quadReady(QMaterial *quadMaterial)
+void MainView3D::quadReady()
 {
     qDebug() << "Quad material ready";
-    m_quadMaterial = quadMaterial;
 
     QMetaObject::invokeMethod(this, "slotRefreshView", Qt::QueuedConnection);
+}
+
+void MainView3D::slotCreateFixture(quint32 fxID)
+{
+    Fixture *fixture = m_doc->fixture(fxID);
+    if (fixture == NULL)
+        return;
+
+    QString meshPath = "file://" + QString(MESHESDIR) + "/fixtures";
+    if (fixture->type() == QLCFixtureDef::ColorChanger)
+        meshPath.append("/par.dae");
+    else if (fixture->type() == QLCFixtureDef::MovingHead)
+        meshPath.append("/moving_head.dae");
+
+    QLayer *sceneLayer = m_sceneRootEntity->property("layer").value<QLayer *>();
+    QEffect *sceneEffect = m_sceneRootEntity->property("effect").value<QEffect *>();
+
+    QEntity *newItem = qobject_cast<QEntity *>(m_fixtureComponent->create());
+    newItem->setProperty("fixtureID", fxID);
+    newItem->setProperty("layer", QVariant::fromValue(sceneLayer));
+    newItem->setProperty("effect", QVariant::fromValue(sceneEffect));
+    newItem->setProperty("itemSource", meshPath);
+    newItem->setParent(m_sceneRootEntity);
 }
 
 void MainView3D::createFixtureItem(quint32 fxID, qreal x, qreal y, qreal z, bool mmCoords)
@@ -129,7 +173,7 @@ void MainView3D::createFixtureItem(quint32 fxID, qreal x, qreal y, qreal z, bool
     if (isEnabled() == false)
         return;
 
-    if (m_scene3D == NULL)
+    if (m_quadEntity == NULL)
         initialize3DProperties();
 
     qDebug() << "[MainView3D] Creating fixture with ID" << fxID << "x:" << x << "y:" << y << "z:" << z;
@@ -146,15 +190,7 @@ void MainView3D::createFixtureItem(quint32 fxID, qreal x, qreal y, qreal z, bool
     mesh->m_lightIndex = getNewLightIndex();
     m_entitiesMap[fxID] = mesh;
 
-    QString meshPath = "file://" + QString(MESHESDIR) + "/fixtures";
-    if (fixture->type() == QLCFixtureDef::ColorChanger)
-        meshPath.append("/par.dae");
-    else if (fixture->type() == QLCFixtureDef::MovingHead)
-        meshPath.append("/moving_head.dae");
-
-    QMetaObject::invokeMethod(m_rootEntity, "addFixture",
-                              Q_ARG(QVariant, fxID),
-                              Q_ARG(QVariant, meshPath));
+    QMetaObject::invokeMethod(this, "slotCreateFixture", Qt::QueuedConnection, Q_ARG(quint32, fxID));
 }
 
 Qt3DCore::QTransform *MainView3D::getTransform(QEntity *entity)
@@ -197,11 +233,11 @@ QMaterial *MainView3D::getMaterial(QEntity *entity)
 
 unsigned int MainView3D::getNewLightIndex()
 {
-    unsigned int newIdx = UINT_MAX;
+    unsigned int newIdx = 0;
 
     for (FixtureMesh *mesh : m_entitiesMap.values())
     {
-        if (mesh->m_lightIndex < newIdx)
+        if (mesh->m_lightIndex >= newIdx)
             newIdx = mesh->m_lightIndex;
     }
 
@@ -248,7 +284,7 @@ void MainView3D::initializeFixture(quint32 fxID, QEntity *fxEntity, QComponent *
 #endif
     qDebug() << "There are" << root->children().count() << "submeshes in the loaded fixture";
 
-    fxEntity->setParent(m_rootEntity);
+    fxEntity->setParent(m_sceneRootEntity);
     FixtureMesh *meshRef = m_entitiesMap.value(fxID);
     meshRef->m_rootItem = fxEntity;
     meshRef->m_rootTransform = getTransform(meshRef->m_rootItem);
@@ -325,8 +361,10 @@ void MainView3D::initializeFixture(quint32 fxID, QEntity *fxEntity, QComponent *
     }
 
     /* Hook the object picker to the base entity */
-    picker->setParent(baseItem);
-    baseItem->addComponent(picker);
+    picker->setParent(meshRef->m_rootItem);
+    meshRef->m_rootItem->addComponent(picker);
+
+    updateFixture(fixture);
 }
 
 void MainView3D::updateFixture(Fixture *fixture)
@@ -484,8 +522,7 @@ void MainView3D::slotRefreshView()
 
     resetItems();
 
-    if (m_scene3D == NULL)
-        initialize3DProperties();
+    initialize3DProperties();
 
     qDebug() << "Refreshing 3D view...";
 
