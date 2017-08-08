@@ -41,8 +41,8 @@ class ContextManager : public QObject
 
     Q_PROPERTY(quint32 universeFilter READ universeFilter WRITE setUniverseFilter NOTIFY universeFilterChanged)
     Q_PROPERTY(bool hasSelectedFixtures READ hasSelectedFixtures NOTIFY selectedFixturesChanged)
-    Q_PROPERTY(QVector3D fixturesPosition READ fixturesPosition WRITE setFixturesPosition)
-    Q_PROPERTY(QVector3D fixturesRotation READ fixturesRotation WRITE setFixturesRotation)
+    Q_PROPERTY(QVector3D fixturesPosition READ fixturesPosition WRITE setFixturesPosition NOTIFY fixturesPositionChanged)
+    Q_PROPERTY(QVector3D fixturesRotation READ fixturesRotation WRITE setFixturesRotation NOTIFY fixturesRotationChanged)
 
 public:
     explicit ContextManager(QQuickView *view, Doc *doc,
@@ -160,6 +160,8 @@ protected slots:
 
 signals:
     void selectedFixturesChanged();
+    void fixturesPositionChanged();
+    void fixturesRotationChanged();
 
 private:
     /** The list of the currently selected Fixture IDs */

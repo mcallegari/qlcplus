@@ -306,6 +306,8 @@ void ContextManager::setFixtureSelection(quint32 fxID, bool enable)
             m_channelsMap.remove(chType, sv);
     }
     emit selectedFixturesChanged();
+    emit fixturesPositionChanged();
+    emit fixturesRotationChanged();
 }
 
 void ContextManager::resetFixtureSelection()
@@ -361,8 +363,7 @@ QVector3D ContextManager::fixturesPosition() const
     if (m_selectedFixtures.count() == 1)
     {
         MonitorProperties *mProps = m_doc->monitorProperties();
-        foreach(quint32 fxID, m_selectedFixtures)
-            return mProps->fixturePosition(fxID);
+        return mProps->fixturePosition(m_selectedFixtures.first());
     }
 
     return QVector3D(0, 0, 0);
@@ -372,11 +373,23 @@ void ContextManager::setFixturesPosition(QVector3D position)
 {
     MonitorProperties *mProps = m_doc->monitorProperties();
 
-    foreach(quint32 fxID, m_selectedFixtures)
+    if (m_selectedFixtures.count() == 1)
     {
-        mProps->setFixturePosition(fxID, position);
+        // absolute position change
+        mProps->setFixturePosition(m_selectedFixtures.first(), position);
         if (m_3DView->isEnabled())
-            m_3DView->updateFixturePosition(fxID, position);
+            m_3DView->updateFixturePosition(m_selectedFixtures.first(), position);
+    }
+    else
+    {
+        // relative position change
+        for (quint32 fxID : m_selectedFixtures)
+        {
+            QVector3D newPos = mProps->fixturePosition(fxID) + position;
+            mProps->setFixturePosition(fxID, newPos);
+            if (m_3DView->isEnabled())
+                m_3DView->updateFixturePosition(fxID, newPos);
+        }
     }
 }
 
