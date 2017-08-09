@@ -24,7 +24,8 @@
 
 #include <Qt3DCore/QTransform>
 #include <Qt3DRender/QGeometry>
-#include <Qt3DRender/QGeometryRenderer>
+#include <Qt3DRender/QAttribute>
+#include <Qt3DRender/QBuffer>
 
 #include "doc.h"
 #include "qlcconfig.h"
@@ -238,10 +239,139 @@ unsigned int MainView3D::getNewLightIndex()
     for (FixtureMesh *mesh : m_entitiesMap.values())
     {
         if (mesh->m_lightIndex >= newIdx)
-            newIdx = mesh->m_lightIndex;
+            newIdx = mesh->m_lightIndex + 1;
     }
 
-    return newIdx == UINT_MAX ? 0 : newIdx + 1;
+    return newIdx;
+}
+
+void MainView3D::updateLightPosition(FixtureMesh *meshRef)
+{
+    if (meshRef == NULL)
+        return;
+
+    QVector3D newLightPos = meshRef->m_rootTransform->translation();
+    if (meshRef->m_armItem)
+    {
+        Qt3DCore::QTransform *armTransform = getTransform(meshRef->m_armItem);
+        newLightPos += armTransform->translation();
+    }
+    if (meshRef->m_headItem)
+    {
+        Qt3DCore::QTransform *headTransform = getTransform(meshRef->m_headItem);
+        newLightPos += headTransform->translation();
+    }
+    meshRef->m_rootItem->setProperty("position", newLightPos);
+}
+
+void MainView3D::calculateMeshExtents(QGeometryRenderer *mesh,
+                                      QVector3D &meshExtents,
+                                      QVector3D &meshCenter)
+{
+    meshExtents = QVector3D();
+    meshCenter =  QVector3D();
+
+    QGeometry *meshGeometry = mesh->geometry();
+
+    if (!meshGeometry)
+        return;
+
+    // Set default in case we can't determine the geometry: normalized mesh in range [-1,1]
+    meshExtents = QVector3D(2.0f, 2.0f, 2.0f);
+    meshCenter =  QVector3D();
+
+    Qt3DRender::QAttribute *vPosAttribute = nullptr;
+    for (Qt3DRender::QAttribute *attribute : meshGeometry->attributes())
+    {
+        if (attribute->name() == Qt3DRender::QAttribute::defaultPositionAttributeName())
+        {
+            vPosAttribute = attribute;
+            break;
+        }
+    }
+    if (vPosAttribute)
+    {
+        const float *bufferPtr =
+                reinterpret_cast<const float *>(vPosAttribute->buffer()->data().constData());
+        uint stride = vPosAttribute->byteStride() / sizeof(float);
+        uint offset = vPosAttribute->byteOffset() / sizeof(float);
+        bufferPtr += offset;
+        uint vertexCount = vPosAttribute->count();
+        uint dataCount = vPosAttribute->buffer()->data().size() / sizeof(float);
+
+        // Make sure we have valid data
+        if (((vertexCount * stride) + offset) > dataCount)
+            return;
+
+        float minX = FLT_MAX;
+        float minY = FLT_MAX;
+        float minZ = FLT_MAX;
+        float maxX = -FLT_MAX;
+        float maxY = -FLT_MAX;
+        float maxZ = -FLT_MAX;
+
+        if (stride)
+            stride = stride - 3; // Three floats per vertex
+
+        for (uint i = 0; i < vertexCount; i++)
+        {
+            float xVal = *bufferPtr++;
+            minX = qMin(xVal, minX);
+            maxX = qMax(xVal, maxX);
+            float yVal = *bufferPtr++;
+            minY = qMin(yVal, minY);
+            maxY = qMax(yVal, maxY);
+            float zVal = *bufferPtr++;
+            minZ = qMin(zVal, minZ);
+            maxZ = qMax(zVal, maxZ);
+            bufferPtr += stride;
+        }
+        meshExtents = QVector3D(maxX - minX, maxY - minY, maxZ - minZ);
+        meshCenter = QVector3D(minX + meshExtents.x() / 2.0f,
+                               minY + meshExtents.y() / 2.0f,
+                               minZ + meshExtents.z() / 2.0f);
+    }
+}
+
+QEntity *MainView3D::inspectEntity(QEntity *entity, FixtureMesh *meshRef, QLayer *layer, QEffect *effect)
+{
+    if (entity == NULL)
+        return NULL;
+
+    QEntity *baseItem = NULL;
+
+    for (QComponent *component : entity->components()) // C++11
+    {
+        //qDebug() << component->metaObject()->className();
+
+        QMaterial *material = qobject_cast<QMaterial *>(component);
+        //Qt3DCore::QTransform *transform = qobject_cast<Qt3DCore::QTransform *>(component);
+        QGeometryRenderer *geom = qobject_cast<QGeometryRenderer *>(component);
+
+        if (material)
+            material->setEffect(effect);
+
+        if (geom && meshRef->m_selectionBoxExtents.isNull())
+        {
+            QVector3D extents, center;
+            calculateMeshExtents(geom, extents, center);
+            qDebug() << "Entity" << entity->objectName() << "size" << extents;
+        }
+    }
+
+    for (QEntity *subEntity : entity->findChildren<QEntity *>(QString(), Qt::FindDirectChildrenOnly))
+        baseItem = inspectEntity(subEntity, meshRef, layer, effect);
+
+    entity->addComponent(layer);
+
+    if (entity->objectName() == "base")
+        baseItem = entity;
+    else if (entity->objectName() == "arm")
+        meshRef->m_armItem = entity;
+    else if (entity->objectName() == "head")
+        meshRef->m_headItem = entity;
+
+    return baseItem;
 }
 
 void MainView3D::initializeFixture(quint32 fxID, QEntity *fxEntity, QComponent *picker,
@@ -256,9 +386,21 @@ void MainView3D::initializeFixture(quint32 fxID, QEntity *fxEntity, QComponent *
 
     QLCPhysical phy;
     QLCFixtureMode *fxMode = fixture->fixtureMode();
+    int panDeg = 0;
+    int tiltDeg = 0;
 
     if (fxMode != NULL)
+    {
         phy = fxMode->physical();
+
+        panDeg = phy.focusPanMax();
+        if (panDeg == 0)
+            panDeg = 360;
+
+        tiltDeg = phy.focusTiltMax();
+        if (tiltDeg == 0)
+            tiltDeg = 270;
+    }
 
     qDebug() << "Initialize fixture" << fixture->id();
 
@@ -272,17 +414,8 @@ void MainView3D::initializeFixture(quint32 fxID, QEntity *fxEntity, QComponent *
     // Technically there could be multiple entities referencing the scene loader
     // but sharing is discouraged, and in our case there will be one anyhow.
     QEntity *root = entities[0];
-#if 0
-    for (QComponent *component : root->components()) // C++11
-    {
-        //qDebug() << component->metaObject()->className();
-        QGeometryRenderer *renderer = qobject_cast<QGeometryRenderer*>(component);
-        if (renderer)
-        {
-        }
-    }
-#endif
-    qDebug() << "There are" << root->children().count() << "submeshes in the loaded fixture";
+
+    qDebug() << "There are" << root->children().count() << "components in the loaded fixture";
 
     fxEntity->setParent(m_sceneRootEntity);
     FixtureMesh *meshRef = m_entitiesMap.value(fxID);
@@ -290,24 +423,10 @@ void MainView3D::initializeFixture(quint32 fxID, QEntity *fxEntity, QComponent *
     meshRef->m_rootTransform = getTransform(meshRef->m_rootItem);
 
     /* Get all the model entities and add them to the deferred pipeline */
-    for (QEntity *ent : root->findChildren<QEntity *>())
+    QEntity *baseItem = inspectEntity(root, meshRef, layer, effect);
+
+    if (meshRef->m_armItem)
     {
-        QMaterial *material = getMaterial(ent);
-        if (material != NULL)
-            material->setEffect(effect);
-
-        ent->addComponent(layer);
-    }
-
-    QEntity *baseItem = root->findChild<QEntity *>("base");
-    meshRef->m_armItem = root->findChild<QEntity *>("arm");
-    meshRef->m_headItem = root->findChild<QEntity *>("head");
-
-    if (meshRef->m_armItem != NULL)
-    {
-        int panDeg = phy.focusPanMax();
-        if (panDeg == 0) panDeg = 360;
-
         qDebug() << "Fixture" << fxID << "has an arm entity";
         if (fixture->channelNumber(QLCChannel::Pan, QLCChannel::MSB) != QLCChannel::invalid())
         {
@@ -319,11 +438,8 @@ void MainView3D::initializeFixture(quint32 fxID, QEntity *fxEntity, QComponent *
         }
     }
 
-    if (meshRef->m_headItem != NULL)
+    if (meshRef->m_headItem)
     {
-        int tiltDeg = phy.focusTiltMax();
-        if (tiltDeg == 0) tiltDeg = 270;
-
         qDebug() << "Fixture" << fxID << "has a head entity";
         Qt3DCore::QTransform *transform = getTransform(meshRef->m_headItem);
 
@@ -339,11 +455,6 @@ void MainView3D::initializeFixture(quint32 fxID, QEntity *fxEntity, QComponent *
                             Q_ARG(QVariant, tiltDeg));
             }
         }
-        else
-        {
-            meshRef->m_rootTransform = transform;
-            baseItem = meshRef->m_headItem;
-        }
 
         if (m_quadEntity)
         {
@@ -358,6 +469,8 @@ void MainView3D::initializeFixture(quint32 fxID, QEntity *fxEntity, QComponent *
     {
         QVector3D fxPos = m_monProps->fixturePosition(fixture->id());
         meshRef->m_rootTransform->setTranslation(QVector3D(fxPos.x() / 1000.0, fxPos.y() / 1000.0, fxPos.z() / 1000.0));
+        if (meshRef->m_headItem)
+            updateLightPosition(meshRef);
     }
 
     /* Hook the object picker to the base entity */
@@ -484,19 +597,7 @@ void MainView3D::updateFixturePosition(quint32 fxID, QVector3D pos)
     mesh->m_rootTransform->setTranslation(QVector3D(pos.x() / 1000.0, pos.y() / 1000.0, pos.z() / 1000.0));
 
     /* recalculate the light position */
-    QVector3D newLightPos = mesh->m_rootTransform->translation();
-    if (mesh->m_armItem)
-    {
-        Qt3DCore::QTransform *armTransform = getTransform(mesh->m_armItem);
-        newLightPos += armTransform->translation();
-    }
-    if (mesh->m_headItem)
-    {
-        Qt3DCore::QTransform *headTransform = getTransform(mesh->m_headItem);
-        newLightPos += headTransform->translation();
-    }
-    mesh->m_rootItem->setProperty("position", newLightPos);
-
+    updateLightPosition(mesh);
 }
 
 void MainView3D::updateFixtureRotation(quint32 fxID, QVector3D degrees)

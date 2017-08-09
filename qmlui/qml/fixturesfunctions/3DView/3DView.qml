@@ -90,7 +90,11 @@ Rectangle
 
             ScreenQuadEntity { id: screenQuadEntity }
 
-            SceneEntity { id: sceneEntity }
+            SceneEntity
+            {
+                id: sceneEntity
+                viewSize: Qt.size(scene3d.width, scene3d.height)
+            }
 
             //GBufferDebugger { id: debugEntity }
 
@@ -106,6 +110,8 @@ Rectangle
                             gBuffer: GBuffer {}
                             sceneLayer: sceneEntity.layer
                             screenQuadLayer: screenQuadEntity.layer
+                            windowWidth: scene3d.width
+                            windowHeight: scene3d.height
                             //debugLayer: debugEntity.layer
                         }
                     renderPolicy: RenderSettings.Always

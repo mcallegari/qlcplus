@@ -29,6 +29,7 @@ Entity
     id: sceneRootEntity
     objectName: "sceneRootEntity"
 
+    property size viewSize
     readonly property Camera camera: camera
     readonly property Layer layer: sceneLayer
     readonly property Effect effect: geometryPassEffect
@@ -39,12 +40,12 @@ Entity
         id: camera
         projectionType: CameraLens.PerspectiveProjection
         fieldOfView: 45
-        aspectRatio: 16/9
+        aspectRatio: viewSize.width / viewSize.height
         nearPlane : 1.0
         farPlane : 1000.0
-        position: Qt.vector3d(0.0, 0.0, -5.0)
+        position: Qt.vector3d(ground.xSize / 2, 0.0, -5.0)
         upVector: Qt.vector3d(0.0, 1.0, 0.0)
-        viewCenter: Qt.vector3d(0.0, 0.0, 0.0)
+        viewCenter: Qt.vector3d(ground.xSize / 2, 0.0, 0.0)
     }
 
     GeometryPassEffect { id: geometryPassEffect }
@@ -76,7 +77,7 @@ Entity
             yExtent: 0.2
         }
         
-        property Transform transform: Transform { translation: Qt.vector3d(0, -1, 0) }
+        property Transform transform: Transform { translation: Qt.vector3d(ground.xSize / 2, -1, 0) }
 
         components: [
             groundMesh,

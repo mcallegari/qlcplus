@@ -74,8 +74,11 @@ Entity
                     console.log("Adding light with index " + index)
 
                     fxItem.direction = Qt.binding(function() {
-                        var lightMatrix = t.matrix.times(fxItem.panTransform.matrix)
-                        lightMatrix = lightMatrix.times(fxItem.tiltTransform.matrix)
+                        var lightMatrix = t.matrix
+                        if (fxItem.panTransform)
+                            lightMatrix = t.matrix.times(fxItem.panTransform.matrix)
+                        if (fxItem.tiltTransform)
+                            lightMatrix = lightMatrix.times(fxItem.tiltTransform.matrix)
                         lightMatrix = lightMatrix.times(Qt.vector4d(0.0, -1.0, 0.0, 0.0))
                         return lightMatrix.toVector3d()
                     })

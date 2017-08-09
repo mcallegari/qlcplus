@@ -31,8 +31,8 @@ Viewport
     property alias screenQuadLayer: screenQuadLayerFilter.layers
     property alias debugLayer: debugLayerFilter.layers
 
-    readonly property real windowWidth: surfaceSelector.surface !== null ? surfaceSelector.surface.width: 0
-    readonly property real windowHeight: surfaceSelector.surface !== null ? surfaceSelector.surface.height: 0
+    property real windowWidth: 0
+    property real windowHeight: 0
 
     RenderSurfaceSelector
     {

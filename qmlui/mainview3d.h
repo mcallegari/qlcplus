@@ -29,6 +29,7 @@
 #include <Qt3DRender/QMaterial>
 #include <Qt3DRender/QLayer>
 #include <Qt3DRender/QEffect>
+#include <Qt3DRender/QGeometryRenderer>
 
 #include "previewcontext.h"
 
@@ -51,6 +52,10 @@ typedef struct
     QEntity *m_headItem;
     /** The attached light index */
     unsigned int m_lightIndex;
+
+    QVector3D m_selectionBoxExtents;
+    QVector3D m_selectionBoxCenter;
+
 } FixtureMesh;
 
 class MainView3D : public PreviewContext
@@ -91,10 +96,16 @@ protected:
     /** First time 3D view variables initializations */
     void initialize3DProperties();
 
+    void calculateMeshExtents(QGeometryRenderer *mesh, QVector3D &meshExtents, QVector3D &meshCenter);
+
+    /** Recursive method to get/set all the information of a scene */
+    QEntity *inspectEntity(QEntity *entity, FixtureMesh *meshRef, QLayer *layer, QEffect *effect);
+
 private:
     Qt3DCore::QTransform *getTransform(QEntity *entity);
     QMaterial *getMaterial(QEntity *entity);
     unsigned int getNewLightIndex();
+    void updateLightPosition(FixtureMesh *meshRef);
 
 protected slots:
     /** @reimp */

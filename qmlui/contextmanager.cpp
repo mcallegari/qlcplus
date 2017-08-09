@@ -391,6 +391,8 @@ void ContextManager::setFixturesPosition(QVector3D position)
                 m_3DView->updateFixturePosition(fxID, newPos);
         }
     }
+
+    emit fixturesPositionChanged();
 }
 
 void ContextManager::setFixturesAlignment(int alignment)
@@ -515,6 +517,8 @@ void ContextManager::setFixturesRotation(QVector3D degrees)
             m_3DView->updateFixtureRotation(fxID, rot);
     }
     m_prevRotation = degrees;
+
+    emit fixturesRotationChanged();
 }
 
 void ContextManager::slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal z)
