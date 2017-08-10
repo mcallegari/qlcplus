@@ -113,13 +113,11 @@ Entity
 
                 effect: lightPassEffect
                 parameters: [
-                    Parameter { name: "lightsArray[0].type"; value : 0 }, // Point Light
+                    Parameter { name: "lightsArray[0].type"; value : 1 }, // Directional Light
                     Parameter { name: "lightsArray[0].position"; value : Qt.vector3d(0, 10, 0) },
+                    Parameter { name: "lightsArray[0].direction"; value : Qt.vector3d(0, -1, 0) },
                     Parameter { name: "lightsArray[0].color"; value : Qt.rgba(1, 1, 1, 1) },
-                    Parameter { name: "lightsArray[0].intensity"; value : 0.8 },
-                    Parameter { name: "lightsArray[0].constantAttenuation"; value: 1.0 },
-                    Parameter { name: "lightsArray[0].linearAttenuation"; value: 0.0 },
-                    Parameter { name: "lightsArray[0].quadraticAttenuation"; value: 0.0 },
+                    Parameter { name: "lightsArray[0].intensity"; value : View3D.ambientIntensity },
                     Parameter { name: "lightsNumber"; value : lightPassMaterial.lightsNumber }
                 ]
             }

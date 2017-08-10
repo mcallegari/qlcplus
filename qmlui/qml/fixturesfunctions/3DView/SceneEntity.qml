@@ -43,7 +43,7 @@ Entity
         aspectRatio: viewSize.width / viewSize.height
         nearPlane : 1.0
         farPlane : 1000.0
-        position: Qt.vector3d(ground.xSize / 2, 0.0, -5.0)
+        position: Qt.vector3d(ground.xSize / 2, 0.0, 7.5)
         upVector: Qt.vector3d(0.0, 1.0, 0.0)
         viewCenter: Qt.vector3d(ground.xSize / 2, 0.0, 0.0)
     }
@@ -51,7 +51,30 @@ Entity
     GeometryPassEffect { id: geometryPassEffect }
 
     Layer { id: sceneLayer }
+/*
+    SelectionGeometry { id: sGeometry }
 
+    Entity
+    {
+        id: selectionBox
+
+        property Material material:
+            Material
+            {
+                effect: geometryPassEffect
+                parameters: Parameter { name: "meshColor"; value: "red" }
+            }
+
+        property Transform transform: Transform { translation: Qt.vector3d(1, 0, 1); scale3D: Qt.vector3d(0.5, 0.5, 0.5) }
+
+        components: [
+            sGeometry,
+            material,
+            transform,
+            sceneLayer
+        ]
+    }
+*/
     Entity
     {
         id: ground
@@ -63,7 +86,7 @@ Entity
             Material
             {
                 effect: geometryPassEffect
-                parameters: Parameter { name : "meshColor"; value : "lightgray" }
+                parameters: Parameter { name: "meshColor"; value: "lightgray" }
             }
 
         CuboidMesh
@@ -77,7 +100,7 @@ Entity
             yExtent: 0.2
         }
         
-        property Transform transform: Transform { translation: Qt.vector3d(ground.xSize / 2, -1, 0) }
+        property Transform transform: Transform { translation: Qt.vector3d(ground.xSize / 2, -1, ground.zSize / 2) }
 
         components: [
             groundMesh,

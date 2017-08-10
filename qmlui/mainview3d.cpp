@@ -40,6 +40,7 @@ MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
     , m_scene3D(NULL)
     , m_sceneRootEntity(NULL)
     , m_quadMaterial(NULL)
+    , m_ambientIntensity(0.8)
 {
     setContextResource("qrc:/3DView.qml");
     setContextTitle(tr("3D View"));
@@ -333,34 +334,78 @@ void MainView3D::calculateMeshExtents(QGeometryRenderer *mesh,
     }
 }
 
-QEntity *MainView3D::inspectEntity(QEntity *entity, FixtureMesh *meshRef, QLayer *layer, QEffect *effect)
+void MainView3D::addVolumes(FixtureMesh *meshRef, QVector3D center, QVector3D extent)
+{
+    if (meshRef == NULL)
+        return;
+
+    float mminX = meshRef->m_selectionBox.m_center.x() - (meshRef->m_selectionBox.m_extents.x() / 2.0f);
+    float mminY = meshRef->m_selectionBox.m_center.y() - (meshRef->m_selectionBox.m_extents.y() / 2.0f);
+    float mminZ = meshRef->m_selectionBox.m_center.z() - (meshRef->m_selectionBox.m_extents.z() / 2.0f);
+    float mmaxX = meshRef->m_selectionBox.m_center.x() + (meshRef->m_selectionBox.m_extents.x() / 2.0f);
+    float mmaxY = meshRef->m_selectionBox.m_center.y() + (meshRef->m_selectionBox.m_extents.y() / 2.0f);
+    float mmaxZ = meshRef->m_selectionBox.m_center.z() + (meshRef->m_selectionBox.m_extents.z() / 2.0f);
+
+    float eminX = center.x() - (extent.x() / 2.0f);
+    float eminY = center.y() - (extent.y() / 2.0f);
+    float eminZ = center.z() - (extent.z() / 2.0f);
+    float emaxX = center.x() + (extent.x() / 2.0f);
+    float emaxY = center.y() + (extent.y() / 2.0f);
+    float emaxZ = center.z() + (extent.z() / 2.0f);
+
+    float vminX = qMin(mminX, qMin(eminX, emaxX));
+    float vminY = qMin(mminY, qMin(eminY, emaxY));
+    float vminZ = qMin(mminZ, qMin(eminZ, emaxZ));
+    float vmaxX = qMax(mmaxX, qMax(eminX, emaxX));
+    float vmaxY = qMax(mmaxY, qMax(eminY, emaxY));
+    float vmaxZ = qMax(mmaxZ, qMax(eminZ, emaxZ));
+
+    meshRef->m_selectionBox.m_extents = QVector3D(vmaxX - vminX, vmaxY - vminY, vmaxZ - vminZ);
+    meshRef->m_selectionBox.m_center = QVector3D(vminX + meshRef->m_selectionBox.m_extents.x() / 2.0f,
+                                                 vminY + meshRef->m_selectionBox.m_extents.y() / 2.0f,
+                                                 vminZ + meshRef->m_selectionBox.m_extents.z() / 2.0f);
+
+    qDebug() << "-- extent" << meshRef->m_selectionBox.m_extents << "-- center" << meshRef->m_selectionBox.m_center;
+}
+
+QEntity *MainView3D::inspectEntity(QEntity *entity, FixtureMesh *meshRef,
+                                   QLayer *layer, QEffect *effect,
+                                   bool calculateVolume, QVector3D translation)
 {
     if (entity == NULL)
         return NULL;
 
     QEntity *baseItem = NULL;
+    QGeometryRenderer *geom = NULL;
 
     for (QComponent *component : entity->components()) // C++11
     {
         //qDebug() << component->metaObject()->className();
 
         QMaterial *material = qobject_cast<QMaterial *>(component);
-        //Qt3DCore::QTransform *transform = qobject_cast<Qt3DCore::QTransform *>(component);
-        QGeometryRenderer *geom = qobject_cast<QGeometryRenderer *>(component);
+        Qt3DCore::QTransform *transform = qobject_cast<Qt3DCore::QTransform *>(component);
+        if (geom == NULL)
+            geom = qobject_cast<QGeometryRenderer *>(component);
 
         if (material)
             material->setEffect(effect);
 
-        if (geom && meshRef->m_selectionBoxExtents.isNull())
-        {
-            QVector3D extents, center;
-            calculateMeshExtents(geom, extents, center);
-            qDebug() << "Entity" << entity->objectName() << "size" << extents;
-        }
+        if (transform)
+            translation += transform->translation();
+    }
+
+    if (geom && calculateVolume)
+    {
+        QVector3D extents, center;
+        calculateMeshExtents(geom, extents, center);
+        qDebug() << "Entity" << entity->objectName() << "translation:" << translation << ", size:" << extents << ", center:" << center;
+
+        QVector3D absCenter = translation + center;
+        addVolumes(meshRef, extents, absCenter);
     }
 
     for (QEntity *subEntity : entity->findChildren<QEntity *>(QString(), Qt::FindDirectChildrenOnly))
-        baseItem = inspectEntity(subEntity, meshRef, layer, effect);
+        baseItem = inspectEntity(subEntity, meshRef, layer, effect, calculateVolume, translation);
 
     entity->addComponent(layer);
 
@@ -388,6 +433,7 @@ void MainView3D::initializeFixture(quint32 fxID, QEntity *fxEntity, QComponent *
     QLCFixtureMode *fxMode = fixture->fixtureMode();
     int panDeg = 0;
     int tiltDeg = 0;
+    bool calculateVolume = true;
 
     if (fxMode != NULL)
     {
@@ -418,12 +464,26 @@ void MainView3D::initializeFixture(quint32 fxID, QEntity *fxEntity, QComponent *
     qDebug() << "There are" << root->children().count() << "components in the loaded fixture";
 
     fxEntity->setParent(m_sceneRootEntity);
+
+    QVector3D translation;
     FixtureMesh *meshRef = m_entitiesMap.value(fxID);
     meshRef->m_rootItem = fxEntity;
     meshRef->m_rootTransform = getTransform(meshRef->m_rootItem);
 
-    /* Get all the model entities and add them to the deferred pipeline */
-    QEntity *baseItem = inspectEntity(root, meshRef, layer, effect);
+    // If this model has been already loaded, re-use the cached bounding volume
+    if (m_boundingVolumesMap.contains(loader->source()))
+        calculateVolume = false;
+    else
+        meshRef->m_selectionBox = m_boundingVolumesMap[loader->source()];
+
+    // Walk through the scene tree and add each mesh to the deferred pipeline.
+    // If needed, calculate also the bounding volume */
+    QEntity *baseItem = inspectEntity(root, meshRef, layer, effect, calculateVolume, translation);
+
+    qDebug() << "Calculated volume" << meshRef->m_selectionBox.m_extents << meshRef->m_selectionBox.m_center;
+
+    if (calculateVolume)
+        m_boundingVolumesMap[loader->source()] = meshRef->m_selectionBox;
 
     if (meshRef->m_armItem)
     {
@@ -447,8 +507,8 @@ void MainView3D::initializeFixture(quint32 fxID, QEntity *fxEntity, QComponent *
         {
             if (fixture->channelNumber(QLCChannel::Tilt, QLCChannel::MSB) != QLCChannel::invalid())
             {
-                /* If there is a base item and a tilt channel,
-                 * this is either a moving head or a scanner */
+                // If there is a base item and a tilt channel,
+                // this is either a moving head or a scanner
                 if (transform != NULL)
                     QMetaObject::invokeMethod(meshRef->m_rootItem, "bindTiltTransform",
                             Q_ARG(QVariant, QVariant::fromValue(transform)),
@@ -614,6 +674,20 @@ void MainView3D::updateFixtureRotation(quint32 fxID, QVector3D degrees)
     mesh->m_rootTransform->setRotationX(degrees.x());
     mesh->m_rootTransform->setRotationY(degrees.y());
     mesh->m_rootTransform->setRotationZ(degrees.z());
+}
+
+float MainView3D::ambientIntensity() const
+{
+    return m_ambientIntensity;
+}
+
+void MainView3D::setAmbientIntensity(float ambientIntensity)
+{
+    if (m_ambientIntensity == ambientIntensity)
+        return;
+
+    m_ambientIntensity = ambientIntensity;
+    emit ambientIntensityChanged(m_ambientIntensity);
 }
 
 void MainView3D::slotRefreshView()

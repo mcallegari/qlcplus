@@ -42,6 +42,12 @@ using namespace Qt3DRender;
 
 typedef struct
 {
+    QVector3D m_extents;
+    QVector3D m_center;
+} BoundingVolume;
+
+typedef struct
+{
     /** Reference to the fixture root item, for hierarchy walk and function calls */
     QEntity *m_rootItem;
     /** Reference to the root item tranform component, to perform translations/rotations */
@@ -52,15 +58,16 @@ typedef struct
     QEntity *m_headItem;
     /** The attached light index */
     unsigned int m_lightIndex;
-
-    QVector3D m_selectionBoxExtents;
-    QVector3D m_selectionBoxCenter;
+    /** The bounding volume information */
+    BoundingVolume m_selectionBox;
 
 } FixtureMesh;
 
 class MainView3D : public PreviewContext
 {
     Q_OBJECT
+
+    Q_PROPERTY(float ambientIntensity READ ambientIntensity WRITE setAmbientIntensity NOTIFY ambientIntensityChanged)
 
 public:
     explicit MainView3D(QQuickView *view, Doc *doc, QObject *parent = 0);
@@ -92,14 +99,24 @@ public:
 
     void updateFixtureRotation(quint32 fxID, QVector3D degrees);
 
+    /** Get/Set the ambient light intensity */
+    float ambientIntensity() const;
+    void setAmbientIntensity(float ambientIntensity);
+
+signals:
+    void ambientIntensityChanged(qreal ambientIntensity);
+
 protected:
     /** First time 3D view variables initializations */
     void initialize3DProperties();
 
     void calculateMeshExtents(QGeometryRenderer *mesh, QVector3D &meshExtents, QVector3D &meshCenter);
+    void addVolumes(FixtureMesh *meshRef, QVector3D center, QVector3D extent);
 
     /** Recursive method to get/set all the information of a scene */
-    QEntity *inspectEntity(QEntity *entity, FixtureMesh *meshRef, QLayer *layer, QEffect *effect);
+    QEntity *inspectEntity(QEntity *entity, FixtureMesh *meshRef,
+                           QLayer *layer, QEffect *effect,
+                           bool calculateVolume, QVector3D translation);
 
 private:
     Qt3DCore::QTransform *getTransform(QEntity *entity);
@@ -131,6 +148,12 @@ private:
 
     /** Map of QLC+ fixture IDs and QML Entity items */
     QMap<quint32, FixtureMesh*> m_entitiesMap;
+
+    /** Cache of the loaded models against bounding volumes */
+    QMap<QUrl, BoundingVolume> m_boundingVolumesMap;
+
+    /** Ambient light amount (0.0 - 1.0) */
+    float m_ambientIntensity;
 };
 
 #endif // MAINVIEW3D_H

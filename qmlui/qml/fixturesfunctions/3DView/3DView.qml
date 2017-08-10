@@ -52,20 +52,6 @@ Rectangle
         cameraZ += amount
     }
 
-    MouseArea
-    {
-        anchors.fill: parent
-        onClicked: scene3d.forceActiveFocus()
-        preventStealing: true
-        onWheel:
-        {
-            if (wheel.angleDelta.y > 0)
-                cameraZ += 0.3
-            else
-                cameraZ -= 0.3
-        }
-    }
-
     Scene3D
     {
         id: scene3d
@@ -73,7 +59,6 @@ Rectangle
         z: 1
         anchors.fill: parent
         aspects: ["input", "logic"]
-        //cameraAspectRatioMode: Scene3D.AutomaticAspectRatio
 
         Entity
         {
@@ -85,7 +70,7 @@ Rectangle
             {
                 id: camController
                 camera: sceneEntity.camera
-                lookSpeed: 800.0
+                lookSpeed: 1000.0
             }
 
             ScreenQuadEntity { id: screenQuadEntity }

@@ -29,7 +29,7 @@ Viewport
     property alias camera : sceneCameraSelector.camera
     property alias sceneLayer: sceneLayerFilter.layers
     property alias screenQuadLayer: screenQuadLayerFilter.layers
-    property alias debugLayer: debugLayerFilter.layers
+    //property alias debugLayer: debugLayerFilter.layers
 
     property real windowWidth: 0
     property real windowHeight: 0
@@ -100,6 +100,7 @@ Viewport
                         }
                     }
                     // RenderDebug layer
+                    /*
                     LayerFilter
                     {
                         id: debugLayerFilter
@@ -113,6 +114,7 @@ Viewport
                             }
                         }
                     }
+                    */
                 }
             }
         }

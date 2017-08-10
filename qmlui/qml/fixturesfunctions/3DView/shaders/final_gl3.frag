@@ -36,9 +36,10 @@ void main()
 
     vec3 lightColor = vec3(0.0);
     vec3 s;
+    float att;
 
     for (int i = 0; i < lightsNumber; ++i) {
-        float att = 1.0;
+        att = 1.0;
         if ( lightsArray[i].type != TYPE_DIRECTIONAL ) {
             s = lightsArray[i].position - pos;
             if (lightsArray[i].constantAttenuation != 0.0

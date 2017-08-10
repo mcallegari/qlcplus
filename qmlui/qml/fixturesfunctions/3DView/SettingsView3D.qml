@@ -37,6 +37,8 @@ Rectangle
     property vector3d fxPosition: contextManager.fixturesPosition
     property vector3d fxRotation: contextManager.fixturesRotation
 
+    property real ambientIntensity: View3D.ambientIntensity
+
     GridLayout
     {
         x: 5
@@ -48,18 +50,30 @@ Rectangle
         // row 1
         Rectangle
         {
-            visible: !fxPropsVisible
             height: UISettings.listItemHeight
             Layout.fillWidth: true
-            color: "transparent"
+            color: UISettings.sectionHeader
             Layout.columnSpan: 2
 
             RobotoText
             {
                 x: 5
                 anchors.verticalCenter: parent.verticalCenter
-                label: qsTr("Select some fixtures first")
+                label: qsTr("Ambient")
             }
+        }
+
+        // row 2
+        RobotoText { visible: fxPropsVisible; label: "Intensity" }
+        CustomSpinBox
+        {
+            Layout.fillWidth: true
+            height: UISettings.listItemHeight
+            from: 0
+            to: 100
+            suffix: "%"
+            value: ambientIntensity * 100
+            onValueChanged: View3D.ambientIntensity = value / 100
         }
 
         // row 1

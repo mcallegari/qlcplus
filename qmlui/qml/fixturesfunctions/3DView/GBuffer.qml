@@ -28,77 +28,93 @@ RenderTarget
     property alias depth: depthAttachment
 
     attachments: [
-        RenderTargetOutput {
-            objectName : "color"
-            attachmentPoint : RenderTargetOutput.Color0
-            texture : Texture2D {
-                id : colorAttachment
-                width : 1024
-                height : 1024
-                format : Texture.RGBA32F
-                generateMipMaps : false
-                magnificationFilter : Texture.Linear
-                minificationFilter : Texture.Linear
-                wrapMode {
-                    x: WrapMode.ClampToEdge
-                    y: WrapMode.ClampToEdge
+        RenderTargetOutput
+        {
+            objectName: "color"
+            attachmentPoint: RenderTargetOutput.Color0
+            texture:
+                Texture2D
+                {
+                    id: colorAttachment
+                    width: 1024
+                    height: 1024
+                    format: Texture.RGBA32F
+                    generateMipMaps: false
+                    magnificationFilter: Texture.Linear
+                    minificationFilter: Texture.Linear
+                    wrapMode
+                    {
+                        x: WrapMode.ClampToEdge
+                        y: WrapMode.ClampToEdge
+                    }
                 }
-            }
         },
-        RenderTargetOutput {
-            objectName : "position"
-            attachmentPoint : RenderTargetOutput.Color1
-            texture : Texture2D {
-                id : positionAttachment
-                width : 1024
-                height : 1024
-                // We use RGBA32F here instead of a more fitting format because
-                // OpenGL vendors might not support other formats
-                format : Texture.RGBA32F
-                generateMipMaps : false
-                magnificationFilter : Texture.Linear
-                minificationFilter : Texture.Linear
-                wrapMode {
-                    x: WrapMode.ClampToEdge
-                    y: WrapMode.ClampToEdge
+        RenderTargetOutput
+        {
+            objectName: "position"
+            attachmentPoint: RenderTargetOutput.Color1
+            texture:
+                Texture2D
+                {
+                    id: positionAttachment
+                    width: 1024
+                    height: 1024
+                    // We use RGBA32F here instead of a more fitting format because
+                    // OpenGL vendors might not support other formats
+                    format: Texture.RGBA32F
+                    generateMipMaps: false
+                    magnificationFilter: Texture.Linear
+                    minificationFilter: Texture.Linear
+                    wrapMode
+                    {
+                        x: WrapMode.ClampToEdge
+                        y: WrapMode.ClampToEdge
+                    }
                 }
-            }
         },
-        RenderTargetOutput {
-            objectName : "normal"
-            attachmentPoint : RenderTargetOutput.Color2
-            texture : Texture2D {
-                id : normalAttachment
-                width : 1024
-                height : 1024
-                // We use RGBA32F here instead of a more fitting format because
-                // OpenGL vendors might not support other formats
-                format : Texture.RGBA32F
-                generateMipMaps : false
-                magnificationFilter : Texture.Linear
-                minificationFilter : Texture.Linear
-                wrapMode {
-                    x: WrapMode.ClampToEdge
-                    y: WrapMode.ClampToEdge
+        RenderTargetOutput
+        {
+            objectName: "normal"
+            attachmentPoint: RenderTargetOutput.Color2
+            texture:
+                Texture2D
+                {
+                    id: normalAttachment
+                    width: 1024
+                    height: 1024
+                    // We use RGBA32F here instead of a more fitting format because
+                    // OpenGL vendors might not support other formats
+                    format: Texture.RGBA32F
+                    generateMipMaps: false
+                    magnificationFilter: Texture.Linear
+                    minificationFilter: Texture.Linear
+                    wrapMode
+                    {
+                        x: WrapMode.ClampToEdge
+                        y: WrapMode.ClampToEdge
+                    }
                 }
-            }
         },
-        RenderTargetOutput {
-            objectName : "depth"
-            attachmentPoint : RenderTargetOutput.Depth
-            texture : Texture2D {
-                id : depthAttachment
-                width : 1024
-                height : 1024
-                format : Texture.D32F
-                generateMipMaps : false
-                magnificationFilter : Texture.Linear
-                minificationFilter : Texture.Linear
-                wrapMode {
-                    x: WrapMode.ClampToEdge
-                    y: WrapMode.ClampToEdge
+        RenderTargetOutput
+        {
+            objectName: "depth"
+            attachmentPoint: RenderTargetOutput.Depth
+            texture:
+                Texture2D
+                {
+                    id: depthAttachment
+                    width: 1024
+                    height: 1024
+                    format: Texture.D32F
+                    generateMipMaps: false
+                    magnificationFilter: Texture.Linear
+                    minificationFilter: Texture.Linear
+                    wrapMode
+                    {
+                        x: WrapMode.ClampToEdge
+                        y: WrapMode.ClampToEdge
+                    }
                 }
-            }
         }
     ] // outputs
 }
