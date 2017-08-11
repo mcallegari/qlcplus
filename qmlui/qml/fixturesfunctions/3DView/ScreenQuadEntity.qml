@@ -104,8 +104,8 @@ Entity
                     parameters.push(uniformComp.createObject(lightPassMaterial,
                                     { name: "lightsArray[%1].cutOffAngle".arg(index), value: Qt.binding(function() { return fxItem.cutOff }) }))
 
-                    // dump the uniform list
-                    parameters.forEach(function (p) { console.log(p.name, '=', p.value); })
+                    // dump the uniform list (uncomment for debug purposes)
+                    // parameters.forEach(function (p) { console.log(p.name, '=', p.value); })
 
                     lightPassMaterial.parameters = parameters
                     lightPassMaterial.lightsNumber++
@@ -114,8 +114,8 @@ Entity
                 effect: lightPassEffect
                 parameters: [
                     Parameter { name: "lightsArray[0].type"; value : 1 }, // Directional Light
-                    Parameter { name: "lightsArray[0].position"; value : Qt.vector3d(0, 10, 0) },
-                    Parameter { name: "lightsArray[0].direction"; value : Qt.vector3d(0, -1, 0) },
+                    Parameter { name: "lightsArray[0].position"; value : Qt.vector3d(0, 10, 5) },
+                    Parameter { name: "lightsArray[0].direction"; value : Qt.vector3d(0, -1, -0.5) },
                     Parameter { name: "lightsArray[0].color"; value : Qt.rgba(1, 1, 1, 1) },
                     Parameter { name: "lightsArray[0].intensity"; value : View3D.ambientIntensity },
                     Parameter { name: "lightsNumber"; value : lightPassMaterial.lightsNumber }
