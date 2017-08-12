@@ -739,11 +739,14 @@ void Scene::insertStartValue(FadeChannel& fc, const MasterTimer* timer,
  * Intensity
  ****************************************************************************/
 
-void Scene::adjustAttribute(qreal fraction, int attributeIndex)
+int Scene::adjustAttribute(qreal fraction, int attributeId)
 {
-    if (m_fader != NULL && attributeIndex == Intensity)
-        m_fader->adjustIntensity(fraction);
-    Function::adjustAttribute(fraction, attributeIndex);
+    int attrIndex = Function::adjustAttribute(fraction, attributeId);
+
+    if (m_fader != NULL && attrIndex == Intensity)
+        m_fader->adjustIntensity(getAttributeValue(Function::Intensity));
+
+    return attrIndex;
 }
 
 /*************************************************************************

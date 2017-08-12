@@ -1120,7 +1120,7 @@ void VCButton::mousePressEvent(QMouseEvent* e)
                 QWidget *entryWidget = new QWidget();
                 QHBoxLayout *hbox = new QHBoxLayout(menu);
                 hbox->setMargin(3);
-                QLabel *label = new QLabel(attr.name);
+                QLabel *label = new QLabel(attr.m_name);
                 label->setAlignment(Qt::AlignLeft);
                 label->setFixedWidth(100);
                 ClickAndGoSlider *slider = new ClickAndGoSlider(menu);
@@ -1129,7 +1129,7 @@ void VCButton::mousePressEvent(QMouseEvent* e)
                 slider->setFixedSize(QSize(100, 18));
                 slider->setMinimum(0);
                 slider->setMaximum(100);
-                slider->setValue(attr.value * 100);
+                slider->setValue(attr.m_value * 100);
                 slider->setProperty("attrIdx", QVariant(idx));
                 connect(slider, SIGNAL(valueChanged(int)), this, SLOT(slotAttributeChanged(int)));
                 hbox->addWidget(label);

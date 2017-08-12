@@ -416,9 +416,11 @@ void Collection::slotChildStarted(quint32 fid)
     m_runningChildren << fid;
 }
 
-void Collection::adjustAttribute(qreal fraction, int attributeIndex)
+int Collection::adjustAttribute(qreal fraction, int attributeId)
 {
-    if (isRunning() && attributeIndex == Intensity)
+    int attrIndex = Function::adjustAttribute(fraction, attributeId);
+
+    if (isRunning() && attrIndex == Intensity)
     {
         Doc* document = doc();
         Q_ASSERT(document != NULL);
@@ -431,5 +433,6 @@ void Collection::adjustAttribute(qreal fraction, int attributeIndex)
             function->adjustAttribute(getAttributeValue(Function::Intensity), Function::Intensity);
         }
     }
-    Function::adjustAttribute(fraction, attributeIndex);
+
+    return attrIndex;
 }

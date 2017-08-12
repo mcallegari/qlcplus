@@ -114,7 +114,7 @@ public:
      */
     QString audioDevice();
 
-    void adjustAttribute(qreal fraction, int attributeIndex);
+    int adjustAttribute(qreal fraction, int attributeId);
 
 signals:
     void sourceFilenameChanged();

@@ -174,7 +174,7 @@ protected:
      *************************************************************************/
 public:
     /** @reimpl */
-    void adjustAttribute(qreal fraction, int attributeIndex = 0);
+    int adjustAttribute(qreal fraction, int attributeId = 0);
 };
 
 /** @} */

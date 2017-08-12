@@ -121,7 +121,7 @@ public:
     bool fullscreen();
     void setFullscreen(bool enable);
 
-    void adjustAttribute(qreal fraction, int attributeIndex);
+    int adjustAttribute(qreal fraction, int attributeId);
 
 signals:
     void sourceChanged(QString url);

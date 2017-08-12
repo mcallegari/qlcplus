@@ -197,11 +197,14 @@ QString Audio::audioDevice()
     return m_audioDevice;
 }
 
-void Audio::adjustAttribute(qreal fraction, int attributeIndex)
+int Audio::adjustAttribute(qreal fraction, int attributeId)
 {
-    if (m_audio_out != NULL && attributeIndex == Intensity)
-        m_audio_out->adjustIntensity(fraction);
-    Function::adjustAttribute(fraction, attributeIndex);
+    int attrIndex = Function::adjustAttribute(fraction, attributeId);
+
+    if (m_audio_out != NULL && attrIndex == Intensity)
+        m_audio_out->adjustIntensity(getAttributeValue(Function::Intensity));
+
+    return attrIndex;
 }
 
 void Audio::slotEndOfStream()

@@ -46,12 +46,6 @@
 
 EFX::EFX(Doc* doc) : Function(doc, Function::EFXType)
 {
-    m_width = 127;
-    m_height = 127;
-    m_xOffset = 127;
-    m_yOffset = 127;
-    m_rotation = 0;
-    m_startOffset = 0;
     m_isRelative = false;
 
     updateRotationCache();
@@ -74,11 +68,12 @@ EFX::EFX(Doc* doc) : Function(doc, Function::EFXType)
     m_legacyHoldBus = Bus::invalid();
     m_legacyFadeBus = Bus::invalid();
 
-    registerAttribute(tr("Width"));
-    registerAttribute(tr("Height"));
-    registerAttribute(tr("Rotation"));
-    registerAttribute(tr("X Offset"));
-    registerAttribute(tr("Y Offset"));
+    registerAttribute(tr("Width"), Function::LastWins, 0.0, 127.0, 127.0);
+    registerAttribute(tr("Height"), Function::LastWins, 0.0, 127.0, 127.0);
+    registerAttribute(tr("Rotation"), Function::LastWins, 0.0, 359.0, 0.0);
+    registerAttribute(tr("X Offset"), Function::LastWins, 0.0, 255.0, 127.0);
+    registerAttribute(tr("Y Offset"), Function::LastWins, 0.0, 255.0, 127.0);
+    registerAttribute(tr("Start Offset"), Function::LastWins, 0.0, 359.0, 0.0);
 }
 
 EFX::~EFX()
@@ -134,12 +129,9 @@ bool EFX::copyFrom(const Function* function)
 
     m_propagationMode = efx->m_propagationMode;
 
-    m_width = efx->m_width;
-    m_height = efx->m_height;
-    m_xOffset = efx->m_xOffset;
-    m_yOffset = efx->m_yOffset;
-    m_rotation = efx->m_rotation;
-    m_startOffset = efx->m_startOffset;
+    for (int i = 0; i < efx->attributes().count(); i++)
+        adjustAttribute(efx->attributes().at(i).m_value, i);
+
     m_isRelative = efx->m_isRelative;
 
     updateRotationCache();
@@ -259,9 +251,7 @@ void EFX::previewFixtures(QVector <QPolygonF>& polygons) const
 {
     polygons.resize(m_fixtures.size());
     for (int i = 0; i < m_fixtures.size(); ++i)
-    { 
         preview(polygons[i], m_fixtures[i]->m_direction, m_fixtures[i]->m_startOffset);
-    }
 }
 
 void EFX::preview(QPolygonF &polygon, Function::Direction direction, int startOffset) const
@@ -289,7 +279,7 @@ void EFX::preview(QPolygonF &polygon, Function::Direction direction, int startOf
 void EFX::calculatePoint(Function::Direction direction, int startOffset, float iterator, float* x, float* y) const
 {
     iterator = calculateDirection(direction, iterator);
-    iterator += convertOffset(startOffset + m_startOffset);
+    iterator += convertOffset(startOffset + getAttributeValue(StartOffset));
 
     if (iterator >= M_PI * 2.0)
         iterator -= M_PI * 2.0;
@@ -301,11 +291,11 @@ void EFX::rotateAndScale(float* x, float* y) const
 {
     float xx = *x;
     float yy = *y;
-    float w = m_width * getAttributeValue(Width);
-    float h = m_height * getAttributeValue(Height);
+    float w = getAttributeValue(Width);
+    float h = getAttributeValue(Height);
 
-    *x = (m_xOffset * getAttributeValue(XOffset)) + xx * m_cosR * w + yy * m_sinR * h;
-    *y = (m_yOffset * getAttributeValue(YOffset)) + -xx * m_sinR * w + yy * m_cosR * h;
+    *x = (getAttributeValue(XOffset)) + xx * m_cosR * w + yy * m_sinR * h;
+    *y = (getAttributeValue(YOffset)) + -xx * m_sinR * w + yy * m_cosR * h;
 }
 
 float EFX::calculateDirection(Function::Direction direction, float iterator) const
@@ -433,13 +423,13 @@ void EFX::calculatePoint(float iterator, float* x, float* y) const
 
 void EFX::setWidth(int width)
 {
-    m_width = static_cast<double> (CLAMP(width, 0, 127));
+    adjustAttribute(static_cast<double> (CLAMP(width, 0, 127)), Width);
     emit changed(this->id());
 }
 
 int EFX::width() const
 {
-    return static_cast<int> (m_width);
+    return static_cast<int> (attributes().at(Width).m_value);
 }
 
 /*****************************************************************************
@@ -448,13 +438,13 @@ int EFX::width() const
 
 void EFX::setHeight(int height)
 {
-    m_height = static_cast<double> (CLAMP(height, 0, 127));
+    adjustAttribute(static_cast<double> (CLAMP(height, 0, 127)), Height);
     emit changed(this->id());
 }
 
 int EFX::height() const
 {
-    return static_cast<int> (m_height);
+    return static_cast<int> (attributes().at(Height).m_value);
 }
 
 /*****************************************************************************
@@ -463,19 +453,19 @@ int EFX::height() const
 
 void EFX::setRotation(int rot)
 {
-    m_rotation = static_cast<int> (CLAMP(rot, 0, 359));
+    adjustAttribute(CLAMP(rot, 0, 359), Rotation);
     updateRotationCache();
     emit changed(this->id());
 }
 
 int EFX::rotation() const
 {
-    return static_cast<int> (m_rotation);
+    return static_cast<int> (attributes().at(Rotation).m_value);
 }
 
 void EFX::updateRotationCache()
 {
-    double r = M_PI/180 * m_rotation * getAttributeValue(Rotation);
+    double r = M_PI/180 * getAttributeValue(Rotation);
     m_cosR = cos(r);
     m_sinR = sin(r);
 }
@@ -486,13 +476,13 @@ void EFX::updateRotationCache()
 
 void EFX::setStartOffset(int startOffset)
 {
-    m_startOffset = CLAMP(startOffset, 0, 359);
+    adjustAttribute(CLAMP(startOffset, 0, 359), StartOffset);
     emit changed(this->id());
 }
 
 int EFX::startOffset() const
 {
-    return m_startOffset;
+    return static_cast<int> (attributes().at(StartOffset).m_value);
 }
 
 float EFX::convertOffset(int offset) const
@@ -521,24 +511,24 @@ bool EFX::isRelative() const
 
 void EFX::setXOffset(int offset)
 {
-    m_xOffset = static_cast<double> (CLAMP(offset, 0, (int)UCHAR_MAX));
+    adjustAttribute(static_cast<double> (CLAMP(offset, 0, (int)UCHAR_MAX)), XOffset);
     emit changed(this->id());
 }
 
 int EFX::xOffset() const
 {
-    return static_cast<int> (m_xOffset);
+    return static_cast<int> (attributes().at(XOffset).m_value);
 }
 
 void EFX::setYOffset(int offset)
 {
-    m_yOffset = static_cast<double> (CLAMP(offset, 0, (int)UCHAR_MAX));
+    adjustAttribute(static_cast<double> (CLAMP(offset, 0, (int)UCHAR_MAX)), YOffset);
     emit changed(this->id());
 }
 
 int EFX::yOffset() const
 {
-    return static_cast<int> (m_yOffset);
+    return static_cast<int> (attributes().at(YOffset).m_value);
 }
 
 /*****************************************************************************
@@ -1074,14 +1064,16 @@ void EFX::postRun(MasterTimer* timer, QList<Universe *> universes)
  * Intensity
  *****************************************************************************/
 
-void EFX::adjustAttribute(qreal fraction, int attributeIndex)
+int EFX::adjustAttribute(qreal fraction, int attributeId)
 {
-    switch (attributeIndex)
+    int attrIndex = Function::adjustAttribute(fraction, attributeId);
+
+    switch (attrIndex)
     {
         case Intensity:
         {
             if (m_fader != NULL)
-                m_fader->adjustIntensity(fraction);
+                m_fader->adjustIntensity(getAttributeValue(Function::Intensity));
         }
         break;
 
@@ -1090,13 +1082,11 @@ void EFX::adjustAttribute(qreal fraction, int attributeIndex)
         case XOffset:
         case YOffset:
         case Rotation:
+            updateRotationCache();
         break;
     }
 
-    Function::adjustAttribute(fraction, attributeIndex);
-
-    if (attributeIndex == Rotation)
-        updateRotationCache();
+    return attrIndex;
 }
 
 /*************************************************************************

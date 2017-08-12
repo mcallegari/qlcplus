@@ -139,7 +139,7 @@ void VCButtonProperties::slotSetFunction(quint32 fid)
 
         foreach(Attribute attr, func->attributes())
         {
-            QListWidgetItem *item = new QListWidgetItem(attr.name);
+            QListWidgetItem *item = new QListWidgetItem(attr.m_name);
             //item->setCheckState(Qt::Checked);
             m_attributesList->addItem(item);
         }

@@ -151,8 +151,8 @@ protected:
      * Intensity
      *************************************************************************/
 public:
-    /** @reimpl */
-    virtual void adjustAttribute(qreal fraction, int attributeIndex);
+    /** @reimp */
+    int adjustAttribute(qreal fraction, int attributeId);
 };
 
 /** @} */

@@ -41,14 +41,15 @@ class Doc;
 
 typedef struct
 {
-    int m_index;            //! Index of the step from the original Chaser
-    Function* m_function;   //! Currently active function
-    quint32 m_elapsed;      //! Elapsed milliseconds
-    quint32 m_elapsedBeats; //! Elapsed beats
-    uint m_fadeIn;          //! Step fade in in ms
-    uint m_fadeOut;         //! Step fade out in ms
-    uint m_duration;        //! Step hold in ms
-    Universe::BlendMode m_blendMode; //! The original Function blend mode
+    int m_index;                        //! Index of the step from the original Chaser
+    Function* m_function;               //! Currently active function
+    quint32 m_elapsed;                  //! Elapsed milliseconds
+    quint32 m_elapsedBeats;             //! Elapsed beats
+    uint m_fadeIn;                      //! Step fade in in ms
+    uint m_fadeOut;                     //! Step fade out in ms
+    uint m_duration;                    //! Step hold in ms
+    Universe::BlendMode m_blendMode;    //! The original Function blend mode
+    int m_intensityOverrideId;          //! An ID to control the step intensity
 } ChaserRunnerStep;
 
 class ChaserRunner : public QObject

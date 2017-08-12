@@ -433,20 +433,22 @@ void Show::slotChildStopped(quint32 fid)
  * Attributes
  *****************************************************************************/
 
-void Show::adjustAttribute(qreal fraction, int attributeIndex)
+int Show::adjustAttribute(qreal fraction, int attributeId)
 {
-    Function::adjustAttribute(fraction, attributeIndex);
+    int attrIndex = Function::adjustAttribute(fraction, attributeId);
 
     if (m_runner != NULL)
     {
         QList<Track*> trkList = m_tracks.values();
         if (trkList.isEmpty() == false &&
-            attributeIndex >= 0 && attributeIndex < trkList.count())
+            attrIndex >= 0 && attrIndex < trkList.count())
         {
-            Track *track = trkList.at(attributeIndex);
+            Track *track = trkList.at(attrIndex);
             if (track != NULL)
-                m_runner->adjustIntensity(fraction, track);
+                m_runner->adjustIntensity(getAttributeValue(attrIndex), track);
         }
     }
+
+    return attrIndex;
 }
 
