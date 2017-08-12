@@ -64,7 +64,9 @@ VCSoloFrame::VCSoloFrame(QWidget* parent, Doc* doc, bool canCollapse)
     if (var.isValid() == true)
         resize(var.toSize());
     else
-        resize(VCFrame::defaultSize);
+        resize(defaultSize);
+    m_width = this->width();
+    m_height = this->height();
 }
 
 VCSoloFrame::~VCSoloFrame()

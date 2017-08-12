@@ -875,7 +875,7 @@ QString WebAccess::getSoloFrameHTML(VCSoloFrame *frame)
     int w = frame->isCollapsed() ? 200 : origSize.width();
     int h = frame->isCollapsed() ? 36 : origSize.height();
 
-    QString str = "<div class=\"vcsoloframe\" id=\"fr" + QString::number(frame->id()) + "\" "
+    QString str = "<div class=\"vcframe\" id=\"fr" + QString::number(frame->id()) + "\" "
           "style=\"left: " + QString::number(frame->x()) +
           "px; top: " + QString::number(frame->y()) + "px; width: " + QString::number(w) +
           "px; height: " + QString::number(h) + "px; "
@@ -886,7 +886,7 @@ QString WebAccess::getSoloFrameHTML(VCSoloFrame *frame)
 
     if (frame->isHeaderVisible())
     {
-        str += "<a class=\"vcframeButton\" style=\"position: absolute; left: 0;\" href=\"javascript:frameToggleCollapse(";
+        str += "<a class=\"vcframeButton\" style=\"position: absolute; left: 0; \" href=\"javascript:frameToggleCollapse(";
         str += QString::number(frame->id()) + ");\"><img src=\"expand.png\" width=\"27\"></a>\n";
         str += "<div class=\"vcsoloframeHeader\" style=\"color:" +
                 frame->foregroundColor().name() + ";\"><div class=\"vcFrameText\">" + frame->caption() + "</div></div>\n";
@@ -896,12 +896,13 @@ QString WebAccess::getSoloFrameHTML(VCSoloFrame *frame)
 
         if (frame->multipageMode())
         {
-            str += "<div style=\"position: absolute; top: 0; right: 2px;\">\n";
+            str += "<div id=\"frMpHdr" + QString::number(frame->id()) + "\"";
+            str += "style=\"position: absolute; top: 0; right: 2px;\">\n";
             str += "<a class=\"vcframeButton\" href=\"javascript:framePreviousPage(";
             str += QString::number(frame->id()) + ");\">";
-            str += "<img src=\"back.png\" width=\"27\"></a>\n";
-            str += "<div class=\"vcframePageLabel\" id=\"fr" + QString::number(frame->id()) + "Page\">";
-            str += QString ("%1 %2").arg(tr("Page")).arg(frame->currentPage() + 1) + "</div>\n";
+            str += "<img src=\"back.png\" width=\"27\"></a>";
+            str += "<div class=\"vcframePageLabel\"><div class=\"vcFrameText\" id=\"fr" + QString::number(frame->id()) + "Page\">";
+            str += QString ("%1 %2").arg(tr("Page")).arg(frame->currentPage() + 1) + "</div></div>";
             str += "<a class=\"vcframeButton\" href=\"javascript:frameNextPage(";
             str += QString::number(frame->id()) + ");\">";
             str += "<img src=\"forward.png\" width=\"27\"></a>\n";

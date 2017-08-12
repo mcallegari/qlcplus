@@ -1470,4 +1470,7 @@ void VCFrame::mouseMoveEvent(QMouseEvent* e)
         VCWidget::mouseMoveEvent(e);
     else
         QWidget::mouseMoveEvent(e);
+
+    m_width = this->width();
+    m_height = this->height();
 }
