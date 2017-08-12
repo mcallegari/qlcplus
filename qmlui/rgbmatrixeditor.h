@@ -203,6 +203,7 @@ private:
     uint m_previewElapsed;
     RGBMatrixStep *m_previewStepHandler;
     bool m_gotBeat;
+    QMutex m_previewMutex;
 
     /** exchange variable with the QML world */
     QVariantList m_previewData;

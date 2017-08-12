@@ -32,6 +32,7 @@ RGBMatrixEditor::RGBMatrixEditor(QQuickView *view, Doc *doc, QObject *parent)
     , m_matrix(NULL)
     , m_group(NULL)
     , m_previewTimer(new QTimer(this))
+    , m_previewElapsed(0)
     , m_previewStepHandler(new RGBMatrixStep())
 {
     m_view->rootContext()->setContextProperty("rgbMatrixEditor", this);
@@ -91,11 +92,13 @@ void RGBMatrixEditor::setFixtureGroup(int fixtureGroup)
     if (m_matrix == NULL || m_matrix->fixtureGroup() == (quint32)fixtureGroup)
         return;
 
-    m_matrix->setFixtureGroup((quint32)fixtureGroup);
+    QMutexLocker locker(&m_previewMutex);
+    m_previewTimer->stop();
     m_group = m_doc->fixtureGroup(fixtureGroup);
+    m_matrix->setFixtureGroup((quint32)fixtureGroup);
     emit fixtureGroupChanged(fixtureGroup);
-    initPreviewData();
     emit previewSizeChanged();
+    initPreviewData();
 }
 
 /************************************************************************
@@ -596,6 +599,8 @@ void RGBMatrixEditor::slotPreviewTimeout()
 
     if (m_previewElapsed >= m_matrix->duration())
     {
+        QMutexLocker locker(&m_previewMutex);
+
         m_previewStepHandler->checkNextStep(m_matrix->runOrder(), m_matrix->startColor(),
                                             m_matrix->endColor(), m_matrix->stepsCount());
 
@@ -651,6 +656,7 @@ void RGBMatrixEditor::slotBeatReceived()
 void RGBMatrixEditor::initPreviewData()
 {
     m_previewTimer->stop();
+    m_previewElapsed = 0;
     m_previewData.clear();
     QSize pSize = previewSize();
 
