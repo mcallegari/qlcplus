@@ -77,6 +77,9 @@ void EFXPreviewArea::draw(int timerInterval)
 
 void EFXPreviewArea::slotTimeout()
 {
+    if (m_iter < m_scaled.size())
+        m_iter++;
+
     repaint();
 }
 
@@ -128,9 +131,6 @@ void EFXPreviewArea::paintEvent(QPaintEvent* e)
     painter.drawLine(width() >> 1, 0, width() >> 1, height());
     painter.drawLine(0, height() >> 1, width(), height() >> 1);
 
-    if (m_iter < m_scaled.size())
-        m_iter++;
-
     /* Plain points with text color */
     color = palette().color(QPalette::Text);
     pen.setColor(color);
@@ -140,21 +140,11 @@ void EFXPreviewArea::paintEvent(QPaintEvent* e)
     // Draw the points from the point array
     if (m_iter < m_scaled.size() && m_iter >= 0)
     {
-        /*
-        // draw origin
-        color = color.lighter(100 + (m_points.size() / 100));
-        pen.setColor(color);
-        painter.setPen(pen);
-        point = m_points.point(m_iter);
-        painter.drawEllipse(point.x() - 4, point.y() - 4, 8, 8);
-        */
-
         painter.setBrush(Qt::white);
         pen.setColor(Qt::black);
 
-        // draw fixture positions
-
-        // drawing from the end -- so that lower numbers are on top
+        // drawing fixture positions from the end,
+        // so that lower numbers are on top
         for (int i = m_fixturePoints.size() - 1; i >= 0; --i)
         {
             point = m_fixturePoints.at(i).at(m_iter);
@@ -164,14 +154,12 @@ void EFXPreviewArea::paintEvent(QPaintEvent* e)
     }
     else
     {
-        //m_timer.stop();
-
         //Change old behaviour from stop to restart
         restart();
     }
 }
 
-void EFXPreviewArea::restart ()
+void EFXPreviewArea::restart()
 {
     m_iter = 0;
 }
