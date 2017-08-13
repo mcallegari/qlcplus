@@ -160,13 +160,9 @@ private slots:
 private:
     FunctionParent functionParent() const;
 
-    void adjustFunctionIntensity(Function *f, qreal value);
-
 private:
     /** ID of the RGB Matrix that this widget is controlling */
     quint32 m_matrixID;
-    /** The intensity attribute override ID */
-    int m_intensityOverrideId;
     /** timer for updating the controls */
     QTimer* m_updateTimer;
 

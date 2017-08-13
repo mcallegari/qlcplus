@@ -121,8 +121,6 @@ public:
     /** Get the chaser function that is used as cue list steps */
     Chaser *chaser();
 
-    void adjustChaserIntensity(Chaser *ch, qreal value);
-
 public:
     /** Get the currently selected item index, otherwise 0 */
     int getCurrentIndex();
@@ -243,8 +241,6 @@ public:
 private:
     /** ID of the Chaser this Cue List will be controlling */
     quint32 m_chaserID;
-    /** The intensity attribute override ID */
-    int m_intensityOverrideId;
 
     NextPrevBehavior m_nextPrevBehavior;
     PlaybackLayout m_playbackLayout;

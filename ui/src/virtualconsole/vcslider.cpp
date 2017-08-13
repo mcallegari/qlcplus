@@ -105,7 +105,6 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_monitorValue = 0;
 
     m_playbackFunction = Function::invalidId();
-    m_intensityOverrideId = -1;
     m_playbackValue = 0;
     m_playbackChangeCounter = 0;
 
@@ -885,14 +884,6 @@ void VCSlider::notifyFunctionStarting(quint32 fid, qreal functionIntensity)
     }
 }
 
-void VCSlider::adjustFunctionIntensity(Function *f, qreal value)
-{
-    if (m_intensityOverrideId == -1)
-        m_intensityOverrideId = f->requestAttributeOverride(Function::Intensity, value);
-    else
-        f->adjustAttribute(value, m_intensityOverrideId);
-}
-
 void VCSlider::slotPlaybackFunctionRunning(quint32 fid)
 {
     Q_UNUSED(fid);
@@ -1126,7 +1117,7 @@ void VCSlider::writeDMXPlayback(MasterTimer* timer, QList<Universe *> ua)
         if (function->stopped() == false)
         {
             function->stop(functionParent());
-            m_intensityOverrideId = -1;
+            resetIntensityOverrideAttribute();
         }
     }
     else

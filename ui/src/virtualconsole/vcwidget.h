@@ -345,12 +345,19 @@ public:
     virtual void notifyFunctionStarting(quint32 fid, qreal intensity)
     { Q_UNUSED(fid); Q_UNUSED(intensity); }
 
+    virtual void adjustFunctionIntensity(Function *f, qreal value);
+
+    void resetIntensityOverrideAttribute();
+
 signals:
     /** Signal emitted when a VCWidget controlling a Function has been
       * requested to start the Function.
       * At the moment this is used by a restriceted number of widgets (see above)
       */
     void functionStarting(quint32 fid, qreal intensity = 1.0);
+
+protected:
+    int m_intensityOverrideId;
 
     /*********************************************************************
      * Properties

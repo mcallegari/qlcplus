@@ -81,7 +81,6 @@ VCButton::VCButton(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
 
     /* No function is initially attached to the button */
     m_function = Function::invalidId();
-    m_intensityOverrideId = -1;
 
     setType(VCWidget::ButtonWidget);
     setCaption(QString());
@@ -404,10 +403,7 @@ void VCButton::adjustFunctionIntensity(Function *f, qreal value)
 {
     qreal finalValue = isStartupIntensityEnabled() ? startupIntensity() * value : value;
 
-    if (m_intensityOverrideId == -1)
-        m_intensityOverrideId = f->requestAttributeOverride(Function::Intensity, finalValue);
-    else
-        f->adjustAttribute(finalValue, m_intensityOverrideId);
+    VCWidget::adjustFunctionIntensity(f, finalValue);
 }
 
 void VCButton::notifyFunctionStarting(quint32 fid, qreal intensity)

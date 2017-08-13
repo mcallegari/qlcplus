@@ -91,7 +91,6 @@ const QString cfLabelNoStyle =
 
 VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     , m_chaserID(Function::invalidId())
-    , m_intensityOverrideId(-1)
     , m_nextPrevBehavior(DefaultRunFirst)
     , m_playbackLayout(PlayPauseStop)
     , m_timer(NULL)
@@ -406,14 +405,6 @@ Chaser *VCCueList::chaser()
         return NULL;
     Chaser *chaser = qobject_cast<Chaser*>(m_doc->function(m_chaserID));
     return chaser;
-}
-
-void VCCueList::adjustChaserIntensity(Chaser *ch, qreal value)
-{
-    if (m_intensityOverrideId == -1)
-        m_intensityOverrideId = ch->requestAttributeOverride(Function::Intensity, value);
-    else
-        ch->adjustAttribute(value, m_intensityOverrideId);
 }
 
 void VCCueList::updateStepList()
@@ -952,7 +943,7 @@ void VCCueList::startChaser(int startIndex)
         return;
     ch->setStepIndex(startIndex);
     ch->setStartIntensity(getPrimaryIntensity());
-    adjustChaserIntensity(ch, intensity());
+    adjustFunctionIntensity(ch, intensity());
     ch->start(m_doc->masterTimer(), functionParent());
     emit functionStarting(m_chaserID);
 }
@@ -1408,7 +1399,7 @@ void VCCueList::adjustIntensity(qreal val)
     Chaser* ch = chaser();
     if (ch != NULL)
     {
-        adjustChaserIntensity(ch, val);
+        adjustFunctionIntensity(ch, val);
 
         // Refresh intensity of current steps
         if (!ch->stopped() && slidersMode() == Crossfade)

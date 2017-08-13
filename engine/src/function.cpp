@@ -1162,6 +1162,11 @@ bool Function::startedAsChild() const
     return false;
 }
 
+int Function::invalidAttributeId()
+{
+    return -1;
+}
+
 bool Function::stopAndWait()
 {
     QMutexLocker locker(&m_stopMutex);

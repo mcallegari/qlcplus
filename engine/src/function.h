@@ -834,6 +834,8 @@ public:
         LastWins = (1 << 1)  /** The original attribute value is overridden by the last requested override value */
     };
 
+    static int invalidAttributeId();
+
     /**
      * Register a new attribute for this function.
      * If the attribute already exists, it will be overwritten.
