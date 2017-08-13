@@ -52,6 +52,8 @@ lessThan(QT_MAJOR_VERSION, 5) {
                                 $$QT_LIBS_PATH/Qt53DLogic.dll \
                                 $$QT_LIBS_PATH/Qt53DQuick.dll \
                                 $$QT_LIBS_PATH/Qt53DQuickExtras.dll \
+                                $$QT_LIBS_PATH/Qt53DQuickInput.dll \
+                                $$QT_LIBS_PATH/Qt53DQuickRender.dll \
                                 $$QT_LIBS_PATH/Qt53DRender.dll \
                                 $$QT_LIBS_PATH/Qt5Concurrent.dll \
                                 $$QT_LIBS_PATH/Qt5Gamepad.dll \
@@ -106,6 +108,10 @@ greaterThan(QT_MAJOR_VERSION, 4) {
         qtprintsupport.files = $$QT_PLUGINS_PATH/printsupport/windowsprintersupport.dll
         INSTALLS += qtprintsupport
 
+        sceneparsers.path = $$INSTALLROOT/$$LIBSDIR/sceneparsers
+        sceneparsers.files = $$QT_PLUGINS_PATH/sceneparsers/assimpsceneimport.dll
+        INSTALLS += sceneparsers
+
         qmldeps.path   = $$INSTALLROOT/$$LIBSDIR
         qmldeps.files += $$QT_QML_PATH/QtQml \
                          $$QT_QML_PATH/QtQuick \
@@ -117,7 +123,9 @@ greaterThan(QT_MAJOR_VERSION, 4) {
         qmlpostinstall.commands = cd $$INSTALLROOT/$$LIBSDIR && \
                                   find . -name plugins.qmltypes -type f -delete && \
                                   #find . -name *.qml -type f -delete && \
-                                  rm -rf QtQuick/Extras QtQuick/Particles.2 QtQuick/XmlListModel
+                                  rm -rf QtQuick/Extras QtQuick/Particles.2 QtQuick/XmlListModel \
+                                  rm -rf QtQuick/Controls.2/designer QtQuick/Controls.2/Material \
+                                  rm -rf QtQuick/Controls.2/Universal QtQuick/Controls.2/Scene2D
         INSTALLS  += qmlpostinstall
     }
 }
