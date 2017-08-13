@@ -105,6 +105,7 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_monitorValue = 0;
 
     m_playbackFunction = Function::invalidId();
+    m_intensityOverrideId = -1;
     m_playbackValue = 0;
     m_playbackChangeCounter = 0;
 
@@ -876,12 +877,20 @@ void VCSlider::notifyFunctionStarting(quint32 fid, qreal functionIntensity)
             if (function != NULL)
             {
                 qreal pIntensity = qreal(value) / qreal(UCHAR_MAX);
-                function->adjustAttribute(pIntensity * intensity(), Function::Intensity);
+                adjustFunctionIntensity(function, pIntensity * intensity());
                 if (value == 0 && !function->stopped())
                     function->stop(functionParent());
             }
         }
     }
+}
+
+void VCSlider::adjustFunctionIntensity(Function *f, qreal value)
+{
+    if (m_intensityOverrideId == -1)
+        m_intensityOverrideId = f->requestAttributeOverride(Function::Intensity, value);
+    else
+        f->adjustAttribute(value, m_intensityOverrideId);
 }
 
 void VCSlider::slotPlaybackFunctionRunning(quint32 fid)
@@ -1113,9 +1122,12 @@ void VCSlider::writeDMXPlayback(MasterTimer* timer, QList<Universe *> ua)
     if (value == 0)
     {
         // Make sure we ignore the fade out time
-        function->adjustAttribute(0, Function::Intensity);
+        adjustFunctionIntensity(function, 0);
         if (function->stopped() == false)
+        {
             function->stop(functionParent());
+            m_intensityOverrideId = -1;
+        }
     }
     else
     {
@@ -1127,10 +1139,10 @@ void VCSlider::writeDMXPlayback(MasterTimer* timer, QList<Universe *> ua)
             function->start(timer, functionParent(),
                             0, 0, Function::defaultSpeed(), Function::defaultSpeed());
 #endif
+            adjustFunctionIntensity(function, pIntensity * intensity());
             function->start(timer, functionParent());
         }
         emit functionStarting(m_playbackFunction, pIntensity);
-        function->adjustAttribute(pIntensity * intensity(), Function::Intensity);
     }
     m_playbackChangeCounter--;
 }
@@ -1420,7 +1432,7 @@ void VCSlider::adjustIntensity(qreal val)
             return;
 
         qreal pIntensity = qreal(m_playbackValue) / qreal(UCHAR_MAX);
-        function->adjustAttribute(pIntensity * intensity(), Function::Intensity);
+        adjustFunctionIntensity(function, pIntensity * intensity());
     }
 }
 

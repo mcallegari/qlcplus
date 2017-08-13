@@ -81,6 +81,7 @@ VCButton::VCButton(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
 
     /* No function is initially attached to the button */
     m_function = Function::invalidId();
+    m_intensityOverrideId = -1;
 
     setType(VCWidget::ButtonWidget);
     setCaption(QString());
@@ -399,6 +400,16 @@ quint32 VCButton::function() const
     return m_function;
 }
 
+void VCButton::adjustFunctionIntensity(Function *f, qreal value)
+{
+    qreal finalValue = isStartupIntensityEnabled() ? startupIntensity() * value : value;
+
+    if (m_intensityOverrideId == -1)
+        m_intensityOverrideId = f->requestAttributeOverride(Function::Intensity, finalValue);
+    else
+        f->adjustAttribute(finalValue, m_intensityOverrideId);
+}
+
 void VCButton::notifyFunctionStarting(quint32 fid, qreal intensity)
 {
     Q_UNUSED(intensity);
@@ -413,7 +424,10 @@ void VCButton::notifyFunctionStarting(quint32 fid, qreal intensity)
     {
         Function *f = m_doc->function(m_function);
         if (f != NULL)
+        {
             f->stop(functionParent());
+            m_intensityOverrideId = -1;
+        }
     }
 }
 
@@ -421,7 +435,10 @@ void VCButton::slotFunctionRemoved(quint32 fid)
 {
     /* Invalidate the button's function if it's the one that was removed */
     if (fid == m_function)
+    {
         setFunction(Function::invalidId());
+        m_intensityOverrideId = -1;
+    }
 }
 
 /*****************************************************************************
@@ -631,12 +648,16 @@ qreal VCButton::startupIntensity() const
 
 void VCButton::slotAttributeChanged(int value)
 {
+#if 0
     ClickAndGoSlider *slider = (ClickAndGoSlider *)sender();
     int idx = slider->property("attrIdx").toInt();
 
     Function* func = m_doc->function(m_function);
     if (func != NULL)
         func->adjustAttribute((qreal)value / 100, idx);
+#else
+    Q_UNUSED(value)
+#endif
 }
 
 /*****************************************************************************
@@ -655,35 +676,21 @@ void VCButton::pressFunction()
         f = m_doc->function(m_function);
         if (f == NULL)
             return;
-/*
-        if (VirtualConsole::instance() != NULL &&
-            VirtualConsole::instance()->isTapModifierDown() == true)
+
+        // if the button is in a SoloFrame and the function is running but was
+        // started by a different function (a chaser or collection), turn other
+        // functions off and start this one.
+        if (state() == Active && !(isChildOfSoloFrame() && f->startedAsChild()))
         {
-            // Produce a tap when the tap modifier key is down
-            f->tap();
-            blink(50);
+            f->stop(functionParent());
+            m_intensityOverrideId = -1;
         }
         else
-*/
         {
-            // if the button is in a SoloFrame and the function is running but was
-            // started by a different function (a chaser or collection), turn other
-            // functions off and start this one.
-            if (state() == Active && !(isChildOfSoloFrame() && f->startedAsChild()))
-            {
-                f->stop(functionParent());
-            }
-            else
-            {
-                if (isStartupIntensityEnabled() == true)
-                    f->adjustAttribute(startupIntensity() * intensity(), Function::Intensity);
-                else
-                    f->adjustAttribute(intensity(), Function::Intensity);
-
-                f->start(m_doc->masterTimer(), functionParent());
-                setState(Active);
-                emit functionStarting(m_function);
-            }
+            adjustFunctionIntensity(f, intensity());
+            f->start(m_doc->masterTimer(), functionParent());
+            setState(Active);
+            emit functionStarting(m_function);
         }
     }
     else if (m_action == Flash && state() == Inactive)
@@ -744,6 +751,7 @@ void VCButton::slotFunctionStopped(quint32 fid)
 {
     if (fid == m_function && m_action == Toggle)
     {
+        m_intensityOverrideId = -1;
         setState(Inactive);
         blink(250);
     }
@@ -822,12 +830,7 @@ void VCButton::adjustIntensity(qreal val)
     {
         Function* func = m_doc->function(m_function);
         if (func != NULL)
-        {
-            if (isStartupIntensityEnabled())
-                func->adjustAttribute(startupIntensity() * val, Function::Intensity);
-            else
-                func->adjustAttribute(val, Function::Intensity);
-        }
+            adjustFunctionIntensity(func, val);
     }
 
     VCWidget::adjustIntensity(val);
@@ -1096,6 +1099,7 @@ void VCButton::mousePressEvent(QMouseEvent* e)
         VCWidget::mousePressEvent(e);
     else if (e->button() == Qt::LeftButton)
         pressFunction();
+#if 0
     else if (e->button() == Qt::RightButton)
     {
         Function* func = m_doc->function(m_function);
@@ -1143,6 +1147,7 @@ void VCButton::mousePressEvent(QMouseEvent* e)
             menu->exec(QCursor::pos());
         }
     }
+#endif
 }
 
 void VCButton::mouseReleaseEvent(QMouseEvent* e)

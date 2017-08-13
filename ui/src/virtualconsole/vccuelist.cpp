@@ -91,6 +91,7 @@ const QString cfLabelNoStyle =
 
 VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     , m_chaserID(Function::invalidId())
+    , m_intensityOverrideId(-1)
     , m_nextPrevBehavior(DefaultRunFirst)
     , m_playbackLayout(PlayPauseStop)
     , m_timer(NULL)
@@ -407,6 +408,14 @@ Chaser *VCCueList::chaser()
     return chaser;
 }
 
+void VCCueList::adjustChaserIntensity(Chaser *ch, qreal value)
+{
+    if (m_intensityOverrideId == -1)
+        m_intensityOverrideId = ch->requestAttributeOverride(Function::Intensity, value);
+    else
+        ch->adjustAttribute(value, m_intensityOverrideId);
+}
+
 void VCCueList::updateStepList()
 {
     m_listIsUpdating = true;
@@ -590,7 +599,10 @@ void VCCueList::notifyFunctionStarting(quint32 fid, qreal intensity)
 void VCCueList::slotFunctionRemoved(quint32 fid)
 {
     if (fid == m_chaserID)
+    {
         setChaser(Function::invalidId());
+        m_intensityOverrideId = -1;
+    }
 }
 
 void VCCueList::slotFunctionChanged(quint32 fid)
@@ -940,7 +952,7 @@ void VCCueList::startChaser(int startIndex)
         return;
     ch->setStepIndex(startIndex);
     ch->setStartIntensity(getPrimaryIntensity());
-    ch->adjustAttribute(intensity(), Function::Intensity);
+    adjustChaserIntensity(ch, intensity());
     ch->start(m_doc->masterTimer(), functionParent());
     emit functionStarting(m_chaserID);
 }
@@ -951,6 +963,7 @@ void VCCueList::stopChaser()
     if (ch == NULL)
         return;
     ch->stop(functionParent());
+    m_intensityOverrideId = -1;
 }
 
 void VCCueList::setNextPrevBehavior(NextPrevBehavior nextPrev)
@@ -1395,7 +1408,7 @@ void VCCueList::adjustIntensity(qreal val)
     Chaser* ch = chaser();
     if (ch != NULL)
     {
-        ch->adjustAttribute(val, Function::Intensity);
+        adjustChaserIntensity(ch, val);
 
         // Refresh intensity of current steps
         if (!ch->stopped() && slidersMode() == Crossfade)

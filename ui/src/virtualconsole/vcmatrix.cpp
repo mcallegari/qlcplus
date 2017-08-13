@@ -54,12 +54,13 @@ const QSize VCMatrix::defaultSize(QSize(160, 120));
 
 VCMatrix::VCMatrix(QWidget *parent, Doc *doc)
     : VCWidget(parent, doc)
-    , m_matrixID(Function::invalidId())
     , m_sliderExternalMovement(false)
+    , m_matrixID(Function::invalidId())
+    , m_intensityOverrideId(-1)
     , m_instantApply(true)
     , m_visibilityMask(VCMatrix::defaultVisibilityMask())
 {
-    /* Set the class name "VCLabel" as the object name as well */
+    /* Set the class name "VCMatrix" as the object name as well */
     setObjectName(VCMatrix::staticMetaObject.className());
     setFrameStyle(KVCFrameStyleSunken);
 
@@ -249,15 +250,18 @@ void VCMatrix::slotSliderMoved(int value)
     if (value == 0)
     {
         // Make sure we ignore the fade out time
-        function->adjustAttribute(0, Function::Intensity);
+        adjustFunctionIntensity(function, 0);
         if (function->stopped() == false)
+        {
             function->stop(functionParent());
+            m_intensityOverrideId = -1;
+        }
     }
     else
     {
         qreal pIntensity = qreal(value) / qreal(UCHAR_MAX);
         emit functionStarting(m_matrixID, pIntensity);
-        function->adjustAttribute(pIntensity * intensity(), Function::Intensity);
+        adjustFunctionIntensity(function, pIntensity * intensity());
         if (function->stopped() == true)
         {
             // TODO once #758 is fixed: function started by a fader -> override fade in time
@@ -417,9 +421,12 @@ void VCMatrix::notifyFunctionStarting(quint32 fid, qreal functionIntensity)
         if (function != NULL)
         {
             qreal pIntensity = qreal(value) / qreal(UCHAR_MAX);
-            function->adjustAttribute(pIntensity * intensity(), Function::Intensity);
+            adjustFunctionIntensity(function, pIntensity * intensity());
             if (value == 0 && !function->stopped())
+            {
                 function->stop(functionParent());
+                m_intensityOverrideId = -1;
+            }
         }
     }
 }
@@ -428,6 +435,7 @@ void VCMatrix::slotFunctionStopped()
 {
     m_slider->blockSignals(true);
     m_slider->setValue(0);
+    m_intensityOverrideId = -1;
     m_slider->blockSignals(false);
 }
 
@@ -575,6 +583,14 @@ void VCMatrix::slotUpdate()
 FunctionParent VCMatrix::functionParent() const
 {
     return FunctionParent(FunctionParent::ManualVCWidget, id());
+}
+
+void VCMatrix::adjustFunctionIntensity(Function *f, qreal value)
+{
+    if (m_intensityOverrideId == -1)
+        m_intensityOverrideId = f->requestAttributeOverride(Function::Intensity, value);
+    else
+        f->adjustAttribute(value, m_intensityOverrideId);
 }
 
 /*********************************************************************

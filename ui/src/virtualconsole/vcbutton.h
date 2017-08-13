@@ -186,6 +186,8 @@ public:
      */
     quint32 function() const;
 
+    void adjustFunctionIntensity(Function *f, qreal value);
+
     /** @reimp */
     virtual void notifyFunctionStarting(quint32 fid, qreal intensity);
 
@@ -194,8 +196,10 @@ protected slots:
     void slotFunctionRemoved(quint32 fid);
 
 protected:
-    /** The function that this button is controlling */
+    /** ID of the Function that this button is controlling */
     quint32 m_function;
+    /** The intensity attribute override ID */
+    int m_intensityOverrideId;
 
     /*********************************************************************
      * Button state

@@ -373,6 +373,9 @@ public:
     /** @reimp */
     virtual void notifyFunctionStarting(quint32 fid, qreal intensity);
 
+protected:
+    void adjustFunctionIntensity(Function *f, qreal value);
+
 protected slots:
     void slotPlaybackFunctionRunning(quint32 fid);
     void slotPlaybackFunctionStopped(quint32 fid);
@@ -380,6 +383,8 @@ protected slots:
 
 protected:
     quint32 m_playbackFunction;
+    /** The intensity attribute override ID */
+    int m_intensityOverrideId;
     uchar m_playbackValue;
     int m_playbackChangeCounter;
     QMutex m_playbackValueMutex;
