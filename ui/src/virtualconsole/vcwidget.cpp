@@ -508,6 +508,8 @@ void VCWidget::adjustFunctionIntensity(Function *f, qreal value)
     if (f == NULL)
         return;
 
+    //qDebug() << "adjustFunctionIntensity" << caption() << "value" << value;
+
     if (m_intensityOverrideId == Function::invalidAttributeId())
         m_intensityOverrideId = f->requestAttributeOverride(Function::Intensity, value);
     else

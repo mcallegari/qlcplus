@@ -422,7 +422,7 @@ void VCButton::notifyFunctionStarting(quint32 fid, qreal intensity)
         if (f != NULL)
         {
             f->stop(functionParent());
-            m_intensityOverrideId = -1;
+            resetIntensityOverrideAttribute();
         }
     }
 }
@@ -433,7 +433,7 @@ void VCButton::slotFunctionRemoved(quint32 fid)
     if (fid == m_function)
     {
         setFunction(Function::invalidId());
-        m_intensityOverrideId = -1;
+        resetIntensityOverrideAttribute();
     }
 }
 
@@ -679,7 +679,7 @@ void VCButton::pressFunction()
         if (state() == Active && !(isChildOfSoloFrame() && f->startedAsChild()))
         {
             f->stop(functionParent());
-            m_intensityOverrideId = -1;
+            resetIntensityOverrideAttribute();
         }
         else
         {
@@ -747,7 +747,7 @@ void VCButton::slotFunctionStopped(quint32 fid)
 {
     if (fid == m_function && m_action == Toggle)
     {
-        m_intensityOverrideId = -1;
+        resetIntensityOverrideAttribute();
         setState(Inactive);
         blink(250);
     }
@@ -822,7 +822,7 @@ QMenu* VCButton::customMenu(QMenu* parentMenu)
 
 void VCButton::adjustIntensity(qreal val)
 {
-    if (state() != Monitoring)
+    if (state() == Active)
     {
         Function* func = m_doc->function(m_function);
         if (func != NULL)

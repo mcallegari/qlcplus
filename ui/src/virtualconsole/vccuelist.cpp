@@ -592,7 +592,7 @@ void VCCueList::slotFunctionRemoved(quint32 fid)
     if (fid == m_chaserID)
     {
         setChaser(Function::invalidId());
-        m_intensityOverrideId = -1;
+        resetIntensityOverrideAttribute();
     }
 }
 
@@ -954,7 +954,7 @@ void VCCueList::stopChaser()
     if (ch == NULL)
         return;
     ch->stop(functionParent());
-    m_intensityOverrideId = -1;
+    resetIntensityOverrideAttribute();
 }
 
 void VCCueList::setNextPrevBehavior(NextPrevBehavior nextPrev)
