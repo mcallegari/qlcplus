@@ -263,9 +263,9 @@ void VCXYPadArea::setEFXPolygons(const QPolygonF &pattern, const QVector<QPolygo
     m_previewArea->setFixturePolygons(fixtures);
 }
 
-void VCXYPadArea::setEFXInterval(int interval)
+void VCXYPadArea::setEFXInterval(uint duration)
 {
-    m_previewArea->draw(interval);
+    m_previewArea->draw(duration / m_previewArea->polygonsCount());
 }
 
 /*****************************************************************************

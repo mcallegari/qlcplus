@@ -78,6 +78,10 @@ class EFX : public Function
 
     friend class EFXFixture;
 
+    /*********************************************************************
+     * Initialization
+     *********************************************************************/
+public:
     enum EFXAttr
     {
         Intensity = Function::Intensity,
@@ -89,10 +93,6 @@ class EFX : public Function
         StartOffset
     };
 
-    /*********************************************************************
-     * Initialization
-     *********************************************************************/
-public:
     EFX(Doc* doc);
     ~EFX();
 
@@ -109,15 +109,15 @@ public:
     /** Copy the contents for this function from another function */
     bool copyFrom(const Function* function);
 
-    /** Set the duration in milliseconds */
-    virtual void setDuration(uint ms);
-
     /*********************************************************************
      * Contents
      *********************************************************************/
 public:
-    /** Get the EFX total duration in milliseconds */
-    quint32 totalDuration();
+    /** Set the duration in milliseconds */
+    virtual void setDuration(uint ms);
+
+signals:
+    void durationChanged(uint ms);
 
     /*********************************************************************
      * Algorithm

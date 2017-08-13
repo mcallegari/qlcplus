@@ -52,6 +52,9 @@ public:
      */
     void setPolygon(const QPolygonF &polygon);
 
+    /** Returns the number of polygons elapsed when calculating the EFX path */
+    int polygonsCount() const;
+
     /**
      * Set an an array of X-Y points that can be used for drawing individual fixture positions
      *

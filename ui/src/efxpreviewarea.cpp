@@ -50,6 +50,11 @@ void EFXPreviewArea::setPolygon(const QPolygonF& polygon)
     m_scaled = scale(m_original, size());
 }
 
+int EFXPreviewArea::polygonsCount() const
+{
+    return m_original.size();
+}
+
 void EFXPreviewArea::setFixturePolygons(const QVector<QPolygonF> &fixturePoints)
 {
     m_originalFixturePoints.resize(fixturePoints.size());
@@ -93,10 +98,9 @@ void EFXPreviewArea::resizeEvent(QResizeEvent* e)
 {
     m_scaled = scale(m_original, e->size());
 
-    for(int i = 0; i < m_fixturePoints.size(); ++i)
-    {
+    for (int i = 0; i < m_fixturePoints.size(); ++i)
         m_fixturePoints[i] = scale(m_originalFixturePoints[i], e->size());
-    }
+
     QWidget::resizeEvent(e);
 }
 

@@ -1321,6 +1321,7 @@ void Function::resetAttributes()
         m_attributes[i].m_overrideValue = 0.0;
     }
     m_overrideMap.clear();
+    m_lastOverrideAttributeId = OVERRIDE_ATTRIBUTE_START_ID;
 }
 
 qreal Function::getAttributeValue(int attributeIndex) const

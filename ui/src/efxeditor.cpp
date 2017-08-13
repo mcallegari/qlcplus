@@ -559,7 +559,6 @@ void EFXEditor::createSpeedDials()
         connect(m_speedDials, SIGNAL(fadeInChanged(int)), this, SLOT(slotFadeInChanged(int)));
         connect(m_speedDials, SIGNAL(fadeOutChanged(int)), this, SLOT(slotFadeOutChanged(int)));
         connect(m_speedDials, SIGNAL(holdChanged(int)), this, SLOT(slotHoldChanged(int)));
-        connect(m_speedDials, SIGNAL(holdTapped()), this, SLOT(slotDurationTapped()));
         connect(m_speedDials, SIGNAL(destroyed(QObject*)), this, SLOT(slotDialDestroyed(QObject*)));
     }
 
