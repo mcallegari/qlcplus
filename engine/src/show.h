@@ -173,7 +173,7 @@ protected:
      * Attributes
      *************************************************************************/
 public:
-    /** @reimpl */
+    /** @reimp */
     int adjustAttribute(qreal fraction, int attributeId = 0);
 };
 

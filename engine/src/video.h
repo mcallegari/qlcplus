@@ -121,6 +121,7 @@ public:
     bool fullscreen();
     void setFullscreen(bool enable);
 
+    /** @reimp */
     int adjustAttribute(qreal fraction, int attributeId);
 
 signals:
