@@ -66,8 +66,8 @@ public:
     void setValueStyle(ValueStyle style) { m_valueStyle = style; }
     ValueStyle valueStyle() const { return m_valueStyle; }
 
-    void setGridSize(QSize size) { m_gridSize = size; }
-    QSize gridSize() const { return m_gridSize; }
+    void setGridSize(QVector3D size) { m_gridSize = size; }
+    QVector3D gridSize() const { return m_gridSize; }
 
     void setGridUnits(GridUnits units) { m_gridUnits = units; }
     GridUnits gridUnits() const { return m_gridUnits; }
@@ -109,7 +109,7 @@ private:
     DisplayMode m_displayMode;
     ChannelStyle m_channelStyle;
     ValueStyle m_valueStyle;
-    QSize m_gridSize;
+    QVector3D m_gridSize;
     GridUnits m_gridUnits;
     bool m_showLabels;
     QString m_commonBackgroundImage;

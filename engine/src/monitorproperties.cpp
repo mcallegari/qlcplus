@@ -32,6 +32,7 @@
 #define KXMLQLCMonitorGrid "Grid"
 #define KXMLQLCMonitorGridWidth "Width"
 #define KXMLQLCMonitorGridHeight "Height"
+#define KXMLQLCMonitorGridDepth "Depth"
 #define KXMLQLCMonitorGridUnits "Units"
 #define KXMLQLCMonitorShowLabels "ShowLabels"
 #define KXMLQLCMonitorCommonBackground "Background"
@@ -56,7 +57,7 @@ MonitorProperties::MonitorProperties()
     m_displayMode = DMX;
     m_channelStyle = DMXChannels;
     m_valueStyle = DMXValues;
-    m_gridSize = QSize(5, 5);
+    m_gridSize = QVector3D(5, 3, 5);
     m_gridUnits = Meters;
     m_showLabels = false;
 }
@@ -94,7 +95,7 @@ QString MonitorProperties::customBackground(quint32 id)
 
 void MonitorProperties::reset()
 {
-    m_gridSize = QSize(5, 5);
+    m_gridSize = QVector3D(5, 3, 5);
     m_gridUnits = Meters;
     m_showLabels = false;
     m_fixtureItems.clear();
@@ -155,15 +156,20 @@ bool MonitorProperties::loadXML(QXmlStreamReader &root, const Doc * mainDocument
         }
         else if (root.name() == KXMLQLCMonitorGrid)
         {
-            int w = 5, h = 5;
+            int w = 5, h = 3, d = 5;
             if (tAttrs.hasAttribute(KXMLQLCMonitorGridWidth))
                 w = tAttrs.value(KXMLQLCMonitorGridWidth).toString().toInt();
             if (tAttrs.hasAttribute(KXMLQLCMonitorGridHeight))
                 h = tAttrs.value(KXMLQLCMonitorGridHeight).toString().toInt();
+            if (tAttrs.hasAttribute(KXMLQLCMonitorGridDepth))
+                d = tAttrs.value(KXMLQLCMonitorGridDepth).toString().toInt();
+            else
+                d = h; // backward compatibility
+
             if (tAttrs.hasAttribute(KXMLQLCMonitorGridUnits))
                 setGridUnits(GridUnits(tAttrs.value(KXMLQLCMonitorGridUnits).toString().toInt()));
 
-            setGridSize(QSize(w, h));
+            setGridSize(QVector3D(w, h, d));
             root.skipCurrentElement();
         }
         else if (root.name() == KXMLQLCMonitorFixtureItem)
@@ -247,8 +253,9 @@ bool MonitorProperties::saveXML(QXmlStreamWriter *doc, const Doc *mainDocument) 
     }
 
     doc->writeStartElement(KXMLQLCMonitorGrid);
-    doc->writeAttribute(KXMLQLCMonitorGridWidth, QString::number(gridSize().width()));
-    doc->writeAttribute(KXMLQLCMonitorGridHeight, QString::number(gridSize().height()));
+    doc->writeAttribute(KXMLQLCMonitorGridWidth, QString::number(gridSize().x()));
+    doc->writeAttribute(KXMLQLCMonitorGridHeight, QString::number(gridSize().y()));
+    doc->writeAttribute(KXMLQLCMonitorGridDepth, QString::number(gridSize().z()));
     doc->writeAttribute(KXMLQLCMonitorGridUnits, QString::number(gridUnits()));
     doc->writeEndElement();
 
