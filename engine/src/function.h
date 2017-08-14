@@ -831,7 +831,8 @@ public:
     enum OverrideFlags
     {
         Multiply = (1 << 0), /** The original attribute value should be multiplied by the overridden values */
-        LastWins = (1 << 1)  /** The original attribute value is overridden by the last requested override value */
+        LastWins = (1 << 1), /** The original attribute value is overridden by the last requested override value */
+        Single   = (1 << 2)  /** Only one attribute override ID will be allowed */
     };
 
     static int invalidAttributeId();

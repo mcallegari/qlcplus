@@ -131,7 +131,7 @@ Function::Function(Doc* doc, Type t)
     , m_blendMode(Universe::NormalBlend)
 {
     Q_ASSERT(doc != NULL);
-    registerAttribute(tr("Intensity"));
+    registerAttribute(tr("Intensity"), Multiply | Single);
 }
 
 Function::~Function()
@@ -1223,22 +1223,45 @@ int Function::registerAttribute(QString name, int flags, qreal min, qreal max, q
 
 int Function::requestAttributeOverride(int attributeIndex, qreal value)
 {
-    if (attributeIndex >= m_attributes.count())
+    if (attributeIndex < 0 || attributeIndex >= m_attributes.count())
         return -1;
 
-    AttributeOverride override;
-    override.m_attrIndex = attributeIndex;
-    override.m_value = value;
+    int attributeID = invalidAttributeId();
 
-    m_overrideMap[m_lastOverrideAttributeId] = override;
+    if (m_attributes.at(attributeIndex).m_flags & Single)
+    {
+        foreach (int id, m_overrideMap.keys())
+        {
+            if (m_overrideMap[id].m_attrIndex == attributeIndex)
+            {
+                attributeID = id;
+                break;
+            }
+        }
+    }
 
-    calculateOverrideValue(attributeIndex);
+    if (attributeID == invalidAttributeId())
+    {
+        AttributeOverride override;
+        override.m_attrIndex = attributeIndex;
+        override.m_value = 0.0;
 
-    qDebug() << name() << "Override requested for attribute" << attributeIndex << "value" << value << "ID" << m_lastOverrideAttributeId;
+        attributeID = m_lastOverrideAttributeId;
+        m_overrideMap[attributeID] = override;
 
-    m_lastOverrideAttributeId++;
+        qDebug() << name() << "Override requested for attribute" << attributeIndex << "value" << value << "new ID" << attributeID;
 
-    return m_lastOverrideAttributeId - 1;
+        m_lastOverrideAttributeId++;
+    }
+    else
+    {
+        qDebug() << name() << "Override requested for attribute" << attributeIndex << "value" << value << "single ID" << attributeID;
+    }
+
+    // actually apply the new override value
+    adjustAttribute(value, attributeID);
+
+    return attributeID;
 }
 
 void Function::releaseAttributeOverride(int attributeId)
@@ -1284,7 +1307,7 @@ int Function::adjustAttribute(qreal value, int attributeId)
 
     int attrIndex;
 
-    qDebug() << name() << "Attribute ID:" << attributeId << ", val:" << value;
+    //qDebug() << name() << "Attribute ID:" << attributeId << ", val:" << value;
 
     if (attributeId < OVERRIDE_ATTRIBUTE_START_ID)
     {
@@ -1302,13 +1325,13 @@ int Function::adjustAttribute(qreal value, int attributeId)
 
         // Adjust an attribute override value and recalculate the final overridden value
         m_overrideMap[attributeId].m_value = value;
-        calculateOverrideValue(m_overrideMap[attributeId].m_attrIndex);
         attrIndex = m_overrideMap[attributeId].m_attrIndex;
+        calculateOverrideValue(attrIndex);
     }
 
-    emit attributeChanged(attributeId, m_attributes[attrIndex].m_isOverridden ?
-                                       m_attributes[attrIndex].m_overrideValue :
-                                       m_attributes[attrIndex].m_value);
+    emit attributeChanged(attrIndex, m_attributes[attrIndex].m_isOverridden ?
+                                     m_attributes[attrIndex].m_overrideValue :
+                                     m_attributes[attrIndex].m_value);
 
     return attrIndex;
 }
@@ -1359,7 +1382,7 @@ void Function::calculateOverrideValue(int attributeIndex)
     bool found = false;
     Attribute origAttr = m_attributes.at(attributeIndex);
 
-    if (origAttr.m_flags == Multiply)
+    if (origAttr.m_flags & Multiply)
         finalValue = origAttr.m_value;
 
     foreach (AttributeOverride attr, m_overrideMap.values())
@@ -1369,9 +1392,9 @@ void Function::calculateOverrideValue(int attributeIndex)
 
         found = true;
 
-        if (origAttr.m_flags == Multiply)
+        if (origAttr.m_flags & Multiply)
             finalValue = finalValue * attr.m_value;
-        else if (origAttr.m_flags == LastWins)
+        else if (origAttr.m_flags & LastWins)
             finalValue = attr.m_value;
     }
 

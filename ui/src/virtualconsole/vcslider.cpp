@@ -896,12 +896,15 @@ void VCSlider::slotPlaybackFunctionStopped(quint32 fid)
     {
         if (m_slider)
             m_slider->setValue(0);
+        resetIntensityOverrideAttribute();
     }
     m_externalMovement = false;
 }
 
 void VCSlider::slotPlaybackFunctionIntensityChanged(int attrIndex, qreal fraction)
 {
+    //qDebug() << "Function intensity changed" << attrIndex << fraction << m_playbackChangeCounter;
+
     if (attrIndex != Function::Intensity || m_playbackChangeCounter)
         return;
 
