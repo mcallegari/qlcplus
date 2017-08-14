@@ -62,10 +62,12 @@ void ClickAndGoSlider::mousePressEvent(QMouseEvent *e)
         else
             newVal = minimum() + ((maximum() - minimum()) * e->x()) / width();
 
+        setSliderDown(true);
         if (invertedAppearance() == true)
             setValue( maximum() - newVal );
         else
             setValue(newVal);
+        setSliderDown(false);
 
         e->accept();
     }
