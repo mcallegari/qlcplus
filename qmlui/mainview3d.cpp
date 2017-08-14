@@ -50,6 +50,15 @@ MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
     m_fixtureComponent = new QQmlComponent(m_view->engine(), QUrl("qrc:/Fixture3DItem.qml"));
     if (m_fixtureComponent->isError())
         qDebug() << m_fixtureComponent->errors();
+
+    setStageSize(m_monProps->gridSize());
+
+    // the following two list must always have the same items number
+    m_stagesList << tr("Simple ground") << tr("Simple box") << tr("Rock stage");
+    m_stageResourceList << "qrc:/StageSimple.qml" << "qrc:/StageBox.qml" << "qrc:/StageRock.qml";
+
+    m_stageEntity = NULL;
+    m_stageIndex = 0;
 }
 
 MainView3D::~MainView3D()
@@ -67,7 +76,14 @@ void MainView3D::enableContext(bool enable)
         resetItems();
         m_scene3D = NULL;
         m_sceneRootEntity = NULL;
+        m_quadEntity = NULL;
         m_quadMaterial = NULL;
+
+        if (m_stageEntity)
+        {
+            delete m_stageEntity;
+            m_stageEntity = NULL;
+        }
     }
 }
 
@@ -105,6 +121,21 @@ void MainView3D::initialize3DProperties()
     }
 
     qDebug() << m_sceneRootEntity << m_quadEntity << m_quadMaterial;
+
+    if (m_stageEntity == NULL)
+    {
+        QQmlComponent *stageComponent = new QQmlComponent(m_view->engine(), QUrl(m_stageResourceList.at(m_stageIndex)));
+        if (stageComponent->isError())
+            qDebug() << stageComponent->errors();
+
+        m_stageEntity = qobject_cast<QEntity *>(stageComponent->create());
+        m_stageEntity->setParent(m_sceneRootEntity);
+
+        QLayer *sceneLayer = m_sceneRootEntity->property("layer").value<QLayer *>();
+        QEffect *sceneEffect = m_sceneRootEntity->property("effect").value<QEffect *>();
+        m_stageEntity->setProperty("layer", QVariant::fromValue(sceneLayer));
+        m_stageEntity->setProperty("effect", QVariant::fromValue(sceneEffect));
+    }
 }
 
 void MainView3D::setUniverseFilter(quint32 universeFilter)
@@ -676,6 +707,24 @@ void MainView3D::updateFixtureRotation(quint32 fxID, QVector3D degrees)
     mesh->m_rootTransform->setRotationZ(degrees.z());
 }
 
+/*********************************************************************
+ * Environment
+ *********************************************************************/
+
+QVector3D MainView3D::stageSize() const
+{
+    return m_stageSize;
+}
+
+void MainView3D::setStageSize(QVector3D stageSize)
+{
+    if (m_stageSize == stageSize)
+        return;
+
+    m_stageSize = stageSize;
+    emit stageSizeChanged(m_stageSize);
+}
+
 float MainView3D::ambientIntensity() const
 {
     return m_ambientIntensity;
@@ -688,6 +737,41 @@ void MainView3D::setAmbientIntensity(float ambientIntensity)
 
     m_ambientIntensity = ambientIntensity;
     emit ambientIntensityChanged(m_ambientIntensity);
+}
+
+QStringList MainView3D::stagesList() const
+{
+    return m_stagesList;
+}
+
+int MainView3D::stageIndex() const
+{
+    return m_stageIndex;
+}
+
+void MainView3D::setStageIndex(int stageIndex)
+{
+    if (m_stageIndex == stageIndex)
+        return;
+
+    m_stageIndex = stageIndex;
+
+    if (m_stageEntity)
+        delete m_stageEntity;
+
+    QQmlComponent *stageComponent = new QQmlComponent(m_view->engine(), QUrl(m_stageResourceList.at(m_stageIndex)));
+    if (stageComponent->isError())
+        qDebug() << stageComponent->errors();
+
+    m_stageEntity = qobject_cast<QEntity *>(stageComponent->create());
+    m_stageEntity->setParent(m_sceneRootEntity);
+
+    QLayer *sceneLayer = m_sceneRootEntity->property("layer").value<QLayer *>();
+    QEffect *sceneEffect = m_sceneRootEntity->property("effect").value<QEffect *>();
+    m_stageEntity->setProperty("layer", QVariant::fromValue(sceneLayer));
+    m_stageEntity->setProperty("effect", QVariant::fromValue(sceneEffect));
+
+    emit stageIndexChanged(m_stageIndex);
 }
 
 void MainView3D::slotRefreshView()

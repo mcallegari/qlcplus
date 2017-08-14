@@ -30,11 +30,14 @@
 
 MainView2D::MainView2D(QQuickView *view, Doc *doc, QObject *parent)
     : PreviewContext(view, doc, "2D", parent)
+    , m_monProps(doc->monitorProperties())
 {
-    m_monProps = m_doc->monitorProperties();
+    setGridSize(m_monProps->gridSize());
+    if (m_monProps->gridUnits() == MonitorProperties::Feet)
+        setGridUnits(304.8);
+    else
+        setGridUnits(1000.0);
 
-    setGridSize(QSize(5 ,5));
-    setGridUnits(1000);
     setGridScale(1.0);
     setCellPixels(100);
 
@@ -486,17 +489,17 @@ void MainView2D::updateFixturePosition(quint32 fxID, QVector3D pos)
     fxItem->setProperty("mmYPos", pos.y());
 }
 
-QSize MainView2D::gridSize() const
+QVector3D MainView2D::gridSize() const
 {
     return m_gridSize;
 }
 
-void MainView2D::setGridSize(QSize sz)
+void MainView2D::setGridSize(QVector3D sz)
 {
     if (sz != m_gridSize)
     {
         m_gridSize = sz;
-        m_monProps->setGridSize(m_gridSize);
+        m_monProps->setGridSize(sz);
         emit gridSizeChanged();
     }
 }

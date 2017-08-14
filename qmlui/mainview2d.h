@@ -33,7 +33,7 @@ class MainView2D : public PreviewContext
 {
     Q_OBJECT
 
-    Q_PROPERTY(QSize gridSize READ gridSize WRITE setGridSize NOTIFY gridSizeChanged)
+    Q_PROPERTY(QVector3D gridSize READ gridSize WRITE setGridSize NOTIFY gridSizeChanged)
     Q_PROPERTY(float gridUnits READ gridUnits WRITE setGridUnits NOTIFY gridUnitsChanged)
     Q_PROPERTY(qreal gridScale READ gridScale WRITE setGridScale NOTIFY gridScaleChanged)
     Q_PROPERTY(qreal cellPixels READ cellPixels WRITE setCellPixels NOTIFY cellPixelsChanged)
@@ -64,8 +64,8 @@ public:
 
     void updateFixturePosition(quint32 fxID, QVector3D pos);
 
-    QSize gridSize() const;
-    void setGridSize(QSize sz);
+    QVector3D gridSize() const;
+    void setGridSize(QVector3D sz);
 
     float gridUnits() const;
     void setGridUnits(float units);
@@ -99,7 +99,7 @@ private:
     MonitorProperties *m_monProps;
 
     /** Size of the grid. How many horizontal and vertical cells */
-    QSize m_gridSize;
+    QVector3D m_gridSize;
 
     /** The unit used by the grid. Meters = 1000mm, Feet = 304.8mm */
     float m_gridUnits;

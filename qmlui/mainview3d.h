@@ -67,6 +67,9 @@ class MainView3D : public PreviewContext
 {
     Q_OBJECT
 
+    Q_PROPERTY(QVector3D stageSize READ stageSize WRITE setStageSize NOTIFY stageSizeChanged)
+    Q_PROPERTY(QStringList stagesList READ stagesList CONSTANT)
+    Q_PROPERTY(int stageIndex READ stageIndex WRITE setStageIndex NOTIFY stageIndexChanged)
     Q_PROPERTY(float ambientIntensity READ ambientIntensity WRITE setAmbientIntensity NOTIFY ambientIntensityChanged)
 
 public:
@@ -99,12 +102,29 @@ public:
 
     void updateFixtureRotation(quint32 fxID, QVector3D degrees);
 
+    /*********************************************************************
+     * Environment
+     *********************************************************************/
+public:
+    /** Get/Set the environment stage size */
+    QVector3D stageSize() const;
+    void setStageSize(QVector3D stageSize);
+
     /** Get/Set the ambient light intensity */
     float ambientIntensity() const;
     void setAmbientIntensity(float ambientIntensity);
 
+    /** The list of currently supported stage types */
+    QStringList stagesList() const;
+
+    /** Get/Set the stage QML resource index to be loaded at runtime */
+    int stageIndex() const;
+    void setStageIndex(int stageIndex);
+
 signals:
     void ambientIntensityChanged(qreal ambientIntensity);
+    void stageSizeChanged(QVector3D stageSize);
+    void stageIndexChanged(int stageIndex);
 
 protected:
     /** First time 3D view variables initializations */
@@ -127,6 +147,7 @@ private:
 protected slots:
     /** @reimp */
     void slotRefreshView();
+
     /** Helper method to create fixtures in the event loop thread */
     void slotCreateFixture(quint32 fxID);
 
@@ -151,6 +172,12 @@ private:
 
     /** Cache of the loaded models against bounding volumes */
     QMap<QUrl, BoundingVolume> m_boundingVolumesMap;
+
+    QVector3D m_stageSize;
+    QStringList m_stagesList;
+    QStringList m_stageResourceList;
+    int m_stageIndex;
+    QEntity *m_stageEntity;
 
     /** Ambient light amount (0.0 - 1.0) */
     float m_ambientIntensity;
