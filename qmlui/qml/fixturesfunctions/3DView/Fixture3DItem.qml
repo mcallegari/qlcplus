@@ -44,7 +44,7 @@ Entity
     property Transform panTransform
     property Transform tiltTransform
 
-    /* LIght properties. These are bound to uniforms in ScreenQuadEntity */
+    /* Light properties. These are bound to uniforms in ScreenQuadEntity */
     property int lightIndex
     property real intensity: 0.0
     property color lightColor: Qt.rgba(0, 0, 0, 1)
@@ -52,10 +52,10 @@ Entity
     property vector3d direction: Qt.vector3d(0, -1, 0)
     property real cutOff: 15.0
 
-    onPanTransformChanged: console.log("Pan transform changed " + panTransform)
-    onTiltTransformChanged: console.log("Tilt transform changed " + tiltTransform)
+    //onPanTransformChanged: console.log("Pan transform changed " + panTransform)
+    //onTiltTransformChanged: console.log("Tilt transform changed " + tiltTransform)
 
-    onPositionChanged: console.log("Light position changed: " + position)
+    //onPositionChanged: console.log("Light position changed: " + position)
     //onDirectionChanged: console.log("Light direction changed: " + direction)
 
     function setPosition(pan, tilt)
@@ -75,7 +75,7 @@ Entity
             tiltAnim.from = tiltRotation
             var degTo = parseInt(((tiltMaxDegrees / 0xFFFF) * tilt) - (tiltMaxDegrees / 2))
             //console.log("Tilt to " + degTo + ", max: " + tiltMaxDegrees)
-            tiltAnim.to = degTo
+            tiltAnim.to = -degTo
             tiltAnim.start()
         }
     }

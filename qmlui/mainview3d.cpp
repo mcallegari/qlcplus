@@ -606,9 +606,7 @@ void MainView3D::initializeFixture(quint32 fxID, QEntity *fxEntity, QComponent *
     if (m_monProps->hasFixturePosition(fixture->id()))
     {
         QVector3D fxPos = m_monProps->fixturePosition(fixture->id());
-        meshRef->m_rootTransform->setTranslation(QVector3D(fxPos.x() / 1000.0, fxPos.y() / 1000.0, fxPos.z() / 1000.0));
-        if (meshRef->m_headItem)
-            updateLightPosition(meshRef);
+        updateFixturePosition(fxID, fxPos);
     }
 
     /* Hook the object picker to the base entity */
@@ -732,10 +730,12 @@ void MainView3D::updateFixturePosition(quint32 fxID, QVector3D pos)
     qDebug() << Q_FUNC_INFO << pos;
 
     /* move the root mesh first */
-    mesh->m_rootTransform->setTranslation(QVector3D(pos.x() / 1000.0, pos.y() / 1000.0, pos.z() / 1000.0));
-
+    mesh->m_rootTransform->setTranslation(QVector3D((pos.x() / 1000.0) - (m_stageSize.x() / 2),
+                                                    pos.y() / 1000.0,
+                                                    (pos.z() / 1000.0) - (m_stageSize.z() / 2)));
     /* recalculate the light position */
-    updateLightPosition(mesh);
+    if (mesh->m_headItem)
+        updateLightPosition(mesh);
 }
 
 void MainView3D::updateFixtureRotation(quint32 fxID, QVector3D degrees)
