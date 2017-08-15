@@ -72,14 +72,14 @@ function drawCursor(ctx, eX, eY, eWidth, eHeight, degrees, radius)
     ctx.beginPath();
     ctx.ellipse(x - (radius / 2), y - (radius / 2), radius, radius);
     ctx.fill();
-    ctx.closePath();    //close the end to the start point
+    ctx.closePath();
     ctx.stroke();
 }
 
 function drawBasement(ctx, eWidth, eHeight)
 {
-    ctx.fillStyle = "#222";
-    ctx.strokeStyle = "#333";
+    ctx.fillStyle = "#333";
+    ctx.strokeStyle = "#444";
     ctx.beginPath();
     var halfWidth = eWidth / 2;
     var thirdWidth = eWidth / 3;
