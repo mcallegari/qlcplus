@@ -32,12 +32,12 @@ Rectangle
     border.width: 1
     border.color: "#222"
 
-    property bool fxPropsVisible: contextManager.hasSelectedFixtures
+    property vector3d stageSize: View3D.stageSize
+    property real ambientIntensity: View3D.ambientIntensity
 
+    property bool fxPropsVisible: contextManager.hasSelectedFixtures
     property vector3d fxPosition: contextManager.fixturesPosition
     property vector3d fxRotation: contextManager.fixturesRotation
-
-    property real ambientIntensity: View3D.ambientIntensity
 
     GridLayout
     {
@@ -45,7 +45,7 @@ Rectangle
         width: settingsRoot.width - 10
         columns: 2
         columnSpacing: 5
-        rowSpacing: 5
+        rowSpacing: 0
 
         // row 1
         Rectangle
@@ -59,12 +59,91 @@ Rectangle
             {
                 x: 5
                 anchors.verticalCenter: parent.verticalCenter
-                label: qsTr("Ambient")
+                label: qsTr("Stage")
             }
         }
 
         // row 2
-        RobotoText { visible: fxPropsVisible; label: "Intensity" }
+        RobotoText { label: qsTr("Type") }
+        CustomComboBox
+        {
+            Layout.fillWidth: true
+            height: UISettings.listItemHeight
+
+            model: View3D.stagesList
+            currentIndex: View3D.stageIndex
+            onCurrentIndexChanged: View3D.stageIndex = currentIndex
+        }
+
+        // row 3
+        RobotoText { label: qsTr("Width") }
+        CustomSpinBox
+        {
+            height: UISettings.listItemHeight
+            Layout.fillWidth: true
+            from: 1
+            to: 50
+            suffix: "m"
+            value: stageSize.x
+            onValueChanged:
+            {
+                if (settingsRoot.visible)
+                    View3D.stageSize = Qt.vector3d(value, stageSize.y, stageSize.z)
+            }
+        }
+
+        // row 4
+        RobotoText { label: qsTr("Height") }
+        CustomSpinBox
+        {
+            height: UISettings.listItemHeight
+            Layout.fillWidth: true
+            from: 1
+            to: 50
+            suffix: "m"
+            value: stageSize.y
+            onValueChanged:
+            {
+                if (settingsRoot.visible)
+                    View3D.stageSize = Qt.vector3d(stageSize.x, value, stageSize.z)
+            }
+        }
+
+        // row 5
+        RobotoText { label: qsTr("Depth") }
+        CustomSpinBox
+        {
+            height: UISettings.listItemHeight
+            Layout.fillWidth: true
+            from: 1
+            to: 100
+            suffix: "m"
+            value: stageSize.z
+            onValueChanged:
+            {
+                if (settingsRoot.visible)
+                    View3D.stageSize = Qt.vector3d(stageSize.x, stageSize.y, value)
+            }
+        }
+
+        // row 6
+        Rectangle
+        {
+            height: UISettings.listItemHeight
+            Layout.fillWidth: true
+            color: UISettings.sectionHeader
+            Layout.columnSpan: 2
+
+            RobotoText
+            {
+                x: 5
+                anchors.verticalCenter: parent.verticalCenter
+                label: qsTr("Ambient light")
+            }
+        }
+
+        // row 7
+        RobotoText { label: qsTr("Intensity") }
         CustomSpinBox
         {
             Layout.fillWidth: true
@@ -76,7 +155,7 @@ Rectangle
             onValueChanged: View3D.ambientIntensity = value / 100
         }
 
-        // row 1
+        // row 8
         Rectangle
         {
             visible: fxPropsVisible
@@ -93,7 +172,7 @@ Rectangle
             }
         }
 
-        // row 2
+        // row 9
         RobotoText { visible: fxPropsVisible; label: "X" }
         CustomSpinBox
         {
@@ -111,7 +190,7 @@ Rectangle
             }
         }
 
-        // row 3
+        // row 10
         RobotoText { visible: fxPropsVisible; label: "Y" }
         CustomSpinBox
         {
@@ -129,7 +208,7 @@ Rectangle
             }
         }
 
-        // row 4
+        // row 11
         RobotoText { visible: fxPropsVisible; label: "Z" }
         CustomSpinBox
         {
@@ -147,7 +226,7 @@ Rectangle
             }
         }
 
-        // row 5
+        // row 12
         Rectangle
         {
             visible: fxPropsVisible
@@ -164,7 +243,7 @@ Rectangle
             }
         }
 
-        // row 6
+        // row 13
         RobotoText { visible: fxPropsVisible; label: "X" }
         CustomSpinBox
         {
@@ -178,11 +257,11 @@ Rectangle
             onValueChanged:
             {
                 if (settingsRoot.visible)
-                    contextManager.fixturesRotation = Qt.vector3d(value, fxRotation.y, fxRotation.y)
+                    contextManager.fixturesRotation = Qt.vector3d(value, fxRotation.y, fxRotation.z)
             }
         }
 
-        // row 7
+        // row 14
         RobotoText { visible: fxPropsVisible; label: "Y" }
         CustomSpinBox
         {
@@ -200,7 +279,7 @@ Rectangle
             }
         }
 
-        // row 8
+        // row 15
         RobotoText { visible: fxPropsVisible; label: "Z" }
         CustomSpinBox
         {

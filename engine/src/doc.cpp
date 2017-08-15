@@ -1112,7 +1112,7 @@ QPointF Doc::getAvailable2DPosition(QRectF &fxRect)
     qreal xPos = fxRect.x(), yPos = fxRect.y();
     qreal maxYOffset = 0;
 
-    QSize gridSize = m_monitorProps->gridSize();
+    QSize gridSize = QSize(m_monitorProps->gridSize().x(), m_monitorProps->gridSize().z());
     float gridUnits = 1000.0;
     if (m_monitorProps->gridUnits() == MonitorProperties::Feet)
         gridUnits = 304.8;

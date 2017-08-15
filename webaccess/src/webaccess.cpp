@@ -706,6 +706,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
             {
                 VCSlider *slider = qobject_cast<VCSlider*>(widget);
                 slider->setSliderValue(value);
+                slider->updateFeedback();
             }
             break;
             case VCWidget::AudioTriggersWidget:

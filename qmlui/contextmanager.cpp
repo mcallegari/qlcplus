@@ -429,7 +429,7 @@ void ContextManager::createFixtureGroup()
 
 QVector3D ContextManager::fixturesRotation() const
 {
-    QVector3D commonRotation(0, 0, 0);
+    QVector3D rotation(0, 0, 0);
     MonitorProperties *mProps = m_doc->monitorProperties();
 
     foreach(quint32 fxID, m_selectedFixtures)
@@ -438,19 +438,16 @@ QVector3D ContextManager::fixturesRotation() const
             continue;
 
         QVector3D rot = mProps->fixtureRotation(fxID);
-        if (commonRotation == QVector3D(0, 0, 0))
-            commonRotation = rot;
+        if (rotation == QVector3D(0, 0, 0))
+            rotation = rot;
         else
         {
-            if (rot != commonRotation)
+            if (rot != rotation)
                 return QVector3D(0, 0, 0);
         }
     }
 
-    if (commonRotation == QVector3D(0, 0, 0))
-        return commonRotation;
-
-    return QVector3D(0, 0, 0);
+    return rotation;
 }
 
 void ContextManager::setFixturesRotation(QVector3D degrees)
@@ -507,7 +504,7 @@ void ContextManager::setFixturesRotation(QVector3D degrees)
         if (rot.y() < 0) rot.setY(rot.y() + 360);
         else if (rot.y() >= 360) rot.setY(rot.y() - 360);
 
-        if (rot.z() < 0) rot.setX(rot.z() + 360);
+        if (rot.z() < 0) rot.setZ(rot.z() + 360);
         else if (rot.z() >= 360) rot.setZ(rot.z() - 360);
 
         mProps->setFixtureRotation(fxID, rot);

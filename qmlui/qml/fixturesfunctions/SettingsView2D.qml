@@ -72,11 +72,11 @@ Rectangle
                 height: UISettings.listItemHeight
                 from: 1
                 to: 50
-                value: View2D.gridSize.width
+                value: View2D.gridSize.x
                 onValueChanged:
                 {
                     if (settingsRoot.visible)
-                    View2D.gridSize = Qt.size(value, gHeightSpin.value)
+                    View2D.gridSize = Qt.vector3d(value, View2D.gridSize.y, gHeightSpin.value)
                 }
             }
 
@@ -94,11 +94,11 @@ Rectangle
                 height: UISettings.listItemHeight
                 from: 1
                 to: 50
-                value: View2D.gridSize.height
+                value: View2D.gridSize.z
                 onValueChanged:
                 {
                     if (settingsRoot.visible)
-                        View2D.gridSize = Qt.size(gWidthSpin.value, value)
+                        View2D.gridSize = Qt.vector3d(gWidthSpin.value, View2D.gridSize.y, value)
                 }
             }
 

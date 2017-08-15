@@ -243,13 +243,13 @@ void Monitor::fillGraphicsView()
         m_unitsCombo->setCurrentIndex(1);
     }
 
-    m_gridWSpin->setValue(m_props->gridSize().width());
-    m_gridHSpin->setValue(m_props->gridSize().height());
+    m_gridWSpin->setValue(m_props->gridSize().x());
+    m_gridHSpin->setValue(m_props->gridSize().z());
     m_gridWSpin->blockSignals(false);
     m_gridHSpin->blockSignals(false);
     m_unitsCombo->blockSignals(false);
 
-    m_graphicsView->setGridSize(m_props->gridSize());
+    m_graphicsView->setGridSize(QSize(m_props->gridSize().x(), m_props->gridSize().z()));
     m_graphicsView->setBackgroundImage(m_props->commonBackgroundImage());
     m_graphicsView->showFixturesLabels(m_props->labelsVisible());
 
@@ -495,11 +495,11 @@ void Monitor::initGraphicsToolbar()
     label->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     m_graphicsToolBar->addWidget(label);
 
-    QSize gridSize = m_props->gridSize();
+    QVector3D gridSize = m_props->gridSize();
 
     m_gridWSpin = new QSpinBox();
     m_gridWSpin->setMinimum(1);
-    m_gridWSpin->setValue(gridSize.width());
+    m_gridWSpin->setValue(gridSize.x());
     m_graphicsToolBar->addWidget(m_gridWSpin);
     connect(m_gridWSpin, SIGNAL(valueChanged(int)),
             this, SLOT(slotGridWidthChanged(int)));
@@ -509,7 +509,7 @@ void Monitor::initGraphicsToolbar()
     m_graphicsToolBar->addWidget(xlabel);
     m_gridHSpin = new QSpinBox();
     m_gridHSpin->setMinimum(1);
-    m_gridHSpin->setValue(gridSize.height());
+    m_gridHSpin->setValue(gridSize.z());
     m_graphicsToolBar->addWidget(m_gridHSpin);
     connect(m_gridHSpin, SIGNAL(valueChanged(int)),
             this, SLOT(slotGridHeightChanged(int)));
@@ -689,7 +689,7 @@ void Monitor::slotGridWidthChanged(int value)
     Q_ASSERT(m_graphicsView != NULL);
 
     m_graphicsView->setGridSize(QSize(value, m_gridHSpin->value()));
-    m_props->setGridSize(QSize(value, m_gridHSpin->value()));
+    m_props->setGridSize(QVector3D(value, m_props->gridSize().y(), m_gridHSpin->value()));
 }
 
 void Monitor::slotGridHeightChanged(int value)
@@ -697,7 +697,7 @@ void Monitor::slotGridHeightChanged(int value)
     Q_ASSERT(m_graphicsView != NULL);
 
     m_graphicsView->setGridSize(QSize(m_gridWSpin->value(), value));
-    m_props->setGridSize(QSize(m_gridWSpin->value(), value));
+    m_props->setGridSize(QVector3D(m_gridWSpin->value(), m_props->gridSize().y(), value));
 }
 
 void Monitor::slotGridUnitsChanged(int index)

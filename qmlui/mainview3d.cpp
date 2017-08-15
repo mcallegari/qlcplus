@@ -50,6 +50,15 @@ MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
     m_fixtureComponent = new QQmlComponent(m_view->engine(), QUrl("qrc:/Fixture3DItem.qml"));
     if (m_fixtureComponent->isError())
         qDebug() << m_fixtureComponent->errors();
+
+    setStageSize(m_monProps->gridSize());
+
+    // the following two list must always have the same items number
+    m_stagesList << tr("Simple ground") << tr("Simple box") << tr("Rock stage");
+    m_stageResourceList << "qrc:/StageSimple.qml" << "qrc:/StageBox.qml" << "qrc:/StageRock.qml";
+
+    m_stageEntity = NULL;
+    m_stageIndex = 0;
 }
 
 MainView3D::~MainView3D()
@@ -67,9 +76,76 @@ void MainView3D::enableContext(bool enable)
         resetItems();
         m_scene3D = NULL;
         m_sceneRootEntity = NULL;
+        m_quadEntity = NULL;
         m_quadMaterial = NULL;
+
+        if (m_stageEntity)
+        {
+            delete m_stageEntity;
+            m_stageEntity = NULL;
+        }
     }
 }
+
+void MainView3D::slotRefreshView()
+{
+    if (isEnabled() == false)
+        return;
+
+    resetItems();
+
+    initialize3DProperties();
+
+    qDebug() << "Refreshing 3D view...";
+
+    foreach(Fixture *fixture, m_doc->fixtures())
+    {
+        if (m_monProps->hasFixturePosition(fixture->id()))
+        {
+            QVector3D fxPos = m_monProps->fixturePosition(fixture->id());
+            createFixtureItem(fixture->id(), fxPos.x(), fxPos.y(), fxPos.z());
+        }
+        else
+            createFixtureItem(fixture->id(), 0, 0, 0, false);
+    }
+}
+
+void MainView3D::resetItems()
+{
+    qDebug() << "Resetting 3D items...";
+    QMapIterator<quint32, FixtureMesh*> it(m_entitiesMap);
+    while(it.hasNext())
+    {
+        it.next();
+        FixtureMesh *e = it.value();
+        //if (e->m_headItem)
+        //    delete e->m_headItem;
+        //if (e->m_armItem)
+        //    delete e->m_armItem;
+        delete e->m_rootItem;
+    }
+
+    //const auto end = m_entitiesMap.end();
+    //for (auto it = m_entitiesMap.begin(); it != end; ++it)
+    //    delete it.value();
+    m_entitiesMap.clear();
+}
+
+QString MainView3D::meshDirectory() const
+{
+    return QString("file://") + QString(MESHESDIR) + QDir::separator();
+}
+
+void MainView3D::setUniverseFilter(quint32 universeFilter)
+{
+    PreviewContext::setUniverseFilter(universeFilter);
+
+    /* TODO: hide/show fixture meshes */
+}
+
+/*********************************************************************
+ * Fixtures
+ *********************************************************************/
 
 void MainView3D::initialize3DProperties()
 {
@@ -105,32 +181,21 @@ void MainView3D::initialize3DProperties()
     }
 
     qDebug() << m_sceneRootEntity << m_quadEntity << m_quadMaterial;
-}
 
-void MainView3D::setUniverseFilter(quint32 universeFilter)
-{
-    PreviewContext::setUniverseFilter(universeFilter);
-}
-
-void MainView3D::resetItems()
-{
-    qDebug() << "Resetting 3D items...";
-    QMapIterator<quint32, FixtureMesh*> it(m_entitiesMap);
-    while(it.hasNext())
+    if (m_stageEntity == NULL)
     {
-        it.next();
-        FixtureMesh *e = it.value();
-        //if (e->m_headItem)
-        //    delete e->m_headItem;
-        //if (e->m_armItem)
-        //    delete e->m_armItem;
-        delete e->m_rootItem;
-    }
+        QQmlComponent *stageComponent = new QQmlComponent(m_view->engine(), QUrl(m_stageResourceList.at(m_stageIndex)));
+        if (stageComponent->isError())
+            qDebug() << stageComponent->errors();
 
-    //const auto end = m_entitiesMap.end();
-    //for (auto it = m_entitiesMap.begin(); it != end; ++it)
-    //    delete it.value();
-    m_entitiesMap.clear();
+        m_stageEntity = qobject_cast<QEntity *>(stageComponent->create());
+        m_stageEntity->setParent(m_sceneRootEntity);
+
+        QLayer *sceneLayer = m_sceneRootEntity->property("layer").value<QLayer *>();
+        QEffect *sceneEffect = m_sceneRootEntity->property("effect").value<QEffect *>();
+        m_stageEntity->setProperty("layer", QVariant::fromValue(sceneLayer));
+        m_stageEntity->setProperty("effect", QVariant::fromValue(sceneEffect));
+    }
 }
 
 void MainView3D::sceneReady()
@@ -145,17 +210,30 @@ void MainView3D::quadReady()
     QMetaObject::invokeMethod(this, "slotRefreshView", Qt::QueuedConnection);
 }
 
+void MainView3D::resetStage(QEntity *entity)
+{
+    if (entity == NULL)
+        return;
+
+    for (QEntity *child : entity->findChildren<QEntity *>())
+    {
+        QVariant prop = child->property("isDynamic");
+        if (prop.isValid() && prop.toBool() == true)
+            delete child;
+    }
+}
+
 void MainView3D::slotCreateFixture(quint32 fxID)
 {
     Fixture *fixture = m_doc->fixture(fxID);
     if (fixture == NULL)
         return;
 
-    QString meshPath = "file://" + QString(MESHESDIR) + "/fixtures";
+    QString meshPath = meshDirectory() + "fixtures" + QDir::separator();
     if (fixture->type() == QLCFixtureDef::ColorChanger)
-        meshPath.append("/par.dae");
+        meshPath.append("par.dae");
     else if (fixture->type() == QLCFixtureDef::MovingHead)
-        meshPath.append("/moving_head.dae");
+        meshPath.append("moving_head.dae");
 
     QLayer *sceneLayer = m_sceneRootEntity->property("layer").value<QLayer *>();
     QEffect *sceneEffect = m_sceneRootEntity->property("effect").value<QEffect *>();
@@ -676,6 +754,24 @@ void MainView3D::updateFixtureRotation(quint32 fxID, QVector3D degrees)
     mesh->m_rootTransform->setRotationZ(degrees.z());
 }
 
+/*********************************************************************
+ * Environment
+ *********************************************************************/
+
+QVector3D MainView3D::stageSize() const
+{
+    return m_stageSize;
+}
+
+void MainView3D::setStageSize(QVector3D stageSize)
+{
+    if (m_stageSize == stageSize)
+        return;
+
+    m_stageSize = stageSize;
+    emit stageSizeChanged(m_stageSize);
+}
+
 float MainView3D::ambientIntensity() const
 {
     return m_ambientIntensity;
@@ -690,26 +786,39 @@ void MainView3D::setAmbientIntensity(float ambientIntensity)
     emit ambientIntensityChanged(m_ambientIntensity);
 }
 
-void MainView3D::slotRefreshView()
+QStringList MainView3D::stagesList() const
 {
-    if (isEnabled() == false)
+    return m_stagesList;
+}
+
+int MainView3D::stageIndex() const
+{
+    return m_stageIndex;
+}
+
+void MainView3D::setStageIndex(int stageIndex)
+{
+    if (m_stageIndex == stageIndex)
         return;
 
-    resetItems();
+    m_stageIndex = stageIndex;
 
-    initialize3DProperties();
+    if (m_stageEntity)
+        delete m_stageEntity;
 
-    qDebug() << "Refreshing 3D view...";
+    QQmlComponent *stageComponent = new QQmlComponent(m_view->engine(), QUrl(m_stageResourceList.at(m_stageIndex)));
+    if (stageComponent->isError())
+        qDebug() << stageComponent->errors();
 
-    foreach(Fixture *fixture, m_doc->fixtures())
-    {
-        if (m_monProps->hasFixturePosition(fixture->id()))
-        {
-            QVector3D fxPos = m_monProps->fixturePosition(fixture->id());
-            createFixtureItem(fixture->id(), fxPos.x(), fxPos.y(), fxPos.z());
-        }
-        else
-            createFixtureItem(fixture->id(), 0, 0, 0, false);
-    }
+    m_stageEntity = qobject_cast<QEntity *>(stageComponent->create());
+    m_stageEntity->setParent(m_sceneRootEntity);
+
+    QLayer *sceneLayer = m_sceneRootEntity->property("layer").value<QLayer *>();
+    QEffect *sceneEffect = m_sceneRootEntity->property("effect").value<QEffect *>();
+    m_stageEntity->setProperty("layer", QVariant::fromValue(sceneLayer));
+    m_stageEntity->setProperty("effect", QVariant::fromValue(sceneEffect));
+
+    emit stageIndexChanged(m_stageIndex);
 }
+
 

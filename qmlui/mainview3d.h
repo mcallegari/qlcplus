@@ -67,6 +67,10 @@ class MainView3D : public PreviewContext
 {
     Q_OBJECT
 
+    Q_PROPERTY(QString meshDirectory READ meshDirectory CONSTANT)
+    Q_PROPERTY(QVector3D stageSize READ stageSize WRITE setStageSize NOTIFY stageSizeChanged)
+    Q_PROPERTY(QStringList stagesList READ stagesList CONSTANT)
+    Q_PROPERTY(int stageIndex READ stageIndex WRITE setStageIndex NOTIFY stageIndexChanged)
     Q_PROPERTY(float ambientIntensity READ ambientIntensity WRITE setAmbientIntensity NOTIFY ambientIntensityChanged)
 
 public:
@@ -81,8 +85,28 @@ public:
 
     void resetItems();
 
+protected:
+    /** Returns a string with the mesh location, suitable to be used by QML */
+    QString meshDirectory() const;
+
+protected slots:
+    /** @reimp */
+    void slotRefreshView();
+
+private:
+    /** Reference to the Doc Monitor properties */
+    MonitorProperties *m_monProps;
+
+    /** Pre-cached QML component for quick item creation */
+    QQmlComponent *m_fixtureComponent;
+
+    /*********************************************************************
+     * Fixtures
+     *********************************************************************/
+public:
     Q_INVOKABLE void sceneReady();
     Q_INVOKABLE void quadReady();
+    Q_INVOKABLE void resetStage(QEntity *entity);
 
     void createFixtureItem(quint32 fxID, qreal x, qreal y, qreal z, bool mmCoords = true);
 
@@ -99,17 +123,11 @@ public:
 
     void updateFixtureRotation(quint32 fxID, QVector3D degrees);
 
-    /** Get/Set the ambient light intensity */
-    float ambientIntensity() const;
-    void setAmbientIntensity(float ambientIntensity);
-
-signals:
-    void ambientIntensityChanged(qreal ambientIntensity);
-
 protected:
     /** First time 3D view variables initializations */
     void initialize3DProperties();
 
+    /** Bounding box volume calculation methods */
     void calculateMeshExtents(QGeometryRenderer *mesh, QVector3D &meshExtents, QVector3D &meshCenter);
     void addVolumes(FixtureMesh *meshRef, QVector3D center, QVector3D extent);
 
@@ -125,17 +143,10 @@ private:
     void updateLightPosition(FixtureMesh *meshRef);
 
 protected slots:
-    /** @reimp */
-    void slotRefreshView();
     /** Helper method to create fixtures in the event loop thread */
     void slotCreateFixture(quint32 fxID);
 
 private:
-    MonitorProperties *m_monProps;
-
-    /** Pre-cached QML component for quick item creation */
-    QQmlComponent *m_fixtureComponent;
-
     /** Reference to the Scene3D component */
     QQuickItem *m_scene3D;
 
@@ -151,6 +162,39 @@ private:
 
     /** Cache of the loaded models against bounding volumes */
     QMap<QUrl, BoundingVolume> m_boundingVolumesMap;
+
+    /*********************************************************************
+     * Environment
+     *********************************************************************/
+public:
+    /** Get/Set the environment stage size */
+    QVector3D stageSize() const;
+    void setStageSize(QVector3D stageSize);
+
+    /** The list of currently supported stage types */
+    QStringList stagesList() const;
+
+    /** Get/Set the stage QML resource index to be loaded at runtime */
+    int stageIndex() const;
+    void setStageIndex(int stageIndex);
+
+    /** Get/Set the ambient light intensity */
+    float ambientIntensity() const;
+    void setAmbientIntensity(float ambientIntensity);
+
+signals:
+    void stageSizeChanged(QVector3D stageSize);
+    void stageIndexChanged(int stageIndex);
+    void ambientIntensityChanged(qreal ambientIntensity);
+
+private:
+    QVector3D m_stageSize;
+    QStringList m_stagesList;
+    QStringList m_stageResourceList;
+    int m_stageIndex;
+
+    /** Reference to the selected stage Entity */
+    QEntity *m_stageEntity;
 
     /** Ambient light amount (0.0 - 1.0) */
     float m_ambientIntensity;
