@@ -257,7 +257,7 @@ Rectangle
             onValueChanged:
             {
                 if (settingsRoot.visible)
-                    contextManager.fixturesRotation = Qt.vector3d(value, fxRotation.y, fxRotation.y)
+                    contextManager.fixturesRotation = Qt.vector3d(value, fxRotation.y, fxRotation.z)
             }
         }
 
