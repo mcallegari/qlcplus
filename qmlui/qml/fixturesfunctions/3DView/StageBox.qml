@@ -62,6 +62,7 @@ Entity
         yExtent: size.y
     }
 
+    // ground mesh
     Entity
     {
         property Transform transform: Transform { translation: Qt.vector3d(0, -1, 0) }
@@ -74,6 +75,7 @@ Entity
         ]
     }
 
+    // left side mesh
     Entity
     {
         property Transform transform: Transform { translation: Qt.vector3d(-size.x / 2, (size.y / 2) -1, 0) }
@@ -86,6 +88,7 @@ Entity
         ]
     }
 
+    // right side mesh
     Entity
     {
         property Transform transform: Transform { translation: Qt.vector3d(size.x / 2, (size.y / 2) -1, 0) }
@@ -98,6 +101,7 @@ Entity
         ]
     }
 
+    // back mesh
     Entity
     {
         property Transform transform: Transform { translation: Qt.vector3d(0, (size.y / 2) -1, -size.z / 2) }

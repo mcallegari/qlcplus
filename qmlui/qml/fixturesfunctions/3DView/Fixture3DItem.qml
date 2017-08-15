@@ -117,8 +117,6 @@ Entity
     {
         id: eSceneLoader
 
-        onSourceChanged: console.log("Loader source changed " + eSceneLoader)
-
         onStatusChanged:
         {
             if (status == SceneLoader.Ready)

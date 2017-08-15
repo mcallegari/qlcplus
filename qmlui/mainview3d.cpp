@@ -87,6 +87,66 @@ void MainView3D::enableContext(bool enable)
     }
 }
 
+void MainView3D::slotRefreshView()
+{
+    if (isEnabled() == false)
+        return;
+
+    resetItems();
+
+    initialize3DProperties();
+
+    qDebug() << "Refreshing 3D view...";
+
+    foreach(Fixture *fixture, m_doc->fixtures())
+    {
+        if (m_monProps->hasFixturePosition(fixture->id()))
+        {
+            QVector3D fxPos = m_monProps->fixturePosition(fixture->id());
+            createFixtureItem(fixture->id(), fxPos.x(), fxPos.y(), fxPos.z());
+        }
+        else
+            createFixtureItem(fixture->id(), 0, 0, 0, false);
+    }
+}
+
+void MainView3D::resetItems()
+{
+    qDebug() << "Resetting 3D items...";
+    QMapIterator<quint32, FixtureMesh*> it(m_entitiesMap);
+    while(it.hasNext())
+    {
+        it.next();
+        FixtureMesh *e = it.value();
+        //if (e->m_headItem)
+        //    delete e->m_headItem;
+        //if (e->m_armItem)
+        //    delete e->m_armItem;
+        delete e->m_rootItem;
+    }
+
+    //const auto end = m_entitiesMap.end();
+    //for (auto it = m_entitiesMap.begin(); it != end; ++it)
+    //    delete it.value();
+    m_entitiesMap.clear();
+}
+
+QString MainView3D::meshDirectory() const
+{
+    return QString("file://") + QString(MESHESDIR) + QDir::separator();
+}
+
+void MainView3D::setUniverseFilter(quint32 universeFilter)
+{
+    PreviewContext::setUniverseFilter(universeFilter);
+
+    /* TODO: hide/show fixture meshes */
+}
+
+/*********************************************************************
+ * Fixtures
+ *********************************************************************/
+
 void MainView3D::initialize3DProperties()
 {
     m_scene3D = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("scene3DItem"));
@@ -138,32 +198,6 @@ void MainView3D::initialize3DProperties()
     }
 }
 
-void MainView3D::setUniverseFilter(quint32 universeFilter)
-{
-    PreviewContext::setUniverseFilter(universeFilter);
-}
-
-void MainView3D::resetItems()
-{
-    qDebug() << "Resetting 3D items...";
-    QMapIterator<quint32, FixtureMesh*> it(m_entitiesMap);
-    while(it.hasNext())
-    {
-        it.next();
-        FixtureMesh *e = it.value();
-        //if (e->m_headItem)
-        //    delete e->m_headItem;
-        //if (e->m_armItem)
-        //    delete e->m_armItem;
-        delete e->m_rootItem;
-    }
-
-    //const auto end = m_entitiesMap.end();
-    //for (auto it = m_entitiesMap.begin(); it != end; ++it)
-    //    delete it.value();
-    m_entitiesMap.clear();
-}
-
 void MainView3D::sceneReady()
 {
     qDebug() << "Scene entity ready";
@@ -176,17 +210,30 @@ void MainView3D::quadReady()
     QMetaObject::invokeMethod(this, "slotRefreshView", Qt::QueuedConnection);
 }
 
+void MainView3D::resetStage(QEntity *entity)
+{
+    if (entity == NULL)
+        return;
+
+    for (QEntity *child : entity->findChildren<QEntity *>())
+    {
+        QVariant prop = child->property("isDynamic");
+        if (prop.isValid() && prop.toBool() == true)
+            delete child;
+    }
+}
+
 void MainView3D::slotCreateFixture(quint32 fxID)
 {
     Fixture *fixture = m_doc->fixture(fxID);
     if (fixture == NULL)
         return;
 
-    QString meshPath = "file://" + QString(MESHESDIR) + "/fixtures";
+    QString meshPath = meshDirectory() + "fixtures" + QDir::separator();
     if (fixture->type() == QLCFixtureDef::ColorChanger)
-        meshPath.append("/par.dae");
+        meshPath.append("par.dae");
     else if (fixture->type() == QLCFixtureDef::MovingHead)
-        meshPath.append("/moving_head.dae");
+        meshPath.append("moving_head.dae");
 
     QLayer *sceneLayer = m_sceneRootEntity->property("layer").value<QLayer *>();
     QEffect *sceneEffect = m_sceneRootEntity->property("effect").value<QEffect *>();
@@ -774,26 +821,4 @@ void MainView3D::setStageIndex(int stageIndex)
     emit stageIndexChanged(m_stageIndex);
 }
 
-void MainView3D::slotRefreshView()
-{
-    if (isEnabled() == false)
-        return;
-
-    resetItems();
-
-    initialize3DProperties();
-
-    qDebug() << "Refreshing 3D view...";
-
-    foreach(Fixture *fixture, m_doc->fixtures())
-    {
-        if (m_monProps->hasFixturePosition(fixture->id()))
-        {
-            QVector3D fxPos = m_monProps->fixturePosition(fixture->id());
-            createFixtureItem(fixture->id(), fxPos.x(), fxPos.y(), fxPos.z());
-        }
-        else
-            createFixtureItem(fixture->id(), 0, 0, 0, false);
-    }
-}
 

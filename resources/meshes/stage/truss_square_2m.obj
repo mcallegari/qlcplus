@@ -1,6 +1,6 @@
 # Blender v2.78 (sub 0) OBJ File: '2m_truss_join.blend'
 # www.blender.org
-o Cylinder.004_Cylinder.006
+o truss
 v -0.133156 -0.124006 -0.679060
 v 0.114333 -0.124006 -0.431573
 v -0.133020 -0.122055 -0.679196
