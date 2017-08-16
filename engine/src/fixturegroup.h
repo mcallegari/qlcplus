@@ -24,7 +24,7 @@
 #include <QObject>
 #include <QList>
 #include <QSize>
-#include <QHash>
+#include <QMap>
 
 #include "grouphead.h"
 #include "qlcpoint.h"
