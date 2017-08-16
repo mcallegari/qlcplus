@@ -591,7 +591,7 @@ QStringList VCSlider::availableAttributes() const
         return list;
 
     for (Attribute attr : function->attributes())
-        list << attr.name;
+        list << attr.m_name;
 
     return list;
 }
