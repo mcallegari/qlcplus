@@ -506,7 +506,7 @@ bool RGBMatrixEditor::createPreviewItems()
         {
             QLCPoint pt(x, y);
 
-            if (grp->headHash().contains(pt) == true)
+            if (grp->headsMap().contains(pt) == true)
             {
                 RGBItem* item;
                 if (m_shapeButton->isChecked() == false)
@@ -975,6 +975,8 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
 
         Scene *grpScene = new Scene(m_doc);
         grpScene->setName(grp->name());
+        grpScene->setVisible(false);
+
         QList<GroupHead> headList = grp->headList();
         foreach (GroupHead head, headList)
         {
@@ -1013,7 +1015,7 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
             totalSteps = (totalSteps * 2) - 1;
 
         Sequence *sequence = new Sequence(m_doc);
-        sequence->setName(m_matrix->name());
+        sequence->setName(QString("%1 %2").arg(m_matrix->name()).arg(tr("Sequence")));
         sequence->setBoundSceneID(grpScene->id());
         sequence->setDurationMode(Chaser::PerStep);
         sequence->setDuration(m_matrix->duration());
@@ -1043,12 +1045,14 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
             {
                 for (int x = 0; x < map[y].size(); x++)
                 {
-                    QColor rgb = QColor(map[y][x]);
+                    uint col = map[y][x];
+                    QColor rgb = QColor(col);
                     GroupHead head = grp->head(QLCPoint(x, y));
 
                     Fixture *fxi = m_doc->fixture(head.fxi);
                     if (fxi == NULL)
                         continue;
+
                     QVector <quint32> rgbCh = fxi->rgbChannels(head.head);
                     if (rgbCh.count() == 3)
                     {
@@ -1059,7 +1063,7 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
 
                     quint32 master = fxi->channelNumber(QLCChannel::Intensity, QLCChannel::MSB, head.head);
                     if (master != QLCChannel::invalid())
-                        step.values.append(SceneValue(head.fxi, master, 255));
+                        step.values.append(SceneValue(head.fxi, master, col == 0 ? 0 : 255));
                 }
             }
             // !! Important !! matrix's heads can be displaced randomly but in a sequence

@@ -154,7 +154,7 @@ public:
     QList <GroupHead> headList() const;
 
     /** Get the fixture head hash */
-    QHash <QLCPoint,GroupHead> headHash() const;
+    QMap <QLCPoint,GroupHead> headsMap() const;
 
     /** Get a list of fixture IDs assigned to the group */
     QList <quint32> fixtureList() const;
@@ -164,7 +164,7 @@ private slots:
     void slotFixtureRemoved(quint32 id);
 
 private:
-    QHash <QLCPoint,GroupHead> m_heads;
+    QMap <QLCPoint,GroupHead> m_heads;
 
     /************************************************************************
      * Size

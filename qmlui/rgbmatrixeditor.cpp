@@ -631,7 +631,7 @@ void RGBMatrixEditor::slotPreviewTimeout()
         if (m_previewData.isEmpty() || map.isEmpty())
             return;
 
-        QHashIterator<QLCPoint, GroupHead> it(m_group->headHash());
+        QMapIterator<QLCPoint, GroupHead> it(m_group->headsMap());
         while(it.hasNext())
         {
             it.next();

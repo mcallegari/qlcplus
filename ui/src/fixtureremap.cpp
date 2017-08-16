@@ -677,10 +677,10 @@ void FixtureRemap::accept()
      * ********************************************************************** */
     foreach(FixtureGroup *group, m_doc->fixtureGroups())
     {
-        QHash<QLCPoint, GroupHead> grpHash = group->headHash();
+        QMap<QLCPoint, GroupHead> grpHash = group->headsMap();
         group->reset();
 
-        QHashIterator<QLCPoint, GroupHead> it(grpHash);
+        QMapIterator<QLCPoint, GroupHead> it(grpHash);
         while(it.hasNext())
         {
             it.next();
