@@ -442,3 +442,23 @@ int Collection::adjustAttribute(qreal fraction, int attributeId)
 
     return attrIndex;
 }
+
+void Collection::setBlendMode(Universe::BlendMode mode)
+{
+    if (mode == blendMode())
+        return;
+
+    qDebug() << "Collection" << name() << "blend mode set to" << Universe::blendModeToString(mode);
+
+    if (isRunning())
+    {
+        for (int i = 0; i < m_functions.count(); i++)
+        {
+            Function* function = doc()->function(m_functions.at(i));
+            Q_ASSERT(function != NULL);
+            function->setBlendMode(mode);
+        }
+    }
+
+    Function::setBlendMode(mode);
+}

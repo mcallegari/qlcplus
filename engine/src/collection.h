@@ -164,6 +164,13 @@ protected:
 public:
     /** @reimp */
     int adjustAttribute(qreal fraction, int attributeId);
+
+    /*************************************************************************
+     * Blend mode
+     *************************************************************************/
+public:
+    /** @reimp */
+    void setBlendMode(Universe::BlendMode mode);
 };
 
 /** @} */
