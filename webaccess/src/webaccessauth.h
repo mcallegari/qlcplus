@@ -24,7 +24,7 @@
 #include <QMap>
 #include <QList>
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0) && ! defined(QT_CRYPTOGRAPHICHASH_ONLY_SHA1)
     #define DEFAULT_PASSWORD_HASH_TYPE "sha256"
 #else
     // Qt4 doesn't leave much choices. Both MD5 and SHA1 have been broken :(
