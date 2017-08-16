@@ -35,6 +35,11 @@ qmlui: {
   include(libqtqml-nametool.pri)
   include(libqtquick-nametool.pri)
   include(libqtsvg-nametool.pri)
+  include(libqt3dcore-nametool.pri)
+  include(libqt3dextras-nametool.pri)
+  include(libqt3dinput-nametool.pri)
+  include(libqt3dquick-nametool.pri)
+  include(libqt3dquickextras-nametool.pri)
 }
 else {
  include(libqlcplusui-nametool.pri)
@@ -70,6 +75,11 @@ qmlui: {
   INSTALLS += LIBQTQML LIBQTQML_ID
   INSTALLS += LIBQTQUICK LIBQTQUICK_ID
   INSTALLS += LIBQTSVG LIBQTSVG_ID
+  INSTALLS += LIBQT3DCORE LIBQT3DCORE_ID
+  INSTALLS += LIBQT3DEXTRAS LIBQT3DEXTRAS_ID
+  INSTALLS += LIBQT3DINPUT LIBQT3DINPUT_ID
+  INSTALLS += LIBQT3DQUICK LIBQT3DQUICK_ID
+  INSTALLS += LIBQT3DQUICKEXTRAS LIBQT3DQUICKEXTRAS_ID
 }
 
 # QtGui, QtNetwork and QtScript depend on QtCore.
@@ -223,7 +233,14 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 
 qmlui: {
     include(imageformats-nametool.pri)
+    include(printsupport-nametool.pri)
+    include(geometryloaders-nametool.pri)
+    include(sceneparsers-nametool.pri)
+    
     INSTALLS += imageformats
+    INSTALLS += printsupport
+    INSTALLS += geometryloaders
+    INSTALLS += sceneparsers
 
 # QML components
     qmlqtdeps.path   = $$INSTALLROOT/qml/Qt/labs
@@ -234,7 +251,8 @@ qmlui: {
     qmldeps.path   = $$INSTALLROOT/qml
     qmldeps.files += $$(QTDIR)/qml/QtQml \
                      $$(QTDIR)/qml/QtQuick \
-                     $$(QTDIR)/qml/QtQuick.2
+                     $$(QTDIR)/qml/QtQuick.2 \
+                     $$(QTDIR)/qml/Qt3D
 
     INSTALLS += qmldeps
 
@@ -242,7 +260,10 @@ qmlui: {
     qmlpostinstall.commands = cd $$INSTALLROOT/qml && \
                               find . -name *_debug.dylib -type f -delete && \
                               find . -name plugins.qmltypes -type f -delete && \
-                              rm -rf QtQuick/Extras QtQuick/Particles.2 QtQuick/XmlListModel
+                              rm -rf QtQuick/Extras QtQuick/Particles.2 QtQuick/XmlListModel \
+                              rm -rf QtQuick/Controls.2/designer QtQuick/Controls.2/Material \
+                              rm -rf QtQuick/Controls.2/Universal QtQuick/Controls.2/Scene2D \
+                              rm -rf Qt3D/Animation Qt3D/Logic
     INSTALLS  += qmlpostinstall
 }
 

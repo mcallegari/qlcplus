@@ -1,0 +1,22 @@
+LIBQT3DCORE_DIR      = Qt3DCore.framework/Versions/5
+LIBQT3DCORE_FILE     = Qt3DCore
+LIBQT3DCORE_FILEPATH = $$LIBQT3DCORE_DIR/$$LIBQT3DCORE_FILE
+
+LIBQT3DCORE_INSTALL_NAME_TOOL = install_name_tool -change $$(QTDIR)/lib/$$LIBQT3DCORE_FILEPATH \
+            @executable_path/../$$LIBSDIR/$$LIBQT3DCORE_DIR/$$LIBQT3DCORE_FILE
+
+contains(QT, 3dcore) {
+    !isEmpty(nametool.commands) {
+        nametool.commands += "&&"
+    }
+
+    nametool.commands += $$LIBQT3DCORE_INSTALL_NAME_TOOL $$OUTFILE
+}
+
+LIBQT3DCORE.path   = $$INSTALLROOT/$$LIBSDIR/$$LIBQT3DCORE_DIR
+LIBQT3DCORE.files += $$(QTDIR)/lib/$$LIBQT3DCORE_FILEPATH
+
+LIBQT3DCORE_INSTALL_NAME_TOOL_ID = install_name_tool -id @executable_path/../$$LIBSDIR/$$LIBQT3DCORE_DIR/$$LIBQT3DCORE_FILE \
+                        $$INSTALLROOT/$$LIBSDIR/$$LIBQT3DCORE_DIR/$$LIBQT3DCORE_FILE
+LIBQT3DCORE_ID.path     = $$INSTALLROOT/$$LIBSDIR/$$LIBQT3DCORE_DIR
+LIBQT3DCORE_ID.commands = $$LIBQT3DCORE_INSTALL_NAME_TOOL_ID

@@ -115,14 +115,14 @@ greaterThan(QT_MAJOR_VERSION, 4) {
         qmldeps.path   = $$INSTALLROOT/$$LIBSDIR
         qmldeps.files += $$QT_QML_PATH/QtQml \
                          $$QT_QML_PATH/QtQuick \
-                         $$QT_QML_PATH/QtQuick.2
+                         $$QT_QML_PATH/QtQuick.2 \
+                         $$QT_QML_PATH/Qt3D
 
         INSTALLS += qmldeps
 
         qmlpostinstall.path = $$INSTALLROOT/$$LIBSDIR
         qmlpostinstall.commands = cd $$INSTALLROOT/$$LIBSDIR && \
                                   find . -name plugins.qmltypes -type f -delete && \
-                                  #find . -name *.qml -type f -delete && \
                                   rm -rf QtQuick/Extras QtQuick/Particles.2 QtQuick/XmlListModel \
                                   rm -rf QtQuick/Controls.2/designer QtQuick/Controls.2/Material \
                                   rm -rf QtQuick/Controls.2/Universal QtQuick/Controls.2/Scene2D
