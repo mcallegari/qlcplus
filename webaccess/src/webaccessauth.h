@@ -24,6 +24,13 @@
 #include <QMap>
 #include <QList>
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    #define DEFAULT_PASSWORD_HASH_TYPE "sha256"
+#else
+    // Qt4 doesn't leave much choices. Both MD5 and SHA1 have been broken :(
+    #define DEFAULT_PASSWORD_HASH_TYPE "sha1"
+#endif
+
 class QHttpRequest;
 class QHttpResponse;
 
@@ -42,21 +49,39 @@ struct WebAccessUser
     QString username;
     QString passwordHash;
     WebAccessUserLevel level;
+    QString hashType;
+    QString passwordSalt;
 
     WebAccessUser(
         const QString& _username,
         const QString& _passwordHash,
-        WebAccessUserLevel _level
+        WebAccessUserLevel _level,
+        const QString& _hashType,
+        const QString& _passwordSalt
     )
     : username(_username)
     , passwordHash(_passwordHash)
     , level(_level)
+    , hashType(_hashType)
+    , passwordSalt(_passwordSalt)
+    {}
+
+    WebAccessUser(
+        WebAccessUserLevel _level
+    )
+    : username("")
+    , passwordHash("")
+    , level(_level)
+    , hashType(DEFAULT_PASSWORD_HASH_TYPE)
+    , passwordSalt("")
     {}
 
     WebAccessUser()
     : username()
     , passwordHash()
     , level(GUEST_LEVEL)
+    , hashType(DEFAULT_PASSWORD_HASH_TYPE)
+    , passwordSalt("")
     {}
 
 };
@@ -123,7 +148,9 @@ public:
     QList<WebAccessUser> getUsers() const;
 
 private:
-    QString hashPassword(const QString& password) const;
+    QString generateSalt() const;
+    QString hashPassword(const QString& hashType, const QString& password, const QString& passwordSalt) const;
+    bool verifyPassword(const QString& password, const WebAccessUser& user) const;
     bool hasAtLeastOneAdmin() const;
 
 private:
