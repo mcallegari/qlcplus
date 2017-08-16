@@ -110,6 +110,7 @@ void ChaserRunner::slotChaserChanged()
     foreach(ChaserRunnerStep* step, delList)
     {
         step->m_function->stop(functionParent());
+        step->m_function->releaseAttributeOverride(step->m_intensityOverrideId);
         delete step;
         m_runnerSteps.removeAll(step);
     }
@@ -254,6 +255,7 @@ void ChaserRunner::stopStep(int stepIndex)
             step->m_function->stop(functionParent());
             // restore the original Function blend mode
             step->m_function->setBlendMode(step->m_blendMode);
+            step->m_function->releaseAttributeOverride(step->m_intensityOverrideId);
             m_runnerSteps.removeOne(step);
             delete step;
             stopped = true;
@@ -436,7 +438,7 @@ void ChaserRunner::adjustIntensity(qreal fraction, int requestedStepIndex, int f
                 step->m_function->setBlendMode(Universe::AdditiveBlend);
             else
                 step->m_function->setBlendMode(step->m_blendMode);
-            step->m_function->adjustAttribute(fraction, Function::Intensity);
+            step->m_function->adjustAttribute(fraction, step->m_intensityOverrideId);
             return;
         }
     }
@@ -463,6 +465,7 @@ void ChaserRunner::clearRunningList()
             // restore the original Function blend mode
             step->m_function->setBlendMode(step->m_blendMode);
             step->m_function->stop(functionParent());
+            step->m_function->releaseAttributeOverride(step->m_intensityOverrideId);
         }
         delete step;
     }
@@ -526,7 +529,8 @@ void ChaserRunner::startNewStep(int index, MasterTimer* timer, qreal intensity,
 
     // Set intensity before starting the function. Otherwise the intensity
     // might momentarily jump too high.
-    newStep->m_function->adjustAttribute(intensity, Function::Intensity);
+    newStep->m_intensityOverrideId = newStep->m_function->requestAttributeOverride(Function::Intensity, intensity);
+    //newStep->m_function->adjustAttribute(intensity, newStep->m_intensityOverrideId);
     // Start the fire up !
     newStep->m_function->start(timer, functionParent(), 0, newStep->m_fadeIn, newStep->m_fadeOut,
                                newStep->m_function->defaultSpeed(), m_chaser->tempoType());
@@ -703,6 +707,7 @@ bool ChaserRunner::write(MasterTimer* timer, QList<Universe *> universes)
                 prevStepRoundElapsed = step->m_elapsed % step->m_duration;
 
             step->m_function->stop(functionParent());
+            step->m_function->releaseAttributeOverride(step->m_intensityOverrideId);
             delete step;
             m_runnerSteps.removeOne(step);
         }

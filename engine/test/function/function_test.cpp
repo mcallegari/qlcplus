@@ -244,7 +244,7 @@ void Function_Test::adjustIntensity()
     QCOMPARE(stub->getAttributeValue(Function::Intensity), qreal(0));
 
     stub->resetAttributes();
-    QCOMPARE(stub->getAttributeValue(Function::Intensity), qreal(1.0));
+    QCOMPARE(stub->getAttributeValue(Function::Intensity), qreal(0.0));
 }
 
 void Function_Test::slotFixtureRemoved()
@@ -510,7 +510,7 @@ void Function_Test::attributes()
     stub->adjustAttribute(0.5, Function::Intensity);
     QCOMPARE(stub->getAttributeValue(Function::Intensity), 0.5);
 
-    stub->registerAttribute("Foo", 1.0);
+    stub->registerAttribute("Foo", Function::LastWins, 0.0, 1.0, 1.0);
     QCOMPARE(stub->attributes().count(), 2);
     QCOMPARE(stub->getAttributeIndex("Foo"), 1);
     QCOMPARE(stub->getAttributeValue(1), 1.0);
@@ -521,8 +521,6 @@ void Function_Test::attributes()
     QCOMPARE(stub->getAttributeIndex("Bar"), -1);
 
     stub->resetAttributes();
-    QCOMPARE(stub->getAttributeValue(Function::Intensity), 1.0);
-    QCOMPARE(stub->getAttributeValue(1), 1.0);
 
     QCOMPARE(stub->renameAttribute(1, "Boo"), true);
     QCOMPARE(stub->renameAttribute(5, "Yah"), false);
@@ -532,6 +530,23 @@ void Function_Test::attributes()
     QCOMPARE(stub->attributes().count(), 1);
 
     QCOMPARE(stub->getAttributeValue(1), 0.0);
+
+    int attr = stub->requestAttributeOverride(Function::Intensity, 0.4);
+    QCOMPARE(attr, 128);
+    QCOMPARE(stub->getAttributeValue(Function::Intensity), 0.2); /* 0.5 * 0.4 */
+
+    stub->adjustAttribute(0.7, attr);
+    QCOMPARE(stub->getAttributeValue(Function::Intensity), 0.35);
+
+    stub->releaseAttributeOverride(attr);
+    QCOMPARE(stub->getAttributeValue(Function::Intensity), 0.5);
+
+    stub->registerAttribute("Foo", Function::LastWins, 0.0, 1.0, 1.0);
+    QCOMPARE(stub->getAttributeValue(1), 1.0);
+
+    attr = stub->requestAttributeOverride(1, 0.3);
+    QCOMPARE(attr, 129);
+    QCOMPARE(stub->getAttributeValue(1), 0.3); /* Last wins */
 }
 
 void Function_Test::blendMode()

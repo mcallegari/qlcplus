@@ -122,6 +122,11 @@ VCXYPad::VCXYPad(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     m_presetsLayout = new FlowLayout();
     m_mainVbox->addLayout(m_presetsLayout);
     m_efx = NULL;
+    m_efxStartXOverrideId = Function::invalidAttributeId();
+    m_efxStartYOverrideId = Function::invalidAttributeId();
+    m_efxWidthOverrideId = Function::invalidAttributeId();
+    m_efxHeightOverrideId = Function::invalidAttributeId();
+
     m_scene = NULL;
 
     m_vSlider->setRange(0, 256);
@@ -526,10 +531,10 @@ void VCXYPad::slotRangeValueChanged()
     m_area->setRangeWindow(rect);
     if (m_efx != NULL && m_efx->isRunning())
     {
-        m_efx->setXOffset(rect.x() + rect.width() / 2);
-        m_efx->setYOffset(rect.y() + rect.height() / 2);
-        m_efx->setWidth(rect.width() / 2);
-        m_efx->setHeight(rect.height() / 2);
+        m_efx->adjustAttribute(rect.x() + rect.width() / 2, m_efxStartXOverrideId);
+        m_efx->adjustAttribute(rect.y() + rect.height() / 2, m_efxStartYOverrideId);
+        m_efx->adjustAttribute(rect.width() / 2, m_efxWidthOverrideId);
+        m_efx->adjustAttribute(rect.height() / 2, m_efxHeightOverrideId);
 
         // recalculate preview polygons
         QPolygonF polygon;
@@ -539,7 +544,7 @@ void VCXYPad::slotRangeValueChanged()
         m_efx->previewFixtures(fixturePoints);
 
         m_area->setEFXPolygons(polygon, fixturePoints);
-        m_area->setEFXInterval(m_efx->duration() / polygon.size());
+        m_area->setEFXInterval(m_efx->duration());
     }
     m_area->update();
     if (QObject::sender() == m_hRangeSlider)
@@ -626,9 +631,14 @@ void VCXYPad::slotPresetClicked(bool checked)
     // stop any previously started EFX
     if (m_efx != NULL && m_efx->isRunning())
     {
+        disconnect(m_efx, SIGNAL(durationChanged(uint)), this, SLOT(slotEFXDurationChanged(uint)));
+
         m_efx->stopAndWait();
-        delete m_efx;
         m_efx = NULL;
+        m_efxStartXOverrideId = Function::invalidAttributeId();
+        m_efxStartYOverrideId = Function::invalidAttributeId();
+        m_efxWidthOverrideId = Function::invalidAttributeId();
+        m_efxHeightOverrideId = Function::invalidAttributeId();
     }
 
     // stop any previously started Scene
@@ -693,18 +703,17 @@ void VCXYPad::slotPresetClicked(bool checked)
         Function *f = m_doc->function(preset->m_funcID);
         if (f == NULL || f->type() != Function::EFXType)
             return;
-        m_efx = new EFX(m_doc);
-        m_efx->copyFrom(f);
+        m_efx = qobject_cast<EFX*>(f);
 
         QRectF rect(QPointF(m_hRangeSlider->minimumPosition(), m_vRangeSlider->minimumPosition()),
                    QPointF(m_hRangeSlider->maximumPosition(), m_vRangeSlider->maximumPosition()));
         m_area->setRangeWindow(rect);
         if (rect.isValid())
         {
-            m_efx->setXOffset(rect.x() + rect.width() / 2);
-            m_efx->setYOffset(rect.y() + rect.height() / 2);
-            m_efx->setWidth(rect.width() / 2);
-            m_efx->setHeight(rect.height() / 2);
+            m_efxStartXOverrideId = m_efx->requestAttributeOverride(EFX::XOffset, rect.x() + rect.width() / 2);
+            m_efxStartYOverrideId = m_efx->requestAttributeOverride(EFX::YOffset, rect.y() + rect.height() / 2);
+            m_efxWidthOverrideId = m_efx->requestAttributeOverride(EFX::Width, rect.width() / 2);
+            m_efxHeightOverrideId = m_efx->requestAttributeOverride(EFX::Height, rect.height() / 2);
         }
 
         QPolygonF polygon;
@@ -715,8 +724,10 @@ void VCXYPad::slotPresetClicked(bool checked)
 
         m_area->enableEFXPreview(true);
         m_area->setEFXPolygons(polygon, fixturePoints);
-        m_area->setEFXInterval(m_efx->duration() / polygon.size());
+        m_area->setEFXInterval(m_efx->duration());
         m_efx->start(m_doc->masterTimer(), functionParent());
+
+        connect(m_efx, SIGNAL(durationChanged(uint)), this, SLOT(slotEFXDurationChanged(uint)));
 
         if (preset->m_inputSource.isNull() == false)
             sendFeedback(preset->m_inputSource->upperValue(), preset->m_inputSource);
@@ -802,6 +813,14 @@ void VCXYPad::slotPresetClicked(bool checked)
             }
         }
     }
+}
+
+void VCXYPad::slotEFXDurationChanged(uint duration)
+{
+    if (m_efx == NULL)
+        return;
+
+    m_area->setEFXInterval(duration);
 }
 
 FunctionParent VCXYPad::functionParent() const

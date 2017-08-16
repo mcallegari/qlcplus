@@ -253,7 +253,7 @@ private:
      *********************************************************************/
 public:
     /** @reimp */
-    void adjustAttribute(qreal fraction, int attributeIndex);
+    int adjustAttribute(qreal fraction, int attributeId);
 
     /*************************************************************************
      * Blend mode

@@ -259,14 +259,17 @@ bool Video::fullscreen()
     return m_fullscreen;
 }
 
-void Video::adjustAttribute(qreal fraction, int attributeIndex)
+int Video::adjustAttribute(qreal fraction, int attributeId)
 {
-    if (attributeIndex == Function::Intensity)
+    int attrIndex = Function::adjustAttribute(fraction, attributeId);
+
+    if (attrIndex == Function::Intensity)
     {
-        int b = -100 - (int)((qreal)-100.0 * fraction);
+        int b = -100 - (int)((qreal)-100.0 * getAttributeValue(Function::Intensity));
         emit requestBrightnessAdjust(b);
     }
-    Function::adjustAttribute(fraction, attributeIndex);
+
+    return attrIndex;
 }
 
 void Video::slotFunctionRemoved(quint32 fid)

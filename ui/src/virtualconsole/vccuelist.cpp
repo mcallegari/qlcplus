@@ -590,7 +590,10 @@ void VCCueList::notifyFunctionStarting(quint32 fid, qreal intensity)
 void VCCueList::slotFunctionRemoved(quint32 fid)
 {
     if (fid == m_chaserID)
+    {
         setChaser(Function::invalidId());
+        resetIntensityOverrideAttribute();
+    }
 }
 
 void VCCueList::slotFunctionChanged(quint32 fid)
@@ -940,7 +943,7 @@ void VCCueList::startChaser(int startIndex)
         return;
     ch->setStepIndex(startIndex);
     ch->setStartIntensity(getPrimaryIntensity());
-    ch->adjustAttribute(intensity(), Function::Intensity);
+    adjustFunctionIntensity(ch, intensity());
     ch->start(m_doc->masterTimer(), functionParent());
     emit functionStarting(m_chaserID);
 }
@@ -951,6 +954,7 @@ void VCCueList::stopChaser()
     if (ch == NULL)
         return;
     ch->stop(functionParent());
+    resetIntensityOverrideAttribute();
 }
 
 void VCCueList::setNextPrevBehavior(NextPrevBehavior nextPrev)
@@ -1395,7 +1399,7 @@ void VCCueList::adjustIntensity(qreal val)
     Chaser* ch = chaser();
     if (ch != NULL)
     {
-        ch->adjustAttribute(val, Function::Intensity);
+        adjustFunctionIntensity(ch, val);
 
         // Refresh intensity of current steps
         if (!ch->stopped() && slidersMode() == Crossfade)

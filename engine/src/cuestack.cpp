@@ -51,13 +51,13 @@ CueStack::CueStack(Doc* doc)
     , m_previous(false)
     , m_next(false)
 {
-    qDebug() << Q_FUNC_INFO << (void*) this;
+    //qDebug() << Q_FUNC_INFO << (void*) this;
     Q_ASSERT(doc != NULL);
 }
 
 CueStack::~CueStack()
 {
-    qDebug() << Q_FUNC_INFO << (void*) this;
+    //qDebug() << Q_FUNC_INFO << (void*) this;
     Q_ASSERT(isStarted() == false);
     Q_ASSERT(isFlashing() == false);
     m_cues.clear(); // Crashes without this, WTF?!

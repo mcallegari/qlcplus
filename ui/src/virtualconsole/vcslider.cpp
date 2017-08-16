@@ -876,7 +876,7 @@ void VCSlider::notifyFunctionStarting(quint32 fid, qreal functionIntensity)
             if (function != NULL)
             {
                 qreal pIntensity = qreal(value) / qreal(UCHAR_MAX);
-                function->adjustAttribute(pIntensity * intensity(), Function::Intensity);
+                adjustFunctionIntensity(function, pIntensity * intensity());
                 if (value == 0 && !function->stopped())
                     function->stop(functionParent());
             }
@@ -896,12 +896,15 @@ void VCSlider::slotPlaybackFunctionStopped(quint32 fid)
     {
         if (m_slider)
             m_slider->setValue(0);
+        resetIntensityOverrideAttribute();
     }
     m_externalMovement = false;
 }
 
 void VCSlider::slotPlaybackFunctionIntensityChanged(int attrIndex, qreal fraction)
 {
+    //qDebug() << "Function intensity changed" << attrIndex << fraction << m_playbackChangeCounter;
+
     if (attrIndex != Function::Intensity || m_playbackChangeCounter)
         return;
 
@@ -1113,9 +1116,11 @@ void VCSlider::writeDMXPlayback(MasterTimer* timer, QList<Universe *> ua)
     if (value == 0)
     {
         // Make sure we ignore the fade out time
-        function->adjustAttribute(0, Function::Intensity);
         if (function->stopped() == false)
+        {
             function->stop(functionParent());
+            resetIntensityOverrideAttribute();
+        }
     }
     else
     {
@@ -1129,8 +1134,8 @@ void VCSlider::writeDMXPlayback(MasterTimer* timer, QList<Universe *> ua)
 #endif
             function->start(timer, functionParent());
         }
+        adjustFunctionIntensity(function, pIntensity * intensity());
         emit functionStarting(m_playbackFunction, pIntensity);
-        function->adjustAttribute(pIntensity * intensity(), Function::Intensity);
     }
     m_playbackChangeCounter--;
 }
@@ -1420,7 +1425,7 @@ void VCSlider::adjustIntensity(qreal val)
             return;
 
         qreal pIntensity = qreal(m_playbackValue) / qreal(UCHAR_MAX);
-        function->adjustAttribute(pIntensity * intensity(), Function::Intensity);
+        adjustFunctionIntensity(function, pIntensity * intensity());
     }
 }
 

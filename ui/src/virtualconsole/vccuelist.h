@@ -239,7 +239,9 @@ public:
     PlaybackLayout playbackLayout() const;
 
 private:
+    /** ID of the Chaser this Cue List will be controlling */
     quint32 m_chaserID;
+
     NextPrevBehavior m_nextPrevBehavior;
     PlaybackLayout m_playbackLayout;
     QTreeWidget* m_tree;

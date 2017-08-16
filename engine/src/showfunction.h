@@ -47,25 +47,33 @@ public:
     ShowFunction(QObject *parent = 0);
     virtual ~ShowFunction() {}
 
+    /** Get/Set the Function ID this class represents */
     void setFunctionID(quint32 id);
     quint32 functionID() const;
 
+    /** Get/Set the Function start time over a Show timeline */
     void setStartTime(quint32 time);
     quint32 startTime() const;
 
+    /** Get/Set this item duration, not necessarily corresponding
+     *  to the original Function duration */
     void setDuration(quint32 duration);
     quint32 duration() const;
 
+    /** Get/Set the color of the item when rendered in the Show Manager */
     void setColor(QColor color);
     QColor color() const;
 
     static QColor defaultColor(Function::Type type);
 
-    /** Set the lock state of this ShowFunction */
+    /** Get/Set the lock state of this ShowFunction */
     void setLocked(bool locked);
-
-    /** Get the lock state of this ShowFunction */
     bool isLocked() const;
+
+    /** Get/Set the intensity attribute override ID to
+     *  control a Function intensity */
+    int intensityOverrideId() const;
+    void setIntensityOverrideId(int id);
 
 signals:
     void functionIDChanged();
@@ -90,6 +98,9 @@ private:
 
     /** Flag to indicate if this function is locked in the Show Manager timeline */
     bool m_locked;
+
+    /** Intensity attribute override ID */
+    int m_intensityOverrideId;
 
     /************************************************************************
      * Load & Save

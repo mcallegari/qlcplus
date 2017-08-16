@@ -78,20 +78,21 @@ class EFX : public Function
 
     friend class EFXFixture;
 
-    enum EFXAttr
-    {
-        Intensity = Function::Intensity,
-        Height,
-        Width,
-        Rotation,
-        XOffset,
-        YOffset
-    };
-
     /*********************************************************************
      * Initialization
      *********************************************************************/
 public:
+    enum EFXAttr
+    {
+        Intensity = Function::Intensity,
+        Width,
+        Height,
+        Rotation,
+        XOffset,
+        YOffset,
+        StartOffset
+    };
+
     EFX(Doc* doc);
     ~EFX();
 
@@ -108,15 +109,15 @@ public:
     /** Copy the contents for this function from another function */
     bool copyFrom(const Function* function);
 
-    /** Set the duration in milliseconds */
-    virtual void setDuration(uint ms);
-
     /*********************************************************************
      * Contents
      *********************************************************************/
 public:
-    /** Get the EFX total duration in milliseconds */
-    quint32 totalDuration();
+    /** Set the duration in milliseconds */
+    virtual void setDuration(uint ms);
+
+signals:
+    void durationChanged(uint ms);
 
     /*********************************************************************
      * Algorithm
@@ -238,12 +239,6 @@ public:
      */
     int width() const;
 
-private:
-    /**
-     * Pattern width, see setWidth()
-     */
-    float m_width;
-
     /*********************************************************************
      * Height
      *********************************************************************/
@@ -261,12 +256,6 @@ public:
      * @return Pattern height (0-255)
      */
     int height() const;
-
-private:
-    /**
-     * Pattern height, see setHeight()
-     */
-    float m_height;
 
     /*********************************************************************
      * Rotation
@@ -327,14 +316,7 @@ public:
     int startOffset() const;
 
 private:
-
     float convertOffset(int offset) const;
-
-private:
-    /**
-     * Pattern start offset, see setStartOffset()
-     */
-    int m_startOffset;
 
     /*********************************************************************
      * IsRelative
@@ -391,17 +373,6 @@ public:
      * @return Pattern offset (0-255; 127 is middle)
      */
     int yOffset() const;
-
-private:
-    /**
-     * Pattern X offset, see setXOffset()
-     */
-    float m_xOffset;
-
-    /**
-     * Pattern Y offset, see setXOffset()
-     */
-    float m_yOffset;
 
     /*********************************************************************
      * Frequency
@@ -592,7 +563,7 @@ public:
      *********************************************************************/
 public:
     /** @reimp */
-    void adjustAttribute(qreal fraction, int attributeIndex = 0);
+    int adjustAttribute(qreal fraction, int attributeId = 0);
 
     /*************************************************************************
      * Blend mode

@@ -33,6 +33,12 @@ class QXmlStreamReader;
  * @{
  */
 
+typedef struct
+{
+    quint32 m_id;
+    int m_intensityId;
+} ChildFunction;
+
 class Collection : public Function
 {
     Q_OBJECT
@@ -97,7 +103,12 @@ public slots:
     void slotFunctionRemoved(quint32 function);
 
 protected:
+    /** The list of Function IDs added to this Collection */
     QList <quint32> m_functions;
+    /** A list of intesity attribute override IDs populated when this Collection is
+     *  started and cleaned when it's stopped */
+    QList <int> m_intensityOverrideIds;
+
     mutable QMutex m_functionListMutex;
 
     /*********************************************************************
@@ -151,8 +162,15 @@ protected:
      * Intensity
      *************************************************************************/
 public:
-    /** @reimpl */
-    virtual void adjustAttribute(qreal fraction, int attributeIndex);
+    /** @reimp */
+    int adjustAttribute(qreal fraction, int attributeId);
+
+    /*************************************************************************
+     * Blend mode
+     *************************************************************************/
+public:
+    /** @reimp */
+    void setBlendMode(Universe::BlendMode mode);
 };
 
 /** @} */

@@ -302,8 +302,8 @@ private:
      * Intensity
      *************************************************************************/
 public:
-    /** @reimpl */
-    void adjustAttribute(qreal fraction, int attributeIndex);
+    /** @reimp */
+    int adjustAttribute(qreal fraction, int attributeId);
 };
 
 /** @} */

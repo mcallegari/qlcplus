@@ -237,7 +237,6 @@ void SimpleDeskEngine::slotCueStackStopped()
 
 bool SimpleDeskEngine::loadXML(QXmlStreamReader &root)
 {
-    qDebug() << Q_FUNC_INFO;
     if (root.name() != KXMLQLCSimpleDeskEngine)
     {
         qWarning() << Q_FUNC_INFO << "Simple Desk Engine node not found";

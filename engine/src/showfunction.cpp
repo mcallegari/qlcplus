@@ -38,6 +38,7 @@ ShowFunction::ShowFunction(QObject *parent)
     m_duration = 0;
     m_color = QColor();
     m_locked = false;
+    m_intensityOverrideId = -1;
 }
 
 void ShowFunction::setFunctionID(quint32 id)
@@ -135,6 +136,16 @@ void ShowFunction::setLocked(bool locked)
 bool ShowFunction::isLocked() const
 {
     return m_locked;
+}
+
+int ShowFunction::intensityOverrideId() const
+{
+    return m_intensityOverrideId;
+}
+
+void ShowFunction::setIntensityOverrideId(int id)
+{
+    m_intensityOverrideId = id;
 }
 
 /************************************************************************

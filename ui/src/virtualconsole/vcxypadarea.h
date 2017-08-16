@@ -144,7 +144,7 @@ private:
 public:
     void enableEFXPreview(bool enable);
     void setEFXPolygons(const QPolygonF& pattern, const QVector<QPolygonF> fixtures);
-    void setEFXInterval(int interval);
+    void setEFXInterval(uint duration);
 
 private:
     EFXPreviewArea* m_previewArea;

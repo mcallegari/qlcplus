@@ -47,7 +47,7 @@ CueStackModel::~CueStackModel()
 
 void CueStackModel::setCueStack(CueStack* cs)
 {
-    qDebug() << Q_FUNC_INFO << "old:" << (void*)m_cueStack << "new:" << (void*) cs;
+    //qDebug() << Q_FUNC_INFO << "old:" << (void*)m_cueStack << "new:" << (void*) cs;
 
     if (m_cueStack != NULL)
     {

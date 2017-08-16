@@ -212,13 +212,21 @@ protected:
 
 protected slots:
     void slotPresetClicked(bool checked);
+    void slotEFXDurationChanged(uint duration);
 
 private:
     FunctionParent functionParent() const;
 
 protected:
     QHash<QWidget *, VCXYPadPreset *> m_presets;
+    /** Reference to an EFX Function when an EFX Preset is pressed */
     EFX *m_efx;
+    /** Attribute override IDs for a running EFX preset */
+    int m_efxStartXOverrideId;
+    int m_efxStartYOverrideId;
+    int m_efxWidthOverrideId;
+    int m_efxHeightOverrideId;
+
     Scene *m_scene;
     QList<SceneChannel> m_sceneChannels;
 

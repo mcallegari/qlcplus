@@ -126,7 +126,7 @@ void VCButtonProperties::slotSetFunction(quint32 fid)
 {
     m_function = fid;
     Function* func = m_doc->function(m_function);
-    m_attributesList->clear();
+
     if (func == NULL)
     {
         m_functionEdit->setText(tr("No function"));
@@ -136,13 +136,6 @@ void VCButtonProperties::slotSetFunction(quint32 fid)
         m_functionEdit->setText(func->name());
         if (m_nameEdit->text().simplified().contains(QString::number(m_button->id())))
             m_nameEdit->setText(func->name());
-
-        foreach(Attribute attr, func->attributes())
-        {
-            QListWidgetItem *item = new QListWidgetItem(attr.name);
-            //item->setCheckState(Qt::Checked);
-            m_attributesList->addItem(item);
-        }
     }
 }
 
