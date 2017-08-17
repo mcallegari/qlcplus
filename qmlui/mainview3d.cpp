@@ -28,6 +28,7 @@
 #include <Qt3DRender/QBuffer>
 
 #include "doc.h"
+#include "qlcfile.h"
 #include "qlcconfig.h"
 #include "mainview3d.h"
 #include "qlccapability.h"
@@ -133,7 +134,9 @@ void MainView3D::resetItems()
 
 QString MainView3D::meshDirectory() const
 {
-    return QString("file://") + QString(MESHESDIR) + QDir::separator();
+    QDir dir = QDir::cleanPath(QLCFile::systemDirectory(MESHESDIR).path());
+    //qDebug() << "Absolute mesh path: " << dir.absolutePath();
+    return QString("file:///") + dir.absolutePath() + QDir::separator();
 }
 
 void MainView3D::setUniverseFilter(quint32 universeFilter)
