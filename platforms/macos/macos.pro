@@ -35,9 +35,12 @@ qmlui: {
   include(libqtqml-nametool.pri)
   include(libqtquick-nametool.pri)
   include(libqtsvg-nametool.pri)
+  include(libqtconcurrent-nametool.pri)
   include(libqt3dcore-nametool.pri)
   include(libqt3dextras-nametool.pri)
   include(libqt3dinput-nametool.pri)
+  include(libqt3dlogic-nametool.pri)
+  include(libqt3danimation-nametool.pri)
   include(libqt3dquick-nametool.pri)
   include(libqt3dquickextras-nametool.pri)
 }
@@ -75,9 +78,12 @@ qmlui: {
   INSTALLS += LIBQTQML LIBQTQML_ID
   INSTALLS += LIBQTQUICK LIBQTQUICK_ID
   INSTALLS += LIBQTSVG LIBQTSVG_ID
+  INSTALLS += LIBQTCONCURRENT LIBQTCONCURRENT_ID
   INSTALLS += LIBQT3DCORE LIBQT3DCORE_ID
   INSTALLS += LIBQT3DEXTRAS LIBQT3DEXTRAS_ID
   INSTALLS += LIBQT3DINPUT LIBQT3DINPUT_ID
+  INSTALLS += LIBQT3DLOGIC LIBQT3DLOGIC_ID
+  INSTALLS += LIBQT3DANIMATION LIBQT3DANIMATION_ID
   INSTALLS += LIBQT3DQUICK LIBQT3DQUICK_ID
   INSTALLS += LIBQT3DQUICKEXTRAS LIBQT3DQUICKEXTRAS_ID
 }
