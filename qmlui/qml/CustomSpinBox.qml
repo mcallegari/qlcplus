@@ -57,6 +57,15 @@ SpinBox
         return parseInt(text.replace(suffix, ""))
     }
 
+    Rectangle
+    {
+        anchors.fill: parent
+        z: 3
+        color: "black"
+        opacity: 0.6
+        visible: !parent.enabled
+    }
+
     background: Rectangle {
         implicitWidth: parent.width
         color: UISettings.bgMedium
