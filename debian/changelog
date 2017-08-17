@@ -2,10 +2,12 @@ qlcplus (4.11.1) stable; urgency=low
 
   * engine: fixed audio files detection by prioritizing sndfile over mad
   * UI/RGB Panel: added RBG pixel type (thanks to Peter Marks)
+  * UI/Remap: fixed RGB Panels remapping
   * UI/Input Output Manager: added a button to enable/disable USB hotplugging (disabled by default)
   * UI/Function Live Edit: restore basic live editing of Sequences
   * UI/RGB Matrix Editor: fixed save to Sequence feature
   * Virtual Console/Slider: fix DMX values not updated when interacting with the mouse wheel, keyboard or Click And Go button
+  * Virtual Console/XYPad: the speed of a running EFX preset can now be controlled by a Speed Dial widget
   * Web access: added basic authentication support (thanks to Bartosz Grabias)
   * Web access: fixed solo frames collapse state
   * Web access: update feedbacks when a slider is moved

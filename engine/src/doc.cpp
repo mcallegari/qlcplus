@@ -514,7 +514,20 @@ bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
             (fixture->fixtureDef()->manufacturer() == KXMLFixtureGeneric &&
              fixture->fixtureDef()->model() == KXMLFixtureGeneric))
         {
+            // Generic dimmers just need to know the number of channels
             newFixture->setChannels(fixture->channels());
+        }
+        else if (fixture->fixtureDef() == NULL ||
+            (fixture->fixtureDef()->manufacturer() == KXMLFixtureGeneric &&
+             fixture->fixtureDef()->model() == KXMLFixtureRGBPanel))
+        {
+            // RGB Panels definitions are not cached or shared, so
+            // let's make a deep copy of them
+            QLCFixtureDef *fixtureDef = new QLCFixtureDef();
+            *fixtureDef = *fixture->fixtureDef();
+            QLCFixtureMode *mode = new QLCFixtureMode(fixtureDef);
+            *mode = *fixture->fixtureMode();
+            newFixture->setFixtureDefinition(fixtureDef, mode);
         }
         else
         {
