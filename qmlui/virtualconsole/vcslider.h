@@ -192,6 +192,9 @@ public:
     int value() const;
     void setValue(int value, bool setDMX = true, bool updateFeedback = true);
 
+    /** @reimp */
+    void adjustIntensity(qreal val);
+
 signals:
     void valueChanged(int value);
 
@@ -293,6 +296,8 @@ public:
     int controlledAttribute() const;
     void setControlledAttribute(int attr);
 
+    void adjustFunctionAttribute(Function *f, qreal value);
+
     QStringList availableAttributes() const;
 
 private:
@@ -303,9 +308,17 @@ signals:
     void controlledAttributeChanged(int attr);
     void availableAttributesChanged();
 
+protected slots:
+    void slotControlledFunctionAttributeChanged(int attrIndex, qreal fraction);
+    void slotControlledFunctionStopped(quint32 fid);
+
 protected:
-    quint32 m_controlledFunction;
-    int m_controlledAttribute;
+    quint32 m_controlledFunctionId;
+    int m_adjustChangeCounter;
+    int m_controlledAttributeIndex;
+    int m_controlledAttributeId;
+    qreal m_attributeMinValue;
+    qreal m_attributeMaxValue;
 
     /*********************************************************************
      * Grand Master mode

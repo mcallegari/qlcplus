@@ -503,6 +503,20 @@ bool VCWidget::allowResize() const
     return m_allowResize;
 }
 
+/*****************************************************************************
+ * Properties
+ *****************************************************************************/
+
+void VCWidget::editProperties()
+{
+    QMessageBox::information(this, staticMetaObject.className(),
+                             tr("This widget has no properties"));
+}
+
+/*********************************************************************
+ * Intensity
+ *********************************************************************/
+
 void VCWidget::adjustFunctionIntensity(Function *f, qreal value)
 {
     if (f == NULL)
@@ -520,20 +534,6 @@ void VCWidget::resetIntensityOverrideAttribute()
 {
     m_intensityOverrideId = Function::invalidAttributeId();
 }
-
-/*****************************************************************************
- * Properties
- *****************************************************************************/
-
-void VCWidget::editProperties()
-{
-    QMessageBox::information(this, staticMetaObject.className(),
-                             tr("This widget has no properties"));
-}
-
-/*********************************************************************
- * Intensity
- *********************************************************************/
 
 void VCWidget::adjustIntensity(qreal val)
 {

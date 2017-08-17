@@ -33,6 +33,7 @@ Rectangle
     property Function func
     property int funcID: widgetRef ? widgetRef.functionID : -1
     property int gridItemsHeight: UISettings.listItemHeight
+    property real startupIntensity: widgetRef ? widgetRef.startupIntensity * 100 : 100
 
     //onWidgetRefChanged: func = functionManager.getFunction(widgetRef.functionID)
 
@@ -167,5 +168,70 @@ Rectangle
 
               } // GridLayout
         } // SectionBox
+
+        SectionBox
+        {
+            id: startupIntensityProps
+            sectionLabel: qsTr("Adjust Function intensity")
+
+            sectionContents:
+              RowLayout
+              {
+                  width: parent.width
+                  spacing: 5
+
+                  CustomCheckBox
+                  {
+                      id: startupIntCheck
+                      implicitWidth: UISettings.iconSizeMedium
+                      implicitHeight: implicitWidth
+                      autoExclusive: false
+                      checked: widgetRef ? widgetRef.startupIntensityEnabled : false
+                      onClicked: if (widgetRef) widgetRef.startupIntensityEnabled = checked
+                  }
+
+                  Slider
+                  {
+                      id: siSlider
+                      enabled: startupIntCheck.checked
+                      Layout.fillWidth: true
+                      orientation: Qt.Horizontal
+                      from: 0
+                      to: 100
+                      value: startupIntensity
+                      handle: Rectangle {
+                          x: siSlider.leftPadding + siSlider.visualPosition * (siSlider.availableWidth - width)
+                          y: siSlider.topPadding + siSlider.availableHeight / 2 - height / 2
+                          implicitWidth: UISettings.listItemHeight * 0.8
+                          implicitHeight: UISettings.listItemHeight * 0.8
+                          radius: implicitWidth / 5
+                      }
+
+                      onPositionChanged: if (widgetRef) widgetRef.startupIntensity = value / 100
+
+                      Rectangle
+                      {
+                          anchors.fill: parent
+                          z: 3
+                          color: "black"
+                          opacity: 0.6
+                          visible: !parent.enabled
+                      }
+                  }
+
+                  CustomSpinBox
+                  {
+                      id: wSpin
+                      enabled: startupIntCheck.checked
+                      width: UISettings.bigItemHeight * 0.7
+                      height: UISettings.listItemHeight
+                      from: 0
+                      to: 100
+                      suffix: "%"
+                      value: startupIntensity
+                      onValueChanged: if (widgetRef) widgetRef.startupIntensity = value / 100
+                  }
+              }
+        }
     } // Column
 }

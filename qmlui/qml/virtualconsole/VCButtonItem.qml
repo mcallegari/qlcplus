@@ -27,7 +27,7 @@ VCWidgetItem
     id: buttonRoot
     property VCButton buttonObj: null
 
-    property bool isOn: buttonObj ? buttonObj.isOn : false
+    property int btnState: buttonObj ? buttonObj.state : VCButton.Inactive
     property int btnAction: buttonObj ? buttonObj.actionType : VCButton.Toggle
 
     radius: 4
@@ -50,9 +50,9 @@ VCWidgetItem
             buttonIcon.source = ""
     }
 
-    onIsOnChanged:
+    onBtnStateChanged:
     {
-        if (isOn == false)
+        if (btnState === VCButton.Inactive)
         {
             // activate the blink effect here
             blink.start()
@@ -76,7 +76,7 @@ VCWidgetItem
         height: parent.height - 2
         color: "transparent"
         border.width: (buttonRoot.width > 80) ? 3 : 2
-        border.color: isOn ? "#00FF00" : "#A0A0A0"
+        border.color: btnState === VCButton.Active ? "#00FF00" : btnState === VCButton.Monitoring ? "orange" : "#A0A0A0"
         radius: 3
 
         Rectangle
@@ -139,7 +139,7 @@ VCWidgetItem
                 return;
 
             if (buttonObj.actionType === VCButton.Toggle)
-                buttonObj.requestStateChange(!buttonObj.isOn)
+                buttonObj.requestStateChange(btnState === VCButton.Active ? false : true)
         }
         onPressed:
         {
@@ -181,7 +181,7 @@ VCWidgetItem
             if (buttonObj.actionType === VCButton.Flash)
                 buttonObj.requestStateChange(false)
             else if (buttonObj.actionType === VCButton.Toggle)
-                buttonObj.requestStateChange(!buttonObj.isOn)
+                buttonObj.requestStateChange(btnState === VCButton.Active ? false : true)
         }
     }
 

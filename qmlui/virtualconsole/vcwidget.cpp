@@ -42,6 +42,7 @@ VCWidget::VCWidget(Doc *doc, QObject *parent)
     , m_hasCustomForegroundColor(false)
     , m_hasCustomFont(false)
     , m_page(0)
+    , m_intensityOverrideId(Function::invalidAttributeId())
     , m_intensity(1.0)
     , m_isEditing(false)
 {
@@ -430,6 +431,24 @@ void VCWidget::notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fInte
 /*********************************************************************
  * Intensity
  *********************************************************************/
+
+void VCWidget::adjustFunctionIntensity(Function *f, qreal value)
+{
+    if (f == NULL)
+        return;
+
+    //qDebug() << "adjustFunctionIntensity" << caption() << "value" << value;
+
+    if (m_intensityOverrideId == Function::invalidAttributeId())
+        m_intensityOverrideId = f->requestAttributeOverride(Function::Intensity, value);
+    else
+        f->adjustAttribute(value, m_intensityOverrideId);
+}
+
+void VCWidget::resetIntensityOverrideAttribute()
+{
+    m_intensityOverrideId = Function::invalidAttributeId();
+}
 
 void VCWidget::adjustIntensity(qreal val)
 {

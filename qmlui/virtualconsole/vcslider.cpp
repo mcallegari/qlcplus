@@ -50,8 +50,12 @@ VCSlider::VCSlider(Doc *doc, QObject *parent)
     , m_isOverriding(false)
     , m_fixtureTree(NULL)
     , m_searchFilter(QString())
-    , m_controlledFunction(Function::invalidId())
-    , m_controlledAttribute(Function::Intensity)
+    , m_controlledFunctionId(Function::invalidId())
+    , m_adjustChangeCounter(0)
+    , m_controlledAttributeIndex(Function::invalidAttributeId())
+    , m_controlledAttributeId(Function::invalidAttributeId())
+    , m_attributeMinValue(0)
+    , m_attributeMaxValue(1.0)
 {
     setType(VCWidget::SliderWidget);
     setBackgroundColor(QColor("#444"));
@@ -302,6 +306,7 @@ void VCSlider::setValue(int value, bool setDMX, bool updateFeedback)
             m_doc->inputOutputMap()->setGrandMasterValue(value);
         break;
         case Adjust:
+            m_adjustChangeCounter++;
         break;
     }
 
@@ -324,6 +329,23 @@ void VCSlider::setValue(int value, bool setDMX, bool updateFeedback)
         sendFeedback(fbv);
     }
     */
+}
+
+void VCSlider::adjustIntensity(qreal val)
+{
+    VCWidget::adjustIntensity(val);
+
+    if (sliderMode() == Adjust)
+    {
+        Function* function = m_doc->function(m_controlledFunctionId);
+        if (function == NULL)
+            return;
+
+        qreal fraction = SCALE(float(m_value),
+                               float(m_levelLowLimit), float(m_levelHighLimit),
+                               float(m_attributeMinValue), float(m_attributeMaxValue));
+        adjustFunctionAttribute(function, fraction * intensity());
+    }
 }
 
 /*********************************************************************
@@ -499,28 +521,25 @@ void VCSlider::slotTreeDataChanged(TreeModelItem *item, int role, const QVariant
 
 quint32 VCSlider::controlledFunction() const
 {
-    return m_controlledFunction;
+    return m_controlledFunctionId;
 }
 
 void VCSlider::setControlledFunction(quint32 fid)
 {
     bool running = false;
 
-    if (m_controlledFunction == fid)
+    if (m_controlledFunctionId == fid)
         return;
 
-    Function* current = m_doc->function(m_controlledFunction);
+    Function* current = m_doc->function(m_controlledFunctionId);
     if (current != NULL)
     {
         /* Get rid of old function connections */
-/*
-        disconnect(current, SIGNAL(running(quint32)),
-                this, SLOT(slotFunctionRunning(quint32)));
         disconnect(current, SIGNAL(stopped(quint32)),
-                this, SLOT(slotFunctionStopped(quint32)));
-        disconnect(current, SIGNAL(flashing(quint32,bool)),
-                this, SLOT(slotFunctionFlashing(quint32,bool)));
-*/
+                this, SLOT(slotControlledFunctionStopped(quint32)));
+        disconnect(current, SIGNAL(attributeChanged(int,qreal)),
+                this, SLOT(slotControlledFunctionAttributeChanged(int,qreal)));
+
         if(current->isRunning())
         {
             running = true;
@@ -532,16 +551,13 @@ void VCSlider::setControlledFunction(quint32 fid)
     if (function != NULL)
     {
         /* Connect to the new function */
-/*
-        connect(function, SIGNAL(running(quint32)),
-                this, SLOT(slotFunctionRunning(quint32)));
         connect(function, SIGNAL(stopped(quint32)),
-                this, SLOT(slotFunctionStopped(quint32)));
-        connect(function, SIGNAL(flashing(quint32,bool)),
-                this, SLOT(slotFunctionFlashing(quint32,bool)));
-*/
-        m_controlledFunction = fid;
-        m_controlledAttribute = Function::Intensity;
+                this, SLOT(slotControlledFunctionStopped(quint32)));
+        connect(function, SIGNAL(attributeChanged(int,qreal)),
+                this, SLOT(slotControlledFunctionAttributeChanged(int,qreal)));
+
+        m_controlledFunctionId = fid;
+        m_controlledAttributeIndex = Function::Intensity;
 
         if ((isEditing() && caption().isEmpty()) || caption() == defaultCaption())
             setCaption(function->name());
@@ -555,38 +571,71 @@ void VCSlider::setControlledFunction(quint32 fid)
     else
     {
         /* No function attachment */
-        m_controlledFunction = Function::invalidId();
+        m_controlledFunctionId = Function::invalidId();
         emit controlledFunctionChanged(-1);
     }
     setDocModified();
 }
 
+
+void VCSlider::slotControlledFunctionAttributeChanged(int attrIndex, qreal fraction)
+{
+    if (attrIndex != m_controlledAttributeIndex)
+        return;
+
+    int newValue = ((m_levelHighLimit - m_levelLowLimit) * fraction) + m_levelLowLimit;
+
+    //qDebug() << "Function attribute" << m_controlledAttributeIndex << "changed to" << newValue;
+
+    setValue(newValue, false, true);
+}
+
+void VCSlider::slotControlledFunctionStopped(quint32 fid)
+{
+    if (fid == controlledFunction())
+    {
+        setValue(0, false, true);
+        m_controlledAttributeId = Function::invalidAttributeId();
+    }
+}
+
 int VCSlider::controlledAttribute() const
 {
-    return m_controlledAttribute;
+    return m_controlledAttributeIndex;
 }
 
 void VCSlider::setControlledAttribute(int attr)
 {
-    if (m_controlledAttribute == attr)
+    if (m_controlledAttributeIndex == attr)
         return;
 
-    Function* function = m_doc->function(m_controlledFunction);
+    Function* function = m_doc->function(m_controlledFunctionId);
     if (function == NULL || attr >= function->attributes().count())
         return;
 
-    m_controlledAttribute = attr;
+    m_controlledAttributeIndex = attr;
     emit controlledAttributeChanged(attr);
 
     int newValue = int(floor((qreal(m_levelHighLimit) * function->getAttributeValue(attr)) + 0.5));
     setValue(newValue, false, true);
 }
 
+void VCSlider::adjustFunctionAttribute(Function *f, qreal value)
+{
+    if (f == NULL)
+        return;
+
+    if (m_controlledAttributeId == Function::invalidAttributeId())
+        m_controlledAttributeId = f->requestAttributeOverride(m_controlledAttributeIndex, value);
+    else
+        f->adjustAttribute(value, m_controlledAttributeId);
+}
+
 QStringList VCSlider::availableAttributes() const
 {
     QStringList list;
 
-    Function* function = m_doc->function(m_controlledFunction);
+    Function* function = m_doc->function(m_controlledFunctionId);
     if (function == NULL)
         return list;
 
@@ -804,24 +853,28 @@ void VCSlider::writeDMXAdjust(MasterTimer* timer, QList<Universe *> ua)
 
     QMutexLocker locker(&m_levelValueMutex);
 
-    //if (m_playbackChangeCounter == 0)
-    //    return;
+    if (m_adjustChangeCounter == 0)
+        return;
 
-    Function* function = m_doc->function(m_controlledFunction);
+    Function* function = m_doc->function(m_controlledFunctionId);
     if (function == NULL)
         return;
 
-    uchar value = m_value;
-    qreal pIntensity = qreal(value) / qreal(UCHAR_MAX);
+    qreal fraction = SCALE(float(m_value),
+                           float(m_levelLowLimit), float(m_levelHighLimit),
+                           float(m_attributeMinValue), float(m_attributeMaxValue));
 
-    if (m_controlledAttribute == Function::Intensity)
+    if (m_controlledAttributeIndex == Function::Intensity)
     {
-        if (value == 0)
+        if (m_value == 0)
         {
-            // Make sure we ignore the fade out time
-            function->adjustAttribute(0, Function::Intensity);
             if (function->stopped() == false)
+            {
                 function->stop(functionParent());
+                m_controlledAttributeId = Function::invalidAttributeId();
+                m_adjustChangeCounter--;
+                return;
+            }
         }
         else
         {
@@ -836,15 +889,13 @@ void VCSlider::writeDMXAdjust(MasterTimer* timer, QList<Universe *> ua)
                 function->start(timer, functionParent());
                 qDebug() << "Function started";
             }
-            //emit functionStarting(m_playbackFunction, pIntensity);  // TODO
-            function->adjustAttribute(pIntensity * intensity(), Function::Intensity);
+            emit functionStarting(this, m_controlledFunctionId, fraction);
         }
     }
-    else
-    {
-        function->adjustAttribute(pIntensity * intensity(), m_controlledAttribute);
-    }
-    //m_playbackChangeCounter--;
+
+    adjustFunctionAttribute(function, fraction * intensity());
+
+    m_adjustChangeCounter--;
 }
 
 /*********************************************************************
@@ -1024,6 +1075,7 @@ bool VCSlider::loadXMLLegacyPlayback(QXmlStreamReader &pb_root)
         {
             /* Function */
             setControlledFunction(pb_root.readElementText().toUInt());
+            setControlledAttribute(Function::Intensity);
         }
         else
         {
