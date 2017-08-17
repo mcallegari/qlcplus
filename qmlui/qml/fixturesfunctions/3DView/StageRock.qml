@@ -33,7 +33,8 @@ Entity
     property Layer layer
     property Effect effect
 
-    property var trussArray: []
+    // if the model changes, this has to be changed accordingly
+    property real trussHalfSize: 0.15
 
     property Material material:
         Material
@@ -51,7 +52,6 @@ Entity
             truss1mMesh.source = View3D.meshDirectory + "stage/truss_square_1m.obj"
 
         // clean up any previously created truss entities
-        //trussArray.forEach(function (truss) { View3D.deleteEntity(truss) })
         View3D.resetStage(stage)
 
         var columnsArray = defaultColumnPositions()
@@ -67,13 +67,13 @@ Entity
             {
                 if (len >= 2)
                 {
-                    vecPos.y = size.y - len
+                    vecPos.y = size.y - len + groundMesh.yExtent / 2
                     createMesh(truss2mMesh, vecPos, Qt.vector3d(90, 0, 0))
                     len -= 2
                 }
                 else
                 {
-                    vecPos.y = size.y - len - 0.5
+                    vecPos.y = size.y - len - 0.5 + groundMesh.yExtent / 2
                     createMesh(truss1mMesh, vecPos, Qt.vector3d(90, 0, 0))
                     len -= 1
                 }
@@ -133,10 +133,10 @@ Entity
 
     function defaultColumnPositions()
     {
-        var array = [ Qt.vector3d(-size.x / 2, size.y - 1, size.z / 2),  // front left
-                      Qt.vector3d(size.x / 2, size.y - 1, size.z / 2),   // front right
-                      Qt.vector3d(-size.x / 2, size.y - 1, -size.z / 2), // rear left
-                      Qt.vector3d(size.x / 2, size.y - 1, -size.z / 2) ] // rear right
+        var array = [ Qt.vector3d(-size.x / 2 - trussHalfSize, size.y - 1 + trussHalfSize, size.z / 2 + trussHalfSize),  // front left
+                      Qt.vector3d(size.x / 2 + trussHalfSize, size.y - 1 + trussHalfSize, size.z / 2 + trussHalfSize),   // front right
+                      Qt.vector3d(-size.x / 2 - trussHalfSize, size.y - 1 + trussHalfSize, -size.z / 2 - trussHalfSize), // rear left
+                      Qt.vector3d(size.x / 2 + trussHalfSize, size.y - 1 + trussHalfSize, -size.z / 2 - trussHalfSize) ] // rear right
         return array
     }
 
@@ -206,8 +206,9 @@ Entity
     Entity
     {
         id: flCorner
-        property Transform transform: Transform { translation: Qt.vector3d(-size.x / 2, size.y - 1, size.z / 2) }
-
+        property Transform transform: Transform { translation: Qt.vector3d(-size.x / 2 - trussHalfSize,
+                                                                           size.y - 1 + trussHalfSize,
+                                                                           size.z / 2 + trussHalfSize) }
         components: [
             cornerMesh,
             stage.material,
@@ -219,8 +220,9 @@ Entity
     // front right corner
     Entity
     {
-        property Transform transform: Transform { translation: Qt.vector3d(size.x / 2, size.y - 1, size.z / 2) }
-
+        property Transform transform: Transform { translation: Qt.vector3d(size.x / 2 + trussHalfSize,
+                                                                           size.y - 1 + trussHalfSize,
+                                                                           size.z / 2 + trussHalfSize) }
         components: [
             cornerMesh,
             stage.material,
@@ -232,8 +234,9 @@ Entity
     // rear left corner
     Entity
     {
-        property Transform transform: Transform { translation: Qt.vector3d(-size.x / 2, size.y - 1, -size.z / 2) }
-
+        property Transform transform: Transform { translation: Qt.vector3d(-size.x / 2 - trussHalfSize,
+                                                                           size.y - 1 + trussHalfSize,
+                                                                           -size.z / 2 - trussHalfSize) }
         components: [
             cornerMesh,
             stage.material,
@@ -245,8 +248,9 @@ Entity
     // rear right corner
     Entity
     {
-        property Transform transform: Transform { translation: Qt.vector3d(size.x / 2, size.y - 1, -size.z / 2) }
-
+        property Transform transform: Transform { translation: Qt.vector3d(size.x / 2 + trussHalfSize,
+                                                                           size.y - 1 + trussHalfSize,
+                                                                           -size.z / 2 - trussHalfSize) }
         components: [
             cornerMesh,
             stage.material,
