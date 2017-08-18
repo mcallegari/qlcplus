@@ -312,6 +312,7 @@ Rectangle
                                     fDragItem.parent = mainView
                                     fDragItem.x = posnInWindow.x - (fDragItem.width / 4)
                                     fDragItem.y = posnInWindow.y - (fDragItem.height / 4)
+                                    fDragItem.modifiers = mouseMods
                                 break;
                                 case App.Clicked:
                                     if (qItem == item)

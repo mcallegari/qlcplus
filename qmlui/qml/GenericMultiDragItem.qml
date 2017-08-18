@@ -29,6 +29,7 @@ Item
     /** Generic list of items that this component represents */
     property var itemsList: []
     property bool multipleItems: itemsList.length > 1 ? true : false
+    property int modifiers: 0
 
     Rectangle
     {
