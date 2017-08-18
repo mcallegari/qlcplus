@@ -30,12 +30,7 @@
 #include "qhttprequest.h"
 #include "qhttpresponse.h"
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-  #define PASSWORD_HASH_ALGORITHM QCryptographicHash::Sha256
-#else
-  // Qt4 doesn't leave much choices. Both MD5 and SHA1 have been broken :(
-  #define PASSWORD_HASH_ALGORITHM QCryptographicHash::Sha1
-#endif
+#define SALT_LENGTH           32
 #define DEFAULT_PASSWORD_FILE "web_passwd"
 
 WebAccessAuth::WebAccessAuth(const QString& realm)
@@ -58,6 +53,9 @@ bool WebAccessAuth::loadPasswordsFile(const QString& filePath)
     QTextStream stream(&file);
     QString line;
 
+    // Line format is as follows:
+    // username:passwordHash:userLevel:hashType:salt
+    // where everything after passwordHash is optional
     while (!(line = stream.readLine()).isNull())
     {
         QStringList parts = line.split(':');
@@ -71,8 +69,16 @@ bool WebAccessAuth::loadPasswordsFile(const QString& filePath)
         QString username = parts[0];
         QString passwordHash = parts[1];
         int userLevel = (parts.size() >= 3) ? (parts[2].toInt()) : (NOT_PROVIDED_LEVEL);
+        QString hashType = (parts.size() >= 4) ? (parts[3]) : (DEFAULT_PASSWORD_HASH_TYPE);
+        QString salt = (parts.size() >= 5) ? (parts[4]) : ("");
 
-        WebAccessUser user(username, passwordHash, (WebAccessUserLevel)userLevel);
+        WebAccessUser user(
+            username, 
+            passwordHash, 
+            (WebAccessUserLevel)userLevel,
+            hashType,
+            salt
+        );
 
         // Silently overrides duplicate usernames due to unique keys in maps
         this->m_passwords.insert(username, user);
@@ -96,7 +102,12 @@ bool WebAccessAuth::savePasswordsFile() const
     foreach (QString username, m_passwords.keys())
     {
         WebAccessUser user = m_passwords.value(username);
-        stream << user.username << ':' << user.passwordHash << ':' << (int)user.level << endl;
+        stream 
+            << user.username << ':' 
+            << user.passwordHash << ':' 
+            << (int)user.level << ':'
+            << user.hashType << ':'
+            << user.passwordSalt << endl;
     }
 
     return true;
@@ -106,7 +117,7 @@ WebAccessUser WebAccessAuth::authenticateRequest(const QHttpRequest* req, QHttpR
 {
     // Disable authentication when no administrative accounts are proviced
     if (!this->hasAtLeastOneAdmin())
-        return WebAccessUser("", "", NOT_PROVIDED_LEVEL);
+        return WebAccessUser(NOT_PROVIDED_LEVEL);
     
     QString header = QString("Basic realm=\"") + m_realm + QString("\"");
     res->setHeader("WWW-Authenticate", header);
@@ -124,10 +135,10 @@ WebAccessUser WebAccessAuth::authenticateRequest(const QHttpRequest* req, QHttpR
         return WebAccessUser();
 
     QString username = authentication.left(colonIndex);
-    QString passwordHash = this->hashPassword(authentication.mid(colonIndex + 1));
+    QString password = authentication.mid(colonIndex + 1);
 
     QMap<QString, WebAccessUser>::const_iterator userIterator = m_passwords.find(username);
-    if(userIterator == m_passwords.end() || (*userIterator).passwordHash != passwordHash)
+    if(userIterator == m_passwords.end() || ! this->verifyPassword(password, *userIterator))
         return WebAccessUser();
 
     return *userIterator;
@@ -135,7 +146,14 @@ WebAccessUser WebAccessAuth::authenticateRequest(const QHttpRequest* req, QHttpR
 
 void WebAccessAuth::addUser(const QString& username, const QString& password, WebAccessUserLevel level)
 {
-    WebAccessUser user(username, this->hashPassword(password), level);
+    QString salt = this->generateSalt();
+    WebAccessUser user(
+        username, 
+        this->hashPassword(DEFAULT_PASSWORD_HASH_TYPE, password, salt), 
+        level,
+        DEFAULT_PASSWORD_HASH_TYPE,
+        salt
+    );
     m_passwords.insert(username, user);
 }
 
@@ -162,6 +180,7 @@ QList<WebAccessUser> WebAccessAuth::getUsers() const
 
 void WebAccessAuth::sendUnauthorizedResponse(QHttpResponse* res) const
 {
+    //TODO: Allow for localization of this
     const static QByteArray text = QString(
         "<html>"
             "<head>"
@@ -182,9 +201,53 @@ void WebAccessAuth::sendUnauthorizedResponse(QHttpResponse* res) const
     res->end(text);
 }
 
-QString WebAccessAuth::hashPassword(const QString& password) const
+
+QString WebAccessAuth::generateSalt() const
 {
-    return QCryptographicHash::hash(password.toUtf8(), PASSWORD_HASH_ALGORITHM).toHex();
+    QString salt;
+
+    for(int i = 0; i < SALT_LENGTH; i++)
+    {
+        int halfByte = qrand() % 16;
+        salt.append(QString::number(halfByte, 16));
+    }
+
+    return salt;
+}
+
+QString WebAccessAuth::hashPassword(const QString& hashType, const QString& password, const QString& passwordSalt) const
+{
+    QString passwordWithSalt = password + passwordSalt;
+    QCryptographicHash::Algorithm algorithm = QCryptographicHash::Sha1;
+
+    if(hashType == "sha1")
+    {
+        algorithm = QCryptographicHash::Sha1;
+    }
+    #ifndef QT_CRYPTOGRAPHICHASH_ONLY_SHA1
+        else if (hashType == "md5")
+        {
+            algorithm = QCryptographicHash::Md5;
+        }
+        #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+            else if(hashType == "sha256")
+            {
+                algorithm = QCryptographicHash::Sha256;
+            }
+        #endif // QT version >= 5.0.0
+    #endif // QT_CRYPTOGRAPHICHASH_ONLY_SHA1
+    else
+    {
+        qDebug() << "Unknown password hash algorithm " << hashType << ", defaulting to sha1.";
+        algorithm = QCryptographicHash::Sha1;
+    }
+
+    return QCryptographicHash::hash(passwordWithSalt.toUtf8(), algorithm).toHex();
+}
+
+bool WebAccessAuth::verifyPassword(const QString& password, const WebAccessUser& user) const
+{
+    return this->hashPassword(user.hashType, password, user.passwordSalt) == user.passwordHash;
 }
 
 bool WebAccessAuth::hasAtLeastOneAdmin() const

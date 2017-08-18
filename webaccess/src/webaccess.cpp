@@ -136,7 +136,7 @@ void WebAccess::slotHandleRequest(QHttpRequest *req, QHttpResponse *resp)
         if (conn != NULL)
         {
             // Allocate user for WS on heap so it doesn't go out of scope
-            conn->userData = new WebAccessUser(user.username, user.passwordHash, user.level);
+            conn->userData = new WebAccessUser(user);
             m_webSocketsList.append(conn);
         }
 
