@@ -42,8 +42,8 @@ VCSlider::VCSlider(Doc *doc, QObject *parent)
     , m_invertedAppearance(false)
     , m_sliderMode(Adjust)
     , m_value(0)
-    , m_levelLowLimit(0)
-    , m_levelHighLimit(UCHAR_MAX)
+    , m_rangeLowLimit(0)
+    , m_rangeHighLimit(UCHAR_MAX)
     , m_levelValueChanged(false)
     , m_monitorEnabled(false)
     , m_monitorValue(0)
@@ -55,7 +55,7 @@ VCSlider::VCSlider(Doc *doc, QObject *parent)
     , m_controlledAttributeIndex(Function::invalidAttributeId())
     , m_controlledAttributeId(Function::invalidAttributeId())
     , m_attributeMinValue(0)
-    , m_attributeMaxValue(1.0)
+    , m_attributeMaxValue(UCHAR_MAX)
 {
     setType(VCWidget::SliderWidget);
     setBackgroundColor(QColor("#444"));
@@ -128,7 +128,7 @@ QString VCSlider::sliderModeToString(SliderMode mode)
         case Level: return QString("Level");
         case Submaster: return QString("Submaster");
         case GrandMaster: return QString("GrandMaster");
-        case Adjust: return QString("Attribute");
+        case Adjust: return QString("Adjust");
         default: return QString("Unknown");
     }
 }
@@ -161,8 +161,8 @@ void VCSlider::setSliderMode(SliderMode mode, bool init)
 
     emit sliderModeChanged(mode);
 
-    setLevelLowLimit(0);
-    setLevelHighLimit(UCHAR_MAX);
+    setRangeLowLimit(0);
+    setRangeHighLimit(UCHAR_MAX);
 
     switch(mode)
     {
@@ -282,6 +282,30 @@ int VCSlider::value() const
     return m_value;
 }
 
+qreal VCSlider::sliderValueToAttributeValue(int value)
+{
+    qreal fraction;
+
+    if (m_controlledAttributeIndex == Function::Intensity)
+        fraction = SCALE(qreal(value), m_rangeLowLimit, m_rangeHighLimit, 0, 1.0);
+    else
+        fraction = SCALE(qreal(value), m_rangeLowLimit, m_rangeHighLimit, m_attributeMinValue, m_attributeMaxValue);
+
+    return fraction;
+}
+
+qreal VCSlider::attributeValueToSliderValue(qreal value)
+{
+    qreal fraction;
+
+    if (m_controlledAttributeIndex == Function::Intensity)
+        fraction = SCALE(value, 0.0, 1.0, m_rangeLowLimit, m_rangeHighLimit);
+    else
+        fraction = SCALE(value, m_attributeMinValue, m_attributeMaxValue, m_rangeLowLimit, m_rangeHighLimit);
+
+    return fraction;
+}
+
 void VCSlider::setValue(int value, bool setDMX, bool updateFeedback)
 {
     if (m_value == value)
@@ -306,7 +330,7 @@ void VCSlider::setValue(int value, bool setDMX, bool updateFeedback)
             m_doc->inputOutputMap()->setGrandMasterValue(value);
         break;
         case Adjust:
-            m_adjustChangeCounter++;
+            m_adjustChangeCounter = 5;
         break;
     }
 
@@ -331,6 +355,34 @@ void VCSlider::setValue(int value, bool setDMX, bool updateFeedback)
     */
 }
 
+void VCSlider::setRangeLowLimit(qreal value)
+{
+    if (value == m_rangeLowLimit)
+        return;
+
+    m_rangeLowLimit = value;
+    emit rangeLowLimitChanged();
+}
+
+qreal VCSlider::rangeLowLimit() const
+{
+    return m_rangeLowLimit;
+}
+
+void VCSlider::setRangeHighLimit(qreal value)
+{
+    if (value == m_rangeLowLimit)
+        return;
+
+    m_rangeHighLimit = value;
+    emit rangeHighLimitChanged();
+}
+
+qreal VCSlider::rangeHighLimit() const
+{
+    return m_rangeHighLimit;
+}
+
 void VCSlider::adjustIntensity(qreal val)
 {
     VCWidget::adjustIntensity(val);
@@ -341,9 +393,8 @@ void VCSlider::adjustIntensity(qreal val)
         if (function == NULL)
             return;
 
-        qreal fraction = SCALE(float(m_value),
-                               float(m_levelLowLimit), float(m_levelHighLimit),
-                               float(m_attributeMinValue), float(m_attributeMaxValue));
+        qreal fraction = sliderValueToAttributeValue(m_value);
+
         adjustFunctionAttribute(function, fraction * intensity());
     }
 }
@@ -351,33 +402,6 @@ void VCSlider::adjustIntensity(qreal val)
 /*********************************************************************
  * Level mode
  *********************************************************************/
-void VCSlider::setLevelLowLimit(uchar value)
-{
-    if (value == m_levelLowLimit)
-        return;
-
-    m_levelLowLimit = value;
-    emit levelLowLimitChanged();
-}
-
-uchar VCSlider::levelLowLimit() const
-{
-    return m_levelLowLimit;
-}
-
-void VCSlider::setLevelHighLimit(uchar value)
-{
-    if (value == m_levelLowLimit)
-        return;
-
-    m_levelHighLimit = value;
-    emit levelHighLimitChanged();
-}
-
-uchar VCSlider::levelHighLimit() const
-{
-    return m_levelHighLimit;
-}
 
 void VCSlider::setMonitorEnabled(bool enable)
 {
@@ -580,12 +604,12 @@ void VCSlider::setControlledFunction(quint32 fid)
 
 void VCSlider::slotControlledFunctionAttributeChanged(int attrIndex, qreal fraction)
 {
-    if (attrIndex != m_controlledAttributeIndex)
+    if (attrIndex != m_controlledAttributeIndex) // || m_adjustChangeCounter)
         return;
 
-    int newValue = ((m_levelHighLimit - m_levelLowLimit) * fraction) + m_levelLowLimit;
+    qreal newValue = attributeValueToSliderValue(fraction);
 
-    //qDebug() << "Function attribute" << m_controlledAttributeIndex << "changed to" << newValue;
+    qDebug() << "Function attribute" << m_controlledAttributeIndex << "changed to" << newValue;
 
     setValue(newValue, false, true);
 }
@@ -613,10 +637,32 @@ void VCSlider::setControlledAttribute(int attr)
     if (function == NULL || attr >= function->attributes().count())
         return;
 
-    m_controlledAttributeIndex = attr;
-    emit controlledAttributeChanged(attr);
+    int currentValue = m_value;
+    qreal previousMin = m_attributeMinValue;
+    qreal previousMax = m_attributeMaxValue;
 
-    int newValue = int(floor((qreal(m_levelHighLimit) * function->getAttributeValue(attr)) + 0.5));
+    m_controlledAttributeIndex = attr;
+
+    // normalize intensity to 0-255 since Slider / Spin boxes step is an integer
+    if (m_controlledAttributeIndex == Function::Intensity)
+    {
+        m_attributeMinValue = 0;
+        m_attributeMaxValue = 255;
+    }
+    else
+    {
+        m_attributeMinValue = function->attributes().at(m_controlledAttributeIndex).m_min;
+        m_attributeMaxValue = function->attributes().at(m_controlledAttributeIndex).m_max;
+    }
+
+    setRangeLowLimit(m_attributeMinValue);
+    setRangeHighLimit(m_attributeMaxValue);
+
+    emit controlledAttributeChanged(attr);
+    emit attributeMinValueChanged();
+    emit attributeMaxValueChanged();
+
+    qreal newValue = SCALE(qreal(currentValue), previousMin, previousMax, m_rangeLowLimit, m_rangeHighLimit);
     setValue(newValue, false, true);
 }
 
@@ -643,6 +689,16 @@ QStringList VCSlider::availableAttributes() const
         list << attr.m_name;
 
     return list;
+}
+
+qreal VCSlider::attributeMinValue() const
+{
+    return m_attributeMinValue;
+}
+
+qreal VCSlider::attributeMaxValue() const
+{
+    return m_attributeMaxValue;
 }
 
 FunctionParent VCSlider::functionParent() const
@@ -860,9 +916,9 @@ void VCSlider::writeDMXAdjust(MasterTimer* timer, QList<Universe *> ua)
     if (function == NULL)
         return;
 
-    qreal fraction = SCALE(float(m_value),
-                           float(m_levelLowLimit), float(m_levelHighLimit),
-                           float(m_attributeMinValue), float(m_attributeMaxValue));
+    qreal fraction = sliderValueToAttributeValue(m_value);
+
+    qDebug() << "Adjust Function attribute" << m_controlledAttributeIndex << "to" << fraction;
 
     if (m_controlledAttributeIndex == Function::Intensity)
     {
@@ -985,6 +1041,10 @@ bool VCSlider::loadXML(QXmlStreamReader &root)
         {
             loadXMLLevel(root);
         }
+        else if (root.name() == KXMLQLCVCSliderAdjust)
+        {
+            loadXMLAdjust(root);
+        }
         else if (root.name() == KXMLQLCVCSliderPlayback) // LEGACY
         {
             loadXMLLegacyPlayback(root);
@@ -1002,7 +1062,7 @@ bool VCSlider::loadXML(QXmlStreamReader &root)
 
 bool VCSlider::loadXMLLevel(QXmlStreamReader &level_root)
 {
-    QString str;
+    int value;
 
     if (level_root.name() != KXMLQLCVCSliderLevel)
     {
@@ -1013,16 +1073,16 @@ bool VCSlider::loadXMLLevel(QXmlStreamReader &level_root)
     QXmlStreamAttributes attrs = level_root.attributes();
 
     /* Level low limit */
-    str = attrs.value(KXMLQLCVCSliderLevelLowLimit).toString();
-    setLevelLowLimit(str.toInt());
+    value = attrs.value(KXMLQLCVCSliderLevelLowLimit).toInt();
+    setRangeLowLimit(value);
 
     /* Level high limit */
-    str = attrs.value(KXMLQLCVCSliderLevelHighLimit).toString();
-    setLevelHighLimit(str.toInt());
+    value = attrs.value(KXMLQLCVCSliderLevelHighLimit).toInt();
+    setRangeHighLimit(value);
 
     /* Level value */
-    str = attrs.value(KXMLQLCVCSliderLevelValue).toString();
-    setValue(str.toInt());
+    value = attrs.value(KXMLQLCVCSliderLevelValue).toInt();
+    setValue(value);
 
     QXmlStreamReader::TokenType tType = level_root.readNext();
 
@@ -1044,9 +1104,9 @@ bool VCSlider::loadXMLLevel(QXmlStreamReader &level_root)
             if (level_root.name() == KXMLQLCVCSliderChannel)
             {
                 /* Fixture & channel */
-                str = level_root.attributes().value(KXMLQLCVCSliderChannelFixture).toString();
+                value = level_root.attributes().value(KXMLQLCVCSliderChannelFixture).toInt();
                 addLevelChannel(
-                    static_cast<quint32>(str.toInt()),
+                    static_cast<quint32>(value),
                     static_cast<quint32> (level_root.readElementText().toInt()));
             }
             else
@@ -1056,6 +1116,31 @@ bool VCSlider::loadXMLLevel(QXmlStreamReader &level_root)
             }
         } while (level_root.readNextStartElement());
     }
+
+    return true;
+}
+
+bool VCSlider::loadXMLAdjust(QXmlStreamReader &adj_root)
+{
+    if (adj_root.name() != KXMLQLCVCSliderAdjust)
+    {
+        qWarning() << Q_FUNC_INFO << "Slider Adjust node not found";
+        return false;
+    }
+
+    QXmlStreamAttributes attrs = adj_root.attributes();
+
+    int value;
+
+    /* Controlled Function ID */
+    value = attrs.value(KXMLQLCVCSliderControlledFunction).toInt();
+    setControlledFunction(value);
+
+    /* Level high limit */
+    value = attrs.value(KXMLQLCVCSliderAdjustAttribute).toInt();
+    setControlledAttribute(value);
+
+    adj_root.skipCurrentElement();
 
     return true;
 }
@@ -1071,7 +1156,7 @@ bool VCSlider::loadXMLLegacyPlayback(QXmlStreamReader &pb_root)
     /* Children */
     while (pb_root.readNextStartElement())
     {
-        if (pb_root.name() == KXMLQLCVCSliderPlaybackFunction)
+        if (pb_root.name() == KXMLQLCVCSliderControlledFunction)
         {
             /* Function */
             setControlledFunction(pb_root.readElementText().toUInt());
@@ -1142,9 +1227,9 @@ bool VCSlider::saveXML(QXmlStreamWriter *doc)
     /* Level */
     doc->writeStartElement(KXMLQLCVCSliderLevel);
     /* Level low limit */
-    doc->writeAttribute(KXMLQLCVCSliderLevelLowLimit, QString::number(levelLowLimit()));
+    doc->writeAttribute(KXMLQLCVCSliderLevelLowLimit, QString::number(rangeLowLimit()));
     /* Level high limit */
-    doc->writeAttribute(KXMLQLCVCSliderLevelHighLimit, QString::number(levelHighLimit()));
+    doc->writeAttribute(KXMLQLCVCSliderLevelHighLimit, QString::number(rangeHighLimit()));
     /* Level value */
     doc->writeAttribute(KXMLQLCVCSliderLevelValue, QString::number(value()));
 
@@ -1162,10 +1247,12 @@ bool VCSlider::saveXML(QXmlStreamWriter *doc)
 
     if (controlledFunction() != Function::invalidId())
     {
-        /* Playback */
-        doc->writeStartElement(KXMLQLCVCSliderPlayback);
-        /* Playback function */
-        doc->writeTextElement(KXMLQLCVCSliderPlaybackFunction, QString::number(controlledFunction()));
+        /* Adjust */
+        doc->writeStartElement(KXMLQLCVCSliderAdjust);
+        /* Controlled attribute index */
+        doc->writeAttribute(KXMLQLCVCSliderAdjustAttribute, QString::number(controlledAttribute()));
+        /* Controlled function ID */
+        doc->writeTextElement(KXMLQLCVCSliderControlledFunction, QString::number(controlledFunction()));
         /* End the <Playback> tag */
         doc->writeEndElement();
     }

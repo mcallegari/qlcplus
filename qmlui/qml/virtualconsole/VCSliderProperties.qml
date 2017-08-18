@@ -253,10 +253,10 @@ Rectangle
                     Layout.fillWidth: true
                     model: widgetRef ? widgetRef.availableAttributes : null
                     currentIndex: widgetRef ? widgetRef.controlledAttribute : 0
-                    onCurrentIndexChanged: widgetRef.controlledAttribute = currentIndex
+                    onCurrentIndexChanged: if (widgetRef) widgetRef.controlledAttribute = currentIndex
                 }
               } // GridLayout
-        } // SectionBox Playback mode
+        } // SectionBox Function control
 
         SectionBox
         {
@@ -272,34 +272,6 @@ Rectangle
                   rowSpacing: 4
 
                   // row 1
-                  RobotoText
-                  {
-                      height: gridItemsHeight
-                      label: qsTr("Lower limit")
-                  }
-                  CustomSpinBox
-                  {
-                      Layout.fillWidth: true
-                      from: 0
-                      to: 255
-                      value: widgetRef ? widgetRef.levelLowLimit : 0
-                      onValueChanged: if (widgetRef) widgetRef.levelLowLimit = value
-                  }
-                  // row 2
-                  RobotoText
-                  {
-                      height: gridItemsHeight
-                      label: qsTr("Upper limit")
-                  }
-                  CustomSpinBox
-                  {
-                      Layout.fillWidth: true
-                      from: 0
-                      to: 255
-                      value: widgetRef ? widgetRef.levelHighLimit : 0
-                      onValueChanged: if (widgetRef) widgetRef.levelHighLimit = value
-                  }
-                  // row 3
                   RobotoText
                   {
                       height: gridItemsHeight
@@ -340,6 +312,7 @@ Rectangle
                       }
                   }
 
+                  // row 2
                   CustomCheckBox
                   {
                       implicitWidth: UISettings.iconSizeMedium
@@ -355,6 +328,51 @@ Rectangle
                   }
               }
         } // SectionBox Level mode
+
+        SectionBox
+        {
+            visible: widgetRef ? (widgetRef.sliderMode === VCSlider.Level || widgetRef.sliderMode === VCSlider.Adjust) : false
+            sectionLabel: qsTr("Values range")
+
+            sectionContents:
+              GridLayout
+              {
+                  width: parent.width
+                  columns: 2
+                  columnSpacing: 5
+                  rowSpacing: 4
+
+                  // row 1
+                  RobotoText
+                  {
+                      height: gridItemsHeight
+                      label: qsTr("Upper limit")
+                  }
+                  CustomSpinBox
+                  {
+                      Layout.fillWidth: true
+                      from: widgetRef && widgetRef.sliderMode === VCSlider.Adjust ? widgetRef.attributeMinValue : 0
+                      to: widgetRef && widgetRef.sliderMode === VCSlider.Adjust ? widgetRef.attributeMaxValue : 255
+                      value: widgetRef ? widgetRef.rangeHighLimit : 0
+                      onValueModified: if (widgetRef) widgetRef.rangeHighLimit = value
+                  }
+
+                  // row 2
+                  RobotoText
+                  {
+                      height: gridItemsHeight
+                      label: qsTr("Lower limit")
+                  }
+                  CustomSpinBox
+                  {
+                      Layout.fillWidth: true
+                      from: widgetRef && widgetRef.sliderMode === VCSlider.Adjust ? widgetRef.attributeMinValue : 0
+                      to: widgetRef && widgetRef.sliderMode === VCSlider.Adjust ? widgetRef.attributeMaxValue : 255
+                      value: widgetRef ? widgetRef.rangeLowLimit : 0
+                      onValueModified: if (widgetRef) widgetRef.rangeLowLimit = value
+                  }
+              }
+        } // SectionBox Values range
 
         SectionBox
         {

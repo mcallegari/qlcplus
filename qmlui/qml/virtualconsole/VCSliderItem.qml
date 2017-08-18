@@ -28,7 +28,7 @@ VCWidgetItem
     id: sliderRoot
     property VCSlider sliderObj: null
     property int sliderValue: sliderObj ? sliderObj.value : 0
-    property int sliderMode: sliderObj ? sliderObj.sliderMode : VCSlider.Playback
+    property int sliderMode: sliderObj ? sliderObj.sliderMode : VCSlider.Adjust
 
     radius: 2
 
@@ -120,12 +120,13 @@ VCWidgetItem
         {
             id: slFader
             visible: sliderObj ? sliderObj.widgetStyle === VCSlider.WSlider : false
+            enabled: visible
             anchors.horizontalCenter: parent.horizontalCenter
             Layout.fillHeight: true
             width: parent.width
             rotation: sliderObj ? (sliderObj.invertedAppearance ? 180 : 0) : 0
-            from: sliderMode === VCSlider.Level ? sliderObj.levelLowLimit : 0
-            to: sliderMode === VCSlider.Level ? sliderObj.levelHighLimit : 255
+            from: sliderObj ? sliderObj.rangeLowLimit : 0
+            to: sliderObj ? sliderObj.rangeHighLimit : 255
             value: sliderValue
             handleGradient: sliderMode === VCSlider.Submaster ? submasterHandleGradient :
                             (sliderMode === VCSlider.GrandMaster ? grandMasterHandleGradient : defaultGradient)
@@ -133,19 +134,22 @@ VCWidgetItem
                                  (sliderMode === VCSlider.GrandMaster ? grandMasterHandleGradientHover : defaultGradientHover)
             trackColor: sliderMode === VCSlider.Submaster ? "#77DD73" : defaultTrackColor
 
-            onPositionChanged: if (sliderObj) sliderObj.value = valueAt(position)
+            onMoved: if (sliderObj) sliderObj.value = valueAt(position)
         }
 
         QLCPlusKnob
         {
             id: slKnob
             visible: sliderObj ? sliderObj.widgetStyle === VCSlider.WKnob : false
+            enabled: visible
             anchors.horizontalCenter: parent.horizontalCenter
             Layout.fillHeight: true
             //width: parent.width
+            from: sliderObj ? sliderObj.rangeLowLimit : 0
+            to: sliderObj ? sliderObj.rangeHighLimit : 255
             value: sliderValue
 
-            onPositionChanged: if (sliderObj) sliderObj.value = position * 255
+            onMoved: if (sliderObj) sliderObj.value = value // position * 255
         }
 
         // widget name text box

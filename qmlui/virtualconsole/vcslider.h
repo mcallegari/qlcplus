@@ -49,7 +49,9 @@
 #define KXMLQLCVCSliderChannelFixture "Fixture"
 
 #define KXMLQLCVCSliderPlayback "Playback" // LEGACY
-#define KXMLQLCVCSliderPlaybackFunction "Function"
+#define KXMLQLCVCSliderAdjust "Adjust"
+#define KXMLQLCVCSliderAdjustAttribute "Attribute"
+#define KXMLQLCVCSliderControlledFunction "Function"
 
 class FunctionParent;
 
@@ -63,10 +65,12 @@ class VCSlider : public VCWidget, public DMXSource
     Q_PROPERTY(ValueDisplayStyle valueDisplayStyle READ valueDisplayStyle WRITE setValueDisplayStyle NOTIFY valueDisplayStyleChanged)
     Q_PROPERTY(bool invertedAppearance READ invertedAppearance WRITE setInvertedAppearance NOTIFY invertedAppearanceChanged)
     Q_PROPERTY(SliderMode sliderMode READ sliderMode WRITE setSliderMode NOTIFY sliderModeChanged)
-    Q_PROPERTY(int value READ value WRITE setValue NOTIFY valueChanged)
 
-    Q_PROPERTY(int levelLowLimit READ levelLowLimit WRITE setLevelLowLimit NOTIFY levelLowLimitChanged)
-    Q_PROPERTY(int levelHighLimit READ levelHighLimit WRITE setLevelHighLimit NOTIFY levelHighLimitChanged)
+    Q_PROPERTY(int value READ value WRITE setValue NOTIFY valueChanged)
+    Q_PROPERTY(qreal rangeLowLimit READ rangeLowLimit WRITE setRangeLowLimit NOTIFY rangeLowLimitChanged)
+    Q_PROPERTY(qreal rangeHighLimit READ rangeHighLimit WRITE setRangeHighLimit NOTIFY rangeHighLimitChanged)
+
+
     Q_PROPERTY(bool monitorEnabled READ monitorEnabled WRITE setMonitorEnabled NOTIFY monitorEnabledChanged)
     Q_PROPERTY(int monitorValue READ monitorValue NOTIFY monitorValueChanged)
     Q_PROPERTY(bool isOverriding READ isOverriding WRITE setIsOverriding NOTIFY isOverridingChanged)
@@ -74,6 +78,8 @@ class VCSlider : public VCWidget, public DMXSource
     Q_PROPERTY(quint32 controlledFunction READ controlledFunction WRITE setControlledFunction NOTIFY controlledFunctionChanged)
     Q_PROPERTY(int controlledAttribute READ controlledAttribute WRITE setControlledAttribute NOTIFY controlledAttributeChanged)
     Q_PROPERTY(QStringList availableAttributes READ availableAttributes NOTIFY availableAttributesChanged)
+    Q_PROPERTY(qreal attributeMinValue READ attributeMinValue NOTIFY attributeMinValueChanged)
+    Q_PROPERTY(qreal attributeMaxValue READ attributeMaxValue NOTIFY attributeMaxValueChanged)
 
     Q_PROPERTY(GrandMaster::ValueMode grandMasterValueMode READ grandMasterValueMode WRITE setGrandMasterValueMode NOTIFY grandMasterValueModeChanged)
     Q_PROPERTY(GrandMaster::ChannelMode grandMasterChannelMode READ grandMasterChannelMode WRITE setGrandMasterChannelMode NOTIFY grandMasterChannelModeChanged)
@@ -192,27 +198,36 @@ public:
     int value() const;
     void setValue(int value, bool setDMX = true, bool updateFeedback = true);
 
+    /** Set/Get the lower limit for the slider values */
+    void setRangeLowLimit(qreal value);
+    qreal rangeLowLimit() const;
+
+    /** Set/Get the higher limit for the slider values */
+    void setRangeHighLimit(qreal value);
+    qreal rangeHighLimit() const;
+
     /** @reimp */
     void adjustIntensity(qreal val);
 
+protected:
+
+    qreal sliderValueToAttributeValue(int value);
+    qreal attributeValueToSliderValue(qreal value);
+
 signals:
     void valueChanged(int value);
+    void rangeLowLimitChanged();
+    void rangeHighLimitChanged();
 
 protected:
     int m_value;
+    qreal m_rangeLowLimit;
+    qreal m_rangeHighLimit;
 
     /*********************************************************************
      * Level mode
      *********************************************************************/
 public:
-    /** Set/Get the lower limit for levels set through the slider */
-    void setLevelLowLimit(uchar value);
-    uchar levelLowLimit() const;
-
-    /** Set/Get high limit for levels set through the slider */
-    void setLevelHighLimit(uchar value);
-    uchar levelHighLimit() const;
-
     /** Get/Set the channels monitor status when in Level mode */
     void setMonitorEnabled(bool enable);
     bool monitorEnabled() const;
@@ -259,8 +274,6 @@ protected slots:
     void slotTreeDataChanged(TreeModelItem *item, int role, const QVariant &value);
 
 signals:
-    void levelLowLimitChanged();
-    void levelHighLimitChanged();
     void monitorEnabledChanged();
     void monitorValueChanged();
     void isOverridingChanged();
@@ -271,8 +284,6 @@ signals:
 
 protected:
     QList <SceneValue> m_levelChannels;
-    uchar m_levelLowLimit;
-    uchar m_levelHighLimit;
 
     QMutex m_levelValueMutex;
     bool m_levelValueChanged;
@@ -290,15 +301,22 @@ protected:
      * Adjust mode
      *********************************************************************/
 public:
+    /** Get/Set the ID of the Function that will be controlled by this Slider */
     quint32 controlledFunction() const;
     void setControlledFunction(quint32 fid);
 
+    /** Get/Set the attribute index that will be controlled by this Slider */
     int controlledAttribute() const;
     void setControlledAttribute(int attr);
 
     void adjustFunctionAttribute(Function *f, qreal value);
 
+    /** Get the list of the available attributes for the Function to control */
     QStringList availableAttributes() const;
+
+    /** Return the min/max values for the attribute to control */
+    qreal attributeMinValue() const;
+    qreal attributeMaxValue() const;
 
 private:
     FunctionParent functionParent() const;
@@ -307,6 +325,8 @@ signals:
     void controlledFunctionChanged(quint32 fid);
     void controlledAttributeChanged(int attr);
     void availableAttributesChanged();
+    void attributeMinValueChanged();
+    void attributeMaxValueChanged();
 
 protected slots:
     void slotControlledFunctionAttributeChanged(int attrIndex, qreal fraction);
@@ -363,6 +383,7 @@ public:
     /** @reimp */
     bool loadXML(QXmlStreamReader &root);
     bool loadXMLLevel(QXmlStreamReader &level_root);
+    bool loadXMLAdjust(QXmlStreamReader &adj_root);
     bool loadXMLLegacyPlayback(QXmlStreamReader &pb_root);
 
     /** @reimp */
