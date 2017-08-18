@@ -134,6 +134,7 @@ void PreviewContext::setDetached(bool detached)
         m_view->rootContext()->setContextProperty("showManager", m_mainView->rootContext()->contextProperty("showManager"));
         m_view->rootContext()->setContextProperty("actionManager", m_mainView->rootContext()->contextProperty("actionManager"));
         m_view->rootContext()->setContextProperty("View2D", m_mainView->rootContext()->contextProperty("View2D"));
+        m_view->rootContext()->setContextProperty("View3D", m_mainView->rootContext()->contextProperty("View3D"));
 
         /** Set the fundamental properties to allow the detached context to properly load */
         m_view->rootContext()->setContextProperty("viewSource", contextResource());
