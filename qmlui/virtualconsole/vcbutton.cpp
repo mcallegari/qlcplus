@@ -511,11 +511,12 @@ bool VCButton::saveXML(QXmlStreamWriter *doc)
     saveXMLInputControl(doc, INPUT_PRESSURE_ID, "");
 
     /* Intensity adjustment */
-    doc->writeStartElement(KXMLQLCVCButtonIntensity);
-    doc->writeAttribute(KXMLQLCVCButtonIntensityAdjust,
-                     startupIntensityEnabled() ? KXMLQLCTrue : KXMLQLCFalse);
-    doc->writeCharacters(QString::number(int(startupIntensity() * 100)));
-    doc->writeEndElement();
+    if (startupIntensityEnabled())
+    {
+        doc->writeStartElement(KXMLQLCVCButtonIntensity);
+        doc->writeCharacters(QString::number(int(startupIntensity() * 100)));
+        doc->writeEndElement();
+    }
 
     /* End the <Button> tag */
     doc->writeEndElement();
