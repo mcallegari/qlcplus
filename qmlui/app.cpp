@@ -463,6 +463,7 @@ bool App::saveWorkspace(const QString &fileName)
     if (saveXML(localFilename) == QFile::NoError)
     {
         setTitle(QString("%1 - %2").arg(APPNAME).arg(localFilename));
+        updateRecentFilesList(localFilename);
         return true;
     }
 
