@@ -63,6 +63,8 @@ public:
     Q_INVOKABLE void detachContext(QString name);
     Q_INVOKABLE void reattachContext(QString name);
 
+    void switchToContext(QString name);
+
 public slots:
     /** Resets the data structures and update the currently enabled views */
     void resetContexts();

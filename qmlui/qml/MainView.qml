@@ -63,7 +63,8 @@ Rectangle
 
         enableContext(ctx, true)
         currentContext = ctx
-        mainViewLoader.source = qmlRes
+        if (qmlRes)
+            mainViewLoader.source = qmlRes
     }
 
     function setDimScreen(enable)

@@ -172,6 +172,20 @@ void ContextManager::reattachContext(QString name)
     }
 }
 
+void ContextManager::switchToContext(QString name)
+{
+    QStringList qlc4names, qlc5names;
+    qlc4names << "FixtureManager" << "FunctionManager" << "ShowManager" << "VirtualConsole" << "SimpleDesk" << "InputOutputManager";
+    qlc5names << "FIXANDFUNC" << "FIXANDFUNC" << "SHOWMGR" << "VC" << "SDESK" << "IOMGR";
+
+    int ctxIndex = qlc4names.indexOf(name);
+    QString ctxName = qlc5names.at(ctxIndex < 0 ? 0 : ctxIndex);
+
+    QMetaObject::invokeMethod(m_view->rootObject(), "switchToContext",
+            Q_ARG(QVariant, ctxName),
+            Q_ARG(QVariant, QString()));
+}
+
 void ContextManager::resetContexts()
 {
     m_channelsMap.clear();

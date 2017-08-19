@@ -526,7 +526,6 @@ QFileDevice::FileError App::loadXML(const QString &fileName)
 
 bool App::loadXML(QXmlStreamReader &doc, bool goToConsole, bool fromMemory)
 {
-    Q_UNUSED(goToConsole) // TODO
     if (doc.readNextStartElement() == false)
         return false;
 
@@ -536,7 +535,7 @@ bool App::loadXML(QXmlStreamReader &doc, bool goToConsole, bool fromMemory)
         return false;
     }
 
-    //QString activeWindowName = doc.attributes().value(KXMLQLCWorkspaceWindow).toString();
+    QString contextName = doc.attributes().value(KXMLQLCWorkspaceWindow).toString();
 
     while (doc.readNextStartElement())
     {
@@ -566,14 +565,14 @@ bool App::loadXML(QXmlStreamReader &doc, bool goToConsole, bool fromMemory)
         }
     }
 
-/*
+
     if (goToConsole == true)
         // Force the active window to be Virtual Console
-        setActiveWindow(VirtualConsole::staticMetaObject.className());
+        m_contextManager->switchToContext("VirtualConsole");
     else
         // Set the active window to what was saved in the workspace file
-        setActiveWindow(activeWindowName);
-*/
+        m_contextManager->switchToContext(contextName);
+
     // Perform post-load operations
     m_virtualConsole->postLoad();
 
