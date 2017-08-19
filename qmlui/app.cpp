@@ -609,10 +609,8 @@ QFile::FileError App::saveXML(const QString& fileName)
 
     doc.writeStartElement(KXMLQLCWorkspace);
     doc.writeAttribute("xmlns", QString("%1%2").arg(KXMLQLCplusNamespace).arg(KXMLQLCWorkspace));
-    /* Currently active window */
-    //QWidget* widget = m_tab->currentWidget();
-    //if (widget != NULL)
-    //    doc.writeAttribute(KXMLQLCWorkspaceWindow, QString(widget->metaObject()->className()));
+    /* Currently active context */
+    doc.writeAttribute(KXMLQLCWorkspaceWindow, m_contextManager->currentContext());
 
     doc.writeStartElement(KXMLQLCCreator);
     doc.writeTextElement(KXMLQLCCreatorName, APPNAME);

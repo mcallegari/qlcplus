@@ -178,12 +178,20 @@ void ContextManager::switchToContext(QString name)
     qlc4names << "FixtureManager" << "FunctionManager" << "ShowManager" << "VirtualConsole" << "SimpleDesk" << "InputOutputManager";
     qlc5names << "FIXANDFUNC" << "FIXANDFUNC" << "SHOWMGR" << "VC" << "SDESK" << "IOMGR";
 
-    int ctxIndex = qlc4names.indexOf(name);
+    int ctxIndex = qlc5names.indexOf(name);
+    if (ctxIndex < 0)
+        ctxIndex = qlc4names.indexOf(name);
+
     QString ctxName = qlc5names.at(ctxIndex < 0 ? 0 : ctxIndex);
 
     QMetaObject::invokeMethod(m_view->rootObject(), "switchToContext",
             Q_ARG(QVariant, ctxName),
-            Q_ARG(QVariant, QString()));
+                              Q_ARG(QVariant, QString()));
+}
+
+QString ContextManager::currentContext() const
+{
+    return m_view->rootObject()->property("currentContext").toString();
 }
 
 void ContextManager::resetContexts()

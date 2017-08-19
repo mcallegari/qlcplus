@@ -63,7 +63,12 @@ public:
     Q_INVOKABLE void detachContext(QString name);
     Q_INVOKABLE void reattachContext(QString name);
 
+    /** Switch to the context with the given $name.
+     *  Supports both QLC+ 4 and QLC+ 5 context names */
     void switchToContext(QString name);
+
+    /** Return the currently active context */
+    QString currentContext() const;
 
 public slots:
     /** Resets the data structures and update the currently enabled views */
