@@ -40,8 +40,8 @@ window.onload = function() {
    websocket.onmessage = function(ev) {
     //alert(ev.data);
     var msgParams = ev.data.split('|');
-    if (msgParams[0] == "QLC+API") {
-      if (msgParams[1] == "getChannelsValues") {
+    if (msgParams[0] === "QLC+API") {
+      if (msgParams[1] === "getChannelsValues") {
         drawPage(ev.data);
       }
     }
@@ -64,13 +64,13 @@ function getGroupIconName(grp) {
 }
 
 function getSliderTopCode(type) {
-   if (type == '')
+   if (type === '')
    return "<div style='width:34px; height:34px; margin:2px 0 0 1px; background:transparent;'></div>";
    var aType = type.split('.');
-   if (aType.length == 1) {
+   if (aType.length === 1) {
      return "<img src=" + getGroupIconName(parseInt(type)) + " style='margin-left:2px;'>";
    } else {
-    if (aType[1] == '#000000') {
+    if (aType[1] === '#000000') {
       return "<img src=" + getGroupIconName(0) + ">";
     } else {
       return "<div style='width:34px; height:34px; margin:2px 0 0 1px; background:" + aType[1] + ";'></div>";

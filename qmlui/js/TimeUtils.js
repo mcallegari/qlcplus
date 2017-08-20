@@ -139,7 +139,7 @@ function qlcStringToTime(str, type)
                 currStr = "";
             }
         }
-        if (finalTime == 0) {
+        if (finalTime === 0) {
             finalTime += parseInt(currStr);
         }
     }

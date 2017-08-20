@@ -47,7 +47,7 @@ function setCueIndex(id, idx) {
 }
 
 function sendCueCmd(id, cmd) {
- if (cmd == "PLAY") {
+ if (cmd === "PLAY") {
    var obj = document.getElementById("play" + id);
    if (cueListsIndices[id] === -1) {
      obj.innerHTML = "<img src=\"player_pause.png\" width=\"27\">";
@@ -62,7 +62,7 @@ function sendCueCmd(id, cmd) {
 
 function checkMouseOut(id, idx) {
  var obj = document.getElementById(id + "_" + idx);
- if(idx == cueListsIndices[id]) {
+ if(idx === cueListsIndices[id]) {
    obj.style.backgroundColor="#5E7FDF";
  }
  else {
@@ -95,7 +95,7 @@ function frameToggleCollapse(id) {
   var origWidth = framesWidth[id];
   var origHeight = framesHeight[id];
 
-  if (frameObj.clientWidth == origWidth)
+  if (frameObj.clientWidth === origWidth)
   {
     frameObj.style.width = "200px";
     if (mpHeader) {
@@ -110,7 +110,7 @@ function frameToggleCollapse(id) {
     }
   }
 
-  if (frameObj.clientHeight == origHeight) {
+  if (frameObj.clientHeight === origHeight) {
     frameObj.style.height = "36px";
   }
   else {
@@ -147,7 +147,7 @@ function framePreviousPage(id) {
 
 function setFramePage(id, page) {
  var iPage = parseInt(page);
- if (framesCurrentPage[id] == iPage || iPage >= framesTotalPages[id]) return;
+ if (framesCurrentPage[id] === iPage || iPage >= framesTotalPages[id]) return;
  var framePageObj = document.getElementById("fp" + id + "_" + framesCurrentPage[id]);
  framePageObj.style.visibility = "hidden";
  framesCurrentPage[id] = iPage;
@@ -168,7 +168,7 @@ function slVchange(id) {
 /* VCAudioTriggers */
 function atButtonClick(id) {
  var obj = document.getElementById(id);
- if (obj.value == "0" || obj.value == undefined) {
+ if (obj.value === "0" || obj.value == undefined) {
   obj.value = "255";
   obj.style.border = "3px solid #00E600";
   obj.style.backgroundColor = "#D7DE75";

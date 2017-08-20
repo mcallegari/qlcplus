@@ -100,7 +100,7 @@ var testAlgo;
       {
         var sColor = util.presets[algo.presetIndex][i];
         var eColor = util.presets[algo.presetIndex][i + 1];
-        if (eColor === undefined) {
+        if (eColor == undefined) {
           eColor = util.presets[algo.presetIndex][0];
         }
         util.gradientData[gradIdx++] = sColor;

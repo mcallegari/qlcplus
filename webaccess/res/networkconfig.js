@@ -25,7 +25,7 @@ function systemCmd(cmd, iface, mode, addr, mask, gw, ssid, wpapsk)
 function showStatic(iface, enable) {
  var divName = iface + "StaticFields";
  var obj=document.getElementById(divName);
- if (enable == true) {
+ if (enable === true) {
    obj.style.visibility="visible";
  } else {
    obj.style.visibility="hidden";

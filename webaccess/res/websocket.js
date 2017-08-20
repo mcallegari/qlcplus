@@ -53,26 +53,26 @@ window.onload = function() {
       obj.style.border = "3px solid #A0A0A0";
     }
   }
-  else if (msgParams[1] == "SLIDER") {
+  else if (msgParams[1] === "SLIDER") {
     // Slider message is <ID>|SLIDER|<SLIDER VALUE>|<DISPLAY VALUE>
     obj.value = msgParams[2];
     var labelObj = document.getElementById("slv" + msgParams[0]);
     labelObj.innerHTML = msgParams[3];
   }
-  else if (msgParams[1] == "CUE") {
+  else if (msgParams[1] === "CUE") {
     setCueIndex(msgParams[0], msgParams[2]);
     var playBbj = document.getElementById("play" + msgParams[0]);
-    if (msgParams[2] == "-1") {
+    if (msgParams[2] === "-1") {
       playBbj.innerHTML = "<img src=\"player_play.png\" width=\"27\">";
     }
     else {
       playBbj.innerHTML = "<img src=\"player_pause.png\" width=\"27\">";
     }
   }
-  else if (msgParams[1] == "FRAME") {
+  else if (msgParams[1] === "FRAME") {
     setFramePage(msgParams[0], msgParams[2]);
   }
-  else if (msgParams[0] == "ALERT") {
+  else if (msgParams[0] === "ALERT") {
     alert(msgParams[1]);
   }
  };

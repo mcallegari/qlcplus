@@ -105,9 +105,9 @@ window.onload = function()
     //alert(ev.data);
     var msg=ev.data;
     var msgParams = ev.data.split('|');
-    if (msgParams[0] == "QLC+API") 
+    if (msgParams[0] === "QLC+API") 
     {
-      if (msgParams[1] == "getChannelsValues") 
+      if (msgParams[1] === "getChannelsValues") 
       {
         values=[];
         for (i = 2; i < msgParams.length; i+=3)
@@ -123,7 +123,7 @@ window.onload = function()
 
 function composeCommand(cmd) 
 {
-  if (isConnected == true)
+  if (isConnected === true)
   {
     document.getElementById('commInput').value = document.getElementById('commInput').value + cmd;
   }
@@ -136,7 +136,7 @@ function composeCommand(cmd)
 
 function reqChannelsRange(univ, chan, range)
 {
-  if (isConnected == true)
+  if (isConnected === true)
   {
     websocket.send("QLC+API|" + "getChannelsValues" + "|" + univ + "|" + chan + "|" + range);
   }
@@ -149,7 +149,7 @@ function reqChannelsRange(univ, chan, range)
 
 function resetUniverse()
 {
-  if (isConnected == true)
+  if (isConnected === true)
   {
     websocket.send("QLC+API|sdResetUniverse");
   }
@@ -162,7 +162,7 @@ function resetUniverse()
 function resetCh(chNum)
 {   
   document.getElementById('commInput').value = '';
-  if (isConnected == true)
+  if (isConnected === true)
   {
     websocket.send("QLC+API|sdResetChannel|" + chNum);
   }
@@ -175,7 +175,7 @@ function resetCh(chNum)
 function setChannel(c, v)
 { 
   // This function set a channel passed with param c at value passed with param v
-  if (isConnected == true)
+  if (isConnected === true)
   {
     websocket.send("CH|" + c + "|" + v);
   }
@@ -266,7 +266,7 @@ function chans_vals(c)
     for (var i = chans[0]; i <= chans[1]; i += chans[2])
       chanl.push(i);
     // Set a list of values for a single value, a range of values
-    if (vals[0] == vals[1])
+    if (vals[0] === vals[1])
     {
       for (i = 1; i <= chanl.length; i++)
       {
