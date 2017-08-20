@@ -37,14 +37,14 @@ function msToString(ms)
     ms -= (s * 1000);
 
     var finalTime = "";
-    if (h)
+    if (h) {
         finalTime += ((h < 10) ? "0" + h : h) + ":";
-
+    }
     finalTime += ((m < 10) ? "0" + m : m) + ":";
     finalTime += ((s < 10) ? "0" + s : s);
-    if (ms)
+    if (ms) {
         finalTime += "." + ((ms < 10) ? "0" + parseInt(ms) : parseInt(ms));
-
+    }
     return finalTime;
 }
 
@@ -71,15 +71,18 @@ function msToStringWithPrecision(ms, precision)
     finalTime += ((m < 10) ? "0" + m : m) + ":";
     finalTime += ((s < 10) ? "0" + s : s);
     if (precision === 1)
+    {
         finalTime += "." + ((ms < 10) ? "0" : parseInt(ms / 100));
+    }
     else
     {
-        if (ms < 10)
+        if (ms < 10) {
             finalTime += ".00";
-        else if (ms < 100)
+        } else if (ms < 100) {
             finalTime += ".0" + parseInt(ms / 10);
-        else
+        } else {
             finalTime += "." + parseInt(ms / 10);
+        }
     }
 
     return finalTime;
@@ -94,11 +97,11 @@ function msToStringWithPrecision(ms, precision)
   */
 function qlcStringToTime(str, type)
 {
-    if (str === "" || str === "0")
+    if (str === "" || str === "0") {
         return 0;
-    else if (str === "∞")
+    } else if (str === "∞") {
         return -2;
-
+    }
     var finalTime = 0;
 
     var currStr = "";
@@ -136,8 +139,9 @@ function qlcStringToTime(str, type)
                 currStr = "";
             }
         }
-        if (finalTime == 0)
+        if (finalTime == 0) {
             finalTime += parseInt(currStr);
+        }
     }
     else if (type === 1 /* Function.Beats */)
     {
@@ -147,20 +151,13 @@ function qlcStringToTime(str, type)
 
         if (tokens.length > 1)
         {
-            if (tokens[0] === " 1/8")
-                finalTime += 125;
-            else if (tokens[0] === " 1/4")
-                finalTime += 250;
-            else if (tokens[0] === " 3/8")
-                finalTime += 375;
-            else if (tokens[0] === " 1/2")
-                finalTime += 500;
-            else if (tokens[0] === " 5/8")
-                finalTime += 625;
-            else if (tokens[0] === " 3/4")
-                finalTime += 750;
-            else if (tokens[0] === " 7/8")
-                finalTime += 875;
+            if (tokens[0] === " 1/8") { finalTime += 125; }
+            else if (tokens[0] === " 1/4") { finalTime += 250; }
+            else if (tokens[0] === " 3/8") { finalTime += 375; }
+            else if (tokens[0] === " 1/2") { finalTime += 500; }
+            else if (tokens[0] === " 5/8") { finalTime += 625; }
+            else if (tokens[0] === " 3/4") { finalTime += 750; }
+            else if (tokens[0] === " 7/8") { finalTime += 875; }
         }
     }
 
@@ -169,11 +166,11 @@ function qlcStringToTime(str, type)
 
 function timeToQlcString(value, type)
 {
-    if (value === 0)
+    if (value === 0) {
         return "0";
-    else if (value === -2)
+    } else if (value === -2) {
         return "∞";
-
+    }
     var timeString = "";
 
     if (type === 0 /*Function.Time */)
@@ -189,47 +186,48 @@ function timeToQlcString(value, type)
 
         //console.log("h: " + h + ", m: " + m + ", s: " + s + ", value: " + value)
 
-        if (h)
+        if (h) 
+        {
             timeString += h + "h";
+        }
         if (m)
+        {
             timeString += ((m < 10 && h) ? "0" + m : m) + "m";
+        }
         if (s)
+        {
             timeString += ((s < 10 && m) ? "0" + s : s) + "s";
-
+        }
+        
         if (value)
         {
-            if (value < 10 && timeString.length)
+            if (value < 10 && timeString.length) {
                 timeString = timeString + "00" + value + "ms";
-            else if (value < 100 && timeString.length)
+            } else if (value < 100 && timeString.length) {
                 timeString = timeString + "0" + value + "ms";
-            else
+            } else {
                 timeString = timeString + value + "ms";
+            }
         }
     }
     else if (type === 1 /* Function.Beats */)
     {
-        if (value < 125)
+        if (value < 125) {
             return value;
+        }
 
         var beats = Math.floor(value / 1000);
         if (beats > 0)
             timeString = "" + beats;
         value -= (beats * 1000);
 
-        if (value === 125)
-            timeString += " 1/8";
-        else if (value === 250)
-            timeString += " 1/4";
-        else if (value === 375)
-            timeString += " 3/8";
-        else if (value === 500)
-            timeString += " 1/2";
-        else if (value === 625)
-            timeString += " 5/8";
-        else if (value === 750)
-            timeString += " 3/4";
-        else if (value === 875)
-            timeString += " 7/8";
+        if (value === 125) { timeString += " 1/8"; }
+        else if (value === 250) { timeString += " 1/4"; }
+        else if (value === 375) { timeString += " 3/8"; }
+        else if (value === 500) { timeString += " 1/2"; }
+        else if (value === 625) { timeString += " 5/8"; }
+        else if (value === 750) { timeString += " 3/4"; }
+        else if (value === 875) { timeString += " 7/8"; }
     }
 
     //console.log("Final time string: " + timeString)

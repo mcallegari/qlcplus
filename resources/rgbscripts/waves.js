@@ -134,16 +134,18 @@ function()
               stepPos = (span - 1 - pos);
               break;
             case 2: /* In    */
-              if (pos <= center)
+              if (pos <= center) {
                 stepPos =  pos
-              else
+              } else {
                 stepPos = (span - 1 - pos);
+              }
               break;
             case 3: /* Out   */
-              if (pos <= center)
+              if (pos <= center) {
                 stepPos = (center - pos);
-              else
-                stepPos = (pos - center - (isEven ? 1 : 0)); 
+              } else {
+                stepPos = (pos - center - (isEven ? 1 : 0));
+              }
               break;
           }
           // Decide whether or not to fill the pixel

@@ -73,8 +73,8 @@ var testAlgo;
     
     algo.getRandom = function()
     {
-      if (algo.presetRandom == 0) return "Yes";
-      else if (algo.presetRandom == 1) return "No";
+      if (algo.presetRandom == 0) { return "Yes"; }
+      else if (algo.presetRandom == 1) { return "No"; }
     }
  
     algo.setCollision = function(_colision)
@@ -85,8 +85,8 @@ var testAlgo;
     
     algo.getCollision = function()
     {
-      if (algo.presetCollision == 0) return "Yes";
-      else if (algo.presetCollision == 1) return "No";
+      if (algo.presetCollision == 0) { return "Yes"; }
+      else if (algo.presetCollision == 1) { return "No"; }
     }
 
     util.initialize = function(width, height)

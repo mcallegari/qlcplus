@@ -45,19 +45,21 @@ var testAlgo;
                     if (step < centerStep)
                     {
                         if ((x <= widthCenter + step + (isWidthEven ? 1 : 0 ) && x >= widthCenter - step) &&
-                                (y <= heightCenter + step + (isHeightEven ? 1 : 0) && y >= heightCenter - step))
+                            (y <= heightCenter + step + (isHeightEven ? 1 : 0) && y >= heightCenter - step)) {
                             map[y][x] = rgb;
-                        else
+                        } else {
                             map[y][x] = 0;
+                        }
                     }
                     else
                     {
                         var step2 = step - centerStep;
                         if ((x <= widthCenter + step2 + (isWidthEven ? 1 : 0 ) && x >= widthCenter - step2) &&
-                                (y <= heightCenter + step2 + (isHeightEven ? 1 : 0) && y >= heightCenter - step2))
+                            (y <= heightCenter + step2 + (isHeightEven ? 1 : 0) && y >= heightCenter - step2)) {
                             map[y][x] = 0;
-                        else
+                        } else {
                             map[y][x] = rgb;
+                        }
                     }
                 }
             }

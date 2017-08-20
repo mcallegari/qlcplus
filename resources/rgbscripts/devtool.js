@@ -22,10 +22,12 @@ function init()
     var w = document.getElementById("width");
     var h = document.getElementById("height");
 
-    if (!w.value)
+    if (!w.value) {
         w.value = 15;
-    if (!h.value)
+    }
+    if (!h.value) {
         h.value = 15;
+    }
 
     updateProperties();
     updateStepCount();
@@ -58,12 +60,15 @@ function updateProperties()
     var name = document.getElementById("name");
     var author = document.getElementById("author");
 
-    if (apiVersion)
+    if (apiVersion) {
         apiVersion.value = testAlgo.apiVersion;
-    if (name)
+    }
+    if (name) {
         name.value = testAlgo.name;
-    if (author)
-        author.value = testAlgo.author;    
+    }
+    if (author) {
+        author.value = testAlgo.author;
+    }
 }
 
 function nextStep()
@@ -77,10 +82,11 @@ function nextStep()
         var current = parseInt(currentStep.value);
 
         var next;
-        if ((current + 1) < steps)
+        if ((current + 1) < steps) {
             next = current + 1;
-        else
+        } else {
             next = 0;
+        }
 
         currentStep.value = next;
         writeCurrentStep();
@@ -102,11 +108,11 @@ function previousStep()
         var current = parseInt(currentStep.value);
 
         var next;
-        if (current > 0)
+        if (current > 0) {
             next = current - 1;
-        else
+        } else {
             next = steps - 1;
-
+        }
         currentStep.value = next;
         writeCurrentStep();
     }
@@ -144,9 +150,9 @@ function writeCurrentStep()
         var height = parseInt(h.value);
         var step = parseInt(currentStep.value);
 
-        for (var i = map.rows.length - 1; i >= 0; i--)
+        for (var i = map.rows.length - 1; i >= 0; i--) {
             map.deleteRow(i);
-
+        }
         var rgb = testAlgo.rgbMap(width, height, currentRgb, step);
 
         for (var y = 0; y < height; y++)

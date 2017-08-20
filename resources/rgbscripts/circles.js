@@ -70,9 +70,9 @@ var testAlgo;
 
     algo.getFade = function()
     {
-      if (algo.fadeMode == 1) return "Fade In";
-      else if (algo.fadeMode == 2) return "Fade Out";
-      else return "Don't Fade";
+      if (algo.fadeMode == 1) { return "Fade In"; }
+      else if (algo.fadeMode == 2) { return "Fade Out"; }
+      else { return "Don't Fade"; }
     };
 /*
     algo.setFill = function(_fill)

@@ -40,8 +40,8 @@ var testAlgo;
 
         algo.getFill = function()
         {
-            if (algo.fillSquares == 1) return "Yes";
-            else return "No";
+            if (algo.fillSquares == 1) { return "Yes"; }
+            else { return "No"; }
         };
 
         algo.rgbMap = function(width, height, rgb, step)

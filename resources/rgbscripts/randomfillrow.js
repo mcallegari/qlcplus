@@ -35,9 +35,9 @@ var testAlgo;
         util.createStepList = function(length)
         {
             var list = new Array(length);
-            for (var i = 0; i < length; i++)
+            for (var i = 0; i < length; i++) {
                 list[i] = i;
-
+            }
             return list;
         };
 
