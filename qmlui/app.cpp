@@ -565,7 +565,6 @@ bool App::loadXML(QXmlStreamReader &doc, bool goToConsole, bool fromMemory)
         }
     }
 
-
     if (goToConsole == true)
         // Force the active window to be Virtual Console
         m_contextManager->switchToContext("VirtualConsole");
@@ -579,7 +578,7 @@ bool App::loadXML(QXmlStreamReader &doc, bool goToConsole, bool fromMemory)
     if (m_doc->errorLog().isEmpty() == false &&
         fromMemory == false)
     {
-        // emit a signal to inform the QML UI to display an error message
+        // TODO: emit a signal to inform the QML UI to display an error message
         /*
         QMessageBox msg(QMessageBox::Warning, tr("Warning"),
                         tr("Some errors occurred while loading the project:") + "\n\n" + m_doc->errorLog(),
@@ -609,14 +608,16 @@ QFile::FileError App::saveXML(const QString& fileName)
 
     doc.writeStartElement(KXMLQLCWorkspace);
     doc.writeAttribute("xmlns", QString("%1%2").arg(KXMLQLCplusNamespace).arg(KXMLQLCWorkspace));
+
     /* Currently active context */
     doc.writeAttribute(KXMLQLCWorkspaceWindow, m_contextManager->currentContext());
 
+    /* Creator information */
     doc.writeStartElement(KXMLQLCCreator);
     doc.writeTextElement(KXMLQLCCreatorName, APPNAME);
     doc.writeTextElement(KXMLQLCCreatorVersion, APPVERSION);
     doc.writeTextElement(KXMLQLCCreatorAuthor, QLCFile::currentUserName());
-    doc.writeEndElement(); // close KXMLQLCCreator
+    doc.writeEndElement();
 
     /* Write engine components to the XML document */
     m_doc->saveXML(&doc);
