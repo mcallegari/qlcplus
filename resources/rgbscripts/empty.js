@@ -43,8 +43,9 @@ var testAlgo;
       for (var y = 0; y < height; y++)
       {
         map[y] = new Array();
-        for (var x = 0; x < width; x++)
+        for (var x = 0; x < width; x++) {
           map[y][x] = 0; // <-- elapsed color goes here
+        }
       }
 
       return map;

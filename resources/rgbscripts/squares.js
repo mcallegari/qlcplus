@@ -146,7 +146,7 @@ var testAlgo;
         if (squares[i].xCenter == -1)
         {
           var seed = Math.floor(Math.random()*100);
-          if (seed > 50) continue;
+          if (seed > 50) { continue; }
           squares[i].xCenter = Math.floor(Math.random() * width);
           squares[i].yCenter = Math.floor(Math.random() * height);
           map[squares[i].yCenter][squares[i].xCenter] = color;

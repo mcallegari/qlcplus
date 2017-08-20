@@ -119,9 +119,9 @@ var testAlgo;
 
         var stepCount = Math.floor(util.circlesMaxSize / 2);
         var fadeStep = step;
-        if (algo.fadeMode == 2)
+        if (algo.fadeMode == 2) {
           fadeStep = stepCount - step;
-
+        }
         var newR = (r / stepCount) * fadeStep;
         var newG = (g / stepCount) * fadeStep;
         var newB = (b / stepCount) * fadeStep;
@@ -148,8 +148,9 @@ var testAlgo;
       for (var y = 0; y < height; y++)
       {
         util.pixelMap[y] = new Array(width);
-        for (var x = 0; x < width; x++)
+        for (var x = 0; x < width; x++) {
           util.pixelMap[y][x] = 0;
+        }
       }
 
       for (var i = 0; i < algo.circlesAmount; i++)

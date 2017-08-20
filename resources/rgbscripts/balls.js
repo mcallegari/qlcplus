@@ -136,7 +136,7 @@ var testAlgo;
 
       for (var i = 0; i < algo.presetNumber; i++)  // for each ball displayed
       {
-        if (algo.presetRandom == 0) rgb = algo.colour[i];  // use RGB or ball random colour
+        if (algo.presetRandom == 0) { rgb = algo.colour[i]; } // use RGB or ball random colour
         var r = (rgb >> 16) & 0x00FF;  // split colour in to
         var g = (rgb >> 8) & 0x00FF;   // separate parts
         var b = rgb & 0x00FF;
@@ -162,13 +162,13 @@ var testAlgo;
               var offx = rx - yx[1];  // calculate the off set differance of map location
               var offy = ry - yx[0];  // to the float location of the ball, using the hypotenuse
               var hyp = 1 - (Math.sqrt( (offx * offx) + (offy * offy))/((algo.presetSize/2)+1));
-              if (hyp < 0) hyp = 0; // if the distance multiplyed by ball size is negative = 0
-              pointr += Math.round( ballr * hyp); // dim mapped ball colours by the distance from
-              pointg += Math.round( ballg * hyp); // the ball center ( hyp = 1, full colour / 0, off)
-              pointb += Math.round( ballb * hyp); // add the ball colour to the mapped location
-              if (pointr > 255) pointr = 255;  // if addind the colours over saturates
-              if (pointg > 255) pointg = 255;  // reduce it to the maximum
-              if (pointb > 255) pointb = 255;
+              if (hyp < 0) { hyp = 0; } // if the distance multiplyed by ball size is negative = 0
+              pointr += Math.round(ballr * hyp); // dim mapped ball colours by the distance from
+              pointg += Math.round(ballg * hyp); // the ball center ( hyp = 1, full colour / 0, off)
+              pointb += Math.round(ballb * hyp); // add the ball colour to the mapped location
+              if (pointr > 255) { pointr = 255; } // if addind the colours over saturates
+              if (pointg > 255) { pointg = 255; } // reduce it to the maximum
+              if (pointb > 255) { pointb = 255; }
 
               pointRGB = (pointr << 16) + (pointg << 8) + pointb; // combine colours
 
@@ -181,7 +181,7 @@ var testAlgo;
           // Ball collision detection
           for (var ti = 0; ti < algo.presetNumber; ti++) // check all balls
           {
-            if( ti != i)  // but not the current one
+            if (ti != i)  // but not the current one
             {
               var disy = (yx[0] + step[0]) - algo.ball[ti][0];  // calculate distance
               var disx = (yx[1] + step[1]) - algo.ball[ti][1];  // to current ball

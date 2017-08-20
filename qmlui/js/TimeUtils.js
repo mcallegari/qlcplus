@@ -166,9 +166,12 @@ function qlcStringToTime(str, type)
 
 function timeToQlcString(value, type)
 {
-    if (value === 0) {
+    if (value === 0) 
+    {
         return "0";
-    } else if (value === -2) {
+    } 
+    else if (value === -2) 
+    {
         return "∞";
     }
     var timeString = "";
@@ -201,24 +204,32 @@ function timeToQlcString(value, type)
         
         if (value)
         {
-            if (value < 10 && timeString.length) {
+            if (value < 10 && timeString.length) 
+            {
                 timeString = timeString + "00" + value + "ms";
-            } else if (value < 100 && timeString.length) {
+            } 
+            else if (value < 100 && timeString.length) 
+            {
                 timeString = timeString + "0" + value + "ms";
-            } else {
+            } 
+            else 
+            {
                 timeString = timeString + value + "ms";
             }
         }
     }
     else if (type === 1 /* Function.Beats */)
     {
-        if (value < 125) {
+        if (value < 125) 
+        {
             return value;
         }
 
         var beats = Math.floor(value / 1000);
-        if (beats > 0)
+        if (beats > 0) 
+        {
             timeString = "" + beats;
+        }
         value -= (beats * 1000);
 
         if (value === 125) { timeString += " 1/8"; }

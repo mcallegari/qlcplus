@@ -242,9 +242,9 @@ function()
     {
       var sColor = util.colorArray[i];
       var eColor = util.colorArray[i + 1];
-      if (eColor == undefined)
+      if (eColor == undefined) {
         eColor = util.colorArray[0];
-
+      }
       util.gradientData[gradIdx++] = sColor;
       var sr = (sColor >> 16) & 0x00FF;
       var sg = (sColor >> 8) & 0x00FF;

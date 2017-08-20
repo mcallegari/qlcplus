@@ -163,8 +163,9 @@ function writeCurrentStep()
             {
                 var cell = row.insertCell(x);
                 var rgbStr = rgb[y][x].toString(16);
-                while (rgbStr.length != 6)
-                rgbStr = "0" + rgbStr;
+                while (rgbStr.length != 6) {
+                    rgbStr = "0" + rgbStr;
+                }
                 cell.style.backgroundColor = rgbStr;
                 cell.style.height = 20;
                 cell.style.width = 20;

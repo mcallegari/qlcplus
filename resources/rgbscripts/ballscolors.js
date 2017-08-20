@@ -134,8 +134,8 @@ var testAlgo;
       else if (_colision === "No") { algo.presetCollision = 1; }
     };
     algo.getCollision = function () {
-      if (algo.presetCollision === 0) return "Yes";
-      else if (algo.presetCollision === 1) return "No";
+      if (algo.presetCollision === 0) { return "Yes"; }
+      else if (algo.presetCollision === 1) { return "No"; }
     };
 
     algo.setColor = function (_index, _preset) {
@@ -148,7 +148,7 @@ var testAlgo;
     };
     algo.getColor = function (_index) {
       var i = algo.colorIndex[_index];
-      if (i < 0) i = 0;
+      if (i < 0) { i = 0; }
       if (i >= colorPalette.collection.length) {
         i = (colorPalette.collection.length - 1);
       }
@@ -253,13 +253,13 @@ var testAlgo;
               var offy = ry - yx[0];  // to the float location of the ball, using the hypotenuse
               var hyp = 1 - (Math.sqrt((offx * offx) + (offy * offy)) / ((algo.presetSize / 2) + 1));
 
-              if (hyp < 0) hyp = 0; // if the distance multiplyed by ball size is negative = 0
+              if (hyp < 0) { hyp = 0; } // if the distance multiplyed by ball size is negative = 0
               pointr += Math.round(ballr * hyp); // dim mapped ball colours by the distance from
               pointg += Math.round(ballg * hyp); // the ball center ( hyp = 1, full colour / 0, off)
               pointb += Math.round(ballb * hyp); // add the ball colour to the mapped location
-              if (pointr > 255) pointr = 255;  // if addind the colours over saturates
-              if (pointg > 255) pointg = 255;  // reduce it to the maximum
-              if (pointb > 255) pointb = 255;
+              if (pointr > 255) { pointr = 255; } // if addind the colours over saturates
+              if (pointg > 255) { pointg = 255; } // reduce it to the maximum
+              if (pointb > 255) { pointb = 255; }
 
               pointRGB = (pointr << 16) + (pointg << 8) + pointb; // combine colours
 

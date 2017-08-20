@@ -40,8 +40,8 @@ var testAlgo;
 
     algo.getOrientation = function()
     {
-      if (algo.orientation == 1) return "Vertical";
-      else return "Horizontal";
+      if (algo.orientation == 1) { return "Vertical"; }
+      else { return "Horizontal"; }
     };
 
     algo.rgbMap = function(width, height, rgb, step)
