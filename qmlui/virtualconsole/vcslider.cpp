@@ -163,6 +163,8 @@ void VCSlider::setSliderMode(SliderMode mode, bool init)
 
     setRangeLowLimit(0);
     setRangeHighLimit(UCHAR_MAX);
+    setControlledAttribute(Function::Intensity);
+    m_controlledAttributeId = Function::invalidAttributeId();
 
     switch(mode)
     {
@@ -325,12 +327,14 @@ void VCSlider::setValue(int value, bool setDMX, bool updateFeedback)
             }
         break;
         case Submaster:
+            emit submasterValueChanged(SCALE(qreal(m_value), qreal(0),
+                    qreal(UCHAR_MAX), qreal(0), qreal(1.0)) * intensity());
         break;
         case GrandMaster:
             m_doc->inputOutputMap()->setGrandMasterValue(value);
         break;
         case Adjust:
-            m_adjustChangeCounter = 5;
+            m_adjustChangeCounter++;
         break;
     }
 
@@ -381,22 +385,6 @@ void VCSlider::setRangeHighLimit(qreal value)
 qreal VCSlider::rangeHighLimit() const
 {
     return m_rangeHighLimit;
-}
-
-void VCSlider::adjustIntensity(qreal val)
-{
-    VCWidget::adjustIntensity(val);
-
-    if (sliderMode() == Adjust)
-    {
-        Function* function = m_doc->function(m_controlledFunctionId);
-        if (function == NULL)
-            return;
-
-        qreal fraction = sliderValueToAttributeValue(m_value);
-
-        adjustFunctionAttribute(function, fraction * intensity());
-    }
 }
 
 /*********************************************************************
@@ -601,15 +589,29 @@ void VCSlider::setControlledFunction(quint32 fid)
     setDocModified();
 }
 
+void VCSlider::adjustIntensity(qreal val)
+{
+    VCWidget::adjustIntensity(val);
+
+    if (sliderMode() == Adjust)
+    {
+        Function* function = m_doc->function(m_controlledFunctionId);
+        if (function == NULL)
+            return;
+
+        qreal fraction = sliderValueToAttributeValue(m_value);
+        adjustFunctionAttribute(function, fraction * intensity());
+    }
+}
 
 void VCSlider::slotControlledFunctionAttributeChanged(int attrIndex, qreal fraction)
 {
-    if (attrIndex != m_controlledAttributeIndex) // || m_adjustChangeCounter)
+    if (attrIndex != m_controlledAttributeIndex || m_adjustChangeCounter)
         return;
 
-    qreal newValue = attributeValueToSliderValue(fraction);
+    qreal newValue = qRound(attributeValueToSliderValue(fraction / intensity()));
 
-    qDebug() << "Function attribute" << m_controlledAttributeIndex << "changed to" << newValue;
+    qDebug() << "Function attribute" << m_controlledAttributeIndex << "changed" << fraction << "->" << newValue;
 
     setValue(newValue, false, true);
 }

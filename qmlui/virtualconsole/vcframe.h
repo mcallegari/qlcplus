@@ -222,6 +222,12 @@ protected slots:
     virtual void slotFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensity = 1.0);
 
     /*********************************************************************
+     * Submasters
+     *********************************************************************/
+protected slots:
+    void slotSubmasterValueChanged(qreal value);
+
+    /*********************************************************************
      * External input
      *********************************************************************/
 public slots:

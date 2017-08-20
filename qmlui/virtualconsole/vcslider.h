@@ -206,9 +206,6 @@ public:
     void setRangeHighLimit(qreal value);
     qreal rangeHighLimit() const;
 
-    /** @reimp */
-    void adjustIntensity(qreal val);
-
 protected:
 
     qreal sliderValueToAttributeValue(int value);
@@ -318,6 +315,9 @@ public:
     qreal attributeMinValue() const;
     qreal attributeMaxValue() const;
 
+    /** @reimp */
+    void adjustIntensity(qreal val);
+
 private:
     FunctionParent functionParent() const;
 
@@ -339,6 +339,12 @@ protected:
     int m_controlledAttributeId;
     qreal m_attributeMinValue;
     qreal m_attributeMaxValue;
+
+    /*********************************************************************
+     * Submaster
+     *********************************************************************/
+signals:
+    void submasterValueChanged(qreal value);
 
     /*********************************************************************
      * Grand Master mode

@@ -352,6 +352,15 @@ void VCFrame::setupWidget(VCWidget *widget, int page)
     widget->setPage(page);
 
     addWidgetToPageMap(widget);
+
+    if (widget->type() == VCWidget::SliderWidget)
+    {
+        VCSlider *slider = qobject_cast<VCSlider *>(widget);
+
+        // always connect a slider in case it emits a submaster signal
+        connect(slider, SIGNAL(submasterValueChanged(qreal)),
+                this, SLOT(slotSubmasterValueChanged(qreal)));
+    }
 }
 
 void VCFrame::addWidgetToPageMap(VCWidget *widget)
@@ -577,6 +586,27 @@ void VCFrame::slotFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensi
     if (xmlTagName() == KXMLQLCVCFrame)
         qDebug() << "[VCFrame] ERROR ! This should never happen !";
 }
+
+/*********************************************************************
+ * Submasters
+ *********************************************************************/
+
+void VCFrame::slotSubmasterValueChanged(qreal value)
+{
+    qDebug() << Q_FUNC_INFO << "val:" << value;
+    VCSlider *submaster = (VCSlider *)sender();
+    QListIterator <VCWidget*> it(this->findChildren<VCWidget*>());
+    while (it.hasNext() == true)
+    {
+        VCWidget* child = it.next();
+        if (child->parent() == this && child != submaster)
+            child->adjustIntensity(value);
+    }
+}
+
+/*********************************************************************
+ * External input
+ *********************************************************************/
 
 void VCFrame::slotInputValueChanged(quint8 id, uchar value)
 {
