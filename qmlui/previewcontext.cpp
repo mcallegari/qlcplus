@@ -37,6 +37,17 @@ PreviewContext::PreviewContext(QQuickView *view, Doc *doc, QString name, QObject
     //connect(m_doc, &Doc::loaded, this, &PreviewContext::slotRefreshView);
 }
 
+PreviewContext::~PreviewContext()
+{
+    qDebug() << "Destroy context" << m_name;
+
+    if (detached())
+    {
+        m_view->close();
+        m_view->deleteLater();
+    }
+}
+
 QString PreviewContext::contextResource() const
 {
     return m_resource;

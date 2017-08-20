@@ -78,7 +78,10 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
 
 ContextManager::~ContextManager()
 {
-    m_uniGridView->deleteLater();
+    for (PreviewContext *context : m_contextsMap.values())
+        delete context;
+    //m_uniGridView->deleteLater();
+
 }
 
 void ContextManager::registerContext(PreviewContext *context)

@@ -76,6 +76,7 @@ App::App()
         m_workingPath = dir.toString();
 
     connect(this, &App::screenChanged, this, &App::slotScreenChanged);
+    connect(this, SIGNAL(closing(QQuickCloseEvent*)), this, SLOT(slotClosing()));
 }
 
 App::~App()
@@ -198,6 +199,11 @@ void App::slotScreenChanged(QScreen *screen)
     m_pixelDensity = screen->physicalDotsPerInch() *  0.039370;
     qDebug() << "Screen changed to" << screen->name() << ". New pixel density:" << m_pixelDensity;
     rootContext()->setContextProperty("screenPixelDensity", m_pixelDensity);
+}
+
+void App::slotClosing()
+{
+    delete m_contextManager;
 }
 
 void App::clearDocument()

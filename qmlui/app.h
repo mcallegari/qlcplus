@@ -115,6 +115,7 @@ protected:
 
 protected slots:
     void slotScreenChanged(QScreen *screen);
+    void slotClosing();
 
 private:
     /** The number of pixels in one millimiter */

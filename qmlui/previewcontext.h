@@ -48,6 +48,7 @@ class PreviewContext : public QObject
 
 public:
     explicit PreviewContext(QQuickView *view, Doc *doc, QString name, QObject *parent = 0);
+    ~PreviewContext();
 
     /** Get/Set the QML resource URL for this context */
     virtual QString contextResource() const;
