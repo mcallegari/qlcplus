@@ -52,20 +52,20 @@ var testAlgo;
     
     algo.setPreset = function(_preset)
     {
-      if (_preset == "Rainbow") { algo.presetIndex = 0; }
-      else if (_preset == "Fire") { algo.presetIndex = 1; }
-      else if (_preset == "Abstract") { algo.presetIndex = 2; }
-      else if (_preset == "Ocean") { algo.presetIndex = 3; }
+      if (_preset === "Rainbow") { algo.presetIndex = 0; }
+      else if (_preset === "Fire") { algo.presetIndex = 1; }
+      else if (_preset === "Abstract") { algo.presetIndex = 2; }
+      else if (_preset === "Ocean") { algo.presetIndex = 3; }
       else { algo.presetIndex = 0; }
       util.initialize();
     };
     
     algo.getPreset = function()
     {
-      if (algo.presetIndex == 0) { return "Rainbow"; }
-      else if (algo.presetIndex == 1) { return "Fire"; }
-      else if (algo.presetIndex == 2) { return "Abstract"; }
-      else if (algo.presetIndex == 3) { return "Ocean"; }
+      if (algo.presetIndex === 0) { return "Rainbow"; }
+      else if (algo.presetIndex === 1) { return "Fire"; }
+      else if (algo.presetIndex === 2) { return "Abstract"; }
+      else if (algo.presetIndex === 3) { return "Ocean"; }
       else { return "Rainbow"; }
     };
     
@@ -177,14 +177,14 @@ var testAlgo;
     {
         var h = hash & 15;                   // CONVERT LO 4 BITS OF HASH CODE
         var u = h<8 ? x : y,                 // INTO 12 GRADIENT DIRECTIONS.
-        v = h<4 ? y : h==12||h==14 ? x : z;
-        return ((h&1) == 0 ? u : -u) + ((h&2) == 0 ? v : -v);
+        v = h<4 ? y : h===12||h===14 ? x : z;
+        return ((h&1) === 0 ? u : -u) + ((h&2) === 0 ? v : -v);
     }
     function scale(n) { return (1 + n)/2; }
 
     algo.rgbMap = function(width, height, rgb, step)
     {
-      if (util.initialized == false)
+      if (util.initialized === false)
       {
         util.initialize();
       }
@@ -215,7 +215,7 @@ var testAlgo;
 
     algo.rgbMapStepCount = function(width, height)
     {
-      if (util.initialized == false) {
+      if (util.initialized === false) {
         util.initialize();
       }
       return width * height;  // This make no diferance to the script ;-)

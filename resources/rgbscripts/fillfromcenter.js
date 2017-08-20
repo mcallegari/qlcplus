@@ -34,13 +34,13 @@ var testAlgo;
 
     algo.setOrientation = function(_orientation)
     {
-      if (_orientation == "Vertical") { algo.orientation = 1; }
+      if (_orientation === "Vertical") { algo.orientation = 1; }
       else { algo.orientation = 0; }
     }
 
     algo.getOrientation = function()
     {
-      if (algo.orientation == 1) { return "Vertical"; }
+      if (algo.orientation === 1) { return "Vertical"; }
       else { return "Horizontal"; }
     };
 
@@ -48,10 +48,10 @@ var testAlgo;
     {
         var center = algo.rgbMapStepCount(width, height) - 1;
         var isEven = 0;
-        if (algo.orientation == 0) {
-            isEven = (width % 2 == 0);
+        if (algo.orientation === 0) {
+            isEven = (width % 2 === 0);
         } else {
-            isEven = (height % 2 == 0);
+            isEven = (height % 2 === 0);
         }
 
         var map = new Array(height);
@@ -61,7 +61,7 @@ var testAlgo;
             for (var x = 0; x < width; x++)
             {
                 var fill = 0;
-                if (algo.orientation == 0)
+                if (algo.orientation === 0)
                 {
                     if (x <= center + step + (isEven ? 1 : 0 ) && x >= center - step) {
                         fill = 1;
@@ -74,7 +74,7 @@ var testAlgo;
                     }
                 }
 
-                if(fill == 1) {
+                if(fill === 1) {
                     map[y][x] = rgb;
                 } else {
                     map[y][x] = 0;
@@ -87,7 +87,7 @@ var testAlgo;
 
     algo.rgbMapStepCount = function(width, height)
     {
-      if (algo.orientation == 0) {
+      if (algo.orientation === 0) {
         return Math.floor((parseInt(width) + 1) / 2);
       } else {
         return Math.floor((parseInt(height) + 1) / 2);

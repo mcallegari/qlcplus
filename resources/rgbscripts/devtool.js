@@ -136,7 +136,7 @@ function writeCurrentStep()
     if (bicolor.checked)
     {
         var stepCountMinusOne = parseInt(stepCount.value) - 1;
-        stepCountMinusOne = stepCountMinusOne == 0 ? 1 : stepCountMinusOne;
+        stepCountMinusOne = stepCountMinusOne === 0 ? 1 : stepCountMinusOne;
         var currentR = ((stepCountMinusOne - parseInt(currentStep.value)) / stepCountMinusOne) * 255;
         var currentG = 0;
         var currentB = (parseInt(currentStep.value) / stepCountMinusOne) * 255;
@@ -163,7 +163,7 @@ function writeCurrentStep()
             {
                 var cell = row.insertCell(x);
                 var rgbStr = rgb[y][x].toString(16);
-                while (rgbStr.length != 6) {
+                while (rgbStr.length !== 6) {
                     rgbStr = "0" + rgbStr;
                 }
                 cell.style.backgroundColor = rgbStr;

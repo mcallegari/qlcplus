@@ -32,8 +32,8 @@ var testAlgo;
         {
             var widthCenter = Math.floor((parseInt(width) + 1) / 2) - 1;
             var heightCenter = Math.floor((parseInt(height) + 1) / 2) - 1;
-            var isWidthEven = (width % 2 == 0);
-            var isHeightEven = (height % 2 == 0);
+            var isWidthEven = (width % 2 === 0);
+            var isHeightEven = (height % 2 === 0);
             var centerStep = (widthCenter > heightCenter ? widthCenter : heightCenter) + 1;
 
             var map = new Array(height);

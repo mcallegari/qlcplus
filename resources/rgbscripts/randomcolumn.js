@@ -46,7 +46,7 @@ var testAlgo;
             var map = new Array(length);
             for (var i = 0; i < length; i++)
             {
-                if (si == i) {
+                if (si === i) {
                     map[i] = 1;
                 } else {
                     map[i] = 0;
@@ -64,7 +64,7 @@ var testAlgo;
                 map[y] = new Array(width);
                 for (var x = 0; x < width; x++)
                 {
-                    if (step[x] != 0) {
+                    if (step[x] !== 0) {
                         map[y][x] = rgb;
                     } else {
                         map[y][x] = 0;
@@ -77,7 +77,7 @@ var testAlgo;
 
         algo.rgbMap = function(width, height, rgb, step)
         {
-            if (algo.width != width || algo.height != height || parseInt(step) == 0)
+            if (algo.width !== width || algo.height !== height || parseInt(step) === 0)
             {
                 var stepList = util.createStepList(width);
 

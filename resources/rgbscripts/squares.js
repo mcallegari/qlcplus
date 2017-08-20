@@ -62,27 +62,27 @@ var testAlgo;
     
     algo.setFade = function(_fade)
     {
-      if (_fade == "Fade In") { algo.fadeMode = 1; }
-      else if (_fade == "Fade Out") { algo.fadeMode = 2; }
+      if (_fade === "Fade In") { algo.fadeMode = 1; }
+      else if (_fade === "Fade Out") { algo.fadeMode = 2; }
       else { algo.fadeMode = 0; }
     };
 
     algo.getFade = function()
     {
-      if (algo.fadeMode == 1) { return "Fade In"; }
-      else if (algo.fadeMode == 2) { return "Fade Out"; }
+      if (algo.fadeMode === 1) { return "Fade In"; }
+      else if (algo.fadeMode === 2) { return "Fade Out"; }
       else { return "Don't Fade"; }
     };
     
     algo.setFill = function(_fill)
     {
-      if (_fill == "Yes") { algo.fillSquares = 1; }
+      if (_fill === "Yes") { algo.fillSquares = 1; }
       else { algo.fillSquares = 0; }
     };
 
     algo.getFill = function()
     {
-      if (algo.fillSquares == 1) { return "Yes"; }
+      if (algo.fillSquares === 1) { return "Yes"; }
       else { return "No"; }
     };
 
@@ -102,7 +102,7 @@ var testAlgo;
     
     util.getColor = function(step, rgb)
     {
-      if (algo.fadeMode == 0)
+      if (algo.fadeMode === 0)
       {
         return rgb;
       }
@@ -114,7 +114,7 @@ var testAlgo;
         
         var stepCount = Math.floor(util.squaresMaxSize / 2);
         var fadeStep = step;
-        if (algo.fadeMode == 2) {
+        if (algo.fadeMode === 2) {
           fadeStep = stepCount - step;
         }
         var newR = (r / stepCount) * fadeStep;
@@ -143,7 +143,7 @@ var testAlgo;
       {
         var color = util.getColor(squares[i].step, rgb);
         //alert("Square " + i + " xCenter: " + squares[i].xCenter + " color: " + color.toString(16));
-        if (squares[i].xCenter == -1)
+        if (squares[i].xCenter === -1)
         {
           var seed = Math.floor(Math.random()*100);
           if (seed > 50) { continue; }
@@ -164,13 +164,13 @@ var testAlgo;
             for (var sx = firstX; sx <= firstX + side; sx++)
             {
               if (sx < 0 || sx >= width) { continue; }
-              if (sy == firstY || sy == firstY + side || algo.fillSquares == 1)
+              if (sy === firstY || sy === firstY + side || algo.fillSquares === 1)
               {
                 map[sy][sx] = color;
               }
               else
               {
-                if (sx == firstX || sx == firstX + side) {
+                if (sx === firstX || sx === firstX + side) {
                   map[sy][sx] = color;
                 }
               }
@@ -192,7 +192,7 @@ var testAlgo;
 
     algo.rgbMap = function(width, height, rgb, step)
     {
-      if (util.initialized == false)
+      if (util.initialized === false)
       {
         if (height < width) {
           util.initialize(height);

@@ -130,7 +130,7 @@ function()
   algo.setColor = function(_index, _preset)
   {
     var i = colorPalette.names.indexOf(_preset);
-    if (i == -1) {
+    if (i === -1) {
       i = (colorPalette.collection.length - 1);
     }
     algo.colorIndex[_index] = i;
@@ -274,8 +274,8 @@ function()
   function grad(hash, x, y, z) {
     var h = hash & 15;                   // CONVERT LO 4 BITS OF HASH CODE
     var u = h<8 ? x : y,                 // INTO 12 GRADIENT DIRECTIONS.
-      v = h<4 ? y : h==12||h==14 ? x : z;
-    return ((h&1) == 0 ? u : -u) + ((h&2) == 0 ? v : -v);
+      v = h<4 ? y : h===12||h===14 ? x : z;
+    return ((h&1) === 0 ? u : -u) + ((h&2) === 0 ? v : -v);
   } 
   function scale(n) { return (1 + n)/2; }
 
@@ -314,7 +314,7 @@ function()
 
   algo.rgbMap = function(width, height, rgb, step)
   {
-    if (util.initialized == false) {
+    if (util.initialized === false) {
       util.initialize();
     }
     var size = algo.presetSize/2;  // set a scaling value
@@ -343,7 +343,7 @@ function()
 
   algo.rgbMapStepCount = function(width, height)
   {
-    if (util.initialized == false) {
+    if (util.initialized === false) {
       util.initialize();
     }
     return width * height;  // This make no difference to the script ;-)

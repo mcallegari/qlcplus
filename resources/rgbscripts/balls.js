@@ -67,26 +67,26 @@ var testAlgo;
 
     algo.setRandom = function(_random)
     {
-      if (_random == "Yes") { algo.presetRandom = 0; }
-      else if (_random == "No") { algo.presetRandom = 1; }
+      if (_random === "Yes") { algo.presetRandom = 0; }
+      else if (_random === "No") { algo.presetRandom = 1; }
     }
     
     algo.getRandom = function()
     {
-      if (algo.presetRandom == 0) { return "Yes"; }
-      else if (algo.presetRandom == 1) { return "No"; }
+      if (algo.presetRandom === 0) { return "Yes"; }
+      else if (algo.presetRandom === 1) { return "No"; }
     }
  
     algo.setCollision = function(_colision)
     {
-      if (_colision == "Yes") { algo.presetCollision = 0; }
-      else if (_colision == "No") { algo.presetCollision = 1; }
+      if (_colision === "Yes") { algo.presetCollision = 0; }
+      else if (_colision === "No") { algo.presetCollision = 1; }
     }
     
     algo.getCollision = function()
     {
-      if (algo.presetCollision == 0) { return "Yes"; }
-      else if (algo.presetCollision == 1) { return "No"; }
+      if (algo.presetCollision === 0) { return "Yes"; }
+      else if (algo.presetCollision === 1) { return "No"; }
     }
 
     util.initialize = function(width, height)
@@ -97,17 +97,17 @@ var testAlgo;
 
       for (var i = 0; i < algo.presetNumber; i++)
       {
-        var x = Math.random()*(width-1); // set random start
-        var y = Math.random()*(height-1); // locations for balls
-              algo.ball[i] = [y, x];
-        var yDirection = (Math.random()*2)-1; // and random directions
-        var xDirection = (Math.random()*2)-1;
+        var x = Math.random() * (width - 1); // set random start
+        var y = Math.random() * (height - 1); // locations for balls
+        algo.ball[i] = [y, x];
+        var yDirection = (Math.random() * 2) - 1; // and random directions
+        var xDirection = (Math.random() * 2) - 1;
         algo.direction[i] = [yDirection, xDirection];
         do 
         {
-          var ballR = Math.round(Math.random()*255);  // Chose random
-          var ballG = Math.round(Math.random()*255);  // colour for
-          var ballB = Math.round(Math.random()*255);  // each Ball
+          var ballR = Math.round(Math.random() * 255);  // Chose random
+          var ballG = Math.round(Math.random() * 255);  // colour for
+          var ballB = Math.round(Math.random() * 255);  // each Ball
         } while ((ballR + ballG + ballB) < 356);  // if it it to dim try again
         algo.colour[i] = (ballR << 16) + (ballG << 8) + ballB;
       }
@@ -118,7 +118,7 @@ var testAlgo;
 
     algo.rgbMap = function(width, height, rgb, progstep)
     {
-      if (algo.initialized == false)
+      if (algo.initialized === false)
       {
         util.initialize(width, height);
       }
@@ -136,7 +136,7 @@ var testAlgo;
 
       for (var i = 0; i < algo.presetNumber; i++)  // for each ball displayed
       {
-        if (algo.presetRandom == 0) { rgb = algo.colour[i]; } // use RGB or ball random colour
+        if (algo.presetRandom === 0) { rgb = algo.colour[i]; } // use RGB or ball random colour
         var r = (rgb >> 16) & 0x00FF;  // split colour in to
         var g = (rgb >> 8) & 0x00FF;   // separate parts
         var b = rgb & 0x00FF;
@@ -176,12 +176,12 @@ var testAlgo;
             }
           }
         }
-        if (algo.presetCollision == 0)  // if colision detection is on
+        if (algo.presetCollision === 0)  // if colision detection is on
         {
           // Ball collision detection
           for (var ti = 0; ti < algo.presetNumber; ti++) // check all balls
           {
-            if (ti != i)  // but not the current one
+            if (ti !== i)  // but not the current one
             {
               var disy = (yx[0] + step[0]) - algo.ball[ti][0];  // calculate distance
               var disx = (yx[1] + step[1]) - algo.ball[ti][1];  // to current ball

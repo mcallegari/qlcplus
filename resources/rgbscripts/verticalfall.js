@@ -79,7 +79,7 @@ var testAlgo;
         {
             for (var x = 0; x < width; x++)
             {
-                if (objYPos[x] == -1)
+                if (objYPos[x] === -1)
                 {
                     // this decides the amount of falling objects
                     var seed = Math.floor(Math.random()*100)
@@ -99,11 +99,11 @@ var testAlgo;
                             objmap[yPos][x] = fallObject[i];
                         }
                         yPos--;
-                        if (yPos == -1) { break; }
+                        if (yPos === -1) { break; }
                     }
                     objYPos[x]++;
                 }
-                if (objYPos[x] == height * 2) 
+                if (objYPos[x] === height * 2) 
                 {
                     objYPos[x] = -1;
                 }
@@ -113,7 +113,7 @@ var testAlgo;
 
         algo.rgbMap = function(width, height, rgb, step)
         {
-            if (util.initialized == false || util.color != rgb) {
+            if (util.initialized === false || util.color !== rgb) {
                 util.initialize(rgb, width, height);
             }
 
