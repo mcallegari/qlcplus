@@ -594,7 +594,7 @@ void VCFrame::slotFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensi
 void VCFrame::slotSubmasterValueChanged(qreal value)
 {
     qDebug() << Q_FUNC_INFO << "val:" << value;
-    VCSlider *submaster = (VCSlider *)sender();
+    VCSlider *submaster = qobject_cast<VCSlider *>(sender());
     QListIterator <VCWidget*> it(this->findChildren<VCWidget*>());
     while (it.hasNext() == true)
     {
