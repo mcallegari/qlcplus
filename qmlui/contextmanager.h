@@ -128,6 +128,8 @@ public:
 
     Q_INVOKABLE void toggleFixturesSelection();
 
+    Q_INVOKABLE void updateFixturesCapabilities();
+
     Q_INVOKABLE void setRectangleSelection(qreal x, qreal y, qreal width, qreal height);
 
     bool hasSelectedFixtures();

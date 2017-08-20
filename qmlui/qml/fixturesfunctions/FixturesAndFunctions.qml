@@ -37,6 +37,8 @@ Rectangle
     property string currentView: "2D"
     //property bool docLoaded: qlcplus.docLoaded
 
+    Component.onCompleted: contextManager.updateFixturesCapabilities()
+
     function enableContext(ctx, setChecked)
     {
         var item = null

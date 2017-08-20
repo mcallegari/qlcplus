@@ -359,6 +359,12 @@ void ContextManager::toggleFixturesSelection()
     }
 }
 
+void ContextManager::updateFixturesCapabilities()
+{
+    for (quint32 id : m_selectedFixtures)
+        m_fixtureManager->getFixtureCapabilities(id, true);
+}
+
 void ContextManager::setRectangleSelection(qreal x, qreal y, qreal width, qreal height)
 {
     QList<quint32> fxIDList;
