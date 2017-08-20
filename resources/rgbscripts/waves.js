@@ -50,42 +50,42 @@ function()
 
     algo.setFade = function(_fade)
     {
-      if (_fade == "Yes") algo.tailfade = 1;
-      else if (_fade == "No") algo.tailfade = 0;
+      if (_fade == "Yes") { algo.tailfade = 1; }
+      else if (_fade == "No") { algo.tailfade = 0; }
     };
 
     algo.getFade = function()
     {
-      if (algo.tailfade == 0) return "No";
-      else if (algo.tailfade == 1) return "Yes";
+      if (algo.tailfade == 0) { return "No"; }
+      else if (algo.tailfade == 1) { return "Yes"; }
     };
 
     algo.setDirection = function(_direction)
     {
-      if (_direction == "Right") algo.direction = 0;
-      else if (_direction == "Left") algo.direction = 1;
-      else if (_direction == "In") algo.direction = 2;
-      else if (_direction == "Out") algo.direction = 3;
+      if (_direction == "Right") { algo.direction = 0; }
+      else if (_direction == "Left") { algo.direction = 1; }
+      else if (_direction == "In") { algo.direction = 2; }
+      else if (_direction == "Out") { algo.direction = 3; }
     };
 
     algo.getDirection = function()
     {
-      if (algo.direction == 0) return "Right";
-      else if (algo.direction == 1) return "Left";
-      else if (algo.direction == 2) return "In";
-      else if (algo.direction == 3) return "Out";
+      if (algo.direction == 0) { return "Right"; }
+      else if (algo.direction == 1) { return "Left"; }
+      else if (algo.direction == 2) { return "In"; }
+      else if (algo.direction == 3) { return "Out"; }
     };
 
     algo.setOrientation = function(_orientation)
     {
-      if (_orientation == "Vertical") algo.orientation = 1;
-      else if (_orientation == "Horizontal") algo.orientation = 0;
+      if (_orientation == "Vertical") { algo.orientation = 1; }
+      else if (_orientation == "Horizontal") { algo.orientation = 0; }
     };
 
     algo.getOrientation = function()
     {
-      if (algo.orientation == 1) return "Vertical";
-      else if (algo.orientation == 0) return "Horizontal";
+      if (algo.orientation == 1) { return "Vertical"; }
+      else if (algo.orientation == 0) { return "Horizontal"; }
     };
 
     var util = new Object;
@@ -108,12 +108,12 @@ function()
 
     algo.rgbMap = function(width, height, rgb, step)
     {
-      if (util.initialized == false) util.initialize();
+      if (util.initialized == false) { util.initialize(); }
       var span = ((algo.orientation == 0) ? width : height)
       var center = Math.floor((span + 1) / 2) - 1;
       var isEven = (span % 2 == 0);
       var tailSteps = Math.round(span * algo.taillength/100);
-      if (tailSteps == 0) tailSteps = 1;
+      if (tailSteps == 0) { tailSteps = 1; }
       
       var map = new Array(height);
       for (var y = 0; y < height; y++)
@@ -191,10 +191,11 @@ function()
       var tailSteps = Math.round(span * algo.taillength/100);
       if (tailSteps == 0) tailSteps = 1;
       var mult = (1 + (algo.taillength/100));
-      if ((algo.direction == 0) || (algo.direction == 1))
+      if ((algo.direction == 0) || (algo.direction == 1)) {
         return (span + tailSteps - (isEven ? 0 : 1));
-      else if ((algo.direction == 2) || (algo.direction == 3))
+      } else if ((algo.direction == 2) || (algo.direction == 3)) {
         return Math.round(Math.floor((span + 1) / 2) + tailSteps - 1);
+      }
     };
 
     // Development tool access

@@ -68,10 +68,11 @@ var testAlgo;
                 map[y] = new Array(width);
                 for (var x = 0; x < width; x++)
                 {
-                    if (sy == y && sx == x)
+                    if (sy == y && sx == x) {
                         map[y][x] = 1;
-                    else
+                    } else {
                         map[y][x] = 0;
+                    }
                 }
             }
 
@@ -89,10 +90,11 @@ var testAlgo;
                 map[y] = new Array(width);
                 for (var x = 0; x < width; x++)
                 {
-                    if (step[y][x] != 0)
+                    if (step[y][x] != 0) {
                         map[y][x] = rgb;
-                    else
+                    } else {
                         map[y][x] = 0;
+                    }
                 }
             }
 

@@ -63,22 +63,16 @@ var testAlgo;
     
     algo.setFade = function(_fade)
     {
-      if (_fade == "Fade In")
-        algo.fadeMode = 1;
-      else if (_fade == "Fade Out")
-        algo.fadeMode = 2;
-      else
-        algo.fadeMode = 0;
+      if (_fade == "Fade In") { algo.fadeMode = 1; }
+      else if (_fade == "Fade Out") { algo.fadeMode = 2; }
+      else { algo.fadeMode = 0; }
     };
 
     algo.getFade = function()
     {
-      if (algo.fadeMode == 1)
-        return "Fade In";
-      else if (algo.fadeMode == 2)
-         return "Fade Out";
-      else
-        return "Don't Fade";
+      if (algo.fadeMode == 1) return "Fade In";
+      else if (algo.fadeMode == 2) return "Fade Out";
+      else return "Don't Fade";
     };
 /*
     algo.setFill = function(_fill)
@@ -99,12 +93,12 @@ var testAlgo;
 */
     util.initialize = function(size)
     {
-      if (size > 0)
+      if (size > 0) {
         util.circlesMaxSize = size;
+      }
 
       circles = new Array();
-      for (var i = 0; i < algo.circlesAmount; i++)
-      {
+      for (var i = 0; i < algo.circlesAmount; i++) {
         circles[i] = new Circle(-1, -1, 0);
       }
 
@@ -113,8 +107,10 @@ var testAlgo;
     
     util.getColor = function(step, rgb)
     {
-      if (algo.fadeMode == 0)
+      if (algo.fadeMode == 0) 
+      {
         return rgb;
+      } 
       else
       {
         var r = (rgb >> 16) & 0x00FF;
@@ -140,8 +136,9 @@ var testAlgo;
       //cy = cy.toFixed(0);
       cx = Math.round(cx);
       cy = Math.round(cy);
-      if (cx >= 0 && cx < width && cy >= 0 && cy < height)
+      if (cx >= 0 && cx < width && cy >= 0 && cy < height) {
         util.pixelMap[cy][cx] = color;
+      }
     };
 
     util.getNextStep = function(width, height, rgb)
@@ -162,7 +159,7 @@ var testAlgo;
         if (circles[i].xCenter == -1)
         {
           var seed = Math.floor(Math.random()*100)
-                if (seed > 50) continue;
+          if (seed > 50) { continue; }
           circles[i].xCenter = Math.floor(Math.random() * width);
           circles[i].yCenter = Math.floor(Math.random() * height);
           util.pixelMap[circles[i].yCenter][circles[i].xCenter] = color;
@@ -223,10 +220,11 @@ var testAlgo;
     {
       if (util.initialized == false)
       {
-        if (height < width)
+        if (height < width) {
           util.initialize(height);
-        else
+        } else {
           util.initialize(width);
+        }
       }
 
       return util.getNextStep(width, height, rgb);

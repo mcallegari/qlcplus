@@ -47,8 +47,9 @@ var testAlgo;
             var bStep = (b / height);
             
             objYPos = new Array(width);
-            for (var i = 0; i < width; i++)
+            for (var i = 0; i < width; i++) {
                 objYPos[i] = -1;
+            }
 
             fallObject = new Array(height);
             fallObject[0] = rgb;
@@ -65,8 +66,9 @@ var testAlgo;
             for (var y = 0; y < height; y++)
             {
                 objmap[y] = new Array(width);
-                for (var x = 0; x < width; x++)
+                for (var x = 0; x < width; x++) {
                     objmap[y][x] = 0;
+                }
             }
 
             util.color = rgb;
@@ -81,8 +83,10 @@ var testAlgo;
                 {
                     // this decides the amount of falling objects
                     var seed = Math.floor(Math.random()*100)
-                    if (seed > 80)
+                    if (seed > 80) 
+                    { 
                         objYPos[x] = 0;
+                    }
                 }
                 
                 if (objYPos[x] >= 0)
@@ -90,24 +94,28 @@ var testAlgo;
                     var yPos = objYPos[x];
                     for (var i = 0; i < height; i++)
                     {
-                        if (yPos < height)
+                        if (yPos < height) 
+                        {
                             objmap[yPos][x] = fallObject[i];
+                        }
                         yPos--;
-                        if (yPos == -1)
-                            break;
+                        if (yPos == -1) { break; }
                     }
                     objYPos[x]++;
                 }
-                if (objYPos[x] == height * 2)
+                if (objYPos[x] == height * 2) 
+                {
                     objYPos[x] = -1;
+                }
             }
             return objmap;
         };
 
         algo.rgbMap = function(width, height, rgb, step)
         {
-            if (util.initialized == false || util.color != rgb)
+            if (util.initialized == false || util.color != rgb) {
                 util.initialize(rgb, width, height);
+            }
 
             return util.getNextStep(width, height);
         };

@@ -24,8 +24,8 @@ var testAlgo;
     function () {
         var algo = {};
         algo.apiVersion = 2;
-        algo.name = 'Random Pixel Per Row';
-        algo.author = 'Doug Puckett';
+        algo.name = "Random Pixel Per Row";
+        algo.author = "Doug Puckett";
         algo.properties = [];
         algo.acceptColors = 1;
 
@@ -43,10 +43,11 @@ var testAlgo;
                 map[y] = [];
                 var index = Math.floor(Math.random() * (width));
                 for (var x = 0; x < width; x++) {
-                    if (x == index)
+                    if (x === index) {
                         map[y][x] = rgb;
-                    else
+                    } else {
                         map[y][x] = 0;
+                    }
                 }
             }
 

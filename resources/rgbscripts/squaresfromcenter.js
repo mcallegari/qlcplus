@@ -34,18 +34,14 @@ var testAlgo;
         
         algo.setFill = function(_fill)
         {
-            if (_fill == "Yes")
-                algo.fillSquares = 1;
-            else
-                algo.fillSquares = 0;
+            if (_fill == "Yes") { algo.fillSquares = 1; }
+            else { algo.fillSquares = 0; }
         };
 
         algo.getFill = function()
         {
-            if (algo.fillSquares == 1)
-                return "Yes";
-            else
-                return "No";
+            if (algo.fillSquares == 1) return "Yes";
+            else return "No";
         };
 
         algo.rgbMap = function(width, height, rgb, step)
@@ -64,21 +60,23 @@ var testAlgo;
                     if (algo.fillSquares == 1)
                     {
                         if ((x <= widthCenter + step + (isWidthEven ? 1 : 0 ) && x >= widthCenter - step) &&
-                            (y <= heightCenter + step + (isHeightEven ? 1 : 0) && y >= heightCenter - step))
-                        map[y][x] = rgb;
-                    else
-                        map[y][x] = 0;
+                            (y <= heightCenter + step + (isHeightEven ? 1 : 0) && y >= heightCenter - step)) {
+                                map[y][x] = rgb;
+                        } else {
+                            map[y][x] = 0;
+                        }
                     }
                     else
                     {
                         if ((x == widthCenter + step + (isWidthEven ? 1 : 0 ) || x == widthCenter - step) &&
-                                (y <= heightCenter + step + (isHeightEven ? 1 : 0) && y >= heightCenter - step))
+                            (y <= heightCenter + step + (isHeightEven ? 1 : 0) && y >= heightCenter - step)) {
                             map[y][x] = rgb;
-                        else if ((y == heightCenter + step + (isHeightEven ? 1 : 0 ) || y == heightCenter - step) &&
-                                (x <= widthCenter + step + (isWidthEven ? 1 : 0) && x >= widthCenter - step))
+                        } else if ((y == heightCenter + step + (isHeightEven ? 1 : 0 ) || y == heightCenter - step) &&
+                                   (x <= widthCenter + step + (isWidthEven ? 1 : 0) && x >= widthCenter - step)) {
                             map[y][x] = rgb;
-                        else
+                        } else {
                             map[y][x] = 0;
+                        }
                     }
                 }
             }

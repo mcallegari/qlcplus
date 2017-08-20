@@ -24,8 +24,8 @@ var testAlgo;
     function () {
         var algo = {};
         algo.apiVersion = 2;
-        algo.name = 'Random Pixel Per Row Multicolor';
-        algo.author = 'Doug Puckett';
+        algo.name = "Random Pixel Per Row Multicolor";
+        algo.author = "Doug Puckett";
         algo.properties = [];
         algo.acceptColors = 0;
 
@@ -50,10 +50,11 @@ var testAlgo;
                 var gradRGB = (gradR << 16) + (gradG << 8) + gradB;
 
                 for (var x = 0; x < width; x++) {
-                    if (x == index)
+                    if (x === index) {
                         map[y][x] = gradRGB;  //if this is the random pixel from above, set it to the user's chosen color
-                    else
+                    } else {
                         map[y][x] = 0;    //otherwise, turn it off
+                    }
                 }
             }
 

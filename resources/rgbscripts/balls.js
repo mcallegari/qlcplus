@@ -67,8 +67,8 @@ var testAlgo;
 
     algo.setRandom = function(_random)
     {
-      if (_random == "Yes") algo.presetRandom = 0;
-      else if (_random == "No") algo.presetRandom = 1;
+      if (_random == "Yes") { algo.presetRandom = 0; }
+      else if (_random == "No") { algo.presetRandom = 1; }
     }
     
     algo.getRandom = function()
@@ -79,8 +79,8 @@ var testAlgo;
  
     algo.setCollision = function(_colision)
     {
-      if (_colision == "Yes") algo.presetCollision = 0;
-      else if (_colision == "No") algo.presetCollision = 1;
+      if (_colision == "Yes") { algo.presetCollision = 0; }
+      else if (_colision == "No") { algo.presetCollision = 1; }
     }
     
     algo.getCollision = function()
@@ -200,11 +200,11 @@ var testAlgo;
         }
 
         // edge collision detection
-        if (yx[0] <= 0 && step[0] < 0) step[0] *= -1; // top edge and moving up
-        else if (yx[0] >= height-1 && step[0] > 0) step[0] *= -1; // bottom edge and moving down
+        if (yx[0] <= 0 && step[0] < 0) { step[0] *= -1; } // top edge and moving up
+        else if (yx[0] >= height-1 && step[0] > 0) { step[0] *= -1; } // bottom edge and moving down
             
-        if (yx[1] <= 0 && step[1] < 0) step[1] *= -1; // left edge and moving left
-        else if (yx[1] >= width-1 && step[1] > 0) step[1] *= -1; // right edge and moving right
+        if (yx[1] <= 0 && step[1] < 0) { step[1] *= -1; } // left edge and moving left
+        else if (yx[1] >= width-1 && step[1] > 0) { step[1] *= -1; } // right edge and moving right
 
         yx[0] += step[0]; // set ball's next location
         yx[1] += step[1];
