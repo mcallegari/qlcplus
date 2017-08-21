@@ -143,7 +143,7 @@ var testAlgo;
         //alert("Circle " + i + " xCenter: " + circles[i].xCenter + " color: " + color.toString(16));
         if (circles[i].xCenter === -1)
         {
-          var seed = Math.floor(Math.random()*100)
+          var seed = Math.floor(Math.random()*100);
           if (seed > 50) { continue; }
           circles[i].xCenter = Math.floor(Math.random() * width);
           circles[i].yCenter = Math.floor(Math.random() * height);

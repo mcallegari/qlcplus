@@ -267,7 +267,7 @@ function()
       }
     }
     util.initialized = true;
-  }
+  };
 
   function fade(t) { return t * t * t * (t * (t * 6 - 15) + 10); }
   function lerp( t, a, b) { return a + t * (b - a); }
@@ -310,7 +310,7 @@ function()
                       grad(p[BA+1], x-1, y  , z-1 )),    // OF CUBE
               lerp(u, grad(p[AB+1], x  , y-1, z-1 ),
                       grad(p[BB+1], x-1, y-1, z-1 )))));
-  }
+  };
 
   algo.rgbMap = function(width, height, rgb, step)
   {

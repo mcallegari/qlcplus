@@ -80,7 +80,7 @@ var testAlgo;
                 }
                 else
                 {
-                    var step2 = step - centerStep
+                    var step2 = step - centerStep;
                     if (cmpAxis <= center + step2 + (isEven ? 1 : 0 ) && cmpAxis >= center - step2) {
                         map[y][x] = 0;
                     } else {

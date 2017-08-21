@@ -36,7 +36,7 @@ var testAlgo;
     {
       if (_orientation === "Vertical") { algo.orientation = 1; }
       else { algo.orientation = 0; }
-    }
+    };
 
     algo.getOrientation = function()
     {

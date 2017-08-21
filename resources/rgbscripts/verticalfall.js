@@ -82,7 +82,7 @@ var testAlgo;
                 if (objYPos[x] === -1)
                 {
                     // this decides the amount of falling objects
-                    var seed = Math.floor(Math.random()*100)
+                    var seed = Math.floor(Math.random()*100);
                     if (seed > 80) 
                     { 
                         objYPos[x] = 0;

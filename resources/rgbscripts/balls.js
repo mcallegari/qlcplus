@@ -47,47 +47,47 @@ var testAlgo;
     algo.setSize = function(_size)
     {
       algo.presetSize = _size;
-    }
+    };
     
     algo.getSize = function()
     {
       return algo.presetSize;
-    }
+    };
     
     algo.setNumber = function(_step)
     {
       algo.presetNumber = _step;
       algo.initialized = false;
-    }
+    };
 
     algo.getNumber = function()
     {
       return algo.presetNumber;
-    }
+    };
 
     algo.setRandom = function(_random)
     {
       if (_random === "Yes") { algo.presetRandom = 0; }
       else if (_random === "No") { algo.presetRandom = 1; }
-    }
+    };
     
     algo.getRandom = function()
     {
       if (algo.presetRandom === 0) { return "Yes"; }
       else if (algo.presetRandom === 1) { return "No"; }
-    }
+    };
  
     algo.setCollision = function(_colision)
     {
       if (_colision === "Yes") { algo.presetCollision = 0; }
       else if (_colision === "No") { algo.presetCollision = 1; }
-    }
+    };
     
     algo.getCollision = function()
     {
       if (algo.presetCollision === 0) { return "Yes"; }
       else if (algo.presetCollision === 1) { return "No"; }
-    }
+    };
 
     util.initialize = function(width, height)
     {
@@ -114,7 +114,7 @@ var testAlgo;
 
      algo.initialized = true;
      return;
-    }
+    };
 
     algo.rgbMap = function(width, height, rgb, progstep)
     {
@@ -214,12 +214,12 @@ var testAlgo;
       }
 
       return map;
-    }
+    };
 
     algo.rgbMapStepCount = function(width, height)
     {
       return width * height;  // This make no diferance to the script ;-)
-    }
+    };
 
     // Development tool access
     testAlgo = algo;

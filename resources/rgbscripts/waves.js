@@ -109,19 +109,19 @@ function()
     algo.rgbMap = function(width, height, rgb, step)
     {
       if (util.initialized === false) { util.initialize(); }
-      var span = ((algo.orientation === 0) ? width : height)
+      var span = ((algo.orientation === 0) ? width : height);
       var center = Math.floor((span + 1) / 2) - 1;
       var isEven = (span % 2 === 0);
       var tailSteps = Math.round(span * algo.taillength/100);
       if (tailSteps === 0) { tailSteps = 1; }
-      
+
       var map = new Array(height);
       for (var y = 0; y < height; y++)
       {
         map[y] = new Array();
         for (var x = 0; x < width; x++)
         {
-          var pos = ((algo.orientation === 0) ? x : y)
+          var pos = ((algo.orientation === 0) ? x : y);
           var fill = false;
           var stepPos = pos;
           // Create an index of the pixel relative the the direction
@@ -135,7 +135,7 @@ function()
               break;
             case 2: /* In    */
               if (pos <= center) {
-                stepPos =  pos
+                stepPos =  pos;
               } else {
                 stepPos = (span - 1 - pos);
               }
@@ -188,7 +188,7 @@ function()
 
     algo.rgbMapStepCount = function(width, height)
     {
-      var span = parseInt((algo.orientation === 0) ? width : height)
+      var span = parseInt((algo.orientation === 0) ? width : height);
       var isEven = (span % 2 === 0);
       var tailSteps = Math.round(span * algo.taillength/100);
       if (tailSteps === 0) { tailSteps = 1; }
