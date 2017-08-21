@@ -149,7 +149,7 @@ var testAlgo;
             {
               gradStep = step + x;
             } 
-            else if (algo.orientation === 2) {
+            else if (algo.orientation === 2)
             {
               var xdis = x - ((width-1)/2);
               var ydis = y - ((height-1)/2);
