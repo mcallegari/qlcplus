@@ -70,10 +70,9 @@ Rectangle
             {
                 id: camController
                 camera: sceneEntity.camera
-                lookSpeed: 1000.0
+                linearSpeed: 40.0
+                lookSpeed: 800.0
             }
-
-            ScreenQuadEntity { id: screenQuadEntity }
 
             SceneEntity
             {
@@ -81,7 +80,17 @@ Rectangle
                 viewSize: Qt.size(scene3d.width, scene3d.height)
             }
 
-            //GBufferDebugger { id: debugEntity }
+            ScreenQuadEntity { id: screenQuadEntity }
+
+            GBuffer { id: gBufferTarget }
+
+            ForwardTarget
+            {
+                id: forwardTarget
+                depthAttachment: gBufferTarget.depth
+            }
+
+            GBufferDebugger { id: debugEntity }
 
             components : [
                 RenderSettings
@@ -92,12 +101,14 @@ Rectangle
                         {
                             id: frameGraph
                             camera : sceneEntity.camera
-                            gBuffer: GBuffer {}
-                            sceneLayer: sceneEntity.layer
+                            gBuffer: gBufferTarget
+                            forward: forwardTarget
+                            sceneDeferredLayer: sceneEntity.deferredLayer
+                            sceneSelectionLayer: sceneEntity.selectionLayer
                             screenQuadLayer: screenQuadEntity.layer
                             windowWidth: scene3d.width
                             windowHeight: scene3d.height
-                            //debugLayer: debugEntity.layer
+                            debugLayer: debugEntity.layer
                         }
                     renderPolicy: RenderSettings.Always
                 },

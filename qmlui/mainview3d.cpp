@@ -194,9 +194,9 @@ void MainView3D::initialize3DProperties()
         m_stageEntity = qobject_cast<QEntity *>(stageComponent->create());
         m_stageEntity->setParent(m_sceneRootEntity);
 
-        QLayer *sceneLayer = m_sceneRootEntity->property("layer").value<QLayer *>();
+        QLayer *sceneDeferredLayer = m_sceneRootEntity->property("deferredLayer").value<QLayer *>();
         QEffect *sceneEffect = m_sceneRootEntity->property("effect").value<QEffect *>();
-        m_stageEntity->setProperty("layer", QVariant::fromValue(sceneLayer));
+        m_stageEntity->setProperty("layer", QVariant::fromValue(sceneDeferredLayer));
         m_stageEntity->setProperty("effect", QVariant::fromValue(sceneEffect));
     }
 }
@@ -238,12 +238,12 @@ void MainView3D::slotCreateFixture(quint32 fxID)
     else if (fixture->type() == QLCFixtureDef::MovingHead)
         meshPath.append("moving_head.dae");
 
-    QLayer *sceneLayer = m_sceneRootEntity->property("layer").value<QLayer *>();
+    QLayer *sceneDeferredLayer = m_sceneRootEntity->property("deferredLayer").value<QLayer *>();
     QEffect *sceneEffect = m_sceneRootEntity->property("effect").value<QEffect *>();
 
     QEntity *newItem = qobject_cast<QEntity *>(m_fixtureComponent->create());
     newItem->setProperty("fixtureID", fxID);
-    newItem->setProperty("layer", QVariant::fromValue(sceneLayer));
+    newItem->setProperty("layer", QVariant::fromValue(sceneDeferredLayer));
     newItem->setProperty("effect", QVariant::fromValue(sceneEffect));
     newItem->setProperty("itemSource", meshPath);
     newItem->setParent(m_sceneRootEntity);
@@ -816,9 +816,9 @@ void MainView3D::setStageIndex(int stageIndex)
     m_stageEntity = qobject_cast<QEntity *>(stageComponent->create());
     m_stageEntity->setParent(m_sceneRootEntity);
 
-    QLayer *sceneLayer = m_sceneRootEntity->property("layer").value<QLayer *>();
+    QLayer *sceneDeferredLayer = m_sceneRootEntity->property("deferredLayer").value<QLayer *>();
     QEffect *sceneEffect = m_sceneRootEntity->property("effect").value<QEffect *>();
-    m_stageEntity->setProperty("layer", QVariant::fromValue(sceneLayer));
+    m_stageEntity->setProperty("layer", QVariant::fromValue(sceneDeferredLayer));
     m_stageEntity->setProperty("effect", QVariant::fromValue(sceneEffect));
 
     emit stageIndexChanged(m_stageIndex);

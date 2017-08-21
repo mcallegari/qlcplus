@@ -31,7 +31,8 @@ Entity
 
     property size viewSize
     readonly property Camera camera: camera
-    readonly property Layer layer: sceneLayer
+    readonly property Layer deferredLayer: sceneDeferredLayer
+    readonly property Layer selectionLayer: sceneSelectionLayer
     readonly property Effect effect: geometryPassEffect
 
     // Global elements
@@ -50,8 +51,10 @@ Entity
 
     GeometryPassEffect { id: geometryPassEffect }
 
-    Layer { id: sceneLayer; objectName: "sceneLayer" }
-/*
+    Layer { id: sceneDeferredLayer; objectName: "sceneDeferredLayer" }
+
+    Layer { id: sceneSelectionLayer }
+
     SelectionGeometry { id: sGeometry }
 
     Entity
@@ -71,8 +74,7 @@ Entity
             sGeometry,
             material,
             transform,
-            sceneLayer
+            sceneSelectionLayer
         ]
     }
-*/
 }

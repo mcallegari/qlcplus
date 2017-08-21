@@ -23,13 +23,15 @@ import Qt3D.Render 2.0
 Viewport
 {
     id: root
-    normalizedRect : Qt.rect(0.0, 0.0, 1.0, 1.0)
+    normalizedRect: Qt.rect(0.0, 0.0, 1.0, 1.0)
 
     property GBuffer gBuffer
-    property alias camera : sceneCameraSelector.camera
-    property alias sceneLayer: sceneLayerFilter.layers
+    property ForwardTarget forward
+    property alias camera: sceneCameraSelector.camera
+    property alias sceneDeferredLayer: sceneDeferredLayerFilter.layers
+    property alias sceneSelectionLayer: sceneSelectionLayerFilter.layers
     property alias screenQuadLayer: screenQuadLayerFilter.layers
-    //property alias debugLayer: debugLayerFilter.layers
+    property alias debugLayer: debugLayerFilter.layers
 
     property real windowWidth: 0
     property real windowHeight: 0
@@ -45,10 +47,10 @@ Viewport
             // Fill G-Buffer
             LayerFilter
             {
-                id: sceneLayerFilter
+                id: sceneDeferredLayerFilter
                 RenderTargetSelector
                 {
-                    id : gBufferTargetSelector
+                    id: gBufferTargetSelector
                     target: gBuffer
 
                     ClearBuffers
@@ -57,21 +59,44 @@ Viewport
 
                         RenderPassFilter
                         {
-                            id : geometryPass
-                            matchAny : FilterKey { name : "pass"; value : "geometry" }
+                            id: geometryPass
+                            matchAny: FilterKey { name : "pass"; value : "geometry" }
                         }
                     }
                 }
             }
 
+            // Fill selection FBO
+            LayerFilter
+            {
+                id: sceneSelectionLayerFilter
+                RenderTargetSelector
+                {
+                    id: selectionTargetSelector
+                    target: forward
+                }
+
+                ClearBuffers
+                {
+                    buffers: ClearBuffers.ColorBuffer
+
+                    RenderPassFilter
+                    {
+                        id: selectionPass
+                        matchAny: FilterKey { name: "pass"; value: "geometry" }
+                    }
+                }
+            }
+
+
             TechniqueFilter
             {
                 parameters: [
-                    Parameter { name: "color"; value : gBuffer.color },
-                    Parameter { name: "position"; value : gBuffer.position },
-                    Parameter { name: "normal"; value : gBuffer.normal },
-                    Parameter { name: "depth"; value : gBuffer.depth },
-                    Parameter { name: "winSize"; value : Qt.size(windowWidth, windowHeight) }
+                    Parameter { name: "color"; value: gBuffer.color },
+                    Parameter { name: "position"; value: gBuffer.position },
+                    Parameter { name: "normal"; value: gBuffer.normal },
+                    Parameter { name: "depth"; value: gBuffer.depth },
+                    Parameter { name: "winSize"; value: Qt.size(windowWidth, windowHeight) }
                 ]
 
                 RenderStateSet
@@ -93,28 +118,28 @@ Viewport
                             buffers: ClearBuffers.ColorDepthBuffer
                             RenderPassFilter
                             {
-                                matchAny : FilterKey { name : "pass"; value : "final" }
-                                parameters: Parameter { name: "winSize"; value : Qt.size(windowWidth, windowHeight) }
+                                matchAny: FilterKey { name: "pass"; value: "final" }
+                                parameters: Parameter { name: "winSize"; value: Qt.size(windowWidth, windowHeight) }
 
                             }
                         }
                     }
+
                     // RenderDebug layer
-                    /*
                     LayerFilter
                     {
                         id: debugLayerFilter
                         Viewport
                         {
-                            normalizedRect : Qt.rect(0.5, 0.5, 0.5, 0.5)
+                            normalizedRect: Qt.rect(0.5, 0.5, 0.5, 0.5)
                             RenderPassFilter
                             {
-                                matchAny : FilterKey { name : "pass"; value : "final" }
-                                parameters: Parameter { name: "winSize"; value : Qt.size(windowWidth * 0.5, windowHeight * 0.5) }
+                                matchAny: FilterKey { name: "pass"; value: "final" }
+                                parameters: Parameter { name: "winSize"; value: Qt.size(windowWidth * 0.5, windowHeight * 0.5) }
                             }
                         }
                     }
-                    */
+
                 }
             }
         }
