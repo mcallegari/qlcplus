@@ -147,7 +147,7 @@ function framePreviousPage(id) {
 
 function setFramePage(id, page) {
  var iPage = parseInt(page);
- if (framesCurrentPage[id] === iPage || iPage >= framesTotalPages[id]) return;
+ if (framesCurrentPage[id] === iPage || iPage >= framesTotalPages[id]) { return; }
  var framePageObj = document.getElementById("fp" + id + "_" + framesCurrentPage[id]);
  framePageObj.style.visibility = "hidden";
  framesCurrentPage[id] = iPage;

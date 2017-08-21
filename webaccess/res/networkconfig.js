@@ -37,10 +37,10 @@ function applyParams(iface) {
  var radios = document.getElementsByName(radioGroup);
  var ssidObj = document.getElementById(iface+"SSID");
  var ssidVal = "";
- if (ssidObj != null) ssidVal = ssidObj.value;
+ if (ssidObj != null) { ssidVal = ssidObj.value; }
  var wpapskObj = document.getElementById(iface+"WPAPSK");
  var wpapskVal = "";
- if (wpapskObj != null) wpapskVal = wpapskObj.value;
+ if (wpapskObj != null) { wpapskVal = wpapskObj.value; }
  if (radios[0].checked) {
    systemCmd("NETWORK", iface, "dhcp", "", "", "", ssidVal, wpapskVal);
  } else if (radios[1].checked) {

@@ -87,7 +87,9 @@ function handleDrag(mouse)
 function endDrag(mouse)
 {
     if (draggedItem == null)
+    {
         return;
+    }
 
     var currContext = previewLoader.item.contextName;
     console.log("Current context: " + currContext);
@@ -97,8 +99,11 @@ function endDrag(mouse)
     console.log("Item x: " + x + ", y: " + y);
 
     if (x >= 0 && y >= 0)
+    {
         fixtureManager.addFixture(manufacturer, model, mode, name, universeIndex,
                                   draggedItem.address, channels, quantity, gap, x, y);
+    }
+
     draggedItem.destroy();
     draggedItem = null;
 }
