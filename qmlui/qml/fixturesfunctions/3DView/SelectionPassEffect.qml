@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  GeometryPassEffect.qml
+  SelectionPassEffect.qml
 
   Copyright (c) Massimo Callegari
 
@@ -22,14 +22,14 @@ import Qt3D.Render 2.0
 
 Effect
 {
-    id: geometryPassEffect
+    id: selectionPassEffect
     techniques: [
         // OpenGL 3.1
         Technique
         {
             graphicsApiFilter { api: GraphicsApiFilter.OpenGL; profile: GraphicsApiFilter.CoreProfile; majorVersion: 3; minorVersion: 1 }
             renderPasses : RenderPass {
-                filterKeys : FilterKey { name : "pass"; value : "geometry" }
+                filterKeys : FilterKey { name : "pass"; value : "selection" }
                 shaderProgram : ShaderProgram {
                     id : sceneShaderGL3
                     vertexShaderCode:
@@ -81,7 +81,7 @@ Effect
         {
             graphicsApiFilter { api: GraphicsApiFilter.OpenGL; profile: GraphicsApiFilter.CoreProfile; majorVersion: 2; minorVersion: 0 }
             renderPasses : RenderPass {
-                filterKeys : FilterKey { name : "pass"; value : "geometry" }
+                filterKeys : FilterKey { name : "pass"; value : "selection" }
                 shaderProgram : ShaderProgram {
                     id : sceneShaderGL2
                     vertexShaderCode:

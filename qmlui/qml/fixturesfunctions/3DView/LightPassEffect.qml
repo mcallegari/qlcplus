@@ -33,9 +33,8 @@ Effect
                 {
                     filterKeys: FilterKey { name : "pass"; value : "final" }
                     shaderProgram: ShaderProgram {
-                        id: finalShaderGL3
-                        vertexShaderCode: loadSource("qrc:/final_gl3.vert")
-                        fragmentShaderCode: loadSource("qrc:/final_gl3.frag")
+                        vertexShaderCode: loadSource("qrc:/lights_gl3.vert")
+                        fragmentShaderCode: loadSource("qrc:/lights_gl3.frag")
                     }
                 }
         },
@@ -48,9 +47,8 @@ Effect
                 {
                     filterKeys: FilterKey { name: "pass"; value: "final" }
                     shaderProgram: ShaderProgram {
-                        id: finalShaderGL2
-                        vertexShaderCode: loadSource("qrc:/final_es2.vert")
-                        fragmentShaderCode: loadSource("qrc:/final_es2.frag")
+                        vertexShaderCode: loadSource("qrc:/lights_es2.vert")
+                        fragmentShaderCode: loadSource("qrc:/lights_es2.frag")
                     }
                 }
         }
