@@ -41,10 +41,10 @@ Entity
 
         Material
         {
-            effect : Effect {
+            effect: Effect {
                 techniques: [
                     Technique {
-                        graphicsApiFilter { api: GraphicsApiFilter.OpenGL; profile: GraphicsApiFilter.NoProfile; minorVersion: 0; majorVersion: 2 }
+                        graphicsApiFilter { api: GraphicsApiFilter.OpenGL; profile: GraphicsApiFilter.NoProfile; majorVersion: 2; minorVersion: 0; }
                         renderPasses: RenderPass {
                             filterKeys: FilterKey { name: "pass"; value: "final" }
                             shaderProgram: ShaderProgram {
@@ -91,7 +91,7 @@ Entity
                         }
                     },
                     Technique {
-                        graphicsApiFilter { api: GraphicsApiFilter.OpenGL; profile: GraphicsApiFilter.CoreProfile; minorVersion: 2; majorVersion: 3 }
+                        graphicsApiFilter { api: GraphicsApiFilter.OpenGL; profile: GraphicsApiFilter.CoreProfile; majorVersion: 3; minorVersion: 2; }
                         renderPasses: RenderPass {
                             filterKeys: FilterKey { name: "pass"; value: "final" }
                             shaderProgram: ShaderProgram {
@@ -134,7 +134,7 @@ Entity
                                                 fragColor = vec4(texture(depth, texCoord * 2.0).rrr, 1.0);
                                             }
                                         }
-                                        fragColor.a = 0.5;
+                                        fragColor.a = 0.8;
                                     }"
                             }
                         }

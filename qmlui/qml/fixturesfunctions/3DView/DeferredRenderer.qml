@@ -42,7 +42,7 @@ Viewport
 
         CameraSelector
         {
-            id : sceneCameraSelector
+            id: sceneCameraSelector
 
             // Fill G-Buffer
             LayerFilter
@@ -60,7 +60,7 @@ Viewport
                         RenderPassFilter
                         {
                             id: geometryPass
-                            matchAny: FilterKey { name : "pass"; value : "geometry" }
+                            matchAny: FilterKey { name: "pass"; value: "geometry" }
                         }
                     }
                 }

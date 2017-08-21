@@ -105,8 +105,8 @@ Effect
                             position0 = vec3(modelMatrix * vertexPosition);
                             normal0 = normalize(modelNormalMatrix * vertexNormal);
                             gl_Position = mvp * vertexPosition;
-                        }
-                    "
+                        }"
+
                     fragmentShaderCode:
                         "#version 110
 
@@ -119,8 +119,7 @@ Effect
                             gl_FragData[0] = color0;
                             gl_FragData[1] = vec4(position0, 0);
                             gl_FragData[2] = vec4(normal0, 0);
-                        }
-                    "
+                        }"
                 }
             }
         }
