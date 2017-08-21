@@ -24,8 +24,8 @@ var testAlgo;
     function () {
       var algo = {};
       algo.apiVersion = 2;
-      algo.name = 'Strobe';
-      algo.author = 'Rob Nieuwenhuizen';
+      algo.name = "Strobe";
+      algo.author = "Rob Nieuwenhuizen";
       algo.properties = [];
       algo.acceptColors = 1;
 

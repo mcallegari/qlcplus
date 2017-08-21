@@ -110,29 +110,29 @@ function qlcStringToTime(str, type)
     {
         for (var i = 0; i < str.length; i++)
         {
-            if (str[i] >= '0' && str[i] <= '9')
+            if (str[i] >= "0" && str[i] <= "9")
             {
                 currStr += str[i];
             }
-            else if (str[i] === 'h')
+            else if (str[i] === "h")
             {
                 console.log("Hours: " + currStr);
                 finalTime += parseInt(currStr) * 1000 * 60 * 60;
                 currStr = "";
             }
-            else if (str[i] === 'm' && str[i + 1] === 's')
+            else if (str[i] === "m" && str[i + 1] === "s")
             {
                 console.log("Millisecs: " + currStr);
                 finalTime += parseInt(currStr);
                 break;
             }
-            else if (str[i] === 'm')
+            else if (str[i] === "m")
             {
                 console.log("minutes: " + currStr);
                 finalTime += parseInt(currStr) * 1000 * 60;
                 currStr = "";
             }
-            else if (str[i] === 's')
+            else if (str[i] === "s")
             {
                 console.log("seconds: " + currStr);
                 finalTime += parseInt(currStr) * 1000;

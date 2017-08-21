@@ -26,7 +26,7 @@ function getPage(uni, page) {
 }
 
 window.onload = function() {
-   var url = 'ws://' + window.location.host + '/qlcplusWS';
+   var url = "ws://" + window.location.host + "/qlcplusWS";
    websocket = new WebSocket(url);
    websocket.onopen = function(ev) {
     getPage(1, 1);
@@ -39,7 +39,7 @@ window.onload = function() {
    };
    websocket.onmessage = function(ev) {
     //alert(ev.data);
-    var msgParams = ev.data.split('|');
+    var msgParams = ev.data.split("|");
     if (msgParams[0] === "QLC+API") {
       if (msgParams[1] === "getChannelsValues") {
         drawPage(ev.data);
@@ -64,15 +64,15 @@ function getGroupIconName(grp) {
 }
 
 function getSliderTopCode(type) {
-   if (type === '')
+   if (type === "")
    {
       return "<div style='width:34px; height:34px; margin:2px 0 0 1px; background:transparent;'></div>";
    }
-   var aType = type.split('.');
+   var aType = type.split(".");
    if (aType.length === 1) {
       return "<img src=" + getGroupIconName(parseInt(type)) + " style='margin-left:2px;'>";
    } else {
-      if (aType[1] === '#000000') {
+      if (aType[1] === "#000000") {
          return "<img src=" + getGroupIconName(0) + ">";
       } else {
          return "<div style='width:34px; height:34px; margin:2px 0 0 1px; background:" + aType[1] + ";'></div>";
@@ -83,7 +83,7 @@ function getSliderTopCode(type) {
 function drawPage(data) {
  var cObj = document.getElementById("slidersContainer");
  var code = "";
- var cVars = data.split('|');
+ var cVars = data.split("|");
  for (i = 2; i < cVars.length; i+=3) {
      var chNum = parseInt(cVars[i]);
      code += "<div class='sdSlider' style='width: 36px; height: 372px; background-color: #aaa; margin-left:2px;'>";
