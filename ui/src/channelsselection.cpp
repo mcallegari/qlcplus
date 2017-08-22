@@ -358,20 +358,18 @@ void ChannelsSelection::accept()
                         if (combo != NULL)
                         {
                             int selIdx = combo->currentIndex();
-                            if (combo->itemData(selIdx).toBool() == true)
+
+                            if (selIdx == 0)
                             {
-                                if (selIdx == 0)
-                                {
-                                    // do not force a channel that is already HTP by nature
-                                    if (channel->group() != QLCChannel::Intensity)
-                                        forcedHTPList.append(c);
-                                }
-                                else
-                                {
-                                    // do not force a channel that is already LTP by nature
-                                    if (channel->group() == QLCChannel::Intensity)
-                                        forcedLTPList.append(c);
-                                }
+                                // do not force a channel that is already HTP by nature
+                                if (channel->group() != QLCChannel::Intensity)
+                                    forcedHTPList.append(c);
+                            }
+                            else
+                            {
+                                // do not force a channel that is already LTP by nature
+                                if (channel->group() == QLCChannel::Intensity)
+                                    forcedLTPList.append(c);
                             }
                         }
                         QPushButton *button = (QPushButton *)m_channelsTree->itemWidget(chanItem, KColumnModifier);
