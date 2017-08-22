@@ -99,7 +99,6 @@ void ChannelsSelection::updateFixturesTree()
     m_channelsTree->clear();
     m_channelsTree->setIconSize(QSize(24, 24));
     m_channelsTree->setAllColumnsShowFocus(true);
-    InputOutputMap *ioMap = m_doc->inputOutputMap();
 
     foreach(Fixture *fxi, m_doc->fixtures())
     {
@@ -180,7 +179,7 @@ void ChannelsSelection::updateFixturesTree()
                     button->setText(mod->name());
                 button->setProperty("treeItem", qVariantFromValue((void *)item));
                 m_channelsTree->setItemWidget(item, KColumnModifier, button);
-                ioMap->releaseUniverses(false);
+
                 connect(combo, SIGNAL(currentIndexChanged(int)),
                         this, SLOT(slotComboChanged(int)));
                 connect(button, SIGNAL(clicked()),
