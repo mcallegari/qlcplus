@@ -357,15 +357,13 @@ void ChannelsSelection::accept()
                         QComboBox *combo = (QComboBox *)m_channelsTree->itemWidget(chanItem, KColumnBehaviour);
                         if (combo != NULL)
                         {
-                            int selIdx = combo->currentIndex();
-
-                            if (selIdx == 0)
+                            if (combo->currentIndex() == 0) // HTP
                             {
                                 // do not force a channel that is already HTP by nature
                                 if (channel->group() != QLCChannel::Intensity)
                                     forcedHTPList.append(c);
                             }
-                            else
+                            else // LTP
                             {
                                 // do not force a channel that is already LTP by nature
                                 if (channel->group() == QLCChannel::Intensity)
