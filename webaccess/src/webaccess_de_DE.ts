@@ -16,7 +16,7 @@
     <message>
         <location filename="webaccess.cpp" line="396"/>
         <source>Username and password are required fields.</source>
-        <translation>Benutername und Passwort sind benötigte Felder.</translation>
+        <translation>Benutzername und Passwort sind benötigte Felder.</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="402"/>
@@ -182,7 +182,7 @@
     <message>
         <location filename="webaccessconfiguration.cpp" line="286"/>
         <source>Username and password are required fields.</source>
-        <translation>Benutername und Passwort sind benötigte Felder.</translation>
+        <translation>Benutzername und Passwort sind benötigte Felder.</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="289"/>
