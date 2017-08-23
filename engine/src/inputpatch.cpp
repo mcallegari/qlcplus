@@ -75,6 +75,10 @@ bool InputPatch::set(QLCIOPlugin* plugin, quint32 input, QLCInputProfile* profil
 {
     bool result = false;
 
+    qDebug() << "InputPatch::set - plugin:" << ((plugin == NULL)?"None":plugin->name())
+             << ", line:" << input
+             << ", profile:" << ((profile == NULL)?"None":profile->name());
+
     if (m_plugin != NULL && m_pluginLine != QLCIOPlugin::invalidLine())
     {
         disconnect(m_plugin, SIGNAL(valueChanged(quint32,quint32,quint32,uchar,QString)),
@@ -162,10 +166,7 @@ QString InputPatch::pluginName() const
 
 quint32 InputPatch::input() const
 {
-    if (m_plugin != NULL && m_pluginLine < quint32(m_plugin->inputs().count()))
-        return m_pluginLine;
-    else
-        return QLCIOPlugin::invalidLine();
+    return m_pluginLine;
 }
 
 QString InputPatch::inputName() const
