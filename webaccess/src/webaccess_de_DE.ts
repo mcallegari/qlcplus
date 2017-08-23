@@ -16,23 +16,23 @@
     <message>
         <location filename="webaccess.cpp" line="396"/>
         <source>Username and password are required fields.</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutername und Passwort sind benötigte Felder.</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="402"/>
         <location filename="webaccess.cpp" line="427"/>
         <source>User level has to be a positive integer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzerlevel muss eine positive Ganzzahl sein.</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="421"/>
         <source>Username is required.</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzername wird benötigt.</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="439"/>
         <source>Error while saving passwords file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Fehler beim Speichern der Passwortdatei.</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="454"/>
@@ -116,83 +116,83 @@
     <message>
         <location filename="webaccessconfiguration.cpp" line="221"/>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzername</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="222"/>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Passwort</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="223"/>
         <source>Access level</source>
-        <translation type="unfinished"></translation>
+        <translation>Zugriffslevel</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="224"/>
         <source>Action</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktion</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="237"/>
         <source>Leave blank to not change</source>
-        <translation type="unfinished"></translation>
+        <translation>Leerlassen um keine Änderung durchzuführen</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="244"/>
         <location filename="webaccessconfiguration.cpp" line="274"/>
         <source>Only Virtual Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Nur Virtuelle Konsole</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="249"/>
         <location filename="webaccessconfiguration.cpp" line="276"/>
         <source>Virtual Console and Simple Desk</source>
-        <translation type="unfinished"></translation>
+        <translation>Virtuelle Konsole und Einfache Arbeitsfläche</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="254"/>
         <location filename="webaccessconfiguration.cpp" line="278"/>
         <source>Everything</source>
-        <translation type="unfinished"></translation>
+        <translation>Alles</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="260"/>
         <location filename="webaccessconfiguration.cpp" line="285"/>
         <source>Change</source>
-        <translation type="unfinished"></translation>
+        <translation>Ändern</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="262"/>
         <location filename="webaccessconfiguration.cpp" line="285"/>
         <source>Delete user</source>
-        <translation type="unfinished"></translation>
+        <translation>Nutzer löschen</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="268"/>
         <source>New username...</source>
-        <translation type="unfinished"></translation>
+        <translation>Neuer Benutzername...</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="269"/>
         <location filename="webaccessconfiguration.cpp" line="287"/>
         <source>New password...</source>
-        <translation type="unfinished"></translation>
+        <translation>Neues Passwort...</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="286"/>
         <source>Username and password are required fields.</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutername und Passwort sind benötigte Felder.</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="289"/>
         <source>Add user</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzer hinzufügen</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="294"/>
         <source>Note: if there isn&apos;t at least one user with access level &quot;Everything&quot; on the list authorization will be disabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hinweis: Falls nicht mindestens ein Benutzer mit Zugriffslevel &quot;Alles&quot; auf der Liste ist, wird die Authorisierung deaktiviert.</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="325"/>
@@ -222,7 +222,7 @@
     <message>
         <location filename="webaccessconfiguration.cpp" line="366"/>
         <source>Authorized users</source>
-        <translation type="unfinished"></translation>
+        <translation>Authorisierte Benutzer</translation>
     </message>
 </context>
 <context>
