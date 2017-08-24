@@ -56,7 +56,7 @@ private:
     QList <RemapInfo> m_remapList;
 
 protected:
-    QTreeWidgetItem *getUniverseItem(quint32 universe, QTreeWidget *tree);
+    QTreeWidgetItem *getUniverseItem(Doc *doc, quint32 universe, QTreeWidget *tree);
 
     void fillFixturesTree(Doc *doc, QTreeWidget *tree);
 

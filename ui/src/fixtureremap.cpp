@@ -139,7 +139,7 @@ FixtureRemap::~FixtureRemap()
     delete m_targetDoc;
 }
 
-QTreeWidgetItem *FixtureRemap::getUniverseItem(quint32 universe, QTreeWidget *tree)
+QTreeWidgetItem *FixtureRemap::getUniverseItem(Doc *doc, quint32 universe, QTreeWidget *tree)
 {
     QTreeWidgetItem *topItem = NULL;
 
@@ -158,7 +158,7 @@ QTreeWidgetItem *FixtureRemap::getUniverseItem(quint32 universe, QTreeWidget *tr
     if (topItem == NULL)
     {
         topItem = new QTreeWidgetItem(tree);
-        topItem->setText(KColumnName, tr("Universe %1").arg(universe + 1));
+        topItem->setText(KColumnName, doc->inputOutputMap()->universes().at(universe)->name());
         topItem->setText(KColumnUniverse, QString::number(universe));
         topItem->setText(KColumnID, QString::number(Function::invalidId()));
         topItem->setExpanded(true);
@@ -172,7 +172,7 @@ void FixtureRemap::fillFixturesTree(Doc *doc, QTreeWidget *tree)
     foreach(Fixture *fxi, doc->fixtures())
     {
         quint32 uni = fxi->universe();
-        QTreeWidgetItem *topItem = getUniverseItem(uni, tree);
+        QTreeWidgetItem *topItem = getUniverseItem(doc, uni, tree);
 
         quint32 baseAddr = fxi->address();
         QTreeWidgetItem *fItem = new QTreeWidgetItem(topItem);
@@ -254,7 +254,7 @@ void FixtureRemap::slotAddTargetFixture()
 
         m_targetDoc->addFixture(fxi);
 
-        QTreeWidgetItem *topItem = getUniverseItem(universe, m_targetTree);
+        QTreeWidgetItem *topItem = getUniverseItem(m_targetDoc, universe, m_targetTree);
 
         quint32 baseAddr = fxi->address();
         QTreeWidgetItem *fItem = new QTreeWidgetItem(topItem);
@@ -369,7 +369,7 @@ void FixtureRemap::slotCloneSourceFixture()
     m_targetDoc->addFixture(tgtFix);
 
     // create the tree element and add it to the target tree
-    QTreeWidgetItem *topItem = getUniverseItem(tgtFix->universe(), m_targetTree);
+    QTreeWidgetItem *topItem = getUniverseItem(m_targetDoc, tgtFix->universe(), m_targetTree);
     quint32 baseAddr = tgtFix->address();
     QTreeWidgetItem *fItem = new QTreeWidgetItem(topItem);
     fItem->setText(KColumnName, tgtFix->name());
