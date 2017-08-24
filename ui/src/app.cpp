@@ -1314,6 +1314,7 @@ void App::slotMoveTabToSeparateWindow(int index)
         /* 4. remove the dummyTab, using indexOf since index might
          * have changed due to our insert above */
         m_tab->removeTab(m_tab->indexOf(wid));
+        delete wid;
 
         /* 5. Select the just re-integrated tab */
         m_tab->setCurrentWidget(realWidget);
