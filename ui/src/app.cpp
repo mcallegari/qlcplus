@@ -1271,8 +1271,9 @@ void App::slotMoveTabToSeparateWindow(int index)
     {
         /* Make the widget a separate window */
 
-        /* 1. create a new dummy-widget that keeps the tab in place and store
-         * the original QWidget* in a custom property*/
+        /* 1. create a new dummy-widget that keeps the tab in place and informs
+         * the user. Store the original QWidget* in a custom property so we
+         * can re-integrate it into the tab again later */
         QLabel* dummyWidget = new QLabel(tr("This tab has been moved to a " \
                                             "separate window. Double-click the " \
                                             "tab again to re-integrate it."),
