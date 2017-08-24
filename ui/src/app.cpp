@@ -1288,6 +1288,7 @@ void App::slotMoveTabToSeparateWindow(int index)
         /* 3. make it a separate window (that cannot be closed) */
         wid->setWindowFlags((wid->windowFlags() | Qt::Window) & (~Qt::WindowCloseButtonHint));
         wid->setWindowTitle(APPNAME + QString(" - ") + m_tab->tabText(index).replace("&", ""));
+        wid->setWindowIcon(m_tab->tabIcon(index));
 
         /* 4. show it in the foreground */
         wid->show();
