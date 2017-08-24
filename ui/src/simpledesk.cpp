@@ -76,7 +76,7 @@ QString ssOverride = "QGroupBox { background-color: qlineargradient(x1: 0, y1: 0
  *****************************************************************************/
 
 SimpleDesk::SimpleDesk(QWidget* parent, Doc* doc)
-    : QWidget(parent)
+    : NonClosableWidget(parent)
     , m_engine(new SimpleDeskEngine(doc))
     , m_doc(doc)
     , m_docChanged(false)

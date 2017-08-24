@@ -70,7 +70,7 @@ VirtualConsole* VirtualConsole::s_instance = NULL;
  ****************************************************************************/
 
 VirtualConsole::VirtualConsole(QWidget* parent, Doc* doc)
-    : QWidget(parent)
+    : NonClosableWidget(parent)
     , m_doc(doc)
     , m_latestWidgetId(0)
 

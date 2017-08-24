@@ -81,7 +81,7 @@ FunctionManager* FunctionManager::s_instance = NULL;
  *****************************************************************************/
 
 FunctionManager::FunctionManager(QWidget* parent, Doc* doc)
-    : QWidget(parent)
+    : NonClosableWidget(parent)
     , m_doc(doc)
     , m_hsplitter(NULL)
     , m_vsplitter(NULL)

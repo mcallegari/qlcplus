@@ -56,7 +56,7 @@
 ShowManager* ShowManager::s_instance = NULL;
 
 ShowManager::ShowManager(QWidget* parent, Doc* doc)
-    : QWidget(parent)
+    : NonClosableWidget(parent)
     , m_doc(doc)
     , m_show(NULL)
     , m_currentTrack(NULL)
@@ -149,7 +149,7 @@ ShowManager::ShowManager(QWidget* parent, Doc* doc)
     container->setLayout(new QVBoxLayout);
     container->layout()->setContentsMargins(0, 0, 0, 0);
     m_splitter->widget(1)->hide();
-    
+
     connect(m_doc, SIGNAL(clearing()), this, SLOT(slotDocClearing()));
     connect(m_doc, SIGNAL(functionRemoved(quint32)), this, SLOT(slotFunctionRemoved(quint32)));
     connect(m_doc, SIGNAL(loaded()), this, SLOT(slotDocLoaded()));

@@ -22,6 +22,7 @@
 
 #include <QWidget>
 
+#include "nonclosablewidget.h"
 #include "function.h"
 #include "fixture.h"
 #include "doc.h"
@@ -45,7 +46,7 @@ class QMenu;
 #define KXMLQLCFixtureManager "FixtureManager"
 #define KXMLQLCFixtureManagerSplitterSize "SplitterSize"
 
-class FixtureManager : public QWidget
+class FixtureManager : public NonClosableWidget
 {
     Q_OBJECT
     Q_DISABLE_COPY(FixtureManager)

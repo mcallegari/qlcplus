@@ -97,7 +97,8 @@ HEADERS += aboutbox.h \
            simpledeskengine.h \
            speeddial.h \
            speeddialwidget.h \
-           universeitemwidget.h
+           universeitemwidget.h \
+    nonclosablewidget.h
 
 # Monitor headers
 HEADERS += monitor/monitor.h \
@@ -272,7 +273,8 @@ SOURCES += aboutbox.cpp \
            simpledeskengine.cpp \
            speeddial.cpp \
            speeddialwidget.cpp \
-           universeitemwidget.cpp
+           universeitemwidget.cpp \
+    nonclosablewidget.cpp
 
 # Monitor sources
 SOURCES += monitor/monitor.cpp \

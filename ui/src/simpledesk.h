@@ -27,6 +27,8 @@
 #include <QList>
 #include <QHash>
 
+#include "nonclosablewidget.h"
+
 class GrandMasterSlider;
 class SimpleDeskEngine;
 class QXmlStreamReader;
@@ -53,7 +55,7 @@ class Cue;
 
 #define KXMLQLCSimpleDesk "SimpleDesk"
 
-class SimpleDesk : public QWidget
+class SimpleDesk : public NonClosableWidget
 {
     Q_OBJECT
 

@@ -23,6 +23,8 @@
 #include <QWidget>
 #include <QIcon>
 
+#include "nonclosablewidget.h"
+
 class InputOutputPatchEditor;
 class QListWidgetItem;
 class QListWidget;
@@ -42,7 +44,7 @@ class Doc;
  * @{
  */
 
-class InputOutputManager : public QWidget
+class InputOutputManager : public NonClosableWidget
 {
     Q_OBJECT
     Q_DISABLE_COPY(InputOutputManager)

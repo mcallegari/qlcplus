@@ -23,6 +23,7 @@
 #include <QWidget>
 #include <QList>
 
+#include "nonclosablewidget.h"
 #include "function.h"
 #include "doc.h"
 
@@ -39,7 +40,7 @@ class Doc;
  * @{
  */
 
-class FunctionManager : public QWidget
+class FunctionManager : public NonClosableWidget
 {
     Q_OBJECT
     Q_DISABLE_COPY(FunctionManager)

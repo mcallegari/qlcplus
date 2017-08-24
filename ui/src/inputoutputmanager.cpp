@@ -56,7 +56,7 @@
 InputOutputManager* InputOutputManager::s_instance = NULL;
 
 InputOutputManager::InputOutputManager(QWidget* parent, Doc* doc)
-    : QWidget(parent)
+    : NonClosableWidget(parent)
     , m_doc(doc)
     , m_toolbar(NULL)
     , m_addUniverseAction(NULL)
@@ -70,7 +70,7 @@ InputOutputManager::InputOutputManager(QWidget* parent, Doc* doc)
     s_instance = this;
 
     Q_ASSERT(doc != NULL);
-    
+
     m_ioMap = doc->inputOutputMap();
 
     /* Create a new layout for this widget */
