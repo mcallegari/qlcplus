@@ -160,7 +160,7 @@ public slots:
 
     void slotRecentFileClicked(QAction *recent);
 
-    void slotMoveTabToSeparateWindow(int index);
+    void slotDetachTabWidget(int index);
 
 private:
     QAction* m_fileNewAction;

@@ -289,9 +289,9 @@ void App::init()
     m_tab->addTab(w, QIcon(":/input_output.png"), tr("Inputs/Outputs"));
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 6, 0)
-    /* Move the tab to a separate window (to be able to move it to another
+    /* Detach the tab's widget (to be able to move it to another
      * screen) on doubleClick */
-    connect(m_tab, SIGNAL(tabBarDoubleClicked(int)), this, SLOT(slotMoveTabToSeparateWindow(int)));
+    connect(m_tab, SIGNAL(tabBarDoubleClicked(int)), this, SLOT(slotDetachTabWidget(int)));
 #endif
 
     // Listen to blackout changes and toggle m_controlBlackoutAction
@@ -1261,25 +1261,25 @@ void App::slotRecentFileClicked(QAction *recent)
  * Tab bar slots
  *****************************************************************************/
 
-void App::slotMoveTabToSeparateWindow(int index)
+void App::slotDetachTabWidget(int index)
 {
     /* Get the widget that has been double-clicked */
     QWidget* wid = m_tab->widget(index);
 
-    /* Check if the tab is not already separated */
-    if (!(wid->property("separateWindowWidget").isValid()))
+    /* Check if the tab is not already detached */
+    if (!(wid->property("detachedWindowWidget").isValid()))
     {
-        /* Make the widget a separate window */
+        /* Detach the widget */
 
         /* 1. create a new dummy-widget that keeps the tab in place and informs
          * the user. Store the original QWidget* in a custom property so we
-         * can re-integrate it into the tab again later */
-        QLabel* dummyWidget = new QLabel(tr("This tab has been moved to a " \
-                                            "separate window. Double-click the " \
-                                            "tab again to re-integrate it."),
+         * can re-attache it to the tab again later */
+        QLabel* dummyWidget = new QLabel(tr("This tab has been deattached. " \
+                                            "Double-click the tab again to " \
+                                            "re-attach it."),
                                          m_tab);
         dummyWidget->setAlignment(Qt::AlignCenter | Qt::AlignHCenter);
-        dummyWidget->setProperty("separateWindowWidget", QVariant::fromValue(wid));
+        dummyWidget->setProperty("detachedWindowWidget", QVariant::fromValue(wid));
         m_tab->insertTab(index, dummyWidget, m_tab->tabIcon(index), m_tab->tabText(index));
 
         /* 2. set a new parent of our "old" widget so it doesn't hide when the
@@ -1300,10 +1300,10 @@ void App::slotMoveTabToSeparateWindow(int index)
     }
     else
     {
-        /* Move the window back into the tab */
+        /* Re-attach the widget to the tab */
 
-        /* 1. get a reference to the widget to get back into the tab */
-        QWidget* realWidget = wid->property("separateWindowWidget").value<QWidget*>();
+        /* 1. get a reference to the widget to be re-attached */
+        QWidget* realWidget = wid->property("detachedWindowWidget").value<QWidget*>();
 
         /* 2. make it be a window no longer */
         realWidget->setWindowFlags(realWidget->windowFlags() & (~Qt::Window));
@@ -1316,7 +1316,7 @@ void App::slotMoveTabToSeparateWindow(int index)
         m_tab->removeTab(m_tab->indexOf(wid));
         delete wid;
 
-        /* 5. Select the just re-integrated tab */
+        /* 5. Select the just re-attached tab */
         m_tab->setCurrentWidget(realWidget);
     }
 }
