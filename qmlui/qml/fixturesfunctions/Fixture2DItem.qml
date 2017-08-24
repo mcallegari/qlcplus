@@ -100,17 +100,20 @@ Rectangle
 
     function setHeadWhite(headIndex, level)
     {
-        headsRepeater.itemAt(headIndex).whiteLevel = level / 255
+        var head = headsRepeater.itemAt(headIndex)
+        head.wauvColor = Qt.rgba(level / 255, head.wauvColor.g, head.wauvColor.b, 1.0)
     }
 
     function setHeadAmber(headIndex, level)
     {
-        headsRepeater.itemAt(headIndex).amberLevel = level / 255
+        var head = headsRepeater.itemAt(headIndex)
+        head.wauvColor = Qt.rgba(head.wauvColor.r, level / 255, head.wauvColor.b, 1.0)
     }
 
     function setHeadUV(headIndex, level)
     {
-        headsRepeater.itemAt(headIndex).uvLevel = level / 255
+        var head = headsRepeater.itemAt(headIndex)
+        head.wauvColor = Qt.rgba(head.wauvColor.r, head.wauvColor.g, level / 255, 1.0)
     }
 
     function setPosition(pan, tilt)
@@ -147,8 +150,10 @@ Rectangle
                 Rectangle
                 {
                     id: headDelegate
-                    property color headColor: "black"
                     property real headLevel: 0.0
+                    property color headColor: "black"
+                    property color wauvColor: "black"
+
                     property real whiteLevel: 0.0
                     property real amberLevel: 0.0
                     property real uvLevel: 0.0
@@ -161,7 +166,7 @@ Rectangle
                     border.width: 1
                     border.color: "#AAA"
 
-                    Rectangle
+                    MultiColorBox
                     {
                         id: headMainLayer
                         x: 1
@@ -169,34 +174,11 @@ Rectangle
                         width: parent.width - 2
                         height: parent.height - 2
                         radius: parent.radius - 2
-                        color: headDelegate.headColor
                         opacity: headDelegate.headLevel
-
-                        Rectangle
-                        {
-                            id: headWhiteLayer
-                            anchors.fill: parent
-                            radius: parent.radius
-                            color: "white"
-                            opacity: headDelegate.whiteLevel
-                        }
-                        Rectangle
-                        {
-                            id: headAmberLayer
-                            anchors.fill: parent
-                            radius: parent.radius
-                            color: "#FF7E00"
-                            opacity: headDelegate.amberLevel
-                        }
-                        Rectangle
-                        {
-                            id: headUVLayer
-                            anchors.fill: parent
-                            radius: parent.radius
-                            color: "#9400D3"
-                            opacity: headDelegate.uvLevel
-                        }
+                        rgbValue: headDelegate.headColor
+                        wauvValue: headDelegate.wauvColor
                     }
+
                     Image
                     {
                         id: headGoboLayer

@@ -191,6 +191,70 @@ VCWidgetItem
             bgColor: sliderObj && sliderObj.isOverriding ? "red" : UISettings.bgLight
             onClicked: if (sliderObj) sliderObj.isOverriding = false
         }
+
+        IconButton
+        {
+            id: clickAndGoButton
+            visible: cngType
+            width: UISettings.iconSizeDefault * 1.2
+            height: width
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            property int cngType: sliderObj ? sliderObj.clickAndGoType : VCSlider.CnGNone
+
+            onCngTypeChanged:
+            {
+                switch(cngType)
+                {
+                    case VCSlider.CnGNone: colorToolLoader.source = ""; break;
+                    case VCSlider.CnGColors: colorToolLoader.source = "qrc:/ColorTool.qml"; break;
+                    case VCSlider.CnGPreset: colorToolLoader.source = "qrc:/PresetsTool.qml"; break;
+                }
+            }
+
+            onClicked: colorToolLoader.toggleVisibility()
+
+            MultiColorBox
+            {
+                id: colorPreviewBox
+                anchors.fill: parent
+                anchors.margins: 5
+                rgbValue: sliderObj ? sliderObj.cngRGBColor : "black"
+                wauvValue : sliderObj ? sliderObj.cngWAUVColor : "black"
+            }
+
+            Loader
+            {
+                id: colorToolLoader
+
+                function toggleVisibility()
+                {
+                    item.visible = !item.visible
+                }
+
+                onLoaded:
+                {
+                    item.y = parent.height
+                    item.visible = false
+                    item.closeOnSelect = true
+                }
+
+                Connections
+                {
+                    ignoreUnknownSignals: true
+                    target: colorToolLoader.item
+                    onColorChanged:
+                    {
+                        //colorPreviewBox.rgbValue = Qt.rgba(r, g, b, 1.0)
+                        //colorPreviewBox.wauvValue = Qt.rgba(w, a, uv, 1.0)
+                        if (sliderObj)
+                        {
+                            sliderObj.setClickAndGoColors(Qt.rgba(r, g, b, 1.0), Qt.rgba(w, a, uv, 1.0))
+                        }
+                    }
+                }
+            }
+        }
     }
 
     DropArea

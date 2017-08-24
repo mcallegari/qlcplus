@@ -313,6 +313,29 @@ Rectangle
                   }
 
                   // row 2
+                  RobotoText
+                  {
+                      height: gridItemsHeight
+                      label: qsTr("Click & Go button")
+                  }
+
+                  CustomComboBox
+                  {
+                      ListModel
+                      {
+                          id: cngModel
+                          ListElement { mLabel: qsTr("None"); mValue: VCSlider.CnGNone }
+                          ListElement { mLabel: qsTr("RGB/CMY"); mValue: VCSlider.CnGColors }
+                          ListElement { mLabel: qsTr("Gobo/Effect/Macro"); mValue: VCSlider.CnGPreset }
+                      }
+
+                      Layout.fillWidth: true
+                      model: cngModel
+                      currentIndex: widgetRef ? widgetRef.clickAndGoType : 0
+                      onCurrentIndexChanged: if (widgetRef) widgetRef.clickAndGoType = currentIndex
+                  }
+
+                  // row 3
                   CustomCheckBox
                   {
                       implicitWidth: UISettings.iconSizeMedium

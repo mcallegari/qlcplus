@@ -70,7 +70,6 @@ class VCSlider : public VCWidget, public DMXSource
     Q_PROPERTY(qreal rangeLowLimit READ rangeLowLimit WRITE setRangeLowLimit NOTIFY rangeLowLimitChanged)
     Q_PROPERTY(qreal rangeHighLimit READ rangeHighLimit WRITE setRangeHighLimit NOTIFY rangeHighLimitChanged)
 
-
     Q_PROPERTY(bool monitorEnabled READ monitorEnabled WRITE setMonitorEnabled NOTIFY monitorEnabledChanged)
     Q_PROPERTY(int monitorValue READ monitorValue NOTIFY monitorValueChanged)
     Q_PROPERTY(bool isOverriding READ isOverriding WRITE setIsOverriding NOTIFY isOverridingChanged)
@@ -86,6 +85,10 @@ class VCSlider : public VCWidget, public DMXSource
 
     Q_PROPERTY(QVariant groupsTreeModel READ groupsTreeModel NOTIFY groupsTreeModelChanged)
     Q_PROPERTY(QString searchFilter READ searchFilter WRITE setSearchFilter NOTIFY searchFilterChanged)
+
+    Q_PROPERTY(ClickAndGoType clickAndGoType READ clickAndGoType WRITE setClickAndGoType NOTIFY clickAndGoTypeChanged)
+    Q_PROPERTY(QColor cngRGBColor READ cngRGBColor NOTIFY cngRGBColorChanged)
+    Q_PROPERTY(QColor cngWAUVColor READ cngWAUVColor NOTIFY cngWAUVColorChanged)
 
     /*********************************************************************
      * Initialization
@@ -293,6 +296,45 @@ protected:
     TreeModel *m_fixtureTree;
     /** A string to filter the displayed tree items */
     QString m_searchFilter;
+
+    /*********************************************************************
+     * Click & Go
+     *********************************************************************/
+public:
+    enum ClickAndGoType
+    {
+        CnGNone,
+        CnGColors,
+        CnGPreset
+    };
+    Q_ENUM(ClickAndGoType)
+
+    /** Get/Set the current Click & Go type */
+    ClickAndGoType clickAndGoType() const;
+    void setClickAndGoType(ClickAndGoType clickAndGoType);
+
+    /** Returns a human readable string of a Click And Go type */
+    static QString clickAndGoTypeToString(ClickAndGoType type);
+
+    /** Returns a Click And Go type from the given string */
+    static ClickAndGoType stringToClickAndGoType(QString str);
+
+    QColor cngRGBColor() const;
+    QColor cngWAUVColor() const;
+
+    Q_INVOKABLE void setClickAndGoColors(QColor rgb, QColor wauv);
+
+signals:
+    void clickAndGoTypeChanged(ClickAndGoType clickAndGoType);
+    void cngRGBColorChanged(QColor value);
+    void cngWAUVColorChanged(QColor value);
+
+protected:
+    ClickAndGoType m_clickAndGoType;
+
+    /** RGB and WAUV colors when in CnGColors type */
+    QColor m_cngRGBColor;
+    QColor m_cngWAUVColor;
 
     /*********************************************************************
      * Adjust mode

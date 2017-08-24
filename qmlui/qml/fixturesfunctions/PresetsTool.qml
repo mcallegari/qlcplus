@@ -32,6 +32,7 @@ Rectangle
     border.width: 2
     clip: true
 
+    property bool closeOnSelect: false
     property alias presetModel: prList.model
     property int selectedIndex: -1
 
