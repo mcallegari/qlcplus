@@ -898,6 +898,7 @@ void VCSlider::slotPlaybackFunctionStopped(quint32 fid)
             m_slider->setValue(0);
         resetIntensityOverrideAttribute();
     }
+    updateFeedback();
     m_externalMovement = false;
 }
 
