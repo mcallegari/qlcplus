@@ -1167,8 +1167,6 @@ void App::slotDetachContext(int index)
 
     connect(detachedWindow, SIGNAL(closing()),
             this, SLOT(slotReattachContext()));
-
-    m_tab->removeTab(index);
 }
 
 void App::slotReattachContext()

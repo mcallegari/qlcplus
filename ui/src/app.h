@@ -60,11 +60,12 @@ public:
     DetachedContext() {}
 
 protected slots:
-    void closeEvent(QCloseEvent *)
+    void closeEvent(QCloseEvent *ev)
     {
         emit closing();
         // avoid the real context to be destroyed !
         setCentralWidget(NULL);
+        QMainWindow::closeEvent(ev);
     }
 
 signals:
