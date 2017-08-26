@@ -1161,6 +1161,7 @@ void App::slotDetachContext(int index)
 
     DetachedContext *detachedWindow = new DetachedContext();
     detachedWindow->setCentralWidget(context);
+    detachedWindow->resize(800, 600);
     detachedWindow->show();
     context->show();
 
