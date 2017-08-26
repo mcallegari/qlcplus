@@ -897,15 +897,15 @@ void FixtureManager::setTiltValue(int degrees)
     emit positionTypeValueChanged(QLCChannel::Tilt, degrees);
 }
 
-void FixtureManager::setPresetValue(int index, quint8 value)
+void FixtureManager::setPresetValue(quint32 fixtureID, int chIndex, quint8 value)
 {
-    qDebug() << "[FixtureManager] setPresetValue - index:" << index << "value:" << value;
-    QList<const QLCChannel*>channels = m_presetsCache.keys();
+    qDebug() << "[FixtureManager] setPresetValue - fixture:" << fixtureID << ", channel:" << chIndex << "value:" << value;
 
-    if (index < 0 || index >= channels.count())
+    Fixture *fixture = m_doc->fixture(fixtureID);
+    if (fixture == NULL || fixture->fixtureMode() == NULL)
         return;
 
-    const QLCChannel* ch = channels.at(index);
+    const QLCChannel *ch = fixture->fixtureMode()->channel(chIndex);
     emit presetChanged(ch, value);
 }
 
@@ -1156,15 +1156,12 @@ QList<SceneValue> FixtureManager::getFixturePosition(quint32 fxID, int type, int
 QVariantList FixtureManager::presetsChannels(QLCChannel::Group group)
 {
     QVariantList prList;
-    int i = 0;
 
-    foreach(const QLCChannel *ch, m_presetsCache.keys())
+    for (const QLCChannel *ch : m_presetsCache.keys())
     {
         if (ch->group() != group)
-        {
-            i++;
             continue;
-        }
+
         quint32 fxID = m_presetsCache[ch];
         Fixture *fixture = m_doc->fixture(fxID);
         if (fixture == NULL)
@@ -1173,14 +1170,16 @@ QVariantList FixtureManager::presetsChannels(QLCChannel::Group group)
         const QLCFixtureDef *def = fixture->fixtureDef();
         if (def != NULL)
         {
+            QLCChannel *nonConstCh = const_cast<QLCChannel *>(ch);
+            quint32 idx = fixture->fixtureMode()->channelNumber(nonConstCh);
             QVariantMap prMap;
             prMap.insert("name", QString("%1 - %2")
                                 .arg(def->model())
                                 .arg(ch->name()));
-            prMap.insert("presetIndex", i);
+            prMap.insert("fixtureID", fxID);
+            prMap.insert("channelIdx", idx);
             prList.append(prMap);
         }
-        i++;
     }
 
     return prList;
@@ -1251,20 +1250,19 @@ QVariantList FixtureManager::shutterChannels()
     return presetsChannels(QLCChannel::Shutter);
 }
 
-QVariantList FixtureManager::presetCapabilities(int index)
+QVariantList FixtureManager::presetCapabilities(quint32 fixtureID, int chIndex)
 {
-    QList<const QLCChannel*>channels = m_presetsCache.keys();
-
-    qDebug() << "[FixtureManager] Requesting presets at index:" << index << "count:" << channels.count();
-
-    if (index < 0 || index >= channels.count())
-        return QVariantList();
-
-    const QLCChannel* ch = channels.at(index);
-    qDebug() << "[FixtureManager] Channel requested:" << ch->name() << "count:" << ch->capabilities().count();
-
     QVariantList var;
-    foreach(QLCCapability *cap, ch->capabilities())
+
+    Fixture *fixture = m_doc->fixture(fixtureID);
+    if (fixture == NULL || fixture->fixtureMode() == NULL)
+        return var;
+
+    qDebug() << "[FixtureManager] Requesting presets for fixture" << fixtureID << ", channel:" << chIndex;
+
+    const QLCChannel *ch = fixture->fixtureMode()->channel(chIndex);
+
+    for (QLCCapability *cap : ch->capabilities())
         var.append(QVariant::fromValue(cap));
 
     return var;
