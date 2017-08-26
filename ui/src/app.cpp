@@ -288,6 +288,12 @@ void App::init()
     w = new InputOutputManager(m_tab, m_doc);
     m_tab->addTab(w, QIcon(":/input_output.png"), tr("Inputs/Outputs"));
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 6, 0)
+    /* Detach the tab's widget (to be able to move it to another
+     * screen) on doubleClick */
+    connect(m_tab, SIGNAL(tabBarDoubleClicked(int)), this, SLOT(slotDetachTabWidget(int)));
+#endif
+
     // Listen to blackout changes and toggle m_controlBlackoutAction
     connect(m_doc->inputOutputMap(), SIGNAL(blackoutChanged(bool)), this, SLOT(slotBlackoutChanged(bool)));
 
@@ -839,10 +845,10 @@ bool App::saveModifiedDoc(const QString & title, const QString & message)
     if (result == QMessageBox::Yes)
     {
         slotFileSave();
-        // we check whether m_doc is not modified anymore, rather than 
+        // we check whether m_doc is not modified anymore, rather than
         // result of slotFileSave() since the latter returns NoError
         // in cases like when the user pressed cancel in the save dialog
-        if (m_doc->isModified() == false) 
+        if (m_doc->isModified() == false)
         {
             return true;
         }
@@ -1249,6 +1255,70 @@ void App::slotRecentFileClicked(QAction *recent)
         InputOutputManager::instance()->updateList();
     if (Monitor::instance() != NULL)
         Monitor::instance()->updateView();
+}
+
+/*****************************************************************************
+ * Tab bar slots
+ *****************************************************************************/
+
+void App::slotDetachTabWidget(int index)
+{
+    /* Get the widget that has been double-clicked */
+    QWidget* wid = m_tab->widget(index);
+
+    /* Check if the tab is not already detached */
+    if (!(wid->property("detachedWindowWidget").isValid()))
+    {
+        /* Detach the widget */
+
+        /* 1. create a new dummy-widget that keeps the tab in place and informs
+         * the user. Store the original QWidget* in a custom property so we
+         * can re-attache it to the tab again later */
+        QLabel* dummyWidget = new QLabel(tr("This tab has been deattached. " \
+                                            "Double-click the tab again to " \
+                                            "re-attach it."),
+                                         m_tab);
+        dummyWidget->setAlignment(Qt::AlignCenter | Qt::AlignHCenter);
+        dummyWidget->setProperty("detachedWindowWidget", QVariant::fromValue(wid));
+        m_tab->insertTab(index, dummyWidget, m_tab->tabIcon(index), m_tab->tabText(index));
+
+        /* 2. set a new parent of our "old" widget so it doesn't hide when the
+         * tabs are switched */
+        wid->setParent(this);
+
+        /* 3. make it a separate window (that cannot be closed) */
+        wid->setWindowFlags((wid->windowFlags() | Qt::Window) & (~Qt::WindowCloseButtonHint));
+        wid->setWindowTitle(APPNAME + QString(" - ") + m_tab->tabText(index).replace("&", ""));
+        wid->setWindowIcon(m_tab->tabIcon(index));
+
+        /* 4. show it in the foreground */
+        wid->show();
+        wid->raise();
+
+        /* 5. Select the just separated tab */
+        m_tab->setCurrentWidget(dummyWidget);
+    }
+    else
+    {
+        /* Re-attach the widget to the tab */
+
+        /* 1. get a reference to the widget to be re-attached */
+        QWidget* realWidget = wid->property("detachedWindowWidget").value<QWidget*>();
+
+        /* 2. make it be a window no longer */
+        realWidget->setWindowFlags(realWidget->windowFlags() & (~Qt::Window));
+
+        /* 3. create a new tab holding the widget */
+        m_tab->insertTab(index, realWidget, m_tab->tabIcon(index), m_tab->tabText(index));
+
+        /* 4. remove the dummyTab, using indexOf since index might
+         * have changed due to our insert above */
+        m_tab->removeTab(m_tab->indexOf(wid));
+        delete wid;
+
+        /* 5. Select the just re-attached tab */
+        m_tab->setCurrentWidget(realWidget);
+    }
 }
 
 /*****************************************************************************

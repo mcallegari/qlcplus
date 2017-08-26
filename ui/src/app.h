@@ -160,6 +160,8 @@ public slots:
 
     void slotRecentFileClicked(QAction *recent);
 
+    void slotDetachTabWidget(int index);
+
 private:
     QAction* m_fileNewAction;
     QAction* m_fileOpenAction;

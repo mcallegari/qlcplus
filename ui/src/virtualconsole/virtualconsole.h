@@ -26,6 +26,7 @@
 #include <QFrame>
 #include <QList>
 
+#include "nonclosablewidget.h"
 #include "vcproperties.h"
 #include "doc.h"
 
@@ -48,7 +49,7 @@ class QMenu;
  * @{
  */
 
-class VirtualConsole : public QWidget
+class VirtualConsole : public NonClosableWidget
 {
     Q_OBJECT
     Q_DISABLE_COPY(VirtualConsole)

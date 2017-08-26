@@ -76,7 +76,7 @@ FixtureManager* FixtureManager::s_instance = NULL;
  *****************************************************************************/
 
 FixtureManager::FixtureManager(QWidget* parent, Doc* doc)
-    : QWidget(parent)
+    : NonClosableWidget(parent)
     , m_doc(doc)
     , m_splitter(NULL)
     , m_fixtures_tree(NULL)
@@ -1113,10 +1113,10 @@ void FixtureManager::slotAddRGBPanel()
         int transpose = 0;
         if (rgb.direction() == AddRGBPanel::Vertical)
         {
-        	int tmp = columns;
-        	columns = rows;
-        	rows = tmp;
-        	transpose = 1;
+            int tmp = columns;
+            columns = rows;
+            rows = tmp;
+            transpose = 1;
         }
 
         QLCFixtureDef *rowDef = NULL;
@@ -1134,35 +1134,35 @@ void FixtureManager::slotAddRGBPanel()
 
         if (transpose)
         {
-			if (rgb.orientation() == AddRGBPanel::TopRight ||
-				rgb.orientation() == AddRGBPanel::BottomRight)
-			{
-				currRow = rows -1;
-				rowInc = -1;
-			}
-			if (rgb.orientation() == AddRGBPanel::BottomRight ||
-				rgb.orientation() == AddRGBPanel::BottomLeft)
-			{
-				xPosStart = columns - 1;
-				xPosEnd = 0;
-				xPosInc = -1;
-			}
+            if (rgb.orientation() == AddRGBPanel::TopRight ||
+                rgb.orientation() == AddRGBPanel::BottomRight)
+            {
+                currRow = rows -1;
+                rowInc = -1;
+            }
+            if (rgb.orientation() == AddRGBPanel::BottomRight ||
+                rgb.orientation() == AddRGBPanel::BottomLeft)
+            {
+                xPosStart = columns - 1;
+                xPosEnd = 0;
+                xPosInc = -1;
+            }
         }
         else
         {
-			if (rgb.orientation() == AddRGBPanel::BottomLeft ||
-				rgb.orientation() == AddRGBPanel::BottomRight)
-			{
-				currRow = rows -1;
-				rowInc = -1;
-			}
-			if (rgb.orientation() == AddRGBPanel::TopRight ||
-				rgb.orientation() == AddRGBPanel::BottomRight)
-			{
-				xPosStart = columns - 1;
-				xPosEnd = 0;
-				xPosInc = -1;
-			}
+            if (rgb.orientation() == AddRGBPanel::BottomLeft ||
+                rgb.orientation() == AddRGBPanel::BottomRight)
+            {
+                currRow = rows -1;
+                rowInc = -1;
+            }
+            if (rgb.orientation() == AddRGBPanel::TopRight ||
+                rgb.orientation() == AddRGBPanel::BottomRight)
+            {
+                xPosStart = columns - 1;
+                xPosEnd = 0;
+                xPosInc = -1;
+            }
         }
 
         for (int i = 0; i < rows; i++)
@@ -1195,10 +1195,10 @@ void FixtureManager::slotAddRGBPanel()
                 int xPos = xPosStart;
                 for (int h = 0; h < fxi->heads(); h++)
                 {
-                	if (transpose)
-                		grp->assignHead(QLCPoint(currRow, xPos), GroupHead(fxi->id(), h));
-                	else
-                		grp->assignHead(QLCPoint(xPos, currRow), GroupHead(fxi->id(), h));
+                    if (transpose)
+                        grp->assignHead(QLCPoint(currRow, xPos), GroupHead(fxi->id(), h));
+                    else
+                        grp->assignHead(QLCPoint(xPos, currRow), GroupHead(fxi->id(), h));
                     xPos += xPosInc;
                 }
             }
@@ -1209,10 +1209,10 @@ void FixtureManager::slotAddRGBPanel()
                     int xPos = xPosStart;
                     for (int h = 0; h < fxi->heads(); h++)
                     {
-                    	if (transpose)
-                    		grp->assignHead(QLCPoint(currRow, xPos), GroupHead(fxi->id(), h));
-                    	else
-                    		grp->assignHead(QLCPoint(xPos, currRow), GroupHead(fxi->id(), h));
+                        if (transpose)
+                            grp->assignHead(QLCPoint(currRow, xPos), GroupHead(fxi->id(), h));
+                        else
+                            grp->assignHead(QLCPoint(xPos, currRow), GroupHead(fxi->id(), h));
                         xPos += xPosInc;
                     }
                 }
@@ -1221,10 +1221,10 @@ void FixtureManager::slotAddRGBPanel()
                     int xPos = xPosEnd;
                     for (int h = 0; h < fxi->heads(); h++)
                     {
-                    	if (transpose)
-                    		grp->assignHead(QLCPoint(currRow, xPos), GroupHead(fxi->id(), h));
-                    	else
-                    		grp->assignHead(QLCPoint(xPos, currRow), GroupHead(fxi->id(), h));
+                        if (transpose)
+                            grp->assignHead(QLCPoint(currRow, xPos), GroupHead(fxi->id(), h));
+                        else
+                            grp->assignHead(QLCPoint(xPos, currRow), GroupHead(fxi->id(), h));
                         xPos += (-xPosInc);
                     }
                 }

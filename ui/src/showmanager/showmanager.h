@@ -24,6 +24,7 @@
 #include <QWidget>
 #include <QList>
 
+#include "nonclosablewidget.h"
 #include "multitrackview.h"
 #include "sequenceitem.h"
 #include "trackitem.h"
@@ -44,7 +45,7 @@ class Doc;
  * @{
  */
 
-class ShowManager : public QWidget
+class ShowManager : public NonClosableWidget
 {
     Q_OBJECT
     Q_DISABLE_COPY(ShowManager)
@@ -55,13 +56,13 @@ class ShowManager : public QWidget
 public:
     ShowManager(QWidget* parent, Doc* doc);
     ~ShowManager();
-    
+
     /** Get the singleton instance */
     static ShowManager* instance();
 
     /** Start from scratch; clear everything */
     void clearContents();
-    
+
 signals:
     /** Emitted when the FunctionManager's tab is de/activated */
     void functionManagerActive(bool active);
@@ -75,7 +76,7 @@ protected:
 
 protected:
     static ShowManager* s_instance;
-    
+
     Doc* m_doc;
     /** Currently selected show */
     Show* m_show;
