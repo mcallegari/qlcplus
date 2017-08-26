@@ -358,8 +358,8 @@ Rectangle
         {
             width: UISettings.mediumItemHeight
             height: UISettings.listItemHeight
-            rgbValue: currentRGB
-            wauvValue: currentWAUV
+            primary: currentRGB
+            secondary: currentWAUV
         }
     }
 }

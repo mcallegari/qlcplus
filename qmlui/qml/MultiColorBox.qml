@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  VCSliderItem.qml
+  MultiColorBox.qml
 
   Copyright (c) Massimo Callegari
 
@@ -23,32 +23,63 @@ import "."
 
 Rectangle
 {
+    id: boxRoot
     width: UISettings.mediumItemHeight
     height: UISettings.listItemHeight
-    color: rgbValue
+    color: primary
 
-    property color rgbValue: "black"
-    property color wauvValue: "black"
+    property bool biColor: false
+
+    // Primary color: always active. Represents the current RGB value
+    property color primary: "black"
+
+    // Secondary color:
+    // biColor = false -> represents the current WAUV color
+    // biColor = true -> represents the secondary color of a color wheel
+    property color secondary: "black"
 
     Rectangle
     {
+        visible: biColor ? false : true
         anchors.fill: parent
         radius: parent.radius
         color: "white"
-        opacity: wauvValue.r
+        opacity: secondary.r
     }
     Rectangle
     {
+        visible: biColor ? false : true
         anchors.fill: parent
         radius: parent.radius
         color: "#FF7E00"
-        opacity: wauvValue.g
+        opacity: secondary.g
     }
     Rectangle
     {
+        visible: biColor ? false : true
         anchors.fill: parent
         radius: parent.radius
         color: "#9400D3"
-        opacity: wauvValue.b
+        opacity: secondary.b
     }
+
+    Rectangle
+    {
+        visible: biColor ? true : false
+        width: parent.width / 2
+        height: parent.height
+        x: parent.width / 2
+        clip: true
+        color: "transparent"
+
+        Rectangle
+        {
+            width: boxRoot.width
+            height: parent.height
+            x: -width / 2
+            radius: boxRoot.radius
+            color: secondary
+        }
+    }
+
 }

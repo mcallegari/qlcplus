@@ -95,25 +95,16 @@ Rectangle
 
     function setHeadRGBColor(headIndex, color)
     {
-        headsRepeater.itemAt(headIndex).headColor = color
+        var headItem = headsRepeater.itemAt(headIndex)
+        headItem.isWheelColor = false
+        headItem.headColor1 = color
     }
 
-    function setHeadWhite(headIndex, level)
+    function setHeadWAUVColor(headIndex, color)
     {
-        var head = headsRepeater.itemAt(headIndex)
-        head.wauvColor = Qt.rgba(level / 255, head.wauvColor.g, head.wauvColor.b, 1.0)
-    }
-
-    function setHeadAmber(headIndex, level)
-    {
-        var head = headsRepeater.itemAt(headIndex)
-        head.wauvColor = Qt.rgba(head.wauvColor.r, level / 255, head.wauvColor.b, 1.0)
-    }
-
-    function setHeadUV(headIndex, level)
-    {
-        var head = headsRepeater.itemAt(headIndex)
-        head.wauvColor = Qt.rgba(head.wauvColor.r, head.wauvColor.g, level / 255, 1.0)
+        var headItem = headsRepeater.itemAt(headIndex)
+        headItem.isWheelColor = false
+        headItem.headColor2 = color
     }
 
     function setPosition(pan, tilt)
@@ -125,6 +116,17 @@ Rectangle
             positionLayer.tiltDegrees = (tiltMaxDegrees / 0xFFFF) * tilt
 
         positionLayer.requestPaint()
+    }
+
+    function setWheelColor(headIndex, col1, col2)
+    {
+        var headItem = headsRepeater.itemAt(headIndex)
+        headItem.headColor1 = col1
+        if (col2 !== Qt.rgba(0,0,0,1))
+        {
+            headItem.isWheelColor = true
+            headItem.headColor2 = col2
+        }
     }
 
     function setGoboPicture(headIndex, resource)
@@ -151,12 +153,9 @@ Rectangle
                 {
                     id: headDelegate
                     property real headLevel: 0.0
-                    property color headColor: "black"
-                    property color wauvColor: "black"
-
-                    property real whiteLevel: 0.0
-                    property real amberLevel: 0.0
-                    property real uvLevel: 0.0
+                    property bool isWheelColor: false
+                    property color headColor1: "black"
+                    property color headColor2: "black"
                     property string goboSource: ""
 
                     width: fixtureItem.headSide
@@ -168,20 +167,19 @@ Rectangle
 
                     MultiColorBox
                     {
-                        id: headMainLayer
                         x: 1
                         y: 1
                         width: parent.width - 2
                         height: parent.height - 2
                         radius: parent.radius - 2
                         opacity: headDelegate.headLevel
-                        rgbValue: headDelegate.headColor
-                        wauvValue: headDelegate.wauvColor
+                        biColor: headDelegate.isWheelColor
+                        primary: headDelegate.headColor1
+                        secondary: headDelegate.headColor2
                     }
 
                     Image
                     {
-                        id: headGoboLayer
                         anchors.fill: parent
                         sourceSize: Qt.size(parent.width, parent.height)
                         source: headDelegate.goboSource

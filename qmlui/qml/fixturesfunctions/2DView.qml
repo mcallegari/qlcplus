@@ -67,12 +67,6 @@ Rectangle
         property vector3d gridSize: View2D.gridSize
         property real gridUnits: View2D.gridUnits
 
-        Component.onCompleted:
-        {
-            calculateCellSize()
-            contextManager.enableContext("2D", true, twoDView)
-        }
-
         onGridSizeChanged: calculateCellSize()
         onGridUnitsChanged: calculateCellSize()
 
@@ -141,6 +135,12 @@ Rectangle
             {
                 console.log("Flickable interaction set to: " + status)
                 twoDView.interactive = status
+            }
+
+            Component.onCompleted:
+            {
+                twoDView.calculateCellSize()
+                contextManager.enableContext("2D", true, twoDView)
             }
 
             onPaint:

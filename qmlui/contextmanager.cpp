@@ -658,7 +658,7 @@ void ContextManager::slotPresetChanged(const QLCChannel *channel, quint8 value)
 
 void ContextManager::slotUniversesWritten(int idx, const QByteArray &ua)
 {
-    foreach(Fixture *fixture, m_doc->fixtures())
+    for (Fixture *fixture : m_doc->fixtures())
     {
         if (fixture->universe() != (quint32)idx)
             continue;
