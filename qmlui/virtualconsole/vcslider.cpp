@@ -25,6 +25,7 @@
 #include "treemodelitem.h"
 #include "fixturemanager.h"
 #include "qlcfixturemode.h"
+#include "qlccapability.h"
 #include "qlcmacros.h"
 #include "vcslider.h"
 #include "function.h"
@@ -51,8 +52,8 @@ VCSlider::VCSlider(Doc *doc, QObject *parent)
     , m_fixtureTree(NULL)
     , m_searchFilter(QString())
     , m_clickAndGoType(CnGNone)
-    , m_cngRGBColor(QColor())
-    , m_cngWAUVColor(QColor())
+    , m_cngPrimaryColor(QColor())
+    , m_cngSecondaryColor(QColor())
     , m_controlledFunctionId(Function::invalidId())
     , m_adjustChangeCounter(0)
     , m_controlledAttributeIndex(Function::invalidAttributeId())
@@ -328,6 +329,9 @@ void VCSlider::setValue(int value, bool setDMX, bool updateFeedback)
                 m_isOverriding = true;
                 emit isOverridingChanged();
             }
+
+            if (clickAndGoType() == CnGPreset)
+                updateClickAndGoResource();
         break;
         case Submaster:
             emit submasterValueChanged(SCALE(qreal(m_value), qreal(0),
@@ -529,6 +533,12 @@ void VCSlider::slotTreeDataChanged(TreeModelItem *item, int role, const QVariant
             addLevelChannel(fixtureID, chIndex);
             qSort(m_levelChannels.begin(), m_levelChannels.end());
         }
+
+        if (clickAndGoType() == CnGPreset)
+        {
+            updateClickAndGoResource();
+            emit clickAndGoPresetsListChanged();
+        }
     }
 }
 
@@ -571,25 +581,112 @@ VCSlider::ClickAndGoType VCSlider::stringToClickAndGoType(QString str)
     return CnGNone;
 }
 
-QColor VCSlider::cngRGBColor() const
+QColor VCSlider::cngPrimaryColor() const
 {
-    return m_cngRGBColor;
+    return m_cngPrimaryColor;
 }
 
-QColor VCSlider::cngWAUVColor() const
+QColor VCSlider::cngSecondaryColor() const
 {
-    return m_cngWAUVColor;
+    return m_cngSecondaryColor;
+}
+
+QVariantList VCSlider::clickAndGoPresetsList()
+{
+    QVariantList prList;
+
+    if (sliderMode() != Level || m_levelChannels.isEmpty())
+        return prList;
+
+    /* Find the first valid channel and return it to QML */
+    for (SceneValue scv : m_levelChannels)
+    {
+        Fixture *fixture = m_doc->fixture(scv.fxi);
+        if (fixture == NULL)
+            continue;
+
+        const QLCFixtureDef *def = fixture->fixtureDef();
+        const QLCFixtureMode *mode = fixture->fixtureMode();
+
+        if (def == NULL || mode == NULL)
+            continue;
+
+        const QLCChannel *ch = fixture->channel(scv.channel);
+
+        if (ch == NULL)
+            continue;
+
+        QVariantMap prMap;
+        prMap.insert("name", QString("%1 - %2")
+                            .arg(def->model())
+                            .arg(ch->name()));
+        prMap.insert("fixtureID", scv.fxi);
+        prMap.insert("channelIdx", scv.channel);
+        prList.append(prMap);
+
+        break;
+    }
+
+    return prList;
+}
+
+QString VCSlider::cngPresetResource() const
+{
+    return m_cngResource;
 }
 
 void VCSlider::setClickAndGoColors(QColor rgb, QColor wauv)
 {
-    m_cngRGBColor = rgb;
-    m_cngWAUVColor = wauv;
+    m_cngPrimaryColor = rgb;
+    m_cngSecondaryColor = wauv;
 
     setValue(128, true, true);
 
-    emit cngRGBColorChanged(rgb);
-    emit cngWAUVColorChanged(wauv);
+    emit cngPrimaryColorChanged(rgb);
+    emit cngSecondaryColorChanged(wauv);
+}
+
+void VCSlider::setClickAndGoPresetValue(int value)
+{
+    setValue(value, true, true);
+}
+
+void VCSlider::updateClickAndGoResource()
+{
+    /* Find the first valid channel and retrieve the capability
+     * resource from the current slider value */
+    for (SceneValue scv : m_levelChannels)
+    {
+        Fixture *fixture = m_doc->fixture(scv.fxi);
+        if (fixture == NULL)
+            continue;
+
+        const QLCChannel *ch = fixture->channel(scv.channel);
+        if (ch == NULL)
+            return;
+
+        for (QLCCapability *cap : ch->capabilities())
+        {
+            if (m_value < cap->min() || m_value > cap->max())
+                continue;
+
+            if (cap->resourceName().isEmpty() == false)
+                m_cngResource = cap->resourceName();
+            else if (cap->resourceColor1().isValid())
+            {
+                m_cngResource = QString();
+                m_cngPrimaryColor = cap->resourceColor1();
+                m_cngSecondaryColor = cap->resourceColor2();
+                emit cngPrimaryColorChanged(m_cngPrimaryColor);
+                emit cngSecondaryColorChanged(m_cngSecondaryColor);
+            }
+            else
+                m_cngResource = QString();
+
+            emit cngPresetResourceChanged();
+            return;
+        }
+    }
 }
 
 /*********************************************************************
@@ -833,7 +930,7 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
 
         if ((uchar)f != 0)
         {
-            QColor modColor = m_cngRGBColor.lighter((uchar)f);
+            QColor modColor = m_cngPrimaryColor.lighter((uchar)f);
             r = modColor.red();
             g = modColor.green();
             b = modColor.blue();
@@ -841,7 +938,7 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
             m = modColor.magenta();
             y = modColor.yellow();
 
-            modColor = m_cngWAUVColor.lighter((uchar)f);
+            modColor = m_cngSecondaryColor.lighter((uchar)f);
             w = modColor.red();
             a = modColor.green();
             uv = modColor.blue();
@@ -1110,6 +1207,12 @@ bool VCSlider::loadXML(QXmlStreamReader &root)
             qWarning() << Q_FUNC_INFO << "Unknown slider tag:" << root.name().toString();
             root.skipCurrentElement();
         }
+    }
+
+    if (clickAndGoType() == CnGPreset)
+    {
+        updateClickAndGoResource();
+        emit clickAndGoPresetsListChanged();
     }
 
     return true;

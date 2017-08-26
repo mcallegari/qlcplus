@@ -87,8 +87,10 @@ class VCSlider : public VCWidget, public DMXSource
     Q_PROPERTY(QString searchFilter READ searchFilter WRITE setSearchFilter NOTIFY searchFilterChanged)
 
     Q_PROPERTY(ClickAndGoType clickAndGoType READ clickAndGoType WRITE setClickAndGoType NOTIFY clickAndGoTypeChanged)
-    Q_PROPERTY(QColor cngRGBColor READ cngRGBColor NOTIFY cngRGBColorChanged)
-    Q_PROPERTY(QColor cngWAUVColor READ cngWAUVColor NOTIFY cngWAUVColorChanged)
+    Q_PROPERTY(QColor cngPrimaryColor READ cngPrimaryColor NOTIFY cngPrimaryColorChanged)
+    Q_PROPERTY(QColor cngSecondaryColor READ cngSecondaryColor NOTIFY cngSecondaryColorChanged)
+    Q_PROPERTY(QVariantList clickAndGoPresetsList READ clickAndGoPresetsList NOTIFY clickAndGoPresetsListChanged)
+    Q_PROPERTY(QString cngPresetResource READ cngPresetResource NOTIFY cngPresetResourceChanged)
 
     /*********************************************************************
      * Initialization
@@ -319,22 +321,31 @@ public:
     /** Returns a Click And Go type from the given string */
     static ClickAndGoType stringToClickAndGoType(QString str);
 
-    QColor cngRGBColor() const;
-    QColor cngWAUVColor() const;
+    QColor cngPrimaryColor() const;
+    QColor cngSecondaryColor() const;
+    QVariantList clickAndGoPresetsList();
+    QString cngPresetResource() const;
 
     Q_INVOKABLE void setClickAndGoColors(QColor rgb, QColor wauv);
+    Q_INVOKABLE void setClickAndGoPresetValue(int value);
+
+protected:
+    void updateClickAndGoResource();
 
 signals:
     void clickAndGoTypeChanged(ClickAndGoType clickAndGoType);
-    void cngRGBColorChanged(QColor value);
-    void cngWAUVColorChanged(QColor value);
+    void cngPrimaryColorChanged(QColor value);
+    void cngSecondaryColorChanged(QColor value);
+    void clickAndGoPresetsListChanged();
+    void cngPresetResourceChanged();
 
 protected:
     ClickAndGoType m_clickAndGoType;
 
     /** RGB and WAUV colors when in CnGColors type */
-    QColor m_cngRGBColor;
-    QColor m_cngWAUVColor;
+    QColor m_cngPrimaryColor;
+    QColor m_cngSecondaryColor;
+    QString m_cngResource;
 
     /*********************************************************************
      * Adjust mode
