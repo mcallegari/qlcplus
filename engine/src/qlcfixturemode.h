@@ -184,7 +184,7 @@ public:
      * @param channel The channel, whose number to get
      * @return Channel number or QLCChannel::invalid()
      */
-    quint32 channelNumber(QLCChannel* channel) const;
+    quint32 channelNumber(QLCChannel *channel) const;
 
     /**
      * Get the channel's index (i.e. the DMX channel number) for the specified

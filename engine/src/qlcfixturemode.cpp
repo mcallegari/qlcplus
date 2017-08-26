@@ -206,13 +206,8 @@ quint32 QLCFixtureMode::channelNumber(QLCChannel* channel) const
     if (channel == NULL)
         return QLCChannel::invalid();
 
-    for (int i = 0; i < m_channels.size(); i++)
-    {
-        if (m_channels.at(i) == channel)
-            return i;
-    }
-
-    return QLCChannel::invalid();
+    int idx = m_channels.indexOf(channel);
+    return idx == -1 ? QLCChannel::invalid() : idx;
 }
 
 quint32 QLCFixtureMode::channelNumber(QLCChannel::Group group, QLCChannel::ControlByte cByte) const
