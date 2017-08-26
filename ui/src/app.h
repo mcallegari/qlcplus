@@ -52,6 +52,25 @@ class VideoProvider;
 
 #define KXMLQLCWorkspace "Workspace"
 
+class DetachedContext : public QMainWindow
+{
+    Q_OBJECT
+
+public:
+    DetachedContext() {}
+
+protected slots:
+    void closeEvent(QCloseEvent *)
+    {
+        emit closing();
+        // avoid the real context to be destroyed !
+        setCentralWidget(NULL);
+    }
+
+signals:
+    void closing();
+};
+
 class App : public QMainWindow
 {
     Q_OBJECT
@@ -154,6 +173,8 @@ public slots:
     void slotDumpDmxIntoFunction();
     void slotFunctionLiveEdit();
     void slotLiveEditVirtualConsole();
+    void slotDetachContext(int index);
+    void slotReattachContext();
 
     void slotHelpIndex();
     void slotHelpAbout();
