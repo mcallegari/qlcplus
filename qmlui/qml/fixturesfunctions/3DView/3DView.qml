@@ -90,27 +90,21 @@ Rectangle
                 depthAttachment: gBufferTarget.depth
             }
 
-            GBufferDebugger { id: debugEntity }
+            //GBufferDebugger { id: debugEntity }
 
             components : [
-                RenderSettings
+                DeferredRenderer
                 {
-                    pickingSettings.pickMethod: PickingSettings.TrianglePicking
-                    activeFrameGraph:
-                        DeferredRenderer
-                        {
-                            id: frameGraph
-                            camera : sceneEntity.camera
-                            gBuffer: gBufferTarget
-                            forward: forwardTarget
-                            sceneDeferredLayer: sceneEntity.deferredLayer
-                            sceneSelectionLayer: sceneEntity.selectionLayer
-                            screenQuadLayer: screenQuadEntity.layer
-                            windowWidth: scene3d.width
-                            windowHeight: scene3d.height
-                            debugLayer: debugEntity.layer
-                        }
-                    renderPolicy: RenderSettings.Always
+                    id: frameGraph
+                    camera : sceneEntity.camera
+                    gBuffer: gBufferTarget
+                    forward: forwardTarget
+                    sceneDeferredLayer: sceneEntity.deferredLayer
+                    sceneSelectionLayer: sceneEntity.selectionLayer
+                    screenQuadLayer: screenQuadEntity.layer
+                    windowWidth: scene3d.width
+                    windowHeight: scene3d.height
+                    //debugLayer: debugEntity.layer
                 },
                 InputSettings {}
             ]

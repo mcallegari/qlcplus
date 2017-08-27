@@ -105,7 +105,6 @@
     <file alias="3DView.qml">qml/fixturesfunctions/3DView/3DView.qml</file>
     <file alias="DeferredRenderer.qml">qml/fixturesfunctions/3DView/DeferredRenderer.qml</file>
     <file alias="GeometryPassEffect.qml">qml/fixturesfunctions/3DView/GeometryPassEffect.qml</file>
-    <file alias="SelectionPassEffect.qml">qml/fixturesfunctions/3DView/SelectionPassEffect.qml</file>
     <file alias="LightPassEffect.qml">qml/fixturesfunctions/3DView/LightPassEffect.qml</file>
     <file alias="Fixture3DItem.qml">qml/fixturesfunctions/3DView/Fixture3DItem.qml</file>
     <file alias="GBuffer.qml">qml/fixturesfunctions/3DView/GBuffer.qml</file>

@@ -24,28 +24,60 @@ Effect
 {
     techniques:
     [
-        // OpenGL 3.1
+        // Light pass - OpenGL 3.1
         Technique
         {
             graphicsApiFilter { api: GraphicsApiFilter.OpenGL; profile: GraphicsApiFilter.CoreProfile; majorVersion: 3; minorVersion: 1 }
             renderPasses:
+            [
                 RenderPass
                 {
-                    filterKeys: FilterKey { name : "pass"; value : "final" }
+                    filterKeys: FilterKey { name : "pass"; value : "lights" }
                     shaderProgram: ShaderProgram {
                         vertexShaderCode: loadSource("qrc:/lights_gl3.vert")
                         fragmentShaderCode: loadSource("qrc:/lights_gl3.frag")
                     }
+                },
+                RenderPass
+                {
+                    filterKeys : FilterKey { name : "pass"; value : "forward" }
+                    shaderProgram : ShaderProgram {
+                        id : sceneShaderGL3
+                        vertexShaderCode:
+                            "#version 140
+
+                            in vec4 vertexPosition;
+                            uniform mat4 modelMatrix;
+
+                            void main()
+                            {
+                                gl_Position = modelMatrix * vertexPosition;
+                            }"
+                        fragmentShaderCode:
+                            "#version 140
+
+                            uniform sampler2D color;
+                            uniform vec2 winSize;
+
+                            out vec4 fragColor;
+
+                            void main()
+                            {
+                                vec2 texCoord = gl_FragCoord.xy / winSize;
+                                fragColor = texture(color, texCoord);
+                            }"
+                    }
                 }
+            ]
         },
-        // OpenGL 2.0 with FBO extension
+        // Light pass - OpenGL 2.0 with FBO extension
         Technique
         {
             graphicsApiFilter { api: GraphicsApiFilter.OpenGL; profile: GraphicsApiFilter.NoProfile; majorVersion: 2; minorVersion: 0 }
             renderPasses:
                 RenderPass
                 {
-                    filterKeys: FilterKey { name: "pass"; value: "final" }
+                    filterKeys: FilterKey { name: "pass"; value: "lights" }
                     shaderProgram: ShaderProgram {
                         vertexShaderCode: loadSource("qrc:/lights_es2.vert")
                         fragmentShaderCode: loadSource("qrc:/lights_es2.frag")

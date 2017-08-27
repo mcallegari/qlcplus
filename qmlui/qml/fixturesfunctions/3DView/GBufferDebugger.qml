@@ -46,7 +46,7 @@ Entity
                     Technique {
                         graphicsApiFilter { api: GraphicsApiFilter.OpenGL; profile: GraphicsApiFilter.NoProfile; majorVersion: 2; minorVersion: 0 }
                         renderPasses: RenderPass {
-                            filterKeys: FilterKey { name: "pass"; value: "final" }
+                            filterKeys: FilterKey { name: "pass"; value: "lights" }
                             shaderProgram: ShaderProgram {
                                 vertexShaderCode:
                                     "#version 110
@@ -93,7 +93,7 @@ Entity
                     Technique {
                         graphicsApiFilter { api: GraphicsApiFilter.OpenGL; profile: GraphicsApiFilter.CoreProfile; majorVersion: 3; minorVersion: 2 }
                         renderPasses: RenderPass {
-                            filterKeys: FilterKey { name: "pass"; value: "final" }
+                            filterKeys: FilterKey { name: "pass"; value: "lights" }
                             shaderProgram: ShaderProgram {
                                 vertexShaderCode:
                                     "#version 150
