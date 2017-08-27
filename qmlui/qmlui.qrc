@@ -118,10 +118,6 @@
     
     <file alias="SettingsView3D.qml">qml/fixturesfunctions/3DView/SettingsView3D.qml</file>
     
-    <file alias="debug_es2.frag">qml/fixturesfunctions/3DView/shaders/debug_es2.frag</file>
-    <file alias="debug_es2.vert">qml/fixturesfunctions/3DView/shaders/debug_es2.vert</file>
-    <file alias="debug_gl3.frag">qml/fixturesfunctions/3DView/shaders/debug_gl3.frag</file>
-    <file alias="debug_gl3.vert">qml/fixturesfunctions/3DView/shaders/debug_gl3.vert</file>
     <file alias="final_es2.frag">qml/fixturesfunctions/3DView/shaders/final_es2.frag</file>
     <file alias="final_es2.vert">qml/fixturesfunctions/3DView/shaders/final_es2.vert</file>
     <file alias="final_gl3.frag">qml/fixturesfunctions/3DView/shaders/final_gl3.frag</file>
