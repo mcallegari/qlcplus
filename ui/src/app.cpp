@@ -288,6 +288,11 @@ void App::init()
     w = new InputOutputManager(m_tab, m_doc);
     m_tab->addTab(w, QIcon(":/input_output.png"), tr("Inputs/Outputs"));
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 6, 0)
+    /* Detach the tab's widget onto a new window on doubleClick */
+    connect(m_tab, SIGNAL(tabBarDoubleClicked(int)), this, SLOT(slotDetachContext(int)));
+#endif
+
     // Listen to blackout changes and toggle m_controlBlackoutAction
     connect(m_doc->inputOutputMap(), SIGNAL(blackoutChanged(bool)), this, SLOT(slotBlackoutChanged(bool)));
 
@@ -1142,6 +1147,41 @@ void App::slotFunctionLiveEdit()
 void App::slotLiveEditVirtualConsole()
 {
     VirtualConsole::instance()->toggleLiveEdit();
+}
+
+void App::slotDetachContext(int index)
+{
+    /* Get the widget that has been double-clicked */
+    QWidget *context = m_tab->widget(index);
+    context->setProperty("tabIndex", index);
+    context->setProperty("tabIcon", QVariant::fromValue(m_tab->tabIcon(index)));
+    context->setProperty("tabLabel", m_tab->tabText(index));
+
+    qDebug() << "Detaching context" << context;
+
+    DetachedContext *detachedWindow = new DetachedContext();
+    detachedWindow->setCentralWidget(context);
+    detachedWindow->resize(800, 600);
+    detachedWindow->show();
+    context->show();
+
+    connect(detachedWindow, SIGNAL(closing()),
+            this, SLOT(slotReattachContext()));
+}
+
+void App::slotReattachContext()
+{
+    DetachedContext *window = qobject_cast<DetachedContext *>(sender());
+
+    QWidget *context = window->centralWidget();
+    int tabIndex = context->property("tabIndex").toInt();
+    QIcon tabIcon = context->property("tabIcon").value<QIcon>();
+    QString tabLabel = context->property("tabLabel").toString();
+
+    qDebug() << "Reattaching context" << tabIndex << tabLabel << context;
+
+    context->setParent(m_tab);
+    m_tab->insertTab(tabIndex, context, tabIcon, tabLabel);
 }
 
 void App::slotControlFullScreen()
