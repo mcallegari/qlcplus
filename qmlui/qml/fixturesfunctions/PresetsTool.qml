@@ -32,18 +32,20 @@ Rectangle
     border.width: 2
     clip: true
 
+    property bool closeOnSelect: false
     property alias presetModel: prList.model
-    property int selectedIndex: -1
+    property int selectedFixture: -1
+    property int selectedChannel: -1
+
+    signal presetSelected(QLCCapability cap, int fxID, int chIdx, int value)
 
     function updatePresets(presetModel)
     {
         if (visible === true)
         {
-            selectedIndex = -1
+            selectedFixture = -1
             prList.model = null // force reload
             prList.model = presetModel
-            capRepeater.model = null // force reload
-            capRepeater.model = fixtureManager.presetCapabilities(selectedIndex)
         }
     }
 
@@ -71,19 +73,24 @@ Rectangle
             delegate:
                 Rectangle
                 {
-                    id: delRoot
+                    id: delegateRoot
                     width: UISettings.bigItemHeight
                     height: presetToolBar.height
                     color: prMouseArea.pressed ? UISettings.bgLight : UISettings.bgMedium
                     border.width: 1
                     border.color: "#666"
 
-                    property int presetIdx: modelData.presetIndex
+                    property int fxID: modelData.fixtureID
+                    property int chIdx: modelData.channelIdx
 
                     Component.onCompleted:
                     {
-                        if (selectedIndex === -1)
-                            selectedIndex = modelData.presetIndex
+                        if (selectedFixture === -1)
+                        {
+                            selectedFixture = fxID
+                            selectedChannel = chIdx
+                            capRepeater.model = fixtureManager.presetCapabilities(selectedFixture, selectedChannel)
+                        }
                     }
 
                     RobotoText
@@ -103,8 +110,9 @@ Rectangle
 
                         onClicked:
                         {
-                            selectedIndex = presetIdx
-                            capRepeater.model = fixtureManager.presetCapabilities(selectedIndex)
+                            selectedFixture = delegateRoot.fxID
+                            selectedChannel = delegateRoot.chIdx
+                            capRepeater.model = fixtureManager.presetCapabilities(selectedFixture, selectedChannel)
                         }
                     }
             }
@@ -134,7 +142,9 @@ Rectangle
                     capIndex: index + 1
                     onValueChanged:
                     {
-                        fixtureManager.setPresetValue(selectedIndex, value)
+                        toolRoot.presetSelected(capability, selectedFixture, selectedChannel, value)
+                        if (closeOnSelect)
+                            toolRoot.visible = false
                     }
                 }
             }

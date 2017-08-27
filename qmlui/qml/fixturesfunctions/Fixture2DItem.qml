@@ -95,22 +95,16 @@ Rectangle
 
     function setHeadRGBColor(headIndex, color)
     {
-        headsRepeater.itemAt(headIndex).headColor = color
+        var headItem = headsRepeater.itemAt(headIndex)
+        headItem.isWheelColor = false
+        headItem.headColor1 = color
     }
 
-    function setHeadWhite(headIndex, level)
+    function setHeadWAUVColor(headIndex, color)
     {
-        headsRepeater.itemAt(headIndex).whiteLevel = level / 255
-    }
-
-    function setHeadAmber(headIndex, level)
-    {
-        headsRepeater.itemAt(headIndex).amberLevel = level / 255
-    }
-
-    function setHeadUV(headIndex, level)
-    {
-        headsRepeater.itemAt(headIndex).uvLevel = level / 255
+        var headItem = headsRepeater.itemAt(headIndex)
+        headItem.isWheelColor = false
+        headItem.headColor2 = color
     }
 
     function setPosition(pan, tilt)
@@ -122,6 +116,17 @@ Rectangle
             positionLayer.tiltDegrees = (tiltMaxDegrees / 0xFFFF) * tilt
 
         positionLayer.requestPaint()
+    }
+
+    function setWheelColor(headIndex, col1, col2)
+    {
+        var headItem = headsRepeater.itemAt(headIndex)
+        headItem.headColor1 = col1
+        if (col2 !== Qt.rgba(0,0,0,1))
+        {
+            headItem.isWheelColor = true
+            headItem.headColor2 = col2
+        }
     }
 
     function setGoboPicture(headIndex, resource)
@@ -147,11 +152,10 @@ Rectangle
                 Rectangle
                 {
                     id: headDelegate
-                    property color headColor: "black"
                     property real headLevel: 0.0
-                    property real whiteLevel: 0.0
-                    property real amberLevel: 0.0
-                    property real uvLevel: 0.0
+                    property bool isWheelColor: false
+                    property color headColor1: "black"
+                    property color headColor2: "black"
                     property string goboSource: ""
 
                     width: fixtureItem.headSide
@@ -161,45 +165,21 @@ Rectangle
                     border.width: 1
                     border.color: "#AAA"
 
-                    Rectangle
+                    MultiColorBox
                     {
-                        id: headMainLayer
                         x: 1
                         y: 1
                         width: parent.width - 2
                         height: parent.height - 2
                         radius: parent.radius - 2
-                        color: headDelegate.headColor
                         opacity: headDelegate.headLevel
-
-                        Rectangle
-                        {
-                            id: headWhiteLayer
-                            anchors.fill: parent
-                            radius: parent.radius
-                            color: "white"
-                            opacity: headDelegate.whiteLevel
-                        }
-                        Rectangle
-                        {
-                            id: headAmberLayer
-                            anchors.fill: parent
-                            radius: parent.radius
-                            color: "#FF7E00"
-                            opacity: headDelegate.amberLevel
-                        }
-                        Rectangle
-                        {
-                            id: headUVLayer
-                            anchors.fill: parent
-                            radius: parent.radius
-                            color: "#9400D3"
-                            opacity: headDelegate.uvLevel
-                        }
+                        biColor: headDelegate.isWheelColor
+                        primary: headDelegate.headColor1
+                        secondary: headDelegate.headColor2
                     }
+
                     Image
                     {
-                        id: headGoboLayer
                         anchors.fill: parent
                         sourceSize: Qt.size(parent.width, parent.height)
                         source: headDelegate.goboSource

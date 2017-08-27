@@ -3282,12 +3282,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputoutputpatcheditor.ui" line="124"/>
         <source>Configure the selected plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Das ausgewählte Plugin konfigurieren</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.ui" line="144"/>
         <source>Enable/Disable USB hotplugging (requires restart)</source>
-        <translation type="unfinished"></translation>
+        <translation>USB Hotplugging aktivieren/deaktivieren (Benötigt Neustart)</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.ui" line="168"/>
@@ -6907,12 +6907,12 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="101"/>
         <source>Copy the factors of the selected function</source>
-        <translation type="unfinished"></translation>
+        <translation>Faktoren der ausgewählten Funktion kopieren</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="121"/>
         <source>Paste copied factors to all selected functions</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopierte Faktoren in alle selektierten Funktionen einfügen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="215"/>

@@ -560,58 +560,43 @@ bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
 
 bool Doc::updateFixtureChannelCapabilities(quint32 id, QList<int> forcedHTP, QList<int> forcedLTP)
 {
-    if (m_fixtures.contains(id) == true)
+    if (m_fixtures.contains(id) == false)
+        return false;
+
+    Fixture* fixture = m_fixtures[id];
+    // get exclusive access to the universes list
+    QList<Universe *> universes = inputOutputMap()->claimUniverses();
+    Universe *universe = universes.at(fixture->universe());
+
+    // Set forced HTP channels
+    fixture->setForcedHTPChannels(forcedHTP);
+
+    // Set forced LTP channels
+    fixture->setForcedLTPChannels(forcedLTP);
+
+    // Update the Fixture Universe with the current channel states
+    for (quint32 i = 0 ; i < fixture->channels(); i++)
     {
-        Fixture* fixture = m_fixtures[id];
-        // get exclusive access to the universes list
-        QList<Universe *> universes = inputOutputMap()->claimUniverses();
-        int uni = fixture->universe();
+        const QLCChannel* channel(fixture->channel(i));
 
-        // Set forced HTP channels
-        if (!forcedHTP.isEmpty())
-        {
-            fixture->setForcedHTPChannels(forcedHTP);
-
-            for(int i = 0; i < forcedHTP.count(); i++)
-            {
-                int chIdx = forcedHTP.at(i);
-                const QLCChannel* channel(fixture->channel(chIdx));
-
-                if (channel->group() == QLCChannel::Intensity)
-                    universes.at(uni)->setChannelCapability(fixture->address() + chIdx,
-                                                            channel->group(),
-                                                            Universe::ChannelType(Universe::HTP | Universe::Intensity));
-                else
-                    universes.at(uni)->setChannelCapability(fixture->address() + chIdx,
-                                                            channel->group(),
-                                                            Universe::HTP);
-            }
-        }
-        // Set forced LTP channels
-        if (!forcedLTP.isEmpty())
-        {
-            fixture->setForcedLTPChannels(forcedLTP);
-
-            for(int i = 0; i < forcedLTP.count(); i++)
-            {
-                int chIdx = forcedLTP.at(i);
-                const QLCChannel* channel(fixture->channel(chIdx));
-                universes.at(uni)->setChannelCapability(fixture->address() + chIdx, channel->group(), Universe::LTP);
-            }
-        }
+        if (forcedHTP.contains(i))
+            universe->setChannelCapability(fixture->address() + i,
+                    channel->group(), Universe::HTP);
+        else if (forcedLTP.contains(i))
+            universe->setChannelCapability(fixture->address() + i,
+                    channel->group(), Universe::LTP);
+        else
+            universe->setChannelCapability(fixture->address() + i,
+                    channel->group());
 
         // set channels modifiers
-        for (quint32 i = 0; i < fixture->channels(); i++)
-        {
-            ChannelModifier *mod = fixture->channelModifier(i);
-            universes.at(uni)->setChannelModifier(fixture->address() + i, mod);
-        }
-        inputOutputMap()->releaseUniverses(true);
-
-        return true;
+        ChannelModifier *mod = fixture->channelModifier(i);
+        universe->setChannelModifier(fixture->address() + i, mod);
     }
 
-    return false;
+    inputOutputMap()->releaseUniverses(true);
+
+    return true;
 }
 
 QList<Fixture*> const& Doc::fixtures() const

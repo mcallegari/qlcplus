@@ -40,7 +40,6 @@ VCPage::VCPage(QQuickView *view, Doc *doc, VirtualConsole *vc, int pageIndex, QO
 
 VCPage::~VCPage()
 {
-    m_pageContext->deleteLater();
 }
 
 PreviewContext *VCPage::previewContext() const

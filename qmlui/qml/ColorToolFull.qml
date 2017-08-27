@@ -353,30 +353,13 @@ Rectangle
             height: UISettings.listItemHeight
             label: qsTr("Selected color");
         }
-        Rectangle
+
+        MultiColorBox
         {
             width: UISettings.mediumItemHeight
             height: UISettings.listItemHeight
-            color: currentRGB
-
-            Rectangle
-            {
-                anchors.fill: parent
-                color: "white"
-                opacity: currentWAUV.r
-            }
-            Rectangle
-            {
-                anchors.fill: parent
-                color: "#FF7E00"
-                opacity: currentWAUV.g
-            }
-            Rectangle
-            {
-                anchors.fill: parent
-                color: "#9400D3"
-                opacity: currentWAUV.b
-            }
+            primary: currentRGB
+            secondary: currentWAUV
         }
     }
 }

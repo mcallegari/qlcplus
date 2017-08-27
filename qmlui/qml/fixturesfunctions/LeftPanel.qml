@@ -191,6 +191,7 @@ SidePanel
                     y: UISettings.bigItemHeight
                     visible: false
                     onVisibleChanged: if (visible) updatePresets(fixtureManager.shutterChannels)
+                    onPresetSelected: fixtureManager.setPresetValue(fxID, chIdx, value)
                 }
             }
 
@@ -217,6 +218,7 @@ SidePanel
                     y: UISettings.bigItemHeight
                     visible: false
                     onVisibleChanged: if (visible) updatePresets(fixtureManager.colorWheelChannels)
+                    onPresetSelected: fixtureManager.setPresetValue(fxID, chIdx, value)
                 }
             }
 
@@ -243,6 +245,7 @@ SidePanel
                     y: UISettings.bigItemHeight
                     visible: false
                     onVisibleChanged: if (visible) updatePresets(fixtureManager.goboChannels)
+                    onPresetSelected: fixtureManager.setPresetValue(fxID, chIdx, value)
                 }
             }
 

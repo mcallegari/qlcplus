@@ -20,6 +20,7 @@ IconButton 0.1 ../IconButton.qml
 IconPopupButton 0.1 ../IconPopupButton.qml
 IconTextEntry 0.1 ../IconTextEntry.qml
 MenuBarEntry 0.1 ../MenuBarEntry.qml
+MultiColorBox 0.1 ../MultiColorBox.qml
 QLCPlusFader 0.1 ../QLCPlusFader.qml
 RobotoText 0.1 ../RobotoText.qml
 SectionBox 0.1 ../SectionBox.qml

@@ -77,7 +77,7 @@ AddChannelsGroup::AddChannelsGroup(QWidget* parent, Doc* doc, ChannelsGroup *gro
         if (topItem == NULL)
         {
             topItem = new QTreeWidgetItem(m_tree);
-            topItem->setText(KColumnName, tr("Universe %1").arg(uni + 1));
+            topItem->setText(KColumnName, m_doc->inputOutputMap()->universes().at(uni)->name());
             topItem->setText(KColumnID, QString::number(uni));
             topItem->setExpanded(true);
         }

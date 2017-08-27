@@ -133,10 +133,7 @@ QString OutputPatch::outputName() const
 
 quint32 OutputPatch::output() const
 {
-    if (m_plugin != NULL && m_pluginLine < quint32(m_plugin->outputs().size()))
-        return m_pluginLine;
-    else
-        return QLCIOPlugin::invalidLine();
+    return m_pluginLine;
 }
 
 bool OutputPatch::isPatched() const

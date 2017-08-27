@@ -257,7 +257,7 @@ public:
                                    quint8 white, quint8 amber, quint8 uv);
     Q_INVOKABLE void setPanValue(int degrees);
     Q_INVOKABLE void setTiltValue(int degrees);
-    Q_INVOKABLE void setPresetValue(int index, quint8 value);
+    Q_INVOKABLE void setPresetValue(quint32 fixtureID, int chIndex, quint8 value);
 
     /**
      * @brief setFixtureCapabilities
@@ -288,7 +288,7 @@ public:
 
     /** Returns the list of QLCCapability in QVariant format for
      *  the channel cached at the given index */
-    Q_INVOKABLE QVariantList presetCapabilities(int index);
+    Q_INVOKABLE QVariantList presetCapabilities(quint32 fixtureID, int chIndex);
 
     /** Returns the currently available colors as a bitmask */
     int colorsMask() const;
