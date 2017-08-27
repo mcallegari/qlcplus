@@ -24,12 +24,13 @@ Effect
 {
     techniques:
     [
-        // Light pass - OpenGL 3.1
+        // OpenGL 3.1
         Technique
         {
             graphicsApiFilter { api: GraphicsApiFilter.OpenGL; profile: GraphicsApiFilter.CoreProfile; majorVersion: 3; minorVersion: 1 }
             renderPasses:
             [
+                // Lights pass
                 RenderPass
                 {
                     filterKeys: FilterKey { name : "pass"; value : "lights" }
@@ -38,11 +39,11 @@ Effect
                         fragmentShaderCode: loadSource("qrc:/lights_gl3.frag")
                     }
                 },
+                // Forward pass
                 RenderPass
                 {
                     filterKeys : FilterKey { name : "pass"; value : "forward" }
                     shaderProgram : ShaderProgram {
-                        id : sceneShaderGL3
                         vertexShaderCode:
                             "#version 140
 
@@ -70,11 +71,13 @@ Effect
                 }
             ]
         },
-        // Light pass - OpenGL 2.0 with FBO extension
+        // OpenGL 2.0 with FBO extension
         Technique
         {
             graphicsApiFilter { api: GraphicsApiFilter.OpenGL; profile: GraphicsApiFilter.NoProfile; majorVersion: 2; minorVersion: 0 }
             renderPasses:
+            [
+                // Lights pass
                 RenderPass
                 {
                     filterKeys: FilterKey { name: "pass"; value: "lights" }
@@ -82,7 +85,36 @@ Effect
                         vertexShaderCode: loadSource("qrc:/lights_es2.vert")
                         fragmentShaderCode: loadSource("qrc:/lights_es2.frag")
                     }
+                },
+                // Forward pass
+                RenderPass
+                {
+                    filterKeys : FilterKey { name : "pass"; value : "forward" }
+                    shaderProgram : ShaderProgram {
+                        vertexShaderCode:
+                            "#version 110
+
+                            attribute vec4 vertexPosition;
+                            uniform mat4 modelMatrix;
+
+                            void main()
+                            {
+                                gl_Position = modelMatrix * vertexPosition;
+                            }"
+                        fragmentShaderCode:
+                            "#version 110
+
+                            uniform sampler2D color;
+                            uniform vec2 winSize;
+
+                            void main()
+                            {
+                                vec2 texCoord = gl_FragCoord.xy / winSize;
+                                gl_FragColor = texture(color, texCoord);
+                            }"
+                    }
                 }
+            ]
         }
     ]
 }
