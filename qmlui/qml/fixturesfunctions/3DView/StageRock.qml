@@ -30,7 +30,7 @@ Entity
 
     property vector3d size: View3D.stageSize
 
-    property Layer layer
+    property Layer sceneLayer
     property Effect effect
 
     // if the model changes, this has to be changed accordingly
@@ -168,7 +168,7 @@ Entity
                 mesh,
                 stage.material,
                 transform,
-                stage.layer
+                stage.sceneLayer
             ]
         }
     }
@@ -198,7 +198,7 @@ Entity
             groundMesh,
             stage.material,
             transform,
-            stage.layer
+            stage.sceneLayer
         ]
     }
 
@@ -213,7 +213,7 @@ Entity
             cornerMesh,
             stage.material,
             transform,
-            stage.layer
+            stage.sceneLayer
         ]
     }
 
@@ -227,7 +227,7 @@ Entity
             cornerMesh,
             stage.material,
             transform,
-            stage.layer
+            stage.sceneLayer
         ]
     }
 
@@ -241,7 +241,7 @@ Entity
             cornerMesh,
             stage.material,
             transform,
-            stage.layer
+            stage.sceneLayer
         ]
     }
 
@@ -255,7 +255,7 @@ Entity
             cornerMesh,
             stage.material,
             transform,
-            stage.layer
+            stage.sceneLayer
         ]
     }
 

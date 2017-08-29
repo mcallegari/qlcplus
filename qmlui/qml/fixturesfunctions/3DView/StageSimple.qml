@@ -27,7 +27,7 @@ Entity
     id: stage
 
     property vector3d size: View3D.stageSize
-    property Layer layer
+    property Layer sceneLayer
     property Effect effect
 
     property Material material:
@@ -51,6 +51,6 @@ Entity
         stageMesh,
         stage.material,
         stage.transform,
-        stage.layer
+        stage.sceneLayer
     ]
 }

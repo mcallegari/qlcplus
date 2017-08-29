@@ -195,8 +195,8 @@ void MainView3D::initialize3DProperties()
         m_stageEntity->setParent(m_sceneRootEntity);
 
         QLayer *sceneDeferredLayer = m_sceneRootEntity->property("deferredLayer").value<QLayer *>();
-        QEffect *sceneEffect = m_sceneRootEntity->property("effect").value<QEffect *>();
-        m_stageEntity->setProperty("layer", QVariant::fromValue(sceneDeferredLayer));
+        QEffect *sceneEffect = m_sceneRootEntity->property("geometryPassEffect").value<QEffect *>();
+        m_stageEntity->setProperty("sceneLayer", QVariant::fromValue(sceneDeferredLayer));
         m_stageEntity->setProperty("effect", QVariant::fromValue(sceneEffect));
     }
 }
@@ -238,13 +238,8 @@ void MainView3D::slotCreateFixture(quint32 fxID)
     else if (fixture->type() == QLCFixtureDef::MovingHead)
         meshPath.append("moving_head.dae");
 
-    QLayer *sceneDeferredLayer = m_sceneRootEntity->property("deferredLayer").value<QLayer *>();
-    QEffect *sceneEffect = m_sceneRootEntity->property("effect").value<QEffect *>();
-
     QEntity *newItem = qobject_cast<QEntity *>(m_fixtureComponent->create());
     newItem->setProperty("fixtureID", fxID);
-    newItem->setProperty("layer", QVariant::fromValue(sceneDeferredLayer));
-    newItem->setProperty("effect", QVariant::fromValue(sceneEffect));
     newItem->setProperty("itemSource", meshPath);
     newItem->setParent(m_sceneRootEntity);
 }
@@ -271,6 +266,7 @@ void MainView3D::createFixtureItem(quint32 fxID, qreal x, qreal y, qreal z, bool
     mesh->m_armItem = NULL;
     mesh->m_headItem = NULL;
     mesh->m_lightIndex = getNewLightIndex();
+    mesh->m_selectionBox = NULL;
     m_entitiesMap[fxID] = mesh;
 
     QMetaObject::invokeMethod(this, "slotCreateFixture", Qt::QueuedConnection, Q_ARG(quint32, fxID));
@@ -420,12 +416,12 @@ void MainView3D::addVolumes(FixtureMesh *meshRef, QVector3D center, QVector3D ex
     if (meshRef == NULL)
         return;
 
-    float mminX = meshRef->m_selectionBox.m_center.x() - (meshRef->m_selectionBox.m_extents.x() / 2.0f);
-    float mminY = meshRef->m_selectionBox.m_center.y() - (meshRef->m_selectionBox.m_extents.y() / 2.0f);
-    float mminZ = meshRef->m_selectionBox.m_center.z() - (meshRef->m_selectionBox.m_extents.z() / 2.0f);
-    float mmaxX = meshRef->m_selectionBox.m_center.x() + (meshRef->m_selectionBox.m_extents.x() / 2.0f);
-    float mmaxY = meshRef->m_selectionBox.m_center.y() + (meshRef->m_selectionBox.m_extents.y() / 2.0f);
-    float mmaxZ = meshRef->m_selectionBox.m_center.z() + (meshRef->m_selectionBox.m_extents.z() / 2.0f);
+    float mminX = meshRef->m_volume.m_center.x() - (meshRef->m_volume.m_extents.x() / 2.0f);
+    float mminY = meshRef->m_volume.m_center.y() - (meshRef->m_volume.m_extents.y() / 2.0f);
+    float mminZ = meshRef->m_volume.m_center.z() - (meshRef->m_volume.m_extents.z() / 2.0f);
+    float mmaxX = meshRef->m_volume.m_center.x() + (meshRef->m_volume.m_extents.x() / 2.0f);
+    float mmaxY = meshRef->m_volume.m_center.y() + (meshRef->m_volume.m_extents.y() / 2.0f);
+    float mmaxZ = meshRef->m_volume.m_center.z() + (meshRef->m_volume.m_extents.z() / 2.0f);
 
     float eminX = center.x() - (extent.x() / 2.0f);
     float eminY = center.y() - (extent.y() / 2.0f);
@@ -441,12 +437,12 @@ void MainView3D::addVolumes(FixtureMesh *meshRef, QVector3D center, QVector3D ex
     float vmaxY = qMax(mmaxY, qMax(eminY, emaxY));
     float vmaxZ = qMax(mmaxZ, qMax(eminZ, emaxZ));
 
-    meshRef->m_selectionBox.m_extents = QVector3D(vmaxX - vminX, vmaxY - vminY, vmaxZ - vminZ);
-    meshRef->m_selectionBox.m_center = QVector3D(vminX + meshRef->m_selectionBox.m_extents.x() / 2.0f,
-                                                 vminY + meshRef->m_selectionBox.m_extents.y() / 2.0f,
-                                                 vminZ + meshRef->m_selectionBox.m_extents.z() / 2.0f);
+    meshRef->m_volume.m_extents = QVector3D(vmaxX - vminX, vmaxY - vminY, vmaxZ - vminZ);
+    meshRef->m_volume.m_center = QVector3D(vminX + meshRef->m_volume.m_extents.x() / 2.0f,
+                                           vminY + meshRef->m_volume.m_extents.y() / 2.0f,
+                                           vminZ + meshRef->m_volume.m_extents.z() / 2.0f);
 
-    qDebug() << "-- extent" << meshRef->m_selectionBox.m_extents << "-- center" << meshRef->m_selectionBox.m_center;
+    qDebug() << "-- extent" << meshRef->m_volume.m_extents << "-- center" << meshRef->m_volume.m_center;
 }
 
 QEntity *MainView3D::inspectEntity(QEntity *entity, FixtureMesh *meshRef,
@@ -500,8 +496,7 @@ QEntity *MainView3D::inspectEntity(QEntity *entity, FixtureMesh *meshRef,
     return baseItem;
 }
 
-void MainView3D::initializeFixture(quint32 fxID, QEntity *fxEntity, QComponent *picker,
-                                   QSceneLoader *loader, QLayer *layer, QEffect *effect)
+void MainView3D::initializeFixture(quint32 fxID, QEntity *fxEntity, QComponent *picker, QSceneLoader *loader)
 {
     if (m_entitiesMap.contains(fxID) == false)
         return;
@@ -546,6 +541,12 @@ void MainView3D::initializeFixture(quint32 fxID, QEntity *fxEntity, QComponent *
 
     fxEntity->setParent(m_sceneRootEntity);
 
+    QLayer *sceneDeferredLayer = m_sceneRootEntity->property("deferredLayer").value<QLayer *>();
+    QEffect *sceneEffect = m_sceneRootEntity->property("geometryPassEffect").value<QEffect *>();
+
+    //QLayer *selectionLayer = m_sceneRootEntity->property("selectionLayer").value<QLayer *>();
+    //QGeometryRenderer *selectionMesh = m_sceneRootEntity->property("selectionMesh").value<QGeometryRenderer *>();
+
     QVector3D translation;
     FixtureMesh *meshRef = m_entitiesMap.value(fxID);
     meshRef->m_rootItem = fxEntity;
@@ -555,16 +556,16 @@ void MainView3D::initializeFixture(quint32 fxID, QEntity *fxEntity, QComponent *
     if (m_boundingVolumesMap.contains(loader->source()))
         calculateVolume = false;
     else
-        meshRef->m_selectionBox = m_boundingVolumesMap[loader->source()];
+        meshRef->m_volume = m_boundingVolumesMap[loader->source()];
 
     // Walk through the scene tree and add each mesh to the deferred pipeline.
     // If needed, calculate also the bounding volume */
-    QEntity *baseItem = inspectEntity(root, meshRef, layer, effect, calculateVolume, translation);
+    QEntity *baseItem = inspectEntity(root, meshRef, sceneDeferredLayer, sceneEffect, calculateVolume, translation);
 
-    qDebug() << "Calculated volume" << meshRef->m_selectionBox.m_extents << meshRef->m_selectionBox.m_center;
+    qDebug() << "Calculated volume" << meshRef->m_volume.m_extents << meshRef->m_volume.m_center;
 
     if (calculateVolume)
-        m_boundingVolumesMap[loader->source()] = meshRef->m_selectionBox;
+        m_boundingVolumesMap[loader->source()] = meshRef->m_volume;
 
     if (meshRef->m_armItem)
     {
@@ -817,8 +818,8 @@ void MainView3D::setStageIndex(int stageIndex)
     m_stageEntity->setParent(m_sceneRootEntity);
 
     QLayer *sceneDeferredLayer = m_sceneRootEntity->property("deferredLayer").value<QLayer *>();
-    QEffect *sceneEffect = m_sceneRootEntity->property("effect").value<QEffect *>();
-    m_stageEntity->setProperty("layer", QVariant::fromValue(sceneDeferredLayer));
+    QEffect *sceneEffect = m_sceneRootEntity->property("geometryPassEffect").value<QEffect *>();
+    m_stageEntity->setProperty("sceneLayer", QVariant::fromValue(sceneDeferredLayer));
     m_stageEntity->setProperty("effect", QVariant::fromValue(sceneEffect));
 
     emit stageIndexChanged(m_stageIndex);

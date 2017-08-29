@@ -102,7 +102,7 @@ Effect
                                 gl_Position = modelMatrix * vertexPosition;
                             }"
                         fragmentShaderCode:
-                            "#version 110
+                            "#version 130
 
                             uniform sampler2D color;
                             uniform vec2 winSize;

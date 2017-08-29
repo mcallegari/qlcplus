@@ -59,7 +59,9 @@ typedef struct
     /** The attached light index */
     unsigned int m_lightIndex;
     /** The bounding volume information */
-    BoundingVolume m_selectionBox;
+    BoundingVolume m_volume;
+    /** The selection box entity */
+    QEntity *m_selectionBox;
 
 } FixtureMesh;
 
@@ -110,8 +112,7 @@ public:
 
     void createFixtureItem(quint32 fxID, qreal x, qreal y, qreal z, bool mmCoords = true);
 
-    Q_INVOKABLE void initializeFixture(quint32 fxID, QEntity *fxEntity, QComponent *picker,
-                                       QSceneLoader *loader, QLayer *layer, QEffect *effect);
+    Q_INVOKABLE void initializeFixture(quint32 fxID, QEntity *fxEntity, QComponent *picker, QSceneLoader *loader);
 
     void updateFixture(Fixture *fixture);
 

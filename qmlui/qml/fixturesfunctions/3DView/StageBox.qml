@@ -28,7 +28,7 @@ Entity
 
     property vector3d size: View3D.stageSize
 
-    property Layer layer
+    property Layer sceneLayer
     property Effect effect
 
     property Material material:
@@ -71,7 +71,7 @@ Entity
             groundMesh,
             stage.material,
             transform,
-            stage.layer
+            stage.sceneLayer
         ]
     }
 
@@ -84,7 +84,7 @@ Entity
             sideMesh,
             stage.material,
             transform,
-            stage.layer
+            stage.sceneLayer
         ]
     }
 
@@ -97,7 +97,7 @@ Entity
             sideMesh,
             stage.material,
             transform,
-            stage.layer
+            stage.sceneLayer
         ]
     }
 
@@ -110,7 +110,7 @@ Entity
             backMesh,
             stage.material,
             transform,
-            stage.layer
+            stage.sceneLayer
         ]
     }
 }

@@ -31,9 +31,10 @@ Entity
 
     property size viewSize
     readonly property Camera camera: camera
-    readonly property Layer deferredLayer: sceneDeferredLayer
-    readonly property Layer selectionLayer: sceneSelectionLayer
-    readonly property Effect effect: geometryPassEffect
+    readonly property Layer deferredLayer: Layer { objectName: "sceneDeferredLayer" }
+    readonly property Layer selectionLayer: Layer { objectName: "selectionLayer" }
+    readonly property GeometryRenderer selectionMesh: SelectionGeometry { }
+    readonly property Effect geometryPassEffect: GeometryPassEffect { }
 
     // Global elements
     Camera
@@ -49,14 +50,6 @@ Entity
         viewCenter: Qt.vector3d(0.0, 0.0, 0.0)
     }
 
-    GeometryPassEffect { id: geometryPassEffect }
-
-    Layer { id: sceneDeferredLayer; objectName: "sceneDeferredLayer" }
-
-    Layer { id: sceneSelectionLayer }
-
-    SelectionGeometry { id: sGeometry }
-
     Entity
     {
         id: selectionBox
@@ -65,16 +58,16 @@ Entity
             Material
             {
                 effect: geometryPassEffect
-                parameters: Parameter { name: "meshColor"; value: "red" }
+                parameters: Parameter { name: "meshColor"; value: "yellow" }
             }
 
-        property Transform transform: Transform { translation: Qt.vector3d(1, 0, 1); scale3D: Qt.vector3d(0.5, 0.5, 0.5) }
+        property Transform transform: Transform { scale3D: Qt.vector3d(0.5, 0.5, 0.5) }
 
         components: [
-            sGeometry,
+            selectionMesh,
             material,
             transform,
-            sceneSelectionLayer
+            selectionLayer
         ]
     }
 }

@@ -32,8 +32,6 @@ Entity
 
     property int fixtureID: fixtureManager.invalidFixture()
     property alias itemSource: eSceneLoader.source
-    property Layer layer
-    property Effect effect
 
     property int panMaxDegrees: 0
     property int tiltMaxDegrees: 0
@@ -120,7 +118,7 @@ Entity
         onStatusChanged:
         {
             if (status == SceneLoader.Ready)
-                View3D.initializeFixture(fixtureID, fixtureEntity, eObjectPicker, eSceneLoader, layer, effect)
+                View3D.initializeFixture(fixtureID, fixtureEntity, eObjectPicker, eSceneLoader)
         }
     }
 
