@@ -32,6 +32,7 @@ Entity
 
     property int fixtureID: fixtureManager.invalidFixture()
     property alias itemSource: eSceneLoader.source
+    property bool isSelected: false
 
     property int panMaxDegrees: 0
     property int tiltMaxDegrees: 0
@@ -49,6 +50,8 @@ Entity
     property vector3d position: Qt.vector3d(0, 0, 0)
     property vector3d direction: Qt.vector3d(0, -1, 0)
     property real cutOff: 15.0
+
+    onFixtureIDChanged: isSelected = contextManager.isFixtureSelected(fixtureID)
 
     //onPanTransformChanged: console.log("Pan transform changed " + panTransform)
     //onTiltTransformChanged: console.log("Tilt transform changed " + tiltTransform)
@@ -136,7 +139,8 @@ Entity
         onClicked:
         {
             console.log("Item clicked")
-            contextManager.setFixtureSelection(fixtureID, true)
+            isSelected = !isSelected
+            contextManager.setFixtureSelection(fixtureID, isSelected)
         }
         //onPressed: lastPos = pick.worldIntersection
         //onReleased: console.log("Item release")

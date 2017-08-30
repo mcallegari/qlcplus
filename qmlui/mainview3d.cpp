@@ -52,9 +52,13 @@ MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
     if (m_fixtureComponent->isError())
         qDebug() << m_fixtureComponent->errors();
 
+    m_selectionComponent = new QQmlComponent(m_view->engine(), QUrl("qrc:/SelectionEntity.qml"));
+    if (m_selectionComponent->isError())
+        qDebug() << m_selectionComponent->errors();
+
     setStageSize(m_monProps->gridSize());
 
-    // the following two list must always have the same items number
+    // the following two lists must always have the same items number
     m_stagesList << tr("Simple ground") << tr("Simple box") << tr("Rock stage");
     m_stageResourceList << "qrc:/StageSimple.qml" << "qrc:/StageBox.qml" << "qrc:/StageRock.qml";
 
@@ -124,6 +128,7 @@ void MainView3D::resetItems()
         //if (e->m_armItem)
         //    delete e->m_armItem;
         delete e->m_rootItem;
+        delete e->m_selectionBox;
     }
 
     //const auto end = m_entitiesMap.end();
@@ -342,21 +347,17 @@ void MainView3D::updateLightPosition(FixtureMesh *meshRef)
     meshRef->m_rootItem->setProperty("position", newLightPos);
 }
 
-void MainView3D::calculateMeshExtents(QGeometryRenderer *mesh,
-                                      QVector3D &meshExtents,
-                                      QVector3D &meshCenter)
+void MainView3D::getMeshCorners(QGeometryRenderer *mesh,
+                                QVector3D &minCorner,
+                                QVector3D &maxCorner)
 {
-    meshExtents = QVector3D();
-    meshCenter =  QVector3D();
+    minCorner = QVector3D();
+    maxCorner =  QVector3D();
 
     QGeometry *meshGeometry = mesh->geometry();
 
     if (!meshGeometry)
         return;
-
-    // Set default in case we can't determine the geometry: normalized mesh in range [-1,1]
-    meshExtents = QVector3D(2.0f, 2.0f, 2.0f);
-    meshCenter =  QVector3D();
 
     Qt3DRender::QAttribute *vPosAttribute = nullptr;
     for (Qt3DRender::QAttribute *attribute : meshGeometry->attributes())
@@ -404,18 +405,18 @@ void MainView3D::calculateMeshExtents(QGeometryRenderer *mesh,
             maxZ = qMax(zVal, maxZ);
             bufferPtr += stride;
         }
-        meshExtents = QVector3D(maxX - minX, maxY - minY, maxZ - minZ);
-        meshCenter = QVector3D(minX + meshExtents.x() / 2.0f,
-                               minY + meshExtents.y() / 2.0f,
-                               minZ + meshExtents.z() / 2.0f);
+
+        minCorner = QVector3D(minX, minY, minZ);
+        maxCorner = QVector3D(maxX, maxY, maxZ);
     }
 }
 
-void MainView3D::addVolumes(FixtureMesh *meshRef, QVector3D center, QVector3D extent)
+void MainView3D::addVolumes(FixtureMesh *meshRef, QVector3D minCorner, QVector3D maxCorner)
 {
     if (meshRef == NULL)
         return;
 
+    // calculate the current bounding volume minimum/maximum positions
     float mminX = meshRef->m_volume.m_center.x() - (meshRef->m_volume.m_extents.x() / 2.0f);
     float mminY = meshRef->m_volume.m_center.y() - (meshRef->m_volume.m_extents.y() / 2.0f);
     float mminZ = meshRef->m_volume.m_center.z() - (meshRef->m_volume.m_extents.z() / 2.0f);
@@ -423,19 +424,17 @@ void MainView3D::addVolumes(FixtureMesh *meshRef, QVector3D center, QVector3D ex
     float mmaxY = meshRef->m_volume.m_center.y() + (meshRef->m_volume.m_extents.y() / 2.0f);
     float mmaxZ = meshRef->m_volume.m_center.z() + (meshRef->m_volume.m_extents.z() / 2.0f);
 
-    float eminX = center.x() - (extent.x() / 2.0f);
-    float eminY = center.y() - (extent.y() / 2.0f);
-    float eminZ = center.z() - (extent.z() / 2.0f);
-    float emaxX = center.x() + (extent.x() / 2.0f);
-    float emaxY = center.y() + (extent.y() / 2.0f);
-    float emaxZ = center.z() + (extent.z() / 2.0f);
+    //qDebug() << "volume pos" << mminX << mminY << mminZ << mmaxX << mmaxY << mmaxZ;
 
-    float vminX = qMin(mminX, qMin(eminX, emaxX));
-    float vminY = qMin(mminY, qMin(eminY, emaxY));
-    float vminZ = qMin(mminZ, qMin(eminZ, emaxZ));
-    float vmaxX = qMax(mmaxX, qMax(eminX, emaxX));
-    float vmaxY = qMax(mmaxY, qMax(eminY, emaxY));
-    float vmaxZ = qMax(mmaxZ, qMax(eminZ, emaxZ));
+    // determine the minimum/maximum vertices positions between two volumes
+    float vminX = qMin(mminX, minCorner.x());
+    float vminY = qMin(mminY, minCorner.y());
+    float vminZ = qMin(mminZ, minCorner.z());
+    float vmaxX = qMax(mmaxX, maxCorner.x());
+    float vmaxY = qMax(mmaxY, maxCorner.y());
+    float vmaxZ = qMax(mmaxZ, maxCorner.z());
+
+    //qDebug() << "vertices pos" << vminX << vminY << vminZ << vmaxX << vmaxY << vmaxZ;
 
     meshRef->m_volume.m_extents = QVector3D(vmaxX - vminX, vmaxY - vminY, vmaxZ - vminZ);
     meshRef->m_volume.m_center = QVector3D(vminX + meshRef->m_volume.m_extents.x() / 2.0f,
@@ -473,12 +472,13 @@ QEntity *MainView3D::inspectEntity(QEntity *entity, FixtureMesh *meshRef,
 
     if (geom && calculateVolume)
     {
-        QVector3D extents, center;
-        calculateMeshExtents(geom, extents, center);
-        qDebug() << "Entity" << entity->objectName() << "translation:" << translation << ", size:" << extents << ", center:" << center;
+        QVector3D minCorner, maxCorner;
+        getMeshCorners(geom, minCorner, maxCorner);
+        minCorner += translation;
+        maxCorner += translation;
+        qDebug() << "Entity" << entity->objectName() << "translation:" << translation << ", min:" << minCorner << ", max:" << maxCorner;
 
-        QVector3D absCenter = translation + center;
-        addVolumes(meshRef, extents, absCenter);
+        addVolumes(meshRef, minCorner, maxCorner);
     }
 
     for (QEntity *subEntity : entity->findChildren<QEntity *>(QString(), Qt::FindDirectChildrenOnly))
@@ -509,7 +509,7 @@ void MainView3D::initializeFixture(quint32 fxID, QEntity *fxEntity, QComponent *
     QLCFixtureMode *fxMode = fixture->fixtureMode();
     int panDeg = 0;
     int tiltDeg = 0;
-    bool calculateVolume = true;
+    bool calculateVolume = false;
 
     if (fxMode != NULL)
     {
@@ -544,9 +544,6 @@ void MainView3D::initializeFixture(quint32 fxID, QEntity *fxEntity, QComponent *
     QLayer *sceneDeferredLayer = m_sceneRootEntity->property("deferredLayer").value<QLayer *>();
     QEffect *sceneEffect = m_sceneRootEntity->property("geometryPassEffect").value<QEffect *>();
 
-    //QLayer *selectionLayer = m_sceneRootEntity->property("selectionLayer").value<QLayer *>();
-    //QGeometryRenderer *selectionMesh = m_sceneRootEntity->property("selectionMesh").value<QGeometryRenderer *>();
-
     QVector3D translation;
     FixtureMesh *meshRef = m_entitiesMap.value(fxID);
     meshRef->m_rootItem = fxEntity;
@@ -554,9 +551,9 @@ void MainView3D::initializeFixture(quint32 fxID, QEntity *fxEntity, QComponent *
 
     // If this model has been already loaded, re-use the cached bounding volume
     if (m_boundingVolumesMap.contains(loader->source()))
-        calculateVolume = false;
-    else
         meshRef->m_volume = m_boundingVolumesMap[loader->source()];
+    else
+        calculateVolume = true;
 
     // Walk through the scene tree and add each mesh to the deferred pipeline.
     // If needed, calculate also the bounding volume */
@@ -618,6 +615,24 @@ void MainView3D::initializeFixture(quint32 fxID, QEntity *fxEntity, QComponent *
     meshRef->m_rootItem->addComponent(picker);
 
     updateFixture(fixture);
+
+    QLayer *selectionLayer = m_sceneRootEntity->property("selectionLayer").value<QLayer *>();
+    QGeometryRenderer *selectionMesh = m_sceneRootEntity->property("selectionMesh").value<QGeometryRenderer *>();
+
+    meshRef->m_selectionBox = qobject_cast<QEntity *>(m_selectionComponent->create());
+    meshRef->m_selectionBox->setParent(m_sceneRootEntity);
+
+    meshRef->m_selectionBox->setProperty("selectionLayer", QVariant::fromValue(selectionLayer));
+    meshRef->m_selectionBox->setProperty("geometryPassEffect", QVariant::fromValue(sceneEffect));
+    meshRef->m_selectionBox->setProperty("selectionMesh", QVariant::fromValue(selectionMesh));
+
+    meshRef->m_selectionBox->setProperty("extents", meshRef->m_volume.m_extents);
+    meshRef->m_selectionBox->setProperty("center", meshRef->m_volume.m_center);
+
+    if (meshRef->m_rootTransform != NULL)
+        QMetaObject::invokeMethod(meshRef->m_selectionBox, "bindFixtureTransform",
+                Q_ARG(QVariant, fixture->id()),
+                Q_ARG(QVariant, QVariant::fromValue(meshRef->m_rootTransform)));
 }
 
 void MainView3D::updateFixture(Fixture *fixture)
@@ -712,14 +727,27 @@ void MainView3D::updateFixture(Fixture *fixture)
 
 void MainView3D::updateFixtureSelection(QList<quint32> fixtures)
 {
-    Q_UNUSED(fixtures)
+    QMapIterator<quint32, FixtureMesh*> it(m_entitiesMap);
+    while(it.hasNext())
+    {
+        it.next();
+        quint32 fxID = it.key();
+        FixtureMesh *meshRef = m_entitiesMap.value(fxID);
+
+        if(fixtures.contains(fxID))
+            meshRef->m_selectionBox->setProperty("isSelected", true);
+        else
+            meshRef->m_selectionBox->setProperty("isSelected", false);
+    }
 }
 
 void MainView3D::updateFixtureSelection(quint32 fxID, bool enable)
 {
     qDebug() << "[View3D] fixture" << fxID << "selected:" << enable;
 
-    // TODO: show/hide bounding box
+    FixtureMesh *meshRef = m_entitiesMap.value(fxID, NULL);
+    if (meshRef)
+        meshRef->m_selectionBox->setProperty("isSelected", enable);
 }
 
 void MainView3D::updateFixturePosition(quint32 fxID, QVector3D pos)

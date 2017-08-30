@@ -358,12 +358,6 @@ void ContextManager::toggleFixturesSelection()
     }
 }
 
-void ContextManager::updateFixturesCapabilities()
-{
-    for (quint32 id : m_selectedFixtures)
-        m_fixtureManager->getFixtureCapabilities(id, true);
-}
-
 void ContextManager::setRectangleSelection(qreal x, qreal y, qreal width, qreal height)
 {
     QList<quint32> fxIDList;
@@ -377,9 +371,12 @@ void ContextManager::setRectangleSelection(qreal x, qreal y, qreal width, qreal 
 
 bool ContextManager::hasSelectedFixtures()
 {
-    if (m_selectedFixtures.isEmpty())
-        return false;
-    return true;
+    return m_selectedFixtures.isEmpty() ? false : true;
+}
+
+bool ContextManager::isFixtureSelected(quint32 fxID)
+{
+    return m_selectedFixtures.contains(fxID) ? true : false;
 }
 
 void ContextManager::setFixturePosition(quint32 fxID, qreal x, qreal y, qreal z)
@@ -449,6 +446,12 @@ void ContextManager::setFixturesAlignment(int alignment)
         if (m_2DView->isEnabled())
             m_2DView->updateFixturePosition(fxID, fxPos);
     }
+}
+
+void ContextManager::updateFixturesCapabilities()
+{
+    for (quint32 id : m_selectedFixtures)
+        m_fixtureManager->getFixtureCapabilities(id, true);
 }
 
 void ContextManager::createFixtureGroup()

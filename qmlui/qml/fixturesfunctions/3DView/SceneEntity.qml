@@ -49,25 +49,4 @@ Entity
         upVector: Qt.vector3d(0.0, 1.0, 0.0)
         viewCenter: Qt.vector3d(0.0, 0.0, 0.0)
     }
-
-    Entity
-    {
-        id: selectionBox
-
-        property Material material:
-            Material
-            {
-                effect: geometryPassEffect
-                parameters: Parameter { name: "meshColor"; value: "yellow" }
-            }
-
-        property Transform transform: Transform { scale3D: Qt.vector3d(0.5, 0.5, 0.5) }
-
-        components: [
-            selectionMesh,
-            material,
-            transform,
-            selectionLayer
-        ]
-    }
 }

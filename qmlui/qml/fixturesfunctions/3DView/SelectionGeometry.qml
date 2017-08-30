@@ -33,7 +33,7 @@ GeometryRenderer
     function vertexBufferData()
     {
         // Vertices
-        var dimension = 1.0
+        var dimension = 0.5
         var vArray = new Float32Array(8 * 3);
         vArray[0]  = -dimension; vArray[1]  = -dimension; vArray[2]  = -dimension;
         vArray[3]  = dimension;  vArray[4]  = -dimension; vArray[5]  = -dimension;

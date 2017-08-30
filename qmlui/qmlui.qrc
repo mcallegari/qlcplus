@@ -113,6 +113,7 @@
     <file alias="SceneEntity.qml">qml/fixturesfunctions/3DView/SceneEntity.qml</file>
     <file alias="ScreenQuadEntity.qml">qml/fixturesfunctions/3DView/ScreenQuadEntity.qml</file>
     <file alias="SelectionGeometry.qml">qml/fixturesfunctions/3DView/SelectionGeometry.qml</file>
+    <file alias="SelectionEntity.qml">qml/fixturesfunctions/3DView/SelectionEntity.qml</file>
     <file alias="StageSimple.qml">qml/fixturesfunctions/3DView/StageSimple.qml</file>
     <file alias="StageBox.qml">qml/fixturesfunctions/3DView/StageBox.qml</file>
     <file alias="StageRock.qml">qml/fixturesfunctions/3DView/StageRock.qml</file>

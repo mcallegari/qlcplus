@@ -99,8 +99,9 @@ private:
     /** Reference to the Doc Monitor properties */
     MonitorProperties *m_monProps;
 
-    /** Pre-cached QML component for quick item creation */
+    /** Pre-cached QML components for quick item creation */
     QQmlComponent *m_fixtureComponent;
+    QQmlComponent *m_selectionComponent;
 
     /*********************************************************************
      * Fixtures
@@ -129,8 +130,8 @@ protected:
     void initialize3DProperties();
 
     /** Bounding box volume calculation methods */
-    void calculateMeshExtents(QGeometryRenderer *mesh, QVector3D &meshExtents, QVector3D &meshCenter);
-    void addVolumes(FixtureMesh *meshRef, QVector3D center, QVector3D extent);
+    void getMeshCorners(QGeometryRenderer *mesh, QVector3D &minCorner, QVector3D &maxCorner);
+    void addVolumes(FixtureMesh *meshRef, QVector3D minCorner, QVector3D maxCorner);
 
     /** Recursive method to get/set all the information of a scene */
     QEntity *inspectEntity(QEntity *entity, FixtureMesh *meshRef,
