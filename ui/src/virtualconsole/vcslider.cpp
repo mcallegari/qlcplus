@@ -649,7 +649,7 @@ void VCSlider::slotMonitorDMXValueChanged(int value)
 
         if (m_slider)
             m_slider->blockSignals(true);
-        setSliderValue(value, true);
+        setSliderValue(value, false);
         setTopLabelText(sliderValue());
         if (m_slider)
             m_slider->blockSignals(false);
@@ -1175,7 +1175,7 @@ QString VCSlider::topLabelText()
  * Slider
  *****************************************************************************/
 
-void VCSlider::setSliderValue(uchar value, bool noScale)
+void VCSlider::setSliderValue(uchar value, bool scale)
 {
     if (m_slider == NULL)
         return;
@@ -1183,7 +1183,7 @@ void VCSlider::setSliderValue(uchar value, bool noScale)
     float val = value;
 
     /* Scale from input value range to this slider's range */
-    if (!noScale)
+    if (scale)
     {
         val = SCALE((float) value, (float) 0, (float) UCHAR_MAX,
                 (float) m_slider->minimum(),
@@ -1362,7 +1362,7 @@ void VCSlider::slotSliderMoved(int value)
     if (m_slider->isSliderDown() == false)
         return;
 
-    setSliderValue(value, true);
+    setSliderValue(value, false);
 
     updateFeedback();
 }

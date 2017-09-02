@@ -441,7 +441,7 @@ public:
     };
 
 public:
-    void setSliderValue(uchar value, bool noScale = false);
+    void setSliderValue(uchar value, bool scale = true);
 
     void setSliderShadowValue(int value);
 
