@@ -10,6 +10,7 @@ qlcplus (4.11.1) stable; urgency=low
   * UI/Function Live Edit: restore basic live editing of Sequences
   * UI/RGB Matrix Editor: fixed save to Sequence feature
   * Virtual Console/Slider: fix DMX values not updated when interacting with the mouse wheel, keyboard or Click And Go button
+  * Virtual Console/Slider: fix level mode values range scaling
   * Virtual Console/XYPad: the speed of a running EFX preset can now be controlled by a Speed Dial widget
   * RGB Scripts: added "Random pixel per row" and "Random pixel per row multicolor" (thanks to Doug Puckett)
   * Web access: added basic authentication support (thanks to Bartosz Grabias)
