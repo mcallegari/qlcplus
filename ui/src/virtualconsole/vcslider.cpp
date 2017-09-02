@@ -465,7 +465,6 @@ void VCSlider::setSliderMode(SliderMode mode)
             if (m_widgetMode == WSlider)
                 m_slider->setStyleSheet(CNG_DEFAULT_STYLE);
         }
-        slotSliderMoved(level);
 
         m_bottomLabel->show();
         if (m_cngType != ClickAndGoWidget::None)
@@ -610,7 +609,7 @@ bool VCSlider::channelsMonitorEnabled() const
 void VCSlider::setLevelValue(uchar value)
 {
     QMutexLocker locker(&m_levelValueMutex);
-    m_levelValue = value;
+    m_levelValue = CLAMP(value, levelLowLimit(), levelHighLimit());
     if (m_monitorEnabled == true)
         m_monitorValue = m_levelValue;
     m_levelValueChanged = true;
@@ -1209,8 +1208,8 @@ void VCSlider::setSliderValue(uchar value, bool noScale)
                 m_resetButton->setStyleSheet(QString("QToolButton{ background: red; }"));
                 m_isOverriding = true;
             }
-            setLevelValue(value);
-            setClickAndGoWidgetFromLevel(value);
+            setLevelValue(val);
+            setClickAndGoWidgetFromLevel(val);
         }
         break;
 
@@ -1363,7 +1362,7 @@ void VCSlider::slotSliderMoved(int value)
     if (m_slider->isSliderDown() == false)
         return;
 
-    setSliderValue(value);
+    setSliderValue(value, true);
 
     updateFeedback();
 }
