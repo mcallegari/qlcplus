@@ -88,7 +88,7 @@ Entity
                     parameters.push(uniformComp.createObject(lightPassMaterial,
                                     { name: "lightsArray[%1].type".arg(index), value: 2 }))
                     parameters.push(uniformComp.createObject(lightPassMaterial,
-                                    { name: "lightsArray[%1].position".arg(index), value: Qt.binding(function() { return fxItem.position }) }))
+                                    { name: "lightsArray[%1].position".arg(index), value: Qt.binding(function() { return fxItem.lightPosition }) }))
                     parameters.push(uniformComp.createObject(lightPassMaterial,
                                     { name: "lightsArray[%1].color".arg(index), value: Qt.binding(function() { return fxItem.lightColor }) }))
                     parameters.push(uniformComp.createObject(lightPassMaterial,

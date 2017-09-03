@@ -259,6 +259,22 @@ SidePanel
 
             IconButton
             {
+                property bool pickingActive: contextManager.positionPicking
+
+                onPickingActiveChanged: checked = pickingActive
+
+                visible: fixtureAndFunctions.currentView === "3D"
+                z: 2
+                width: iconSize
+                height: iconSize
+                checkable: true
+                faSource: FontAwesome.fa_crosshairs
+                tooltip: qsTr("Pick a 3D point") + " (CTRL+P)"
+                onToggled: contextManager.positionPicking = checked
+            }
+
+            IconButton
+            {
                 z: 2
                 width: iconSize
                 height: iconSize

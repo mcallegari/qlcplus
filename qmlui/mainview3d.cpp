@@ -344,7 +344,16 @@ void MainView3D::updateLightPosition(FixtureMesh *meshRef)
         Qt3DCore::QTransform *headTransform = getTransform(meshRef->m_headItem);
         newLightPos += headTransform->translation();
     }
-    meshRef->m_rootItem->setProperty("position", newLightPos);
+    meshRef->m_rootItem->setProperty("lightPosition", newLightPos);
+}
+
+QVector3D MainView3D::lightPosition(quint32 fixtureID)
+{
+    FixtureMesh *meshRef = m_entitiesMap.value(fixtureID, NULL);
+    if (meshRef == NULL)
+        return QVector3D();
+
+    return meshRef->m_rootItem->property("lightPosition").value<QVector3D>();
 }
 
 void MainView3D::getMeshCorners(QGeometryRenderer *mesh,
@@ -604,11 +613,14 @@ void MainView3D::initializeFixture(quint32 fxID, QEntity *fxEntity, QComponent *
         }
     }
 
+    /* Set the fixture position */
+    QVector3D fxPos = QVector3D(m_stageSize.x() * 500, 1000.0, m_stageSize.z() * 500);
     if (m_monProps->hasFixturePosition(fixture->id()))
-    {
-        QVector3D fxPos = m_monProps->fixturePosition(fixture->id());
-        updateFixturePosition(fxID, fxPos);
-    }
+        fxPos = m_monProps->fixturePosition(fixture->id());
+    else
+        m_monProps->setFixturePosition(fixture->id(), fxPos);
+
+    updateFixturePosition(fxID, fxPos);
 
     /* Hook the object picker to the base entity */
     picker->setParent(meshRef->m_rootItem);

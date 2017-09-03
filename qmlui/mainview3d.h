@@ -125,6 +125,8 @@ public:
 
     void updateFixtureRotation(quint32 fxID, QVector3D degrees);
 
+    QVector3D lightPosition(quint32 fixtureID);
+
 protected:
     /** First time 3D view variables initializations */
     void initialize3DProperties();

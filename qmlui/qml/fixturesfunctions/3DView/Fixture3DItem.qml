@@ -47,7 +47,7 @@ Entity
     property int lightIndex
     property real intensity: 0.0
     property color lightColor: Qt.rgba(0, 0, 0, 1)
-    property vector3d position: Qt.vector3d(0, 0, 0)
+    property vector3d lightPosition: Qt.vector3d(0, 0, 0)
     property vector3d direction: Qt.vector3d(0, -1, 0)
     property real cutOff: 15.0
 

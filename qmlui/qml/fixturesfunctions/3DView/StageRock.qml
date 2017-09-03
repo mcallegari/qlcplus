@@ -194,10 +194,17 @@ Entity
 
         property Transform transform: Transform { translation: Qt.vector3d(0, -1, 0) }
 
+        ObjectPicker
+        {
+            id: stagePicker
+            onClicked: contextManager.setPositionPickPoint(pick.worldIntersection)
+        }
+
         components: [
             groundMesh,
             stage.material,
             transform,
+            stagePicker,
             stage.sceneLayer
         ]
     }

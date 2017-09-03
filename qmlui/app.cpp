@@ -75,6 +75,7 @@ App::App()
     if (dir.isValid() == true)
         m_workingPath = dir.toString();
 
+    m_doc->setModified();
     connect(this, &App::screenChanged, this, &App::slotScreenChanged);
     connect(this, SIGNAL(closing(QQuickCloseEvent*)), this, SLOT(slotClosing()));
 }
@@ -414,15 +415,6 @@ void App::setWorkingPath(QString workingPath)
 
 bool App::newWorkspace()
 {
-    /*
-    QString msg(tr("Do you wish to save the current workspace?\n" \
-                   "Changes will be lost if you don't save them."));
-    if (saveModifiedDoc(tr("New Workspace"), msg) == false)
-    {
-        return false;
-    }
-    */
-
     clearDocument();
     m_fixtureManager->slotDocLoaded();
     m_functionManager->slotDocLoaded();

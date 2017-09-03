@@ -39,10 +39,12 @@ class ContextManager : public QObject
 {
     Q_OBJECT
 
+    Q_PROPERTY(QString currentContext READ currentContext NOTIFY currentContextChanged)
     Q_PROPERTY(quint32 universeFilter READ universeFilter WRITE setUniverseFilter NOTIFY universeFilterChanged)
     Q_PROPERTY(bool hasSelectedFixtures READ hasSelectedFixtures NOTIFY selectedFixturesChanged)
     Q_PROPERTY(QVector3D fixturesPosition READ fixturesPosition WRITE setFixturesPosition NOTIFY fixturesPositionChanged)
     Q_PROPERTY(QVector3D fixturesRotation READ fixturesRotation WRITE setFixturesRotation NOTIFY fixturesRotationChanged)
+    Q_PROPERTY(bool positionPicking READ positionPicking WRITE setPositionPicking NOTIFY positionPickingChanged)
 
 public:
     explicit ContextManager(QQuickView *view, Doc *doc,
@@ -69,6 +71,16 @@ public:
 
     /** Return the currently active context */
     QString currentContext() const;
+
+    /** Enable/Disable a position picking process */
+    bool positionPicking() const;
+    void setPositionPicking(bool enable);
+
+    Q_INVOKABLE void setPositionPickPoint(QVector3D point);
+
+signals:
+    void currentContextChanged();
+    void positionPickingChanged();
 
 public slots:
     /** Resets the data structures and update the currently enabled views */
@@ -101,6 +113,9 @@ private:
     FunctionManager *m_functionManager;
 
     QMap <QString, PreviewContext *> m_contextsMap;
+
+    /** Flag that indicates if a position picking is active */
+    bool m_positionPicking;
 
     /*********************************************************************
      * Universe filtering
