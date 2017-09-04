@@ -253,9 +253,9 @@ void ContextManager::setPositionPickPoint(QVector3D point)
         {
             bool xLeft = point.x() < lightPos.x();
             bool zBack = point.z() < lightPos.z();
-            qreal b = qAbs(lightPos.x() - point.x());
-            qreal c = qAbs(lightPos.z() - point.z());
-            qreal panDeg = qRadiansToDegrees(M_PI_2 - qAtan(c / b));
+            qreal b = qAbs(lightPos.x() - point.x()); // Cathetus
+            qreal c = qAbs(lightPos.z() - point.z()); // Cathetus
+            qreal panDeg = qRadiansToDegrees(M_PI_2 - qAtan(c / b)); // PI/2 - angle
 
             if (xLeft && !zBack)
                 panDeg = 90.0 + (90.0 - panDeg);
@@ -284,9 +284,11 @@ void ContextManager::setPositionPickPoint(QVector3D point)
         if (tiltMSB != QLCChannel::invalid())
         {
             //bool zBack = point.z() < lightPos.z();
-            qreal b = qAbs(lightPos.x() - point.x());
-            qreal c = qAbs(lightPos.y() - point.y());
-            qreal tiltDeg = qRadiansToDegrees(M_PI_2 - qAtan(c / b));
+            qreal b1 = qAbs(lightPos.x() - point.x()); // Cathetus
+            qreal b2 = qAbs(lightPos.z() - point.z()); // Cathetus
+            qreal b = qSqrt(b1 * b1 + b2 * b2); // Hypotenuse
+            qreal c = qAbs(lightPos.y() - point.y()); // Cathetus
+            qreal tiltDeg = qRadiansToDegrees(M_PI_2 - qAtan(c / b)); // PI/2 - angle
             QLCPhysical phy = fixture->fixtureMode()->physical();
 
             tiltDeg = phy.focusTiltMax() / 2 - tiltDeg;
