@@ -45,6 +45,7 @@ class Script : public Function
 public:
     static const QString startFunctionCmd;
     static const QString stopFunctionCmd;
+    static const QString blackoutCmd;
 
     static const QString waitCmd;
     static const QString waitKeyCmd;
@@ -54,6 +55,9 @@ public:
 
     static const QString labelCmd;
     static const QString jumpCmd;
+
+    static const QString blackoutOn;
+    static const QString blackoutOff;
 
     /************************************************************************
      * Initialization
@@ -170,6 +174,14 @@ private:
      * @return An empty string if successful. Otherwise an error string.
      */
     QString handleStopFunction(const QList<QStringList>& tokens);
+
+    /**
+     * Handle "blackout" command.
+     *
+     * @param tokens A list of keyword:value pairs
+     * @return An empty string if successful. Otherwise an error string.
+     */
+    QString handleBlackout(const QList<QStringList>& tokens);
 
     /**
      * Handle "wait" command.

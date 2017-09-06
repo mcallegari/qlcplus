@@ -58,6 +58,9 @@ Each line of a script will be executed by QLC+ in a sequential order.
       This operation will automatically add a comment at the end of the line of code, with the
       QLC+ name of the selected Function.
     </LI>
+    <LI><IMG SRC="qrc:/blackout.png" width=24 align="absmiddle"> <B>Blackout</B>: Opens dialog
+      requesting whether blackout should be turned on or off.
+    </LI>
     <LI><IMG SRC="qrc:/fixture.png" width=24 align="absmiddle"> <B>Set Fixture</B>: Opens 
       the Fixture Channels selection dialog, where you can choose the channels you want to control
       with the Script. If multiple channels are selected, this operation will add one line of code
@@ -170,6 +173,19 @@ Here's a table describing each keyword accepted by the Script engine and its syn
   </TD>
  </TR>
  <TR>
+  <TD>blackout</TD>
+  <TD>
+    <B>Type</B>: keyword<br>
+    <B>Description</B>: turns blackout on or off.<br>
+    <B>Syntax</B>: blackout:on|off<br><br>
+    <I>functionID</I> is an integer number of the ID assigned by QLC+ to a Function. See <I>startfunction</I>
+    description.<br>
+    <B>Examples</B>:
+      <PRE>blackout:on
+blackout:off</PRE>
+  </TD>
+ </TR>
+ <TR>
   <TD>systemcommand</TD>
   <TD>
     <B>Type</B>: keyword<br>
@@ -181,10 +197,8 @@ Here's a table describing each keyword accepted by the Script engine and its syn
     needed, then the arg: keywords are not necessary.<br>
     If an argument contans spaces it must be written between quotes.<br>
     <B>Examples</B>: 
-      <PRE>
-        systemcommand:/usr/bin/vlc arg:-f arg:/home/user/video.mp4 // plays my video with VLC in fullscreen
-        systemcommand:"C:\Program Files\Tools\My Tool.exe" arg:"D:\My Files\My file.txt"
-      </PRE>
+      <PRE>systemcommand:/usr/bin/vlc arg:-f arg:/home/user/video.mp4 // plays my video with VLC in fullscreen
+systemcommand:"C:\Program Files\Tools\My Tool.exe" arg:"D:\My Files\My file.txt"</PRE>
   </TD>
  </TR>
  <TR>
@@ -213,10 +227,8 @@ Here's a table describing each keyword accepted by the Script engine and its syn
     <I>time</I> can be either an integer number of milliseconds or a string 
     representing the wait time in the QLC+ way: **h**m**s.**<br>
     <B>Examples</B>: 
-      <PRE>
-        wait:1800 // Waits for 1 second and 800 milliseconds
-	wait:03s.20 // Waits for 3 seconds and 200 milliseconds
-      </PRE>
+      <PRE>wait:1800 // Waits for 1 second and 800 milliseconds
+wait:03s.20 // Waits for 3 seconds and 200 milliseconds</PRE>
   </TD>
  </TR>
  <TR>
@@ -242,12 +254,10 @@ Here's a table describing each keyword accepted by the Script engine and its syn
     <I>min</I> is the minimum value the randomization can reach. It can be either an integer number or a time string<br>
     <I>max</I> is the maximum value the randomization can reach. It can be either an integer number or a time string<br>
     <B>Examples</B>:
-    <PRE>
-      wait:random(02s.00,05s.00) // Waits a random time between 2 and 5 seconds
+    <PRE>wait:random(02s.00,05s.00) // Waits a random time between 2 and 5 seconds
 
-      // set channel 3 of fixture with ID:1 to a random DMX value between 20 and 235
-      setfixture:1 ch:2 val:random(20,235)
-    </PRE>
+// set channel 3 of fixture with ID:1 to a random DMX value between 20 and 235
+setfixture:1 ch:2 val:random(20,235)</PRE>
   </TD>
  </TR>
 </TABLE>
