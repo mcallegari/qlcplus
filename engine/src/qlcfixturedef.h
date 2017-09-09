@@ -143,6 +143,12 @@ public:
     /** Get the definition's author */
     QString author();
 
+    /** Set the definition's QLC+ version */
+    void setVersion(const QString& version);
+
+    /** Get the definition's QLC+ version */
+    QString version();
+
     /** Check if the full definition has been loaded */
     void checkLoaded();
 
@@ -152,6 +158,7 @@ protected:
     QString m_manufacturer;
     QString m_model;
     FixtureType m_type;
+    QString m_version;
     QString m_author;
 
     /*********************************************************************

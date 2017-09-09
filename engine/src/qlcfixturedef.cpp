@@ -68,6 +68,7 @@ QLCFixtureDef& QLCFixtureDef::operator=(const QLCFixtureDef& fixture)
         m_model = fixture.m_model;
         m_type = fixture.m_type;
         m_author = fixture.m_author;
+        m_version = fixture.m_version;
 
         /* Clear all channels */
         while (m_channels.isEmpty() == false)
@@ -187,6 +188,17 @@ QString QLCFixtureDef::author()
 {
     checkLoaded();
     return m_author;
+}
+
+void QLCFixtureDef::setVersion(const QString& version)
+{
+    m_version = version;
+}
+
+QString QLCFixtureDef::version()
+{
+    checkLoaded();
+    return m_version;
 }
 
 void QLCFixtureDef::checkLoaded()
@@ -534,8 +546,7 @@ bool QLCFixtureDef::loadCreator(QXmlStreamReader &doc)
         }
         else if (doc.name() == KXMLQLCCreatorVersion)
         {
-            /* Ignore version */
-            doc.skipCurrentElement();
+            setVersion(doc.readElementText());
         }
         else if (doc.name() == KXMLQLCCreatorAuthor)
         {
