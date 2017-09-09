@@ -213,7 +213,7 @@ protected:
      *********************************************************************/
 public:
     /** Save the fixture into an XML file */
-    QFile::FileError saveXML(const QString& fileName);
+    QFile::FileError saveXML(const QString& fileName, bool keepVersion = false);
 
     /** Load this fixture's contents from the given file */
     QFile::FileError loadXML(const QString& fileName);

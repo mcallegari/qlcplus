@@ -341,7 +341,7 @@ QList <QLCFixtureMode*> QLCFixtureDef::modes()
  * XML operations
  ****************************************************************************/
 
-QFile::FileError QLCFixtureDef::saveXML(const QString& fileName)
+QFile::FileError QLCFixtureDef::saveXML(const QString& fileName, bool keepVersion)
 {
     QFile::FileError error;
 
@@ -358,7 +358,7 @@ QFile::FileError QLCFixtureDef::saveXML(const QString& fileName)
     doc.setAutoFormatting(true);
     doc.setAutoFormattingIndent(1);
     doc.setCodec("UTF-8");
-    QLCFile::writeXMLHeader(&doc, KXMLQLCFixtureDefDocument, author());
+    QLCFile::writeXMLHeader(&doc, KXMLQLCFixtureDefDocument, author(), keepVersion ? m_version : QString());
 
     doc.writeTextElement(KXMLQLCFixtureDefManufacturer, m_manufacturer);
     doc.writeTextElement(KXMLQLCFixtureDefModel, m_model);
