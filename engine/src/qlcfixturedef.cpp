@@ -381,6 +381,27 @@ QFile::FileError QLCFixtureDef::saveXML(const QString& fileName, bool keepVersio
 
     // Save to actual requested file name
     QFile currFile(fileName);
+
+    // if the new and old files are the same, keep the old file
+    if (keepVersion && currFile.exists())
+    {
+        if (file.open(QIODevice::ReadOnly) == false)
+            return file.error();
+
+        if (currFile.open(QIODevice::ReadOnly) == false)
+            return currFile.error();
+
+        if (currFile.readAll() == file.readAll())
+        {
+            if (!file.remove())
+            {
+                qWarning() << "Could not remove temporary file" << tempFileName;
+                return currFile.error();
+            }
+            return error;
+        }
+    }
+
     if (currFile.exists() && !currFile.remove())
     {
         qWarning() << "Could not erase" << fileName;
