@@ -81,10 +81,10 @@
  </Channel>
  <Mode Name="Default">
   <Physical>
-   <Bulb Lumens="800" Type="LED" ColourTemperature="3200"/>
-   <Dimensions Width="260" Height="285" Weight="9" Depth="317"/>
-   <Lens DegreesMax="45" Name="Other" DegreesMin="15"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="220"/>
+   <Bulb Type="LED" Lumens="800" ColourTemperature="3200"/>
+   <Dimensions Weight="9" Width="260" Height="285" Depth="317"/>
+   <Lens Name="Other" DegreesMin="15" DegreesMax="45"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="220"/>
    <Technical PowerConsumption="300" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

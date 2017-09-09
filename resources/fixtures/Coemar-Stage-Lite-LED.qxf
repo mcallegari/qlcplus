@@ -323,10 +323,10 @@
  </Channel>
  <Mode Name="Global">
   <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
-   <Dimensions Depth="182" Weight="12" Width="609" Height="211"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" TiltMax="180" Type="Fixed"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="12" Width="609" Height="211" Depth="182"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="180"/>
    <Technical PowerConsumption="230" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Master Dimmer</Channel>
@@ -344,10 +344,10 @@
  </Mode>
  <Mode Name="Zone">
   <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
-   <Dimensions Depth="182" Weight="12" Width="609" Height="211"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" TiltMax="180" Type="Fixed"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="12" Width="609" Height="211" Depth="182"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="180"/>
    <Technical PowerConsumption="230" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Master Dimmer</Channel>
@@ -381,10 +381,10 @@
  </Mode>
  <Mode Name="Line">
   <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
-   <Dimensions Depth="182" Weight="12" Width="609" Height="211"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" TiltMax="180" Type="Fixed"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="12" Width="609" Height="211" Depth="182"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="180"/>
    <Technical PowerConsumption="230" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Master Dimmer</Channel>
@@ -431,10 +431,10 @@
  </Mode>
  <Mode Name="Frames">
   <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
-   <Dimensions Depth="182" Weight="12" Width="609" Height="211"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" TiltMax="180" Type="Fixed"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="12" Width="609" Height="211" Depth="182"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="180"/>
    <Technical PowerConsumption="230" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Master Dimmer</Channel>

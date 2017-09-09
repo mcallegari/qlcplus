@@ -2,7 +2,7 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
+  <Name>Q Light Controller Plus</Name>
   <Version>3.1.0</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
@@ -135,10 +135,10 @@
  </Channel>
  <Mode Name="16bit">
   <Physical>
-   <Bulb Lumens="43000" Type="HTI 575W" ColourTemperature="7500"/>
-   <Dimensions Width="449" Height="580" Weight="38" Depth="467"/>
-   <Lens DegreesMax="28" Name="Other" DegreesMin="7"/>
-   <Focus PanMax="530" Type="Head" TiltMax="280"/>
+   <Bulb Type="HTI 575W" Lumens="43000" ColourTemperature="7500"/>
+   <Dimensions Weight="38" Width="449" Height="580" Depth="467"/>
+   <Lens Name="Other" DegreesMin="7" DegreesMax="28"/>
+   <Focus Type="Head" PanMax="530" TiltMax="280"/>
    <Technical PowerConsumption="850" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -160,10 +160,10 @@
  </Mode>
  <Mode Name="8bit">
   <Physical>
-   <Bulb Lumens="43000" Type="HTI 575W" ColourTemperature="7500"/>
-   <Dimensions Width="449" Height="580" Weight="38" Depth="467"/>
-   <Lens DegreesMax="28" Name="Other" DegreesMin="7"/>
-   <Focus PanMax="530" Type="Head" TiltMax="280"/>
+   <Bulb Type="HTI 575W" Lumens="43000" ColourTemperature="7500"/>
+   <Dimensions Weight="38" Width="449" Height="580" Depth="467"/>
+   <Lens Name="Other" DegreesMin="7" DegreesMax="28"/>
+   <Focus Type="Head" PanMax="530" TiltMax="280"/>
    <Technical PowerConsumption="850" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

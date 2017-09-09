@@ -55,26 +55,26 @@
  </Channel>
  <Channel Name="Colour Wheel 1">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Color="#ffffff" Max="12">Open/white - continual positioning</Capability>
-  <Capability Min="13" Color="#7f7fff" Max="25">Light blue - continual positioning</Capability>
-  <Capability Min="26" Color="#ff0000" Max="38">Red - continual positioning</Capability>
-  <Capability Min="39" Color="#0000ff" Max="51">Blue - continual positioning</Capability>
-  <Capability Min="52" Color="#7fff7f" Max="64">Light green - continual positioning</Capability>
-  <Capability Min="65" Color="#ffff00" Max="77">Yellow - continual positioning</Capability>
-  <Capability Min="78" Color="#ff00ff" Max="90">Magenta - continual positioning</Capability>
-  <Capability Min="91" Color="#00ffff" Max="103">Cyan - continual positioning</Capability>
-  <Capability Min="104" Color="#00ff00" Max="116">Green - continual positioning</Capability>
-  <Capability Min="117" Color="#ff7f00" Max="127">Orange - continual positioning</Capability>
-  <Capability Min="128" Color="#ffffff" Max="129">White - continual positioning</Capability>
-  <Capability Min="130" Color="#7f7fff" Max="136">Light blue - positioning</Capability>
-  <Capability Min="137" Color="#ff0000" Max="143">Red - positioning</Capability>
-  <Capability Min="144" Color="#0000ff" Max="149">Blue - positioning</Capability>
-  <Capability Min="150" Color="#7fff7f" Max="156">Light green - positioning</Capability>
-  <Capability Min="157" Color="#ffff00" Max="163">Yellow - positioning</Capability>
-  <Capability Min="164" Color="#ff00ff" Max="169">Magenta - positioning</Capability>
-  <Capability Min="170" Color="#00ffff" Max="176">Cyan - positioning</Capability>
-  <Capability Min="177" Color="#00ff00" Max="183">Green - positioning</Capability>
-  <Capability Min="184" Color="#ff7f00" Max="189">Orange - positioning</Capability>
+  <Capability Min="0" Max="12" Color="#ffffff">Open/white - continual positioning</Capability>
+  <Capability Min="13" Max="25" Color="#7f7fff">Light blue - continual positioning</Capability>
+  <Capability Min="26" Max="38" Color="#ff0000">Red - continual positioning</Capability>
+  <Capability Min="39" Max="51" Color="#0000ff">Blue - continual positioning</Capability>
+  <Capability Min="52" Max="64" Color="#7fff7f">Light green - continual positioning</Capability>
+  <Capability Min="65" Max="77" Color="#ffff00">Yellow - continual positioning</Capability>
+  <Capability Min="78" Max="90" Color="#ff00ff">Magenta - continual positioning</Capability>
+  <Capability Min="91" Max="103" Color="#00ffff">Cyan - continual positioning</Capability>
+  <Capability Min="104" Max="116" Color="#00ff00">Green - continual positioning</Capability>
+  <Capability Min="117" Max="127" Color="#ff7f00">Orange - continual positioning</Capability>
+  <Capability Min="128" Max="129" Color="#ffffff">White - continual positioning</Capability>
+  <Capability Min="130" Max="136" Color="#7f7fff">Light blue - positioning</Capability>
+  <Capability Min="137" Max="143" Color="#ff0000">Red - positioning</Capability>
+  <Capability Min="144" Max="149" Color="#0000ff">Blue - positioning</Capability>
+  <Capability Min="150" Max="156" Color="#7fff7f">Light green - positioning</Capability>
+  <Capability Min="157" Max="163" Color="#ffff00">Yellow - positioning</Capability>
+  <Capability Min="164" Max="169" Color="#ff00ff">Magenta - positioning</Capability>
+  <Capability Min="170" Max="176" Color="#00ffff">Cyan - positioning</Capability>
+  <Capability Min="177" Max="183" Color="#00ff00">Green - positioning</Capability>
+  <Capability Min="184" Max="189" Color="#ff7f00">Orange - positioning</Capability>
   <Capability Min="190" Max="215">Forwards rainbow effect from fast to slow</Capability>
   <Capability Min="216" Max="217">No rotation</Capability>
   <Capability Min="218" Max="243">Backwards rainbow effect from slow to fast</Capability>
@@ -88,33 +88,33 @@
  <Channel Name="Static Gobo Wheel">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="6">Continual positioning open/hole</Capability>
-  <Capability Res="Robe/gobo00031.png" Min="7" Max="12">Continual positioning 1</Capability>
-  <Capability Res="Robe/gobo00030.png" Min="13" Max="18">Continual positioning 2</Capability>
-  <Capability Res="Robe/gobo00029.png" Min="19" Max="25">Continual positioning 3</Capability>
-  <Capability Res="Robe/gobo00028.png" Min="26" Max="31">Continual positioning 4</Capability>
+  <Capability Min="7" Max="12" Res="Robe/gobo00031.png">Continual positioning 1</Capability>
+  <Capability Min="13" Max="18" Res="Robe/gobo00030.png">Continual positioning 2</Capability>
+  <Capability Min="19" Max="25" Res="Robe/gobo00029.png">Continual positioning 3</Capability>
+  <Capability Min="26" Max="31" Res="Robe/gobo00028.png">Continual positioning 4</Capability>
   <Capability Min="32" Max="38">Continual positioning 5</Capability>
   <Capability Min="39" Max="44">Continual positioning 6</Capability>
   <Capability Min="45" Max="50">Continual positioning 7</Capability>
-  <Capability Res="Robe/gobo00027.png" Min="51" Max="57">Continual positioning 8</Capability>
-  <Capability Res="Robe/gobo00026.png" Min="58" Max="63">Continual positioning 9</Capability>
+  <Capability Min="51" Max="57" Res="Robe/gobo00027.png">Continual positioning 8</Capability>
+  <Capability Min="58" Max="63" Res="Robe/gobo00026.png">Continual positioning 9</Capability>
   <Capability Min="64" Max="64">Continual positioning open/hole</Capability>
-  <Capability Res="Robe/gobo00025.png" Min="65" Max="69">Positioning 1</Capability>
+  <Capability Min="65" Max="69" Res="Robe/gobo00025.png">Positioning 1</Capability>
   <Capability Min="70" Max="74">Positioning 2</Capability>
-  <Capability Res="Robe/gobo00031.png" Min="75" Max="79">Positioning 3</Capability>
-  <Capability Res="Robe/gobo00030.png" Min="80" Max="84">Positioning 4</Capability>
-  <Capability Res="Robe/gobo00029.png" Min="85" Max="89">Positioning 5</Capability>
-  <Capability Res="Robe/gobo00028.png" Min="90" Max="94">Positioning 6</Capability>
-  <Capability Res="Robe/gobo00027.png" Min="95" Max="99">Positioning 7</Capability>
-  <Capability Res="Robe/gobo00026.png" Min="100" Max="104">Positioning 8</Capability>
-  <Capability Res="Robe/gobo00025.png" Min="105" Max="109">Positioning 9</Capability>
+  <Capability Min="75" Max="79" Res="Robe/gobo00031.png">Positioning 3</Capability>
+  <Capability Min="80" Max="84" Res="Robe/gobo00030.png">Positioning 4</Capability>
+  <Capability Min="85" Max="89" Res="Robe/gobo00029.png">Positioning 5</Capability>
+  <Capability Min="90" Max="94" Res="Robe/gobo00028.png">Positioning 6</Capability>
+  <Capability Min="95" Max="99" Res="Robe/gobo00027.png">Positioning 7</Capability>
+  <Capability Min="100" Max="104" Res="Robe/gobo00026.png">Positioning 8</Capability>
+  <Capability Min="105" Max="109" Res="Robe/gobo00025.png">Positioning 9</Capability>
   <Capability Min="110" Max="119">Shaking 1 from slow to fast</Capability>
-  <Capability Res="Robe/gobo00031.png" Min="120" Max="129">Shaking 2 from slow to fast</Capability>
-  <Capability Res="Robe/gobo00030.png" Min="130" Max="139">Shaking 3 from slow to fast</Capability>
-  <Capability Res="Robe/gobo00029.png" Min="140" Max="149">Shaking 4 from slow to fast</Capability>
-  <Capability Res="Robe/gobo00028.png" Min="150" Max="159">Shaking 5 from slow to fast</Capability>
-  <Capability Res="Robe/gobo00027.png" Min="160" Max="169">Shaking 6 from slow to fast</Capability>
-  <Capability Res="Robe/gobo00026.png" Min="170" Max="179">Shaking 7 from slow to fast</Capability>
-  <Capability Res="Robe/gobo00025.png" Min="180" Max="189">Shaking 8 from slow to fast</Capability>
+  <Capability Min="120" Max="129" Res="Robe/gobo00031.png">Shaking 2 from slow to fast</Capability>
+  <Capability Min="130" Max="139" Res="Robe/gobo00030.png">Shaking 3 from slow to fast</Capability>
+  <Capability Min="140" Max="149" Res="Robe/gobo00029.png">Shaking 4 from slow to fast</Capability>
+  <Capability Min="150" Max="159" Res="Robe/gobo00028.png">Shaking 5 from slow to fast</Capability>
+  <Capability Min="160" Max="169" Res="Robe/gobo00027.png">Shaking 6 from slow to fast</Capability>
+  <Capability Min="170" Max="179" Res="Robe/gobo00026.png">Shaking 7 from slow to fast</Capability>
+  <Capability Min="180" Max="189" Res="Robe/gobo00025.png">Shaking 8 from slow to fast</Capability>
   <Capability Min="190" Max="199">Shaking 9 from slow to fast</Capability>
   <Capability Min="200" Max="201">Shaking open/hole from slow to fast</Capability>
   <Capability Min="202" Max="221">Forwards rotation from fast to slow</Capability>
@@ -130,34 +130,34 @@
  <Channel Name="Rotating Gobo Wheel">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="3">Indexed open/hole</Capability>
-  <Capability Res="Robe/gobo00036.png" Min="4" Max="7">Indexed 1</Capability>
-  <Capability Res="Robe/gobo00037.png" Min="8" Max="11">Indexed 2</Capability>
-  <Capability Res="Robe/gobo00038.png" Min="12" Max="15">Indexed 3</Capability>
-  <Capability Res="Robe/gobo00035.png" Min="16" Max="19">Indexed 4</Capability>
-  <Capability Res="Robe/gobo00034.png" Min="20" Max="23">Indexed 5</Capability>
-  <Capability Res="Robe/gobo00033.png" Min="24" Max="27">Indexed 6</Capability>
-  <Capability Res="Robe/gobo00032.png" Min="28" Max="31">Indexed 7</Capability>
-  <Capability Res="Robe/gobo00036.png" Min="32" Max="35">Rotation 1</Capability>
-  <Capability Res="Robe/gobo00037.png" Min="36" Max="39">Rotation 2</Capability>
-  <Capability Res="Robe/gobo00038.png" Min="40" Max="43">Rotation 3</Capability>
-  <Capability Res="Robe/gobo00035.png" Min="44" Max="47">Rotation 4</Capability>
-  <Capability Res="Robe/gobo00034.png" Min="48" Max="51">Rotation 5</Capability>
-  <Capability Res="Robe/gobo00033.png" Min="52" Max="55">Rotation 6</Capability>
-  <Capability Res="Robe/gobo00032.png" Min="56" Max="59">Rotation 7</Capability>
-  <Capability Res="Robe/gobo00036.png" Min="60" Max="69">Shaking, indexed, 1 from slow to fast</Capability>
-  <Capability Res="Robe/gobo00037.png" Min="70" Max="79">Shaking, indexed, 2 from slow to fast</Capability>
-  <Capability Res="Robe/gobo00038.png" Min="80" Max="89">Shaking, indexed, 3 from slow to fast</Capability>
-  <Capability Res="Robe/gobo00035.png" Min="90" Max="99">Shaking, indexed, 4 from slow to fast</Capability>
-  <Capability Res="Robe/gobo00034.png" Min="100" Max="109">Shaking, indexed, 5 from slow to fast</Capability>
-  <Capability Res="Robe/gobo00033.png" Min="110" Max="119">Shaking, indexed, 6 from slow to fast</Capability>
-  <Capability Res="Robe/gobo00032.png" Min="120" Max="129">Shaking, indexed, 7 from slow to fast</Capability>
-  <Capability Res="Robe/gobo00036.png" Min="130" Max="139">Shaking, rotation, 1 from slow to fast</Capability>
-  <Capability Res="Robe/gobo00037.png" Min="140" Max="149">Shaking, rotation, 2 from slow to fast</Capability>
-  <Capability Res="Robe/gobo00038.png" Min="150" Max="159">Shaking, rotation, 3 from slow to fast</Capability>
-  <Capability Res="Robe/gobo00035.png" Min="160" Max="169">Shaking, rotation, 4 from slow to fast</Capability>
-  <Capability Res="Robe/gobo00034.png" Min="170" Max="179">Shaking, rotation, 5 from slow to fast</Capability>
-  <Capability Res="Robe/gobo00033.png" Min="180" Max="189">Shaking, rotation, 6 from slow to fast</Capability>
-  <Capability Res="Robe/gobo00032.png" Min="190" Max="199">Shaking, rotation, 7 from slow to fast</Capability>
+  <Capability Min="4" Max="7" Res="Robe/gobo00036.png">Indexed 1</Capability>
+  <Capability Min="8" Max="11" Res="Robe/gobo00037.png">Indexed 2</Capability>
+  <Capability Min="12" Max="15" Res="Robe/gobo00038.png">Indexed 3</Capability>
+  <Capability Min="16" Max="19" Res="Robe/gobo00035.png">Indexed 4</Capability>
+  <Capability Min="20" Max="23" Res="Robe/gobo00034.png">Indexed 5</Capability>
+  <Capability Min="24" Max="27" Res="Robe/gobo00033.png">Indexed 6</Capability>
+  <Capability Min="28" Max="31" Res="Robe/gobo00032.png">Indexed 7</Capability>
+  <Capability Min="32" Max="35" Res="Robe/gobo00036.png">Rotation 1</Capability>
+  <Capability Min="36" Max="39" Res="Robe/gobo00037.png">Rotation 2</Capability>
+  <Capability Min="40" Max="43" Res="Robe/gobo00038.png">Rotation 3</Capability>
+  <Capability Min="44" Max="47" Res="Robe/gobo00035.png">Rotation 4</Capability>
+  <Capability Min="48" Max="51" Res="Robe/gobo00034.png">Rotation 5</Capability>
+  <Capability Min="52" Max="55" Res="Robe/gobo00033.png">Rotation 6</Capability>
+  <Capability Min="56" Max="59" Res="Robe/gobo00032.png">Rotation 7</Capability>
+  <Capability Min="60" Max="69" Res="Robe/gobo00036.png">Shaking, indexed, 1 from slow to fast</Capability>
+  <Capability Min="70" Max="79" Res="Robe/gobo00037.png">Shaking, indexed, 2 from slow to fast</Capability>
+  <Capability Min="80" Max="89" Res="Robe/gobo00038.png">Shaking, indexed, 3 from slow to fast</Capability>
+  <Capability Min="90" Max="99" Res="Robe/gobo00035.png">Shaking, indexed, 4 from slow to fast</Capability>
+  <Capability Min="100" Max="109" Res="Robe/gobo00034.png">Shaking, indexed, 5 from slow to fast</Capability>
+  <Capability Min="110" Max="119" Res="Robe/gobo00033.png">Shaking, indexed, 6 from slow to fast</Capability>
+  <Capability Min="120" Max="129" Res="Robe/gobo00032.png">Shaking, indexed, 7 from slow to fast</Capability>
+  <Capability Min="130" Max="139" Res="Robe/gobo00036.png">Shaking, rotation, 1 from slow to fast</Capability>
+  <Capability Min="140" Max="149" Res="Robe/gobo00037.png">Shaking, rotation, 2 from slow to fast</Capability>
+  <Capability Min="150" Max="159" Res="Robe/gobo00038.png">Shaking, rotation, 3 from slow to fast</Capability>
+  <Capability Min="160" Max="169" Res="Robe/gobo00035.png">Shaking, rotation, 4 from slow to fast</Capability>
+  <Capability Min="170" Max="179" Res="Robe/gobo00034.png">Shaking, rotation, 5 from slow to fast</Capability>
+  <Capability Min="180" Max="189" Res="Robe/gobo00033.png">Shaking, rotation, 6 from slow to fast</Capability>
+  <Capability Min="190" Max="199" Res="Robe/gobo00032.png">Shaking, rotation, 7 from slow to fast</Capability>
   <Capability Min="200" Max="201">Shaking open/hole</Capability>
   <Capability Min="202" Max="221">Forwards rotation from fast to slow</Capability>
   <Capability Min="222" Max="223">No rotation</Capability>
@@ -276,24 +276,24 @@
  </Channel>
  <Channel Name="Colour Wheel 2">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Color="#ffffff" Max="0">Open/white - continual positioning</Capability>
-  <Capability Min="14" Color="#7f0000" Max="14">Deep red - continual positioning</Capability>
-  <Capability Min="28" Color="#00007f" Max="28">Deep blue - continual positioning</Capability>
-  <Capability Min="42" Color="#ff7fff" Max="42">Pink - continual positioning</Capability>
-  <Capability Min="56" Color="#00ffff" Max="56">Cyan - continual positioning</Capability>
-  <Capability Min="70" Color="#ff00ff" Max="70">Magenta - continual positioning</Capability>
-  <Capability Min="84" Color="#ffff00" Max="84">Yellow - continual positioning</Capability>
-  <Capability Min="98" Color="#ffe7c4" Max="98">3200°K correction filter - continual positioning</Capability>
-  <Capability Min="112" Color="#55007f" Max="112">UV filter - continual positioning</Capability>
-  <Capability Min="128" Color="#ffffff" Max="129">White - continual positioning</Capability>
-  <Capability Min="130" Color="#7f0000" Max="136">Deep red - positioning</Capability>
-  <Capability Min="137" Color="#00007f" Max="144">Deep blue - positioning</Capability>
-  <Capability Min="145" Color="#ff7fff" Max="151">Pink - positioning</Capability>
-  <Capability Min="152" Color="#00ffff" Max="159">Cyan - positioning</Capability>
-  <Capability Min="160" Color="#ff00ff" Max="166">Magenta - positioning</Capability>
-  <Capability Min="167" Color="#ffff00" Max="174">Yellow - positioning</Capability>
-  <Capability Min="175" Color="#ffe7c4" Max="181">3200°K correction filter - positioning</Capability>
-  <Capability Min="182" Color="#55007f" Max="189">UV filter - positioning</Capability>
+  <Capability Min="0" Max="0" Color="#ffffff">Open/white - continual positioning</Capability>
+  <Capability Min="14" Max="14" Color="#7f0000">Deep red - continual positioning</Capability>
+  <Capability Min="28" Max="28" Color="#00007f">Deep blue - continual positioning</Capability>
+  <Capability Min="42" Max="42" Color="#ff7fff">Pink - continual positioning</Capability>
+  <Capability Min="56" Max="56" Color="#00ffff">Cyan - continual positioning</Capability>
+  <Capability Min="70" Max="70" Color="#ff00ff">Magenta - continual positioning</Capability>
+  <Capability Min="84" Max="84" Color="#ffff00">Yellow - continual positioning</Capability>
+  <Capability Min="98" Max="98" Color="#ffe7c4">3200°K correction filter - continual positioning</Capability>
+  <Capability Min="112" Max="112" Color="#55007f">UV filter - continual positioning</Capability>
+  <Capability Min="128" Max="129" Color="#ffffff">White - continual positioning</Capability>
+  <Capability Min="130" Max="136" Color="#7f0000">Deep red - positioning</Capability>
+  <Capability Min="137" Max="144" Color="#00007f">Deep blue - positioning</Capability>
+  <Capability Min="145" Max="151" Color="#ff7fff">Pink - positioning</Capability>
+  <Capability Min="152" Max="159" Color="#00ffff">Cyan - positioning</Capability>
+  <Capability Min="160" Max="166" Color="#ff00ff">Magenta - positioning</Capability>
+  <Capability Min="167" Max="174" Color="#ffff00">Yellow - positioning</Capability>
+  <Capability Min="175" Max="181" Color="#ffe7c4">3200°K correction filter - positioning</Capability>
+  <Capability Min="182" Max="189" Color="#55007f">UV filter - positioning</Capability>
   <Capability Min="190" Max="215">Forwards rainbow effect from fast to slow</Capability>
   <Capability Min="216" Max="217">No rotation</Capability>
   <Capability Min="218" Max="243">Backwards rainbow effect from slow to fast</Capability>
@@ -322,10 +322,10 @@
  <Mode Name="1 - 27-Channel">
   <Physical>
    <Bulb Type="MSR 575W" Lumens="49000" ColourTemperature="7200"/>
-   <Dimensions Height="558" Depth="446" Width="470" Weight="32"/>
+   <Dimensions Weight="32" Width="470" Height="558" Depth="446"/>
    <Lens Name="Other" DegreesMin="15" DegreesMax="22"/>
-   <Focus TiltMax="280" PanMax="530" Type="Head"/>
-   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="760"/>
+   <Focus Type="Head" PanMax="530" TiltMax="280"/>
+   <Technical PowerConsumption="760" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
@@ -358,10 +358,10 @@
  <Mode Name="2 - 19-Channel">
   <Physical>
    <Bulb Type="MSR 575W" Lumens="49000" ColourTemperature="7200"/>
-   <Dimensions Height="558" Depth="446" Width="470" Weight="32"/>
+   <Dimensions Weight="32" Width="470" Height="558" Depth="446"/>
    <Lens Name="Other" DegreesMin="15" DegreesMax="22"/>
-   <Focus TiltMax="280" PanMax="530" Type="Head"/>
-   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="760"/>
+   <Focus Type="Head" PanMax="530" TiltMax="280"/>
+   <Technical PowerConsumption="760" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
@@ -386,10 +386,10 @@
  <Mode Name="3 - 29-Channel">
   <Physical>
    <Bulb Type="MSR 575W" Lumens="49000" ColourTemperature="7200"/>
-   <Dimensions Height="558" Depth="446" Width="470" Weight="32"/>
+   <Dimensions Weight="32" Width="470" Height="558" Depth="446"/>
    <Lens Name="Other" DegreesMin="15" DegreesMax="22"/>
-   <Focus TiltMax="280" PanMax="530" Type="Head"/>
-   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="760"/>
+   <Focus Type="Head" PanMax="530" TiltMax="280"/>
+   <Technical PowerConsumption="760" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
@@ -424,10 +424,10 @@
  <Mode Name="4 - 21-Channel">
   <Physical>
    <Bulb Type="MSR 575W" Lumens="49000" ColourTemperature="7200"/>
-   <Dimensions Height="558" Depth="446" Width="470" Weight="32"/>
+   <Dimensions Weight="32" Width="470" Height="558" Depth="446"/>
    <Lens Name="Other" DegreesMin="15" DegreesMax="22"/>
-   <Focus TiltMax="280" PanMax="530" Type="Head"/>
-   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="760"/>
+   <Focus Type="Head" PanMax="530" TiltMax="280"/>
+   <Technical PowerConsumption="760" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>

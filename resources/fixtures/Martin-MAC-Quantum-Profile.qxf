@@ -430,11 +430,11 @@
  </Channel>
  <Mode Name="Basic">
   <Physical>
-   <Bulb Type="LED" ColourTemperature="0" Lumens="12700"/>
-   <Dimensions Weight="23.2" Width="431" Depth="452" Height="648"/>
+   <Bulb Type="LED" Lumens="12700" ColourTemperature="0"/>
+   <Dimensions Weight="23.2" Width="431" Height="648" Depth="452"/>
    <Lens Name="Other" DegreesMin="12" DegreesMax="36"/>
    <Focus Type="Head" PanMax="540" TiltMax="268"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="750"/>
+   <Technical PowerConsumption="750" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Strobe/shutter effect</Channel>
   <Channel Number="1">Dimmer</Channel>
@@ -458,11 +458,11 @@
  </Mode>
  <Mode Name="Extended">
   <Physical>
-   <Bulb Type="LED" ColourTemperature="0" Lumens="12700"/>
-   <Dimensions Weight="23.2" Width="431" Depth="452" Height="648"/>
+   <Bulb Type="LED" Lumens="12700" ColourTemperature="0"/>
+   <Dimensions Weight="23.2" Width="431" Height="648" Depth="452"/>
    <Lens Name="Other" DegreesMin="12" DegreesMax="36"/>
    <Focus Type="Head" PanMax="540" TiltMax="268"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="750"/>
+   <Technical PowerConsumption="750" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Strobe/shutter effect</Channel>
   <Channel Number="1">Dimmer</Channel>

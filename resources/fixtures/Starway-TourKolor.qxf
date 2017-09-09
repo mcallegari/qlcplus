@@ -38,14 +38,14 @@
   <Capability Min="0" Max="5">None</Capability>
   <Capability Min="6" Max="20">High Power (Normal Mode)</Capability>
   <Capability Min="21" Max="30">None</Capability>
-  <Capability Min="31" Max="50" Color2="#ffff00" Color="#ff0000">Red 100% / Green Up / Blue 0%</Capability>
-  <Capability Min="51" Max="70" Color2="#00ffff" Color="#ffff00">Red Down / Green 100% / Blue Up</Capability>
-  <Capability Min="71" Max="90" Color2="#00ffff" Color="#00ff00">Red 0% / Green 100% / Blue Up</Capability>
-  <Capability Min="91" Max="110" Color2="#0000ff" Color="#00ffff">Red 0% / Green Down / Blue 100%</Capability>
-  <Capability Min="111" Max="130" Color2="#ff00ff" Color="#0000ff">Red Up / Green 0% / Blue 100%</Capability>
-  <Capability Min="131" Max="150" Color2="#ff0000" Color="#ff00ff">Red 100 % / Green 0% / Blue Down</Capability>
-  <Capability Min="151" Max="170" Color2="#ffffff" Color="#ff0000">Red 100% / Green Up / Blue Up</Capability>
-  <Capability Min="171" Max="190" Color2="#0000ff" Color="#ffffff">Red Down / Green Down / Blue 100%</Capability>
+  <Capability Min="31" Max="50" Color="#ff0000" Color2="#ffff00">Red 100% / Green Up / Blue 0%</Capability>
+  <Capability Min="51" Max="70" Color="#ffff00" Color2="#00ffff">Red Down / Green 100% / Blue Up</Capability>
+  <Capability Min="71" Max="90" Color="#00ff00" Color2="#00ffff">Red 0% / Green 100% / Blue Up</Capability>
+  <Capability Min="91" Max="110" Color="#00ffff" Color2="#0000ff">Red 0% / Green Down / Blue 100%</Capability>
+  <Capability Min="111" Max="130" Color="#0000ff" Color2="#ff00ff">Red Up / Green 0% / Blue 100%</Capability>
+  <Capability Min="131" Max="150" Color="#ff00ff" Color2="#ff0000">Red 100 % / Green 0% / Blue Down</Capability>
+  <Capability Min="151" Max="170" Color="#ff0000" Color2="#ffffff">Red 100% / Green Up / Blue Up</Capability>
+  <Capability Min="171" Max="190" Color="#ffffff" Color2="#0000ff">Red Down / Green Down / Blue 100%</Capability>
   <Capability Min="191" Max="200">Red 100% / Green  100% / Blue  100% / White  100%</Capability>
   <Capability Min="201" Max="205" Color="#ffff7f">White 1 : 3200K</Capability>
   <Capability Min="206" Max="210">White 2 : 3400K</Capability>
@@ -114,10 +114,10 @@
  </Channel>
  <Mode Name="Stage 11 Channels">
   <Physical>
-   <Bulb Lumens="20000" Type="LED" ColourTemperature="10000"/>
+   <Bulb Type="LED" Lumens="20000" ColourTemperature="10000"/>
    <Dimensions Weight="9.1" Width="305" Height="230" Depth="276"/>
    <Lens Name="Other" DegreesMin="15" DegreesMax="30"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="180" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
@@ -134,10 +134,10 @@
  </Mode>
  <Mode Name="Ar2.s 6 Channels">
   <Physical>
-   <Bulb Lumens="20000" Type="LED" ColourTemperature="10000"/>
+   <Bulb Type="LED" Lumens="20000" ColourTemperature="10000"/>
    <Dimensions Weight="9.1" Width="305" Height="230" Depth="276"/>
    <Lens Name="Other" DegreesMin="15" DegreesMax="30"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="180" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>

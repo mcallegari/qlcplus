@@ -143,10 +143,10 @@
  </Channel>
  <Mode Name="15Ch mode">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1110" Height="295" Weight="8" Depth="55"/>
-   <Lens DegreesMax="25" Name="Other" DegreesMin="25"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="8" Width="1110" Height="295" Depth="55"/>
+   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="70" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Internal Programs, Auto Mode and Sound Controlled Mode</Channel>
@@ -187,10 +187,10 @@
  </Mode>
  <Mode Name="9Ch mode">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1110" Height="295" Weight="8" Depth="55"/>
-   <Lens DegreesMax="25" Name="Other" DegreesMin="25"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="8" Width="1110" Height="295" Depth="55"/>
+   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="70" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Internal Programs, Auto Mode and Sound Controlled Mode</Channel>
@@ -215,10 +215,10 @@
  </Mode>
  <Mode Name="6Ch mode">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1110" Height="295" Weight="8" Depth="55"/>
-   <Lens DegreesMax="25" Name="Other" DegreesMin="25"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="8" Width="1110" Height="295" Depth="55"/>
+   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="70" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Internal Programs, Auto Mode and Sound Controlled Mode</Channel>

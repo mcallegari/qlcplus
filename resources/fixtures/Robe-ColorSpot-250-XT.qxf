@@ -19,11 +19,11 @@
  </Channel>
  <Channel Name="Pan Fine">
   <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255"/>
+  <Capability Min="0" Max="255"></Capability>
  </Channel>
  <Channel Name="Tilt Fine">
   <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255"/>
+  <Capability Min="0" Max="255"></Capability>
  </Channel>
  <Channel Name="Speed Movement">
   <Group Byte="0">Speed</Group>

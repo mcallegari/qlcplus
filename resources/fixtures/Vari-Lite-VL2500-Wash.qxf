@@ -84,8 +84,8 @@
  </Channel>
  <Mode Name="Normal Mode">
   <Physical>
-   <Bulb ColourTemperature="5600" Type="HMI 700W" Lumens="0"/>
-   <Dimensions Depth="650" Height="480" Width="478" Weight="26.1"/>
+   <Bulb Type="HMI 700W" Lumens="0" ColourTemperature="5600"/>
+   <Dimensions Weight="26.1" Width="478" Height="480" Depth="650"/>
    <Lens Name="Other" DegreesMin="14" DegreesMax="55.5"/>
    <Focus Type="Head" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="900" DmxConnector="5-pin"/>

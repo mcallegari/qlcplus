@@ -64,11 +64,11 @@
  </Channel>
  <Mode Name="8 channel">
   <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
-   <Dimensions Depth="202" Weight="3" Width="256" Height="102"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="3" Width="256" Height="102" Depth="202"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus PanMax="120" Type="Mirror" TiltMax="120"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="20"/>
+   <Focus Type="Mirror" PanMax="120" TiltMax="120"/>
+   <Technical PowerConsumption="20" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Mode</Channel>
   <Channel Number="1">Effects</Channel>

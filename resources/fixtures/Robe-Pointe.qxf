@@ -235,10 +235,10 @@
  <Mode Name="Main">
   <Physical>
    <Bulb Type="" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Height="575" Width="364" Weight="15" Depth="260"/>
+   <Dimensions Weight="15" Width="364" Height="575" Depth="260"/>
    <Lens Name="Other" DegreesMin="5" DegreesMax="20"/>
    <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="470"/>
+   <Technical PowerConsumption="470" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>

@@ -105,10 +105,10 @@
  </Channel>
  <Mode Name="Independent">
   <Physical>
-   <Bulb Lumens="80000" Type="LED" ColourTemperature="5700"/>
-   <Dimensions Width="482" Height="305" Weight="7.5" Depth="182"/>
-   <Lens DegreesMax="130" Name="Other" DegreesMin="42"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="80000" ColourTemperature="5700"/>
+   <Dimensions Weight="7.5" Width="482" Height="305" Depth="182"/>
+   <Lens Name="Other" DegreesMin="42" DegreesMax="130"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="800" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
@@ -128,10 +128,10 @@
  </Mode>
  <Mode Name="Standard">
   <Physical>
-   <Bulb Lumens="80000" Type="LED" ColourTemperature="5700"/>
-   <Dimensions Width="482" Height="305" Weight="7.5" Depth="182"/>
-   <Lens DegreesMax="130" Name="Other" DegreesMin="42"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="80000" ColourTemperature="5700"/>
+   <Dimensions Weight="7.5" Width="482" Height="305" Depth="182"/>
+   <Lens Name="Other" DegreesMin="42" DegreesMax="130"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="800" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>

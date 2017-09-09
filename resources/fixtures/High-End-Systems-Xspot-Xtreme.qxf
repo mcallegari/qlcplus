@@ -11,37 +11,37 @@
  <Type>Moving Head</Type>
  <Channel Name="Pan Coarse">
   <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Coarse-adjusts pan to approximately 2 degrees&#13;
+  <Capability Min="0" Max="255">Coarse-adjusts pan to approximately 2 degrees
 of desired position</Capability>
  </Channel>
  <Channel Name="Pan Fine">
   <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Fine-adjusts pan position in increments less&#13;
+  <Capability Min="0" Max="255">Fine-adjusts pan position in increments less
 than 1 degree</Capability>
  </Channel>
  <Channel Name="Tillt Coarse">
   <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Coarse-adjusts tilt to approximately 2&#13;
+  <Capability Min="0" Max="255">Coarse-adjusts tilt to approximately 2
 degrees of desired position</Capability>
  </Channel>
  <Channel Name="Tilt Fine">
   <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Fine-adjusts tilt position in increments less than&#13;
+  <Capability Min="0" Max="255">Fine-adjusts tilt position in increments less than
 1 degree</Capability>
  </Channel>
  <Channel Name="Lamp Function">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="31">Normal Shutter Functions</Capability>
-  <Capability Min="32" Max="63">Lamp Assisted Strobes boosts the Lamp above&#13;
-700 Watts for periodic and random strobes set&#13;
+  <Capability Min="32" Max="63">Lamp Assisted Strobes boosts the Lamp above
+700 Watts for periodic and random strobes set
 in Shutter channel 6.</Capability>
-  <Capability Min="64" Max="95">Lamp Effects boosts the lamp above 700 watts&#13;
-for Boost to White, Boost to Black, or Lightning&#13;
+  <Capability Min="64" Max="95">Lamp Effects boosts the lamp above 700 watts
+for Boost to White, Boost to Black, or Lightning
 effects set in Shutter channel 6</Capability>
-  <Capability Min="96" Max="127">Dual Dimming adds electronic dimming to the&#13;
-mechanical dimming set in the Dim channel 7.&#13;
+  <Capability Min="96" Max="127">Dual Dimming adds electronic dimming to the
+mechanical dimming set in the Dim channel 7.
 (0%?100%)</Capability>
-  <Capability Min="128" Max="159">Electronic Dimming Only Lamp output varies&#13;
+  <Capability Min="128" Max="159">Electronic Dimming Only Lamp output varies
 from a minimum?700W; does not go to black</Capability>
   <Capability Min="160" Max="191">Reserved</Capability>
   <Capability Min="192" Max="223">Reserved</Capability>
@@ -200,21 +200,21 @@ from a minimum?700W; does not go to black</Capability>
   <Capability Min="80" Max="95">Blink</Capability>
   <Capability Min="96" Max="111">TBC</Capability>
   <Capability Min="112" Max="127">Continuous</Capability>
-  <Capability Min="128" Max="143">MSpeed Control&#13;
+  <Capability Min="128" Max="143">MSpeed Control
 Indexed</Capability>
-  <Capability Min="144" Max="159">MSpeed Control&#13;
+  <Capability Min="144" Max="159">MSpeed Control
 Forward Wheel Spin</Capability>
-  <Capability Min="160" Max="175">MSpeed Control&#13;
+  <Capability Min="160" Max="175">MSpeed Control
 Reverse Spin</Capability>
-  <Capability Min="176" Max="191">MSpeed Control&#13;
+  <Capability Min="176" Max="191">MSpeed Control
  Scan</Capability>
-  <Capability Min="192" Max="207">MSpeed Control&#13;
+  <Capability Min="192" Max="207">MSpeed Control
 Random</Capability>
-  <Capability Min="208" Max="223">MSpeed Control&#13;
+  <Capability Min="208" Max="223">MSpeed Control
 Blink</Capability>
-  <Capability Min="224" Max="239">MSpeed Control&#13;
+  <Capability Min="224" Max="239">MSpeed Control
 TBC</Capability>
-  <Capability Min="240" Max="255">MSpeed Control&#13;
+  <Capability Min="240" Max="255">MSpeed Control
 Continuous</Capability>
  </Channel>
  <Channel Name="Gobo 1 Position">
@@ -229,17 +229,17 @@ Continuous</Capability>
   <Capability Min="48" Max="63">Scan</Capability>
   <Capability Min="64" Max="79">Blink</Capability>
   <Capability Min="80" Max="127">Reserved</Capability>
-  <Capability Min="128" Max="143">MSpeed Control&#13;
+  <Capability Min="128" Max="143">MSpeed Control
 Indexed</Capability>
-  <Capability Min="144" Max="159">MSpeed Control&#13;
+  <Capability Min="144" Max="159">MSpeed Control
 Forward Rotate</Capability>
-  <Capability Min="160" Max="175">MSpeed Control&#13;
+  <Capability Min="160" Max="175">MSpeed Control
 Reverse Rotate</Capability>
-  <Capability Min="176" Max="191">MSpeed Control&#13;
+  <Capability Min="176" Max="191">MSpeed Control
 Scan</Capability>
-  <Capability Min="192" Max="207">MSpeed Control&#13;
+  <Capability Min="192" Max="207">MSpeed Control
 Blink</Capability>
-  <Capability Min="208" Max="255">MSpeed Control&#13;
+  <Capability Min="208" Max="255">MSpeed Control
  Reserved</Capability>
  </Channel>
  <Channel Name="Gobo 1 Rotate Coarse">
@@ -260,21 +260,21 @@ Blink</Capability>
   <Capability Min="80" Max="95">Blink</Capability>
   <Capability Min="96" Max="111">TBC</Capability>
   <Capability Min="112" Max="127">Continuous</Capability>
-  <Capability Min="128" Max="143">MSpeed Control&#13;
+  <Capability Min="128" Max="143">MSpeed Control
 indexed</Capability>
-  <Capability Min="144" Max="159">MSpeed Control&#13;
+  <Capability Min="144" Max="159">MSpeed Control
 Forward Wheel Spin</Capability>
-  <Capability Min="160" Max="175">MSpeed Control&#13;
+  <Capability Min="160" Max="175">MSpeed Control
 Reverse Wheel Spin</Capability>
-  <Capability Min="176" Max="191">MSpeed Control&#13;
+  <Capability Min="176" Max="191">MSpeed Control
 Scan</Capability>
-  <Capability Min="192" Max="207">MSpeed Control&#13;
+  <Capability Min="192" Max="207">MSpeed Control
 Random</Capability>
-  <Capability Min="208" Max="223">MSpeed Control&#13;
+  <Capability Min="208" Max="223">MSpeed Control
 Blink</Capability>
-  <Capability Min="224" Max="239">MSpeed Control&#13;
+  <Capability Min="224" Max="239">MSpeed Control
 TBC</Capability>
-  <Capability Min="240" Max="255">MSpeed Control&#13;
+  <Capability Min="240" Max="255">MSpeed Control
 Continuous</Capability>
  </Channel>
  <Channel Name="Effects Position">
@@ -289,17 +289,17 @@ Continuous</Capability>
   <Capability Min="48" Max="63">Scan</Capability>
   <Capability Min="64" Max="79">Blink</Capability>
   <Capability Min="80" Max="127">Reserved</Capability>
-  <Capability Min="128" Max="143">MSpeed Control&#13;
+  <Capability Min="128" Max="143">MSpeed Control
 Indexed</Capability>
-  <Capability Min="144" Max="159">MSpeed Control&#13;
+  <Capability Min="144" Max="159">MSpeed Control
 Forward Rotate</Capability>
-  <Capability Min="160" Max="175">MSpeed Control&#13;
+  <Capability Min="160" Max="175">MSpeed Control
 Reverse Rotate</Capability>
-  <Capability Min="176" Max="191">MSpeed Control&#13;
+  <Capability Min="176" Max="191">MSpeed Control
 Scan</Capability>
-  <Capability Min="192" Max="207">MSpeed Control&#13;
+  <Capability Min="192" Max="207">MSpeed Control
 Blink</Capability>
-  <Capability Min="208" Max="255">MSpeed Control&#13;
+  <Capability Min="208" Max="255">MSpeed Control
 Reserved</Capability>
  </Channel>
  <Channel Name="Effects Rotate&#10;Coarse&#10;">
@@ -320,21 +320,21 @@ Reserved</Capability>
   <Capability Min="80" Max="95">Blink</Capability>
   <Capability Min="96" Max="111">TBC</Capability>
   <Capability Min="112" Max="127">Continuous</Capability>
-  <Capability Min="128" Max="143">MSpeed Control&#13;
+  <Capability Min="128" Max="143">MSpeed Control
 Indexed</Capability>
-  <Capability Min="144" Max="159">MSpeed Control&#13;
+  <Capability Min="144" Max="159">MSpeed Control
 Forward Wheel Spin</Capability>
-  <Capability Min="160" Max="175">MSpeed Control&#13;
+  <Capability Min="160" Max="175">MSpeed Control
 Reverse Wheel Spin</Capability>
-  <Capability Min="176" Max="191">MSpeed Control&#13;
+  <Capability Min="176" Max="191">MSpeed Control
 Scan</Capability>
-  <Capability Min="192" Max="207">MSpeed Control&#13;
+  <Capability Min="192" Max="207">MSpeed Control
 Random</Capability>
-  <Capability Min="208" Max="223">MSpeed Control&#13;
+  <Capability Min="208" Max="223">MSpeed Control
 Blink</Capability>
-  <Capability Min="224" Max="239">MSpeed Control&#13;
+  <Capability Min="224" Max="239">MSpeed Control
 TBC</Capability>
-  <Capability Min="240" Max="255">MSpeed Control&#13;
+  <Capability Min="240" Max="255">MSpeed Control
  Continuous</Capability>
  </Channel>
  <Channel Name="Gobo 2 position">
@@ -349,17 +349,17 @@ TBC</Capability>
   <Capability Min="48" Max="63">Scan</Capability>
   <Capability Min="64" Max="79">Blink</Capability>
   <Capability Min="80" Max="127">Reserved</Capability>
-  <Capability Min="128" Max="143">MSpeed Control&#13;
+  <Capability Min="128" Max="143">MSpeed Control
 Indexed</Capability>
-  <Capability Min="144" Max="159">MSpeed Control&#13;
+  <Capability Min="144" Max="159">MSpeed Control
 Forward Rotate</Capability>
-  <Capability Min="160" Max="175">MSpeed Control&#13;
+  <Capability Min="160" Max="175">MSpeed Control
 Reverse Rotate</Capability>
-  <Capability Min="176" Max="191">MSpeed Control&#13;
+  <Capability Min="176" Max="191">MSpeed Control
  Scan</Capability>
-  <Capability Min="192" Max="207">MSpeed Control&#13;
+  <Capability Min="192" Max="207">MSpeed Control
 Blink</Capability>
-  <Capability Min="208" Max="255">MSpeed Control&#13;
+  <Capability Min="208" Max="255">MSpeed Control
 Reserved</Capability>
  </Channel>
  <Channel Name="Gobo 2 Rotate Coarse">
@@ -386,11 +386,11 @@ Reserved</Capability>
  </Channel>
  <Mode Name="38 Channels">
   <Physical>
-   <Bulb Lumens="16000" Type="MSR 700W" ColourTemperature="5500"/>
+   <Bulb Type="MSR 700W" Lumens="16000" ColourTemperature="5500"/>
    <Dimensions Weight="32" Width="523" Height="825" Depth="521"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus TiltMax="240" Type="Fixed" PanMax="630"/>
-   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="1200"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="630" TiltMax="240"/>
+   <Technical PowerConsumption="1200" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan Coarse</Channel>
   <Channel Number="1">Pan Fine</Channel>

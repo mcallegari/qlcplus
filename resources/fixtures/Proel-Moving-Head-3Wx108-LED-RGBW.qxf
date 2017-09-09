@@ -47,12 +47,12 @@
  <Channel Name="Colours Macro">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="2">No function</Capability>
-  <Capability Color2="#ffff00" Min="3" Max="41" Color="#ff0000">Red to Yellow</Capability>
-  <Capability Color2="#00ff00" Min="42" Max="83" Color="#ffff00">Yellow to Green</Capability>
-  <Capability Color2="#00ffff" Min="84" Max="125" Color="#00ff00">Green to Cyan</Capability>
-  <Capability Color2="#0000ff" Min="126" Max="167" Color="#00ffff">Cyan to Blue</Capability>
-  <Capability Color2="#ff00ff" Min="168" Max="209" Color="#0000ff">Blue to Magenta</Capability>
-  <Capability Color2="#ffffff" Min="210" Max="251" Color="#ff00ff">Magenta to White</Capability>
+  <Capability Min="3" Max="41" Color="#ff0000" Color2="#ffff00">Red to Yellow</Capability>
+  <Capability Min="42" Max="83" Color="#ffff00" Color2="#00ff00">Yellow to Green</Capability>
+  <Capability Min="84" Max="125" Color="#00ff00" Color2="#00ffff">Green to Cyan</Capability>
+  <Capability Min="126" Max="167" Color="#00ffff" Color2="#0000ff">Cyan to Blue</Capability>
+  <Capability Min="168" Max="209" Color="#0000ff" Color2="#ff00ff">Blue to Magenta</Capability>
+  <Capability Min="210" Max="251" Color="#ff00ff" Color2="#ffffff">Magenta to White</Capability>
   <Capability Min="252" Max="255" Color="#ffffff">White</Capability>
  </Channel>
  <Channel Name="Automatic Colours Macro">
@@ -87,10 +87,10 @@
  </Channel>
  <Mode Name="Default">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="300" Height="430" Weight="7.8" Depth="210"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="7.8" Width="300" Height="430" Depth="210"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="330" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>

@@ -27,25 +27,25 @@
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/open.png" Min="0" Max="11">White (open)</Capability>
-  <Capability Res="Chauvet/gobo00026.png" Min="12" Max="23">Yellow</Capability>
-  <Capability Res="Others/gobo00002.png" Min="24" Max="34">Blue</Capability>
-  <Capability Res="Chauvet/gobo00037.png" Min="35" Max="46">Blue+Red+Green</Capability>
-  <Capability Res="Chauvet/gobo00045.png" Min="47" Max="58">Green</Capability>
-  <Capability Res="Chauvet/gobo00018.png" Min="59" Max="69">Pink</Capability>
-  <Capability Res="Others/gobo00044.png" Min="70" Max="81">Red+Yellow+Green+Blue</Capability>
-  <Capability Res="SGM/gobo00007.png" Min="82" Max="93">Magenta</Capability>
-  <Capability Res="Others/gobo00042.png" Min="94" Max="104">Red</Capability>
-  <Capability Res="ClayPaky/gobo00005.png" Min="105" Max="116">Blue+Magenta</Capability>
-  <Capability Res="Chauvet/gobo00053.png" Min="117" Max="127">White (gobo)</Capability>
-  <Capability Res="Others/rainbow.png" Min="128" Max="255">Gobo change speed (slow -&gt; fast)</Capability>
+  <Capability Min="0" Max="11" Res="Others/open.png">White (open)</Capability>
+  <Capability Min="12" Max="23" Res="Chauvet/gobo00026.png">Yellow</Capability>
+  <Capability Min="24" Max="34" Res="Others/gobo00002.png">Blue</Capability>
+  <Capability Min="35" Max="46" Res="Chauvet/gobo00037.png">Blue+Red+Green</Capability>
+  <Capability Min="47" Max="58" Res="Chauvet/gobo00045.png">Green</Capability>
+  <Capability Min="59" Max="69" Res="Chauvet/gobo00018.png">Pink</Capability>
+  <Capability Min="70" Max="81" Res="Others/gobo00044.png">Red+Yellow+Green+Blue</Capability>
+  <Capability Min="82" Max="93" Res="SGM/gobo00007.png">Magenta</Capability>
+  <Capability Min="94" Max="104" Res="Others/gobo00042.png">Red</Capability>
+  <Capability Min="105" Max="116" Res="ClayPaky/gobo00005.png">Blue+Magenta</Capability>
+  <Capability Min="117" Max="127" Res="Chauvet/gobo00053.png">White (gobo)</Capability>
+  <Capability Min="128" Max="255" Res="Others/rainbow.png">Gobo change speed (slow -&gt; fast)</Capability>
  </Channel>
  <Mode Name="4 Channel">
   <Physical>
-   <Bulb ColourTemperature="0" Type="ELC 250W" Lumens="550"/>
-   <Dimensions Width="385" Depth="120" Height="170" Weight="4.4"/>
+   <Bulb Type="ELC 250W" Lumens="550" ColourTemperature="0"/>
+   <Dimensions Weight="4.4" Width="385" Height="170" Depth="120"/>
    <Lens Name="Other" DegreesMin="13" DegreesMax="13"/>
-   <Focus Type="Fixed" TiltMax="120" PanMax="160"/>
+   <Focus Type="Fixed" PanMax="160" TiltMax="120"/>
    <Technical PowerConsumption="300" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

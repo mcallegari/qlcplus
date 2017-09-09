@@ -52,10 +52,10 @@ switching, 7 colours (speed CH 7) </Capability>
  <Mode Name="Normal">
   <Physical>
    <Bulb Type="LED" Lumens="1" ColourTemperature="0"/>
-   <Dimensions Height="200" Width="100" Weight="1.2" Depth="225"/>
-   <Lens DegreesMin="35" DegreesMax="35" Name="Other"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="13"/>
+   <Dimensions Weight="1.2" Width="100" Height="200" Depth="225"/>
+   <Lens Name="Other" DegreesMin="35" DegreesMax="35"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="13" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Intensity</Channel>
   <Channel Number="1">Red</Channel>

@@ -36,122 +36,122 @@
  <Channel Name="Red S1">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="255"/>
+  <Capability Min="0" Max="255"></Capability>
  </Channel>
  <Channel Name="Red S2">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="255"/>
+  <Capability Min="0" Max="255"></Capability>
  </Channel>
  <Channel Name="Red S3">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="255"/>
+  <Capability Min="0" Max="255"></Capability>
  </Channel>
  <Channel Name="Red S4">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="255"/>
+  <Capability Min="0" Max="255"></Capability>
  </Channel>
  <Channel Name="Red S5">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="255"/>
+  <Capability Min="0" Max="255"></Capability>
  </Channel>
  <Channel Name="Red S6">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="255"/>
+  <Capability Min="0" Max="255"></Capability>
  </Channel>
  <Channel Name="Red S7">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="255"/>
+  <Capability Min="0" Max="255"></Capability>
  </Channel>
  <Channel Name="Red S8">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="255"/>
+  <Capability Min="0" Max="255"></Capability>
  </Channel>
  <Channel Name="Green S1">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="255"/>
+  <Capability Min="0" Max="255"></Capability>
  </Channel>
  <Channel Name="Green S2">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="255"/>
+  <Capability Min="0" Max="255"></Capability>
  </Channel>
  <Channel Name="Green S3">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="255"/>
+  <Capability Min="0" Max="255"></Capability>
  </Channel>
  <Channel Name="Green S4">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="255"/>
+  <Capability Min="0" Max="255"></Capability>
  </Channel>
  <Channel Name="Green S5">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="255"/>
+  <Capability Min="0" Max="255"></Capability>
  </Channel>
  <Channel Name="Green S6">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="255"/>
+  <Capability Min="0" Max="255"></Capability>
  </Channel>
  <Channel Name="Green S7">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="255"/>
+  <Capability Min="0" Max="255"></Capability>
  </Channel>
  <Channel Name="Green S8">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="255"/>
+  <Capability Min="0" Max="255"></Capability>
  </Channel>
  <Channel Name="Blue S1">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Min="0" Max="255"/>
+  <Capability Min="0" Max="255"></Capability>
  </Channel>
  <Channel Name="Blue S2">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Min="0" Max="255"/>
+  <Capability Min="0" Max="255"></Capability>
  </Channel>
  <Channel Name="Blue S3">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Min="0" Max="255"/>
+  <Capability Min="0" Max="255"></Capability>
  </Channel>
  <Channel Name="Blue S4">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Min="0" Max="255"/>
+  <Capability Min="0" Max="255"></Capability>
  </Channel>
  <Channel Name="Blue S5">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Min="0" Max="255"/>
+  <Capability Min="0" Max="255"></Capability>
  </Channel>
  <Channel Name="Blue S6">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Min="0" Max="255"/>
+  <Capability Min="0" Max="255"></Capability>
  </Channel>
  <Channel Name="Blue S7">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Min="0" Max="255"/>
+  <Capability Min="0" Max="255"></Capability>
  </Channel>
  <Channel Name="Blue S8">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Min="0" Max="255"/>
+  <Capability Min="0" Max="255"></Capability>
  </Channel>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
@@ -192,10 +192,10 @@
  </Channel>
  <Mode Name="d-P1">
   <Physical>
-   <Bulb Lumens="800" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1070" Height="88" Weight="1.74" Depth="65"/>
-   <Lens DegreesMax="30" Name="Other" DegreesMin="30"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="800" ColourTemperature="0"/>
+   <Dimensions Weight="1.74" Width="1070" Height="88" Depth="65"/>
+   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="60" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
@@ -204,10 +204,10 @@
  </Mode>
  <Mode Name="d-P2">
   <Physical>
-   <Bulb Lumens="800" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1070" Height="88" Weight="1.74" Depth="65"/>
-   <Lens DegreesMax="30" Name="Other" DegreesMin="30"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="800" ColourTemperature="0"/>
+   <Dimensions Weight="1.74" Width="1070" Height="88" Depth="65"/>
+   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="60" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
@@ -217,10 +217,10 @@
  </Mode>
  <Mode Name="d-P3">
   <Physical>
-   <Bulb Lumens="800" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1070" Height="88" Weight="1.74" Depth="65"/>
-   <Lens DegreesMax="30" Name="Other" DegreesMin="30"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="800" ColourTemperature="0"/>
+   <Dimensions Weight="1.74" Width="1070" Height="88" Depth="65"/>
+   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="60" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red S1</Channel>
@@ -260,10 +260,10 @@
  </Mode>
  <Mode Name="d-P4">
   <Physical>
-   <Bulb Lumens="800" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1070" Height="88" Weight="1.74" Depth="65"/>
-   <Lens DegreesMax="30" Name="Other" DegreesMin="30"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="800" ColourTemperature="0"/>
+   <Dimensions Weight="1.74" Width="1070" Height="88" Depth="65"/>
+   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="60" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red S1</Channel>
@@ -335,10 +335,10 @@
  </Mode>
  <Mode Name="d-P5">
   <Physical>
-   <Bulb Lumens="800" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1070" Height="88" Weight="1.74" Depth="65"/>
-   <Lens DegreesMax="30" Name="Other" DegreesMin="30"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="800" ColourTemperature="0"/>
+   <Dimensions Weight="1.74" Width="1070" Height="88" Depth="65"/>
+   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="60" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Color</Channel>
@@ -346,10 +346,10 @@
  </Mode>
  <Mode Name="d-P6">
   <Physical>
-   <Bulb Lumens="800" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1070" Height="88" Weight="1.74" Depth="65"/>
-   <Lens DegreesMax="30" Name="Other" DegreesMin="30"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="800" ColourTemperature="0"/>
+   <Dimensions Weight="1.74" Width="1070" Height="88" Depth="65"/>
+   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="60" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>

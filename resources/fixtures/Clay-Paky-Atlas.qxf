@@ -19,10 +19,10 @@
  </Channel>
  <Mode Name="Default">
   <Physical>
-   <Bulb Lumens="49000" Type="HTI 575W" ColourTemperature="5600"/>
-   <Dimensions Width="725" Height="400" Weight="27" Depth="600"/>
-   <Lens DegreesMax="1" Name="Other" DegreesMin="1"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="HTI 575W" Lumens="49000" ColourTemperature="5600"/>
+   <Dimensions Weight="27" Width="725" Height="400" Depth="600"/>
+   <Lens Name="Other" DegreesMin="1" DegreesMax="1"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="575" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Strobe</Channel>

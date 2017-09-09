@@ -103,20 +103,20 @@
  </Channel>
  <Mode Name="1 channel mode">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="260" Height="304" Weight="6" Depth="168"/>
-   <Lens DegreesMax="10" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="570" Type="Head" TiltMax="240"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="6" Width="260" Height="304" Depth="168"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="10"/>
+   <Focus Type="Head" PanMax="570" TiltMax="240"/>
    <Technical PowerConsumption="130" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Shows</Channel>
  </Mode>
  <Mode Name="13 Channels mode">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="260" Height="304" Weight="6" Depth="168"/>
-   <Lens DegreesMax="10" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="570" Type="Head" TiltMax="240"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="6" Width="260" Height="304" Depth="168"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="10"/>
+   <Focus Type="Head" PanMax="570" TiltMax="240"/>
    <Technical PowerConsumption="130" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

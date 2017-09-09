@@ -63,10 +63,10 @@
  </Channel>
  <Mode Name="Normal">
   <Physical>
-   <Bulb ColourTemperature="0" Type="EHJ/EVC 24V/250W" Lumens="0"/>
-   <Dimensions Width="265" Height="303" Depth="340" Weight="7"/>
+   <Bulb Type="EHJ/EVC 24V/250W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="7" Width="265" Height="303" Depth="340"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="270" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Lamp On/Off</Channel>
@@ -77,10 +77,10 @@
  </Mode>
  <Mode Name="Single">
   <Physical>
-   <Bulb ColourTemperature="0" Type="EHJ/EVC 24V/250W" Lumens="0"/>
-   <Dimensions Width="265" Height="303" Depth="340" Weight="7"/>
+   <Bulb Type="EHJ/EVC 24V/250W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="7" Width="265" Height="303" Depth="340"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="270" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Control</Channel>

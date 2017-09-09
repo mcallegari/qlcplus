@@ -31,14 +31,14 @@
  <Channel Name="Color Macro">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="10">No function</Capability>
-  <Capability Color2="#ffff00" Min="11" Max="30" Color="#ff0000">Red 100% / Green Up / Blue 0%</Capability>
-  <Capability Color2="#00ff00" Min="31" Max="50" Color="#ffff00">Red Down / Green 100% / Blue 0%</Capability>
-  <Capability Color2="#00ffff" Min="51" Max="70" Color="#00ff00">Red 0% / Green 100% / Blue Up</Capability>
-  <Capability Color2="#0000ff" Min="71" Max="90" Color="#00ffff">Red 0% / Green Down / Blue 100%</Capability>
-  <Capability Color2="#ff00ff" Min="91" Max="110" Color="#0000ff">Red Up / Green 0% / Blue 100%</Capability>
-  <Capability Color2="#ff0000" Min="111" Max="130" Color="#ff00ff">Red 100% / Green 0% / Blue Down</Capability>
-  <Capability Color2="#ffffff" Min="131" Max="150" Color="#ff0000">Red 100% / Green Up / Blue Up</Capability>
-  <Capability Color2="#0000ff" Min="151" Max="170" Color="#ffffff">Red Down / Green Down / Blue 100%</Capability>
+  <Capability Min="11" Max="30" Color="#ff0000" Color2="#ffff00">Red 100% / Green Up / Blue 0%</Capability>
+  <Capability Min="31" Max="50" Color="#ffff00" Color2="#00ff00">Red Down / Green 100% / Blue 0%</Capability>
+  <Capability Min="51" Max="70" Color="#00ff00" Color2="#00ffff">Red 0% / Green 100% / Blue Up</Capability>
+  <Capability Min="71" Max="90" Color="#00ffff" Color2="#0000ff">Red 0% / Green Down / Blue 100%</Capability>
+  <Capability Min="91" Max="110" Color="#0000ff" Color2="#ff00ff">Red Up / Green 0% / Blue 100%</Capability>
+  <Capability Min="111" Max="130" Color="#ff00ff" Color2="#ff0000">Red 100% / Green 0% / Blue Down</Capability>
+  <Capability Min="131" Max="150" Color="#ff0000" Color2="#ffffff">Red 100% / Green Up / Blue Up</Capability>
+  <Capability Min="151" Max="170" Color="#ffffff" Color2="#0000ff">Red Down / Green Down / Blue 100%</Capability>
   <Capability Min="171" Max="200" Color="#ffffff">Red 100% / Green 100% / Blue 100% / White 100% / Amber 100%</Capability>
   <Capability Min="201" Max="205">White 1: 3200k</Capability>
   <Capability Min="206" Max="210">White 2: 3400k</Capability>
@@ -183,10 +183,10 @@
  </Channel>
  <Mode Name="Tour">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="245" Height="205" Weight="4.8" Depth="245"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4.8" Width="245" Height="205" Depth="245"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="52" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Master Dimmer</Channel>
@@ -202,10 +202,10 @@
  </Mode>
  <Mode Name="Arc.1">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="245" Height="205" Weight="4.8" Depth="245"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4.8" Width="245" Height="205" Depth="245"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="52" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red | Step Time</Channel>
@@ -214,10 +214,10 @@
  </Mode>
  <Mode Name="Ar1.d">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="245" Height="205" Weight="4.8" Depth="245"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4.8" Width="245" Height="205" Depth="245"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="52" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Master Dimmer</Channel>
@@ -227,10 +227,10 @@
  </Mode>
  <Mode Name="Ar1.S">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="245" Height="205" Weight="4.8" Depth="245"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4.8" Width="245" Height="205" Depth="245"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="52" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Master Dimmer</Channel>
@@ -241,10 +241,10 @@
  </Mode>
  <Mode Name="HSV">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="245" Height="205" Weight="4.8" Depth="245"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4.8" Width="245" Height="205" Depth="245"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="52" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Hue</Channel>

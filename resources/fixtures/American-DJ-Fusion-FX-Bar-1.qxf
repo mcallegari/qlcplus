@@ -41,10 +41,10 @@
  </Channel>
  <Mode Name="5 Channel (Default)">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="538" Height="263" Weight="3.7" Depth="143"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="3.7" Width="538" Height="263" Depth="143"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="25" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>

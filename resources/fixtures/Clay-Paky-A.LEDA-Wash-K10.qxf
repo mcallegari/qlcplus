@@ -703,10 +703,10 @@
  </Channel>
  <Mode Name="Standard">
   <Physical>
-   <Bulb Lumens="5500" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="358" Height="479" Weight="14.1" Depth="253"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
+   <Bulb Type="LED" Lumens="5500" ColourTemperature="0"/>
+   <Dimensions Weight="14.1" Width="358" Height="479" Depth="253"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="360" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
@@ -732,10 +732,10 @@
  </Mode>
  <Mode Name="Shapes">
   <Physical>
-   <Bulb Lumens="5500" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="358" Height="479" Weight="14.1" Depth="253"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
+   <Bulb Type="LED" Lumens="5500" ColourTemperature="0"/>
+   <Dimensions Weight="14.1" Width="358" Height="479" Depth="253"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="360" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
@@ -772,10 +772,10 @@
  </Mode>
  <Mode Name="Extended">
   <Physical>
-   <Bulb Lumens="5500" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="358" Height="479" Weight="14.1" Depth="253"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
+   <Bulb Type="LED" Lumens="5500" ColourTemperature="0"/>
+   <Dimensions Weight="14.1" Width="358" Height="479" Depth="253"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="360" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
@@ -953,10 +953,10 @@
  </Mode>
  <Mode Name="Extended RGBW">
   <Physical>
-   <Bulb Lumens="5500" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="358" Height="479" Weight="14.1" Depth="253"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
+   <Bulb Type="LED" Lumens="5500" ColourTemperature="0"/>
+   <Dimensions Weight="14.1" Width="358" Height="479" Depth="253"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="360" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>

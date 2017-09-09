@@ -263,10 +263,10 @@
  </Channel>
  <Mode Name="3 Ch.">
   <Physical>
-   <Bulb Lumens="0" Type="10mm LED" ColourTemperature="0"/>
-   <Dimensions Width="1025" Height="65" Weight="1.7" Depth="85"/>
-   <Lens DegreesMax="0" Name="PC" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="10mm LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1.7" Width="1025" Height="65" Depth="85"/>
+   <Lens Name="PC" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="30" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
@@ -280,10 +280,10 @@
  </Mode>
  <Mode Name="6 Ch.">
   <Physical>
-   <Bulb Lumens="0" Type="10mm LED" ColourTemperature="0"/>
-   <Dimensions Width="1025" Height="65" Weight="1.7" Depth="85"/>
-   <Lens DegreesMax="0" Name="PC" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="10mm LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1.7" Width="1025" Height="65" Depth="85"/>
+   <Lens Name="PC" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="30" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Master</Channel>
@@ -295,10 +295,10 @@
  </Mode>
  <Mode Name="12 Ch.">
   <Physical>
-   <Bulb Lumens="0" Type="10mm LED" ColourTemperature="0"/>
-   <Dimensions Width="1025" Height="65" Weight="1.7" Depth="85"/>
-   <Lens DegreesMax="0" Name="PC" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="10mm LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1.7" Width="1025" Height="65" Depth="85"/>
+   <Lens Name="PC" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="30" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Master 1</Channel>
@@ -332,10 +332,10 @@
  </Mode>
  <Mode Name="24 Ch.">
   <Physical>
-   <Bulb Lumens="0" Type="10mm LED" ColourTemperature="0"/>
-   <Dimensions Width="1025" Height="65" Weight="1.7" Depth="85"/>
-   <Lens DegreesMax="0" Name="PC" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="10mm LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1.7" Width="1025" Height="65" Depth="85"/>
+   <Lens Name="PC" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="30" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Master 1</Channel>
@@ -397,10 +397,10 @@
  </Mode>
  <Mode Name="48 Ch.">
   <Physical>
-   <Bulb Lumens="0" Type="10mm LED" ColourTemperature="0"/>
-   <Dimensions Width="1025" Height="65" Weight="1.7" Depth="85"/>
-   <Lens DegreesMax="0" Name="PC" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="10mm LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1.7" Width="1025" Height="65" Depth="85"/>
+   <Lens Name="PC" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="30" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Master 1</Channel>

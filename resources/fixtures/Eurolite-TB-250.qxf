@@ -35,12 +35,12 @@
   <Capability Min="180" Max="197" Color="#ff8000">Orange</Capability>
   <Capability Min="198" Max="215" Color="#ffff00">Light yellow</Capability>
   <Capability Min="216" Max="233" Color="#ff00ff">Magenta</Capability>
-  <Capability Color2="#0000ff" Min="234" Max="251" Color="#ff0000">Red/blue</Capability>
-  <Capability Color2="#00ff00" Min="252" Max="255" Color="#ffff00">Yellow/green</Capability>
+  <Capability Min="234" Max="251" Color="#ff0000" Color2="#0000ff">Red/blue</Capability>
+  <Capability Min="252" Max="255" Color="#ffff00" Color2="#00ff00">Yellow/green</Capability>
  </Channel>
  <Channel Name="Gobo-wheel">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/open.png" Min="0" Max="17">Open</Capability>
+  <Capability Min="0" Max="17" Res="Others/open.png">Open</Capability>
   <Capability Min="18" Max="35">Gobo 1</Capability>
   <Capability Min="36" Max="53">Gobo 2</Capability>
   <Capability Min="54" Max="71">Gobo 3</Capability>
@@ -65,10 +65,10 @@
  </Channel>
  <Mode Name="Protocol">
   <Physical>
-   <Bulb Lumens="0" Type="MSD 250W" ColourTemperature="0"/>
-   <Dimensions Width="270" Height="555" Weight="8.5" Depth="285"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="8.5" Width="270" Height="555" Depth="285"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="450" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Mirrored cylinder movement</Channel>

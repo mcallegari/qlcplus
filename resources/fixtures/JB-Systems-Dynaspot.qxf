@@ -78,10 +78,10 @@
  </Channel>
  <Mode Name="8-Ch">
   <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
-   <Dimensions Height="261" Width="175" Depth="141" Weight="2.8"/>
-   <Lens DegreesMax="0" DegreesMin="0" Name="Other"/>
-   <Focus TiltMax="270" PanMax="540" Type="Fixed"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.8" Width="175" Height="261" Depth="141"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="37" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -95,10 +95,10 @@
  </Mode>
  <Mode Name="10-Ch">
   <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
-   <Dimensions Height="261" Width="175" Depth="141" Weight="2.8"/>
-   <Lens DegreesMax="0" DegreesMin="0" Name="Other"/>
-   <Focus TiltMax="270" PanMax="540" Type="Fixed"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.8" Width="175" Height="261" Depth="141"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="37" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

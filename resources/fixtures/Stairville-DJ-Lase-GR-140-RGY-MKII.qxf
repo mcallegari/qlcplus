@@ -64,10 +64,10 @@
  <Mode Name="DMX 1 mode">
   <Physical>
    <Bulb Type="" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Height="80" Depth="160" Weight="1.8" Width="145"/>
+   <Dimensions Weight="1.8" Width="145" Height="80" Depth="160"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="15"/>
+   <Technical PowerConsumption="15" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Mode selection</Channel>
   <Channel Number="1">Patten rotation</Channel>
@@ -78,10 +78,10 @@
  <Mode Name="DMX 2 mode">
   <Physical>
    <Bulb Type="" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Height="80" Depth="160" Weight="1.8" Width="145"/>
+   <Dimensions Weight="1.8" Width="145" Height="80" Depth="160"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="15"/>
+   <Technical PowerConsumption="15" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Mode selection</Channel>
   <Channel Number="1">Patten rotation</Channel>

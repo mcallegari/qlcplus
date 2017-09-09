@@ -55,10 +55,10 @@
  </Channel>
  <Mode Name="3-Ch">
   <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
-   <Dimensions Depth="124" Weight="0.8" Width="153" Height="173"/>
-   <Lens DegreesMax="19" Name="Other" DegreesMin="19"/>
-   <Focus PanMax="0" TiltMax="0" Type=""/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="0.8" Width="153" Height="173" Depth="124"/>
+   <Lens Name="Other" DegreesMin="19" DegreesMax="19"/>
+   <Focus Type="" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="5" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
@@ -67,10 +67,10 @@
  </Mode>
  <Mode Name="7-Ch">
   <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
-   <Dimensions Depth="124" Weight="0.8" Width="153" Height="173"/>
-   <Lens DegreesMax="19" Name="Other" DegreesMin="19"/>
-   <Focus PanMax="0" TiltMax="0" Type=""/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="0.8" Width="153" Height="173" Depth="124"/>
+   <Lens Name="Other" DegreesMin="19" DegreesMax="19"/>
+   <Focus Type="" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="5" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>

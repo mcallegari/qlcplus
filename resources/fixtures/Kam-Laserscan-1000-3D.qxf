@@ -140,10 +140,10 @@
  </Channel>
  <Mode Name="DMX channels with ILDA NOT connected">
   <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="290" Height="190" Weight="4.2" Depth="245"/>
-   <Lens DegreesMax="20" Name="Other" DegreesMin="20"/>
-   <Focus PanMax="20" Type="Fixed" TiltMax="20"/>
+   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4.2" Width="290" Height="190" Depth="245"/>
+   <Lens Name="Other" DegreesMin="20" DegreesMax="20"/>
+   <Focus Type="Fixed" PanMax="20" TiltMax="20"/>
    <Technical PowerConsumption="40" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Mode</Channel>
@@ -168,10 +168,10 @@
  </Mode>
  <Mode Name="DMX channels with ILDA connected">
   <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="290" Height="190" Weight="4.2" Depth="245"/>
-   <Lens DegreesMax="20" Name="Other" DegreesMin="20"/>
-   <Focus PanMax="20" Type="Fixed" TiltMax="20"/>
+   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4.2" Width="290" Height="190" Depth="245"/>
+   <Lens Name="Other" DegreesMin="20" DegreesMax="20"/>
+   <Focus Type="Fixed" PanMax="20" TiltMax="20"/>
    <Technical PowerConsumption="40" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Grating rotation</Channel>

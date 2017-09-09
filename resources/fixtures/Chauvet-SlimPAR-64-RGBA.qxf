@@ -57,7 +57,7 @@
  <Mode Name="8 channel">
   <Physical>
    <Bulb Type="LED" Lumens="123" ColourTemperature="0"/>
-   <Dimensions Height="275" Width="66" Depth="276" Weight="1.3"/>
+   <Dimensions Weight="1.3" Width="66" Height="275" Depth="276"/>
    <Lens Name="Other" DegreesMin="14" DegreesMax="23"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="30" DmxConnector="3-pin"/>
@@ -74,7 +74,7 @@
  <Mode Name="4 channel">
   <Physical>
    <Bulb Type="LED" Lumens="123" ColourTemperature="0"/>
-   <Dimensions Height="275" Width="66" Depth="276" Weight="1.3"/>
+   <Dimensions Weight="1.3" Width="66" Height="275" Depth="276"/>
    <Lens Name="Other" DegreesMin="14" DegreesMax="23"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="30" DmxConnector="3-pin"/>

@@ -51,7 +51,7 @@
   <Capability Min="200" Max="209">Total Reset</Capability>
   <Capability Min="210" Max="229">Reserved</Capability>
   <Capability Min="230" Max="239">Lamp Off</Capability>
-  <Capability Min="240" Max="240">Disable "Silent" Mode fans</Capability>
+  <Capability Min="240" Max="240">Disable &quot;Silent&quot; Mode fans</Capability>
   <Capability Min="241" Max="255">Silent mode Fans min to max</Capability>
  </Channel>
  <Channel Name="Colour Wheel">
@@ -140,28 +140,28 @@
  <Channel Name="Static Gobos">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="0">Open</Capability>
-  <Capability Res="Robe/gobo00031.png" Min="7" Max="7">Gobo 1</Capability>
-  <Capability Res="Robe/gobo00030.png" Min="14" Max="14">Gobo 2</Capability>
-  <Capability Res="Robe/gobo00029.png" Min="21" Max="21">Gobo 3</Capability>
-  <Capability Res="Robe/gobo00028.png" Min="28" Max="28">Gobo 4</Capability>
-  <Capability Res="Robe/gobo00027.png" Min="35" Max="35">Gobo 5</Capability>
-  <Capability Res="Robe/gobo00026.png" Min="42" Max="42">Gobo 6</Capability>
-  <Capability Res="Robe/gobo00025.png" Min="56" Max="56">Gobo 7</Capability>
+  <Capability Min="7" Max="7" Res="Robe/gobo00031.png">Gobo 1</Capability>
+  <Capability Min="14" Max="14" Res="Robe/gobo00030.png">Gobo 2</Capability>
+  <Capability Min="21" Max="21" Res="Robe/gobo00029.png">Gobo 3</Capability>
+  <Capability Min="28" Max="28" Res="Robe/gobo00028.png">Gobo 4</Capability>
+  <Capability Min="35" Max="35" Res="Robe/gobo00027.png">Gobo 5</Capability>
+  <Capability Min="42" Max="42" Res="Robe/gobo00026.png">Gobo 6</Capability>
+  <Capability Min="56" Max="56" Res="Robe/gobo00025.png">Gobo 7</Capability>
   <Capability Min="64" Max="64">Open</Capability>
-  <Capability Res="Robe/gobo00031.png" Min="65" Max="71">Gobo 1</Capability>
-  <Capability Res="Robe/gobo00030.png" Min="72" Max="78">Gobo 2</Capability>
-  <Capability Res="Robe/gobo00029.png" Min="79" Max="85">Gobo 3</Capability>
-  <Capability Res="Robe/gobo00028.png" Min="86" Max="91">Gobo 4</Capability>
-  <Capability Res="Robe/gobo00027.png" Min="93" Max="97">Gobo 5</Capability>
-  <Capability Res="Robe/gobo00026.png" Min="98" Max="103">Gobo 6</Capability>
-  <Capability Res="Robe/gobo00025.png" Min="104" Max="109">Gobo 7</Capability>
-  <Capability Res="Robe/gobo00031.png" Min="110" Max="123">Shaking Gobo 1</Capability>
-  <Capability Res="Robe/gobo00030.png" Min="124" Max="135">Shaking Gobo 2</Capability>
-  <Capability Res="Robe/gobo00029.png" Min="136" Max="149">Shaking Gobo 3</Capability>
-  <Capability Res="Robe/gobo00028.png" Min="150" Max="161">Shaking Gobo 4</Capability>
-  <Capability Res="Robe/gobo00027.png" Min="162" Max="175">Shaking Gobo 5</Capability>
-  <Capability Res="Robe/gobo00026.png" Min="176" Max="187">Shaking Gobo 6</Capability>
-  <Capability Res="Robe/gobo00025.png" Min="188" Max="199">Shaking Gobo 7</Capability>
+  <Capability Min="65" Max="71" Res="Robe/gobo00031.png">Gobo 1</Capability>
+  <Capability Min="72" Max="78" Res="Robe/gobo00030.png">Gobo 2</Capability>
+  <Capability Min="79" Max="85" Res="Robe/gobo00029.png">Gobo 3</Capability>
+  <Capability Min="86" Max="91" Res="Robe/gobo00028.png">Gobo 4</Capability>
+  <Capability Min="93" Max="97" Res="Robe/gobo00027.png">Gobo 5</Capability>
+  <Capability Min="98" Max="103" Res="Robe/gobo00026.png">Gobo 6</Capability>
+  <Capability Min="104" Max="109" Res="Robe/gobo00025.png">Gobo 7</Capability>
+  <Capability Min="110" Max="123" Res="Robe/gobo00031.png">Shaking Gobo 1</Capability>
+  <Capability Min="124" Max="135" Res="Robe/gobo00030.png">Shaking Gobo 2</Capability>
+  <Capability Min="136" Max="149" Res="Robe/gobo00029.png">Shaking Gobo 3</Capability>
+  <Capability Min="150" Max="161" Res="Robe/gobo00028.png">Shaking Gobo 4</Capability>
+  <Capability Min="162" Max="175" Res="Robe/gobo00027.png">Shaking Gobo 5</Capability>
+  <Capability Min="176" Max="187" Res="Robe/gobo00026.png">Shaking Gobo 6</Capability>
+  <Capability Min="188" Max="199" Res="Robe/gobo00025.png">Shaking Gobo 7</Capability>
   <Capability Min="200" Max="201">Open</Capability>
   <Capability Min="202" Max="221">Fw Wheel &lt;&lt;&lt;</Capability>
   <Capability Min="222" Max="223">No Rotation</Capability>
@@ -176,34 +176,34 @@
  <Channel Name="Rotating Gobos">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="3">Open</Capability>
-  <Capability Res="Robe/gobo00036.png" Min="4" Max="7">Gobo 1</Capability>
-  <Capability Res="Robe/gobo00037.png" Min="8" Max="11">Gobo 2</Capability>
-  <Capability Res="Robe/gobo00038.png" Min="12" Max="15">Gobo 3</Capability>
-  <Capability Res="Robe/gobo00035.png" Min="16" Max="19">Gobo 4</Capability>
-  <Capability Res="Robe/gobo00034.png" Min="20" Max="23">Gobo 5</Capability>
-  <Capability Res="Robe/gobo00033.png" Min="24" Max="27">Gobo 6</Capability>
-  <Capability Res="Robe/gobo00032.png" Min="28" Max="31">Gobo 7</Capability>
-  <Capability Res="Robe/gobo00036.png" Min="32" Max="35">Gobo 1 &gt;</Capability>
-  <Capability Res="Robe/gobo00037.png" Min="36" Max="39">Gobo 2 &gt;</Capability>
-  <Capability Res="Robe/gobo00038.png" Min="40" Max="43">Gobo 3 &gt;</Capability>
-  <Capability Res="Robe/gobo00035.png" Min="44" Max="47">Gobo 4 &gt;</Capability>
-  <Capability Res="Robe/gobo00034.png" Min="48" Max="51">Gobo 5 &gt;</Capability>
-  <Capability Res="Robe/gobo00033.png" Min="52" Max="55">Gobo 6 &gt;</Capability>
-  <Capability Res="Robe/gobo00032.png" Min="56" Max="59">Gobo 7 &gt;</Capability>
-  <Capability Res="Robe/gobo00036.png" Min="60" Max="69">Shaking Gobo 1</Capability>
-  <Capability Res="Robe/gobo00037.png" Min="70" Max="79">Shaking Gobo 2</Capability>
-  <Capability Res="Robe/gobo00038.png" Min="80" Max="89">Shaking Gobo 3</Capability>
-  <Capability Res="Robe/gobo00035.png" Min="90" Max="99">Shaking Gobo 4</Capability>
-  <Capability Res="Robe/gobo00034.png" Min="100" Max="109">Shaking Gobo 5</Capability>
-  <Capability Res="Robe/gobo00033.png" Min="110" Max="119">Shaking Gobo 6</Capability>
-  <Capability Res="Robe/gobo00032.png" Min="120" Max="129">Shaking Gobo 7</Capability>
-  <Capability Res="Robe/gobo00036.png" Min="130" Max="139">Shaking Gobo 1 &gt;</Capability>
-  <Capability Res="Robe/gobo00037.png" Min="140" Max="149">Shaking Gobo 2 &gt;</Capability>
-  <Capability Res="Robe/gobo00038.png" Min="150" Max="159">Shaking Gobo 3 &gt;</Capability>
-  <Capability Res="Robe/gobo00035.png" Min="160" Max="169">Shaking Gobo 4 &gt;</Capability>
-  <Capability Res="Robe/gobo00034.png" Min="170" Max="179">Shaking Gobo 5 &gt;</Capability>
-  <Capability Res="Robe/gobo00033.png" Min="180" Max="189">Shaking Gobo 6 &gt;</Capability>
-  <Capability Res="Robe/gobo00032.png" Min="190" Max="199">Shaking Gobo 7 &gt;</Capability>
+  <Capability Min="4" Max="7" Res="Robe/gobo00036.png">Gobo 1</Capability>
+  <Capability Min="8" Max="11" Res="Robe/gobo00037.png">Gobo 2</Capability>
+  <Capability Min="12" Max="15" Res="Robe/gobo00038.png">Gobo 3</Capability>
+  <Capability Min="16" Max="19" Res="Robe/gobo00035.png">Gobo 4</Capability>
+  <Capability Min="20" Max="23" Res="Robe/gobo00034.png">Gobo 5</Capability>
+  <Capability Min="24" Max="27" Res="Robe/gobo00033.png">Gobo 6</Capability>
+  <Capability Min="28" Max="31" Res="Robe/gobo00032.png">Gobo 7</Capability>
+  <Capability Min="32" Max="35" Res="Robe/gobo00036.png">Gobo 1 &gt;</Capability>
+  <Capability Min="36" Max="39" Res="Robe/gobo00037.png">Gobo 2 &gt;</Capability>
+  <Capability Min="40" Max="43" Res="Robe/gobo00038.png">Gobo 3 &gt;</Capability>
+  <Capability Min="44" Max="47" Res="Robe/gobo00035.png">Gobo 4 &gt;</Capability>
+  <Capability Min="48" Max="51" Res="Robe/gobo00034.png">Gobo 5 &gt;</Capability>
+  <Capability Min="52" Max="55" Res="Robe/gobo00033.png">Gobo 6 &gt;</Capability>
+  <Capability Min="56" Max="59" Res="Robe/gobo00032.png">Gobo 7 &gt;</Capability>
+  <Capability Min="60" Max="69" Res="Robe/gobo00036.png">Shaking Gobo 1</Capability>
+  <Capability Min="70" Max="79" Res="Robe/gobo00037.png">Shaking Gobo 2</Capability>
+  <Capability Min="80" Max="89" Res="Robe/gobo00038.png">Shaking Gobo 3</Capability>
+  <Capability Min="90" Max="99" Res="Robe/gobo00035.png">Shaking Gobo 4</Capability>
+  <Capability Min="100" Max="109" Res="Robe/gobo00034.png">Shaking Gobo 5</Capability>
+  <Capability Min="110" Max="119" Res="Robe/gobo00033.png">Shaking Gobo 6</Capability>
+  <Capability Min="120" Max="129" Res="Robe/gobo00032.png">Shaking Gobo 7</Capability>
+  <Capability Min="130" Max="139" Res="Robe/gobo00036.png">Shaking Gobo 1 &gt;</Capability>
+  <Capability Min="140" Max="149" Res="Robe/gobo00037.png">Shaking Gobo 2 &gt;</Capability>
+  <Capability Min="150" Max="159" Res="Robe/gobo00038.png">Shaking Gobo 3 &gt;</Capability>
+  <Capability Min="160" Max="169" Res="Robe/gobo00035.png">Shaking Gobo 4 &gt;</Capability>
+  <Capability Min="170" Max="179" Res="Robe/gobo00034.png">Shaking Gobo 5 &gt;</Capability>
+  <Capability Min="180" Max="189" Res="Robe/gobo00033.png">Shaking Gobo 6 &gt;</Capability>
+  <Capability Min="190" Max="199" Res="Robe/gobo00032.png">Shaking Gobo 7 &gt;</Capability>
   <Capability Min="200" Max="201">Open</Capability>
   <Capability Min="202" Max="221">Fwd Wheel &lt;&lt;</Capability>
   <Capability Min="222" Max="223">No Rotation</Capability>
@@ -277,10 +277,10 @@
  </Channel>
  <Mode Name="Mode 1">
   <Physical>
-   <Bulb Lumens="37000" Type="MSR 575W/2" ColourTemperature="7500"/>
-   <Dimensions Width="433" Height="648" Weight="21.5" Depth="458"/>
-   <Lens DegreesMax="6.5" Name="Other" DegreesMin="1"/>
-   <Focus PanMax="540" Type="Head" TiltMax="260"/>
+   <Bulb Type="MSR 575W/2" Lumens="37000" ColourTemperature="7500"/>
+   <Dimensions Weight="21.5" Width="433" Height="648" Depth="458"/>
+   <Lens Name="Other" DegreesMin="1" DegreesMax="6.5"/>
+   <Focus Type="Head" PanMax="540" TiltMax="260"/>
    <Technical PowerConsumption="750" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -312,10 +312,10 @@
  </Mode>
  <Mode Name="Mode 2">
   <Physical>
-   <Bulb Lumens="37000" Type="MSR 575W/2" ColourTemperature="7500"/>
-   <Dimensions Width="433" Height="648" Weight="21.5" Depth="458"/>
-   <Lens DegreesMax="6.5" Name="Other" DegreesMin="1"/>
-   <Focus PanMax="540" Type="Head" TiltMax="260"/>
+   <Bulb Type="MSR 575W/2" Lumens="37000" ColourTemperature="7500"/>
+   <Dimensions Weight="21.5" Width="433" Height="648" Depth="458"/>
+   <Lens Name="Other" DegreesMin="1" DegreesMax="6.5"/>
+   <Focus Type="Head" PanMax="540" TiltMax="260"/>
    <Technical PowerConsumption="750" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -341,10 +341,10 @@
  </Mode>
  <Mode Name="Mode 3">
   <Physical>
-   <Bulb Lumens="37000" Type="MSR 575W/2" ColourTemperature="7500"/>
-   <Dimensions Width="433" Height="648" Weight="21.5" Depth="458"/>
-   <Lens DegreesMax="6.5" Name="Other" DegreesMin="1"/>
-   <Focus PanMax="540" Type="Head" TiltMax="260"/>
+   <Bulb Type="MSR 575W/2" Lumens="37000" ColourTemperature="7500"/>
+   <Dimensions Weight="21.5" Width="433" Height="648" Depth="458"/>
+   <Lens Name="Other" DegreesMin="1" DegreesMax="6.5"/>
+   <Focus Type="Head" PanMax="540" TiltMax="260"/>
    <Technical PowerConsumption="750" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

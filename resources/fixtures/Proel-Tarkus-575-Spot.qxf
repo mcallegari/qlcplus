@@ -25,7 +25,7 @@
   <Capability Min="80" Max="95" Color="#ff0000">Red</Capability>
   <Capability Min="96" Max="111" Color="#00ffff">Cyan</Capability>
   <Capability Min="112" Max="127" Color="#c000c0">Purple</Capability>
-  <Capability Res="Others/rainbow.png" Min="128" Max="255">Rainbow (slow&gt;fast)</Capability>
+  <Capability Min="128" Max="255" Res="Others/rainbow.png">Rainbow (slow&gt;fast)</Capability>
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
@@ -75,10 +75,10 @@
  </Channel>
  <Mode Name="Default">
   <Physical>
-   <Bulb Lumens="0" Type="HMI 575W" ColourTemperature="0"/>
-   <Dimensions Width="467" Height="563" Weight="27" Depth="362"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Head" TiltMax="280"/>
+   <Bulb Type="HMI 575W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="27" Width="467" Height="563" Depth="362"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="540" TiltMax="280"/>
    <Technical PowerConsumption="675" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Shutter</Channel>

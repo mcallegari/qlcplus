@@ -41,11 +41,11 @@
  </Channel>
  <Mode Name="Spectra">
   <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="8.6" Width="1488" Height="116" Depth="80"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical DmxConnector="Other" PowerConsumption="175"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="175" DmxConnector="Other"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Red</Channel>

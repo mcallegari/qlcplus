@@ -29,15 +29,15 @@
  <Channel Name="Moon Flower Color">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="18" Color="#ff0000">Red</Capability>
-  <Capability Color2="#008000" Min="19" Max="37" Color="#ff0000">Red &amp; Green</Capability>
+  <Capability Min="19" Max="37" Color="#ff0000" Color2="#008000">Red &amp; Green</Capability>
   <Capability Min="38" Max="56" Color="#008040">Green</Capability>
-  <Capability Color2="#0000ff" Min="57" Max="75" Color="#008040">Green &amp; Blue</Capability>
+  <Capability Min="57" Max="75" Color="#008040" Color2="#0000ff">Green &amp; Blue</Capability>
   <Capability Min="76" Max="94" Color="#0000ff">Blue</Capability>
-  <Capability Color2="#0000ff" Min="95" Max="113" Color="#ff0000">Red &amp; Blue</Capability>
+  <Capability Min="95" Max="113" Color="#ff0000" Color2="#0000ff">Red &amp; Blue</Capability>
   <Capability Min="114" Max="127" Color="#ffffff">Red, Green &amp; Blue</Capability>
-  <Capability Color2="#008040" Min="128" Max="159" Color="#ff0000">Red - Green</Capability>
-  <Capability Color2="#0000ff" Min="160" Max="191" Color="#008040">Green - Blue</Capability>
-  <Capability Color2="#0000ff" Min="192" Max="223" Color="#ff0000">Red - Blue</Capability>
+  <Capability Min="128" Max="159" Color="#ff0000" Color2="#008040">Red - Green</Capability>
+  <Capability Min="160" Max="191" Color="#008040" Color2="#0000ff">Green - Blue</Capability>
+  <Capability Min="192" Max="223" Color="#ff0000" Color2="#0000ff">Red - Blue</Capability>
   <Capability Min="224" Max="255" Color="#ffffff">Red - Green - Blue</Capability>
  </Channel>
  <Channel Name="Moon Flower Rotation">
@@ -68,10 +68,10 @@
  </Channel>
  <Mode Name="Normal">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="542" Height="178" Weight="4.7" Depth="143"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4.7" Width="542" Height="178" Depth="143"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="32" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">White Dimmer / Strobe</Channel>

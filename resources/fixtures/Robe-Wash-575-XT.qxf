@@ -135,10 +135,10 @@
  </Channel>
  <Mode Name="Mode 1/2">
   <Physical>
-   <Bulb Lumens="49000" Type="MSR 575W" ColourTemperature="5500"/>
-   <Dimensions Width="449" Height="583" Weight="32" Depth="467"/>
-   <Lens DegreesMax="28" Name="Fresnel" DegreesMin="7"/>
-   <Focus PanMax="530" Type="Fixed" TiltMax="280"/>
+   <Bulb Type="MSR 575W" Lumens="49000" ColourTemperature="5500"/>
+   <Dimensions Weight="32" Width="449" Height="583" Depth="467"/>
+   <Lens Name="Fresnel" DegreesMin="7" DegreesMax="28"/>
+   <Focus Type="Fixed" PanMax="530" TiltMax="280"/>
    <Technical PowerConsumption="575" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -160,10 +160,10 @@
  </Mode>
  <Mode Name="8 Bits">
   <Physical>
-   <Bulb Lumens="49000" Type="MSR 575W" ColourTemperature="5500"/>
-   <Dimensions Width="449" Height="583" Weight="32" Depth="467"/>
-   <Lens DegreesMax="28" Name="Fresnel" DegreesMin="7"/>
-   <Focus PanMax="530" Type="Fixed" TiltMax="280"/>
+   <Bulb Type="MSR 575W" Lumens="49000" ColourTemperature="5500"/>
+   <Dimensions Weight="32" Width="449" Height="583" Depth="467"/>
+   <Lens Name="Fresnel" DegreesMin="7" DegreesMax="28"/>
+   <Focus Type="Fixed" PanMax="530" TiltMax="280"/>
    <Technical PowerConsumption="575" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

@@ -52,83 +52,83 @@
  <Channel Name="Linear CTO">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="9">No function</Capability>
-  <Capability Color="#e5e9ff" Min="10" Max="53">8000 K</Capability>
-  <Capability Color="#f7f5ff" Min="54" Max="98">7000 K</Capability>
-  <Capability Color="#fff4ed" Min="99" Max="116">6000 K</Capability>
-  <Capability Color="#ffefe1" Min="117" Max="143">5600 K</Capability>
-  <Capability Color="#ffe7cc" Min="144" Max="187">5000 K</Capability>
-  <Capability Color="#ffd5a1" Min="188" Max="223">4000 K</Capability>
-  <Capability Color="#ffc076" Min="224" Max="254">3200 K</Capability>
-  <Capability Color="#ffa645" Min="255" Max="255">2500 K</Capability>
+  <Capability Min="10" Max="53" Color="#e5e9ff">8000 K</Capability>
+  <Capability Min="54" Max="98" Color="#f7f5ff">7000 K</Capability>
+  <Capability Min="99" Max="116" Color="#fff4ed">6000 K</Capability>
+  <Capability Min="117" Max="143" Color="#ffefe1">5600 K</Capability>
+  <Capability Min="144" Max="187" Color="#ffe7cc">5000 K</Capability>
+  <Capability Min="188" Max="223" Color="#ffd5a1">4000 K</Capability>
+  <Capability Min="224" Max="254" Color="#ffc076">3200 K</Capability>
+  <Capability Min="255" Max="255" Color="#ffa645">2500 K</Capability>
  </Channel>
  <Channel Name="Macro Color">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="9">Macro Color OFF</Capability>
-  <Capability Color="#ff0000" Min="10" Max="10">Red</Capability>
-  <Capability Color="#00ff00" Min="11" Max="11">Green</Capability>
-  <Capability Color="#0000ff" Min="12" Max="12">Blue</Capability>
-  <Capability Color="#00ffff" Min="13" Max="13">Cyan</Capability>
-  <Capability Color="#ffff00" Min="14" Max="14">Yellow</Capability>
-  <Capability Color="#ff00ff" Min="15" Max="15">Magenta</Capability>
-  <Capability Color="#d8ed3d" Min="16" Max="16" Color2="#ffffff">White 7000 K</Capability>
-  <Capability Color="#ffc919" Min="17" Max="17" Color2="#ffffff">White 3700 K</Capability>
-  <Capability Color="#ff8900" Min="18" Max="18" Color2="#ffffff">White 5000 K</Capability>
-  <Capability Color="#000000" Min="19" Max="19">Black</Capability>
-  <Capability Color="#9c7e00" Min="20" Max="22">Medium Yellow</Capability>
-  <Capability Color="#987309" Min="23" Max="26">Straw Tint</Capability>
-  <Capability Color="#c67209" Min="27" Max="28">Surprise Peach</Capability>
-  <Capability Color="#ff3800" Min="29" Max="29">Fire</Capability>
-  <Capability Color="#ff8700" Min="30" Max="30">Medium Amber</Capability>
-  <Capability Color="#ff6400" Min="31" Max="31">Gold Amber</Capability>
-  <Capability Color="#ff4100" Min="32" Max="34">Dark Amber</Capability>
-  <Capability Color="#ff5302" Min="35" Max="44">Sunrise Red</Capability>
-  <Capability Color="#ffc8d2" Min="45" Max="45">Light Pink</Capability>
-  <Capability Color="#ffa0b9" Min="46" Max="48">Medium Pink</Capability>
-  <Capability Color="#ffbde1" Min="49" Max="61">Pink Carnation</Capability>
-  <Capability Color="#e6aafa" Min="62" Max="67">Light Lavender</Capability>
-  <Capability Color="#b46ef0" Min="68" Max="77">Lavender</Capability>
-  <Capability Color="#00ff87" Min="78" Max="88">Sky Blue</Capability>
-  <Capability Color="#00c282" Min="89" Max="99">Just Blue</Capability>
-  <Capability Color="#29db00" Min="100" Max="109">Dark Yellow Green</Capability>
-  <Capability Color="#f5ca00" Min="110" Max="111">Spring Yellow</Capability>
-  <Capability Color="#eda300" Min="112" Max="112">Light Amber</Capability>
-  <Capability Color="#fceacc" Min="113" Max="113">Straw</Capability>
-  <Capability Color="#ffa600" Min="114" Max="114">Deep Amber</Capability>
-  <Capability Color="#ff7a00" Min="115" Max="116">Orange</Capability>
-  <Capability Color="#ffa5af" Min="117" Max="117">Light Rose</Capability>
-  <Capability Color="#fcbea9" Min="118" Max="118">English Rose</Capability>
-  <Capability Color="#ffb2af" Min="119" Max="119">Light Salmon</Capability>
-  <Capability Color="#ffb4c8" Min="120" Max="120">Middle Rose</Capability>
-  <Capability Color="#ff8cbe" Min="121" Max="122">Dark Pink</Capability>
-  <Capability Color="#ff0064" Min="123" Max="124">Magenta2</Capability>
-  <Capability Color="#00ebc8" Min="125" Max="125">Peacock Blue</Capability>
-  <Capability Color="#00c8b9" Min="126" Max="126">Med Blue Green</Capability>
-  <Capability Color="#b4faf5" Min="127" Max="127">Steel Blue</Capability>
-  <Capability Color="#00e1eb" Min="128" Max="128">Light Blue</Capability>
-  <Capability Color="#0078c8" Min="129" Max="130">Dark Blue</Capability>
-  <Capability Color="#b4ff64" Min="131" Max="133">Leaf Green</Capability>
-  <Capability Color="#00dc78" Min="134" Max="135">Dark Green</Capability>
-  <Capability Color="#be009b" Min="136" Max="137">Mauve</Capability>
-  <Capability Color="#ff50b4" Min="138" Max="141">Bright Pink</Capability>
-  <Capability Color="#00a0dc" Min="142" Max="144">Medium Blue</Capability>
-  <Capability Color="#ff5f00" Min="145" Max="145">Deep Golden Amber</Capability>
-  <Capability Color="#f0bee6" Min="146" Max="146">Pale Lavender</Capability>
-  <Capability Color="#c8b4e6" Min="147" Max="148">Special Lavender</Capability>
-  <Capability Color="#4bc300" Min="149" Max="150">Primary Green</Capability>
-  <Capability Color="#00d2e6" Min="151" Max="156">Bright Blue</Capability>
-  <Capability Color="#fcb98c" Min="157" Max="161">Apricot</Capability>
-  <Capability Color="#ffd2c1" Min="162" Max="167">Pale Gold</Capability>
-  <Capability Color="#ff8700" Min="168" Max="171">Deep Orange</Capability>
-  <Capability Color="#fcded8" Min="172" Max="173">Bastard Amber</Capability>
-  <Capability Color="#ff3200" Min="174" Max="174">Flame Red</Capability>
-  <Capability Color="#5ac8eb" Min="175" Max="178">Daylight Blue</Capability>
-  <Capability Color="#fadcf0" Min="179" Max="179">Lilac Tint</Capability>
-  <Capability Color="#e6aadc" Min="180" Max="183">Deep Lavender</Capability>
-  <Capability Color="#afe1fa" Min="184" Max="190">Dark Steel Blue</Capability>
-  <Capability Color="#5000aa" Min="191" Max="206">Congo Blue</Capability>
-  <Capability Color="#82aae6" Min="207" Max="207">Alice Blue</Capability>
-  <Capability Color="#ebd1d3" Min="208" Max="208">Dirty White</Capability>
-  <Capability Color="#ffffff" Min="209" Max="255">White</Capability>
+  <Capability Min="10" Max="10" Color="#ff0000">Red</Capability>
+  <Capability Min="11" Max="11" Color="#00ff00">Green</Capability>
+  <Capability Min="12" Max="12" Color="#0000ff">Blue</Capability>
+  <Capability Min="13" Max="13" Color="#00ffff">Cyan</Capability>
+  <Capability Min="14" Max="14" Color="#ffff00">Yellow</Capability>
+  <Capability Min="15" Max="15" Color="#ff00ff">Magenta</Capability>
+  <Capability Min="16" Max="16" Color="#d8ed3d" Color2="#ffffff">White 7000 K</Capability>
+  <Capability Min="17" Max="17" Color="#ffc919" Color2="#ffffff">White 3700 K</Capability>
+  <Capability Min="18" Max="18" Color="#ff8900" Color2="#ffffff">White 5000 K</Capability>
+  <Capability Min="19" Max="19" Color="#000000">Black</Capability>
+  <Capability Min="20" Max="22" Color="#9c7e00">Medium Yellow</Capability>
+  <Capability Min="23" Max="26" Color="#987309">Straw Tint</Capability>
+  <Capability Min="27" Max="28" Color="#c67209">Surprise Peach</Capability>
+  <Capability Min="29" Max="29" Color="#ff3800">Fire</Capability>
+  <Capability Min="30" Max="30" Color="#ff8700">Medium Amber</Capability>
+  <Capability Min="31" Max="31" Color="#ff6400">Gold Amber</Capability>
+  <Capability Min="32" Max="34" Color="#ff4100">Dark Amber</Capability>
+  <Capability Min="35" Max="44" Color="#ff5302">Sunrise Red</Capability>
+  <Capability Min="45" Max="45" Color="#ffc8d2">Light Pink</Capability>
+  <Capability Min="46" Max="48" Color="#ffa0b9">Medium Pink</Capability>
+  <Capability Min="49" Max="61" Color="#ffbde1">Pink Carnation</Capability>
+  <Capability Min="62" Max="67" Color="#e6aafa">Light Lavender</Capability>
+  <Capability Min="68" Max="77" Color="#b46ef0">Lavender</Capability>
+  <Capability Min="78" Max="88" Color="#00ff87">Sky Blue</Capability>
+  <Capability Min="89" Max="99" Color="#00c282">Just Blue</Capability>
+  <Capability Min="100" Max="109" Color="#29db00">Dark Yellow Green</Capability>
+  <Capability Min="110" Max="111" Color="#f5ca00">Spring Yellow</Capability>
+  <Capability Min="112" Max="112" Color="#eda300">Light Amber</Capability>
+  <Capability Min="113" Max="113" Color="#fceacc">Straw</Capability>
+  <Capability Min="114" Max="114" Color="#ffa600">Deep Amber</Capability>
+  <Capability Min="115" Max="116" Color="#ff7a00">Orange</Capability>
+  <Capability Min="117" Max="117" Color="#ffa5af">Light Rose</Capability>
+  <Capability Min="118" Max="118" Color="#fcbea9">English Rose</Capability>
+  <Capability Min="119" Max="119" Color="#ffb2af">Light Salmon</Capability>
+  <Capability Min="120" Max="120" Color="#ffb4c8">Middle Rose</Capability>
+  <Capability Min="121" Max="122" Color="#ff8cbe">Dark Pink</Capability>
+  <Capability Min="123" Max="124" Color="#ff0064">Magenta2</Capability>
+  <Capability Min="125" Max="125" Color="#00ebc8">Peacock Blue</Capability>
+  <Capability Min="126" Max="126" Color="#00c8b9">Med Blue Green</Capability>
+  <Capability Min="127" Max="127" Color="#b4faf5">Steel Blue</Capability>
+  <Capability Min="128" Max="128" Color="#00e1eb">Light Blue</Capability>
+  <Capability Min="129" Max="130" Color="#0078c8">Dark Blue</Capability>
+  <Capability Min="131" Max="133" Color="#b4ff64">Leaf Green</Capability>
+  <Capability Min="134" Max="135" Color="#00dc78">Dark Green</Capability>
+  <Capability Min="136" Max="137" Color="#be009b">Mauve</Capability>
+  <Capability Min="138" Max="141" Color="#ff50b4">Bright Pink</Capability>
+  <Capability Min="142" Max="144" Color="#00a0dc">Medium Blue</Capability>
+  <Capability Min="145" Max="145" Color="#ff5f00">Deep Golden Amber</Capability>
+  <Capability Min="146" Max="146" Color="#f0bee6">Pale Lavender</Capability>
+  <Capability Min="147" Max="148" Color="#c8b4e6">Special Lavender</Capability>
+  <Capability Min="149" Max="150" Color="#4bc300">Primary Green</Capability>
+  <Capability Min="151" Max="156" Color="#00d2e6">Bright Blue</Capability>
+  <Capability Min="157" Max="161" Color="#fcb98c">Apricot</Capability>
+  <Capability Min="162" Max="167" Color="#ffd2c1">Pale Gold</Capability>
+  <Capability Min="168" Max="171" Color="#ff8700">Deep Orange</Capability>
+  <Capability Min="172" Max="173" Color="#fcded8">Bastard Amber</Capability>
+  <Capability Min="174" Max="174" Color="#ff3200">Flame Red</Capability>
+  <Capability Min="175" Max="178" Color="#5ac8eb">Daylight Blue</Capability>
+  <Capability Min="179" Max="179" Color="#fadcf0">Lilac Tint</Capability>
+  <Capability Min="180" Max="183" Color="#e6aadc">Deep Lavender</Capability>
+  <Capability Min="184" Max="190" Color="#afe1fa">Dark Steel Blue</Capability>
+  <Capability Min="191" Max="206" Color="#5000aa">Congo Blue</Capability>
+  <Capability Min="207" Max="207" Color="#82aae6">Alice Blue</Capability>
+  <Capability Min="208" Max="208" Color="#ebd1d3">Dirty White</Capability>
+  <Capability Min="209" Max="255" Color="#ffffff">White</Capability>
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
@@ -717,11 +717,11 @@
  </Channel>
  <Mode Name="Extended RGBW">
   <Physical>
-   <Bulb Lumens="4800" Type="LED" ColourTemperature="0"/>
-   <Dimensions Weight="14.5" Width="358" Depth="253" Height="479"/>
-   <Lens DegreesMin="4" DegreesMax="60" Name="Other"/>
-   <Focus TiltMax="210" Type="Head" PanMax="540"/>
-   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="450"/>
+   <Bulb Type="LED" Lumens="4800" ColourTemperature="0"/>
+   <Dimensions Weight="14.5" Width="358" Height="479" Depth="253"/>
+   <Lens Name="Other" DegreesMin="4" DegreesMax="60"/>
+   <Focus Type="Head" PanMax="540" TiltMax="210"/>
+   <Technical PowerConsumption="450" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Red fine</Channel>
@@ -936,11 +936,11 @@
  </Mode>
  <Mode Name="Extended RGB">
   <Physical>
-   <Bulb Lumens="4800" Type="LED" ColourTemperature="0"/>
-   <Dimensions Weight="14.5" Width="358" Depth="253" Height="479"/>
-   <Lens DegreesMin="4" DegreesMax="60" Name="Other"/>
-   <Focus TiltMax="210" Type="Head" PanMax="540"/>
-   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="450"/>
+   <Bulb Type="LED" Lumens="4800" ColourTemperature="0"/>
+   <Dimensions Weight="14.5" Width="358" Height="479" Depth="253"/>
+   <Lens Name="Other" DegreesMin="4" DegreesMax="60"/>
+   <Focus Type="Head" PanMax="540" TiltMax="210"/>
+   <Technical PowerConsumption="450" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Red fine</Channel>
@@ -1117,11 +1117,11 @@
  </Mode>
  <Mode Name="Shapes">
   <Physical>
-   <Bulb Lumens="4800" Type="LED" ColourTemperature="0"/>
-   <Dimensions Weight="14.5" Width="358" Depth="253" Height="479"/>
-   <Lens DegreesMin="4" DegreesMax="60" Name="Other"/>
-   <Focus TiltMax="210" Type="Head" PanMax="540"/>
-   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="450"/>
+   <Bulb Type="LED" Lumens="4800" ColourTemperature="0"/>
+   <Dimensions Weight="14.5" Width="358" Height="479" Depth="253"/>
+   <Lens Name="Other" DegreesMin="4" DegreesMax="60"/>
+   <Focus Type="Head" PanMax="540" TiltMax="210"/>
+   <Technical PowerConsumption="450" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Red fine</Channel>
@@ -1160,11 +1160,11 @@
  </Mode>
  <Mode Name="Standard">
   <Physical>
-   <Bulb Lumens="4800" Type="LED" ColourTemperature="0"/>
-   <Dimensions Weight="14.5" Width="358" Depth="253" Height="479"/>
-   <Lens DegreesMin="4" DegreesMax="60" Name="Other"/>
-   <Focus TiltMax="210" Type="Head" PanMax="540"/>
-   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="450"/>
+   <Bulb Type="LED" Lumens="4800" ColourTemperature="0"/>
+   <Dimensions Weight="14.5" Width="358" Height="479" Depth="253"/>
+   <Lens Name="Other" DegreesMin="4" DegreesMax="60"/>
+   <Focus Type="Head" PanMax="540" TiltMax="210"/>
+   <Technical PowerConsumption="450" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Red fine</Channel>

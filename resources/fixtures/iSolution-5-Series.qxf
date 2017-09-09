@@ -27,21 +27,21 @@
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="SGM/gobo00062.png" Min="0" Max="8">Spot</Capability>
-  <Capability Res="SGM/gobo00004.png" Min="9" Max="17">Spot Ring</Capability>
-  <Capability Res="Others/gobo00037.png" Min="18" Max="25">Taurus</Capability>
-  <Capability Res="Others/gobo00039.png" Min="26" Max="34">Bio Hazard</Capability>
-  <Capability Res="SGM/gobo00174.png" Min="35" Max="43">Web</Capability>
-  <Capability Res="GLP/gobo00014.png" Min="44" Max="51">3 Comas</Capability>
-  <Capability Res="ClayPaky/gobo00032.png" Min="52" Max="59">Honeycomb</Capability>
-  <Capability Res="Others/gobo00030.png" Min="60" Max="68">Square</Capability>
-  <Capability Res="Others/gobo00018.png" Min="69" Max="76">Radiation</Capability>
-  <Capability Res="Others/r77947.png" Min="77" Max="85">Batman</Capability>
-  <Capability Res="SGM/gobo00123.png" Min="86" Max="93">Star</Capability>
-  <Capability Res="Others/gobo00029.png" Min="94" Max="102">Dotted Line</Capability>
-  <Capability Res="Robe/gobo00025.png" Min="103" Max="110">Circle</Capability>
-  <Capability Res="SGM/gobo00279.png" Min="111" Max="119">Energy</Capability>
-  <Capability Res="SGM/gobo00348.png" Min="120" Max="127">Cross Stamp</Capability>
+  <Capability Min="0" Max="8" Res="SGM/gobo00062.png">Spot</Capability>
+  <Capability Min="9" Max="17" Res="SGM/gobo00004.png">Spot Ring</Capability>
+  <Capability Min="18" Max="25" Res="Others/gobo00037.png">Taurus</Capability>
+  <Capability Min="26" Max="34" Res="Others/gobo00039.png">Bio Hazard</Capability>
+  <Capability Min="35" Max="43" Res="SGM/gobo00174.png">Web</Capability>
+  <Capability Min="44" Max="51" Res="GLP/gobo00014.png">3 Comas</Capability>
+  <Capability Min="52" Max="59" Res="ClayPaky/gobo00032.png">Honeycomb</Capability>
+  <Capability Min="60" Max="68" Res="Others/gobo00030.png">Square</Capability>
+  <Capability Min="69" Max="76" Res="Others/gobo00018.png">Radiation</Capability>
+  <Capability Min="77" Max="85" Res="Others/r77947.png">Batman</Capability>
+  <Capability Min="86" Max="93" Res="SGM/gobo00123.png">Star</Capability>
+  <Capability Min="94" Max="102" Res="Others/gobo00029.png">Dotted Line</Capability>
+  <Capability Min="103" Max="110" Res="Robe/gobo00025.png">Circle</Capability>
+  <Capability Min="111" Max="119" Res="SGM/gobo00279.png">Energy</Capability>
+  <Capability Min="120" Max="127" Res="SGM/gobo00348.png">Cross Stamp</Capability>
   <Capability Min="128" Max="255">Gobo Change Speed</Capability>
  </Channel>
  <Channel Name="Colour">
@@ -72,10 +72,10 @@
  </Channel>
  <Mode Name="iMove 5S">
   <Physical>
-   <Bulb Lumens="0" Type="ELC 24V 250W" ColourTemperature="0"/>
-   <Dimensions Width="290" Height="380" Weight="12" Depth="330"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
+   <Bulb Type="ELC 24V 250W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="12" Width="290" Height="380" Depth="330"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="250" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -90,10 +90,10 @@
  </Mode>
  <Mode Name="iMove 5W">
   <Physical>
-   <Bulb Lumens="0" Type="ELC 24V 250W" ColourTemperature="0"/>
-   <Dimensions Width="290" Height="380" Weight="12" Depth="330"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
+   <Bulb Type="ELC 24V 250W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="12" Width="290" Height="380" Depth="330"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="250" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

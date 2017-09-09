@@ -47,10 +47,10 @@
  </Channel>
  <Mode Name="6 channel">
   <Physical>
-   <Bulb Lumens="192" Type="LED" ColourTemperature="2000"/>
-   <Dimensions Width="247" Height="165" Weight="2.2" Depth="20"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="192" ColourTemperature="2000"/>
+   <Dimensions Weight="2.2" Width="247" Height="165" Depth="20"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="24" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Mode</Channel>

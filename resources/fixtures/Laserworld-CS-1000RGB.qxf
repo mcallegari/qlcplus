@@ -80,10 +80,10 @@
  </Channel>
  <Mode Name="CS-1000RGB">
   <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="RGB Laser"/>
-   <Dimensions Width="330" Weight="7" Depth="310" Height="170"/>
-   <Lens DegreesMin="40" DegreesMax="40" Name="Other"/>
-   <Focus PanMax="40" TiltMax="40" Type="Mirror"/>
+   <Bulb Type="RGB Laser" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="7" Width="330" Height="170" Depth="310"/>
+   <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
+   <Focus Type="Mirror" PanMax="40" TiltMax="40"/>
    <Technical PowerConsumption="50" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Mode</Channel>

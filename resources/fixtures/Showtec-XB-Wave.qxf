@@ -11,29 +11,29 @@
  <Type>Flower</Type>
  <Channel Name="Colors 1">
   <Group Byte="0">Colour</Group>
-  <Capability Color="#000000" Min="0" Max="19">Blackout</Capability>
-  <Capability Color="#ff0000" Min="20" Max="39">Red</Capability>
-  <Capability Color="#00ff00" Min="40" Max="59">Green</Capability>
-  <Capability Color="#0000ff" Min="60" Max="79">Blue</Capability>
-  <Capability Color="#00ff00" Color2="#0000ff" Min="80" Max="99">Green+Blue</Capability>
-  <Capability Color="#ff0000" Color2="#0000ff" Min="100" Max="119">Red+Blue</Capability>
-  <Capability Color="#ff0000" Color2="#00ff00" Min="120" Max="139">Red+Green</Capability>
-  <Capability Color="#ffffff" Min="140" Max="159">Red+Green+Blue</Capability>
-  <Capability Color="#ffffff" Min="160" Max="179">3 Color Chase + Rotation</Capability>
-  <Capability Color="#ffffff" Min="180" Max="255">7 Color Chase + Rotation</Capability>
+  <Capability Min="0" Max="19" Color="#000000">Blackout</Capability>
+  <Capability Min="20" Max="39" Color="#ff0000">Red</Capability>
+  <Capability Min="40" Max="59" Color="#00ff00">Green</Capability>
+  <Capability Min="60" Max="79" Color="#0000ff">Blue</Capability>
+  <Capability Min="80" Max="99" Color="#00ff00" Color2="#0000ff">Green+Blue</Capability>
+  <Capability Min="100" Max="119" Color="#ff0000" Color2="#0000ff">Red+Blue</Capability>
+  <Capability Min="120" Max="139" Color="#ff0000" Color2="#00ff00">Red+Green</Capability>
+  <Capability Min="140" Max="159" Color="#ffffff">Red+Green+Blue</Capability>
+  <Capability Min="160" Max="179" Color="#ffffff">3 Color Chase + Rotation</Capability>
+  <Capability Min="180" Max="255" Color="#ffffff">7 Color Chase + Rotation</Capability>
  </Channel>
  <Channel Name="Colors 2">
   <Group Byte="0">Colour</Group>
-  <Capability Color="#000000" Min="0" Max="4">Blackout</Capability>
-  <Capability Color="#ff0000" Min="5" Max="28">Red</Capability>
-  <Capability Color="#00ff00" Min="29" Max="56">Green</Capability>
-  <Capability Color="#0000ff" Min="57" Max="84">Blue</Capability>
-  <Capability Color="#00ff00" Color2="#0000ff" Min="85" Max="112">Green+Blue</Capability>
-  <Capability Color="#ff0000" Color2="#0000ff" Min="113" Max="140">Red+Blue</Capability>
-  <Capability Color="#ff0000" Color2="#00ff00" Min="141" Max="168">Red+Green</Capability>
-  <Capability Color="#ffffff" Min="169" Max="197">Red+Green+Blue</Capability>
-  <Capability Color="#ffffff" Min="198" Max="224">3 Color Chase + Rotation</Capability>
-  <Capability Color="#ffffff" Min="225" Max="255">7 Color Chase + Rotation</Capability>
+  <Capability Min="0" Max="4" Color="#000000">Blackout</Capability>
+  <Capability Min="5" Max="28" Color="#ff0000">Red</Capability>
+  <Capability Min="29" Max="56" Color="#00ff00">Green</Capability>
+  <Capability Min="57" Max="84" Color="#0000ff">Blue</Capability>
+  <Capability Min="85" Max="112" Color="#00ff00" Color2="#0000ff">Green+Blue</Capability>
+  <Capability Min="113" Max="140" Color="#ff0000" Color2="#0000ff">Red+Blue</Capability>
+  <Capability Min="141" Max="168" Color="#ff0000" Color2="#00ff00">Red+Green</Capability>
+  <Capability Min="169" Max="197" Color="#ffffff">Red+Green+Blue</Capability>
+  <Capability Min="198" Max="224" Color="#ffffff">3 Color Chase + Rotation</Capability>
+  <Capability Min="225" Max="255" Color="#ffffff">7 Color Chase + Rotation</Capability>
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
@@ -47,11 +47,11 @@
  </Channel>
  <Mode Name="4 Channels">
   <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="2.4" Width="325" Height="143" Depth="305"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="30"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Colors 1</Channel>
   <Channel Number="1">Colors 2</Channel>

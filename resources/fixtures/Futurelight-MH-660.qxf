@@ -124,10 +124,10 @@
  </Channel>
  <Mode Name="Default">
   <Physical>
-   <Bulb Lumens="0" Type="MSD 250W" ColourTemperature="0"/>
-   <Dimensions Width="426" Height="447" Weight="25" Depth="372"/>
-   <Lens DegreesMax="15" Name="Other" DegreesMin="15"/>
-   <Focus PanMax="530" Type="Fixed" TiltMax="280"/>
+   <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="25" Width="426" Height="447" Depth="372"/>
+   <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
+   <Focus Type="Fixed" PanMax="530" TiltMax="280"/>
    <Technical PowerConsumption="450" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

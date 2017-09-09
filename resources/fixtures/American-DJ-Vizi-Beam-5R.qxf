@@ -113,10 +113,10 @@
  </Channel>
  <Mode Name="12 Channel">
   <Physical>
-   <Bulb Lumens="13500" Type="Phillips Platinum 5R" ColourTemperature="8000"/>
-   <Dimensions Width="310" Height="448" Weight="11" Depth="335"/>
-   <Lens DegreesMax="2" Name="Other" DegreesMin="2"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
+   <Bulb Type="Phillips Platinum 5R" Lumens="13500" ColourTemperature="8000"/>
+   <Dimensions Weight="11" Width="310" Height="448" Depth="335"/>
+   <Lens Name="Other" DegreesMin="2" DegreesMax="2"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="0" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -134,10 +134,10 @@
  </Mode>
  <Mode Name="10 Channel">
   <Physical>
-   <Bulb Lumens="13500" Type="Phillips Platinum 5R Discharge" ColourTemperature="8000"/>
-   <Dimensions Width="310" Height="448" Weight="11" Depth="335"/>
-   <Lens DegreesMax="2" Name="Other" DegreesMin="2"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
+   <Bulb Type="Phillips Platinum 5R Discharge" Lumens="13500" ColourTemperature="8000"/>
+   <Dimensions Weight="11" Width="310" Height="448" Depth="335"/>
+   <Lens Name="Other" DegreesMin="2" DegreesMax="2"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="0" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

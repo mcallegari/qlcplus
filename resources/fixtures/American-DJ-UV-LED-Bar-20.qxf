@@ -35,30 +35,30 @@
  </Channel>
  <Mode Name="1 Channel">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Depth="175" Weight="2.45" Height="61" Width="334"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.45" Width="334" Height="61" Depth="175"/>
    <Lens Name="Fresnel" DegreesMin="10" DegreesMax="40"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="30" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
  </Mode>
  <Mode Name="2 Channel">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Depth="175" Weight="2.45" Height="61" Width="334"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.45" Width="334" Height="61" Depth="175"/>
    <Lens Name="Fresnel" DegreesMin="10" DegreesMax="40"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="30" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
  </Mode>
  <Mode Name="3 Channel">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Depth="175" Weight="2.45" Height="61" Width="334"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.45" Width="334" Height="61" Depth="175"/>
    <Lens Name="Fresnel" DegreesMin="10" DegreesMax="40"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="30" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>

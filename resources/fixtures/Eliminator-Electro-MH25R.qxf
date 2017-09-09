@@ -40,9 +40,9 @@
   <Capability Min="30" Max="34" Color="#55ff00">Yellow Green</Capability>
   <Capability Min="35" Max="39" Color="#ff5500">Orange Red</Capability>
   <Capability Min="40" Max="44" Color="#0000ff">Navy Blue</Capability>
-  <Capability Res="Others/rainbow.png" Min="45" Max="127">Color Continue</Capability>
-  <Capability Res="Others/rainbow.png" Min="128" Max="191">Rainbow Counter-Clockwise</Capability>
-  <Capability Res="Others/rainbow.png" Min="192" Max="255">Rainbow Clockwise Rotation</Capability>
+  <Capability Min="45" Max="127" Res="Others/rainbow.png">Color Continue</Capability>
+  <Capability Min="128" Max="191" Res="Others/rainbow.png">Rainbow Counter-Clockwise</Capability>
+  <Capability Min="192" Max="255" Res="Others/rainbow.png">Rainbow Clockwise Rotation</Capability>
  </Channel>
  <Channel Name="Strobing">
   <Group Byte="0">Intensity</Group>
@@ -56,22 +56,22 @@
  </Channel>
  <Channel Name="Gobo wheel">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/open.png" Min="0" Max="4">Spot</Capability>
-  <Capability Res="Others/gobo00001.png" Min="5" Max="9">Gobo 1 (Purple w/ Dots)</Capability>
-  <Capability Res="Others/gobo00034.png" Min="10" Max="14">Gobo 2 (Ice)</Capability>
-  <Capability Res="Others/gobo00038.png" Min="15" Max="19">Gobo 3 (Swirl)</Capability>
-  <Capability Res="Others/gobo00039.png" Min="20" Max="24">Gobo 4 (Viral)</Capability>
-  <Capability Res="ClayPaky/gobo00060.png" Min="25" Max="29">Gobo 5 (Rose)</Capability>
-  <Capability Res="Others/gobo00040.png" Min="30" Max="34">Gobo 6 (Tri Hatch)</Capability>
-  <Capability Res="Others/gobo00041.png" Min="35" Max="39">Gobo 7 (Dot Swirl)</Capability>
-  <Capability Res="Others/open.png" Min="40" Max="54">Spot</Capability>
-  <Capability Res="Others/gobo00001.png" Min="55" Max="69">Gobo 1 Shake</Capability>
-  <Capability Res="Others/gobo00034.png" Min="70" Max="84">Gobo 2 Shake</Capability>
-  <Capability Res="Others/gobo00038.png" Min="85" Max="99">Gobo 3 Shake</Capability>
-  <Capability Res="Others/gobo00039.png" Min="100" Max="114">Gobo 4 Shake</Capability>
-  <Capability Res="ClayPaky/gobo00060.png" Min="115" Max="129">Gobo 5 Shake</Capability>
-  <Capability Res="Others/gobo00040.png" Min="130" Max="144">Gobo 6 Shake</Capability>
-  <Capability Res="Others/gobo00041.png" Min="145" Max="159">Gobo 7 Shake</Capability>
+  <Capability Min="0" Max="4" Res="Others/open.png">Spot</Capability>
+  <Capability Min="5" Max="9" Res="Others/gobo00001.png">Gobo 1 (Purple w/ Dots)</Capability>
+  <Capability Min="10" Max="14" Res="Others/gobo00034.png">Gobo 2 (Ice)</Capability>
+  <Capability Min="15" Max="19" Res="Others/gobo00038.png">Gobo 3 (Swirl)</Capability>
+  <Capability Min="20" Max="24" Res="Others/gobo00039.png">Gobo 4 (Viral)</Capability>
+  <Capability Min="25" Max="29" Res="ClayPaky/gobo00060.png">Gobo 5 (Rose)</Capability>
+  <Capability Min="30" Max="34" Res="Others/gobo00040.png">Gobo 6 (Tri Hatch)</Capability>
+  <Capability Min="35" Max="39" Res="Others/gobo00041.png">Gobo 7 (Dot Swirl)</Capability>
+  <Capability Min="40" Max="54" Res="Others/open.png">Spot</Capability>
+  <Capability Min="55" Max="69" Res="Others/gobo00001.png">Gobo 1 Shake</Capability>
+  <Capability Min="70" Max="84" Res="Others/gobo00034.png">Gobo 2 Shake</Capability>
+  <Capability Min="85" Max="99" Res="Others/gobo00038.png">Gobo 3 Shake</Capability>
+  <Capability Min="100" Max="114" Res="Others/gobo00039.png">Gobo 4 Shake</Capability>
+  <Capability Min="115" Max="129" Res="ClayPaky/gobo00060.png">Gobo 5 Shake</Capability>
+  <Capability Min="130" Max="144" Res="Others/gobo00040.png">Gobo 6 Shake</Capability>
+  <Capability Min="145" Max="159" Res="Others/gobo00041.png">Gobo 7 Shake</Capability>
   <Capability Min="160" Max="207">Gobo Wheel Clockwise Slow &gt; Fast</Capability>
   <Capability Min="208" Max="255">Gobo Wheel Counter-Clockwise Slow &gt; Fast</Capability>
  </Channel>
@@ -103,10 +103,10 @@
  </Channel>
  <Mode Name="12 Channels">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="266" Height="304" Weight="18.6" Depth="254"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="18.6" Width="266" Height="304" Depth="254"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="250" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -124,10 +124,10 @@
  </Mode>
  <Mode Name="8 Channels">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="266" Height="304" Weight="18.6" Depth="254"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="18.6" Width="266" Height="304" Depth="254"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="250" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
