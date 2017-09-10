@@ -1,5 +1,5 @@
 <RCC>
-  <qresource prefix="/">
+  <qresource prefix="/">   
     <file alias="2dview.svg">2dview.svg</file>
     <file alias="3dview.svg">3dview.svg</file>
     <file alias="add.svg">add.svg</file>
@@ -36,6 +36,8 @@
     <file alias="cuelist.svg">cuelist.svg</file>
     <file alias="cyan.svg">cyan.svg</file>
     <file alias="dimmer.svg">dimmer.svg</file>
+    <file alias="dimmer-back.svg">dimmer-back.svg</file>
+    <file alias="dimmer-fill.svg">dimmer-fill.svg</file>
     <file alias="diptool.svg">diptool.svg</file>
     <file alias="dmxdump.svg">dmxdump.svg</file>
     <file alias="dmxusbplugin.svg">dmxusbplugin.svg</file>

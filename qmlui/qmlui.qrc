@@ -1,8 +1,5 @@
 <RCC>
   <qresource prefix="/">
-    <file alias="dimmer-back.svg">svg/dimmer-back.svg</file>
-    <file alias="dimmer-fill.svg">svg/dimmer-fill.svg</file>
-
     <file alias="qmldir">qml/qmldir</file>
 
     <!-- Common components -->
