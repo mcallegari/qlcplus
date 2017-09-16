@@ -29,6 +29,8 @@ class Script_Test : public QObject
 private slots:
     void initTestCase();
     void initial();
+
+    void loadSave();
 };
 
 #endif

@@ -62,4 +62,19 @@ void Script_Test::initial()
         scr.executeCommand(i, doc.masterTimer(), ua);
 }
 
+void Script_Test::loadSave()
+{
+    Doc doc(this);
+    GrandMaster *gm = new GrandMaster();
+    QList<Universe*> ua;
+    ua.append(new Universe(0, gm));
+    ua.append(new Universe(1, gm));
+    ua.append(new Universe(2, gm));
+    ua.append(new Universe(3, gm));
+
+    Script scr(&doc);
+    scr.setData(script0);
+    QCOMPARE(scr.dataLines().size(), 9);
+}
+
 QTEST_APPLESS_MAIN(Script_Test)
