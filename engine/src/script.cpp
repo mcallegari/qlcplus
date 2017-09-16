@@ -184,7 +184,15 @@ QString Script::data() const
 
 QStringList Script::dataLines() const
 {
-    return m_data.split(QRegExp("(\r\n|\n\r|\r|\n)"), QString::KeepEmptyParts);
+    QStringList result = m_data.split(QRegExp("(\r\n|\n\r|\r|\n)"), QString::KeepEmptyParts);
+
+    // http://www.qlcplus.org/forum/viewtopic.php?f=21&t=11467
+    // m_data after appendData (i.e. after loadXML) has trailing LF
+    // that the split above turns into excess element
+    if (!result.isEmpty())
+        result.takeLast();
+
+    return result;
 }
 
 QList<quint32> Script::functionList() const
