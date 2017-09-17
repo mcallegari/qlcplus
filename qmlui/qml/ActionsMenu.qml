@@ -28,6 +28,10 @@ Popup
     id: menuRoot
     padding: 0
 
+    property Item submenuItem: null
+
+    onClosed: submenuItem = null
+
     FileDialog
     {
         id: openDialog
@@ -122,7 +126,7 @@ Popup
             entryText: qsTr("New project")
             onClicked:
             {
-                menuRoot.visible = false
+                menuRoot.close()
 
                 if (qlcplus.docModified)
                 {
@@ -132,7 +136,7 @@ Popup
                 else
                     qlcplus.newWorkspace()
             }
-            onEntered: recentMenu.visible = false
+            onEntered: submenuItem = null
         }
         ContextMenuEntry
         {
@@ -141,7 +145,7 @@ Popup
             entryText: qsTr("Open project")
             onClicked:
             {
-                menuRoot.visible = false
+                menuRoot.close()
 
                 if (qlcplus.docModified)
                 {
@@ -151,8 +155,7 @@ Popup
                 else
                     openDialog.open()
             }
-            onEntered: recentMenu.visible = true
-            //onExited: recentMenu.visible = false
+            onEntered: submenuItem = recentMenu
 
             Rectangle
             {
@@ -161,7 +164,7 @@ Popup
                 width: recentColumn.width
                 height: recentColumn.height
                 color: UISettings.bgStrong
-                visible: false
+                visible: submenuItem === recentMenu
 
                 Column
                 {
@@ -175,8 +178,7 @@ Popup
                                 entryText: modelData
                                 onClicked:
                                 {
-                                    recentMenu.visible = false
-                                    menuRoot.visible = false
+                                    menuRoot.close()
                                     qlcplus.loadWorkspace(entryText)
                                 }
                             }
@@ -189,11 +191,11 @@ Popup
             id: fileSave
             imgSource: "qrc:/filesave.svg"
             entryText: qsTr("Save project")
-            onEntered: recentMenu.visible = false
+            onEntered: submenuItem = null
 
             onClicked:
             {
-                menuRoot.visible = false
+                menuRoot.close()
 
                 if (qlcplus.fileName())
                     qlcplus.saveWorkspace(qlcplus.fileName())
@@ -206,12 +208,68 @@ Popup
             id: fileSaveAs
             imgSource: "qrc:/filesaveas.svg"
             entryText: qsTr("Save project as...")
-            onEntered: recentMenu.visible = false
+            onEntered: submenuItem = null
 
             onClicked:
             {
-                menuRoot.visible = false
+                menuRoot.close()
                 saveDialog.open()
+            }
+        }
+
+        ContextMenuEntry
+        {
+            imgSource: "qrc:/network.svg"
+            entryText: qsTr("Network")
+            onEntered: submenuItem = networkMenu
+
+            onClicked:
+            {
+                if (Qt.platform.os === "android")
+                    submenuItem = networkMenu
+            }
+
+            Rectangle
+            {
+                id: networkMenu
+                x: menuRoot.width
+                width: networkColumn.width
+                height: networkColumn.height
+                color: UISettings.bgStrong
+                visible: submenuItem === networkMenu
+
+                Column
+                {
+                    id: networkColumn
+
+                    ContextMenuEntry
+                    {
+                        id: startServer
+                        entryText: qsTr("Start server")
+
+                        onClicked:
+                        {
+                            menuRoot.close()
+                            pNetServer.open()
+                        }
+
+                        PopupNetworkServer { id: pNetServer }
+                    }
+
+                    ContextMenuEntry
+                    {
+                        id: connectToServer
+                        entryText: qsTr("Connect to a server")
+
+                        onClicked:
+                        {
+                            menuRoot.close()
+                            pNetClient.open()
+                        }
+
+                        PopupNetworkClient { id: pNetClient }
+                    }
+                }
             }
         }
 
@@ -219,12 +277,12 @@ Popup
         {
             imgSource: "qrc:/diptool.svg"
             entryText: qsTr("Address tool")
+            onEntered: submenuItem = null
             onClicked:
             {
                 close()
                 addrToolDialog.open()
             }
-            onEntered: recentMenu.visible = false
 
             CustomPopupDialog
             {
@@ -243,10 +301,10 @@ Popup
             id: fullScreen
             imgSource: "qrc:/fullscreen.svg"
             entryText: qsTr("Toggle fullscreen")
-            onEntered: recentMenu.visible = false
+            onEntered: submenuItem = null
             onClicked:
             {
-                menuRoot.visible = false
+                menuRoot.close()
                 qlcplus.toggleFullscreen()
             }
         }

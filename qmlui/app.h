@@ -37,7 +37,9 @@ class FunctionManager;
 class QXmlStreamReader;
 class FixtureGroupEditor;
 class InputOutputManager;
+class NetworkManager;
 class VideoProvider;
+class Tardis;
 
 #define KXMLQLCWorkspace "Workspace"
 
@@ -131,6 +133,8 @@ private:
     ShowManager *m_showManager;
     ActionManager *m_actionManager;
     VideoProvider *m_videoProvider;
+    NetworkManager *m_networkManager;
+    Tardis *m_tardis;
 
     /*********************************************************************
      * Doc

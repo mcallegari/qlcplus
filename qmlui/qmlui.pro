@@ -17,6 +17,7 @@ QML_IMPORT_PATH =
 # Engine
 INCLUDEPATH     += ../engine/src ../engine/audio/src
 INCLUDEPATH     += virtualconsole
+INCLUDEPATH     += tardis
 INCLUDEPATH     += ../plugins/interfaces
 DEPENDPATH      += ../engine/src
 QMAKE_LIBDIR    += ../engine/src
@@ -79,6 +80,23 @@ SOURCES += main.cpp \
     treemodelitem.cpp \
     videoeditor.cpp \
     videoprovider.cpp
+
+#############################################
+#  TARDIS
+#############################################
+
+HEADERS += \
+    tardis/tardisactions.h \
+    tardis/tardis.h \
+    tardis/networkpacketizer.h \
+    tardis/networkmanager.h \
+    tardis/simplecrypt.h
+
+SOURCES += \
+    tardis/tardis.cpp \
+    tardis/networkpacketizer.cpp \
+    tardis/networkmanager.cpp \
+    tardis/simplecrypt.cpp
 
 #############################################
 #  Virtual Console

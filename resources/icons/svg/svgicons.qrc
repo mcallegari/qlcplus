@@ -81,6 +81,7 @@
     <file alias="magenta.svg">magenta.svg</file>
     <file alias="midiplugin.svg">midiplugin.svg</file>
     <file alias="movinghead.svg">movinghead.svg</file>
+    <file alias="network.svg">network.svg</file>
     <file alias="olaplugin.svg">olaplugin.svg</file>
     <file alias="oscplugin.svg">oscplugin.svg</file>
     <file alias="other.svg">other.svg</file>

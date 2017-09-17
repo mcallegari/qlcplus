@@ -43,6 +43,9 @@
 #include "fixturegroupeditor.h"
 #include "inputoutputmanager.h"
 
+#include "tardis.h"
+#include "networkmanager.h"
+
 #include "qlcfixturedefcache.h"
 #include "audioplugincache.h"
 #include "rgbscriptscache.h"
@@ -133,6 +136,11 @@ void App::startup()
 
     // register an uncreatable type just to use the enums in QML
     qmlRegisterUncreatableType<ShowManager>("org.qlcplus.classes", 1, 0, "ShowManager", "Can't create a ShowManager !");
+
+    m_networkManager = new NetworkManager(this);
+    rootContext()->setContextProperty("networkManager", m_networkManager);
+
+    m_tardis = new Tardis(this, m_doc, m_fixtureManager, m_functionManager, m_showManager, m_virtualConsole);
 
     m_contextManager->registerContext(m_virtualConsole);
     m_contextManager->registerContext(m_showManager);
