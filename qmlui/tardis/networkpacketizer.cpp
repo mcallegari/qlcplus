@@ -124,16 +124,16 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
                 bytes_read += 2;
 
                 strVal.append(packet.mid(bytes_read, sLength));
+                sections.append(QVariant(strVal));
                 bytes_read += sLength;
             }
             break;
             case ByteArrayType:
             {
-                QByteArray baVal;
                 int sLength = ((quint8)packet.at(bytes_read) << 8) + (quint8)packet.at(bytes_read + 1);
                 bytes_read += 2;
 
-                baVal.append(packet.mid(bytes_read, sLength));
+                sections.append(QVariant(packet.mid(bytes_read, sLength)));
                 bytes_read += sLength;
             }
             break;

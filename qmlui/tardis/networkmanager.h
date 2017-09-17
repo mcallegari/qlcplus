@@ -45,9 +45,10 @@ class NetworkManager : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(bool serverStarted READ serverStarted WRITE setServerStarted NOTIFY serverStartedChanged)
-    Q_PROPERTY(bool clientConnected READ clientConnected WRITE setClientConnected NOTIFY clientConnectedChanged)
     Q_PROPERTY(QString hostName READ hostName WRITE setHostName NOTIFY hostNameChanged)
+    Q_PROPERTY(bool serverStarted READ serverStarted WRITE setServerStarted NOTIFY serverStartedChanged)
+    Q_PROPERTY(QVariant serverList READ serverList NOTIFY serverListChanged)
+    Q_PROPERTY(bool clientConnected READ clientConnected WRITE setClientConnected NOTIFY clientConnectedChanged)
 
 public:
     explicit NetworkManager(QObject *parent = 0);
@@ -60,21 +61,6 @@ public:
         ClientHostType
     };
 
-    Q_INVOKABLE bool startServer();
-    Q_INVOKABLE bool stopServer();
-
-    /** Get/Set the status of a QLC+ server instance */
-    bool serverStarted() const;
-    void setServerStarted(bool serverStarted);
-
-    Q_INVOKABLE bool initializeClient();
-    Q_INVOKABLE bool connectClient(QString ipAddress);
-    Q_INVOKABLE bool disconnectClient();
-
-    /** Get/Set the connection status of a QLC+ client instance */
-    bool clientConnected() const;
-    void setClientConnected(bool clientConnected);
-
     /** Get/Set the name of the host within the QLC+ network */
     QString hostName() const;
     void setHostName(QString hostName);
@@ -83,8 +69,6 @@ protected:
     QString defaultName();
 
 signals:
-    void serverStartedChanged(bool serverStarted);
-    void clientConnectedChanged(bool clientConnected);
     void hostNameChanged(QString hostName);
 
 protected slots:
@@ -94,20 +78,7 @@ protected slots:
     /** Async event raised when unicast packets are received */
     void slotProcessTCPPackets();
 
-    /** Event raised when an incoming connection is requested on
-     *  the TCP socket server side */
-    void slotProcessNewTCPConnection();
-
-    void slotHostDisconnected();
-
 private:
-    /** The interface IP address as QHostAddress */
-    QHostAddress m_ipAddr;
-
-    /** The host broadcast address as QHostAddress */
-    /** This is where QLC+ broadcast packets are sent to */
-    QHostAddress m_broadcastAddr;
-
     /** The host name in the QLC+ network */
     QString m_hostName;
 
@@ -117,13 +88,6 @@ private:
     /** The UDP socket used to send/receive QLC+ announce packets */
     QUdpSocket *m_udpSocket;
 
-    /** Instance of a TCP server used by a QLC+ server */
-    QTcpServer *m_tcpServer;
-
-    /** Interface thread that polls other QLC+ devices
-     *  to monitor their alive status */
-    QThread m_poller;
-
     /** Reference to an encryption engine. For now we use SimpleCrypt */
     SimpleCrypt *m_crypt;
 
@@ -131,10 +95,63 @@ private:
      *  according to the QLC+ network protocol */
     NetworkPacketizer* m_packetizer;
 
+    /*********************************************************************
+     * Server
+     *********************************************************************/
+public:
+    Q_INVOKABLE bool startServer();
+    Q_INVOKABLE bool stopServer();
+
+    /** Get/Set the status of a QLC+ server instance */
+    bool serverStarted() const;
+    void setServerStarted(bool serverStarted);
+
+signals:
+    void serverStartedChanged(bool serverStarted);
+
+protected slots:
+    /** Event raised when an incoming connection is requested on
+     *  the TCP socket server side */
+    void slotProcessNewTCPConnection();
+    void slotHostDisconnected();
+
+private:
+    /** Instance of a TCP server used by a QLC+ server */
+    QTcpServer *m_tcpServer;
+
+    /** Flag that indicates if a server instance is running */
+    bool m_serverStarted;
+
     /** Map of the QLC+ hosts detected on the network */
     QHash<QHostAddress, NetworkHost *>m_hostsMap;
 
-    bool m_serverStarted;
+    /*********************************************************************
+     * Client
+     *********************************************************************/
+public:
+    Q_INVOKABLE bool initializeClient();
+    Q_INVOKABLE bool connectClient(QString ipAddress);
+    Q_INVOKABLE bool disconnectClient();
+
+    QVariant serverList() const;
+
+    /** Get/Set the connection status of a QLC+ client instance */
+    bool clientConnected() const;
+    void setClientConnected(bool clientConnected);
+
+signals:
+    void clientConnectedChanged(bool clientConnected);
+    void serverListChanged();
+
+private:
+    /** The socket used to send/receive unicast TCP packets */
+    QTcpSocket *m_tcpSocket;
+
+    /** Map used during automatic server discovery */
+    QHash<QHostAddress, QString> m_serverList;
+
+    /** Flag that indicates if a client
+     *  is connected (authenticated) to a server */
     bool m_clientConnected;
 };
 

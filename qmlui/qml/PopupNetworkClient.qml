@@ -53,6 +53,24 @@ CustomPopupDialog
                 label: qsTr("Detected servers")
             }
 
+            Repeater
+            {
+                model: networkManager.serverList
+
+                delegate:
+                    RobotoText
+                    {
+                        Layout.columnSpan: 2
+                        label: modelData.name + " (" + modelData.address + ")"
+
+                        MouseArea
+                        {
+                            anchors.fill: parent
+                            onClicked: popupRoot.serverAddress = modelData.address
+                        }
+                    }
+            }
+
             CustomCheckBox
             {
                 id: manualServerCheck
@@ -78,6 +96,7 @@ CustomPopupDialog
             Row
             {
                 Layout.columnSpan: 2
+                Layout.fillWidth: true
 
                 // last row
                 GenericButton

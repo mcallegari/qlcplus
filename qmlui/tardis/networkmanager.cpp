@@ -34,6 +34,7 @@ NetworkManager::NetworkManager(QObject *parent)
     , m_udpSocket(NULL)
     , m_tcpServer(NULL)
     , m_serverStarted(false)
+    , m_tcpSocket(NULL)
     , m_clientConnected(false)
 {
     m_hostType = UnknownHostType;
@@ -59,6 +60,20 @@ NetworkManager::~NetworkManager()
     }
 }
 
+QString NetworkManager::hostName() const
+{
+    return m_hostName;
+}
+
+void NetworkManager::setHostName(QString hostName)
+{
+    if (m_hostName == hostName)
+        return;
+
+    m_hostName = hostName;
+    emit hostNameChanged(m_hostName);
+}
+
 QString NetworkManager::defaultName()
 {
     foreach(QNetworkInterface interface, QNetworkInterface::allInterfaces())
@@ -74,6 +89,10 @@ QString NetworkManager::defaultName()
     }
     return QString();
 }
+
+/*********************************************************************
+ * Server
+ *********************************************************************/
 
 bool NetworkManager::startServer()
 {
@@ -143,6 +162,10 @@ void NetworkManager::setServerStarted(bool serverStarted)
     emit serverStartedChanged(m_serverStarted);
 }
 
+/*********************************************************************
+ * Client
+ *********************************************************************/
+
 bool NetworkManager::initializeClient()
 {
     QByteArray packet;
@@ -164,6 +187,8 @@ bool NetworkManager::initializeClient()
 
     m_hostType = ClientHostType;
 
+    m_serverList.clear();
+
     /* compose the announce packet */
     m_packetizer->initializePacket(packet, NetAnnounce);
     m_packetizer->addSection(packet, QVariant(m_hostType));
@@ -175,7 +200,10 @@ bool NetworkManager::initializeClient()
         foreach (QNetworkAddressEntry entry, interface.addressEntries())
         {
             if (entry.ip().protocol() != QAbstractSocket::IPv6Protocol && entry.ip() != QHostAddress::LocalHost)
+            {
+                qDebug() << "Sending announcement on" << interface.name();
                 m_udpSocket->writeDatagram(packet, entry.broadcast(), DEFAULT_UDP_PORT);
+            }
         }
     }
 
@@ -200,6 +228,24 @@ bool NetworkManager::disconnectClient()
     return true;
 }
 
+QVariant NetworkManager::serverList() const
+{
+    QVariantList serverList;
+
+    auto i = m_serverList.constBegin();
+    while (i != m_serverList.constEnd())
+    {
+        QVariantMap serverMap;
+        serverMap.insert("name", i.value());
+        serverMap.insert("address", i.key().toString());
+        serverList.append(serverMap);
+
+        ++i;
+    }
+
+    return QVariant::fromValue(serverList);
+}
+
 bool NetworkManager::clientConnected() const
 {
     return m_clientConnected;
@@ -214,22 +260,10 @@ void NetworkManager::setClientConnected(bool clientConnected)
     emit clientConnectedChanged(m_clientConnected);
 }
 
-QString NetworkManager::hostName() const
-{
-    return m_hostName;
-}
-
-void NetworkManager::setHostName(QString hostName)
-{
-    if (m_hostName == hostName)
-        return;
-
-    m_hostName = hostName;
-    emit hostNameChanged(m_hostName);
-}
-
 void NetworkManager::slotProcessUDPPackets()
 {
+    qDebug() << "------- slotProcessUDPPackets";
+
     while (m_udpSocket->hasPendingDatagrams())
     {
         QByteArray datagram;
@@ -248,19 +282,30 @@ void NetworkManager::slotProcessUDPPackets()
         switch (opCode)
         {
             case NetAnnounce:
+            {
                 QByteArray packet;
                 m_packetizer->initializePacket(packet, NetAnnounceReply);
                 m_packetizer->addSection(packet, QVariant(m_hostType));
                 m_packetizer->addSection(packet, QVariant(m_hostName));
                 m_udpSocket->writeDatagram(packet, senderAddress, DEFAULT_UDP_PORT);
+                qDebug() << "Announce reply sent to" << senderAddress.toString();
+            }
             break;
+
             case NetAnnounceReply:
-                if (m_hostType == ClientHostType)
+            {
+                if (m_hostType == ClientHostType &&
+                    paramsList.count() == 2 &&
+                    paramsList.at(0).toInt() == ServerHostType)
                 {
-                    /* send auth */
-                    QByteArray packet;
-                    m_packetizer->initializePacket(packet, NetAuthentication);
+                    m_serverList[senderAddress] = paramsList.at(1).toString();
+                    emit serverListChanged();
                 }
+            }
+            break;
+
+            default:
+                qDebug() << "Unsupported opCode" << opCode;
             break;
         }
     }
