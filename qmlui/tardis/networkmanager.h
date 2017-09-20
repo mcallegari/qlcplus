@@ -68,6 +68,9 @@ public:
 protected:
     QString defaultName();
 
+    /** Send the content of $packet using the provided $socket */
+    bool sendTCPPacket(QTcpSocket *socket, QByteArray &packet, bool encrypt);
+
 signals:
     void hostNameChanged(QString hostName);
 

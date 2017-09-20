@@ -28,8 +28,15 @@ CustomPopupDialog
     id: popupRoot
 
     property string serverAddress: "192.168.0.1"
+    property int selectedIndex
 
-    onOpened: networkManager.initializeClient()
+    onOpened:
+    {
+        selectedIndex = -1
+        networkManager.initializeClient()
+    }
+
+    title: qsTr("QLC+ client setup")
 
     contentItem:
         GridLayout
@@ -38,7 +45,23 @@ CustomPopupDialog
             rowSpacing: 5
             columnSpacing: 5
 
-            // Row 1
+            // row 1
+            RobotoText
+            {
+                height: UISettings.listItemHeight
+                label: qsTr("Client name")
+            }
+
+            CustomTextEdit
+            {
+                property string hostname: networkManager.hostName
+
+                Layout.fillWidth: true
+                inputText: hostname
+                onTextChanged: networkManager.hostName = text
+            }
+
+            // row 2
             CustomCheckBox
             {
                 id: autoServerCheck
@@ -53,24 +76,46 @@ CustomPopupDialog
                 label: qsTr("Detected servers")
             }
 
-            Repeater
+            // row 3
+            ListView
             {
+                id: serverRepeater
+                Layout.fillWidth: true
+                Layout.columnSpan: 2
+                implicitHeight: UISettings.listItemHeight * count
+                boundsBehavior: Flickable.StopAtBounds
+
                 model: networkManager.serverList
 
                 delegate:
-                    RobotoText
+                    Rectangle
                     {
+                        id: serverDelegate
                         Layout.columnSpan: 2
-                        label: modelData.name + " (" + modelData.address + ")"
+                        width: serverName.width
+                        height: UISettings.listItemHeight
+                        color: index === selectedIndex ? UISettings.highlight : UISettings.bgMedium
 
-                        MouseArea
+                        RobotoText
                         {
-                            anchors.fill: parent
-                            onClicked: popupRoot.serverAddress = modelData.address
+                            id: serverName
+                            anchors.verticalCenter: parent.verticalCenter
+                            label: modelData.name + " (" + modelData.address + ")"
+
+                            MouseArea
+                            {
+                                anchors.fill: parent
+                                onClicked:
+                                {
+                                    selectedIndex = index
+                                    popupRoot.serverAddress = modelData.address
+                                }
+                            }
                         }
                     }
             }
 
+            // row 4
             CustomCheckBox
             {
                 id: manualServerCheck
@@ -83,9 +128,10 @@ CustomPopupDialog
                 Layout.fillWidth: true
                 label: qsTr("Manual server")
             }
+
+            // row 5
             CustomTextEdit
             {
-                id: nameEdit
                 Layout.columnSpan: 2
                 Layout.fillWidth: true
                 enabled: manualServerCheck.checked
@@ -93,20 +139,22 @@ CustomPopupDialog
                 onTextChanged: popupRoot.serverAddress = text
             }
 
+            // row 6
             Row
             {
                 Layout.columnSpan: 2
                 Layout.fillWidth: true
 
-                // last row
                 GenericButton
                 {
+                    width: contentItem.width / 2
                     label: qsTr("Close")
                     onClicked: popupRoot.close()
                 }
 
                 GenericButton
                 {
+                    width: contentItem.width / 2
                     label: networkManager.clientConnected ? qsTr("Disconnect") : qsTr("Connect")
                     onClicked: networkManager.clientConnected ?
                                    networkManager.disconnectClient() :

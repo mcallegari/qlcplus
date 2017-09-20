@@ -27,6 +27,8 @@ CustomPopupDialog
 {
     id: popupRoot
 
+    title: qsTr("QLC+ server setup")
+
     contentItem:
         GridLayout
         {
@@ -88,6 +90,20 @@ CustomPopupDialog
             RobotoText
             {
                 height: UISettings.listItemHeight
+                label: qsTr("Start automatically")
+            }
+            CustomCheckBox
+            {
+                implicitHeight: UISettings.listItemHeight
+                implicitWidth: height
+                Layout.columnSpan: 2
+                autoExclusive: false
+            }
+
+            // Row 4
+            RobotoText
+            {
+                height: UISettings.listItemHeight
                 label: qsTr("Server status")
             }
 
@@ -99,7 +115,7 @@ CustomPopupDialog
                 labelColor: networkManager.serverStarted ? "green" : "red"
             }
 
-            // Row 4
+            // Row 5
             RobotoText
             {
                 height: UISettings.listItemHeight
@@ -113,7 +129,7 @@ CustomPopupDialog
                 label: ""
             }
 
-            // Row 5
+            // Row 6
             GenericButton
             {
                 label: qsTr("Close")

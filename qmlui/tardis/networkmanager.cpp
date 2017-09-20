@@ -90,6 +90,39 @@ QString NetworkManager::defaultName()
     return QString();
 }
 
+bool NetworkManager::sendTCPPacket(QTcpSocket *socket, QByteArray &packet, bool encrypt)
+{
+    if (socket == NULL)
+        return false;
+
+    qint64 sent;
+
+    if (encrypt)
+        sent = socket->write(m_packetizer->encryptPacket(packet, m_crypt));
+    else
+        sent = socket->write(packet);
+
+    if (sent < 0)
+    {
+        qDebug() << "Unable to send packet";
+        qDebug() << "Error number:" << socket->error();
+        qDebug() << "Socket state:" << socket->state();
+        qDebug() << "Error message:" << socket->errorString();
+
+        if (socket->state() == QAbstractSocket::UnconnectedState)
+        {
+            // remove this host from the connected hosts map
+            qDebug() << "Host disconnected";
+            socket->close();
+            delete socket;
+            socket = NULL;
+            return false;
+        }
+    }
+
+    return true;
+}
+
 /*********************************************************************
  * Server
  *********************************************************************/
@@ -207,14 +240,39 @@ bool NetworkManager::initializeClient()
         }
     }
 
+    connect(m_udpSocket, &QUdpSocket::readyRead, this, &NetworkManager::slotProcessUDPPackets);
+
     return true;
 }
 
 bool NetworkManager::connectClient(QString ipAddress)
 {
-    Q_UNUSED(ipAddress);
+    QHostAddress serverAddr(ipAddress);
 
-    return true;
+    if (m_tcpSocket != NULL)
+    {
+        m_tcpSocket->close();
+        delete m_tcpSocket;
+    }
+
+    m_tcpSocket = new QTcpSocket();
+    m_tcpSocket->connectToHost(serverAddr, DEFAULT_TCP_PORT);
+
+    if (m_tcpSocket->waitForConnected(10000) == false)
+    {
+        qDebug() << "Error in connecting to TCP host:" << ipAddress;
+        delete m_tcpSocket;
+        m_tcpSocket = NULL;
+        return false;
+    }
+    connect(m_tcpSocket, &QTcpSocket::readyRead, this, &NetworkManager::slotProcessTCPPackets);
+    connect(m_tcpSocket, &QTcpSocket::disconnected, this, &NetworkManager::slotHostDisconnected);
+
+    QByteArray packet;
+    m_packetizer->initializePacket(packet, NetAuthentication);
+    m_packetizer->addSection(packet, QVariant(QString::number(defaultKey, 16).toUtf8()));
+
+    return sendTCPPacket(m_tcpSocket, packet, true);
 }
 
 bool NetworkManager::disconnectClient()
@@ -237,7 +295,7 @@ QVariant NetworkManager::serverList() const
     {
         QVariantMap serverMap;
         serverMap.insert("name", i.value());
-        serverMap.insert("address", i.key().toString());
+        serverMap.insert("address", QHostAddress(i.key().toIPv4Address()).toString());
         serverList.append(serverMap);
 
         ++i;
@@ -262,8 +320,6 @@ void NetworkManager::setClientConnected(bool clientConnected)
 
 void NetworkManager::slotProcessUDPPackets()
 {
-    qDebug() << "------- slotProcessUDPPackets";
-
     while (m_udpSocket->hasPendingDatagrams())
     {
         QByteArray datagram;
@@ -271,13 +327,13 @@ void NetworkManager::slotProcessUDPPackets()
         datagram.resize(m_udpSocket->pendingDatagramSize());
         m_udpSocket->readDatagram(datagram.data(), datagram.size(), &senderAddress);
 
-        qDebug() << "UDP packet received" << datagram.size() << "bytes";
+        qDebug() << "[UDP] received" << datagram.size() << "bytes from" << senderAddress.toString();
 
         int opCode = 0;
         QVariantList paramsList;
-        int read = m_packetizer->decodePacket(datagram, opCode, paramsList);
+        int read = m_packetizer->decodePacket(datagram, opCode, paramsList, NULL);
 
-        qDebug() << "Bytes processed" << read << opCode << paramsList;
+        qDebug() << "Bytes processed" << read << QString::number(opCode, 16) << paramsList;
 
         switch (opCode)
         {
@@ -319,11 +375,62 @@ void NetworkManager::slotProcessTCPPackets()
 
     QHostAddress senderAddress = socket->peerAddress();
     qint64 bytesAvailable = socket->bytesAvailable();
+    qint64 bytesProcessed = 0;
     QByteArray wholeData;
 
     wholeData.append(socket->readAll());
 
     qDebug() << "[TCP] Received" << bytesAvailable << "bytes from" << senderAddress.toString();
+
+    while (bytesAvailable)
+    {
+        int opCode = 0;
+        QVariantList paramsList;
+        QByteArray datagram = wholeData.mid(bytesProcessed);
+        int read = m_packetizer->decodePacket(datagram, opCode, paramsList, m_crypt);
+
+        qDebug() << "Bytes processed" << read << QString::number(opCode, 16) << paramsList;
+
+        switch (opCode)
+        {
+            case NetAuthentication:
+            {
+                bool success = false;
+
+                if (!paramsList.isEmpty())
+                {
+                    QByteArray decrPayload = paramsList.at(0).toByteArray();
+                    if (QString::fromUtf8(decrPayload) == QString::number(defaultKey, 16))
+                    {
+                        qDebug() << "Key matches !";
+                        success = true;
+                    }
+                }
+
+                NetworkHost *host = m_hostsMap[senderAddress];
+                if (success == true)
+                {
+                    host->isAuthenticated = true;
+                    // emit a signal to acquire the host permissions
+                }
+                else
+                {
+                    host->isAuthenticated = false;
+                    QByteArray reply;
+                    m_packetizer->initializePacket(reply, NetAuthenticationReply);
+                    m_packetizer->addSection(reply, QVariant("Failed"));
+                    sendTCPPacket(host->tcpSocket, reply, true);
+                }
+            }
+            break;
+            default:
+                //qDebug() << "Unsupported opCode" << opCode;
+            break;
+        }
+
+        bytesProcessed += read;
+        bytesAvailable -= read;
+    }
 }
 
 void NetworkManager::slotProcessNewTCPConnection()

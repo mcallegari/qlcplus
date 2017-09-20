@@ -23,6 +23,10 @@
 #include <QByteArray>
 #include <QVariant>
 
+#define HEADER_LENGTH   7
+
+class SimpleCrypt;
+
 class NetworkPacketizer
 {
 
@@ -40,7 +44,8 @@ public:
     void initializePacket(QByteArray &packet, int opCode);
     void addSection(QByteArray &packet, QVariant value);
 
-    int decodePacket(QByteArray &packet, int &opCode, QVariantList &sections);
+    QByteArray encryptPacket(QByteArray &packet, SimpleCrypt *crypter);
+    int decodePacket(QByteArray &packet, int &opCode, QVariantList &sections, SimpleCrypt *decrypter);
 
 private:
 
