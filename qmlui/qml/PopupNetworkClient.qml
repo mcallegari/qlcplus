@@ -82,7 +82,7 @@ CustomPopupDialog
                 id: serverRepeater
                 Layout.fillWidth: true
                 Layout.columnSpan: 2
-                implicitHeight: UISettings.listItemHeight * count
+                implicitHeight: UISettings.listItemHeight * 3
                 boundsBehavior: Flickable.StopAtBounds
 
                 model: networkManager.serverList

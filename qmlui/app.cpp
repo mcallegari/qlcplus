@@ -139,6 +139,7 @@ void App::startup()
 
     m_networkManager = new NetworkManager(this);
     rootContext()->setContextProperty("networkManager", m_networkManager);
+    connect(m_networkManager, &NetworkManager::clientAccessRequest, this, &App::slotClientAccessRequest);
 
     m_tardis = new Tardis(this, m_doc, m_fixtureManager, m_functionManager, m_showManager, m_virtualConsole);
 
@@ -213,6 +214,12 @@ void App::slotScreenChanged(QScreen *screen)
 void App::slotClosing()
 {
     delete m_contextManager;
+}
+
+void App::slotClientAccessRequest(QString name)
+{
+    QMetaObject::invokeMethod(rootObject(), "openAccessRequest",
+                              Q_ARG(QVariant, name));
 }
 
 void App::clearDocument()

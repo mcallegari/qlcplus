@@ -72,6 +72,12 @@ Rectangle
         dimScreen.visible = enable
     }
 
+    function openAccessRequest(clientName)
+    {
+        clientAccessPopup.clientName = clientName
+        clientAccessPopup.open()
+    }
+
     FontLoader
     {
         source: "qrc:/RobotoCondensed-Regular.ttf"
@@ -289,6 +295,8 @@ Rectangle
             source: "qrc:/FixturesAndFunctions.qml"
         }
     }
+
+    PopupNetworkConnect { id: clientAccessPopup }
 
     /* Rectangle covering the whole window to
      * have a dimmered background for popups */

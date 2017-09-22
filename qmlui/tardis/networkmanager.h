@@ -104,6 +104,7 @@ private:
 public:
     Q_INVOKABLE bool startServer();
     Q_INVOKABLE bool stopServer();
+    Q_INVOKABLE bool setClientAccess(QString hostName, bool allow, int accessMask);
 
     /** Get/Set the status of a QLC+ server instance */
     bool serverStarted() const;
@@ -111,6 +112,7 @@ public:
 
 signals:
     void serverStartedChanged(bool serverStarted);
+    void clientAccessRequest(QString hostName);
 
 protected slots:
     /** Event raised when an incoming connection is requested on

@@ -181,6 +181,46 @@ bool NetworkManager::stopServer()
     return true;
 }
 
+bool NetworkManager::setClientAccess(QString hostName, bool allow, int accessMask)
+{
+    QHostAddress clientAddress;
+    NetworkHost *host = NULL;
+
+    auto i = m_hostsMap.constBegin();
+    while (i != m_hostsMap.constEnd())
+    {
+        host = i.value();
+        if (host->hostName == hostName)
+        {
+            clientAddress = i.key();
+            if (!allow)
+                host->isAuthenticated = false;
+            break;
+        }
+        ++i;
+    }
+
+    if (host == NULL || clientAddress.isNull())
+        return false;
+
+    QByteArray reply;
+    m_packetizer->initializePacket(reply, NetAuthenticationReply);
+
+    if (allow)
+    {
+        m_packetizer->addSection(reply, QVariant("Success"));
+        m_packetizer->addSection(reply, QVariant(accessMask));
+    }
+    else
+    {
+        m_packetizer->addSection(reply, QVariant("Failed"));
+    }
+
+    sendTCPPacket(host->tcpSocket, reply, true);
+
+    return true;
+}
+
 bool NetworkManager::serverStarted() const
 {
     return m_serverStarted;
@@ -271,6 +311,7 @@ bool NetworkManager::connectClient(QString ipAddress)
     QByteArray packet;
     m_packetizer->initializePacket(packet, NetAuthentication);
     m_packetizer->addSection(packet, QVariant(QString::number(defaultKey, 16).toUtf8()));
+    m_packetizer->addSection(packet, QVariant(hostName()));
 
     return sendTCPPacket(m_tcpSocket, packet, true);
 }
@@ -411,7 +452,9 @@ void NetworkManager::slotProcessTCPPackets()
                 if (success == true)
                 {
                     host->isAuthenticated = true;
+                    host->hostName = paramsList.at(1).toString();
                     // emit a signal to acquire the host permissions
+                    emit clientAccessRequest(host->hostName);
                 }
                 else
                 {

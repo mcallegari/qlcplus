@@ -97,6 +97,18 @@ public:
     };
     Q_ENUM(ChannelColors)
 
+    enum AccessControl
+    {
+        AC_FixtureEditing  = (1 << 0),
+        AC_FunctionEditing = (1 << 1),
+        AC_VCControl       = (1 << 2),
+        AC_VCEditing       = (1 << 3),
+        AC_SimpleDesk      = (1 << 4),
+        AC_ShowManager     = (1 << 5),
+        AC_InputOutput     = (1 << 6)
+    };
+    Q_ENUM(AccessControl)
+
     /** Method to turn the key and start the engine */
     void startup();
 
@@ -118,6 +130,7 @@ protected:
 protected slots:
     void slotScreenChanged(QScreen *screen);
     void slotClosing();
+    void slotClientAccessRequest(QString name);
 
 private:
     /** The number of pixels in one millimiter */
