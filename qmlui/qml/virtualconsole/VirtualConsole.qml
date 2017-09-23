@@ -73,6 +73,7 @@ Rectangle
     VCRightPanel
     {
         id: vcRightPanel
+        visible: qlcplus.accessMask & App.AC_VCEditing
         x: parent.width - width
         z: 5
         height: parent.height
@@ -81,7 +82,7 @@ Rectangle
     Rectangle
     {
         id: centerView
-        width: parent.width - vcRightPanel.width
+        width: parent.width - ((qlcplus.accessMask & App.AC_VCEditing) ? vcRightPanel.width : 0)
         height: parent.height
         color: "transparent"
         clip: true

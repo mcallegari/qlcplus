@@ -19,6 +19,7 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
+import QtQuick.Controls 2.2
 
 import org.qlcplus.classes 1.0
 import "."
@@ -28,12 +29,45 @@ CustomPopupDialog
     id: popupRoot
 
     property string serverAddress: "192.168.0.1"
+    property int clientStatus: networkManager.clientStatus
     property int selectedIndex
 
     onOpened:
     {
         selectedIndex = -1
         networkManager.initializeClient()
+        setClientStatus(networkManager.clientStatus)
+    }
+
+    onClientStatusChanged: setClientStatus(clientStatus)
+
+    function setClientStatus(clientStatus)
+    {
+        if (clientStatus === NetworkManager.Disconnected)
+        {
+            statusText.label = qsTr("Disconnected")
+            statusText.labelColor = "red"
+            statusProgress.visible = false
+        }
+        else if (clientStatus === NetworkManager.WaitAuthentication)
+        {
+            statusText.label = qsTr("Waiting for access")
+            statusText.labelColor = "yellow"
+            statusProgress.indeterminate = true
+            statusProgress.visible = true
+        }
+        else if (clientStatus === NetworkManager.DownloadingProject)
+        {
+            statusText.label = qsTr("Downloading workspace")
+            statusText.labelColor = "yellow"
+            statusProgress.visible = true
+        }
+        else if (clientStatus === NetworkManager.Connected)
+        {
+            statusText.label = qsTr("Connected")
+            statusText.labelColor = "green"
+            statusProgress.visible = false
+        }
     }
 
     title: qsTr("QLC+ client setup")
@@ -46,19 +80,25 @@ CustomPopupDialog
             columnSpacing: 5
 
             // row 1
-            RobotoText
+            Row
             {
-                height: UISettings.listItemHeight
-                label: qsTr("Client name")
-            }
-
-            CustomTextEdit
-            {
-                property string hostname: networkManager.hostName
-
+                Layout.columnSpan: 2
                 Layout.fillWidth: true
-                inputText: hostname
-                onTextChanged: networkManager.hostName = text
+                spacing: 5
+
+                RobotoText
+                {
+                    height: UISettings.listItemHeight
+                    label: qsTr("Client name")
+                }
+
+                CustomTextEdit
+                {
+                    property string hostname: networkManager.hostName
+
+                    inputText: hostname
+                    onTextChanged: networkManager.hostName = text
+                }
             }
 
             // row 2
@@ -139,7 +179,34 @@ CustomPopupDialog
                 onTextChanged: popupRoot.serverAddress = text
             }
 
+            Row
+            {
+                Layout.columnSpan: 2
+                Layout.fillWidth: true
+                spacing: 5
+
+                RobotoText
+                {
+                    height: UISettings.listItemHeight
+                    label: qsTr("Status:")
+                }
+
+                RobotoText
+                {
+                    id: statusText
+                    height: UISettings.listItemHeight
+                }
+            }
+
             // row 6
+            ProgressBar
+            {
+                id: statusProgress
+                Layout.columnSpan: 2
+                Layout.fillWidth: true
+            }
+
+            // row 7
             Row
             {
                 Layout.columnSpan: 2
@@ -154,11 +221,16 @@ CustomPopupDialog
 
                 GenericButton
                 {
+                    enabled: manualServerCheck.checked || selectedIndex != -1
                     width: contentItem.width / 2
-                    label: networkManager.clientConnected ? qsTr("Disconnect") : qsTr("Connect")
-                    onClicked: networkManager.clientConnected ?
-                                   networkManager.disconnectClient() :
-                                   networkManager.connectClient(popupRoot.serverAddress)
+                    label: popupRoot.clientStatus === NetworkManager.Connected ? qsTr("Disconnect") : qsTr("Connect")
+                    onClicked:
+                    {
+                        if (popupRoot.clientStatus === NetworkManager.Connected)
+                            networkManager.disconnectClient()
+                        else
+                            networkManager.connectClient(popupRoot.serverAddress)
+                    }
                 }
             }
         }

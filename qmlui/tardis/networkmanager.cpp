@@ -18,6 +18,7 @@
 */
 
 #include <QNetworkInterface>
+#include <QFile>
 
 #include "networkmanager.h"
 #include "networkpacketizer.h"
@@ -27,6 +28,8 @@
 #define DEFAULT_UDP_PORT    9997
 #define DEFAULT_TCP_PORT    9998
 
+#define WORKSPACE_CHUNK_SIZE    8 * 1024
+
 static const quint64 defaultKey = 0x5131632B4E33744B; // this is "Q1c+N3tK"
 
 NetworkManager::NetworkManager(QObject *parent)
@@ -35,7 +38,7 @@ NetworkManager::NetworkManager(QObject *parent)
     , m_tcpServer(NULL)
     , m_serverStarted(false)
     , m_tcpSocket(NULL)
-    , m_clientConnected(false)
+    , m_clientStatus(Disconnected)
 {
     m_hostType = UnknownHostType;
     setHostName(defaultName());
@@ -95,12 +98,30 @@ bool NetworkManager::sendTCPPacket(QTcpSocket *socket, QByteArray &packet, bool 
     if (socket == NULL)
         return false;
 
-    qint64 sent;
+    qint64 sent = 0;
+    quint64 totalBytesSent = 0;
 
     if (encrypt)
-        sent = socket->write(m_packetizer->encryptPacket(packet, m_crypt));
+    {
+        QByteArray encPacket = m_packetizer->encryptPacket(packet, m_crypt);
+        while(totalBytesSent < (quint64)encPacket.length())
+        {
+            sent = socket->write(encPacket.data() + totalBytesSent, encPacket.length() - totalBytesSent);
+            totalBytesSent += sent;
+            if (sent < 0)
+                break;
+        }
+    }
     else
-        sent = socket->write(packet);
+    {
+        while(totalBytesSent < (quint64)packet.length())
+        {
+            sent = socket->write(packet.data() + totalBytesSent, packet.length() - totalBytesSent);
+            totalBytesSent += sent;
+            if (sent < 0)
+                break;
+        }
+    }
 
     if (sent < 0)
     {
@@ -183,25 +204,14 @@ bool NetworkManager::stopServer()
 
 bool NetworkManager::setClientAccess(QString hostName, bool allow, int accessMask)
 {
-    QHostAddress clientAddress;
-    NetworkHost *host = NULL;
-
-    auto i = m_hostsMap.constBegin();
-    while (i != m_hostsMap.constEnd())
-    {
-        host = i.value();
-        if (host->hostName == hostName)
-        {
-            clientAddress = i.key();
-            if (!allow)
-                host->isAuthenticated = false;
-            break;
-        }
-        ++i;
-    }
+    QHostAddress clientAddress = getHostFromName(hostName);
+    NetworkHost *host = m_hostsMap.value(clientAddress, NULL);
 
     if (host == NULL || clientAddress.isNull())
         return false;
+
+    if (!allow)
+        host->isAuthenticated = false;
 
     QByteArray reply;
     m_packetizer->initializePacket(reply, NetAuthenticationReply);
@@ -221,6 +231,54 @@ bool NetworkManager::setClientAccess(QString hostName, bool allow, int accessMas
     return true;
 }
 
+bool NetworkManager::sendWorkspaceToClient(QString hostName, QString filename)
+{
+    QFile workspace(filename);
+    if (workspace.exists() == false)
+        return false;
+
+    QHostAddress clientAddress = getHostFromName(hostName);
+    NetworkHost *host = m_hostsMap.value(clientAddress, NULL);
+
+    if (host == NULL || clientAddress.isNull())
+        return false;
+
+    if (!workspace.open(QIODevice::ReadOnly))
+        return false;
+
+    QByteArray packet;
+    int pktCounter = 0;
+
+    while (!workspace.atEnd())
+    {
+        QByteArray data = workspace.read(WORKSPACE_CHUNK_SIZE);
+        m_packetizer->initializePacket(packet, NetProjectTransfer);
+
+        qDebug() << "Data read:" << data.length();
+
+        if (pktCounter == 0)
+        {
+            m_packetizer->addSection(packet, QVariant(0));
+            m_packetizer->addSection(packet, QVariant((int)workspace.size()));
+
+        }
+        else if(data.count() < WORKSPACE_CHUNK_SIZE)
+        {
+            m_packetizer->addSection(packet, QVariant(2));
+        }
+        else
+            m_packetizer->addSection(packet, QVariant(1));
+
+        m_packetizer->addSection(packet, QVariant(data));
+
+        sendTCPPacket(host->tcpSocket, packet, true);
+
+        pktCounter++;
+    }
+
+    return true;
+}
+
 bool NetworkManager::serverStarted() const
 {
     return m_serverStarted;
@@ -233,6 +291,21 @@ void NetworkManager::setServerStarted(bool serverStarted)
 
     m_serverStarted = serverStarted;
     emit serverStartedChanged(m_serverStarted);
+}
+
+QHostAddress NetworkManager::getHostFromName(QString name)
+{
+    auto i = m_hostsMap.constBegin();
+    while (i != m_hostsMap.constEnd())
+    {
+        NetworkHost *host = i.value();
+        if (host->hostName == name)
+            return i.key();
+
+        ++i;
+    }
+
+    return QHostAddress();
 }
 
 /*********************************************************************
@@ -313,6 +386,8 @@ bool NetworkManager::connectClient(QString ipAddress)
     m_packetizer->addSection(packet, QVariant(QString::number(defaultKey, 16).toUtf8()));
     m_packetizer->addSection(packet, QVariant(hostName()));
 
+    setClientStatus(WaitAuthentication);
+
     return sendTCPPacket(m_tcpSocket, packet, true);
 }
 
@@ -323,6 +398,8 @@ bool NetworkManager::disconnectClient()
         m_udpSocket->close();
         delete m_udpSocket;
     }
+
+    setClientStatus(Disconnected);
 
     return true;
 }
@@ -345,18 +422,18 @@ QVariant NetworkManager::serverList() const
     return QVariant::fromValue(serverList);
 }
 
-bool NetworkManager::clientConnected() const
+int NetworkManager::clientStatus() const
 {
-    return m_clientConnected;
+    return m_clientStatus;
 }
 
-void NetworkManager::setClientConnected(bool clientConnected)
+void NetworkManager::setClientStatus(int clientStatus)
 {
-    if (m_clientConnected == clientConnected)
+    if (m_clientStatus == clientStatus)
         return;
 
-    m_clientConnected = clientConnected;
-    emit clientConnectedChanged(m_clientConnected);
+    m_clientStatus = clientStatus;
+    emit clientStatusChanged(m_clientStatus);
 }
 
 void NetworkManager::slotProcessUDPPackets()
@@ -415,11 +492,12 @@ void NetworkManager::slotProcessTCPPackets()
         return;
 
     QHostAddress senderAddress = socket->peerAddress();
-    qint64 bytesAvailable = socket->bytesAvailable();
     qint64 bytesProcessed = 0;
+    qint64 bytesAvailable = 0;
     QByteArray wholeData;
 
     wholeData.append(socket->readAll());
+    bytesAvailable = wholeData.length();
 
     qDebug() << "[TCP] Received" << bytesAvailable << "bytes from" << senderAddress.toString();
 
@@ -430,7 +508,18 @@ void NetworkManager::slotProcessTCPPackets()
         QByteArray datagram = wholeData.mid(bytesProcessed);
         int read = m_packetizer->decodePacket(datagram, opCode, paramsList, m_crypt);
 
-        qDebug() << "Bytes processed" << read << QString::number(opCode, 16) << paramsList;
+        qDebug() << "Bytes processed" << read << QString::number(opCode, 16); // << paramsList;
+
+        if (read < 0)
+        {
+            /* if more data is needed, get it from the socket */
+            wholeData.append(socket->readAll());
+            bytesAvailable = wholeData.length();
+            continue;
+        }
+
+        if (read == 0)
+            break;
 
         switch (opCode)
         {
@@ -463,6 +552,46 @@ void NetworkManager::slotProcessTCPPackets()
                     m_packetizer->initializePacket(reply, NetAuthenticationReply);
                     m_packetizer->addSection(reply, QVariant("Failed"));
                     sendTCPPacket(host->tcpSocket, reply, true);
+                }
+            }
+            break;
+            case NetAuthenticationReply:
+            {
+                if (!paramsList.isEmpty() && paramsList.at(0).toString() == "Success")
+                {
+                    setClientStatus(DownloadingProject);
+                    if (paramsList.count() > 1)
+                        emit accessMaskChanged(paramsList.at(1).toInt());
+                }
+                else
+                {
+                    disconnectClient();
+                }
+            }
+            break;
+            case NetProjectTransfer:
+            {
+                if (m_hostType != ClientHostType || paramsList.count() < 2)
+                    break;
+
+                int seqType = paramsList.at(0).toInt();
+
+                if (seqType == 0)
+                {
+                    m_projectSize = paramsList.at(1).toInt();
+                    m_projectData.clear();
+                    m_projectData.append(paramsList.at(2).toByteArray());
+                }
+                else
+                    m_projectData.append(paramsList.at(1).toByteArray());
+
+                qDebug() << "Project progress:" << m_projectData.length() << "of" << m_projectSize;
+
+                if (seqType == 2 || m_projectData.length() == m_projectSize)
+                {
+                    emit requestProjectLoad(m_projectData);
+                    m_projectData.clear();
+                    setClientStatus(Connected);
                 }
             }
             break;

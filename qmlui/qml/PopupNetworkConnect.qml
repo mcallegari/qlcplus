@@ -209,6 +209,7 @@ CustomPopupDialog
                             access |= App.AC_InputOutput
 
                         networkManager.setClientAccess(clientName, true, access)
+                        networkManager.sendWorkspaceToClient(clientName, qlcplus.fileName())
                         popupRoot.close()
                     }
                 }

@@ -60,8 +60,8 @@ void NetworkPacketizer::addSection(QByteArray &packet, QVariant value)
         {
             QByteArray ba = value.toByteArray();
             packet.append(ByteArrayType);              // section type
-            packet.append((char)ba.length() >> 8);     // section length MSB
-            packet.append((char)ba.length() & 0x00FF); // section length LSB
+            packet.append((char)(ba.length() >> 8));     // section length MSB
+            packet.append((char)(ba.length() & 0x00FF)); // section length LSB
             packet.append(ba);
         }
         break;
@@ -69,8 +69,8 @@ void NetworkPacketizer::addSection(QByteArray &packet, QVariant value)
         {
             QByteArray strVal = value.toString().toUtf8();
             packet.append(StringType);                     // section type
-            packet.append((char)strVal.length() >> 8);     // section length MSB
-            packet.append((char)strVal.length() & 0x00FF); // section length LSB
+            packet.append((char)(strVal.length() >> 8));     // section length MSB
+            packet.append((char)(strVal.length() & 0x00FF)); // section length LSB
             packet.append(strVal);
         }
         break;
@@ -107,7 +107,7 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
 
     /* A packet header must be at least 4 bytes long */
     if (packet.length() < HEADER_LENGTH)
-        return packet.length();
+        return 1;
 
     /* Check the protocol ID presence */
     if (packet.at(0) != (char)0xE6 || packet.at(1) != (char)0x86)
@@ -123,17 +123,20 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
     sections_length = ((quint8)packet.at(bytes_read) << 8) + (quint8)packet.at(bytes_read + 1);
     bytes_read += 2;
 
+    if (packet.length() < HEADER_LENGTH + sections_length)
+        return -1;
+
     if (decrypter)
     {
         QByteArray payload = packet.mid(bytes_read, sections_length);
         qDebug() << "section length:" << sections_length << "payload len:" << payload.length();
         ba = decrypter->decryptToByteArray(payload);
-        bytes_read = 0;
         if (ba.length() == 0)
         {
             qDebug() << "decryption error:" << decrypter->lastError();
             return bytes_read + sections_length;
         }
+        bytes_read = 0;
     }
     else
         ba = packet;
@@ -160,7 +163,7 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
             case StringType:
             {
                 QString strVal;
-                int sLength = ((quint8)ba.at(bytes_read) << 8) + (quint8)ba.at(bytes_read + 1);
+                quint16 sLength = ((quint16)ba.at(bytes_read) << 8) + (quint16)ba.at(bytes_read + 1);
                 bytes_read += 2;
 
                 strVal.append(ba.mid(bytes_read, sLength));
@@ -170,7 +173,7 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
             break;
             case ByteArrayType:
             {
-                int sLength = ((quint8)ba.at(bytes_read) << 8) + (quint8)ba.at(bytes_read + 1);
+                quint16 sLength = ((quint16)ba.at(bytes_read) << 8) + (quint16)ba.at(bytes_read + 1);
                 bytes_read += 2;
 
                 sections.append(QVariant(ba.mid(bytes_read, sLength)));

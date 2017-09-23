@@ -245,7 +245,7 @@ Popup
                     ContextMenuEntry
                     {
                         id: startServer
-                        entryText: qsTr("Start server")
+                        entryText: qsTr("Server setup")
 
                         onClicked:
                         {
@@ -259,7 +259,7 @@ Popup
                     ContextMenuEntry
                     {
                         id: connectToServer
-                        entryText: qsTr("Connect to a server")
+                        entryText: qsTr("Client setup")
 
                         onClicked:
                         {
@@ -267,7 +267,11 @@ Popup
                             pNetClient.open()
                         }
 
-                        PopupNetworkClient { id: pNetClient }
+                        PopupNetworkClient
+                        {
+                            id: pNetClient
+                            implicitWidth: Math.min(UISettings.bigItemHeight * 4, mainView.width / 3)
+                        }
                     }
                 }
             }

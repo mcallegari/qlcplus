@@ -48,7 +48,7 @@ class NetworkManager : public QObject
     Q_PROPERTY(QString hostName READ hostName WRITE setHostName NOTIFY hostNameChanged)
     Q_PROPERTY(bool serverStarted READ serverStarted WRITE setServerStarted NOTIFY serverStartedChanged)
     Q_PROPERTY(QVariant serverList READ serverList NOTIFY serverListChanged)
-    Q_PROPERTY(bool clientConnected READ clientConnected WRITE setClientConnected NOTIFY clientConnectedChanged)
+    Q_PROPERTY(int clientStatus READ clientStatus WRITE setClientStatus NOTIFY clientStatusChanged)
 
 public:
     explicit NetworkManager(QObject *parent = 0);
@@ -104,11 +104,16 @@ private:
 public:
     Q_INVOKABLE bool startServer();
     Q_INVOKABLE bool stopServer();
+
     Q_INVOKABLE bool setClientAccess(QString hostName, bool allow, int accessMask);
+    Q_INVOKABLE bool sendWorkspaceToClient(QString hostName, QString filename);
 
     /** Get/Set the status of a QLC+ server instance */
     bool serverStarted() const;
     void setServerStarted(bool serverStarted);
+
+protected:
+    QHostAddress getHostFromName(QString name);
 
 signals:
     void serverStartedChanged(bool serverStarted);
@@ -134,6 +139,15 @@ private:
      * Client
      *********************************************************************/
 public:
+    enum ConnectionStatus
+    {
+        Disconnected,
+        WaitAuthentication,
+        DownloadingProject,
+        Connected
+    };
+    Q_ENUM(ConnectionStatus)
+
     Q_INVOKABLE bool initializeClient();
     Q_INVOKABLE bool connectClient(QString ipAddress);
     Q_INVOKABLE bool disconnectClient();
@@ -141,12 +155,14 @@ public:
     QVariant serverList() const;
 
     /** Get/Set the connection status of a QLC+ client instance */
-    bool clientConnected() const;
-    void setClientConnected(bool clientConnected);
+    int clientStatus() const;
+    void setClientStatus(int clientStatus);
 
 signals:
-    void clientConnectedChanged(bool clientConnected);
+    void clientStatusChanged(bool clientStatus);
     void serverListChanged();
+    void accessMaskChanged(int mask);
+    void requestProjectLoad(QByteArray &data);
 
 private:
     /** The socket used to send/receive unicast TCP packets */
@@ -155,9 +171,12 @@ private:
     /** Map used during automatic server discovery */
     QHash<QHostAddress, QString> m_serverList;
 
-    /** Flag that indicates if a client
-     *  is connected (authenticated) to a server */
-    bool m_clientConnected;
+    /** The client connection status */
+    int m_clientStatus;
+
+    /** Project transfer variables */
+    QByteArray m_projectData;
+    int m_projectSize;
 };
 
 #endif /* NETWORKMANAGER_H */

@@ -51,6 +51,7 @@ class App : public QQuickView
     Q_PROPERTY(bool docModified READ docModified NOTIFY docModifiedChanged)
     Q_PROPERTY(QStringList recentFiles READ recentFiles NOTIFY recentFilesChanged)
     Q_PROPERTY(QString workingPath READ workingPath WRITE setWorkingPath NOTIFY workingPathChanged)
+    Q_PROPERTY(int accessMask READ accessMask WRITE setAccessMask NOTIFY accessMaskChanged)
 
 public:
     App();
@@ -123,6 +124,13 @@ public:
     /** Return the number of pixels in 1mm */
     qreal pixelDensity() const;
 
+    /** Get/Set the UI access mask */
+    int defaultMask() const;
+    int accessMask() const;
+
+public slots:
+    void setAccessMask(int mask);
+
 protected:
     void keyPressEvent(QKeyEvent * e);
     void keyReleaseEvent(QKeyEvent * e);
@@ -131,10 +139,17 @@ protected slots:
     void slotScreenChanged(QScreen *screen);
     void slotClosing();
     void slotClientAccessRequest(QString name);
+    void slotAccessMaskChanged(int mask);
+
+signals:
+    void accessMaskChanged(int mask);
 
 private:
     /** The number of pixels in one millimiter */
     qreal m_pixelDensity;
+
+    /** Bitmask to enable/disable UI functionalities */
+    int m_accessMask;
 
     FixtureBrowser *m_fixtureBrowser;
     FixtureManager *m_fixtureManager;
@@ -244,6 +259,9 @@ private:
 signals:
     void recentFilesChanged();
     void workingPathChanged(QString workingPath);
+
+public slots:
+    void slotLoadDocFromMemory(QByteArray &xmlData);
 
 private:
     QString m_fileName;

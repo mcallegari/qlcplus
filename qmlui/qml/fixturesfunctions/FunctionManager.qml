@@ -34,6 +34,9 @@ Rectangle
 
     function loadFunctionEditor(funcID, funcType)
     {
+        if (!(qlcplus.accessMask & App.AC_FunctionEditing))
+            return
+
         //console.log("Request to open Function editor. ID: " + funcID + " type: " + funcType)
         functionManager.setEditorFunction(funcID, false)
         functionManager.viewPosition = functionsListView.contentY

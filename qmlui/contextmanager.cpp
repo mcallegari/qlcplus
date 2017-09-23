@@ -82,7 +82,6 @@ ContextManager::~ContextManager()
 {
     for (PreviewContext *context : m_contextsMap.values())
         context->deleteLater();
-    //m_uniGridView->deleteLater();
 }
 
 void ContextManager::registerContext(PreviewContext *context)
