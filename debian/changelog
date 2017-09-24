@@ -10,6 +10,7 @@ qlcplus (4.11.1) stable; urgency=low
   * UI/Input Output Manager: added a button to enable/disable USB hotplugging (disabled by default)
   * UI/Function Live Edit: restore basic live editing of Sequences
   * UI/RGB Matrix Editor: fixed save to Sequence feature
+  * UI/Function Manager: when cloning a Sequence, clone the bound Scene too
   * Virtual Console/Slider: fix DMX values not updated when interacting with the mouse wheel, keyboard or Click And Go button
   * Virtual Console/Slider: fix level mode values range scaling
   * Virtual Console/XYPad: the speed of a running EFX preset can now be controlled by a Speed Dial widget

@@ -855,6 +855,22 @@ void FunctionManager::copyFunction(quint32 fid)
     if (copy != NULL)
     {
         copy->setName(copy->name() + tr(" (Copy)"));
+
+        /* If the cloned Function is a Sequence,
+         * clone the bound Scene too */
+        if (function->type() == Function::SequenceType)
+        {
+            Sequence *sequence = qobject_cast<Sequence *>(copy);
+            quint32 sceneID = sequence->boundSceneID();
+            Function *scene = m_doc->function(sceneID);
+            if (scene != NULL)
+            {
+                Function *sceneCopy = scene->createCopy(m_doc);
+                if (sceneCopy != NULL)
+                    sequence->setBoundSceneID(sceneCopy->id());
+            }
+        }
+
         QTreeWidgetItem* item = m_tree->functionItem(copy);
         m_tree->setCurrentItem(item);
     }
