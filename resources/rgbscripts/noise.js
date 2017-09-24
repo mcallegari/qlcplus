@@ -21,9 +21,9 @@
 var testAlgo;
 
 (
-    function () 
+    function() 
     {
-        var algo = {};
+        var algo = new Object;
         algo.apiVersion = 2;
         algo.name = 'Noise';
         algo.author = 'Doug Puckett';
@@ -42,7 +42,7 @@ var testAlgo;
             return algo.noisePercentage;
         };
 
-        //qlc plus rgbmap function where the work is done
+        // QLC+ rgbMap function where the work is done
         algo.rgbMap = function (width, height, rgb, step) 
         {
             var map = new Array(height);
