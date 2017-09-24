@@ -50,11 +50,11 @@
  </Channel>
  <Mode Name="3 Channel">
   <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Height="120" Width="202" Depth="224" Weight="2"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2" Width="202" Height="120" Depth="224"/>
    <Lens Name="Fresnel" DegreesMin="15" DegreesMax="100"/>
-   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="40"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
@@ -62,11 +62,11 @@
  </Mode>
  <Mode Name="4 Channel">
   <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Height="120" Width="202" Depth="224" Weight="2"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2" Width="202" Height="120" Depth="224"/>
    <Lens Name="Fresnel" DegreesMin="15" DegreesMax="100"/>
-   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="40"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
@@ -75,11 +75,11 @@
  </Mode>
  <Mode Name="6 Channel">
   <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Height="120" Width="202" Depth="224" Weight="2"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2" Width="202" Height="120" Depth="224"/>
    <Lens Name="Fresnel" DegreesMin="15" DegreesMax="100"/>
-   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="40"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Master dimmer</Channel>
   <Channel Number="1">Strobe</Channel>

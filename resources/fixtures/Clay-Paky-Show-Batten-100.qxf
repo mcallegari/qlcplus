@@ -329,10 +329,10 @@
  </Channel>
  <Mode Name="Extended">
   <Physical>
-   <Bulb Lumens="2800" Type="LED" ColourTemperature="6000"/>
-   <Dimensions Width="1000" Height="100" Weight="10" Depth="186"/>
-   <Lens DegreesMax="48" Name="Other" DegreesMin="10"/>
-   <Focus PanMax="0" Type="Head" TiltMax="240"/>
+   <Bulb Type="LED" Lumens="2800" ColourTemperature="6000"/>
+   <Dimensions Weight="10" Width="1000" Height="100" Depth="186"/>
+   <Lens Name="Other" DegreesMin="10" DegreesMax="48"/>
+   <Focus Type="Head" PanMax="0" TiltMax="240"/>
    <Technical PowerConsumption="170" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
@@ -448,10 +448,10 @@
  </Mode>
  <Mode Name="Standard">
   <Physical>
-   <Bulb Lumens="2800" Type="LED" ColourTemperature="6000"/>
-   <Dimensions Width="1000" Height="100" Weight="10" Depth="186"/>
-   <Lens DegreesMax="48" Name="Other" DegreesMin="10"/>
-   <Focus PanMax="0" Type="Head" TiltMax="240"/>
+   <Bulb Type="LED" Lumens="2800" ColourTemperature="6000"/>
+   <Dimensions Weight="10" Width="1000" Height="100" Depth="186"/>
+   <Lens Name="Other" DegreesMin="10" DegreesMax="48"/>
+   <Focus Type="Head" PanMax="0" TiltMax="240"/>
    <Technical PowerConsumption="170" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>

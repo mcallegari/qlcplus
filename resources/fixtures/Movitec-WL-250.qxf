@@ -2,7 +2,7 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
+  <Name>Q Light Controller Plus</Name>
   <Version>3.1.0</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
@@ -133,10 +133,10 @@
  </Channel>
  <Mode Name="16bit">
   <Physical>
-   <Bulb Lumens="4500" Type="MSD 250W" ColourTemperature="6500"/>
-   <Dimensions Width="426" Height="500" Weight="16" Depth="372"/>
-   <Lens DegreesMax="22" Name="Fresnel" DegreesMin="8"/>
-   <Focus PanMax="530" Type="Head" TiltMax="280"/>
+   <Bulb Type="MSD 250W" Lumens="4500" ColourTemperature="6500"/>
+   <Dimensions Weight="16" Width="426" Height="500" Depth="372"/>
+   <Lens Name="Fresnel" DegreesMin="8" DegreesMax="22"/>
+   <Focus Type="Head" PanMax="530" TiltMax="280"/>
    <Technical PowerConsumption="500" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -157,10 +157,10 @@
  </Mode>
  <Mode Name="8bit">
   <Physical>
-   <Bulb Lumens="4500" Type="MSD 250W" ColourTemperature="6500"/>
-   <Dimensions Width="426" Height="500" Weight="16" Depth="372"/>
-   <Lens DegreesMax="22" Name="Fresnel" DegreesMin="8"/>
-   <Focus PanMax="530" Type="Head" TiltMax="280"/>
+   <Bulb Type="MSD 250W" Lumens="4500" ColourTemperature="6500"/>
+   <Dimensions Weight="16" Width="426" Height="500" Depth="372"/>
+   <Lens Name="Fresnel" DegreesMin="8" DegreesMax="22"/>
+   <Focus Type="Head" PanMax="530" TiltMax="280"/>
    <Technical PowerConsumption="500" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

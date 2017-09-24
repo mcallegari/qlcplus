@@ -11,39 +11,39 @@
  <Type>Color Changer</Type>
  <Channel Name="Mode">
   <Group Byte="0">Colour</Group>
-  <Capability Max="63" Min="0">RGB control</Capability>
-  <Capability Max="127" Min="64">7 colour fades</Capability>
-  <Capability Max="191" Min="128">7 colour changes</Capability>
-  <Capability Max="255" Min="192">3 colour changes</Capability>
+  <Capability Min="0" Max="63">RGB control</Capability>
+  <Capability Min="64" Max="127">7 colour fades</Capability>
+  <Capability Min="128" Max="191">7 colour changes</Capability>
+  <Capability Min="192" Max="255">3 colour changes</Capability>
  </Channel>
  <Channel Name="Red">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Max="255" Min="0">Dimmer</Capability>
+  <Capability Min="0" Max="255">Dimmer</Capability>
  </Channel>
  <Channel Name="Green">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Max="255" Min="0">Dimmer</Capability>
+  <Capability Min="0" Max="255">Dimmer</Capability>
  </Channel>
  <Channel Name="Blue">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Max="255" Min="0">Dimmer</Capability>
+  <Capability Min="0" Max="255">Dimmer</Capability>
  </Channel>
  <Channel Name="Speed control">
   <Group Byte="0">Speed</Group>
-  <Capability Max="10" Min="0">No function</Capability>
-  <Capability Max="100" Min="11">High to slow</Capability>
-  <Capability Max="150" Min="101">No function</Capability>
-  <Capability Max="255" Min="151">Speed control by the device or controller</Capability>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="100">High to slow</Capability>
+  <Capability Min="101" Max="150">No function</Capability>
+  <Capability Min="151" Max="255">Speed control by the device or controller</Capability>
  </Channel>
  <Mode Name="Mode 1">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Width="220" Height="220" Weight="1.4" Depth="210"/>
-   <Lens DegreesMax="0" DegreesMin="0" Name="Other"/>
-   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
+   <Dimensions Weight="1.4" Width="220" Height="220" Depth="210"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="16" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Mode</Channel>

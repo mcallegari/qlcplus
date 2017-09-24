@@ -29,27 +29,27 @@
   <Capability Min="91" Max="103" Color="#8000ff">Purple</Capability>
   <Capability Min="104" Max="116" Color="#ff66ff">Pink</Capability>
   <Capability Min="117" Max="127" Color="#66ccff">Light Blue</Capability>
-  <Capability Res="Others/rainbow.png" Min="128" Max="187">Forward Rainbow Effect (Fast -&gt; Slow)</Capability>
+  <Capability Min="128" Max="187" Res="Others/rainbow.png">Forward Rainbow Effect (Fast -&gt; Slow)</Capability>
   <Capability Min="188" Max="193">No Rotation</Capability>
-  <Capability Res="Others/rainbow.png" Min="194" Max="255">Backward Rainbow Effect (Slow -&gt; Fast)</Capability>
+  <Capability Min="194" Max="255" Res="Others/rainbow.png">Backward Rainbow Effect (Slow -&gt; Fast)</Capability>
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/open.png" Min="0" Max="9">Spot</Capability>
-  <Capability Res="Others/gobo00036.png" Min="10" Max="19">Star Circle (Metal)</Capability>
-  <Capability Res="Others/gobo00023.png" Min="20" Max="29">Cross (Metal)</Capability>
-  <Capability Res="Others/gobo00035.png" Min="30" Max="39">Blue &amp; White Web (Dichoric)</Capability>
-  <Capability Res="Others/gobo00034.png" Min="40" Max="49">Textured Glass (Glass)</Capability>
-  <Capability Res="Others/gobo00037.png" Min="50" Max="59">Donut (Metal)</Capability>
-  <Capability Res="Others/gobo00027.png" Min="60" Max="69">Triangle (Metal)</Capability>
-  <Capability Res="Others/gobo00029.png" Min="70" Max="79">Dot Line (Metal)</Capability>
-  <Capability Res="Others/gobo00036.png" Min="80" Max="99">Star Circle (Metal) Shake</Capability>
-  <Capability Res="Others/gobo00023.png" Min="100" Max="119">Cross (Metal) Shake</Capability>
-  <Capability Res="Others/gobo00035.png" Min="120" Max="139">Blue &amp; White Web (Dichoric) Shake</Capability>
-  <Capability Res="Others/gobo00034.png" Min="140" Max="159">Textured Glass (Glass) Shake</Capability>
-  <Capability Res="Others/gobo00037.png" Min="160" Max="179">Donut (Metal) Shake</Capability>
-  <Capability Res="Others/gobo00027.png" Min="180" Max="199">Triangle (Metal) Shake</Capability>
-  <Capability Res="Others/gobo00029.png" Min="200" Max="219">Dot Line (Metal) Shake</Capability>
+  <Capability Min="0" Max="9" Res="Others/open.png">Spot</Capability>
+  <Capability Min="10" Max="19" Res="Others/gobo00036.png">Star Circle (Metal)</Capability>
+  <Capability Min="20" Max="29" Res="Others/gobo00023.png">Cross (Metal)</Capability>
+  <Capability Min="30" Max="39" Res="Others/gobo00035.png">Blue &amp; White Web (Dichoric)</Capability>
+  <Capability Min="40" Max="49" Res="Others/gobo00034.png">Textured Glass (Glass)</Capability>
+  <Capability Min="50" Max="59" Res="Others/gobo00037.png">Donut (Metal)</Capability>
+  <Capability Min="60" Max="69" Res="Others/gobo00027.png">Triangle (Metal)</Capability>
+  <Capability Min="70" Max="79" Res="Others/gobo00029.png">Dot Line (Metal)</Capability>
+  <Capability Min="80" Max="99" Res="Others/gobo00036.png">Star Circle (Metal) Shake</Capability>
+  <Capability Min="100" Max="119" Res="Others/gobo00023.png">Cross (Metal) Shake</Capability>
+  <Capability Min="120" Max="139" Res="Others/gobo00035.png">Blue &amp; White Web (Dichoric) Shake</Capability>
+  <Capability Min="140" Max="159" Res="Others/gobo00034.png">Textured Glass (Glass) Shake</Capability>
+  <Capability Min="160" Max="179" Res="Others/gobo00037.png">Donut (Metal) Shake</Capability>
+  <Capability Min="180" Max="199" Res="Others/gobo00027.png">Triangle (Metal) Shake</Capability>
+  <Capability Min="200" Max="219" Res="Others/gobo00029.png">Dot Line (Metal) Shake</Capability>
   <Capability Min="220" Max="255">Rotating Gobo Wheel (Slow -&gt; Fast)</Capability>
  </Channel>
  <Channel Name="Gobo Rotation">
@@ -104,10 +104,10 @@
  </Channel>
  <Mode Name="8 Channel Mode">
   <Physical>
-   <Bulb Lumens="0" Type="MSD 250W" ColourTemperature="0"/>
-   <Dimensions Width="295" Height="451" Weight="18" Depth="373"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="360" Type="Head" TiltMax="265"/>
+   <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="18" Width="295" Height="451" Depth="373"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="360" TiltMax="265"/>
    <Technical PowerConsumption="350" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -121,10 +121,10 @@
  </Mode>
  <Mode Name="9 Channel Mode">
   <Physical>
-   <Bulb Lumens="0" Type="MSD 250W" ColourTemperature="0"/>
-   <Dimensions Width="295" Height="451" Weight="18" Depth="373"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="360" Type="Head" TiltMax="265"/>
+   <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="18" Width="295" Height="451" Depth="373"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="360" TiltMax="265"/>
    <Technical PowerConsumption="350" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

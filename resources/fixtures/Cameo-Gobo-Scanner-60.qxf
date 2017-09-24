@@ -19,15 +19,15 @@
  </Channel>
  <Channel Name="Colour wheel">
   <Group Byte="0">Colour</Group>
-  <Capability Color="#ffffff" Min="0" Max="13">White</Capability>
-  <Capability Color="#ffff00" Min="14" Max="27">Yellow</Capability>
-  <Capability Color="#ff00ff" Min="28" Max="41">Magenta</Capability>
-  <Capability Color="#00ff00" Min="42" Max="55">Green</Capability>
-  <Capability Color="#aa00ff" Min="56" Max="69">Violet</Capability>
-  <Capability Color="#00ffff" Min="70" Max="83">Cyan</Capability>
-  <Capability Color="#96ff00" Min="84" Max="97">Bright green</Capability>
-  <Capability Color="#ff9600" Min="98" Max="111">Amber</Capability>
-  <Capability Color="#aa0000" Min="112" Max="127">Dark red</Capability>
+  <Capability Min="0" Max="13" Color="#ffffff">White</Capability>
+  <Capability Min="14" Max="27" Color="#ffff00">Yellow</Capability>
+  <Capability Min="28" Max="41" Color="#ff00ff">Magenta</Capability>
+  <Capability Min="42" Max="55" Color="#00ff00">Green</Capability>
+  <Capability Min="56" Max="69" Color="#aa00ff">Violet</Capability>
+  <Capability Min="70" Max="83" Color="#00ffff">Cyan</Capability>
+  <Capability Min="84" Max="97" Color="#96ff00">Bright green</Capability>
+  <Capability Min="98" Max="111" Color="#ff9600">Amber</Capability>
+  <Capability Min="112" Max="127" Color="#aa0000">Dark red</Capability>
   <Capability Min="128" Max="190" Res="Others/rainbow.png">Forwards rainbow effect (slow - fast)</Capability>
   <Capability Min="191" Max="255" Res="Others/rainbow.png">Backwards rainbow effect (slow - fast)</Capability>
  </Channel>
@@ -96,10 +96,10 @@
  </Channel>
  <Mode Name="10 Channel">
   <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="CREE LED 60W"/>
-   <Dimensions Depth="475" Weight="4.4" Height="150" Width="205"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus PanMax="180" TiltMax="90" Type="Fixed"/>
+   <Bulb Type="CREE LED 60W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4.4" Width="205" Height="150" Depth="475"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="180" TiltMax="90"/>
    <Technical PowerConsumption="90" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

@@ -2,9 +2,9 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
+  <Name>Q Light Controller Plus</Name>
   <Version>3.0.0</Version>
-  <Author/>
+  <Author>Jano Svitok</Author>
  </Creator>
  <Manufacturer>Martin</Manufacturer>
  <Model>Robocolor Pro 400</Model>
@@ -78,10 +78,10 @@
  </Channel>
  <Mode Name="Mode 1 (Tracking)">
   <Physical>
-   <Bulb Lumens="0" Type="MSD 200W" ColourTemperature="0"/>
-   <Dimensions Width="337" Height="282" Weight="11" Depth="306"/>
-   <Lens DegreesMax="33" Name="PC" DegreesMin="15"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="MSD 200W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="11" Width="337" Height="282" Depth="306"/>
+   <Lens Name="PC" DegreesMin="15" DegreesMax="33"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="270" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Strobe</Channel>
@@ -92,10 +92,10 @@
  </Mode>
  <Mode Name="Mode 2 (Vector)">
   <Physical>
-   <Bulb Lumens="0" Type="MSD 200W" ColourTemperature="0"/>
-   <Dimensions Width="337" Height="282" Weight="11" Depth="306"/>
-   <Lens DegreesMax="33" Name="PC" DegreesMin="15"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="MSD 200W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="11" Width="337" Height="282" Depth="306"/>
+   <Lens Name="PC" DegreesMin="15" DegreesMax="33"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="270" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Strobe</Channel>

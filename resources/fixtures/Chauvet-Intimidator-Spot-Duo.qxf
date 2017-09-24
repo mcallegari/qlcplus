@@ -47,77 +47,77 @@
  </Channel>
  <Channel Name="Color Wheel 1">
   <Group Byte="0">Colour</Group>
-  <Capability Color="#ffffff" Min="0" Max="15">White</Capability>
-  <Capability Color="#f26a2c" Min="16" Max="31">Orange</Capability>
-  <Capability Color="#8dd8f8" Min="32" Max="47">Light Blue</Capability>
-  <Capability Color="#c5262f" Min="48" Max="63">Red</Capability>
-  <Capability Color="#a6ce39" Min="64" Max="79">Green</Capability>
-  <Capability Color="#f6adcd" Min="80" Max="95">Pink</Capability>
-  <Capability Color="#fff200" Min="96" Max="111">Yellow</Capability>
-  <Capability Color="#0f4e82" Min="112" Max="127">Blue</Capability>
-  <Capability Res="Others/rainbow.png" Min="128" Max="191">Rainbow with increasing speed</Capability>
-  <Capability Res="Others/rainbow.png" Min="192" Max="255">Reverse rainbow increase speed</Capability>
+  <Capability Min="0" Max="15" Color="#ffffff">White</Capability>
+  <Capability Min="16" Max="31" Color="#f26a2c">Orange</Capability>
+  <Capability Min="32" Max="47" Color="#8dd8f8">Light Blue</Capability>
+  <Capability Min="48" Max="63" Color="#c5262f">Red</Capability>
+  <Capability Min="64" Max="79" Color="#a6ce39">Green</Capability>
+  <Capability Min="80" Max="95" Color="#f6adcd">Pink</Capability>
+  <Capability Min="96" Max="111" Color="#fff200">Yellow</Capability>
+  <Capability Min="112" Max="127" Color="#0f4e82">Blue</Capability>
+  <Capability Min="128" Max="191" Res="Others/rainbow.png">Rainbow with increasing speed</Capability>
+  <Capability Min="192" Max="255" Res="Others/rainbow.png">Reverse rainbow increase speed</Capability>
  </Channel>
  <Channel Name="Color Wheel 2">
   <Group Byte="0">Colour</Group>
-  <Capability Color="#ffffff" Min="0" Max="15">White</Capability>
-  <Capability Color="#f26a2c" Min="16" Max="31">Orange</Capability>
-  <Capability Color="#8dd8f8" Min="32" Max="47">Light Blue</Capability>
-  <Capability Color="#c5262f" Min="48" Max="63">Red</Capability>
-  <Capability Color="#a6ce39" Min="64" Max="79">Green</Capability>
-  <Capability Color="#f6adcd" Min="80" Max="95">Pink</Capability>
-  <Capability Color="#fff200" Min="96" Max="111">Yellow</Capability>
-  <Capability Color="#104f83" Min="112" Max="127">Blue</Capability>
-  <Capability Res="Others/rainbow.png" Min="128" Max="191">Rainbow with increasing speed</Capability>
-  <Capability Res="Others/rainbow.png" Min="192" Max="255">Reverse rainbow increase speed</Capability>
+  <Capability Min="0" Max="15" Color="#ffffff">White</Capability>
+  <Capability Min="16" Max="31" Color="#f26a2c">Orange</Capability>
+  <Capability Min="32" Max="47" Color="#8dd8f8">Light Blue</Capability>
+  <Capability Min="48" Max="63" Color="#c5262f">Red</Capability>
+  <Capability Min="64" Max="79" Color="#a6ce39">Green</Capability>
+  <Capability Min="80" Max="95" Color="#f6adcd">Pink</Capability>
+  <Capability Min="96" Max="111" Color="#fff200">Yellow</Capability>
+  <Capability Min="112" Max="127" Color="#104f83">Blue</Capability>
+  <Capability Min="128" Max="191" Res="Others/rainbow.png">Rainbow with increasing speed</Capability>
+  <Capability Min="192" Max="255" Res="Others/rainbow.png">Reverse rainbow increase speed</Capability>
  </Channel>
  <Channel Name="Gobo Wheel 1">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/open.png" Min="0" Max="9">Static Circle</Capability>
-  <Capability Res="ClayPaky/gobo00022.png" Min="10" Max="15">Small Circle</Capability>
-  <Capability Res="SGM/gobo00025.png" Min="16" Max="21">Spiral 1</Capability>
-  <Capability Res="Chauvet/gobo00017.png" Min="22" Max="27">Spiral 2</Capability>
-  <Capability Res="Chauvet/gobo00039.png" Min="28" Max="33">Lightning 1</Capability>
-  <Capability Res="Chauvet/gobo00040.png" Min="34" Max="39">Triangle 1</Capability>
-  <Capability Res="Chauvet/gobo00041.png" Min="40" Max="45">Arrow 1</Capability>
-  <Capability Res="Chauvet/gobo00042.png" Min="46" Max="51">Wave 1</Capability>
-  <Capability Res="Chauvet/gobo00043.png" Min="52" Max="57">Fan Wave 1</Capability>
-  <Capability Res="Chauvet/gobo00044.png" Min="58" Max="63">Snowflake</Capability>
-  <Capability Res="Chauvet/gobo00044.png" Min="64" Max="69">Gobo 9 shake, increase speed</Capability>
-  <Capability Res="Chauvet/gobo00043.png" Min="70" Max="75">Gobo 8 shake, increase speed</Capability>
-  <Capability Res="Chauvet/gobo00042.png" Min="76" Max="81">Gobo 7 shake, increase speed</Capability>
-  <Capability Res="Chauvet/gobo00041.png" Min="82" Max="87">Gobo 6 shake, increase speed</Capability>
-  <Capability Res="Chauvet/gobo00040.png" Min="88" Max="93">Gobo 5 shake, increase speed</Capability>
-  <Capability Res="Chauvet/gobo00039.png" Min="94" Max="99">Gobo 4 shake, increase speed</Capability>
-  <Capability Res="Chauvet/gobo00017.png" Min="100" Max="105">Gobo 3 shake, increase speed</Capability>
-  <Capability Res="SGM/gobo00025.png" Min="106" Max="111">Gobo 2 shake, increase speed</Capability>
-  <Capability Res="ClayPaky/gobo00022.png" Min="112" Max="117">Gobo 1 shake, increase speed</Capability>
-  <Capability Res="Others/open.png" Min="118" Max="127">White</Capability>
+  <Capability Min="0" Max="9" Res="Others/open.png">Static Circle</Capability>
+  <Capability Min="10" Max="15" Res="ClayPaky/gobo00022.png">Small Circle</Capability>
+  <Capability Min="16" Max="21" Res="SGM/gobo00025.png">Spiral 1</Capability>
+  <Capability Min="22" Max="27" Res="Chauvet/gobo00017.png">Spiral 2</Capability>
+  <Capability Min="28" Max="33" Res="Chauvet/gobo00039.png">Lightning 1</Capability>
+  <Capability Min="34" Max="39" Res="Chauvet/gobo00040.png">Triangle 1</Capability>
+  <Capability Min="40" Max="45" Res="Chauvet/gobo00041.png">Arrow 1</Capability>
+  <Capability Min="46" Max="51" Res="Chauvet/gobo00042.png">Wave 1</Capability>
+  <Capability Min="52" Max="57" Res="Chauvet/gobo00043.png">Fan Wave 1</Capability>
+  <Capability Min="58" Max="63" Res="Chauvet/gobo00044.png">Snowflake</Capability>
+  <Capability Min="64" Max="69" Res="Chauvet/gobo00044.png">Gobo 9 shake, increase speed</Capability>
+  <Capability Min="70" Max="75" Res="Chauvet/gobo00043.png">Gobo 8 shake, increase speed</Capability>
+  <Capability Min="76" Max="81" Res="Chauvet/gobo00042.png">Gobo 7 shake, increase speed</Capability>
+  <Capability Min="82" Max="87" Res="Chauvet/gobo00041.png">Gobo 6 shake, increase speed</Capability>
+  <Capability Min="88" Max="93" Res="Chauvet/gobo00040.png">Gobo 5 shake, increase speed</Capability>
+  <Capability Min="94" Max="99" Res="Chauvet/gobo00039.png">Gobo 4 shake, increase speed</Capability>
+  <Capability Min="100" Max="105" Res="Chauvet/gobo00017.png">Gobo 3 shake, increase speed</Capability>
+  <Capability Min="106" Max="111" Res="SGM/gobo00025.png">Gobo 2 shake, increase speed</Capability>
+  <Capability Min="112" Max="117" Res="ClayPaky/gobo00022.png">Gobo 1 shake, increase speed</Capability>
+  <Capability Min="118" Max="127" Res="Others/open.png">White</Capability>
   <Capability Min="128" Max="191">Rainbow with increase speed</Capability>
   <Capability Min="192" Max="255">Reverse rainbow with increase speed</Capability>
  </Channel>
  <Channel Name="Gobo Wheel 2">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/open.png" Min="0" Max="9">Static Circle</Capability>
-  <Capability Res="ClayPaky/gobo00022.png" Min="10" Max="15">Small Circle</Capability>
-  <Capability Res="SGM/gobo00025.png" Min="16" Max="21">Spiral 1</Capability>
-  <Capability Res="Chauvet/gobo00017.png" Min="22" Max="27">Spiral 2</Capability>
-  <Capability Res="Chauvet/gobo00039.png" Min="28" Max="33">Lightning 1</Capability>
-  <Capability Res="Chauvet/gobo00040.png" Min="34" Max="39">Triangle 1</Capability>
-  <Capability Res="Chauvet/gobo00041.png" Min="40" Max="45">Arrow 1</Capability>
-  <Capability Res="Chauvet/gobo00042.png" Min="46" Max="51">Wave 1</Capability>
-  <Capability Res="Chauvet/gobo00043.png" Min="52" Max="57">Fan Wave 1</Capability>
-  <Capability Res="Chauvet/gobo00044.png" Min="58" Max="63">Snowflake</Capability>
-  <Capability Res="Chauvet/gobo00044.png" Min="64" Max="69">Gobo 9 shake, increase speed</Capability>
-  <Capability Res="Chauvet/gobo00043.png" Min="70" Max="75">Gobo 8 shake, increase speed</Capability>
-  <Capability Res="Chauvet/gobo00042.png" Min="76" Max="81">Gobo 7 shake, increase speed</Capability>
-  <Capability Res="Chauvet/gobo00041.png" Min="82" Max="87">Gobo 6 shake, increase speed</Capability>
-  <Capability Res="Chauvet/gobo00040.png" Min="88" Max="93">Gobo 5 shake, increase speed</Capability>
-  <Capability Res="Chauvet/gobo00039.png" Min="94" Max="99">Gobo 4 shake, increase speed</Capability>
-  <Capability Res="Chauvet/gobo00017.png" Min="100" Max="105">Gobo 3 shake, increase speed</Capability>
-  <Capability Res="SGM/gobo00025.png" Min="106" Max="111">Gobo 2 shake, increase speed</Capability>
-  <Capability Res="ClayPaky/gobo00022.png" Min="112" Max="117">Gobo 1 shake, increase speed</Capability>
-  <Capability Res="Others/open.png" Min="118" Max="127">White</Capability>
+  <Capability Min="0" Max="9" Res="Others/open.png">Static Circle</Capability>
+  <Capability Min="10" Max="15" Res="ClayPaky/gobo00022.png">Small Circle</Capability>
+  <Capability Min="16" Max="21" Res="SGM/gobo00025.png">Spiral 1</Capability>
+  <Capability Min="22" Max="27" Res="Chauvet/gobo00017.png">Spiral 2</Capability>
+  <Capability Min="28" Max="33" Res="Chauvet/gobo00039.png">Lightning 1</Capability>
+  <Capability Min="34" Max="39" Res="Chauvet/gobo00040.png">Triangle 1</Capability>
+  <Capability Min="40" Max="45" Res="Chauvet/gobo00041.png">Arrow 1</Capability>
+  <Capability Min="46" Max="51" Res="Chauvet/gobo00042.png">Wave 1</Capability>
+  <Capability Min="52" Max="57" Res="Chauvet/gobo00043.png">Fan Wave 1</Capability>
+  <Capability Min="58" Max="63" Res="Chauvet/gobo00044.png">Snowflake</Capability>
+  <Capability Min="64" Max="69" Res="Chauvet/gobo00044.png">Gobo 9 shake, increase speed</Capability>
+  <Capability Min="70" Max="75" Res="Chauvet/gobo00043.png">Gobo 8 shake, increase speed</Capability>
+  <Capability Min="76" Max="81" Res="Chauvet/gobo00042.png">Gobo 7 shake, increase speed</Capability>
+  <Capability Min="82" Max="87" Res="Chauvet/gobo00041.png">Gobo 6 shake, increase speed</Capability>
+  <Capability Min="88" Max="93" Res="Chauvet/gobo00040.png">Gobo 5 shake, increase speed</Capability>
+  <Capability Min="94" Max="99" Res="Chauvet/gobo00039.png">Gobo 4 shake, increase speed</Capability>
+  <Capability Min="100" Max="105" Res="Chauvet/gobo00017.png">Gobo 3 shake, increase speed</Capability>
+  <Capability Min="106" Max="111" Res="SGM/gobo00025.png">Gobo 2 shake, increase speed</Capability>
+  <Capability Min="112" Max="117" Res="ClayPaky/gobo00022.png">Gobo 1 shake, increase speed</Capability>
+  <Capability Min="118" Max="127" Res="Others/open.png">White</Capability>
   <Capability Min="128" Max="191">Rainbow with increase speed</Capability>
   <Capability Min="192" Max="255">Reverse rainbow with increase speed</Capability>
  </Channel>
@@ -214,39 +214,39 @@
  </Channel>
  <Channel Name="Color Wheel">
   <Group Byte="0">Colour</Group>
-  <Capability Color="#ffffff" Min="0" Max="15">White</Capability>
-  <Capability Color="#f26a2c" Min="16" Max="31">Orange</Capability>
-  <Capability Color="#8dd8f8" Min="32" Max="47">Light Blue</Capability>
-  <Capability Color="#c5262f" Min="48" Max="63">Red</Capability>
-  <Capability Color="#a6ce39" Min="64" Max="79">Green</Capability>
-  <Capability Color="#f6adcd" Min="80" Max="95">Pink</Capability>
-  <Capability Color="#fff200" Min="96" Max="111">Yellow</Capability>
-  <Capability Color="#0f4e82" Min="112" Max="127">Blue</Capability>
-  <Capability Res="Others/rainbow.png" Min="128" Max="191">Rainbow with increasing speed</Capability>
-  <Capability Res="Others/rainbow.png" Min="192" Max="255">Reverse rainbow increase speed</Capability>
+  <Capability Min="0" Max="15" Color="#ffffff">White</Capability>
+  <Capability Min="16" Max="31" Color="#f26a2c">Orange</Capability>
+  <Capability Min="32" Max="47" Color="#8dd8f8">Light Blue</Capability>
+  <Capability Min="48" Max="63" Color="#c5262f">Red</Capability>
+  <Capability Min="64" Max="79" Color="#a6ce39">Green</Capability>
+  <Capability Min="80" Max="95" Color="#f6adcd">Pink</Capability>
+  <Capability Min="96" Max="111" Color="#fff200">Yellow</Capability>
+  <Capability Min="112" Max="127" Color="#0f4e82">Blue</Capability>
+  <Capability Min="128" Max="191" Res="Others/rainbow.png">Rainbow with increasing speed</Capability>
+  <Capability Min="192" Max="255" Res="Others/rainbow.png">Reverse rainbow increase speed</Capability>
  </Channel>
  <Channel Name="Gobo Wheel">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/open.png" Min="0" Max="9">Static Circle</Capability>
-  <Capability Res="ClayPaky/gobo00022.png" Min="10" Max="15">Small Circle</Capability>
-  <Capability Res="SGM/gobo00025.png" Min="16" Max="21">Spiral 1</Capability>
-  <Capability Res="Chauvet/gobo00017.png" Min="22" Max="27">Spiral 2</Capability>
-  <Capability Res="Chauvet/gobo00039.png" Min="28" Max="33">Lightning 1</Capability>
-  <Capability Res="Chauvet/gobo00040.png" Min="34" Max="39">Triangle 1</Capability>
-  <Capability Res="Chauvet/gobo00041.png" Min="40" Max="45">Arrow 1</Capability>
-  <Capability Res="Chauvet/gobo00042.png" Min="46" Max="51">Wave 1</Capability>
-  <Capability Res="Chauvet/gobo00043.png" Min="52" Max="57">Fan Wave 1</Capability>
-  <Capability Res="Chauvet/gobo00044.png" Min="58" Max="63">Snowflake</Capability>
-  <Capability Res="Chauvet/gobo00044.png" Min="64" Max="69">Gobo 9 shake, increase speed</Capability>
-  <Capability Res="Chauvet/gobo00043.png" Min="70" Max="75">Gobo 8 shake, increase speed</Capability>
-  <Capability Res="Chauvet/gobo00042.png" Min="76" Max="81">Gobo 7 shake, increase speed</Capability>
-  <Capability Res="Chauvet/gobo00041.png" Min="82" Max="87">Gobo 6 shake, increase speed</Capability>
-  <Capability Res="Chauvet/gobo00040.png" Min="88" Max="93">Gobo 5 shake, increase speed</Capability>
-  <Capability Res="Chauvet/gobo00039.png" Min="94" Max="99">Gobo 4 shake, increase speed</Capability>
-  <Capability Res="Chauvet/gobo00017.png" Min="100" Max="105">Gobo 3 shake, increase speed</Capability>
-  <Capability Res="SGM/gobo00025.png" Min="106" Max="111">Gobo 2 shake, increase speed</Capability>
-  <Capability Res="ClayPaky/gobo00022.png" Min="112" Max="117">Gobo 1 shake, increase speed</Capability>
-  <Capability Res="Others/open.png" Min="118" Max="127">White</Capability>
+  <Capability Min="0" Max="9" Res="Others/open.png">Static Circle</Capability>
+  <Capability Min="10" Max="15" Res="ClayPaky/gobo00022.png">Small Circle</Capability>
+  <Capability Min="16" Max="21" Res="SGM/gobo00025.png">Spiral 1</Capability>
+  <Capability Min="22" Max="27" Res="Chauvet/gobo00017.png">Spiral 2</Capability>
+  <Capability Min="28" Max="33" Res="Chauvet/gobo00039.png">Lightning 1</Capability>
+  <Capability Min="34" Max="39" Res="Chauvet/gobo00040.png">Triangle 1</Capability>
+  <Capability Min="40" Max="45" Res="Chauvet/gobo00041.png">Arrow 1</Capability>
+  <Capability Min="46" Max="51" Res="Chauvet/gobo00042.png">Wave 1</Capability>
+  <Capability Min="52" Max="57" Res="Chauvet/gobo00043.png">Fan Wave 1</Capability>
+  <Capability Min="58" Max="63" Res="Chauvet/gobo00044.png">Snowflake</Capability>
+  <Capability Min="64" Max="69" Res="Chauvet/gobo00044.png">Gobo 9 shake, increase speed</Capability>
+  <Capability Min="70" Max="75" Res="Chauvet/gobo00043.png">Gobo 8 shake, increase speed</Capability>
+  <Capability Min="76" Max="81" Res="Chauvet/gobo00042.png">Gobo 7 shake, increase speed</Capability>
+  <Capability Min="82" Max="87" Res="Chauvet/gobo00041.png">Gobo 6 shake, increase speed</Capability>
+  <Capability Min="88" Max="93" Res="Chauvet/gobo00040.png">Gobo 5 shake, increase speed</Capability>
+  <Capability Min="94" Max="99" Res="Chauvet/gobo00039.png">Gobo 4 shake, increase speed</Capability>
+  <Capability Min="100" Max="105" Res="Chauvet/gobo00017.png">Gobo 3 shake, increase speed</Capability>
+  <Capability Min="106" Max="111" Res="SGM/gobo00025.png">Gobo 2 shake, increase speed</Capability>
+  <Capability Min="112" Max="117" Res="ClayPaky/gobo00022.png">Gobo 1 shake, increase speed</Capability>
+  <Capability Min="118" Max="127" Res="Others/open.png">White</Capability>
   <Capability Min="128" Max="191">Rainbow with increase speed</Capability>
   <Capability Min="192" Max="255">Reverse rainbow with increase speed</Capability>
  </Channel>
@@ -262,10 +262,10 @@
  <Mode Name="20 Channels mode">
   <Physical>
    <Bulb Type="LED" Lumens="10900" ColourTemperature="0"/>
-   <Dimensions Width="187" Height="365" Depth="540" Weight="8.4"/>
+   <Dimensions Weight="8.4" Width="187" Height="365" Depth="540"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus TiltMax="270" Type="Fixed" PanMax="360"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="98"/>
+   <Focus Type="Fixed" PanMax="360" TiltMax="270"/>
+   <Technical PowerConsumption="98" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan 1</Channel>
   <Channel Number="1">Fine Pan 1</Channel>
@@ -311,10 +311,10 @@
  <Mode Name="10 Channels mode">
   <Physical>
    <Bulb Type="LED" Lumens="10900" ColourTemperature="0"/>
-   <Dimensions Width="187" Height="365" Depth="540" Weight="8.4"/>
+   <Dimensions Weight="8.4" Width="187" Height="365" Depth="540"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus TiltMax="270" Type="Fixed" PanMax="360"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="98"/>
+   <Focus Type="Fixed" PanMax="360" TiltMax="270"/>
+   <Technical PowerConsumption="98" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>

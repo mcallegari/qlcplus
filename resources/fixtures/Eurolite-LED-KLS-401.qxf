@@ -97,11 +97,11 @@
  </Channel>
  <Mode Name="DMX protocol">
   <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Depth="55" Weight="8.5" Width="1200" Height="310"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="8.5" Width="1200" Height="310" Depth="55"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="100"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="100" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Preset programs, automatic mode, sound control</Channel>
   <Channel Number="1">Master control</Channel>

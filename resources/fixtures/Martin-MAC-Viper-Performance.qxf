@@ -82,21 +82,21 @@
  <Channel Name="Gobo selection, indexing, shake, rotation">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="9">Open</Capability>
-  <Capability Res="Robe/gobo00022.png" Min="10" Max="14">Indexed Gobo 1</Capability>
-  <Capability Res="SGM/gobo00084.png" Min="15" Max="19">Indexed Gobo 2</Capability>
-  <Capability Res="Others/gobo00058.png" Min="20" Max="24">Indexed Gobo 3</Capability>
-  <Capability Res="Robe/gobo00016.png" Min="25" Max="29">Indexed Gobo 4</Capability>
-  <Capability Res="Robe/gobo00020.png" Min="30" Max="34">Indexed Gobo 5</Capability>
-  <Capability Res="Robe/gobo00022.png" Min="35" Max="39">Continuous Gobo 1</Capability>
-  <Capability Res="SGM/gobo00084.png" Min="40" Max="44">Continuous Gobo 2</Capability>
-  <Capability Res="Others/gobo00058.png" Min="45" Max="49">Continuous Gobo 3</Capability>
-  <Capability Res="Robe/gobo00016.png" Min="50" Max="54">Continuous Gobo 4</Capability>
-  <Capability Res="Robe/gobo00020.png" Min="55" Max="59">Continuous Gobo 5</Capability>
-  <Capability Res="Robe/gobo00022.png" Min="60" Max="89">Shake Gobo 1</Capability>
-  <Capability Res="SGM/gobo00084.png" Min="90" Max="119">Shake Gobo 2</Capability>
-  <Capability Res="Others/gobo00058.png" Min="120" Max="149">Shake Gobo 3</Capability>
-  <Capability Res="Robe/gobo00016.png" Min="150" Max="179">Shake Gobo 4</Capability>
-  <Capability Res="Robe/gobo00020.png" Min="180" Max="209">Shake Gobo 5</Capability>
+  <Capability Min="10" Max="14" Res="Robe/gobo00022.png">Indexed Gobo 1</Capability>
+  <Capability Min="15" Max="19" Res="SGM/gobo00084.png">Indexed Gobo 2</Capability>
+  <Capability Min="20" Max="24" Res="Others/gobo00058.png">Indexed Gobo 3</Capability>
+  <Capability Min="25" Max="29" Res="Robe/gobo00016.png">Indexed Gobo 4</Capability>
+  <Capability Min="30" Max="34" Res="Robe/gobo00020.png">Indexed Gobo 5</Capability>
+  <Capability Min="35" Max="39" Res="Robe/gobo00022.png">Continuous Gobo 1</Capability>
+  <Capability Min="40" Max="44" Res="SGM/gobo00084.png">Continuous Gobo 2</Capability>
+  <Capability Min="45" Max="49" Res="Others/gobo00058.png">Continuous Gobo 3</Capability>
+  <Capability Min="50" Max="54" Res="Robe/gobo00016.png">Continuous Gobo 4</Capability>
+  <Capability Min="55" Max="59" Res="Robe/gobo00020.png">Continuous Gobo 5</Capability>
+  <Capability Min="60" Max="89" Res="Robe/gobo00022.png">Shake Gobo 1</Capability>
+  <Capability Min="90" Max="119" Res="SGM/gobo00084.png">Shake Gobo 2</Capability>
+  <Capability Min="120" Max="149" Res="Others/gobo00058.png">Shake Gobo 3</Capability>
+  <Capability Min="150" Max="179" Res="Robe/gobo00016.png">Shake Gobo 4</Capability>
+  <Capability Min="180" Max="209" Res="Robe/gobo00020.png">Shake Gobo 5</Capability>
   <Capability Min="210" Max="232">CW gobo wheel scroll, fast → slow</Capability>
   <Capability Min="233" Max="255">CCW gobo wheel scroll, slow* → fast</Capability>
  </Channel>
@@ -311,11 +311,11 @@
  </Channel>
  <Mode Name="Extended">
   <Physical>
-   <Bulb Type="HTI 1000W" ColourTemperature="6000" Lumens="0"/>
-   <Dimensions Width="471" Height="730" Depth="565" Weight="38"/>
+   <Bulb Type="HTI 1000W" Lumens="0" ColourTemperature="6000"/>
+   <Dimensions Weight="38" Width="471" Height="730" Depth="565"/>
    <Lens Name="Other" DegreesMin="10" DegreesMax="44"/>
    <Focus Type="Head" PanMax="540" TiltMax="268"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="1200"/>
+   <Technical PowerConsumption="1200" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Strobe/shutter</Channel>
   <Channel Number="1">Dimmer fade</Channel>
@@ -360,11 +360,11 @@
  </Mode>
  <Mode Name="Basic">
   <Physical>
-   <Bulb Type="HTI 1000W" ColourTemperature="6000" Lumens="0"/>
-   <Dimensions Width="471" Height="730" Depth="565" Weight="38"/>
+   <Bulb Type="HTI 1000W" Lumens="0" ColourTemperature="6000"/>
+   <Dimensions Weight="38" Width="471" Height="730" Depth="565"/>
    <Lens Name="Other" DegreesMin="10" DegreesMax="44"/>
    <Focus Type="Head" PanMax="540" TiltMax="268"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="1200"/>
+   <Technical PowerConsumption="1200" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Strobe/shutter</Channel>
   <Channel Number="1">Dimmer fade</Channel>

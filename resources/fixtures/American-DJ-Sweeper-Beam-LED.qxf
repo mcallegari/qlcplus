@@ -125,20 +125,20 @@
  </Channel>
  <Mode Name="1 Channel Mode">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="73" Height="132" Weight="6.3" Depth="973"/>
-   <Lens DegreesMax="3.5" Name="Other" DegreesMin="3.5"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="210"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="6.3" Width="73" Height="132" Depth="973"/>
+   <Lens Name="Other" DegreesMin="3.5" DegreesMax="3.5"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="210"/>
    <Technical PowerConsumption="47" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Shows</Channel>
  </Mode>
  <Mode Name="6 Channel Mode">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="73" Height="132" Weight="6.3" Depth="973"/>
-   <Lens DegreesMax="3.5" Name="Other" DegreesMin="3.5"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="210"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="6.3" Width="73" Height="132" Depth="973"/>
+   <Lens Name="Other" DegreesMin="3.5" DegreesMax="3.5"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="210"/>
    <Technical PowerConsumption="47" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Tilt</Channel>
@@ -150,10 +150,10 @@
  </Mode>
  <Mode Name="11 Channel Mode">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="73" Height="132" Weight="6.3" Depth="973"/>
-   <Lens DegreesMax="3.5" Name="Other" DegreesMin="3.5"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="210"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="6.3" Width="73" Height="132" Depth="973"/>
+   <Lens Name="Other" DegreesMin="3.5" DegreesMax="3.5"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="210"/>
    <Technical PowerConsumption="47" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Tilt</Channel>
@@ -194,10 +194,10 @@
  </Mode>
  <Mode Name="15 Channel Mode">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="73" Height="132" Weight="6.3" Depth="973"/>
-   <Lens DegreesMax="3.5" Name="Other" DegreesMin="3.5"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="210"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="6.3" Width="73" Height="132" Depth="973"/>
+   <Lens Name="Other" DegreesMin="3.5" DegreesMax="3.5"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="210"/>
    <Technical PowerConsumption="47" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Tilt</Channel>

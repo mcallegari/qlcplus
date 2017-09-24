@@ -12,12 +12,12 @@
  <Channel Name="Program Selection">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="19">Blackout</Capability>
-  <Capability Color2="#ff00ff" Min="20" Max="39" Color="#ff0000">Red &amp; pink - speed from slow to fast</Capability>
-  <Capability Color2="#ffaa00" Min="40" Max="59" Color="#00aa00">Green &amp; amber - speed from slow to fast</Capability>
-  <Capability Color2="#ffffff" Min="60" Max="79" Color="#0000ff">Blue &amp; white - speed from slow to fast</Capability>
-  <Capability Res="Others/rainbow.png" Min="80" Max="99">3-color jump - speed from slow to fast</Capability>
-  <Capability Res="Others/rainbow.png" Min="100" Max="119">7-color jump - speed from slow to fast</Capability>
-  <Capability Res="Others/rainbow.png" Min="120" Max="139">7-color fade - speed from slow to fast</Capability>
+  <Capability Min="20" Max="39" Color="#ff0000" Color2="#ff00ff">Red &amp; pink - speed from slow to fast</Capability>
+  <Capability Min="40" Max="59" Color="#00aa00" Color2="#ffaa00">Green &amp; amber - speed from slow to fast</Capability>
+  <Capability Min="60" Max="79" Color="#0000ff" Color2="#ffffff">Blue &amp; white - speed from slow to fast</Capability>
+  <Capability Min="80" Max="99" Res="Others/rainbow.png">3-color jump - speed from slow to fast</Capability>
+  <Capability Min="100" Max="119" Res="Others/rainbow.png">7-color jump - speed from slow to fast</Capability>
+  <Capability Min="120" Max="139" Res="Others/rainbow.png">7-color fade - speed from slow to fast</Capability>
   <Capability Min="140" Max="159">Strobe mode - speed from slow to fast</Capability>
   <Capability Min="160" Max="179">Sound activated 1 - OFF without sound</Capability>
   <Capability Min="180" Max="199">Sound activated 2 - ON without sound</Capability>
@@ -50,10 +50,10 @@
  </Channel>
  <Mode Name="6 channel mode">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="175" Height="150" Weight="1" Depth="175"/>
-   <Lens DegreesMax="180" Name="Other" DegreesMin="180"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1" Width="175" Height="150" Depth="175"/>
+   <Lens Name="Other" DegreesMin="180" DegreesMax="180"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="10" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Program Selection</Channel>

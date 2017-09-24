@@ -64,8 +64,8 @@
  </Channel>
  <Mode Name="Main">
   <Physical>
-   <Bulb ColourTemperature="0" Type="None" Lumens="0"/>
-   <Dimensions Width="246" Height="350" Weight="25" Depth="419"/>
+   <Bulb Type="None" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="25" Width="246" Height="350" Depth="419"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="975" DmxConnector="3-pin and 5-pin"/>

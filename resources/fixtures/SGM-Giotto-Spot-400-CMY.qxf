@@ -41,16 +41,16 @@
  </Channel>
  <Channel Name="Gobo 1">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/open.png" Min="0" Max="20">Open</Capability>
-  <Capability Res="SGM/gobo00001.png" Min="21" Max="41">Gobo1 1</Capability>
-  <Capability Res="SGM/gobo00002.png" Min="42" Max="62">Gobo1 2</Capability>
-  <Capability Res="SGM/gobo00360.png" Min="63" Max="83">Gobo1 3</Capability>
-  <Capability Res="SGM/gobo00268.png" Min="84" Max="104">Gobo1 4</Capability>
-  <Capability Res="SGM/gobo00285.png" Min="105" Max="125">Gobo1 5</Capability>
-  <Capability Res="SGM/gobo00025.png" Min="126" Max="146">Gobo1 6</Capability>
-  <Capability Res="SGM/gobo00376.png" Min="147" Max="167">Gobo1 7</Capability>
-  <Capability Res="SGM-Color/gobo00373.png" Min="168" Max="189">Gobo1 8</Capability>
-  <Capability Res="Others/rainbow.png" Min="190" Max="245">Rainbow speed</Capability>
+  <Capability Min="0" Max="20" Res="Others/open.png">Open</Capability>
+  <Capability Min="21" Max="41" Res="SGM/gobo00001.png">Gobo1 1</Capability>
+  <Capability Min="42" Max="62" Res="SGM/gobo00002.png">Gobo1 2</Capability>
+  <Capability Min="63" Max="83" Res="SGM/gobo00360.png">Gobo1 3</Capability>
+  <Capability Min="84" Max="104" Res="SGM/gobo00268.png">Gobo1 4</Capability>
+  <Capability Min="105" Max="125" Res="SGM/gobo00285.png">Gobo1 5</Capability>
+  <Capability Min="126" Max="146" Res="SGM/gobo00025.png">Gobo1 6</Capability>
+  <Capability Min="147" Max="167" Res="SGM/gobo00376.png">Gobo1 7</Capability>
+  <Capability Min="168" Max="189" Res="SGM-Color/gobo00373.png">Gobo1 8</Capability>
+  <Capability Min="190" Max="245" Res="Others/rainbow.png">Rainbow speed</Capability>
   <Capability Min="246" Max="255">Music change</Capability>
  </Channel>
  <Channel Name="Shutter/Strobe">
@@ -184,16 +184,16 @@
  </Channel>
  <Channel Name="Gobo 2">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/open.png" Min="0" Max="20">Open</Capability>
-  <Capability Res="SGM-Color/gobo00551.png" Min="21" Max="41">Gobo2 1</Capability>
-  <Capability Res="SGM-Color/gobo00554.png" Min="42" Max="62">Gobo2 2</Capability>
-  <Capability Res="SGM-Color/gobo00556.png" Min="63" Max="83">Gobo2 3</Capability>
-  <Capability Res="SGM/gobo00025.png" Min="84" Max="104">Gobo2 4</Capability>
-  <Capability Res="SGM-Color/gobo00375.png" Min="105" Max="125">Gobo2 5</Capability>
-  <Capability Res="SGM-Color/gobo00541.png" Min="126" Max="146">Gobo2 6</Capability>
-  <Capability Res="SGM-Color/gobo00545.png" Min="147" Max="167">Gobo2 7</Capability>
-  <Capability Res="SGM-Color/gobo00401.png" Min="168" Max="189">Gobo2 8</Capability>
-  <Capability Res="Others/rainbow.png" Min="190" Max="245">Indexed rainbow speed</Capability>
+  <Capability Min="0" Max="20" Res="Others/open.png">Open</Capability>
+  <Capability Min="21" Max="41" Res="SGM-Color/gobo00551.png">Gobo2 1</Capability>
+  <Capability Min="42" Max="62" Res="SGM-Color/gobo00554.png">Gobo2 2</Capability>
+  <Capability Min="63" Max="83" Res="SGM-Color/gobo00556.png">Gobo2 3</Capability>
+  <Capability Min="84" Max="104" Res="SGM/gobo00025.png">Gobo2 4</Capability>
+  <Capability Min="105" Max="125" Res="SGM-Color/gobo00375.png">Gobo2 5</Capability>
+  <Capability Min="126" Max="146" Res="SGM-Color/gobo00541.png">Gobo2 6</Capability>
+  <Capability Min="147" Max="167" Res="SGM-Color/gobo00545.png">Gobo2 7</Capability>
+  <Capability Min="168" Max="189" Res="SGM-Color/gobo00401.png">Gobo2 8</Capability>
+  <Capability Min="190" Max="245" Res="Others/rainbow.png">Indexed rainbow speed</Capability>
   <Capability Min="246" Max="255">Music change</Capability>
  </Channel>
  <Channel Name="Gobo 2 rotation or MSB position">
@@ -245,10 +245,10 @@
  </Channel>
  <Mode Name="Mode 1">
   <Physical>
-   <Bulb Lumens="32000" Type="MSR 400W" ColourTemperature="6000"/>
-   <Dimensions Width="360" Height="743" Weight="33" Depth="412"/>
-   <Lens DegreesMax="22" Name="Other" DegreesMin="9"/>
-   <Focus PanMax="540" Type="Head" TiltMax="240"/>
+   <Bulb Type="MSR 400W" Lumens="32000" ColourTemperature="6000"/>
+   <Dimensions Weight="33" Width="360" Height="743" Depth="412"/>
+   <Lens Name="Other" DegreesMin="9" DegreesMax="22"/>
+   <Focus Type="Head" PanMax="540" TiltMax="240"/>
    <Technical PowerConsumption="570" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

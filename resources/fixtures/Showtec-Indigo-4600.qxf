@@ -35,14 +35,14 @@
   <Capability Min="50" Max="59" Color="#ffaa00">Orange</Capability>
   <Capability Min="60" Max="69" Color="#aa557f">Magenta</Capability>
   <Capability Min="70" Max="79" Color="#5ebcce">Light Blue</Capability>
-  <Capability Color2="#aa557f" Min="80" Max="99" Color="#5ebcce">Light Blue -&gt; Magenta</Capability>
-  <Capability Color2="#ffaa00" Min="100" Max="119" Color="#aa557f">Magenta -&gt; Orange</Capability>
-  <Capability Color2="#00aaff" Min="120" Max="139" Color="#ffaa00">Orange -&gt; Blue</Capability>
-  <Capability Color2="#ffff00" Min="140" Max="159" Color="#00aaff">Blue -&gt; Yellow</Capability>
-  <Capability Color2="#00aa00" Min="160" Max="179" Color="#ffff00">Yellow -&gt; Green</Capability>
-  <Capability Color2="#ff0000" Min="180" Max="199" Color="#009c00">Green -&gt; Red</Capability>
-  <Capability Color2="#ffffff" Min="200" Max="219" Color="#ff0000">Red -&gt; Open/White</Capability>
-  <Capability Res="Others/rainbow.png" Min="220" Max="255">Forwards (CW) Rainbow slow to fast</Capability>
+  <Capability Min="80" Max="99" Color="#5ebcce" Color2="#aa557f">Light Blue -&gt; Magenta</Capability>
+  <Capability Min="100" Max="119" Color="#aa557f" Color2="#ffaa00">Magenta -&gt; Orange</Capability>
+  <Capability Min="120" Max="139" Color="#ffaa00" Color2="#00aaff">Orange -&gt; Blue</Capability>
+  <Capability Min="140" Max="159" Color="#00aaff" Color2="#ffff00">Blue -&gt; Yellow</Capability>
+  <Capability Min="160" Max="179" Color="#ffff00" Color2="#00aa00">Yellow -&gt; Green</Capability>
+  <Capability Min="180" Max="199" Color="#009c00" Color2="#ff0000">Green -&gt; Red</Capability>
+  <Capability Min="200" Max="219" Color="#ff0000" Color2="#ffffff">Red -&gt; Open/White</Capability>
+  <Capability Min="220" Max="255" Res="Others/rainbow.png">Forwards (CW) Rainbow slow to fast</Capability>
  </Channel>
  <Channel Name="Static Gobo">
   <Group Byte="0">Gobo</Group>
@@ -142,10 +142,10 @@
  </Channel>
  <Mode Name="11 Channels">
   <Physical>
-   <Bulb Lumens="1800" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="330" Height="473" Weight="10" Depth="270"/>
-   <Lens DegreesMax="16" Name="PC" DegreesMin="16"/>
-   <Focus PanMax="540" Type="Head" TiltMax="270"/>
+   <Bulb Type="LED" Lumens="1800" ColourTemperature="0"/>
+   <Dimensions Weight="10" Width="330" Height="473" Depth="270"/>
+   <Lens Name="PC" DegreesMin="16" DegreesMax="16"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="80" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -162,10 +162,10 @@
  </Mode>
  <Mode Name="14 Channels">
   <Physical>
-   <Bulb Lumens="1800" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="330" Height="473" Weight="10" Depth="270"/>
-   <Lens DegreesMax="16" Name="PC" DegreesMin="16"/>
-   <Focus PanMax="540" Type="Head" TiltMax="270"/>
+   <Bulb Type="LED" Lumens="1800" ColourTemperature="0"/>
+   <Dimensions Weight="10" Width="330" Height="473" Depth="270"/>
+   <Lens Name="PC" DegreesMin="16" DegreesMax="16"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="80" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

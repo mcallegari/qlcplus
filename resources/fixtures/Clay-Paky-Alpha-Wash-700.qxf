@@ -31,21 +31,21 @@
  <Channel Name="Colour wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7" Color="#ffffff">White</Capability>
-  <Capability Color2="#ff0000" Min="8" Max="14" Color="#ffffff">White + red</Capability>
+  <Capability Min="8" Max="14" Color="#ffffff" Color2="#ff0000">White + red</Capability>
   <Capability Min="15" Max="21" Color="#f62a2d">Red</Capability>
   <Capability Min="22" Max="29" Color="#f62a2d">Red + CTB</Capability>
   <Capability Min="30" Max="36" Color="#9acdbe">CTB</Capability>
-  <Capability Color2="#03853f" Min="37" Max="44" Color="#9acdbe">CTB + green</Capability>
+  <Capability Min="37" Max="44" Color="#9acdbe" Color2="#03853f">CTB + green</Capability>
   <Capability Min="45" Max="51" Color="#01883c">Green</Capability>
-  <Capability Color2="#a0c635" Min="52" Max="59" Color="#00873b">Green + light green</Capability>
+  <Capability Min="52" Max="59" Color="#00873b" Color2="#a0c635">Green + light green</Capability>
   <Capability Min="60" Max="66" Color="#a0c635">Light green</Capability>
-  <Capability Color2="#8873b4" Min="67" Max="74" Color="#a0c635">Light green + lavender</Capability>
+  <Capability Min="67" Max="74" Color="#a0c635" Color2="#8873b4">Light green + lavender</Capability>
   <Capability Min="75" Max="81" Color="#8873b4">Lavender</Capability>
-  <Capability Color2="#7cbf89" Min="82" Max="89" Color="#e6e6fa">Lavender + aquamarine</Capability>
+  <Capability Min="82" Max="89" Color="#e6e6fa" Color2="#7cbf89">Lavender + aquamarine</Capability>
   <Capability Min="90" Max="96" Color="#7cbf89">Aquamarine</Capability>
-  <Capability Color2="#ff7f00" Min="97" Max="104" Color="#00ffbf">Aquamarine + orange</Capability>
+  <Capability Min="97" Max="104" Color="#00ffbf" Color2="#ff7f00">Aquamarine + orange</Capability>
   <Capability Min="105" Max="111" Color="#e3651b">Orange</Capability>
-  <Capability Color2="#22378a" Min="112" Max="119" Color="#e3651b">Orange + blue</Capability>
+  <Capability Min="112" Max="119" Color="#e3651b" Color2="#22378a">Orange + blue</Capability>
   <Capability Min="120" Max="126" Color="#22378a">Blue</Capability>
   <Capability Min="127" Max="127" Color="#22378a">Blue + white</Capability>
   <Capability Min="128" Max="255" Color="#ffffff">Slow rotation (0.2 rpm) - Fast rotation (160 rpm)</Capability>
@@ -160,10 +160,10 @@
  </Channel>
  <Mode Name="Standard - CMY">
   <Physical>
-   <Bulb Lumens="50000" Type="MSR 700W" ColourTemperature="7200"/>
-   <Dimensions Width="385" Height="575" Weight="20.6" Depth="405"/>
-   <Lens DegreesMax="0" Name="Fresnel" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="250"/>
+   <Bulb Type="MSR 700W" Lumens="50000" ColourTemperature="7200"/>
+   <Dimensions Weight="20.6" Width="385" Height="575" Depth="405"/>
+   <Lens Name="Fresnel" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="250"/>
    <Technical PowerConsumption="1050" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Cyan</Channel>
@@ -187,10 +187,10 @@
  </Mode>
  <Mode Name="Vector - CMY">
   <Physical>
-   <Bulb Lumens="50000" Type="MSR 700W" ColourTemperature="7200"/>
-   <Dimensions Width="385" Height="575" Weight="20.6" Depth="405"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="250"/>
+   <Bulb Type="MSR 700W" Lumens="50000" ColourTemperature="7200"/>
+   <Dimensions Weight="20.6" Width="385" Height="575" Depth="405"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="250"/>
    <Technical PowerConsumption="800" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Cyan</Channel>
@@ -217,10 +217,10 @@
  </Mode>
  <Mode Name="Standard - RGB">
   <Physical>
-   <Bulb Lumens="50000" Type="MSR 700W" ColourTemperature="7200"/>
-   <Dimensions Width="385" Height="575" Weight="20.6" Depth="405"/>
-   <Lens DegreesMax="0" Name="Fresnel" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="250"/>
+   <Bulb Type="MSR 700W" Lumens="50000" ColourTemperature="7200"/>
+   <Dimensions Weight="20.6" Width="385" Height="575" Depth="405"/>
+   <Lens Name="Fresnel" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="250"/>
    <Technical PowerConsumption="1050" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
@@ -244,10 +244,10 @@
  </Mode>
  <Mode Name="Vector - RGB">
   <Physical>
-   <Bulb Lumens="50000" Type="MSR 700W" ColourTemperature="7200"/>
-   <Dimensions Width="385" Height="575" Weight="20.6" Depth="405"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="250"/>
+   <Bulb Type="MSR 700W" Lumens="50000" ColourTemperature="7200"/>
+   <Dimensions Weight="20.6" Width="385" Height="575" Depth="405"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="250"/>
    <Technical PowerConsumption="800" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>

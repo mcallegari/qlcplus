@@ -68,6 +68,7 @@ QLCFixtureDef& QLCFixtureDef::operator=(const QLCFixtureDef& fixture)
         m_model = fixture.m_model;
         m_type = fixture.m_type;
         m_author = fixture.m_author;
+        m_version = fixture.m_version;
 
         /* Clear all channels */
         while (m_channels.isEmpty() == false)
@@ -187,6 +188,17 @@ QString QLCFixtureDef::author()
 {
     checkLoaded();
     return m_author;
+}
+
+void QLCFixtureDef::setVersion(const QString& version)
+{
+    m_version = version;
+}
+
+QString QLCFixtureDef::version()
+{
+    checkLoaded();
+    return m_version;
 }
 
 void QLCFixtureDef::checkLoaded()
@@ -329,7 +341,7 @@ QList <QLCFixtureMode*> QLCFixtureDef::modes()
  * XML operations
  ****************************************************************************/
 
-QFile::FileError QLCFixtureDef::saveXML(const QString& fileName)
+QFile::FileError QLCFixtureDef::saveXML(const QString& fileName, bool keepVersion)
 {
     QFile::FileError error;
 
@@ -346,7 +358,7 @@ QFile::FileError QLCFixtureDef::saveXML(const QString& fileName)
     doc.setAutoFormatting(true);
     doc.setAutoFormattingIndent(1);
     doc.setCodec("UTF-8");
-    QLCFile::writeXMLHeader(&doc, KXMLQLCFixtureDefDocument, author());
+    QLCFile::writeXMLHeader(&doc, KXMLQLCFixtureDefDocument, author(), keepVersion ? m_version : QString());
 
     doc.writeTextElement(KXMLQLCFixtureDefManufacturer, m_manufacturer);
     doc.writeTextElement(KXMLQLCFixtureDefModel, m_model);
@@ -369,6 +381,27 @@ QFile::FileError QLCFixtureDef::saveXML(const QString& fileName)
 
     // Save to actual requested file name
     QFile currFile(fileName);
+
+    // if the new and old files are the same, keep the old file
+    if (keepVersion && currFile.exists())
+    {
+        if (file.open(QIODevice::ReadOnly) == false)
+            return file.error();
+
+        if (currFile.open(QIODevice::ReadOnly) == false)
+            return currFile.error();
+
+        if (currFile.readAll() == file.readAll())
+        {
+            if (!file.remove())
+            {
+                qWarning() << "Could not remove temporary file" << tempFileName;
+                return currFile.error();
+            }
+            return error;
+        }
+    }
+
     if (currFile.exists() && !currFile.remove())
     {
         qWarning() << "Could not erase" << fileName;
@@ -534,8 +567,7 @@ bool QLCFixtureDef::loadCreator(QXmlStreamReader &doc)
         }
         else if (doc.name() == KXMLQLCCreatorVersion)
         {
-            /* Ignore version */
-            doc.skipCurrentElement();
+            setVersion(doc.readElementText());
         }
         else if (doc.name() == KXMLQLCCreatorAuthor)
         {

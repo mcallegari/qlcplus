@@ -59,19 +59,19 @@
  <Channel Name="Color Wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="14" Color="#ffffff">Open</Capability>
-  <Capability Color2="#1d2c7f" Min="15" Max="15" Color="#ffffff">Open/Congo</Capability>
+  <Capability Min="15" Max="15" Color="#ffffff" Color2="#1d2c7f">Open/Congo</Capability>
   <Capability Min="31" Max="31" Color="#1d2c7f">Congo Blue</Capability>
-  <Capability Color2="#fd6500" Min="48" Max="48" Color="#1d2c7f">Congo/Orange</Capability>
+  <Capability Min="48" Max="48" Color="#1d2c7f" Color2="#fd6500">Congo/Orange</Capability>
   <Capability Min="62" Max="62" Color="#fd6500">Orange</Capability>
-  <Capability Color2="#018637" Min="77" Max="77" Color="#fd6500">Orange/Green</Capability>
+  <Capability Min="77" Max="77" Color="#fd6500" Color2="#018637">Orange/Green</Capability>
   <Capability Min="93" Max="93" Color="#018637">Green</Capability>
-  <Capability Color2="#97017f" Min="109" Max="109" Color="#018637">Green/Fuchsia</Capability>
+  <Capability Min="109" Max="109" Color="#018637" Color2="#97017f">Green/Fuchsia</Capability>
   <Capability Min="124" Max="124" Color="#97017f">Dark Fuchsia</Capability>
-  <Capability Color2="#ee027e" Min="140" Max="140" Color="#97017f">Fuchsia/Mag</Capability>
+  <Capability Min="140" Max="140" Color="#97017f" Color2="#ee027e">Fuchsia/Mag</Capability>
   <Capability Min="155" Max="155" Color="#ee027e">Magenta</Capability>
-  <Capability Color2="#d60000" Min="171" Max="171" Color="#ee027e">Magenta/Red</Capability>
+  <Capability Min="171" Max="171" Color="#ee027e" Color2="#d60000">Magenta/Red</Capability>
   <Capability Min="186" Max="186" Color="#d60000">Deep Red</Capability>
-  <Capability Color2="#ffffff" Min="201" Max="201" Color="#d60000">Red/Open</Capability>
+  <Capability Min="201" Max="201" Color="#d60000" Color2="#ffffff">Red/Open</Capability>
   <Capability Min="217" Max="235" Res="Others/rainbow.png">Fast to Slow / CCW</Capability>
   <Capability Min="236" Max="236">No Scroll</Capability>
   <Capability Min="237" Max="255" Res="Others/rainbow.png">Slow to Fast / CW</Capability>
@@ -727,10 +727,10 @@
  </Channel>
  <Mode Name="Standard 16 bit">
   <Physical>
-   <Bulb Type="MSR 1200W" ColourTemperature="6000" Lumens="20000"/>
-   <Dimensions Height="802" Width="457" Weight="41" Depth="502"/>
+   <Bulb Type="MSR 1200W" Lumens="20000" ColourTemperature="6000"/>
+   <Dimensions Weight="41" Width="457" Height="802" Depth="502"/>
    <Lens Name="" DegreesMin="9" DegreesMax="46"/>
-   <Focus TiltMax="270" Type="Head" PanMax="540"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="1500" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>

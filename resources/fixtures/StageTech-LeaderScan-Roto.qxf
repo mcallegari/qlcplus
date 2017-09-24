@@ -17,39 +17,39 @@
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/open.png" Min="0" Max="31">Open</Capability>
-  <Capability Res="Others/gobo00027.png" Min="32" Max="63">Triangle</Capability>
-  <Capability Res="Others/gobo00028.png" Min="64" Max="95">Holes</Capability>
-  <Capability Res="Others/gobo00013.png" Min="96" Max="127">Phone</Capability>
-  <Capability Res="Robe/gobo00027.png" Min="128" Max="159">Clouds</Capability>
-  <Capability Res="Others/gobo00046.png" Min="160" Max="191">Turbine</Capability>
-  <Capability Res="Others/gobo00011.png" Min="192" Max="223">Sun</Capability>
-  <Capability Res="ClayPaky/gobo00012.png" Min="224" Max="255">Bar</Capability>
+  <Capability Min="0" Max="31" Res="Others/open.png">Open</Capability>
+  <Capability Min="32" Max="63" Res="Others/gobo00027.png">Triangle</Capability>
+  <Capability Min="64" Max="95" Res="Others/gobo00028.png">Holes</Capability>
+  <Capability Min="96" Max="127" Res="Others/gobo00013.png">Phone</Capability>
+  <Capability Min="128" Max="159" Res="Robe/gobo00027.png">Clouds</Capability>
+  <Capability Min="160" Max="191" Res="Others/gobo00046.png">Turbine</Capability>
+  <Capability Min="192" Max="223" Res="Others/gobo00011.png">Sun</Capability>
+  <Capability Min="224" Max="255" Res="ClayPaky/gobo00012.png">Bar</Capability>
  </Channel>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="11" Color="#ffffff">White</Capability>
-  <Capability Color2="#c53cff" Min="12" Max="22" Color="#ffffff">White / Mauve</Capability>
+  <Capability Min="12" Max="22" Color="#ffffff" Color2="#c53cff">White / Mauve</Capability>
   <Capability Min="23" Max="33" Color="#c53cff">Mauve</Capability>
-  <Capability Color2="#1937ff" Min="34" Max="44" Color="#c53cff">Mauve / Dark Cyan</Capability>
+  <Capability Min="34" Max="44" Color="#c53cff" Color2="#1937ff">Mauve / Dark Cyan</Capability>
   <Capability Min="45" Max="55" Color="#1937ff">Dark Cyan</Capability>
-  <Capability Color2="#10ac6b" Min="56" Max="66" Color="#1937ff">Dark Cyan / Green</Capability>
+  <Capability Min="56" Max="66" Color="#1937ff" Color2="#10ac6b">Dark Cyan / Green</Capability>
   <Capability Min="67" Max="77" Color="#10ac6b">Green</Capability>
-  <Capability Color2="#ffce0a" Min="78" Max="88" Color="#10ac6b">Green / Amber</Capability>
+  <Capability Min="78" Max="88" Color="#10ac6b" Color2="#ffce0a">Green / Amber</Capability>
   <Capability Min="89" Max="99" Color="#ffce0a">Amber</Capability>
-  <Capability Color2="#0000a0" Min="100" Max="110" Color="#ffce0a">Amber / UV Blue</Capability>
+  <Capability Min="100" Max="110" Color="#ffce0a" Color2="#0000a0">Amber / UV Blue</Capability>
   <Capability Min="111" Max="121" Color="#0000a0">UV Blue</Capability>
-  <Capability Color2="#aa0000" Min="122" Max="133" Color="#0000a0">UV Blue / Red</Capability>
+  <Capability Min="122" Max="133" Color="#0000a0" Color2="#aa0000">UV Blue / Red</Capability>
   <Capability Min="134" Max="144" Color="#aa0000">Red</Capability>
-  <Capability Color2="#ffff00" Min="145" Max="155" Color="#aa0000">Red / Yellow</Capability>
+  <Capability Min="145" Max="155" Color="#aa0000" Color2="#ffff00">Red / Yellow</Capability>
   <Capability Min="156" Max="166" Color="#ffff00">Yellow</Capability>
-  <Capability Color2="#40acff" Min="167" Max="177" Color="#ffff00">Yellow / Cyan</Capability>
+  <Capability Min="167" Max="177" Color="#ffff00" Color2="#40acff">Yellow / Cyan</Capability>
   <Capability Min="178" Max="188" Color="#40acff">Cyan</Capability>
-  <Capability Color2="#e251c8" Min="189" Max="199" Color="#40acff">Cyan / Pink</Capability>
+  <Capability Min="189" Max="199" Color="#40acff" Color2="#e251c8">Cyan / Pink</Capability>
   <Capability Min="200" Max="210" Color="#e251c8">Pink</Capability>
-  <Capability Color2="#aaff00" Min="211" Max="221" Color="#e251c8">Pink / Light green</Capability>
+  <Capability Min="211" Max="221" Color="#e251c8" Color2="#aaff00">Pink / Light green</Capability>
   <Capability Min="222" Max="232" Color="#aaff00">Light green</Capability>
-  <Capability Color2="#ff8c00" Min="233" Max="243" Color="#aaff00">Light green / Orange</Capability>
+  <Capability Min="233" Max="243" Color="#aaff00" Color2="#ff8c00">Light green / Orange</Capability>
   <Capability Min="244" Max="250" Color="#ff8c00">Orange</Capability>
   <Capability Min="251" Max="253">Rainbow 1</Capability>
   <Capability Min="254" Max="255">Rainbow 2</Capability>
@@ -74,10 +74,10 @@
  </Channel>
  <Mode Name="Mode 1">
   <Physical>
-   <Bulb Lumens="9500" Type="HTI 150W" ColourTemperature="6900"/>
-   <Dimensions Width="250" Height="550" Weight="12" Depth="150"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Mirror" TiltMax="0"/>
+   <Bulb Type="HTI 150W" Lumens="9500" ColourTemperature="6900"/>
+   <Dimensions Weight="12" Width="250" Height="550" Depth="150"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Mirror" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="250" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Shutter</Channel>

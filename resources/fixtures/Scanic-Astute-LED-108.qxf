@@ -68,10 +68,10 @@
  </Channel>
  <Mode Name="Mode 1">
   <Physical>
-   <Bulb Lumens="1000" Type="LED" ColourTemperature="7000"/>
-   <Dimensions Width="250" Height="220" Weight="7" Depth="376"/>
-   <Lens DegreesMax="0" Name="PC" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="230"/>
+   <Bulb Type="LED" Lumens="1000" ColourTemperature="7000"/>
+   <Dimensions Weight="7" Width="250" Height="220" Depth="376"/>
+   <Lens Name="PC" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="230"/>
    <Technical PowerConsumption="150" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">RGB Control Mode</Channel>

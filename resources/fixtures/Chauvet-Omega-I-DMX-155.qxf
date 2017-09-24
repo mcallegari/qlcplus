@@ -12,7 +12,7 @@
  <Channel Name="Color/Gobo Combo">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="9">closed</Capability>
-  <Capability Color="#ffffff" Min="10" Max="19">open</Capability>
+  <Capability Min="10" Max="19" Color="#ffffff">open</Capability>
   <Capability Min="20" Max="29">combo 01</Capability>
   <Capability Min="30" Max="39">Combo 02</Capability>
   <Capability Min="40" Max="49">Combo 03</Capability>
@@ -50,11 +50,11 @@
  </Channel>
  <Mode Name="Default">
   <Physical>
-   <Bulb Lumens="0" Type="EFR 150W" ColourTemperature="0"/>
-   <Dimensions Height="279" Width="356" Depth="279" Weight="4.72"/>
+   <Bulb Type="EFR 150W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4.72" Width="356" Height="279" Depth="279"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus TiltMax="90" PanMax="180" Type="Barrel"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="250"/>
+   <Focus Type="Barrel" PanMax="180" TiltMax="90"/>
+   <Technical PowerConsumption="250" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Color/Gobo Combo</Channel>
   <Channel Number="1">Strobe/Gobo Strobe</Channel>

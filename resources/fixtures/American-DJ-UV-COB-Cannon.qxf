@@ -32,7 +32,7 @@
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="4.98" Width="320" Height="200" Depth="278"/>
    <Lens Name="Other" DegreesMin="33" DegreesMax="33"/>
-   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="120" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimming</Channel>
@@ -42,7 +42,7 @@
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="4.98" Width="320" Height="200" Depth="278"/>
    <Lens Name="Other" DegreesMin="33" DegreesMax="33"/>
-   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="120" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimming</Channel>
@@ -53,7 +53,7 @@
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="4.98" Width="320" Height="200" Depth="278"/>
    <Lens Name="Other" DegreesMin="33" DegreesMax="33"/>
-   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="120" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimming</Channel>

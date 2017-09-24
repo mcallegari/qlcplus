@@ -2,7 +2,7 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
+  <Name>Q Light Controller Plus</Name>
   <Version>3.1.0</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
@@ -128,10 +128,10 @@
  </Channel>
  <Mode Name="Mode1">
   <Physical>
-   <Bulb Lumens="43000" Type="HTI 575W" ColourTemperature="7500"/>
-   <Dimensions Width="380" Height="520" Weight="19" Depth="390"/>
-   <Lens DegreesMax="22" Name="Fresnel" DegreesMin="8"/>
-   <Focus PanMax="540" Type="Head" TiltMax="280"/>
+   <Bulb Type="HTI 575W" Lumens="43000" ColourTemperature="7500"/>
+   <Dimensions Weight="19" Width="380" Height="520" Depth="390"/>
+   <Lens Name="Fresnel" DegreesMin="8" DegreesMax="22"/>
+   <Focus Type="Head" PanMax="540" TiltMax="280"/>
    <Technical PowerConsumption="780" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan coarse</Channel>

@@ -156,10 +156,10 @@
  <Mode Name="23CH">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="2.2" Width="180" Depth="215" Height="255"/>
+   <Dimensions Weight="2.2" Width="180" Height="255" Depth="215"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="75"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="75" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Auto Program</Channel>
@@ -218,10 +218,10 @@
  <Mode Name="7CH">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="2.2" Width="180" Depth="215" Height="255"/>
+   <Dimensions Weight="2.2" Width="180" Height="255" Depth="215"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="75"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="75" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>

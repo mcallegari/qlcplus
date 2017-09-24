@@ -22,10 +22,10 @@
  </Channel>
  <Mode Name="2-Channel Mode">
   <Physical>
-   <Bulb Lumens="500" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="238" Height="220" Weight="1" Depth="140"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="500" ColourTemperature="0"/>
+   <Dimensions Weight="1" Width="238" Height="220" Depth="140"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="28" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Control Functions</Channel>

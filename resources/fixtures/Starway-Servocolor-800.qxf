@@ -171,10 +171,10 @@
  </Channel>
  <Mode Name="Person1 8 Bits">
   <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="6860"/>
-   <Dimensions Height="270" Width="400" Weight="13" Depth="463"/>
+   <Bulb Type="LED" Lumens="6860" ColourTemperature="0"/>
+   <Dimensions Weight="13" Width="400" Height="270" Depth="463"/>
    <Lens Name="Other" DegreesMin="15" DegreesMax="60"/>
-   <Focus TiltMax="270" Type="Head" PanMax="540"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="465" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -190,10 +190,10 @@
  </Mode>
  <Mode Name="Person2 16 Bits">
   <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="6860"/>
-   <Dimensions Height="270" Width="400" Weight="13" Depth="463"/>
+   <Bulb Type="LED" Lumens="6860" ColourTemperature="0"/>
+   <Dimensions Weight="13" Width="400" Height="270" Depth="463"/>
    <Lens Name="Other" DegreesMin="15" DegreesMax="60"/>
-   <Focus TiltMax="270" Type="Head" PanMax="540"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="465" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -215,10 +215,10 @@
  </Mode>
  <Mode Name="Person3 16 Bits">
   <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="6860"/>
-   <Dimensions Height="270" Width="400" Weight="13" Depth="463"/>
+   <Bulb Type="LED" Lumens="6860" ColourTemperature="0"/>
+   <Dimensions Weight="13" Width="400" Height="270" Depth="463"/>
    <Lens Name="Other" DegreesMin="15" DegreesMax="60"/>
-   <Focus TiltMax="270" Type="Head" PanMax="540"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="465" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -263,10 +263,10 @@
  </Mode>
  <Mode Name="Person4 8 Bits - HSV">
   <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="6860"/>
-   <Dimensions Height="270" Width="400" Weight="13" Depth="463"/>
+   <Bulb Type="LED" Lumens="6860" ColourTemperature="0"/>
+   <Dimensions Weight="13" Width="400" Height="270" Depth="463"/>
    <Lens Name="Other" DegreesMin="15" DegreesMax="60"/>
-   <Focus TiltMax="270" Type="Head" PanMax="540"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="465" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -280,10 +280,10 @@
  </Mode>
  <Mode Name="Person5 16 Bits">
   <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="6860"/>
-   <Dimensions Height="270" Width="400" Weight="13" Depth="463"/>
+   <Bulb Type="LED" Lumens="6860" ColourTemperature="0"/>
+   <Dimensions Weight="13" Width="400" Height="270" Depth="463"/>
    <Lens Name="Other" DegreesMin="15" DegreesMax="60"/>
-   <Focus TiltMax="270" Type="Head" PanMax="540"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="465" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

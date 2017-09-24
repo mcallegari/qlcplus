@@ -84,47 +84,47 @@
  <Channel Name="Beam color wheel effect">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="9">Open. RGBW color mixing enabled</Capability>
-  <Capability Color="#ffa490" Min="10" Max="14">LEE 790 - Moroccan pink</Capability>
-  <Capability Color="#ff6d84" Min="15" Max="19">LEE 157 - Pink</Capability>
-  <Capability Color="#ff3366" Min="20" Max="24">LEE 332 - Special rose pink</Capability>
-  <Capability Color="#ff45b3" Min="25" Max="29">LEE 328 - Follies pink</Capability>
-  <Capability Color="#d843ff" Min="30" Max="34">LEE 345 - Fuchsia pink</Capability>
-  <Capability Color="#c170ff" Min="35" Max="39">LEE 194 - Surprise pink</Capability>
-  <Capability Color="#4900bf" Min="40" Max="44">LEE 181 - Congo Blue</Capability>
-  <Capability Color="#0300e4" Min="45" Max="49">LEE 071 - Tokyo Blue</Capability>
-  <Capability Color="#2f5be7" Min="50" Max="54">LEE 120 - Deep Blue</Capability>
-  <Capability Color="#568dff" Min="55" Max="59">LEE 079 - Just Blue</Capability>
-  <Capability Color="#1999ff" Min="60" Max="64">LEE 132 - Medium Blue</Capability>
-  <Capability Color="#89ceff" Min="65" Max="69">LEE 200 - Double CT Blue</Capability>
-  <Capability Color="#a3efff" Min="70" Max="74">LEE 161 - Slate Blue</Capability>
-  <Capability Color="#b7deee" Min="75" Max="79">LEE 201 - Full CT Blue</Capability>
-  <Capability Color="#e5f4ff" Min="80" Max="84">LEE 202 - Half CT Blue</Capability>
-  <Capability Color="#91fff4" Min="85" Max="89">LEE 117 - Steel Blue</Capability>
-  <Capability Color="#1ad8cc" Min="90" Max="94">LEE 353 - Lighter Blue</Capability>
-  <Capability Color="#27f0ff" Min="95" Max="99">LEE 118 - Light Blue</Capability>
-  <Capability Color="#51c9b2" Min="100" Max="104">LEE 116 - Medium Blue Green</Capability>
-  <Capability Color="#22d555" Min="105" Max="109">LEE 124 - Dark Green</Capability>
-  <Capability Color="#15c100" Min="110" Max="114">LEE 139 - Primary Green</Capability>
-  <Capability Color="#34e854" Min="115" Max="119">LEE 089 - Moss Green</Capability>
-  <Capability Color="#47ff65" Min="120" Max="124">LEE 122 - Fern Green</Capability>
-  <Capability Color="#abff62" Min="125" Max="129">LEE 738 - JAS Green</Capability>
-  <Capability Color="#d7ff6b" Min="130" Max="134">LEE 088 - Lime Green</Capability>
-  <Capability Color="#f2ff00" Min="135" Max="139">LEE 100 - Spring Yellow</Capability>
-  <Capability Color="#efc450" Min="140" Max="144">LEE 104 - Deep Amber</Capability>
-  <Capability Color="#ffac1d" Min="145" Max="149">LEE 179 - Chrome Orange</Capability>
-  <Capability Color="#ff6f07" Min="150" Max="154">LEE 105 - Orange</Capability>
-  <Capability Color="#ff9600" Min="155" Max="159">LEE 021 - Gold Amber</Capability>
-  <Capability Color="#ff7c00" Min="160" Max="164">LEE 778 - Millennium Gold</Capability>
-  <Capability Color="#ff5400" Min="165" Max="169">LEE 135 - Deep Golden Amber</Capability>
-  <Capability Color="#ff0800" Min="170" Max="174">LEE 164 - Flame Red</Capability>
+  <Capability Min="10" Max="14" Color="#ffa490">LEE 790 - Moroccan pink</Capability>
+  <Capability Min="15" Max="19" Color="#ff6d84">LEE 157 - Pink</Capability>
+  <Capability Min="20" Max="24" Color="#ff3366">LEE 332 - Special rose pink</Capability>
+  <Capability Min="25" Max="29" Color="#ff45b3">LEE 328 - Follies pink</Capability>
+  <Capability Min="30" Max="34" Color="#d843ff">LEE 345 - Fuchsia pink</Capability>
+  <Capability Min="35" Max="39" Color="#c170ff">LEE 194 - Surprise pink</Capability>
+  <Capability Min="40" Max="44" Color="#4900bf">LEE 181 - Congo Blue</Capability>
+  <Capability Min="45" Max="49" Color="#0300e4">LEE 071 - Tokyo Blue</Capability>
+  <Capability Min="50" Max="54" Color="#2f5be7">LEE 120 - Deep Blue</Capability>
+  <Capability Min="55" Max="59" Color="#568dff">LEE 079 - Just Blue</Capability>
+  <Capability Min="60" Max="64" Color="#1999ff">LEE 132 - Medium Blue</Capability>
+  <Capability Min="65" Max="69" Color="#89ceff">LEE 200 - Double CT Blue</Capability>
+  <Capability Min="70" Max="74" Color="#a3efff">LEE 161 - Slate Blue</Capability>
+  <Capability Min="75" Max="79" Color="#b7deee">LEE 201 - Full CT Blue</Capability>
+  <Capability Min="80" Max="84" Color="#e5f4ff">LEE 202 - Half CT Blue</Capability>
+  <Capability Min="85" Max="89" Color="#91fff4">LEE 117 - Steel Blue</Capability>
+  <Capability Min="90" Max="94" Color="#1ad8cc">LEE 353 - Lighter Blue</Capability>
+  <Capability Min="95" Max="99" Color="#27f0ff">LEE 118 - Light Blue</Capability>
+  <Capability Min="100" Max="104" Color="#51c9b2">LEE 116 - Medium Blue Green</Capability>
+  <Capability Min="105" Max="109" Color="#22d555">LEE 124 - Dark Green</Capability>
+  <Capability Min="110" Max="114" Color="#15c100">LEE 139 - Primary Green</Capability>
+  <Capability Min="115" Max="119" Color="#34e854">LEE 089 - Moss Green</Capability>
+  <Capability Min="120" Max="124" Color="#47ff65">LEE 122 - Fern Green</Capability>
+  <Capability Min="125" Max="129" Color="#abff62">LEE 738 - JAS Green</Capability>
+  <Capability Min="130" Max="134" Color="#d7ff6b">LEE 088 - Lime Green</Capability>
+  <Capability Min="135" Max="139" Color="#f2ff00">LEE 100 - Spring Yellow</Capability>
+  <Capability Min="140" Max="144" Color="#efc450">LEE 104 - Deep Amber</Capability>
+  <Capability Min="145" Max="149" Color="#ffac1d">LEE 179 - Chrome Orange</Capability>
+  <Capability Min="150" Max="154" Color="#ff6f07">LEE 105 - Orange</Capability>
+  <Capability Min="155" Max="159" Color="#ff9600">LEE 021 - Gold Amber</Capability>
+  <Capability Min="160" Max="164" Color="#ff7c00">LEE 778 - Millennium Gold</Capability>
+  <Capability Min="165" Max="169" Color="#ff5400">LEE 135 - Deep Golden Amber</Capability>
+  <Capability Min="170" Max="174" Color="#ff0800">LEE 164 - Flame Red</Capability>
   <Capability Min="175" Max="179">Open</Capability>
-  <Capability Res="Others/rainbow.png" Min="180" Max="201">Color rotation fast → slow</Capability>
+  <Capability Min="180" Max="201" Res="Others/rainbow.png">Color rotation fast → slow</Capability>
   <Capability Min="202" Max="207">Stop Rot</Capability>
-  <Capability Res="Others/rainbow.png" Min="208" Max="229">Color rotation slow → fast</Capability>
+  <Capability Min="208" Max="229" Res="Others/rainbow.png">Color rotation slow → fast</Capability>
   <Capability Min="230" Max="234">Open</Capability>
-  <Capability Res="Others/rainbow.png" Min="235" Max="239">Random color Fast</Capability>
-  <Capability Res="Others/rainbow.png" Min="240" Max="244">Random color Medium</Capability>
-  <Capability Res="Others/rainbow.png" Min="245" Max="249">Random color Slow</Capability>
+  <Capability Min="235" Max="239" Res="Others/rainbow.png">Random color Fast</Capability>
+  <Capability Min="240" Max="244" Res="Others/rainbow.png">Random color Medium</Capability>
+  <Capability Min="245" Max="249" Res="Others/rainbow.png">Random color Slow</Capability>
   <Capability Min="250" Max="255">Open</Capability>
  </Channel>
  <Channel Name="Beam Red">
@@ -284,47 +284,47 @@
  <Channel Name="Aura color wheel effect">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="9">Open. RGBW color mixing enabled</Capability>
-  <Capability Color="#ffa490" Min="10" Max="14">LEE 790 - Moroccan pink</Capability>
-  <Capability Color="#ff6d84" Min="15" Max="19">LEE 157 - Pink</Capability>
-  <Capability Color="#ff3366" Min="20" Max="24">LEE 332 - Special rose pink</Capability>
-  <Capability Color="#ff45b3" Min="25" Max="29">LEE 328 - Follies pink</Capability>
-  <Capability Color="#d843ff" Min="30" Max="34">LEE 345 - Fuchsia pink</Capability>
-  <Capability Color="#c170ff" Min="35" Max="39">LEE 194 - Surprise pink</Capability>
-  <Capability Color="#4900bf" Min="40" Max="44">LEE 181 - Congo Blue</Capability>
-  <Capability Color="#0300e4" Min="45" Max="49">LEE 071 - Tokyo Blue</Capability>
-  <Capability Color="#2f5be7" Min="50" Max="54">LEE 120 - Deep Blue</Capability>
-  <Capability Color="#568dff" Min="55" Max="59">LEE 079 - Just Blue</Capability>
-  <Capability Color="#1999ff" Min="60" Max="64">LEE 132 - Medium Blue</Capability>
-  <Capability Color="#89ceff" Min="65" Max="69">LEE 200 - Double CT Blue</Capability>
-  <Capability Color="#a3efff" Min="70" Max="74">LEE 161 - Slate Blue</Capability>
-  <Capability Color="#b7deee" Min="75" Max="79">LEE 201 - Full CT Blue</Capability>
-  <Capability Color="#e5f4ff" Min="80" Max="84">LEE 202 - Half CT Blue</Capability>
-  <Capability Color="#91fff4" Min="85" Max="89">LEE 117 - Steel Blue</Capability>
-  <Capability Color="#1ad8cc" Min="90" Max="94">LEE 353 - Lighter Blue</Capability>
-  <Capability Color="#27f0ff" Min="95" Max="99">LEE 118 - Light Blue</Capability>
-  <Capability Color="#51c9b2" Min="100" Max="104">LEE 116 - Medium Blue Green</Capability>
-  <Capability Color="#22d555" Min="105" Max="109">LEE 124 - Dark Green</Capability>
-  <Capability Color="#15c100" Min="110" Max="114">LEE 139 - Primary Green</Capability>
-  <Capability Color="#34e854" Min="115" Max="119">LEE 089 - Moss Green</Capability>
-  <Capability Color="#47ff65" Min="120" Max="124">LEE 122 - Fern Green</Capability>
-  <Capability Color="#abff62" Min="125" Max="129">LEE 738 - JAS Green</Capability>
-  <Capability Color="#d7ff6b" Min="130" Max="134">LEE 088 - Lime Green</Capability>
-  <Capability Color="#f2ff00" Min="135" Max="139">LEE 100 - Spring Yellow</Capability>
-  <Capability Color="#efc450" Min="140" Max="144">LEE 104 - Deep Amber</Capability>
-  <Capability Color="#ffac1d" Min="145" Max="149">LEE 179 - Chrome Orange</Capability>
-  <Capability Color="#ff6f07" Min="150" Max="154">LEE 105 - Orange</Capability>
-  <Capability Color="#ff9600" Min="155" Max="159">LEE 021 - Gold Amber</Capability>
-  <Capability Color="#ff7c00" Min="160" Max="164">LEE 778 - Millennium Gold</Capability>
-  <Capability Color="#ff5400" Min="165" Max="169">LEE 135 - Deep Golden Amber</Capability>
-  <Capability Color="#ff0800" Min="170" Max="174">LEE 164 - Flame Red</Capability>
+  <Capability Min="10" Max="14" Color="#ffa490">LEE 790 - Moroccan pink</Capability>
+  <Capability Min="15" Max="19" Color="#ff6d84">LEE 157 - Pink</Capability>
+  <Capability Min="20" Max="24" Color="#ff3366">LEE 332 - Special rose pink</Capability>
+  <Capability Min="25" Max="29" Color="#ff45b3">LEE 328 - Follies pink</Capability>
+  <Capability Min="30" Max="34" Color="#d843ff">LEE 345 - Fuchsia pink</Capability>
+  <Capability Min="35" Max="39" Color="#c170ff">LEE 194 - Surprise pink</Capability>
+  <Capability Min="40" Max="44" Color="#4900bf">LEE 181 - Congo Blue</Capability>
+  <Capability Min="45" Max="49" Color="#0300e4">LEE 071 - Tokyo Blue</Capability>
+  <Capability Min="50" Max="54" Color="#2f5be7">LEE 120 - Deep Blue</Capability>
+  <Capability Min="55" Max="59" Color="#568dff">LEE 079 - Just Blue</Capability>
+  <Capability Min="60" Max="64" Color="#1999ff">LEE 132 - Medium Blue</Capability>
+  <Capability Min="65" Max="69" Color="#89ceff">LEE 200 - Double CT Blue</Capability>
+  <Capability Min="70" Max="74" Color="#a3efff">LEE 161 - Slate Blue</Capability>
+  <Capability Min="75" Max="79" Color="#b7deee">LEE 201 - Full CT Blue</Capability>
+  <Capability Min="80" Max="84" Color="#e5f4ff">LEE 202 - Half CT Blue</Capability>
+  <Capability Min="85" Max="89" Color="#91fff4">LEE 117 - Steel Blue</Capability>
+  <Capability Min="90" Max="94" Color="#1ad8cc">LEE 353 - Lighter Blue</Capability>
+  <Capability Min="95" Max="99" Color="#27f0ff">LEE 118 - Light Blue</Capability>
+  <Capability Min="100" Max="104" Color="#51c9b2">LEE 116 - Medium Blue Green</Capability>
+  <Capability Min="105" Max="109" Color="#22d555">LEE 124 - Dark Green</Capability>
+  <Capability Min="110" Max="114" Color="#15c100">LEE 139 - Primary Green</Capability>
+  <Capability Min="115" Max="119" Color="#34e854">LEE 089 - Moss Green</Capability>
+  <Capability Min="120" Max="124" Color="#47ff65">LEE 122 - Fern Green</Capability>
+  <Capability Min="125" Max="129" Color="#abff62">LEE 738 - JAS Green</Capability>
+  <Capability Min="130" Max="134" Color="#d7ff6b">LEE 088 - Lime Green</Capability>
+  <Capability Min="135" Max="139" Color="#f2ff00">LEE 100 - Spring Yellow</Capability>
+  <Capability Min="140" Max="144" Color="#efc450">LEE 104 - Deep Amber</Capability>
+  <Capability Min="145" Max="149" Color="#ffac1d">LEE 179 - Chrome Orange</Capability>
+  <Capability Min="150" Max="154" Color="#ff6f07">LEE 105 - Orange</Capability>
+  <Capability Min="155" Max="159" Color="#ff9600">LEE 021 - Gold Amber</Capability>
+  <Capability Min="160" Max="164" Color="#ff7c00">LEE 778 - Millennium Gold</Capability>
+  <Capability Min="165" Max="169" Color="#ff5400">LEE 135 - Deep Golden Amber</Capability>
+  <Capability Min="170" Max="174" Color="#ff0800">LEE 164 - Flame Red</Capability>
   <Capability Min="175" Max="179">Open</Capability>
-  <Capability Res="Others/rainbow.png" Min="180" Max="201">Color rotation fast → slow</Capability>
+  <Capability Min="180" Max="201" Res="Others/rainbow.png">Color rotation fast → slow</Capability>
   <Capability Min="202" Max="207">Stop Rot</Capability>
-  <Capability Res="Others/rainbow.png" Min="208" Max="229">Color rotation slow → fast</Capability>
+  <Capability Min="208" Max="229" Res="Others/rainbow.png">Color rotation slow → fast</Capability>
   <Capability Min="230" Max="234">Open</Capability>
-  <Capability Res="Others/rainbow.png" Min="235" Max="239">Random color Fast</Capability>
-  <Capability Res="Others/rainbow.png" Min="240" Max="244">Random color Medium</Capability>
-  <Capability Res="Others/rainbow.png" Min="245" Max="249">Random color Slow</Capability>
+  <Capability Min="235" Max="239" Res="Others/rainbow.png">Random color Fast</Capability>
+  <Capability Min="240" Max="244" Res="Others/rainbow.png">Random color Medium</Capability>
+  <Capability Min="245" Max="249" Res="Others/rainbow.png">Random color Slow</Capability>
   <Capability Min="250" Max="255">Open</Capability>
  </Channel>
  <Channel Name="Aura Red">
@@ -345,7 +345,7 @@
  <Mode Name="Extended Mode">
   <Physical>
    <Bulb Type="LED" Lumens="3850" ColourTemperature="0"/>
-   <Dimensions Weight="5.6" Width="302" Depth="360" Height="302"/>
+   <Dimensions Weight="5.6" Width="302" Height="302" Depth="360"/>
    <Lens Name="Other" DegreesMin="11" DegreesMax="58"/>
    <Focus Type="Head" PanMax="540" TiltMax="232"/>
    <Technical PowerConsumption="230" DmxConnector="5-pin"/>
@@ -379,7 +379,7 @@
  <Mode Name="Standard Mode">
   <Physical>
    <Bulb Type="LED" Lumens="3850" ColourTemperature="0"/>
-   <Dimensions Weight="5.6" Width="302" Depth="360" Height="302"/>
+   <Dimensions Weight="5.6" Width="302" Height="302" Depth="360"/>
    <Lens Name="Other" DegreesMin="11" DegreesMax="58"/>
    <Focus Type="Head" PanMax="540" TiltMax="232"/>
    <Technical PowerConsumption="230" DmxConnector="5-pin"/>

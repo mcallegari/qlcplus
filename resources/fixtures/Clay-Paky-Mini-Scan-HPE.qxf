@@ -19,7 +19,7 @@
   <Capability Min="82" Max="97" Color="#faa633">Orange</Capability>
   <Capability Min="98" Max="114" Color="#1072bc">Blue</Capability>
   <Capability Min="115" Max="127" Color="#f287b6">Pink</Capability>
-  <Capability Res="Others/rainbow.png" Min="128" Max="255">Rotation Speed</Capability>
+  <Capability Min="128" Max="255" Res="Others/rainbow.png">Rotation Speed</Capability>
  </Channel>
  <Channel Name="Gobo Rotation">
   <Group Byte="0">Speed</Group>
@@ -36,13 +36,13 @@
  </Channel>
  <Channel Name="Gobo Select">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/open.png" Min="0" Max="36">Open</Capability>
-  <Capability Res="Others/gobo00002.png" Min="37" Max="73">Gobo 1</Capability>
-  <Capability Res="Others/gobo00001.png" Min="74" Max="110">Gobo 2</Capability>
-  <Capability Res="ClayPaky/gobo00059.png" Min="111" Max="147">Gobo 3</Capability>
-  <Capability Res="Others/gobo00029.png" Min="148" Max="184">Gobo 4</Capability>
-  <Capability Res="ClayPaky/gobo00071.png" Min="185" Max="221">Gobo 5</Capability>
-  <Capability Res="Others/gobo00031.png" Min="222" Max="255">Gobo 6</Capability>
+  <Capability Min="0" Max="36" Res="Others/open.png">Open</Capability>
+  <Capability Min="37" Max="73" Res="Others/gobo00002.png">Gobo 1</Capability>
+  <Capability Min="74" Max="110" Res="Others/gobo00001.png">Gobo 2</Capability>
+  <Capability Min="111" Max="147" Res="ClayPaky/gobo00059.png">Gobo 3</Capability>
+  <Capability Min="148" Max="184" Res="Others/gobo00029.png">Gobo 4</Capability>
+  <Capability Min="185" Max="221" Res="ClayPaky/gobo00071.png">Gobo 5</Capability>
+  <Capability Min="222" Max="255" Res="Others/gobo00031.png">Gobo 6</Capability>
  </Channel>
  <Channel Name="Dimmer / Stopper / Strobe">
   <Group Byte="0">Shutter</Group>
@@ -72,10 +72,10 @@
  </Channel>
  <Mode Name="Default">
   <Physical>
-   <Bulb Lumens="22000" Type="HTI 300W" ColourTemperature="6500"/>
-   <Dimensions Width="582" Height="300" Weight="13" Depth="238"/>
-   <Lens DegreesMax="16" Name="Other" DegreesMin="16"/>
-   <Focus PanMax="150" Type="Mirror" TiltMax="110"/>
+   <Bulb Type="HTI 300W" Lumens="22000" ColourTemperature="6500"/>
+   <Dimensions Weight="13" Width="582" Height="300" Depth="238"/>
+   <Lens Name="Other" DegreesMin="16" DegreesMax="16"/>
+   <Focus Type="Mirror" PanMax="150" TiltMax="110"/>
    <Technical PowerConsumption="900" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Color Disc</Channel>

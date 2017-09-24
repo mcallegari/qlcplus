@@ -104,10 +104,10 @@
  </Channel>
  <Mode Name="Standard">
   <Physical>
-   <Bulb Lumens="0" Type="MSD 250W" ColourTemperature="8500"/>
-   <Dimensions Width="377" Height="535" Weight="23.5" Depth="350"/>
-   <Lens DegreesMax="31" Name="Other" DegreesMin="6"/>
-   <Focus PanMax="530" Type="Head" TiltMax="284"/>
+   <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="8500"/>
+   <Dimensions Weight="23.5" Width="377" Height="535" Depth="350"/>
+   <Lens Name="Other" DegreesMin="6" DegreesMax="31"/>
+   <Focus Type="Head" PanMax="530" TiltMax="284"/>
    <Technical PowerConsumption="460" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan Coarse</Channel>

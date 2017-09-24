@@ -2,7 +2,7 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
+  <Name>Q Light Controller Plus</Name>
   <Version>3.1.0</Version>
   <Author>Kevin Deldycke</Author>
  </Creator>
@@ -35,10 +35,10 @@
  </Channel>
  <Mode Name="Normal">
   <Physical>
-   <Bulb Lumens="396" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="265" Height="240" Weight="2.4" Depth="340"/>
-   <Lens DegreesMax="36" Name="Other" DegreesMin="36"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="396" ColourTemperature="0"/>
+   <Dimensions Weight="2.4" Width="265" Height="240" Depth="340"/>
+   <Lens Name="Other" DegreesMin="36" DegreesMax="36"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="32" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>

@@ -2,7 +2,7 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
+  <Name>Q Light Controller Plus</Name>
   <Version>3.0.7</Version>
   <Author>eklynx</Author>
  </Creator>
@@ -61,10 +61,10 @@
  </Channel>
  <Mode Name="DMX Mode">
   <Physical>
-   <Bulb Lumens="0" Type="Diode Lasers" ColourTemperature="0"/>
-   <Dimensions Width="247" Height="71" Weight="3" Depth="242"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="Diode Lasers" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="3" Width="247" Height="71" Depth="242"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="23" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red Laser</Channel>

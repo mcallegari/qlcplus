@@ -29,11 +29,11 @@
  </Channel>
  <Mode Name="3 Channel">
   <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
-   <Dimensions Weight="2.3" Width="1000" Depth="60" Height="115"/>
-   <Lens DegreesMin="120" DegreesMax="120" Name="Other"/>
-   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="52"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.3" Width="1000" Height="115" Depth="60"/>
+   <Lens Name="Other" DegreesMin="120" DegreesMax="120"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="52" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Strobing</Channel>

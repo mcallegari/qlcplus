@@ -16,6 +16,11 @@ contains(CONFIG, qmlui) {
 }
 SUBDIRS          += resources
 !android:!ios:SUBDIRS += fixtureeditor
+
+greaterThan(QT_MAJOR_VERSION, 4) {
+  !android:!ios:SUBDIRS += fixturetool
+}
+
 macx:SUBDIRS     += launcher
 SUBDIRS          += plugins
 

@@ -27,10 +27,10 @@
  </Channel>
  <Mode Name="4 Channels">
   <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="260" Height="210" Weight="2.6" Depth="53"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.6" Width="260" Height="210" Depth="53"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="0" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Ch1</Channel>
@@ -40,10 +40,10 @@
  </Mode>
  <Mode Name="2 Channels">
   <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="260" Height="210" Weight="2.6" Depth="53"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.6" Width="260" Height="210" Depth="53"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="0" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Ch1</Channel>
@@ -51,10 +51,10 @@
  </Mode>
  <Mode Name="1 Channel">
   <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="260" Height="210" Weight="2.6" Depth="53"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.6" Width="260" Height="210" Depth="53"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="0" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Ch1</Channel>

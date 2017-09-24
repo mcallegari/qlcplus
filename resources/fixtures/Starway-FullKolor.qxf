@@ -109,11 +109,11 @@
  </Channel>
  <Mode Name="Tour 10 Chanels">
   <Physical>
-   <Bulb Lumens="800" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="245" Depth="245" Weight="4.8" Height="205"/>
-   <Lens DegreesMin="16" DegreesMax="16" Name="Other"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="73"/>
+   <Bulb Type="LED" Lumens="800" ColourTemperature="0"/>
+   <Dimensions Weight="4.8" Width="245" Height="205" Depth="245"/>
+   <Lens Name="Other" DegreesMin="16" DegreesMax="16"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="73" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Red</Channel>
@@ -128,11 +128,11 @@
  </Mode>
  <Mode Name="Ar1.S 5 Chanels">
   <Physical>
-   <Bulb Lumens="800" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="245" Depth="245" Weight="4.8" Height="205"/>
-   <Lens DegreesMin="16" DegreesMax="16" Name="Other"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="73"/>
+   <Bulb Type="LED" Lumens="800" ColourTemperature="0"/>
+   <Dimensions Weight="4.8" Width="245" Height="205" Depth="245"/>
+   <Lens Name="Other" DegreesMin="16" DegreesMax="16"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="73" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Red</Channel>

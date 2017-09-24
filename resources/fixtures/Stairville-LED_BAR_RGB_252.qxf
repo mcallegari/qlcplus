@@ -13,11 +13,11 @@
   <Group Byte="0">Effect</Group>
   <Colour>Red</Colour>
   <Capability Min="0" Max="40" Color="#000000">Black out</Capability>
-  <Capability Res="Others/rainbow.png" Min="41" Max="80">Dimmer 1 (RGB mix, seperated segments)</Capability>
-  <Capability Res="Others/rainbow.png" Min="81" Max="120">Dimmer 2 (RGB mix, all segments)</Capability>
-  <Capability Res="SGM-Color/gobo00529.png" Min="161" Max="200">Color change</Capability>
-  <Capability Res="SGM-Color/gobo00542.png" Min="201" Max="240">Color flow</Capability>
-  <Capability Res="SGM-Color/gobo00484.png" Min="241" Max="255">Dream flow</Capability>
+  <Capability Min="41" Max="80" Res="Others/rainbow.png">Dimmer 1 (RGB mix, seperated segments)</Capability>
+  <Capability Min="81" Max="120" Res="Others/rainbow.png">Dimmer 2 (RGB mix, all segments)</Capability>
+  <Capability Min="161" Max="200" Res="SGM-Color/gobo00529.png">Color change</Capability>
+  <Capability Min="201" Max="240" Res="SGM-Color/gobo00542.png">Color flow</Capability>
+  <Capability Min="241" Max="255" Res="SGM-Color/gobo00484.png">Dream flow</Capability>
  </Channel>
  <Channel Name="Shutter / Speed">
   <Group Byte="0">Speed</Group>
@@ -74,17 +74,17 @@
   <Group Byte="0">Effect</Group>
   <Colour>Red</Colour>
   <Capability Min="0" Max="40" Color="#000000">Black out</Capability>
-  <Capability Res="Others/rainbow.png" Min="81" Max="120">Dimmer 2 (RGB mix, all segments)</Capability>
-  <Capability Res="SGM-Color/gobo00529.png" Min="161" Max="200">Color change</Capability>
-  <Capability Res="SGM-Color/gobo00542.png" Min="201" Max="240">Color flow</Capability>
-  <Capability Res="SGM-Color/gobo00484.png" Min="241" Max="255">Dream flow</Capability>
+  <Capability Min="81" Max="120" Res="Others/rainbow.png">Dimmer 2 (RGB mix, all segments)</Capability>
+  <Capability Min="161" Max="200" Res="SGM-Color/gobo00529.png">Color change</Capability>
+  <Capability Min="201" Max="240" Res="SGM-Color/gobo00542.png">Color flow</Capability>
+  <Capability Min="241" Max="255" Res="SGM-Color/gobo00484.png">Dream flow</Capability>
  </Channel>
  <Mode Name="Mode 1">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="4500"/>
-   <Dimensions Width="1100" Height="161" Weight="4.5" Depth="114"/>
-   <Lens DegreesMax="20" Name="Other" DegreesMin="20"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="4500"/>
+   <Dimensions Weight="4.5" Width="1100" Height="161" Depth="114"/>
+   <Lens Name="Other" DegreesMin="20" DegreesMax="20"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="30" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Mode 1</Channel>
@@ -116,10 +116,10 @@
  </Mode>
  <Mode Name="Mode 2">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="4500"/>
-   <Dimensions Width="1100" Height="161" Weight="4.5" Depth="114"/>
-   <Lens DegreesMax="20" Name="Other" DegreesMin="20"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="4500"/>
+   <Dimensions Weight="4.5" Width="1100" Height="161" Depth="114"/>
+   <Lens Name="Other" DegreesMin="20" DegreesMax="20"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="30" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Mode 2</Channel>

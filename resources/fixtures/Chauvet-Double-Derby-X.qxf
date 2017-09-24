@@ -24,11 +24,11 @@
  </Channel>
  <Mode Name="Standard">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Weight="2.7" Width="283" Depth="297" Height="264"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="30"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.7" Width="283" Height="264" Depth="297"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Control/Operating Mode</Channel>
   <Channel Number="1">Motor Rotation</Channel>

@@ -4,6 +4,7 @@
 
 APPNAME    = Q Light Controller Plus
 FXEDNAME   = Fixture Definition Editor
+FXTOOLNAME = Fixture Definition Tool
 APPVERSION = 4.11.1 GIT
 
 # Disable these if you don't want to see GIT short hash in the About Box

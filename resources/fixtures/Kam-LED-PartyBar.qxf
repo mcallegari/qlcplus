@@ -94,10 +94,10 @@
  <Mode Name="Normal">
   <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Width="863" Height="220" Depth="50" Weight="6"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
+   <Dimensions Weight="6" Width="863" Height="220" Depth="50"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="34"/>
+   <Technical PowerConsumption="34" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Sound</Channel>
   <Channel Number="1">Dimmer</Channel>

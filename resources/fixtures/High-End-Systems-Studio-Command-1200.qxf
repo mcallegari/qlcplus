@@ -104,10 +104,10 @@
  </Channel>
  <Mode Name="16-Bit Mode">
   <Physical>
-   <Bulb Lumens="15000" Type="MSR 1200W" ColourTemperature="5900"/>
-   <Dimensions Width="352" Height="544" Weight="24.9" Depth="526"/>
-   <Lens DegreesMax="32" Name="Fresnel" DegreesMin="8"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="240"/>
+   <Bulb Type="MSR 1200W" Lumens="15000" ColourTemperature="5900"/>
+   <Dimensions Weight="24.9" Width="352" Height="544" Depth="526"/>
+   <Lens Name="Fresnel" DegreesMin="8" DegreesMax="32"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="240"/>
    <Technical PowerConsumption="1400" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Pan (coarse)</Channel>

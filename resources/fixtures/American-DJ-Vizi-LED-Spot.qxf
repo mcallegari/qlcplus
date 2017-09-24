@@ -2,7 +2,7 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
+  <Name>Q Light Controller Plus</Name>
   <Version>3.0.7</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
@@ -130,10 +130,10 @@
  </Channel>
  <Mode Name="Extended">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="419" Height="214" Weight="9" Depth="303"/>
-   <Lens DegreesMax="14" Name="Other" DegreesMin="14"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="9" Width="419" Height="214" Depth="303"/>
+   <Lens Name="Other" DegreesMin="14" DegreesMax="14"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="88" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -151,10 +151,10 @@
  </Mode>
  <Mode Name="Standard">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="419" Height="214" Weight="9" Depth="303"/>
-   <Lens DegreesMax="14" Name="Other" DegreesMin="14"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="9" Width="419" Height="214" Depth="303"/>
+   <Lens Name="Other" DegreesMin="14" DegreesMax="14"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="88" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -170,10 +170,10 @@
  </Mode>
  <Mode Name="Extended (630 degree Pan)">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="419" Height="214" Weight="9" Depth="303"/>
-   <Lens DegreesMax="14" Name="Other" DegreesMin="14"/>
-   <Focus PanMax="630" Type="Fixed" TiltMax="270"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="9" Width="419" Height="214" Depth="303"/>
+   <Lens Name="Other" DegreesMin="14" DegreesMax="14"/>
+   <Focus Type="Fixed" PanMax="630" TiltMax="270"/>
    <Technical PowerConsumption="88" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -191,10 +191,10 @@
  </Mode>
  <Mode Name="Standard (630 degree Pan)">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="419" Height="214" Weight="9" Depth="303"/>
-   <Lens DegreesMax="14" Name="Other" DegreesMin="14"/>
-   <Focus PanMax="630" Type="Fixed" TiltMax="270"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="9" Width="419" Height="214" Depth="303"/>
+   <Lens Name="Other" DegreesMin="14" DegreesMax="14"/>
+   <Focus Type="Fixed" PanMax="630" TiltMax="270"/>
    <Technical PowerConsumption="88" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

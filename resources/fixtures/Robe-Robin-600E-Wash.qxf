@@ -50,7 +50,7 @@
   <Capability Min="200" Max="209">Total Reset</Capability>
   <Capability Min="210" Max="229">Reserved</Capability>
   <Capability Min="230" Max="239">Lamp Off</Capability>
-  <Capability Min="240" Max="240">Disable "Silent" Mode fans</Capability>
+  <Capability Min="240" Max="240">Disable &quot;Silent&quot; Mode fans</Capability>
   <Capability Min="241" Max="255">Silent mode Fans min to max</Capability>
  </Channel>
  <Channel Name="Colour Wheel">
@@ -170,10 +170,10 @@
  </Channel>
  <Mode Name="Mode 1">
   <Physical>
-   <Bulb Lumens="37000" Type="MSR 575W/2" ColourTemperature="7500"/>
-   <Dimensions Width="433" Height="518" Weight="21" Depth="408"/>
-   <Lens DegreesMax="35" Name="Other" DegreesMin="10"/>
-   <Focus PanMax="540" Type="Head" TiltMax="260"/>
+   <Bulb Type="MSR 575W/2" Lumens="37000" ColourTemperature="7500"/>
+   <Dimensions Weight="21" Width="433" Height="518" Depth="408"/>
+   <Lens Name="Other" DegreesMin="10" DegreesMax="35"/>
+   <Focus Type="Head" PanMax="540" TiltMax="260"/>
    <Technical PowerConsumption="730" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -198,10 +198,10 @@
  </Mode>
  <Mode Name="Mode 2">
   <Physical>
-   <Bulb Lumens="37000" Type="MSR 575W/2" ColourTemperature="7500"/>
-   <Dimensions Width="433" Height="518" Weight="21" Depth="408"/>
-   <Lens DegreesMax="35" Name="Other" DegreesMin="10"/>
-   <Focus PanMax="540" Type="Head" TiltMax="260"/>
+   <Bulb Type="MSR 575W/2" Lumens="37000" ColourTemperature="7500"/>
+   <Dimensions Weight="21" Width="433" Height="518" Depth="408"/>
+   <Lens Name="Other" DegreesMin="10" DegreesMax="35"/>
+   <Focus Type="Head" PanMax="540" TiltMax="260"/>
    <Technical PowerConsumption="730" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -223,10 +223,10 @@
  </Mode>
  <Mode Name="Mode 3">
   <Physical>
-   <Bulb Lumens="37000" Type="MSR 575W/2" ColourTemperature="7500"/>
-   <Dimensions Width="433" Height="518" Weight="21" Depth="408"/>
-   <Lens DegreesMax="35" Name="Other" DegreesMin="10"/>
-   <Focus PanMax="540" Type="Head" TiltMax="260"/>
+   <Bulb Type="MSR 575W/2" Lumens="37000" ColourTemperature="7500"/>
+   <Dimensions Weight="21" Width="433" Height="518" Depth="408"/>
+   <Lens Name="Other" DegreesMin="10" DegreesMax="35"/>
+   <Focus Type="Head" PanMax="540" TiltMax="260"/>
    <Technical PowerConsumption="730" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

@@ -20,35 +20,35 @@
  </Channel>
  <Channel Name="RGB Macro">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Color="#ff0000" Max="8">Macro 1</Capability>
-  <Capability Min="9" Color="#ff3200" Max="17">Macro 2</Capability>
-  <Capability Min="18" Color="#ff9600" Max="26">Macro 3</Capability>
-  <Capability Min="27" Color="#ffff00" Max="35">Macro 4</Capability>
-  <Capability Min="36" Color="#c8ff00" Max="44">Macro 5</Capability>
-  <Capability Min="45" Color="#64ff00" Max="53">Macro 6</Capability>
-  <Capability Min="54" Color="#28ff00" Max="62">Macro 7</Capability>
-  <Capability Min="63" Color="#00ff00" Max="71">Macro 8</Capability>
-  <Capability Min="72" Color="#00ff32" Max="80">Macro 9</Capability>
-  <Capability Min="81" Color="#00ff96" Max="89">Macro 10</Capability>
-  <Capability Min="90" Color="#00ffff" Max="98">Macro 11</Capability>
-  <Capability Min="99" Color="#0096ff" Max="107">Macro 12</Capability>
-  <Capability Min="108" Color="#0032ff" Max="116">Macro 13</Capability>
-  <Capability Min="117" Color="#0000ff" Max="125">Macro 14</Capability>
-  <Capability Min="126" Color="#3200ff" Max="134">Macro 15</Capability>
-  <Capability Min="135" Color="#9600ff" Max="143">Macro 16</Capability>
-  <Capability Min="144" Color="#ff00ff" Max="152">Macro 17</Capability>
-  <Capability Min="153" Color="#dc0032" Max="161">Macro 18</Capability>
-  <Capability Min="162" Color="#963264" Max="170">Macro 19</Capability>
-  <Capability Min="171" Color="#32b4dc" Max="179">Macro 20</Capability>
-  <Capability Min="180" Color="#32dc64" Max="188">Macro 21</Capability>
-  <Capability Min="189" Color="#96dc00" Max="197">Macro 22</Capability>
-  <Capability Min="198" Color="#9600dc" Max="206">Macro 23</Capability>
-  <Capability Min="207" Color="#00b4dc" Max="215">Macro 24</Capability>
-  <Capability Min="216" Color="#00dc32" Max="224">Macro 25</Capability>
-  <Capability Min="225" Color="#dc6432" Max="233">Macro 26</Capability>
-  <Capability Min="234" Color="#dcc864" Max="242">Macro 27</Capability>
-  <Capability Min="243" Color="#e1c896" Max="251">Macro 28</Capability>
-  <Capability Min="252" Color="#ffffff" Max="255">Macro 29</Capability>
+  <Capability Min="0" Max="8" Color="#ff0000">Macro 1</Capability>
+  <Capability Min="9" Max="17" Color="#ff3200">Macro 2</Capability>
+  <Capability Min="18" Max="26" Color="#ff9600">Macro 3</Capability>
+  <Capability Min="27" Max="35" Color="#ffff00">Macro 4</Capability>
+  <Capability Min="36" Max="44" Color="#c8ff00">Macro 5</Capability>
+  <Capability Min="45" Max="53" Color="#64ff00">Macro 6</Capability>
+  <Capability Min="54" Max="62" Color="#28ff00">Macro 7</Capability>
+  <Capability Min="63" Max="71" Color="#00ff00">Macro 8</Capability>
+  <Capability Min="72" Max="80" Color="#00ff32">Macro 9</Capability>
+  <Capability Min="81" Max="89" Color="#00ff96">Macro 10</Capability>
+  <Capability Min="90" Max="98" Color="#00ffff">Macro 11</Capability>
+  <Capability Min="99" Max="107" Color="#0096ff">Macro 12</Capability>
+  <Capability Min="108" Max="116" Color="#0032ff">Macro 13</Capability>
+  <Capability Min="117" Max="125" Color="#0000ff">Macro 14</Capability>
+  <Capability Min="126" Max="134" Color="#3200ff">Macro 15</Capability>
+  <Capability Min="135" Max="143" Color="#9600ff">Macro 16</Capability>
+  <Capability Min="144" Max="152" Color="#ff00ff">Macro 17</Capability>
+  <Capability Min="153" Max="161" Color="#dc0032">Macro 18</Capability>
+  <Capability Min="162" Max="170" Color="#963264">Macro 19</Capability>
+  <Capability Min="171" Max="179" Color="#32b4dc">Macro 20</Capability>
+  <Capability Min="180" Max="188" Color="#32dc64">Macro 21</Capability>
+  <Capability Min="189" Max="197" Color="#96dc00">Macro 22</Capability>
+  <Capability Min="198" Max="206" Color="#9600dc">Macro 23</Capability>
+  <Capability Min="207" Max="215" Color="#00b4dc">Macro 24</Capability>
+  <Capability Min="216" Max="224" Color="#00dc32">Macro 25</Capability>
+  <Capability Min="225" Max="233" Color="#dc6432">Macro 26</Capability>
+  <Capability Min="234" Max="242" Color="#dcc864">Macro 27</Capability>
+  <Capability Min="243" Max="251" Color="#e1c896">Macro 28</Capability>
+  <Capability Min="252" Max="255" Color="#ffffff">Macro 29</Capability>
  </Channel>
  <Channel Name="Programs Speed">
   <Group Byte="0">Speed</Group>
@@ -89,10 +89,10 @@
  </Channel>
  <Mode Name="6 Channels">
   <Physical>
-   <Bulb Lumens="9600" ColourTemperature="0" Type="LED"/>
-   <Dimensions Width="250" Depth="96" Weight="2.84" Height="290"/>
-   <Lens DegreesMax="28" DegreesMin="28" Name="Other"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
+   <Bulb Type="LED" Lumens="9600" ColourTemperature="0"/>
+   <Dimensions Weight="2.84" Width="250" Height="290" Depth="96"/>
+   <Lens Name="Other" DegreesMin="28" DegreesMax="28"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="60" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
@@ -107,10 +107,10 @@
  </Mode>
  <Mode Name="4 Channels">
   <Physical>
-   <Bulb Lumens="9600" ColourTemperature="0" Type="LED"/>
-   <Dimensions Width="250" Depth="96" Weight="2.84" Height="290"/>
-   <Lens DegreesMax="28" DegreesMin="28" Name="Other"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
+   <Bulb Type="LED" Lumens="9600" ColourTemperature="0"/>
+   <Dimensions Weight="2.84" Width="250" Height="290" Depth="96"/>
+   <Lens Name="Other" DegreesMin="28" DegreesMax="28"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="60" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
@@ -120,10 +120,10 @@
  </Mode>
  <Mode Name="3 Channels">
   <Physical>
-   <Bulb Lumens="9600" ColourTemperature="0" Type="LED"/>
-   <Dimensions Width="250" Depth="96" Weight="2.84" Height="290"/>
-   <Lens DegreesMax="28" DegreesMin="28" Name="Other"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
+   <Bulb Type="LED" Lumens="9600" ColourTemperature="0"/>
+   <Dimensions Weight="2.84" Width="250" Height="290" Depth="96"/>
+   <Lens Name="Other" DegreesMin="28" DegreesMax="28"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="60" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
@@ -132,10 +132,10 @@
  </Mode>
  <Mode Name="1 Channel">
   <Physical>
-   <Bulb Lumens="9600" ColourTemperature="0" Type="LED"/>
-   <Dimensions Width="250" Depth="96" Weight="2.84" Height="290"/>
-   <Lens DegreesMax="28" DegreesMin="28" Name="Other"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
+   <Bulb Type="LED" Lumens="9600" ColourTemperature="0"/>
+   <Dimensions Weight="2.84" Width="250" Height="290" Depth="96"/>
+   <Lens Name="Other" DegreesMin="28" DegreesMax="28"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="60" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">RGB Macro</Channel>

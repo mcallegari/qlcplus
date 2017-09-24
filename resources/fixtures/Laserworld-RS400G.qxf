@@ -92,11 +92,11 @@
  </Channel>
  <Mode Name="Laserworld RS400G">
   <Physical>
-   <Bulb Type="Laser" ColourTemperature="0" Lumens="0"/>
-   <Dimensions Weight="15" Width="550" Depth="320" Height="310"/>
-   <Lens DegreesMin="40" DegreesMax="60" Name="Other"/>
-   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="120"/>
+   <Bulb Type="Laser" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="15" Width="550" Height="310" Depth="320"/>
+   <Lens Name="Other" DegreesMin="40" DegreesMax="60"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="120" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Control</Channel>
   <Channel Number="1">Colour</Channel>

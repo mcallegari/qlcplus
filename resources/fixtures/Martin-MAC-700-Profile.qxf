@@ -40,7 +40,7 @@
  </Channel>
  <Channel Name="Dimmer, fine (LSB)">
   <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255"/>
+  <Capability Min="0" Max="255"></Capability>
  </Channel>
  <Channel Name="Cyan (MSB)">
   <Group Byte="0">Intensity</Group>
@@ -171,13 +171,13 @@
   <Capability Min="67" Max="76">Slot 6 -&gt; Slot 7</Capability>
   <Capability Min="77" Max="77">Slot 7 (Leaf Breakup)</Capability>
   <Capability Min="78" Max="87">Slot 7 -&gt; Slot 8</Capability>
-  <Capability Min="88" Max="88" Res="GLP/gobo00006.png">Slot 8 ("Les Mis" Whirl Pool)</Capability>
+  <Capability Min="88" Max="88" Res="GLP/gobo00006.png">Slot 8 (&quot;Les Mis&quot; Whirl Pool)</Capability>
   <Capability Min="89" Max="98">Slot 8 -&gt; Slot 9</Capability>
   <Capability Min="99" Max="99">Slot 9 (Two Tone)</Capability>
   <Capability Min="100" Max="109">Slot 9 -&gt; Open</Capability>
   <Capability Min="110" Max="112" Res="Others/open.png">Open</Capability>
   <Capability Min="113" Max="121">Slot 9 (Tow Tone)</Capability>
-  <Capability Min="122" Max="130" Res="GLP/gobo00006.png">Slot 8 ("Les Mis" Whirl Pool)</Capability>
+  <Capability Min="122" Max="130" Res="GLP/gobo00006.png">Slot 8 (&quot;Les Mis&quot; Whirl Pool)</Capability>
   <Capability Min="131" Max="139">Slot 7 (Leaf Breakup)</Capability>
   <Capability Min="140" Max="148" Res="Others/gobo00039.png">Slot 6 (Bio)</Capability>
   <Capability Min="149" Max="157" Res="ClayPaky/gobo00035.png">Slot 5 (Worms)</Capability>

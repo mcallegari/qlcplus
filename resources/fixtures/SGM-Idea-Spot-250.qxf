@@ -43,7 +43,7 @@
  </Channel>
  <Channel Name="Color Wheel">
   <Group Byte="0">Colour</Group>
-  <Capability Color="#ffffff" Min="0" Max="13">Open /white</Capability>
+  <Capability Min="0" Max="13" Color="#ffffff">Open /white</Capability>
   <Capability Min="14" Max="27">Color 1</Capability>
   <Capability Min="28" Max="41">Color 2</Capability>
   <Capability Min="42" Max="55">Color 3</Capability>
@@ -52,9 +52,9 @@
   <Capability Min="84" Max="97">Color 6</Capability>
   <Capability Min="98" Max="111">Color 7</Capability>
   <Capability Min="112" Max="127">Color 8</Capability>
-  <Capability Res="Others/rainbow.png" Min="128" Max="187">Forwards rainbow effect from fast to slow</Capability>
+  <Capability Min="128" Max="187" Res="Others/rainbow.png">Forwards rainbow effect from fast to slow</Capability>
   <Capability Min="188" Max="193">No rotation</Capability>
-  <Capability Res="Others/rainbow.png" Min="194" Max="255">Backwards rainbow effect from slow to fast</Capability>
+  <Capability Min="194" Max="255" Res="Others/rainbow.png">Backwards rainbow effect from slow to fast</Capability>
  </Channel>
  <Channel Name="Rotating gobos, cont. rotation">
   <Group Byte="0">Gobo</Group>
@@ -159,11 +159,11 @@
  </Channel>
  <Mode Name="14 channels (16bit)">
   <Physical>
-   <Bulb Type="MSD 250W" ColourTemperature="8000" Lumens="0"/>
-   <Dimensions Width="600" Depth="470" Height="610" Weight="27"/>
-   <Lens DegreesMin="16" DegreesMax="35" Name="Other"/>
+   <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="8000"/>
+   <Dimensions Weight="27" Width="600" Height="610" Depth="470"/>
+   <Lens Name="Other" DegreesMin="16" DegreesMax="35"/>
    <Focus Type="Fixed" PanMax="630" TiltMax="265"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="400"/>
+   <Technical PowerConsumption="400" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Pan movement</Channel>
   <Channel Number="1">Pan fine</Channel>
@@ -182,11 +182,11 @@
  </Mode>
  <Mode Name="12 channels (8bit)">
   <Physical>
-   <Bulb Type="MSD 250W" ColourTemperature="8000" Lumens="0"/>
-   <Dimensions Width="600" Depth="470" Height="610" Weight="27"/>
-   <Lens DegreesMin="16" DegreesMax="35" Name="Other"/>
+   <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="8000"/>
+   <Dimensions Weight="27" Width="600" Height="610" Depth="470"/>
+   <Lens Name="Other" DegreesMin="16" DegreesMax="35"/>
    <Focus Type="Fixed" PanMax="630" TiltMax="265"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="400"/>
+   <Technical PowerConsumption="400" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Pan movement</Channel>
   <Channel Number="1">Tilt movement</Channel>

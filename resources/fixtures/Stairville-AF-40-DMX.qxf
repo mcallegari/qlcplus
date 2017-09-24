@@ -11,15 +11,15 @@
  <Type>Hazer</Type>
  <Channel Name="Fog amount">
   <Group Byte="0">Intensity</Group>
-  <Capability Max="255" Min="0">Fog output (0 - 100%)</Capability>
+  <Capability Min="0" Max="255">Fog output (0 - 100%)</Capability>
  </Channel>
  <Mode Name="Normal">
   <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type=""/>
-   <Dimensions Depth="150" Width="280" Height="190" Weight="2.1"/>
-   <Lens Name="Other" DegreesMax="0" DegreesMin="0"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="400"/>
+   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.1" Width="280" Height="190" Depth="150"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="400" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Fog amount</Channel>
  </Mode>

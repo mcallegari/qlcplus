@@ -59,10 +59,10 @@
  </Channel>
  <Mode Name="12-CH">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="207" Height="209" Weight="3.8" Depth="246"/>
-   <Lens DegreesMax="60" Name="Other" DegreesMin="60"/>
-   <Focus PanMax="540" Type="Head" TiltMax="270"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="3.8" Width="207" Height="209" Depth="246"/>
+   <Lens Name="Other" DegreesMin="60" DegreesMax="60"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
    <Technical PowerConsumption="36" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Pan Coarse</Channel>

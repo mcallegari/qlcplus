@@ -83,10 +83,10 @@
  </Channel>
  <Mode Name="4-Channel">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="6" Width="260" Height="195" Depth="293"/>
-   <Lens DegreesMin="20" DegreesMax="0" Name="Other"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Lens Name="Other" DegreesMin="20" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="78" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
@@ -96,10 +96,10 @@
  </Mode>
  <Mode Name="5-Channel">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="6" Width="260" Height="195" Depth="293"/>
-   <Lens DegreesMin="20" DegreesMax="0" Name="Other"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Lens Name="Other" DegreesMin="20" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="78" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
@@ -110,10 +110,10 @@
  </Mode>
  <Mode Name="7-Channel">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="6" Width="260" Height="195" Depth="293"/>
-   <Lens DegreesMin="20" DegreesMax="0" Name="Other"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Lens Name="Other" DegreesMin="20" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="78" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>

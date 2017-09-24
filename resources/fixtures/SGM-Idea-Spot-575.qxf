@@ -165,10 +165,10 @@
  </Channel>
  <Mode Name="16 Channels">
   <Physical>
-   <Bulb Lumens="0" Type="MSR 575W" ColourTemperature="7200"/>
-   <Dimensions Width="500" Height="390" Weight="38.5" Depth="500"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="630" Type="Fixed" TiltMax="265"/>
+   <Bulb Type="MSR 575W" Lumens="0" ColourTemperature="7200"/>
+   <Dimensions Weight="38.5" Width="500" Height="390" Depth="500"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="630" TiltMax="265"/>
    <Technical PowerConsumption="780" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -190,10 +190,10 @@
  </Mode>
  <Mode Name="14 Channels">
   <Physical>
-   <Bulb Lumens="0" Type="MSR 575W" ColourTemperature="7200"/>
-   <Dimensions Width="500" Height="390" Weight="38.5" Depth="500"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="265"/>
+   <Bulb Type="MSR 575W" Lumens="0" ColourTemperature="7200"/>
+   <Dimensions Weight="38.5" Width="500" Height="390" Depth="500"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="265"/>
    <Technical PowerConsumption="780" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

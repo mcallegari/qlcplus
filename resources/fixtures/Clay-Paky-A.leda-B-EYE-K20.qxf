@@ -70,9 +70,9 @@
   <Capability Min="13" Max="13" Color="#00ffff">Cyan</Capability>
   <Capability Min="14" Max="14" Color="#ffff00">Yellow</Capability>
   <Capability Min="15" Max="15" Color="#ff00ff">Magenta</Capability>
-  <Capability Min="16" Max="16" Color2="#ffffff" Color="#d8ed3d">White 7000 K</Capability>
-  <Capability Min="17" Max="17" Color2="#ffffff" Color="#ffc919">White 3700 K</Capability>
-  <Capability Min="18" Max="18" Color2="#ffffff" Color="#ff8900">White 5000 K</Capability>
+  <Capability Min="16" Max="16" Color="#d8ed3d" Color2="#ffffff">White 7000 K</Capability>
+  <Capability Min="17" Max="17" Color="#ffc919" Color2="#ffffff">White 3700 K</Capability>
+  <Capability Min="18" Max="18" Color="#ff8900" Color2="#ffffff">White 5000 K</Capability>
   <Capability Min="19" Max="19" Color="#000000">Black</Capability>
   <Capability Min="20" Max="22" Color="#9c7e00">Medium Yellow</Capability>
   <Capability Min="23" Max="26" Color="#987309">Straw Tint</Capability>
@@ -1092,11 +1092,11 @@
  </Channel>
  <Mode Name="Extended RGBW">
   <Physical>
-   <Bulb Lumens="9800" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="395" Weight="21" Depth="330" Height="589"/>
+   <Bulb Type="LED" Lumens="9800" ColourTemperature="0"/>
+   <Dimensions Weight="21" Width="395" Height="589" Depth="330"/>
    <Lens Name="Other" DegreesMin="4" DegreesMax="60"/>
    <Focus Type="Head" PanMax="540" TiltMax="210"/>
-   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="750"/>
+   <Technical PowerConsumption="750" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Red fine</Channel>
@@ -1492,11 +1492,11 @@
  </Mode>
  <Mode Name="Extended RGB">
   <Physical>
-   <Bulb Lumens="9800" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="395" Weight="21" Depth="330" Height="589"/>
+   <Bulb Type="LED" Lumens="9800" ColourTemperature="0"/>
+   <Dimensions Weight="21" Width="395" Height="589" Depth="330"/>
    <Lens Name="Other" DegreesMin="4" DegreesMax="60"/>
    <Focus Type="Head" PanMax="540" TiltMax="210"/>
-   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="750"/>
+   <Technical PowerConsumption="750" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Red fine</Channel>
@@ -1818,11 +1818,11 @@
  </Mode>
  <Mode Name="Shapes">
   <Physical>
-   <Bulb Lumens="9800" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="395" Weight="21" Depth="330" Height="589"/>
+   <Bulb Type="LED" Lumens="9800" ColourTemperature="0"/>
+   <Dimensions Weight="21" Width="395" Height="589" Depth="330"/>
    <Lens Name="Other" DegreesMin="4" DegreesMax="60"/>
    <Focus Type="Head" PanMax="540" TiltMax="210"/>
-   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="750"/>
+   <Technical PowerConsumption="750" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Red fine</Channel>
@@ -1862,11 +1862,11 @@
  </Mode>
  <Mode Name="Standard">
   <Physical>
-   <Bulb Lumens="9800" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="395" Weight="21" Depth="330" Height="589"/>
+   <Bulb Type="LED" Lumens="9800" ColourTemperature="0"/>
+   <Dimensions Weight="21" Width="395" Height="589" Depth="330"/>
    <Lens Name="Other" DegreesMin="4" DegreesMax="60"/>
    <Focus Type="Head" PanMax="540" TiltMax="210"/>
-   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="750"/>
+   <Technical PowerConsumption="750" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Red fine</Channel>

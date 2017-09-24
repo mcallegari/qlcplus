@@ -2,7 +2,7 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
+  <Name>Q Light Controller Plus</Name>
   <Version>2.6.1</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
@@ -66,10 +66,10 @@
  </Channel>
  <Mode Name="Mode 1">
   <Physical>
-   <Bulb ColourTemperature="3200" Lumens="0" Type="ELC 250W"/>
-   <Dimensions Width="269" Height="537" Weight="6" Depth="263"/>
-   <Lens DegreesMax="16" Name="Other" DegreesMin="16"/>
-   <Focus TiltMax="77" PanMax="230" Type="Mirror"/>
+   <Bulb Type="ELC 250W" Lumens="0" ColourTemperature="3200"/>
+   <Dimensions Weight="6" Width="269" Height="537" Depth="263"/>
+   <Lens Name="Other" DegreesMin="16" DegreesMax="16"/>
+   <Focus Type="Mirror" PanMax="230" TiltMax="77"/>
    <Technical PowerConsumption="265" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer, strobe, reset</Channel>

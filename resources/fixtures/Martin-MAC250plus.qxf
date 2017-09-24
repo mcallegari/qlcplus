@@ -2,7 +2,7 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
+  <Name>Q Light Controller Plus</Name>
   <Version>2.6.1</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
@@ -150,10 +150,11 @@
  </Channel>
  <Mode Name="Mode 1">
   <Physical>
-   <Bulb ColourTemperature="6500" Lumens="3180" Type="MSD 250W"/>
-   <Dimensions Width="384" Height="525" Weight="22" Depth="330"/>
-   <Lens DegreesMax="18" Name="PC" DegreesMin="18"/>
-   <Focus TiltMax="270" PanMax="540" Type="Head"/>
+   <Bulb Type="MSD 250W" Lumens="3180" ColourTemperature="6500"/>
+   <Dimensions Weight="22" Width="384" Height="525" Depth="330"/>
+   <Lens Name="PC" DegreesMin="18" DegreesMax="18"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="350" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
   <Channel Number="1">Dimmer</Channel>
@@ -167,10 +168,11 @@
  </Mode>
  <Mode Name="Mode 2">
   <Physical>
-   <Bulb ColourTemperature="6500" Lumens="3180" Type="MSD 250W"/>
-   <Dimensions Width="384" Height="525" Weight="22" Depth="330"/>
-   <Lens DegreesMax="18" Name="PC" DegreesMin="18"/>
-   <Focus TiltMax="270" PanMax="540" Type="Head"/>
+   <Bulb Type="MSD 250W" Lumens="3180" ColourTemperature="6500"/>
+   <Dimensions Weight="22" Width="384" Height="525" Depth="330"/>
+   <Lens Name="PC" DegreesMin="18" DegreesMax="18"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="350" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
   <Channel Number="1">Dimmer</Channel>
@@ -186,10 +188,11 @@
  </Mode>
  <Mode Name="Mode 3">
   <Physical>
-   <Bulb ColourTemperature="6500" Lumens="3180" Type="MSD 250W"/>
-   <Dimensions Width="384" Height="525" Weight="22" Depth="330"/>
-   <Lens DegreesMax="18" Name="PC" DegreesMin="18"/>
-   <Focus TiltMax="270" PanMax="540" Type="Head"/>
+   <Bulb Type="MSD 250W" Lumens="3180" ColourTemperature="6500"/>
+   <Dimensions Weight="22" Width="384" Height="525" Depth="330"/>
+   <Lens Name="PC" DegreesMin="18" DegreesMax="18"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="350" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
   <Channel Number="1">Dimmer</Channel>
@@ -205,10 +208,11 @@
  </Mode>
  <Mode Name="Mode 4">
   <Physical>
-   <Bulb ColourTemperature="6500" Lumens="3180" Type="MSD 250W"/>
-   <Dimensions Width="384" Height="525" Weight="22" Depth="330"/>
-   <Lens DegreesMax="18" Name="PC" DegreesMin="18"/>
-   <Focus TiltMax="270" PanMax="540" Type="Head"/>
+   <Bulb Type="MSD 250W" Lumens="3180" ColourTemperature="6500"/>
+   <Dimensions Weight="22" Width="384" Height="525" Depth="330"/>
+   <Lens Name="PC" DegreesMin="18" DegreesMax="18"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="350" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
   <Channel Number="1">Dimmer</Channel>

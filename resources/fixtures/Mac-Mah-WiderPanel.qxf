@@ -2,7 +2,7 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
+  <Name>Q Light Controller Plus</Name>
   <Version>3.1.0</Version>
   <Author>Kevin Deldycke</Author>
  </Creator>
@@ -339,10 +339,10 @@
  </Channel>
  <Mode Name="Mode A1 - 3 channels, 1 groups of 8 blocs">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="820" Height="117" Weight="5" Depth="73"/>
-   <Lens DegreesMax="25" Name="Other" DegreesMin="25"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="5" Width="820" Height="117" Depth="73"/>
+   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="70" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red intensity #1</Channel>
@@ -351,10 +351,10 @@
  </Mode>
  <Mode Name="Mode A2 - 3 channels, 2 groups of 4 blocs">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="820" Height="117" Weight="5" Depth="73"/>
-   <Lens DegreesMax="25" Name="Other" DegreesMin="25"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="5" Width="820" Height="117" Depth="73"/>
+   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="70" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red intensity #1</Channel>
@@ -366,10 +366,10 @@
  </Mode>
  <Mode Name="Mode A3 - 3 channels, 4 groups of 2 blocs">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="820" Height="117" Weight="5" Depth="73"/>
-   <Lens DegreesMax="25" Name="Other" DegreesMin="25"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="5" Width="820" Height="117" Depth="73"/>
+   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="70" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red intensity #1</Channel>
@@ -387,10 +387,10 @@
  </Mode>
  <Mode Name="Mode A4 - 3 channels, 8 groups of 1 bloc">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="820" Height="117" Weight="5" Depth="73"/>
-   <Lens DegreesMax="25" Name="Other" DegreesMin="25"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="5" Width="820" Height="117" Depth="73"/>
+   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="70" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red intensity #1</Channel>
@@ -420,10 +420,10 @@
  </Mode>
  <Mode Name="Mode B1 - 6 channels, 1 groups of 8 blocs">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="820" Height="117" Weight="5" Depth="73"/>
-   <Lens DegreesMax="25" Name="Other" DegreesMin="25"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="5" Width="820" Height="117" Depth="73"/>
+   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="70" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer effect #1</Channel>
@@ -435,10 +435,10 @@
  </Mode>
  <Mode Name="Mode B2 - 6 channels, 2 groups of 4 blocs">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="820" Height="117" Weight="5" Depth="73"/>
-   <Lens DegreesMax="25" Name="Other" DegreesMin="25"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="5" Width="820" Height="117" Depth="73"/>
+   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="70" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer effect #1</Channel>
@@ -456,10 +456,10 @@
  </Mode>
  <Mode Name="Mode B3 - 6 channels, 4 groups of 2 blocs">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="820" Height="117" Weight="5" Depth="73"/>
-   <Lens DegreesMax="25" Name="Other" DegreesMin="25"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="5" Width="820" Height="117" Depth="73"/>
+   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="70" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer effect #1</Channel>
@@ -489,10 +489,10 @@
  </Mode>
  <Mode Name="Mode B4 - 6 channels, 8 groups of 1 bloc">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="820" Height="117" Weight="5" Depth="73"/>
-   <Lens DegreesMax="25" Name="Other" DegreesMin="25"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="5" Width="820" Height="117" Depth="73"/>
+   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="70" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Dimmer effect #1</Channel>

@@ -52,10 +52,10 @@
  </Channel>
  <Mode Name="Normal">
   <Physical>
-   <Bulb Lumens="0" Type="None" ColourTemperature="0"/>
-   <Dimensions Width="300" Height="210" Weight="15" Depth="620"/>
-   <Lens DegreesMax="0" Name="None" DegreesMin="0"/>
-   <Focus PanMax="0" Type="None" TiltMax="0"/>
+   <Bulb Type="None" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="15" Width="300" Height="210" Depth="620"/>
+   <Lens Name="None" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="None" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="1500" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">On-Off</Channel>

@@ -2,7 +2,7 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
+  <Name>Q Light Controller Plus</Name>
   <Version>3.2.0-1-r2532</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
@@ -127,10 +127,10 @@
  </Channel>
  <Mode Name="Mode 1">
   <Physical>
-   <Bulb Lumens="1250" Type="MSD 200W" ColourTemperature="5600"/>
-   <Dimensions Width="280" Height="533" Weight="14" Depth="184"/>
-   <Lens DegreesMax="12" Name="Other" DegreesMin="12"/>
-   <Focus PanMax="175" Type="Mirror" TiltMax="85"/>
+   <Bulb Type="MSD 200W" Lumens="1250" ColourTemperature="5600"/>
+   <Dimensions Weight="14" Width="280" Height="533" Depth="184"/>
+   <Lens Name="Other" DegreesMin="12" DegreesMax="12"/>
+   <Focus Type="Mirror" PanMax="175" TiltMax="85"/>
    <Technical PowerConsumption="300" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Shutter/Strobe</Channel>
@@ -142,10 +142,10 @@
  </Mode>
  <Mode Name="Mode 2">
   <Physical>
-   <Bulb Lumens="1250" Type="MSD 200W" ColourTemperature="5600"/>
-   <Dimensions Width="280" Height="533" Weight="14" Depth="184"/>
-   <Lens DegreesMax="12" Name="Other" DegreesMin="12"/>
-   <Focus PanMax="175" Type="Mirror" TiltMax="85"/>
+   <Bulb Type="MSD 200W" Lumens="1250" ColourTemperature="5600"/>
+   <Dimensions Weight="14" Width="280" Height="533" Depth="184"/>
+   <Lens Name="Other" DegreesMin="12" DegreesMax="12"/>
+   <Focus Type="Mirror" PanMax="175" TiltMax="85"/>
    <Technical PowerConsumption="300" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Shutter/Strobe</Channel>
@@ -159,10 +159,10 @@
  </Mode>
  <Mode Name="Mode 3">
   <Physical>
-   <Bulb Lumens="1250" Type="MSD 200W" ColourTemperature="5600"/>
-   <Dimensions Width="280" Height="533" Weight="14" Depth="184"/>
-   <Lens DegreesMax="12" Name="Other" DegreesMin="12"/>
-   <Focus PanMax="175" Type="Mirror" TiltMax="85"/>
+   <Bulb Type="MSD 200W" Lumens="1250" ColourTemperature="5600"/>
+   <Dimensions Weight="14" Width="280" Height="533" Depth="184"/>
+   <Lens Name="Other" DegreesMin="12" DegreesMax="12"/>
+   <Focus Type="Mirror" PanMax="175" TiltMax="85"/>
    <Technical PowerConsumption="300" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Shutter/Strobe</Channel>

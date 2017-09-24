@@ -2,9 +2,9 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
+  <Name>Q Light Controller Plus</Name>
   <Version>3.0.0</Version>
-  <Author/>
+  <Author>Jano Svitok</Author>
  </Creator>
  <Manufacturer>Eurolite</Manufacturer>
  <Model>TC-200</Model>
@@ -34,10 +34,10 @@
  </Channel>
  <Mode Name="Normal">
   <Physical>
-   <Bulb Lumens="9500" Type="HTI 150W" ColourTemperature="4500"/>
-   <Dimensions Width="280" Height="300" Weight="7" Depth="290"/>
-   <Lens DegreesMax="18" Name="Other" DegreesMin="18"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="HTI 150W" Lumens="9500" ColourTemperature="4500"/>
+   <Dimensions Weight="7" Width="280" Height="300" Depth="290"/>
+   <Lens Name="Other" DegreesMin="18" DegreesMax="18"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="320" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Colour</Channel>

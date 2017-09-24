@@ -28,15 +28,15 @@
   <Capability Min="42" Max="48" Color="#15ff1b">Kelly</Capability>
   <Capability Min="49" Max="55" Color="#ff5d28">Red</Capability>
   <Capability Min="56" Max="63" Color="#0617ff">Dark Blue</Capability>
-  <Capability Color2="#ffe228" Min="64" Max="70" Color="#ffffff">White/yellow split</Capability>
-  <Capability Color2="#ff51e6" Min="71" Max="77" Color="#ffef1b">Yellow/pink split</Capability>
-  <Capability Color2="#3eb533" Min="78" Max="84" Color="#ff53e2">Pink/green split</Capability>
-  <Capability Color2="#ff0012" Min="85" Max="91" Color="#12c01d">Green/Peachblow split</Capability>
-  <Capability Color2="#1257ff" Min="92" Max="98" Color="#ff111b">Peachblow/blue split</Capability>
-  <Capability Color2="#83ff0d" Min="99" Max="105" Color="#063dff">Blue/Kelly split</Capability>
-  <Capability Color2="#ff492c" Min="106" Max="112" Color="#69ff0a">Kelly/red split</Capability>
-  <Capability Color2="#0100ff" Min="113" Max="119" Color="#ff5c1b">Red/dark blue split</Capability>
-  <Capability Color2="#ffffff" Min="120" Max="127" Color="#092fff">Dark blue/white split</Capability>
+  <Capability Min="64" Max="70" Color="#ffffff" Color2="#ffe228">White/yellow split</Capability>
+  <Capability Min="71" Max="77" Color="#ffef1b" Color2="#ff51e6">Yellow/pink split</Capability>
+  <Capability Min="78" Max="84" Color="#ff53e2" Color2="#3eb533">Pink/green split</Capability>
+  <Capability Min="85" Max="91" Color="#12c01d" Color2="#ff0012">Green/Peachblow split</Capability>
+  <Capability Min="92" Max="98" Color="#ff111b" Color2="#1257ff">Peachblow/blue split</Capability>
+  <Capability Min="99" Max="105" Color="#063dff" Color2="#83ff0d">Blue/Kelly split</Capability>
+  <Capability Min="106" Max="112" Color="#69ff0a" Color2="#ff492c">Kelly/red split</Capability>
+  <Capability Min="113" Max="119" Color="#ff5c1b" Color2="#0100ff">Red/dark blue split</Capability>
+  <Capability Min="120" Max="127" Color="#092fff" Color2="#ffffff">Dark blue/white split</Capability>
   <Capability Min="128" Max="191">Rotate clockwise (slow to fast)</Capability>
   <Capability Min="192" Max="255">Rotate counter-clockwise (slow to fast)</Capability>
  </Channel>
@@ -54,21 +54,21 @@
  <Channel Name="Gobo Wheel">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="7">Open</Capability>
-  <Capability Res="Chauvet/gobo00014.png" Min="8" Max="15">Gobo 1 (glass)</Capability>
-  <Capability Res="Chauvet/gobo00015.png" Min="16" Max="23">Gobo 2 (glass)</Capability>
-  <Capability Res="Chauvet/gobo00001.png" Min="24" Max="31">Gobo 3</Capability>
-  <Capability Res="Chauvet/gobo00016.png" Min="32" Max="39">Gobo 4</Capability>
-  <Capability Res="Chauvet/gobo00017.png" Min="40" Max="47">Gobo 5</Capability>
-  <Capability Res="Chauvet/gobo00018.png" Min="48" Max="55">Gobo 6</Capability>
-  <Capability Res="Chauvet/gobo00019.png" Min="56" Max="63">Gobo 7</Capability>
-  <Capability Res="Chauvet/gobo00019.png" Min="64" Max="71">Gobo 7 shake (fast to slow)</Capability>
-  <Capability Res="Chauvet/gobo00018.png" Min="72" Max="79">Gobo 6 shake (fast to slow)</Capability>
-  <Capability Res="Chauvet/gobo00017.png" Min="80" Max="87">Gobo 5 shake (fast to slow)</Capability>
-  <Capability Res="Chauvet/gobo00016.png" Min="88" Max="95">Gobo 4 shake (fast to slow)</Capability>
-  <Capability Res="Chauvet/gobo00001.png" Min="96" Max="103">Gobo 3 shake (fast to slow)</Capability>
-  <Capability Res="Chauvet/gobo00015.png" Min="104" Max="111">Gobo 2 shake (fast to slow)</Capability>
-  <Capability Res="Chauvet/gobo00014.png" Min="112" Max="119">Gobo 1 shake (fast to slow)</Capability>
-  <Capability Res="Others/open.png" Min="120" Max="127">Open</Capability>
+  <Capability Min="8" Max="15" Res="Chauvet/gobo00014.png">Gobo 1 (glass)</Capability>
+  <Capability Min="16" Max="23" Res="Chauvet/gobo00015.png">Gobo 2 (glass)</Capability>
+  <Capability Min="24" Max="31" Res="Chauvet/gobo00001.png">Gobo 3</Capability>
+  <Capability Min="32" Max="39" Res="Chauvet/gobo00016.png">Gobo 4</Capability>
+  <Capability Min="40" Max="47" Res="Chauvet/gobo00017.png">Gobo 5</Capability>
+  <Capability Min="48" Max="55" Res="Chauvet/gobo00018.png">Gobo 6</Capability>
+  <Capability Min="56" Max="63" Res="Chauvet/gobo00019.png">Gobo 7</Capability>
+  <Capability Min="64" Max="71" Res="Chauvet/gobo00019.png">Gobo 7 shake (fast to slow)</Capability>
+  <Capability Min="72" Max="79" Res="Chauvet/gobo00018.png">Gobo 6 shake (fast to slow)</Capability>
+  <Capability Min="80" Max="87" Res="Chauvet/gobo00017.png">Gobo 5 shake (fast to slow)</Capability>
+  <Capability Min="88" Max="95" Res="Chauvet/gobo00016.png">Gobo 4 shake (fast to slow)</Capability>
+  <Capability Min="96" Max="103" Res="Chauvet/gobo00001.png">Gobo 3 shake (fast to slow)</Capability>
+  <Capability Min="104" Max="111" Res="Chauvet/gobo00015.png">Gobo 2 shake (fast to slow)</Capability>
+  <Capability Min="112" Max="119" Res="Chauvet/gobo00014.png">Gobo 1 shake (fast to slow)</Capability>
+  <Capability Min="120" Max="127" Res="Others/open.png">Open</Capability>
   <Capability Min="128" Max="191">Gobo scroll clockwise</Capability>
   <Capability Min="192" Max="255">Gobo scroll counter-clockwise</Capability>
  </Channel>
@@ -129,10 +129,10 @@
  </Channel>
  <Mode Name="DMX 11-channel">
   <Physical>
-   <Bulb Lumens="2850" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="254" Height="478" Weight="6.7" Depth="279"/>
-   <Lens DegreesMax="21.8" Name="Other" DegreesMin="21.8"/>
-   <Focus PanMax="180" Type="Head" TiltMax="90"/>
+   <Bulb Type="LED" Lumens="2850" ColourTemperature="0"/>
+   <Dimensions Weight="6.7" Width="254" Height="478" Depth="279"/>
+   <Lens Name="Other" DegreesMin="21.8" DegreesMax="21.8"/>
+   <Focus Type="Head" PanMax="180" TiltMax="90"/>
    <Technical PowerConsumption="236" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -149,10 +149,10 @@
  </Mode>
  <Mode Name="DMX 8-Channel">
   <Physical>
-   <Bulb Lumens="2850" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="254" Height="478" Weight="6.7" Depth="279"/>
-   <Lens DegreesMax="21.8" Name="Other" DegreesMin="21.8"/>
-   <Focus PanMax="180" Type="Head" TiltMax="90"/>
+   <Bulb Type="LED" Lumens="2850" ColourTemperature="0"/>
+   <Dimensions Weight="6.7" Width="254" Height="478" Depth="279"/>
+   <Lens Name="Other" DegreesMin="21.8" DegreesMax="21.8"/>
+   <Focus Type="Head" PanMax="180" TiltMax="90"/>
    <Technical PowerConsumption="236" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

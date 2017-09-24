@@ -111,9 +111,9 @@
  <Mode Name="Mode 1">
   <Physical>
    <Bulb Type="MSR 575W" Lumens="8500" ColourTemperature="7200"/>
-   <Dimensions Height="356" Width="481" Depth="652" Weight="31"/>
-   <Lens DegreesMin="18" DegreesMax="35" Name="Other"/>
-   <Focus Type="Head" TiltMax="265" PanMax="270"/>
+   <Dimensions Weight="31" Width="481" Height="356" Depth="652"/>
+   <Lens Name="Other" DegreesMin="18" DegreesMax="35"/>
+   <Focus Type="Head" PanMax="270" TiltMax="265"/>
    <Technical PowerConsumption="700" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
@@ -131,9 +131,9 @@
  <Mode Name="Mode 2">
   <Physical>
    <Bulb Type="MSR 575W" Lumens="8500" ColourTemperature="7200"/>
-   <Dimensions Height="356" Width="481" Depth="652" Weight="31"/>
-   <Lens DegreesMin="18" DegreesMax="35" Name="Other"/>
-   <Focus Type="Head" TiltMax="265" PanMax="270"/>
+   <Dimensions Weight="31" Width="481" Height="356" Depth="652"/>
+   <Lens Name="Other" DegreesMin="18" DegreesMax="35"/>
+   <Focus Type="Head" PanMax="270" TiltMax="265"/>
    <Technical PowerConsumption="700" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
@@ -153,9 +153,9 @@
  <Mode Name="Mode 3">
   <Physical>
    <Bulb Type="MSR 575W" Lumens="8500" ColourTemperature="7200"/>
-   <Dimensions Height="356" Width="481" Depth="652" Weight="31"/>
-   <Lens DegreesMin="18" DegreesMax="35" Name="Other"/>
-   <Focus Type="Head" TiltMax="265" PanMax="270"/>
+   <Dimensions Weight="31" Width="481" Height="356" Depth="652"/>
+   <Lens Name="Other" DegreesMin="18" DegreesMax="35"/>
+   <Focus Type="Head" PanMax="270" TiltMax="265"/>
    <Technical PowerConsumption="700" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
@@ -175,9 +175,9 @@
  <Mode Name="Mode 4">
   <Physical>
    <Bulb Type="MSR 575W" Lumens="8500" ColourTemperature="7200"/>
-   <Dimensions Height="356" Width="481" Depth="652" Weight="31"/>
-   <Lens DegreesMin="18" DegreesMax="35" Name="Other"/>
-   <Focus Type="Head" TiltMax="265" PanMax="270"/>
+   <Dimensions Weight="31" Width="481" Height="356" Depth="652"/>
+   <Lens Name="Other" DegreesMin="18" DegreesMax="35"/>
+   <Focus Type="Head" PanMax="270" TiltMax="265"/>
    <Technical PowerConsumption="700" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Shutter, strobe, reset, lamp</Channel>

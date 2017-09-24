@@ -12,35 +12,35 @@
  <Channel Name="Colour Wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="4" Color="#ffffff">White</Capability>
-  <Capability Color2="#c41c1a" Min="5" Max="8" Color="#ffffff">White + Red</Capability>
+  <Capability Min="5" Max="8" Color="#ffffff" Color2="#c41c1a">White + Red</Capability>
   <Capability Min="9" Max="12" Color="#c41c1a">Red</Capability>
-  <Capability Color2="#ed8229" Min="13" Max="17" Color="#c41c1a">Red + Orange</Capability>
+  <Capability Min="13" Max="17" Color="#c41c1a" Color2="#ed8229">Red + Orange</Capability>
   <Capability Min="18" Max="21" Color="#ed8229">Orange</Capability>
-  <Capability Color2="#7abd82" Min="22" Max="25" Color="#ed8229">Orange + Aquamarine</Capability>
+  <Capability Min="22" Max="25" Color="#ed8229" Color2="#7abd82">Orange + Aquamarine</Capability>
   <Capability Min="26" Max="29" Color="#7abd82">Aquamarine</Capability>
-  <Capability Color2="#05822b" Min="30" Max="34" Color="#7abd82">Aquamarine + Green</Capability>
+  <Capability Min="30" Max="34" Color="#7abd82" Color2="#05822b">Aquamarine + Green</Capability>
   <Capability Min="35" Max="38" Color="#05822b">Green</Capability>
-  <Capability Color2="#9ec233" Min="39" Max="42" Color="#05822b">Green + Light Green</Capability>
+  <Capability Min="39" Max="42" Color="#05822b" Color2="#9ec233">Green + Light Green</Capability>
   <Capability Min="43" Max="46" Color="#9ec233">Light Green</Capability>
-  <Capability Color2="#8f73ad" Min="47" Max="51" Color="#9ec233">Light Green + Lavender</Capability>
+  <Capability Min="47" Max="51" Color="#9ec233" Color2="#8f73ad">Light Green + Lavender</Capability>
   <Capability Min="52" Max="55" Color="#8f73ad">Lavender</Capability>
-  <Capability Color2="#ed8080" Min="56" Max="59" Color="#8f73ad">Lavender + Pink</Capability>
+  <Capability Min="56" Max="59" Color="#8f73ad" Color2="#ed8080">Lavender + Pink</Capability>
   <Capability Min="60" Max="63" Color="#ed8080">Pink</Capability>
-  <Capability Color2="#ffed00" Min="64" Max="68" Color="#ed8080">Pink + Yellow</Capability>
+  <Capability Min="64" Max="68" Color="#ed8080" Color2="#ffed00">Pink + Yellow</Capability>
   <Capability Min="69" Max="72" Color="#ffed00">Yellow</Capability>
-  <Capability Color2="#e30082" Min="73" Max="76" Color="#ffed00">Yellow + Magenta</Capability>
+  <Capability Min="73" Max="76" Color="#ffed00" Color2="#e30082">Yellow + Magenta</Capability>
   <Capability Min="77" Max="81" Color="#e30082">Magenta</Capability>
-  <Capability Color2="#00a6eb" Min="82" Max="85" Color="#e30082">Magenta + Cyan</Capability>
+  <Capability Min="82" Max="85" Color="#e30082" Color2="#00a6eb">Magenta + Cyan</Capability>
   <Capability Min="86" Max="89" Color="#00a6eb">Cyan</Capability>
-  <Capability Color2="#f5c745" Min="90" Max="93" Color="#00a6eb">Cyan + CTO 260</Capability>
+  <Capability Min="90" Max="93" Color="#00a6eb" Color2="#f5c745">Cyan + CTO 260</Capability>
   <Capability Min="94" Max="98" Color="#f5c745">CTO 260</Capability>
-  <Capability Color2="#f5d985" Min="99" Max="102" Color="#f5c745">CTO 260 + CTO 190</Capability>
+  <Capability Min="99" Max="102" Color="#f5c745" Color2="#f5d985">CTO 260 + CTO 190</Capability>
   <Capability Min="103" Max="106" Color="#f5d985">CTO 190</Capability>
-  <Capability Color2="#96c7b8" Min="107" Max="110" Color="#f5d985">CTO 190 + CTB 8000</Capability>
+  <Capability Min="107" Max="110" Color="#f5d985" Color2="#96c7b8">CTO 190 + CTB 8000</Capability>
   <Capability Min="111" Max="115" Color="#96c7b8">CTB 8000</Capability>
-  <Capability Color2="#004f99" Min="116" Max="119" Color="#96c7b8">CTB 8000 + Blue</Capability>
+  <Capability Min="116" Max="119" Color="#96c7b8" Color2="#004f99">CTB 8000 + Blue</Capability>
   <Capability Min="120" Max="123" Color="#004f99">Blue</Capability>
-  <Capability Color2="#ffffff" Min="124" Max="127" Color="#004f99">Blue + White</Capability>
+  <Capability Min="124" Max="127" Color="#004f99" Color2="#ffffff">Blue + White</Capability>
   <Capability Min="128" Max="255">Rotation (Slow 0.2 rpm to Fast 160 rpm)</Capability>
  </Channel>
  <Channel Name="Stop / Strobe">
@@ -61,42 +61,42 @@
  </Channel>
  <Channel Name="Static Gobo Change">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/open.png" Min="0" Max="3">White</Capability>
-  <Capability Res="ClayPaky/gobo00006.png" Min="4" Max="7">Gobo 1</Capability>
-  <Capability Res="ClayPaky/gobo00007.png" Min="8" Max="11">Gobo 2</Capability>
-  <Capability Res="ClayPaky/gobo00008.png" Min="12" Max="15">Gobo 3</Capability>
-  <Capability Res="ClayPaky/gobo00009.png" Min="16" Max="19">Gobo 4</Capability>
-  <Capability Res="ClayPaky/gobo00010.png" Min="20" Max="23">Gobo 5</Capability>
-  <Capability Res="ClayPaky/gobo00011.png" Min="24" Max="27">Gobo 6</Capability>
-  <Capability Res="ClayPaky/gobo00091.png" Min="28" Max="31">Gobo 7</Capability>
-  <Capability Res="ClayPaky/gobo00085.png" Min="32" Max="35">Gobo 8</Capability>
-  <Capability Res="ClayPaky/gobo00086.png" Min="36" Max="39">Gobo 9</Capability>
-  <Capability Res="ClayPaky/gobo00089.png" Min="40" Max="43">Gobo 10</Capability>
-  <Capability Res="ClayPaky/gobo00095.png" Min="44" Max="47">Gobo 11</Capability>
-  <Capability Res="ClayPaky/gobo00094.png" Min="48" Max="51">Gobo 12</Capability>
-  <Capability Res="ClayPaky/gobo00090.png" Min="52" Max="55">Gobo 13</Capability>
-  <Capability Res="ClayPaky/gobo00088.png" Min="56" Max="59">Gobo 14</Capability>
-  <Capability Res="ClayPaky/gobo00087.png" Min="60" Max="63">Gobo 15</Capability>
-  <Capability Res="ClayPaky/gobo00093.png" Min="64" Max="67">Gobo 16</Capability>
-  <Capability Res="ClayPaky/gobo00092.png" Min="68" Max="71">Gobo 17</Capability>
+  <Capability Min="0" Max="3" Res="Others/open.png">White</Capability>
+  <Capability Min="4" Max="7" Res="ClayPaky/gobo00006.png">Gobo 1</Capability>
+  <Capability Min="8" Max="11" Res="ClayPaky/gobo00007.png">Gobo 2</Capability>
+  <Capability Min="12" Max="15" Res="ClayPaky/gobo00008.png">Gobo 3</Capability>
+  <Capability Min="16" Max="19" Res="ClayPaky/gobo00009.png">Gobo 4</Capability>
+  <Capability Min="20" Max="23" Res="ClayPaky/gobo00010.png">Gobo 5</Capability>
+  <Capability Min="24" Max="27" Res="ClayPaky/gobo00011.png">Gobo 6</Capability>
+  <Capability Min="28" Max="31" Res="ClayPaky/gobo00091.png">Gobo 7</Capability>
+  <Capability Min="32" Max="35" Res="ClayPaky/gobo00085.png">Gobo 8</Capability>
+  <Capability Min="36" Max="39" Res="ClayPaky/gobo00086.png">Gobo 9</Capability>
+  <Capability Min="40" Max="43" Res="ClayPaky/gobo00089.png">Gobo 10</Capability>
+  <Capability Min="44" Max="47" Res="ClayPaky/gobo00095.png">Gobo 11</Capability>
+  <Capability Min="48" Max="51" Res="ClayPaky/gobo00094.png">Gobo 12</Capability>
+  <Capability Min="52" Max="55" Res="ClayPaky/gobo00090.png">Gobo 13</Capability>
+  <Capability Min="56" Max="59" Res="ClayPaky/gobo00088.png">Gobo 14</Capability>
+  <Capability Min="60" Max="63" Res="ClayPaky/gobo00087.png">Gobo 15</Capability>
+  <Capability Min="64" Max="67" Res="ClayPaky/gobo00093.png">Gobo 16</Capability>
+  <Capability Min="68" Max="71" Res="ClayPaky/gobo00092.png">Gobo 17</Capability>
   <Capability Min="72" Max="113">Rotation (Fast 60rpm to slow 5rpm)</Capability>
   <Capability Min="114" Max="117">Stop</Capability>
   <Capability Min="118" Max="159">Rotation (Slow 5rpm to fast 60rpm)</Capability>
-  <Capability Res="ClayPaky/gobo00007.png" Min="160" Max="166">Gobo 2 Shake (Slow to Fast)</Capability>
-  <Capability Res="ClayPaky/gobo00008.png" Min="167" Max="172">Gobo 3 Shake (Slow to Fast)</Capability>
-  <Capability Res="ClayPaky/gobo00009.png" Min="173" Max="179">Gobo 4 Shake (Slow to Fast)</Capability>
-  <Capability Res="ClayPaky/gobo00010.png" Min="180" Max="185">Gobo 5 Shake (Slow to Fast)</Capability>
-  <Capability Res="ClayPaky/gobo00011.png" Min="186" Max="191">Gobo 6 Shake (Slow to Fast)</Capability>
-  <Capability Res="ClayPaky/gobo00091.png" Min="192" Max="198">Gobo 7 Shake (Slow to Fast)</Capability>
-  <Capability Res="ClayPaky/gobo00085.png" Min="199" Max="204">Gobo 8 Shake (Slow to Fast)</Capability>
-  <Capability Res="ClayPaky/gobo00086.png" Min="205" Max="211">Gobo 9 Shake (Slow to Fast)</Capability>
-  <Capability Res="ClayPaky/gobo00089.png" Min="212" Max="217">Gobo 10 Shake (Slow to Fast)</Capability>
-  <Capability Res="ClayPaky/gobo00095.png" Min="218" Max="223">Gobo 11 Shake (Slow to Fast)</Capability>
-  <Capability Res="ClayPaky/gobo00094.png" Min="224" Max="230">Gobo 12 Shake (Slow to Fast)</Capability>
-  <Capability Res="ClayPaky/gobo00090.png" Min="231" Max="236">Gobo 13 Shake (Slow to Fast)</Capability>
-  <Capability Res="ClayPaky/gobo00088.png" Min="237" Max="243">Gobo 14 Shake (Slow to Fast)</Capability>
-  <Capability Res="ClayPaky/gobo00087.png" Min="244" Max="249">Gobo 15 Shake (Slow to Fast)</Capability>
-  <Capability Res="ClayPaky/gobo00093.png" Min="250" Max="255">Gobo 16 Shake (Slow 24bpm to Fast 600bpm)</Capability>
+  <Capability Min="160" Max="166" Res="ClayPaky/gobo00007.png">Gobo 2 Shake (Slow to Fast)</Capability>
+  <Capability Min="167" Max="172" Res="ClayPaky/gobo00008.png">Gobo 3 Shake (Slow to Fast)</Capability>
+  <Capability Min="173" Max="179" Res="ClayPaky/gobo00009.png">Gobo 4 Shake (Slow to Fast)</Capability>
+  <Capability Min="180" Max="185" Res="ClayPaky/gobo00010.png">Gobo 5 Shake (Slow to Fast)</Capability>
+  <Capability Min="186" Max="191" Res="ClayPaky/gobo00011.png">Gobo 6 Shake (Slow to Fast)</Capability>
+  <Capability Min="192" Max="198" Res="ClayPaky/gobo00091.png">Gobo 7 Shake (Slow to Fast)</Capability>
+  <Capability Min="199" Max="204" Res="ClayPaky/gobo00085.png">Gobo 8 Shake (Slow to Fast)</Capability>
+  <Capability Min="205" Max="211" Res="ClayPaky/gobo00086.png">Gobo 9 Shake (Slow to Fast)</Capability>
+  <Capability Min="212" Max="217" Res="ClayPaky/gobo00089.png">Gobo 10 Shake (Slow to Fast)</Capability>
+  <Capability Min="218" Max="223" Res="ClayPaky/gobo00095.png">Gobo 11 Shake (Slow to Fast)</Capability>
+  <Capability Min="224" Max="230" Res="ClayPaky/gobo00094.png">Gobo 12 Shake (Slow to Fast)</Capability>
+  <Capability Min="231" Max="236" Res="ClayPaky/gobo00090.png">Gobo 13 Shake (Slow to Fast)</Capability>
+  <Capability Min="237" Max="243" Res="ClayPaky/gobo00088.png">Gobo 14 Shake (Slow to Fast)</Capability>
+  <Capability Min="244" Max="249" Res="ClayPaky/gobo00087.png">Gobo 15 Shake (Slow to Fast)</Capability>
+  <Capability Min="250" Max="255" Res="ClayPaky/gobo00093.png">Gobo 16 Shake (Slow 24bpm to Fast 600bpm)</Capability>
  </Channel>
  <Channel Name="Prism Insertion">
   <Group Byte="0">Prism</Group>
@@ -184,10 +184,10 @@
  </Channel>
  <Mode Name="Standard">
   <Physical>
-   <Bulb Lumens="7950" Type="MSD 200W" ColourTemperature="8000"/>
-   <Dimensions Width="405" Height="450" Weight="19" Depth="330"/>
-   <Lens DegreesMax="3.8" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="250"/>
+   <Bulb Type="MSD 200W" Lumens="7950" ColourTemperature="8000"/>
+   <Dimensions Weight="19" Width="405" Height="450" Depth="330"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="3.8"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="250"/>
    <Technical PowerConsumption="200" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Colour Wheel</Channel>
@@ -209,10 +209,10 @@
  </Mode>
  <Mode Name="Vector">
   <Physical>
-   <Bulb Lumens="7950" Type="MSD 200W" ColourTemperature="8000"/>
-   <Dimensions Width="405" Height="450" Weight="19" Depth="330"/>
-   <Lens DegreesMax="3.8" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="250"/>
+   <Bulb Type="MSD 200W" Lumens="7950" ColourTemperature="8000"/>
+   <Dimensions Weight="19" Width="405" Height="450" Depth="330"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="3.8"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="250"/>
    <Technical PowerConsumption="200" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Colour Wheel</Channel>

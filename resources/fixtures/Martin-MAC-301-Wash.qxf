@@ -108,21 +108,21 @@
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="1">Inactive</Capability>
   <Capability Min="2" Max="3" Color="#ffffff">White</Capability>
-  <Capability Color2="#ff0000" Min="4" Max="7" Color="#ffffff">White -&gt; Red</Capability>
+  <Capability Min="4" Max="7" Color="#ffffff" Color2="#ff0000">White -&gt; Red</Capability>
   <Capability Min="8" Max="11" Color="#ff0000">Red</Capability>
-  <Capability Color2="#ffff00" Min="12" Max="15" Color="#ff0000">Red -&gt; Yellow</Capability>
+  <Capability Min="12" Max="15" Color="#ff0000" Color2="#ffff00">Red -&gt; Yellow</Capability>
   <Capability Min="16" Max="19" Color="#ffff00">Yellow</Capability>
-  <Capability Color2="#ff00ff" Min="20" Max="23" Color="#ffff00">Yellow -&gt; Magenta</Capability>
+  <Capability Min="20" Max="23" Color="#ffff00" Color2="#ff00ff">Yellow -&gt; Magenta</Capability>
   <Capability Min="24" Max="27" Color="#ff00ff">Magenta</Capability>
-  <Capability Color2="#00ff00" Min="28" Max="31" Color="#ff00ff">Magenta -&gt; Green</Capability>
+  <Capability Min="28" Max="31" Color="#ff00ff" Color2="#00ff00">Magenta -&gt; Green</Capability>
   <Capability Min="32" Max="35" Color="#00ff00">Green</Capability>
-  <Capability Color2="#ffaa00" Min="36" Max="39" Color="#00ff00">Green -&gt; Amber</Capability>
+  <Capability Min="36" Max="39" Color="#00ff00" Color2="#ffaa00">Green -&gt; Amber</Capability>
   <Capability Min="40" Max="43" Color="#ffaa00">Amber</Capability>
-  <Capability Color2="#0000ff" Min="44" Max="47" Color="#ffaa00">Amber -&gt; Blue</Capability>
+  <Capability Min="44" Max="47" Color="#ffaa00" Color2="#0000ff">Amber -&gt; Blue</Capability>
   <Capability Min="48" Max="51" Color="#5500ff">Blue</Capability>
-  <Capability Color2="#00ffff" Min="52" Max="55" Color="#0000ff">Blue -&gt; Cyan</Capability>
+  <Capability Min="52" Max="55" Color="#0000ff" Color2="#00ffff">Blue -&gt; Cyan</Capability>
   <Capability Min="56" Max="59" Color="#00ffff">Cyan</Capability>
-  <Capability Color2="#ffffff" Min="60" Max="63" Color="#00ffff">Cyan -&gt; White</Capability>
+  <Capability Min="60" Max="63" Color="#00ffff" Color2="#ffffff">Cyan -&gt; White</Capability>
   <Capability Min="64" Max="191">Continuous color wheel positioning</Capability>
   <Capability Min="192" Max="222">CW, fast -&gt; slow</Capability>
   <Capability Min="223" Max="224">Color wheel stop</Capability>
@@ -146,10 +146,10 @@
  </Channel>
  <Mode Name="Standard 8bit">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="320" Height="388" Weight="8.9" Depth="200"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="430" Type="Fixed" TiltMax="300"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="8.9" Width="320" Height="388" Depth="200"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="430" TiltMax="300"/>
    <Technical PowerConsumption="350" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -171,10 +171,10 @@
  </Mode>
  <Mode Name="Standard 16bit">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="320" Height="388" Weight="8.9" Depth="200"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="430" Type="Fixed" TiltMax="300"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="8.9" Width="320" Height="388" Depth="200"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="430" TiltMax="300"/>
    <Technical PowerConsumption="350" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -199,10 +199,10 @@
  </Mode>
  <Mode Name="Compressed 8bit">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="320" Height="388" Weight="8.9" Depth="200"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="430" Type="Fixed" TiltMax="300"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="8.9" Width="320" Height="388" Depth="200"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="430" TiltMax="300"/>
    <Technical PowerConsumption="350" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
@@ -220,10 +220,10 @@
  </Mode>
  <Mode Name="Compressed 16bit">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="320" Height="388" Weight="8.9" Depth="200"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="430" Type="Fixed" TiltMax="300"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="8.9" Width="320" Height="388" Depth="200"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="430" TiltMax="300"/>
    <Technical PowerConsumption="350" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>

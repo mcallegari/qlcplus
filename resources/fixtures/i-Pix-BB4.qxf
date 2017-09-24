@@ -2,7 +2,7 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
+  <Name>Q Light Controller Plus</Name>
   <Version>3.3.0-r2797</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
@@ -376,10 +376,10 @@
  </Channel>
  <Mode Name="Mode 1">
   <Physical>
-   <Bulb Lumens="1000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="600" Height="147" Weight="14" Depth="301"/>
-   <Lens DegreesMax="20" Name="Fresnel" DegreesMin="20"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="1000" ColourTemperature="0"/>
+   <Dimensions Weight="14" Width="600" Height="147" Depth="301"/>
+   <Lens Name="Fresnel" DegreesMin="20" DegreesMax="20"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="120" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Red all cells</Channel>
@@ -388,10 +388,10 @@
  </Mode>
  <Mode Name="Mode 2">
   <Physical>
-   <Bulb Lumens="1000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="600" Height="147" Weight="14" Depth="301"/>
-   <Lens DegreesMax="20" Name="Fresnel" DegreesMin="20"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="1000" ColourTemperature="0"/>
+   <Dimensions Weight="14" Width="600" Height="147" Depth="301"/>
+   <Lens Name="Fresnel" DegreesMin="20" DegreesMax="20"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="120" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Red high byte all cells</Channel>
@@ -403,10 +403,10 @@
  </Mode>
  <Mode Name="Mode 3">
   <Physical>
-   <Bulb Lumens="1000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="600" Height="147" Weight="14" Depth="301"/>
-   <Lens DegreesMax="20" Name="Fresnel" DegreesMin="20"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="1000" ColourTemperature="0"/>
+   <Dimensions Weight="14" Width="600" Height="147" Depth="301"/>
+   <Lens Name="Fresnel" DegreesMin="20" DegreesMax="20"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="120" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Master intensity all cells</Channel>
@@ -417,10 +417,10 @@
  </Mode>
  <Mode Name="Mode 4">
   <Physical>
-   <Bulb Lumens="1000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="600" Height="147" Weight="14" Depth="301"/>
-   <Lens DegreesMax="20" Name="Fresnel" DegreesMin="20"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="1000" ColourTemperature="0"/>
+   <Dimensions Weight="14" Width="600" Height="147" Depth="301"/>
+   <Lens Name="Fresnel" DegreesMin="20" DegreesMax="20"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="120" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Master intensity high byte all cells</Channel>
@@ -435,10 +435,10 @@
  </Mode>
  <Mode Name="Mode 5">
   <Physical>
-   <Bulb Lumens="1000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="600" Height="147" Weight="14" Depth="301"/>
-   <Lens DegreesMax="20" Name="Fresnel" DegreesMin="20"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="1000" ColourTemperature="0"/>
+   <Dimensions Weight="14" Width="600" Height="147" Depth="301"/>
+   <Lens Name="Fresnel" DegreesMin="20" DegreesMax="20"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="120" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Red cell 1</Channel>
@@ -476,10 +476,10 @@
  </Mode>
  <Mode Name="Mode 6">
   <Physical>
-   <Bulb Lumens="1000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="600" Height="147" Weight="14" Depth="301"/>
-   <Lens DegreesMax="20" Name="Fresnel" DegreesMin="20"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="1000" ColourTemperature="0"/>
+   <Dimensions Weight="14" Width="600" Height="147" Depth="301"/>
+   <Lens Name="Fresnel" DegreesMin="20" DegreesMax="20"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="120" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Red high byte cell 1</Channel>
@@ -541,10 +541,10 @@
  </Mode>
  <Mode Name="Mode 7">
   <Physical>
-   <Bulb Lumens="1000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="600" Height="147" Weight="14" Depth="301"/>
-   <Lens DegreesMax="20" Name="Fresnel" DegreesMin="20"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="1000" ColourTemperature="0"/>
+   <Dimensions Weight="14" Width="600" Height="147" Depth="301"/>
+   <Lens Name="Fresnel" DegreesMin="20" DegreesMax="20"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="120" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Master intensity all cells</Channel>
@@ -584,10 +584,10 @@
  </Mode>
  <Mode Name="Mode 8">
   <Physical>
-   <Bulb Lumens="1000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="600" Height="147" Weight="14" Depth="301"/>
-   <Lens DegreesMax="20" Name="Fresnel" DegreesMin="20"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="1000" ColourTemperature="0"/>
+   <Dimensions Weight="14" Width="600" Height="147" Depth="301"/>
+   <Lens Name="Fresnel" DegreesMin="20" DegreesMax="20"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="120" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Master intensity high byte all cells</Channel>
@@ -652,10 +652,10 @@
  </Mode>
  <Mode Name="Mode 9">
   <Physical>
-   <Bulb Lumens="1000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="600" Height="147" Weight="14" Depth="301"/>
-   <Lens DegreesMax="20" Name="Fresnel" DegreesMin="20"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="1000" ColourTemperature="0"/>
+   <Dimensions Weight="14" Width="600" Height="147" Depth="301"/>
+   <Lens Name="Fresnel" DegreesMin="20" DegreesMax="20"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="120" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Master intensity cell 1</Channel>
@@ -709,10 +709,10 @@
  </Mode>
  <Mode Name="Mode 10">
   <Physical>
-   <Bulb Lumens="1000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="600" Height="147" Weight="14" Depth="301"/>
-   <Lens DegreesMax="20" Name="Fresnel" DegreesMin="20"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="1000" ColourTemperature="0"/>
+   <Dimensions Weight="14" Width="600" Height="147" Depth="301"/>
+   <Lens Name="Fresnel" DegreesMin="20" DegreesMax="20"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="120" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Master intensity high byte cell 1</Channel>

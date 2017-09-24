@@ -46,10 +46,10 @@
  </Channel>
  <Mode Name="6 Channel Mode">
   <Physical>
-   <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
-   <Dimensions Height="139" Width="175" Depth="163" Weight="11.5"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="11.5" Width="175" Height="139" Depth="163"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="12" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Rainbow</Channel>
@@ -61,10 +61,10 @@
  </Mode>
  <Mode Name="3 Channel Mode">
   <Physical>
-   <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
-   <Dimensions Height="139" Width="175" Depth="163" Weight="11.5"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="11.5" Width="175" Height="139" Depth="163"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="12" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Red</Channel>

@@ -27,10 +27,10 @@
  </Channel>
  <Mode Name="Mode1">
   <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="170" Height="205" Weight="1.85" Depth="650"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1.85" Width="170" Height="205" Depth="650"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="3500" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Ch 1</Channel>

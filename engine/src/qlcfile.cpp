@@ -81,7 +81,11 @@ void QLCFile::releaseXMLReader(QXmlStreamReader *reader)
     delete reader;
 }
 
-bool QLCFile::writeXMLHeader(QXmlStreamWriter *xml, const QString &content, const QString &author)
+bool QLCFile::writeXMLHeader(
+    QXmlStreamWriter *xml,
+    const QString &content,
+    const QString &author,
+    const QString &version)
 {
     if (xml == NULL || xml->device() == NULL)
         return false;
@@ -94,7 +98,11 @@ bool QLCFile::writeXMLHeader(QXmlStreamWriter *xml, const QString &content, cons
 
     xml->writeStartElement(KXMLQLCCreator);
     xml->writeTextElement(KXMLQLCCreatorName, APPNAME);
-    xml->writeTextElement(KXMLQLCCreatorVersion, APPVERSION);
+    if (version.isEmpty())
+        xml->writeTextElement(KXMLQLCCreatorVersion, APPVERSION);
+    else
+        xml->writeTextElement(KXMLQLCCreatorVersion, version);
+
     if (author.isEmpty())
         xml->writeTextElement(KXMLQLCCreatorAuthor, currentUserName());
     else

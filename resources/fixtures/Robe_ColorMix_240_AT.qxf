@@ -100,10 +100,10 @@
  </Channel>
  <Mode Name="Mode 1">
   <Physical>
-   <Bulb Lumens="0" Type="MSD 250W" ColourTemperature="0"/>
-   <Dimensions Width="316" Height="250" Weight="13.5" Depth="321"/>
-   <Lens DegreesMax="22" Name="Fresnel" DegreesMin="8"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="13.5" Width="316" Height="250" Depth="321"/>
+   <Lens Name="Fresnel" DegreesMin="8" DegreesMax="22"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="390" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Lamp On/Off, Control of Fans</Channel>
@@ -120,10 +120,10 @@
  </Mode>
  <Mode Name="Mode 2">
   <Physical>
-   <Bulb Lumens="0" Type="MSD 250W" ColourTemperature="0"/>
-   <Dimensions Width="316" Height="250" Weight="13.5" Depth="321"/>
-   <Lens DegreesMax="22" Name="Fresnel" DegreesMin="8"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="13.5" Width="316" Height="250" Depth="321"/>
+   <Lens Name="Fresnel" DegreesMin="8" DegreesMax="22"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="390" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Lamp On/Off, Control of Fans</Channel>

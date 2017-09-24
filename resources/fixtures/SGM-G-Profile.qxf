@@ -138,10 +138,10 @@
  <Channel Name="Iris">
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="200">Open -&gt; close</Capability>
-  <Capability Min="201" Max="205">Effect - "open fast / close slow"</Capability>
-  <Capability Min="206" Max="210">Effect - "open slow / close fast"</Capability>
-  <Capability Min="211" Max="215">Effect - "open / close"</Capability>
-  <Capability Min="216" Max="255">Effect - "random close / open", slow -&gt; fast</Capability>
+  <Capability Min="201" Max="205">Effect - &quot;open fast / close slow&quot;</Capability>
+  <Capability Min="206" Max="210">Effect - &quot;open slow / close fast&quot;</Capability>
+  <Capability Min="211" Max="215">Effect - &quot;open / close&quot;</Capability>
+  <Capability Min="216" Max="255">Effect - &quot;random close / open&quot;, slow -&gt; fast</Capability>
  </Channel>
  <Channel Name="Prism">
   <Group Byte="0">Prism</Group>

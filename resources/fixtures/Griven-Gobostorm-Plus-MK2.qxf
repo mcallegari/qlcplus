@@ -62,7 +62,7 @@
  <Channel Name="Gobo Indexing">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="7">No effect</Capability>
-  <Capability Min="8" Max="248">0-360" Gobo indexing</Capability>
+  <Capability Min="8" Max="248">0-360&quot; Gobo indexing</Capability>
   <Capability Min="249" Max="255">No effect</Capability>
  </Channel>
  <Channel Name="Effects Selection">

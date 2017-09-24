@@ -88,16 +88,16 @@
  <Channel Name="Color Presets">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="10">No function</Capability>
-  <Capability Color="#ff0000" Color2="#ffff00" Min="11" Max="30">Red 100% / Green increasing</Capability>
-  <Capability Color="#ffff00" Color2="#00ff00" Min="31" Max="50">Red decreasing / Green 100%</Capability>
-  <Capability Color="#00ff00" Color2="#00ffff" Min="51" Max="70">Green 100% / Blue increasing</Capability>
-  <Capability Color="#00ffff" Color2="#0000ff" Min="71" Max="90">Green decreasing / Blue 100%</Capability>
-  <Capability Color="#0000ff" Color2="#ff00ff" Min="91" Max="110">Red increasing / Blue 100%</Capability>
-  <Capability Color="#ff00ff" Color2="#ff0000" Min="111" Max="130">Red 100% / Blue decreasing</Capability>
-  <Capability Color="#ff0000" Color2="#ffffff" Min="131" Max="150">Red 100% / Green and Blue increasing</Capability>
-  <Capability Color="#ffffff" Color2="#0000ff" Min="151" Max="170">Red and Green decreasing / Blue 100%</Capability>
-  <Capability Color="#ffffff" Min="171" Max="200">Red 100% / Green 100% / Blue 100%</Capability>
-  <Capability Color="#ffffc8" Color2="#e6e2ff" Min="201" Max="255">White (Warm to cold)</Capability>
+  <Capability Min="11" Max="30" Color="#ff0000" Color2="#ffff00">Red 100% / Green increasing</Capability>
+  <Capability Min="31" Max="50" Color="#ffff00" Color2="#00ff00">Red decreasing / Green 100%</Capability>
+  <Capability Min="51" Max="70" Color="#00ff00" Color2="#00ffff">Green 100% / Blue increasing</Capability>
+  <Capability Min="71" Max="90" Color="#00ffff" Color2="#0000ff">Green decreasing / Blue 100%</Capability>
+  <Capability Min="91" Max="110" Color="#0000ff" Color2="#ff00ff">Red increasing / Blue 100%</Capability>
+  <Capability Min="111" Max="130" Color="#ff00ff" Color2="#ff0000">Red 100% / Blue decreasing</Capability>
+  <Capability Min="131" Max="150" Color="#ff0000" Color2="#ffffff">Red 100% / Green and Blue increasing</Capability>
+  <Capability Min="151" Max="170" Color="#ffffff" Color2="#0000ff">Red and Green decreasing / Blue 100%</Capability>
+  <Capability Min="171" Max="200" Color="#ffffff">Red 100% / Green 100% / Blue 100%</Capability>
+  <Capability Min="201" Max="255" Color="#ffffc8" Color2="#e6e2ff">White (Warm to cold)</Capability>
  </Channel>
  <Channel Name="Internal Programs / STL">
   <Group Byte="0">Effect</Group>
@@ -128,8 +128,8 @@
  </Channel>
  <Mode Name="3-Channel">
   <Physical>
-   <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
-   <Dimensions Height="344" Width="204" Depth="144" Weight="3"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="3" Width="204" Height="344" Depth="144"/>
    <Lens Name="Other" DegreesMin="71" DegreesMax="71"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="50" DmxConnector="3-pin"/>
@@ -140,8 +140,8 @@
  </Mode>
  <Mode Name="9-Channel">
   <Physical>
-   <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
-   <Dimensions Height="344" Width="204" Depth="144" Weight="3"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="3" Width="204" Height="344" Depth="144"/>
    <Lens Name="Other" DegreesMin="71" DegreesMax="71"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="50" DmxConnector="3-pin"/>
@@ -173,8 +173,8 @@
  </Mode>
  <Mode Name="5-Channel">
   <Physical>
-   <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
-   <Dimensions Height="344" Width="204" Depth="144" Weight="3"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="3" Width="204" Height="344" Depth="144"/>
    <Lens Name="Other" DegreesMin="71" DegreesMax="71"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="50" DmxConnector="3-pin"/>
@@ -187,8 +187,8 @@
  </Mode>
  <Mode Name="10-Channel">
   <Physical>
-   <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
-   <Dimensions Height="344" Width="204" Depth="144" Weight="3"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="3" Width="204" Height="344" Depth="144"/>
    <Lens Name="Other" DegreesMin="71" DegreesMax="71"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="50" DmxConnector="3-pin"/>
@@ -206,8 +206,8 @@
  </Mode>
  <Mode Name="14-Channel">
   <Physical>
-   <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
-   <Dimensions Height="344" Width="204" Depth="144" Weight="3"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="3" Width="204" Height="344" Depth="144"/>
    <Lens Name="Other" DegreesMin="71" DegreesMax="71"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="50" DmxConnector="3-pin"/>
