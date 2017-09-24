@@ -79,7 +79,7 @@ Rectangle
         // this must be above the widget root but
         // underneath the widget children (if any)
         z: isSelected ? 99 : 1
-        visible: virtualConsole.editMode && wObj && wObj.allowResize
+        visible: virtualConsole && virtualConsole.editMode && wObj && wObj.allowResize
 
         // mouse area to select and move the widget
         MouseArea

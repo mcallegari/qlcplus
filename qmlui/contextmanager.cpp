@@ -81,7 +81,10 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
 ContextManager::~ContextManager()
 {
     for (PreviewContext *context : m_contextsMap.values())
-        context->deleteLater();
+    {
+        if (context->detached())
+            context->deleteLater();
+    }
 }
 
 void ContextManager::registerContext(PreviewContext *context)
@@ -90,10 +93,8 @@ void ContextManager::registerContext(PreviewContext *context)
         return;
 
     m_contextsMap[context->name()] = context;
-    connect(context, SIGNAL(keyPressed(QKeyEvent*)),
-            this, SLOT(handleKeyPress(QKeyEvent*)));
-    connect(context, SIGNAL(keyReleased(QKeyEvent*)),
-            this, SLOT(handleKeyRelease(QKeyEvent*)));
+    connect(context, &PreviewContext::keyPressed, this, &ContextManager::handleKeyPress);
+    connect(context, &PreviewContext::keyReleased, this, &ContextManager::handleKeyRelease);
 }
 
 void ContextManager::unregisterContext(QString name)
