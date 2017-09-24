@@ -220,7 +220,7 @@ Rectangle
                 {
                     width: UISettings.iconSizeMedium * 2
                     implicitHeight: viewToolbar.height - 2
-                    fontColor: "#222"
+                    fontColor: UISettings.bgStrong
                     onZoomOutClicked: previewLoader.item.setZoom(-0.5)
                     onZoomInClicked: previewLoader.item.setZoom(0.5)
                 }

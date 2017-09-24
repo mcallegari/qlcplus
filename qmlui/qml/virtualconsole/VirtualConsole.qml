@@ -173,6 +173,15 @@ Rectangle
                 }
 
                 Rectangle { Layout.fillWidth: true }
+
+                ZoomItem
+                {
+                    width: UISettings.iconSizeMedium * 2
+                    implicitHeight: vcToolbar.height - 2
+                    fontColor: UISettings.bgStrong
+                    onZoomOutClicked: { }
+                    onZoomInClicked: { }
+                }
             }
         }
 
