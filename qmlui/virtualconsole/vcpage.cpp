@@ -23,6 +23,7 @@
 
 VCPage::VCPage(QQuickView *view, Doc *doc, VirtualConsole *vc, int pageIndex, QObject *parent)
     : VCFrame(doc, vc, parent)
+    , m_pageScale(1.0)
     , m_PIN(0)
     , m_validatedPIN(false)
 {
@@ -45,6 +46,19 @@ VCPage::~VCPage()
 PreviewContext *VCPage::previewContext() const
 {
     return m_pageContext;
+}
+
+qreal VCPage::pageScale() const
+{
+    return m_pageScale;
+}
+
+void VCPage::setPageScale(qreal factor)
+{
+    m_pageScale = m_pageScale + factor;
+
+    foreach (VCWidget* child, children(true))
+        child->setScaleFactor(m_pageScale);
 }
 
 /*********************************************************************

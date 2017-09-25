@@ -109,6 +109,8 @@ public:
     /** Enable/disable the current page scroll interaction */
     Q_INVOKABLE void setPageInteraction(bool enable);
 
+    Q_INVOKABLE void setPageScale(qreal factor);
+
 signals:
     /** Notify the listeners that the currenly selected VC page has changed */
     void selectedPageChanged(int selectedPage);

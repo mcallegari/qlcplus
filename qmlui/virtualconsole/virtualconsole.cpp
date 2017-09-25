@@ -138,7 +138,7 @@ void VirtualConsole::renderPage(QQuickItem *parent, QQuickItem *contentItem, int
     if (page < 0 || page >= m_pages.count())
         return;
 
-    QRect pageRect = m_pages.at(page)->geometry();
+    QRectF pageRect = m_pages.at(page)->geometry();
     parent->setProperty("contentWidth", pageRect.width());
     parent->setProperty("contentHeight", pageRect.height());
 
@@ -281,6 +281,11 @@ void VirtualConsole::setPageInteraction(bool enable)
     QQuickItem *page = currentPageItem();
     if (page != NULL)
         page->setProperty("interactive", enable);
+}
+
+void VirtualConsole::setPageScale(qreal factor)
+{
+    m_pages.at(m_selectedPage)->setPageScale(factor);
 }
 
 /*********************************************************************
@@ -450,7 +455,7 @@ void VirtualConsole::moveWidget(VCWidget *widget, VCFrame *targetFrame, QPoint p
         widget->setParent(targetFrame);
     }
 
-    QRect wRect = widget->geometry();
+    QRectF wRect = widget->geometry();
     wRect.moveTopLeft(pos);
     widget->setGeometry(wRect);
 
@@ -462,7 +467,7 @@ void VirtualConsole::setWidgetsAlignment(VCWidget *refWidget, int alignment)
     if (refWidget == NULL)
         return;
 
-    QRect refGeom = refWidget->geometry();
+    QRectF refGeom = refWidget->geometry();
 
     QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
     while(it.hasNext())
@@ -470,7 +475,7 @@ void VirtualConsole::setWidgetsAlignment(VCWidget *refWidget, int alignment)
         it.next();
 
         VCWidget *widget = m_widgetsMap[it.key()];
-        QRect wGeom = widget->geometry();
+        QRectF wGeom = widget->geometry();
 
         switch(alignment)
         {

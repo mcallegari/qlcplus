@@ -179,8 +179,8 @@ Rectangle
                     width: UISettings.iconSizeMedium * 2
                     implicitHeight: vcToolbar.height - 2
                     fontColor: UISettings.bgStrong
-                    onZoomOutClicked: { }
-                    onZoomInClicked: { }
+                    onZoomOutClicked: { virtualConsole.setPageScale(-0.1) }
+                    onZoomInClicked: { virtualConsole.setPageScale(0.1) }
                 }
             }
         }

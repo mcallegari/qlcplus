@@ -31,6 +31,7 @@ VCWidget::VCWidget(Doc *doc, QObject *parent)
     , m_id(invalidId())
     , m_type(UnknownWidget)
     , m_geometry(QRect(0,0,0,0))
+    , m_scaleFactor(1.0)
     , m_allowResize(true)
     , m_isDisabled(false)
     , m_isVisible(true)
@@ -164,19 +165,38 @@ VCWidget::WidgetType VCWidget::stringToType(QString str)
  * Geometry
  *********************************************************************/
 
-QRect VCWidget::geometry() const
+QRectF VCWidget::geometry() const
 {
-    return m_geometry;
+    return QRect(m_geometry.x() * m_scaleFactor, m_geometry.y() * m_scaleFactor,
+                 m_geometry.width() * m_scaleFactor, m_geometry.height() * m_scaleFactor);
 }
 
-void VCWidget::setGeometry(QRect rect)
+void VCWidget::setGeometry(QRectF rect)
 {
-    if (m_geometry == rect)
+    QRect scaled = QRect(rect.x() / m_scaleFactor, rect.y() / m_scaleFactor,
+                         rect.width() / m_scaleFactor, rect.height() / m_scaleFactor);
+
+    if (m_geometry == scaled)
         return;
 
-    m_geometry = rect;
+    m_geometry = scaled;
     setDocModified();
-    emit geometryChanged(rect);
+    emit geometryChanged();
+}
+
+qreal VCWidget::scaleFactor() const
+{
+    return m_scaleFactor;
+}
+
+void VCWidget::setScaleFactor(qreal factor)
+{
+    if (m_scaleFactor == factor)
+        return;
+
+    m_scaleFactor = factor;
+
+    emit geometryChanged();
 }
 
 /*********************************************************************
@@ -1000,7 +1020,7 @@ bool VCWidget::saveXMLWindowState(QXmlStreamWriter *doc)
 {
     Q_ASSERT(doc != NULL);
 
-    QRect r = geometry();
+    QRectF r = geometry();
 
     /* Window state tag */
     doc->writeStartElement(KXMLQLCWindowState);
@@ -1011,10 +1031,10 @@ bool VCWidget::saveXMLWindowState(QXmlStreamWriter *doc)
     else
         doc->writeAttribute(KXMLQLCWindowStateVisible, KXMLQLCFalse);
 
-    doc->writeAttribute(KXMLQLCWindowStateX, QString::number(r.x()));
-    doc->writeAttribute(KXMLQLCWindowStateY, QString::number(r.y()));
-    doc->writeAttribute(KXMLQLCWindowStateWidth, QString::number(r.width()));
-    doc->writeAttribute(KXMLQLCWindowStateHeight, QString::number(r.height()));
+    doc->writeAttribute(KXMLQLCWindowStateX, QString::number((int)r.x()));
+    doc->writeAttribute(KXMLQLCWindowStateY, QString::number((int)r.y()));
+    doc->writeAttribute(KXMLQLCWindowStateWidth, QString::number((int)r.width()));
+    doc->writeAttribute(KXMLQLCWindowStateHeight, QString::number((int)r.height()));
 
     doc->writeEndElement();
 
