@@ -61,6 +61,14 @@ Rectangle
         bgImage.anchors.margins = m
     }
 
+    function restoreGeometryBindings()
+    {
+        x = Qt.binding(function() { return wObj ? wObj.geometry.x : 0 })
+        y = Qt.binding(function() { return wObj ? wObj.geometry.y : 0 })
+        width = Qt.binding(function() { return wObj ? wObj.geometry.width : 100 })
+        height = Qt.binding(function() { return wObj ? wObj.geometry.height : 100 })
+    }
+
     Image
     {
         id: bgImage
@@ -168,6 +176,7 @@ Rectangle
                 {
                     drag.target = null
                     wObj.geometry = Qt.rect(wRoot.x, wRoot.y, wRoot.width, wRoot.height)
+                    wRoot.restoreGeometryBindings()
                 }
             }
         }
@@ -207,6 +216,7 @@ Rectangle
                 {
                     drag.target = null
                     wObj.geometry = Qt.rect(wRoot.x, wRoot.y, wRoot.width, wRoot.height)
+                    wRoot.restoreGeometryBindings()
                 }
             }
         }
@@ -244,6 +254,7 @@ Rectangle
                 {
                     drag.target = null
                     wObj.geometry = Qt.rect(wRoot.x, wRoot.y, wRoot.width, wRoot.height)
+                    wRoot.restoreGeometryBindings()
                 }
             }
         }
@@ -283,6 +294,7 @@ Rectangle
                 {
                     drag.target = null
                     wObj.geometry = Qt.rect(wRoot.x, wRoot.y, wRoot.width, wRoot.height)
+                    wRoot.restoreGeometryBindings()
                 }
             }
         }
