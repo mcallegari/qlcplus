@@ -30,7 +30,6 @@
 #include "qlcfile.h"
 #include "doc.h"
 
-
 #define KXMLQLCVCCaption "Caption"
 #define KXMLQLCVCFrameStyle "FrameStyle"    // LEGACY
 
@@ -94,7 +93,6 @@ class VCWidget : public QObject
     /*********************************************************************
      * Initialization
      *********************************************************************/
-
 public:
     VCWidget(Doc* doc = NULL, QObject* parent = 0);
     virtual ~VCWidget();
@@ -102,6 +100,8 @@ public:
     void setDocModified();
 
     virtual void render(QQuickView *view, QQuickItem *parent);
+
+    void enqueueTardisAction(int code, QVariant oldVal, QVariant newVal);
 
 protected:
     Doc* m_doc;

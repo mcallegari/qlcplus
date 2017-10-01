@@ -23,6 +23,7 @@
 #include "qlcinputchannel.h"
 #include "inputpatch.h"
 #include "vcwidget.h"
+#include "tardis.h"
 #include "doc.h"
 
 VCWidget::VCWidget(Doc *doc, QObject *parent)
@@ -62,6 +63,15 @@ void VCWidget::setDocModified()
 
 void VCWidget::render(QQuickView *, QQuickItem *)
 {
+}
+
+void VCWidget::enqueueTardisAction(int code, QVariant oldVal, QVariant newVal)
+{
+    if (Tardis::instance() == NULL)
+        return;
+
+    Tardis *tardis = Tardis::instance();
+    tardis->enqueueAction(code, this, oldVal, newVal);
 }
 
 /*****************************************************************************
@@ -167,20 +177,22 @@ VCWidget::WidgetType VCWidget::stringToType(QString str)
 
 QRectF VCWidget::geometry() const
 {
-    return QRect(m_geometry.x() * m_scaleFactor, m_geometry.y() * m_scaleFactor,
-                 m_geometry.width() * m_scaleFactor, m_geometry.height() * m_scaleFactor);
+    return QRectF(m_geometry.x() * m_scaleFactor, m_geometry.y() * m_scaleFactor,
+                  m_geometry.width() * m_scaleFactor, m_geometry.height() * m_scaleFactor);
 }
 
 void VCWidget::setGeometry(QRectF rect)
 {
-    QRect scaled = QRect(rect.x() / m_scaleFactor, rect.y() / m_scaleFactor,
-                         rect.width() / m_scaleFactor, rect.height() / m_scaleFactor);
+    QRectF scaled = QRectF(rect.x() / m_scaleFactor, rect.y() / m_scaleFactor,
+                           rect.width() / m_scaleFactor, rect.height() / m_scaleFactor);
 
     if (m_geometry == scaled)
         return;
 
+    enqueueTardisAction(VCWidgetGeometry, QVariant(m_geometry), QVariant(scaled));
+
     m_geometry = scaled;
-    setDocModified();
+
     emit geometryChanged();
 }
 
@@ -254,14 +266,14 @@ bool VCWidget::isVisible() const
     return m_isVisible;
 }
 
+/*****************************************************************************
+ * Caption
+ *****************************************************************************/
+
 QString VCWidget::defaultCaption()
 {
     return QString();
 }
-
-/*****************************************************************************
- * Caption
- *****************************************************************************/
 
 QString VCWidget::caption() const
 {
@@ -273,8 +285,9 @@ void VCWidget::setCaption(QString caption)
     if (m_caption == caption)
         return;
 
+    enqueueTardisAction(VCWidgetCaption, m_caption, caption);
     m_caption = caption;
-    setDocModified();
+
     emit captionChanged(caption);
 }
 
@@ -293,10 +306,10 @@ void VCWidget::setBackgroundColor(QColor backgroundColor)
         return;
 
     setBackgroundImage("");
+    enqueueTardisAction(VCWidgetBackgroundColor, m_backgroundColor, backgroundColor);
 
     m_backgroundColor = backgroundColor;
     m_hasCustomBackgroundColor = true;
-    setDocModified();
     emit backgroundColorChanged(backgroundColor);
 }
 
@@ -323,9 +336,11 @@ void VCWidget::setBackgroundImage(QString path)
     if (m_backgroundImage == strippedPath)
         return;
 
+    enqueueTardisAction(VCWidgetBackgroundImage, m_backgroundImage, strippedPath);
+
     m_hasCustomBackgroundColor = false;
     m_backgroundImage = strippedPath;
-    setDocModified();
+
     emit backgroundImageChanged(strippedPath);
 }
 
@@ -348,9 +363,11 @@ void VCWidget::setForegroundColor(QColor foregroundColor)
     if (m_foregroundColor == foregroundColor)
         return;
 
+    enqueueTardisAction(VCWidgetForegroundColor, m_foregroundColor, foregroundColor);
+
     m_foregroundColor = foregroundColor;
     m_hasCustomForegroundColor = true;
-    setDocModified();
+
     emit foregroundColorChanged(foregroundColor);
 }
 
@@ -379,8 +396,9 @@ void VCWidget::setDefaultFontSize(qreal size)
 void VCWidget::setFont(const QFont& font)
 {
     m_hasCustomFont = true;
+    enqueueTardisAction(VCWidgetFont, m_font, font);
     m_font = font;
-    setDocModified();
+
     emit fontChanged();
 }
 

@@ -22,6 +22,21 @@
 
 enum
 {
+    /* Virtual console editing actions */
+    VCWidgetGeometry = 0xE000,
+    VCWidgetAllowResize,
+    VCWidgetDisabled,
+    VCWidgetVisible,
+    VCWidgetCaption,
+    VCWidgetBackgroundColor,
+    VCWidgetBackgroundImage,
+    VCWidgetForegroundColor,
+    VCWidgetFont,
+    VCWidgetPage,
+
+    /* Virtual Console live actions */
+    VCButtonState = 0xF000,
+
     /* Network protocol actions */
     NetAnnounce = 0xFF00,
     NetAnnounceReply,
@@ -31,5 +46,6 @@ enum
     NetPollReply,
     NetProjectTransfer
 };
+
 
 #endif /* TARDISACTIONS_H */

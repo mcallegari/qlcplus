@@ -150,7 +150,7 @@ void App::startup()
     connect(m_networkManager, &NetworkManager::accessMaskChanged, this, &App::setAccessMask);
     connect(m_networkManager, &NetworkManager::requestProjectLoad, this, &App::slotLoadDocFromMemory);
 
-    m_tardis = new Tardis(this, m_doc, m_fixtureManager, m_functionManager, m_showManager, m_virtualConsole);
+    m_tardis = new Tardis(this, m_doc, m_networkManager, m_fixtureManager, m_functionManager, m_showManager, m_virtualConsole);
 
     m_contextManager->registerContext(m_virtualConsole);
     m_contextManager->registerContext(m_showManager);
@@ -269,6 +269,7 @@ void App::clearDocument()
     m_virtualConsole->resetContents();
     //SimpleDesk::instance()->clearContents();
     m_showManager->resetContents();
+    m_tardis->resetHistory();
     m_doc->inputOutputMap()->resetUniverses();
     setFileName(QString());
     m_doc->resetModified();

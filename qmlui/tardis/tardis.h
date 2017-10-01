@@ -20,30 +20,64 @@
 #ifndef TARDIS_H
 #define TARDIS_H
 
-#include <QObject>
+#include <QThread>
+#include <QQueue>
+#include <QSemaphore>
 #include <QQuickView>
+#include <QElapsedTimer>
 
 #include "tardisactions.h"
 
 class FixtureManager;
 class FunctionManager;
-class ShowManager;
 class VirtualConsole;
+class NetworkManager;
+class ShowManager;
 class Doc;
 
-class Tardis : public QObject
+typedef struct
+{
+    int m_action;
+    qint64 m_timestamp;
+    QObject *m_object;
+    QVariant m_oldValue;
+    QVariant m_newValue;
+} TardisAction;
+
+class Tardis : public QThread
 {
 public:
-    explicit Tardis(QQuickView *view, Doc *doc,
+    explicit Tardis(QQuickView *view, Doc *doc, NetworkManager *netMgr,
                     FixtureManager *fxMgr, FunctionManager *funcMgr,
                     ShowManager *showMgr, VirtualConsole *vc,
                     QObject *parent = 0);
 
+    ~Tardis();
+
+    /** Get the singleton instance */
+    static Tardis* instance();
+
+    void enqueueAction(int code, QObject *object, QVariant oldVal, QVariant newVal);
+
+    void undoAction();
+
+    void resetHistory();
+
+    /** @reimp */
+    void run(); //thread run function
+
 private:
+    /** The singleton Tardis instance */
+    static Tardis* s_instance;
+    /** Thread running status flag */
+    bool m_running;
+
     /** Reference to the QML view root */
     QQuickView *m_view;
     /** Reference to the project workspace */
     Doc *m_doc;
+    /** Reference to the Network Manager */
+    NetworkManager *m_networkManager;
 
     /** Reference to the Fixture Manager */
     FixtureManager *m_fixtureManager;
@@ -53,6 +87,20 @@ private:
     ShowManager *m_showManager;
     /** Reference to the Virtual Console */
     VirtualConsole *m_virtualConsole;
+
+    /** Time reference since application starts */
+    QElapsedTimer m_uptime;
+
+    /** A inter-thread queue to desynchronize actions processing */
+    QQueue<TardisAction> m_actionsQueue;
+
+    /** Synchronization semaphore to monitor actions queue data */
+    QSemaphore m_queueSem;
+
+    /** The actual history of actions */
+    QList<TardisAction> m_history;
+
+    bool m_undoing;
 };
 
 #endif /* TARDIS_H */

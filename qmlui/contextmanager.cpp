@@ -31,6 +31,7 @@
 #include "mainviewdmx.h"
 #include "mainview2d.h"
 #include "mainview3d.h"
+#include "tardis.h"
 #include "doc.h"
 
 ContextManager::ContextManager(QQuickView *view, Doc *doc,
@@ -353,6 +354,9 @@ void ContextManager::handleKeyPress(QKeyEvent *e)
             case Qt::Key_P:
                 setPositionPicking(true);
             break;
+            case Qt::Key_Z:
+                Tardis::instance()->undoAction();
+            break;
             default:
             break;
         }
@@ -365,6 +369,7 @@ void ContextManager::handleKeyPress(QKeyEvent *e)
 void ContextManager::handleKeyRelease(QKeyEvent *e)
 {
     int key = e->key();
+
     /* Do not propagate single modifiers events */
     if (key == Qt::Key_Control || key == Qt::Key_Alt || key == Qt::Key_Shift || key == Qt::Key_Meta)
         return;
