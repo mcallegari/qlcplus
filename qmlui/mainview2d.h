@@ -64,6 +64,8 @@ public:
 
     void updateFixturePosition(quint32 fxID, QVector3D pos);
 
+    void removeFixtureItem(quint32 fxID);
+
     QVector3D gridSize() const;
     void setGridSize(QVector3D sz);
 

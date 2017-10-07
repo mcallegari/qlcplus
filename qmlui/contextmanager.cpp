@@ -67,8 +67,8 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
     m_DMXView = new MainViewDMX(m_view, m_doc);
     registerContext(m_DMXView);
 
-    connect(m_fixtureManager, SIGNAL(newFixtureCreated(quint32,qreal,qreal)),
-            this, SLOT(slotNewFixtureCreated(quint32,qreal,qreal)));
+    connect(m_fixtureManager, &FixtureManager::newFixtureCreated, this, &ContextManager::slotNewFixtureCreated);
+    connect(m_fixtureManager, &FixtureManager::fixtureDeleted, this, &ContextManager::slotFixtureDeleted);
     connect(m_fixtureManager, &FixtureManager::channelValueChanged, this, &ContextManager::slotChannelValueChanged);
     connect(m_fixtureManager, SIGNAL(channelTypeValueChanged(int,quint8)),
             this, SLOT(slotChannelTypeValueChanged(int,quint8)));
@@ -686,6 +686,21 @@ void ContextManager::slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal
         m_2DView->createFixtureItem(fxID, x, y, false);
     if (m_3DView->isEnabled())
         m_3DView->createFixtureItem(fxID, x, y, z, false);
+}
+
+void ContextManager::slotFixtureDeleted(quint32 fxID)
+{
+    if (m_doc->loadStatus() == Doc::Loading)
+        return;
+
+    qDebug() << "[ContextManager] Removing fixture" << fxID;
+
+    if (m_DMXView->isEnabled())
+        m_DMXView->removeFixtureItem(fxID);
+    if (m_2DView->isEnabled())
+        m_2DView->removeFixtureItem(fxID);
+    if (m_3DView->isEnabled())
+        m_3DView->removeFixtureItem(fxID);
 }
 
 void ContextManager::slotChannelValueChanged(quint32 fxID, quint32 channel, quint8 value)

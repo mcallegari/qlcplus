@@ -125,6 +125,8 @@ public:
 
     void updateFixtureRotation(quint32 fxID, QVector3D degrees);
 
+    void removeFixtureItem(quint32 fxID);
+
     QVector3D lightPosition(quint32 fixtureID);
 
 protected:

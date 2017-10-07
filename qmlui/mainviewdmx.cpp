@@ -144,6 +144,15 @@ void MainViewDMX::updateFixtureSelection(quint32 fxID, bool enable)
     fxItem->setProperty("isSelected", enable);
 }
 
+void MainViewDMX::removeFixtureItem(quint32 fxID)
+{
+    if (isEnabled() == false || m_itemsMap.contains(fxID) == false)
+        return;
+
+    QQuickItem *fixtureItem = m_itemsMap.take(fxID);
+    delete fixtureItem;
+}
+
 void MainViewDMX::slotRefreshView()
 {
     if (isEnabled() == false)

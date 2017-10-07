@@ -798,6 +798,19 @@ void MainView3D::updateFixtureRotation(quint32 fxID, QVector3D degrees)
     mesh->m_rootTransform->setRotationZ(degrees.z());
 }
 
+void MainView3D::removeFixtureItem(quint32 fxID)
+{
+    if (isEnabled() == false || m_entitiesMap.contains(fxID) == false)
+        return;
+
+    FixtureMesh *mesh = m_entitiesMap.take(fxID);
+
+    delete mesh->m_rootItem;
+    delete mesh->m_selectionBox;
+
+    delete mesh;
+}
+
 /*********************************************************************
  * Environment
  *********************************************************************/

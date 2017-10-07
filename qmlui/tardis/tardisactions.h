@@ -22,8 +22,14 @@
 
 enum
 {
+    /* Fixture editing */
+    FixtureCreate = 0x0000,
+    FixtureDelete,
+
     /* Virtual console editing actions */
-    VCWidgetGeometry = 0xE000,
+    VCWidgetCreate = 0xE000,
+    VCWidgetDelete,
+    VCWidgetGeometry,
     VCWidgetAllowResize,
     VCWidgetDisabled,
     VCWidgetVisible,

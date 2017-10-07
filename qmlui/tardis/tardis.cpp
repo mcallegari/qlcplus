@@ -18,8 +18,17 @@
 */
 
 #include "tardis.h"
+
+#include "virtualconsole.h"
+#include "fixturemanager.h"
 #include "vcwidget.h"
 #include "doc.h"
+
+/* The time in milliseconds to declare an action
+ * a duplicate or belonging to a batch of actions */
+#define TARDIS_ACTION_INTERTIME     100
+/* The maximum number of action a Tardis can hold */
+#define TARDIS_MAX_ACTIONS_NUMBER   100
 
 Tardis* Tardis::s_instance = NULL;
 
@@ -80,52 +89,73 @@ void Tardis::undoAction()
     if (m_history.isEmpty())
         return;
 
-    TardisAction action = m_history.takeLast();
-
-    qDebug() << "Undo action" << action.m_action;
+    bool done = false;
 
     m_undoing = true;
 
-    switch(action.m_action)
+    while (!done)
     {
-        case VCWidgetGeometry:
+        TardisAction action = m_history.takeLast();
+        qDebug() << "Undo action" << action.m_action;
+
+        switch(action.m_action)
         {
-            auto member = std::mem_fn(&VCWidget::setGeometry);
-            member(qobject_cast<VCWidget *>(action.m_object), action.m_oldValue.toRectF());
+            case FixtureCreate:
+            {
+                m_fixtureManager->deleteFixtures(QVariantList( { action.m_newValue } ));
+            }
+            break;
+            case VCWidgetCreate:
+            {
+                m_virtualConsole->deleteVCWidgets(QVariantList( { action.m_newValue } ));
+            }
+            break;
+            case VCWidgetGeometry:
+            {
+                auto member = std::mem_fn(&VCWidget::setGeometry);
+                member(qobject_cast<VCWidget *>(action.m_object), action.m_oldValue.toRectF());
+            }
+            break;
+            case VCWidgetCaption:
+            {
+                auto member = std::mem_fn(&VCWidget::setCaption);
+                member(qobject_cast<VCWidget *>(action.m_object), action.m_oldValue.toString());
+            }
+            break;
+            case VCWidgetBackgroundColor:
+            {
+                auto member = std::mem_fn(&VCWidget::setBackgroundColor);
+                member(qobject_cast<VCWidget *>(action.m_object), action.m_oldValue.value<QColor>());
+            }
+            break;
+            case VCWidgetBackgroundImage:
+            {
+                auto member = std::mem_fn(&VCWidget::setBackgroundImage);
+                member(qobject_cast<VCWidget *>(action.m_object), action.m_oldValue.toString());
+            }
+            break;
+            case VCWidgetForegroundColor:
+            {
+                auto member = std::mem_fn(&VCWidget::setForegroundColor);
+                member(qobject_cast<VCWidget *>(action.m_object), action.m_oldValue.value<QColor>());
+            }
+            break;
+            case VCWidgetFont:
+            {
+                auto member = std::mem_fn(&VCWidget::setFont);
+                member(qobject_cast<VCWidget *>(action.m_object), action.m_oldValue.value<QFont>());
+            }
+            break;
+            default:
+            break;
         }
-        break;
-        case VCWidgetCaption:
+
+        /* Check if I am processing a batch of actions or a single one */
+        if (m_history.isEmpty() ||
+            action.m_timestamp - m_history.last().m_timestamp > TARDIS_ACTION_INTERTIME)
         {
-            auto member = std::mem_fn(&VCWidget::setCaption);
-            member(qobject_cast<VCWidget *>(action.m_object), action.m_oldValue.toString());
+            done = true;
         }
-        break;
-        case VCWidgetBackgroundColor:
-        {
-            auto member = std::mem_fn(&VCWidget::setBackgroundColor);
-            member(qobject_cast<VCWidget *>(action.m_object), action.m_oldValue.value<QColor>());
-        }
-        break;
-        case VCWidgetBackgroundImage:
-        {
-            auto member = std::mem_fn(&VCWidget::setBackgroundImage);
-            member(qobject_cast<VCWidget *>(action.m_object), action.m_oldValue.toString());
-        }
-        break;
-        case VCWidgetForegroundColor:
-        {
-            auto member = std::mem_fn(&VCWidget::setForegroundColor);
-            member(qobject_cast<VCWidget *>(action.m_object), action.m_oldValue.value<QColor>());
-        }
-        break;
-        case VCWidgetFont:
-        {
-            auto member = std::mem_fn(&VCWidget::setFont);
-            member(qobject_cast<VCWidget *>(action.m_object), action.m_oldValue.value<QFont>());
-        }
-        break;
-        default:
-        break;
     }
 
     m_undoing = false;
@@ -144,7 +174,7 @@ void Tardis::run()
     {
         if (m_queueSem.tryAcquire(1, 1000) == false)
         {
-            qDebug() << "No actions to process";
+            qDebug() << "No actions to process, history length:" << m_history.count();
             continue;
         }
 
@@ -153,7 +183,26 @@ void Tardis::run()
 
         TardisAction action = m_actionsQueue.dequeue();
 
+        if (m_history.isEmpty() == false)
+        {
+            TardisAction lastAction = m_history.last();
+
+            /* if the current action code is the same of the last action,
+             * and it happened very fast, discard the previous and keep just one */
+            if (action.m_action == lastAction.m_action &&
+                action.m_object == lastAction.m_object &&
+                action.m_timestamp - lastAction.m_timestamp < TARDIS_ACTION_INTERTIME)
+            {
+                action.m_oldValue = lastAction.m_oldValue;
+                m_history.removeLast();
+            }
+        }
+
         m_history.append(action);
+
+        /* So long and thanks for all the fish */
+        if (m_history.count() > TARDIS_MAX_ACTIONS_NUMBER)
+            m_history.removeFirst();
 
         qDebug() << "Got action:" << action.m_action << ", history length:" << m_history.count();
     }

@@ -22,6 +22,7 @@
 #include <QQmlEngine>
 #include <QDebug>
 
+#include "tardis.h"
 #include "vcframe.h"
 #include "vclabel.h"
 #include "vcclock.h"
@@ -153,6 +154,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
         {
             VCFrame *frame = new VCFrame(m_doc, m_vc, this);
             QQmlEngine::setObjectOwnership(frame, QQmlEngine::CppOwnership);
+            enqueueTardisAction(VCWidgetCreate, QVariant(), frame->id());
             frame->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 50, m_vc->pixelDensity() * 50));
             setupWidget(frame, currentPage());
             frame->setDefaultFontSize(m_vc->pixelDensity() * 3.5);
@@ -164,6 +166,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
         {
             VCSoloFrame *soloframe = new VCSoloFrame(m_doc, m_vc, this);
             QQmlEngine::setObjectOwnership(soloframe, QQmlEngine::CppOwnership);
+            enqueueTardisAction(VCWidgetCreate, QVariant(), soloframe->id());
             soloframe->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 50, m_vc->pixelDensity() * 50));
             setupWidget(soloframe, currentPage());
             soloframe->setDefaultFontSize(m_vc->pixelDensity() * 3.5);
@@ -175,6 +178,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
         {
             VCButton *button = new VCButton(m_doc, this);
             QQmlEngine::setObjectOwnership(button, QQmlEngine::CppOwnership);
+            enqueueTardisAction(VCWidgetCreate, QVariant(), button->id());
             button->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 17, m_vc->pixelDensity() * 17));
             setupWidget(button, currentPage());
             m_vc->addWidgetToMap(button);
@@ -185,6 +189,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
         {
             VCLabel *label = new VCLabel(m_doc, this);
             QQmlEngine::setObjectOwnership(label, QQmlEngine::CppOwnership);
+            enqueueTardisAction(VCWidgetCreate, QVariant(), label->id());
             label->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 25, m_vc->pixelDensity() * 8));
             setupWidget(label, currentPage());
             label->setDefaultFontSize(m_vc->pixelDensity() * 3.5);
@@ -196,6 +201,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
         {
             VCSlider *slider = new VCSlider(m_doc, this);
             QQmlEngine::setObjectOwnership(slider, QQmlEngine::CppOwnership);
+            enqueueTardisAction(VCWidgetCreate, QVariant(), slider->id());
             if (wType == "Knob")
             {
                 slider->setWidgetStyle(VCSlider::WKnob);
@@ -213,6 +219,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
         {
             VCClock *clock = new VCClock(m_doc, this);
             QQmlEngine::setObjectOwnership(clock, QQmlEngine::CppOwnership);
+            enqueueTardisAction(VCWidgetCreate, QVariant(), clock->id());
             clock->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 25, m_vc->pixelDensity() * 8));
             setupWidget(clock, currentPage());
             clock->setDefaultFontSize(m_vc->pixelDensity() * 5.0);

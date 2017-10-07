@@ -504,6 +504,15 @@ void MainView2D::updateFixturePosition(quint32 fxID, QVector3D pos)
     fxItem->setProperty("mmYPos", pos.y());
 }
 
+void MainView2D::removeFixtureItem(quint32 fxID)
+{
+    if (isEnabled() == false || m_itemsMap.contains(fxID) == false)
+        return;
+
+    QQuickItem *fixtureItem = m_itemsMap.take(fxID);
+    delete fixtureItem;
+}
+
 QVector3D MainView2D::gridSize() const
 {
     return m_gridSize;

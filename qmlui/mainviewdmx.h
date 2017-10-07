@@ -51,6 +51,8 @@ public:
 
     void updateFixtureSelection(quint32 fxID, bool enable);
 
+    void removeFixtureItem(quint32 fxID);
+
 protected:
 
 signals:
