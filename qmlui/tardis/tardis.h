@@ -22,6 +22,7 @@
 
 #include <QThread>
 #include <QQueue>
+#include <QMutex>
 #include <QSemaphore>
 #include <QQuickView>
 #include <QElapsedTimer>
@@ -30,6 +31,7 @@
 
 class FixtureManager;
 class FunctionManager;
+class ContextManager;
 class VirtualConsole;
 class NetworkManager;
 class ShowManager;
@@ -49,7 +51,7 @@ class Tardis : public QThread
 public:
     explicit Tardis(QQuickView *view, Doc *doc, NetworkManager *netMgr,
                     FixtureManager *fxMgr, FunctionManager *funcMgr,
-                    ShowManager *showMgr, VirtualConsole *vc,
+                    ContextManager *ctxMgr, ShowManager *showMgr, VirtualConsole *vc,
                     QObject *parent = 0);
 
     ~Tardis();
@@ -83,6 +85,8 @@ private:
     FixtureManager *m_fixtureManager;
     /** Reference to the Function Manager */
     FunctionManager *m_functionManager;
+    /** Reference to the Context Manager */
+    ContextManager *m_contextManager;
     /** Reference to the Show Manager */
     ShowManager *m_showManager;
     /** Reference to the Virtual Console */
@@ -94,11 +98,15 @@ private:
     /** A inter-thread queue to desynchronize actions processing */
     QQueue<TardisAction> m_actionsQueue;
 
-    /** Synchronization semaphore to monitor actions queue data */
+    /** Synchronization variables between threads */
+    QMutex m_queueMutex;
     QSemaphore m_queueSem;
 
     /** The actual history of actions */
     QList<TardisAction> m_history;
+
+    /** Count the actions (or batch of actions) recorded */
+    int m_historyCount;
 
     bool m_undoing;
 };

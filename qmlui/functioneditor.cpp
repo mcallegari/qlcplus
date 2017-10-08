@@ -18,6 +18,7 @@
 */
 
 #include "functioneditor.h"
+#include "tardis.h"
 #include "doc.h"
 
 FunctionEditor::FunctionEditor(QQuickView *view, Doc *doc, QObject *parent)
@@ -106,6 +107,8 @@ void FunctionEditor::setFunctionName(QString functionName)
     if (m_function == NULL || m_function->name() == functionName)
         return;
 
+    Tardis::instance()->enqueueAction(FunctionSetName, m_function, m_function->name(), functionName);
+
     m_function->setName(functionName);
     emit functionNameChanged(functionName);
 }
@@ -122,6 +125,8 @@ void FunctionEditor::setTempoType(int tempoType)
 {
     if (m_function == NULL || m_function->tempoType() == Function::TempoType(tempoType))
         return;
+
+    Tardis::instance()->enqueueAction(FunctionSetTempoType, m_function, m_function->tempoType(), tempoType);
 
     m_function->setTempoType(Function::TempoType(tempoType));
 

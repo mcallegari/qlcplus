@@ -219,6 +219,8 @@ public:
     /** Resets the current values used for dumping or preview */
     Q_INVOKABLE void resetDumpValues();
 
+    GenericDMXSource *dmxSource() const;
+
 private:
     /** Reference to a Generic DMX source used to handle Scenes dump */
     GenericDMXSource* m_source;

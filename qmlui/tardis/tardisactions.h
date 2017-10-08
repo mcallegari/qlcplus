@@ -22,9 +22,18 @@
 
 enum
 {
-    /* Fixture editing */
+    /* Fixture editing actions */
     FixtureCreate = 0x0000,
     FixtureDelete,
+    FixturePosition,
+    FixtureSetDumpValue,
+    FixtureSetChannelValue,
+
+    /* Function editing actions */
+    FunctionCreate = 0x0100,
+    FunctionDelete,
+    FunctionSetName,
+    FunctionSetTempoType,
 
     /* Virtual console editing actions */
     VCWidgetCreate = 0xE000,

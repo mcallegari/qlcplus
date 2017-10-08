@@ -271,14 +271,9 @@ void ContextManager::setPositionPickPoint(QVector3D point)
             foreach(SceneValue posSv, svList)
             {
                 if (m_editingEnabled == false)
-                {
-                    m_source->set(posSv.fxi, posSv.channel, posSv.value);
-                    m_functionManager->setDumpValue(posSv.fxi, posSv.channel, posSv.value);
-                }
+                    m_functionManager->setDumpValue(posSv.fxi, posSv.channel, posSv.value, m_source);
                 else
-                {
                     m_functionManager->setChannelValue(posSv.fxi, posSv.channel, posSv.value);
-                }
             }
         }
 
@@ -300,14 +295,9 @@ void ContextManager::setPositionPickPoint(QVector3D point)
             foreach(SceneValue posSv, svList)
             {
                 if (m_editingEnabled == false)
-                {
-                    m_source->set(posSv.fxi, posSv.channel, posSv.value);
-                    m_functionManager->setDumpValue(posSv.fxi, posSv.channel, posSv.value);
-                }
+                    m_functionManager->setDumpValue(posSv.fxi, posSv.channel, posSv.value, m_source);
                 else
-                {
                     m_functionManager->setChannelValue(posSv.fxi, posSv.channel, posSv.value);
-                }
             }
         }
     }
@@ -502,9 +492,17 @@ bool ContextManager::isFixtureSelected(quint32 fxID)
 void ContextManager::setFixturePosition(quint32 fxID, qreal x, qreal y, qreal z)
 {
     MonitorProperties *mProps = m_doc->monitorProperties();
-    mProps->setFixturePosition(fxID, QVector3D(x, y, z));
+    QVector3D position(x, y, z);
+    Tardis::instance()->enqueueAction(FixturePosition, m_doc->fixture(fxID),
+                                      QVariant(mProps->fixturePosition(fxID)),
+                                      QVariant(position));
+
+    mProps->setFixturePosition(fxID, position);
+
+    if (m_2DView->isEnabled())
+        m_2DView->updateFixturePosition(fxID, position);
     if (m_3DView->isEnabled())
-        m_3DView->updateFixturePosition(fxID, QVector3D(x, y, z));
+        m_3DView->updateFixturePosition(fxID, position);
 }
 
 QVector3D ContextManager::fixturesPosition() const
@@ -706,10 +704,7 @@ void ContextManager::slotFixtureDeleted(quint32 fxID)
 void ContextManager::slotChannelValueChanged(quint32 fxID, quint32 channel, quint8 value)
 {
     if (m_editingEnabled == false)
-    {
-        m_source->set(fxID, channel, (uchar)value);
-        m_functionManager->setDumpValue(fxID, channel, (uchar)value);
-    }
+        m_functionManager->setDumpValue(fxID, channel, (uchar)value, m_source);
     else
         m_functionManager->setChannelValue(fxID, channel, (uchar)value);
 }
@@ -723,10 +718,7 @@ void ContextManager::slotChannelTypeValueChanged(int type, quint8 value, quint32
         if (channel == UINT_MAX || (channel != UINT_MAX && channel == sv.channel))
         {
             if (m_editingEnabled == false)
-            {
-                m_source->set(sv.fxi, sv.channel, (uchar)value);
-                m_functionManager->setDumpValue(sv.fxi, sv.channel, (uchar)value);
-            }
+                m_functionManager->setDumpValue(sv.fxi, sv.channel, (uchar)value, m_source);
             else
                 m_functionManager->setChannelValue(sv.fxi, sv.channel, (uchar)value);
         }
@@ -766,14 +758,9 @@ void ContextManager::slotPositionChanged(int type, int degrees)
         foreach(SceneValue posSv, svList)
         {
             if (m_editingEnabled == false)
-            {
-                m_source->set(posSv.fxi, posSv.channel, posSv.value);
-                m_functionManager->setDumpValue(posSv.fxi, posSv.channel, posSv.value);
-            }
+                m_functionManager->setDumpValue(posSv.fxi, posSv.channel, posSv.value, m_source);
             else
-            {
                 m_functionManager->setChannelValue(posSv.fxi, posSv.channel, posSv.value);
-            }
         }
     }
 }
@@ -845,6 +832,11 @@ void ContextManager::resetDumpValues()
     m_source->unsetAll();
 
     m_functionManager->resetDumpValues();
+}
+
+GenericDMXSource *ContextManager::dmxSource() const
+{
+    return m_source;
 }
 
 

@@ -17,10 +17,15 @@
   limitations under the License.
 */
 
+#include <QMutexLocker>
+
 #include "tardis.h"
 
 #include "virtualconsole.h"
 #include "fixturemanager.h"
+#include "functionmanager.h"
+#include "contextmanager.h"
+#include "functioneditor.h"
 #include "vcwidget.h"
 #include "doc.h"
 
@@ -33,7 +38,7 @@
 Tardis* Tardis::s_instance = NULL;
 
 Tardis::Tardis(QQuickView *view, Doc *doc, NetworkManager *netMgr,
-               FixtureManager *fxMgr, FunctionManager *funcMgr,
+               FixtureManager *fxMgr, FunctionManager *funcMgr, ContextManager *ctxMgr,
                ShowManager *showMgr, VirtualConsole *vc, QObject *parent)
     : QThread(parent)
     , m_running(false)
@@ -42,8 +47,10 @@ Tardis::Tardis(QQuickView *view, Doc *doc, NetworkManager *netMgr,
     , m_networkManager(netMgr)
     , m_fixtureManager(fxMgr)
     , m_functionManager(funcMgr)
+    , m_contextManager(ctxMgr)
     , m_showManager(showMgr)
     , m_virtualConsole(vc)
+    , m_historyCount(0)
     , m_undoing(false)
 {
     Q_ASSERT(s_instance == NULL);
@@ -79,7 +86,12 @@ void Tardis::enqueueAction(int code, QObject *object, QVariant oldVal, QVariant 
     action.m_object = object;
     action.m_oldValue = oldVal;
     action.m_newValue = newVal;
-    m_actionsQueue.enqueue(action);
+    {
+        // enqueue the action under protection
+        QMutexLocker locker(&m_queueMutex);
+        m_actionsQueue.enqueue(action);
+    }
+    // inform the thread an action is available
     m_queueSem.release();
     m_doc->setModified();
 }
@@ -100,11 +112,62 @@ void Tardis::undoAction()
 
         switch(action.m_action)
         {
+            /* *********************** Fixture editing actions ************************ */
             case FixtureCreate:
             {
                 m_fixtureManager->deleteFixtures(QVariantList( { action.m_newValue } ));
             }
             break;
+            case FixturePosition:
+            {
+                Fixture *fixture = qobject_cast<Fixture *>(action.m_object);
+                if (fixture)
+                {
+                    QVector3D pos = action.m_oldValue.value<QVector3D>();
+                    m_contextManager->setFixturePosition(fixture->id(), pos.x(), pos.y(), pos.z());
+                }
+            }
+            break;
+            case FixtureSetDumpValue:
+            {
+                SceneValue scv = action.m_oldValue.value<SceneValue>();
+                m_functionManager->setDumpValue(scv.fxi, scv.channel, scv.value, m_contextManager->dmxSource());
+            }
+            break;
+            case FixtureSetChannelValue:
+            {
+                SceneValue scv = action.m_oldValue.value<SceneValue>();
+                m_functionManager->setChannelValue(scv.fxi, scv.channel, scv.value);
+            }
+            break;
+
+            /* *********************** Function editing actions *********************** */
+            case FunctionCreate:
+            {
+                m_functionManager->deleteFunctions(QVariantList( { action.m_newValue } ));
+            }
+            break;
+            case FunctionSetName:
+            {
+                Function *f = qobject_cast<Function *>(action.m_object);
+                m_functionManager->setEditorFunction(f->id(), true);
+                FunctionEditor *editor = m_functionManager->currentEditor();
+                if (editor != NULL)
+                    editor->setFunctionName(action.m_oldValue.toString());
+            }
+            break;
+            case FunctionSetTempoType:
+            {
+                Function *f = qobject_cast<Function *>(action.m_object);
+                m_functionManager->setEditorFunction(f->id(), true);
+                FunctionEditor *editor = m_functionManager->currentEditor();
+                if (editor != NULL)
+                    editor->setTempoType(action.m_oldValue.toInt());
+            }
+            break;
+
+            /* ******************* Virtual console editing actions ******************** */
+
             case VCWidgetCreate:
             {
                 m_virtualConsole->deleteVCWidgets(QVariantList( { action.m_newValue } ));
@@ -158,6 +221,8 @@ void Tardis::undoAction()
         }
     }
 
+    m_historyCount--;
+
     m_undoing = false;
 }
 
@@ -174,37 +239,53 @@ void Tardis::run()
     {
         if (m_queueSem.tryAcquire(1, 1000) == false)
         {
-            qDebug() << "No actions to process, history length:" << m_history.count();
+            qDebug() << "No actions to process, history length:" << m_historyCount << "(" << m_history.count() << ")";
             continue;
         }
 
-        if (m_actionsQueue.isEmpty())
-            continue;
+        TardisAction action;
 
-        TardisAction action = m_actionsQueue.dequeue();
+        {
+            QMutexLocker locker(&m_queueMutex);
+            if (m_actionsQueue.isEmpty())
+                continue;
+
+            action = m_actionsQueue.dequeue();
+        }
 
         if (m_history.isEmpty() == false)
         {
             TardisAction lastAction = m_history.last();
 
-            /* if the current action code is the same of the last action,
+            /* if the current action is the same of the last action,
              * and it happened very fast, discard the previous and keep just one */
-            if (action.m_action == lastAction.m_action &&
-                action.m_object == lastAction.m_object &&
-                action.m_timestamp - lastAction.m_timestamp < TARDIS_ACTION_INTERTIME)
+            if (action.m_timestamp - lastAction.m_timestamp < TARDIS_ACTION_INTERTIME)
             {
-                action.m_oldValue = lastAction.m_oldValue;
-                m_history.removeLast();
+                if (action.m_action == lastAction.m_action &&
+                    action.m_object == lastAction.m_object &&
+                    action.m_newValue == lastAction.m_newValue)
+                {
+                    action.m_oldValue = lastAction.m_oldValue;
+                    m_history.removeLast();
+                }
             }
+            else
+            {
+                m_historyCount++;
+            }
+        }
+        else
+        {
+            m_historyCount++;
         }
 
         m_history.append(action);
 
         /* So long and thanks for all the fish */
-        if (m_history.count() > TARDIS_MAX_ACTIONS_NUMBER)
+        if (m_historyCount > TARDIS_MAX_ACTIONS_NUMBER)
             m_history.removeFirst();
 
-        qDebug() << "Got action:" << action.m_action << ", history length:" << m_history.count();
+        qDebug() << "Got action:" << action.m_action << ", history length:" << m_historyCount << "(" << m_history.count() << ")";
     }
 }
 
