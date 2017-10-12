@@ -31,7 +31,7 @@
 
 /* The time in milliseconds to declare an action
  * a duplicate or belonging to a batch of actions */
-#define TARDIS_ACTION_INTERTIME     100
+#define TARDIS_ACTION_INTERTIME     150
 /* The maximum number of action a Tardis can hold */
 #define TARDIS_MAX_ACTIONS_NUMBER   100
 
@@ -244,6 +244,7 @@ void Tardis::run()
         }
 
         TardisAction action;
+        bool match = false;
 
         {
             QMutexLocker locker(&m_queueMutex);
@@ -253,33 +254,32 @@ void Tardis::run()
             action = m_actionsQueue.dequeue();
         }
 
-        if (m_history.isEmpty() == false)
+        if (m_history.count())
         {
-            TardisAction lastAction = m_history.last();
-
-            /* if the current action is the same of the last action,
-             * and it happened very fast, discard the previous and keep just one */
-            if (action.m_timestamp - lastAction.m_timestamp < TARDIS_ACTION_INTERTIME)
+            // scan history from the last item to find a match
+            for (int i = m_history.count() - 1; i >= 0; i--)
             {
-                if (action.m_action == lastAction.m_action &&
-                    action.m_object == lastAction.m_object &&
-                    action.m_newValue == lastAction.m_newValue)
+                if (action.m_timestamp - m_history.at(i).m_timestamp > TARDIS_ACTION_INTERTIME)
+                    break;
+
+                if (action.m_action == m_history.at(i).m_action &&
+                    action.m_object == m_history.at(i).m_object &&
+                    action.m_oldValue == m_history.at(i).m_newValue)
                 {
-                    action.m_oldValue = lastAction.m_oldValue;
-                    m_history.removeLast();
+                    qDebug() << "Found match at" << i << action.m_oldValue << m_history.at(i).m_newValue;
+                    action.m_oldValue = m_history.at(i).m_oldValue;
+                    m_history.replace(i, action);
+                    match = true;
+                    break;
                 }
             }
-            else
-            {
-                m_historyCount++;
-            }
-        }
-        else
-        {
-            m_historyCount++;
         }
 
-        m_history.append(action);
+        if (m_history.isEmpty() || action.m_timestamp - m_history.last().m_timestamp > TARDIS_ACTION_INTERTIME)
+            m_historyCount++;
+
+        if (match == false)
+            m_history.append(action);
 
         /* So long and thanks for all the fish */
         if (m_historyCount > TARDIS_MAX_ACTIONS_NUMBER)

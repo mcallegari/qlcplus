@@ -68,6 +68,10 @@ FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)
     qmlRegisterUncreatableType<RGBMatrix>("org.qlcplus.classes", 1, 0, "RGBMatrix", "Can't create a RGBMatrix");
     qmlRegisterUncreatableType<EFX>("org.qlcplus.classes", 1, 0, "EFX", "Can't create an EFX");
 
+    // register SceneValue to perform QVariant comparisons
+    qRegisterMetaType<SceneValue>();
+    QMetaType::registerComparators<SceneValue>();
+
     m_functionTree = new TreeModel(this);
     QQmlEngine::setObjectOwnership(m_functionTree, QQmlEngine::CppOwnership);
     QStringList treeColumns;
@@ -585,13 +589,17 @@ int FunctionManager::viewPosition() const
 void FunctionManager::setDumpValue(quint32 fxID, quint32 channel, uchar value, GenericDMXSource *source)
 {
     QVariant currentVal, newVal;
-    currentVal.setValue(SceneValue(fxID, channel, m_dumpValues.value(QPair<quint32,quint32>(fxID, channel), 0)));
+    uchar currDmxValue = m_dumpValues.value(QPair<quint32,quint32>(fxID, channel), 0);
+    currentVal.setValue(SceneValue(fxID, channel,currDmxValue));
     newVal.setValue(SceneValue(fxID, channel, value));
-    Tardis::instance()->enqueueAction(FixtureSetDumpValue, this, currentVal, newVal);
-    if (source)
-        source->set(fxID, channel, value);
-    m_dumpValues[QPair<quint32,quint32>(fxID, channel)] = value;
-    emit dumpValuesCountChanged();
+    if (currentVal != newVal || value != currDmxValue)
+    {
+        Tardis::instance()->enqueueAction(FixtureSetDumpValue, this, currentVal, newVal);
+        if (source)
+            source->set(fxID, channel, value);
+        m_dumpValues[QPair<quint32,quint32>(fxID, channel)] = value;
+        emit dumpValuesCountChanged();
+    }
 }
 
 QMap<QPair<quint32, quint32>, uchar> FunctionManager::dumpValues() const
@@ -650,10 +658,14 @@ void FunctionManager::setChannelValue(quint32 fxID, quint32 channel, uchar value
     {
         SceneEditor *se = qobject_cast<SceneEditor *>(m_currentEditor);
         QVariant currentVal, newVal;
-        currentVal.setValue(SceneValue(fxID, channel, se->channelValue(fxID, channel)));
+        uchar currDmxValue = se->channelValue(fxID, channel);
+        currentVal.setValue(SceneValue(fxID, channel, currDmxValue));
         newVal.setValue(SceneValue(fxID, channel, value));
-        Tardis::instance()->enqueueAction(FixtureSetChannelValue, this, currentVal, newVal);
-        se->setChannelValue(fxID, channel, value);
+        if (currentVal != newVal || value != currDmxValue)
+        {
+            Tardis::instance()->enqueueAction(FixtureSetChannelValue, this, currentVal, newVal);
+            se->setChannelValue(fxID, channel, value);
+        }
     }
 }
 
