@@ -27,6 +27,9 @@
 #include <QThread>
 #include <QHash>
 
+#include "tardisactions.h"
+
+class Doc;
 class SimpleCrypt;
 class NetworkPacketizer;
 
@@ -38,7 +41,6 @@ typedef struct
     QString hostName;
     /** The TCP socket for unicast client/server communication */
     QTcpSocket *tcpSocket;
-
 } NetworkHost;
 
 class NetworkManager : public QObject
@@ -49,9 +51,10 @@ class NetworkManager : public QObject
     Q_PROPERTY(bool serverStarted READ serverStarted WRITE setServerStarted NOTIFY serverStartedChanged)
     Q_PROPERTY(QVariant serverList READ serverList NOTIFY serverListChanged)
     Q_PROPERTY(int clientStatus READ clientStatus WRITE setClientStatus NOTIFY clientStatusChanged)
+    Q_PROPERTY(int connectionsCount READ connectionsCount NOTIFY connectionsCountChanged)
 
 public:
-    explicit NetworkManager(QObject *parent = 0);
+    explicit NetworkManager(QObject *parent = 0, Doc *doc = NULL);
     ~NetworkManager();
 
     enum HostType
@@ -65,6 +68,11 @@ public:
     QString hostName() const;
     void setHostName(QString hostName);
 
+    int connectionsCount();
+
+public slots:
+    void sendAction(quint32 objID, TardisAction action);
+
 protected:
     QString defaultName();
 
@@ -73,6 +81,8 @@ protected:
 
 signals:
     void hostNameChanged(QString hostName);
+    void connectionsCountChanged();
+    void actionReady(int code, quint32 id, QVariant value);
 
 protected slots:
     /** Async event raised when UDP packets are received */
@@ -82,6 +92,12 @@ protected slots:
     void slotProcessTCPPackets();
 
 private:
+    /** Reference to the QLC+ Doc */
+    Doc *m_doc;
+
+    /** Global flag to enable/disable packets encryption */
+    bool m_encryptPackets;
+
     /** The host name in the QLC+ network */
     QString m_hostName;
 
@@ -133,7 +149,7 @@ private:
     bool m_serverStarted;
 
     /** Map of the QLC+ hosts detected on the network */
-    QHash<QHostAddress, NetworkHost *>m_hostsMap;
+    QHash<QHostAddress, NetworkHost *> m_hostsMap;
 
     /*********************************************************************
      * Client

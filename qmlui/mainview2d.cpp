@@ -23,6 +23,7 @@
 #include <QQmlComponent>
 
 #include "doc.h"
+#include "tardis.h"
 #include "mainview2d.h"
 #include "qlccapability.h"
 #include "qlcfixturemode.h"
@@ -212,6 +213,9 @@ void MainView2D::createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords
         y = availablePos.y();
         // add the new fixture to the Doc monitor properties
         m_monProps->setFixturePosition(fxID, QVector3D(x, y, 0));
+        Tardis::instance()->enqueueAction(FixtureSetPosition, fixture,
+                                          QVariant(QVector3D(0, 0, 0)),
+                                          QVariant(QVector3D(x, y, 0)));
     }
     else
     {

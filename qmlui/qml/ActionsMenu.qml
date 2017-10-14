@@ -216,7 +216,19 @@ Popup
                 saveDialog.open()
             }
         }
+        ContextMenuEntry
+        {
+            id: undo
+            imgSource: "qrc:/undo.svg"
+            entryText: qsTr("Undo")
+            onEntered: submenuItem = null
 
+            onClicked:
+            {
+                menuRoot.close()
+                tardis.undoAction()
+            }
+        }
         ContextMenuEntry
         {
             imgSource: "qrc:/network.svg"

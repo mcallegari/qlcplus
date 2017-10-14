@@ -140,7 +140,7 @@ void App::startup()
     // register an uncreatable type just to use the enums in QML
     qmlRegisterUncreatableType<ShowManager>("org.qlcplus.classes", 1, 0, "ShowManager", "Can't create a ShowManager !");
 
-    m_networkManager = new NetworkManager(this);
+    m_networkManager = new NetworkManager(this, m_doc);
     rootContext()->setContextProperty("networkManager", m_networkManager);
 
     // register an uncreatable type just to use the enums in QML
@@ -150,7 +150,9 @@ void App::startup()
     connect(m_networkManager, &NetworkManager::accessMaskChanged, this, &App::setAccessMask);
     connect(m_networkManager, &NetworkManager::requestProjectLoad, this, &App::slotLoadDocFromMemory);
 
-    m_tardis = new Tardis(this, m_doc, m_networkManager, m_fixtureManager, m_functionManager, m_showManager, m_virtualConsole);
+    m_tardis = new Tardis(this, m_doc, m_networkManager, m_fixtureManager, m_functionManager,
+                          m_contextManager, m_showManager, m_virtualConsole);
+    rootContext()->setContextProperty("tardis", m_tardis);
 
     m_contextManager->registerContext(m_virtualConsole);
     m_contextManager->registerContext(m_showManager);

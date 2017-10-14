@@ -37,17 +37,10 @@ class NetworkManager;
 class ShowManager;
 class Doc;
 
-typedef struct
-{
-    int m_action;
-    qint64 m_timestamp;
-    QObject *m_object;
-    QVariant m_oldValue;
-    QVariant m_newValue;
-} TardisAction;
-
 class Tardis : public QThread
 {
+    Q_OBJECT
+
 public:
     explicit Tardis(QQuickView *view, Doc *doc, NetworkManager *netMgr,
                     FixtureManager *fxMgr, FunctionManager *funcMgr,
@@ -59,14 +52,23 @@ public:
     /** Get the singleton instance */
     static Tardis* instance();
 
+    /** Build a TardisAction with the provided data and enqueue it
+     *  to be processed by the Tardis thread */
     void enqueueAction(int code, QObject *object, QVariant oldVal, QVariant newVal);
 
-    void undoAction();
+    /** Undo an action or a batch of actions taken from history */
+    Q_INVOKABLE void undoAction();
 
+    void processAction(TardisAction &action);
+
+    /** Reset the actions history */
     void resetHistory();
 
     /** @reimp */
-    void run(); //thread run function
+    void run(); // thread run function
+
+protected slots:
+    void slotProcessNetworkAction(int code, quint32 id, QVariant value);
 
 private:
     /** The singleton Tardis instance */

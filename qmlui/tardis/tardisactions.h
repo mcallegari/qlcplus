@@ -20,12 +20,25 @@
 #ifndef TARDISACTIONS_H
 #define TARDISACTIONS_H
 
+#include <QVariant>
+
+typedef struct
+{
+    int m_action;
+    qint64 m_timestamp;
+    QObject *m_object;
+    QVariant m_oldValue;
+    QVariant m_newValue;
+} TardisAction;
+
+Q_DECLARE_METATYPE(TardisAction)
+
 enum
 {
     /* Fixture editing actions */
     FixtureCreate = 0x0000,
     FixtureDelete,
-    FixturePosition,
+    FixtureSetPosition,
     FixtureSetDumpValue,
     FixtureSetChannelValue,
 

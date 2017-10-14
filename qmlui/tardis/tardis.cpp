@@ -21,6 +21,7 @@
 
 #include "tardis.h"
 
+#include "networkmanager.h"
 #include "virtualconsole.h"
 #include "fixturemanager.h"
 #include "functionmanager.h"
@@ -56,7 +57,11 @@ Tardis::Tardis(QQuickView *view, Doc *doc, NetworkManager *netMgr,
     Q_ASSERT(s_instance == NULL);
     s_instance = this;
 
+    qRegisterMetaType<TardisAction>();
+
     m_uptime.start();
+
+    connect(m_networkManager, &NetworkManager::actionReady, this, &Tardis::slotProcessNetworkAction);
 
     start();
 }
@@ -110,108 +115,7 @@ void Tardis::undoAction()
         TardisAction action = m_history.takeLast();
         qDebug() << "Undo action" << action.m_action;
 
-        switch(action.m_action)
-        {
-            /* *********************** Fixture editing actions ************************ */
-            case FixtureCreate:
-            {
-                m_fixtureManager->deleteFixtures(QVariantList( { action.m_newValue } ));
-            }
-            break;
-            case FixturePosition:
-            {
-                Fixture *fixture = qobject_cast<Fixture *>(action.m_object);
-                if (fixture)
-                {
-                    QVector3D pos = action.m_oldValue.value<QVector3D>();
-                    m_contextManager->setFixturePosition(fixture->id(), pos.x(), pos.y(), pos.z());
-                }
-            }
-            break;
-            case FixtureSetDumpValue:
-            {
-                SceneValue scv = action.m_oldValue.value<SceneValue>();
-                m_functionManager->setDumpValue(scv.fxi, scv.channel, scv.value, m_contextManager->dmxSource());
-            }
-            break;
-            case FixtureSetChannelValue:
-            {
-                SceneValue scv = action.m_oldValue.value<SceneValue>();
-                m_functionManager->setChannelValue(scv.fxi, scv.channel, scv.value);
-            }
-            break;
-
-            /* *********************** Function editing actions *********************** */
-            case FunctionCreate:
-            {
-                m_functionManager->deleteFunctions(QVariantList( { action.m_newValue } ));
-            }
-            break;
-            case FunctionSetName:
-            {
-                Function *f = qobject_cast<Function *>(action.m_object);
-                m_functionManager->setEditorFunction(f->id(), true);
-                FunctionEditor *editor = m_functionManager->currentEditor();
-                if (editor != NULL)
-                    editor->setFunctionName(action.m_oldValue.toString());
-            }
-            break;
-            case FunctionSetTempoType:
-            {
-                Function *f = qobject_cast<Function *>(action.m_object);
-                m_functionManager->setEditorFunction(f->id(), true);
-                FunctionEditor *editor = m_functionManager->currentEditor();
-                if (editor != NULL)
-                    editor->setTempoType(action.m_oldValue.toInt());
-            }
-            break;
-
-            /* ******************* Virtual console editing actions ******************** */
-
-            case VCWidgetCreate:
-            {
-                m_virtualConsole->deleteVCWidgets(QVariantList( { action.m_newValue } ));
-            }
-            break;
-            case VCWidgetGeometry:
-            {
-                auto member = std::mem_fn(&VCWidget::setGeometry);
-                member(qobject_cast<VCWidget *>(action.m_object), action.m_oldValue.toRectF());
-            }
-            break;
-            case VCWidgetCaption:
-            {
-                auto member = std::mem_fn(&VCWidget::setCaption);
-                member(qobject_cast<VCWidget *>(action.m_object), action.m_oldValue.toString());
-            }
-            break;
-            case VCWidgetBackgroundColor:
-            {
-                auto member = std::mem_fn(&VCWidget::setBackgroundColor);
-                member(qobject_cast<VCWidget *>(action.m_object), action.m_oldValue.value<QColor>());
-            }
-            break;
-            case VCWidgetBackgroundImage:
-            {
-                auto member = std::mem_fn(&VCWidget::setBackgroundImage);
-                member(qobject_cast<VCWidget *>(action.m_object), action.m_oldValue.toString());
-            }
-            break;
-            case VCWidgetForegroundColor:
-            {
-                auto member = std::mem_fn(&VCWidget::setForegroundColor);
-                member(qobject_cast<VCWidget *>(action.m_object), action.m_oldValue.value<QColor>());
-            }
-            break;
-            case VCWidgetFont:
-            {
-                auto member = std::mem_fn(&VCWidget::setFont);
-                member(qobject_cast<VCWidget *>(action.m_object), action.m_oldValue.value<QFont>());
-            }
-            break;
-            default:
-            break;
-        }
+        processAction(action);
 
         /* Check if I am processing a batch of actions or a single one */
         if (m_history.isEmpty() ||
@@ -235,11 +139,11 @@ void Tardis::run()
 {
     m_running = true;
 
-    while(m_running)
+    while (m_running)
     {
         if (m_queueSem.tryAcquire(1, 1000) == false)
         {
-            qDebug() << "No actions to process, history length:" << m_historyCount << "(" << m_history.count() << ")";
+            //qDebug() << "No actions to process, history length:" << m_historyCount << "(" << m_history.count() << ")";
             continue;
         }
 
@@ -286,6 +190,172 @@ void Tardis::run()
             m_history.removeFirst();
 
         qDebug() << "Got action:" << action.m_action << ", history length:" << m_historyCount << "(" << m_history.count() << ")";
+
+        /* If there are active network connections, send the action there too */
+        if (m_networkManager->connectionsCount())
+        {
+            quint32 id = UINT_MAX;
+
+            if (action.m_action < FunctionCreate)
+            {
+                Fixture *fixture = qobject_cast<Fixture *>(action.m_object);
+                if (fixture)
+                    id = fixture->id();
+            }
+            else if(action.m_action < VCWidgetCreate)
+            {
+                Function *function = qobject_cast<Function *>(action.m_object);
+                if (function)
+                    id = function->id();
+            }
+            else if(action.m_action < NetAnnounce)
+            {
+                VCWidget *widget = qobject_cast<VCWidget *>(action.m_object);
+                if (widget)
+                    id = widget->id();
+            }
+
+            QMetaObject::invokeMethod(m_networkManager, "sendAction", Qt::QueuedConnection,
+                    Q_ARG(quint32, id),
+                    Q_ARG(TardisAction, action));
+        }
+    }
+}
+
+void Tardis::slotProcessNetworkAction(int code, quint32 id, QVariant value)
+{
+    TardisAction action;
+    action.m_action = code;
+    action.m_object = NULL;
+
+    if (code < FunctionCreate)
+    {
+        Fixture *fixture = m_doc->fixture(id);
+        if (fixture)
+            action.m_object = fixture;
+    }
+    else if(code < VCWidgetCreate)
+    {
+        Function *function = m_doc->function(id);
+        if (function)
+            action.m_object = function;
+    }
+    else if(code < NetAnnounce)
+    {
+        VCWidget *widget = m_virtualConsole->widget(id);
+        if (widget)
+            action.m_object = widget;
+    }
+
+    /* on old value, because we're going to call the method used for undoing actions */
+    action.m_oldValue = value;
+
+    processAction(action);
+}
+
+void Tardis::processAction(TardisAction &action)
+{
+    switch(action.m_action)
+    {
+        /* *********************** Fixture editing actions ************************ */
+        case FixtureCreate:
+        {
+            m_fixtureManager->deleteFixtures(QVariantList( { action.m_newValue } ));
+        }
+        break;
+        case FixtureSetPosition:
+        {
+            Fixture *fixture = qobject_cast<Fixture *>(action.m_object);
+            if (fixture)
+            {
+                QVector3D pos = action.m_oldValue.value<QVector3D>();
+                m_contextManager->setFixturePosition(fixture->id(), pos.x(), pos.y(), pos.z());
+            }
+        }
+        break;
+        case FixtureSetDumpValue:
+        {
+            SceneValue scv = action.m_oldValue.value<SceneValue>();
+            m_functionManager->setDumpValue(scv.fxi, scv.channel, scv.value, m_contextManager->dmxSource());
+        }
+        break;
+        case FixtureSetChannelValue:
+        {
+            SceneValue scv = action.m_oldValue.value<SceneValue>();
+            m_functionManager->setChannelValue(scv.fxi, scv.channel, scv.value);
+        }
+        break;
+
+        /* *********************** Function editing actions *********************** */
+        case FunctionCreate:
+        {
+            m_functionManager->deleteFunctions(QVariantList( { action.m_newValue } ));
+        }
+        break;
+        case FunctionSetName:
+        {
+            Function *f = qobject_cast<Function *>(action.m_object);
+            m_functionManager->setEditorFunction(f->id(), true);
+            FunctionEditor *editor = m_functionManager->currentEditor();
+            if (editor != NULL)
+                editor->setFunctionName(action.m_oldValue.toString());
+        }
+        break;
+        case FunctionSetTempoType:
+        {
+            Function *f = qobject_cast<Function *>(action.m_object);
+            m_functionManager->setEditorFunction(f->id(), true);
+            FunctionEditor *editor = m_functionManager->currentEditor();
+            if (editor != NULL)
+                editor->setTempoType(action.m_oldValue.toInt());
+        }
+        break;
+
+        /* ******************* Virtual console editing actions ******************** */
+
+        case VCWidgetCreate:
+        {
+            m_virtualConsole->deleteVCWidgets(QVariantList( { action.m_newValue } ));
+        }
+        break;
+        case VCWidgetGeometry:
+        {
+            auto member = std::mem_fn(&VCWidget::setGeometry);
+            member(qobject_cast<VCWidget *>(action.m_object), action.m_oldValue.toRectF());
+        }
+        break;
+        case VCWidgetCaption:
+        {
+            auto member = std::mem_fn(&VCWidget::setCaption);
+            member(qobject_cast<VCWidget *>(action.m_object), action.m_oldValue.toString());
+        }
+        break;
+        case VCWidgetBackgroundColor:
+        {
+            auto member = std::mem_fn(&VCWidget::setBackgroundColor);
+            member(qobject_cast<VCWidget *>(action.m_object), action.m_oldValue.value<QColor>());
+        }
+        break;
+        case VCWidgetBackgroundImage:
+        {
+            auto member = std::mem_fn(&VCWidget::setBackgroundImage);
+            member(qobject_cast<VCWidget *>(action.m_object), action.m_oldValue.toString());
+        }
+        break;
+        case VCWidgetForegroundColor:
+        {
+            auto member = std::mem_fn(&VCWidget::setForegroundColor);
+            member(qobject_cast<VCWidget *>(action.m_object), action.m_oldValue.value<QColor>());
+        }
+        break;
+        case VCWidgetFont:
+        {
+            auto member = std::mem_fn(&VCWidget::setFont);
+            member(qobject_cast<VCWidget *>(action.m_object), action.m_oldValue.value<QFont>());
+        }
+        break;
+        default:
+        break;
     }
 }
 

@@ -126,7 +126,7 @@ CustomPopupDialog
             {
                 height: UISettings.listItemHeight
                 Layout.columnSpan: 2
-                label: ""
+                label: networkManager.connectionsCount
             }
 
             // Row 6

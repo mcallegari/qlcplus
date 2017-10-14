@@ -18,12 +18,18 @@
 */
 
 #include <QNetworkInterface>
+#include <QXmlStreamWriter>
+#include <QtCore/qbuffer.h>
 #include <QFile>
 
 #include "networkmanager.h"
 #include "networkpacketizer.h"
 #include "simplecrypt.h"
-#include "tardisactions.h"
+
+#include "function.h"
+#include "vcwidget.h"
+#include "fixture.h"
+#include "doc.h"
 
 #define DEFAULT_UDP_PORT    9997
 #define DEFAULT_TCP_PORT    9998
@@ -32,8 +38,10 @@
 
 static const quint64 defaultKey = 0x5131632B4E33744B; // this is "Q1c+N3tK"
 
-NetworkManager::NetworkManager(QObject *parent)
+NetworkManager::NetworkManager(QObject *parent, Doc *doc)
     : QObject(parent)
+    , m_doc(doc)
+    , m_encryptPackets(true)
     , m_udpSocket(NULL)
     , m_tcpServer(NULL)
     , m_serverStarted(false)
@@ -75,6 +83,61 @@ void NetworkManager::setHostName(QString hostName)
 
     m_hostName = hostName;
     emit hostNameChanged(m_hostName);
+}
+
+int NetworkManager::connectionsCount()
+{
+    if (m_hostType == ServerHostType)
+        return m_hostsMap.count();
+    else if (m_hostType == ClientHostType)
+        return m_clientStatus == Connected ? 1 : 0;
+
+    return 0;
+}
+
+void NetworkManager::sendAction(quint32 objID, TardisAction action)
+{
+    QByteArray packet;
+    m_packetizer->initializePacket(packet, action.m_action);
+
+    switch (action.m_action)
+    {
+        case FixtureCreate:
+        {
+            QBuffer buffer;
+            buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+            QXmlStreamWriter xmlWriter(&buffer);
+
+            Fixture *fixture = qobject_cast<Fixture *>(action.m_object);
+            if (fixture && fixture->saveXML(&xmlWriter))
+                m_packetizer->addSection(packet, buffer.buffer());
+        }
+        break;
+        default:
+        {
+            m_packetizer->addSection(packet, objID);
+            m_packetizer->addSection(packet, action.m_newValue);
+        }
+        break;
+    }
+
+    if (m_hostType == ServerHostType)
+    {
+        /* Send packet to all connected clients */
+        auto i = m_hostsMap.constBegin();
+        while (i != m_hostsMap.constEnd())
+        {
+            NetworkHost *host = i.value();
+            sendTCPPacket(host->tcpSocket, packet, m_encryptPackets);
+
+            ++i;
+        }
+    }
+    else
+    {
+        /* Send packet to the connected server */
+        sendTCPPacket(m_tcpSocket, packet, m_encryptPackets);
+    }
 }
 
 QString NetworkManager::defaultName()
@@ -226,28 +289,33 @@ bool NetworkManager::setClientAccess(QString hostName, bool allow, int accessMas
         m_packetizer->addSection(reply, QVariant("Failed"));
     }
 
-    sendTCPPacket(host->tcpSocket, reply, true);
+    sendTCPPacket(host->tcpSocket, reply, m_encryptPackets);
 
     return true;
 }
 
 bool NetworkManager::sendWorkspaceToClient(QString hostName, QString filename)
 {
+    QByteArray packet;
+    int pktCounter = 0;
     QFile workspace(filename);
-    if (workspace.exists() == false)
-        return false;
-
     QHostAddress clientAddress = getHostFromName(hostName);
     NetworkHost *host = m_hostsMap.value(clientAddress, NULL);
 
     if (host == NULL || clientAddress.isNull())
         return false;
 
+    if (workspace.exists() == false)
+    {
+        m_packetizer->initializePacket(packet, NetProjectTransfer);
+        m_packetizer->addSection(packet, QVariant(0));
+        m_packetizer->addSection(packet, QVariant(0));
+        sendTCPPacket(host->tcpSocket, packet, m_encryptPackets);
+        return false;
+    }
+
     if (!workspace.open(QIODevice::ReadOnly))
         return false;
-
-    QByteArray packet;
-    int pktCounter = 0;
 
     while (!workspace.atEnd())
     {
@@ -267,11 +335,13 @@ bool NetworkManager::sendWorkspaceToClient(QString hostName, QString filename)
             m_packetizer->addSection(packet, QVariant(2));
         }
         else
+        {
             m_packetizer->addSection(packet, QVariant(1));
+        }
 
         m_packetizer->addSection(packet, QVariant(data));
 
-        sendTCPPacket(host->tcpSocket, packet, true);
+        sendTCPPacket(host->tcpSocket, packet, m_encryptPackets);
 
         pktCounter++;
     }
@@ -388,7 +458,7 @@ bool NetworkManager::connectClient(QString ipAddress)
 
     setClientStatus(WaitAuthentication);
 
-    return sendTCPPacket(m_tcpSocket, packet, true);
+    return sendTCPPacket(m_tcpSocket, packet, m_encryptPackets);
 }
 
 bool NetworkManager::disconnectClient()
@@ -508,7 +578,7 @@ void NetworkManager::slotProcessTCPPackets()
         QByteArray datagram = wholeData.mid(bytesProcessed);
         int read = m_packetizer->decodePacket(datagram, opCode, paramsList, m_crypt);
 
-        qDebug() << "Bytes processed" << read << QString::number(opCode, 16); // << paramsList;
+        qDebug() << "Bytes processed" << read << "opCode" << QString::number(opCode, 16) << "params" << paramsList.count();
 
         if (read < 0)
         {
@@ -551,7 +621,7 @@ void NetworkManager::slotProcessTCPPackets()
                     QByteArray reply;
                     m_packetizer->initializePacket(reply, NetAuthenticationReply);
                     m_packetizer->addSection(reply, QVariant("Failed"));
-                    sendTCPPacket(host->tcpSocket, reply, true);
+                    sendTCPPacket(host->tcpSocket, reply, m_encryptPackets);
                 }
             }
             break;
@@ -579,6 +649,12 @@ void NetworkManager::slotProcessTCPPackets()
                 if (seqType == 0)
                 {
                     m_projectSize = paramsList.at(1).toInt();
+                    if (m_projectSize == 0)
+                    {
+                        setClientStatus(Connected);
+                        emit connectionsCountChanged();
+                        break;
+                    }
                     m_projectData.clear();
                     m_projectData.append(paramsList.at(2).toByteArray());
                 }
@@ -592,11 +668,26 @@ void NetworkManager::slotProcessTCPPackets()
                     emit requestProjectLoad(m_projectData);
                     m_projectData.clear();
                     setClientStatus(Connected);
+                    emit connectionsCountChanged();
                 }
             }
             break;
+            case FixtureCreate:
+            {
+                QBuffer buffer;
+                buffer.setData(paramsList.at(0).toByteArray());
+                buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+                QXmlStreamReader xmlReader(&buffer);
+                xmlReader.readNextStartElement();
+                Fixture::loader(xmlReader, m_doc);
+            }
+            break;
             default:
+            {
+                emit actionReady(opCode, paramsList.at(0).toUInt(), paramsList.at(1));
+
                 //qDebug() << "Unsupported opCode" << opCode;
+            }
             break;
         }
 
@@ -626,6 +717,7 @@ void NetworkManager::slotProcessNewTCPConnection()
         newHost->isAuthenticated = false;
         newHost->tcpSocket = clientConnection;
         m_hostsMap[senderAddress] = newHost;
+        emit connectionsCountChanged();
     }
     connect(clientConnection, SIGNAL(readyRead()),
             this, SLOT(slotProcessTCPPackets()));
@@ -634,5 +726,13 @@ void NetworkManager::slotProcessNewTCPConnection()
 void NetworkManager::slotHostDisconnected()
 {
     QTcpSocket *socket = (QTcpSocket *)sender();
-    qDebug() << "Host with address" << socket->peerAddress().toString() << "disconnected !";
+    QHostAddress senderAddress = socket->peerAddress();
+    qDebug() << "Host with address" << senderAddress.toString() << "disconnected !";
+
+    if (m_hostsMap.contains(senderAddress) == true)
+    {
+        NetworkHost *host = m_hostsMap.take(senderAddress);
+        delete host;
+        emit connectionsCountChanged();
+    }
 }

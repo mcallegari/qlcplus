@@ -38,7 +38,12 @@ public:
         BoolType,
         IntType,
         StringType,
-        ByteArrayType
+        ByteArrayType,
+        Vector3DType,
+        RectFType,
+        ColorType,
+        FontType,
+        SceneValueType
     };
 
     void initializePacket(QByteArray &packet, int opCode);
