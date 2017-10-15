@@ -52,7 +52,7 @@ Tardis::Tardis(QQuickView *view, Doc *doc, NetworkManager *netMgr,
     , m_showManager(showMgr)
     , m_virtualConsole(vc)
     , m_historyCount(0)
-    , m_undoing(false)
+    , m_busy(false)
 {
     Q_ASSERT(s_instance == NULL);
     s_instance = this;
@@ -82,7 +82,7 @@ Tardis *Tardis::instance()
 
 void Tardis::enqueueAction(int code, QObject *object, QVariant oldVal, QVariant newVal)
 {
-    if (m_doc->loadStatus() == Doc::Loading || m_undoing)
+    if (m_doc->loadStatus() == Doc::Loading || m_busy)
         return;
 
     TardisAction action;
@@ -108,7 +108,7 @@ void Tardis::undoAction()
 
     bool done = false;
 
-    m_undoing = true;
+    m_busy = true;
 
     while (!done)
     {
@@ -127,7 +127,7 @@ void Tardis::undoAction()
 
     m_historyCount--;
 
-    m_undoing = false;
+    m_busy = false;
 }
 
 void Tardis::resetHistory()
@@ -250,7 +250,9 @@ void Tardis::slotProcessNetworkAction(int code, quint32 id, QVariant value)
     /* on old value, because we're going to call the method used for undoing actions */
     action.m_oldValue = value;
 
+    m_busy = true;
     processAction(action);
+    m_busy = false;
 }
 
 void Tardis::processAction(TardisAction &action)

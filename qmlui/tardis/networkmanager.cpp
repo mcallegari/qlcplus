@@ -583,7 +583,10 @@ void NetworkManager::slotProcessTCPPackets()
         if (read < 0)
         {
             /* if more data is needed, get it from the socket */
-            wholeData.append(socket->readAll());
+            QByteArray moreData = socket->readAll();
+            if (moreData.length() == 0)
+                return;
+            wholeData.append(moreData);
             bytesAvailable = wholeData.length();
             continue;
         }

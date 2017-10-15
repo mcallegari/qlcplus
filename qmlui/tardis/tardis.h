@@ -110,7 +110,8 @@ private:
     /** Count the actions (or batch of actions) recorded */
     int m_historyCount;
 
-    bool m_undoing;
+    /** Flag to prevent actions looping */
+    bool m_busy;
 };
 
 #endif /* TARDIS_H */
