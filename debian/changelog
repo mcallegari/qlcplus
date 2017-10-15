@@ -23,8 +23,16 @@ qlcplus (4.11.1) stable; urgency=low
   * New fixture: Clay Paky Tiger Scan HMI 575/1200 (thanks to Daris Tomasoni)
   * New fixture: Litecraft WashX.21 (thanks to Hannes Braun)
   * New fixtures: Briteq Stagepainter 12, Nicols IP Wash 120, Showtec LED Powerline 16 Bar (thanks to Fredje Gallon)
+  * New fixtures: Nicols Movelight, Nicols Birdy Wash 122, Briteq Giga Flash RGB (thanks to Fredje Gallon)
   * New fixtures: Litecraft PowerBar AT10.sx, Stairville MH-z1915 (thanks to Thorben / Fredje)
   * New fixtures: Martin MAC 700 Wash, ADB Warp M (thanks to Thorben)
+  * New fixture: Laserworld CS-1000RGB Mk II (thanks to Piotr Nowik)
+  * New fixture: Chauvet COLORrail IRC (thanks to Lane Parsons)
+  * New fixtures: American DJ COB Cannon Wash DW, lightmaXX Vega Zoom Wash Beam (thanks to Florian Gerstenlauer)
+  * New fixture: Martin Rush MH5 Profile (thanks to Falko)
+  * New fixture: Cameo Flash Bar 150 (thanks to Kevin Wimmer)
+  * New fixtures: Chauvet FXpar 9, IMG Stageline Wash-40 LED (thanks to PeterK)
+  * New fixture: JB Systems iRock 5C (thanks to Andres Robles)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 27 Aug 2017 12:13:14 +0200
 
