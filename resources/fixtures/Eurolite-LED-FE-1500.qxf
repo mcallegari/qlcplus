@@ -103,7 +103,7 @@
  <Channel Name="Strobe effect lasers">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="4">No strobe effect</Capability>
-  <Capability Min="5" Max="254">Strobe effect fast -&gt; slow</Capability>
+  <Capability Min="5" Max="254">Strobe effect slow -&gt; fast</Capability>
   <Capability Min="255" Max="255">Sound-controlled strobe effect</Capability>
  </Channel>
  <Channel Name="Rotation of the RGBWA LEDs">
