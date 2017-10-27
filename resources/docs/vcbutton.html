@@ -10,8 +10,13 @@
 <H1><IMG SRC="qrc:/button.png" ALIGN="absmiddle"> Virtual Console Button</H1>
 
 <P>
-A Button is the simplest and at the same time the most powerful widget in QLC+;
-with it, you can start, stop and flash your functions.
+A Button is the simplest and at the same time one of the most powerful widget in QLC+;
+with it, you can start, stop and flash your Functions.<br>
+When activated in toggle mode, the Button border will turn to green, but if a Function
+attached to a Button is started from another Virtual Console widget, the Button border
+will turn to orange, to indicate that the Function is active but not actually controlled
+by the Button. Pressing a Button in "monitoring" state will take control of the running Function
+and the Button border will turn to green. Another press and the attached Function will be stopped.
 </P>
 
 <H3>Configuration</H3>
@@ -41,21 +46,9 @@ by double clicking the button itself.
    Shows you the name of the <A HREF="file:concept.html#Function">Function</A> that
    is currently assigned to the button.
    <P>
-    <IMG SRC="qrc:/attach.png" ALIGN="absmiddle"> Attach a function to the button<BR>
-    <IMG SRC="qrc:/detach.png" ALIGN="absmiddle"> Detach the current function from the button
+    <IMG SRC="qrc:/attach.png" ALIGN="absmiddle"> Attach a Function to the button<BR>
+    <IMG SRC="qrc:/detach.png" ALIGN="absmiddle"> Detach the current Function from the button
    </P>
-  </TD>
- </TR>
- <TR>
-  <TD>
-   <B>Attributes</B>
-  </TD>
-  <TD>
-   Shows you the list of attributes of the assigned function that can be adjusted. Attributes can be controlled
-   by right clicking on the button when in <A HREF="file:concept.html#Modes">Operate Mode</A>.<br>
-   A popup will display a number of sliders corresponding to the number of available attributes.<br>
-   If the assigned function is a <A HREF="file:concept.html#Show">Show</A>, attributes correspond
-   to the Show tracks, so you can adjust the intensity (or volume) of a whole track with just one click.
   </TD>
  </TR>
  <TR>
@@ -102,26 +95,27 @@ by double clicking the button itself.
   </TD>
   <TD>
    <UL>
-    <LI>Toggle function on/off: When you click the button, the attached function
-    is started. When you click the button a second time, the function is stopped,
+    <LI>Toggle Function on/off: When you click the button, the attached Function
+    is started. When you click the button a second time, the Function is stopped,
     unless it has already stopped by itself.</LI>
-    <LI>Flash function: You can "flash" the attached
+    <LI>Flash Function: You can "flash" the attached
     <A HREF="file:concept.html#Scene">Scene</A> when you keep the button pressed. If
-    another type of function is attached to the button, nothing happens when you
+    another type of Function is attached to the button, nothing happens when you
     click it.</LI>
-    <LI>Blackout on/off: When you click the button, QLC+ will toggle the 
+    <LI>Toggle Blackout: When you click the button, QLC+ will toggle the 
     <A HREF="file:concept.html#Blackout">blackout mode</A></LI>
-    <LI>Stop all functions: When you click the button, all the functions that are running
-    in QLC+  will be stopped immediately</LI>
+    <LI>Stop All Functions: When you click the button, all the Functions that are running
+    in QLC+  will be stopped immediately. It is possible to specify a fade out time
+    to wait for all the intensity channels to reach a zero level</LI>
    </UL>
   </TD>
  </TR>
  <TR>
    <TD>
-   <B>Adjust function intensity</B>
+   <B>Adjust Function intensity</B>
   </TD>
   <TD>
-    If checked, this feature will adjust the intensity of the assigned function just before
+    If checked, this feature will adjust the intensity of the assigned Function just before
     playing it when the button is pressed.
   </TD>
  </TR>
