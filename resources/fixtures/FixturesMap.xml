@@ -128,6 +128,7 @@
   <fixture path="Ayra-ERO-506.qxf" mf="Ayra" md="ERO 506"/>
   <fixture path="Ayra-TDC-Agaricus.qxf" mf="Ayra" md="TDC Agaricus"/>
   <fixture path="Ayrton-Arcaline-100-RGB.qxf" mf="Ayrton" md="Arcaline 100 RGB"/>
+  <fixture path="beamZ-BAC406.qxf" mf="beamZ" md="BAC406 ProPar 6x18W 6-1 Hex"/>
   <fixture path="Beamz-LCB-252.qxf" mf="beamZ" md="LCB-252"/>
   <fixture path="BeamZ-LS-3DRG.qxf" mf="beamZ" md="LS-3DRG"/>
   <fixture path="Beamz-MHL90-Wash-5x18W-RGBAW-UV.qxf" mf="beamZ" md="MHL90 Wash 5x18W RGBAW-UV"/>
@@ -232,6 +233,7 @@
   <fixture path="Chauvet-EZPAR-64-RGBA.qxf" mf="Chauvet" md="EZPar 64 RGBA"/>
   <fixture path="Chauvet-Freedom-Stick.qxf" mf="Chauvet" md="Freedom Stick"/>
   <fixture path="Chauvet-FXpar9.qxf" mf="Chauvet" md="FXpar 9"/>
+  <fixture path="Chauvet-GigBAR-2.qxf" mf="Chauvet" md="GigBAR 2"/>
   <fixture path="Chauvet-GigBar-IRC.qxf" mf="Chauvet" md="GigBar IRC"/>
   <fixture path="Chauvet-Gobo-Zoom-LED-2.0.qxf" mf="Chauvet" md="Gobo Zoom LED 2.0"/>
   <fixture path="Chauvet-Gyser-RGB.qxf" mf="Chauvet" md="Gyser RGB"/>
@@ -332,6 +334,7 @@
   <fixture path="Clay-Paky-Tornado.qxf" mf="Clay Paky" md="Tornado"/>
   <fixture path="CLF-Tricolor-Mini-Par.qxf" mf="CLF" md="Tricolor Mini Par"/>
   <fixture path="Coemar-Par-Lite-LED-RGB.qxf" mf="Coemar" md="Par Lite LED RGB"/>
+  <fixture path="Coemar-ProSpot-250-LX.qxf" mf="Coemar" md="ProSpot 250 LX"/>
   <fixture path="Coemar-ProWash-250-LX.qxf" mf="Coemar" md="ProWash 250 LX"/>
   <fixture path="Coemar-Stage-Lite-LED.qxf" mf="Coemar" md="Stage Lite LED"/>
   <fixture path="Color-Imagination-LedSpot-90-SI-052.qxf" mf="Color Imagination" md="LedSpot 90 (SI-052)"/>
@@ -484,6 +487,7 @@
   <fixture path="Futurelight-XF-200.qxf" mf="Futurelight" md="XF-200"/>
   <fixture path="Generic-Generic-RGB.qxf" mf="Generic" md="Generic RGB"/>
   <fixture path="Generic-Generic-Smoke.qxf" mf="Generic" md="Generic Smoke"/>
+  <fixture path="Geni-Mojo-Color-Moc.qxf" mf="Geni" md="Mojo Color Moc"/>
   <fixture path="Geni-Mojo-Spin-Master-Series.qxf" mf="Geni" md="Mojo Spin Master Series"/>
   <fixture path="Geni-OBY-5.qxf" mf="Geni" md="OBY 5"/>
   <fixture path="Geni-OBY-600.qxf" mf="Geni" md="OBY 600"/>
@@ -703,6 +707,7 @@
   <fixture path="Pro-Lights-Miniruby.qxf" mf="Pro-Lights" md="Miniruby"/>
   <fixture path="Pro-lights-Moonstone.qxf" mf="Pro-Lights" md="Moonstone"/>
   <fixture path="Pro-Lights-Omni-Tri-9.qxf" mf="Pro-Lights" md="Omni Tri-9"/>
+  <fixture path="Pro-Lights-Onyx.qxf" mf="Pro-Lights" md="Onyx"/>
   <fixture path="Pro-Lights-PIXIEWASH.qxf" mf="Pro-Lights" md="PIXIEWASH"/>
   <fixture path="Pro-Lights-SmartBat.qxf" mf="Pro-Lights" md="SmartBat"/>
   <fixture path="Pro-Lights-SmartBatHEX.qxf" mf="Pro-Lights" md="SmartBatHEX"/>
@@ -802,6 +807,7 @@
   <fixture path="Showtec-Infinity-iW-715.qxf" mf="Showtec" md="Infinity iW-715"/>
   <fixture path="Showtec-Infinity-iW-720.qxf" mf="Showtec" md="Infinity iW-720"/>
   <fixture path="Showtec-Infinity-XPLO-15-LED-Strobe.qxf" mf="Showtec" md="Infinity XPLO-15 LED Strobe"/>
+  <fixture path="Showtec-Kanjo-Spot-60.qxf" mf="Showtec" md="Kanjo Spot 60"/>
   <fixture path="Showtec-Led-Air-Cone-Pro.qxf" mf="Showtec" md="Led Air Cone Pro"/>
   <fixture path="Showtec-LED-Light-Bar-8.qxf" mf="Showtec" md="LED Light Bar 8"/>
   <fixture path="Showtec-LED-Light-Bar-RGB-V3.qxf" mf="Showtec" md="LED Light Bar RGB V3"/>
@@ -863,6 +869,7 @@
   <fixture path="Stairville-maTrixx-SC-100.qxf" mf="Stairville" md="maTrixx SC-100"/>
   <fixture path="Stairville-MH-100-Beam-36x3-LED.qxf" mf="Stairville" md="MH-100 Beam 36x3 LED"/>
   <fixture path="Stairville-MH-110-Wash.qxf" mf="Stairville" md="MH-110 Wash"/>
+  <fixture path="Stairville-MH-250-S.qxf" mf="Stairville" md="MH-250 S"/>
   <fixture path="Stairville-MH-360.qxf" mf="Stairville" md="MH-360"/>
   <fixture path="Stairville-MH-X20.qxf" mf="Stairville" md="MH-X20"/>
   <fixture path="Stairville-MH-x200-Pro-Spot.qxf" mf="Stairville" md="MH-x200 Pro Spot"/>
