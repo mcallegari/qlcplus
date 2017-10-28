@@ -84,6 +84,13 @@ private:
      * Blackout
      *********************************************************************/
 public:
+    enum BlackoutRequest
+    {
+        BlackoutRequestNone,
+        BlackoutRequestOn,
+        BlackoutRequestOff
+    };
+
     /**
      * Toggle blackout between on and off.
      *
@@ -108,7 +115,7 @@ public:
      *
      * @param blackout If true, set blackout ON, otherwise OFF
      */
-    void scheduleBlackout(bool blackout);
+    void requestBlackout(BlackoutRequest blackout);
 
     /**
      * Get blackout state
@@ -130,11 +137,8 @@ private:
     /** Current blackout state */
     bool m_blackout;
 
-    /** If true, turn blackout on/off when possible */
-    bool m_scheduleBlackout;
-
-    /** Desired blackout state */
-    bool m_scheduleBlackoutValue;
+    /** Blackout request applied when possible */
+    bool m_blackoutRequest;
 
     /*********************************************************************
      * Universes

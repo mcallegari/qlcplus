@@ -46,8 +46,7 @@
 InputOutputMap::InputOutputMap(Doc *doc, quint32 universes)
   : QObject(doc)
   , m_blackout(false)
-  , m_scheduleBlackout(false)
-  , m_scheduleBlackoutValue(false)
+  , m_blackoutRequest(BlackoutRequestNone)
   , m_universeChanged(false)
   , m_beatTime(new QElapsedTimer())
 {
@@ -88,7 +87,7 @@ bool InputOutputMap::toggleBlackout()
 
 bool InputOutputMap::setBlackout(bool blackout)
 {
-    m_scheduleBlackout = false;
+    m_blackoutRequest = BlackoutRequestNone;
 
     /* Don't do blackout twice */
     if (m_blackout == blackout)
@@ -123,10 +122,9 @@ bool InputOutputMap::setBlackout(bool blackout)
     return true;
 }
 
-void InputOutputMap::scheduleBlackout(bool blackout)
+void InputOutputMap::requestBlackout(BlackoutRequest blackout)
 {
-    m_scheduleBlackout = true;
-    m_scheduleBlackoutValue = blackout;
+    m_blackoutRequest = blackout;
 }
 
 bool InputOutputMap::blackout() const
@@ -293,9 +291,9 @@ void InputOutputMap::releaseUniverses(bool changed)
 
 void InputOutputMap::dumpUniverses()
 {
-    if (m_scheduleBlackout)
+    if (m_blackoutRequest != BlackoutRequestNone)
     {
-        if (setBlackout(m_scheduleBlackoutValue))
+        if (setBlackout(m_blackoutRequest == BlackoutRequestOn ? true : false))
             return;
     }
 

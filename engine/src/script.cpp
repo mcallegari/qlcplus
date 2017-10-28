@@ -544,14 +544,15 @@ QString Script::handleBlackout(const QList <QStringList>& tokens)
     if (tokens.size() > 1)
         return QString("Too many arguments");
 
-    bool newState = false;
+    InputOutputMap::BlackoutRequest request = InputOutputMap::BlackoutRequestNone;
+
     if (tokens[0][1] == blackoutOn)
     {
-        newState = true;
+        request = InputOutputMap::BlackoutRequestOn;
     }
     else if (tokens[0][1] == blackoutOff)
     {
-        newState = false;
+        request = InputOutputMap::BlackoutRequestOff;
     }
     else
     {
@@ -561,7 +562,7 @@ QString Script::handleBlackout(const QList <QStringList>& tokens)
     Doc* doc = qobject_cast<Doc*> (parent());
     Q_ASSERT(doc != NULL);
 
-    doc->inputOutputMap()->scheduleBlackout(newState);
+    doc->inputOutputMap()->requestBlackout(request);
 
     return QString();
 }
