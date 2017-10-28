@@ -28,6 +28,7 @@ scripts.files += randomrow.js
 scripts.files += randomsingle.js
 scripts.files += squares.js
 scripts.files += squaresfromcenter.js
+scripts.files += starfield.js
 scripts.files += stripes.js
 scripts.files += stripesfromcenter.js
 scripts.files += strobe.js

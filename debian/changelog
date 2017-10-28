@@ -12,10 +12,11 @@ qlcplus (4.11.1) stable; urgency=low
   * UI/Function Live Edit: restore basic live editing of Sequences
   * UI/RGB Matrix Editor: fixed save to Sequence feature
   * UI/Function Manager: when cloning a Sequence, clone the bound Scene too
+  * Virtual Console/Button: highlight border with orange color when in "monitoring" state
   * Virtual Console/Slider: fix DMX values not updated when interacting with the mouse wheel, keyboard or Click And Go button
   * Virtual Console/Slider: fix level mode values range scaling
   * Virtual Console/XYPad: the speed of a running EFX preset can now be controlled by a Speed Dial widget
-  * RGB Scripts: added "Noise", "Random pixel per row" and "Random pixel per row multicolor" (thanks to Doug Puckett)
+  * RGB Scripts: added "Noise", "3D Starfield", "Random pixel per row" and "Random pixel per row multicolor" (thanks to Doug Puckett)
   * Web access: added basic authentication support (thanks to Bartosz Grabias)
   * Web access: fixed solo frames collapse state
   * Web access: update feedbacks when a slider is moved
@@ -38,7 +39,7 @@ qlcplus (4.11.1) stable; urgency=low
   * New fixtures: Stairville MH-250 S, Chauvet GigBAR 2, Pro-Lights Onyx (thanks to Freasy)
   * New fixtures: Coemar ProSpot 250 LX, Showtec Kanjo Spot 60 (thanks to Flo Edelmann)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 29 Oct 2017 12:13:14 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 28 Oct 2017 12:13:14 +0200
 
 qlcplus (4.11.0) stable; urgency=low
 
