@@ -3,7 +3,8 @@ qlcplus (4.11.1) stable; urgency=low
   * engine: fixed audio files detection by prioritizing sndfile over mad
   * engine: fixed HTP/LTP forced channels not set correctly
   * engine: keep track of input/output device lines even if they are disconnected
-  * engine: do not keep empty trailing lines of a Script when saving a workspace
+  * engine/Script: add blackout:on and blackout:off commands
+  * engine/Script: do not keep empty trailing lines when saving a workspace
   * UI: it is now possible to detach a QLC+ context tab on a separate window by double clicking on it
   * UI/RGB Panel: added RBG pixel type (thanks to Peter Marks)
   * UI/Remap: fixed RGB Panels remapping
