@@ -24,8 +24,8 @@ var testAlgo;
     function () {
         var algo = {};
         algo.apiVersion = 2;
-        algo.name = '3D Starfield';
-        algo.author = 'Doug Puckett';
+        algo.name = "3D Starfield";
+        algo.author = "Doug Puckett";
         algo.properties = [];
         algo.acceptColors = 1;
         algo.presetColor = 0x000000;
@@ -47,7 +47,7 @@ var testAlgo;
 
         algo.setMulti = function(_multic)
         {
-            if (_multic == "Yes") {
+            if (_multic === "Yes") {
                 algo.multiColor = 1;    // Random Colored Stars
             } else {
                 algo.multiColor = 0;    // Stars are chosen color
@@ -56,7 +56,7 @@ var testAlgo;
 
         algo.getMulti = function()
         {
-            if (algo.multiColor == 1) {
+            if (algo.multiColor === 1) {
                 return "Yes";
             } else {
                 return "No";
@@ -75,7 +75,7 @@ var testAlgo;
 
         //set color of star - if multicolor, choose random color. If not random, return user chosen color
         function getNewColor(isMultiColor,zColor) {
-            if (isMultiColor == 1) {
+            if (isMultiColor === 1) {
                 var tr = Math.floor(Math.random() * 255);   // random red level
                 var tg = Math.floor(Math.random() * 255);   // random green level
                 var tb = Math.floor(Math.random() * 255);   // random blue level
@@ -95,7 +95,7 @@ var testAlgo;
                     y: getNewNumberRange(-10,10),
                     z: depth, 
                     c: getNewColor(algo.multiColor, algo.presetColor)
-                }
+                };
             }
 
             algo.initialized = true;
@@ -105,7 +105,7 @@ var testAlgo;
         // main QLC+ routine where the work is done
         algo.rgbMap = function (width, height, rgb, step) {
 
-            if (algo.initialized == false) {
+            if (algo.initialized === false) {
                 util.initialize(width, height);
             }
 
@@ -192,4 +192,4 @@ var testAlgo;
 
     return algo;
 }
-)()
+)();
