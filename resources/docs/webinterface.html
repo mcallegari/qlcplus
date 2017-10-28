@@ -125,7 +125,7 @@ Please keep in mind that:
 
 <H2>Configuration page</H2>
 <P>
-This page allows to remotely set the QLC+ configuration, divided in three areas:
+This page allows to remotely set the QLC+ configuration, divided in four areas:
 
 <UL>
  <LI><B>Universes configuration</B>: Allows to set the inputs, outputs, feedback, 
@@ -143,6 +143,27 @@ This page allows to remotely set the QLC+ configuration, divided in three areas:
    The fixture file will be transferred via web and loaded by QLC+.<BR>
    When adding new custom fixtures it is recommended to reload a project or either restart QLC+
    on the target device.<BR>
+ </LI>
+ <LI><B>Authorized users</B>: This section is available only when starting QLC+ with the "-wa" or "--web-auth" option.
+   It enables basic HTTP authentication (no HTTPS or certificates involved).<br>
+   When enabling this feature for the first time, you need to add at least an administrator, otherwise you will
+   not be asked for any password when accessing the web interface.<br>
+   Users can have the following access levels:
+   <UL>
+    <LI><B>Everything</B>: This is the access level for administrators. They can access every functionality of the web interface
+    and add more authenticated users</LI>
+    <LI><B>Virtual Console and Simple Desk</B>: a user with this access level can view the Virtual Console and Simple Desk page,
+    but cannot access the Configuration page</LI>
+    <LI><B>Only Virtual Console</B>: a user with this access level can view only the Virtual Console page,
+    but cannot access the Simple Desk and the Configuration page</LI>
+   </UL>
+   An administrator can:
+   <UL>
+    <LI>Add more users by filling the Username and Password fields and then clicking on the "Add user" button</LI>
+    <LI>Delete an existing user by clicking on the "Delete user" button</LI>
+    <LI>Change the access level or password of an existing user and then click on the "Change" button</LI>
+   </UL>
+   
  </LI>
 </UL>
 

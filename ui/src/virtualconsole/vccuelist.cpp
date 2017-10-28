@@ -479,6 +479,7 @@ void VCCueList::updateStepList()
         m_defCol = item->background(COL_NUM);
 
     m_tree->header()->resizeSections(QHeaderView::ResizeToContents);
+    m_tree->header()->setSectionHidden(COL_NAME, ch->type() == Function::SequenceType ? true : false);
     m_listIsUpdating = false;
 }
 

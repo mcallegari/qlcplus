@@ -188,7 +188,12 @@ QString Script::data() const
 
 QStringList Script::dataLines() const
 {
-    return m_data.split(QRegExp("(\r\n|\n\r|\r|\n)"), QString::KeepEmptyParts);
+    QStringList result = m_data.split(QRegExp("(\r\n|\n\r|\r|\n)"), QString::KeepEmptyParts);
+
+    while (result.count() && result.last().isEmpty())
+        result.takeLast();
+
+    return result;
 }
 
 QList<quint32> Script::functionList() const

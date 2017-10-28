@@ -596,7 +596,20 @@ void AddFixture::slotSelectionChanged()
             {
                 m_fixtureDef = fxi->fixtureDef();
                 m_mode = fxi->fixtureMode();
+
+                if (m_fixtureDef->manufacturer() != manuf || m_fixtureDef->model() != model)
+                {
+                    m_fixtureDef = NULL;
+                }
             }
+            else
+            {
+                m_fixtureDef = NULL;
+            }
+        }
+        else
+        {
+            m_fixtureDef = NULL;
         }
         fillModeCombo();
         m_modeCombo->setEnabled(false);
