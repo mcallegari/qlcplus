@@ -84,6 +84,13 @@ private:
      * Blackout
      *********************************************************************/
 public:
+    enum BlackoutRequest
+    {
+        BlackoutRequestNone,
+        BlackoutRequestOn,
+        BlackoutRequestOff
+    };
+
     /**
      * Toggle blackout between on and off.
      *
@@ -95,8 +102,20 @@ public:
      * Set blackout on or off
      *
      * @param blackout If true, set blackout ON, otherwise OFF
+     * @return true if blackout state changed
      */
-    void setBlackout(bool blackout);
+    bool setBlackout(bool blackout);
+
+    /**
+     * Schedule blackout on or off
+     *
+     * Scripts toggling blackout cannot wait for m_UniverseMutex to unlock
+     * since they are within locked mutex. The solution is to toggle the blackout
+     * later during dumpUniverses()
+     *
+     * @param blackout If true, set blackout ON, otherwise OFF
+     */
+    void requestBlackout(BlackoutRequest blackout);
 
     /**
      * Get blackout state
@@ -104,6 +123,7 @@ public:
      * @return true if blackout is ON, otherwise false
      */
     bool blackout() const;
+
 
 signals:
     /**
@@ -116,6 +136,9 @@ signals:
 private:
     /** Current blackout state */
     bool m_blackout;
+
+    /** Blackout request applied when possible */
+    bool m_blackoutRequest;
 
     /*********************************************************************
      * Universes

@@ -46,6 +46,7 @@
 InputOutputMap::InputOutputMap(Doc *doc, quint32 universes)
   : QObject(doc)
   , m_blackout(false)
+  , m_blackoutRequest(BlackoutRequestNone)
   , m_universeChanged(false)
   , m_beatTime(new QElapsedTimer())
 {
@@ -84,11 +85,13 @@ bool InputOutputMap::toggleBlackout()
     return m_blackout;
 }
 
-void InputOutputMap::setBlackout(bool blackout)
+bool InputOutputMap::setBlackout(bool blackout)
 {
+    m_blackoutRequest = BlackoutRequestNone;
+
     /* Don't do blackout twice */
     if (m_blackout == blackout)
-        return;
+        return false;
 
     QMutexLocker locker(&m_universeMutex);
     m_blackout = blackout;
@@ -115,6 +118,13 @@ void InputOutputMap::setBlackout(bool blackout)
     }
 
     emit blackoutChanged(m_blackout);
+
+    return true;
+}
+
+void InputOutputMap::requestBlackout(BlackoutRequest blackout)
+{
+    m_blackoutRequest = blackout;
 }
 
 bool InputOutputMap::blackout() const
@@ -281,6 +291,12 @@ void InputOutputMap::releaseUniverses(bool changed)
 
 void InputOutputMap::dumpUniverses()
 {
+    if (m_blackoutRequest != BlackoutRequestNone)
+    {
+        if (setBlackout(m_blackoutRequest == BlackoutRequestOn ? true : false))
+            return;
+    }
+
     QMutexLocker locker(&m_universeMutex);
     if (m_blackout == false)
     {

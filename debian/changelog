@@ -1,19 +1,26 @@
+qlcplus (4.11.2) stable; urgency=low
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 25 Mar 2018 12:13:14 +0200
+
 qlcplus (4.11.1) stable; urgency=low
 
   * engine: fixed audio files detection by prioritizing sndfile over mad
   * engine: fixed HTP/LTP forced channels not set correctly
   * engine: keep track of input/output device lines even if they are disconnected
-  * engine: do not keep empty trailing lines of a Script when saving a workspace
+  * engine/Script: add blackout:on and blackout:off commands (Jano Svitok)
+  * engine/Script: do not keep empty trailing lines when saving a workspace
   * UI: it is now possible to detach a QLC+ context tab on a separate window by double clicking on it
   * UI/RGB Panel: added RBG pixel type (thanks to Peter Marks)
   * UI/Remap: fixed RGB Panels remapping
   * UI/Input Output Manager: added a button to enable/disable USB hotplugging (disabled by default)
   * UI/Function Live Edit: restore basic live editing of Sequences
   * UI/RGB Matrix Editor: fixed save to Sequence feature
+  * UI/Function Manager: when cloning a Sequence, clone the bound Scene too
+  * Virtual Console/Button: highlight border with orange color when in "monitoring" state
   * Virtual Console/Slider: fix DMX values not updated when interacting with the mouse wheel, keyboard or Click And Go button
   * Virtual Console/Slider: fix level mode values range scaling
   * Virtual Console/XYPad: the speed of a running EFX preset can now be controlled by a Speed Dial widget
-  * RGB Scripts: added "Random pixel per row" and "Random pixel per row multicolor" (thanks to Doug Puckett)
+  * RGB Scripts: added "Noise", "3D Starfield", "Random pixel per row" and "Random pixel per row multicolor" (thanks to Doug Puckett)
   * Web access: added basic authentication support (thanks to Bartosz Grabias)
   * Web access: fixed solo frames collapse state
   * Web access: update feedbacks when a slider is moved
@@ -22,10 +29,21 @@ qlcplus (4.11.1) stable; urgency=low
   * New fixture: Clay Paky Tiger Scan HMI 575/1200 (thanks to Daris Tomasoni)
   * New fixture: Litecraft WashX.21 (thanks to Hannes Braun)
   * New fixtures: Briteq Stagepainter 12, Nicols IP Wash 120, Showtec LED Powerline 16 Bar (thanks to Fredje Gallon)
+  * New fixtures: Nicols Movelight, Nicols Birdy Wash 122, Briteq Giga Flash RGB (thanks to Fredje Gallon)
   * New fixtures: Litecraft PowerBar AT10.sx, Stairville MH-z1915 (thanks to Thorben / Fredje)
   * New fixtures: Martin MAC 700 Wash, ADB Warp M (thanks to Thorben)
+  * New fixture: Laserworld CS-1000RGB Mk II (thanks to Piotr Nowik)
+  * New fixture: Chauvet COLORrail IRC (thanks to Lane Parsons)
+  * New fixtures: American DJ COB Cannon Wash DW, lightmaXX Vega Zoom Wash Beam (thanks to Florian Gerstenlauer)
+  * New fixture: Martin Rush MH5 Profile (thanks to Falko)
+  * New fixture: Cameo Flash Bar 150 (thanks to Kevin Wimmer)
+  * New fixtures: Chauvet FXpar 9, IMG Stageline Wash-40 LED (thanks to PeterK)
+  * New fixtures: JB Systems iRock 5C, JB Systems LED Devil (thanks to Andres Robles)
+  * New fixtures: beamZ BAC406, Geni Mojo Color Moc (thanks to Mark Sy)
+  * New fixtures: Stairville MH-250 S, Chauvet GigBAR 2, Pro-Lights Onyx (thanks to Freasy)
+  * New fixtures: Coemar ProSpot 250 LX, Showtec Kanjo Spot 60 (thanks to Flo Edelmann)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 27 Aug 2017 12:13:14 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 28 Oct 2017 12:13:14 +0200
 
 qlcplus (4.11.0) stable; urgency=low
 
