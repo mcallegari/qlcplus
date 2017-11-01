@@ -33,6 +33,9 @@ typedef struct
 
 Q_DECLARE_METATYPE(TardisAction)
 
+typedef QPair<quint32, uint> UIntPair;
+Q_DECLARE_METATYPE(UIntPair)
+
 enum
 {
     /* Fixture editing actions */
@@ -45,10 +48,20 @@ enum
     FunctionCreate = 0x0100,
     FunctionDelete,
     FunctionSetName,
+    FunctionSetRunOrder,
+    FunctionSetDirection,
     FunctionSetTempoType,
+    FunctionSetFadeIn,
+    FunctionSetFadeOut,
+    FunctionSetDuration,
 
     SceneSetChannelValue,
     SceneUnsetChannelValue,
+
+    ChaserSetStepFadeIn,
+    ChaserSetStepHold,
+    ChaserSetStepFadeOut,
+    ChaserSetStepDuration,
 
     /* Virtual console editing actions */
     VCWidgetCreate = 0xE000,

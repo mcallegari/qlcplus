@@ -28,6 +28,7 @@
 #include "contextmanager.h"
 #include "functioneditor.h"
 #include "vcwidget.h"
+#include "chaser.h"
 #include "scene.h"
 #include "doc.h"
 
@@ -291,20 +292,44 @@ void Tardis::processAction(TardisAction &action)
         break;
         case FunctionSetName:
         {
-            Function *f = qobject_cast<Function *>(action.m_object);
-            m_functionManager->setEditorFunction(f->id(), true);
-            FunctionEditor *editor = m_functionManager->currentEditor();
-            if (editor != NULL)
-                editor->setFunctionName(action.m_oldValue.toString());
+            auto member = std::mem_fn(&Function::setName);
+            member(qobject_cast<Function *>(action.m_object), action.m_oldValue.toString());
         }
         break;
         case FunctionSetTempoType:
         {
-            Function *f = qobject_cast<Function *>(action.m_object);
-            m_functionManager->setEditorFunction(f->id(), true);
-            FunctionEditor *editor = m_functionManager->currentEditor();
-            if (editor != NULL)
-                editor->setTempoType(action.m_oldValue.toInt());
+            auto member = std::mem_fn(&Function::setTempoType);
+            member(qobject_cast<Function *>(action.m_object), Function::TempoType(action.m_oldValue.toInt()));
+        }
+        break;
+        case FunctionSetRunOrder:
+        {
+            auto member = std::mem_fn(&Function::setRunOrder);
+            member(qobject_cast<Function *>(action.m_object), Function::RunOrder(action.m_oldValue.toInt()));
+        }
+        break;
+        case FunctionSetDirection:
+        {
+            auto member = std::mem_fn(&Function::setDirection);
+            member(qobject_cast<Function *>(action.m_object), Function::Direction(action.m_oldValue.toInt()));
+        }
+        break;
+        case FunctionSetFadeIn:
+        {
+            auto member = std::mem_fn(&Function::setFadeInSpeed);
+            member(qobject_cast<Function *>(action.m_object), action.m_oldValue.toUInt());
+        }
+        break;
+        case FunctionSetFadeOut:
+        {
+            auto member = std::mem_fn(&Function::setFadeOutSpeed);
+            member(qobject_cast<Function *>(action.m_object), action.m_oldValue.toUInt());
+        }
+        break;
+        case FunctionSetDuration:
+        {
+            auto member = std::mem_fn(&Function::setDuration);
+            member(qobject_cast<Function *>(action.m_object), action.m_oldValue.toUInt());
         }
         break;
 
@@ -315,6 +340,43 @@ void Tardis::processAction(TardisAction &action)
             Scene *scene = qobject_cast<Scene *>(action.m_object);
             if (scene)
                 scene->setValue(scv.fxi, scv.channel, scv.value);
+        }
+        break;
+
+        case ChaserSetStepFadeIn:
+        {
+            Chaser *chaser = qobject_cast<Chaser *>(action.m_object);
+            UIntPair pairValue = action.m_oldValue.value<UIntPair>(); // index on first, time on second
+            ChaserStep step = chaser->steps().at(pairValue.first);
+            step.fadeIn = pairValue.second;
+            chaser->replaceStep(step, pairValue.first);
+        }
+        break;
+        case ChaserSetStepHold:
+        {
+            Chaser *chaser = qobject_cast<Chaser *>(action.m_object);
+            UIntPair pairValue = action.m_oldValue.value<UIntPair>(); // index on first, time on second
+            ChaserStep step = chaser->steps().at(pairValue.first);
+            step.hold = pairValue.second;
+            chaser->replaceStep(step, pairValue.first);
+        }
+        break;
+        case ChaserSetStepFadeOut:
+        {
+            Chaser *chaser = qobject_cast<Chaser *>(action.m_object);
+            UIntPair pairValue = action.m_oldValue.value<UIntPair>(); // index on first, time on second
+            ChaserStep step = chaser->steps().at(pairValue.first);
+            step.fadeOut = pairValue.second;
+            chaser->replaceStep(step, pairValue.first);
+        }
+        break;
+        case ChaserSetStepDuration:
+        {
+            Chaser *chaser = qobject_cast<Chaser *>(action.m_object);
+            UIntPair pairValue = action.m_oldValue.value<UIntPair>(); // index on first, time on second
+            ChaserStep step = chaser->steps().at(pairValue.first);
+            step.duration = pairValue.second;
+            chaser->replaceStep(step, pairValue.first);
         }
         break;
 

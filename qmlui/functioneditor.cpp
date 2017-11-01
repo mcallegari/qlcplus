@@ -135,16 +135,32 @@ void FunctionEditor::setTempoType(int tempoType)
     // Time -> Beats
     if (tempoType == Function::Beats)
     {
-        m_function->setFadeInSpeed(Function::timeToBeats(m_function->fadeInSpeed(), beatDuration));
-        m_function->setDuration(Function::timeToBeats(m_function->duration(), beatDuration));
-        m_function->setFadeOutSpeed(Function::timeToBeats(m_function->fadeOutSpeed(), beatDuration));
+        uint fadeIn = Function::timeToBeats(m_function->fadeInSpeed(), beatDuration);
+        uint fadeOut = Function::timeToBeats(m_function->fadeOutSpeed(), beatDuration);
+        uint duration = Function::timeToBeats(m_function->duration(), beatDuration);
+
+        Tardis::instance()->enqueueAction(FunctionSetFadeIn, m_function, m_function->fadeInSpeed(), fadeIn);
+        Tardis::instance()->enqueueAction(FunctionSetDuration, m_function, m_function->duration(), duration);
+        Tardis::instance()->enqueueAction(FunctionSetFadeOut, m_function, m_function->fadeOutSpeed(), fadeOut);
+
+        m_function->setFadeInSpeed(fadeIn);
+        m_function->setDuration(duration);
+        m_function->setFadeOutSpeed(fadeOut);
     }
     // Beats -> Time
     else
     {
-        m_function->setFadeInSpeed(Function::beatsToTime(m_function->fadeInSpeed(), beatDuration));
-        m_function->setDuration(Function::beatsToTime(m_function->duration(), beatDuration));
-        m_function->setFadeOutSpeed(Function::beatsToTime(m_function->fadeOutSpeed(), beatDuration));
+        uint fadeIn = Function::beatsToTime(m_function->fadeInSpeed(), beatDuration);
+        uint fadeOut = Function::beatsToTime(m_function->fadeOutSpeed(), beatDuration);
+        uint duration = Function::beatsToTime(m_function->duration(), beatDuration);
+
+        Tardis::instance()->enqueueAction(FunctionSetFadeIn, m_function, m_function->fadeInSpeed(), fadeIn);
+        Tardis::instance()->enqueueAction(FunctionSetDuration, m_function, m_function->duration(), duration);
+        Tardis::instance()->enqueueAction(FunctionSetFadeOut, m_function, m_function->fadeOutSpeed(), fadeOut);
+
+        m_function->setFadeInSpeed(fadeIn);
+        m_function->setDuration(duration);
+        m_function->setFadeOutSpeed(fadeOut);
     }
 
     emit tempoTypeChanged(tempoType);

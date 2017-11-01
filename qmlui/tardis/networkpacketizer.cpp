@@ -24,6 +24,7 @@
 #include <QFont>
 
 #include "networkpacketizer.h"
+#include "tardisactions.h"
 #include "simplecrypt.h"
 #include "scenevalue.h"
 
@@ -132,13 +133,26 @@ void NetworkPacketizer::addSection(QByteArray &packet, QVariant value)
             {
                 SceneValue scv = value.value<SceneValue>();
                 packet.append(SceneValueType);
-                packet.append((char)(scv.fxi >> 24));    // section data MSB3
-                packet.append((char)(scv.fxi >> 16));    // section data MSB2
-                packet.append((char)(scv.fxi >> 8));     // section data MSB1
-                packet.append((char)(scv.fxi & 0x00FF)); // section data LSB
-                packet.append((char)(scv.channel >> 8));     // section data MSB1
-                packet.append((char)(scv.channel & 0x00FF)); // section data LSB
-                packet.append((char)(scv.value & 0x00FF)); // section data LSB
+                packet.append((char)(scv.fxi >> 24));    // MSB3
+                packet.append((char)(scv.fxi >> 16));    // MSB2
+                packet.append((char)(scv.fxi >> 8));     // MSB1
+                packet.append((char)(scv.fxi & 0x00FF)); // LSB
+                packet.append((char)(scv.channel >> 8));     // MSB
+                packet.append((char)(scv.channel & 0x00FF)); // LSB
+                packet.append((char)(scv.value & 0x00FF));   // LSB
+            }
+            else if (value.canConvert<UIntPair>())
+            {
+                UIntPair pairVal = value.value<UIntPair>();
+                packet.append(UIntPairType);
+                packet.append((char)(pairVal.first >> 24));    // MSB3
+                packet.append((char)(pairVal.first >> 16));    // MSB2
+                packet.append((char)(pairVal.first >> 8));     // MSB1
+                packet.append((char)(pairVal.first & 0x00FF)); // LSB
+                packet.append((char)(pairVal.second >> 24));    // MSB3
+                packet.append((char)(pairVal.second >> 16));    // MSB2
+                packet.append((char)(pairVal.second >> 8));     // MSB1
+                packet.append((char)(pairVal.second & 0x00FF)); // LSB
             }
             else
             {
@@ -307,6 +321,20 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
 
                 QVariant var;
                 var.setValue(scv);
+                sections.append(var);
+            }
+            break;
+            case UIntPairType:
+            {
+                UIntPair pairVal;
+                pairVal.first = ((quint8)ba.at(bytes_read) << 24) + ((quint8)ba.at(bytes_read + 1) << 16) +
+                                ((quint8)ba.at(bytes_read + 2) << 8) + (quint8)ba.at(bytes_read + 3);
+                bytes_read += 4;
+                pairVal.second = ((quint8)ba.at(bytes_read) << 24) + ((quint8)ba.at(bytes_read + 1) << 16) +
+                                 ((quint8)ba.at(bytes_read + 2) << 8) + (quint8)ba.at(bytes_read + 3);
+                bytes_read += 4;
+                QVariant var;
+                var.setValue(pairVal);
                 sections.append(var);
             }
             break;

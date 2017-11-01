@@ -43,7 +43,8 @@ public:
         RectFType,
         ColorType,
         FontType,
-        SceneValueType
+        SceneValueType,
+        UIntPairType
     };
 
     void initializePacket(QByteArray &packet, int opCode);
