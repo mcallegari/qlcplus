@@ -156,7 +156,7 @@ Rectangle
                             if (sceneConsole == false)
                                 fixtureManager.setChannelValue(fixtureObj.id, index, val)
                             else
-                                sceneEditor.setChannelValue(fixtureObj.id, index, val)
+                                functionManager.setChannelValue(fixtureObj.id, index, val)
 
                             consoleRoot.valueChanged(fixtureObj.id, index, val)
                         }
@@ -177,7 +177,7 @@ Rectangle
                         Rectangle
                         {
                             width: parent.width
-                            height: chIcon.height + 1
+                            height: (showEnablers ? enableCheckBox.height : 0) + chIcon.height + 1
                             color: UISettings.bgLight
                         }
 
@@ -193,6 +193,7 @@ Rectangle
                             Rectangle
                             {
                                 id: enableCheckBox
+                                x: (parent.width - width) / 2
                                 width: UISettings.iconSizeMedium
                                 height: UISettings.iconSizeMedium / 2
                                 radius: 2
@@ -211,7 +212,7 @@ Rectangle
                                         if (sceneConsole == true)
                                         {
                                             if (isEnabled == true)
-                                                sceneEditor.setChannelValue(fixtureObj.id, index, 0)
+                                                functionManager.setChannelValue(fixtureObj.id, index, dmxMode ? dmxValue : dmxValue * 2.55)
                                             else
                                                 sceneEditor.unsetChannel(fixtureObj.id, index)
                                         }

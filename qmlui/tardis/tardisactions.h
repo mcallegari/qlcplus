@@ -40,13 +40,15 @@ enum
     FixtureDelete,
     FixtureSetPosition,
     FixtureSetDumpValue,
-    FixtureSetChannelValue,
 
     /* Function editing actions */
     FunctionCreate = 0x0100,
     FunctionDelete,
     FunctionSetName,
     FunctionSetTempoType,
+
+    SceneSetChannelValue,
+    SceneUnsetChannelValue,
 
     /* Virtual console editing actions */
     VCWidgetCreate = 0xE000,
@@ -63,7 +65,7 @@ enum
     VCWidgetPage,
 
     /* Virtual Console live actions */
-    VCButtonState = 0xF000,
+    VCButtonSetState = 0xF000,
 
     /* Network protocol actions */
     NetAnnounce = 0xFF00,

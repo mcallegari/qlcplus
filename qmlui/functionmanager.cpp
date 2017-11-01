@@ -654,17 +654,25 @@ void FunctionManager::dumpOnNewScene(QList<quint32> selectedFixtures, QString na
 
 void FunctionManager::setChannelValue(quint32 fxID, quint32 channel, uchar value)
 {
-    if (m_currentEditor != NULL && m_currentEditor->functionType() == Function::SceneType)
+    FunctionEditor *editor = m_currentEditor;
+
+    if (editor != NULL && editor->functionType() == Function::SequenceType)
+        editor = m_sceneEditor;
+
+    if (editor != NULL && editor->functionType() == Function::SceneType)
     {
-        SceneEditor *se = qobject_cast<SceneEditor *>(m_currentEditor);
+        Scene *scene = qobject_cast<Scene *>(m_doc->function(editor->functionID()));
+        if (scene == NULL)
+            return;
+
         QVariant currentVal, newVal;
-        uchar currDmxValue = se->channelValue(fxID, channel);
+        uchar currDmxValue = scene->value(fxID, channel);
         currentVal.setValue(SceneValue(fxID, channel, currDmxValue));
         newVal.setValue(SceneValue(fxID, channel, value));
         if (currentVal != newVal || value != currDmxValue)
         {
-            Tardis::instance()->enqueueAction(FixtureSetChannelValue, this, currentVal, newVal);
-            se->setChannelValue(fxID, channel, value);
+            Tardis::instance()->enqueueAction(SceneSetChannelValue, scene, currentVal, newVal);
+            scene->setValue(fxID, channel, value);
         }
     }
 }

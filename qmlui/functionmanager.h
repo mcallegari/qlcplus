@@ -211,7 +211,7 @@ public:
 
     void dumpOnNewScene(QList<quint32> selectedFixtures, QString name);
 
-    void setChannelValue(quint32 fxID, quint32 channel, uchar value);
+    Q_INVOKABLE void setChannelValue(quint32 fxID, quint32 channel, uchar value);
 
 signals:
     void dumpValuesCountChanged();

@@ -28,6 +28,7 @@
 #include "contextmanager.h"
 #include "functioneditor.h"
 #include "vcwidget.h"
+#include "scene.h"
 #include "doc.h"
 
 /* The time in milliseconds to declare an action
@@ -281,12 +282,6 @@ void Tardis::processAction(TardisAction &action)
             m_functionManager->setDumpValue(scv.fxi, scv.channel, scv.value, m_contextManager->dmxSource());
         }
         break;
-        case FixtureSetChannelValue:
-        {
-            SceneValue scv = action.m_oldValue.value<SceneValue>();
-            m_functionManager->setChannelValue(scv.fxi, scv.channel, scv.value);
-        }
-        break;
 
         /* *********************** Function editing actions *********************** */
         case FunctionCreate:
@@ -310,6 +305,16 @@ void Tardis::processAction(TardisAction &action)
             FunctionEditor *editor = m_functionManager->currentEditor();
             if (editor != NULL)
                 editor->setTempoType(action.m_oldValue.toInt());
+        }
+        break;
+
+        case SceneSetChannelValue:
+        case SceneUnsetChannelValue:
+        {
+            SceneValue scv = action.m_oldValue.value<SceneValue>();
+            Scene *scene = qobject_cast<Scene *>(action.m_object);
+            if (scene)
+                scene->setValue(scv.fxi, scv.channel, scv.value);
         }
         break;
 
