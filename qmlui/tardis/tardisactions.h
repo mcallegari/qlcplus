@@ -63,6 +63,21 @@ enum
     ChaserSetStepFadeOut,
     ChaserSetStepDuration,
 
+    EFXSetAlgorithmIndex,
+    EFXSetRelative,
+    EFXSetWidth,
+    EFXSetHeight,
+    EFXSetXOffset,
+    EFXSetYOffset,
+    EFXSetRotation,
+    EFXSetStartOffset,
+    EFXSetXFrequency,
+    EFXSetYFrequency,
+    EFXSetXPhase,
+    EFXSetYPhase,
+    EFXAddFixture,
+    EFXRemoveFixture,
+
     /* Virtual console editing actions */
     VCWidgetCreate = 0xE000,
     VCWidgetDelete,

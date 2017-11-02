@@ -29,6 +29,7 @@
 #include "function.h"
 #include "vcwidget.h"
 #include "fixture.h"
+#include "efx.h"
 #include "doc.h"
 
 #define DEFAULT_UDP_PORT    9997
@@ -95,29 +96,55 @@ int NetworkManager::connectionsCount()
     return 0;
 }
 
+void NetworkManager::addBufferSection(QByteArray &packet, TardisAction *action)
+{
+    if (action == NULL || action->m_object == NULL)
+        return;
+
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    switch(action->m_action)
+    {
+        case FixtureCreate:
+        {
+            Fixture *fixture = qobject_cast<Fixture *>(action->m_object);
+            if (fixture)
+                fixture->saveXML(&xmlWriter);
+        }
+        break;
+        case EFXAddFixture:
+        {
+            // EFXFixture is not a QObject, so a simple C cast is enough
+            EFXFixture *fixture = (EFXFixture *)action->m_object;
+            fixture->saveXML(&xmlWriter);
+        }
+        break;
+        default:
+            qWarning() << "Buffered action" << action->m_action << "not implemented !";
+        break;
+    }
+
+    if (buffer.bytesAvailable())
+        m_packetizer->addSection(packet, buffer.buffer());
+}
+
 void NetworkManager::sendAction(quint32 objID, TardisAction action)
 {
     QByteArray packet;
     m_packetizer->initializePacket(packet, action.m_action);
+    m_packetizer->addSection(packet, objID);
 
     switch (action.m_action)
     {
         case FixtureCreate:
-        {
-            QBuffer buffer;
-            buffer.open(QIODevice::WriteOnly | QIODevice::Text);
-            QXmlStreamWriter xmlWriter(&buffer);
-
-            Fixture *fixture = qobject_cast<Fixture *>(action.m_object);
-            if (fixture && fixture->saveXML(&xmlWriter))
-                m_packetizer->addSection(packet, buffer.buffer());
-        }
+        case EFXAddFixture:
+            addBufferSection(packet, &action);
         break;
+
         default:
-        {
-            m_packetizer->addSection(packet, objID);
             m_packetizer->addSection(packet, action.m_newValue);
-        }
         break;
     }
 
@@ -675,16 +702,7 @@ void NetworkManager::slotProcessTCPPackets()
                 }
             }
             break;
-            case FixtureCreate:
-            {
-                QBuffer buffer;
-                buffer.setData(paramsList.at(0).toByteArray());
-                buffer.open(QIODevice::ReadOnly | QIODevice::Text);
-                QXmlStreamReader xmlReader(&buffer);
-                xmlReader.readNextStartElement();
-                Fixture::loader(xmlReader, m_doc);
-            }
-            break;
+
             default:
             {
                 emit actionReady(opCode, paramsList.at(0).toUInt(), paramsList.at(1));
