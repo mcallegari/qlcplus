@@ -61,11 +61,16 @@ public:
 
     void processAction(TardisAction &action);
 
+    static QByteArray actionToByteArray(int code, QObject *object, QVariant data);
+
     /** Reset the actions history */
     void resetHistory();
 
     /** @reimp */
     void run(); // thread run function
+
+protected:
+    bool processBufferedAction(TardisAction &action, QVariant &value);
 
 protected slots:
     void slotProcessNetworkAction(int code, quint32 id, QVariant value);

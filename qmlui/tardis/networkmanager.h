@@ -76,10 +76,6 @@ public slots:
 protected:
     QString defaultName();
 
-    /** From the given $object, generates an XML buffer and
-     *  add it to the provided $packet */
-    void addBufferSection(QByteArray &packet, TardisAction *action);
-
     /** Send the content of $packet using the provided $socket */
     bool sendTCPPacket(QTcpSocket *socket, QByteArray &packet, bool encrypt);
 

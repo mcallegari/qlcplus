@@ -25,11 +25,7 @@
 #include "networkmanager.h"
 #include "networkpacketizer.h"
 #include "simplecrypt.h"
-
-#include "function.h"
-#include "vcwidget.h"
-#include "fixture.h"
-#include "efx.h"
+#include "tardis.h"
 #include "doc.h"
 
 #define DEFAULT_UDP_PORT    9997
@@ -96,40 +92,6 @@ int NetworkManager::connectionsCount()
     return 0;
 }
 
-void NetworkManager::addBufferSection(QByteArray &packet, TardisAction *action)
-{
-    if (action == NULL || action->m_object == NULL)
-        return;
-
-    QBuffer buffer;
-    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
-    QXmlStreamWriter xmlWriter(&buffer);
-
-    switch(action->m_action)
-    {
-        case FixtureCreate:
-        {
-            Fixture *fixture = qobject_cast<Fixture *>(action->m_object);
-            if (fixture)
-                fixture->saveXML(&xmlWriter);
-        }
-        break;
-        case EFXAddFixture:
-        {
-            // EFXFixture is not a QObject, so a simple C cast is enough
-            EFXFixture *fixture = (EFXFixture *)action->m_object;
-            fixture->saveXML(&xmlWriter);
-        }
-        break;
-        default:
-            qWarning() << "Buffered action" << action->m_action << "not implemented !";
-        break;
-    }
-
-    if (buffer.bytesAvailable())
-        m_packetizer->addSection(packet, buffer.buffer());
-}
-
 void NetworkManager::sendAction(quint32 objID, TardisAction action)
 {
     QByteArray packet;
@@ -139,8 +101,10 @@ void NetworkManager::sendAction(quint32 objID, TardisAction action)
     switch (action.m_action)
     {
         case FixtureCreate:
+        case FunctionCreate:
+        case ChaserAddStep:
         case EFXAddFixture:
-            addBufferSection(packet, &action);
+            m_packetizer->addSection(packet, Tardis::actionToByteArray(action.m_action, action.m_object, action.m_newValue));
         break;
 
         default:

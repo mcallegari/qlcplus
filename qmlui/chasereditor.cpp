@@ -86,6 +86,7 @@ bool ChaserEditor::addFunctions(QVariantList idsList, int insertIndex)
                 step.duration = 1000;
             step.hold = step.duration;
         }
+        Tardis::instance()->enqueueAction(ChaserAddStep, m_chaser, QVariant(), insertIndex);
         m_chaser->addStep(step, insertIndex++);
     }
     updateStepsList();
@@ -130,6 +131,7 @@ bool ChaserEditor::addStep(int insertIndex)
 
     qDebug() << "Values added: " << step.values.count();
 
+    Tardis::instance()->enqueueAction(ChaserAddStep, m_chaser, QVariant(), insertIndex);
     m_chaser->addStep(step, insertIndex);
     updateStepsList();
     return true;

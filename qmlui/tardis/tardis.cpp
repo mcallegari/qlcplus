@@ -227,6 +227,107 @@ void Tardis::run()
     }
 }
 
+QByteArray Tardis::actionToByteArray(int code, QObject *object, QVariant data)
+{
+    if (object == NULL)
+        return QByteArray();
+
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    switch(code)
+    {
+        case FixtureCreate:
+        case FixtureDelete:
+        {
+            Fixture *fixture = qobject_cast<Fixture *>(object);
+            if (fixture)
+                fixture->saveXML(&xmlWriter);
+        }
+        break;
+        case FunctionCreate:
+        case FunctionDelete:
+        {
+            Function *function = qobject_cast<Function *>(object);
+            if (function)
+                function->saveXML(&xmlWriter);
+        }
+        break;
+        case ChaserAddStep:
+        {
+            Chaser *chaser = qobject_cast<Chaser *>(object);
+            ChaserStep *step = chaser->stepAt(data.toInt());
+            step->saveXML(&xmlWriter, data.toInt(), chaser->type() == Function::SequenceType ? true : false);
+        }
+        break;
+        case EFXAddFixture:
+        {
+            // EFXFixture is not a QObject, so a simple C cast is enough
+            EFXFixture *fixture = (EFXFixture *)object;
+            fixture->saveXML(&xmlWriter);
+        }
+        break;
+        default:
+            qWarning() << "Buffered action" << code << "not implemented !";
+        break;
+    }
+
+    return buffer.buffer();
+}
+
+bool Tardis::processBufferedAction(TardisAction &action, QVariant &value)
+{
+    if (value.type() != QVariant::ByteArray)
+        return false;
+
+    QBuffer buffer;
+    buffer.setData(value.toByteArray());
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    switch(action.m_action)
+    {
+        case FixtureCreate:
+        {
+            Fixture::loader(xmlReader, m_doc);
+        }
+        break;
+        case FunctionCreate:
+        {
+            Function::loader(xmlReader, m_doc);
+        }
+        break;
+        case ChaserAddStep:
+        {
+            Chaser *chaser = qobject_cast<Chaser *>(action.m_object);
+            ChaserStep step;
+            int stepNumber = -1;
+
+            if (step.loadXML(xmlReader, stepNumber) == true)
+                chaser->addStep(step, stepNumber);
+        }
+        break;
+        case EFXAddFixture:
+        {
+            EFX *efx = qobject_cast<EFX *>(action.m_object);
+            EFXFixture *ef = new EFXFixture(efx);
+
+            ef->loadXML(xmlReader);
+            efx->addFixture(ef);
+        }
+        break;
+
+        default:
+            // This action was either not buffered or not implemented
+            return false;
+        break;
+    }
+
+    return true;
+}
+
 void Tardis::slotProcessNetworkAction(int code, quint32 id, QVariant value)
 {
     TardisAction action;
@@ -259,39 +360,8 @@ void Tardis::slotProcessNetworkAction(int code, quint32 id, QVariant value)
     }
 
     // 2- Handle creation cases, where an XML fragment is provided
-    switch(code)
-    {
-        case FixtureCreate:
-        {
-            QBuffer buffer;
-            buffer.setData(value.toByteArray());
-            buffer.open(QIODevice::ReadOnly | QIODevice::Text);
-            QXmlStreamReader xmlReader(&buffer);
-            xmlReader.readNextStartElement();
-            Fixture::loader(xmlReader, m_doc);
-            return;
-        }
-        break;
-        case EFXAddFixture:
-        {
-            EFX *efx = qobject_cast<EFX *>(action.m_object);
-            EFXFixture *ef = new EFXFixture(efx);
-            QBuffer buffer;
-
-            buffer.setData(value.toByteArray());
-            buffer.open(QIODevice::ReadOnly | QIODevice::Text);
-            QXmlStreamReader xmlReader(&buffer);
-            xmlReader.readNextStartElement();
-
-            ef->loadXML(xmlReader);
-            efx->addFixture(ef);
-            return;
-        }
-        break;
-
-        default:
-        break;
-    }
+    if (processBufferedAction(action, value))
+        return;
 
     // 3- store value on oldValue, since we're going to call the method used for undoing actions
     action.m_oldValue = value;
@@ -388,6 +458,12 @@ void Tardis::processAction(TardisAction &action)
         }
         break;
 
+        case ChaserAddStep:
+        {
+            Chaser *chaser = qobject_cast<Chaser *>(action.m_object);
+            chaser->removeStep(action.m_newValue.toInt());
+        }
+        break;
         case ChaserSetStepFadeIn:
         {
             Chaser *chaser = qobject_cast<Chaser *>(action.m_object);
@@ -425,6 +501,13 @@ void Tardis::processAction(TardisAction &action)
         }
         break;
 
+        case EFXAddFixture:
+        {
+            auto member = std::mem_fn(&EFX::removeFixture);
+            EFXFixture *ef = (EFXFixture *)action.m_oldValue.value<void *>();
+            member(qobject_cast<EFX *>(action.m_object), ef);
+        }
+        break;
         case EFXSetAlgorithmIndex:
         {
             auto member = std::mem_fn(&EFX::setAlgorithm);
@@ -497,13 +580,6 @@ void Tardis::processAction(TardisAction &action)
             member(qobject_cast<EFX *>(action.m_object), action.m_oldValue.toInt());
         }
         break;
-        case EFXAddFixture:
-        {
-            auto member = std::mem_fn(&EFX::removeFixture);
-            EFXFixture *ef = (EFXFixture *)action.m_oldValue.value<void *>();
-            member(qobject_cast<EFX *>(action.m_object), ef);
-        }
-        break;
 
         /* ******************* Virtual console editing actions ******************** */
 
@@ -553,4 +629,5 @@ void Tardis::processAction(TardisAction &action)
         break;
     }
 }
+
 

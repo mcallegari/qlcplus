@@ -53,6 +53,7 @@ void EFXEditor::setFunctionID(quint32 id)
 {
     if (id == Function::invalidId())
     {
+        disconnect(m_efx, &EFX::attributeChanged, this, &EFXEditor::slotAttributeChanged);
         m_efx = NULL;
         return;
     }
@@ -60,12 +61,31 @@ void EFXEditor::setFunctionID(quint32 id)
     m_efx = qobject_cast<EFX *>(m_doc->function(id));
     if (m_efx != NULL)
     {
+        connect(m_efx, &EFX::attributeChanged, this, &EFXEditor::slotAttributeChanged);
         updateAlgorithmData();
         emit algorithmIndexChanged();
     }
 
     FunctionEditor::setFunctionID(id);
     updateFixtureList();
+}
+
+void EFXEditor::slotAttributeChanged(int attrIndex, qreal fraction)
+{
+    Q_UNUSED(fraction)
+
+    switch (attrIndex)
+    {
+        case EFX::Width: emit algorithmWidthChanged(); break;
+        case EFX::Height: emit algorithmHeightChanged(); break;
+        case EFX::Rotation: emit algorithmRotationChanged(); break;
+        case EFX::XOffset: emit algorithmXOffsetChanged(); break;
+        case EFX::YOffset: emit algorithmYOffsetChanged(); break;
+        case EFX::StartOffset: emit algorithmStartOffsetChanged(); break;
+        default: break;
+    }
+
+    updateAlgorithmData();
 }
 
 /************************************************************************

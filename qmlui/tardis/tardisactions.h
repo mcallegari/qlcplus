@@ -58,11 +58,15 @@ enum
     SceneSetChannelValue,
     SceneUnsetChannelValue,
 
+    ChaserAddStep,
+    ChaserRemoveStep,
     ChaserSetStepFadeIn,
     ChaserSetStepHold,
     ChaserSetStepFadeOut,
     ChaserSetStepDuration,
 
+    EFXAddFixture,
+    EFXRemoveFixture,
     EFXSetAlgorithmIndex,
     EFXSetRelative,
     EFXSetWidth,
@@ -75,8 +79,6 @@ enum
     EFXSetYFrequency,
     EFXSetXPhase,
     EFXSetYPhase,
-    EFXAddFixture,
-    EFXRemoveFixture,
 
     /* Virtual console editing actions */
     VCWidgetCreate = 0xE000,
