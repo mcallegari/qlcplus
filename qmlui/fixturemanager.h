@@ -74,6 +74,7 @@ public:
 
     Q_INVOKABLE bool moveFixture(quint32 fixtureID, quint32 newAddress);
 
+    /** Delete some existing Fixtures with IDs provided by $IDList */
     Q_INVOKABLE bool deleteFixtures(QVariantList IDList);
 
     /** Generic helper to retrieve a channel icon resource as string, from

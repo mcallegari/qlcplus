@@ -109,7 +109,7 @@ bool FixtureManager::addFixture(QString manuf, QString model, QString mode, QStr
         fxi->setFixtureDefinition(fxiDef, fxiMode);
 
         m_doc->addFixture(fxi);
-        Tardis::instance()->enqueueAction(FixtureCreate, fxi, QVariant(), fxi->id());
+        Tardis::instance()->enqueueAction(FixtureCreate, fxi->id(), QVariant(), fxi->id());
         emit newFixtureCreated(fxi->id(), xPos, yPos, 0);
     }
     m_fixtureList.clear();
@@ -301,11 +301,19 @@ bool FixtureManager::moveFixture(quint32 fixtureID, quint32 newAddress)
 
 bool FixtureManager::deleteFixtures(QVariantList IDList)
 {
+    MonitorProperties *mProps = m_doc->monitorProperties();
+
     foreach(QVariant id, IDList)
     {
-        quint32 fid = id.toUInt();
-        m_doc->deleteFixture(fid);
-        emit fixtureDeleted(fid);
+        quint32 fxID = id.toUInt();
+        Tardis::instance()->enqueueAction(FixtureSetPosition, fxID,
+                                          QVariant(mProps->fixturePosition(fxID)), QVariant());
+        mProps->removeFixture(fxID);
+        Tardis::instance()->enqueueAction(FixtureDelete, fxID,
+                                          Tardis::actionToByteArray(m_doc, FixtureDelete, fxID, QVariant()),
+                                          QVariant());
+        m_doc->deleteFixture(fxID);
+        emit fixtureDeleted(fxID);
     }
 
     m_fixtureList.clear();

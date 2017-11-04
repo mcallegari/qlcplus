@@ -54,14 +54,14 @@ public:
 
     /** Build a TardisAction with the provided data and enqueue it
      *  to be processed by the Tardis thread */
-    void enqueueAction(int code, QObject *object, QVariant oldVal, QVariant newVal);
+    void enqueueAction(int code, quint32 objID, QVariant oldVal, QVariant newVal);
 
     /** Undo an action or a batch of actions taken from history */
     Q_INVOKABLE void undoAction();
 
     void processAction(TardisAction &action);
 
-    static QByteArray actionToByteArray(int code, QObject *object, QVariant data);
+    static QByteArray actionToByteArray(Doc *doc, int code, quint32 objID, QVariant data);
 
     /** Reset the actions history */
     void resetHistory();

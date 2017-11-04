@@ -104,7 +104,12 @@ void NetworkManager::sendAction(quint32 objID, TardisAction action)
         case FunctionCreate:
         case ChaserAddStep:
         case EFXAddFixture:
-            m_packetizer->addSection(packet, Tardis::actionToByteArray(action.m_action, action.m_object, action.m_newValue));
+            m_packetizer->addSection(packet, Tardis::actionToByteArray(m_doc, action.m_action, objID, action.m_newValue));
+        break;
+
+        case FixtureDelete:
+        case FunctionDelete:
+            m_packetizer->addSection(packet, action.m_oldValue);
         break;
 
         default:
@@ -120,7 +125,6 @@ void NetworkManager::sendAction(quint32 objID, TardisAction action)
         {
             NetworkHost *host = i.value();
             sendTCPPacket(host->tcpSocket, packet, m_encryptPackets);
-
             ++i;
         }
     }
@@ -564,12 +568,12 @@ void NetworkManager::slotProcessTCPPackets()
 
     while (bytesAvailable)
     {
-        int opCode = 0;
+        int actionCode = 0;
         QVariantList paramsList;
         QByteArray datagram = wholeData.mid(bytesProcessed);
-        int read = m_packetizer->decodePacket(datagram, opCode, paramsList, m_crypt);
+        int read = m_packetizer->decodePacket(datagram, actionCode, paramsList, m_crypt);
 
-        qDebug() << "Bytes processed" << read << "opCode" << QString::number(opCode, 16) << "params" << paramsList.count();
+        qDebug() << "Bytes processed" << read << "action" << QString::number(actionCode, 16) << "params" << paramsList.count();
 
         if (read < 0)
         {
@@ -585,7 +589,7 @@ void NetworkManager::slotProcessTCPPackets()
         if (read == 0)
             break;
 
-        switch (opCode)
+        switch (actionCode)
         {
             case NetAuthentication:
             {
@@ -669,7 +673,10 @@ void NetworkManager::slotProcessTCPPackets()
 
             default:
             {
-                emit actionReady(opCode, paramsList.at(0).toUInt(), paramsList.at(1));
+                if (paramsList.count() == 2)
+                    emit actionReady(actionCode, paramsList.at(0).toUInt(), paramsList.at(1));
+                else
+                    emit actionReady(actionCode, paramsList.at(0).toUInt(), QVariant());
 
                 //qDebug() << "Unsupported opCode" << opCode;
             }

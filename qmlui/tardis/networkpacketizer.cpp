@@ -46,6 +46,9 @@ void NetworkPacketizer::initializePacket(QByteArray &packet, int opCode)
 
 void NetworkPacketizer::addSection(QByteArray &packet, QVariant value)
 {
+    if (value.isNull())
+        return;
+
     switch (value.type())
     {
         case QMetaType::Bool:

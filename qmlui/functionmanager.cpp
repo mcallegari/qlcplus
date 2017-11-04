@@ -271,7 +271,7 @@ quint32 FunctionManager::createFunction(int type)
         emit selectionCountChanged(m_selectedIDList.count());
         emit functionsListChanged();
 
-        Tardis::instance()->enqueueAction(FunctionCreate, f, QVariant(), f->id());
+        Tardis::instance()->enqueueAction(FunctionCreate, f->id(), QVariant(), f->id());
 
         return f->id();
     }
@@ -594,7 +594,7 @@ void FunctionManager::setDumpValue(quint32 fxID, quint32 channel, uchar value, G
     newVal.setValue(SceneValue(fxID, channel, value));
     if (currentVal != newVal || value != currDmxValue)
     {
-        Tardis::instance()->enqueueAction(FixtureSetDumpValue, this, currentVal, newVal);
+        Tardis::instance()->enqueueAction(FixtureSetDumpValue, 0, currentVal, newVal);
         if (source)
             source->set(fxID, channel, value);
         m_dumpValues[QPair<quint32,quint32>(fxID, channel)] = value;
@@ -646,7 +646,7 @@ void FunctionManager::dumpOnNewScene(QList<quint32> selectedFixtures, QString na
     {
         setPreview(false);
         updateFunctionsTree();
-        Tardis::instance()->enqueueAction(FunctionCreate, newScene, QVariant(), newScene->id());
+        Tardis::instance()->enqueueAction(FunctionCreate, newScene->id(), QVariant(), newScene->id());
     }
     else
         delete newScene;
@@ -671,7 +671,7 @@ void FunctionManager::setChannelValue(quint32 fxID, quint32 channel, uchar value
         newVal.setValue(SceneValue(fxID, channel, value));
         if (currentVal != newVal || value != currDmxValue)
         {
-            Tardis::instance()->enqueueAction(SceneSetChannelValue, scene, currentVal, newVal);
+            Tardis::instance()->enqueueAction(SceneSetChannelValue, scene->id(), currentVal, newVal);
             scene->setValue(fxID, channel, value);
         }
     }
@@ -742,8 +742,9 @@ void FunctionManager::slotDocLoaded()
 
 void FunctionManager::slotFunctionAdded(quint32)
 {
-    if (m_doc->loadStatus() != Doc::Loaded)
+    if (m_doc->loadStatus() == Doc::Loading)
         return;
+
     updateFunctionsTree();
 }
 

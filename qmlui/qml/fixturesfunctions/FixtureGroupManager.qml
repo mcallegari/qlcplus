@@ -77,6 +77,32 @@ Rectangle
                     height: topBar.height - 2
                     imgSource: "qrc:/remove.svg"
                     tooltip: qsTr("Remove the selected items")
+                    onClicked:
+                    {
+                        if (gfhcDragItem.itemsList.length === 0)
+                            return;
+
+                        var fxDeleteList = []
+
+                        for (var i = 0; i < gfhcDragItem.itemsList.length; i++)
+                        {
+                            var item = gfhcDragItem.itemsList[i]
+
+                            switch(item.itemType)
+                            {
+                                case App.UniverseDragItem:
+                                break;
+                                case App.FixtureGroupDragItem:
+                                break;
+                                case App.FixtureDragItem:
+                                    fxDeleteList.push(item.cRef.id)
+                                break;
+                            }
+                        }
+
+                        if (fxDeleteList.length)
+                            fixtureManager.deleteFixtures(fxDeleteList)
+                    }
                 }
                 Rectangle { Layout.fillWidth: true }
                 IconButton

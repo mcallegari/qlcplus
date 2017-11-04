@@ -26,7 +26,7 @@ typedef struct
 {
     int m_action;
     qint64 m_timestamp;
-    QObject *m_object;
+    quint32  m_objID;
     QVariant m_oldValue;
     QVariant m_newValue;
 } TardisAction;

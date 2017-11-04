@@ -71,7 +71,7 @@ void VCWidget::enqueueTardisAction(int code, QVariant oldVal, QVariant newVal)
         return;
 
     Tardis *tardis = Tardis::instance();
-    tardis->enqueueAction(code, this, oldVal, newVal);
+    tardis->enqueueAction(code, id(), oldVal, newVal);
 }
 
 /*****************************************************************************

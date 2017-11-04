@@ -493,7 +493,7 @@ void ContextManager::setFixturePosition(quint32 fxID, qreal x, qreal y, qreal z)
 {
     MonitorProperties *mProps = m_doc->monitorProperties();
     QVector3D position(x, y, z);
-    Tardis::instance()->enqueueAction(FixtureSetPosition, m_doc->fixture(fxID),
+    Tardis::instance()->enqueueAction(FixtureSetPosition, fxID,
                                       QVariant(mProps->fixturePosition(fxID)),
                                       QVariant(position));
 
