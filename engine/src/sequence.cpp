@@ -122,13 +122,8 @@ bool Sequence::saveXML(QXmlStreamWriter *doc)
     doc->writeEndElement();
 
     /* Steps */
-    int stepNumber = 0;
-    QListIterator <ChaserStep> it(m_steps);
-    while (it.hasNext() == true)
-    {
-        ChaserStep step(it.next());
-        step.saveXML(doc, stepNumber++, true);
-    }
+    for (int i = 0; i < m_steps.count(); i++)
+        m_steps.at(i).saveXML(doc, i, true);
 
     /* End the <Function> tag */
     doc->writeEndElement();
