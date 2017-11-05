@@ -62,7 +62,6 @@ VCSlider::VCSlider(Doc *doc, QObject *parent)
     , m_attributeMaxValue(UCHAR_MAX)
 {
     setType(VCWidget::SliderWidget);
-    setBackgroundColor(QColor("#444"));
 
     registerExternalControl(INPUT_SLIDER_CONTROL_ID, tr("Slider Control"), false);
     registerExternalControl(INPUT_SLIDER_RESET_ID, tr("Reset Control"), false);
@@ -74,14 +73,9 @@ VCSlider::~VCSlider()
        is no longer necessary. But a normal deletion of a VCSlider in
        design mode must unregister the slider. */
     m_doc->masterTimer()->unregisterDMXSource(this);
-}
 
-void VCSlider::setID(quint32 id)
-{
-    VCWidget::setID(id);
-
-    if (caption().isEmpty())
-        setCaption(defaultCaption());
+    if (m_item)
+        delete m_item;
 }
 
 QString VCSlider::defaultCaption()
@@ -90,6 +84,13 @@ QString VCSlider::defaultCaption()
         return tr("Slider %1").arg(id() + 1);
     else
         return tr("Knob %1").arg(id() + 1);
+}
+
+void VCSlider::setupLookAndFeel(qreal pixelDensity, int page)
+{
+    setPage(page);
+    setDefaultFontSize(pixelDensity * 3.5);
+    setBackgroundColor(QColor("#444"));
 }
 
 void VCSlider::render(QQuickView *view, QQuickItem *parent)
@@ -105,10 +106,10 @@ void VCSlider::render(QQuickView *view, QQuickItem *parent)
         return;
     }
 
-    QQuickItem *item = qobject_cast<QQuickItem*>(component->create());
+    m_item = qobject_cast<QQuickItem*>(component->create());
 
-    item->setParentItem(parent);
-    item->setProperty("sliderObj", QVariant::fromValue(this));
+    m_item->setParentItem(parent);
+    m_item->setProperty("sliderObj", QVariant::fromValue(this));
 }
 
 QString VCSlider::propertiesResource() const

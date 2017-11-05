@@ -30,6 +30,7 @@
 #include "contextmanager.h"
 #include "functioneditor.h"
 #include "vcwidget.h"
+#include "vcframe.h"
 #include "chaser.h"
 #include "scene.h"
 #include "efx.h"
@@ -87,7 +88,8 @@ Tardis *Tardis::instance()
 
 void Tardis::enqueueAction(int code, quint32 objID, QVariant oldVal, QVariant newVal)
 {
-    if (m_doc->loadStatus() == Doc::Loading || m_busy)
+    if (m_busy || m_doc->loadStatus() == Doc::Loading ||
+        m_virtualConsole->loadStatus() == VirtualConsole::Loading)
         return;
 
     TardisAction action;
@@ -118,7 +120,7 @@ void Tardis::undoAction()
     while (!done)
     {
         TardisAction action = m_history.takeLast();
-        qDebug() << "Undo action" << action.m_action;
+        qDebug("Undo action 0x%02X", action.m_action);
 
         processAction(action);
 
@@ -202,7 +204,7 @@ void Tardis::run()
         if (m_historyCount > TARDIS_MAX_ACTIONS_NUMBER)
             m_history.removeFirst();
 
-        qDebug() << "Got action:" << action.m_action << ", history length:" << m_historyCount << "(" << m_history.count() << ")";
+        qDebug("Got action: 0x%02X, history length: %d (%d)", action.m_action, m_historyCount, m_history.count());
 
         /* If there are active network connections, send the action there too */
         if (m_networkManager->connectionsCount())
@@ -214,7 +216,7 @@ void Tardis::run()
     }
 }
 
-QByteArray Tardis::actionToByteArray(Doc *doc, int code, quint32 objID, QVariant data)
+QByteArray Tardis::actionToByteArray(int code, quint32 objID, QVariant data)
 {
     QBuffer buffer;
     buffer.open(QIODevice::WriteOnly | QIODevice::Text);
@@ -225,7 +227,7 @@ QByteArray Tardis::actionToByteArray(Doc *doc, int code, quint32 objID, QVariant
         case FixtureCreate:
         case FixtureDelete:
         {
-            Fixture *fixture = qobject_cast<Fixture *>(doc->fixture(objID));
+            Fixture *fixture = qobject_cast<Fixture *>(m_doc->fixture(objID));
             if (fixture)
                 fixture->saveXML(&xmlWriter);
         }
@@ -233,14 +235,14 @@ QByteArray Tardis::actionToByteArray(Doc *doc, int code, quint32 objID, QVariant
         case FunctionCreate:
         case FunctionDelete:
         {
-            Function *function = qobject_cast<Function *>(doc->function(objID));
+            Function *function = qobject_cast<Function *>(m_doc->function(objID));
             if (function)
                 function->saveXML(&xmlWriter);
         }
         break;
         case ChaserAddStep:
         {
-            Chaser *chaser = qobject_cast<Chaser *>(doc->function(objID));
+            Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(objID));
             ChaserStep *step = chaser->stepAt(data.toInt());
             step->saveXML(&xmlWriter, data.toInt(), chaser->type() == Function::SequenceType ? true : false);
         }
@@ -250,6 +252,14 @@ QByteArray Tardis::actionToByteArray(Doc *doc, int code, quint32 objID, QVariant
             // EFXFixture reference is stored on data, so let's C-cast the QVariant value
             EFXFixture *fixture = (EFXFixture *)data.value<void *>();
             fixture->saveXML(&xmlWriter);
+        }
+        break;
+        case VCWidgetCreate:
+        case VCWidgetDelete:
+        {
+            VCWidget *widget = qobject_cast<VCWidget *>(m_virtualConsole->widget(objID));
+            if (widget)
+                widget->saveXML(&xmlWriter);
         }
         break;
         default:
@@ -290,6 +300,11 @@ bool Tardis::processBufferedAction(TardisAction &action, QVariant &value)
             Function::loader(xmlReader, m_doc);
         }
         break;
+        case FunctionDelete:
+        {
+            m_functionManager->deleteFunctions(QVariantList( { action.m_objID } ));
+        }
+        break;
         case ChaserAddStep:
         {
             Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(action.m_objID));
@@ -307,6 +322,20 @@ bool Tardis::processBufferedAction(TardisAction &action, QVariant &value)
 
             ef->loadXML(xmlReader);
             efx->addFixture(ef);
+        }
+        break;
+        case VCWidgetCreate:
+        {
+            VCFrame *frame = qobject_cast<VCFrame *>(m_virtualConsole->widget(action.m_objID));
+            frame->loadWidgetXML(xmlReader, true);
+        }
+        break;
+        case VCWidgetDelete:
+        {
+            QXmlStreamAttributes attrs = xmlReader.attributes();
+
+            if (attrs.hasAttribute(KXMLQLCVCWidgetID))
+                m_virtualConsole->deleteVCWidgets(QVariantList( { attrs.value(KXMLQLCVCWidgetID).toUInt() } ));
         }
         break;
 
@@ -375,6 +404,12 @@ void Tardis::processAction(TardisAction &action)
         case FunctionCreate:
         {
             m_functionManager->deleteFunctions(QVariantList( { action.m_newValue } ));
+        }
+        break;
+        case FunctionDelete:
+        {
+            action.m_action = FunctionCreate; // reverse the action
+            processBufferedAction(action, action.m_oldValue);
         }
         break;
         case FunctionSetName:
@@ -558,6 +593,12 @@ void Tardis::processAction(TardisAction &action)
         case VCWidgetCreate:
         {
             m_virtualConsole->deleteVCWidgets(QVariantList( { action.m_newValue } ));
+        }
+        break;
+        case VCWidgetDelete:
+        {
+            action.m_action = VCWidgetCreate; // reverse the action
+            processBufferedAction(action, action.m_oldValue);
         }
         break;
         case VCWidgetGeometry:

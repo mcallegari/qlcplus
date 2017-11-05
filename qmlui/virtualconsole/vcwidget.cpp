@@ -29,6 +29,7 @@
 VCWidget::VCWidget(Doc *doc, QObject *parent)
     : QObject(parent)
     , m_doc(doc)
+    , m_item(NULL)
     , m_id(invalidId())
     , m_type(UnknownWidget)
     , m_geometry(QRect(0,0,0,0))
@@ -61,8 +62,19 @@ void VCWidget::setDocModified()
         m_doc->setModified();
 }
 
+void VCWidget::setupLookAndFeel(qreal pixelDensity, int page)
+{
+    setDefaultFontSize(pixelDensity * 2.7);
+    setPage(page);
+}
+
 void VCWidget::render(QQuickView *, QQuickItem *)
 {
+}
+
+QQuickItem *VCWidget::renderItem() const
+{
+    return m_item;
 }
 
 void VCWidget::enqueueTardisAction(int code, QVariant oldVal, QVariant newVal)
@@ -83,6 +95,9 @@ void VCWidget::setID(quint32 id)
     /* Don't set doc modified status or emit changed signal, because this
        function is called only once during widget creation. */
     m_id = id;
+
+    if (caption().isEmpty())
+        m_caption = defaultCaption();
 }
 
 quint32 VCWidget::id() const

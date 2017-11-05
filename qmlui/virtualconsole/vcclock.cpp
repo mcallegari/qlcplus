@@ -49,11 +49,6 @@ VCClock::VCClock(Doc *doc, QObject *parent)
     , m_enableSchedule(false)
 {
     setType(VCWidget::ClockWidget);
-    setForegroundColor(Qt::white);
-    QFont wFont = font();
-    wFont.setBold(true);
-    wFont.setPointSize(28);
-    setFont(wFont);
 
     m_timer = new QTimer(this);
     connect(m_timer, SIGNAL(timeout()), this, SLOT(slotTimerTimeout()));
@@ -70,19 +65,23 @@ VCClock::~VCClock()
         VCClockSchedule *sch = m_scheduleList.takeLast();
         delete sch;
     }
-}
 
-void VCClock::setID(quint32 id)
-{
-    VCWidget::setID(id);
-
-    if (caption().isEmpty())
-        setCaption(defaultCaption());
+    if (m_item)
+        delete m_item;
 }
 
 QString VCClock::defaultCaption()
 {
     return tr("Clock %1").arg(id() + 1);
+}
+
+void VCClock::setupLookAndFeel(qreal pixelDensity, int page)
+{
+    setPage(page);
+    QFont wFont = font();
+    wFont.setBold(true);
+    wFont.setPointSize(pixelDensity * 5.0);
+    setFont(wFont);
 }
 
 void VCClock::render(QQuickView *view, QQuickItem *parent)
@@ -98,10 +97,10 @@ void VCClock::render(QQuickView *view, QQuickItem *parent)
         return;
     }
 
-    QQuickItem *item = qobject_cast<QQuickItem*>(component->create());
+    m_item = qobject_cast<QQuickItem*>(component->create());
 
-    item->setParentItem(parent);
-    item->setProperty("clockObj", QVariant::fromValue(this));
+    m_item->setParentItem(parent);
+    m_item->setProperty("clockObj", QVariant::fromValue(this));
 }
 
 QString VCClock::propertiesResource() const

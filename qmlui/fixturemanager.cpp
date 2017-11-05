@@ -310,7 +310,7 @@ bool FixtureManager::deleteFixtures(QVariantList IDList)
                                           QVariant(mProps->fixturePosition(fxID)), QVariant());
         mProps->removeFixture(fxID);
         Tardis::instance()->enqueueAction(FixtureDelete, fxID,
-                                          Tardis::actionToByteArray(m_doc, FixtureDelete, fxID, QVariant()),
+                                          Tardis::instance()->actionToByteArray(FixtureDelete, fxID, QVariant()),
                                           QVariant());
         m_doc->deleteFixture(fxID);
         emit fixtureDeleted(fxID);

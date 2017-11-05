@@ -231,7 +231,10 @@ SidePanel
                             CustomCheckBox
                             {
                                 id: dontAskCheck
+                                implicitHeight: UISettings.listItemHeight
+                                implicitWidth: implicitHeight
                                 Layout.alignment: Qt.AlignRight
+                                autoExclusive: false
                             }
                             RobotoText { label: qsTr("Don't ask again") }
                         }

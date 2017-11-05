@@ -99,12 +99,20 @@ public:
 
     void setDocModified();
 
+    virtual void setupLookAndFeel(qreal pixelDensity, int page);
+
     virtual void render(QQuickView *view, QQuickItem *parent);
+
+    QQuickItem *renderItem() const;
 
     void enqueueTardisAction(int code, QVariant oldVal, QVariant newVal);
 
 protected:
+    /** Reference to the project document */
     Doc* m_doc;
+
+    /** Reference to the onscreen Quick item */
+    QQuickItem *m_item;
 
     /*********************************************************************
      * ID
@@ -150,6 +158,7 @@ public:
         AnimationWidget,
         ClockWidget
     };
+    Q_ENUM(WidgetType)
 
 public:
     /** Set the widget's type */

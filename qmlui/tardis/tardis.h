@@ -61,7 +61,7 @@ public:
 
     void processAction(TardisAction &action);
 
-    static QByteArray actionToByteArray(Doc *doc, int code, quint32 objID, QVariant data);
+    QByteArray actionToByteArray(int code, quint32 objID, QVariant data);
 
     /** Reset the actions history */
     void resetHistory();

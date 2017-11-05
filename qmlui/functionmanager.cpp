@@ -513,6 +513,9 @@ void FunctionManager::deleteFunctions(QVariantList IDList)
         if (m_selectedIDList.contains(fID))
             m_selectedIDList.removeAll(fID);
 
+        Tardis::instance()->enqueueAction(FunctionDelete, f->id(),
+                                          Tardis::instance()->actionToByteArray(FunctionDelete, f->id(), QVariant()),
+                                          QVariant());
         m_doc->deleteFunction(f->id());
     }
 

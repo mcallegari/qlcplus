@@ -63,10 +63,10 @@ public:
     virtual ~VCFrame();
 
     /** @reimp */
-    void setID(quint32 id);
+    virtual QString defaultCaption();
 
     /** @reimp */
-    virtual QString defaultCaption();
+    void setupLookAndFeel(qreal pixelDensity, int page);
 
     /** @reimp */
     virtual void render(QQuickView *view, QQuickItem *parent);
@@ -239,6 +239,7 @@ public slots:
      *********************************************************************/
 
 public:
+    bool loadWidgetXML(QXmlStreamReader &root, bool render = false);
     bool loadXML(QXmlStreamReader &root);
     bool saveXML(QXmlStreamWriter *doc);
 

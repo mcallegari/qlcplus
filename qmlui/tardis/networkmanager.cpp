@@ -104,11 +104,13 @@ void NetworkManager::sendAction(quint32 objID, TardisAction action)
         case FunctionCreate:
         case ChaserAddStep:
         case EFXAddFixture:
-            m_packetizer->addSection(packet, Tardis::actionToByteArray(m_doc, action.m_action, objID, action.m_newValue));
+        case VCWidgetCreate:
+            m_packetizer->addSection(packet, Tardis::instance()->actionToByteArray(action.m_action, objID, action.m_newValue));
         break;
 
         case FixtureDelete:
         case FunctionDelete:
+        case VCWidgetDelete:
             m_packetizer->addSection(packet, action.m_oldValue);
         break;
 
