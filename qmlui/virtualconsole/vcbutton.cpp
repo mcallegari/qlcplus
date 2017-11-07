@@ -35,26 +35,26 @@ VCButton::VCButton(Doc *doc, QObject *parent)
     , m_startupIntensity(1.0)
 {
     setType(VCWidget::ButtonWidget);
-    setBackgroundColor(QColor("#444"));
 
     registerExternalControl(INPUT_PRESSURE_ID, tr("Pressure"), true);
 }
 
 VCButton::~VCButton()
 {
-}
-
-void VCButton::setID(quint32 id)
-{
-    VCWidget::setID(id);
-
-    if (caption().isEmpty())
-        setCaption(defaultCaption());
+    if (m_item)
+        delete m_item;
 }
 
 QString VCButton::defaultCaption()
 {
     return tr("Button %1").arg(id() + 1);
+}
+
+void VCButton::setupLookAndFeel(qreal pixelDensity, int page)
+{
+    VCWidget::setupLookAndFeel(pixelDensity, page);
+
+    setBackgroundColor(QColor("#444"));
 }
 
 void VCButton::render(QQuickView *view, QQuickItem *parent)
@@ -70,10 +70,10 @@ void VCButton::render(QQuickView *view, QQuickItem *parent)
         return;
     }
 
-    QQuickItem *item = qobject_cast<QQuickItem*>(component->create());
+    m_item = qobject_cast<QQuickItem*>(component->create());
 
-    item->setParentItem(parent);
-    item->setProperty("buttonObj", QVariant::fromValue(this));
+    m_item->setParentItem(parent);
+    m_item->setProperty("buttonObj", QVariant::fromValue(this));
 }
 
 QString VCButton::propertiesResource() const

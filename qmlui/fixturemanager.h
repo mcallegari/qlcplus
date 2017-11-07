@@ -74,6 +74,9 @@ public:
 
     Q_INVOKABLE bool moveFixture(quint32 fixtureID, quint32 newAddress);
 
+    /** Delete some existing Fixtures with IDs provided by $IDList */
+    Q_INVOKABLE bool deleteFixtures(QVariantList IDList);
+
     /** Generic helper to retrieve a channel icon resource as string, from
      *  the provided Fixture ID $fxID and channel index $chIdx */
     Q_INVOKABLE QString channelIcon(quint32 fxID, quint32 chIdx);
@@ -127,7 +130,11 @@ signals:
     /** Notify the listeners that the fixture tree model has changed */
     void groupsTreeModelChanged();
 
-    void newFixtureCreated(quint32 fxID, qreal x, qreal y);
+    /** Notify the listeners that a fixture has been created at position x,y,z */
+    void newFixtureCreated(quint32 fxID, qreal x, qreal y, qreal z);
+
+    /** Notify the listeners that a fixture has been deleted */
+    void fixtureDeleted(quint32 fxID);
 
 private:
     /** Comparison method to sort a Fixture list by DMX address */

@@ -64,8 +64,6 @@ public:
      *  requested $fixture's $channel */
     Q_INVOKABLE double channelValue(quint32 fxID, quint32 channel);
 
-    Q_INVOKABLE void setChannelValue(quint32 fxID, quint32 channel, uchar value);
-
     Q_INVOKABLE void unsetChannel(quint32 fxID, quint32 channel);
 
     Q_INVOKABLE void setFixtureSelection(quint32 fxID);

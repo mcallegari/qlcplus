@@ -475,30 +475,34 @@ private:
      *********************************************************************/
 public:
     /** Add a new fixture to this EFX */
-    bool addFixture(EFXFixture* ef);
+    bool addFixture(EFXFixture *ef);
 
     /** Remove the designated fixture from this EFX but don't delete it */
-    bool removeFixture(EFXFixture* ef);
+    bool removeFixture(EFXFixture *ef);
 
     /** Remove all the fixtures from this EFX but don't delete them */
     void removeAllFixtures();
 
     /** Raise a fixture in the serial order to an earlier position */
-    bool raiseFixture(EFXFixture* ef);
+    bool raiseFixture(EFXFixture *ef);
 
     /** Lower a fixture in the serial order to a later position */
-    bool lowerFixture(EFXFixture* ef);
+    bool lowerFixture(EFXFixture *ef);
 
     /** Get a list of fixtures taking part in this EFX */
-    const QList <EFXFixture*> fixtures() const;
+    const QList <EFXFixture *> fixtures() const;
+
+    /** Get an EFXFixture reference from Fixture $id and &headIndex
+     *  Returns NULL on failure */
+    EFXFixture *fixture(quint32 id, int headIndex);
 
 public slots:
     /** Slot that captures Doc::fixtureRemoved signals */
     void slotFixtureRemoved(quint32 fxi_id);
 
 private:
-    QList <EFXFixture*> m_fixtures;
-    GenericFader* m_fader;
+    QList <EFXFixture *> m_fixtures;
+    GenericFader *m_fader;
 
     /*********************************************************************
      * Fixture propagation mode

@@ -21,6 +21,7 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.2
 
+import org.qlcplus.classes 1.0
 import "."
 
 SidePanel
@@ -52,6 +53,7 @@ SidePanel
             IconButton
             {
                 id: fxEditor
+                visible: qlcplus.accessMask & App.AC_FixtureEditing
                 z: 2
                 width: iconSize
                 height: iconSize

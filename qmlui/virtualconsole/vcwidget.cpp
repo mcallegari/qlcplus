@@ -23,14 +23,17 @@
 #include "qlcinputchannel.h"
 #include "inputpatch.h"
 #include "vcwidget.h"
+#include "tardis.h"
 #include "doc.h"
 
 VCWidget::VCWidget(Doc *doc, QObject *parent)
     : QObject(parent)
     , m_doc(doc)
+    , m_item(NULL)
     , m_id(invalidId())
     , m_type(UnknownWidget)
     , m_geometry(QRect(0,0,0,0))
+    , m_scaleFactor(1.0)
     , m_allowResize(true)
     , m_isDisabled(false)
     , m_isVisible(true)
@@ -59,8 +62,28 @@ void VCWidget::setDocModified()
         m_doc->setModified();
 }
 
+void VCWidget::setupLookAndFeel(qreal pixelDensity, int page)
+{
+    setDefaultFontSize(pixelDensity * 2.7);
+    setPage(page);
+}
+
 void VCWidget::render(QQuickView *, QQuickItem *)
 {
+}
+
+QQuickItem *VCWidget::renderItem() const
+{
+    return m_item;
+}
+
+void VCWidget::enqueueTardisAction(int code, QVariant oldVal, QVariant newVal)
+{
+    if (Tardis::instance() == NULL)
+        return;
+
+    Tardis *tardis = Tardis::instance();
+    tardis->enqueueAction(code, id(), oldVal, newVal);
 }
 
 /*****************************************************************************
@@ -72,6 +95,9 @@ void VCWidget::setID(quint32 id)
     /* Don't set doc modified status or emit changed signal, because this
        function is called only once during widget creation. */
     m_id = id;
+
+    if (caption().isEmpty())
+        m_caption = defaultCaption();
 }
 
 quint32 VCWidget::id() const
@@ -164,19 +190,40 @@ VCWidget::WidgetType VCWidget::stringToType(QString str)
  * Geometry
  *********************************************************************/
 
-QRect VCWidget::geometry() const
+QRectF VCWidget::geometry() const
 {
-    return m_geometry;
+    return QRectF(m_geometry.x() * m_scaleFactor, m_geometry.y() * m_scaleFactor,
+                  m_geometry.width() * m_scaleFactor, m_geometry.height() * m_scaleFactor);
 }
 
-void VCWidget::setGeometry(QRect rect)
+void VCWidget::setGeometry(QRectF rect)
 {
-    if (m_geometry == rect)
+    QRectF scaled = QRectF(rect.x() / m_scaleFactor, rect.y() / m_scaleFactor,
+                           rect.width() / m_scaleFactor, rect.height() / m_scaleFactor);
+
+    if (m_geometry == scaled)
         return;
 
-    m_geometry = rect;
-    setDocModified();
-    emit geometryChanged(rect);
+    enqueueTardisAction(VCWidgetGeometry, QVariant(m_geometry), QVariant(scaled));
+
+    m_geometry = scaled;
+
+    emit geometryChanged();
+}
+
+qreal VCWidget::scaleFactor() const
+{
+    return m_scaleFactor;
+}
+
+void VCWidget::setScaleFactor(qreal factor)
+{
+    if (m_scaleFactor == factor)
+        return;
+
+    m_scaleFactor = factor;
+
+    emit geometryChanged();
 }
 
 /*********************************************************************
@@ -234,14 +281,14 @@ bool VCWidget::isVisible() const
     return m_isVisible;
 }
 
+/*****************************************************************************
+ * Caption
+ *****************************************************************************/
+
 QString VCWidget::defaultCaption()
 {
     return QString();
 }
-
-/*****************************************************************************
- * Caption
- *****************************************************************************/
 
 QString VCWidget::caption() const
 {
@@ -253,8 +300,9 @@ void VCWidget::setCaption(QString caption)
     if (m_caption == caption)
         return;
 
+    enqueueTardisAction(VCWidgetCaption, m_caption, caption);
     m_caption = caption;
-    setDocModified();
+
     emit captionChanged(caption);
 }
 
@@ -273,10 +321,10 @@ void VCWidget::setBackgroundColor(QColor backgroundColor)
         return;
 
     setBackgroundImage("");
+    enqueueTardisAction(VCWidgetBackgroundColor, m_backgroundColor, backgroundColor);
 
     m_backgroundColor = backgroundColor;
     m_hasCustomBackgroundColor = true;
-    setDocModified();
     emit backgroundColorChanged(backgroundColor);
 }
 
@@ -303,9 +351,11 @@ void VCWidget::setBackgroundImage(QString path)
     if (m_backgroundImage == strippedPath)
         return;
 
+    enqueueTardisAction(VCWidgetBackgroundImage, m_backgroundImage, strippedPath);
+
     m_hasCustomBackgroundColor = false;
     m_backgroundImage = strippedPath;
-    setDocModified();
+
     emit backgroundImageChanged(strippedPath);
 }
 
@@ -328,9 +378,11 @@ void VCWidget::setForegroundColor(QColor foregroundColor)
     if (m_foregroundColor == foregroundColor)
         return;
 
+    enqueueTardisAction(VCWidgetForegroundColor, m_foregroundColor, foregroundColor);
+
     m_foregroundColor = foregroundColor;
     m_hasCustomForegroundColor = true;
-    setDocModified();
+
     emit foregroundColorChanged(foregroundColor);
 }
 
@@ -359,8 +411,9 @@ void VCWidget::setDefaultFontSize(qreal size)
 void VCWidget::setFont(const QFont& font)
 {
     m_hasCustomFont = true;
+    enqueueTardisAction(VCWidgetFont, m_font, font);
     m_font = font;
-    setDocModified();
+
     emit fontChanged();
 }
 
@@ -1000,7 +1053,7 @@ bool VCWidget::saveXMLWindowState(QXmlStreamWriter *doc)
 {
     Q_ASSERT(doc != NULL);
 
-    QRect r = geometry();
+    QRectF r = geometry();
 
     /* Window state tag */
     doc->writeStartElement(KXMLQLCWindowState);
@@ -1011,10 +1064,10 @@ bool VCWidget::saveXMLWindowState(QXmlStreamWriter *doc)
     else
         doc->writeAttribute(KXMLQLCWindowStateVisible, KXMLQLCFalse);
 
-    doc->writeAttribute(KXMLQLCWindowStateX, QString::number(r.x()));
-    doc->writeAttribute(KXMLQLCWindowStateY, QString::number(r.y()));
-    doc->writeAttribute(KXMLQLCWindowStateWidth, QString::number(r.width()));
-    doc->writeAttribute(KXMLQLCWindowStateHeight, QString::number(r.height()));
+    doc->writeAttribute(KXMLQLCWindowStateX, QString::number((int)r.x()));
+    doc->writeAttribute(KXMLQLCWindowStateY, QString::number((int)r.y()));
+    doc->writeAttribute(KXMLQLCWindowStateWidth, QString::number((int)r.width()));
+    doc->writeAttribute(KXMLQLCWindowStateHeight, QString::number((int)r.height()));
 
     doc->writeEndElement();
 

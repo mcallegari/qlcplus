@@ -37,7 +37,8 @@ Rectangle
     function closeWindow()
     {
         console.log("Closing window of context: " + contextName)
-        contextManager.enableContext(contextName, false, wLoader.item.contextItem)
+        if (contextManager)
+            contextManager.enableContext(contextName, false, wLoader.item.contextItem)
     }
 
     Loader

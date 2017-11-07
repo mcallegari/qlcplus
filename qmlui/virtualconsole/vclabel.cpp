@@ -26,24 +26,23 @@ VCLabel::VCLabel(Doc *doc, QObject *parent)
     : VCWidget(doc, parent)
 {
     setType(VCWidget::LabelWidget);
-    setForegroundColor(Qt::white);
 }
 
 VCLabel::~VCLabel()
 {
-}
-
-void VCLabel::setID(quint32 id)
-{
-    VCWidget::setID(id);
-
-    if (caption().isEmpty())
-        setCaption(defaultCaption());
+    if (m_item)
+        delete m_item;
 }
 
 QString VCLabel::defaultCaption()
 {
     return tr("Label %1").arg(id() + 1);
+}
+
+void VCLabel::setupLookAndFeel(qreal pixelDensity, int page)
+{
+    setPage(page);
+    setDefaultFontSize(pixelDensity * 3.5);
 }
 
 void VCLabel::render(QQuickView *view, QQuickItem *parent)
@@ -59,10 +58,10 @@ void VCLabel::render(QQuickView *view, QQuickItem *parent)
         return;
     }
 
-    QQuickItem *item = qobject_cast<QQuickItem*>(component->create());
+    m_item = qobject_cast<QQuickItem*>(component->create());
 
-    item->setParentItem(parent);
-    item->setProperty("labelObj", QVariant::fromValue(this));
+    m_item->setParentItem(parent);
+    m_item->setProperty("labelObj", QVariant::fromValue(this));
 }
 
 /*********************************************************************

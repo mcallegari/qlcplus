@@ -30,7 +30,6 @@ Rectangle
     border.width: 2
     border.color: UISettings.bgStrong
 
-    property bool disabled: false
     property bool useFontawesome: false // false means Roboto, true means FontAwesome
     property int fontSize: UISettings.textSizeDefault
     property alias label: btnText.text
@@ -70,7 +69,7 @@ Rectangle
     /* Overlay rectangle to represent the disabled status */
     Rectangle
     {
-        visible: disabled
+        visible: !btnRoot.enabled
         anchors.fill: parent
         z: 1
         color: "black"
@@ -91,7 +90,7 @@ Rectangle
     MouseArea
     {
         id: gbMouseArea
-        enabled: !disabled
+        enabled: btnRoot.enabled
         anchors.fill: parent
         hoverEnabled: true
         acceptedButtons: Qt.LeftButton | Qt.RightButton

@@ -58,7 +58,7 @@ Dialog
             background:
                 Rectangle
                 {
-                    color: UISettings.bgLight
+                    color: UISettings.sectionHeader
                     x: 2
                     y: 2
                     width: parent.width - 4

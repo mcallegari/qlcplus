@@ -21,6 +21,7 @@
 #include <QQmlEngine>
 #include <QDebug>
 
+#include "genericdmxsource.h"
 #include "collectioneditor.h"
 #include "functionmanager.h"
 #include "rgbmatrixeditor.h"
@@ -43,6 +44,7 @@
 #include "show.h"
 #include "efx.h"
 
+#include "tardis.h"
 #include "doc.h"
 
 FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)
@@ -65,6 +67,10 @@ FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)
     qmlRegisterUncreatableType<Chaser>("org.qlcplus.classes", 1, 0, "Chaser", "Can't create a Chaser");
     qmlRegisterUncreatableType<RGBMatrix>("org.qlcplus.classes", 1, 0, "RGBMatrix", "Can't create a RGBMatrix");
     qmlRegisterUncreatableType<EFX>("org.qlcplus.classes", 1, 0, "EFX", "Can't create an EFX");
+
+    // register SceneValue to perform QVariant comparisons
+    qRegisterMetaType<SceneValue>();
+    QMetaType::registerComparators<SceneValue>();
 
     m_functionTree = new TreeModel(this);
     QQmlEngine::setObjectOwnership(m_functionTree, QQmlEngine::CppOwnership);
@@ -146,10 +152,10 @@ quint32 FunctionManager::createFunction(int type)
 
     switch(type)
     {
-    case Function::SceneType:
-    {
-        f = new Scene(m_doc);
-        name = tr("New Scene");
+        case Function::SceneType:
+        {
+            f = new Scene(m_doc);
+            name = tr("New Scene");
             m_sceneCount++;
             emit sceneCountChanged();
         }
@@ -264,6 +270,8 @@ quint32 FunctionManager::createFunction(int type)
         m_selectedIDList.append(QVariant(f->id()));
         emit selectionCountChanged(m_selectedIDList.count());
         emit functionsListChanged();
+
+        Tardis::instance()->enqueueAction(FunctionCreate, f->id(), QVariant(), f->id());
 
         return f->id();
     }
@@ -381,11 +389,17 @@ void FunctionManager::setEditorFunction(quint32 fID, bool requestUI)
     // reset all the editor functions
     if (m_currentEditor != NULL)
     {
+        if (m_currentEditor->functionID() == fID)
+            return;
+
         delete m_currentEditor;
         m_currentEditor = NULL;
     }
     if (m_sceneEditor != NULL)
     {
+        if (m_sceneEditor->functionID() == fID)
+            return;
+
         delete m_sceneEditor;
         m_sceneEditor = NULL;
     }
@@ -472,6 +486,11 @@ void FunctionManager::setEditorFunction(quint32 fID, bool requestUI)
     emit isEditingChanged(true);
 }
 
+FunctionEditor *FunctionManager::currentEditor() const
+{
+    return m_currentEditor == NULL ? m_sceneEditor : m_currentEditor;
+}
+
 bool FunctionManager::isEditing() const
 {
     if (m_currentEditor != NULL)
@@ -494,6 +513,9 @@ void FunctionManager::deleteFunctions(QVariantList IDList)
         if (m_selectedIDList.contains(fID))
             m_selectedIDList.removeAll(fID);
 
+        Tardis::instance()->enqueueAction(FunctionDelete, f->id(),
+                                          Tardis::instance()->actionToByteArray(FunctionDelete, f->id(), QVariant()),
+                                          QVariant());
         m_doc->deleteFunction(f->id());
     }
 
@@ -567,10 +589,20 @@ int FunctionManager::viewPosition() const
  * DMX values (dumping and Scene editor)
  *********************************************************************/
 
-void FunctionManager::setDumpValue(quint32 fxID, quint32 channel, uchar value)
+void FunctionManager::setDumpValue(quint32 fxID, quint32 channel, uchar value, GenericDMXSource *source)
 {
-    m_dumpValues[QPair<quint32,quint32>(fxID, channel)] = value;
-    emit dumpValuesCountChanged();
+    QVariant currentVal, newVal;
+    uchar currDmxValue = m_dumpValues.value(QPair<quint32,quint32>(fxID, channel), 0);
+    currentVal.setValue(SceneValue(fxID, channel,currDmxValue));
+    newVal.setValue(SceneValue(fxID, channel, value));
+    if (currentVal != newVal || value != currDmxValue)
+    {
+        Tardis::instance()->enqueueAction(FixtureSetDumpValue, 0, currentVal, newVal);
+        if (source)
+            source->set(fxID, channel, value);
+        m_dumpValues[QPair<quint32,quint32>(fxID, channel)] = value;
+        emit dumpValuesCountChanged();
+    }
 }
 
 QMap<QPair<quint32, quint32>, uchar> FunctionManager::dumpValues() const
@@ -614,17 +646,37 @@ void FunctionManager::dumpOnNewScene(QList<quint32> selectedFixtures, QString na
         newScene->setName(name);
 
     if (m_doc->addFunction(newScene) == true)
-        slotDocLoaded();
+    {
+        setPreview(false);
+        updateFunctionsTree();
+        Tardis::instance()->enqueueAction(FunctionCreate, newScene->id(), QVariant(), newScene->id());
+    }
     else
         delete newScene;
 }
 
 void FunctionManager::setChannelValue(quint32 fxID, quint32 channel, uchar value)
 {
-    if (m_currentEditor != NULL && m_currentEditor->functionType() == Function::SceneType)
+    FunctionEditor *editor = m_currentEditor;
+
+    if (editor != NULL && editor->functionType() == Function::SequenceType)
+        editor = m_sceneEditor;
+
+    if (editor != NULL && editor->functionType() == Function::SceneType)
     {
-        SceneEditor *se = qobject_cast<SceneEditor *>(m_currentEditor);
-        se->setChannelValue(fxID, channel, value);
+        Scene *scene = qobject_cast<Scene *>(m_doc->function(editor->functionID()));
+        if (scene == NULL)
+            return;
+
+        QVariant currentVal, newVal;
+        uchar currDmxValue = scene->value(fxID, channel);
+        currentVal.setValue(SceneValue(fxID, channel, currDmxValue));
+        newVal.setValue(SceneValue(fxID, channel, value));
+        if (currentVal != newVal || value != currDmxValue)
+        {
+            Tardis::instance()->enqueueAction(SceneSetChannelValue, scene->id(), currentVal, newVal);
+            scene->setValue(fxID, channel, value);
+        }
     }
 }
 
@@ -693,8 +745,9 @@ void FunctionManager::slotDocLoaded()
 
 void FunctionManager::slotFunctionAdded(quint32)
 {
-    if (m_doc->loadStatus() != Doc::Loaded)
+    if (m_doc->loadStatus() == Doc::Loading)
         return;
+
     updateFunctionsTree();
 }
 

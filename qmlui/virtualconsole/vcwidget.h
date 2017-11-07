@@ -30,7 +30,6 @@
 #include "qlcfile.h"
 #include "doc.h"
 
-
 #define KXMLQLCVCCaption "Caption"
 #define KXMLQLCVCFrameStyle "FrameStyle"    // LEGACY
 
@@ -76,7 +75,7 @@ class VCWidget : public QObject
     Q_PROPERTY(quint32 id READ id CONSTANT)
     Q_PROPERTY(QString propertiesResource READ propertiesResource CONSTANT)
     Q_PROPERTY(bool isEditing READ isEditing WRITE setIsEditing NOTIFY isEditingChanged)
-    Q_PROPERTY(QRect geometry READ geometry WRITE setGeometry NOTIFY geometryChanged)
+    Q_PROPERTY(QRectF geometry READ geometry WRITE setGeometry NOTIFY geometryChanged)
     Q_PROPERTY(bool allowResize READ allowResize WRITE setAllowResize NOTIFY allowResizeChanged)
     Q_PROPERTY(bool isDisabled READ isDisabled WRITE setDisabled NOTIFY disabledStateChanged)
     Q_PROPERTY(bool isVisible READ isVisible WRITE setVisible NOTIFY isVisibleChanged)
@@ -94,17 +93,26 @@ class VCWidget : public QObject
     /*********************************************************************
      * Initialization
      *********************************************************************/
-
 public:
     VCWidget(Doc* doc = NULL, QObject* parent = 0);
     virtual ~VCWidget();
 
     void setDocModified();
 
+    virtual void setupLookAndFeel(qreal pixelDensity, int page);
+
     virtual void render(QQuickView *view, QQuickItem *parent);
 
+    QQuickItem *renderItem() const;
+
+    void enqueueTardisAction(int code, QVariant oldVal, QVariant newVal);
+
 protected:
+    /** Reference to the project document */
     Doc* m_doc;
+
+    /** Reference to the onscreen Quick item */
+    QQuickItem *m_item;
 
     /*********************************************************************
      * ID
@@ -150,6 +158,7 @@ public:
         AnimationWidget,
         ClockWidget
     };
+    Q_ENUM(WidgetType)
 
 public:
     /** Set the widget's type */
@@ -174,18 +183,21 @@ protected:
      * Geometry
      *********************************************************************/
 public:
-    /** Get this widget's geometry */
-    QRect geometry() const;
-
-    /** Set this widget's geometry. x/y position is relative to
+    /** Get/Set this widget's geometry. x/y position is relative to
      *  the widget's parent */
-    void setGeometry(QRect rect);
+    QRectF geometry() const;
+    void setGeometry(QRectF rect);
+
+    /** Get/Set the widget's scale factor */
+    qreal scaleFactor() const;
+    void setScaleFactor(qreal factor);
 
 signals:
-    void geometryChanged(QRect rect);
+    void geometryChanged();
 
 protected:
-    QRect m_geometry;
+    QRectF m_geometry;
+    qreal m_scaleFactor;
 
     /*********************************************************************
      * Allow resize

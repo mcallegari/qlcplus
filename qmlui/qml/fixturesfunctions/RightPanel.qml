@@ -54,6 +54,9 @@ SidePanel
 
     function requestEditor(funcID, funcType)
     {
+        if (!(qlcplus.accessMask & App.AC_FunctionEditing))
+            return
+
         // reset the currently loaded item first
         loaderSource = ""
         itemID = funcID
@@ -105,6 +108,7 @@ SidePanel
             IconButton
             {
                 id: addFunction
+                visible: qlcplus.accessMask & App.AC_FunctionEditing
                 z: 2
                 width: iconSize
                 height: iconSize
@@ -177,7 +181,7 @@ SidePanel
                 height: iconSize
                 imgSource: "qrc:/dmxdump.svg"
                 tooltip: qsTr("Dump to a Scene")
-                counter: functionManager.dumpValuesCount
+                counter: functionManager.dumpValuesCount && (qlcplus.accessMask & App.AC_FunctionEditing)
 
                 Rectangle
                 {
@@ -227,7 +231,10 @@ SidePanel
                             CustomCheckBox
                             {
                                 id: dontAskCheck
+                                implicitHeight: UISettings.listItemHeight
+                                implicitWidth: implicitHeight
                                 Layout.alignment: Qt.AlignRight
+                                autoExclusive: false
                             }
                             RobotoText { label: qsTr("Don't ask again") }
                         }

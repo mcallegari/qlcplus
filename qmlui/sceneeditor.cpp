@@ -23,6 +23,7 @@
 #include "sceneeditor.h"
 #include "scenevalue.h"
 #include "listmodel.h"
+#include "tardis.h"
 #include "scene.h"
 #include "doc.h"
 
@@ -146,37 +147,6 @@ double SceneEditor::channelValue(quint32 fxID, quint32 channel)
     return (double)m_scene->value(fxID, channel);
 }
 
-void SceneEditor::setChannelValue(quint32 fxID, quint32 channel, uchar value)
-{
-    if (m_scene == NULL)
-        return;
-
-    bool blindMode = false;
-
-    if (m_source->isOutputEnabled() == false)
-        blindMode = true;
-
-    m_scene->setValue(SceneValue(fxID, channel, value), blindMode, false);
-
-    if (m_fixtureIDs.contains(fxID) == false)
-        updateFixtureList();
-    else
-    {
-        if (m_sceneConsole)
-        {
-            int fxIndex = m_fixtureIDs.indexOf(fxID);
-            if (m_fxConsoleMap.contains(fxIndex))
-            {
-                QMetaObject::invokeMethod(m_fxConsoleMap[fxIndex], "setChannelValue",
-                        Q_ARG(QVariant, channel),
-                        Q_ARG(QVariant, value));
-            }
-        }
-    }
-    if (blindMode == false)
-        m_source->set(fxID, channel, value);
-}
-
 void SceneEditor::slotSceneValueChanged(SceneValue scv)
 {
     qDebug() << "slotSceneValueChanged---- " << scv;
@@ -194,6 +164,10 @@ void SceneEditor::slotSceneValueChanged(SceneValue scv)
                     Q_ARG(QVariant, scv.channel),
                     Q_ARG(QVariant, scv.value));
         }
+        else
+        {
+            updateFixtureList();
+        }
     }
 
     if (blindMode == false)
@@ -204,6 +178,11 @@ void SceneEditor::unsetChannel(quint32 fxID, quint32 channel)
 {
     if (m_scene == NULL || m_fixtureIDs.contains(fxID) == false)
         return;
+
+    QVariant currentVal;
+    uchar currDmxValue = m_scene->value(fxID, channel);
+    currentVal.setValue(SceneValue(fxID, channel, currDmxValue));
+    Tardis::instance()->enqueueAction(SceneUnsetChannelValue, m_scene->id(), currentVal, QVariant());
 
     m_scene->unsetValue(fxID, channel);
     if (m_source->isOutputEnabled() == true)

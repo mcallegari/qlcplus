@@ -32,6 +32,7 @@
 #include "vclabel.h"
 #include "vcclock.h"
 #include "vcpage.h"
+#include "tardis.h"
 #include "doc.h"
 #include "app.h"
 
@@ -56,6 +57,7 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc,
                                ContextManager *ctxManager, QObject *parent)
     : PreviewContext(view, doc, "VC", parent)
     , m_editMode(false)
+    , m_loadStatus(Cleared)
     , m_contextManager(ctxManager)
     , m_selectedPage(0)
     , m_latestWidgetId(0)
@@ -74,6 +76,7 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc,
     {
         VCPage *page = new VCPage(view, m_doc, this, i, this);
         QQmlEngine::setObjectOwnership(page, QQmlEngine::CppOwnership);
+        addWidgetToMap(page);
         m_contextManager->registerContext(page->previewContext());
         m_pages.append(page);
     }
@@ -110,6 +113,7 @@ void VirtualConsole::resetContents()
     m_widgetsMap.clear();
     m_latestWidgetId = 0;
     m_selectedPage = 0;
+    m_loadStatus = Cleared;
 }
 
 bool VirtualConsole::editMode() const
@@ -126,6 +130,11 @@ void VirtualConsole::setEditMode(bool editMode)
     emit editModeChanged(editMode);
 }
 
+VirtualConsole::LoadStatus VirtualConsole::loadStatus() const
+{
+    return m_loadStatus;
+}
+
 /*********************************************************************
  * Pages
  *********************************************************************/
@@ -138,7 +147,7 @@ void VirtualConsole::renderPage(QQuickItem *parent, QQuickItem *contentItem, int
     if (page < 0 || page >= m_pages.count())
         return;
 
-    QRect pageRect = m_pages.at(page)->geometry();
+    QRectF pageRect = m_pages.at(page)->geometry();
     parent->setProperty("contentWidth", pageRect.width());
     parent->setProperty("contentHeight", pageRect.height());
 
@@ -281,6 +290,11 @@ void VirtualConsole::setPageInteraction(bool enable)
     QQuickItem *page = currentPageItem();
     if (page != NULL)
         page->setProperty("interactive", enable);
+}
+
+void VirtualConsole::setPageScale(qreal factor)
+{
+    m_pages.at(m_selectedPage)->setPageScale(factor);
 }
 
 /*********************************************************************
@@ -450,7 +464,7 @@ void VirtualConsole::moveWidget(VCWidget *widget, VCFrame *targetFrame, QPoint p
         widget->setParent(targetFrame);
     }
 
-    QRect wRect = widget->geometry();
+    QRectF wRect = widget->geometry();
     wRect.moveTopLeft(pos);
     widget->setGeometry(wRect);
 
@@ -462,7 +476,7 @@ void VirtualConsole::setWidgetsAlignment(VCWidget *refWidget, int alignment)
     if (refWidget == NULL)
         return;
 
-    QRect refGeom = refWidget->geometry();
+    QRectF refGeom = refWidget->geometry();
 
     QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
     while(it.hasNext())
@@ -470,7 +484,7 @@ void VirtualConsole::setWidgetsAlignment(VCWidget *refWidget, int alignment)
         it.next();
 
         VCWidget *widget = m_widgetsMap[it.key()];
-        QRect wGeom = widget->geometry();
+        QRectF wGeom = widget->geometry();
 
         switch(alignment)
         {
@@ -574,27 +588,28 @@ void VirtualConsole::deleteVCWidgets(QVariantList IDList)
         if (parentFrame != NULL)
             parentFrame->removeWidgetFromPageMap(w);
 
-        /* 2- remove the widget from the global VC widgets map */
-        m_widgetsMap.remove(wID);
-
-        /* 3- if the widget is a frame, delete also all its children */
+        /* 2- if the widget is a frame, delete also all its children */
         if (w->type() == VCWidget::FrameWidget || w->type() == VCWidget::SoloFrameWidget)
         {
             VCFrame *frame = qobject_cast<VCFrame *>(w);
-            foreach (VCWidget* child, frame->children(true))
+            for (VCWidget *child : frame->children(true))
+            {
+                Tardis::instance()->enqueueAction(VCWidgetDelete, w->id(),
+                                                  Tardis::instance()->actionToByteArray(VCWidgetDelete, child->id(), QVariant()),
+                                                  QVariant());
                 m_widgetsMap.remove(child->id());
+            }
         }
+
+        /* 3- remove the widget from the global VC widgets map */
+        VCFrame *parent = qobject_cast<VCFrame *>(w->parent());
+        Tardis::instance()->enqueueAction(VCWidgetDelete, parent->id(),
+                                          Tardis::instance()->actionToByteArray(VCWidgetDelete, w->id(), QVariant()),
+                                          QVariant());
+        m_widgetsMap.remove(wID);
 
         /* 4- perform the actual widget deletion */
         delete w;
-
-        /* 5- if the widget was selected, delete the on-screen Quick item */
-        if (m_itemsMap.contains(wID))
-        {
-            QQuickItem *qItem = m_itemsMap[wID];
-            emit selectedWidgetChanged();
-            delete qItem;
-        }
     }
     m_itemsMap.clear();
 }
@@ -876,6 +891,8 @@ bool VirtualConsole::loadXML(QXmlStreamReader &root)
         return false;
     }
 
+    m_loadStatus = Loading;
+
     while (root.readNextStartElement())
     {
         //qDebug() << "VC tag:" << root.name();
@@ -906,6 +923,8 @@ bool VirtualConsole::loadXML(QXmlStreamReader &root)
             root.skipCurrentElement();
         }
     }
+
+    m_loadStatus = Loaded;
 
     return true;
 }

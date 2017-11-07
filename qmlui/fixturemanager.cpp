@@ -33,6 +33,7 @@
 #include "qlcconfig.h"
 #include "qlcfile.h"
 #include "fixture.h"
+#include "tardis.h"
 #include "doc.h"
 #include "app.h"
 
@@ -108,7 +109,8 @@ bool FixtureManager::addFixture(QString manuf, QString model, QString mode, QStr
         fxi->setFixtureDefinition(fxiDef, fxiMode);
 
         m_doc->addFixture(fxi);
-        emit newFixtureCreated(fxi->id(), xPos, yPos);
+        Tardis::instance()->enqueueAction(FixtureCreate, fxi->id(), QVariant(), fxi->id());
+        emit newFixtureCreated(fxi->id(), xPos, yPos, 0);
     }
     m_fixtureList.clear();
     m_fixtureList = m_doc->fixtures();
@@ -264,7 +266,7 @@ bool FixtureManager::addRGBPanel(QString name, qreal xPos, qreal yPos)
         monProps->setFixturePosition(fxi->id(), pos);
         if (displacement == Snake && i % 2)
             monProps->setFixtureRotation(fxi->id(), QVector3D(0, 180, 0));
-        emit newFixtureCreated(fxi->id(), xPos, yPos);
+        emit newFixtureCreated(fxi->id(), xPos, yPos, 0);
         yPos += (qreal)phyHeight;
         currRow += rowInc;
     }
@@ -294,6 +296,35 @@ bool FixtureManager::moveFixture(quint32 fixtureID, quint32 newAddress)
     emit groupsTreeModelChanged();
     emit fixtureNamesMapChanged();
     emit fixturesMapChanged();
+    return true;
+}
+
+bool FixtureManager::deleteFixtures(QVariantList IDList)
+{
+    MonitorProperties *mProps = m_doc->monitorProperties();
+
+    foreach(QVariant id, IDList)
+    {
+        quint32 fxID = id.toUInt();
+        Tardis::instance()->enqueueAction(FixtureSetPosition, fxID,
+                                          QVariant(mProps->fixturePosition(fxID)), QVariant());
+        mProps->removeFixture(fxID);
+        Tardis::instance()->enqueueAction(FixtureDelete, fxID,
+                                          Tardis::instance()->actionToByteArray(FixtureDelete, fxID, QVariant()),
+                                          QVariant());
+        m_doc->deleteFixture(fxID);
+        emit fixtureDeleted(fxID);
+    }
+
+    m_fixtureList.clear();
+    m_fixtureList = m_doc->fixtures();
+    emit fixturesCountChanged();
+
+    updateFixtureTree(m_doc, m_fixtureTree, m_searchFilter);
+    emit groupsTreeModelChanged();
+    emit fixtureNamesMapChanged();
+    emit fixturesMapChanged();
+
     return true;
 }
 

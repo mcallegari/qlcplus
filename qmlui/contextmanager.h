@@ -174,6 +174,7 @@ public:
 
 protected slots:
     void slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal z = 0);
+    void slotFixtureDeleted(quint32 fxID);
     void slotChannelValueChanged(quint32 fxID, quint32 channel, quint8 value);
     void slotChannelTypeValueChanged(int type, quint8 value, quint32 channel = UINT_MAX);
     void slotColorChanged(QColor col, QColor wauv);
@@ -217,6 +218,8 @@ public:
 
     /** Resets the current values used for dumping or preview */
     Q_INVOKABLE void resetDumpValues();
+
+    GenericDMXSource *dmxSource() const;
 
 private:
     /** Reference to a Generic DMX source used to handle Scenes dump */

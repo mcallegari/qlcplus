@@ -683,6 +683,17 @@ const QList <EFXFixture*> EFX::fixtures() const
     return m_fixtures;
 }
 
+EFXFixture *EFX::fixture(quint32 id, int headIndex)
+{
+    foreach (EFXFixture *ef, m_fixtures)
+    {
+        if (ef->head().fxi == id && ef->head().head == headIndex)
+            return ef;
+    }
+
+    return NULL;
+}
+
 void EFX::slotFixtureRemoved(quint32 fxi_id)
 {
     /* Remove the destroyed fixture from our list */

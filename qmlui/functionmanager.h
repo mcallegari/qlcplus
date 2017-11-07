@@ -32,6 +32,7 @@ class Doc;
 class Function;
 class SceneEditor;
 class FunctionEditor;
+class GenericDMXSource;
 
 typedef struct
 {
@@ -107,6 +108,8 @@ public:
 
     /** Set $fID as the current Function ID being edited */
     Q_INVOKABLE void setEditorFunction(quint32 fID, bool requestUI);
+
+    FunctionEditor *currentEditor() const;
 
     /** Returns if the UI is editing a Function */
     bool isEditing() const;
@@ -195,7 +198,7 @@ private:
      *********************************************************************/
 public:
     /** Store a channel value for Scene dumping */
-    void setDumpValue(quint32 fxID, quint32 channel, uchar value);
+    void setDumpValue(quint32 fxID, quint32 channel, uchar value, GenericDMXSource *source);
 
     /** Return the currently set channel values */
     QMap <QPair<quint32,quint32>,uchar> dumpValues() const;
@@ -208,7 +211,7 @@ public:
 
     void dumpOnNewScene(QList<quint32> selectedFixtures, QString name);
 
-    void setChannelValue(quint32 fxID, quint32 channel, uchar value);
+    Q_INVOKABLE void setChannelValue(quint32 fxID, quint32 channel, uchar value);
 
 signals:
     void dumpValuesCountChanged();

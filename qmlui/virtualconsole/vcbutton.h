@@ -58,10 +58,10 @@ public:
     virtual ~VCButton();
 
     /** @reimp */
-    void setID(quint32 id);
+    QString defaultCaption();
 
     /** @reimp */
-    QString defaultCaption();
+    void setupLookAndFeel(qreal pixelDensity, int page);
 
     /** @reimp */
     void render(QQuickView *view, QQuickItem *parent);

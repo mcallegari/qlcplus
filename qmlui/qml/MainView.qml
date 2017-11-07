@@ -21,6 +21,7 @@ import QtQuick 2.2
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 2.1
 
+import org.qlcplus.classes 1.0
 import "."
 
 Rectangle
@@ -70,6 +71,12 @@ Rectangle
     function setDimScreen(enable)
     {
         dimScreen.visible = enable
+    }
+
+    function openAccessRequest(clientName)
+    {
+        clientAccessPopup.clientName = clientName
+        clientAccessPopup.open()
     }
 
     FontLoader
@@ -138,6 +145,7 @@ Rectangle
             MenuBarEntry
             {
                 id: vcEntry
+                visible: qlcplus.accessMask & App.AC_VCControl
                 imgSource: "qrc:/virtualconsole.svg"
                 entryText: qsTr("Virtual Console")
                 ButtonGroup.group: menuBarGroup
@@ -155,6 +163,7 @@ Rectangle
             MenuBarEntry
             {
                 id: sdEntry
+                visible: qlcplus.accessMask & App.AC_SimpleDesk
                 imgSource: "qrc:/simpledesk.svg"
                 entryText: qsTr("Simple Desk")
                 ButtonGroup.group: menuBarGroup
@@ -172,6 +181,7 @@ Rectangle
             MenuBarEntry
             {
                 id: smEntry
+                visible: qlcplus.accessMask & App.AC_ShowManager
                 imgSource: "qrc:/showmanager.svg"
                 entryText: qsTr("Show Manager")
                 ButtonGroup.group: menuBarGroup
@@ -189,6 +199,7 @@ Rectangle
             MenuBarEntry
             {
                 id: ioEntry
+                visible: qlcplus.accessMask & App.AC_InputOutput
                 imgSource: "qrc:/inputoutput.svg"
                 entryText: qsTr("Input/Output")
                 ButtonGroup.group: menuBarGroup
@@ -289,6 +300,8 @@ Rectangle
             source: "qrc:/FixturesAndFunctions.qml"
         }
     }
+
+    PopupNetworkConnect { id: clientAccessPopup }
 
     /* Rectangle covering the whole window to
      * have a dimmered background for popups */

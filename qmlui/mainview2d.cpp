@@ -23,6 +23,7 @@
 #include <QQmlComponent>
 
 #include "doc.h"
+#include "tardis.h"
 #include "mainview2d.h"
 #include "qlccapability.h"
 #include "qlcfixturemode.h"
@@ -212,6 +213,9 @@ void MainView2D::createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords
         y = availablePos.y();
         // add the new fixture to the Doc monitor properties
         m_monProps->setFixturePosition(fxID, QVector3D(x, y, 0));
+        Tardis::instance()->enqueueAction(FixtureSetPosition, fixture->id(),
+                                          QVariant(QVector3D(0, 0, 0)),
+                                          QVariant(QVector3D(x, y, 0)));
     }
     else
     {
@@ -496,12 +500,27 @@ void MainView2D::updateFixtureRotation(quint32 fxID, QVector3D degrees)
 
 void MainView2D::updateFixturePosition(quint32 fxID, QVector3D pos)
 {
-    if (isEnabled() == false || m_itemsMap.contains(fxID) == false)
+    if (isEnabled() == false)
         return;
+
+    if (m_itemsMap.contains(fxID) == false)
+    {
+        createFixtureItem(fxID, pos.x(), pos.y());
+        return;
+    }
 
     QQuickItem *fxItem = m_itemsMap[fxID];
     fxItem->setProperty("mmXPos", pos.x());
     fxItem->setProperty("mmYPos", pos.y());
+}
+
+void MainView2D::removeFixtureItem(quint32 fxID)
+{
+    if (isEnabled() == false || m_itemsMap.contains(fxID) == false)
+        return;
+
+    QQuickItem *fixtureItem = m_itemsMap.take(fxID);
+    delete fixtureItem;
 }
 
 QVector3D MainView2D::gridSize() const

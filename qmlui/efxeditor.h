@@ -71,6 +71,9 @@ public:
     /** Set the ID of the EFX to edit */
     void setFunctionID(quint32 id);
 
+protected slots:
+    void slotAttributeChanged(int attrIndex, qreal fraction);
+
 private:
     /** Reference of the EFX currently being edited */
     EFX *m_efx;

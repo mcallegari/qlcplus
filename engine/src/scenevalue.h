@@ -22,6 +22,7 @@
 #define SCENEVALUE_H
 
 #include <QtGlobal>
+#include <QMetaType>
 
 #include "fixture.h"
 
@@ -94,6 +95,8 @@ public:
     quint32 channel;
     uchar value;
 };
+
+Q_DECLARE_METATYPE(SceneValue)
 
 QDebug operator<<(QDebug debug, const SceneValue &sv);
 

@@ -61,11 +61,24 @@ public:
     bool editMode() const;
     void setEditMode(bool editMode);
 
+    enum LoadStatus
+    {
+        Cleared = 0,
+        Loading,
+        Loaded
+    };
+
+    /** Get the current VC load status */
+    LoadStatus loadStatus() const;
+
 signals:
     void editModeChanged(bool editMode);
 
 protected:
     bool m_editMode;
+
+    /** The current VC load status */
+    LoadStatus m_loadStatus;
 
     /** Reference to the Context Manager. Used to track VC pages as
      *  regular contexts */
@@ -108,6 +121,8 @@ public:
 
     /** Enable/disable the current page scroll interaction */
     Q_INVOKABLE void setPageInteraction(bool enable);
+
+    Q_INVOKABLE void setPageScale(qreal factor);
 
 signals:
     /** Notify the listeners that the currenly selected VC page has changed */
@@ -181,7 +196,6 @@ protected:
     quint32 newWidgetId();
 
 protected:
-
     /** A map of all the VC widgets references with their IDs */
     QHash <quint32, VCWidget *> m_widgetsMap;
 

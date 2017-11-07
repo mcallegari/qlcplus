@@ -62,15 +62,13 @@ bool CollectionEditor::addFunction(quint32 fid, int insertIndex)
 
 bool CollectionEditor::moveFunction(quint32 fid, int newIndex)
 {
-    if (m_collection != NULL)
-    {
-        m_collection->removeFunction(fid);
-        m_collection->addFunction(fid, newIndex);
-        updateFunctionsList();
-        return true;
-    }
+    if (m_collection == NULL)
+        return false;
 
-    return false;
+    m_collection->removeFunction(fid);
+    m_collection->addFunction(fid, newIndex);
+    updateFunctionsList();
+    return true;
 }
 
 void CollectionEditor::deleteItems(QVariantList list)

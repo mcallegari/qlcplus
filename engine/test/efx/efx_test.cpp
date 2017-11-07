@@ -449,13 +449,13 @@ void EFX_Test::fixtures()
 
     /* Add first fixture */
     EFXFixture* ef1 = new EFXFixture(e);
-    ef1->setHead(GroupHead(12,0));
+    ef1->setHead(GroupHead(12, 0));
     QVERIFY(e->addFixture(ef1));
     QCOMPARE(e->fixtures().size(), 1);
 
     /* Add second fixture */
     EFXFixture* ef2 = new EFXFixture(e);
-    ef2->setHead(GroupHead(34,0));
+    ef2->setHead(GroupHead(34, 0));
     QVERIFY(e->addFixture(ef2));
     QCOMPARE(e->fixtures().size(), 2);
 
@@ -466,7 +466,7 @@ void EFX_Test::fixtures()
 
     /* Try to remove a non-member fixture */
     EFXFixture* ef3 = new EFXFixture(e);
-    ef3->setHead(GroupHead(56,0));
+    ef3->setHead(GroupHead(56, 0));
     QVERIFY(!e->removeFixture(ef3));
     QCOMPARE(e->fixtures().size(), 2);
 
@@ -476,10 +476,15 @@ void EFX_Test::fixtures()
     QCOMPARE(e->fixtures().at(0), ef1);
     QCOMPARE(e->fixtures().at(1), ef2);
     QCOMPARE(e->fixtures().at(2), ef3);
+    QCOMPARE(e->fixture(12, 0), ef1);
+    QCOMPARE(e->fixture(34, 0), ef2);
+    QCOMPARE(e->fixture(56, 0), ef3);
+    /* Test a non existent fixture */
+    QVERIFY(e->fixture(11, 22) == NULL);
 
     /* Add fourth fixture */
     EFXFixture* ef4 = new EFXFixture(e);
-    ef4->setHead(GroupHead(78,0));
+    ef4->setHead(GroupHead(78, 0));
     e->addFixture(ef4);
     QCOMPARE(e->fixtures().size(), 4);
     QCOMPARE(e->fixtures().at(0), ef1);

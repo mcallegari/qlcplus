@@ -20,6 +20,7 @@
 #include <QQuickItemGrabResult>
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
+#include <QtCore/qbuffer.h>
 #include <QFontDatabase>
 #include <QPrintDialog>
 #include <QQmlContext>
@@ -42,6 +43,9 @@
 #include "functionmanager.h"
 #include "fixturegroupeditor.h"
 #include "inputoutputmanager.h"
+
+#include "tardis.h"
+#include "networkmanager.h"
 
 #include "qlcfixturedefcache.h"
 #include "audioplugincache.h"
@@ -74,6 +78,8 @@ App::App()
     QVariant dir = settings.value(SETTINGS_WORKINGPATH);
     if (dir.isValid() == true)
         m_workingPath = dir.toString();
+
+    setAccessMask(defaultMask());
 
     m_doc->setModified();
     connect(this, &App::screenChanged, this, &App::slotScreenChanged);
@@ -134,6 +140,20 @@ void App::startup()
     // register an uncreatable type just to use the enums in QML
     qmlRegisterUncreatableType<ShowManager>("org.qlcplus.classes", 1, 0, "ShowManager", "Can't create a ShowManager !");
 
+    m_networkManager = new NetworkManager(this, m_doc);
+    rootContext()->setContextProperty("networkManager", m_networkManager);
+
+    // register an uncreatable type just to use the enums in QML
+    qmlRegisterUncreatableType<NetworkManager>("org.qlcplus.classes", 1, 0, "NetworkManager", "Can't create a NetworkManager !");
+
+    connect(m_networkManager, &NetworkManager::clientAccessRequest, this, &App::slotClientAccessRequest);
+    connect(m_networkManager, &NetworkManager::accessMaskChanged, this, &App::setAccessMask);
+    connect(m_networkManager, &NetworkManager::requestProjectLoad, this, &App::slotLoadDocFromMemory);
+
+    m_tardis = new Tardis(this, m_doc, m_networkManager, m_fixtureManager, m_functionManager,
+                          m_contextManager, m_showManager, m_virtualConsole);
+    rootContext()->setContextProperty("tardis", m_tardis);
+
     m_contextManager->registerContext(m_virtualConsole);
     m_contextManager->registerContext(m_showManager);
     m_contextManager->registerContext(m_ioManager);
@@ -179,6 +199,26 @@ qreal App::pixelDensity() const
     return m_pixelDensity;
 }
 
+int App::accessMask() const
+{
+    return m_accessMask;
+}
+
+void App::setAccessMask(int mask)
+{
+    if (mask == m_accessMask)
+        return;
+
+    m_accessMask = mask;
+    emit accessMaskChanged(mask);
+}
+
+int App::defaultMask() const
+{
+    return AC_FixtureEditing | AC_FunctionEditing | AC_InputOutput |
+            AC_ShowManager | AC_SimpleDesk | AC_VCControl | AC_VCEditing;
+}
+
 void App::keyPressEvent(QKeyEvent *e)
 {
     if (m_contextManager)
@@ -207,6 +247,17 @@ void App::slotClosing()
     delete m_contextManager;
 }
 
+void App::slotClientAccessRequest(QString name)
+{
+    QMetaObject::invokeMethod(rootObject(), "openAccessRequest",
+                              Q_ARG(QVariant, name));
+}
+
+void App::slotAccessMaskChanged(int mask)
+{
+    setAccessMask(mask);
+}
+
 void App::clearDocument()
 {
     if (m_videoProvider)
@@ -220,6 +271,7 @@ void App::clearDocument()
     m_virtualConsole->resetContents();
     //SimpleDesk::instance()->clearContents();
     m_showManager->resetContents();
+    m_tardis->resetHistory();
     m_doc->inputOutputMap()->resetUniverses();
     setFileName(QString());
     m_doc->resetModified();
@@ -446,6 +498,44 @@ bool App::loadWorkspace(const QString &fileName)
         return true;
     }
     return false;
+}
+
+void App::slotLoadDocFromMemory(QByteArray &xmlData)
+{
+    if (xmlData.isEmpty())
+        return;
+
+    /* Clear existing document data */
+    clearDocument();
+
+    QBuffer databuf;
+    databuf.setData(xmlData);
+    databuf.open(QIODevice::ReadOnly | QIODevice::Text);
+
+    //qDebug() << "Buffer data:" << databuf.data();
+    QXmlStreamReader doc(&databuf);
+
+    if (doc.hasError())
+    {
+        qWarning() << Q_FUNC_INFO << "Unable to read from XML in memory";
+        return;
+    }
+
+    while (!doc.atEnd())
+    {
+        if (doc.readNext() == QXmlStreamReader::DTD)
+            break;
+    }
+    if (doc.hasError())
+    {
+        qDebug() << "XML has errors:" << doc.errorString();
+        return;
+    }
+
+    if (doc.dtdName() == KXMLQLCWorkspace)
+        loadXML(doc, true, true);
+    else
+        qDebug() << "XML doesn't have a Workspace tag";
 }
 
 bool App::saveWorkspace(const QString &fileName)

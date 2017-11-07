@@ -1,6 +1,6 @@
 TEMPLATE = subdirs
 
-SUBDIRS += docs
+!qmlui: SUBDIRS += docs
 SUBDIRS += fixtures
 SUBDIRS += gobos
 SUBDIRS += inputprofiles

@@ -68,6 +68,15 @@ Rectangle
 
     onFocusChanged: if (focus) selectAndFocus()
 
+    Rectangle
+    {
+        anchors.fill: parent
+        z: 3
+        color: "black"
+        opacity: 0.5
+        visible: !parent.enabled
+    }
+
     TextInput
     {
         id: ctEdit

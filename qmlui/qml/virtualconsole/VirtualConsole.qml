@@ -73,6 +73,7 @@ Rectangle
     VCRightPanel
     {
         id: vcRightPanel
+        visible: qlcplus.accessMask & App.AC_VCEditing
         x: parent.width - width
         z: 5
         height: parent.height
@@ -81,7 +82,7 @@ Rectangle
     Rectangle
     {
         id: centerView
-        width: parent.width - vcRightPanel.width
+        width: parent.width - ((qlcplus.accessMask & App.AC_VCEditing) ? vcRightPanel.width : 0)
         height: parent.height
         color: "transparent"
         clip: true
@@ -172,6 +173,15 @@ Rectangle
                 }
 
                 Rectangle { Layout.fillWidth: true }
+
+                ZoomItem
+                {
+                    width: UISettings.iconSizeMedium * 2
+                    implicitHeight: vcToolbar.height - 2
+                    fontColor: UISettings.bgStrong
+                    onZoomOutClicked: { virtualConsole.setPageScale(-0.1) }
+                    onZoomInClicked: { virtualConsole.setPageScale(0.1) }
+                }
             }
         }
 
