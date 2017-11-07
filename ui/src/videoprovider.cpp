@@ -223,6 +223,7 @@ void VideoWidget::slotPlaybackVideo()
         m_videoPlayer->setPosition(0);
 
     m_videoWidget->show();
+    m_videoWidget->setWindowFlags(m_videoWidget->windowFlags() | Qt::WindowStaysOnTopHint);
     m_videoPlayer->play();
 }
 
