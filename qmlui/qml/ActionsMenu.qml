@@ -265,7 +265,11 @@ Popup
                             pNetServer.open()
                         }
 
-                        PopupNetworkServer { id: pNetServer }
+                        PopupNetworkServer
+                        {
+                            id: pNetServer
+                            implicitWidth: Math.min(UISettings.bigItemHeight * 4, mainView.width / 3)
+                        }
                     }
 
                     ContextMenuEntry

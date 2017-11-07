@@ -32,7 +32,6 @@ CustomPopupDialog
     contentItem:
         GridLayout
         {
-            width: parent.width
             columns: 3
             rowSpacing: 5
             columnSpacing: 5
@@ -130,16 +129,24 @@ CustomPopupDialog
             }
 
             // Row 6
-            GenericButton
+            Row
             {
-                label: qsTr("Close")
-                onClicked: popupRoot.close()
-            }
+                Layout.columnSpan: 2
+                Layout.fillWidth: true
 
-            GenericButton
-            {
-                label: networkManager.serverStarted ? qsTr("Stop server") : qsTr("Start server")
-                onClicked: networkManager.serverStarted ? networkManager.stopServer() : networkManager.startServer()
+                GenericButton
+                {
+                    width: contentItem.width / 2
+                    label: qsTr("Close")
+                    onClicked: popupRoot.close()
+                }
+
+                GenericButton
+                {
+                    width: contentItem.width / 2
+                    label: networkManager.serverStarted ? qsTr("Stop server") : qsTr("Start server")
+                    onClicked: networkManager.serverStarted ? networkManager.stopServer() : networkManager.startServer()
+                }
             }
         }
 

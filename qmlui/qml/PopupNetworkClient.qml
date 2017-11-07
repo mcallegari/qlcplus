@@ -80,25 +80,19 @@ CustomPopupDialog
             columnSpacing: 5
 
             // row 1
-            Row
+            RobotoText
             {
-                Layout.columnSpan: 2
+                height: UISettings.listItemHeight
+                label: qsTr("Client name")
+            }
+
+            CustomTextEdit
+            {
+                property string hostname: networkManager.hostName
+
                 Layout.fillWidth: true
-                spacing: 5
-
-                RobotoText
-                {
-                    height: UISettings.listItemHeight
-                    label: qsTr("Client name")
-                }
-
-                CustomTextEdit
-                {
-                    property string hostname: networkManager.hostName
-
-                    inputText: hostname
-                    onTextChanged: networkManager.hostName = text
-                }
+                inputText: hostname
+                onTextChanged: networkManager.hostName = text
             }
 
             // row 2
@@ -107,6 +101,7 @@ CustomPopupDialog
                 id: autoServerCheck
                 implicitHeight: UISettings.listItemHeight
                 implicitWidth: height
+                Layout.alignment: Qt.AlignCenter
                 checked: true
             }
             RobotoText
@@ -161,6 +156,7 @@ CustomPopupDialog
                 id: manualServerCheck
                 implicitHeight: UISettings.listItemHeight
                 implicitWidth: height
+                Layout.alignment: Qt.AlignCenter
             }
             RobotoText
             {

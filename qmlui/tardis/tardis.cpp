@@ -255,6 +255,11 @@ QByteArray Tardis::actionToByteArray(int code, quint32 objID, QVariant data)
         }
         break;
         case VCWidgetCreate:
+        {
+            VCWidget *widget = qobject_cast<VCWidget *>(m_virtualConsole->widget(data.toUInt()));
+            if (widget)
+                widget->saveXML(&xmlWriter);
+        }
         case VCWidgetDelete:
         {
             VCWidget *widget = qobject_cast<VCWidget *>(m_virtualConsole->widget(objID));
@@ -327,7 +332,8 @@ bool Tardis::processBufferedAction(TardisAction &action, QVariant &value)
         case VCWidgetCreate:
         {
             VCFrame *frame = qobject_cast<VCFrame *>(m_virtualConsole->widget(action.m_objID));
-            frame->loadWidgetXML(xmlReader, true);
+            if (frame)
+                frame->loadWidgetXML(xmlReader, true);
         }
         break;
         case VCWidgetDelete:
