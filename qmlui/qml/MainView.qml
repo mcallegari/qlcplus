@@ -114,7 +114,7 @@ Rectangle
                 id: actEntry
                 imgSource: "qrc:/qlcplus.svg"
                 entryText: qsTr("Actions")
-                onClicked: actionsMenu.visible = true
+                onPressed: actionsMenu.open()
                 autoExclusive: false
                 checkable: false
 
@@ -275,16 +275,6 @@ Rectangle
         } // end of RowLayout
     } // end of mainToolbar
 
-    /** Menu to open/load/save a project */
-    ActionsMenu
-    {
-        id: actionsMenu
-        x: 1
-        y: actEntry.height + 1
-        visible: false
-        z: visible ? 99 : 0
-    }
-
     Rectangle
     {
         id: mainViewArea
@@ -302,6 +292,16 @@ Rectangle
     }
 
     PopupNetworkConnect { id: clientAccessPopup }
+
+    /** Menu to open/load/save a project */
+    ActionsMenu
+    {
+        id: actionsMenu
+        x: 1
+        y: actEntry.height + 1
+        visible: false
+        z: visible ? 99 : 0
+    }
 
     /* Rectangle covering the whole window to
      * have a dimmered background for popups */

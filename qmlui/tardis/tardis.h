@@ -59,7 +59,10 @@ public:
     /** Undo an action or a batch of actions taken from history */
     Q_INVOKABLE void undoAction();
 
-    void processAction(TardisAction &action);
+    /** Redo an action or a batch of actions taken from history */
+    Q_INVOKABLE void redoAction();
+
+    void processAction(TardisAction &action, bool undo);
 
     QByteArray actionToByteArray(int code, quint32 objID, QVariant data);
 
@@ -70,7 +73,7 @@ public:
     void run(); // thread run function
 
 protected:
-    bool processBufferedAction(TardisAction &action, QVariant &value);
+    bool processBufferedAction(int action, quint32 objID, QVariant &value);
 
 protected slots:
     void slotProcessNetworkAction(int code, quint32 id, QVariant value);
@@ -111,6 +114,10 @@ private:
 
     /** The actual history of actions */
     QList<TardisAction> m_history;
+
+    /** An index pointing to the history last
+     *  undone action or the last item */
+    int m_historyIndex;
 
     /** Count the actions (or batch of actions) recorded */
     int m_historyCount;

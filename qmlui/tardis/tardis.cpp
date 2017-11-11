@@ -57,6 +57,7 @@ Tardis::Tardis(QQuickView *view, Doc *doc, NetworkManager *netMgr,
     , m_contextManager(ctxMgr)
     , m_showManager(showMgr)
     , m_virtualConsole(vc)
+    , m_historyIndex(-1)
     , m_historyCount(0)
     , m_busy(false)
 {
@@ -113,16 +114,59 @@ void Tardis::undoAction()
     if (m_history.isEmpty())
         return;
 
+    m_busy = true;
+
+    quint64 refTimestamp = m_history.at(m_historyIndex).m_timestamp;
+
+    while (1)
+    {
+        TardisAction action = m_history.at(m_historyIndex);
+
+        if (refTimestamp - action.m_timestamp > TARDIS_ACTION_INTERTIME)
+            break;
+
+        qDebug("Undo action 0x%02X", action.m_action);
+
+        m_historyIndex--;
+
+        processAction(action, true);
+
+        /* If there are active network connections, send the action there too */
+        if (m_networkManager->connectionsCount())
+        {
+            QMetaObject::invokeMethod(m_networkManager, "sendAction", Qt::QueuedConnection,
+                    Q_ARG(quint32, action.m_objID),
+                    Q_ARG(TardisAction, action));
+        }
+
+        if (m_historyIndex == -1)
+            break;
+    }
+
+    qDebug() << "History index:" << m_historyIndex;
+
+    m_busy = false;
+}
+
+void Tardis::redoAction()
+{
+    if (m_history.isEmpty() || m_historyIndex == m_history.count() - 1)
+        return;
+
     bool done = false;
 
     m_busy = true;
 
+    quint64 refTimestamp = m_history.at(m_historyIndex + 1).m_timestamp;
+
     while (!done)
     {
-        TardisAction action = m_history.takeLast();
-        qDebug("Undo action 0x%02X", action.m_action);
+        m_historyIndex++;
 
-        processAction(action);
+        TardisAction action = m_history.at(m_historyIndex);
+        qDebug("Redo action 0x%02X", action.m_action);
+
+        processAction(action, false);
 
         /* If there are active network connections, send the action there too */
         if (m_networkManager->connectionsCount())
@@ -133,14 +177,14 @@ void Tardis::undoAction()
         }
 
         /* Check if I am processing a batch of actions or a single one */
-        if (m_history.isEmpty() ||
-            action.m_timestamp - m_history.last().m_timestamp > TARDIS_ACTION_INTERTIME)
+        if (m_historyIndex == m_history.count() - 1 ||
+            action.m_timestamp - refTimestamp > TARDIS_ACTION_INTERTIME)
         {
             done = true;
         }
     }
 
-    m_historyCount--;
+    qDebug() << "History index:" << m_historyIndex;
 
     m_busy = false;
 }
@@ -173,6 +217,26 @@ void Tardis::run()
             action = m_actionsQueue.dequeue();
         }
 
+        /* If the history index is halfway, it means I need to remove
+         * all the actions after the last undo operation before
+         * pushing a new one */
+        if (m_historyIndex >= 0 && m_historyIndex != m_history.count())
+        {
+            int count = m_history.count();
+            qint64 refTimestamp = m_history.last().m_timestamp;
+
+            for (int i = m_historyIndex + 1; i < count; i++)
+            {
+                if (refTimestamp - m_history.last().m_timestamp > TARDIS_ACTION_INTERTIME)
+                {
+                    refTimestamp = m_history.last().m_timestamp;
+                    m_historyCount--;
+                }
+                m_history.removeLast();
+
+            }
+        }
+
         if (m_history.count())
         {
             // scan history from the last item to find a match
@@ -202,7 +266,14 @@ void Tardis::run()
 
         /* So long and thanks for all the fish */
         if (m_historyCount > TARDIS_MAX_ACTIONS_NUMBER)
-            m_history.removeFirst();
+        {
+            qint64 refTimestamp = m_history.first().m_timestamp;
+            while (m_history.first().m_timestamp - refTimestamp < TARDIS_ACTION_INTERTIME)
+                m_history.removeFirst();
+            m_historyCount = TARDIS_MAX_ACTIONS_NUMBER;
+        }
+
+        m_historyIndex = m_history.count() - 1;
 
         qDebug("Got action: 0x%02X, history length: %d (%d)", action.m_action, m_historyCount, m_history.count());
 
@@ -275,7 +346,7 @@ QByteArray Tardis::actionToByteArray(int code, quint32 objID, QVariant data)
     return buffer.buffer();
 }
 
-bool Tardis::processBufferedAction(TardisAction &action, QVariant &value)
+bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
 {
     if (value.type() != QVariant::ByteArray)
         return false;
@@ -288,7 +359,7 @@ bool Tardis::processBufferedAction(TardisAction &action, QVariant &value)
 
     qDebug() << "Data to process:" << value.toString();
 
-    switch(action.m_action)
+    switch(action)
     {
         case FixtureCreate:
         {
@@ -297,7 +368,7 @@ bool Tardis::processBufferedAction(TardisAction &action, QVariant &value)
         break;
         case FixtureDelete:
         {
-            m_fixtureManager->deleteFixtures(QVariantList( { action.m_objID } ));
+            m_fixtureManager->deleteFixtures(QVariantList( { objID } ));
         }
         break;
         case FunctionCreate:
@@ -307,12 +378,12 @@ bool Tardis::processBufferedAction(TardisAction &action, QVariant &value)
         break;
         case FunctionDelete:
         {
-            m_functionManager->deleteFunctions(QVariantList( { action.m_objID } ));
+            m_functionManager->deleteFunctions(QVariantList( { objID } ));
         }
         break;
         case ChaserAddStep:
         {
-            Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(action.m_objID));
+            Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(objID));
             ChaserStep step;
             int stepNumber = -1;
 
@@ -322,7 +393,7 @@ bool Tardis::processBufferedAction(TardisAction &action, QVariant &value)
         break;
         case EFXAddFixture:
         {
-            EFX *efx = qobject_cast<EFX *>(m_doc->function(action.m_objID));
+            EFX *efx = qobject_cast<EFX *>(m_doc->function(objID));
             EFXFixture *ef = new EFXFixture(efx);
 
             ef->loadXML(xmlReader);
@@ -331,7 +402,7 @@ bool Tardis::processBufferedAction(TardisAction &action, QVariant &value)
         break;
         case VCWidgetCreate:
         {
-            VCFrame *frame = qobject_cast<VCFrame *>(m_virtualConsole->widget(action.m_objID));
+            VCFrame *frame = qobject_cast<VCFrame *>(m_virtualConsole->widget(objID));
             if (frame)
                 frame->loadWidgetXML(xmlReader, true);
         }
@@ -356,37 +427,36 @@ bool Tardis::processBufferedAction(TardisAction &action, QVariant &value)
 
 void Tardis::slotProcessNetworkAction(int code, quint32 id, QVariant value)
 {
+    // Handle creation cases, where an XML fragment is provided
+    if (processBufferedAction(code, id, value))
+        return;
+
     TardisAction action;
     action.m_action = code;
     action.m_objID = id;
-
-    // Handle creation cases, where an XML fragment is provided
-    if (processBufferedAction(action, value))
-        return;
-
-    // store value on oldValue, since we're going to call the method used for undoing actions
-    action.m_oldValue = value;
+    action.m_newValue = value;
 
     // process the action
     m_busy = true;
-    processAction(action);
+    processAction(action, false);
     m_busy = false;
 }
 
-void Tardis::processAction(TardisAction &action)
+void Tardis::processAction(TardisAction &action, bool undo)
 {
+    QVariant *value = undo ? &action.m_oldValue : &action.m_newValue;
+
     switch(action.m_action)
     {
         /* *********************** Fixture editing actions ************************ */
         case FixtureCreate:
         {
-            m_fixtureManager->deleteFixtures(QVariantList( { action.m_newValue } ));
+            processBufferedAction(undo ? FixtureDelete : FixtureCreate, action.m_objID, action.m_newValue);
         }
         break;
         case FixtureDelete:
         {
-            action.m_action = FixtureCreate; // reverse the action
-            processBufferedAction(action, action.m_oldValue);
+            processBufferedAction(undo ? FixtureCreate : FixtureDelete, action.m_objID, action.m_oldValue);
         }
         break;
         case FixtureSetPosition:
@@ -409,62 +479,61 @@ void Tardis::processAction(TardisAction &action)
         /* *********************** Function editing actions *********************** */
         case FunctionCreate:
         {
-            m_functionManager->deleteFunctions(QVariantList( { action.m_newValue } ));
+            processBufferedAction(undo ? FunctionDelete : FunctionCreate, action.m_objID, action.m_newValue);
         }
         break;
         case FunctionDelete:
         {
-            action.m_action = FunctionCreate; // reverse the action
-            processBufferedAction(action, action.m_oldValue);
+            processBufferedAction(undo ? FunctionCreate : FunctionDelete, action.m_objID, action.m_oldValue);
         }
         break;
         case FunctionSetName:
         {
             auto member = std::mem_fn(&Function::setName);
-            member(qobject_cast<Function *>(m_doc->function(action.m_objID)), action.m_oldValue.toString());
+            member(qobject_cast<Function *>(m_doc->function(action.m_objID)), value->toString());
         }
         break;
         case FunctionSetTempoType:
         {
             auto member = std::mem_fn(&Function::setTempoType);
-            member(qobject_cast<Function *>(m_doc->function(action.m_objID)), Function::TempoType(action.m_oldValue.toInt()));
+            member(qobject_cast<Function *>(m_doc->function(action.m_objID)), Function::TempoType(value->toInt()));
         }
         break;
         case FunctionSetRunOrder:
         {
             auto member = std::mem_fn(&Function::setRunOrder);
-            member(qobject_cast<Function *>(m_doc->function(action.m_objID)), Function::RunOrder(action.m_oldValue.toInt()));
+            member(qobject_cast<Function *>(m_doc->function(action.m_objID)), Function::RunOrder(value->toInt()));
         }
         break;
         case FunctionSetDirection:
         {
             auto member = std::mem_fn(&Function::setDirection);
-            member(qobject_cast<Function *>(m_doc->function(action.m_objID)), Function::Direction(action.m_oldValue.toInt()));
+            member(qobject_cast<Function *>(m_doc->function(action.m_objID)), Function::Direction(value->toInt()));
         }
         break;
         case FunctionSetFadeIn:
         {
             auto member = std::mem_fn(&Function::setFadeInSpeed);
-            member(qobject_cast<Function *>(m_doc->function(action.m_objID)), action.m_oldValue.toUInt());
+            member(qobject_cast<Function *>(m_doc->function(action.m_objID)), value->toUInt());
         }
         break;
         case FunctionSetFadeOut:
         {
             auto member = std::mem_fn(&Function::setFadeOutSpeed);
-            member(qobject_cast<Function *>(m_doc->function(action.m_objID)), action.m_oldValue.toUInt());
+            member(qobject_cast<Function *>(m_doc->function(action.m_objID)), value->toUInt());
         }
         break;
         case FunctionSetDuration:
         {
             auto member = std::mem_fn(&Function::setDuration);
-            member(qobject_cast<Function *>(m_doc->function(action.m_objID)), action.m_oldValue.toUInt());
+            member(qobject_cast<Function *>(m_doc->function(action.m_objID)), value->toUInt());
         }
         break;
 
         case SceneSetChannelValue:
         case SceneUnsetChannelValue:
         {
-            SceneValue scv = action.m_oldValue.value<SceneValue>();
+            SceneValue scv = value->value<SceneValue>();
             Scene *scene = qobject_cast<Scene *>(m_doc->function(action.m_objID));
             if (scene)
                 scene->setValue(scv.fxi, scv.channel, scv.value);
@@ -480,7 +549,7 @@ void Tardis::processAction(TardisAction &action)
         case ChaserSetStepFadeIn:
         {
             Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(action.m_objID));
-            UIntPair pairValue = action.m_oldValue.value<UIntPair>(); // index on first, time on second
+            UIntPair pairValue = value->value<UIntPair>(); // index on first, time on second
             ChaserStep step = chaser->steps().at(pairValue.first);
             step.fadeIn = pairValue.second;
             chaser->replaceStep(step, pairValue.first);
@@ -489,7 +558,7 @@ void Tardis::processAction(TardisAction &action)
         case ChaserSetStepHold:
         {
             Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(action.m_objID));
-            UIntPair pairValue = action.m_oldValue.value<UIntPair>(); // index on first, time on second
+            UIntPair pairValue = value->value<UIntPair>(); // index on first, time on second
             ChaserStep step = chaser->steps().at(pairValue.first);
             step.hold = pairValue.second;
             chaser->replaceStep(step, pairValue.first);
@@ -498,7 +567,7 @@ void Tardis::processAction(TardisAction &action)
         case ChaserSetStepFadeOut:
         {
             Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(action.m_objID));
-            UIntPair pairValue = action.m_oldValue.value<UIntPair>(); // index on first, time on second
+            UIntPair pairValue = value->value<UIntPair>(); // index on first, time on second
             ChaserStep step = chaser->steps().at(pairValue.first);
             step.fadeOut = pairValue.second;
             chaser->replaceStep(step, pairValue.first);
@@ -507,7 +576,7 @@ void Tardis::processAction(TardisAction &action)
         case ChaserSetStepDuration:
         {
             Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(action.m_objID));
-            UIntPair pairValue = action.m_oldValue.value<UIntPair>(); // index on first, time on second
+            UIntPair pairValue = value->value<UIntPair>(); // index on first, time on second
             ChaserStep step = chaser->steps().at(pairValue.first);
             step.duration = pairValue.second;
             chaser->replaceStep(step, pairValue.first);
@@ -524,73 +593,73 @@ void Tardis::processAction(TardisAction &action)
         case EFXSetAlgorithmIndex:
         {
             auto member = std::mem_fn(&EFX::setAlgorithm);
-            member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), EFX::Algorithm(action.m_oldValue.toInt()));
+            member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), EFX::Algorithm(value->toInt()));
         }
         break;
         case EFXSetRelative:
         {
             auto member = std::mem_fn(&EFX::setIsRelative);
-            member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), action.m_oldValue.toBool());
+            member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), value->toBool());
         }
         break;
         case EFXSetWidth:
         {
             auto member = std::mem_fn(&EFX::setWidth);
-            member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), action.m_oldValue.toInt());
+            member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), value->toInt());
         }
         break;
         case EFXSetHeight:
         {
             auto member = std::mem_fn(&EFX::setHeight);
-            member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), action.m_oldValue.toInt());
+            member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), value->toInt());
         }
         break;
         case EFXSetXOffset:
         {
             auto member = std::mem_fn(&EFX::setXOffset);
-            member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), action.m_oldValue.toInt());
+            member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), value->toInt());
         }
         break;
         case EFXSetYOffset:
         {
             auto member = std::mem_fn(&EFX::setYOffset);
-            member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), action.m_oldValue.toInt());
+            member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), value->toInt());
         }
         break;
         case EFXSetRotation:
         {
             auto member = std::mem_fn(&EFX::setRotation);
-            member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), action.m_oldValue.toInt());
+            member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), value->toInt());
         }
         break;
         case EFXSetStartOffset:
         {
             auto member = std::mem_fn(&EFX::setStartOffset);
-            member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), action.m_oldValue.toInt());
+            member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), value->toInt());
         }
         break;
         case EFXSetXFrequency:
         {
             auto member = std::mem_fn(&EFX::setXFrequency);
-            member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), action.m_oldValue.toInt());
+            member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), value->toInt());
         }
         break;
         case EFXSetYFrequency:
         {
             auto member = std::mem_fn(&EFX::setYFrequency);
-            member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), action.m_oldValue.toInt());
+            member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), value->toInt());
         }
         break;
         case EFXSetXPhase:
         {
             auto member = std::mem_fn(&EFX::setXPhase);
-            member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), action.m_oldValue.toInt());
+            member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), value->toInt());
         }
         break;
         case EFXSetYPhase:
         {
             auto member = std::mem_fn(&EFX::setYPhase);
-            member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), action.m_oldValue.toInt());
+            member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), value->toInt());
         }
         break;
 
@@ -598,49 +667,48 @@ void Tardis::processAction(TardisAction &action)
 
         case VCWidgetCreate:
         {
-            m_virtualConsole->deleteVCWidgets(QVariantList( { action.m_newValue } ));
+            processBufferedAction(undo ? VCWidgetDelete : VCWidgetCreate, action.m_objID, action.m_newValue);
         }
         break;
         case VCWidgetDelete:
         {
-            action.m_action = VCWidgetCreate; // reverse the action
-            processBufferedAction(action, action.m_oldValue);
+            processBufferedAction(undo ? VCWidgetCreate : VCWidgetDelete, action.m_objID, action.m_oldValue);
         }
         break;
         case VCWidgetGeometry:
         {
             auto member = std::mem_fn(&VCWidget::setGeometry);
-            member(qobject_cast<VCWidget *>(m_virtualConsole->widget(action.m_objID)), action.m_oldValue.toRectF());
+            member(qobject_cast<VCWidget *>(m_virtualConsole->widget(action.m_objID)), value->toRectF());
         }
         break;
         case VCWidgetCaption:
         {
             auto member = std::mem_fn(&VCWidget::setCaption);
-            member(qobject_cast<VCWidget *>(m_virtualConsole->widget(action.m_objID)), action.m_oldValue.toString());
+            member(qobject_cast<VCWidget *>(m_virtualConsole->widget(action.m_objID)), value->toString());
         }
         break;
         case VCWidgetBackgroundColor:
         {
             auto member = std::mem_fn(&VCWidget::setBackgroundColor);
-            member(qobject_cast<VCWidget *>(m_virtualConsole->widget(action.m_objID)), action.m_oldValue.value<QColor>());
+            member(qobject_cast<VCWidget *>(m_virtualConsole->widget(action.m_objID)), value->value<QColor>());
         }
         break;
         case VCWidgetBackgroundImage:
         {
             auto member = std::mem_fn(&VCWidget::setBackgroundImage);
-            member(qobject_cast<VCWidget *>(m_virtualConsole->widget(action.m_objID)), action.m_oldValue.toString());
+            member(qobject_cast<VCWidget *>(m_virtualConsole->widget(action.m_objID)), value->toString());
         }
         break;
         case VCWidgetForegroundColor:
         {
             auto member = std::mem_fn(&VCWidget::setForegroundColor);
-            member(qobject_cast<VCWidget *>(m_virtualConsole->widget(action.m_objID)), action.m_oldValue.value<QColor>());
+            member(qobject_cast<VCWidget *>(m_virtualConsole->widget(action.m_objID)), value->value<QColor>());
         }
         break;
         case VCWidgetFont:
         {
             auto member = std::mem_fn(&VCWidget::setFont);
-            member(qobject_cast<VCWidget *>(m_virtualConsole->widget(action.m_objID)), action.m_oldValue.value<QFont>());
+            member(qobject_cast<VCWidget *>(m_virtualConsole->widget(action.m_objID)), value->value<QFont>());
         }
         break;
         default:

@@ -41,19 +41,10 @@ Rectangle
     signal exited
 
     color: "transparent"
-    border.color: "#1D1D1D"
+    border.color: UISettings.bgLight
     border.width: 1
 
     states: [
-        State
-        {
-            when: checked
-            PropertyChanges
-            {
-                target: baseMenuEntry
-                color: checkedColor
-            }
-        },
         State
         {
             when: mouseArea1.pressed
@@ -65,7 +56,7 @@ Rectangle
         },
         State
         {
-            when: mouseArea1.containsMouse
+            when: mouseArea1.containsMouse && baseMenuEntry.visible
             PropertyChanges
             {
                 target: baseMenuEntry

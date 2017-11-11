@@ -345,12 +345,16 @@ void ContextManager::handleKeyPress(QKeyEvent *e)
                 setPositionPicking(true);
             break;
             case Qt::Key_Z:
-                Tardis::instance()->undoAction();
+                if (e->modifiers() & Qt::ShiftModifier)
+                    Tardis::instance()->redoAction();
+                else
+                    Tardis::instance()->undoAction();
             break;
             default:
             break;
         }
     }
+
 
     for(PreviewContext *context : m_contextsMap.values()) // C++11
         context->handleKeyEvent(e, true);

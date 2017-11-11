@@ -112,6 +112,7 @@ Button
             if (mouse.button === Qt.RightButton)
                 control.rightClicked()
         }
+        onPressed: control.pressed()
     }
 }
 

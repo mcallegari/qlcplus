@@ -216,17 +216,33 @@ Popup
                 saveDialog.open()
             }
         }
-        ContextMenuEntry
+        Row
         {
-            id: undo
-            imgSource: "qrc:/undo.svg"
-            entryText: qsTr("Undo")
-            onEntered: submenuItem = null
-
-            onClicked:
+            ContextMenuEntry
             {
-                menuRoot.close()
-                tardis.undoAction()
+                width: actionsMenuEntries.width / 2
+                imgSource: "qrc:/undo.svg"
+                entryText: qsTr("Undo")
+                onEntered: submenuItem = null
+
+                onClicked:
+                {
+                    menuRoot.close()
+                    tardis.undoAction()
+                }
+            }
+            ContextMenuEntry
+            {
+                width: actionsMenuEntries.width / 2
+                imgSource: "qrc:/redo.svg"
+                entryText: qsTr("Redo")
+                onEntered: submenuItem = null
+
+                onClicked:
+                {
+                    menuRoot.close()
+                    tardis.redoAction()
+                }
             }
         }
         ContextMenuEntry
