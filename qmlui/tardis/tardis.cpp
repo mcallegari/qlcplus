@@ -312,6 +312,7 @@ QByteArray Tardis::actionToByteArray(int code, quint32 objID, QVariant data)
         }
         break;
         case ChaserAddStep:
+        case ChaserRemoveStep:
         {
             Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(objID));
             ChaserStep *step = chaser->stepAt(data.toInt());
@@ -319,6 +320,7 @@ QByteArray Tardis::actionToByteArray(int code, quint32 objID, QVariant data)
         }
         break;
         case EFXAddFixture:
+        case EFXRemoveFixture:
         {
             // EFXFixture reference is stored on data, so let's C-cast the QVariant value
             EFXFixture *fixture = (EFXFixture *)data.value<void *>();
@@ -400,6 +402,16 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
             efx->addFixture(ef);
         }
         break;
+        case EFXRemoveFixture:
+        {
+            EFX *efx = qobject_cast<EFX *>(m_doc->function(objID));
+            EFXFixture *ef = new EFXFixture(efx);
+
+            ef->loadXML(xmlReader);
+            efx->removeFixture(ef->head().fxi, ef->head().head);
+            delete ef;
+        }
+        break;
         case VCWidgetCreate:
         {
             VCFrame *frame = qobject_cast<VCFrame *>(m_virtualConsole->widget(objID));
@@ -464,14 +476,14 @@ void Tardis::processAction(TardisAction &action, bool undo)
             Fixture *fixture = m_doc->fixture(action.m_objID);
             if (fixture)
             {
-                QVector3D pos = action.m_oldValue.value<QVector3D>();
+                QVector3D pos = value->value<QVector3D>();
                 m_contextManager->setFixturePosition(fixture->id(), pos.x(), pos.y(), pos.z());
             }
         }
         break;
         case FixtureSetDumpValue:
         {
-            SceneValue scv = action.m_oldValue.value<SceneValue>();
+            SceneValue scv = value->value<SceneValue>();
             m_functionManager->setDumpValue(scv.fxi, scv.channel, scv.value, m_contextManager->dmxSource());
         }
         break;
@@ -585,9 +597,12 @@ void Tardis::processAction(TardisAction &action, bool undo)
 
         case EFXAddFixture:
         {
-            auto member = std::mem_fn(&EFX::removeFixture);
-            EFXFixture *ef = (EFXFixture *)action.m_oldValue.value<void *>();
-            member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), ef);
+            processBufferedAction(undo ? EFXRemoveFixture : EFXAddFixture, action.m_objID, action.m_newValue);
+        }
+        break;
+        case EFXRemoveFixture:
+        {
+            processBufferedAction(undo ? EFXAddFixture : EFXRemoveFixture, action.m_objID, action.m_oldValue);
         }
         break;
         case EFXSetAlgorithmIndex:
