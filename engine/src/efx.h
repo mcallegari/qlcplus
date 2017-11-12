@@ -480,6 +480,8 @@ public:
     /** Remove the designated fixture from this EFX but don't delete it */
     bool removeFixture(EFXFixture *ef);
 
+    bool removeFixture(quint32 fxi, int head);
+
     /** Remove all the fixtures from this EFX but don't delete them */
     void removeAllFixtures();
 
