@@ -58,6 +58,14 @@ Button
             checked = false
     }
 
+    Rectangle
+    {
+        anchors.fill: parent
+        color: "black"
+        opacity: 0.6
+        visible: !parent.enabled
+    }
+
     ToolTip
     {
         visible: tooltip && hovered

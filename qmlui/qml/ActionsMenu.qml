@@ -119,6 +119,7 @@ Popup
     Column
     {
         id: actionsMenuEntries
+
         ContextMenuEntry
         {
             id: fileNew
@@ -218,6 +219,8 @@ Popup
         }
         Row
         {
+            height: UISettings.iconSizeDefault
+
             ContextMenuEntry
             {
                 width: actionsMenuEntries.width / 2

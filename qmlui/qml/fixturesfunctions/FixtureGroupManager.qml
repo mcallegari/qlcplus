@@ -83,6 +83,7 @@ Rectangle
                             return;
 
                         var fxDeleteList = []
+                        var fxGroupDeleteList = []
 
                         for (var i = 0; i < gfhcDragItem.itemsList.length; i++)
                         {
@@ -93,6 +94,7 @@ Rectangle
                                 case App.UniverseDragItem:
                                 break;
                                 case App.FixtureGroupDragItem:
+                                    fxGroupDeleteList.push(item.cRef.id)
                                 break;
                                 case App.FixtureDragItem:
                                     fxDeleteList.push(item.cRef.id)
@@ -102,6 +104,9 @@ Rectangle
 
                         if (fxDeleteList.length)
                             fixtureManager.deleteFixtures(fxDeleteList)
+
+                        if (fxGroupDeleteList.length)
+                            fixtureManager.deleteFixtureGroups(fxGroupDeleteList)
                     }
                 }
                 Rectangle { Layout.fillWidth: true }
@@ -302,7 +307,7 @@ Rectangle
                                     gfhcDragItem.x = 0
                                     gfhcDragItem.y = 0
                                     groupListView.dragActive = false
-                                    gfhcDragItem.itemsList = []
+                                    //gfhcDragItem.itemsList = []
                                 break;
                             }
                         }
