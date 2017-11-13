@@ -271,7 +271,8 @@ quint32 FunctionManager::createFunction(int type)
         emit selectionCountChanged(m_selectedIDList.count());
         emit functionsListChanged();
 
-        Tardis::instance()->enqueueAction(FunctionCreate, f->id(), QVariant(), f->id());
+        Tardis::instance()->enqueueAction(FunctionCreate, f->id(), QVariant(),
+                                          Tardis::instance()->actionToByteArray(FunctionCreate, f->id()));
 
         return f->id();
     }
@@ -514,7 +515,7 @@ void FunctionManager::deleteFunctions(QVariantList IDList)
             m_selectedIDList.removeAll(fID);
 
         Tardis::instance()->enqueueAction(FunctionDelete, f->id(),
-                                          Tardis::instance()->actionToByteArray(FunctionDelete, f->id(), QVariant()),
+                                          Tardis::instance()->actionToByteArray(FunctionDelete, f->id()),
                                           QVariant());
         m_doc->deleteFunction(f->id());
     }
@@ -649,7 +650,8 @@ void FunctionManager::dumpOnNewScene(QList<quint32> selectedFixtures, QString na
     {
         setPreview(false);
         updateFunctionsTree();
-        Tardis::instance()->enqueueAction(FunctionCreate, newScene->id(), QVariant(), newScene->id());
+        Tardis::instance()->enqueueAction(FunctionCreate, newScene->id(), QVariant(),
+                                          Tardis::instance()->actionToByteArray(FunctionCreate, newScene->id()));
     }
     else
         delete newScene;

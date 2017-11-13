@@ -41,8 +41,13 @@ enum
     /* Fixture editing actions */
     FixtureCreate = 0x0000,
     FixtureDelete,
+    FixtureMove,
     FixtureSetPosition,
     FixtureSetDumpValue,
+
+    /* Fixture group editing actions */
+    FixtureGroupCreate,
+    FixtureGroupDelete,
 
     /* Function editing actions */
     FunctionCreate = 0x0100,

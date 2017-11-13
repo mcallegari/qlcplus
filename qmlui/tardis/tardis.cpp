@@ -129,13 +129,13 @@ void Tardis::undoAction()
 
         m_historyIndex--;
 
-        processAction(action, true);
+        int code = processAction(action, true);
 
         /* If there are active network connections, send the action there too */
         if (m_networkManager->connectionsCount())
         {
             QMetaObject::invokeMethod(m_networkManager, "sendAction", Qt::QueuedConnection,
-                    Q_ARG(quint32, action.m_objID),
+                    Q_ARG(int, code),
                     Q_ARG(TardisAction, action));
         }
 
@@ -166,13 +166,13 @@ void Tardis::redoAction()
         TardisAction action = m_history.at(m_historyIndex);
         qDebug("Redo action 0x%02X", action.m_action);
 
-        processAction(action, false);
+        int code = processAction(action, false);
 
         /* If there are active network connections, send the action there too */
         if (m_networkManager->connectionsCount())
         {
             QMetaObject::invokeMethod(m_networkManager, "sendAction", Qt::QueuedConnection,
-                    Q_ARG(quint32, action.m_objID),
+                    Q_ARG(int, code),
                     Q_ARG(TardisAction, action));
         }
 
@@ -281,7 +281,7 @@ void Tardis::run()
         if (m_networkManager->connectionsCount())
         {
             QMetaObject::invokeMethod(m_networkManager, "sendAction", Qt::QueuedConnection,
-                    Q_ARG(quint32, action.m_objID),
+                    Q_ARG(int, action.m_action),
                     Q_ARG(TardisAction, action));
         }
     }
@@ -301,6 +301,14 @@ QByteArray Tardis::actionToByteArray(int code, quint32 objID, QVariant data)
             Fixture *fixture = qobject_cast<Fixture *>(m_doc->fixture(objID));
             if (fixture)
                 fixture->saveXML(&xmlWriter);
+        }
+        break;
+        case FixtureGroupCreate:
+        case FixtureGroupDelete:
+        {
+            FixtureGroup *group = qobject_cast<FixtureGroup *>(m_doc->fixtureGroup(objID));
+            if (group)
+                group->saveXML(&xmlWriter);
         }
         break;
         case FunctionCreate:
@@ -329,7 +337,7 @@ QByteArray Tardis::actionToByteArray(int code, quint32 objID, QVariant data)
         break;
         case VCWidgetCreate:
         {
-            VCWidget *widget = qobject_cast<VCWidget *>(m_virtualConsole->widget(data.toUInt()));
+            VCWidget *widget = qobject_cast<VCWidget *>(m_virtualConsole->widget(objID));
             if (widget)
                 widget->saveXML(&xmlWriter);
         }
@@ -351,7 +359,10 @@ QByteArray Tardis::actionToByteArray(int code, quint32 objID, QVariant data)
 bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
 {
     if (value.type() != QVariant::ByteArray)
+    {
+        qWarning("Action 0x%02X is not buffered !", action);
         return false;
+    }
 
     QBuffer buffer;
     buffer.setData(value.toByteArray());
@@ -371,6 +382,11 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
         case FixtureDelete:
         {
             m_fixtureManager->deleteFixtures(QVariantList( { objID } ));
+        }
+        break;
+        case FixtureGroupCreate:
+        {
+            FixtureGroup::loader(xmlReader, m_doc);
         }
         break;
         case FunctionCreate:
@@ -454,7 +470,7 @@ void Tardis::slotProcessNetworkAction(int code, quint32 id, QVariant value)
     m_busy = false;
 }
 
-void Tardis::processAction(TardisAction &action, bool undo)
+int Tardis::processAction(TardisAction &action, bool undo)
 {
     QVariant *value = undo ? &action.m_oldValue : &action.m_newValue;
 
@@ -464,11 +480,18 @@ void Tardis::processAction(TardisAction &action, bool undo)
         case FixtureCreate:
         {
             processBufferedAction(undo ? FixtureDelete : FixtureCreate, action.m_objID, action.m_newValue);
+            return undo ? FixtureDelete : FixtureCreate;
         }
         break;
         case FixtureDelete:
         {
             processBufferedAction(undo ? FixtureCreate : FixtureDelete, action.m_objID, action.m_oldValue);
+            return undo ? FixtureCreate : FixtureDelete;
+        }
+        break;
+        case FixtureMove:
+        {
+            m_fixtureManager->moveFixture(action.m_objID, value->toUInt());
         }
         break;
         case FixtureSetPosition:
@@ -492,11 +515,13 @@ void Tardis::processAction(TardisAction &action, bool undo)
         case FunctionCreate:
         {
             processBufferedAction(undo ? FunctionDelete : FunctionCreate, action.m_objID, action.m_newValue);
+            return undo ? FunctionDelete : FunctionCreate;
         }
         break;
         case FunctionDelete:
         {
             processBufferedAction(undo ? FunctionCreate : FunctionDelete, action.m_objID, action.m_oldValue);
+            return undo ? FunctionCreate : FunctionDelete;
         }
         break;
         case FunctionSetName:
@@ -598,11 +623,13 @@ void Tardis::processAction(TardisAction &action, bool undo)
         case EFXAddFixture:
         {
             processBufferedAction(undo ? EFXRemoveFixture : EFXAddFixture, action.m_objID, action.m_newValue);
+            return undo ? EFXRemoveFixture : EFXAddFixture;
         }
         break;
         case EFXRemoveFixture:
         {
             processBufferedAction(undo ? EFXAddFixture : EFXRemoveFixture, action.m_objID, action.m_oldValue);
+            return undo ? EFXAddFixture : EFXRemoveFixture;
         }
         break;
         case EFXSetAlgorithmIndex:
@@ -683,11 +710,13 @@ void Tardis::processAction(TardisAction &action, bool undo)
         case VCWidgetCreate:
         {
             processBufferedAction(undo ? VCWidgetDelete : VCWidgetCreate, action.m_objID, action.m_newValue);
+            return undo ? VCWidgetDelete : VCWidgetCreate;
         }
         break;
         case VCWidgetDelete:
         {
             processBufferedAction(undo ? VCWidgetCreate : VCWidgetDelete, action.m_objID, action.m_oldValue);
+            return undo ? VCWidgetCreate : VCWidgetDelete;
         }
         break;
         case VCWidgetGeometry:
@@ -730,6 +759,8 @@ void Tardis::processAction(TardisAction &action, bool undo)
             qWarning() << "Action" << action.m_action << "not implemented !";
         break;
     }
+
+    return action.m_action;
 }
 
 

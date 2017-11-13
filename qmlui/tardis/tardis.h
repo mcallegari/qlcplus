@@ -62,9 +62,10 @@ public:
     /** Redo an action or a batch of actions taken from history */
     Q_INVOKABLE void redoAction();
 
-    void processAction(TardisAction &action, bool undo);
+    /** Process an action and return the reversed action if undoing */
+    int processAction(TardisAction &action, bool undo);
 
-    QByteArray actionToByteArray(int code, quint32 objID, QVariant data);
+    QByteArray actionToByteArray(int code, quint32 objID, QVariant data = QVariant());
 
     /** Reset the actions history */
     void resetHistory();
