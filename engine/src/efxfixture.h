@@ -48,7 +48,8 @@ class QImage;
 #define KXMLQLCEFXFixtureModePanTilt "Position"
 #define KXMLQLCEFXFixtureModeDimmer "Dimmer"
 #define KXMLQLCEFXFixtureModeRGB "RGB"
-
+#define KXMLQLCEFXFixtureModeCMY "CMY"
+#define KXMLQLCEFXFixtureModeSingle "Single"
 class EFXFixture
 {
     friend class EFX;
@@ -58,7 +59,10 @@ public:
     {
         PanTilt,
         Dimmer,
-        RGB
+		RGB,
+		CMY,
+		SingleChannel
+
     };
 
     /*************************************************************************
@@ -191,7 +195,8 @@ private:
     void setPointPanTilt(QList<Universe *> universes, float pan, float tilt);
     void setPointDimmer(QList<Universe *> universes, float dimmer);
     void setPointRGB (QList<Universe *> universes, float x, float y);
-
+	void setPointCMY (QList<Universe *> universes, float x, float y);
+	void setPointSingle (QList<Universe *> universes, float single);
     /* Run the start scene if necessary */
     void start(MasterTimer* timer, QList<Universe *> universes);
 
