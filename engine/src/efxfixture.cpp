@@ -105,7 +105,8 @@ void EFXFixture::setHead(GroupHead const & head)
 
     if (fxi->rgbChannels(head.head).size() >= 3)
         modes << RGB;
-
+    if (fxi->cmyChannels(head.head).size() >= 3)
+        modes << CMY;
     if (!modes.contains(m_mode))
     {
         if (modes.size() > 0)
@@ -167,6 +168,8 @@ bool EFXFixture::isValid() const
         return false;
     else if (m_mode == RGB && fxi->rgbChannels(head().head).size () == 0)
         return false;
+    else if (m_mode == CMY && fxi->cmyChannels(head().head).size () == 0)
+        return false;
     else
         return true;
 }
@@ -208,6 +211,9 @@ QStringList EFXFixture::modeList()
     if(fxi->rgbChannels(head().head).size() >= 3)
         modes << KXMLQLCEFXFixtureModeRGB;
 
+    if(fxi->cmyChannels(head().head).size() >= 3)
+        modes << KXMLQLCEFXFixtureModeCMY;
+
     return modes;
 }
 
@@ -222,6 +228,8 @@ QString EFXFixture::modeToString(Mode mode)
             return QString(KXMLQLCEFXFixtureModeDimmer);
         case RGB:
             return QString(KXMLQLCEFXFixtureModeRGB);
+        case CMY:
+            return QString(KXMLQLCEFXFixtureModeCMY);
     }
 }
 
@@ -233,6 +241,8 @@ EFXFixture::Mode EFXFixture::stringToMode(const QString& str)
         return Dimmer;
     else if (str == QString(KXMLQLCEFXFixtureModeRGB))
         return RGB;
+    else if (str == QString(KXMLQLCEFXFixtureModeCMY))
+        return CMY;
     else
         return PanTilt;
 }
@@ -424,6 +434,9 @@ void EFXFixture::nextStep(MasterTimer* timer, QList<Universe *> universes)
             //Use Y for coherence with RGB gradient.
             setPointDimmer(universes, valY);
             break;
+
+        case CMY:
+            setPointCMY(universes, valX, valY);
         }
     }
     else
@@ -532,6 +545,26 @@ void EFXFixture::setPointRGB(QList<Universe *> universes, float x, float y)
         setFadeChannel(rgbChannels[0], pixel.red());
         setFadeChannel(rgbChannels[1], pixel.green());
         setFadeChannel(rgbChannels[2], pixel.blue());
+    }
+}
+
+void EFXFixture::setPointCMY(QList<Universe *> universes, float x, float y)
+{
+    Q_UNUSED(universes);
+
+    Fixture* fxi = doc()->fixture(head().fxi);
+    Q_ASSERT(fxi != NULL);
+
+    QVector<quint32> cmyChannels = fxi->cmyChannels(head().head);
+
+    /* Don't write dimmer data directly to universes but use FadeChannel to avoid steps at EFX loop restart */
+    if (cmyChannels.size() >= 3)
+    {
+        QColor pixel = m_rgbGradient.pixel(x, y);
+
+        setFadeChannel(cmyChannels[0], 255 -pixel.red());
+        setFadeChannel(cmyChannels[1], 255 -pixel.green());
+        setFadeChannel(cmyChannels[2], 255 -pixel.blue());
     }
 }
 
