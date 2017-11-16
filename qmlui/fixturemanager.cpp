@@ -109,7 +109,8 @@ bool FixtureManager::addFixture(QString manuf, QString model, QString mode, QStr
         fxi->setFixtureDefinition(fxiDef, fxiMode);
 
         m_doc->addFixture(fxi);
-        Tardis::instance()->enqueueAction(FixtureCreate, fxi->id(), QVariant(), fxi->id());
+        Tardis::instance()->enqueueAction(FixtureCreate, fxi->id(), QVariant(),
+                                          Tardis::instance()->actionToByteArray(FixtureCreate, fxi->id()));
         emit newFixtureCreated(fxi->id(), xPos, yPos, 0);
     }
     m_fixtureList.clear();
@@ -290,6 +291,8 @@ bool FixtureManager::moveFixture(quint32 fixtureID, quint32 newAddress)
     if (fixture == NULL)
         return false;
 
+    Tardis::instance()->enqueueAction(FixtureMove, fixtureID, fixture->address(), newAddress);
+
     fixture->setAddress(newAddress);
 
     updateFixtureTree(m_doc, m_fixtureTree, m_searchFilter);
@@ -310,7 +313,7 @@ bool FixtureManager::deleteFixtures(QVariantList IDList)
                                           QVariant(mProps->fixturePosition(fxID)), QVariant());
         mProps->removeFixture(fxID);
         Tardis::instance()->enqueueAction(FixtureDelete, fxID,
-                                          Tardis::instance()->actionToByteArray(FixtureDelete, fxID, QVariant()),
+                                          Tardis::instance()->actionToByteArray(FixtureDelete, fxID),
                                           QVariant());
         m_doc->deleteFixture(fxID);
         emit fixtureDeleted(fxID);
@@ -461,8 +464,26 @@ void FixtureManager::addFixturesToNewGroup(QList<quint32> fxList)
     foreach(quint32 id, fxList)
         group->assignFixture(id);
 
+    Tardis::instance()->enqueueAction(FixtureGroupCreate, group->id(), QVariant(),
+                                      Tardis::instance()->actionToByteArray(FixtureGroupCreate, group->id()));
+
     updateFixtureTree(m_doc, m_fixtureTree, m_searchFilter);
     emit groupsTreeModelChanged();
+}
+
+bool FixtureManager::deleteFixtureGroups(QVariantList IDList)
+{
+    foreach(QVariant id, IDList)
+    {
+        quint32 groupID = id.toUInt();
+        Tardis::instance()->enqueueAction(FixtureGroupDelete, groupID,
+                                          Tardis::instance()->actionToByteArray(FixtureGroupDelete, groupID),
+                                          QVariant());
+        m_doc->deleteFixtureGroup(groupID);
+    }
+    emit groupsTreeModelChanged();
+
+    return true;
 }
 
 QString FixtureManager::fixtureIcon(quint32 fixtureID)

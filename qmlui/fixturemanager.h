@@ -110,6 +110,9 @@ public:
     /** Add a list of fixture IDs to a new fixture group */
     void addFixturesToNewGroup(QList<quint32>fxList);
 
+    /** Delete some existing Fixture Groups with IDs provided by $IDList */
+    Q_INVOKABLE bool deleteFixtureGroups(QVariantList IDList);
+
     /** Return the type as string of the Fixture with ID $fixtureID */
     Q_INVOKABLE QString fixtureIcon(quint32 fixtureID);
 

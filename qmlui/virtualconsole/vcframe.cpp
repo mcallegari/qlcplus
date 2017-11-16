@@ -156,7 +156,8 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             VCFrame *frame = new VCFrame(m_doc, m_vc, this);
             QQmlEngine::setObjectOwnership(frame, QQmlEngine::CppOwnership);
             m_vc->addWidgetToMap(frame);
-            Tardis::instance()->enqueueAction(VCWidgetCreate, this->id(), QVariant(), frame->id());
+            Tardis::instance()->enqueueAction(VCWidgetCreate, this->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(VCWidgetCreate, frame->id()));
             frame->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 50, m_vc->pixelDensity() * 50));
             setupWidget(frame, currentPage());
             frame->render(m_vc->view(), parent);
@@ -167,7 +168,8 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             VCSoloFrame *soloframe = new VCSoloFrame(m_doc, m_vc, this);
             QQmlEngine::setObjectOwnership(soloframe, QQmlEngine::CppOwnership);
             m_vc->addWidgetToMap(soloframe);
-            Tardis::instance()->enqueueAction(VCWidgetCreate, this->id(), QVariant(), soloframe->id());
+            Tardis::instance()->enqueueAction(VCWidgetCreate, this->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(VCWidgetCreate, soloframe->id()));
             soloframe->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 50, m_vc->pixelDensity() * 50));
             setupWidget(soloframe, currentPage());
             soloframe->render(m_vc->view(), parent);
@@ -178,7 +180,8 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             VCButton *button = new VCButton(m_doc, this);
             QQmlEngine::setObjectOwnership(button, QQmlEngine::CppOwnership);
             m_vc->addWidgetToMap(button);
-            Tardis::instance()->enqueueAction(VCWidgetCreate, this->id(), QVariant(), button->id());
+            Tardis::instance()->enqueueAction(VCWidgetCreate, this->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(VCWidgetCreate, button->id()));
             button->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 17, m_vc->pixelDensity() * 17));
             setupWidget(button, currentPage());
             button->render(m_vc->view(), parent);
@@ -189,7 +192,8 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             VCLabel *label = new VCLabel(m_doc, this);
             QQmlEngine::setObjectOwnership(label, QQmlEngine::CppOwnership);
             m_vc->addWidgetToMap(label);
-            Tardis::instance()->enqueueAction(VCWidgetCreate, this->id(), QVariant(), label->id());
+            Tardis::instance()->enqueueAction(VCWidgetCreate, this->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(VCWidgetCreate, label->id()));
             label->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 25, m_vc->pixelDensity() * 8));
             setupWidget(label, currentPage());
             label->render(m_vc->view(), parent);
@@ -200,7 +204,8 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             VCSlider *slider = new VCSlider(m_doc, this);
             QQmlEngine::setObjectOwnership(slider, QQmlEngine::CppOwnership);
             m_vc->addWidgetToMap(slider);
-            Tardis::instance()->enqueueAction(VCWidgetCreate, this->id(), QVariant(), slider->id());
+            Tardis::instance()->enqueueAction(VCWidgetCreate, this->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(VCWidgetCreate, slider->id()));
             if (wType == "Knob")
             {
                 slider->setWidgetStyle(VCSlider::WKnob);
@@ -217,7 +222,8 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             VCClock *clock = new VCClock(m_doc, this);
             QQmlEngine::setObjectOwnership(clock, QQmlEngine::CppOwnership);
             m_vc->addWidgetToMap(clock);
-            Tardis::instance()->enqueueAction(VCWidgetCreate, this->id(), QVariant(), clock->id());
+            Tardis::instance()->enqueueAction(VCWidgetCreate, this->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(VCWidgetCreate, clock->id()));
             clock->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 25, m_vc->pixelDensity() * 8));
             setupWidget(clock, currentPage());
             clock->render(m_vc->view(), parent);
@@ -250,7 +256,8 @@ void VCFrame::addWidgetMatrix(QQuickItem *parent, QString matrixType, QPoint pos
 
     QQmlEngine::setObjectOwnership(frame, QQmlEngine::CppOwnership);
     m_vc->addWidgetToMap(frame);
-    Tardis::instance()->enqueueAction(VCWidgetCreate, this->id(), QVariant(), frame->id());
+    Tardis::instance()->enqueueAction(VCWidgetCreate, this->id(), QVariant(),
+                                      Tardis::instance()->actionToByteArray(VCWidgetCreate, frame->id()));
     frame->setGeometry(QRect(pos.x(), pos.y(), totalWidth, totalHeight));
     frame->setShowHeader(false);
     setupWidget(frame, currentPage());
@@ -293,7 +300,8 @@ void VCFrame::addFunctions(QQuickItem *parent, QVariantList idsList, QPoint pos,
             VCSlider *slider = new VCSlider(m_doc, this);
             QQmlEngine::setObjectOwnership(slider, QQmlEngine::CppOwnership);
             m_vc->addWidgetToMap(slider);
-            Tardis::instance()->enqueueAction(VCWidgetCreate, this->id(), QVariant(), slider->id());
+            Tardis::instance()->enqueueAction(VCWidgetCreate, this->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(VCWidgetCreate, slider->id()));
             slider->setGeometry(QRect(currPos.x(), currPos.y(), m_vc->pixelDensity() * 10, m_vc->pixelDensity() * 35));
             slider->setCaption(func->name());
             slider->setControlledFunction(funcID);
@@ -313,7 +321,8 @@ void VCFrame::addFunctions(QQuickItem *parent, QVariantList idsList, QPoint pos,
             VCButton *button = new VCButton(m_doc, this);
             QQmlEngine::setObjectOwnership(button, QQmlEngine::CppOwnership);
             m_vc->addWidgetToMap(button);
-            Tardis::instance()->enqueueAction(VCWidgetCreate, this->id(), QVariant(), button->id());
+            Tardis::instance()->enqueueAction(VCWidgetCreate, this->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(VCWidgetCreate, button->id()));
             button->setGeometry(QRect(currPos.x(), currPos.y(), m_vc->pixelDensity() * 17, m_vc->pixelDensity() * 17));
             button->setCaption(func->name());
             button->setFunctionID(funcID);

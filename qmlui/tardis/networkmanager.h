@@ -71,7 +71,7 @@ public:
     int connectionsCount();
 
 public slots:
-    void sendAction(quint32 objID, TardisAction action);
+    void sendAction(int code, TardisAction action);
 
 protected:
     QString defaultName();

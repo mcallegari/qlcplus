@@ -382,6 +382,9 @@ bool Doc::addFixture(Fixture* fixture, quint32 id)
 {
     Q_ASSERT(fixture != NULL);
 
+    quint32 i;
+    quint32 uni = fixture->universe();
+
     // No ID given, this method can assign one
     if (id == Fixture::invalidId())
         id = createFixtureId();
@@ -393,8 +396,8 @@ bool Doc::addFixture(Fixture* fixture, quint32 id)
     }
 
     /* Check for overlapping address */
-    for (uint i = fixture->universeAddress();
-            i < fixture->universeAddress() + fixture->channels(); i++)
+    for (i = fixture->universeAddress();
+         i < fixture->universeAddress() + fixture->channels(); i++)
     {
         if (m_addresses.contains(i))
         {
@@ -412,21 +415,25 @@ bool Doc::addFixture(Fixture* fixture, quint32 id)
             this, SLOT(slotFixtureChanged(quint32)));
 
     /* Keep track of fixture addresses */
-    for (uint i = fixture->universeAddress();
-            i < fixture->universeAddress() + fixture->channels(); i++)
+    for (i = fixture->universeAddress();
+         i < fixture->universeAddress() + fixture->channels(); i++)
     {
         m_addresses[i] = id;
     }
 
+    if (uni >= inputOutputMap()->universesCount())
+    {
+        for (i = inputOutputMap()->universesCount(); i <= uni; i++)
+            inputOutputMap()->addUniverse(i);
+    }
+
     // Add the fixture channels capabilities to the universe they belong
     QList<Universe *> universes = inputOutputMap()->claimUniverses();
-    int uni = fixture->universe();
 
-    // TODO !!! if a universe for this fixture doesn't exist, add it !!!
     QList<int> forcedHTP = fixture->forcedHTPChannels();
     QList<int> forcedLTP = fixture->forcedLTPChannels();
 
-    for (quint32 i = 0 ; i < fixture->channels(); i++)
+    for (i = 0 ; i < fixture->channels(); i++)
     {
         const QLCChannel* channel(fixture->channel(i));
         if (forcedHTP.contains(i))

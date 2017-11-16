@@ -310,6 +310,12 @@ Rectangle
                     console.log("Clicked item ID: " + currentItemID)
                     dataCanvas.movingSelection = true
                 }
+                else
+                {
+                    // handle outside click
+                    var empty = []
+                    setSelectionData(empty)
+                }
             }
             onPositionChanged:
             {

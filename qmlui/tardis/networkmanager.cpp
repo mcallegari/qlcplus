@@ -92,23 +92,25 @@ int NetworkManager::connectionsCount()
     return 0;
 }
 
-void NetworkManager::sendAction(quint32 objID, TardisAction action)
+void NetworkManager::sendAction(int code, TardisAction action)
 {
     QByteArray packet;
-    m_packetizer->initializePacket(packet, action.m_action);
-    m_packetizer->addSection(packet, objID);
+    m_packetizer->initializePacket(packet, code);
+    m_packetizer->addSection(packet, action.m_objID);
 
     switch (action.m_action)
     {
         case FixtureCreate:
+        case FixtureGroupCreate:
         case FunctionCreate:
         case ChaserAddStep:
         case EFXAddFixture:
         case VCWidgetCreate:
-            m_packetizer->addSection(packet, Tardis::instance()->actionToByteArray(action.m_action, objID, action.m_newValue));
+            m_packetizer->addSection(packet, action.m_newValue);
         break;
 
         case FixtureDelete:
+        case FixtureGroupDelete:
         case FunctionDelete:
         case VCWidgetDelete:
             m_packetizer->addSection(packet, action.m_oldValue);

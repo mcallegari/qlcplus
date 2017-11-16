@@ -545,6 +545,13 @@ void EFX_Test::fixtures()
     e->slotFixtureRemoved(56);
     QCOMPARE(e->fixtures().size(), 0);
 
+    QVERIFY(e->addFixture(ef1));
+    /* Remove by fixture ID and head number */
+    QVERIFY(e->removeFixture(12, 0));
+    QCOMPARE(e->fixtures().size(), 0);
+
+    QVERIFY(!e->removeFixture(98, 99));
+
     delete e;
 }
 
