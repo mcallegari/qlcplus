@@ -562,7 +562,7 @@ void EFXFixture::setPointCMY(QList<Universe *> universes, float x, float y)
     {
         QColor pixel = m_rgbGradient.pixel(x, y);
 
-        setFadeChannel(cmyChannels[0], 255 - pixel.red());
+        setFadeChannel(cmyChannels[0], 255 -pixel.red());
         setFadeChannel(cmyChannels[1], 255 -pixel.green());
         setFadeChannel(cmyChannels[2], 255 -pixel.blue());
     }
