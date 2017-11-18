@@ -1,5 +1,7 @@
 qlcplus (4.11.2) stable; urgency=low
 
+  * plugins/udmx: added 'channels' configuration parameter (see documentation)
+
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 25 Mar 2018 12:13:14 +0200
 
 qlcplus (4.11.1) stable; urgency=low

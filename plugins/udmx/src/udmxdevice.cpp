@@ -33,6 +33,8 @@
 #include "udmxdevice.h"
 #include "qlcmacros.h"
 
+#define DMX_CHANNELS 512
+
 #define UDMX_SHARED_VENDOR     0x16C0 /* VOTI */
 #define UDMX_SHARED_PRODUCT    0x05DC /* Obdev's free shared PID */
 
@@ -42,6 +44,7 @@
 #define UDMX_SET_CHANNEL_RANGE 0x0002 /* Command to set n channel values */
 
 #define SETTINGS_FREQUENCY "udmx/frequency"
+#define SETTINGS_CHANNELS "udmx/channels"
 
 /****************************************************************************
  * Initialization
@@ -52,7 +55,7 @@ UDMXDevice::UDMXDevice(struct usb_device* device, QObject* parent)
     , m_device(device)
     , m_handle(NULL)
     , m_running(false)
-    , m_universe(QByteArray(512, 0))
+    , m_universe(QByteArray(DMX_CHANNELS, 0))
     , m_frequency(30)
     , m_granularity(Unknown)
 {
@@ -62,6 +65,15 @@ UDMXDevice::UDMXDevice(struct usb_device* device, QObject* parent)
     QVariant var = settings.value(SETTINGS_FREQUENCY);
     if (var.isValid() == true)
         m_frequency = var.toDouble();
+
+    QVariant var2 = settings.value(SETTINGS_CHANNELS);
+    if (var2.isValid() == true)
+    {
+        int channels = var2.toInt();
+        if (channels > DMX_CHANNELS || channels <= 0)
+            channels = DMX_CHANNELS;
+        m_universe = QByteArray(channels, 0);
+    }
 
     extractName();
 }
@@ -136,6 +148,8 @@ QString UDMXDevice::infoText() const
     {
         info += QString("<B>%1</B>").arg(name());
         info += QString("<P>");
+        info += QString("<B>%1:</B> %2").arg(tr("DMX Channels")).arg(m_universe.size());
+        info += QString("<BR>");
         info += QString("<B>%1:</B> %2Hz").arg(tr("DMX Frame Frequency")).arg(m_frequency);
         info += QString("<BR>");
         if (m_granularity == Bad)
@@ -200,7 +214,8 @@ const usb_dev_handle* UDMXDevice::handle() const
 
 void UDMXDevice::outputDMX(const QByteArray& universe)
 {
-    m_universe.replace(0, MIN(universe.size(), m_universe.size()), universe);
+    m_universe.replace(0, MIN(universe.size(), m_universe.size()),
+                       universe.constData(), MIN(universe.size(), m_universe.size()));
 }
 
 void UDMXDevice::stop()
