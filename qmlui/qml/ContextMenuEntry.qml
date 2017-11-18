@@ -91,7 +91,7 @@ Rectangle
     {
         id: entryMouseArea
         anchors.fill: parent
-        hoverEnabled: true
+        hoverEnabled: baseMenuEntry.visible
         onEntered: baseMenuEntry.entered()
         onExited: baseMenuEntry.exited()
         onReleased: baseMenuEntry.clicked()
