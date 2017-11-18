@@ -189,8 +189,17 @@ Flickable
 
         onPressed:
         {
-            fGroupEditor.interactive = false
-            setSelectionData(fixtureGroupEditor.groupSelection(xPos, yPos, mods))
+            if (xPos < 0 && yPos < 0)
+            {
+                var empty = []
+                setSelectionData(empty)
+                fixtureGroupEditor.resetSelection()
+            }
+            else
+            {
+                fGroupEditor.interactive = false
+                setSelectionData(fixtureGroupEditor.groupSelection(xPos, yPos, mods))
+            }
         }
 
         onReleased:

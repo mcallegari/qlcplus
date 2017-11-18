@@ -75,7 +75,7 @@ Flickable
         onReleased:
         {
             universeGridView.interactive = true
-            if (currentItemID === -1)
+            if (currentItemID === -1 || validSelection == false)
                 return;
             var uniAddress = (yPos * gridSize.width) + xPos
             fixtureManager.moveFixture(currentItemID, selectionData[0] + offset)

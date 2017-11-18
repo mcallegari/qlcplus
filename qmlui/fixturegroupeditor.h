@@ -96,7 +96,10 @@ public:
     /** Returns a list of indices with the selected heads */
     QVariantList selectionData();
 
-    /** Check the head at the provide $x,$y position and
+    /** Resets the currently selected items */
+    Q_INVOKABLE void resetSelection();
+
+    /** Check the head at the provided $x,$y position and
      *  returns a list of indices with the selected heads */
     Q_INVOKABLE QVariantList groupSelection(int x, int y, int mouseMods);
 

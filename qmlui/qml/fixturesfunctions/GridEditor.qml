@@ -313,8 +313,7 @@ Rectangle
                 else
                 {
                     // handle outside click
-                    var empty = []
-                    setSelectionData(empty)
+                    gridRoot.pressed(-1, -1, 0);
                 }
             }
             onPositionChanged:

@@ -120,6 +120,11 @@ QVariantList FixtureGroupEditor::selectionData()
     return m_groupSelection;
 }
 
+void FixtureGroupEditor::resetSelection()
+{
+    m_groupSelection.clear();
+}
+
 QVariantList FixtureGroupEditor::groupSelection(int x, int y, int mouseMods)
 {
     qDebug() << "Requested selection at" << x << y << "mods:" << mouseMods;
