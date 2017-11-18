@@ -204,56 +204,56 @@ void FunctionManager::initActions()
     /* Manage actions */
     m_addSceneAction = new QAction(QIcon(":/scene.png"),
                                    tr("New &scene"), this);
-    m_addSceneAction->setShortcut(QKeySequence("CTRL+S"));
+    m_addSceneAction->setShortcut(QKeySequence("CTRL+1"));
     connect(m_addSceneAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddScene()));
 
     m_addChaserAction = new QAction(QIcon(":/chaser.png"),
                                     tr("New c&haser"), this);
-    m_addChaserAction->setShortcut(QKeySequence("CTRL+H"));
+    m_addChaserAction->setShortcut(QKeySequence("CTRL+2"));
     connect(m_addChaserAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddChaser()));
 
     m_addSequenceAction = new QAction(QIcon(":/sequence.png"),
                                     tr("New se&quence"), this);
-    m_addSequenceAction->setShortcut(QKeySequence("CTRL+Q"));
+    m_addSequenceAction->setShortcut(QKeySequence("CTRL+3"));
     connect(m_addSequenceAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddSequence()));
 
-    m_addCollectionAction = new QAction(QIcon(":/collection.png"),
-                                        tr("New c&ollection"), this);
-    m_addCollectionAction->setShortcut(QKeySequence("CTRL+O"));
-    connect(m_addCollectionAction, SIGNAL(triggered(bool)),
-            this, SLOT(slotAddCollection()));
-
     m_addEFXAction = new QAction(QIcon(":/efx.png"),
                                  tr("New E&FX"), this);
-    m_addEFXAction->setShortcut(QKeySequence("CTRL+F"));
+    m_addEFXAction->setShortcut(QKeySequence("CTRL+4"));
     connect(m_addEFXAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddEFX()));
 
+    m_addCollectionAction = new QAction(QIcon(":/collection.png"),
+                                        tr("New c&ollection"), this);
+    m_addCollectionAction->setShortcut(QKeySequence("CTRL+5"));
+    connect(m_addCollectionAction, SIGNAL(triggered(bool)),
+            this, SLOT(slotAddCollection()));
+
     m_addRGBMatrixAction = new QAction(QIcon(":/rgbmatrix.png"),
                                  tr("New &RGB Matrix"), this);
-    m_addRGBMatrixAction->setShortcut(QKeySequence("CTRL+R"));
+    m_addRGBMatrixAction->setShortcut(QKeySequence("CTRL+6"));
     connect(m_addRGBMatrixAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddRGBMatrix()));
 
     m_addScriptAction = new QAction(QIcon(":/script.png"),
                                  tr("New scrip&t"), this);
-    m_addScriptAction->setShortcut(QKeySequence("CTRL+T"));
+    m_addScriptAction->setShortcut(QKeySequence("CTRL+7"));
     connect(m_addScriptAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddScript()));
 
     m_addAudioAction = new QAction(QIcon(":/audio.png"),
                                    tr("New au&dio"), this);
-    m_addAudioAction->setShortcut(QKeySequence("CTRL+D"));
+    m_addAudioAction->setShortcut(QKeySequence("CTRL+8"));
     connect(m_addAudioAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddAudio()));
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
     m_addVideoAction = new QAction(QIcon(":/video.png"),
                                    tr("New vid&eo"), this);
-    m_addVideoAction->setShortcut(QKeySequence("CTRL+E"));
+    m_addVideoAction->setShortcut(QKeySequence("CTRL+9"));
     connect(m_addVideoAction, SIGNAL(triggered(bool)),
             this, SLOT(slotAddVideo()));
 #endif
