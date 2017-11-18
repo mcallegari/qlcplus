@@ -41,7 +41,7 @@ EnttecDMXUSBOpen::EnttecDMXUSBOpen(DMXInterface *interface,
     : QThread(parent)
     , DMXUSBWidget(interface, outputLine)
     , m_running(false)
-    , m_universe(QByteArray(513, 0))
+    , m_universe(QByteArray(DMX_CHANNELS + 1, 0))
     , m_frequency(30)
     , m_granularity(Unknown)
 {
@@ -49,6 +49,7 @@ EnttecDMXUSBOpen::EnttecDMXUSBOpen(DMXInterface *interface,
     QVariant var = settings.value(SETTINGS_FREQUENCY);
     if (var.isValid() == true)
         m_frequency = var.toDouble();
+
     QVariant var2 = settings.value(SETTINGS_CHANNELS);
     if (var2.isValid() == true)
     {
@@ -148,7 +149,8 @@ bool EnttecDMXUSBOpen::writeUniverse(quint32 universe, quint32 output, const QBy
     Q_UNUSED(universe)
     Q_UNUSED(output)
 
-    m_universe.replace(1, MIN(data.size(), m_universe.size()), data);
+    m_universe.replace(1, MIN(data.size(), m_universe.size()),
+                       data.constData(), MIN(data.size(), m_universe.size()));
     return true;
 }
 
