@@ -427,12 +427,11 @@ void FunctionManager::slotAddScript()
 
 void FunctionManager::slotAddAudio()
 {
-    QString fn;
-
     /* Create a file open dialog */
     QFileDialog dialog(this);
     dialog.setWindowTitle(tr("Open Audio File"));
     dialog.setAcceptMode(QFileDialog::AcceptOpen);
+    dialog.setFileMode(QFileDialog::ExistingFiles);
 
     /* Append file filters to the dialog */
     QStringList extList = m_doc->audioPluginCache()->getSupportedFormats();
@@ -457,35 +456,36 @@ void FunctionManager::slotAddAudio()
     if (dialog.exec() != QDialog::Accepted)
         return;
 
-    fn = dialog.selectedFiles().first();
-    if (fn.isEmpty() == true)
-        return;
-
-    Function* f = new Audio(m_doc);
-    Audio *audio = qobject_cast<Audio*> (f);
-    if (audio->setSourceFileName(fn) == false)
+    foreach (QString fn, dialog.selectedFiles())
     {
-        QMessageBox::warning(this, tr("Unsupported audio file"), tr("This audio file cannot be played with QLC+. Sorry."));
-        return;
-    }
-    if (m_doc->addFunction(f) == true)
-    {
-        QTreeWidgetItem* item = m_tree->functionItem(f);
-        Q_ASSERT(item != NULL);
-        m_tree->scrollToItem(item);
-        m_tree->setCurrentItem(item);
+        Function* f = new Audio(m_doc);
+        Audio *audio = qobject_cast<Audio*> (f);
+        if (audio->setSourceFileName(fn) == false)
+        {
+            QMessageBox::warning(this, tr("Unsupported audio file"), tr("This audio file cannot be played with QLC+. Sorry."));
+            return;
+        }
+        if (m_doc->addFunction(f) == true)
+        {
+            QTreeWidgetItem* item = m_tree->functionItem(f);
+            Q_ASSERT(item != NULL);
+            if (fn == dialog.selectedFiles().last())
+            {
+                m_tree->scrollToItem(item);
+                m_tree->setCurrentItem(item);
+            }
+        }
     }
 }
 
 void FunctionManager::slotAddVideo()
 {
 #if QT_VERSION > QT_VERSION_CHECK(5, 0, 0)
-    QString fn;
-
     /* Create a file open dialog */
     QFileDialog dialog(this);
     dialog.setWindowTitle(tr("Open Video File"));
     dialog.setAcceptMode(QFileDialog::AcceptOpen);
+    dialog.setFileMode(QFileDialog::ExistingFiles);
 
     /* Append file filters to the dialog */
     QStringList extList = Video::getVideoCapabilities();
@@ -510,23 +510,25 @@ void FunctionManager::slotAddVideo()
     if (dialog.exec() != QDialog::Accepted)
         return;
 
-    fn = dialog.selectedFiles().first();
-    if (fn.isEmpty() == true)
-        return;
-
-    Function* f = new Video(m_doc);
-    Video *video = qobject_cast<Video*> (f);
-    if (video->setSourceUrl(fn) == false)
+    foreach (QString fn, dialog.selectedFiles())
     {
-        QMessageBox::warning(this, tr("Unsupported video file"), tr("This video file cannot be played with QLC+. Sorry."));
-        return;
-    }
-    if (m_doc->addFunction(f) == true)
-    {
-        QTreeWidgetItem* item = m_tree->functionItem(f);
-        Q_ASSERT(item != NULL);
-        m_tree->scrollToItem(item);
-        m_tree->setCurrentItem(item);
+        Function* f = new Video(m_doc);
+        Video *video = qobject_cast<Video*> (f);
+        if (video->setSourceUrl(fn) == false)
+        {
+            QMessageBox::warning(this, tr("Unsupported video file"), tr("This video file cannot be played with QLC+. Sorry."));
+            return;
+        }
+        if (m_doc->addFunction(f) == true)
+        {
+            QTreeWidgetItem* item = m_tree->functionItem(f);
+            Q_ASSERT(item != NULL);
+            if (fn == dialog.selectedFiles().last())
+            {
+                m_tree->scrollToItem(item);
+                m_tree->setCurrentItem(item);
+            }
+        }
     }
 #endif
 }

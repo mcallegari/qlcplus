@@ -1,5 +1,7 @@
 qlcplus (4.11.2) stable; urgency=low
 
+  * UI/Function Manager: fixed keyboard shortcut conflicts and document them
+  * UI/Function Manager: allow to import multiple of audio/video files at once
   * Virtual Console/Slider: fix submaster initial value not applied
   * plugins/udmx: added 'channels' configuration parameter (see documentation)
 
