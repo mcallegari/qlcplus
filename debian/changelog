@@ -1,5 +1,6 @@
 qlcplus (4.11.2) stable; urgency=low
 
+  * Virtual Console/Slider: fix submaster initial value not applied
   * plugins/udmx: added 'channels' configuration parameter (see documentation)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 25 Mar 2018 12:13:14 +0200

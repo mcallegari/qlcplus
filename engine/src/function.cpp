@@ -1251,6 +1251,8 @@ int Function::requestAttributeOverride(int attributeIndex, qreal value)
 
         qDebug() << name() << "Override requested for attribute" << attributeIndex << "value" << value << "new ID" << attributeID;
 
+        calculateOverrideValue(attributeIndex);
+
         m_lastOverrideAttributeId++;
     }
     else
