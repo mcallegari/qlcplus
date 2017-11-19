@@ -259,17 +259,13 @@ quint32 FunctionManager::createFunction(int type)
 
     if (m_doc->addFunction(f) == true)
     {
+        m_functionTree->setItemRoleData(QString("%1/%2").arg(f->path(true)).arg(f->name()), 1, TreeModel::IsSelectedRole);
+
         f->setName(QString("%1 %2").arg(name).arg(f->id()));
         QQmlEngine::setObjectOwnership(f, QQmlEngine::CppOwnership);
 
-        QVariantList params;
-        params.append(QVariant::fromValue(f));
-        TreeModelItem *item = m_functionTree->addItem(f->name(), params, f->path(true));
-        if (item != NULL)
-            item->setFlag(TreeModel::Selected, true);
         m_selectedIDList.append(QVariant(f->id()));
         emit selectionCountChanged(m_selectedIDList.count());
-        emit functionsListChanged();
 
         Tardis::instance()->enqueueAction(FunctionCreate, f->id(), QVariant(),
                                           Tardis::instance()->actionToByteArray(FunctionCreate, f->id()));
@@ -682,10 +678,44 @@ void FunctionManager::setChannelValue(quint32 fxID, quint32 channel, uchar value
     }
 }
 
-void FunctionManager::updateFunctionsTree()
+void FunctionManager::addFunctionTreeItem(Function *func)
 {
+    if (func == NULL || func->isVisible() == false)
+        return;
+
     bool expandAll = m_searchFilter.length() >= SEARCH_MIN_CHARS;
 
+    QQmlEngine::setObjectOwnership(func, QQmlEngine::CppOwnership);
+
+    if ((m_filter == 0 || m_filter & func->type()) &&
+        (m_searchFilter.length() < SEARCH_MIN_CHARS || func->name().toLower().contains(m_searchFilter)))
+    {
+        QVariantList params;
+        params.append(QVariant::fromValue(func));
+        TreeModelItem *item = m_functionTree->addItem(func->name(), params, func->path(true), expandAll ? TreeModel::Expanded : 0);
+        if (m_selectedIDList.contains(QVariant(func->id())))
+            item->setFlag(TreeModel::Selected, true);
+    }
+
+    switch (func->type())
+    {
+        case Function::SceneType: m_sceneCount++; break;
+        case Function::ChaserType: m_chaserCount++; break;
+        case Function::SequenceType: m_sequenceCount++; break;
+        case Function::EFXType: m_efxCount++; break;
+        case Function::CollectionType: m_collectionCount++; break;
+        case Function::RGBMatrixType: m_rgbMatrixCount++; break;
+        case Function::ScriptType: m_scriptCount++; break;
+        case Function::ShowType: m_showCount++; break;
+        case Function::AudioType: m_audioCount++; break;
+        case Function::VideoType: m_videoCount++; break;
+        default:
+        break;
+    }
+}
+
+void FunctionManager::updateFunctionsTree()
+{
     m_sceneCount = m_chaserCount = m_sequenceCount = m_efxCount = 0;
     m_collectionCount = m_rgbMatrixCount = m_scriptCount = 0;
     m_showCount = m_audioCount = m_videoCount = 0;
@@ -694,35 +724,8 @@ void FunctionManager::updateFunctionsTree()
     m_functionTree->clear();
 
     for(Function *func : m_doc->functions()) // C++11
-    {
-        QQmlEngine::setObjectOwnership(func, QQmlEngine::CppOwnership);
+        addFunctionTreeItem(func);
 
-        if ((m_filter == 0 || m_filter & func->type()) &&
-            (m_searchFilter.length() < SEARCH_MIN_CHARS || func->name().toLower().contains(m_searchFilter)))
-        {
-            QVariantList params;
-            params.append(QVariant::fromValue(func));
-            TreeModelItem *item = m_functionTree->addItem(func->name(), params, func->path(true), expandAll ? TreeModel::Expanded : 0);
-            if (m_selectedIDList.contains(QVariant(func->id())))
-                item->setFlag(TreeModel::Selected, true);
-        }
-
-        switch (func->type())
-        {
-            case Function::SceneType: m_sceneCount++; break;
-            case Function::ChaserType: m_chaserCount++; break;
-            case Function::SequenceType: m_sequenceCount++; break;
-            case Function::EFXType: m_efxCount++; break;
-            case Function::CollectionType: m_collectionCount++; break;
-            case Function::RGBMatrixType: m_rgbMatrixCount++; break;
-            case Function::ScriptType: m_scriptCount++; break;
-            case Function::ShowType: m_showCount++; break;
-            case Function::AudioType: m_audioCount++; break;
-            case Function::VideoType: m_videoCount++; break;
-            default:
-            break;
-        }
-    }
     //m_functionTree->printTree(); // enable for debug purposes
 
     emit sceneCountChanged();
@@ -745,12 +748,13 @@ void FunctionManager::slotDocLoaded()
     updateFunctionsTree();
 }
 
-void FunctionManager::slotFunctionAdded(quint32)
+void FunctionManager::slotFunctionAdded(quint32 fid)
 {
     if (m_doc->loadStatus() == Doc::Loading)
         return;
 
-    updateFunctionsTree();
+    Function *func = m_doc->function(fid);
+    addFunctionTreeItem(func);
 }
 
 

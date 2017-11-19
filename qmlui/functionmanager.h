@@ -143,6 +143,7 @@ public:
     int viewPosition() const;
 
 protected:
+    void addFunctionTreeItem(Function *func);
     void updateFunctionsTree();
     void clearTree();
 
