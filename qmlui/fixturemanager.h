@@ -58,6 +58,7 @@ class FixtureManager : public QObject
 
 public:
     FixtureManager(QQuickView *view, Doc *doc, QObject *parent = 0);
+    ~FixtureManager();
 
     /** Returns a constant value for an invalid Fixture ID */
     Q_INVOKABLE quint32 invalidFixture() const;

@@ -51,6 +51,7 @@ class FixtureBrowser : public QObject
 
 public:
     FixtureBrowser(QQuickView *view, Doc *doc, QObject *parent = 0);
+    ~FixtureBrowser();
 
     QStringList manufacturers();
 

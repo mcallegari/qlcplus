@@ -48,6 +48,8 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
     , m_prevRotation(QVector3D(0, 0, 0))
     , m_editingEnabled(false)
 {
+    m_view->rootContext()->setContextProperty("contextManager", this);
+
     m_source = new GenericDMXSource(m_doc);
     m_source->setOutputEnabled(true);
 
@@ -86,6 +88,8 @@ ContextManager::~ContextManager()
         if (context->detached())
             context->deleteLater();
     }
+
+    m_view->rootContext()->setContextProperty("contextManager", NULL);
 }
 
 void ContextManager::registerContext(PreviewContext *context)

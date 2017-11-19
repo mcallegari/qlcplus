@@ -63,6 +63,7 @@ FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)
     m_currentEditor = NULL;
     m_sceneEditor = NULL;
 
+    m_view->rootContext()->setContextProperty("functionManager", this);
     qmlRegisterUncreatableType<Collection>("org.qlcplus.classes", 1, 0, "Collection", "Can't create a Collection");
     qmlRegisterUncreatableType<Chaser>("org.qlcplus.classes", 1, 0, "Chaser", "Can't create a Chaser");
     qmlRegisterUncreatableType<RGBMatrix>("org.qlcplus.classes", 1, 0, "RGBMatrix", "Can't create a RGBMatrix");
@@ -81,6 +82,12 @@ FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)
 
     connect(m_doc, &Doc::loaded, this, &FunctionManager::slotDocLoaded);
     connect(m_doc, &Doc::functionAdded, this, &FunctionManager::slotFunctionAdded);
+}
+
+
+FunctionManager::~FunctionManager()
+{
+    m_view->rootContext()->setContextProperty("functionManager", NULL);
 }
 
 QVariant FunctionManager::functionsList()

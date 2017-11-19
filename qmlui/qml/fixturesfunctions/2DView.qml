@@ -31,7 +31,7 @@ Rectangle
     onWidthChanged: twoDView.calculateCellSize()
     onHeightChanged: twoDView.calculateCellSize()
 
-    Component.onDestruction: contextManager.enableContext("2D", false, twoDView)
+    Component.onDestruction: if (contextManager) contextManager.enableContext("2D", false, twoDView)
 
     function setZoom(amount)
     {

@@ -66,6 +66,7 @@ class FunctionManager : public QObject
 
 public:
     FunctionManager(QQuickView *view, Doc *doc, QObject *parent = 0);
+    ~FunctionManager();
 
     /*********************************************************************
      * Functions

@@ -58,7 +58,7 @@ Rectangle
             width: dmxViewRoot.width
 
             Component.onCompleted: contextManager.enableContext("DMX", true, flowLayout)
-            Component.onDestruction: contextManager.enableContext("DMX", false, flowLayout)
+            Component.onDestruction: if(contextManager) contextManager.enableContext("DMX", false, flowLayout)
         }
     }
     CustomScrollBar { flickable: fixtureDMXView }

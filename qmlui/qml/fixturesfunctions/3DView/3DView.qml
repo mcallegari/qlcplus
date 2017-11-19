@@ -35,7 +35,7 @@ Rectangle
     property alias contextItem: scene3d
     property real cameraZ: -7.0
 
-    Component.onDestruction: contextManager.enableContext("3D", false, scene3d)
+    Component.onDestruction: if(contextManager) contextManager.enableContext("3D", false, scene3d)
 
     function hasSettings()
     {

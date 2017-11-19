@@ -40,6 +40,7 @@ class FixtureGroupEditor : public QObject
 
 public:
     FixtureGroupEditor(QQuickView *view, Doc *doc, QObject *parent = 0);
+    ~FixtureGroupEditor();
 
     /** Returns the data model to display a list of FixtureGroups with icons */
     QVariant groupsListModel();

@@ -261,7 +261,7 @@ SidePanel
 
             IconButton
             {
-                property bool pickingActive: contextManager.positionPicking
+                property bool pickingActive: contextManager ? contextManager.positionPicking : false
 
                 onPickingActiveChanged: checked = pickingActive
 

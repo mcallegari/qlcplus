@@ -81,7 +81,6 @@ App::App()
 
     setAccessMask(defaultMask());
 
-    m_doc->setModified();
     connect(this, &App::screenChanged, this, &App::slotScreenChanged);
     connect(this, SIGNAL(closing(QQuickCloseEvent*)), this, SLOT(slotClosing()));
 }
@@ -117,19 +116,10 @@ void App::startup()
     rootContext()->setContextProperty("ioManager", m_ioManager);
 
     m_fixtureBrowser = new FixtureBrowser(this, m_doc);
-    rootContext()->setContextProperty("fixtureBrowser", m_fixtureBrowser);
-
     m_fixtureManager = new FixtureManager(this, m_doc);
-    rootContext()->setContextProperty("fixtureManager", m_fixtureManager);
-
     m_fixtureGroupEditor = new FixtureGroupEditor(this, m_doc);
-    rootContext()->setContextProperty("fixtureGroupEditor", m_fixtureGroupEditor);
-
     m_functionManager = new FunctionManager(this, m_doc);
-    rootContext()->setContextProperty("functionManager", m_functionManager);
-
     m_contextManager = new ContextManager(this, m_doc, m_fixtureManager, m_functionManager);
-    rootContext()->setContextProperty("contextManager", m_contextManager);
 
     m_virtualConsole = new VirtualConsole(this, m_doc, m_contextManager);
     rootContext()->setContextProperty("virtualConsole", m_virtualConsole);

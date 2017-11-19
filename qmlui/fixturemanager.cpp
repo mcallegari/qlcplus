@@ -17,6 +17,7 @@
   limitations under the License.
 */
 
+#include <QQmlContext>
 #include <QQuickItem>
 #include <QQmlEngine>
 #include <QVariant>
@@ -51,11 +52,17 @@ FixtureManager::FixtureManager(QQuickView *view, Doc *doc, QObject *parent)
 {
     Q_ASSERT(m_doc != NULL);
 
+    m_view->rootContext()->setContextProperty("fixtureManager", this);
     qmlRegisterUncreatableType<FixtureManager>("org.qlcplus.classes", 1, 0,  "FixtureManager", "Can't create a FixtureManager !");
     qmlRegisterUncreatableType<QLCCapability>("org.qlcplus.classes", 1, 0, "QLCCapability", "Can't create a QLCCapability !");
     qmlRegisterUncreatableType<ColorFilters>("org.qlcplus.classes", 1, 0, "ColorFilters", "Can't create a ColorFilters !");
 
     connect(m_doc, SIGNAL(loaded()), this, SLOT(slotDocLoaded()));
+}
+
+FixtureManager::~FixtureManager()
+{
+    m_view->rootContext()->setContextProperty("fixtureManager", NULL);
 }
 
 quint32 FixtureManager::invalidFixture() const
