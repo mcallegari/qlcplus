@@ -149,8 +149,8 @@ bool EnttecDMXUSBOpen::writeUniverse(quint32 universe, quint32 output, const QBy
     Q_UNUSED(universe)
     Q_UNUSED(output)
 
-    m_universe.replace(1, MIN(data.size(), m_universe.size()),
-                       data.constData(), MIN(data.size(), m_universe.size()));
+    m_universe.replace(1, MIN(data.size(), m_universe.size() - 1),
+                       data.constData(), MIN(data.size(), m_universe.size() - 1));
     return true;
 }
 
