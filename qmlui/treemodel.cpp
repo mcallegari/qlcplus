@@ -88,7 +88,7 @@ TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path
         QQmlEngine::setObjectOwnership(item, QQmlEngine::CppOwnership);
         item->setData(data);
         item->setFlags(flags);
-        int addIndex = getItemIndex(label);
+        int addIndex = getItemInsertIndex(label);
         beginInsertRows(QModelIndex(), addIndex, addIndex);
         m_items.insert(addIndex, item);
         endInsertRows();
@@ -113,7 +113,7 @@ TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path
                 qDebug() << "Tree" << this << "connected to tree" << item->children();
             }
 
-            int addIndex = getNodeIndex(label);
+            int addIndex = getNodeInsertIndex(label);
             beginInsertRows(QModelIndex(), addIndex, addIndex);
             m_items.insert(addIndex, item);
             endInsertRows();
@@ -142,6 +142,39 @@ TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path
     }
 
     return item;
+}
+
+void TreeModel::setItemRoleData(QString path, const QVariant &value, int role)
+{
+    if (path.isEmpty())
+        return;
+
+    //qDebug() << "Looking for item with path:" << path;
+
+    QStringList pathList = path.split("/");
+
+    if (pathList.count() == 2)
+    {
+        int index = 0;
+        for (int i = 0; i < m_items.count(); i++)
+        {
+            if (m_items.at(i)->hasChildren() == false)
+            {
+                if (m_items.at(i)->label() == pathList.at(1))
+                    break;
+            }
+            index++;
+        }
+
+        QModelIndex mIndex = createIndex(index, 0, &index);
+        setData(mIndex, value, role);
+    }
+    else
+    {
+        TreeModelItem *item = m_itemsPathMap[pathList.at(0)];
+        QString subPath = path.mid(path.indexOf("/") + 1);
+        item->children()->setItemRoleData(subPath, value, role);
+    }
 }
 
 void TreeModel::setPathData(QString path, QVariantList data)
@@ -216,6 +249,8 @@ bool TreeModel::setData(const QModelIndex &index, const QVariant &value, int rol
         return false;
 
     TreeModelItem *item = m_items.at(itemRow);
+
+    //qDebug() << "Settig role" << role << "on row" << itemRow << "with value" << value;
 
     switch(role)
     {
@@ -314,12 +349,11 @@ void TreeModel::printTree(int tab)
     }
 }
 
-int TreeModel::getItemIndex(QString label)
+int TreeModel::getItemInsertIndex(QString label)
 {
-    int index = rowCount();
     if (m_sorting == true)
     {
-        index = 0;
+        int index = 0;
         for (int i = 0; i < m_items.count(); i++)
         {
             if (m_items.at(i)->hasChildren() == false)
@@ -330,15 +364,14 @@ int TreeModel::getItemIndex(QString label)
             index++;
         }
     }
-    return index;
+    return rowCount();
 }
 
-int TreeModel::getNodeIndex(QString label)
+int TreeModel::getNodeInsertIndex(QString label)
 {
-    int index = rowCount();
     if (m_sorting == true)
     {
-        index = 0;
+        int index = 0;
         for (int i = 0; i < m_items.count(); i++)
         {
             if (m_items.at(i)->hasChildren() == true)
@@ -349,7 +382,7 @@ int TreeModel::getNodeIndex(QString label)
             }
         }
     }
-    return index;
+    return rowCount();
 }
 
 QHash<int, QByteArray> TreeModel::roleNames() const

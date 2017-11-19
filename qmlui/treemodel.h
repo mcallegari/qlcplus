@@ -80,6 +80,8 @@ public:
      *  $flags are used to give an item a specific initial state. See TreeFlags */
     TreeModelItem *addItem(QString label, QVariantList data, QString path = QString(), int flags = 0);
 
+    void setItemRoleData(QString path, const QVariant &value, int role = Qt::EditRole);
+
     /** Set columns data on a specific item with the provided $path */
     void setPathData(QString path, QVariantList data);
 
@@ -105,8 +107,8 @@ protected slots:
 
 protected:
     QHash<int, QByteArray> roleNames() const;
-    int getItemIndex(QString label);
-    int getNodeIndex(QString label);
+    int getItemInsertIndex(QString label);
+    int getNodeInsertIndex(QString label);
 
 protected:
     QStringList m_roles;
