@@ -40,6 +40,11 @@ Rectangle
         videoEditor.customGeometry = Qt.rect(geomXSpin.value, geomYSpin.value, geomWSpin.value, geomHSpin.value)
     }
 
+    function updateRotation()
+    {
+        videoEditor.rotation = Qt.vector3d(rotXSpin.value, rotYSpin.value, rotZSpin.value)
+    }
+
     EditorTopBar
     {
         id: topBar
@@ -328,13 +333,14 @@ Rectangle
         {
             visible: custGeomCheck.checked
             height: UISettings.listItemHeight
-            width: Layout.fillWidth
+            Layout.fillWidth: true
+            spacing: 5
 
             RobotoText { label: "X" }
             CustomSpinBox
             {
                 id: geomXSpin
-                width: Layout.fillWidth
+                Layout.fillWidth: true
                 from: 0
                 to: 99999
                 value: videoEditor.customGeometry.x
@@ -344,7 +350,7 @@ Rectangle
             CustomSpinBox
             {
                 id: geomYSpin
-                width: Layout.fillWidth
+                Layout.fillWidth: true
                 from: 0
                 to: 99999
                 value: videoEditor.customGeometry.y
@@ -363,13 +369,14 @@ Rectangle
         {
             visible: custGeomCheck.checked
             height: UISettings.listItemHeight
-            width: Layout.fillWidth
+            Layout.fillWidth: true
+            spacing: 5
 
             RobotoText { label: qsTr("W") }
             CustomSpinBox
             {
                 id: geomWSpin
-                width: Layout.fillWidth
+                Layout.fillWidth: true
                 from: 0
                 to: 99999
                 value: videoEditor.customGeometry.width
@@ -379,11 +386,58 @@ Rectangle
             CustomSpinBox
             {
                 id: geomHSpin
-                width: Layout.fillWidth
+                Layout.fillWidth: true
                 from: 0
                 to: 99999
                 value: videoEditor.customGeometry.height
                 onValueChanged: updateCustomGeometry()
+            }
+        }
+
+        // row 12
+        RobotoText
+        {
+            height: UISettings.listItemHeight
+            label: qsTr("Rotation");
+        }
+        RowLayout
+        {
+            height: UISettings.listItemHeight
+            spacing: 5
+            Layout.fillWidth: true
+
+            RobotoText { label: qsTr("X") }
+            CustomSpinBox
+            {
+                id: rotXSpin
+                Layout.fillWidth: true
+                from: -360
+                to: 360
+                suffix: "°"
+                value: videoEditor.rotation.x
+                onValueChanged: updateRotation()
+            }
+            RobotoText { label: qsTr("Y") }
+            CustomSpinBox
+            {
+                id: rotYSpin
+                Layout.fillWidth: true
+                from: -360
+                to: 360
+                suffix: "°"
+                value: videoEditor.rotation.y
+                onValueChanged: updateRotation()
+            }
+            RobotoText { label: qsTr("Z") }
+            CustomSpinBox
+            {
+                id: rotZSpin
+                Layout.fillWidth: true
+                from: -360
+                to: 360
+                suffix: "°"
+                value: videoEditor.rotation.z
+                onValueChanged: updateRotation()
             }
         }
     }

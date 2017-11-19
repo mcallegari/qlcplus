@@ -83,7 +83,29 @@ Rectangle
                 console.log("QML video source: " + player.source)
             }
 
-            //transform: Rotation { origin.x: width / 2; origin.y: height / 2; axis { x: 0; y: 1; z: 0 } angle: -45 }
+            transform: [
+                Rotation
+                {
+                    origin.x: width / 2
+                    origin.y: video.rotation.x > 0 ? height : 0
+                    axis { x: 1; y: 0; z: 0 }
+                    angle: video.rotation.x
+                },
+                Rotation
+                {
+                    origin.x: video.rotation.y > 0 ? 0 : width
+                    origin.y: height / 2
+                    axis { x: 0; y: 1; z: 0 }
+                    angle: video.rotation.y
+                },
+                Rotation
+                {
+                    origin.x: width / 2
+                    origin.y: height / 2
+                    axis { x: 0; y: 0; z: 1 }
+                    angle: video.rotation.z
+                }
+            ]
 
             MediaPlayer
             {
@@ -136,6 +158,30 @@ Rectangle
                 source = picture.sourceUrl.indexOf("://") !== -1 ? picture.sourceUrl : "file://" + picture.sourceUrl
                 console.log("QML picture source: " + source)
             }
+
+            transform: [
+                Rotation
+                {
+                    origin.x: width / 2
+                    origin.y: picture.rotation.x > 0 ? height : 0
+                    axis { x: 1; y: 0; z: 0 }
+                    angle: picture.rotation.x
+                },
+                Rotation
+                {
+                    origin.x: picture.rotation.y > 0 ? 0 : width
+                    origin.y: height / 2
+                    axis { x: 0; y: 1; z: 0 }
+                    angle: picture.rotation.y
+                },
+                Rotation
+                {
+                    origin.x: width / 2
+                    origin.y: height / 2
+                    axis { x: 0; y: 0; z: 1 }
+                    angle: picture.rotation.z
+                }
+            ]
         }
     }
 }

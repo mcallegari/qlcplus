@@ -224,3 +224,20 @@ void VideoEditor::setCustomGeometry(QRect customGeometry)
     m_video->setCustomGeometry(customGeometry);
     emit customGeometryChanged(customGeometry);
 }
+
+QVector3D VideoEditor::rotation() const
+{
+    if (m_video != NULL)
+        return m_video->rotation();
+
+    return QVector3D();
+}
+
+void VideoEditor::setRotation(QVector3D rotation)
+{
+    if (m_video == NULL || m_video->rotation() == rotation)
+        return;
+
+    m_video->setRotation(rotation);
+    emit rotationChanged(rotation);
+}

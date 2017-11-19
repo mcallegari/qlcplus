@@ -40,6 +40,7 @@ class VideoEditor : public FunctionEditor
     Q_PROPERTY(bool looped READ isLooped WRITE setLooped NOTIFY loopedChanged)
     Q_PROPERTY(bool hasCustomGeometry READ hasCustomGeometry CONSTANT)
     Q_PROPERTY(QRect customGeometry READ customGeometry WRITE setCustomGeometry NOTIFY customGeometryChanged)
+    Q_PROPERTY(QVector3D rotation READ rotation WRITE setRotation NOTIFY rotationChanged)
 
 public:
     VideoEditor(QQuickView *view, Doc *doc, QObject *parent = 0);
@@ -81,6 +82,10 @@ public:
     QRect customGeometry() const;
     void setCustomGeometry(QRect customGeometry);
 
+    /** Get/Set a rotation transformation */
+    QVector3D rotation() const;
+    void setRotation(QVector3D rotation);
+
 protected slots:
     void slotDurationChanged(qint64 duration);
     void slotMetaDataChanged(QString key, QVariant data);
@@ -91,8 +96,8 @@ signals:
     void screenIndexChanged(int screenIndex);
     void fullscreenChanged(bool fullscreen);
     void loopedChanged();
-
     void customGeometryChanged(QRect customGeometry);
+    void rotationChanged(QVector3D rotation);
 
 private:
     /** Reference of the Video currently being edited */

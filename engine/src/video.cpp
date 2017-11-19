@@ -29,6 +29,8 @@
 #define KXMLQLCVideoSource "Source"
 #define KXMLQLCVideoScreen "Screen"
 #define KXMLQLCVideoFullscreen "Fullscreen"
+#define KXMLQLCVideoGeometry "Geometry"
+#define KXMLQLCVideoRotation "Rotation"
 
 const QStringList Video::m_defaultVideoCaps = QStringList() << "*.avi" << "*.wmv" << "*.mkv" << "*.mp4" << "*.mpg" << "*.mpeg" << "*.flv";
 const QStringList Video::m_defaultPictureCaps = QStringList() << "*.png" << "*.bmp" << "*.jpg" << "*.jpeg" << "*.gif";
@@ -45,6 +47,7 @@ Video::Video(Doc* doc)
   , m_videoDuration(0)
   , m_resolution(QSize(0,0))
   , m_customGeometry(QRect())
+  , m_rotation(QVector3D(0, 0, 0))
   , m_screen(0)
   , m_fullscreen(false)
 {
@@ -172,6 +175,20 @@ void Video::setCustomGeometry(QRect rect)
 
     m_customGeometry = rect;
     emit customGeometryChanged(rect);
+}
+
+QVector3D Video::rotation() const
+{
+    return m_rotation;
+}
+
+void Video::setRotation(QVector3D rotation)
+{
+    if (m_rotation == rotation)
+        return;
+
+    m_rotation = rotation;
+    emit rotationChanged(m_rotation);
 }
 
 void Video::setAudioCodec(QString codec)
@@ -302,7 +319,20 @@ bool Video::saveXML(QXmlStreamWriter *doc)
         doc->writeAttribute(KXMLQLCVideoScreen, QString::number(m_screen));
     if (m_fullscreen == true)
         doc->writeAttribute(KXMLQLCVideoFullscreen, "1");
-
+#ifdef QMLUI
+    if (m_customGeometry.isNull() == false)
+    {
+        QString rect = QString("%1,%2,%3,%4")
+                .arg(m_customGeometry.x()).arg(m_customGeometry.y())
+                .arg(m_customGeometry.width()).arg(m_customGeometry.height());
+        doc->writeAttribute(KXMLQLCVideoGeometry, rect);
+    }
+    if (m_rotation.isNull() == false)
+    {
+        QString rot = QString("%1,%2,%3").arg(m_rotation.x()).arg(m_rotation.y()).arg(m_rotation.z());
+        doc->writeAttribute(KXMLQLCVideoRotation, rot);
+    }
+#endif
     if (m_sourceUrl.contains("://"))
         doc->writeCharacters(m_sourceUrl);
     else
@@ -340,6 +370,7 @@ bool Video::loadXML(QXmlStreamReader &root)
             QXmlStreamAttributes attrs = root.attributes();
             if (attrs.hasAttribute(KXMLQLCVideoScreen))
                 setScreen(attrs.value(KXMLQLCVideoScreen).toString().toInt());
+
             if (attrs.hasAttribute(KXMLQLCVideoFullscreen))
             {
                 if (attrs.value(KXMLQLCVideoFullscreen).toString() == "1")
@@ -347,6 +378,35 @@ bool Video::loadXML(QXmlStreamReader &root)
                 else
                     setFullscreen(false);
             }
+#ifdef QMLUI
+            if (attrs.hasAttribute(KXMLQLCVideoGeometry))
+            {
+                QStringList slist = attrs.value(KXMLQLCVideoGeometry).toString().split(",");
+                if (slist.count() == 4)
+                {
+                    QRect r;
+                    r.setX(slist.at(0).toInt());
+                    r.setY(slist.at(1).toInt());
+                    r.setWidth(slist.at(2).toInt());
+                    r.setHeight(slist.at(3).toInt());
+
+                    setCustomGeometry(r);
+                }
+            }
+            if (attrs.hasAttribute(KXMLQLCVideoRotation))
+            {
+                QStringList slist = attrs.value(KXMLQLCVideoRotation).toString().split(",");
+                if (slist.count() == 3)
+                {
+                    QVector3D v;
+                    v.setX(slist.at(0).toInt());
+                    v.setY(slist.at(1).toInt());
+                    v.setZ(slist.at(2).toInt());
+                    setRotation(v);
+                }
+            }
+#endif
+
             QString path = root.readElementText();
             if (path.contains("://") == true)
                 setSourceUrl(path);
