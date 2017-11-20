@@ -89,7 +89,11 @@ void Launcher::launchQLC(const QStringList& arguments)
     QString path(QApplication::applicationDirPath());
     if (path.endsWith(QString("/")) == false)
         path += QString("/");
+#ifndef QMLUI
     path += QString("qlcplus");
+#else
+    path += QString("qlcplus-qml");
+#endif /* QMLUI */
     QProcess::startDetached(path, arguments);
     QApplication::exit();
 }
