@@ -60,28 +60,6 @@ public:
     FixtureManager(QQuickView *view, Doc *doc, QObject *parent = 0);
     ~FixtureManager();
 
-    /** Returns a constant value for an invalid Fixture ID */
-    Q_INVOKABLE quint32 invalidFixture() const;
-
-    /** Returns the Fixture ID at the provided $universeAddress */
-    Q_INVOKABLE quint32 fixtureForAddress(quint32 universeAddress);
-
-
-    Q_INVOKABLE bool addFixture(QString manuf, QString model, QString mode, QString name,
-                                int uniIdx, int address, int channels, int quantity, quint32 gap,
-                                qreal xPos, qreal yPos);
-
-    bool addRGBPanel(QString name, qreal xPos, qreal yPos);
-
-    Q_INVOKABLE bool moveFixture(quint32 fixtureID, quint32 newAddress);
-
-    /** Delete some existing Fixtures with IDs provided by $IDList */
-    Q_INVOKABLE bool deleteFixtures(QVariantList IDList);
-
-    /** Generic helper to retrieve a channel icon resource as string, from
-     *  the provided Fixture ID $fxID and channel index $chIdx */
-    Q_INVOKABLE QString channelIcon(quint32 fxID, quint32 chIdx);
-
     /** Get/Set the Universe index used to filter Fixture lists/tree */
     quint32 universeFilter() const;
     void setUniverseFilter(quint32 universeFilter);
@@ -94,33 +72,6 @@ public:
      *  the Fixtures of the Universe with the specified $id */
     Q_INVOKABLE QVariantList universeInfo(quint32 id);
 
-    /** Returns the number of fixtures currently loaded in the project */
-    int fixturesCount();
-
-    /** Returns a QML-readable list of references to Fixture classes */
-    QQmlListProperty<Fixture> fixtures();
-
-    /** Update the tree of groups/fixtures/channels */
-    static void updateFixtureTree(Doc *doc, TreeModel *treeModel,
-                                  QString searchFilter = QString(),
-                                  QList<SceneValue> checkedChannels = QList<SceneValue>());
-
-    /** Returns the data model to display a tree of FixtureGroups/Fixtures */
-    QVariant groupsTreeModel();
-
-    /** Add a list of fixture IDs to a new fixture group */
-    void addFixturesToNewGroup(QList<quint32>fxList);
-
-    /** Delete some existing Fixture Groups with IDs provided by $IDList */
-    Q_INVOKABLE bool deleteFixtureGroups(QVariantList IDList);
-
-    /** Return the type as string of the Fixture with ID $fixtureID */
-    Q_INVOKABLE QString fixtureIcon(quint32 fixtureID);
-
-public slots:
-    /** Slot called whenever a new workspace has been loaded */
-    void slotDocLoaded();
-
 signals:
     /** Notify the listeners that the universe filter has changed */
     void universeFilterChanged(quint32 universeFilter);
@@ -128,11 +79,76 @@ signals:
     /** Notify the listeners that the search filter has changed */
     void searchFilterChanged();
 
+public slots:
+    /** Slot called whenever a new workspace has been loaded */
+    void slotDocLoaded();
+
+private:
+    /** Reference to the QML view root */
+    QQuickView *m_view;
+    /** Reference to the project workspace */
+    Doc *m_doc;
+    /** A filter for m_fixturesMap to restrict data to a specific universe */
+    quint32 m_universeFilter;
+    /** A string to filter the displayed tree items */
+    QString m_searchFilter;
+
+    QVariantList m_universeInfo;
+
+    /*********************************************************************
+     * Fixtures
+     *********************************************************************/
+public:
+    enum
+    {
+        GroupMatch = (1 << 0),
+        FixtureMatch = (1 << 1),
+        ChannelMatch = (1 << 2)
+    };
+
+    /** Returns a constant value for an invalid Fixture ID */
+    Q_INVOKABLE quint32 invalidFixture() const;
+
+    /** Returns the Fixture ID at the provided $universeAddress */
+    Q_INVOKABLE quint32 fixtureForAddress(quint32 universeAddress);
+
+    Q_INVOKABLE bool addFixture(QString manuf, QString model, QString mode, QString name,
+                                int uniIdx, int address, int channels, int quantity, quint32 gap,
+                                qreal xPos, qreal yPos);
+
+    Q_INVOKABLE bool moveFixture(quint32 fixtureID, quint32 newAddress);
+
+    /** Delete some existing Fixtures with IDs provided by $IDList */
+    Q_INVOKABLE bool deleteFixtures(QVariantList IDList);
+
+    /** Returns the number of fixtures currently loaded in the project */
+    int fixturesCount();
+
+    /** Returns a QML-readable list of references to Fixture classes */
+    QQmlListProperty<Fixture> fixtures();
+
+    /** Returns the data model to display a tree of Fixture Groups/Fixtures */
+    QVariant groupsTreeModel();
+
+    static void addFixtureGroupTreeNode(Doc *doc, TreeModel *treeModel, FixtureGroup *group,
+                                        QString searchFilter = QString(),
+                                        QList<SceneValue> checkedChannels = QList<SceneValue>());
+
+    /** Update the tree of groups/fixtures/channels */
+    static void updateGroupsTree(Doc *doc, TreeModel *treeModel,
+                                  QString searchFilter = QString(),
+                                  QList<SceneValue> checkedChannels = QList<SceneValue>());
+
+    /** Return the type as string of the Fixture with ID $fixtureID */
+    Q_INVOKABLE QString fixtureIcon(quint32 fixtureID);
+
+    /** Generic helper to retrieve a channel icon resource as string, from
+     *  the provided Fixture ID $fxID and channel index $chIdx */
+    Q_INVOKABLE QString channelIcon(quint32 fxID, quint32 chIdx);
+
+signals:
     /** Notify the listeners that the number of Fixtures has changed */
     void fixturesCountChanged();
-
-    /** Notify the listeners that the fixture tree model has changed */
-    void groupsTreeModelChanged();
 
     /** Notify the listeners that a fixture has been created at position x,y,z */
     void newFixtureCreated(quint32 fxID, qreal x, qreal y, qreal z);
@@ -145,20 +161,28 @@ private:
     static bool compareFixtures(Fixture *left, Fixture *right);
 
 private:
-    /** Reference to the QML view root */
-    QQuickView *m_view;
-    /** Reference to the project workspace */
-    Doc *m_doc;
     /** List of the current Fixture references in Doc */
     QList<Fixture *> m_fixtureList;
     /** Data model used by the QML UI to represent groups/fixtures/channels */
     TreeModel *m_fixtureTree;
-    /** A filter for m_fixturesMap to restrict data to a specific universe */
-    quint32 m_universeFilter;
-    /** A string to filter the displayed tree items */
-    QString m_searchFilter;
 
-    QVariantList m_universeInfo;
+    /*********************************************************************
+     * Fixture groups
+     *********************************************************************/
+public:
+    /** Add a list of fixture IDs to a new fixture group */
+    void addFixturesToNewGroup(QList<quint32>fxList);
+
+    /** Delete some existing Fixture Groups with IDs provided by $IDList */
+    Q_INVOKABLE bool deleteFixtureGroups(QVariantList IDList);
+
+signals:
+    /** Notify the listeners that the fixture tree model has changed */
+    void groupsTreeModelChanged();
+
+public slots:
+    /** Slot called whenever a new fixture groups has been created */
+    void slotFixtureGroupAdded(quint32 id);
 
     /*********************************************************************
      * RGB Panel creation
@@ -186,6 +210,8 @@ public:
         Vertical
     };
     Q_ENUM(Direction)
+
+    bool addRGBPanel(QString name, qreal xPos, qreal yPos);
 
     /*********************************************************************
      * Universe Grid Editing

@@ -476,7 +476,7 @@ QVariant VCSlider::groupsTreeModel()
         m_fixtureTree->enableSorting(false);
         m_fixtureTree->setCheckable(true);
 
-        FixtureManager::updateFixtureTree(m_doc, m_fixtureTree, m_searchFilter, m_levelChannels);
+        FixtureManager::updateGroupsTree(m_doc, m_fixtureTree, m_searchFilter, m_levelChannels);
 
         connect(m_fixtureTree, SIGNAL(roleChanged(TreeModelItem*,int,const QVariant&)),
                 this, SLOT(slotTreeDataChanged(TreeModelItem*,int,const QVariant&)));
@@ -502,7 +502,7 @@ void VCSlider::setSearchFilter(QString searchFilter)
     if (searchFilter.length() >= SEARCH_MIN_CHARS ||
         (currLen >= SEARCH_MIN_CHARS && searchFilter.length() < SEARCH_MIN_CHARS))
     {
-        FixtureManager::updateFixtureTree(m_doc, m_fixtureTree, m_searchFilter, m_levelChannels);
+        FixtureManager::updateGroupsTree(m_doc, m_fixtureTree, m_searchFilter, m_levelChannels);
         emit groupsTreeModelChanged();
     }
 
