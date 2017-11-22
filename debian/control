@@ -2,25 +2,42 @@ Source: qlcplus
 Section: misc
 Priority: optional
 Maintainer: Massimo Callegari <massimocallegari@yahoo.it>
-Build-Depends: debhelper (>= 7.0.50), libqt4-dev (>= 4.6.0), libasound2-dev (>= 1.0.16),
-               libusb-dev (>= 2:0.1.12), libftdi-dev (>= 0.17), shared-mime-info (>= 0.71),
-               make, g++, libstdc++-dev, libudev-dev, libmad0-dev, libsndfile1-dev, libfftw3-dev,
-               pkg-config
+Build-Depends:
+ debhelper (>= 7.0.50),
+ g++,
+ libasound2-dev (>= 1.0.16),
+ libfftw3-dev,
+ libftdi-dev (>= 0.17),
+ libmad0-dev,
+ libqt4-dev (>= 4.6.0),
+ libsndfile1-dev,
+ libstdc++-dev,
+ libudev-dev,
+ libusb-dev (>= 2:0.1.12),
+ make,
+ pkg-config,
+ shared-mime-info (>= 0.71),
 Standards-Version: 3.7.3
 Homepage: http://www.qlcplus.org/
 
 Package: qlcplus
 Section: misc
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
-Recommends: libmad0, libsndfile1
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+Recommends:
+ libmad0,
+ libsndfile1,
 Description: Q Light Controller Plus - The open DMX lighting desk
-  Software lighting desk for controlling professional lighting fixtures.
+ Software lighting desk for controlling professional lighting fixtures.
 
 Package: qlcplus-dbg
 Architecture: any
 Section: debug
 Priority: extra
-Depends: qlcplus (= ${binary:Version}), ${misc:Depends}
+Depends:
+ qlcplus (= ${binary:Version}),
+ ${misc:Depends},
 Description: Debugging symbols for Q Light Controller Plus
-  Q Light Controller Plus debugging symbols.
+ Q Light Controller Plus debugging symbols.
