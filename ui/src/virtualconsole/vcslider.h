@@ -459,6 +459,7 @@ public:
 
 signals:
     void requestSliderUpdate(int value);
+    void valueChanged(QString val);
 
 private slots:
     void slotSliderMoved(int value);
@@ -559,15 +560,15 @@ protected slots:
     /** Called when an external input device produces input data */
     void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
 
+protected:
+    uchar m_lastInputValue;
+
     /*********************************************************************
      * Intensity
      *********************************************************************/
 public:
     /** @reimp */
     void adjustIntensity(qreal val);
-
-signals:
-    void valueChanged(QString val);
 
     /*********************************************************************
      * Load & Save
