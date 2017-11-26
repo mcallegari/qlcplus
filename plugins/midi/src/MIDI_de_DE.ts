@@ -145,7 +145,7 @@
     <message>
         <location filename="../../engine/src/qlcfile.cpp" line="210"/>
         <source>A timeout occurred.</source>
-        <translation>Es ist eine Zeitüberschreitung aufgetreten. </translation>
+        <translation>Es ist eine Zeitüberschreitung aufgetreten.</translation>
     </message>
     <message>
         <location filename="../../engine/src/qlcfile.cpp" line="212"/>

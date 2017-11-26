@@ -118,7 +118,7 @@ Bitte vor Bestätigung korrigieren.</translation>
     <message>
         <location filename="e131plugin.cpp" line="142"/>
         <source>Packets sent: </source>
-        <translation>Gesendete Pakete:</translation>
+        <translation>Gesendete Pakete: </translation>
     </message>
     <message>
         <location filename="e131plugin.cpp" line="273"/>
@@ -128,7 +128,7 @@ Bitte vor Bestätigung korrigieren.</translation>
     <message>
         <location filename="e131plugin.cpp" line="282"/>
         <source>Packets received: </source>
-        <translation>Empfangene Pakete:</translation>
+        <translation>Empfangene Pakete: </translation>
     </message>
 </context>
 </TS>

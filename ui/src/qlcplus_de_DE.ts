@@ -679,7 +679,7 @@ Willst du die wirklich stoppen und in den Entwicklungsmodus wechseln?</translati
     <message>
         <location filename="app.cpp" line="731"/>
         <source>Quit QLC+</source>
-        <translation>QLC+ beenden </translation>
+        <translation>QLC+ beenden</translation>
     </message>
     <message>
         <location filename="app.cpp" line="1207"/>
@@ -2425,7 +2425,7 @@ Changes will be lost if you don&apos;t save them.</source>
         <location filename="fixtureremap.cpp" line="130"/>
         <location filename="fixtureremap.cpp" line="132"/>
         <source> (remapped)</source>
-        <translation>-(neu zugewiesen)</translation>
+        <translation> (neu zugewiesen)</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="161"/>
@@ -4787,6 +4787,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
 </source>
         <translation>Syntaxfehler bei Zeile %1:
 %2
+
 </translation>
     </message>
     <message>
@@ -6146,12 +6147,12 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="370"/>
         <source> Add start color knobs</source>
-        <translation>Schalter für Anfangsfarbe hinzufügen</translation>
+        <translation> Schalter für Anfangsfarbe hinzufügen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="281"/>
         <source> Add end color knobs</source>
-        <translation>Schalter für Endfarbe hinzufügen</translation>
+        <translation> Schalter für Endfarbe hinzufügen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="348"/>

@@ -49,7 +49,7 @@
     <message>
         <location filename="artnetplugin.cpp" line="153"/>
         <source>Packets sent: </source>
-        <translation>Gesendete Pakete:</translation>
+        <translation>Gesendete Pakete: </translation>
     </message>
     <message>
         <location filename="artnetplugin.cpp" line="283"/>
@@ -74,7 +74,7 @@
     <message>
         <location filename="artnetplugin.cpp" line="298"/>
         <source>Packets received: </source>
-        <translation>Empfangene Pakete:</translation>
+        <translation>Empfangene Pakete: </translation>
     </message>
 </context>
 <context>
