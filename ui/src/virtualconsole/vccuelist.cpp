@@ -653,6 +653,12 @@ void VCCueList::slotPlayback()
                 m_playbackButton->setStyleSheet("QToolButton{ background: #5B81FF; }");
                 m_playbackButton->setIcon(QIcon(":/player_play.png"));
             }
+
+            // check if the item selection has been changed during pause
+            int currentTreeIndex = m_tree->indexOfTopLevelItem(m_tree->currentItem());
+            if (currentTreeIndex != ch->currentStepIndex())
+                playCueAtIndex(currentTreeIndex);
+
             ch->setPause(!ch->isPaused());
         }
         else if (playbackLayout() == PlayStopPause)
@@ -723,7 +729,10 @@ void VCCueList::slotNextCue()
 
     if (ch->isRunning())
     {
-        ch->next();
+        if (ch->isPaused())
+            m_tree->setCurrentItem(m_tree->topLevelItem(getNextIndex()));
+        else
+            ch->next();
     }
     else
     {
@@ -757,7 +766,10 @@ void VCCueList::slotPreviousCue()
 
     if (ch->isRunning())
     {
-        ch->previous();
+        if (ch->isPaused())
+            m_tree->setCurrentItem(m_tree->topLevelItem(getPrevIndex()));
+        else
+            ch->previous();
     }
     else
     {

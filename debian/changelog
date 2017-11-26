@@ -4,6 +4,7 @@ qlcplus (4.11.2) stable; urgency=low
   * UI/Function Manager: allow to import multiple of audio/video files at once
   * Virtual Console/Slider: fix submaster initial value not applied
   * Virtual Console/Slider: implemented 'value catching' for controllers without feedbacks (Lukas Jähn proposal)
+  * Virtual Console/Cue List: allow to select a step with next/previous buttons during pause
   * plugins/udmx: added 'channels' configuration parameter (see documentation)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 25 Mar 2018 12:13:14 +0200
