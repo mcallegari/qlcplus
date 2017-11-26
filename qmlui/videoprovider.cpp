@@ -192,6 +192,8 @@ void VideoContent::playVideo()
                                   Q_ARG(QVariant, QVariant::fromValue(m_video)));
     }
 
+    m_viewContext->setFlags(m_viewContext->flags() | Qt::WindowStaysOnTopHint);
+
     if (m_video->fullscreen())
     {
         m_provider->setFullscreenContext(m_viewContext);
