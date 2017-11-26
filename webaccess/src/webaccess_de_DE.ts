@@ -230,17 +230,17 @@
     <message>
         <location filename="webaccessnetwork.cpp" line="101"/>
         <source>Network interface: </source>
-        <translation>Netzwerk Schnittstelle:</translation>
+        <translation>Netzwerk Schnittstelle: </translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="106"/>
         <source>Access point name (SSID): </source>
-        <translation>Name des AccessPoints (SSID):</translation>
+        <translation>Name des AccessPoints (SSID): </translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="108"/>
         <source>WPA-PSK Password: </source>
-        <translation>WPA-PSK Passwort:</translation>
+        <translation>WPA-PSK Passwort: </translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="113"/>
@@ -255,17 +255,17 @@
     <message>
         <location filename="webaccessnetwork.cpp" line="119"/>
         <source>IP Address: </source>
-        <translation>IP Addresse:</translation>
+        <translation>IP Addresse: </translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="121"/>
         <source>Netmask: </source>
-        <translation>Netzmaske:</translation>
+        <translation>Netzmaske: </translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="123"/>
         <source>Gateway: </source>
-        <translation>Gateway:</translation>
+        <translation>Gateway: </translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="126"/>

@@ -69,7 +69,7 @@
     <message>
         <location filename="app.cpp" line="148"/>
         <source>Unable to load fixture definition: </source>
-        <translation>Gerätedefinition konnte nicht geladen werden:</translation>
+        <translation>Gerätedefinition konnte nicht geladen werden: </translation>
     </message>
     <message>
         <location filename="app.cpp" line="242"/>

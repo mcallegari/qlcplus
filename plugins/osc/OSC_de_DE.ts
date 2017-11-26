@@ -84,12 +84,12 @@ Bitte vor Bestätigung korrigieren.</translation>
     <message>
         <location filename="oscplugin.cpp" line="141"/>
         <source>Packets sent: </source>
-        <translation>Pakete gesendet:</translation>
+        <translation>Pakete gesendet: </translation>
     </message>
     <message>
         <location filename="oscplugin.cpp" line="275"/>
         <source>Packets received: </source>
-        <translation>Pakete empfangen:</translation>
+        <translation>Pakete empfangen: </translation>
     </message>
     <message>
         <location filename="oscplugin.cpp" line="132"/>
