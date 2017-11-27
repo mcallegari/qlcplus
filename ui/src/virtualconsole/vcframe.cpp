@@ -741,9 +741,17 @@ void VCFrame::updateFeedback()
     if (!src.isNull() && src->isValid() == true)
     {
         if (m_disableState == false)
+        {
             sendFeedback(src->upperValue(), enableInputSourceId);
+        }
         else
+        {
+            // temporarily revert the disabled state otherwise this
+            // feedback will never go through (cause of acceptsInput)
+            m_disableState = false;
             sendFeedback(src->lowerValue(), enableInputSourceId);
+            m_disableState = true;
+        }
     }
 
     foreach (VCFramePageShortcut* shortcut, m_pageShortcuts)

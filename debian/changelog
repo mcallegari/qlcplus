@@ -5,6 +5,7 @@ qlcplus (4.11.2) stable; urgency=low
   * Virtual Console/Slider: fix submaster initial value not applied
   * Virtual Console/Slider: implemented 'value catching' for controllers without feedbacks (Lukas Jähn proposal)
   * Virtual Console/Cue List: allow to select a step with next/previous buttons during pause
+  * Virtual Console/Frame: fix regression preventing to send the disable feedback
   * plugins/udmx: added 'channels' configuration parameter (see documentation)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 25 Mar 2018 12:13:14 +0200
