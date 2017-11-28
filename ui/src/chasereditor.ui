@@ -574,7 +574,7 @@
      </property>
     </widget>
    </item>
-   <item row="8" column="2" rowspan="5">
+   <item row="9" column="2" rowspan="5">
     <spacer>
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -770,6 +770,13 @@
     </widget>
    </item>
    <item row="7" column="2">
+    <widget class="Line" name="line">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="2">
     <widget class="QToolButton" name="m_shuffle">
      <property name="toolTip">
       <string>Shuffle steps</string>

@@ -514,24 +514,17 @@ void ChaserEditor::slotLowerClicked()
 
 void ChaserEditor::slotShuffleClicked()
 {
-    // shuffle all scenes instead of the selection if no or only one scene is selected
-    if (m_tree->selectedItems().size() <= 1)
-    {
-        m_tree->selectAll();
-    }
-
     QList <QTreeWidgetItem*> selectedItems(m_tree->selectedItems());
-    QListIterator <QTreeWidgetItem*> it(selectedItems);
 
     int selectedCount = selectedItems.size();
     int indicesToShuffle[selectedCount];
     
     // save the selected scenes and their indices into a sorted array
+    QListIterator <QTreeWidgetItem*> it(selectedItems);
     for (int i = 0; i < selectedCount; i++)
     {
         QTreeWidgetItem* item = it.next();
-        int index = m_tree->indexOfTopLevelItem(item);
-        indicesToShuffle[i] = index;
+        indicesToShuffle[i] = m_tree->indexOfTopLevelItem(item);
     }
     std::sort(indicesToShuffle, indicesToShuffle + selectedCount);
 
@@ -559,6 +552,7 @@ void ChaserEditor::slotShuffleClicked()
     updateStepNumbers();
     updateClipboardButtons();
 
+    // the selection is destroyed / weird after reordering scenes, so we restore it manually
     m_tree->clearSelection();
     for (int i = 0; i < selectedCount; i++)
     {
