@@ -532,8 +532,6 @@ void ChaserEditor::slotShuffleClicked()
         QTreeWidgetItem* item = it.next();
         int index = m_tree->indexOfTopLevelItem(item);
         indicesToShuffle[i] = index;
-
-        qWarning() << "selected " << index << " " << item;
     }
     std::sort(indicesToShuffle, indicesToShuffle + selectedCount);
 
@@ -549,7 +547,6 @@ void ChaserEditor::slotShuffleClicked()
         int lastUnshuffledIndex = indicesToShuffle[unshuffledCount];
 
         if (indexToShuffle != lastUnshuffledIndex) {
-            qWarning() << "swap " << indexToShuffle << " with " << lastUnshuffledIndex;
             QTreeWidgetItem* lastUnshuffledItem = m_tree->takeTopLevelItem(lastUnshuffledIndex);
             QTreeWidgetItem* itemToShuffle = m_tree->takeTopLevelItem(indexToShuffle);
             m_tree->insertTopLevelItem(indexToShuffle, lastUnshuffledItem);
@@ -557,26 +554,6 @@ void ChaserEditor::slotShuffleClicked()
             m_chaser->moveStep(indexToShuffle, lastUnshuffledIndex);
             m_chaser->moveStep(lastUnshuffledIndex - 1, indexToShuffle);
         }
-
-        // indicesToShuffle = [0, 1, 2, 3, 4]
-        // unshuffledCount = 5
-        // toShuffle = 2
-        // unshuffledCount = 4
-        // indexToShuffle = 2
-        // lastUnshuffledIndex = 4
-
-        // A B C D E
-        // lastUnshuffledItem = E
-        // A B C D
-        // itemToShuffle = C
-        // A B D
-        // insert E at 2
-        // A B E D
-        // insert C at 4
-        // A B E D C
-
-        // A B D E C
-        // A B E D C
     }
 
     updateStepNumbers();
