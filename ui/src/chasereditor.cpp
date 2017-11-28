@@ -517,6 +517,13 @@ void ChaserEditor::slotShuffleClicked()
     QList <QTreeWidgetItem*> selectedItems(m_tree->selectedItems());
 
     int selectedCount = selectedItems.size();
+
+    // it doesn't make sense shuffling zero or one scenes
+    if (selectedCount <= 1)
+    {
+        return;
+    }
+
     int indicesToShuffle[selectedCount];
     
     // save the selected scenes and their indices into a sorted array
