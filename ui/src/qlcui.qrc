@@ -99,6 +99,7 @@
         <file alias="qlcplus.png">../../resources/icons/png/qlcplus.png</file>
         <file alias="qt.png">../../resources/icons/png/qt.png</file>
         <file alias="rainbow.png">../../resources/icons/png/rainbow.png</file>
+        <file alias="random.png">../../resources/icons/png/random.png</file>
         <file alias="record.png">../../resources/icons/png/record.png</file>
         <file alias="remap.png">../../resources/icons/png/remap.png</file>
         <file alias="rgbmatrix.png">../../resources/icons/png/rgbmatrix.png</file>

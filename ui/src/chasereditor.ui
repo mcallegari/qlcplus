@@ -783,7 +783,7 @@
      </property>
      <property name="icon">
       <iconset resource="qlcui.qrc">
-       <normaloff>:/remap.png</normaloff>:/remap.png</iconset>
+       <normaloff>:/random.png</normaloff>:/random.png</iconset>
      </property>
      <property name="iconSize">
       <size>
