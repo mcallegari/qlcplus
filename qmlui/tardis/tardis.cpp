@@ -341,6 +341,7 @@ QByteArray Tardis::actionToByteArray(int code, quint32 objID, QVariant data)
             if (widget)
                 widget->saveXML(&xmlWriter);
         }
+        break;
         case VCWidgetDelete:
         {
             VCWidget *widget = qobject_cast<VCWidget *>(m_virtualConsole->widget(objID));
