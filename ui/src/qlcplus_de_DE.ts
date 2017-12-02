@@ -1352,6 +1352,11 @@ Changes will be lost if you don&apos;t save them.</source>
         <translation>Ausgewählten Schritt um eins noch unten schieben</translation>
     </message>
     <message>
+        <location filename="chasereditor.ui" line="782"/>
+        <source>Shuffle steps</source>
+        <translation>Ausgewählte Schritte durchmischen</translation>
+    </message>
+    <message>
         <location filename="chasereditor.ui" line="595"/>
         <source>Show/Hide speed dial window</source>
         <translation>Anzeigen/Ausblenden des Schnellwahlfensters</translation>

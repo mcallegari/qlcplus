@@ -44,3 +44,8 @@ core
 coverage/
 *.gcda
 *.gcno
+
+
+
+# Development IDEs
+.vscode/
