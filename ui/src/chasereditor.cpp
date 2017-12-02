@@ -514,16 +514,20 @@ void ChaserEditor::slotLowerClicked()
 
 void ChaserEditor::slotShuffleClicked()
 {
-    QList <QTreeWidgetItem*> selectedItems(m_tree->selectedItems());
+    int selectedCount = m_tree->selectedItems().count();
 
-    int selectedCount = selectedItems.size();
-
-    // it doesn't make sense shuffling zero or one scenes
-    if (selectedCount <= 1)
+    if (selectedCount == 1)
     {
+        // it doesn't make sense shuffling one scene
         return;
     }
+    else if (selectedCount == 0)
+    {
+        m_tree->selectAll();
+        selectedCount = m_tree->selectedItems().count();
+    }
 
+    QList <QTreeWidgetItem*> selectedItems(m_tree->selectedItems());
     int indicesToShuffle[selectedCount];
     
     // save the selected scenes and their indices into a sorted array
