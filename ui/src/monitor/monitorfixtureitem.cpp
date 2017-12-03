@@ -337,7 +337,7 @@ QColor MonitorFixtureItem::computeColor(const FixtureHead *head, const QByteArra
     {
         const uchar val = static_cast<uchar>(values.at(c));
         QColor col = head->m_colorValues[c].at(val);
-        if (col.isValid())
+        if (col.isValid() && col != Qt::black)
             return col;
     }
 
@@ -426,7 +426,6 @@ void MonitorFixtureItem::slotUpdateValues()
 
     foreach(FixtureHead *head, m_heads)
     {
-
         head->m_color = computeColor(head, fxValues);
         head->m_dimmerValue = computeAlpha(head, fxValues);
         head->m_shutterState = computeShutter(head, fxValues);
