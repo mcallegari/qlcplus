@@ -4,88 +4,140 @@ TEMPLATE = subdirs
 CONFIG  += ordered
 TARGET   = icons
 
+#############################################################
+# $${1} : the target label
+# $${2} : the dylib library file name
+#############################################################
+defineReplace(libraryTargetID) {
+    # export library file
+    eval($${1}_FILE = $${2})
+    eval(export($${1}_FILE))
+
+    # export the install target ID
+    eval($${1}_ID.path = $$INSTALLROOT/$$LIBSDIR)
+    eval($${1}_ID.commands = install_name_tool -id @executable_path/../$$LIBSDIR/$${2} $$INSTALLROOT/$$LIBSDIR/$${2})
+    eval(export($${1}_ID.path))
+    eval(export($${1}_ID.commands))
+
+    return($${1}_ID)
+}
+
+#############################################################
+# $${1} : the target label
+# $${2} : the dylib library file name
+# $${3} : the pkgconfig library name
+#############################################################
+defineReplace(systemLibTarget) {
+    # export library file
+    eval($${1}_FILE = $${2})
+    eval(export($${1}_FILE))
+
+    SYSLIB_DIR = $$system("pkg-config --variable libdir $${3}")
+
+    # export the nametool variable
+    eval($${1}_INSTALL_NAME_TOOL = install_name_tool -change $$SYSLIB_DIR/$${2} @executable_path/../$$LIBSDIR/$${2})
+    eval(export($${1}_INSTALL_NAME_TOOL))
+
+    # export the library install target
+    eval($${1}.path = $$INSTALLROOT/$$LIBSDIR)
+    eval($${1}.files = $$SYSLIB_DIR/$${2})
+    eval(export($${1}.path))
+    eval(export($${1}.files))
+
+    return($${1})
+}
+
+#############################################################
+# $${1} : the target label
+# $${2} : the Qt framework basename
+#############################################################
+defineReplace(qt5LibTarget) {
+    # export framework dir
+    QTFRAMEWORK_DIR = $${2}.framework/Versions/5
+    eval($${1}_DIR = $$QTFRAMEWORK_DIR)
+    eval(export($${1}_DIR))
+
+    # export the nametool variable
+    eval($${1}_INSTALL_NAME_TOOL = install_name_tool -change $$(QTDIR)/lib/$$QTFRAMEWORK_DIR/$${2} @executable_path/../$$LIBSDIR/$$QTFRAMEWORK_DIR/$${2})
+    eval(export($${1}_INSTALL_NAME_TOOL))
+
+    # export the library install target
+    eval($${1}.path = $$INSTALLROOT/$$LIBSDIR/$$QTFRAMEWORK_DIR)
+    eval($${1}.files = $$(QTDIR)/lib/$$QTFRAMEWORK_DIR/$${2})
+    eval(export($${1}.path))
+    eval(export($${1}.files))
+
+    return($${1})
+}
+
+#############################################################
+# $${1} : the target label
+# $${2} : the Qt framework basename
+#############################################################
+defineReplace(qt5LibTargetID) {
+    QTFRAMEWORK_DIR = $${2}.framework/Versions/5
+
+    # export library file
+    eval($${1}_FILE = $${2})
+    eval(export($${1}_FILE))
+
+    # export the install target ID
+    eval($${1}_ID.path = $$INSTALLROOT/$$LIBSDIR/$$QTFRAMEWORK_DIR)
+    eval($${1}_ID.commands = install_name_tool -id @executable_path/../$$LIBSDIR/$$QTFRAMEWORK_DIR/$${2} $$INSTALLROOT/$$LIBSDIR/$$QTFRAMEWORK_DIR/$${2})
+    eval(export($${1}_ID.path))
+    eval(export($${1}_ID.commands))
+
+    return($${1}_ID)
+}
+
 include(libusb-nametool.pri)
-include(libftdi-nametool.pri)
-include(libmad-nametool.pri)
 include(libsndfile-nametool.pri)
-lessThan(QT_MAJOR_VERSION, 5) {
-  include(libportaudio-nametool.pri)
+
+!qmlui: {
+ INSTALLS += $$libraryTargetID(LIBQLCUI, libqlcplusui.1.dylib)
+ INSTALLS += $$libraryTargetID(LIBQLCWEBACCESS, libqlcpluswebaccess.1.dylib)
 }
 
-include(libfftw-nametool.pri)
-include(libqtcore-nametool.pri)
-include(libqtgui-nametool.pri)
-include(libqtnetwork-nametool.pri)
-include(libqtscript-nametool.pri)
-
-greaterThan(QT_MAJOR_VERSION, 4) {
-  include(libqtwidgets-nametool.pri)
-  include(libqtmultimedia-nametool.pri)
-  include(libqtmultimediawidgets-nametool.pri)
-  include(libqtopengl-nametool.pri)
-  include(libqtprintsupport-nametool.pri)
-  include(libqtserialport-nametool.pri)
-  greaterThan(QT_MINOR_VERSION, 4) {
-    include(libqtdbus-nametool.pri)
-  }
-}
-include(libqlcplusengine-nametool.pri)
-
-qmlui: {
-  include(libqtqml-nametool.pri)
-  include(libqtquick-nametool.pri)
-  include(libqtsvg-nametool.pri)
-  include(libqtconcurrent-nametool.pri)
-  include(libqt3dcore-nametool.pri)
-  include(libqt3dextras-nametool.pri)
-  include(libqt3dinput-nametool.pri)
-  include(libqt3dlogic-nametool.pri)
-  include(libqt3danimation-nametool.pri)
-  include(libqt3dquick-nametool.pri)
-  include(libqt3dquickextras-nametool.pri)
-}
-else {
- include(libqlcplusui-nametool.pri)
- include(libqlcpluswebaccess-nametool.pri)
- INSTALLS += LIBQLCUI_ID LIBQLCWEBACCESS_ID
-}
-
-INSTALLS += LIBQLCENGINE_ID
+INSTALLS += $$libraryTargetID(LIBQLCENGINE, libqlcplusengine.1.dylib)
 INSTALLS += LIBUSB LIBUSB_ID
-INSTALLS += LIBFTDI LIBFTDI_ID
-INSTALLS += LIBMAD LIBMAD_ID
+INSTALLS += $$systemLibTarget(LIBFTDI, libftdi.1.dylib, libftdi) $$libraryTargetID(LIBFTDI, libftdi.1.dylib)
+INSTALLS += $$systemLibTarget(LIBMAD, libmad.0.dylib, mad) $$libraryTargetID(LIBMAD, libmad.0.dylib)
 INSTALLS += LIBSNDFILE LIBSNDFILE_ID
-lessThan(QT_MAJOR_VERSION, 5): INSTALLS += LIBPORTAUDIO LIBPORTAUDIO_ID
-INSTALLS += LIBFFTW LIBFFTW_ID
-INSTALLS += LIBQTCORE LIBQTCORE_ID
-INSTALLS += LIBQTGUI QTMENU LIBQTGUI_ID
-INSTALLS += LIBQTNETWORK LIBQTNETWORK_ID
-INSTALLS += LIBQTSCRIPT LIBQTSCRIPT_ID
+INSTALLS += $$systemLibTarget(LIBFFTW, libfftw3.3.dylib, fftw3) $$libraryTargetID(LIBFFTW, libfftw3.3.dylib)
+
+INSTALLS += $$qt5LibTarget(LIBQTCORE, QtCore) $$qt5LibTargetID(LIBQTCORE, QtCore)
+INSTALLS += $$qt5LibTarget(LIBQTGUI, QtGui) 
+QTMENU.files += $$(QTDIR)/lib/$$LIBQTGUI_DIR/Resources/*
+QTMENU.path = $$INSTALLROOT/$$DATADIR
+INSTALLS += QTMENU
+INSTALLS += $$qt5LibTargetID(LIBQTGUI, QtGui)
+INSTALLS += $$qt5LibTarget(LIBQTNETWORK, QtNetwork) $$qt5LibTargetID(LIBQTNETWORK, QtNetwork)
+INSTALLS += $$qt5LibTarget(LIBQTSCRIPT, QtScript) $$qt5LibTargetID(LIBQTSCRIPT, QtScript)
 
 greaterThan(QT_MAJOR_VERSION, 4) {
-  INSTALLS += LIBQTWIDGETS LIBQTWIDGETS_ID
-  INSTALLS += LIBQTOPENGL LIBQTOPENGL_ID
-  INSTALLS += LIBQTMULTIMEDIA LIBQTMULTIMEDIA_ID
-  INSTALLS += LIBQTMULTIMEDIAWIDGETS LIBQTMULTIMEDIAWIDGETS_ID
-  INSTALLS += LIBQTPRINTSUPPORT LIBQTPRINTSUPPORT_ID
-  INSTALLS += LIBQTSERIALPORT LIBQTSERIALPORT_ID
+  INSTALLS += $$qt5LibTarget(LIBQTWIDGETS, QtWidgets) $$qt5LibTargetID(LIBQTWIDGETS, QtWidgets)
+  INSTALLS += $$qt5LibTarget(LIBQTOPENGL, QtOpenGL) $$qt5LibTargetID(LIBQTOPENGL, QtOpenGL)
+  INSTALLS += $$qt5LibTarget(LIBQTMULTIMEDIA, QtMultimedia) $$qt5LibTargetID(LIBQTMULTIMEDIA, QtMultimedia)
+  INSTALLS += $$qt5LibTarget(LIBQTMULTIMEDIAWIDGETS, QtMultimediaWidgets) $$qt5LibTargetID(LIBQTMULTIMEDIAWIDGETS, QtMultimediaWidgets)
+  INSTALLS += $$qt5LibTarget(LIBQTPRINTSUPPORT, QtPrintSupport) $$qt5LibTargetID(LIBQTPRINTSUPPORT, QtPrintSupport)
+  INSTALLS += $$qt5LibTarget(LIBQTSERIALPORT, QtSerialPort) $$qt5LibTargetID(LIBQTSERIALPORT, QtSerialPort)
   greaterThan(QT_MINOR_VERSION, 4) {
-    INSTALLS += LIBQTDBUS LIBQTDBUS_ID
+    INSTALLS += $$qt5LibTarget(LIBQTDBUS, QtDBus) $$qt5LibTargetID(LIBQTDBUS, QtDBus)
   }
 }
 
 qmlui: {
-  INSTALLS += LIBQTQML LIBQTQML_ID
-  INSTALLS += LIBQTQUICK LIBQTQUICK_ID
-  INSTALLS += LIBQTSVG LIBQTSVG_ID
-  INSTALLS += LIBQTCONCURRENT LIBQTCONCURRENT_ID
-  INSTALLS += LIBQT3DCORE LIBQT3DCORE_ID
-  INSTALLS += LIBQT3DEXTRAS LIBQT3DEXTRAS_ID
-  INSTALLS += LIBQT3DINPUT LIBQT3DINPUT_ID
-  INSTALLS += LIBQT3DLOGIC LIBQT3DLOGIC_ID
-  INSTALLS += LIBQT3DANIMATION LIBQT3DANIMATION_ID
-  INSTALLS += LIBQT3DQUICK LIBQT3DQUICK_ID
-  INSTALLS += LIBQT3DQUICKEXTRAS LIBQT3DQUICKEXTRAS_ID
+  INSTALLS += $$qt5LibTarget(LIBQTQML, QtQml) $$qt5LibTargetID(LIBQTQML, QtQml)
+  INSTALLS += $$qt5LibTarget(LIBQTQUICK, QtQuick) $$qt5LibTargetID(LIBQTQUICK, QtQuick)
+  INSTALLS += $$qt5LibTarget(LIBQTSVG, QtSvg) $$qt5LibTargetID(LIBQTSVG, QtSvg)
+  INSTALLS += $$qt5LibTarget(LIBQTCONCURRENT, QtConcurrent) $$qt5LibTargetID(LIBQTCONCURRENT, QtConcurrent)
+  INSTALLS += $$qt5LibTarget(LIBQT3DCORE, Qt3DCore) $$qt5LibTargetID(LIBQT3DCORE, Qt3DCore)
+  INSTALLS += $$qt5LibTarget(LIBQT3DEXTRAS, Qt3DExtras) $$qt5LibTargetID(LIBQT3DEXTRAS, Qt3DExtras)
+  INSTALLS += $$qt5LibTarget(LIBQT3DINPUT, Qt3DInput) $$qt5LibTargetID(LIBQT3DINPUT, Qt3DInput)
+  INSTALLS += $$qt5LibTarget(LIBQT3DLOGIC, Qt3DLogic) $$qt5LibTargetID(LIBQT3DLOGIC, Qt3DLogic)
+  INSTALLS += $$qt5LibTarget(LIBQT3DANIMATION, Qt3DAnimation) $$qt5LibTargetID(LIBQT3DANIMATION, Qt3DAnimation)
+  INSTALLS += $$qt5LibTarget(LIBQT3DQUICK, Qt3DQuick) $$qt5LibTargetID(LIBQT3DQUICK, Qt3DQuick)
+  INSTALLS += $$qt5LibTarget(LIBQT3DQUICKEXTRAS, Qt3DQuickExtras) $$qt5LibTargetID(LIBQT3DQUICKEXTRAS, Qt3DQuickExtras)
 }
 
 # QtGui, QtNetwork and QtScript depend on QtCore.
