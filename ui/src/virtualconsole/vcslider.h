@@ -120,6 +120,10 @@ public:
     /** @reimp */
     void enableWidgetUI(bool enable);
 
+protected:
+    /** @reimp */
+    void hideEvent(QHideEvent* ev);
+
     /*********************************************************************
      * Properties
      *********************************************************************/
@@ -561,7 +565,7 @@ protected slots:
     void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
 
 protected:
-    uchar m_lastInputValue;
+    int m_lastInputValue;
 
     /*********************************************************************
      * Intensity

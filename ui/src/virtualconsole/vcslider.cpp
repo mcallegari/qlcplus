@@ -151,7 +151,7 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
             m_slider, SLOT(setValue(int)));
 
     m_externalMovement = false;
-    m_lastInputValue = 0;
+    m_lastInputValue = -1;
 
     /* Put stretchable space after the slider (to its right side) */
     m_hbox->addStretch();
@@ -307,6 +307,13 @@ void VCSlider::enableWidgetUI(bool enable)
     m_cngButton->setEnabled(enable);
     if (m_resetButton)
         m_resetButton->setEnabled(enable);
+    if (enable == false)
+        m_lastInputValue = -1;
+}
+
+void VCSlider::hideEvent(QHideEvent *)
+{
+    m_lastInputValue = -1;
 }
 
 /*****************************************************************************
@@ -1408,7 +1415,8 @@ void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel, uchar va
                 uchar currentValue = sliderValue();
 
                 // filter 'out of threshold' cases
-                if ((m_lastInputValue < currentValue - VALUE_CATCHING_THRESHOLD && value < currentValue - VALUE_CATCHING_THRESHOLD) ||
+                if (m_lastInputValue == -1 ||
+                    (m_lastInputValue < currentValue - VALUE_CATCHING_THRESHOLD && value < currentValue - VALUE_CATCHING_THRESHOLD) ||
                     (m_lastInputValue > currentValue + VALUE_CATCHING_THRESHOLD && value > currentValue + VALUE_CATCHING_THRESHOLD))
                 {
                     m_lastInputValue = value;
