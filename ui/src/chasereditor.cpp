@@ -514,11 +514,12 @@ void ChaserEditor::slotLowerClicked()
 
 void ChaserEditor::slotShuffleClicked()
 {
+    int i;
     int selectedCount = m_tree->selectedItems().count();
 
     if (selectedCount == 1)
     {
-        // it doesn't make sense shuffling one scene
+        // it doesn't make sense shuffling one step
         return;
     }
     else if (selectedCount == 0)
@@ -532,7 +533,7 @@ void ChaserEditor::slotShuffleClicked()
     
     // save the selected scenes and their indices into a sorted array
     QListIterator <QTreeWidgetItem*> it(selectedItems);
-    for (int i = 0; i < selectedCount; i++)
+    for (i = 0; i < selectedCount; i++)
     {
         QTreeWidgetItem* item = it.next();
         indicesToShuffle[i] = m_tree->indexOfTopLevelItem(item);
@@ -544,13 +545,14 @@ void ChaserEditor::slotShuffleClicked()
     int unshuffledCount = selectedCount;
     while (unshuffledCount > 0)
     {
-        // pick a random unshuffled selected and swap it with the last unshuffled one -> now it is a shuffled scene
+        // pick a random unshuffled selected and swap it with the last unshuffled one -> now it is a shuffled step
         int toShuffle = rand() % unshuffledCount;
         unshuffledCount--;
         int indexToShuffle = indicesToShuffle[toShuffle];
         int lastUnshuffledIndex = indicesToShuffle[unshuffledCount];
 
-        if (indexToShuffle != lastUnshuffledIndex) {
+        if (indexToShuffle != lastUnshuffledIndex)
+        {
             QTreeWidgetItem* lastUnshuffledItem = m_tree->takeTopLevelItem(lastUnshuffledIndex);
             QTreeWidgetItem* itemToShuffle = m_tree->takeTopLevelItem(indexToShuffle);
             m_tree->insertTopLevelItem(indexToShuffle, lastUnshuffledItem);
@@ -565,10 +567,8 @@ void ChaserEditor::slotShuffleClicked()
 
     // the selection is destroyed / weird after reordering scenes, so we restore it manually
     m_tree->clearSelection();
-    for (int i = 0; i < selectedCount; i++)
-    {
+    for (i = 0; i < selectedCount; i++)
         m_tree->topLevelItem(indicesToShuffle[i])->setSelected(true);
-    }
 }
 
 void ChaserEditor::slotSpeedDialToggle(bool state)
