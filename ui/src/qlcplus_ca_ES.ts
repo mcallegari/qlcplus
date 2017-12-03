@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="ca_ES">
+<TS version="2.0" language="ca_ES">
 <context>
     <name>AboutBox</name>
     <message>
@@ -63,7 +63,7 @@
     </message>
     <message>
         <source>Universe %1</source>
-        <translation type="vanished">Univers %1</translation>
+        <translation>Univers %1</translation>
     </message>
 </context>
 <context>
@@ -97,7 +97,7 @@
     <message>
         <location filename="addfixture.ui" line="84"/>
         <source>Number of empty channels to leave between added fixtures</source>
-        <translation>Nombre de canals buits a deixar lliures entre fixtures afegits</translation>
+        <translation>Número de canals buits a deixar lliures entre fixtures afegits</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="97"/>
@@ -152,7 +152,7 @@
     <message>
         <location filename="addfixture.ui" line="224"/>
         <source>Number of channels in the selected fixture</source>
-        <translation>Nombre de canals al fixture seleccionat</translation>
+        <translation>Número de canals al fixture seleccionat</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="240"/>
@@ -456,7 +456,7 @@
     <message>
         <location filename="virtualconsole/addvcslidermatrix.ui" line="52"/>
         <source>Number of sliders to create</source>
-        <translation>Nombre de sliders a crear</translation>
+        <translation>Número de sliders a crear</translation>
     </message>
     <message>
         <location filename="virtualconsole/addvcslidermatrix.ui" line="62"/>
@@ -1106,7 +1106,7 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     <message>
         <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="116"/>
         <source>Number of spectrum bars:</source>
-        <translation>Nombre de barres d&apos;espectre:</translation>
+        <translation>Número de barres d&apos;espectre:</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="132"/>
@@ -1256,12 +1256,12 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     <message>
         <location filename="channelsselection.ui" line="69"/>
         <source>Collapse all</source>
-        <translation type="unfinished"></translation>
+        <translation>Col·lapsa-ho tot</translation>
     </message>
     <message>
         <location filename="channelsselection.ui" line="76"/>
         <source>Expand all</source>
-        <translation type="unfinished"></translation>
+        <translation>Expandeix-ho tot</translation>
     </message>
     <message>
         <location filename="channelsselection.cpp" line="54"/>
@@ -1290,7 +1290,7 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     </message>
     <message>
         <source>Universe %1</source>
-        <translation type="vanished">Univers %1</translation>
+        <translation>Univers %1</translation>
     </message>
 </context>
 <context>
@@ -1541,7 +1541,7 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     <message>
         <location filename="chasereditor.ui" line="782"/>
         <source>Shuffle steps</source>
-        <translation type="unfinished"></translation>
+        <translation>Barreja els passos</translation>
     </message>
     <message>
         <location filename="chasereditor.cpp" line="74"/>
@@ -1683,7 +1683,7 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     <message>
         <location filename="cuestackmodel.cpp" line="144"/>
         <source>Number</source>
-        <translation>Nombre</translation>
+        <translation>Número</translation>
     </message>
     <message>
         <location filename="cuestackmodel.cpp" line="146"/>
@@ -2436,7 +2436,7 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     </message>
     <message>
         <source>Universe %1</source>
-        <translation type="vanished">Univers %1</translation>
+        <translation>Univers %1</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="225"/>
@@ -3117,7 +3117,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputchanneleditor.ui" line="55"/>
         <source>Number</source>
-        <translation>Nombre</translation>
+        <translation>Número</translation>
     </message>
     <message>
         <location filename="inputchanneleditor.ui" line="88"/>
@@ -3739,7 +3739,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="monitor/monitor.cpp" line="394"/>
         <source>Show absolute DMX channel numbers</source>
-        <translation>Mostrar nombres absoluts de DMX</translation>
+        <translation>Mostrar números absoluts de DMX</translation>
     </message>
     <message>
         <location filename="monitor/monitor.cpp" line="404"/>
@@ -3749,7 +3749,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="monitor/monitor.cpp" line="405"/>
         <source>Show channel numbers relative to fixture</source>
-        <translation>Mostra els nombres de canals relatius al fixture</translation>
+        <translation>Mostra els números de canals relatius al fixture</translation>
     </message>
     <message>
         <location filename="monitor/monitor.cpp" line="421"/>
@@ -4468,7 +4468,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="rgbmatrixeditor.cpp" line="1018"/>
         <source>Sequence</source>
-        <translation type="unfinished"></translation>
+        <translation>Seqüències</translation>
     </message>
 </context>
 <context>
@@ -4693,7 +4693,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="scripteditor.cpp" line="97"/>
         <source>Blackout</source>
-        <translation type="unfinished"></translation>
+        <translation>Blackout</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="101"/>
@@ -4733,7 +4733,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="scripteditor.cpp" line="129"/>
         <source>Random Number</source>
-        <translation>Nombre aleatori</translation>
+        <translation>Número aleatori</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="133"/>
@@ -4758,7 +4758,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="scripteditor.cpp" line="270"/>
         <source>Blackout state</source>
-        <translation type="unfinished"></translation>
+        <translation>Estat del Blackout</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="297"/>
@@ -4842,7 +4842,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="selectinputchannel.cpp" line="209"/>
         <source>&lt;Double click here to enter channel number manually&gt;</source>
-        <translation>&lt;Faixi doble click aquí per ingressar manualment el nombre del canal&gt;</translation>
+        <translation>&lt;Faixi doble click aquí per ingressar manualment el número del canal&gt;</translation>
     </message>
 </context>
 <context>
@@ -5502,7 +5502,7 @@ Durada: %3
     </message>
     <message>
         <source>Attributes</source>
-        <translation type="vanished">Atributs</translation>
+        <translation>Atributs</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="219"/>
@@ -5952,7 +5952,7 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="173"/>
         <source>Number of pages:</source>
-        <translation>Nombre de pàgines:</translation>
+        <translation>Número de pàgines:</translation>
     </message>
 </context>
 <context>
