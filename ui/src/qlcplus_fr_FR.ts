@@ -254,17 +254,17 @@
     <message>
         <location filename="addrgbpanel.ui" line="299"/>
         <source>Direction</source>
-        <translation type="unfinished">Direction</translation>
+        <translation>Direction</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="305"/>
         <source>Horizontal</source>
-        <translation type="unfinished">Horizontale</translation>
+        <translation>Horizontale</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="315"/>
         <source>Vertical</source>
-        <translation type="unfinished">Verticale</translation>
+        <translation>Verticale</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="327"/>
@@ -769,7 +769,7 @@ Voulez-vous vraiment les arrêter et basculer vers le mode Création ?</translat
     <message>
         <location filename="app.cpp" line="736"/>
         <source>Quit QLC+</source>
-        <translation type="unfinished"></translation>
+        <translation>Quitter QLC+</translation>
     </message>
     <message>
         <location filename="app.cpp" line="744"/>
@@ -928,17 +928,17 @@ Celui-ci a dû être déplacé ou effacé.</translation>
     <message>
         <location filename="audioeditor.ui" line="41"/>
         <source>Playback mode</source>
-        <translation type="unfinished">Mode de lecture</translation>
+        <translation>Mode de lecture</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="47"/>
         <source>Single shot</source>
-        <translation type="unfinished">Unique</translation>
+        <translation>Unique</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="57"/>
         <source>Loop</source>
-        <translation type="unfinished">Boucle</translation>
+        <translation>Boucle</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="209"/>
@@ -1262,12 +1262,12 @@ Celui-ci a dû être déplacé ou effacé.</translation>
     <message>
         <location filename="channelsselection.ui" line="69"/>
         <source>Collapse all</source>
-        <translation type="unfinished"></translation>
+        <translation>Tout plier</translation>
     </message>
     <message>
         <location filename="channelsselection.ui" line="76"/>
         <source>Expand all</source>
-        <translation type="unfinished"></translation>
+        <translation>Tout déplier</translation>
     </message>
     <message>
         <location filename="channelsselection.cpp" line="54"/>
@@ -1472,7 +1472,7 @@ Celui-ci a dû être déplacé ou effacé.</translation>
     <message>
         <location filename="chasereditor.ui" line="782"/>
         <source>Shuffle steps</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas au hasard</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="656"/>
@@ -1605,12 +1605,12 @@ Celui-ci a dû être déplacé ou effacé.</translation>
     <message>
         <location filename="collectioneditor.ui" line="39"/>
         <source>Move the selected functions down</source>
-        <translation type="unfinished"></translation>
+        <translation>Déplacer les fonctions sélectionnées vers le bas</translation>
     </message>
     <message>
         <location filename="collectioneditor.ui" line="56"/>
         <source>Move the selected functions up</source>
-        <translation type="unfinished"></translation>
+        <translation>Déplacer les fonctions sélectionnées vers le haut</translation>
     </message>
     <message>
         <location filename="collectioneditor.ui" line="79"/>
@@ -2299,19 +2299,19 @@ Celui-ci a dû être déplacé ou effacé.</translation>
     <message>
         <location filename="fixturemanager.cpp" line="592"/>
         <source>This group contains all fixtures of</source>
-        <translation type="unfinished"></translation>
+        <translation>Ce groupe contient tous les appareils de</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="596"/>
         <location filename="fixturemanager.cpp" line="637"/>
         <source>Total estimated weight</source>
-        <translation type="unfinished"></translation>
+        <translation>Poids total estimé</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="597"/>
         <location filename="fixturemanager.cpp" line="638"/>
         <source>Maximum estimated power consumption</source>
-        <translation type="unfinished"></translation>
+        <translation>Consommation de puissance maximum estimée</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="981"/>
@@ -2803,7 +2803,7 @@ Celui-ci a dû être déplacé ou effacé.</translation>
     <message>
         <location filename="functionselection.ui" line="122"/>
         <source>EFX</source>
-        <translation type="unfinished"></translation>
+        <translation>EFX</translation>
     </message>
     <message>
         <location filename="functionselection.ui" line="129"/>
@@ -2823,7 +2823,7 @@ Celui-ci a dû être déplacé ou effacé.</translation>
     <message>
         <location filename="functionselection.ui" line="180"/>
         <source>Sequences</source>
-        <translation type="unfinished"></translation>
+        <translation>Séquences</translation>
     </message>
     <message>
         <location filename="functionselection.ui" line="99"/>
@@ -3300,12 +3300,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputoutputpatcheditor.ui" line="124"/>
         <source>Configure the selected plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Configurer le greffon sélectionné</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.ui" line="144"/>
         <source>Enable/Disable USB hotplugging (requires restart)</source>
-        <translation type="unfinished"></translation>
+        <translation>Activer/désactiver le branchement USB à chaud (nécessite un redémarrage)</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.ui" line="168"/>
@@ -3496,17 +3496,17 @@ Veuillez vous référer à la documentation du plugin.</translation>
     <message>
         <location filename="inputprofileeditor.ui" line="347"/>
         <source>Custom feedback</source>
-        <translation type="unfinished">Retour d&apos;info personnalisé</translation>
+        <translation>Retour d&apos;info personnalisé</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="359"/>
         <source>Upper value</source>
-        <translation type="unfinished">Valeur suppérieure</translation>
+        <translation>Valeur suppérieure</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="379"/>
         <source>Lower value</source>
-        <translation type="unfinished">Valeur inférieure</translation>
+        <translation>Valeur inférieure</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="67"/>
@@ -4232,7 +4232,7 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
     <message>
         <location filename="virtualconsole/vcframepageshortcut.cpp" line="49"/>
         <source>Page: %1</source>
-        <translation type="unfinished">Page : %1</translation>
+        <translation>Page : %1</translation>
     </message>
 </context>
 <context>
@@ -4485,7 +4485,7 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
     <message>
         <location filename="rgbmatrixeditor.cpp" line="1018"/>
         <source>Sequence</source>
-        <translation type="unfinished"></translation>
+        <translation>Séquence</translation>
     </message>
 </context>
 <context>
@@ -4706,7 +4706,7 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
     <message>
         <location filename="scripteditor.cpp" line="97"/>
         <source>Blackout</source>
-        <translation type="unfinished"></translation>
+        <translation>Black-out</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="101"/>
@@ -4771,7 +4771,7 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
     <message>
         <location filename="scripteditor.cpp" line="270"/>
         <source>Blackout state</source>
-        <translation type="unfinished"></translation>
+        <translation>État du black-out</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="297"/>
@@ -5567,7 +5567,7 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcclockproperties.ui" line="47"/>
         <source>General</source>
-        <translation type="unfinished">Général</translation>
+        <translation>Général</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcclockproperties.ui" line="53"/>
@@ -5622,22 +5622,22 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcclockproperties.ui" line="205"/>
         <source>Input</source>
-        <translation type="unfinished">Entrée</translation>
+        <translation>Entrée</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcclockproperties.ui" line="214"/>
         <source>No input control available for Clock type</source>
-        <translation type="unfinished"></translation>
+        <translation>Aucun contrôle d&apos;entrée pour le type d&apos;horloge</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcclockproperties.cpp" line="39"/>
         <source>Play/Pause control</source>
-        <translation type="unfinished"></translation>
+        <translation>Contrôle de lecture/pause</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcclockproperties.cpp" line="48"/>
         <source>Reset control</source>
-        <translation type="unfinished"></translation>
+        <translation>Réinitialiser le contrôle</translation>
     </message>
 </context>
 <context>
@@ -5645,7 +5645,7 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="109"/>
         <source>Blend</source>
-        <translation type="unfinished"></translation>
+        <translation>Mélanger</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="114"/>
@@ -5661,13 +5661,13 @@ Durée : %3
         <location filename="virtualconsole/vccuelist.cpp" line="226"/>
         <location filename="virtualconsole/vccuelist.cpp" line="1001"/>
         <source>Play/Pause Cue list</source>
-        <translation type="unfinished"></translation>
+        <translation>Lecture/pause de la liste de cue</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="235"/>
         <location filename="virtualconsole/vccuelist.cpp" line="1002"/>
         <source>Stop Cue list</source>
-        <translation type="unfinished"></translation>
+        <translation>Arrêt de la liste de cue</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="244"/>
@@ -5687,12 +5687,12 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="995"/>
         <source>Play/Stop Cue list</source>
-        <translation type="unfinished"></translation>
+        <translation>Lecture/arrêt de la liste de cue</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="996"/>
         <source>Pause Cue list</source>
-        <translation type="unfinished"></translation>
+        <translation>Mettre la liste de cue en pause</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="1435"/>
@@ -5787,17 +5787,17 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="177"/>
         <source>Playback buttons layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Disposition des boutons de lecture</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="183"/>
         <source>Play/Pause + Stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Lecture/pause + arrêt</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="193"/>
         <source>Play/Stop + Pause</source>
-        <translation type="unfinished"></translation>
+        <translation>Lecture/arrêt + pause</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="204"/>
@@ -5838,13 +5838,13 @@ Durée : %3
         <location filename="virtualconsole/vccuelistproperties.cpp" line="65"/>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="237"/>
         <source>Play/Pause control</source>
-        <translation type="unfinished"></translation>
+        <translation>Contrôle de lecture/pause</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="74"/>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="238"/>
         <source>Stop control</source>
-        <translation type="unfinished"></translation>
+        <translation>Contrôle d&apos;arrêt</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="116"/>
@@ -5859,12 +5859,12 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="242"/>
         <source>Play/Stop control</source>
-        <translation type="unfinished"></translation>
+        <translation>Contrôle de lecture/arrêt</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="243"/>
         <source>Pause control</source>
-        <translation type="unfinished"></translation>
+        <translation>Contrle de pause</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="251"/>
@@ -5925,7 +5925,7 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="210"/>
         <source>Page Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom de la page</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.cpp" line="63"/>
@@ -6527,7 +6527,7 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcslider.cpp" line="593"/>
         <source>Reset channels override</source>
-        <translation type="unfinished"></translation>
+        <translation>Réinitialiser l&apos;écrasement des canaux</translation>
     </message>
 </context>
 <context>
@@ -6802,7 +6802,7 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcsliderproperties.cpp" line="173"/>
         <source>Override reset control</source>
-        <translation type="unfinished"></translation>
+        <translation>Contrôle de réinitialisation de l&apos;écrasement</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcsliderproperties.cpp" line="650"/>
@@ -6891,12 +6891,12 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="101"/>
         <source>Copy the factors of the selected function</source>
-        <translation type="unfinished"></translation>
+        <translation>Copier les facteurs de la fonction sélectionnée</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="121"/>
         <source>Paste copied factors to all selected functions</source>
-        <translation type="unfinished"></translation>
+        <translation>Coller les facteurs copiés de toutes les fonctions sélectionnées</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="182"/>
