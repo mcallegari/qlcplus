@@ -5,14 +5,8 @@ Source: http://www.qlcplus.org/downloads.html
 
 Files: *
 Copyright:
- Massimo Callegari <massimocallegari@yahoo.it>
- Heikki Junnila <hjunnila@users.sf.net>
-License: Apache2
-
-Files: debian/*
-Copyright:
- 2016-2017 Olivier Humbert <trebmuh@tuxfamily.org>
- 2005 Heikki Junnila <hjunnila@users.sf.net>
+ 2015- Massimo Callegari <massimocallegari@yahoo.it>
+ 2002-2015 Heikki Junnila <hjunnila@users.sf.net>
 License: Apache2
 
 License: Apache2
