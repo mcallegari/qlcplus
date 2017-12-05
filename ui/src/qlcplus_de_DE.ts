@@ -1258,12 +1258,12 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="channelsselection.ui" line="69"/>
         <source>Collapse all</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle einklappen</translation>
     </message>
     <message>
         <location filename="channelsselection.ui" line="76"/>
         <source>Expand all</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle ausklappen</translation>
     </message>
     <message>
         <location filename="channelsselection.cpp" line="54"/>
@@ -4478,7 +4478,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="rgbmatrixeditor.cpp" line="1018"/>
         <source>Sequence</source>
-        <translation type="unfinished"></translation>
+        <translation>Sequenz</translation>
     </message>
 </context>
 <context>
@@ -4699,7 +4699,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="scripteditor.cpp" line="97"/>
         <source>Blackout</source>
-        <translation type="unfinished"></translation>
+        <translation>Blackout</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="101"/>
@@ -4764,7 +4764,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="scripteditor.cpp" line="270"/>
         <source>Blackout state</source>
-        <translation type="unfinished"></translation>
+        <translation>Blackout-Zustand</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="297"/>
