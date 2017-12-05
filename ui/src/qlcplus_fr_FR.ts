@@ -3501,7 +3501,7 @@ Veuillez vous référer à la documentation du plugin.</translation>
     <message>
         <location filename="inputprofileeditor.ui" line="359"/>
         <source>Upper value</source>
-        <translation>Valeur suppérieure</translation>
+        <translation>Valeur supérieure</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.ui" line="379"/>
@@ -5864,7 +5864,7 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="243"/>
         <source>Pause control</source>
-        <translation>Contrle de pause</translation>
+        <translation>Contrôle de pause</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="251"/>
