@@ -37,6 +37,15 @@ contains(LIBS, -lqlcplusengine) {
             @executable_path/../$$LIBSDIR/libqlcplusengine.1.dylib $$OUTFILE
 }
 
+contains(LIBS, -lqlcplusui) {
+    !isEmpty(nametool.commands) {
+        nametool.commands += "&&"
+    }
+
+    nametool.commands += install_name_tool -change libqlcplusui.1.dylib \
+            @executable_path/../$$LIBSDIR/libqlcplusui.1.dylib $$OUTFILE
+}
+
 contains(LIBS, -lqlcpluswebaccess) {
     !isEmpty(nametool.commands) {
         nametool.commands += "&&"
