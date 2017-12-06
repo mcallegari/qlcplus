@@ -19,13 +19,12 @@ win32 {
     message(Building with FTD2xx support.)
 }
 
-unix: !macx: {
+unix: {
     CONFIG += libftdi
 }
 
 macx: {
     CONFIG += qtserial
-    CONFIG += libftdi
 }
 
 CONFIG(qtserial) {
@@ -142,9 +141,12 @@ TRANSLATIONS += DMX_USB_pt_BR.ts
 TRANSLATIONS += DMX_USB_ca_ES.ts
 TRANSLATIONS += DMX_USB_ja_JP.ts
 
-# This must be after "TARGET = " and before target installation so that
-# install_name_tool can be run before target installation
-macx:include(../../../platforms/macos/nametool.pri)
+macx {
+    # This must be after "TARGET = " and before target installation so that
+    # install_name_tool can be run before target installation
+    include(../../../platforms/macos/nametool.pri)
+    nametool.commands += && $$pkgConfigNametool(libftdi, libftdi.1.dylib)
+}
 
 # Plugin installation
 target.path = $$INSTALLROOT/$$PLUGINDIR

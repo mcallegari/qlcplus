@@ -18,6 +18,7 @@ macx {
     # This must be after "TARGET = " and before target installation so that
     # install_name_tool can be run before target installation
     include(../../../../platforms/macos/nametool.pri)
+    nametool.commands += $$pkgConfigNametool(mad, libmad.0.dylib)
 }
 
 target.path = $$INSTALLROOT/$$AUDIOPLUGINDIR
