@@ -15,8 +15,8 @@ contains(CONFIG, qmlui) {
   SUBDIRS      += main
 }
 SUBDIRS          += resources
-!android:!ios:SUBDIRS += fixtureeditor
-macx:SUBDIRS     += launcher
+!qmlui:SUBDIRS += fixtureeditor
+!qmlui:macx:SUBDIRS     += launcher
 SUBDIRS          += plugins
 
 unix:!macx:DEBIAN_CLEAN    += debian/*.substvars debian/*.log debian/*.debhelper

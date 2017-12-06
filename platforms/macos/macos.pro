@@ -333,8 +333,13 @@ qmlui: {
 icons.path   = $$INSTALLROOT/$$DATADIR
 icons.files += ../../resources/icons/qlcplus.icns
 
-plist.path   = $$INSTALLROOT
-plist.files += Info.plist
+qmlui: {
+    plist.path   = $$INSTALLROOT
+    plist.commands = cp Info.plist.qmlui $$INSTALLROOT/Info.plist
+} else {
+    plist.path   = $$INSTALLROOT
+    plist.files += Info.plist
+}
 INSTALLS    += icons plist
 
 samples.files += ../Sample.qxw

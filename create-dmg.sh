@@ -6,9 +6,9 @@ VERSION=`head -1 debian/changelog | sed 's/.*(\(.*\)).*/\1/'`
 
 # Build
 if [ -n "$QTDIR" ]; then
-    $QTDIR/bin/qmake
+    $QTDIR/bin/qmake $1
     make distclean
-    $QTDIR/bin/qmake
+    $QTDIR/bin/qmake $1
 else
     qmake -spec macx-g++
     make distclean

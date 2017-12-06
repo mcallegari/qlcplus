@@ -16,26 +16,16 @@ contains(TEMPLATE, app) {
 }
 
 include(libusb-nametool.pri)
-include(libftdi-nametool.pri)
-include(libmad-nametool.pri)
 include(libsndfile-nametool.pri)
-#include(libportaudio-nametool.pri)
-include(libfftw-nametool.pri)
-include(libqtgui-nametool.pri)
-include(libqtcore-nametool.pri)
-include(libqtnetwork-nametool.pri)
-include(libqtscript-nametool.pri)
-greaterThan(QT_MAJOR_VERSION, 4) {
-  include(libqtwidgets-nametool.pri)
-  include(libqtmultimedia-nametool.pri)
-  include(libqtmultimediawidgets-nametool.pri)
-  include(libqtopengl-nametool.pri)
-  include(libqtserialport-nametool.pri)
+
+contains(LIBS, -lqlcplusengine) {
+    !isEmpty(nametool.commands) {
+        nametool.commands += "&&"
+    }
+
+    nametool.commands += install_name_tool -change libqlcplusengine.1.dylib \
+            @executable_path/../$$LIBSDIR/libqlcplusengine.1.dylib $$OUTFILE
 }
-include(imageformats-nametool.pri)
-include(libqlcplusengine-nametool.pri)
-include(libqlcplusui-nametool.pri)
-include(libqlcpluswebaccess-nametool.pri)
 
 # The contents of nametool.path don't matter; it only needs to be non-empty
 nametool.path = $$INSTALLROOT
