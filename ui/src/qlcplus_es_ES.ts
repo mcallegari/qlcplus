@@ -1258,12 +1258,12 @@ El archivo seleccionado ha sido movido o borrado.</translation>
     <message>
         <location filename="channelsselection.ui" line="69"/>
         <source>Collapse all</source>
-        <translation type="unfinished"></translation>
+        <translation>Colapsar todos</translation>
     </message>
     <message>
         <location filename="channelsselection.ui" line="76"/>
         <source>Expand all</source>
-        <translation type="unfinished"></translation>
+        <translation>Expandir todos</translation>
     </message>
     <message>
         <location filename="channelsselection.cpp" line="54"/>
@@ -1468,7 +1468,7 @@ El archivo seleccionado ha sido movido o borrado.</translation>
     <message>
         <location filename="chasereditor.ui" line="782"/>
         <source>Shuffle steps</source>
-        <translation type="unfinished"></translation>
+        <translation>Barajar pasos</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="656"/>
@@ -4480,7 +4480,7 @@ Tenga en cuenta que el asistente no puede diferenciar entre una perilla y un sli
     <message>
         <location filename="rgbmatrixeditor.cpp" line="1018"/>
         <source>Sequence</source>
-        <translation type="unfinished"></translation>
+        <translation>Secuencia</translation>
     </message>
 </context>
 <context>
@@ -4701,7 +4701,7 @@ Tenga en cuenta que el asistente no puede diferenciar entre una perilla y un sli
     <message>
         <location filename="scripteditor.cpp" line="97"/>
         <source>Blackout</source>
-        <translation type="unfinished"></translation>
+        <translation>Blackout</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="101"/>
@@ -4766,7 +4766,7 @@ Tenga en cuenta que el asistente no puede diferenciar entre una perilla y un sli
     <message>
         <location filename="scripteditor.cpp" line="270"/>
         <source>Blackout state</source>
-        <translation type="unfinished"></translation>
+        <translation>Estado del Blackout</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="297"/>
