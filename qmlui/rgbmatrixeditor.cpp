@@ -25,6 +25,7 @@
 #include "rgbmatrix.h"
 #include "rgbimage.h"
 #include "rgbtext.h"
+#include "tardis.h"
 #include "doc.h"
 
 RGBMatrixEditor::RGBMatrixEditor(QQuickView *view, Doc *doc, QObject *parent)
@@ -95,6 +96,7 @@ void RGBMatrixEditor::setFixtureGroup(int fixtureGroup)
     QMutexLocker locker(&m_previewMutex);
     m_previewTimer->stop();
     m_group = m_doc->fixtureGroup(fixtureGroup);
+    Tardis::instance()->enqueueAction(RGBMatrixSetFixtureGroup, m_matrix->id(), m_matrix->fixtureGroup(), fixtureGroup);
     m_matrix->setFixtureGroup((quint32)fixtureGroup);
     emit fixtureGroupChanged(fixtureGroup);
     emit previewSizeChanged();
@@ -134,6 +136,8 @@ void RGBMatrixEditor::setAlgorithmIndex(int algoIndex)
             return;
         algo->setColors(m_matrix->startColor(), m_matrix->endColor());
     }
+
+    Tardis::instance()->enqueueAction(RGBMatrixSetAlgorithmIndex, m_matrix->id(), algorithmIndex(), algoIndex);
     m_matrix->setAlgorithm(algo);
 
     initPreviewData();
@@ -163,6 +167,7 @@ void RGBMatrixEditor::setStartColor(QColor algoStartColor)
     if (m_matrix == NULL || m_matrix->startColor() == algoStartColor)
         return;
 
+    Tardis::instance()->enqueueAction(RGBMatrixSetStartColor, m_matrix->id(), m_matrix->startColor(), algoStartColor);
     m_matrix->setStartColor(algoStartColor);
     m_previewStepHandler->calculateColorDelta(m_matrix->startColor(), m_matrix->endColor());
 
@@ -182,6 +187,7 @@ void RGBMatrixEditor::setEndColor(QColor algoEndColor)
     if (m_matrix == NULL || m_matrix->endColor() == algoEndColor)
         return;
 
+    Tardis::instance()->enqueueAction(RGBMatrixSetEndColor, m_matrix->id(), m_matrix->endColor(), algoEndColor);
     m_matrix->setEndColor(algoEndColor);
     m_previewStepHandler->calculateColorDelta(m_matrix->startColor(), m_matrix->endColor());
 
@@ -229,6 +235,7 @@ void RGBMatrixEditor::setAlgoText(QString text)
         if (algo->text() == text)
             return;
 
+        Tardis::instance()->enqueueAction(RGBMatrixSetText, m_matrix->id(), algo->text(), text);
         QMutexLocker algorithmLocker(&m_matrix->algorithmMutex());
         algo->setText(text);
         emit algoTextChanged(text);
@@ -254,6 +261,8 @@ void RGBMatrixEditor::setAlgoTextFont(QFont algoTextFont)
         RGBText* algo = static_cast<RGBText*> (m_matrix->algorithm());
         if (algo->font() == algoTextFont)
             return;
+
+        Tardis::instance()->enqueueAction(RGBMatrixSetTextFont, m_matrix->id(), algo->font(), algoTextFont);
         QMutexLocker algorithmLocker(&m_matrix->algorithmMutex());
         algo->setFont(algoTextFont);
         emit algoTextFontChanged(algoTextFont);
@@ -285,6 +294,7 @@ void RGBMatrixEditor::setAlgoImagePath(QString path)
         if (algo->filename() == path)
             return;
 
+        Tardis::instance()->enqueueAction(RGBMatrixSetImage, m_matrix->id(), algo->filename(), path);
         QMutexLocker algorithmLocker(&m_matrix->algorithmMutex());
         algo->setFilename(path);
         emit algoImagePathChanged(path);
@@ -316,6 +326,11 @@ void RGBMatrixEditor::setAlgoOffset(QSize algoOffset)
         if (m_matrix->algorithm()->type() == RGBAlgorithm::Image)
         {
             RGBImage* algo = static_cast<RGBImage*> (m_matrix->algorithm());
+            if (algo->xOffset() == algoOffset.width() && algo->yOffset() == algoOffset.height())
+                return;
+
+            Tardis::instance()->enqueueAction(RGBMatrixSetOffset, m_matrix->id(),
+                                              QSize(algo->xOffset(), algo->yOffset()), algoOffset);
             QMutexLocker algorithmLocker(&m_matrix->algorithmMutex());
             algo->setXOffset(algoOffset.width());
             algo->setYOffset(algoOffset.height());
@@ -324,6 +339,11 @@ void RGBMatrixEditor::setAlgoOffset(QSize algoOffset)
         else if (m_matrix->algorithm()->type() == RGBAlgorithm::Text)
         {
             RGBText* algo = static_cast<RGBText*> (m_matrix->algorithm());
+            if (algo->xOffset() == algoOffset.width() && algo->yOffset() == algoOffset.height())
+                return;
+
+            Tardis::instance()->enqueueAction(RGBMatrixSetOffset, m_matrix->id(),
+                                              QSize(algo->xOffset(), algo->yOffset()), algoOffset);
             QMutexLocker algorithmLocker(&m_matrix->algorithmMutex());
             algo->setXOffset(algoOffset.width());
             algo->setYOffset(algoOffset.height());
@@ -357,20 +377,22 @@ void RGBMatrixEditor::setAnimationStyle(int style)
         if (m_matrix->algorithm()->type() == RGBAlgorithm::Image)
         {
             RGBImage* algo = static_cast<RGBImage*> (m_matrix->algorithm());
-            QMutexLocker algorithmLocker(&m_matrix->algorithmMutex());
             if ((int)algo->animationStyle() == style)
                 return;
 
+            Tardis::instance()->enqueueAction(RGBMatrixSetAnimationStyle, m_matrix->id(), (int)algo->animationStyle(), style);
+            QMutexLocker algorithmLocker(&m_matrix->algorithmMutex());
             algo->setAnimationStyle(RGBImage::AnimationStyle(style));
             emit animationStyleChanged(style);
         }
         else if (m_matrix->algorithm()->type() == RGBAlgorithm::Text)
         {
             RGBText* algo = static_cast<RGBText*> (m_matrix->algorithm());
-            QMutexLocker algorithmLocker(&m_matrix->algorithmMutex());
             if ((int)algo->animationStyle() == style)
                 return;
 
+            Tardis::instance()->enqueueAction(RGBMatrixSetAnimationStyle, m_matrix->id(), (int)algo->animationStyle(), style);
+            QMutexLocker algorithmLocker(&m_matrix->algorithmMutex());
             algo->setAnimationStyle(RGBText::AnimationStyle(style));
             emit animationStyleChanged(style);
         }
@@ -445,6 +467,9 @@ void RGBMatrixEditor::setScriptStringProperty(QString paramName, QString value)
 
     qDebug() << "[setScriptStringProperty] param:" << paramName << ", value:" << value;
 
+    StringStringPair oldValue(paramName, m_matrix->property(paramName));
+    Tardis::instance()->enqueueAction(RGBMatrixSetScriptStringValue, m_matrix->id(), QVariant::fromValue(oldValue),
+                                      QVariant::fromValue(StringStringPair(paramName, value)));
     m_matrix->setProperty(paramName, value);
 }
 
@@ -456,6 +481,9 @@ void RGBMatrixEditor::setScriptIntProperty(QString paramName, int value)
 
     qDebug() << "[setScriptIntProperty] param:" << paramName << ", value:" << value;
 
+    StringIntPair oldValue(paramName, m_matrix->property(paramName).toInt());
+    Tardis::instance()->enqueueAction(RGBMatrixSetScriptIntValue, m_matrix->id(), QVariant::fromValue(oldValue),
+                                      QVariant::fromValue(StringIntPair(paramName, value)));
     m_matrix->setProperty(paramName, QString::number(value));
 }
 

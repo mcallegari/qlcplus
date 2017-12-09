@@ -29,8 +29,11 @@
 #include "functionmanager.h"
 #include "contextmanager.h"
 #include "functioneditor.h"
+#include "rgbmatrix.h"
+#include "rgbimage.h"
 #include "vcwidget.h"
 #include "vcframe.h"
+#include "rgbtext.h"
 #include "chaser.h"
 #include "scene.h"
 #include "efx.h"
@@ -697,6 +700,102 @@ int Tardis::processAction(TardisAction &action, bool undo)
         {
             auto member = std::mem_fn(&EFX::setYPhase);
             member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), value->toInt());
+        }
+        break;
+
+        case RGBMatrixSetFixtureGroup:
+        {
+            auto member = std::mem_fn(&RGBMatrix::setFixtureGroup);
+            member(qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID)), value->toUInt());
+        }
+        break;
+        case RGBMatrixSetAlgorithmIndex:
+        {
+            QStringList algoList = RGBAlgorithm::algorithms(m_doc);
+            RGBAlgorithm* algo = RGBAlgorithm::algorithm(m_doc, algoList.at(value->toInt()));
+            RGBMatrix *matrix = qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID));
+            matrix->setAlgorithm(algo);
+        }
+        break;
+        case RGBMatrixSetStartColor:
+        {
+            auto member = std::mem_fn(&RGBMatrix::setStartColor);
+            member(qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID)), value->value<QColor>());
+        }
+        break;
+        case RGBMatrixSetEndColor:
+        {
+            auto member = std::mem_fn(&RGBMatrix::setEndColor);
+            member(qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID)), value->value<QColor>());
+        }
+        break;
+        case RGBMatrixSetScriptIntValue:
+        {
+            RGBMatrix *matrix = qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID));
+            StringIntPair pairValue = value->value<StringIntPair>(); // param name on first, value on second
+            matrix->setProperty(pairValue.first, QString::number(pairValue.second));
+        }
+        break;
+        case RGBMatrixSetScriptStringValue:
+        {
+            RGBMatrix *matrix = qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID));
+            StringStringPair pairValue = value->value<StringStringPair>(); // param name on first, value on second
+            matrix->setProperty(pairValue.first, pairValue.second);
+        }
+        break;
+        case RGBMatrixSetText:
+        {
+            RGBMatrix *matrix = qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID));
+            RGBText* algo = static_cast<RGBText*> (matrix->algorithm());
+            algo->setText(value->toString());
+        }
+        break;
+        case RGBMatrixSetTextFont:
+        {
+            RGBMatrix *matrix = qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID));
+            RGBText* algo = static_cast<RGBText*> (matrix->algorithm());
+            QFont font;
+            font.fromString(value->toString());
+            algo->setFont(font);
+        }
+        break;
+        case RGBMatrixSetImage:
+        {
+            RGBMatrix *matrix = qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID));
+            RGBImage* algo = static_cast<RGBImage*> (matrix->algorithm());
+            algo->setFilename(value->toString());
+        }
+        break;
+        case RGBMatrixSetOffset:
+        {
+            RGBMatrix *matrix = qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID));
+            if (matrix->algorithm()->type() == RGBAlgorithm::Image)
+            {
+                RGBImage* algo = static_cast<RGBImage*> (matrix->algorithm());
+                algo->setXOffset(value->toSize().width());
+                algo->setYOffset(value->toSize().height());
+            }
+            else if (matrix->algorithm()->type() == RGBAlgorithm::Text)
+            {
+                RGBText* algo = static_cast<RGBText*> (matrix->algorithm());
+                algo->setXOffset(value->toSize().width());
+                algo->setYOffset(value->toSize().height());
+            }
+        }
+        break;
+        case RGBMatrixSetAnimationStyle:
+        {
+            RGBMatrix *matrix = qobject_cast<RGBMatrix *>(m_doc->function(action.m_objID));
+            if (matrix->algorithm()->type() == RGBAlgorithm::Image)
+            {
+                RGBImage* algo = static_cast<RGBImage*> (matrix->algorithm());
+                algo->setAnimationStyle(RGBImage::AnimationStyle(value->toInt()));
+            }
+            else if (matrix->algorithm()->type() == RGBAlgorithm::Text)
+            {
+                RGBText* algo = static_cast<RGBText*> (matrix->algorithm());
+                algo->setAnimationStyle(RGBText::AnimationStyle(value->toInt()));
+            }
         }
         break;
 

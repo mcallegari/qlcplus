@@ -157,6 +157,32 @@ void NetworkPacketizer::addSection(QByteArray &packet, QVariant value)
                 packet.append((char)(pairVal.second >> 8));     // MSB1
                 packet.append((char)(pairVal.second & 0x00FF)); // LSB
             }
+            else if (value.canConvert<StringIntPair>())
+            {
+                StringIntPair pairVal = value.value<StringIntPair>();
+                packet.append(StringIntPairType);
+                QByteArray strVal = pairVal.first.toUtf8();
+                packet.append((char)(strVal.length() >> 8));     // string length MSB
+                packet.append((char)(strVal.length() & 0x00FF)); // string length LSB
+                packet.append(strVal);
+                packet.append((char)(pairVal.second >> 24));    // MSB3
+                packet.append((char)(pairVal.second >> 16));    // MSB2
+                packet.append((char)(pairVal.second >> 8));     // MSB1
+                packet.append((char)(pairVal.second & 0x00FF)); // LSB
+            }
+            else if (value.canConvert<StringStringPair>())
+            {
+                StringStringPair pairVal = value.value<StringStringPair>();
+                packet.append(StringStringPairType);
+                QByteArray strVal = pairVal.first.toUtf8();
+                packet.append((char)(strVal.length() >> 8));     // string length MSB
+                packet.append((char)(strVal.length() & 0x00FF)); // string length LSB
+                packet.append(strVal);
+                strVal = pairVal.second.toUtf8();
+                packet.append((char)(strVal.length() >> 8));     // string length MSB
+                packet.append((char)(strVal.length() & 0x00FF)); // string length LSB
+                packet.append(strVal);
+            }
             else
             {
                 qDebug() << "Unsupported data metatype" << value.type() << "Implement me";
@@ -336,6 +362,50 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
                 pairVal.second = ((quint8)ba.at(bytes_read) << 24) + ((quint8)ba.at(bytes_read + 1) << 16) +
                                  ((quint8)ba.at(bytes_read + 2) << 8) + (quint8)ba.at(bytes_read + 3);
                 bytes_read += 4;
+                QVariant var;
+                var.setValue(pairVal);
+                sections.append(var);
+            }
+            break;
+            case StringIntPairType:
+            {
+                StringIntPair pairVal;
+                QString strVal;
+                quint16 sLength = ((quint16)ba.at(bytes_read) << 8) + (quint16)ba.at(bytes_read + 1);
+                bytes_read += 2;
+
+                strVal.append(ba.mid(bytes_read, sLength));
+                pairVal.first = strVal;
+                bytes_read += sLength;
+
+                pairVal.second = ((quint8)ba.at(bytes_read) << 24) + ((quint8)ba.at(bytes_read + 1) << 16) +
+                                 ((quint8)ba.at(bytes_read + 2) << 8) + (quint8)ba.at(bytes_read + 3);
+                bytes_read += 4;
+
+                QVariant var;
+                var.setValue(pairVal);
+                sections.append(var);
+            }
+            break;
+            case StringStringPairType:
+            {
+                StringStringPair pairVal;
+                QString strVal;
+                quint16 sLength = ((quint16)ba.at(bytes_read) << 8) + (quint16)ba.at(bytes_read + 1);
+                bytes_read += 2;
+
+                strVal.append(ba.mid(bytes_read, sLength));
+                pairVal.first = strVal;
+                bytes_read += sLength;
+
+                sLength = ((quint16)ba.at(bytes_read) << 8) + (quint16)ba.at(bytes_read + 1);
+                bytes_read += 2;
+
+                strVal.clear();
+                strVal.append(ba.mid(bytes_read, sLength));
+                pairVal.second = strVal;
+                bytes_read += sLength;
+
                 QVariant var;
                 var.setValue(pairVal);
                 sections.append(var);
