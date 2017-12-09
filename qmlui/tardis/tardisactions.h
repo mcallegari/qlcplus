@@ -91,6 +91,9 @@ enum
     EFXSetXPhase,
     EFXSetYPhase,
 
+    CollectionAddFunction,
+    CollectionRemoveFunction,
+
     RGBMatrixSetFixtureGroup,
     RGBMatrixSetAlgorithmIndex,
     RGBMatrixSetStartColor,
@@ -102,6 +105,14 @@ enum
     RGBMatrixSetImage,
     RGBMatrixSetOffset,
     RGBMatrixSetAnimationStyle,
+
+    AudioSetSource,
+
+    VideoSetSource,
+    VideoSetScreenIndex,
+    VideoSetFullscreen,
+    VideoSetGeometry,
+    VideoSetRotation,
 
     /* Virtual console editing actions */
     VCWidgetCreate = 0xE000,

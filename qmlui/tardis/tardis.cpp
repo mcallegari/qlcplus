@@ -29,6 +29,7 @@
 #include "functionmanager.h"
 #include "contextmanager.h"
 #include "functioneditor.h"
+#include "collection.h"
 #include "rgbmatrix.h"
 #include "rgbimage.h"
 #include "vcwidget.h"
@@ -36,6 +37,8 @@
 #include "rgbtext.h"
 #include "chaser.h"
 #include "scene.h"
+#include "audio.h"
+#include "video.h"
 #include "efx.h"
 #include "doc.h"
 
@@ -565,6 +568,8 @@ int Tardis::processAction(TardisAction &action, bool undo)
         }
         break;
 
+        /* *********************** Scene editing actions *********************** */
+
         case SceneSetChannelValue:
         case SceneUnsetChannelValue:
         {
@@ -574,6 +579,8 @@ int Tardis::processAction(TardisAction &action, bool undo)
                 scene->setValue(scv.fxi, scv.channel, scv.value);
         }
         break;
+
+        /* *********************** Chaser editing actions *********************** */
 
         case ChaserAddStep:
         {
@@ -617,6 +624,8 @@ int Tardis::processAction(TardisAction &action, bool undo)
             chaser->replaceStep(step, pairValue.first);
         }
         break;
+
+        /* *********************** EFX editing actions *********************** */
 
         case EFXAddFixture:
         {
@@ -702,6 +711,31 @@ int Tardis::processAction(TardisAction &action, bool undo)
             member(qobject_cast<EFX *>(m_doc->function(action.m_objID)), value->toInt());
         }
         break;
+
+        /* *********************** Collection editing actions *********************** */
+
+        case CollectionAddFunction:
+        {
+            Collection *collecion = qobject_cast<Collection *>(m_doc->function(action.m_objID));
+            UIntPair pairValue = value->value<UIntPair>(); // Function ID on first, insert index on second
+            if (undo)
+                collecion->removeFunction(pairValue.first);
+            else
+                collecion->addFunction(pairValue.first, pairValue.second);
+        }
+        break;
+        case CollectionRemoveFunction:
+        {
+            Collection *collecion = qobject_cast<Collection *>(m_doc->function(action.m_objID));
+            UIntPair pairValue = value->value<UIntPair>(); // Function ID on first, insert index on second
+            if (undo)
+                collecion->addFunction(pairValue.first, pairValue.second);
+            else
+                collecion->removeFunction(pairValue.first);
+        }
+        break;
+
+        /* *********************** RGBMatrix editing actions *********************** */
 
         case RGBMatrixSetFixtureGroup:
         {
@@ -796,6 +830,49 @@ int Tardis::processAction(TardisAction &action, bool undo)
                 RGBText* algo = static_cast<RGBText*> (matrix->algorithm());
                 algo->setAnimationStyle(RGBText::AnimationStyle(value->toInt()));
             }
+        }
+        break;
+
+        /* *********************** Audio editing actions *********************** */
+
+        case AudioSetSource:
+        {
+            auto member = std::mem_fn(&Audio::setSourceFileName);
+            member(qobject_cast<Audio *>(m_doc->function(action.m_objID)), value->toString());
+        }
+        break;
+
+        /* *********************** Video editing actions *********************** */
+
+        case VideoSetSource:
+        {
+            auto member = std::mem_fn(&Video::setSourceUrl);
+            member(qobject_cast<Video *>(m_doc->function(action.m_objID)), value->toString());
+        }
+        break;
+        case VideoSetScreenIndex:
+        {
+            auto member = std::mem_fn(&Video::setScreen);
+            member(qobject_cast<Video *>(m_doc->function(action.m_objID)), value->toInt());
+        }
+        break;
+        case VideoSetFullscreen:
+        {
+            auto member = std::mem_fn(&Video::setFullscreen);
+            member(qobject_cast<Video *>(m_doc->function(action.m_objID)), value->toBool());
+        }
+        break;
+        case VideoSetGeometry:
+        {
+            auto member = std::mem_fn(&Video::setCustomGeometry);
+            member(qobject_cast<Video *>(m_doc->function(action.m_objID)), value->toRect());
+        }
+        break;
+        case VideoSetRotation:
+        {
+            QVector3D rotation = value->value<QVector3D>();
+            auto member = std::mem_fn(&Video::setRotation);
+            member(qobject_cast<Video *>(m_doc->function(action.m_objID)), rotation);
         }
         break;
 

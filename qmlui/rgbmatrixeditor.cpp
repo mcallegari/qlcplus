@@ -570,6 +570,7 @@ void RGBMatrixEditor::setRunOrder(int runOrder)
     if (m_matrix == NULL || m_matrix->runOrder() == Function::RunOrder(runOrder))
         return;
 
+    Tardis::instance()->enqueueAction(FunctionSetRunOrder, m_matrix->id(), m_matrix->runOrder(), runOrder);
     m_matrix->setRunOrder(Function::RunOrder(runOrder));
     emit runOrderChanged(runOrder);
 }
@@ -587,6 +588,7 @@ void RGBMatrixEditor::setDirection(int direction)
     if (m_matrix == NULL || m_matrix->direction() == Function::Direction(direction))
         return;
 
+    Tardis::instance()->enqueueAction(FunctionSetDirection, m_matrix->id(), m_matrix->direction(), direction);
     m_matrix->setDirection(Function::Direction(direction));
     emit directionChanged(direction);
 }

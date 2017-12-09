@@ -20,6 +20,7 @@
 #include "collectioneditor.h"
 #include "collection.h"
 #include "listmodel.h"
+#include "tardis.h"
 #include "doc.h"
 
 CollectionEditor::CollectionEditor(QQuickView *view, Doc *doc, QObject *parent)
@@ -52,6 +53,8 @@ bool CollectionEditor::addFunction(quint32 fid, int insertIndex)
     {
         if(m_collection->addFunction(fid, insertIndex) == true)
         {
+            Tardis::instance()->enqueueAction(CollectionAddFunction, m_collection->id(), QVariant(),
+                                              QVariant::fromValue(UIntPair(fid, insertIndex)));
             updateFunctionsList();
             return true;
         }
@@ -65,8 +68,13 @@ bool CollectionEditor::moveFunction(quint32 fid, int newIndex)
     if (m_collection == NULL)
         return false;
 
+    QList<quint32> funcList = m_collection->functions();
+    Tardis::instance()->enqueueAction(CollectionRemoveFunction, m_collection->id(),
+                                      QVariant::fromValue(UIntPair(fid, funcList.indexOf(fid))), QVariant());
     m_collection->removeFunction(fid);
     m_collection->addFunction(fid, newIndex);
+    Tardis::instance()->enqueueAction(CollectionAddFunction, m_collection->id(), QVariant(),
+                                      QVariant::fromValue(UIntPair(fid, newIndex)));
     updateFunctionsList();
     return true;
 }
@@ -85,6 +93,8 @@ void CollectionEditor::deleteItems(QVariantList list)
         if (idx < 0 || idx >= funcList.count())
             continue;
 
+        Tardis::instance()->enqueueAction(CollectionRemoveFunction, m_collection->id(),
+                                          QVariant::fromValue(UIntPair(funcList.at(idx), idx)), QVariant());
         m_collection->removeFunction(funcList.at(idx));
     }
     updateFunctionsList();
