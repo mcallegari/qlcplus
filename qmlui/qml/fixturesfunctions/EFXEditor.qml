@@ -482,6 +482,9 @@ Rectangle
                                     {
                                         implicitWidth: UISettings.listItemHeight
                                         implicitHeight: implicitWidth
+                                        autoExclusive: false
+                                        checked: efxEditor.isRelative
+                                        onCheckedChanged: efxEditor.isRelative = checked
                                     }
 
                                     RobotoText
