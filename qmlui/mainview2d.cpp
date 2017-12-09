@@ -422,6 +422,7 @@ void MainView2D::updateFixture(Fixture *fixture)
                             }
                             colorSet = true;
                         }
+                        break;
                     }
                 }
             }

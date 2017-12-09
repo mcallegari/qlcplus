@@ -204,6 +204,8 @@ void MainView3D::initialize3DProperties()
         m_stageEntity->setProperty("sceneLayer", QVariant::fromValue(sceneDeferredLayer));
         m_stageEntity->setProperty("effect", QVariant::fromValue(sceneEffect));
     }
+
+    setStageSize(m_monProps->gridSize());
 }
 
 void MainView3D::sceneReady()
@@ -656,9 +658,10 @@ void MainView3D::updateFixture(Fixture *fixture)
         return;
 
     QEntity *fixtureItem = m_entitiesMap[fixture->id()]->m_rootItem;
+    QColor color;
 
     bool setPosition = false;
-    //bool colorSet = false;
+    bool setColor = false;
     int panDegrees = 0;
     int tiltDegrees = 0;
 
@@ -673,26 +676,19 @@ void MainView3D::updateFixture(Fixture *fixture)
     QVector <quint32> rgbCh = fixture->rgbChannels();
     if (rgbCh.size() == 3)
     {
-        quint8 r = 0, g = 0, b = 0;
-        r = fixture->channelValueAt(rgbCh.at(0));
-        g = fixture->channelValueAt(rgbCh.at(1));
-        b = fixture->channelValueAt(rgbCh.at(2));
-
-        fixtureItem->setProperty("lightColor", QColor(r, g, b));
-        //colorSet = true;
+        color = QColor(fixture->channelValueAt(rgbCh.at(0)),
+                       fixture->channelValueAt(rgbCh.at(1)),
+                       fixture->channelValueAt(rgbCh.at(2)));
+        setColor = true;
     }
 
     QVector <quint32> cmyCh = fixture->cmyChannels();
     if (cmyCh.size() == 3)
     {
-        quint8 c = 0, m = 0, y = 0;
-        c = fixture->channelValueAt(cmyCh.at(0));
-        m = fixture->channelValueAt(cmyCh.at(1));
-        y = fixture->channelValueAt(cmyCh.at(2));
-        QColor col;
-        col.setCmyk(c, m, y, 0);
-        fixtureItem->setProperty("lightColor", QColor(col.red(), col.green(), col.blue()));
-        //colorSet = true;
+        color.setCmyk(fixture->channelValueAt(cmyCh.at(0)),
+                      fixture->channelValueAt(cmyCh.at(1)),
+                      fixture->channelValueAt(cmyCh.at(2)), 0);
+        setColor = true;
     }
 
     // now scan all the channels for "common" capabilities
@@ -724,17 +720,39 @@ void MainView3D::updateFixture(Fixture *fixture)
                 setPosition = true;
             }
             break;
+            case QLCChannel::Colour:
+            {
+                if (value == 0)
+                    break;
+
+                foreach(QLCCapability *cap, ch->capabilities())
+                {
+                    if (value >= cap->min() && value <= cap->max())
+                    {
+                        if (cap->resourceColor1().isValid())
+                        {
+                            color = cap->resourceColor1();
+                            setColor = true;
+                        }
+                        break;
+                    }
+                }
+            }
+            break;
             default:
             break;
         }
     }
 
-    if (setPosition == true)
+    if (setPosition)
     {
         QMetaObject::invokeMethod(fixtureItem, "setPosition",
                 Q_ARG(QVariant, panDegrees),
                 Q_ARG(QVariant, tiltDegrees));
     }
+
+    if (setColor)
+        fixtureItem->setProperty("lightColor", color);
 }
 
 void MainView3D::updateFixtureSelection(QList<quint32> fixtures)
@@ -826,6 +844,7 @@ void MainView3D::setStageSize(QVector3D stageSize)
         return;
 
     m_stageSize = stageSize;
+    m_monProps->setGridSize(stageSize);
     emit stageSizeChanged(m_stageSize);
 }
 
