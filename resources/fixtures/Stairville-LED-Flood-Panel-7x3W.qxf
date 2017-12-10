@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.8.1 GIT</Version>
+  <Version>4.11.2 GIT</Version>
   <Author>boxr</Author>
  </Creator>
  <Manufacturer>Stairville</Manufacturer>
@@ -57,7 +57,7 @@
   <Capability Min="0" Max="255">Intensity of blue (0 to 100%)</Capability>
  </Channel>
  <Channel Name="Strobe">
-  <Group Byte="0">Speed</Group>
+  <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="9">No function</Capability>
   <Capability Min="10" Max="255">Strobe (slow to fast)</Capability>
  </Channel>
@@ -108,10 +108,10 @@
  </Channel>
  <Mode Name="3-channel">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="300" Height="60" Weight="2.6" Depth="200"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.6" Width="300" Height="200" Depth="60"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="30" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Red/Colour preset/Speed (slow to fast)/Sensitivity (low to high)</Channel>
@@ -120,10 +120,10 @@
  </Mode>
  <Mode Name="4-channel">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="300" Height="60" Weight="2.6" Depth="200"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.6" Width="300" Height="200" Depth="60"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="30" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Master dimmer</Channel>
@@ -133,10 +133,10 @@
  </Mode>
  <Mode Name="8-channel">
   <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="300" Height="60" Weight="2.6" Depth="200"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.6" Width="300" Height="200" Depth="60"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="30" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Master dimmer</Channel>
