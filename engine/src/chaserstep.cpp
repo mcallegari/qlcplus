@@ -201,7 +201,7 @@ bool ChaserStep::loadXML(QXmlStreamReader &root, int& stepNumber, Doc *doc)
                     break;
 
                 quint32 fxID = QString(fxArray.at(f)).toUInt();
-                if (doc->fixture(fxID) == NULL)
+                if (doc != NULL && doc->fixture(fxID) == NULL)
                     continue;
 
                 // now split the chunk into channel/values
