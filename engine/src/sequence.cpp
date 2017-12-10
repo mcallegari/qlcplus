@@ -193,7 +193,7 @@ bool Sequence::loadXML(QXmlStreamReader &root)
             if (sceneValues.isEmpty() == false)
                 step.values = sceneValues;
 
-            if (step.loadXML(root, stepNumber) == true)
+            if (step.loadXML(root, stepNumber, doc()) == true)
             {
                 step.fid = boundSceneID();
 
@@ -226,6 +226,23 @@ void Sequence::postLoad()
     if (scene != NULL)
     {
         sceneValues = scene->values();
+
+        if (sceneValues.count() == 0)
+        {
+            qDebug() << "The bound Scene is empty ! This should never happen. Trying to fix it...";
+            if (stepsCount())
+            {
+                foreach (SceneValue value, m_steps.at(0).values)
+                {
+                    value.value = 0;
+                    if (doc->fixture(value.fxi) != NULL)
+                        scene->setValue(value);
+                }
+            }
+            m_needFixup = false;
+            return;
+        }
+
         qSort(sceneValues.begin(), sceneValues.end());
     }
 

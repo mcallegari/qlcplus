@@ -424,7 +424,7 @@ bool Chaser::loadXML(QXmlStreamReader &root)
             ChaserStep step;
             int stepNumber = -1;
 
-            if (step.loadXML(root, stepNumber) == true)
+            if (step.loadXML(root, stepNumber, doc()) == true)
             {
                 if (stepNumber >= m_steps.size())
                     m_steps.append(step);

@@ -156,7 +156,7 @@ ChaserStep ChaserStep::fromVariant(const QVariant& var)
     return cs;
 }
 
-bool ChaserStep::loadXML(QXmlStreamReader &root, int& stepNumber)
+bool ChaserStep::loadXML(QXmlStreamReader &root, int& stepNumber, Doc *doc)
 {
     bool holdFound = false;
     if (root.name() != KXMLQLCFunctionStep)
@@ -198,9 +198,11 @@ bool ChaserStep::loadXML(QXmlStreamReader &root, int& stepNumber)
             for (int f = 0; f < fxArray.count(); f+=2)
             {
                 if (f + 1 >= fxArray.count())
-                    break;;
+                    break;
 
                 quint32 fxID = QString(fxArray.at(f)).toUInt();
+                if (doc->fixture(fxID) == NULL)
+                    continue;
 
                 // now split the chunk into channel/values
                 QStringList varray = fxArray.at(f + 1).split(",");

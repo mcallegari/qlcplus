@@ -75,7 +75,7 @@ public:
      ***********************************************************************/
 public:
     /** Load ChaserStep contents from $root and return step index in $stepNumber */
-    bool loadXML(QXmlStreamReader &root, int& stepNumber);
+    bool loadXML(QXmlStreamReader &root, int& stepNumber, Doc* doc);
 
     /** Save ChaserStep contents to $doc, with $stepNumber */
     bool saveXML(QXmlStreamWriter *doc, int stepNumber, bool isSequence) const;
