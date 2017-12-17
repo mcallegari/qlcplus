@@ -294,6 +294,7 @@ Rectangle
                               item.nodePath = path
                               item.isExpanded = isExpanded
                               item.nodeChildren = childrenModel
+                              item.dropKeys = "function"
                           }
                           else
                           {
@@ -363,6 +364,12 @@ Rectangle
                           ignoreUnknownSignals: true
                           target: item
                           onPathChanged: functionManager.setFolderPath(oldPath, newPath)
+                      }
+                      Connections
+                      {
+                          ignoreUnknownSignals: true
+                          target: item
+                          onItemsDropped: functionManager.moveFunctions(path)
                       }
                   } // Loader
               } // Component

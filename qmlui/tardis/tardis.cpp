@@ -406,7 +406,7 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
             ChaserStep step;
             int stepNumber = -1;
 
-            if (step.loadXML(xmlReader, stepNumber) == true)
+            if (step.loadXML(xmlReader, stepNumber, m_doc) == true)
                 chaser->addStep(step, stepNumber);
         }
         break;
@@ -528,6 +528,12 @@ int Tardis::processAction(TardisAction &action, bool undo)
         case FunctionSetName:
         {
             auto member = std::mem_fn(&Function::setName);
+            member(qobject_cast<Function *>(m_doc->function(action.m_objID)), value->toString());
+        }
+        break;
+        case FunctionSetPath:
+        {
+            auto member = std::mem_fn(&Function::setPath);
             member(qobject_cast<Function *>(m_doc->function(action.m_objID)), value->toString());
         }
         break;

@@ -120,15 +120,35 @@ Column
                 cursorVisible = false
             }
 
+            Keys.onPressed:
+            {
+                switch(event.key)
+                {
+                    case Qt.Key_F2:
+                        originalText = textLabel
+                        z = 5
+                        readOnly = false
+                        cursorPosition = text.length
+                        cursorVisible = true
+                    break;
+                    case Qt.Key_Escape:
+                        disableEditing()
+                        nodeLabel.text = originalText
+                    break;
+                    default:
+                        event.accepted = false
+                        return
+                }
+
+                event.accepted = true
+            }
+
             onEditingFinished:
             {
+                if (readOnly)
+                    return
                 disableEditing()
                 nodeContainer.pathChanged(nodePath, text)
-            }
-            Keys.onEscapePressed:
-            {
-                disableEditing()
-                nodeLabel.text = originalText
             }
         }
 
@@ -137,24 +157,6 @@ Column
             anchors.right: parent.right
             height: UISettings.listItemHeight
             label: cRef ? "" + (cRef.address + 1) + "-" + (cRef.address + cRef.channels + 1) : ""
-
-        }
-
-        Timer
-        {
-            id: clickTimer
-            interval: 200
-            repeat: false
-            running: false
-
-            property int modifiers: 0
-
-            onTriggered:
-            {
-                isExpanded = !isExpanded
-                nodeContainer.mouseEvent(App.Clicked, cRef ? cRef.id : -1, -1, nodeContainer, modifiers)
-                modifiers = 0
-            }
         }
 
         MouseArea
@@ -174,20 +176,10 @@ Column
             onPressed: nodeContainer.mouseEvent(App.Pressed, cRef ? cRef.id : -1, -1, nodeContainer, mouse.modifiers)
             onClicked:
             {
-                clickTimer.modifiers = mouse.modifiers
-                clickTimer.start()
-            }
-            onDoubleClicked:
-            {
-                clickTimer.stop()
-                clickTimer.modifiers = 0
-                nodeLabel.originalText = textLabel
-                nodeLabel.z = 5
-                nodeLabel.readOnly = false
                 nodeLabel.forceActiveFocus()
-                nodeLabel.cursorPosition = nodeLabel.text.length
-                nodeLabel.cursorVisible = true
+                nodeContainer.mouseEvent(App.Clicked, cRef ? cRef.id : -1, -1, nodeContainer, mouse.modifiers)
             }
+            onDoubleClicked: isExpanded = !isExpanded
         }
     }
 

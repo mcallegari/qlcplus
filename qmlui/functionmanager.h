@@ -88,6 +88,9 @@ public:
     QString searchFilter() const;
     void setSearchFilter(QString searchFilter);
 
+    /** Change the path of an existing folder and all its children */
+    Q_INVOKABLE void setFolderPath(QString oldAbsPath, QString newRelPath);
+
     /** Create a new Function with the specified $type */
     Q_INVOKABLE quint32 createFunction(int type);
 
@@ -117,6 +120,9 @@ public:
 
     /** Delete the list of Function IDs in $IDList. This happens AFTER a popup confirmation */
     Q_INVOKABLE void deleteFunctions(QVariantList IDList);
+
+    /** Move the currently selected Function to the specified $newPath */
+    Q_INVOKABLE void moveFunctions(QString newPath);
 
     /** Generic method to delete a list of item IDs specified in $list.
      *  This is used from within a Function editor and items can be of any type

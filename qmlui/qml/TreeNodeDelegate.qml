@@ -41,10 +41,12 @@ Column
     property string childrenDelegate: "qrc:/FunctionDelegate.qml"
     property string subTreeDelegate: "qrc:/TreeNodeDelegate.qml"
     property Item dragItem
+    property string dropKeys: ""
 
     signal toggled(bool expanded, int newHeight)
     signal mouseEvent(int type, int iID, int iType, var qItem, int mouseMods)
     signal pathChanged(string oldPath, string newPath)
+    signal itemsDropped(string path)
 
     function getItemAtPos(x, y)
     {
@@ -67,7 +69,7 @@ Column
             anchors.fill: parent
             radius: 3
             color: UISettings.highlight
-            visible: isSelected
+            visible: isSelected || tnDropArea.containsDrag
         }
 
         Image
@@ -108,32 +110,35 @@ Column
                 cursorVisible = false
             }
 
+            Keys.onPressed:
+            {
+                switch(event.key)
+                {
+                    case Qt.Key_F2:
+                        originalText = textLabel
+                        z = 5
+                        readOnly = false
+                        cursorPosition = text.length
+                        cursorVisible = true
+                    break;
+                    case Qt.Key_Escape:
+                        disableEditing()
+                        nodeLabel.text = originalText
+                    break;
+                    default:
+                        event.accepted = false
+                        return
+                }
+
+                event.accepted = true
+            }
+
             onEditingFinished:
             {
+                if (readOnly)
+                    return
                 disableEditing()
                 nodeContainer.pathChanged(nodePath, text)
-            }
-            Keys.onEscapePressed:
-            {
-                disableEditing()
-                nodeLabel.text = originalText
-            }
-        }
-
-        Timer
-        {
-            id: clickTimer
-            interval: 200
-            repeat: false
-            running: false
-
-            property int modifiers: 0
-
-            onTriggered:
-            {
-                isExpanded = !isExpanded
-                nodeContainer.mouseEvent(App.Clicked, -1, -1, nodeContainer, modifiers)
-                modifiers = 0
             }
         }
 
@@ -154,19 +159,22 @@ Column
             onPressed: nodeContainer.mouseEvent(App.Pressed, -1, -1, nodeContainer, mouse.modifiers)
             onClicked:
             {
-                clickTimer.modifiers = mouse.modifiers
-                clickTimer.start()
-            }
-            onDoubleClicked:
-            {
-                clickTimer.stop()
-                clickTimer.modifiers = 0
-                nodeLabel.originalText = textLabel
-                nodeLabel.z = 5
-                nodeLabel.readOnly = false
                 nodeLabel.forceActiveFocus()
-                nodeLabel.cursorPosition = nodeLabel.text.length
-                nodeLabel.cursorVisible = true
+                nodeContainer.mouseEvent(App.Clicked, -1, -1, nodeContainer, mouse.modifiers)
+            }
+            onDoubleClicked: isExpanded = !isExpanded
+        }
+
+        DropArea
+        {
+            id: tnDropArea
+            anchors.fill: parent
+            keys: [ nodeContainer.dropKeys ]
+
+            onDropped:
+            {
+                console.log("Item dropped here. x: " + drop.x + " y: " + drop.y + ", items: " + drop.source.itemsList.length)
+                nodeContainer.itemsDropped(nodePath)
             }
         }
     }
@@ -205,6 +213,8 @@ Column
                             item.nodePath = nodePath + "/" + path
                             item.isExpanded = isExpanded
                             item.nodeChildren = childrenModel
+                            if (item.hasOwnProperty('dropKeys'))
+                                item.dropKeys = nodeContainer.dropKeys
                             if (item.hasOwnProperty('childrenDelegate'))
                                 item.childrenDelegate = childrenDelegate
 
@@ -246,6 +256,12 @@ Column
                         ignoreUnknownSignals: true
                         target: item
                         onPathChanged: nodeContainer.pathChanged(oldPath, newPath)
+                    }
+                    Connections
+                    {
+                        ignoreUnknownSignals: true
+                        target: item
+                        onItemsDropped: nodeContainer.itemsDropped(path)
                     }
                 }
         }

@@ -59,6 +59,7 @@ enum
     FunctionCreate = 0x0100,
     FunctionDelete,
     FunctionSetName,
+    FunctionSetPath,
     FunctionSetRunOrder,
     FunctionSetDirection,
     FunctionSetTempoType,

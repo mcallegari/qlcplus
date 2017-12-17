@@ -152,6 +152,30 @@ void FunctionManager::setSearchFilter(QString searchFilter)
     emit searchFilterChanged();
 }
 
+void FunctionManager::setFolderPath(QString oldAbsPath, QString newRelPath)
+{
+    int slashPos = oldAbsPath.lastIndexOf('/');
+    QString newAbsPath;
+
+    if (slashPos != -1)
+        newAbsPath = oldAbsPath.mid(0, slashPos + 1) + newRelPath;
+    else
+        newAbsPath = newRelPath;
+
+    qDebug() << "Folder path changed from" << oldAbsPath << "to" << newAbsPath;
+
+    for (Function *f : m_doc->functions())
+    {
+        qDebug() << "Function path:" << f->path();
+        if (f->path(true).startsWith(oldAbsPath))
+        {
+            Tardis::instance()->enqueueAction(FunctionSetPath, f->id(), f->path(true), newAbsPath);
+            f->setPath(newAbsPath);
+        }
+    }
+    updateFunctionsTree();
+}
+
 quint32 FunctionManager::createFunction(int type)
 {
     Function* f = NULL;
@@ -505,7 +529,7 @@ bool FunctionManager::isEditing() const
 
 void FunctionManager::deleteFunctions(QVariantList IDList)
 {
-    foreach(QVariant fID, IDList)
+    for (QVariant fID : IDList)
     {
         Function *f = m_doc->function(fID.toInt());
         if (f == NULL)
@@ -528,6 +552,21 @@ void FunctionManager::deleteFunctions(QVariantList IDList)
     updateFunctionsTree();
 }
 
+void FunctionManager::moveFunctions(QString newPath)
+{
+    for (QVariant fID : m_selectedIDList)
+    {
+        Function *f = m_doc->function(fID.toInt());
+        if (f == NULL)
+            continue;
+
+        Tardis::instance()->enqueueAction(FunctionSetPath, f->id(), f->path(true), newPath);
+        f->setPath(newPath);
+    }
+
+    updateFunctionsTree();
+}
+
 void FunctionManager::deleteEditorItems(QVariantList list)
 {
     if (m_currentEditor != NULL)
@@ -544,7 +583,10 @@ void FunctionManager::renameFunctions(QVariantList IDList, QString newName, bool
         // single Function rename
         Function *f = m_doc->function(IDList.first().toUInt());
         if (f != NULL)
+        {
+            Tardis::instance()->enqueueAction(FunctionSetName, f->id(), f->name(), newName.simplified());
             f->setName(newName.simplified());
+        }
     }
     else
     {
@@ -559,11 +601,15 @@ void FunctionManager::renameFunctions(QVariantList IDList, QString newName, bool
             if (numbering)
             {
                 QString fName = QString("%1 %2").arg(newName.simplified()).arg(currNumber, digits, 10, QChar('0'));
+                Tardis::instance()->enqueueAction(FunctionSetName, f->id(), f->name(), fName);
                 f->setName(fName);
                 currNumber++;
             }
             else
+            {
+                Tardis::instance()->enqueueAction(FunctionSetName, f->id(), f->name(), newName.simplified());
                 f->setName(newName.simplified());
+            }
         }
     }
 
