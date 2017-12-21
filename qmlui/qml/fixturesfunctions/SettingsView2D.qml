@@ -32,7 +32,33 @@ Rectangle
     border.width: 1
     border.color: "#222"
 
-    property bool fxPropsVisible: contextManager.hasSelectedFixtures
+    property int selFixturesCount: contextManager.selectedFixturesCount
+    property bool fxPropsVisible: selFixturesCount ? true : false
+    property vector3d fxRotation: selFixturesCount === 1 ? contextManager.fixturesRotation : lastRotation
+    property vector3d lastRotation
+
+    onSelFixturesCountChanged:
+    {
+        if (selFixturesCount > 1)
+            lastRotation = Qt.vector3d(0, 0, 0)
+    }
+
+    function updateRotation(x, y, z)
+    {
+        if (visible == false)
+            return;
+
+        if (selFixturesCount == 1)
+        {
+            contextManager.fixturesRotation = Qt.vector3d(x, y, z)
+        }
+        else
+        {
+            contextManager.fixturesRotation = Qt.vector3d(x - lastRotation.x, y - lastRotation.y, z - lastRotation.z)
+            lastRotation = Qt.vector3d(x, y, z)
+
+        }
+    }
 
     GridLayout
     {
@@ -151,12 +177,8 @@ Rectangle
             from: -359
             to: 359
             suffix: "°"
-            value: contextManager.fixturesRotation.y
-            onValueChanged:
-            {
-                if (settingsRoot.visible)
-                    contextManager.fixturesRotation = Qt.vector3d(0.0, value, 0.0)
-            }
+            value: fxRotation.y
+            onValueChanged: updateRotation(fxRotation.x, value, fxRotation.z)
         }
 
         RobotoText { visible: fxPropsVisible; label: qsTr("Alignment") }

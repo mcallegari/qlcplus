@@ -41,7 +41,7 @@ class ContextManager : public QObject
 
     Q_PROPERTY(QString currentContext READ currentContext NOTIFY currentContextChanged)
     Q_PROPERTY(quint32 universeFilter READ universeFilter WRITE setUniverseFilter NOTIFY universeFilterChanged)
-    Q_PROPERTY(bool hasSelectedFixtures READ hasSelectedFixtures NOTIFY selectedFixturesChanged)
+    Q_PROPERTY(int selectedFixturesCount READ selectedFixturesCount NOTIFY selectedFixturesChanged)
     Q_PROPERTY(QVector3D fixturesPosition READ fixturesPosition WRITE setFixturesPosition NOTIFY fixturesPositionChanged)
     Q_PROPERTY(QVector3D fixturesRotation READ fixturesRotation WRITE setFixturesRotation NOTIFY fixturesRotationChanged)
     Q_PROPERTY(bool positionPicking READ positionPicking WRITE setPositionPicking NOTIFY positionPickingChanged)
@@ -150,7 +150,7 @@ public:
     Q_INVOKABLE void setRectangleSelection(qreal x, qreal y, qreal width, qreal height);
 
     /** Returns if at least one fixture is currently selected */
-    bool hasSelectedFixtures();
+    int selectedFixturesCount();
 
     /** Returns if the fixture with $fxID is currently selected */
     Q_INVOKABLE bool isFixtureSelected(quint32 fxID);
@@ -199,9 +199,6 @@ signals:
 private:
     /** The list of the currently selected Fixture IDs */
     QList<quint32> m_selectedFixtures;
-
-    /** Holds the last rotation value to handle relative changes */
-    QVector3D m_prevRotation;
 
     /** A flag indicating if a Function is currently being edited */
     bool m_editingEnabled;

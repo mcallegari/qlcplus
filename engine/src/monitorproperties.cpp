@@ -187,21 +187,21 @@ bool MonitorProperties::loadXML(QXmlStreamReader &root, const Doc * mainDocument
                     pos.setZ(tAttrs.value(KXMLQLCMonitorFixtureZPos).toString().toDouble());
                 setFixturePosition(fid, pos);
 
-#ifdef QMLUI
-                if (tAttrs.hasAttribute(KXMLQLCMonitorFixtureXRotation))
-                    rot.setX(tAttrs.value(KXMLQLCMonitorFixtureXRotation).toString().toDouble());
-                if (tAttrs.hasAttribute(KXMLQLCMonitorFixtureYRotation))
-                    rot.setY(tAttrs.value(KXMLQLCMonitorFixtureYRotation).toString().toDouble());
-                if (tAttrs.hasAttribute(KXMLQLCMonitorFixtureZRotation))
-                    rot.setZ(tAttrs.value(KXMLQLCMonitorFixtureZRotation).toString().toDouble());
-                setFixtureRotation(fid, rot);
-#else
-                if (tAttrs.hasAttribute(KXMLQLCMonitorFixtureRotation))
+                if (tAttrs.hasAttribute(KXMLQLCMonitorFixtureRotation)) // check legacy first
                 {
                     rot.setY(tAttrs.value(KXMLQLCMonitorFixtureRotation).toString().toDouble());
-                    setFixtureRotation(fid, rot);
                 }
-#endif
+                else
+                {
+                    if (tAttrs.hasAttribute(KXMLQLCMonitorFixtureXRotation))
+                        rot.setX(tAttrs.value(KXMLQLCMonitorFixtureXRotation).toString().toDouble());
+                    if (tAttrs.hasAttribute(KXMLQLCMonitorFixtureYRotation))
+                        rot.setY(tAttrs.value(KXMLQLCMonitorFixtureYRotation).toString().toDouble());
+                    if (tAttrs.hasAttribute(KXMLQLCMonitorFixtureZRotation))
+                        rot.setZ(tAttrs.value(KXMLQLCMonitorFixtureZRotation).toString().toDouble());
+                }
+                setFixtureRotation(fid, rot);
+
                 if (tAttrs.hasAttribute(KXMLQLCMonitorFixtureGelColor))
                     setFixtureGelColor(fid, QColor(tAttrs.value(KXMLQLCMonitorFixtureGelColor).toString()));
                 root.skipCurrentElement();

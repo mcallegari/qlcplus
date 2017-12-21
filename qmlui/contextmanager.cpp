@@ -45,7 +45,6 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
     , m_functionManager(funcMgr)
     , m_positionPicking(false)
     , m_universeFilter(Universe::invalid())
-    , m_prevRotation(QVector3D(0, 0, 0))
     , m_editingEnabled(false)
 {
     m_view->rootContext()->setContextProperty("contextManager", this);
@@ -487,9 +486,9 @@ void ContextManager::setRectangleSelection(qreal x, qreal y, qreal width, qreal 
     emit selectedFixturesChanged();
 }
 
-bool ContextManager::hasSelectedFixtures()
+int ContextManager::selectedFixturesCount()
 {
-    return m_selectedFixtures.isEmpty() ? false : true;
+    return m_selectedFixtures.count();
 }
 
 bool ContextManager::isFixtureSelected(quint32 fxID)
@@ -590,91 +589,53 @@ void ContextManager::createFixtureGroup()
 
 QVector3D ContextManager::fixturesRotation() const
 {
-    QVector3D rotation(0, 0, 0);
-    MonitorProperties *mProps = m_doc->monitorProperties();
-
-    foreach(quint32 fxID, m_selectedFixtures)
+    if (m_selectedFixtures.count() == 1)
     {
-        if (mProps->hasFixturePosition(fxID) == false)
-            continue;
-
-        QVector3D rot = mProps->fixtureRotation(fxID);
-        if (rotation == QVector3D(0, 0, 0))
-            rotation = rot;
-        else
-        {
-            if (rot != rotation)
-                return QVector3D(0, 0, 0);
-        }
+        MonitorProperties *mProps = m_doc->monitorProperties();
+        if (mProps->hasFixturePosition(m_selectedFixtures.first()) == true)
+            return mProps->fixtureRotation(m_selectedFixtures.first());
     }
 
-    return rotation;
+    return QVector3D(0, 0, 0);
 }
 
 void ContextManager::setFixturesRotation(QVector3D degrees)
 {
-    bool mixed = false;
-    QVector3D commonRotation(0, 0, 0);
     MonitorProperties *mProps = m_doc->monitorProperties();
 
-    // first, detect if we're setting the rotation
-    // in a mixed context
-    foreach(quint32 fxID, m_selectedFixtures)
+    if (m_selectedFixtures.count() == 1)
     {
-        if (mProps->hasFixturePosition(fxID) == false)
-            continue;
-
-        QVector3D rot = mProps->fixtureRotation(fxID);
-        if (commonRotation == QVector3D(0, 0, 0))
-            commonRotation = rot;
-        else
-        {
-            if (rot != commonRotation)
-            {
-                mixed = true;
-                break;
-            }
-        }
-    }
-
-    // if mixed, treat degrees as relative
-    // otherwise set it directly
-    float deltaX = degrees.x() - m_prevRotation.x();
-    float deltaY = degrees.y() - m_prevRotation.y();
-    float deltaZ = degrees.z() - m_prevRotation.z();
-
-    foreach(quint32 fxID, m_selectedFixtures)
-    {
-        QVector3D rot(0, 0, 0);
-        if (mProps->hasFixturePosition(fxID))
-            rot = mProps->fixtureRotation(fxID);
-
-        if (mixed == false)
-            rot = degrees;
-        else
-        {
-            rot.setX(rot.x() + deltaX);
-            rot.setY(rot.y() + deltaY);
-            rot.setZ(rot.z() + deltaZ);
-        }
-
-        // normalize back to a 0-359 range
-        if (rot.x() < 0) rot.setX(rot.x() + 360);
-        else if (rot.x() >= 360) rot.setX(rot.x() - 360);
-
-        if (rot.y() < 0) rot.setY(rot.y() + 360);
-        else if (rot.y() >= 360) rot.setY(rot.y() - 360);
-
-        if (rot.z() < 0) rot.setZ(rot.z() + 360);
-        else if (rot.z() >= 360) rot.setZ(rot.z() - 360);
-
-        mProps->setFixtureRotation(fxID, rot);
+        // absolute rotation change
+        mProps->setFixtureRotation(m_selectedFixtures.first(), degrees);
         if (m_2DView->isEnabled())
-            m_2DView->updateFixtureRotation(fxID, rot);
+            m_2DView->updateFixtureRotation(m_selectedFixtures.first(), degrees);
         if (m_3DView->isEnabled())
-            m_3DView->updateFixtureRotation(fxID, rot);
+            m_3DView->updateFixtureRotation(m_selectedFixtures.first(), degrees);
     }
-    m_prevRotation = degrees;
+    else
+    {
+        // relative rotation change
+        for (quint32 fxID : m_selectedFixtures)
+        {
+            QVector3D newRot = mProps->fixtureRotation(fxID) + degrees;
+
+            // normalize back to a 0-359 range
+            if (newRot.x() < 0) newRot.setX(newRot.x() + 360);
+            else if (newRot.x() >= 360) newRot.setX(newRot.x() - 360);
+
+            if (newRot.y() < 0) newRot.setY(newRot.y() + 360);
+            else if (newRot.y() >= 360) newRot.setY(newRot.y() - 360);
+
+            if (newRot.z() < 0) newRot.setZ(newRot.z() + 360);
+            else if (newRot.z() >= 360) newRot.setZ(newRot.z() - 360);
+
+            mProps->setFixtureRotation(fxID, newRot);
+            if (m_2DView->isEnabled())
+                m_2DView->updateFixtureRotation(fxID, newRot);
+            if (m_3DView->isEnabled())
+                m_3DView->updateFixtureRotation(fxID, newRot);
+        }
+    }
 
     emit fixturesRotationChanged();
 }
