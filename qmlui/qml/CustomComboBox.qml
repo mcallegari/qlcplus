@@ -94,6 +94,8 @@ ComboBox
                 Row
                 {
                     spacing: 2
+                    leftPadding: 3
+
                     Image
                     {
                         id: iconItem
@@ -147,8 +149,9 @@ ComboBox
     contentItem:
         Row
         {
-            x: 2
             spacing: 2
+            leftPadding: 3
+
             Image
             {
                 visible: currentIcon ? true : false
