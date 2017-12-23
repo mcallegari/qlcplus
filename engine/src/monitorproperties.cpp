@@ -34,6 +34,7 @@
 #define KXMLQLCMonitorGridHeight "Height"
 #define KXMLQLCMonitorGridDepth "Depth"
 #define KXMLQLCMonitorGridUnits "Units"
+#define KXMLQLCMonitorPointOfView "POV"
 #define KXMLQLCMonitorShowLabels "ShowLabels"
 #define KXMLQLCMonitorCommonBackground "Background"
 
@@ -52,14 +53,54 @@
 #define KXMLQLCMonitorFixtureGelColor "GelColor"
 
 MonitorProperties::MonitorProperties()
+    : m_displayMode(DMX)
+    , m_channelStyle(DMXChannels)
+    , m_valueStyle(DMXValues)
+    , m_gridSize(QVector3D(5, 3, 5))
+    , m_gridUnits(Meters)
+    , m_pointOfView(Undefined)
+    , m_showLabels(false)
 {
     m_font = QFont("Arial", 12);
-    m_displayMode = DMX;
-    m_channelStyle = DMXChannels;
-    m_valueStyle = DMXValues;
-    m_gridSize = QVector3D(5, 3, 5);
-    m_gridUnits = Meters;
-    m_showLabels = false;
+}
+
+void MonitorProperties::setPointOfView(MonitorProperties::PointOfView pov)
+{
+    if (pov == m_pointOfView)
+        return;
+
+    if (m_pointOfView == Undefined)
+    {
+        foreach (quint32 fid, fixtureItemsID())
+        {
+            QVector3D pos = fixturePosition(fid);
+
+            switch (pov)
+            {
+                case TopView:
+                {
+                    QVector3D newPos(pos.x(), 1000, m_gridSize.z() - pos.y());
+                    setFixturePosition(fid, newPos);
+                }
+                break;
+                case RightSideView:
+                {
+                    QVector3D newPos(0, pos.y(), gridSize().z() - pos.x());
+                    setFixturePosition(fid, newPos);
+                }
+                break;
+                case LeftSideView:
+                {
+                    QVector3D newPos(0, pos.y(), pos.x());
+                    setFixturePosition(fid, newPos);
+                }
+                break;
+                default:
+                break;
+            }
+        }
+    }
+    m_pointOfView = pov;
 }
 
 void MonitorProperties::removeFixture(quint32 fid)
@@ -85,12 +126,9 @@ void MonitorProperties::setFixtureGelColor(quint32 fid, QColor col)
     m_fixtureItems[fid].m_gelColor = col;
 }
 
-QString MonitorProperties::customBackground(quint32 id)
+QString MonitorProperties::customBackground(quint32 fid)
 {
-    if (m_customBackgroundImages.contains(id))
-        return m_customBackgroundImages[id];
-
-    return QString();
+    return m_customBackgroundImages.value(fid, QString());
 }
 
 void MonitorProperties::reset()
@@ -168,6 +206,11 @@ bool MonitorProperties::loadXML(QXmlStreamReader &root, const Doc * mainDocument
 
             if (tAttrs.hasAttribute(KXMLQLCMonitorGridUnits))
                 setGridUnits(GridUnits(tAttrs.value(KXMLQLCMonitorGridUnits).toString().toInt()));
+
+            if (tAttrs.hasAttribute(KXMLQLCMonitorPointOfView))
+                setPointOfView(PointOfView(tAttrs.value(KXMLQLCMonitorPointOfView).toString().toInt()));
+            else
+                setPointOfView(Undefined);
 
             setGridSize(QVector3D(w, h, d));
             root.skipCurrentElement();
@@ -257,6 +300,9 @@ bool MonitorProperties::saveXML(QXmlStreamWriter *doc, const Doc *mainDocument) 
     doc->writeAttribute(KXMLQLCMonitorGridHeight, QString::number(gridSize().y()));
     doc->writeAttribute(KXMLQLCMonitorGridDepth, QString::number(gridSize().z()));
     doc->writeAttribute(KXMLQLCMonitorGridUnits, QString::number(gridUnits()));
+    if (m_pointOfView != Undefined)
+        doc->writeAttribute(KXMLQLCMonitorPointOfView, QString::number(pointOfView()));
+
     doc->writeEndElement();
 
     foreach (quint32 fid, fixtureItemsID())

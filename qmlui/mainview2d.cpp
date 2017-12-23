@@ -34,11 +34,6 @@ MainView2D::MainView2D(QQuickView *view, Doc *doc, QObject *parent)
     , m_monProps(doc->monitorProperties())
 {
     setGridSize(m_monProps->gridSize());
-    if (m_monProps->gridUnits() == MonitorProperties::Feet)
-        setGridUnits(304.8);
-    else
-        setGridUnits(1000.0);
-
     setGridScale(1.0);
     setCellPixels(100);
 
@@ -103,10 +98,6 @@ void MainView2D::resetItems()
 void MainView2D::initialize2DProperties()
 {
     setGridSize(m_monProps->gridSize());
-    if (m_monProps->gridUnits() == MonitorProperties::Feet)
-        setGridUnits(304.8);
-    else
-        setGridUnits(1000.0);
 
     m_contents2D = qobject_cast<QQuickItem*>(contextItem()->findChild<QObject *>("twoDContents"));
 
@@ -120,7 +111,102 @@ void MainView2D::initialize2DProperties()
     m_yOffset = m_contents2D->property("y").toReal();
 }
 
-void MainView2D::createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords)
+QPointF MainView2D::item2DPosition(QVector3D pos, bool mmCoords)
+{
+    QPointF point(0, 0);
+    float gridUnits = m_monProps->gridUnits() == MonitorProperties::Meters ? 1000.0 : 304.8;
+
+    if (mmCoords == false)
+    {
+        m_xOffset = m_contents2D->property("x").toReal();
+        m_yOffset = m_contents2D->property("y").toReal();
+        pos.setX(((pos.x() - m_xOffset) * gridUnits) / m_cellPixels);
+        pos.setY(((pos.y() - m_yOffset) * gridUnits) / m_cellPixels);
+    }
+
+    switch(m_monProps->pointOfView())
+    {
+        case MonitorProperties::TopView:
+            point.setX(pos.x());
+            point.setY(pos.z());
+        break;
+        case MonitorProperties::Undefined:
+        case MonitorProperties::FrontView:
+            point.setX(pos.x());
+            point.setY(pos.y());
+        break;
+        case MonitorProperties::RightSideView:
+            point.setX((m_monProps->gridSize().x() * gridUnits) - pos.z());
+            point.setY(pos.y());
+        break;
+        case MonitorProperties::LeftSideView:
+            point.setX(pos.z());
+            point.setY(pos.y());
+        break;
+    }
+
+    return point;
+}
+
+float MainView2D::item2DRotation(QVector3D rot)
+{
+    switch(m_monProps->pointOfView())
+    {
+        case MonitorProperties::TopView:
+            return rot.y();
+        break;
+        case MonitorProperties::Undefined:
+        case MonitorProperties::FrontView:
+            return rot.z();
+        break;
+        case MonitorProperties::RightSideView:
+            return rot.x();
+        break;
+        case MonitorProperties::LeftSideView:
+            return rot.x();
+        break;
+    }
+
+    return 0;
+}
+
+QSizeF MainView2D::item2DDimension(QLCFixtureMode *fxMode)
+{
+    QSizeF size(300, 300);
+
+    if (fxMode == NULL)
+        return size;
+
+    QLCPhysical phy = fxMode->physical();
+    if (phy.width() == 0)
+        phy.setWidth(300);
+    if (phy.height() == 0)
+        phy.setHeight(300);
+    if (phy.depth() == 0)
+        phy.setDepth(300);
+
+    switch(m_monProps->pointOfView())
+    {
+        case MonitorProperties::TopView:
+            size.setWidth(phy.width());
+            size.setHeight(phy.depth());
+        break;
+        case MonitorProperties::Undefined:
+        case MonitorProperties::FrontView:
+            size.setWidth(phy.width());
+            size.setHeight(phy.depth());
+        break;
+        case MonitorProperties::RightSideView:
+        case MonitorProperties::LeftSideView:
+            size.setWidth(phy.depth());
+            size.setHeight(phy.height());
+        break;
+    }
+
+    return size;
+}
+
+void MainView2D::createFixtureItem(quint32 fxID, QVector3D pos, bool mmCoords)
 {
     if (isEnabled() == false)
         return;
@@ -128,7 +214,7 @@ void MainView2D::createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords
     if (m_contents2D == NULL)
        initialize2DProperties();
 
-    qDebug() << "[MainView2D] Creating fixture with ID" << fxID << "x:" << x << "y:" << y;
+    qDebug() << "[MainView2D] Creating fixture with ID" << fxID << "pos:" << pos;
 
     Fixture *fixture = m_doc->fixture(fxID);
     if (fixture == NULL)
@@ -142,43 +228,9 @@ void MainView2D::createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords
     newFixtureItem->setParentItem(m_contents2D);
     newFixtureItem->setProperty("fixtureID", fxID);
 
-    if (m_monProps->hasFixturePosition(fxID) == false)
-    {
-        if (mmCoords == false)
-        {
-            if (x != 0 || y != 0)
-            {
-                m_xOffset = m_contents2D->property("x").toReal();
-                m_yOffset = m_contents2D->property("y").toReal();
-                x = ((x - m_xOffset) * m_gridUnits) / m_cellPixels;
-                y = ((y - m_yOffset) * m_gridUnits) / m_cellPixels;
-            }
-        }
-        fxRect.setX(x);
-        fxRect.setY(y);
-    }
-    else
-    {
-        QVector3D fxOrig = m_monProps->fixturePosition(fxID);
-        QVector3D fxRot = m_monProps->fixtureRotation(fxID);
-        fxRect.setX(fxOrig.x());
-        fxRect.setY(fxOrig.y());
-        newFixtureItem->setProperty("rotation", fxRot.y());
-    }
-
     if (fxMode != NULL)
     {
         QLCPhysical phy = fxMode->physical();
-
-        if (phy.width() != 0)
-            fxRect.setWidth(phy.width());
-        else
-            fxRect.setWidth(300);
-
-        if (phy.height() != 0)
-            fxRect.setHeight(phy.height());
-        else
-            fxRect.setHeight(300);
 
         //qDebug() << "Current mode fixture heads:" << fxMode->heads().count();
         newFixtureItem->setProperty("headsNumber", fxMode->heads().count());
@@ -196,36 +248,33 @@ void MainView2D::createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords
             newFixtureItem->setProperty("tiltMaxDegrees", tiltDeg);
         }
     }
-    else
-    {
-        // default to 300x300mm
-        fxRect.setWidth(300);
-        fxRect.setHeight(300);
-    }
+
+    QPointF itemPos = item2DPosition(pos, mmCoords);
+    fxRect.setX(itemPos.x());
+    fxRect.setY(itemPos.y());
+
+    if (m_monProps->hasFixturePosition(fxID))
+        newFixtureItem->setProperty("rotation", item2DRotation(m_monProps->fixtureRotation(fxID)));
+
+    QSizeF size = item2DDimension(fxMode);
+    fxRect.setWidth(size.width());
+    fxRect.setHeight(size.height());
 
     newFixtureItem->setProperty("mmWidth", fxRect.width());
     newFixtureItem->setProperty("mmHeight", fxRect.height());
 
     if (m_monProps->hasFixturePosition(fxID) == false)
     {
-        QPointF availablePos = m_doc->getAvailable2DPosition(fxRect);
-        x = availablePos.x();
-        y = availablePos.y();
+        itemPos = m_doc->getAvailable2DPosition(fxRect);
         // add the new fixture to the Doc monitor properties
-        m_monProps->setFixturePosition(fxID, QVector3D(x, y, 0));
+        m_monProps->setFixturePosition(fxID, QVector3D(itemPos.x(), itemPos.y(), 0));
         Tardis::instance()->enqueueAction(FixtureSetPosition, fixture->id(),
                                           QVariant(QVector3D(0, 0, 0)),
-                                          QVariant(QVector3D(x, y, 0)));
-    }
-    else
-    {
-        QVector3D fxOrig = m_monProps->fixturePosition(fxID);
-        x = fxOrig.x();
-        y = fxOrig.y();
+                                          QVariant(QVector3D(itemPos.x(), itemPos.y(), 0)));
     }
 
-    newFixtureItem->setProperty("mmXPos", x);
-    newFixtureItem->setProperty("mmYPos", y);
+    newFixtureItem->setProperty("mmXPos", itemPos.x());
+    newFixtureItem->setProperty("mmYPos", itemPos.y());
     newFixtureItem->setProperty("fixtureName", fixture->name());
 
     // and finally add the new item to the items map
@@ -275,15 +324,12 @@ void MainView2D::slotRefreshView()
     if (m_contents2D == NULL)
         return;
 
-    foreach(Fixture *fixture, m_doc->fixtures())
+    for (Fixture *fixture : m_doc->fixtures())
     {
         if (m_monProps->hasFixturePosition(fixture->id()))
-        {
-            QVector3D fxPos = m_monProps->fixturePosition(fixture->id());
-            createFixtureItem(fixture->id(), fxPos.x(), fxPos.y());
-        }
+            createFixtureItem(fixture->id(), m_monProps->fixturePosition(fixture->id()), true);
         else
-            createFixtureItem(fixture->id(), 0, 0, false);
+            createFixtureItem(fixture->id(), QVector3D(0, 0, 0), false);
     }
 }
 
@@ -506,13 +552,15 @@ void MainView2D::updateFixturePosition(quint32 fxID, QVector3D pos)
 
     if (m_itemsMap.contains(fxID) == false)
     {
-        createFixtureItem(fxID, pos.x(), pos.y());
-        return;
+        createFixtureItem(fxID, pos, false);
     }
-
-    QQuickItem *fxItem = m_itemsMap[fxID];
-    fxItem->setProperty("mmXPos", pos.x());
-    fxItem->setProperty("mmYPos", pos.y());
+    else
+    {
+        QQuickItem *fxItem = m_itemsMap[fxID];
+        QPointF point = item2DPosition(pos, true);
+        fxItem->setProperty("mmXPos", point.x());
+        fxItem->setProperty("mmYPos", point.y());
+    }
 }
 
 void MainView2D::removeFixtureItem(quint32 fxID)
@@ -524,37 +572,43 @@ void MainView2D::removeFixtureItem(quint32 fxID)
     delete fixtureItem;
 }
 
-QVector3D MainView2D::gridSize() const
+QSize MainView2D::gridSize() const
 {
     return m_gridSize;
 }
 
 void MainView2D::setGridSize(QVector3D sz)
 {
-    if (sz != m_gridSize)
+    switch(m_monProps->pointOfView())
     {
-        m_gridSize = sz;
-        m_monProps->setGridSize(sz);
-        emit gridSizeChanged();
+        case MonitorProperties::TopView:
+            m_gridSize = QSize(sz.x(), sz.z());
+        break;
+        case MonitorProperties::LeftSideView:
+        case MonitorProperties::RightSideView:
+            m_gridSize = QSize(sz.z(), sz.y());
+        break;
+        //case MonitorProperties::Undefined:
+        //case MonitorProperties::FrontView:
+        default:
+            m_gridSize = QSize(sz.x(), sz.y());
+        break;
     }
+    emit gridSizeChanged();
 }
 
-float MainView2D::gridUnits() const
+int MainView2D::gridUnits() const
 {
-    return m_gridUnits;
+    return m_monProps->gridUnits();
 }
 
-void MainView2D::setGridUnits(float units)
+void MainView2D::setGridUnits(int units)
 {
-    if (units != m_gridUnits)
-    {
-        m_gridUnits = units;
-        if (units == 304.8)
-            m_monProps->setGridUnits(MonitorProperties::Feet);
-        else
-            m_monProps->setGridUnits(MonitorProperties::Meters);
-        emit gridUnitsChanged();
-    }
+    if (units == m_monProps->gridUnits())
+        return;
+
+    m_monProps->setGridUnits(MonitorProperties::GridUnits(units));
+    emit gridUnitsChanged();
 }
 
 qreal MainView2D::gridScale() const
@@ -583,6 +637,27 @@ void MainView2D::setCellPixels(qreal cellPixels)
 
     m_cellPixels = cellPixels;
     emit cellPixelsChanged(cellPixels);
+}
+
+int MainView2D::pointOfView() const
+{
+    return m_monProps->pointOfView();
+}
+
+void MainView2D::setPointOfView(int pointOfView)
+{
+    qDebug() << "Point of view:" << pointOfView;
+
+    if (pointOfView == m_monProps->pointOfView())
+        return;
+
+    m_monProps->setPointOfView(MonitorProperties::PointOfView(pointOfView));
+    emit pointOfViewChanged(pointOfView);
+
+    setGridSize(m_monProps->gridSize());
+
+    for (Fixture *fixture : m_doc->fixtures())
+        updateFixturePosition(fixture->id(), m_monProps->fixturePosition(fixture->id()));
 }
 
 

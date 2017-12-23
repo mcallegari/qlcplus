@@ -40,6 +40,7 @@ class ContextManager : public QObject
     Q_OBJECT
 
     Q_PROPERTY(QString currentContext READ currentContext NOTIFY currentContextChanged)
+    Q_PROPERTY(QVector3D environmentSize READ environmentSize WRITE setEnvironmentSize NOTIFY environmentSizeChanged)
     Q_PROPERTY(quint32 universeFilter READ universeFilter WRITE setUniverseFilter NOTIFY universeFilterChanged)
     Q_PROPERTY(int selectedFixturesCount READ selectedFixturesCount NOTIFY selectedFixturesChanged)
     Q_PROPERTY(QVector3D fixturesPosition READ fixturesPosition WRITE setFixturesPosition NOTIFY fixturesPositionChanged)
@@ -72,6 +73,10 @@ public:
     /** Return the currently active context */
     QString currentContext() const;
 
+    /** Get/Set the environment width/height/depth size */
+    QVector3D environmentSize() const;
+    void setEnvironmentSize(QVector3D environmentSize);
+
     /** Enable/Disable a position picking process */
     bool positionPicking() const;
     void setPositionPicking(bool enable);
@@ -80,6 +85,7 @@ public:
 
 signals:
     void currentContextChanged();
+    void environmentSizeChanged();
     void positionPickingChanged();
 
 public slots:

@@ -32,7 +32,7 @@ Rectangle
     border.width: 1
     border.color: "#222"
 
-    property vector3d stageSize: View3D.stageSize
+    property vector3d envSize: contextManager.environmentSize
     property real ambientIntensity: View3D.ambientIntensity
 
     property int selFixturesCount: contextManager.selectedFixturesCount
@@ -80,7 +80,6 @@ Rectangle
         {
             contextManager.fixturesRotation = Qt.vector3d(x - lastRotation.x, y - lastRotation.y, z - lastRotation.z)
             lastRotation = Qt.vector3d(x, y, z)
-
         }
     }
 
@@ -104,7 +103,7 @@ Rectangle
             {
                 x: 5
                 anchors.verticalCenter: parent.verticalCenter
-                label: qsTr("Stage")
+                label: qsTr("Environment")
             }
         }
 
@@ -129,11 +128,11 @@ Rectangle
             from: 1
             to: 50
             suffix: "m"
-            value: stageSize.x
+            value: envSize.x
             onValueChanged:
             {
                 if (settingsRoot.visible)
-                    View3D.stageSize = Qt.vector3d(value, stageSize.y, stageSize.z)
+                    contextManager.environmentSize = Qt.vector3d(value, envSize.y, envSize.z)
             }
         }
 
@@ -146,11 +145,11 @@ Rectangle
             from: 1
             to: 50
             suffix: "m"
-            value: stageSize.y
+            value: envSize.y
             onValueChanged:
             {
                 if (settingsRoot.visible)
-                    View3D.stageSize = Qt.vector3d(stageSize.x, value, stageSize.z)
+                    contextManager.environmentSize = Qt.vector3d(envSize.x, value, envSize.z)
             }
         }
 
@@ -163,11 +162,11 @@ Rectangle
             from: 1
             to: 100
             suffix: "m"
-            value: stageSize.z
+            value: envSize.z
             onValueChanged:
             {
                 if (settingsRoot.visible)
-                    View3D.stageSize = Qt.vector3d(stageSize.x, stageSize.y, value)
+                    contextManager.environmentSize = Qt.vector3d(envSize.x, envSize.y, value)
             }
         }
 

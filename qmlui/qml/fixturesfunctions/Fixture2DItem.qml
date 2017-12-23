@@ -19,6 +19,7 @@
 
 import QtQuick 2.2
 
+import org.qlcplus.classes 1.0
 import "CanvasDrawFunctions.js" as DrawFuncs
 import "."
 
@@ -40,8 +41,8 @@ Rectangle
     property int fixtureID: fixtureManager.invalidFixture()
     property string fixtureName: ""
 
-    property real gridCellSize: parent ? parent.cellSize : 100
-    property int gridUnits: parent ? parent.gridUnits : 1000
+    property real gridCellSize: View2D.cellPixels
+    property real gridUnits: View2D.gridUnits === MonitorProperties.Meters ? 1000.0 : 304.8
 
     property real mmXPos: 0
     property real mmYPos: 0

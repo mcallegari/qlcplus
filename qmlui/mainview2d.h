@@ -27,16 +27,18 @@
 
 class Doc;
 class Fixture;
+class QLCFixtureMode;
 class MonitorProperties;
 
 class MainView2D : public PreviewContext
 {
     Q_OBJECT
 
-    Q_PROPERTY(QVector3D gridSize READ gridSize WRITE setGridSize NOTIFY gridSizeChanged)
-    Q_PROPERTY(float gridUnits READ gridUnits WRITE setGridUnits NOTIFY gridUnitsChanged)
+    Q_PROPERTY(QSize gridSize READ gridSize NOTIFY gridSizeChanged)
+    Q_PROPERTY(int gridUnits READ gridUnits WRITE setGridUnits NOTIFY gridUnitsChanged)
     Q_PROPERTY(qreal gridScale READ gridScale WRITE setGridScale NOTIFY gridScaleChanged)
     Q_PROPERTY(qreal cellPixels READ cellPixels WRITE setCellPixels NOTIFY cellPixelsChanged)
+    Q_PROPERTY(int pointOfView READ pointOfView WRITE setPointOfView NOTIFY pointOfViewChanged)
 
 public:
     explicit MainView2D(QQuickView *view, Doc *doc, QObject *parent = 0);
@@ -50,7 +52,7 @@ public:
 
     void resetItems();
 
-    void createFixtureItem(quint32 fxID, qreal x, qreal y, bool mmCoords = true);
+    void createFixtureItem(quint32 fxID, QVector3D pos, bool mmCoords = true);
 
     QList<quint32> selectFixturesRect(QRectF rect);
 
@@ -66,29 +68,39 @@ public:
 
     void removeFixtureItem(quint32 fxID);
 
-    QVector3D gridSize() const;
+    /** Get/Set the grid width/height */
+    QSize gridSize() const;
     void setGridSize(QVector3D sz);
 
-    float gridUnits() const;
-    void setGridUnits(float units);
+    /** Get/Set the grid measurement units */
+    int gridUnits() const;
+    void setGridUnits(int units);
 
+    /** Get/Set a temporary value of scaling */
     qreal gridScale() const;
     void setGridScale(qreal gridScale);
 
     qreal cellPixels() const;
     void setCellPixels(qreal cellPixels);
 
+    /** Get/Set the 2D grid point of view */
+    int pointOfView() const;
+    void setPointOfView(int pointOfView);
+
 protected:
     /** First time 2D view variables initializations */
     void initialize2DProperties();
 
+    QPointF item2DPosition(QVector3D pos, bool mmCoords);
+    float item2DRotation(QVector3D rot);
+    QSizeF item2DDimension(QLCFixtureMode *fxMode);
+
 signals:
     void gridSizeChanged();
     void gridUnitsChanged();
-
-    void cellPixelsChanged(qreal cellPixels);
-
     void gridScaleChanged(qreal gridScale);
+    void cellPixelsChanged(qreal cellPixels);
+    void pointOfViewChanged(int pointOfView);
 
 protected slots:
     /** @reimp */
@@ -98,13 +110,11 @@ private:
     /** References to the 2D view and 2D contents for items creation */
     QQuickItem *m_contents2D;
 
+    /** Reference to the Doc Monitor properties */
     MonitorProperties *m_monProps;
 
     /** Size of the grid. How many horizontal and vertical cells */
-    QVector3D m_gridSize;
-
-    /** The unit used by the grid. Meters = 1000mm, Feet = 304.8mm */
-    float m_gridUnits;
+    QSize m_gridSize;
 
     /** Scale of the grid */
     qreal m_gridScale;

@@ -26,7 +26,7 @@ Entity
 {
     id: stage
 
-    property vector3d size: View3D.stageSize
+    property vector3d size: contextManager.environmentSize
     property Layer sceneLayer
     property Effect effect
 
@@ -44,8 +44,6 @@ Entity
         zExtent: size.z
         yExtent: 0.2
     }
-
-    property Transform transform: Transform { translation: Qt.vector3d(0, -1, 0) }
 
     ObjectPicker
     {

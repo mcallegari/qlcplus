@@ -52,6 +52,8 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
     m_source = new GenericDMXSource(m_doc);
     m_source->setOutputEnabled(true);
 
+    m_doc->monitorProperties()->setPointOfView(MonitorProperties::TopView);
+
     m_uniGridView = new PreviewContext(m_view, m_doc, "UNIGRID");
     m_uniGridView->setContextResource("qrc:/UniverseGridView.qml");
     m_uniGridView->setContextTitle(tr("Universe Grid View"));
@@ -67,6 +69,8 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
 
     m_DMXView = new MainViewDMX(m_view, m_doc);
     registerContext(m_DMXView);
+
+    qmlRegisterUncreatableType<MonitorProperties>("org.qlcplus.classes", 1, 0, "MonitorProperties", "Can't create MonitorProperties !");
 
     connect(m_fixtureManager, &FixtureManager::newFixtureCreated, this, &ContextManager::slotNewFixtureCreated);
     connect(m_fixtureManager, &FixtureManager::fixtureDeleted, this, &ContextManager::slotFixtureDeleted);
@@ -209,6 +213,24 @@ QString ContextManager::currentContext() const
     return m_view->rootObject()->property("currentContext").toString();
 }
 
+QVector3D ContextManager::environmentSize() const
+{
+    MonitorProperties *mProps = m_doc->monitorProperties();
+    return mProps->gridSize();
+}
+
+void ContextManager::setEnvironmentSize(QVector3D environmentSize)
+{
+    MonitorProperties *mProps = m_doc->monitorProperties();
+    if (environmentSize == mProps->gridSize())
+        return;
+
+    mProps->setGridSize(environmentSize);
+    if (m_2DView->isEnabled())
+        m_2DView->setGridSize(environmentSize);
+    emit environmentSizeChanged();
+}
+
 bool ContextManager::positionPicking() const
 {
     return m_positionPicking;
@@ -229,9 +251,11 @@ void ContextManager::setPositionPickPoint(QVector3D point)
     if (positionPicking() == false)
         return;
 
-    point = QVector3D(point.x() + m_3DView->stageSize().x() / 2,
+    MonitorProperties *mProps = m_doc->monitorProperties();
+
+    point = QVector3D(point.x() + mProps->gridSize().x() / 2,
                       0.0,
-                      point.z() + m_3DView->stageSize().z() / 2);
+                      point.z() + mProps->gridSize().z() / 2);
 
     for (quint32 fxID : m_selectedFixtures)
     {
@@ -247,9 +271,9 @@ void ContextManager::setPositionPickPoint(QVector3D point)
             continue;
 
         QVector3D lightPos = m_3DView->lightPosition(fxID);
-        lightPos = QVector3D(lightPos.x() + m_3DView->stageSize().x() / 2,
-                             lightPos.y() + 1.0,
-                             lightPos.z() + m_3DView->stageSize().z() / 2);
+        lightPos = QVector3D(lightPos.x() + mProps->gridSize().x() / 2,
+                             lightPos.y(),
+                             lightPos.z() + mProps->gridSize().z() / 2);
 
         qDebug() << "3D point picked:" << point << "light position:" << lightPos;
 
@@ -650,9 +674,9 @@ void ContextManager::slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal
     if (m_DMXView->isEnabled())
         m_DMXView->createFixtureItem(fxID);
     if (m_2DView->isEnabled())
-        m_2DView->createFixtureItem(fxID, x, y, false);
+        m_2DView->createFixtureItem(fxID, QVector3D(x, y, z), false);
     if (m_3DView->isEnabled())
-        m_3DView->createFixtureItem(fxID, x, y, z, false);
+        m_3DView->createFixtureItem(fxID, QVector3D(x, y, z), false);
 }
 
 void ContextManager::slotFixtureDeleted(quint32 fxID)

@@ -70,7 +70,6 @@ class MainView3D : public PreviewContext
     Q_OBJECT
 
     Q_PROPERTY(QString meshDirectory READ meshDirectory CONSTANT)
-    Q_PROPERTY(QVector3D stageSize READ stageSize WRITE setStageSize NOTIFY stageSizeChanged)
     Q_PROPERTY(QStringList stagesList READ stagesList CONSTANT)
     Q_PROPERTY(int stageIndex READ stageIndex WRITE setStageIndex NOTIFY stageIndexChanged)
     Q_PROPERTY(float ambientIntensity READ ambientIntensity WRITE setAmbientIntensity NOTIFY ambientIntensityChanged)
@@ -111,7 +110,7 @@ public:
     Q_INVOKABLE void quadReady();
     Q_INVOKABLE void resetStage(QEntity *entity);
 
-    void createFixtureItem(quint32 fxID, qreal x, qreal y, qreal z, bool mmCoords = true);
+    void createFixtureItem(quint32 fxID, QVector3D pos, bool mmCoords = true);
 
     Q_INVOKABLE void initializeFixture(quint32 fxID, QEntity *fxEntity, QComponent *picker, QSceneLoader *loader);
 
@@ -173,10 +172,6 @@ private:
      * Environment
      *********************************************************************/
 public:
-    /** Get/Set the environment stage size */
-    QVector3D stageSize() const;
-    void setStageSize(QVector3D stageSize);
-
     /** The list of currently supported stage types */
     QStringList stagesList() const;
 
@@ -189,12 +184,10 @@ public:
     void setAmbientIntensity(float ambientIntensity);
 
 signals:
-    void stageSizeChanged(QVector3D stageSize);
     void stageIndexChanged(int stageIndex);
     void ambientIntensityChanged(qreal ambientIntensity);
 
 private:
-    QVector3D m_stageSize;
     QStringList m_stagesList;
     QStringList m_stageResourceList;
     int m_stageIndex;

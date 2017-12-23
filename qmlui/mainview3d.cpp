@@ -56,8 +56,6 @@ MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
     if (m_selectionComponent->isError())
         qDebug() << m_selectionComponent->errors();
 
-    setStageSize(m_monProps->gridSize());
-
     // the following two lists must always have the same items number
     m_stagesList << tr("Simple ground") << tr("Simple box") << tr("Rock stage");
     m_stageResourceList << "qrc:/StageSimple.qml" << "qrc:/StageBox.qml" << "qrc:/StageRock.qml";
@@ -106,12 +104,9 @@ void MainView3D::slotRefreshView()
     foreach(Fixture *fixture, m_doc->fixtures())
     {
         if (m_monProps->hasFixturePosition(fixture->id()))
-        {
-            QVector3D fxPos = m_monProps->fixturePosition(fixture->id());
-            createFixtureItem(fixture->id(), fxPos.x(), fxPos.y(), fxPos.z());
-        }
+            createFixtureItem(fixture->id(), m_monProps->fixturePosition(fixture->id()));
         else
-            createFixtureItem(fixture->id(), 0, 0, 0, false);
+            createFixtureItem(fixture->id(), QVector3D(0, 0, 0), false);
     }
 }
 
@@ -204,8 +199,6 @@ void MainView3D::initialize3DProperties()
         m_stageEntity->setProperty("sceneLayer", QVariant::fromValue(sceneDeferredLayer));
         m_stageEntity->setProperty("effect", QVariant::fromValue(sceneEffect));
     }
-
-    setStageSize(m_monProps->gridSize());
 }
 
 void MainView3D::sceneReady()
@@ -251,7 +244,7 @@ void MainView3D::slotCreateFixture(quint32 fxID)
     newItem->setParent(m_sceneRootEntity);
 }
 
-void MainView3D::createFixtureItem(quint32 fxID, qreal x, qreal y, qreal z, bool mmCoords)
+void MainView3D::createFixtureItem(quint32 fxID, QVector3D pos, bool mmCoords)
 {
     Q_UNUSED(mmCoords)
 
@@ -261,7 +254,7 @@ void MainView3D::createFixtureItem(quint32 fxID, qreal x, qreal y, qreal z, bool
     if (m_quadEntity == NULL)
         initialize3DProperties();
 
-    qDebug() << "[MainView3D] Creating fixture with ID" << fxID << "x:" << x << "y:" << y << "z:" << z;
+    qDebug() << "[MainView3D] Creating fixture with ID" << fxID << "pos:" << pos;
 
     Fixture *fixture = m_doc->fixture(fxID);
     if (fixture == NULL)
@@ -616,7 +609,7 @@ void MainView3D::initializeFixture(quint32 fxID, QEntity *fxEntity, QComponent *
     }
 
     /* Set the fixture position */
-    QVector3D fxPos = QVector3D(m_stageSize.x() * 500, 1000.0, m_stageSize.z() * 500);
+    QVector3D fxPos = QVector3D(m_monProps->gridSize().x() * 500, 1000.0, m_monProps->gridSize().z() * 500);
     if (m_monProps->hasFixturePosition(fixture->id()))
         fxPos = m_monProps->fixturePosition(fixture->id());
     else
@@ -791,10 +784,12 @@ void MainView3D::updateFixturePosition(quint32 fxID, QVector3D pos)
 
     qDebug() << Q_FUNC_INFO << pos;
 
+    float x = (pos.x() / 1000.0) - (m_monProps->gridSize().x() / 2) + (mesh->m_volume.m_extents.x() / 2);
+    float y = (pos.y() / 1000.0) + (mesh->m_volume.m_extents.y() / 2);
+    float z = (pos.z() / 1000.0) - (m_monProps->gridSize().z() / 2) + (mesh->m_volume.m_extents.z() / 2);
+
     /* move the root mesh first */
-    mesh->m_rootTransform->setTranslation(QVector3D((pos.x() / 1000.0) - (m_stageSize.x() / 2),
-                                                    pos.y() / 1000.0,
-                                                    (pos.z() / 1000.0) - (m_stageSize.z() / 2)));
+    mesh->m_rootTransform->setTranslation(QVector3D(x, y, z));
     /* recalculate the light position */
     if (mesh->m_headItem)
         updateLightPosition(mesh);
@@ -832,21 +827,6 @@ void MainView3D::removeFixtureItem(quint32 fxID)
 /*********************************************************************
  * Environment
  *********************************************************************/
-
-QVector3D MainView3D::stageSize() const
-{
-    return m_stageSize;
-}
-
-void MainView3D::setStageSize(QVector3D stageSize)
-{
-    if (m_stageSize == stageSize)
-        return;
-
-    m_stageSize = stageSize;
-    m_monProps->setGridSize(stageSize);
-    emit stageSizeChanged(m_stageSize);
-}
 
 float MainView3D::ambientIntensity() const
 {

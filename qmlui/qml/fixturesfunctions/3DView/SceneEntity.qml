@@ -45,8 +45,8 @@ Entity
         aspectRatio: viewSize.width / viewSize.height
         nearPlane : 1.0
         farPlane : 1000.0
-        position: Qt.vector3d(0.0, 1.0, 7.5)
+        position: Qt.vector3d(0.0, 3.0, 7.5)
         upVector: Qt.vector3d(0.0, 1.0, 0.0)
-        viewCenter: Qt.vector3d(0.0, 0.0, 0.0)
+        viewCenter: Qt.vector3d(0.0, 1.0, 0.0)
     }
 }

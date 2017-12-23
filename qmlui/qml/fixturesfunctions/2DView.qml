@@ -64,7 +64,7 @@ Rectangle
         //contentWidth: parent.width
         //contentHeight: parent.height
 
-        property vector3d gridSize: View2D.gridSize
+        property size gridSize: View2D.gridSize
         property real gridUnits: View2D.gridUnits
 
         onGridSizeChanged: calculateCellSize()
@@ -74,9 +74,10 @@ Rectangle
         {
             if (width <= 0 || height <= 0)
                 return;
+
             var w = twoDSettings.visible ? (width - twoDSettings.width) : width
-            var xDiv = w / gridSize.x
-            var yDiv = height / gridSize.z
+            var xDiv = w / gridSize.width
+            var yDiv = height / gridSize.height
             twoDContents.x = 0
             twoDContents.y = 0
 
@@ -87,8 +88,8 @@ Rectangle
 
             //console.log("Cell size calculated: " + View2D.cellPixels)
 
-            contentWidth = View2D.cellPixels * gridSize.x;
-            contentHeight = View2D.cellPixels * gridSize.z;
+            contentWidth = View2D.cellPixels * gridSize.width;
+            contentHeight = View2D.cellPixels * gridSize.height;
 
             if (contentWidth < w)
                 twoDContents.x = (w - contentWidth) / 2;
@@ -155,13 +156,13 @@ Rectangle
                 context.fillRect(0, 0, width, height)
                 context.rect(0, 0, width, height)
 
-                for (var vl = 1; vl < twoDView.gridSize.x; vl++)
+                for (var vl = 1; vl < twoDView.gridSize.width; vl++)
                 {
                     var xPos = cellSize * vl
                     context.moveTo(xPos, 0)
                     context.lineTo(xPos, height)
                 }
-                for (var hl = 1; hl < twoDView.gridSize.z; hl++)
+                for (var hl = 1; hl < twoDView.gridSize.height; hl++)
                 {
                     var yPos = cellSize * hl
                     context.moveTo(0, yPos)

@@ -20,6 +20,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 
+import org.qlcplus.classes 1.0
 import "."
 
 Rectangle
@@ -32,6 +33,7 @@ Rectangle
     border.width: 1
     border.color: "#222"
 
+    property vector3d envSize: contextManager.environmentSize
     property int selFixturesCount: contextManager.selectedFixturesCount
     property bool fxPropsVisible: selFixturesCount ? true : false
     property vector3d fxRotation: selFixturesCount === 1 ? contextManager.fixturesRotation : lastRotation
@@ -79,77 +81,108 @@ Rectangle
             {
                 x: 5
                 anchors.verticalCenter: parent.verticalCenter
-                label: qsTr("Global")
+                label: qsTr("Environment")
             }
         }
 
         // row 2
-        RobotoText { label: qsTr("Grid size") }
-        Rectangle
+        RobotoText { label: qsTr("Width") }
+        CustomSpinBox
         {
-            Layout.fillWidth: true
             height: UISettings.listItemHeight
-            color: "transparent"
-
-            CustomSpinBox
+            Layout.fillWidth: true
+            from: 1
+            to: 50
+            suffix: View2D.gridUnits === MonitorProperties.Meters ? "m" : "ft"
+            value: envSize.x
+            onValueChanged:
             {
-                id: gWidthSpin
-                width: parent.width * 0.45
-                height: UISettings.listItemHeight
-                from: 1
-                to: 50
-                value: View2D.gridSize.x
-                onValueChanged:
-                {
-                    if (settingsRoot.visible)
-                    View2D.gridSize = Qt.vector3d(value, View2D.gridSize.y, gHeightSpin.value)
-                }
+                if (settingsRoot.visible)
+                    contextManager.environmentSize = Qt.vector3d(value, envSize.y, envSize.z)
             }
-
-            RobotoText
-            {
-                anchors.centerIn: parent
-                label: "x"
-            }
-
-            CustomSpinBox
-            {
-                id: gHeightSpin
-                x: parent.width - width
-                width: parent.width * 0.45
-                height: UISettings.listItemHeight
-                from: 1
-                to: 50
-                value: View2D.gridSize.z
-                onValueChanged:
-                {
-                    if (settingsRoot.visible)
-                        View2D.gridSize = Qt.vector3d(gWidthSpin.value, View2D.gridSize.y, value)
-                }
-            }
-
         }
 
         // row 3
-        RobotoText { label: qsTr("Grid units") }
-        CustomComboBox
+        RobotoText { label: qsTr("Height") }
+        CustomSpinBox
         {
-            Layout.fillWidth: true
             height: UISettings.listItemHeight
-            model: [ qsTr("Meters"), qsTr("Feet") ]
-            onCurrentIndexChanged:
+            Layout.fillWidth: true
+            from: 1
+            to: 50
+            suffix: View2D.gridUnits === MonitorProperties.Meters ? "m" : "ft"
+            value: envSize.y
+            onValueChanged:
             {
                 if (settingsRoot.visible)
-                {
-                    if(currentIndex == 1)
-                        View2D.gridUnits = 304.8
-                    else
-                        View2D.gridUnits = 1000.0
-                }
+                    contextManager.environmentSize = Qt.vector3d(envSize.x, value, envSize.z)
             }
         }
 
         // row 4
+        RobotoText { label: qsTr("Depth") }
+        CustomSpinBox
+        {
+            height: UISettings.listItemHeight
+            Layout.fillWidth: true
+            from: 1
+            to: 100
+            suffix: View2D.gridUnits === MonitorProperties.Meters ? "m" : "ft"
+            value: envSize.z
+            onValueChanged:
+            {
+                if (settingsRoot.visible)
+                    contextManager.environmentSize = Qt.vector3d(envSize.x, envSize.y, value)
+            }
+        }
+
+        // row 5
+        RobotoText { label: qsTr("Grid units") }
+        CustomComboBox
+        {
+            ListModel
+            {
+                id: unitsModel
+                ListElement { mLabel: qsTr("Meters"); mValue: MonitorProperties.Meters }
+                ListElement { mLabel: qsTr("Feet"); mValue: MonitorProperties.Feet }
+            }
+
+            Layout.fillWidth: true
+            height: UISettings.listItemHeight
+            model: unitsModel
+            currentIndex: View2D.gridUnits
+            onCurrentIndexChanged:
+            {
+                if (settingsRoot.visible)
+                    View2D.gridUnits = currentIndex
+            }
+        }
+
+        // row 6
+        RobotoText { label: qsTr("Point of view") }
+        CustomComboBox
+        {
+            ListModel
+            {
+                id: povModel
+                ListElement { mLabel: qsTr("Top view"); mValue: MonitorProperties.TopView }
+                ListElement { mLabel: qsTr("Front view"); mValue: MonitorProperties.FrontView }
+                ListElement { mLabel: qsTr("Right side view"); mValue: MonitorProperties.RightSideView }
+                ListElement { mLabel: qsTr("Left side view"); mValue: MonitorProperties.LeftSideView }
+            }
+
+            Layout.fillWidth: true
+            height: UISettings.listItemHeight
+            model: povModel
+            currentIndex: View2D.pointOfView - 1
+            onCurrentIndexChanged:
+            {
+                if (settingsRoot.visible)
+                    View2D.pointOfView = currentIndex + 1
+            }
+        }
+
+        // row 7
         Rectangle
         {
             Layout.fillWidth: true
@@ -166,7 +199,7 @@ Rectangle
             }
         }
 
-        // row 5
+        // row 8
         RobotoText { visible: fxPropsVisible; label: qsTr("Rotation") }
         CustomSpinBox
         {
