@@ -57,7 +57,7 @@ ComboBox
 
             property int currentIdx: control.currentIndex
             text: model.mLabel ? model.mLabel : (modelData.mLabel ? modelData.mLabel : modelData)
-            property string itemIcon: model.mIcon ? model.mIcon : (modelData && modelData.mIcon ? modelData.mIcon : "")
+            property string itemIcon: model.mIcon ? model.mIcon : (typeof modelData !== 'undefined' ? modelData.mIcon ? modelData.mIcon : "" : "")
             property int itemValue: (model.mValue !== undefined) ? model.mValue : ((modelData.mValue !== undefined) ? modelData.mValue : index)
 
             Component.onCompleted:
@@ -73,7 +73,7 @@ ComboBox
                     currentIcon = itemIcon
                     currentIndex = index
                 }
-                //console.log("Combo item completed index: " + index)
+                //console.log("Combo item completed index: " + index + ", label: " + text)
             }
 
             onCurrentIdxChanged:
