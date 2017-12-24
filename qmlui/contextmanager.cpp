@@ -49,15 +49,21 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
 {
     m_view->rootContext()->setContextProperty("contextManager", this);
 
+    /** Create and enable a DMX source used for dumping */
     m_source = new GenericDMXSource(m_doc);
     m_source->setOutputEnabled(true);
 
+    /** Set the initial point of view for the 2D preview */
     m_doc->monitorProperties()->setPointOfView(MonitorProperties::TopView);
 
+    /** Create and register the 4 contexts handled by this class */
     m_uniGridView = new PreviewContext(m_view, m_doc, "UNIGRID");
     m_uniGridView->setContextResource("qrc:/UniverseGridView.qml");
     m_uniGridView->setContextTitle(tr("Universe Grid View"));
     registerContext(m_uniGridView);
+
+    m_DMXView = new MainViewDMX(m_view, m_doc);
+    registerContext(m_DMXView);
 
     m_2DView = new MainView2D(m_view, m_doc);
     registerContext(m_2DView);
@@ -66,9 +72,6 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
     m_3DView = new MainView3D(m_view, m_doc);
     registerContext(m_3DView);
     m_view->rootContext()->setContextProperty("View3D", m_3DView);
-
-    m_DMXView = new MainViewDMX(m_view, m_doc);
-    registerContext(m_DMXView);
 
     qmlRegisterUncreatableType<MonitorProperties>("org.qlcplus.classes", 1, 0, "MonitorProperties", "Can't create MonitorProperties !");
 

@@ -89,11 +89,13 @@ public:
 
 protected:
     /** First time 2D view variables initializations */
-    void initialize2DProperties();
+    bool initialize2DProperties();
 
     QPointF item2DPosition(QVector3D pos, bool mmCoords);
     float item2DRotation(QVector3D rot);
     QSizeF item2DDimension(QLCFixtureMode *fxMode);
+
+    QVector3D item3DPosition(QPointF point, float thirdVal);
 
 signals:
     void gridSizeChanged();

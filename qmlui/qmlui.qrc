@@ -48,13 +48,14 @@
     <file alias="ZoomItem.qml">qml/ZoomItem.qml</file>
 
     <!-- Popup system -->
-    <file alias="PopupPINRequest.qml">qml/PopupPINRequest.qml</file>
-    <file alias="PopupPINSetup.qml">qml/PopupPINSetup.qml</file>
-    <file alias="PopupRenameFunctions.qml">qml/PopupRenameFunctions.qml</file>
-    <file alias="PopupNetworkClient.qml">qml/PopupNetworkClient.qml</file>
-    <file alias="PopupNetworkConnect.qml">qml/PopupNetworkConnect.qml</file>
-    <file alias="PopupNetworkServer.qml">qml/PopupNetworkServer.qml</file>
-    <file alias="CustomPopupDialog.qml">qml/CustomPopupDialog.qml</file>
+    <file alias="CustomPopupDialog.qml">qml/popup/CustomPopupDialog.qml</file>
+    <file alias="PopupPINRequest.qml">qml/popup/PopupPINRequest.qml</file>
+    <file alias="PopupPINSetup.qml">qml/popup/PopupPINSetup.qml</file>
+    <file alias="PopupRenameFunctions.qml">qml/popup/PopupRenameFunctions.qml</file>
+    <file alias="PopupMonitor.qml">qml/popup/PopupMonitor.qml</file>
+    <file alias="PopupNetworkClient.qml">qml/popup/PopupNetworkClient.qml</file>
+    <file alias="PopupNetworkConnect.qml">qml/popup/PopupNetworkConnect.qml</file>
+    <file alias="PopupNetworkServer.qml">qml/popup/PopupNetworkServer.qml</file>
 
     <!-- Fixtures and Functions -->
     <file alias="FixturesAndFunctions.qml">qml/fixturesfunctions/FixturesAndFunctions.qml</file>

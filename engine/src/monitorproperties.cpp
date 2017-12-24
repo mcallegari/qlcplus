@@ -52,11 +52,15 @@
 #define KXMLQLCMonitorFixtureZRotation "ZRot"
 #define KXMLQLCMonitorFixtureGelColor "GelColor"
 
+#define GRID_DEFAULT_WIDTH  5
+#define GRID_DEFAULT_HEIGHT 3
+#define GRID_DEFAULT_DEPTH  5
+
 MonitorProperties::MonitorProperties()
     : m_displayMode(DMX)
     , m_channelStyle(DMXChannels)
     , m_valueStyle(DMXValues)
-    , m_gridSize(QVector3D(5, 3, 5))
+    , m_gridSize(QVector3D(GRID_DEFAULT_WIDTH, GRID_DEFAULT_HEIGHT, GRID_DEFAULT_DEPTH))
     , m_gridUnits(Meters)
     , m_pointOfView(Undefined)
     , m_showLabels(false)
@@ -71,6 +75,25 @@ void MonitorProperties::setPointOfView(MonitorProperties::PointOfView pov)
 
     if (m_pointOfView == Undefined)
     {
+        QVector3D gSize = gridSize();
+
+        if (gSize.z() == 0)
+        {
+            // convert the grid size first
+            switch (pov)
+            {
+                case TopView:
+                    setGridSize(QVector3D(gSize.x(), GRID_DEFAULT_HEIGHT, gSize.y()));
+                break;
+                case RightSideView:
+                case LeftSideView:
+                    setGridSize(QVector3D(GRID_DEFAULT_WIDTH, gSize.x(), gSize.x()));
+                break;
+                default:
+                break;
+            }
+        }
+
         foreach (quint32 fid, fixtureItemsID())
         {
             QVector3D pos = fixturePosition(fid);
@@ -79,7 +102,7 @@ void MonitorProperties::setPointOfView(MonitorProperties::PointOfView pov)
             {
                 case TopView:
                 {
-                    QVector3D newPos(pos.x(), 1000, m_gridSize.z() - pos.y());
+                    QVector3D newPos(pos.x(), 1000, pos.y());
                     setFixturePosition(fid, newPos);
                 }
                 break;
@@ -133,7 +156,7 @@ QString MonitorProperties::customBackground(quint32 fid)
 
 void MonitorProperties::reset()
 {
-    m_gridSize = QVector3D(5, 3, 5);
+    m_gridSize = QVector3D(GRID_DEFAULT_WIDTH, GRID_DEFAULT_HEIGHT, GRID_DEFAULT_DEPTH);
     m_gridUnits = Meters;
     m_showLabels = false;
     m_fixtureItems.clear();
@@ -144,7 +167,7 @@ void MonitorProperties::reset()
  * Load & Save
  *********************************************************************/
 
-bool MonitorProperties::loadXML(QXmlStreamReader &root, const Doc * mainDocument)
+bool MonitorProperties::loadXML(QXmlStreamReader &root, const Doc *mainDocument)
 {
     if (root.name() != KXMLQLCMonitorProperties)
     {

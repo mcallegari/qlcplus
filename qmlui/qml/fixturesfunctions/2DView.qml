@@ -31,7 +31,11 @@ Rectangle
     onWidthChanged: twoDView.calculateCellSize()
     onHeightChanged: twoDView.calculateCellSize()
 
-    Component.onDestruction: if (contextManager) contextManager.enableContext("2D", false, twoDView)
+    Component.onDestruction:
+    {
+        monitorPOVPopup.close()
+        if (contextManager) contextManager.enableContext("2D", false, twoDView)
+    }
 
     function setZoom(amount)
     {
@@ -136,6 +140,11 @@ Rectangle
             {
                 console.log("Flickable interaction set to: " + status)
                 twoDView.interactive = status
+            }
+
+            function showPovPopup()
+            {
+                monitorPOVPopup.open()
             }
 
             Component.onCompleted:
@@ -280,6 +289,13 @@ Rectangle
                 anchors.fill: parent
             }
         }
+    }
+
+    PopupMonitor
+    {
+        id: monitorPOVPopup
+
+        onAccepted: View2D.pointOfView = selectedPov
     }
 
     SettingsView2D

@@ -95,7 +95,7 @@ void MainView2D::resetItems()
     m_itemsMap.clear();
 }
 
-void MainView2D::initialize2DProperties()
+bool MainView2D::initialize2DProperties()
 {
     setGridSize(m_monProps->gridSize());
 
@@ -104,11 +104,13 @@ void MainView2D::initialize2DProperties()
     if (m_contents2D == NULL)
     {
         qDebug() << "ERROR: got invalid contents2D" << m_contents2D;
-        return;
+        return false;
     }
 
     m_xOffset = m_contents2D->property("x").toReal();
     m_yOffset = m_contents2D->property("y").toReal();
+
+    return true;
 }
 
 QPointF MainView2D::item2DPosition(QVector3D pos, bool mmCoords)
@@ -120,8 +122,9 @@ QPointF MainView2D::item2DPosition(QVector3D pos, bool mmCoords)
     {
         m_xOffset = m_contents2D->property("x").toReal();
         m_yOffset = m_contents2D->property("y").toReal();
-        pos.setX(((pos.x() - m_xOffset) * gridUnits) / m_cellPixels);
-        pos.setY(((pos.y() - m_yOffset) * gridUnits) / m_cellPixels);
+        point.setX(((pos.x() - m_xOffset) * gridUnits) / m_cellPixels);
+        point.setY(((pos.y() - m_yOffset) * gridUnits) / m_cellPixels);
+        return point;
     }
 
     switch(m_monProps->pointOfView())
@@ -147,6 +150,7 @@ QPointF MainView2D::item2DPosition(QVector3D pos, bool mmCoords)
 
     return point;
 }
+
 
 float MainView2D::item2DRotation(QVector3D rot)
 {
@@ -204,6 +208,28 @@ QSizeF MainView2D::item2DDimension(QLCFixtureMode *fxMode)
     }
 
     return size;
+}
+
+QVector3D MainView2D::item3DPosition(QPointF point, float thirdVal)
+{
+    QVector3D pos(point.x(), point.y(), thirdVal);
+
+    switch(m_monProps->pointOfView())
+    {
+        case MonitorProperties::TopView:
+            pos = QVector3D(point.x(), thirdVal, point.y());
+        break;
+        case MonitorProperties::RightSideView:
+            pos = QVector3D(thirdVal, point.y(), m_monProps->gridSize().z() - point.x());
+        break;
+        case MonitorProperties::LeftSideView:
+            pos = QVector3D(thirdVal, point.y(), point.x());
+        break;
+        default:
+        break;
+    }
+
+    return pos;
 }
 
 void MainView2D::createFixtureItem(quint32 fxID, QVector3D pos, bool mmCoords)
@@ -267,10 +293,9 @@ void MainView2D::createFixtureItem(quint32 fxID, QVector3D pos, bool mmCoords)
     {
         itemPos = m_doc->getAvailable2DPosition(fxRect);
         // add the new fixture to the Doc monitor properties
-        m_monProps->setFixturePosition(fxID, QVector3D(itemPos.x(), itemPos.y(), 0));
-        Tardis::instance()->enqueueAction(FixtureSetPosition, fixture->id(),
-                                          QVariant(QVector3D(0, 0, 0)),
-                                          QVariant(QVector3D(itemPos.x(), itemPos.y(), 0)));
+        QVector3D newPos = item3DPosition(itemPos, 1000.0);
+        m_monProps->setFixturePosition(fxID, newPos);
+        Tardis::instance()->enqueueAction(FixtureSetPosition, fixture->id(), QVariant(QVector3D(0, 0, 0)), QVariant(newPos));
     }
 
     newFixtureItem->setProperty("mmXPos", itemPos.x());
@@ -319,10 +344,14 @@ void MainView2D::slotRefreshView()
 
     resetItems();
 
-    initialize2DProperties();
-
-    if (m_contents2D == NULL)
+    if (initialize2DProperties() == false)
         return;
+
+    if (m_monProps->pointOfView() == MonitorProperties::Undefined)
+    {
+        QMetaObject::invokeMethod(m_contents2D, "showPovPopup");
+        return;
+    }
 
     for (Fixture *fixture : m_doc->fixtures())
     {
