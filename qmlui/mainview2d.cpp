@@ -232,6 +232,63 @@ QVector3D MainView2D::item3DPosition(QPointF point, float thirdVal)
     return pos;
 }
 
+QPointF MainView2D::getAvailable2DPosition(QRectF &fxRect)
+{
+    if (m_monProps == NULL)
+        return QPointF(0, 0);
+
+    qreal xPos = fxRect.x(), yPos = fxRect.y();
+    qreal maxYOffset = 0;
+
+    QSize gridSize = QSize(m_monProps->gridSize().x(), m_monProps->gridSize().z());
+    float gridUnits = m_monProps->gridUnits() == MonitorProperties::Meters ? 1000.0 : 304.8;
+
+    QRectF gridArea(0, 0, (float)gridSize.width() * gridUnits, (float)gridSize.height() * gridUnits);
+
+    qreal origWidth = fxRect.width();
+    qreal origHeight = fxRect.height();
+
+    for (Fixture *fixture : m_doc->fixtures())
+    {
+        if (m_monProps->hasFixturePosition(fixture->id()) == false)
+            continue;
+
+        QLCFixtureMode *fxMode = fixture->fixtureMode();
+        QPointF fxPoint = item2DPosition(m_monProps->fixturePosition(fixture->id()), true);
+        QSizeF fxSize = item2DDimension(fxMode);
+        qreal itemXPos = fxPoint.x();
+        qreal itemYPos = fxPoint.y();
+        qreal itemWidth = fxSize.width();
+        qreal itemHeight = fxSize.height();
+
+        // store the next Y row in case we need to lower down
+        if (itemYPos + itemHeight > maxYOffset )
+            maxYOffset = itemYPos + itemHeight;
+
+        QRectF itemRect(itemXPos, itemYPos, itemWidth, itemHeight);
+
+        //qDebug() << "item rect:" << itemRect << "fxRect:" << fxRect;
+
+        if (fxRect.intersects(itemRect) == true)
+        {
+            xPos = itemXPos + itemWidth + 50; //add an extra 50mm spacing
+            if (xPos + fxRect.width() > gridArea.width())
+            {
+                xPos = 0;
+                yPos = maxYOffset + 50;
+                maxYOffset = 0;
+            }
+            fxRect.setX(xPos);
+            fxRect.setY(yPos);
+            // restore width and height as setX and setY mess them
+            fxRect.setWidth(origWidth);
+            fxRect.setHeight(origHeight);
+        }
+    }
+
+    return QPointF(xPos, yPos);
+}
+
 void MainView2D::createFixtureItem(quint32 fxID, QVector3D pos, bool mmCoords)
 {
     if (isEnabled() == false)
@@ -291,7 +348,7 @@ void MainView2D::createFixtureItem(quint32 fxID, QVector3D pos, bool mmCoords)
 
     if (m_monProps->hasFixturePosition(fxID) == false)
     {
-        itemPos = m_doc->getAvailable2DPosition(fxRect);
+        itemPos = getAvailable2DPosition(fxRect);
         // add the new fixture to the Doc monitor properties
         QVector3D newPos = item3DPosition(itemPos, 1000.0);
         m_monProps->setFixturePosition(fxID, newPos);
