@@ -640,6 +640,33 @@ int FunctionManager::viewPosition() const
  * DMX values (dumping and Scene editor)
  *********************************************************************/
 
+quint32 FunctionManager::getChannelTypeMask(quint32 fxID, quint32 channel)
+{
+    Fixture *fixture = m_doc->fixture(fxID);
+    if (fixture == NULL)
+        return 0;
+
+    const QLCChannel *ch = fixture->channel(channel);
+    if (ch == NULL)
+        return 0;
+
+    quint32 chTypeBit = 0;
+
+    if (ch->group() == QLCChannel::Intensity)
+    {
+        if (ch->colour() == QLCChannel::NoColour)
+            chTypeBit |= ContextManager::DimmerType;
+        else
+            chTypeBit |= ContextManager::ColorType;
+    }
+    else
+    {
+        chTypeBit |= (1 << ch->group());
+    }
+
+    return chTypeBit;
+}
+
 void FunctionManager::dumpOnNewScene(QList<SceneValue> dumpValues, QList<quint32> selectedFixtures,
                                      quint32 channelMask, QString name)
 {
@@ -650,33 +677,13 @@ void FunctionManager::dumpOnNewScene(QList<SceneValue> dumpValues, QList<quint32
 
     for (SceneValue sv : dumpValues)
     {
-        if (selectedFixtures.contains(sv.fxi))
-        {
-            Fixture *fixture = m_doc->fixture(sv.fxi);
-            if (fixture == NULL)
-                continue;
+        if (selectedFixtures.contains(sv.fxi) == false)
+            continue;
 
-            const QLCChannel *ch = fixture->channel(sv.channel);
-            if (ch == NULL)
-                continue;
+        quint32 chTypeBit = getChannelTypeMask(sv.fxi, sv.channel);
 
-            quint32 chTypeBit = 0;
-
-            if (ch->group() == QLCChannel::Intensity)
-            {
-                if (ch->colour() == QLCChannel::NoColour)
-                    chTypeBit |= ContextManager::DimmerType;
-                else
-                    chTypeBit |= ContextManager::ColorType;
-            }
-            else
-            {
-                chTypeBit |= (1 << ch->group());
-            }
-
-            if (channelMask & chTypeBit)
-                newScene->setValue(sv);
-        }
+        if (channelMask & chTypeBit)
+            newScene->setValue(sv);
     }
 
     if (name.isEmpty())
@@ -693,6 +700,39 @@ void FunctionManager::dumpOnNewScene(QList<SceneValue> dumpValues, QList<quint32
     }
     else
         delete newScene;
+}
+
+void FunctionManager::dumpOnScene(QList<SceneValue> dumpValues, QList<quint32> selectedFixtures,
+                                  quint32 channelMask, quint32 sceneID)
+{
+    if (selectedFixtures.isEmpty() || dumpValues.isEmpty() || channelMask == 0)
+        return;
+
+    Scene *scene = qobject_cast<Scene *>(m_doc->function(sceneID));
+
+    if (scene == NULL)
+        return;
+
+    for (SceneValue sv : dumpValues)
+    {
+        if (selectedFixtures.contains(sv.fxi) == false)
+            continue;
+
+        quint32 chTypeBit = getChannelTypeMask(sv.fxi, sv.channel);
+
+        if (channelMask & chTypeBit)
+        {
+            QVariant currentVal, newVal;
+            uchar currDmxValue = scene->value(sv.fxi, sv.channel);
+            currentVal.setValue(SceneValue(sv.fxi, sv.channel, currDmxValue));
+            newVal.setValue(sv);
+            if (currentVal != newVal || sv.value != currDmxValue)
+            {
+                Tardis::instance()->enqueueAction(SceneSetChannelValue, scene->id(), currentVal, newVal);
+                scene->setValue(sv);
+            }
+        }
+    }
 }
 
 void FunctionManager::setChannelValue(quint32 fxID, quint32 channel, uchar value)

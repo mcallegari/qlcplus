@@ -18,8 +18,8 @@
 */
 
 import QtQuick 2.0
-import org.qlcplus.classes 1.0
 
+import org.qlcplus.classes 1.0
 import "."
 
 Rectangle
@@ -37,7 +37,15 @@ Rectangle
     property bool isSelected: false
     property Item dragItem
 
-    onCRefChanged: itemIcon = functionManager.functionIcon(cRef.type)
+    onCRefChanged:
+    {
+        if (cRef == null)
+            return
+
+        itemIcon = functionManager.functionIcon(cRef.type)
+        if (cRef.type == Function.SceneType)
+            fdDropArea.keys = [ "dumpValues" ]
+    }
 
     signal toggled
     signal destruction(int ID, var qItem)
@@ -55,7 +63,7 @@ Rectangle
         anchors.fill: parent
         radius: 3
         color: UISettings.highlight
-        visible: isSelected
+        visible: isSelected || fdDropArea.containsDrag
     }
 
     IconTextEntry
@@ -92,6 +100,15 @@ Rectangle
         onPressed: funcDelegate.mouseEvent(App.Pressed, cRef.id, cRef.type, funcDelegate, mouse.modifiers)
         onClicked: funcDelegate.mouseEvent(App.Clicked, cRef.id, cRef.type, funcDelegate, mouse.modifiers)
         onDoubleClicked: funcDelegate.mouseEvent(App.DoubleClicked, cRef.id, cRef.type, funcDelegate, mouse.modifiers)
+    }
+
+    DropArea
+    {
+        id: fdDropArea
+        anchors.fill: parent
+        keys: [ "none" ]
+
+        onDropped: drag.source.itemDropped(cRef.id, cRef.name)
     }
 }
 

@@ -897,6 +897,11 @@ void ContextManager::dumpDmxChannels(QString name, quint32 mask)
     m_functionManager->dumpOnNewScene(m_dumpValues, m_selectedFixtures, mask, name);
 }
 
+void ContextManager::dumpDmxChannels(quint32 sceneID, quint32 mask)
+{
+    m_functionManager->dumpOnScene(m_dumpValues, m_selectedFixtures, mask, sceneID);
+}
+
 void ContextManager::resetDumpValues()
 {
     for (SceneValue sv : m_dumpValues)

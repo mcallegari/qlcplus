@@ -157,7 +157,7 @@ Button
             {
                 id: ctrlMouseArea
                 anchors.fill: parent
-                onReleased:
+                onClicked:
                 {
                     if (checkable == true)
                     {

@@ -180,8 +180,24 @@ SidePanel
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/dmxdump.svg"
-                tooltip: qsTr("Dump to a Scene")
+                tooltip: qsTr("Dump on a new Scene")
                 counter: contextManager.dumpValuesCount && (qlcplus.accessMask & App.AC_FunctionEditing)
+
+                onClicked:
+                {
+                    if (dmxDumpDialog.show)
+                    {
+                        dmxDumpDialog.sceneID = -1
+                        dmxDumpDialog.open()
+                    }
+                    else
+                    {
+                        contextManager.dumpDmxChannels("")
+                        loaderSource = "qrc:/FunctionManager.qml"
+                        animatePanel(true)
+                        funcEditor.checked = true
+                    }
+                }
 
                 Rectangle
                 {
@@ -204,34 +220,81 @@ SidePanel
                     }
                 }
 
+                MouseArea
+                {
+                    id: dumpDragArea
+                    anchors.fill: parent
+                    propagateComposedEvents: true
+                    drag.target: dumpDragItem
+                    drag.threshold: 10
+                    onClicked: mouse.accepted = false
+
+                    property bool dragActive: drag.active
+
+                    onDragActiveChanged:
+                    {
+                        console.log("Drag active changed: " + dragActive)
+                        if (dragActive == false)
+                        {
+                            dumpDragItem.Drag.drop()
+                            dumpDragItem.parent = sceneDump
+                            dumpDragItem.x = 0
+                            dumpDragItem.y = 0
+                        }
+                        dumpDragItem.Drag.active = dragActive
+                    }
+                }
+
+                Item
+                {
+                    id: dumpDragItem
+                    visible: dumpDragArea.drag.active
+
+                    Drag.source: dumpDragItem
+                    Drag.keys: [ "dumpValues" ]
+
+                    function itemDropped(id, name)
+                    {
+                        console.log("Dump values dropped on " + id)
+                        dmxDumpDialog.sceneID = id
+                        dmxDumpDialog.sceneName = name
+                        dmxDumpDialog.open()
+                    }
+
+                    Rectangle
+                    {
+                        width: UISettings.iconSizeMedium
+                        height: width
+                        radius: width / 4
+                        color: "red"
+
+                        RobotoText
+                        {
+                            anchors.centerIn: parent
+                            label: contextManager.dumpValuesCount
+                        }
+                    }
+                }
+
                 PopupDMXDump
                 {
                     id: dmxDumpDialog
 
+                    property int sceneID: -1
+
                     onAccepted:
                     {
-                        contextManager.dumpDmxChannels(sceneName, getChannelsMask())
-                        loaderSource = "qrc:/FunctionManager.qml"
-                        animatePanel(true)
-                        funcEditor.checked = true
-                    }
-                }
-
-                onClicked:
-                {
-                    if (dmxDumpDialog.show)
-                    {
-                        dmxDumpDialog.open()
-                    }
-                    else
-                    {
-                        contextManager.dumpDmxChannels("")
+                        if (sceneID == -1)
+                            contextManager.dumpDmxChannels(sceneName, getChannelsMask())
+                        else
+                            contextManager.dumpDmxChannels(sceneID, getChannelsMask())
                         loaderSource = "qrc:/FunctionManager.qml"
                         animatePanel(true)
                         funcEditor.checked = true
                     }
                 }
             }
+
             IconButton
             {
                 id: previewFunc

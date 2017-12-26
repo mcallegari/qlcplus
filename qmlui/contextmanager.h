@@ -248,6 +248,8 @@ public:
 
     Q_INVOKABLE void dumpDmxChannels(QString name, quint32 mask);
 
+    Q_INVOKABLE void dumpDmxChannels(quint32 sceneID, quint32 mask);
+
     /** Resets the current values used for dumping or preview */
     Q_INVOKABLE void resetDumpValues();
 

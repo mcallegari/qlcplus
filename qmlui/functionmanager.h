@@ -216,7 +216,15 @@ public:
     void dumpOnNewScene(QList<SceneValue> dumpValues, QList<quint32> selectedFixtures,
                         quint32 channelMask, QString name);
 
+    /** Dump DMX values provided by $dumpValues, filtered by the provided $selectedFixtures
+     *  and the provided $channelMask. Values are dumped on an existing Scene with $sceneID */
+    void dumpOnScene(QList<SceneValue> dumpValues, QList<quint32> selectedFixtures,
+                     quint32 channelMask, quint32 sceneID);
+
     Q_INVOKABLE void setChannelValue(quint32 fxID, quint32 channel, uchar value);
+
+protected:
+    quint32 getChannelTypeMask(quint32 fxID, quint32 channel);
 };
 
 #endif // FUNCTIONMANAGER_H
