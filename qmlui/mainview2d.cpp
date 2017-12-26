@@ -136,7 +136,7 @@ QPointF MainView2D::item2DPosition(QVector3D pos, bool mmCoords)
         case MonitorProperties::Undefined:
         case MonitorProperties::FrontView:
             point.setX(pos.x());
-            point.setY(pos.y());
+            point.setY((m_monProps->gridSize().y() * gridUnits) - pos.y());
         break;
         case MonitorProperties::RightSideView:
             point.setX((m_monProps->gridSize().x() * gridUnits) - pos.z());
@@ -240,8 +240,22 @@ QPointF MainView2D::getAvailable2DPosition(QRectF &fxRect)
     qreal xPos = fxRect.x(), yPos = fxRect.y();
     qreal maxYOffset = 0;
 
-    QSize gridSize = QSize(m_monProps->gridSize().x(), m_monProps->gridSize().z());
     float gridUnits = m_monProps->gridUnits() == MonitorProperties::Meters ? 1000.0 : 304.8;
+    QSize gridSize;
+
+    switch (m_monProps->pointOfView())
+    {
+        case MonitorProperties::TopView:
+            gridSize = QSize(m_monProps->gridSize().x(), m_monProps->gridSize().z());
+        break;
+        case MonitorProperties::RightSideView:
+        case MonitorProperties::LeftSideView:
+            gridSize = QSize(m_monProps->gridSize().z(), m_monProps->gridSize().y());
+        break;
+        default:
+            gridSize = QSize(m_monProps->gridSize().x(), m_monProps->gridSize().y());
+        break;
+    }
 
     QRectF gridArea(0, 0, (float)gridSize.width() * gridUnits, (float)gridSize.height() * gridUnits);
 
@@ -742,8 +756,9 @@ void MainView2D::setPointOfView(int pointOfView)
 
     setGridSize(m_monProps->gridSize());
 
-    for (Fixture *fixture : m_doc->fixtures())
-        updateFixturePosition(fixture->id(), m_monProps->fixturePosition(fixture->id()));
+    slotRefreshView();
+    //for (Fixture *fixture : m_doc->fixtures())
+    //    updateFixturePosition(fixture->id(), m_monProps->fixturePosition(fixture->id()));
 }
 
 

@@ -501,7 +501,7 @@ int Tardis::processAction(TardisAction &action, bool undo)
             if (fixture)
             {
                 QVector3D pos = value->value<QVector3D>();
-                m_contextManager->setFixturePosition(fixture->id(), pos.x(), pos.y(), pos.z());
+                m_contextManager->setFixturePosition("3D", fixture->id(), pos.x(), pos.y(), pos.z());
             }
         }
         break;

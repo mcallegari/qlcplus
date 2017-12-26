@@ -299,10 +299,10 @@ Rectangle
         {
             if (drag.target !== null)
             {
-                console.log("drag finished");
+                console.log("2D item drag finished");
                 mmXPos = (fixtureItem.x * gridUnits) / gridCellSize;
                 mmYPos = (fixtureItem.y * gridUnits) / gridCellSize;
-                contextManager.setFixturePosition(fixtureID, mmXPos, mmYPos, 0)
+                contextManager.setFixturePosition("2D", fixtureID, mmXPos, mmYPos, 0)
                 drag.target = null
             }
         }

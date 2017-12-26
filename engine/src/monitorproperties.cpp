@@ -76,6 +76,7 @@ void MonitorProperties::setPointOfView(MonitorProperties::PointOfView pov)
     if (m_pointOfView == Undefined)
     {
         QVector3D gSize = gridSize();
+        float units = gridUnits() == MonitorProperties::Meters ? 1000.0 : 304.8;
 
         if (gSize.z() == 0)
         {
@@ -97,30 +98,30 @@ void MonitorProperties::setPointOfView(MonitorProperties::PointOfView pov)
         foreach (quint32 fid, fixtureItemsID())
         {
             QVector3D pos = fixturePosition(fid);
+            QVector3D newPos;
 
             switch (pov)
             {
                 case TopView:
                 {
-                    QVector3D newPos(pos.x(), 1000, pos.y());
-                    setFixturePosition(fid, newPos);
+                    newPos = QVector3D(pos.x(), 1000, pos.y());
                 }
                 break;
                 case RightSideView:
                 {
-                    QVector3D newPos(0, pos.y(), gridSize().z() - pos.x());
-                    setFixturePosition(fid, newPos);
+                    newPos = QVector3D(0, pos.y(), (gridSize().z() * units) - pos.x());
                 }
                 break;
                 case LeftSideView:
                 {
-                    QVector3D newPos(0, pos.y(), pos.x());
-                    setFixturePosition(fid, newPos);
+                    newPos = QVector3D(0, pos.y(), pos.x());
                 }
                 break;
                 default:
+                    newPos = QVector3D(pos.x(), (gridSize().y() * units) - pos.y(), 1000);
                 break;
             }
+            setFixturePosition(fid, newPos);
         }
     }
     m_pointOfView = pov;

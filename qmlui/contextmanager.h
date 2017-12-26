@@ -162,7 +162,7 @@ public:
     Q_INVOKABLE bool isFixtureSelected(quint32 fxID);
 
     /** Sets the position of the Fixture with the provided $fxID */
-    Q_INVOKABLE void setFixturePosition(quint32 fxID, qreal x, qreal y, qreal z);
+    Q_INVOKABLE void setFixturePosition(QString context, quint32 fxID, qreal x, qreal y, qreal z);
 
     /** Set/Get the position of the currently selected fixtures */
     QVector3D fixturesPosition() const;

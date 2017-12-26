@@ -151,7 +151,7 @@ Entity
         {
             //console.log("Pick pos: " + pick.worldIntersection)
             //var x = pick.worldIntersection.x - lastPos
-            contextManager.setFixturePosition(fixtureID,
+            contextManager.setFixturePosition("3D", fixtureID,
                                               pick.worldIntersection.x * 1000.0,
                                               pick.worldIntersection.y * 1000.0,
                                               pick.worldIntersection.z * 1000.0)
