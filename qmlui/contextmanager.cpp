@@ -301,7 +301,7 @@ void ContextManager::setPositionPickPoint(QVector3D point)
             foreach(SceneValue posSv, svList)
             {
                 if (m_editingEnabled == false)
-                    m_functionManager->setDumpValue(posSv.fxi, posSv.channel, posSv.value, m_source);
+                    setDumpValue(posSv.fxi, posSv.channel, posSv.value);
                 else
                     m_functionManager->setChannelValue(posSv.fxi, posSv.channel, posSv.value);
             }
@@ -325,7 +325,7 @@ void ContextManager::setPositionPickPoint(QVector3D point)
             foreach(SceneValue posSv, svList)
             {
                 if (m_editingEnabled == false)
-                    m_functionManager->setDumpValue(posSv.fxi, posSv.channel, posSv.value, m_source);
+                    setDumpValue(posSv.fxi, posSv.channel, posSv.value);
                 else
                     m_functionManager->setChannelValue(posSv.fxi, posSv.channel, posSv.value);
             }
@@ -450,6 +450,8 @@ void ContextManager::setFixtureSelection(quint32 fxID, bool enable)
         else
             return;
     }
+
+    emit dumpValuesCountChanged();
 
     if (m_DMXView->isEnabled())
         m_DMXView->updateFixtureSelection(fxID, enable);
@@ -722,7 +724,7 @@ void ContextManager::slotFixtureDeleted(quint32 fxID)
 void ContextManager::slotChannelValueChanged(quint32 fxID, quint32 channel, quint8 value)
 {
     if (m_editingEnabled == false)
-        m_functionManager->setDumpValue(fxID, channel, (uchar)value, m_source);
+        setDumpValue(fxID, channel, (uchar)value);
     else
         m_functionManager->setChannelValue(fxID, channel, (uchar)value);
 }
@@ -736,7 +738,7 @@ void ContextManager::slotChannelTypeValueChanged(int type, quint8 value, quint32
         if (channel == UINT_MAX || (channel != UINT_MAX && channel == sv.channel))
         {
             if (m_editingEnabled == false)
-                m_functionManager->setDumpValue(sv.fxi, sv.channel, (uchar)value, m_source);
+                setDumpValue(sv.fxi, sv.channel, (uchar)value);
             else
                 m_functionManager->setChannelValue(sv.fxi, sv.channel, (uchar)value);
         }
@@ -776,7 +778,7 @@ void ContextManager::slotPositionChanged(int type, int degrees)
         foreach(SceneValue posSv, svList)
         {
             if (m_editingEnabled == false)
-                m_functionManager->setDumpValue(posSv.fxi, posSv.channel, posSv.value, m_source);
+                setDumpValue(posSv.fxi, posSv.channel, posSv.value);
             else
                 m_functionManager->setChannelValue(posSv.fxi, posSv.channel, posSv.value);
         }
@@ -829,27 +831,58 @@ void ContextManager::slotFunctionEditingChanged(bool status)
  * DMX channels dump
  *********************************************************************/
 
+void ContextManager::setDumpValue(quint32 fxID, quint32 channel, uchar value)
+{
+    QVariant currentVal, newVal;
+    SceneValue sValue(fxID, channel, value);
+    int valIndex = m_dumpValues.indexOf(sValue);
+    uchar currDmxValue = valIndex >= 0 ? m_dumpValues.at(valIndex).value : 0;
+    currentVal.setValue(SceneValue(fxID, channel, currDmxValue));
+    newVal.setValue(sValue);
+
+    if (currentVal != newVal || value != currDmxValue)
+    {
+        Tardis::instance()->enqueueAction(FixtureSetDumpValue, 0, currentVal, newVal);
+        if (m_source)
+            m_source->set(fxID, channel, value);
+
+        if (valIndex >= 0)
+        {
+            m_dumpValues.replace(valIndex, sValue);
+        }
+        else
+        {
+            m_dumpValues.append(sValue);
+            emit dumpValuesCountChanged();
+        }
+    }
+}
+
+int ContextManager::dumpValuesCount() const
+{
+    int i = 0;
+
+    for (SceneValue sv : m_dumpValues)
+        if (m_selectedFixtures.contains(sv.fxi))
+            i++;
+
+    return i;
+}
+
 void ContextManager::dumpDmxChannels(QString name)
 {
-    m_functionManager->dumpOnNewScene(m_selectedFixtures, name);
+    m_functionManager->dumpOnNewScene(m_dumpValues, m_selectedFixtures, name);
 }
 
 void ContextManager::resetDumpValues()
 {
-    QMap<QPair<quint32, quint32>, uchar> dumpValues = m_functionManager->dumpValues();
-    QMutableMapIterator <QPair<quint32,quint32>,uchar> it(dumpValues);
-
-    while (it.hasNext() == true)
-    {
-        it.next();
-        SceneValue sv;
-        sv.fxi = it.key().first;
-        sv.channel = it.key().second;
+    for (SceneValue sv : m_dumpValues)
         m_source->set(sv.fxi, sv.channel, 0);
-    }
+
     m_source->unsetAll();
 
-    m_functionManager->resetDumpValues();
+    m_dumpValues.clear();
+    emit dumpValuesCountChanged();
 }
 
 GenericDMXSource *ContextManager::dmxSource() const

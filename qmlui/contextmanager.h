@@ -45,6 +45,7 @@ class ContextManager : public QObject
     Q_PROPERTY(int selectedFixturesCount READ selectedFixturesCount NOTIFY selectedFixturesChanged)
     Q_PROPERTY(QVector3D fixturesPosition READ fixturesPosition WRITE setFixturesPosition NOTIFY fixturesPositionChanged)
     Q_PROPERTY(QVector3D fixturesRotation READ fixturesRotation WRITE setFixturesRotation NOTIFY fixturesRotationChanged)
+    Q_PROPERTY(int dumpValuesCount READ dumpValuesCount NOTIFY dumpValuesCountChanged)
     Q_PROPERTY(bool positionPicking READ positionPicking WRITE setPositionPicking NOTIFY positionPickingChanged)
 
 public:
@@ -217,6 +218,12 @@ private:
      * DMX channels dump
      *********************************************************************/
 public:
+    /** Store a channel value for Scene dumping */
+    void setDumpValue(quint32 fxID, quint32 channel, uchar value);
+
+    /** Return the number of DMX channels currently available for dumping */
+    int dumpValuesCount() const;
+
     Q_INVOKABLE void dumpDmxChannels(QString name);
 
     /** Resets the current values used for dumping or preview */
@@ -224,7 +231,13 @@ public:
 
     GenericDMXSource *dmxSource() const;
 
+signals:
+    void dumpValuesCountChanged();
+
 private:
+    /** List of the values available for dumping to a Scene */
+    QList <SceneValue> m_dumpValues;
+
     /** Reference to a Generic DMX source used to handle Scenes dump */
     GenericDMXSource* m_source;
 };

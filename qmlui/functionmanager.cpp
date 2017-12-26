@@ -639,53 +639,15 @@ int FunctionManager::viewPosition() const
  * DMX values (dumping and Scene editor)
  *********************************************************************/
 
-void FunctionManager::setDumpValue(quint32 fxID, quint32 channel, uchar value, GenericDMXSource *source)
+void FunctionManager::dumpOnNewScene(QList<SceneValue> dumpValues, QList<quint32> selectedFixtures, QString name)
 {
-    QVariant currentVal, newVal;
-    uchar currDmxValue = m_dumpValues.value(QPair<quint32,quint32>(fxID, channel), 0);
-    currentVal.setValue(SceneValue(fxID, channel,currDmxValue));
-    newVal.setValue(SceneValue(fxID, channel, value));
-    if (currentVal != newVal || value != currDmxValue)
-    {
-        Tardis::instance()->enqueueAction(FixtureSetDumpValue, 0, currentVal, newVal);
-        if (source)
-            source->set(fxID, channel, value);
-        m_dumpValues[QPair<quint32,quint32>(fxID, channel)] = value;
-        emit dumpValuesCountChanged();
-    }
-}
-
-QMap<QPair<quint32, quint32>, uchar> FunctionManager::dumpValues() const
-{
-    return m_dumpValues;
-}
-
-int FunctionManager::dumpValuesCount() const
-{
-    return m_dumpValues.count();
-}
-
-void FunctionManager::resetDumpValues()
-{    
-    m_dumpValues.clear();
-    emit dumpValuesCountChanged();
-}
-
-void FunctionManager::dumpOnNewScene(QList<quint32> selectedFixtures, QString name)
-{
-    if (selectedFixtures.isEmpty() || m_dumpValues.isEmpty())
+    if (selectedFixtures.isEmpty() || dumpValues.isEmpty())
         return;
 
     Scene *newScene = new Scene(m_doc);
 
-    QMutableMapIterator <QPair<quint32,quint32>,uchar> it(m_dumpValues);
-    while (it.hasNext() == true)
+    for (SceneValue sv : dumpValues)
     {
-        it.next();
-        SceneValue sv;
-        sv.fxi = it.key().first;
-        sv.channel = it.key().second;
-        sv.value = it.value();
         if (selectedFixtures.contains(sv.fxi))
             newScene->setValue(sv);
     }

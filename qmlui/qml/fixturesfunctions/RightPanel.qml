@@ -181,7 +181,7 @@ SidePanel
                 height: iconSize
                 imgSource: "qrc:/dmxdump.svg"
                 tooltip: qsTr("Dump to a Scene")
-                counter: functionManager.dumpValuesCount && (qlcplus.accessMask & App.AC_FunctionEditing)
+                counter: contextManager.dumpValuesCount && (qlcplus.accessMask & App.AC_FunctionEditing)
 
                 Rectangle
                 {
@@ -199,7 +199,7 @@ SidePanel
                     {
                         anchors.centerIn: parent
                         height: parent.height * 0.7
-                        label: functionManager.dumpValuesCount
+                        label: contextManager.dumpValuesCount
                         fontSize: height
                     }
 

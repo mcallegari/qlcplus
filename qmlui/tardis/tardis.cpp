@@ -508,7 +508,7 @@ int Tardis::processAction(TardisAction &action, bool undo)
         case FixtureSetDumpValue:
         {
             SceneValue scv = value->value<SceneValue>();
-            m_functionManager->setDumpValue(scv.fxi, scv.channel, scv.value, m_contextManager->dmxSource());
+            m_contextManager->setDumpValue(scv.fxi, scv.channel, scv.value);
         }
         break;
 
