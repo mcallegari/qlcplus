@@ -95,7 +95,7 @@ void App::startup()
     qmlRegisterType<Fixture>("org.qlcplus.classes", 1, 0, "Fixture");
     qmlRegisterType<Function>("org.qlcplus.classes", 1, 0, "Function");
     qmlRegisterType<ModelSelector>("org.qlcplus.classes", 1, 0, "ModelSelector");
-    qmlRegisterType<App>("org.qlcplus.classes", 1, 0, "App");
+    qmlRegisterUncreatableType<App>("org.qlcplus.classes", 1, 0, "App", "Can't create an App !");
 
     setTitle(APPNAME);
     setIcon(QIcon(":/qlcplus.svg"));
@@ -127,14 +127,8 @@ void App::startup()
     m_showManager = new ShowManager(this, m_doc);
     rootContext()->setContextProperty("showManager", m_showManager);
 
-    // register an uncreatable type just to use the enums in QML
-    qmlRegisterUncreatableType<ShowManager>("org.qlcplus.classes", 1, 0, "ShowManager", "Can't create a ShowManager !");
-
     m_networkManager = new NetworkManager(this, m_doc);
     rootContext()->setContextProperty("networkManager", m_networkManager);
-
-    // register an uncreatable type just to use the enums in QML
-    qmlRegisterUncreatableType<NetworkManager>("org.qlcplus.classes", 1, 0, "NetworkManager", "Can't create a NetworkManager !");
 
     connect(m_networkManager, &NetworkManager::clientAccessRequest, this, &App::slotClientAccessRequest);
     connect(m_networkManager, &NetworkManager::accessMaskChanged, this, &App::setAccessMask);
@@ -147,6 +141,11 @@ void App::startup()
     m_contextManager->registerContext(m_virtualConsole);
     m_contextManager->registerContext(m_showManager);
     m_contextManager->registerContext(m_ioManager);
+
+    // register an uncreatable type just to use the enums in QML
+    qmlRegisterUncreatableType<ContextManager>("org.qlcplus.classes", 1, 0, "ContextManager", "Can't create a ContextManager !");
+    qmlRegisterUncreatableType<ShowManager>("org.qlcplus.classes", 1, 0, "ShowManager", "Can't create a ShowManager !");
+    qmlRegisterUncreatableType<NetworkManager>("org.qlcplus.classes", 1, 0, "NetworkManager", "Can't create a NetworkManager !");
 
     // Start up in non-modified state
     m_doc->resetModified();

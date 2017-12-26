@@ -202,46 +202,15 @@ SidePanel
                         label: contextManager.dumpValuesCount
                         fontSize: height
                     }
-
                 }
 
-                CustomPopupDialog
+                PopupDMXDump
                 {
-                    id: sceneNameDialog
-                    title: qsTr("Enter a name for the scene")
-
-                    property bool show: !dontAskCheck.checked
-
-                    contentItem:
-                        GridLayout
-                        {
-                            columns: 2
-                            columnSpacing: 5
-
-                            RobotoText { label: qsTr("Scene name") }
-
-                            CustomTextEdit
-                            {
-                                id: nameInputBox
-                                implicitWidth: UISettings.bigItemHeight * 3
-                                implicitHeight: UISettings.listItemHeight
-                                inputText: qsTr("New Scene")
-                                Component.onCompleted: selectAndFocus()
-                            }
-                            CustomCheckBox
-                            {
-                                id: dontAskCheck
-                                implicitHeight: UISettings.listItemHeight
-                                implicitWidth: implicitHeight
-                                Layout.alignment: Qt.AlignRight
-                                autoExclusive: false
-                            }
-                            RobotoText { label: qsTr("Don't ask again") }
-                        }
+                    id: dmxDumpDialog
 
                     onAccepted:
                     {
-                        contextManager.dumpDmxChannels(nameInputBox.inputText)
+                        contextManager.dumpDmxChannels(sceneName, getChannelsMask())
                         loaderSource = "qrc:/FunctionManager.qml"
                         animatePanel(true)
                         funcEditor.checked = true
@@ -250,9 +219,9 @@ SidePanel
 
                 onClicked:
                 {
-                    if (sceneNameDialog.show)
+                    if (dmxDumpDialog.show)
                     {
-                        sceneNameDialog.open()
+                        dmxDumpDialog.open()
                     }
                     else
                     {

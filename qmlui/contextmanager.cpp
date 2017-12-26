@@ -46,6 +46,7 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
     , m_positionPicking(false)
     , m_universeFilter(Universe::invalid())
     , m_editingEnabled(false)
+    , m_dumpChannelMask(0)
 {
     m_view->rootContext()->setContextProperty("contextManager", this);
 
@@ -854,6 +855,23 @@ void ContextManager::setDumpValue(quint32 fxID, quint32 channel, uchar value)
         {
             m_dumpValues.append(sValue);
             emit dumpValuesCountChanged();
+
+            const QLCChannel *ch = m_doc->fixture(fxID)->channel(channel);
+            if (ch != NULL)
+            {
+                if (ch->group() == QLCChannel::Intensity)
+                {
+                    if (ch->colour() == QLCChannel::NoColour)
+                        m_dumpChannelMask |= DimmerType;
+                    else
+                        m_dumpChannelMask |= ColorType;
+                }
+                else
+                {
+                    m_dumpChannelMask |= (1 << ch->group());
+                }
+                emit dumpChannelMaskChanged();
+            }
         }
     }
 }
@@ -869,20 +887,28 @@ int ContextManager::dumpValuesCount() const
     return i;
 }
 
-void ContextManager::dumpDmxChannels(QString name)
+int ContextManager::dumpChannelMask() const
 {
-    m_functionManager->dumpOnNewScene(m_dumpValues, m_selectedFixtures, name);
+    return m_dumpChannelMask;
+}
+
+void ContextManager::dumpDmxChannels(QString name, quint32 mask)
+{
+    m_functionManager->dumpOnNewScene(m_dumpValues, m_selectedFixtures, mask, name);
 }
 
 void ContextManager::resetDumpValues()
 {
     for (SceneValue sv : m_dumpValues)
-        m_source->set(sv.fxi, sv.channel, 0);
+        m_source->unset(sv.fxi, sv.channel);
 
     m_source->unsetAll();
 
     m_dumpValues.clear();
     emit dumpValuesCountChanged();
+
+    m_dumpChannelMask = 0;
+    emit dumpChannelMaskChanged();
 }
 
 GenericDMXSource *ContextManager::dmxSource() const

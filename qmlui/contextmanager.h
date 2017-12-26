@@ -24,6 +24,7 @@
 #include <QQuickView>
 #include <QVector3D>
 
+#include "qlcchannel.h"
 #include "scenevalue.h"
 
 class Doc;
@@ -46,6 +47,7 @@ class ContextManager : public QObject
     Q_PROPERTY(QVector3D fixturesPosition READ fixturesPosition WRITE setFixturesPosition NOTIFY fixturesPositionChanged)
     Q_PROPERTY(QVector3D fixturesRotation READ fixturesRotation WRITE setFixturesRotation NOTIFY fixturesRotationChanged)
     Q_PROPERTY(int dumpValuesCount READ dumpValuesCount NOTIFY dumpValuesCountChanged)
+    Q_PROPERTY(quint32 dumpChannelMask READ dumpChannelMask NOTIFY dumpChannelMaskChanged)
     Q_PROPERTY(bool positionPicking READ positionPicking WRITE setPositionPicking NOTIFY positionPickingChanged)
 
 public:
@@ -218,13 +220,33 @@ private:
      * DMX channels dump
      *********************************************************************/
 public:
+    enum ChannelType
+    {
+        DimmerType      = (1 << QLCChannel::Intensity),
+        ColorMacroType  = (1 << QLCChannel::Colour), // Color wheels, color macros
+        GoboType        = (1 << QLCChannel::Gobo),
+        SpeedType       = (1 << QLCChannel::Speed),
+        PanType         = (1 << QLCChannel::Pan),
+        TiltType        = (1 << QLCChannel::Tilt),
+        ShutterType     = (1 << QLCChannel::Shutter),
+        PrismType       = (1 << QLCChannel::Prism),
+        BeamType        = (1 << QLCChannel::Beam),
+        EffectType      = (1 << QLCChannel::Effect),
+        MaintenanceType = (1 << QLCChannel::Maintenance),
+        ColorType       = (1 << (QLCChannel::Maintenance + 1)) // RGB/CMY/WAUV
+    };
+    Q_ENUM(ChannelType)
+
     /** Store a channel value for Scene dumping */
     void setDumpValue(quint32 fxID, quint32 channel, uchar value);
 
     /** Return the number of DMX channels currently available for dumping */
     int dumpValuesCount() const;
 
-    Q_INVOKABLE void dumpDmxChannels(QString name);
+    /** Return the current DMX dump channel type mask */
+    int dumpChannelMask() const;
+
+    Q_INVOKABLE void dumpDmxChannels(QString name, quint32 mask);
 
     /** Resets the current values used for dumping or preview */
     Q_INVOKABLE void resetDumpValues();
@@ -233,10 +255,15 @@ public:
 
 signals:
     void dumpValuesCountChanged();
+    void dumpChannelMaskChanged();
 
 private:
     /** List of the values available for dumping to a Scene */
     QList <SceneValue> m_dumpValues;
+
+    /** Bitmask representing the available channel types for
+     *  the DMX channels ready for dumping */
+    quint32 m_dumpChannelMask;
 
     /** Reference to a Generic DMX source used to handle Scenes dump */
     GenericDMXSource* m_source;

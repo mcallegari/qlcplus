@@ -25,6 +25,7 @@
 #include "collectioneditor.h"
 #include "functionmanager.h"
 #include "rgbmatrixeditor.h"
+#include "contextmanager.h"
 #include "treemodelitem.h"
 #include "chasereditor.h"
 #include "sceneeditor.h"
@@ -639,9 +640,10 @@ int FunctionManager::viewPosition() const
  * DMX values (dumping and Scene editor)
  *********************************************************************/
 
-void FunctionManager::dumpOnNewScene(QList<SceneValue> dumpValues, QList<quint32> selectedFixtures, QString name)
+void FunctionManager::dumpOnNewScene(QList<SceneValue> dumpValues, QList<quint32> selectedFixtures,
+                                     quint32 channelMask, QString name)
 {
-    if (selectedFixtures.isEmpty() || dumpValues.isEmpty())
+    if (selectedFixtures.isEmpty() || dumpValues.isEmpty() || channelMask == 0)
         return;
 
     Scene *newScene = new Scene(m_doc);
@@ -649,7 +651,32 @@ void FunctionManager::dumpOnNewScene(QList<SceneValue> dumpValues, QList<quint32
     for (SceneValue sv : dumpValues)
     {
         if (selectedFixtures.contains(sv.fxi))
-            newScene->setValue(sv);
+        {
+            Fixture *fixture = m_doc->fixture(sv.fxi);
+            if (fixture == NULL)
+                continue;
+
+            const QLCChannel *ch = fixture->channel(sv.channel);
+            if (ch == NULL)
+                continue;
+
+            quint32 chTypeBit = 0;
+
+            if (ch->group() == QLCChannel::Intensity)
+            {
+                if (ch->colour() == QLCChannel::NoColour)
+                    chTypeBit |= ContextManager::DimmerType;
+                else
+                    chTypeBit |= ContextManager::ColorType;
+            }
+            else
+            {
+                chTypeBit |= (1 << ch->group());
+            }
+
+            if (channelMask & chTypeBit)
+                newScene->setValue(sv);
+        }
     }
 
     if (name.isEmpty())

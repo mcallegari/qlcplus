@@ -52,6 +52,7 @@
     <file alias="PopupPINRequest.qml">qml/popup/PopupPINRequest.qml</file>
     <file alias="PopupPINSetup.qml">qml/popup/PopupPINSetup.qml</file>
     <file alias="PopupRenameFunctions.qml">qml/popup/PopupRenameFunctions.qml</file>
+    <file alias="PopupDMXDump.qml">qml/popup/PopupDMXDump.qml</file>
     <file alias="PopupMonitor.qml">qml/popup/PopupMonitor.qml</file>
     <file alias="PopupNetworkClient.qml">qml/popup/PopupNetworkClient.qml</file>
     <file alias="PopupNetworkConnect.qml">qml/popup/PopupNetworkConnect.qml</file>
