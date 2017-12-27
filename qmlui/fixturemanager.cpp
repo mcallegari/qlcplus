@@ -106,6 +106,20 @@ void FixtureManager::setSearchFilter(QString searchFilter)
     emit searchFilterChanged();
 }
 
+quint32 FixtureManager::itemID() const
+{
+    return m_itemID;
+}
+
+void FixtureManager::setItemID(quint32 itemID)
+{
+    if (m_itemID == itemID)
+        return;
+
+    m_itemID = itemID;
+    emit itemIDChanged(m_itemID);
+}
+
 QVariantList FixtureManager::universeInfo(quint32 id)
 {
     m_universeInfo.clear();
@@ -130,6 +144,61 @@ QVariantList FixtureManager::universeInfo(quint32 id)
     }
 
     return m_universeInfo;
+}
+
+QVariant FixtureManager::fixtureInfo(quint32 id)
+{
+    QVariantMap fxMap;
+
+    Fixture *fixture = m_doc->fixture(id);
+
+    if (fixture == NULL)
+        return fxMap;
+
+    QLCFixtureDef *def = fixture->fixtureDef();
+    QLCFixtureMode *mode = fixture->fixtureMode();
+
+    if (def == NULL || mode == NULL)
+        return fxMap;
+
+    QLCPhysical phy = mode->physical();
+
+    fxMap.insert("classRef", QVariant::fromValue(fixture));
+    fxMap.insert("manuf", def->manufacturer());
+    fxMap.insert("fmodel", def->model());
+    fxMap.insert("mode", mode->name());
+    fxMap.insert("author", def->author());
+
+    QVariantList channelList;
+    for (QLCChannel *channel : mode->channels())
+    {
+        QVariantMap chMap;
+        chMap.insert("mIcon", channel->getIconNameFromGroup(channel->group(), true));
+        chMap.insert("mLabel", channel->name());
+        channelList.append(chMap);
+    }
+    fxMap.insert("channels", QVariant::fromValue(channelList));
+
+    fxMap.insert("width", phy.width());
+    fxMap.insert("height", phy.height());
+    fxMap.insert("depth", phy.depth());
+    fxMap.insert("weight", phy.weight());
+    fxMap.insert("power", phy.powerConsumption());
+    fxMap.insert("connector", phy.dmxConnector());
+
+    fxMap.insert("bulbType", phy.bulbType());
+    fxMap.insert("bulbLumens", phy.bulbLumens());
+    fxMap.insert("bulbTemp", phy.bulbColourTemperature());
+
+    fxMap.insert("lensType", phy.lensName());
+    fxMap.insert("beamMin", phy.lensDegreesMin());
+    fxMap.insert("beamMax", phy.lensDegreesMax());
+
+    fxMap.insert("headType", phy.focusType());
+    fxMap.insert("panDegrees", phy.focusPanMax());
+    fxMap.insert("tiltDegrees", phy.focusTiltMax());
+
+    return QVariant::fromValue(fxMap);
 }
 
 void FixtureManager::slotDocLoaded()

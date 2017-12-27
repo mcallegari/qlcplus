@@ -30,6 +30,7 @@ RowLayout
 
     property string iSrc
     property string tLabel
+    property color tLabelColor: UISettings.fgMain
     property int tFontSize: UISettings.textSizeDefault
     property int functionType: -1
     property string faSource: ""
@@ -62,6 +63,7 @@ RowLayout
         height: parent.height
         anchors.verticalCenter: parent.verticalCenter
         label: tLabel
+        labelColor: tLabelColor
         fontSize: tFontSize
     }
 }

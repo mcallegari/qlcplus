@@ -46,6 +46,7 @@ class FixtureManager : public QObject
     Q_PROPERTY(QVariant groupsTreeModel READ groupsTreeModel NOTIFY groupsTreeModelChanged)
     Q_PROPERTY(quint32 universeFilter READ universeFilter WRITE setUniverseFilter NOTIFY universeFilterChanged)
     Q_PROPERTY(QString searchFilter READ searchFilter WRITE setSearchFilter NOTIFY searchFilterChanged)
+    Q_PROPERTY(quint32 itemID READ itemID WRITE setItemID NOTIFY itemIDChanged)
 
     Q_PROPERTY(QVariantList goboChannels READ goboChannels NOTIFY goboChannelsChanged)
     Q_PROPERTY(QVariantList colorWheelChannels READ colorWheelChannels NOTIFY colorWheelChannelsChanged)
@@ -68,9 +69,17 @@ public:
     QString searchFilter() const;
     void setSearchFilter(QString searchFilter);
 
+    /** Get/Set a generic ID for Universe/Group/Fixture editing/info */
+    quint32 itemID() const;
+    void setItemID(quint32 itemID);
+
     /** Returns a data structure with all the information of
      *  the Fixtures of the Universe with the specified $id */
     Q_INVOKABLE QVariantList universeInfo(quint32 id);
+
+    /** Returns a data structure with all the information of
+     *  a Fixture with the specified $id */
+    Q_INVOKABLE QVariant fixtureInfo(quint32 id);
 
 signals:
     /** Notify the listeners that the universe filter has changed */
@@ -78,6 +87,8 @@ signals:
 
     /** Notify the listeners that the search filter has changed */
     void searchFilterChanged();
+
+    void itemIDChanged(quint32 itemID);
 
 public slots:
     /** Slot called whenever a new workspace has been loaded */
@@ -92,6 +103,8 @@ private:
     quint32 m_universeFilter;
     /** A string to filter the displayed tree items */
     QString m_searchFilter;
+    /** A generic ID for Universe/Group/Fixture editing/info */
+    quint32 m_itemID;
 
     QVariantList m_universeInfo;
 
@@ -187,6 +200,7 @@ public slots:
     /*********************************************************************
      * RGB Panel creation
      *********************************************************************/
+
 public:
     enum Orientation
     {

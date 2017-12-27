@@ -128,13 +128,12 @@ Rectangle
 
             Repeater
             {
-                model: fixtureManager.universeInfo(fixtureManager.universeFilter)
+                model: fixtureManager.universeInfo(fixtureManager.itemID)
 
                 delegate:
                     Item
                     {
                         property Fixture cRef: modelData.classRef
-
 
                         Rectangle
                         {

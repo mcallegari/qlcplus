@@ -77,6 +77,7 @@
     <file alias="FixtureGroupEditor.qml">qml/fixturesfunctions/FixtureGroupEditor.qml</file>
     <file alias="FixtureGroupManager.qml">qml/fixturesfunctions/FixtureGroupManager.qml</file>
     <file alias="FixtureNodeDelegate.qml">qml/fixturesfunctions/FixtureNodeDelegate.qml</file>
+    <file alias="FixtureSummary.qml">qml/fixturesfunctions/FixtureSummary.qml</file>
     <file alias="GridEditor.qml">qml/fixturesfunctions/GridEditor.qml</file>
     <file alias="UniverseGridView.qml">qml/fixturesfunctions/UniverseGridView.qml</file>
     <file alias="UniverseSummary.qml">qml/fixturesfunctions/UniverseSummary.qml</file>
