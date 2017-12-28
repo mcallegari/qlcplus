@@ -159,6 +159,10 @@ public:
      *  the provided Fixture ID $fxID and channel index $chIdx */
     Q_INVOKABLE QString channelIcon(quint32 fxID, quint32 chIdx);
 
+    /** Return the color of the head with $headIndex of $fixture.
+     *  This considers: RGB / CMY / WAUVLI channels, dimmers and gel color */
+    static QColor headColor(Doc *doc, Fixture *fixture, int headIndex = 0);
+
 signals:
     /** Notify the listeners that the number of Fixtures has changed */
     void fixturesCountChanged();
@@ -172,6 +176,9 @@ signals:
 private:
     /** Comparison method to sort a Fixture list by DMX address */
     static bool compareFixtures(Fixture *left, Fixture *right);
+
+    /** Perform a linear blending of $b over $a with the given $mix amount */
+    static QColor blendColors(QColor a, QColor b, float mix);
 
 private:
     /** List of the current Fixture references in Doc */

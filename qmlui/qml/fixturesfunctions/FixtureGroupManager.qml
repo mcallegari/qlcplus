@@ -294,6 +294,9 @@ Rectangle
                                         if (model.hasChildren)
                                             model.isExpanded = item.isExpanded
                                     }
+
+                                    if (infoButton.checked)
+                                        fixtureManager.itemID = iID
                                 break;
                                 case App.DragStarted:
                                     if (qItem == item && !model.isSelected)

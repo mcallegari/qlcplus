@@ -101,13 +101,6 @@ Rectangle
         headItem.headColor1 = color
     }
 
-    function setHeadWAUVColor(headIndex, color)
-    {
-        var headItem = headsRepeater.itemAt(headIndex)
-        headItem.isWheelColor = false
-        headItem.headColor2 = color
-    }
-
     function setPosition(pan, tilt)
     {
         if (panMaxDegrees)

@@ -33,6 +33,7 @@
 #include "mainview3d.h"
 #include "qlccapability.h"
 #include "qlcfixturemode.h"
+#include "fixturemanager.h"
 #include "monitorproperties.h"
 
 MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
@@ -233,7 +234,8 @@ void MainView3D::slotCreateFixture(quint32 fxID)
         return;
 
     QString meshPath = meshDirectory() + "fixtures" + QDir::separator();
-    if (fixture->type() == QLCFixtureDef::ColorChanger)
+    if (fixture->type() == QLCFixtureDef::ColorChanger ||
+        fixture->type() == QLCFixtureDef::Dimmer)
         meshPath.append("par.dae");
     else if (fixture->type() == QLCFixtureDef::MovingHead)
         meshPath.append("moving_head.dae");
@@ -609,13 +611,19 @@ void MainView3D::initializeFixture(quint32 fxID, QEntity *fxEntity, QComponent *
     }
 
     /* Set the fixture position */
-    QVector3D fxPos = QVector3D(m_monProps->gridSize().x() * 500, 1000.0, m_monProps->gridSize().z() * 500);
+    QVector3D fxPos;
     if (m_monProps->hasFixturePosition(fixture->id()))
+    {
         fxPos = m_monProps->fixturePosition(fixture->id());
+    }
     else
+    {
+        fxPos = QVector3D(m_monProps->gridSize().x() * 500, 1000.0, m_monProps->gridSize().z() * 500);
         m_monProps->setFixturePosition(fixture->id(), fxPos);
+    }
 
     updateFixturePosition(fxID, fxPos);
+    updateFixtureRotation(fxID, m_monProps->fixtureRotation(fxID));
 
     /* Hook the object picker to the base entity */
     picker->setParent(meshRef->m_rootItem);
@@ -654,35 +662,17 @@ void MainView3D::updateFixture(Fixture *fixture)
     QColor color;
 
     bool setPosition = false;
-    bool setColor = false;
     int panDegrees = 0;
     int tiltDegrees = 0;
 
     quint32 headDimmerIndex = fixture->channelNumber(QLCChannel::Intensity, QLCChannel::MSB);
-    //qDebug() << "Head" << headIdx << "dimmer channel:" << mdIndex;
     qreal intValue = 1.0;
     if (headDimmerIndex != QLCChannel::invalid())
         intValue = (qreal)fixture->channelValueAt(headDimmerIndex) / 255;
 
     fixtureItem->setProperty("intensity", intValue);
 
-    QVector <quint32> rgbCh = fixture->rgbChannels();
-    if (rgbCh.size() == 3)
-    {
-        color = QColor(fixture->channelValueAt(rgbCh.at(0)),
-                       fixture->channelValueAt(rgbCh.at(1)),
-                       fixture->channelValueAt(rgbCh.at(2)));
-        setColor = true;
-    }
-
-    QVector <quint32> cmyCh = fixture->cmyChannels();
-    if (cmyCh.size() == 3)
-    {
-        color.setCmyk(fixture->channelValueAt(cmyCh.at(0)),
-                      fixture->channelValueAt(cmyCh.at(1)),
-                      fixture->channelValueAt(cmyCh.at(2)), 0);
-        setColor = true;
-    }
+    color = FixtureManager::headColor(m_doc, fixture);
 
     // now scan all the channels for "common" capabilities
     for (quint32 i = 0; i < fixture->channels(); i++)
@@ -723,10 +713,8 @@ void MainView3D::updateFixture(Fixture *fixture)
                     if (value >= cap->min() && value <= cap->max())
                     {
                         if (cap->resourceColor1().isValid())
-                        {
                             color = cap->resourceColor1();
-                            setColor = true;
-                        }
+
                         break;
                     }
                 }
@@ -744,8 +732,7 @@ void MainView3D::updateFixture(Fixture *fixture)
                 Q_ARG(QVariant, tiltDegrees));
     }
 
-    if (setColor)
-        fixtureItem->setProperty("lightColor", color);
+    fixtureItem->setProperty("lightColor", color);
 }
 
 void MainView3D::updateFixtureSelection(QList<quint32> fixtures)
@@ -790,6 +777,7 @@ void MainView3D::updateFixturePosition(quint32 fxID, QVector3D pos)
 
     /* move the root mesh first */
     mesh->m_rootTransform->setTranslation(QVector3D(x, y, z));
+
     /* recalculate the light position */
     if (mesh->m_headItem)
         updateLightPosition(mesh);

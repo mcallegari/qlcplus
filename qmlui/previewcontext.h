@@ -62,9 +62,11 @@ public:
 
     QQuickView *view();
 
+    /** Get/Set the Quick item to access the context properties/objects */
     QQuickItem *contextItem();
     void setContextItem(QQuickItem *item);
 
+    /** Get the context display name */
     QString name() const;
 
     /** Get/Set the title that will be displayed on a detached window title bar */

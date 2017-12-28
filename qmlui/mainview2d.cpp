@@ -27,6 +27,7 @@
 #include "mainview2d.h"
 #include "qlccapability.h"
 #include "qlcfixturemode.h"
+#include "fixturemanager.h"
 #include "monitorproperties.h"
 
 MainView2D::MainView2D(QQuickView *view, Doc *doc, QObject *parent)
@@ -442,8 +443,8 @@ void MainView2D::updateFixture(Fixture *fixture)
         return;
 
     QQuickItem *fxItem = m_itemsMap[fixture->id()];
-    bool colorSet = false;
-    bool goboSet = false;
+    bool setColor = false;
+    bool setGobo = false;
     bool setPosition = false;
     int panDegrees = 0;
     int tiltDegrees = 0;
@@ -460,56 +461,11 @@ void MainView2D::updateFixture(Fixture *fixture)
                 Q_ARG(QVariant, headIdx),
                 Q_ARG(QVariant, intValue));
 
-        QVector <quint32> rgbCh = fixture->rgbChannels(headIdx);
-        if (rgbCh.size() == 3)
-        {
-            quint8 r = 0, g = 0, b = 0;
-            r = fixture->channelValueAt(rgbCh.at(0));
-            g = fixture->channelValueAt(rgbCh.at(1));
-            b = fixture->channelValueAt(rgbCh.at(2));
-
-            QMetaObject::invokeMethod(fxItem, "setHeadRGBColor",
-                    Q_ARG(QVariant, headIdx),
-                    Q_ARG(QVariant, QColor(r, g, b)));
-            if (r != 0 || g != 0 || b != 0)
-                colorSet = true;
-        }
-
-        QVector <quint32> cmyCh = fixture->cmyChannels(headIdx);
-        if (cmyCh.size() == 3)
-        {
-            quint8 c = 0, m = 0, y = 0;
-            c = fixture->channelValueAt(cmyCh.at(0));
-            m = fixture->channelValueAt(cmyCh.at(1));
-            y = fixture->channelValueAt(cmyCh.at(2));
-            QColor col;
-            col.setCmyk(c, m, y, 0);
-            QMetaObject::invokeMethod(fxItem, "setHeadRGBColor",
-                    Q_ARG(QVariant, headIdx),
-                    Q_ARG(QVariant, QColor(col.red(), col.green(), col.blue())));
-            if (c != 0 || m != 0 || y != 0)
-                colorSet = true;
-        }
-
-        quint32 white = fixture->channelNumber(QLCChannel::White, QLCChannel::MSB, headIdx);
-        quint32 amber = fixture->channelNumber(QLCChannel::Amber, QLCChannel::MSB, headIdx);
-        quint32 UV = fixture->channelNumber(QLCChannel::UV, QLCChannel::MSB, headIdx);
-
-        QColor WAUVColor = QColor(white != QLCChannel::invalid() ? fixture->channelValueAt(white) : 0,
-                                  amber != QLCChannel::invalid() ? fixture->channelValueAt(amber) : 0,
-                                  UV != QLCChannel::invalid() ? fixture->channelValueAt(UV) : 0);
-
-        QMetaObject::invokeMethod(fxItem, "setHeadWAUVColor",
-                Q_ARG(QVariant, headIdx),
-                Q_ARG(QVariant, WAUVColor));
-
-        if (colorSet == false && headDimmerIndex != QLCChannel::invalid())
-        {
-            QMetaObject::invokeMethod(fxItem, "setHeadRGBColor",
-                    Q_ARG(QVariant, headIdx),
-                    Q_ARG(QVariant, QColor(Qt::white)));
-        }
-    }
+        QMetaObject::invokeMethod(fxItem, "setHeadRGBColor",
+                                  Q_ARG(QVariant, headIdx),
+                                  Q_ARG(QVariant, FixtureManager::headColor(m_doc, fixture, headIdx)));
+        setColor = true;
+    } // for heads
 
     // now scan all the channels for "common" capabilities
     for (quint32 i = 0; i < fixture->channels(); i++)
@@ -541,7 +497,7 @@ void MainView2D::updateFixture(Fixture *fixture)
             break;
             case QLCChannel::Colour:
             {
-                if (colorSet && value == 0)
+                if (setColor && value == 0)
                     break;
 
                 foreach(QLCCapability *cap, ch->capabilities())
@@ -566,7 +522,7 @@ void MainView2D::updateFixture(Fixture *fixture)
                                                           Q_ARG(QVariant, 0),
                                                           Q_ARG(QVariant, wheelColor1));
                             }
-                            colorSet = true;
+                            setColor = true;
                         }
                         break;
                     }
@@ -575,7 +531,7 @@ void MainView2D::updateFixture(Fixture *fixture)
             break;
             case QLCChannel::Gobo:
             {
-                if (goboSet)
+                if (setGobo)
                     break;
 
                 foreach(QLCCapability *cap, ch->capabilities())
@@ -593,7 +549,7 @@ void MainView2D::updateFixture(Fixture *fixture)
                             // fixture has more than one gobo wheel, the second
                             // one will be skipped if the first one has been set
                             // to a non-open gobo
-                            goboSet = true;
+                            setGobo = true;
                         }
                     }
                 }
