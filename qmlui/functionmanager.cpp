@@ -239,6 +239,13 @@ quint32 FunctionManager::createFunction(int type)
         {
             f = new Collection(m_doc);
             name = tr("New Collection");
+            if (m_selectedIDList.count())
+            {
+                Collection *collection = qobject_cast<Collection *>(f);
+                for (QVariant fID : m_selectedIDList)
+                    collection->addFunction(fID.toUInt());
+            }
+
             m_collectionCount++;
             emit collectionCountChanged();
         }
