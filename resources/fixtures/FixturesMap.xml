@@ -926,7 +926,7 @@
   <fixture path="Varytec-LED-Laser-4.qxf" mf="Varytec" md="LED Laser 4"/>
   <fixture path="Varytec-LED-Magic-Mushroom.qxf" mf="Varytec" md="LED Magic Mushroom"/>
   <fixture path="Varytec-LED-Pad-7-BA-D.qxf" mf="Varytec" md="LED Pad 7 BA-D"/>
-  <fixture path="Varytec-LED-PAR-64-Floor-5in1.qxf" mf="Varytec" md="LED Par 64 Floor 5in1&#10;7x10W RGBWA"/>
+  <fixture path="Varytec-LED-PAR-64-Floor-5in1.qxf" mf="Varytec" md="LED Par 64 Floor 5in1 7x10W RGBWA"/>
   <fixture path="Varytec-LED-PAR56.qxf" mf="Varytec" md="LED PAR56"/>
   <fixture path="Varytec-RGB-LED-Spot-38.qxf" mf="Varytec" md="RGB LED Spot 38"/>
   <fixture path="Varytec-Thunderscan-FX.qxf" mf="Varytec" md="Thunderscan FX"/>
