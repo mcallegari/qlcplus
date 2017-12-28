@@ -7,8 +7,7 @@
   <Author>Facek</Author>
  </Creator>
  <Manufacturer>Varytec</Manufacturer>
- <Model>LED Par 64 Floor 5in1
-7x10W RGBWA</Model>
+ <Model>LED Par 64 Floor 5in1 7x10W RGBWA</Model>
  <Type>Color Changer</Type>
  <Channel Name="Red">
   <Group Byte="0">Intensity</Group>
