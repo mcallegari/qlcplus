@@ -28,12 +28,13 @@
 #include <Qt3DRender/QBuffer>
 
 #include "doc.h"
+#include "tardis.h"
 #include "qlcfile.h"
 #include "qlcconfig.h"
 #include "mainview3d.h"
+#include "fixtureutils.h"
 #include "qlccapability.h"
 #include "qlcfixturemode.h"
-#include "fixturemanager.h"
 #include "monitorproperties.h"
 
 MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
@@ -618,8 +619,13 @@ void MainView3D::initializeFixture(quint32 fxID, QEntity *fxEntity, QComponent *
     }
     else
     {
-        fxPos = QVector3D(m_monProps->gridSize().x() * 500, 1000.0, m_monProps->gridSize().z() * 500);
-        m_monProps->setFixturePosition(fixture->id(), fxPos);
+        QSizeF size = FixtureUtils::item2DDimension(fxMode, MonitorProperties::TopView);
+        QPointF itemPos = FixtureUtils::getAvailable2DPosition(m_doc, MonitorProperties::TopView,
+                                                               QRectF(0, 0, size.width(), size.height()));
+        // add the new fixture to the Doc monitor properties
+        fxPos = QVector3D(itemPos.x(), 1000.0, itemPos.y());
+        m_monProps->setFixturePosition(fxID, fxPos);
+        Tardis::instance()->enqueueAction(FixtureSetPosition, fixture->id(), QVariant(QVector3D(0, 0, 0)), QVariant(fxPos));
     }
 
     updateFixturePosition(fxID, fxPos);
@@ -672,7 +678,7 @@ void MainView3D::updateFixture(Fixture *fixture)
 
     fixtureItem->setProperty("intensity", intValue);
 
-    color = FixtureManager::headColor(m_doc, fixture);
+    color = FixtureUtils::headColor(m_doc, fixture);
 
     // now scan all the channels for "common" capabilities
     for (quint32 i = 0; i < fixture->channels(); i++)

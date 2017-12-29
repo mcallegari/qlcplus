@@ -91,17 +91,6 @@ protected:
     /** First time 2D view variables initializations */
     bool initialize2DProperties();
 
-    QPointF item2DPosition(QVector3D pos, bool mmCoords);
-    float item2DRotation(QVector3D rot);
-    QSizeF item2DDimension(QLCFixtureMode *fxMode);
-
-    QVector3D item3DPosition(QPointF point, float thirdVal);
-
-    /** Returns the first available space (in mm) for a rectangle
-     * of the given width and height.
-     * This method works with the monitor properties and the fixtures list */
-    QPointF getAvailable2DPosition(QRectF& fxRect);
-
 signals:
     void gridSizeChanged();
     void gridUnitsChanged();
