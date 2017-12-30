@@ -257,9 +257,7 @@ void ContextManager::setPositionPickPoint(QVector3D point)
 
     MonitorProperties *mProps = m_doc->monitorProperties();
 
-    point = QVector3D(point.x() + mProps->gridSize().x() / 2,
-                      0.0,
-                      point.z() + mProps->gridSize().z() / 2);
+    point = QVector3D(point.x() + mProps->gridSize().x() / 2, 0.0, point.z() + mProps->gridSize().z() / 2);
 
     for (quint32 fxID : m_selectedFixtures)
     {

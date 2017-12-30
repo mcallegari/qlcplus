@@ -225,6 +225,7 @@ Rectangle
             Layout.fillWidth: true
             from: -10000
             to: 100000
+            stepSize: 10
             suffix: "mm"
             value: fxPosition.x
             onValueChanged: updatePosition(value, fxPosition.y, fxPosition.z)
@@ -239,6 +240,7 @@ Rectangle
             Layout.fillWidth: true
             from: -10000
             to: 100000
+            stepSize: 10
             suffix: "mm"
             value: fxPosition.y
             onValueChanged: updatePosition(fxPosition.x, value, fxPosition.z)
@@ -253,6 +255,7 @@ Rectangle
             Layout.fillWidth: true
             from: -10000
             to: 100000
+            stepSize: 10
             suffix: "mm"
             value: fxPosition.z
             onValueChanged: updatePosition(fxPosition.x, fxPosition.y, value)
