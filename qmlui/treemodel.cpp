@@ -37,6 +37,11 @@ TreeModel::~TreeModel()
     clear();
 }
 
+QChar TreeModel::separator()
+{
+    return QLatin1Char('`');
+}
+
 void TreeModel::clear()
 {
     int itemsCount = m_items.count();
@@ -95,7 +100,7 @@ TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path
     }
     else
     {
-        QStringList pathList = path.split("/");
+        QStringList pathList = path.split(TreeModel::separator());
         if (m_itemsPathMap.contains(pathList.at(0)))
         {
             item = m_itemsPathMap[pathList.at(0)];
@@ -131,7 +136,7 @@ TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path
         }
         else
         {
-            QString newPath = path.mid(path.indexOf("/") + 1);
+            QString newPath = path.mid(path.indexOf(TreeModel::separator()) + 1);
             if (item->addChild(label, data, m_sorting, newPath, flags) == true)
             {
                 connect(item->children(), SIGNAL(roleChanged(TreeModelItem*,int,const QVariant&)),
@@ -151,7 +156,7 @@ void TreeModel::setItemRoleData(QString path, const QVariant &value, int role)
 
     //qDebug() << "Looking for item with path:" << path;
 
-    QStringList pathList = path.split("/");
+    QStringList pathList = path.split(TreeModel::separator());
 
     if (pathList.count() == 2)
     {
@@ -172,7 +177,7 @@ void TreeModel::setItemRoleData(QString path, const QVariant &value, int role)
     else
     {
         TreeModelItem *item = m_itemsPathMap[pathList.at(0)];
-        QString subPath = path.mid(path.indexOf("/") + 1);
+        QString subPath = path.mid(path.indexOf(TreeModel::separator()) + 1);
         item->children()->setItemRoleData(subPath, value, role);
     }
 }
@@ -182,7 +187,7 @@ void TreeModel::setPathData(QString path, QVariantList data)
     if (path.isEmpty())
         return;
 
-    QStringList pathList = path.split("/");
+    QStringList pathList = path.split(TreeModel::separator());
     if (m_itemsPathMap.contains(pathList.at(0)))
     {
         TreeModelItem *item = m_itemsPathMap[pathList.at(0)];
@@ -192,7 +197,7 @@ void TreeModel::setPathData(QString path, QVariantList data)
         }
         else if (item->hasChildren())
         {
-            QString subPath = path.mid(path.indexOf("/") + 1);
+            QString subPath = path.mid(path.indexOf(TreeModel::separator()) + 1);
             item->children()->setPathData(subPath, data);
         }
     }

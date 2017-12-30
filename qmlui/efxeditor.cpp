@@ -597,7 +597,7 @@ void EFXEditor::updateFixtureTree(Doc *doc, TreeModel *treeModel)
             if (mode == NULL)
                 continue;
 
-            QString fxPath = QString("%1/%2").arg(grp->name()).arg(fixture->name());
+            QString fxPath = QString("%1%2%3").arg(grp->name()).arg(TreeModel::separator()).arg(fixture->name());
 
             for (int i = 0; i < fixture->heads(); i++)
             {

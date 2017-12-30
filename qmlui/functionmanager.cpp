@@ -781,7 +781,8 @@ void FunctionManager::addFunctionTreeItem(Function *func)
     {
         QVariantList params;
         params.append(QVariant::fromValue(func));
-        TreeModelItem *item = m_functionTree->addItem(func->name(), params, func->path(true), expandAll ? TreeModel::Expanded : 0);
+        QString fPath = func->path(true).replace("/", TreeModel::separator());
+        TreeModelItem *item = m_functionTree->addItem(func->name(), params, fPath, expandAll ? TreeModel::Expanded : 0);
         if (m_selectedIDList.contains(QVariant(func->id())))
             item->setFlag(TreeModel::Selected, true);
     }

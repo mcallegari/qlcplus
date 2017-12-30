@@ -59,6 +59,8 @@ public:
     TreeModel(QObject *parent = 0);
     ~TreeModel();
 
+    static QChar separator();
+
     /** Recursive clear of all the tree items */
     void clear();
 

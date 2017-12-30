@@ -410,7 +410,7 @@ void FixtureManager::addFixtureGroupTreeNode(Doc *doc, TreeModel *treeModel, Fix
             matchFound |= FixtureMatch;
 
         int chIdx = 0;
-        QString chPath = QString("%1/%2").arg(group->name()).arg(fixture->name());
+        QString chPath = QString("%1%2%3").arg(group->name()).arg(TreeModel::separator()).arg(fixture->name());
 
         for (QLCChannel *channel : mode->channels()) // C++11
         {
@@ -494,7 +494,7 @@ void FixtureManager::updateGroupsTree(Doc *doc, TreeModel *treeModel,
         if (searchFilter.length() < SEARCH_MIN_CHARS || fixture->name().toLower().contains(searchFilter))
             matchFound |= FixtureMatch;
 
-        QString chPath = QString("%1/%2").arg(uniNames.at(fixture->universe())).arg(fixture->name());
+        QString chPath = QString("%1%2%3").arg(uniNames.at(fixture->universe())).arg(TreeModel::separator()).arg(fixture->name());
         QLCFixtureMode *mode = fixture->fixtureMode();
         if (mode == NULL)
             continue;
