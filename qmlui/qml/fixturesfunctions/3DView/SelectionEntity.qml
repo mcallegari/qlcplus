@@ -37,7 +37,7 @@ Entity
     {
         isSelected = contextManager.isFixtureSelected(fixtureID)
         selectionTransform.translation = Qt.binding(function() { return center.plus(t.translation) })
-        console.log("Bind transform " + center + ", " + t.translation)
+        //console.log("Bind transform " + center + ", " + t.translation)
     }
 
     Material
@@ -51,7 +51,7 @@ Entity
     {
         id: selectionTransform
         //translation: center
-        scale3D: Qt.vector3d(extents.x + 0.05, extents.y + 0.05, extents.z + 0.05)
+        scale3D: Qt.vector3d(extents.x + (extents.x * 0.05), extents.y + (extents.y * 0.05), extents.z + (extents.z * 0.05))
     }
 
     components: [
