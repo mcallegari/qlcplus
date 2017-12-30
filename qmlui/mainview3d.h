@@ -124,6 +124,8 @@ public:
 
     void updateFixtureRotation(quint32 fxID, QVector3D degrees);
 
+    void updateFixtureScale(quint32 fxID, QVector3D origSize);
+
     void removeFixtureItem(quint32 fxID);
 
     QVector3D lightPosition(quint32 fixtureID);
@@ -146,10 +148,6 @@ private:
     QMaterial *getMaterial(QEntity *entity);
     unsigned int getNewLightIndex();
     void updateLightPosition(FixtureMesh *meshRef);
-
-protected slots:
-    /** Helper method to create fixtures in the event loop thread */
-    void slotCreateFixture(quint32 fxID);
 
 private:
     /** Reference to the Scene3D component */

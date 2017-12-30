@@ -249,25 +249,6 @@ void MainView3D::resetStage(QEntity *entity)
     }
 }
 
-void MainView3D::slotCreateFixture(quint32 fxID)
-{
-    Fixture *fixture = m_doc->fixture(fxID);
-    if (fixture == NULL)
-        return;
-
-    QString meshPath = meshDirectory() + "fixtures" + QDir::separator();
-    if (fixture->type() == QLCFixtureDef::ColorChanger ||
-        fixture->type() == QLCFixtureDef::Dimmer)
-        meshPath.append("par.dae");
-    else if (fixture->type() == QLCFixtureDef::MovingHead)
-        meshPath.append("moving_head.dae");
-
-    QEntity *newItem = qobject_cast<QEntity *>(m_fixtureComponent->create());
-    newItem->setProperty("fixtureID", fxID);
-    newItem->setProperty("itemSource", meshPath);
-    newItem->setParent(m_sceneRootEntity);
-}
-
 void MainView3D::createFixtureItem(quint32 fxID, QVector3D pos, bool mmCoords)
 {
     Q_UNUSED(mmCoords)
@@ -293,7 +274,17 @@ void MainView3D::createFixtureItem(quint32 fxID, QVector3D pos, bool mmCoords)
     mesh->m_selectionBox = NULL;
     m_entitiesMap[fxID] = mesh;
 
-    QMetaObject::invokeMethod(this, "slotCreateFixture", Qt::QueuedConnection, Q_ARG(quint32, fxID));
+    QString meshPath = meshDirectory() + "fixtures" + QDir::separator();
+    if (fixture->type() == QLCFixtureDef::ColorChanger ||
+        fixture->type() == QLCFixtureDef::Dimmer)
+        meshPath.append("par.dae");
+    else if (fixture->type() == QLCFixtureDef::MovingHead)
+        meshPath.append("moving_head.dae");
+
+    QEntity *newItem = qobject_cast<QEntity *>(m_fixtureComponent->create());
+    newItem->setProperty("fixtureID", fxID);
+    newItem->setProperty("itemSource", meshPath);
+    newItem->setParent(m_sceneRootEntity);
 }
 
 Qt3DCore::QTransform *MainView3D::getTransform(QEntity *entity)
@@ -533,23 +524,25 @@ void MainView3D::initializeFixture(quint32 fxID, QEntity *fxEntity, QComponent *
     if (fixture == NULL)
         return;
 
-    QLCPhysical phy;
     QLCFixtureMode *fxMode = fixture->fixtureMode();
+    QVector3D fxSize(0.3, 0.3, 0.3);
     int panDeg = 0;
     int tiltDeg = 0;
     bool calculateVolume = false;
 
     if (fxMode != NULL)
     {
-        phy = fxMode->physical();
+        QLCPhysical phy = fxMode->physical();
 
-        panDeg = phy.focusPanMax();
-        if (panDeg == 0)
-            panDeg = 360;
+        if (phy.width())
+            fxSize.setX(phy.width() / 1000.0);
+        if (phy.height())
+            fxSize.setY(phy.height() / 1000.0);
+        if (phy.depth())
+            fxSize.setZ(phy.depth() / 1000.0);
 
-        tiltDeg = phy.focusTiltMax();
-        if (tiltDeg == 0)
-            tiltDeg = 270;
+        panDeg = phy.focusPanMax() ? phy.focusPanMax() : 360;
+        tiltDeg = phy.focusTiltMax() ? phy.focusTiltMax() : 270;
     }
 
     qDebug() << "Initialize fixture" << fixture->id();
@@ -650,6 +643,7 @@ void MainView3D::initializeFixture(quint32 fxID, QEntity *fxEntity, QComponent *
     }
 
     updateFixturePosition(fxID, fxPos);
+    updateFixtureScale(fxID, fxSize);
     updateFixtureRotation(fxID, m_monProps->fixtureRotation(fxID));
 
     /* Hook the object picker to the base entity */
@@ -824,6 +818,26 @@ void MainView3D::updateFixtureRotation(quint32 fxID, QVector3D degrees)
     mesh->m_rootTransform->setRotationX(degrees.x());
     mesh->m_rootTransform->setRotationY(degrees.y());
     mesh->m_rootTransform->setRotationZ(degrees.z());
+}
+
+void MainView3D::updateFixtureScale(quint32 fxID, QVector3D origSize)
+{
+    if (isEnabled() == false || m_entitiesMap.contains(fxID) == false)
+        return;
+
+    FixtureMesh *mesh = m_entitiesMap.value(fxID);
+    if (mesh->m_rootTransform == NULL)
+        return;
+
+    QVector3D meshSize = mesh->m_volume.m_extents;
+
+    float xScale = origSize.x() / meshSize.x();
+    float yScale = origSize.y() / meshSize.y();
+    float zScale = origSize.z() / meshSize.z();
+
+    float minScale = qMin(xScale, qMin(yScale, zScale));
+
+    mesh->m_rootTransform->setScale3D(QVector3D(minScale, minScale, minScale));
 }
 
 void MainView3D::removeFixtureItem(quint32 fxID)
