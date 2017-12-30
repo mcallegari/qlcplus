@@ -73,7 +73,7 @@ ComboBox
                     currentIcon = itemIcon
                     currentIndex = index
                 }
-                //console.log("Combo item completed index: " + index + ", label: " + text)
+                //console.log("Combo item completed index: " + index + ", label: " + text + ", value: " + itemValue)
             }
 
             onCurrentIdxChanged:
@@ -98,7 +98,6 @@ ComboBox
 
                     Image
                     {
-                        id: iconItem
                         visible: itemIcon ? true : false
                         height: UISettings.listItemHeight - 4
                         width: height
@@ -109,7 +108,6 @@ ComboBox
 
                     RobotoText
                     {
-                        id: textitem
                         label: text
                         height: UISettings.listItemHeight
                         fontSize: UISettings.textSizeDefault
@@ -200,7 +198,7 @@ ComboBox
                     id: popupList
                     clip: true
                     implicitHeight: contentHeight
-                    model: control.popup.visible ? control.delegateModel : null
+                    model: control.delegateModel //control.popup.visible ? control.delegateModel : null
                     currentIndex: control.highlightedIndex
                     boundsBehavior: Flickable.StopAtBounds
                     highlightRangeMode: ListView.ApplyRange
