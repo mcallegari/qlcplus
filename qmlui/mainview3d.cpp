@@ -145,7 +145,28 @@ void MainView3D::setUniverseFilter(quint32 universeFilter)
 {
     PreviewContext::setUniverseFilter(universeFilter);
 
-    /* TODO: hide/show fixture meshes */
+    QMapIterator<quint32, FixtureMesh*> it(m_entitiesMap);
+    while(it.hasNext())
+    {
+        it.next();
+        quint32 fxID = it.key();
+        Fixture *fixture = m_doc->fixture(fxID);
+        if (fixture == NULL)
+            continue;
+
+        FixtureMesh *meshRef = m_entitiesMap.value(fxID);
+
+        if (universeFilter == Universe::invalid() || fixture->universe() == (quint32)universeFilter)
+        {
+            meshRef->m_rootItem->setProperty("enabled", "true");
+            meshRef->m_selectionBox->setProperty("enabled", "true");
+        }
+        else
+        {
+            meshRef->m_rootItem->setProperty("enabled", "false");
+            meshRef->m_selectionBox->setProperty("enabled", "false");
+        }
+    }
 }
 
 /*********************************************************************
