@@ -262,9 +262,9 @@ Rectangle
                 var fixedPos = [ 0, (tiltMaxDegrees / 2) - 90, tiltMaxDegrees / 2, (tiltMaxDegrees / 2) + 90, tiltMaxDegrees ]
                 for (var i = fixedPos.length - 1; i >= 0; i--)
                 {
-                    if (fixedPos[i] < tiltSpinBox.value)
+                    if (parseInt(fixedPos[i]) < tiltSpinBox.value)
                     {
-                        tiltSpinBox.value = fixedPos[i]
+                        tiltSpinBox.value = parseInt(fixedPos[i])
                         break;
                     }
                 }
@@ -281,9 +281,9 @@ Rectangle
                 var fixedPos = [ 0, (tiltMaxDegrees / 2) - 90, tiltMaxDegrees / 2, (tiltMaxDegrees / 2) + 90, tiltMaxDegrees ]
                 for (var i = 0; i < fixedPos.length; i++)
                 {
-                    if (tiltSpinBox.value < fixedPos[i])
+                    if (tiltSpinBox.value < parseInt(fixedPos[i]))
                     {
-                        tiltSpinBox.value = fixedPos[i]
+                        tiltSpinBox.value = parseInt(fixedPos[i])
                         break;
                     }
                 }
