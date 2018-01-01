@@ -298,7 +298,10 @@ quint32 FunctionManager::createFunction(int type)
 
     if (m_doc->addFunction(f) == true)
     {
-        m_functionTree->setItemRoleData(QString("%1/%2").arg(f->path(true)).arg(f->name()), 1, TreeModel::IsSelectedRole);
+        m_functionTree->setItemRoleData(QString("%1%2%3")
+                                        .arg(f->path(true))
+                                        .arg(TreeModel::separator())
+                                        .arg(f->name()), 1, TreeModel::IsSelectedRole);
 
         f->setName(QString("%1 %2").arg(name).arg(f->id()));
         QQmlEngine::setObjectOwnership(f, QQmlEngine::CppOwnership);
