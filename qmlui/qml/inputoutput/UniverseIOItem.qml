@@ -42,6 +42,12 @@ Rectangle
     signal selected(int index)
     signal patchDragging(bool status)
 
+    onIsSelectedChanged:
+    {
+        if (isSelected == false)
+            uniNameEdit.enableEditing(false)
+    }
+
     // area containing the input patches
     Column
     {
@@ -187,6 +193,7 @@ Rectangle
 
         EditableTextBox
         {
+            id: uniNameEdit
             anchors.centerIn: parent
             width: parent.width
             maximumHeight: parent.height
@@ -196,6 +203,8 @@ Rectangle
 
             onClicked:
             {
+                enableEditing(false)
+
                 if (isSelected == false)
                 {
                     isSelected = true
@@ -203,6 +212,8 @@ Rectangle
                     uniItem.selected(universe.id);
                 }
             }
+
+            onTextChanged: if (universe) universe.name = text
         }
 
         Canvas

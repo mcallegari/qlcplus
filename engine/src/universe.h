@@ -63,7 +63,7 @@ class Universe: public QObject
     Q_OBJECT
     Q_DISABLE_COPY(Universe)
 
-    Q_PROPERTY(QString name READ name NOTIFY nameChanged)
+    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(quint32 id READ id CONSTANT)
     Q_PROPERTY(bool passthrough READ passthrough WRITE setPassthrough NOTIFY passthroughChanged)
     Q_PROPERTY(InputPatch* inputPatch READ inputPatch NOTIFY inputPatchChanged)
