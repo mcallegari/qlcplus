@@ -91,6 +91,18 @@ SidePanel
                     animatePanel(checked)
                 }
             }
+
+            IconButton
+            {
+                faSource: checked ? FontAwesome.fa_eye_slash : FontAwesome.fa_eye
+                faColor: UISettings.fgMain
+                bgColor: "green"
+                checkedColor: "red"
+                checkable: true
+                checked: ioManager.blackout
+                tooltip: qsTr("Enable/Disable blackout on all the output patches")
+                onToggled: ioManager.blackout = checked
+            }
         }
     }
 }

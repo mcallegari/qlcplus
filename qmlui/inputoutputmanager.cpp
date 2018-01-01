@@ -34,6 +34,7 @@ InputOutputManager::InputOutputManager(QQuickView *view, Doc *doc, QObject *pare
     : PreviewContext(view, doc, "IOMGR", parent)
     , m_selectedItem(NULL)
     , m_selectedUniverseIndex(-1)
+    , m_blackout(false)
     , m_beatType("INTERNAL")
 {
     Q_ASSERT(m_doc != NULL);
@@ -50,9 +51,7 @@ InputOutputManager::InputOutputManager(QQuickView *view, Doc *doc, QObject *pare
     connect(m_doc, SIGNAL(loaded()), this, SLOT(slotDocLoaded()));
     connect(m_ioMap, SIGNAL(beat()), this, SIGNAL(beat()), Qt::QueuedConnection);
     connect(m_ioMap, SIGNAL(beatGeneratorTypeChanged()), this, SLOT(slotBeatTypeChanged()));
-    connect(m_ioMap, SIGNAL(bpmNumberChanged(int)), this, SLOT(slotBpmNumberChanged(int)));
-
-    m_bpmNumber = m_doc->masterTimer()->bpmNumber();
+    connect(m_ioMap, SIGNAL(bpmNumberChanged(int)), this, SIGNAL(bpmNumberChanged(int)));
 }
 
 void InputOutputManager::slotDocLoaded()
@@ -110,6 +109,22 @@ void InputOutputManager::setSelectedItem(QQuickItem *item, int index)
     m_selectedItem->setProperty("z", 5);
 
     qDebug() << "[InputOutputManager] Selected universe:" << index;
+}
+
+bool InputOutputManager::blackout() const
+{
+    return m_blackout;
+}
+
+void InputOutputManager::setBlackout(bool blackout)
+{
+    if (m_blackout == blackout)
+        return;
+
+    m_blackout = blackout;
+    m_ioMap->setBlackout(blackout);
+
+    emit blackoutChanged(m_blackout);
 }
 
 /*********************************************************************
@@ -500,29 +515,17 @@ void InputOutputManager::slotBeatTypeChanged()
     emit bpmNumberChanged(m_ioMap->bpmNumber());
 }
 
-void InputOutputManager::slotBpmNumberChanged(int bpmNumber)
-{
-    qDebug() << "[InputOutputManager] BPM changed to:" << bpmNumber;
-    if (m_bpmNumber == bpmNumber)
-        return;
-
-    m_bpmNumber = bpmNumber;
-    emit bpmNumberChanged(bpmNumber);
-}
-
 int InputOutputManager::bpmNumber() const
 {
-    return m_bpmNumber;
+    return m_ioMap->bpmNumber();
 }
 
 void InputOutputManager::setBpmNumber(int bpmNumber)
 {
-    if (m_bpmNumber == bpmNumber)
+    if (m_ioMap->bpmNumber() == bpmNumber)
         return;
 
-    m_bpmNumber = bpmNumber;
-    m_ioMap->setBpmNumber(m_bpmNumber);
-
+    m_ioMap->setBpmNumber(bpmNumber);
     emit bpmNumberChanged(bpmNumber);
 }
 

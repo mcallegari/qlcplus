@@ -58,24 +58,24 @@ Rectangle
 
                 IconButton
                 {
-                    imgSource: checked ? "qrc:/play.svg" : "qrc:/pause.svg"
-                    bgColor: "red"
-                    checkedColor: "green"
+                    imgSource: checked ? "qrc:/pause.svg" : "qrc:/play.svg"
+                    bgColor: "green"
+                    checkedColor: "red"
                     checkable: true
-                    checked: patch && !patch.paused
+                    checked: patch ? patch.paused : false
                     tooltip: qsTr("Play/Pause this output patch")
-                    onToggled: if (patch) patch.paused = !checked
+                    onToggled: if (patch) patch.paused = checked
                 }
                 IconButton
                 {
-                    faSource: checked ? FontAwesome.fa_eye : FontAwesome.fa_eye_slash
+                    faSource: checked ? FontAwesome.fa_eye_slash : FontAwesome.fa_eye
                     faColor: UISettings.fgMain
-                    bgColor: "black"
-                    checkedColor: "green"
+                    bgColor: "green"
+                    checkedColor: "red"
                     checkable: true
-                    checked: patch && !patch.blackout
+                    checked: patch ? patch.blackout : false
                     tooltip: qsTr("Enable/Disable a blackout on this output patch")
-                    onToggled: if (patch) patch.blackout = !checked
+                    onToggled: if (patch) patch.blackout = checked
                 }
             }
 

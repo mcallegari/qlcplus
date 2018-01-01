@@ -101,6 +101,13 @@ bool InputOutputMap::setBlackout(bool blackout)
         Universe *universe = m_universeArray.at(i);
         QByteArray data;
 
+        for (int j = 0; j < universe->outputPatchesCount(); j++)
+        {
+            OutputPatch *op = universe->outputPatch(j);
+            if (op != NULL)
+                op->setBlackout(blackout);
+        }
+
         if (blackout == true)
         {
             universe->dumpBlackout();
