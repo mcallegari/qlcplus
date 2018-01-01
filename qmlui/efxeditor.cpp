@@ -637,7 +637,7 @@ void EFXEditor::updateFixtureTree(Doc *doc, TreeModel *treeModel)
         if (fixture->universe() >= (quint32)uniNames.count())
             continue;
 
-        QString fxPath = QString("%1/%2").arg(uniNames.at(fixture->universe())).arg(fixture->name());
+        QString fxPath = QString("%1%2%3").arg(uniNames.at(fixture->universe())).arg(TreeModel::separator()).arg(fixture->name());
 
         for (int i = 0; i < fixture->heads(); i++)
         {
