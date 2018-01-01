@@ -162,7 +162,7 @@ Button
                     if (checkable == true)
                     {
                         checked = !checked
-                        control.toggled(checked)
+                        control.toggled()
                     }
                     else
                         control.clicked()
