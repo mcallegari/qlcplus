@@ -78,14 +78,11 @@ Rectangle
 
             spacing: 4
 
-            RobotoText
-            {
-                label: qsTr("Name")
-            }
+            RobotoText { label: qsTr("Name") }
 
             CustomTextEdit
             {
-                width: 200
+                width: showMgrContainer.width / 5
                 height: parent.height - 10
                 inputText: showManager.showName
 
@@ -112,62 +109,6 @@ Rectangle
                     visible: false
 
                     onColorChanged: showManager.itemsColor = Qt.rgba(r, g, b, 1.0)
-                }
-            }
-
-            IconButton
-            {
-                id: stretchBtn
-                width: parent.height - 6
-                height: width
-                imgSource: "qrc:/stretch.svg"
-                tooltip: qsTr("Stretch the original function")
-                checkable: true
-                checked: showManager.stretchFunctions
-                onToggled: showManager.stretchFunctions = checked
-            }
-
-            RobotoText
-            {
-                id: timeBox
-                property int currentTime: showManager.currentTime
-
-                label: "00:00:00.00"
-
-                onCurrentTimeChanged:
-                {
-                    label = TimeUtils.msToStringWithPrecision(currentTime, showManager.isPlaying ? 1 : 2)
-                }
-            }
-
-            IconButton
-            {
-                id: playbackBtn
-                width: parent.height - 6
-                height: width
-                imgSource: "qrc:/play.svg"
-                tooltip: qsTr("Play or resume")
-                checkable: true
-                onToggled:
-                {
-                    if (checked)
-                        showManager.playShow()
-                    else
-                        showManager.stopShow()
-                }
-            }
-            IconButton
-            {
-                id: stopBtn
-                width: parent.height - 6
-                height: width
-                imgSource: "qrc:/stop.svg"
-                tooltip: qsTr("Stop or rewind")
-                checkable: false
-                onClicked:
-                {
-                    playbackBtn.checked = false
-                    showManager.stopShow()
                 }
             }
 
@@ -232,6 +173,75 @@ Rectangle
                     else
                         showManager.setSelectedItemsLock(true)
                     checkLockStatus()
+                }
+            }
+
+            IconButton
+            {
+                id: gridButton
+                z: 2
+                width: parent.height - 6
+                height: width
+                imgSource: "qrc:/grid.svg"
+                tooltip: qsTr("Snap to grid")
+                checkable: true
+                checked: showManager.gridEnabled
+                onToggled: showManager.gridEnabled = checked
+            }
+
+            IconButton
+            {
+                id: stretchBtn
+                width: parent.height - 6
+                height: width
+                imgSource: "qrc:/stretch.svg"
+                tooltip: qsTr("Stretch the original function")
+                checkable: true
+                checked: showManager.stretchFunctions
+                onToggled: showManager.stretchFunctions = checked
+            }
+
+            RobotoText
+            {
+                id: timeBox
+                property int currentTime: showManager.currentTime
+
+                label: "00:00:00.00"
+
+                onCurrentTimeChanged:
+                {
+                    label = TimeUtils.msToStringWithPrecision(currentTime, showManager.isPlaying ? 1 : 2)
+                }
+            }
+
+            IconButton
+            {
+                id: playbackBtn
+                width: parent.height - 6
+                height: width
+                imgSource: "qrc:/play.svg"
+                tooltip: qsTr("Play or resume")
+                checkable: true
+                onToggled:
+                {
+                    if (checked)
+                        showManager.playShow()
+                    else
+                        showManager.stopShow()
+                }
+            }
+            IconButton
+            {
+                id: stopBtn
+                width: parent.height - 6
+                height: width
+                imgSource: "qrc:/stop.svg"
+                tooltip: qsTr("Stop or rewind")
+                checkable: false
+                onClicked:
+                {
+                    playbackBtn.checked = false
+                    showManager.stopShow()
                 }
             }
 
@@ -301,6 +311,7 @@ Rectangle
                 implicitWidth: UISettings.mediumItemHeight * 1.3
                 implicitHeight: parent.height - 2
                 fontColor: "#222"
+
                 onZoomOutClicked:
                 {
                     if (showManager.timeScale >= 1.0)
@@ -337,7 +348,7 @@ Rectangle
         x: trackWidth + verticalDivider.width
         y: topBar.height
         z: 4
-        height: showMgrContainer.headerHeight //showMgrContainer.height - topBar.height - (bottomPanel.visible ? bottomPanel.height : 0)
+        height: showMgrContainer.headerHeight
         width: showMgrContainer.width - trackWidth - rightPanel.width
 
         boundsBehavior: Flickable.StopAtBounds
@@ -387,26 +398,33 @@ Rectangle
 
         property real totalTracksHeight: (tracksBox.count + 1) * trackHeight
 
-        Column
+        Rectangle
         {
             width: trackWidth
+            height: parent.height
+            color: UISettings.bgMain
             z: 2
 
-            Repeater
+            Column
             {
-                id: tracksBox
-                width: parent.width
-                model: showManager.tracks
+                width: trackWidth
 
-                delegate:
-                    TrackDelegate
-                    {
-                        width: tracksBox.width
-                        height: trackHeight
-                        trackRef: modelData
-                        trackIndex: index
-                        isSelected: showManager.selectedTrack === index ? true : false
-                    }
+                Repeater
+                {
+                    id: tracksBox
+                    width: parent.width
+                    model: showManager.tracks
+
+                    delegate:
+                        TrackDelegate
+                        {
+                            width: tracksBox.width
+                            height: trackHeight
+                            trackRef: modelData
+                            trackIndex: index
+                            isSelected: showManager.selectedTrack === index ? true : false
+                        }
+                }
             }
         }
 
@@ -449,6 +467,7 @@ Rectangle
                 }
             }
 
+            // track divider horizontal lines
             Repeater
             {
                 model: tracksBox.count
@@ -461,6 +480,21 @@ Rectangle
                         color: UISettings.bgLight
                     }
             }
+
+            HeaderAndCursor
+            {
+                id: gridItem
+                visible: showManager.gridEnabled
+                z: 2
+                height: parent.height
+                visibleWidth: itemsArea.width
+                visibleX: xViewOffset
+                headerHeight: parent.height
+                timeScale: showMgrContainer.timeScale
+                duration: showManager.showDuration
+                showTimeMarkers: false
+            }
+
             DropArea
             {
                 id: newFuncDrop

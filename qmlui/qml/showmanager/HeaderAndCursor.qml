@@ -36,6 +36,7 @@ Rectangle
     property int cursorHeight: 0
     property real timeScale: 1.0
     property int currentTime: showManager.currentTime
+    property bool showTimeMarkers: true
 
     signal clicked(int mouseX, int mouseY)
 
@@ -69,7 +70,8 @@ Rectangle
 
     onCurrentTimeChanged:
     {
-        cursor.x = TimeUtils.timeToSize(currentTime, timeScale)
+        if (cursorHeight)
+            cursor.x = TimeUtils.timeToSize(currentTime, timeScale)
     }
 
     onDurationChanged:
@@ -80,7 +82,8 @@ Rectangle
 
     onTimeScaleChanged:
     {
-        cursor.x = TimeUtils.timeToSize(currentTime, timeScale)
+        if (cursorHeight)
+            cursor.x = TimeUtils.timeToSize(currentTime, timeScale)
         width = parseInt(TimeUtils.timeToSize(duration + 300000, timeScale))
         timeHeader.requestPaint()
         //console.log("New header width: " + width)
@@ -93,7 +96,7 @@ Rectangle
         width: 1
         color: "transparent"
         z: 1
-        visible: x >= visibleX ? true : false
+        visible: cursorHeight ? (x >= visibleX ? true : false) : false
 
         Rectangle
         {
@@ -137,10 +140,18 @@ Rectangle
             context.globalAlpha = 1.0
             context.lineWidth = 1
 
-            context.fillStyle = "black"
-            context.strokeStyle = "white"
-            context.font = fontSize + "px \"" + UISettings.robotoFontName + "\""
-            context.fillRect(0, 0, width, headerHeight)
+            if (showTimeMarkers)
+            {
+                context.strokeStyle = "white"
+                context.fillStyle = "black"
+                context.font = fontSize + "px \"" + UISettings.robotoFontName + "\""
+                context.fillRect(0, 0, width, headerHeight)
+            }
+            else
+            {
+                context.strokeStyle = UISettings.bgLight
+                context.clearRect(0, 0, width, headerHeight)
+            }
 
             var divNum = width / tickSize
             var xPos = parseInt((x + width) / tickSize) * tickSize
@@ -149,7 +160,7 @@ Rectangle
 
             //console.log("xPos: " + xPos + ", msTime: " + msTime)
 
-            context.beginPath();
+            context.beginPath()
             context.fillStyle = "white"
 
             for (var i = 0; i < divNum; i++)
@@ -160,7 +171,8 @@ Rectangle
                     context.moveTo(xPos, 0)
                     context.lineTo(xPos, height)
 
-                    context.fillText(TimeUtils.msToString(msTime), xPos + 3, height - fontSize)
+                    if (showTimeMarkers)
+                        context.fillText(TimeUtils.msToString(msTime), xPos + 3, height - fontSize)
                 }
                 xPos -= tickSize
                 msTime -= timeScale * 1000
@@ -174,6 +186,7 @@ Rectangle
 
     MouseArea
     {
+        enabled: showTimeMarkers
         anchors.fill: parent
         onClicked: tlHeaderCursorLayer.clicked(mouse.x, mouse.y)
     }

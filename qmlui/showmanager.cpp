@@ -28,6 +28,7 @@ ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
     , m_currentShow(NULL)
     , m_timeScale(5.0)
     , m_stretchFunctions(false)
+    , m_gridEnabled(false)
     , m_currentTime(0)
     , m_selectedTrack(-1)
     , m_itemsColor(Qt::gray)
@@ -144,6 +145,20 @@ void ShowManager::setStretchFunctions(bool stretchFunctions)
 
     m_stretchFunctions = stretchFunctions;
     emit stretchFunctionsChanged(stretchFunctions);
+}
+
+bool ShowManager::gridEnabled() const
+{
+    return m_gridEnabled;
+}
+
+void ShowManager::setGridEnabled(bool gridEnabled)
+{
+    if (m_gridEnabled == gridEnabled)
+        return;
+
+    m_gridEnabled = gridEnabled;
+    emit gridEnabledChanged(m_gridEnabled);
 }
 
 /*********************************************************************
@@ -277,6 +292,7 @@ bool ShowManager::checkAndMoveItem(ShowFunction *sf, int originalTrackIdx, int n
 
     Track *dstTrack = NULL;
 
+    // check if it's moving on a new track or an existing one
     if (newTrackIdx >= m_currentShow->tracks().count())
     {
         // create a new track here
@@ -294,7 +310,20 @@ bool ShowManager::checkAndMoveItem(ShowFunction *sf, int originalTrackIdx, int n
             return false;
     }
 
-    sf->setStartTime(newStartTime);
+    if (m_gridEnabled)
+    {
+        // calculate the X position from time and time scale
+        float xPos = ((float)newStartTime / 10) / m_timeScale; // 1000 * timescale : 100 = time : x
+        // round to the nearest snap position
+        xPos = qRound(xPos / 100) * 100;
+        // recalculate the time from pixels
+        float time = 10 * m_timeScale * xPos;
+        sf->setStartTime(time);
+    }
+    else
+    {
+        sf->setStartTime(newStartTime);
+    }
 
     // check if we need to move the ShowFunction to a different Track
     if (newTrackIdx != originalTrackIdx)

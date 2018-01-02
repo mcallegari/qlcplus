@@ -30,7 +30,7 @@ Item
     id: itemRoot
     height: UISettings.mediumItemHeight
     y: trackIndex >= 0 ? iTrackHeight * trackIndex : 0
-    z: 1
+    z: 2
 
     property ShowFunction sfRef: null
     property Function funcRef: null
@@ -64,7 +64,7 @@ Item
     {
         x: Math.max(0, itemRoot.width - 25)
         y: itemRoot.height - 27
-        z: 3
+        z: 4
         source: "qrc:/lock.svg"
         sourceSize: Qt.size(24, 24)
         visible: sfRef ? (sfRef.locked ? true : false) : false
@@ -73,7 +73,7 @@ Item
     Canvas
     {
         id: prCanvas
-        z: 2
+        z: 3
         anchors.fill: parent
         contextType: "2d"
 
@@ -209,7 +209,7 @@ Item
             console.log("Show Item drag started")
             showManager.enableFlicking(false)
             drag.target = showItemBody
-            itemRoot.z = 2
+            itemRoot.z = 3
             infoTextBox.height = itemRoot.height / 4
             infoTextBox.textHAlign = Text.AlignLeft
         }
@@ -243,7 +243,7 @@ Item
                 showItemBody.x = 0
                 showItemBody.y = 0
             }
-            itemRoot.z = 1
+            itemRoot.z = 2
             showManager.enableFlicking(true)
         }
 
@@ -276,7 +276,7 @@ Item
     Rectangle
     {
         id: horLeftHandler
-        z: 1
+        z: 2
         width: 10
         height: itemRoot.height
         color: horLeftHdlMa.containsMouse ? "#7FFFFF00" : "transparent"
@@ -337,7 +337,7 @@ Item
     {
         id: horRightHandler
         x: itemRoot.width - 10
-        z: 1
+        z: 2
         width: 10
         height: itemRoot.height
         color: horRightHdlMa.containsMouse ? "#7FFFFF00" : "transparent"

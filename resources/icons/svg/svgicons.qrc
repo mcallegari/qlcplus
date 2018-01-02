@@ -66,6 +66,7 @@
     <file alias="global.svg">global.svg</file>
     <file alias="gobo.svg">gobo.svg</file>
     <file alias="green.svg">green.svg</file>
+    <file alias="grid.svg">grid.svg</file>
     <file alias="group.svg">group.svg</file>
     <file alias="help.svg">help.svg</file>
     <file alias="hidplugin.svg">hidplugin.svg</file>
