@@ -50,12 +50,13 @@ Button
 
     property string tooltip: ""
 
-    signal toggled
-
     onCounterChanged:
     {
-        if (counter == 0)
-            checked = false
+        if (counter == 0 && checkable && checked)
+        {
+            control.toggle()
+            control.toggled()
+        }
     }
 
     Rectangle
@@ -159,9 +160,9 @@ Button
                 anchors.fill: parent
                 onClicked:
                 {
-                    if (checkable == true)
+                    if (checkable)
                     {
-                        checked = !checked
+                        control.toggle()
                         control.toggled()
                     }
                     else
