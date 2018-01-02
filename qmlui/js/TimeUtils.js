@@ -249,20 +249,20 @@ function timeToQlcString(value, type)
 /**
   * Return a value in milliseconds, for the given
   * position in pixels and the given timescale,
-  * where 100px corresponds to 1 second on a 1.0 timescale factor
+  * where tickSize corresponds to 1 second on a 1.0 timescale factor
   */
-function posToMs(x, timescale)
+function posToMs(x, timescale, tickSize)
 {
-    //100 : 1000 / timescale = x : result
-    return parseInt(10 * timescale * x);
+    // tickSize : 1000 * timescale = x : result
+    return parseInt(x * (1000 * timescale) / tickSize);
 }
 
 /**
   * Return a value in pixels, for the given
   * time in milliseconds and the given timescale,
-  * where 100px corresponds to 1 second on a 1.0 timescale factor
+  * where tickSize corresponds to 1 second on a 1.0 timescale factor
   */
-function timeToSize(time, timescale)
+function timeToSize(time, timescale, tickSize)
 {
-    return ((time * 100) / 1000) / timescale;
+    return ((time * tickSize) / 1000) / timescale;
 }

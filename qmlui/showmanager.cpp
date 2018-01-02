@@ -18,10 +18,11 @@
 */
 
 #include "showmanager.h"
+#include "chaser.h"
 #include "track.h"
 #include "show.h"
 #include "doc.h"
-#include "chaser.h"
+#include "app.h"
 
 ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
     : PreviewContext(view, doc, "SHOWMGR", parent)
@@ -38,6 +39,9 @@ ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
 
     setContextResource("qrc:/ShowManager.qml");
     setContextTitle(tr("Show Manager"));
+
+    App *app = qobject_cast<App *>(m_view);
+    m_tickSize = app->pixelDensity() * 18;
 
     siComponent = new QQmlComponent(m_view->engine(), QUrl("qrc:/ShowItem.qml"));
     if (siComponent->isError())
@@ -131,6 +135,11 @@ void ShowManager::setTimeScale(float timeScale)
 
     m_timeScale = timeScale;
     emit timeScaleChanged(timeScale);
+}
+
+float ShowManager::tickSize() const
+{
+    return m_tickSize;
 }
 
 bool ShowManager::stretchFunctions() const
@@ -313,11 +322,11 @@ bool ShowManager::checkAndMoveItem(ShowFunction *sf, int originalTrackIdx, int n
     if (m_gridEnabled)
     {
         // calculate the X position from time and time scale
-        float xPos = ((float)newStartTime / 10) / m_timeScale; // 1000 * timescale : 100 = time : x
+        float xPos = ((float)newStartTime * m_tickSize) / (m_timeScale * 1000.0); // timescale * 1000 : tickSize = time : x
         // round to the nearest snap position
-        xPos = qRound(xPos / 100) * 100;
+        xPos = qRound(xPos / m_tickSize) * m_tickSize;
         // recalculate the time from pixels
-        float time = 10 * m_timeScale * xPos;
+        float time = xPos * (1000 * m_timeScale) / m_tickSize; // xPos : time = tickSize : timescale * 1000
         sf->setStartTime(time);
     }
     else

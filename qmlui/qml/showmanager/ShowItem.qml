@@ -38,6 +38,7 @@ Item
     property int duration: sfRef ? sfRef.duration : -1
     property int trackIndex: -1
     property real timeScale: showManager.timeScale
+    property real tickSize: showManager.tickSize
     property bool isSelected: false
     property color globalColor: showManager.itemsColor
     property string infoText: ""
@@ -45,12 +46,12 @@ Item
     /* this is a damn workaround cause apparently everybody in the ShowManager rounds this real value to int except for an Item. */
     property int iTrackHeight: UISettings.mediumItemHeight
 
-    onStartTimeChanged: x = TimeUtils.timeToSize(startTime, timeScale)
-    onDurationChanged: width = TimeUtils.timeToSize(duration, timeScale)
+    onStartTimeChanged: x = TimeUtils.timeToSize(startTime, timeScale, tickSize)
+    onDurationChanged: width = TimeUtils.timeToSize(duration, timeScale, tickSize)
     onTimeScaleChanged:
     {
-        x = TimeUtils.timeToSize(startTime, timeScale)
-        width = TimeUtils.timeToSize(duration, timeScale)
+        x = TimeUtils.timeToSize(startTime, timeScale, tickSize)
+        width = TimeUtils.timeToSize(duration, timeScale, tickSize)
     }
 
     onGlobalColorChanged:
@@ -105,7 +106,7 @@ Item
                 for (var l = 0; l < loopCount; l++)
                 {
                     lastTime += previewData[1]
-                    xPos = TimeUtils.timeToSize(lastTime, timeScale)
+                    xPos = TimeUtils.timeToSize(lastTime, timeScale, tickSize)
                     context.moveTo(xPos, 0)
                     context.lineTo(xPos, itemRoot.height)
                 }
@@ -121,18 +122,18 @@ Item
                 switch(previewData[i])
                 {
                     case ShowManager.FadeIn:
-                        var fiEnd = TimeUtils.timeToSize(lastTime + previewData[i + 1], timeScale)
+                        var fiEnd = TimeUtils.timeToSize(lastTime + previewData[i + 1], timeScale, tickSize)
                         context.moveTo(xPos, itemRoot.height)
                         context.lineTo(fiEnd, 0)
                     break;
                     case ShowManager.StepDivider:
                         lastTime = previewData[i + 1]
-                        xPos = TimeUtils.timeToSize(lastTime, timeScale)
+                        xPos = TimeUtils.timeToSize(lastTime, timeScale, tickSize)
                         context.moveTo(xPos, 0)
                         context.lineTo(xPos, itemRoot.height)
                     break;
                     case ShowManager.FadeOut:
-                        var foEnd = TimeUtils.timeToSize(lastTime + previewData[i + 1], timeScale)
+                        var foEnd = TimeUtils.timeToSize(lastTime + previewData[i + 1], timeScale, tickSize)
                         context.moveTo(xPos, 0)
                         context.lineTo(foEnd, itemRoot.height)
                     break;
@@ -209,7 +210,7 @@ Item
             console.log("Show Item drag started")
             showManager.enableFlicking(false)
             drag.target = showItemBody
-            itemRoot.z = 3
+            itemRoot.z++
             infoTextBox.height = itemRoot.height / 4
             infoTextBox.textHAlign = Text.AlignLeft
         }
@@ -217,7 +218,7 @@ Item
         {
             if (drag.target !== null)
             {
-                infoText = qsTr("Position: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale))
+                infoText = qsTr("Position: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale, tickSize))
             }
         }
         onReleased:
@@ -228,7 +229,7 @@ Item
                 drag.target = null
                 infoText = ""
 
-                var newTime = TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale)
+                var newTime = TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale, tickSize)
                 var newTrackIdx = Math.round((itemRoot.y + showItemBody.y) / itemRoot.height)
                 if (newTime >= 0 && newTrackIdx >= 0)
                 {
@@ -243,7 +244,7 @@ Item
                 showItemBody.x = 0
                 showItemBody.y = 0
             }
-            itemRoot.z = 2
+            itemRoot.z--
             showManager.enableFlicking(true)
         }
 
@@ -265,8 +266,8 @@ Item
            onTriggered:
            {
                var tooltip = funcRef ? funcRef.name + "\n" : "0"
-               tooltip += qsTr("Position: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale))
-               tooltip += "\n" + qsTr("Duration: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.width, timeScale))
+               tooltip += qsTr("Position: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale, tickSize))
+               tooltip += "\n" + qsTr("Duration: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.width, timeScale, tickSize))
                Tooltip.showText(sfMouseArea, Qt.point(sfMouseArea.mouseX, sfMouseArea.mouseY), tooltip)
            }
         }
@@ -302,32 +303,41 @@ Item
                     itemRoot.x = hdlPos.x - mouse.x
                     infoTextBox.height = itemRoot.height / 2
                     infoTextBox.textHAlign = Text.AlignLeft
-                    infoText = qsTr("Position: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale))
-                    infoText += "\n" + qsTr("Duration: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.width, timeScale))
+                    infoText = qsTr("Position: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale, tickSize))
+                    infoText += "\n" + qsTr("Duration: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.width, timeScale, tickSize))
                     horLeftHandler.x = 0
                 }
             }
             onReleased:
             {
-                if (drag.active == true)
-                {
-                    if (sfRef)
-                    {
-                        if (itemRoot.x < 0)
-                        {
-                            itemRoot.width += itemRoot.x
-                            itemRoot.x = 0
-                        }
-                        sfRef.startTime = TimeUtils.posToMs(itemRoot.x, timeScale)
-                        sfRef.duration = TimeUtils.posToMs(itemRoot.width, timeScale)
-                        if (funcRef && showManager.stretchFunctions === true)
-                            funcRef.totalDuration = sfRef.duration
+                if (drag.active == false)
+                    return
 
-                        prCanvas.requestPaint()
+                if (sfRef)
+                {
+                    if (itemRoot.x < 0)
+                    {
+                        itemRoot.width += itemRoot.x
+                        itemRoot.x = 0
                     }
-                    infoText = ""
-                    horLeftHandler.x = 0
+
+                    // check grid snapping
+                    if (itemRoot.x && showManager.gridEnabled)
+                    {
+                        var currX = itemRoot.x
+                        itemRoot.x = Math.round(itemRoot.x / tickSize) * tickSize
+                        itemRoot.width += (currX - itemRoot.x)
+                    }
+
+                    sfRef.startTime = TimeUtils.posToMs(itemRoot.x, timeScale, tickSize)
+                    sfRef.duration = TimeUtils.posToMs(itemRoot.width, timeScale, tickSize)
+                    if (funcRef && showManager.stretchFunctions === true)
+                        funcRef.totalDuration = sfRef.duration
+
+                    prCanvas.requestPaint()
                 }
+                infoText = ""
+                horLeftHandler.x = 0
             }
         }
     }
@@ -365,23 +375,30 @@ Item
                     itemRoot.width = obj.x + (horRightHdlMa.width - mouse.x)
                     infoTextBox.height = itemRoot.height / 4
                     infoTextBox.textHAlign = Text.AlignRight
-                    infoText = qsTr("Duration: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.width, timeScale))
+                    infoText = qsTr("Duration: ") + TimeUtils.msToString(TimeUtils.posToMs(itemRoot.width, timeScale, tickSize))
                 }
             }
             onReleased:
             {
-                if (drag.active == true)
-                {
-                    if (sfRef)
-                    {
-                        sfRef.duration = TimeUtils.posToMs(itemRoot.width, timeScale)
-                        if (funcRef && showManager.stretchFunctions === true)
-                            funcRef.totalDuration = sfRef.duration
+                if (drag.active == false)
+                    return
 
-                        prCanvas.requestPaint()
+                if (sfRef)
+                {
+                    // check grid snapping
+                    if (showManager.gridEnabled)
+                    {
+                        var snappedEndPos = Math.round((itemRoot.x + itemRoot.width) / tickSize) * tickSize
+                        itemRoot.width = snappedEndPos - itemRoot.x
                     }
-                    infoText = ""
+
+                    sfRef.duration = TimeUtils.posToMs(itemRoot.width, timeScale, tickSize)
+                    if (funcRef && showManager.stretchFunctions === true)
+                        funcRef.totalDuration = sfRef.duration
+
+                    prCanvas.requestPaint()
                 }
+                infoText = ""
             }
         }
     }

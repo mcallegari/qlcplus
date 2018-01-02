@@ -37,6 +37,7 @@ Rectangle
     property int trackWidth: UISettings.bigItemHeight * 1.6
 
     property real timeScale: showManager.timeScale
+    property real tickSize: showManager.tickSize
     property int headerHeight: UISettings.iconSizeMedium
     property real xViewOffset: 0
 
@@ -47,13 +48,14 @@ Rectangle
 
     function centerView()
     {
-        var xPos = TimeUtils.timeToSize(showManager.currentTime, timeScale) - (timelineHeader.width / 2)
+        var xPos = TimeUtils.timeToSize(showManager.currentTime, timeScale, tickSize) - (timelineHeader.width / 2)
         if (xPos >= 0)
             xViewOffset = xPos
     }
 
     function renderAndCenter()
     {
+        //console.log("Show Manager tick size: " + tickSize + "pixel")
         showManager.renderView(itemsArea.contentItem)
         centerView()
     }
@@ -109,31 +111,6 @@ Rectangle
                     visible: false
 
                     onColorChanged: showManager.itemsColor = Qt.rgba(r, g, b, 1.0)
-                }
-            }
-
-            IconButton
-            {
-                id: removeItem
-                z: 2
-                width: parent.height - 6
-                height: width
-                imgSource: "qrc:/remove.svg"
-                tooltip: qsTr("Remove the selected items")
-                counter: showManager.selectedItemsCount
-                onClicked:
-                {
-                    var selNames = showManager.selectedItemNames()
-                    //console.log(selNames)
-                    deleteItemsPopup.message = qsTr("Are you sure you want to remove the following items ?\n(Note that the original functions will not be deleted)") + "\n" + selNames,
-                    deleteItemsPopup.open()
-                }
-
-                CustomPopupDialog
-                {
-                    id: deleteItemsPopup
-                    title: qsTr("Delete show items")
-                    onAccepted: showManager.deleteShowItems(showManager.selectedItemRefs())
                 }
             }
 
@@ -199,6 +176,31 @@ Rectangle
                 checkable: true
                 checked: showManager.stretchFunctions
                 onToggled: showManager.stretchFunctions = checked
+            }
+
+            IconButton
+            {
+                id: removeItem
+                z: 2
+                width: parent.height - 6
+                height: width
+                imgSource: "qrc:/remove.svg"
+                tooltip: qsTr("Remove the selected items")
+                counter: showManager.selectedItemsCount
+                onClicked:
+                {
+                    var selNames = showManager.selectedItemNames()
+                    //console.log(selNames)
+                    deleteItemsPopup.message = qsTr("Are you sure you want to remove the following items ?\n(Note that the original functions will not be deleted)") + "\n" + selNames,
+                    deleteItemsPopup.open()
+                }
+
+                CustomPopupDialog
+                {
+                    id: deleteItemsPopup
+                    title: qsTr("Delete show items")
+                    onAccepted: showManager.deleteShowItems(showManager.selectedItemRefs())
+                }
             }
 
             RobotoText
@@ -368,12 +370,11 @@ Rectangle
             visibleX: xViewOffset
             headerHeight: showMgrContainer.headerHeight
             cursorHeight: showMgrContainer.height - topBar.height - (bottomPanel.visible ? bottomPanel.height : 0)
-            timeScale: showMgrContainer.timeScale
             duration: showManager.showDuration
 
             onClicked:
             {
-                showManager.currentTime = TimeUtils.posToMs(mouseX, timeScale)
+                showManager.currentTime = TimeUtils.posToMs(mouseX, timeScale, tickSize)
                 showManager.resetItemsSelection()
             }
         }
@@ -462,7 +463,7 @@ Rectangle
                 anchors.fill: parent
                 onClicked:
                 {
-                    showManager.currentTime = TimeUtils.posToMs(mouse.x, timeScale)
+                    showManager.currentTime = TimeUtils.posToMs(mouse.x, timeScale, tickSize)
                     showManager.resetItemsSelection()
                 }
             }
@@ -490,7 +491,6 @@ Rectangle
                 visibleWidth: itemsArea.width
                 visibleX: xViewOffset
                 headerHeight: parent.height
-                timeScale: showMgrContainer.timeScale
                 duration: showManager.showDuration
                 showTimeMarkers: false
             }
@@ -512,7 +512,7 @@ Rectangle
                     if (drag.source.hasOwnProperty("fromFunctionManager"))
                     {
                         var trackIdx = (itemsArea.contentY + drag.y) / trackHeight
-                        var fTime = TimeUtils.posToMs(itemsArea.contentX + drag.x, timeScale)
+                        var fTime = TimeUtils.posToMs(itemsArea.contentX + drag.x, timeScale, tickSize)
                         console.log("Drop on time: " + fTime)
                         showManager.addItems(itemsArea.contentItem, trackIdx, fTime, drag.source.itemsList)
                     }
@@ -581,7 +581,7 @@ Rectangle
                         /* Check if the dragging was started from a Function Manager */
                         if (drag.source.hasOwnProperty("fromFunctionManager"))
                         {
-                            var fTime = TimeUtils.posToMs(xViewOffset + drag.x, timeScale)
+                            var fTime = TimeUtils.posToMs(xViewOffset + drag.x, timeScale, tickSize)
                             console.log("Drop on time: " + fTime)
                             showManager.addItems(itemsArea.contentItem, -1, fTime, drag.source.itemsList)
                         }

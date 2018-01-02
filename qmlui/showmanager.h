@@ -46,6 +46,7 @@ class ShowManager : public PreviewContext
     Q_PROPERTY(QString showName READ showName WRITE setShowName NOTIFY showNameChanged)
     Q_PROPERTY(QColor itemsColor READ itemsColor WRITE setItemsColor NOTIFY itemsColorChanged)
     Q_PROPERTY(float timeScale READ timeScale WRITE setTimeScale NOTIFY timeScaleChanged)
+    Q_PROPERTY(float tickSize READ tickSize CONSTANT)
     Q_PROPERTY(bool stretchFunctions READ stretchFunctions WRITE setStretchFunctions NOTIFY stretchFunctionsChanged)
     Q_PROPERTY(bool gridEnabled READ gridEnabled WRITE setGridEnabled NOTIFY gridEnabledChanged)
     Q_PROPERTY(int currentTime READ currentTime WRITE setCurrentTime NOTIFY currentTimeChanged)
@@ -94,6 +95,9 @@ public:
     float timeScale() const;
     void setTimeScale(float timeScale);
 
+    /** Get the size in pixels of the Show header time division */
+    float tickSize() const;
+
     /** Get/Set the Function stretch flag */
     bool stretchFunctions() const;
     void setStretchFunctions(bool stretchFunctions);
@@ -129,6 +133,9 @@ private:
 
     /** The current time scale of the Show Manager timeline */
     float m_timeScale;
+
+    /** Size in pixels of the Show Manager time division */
+    float m_tickSize;
 
     /** Flag that indicates if a Function should be stretched
      *  when the corresponding Show Item duration changes */
