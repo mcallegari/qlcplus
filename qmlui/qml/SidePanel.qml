@@ -131,7 +131,7 @@ Rectangle
             cursorShape: pressed ? Qt.ClosedHandCursor : Qt.OpenHandCursor
             drag.target: sidePanelRoot
             drag.axis: Drag.XAxis
-            drag.minimumX: 0
+            //drag.minimumX: 0
             drag.maximumX: mainView.width - collapseWidth
 
             onPositionChanged:
@@ -156,7 +156,6 @@ Rectangle
                     }
                 }
             }
-            //onClicked: animatePanel("")
         }
     }
 }
