@@ -902,11 +902,10 @@ void RGBMatrixEditor::slotRestartTest()
         m_testButton->click();
         m_testButton->click();
     }
-    else
-    {
-        if (createPreviewItems() == true)
-            m_previewTimer->start(MasterTimer::tick());
-    }
+
+    if (createPreviewItems() == true)
+        m_previewTimer->start(MasterTimer::tick());
+
 }
 
 void RGBMatrixEditor::slotModeChanged(Doc::Mode mode)

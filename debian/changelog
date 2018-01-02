@@ -3,6 +3,7 @@ qlcplus (4.11.2) stable; urgency=low
   * UI/Function Manager: fixed keyboard shortcut conflicts and document them
   * UI/Function Manager: allow to import multiple of audio/video files at once
   * UI/Chaser Editor: add a button to shuffle the selected Chaser steps (thanks to Felix Edelmann)
+  * UI/RGBMatrix Editor: fix preview not updating on pattern change when play button is on
   * Virtual Console/Slider: fix submaster initial value not applied
   * Virtual Console/Slider: implemented 'value catching' for controllers without feedbacks (Lukas Jähn proposal)
   * Virtual Console/Cue List: allow to select a step with next/previous buttons during pause
