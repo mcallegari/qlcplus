@@ -195,14 +195,14 @@ QVariant InputOutputManager::audioOutputDevice()
     return QVariant();
 }
 
-QVariant InputOutputManager::audioInputSources()
+QVariant InputOutputManager::audioInputSources() const
 {
     QVariantList inputSources;
     QList<AudioDeviceInfo> devList = m_doc->audioPluginCache()->audioDevicesList();
 
     QVariantMap defAudioMap;
-    defAudioMap.insert("name", tr("Default device"));
-    defAudioMap.insert("privateName", "__qlcplusdefault__");
+    defAudioMap.insert("mLabel", tr("Default device"));
+    defAudioMap.insert("mValue", "__qlcplusdefault__");
     inputSources.append(defAudioMap);
 
     foreach(AudioDeviceInfo info, devList)
@@ -210,8 +210,8 @@ QVariant InputOutputManager::audioInputSources()
         if (info.capabilities & AUDIO_CAP_INPUT)
         {
             QVariantMap devMap;
-            devMap.insert("name", info.deviceName);
-            devMap.insert("privateName", info.privateName);
+            devMap.insert("mLabel", info.deviceName);
+            devMap.insert("mValue", info.privateName);
             inputSources.append(devMap);
         }
     }
@@ -219,14 +219,14 @@ QVariant InputOutputManager::audioInputSources()
     return QVariant::fromValue(inputSources);
 }
 
-QVariant InputOutputManager::audioOutputSources()
+QVariant InputOutputManager::audioOutputSources() const
 {
     QVariantList outputSources;
     QList<AudioDeviceInfo> devList = m_doc->audioPluginCache()->audioDevicesList();
 
     QVariantMap defAudioMap;
-    defAudioMap.insert("name", tr("Default device"));
-    defAudioMap.insert("privateName", "__qlcplusdefault__");
+    defAudioMap.insert("mLabel", tr("Default device"));
+    defAudioMap.insert("mValue", "__qlcplusdefault__");
     outputSources.append(defAudioMap);
 
     foreach(AudioDeviceInfo info, devList)
@@ -234,8 +234,8 @@ QVariant InputOutputManager::audioOutputSources()
         if (info.capabilities & AUDIO_CAP_OUTPUT)
         {
             QVariantMap devMap;
-            devMap.insert("name", info.deviceName);
-            devMap.insert("privateName", info.privateName);
+            devMap.insert("mLabel", info.deviceName);
+            devMap.insert("mValue", info.privateName);
             outputSources.append(devMap);
         }
     }

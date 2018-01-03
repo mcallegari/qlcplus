@@ -37,6 +37,8 @@ class InputOutputManager : public PreviewContext
     Q_PROPERTY(QQmlListProperty<Universe> universes READ universes CONSTANT)
     Q_PROPERTY(QStringList universeNames READ universeNames CONSTANT)
     Q_PROPERTY(QVariant universesListModel READ universesListModel NOTIFY universesListModelChanged)
+    Q_PROPERTY(QVariant audioInputSources READ audioInputSources CONSTANT)
+    Q_PROPERTY(QVariant audioOutputSources READ audioOutputSources CONSTANT)
     Q_PROPERTY(QVariant audioInputDevice READ audioInputDevice NOTIFY audioInputDeviceChanged)
     Q_PROPERTY(QVariant audioOutputDevice READ audioOutputDevice NOTIFY audioOutputDeviceChanged)
     Q_PROPERTY(bool blackout READ blackout WRITE setBlackout NOTIFY blackoutChanged)
@@ -87,8 +89,8 @@ public:
     QVariant audioInputDevice();
     QVariant audioOutputDevice();
 
-    Q_INVOKABLE QVariant audioInputSources();
-    Q_INVOKABLE QVariant audioOutputSources();
+    QVariant audioInputSources() const;
+    QVariant audioOutputSources() const;
 
 signals:
     void audioInputDeviceChanged();

@@ -30,10 +30,7 @@ Rectangle
 
     function loadSources(input)
     {
-        if (input === true)
-            acListView.model = ioManager.audioInputSources()
-        else
-            acListView.model = ioManager.audioOutputSources()
+        acListView.model = input ? ioManager.audioInputSources : ioManager.audioOutputSources
     }
 
     ListView
@@ -67,7 +64,7 @@ Rectangle
                     {
                         height: acDelegate.height
                         width: acDelegate.width - pIcon.width
-                        label: modelData.name
+                        label: modelData.mLabel
                         wrapText: true
                     }
                 }
