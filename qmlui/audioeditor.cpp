@@ -17,6 +17,7 @@
   limitations under the License.
 */
 
+#include "audioplugincache.h"
 #include "audioeditor.h"
 #include "tardis.h"
 #include "audio.h"
@@ -105,5 +106,62 @@ void AudioEditor::setLooped(bool looped)
             m_audio->setRunOrder(Audio::Loop);
         else
             m_audio->setRunOrder(Audio::SingleShot);
+    }
+}
+
+int AudioEditor::cardLineIndex() const
+{
+    if (m_audio == NULL || m_audio->audioDevice().isEmpty())
+        return 0;
+
+    QList<AudioDeviceInfo> devList = m_doc->audioPluginCache()->audioDevicesList();
+    int i = 1;
+    QString device = m_audio->audioDevice();
+
+    foreach(AudioDeviceInfo info, devList)
+    {
+        if (info.capabilities & AUDIO_CAP_OUTPUT)
+        {
+            if (info.privateName == device)
+                return i;
+            i++;
+        }
+
+    }
+    return 0;
+}
+
+void AudioEditor::setCardLineIndex(int cardLineIndex)
+{
+    if (m_audio == NULL)
+        return;
+
+    if (cardLineIndex == 0)
+    {
+        if (m_audio->audioDevice().isEmpty() == false)
+            emit cardLineIndexChanged(cardLineIndex);
+
+        m_audio->setAudioDevice("");
+        return;
+    }
+
+    QList<AudioDeviceInfo> devList = m_doc->audioPluginCache()->audioDevicesList();
+    int i = 1;
+
+    foreach(AudioDeviceInfo info, devList)
+    {
+        if (info.capabilities & AUDIO_CAP_OUTPUT)
+        {
+            if (i == cardLineIndex)
+            {
+                if (m_audio->audioDevice() != info.privateName)
+                    emit cardLineIndexChanged(cardLineIndex);
+
+                m_audio->setAudioDevice(info.privateName);
+                return;
+            }
+            i++;
+        }
+
     }
 }

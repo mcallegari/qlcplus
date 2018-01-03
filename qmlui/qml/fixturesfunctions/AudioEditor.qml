@@ -198,8 +198,8 @@ Rectangle
             height: UISettings.listItemHeight
             Layout.fillWidth: true
             model: ioManager.audioOutputSources
-            //currentIndex: audioEditor.outputIndex
-            //onCurrentIndexChanged: audioEditor.outputIndex = currentIndex
+            currentIndex: audioEditor.cardLineIndex
+            onCurrentIndexChanged: audioEditor.cardLineIndex = currentIndex
         }
     }
 }

@@ -33,6 +33,7 @@ class AudioEditor : public FunctionEditor
     Q_PROPERTY(QStringList audioExtensions READ audioExtensions CONSTANT)
     Q_PROPERTY(QVariant mediaInfo READ mediaInfo NOTIFY mediaInfoChanged)
     Q_PROPERTY(bool looped READ isLooped WRITE setLooped NOTIFY loopedChanged)
+    Q_PROPERTY(int cardLineIndex READ cardLineIndex WRITE setCardLineIndex NOTIFY cardLineIndexChanged)
 
 public:
     AudioEditor(QQuickView *view, Doc *doc, QObject *parent = 0);
@@ -54,10 +55,15 @@ public:
     bool isLooped();
     void setLooped(bool looped);
 
+    /** Get/Set the audio card line used to play this Audio function */
+    int cardLineIndex() const;
+    void setCardLineIndex(int cardLineIndex);
+
 signals:
     void sourceFileNameChanged(QString sourceFileName);
     void mediaInfoChanged();
     void loopedChanged();
+    void cardLineIndexChanged(int cardLineIndex);
 
 private:
     /** Reference of the Audio currently being edited */
