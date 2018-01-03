@@ -19,6 +19,7 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.0
+import QtQuick.Dialogs 1.1
 
 import org.qlcplus.classes 1.0
 import "."
@@ -30,8 +31,41 @@ SidePanel
 
     function createFunctionAndEditor(fType)
     {
+        var i
         // reset the currently loaded item first
         loaderSource = ""
+
+        if (fType === Function.AudioType)
+        {
+            var extList = functionManager.audioExtensions
+            var exts = qsTr("Audio files") + " ("
+            for (i = 0; i < extList.length; i++)
+                exts += extList[i] + " "
+            exts += ")"
+
+            openFileDialog.fType = fType
+            openFileDialog.nameFilters = [ exts, qsTr("All files") + " (*)" ]
+            openFileDialog.open()
+            return
+        }
+        else if (fType === Function.VideoType)
+        {
+            var videoExtList = functionManager.videoExtensions
+            var picExtList = functionManager.pictureExtensions
+            var vexts = qsTr("Video files") + " ("
+            for (i = 0; i < videoExtList.length; i++)
+                vexts += videoExtList[i] + " "
+            vexts += ")"
+            var pexts = qsTr("Picture files") + " ("
+            for (i = 0; i < picExtList.length; i++)
+                pexts += picExtList[i] + " "
+            pexts += ")"
+
+            openFileDialog.fType = fType
+            openFileDialog.nameFilters = [ vexts, pexts, qsTr("All files") + " (*)" ]
+            openFileDialog.open()
+            return
+        }
 
         var fEditor = functionManager.getEditorResource(fType)
         var newFuncID = functionManager.createFunction(fType)
@@ -68,6 +102,41 @@ SidePanel
     {
         if (item.hasOwnProperty("functionID"))
             item.functionID = itemID
+    }
+
+    FileDialog
+    {
+        id: openFileDialog
+        visible: false
+        selectMultiple: true
+
+        property int fType
+
+        onAccepted:
+        {
+
+            var strArray = []
+            for (var i = 0; i < fileUrls.length; i++)
+                strArray.push("" + fileUrls[i])
+
+            console.log("File list: " + strArray)
+
+            if (strArray.length === 1)
+            {
+                itemID = functionManager.createFunction(fType, strArray)
+                functionManager.setEditorFunction(itemID, false)
+                loaderSource = functionManager.getEditorResource(fType)
+            }
+            else
+            {
+                functionManager.createFunction(fType, strArray)
+                loaderSource = "qrc:/FunctionManager.qml"
+            }
+
+            animatePanel(true)
+            addFunction.checked = false
+            funcEditor.checked = true
+        }
     }
 
     Rectangle
@@ -122,7 +191,11 @@ SidePanel
                     visible: addFunction.checked
                     x: -width
 
-                    onEntryClicked: createFunctionAndEditor(fType)
+                    onEntryClicked:
+                    {
+                        close()
+                        createFunctionAndEditor(fType)
+                    }
                     onClosed: addFunction.checked = false
                 }
             }

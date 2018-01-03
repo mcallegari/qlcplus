@@ -59,7 +59,7 @@ void AudioEditor::setSourceFileName(QString sourceFileName)
     emit loopedChanged();
 }
 
-QStringList AudioEditor::mimeTypes() const
+QStringList AudioEditor::audioExtensions() const
 {
     if (m_audio == NULL)
         return QStringList();
@@ -71,19 +71,18 @@ QVariant AudioEditor::mediaInfo() const
 {
     QVariantMap infoMap;
 
-    if (m_audio != NULL)
-    {
-        AudioDecoder *adec = m_audio->getAudioDecoder();
-        if (adec != NULL)
-        {
-            AudioParameters ap = adec->audioParameters();
+    if (m_audio == NULL)
+        return QVariant();
 
-            infoMap.insert("duration", Function::speedToString(m_audio->totalDuration()));
-            infoMap.insert("sampleRate", QString("%1 Hz").arg(ap.sampleRate()));
-            infoMap.insert("channels", ap.channels());
-            infoMap.insert("bitrate", QString("%1 kb/s").arg(adec->bitrate()));
-        }
-    }
+    AudioDecoder *adec = m_audio->getAudioDecoder();
+    if (adec == NULL)
+        return QVariant();
+
+    AudioParameters ap = adec->audioParameters();
+    infoMap.insert("duration", Function::speedToString(m_audio->totalDuration()));
+    infoMap.insert("sampleRate", QString("%1 Hz").arg(ap.sampleRate()));
+    infoMap.insert("channels", ap.channels());
+    infoMap.insert("bitrate", QString("%1 kb/s").arg(adec->bitrate()));
 
     return QVariant::fromValue(infoMap);
 }

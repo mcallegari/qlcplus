@@ -21,6 +21,7 @@
 #include <QQmlEngine>
 #include <QDebug>
 
+#include "audioplugincache.h"
 #include "genericdmxsource.h"
 #include "collectioneditor.h"
 #include "functionmanager.h"
@@ -177,7 +178,36 @@ void FunctionManager::setFolderPath(QString oldAbsPath, QString newRelPath)
     updateFunctionsTree();
 }
 
-quint32 FunctionManager::createFunction(int type)
+quint32 FunctionManager::addFunctiontoDoc(Function *func, QString name)
+{
+    if (func == NULL)
+        return Function::invalidId();
+
+    if (m_doc->addFunction(func) == true)
+    {
+        m_functionTree->setItemRoleData(QString("%1%2%3")
+                                        .arg(func->path(true))
+                                        .arg(TreeModel::separator())
+                                        .arg(func->name()), 1, TreeModel::IsSelectedRole);
+
+        func->setName(QString("%1 %2").arg(name).arg(func->id()));
+        QQmlEngine::setObjectOwnership(func, QQmlEngine::CppOwnership);
+
+        m_selectedIDList.append(QVariant(func->id()));
+        emit selectionCountChanged(m_selectedIDList.count());
+
+        Tardis::instance()->enqueueAction(FunctionCreate, func->id(), QVariant(),
+                                          Tardis::instance()->actionToByteArray(FunctionCreate, func->id()));
+
+        return func->id();
+    }
+    else
+        delete func;
+
+    return Function::invalidId();
+}
+
+quint32 FunctionManager::createFunction(int type, QStringList fileList)
 {
     Function* f = NULL;
     QString name;
@@ -276,48 +306,69 @@ quint32 FunctionManager::createFunction(int type)
         break;
         case Function::AudioType:
         {
-            f = new Audio(m_doc);
             name = tr("New Audio");
-            m_audioCount++;
-            emit audioCountChanged();
+
+            if (fileList.isEmpty())
+            {
+                f = new Audio(m_doc);
+                m_audioCount++;
+                emit audioCountChanged();
+            }
+            else
+            {
+                quint32 lastFuncID = Function::invalidId();
+                for (QString filePath : fileList)
+                {
+                    filePath = filePath.replace("file://", "");
+                    f = new Audio(m_doc);
+                    lastFuncID = addFunctiontoDoc(f, name);
+                    if (lastFuncID != Function::invalidId())
+                    {
+                        Audio *audio = qobject_cast<Audio *>(f);
+                        audio->setSourceFileName(filePath);
+                    }
+                    m_audioCount++;
+                }
+                emit audioCountChanged();
+                return lastFuncID;
+            }
         }
         break;
         case Function::VideoType:
         {
-            f = new Video(m_doc);
             name = tr("New Video");
-            m_videoCount++;
-            emit videoCountChanged();
+
+            if (fileList.isEmpty())
+            {
+                f = new Video(m_doc);
+                m_videoCount++;
+                emit videoCountChanged();
+            }
+            else
+            {
+                quint32 lastFuncID = Function::invalidId();
+                for (QString filePath : fileList)
+                {
+                    filePath = filePath.replace("file://", "");
+                    f = new Video(m_doc);
+                    lastFuncID = addFunctiontoDoc(f, name);
+                    if (lastFuncID != Function::invalidId())
+                    {
+                        Video *video = qobject_cast<Video *>(f);
+                        video->setSourceUrl(filePath);
+                    }
+                    m_videoCount++;
+                }
+                emit videoCountChanged();
+                return lastFuncID;
+            }
         }
         break;
         default:
         break;
     }
-    if (f == NULL)
-        return Function::invalidId();
 
-    if (m_doc->addFunction(f) == true)
-    {
-        m_functionTree->setItemRoleData(QString("%1%2%3")
-                                        .arg(f->path(true))
-                                        .arg(TreeModel::separator())
-                                        .arg(f->name()), 1, TreeModel::IsSelectedRole);
-
-        f->setName(QString("%1 %2").arg(name).arg(f->id()));
-        QQmlEngine::setObjectOwnership(f, QQmlEngine::CppOwnership);
-
-        m_selectedIDList.append(QVariant(f->id()));
-        emit selectionCountChanged(m_selectedIDList.count());
-
-        Tardis::instance()->enqueueAction(FunctionCreate, f->id(), QVariant(),
-                                          Tardis::instance()->actionToByteArray(FunctionCreate, f->id()));
-
-        return f->id();
-    }
-    else
-        delete f;
-
-    return Function::invalidId();
+    return addFunctiontoDoc(f, name);
 }
 
 Function *FunctionManager::getFunction(quint32 id)
@@ -630,6 +681,21 @@ void FunctionManager::renameFunctions(QVariantList IDList, QString newName, bool
 int FunctionManager::selectionCount() const
 {
     return m_selectedIDList.count();
+}
+
+QStringList FunctionManager::audioExtensions() const
+{
+    return m_doc->audioPluginCache()->getSupportedFormats();
+}
+
+QStringList FunctionManager::pictureExtensions() const
+{
+    return Video::getPictureCapabilities();
+}
+
+QStringList FunctionManager::videoExtensions() const
+{
+    return Video::getVideoCapabilities();
 }
 
 void FunctionManager::setViewPosition(int viewPosition)

@@ -105,18 +105,12 @@ void VideoEditor::setSourceFileName(QString sourceFileName)
 
 QStringList VideoEditor::videoExtensions() const
 {
-    if (m_video == NULL)
-        return QStringList();
-
-    return m_video->getVideoCapabilities();
+    return Video::getVideoCapabilities();
 }
 
 QStringList VideoEditor::pictureExtensions() const
 {
-    if (m_video == NULL)
-        return QStringList();
-
-    return m_video->getPictureCapabilities();
+    return Video::getPictureCapabilities();
 }
 
 QVariant VideoEditor::mediaInfo() const

@@ -30,7 +30,7 @@ class AudioEditor : public FunctionEditor
     Q_OBJECT
 
     Q_PROPERTY(QString sourceFileName READ sourceFileName WRITE setSourceFileName NOTIFY sourceFileNameChanged)
-    Q_PROPERTY(QStringList mimeTypes READ mimeTypes CONSTANT)
+    Q_PROPERTY(QStringList audioExtensions READ audioExtensions CONSTANT)
     Q_PROPERTY(QVariant mediaInfo READ mediaInfo NOTIFY mediaInfoChanged)
     Q_PROPERTY(bool looped READ isLooped WRITE setLooped NOTIFY loopedChanged)
 
@@ -45,7 +45,7 @@ public:
     void setSourceFileName(QString sourceFileName);
 
     /** Get the supported file types that can be decoded */
-    QStringList mimeTypes() const;
+    QStringList audioExtensions() const;
 
     /** Get the information of the currently loaded media source */
     QVariant mediaInfo() const;

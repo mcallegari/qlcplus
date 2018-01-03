@@ -20,6 +20,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.1
+import QtQuick.Controls 2.1
 
 import org.qlcplus.classes 1.0
 import "."
@@ -30,7 +31,7 @@ Rectangle
     color: "transparent"
 
     property int functionID: -1
-    property var mediaInfo: audioEditor.mediaInfo
+    property var mediaInfo: audioEditor ? audioEditor.mediaInfo : null
 
     signal requestView(int ID, string qmlSrc)
 
@@ -99,12 +100,12 @@ Rectangle
 
                 onClicked:
                 {
-                    var extList = audioEditor.mimeTypes
+                    var extList = audioEditor.audioExtensions
                     var exts = qsTr("Audio files") + " ("
                     for (var i = 0; i < extList.length; i++)
                         exts += extList[i] + " "
                     exts += ")"
-                    openAudioDialog.nameFilters = [ exts, qsTr("All files (*)") ]
+                    openAudioDialog.nameFilters = [ exts, qsTr("All files") + " (*)" ]
                     openAudioDialog.visible = true
                     openAudioDialog.open()
                 }
@@ -149,6 +150,56 @@ Rectangle
             Layout.fillWidth: true
             label: mediaInfo ? mediaInfo.bitrate : ""
             labelColor: UISettings.fgLight
+        }
+
+        // row 6
+        RobotoText { label: qsTr("Playback mode"); height: UISettings.listItemHeight }
+        RowLayout
+        {
+            height: UISettings.listItemHeight
+            //Layout.fillWidth: true
+
+            ButtonGroup { id: playbackModeGroup }
+
+            CustomCheckBox
+            {
+                implicitWidth: UISettings.iconSizeMedium
+                implicitHeight: implicitWidth
+                ButtonGroup.group: playbackModeGroup
+                checked: !audioEditor.looped
+                onClicked: if (checked) audioEditor.looped = false
+            }
+            RobotoText
+            {
+                height: UISettings.listItemHeight
+                label: qsTr("Single shot")
+            }
+
+            CustomCheckBox
+            {
+                implicitWidth: UISettings.iconSizeMedium
+                implicitHeight: implicitWidth
+                ButtonGroup.group: playbackModeGroup
+                checked: audioEditor.looped
+                onClicked: if (checked) audioEditor.looped = true
+            }
+            RobotoText
+            {
+                height: UISettings.listItemHeight
+                label: qsTr("Looped")
+            }
+        }
+
+        // row 7
+        RobotoText { label: qsTr("Output device"); height: UISettings.listItemHeight }
+        CustomComboBox
+        {
+            id: audioCardsCombo
+            height: UISettings.listItemHeight
+            Layout.fillWidth: true
+            model: ioManager.audioOutputSources
+            //currentIndex: audioEditor.outputIndex
+            //onCurrentIndexChanged: audioEditor.outputIndex = currentIndex
         }
     }
 }

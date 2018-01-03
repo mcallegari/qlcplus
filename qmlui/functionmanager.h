@@ -62,6 +62,10 @@ class FunctionManager : public QObject
     Q_PROPERTY(int audioCount READ audioCount NOTIFY audioCountChanged)
     Q_PROPERTY(int videoCount READ videoCount NOTIFY videoCountChanged)
 
+    Q_PROPERTY(QStringList audioExtensions READ audioExtensions CONSTANT)
+    Q_PROPERTY(QStringList pictureExtensions READ pictureExtensions CONSTANT)
+    Q_PROPERTY(QStringList videoExtensions READ videoExtensions CONSTANT)
+
 public:
     FunctionManager(QQuickView *view, Doc *doc, QObject *parent = 0);
     ~FunctionManager();
@@ -90,7 +94,7 @@ public:
     Q_INVOKABLE void setFolderPath(QString oldAbsPath, QString newRelPath);
 
     /** Create a new Function with the specified $type */
-    Q_INVOKABLE quint32 createFunction(int type);
+    Q_INVOKABLE quint32 createFunction(int type, QStringList fileList = QStringList());
 
     /** Return a reference to a Function with the specified $id */
     Q_INVOKABLE Function *getFunction(quint32 id);
@@ -144,10 +148,15 @@ public:
     int audioCount() const { return m_audioCount; }
     int videoCount() const { return m_videoCount; }
 
+    QStringList audioExtensions() const;
+    QStringList pictureExtensions() const;
+    QStringList videoExtensions() const;
+
     void setViewPosition(int viewPosition);
     int viewPosition() const;
 
 protected:
+    quint32 addFunctiontoDoc(Function *func, QString name);
     void addFunctionTreeItem(Function *func);
     void updateFunctionsTree();
     void clearTree();

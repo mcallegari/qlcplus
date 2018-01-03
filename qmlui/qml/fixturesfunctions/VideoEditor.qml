@@ -106,18 +106,19 @@ Rectangle
 
                 onClicked:
                 {
+                    var i
                     var videoExtList = videoEditor.videoExtensions
                     var picExtList = videoEditor.pictureExtensions
                     var vexts = qsTr("Video files") + " ("
-                    for (var i = 0; i < videoExtList.length; i++)
+                    for (i = 0; i < videoExtList.length; i++)
                         vexts += videoExtList[i] + " "
                     vexts += ")"
                     var pexts = qsTr("Picture files") + " ("
-                    for (var i = 0; i < picExtList.length; i++)
+                    for (i = 0; i < picExtList.length; i++)
                         pexts += picExtList[i] + " "
                     pexts += ")"
 
-                    openVideoDialog.nameFilters = [ vexts, pexts, qsTr("All files (*)") ]
+                    openVideoDialog.nameFilters = [ vexts, pexts, qsTr("All files") + " (*)" ]
                     openVideoDialog.visible = true
                     openVideoDialog.open()
                 }

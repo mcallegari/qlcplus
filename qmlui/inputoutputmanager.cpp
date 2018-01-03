@@ -202,18 +202,20 @@ QVariant InputOutputManager::audioInputSources() const
 
     QVariantMap defAudioMap;
     defAudioMap.insert("mLabel", tr("Default device"));
-    defAudioMap.insert("mValue", "__qlcplusdefault__");
+    defAudioMap.insert("mValue", -1);
     inputSources.append(defAudioMap);
 
+    int i = 0;
     foreach(AudioDeviceInfo info, devList)
     {
         if (info.capabilities & AUDIO_CAP_INPUT)
         {
             QVariantMap devMap;
             devMap.insert("mLabel", info.deviceName);
-            devMap.insert("mValue", info.privateName);
+            devMap.insert("mValue", i);
             inputSources.append(devMap);
         }
+        i++;
     }
 
     return QVariant::fromValue(inputSources);
@@ -226,19 +228,21 @@ QVariant InputOutputManager::audioOutputSources() const
 
     QVariantMap defAudioMap;
     defAudioMap.insert("mLabel", tr("Default device"));
-    defAudioMap.insert("mValue", "__qlcplusdefault__");
+    defAudioMap.insert("mValue", -1);
     outputSources.append(defAudioMap);
 
+    int i = 0;
     foreach(AudioDeviceInfo info, devList)
     {
         if (info.capabilities & AUDIO_CAP_OUTPUT)
         {
             QVariantMap devMap;
             devMap.insert("mLabel", info.deviceName);
-            devMap.insert("mValue", info.privateName);
+            devMap.insert("mValue", i);
             outputSources.append(devMap);
         }
     }
+    i++;
 
     return QVariant::fromValue(outputSources);
 }
