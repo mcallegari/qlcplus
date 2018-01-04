@@ -65,6 +65,11 @@ CustomPopupDialog
         return mask
     }
 
+    function focusEditItem()
+    {
+        nameInputBox.selectAndFocus()
+    }
+
     contentItem:
         GridLayout
         {
@@ -87,7 +92,7 @@ CustomPopupDialog
                     id: nameInputBox
                     Layout.fillWidth: true
                     inputText: qsTr("New Scene")
-                    Component.onCompleted: selectAndFocus()
+                    onEnterPressed: popupRoot.accept()
                 }
             }
 

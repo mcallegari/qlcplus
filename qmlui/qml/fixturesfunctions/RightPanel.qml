@@ -262,6 +262,7 @@ SidePanel
                     {
                         dmxDumpDialog.sceneID = -1
                         dmxDumpDialog.open()
+                        dmxDumpDialog.focusEditItem()
                     }
                     else
                     {
@@ -332,6 +333,7 @@ SidePanel
                         dmxDumpDialog.sceneID = id
                         dmxDumpDialog.sceneName = name
                         dmxDumpDialog.open()
+                        dmxDumpDialog.focusEditItem()
                     }
 
                     Rectangle
