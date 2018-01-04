@@ -31,8 +31,6 @@ class ChaserEditor : public FunctionEditor
 
     Q_PROPERTY(bool isSequence READ isSequence CONSTANT)
     Q_PROPERTY(QVariant stepsList READ stepsList NOTIFY stepsListChanged)
-    Q_PROPERTY(int runOrder READ runOrder WRITE setRunOrder NOTIFY runOrderChanged)
-    Q_PROPERTY(int direction READ direction WRITE setDirection NOTIFY directionChanged)
     Q_PROPERTY(int tempoType READ tempoType WRITE setTempoType NOTIFY tempoTypeChanged)
     Q_PROPERTY(int stepsFadeIn READ stepsFadeIn WRITE setStepsFadeIn NOTIFY stepsFadeInChanged)
     Q_PROPERTY(int stepsFadeOut READ stepsFadeOut WRITE setStepsFadeOut NOTIFY stepsFadeOutChanged)
@@ -103,18 +101,6 @@ private:
     int m_playbackIndex;
 
     /*********************************************************************
-     * Chaser playback modes
-     *********************************************************************/
-public:
-    /** Get/Set the run order of the Chaser being edited */
-    int runOrder() const;
-    void setRunOrder(int runOrder);
-
-    /** Get/Set the playback direction of the Chaser being edited */
-    int direction() const;
-    void setDirection(int direction);
-
-    /*********************************************************************
      * Steps speed mode
      *********************************************************************/
 public:
@@ -139,8 +125,6 @@ public:
 
 signals:
     void stepsListChanged();
-    void runOrderChanged(int runOrder);
-    void directionChanged(int direction);
     void tempoTypeChanged(int tempoType);
     void stepsFadeInChanged(int stepsFadeIn);
     void stepsFadeOutChanged(int stepsFadeOut);

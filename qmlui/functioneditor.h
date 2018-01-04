@@ -40,6 +40,10 @@ class FunctionEditor : public QObject
     Q_PROPERTY(int fadeInSpeed READ fadeInSpeed WRITE setFadeInSpeed NOTIFY fadeInSpeedChanged)
     Q_PROPERTY(int holdSpeed READ holdSpeed WRITE setHoldSpeed NOTIFY holdSpeedChanged)
     Q_PROPERTY(int fadeOutSpeed READ fadeOutSpeed WRITE setFadeOutSpeed NOTIFY fadeOutSpeedChanged)
+    Q_PROPERTY(int duration READ duration NOTIFY durationChanged)
+
+    Q_PROPERTY(int runOrder READ runOrder WRITE setRunOrder NOTIFY runOrderChanged)
+    Q_PROPERTY(int direction READ direction WRITE setDirection NOTIFY directionChanged)
 
 public:
     FunctionEditor(QQuickView *view, Doc *doc, QObject *parent = 0);
@@ -62,6 +66,18 @@ public:
     virtual QString functionName() const;
     virtual void setFunctionName(QString functionName);
 
+    /** Generic method to delete items of an editor.
+      * $list might be a list of indices, IDs or something else */
+    virtual void deleteItems(QVariantList list);
+
+signals:
+    void functionNameChanged(QString functionName);
+    void previewEnabledChanged(bool enabled);
+
+    /************************************************************************
+     * Speed
+     ************************************************************************/
+public:
     /** Get/Set the tempo type of the Function being edited */
     virtual int tempoType() const;
     virtual void setTempoType(int tempoType);
@@ -78,17 +94,31 @@ public:
     virtual int fadeOutSpeed() const;
     virtual void setFadeOutSpeed(int fadeOutSpeed);
 
-    /** Generic method to delete items of an editor.
-      * $list might be a list of indices, IDs or something else */
-    virtual void deleteItems(QVariantList list);
+    /** Get the Function duration */
+    virtual int duration() const;
 
 signals:
-    void functionNameChanged(QString functionName);
-    void previewEnabledChanged(bool enabled);
     void tempoTypeChanged(int tempoType);
     void fadeInSpeedChanged(int fadeInSpeed);
     void holdSpeedChanged(int holdSpeed);
     void fadeOutSpeedChanged(int fadeOutSpeed);
+    void durationChanged(int duration);
+
+    /************************************************************************
+     * Run order and direction
+     ************************************************************************/
+public:
+    /** Get/Set the Function run order */
+    virtual int runOrder() const;
+    virtual void setRunOrder(int runOrder);
+
+    /** Get/Set the Function run direction */
+    virtual int direction() const;
+    virtual void setDirection(int direction);
+
+signals:
+    void runOrderChanged(int runOrder);
+    void directionChanged(int direction);
 
 protected:
     /** Reference of the QML view */

@@ -51,9 +51,6 @@ class RGBMatrixEditor : public FunctionEditor
 
     Q_PROPERTY(int animationStyle READ animationStyle WRITE setAnimationStyle NOTIFY animationStyleChanged)
     Q_PROPERTY(QSize algoOffset READ algoOffset WRITE setAlgoOffset NOTIFY algoOffsetChanged)
-
-    Q_PROPERTY(int runOrder READ runOrder WRITE setRunOrder NOTIFY runOrderChanged)
-    Q_PROPERTY(int direction READ direction WRITE setDirection NOTIFY directionChanged)
     
 public:
     RGBMatrixEditor(QQuickView *view, Doc *doc, QObject *parent = 0);
@@ -140,22 +137,6 @@ signals:
 
     void algoOffsetChanged(QSize algoOffset);
     void animationStyleChanged(int style);
-
-    /************************************************************************
-     * Run order and direction
-     ************************************************************************/
-public:
-    /** RGB Matrix run order getter/setter */
-    int runOrder() const;
-    void setRunOrder(int runOrder);
-
-    /** RGB Matrix direction getter/setter */
-    int direction() const;
-    void setDirection(int direction);
-
-signals:
-    void runOrderChanged(int runOrder);
-    void directionChanged(int direction);
 
     /************************************************************************
      * Preview

@@ -488,46 +488,6 @@ void RGBMatrixEditor::setScriptIntProperty(QString paramName, int value)
 }
 
 /************************************************************************
- * Run order and direction
- ************************************************************************/
-
-int RGBMatrixEditor::runOrder() const
-{
-    if (m_matrix == NULL)
-        return Function::Loop;
-
-    return m_matrix->runOrder();
-}
-
-void RGBMatrixEditor::setRunOrder(int runOrder)
-{
-    if (m_matrix == NULL || m_matrix->runOrder() == Function::RunOrder(runOrder))
-        return;
-
-    Tardis::instance()->enqueueAction(FunctionSetRunOrder, m_matrix->id(), m_matrix->runOrder(), runOrder);
-    m_matrix->setRunOrder(Function::RunOrder(runOrder));
-    emit runOrderChanged(runOrder);
-}
-
-int RGBMatrixEditor::direction() const
-{
-    if (m_matrix == NULL)
-        return Function::Forward;
-
-    return m_matrix->direction();
-}
-
-void RGBMatrixEditor::setDirection(int direction)
-{
-    if (m_matrix == NULL || m_matrix->direction() == Function::Direction(direction))
-        return;
-
-    Tardis::instance()->enqueueAction(FunctionSetDirection, m_matrix->id(), m_matrix->direction(), direction);
-    m_matrix->setDirection(Function::Direction(direction));
-    emit directionChanged(direction);
-}
-
-/************************************************************************
  * Preview
  ************************************************************************/
 

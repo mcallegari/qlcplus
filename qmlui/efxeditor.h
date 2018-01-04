@@ -53,14 +53,6 @@ class EFXEditor : public FunctionEditor
     Q_PROPERTY(qreal maxPanDegrees READ maxPanDegrees NOTIFY maxPanDegreesChanged)
     Q_PROPERTY(qreal maxTiltDegrees READ maxTiltDegrees NOTIFY maxTiltDegreesChanged)
 
-    Q_PROPERTY(int fadeInSpeed READ fadeInSpeed WRITE setFadeInSpeed NOTIFY fadeInSpeedChanged)
-    Q_PROPERTY(int holdSpeed READ holdSpeed WRITE setHoldSpeed NOTIFY holdSpeedChanged)
-    Q_PROPERTY(int fadeOutSpeed READ fadeOutSpeed WRITE setFadeOutSpeed NOTIFY fadeOutSpeedChanged)
-    Q_PROPERTY(int duration READ duration NOTIFY durationChanged)
-
-    Q_PROPERTY(int runOrder READ runOrder WRITE setRunOrder NOTIFY runOrderChanged)
-    Q_PROPERTY(int direction READ direction WRITE setDirection NOTIFY directionChanged)
-
     Q_PROPERTY(QVariantList algorithmData READ algorithmData NOTIFY algorithmDataChanged)
     Q_PROPERTY(QVariantList fixturesData READ fixturesData NOTIFY fixturesDataChanged)
 
@@ -193,43 +185,6 @@ private:
     TreeModel *m_fixtureTree;
 
     qreal m_maxPanDegrees, m_maxTiltDegrees;
-
-    /************************************************************************
-     * Speed
-     ************************************************************************/
-public:
-    int fadeInSpeed() const;
-    void setFadeInSpeed(int fadeInSpeed);
-
-    int holdSpeed() const;
-    void setHoldSpeed(int holdSpeed);
-
-    int fadeOutSpeed() const;
-    void setFadeOutSpeed(int fadeOutSpeed);
-
-    int duration() const;
-
-signals:
-    void fadeInSpeedChanged(int fadeInSpeed);
-    void holdSpeedChanged(int holdSpeed);
-    void fadeOutSpeedChanged(int fadeOutSpeed);
-    void durationChanged(int duration);
-
-    /************************************************************************
-     * Run order and direction
-     ************************************************************************/
-public:
-    /** EFX run order getter/setter */
-    int runOrder() const;
-    void setRunOrder(int runOrder);
-
-    /** EFX direction getter/setter */
-    int direction() const;
-    void setDirection(int direction);
-
-signals:
-    void runOrderChanged(int runOrder);
-    void directionChanged(int direction);
 
     /************************************************************************
      * Algorithm preview

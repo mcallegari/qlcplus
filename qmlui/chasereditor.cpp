@@ -348,48 +348,6 @@ void ChaserEditor::setSelectedValue(Function::SpeedType type, QString param, uin
 }
 
 /*********************************************************************
- * Chaser playback modes
- *********************************************************************/
-
-int ChaserEditor::runOrder() const
-{
-    if (m_chaser == NULL)
-        return Function::Loop;
-
-    return m_chaser->runOrder();
-}
-
-void ChaserEditor::setRunOrder(int runOrder)
-{
-    if (m_chaser == NULL || m_chaser->runOrder() == Function::RunOrder(runOrder))
-        return;
-
-    Tardis::instance()->enqueueAction(FunctionSetRunOrder, m_chaser->id(), m_chaser->runOrder(), runOrder);
-
-    m_chaser->setRunOrder(Function::RunOrder(runOrder));
-    emit runOrderChanged(runOrder);
-}
-
-int ChaserEditor::direction() const
-{
-    if (m_chaser == NULL)
-        return Function::Forward;
-
-    return m_chaser->direction();
-}
-
-void ChaserEditor::setDirection(int direction)
-{
-    if (m_chaser == NULL || m_chaser->direction() == Function::Direction(direction))
-        return;
-
-    Tardis::instance()->enqueueAction(FunctionSetDirection, m_chaser->id(), m_chaser->direction(), direction);
-
-    m_chaser->setDirection(Function::Direction(direction));
-    emit directionChanged(direction);
-}
-
-/*********************************************************************
  * Steps speed mode
  *********************************************************************/
 int ChaserEditor::tempoType() const
