@@ -1027,11 +1027,13 @@ void Universe::savePatchXML(
     QString profileName,
     QMap<QString, QVariant> parameters) const
 {
+    // sanity check: don't save invalid data
+    if (pluginName.isEmpty() || pluginName == KInputNone || line == QLCIOPlugin::invalidLine())
+        return;
+
     doc->writeStartElement(tag);
-    if (!pluginName.isEmpty() && pluginName != KInputNone)
-        doc->writeAttribute(KXMLQLCUniversePlugin, pluginName);
-    if (line != QLCIOPlugin::invalidLine())
-        doc->writeAttribute(KXMLQLCUniverseLine, QString::number(line));
+    doc->writeAttribute(KXMLQLCUniversePlugin, pluginName);
+    doc->writeAttribute(KXMLQLCUniverseLine, QString::number(line));
     if (!profileName.isEmpty() && profileName != KInputNone)
         doc->writeAttribute(KXMLQLCUniverseProfileName, profileName);
 

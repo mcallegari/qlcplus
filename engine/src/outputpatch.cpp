@@ -138,7 +138,7 @@ quint32 OutputPatch::output() const
 
 bool OutputPatch::isPatched() const
 {
-    return output() != QLCIOPlugin::invalidLine();
+    return output() != QLCIOPlugin::invalidLine() && m_plugin != NULL;
 }
 
 void OutputPatch::setPluginParameter(QString prop, QVariant value)

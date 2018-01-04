@@ -1,5 +1,6 @@
 qlcplus (4.11.2) stable; urgency=low
 
+  * engine: fix crash caused by an invalid IO mapping
   * UI/Function Manager: fixed keyboard shortcut conflicts and document them
   * UI/Function Manager: allow to import multiple of audio/video files at once
   * UI/Chaser Editor: add a button to shuffle the selected Chaser steps (thanks to Felix Edelmann)
