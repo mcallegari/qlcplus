@@ -30,7 +30,7 @@ CustomPopupDialog
     title: qsTr("Enter a name for the scene")
 
     property bool show: !dontAskCheck.checked
-    property int channelsMask: contextManager.dumpChannelMask
+    property int channelsMask: contextManager ? contextManager.dumpChannelMask : 0
     property alias sceneName: nameInputBox.inputText
 
     function getChannelsMask()

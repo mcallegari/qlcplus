@@ -254,7 +254,7 @@ SidePanel
                 height: iconSize
                 imgSource: "qrc:/dmxdump.svg"
                 tooltip: qsTr("Dump on a new Scene")
-                counter: contextManager.dumpValuesCount && (qlcplus.accessMask & App.AC_FunctionEditing)
+                counter: contextManager ? contextManager.dumpValuesCount && (qlcplus.accessMask & App.AC_FunctionEditing) : 0
 
                 onClicked:
                 {
@@ -288,7 +288,7 @@ SidePanel
                     {
                         anchors.centerIn: parent
                         height: parent.height * 0.7
-                        label: contextManager.dumpValuesCount
+                        label: contextManager ? contextManager.dumpValuesCount : ""
                         fontSize: height
                     }
                 }
@@ -344,7 +344,7 @@ SidePanel
                         RobotoText
                         {
                             anchors.centerIn: parent
-                            label: contextManager.dumpValuesCount
+                            label: contextManager ? contextManager.dumpValuesCount : ""
                         }
                     }
                 }
