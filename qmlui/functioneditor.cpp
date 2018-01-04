@@ -166,6 +166,68 @@ void FunctionEditor::setTempoType(int tempoType)
     emit tempoTypeChanged(tempoType);
 }
 
+int FunctionEditor::fadeInSpeed() const
+{
+    if (m_function == NULL)
+        return Function::defaultSpeed();
+
+    return m_function->fadeInSpeed();
+}
+
+void FunctionEditor::setFadeInSpeed(int fadeInSpeed)
+{
+    if (m_function == NULL)
+        return;
+
+    if (m_function->fadeInSpeed() == (uint)fadeInSpeed)
+        return;
+
+    m_function->setFadeInSpeed(fadeInSpeed);
+    emit fadeInSpeedChanged(fadeInSpeed);
+}
+
+int FunctionEditor::holdSpeed() const
+{
+    if (m_function == NULL)
+        return Function::defaultSpeed();
+
+    return m_function->duration();
+}
+
+void FunctionEditor::setHoldSpeed(int holdSpeed)
+{
+    if (m_function == NULL)
+        return;
+
+    if (m_function->duration() - m_function->fadeInSpeed() == (uint)holdSpeed)
+        return;
+
+    uint duration = Function::speedAdd(m_function->fadeInSpeed(), holdSpeed);
+    m_function->setDuration(duration);
+
+    emit holdSpeedChanged(holdSpeed);
+}
+
+int FunctionEditor::fadeOutSpeed() const
+{
+    if (m_function == NULL)
+        return Function::defaultSpeed();
+
+    return m_function->fadeOutSpeed();
+}
+
+void FunctionEditor::setFadeOutSpeed(int fadeOutSpeed)
+{
+    if (m_function == NULL)
+        return;
+
+    if (m_function->fadeOutSpeed() == (uint)fadeOutSpeed)
+        return;
+
+    m_function->setFadeOutSpeed(fadeOutSpeed);
+    emit fadeOutSpeedChanged(fadeOutSpeed);
+}
+
 void FunctionEditor::deleteItems(QVariantList list)
 {
     Q_UNUSED(list)

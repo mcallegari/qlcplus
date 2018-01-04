@@ -23,6 +23,7 @@ import QtQuick.Dialogs 1.1
 import QtQuick.Controls 2.1
 
 import org.qlcplus.classes 1.0
+import "TimeUtils.js" as TimeUtils
 import "."
 
 Rectangle
@@ -34,6 +35,24 @@ Rectangle
     property var mediaInfo: audioEditor ? audioEditor.mediaInfo : null
 
     signal requestView(int ID, string qmlSrc)
+
+    TimeEditTool
+    {
+        id: timeEditTool
+
+        parent: mainView
+        z: 99
+        x: rightSidePanel.x - width
+        visible: false
+
+        onValueChanged:
+        {
+            if (speedType == Function.FadeIn)
+                audioEditor.fadeInSpeed = val
+            else if (speedType == Function.FadeOut)
+                audioEditor.fadeOutSpeed = val
+        }
+    }
 
     EditorTopBar
     {
@@ -113,7 +132,11 @@ Rectangle
         }
 
         // row 2
-        RobotoText { label: qsTr("Duration"); height: UISettings.listItemHeight }
+        RobotoText
+        {
+            label: qsTr("Duration")
+            height: UISettings.listItemHeight
+        }
         RobotoText
         {
             height: UISettings.listItemHeight
@@ -123,7 +146,11 @@ Rectangle
         }
 
         // row 3
-        RobotoText { label: qsTr("Channels"); height: UISettings.listItemHeight }
+        RobotoText
+        {
+            label: qsTr("Channels")
+            height: UISettings.listItemHeight
+        }
         RobotoText
         {
             height: UISettings.listItemHeight
@@ -133,7 +160,11 @@ Rectangle
         }
 
         // row 4
-        RobotoText { label: qsTr("Sample Rate"); height: UISettings.listItemHeight }
+        RobotoText
+        {
+            label: qsTr("Sample Rate")
+            height: UISettings.listItemHeight
+        }
         RobotoText
         {
             height: UISettings.listItemHeight
@@ -143,7 +174,11 @@ Rectangle
         }
 
         // row 5
-        RobotoText { label: qsTr("Bitrate"); height: UISettings.listItemHeight }
+        RobotoText
+        {
+            label: qsTr("Bitrate")
+            height: UISettings.listItemHeight
+        }
         RobotoText
         {
             height: UISettings.listItemHeight
@@ -153,7 +188,11 @@ Rectangle
         }
 
         // row 6
-        RobotoText { label: qsTr("Playback mode"); height: UISettings.listItemHeight }
+        RobotoText
+        {
+            label: qsTr("Playback mode")
+            height: UISettings.listItemHeight
+        }
         RowLayout
         {
             height: UISettings.listItemHeight
@@ -191,7 +230,11 @@ Rectangle
         }
 
         // row 7
-        RobotoText { label: qsTr("Output device"); height: UISettings.listItemHeight }
+        RobotoText
+        {
+            label: qsTr("Output device")
+            height: UISettings.listItemHeight
+        }
         CustomComboBox
         {
             id: audioCardsCombo
@@ -200,6 +243,68 @@ Rectangle
             model: ioManager.audioOutputSources
             currentIndex: audioEditor.cardLineIndex
             onCurrentIndexChanged: audioEditor.cardLineIndex = currentIndex
+        }
+
+        // row 8
+        RobotoText
+        {
+            id: fiLabel
+            label: qsTr("Fade in")
+            height: UISettings.listItemHeight
+        }
+
+        Rectangle
+        {
+            Layout.fillWidth: true
+            height: UISettings.listItemHeight
+            color: UISettings.bgMedium
+
+            RobotoText
+            {
+                anchors.fill: parent
+                label: TimeUtils.timeToQlcString(audioEditor.fadeInSpeed, Function.Time)
+
+                MouseArea
+                {
+                    anchors.fill: parent
+                    onDoubleClicked:
+                    {
+                        timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
+                                          fiLabel.label, parent.label, Function.FadeIn)
+                    }
+                }
+            }
+        }
+
+        // row 9
+        RobotoText
+        {
+            id: foLabel
+            height: UISettings.listItemHeight
+            label: qsTr("Fade out")
+        }
+
+        Rectangle
+        {
+            Layout.fillWidth: true
+            height: UISettings.listItemHeight
+            color: UISettings.bgMedium
+
+            RobotoText
+            {
+                anchors.fill: parent
+                label: TimeUtils.timeToQlcString(audioEditor.fadeOutSpeed, Function.Time)
+
+                MouseArea
+                {
+                    anchors.fill: parent
+                    onDoubleClicked:
+                    {
+                        timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
+                                          foLabel.label, parent.label, Function.FadeOut)
+                    }
+                }
+            }
         }
     }
 }

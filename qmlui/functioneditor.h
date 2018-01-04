@@ -37,6 +37,10 @@ class FunctionEditor : public QObject
     Q_PROPERTY(bool previewEnabled READ previewEnabled WRITE setPreviewEnabled NOTIFY previewEnabledChanged)
     Q_PROPERTY(int tempoType READ tempoType WRITE setTempoType NOTIFY tempoTypeChanged)
 
+    Q_PROPERTY(int fadeInSpeed READ fadeInSpeed WRITE setFadeInSpeed NOTIFY fadeInSpeedChanged)
+    Q_PROPERTY(int holdSpeed READ holdSpeed WRITE setHoldSpeed NOTIFY holdSpeedChanged)
+    Q_PROPERTY(int fadeOutSpeed READ fadeOutSpeed WRITE setFadeOutSpeed NOTIFY fadeOutSpeedChanged)
+
 public:
     FunctionEditor(QQuickView *view, Doc *doc, QObject *parent = 0);
     virtual ~FunctionEditor();
@@ -62,6 +66,18 @@ public:
     virtual int tempoType() const;
     virtual void setTempoType(int tempoType);
 
+    /** Get/Set the Function fade in speed */
+    virtual int fadeInSpeed() const;
+    virtual void setFadeInSpeed(int fadeInSpeed);
+
+    /** Get/Set the Function hold speed */
+    virtual int holdSpeed() const;
+    virtual void setHoldSpeed(int holdSpeed);
+
+    /** Get/Set the Function fade out speed */
+    virtual int fadeOutSpeed() const;
+    virtual void setFadeOutSpeed(int fadeOutSpeed);
+
     /** Generic method to delete items of an editor.
       * $list might be a list of indices, IDs or something else */
     virtual void deleteItems(QVariantList list);
@@ -70,6 +86,9 @@ signals:
     void functionNameChanged(QString functionName);
     void previewEnabledChanged(bool enabled);
     void tempoTypeChanged(int tempoType);
+    void fadeInSpeedChanged(int fadeInSpeed);
+    void holdSpeedChanged(int holdSpeed);
+    void fadeOutSpeedChanged(int fadeOutSpeed);
 
 protected:
     /** Reference of the QML view */
