@@ -537,6 +537,10 @@ bool App::saveWorkspace(const QString &fileName)
     if (localFilename.right(4) != KExtWorkspace)
         localFilename += KExtWorkspace;
 
+    /* Set the workspace path before saving the new XML. In this way local files
+       can be loaded even if the workspace file will be moved */
+    m_doc->setWorkspacePath(QFileInfo(localFilename).absolutePath());
+
     if (saveXML(localFilename) == QFile::NoError)
     {
         setTitle(QString("%1 - %2").arg(APPNAME).arg(localFilename));
