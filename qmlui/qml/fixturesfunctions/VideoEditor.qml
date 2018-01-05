@@ -291,6 +291,16 @@ Rectangle
                 implicitHeight: implicitWidth
                 ButtonGroup.group: geometryGroup
                 checked: videoEditor.customGeometry.width == 0 && videoEditor.customGeometry.height == 0
+                onToggled:
+                {
+                    if (checked)
+                    {
+                        geomXSpin.value = 0
+                        geomYSpin.value = 0
+                        geomWSpin.value = 0
+                        geomHSpin.value = 0
+                    }
+                }
             }
             RobotoText
             {
@@ -305,14 +315,17 @@ Rectangle
                 implicitHeight: implicitWidth
                 ButtonGroup.group: geometryGroup
                 checked: videoEditor.customGeometry.width != 0 && videoEditor.customGeometry.height != 0
-                onClicked:
+                onToggled:
                 {
                     if (checked)
                     {
                         if (!mediaInfo || !mediaInfo.Resolution)
                             return
 
-                        videoEditor.customGeometry = Qt.rect(0, 0, mediaInfo.Resolution.width, mediaInfo.Resolution.height)
+                        geomXSpin.value = 0
+                        geomYSpin.value = 0
+                        geomWSpin.value = mediaInfo.Resolution.width
+                        geomHSpin.value = mediaInfo.Resolution.height
                     }
                 }
             }
