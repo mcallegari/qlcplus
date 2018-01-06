@@ -31,7 +31,8 @@ Rectangle
     //height: 600
     color: "black"
 
-    property int mediaCount: 0
+    // array of IDs of the contents currently playing
+    property var mediaArray: []
 
     function addVideo(vContent)
     {
@@ -39,7 +40,7 @@ Rectangle
                        {"video": vContent, "z": 1 });
         if (videoComponent.status !== Component.Ready)
             console.log("Video component is not ready !!")
-        mediaCount++
+        mediaArray.push(vContent.id)
     }
 
     function addPicture(pContent)
@@ -48,7 +49,19 @@ Rectangle
                        {"picture": pContent, "z": 2 });
         if (pictureComponent.status !== Component.Ready)
             console.log("Picture component is not ready !!")
-        mediaCount++
+        mediaArray.push(pContent.id)
+    }
+
+    function removeContent(id)
+    {
+        var cIdx = mediaArray.indexOf(id)
+        if (cIdx > -1)
+            mediaArray.splice(cIdx, 1)
+
+        console.log("Removing content with ID: " + id + ", count: " + mediaArray.length)
+
+        if (mediaArray.length == 0)
+            videoContent.destroyContext()
     }
 
     // Component representing a video content
@@ -116,9 +129,7 @@ Rectangle
                 onStopped:
                 {
                     console.log("Video stopped")
-                    mediaCount--
-                    if (mediaCount == 0)
-                        videoContent.destroyContext()
+                    ctxRoot.removeContent(video.id)
                 }
             }
 

@@ -53,6 +53,9 @@ QQuickView *VideoProvider::fullscreenContext()
 
 void VideoProvider::setFullscreenContext(QQuickView *context)
 {
+    if (context == NULL && m_fullscreenContext)
+        m_fullscreenContext->deleteLater();
+
     m_fullscreenContext = context;
 }
 
@@ -87,7 +90,7 @@ void VideoProvider::slotRequestPlayback()
         return;
 
     if (m_videoMap.contains(video->id()))
-        m_videoMap[video->id()]->playVideo();
+        m_videoMap[video->id()]->playContent();
 }
 
 void VideoProvider::slotRequestPause(bool enable)
@@ -102,7 +105,7 @@ void VideoProvider::slotRequestStop()
         return;
 
     if (m_videoMap.contains(video->id()))
-        m_videoMap[video->id()]->stopVideo();
+        m_videoMap[video->id()]->stopContent();
 }
 
 void VideoProvider::slotBrightnessAdjust(int value)
@@ -136,13 +139,18 @@ quint32 VideoContent::id() const
 
 void VideoContent::destroyContext()
 {
-    stopVideo();
-
     if (m_video->fullscreen())
+    {
         m_provider->setFullscreenContext(NULL);
+    }
+    else if (m_viewContext)
+    {
+        m_viewContext->deleteLater();
+        m_viewContext = NULL;
+    }
 }
 
-void VideoContent::playVideo()
+void VideoContent::playContent()
 {
     if (m_video->fullscreen())
         m_viewContext = m_provider->fullscreenContext();
@@ -203,15 +211,13 @@ void VideoContent::playVideo()
         m_viewContext->show();
 }
 
-void VideoContent::stopVideo()
+void VideoContent::stopContent()
 {
-    if (m_viewContext)
-    {
-        m_viewContext->deleteLater();
-        m_viewContext = NULL;
-        if (m_video->fullscreen())
-            m_provider->setFullscreenContext(NULL);
-    }
+    if (m_viewContext == NULL)
+        return;
+
+    QMetaObject::invokeMethod(m_viewContext->rootObject(), "removeContent",
+                              Q_ARG(QVariant, m_video->id()));
 }
 
 void VideoContent::slotDetectResolution()
@@ -246,5 +252,5 @@ void VideoContent::slotMetaDataChanged(const QString &key, const QVariant &value
 
 void VideoContent::slotWindowClosing()
 {
-    stopVideo();
+    stopContent();
 }

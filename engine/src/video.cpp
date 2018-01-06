@@ -143,6 +143,9 @@ QStringList Video::getPictureCapabilities()
  *********************************************************************/
 void Video::setTotalDuration(quint32 duration)
 {
+    if (m_videoDuration == (qint64)duration)
+        return;
+
     m_videoDuration = (qint64)duration;
     emit totalTimeChanged(m_videoDuration);
 }
@@ -461,13 +464,6 @@ void Video::write(MasterTimer* timer, QList<Universe *> universes)
     Q_UNUSED(universes)
 
     incrementElapsed();
-/*
-    if (fadeOutSpeed() != 0)
-    {
-        if (getDuration() - elapsed() <= fadeOutSpeed())
-            m_audio_out->setFadeOut(fadeOutSpeed());
-    }
-*/
 }
 
 void Video::postRun(MasterTimer* timer, QList<Universe*> universes)

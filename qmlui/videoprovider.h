@@ -72,8 +72,8 @@ public:
     quint32 id() const;
     Q_INVOKABLE void destroyContext();
 
-    void playVideo();
-    void stopVideo();
+    void playContent();
+    void stopContent();
 
 public slots:
     void slotDetectResolution();
