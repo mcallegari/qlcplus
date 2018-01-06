@@ -327,7 +327,7 @@ quint32 FunctionManager::createFunction(int type, QStringList fileList)
                 {
                     filePath = filePath.replace("file://", "");
                     f = new Audio(m_doc);
-                    lastFuncID = addFunctiontoDoc(f, name, false);
+                    lastFuncID = addFunctiontoDoc(f, name, fileList.count() == 1 ? true : false);
                     if (lastFuncID != Function::invalidId())
                     {
                         Audio *audio = qobject_cast<Audio *>(f);
@@ -357,7 +357,7 @@ quint32 FunctionManager::createFunction(int type, QStringList fileList)
                 {
                     filePath = filePath.replace("file://", "");
                     f = new Video(m_doc);
-                    lastFuncID = addFunctiontoDoc(f, name, false);
+                    lastFuncID = addFunctiontoDoc(f, name, fileList.count() == 1 ? true : false);
                     if (lastFuncID != Function::invalidId())
                     {
                         Video *video = qobject_cast<Video *>(f);

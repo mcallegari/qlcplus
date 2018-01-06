@@ -146,8 +146,9 @@ void VideoContent::destroyContext()
     else if (m_viewContext)
     {
         m_viewContext->deleteLater();
-        m_viewContext = NULL;
     }
+
+    m_viewContext = NULL;
 }
 
 void VideoContent::playContent()
