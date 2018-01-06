@@ -32,7 +32,7 @@
 #define KXMLQLCVideoGeometry "Geometry"
 #define KXMLQLCVideoRotation "Rotation"
 
-const QStringList Video::m_defaultVideoCaps = QStringList() << "*.avi" << "*.wmv" << "*.mkv" << "*.mp4" << "*.mpg" << "*.mpeg" << "*.flv";
+const QStringList Video::m_defaultVideoCaps = QStringList() << "*.avi" << "*.wmv" << "*.mkv" << "*.mp4" << "*.mpg" << "*.mpeg" << "*.flv" << "*.webm";
 const QStringList Video::m_defaultPictureCaps = QStringList() << "*.png" << "*.bmp" << "*.jpg" << "*.jpeg" << "*.gif";
 
 /*****************************************************************************
@@ -126,6 +126,7 @@ QStringList Video::getVideoCapabilities()
                 else if (mime.endsWith("/mpeg")) caps << "*.mpeg";
                 else if (mime.endsWith("/mpg")) caps << "*.mpg";
                 else if (mime.endsWith("/quicktime")) caps << "*.mov";
+                else if (mime.endsWith("/webm")) caps << "*.webm";
                 else if (mime.endsWith("matroska")) caps << "*.mkv";
             }
         }
