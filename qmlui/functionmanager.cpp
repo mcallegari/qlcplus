@@ -178,23 +178,29 @@ void FunctionManager::setFolderPath(QString oldAbsPath, QString newRelPath)
     updateFunctionsTree();
 }
 
-quint32 FunctionManager::addFunctiontoDoc(Function *func, QString name)
+quint32 FunctionManager::addFunctiontoDoc(Function *func, QString name, bool select)
 {
     if (func == NULL)
         return Function::invalidId();
 
     if (m_doc->addFunction(func) == true)
     {
-        m_functionTree->setItemRoleData(QString("%1%2%3")
-                                        .arg(func->path(true))
-                                        .arg(TreeModel::separator())
-                                        .arg(func->name()), 1, TreeModel::IsSelectedRole);
+        if (select)
+        {
+            m_functionTree->setItemRoleData(QString("%1%2%3")
+                                            .arg(func->path(true))
+                                            .arg(TreeModel::separator())
+                                            .arg(func->name()), 1, TreeModel::IsSelectedRole);
+        }
 
         func->setName(QString("%1 %2").arg(name).arg(func->id()));
         QQmlEngine::setObjectOwnership(func, QQmlEngine::CppOwnership);
 
-        m_selectedIDList.append(QVariant(func->id()));
-        emit selectionCountChanged(m_selectedIDList.count());
+        if (select)
+        {
+            m_selectedIDList.append(QVariant(func->id()));
+            emit selectionCountChanged(m_selectedIDList.count());
+        }
 
         Tardis::instance()->enqueueAction(FunctionCreate, func->id(), QVariant(),
                                           Tardis::instance()->actionToByteArray(FunctionCreate, func->id()));
@@ -321,7 +327,7 @@ quint32 FunctionManager::createFunction(int type, QStringList fileList)
                 {
                     filePath = filePath.replace("file://", "");
                     f = new Audio(m_doc);
-                    lastFuncID = addFunctiontoDoc(f, name);
+                    lastFuncID = addFunctiontoDoc(f, name, false);
                     if (lastFuncID != Function::invalidId())
                     {
                         Audio *audio = qobject_cast<Audio *>(f);
@@ -351,7 +357,7 @@ quint32 FunctionManager::createFunction(int type, QStringList fileList)
                 {
                     filePath = filePath.replace("file://", "");
                     f = new Video(m_doc);
-                    lastFuncID = addFunctiontoDoc(f, name);
+                    lastFuncID = addFunctiontoDoc(f, name, false);
                     if (lastFuncID != Function::invalidId())
                     {
                         Video *video = qobject_cast<Video *>(f);
@@ -368,7 +374,7 @@ quint32 FunctionManager::createFunction(int type, QStringList fileList)
         break;
     }
 
-    return addFunctiontoDoc(f, name);
+    return addFunctiontoDoc(f, name, true);
 }
 
 Function *FunctionManager::getFunction(quint32 id)

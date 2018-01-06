@@ -156,7 +156,7 @@ public:
     int viewPosition() const;
 
 protected:
-    quint32 addFunctiontoDoc(Function *func, QString name);
+    quint32 addFunctiontoDoc(Function *func, QString name, bool select);
     void addFunctionTreeItem(Function *func);
     void updateFunctionsTree();
     void clearTree();
