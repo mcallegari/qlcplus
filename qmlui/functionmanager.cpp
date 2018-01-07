@@ -462,9 +462,13 @@ void FunctionManager::selectFunctionID(quint32 fID, bool multiSelection)
     emit selectionCountChanged(m_selectedIDList.count());
 }
 
-QString FunctionManager::getEditorResource(int type)
+QString FunctionManager::getEditorResource(int funcID)
 {
-    switch(type)
+    Function *f = m_doc->function((quint32)funcID);
+    if (f == NULL)
+        return "qrc:/FunctionManager.qml";
+
+    switch(f->type())
     {
         case Function::SceneType: return "qrc:/SceneEditor.qml";
         case Function::ChaserType: return "qrc:/ChaserEditor.qml";
@@ -480,13 +484,18 @@ QString FunctionManager::getEditorResource(int type)
     }
 }
 
-void FunctionManager::setEditorFunction(quint32 fID, bool requestUI)
+void FunctionManager::setEditorFunction(quint32 fID, bool requestUI, bool back)
 {
+    int previousID = -1;
+
     // reset all the editor functions
     if (m_currentEditor != NULL)
     {
         if (m_currentEditor->functionID() == fID)
             return;
+
+        if (!back)
+            previousID = m_currentEditor->functionID();
 
         delete m_currentEditor;
         m_currentEditor = NULL;
@@ -555,7 +564,9 @@ void FunctionManager::setEditorFunction(quint32 fID, bool requestUI)
             m_currentEditor = new VideoEditor(m_view, m_doc, this);
         }
         break;
-        case Function::ShowType: break; // a Show is edited by the Show Manager
+        case Function::ShowType:
+            // a Show is edited by the Show Manager
+        break;
         default:
         {
             qDebug() << "Requested function type" << f->type() << "doesn't have a dedicated Function editor";
@@ -566,6 +577,7 @@ void FunctionManager::setEditorFunction(quint32 fID, bool requestUI)
     if (m_currentEditor != NULL)
     {
         m_currentEditor->setFunctionID(fID);
+        m_currentEditor->setPreviousID(previousID);
         m_currentEditor->setPreviewEnabled(m_previewEnabled);
     }
 

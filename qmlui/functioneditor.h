@@ -34,6 +34,7 @@ class FunctionEditor : public QObject
     Q_OBJECT
 
     Q_PROPERTY(QString functionName READ functionName WRITE setFunctionName NOTIFY functionNameChanged)
+    Q_PROPERTY(int previousID READ previousID WRITE setPreviousID NOTIFY previousIDChanged)
     Q_PROPERTY(bool previewEnabled READ previewEnabled WRITE setPreviewEnabled NOTIFY previewEnabledChanged)
     Q_PROPERTY(int tempoType READ tempoType WRITE setTempoType NOTIFY tempoTypeChanged)
 
@@ -66,13 +67,35 @@ public:
     virtual QString functionName() const;
     virtual void setFunctionName(QString functionName);
 
+    /** Get the ID of the view that was open before this editor.
+     *  This is to handle Collection -> Function and back */
+    int previousID() const;
+    void setPreviousID(int previousID);
+
     /** Generic method to delete items of an editor.
       * $list might be a list of indices, IDs or something else */
     virtual void deleteItems(QVariantList list);
 
 signals:
     void functionNameChanged(QString functionName);
+    void previousIDChanged(int previousID);
     void previewEnabledChanged(bool enabled);
+
+protected:
+    /** Reference of the QML view */
+    QQuickView *m_view;
+    /** Reference of the project workspace */
+    Doc *m_doc;
+    /** ID of the Function being edited */
+    quint32 m_functionID;
+    /** ID of the item of the previous view */
+    int m_previousID;
+    /** Reference of the Function being edited */
+    Function *m_function;
+    /** Type of the Function being edited */
+    Function::Type m_functionType;
+    /** Flag that holds if the editor should preview its function */
+    bool m_previewEnabled;
 
     /************************************************************************
      * Speed
@@ -119,20 +142,6 @@ public:
 signals:
     void runOrderChanged(int runOrder);
     void directionChanged(int direction);
-
-protected:
-    /** Reference of the QML view */
-    QQuickView *m_view;
-    /** Reference of the project workspace */
-    Doc *m_doc;
-    /** ID of the Function being edited */
-    quint32 m_functionID;
-    /** Reference of the Function being edited */
-    Function *m_function;
-    /** Type of the Function being edited */
-    Function::Type m_functionType;
-    /** Flag that holds if the editor should preview its function */
-    bool m_previewEnabled;
 };
 
 #endif // SCENEEDITOR_H

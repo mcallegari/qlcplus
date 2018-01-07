@@ -109,11 +109,11 @@ public:
      *  considering $multiSelection as an append/replace action */
     Q_INVOKABLE void selectFunctionID(quint32 fID, bool multiSelection);
 
-    /** Get the QML resource for a Function editor that can handle $type */
-    Q_INVOKABLE QString getEditorResource(int type);
+    /** Get the QML resource for a Function editor that can edit $funcID */
+    Q_INVOKABLE QString getEditorResource(int funcID);
 
     /** Set $fID as the current Function ID being edited */
-    Q_INVOKABLE void setEditorFunction(quint32 fID, bool requestUI);
+    Q_INVOKABLE void setEditorFunction(quint32 fID, bool requestUI, bool back);
 
     FunctionEditor *currentEditor() const;
 

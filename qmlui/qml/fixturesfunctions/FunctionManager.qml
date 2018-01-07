@@ -38,9 +38,9 @@ Rectangle
             return
 
         //console.log("Request to open Function editor. ID: " + funcID + " type: " + funcType)
-        functionManager.setEditorFunction(funcID, false)
+        functionManager.setEditorFunction(funcID, false, false)
         functionManager.viewPosition = functionsListView.contentY
-        var editorRes = functionManager.getEditorResource(funcType)
+        var editorRes = functionManager.getEditorResource(funcID)
 
         if (funcType === Function.ShowType)
         {

@@ -26,6 +26,7 @@ FunctionEditor::FunctionEditor(QQuickView *view, Doc *doc, QObject *parent)
     , m_view(view)
     , m_doc(doc)
     , m_functionID(Function::invalidId())
+    , m_previousID(-1)
     , m_function(NULL)
     , m_functionType(Function::Undefined)
     , m_previewEnabled(false)
@@ -111,6 +112,21 @@ void FunctionEditor::setFunctionName(QString functionName)
 
     m_function->setName(functionName);
     emit functionNameChanged(functionName);
+}
+
+int FunctionEditor::previousID() const
+{
+    return m_previousID;
+}
+
+void FunctionEditor::setPreviousID(int previousID)
+{
+    qDebug() << "Previous ID" << previousID;
+    if (m_previousID == previousID)
+        return;
+
+    m_previousID = previousID;
+    emit previousIDChanged(m_previousID);
 }
 
 /************************************************************************

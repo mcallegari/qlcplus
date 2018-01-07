@@ -254,7 +254,7 @@ Item
             showManager.setItemSelection(trackIndex, sfRef, itemRoot, itemRoot.isSelected)
         }
 
-        onDoubleClicked: functionManager.setEditorFunction(sfRef.functionID, true)
+        onDoubleClicked: functionManager.setEditorFunction(sfRef.functionID, true, false)
 
         onExited: Tooltip.hideText()
         onCanceled: Tooltip.hideText()

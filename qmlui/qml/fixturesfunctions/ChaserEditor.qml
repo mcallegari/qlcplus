@@ -166,8 +166,9 @@ Rectangle
                         rightSidePanel.width = rightSidePanel.width / 2
                     }
 
-                    functionManager.setEditorFunction(-1, false)
-                    requestView(-1, "qrc:/FunctionManager.qml")
+                    var prevID = chaserEditor.previousID
+                    functionManager.setEditorFunction(prevID, false, true)
+                    requestView(prevID, functionManager.getEditorResource(prevID))
                 }
 
                 IconButton

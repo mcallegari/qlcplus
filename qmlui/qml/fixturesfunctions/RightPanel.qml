@@ -67,9 +67,10 @@ SidePanel
             return
         }
 
-        var fEditor = functionManager.getEditorResource(fType)
+
         var newFuncID = functionManager.createFunction(fType)
-        functionManager.setEditorFunction(newFuncID, false)
+        var fEditor = functionManager.getEditorResource(newFuncID)
+        functionManager.setEditorFunction(newFuncID, false, false)
 
         if (fType === Function.ShowType)
         {
@@ -94,7 +95,7 @@ SidePanel
         // reset the currently loaded item first
         loaderSource = ""
         itemID = funcID
-        loaderSource = functionManager.getEditorResource(funcType)
+        loaderSource = functionManager.getEditorResource(funcID)
         animatePanel(true)
     }
 
@@ -124,8 +125,8 @@ SidePanel
             if (strArray.length === 1)
             {
                 itemID = functionManager.createFunction(fType, strArray)
-                functionManager.setEditorFunction(itemID, false)
-                loaderSource = functionManager.getEditorResource(fType)
+                functionManager.setEditorFunction(itemID, false, false)
+                loaderSource = functionManager.getEditorResource(itemID)
             }
             else
             {
@@ -169,7 +170,7 @@ SidePanel
                     else
                     {
                         functionManager.selectFunctionID(-1, false)
-                        functionManager.setEditorFunction(-1, false)
+                        functionManager.setEditorFunction(-1, false, false)
                     }
                     animatePanel(checked)
                 }

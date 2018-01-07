@@ -78,8 +78,9 @@ Rectangle
                         rightSidePanel.width = rightSidePanel.width / 2
                     }
 
-                    functionManager.setEditorFunction(-1, false)
-                    requestView(-1, "qrc:/FunctionManager.qml")
+                    var prevID = collectionEditor.previousID
+                    functionManager.setEditorFunction(prevID, false, true)
+                    requestView(prevID, functionManager.getEditorResource(prevID))
                 }
 
                 IconButton
@@ -153,6 +154,11 @@ Rectangle
                             drag.threshold: height / 2
 
                             onClicked: ceSelector.selectItem(index, cFunctionList.model, mouse.modifiers & Qt.ControlModifier)
+                            onDoubleClicked:
+                            {
+                                functionManager.setEditorFunction(model.funcID, false, false)
+                                requestView(model.funcID, functionManager.getEditorResource(model.funcID))
+                            }
 
                             onReleased:
                             {

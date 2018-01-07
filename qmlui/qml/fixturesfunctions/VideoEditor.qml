@@ -53,8 +53,9 @@ Rectangle
 
         onBackClicked:
         {
-            functionManager.setEditorFunction(-1, false)
-            requestView(-1, "qrc:/FunctionManager.qml")
+            var prevID = videoEditor.previousID
+            functionManager.setEditorFunction(prevID, false, true)
+            requestView(prevID, functionManager.getEditorResource(prevID))
         }
     }
 
