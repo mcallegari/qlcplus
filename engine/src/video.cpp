@@ -107,13 +107,15 @@ QStringList Video::getVideoCapabilities()
 {
     QStringList caps;
     QStringList mimeTypes = QMediaPlayer::supportedMimeTypes();
-    qDebug() << "Supported video types:" << caps;
+
     if (mimeTypes.isEmpty())
     {
         return m_defaultVideoCaps;
     }
     else
     {
+        qDebug() << "Supported video types:" << mimeTypes;
+
         foreach(QString mime, mimeTypes)
         {
             if (mime.startsWith("video/"))
