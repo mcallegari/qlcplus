@@ -196,10 +196,10 @@ Rectangle
                     height: viewToolbar.height - 4
                     anchors.margins: 1
                     model: ioManager.universesListModel
+                    currentValue: contextManager.universeFilter
 
                     onValueChanged:
                     {
-                        // set the universe filter here
                         contextManager.universeFilter = value
                         fixtureManager.universeFilter = value
                     }

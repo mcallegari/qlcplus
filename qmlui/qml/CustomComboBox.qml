@@ -45,6 +45,26 @@ ComboBox
 
     signal valueChanged(int value)
 
+    onCurrentValueChanged:
+    {
+        if (!model)
+            return
+
+        //console.log("Value changed:" + currentValue + ", model count: " + model.length)
+        for (var i = 0; i < model.length; i++)
+        {
+            var item = model[i]
+            if (item.mValue === currentValue)
+            {
+                displayText = item.mLabel
+                if (item.mIcon)
+                    currentIcon = item.mIcon
+                currentIndex = i
+                return
+            }
+        }
+    }
+
     delegate:
         ItemDelegate
         {
@@ -62,18 +82,18 @@ ComboBox
 
             Component.onCompleted:
             {
+                //console.log("Combo item completed index: " + index + ", label: " + text + ", value: " + itemValue)
+
                 if (index === control.currentIndex)
                 {
                     displayText = text
                     currentIcon = itemIcon
+                    if (itemValue !== undefined && itemValue != currentValue)
+                    {
+                        currentValue = itemValue
+                        control.valueChanged(itemValue)
+                    }
                 }
-                if (control.currentValue && itemValue === control.currentValue)
-                {
-                    displayText = text
-                    currentIcon = itemIcon
-                    currentIndex = index
-                }
-                //console.log("Combo item completed index: " + index + ", label: " + text + ", value: " + itemValue)
             }
 
             onCurrentIdxChanged:
@@ -82,9 +102,10 @@ ComboBox
                 {
                     displayText = text
                     currentIcon = itemIcon
+                    console.log("Index changed:" + index + ", value: " + itemValue)
                     if (itemValue !== undefined)
                     {
-                        control.currentValue = itemValue
+                        currentValue = itemValue
                         control.valueChanged(itemValue)
                     }
                 }
@@ -198,7 +219,7 @@ ComboBox
                     id: popupList
                     clip: true
                     implicitHeight: contentHeight
-                    model: control.delegateModel //control.popup.visible ? control.delegateModel : null
+                    model: control.popup.visible ? control.delegateModel : null
                     currentIndex: control.highlightedIndex
                     boundsBehavior: Flickable.StopAtBounds
                     highlightRangeMode: ListView.ApplyRange
