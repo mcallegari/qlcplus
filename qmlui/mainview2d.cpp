@@ -177,7 +177,7 @@ void MainView2D::createFixtureItem(quint32 fxID, QVector3D pos, bool mmCoords)
     }
     else
     {
-        itemPos = FixtureUtils::getAvailable2DPosition(m_doc, m_monProps->pointOfView(),
+        itemPos = FixtureUtils::available2DPosition(m_doc, m_monProps->pointOfView(),
                                                        QRectF(itemPos.x(), itemPos.y(), size.width(), size.height()));
         // add the new fixture to the Doc monitor properties
         QVector3D newPos = FixtureUtils::item3DPosition(m_monProps, itemPos, 1000.0);

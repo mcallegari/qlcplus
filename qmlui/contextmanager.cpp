@@ -28,6 +28,7 @@
 #include "functionmanager.h"
 #include "fixturemanager.h"
 #include "qlcfixturemode.h"
+#include "fixtureutils.h"
 #include "mainviewdmx.h"
 #include "mainview2d.h"
 #include "mainview3d.h"
@@ -611,15 +612,12 @@ void ContextManager::setFixturesAlignment(int alignment)
     foreach(quint32 fxID, m_selectedFixtures)
     {
         QVector3D fxPos = mProps->fixturePosition(fxID);
-
-        switch(alignment)
-        {
-            case Qt::AlignTop: fxPos.setY(firstPos.y()); break;
-            case Qt::AlignLeft: fxPos.setX(firstPos.x()); break;
-        }
+        FixtureUtils::alignItem(firstPos, fxPos, mProps->pointOfView(), alignment);
         mProps->setFixturePosition(fxID, fxPos);
         if (m_2DView->isEnabled())
             m_2DView->updateFixturePosition(fxID, fxPos);
+        if (m_3DView->isEnabled())
+            m_3DView->updateFixturePosition(fxID, fxPos);
     }
 }
 

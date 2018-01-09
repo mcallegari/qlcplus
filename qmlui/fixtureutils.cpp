@@ -47,11 +47,11 @@ QPointF FixtureUtils::item2DPosition(MonitorProperties *monProps, int pointOfVie
         break;
         case MonitorProperties::RightSideView:
             point.setX((monProps->gridSize().x() * gridUnits) - pos.z());
-            point.setY(pos.y());
+            point.setY((monProps->gridSize().y() * gridUnits) - pos.y());
         break;
         case MonitorProperties::LeftSideView:
             point.setX(pos.z());
-            point.setY(pos.y());
+            point.setY((monProps->gridSize().y() * gridUnits) - pos.y());
         break;
     }
 
@@ -117,6 +117,42 @@ QSizeF FixtureUtils::item2DDimension(QLCFixtureMode *fxMode, int pointOfView)
     return size;
 }
 
+void FixtureUtils::alignItem(QVector3D refPos, QVector3D &origPos, int pointOfView, int alignment)
+{
+    switch(pointOfView)
+    {
+        case MonitorProperties::TopView:
+        {
+            switch(alignment)
+            {
+                case Qt::AlignTop: origPos.setZ(refPos.z()); break;
+                case Qt::AlignLeft: origPos.setX(refPos.x()); break;
+            }
+        }
+        break;
+        case MonitorProperties::Undefined:
+        case MonitorProperties::FrontView:
+        {
+            switch(alignment)
+            {
+                case Qt::AlignTop: origPos.setY(refPos.y()); break;
+                case Qt::AlignLeft: origPos.setX(refPos.x()); break;
+            }
+        }
+        break;
+        case MonitorProperties::RightSideView:
+        case MonitorProperties::LeftSideView:
+        {
+            switch(alignment)
+            {
+                case Qt::AlignTop: origPos.setY(refPos.y()); break;
+                case Qt::AlignLeft: origPos.setZ(refPos.z()); break;
+            }
+        }
+        break;
+    }
+}
+
 QVector3D FixtureUtils::item3DPosition(MonitorProperties *monProps, QPointF point, float thirdVal)
 {
     QVector3D pos(point.x(), point.y(), thirdVal);
@@ -139,7 +175,7 @@ QVector3D FixtureUtils::item3DPosition(MonitorProperties *monProps, QPointF poin
     return pos;
 }
 
-QPointF FixtureUtils::getAvailable2DPosition(Doc *doc, int pointOfView, QRectF fxRect)
+QPointF FixtureUtils::available2DPosition(Doc *doc, int pointOfView, QRectF fxRect)
 {
     MonitorProperties *monProps = doc->monitorProperties();
     if (monProps == NULL)

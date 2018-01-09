@@ -634,7 +634,7 @@ void MainView3D::initializeFixture(quint32 fxID, QEntity *fxEntity, QComponent *
     else
     {
         QSizeF size = FixtureUtils::item2DDimension(fxMode, MonitorProperties::TopView);
-        QPointF itemPos = FixtureUtils::getAvailable2DPosition(m_doc, MonitorProperties::TopView,
+        QPointF itemPos = FixtureUtils::available2DPosition(m_doc, MonitorProperties::TopView,
                                                                QRectF(0, 0, size.width(), size.height()));
         // add the new fixture to the Doc monitor properties
         fxPos = QVector3D(itemPos.x(), 1000.0, itemPos.y());
