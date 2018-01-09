@@ -105,8 +105,8 @@ void App::startup()
 
     rootContext()->setContextProperty("qlcplus", this);
 
-    m_pixelDensity = screen()->physicalDotsPerInch() *  0.039370;
-    qDebug() << "Pixel density:" << m_pixelDensity;
+    m_pixelDensity = qMax(screen()->physicalDotsPerInch() *  0.039370, (qreal)screen()->size().height() / 220.0);
+    qDebug() << "Pixel density:" << m_pixelDensity << "size:" << screen()->physicalSize();
 
     rootContext()->setContextProperty("screenPixelDensity", m_pixelDensity);
 
