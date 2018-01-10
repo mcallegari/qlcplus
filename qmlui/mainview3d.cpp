@@ -642,15 +642,13 @@ void MainView3D::initializeFixture(quint32 fxID, QEntity *fxEntity, QComponent *
         Tardis::instance()->enqueueAction(FixtureSetPosition, fixture->id(), QVariant(QVector3D(0, 0, 0)), QVariant(fxPos));
     }
 
-    updateFixturePosition(fxID, fxPos);
-    updateFixtureScale(fxID, fxSize);
-    updateFixtureRotation(fxID, m_monProps->fixtureRotation(fxID));
-
     /* Hook the object picker to the base entity */
     picker->setParent(meshRef->m_rootItem);
     meshRef->m_rootItem->addComponent(picker);
 
-    updateFixture(fixture);
+    updateFixtureScale(fxID, fxSize);
+    updateFixturePosition(fxID, fxPos);
+    updateFixtureRotation(fxID, m_monProps->fixtureRotation(fxID));
 
     QLayer *selectionLayer = m_sceneRootEntity->property("selectionLayer").value<QLayer *>();
     QGeometryRenderer *selectionMesh = m_sceneRootEntity->property("selectionMesh").value<QGeometryRenderer *>();
@@ -669,6 +667,9 @@ void MainView3D::initializeFixture(quint32 fxID, QEntity *fxEntity, QComponent *
         QMetaObject::invokeMethod(meshRef->m_selectionBox, "bindFixtureTransform",
                 Q_ARG(QVariant, fixture->id()),
                 Q_ARG(QVariant, QVariant::fromValue(meshRef->m_rootTransform)));
+
+    // at last, preview the fixture channels
+    updateFixture(fixture);
 }
 
 void MainView3D::updateFixture(Fixture *fixture)
