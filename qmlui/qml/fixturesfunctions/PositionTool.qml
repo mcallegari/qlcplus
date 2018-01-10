@@ -221,7 +221,7 @@ Rectangle
             tooltip: qsTr("Snap to the previous value")
             onClicked:
             {
-                var prev = (parseInt(panSpinBox.value / 90) * 90) - 90
+                var prev = (parseInt(panSpinBox.value / 45) * 45) - 45
                 if (prev >= 0)
                     panSpinBox.value = prev
             }
@@ -234,7 +234,7 @@ Rectangle
             tooltip: qsTr("Snap to the next value")
             onClicked:
             {
-                var next = (parseInt(panSpinBox.value / 90) * 90) + 90
+                var next = (parseInt(panSpinBox.value / 45) * 45) + 45
                 if (next <= panMaxDegrees)
                     panSpinBox.value = next
             }
