@@ -794,7 +794,7 @@ void MainView3D::updateFixturePosition(quint32 fxID, QVector3D pos)
     qDebug() << Q_FUNC_INFO << pos;
 
     float x = (pos.x() / 1000.0) - (m_monProps->gridSize().x() / 2) + (mesh->m_volume.m_extents.x() / 2);
-    float y = (pos.y() / 1000.0);// + (mesh->m_volume.m_extents.y() / 2);
+    float y = (pos.y() / 1000.0);
     float z = (pos.z() / 1000.0) - (m_monProps->gridSize().z() / 2) + (mesh->m_volume.m_extents.z() / 2);
 
     /* move the root mesh first */

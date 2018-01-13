@@ -291,9 +291,14 @@ void ContextManager::setPositionPickPoint(QVector3D point)
             if (xLeft && !zBack)
                 panDeg = 90.0 + (90.0 - panDeg);
             else if(!xLeft && !zBack)
-                panDeg = 180.0 + (90.0 - panDeg);
+                panDeg = 180.0 + panDeg;
             else if(!xLeft && zBack)
                 panDeg = 270.0 + (90.0 - panDeg);
+
+            // subtract the current fixture rotation
+            panDeg -= mProps->fixtureRotation(fxID).y();
+            if (panDeg < 0)
+                panDeg += 360;
 
             qDebug() << "Fixture" << fxID << "pan degrees:" << panDeg;
 
