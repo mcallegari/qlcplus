@@ -46,6 +46,7 @@ Rectangle
     property bool isSelected: false
     property bool showEnablers: false
     property bool sceneConsole: false
+    property bool externalChange: false
 
     signal doubleClicked
     signal clicked
@@ -54,6 +55,7 @@ Rectangle
 
     onValuesChanged:
     {
+        externalChange = true
         for (var i = 0; i < values.length; i++)
         {
             //console.log("Value " + i + " = " + values[i]);
@@ -62,13 +64,16 @@ Rectangle
             else
                 channelsRpt.itemAt(i).dmxValue = (values[i] / 255) * 100
         }
+        externalChange = false
     }
 
     function setChannelValue(channel, value)
     {
         if (showEnablers == true)
             channelsRpt.itemAt(channel).isEnabled = true
+        externalChange = true
         channelsRpt.itemAt(channel).dmxValue = value
+        externalChange = false
     }
 
     Column
@@ -147,9 +152,7 @@ Rectangle
 
                         onDmxValueChanged:
                         {
-                            // if the slider is not pressed, then it means
-                            // it is just monitoring values, with no user intervention
-                            if (slider.pressed == false)
+                            if (externalChange == true)
                                 return
 
                             var val = dmxMode ? dmxValue : dmxValue * 2.55
