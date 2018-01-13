@@ -51,15 +51,15 @@ Entity
         id: sideMesh
         xExtent: 0.2
         zExtent: size.z
-        yExtent: size.y
+        yExtent: size.y + 0.2
     }
 
     CuboidMesh
     {
         id: backMesh
-        xExtent: size.x
+        xExtent: size.x + 0.4
         zExtent: 0.2
-        yExtent: size.y
+        yExtent: size.y + 0.2
     }
 
     // ground mesh
@@ -85,7 +85,9 @@ Entity
     // left side mesh
     Entity
     {
-        property Transform transform: Transform { translation: Qt.vector3d(-size.x / 2, (size.y / 2) - (groundMesh.yExtent / 2), 0) }
+        property Transform transform: Transform { translation: Qt.vector3d((-size.x / 2) - (groundMesh.yExtent / 2),
+                                                                           (size.y / 2) - (groundMesh.yExtent / 2),
+                                                                           0) }
 
         components: [
             sideMesh,
@@ -98,7 +100,9 @@ Entity
     // right side mesh
     Entity
     {
-        property Transform transform: Transform { translation: Qt.vector3d(size.x / 2, (size.y / 2) - (groundMesh.yExtent / 2), 0) }
+        property Transform transform: Transform { translation: Qt.vector3d((size.x / 2) + (groundMesh.yExtent / 2),
+                                                                           (size.y / 2) - (groundMesh.yExtent / 2),
+                                                                           0) }
 
         components: [
             sideMesh,
@@ -111,7 +115,9 @@ Entity
     // back mesh
     Entity
     {
-        property Transform transform: Transform { translation: Qt.vector3d(0, (size.y / 2) - (groundMesh.yExtent / 2), -size.z / 2) }
+        property Transform transform: Transform { translation: Qt.vector3d(0,
+                                                                           (size.y / 2) - (groundMesh.yExtent / 2),
+                                                                           (-size.z / 2) - (groundMesh.yExtent / 2)) }
 
         components: [
             backMesh,
