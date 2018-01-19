@@ -17,7 +17,6 @@
   limitations under the License.
 */
 
-#include <QNetworkInterface>
 #include <QXmlStreamWriter>
 #include <QtCore/qbuffer.h>
 #include <QFile>
@@ -141,9 +140,9 @@ void NetworkManager::sendAction(int code, TardisAction action)
 
 QString NetworkManager::defaultName()
 {
-    foreach(QNetworkInterface interface, QNetworkInterface::allInterfaces())
+    for (QNetworkInterface interface : QNetworkInterface::allInterfaces())
     {
-        foreach (QNetworkAddressEntry entry, interface.addressEntries())
+        for (QNetworkAddressEntry entry : interface.addressEntries())
         {
             QHostAddress addr = entry.ip();
             if (addr.protocol() != QAbstractSocket::IPv6Protocol && addr != QHostAddress::LocalHost)

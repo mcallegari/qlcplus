@@ -20,10 +20,10 @@
 #ifndef NETWORKMANAGER_H
 #define NETWORKMANAGER_H
 
-#include <QHostAddress>
-#include <QUdpSocket>
-#include <QTcpSocket>
-#include <QTcpServer>
+#if defined(WIN32) || defined(Q_OS_WIN)
+  #include <windows.h>
+#endif
+#include <QtNetwork>
 #include <QThread>
 #include <QHash>
 
