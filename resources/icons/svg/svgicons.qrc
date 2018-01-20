@@ -39,6 +39,8 @@
     <file alias="dimmer-back.svg">dimmer-back.svg</file>
     <file alias="dimmer-fill.svg">dimmer-fill.svg</file>
     <file alias="diptool.svg">diptool.svg</file>
+    <file alias="distribute-x.svg">distribute-x.svg</file>
+    <file alias="distribute-y.svg">distribute-y.svg</file>
     <file alias="dmxdump.svg">dmxdump.svg</file>
     <file alias="dmxusbplugin.svg">dmxusbplugin.svg</file>
     <file alias="dmxview.svg">dmxview.svg</file>

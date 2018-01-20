@@ -242,5 +242,34 @@ Rectangle
                 onClicked: contextManager.setFixturesAlignment(Qt.AlignTop)
             }
         }
+
+        RobotoText { visible: fxPropsVisible; label: qsTr("Distribution") }
+
+        Row
+        {
+            Layout.fillWidth: true
+            visible: fxPropsVisible
+
+            IconButton
+            {
+                id: distributeXBtn
+                width: UISettings.iconSizeDefault
+                height: width
+                bgColor: UISettings.bgLighter
+                imgSource: "qrc:/distribute-x.svg"
+                tooltip: qsTr("Equally distribute horizontally the selected items")
+                onClicked: contextManager.setFixturesDistribution(Qt.Horizontal)
+            }
+            IconButton
+            {
+                id: distributeYBtn
+                width: UISettings.iconSizeDefault
+                height: width
+                bgColor: UISettings.bgLighter
+                imgSource: "qrc:/distribute-y.svg"
+                tooltip: qsTr("Equally distribute vertically the selected items")
+                onClicked: contextManager.setFixturesDistribution(Qt.Vertical)
+            }
+        }
     } // GridLayout
 }

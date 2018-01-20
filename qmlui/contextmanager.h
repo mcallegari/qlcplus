@@ -173,6 +173,8 @@ public:
 
     Q_INVOKABLE void setFixturesAlignment(int alignment);
 
+    Q_INVOKABLE void setFixturesDistribution(int direction);
+
     Q_INVOKABLE void updateFixturesCapabilities();
 
     Q_INVOKABLE void createFixtureGroup();

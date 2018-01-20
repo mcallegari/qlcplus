@@ -626,6 +626,115 @@ void ContextManager::setFixturesAlignment(int alignment)
     }
 }
 
+void ContextManager::setFixturesDistribution(int direction)
+{
+    if (m_selectedFixtures.count() < 3)
+        return;
+
+    qreal min = 1000000;
+    qreal max = 0;
+    qreal fixturesSize = 0;
+    qreal gap = 0;
+    QVector<quint32> sortedIDs;
+    QVector<quint32> sortedPos;
+
+    MonitorProperties *mProps = m_doc->monitorProperties();
+
+    /* cycle through selected fixtures and do the following:
+     * 1- calculate the total width/height
+     * 2- sort the fixture IDs from the leftmost/topmost item
+     * 3- detect the minimum and maximum items position
+     */
+    foreach(quint32 fxID, m_selectedFixtures)
+    {
+        Fixture *fixture = m_doc->fixture(fxID);
+        QPointF fxPos = FixtureUtils::item2DPosition(mProps, mProps->pointOfView(), mProps->fixturePosition(fxID));
+        QSizeF fxRect = FixtureUtils::item2DDimension(fixture->fixtureMode(), mProps->pointOfView());
+        qreal pos = direction == Qt::Horizontal ? fxPos.x() : fxPos.y();
+        qreal size = direction == Qt::Horizontal ? fxRect.width() : fxRect.height();
+        int i = 0;
+
+        // 1
+        fixturesSize += size;
+
+        // 2
+        for (i = 0; i < sortedPos.count(); i++)
+        {
+            if (pos > sortedPos[i])
+                break;
+        }
+        if (i == 0 || i == sortedIDs.count())
+        {
+            sortedIDs.append(fxID);
+            sortedPos.append(pos);
+        }
+        else
+        {
+            sortedIDs.insert(i - 1, fxID);
+            sortedPos.insert(i - 1, pos);
+        }
+
+        // 3
+        if (pos + size > max)
+            max = pos + size;
+        if (pos < min)
+            min = pos;
+    }
+
+    gap = ((max - min) - fixturesSize) / (sortedIDs.count() - 1);
+
+    qreal newPos = min;
+
+    for (int idx = 0; idx < sortedIDs.count(); idx++)
+    {
+        quint32 fxID = sortedIDs[idx];
+        Fixture *fixture = m_doc->fixture(fxID);
+        QSizeF fxRect = FixtureUtils::item2DDimension(fixture->fixtureMode(), mProps->pointOfView());
+        qreal size = direction == Qt::Horizontal ? fxRect.width() : fxRect.height();
+        QVector3D fxPos = mProps->fixturePosition(fxID);
+
+        // the first and last fixture don't need any adjustment
+        if (idx > 0 && idx < sortedIDs.count() - 1)
+        {
+            switch(mProps->pointOfView())
+            {
+                case MonitorProperties::TopView:
+                    if (direction == Qt::Horizontal)
+                        fxPos.setX(newPos);
+                    else
+                        fxPos.setZ(newPos);
+                break;
+                case MonitorProperties::RightSideView:
+                    if (direction == Qt::Horizontal)
+                        fxPos.setZ(mProps->gridSize().z() - newPos);
+                    else
+                        fxPos.setY(newPos);
+                break;
+                case MonitorProperties::LeftSideView:
+                    if (direction == Qt::Horizontal)
+                        fxPos.setZ(newPos);
+                    else
+                        fxPos.setY(newPos);
+                break;
+                default:
+                    if (direction == Qt::Horizontal)
+                        fxPos.setX(newPos);
+                    else
+                        fxPos.setY(newPos);
+                break;
+            }
+
+            mProps->setFixturePosition(fxID, fxPos);
+            if (m_2DView->isEnabled())
+                m_2DView->updateFixturePosition(fxID, fxPos);
+            if (m_3DView->isEnabled())
+                m_3DView->updateFixturePosition(fxID, fxPos);
+        }
+
+        newPos += size + gap;
+    }
+}
+
 void ContextManager::updateFixturesCapabilities()
 {
     for (quint32 id : m_selectedFixtures)
