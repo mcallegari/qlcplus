@@ -10,6 +10,12 @@ qlcplus (4.11.2) stable; urgency=low
   * Virtual Console/Cue List: allow to select a step with next/previous buttons during pause
   * Virtual Console/Frame: fix regression preventing to send the disable feedback
   * plugins/udmx: added 'channels' configuration parameter (see documentation)
+  * New fixture: DTS XR7 Spot (thanks to Nicolò Zanon)
+  * New fixture: Ledj Slimline 12Q5 Batten (thanks to Dean Clough)
+  * New fixture: Ayra Compar Kit 1 (thanks to eigenaardiger)
+  * New fixture: GLP Impression X4 S (thanks to Mitsch)
+  * New fixture: Chauvet Intimidator Spot 255 IRC (thanks to Ham Sadler)
+  * New fixture: Chauvet Geyser RGB (thanks to Andrew)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 25 Mar 2018 12:13:14 +0200
 

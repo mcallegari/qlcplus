@@ -124,6 +124,7 @@
   <fixture path="American-DJ-XS-400.qxf" mf="American DJ" md="XS 400"/>
   <fixture path="American-DJ-XS-600.qxf" mf="American DJ" md="XS 600"/>
   <fixture path="Antari-X-310-Pro-Fazer.qxf" mf="Antari" md="X-310 Pro Fazer"/>
+  <fixture path="Ayra-Compar-Kit-1.qxf" mf="Ayra" md="Compar Kit 1"/>
   <fixture path="Ayra-ComPar20.qxf" mf="Ayra" md="ComPar 20"/>
   <fixture path="Ayra-ERO-506.qxf" mf="Ayra" md="ERO 506"/>
   <fixture path="Ayra-TDC-Agaricus.qxf" mf="Ayra" md="TDC Agaricus"/>
@@ -233,6 +234,7 @@
   <fixture path="Chauvet-EZPAR-64-RGBA.qxf" mf="Chauvet" md="EZPar 64 RGBA"/>
   <fixture path="Chauvet-Freedom-Stick.qxf" mf="Chauvet" md="Freedom Stick"/>
   <fixture path="Chauvet-FXpar9.qxf" mf="Chauvet" md="FXpar 9"/>
+  <fixture path="Chauvet-Geyser-RGB.qxf" mf="Chauvet" md="Geyser RGB"/>
   <fixture path="Chauvet-GigBAR-2.qxf" mf="Chauvet" md="GigBAR 2"/>
   <fixture path="Chauvet-GigBar-IRC.qxf" mf="Chauvet" md="GigBar IRC"/>
   <fixture path="Chauvet-Gobo-Zoom-LED-2.0.qxf" mf="Chauvet" md="Gobo Zoom LED 2.0"/>
@@ -249,6 +251,7 @@
   <fixture path="Chauvet-Intimidator-Spot--355Z-IRC.qxf" mf="Chauvet" md="Intimidator Spot 355Z IRC"/>
   <fixture path="Chauvet-Intimidator-Spot-100-IRC.qxf" mf="Chauvet" md="Intimidator Spot 100 IRC"/>
   <fixture path="Chauvet-Intimidator-Spot-250.qxf" mf="Chauvet" md="Intimidator Spot 250"/>
+  <fixture path="Chauvet-Intimidator-Spot-255-IRC.qxf" mf="Chauvet" md="Intimidator Spot 255 IRC"/>
   <fixture path="Chauvet-Intimidator-Spot-400-IRC.qxf" mf="Chauvet" md="Intimidator Spot 400 IRC"/>
   <fixture path="Chauvet-Intimidator-Spot-Duo.qxf" mf="Chauvet" md="Intimidator Spot Duo"/>
   <fixture path="Chauvet-Intimidator-Spot-LED-150.qxf" mf="Chauvet" md="Intimidator Spot LED 150"/>
@@ -353,6 +356,7 @@
   <fixture path="DNA-Pro-Slim-18-RGBW.qxf" mf="DNA" md="PRO SLIM 18 RGBW"/>
   <fixture path="DTS-Max-FAR.qxf" mf="DTS" md="Max FAR"/>
   <fixture path="DTS-Nick-NRG1201.qxf" mf="DTS" md="Nick NRG1201"/>
+  <fixture path="DTS-XR7-Spot.qxf" mf="DTS" md="XR7 Spot"/>
   <fixture path="Dune-Lighting-Fireworks-Pro-II.qxf" mf="Dune Lighting" md="Fireworks PRO II (LAS-160/FW)"/>
   <fixture path="Dune-Lighting-MOVLED60W.qxf" mf="Dune Lighting" md="MOV-LED/60W"/>
   <fixture path="Elation-Color-Spot-150.qxf" mf="Elation" md="Color Spot 150"/>
@@ -492,6 +496,7 @@
   <fixture path="Geni-OBY-5.qxf" mf="Geni" md="OBY 5"/>
   <fixture path="Geni-OBY-600.qxf" mf="Geni" md="OBY 600"/>
   <fixture path="Ghost-Green-30.qxf" mf="Ghost" md="Green 30"/>
+  <fixture path="GLP-Impression-X4-S.qxf" mf="GLP" md="Impression X4 S"/>
   <fixture path="GLP-Impression.qxf" mf="GLP" md="Impression"/>
   <fixture path="GLP-ImpressionWA.qxf" mf="GLP" md="Impression WA"/>
   <fixture path="GLP-ImpressionXL.qxf" mf="GLP" md="Impression XL"/>
@@ -579,6 +584,7 @@
   <fixture path="Ledj-Colour-Storm-Quad.qxf" mf="Ledj" md="Colour Storm Quad"/>
   <fixture path="Ledj-Performer-18-Quad.qxf" mf="Ledj" md="Performer 18 Quad"/>
   <fixture path="Ledj-Performer-18-RGBWA.qxf" mf="Ledj" md="Performer 18 RGBWA"/>
+  <fixture path="Ledj-Slimline-12Q5-Batten.qxf" mf="Ledj" md="Slimline 12Q5 Batten"/>
   <fixture path="Ledj-Stage-Color-24.qxf" mf="Ledj" md="Stage Color 24"/>
   <fixture path="Ledj-Tri-LED-back-drop-controller.qxf" mf="Ledj" md="Pro Tri LED back drop controller"/>
   <fixture path="Light-Emotion-LED-Parbar.qxf" mf="Light Emotion" md="LED Parbar"/>
