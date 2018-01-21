@@ -200,7 +200,6 @@ Column
                     source: type == App.ChannelDragItem ? "qrc:/FixtureChannelDelegate.qml" : "qrc:/FixtureHeadDelegate.qml"
                     onLoaded:
                     {
-                        console.log("Channel node, fixture " + cRef + " index: " + chIdx)
                         item.textLabel = label
                         item.isSelected = Qt.binding(function() { return isSelected })
                         item.dragItem = dragItem
@@ -211,6 +210,7 @@ Column
 
                         if (type == App.ChannelDragItem)
                         {
+                            console.log("Channel node, fixture " + cRef + " index: " + chIdx + " label: " + label)
                             item.isCheckable = isCheckable
                             item.isChecked = Qt.binding(function() { return isChecked })
                             item.chIndex = chIdx
@@ -218,6 +218,7 @@ Column
                         }
                         else
                         {
+                            console.log("Head node, fixture " + cRef + " index: " + head + " label: " + label)
                             item.fixtureID = cRef ? cRef.id : -1
                             item.headIndex = head
                         }

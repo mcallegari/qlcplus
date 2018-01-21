@@ -656,7 +656,7 @@ void EFXEditor::updateFixtureTree(Doc *doc, TreeModel *treeModel)
             treeModel->addItem(QString("%1 %2").arg(tr("Head")).arg(i + 1, 3, 10, QChar('0')), headParams, fxPath);
         }
 
-        // when all the channel 'leaves' have been added, set the parent node data
+        // when all the head 'leaves' have been added, set the parent node data
         QVariantList params;
         params.append(QVariant::fromValue(fixture)); // classRef
         params.append(App::FixtureDragItem); // type
