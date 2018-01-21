@@ -207,15 +207,6 @@ Rectangle
 
                 Rectangle { Layout.fillWidth: true; color: "transparent" }
 
-                IconButton
-                {
-                    id: settingsButton
-                    implicitHeight: viewToolbar.height - 2
-                    checkable: true
-                    imgSource: "qrc:/configure.svg"
-                    onToggled: previewLoader.item.showSettings(checked)
-                }
-
                 ZoomItem
                 {
                     width: UISettings.iconSizeMedium * 2
@@ -223,6 +214,17 @@ Rectangle
                     fontColor: UISettings.bgStrong
                     onZoomOutClicked: previewLoader.item.setZoom(-0.5)
                     onZoomInClicked: previewLoader.item.setZoom(0.5)
+                }
+
+                IconButton
+                {
+                    id: settingsButton
+                    implicitHeight: viewToolbar.height - 2
+                    checkable: true
+                    tooltip: qsTr("Show/hide the view settings")
+                    faColor: "white"
+                    faSource: FontAwesome.fa_bars
+                    onToggled: previewLoader.item.showSettings(checked)
                 }
             }
         }
