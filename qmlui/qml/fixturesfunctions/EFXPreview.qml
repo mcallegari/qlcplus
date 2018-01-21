@@ -216,7 +216,7 @@ Rectangle
             anchors.margins: 2
             height: fontSize
             visible: !sphereView
-            label: "Pan (" + maxPanDegrees + "°)"
+            label: "Pan (" + (isRelative ? "+" + maxPanDegrees / 2 : maxPanDegrees) + "°)"
             labelColor: UISettings.fgMedium
             fontSize: UISettings.textSizeDefault * 0.6
         }
@@ -228,7 +228,19 @@ Rectangle
             anchors.margins: 2
             height: fontSize
             visible: !sphereView
-            label: "Tilt (" + maxTiltDegrees + "°)"
+            label: "Tilt (" + (isRelative ? "+" + maxTiltDegrees / 2 : maxTiltDegrees) + "°)"
+            labelColor: UISettings.fgMedium
+            fontSize: UISettings.textSizeDefault * 0.6
+        }
+
+        RobotoText
+        {
+            anchors.left: parent.left
+            anchors.top: parent.top
+            anchors.margins: 2
+            height: fontSize * 2
+            visible: isRelative && !sphereView
+            label: "Pan (-" + maxPanDegrees / 2 + "°)\nTilt (-" + maxTiltDegrees / 2 + "°)"
             labelColor: UISettings.fgMedium
             fontSize: UISettings.textSizeDefault * 0.6
         }
