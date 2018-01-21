@@ -203,7 +203,7 @@ function getSphereVertex(xDegrees, yDegrees, yDegOffset, radius, rotation)
 {
     var v = new Vertex3D();
     var theta = degToRad(xDegrees);
-    var phi = (Math.PI / 2) - degToRad(yDegrees - yDegOffset + 180); // +180 means "render upside down"
+    var phi = (Math.PI / 2) - degToRad(yDegrees - yDegOffset);
     v.x = radius * Math.cos(theta) * Math.cos(phi);
     v.y = radius * Math.sin(phi);
     v.z = radius * Math.sin(theta) * Math.cos(phi);

@@ -125,13 +125,19 @@ bool EFXEditor::isRelative() const
     return m_efx->isRelative();
 }
 
-void EFXEditor::setIsRelative(bool val)
+void EFXEditor::setIsRelative(bool relative)
 {
-    if (m_efx == NULL || val == m_efx->isRelative())
+    if (m_efx == NULL || relative == m_efx->isRelative())
         return;
 
-    Tardis::instance()->enqueueAction(EFXSetRelative, m_efx->id(), m_efx->isRelative(), val);
-    m_efx->setIsRelative(val);
+    Tardis::instance()->enqueueAction(EFXSetRelative, m_efx->id(), m_efx->isRelative(), relative);
+    m_efx->setIsRelative(relative);
+
+    if (relative)
+    {
+        setAlgorithmXOffset(127);
+        setAlgorithmYOffset(127);
+    }
     emit isRelativeChanged();
     updateAlgorithmData();
 }
@@ -700,8 +706,8 @@ void EFXEditor::updateAlgorithmData()
     m_algorithmData.clear();
     m_fixturesData.clear();
 
-    /** 1- fill a QVariantList or XY coordinates representing
-     *  the EFX algorithm */
+    /** 1- fill a QVariantList or XY coordinates in [0 - 255] range
+     *  representing the EFX algorithm */
     for (int i = 0; i < polygon.size(); i++)
     {
         QPointF pt = polygon.at(i);
@@ -735,10 +741,10 @@ void EFXEditor::updateAlgorithmData()
         }
         else
         {
-            /** With a start offset, we need scan the algorithm points
+            /** With a start offset, we need to scan the algorithm points
              *  to find the index of the closest one */
             m_efx->calculatePoint(fixture->direction(), fixture->startOffset(), 0, &x, &y);
-            qDebug() << "Got position:" << x << y << fixture->startOffset();
+            //qDebug() << "Got position:" << x << y << fixture->startOffset();
 
             for (int i = 0; i < polygon.count(); i++)
             {

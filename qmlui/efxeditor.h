@@ -82,7 +82,7 @@ public:
 
     /** Get/set if the EFX has relative movement */
     bool isRelative() const;
-    void setIsRelative(bool val);
+    void setIsRelative(bool relative);
 
     /** Get/set the current algorithm width */
     int algorithmWidth() const;
