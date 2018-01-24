@@ -138,7 +138,7 @@ Entity
 
         onClicked:
         {
-            console.log("Item clicked")
+            console.log("3D item clicked")
             isSelected = !isSelected
             contextManager.setFixtureSelection(fixtureID, isSelected)
         }

@@ -233,6 +233,14 @@ void ContextManager::setEnvironmentSize(QVector3D environmentSize)
     mProps->setGridSize(environmentSize);
     if (m_2DView->isEnabled())
         m_2DView->setGridSize(environmentSize);
+    if (m_3DView->isEnabled())
+    {
+        for(Fixture *fixture : m_doc->fixtures()) // C++11
+        {
+            if (fixture != NULL)
+                m_3DView->updateFixturePosition(fixture->id(), mProps->fixturePosition(fixture->id()));
+        }
+    }
     emit environmentSizeChanged();
 }
 
