@@ -226,7 +226,7 @@ void App::keyReleaseEvent(QKeyEvent *e)
 
 void App::slotScreenChanged(QScreen *screen)
 {
-    m_pixelDensity = screen->physicalDotsPerInch() *  0.039370;
+    m_pixelDensity = qMax(screen->physicalDotsPerInch() *  0.039370, (qreal)screen->size().height() / 220.0);
     qDebug() << "Screen changed to" << screen->name() << ". New pixel density:" << m_pixelDensity;
     rootContext()->setContextProperty("screenPixelDensity", m_pixelDensity);
 }
