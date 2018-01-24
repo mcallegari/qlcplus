@@ -35,6 +35,7 @@ RowLayout
     property int functionType: -1
     property string faSource: ""
     property color faColor: "#222"
+    property int iconSize: height - 4
 
     onFunctionTypeChanged: iSrc = functionManager.functionIcon(functionType)
 
@@ -42,9 +43,9 @@ RowLayout
     {
         visible: iSrc ? true : false
         source: iSrc
-        height: parent.height - 4
-        width: height
-        sourceSize: Qt.size(width, height)
+        height: iconSize
+        width: iconSize
+        sourceSize: Qt.size(iconSize, iconSize)
     }
 
     Text
@@ -53,7 +54,7 @@ RowLayout
         visible: faSource ? true : false
         color: faColor
         font.family: "FontAwesome"
-        font.pixelSize: parent.height - 4
+        font.pixelSize: iconSize
         text: faSource
     }
 

@@ -106,7 +106,7 @@ Rectangle
                     id: colTool
                     parent: mainView
                     x: colPickButton.x
-                    y: mainToolbar.height + colPickButton.y + colPickButton.height
+                    y: UISettings.bigItemHeight //colPickButton.y + colPickButton.height
                     z: 15
                     visible: false
 
