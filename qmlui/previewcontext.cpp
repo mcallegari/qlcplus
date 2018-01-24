@@ -130,6 +130,7 @@ void PreviewContext::setDetached(bool detached)
         m_view = cqView;
         connect(cqView, &ContextQuickView::keyPressed, this, &PreviewContext::keyPressed);
         connect(cqView, &ContextQuickView::keyReleased, this, &PreviewContext::keyReleased);
+        connect(cqView, &ContextQuickView::screenChanged, cqView, &ContextQuickView::slotScreenChanged);
 
         /** Copy all the global properties of the main context into the detached one.
          *  This is a bit ugly, but I guess it is a downside of the QML programming */
@@ -202,4 +203,11 @@ void ContextQuickView::keyReleaseEvent(QKeyEvent *e)
 {
     emit keyReleased(e);
     QQuickView::keyReleaseEvent(e);
+}
+
+void ContextQuickView::slotScreenChanged(QScreen *screen)
+{
+    qDebug() << "Context screen changed";
+    qreal pixelDensity = qMax(screen->physicalDotsPerInch() *  0.039370, (qreal)screen->size().height() / 220.0);
+    rootContext()->setContextProperty("screenPixelDensity", pixelDensity);
 }

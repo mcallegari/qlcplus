@@ -21,6 +21,7 @@
 #define PREVIEWCONTEXT_H
 
 #include <QObject>
+#include <QScreen>
 #include <QQuickView>
 
 class Doc;
@@ -35,7 +36,10 @@ public:
 
 protected:
     void keyPressEvent(QKeyEvent *e);
-    void keyReleaseEvent(QKeyEvent * e);
+    void keyReleaseEvent(QKeyEvent *e);
+
+public slots:
+    void slotScreenChanged(QScreen *screen);
 
 signals:
     void keyPressed(QKeyEvent *e);
