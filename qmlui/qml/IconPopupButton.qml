@@ -41,6 +41,8 @@ CustomComboBox
             }
      */
 
+    indicator: null
+
     contentItem:
         IconButton
         {
