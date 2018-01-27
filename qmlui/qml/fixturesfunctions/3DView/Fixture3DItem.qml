@@ -34,8 +34,11 @@ Entity
     property alias itemSource: eSceneLoader.source
     property bool isSelected: false
 
-    property int panMaxDegrees: 0
-    property int tiltMaxDegrees: 0
+    property int panMaxDegrees: 360
+    property int tiltMaxDegrees: 270
+    property real focusMinDegrees: 15
+    property real focusMaxDegrees: 30
+    property real totalDuration: 4000 // in milliseconds
 
     property real panRotation: 0
     property real tiltRotation: 0
@@ -49,7 +52,7 @@ Entity
     property color lightColor: Qt.rgba(0, 0, 0, 1)
     property vector3d lightPosition: Qt.vector3d(0, 0, 0)
     property vector3d direction: Qt.vector3d(0, -1, 0)
-    property real cutOff: 15.0
+    property real cutOff: focusMaxDegrees / 2
 
     onFixtureIDChanged: isSelected = contextManager.isFixtureSelected(fixtureID)
 
@@ -67,6 +70,7 @@ Entity
             panAnim.stop()
             panAnim.from = panRotation
             panAnim.to = (panMaxDegrees / 0xFFFF) * pan
+            panAnim.duration = (totalDuration / panMaxDegrees) * Math.abs(panAnim.to - panAnim.from)
             panAnim.start()
         }
 
@@ -77,8 +81,14 @@ Entity
             var degTo = parseInt(((tiltMaxDegrees / 0xFFFF) * tilt) - (tiltMaxDegrees / 2))
             //console.log("Tilt to " + degTo + ", max: " + tiltMaxDegrees)
             tiltAnim.to = -degTo
+            tiltAnim.duration = (totalDuration / tiltMaxDegrees) * Math.abs(tiltAnim.to - tiltAnim.from)
             tiltAnim.start()
         }
+    }
+
+    function setFocus(value)
+    {
+        cutOff = ((((focusMaxDegrees - focusMinDegrees) / 255) * value) + focusMinDegrees) / 2
     }
 
     function bindPanTransform(t, maxDegrees)
@@ -101,14 +111,14 @@ Entity
     QQ2.NumberAnimation on panRotation
     {
         id: panAnim
-        duration: 2000
+        running: false
         easing.type: Easing.Linear
     }
 
     QQ2.NumberAnimation on tiltRotation
     {
         id: tiltAnim
-        duration: 2000
+        running: false
         easing.type: Easing.Linear
     }
 

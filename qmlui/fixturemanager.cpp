@@ -48,6 +48,8 @@ FixtureManager::FixtureManager(QQuickView *view, Doc *doc, QObject *parent)
     , m_colorFilterIndex(0)
     , m_maxPanDegrees(0)
     , m_maxTiltDegrees(0)
+    , m_minBeamDegrees(15.0)
+    , m_maxBeamDegrees(0)
     , m_colorsMask(0)
 {
     Q_ASSERT(m_doc != NULL);
@@ -1069,6 +1071,11 @@ void FixtureManager::setPresetValue(quint32 fixtureID, int chIndex, quint8 value
     emit presetChanged(ch, value);
 }
 
+void FixtureManager::setBeamValue(quint8 value)
+{
+    emit channelTypeValueChanged(QLCChannel::Beam, value);
+}
+
 void FixtureManager::updateCapabilityCounter(bool update, QString capName, int delta)
 {
     if (update == false)
@@ -1083,6 +1090,12 @@ void FixtureManager::updateCapabilityCounter(bool update, QString capName, int d
             capItem->setProperty("panDegrees", m_maxPanDegrees);
             capItem->setProperty("tiltDegrees", m_maxTiltDegrees);
         }
+        else if (capName == "capBeam")
+        {
+            capItem->setProperty("minBeamDegrees", m_minBeamDegrees);
+            capItem->setProperty("maxBeamDegrees", m_maxBeamDegrees);
+
+        }
     }
 }
 
@@ -1091,13 +1104,18 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 fxID,
     int capDelta = enable ? 1 : -1;
     bool hasDimmer = false, hasColor = false, hasPosition = false;
     bool hasShutter = false, hasColorWheel = false, hasGobos = false;
+    bool hasBeam = false;
     int origColorsMask = m_colorsMask;
+    QLCPhysical phy;
 
     QMultiHash<int, SceneValue> channelsMap;
 
     Fixture *fixture = m_doc->fixture(fxID);
     if (fixture == NULL)
         return channelsMap;
+
+    if (fixture->fixtureMode() != NULL)
+        phy = fixture->fixtureMode()->physical();
 
     for (quint32 ch = 0; ch < fixture->channels(); ch++)
     {
@@ -1144,7 +1162,6 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 fxID,
                 hasPosition = true;
                 if(fixture->fixtureMode() != NULL)
                 {
-                    QLCPhysical phy = fixture->fixtureMode()->physical();
                     int panDeg = phy.focusPanMax();
                     int tiltDeg = phy.focusTiltMax();
                     // if not set, try to give them reasonable values
@@ -1218,6 +1235,23 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 fxID,
                 channelsMap.insert(chType, SceneValue(fxID, ch));
             }
             break;
+            case QLCChannel::Beam:
+            {
+                hasBeam = true;
+                if(fixture->fixtureMode() != NULL)
+                {
+                    double minDeg = phy.lensDegreesMin();
+                    double maxDeg = phy.lensDegreesMax();
+                    if (minDeg == 0) minDeg = 15.0;
+                    if (maxDeg == 0) maxDeg = 30.0;
+                    if (minDeg < m_minBeamDegrees)
+                        m_minBeamDegrees = minDeg;
+                    if (maxDeg > m_maxBeamDegrees)
+                        m_maxBeamDegrees = maxDeg;
+                }
+                channelsMap.insert(chType, SceneValue(fxID, ch));
+            }
+            break;
             default:
             break;
         }
@@ -1232,6 +1266,7 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 fxID,
     updateCapabilityCounter(hasShutter, "capShutter", capDelta);
     updateCapabilityCounter(hasColorWheel, "capColorWheel", capDelta);
     updateCapabilityCounter(hasGobos, "capGobos", capDelta);
+    updateCapabilityCounter(hasBeam, "capBeam", capDelta);
 
     return channelsMap;
 }

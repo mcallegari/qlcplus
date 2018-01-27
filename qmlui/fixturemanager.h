@@ -309,6 +309,7 @@ public:
     Q_INVOKABLE void setPanValue(int degrees);
     Q_INVOKABLE void setTiltValue(int degrees);
     Q_INVOKABLE void setPresetValue(quint32 fixtureID, int chIndex, quint8 value);
+    Q_INVOKABLE void setBeamValue(quint8 value);
 
     /**
      * @brief setFixtureCapabilities
@@ -394,6 +395,9 @@ private:
      *  when enabling the position capability for the selected Fixtures */
     int m_maxPanDegrees;
     int m_maxTiltDegrees;
+
+    double m_minBeamDegrees;
+    double m_maxBeamDegrees;
 
     /** Bitmask holding the colors supported by the currently selected fixtures */
     int m_colorsMask;

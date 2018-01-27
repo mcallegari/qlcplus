@@ -66,6 +66,7 @@
     <file alias="IntensityTool.qml">qml/fixturesfunctions/IntensityTool.qml</file>
     <file alias="PositionTool.qml">qml/fixturesfunctions/PositionTool.qml</file>
     <file alias="PresetsTool.qml">qml/fixturesfunctions/PresetsTool.qml</file>
+    <file alias="BeamTool.qml">qml/fixturesfunctions/BeamTool.qml</file>
     <file alias="PresetCapabilityItem.qml">qml/fixturesfunctions/PresetCapabilityItem.qml</file>
     <file alias="FixtureChannelDelegate.qml">qml/fixturesfunctions/FixtureChannelDelegate.qml</file>
     <file alias="FixtureHeadDelegate.qml">qml/fixturesfunctions/FixtureHeadDelegate.qml</file>

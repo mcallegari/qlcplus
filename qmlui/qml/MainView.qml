@@ -31,6 +31,7 @@ Rectangle
     width: 800
     height: 600
     anchors.fill: parent
+    color: UISettings.bgMain
 
     property string currentContext: "FIXANDFUNC"
 
@@ -101,6 +102,8 @@ Rectangle
             GradientStop { position: 0; color: UISettings.toolbarStartMain }
             GradientStop { position: 1; color: UISettings.toolbarEnd }
         }
+
+        onHeightChanged: console.log("@@@@ HEIGHT CHANGED @@@@ " + height)
 
         RowLayout
         {
@@ -275,20 +278,13 @@ Rectangle
         } // end of RowLayout
     } // end of mainToolbar
 
-    Rectangle
+    Loader
     {
-        id: mainViewArea
+        id: mainViewLoader
         width: parent.width
         height: parent.height - mainToolbar.height
         y: mainToolbar.height
-        color: UISettings.bgMain
-
-        Loader
-        {
-            id: mainViewLoader
-            anchors.fill: parent
-            source: "qrc:/FixturesAndFunctions.qml"
-        }
+        source: "qrc:/FixturesAndFunctions.qml"
     }
 
     PopupNetworkConnect { id: clientAccessPopup }

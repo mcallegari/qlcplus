@@ -115,28 +115,28 @@ SidePanel
 
             IconButton
             {
-                objectName: "capColor"
+                objectName: "capShutter"
                 z: 2
                 width: iconSize
                 height: iconSize
-                imgSource: "qrc:/color.svg"
+                imgSource: "qrc:/shutter.svg"
                 checkable: true
-                tooltip: qsTr("Color")
+                tooltip: qsTr("Shutter")
                 counter: 0
                 ButtonGroup.group: capabilitiesGroup
-                onCheckedChanged: colTool.visible = !colTool.visible
-                onCounterChanged: if (counter == 0) colTool.visible = false
 
-                ColorTool
+                onCheckedChanged: cShutterTool.visible = !cShutterTool.visible
+                onCounterChanged: if (counter == 0) cShutterTool.visible = false
+
+                PresetsTool
                 {
-                    id: colTool
+                    id: cShutterTool
                     parent: mainView
                     x: leftSidePanel.width
                     y: UISettings.bigItemHeight
                     visible: false
-                    colorsMask: fixtureManager.colorsMask
-
-                    onColorChanged: fixtureManager.setColorValue(r * 255, g * 255, b * 255, w * 255, a * 255, uv * 255)
+                    onVisibleChanged: if (visible) updatePresets(fixtureManager.shutterChannels)
+                    onPresetSelected: fixtureManager.setPresetValue(fxID, chIdx, value)
                 }
             }
 
@@ -172,28 +172,28 @@ SidePanel
 
             IconButton
             {
-                objectName: "capShutter"
+                objectName: "capColor"
                 z: 2
                 width: iconSize
                 height: iconSize
-                imgSource: "qrc:/shutter.svg"
+                imgSource: "qrc:/color.svg"
                 checkable: true
-                tooltip: qsTr("Shutter")
+                tooltip: qsTr("Color")
                 counter: 0
                 ButtonGroup.group: capabilitiesGroup
+                onCheckedChanged: colTool.visible = !colTool.visible
+                onCounterChanged: if (counter == 0) colTool.visible = false
 
-                onCheckedChanged: cShutterTool.visible = !cShutterTool.visible
-                onCounterChanged: if (counter == 0) cShutterTool.visible = false
-
-                PresetsTool
+                ColorTool
                 {
-                    id: cShutterTool
+                    id: colTool
                     parent: mainView
                     x: leftSidePanel.width
                     y: UISettings.bigItemHeight
                     visible: false
-                    onVisibleChanged: if (visible) updatePresets(fixtureManager.shutterChannels)
-                    onPresetSelected: fixtureManager.setPresetValue(fxID, chIdx, value)
+                    colorsMask: fixtureManager.colorsMask
+
+                    onColorChanged: fixtureManager.setColorValue(r * 255, g * 255, b * 255, w * 255, a * 255, uv * 255)
                 }
             }
 
@@ -248,6 +248,36 @@ SidePanel
                     visible: false
                     onVisibleChanged: if (visible) updatePresets(fixtureManager.goboChannels)
                     onPresetSelected: fixtureManager.setPresetValue(fxID, chIdx, value)
+                }
+            }
+
+            IconButton
+            {
+                id: beamToolButton
+                objectName: "capBeam"
+                z: 2
+                width: iconSize
+                height: iconSize
+                imgSource: "qrc:/beam.svg"
+                checkable: true
+                tooltip: qsTr("Beam")
+                counter: 0
+                ButtonGroup.group: capabilitiesGroup
+                onCheckedChanged: beamTool.visible = !beamTool.visible
+                onCounterChanged: if (counter == 0) beamTool.visible = false
+
+                property real minBeamDegrees: 15.0
+                property real maxBeamDegrees: 30.0
+
+                BeamTool
+                {
+                    id: beamTool
+                    parent: mainView
+                    x: leftSidePanel.width
+                    y: UISettings.bigItemHeight
+                    visible: false
+                    minDegrees: beamToolButton.minBeamDegrees
+                    maxDegrees: beamToolButton.maxBeamDegrees
                 }
             }
 

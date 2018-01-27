@@ -528,6 +528,8 @@ void MainView3D::initializeFixture(quint32 fxID, QEntity *fxEntity, QComponent *
     QVector3D fxSize(0.3, 0.3, 0.3);
     int panDeg = 0;
     int tiltDeg = 0;
+    qreal focusMax = 30;
+    qreal focusMin = 10;
     bool calculateVolume = false;
 
     if (fxMode != NULL)
@@ -543,6 +545,8 @@ void MainView3D::initializeFixture(quint32 fxID, QEntity *fxEntity, QComponent *
 
         panDeg = phy.focusPanMax() ? phy.focusPanMax() : 360;
         tiltDeg = phy.focusTiltMax() ? phy.focusTiltMax() : 270;
+        focusMin = phy.lensDegreesMin() ? phy.lensDegreesMin() : 10;
+        focusMax = phy.lensDegreesMax() ? phy.lensDegreesMax() : 30;
     }
 
     qDebug() << "Initialize fixture" << fixture->id();
@@ -623,6 +627,10 @@ void MainView3D::initializeFixture(quint32 fxID, QEntity *fxEntity, QComponent *
                     Q_ARG(QVariant, meshRef->m_lightIndex + 1),
                     Q_ARG(QVariant, QVariant::fromValue(meshRef->m_rootTransform)));
         }
+
+
+        meshRef->m_rootItem->setProperty("focusMinDegrees", focusMin);
+        meshRef->m_rootItem->setProperty("focusMaxDegrees", focusMax);
     }
 
     /* Set the fixture position */
@@ -684,8 +692,8 @@ void MainView3D::updateFixture(Fixture *fixture)
     QColor color;
 
     bool setPosition = false;
-    int panDegrees = 0;
-    int tiltDegrees = 0;
+    int panValue = 0;
+    int tiltValue = 0;
 
     quint32 headDimmerIndex = fixture->channelNumber(QLCChannel::Intensity, QLCChannel::MSB);
     qreal intValue = 1.0;
@@ -710,18 +718,18 @@ void MainView3D::updateFixture(Fixture *fixture)
             case QLCChannel::Pan:
             {
                 if (ch->controlByte() == QLCChannel::MSB)
-                    panDegrees += (value << 8);
+                    panValue += (value << 8);
                 else
-                    panDegrees += (value);
+                    panValue += (value);
                 setPosition = true;
             }
             break;
             case QLCChannel::Tilt:
             {
                 if (ch->controlByte() == QLCChannel::MSB)
-                    tiltDegrees += (value << 8);
+                    tiltValue += (value << 8);
                 else
-                    tiltDegrees += (value);
+                    tiltValue += (value);
                 setPosition = true;
             }
             break;
@@ -742,6 +750,12 @@ void MainView3D::updateFixture(Fixture *fixture)
                 }
             }
             break;
+            case QLCChannel::Beam:
+            {
+                QMetaObject::invokeMethod(fixtureItem, "setFocus",
+                        Q_ARG(QVariant, value));
+            }
+            break;
             default:
             break;
         }
@@ -750,8 +764,8 @@ void MainView3D::updateFixture(Fixture *fixture)
     if (setPosition)
     {
         QMetaObject::invokeMethod(fixtureItem, "setPosition",
-                Q_ARG(QVariant, panDegrees),
-                Q_ARG(QVariant, tiltDegrees));
+                Q_ARG(QVariant, panValue),
+                Q_ARG(QVariant, tiltValue));
     }
 
     fixtureItem->setProperty("lightColor", color);

@@ -80,8 +80,8 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
     connect(m_fixtureManager, &FixtureManager::newFixtureCreated, this, &ContextManager::slotNewFixtureCreated);
     connect(m_fixtureManager, &FixtureManager::fixtureDeleted, this, &ContextManager::slotFixtureDeleted);
     connect(m_fixtureManager, &FixtureManager::channelValueChanged, this, &ContextManager::slotChannelValueChanged);
-    connect(m_fixtureManager, SIGNAL(channelTypeValueChanged(int,quint8)),
-            this, SLOT(slotChannelTypeValueChanged(int,quint8)));
+    connect(m_fixtureManager, SIGNAL(channelTypeValueChanged(int, quint8)),
+            this, SLOT(slotChannelTypeValueChanged(int, quint8)));
     connect(m_fixtureManager, &FixtureManager::colorChanged, this, &ContextManager::slotColorChanged);
     connect(m_fixtureManager, &FixtureManager::positionTypeValueChanged, this, &ContextManager::slotPositionChanged);
     connect(m_fixtureManager, &FixtureManager::presetChanged, this, &ContextManager::slotPresetChanged);
@@ -850,9 +850,9 @@ void ContextManager::slotChannelValueChanged(quint32 fxID, quint32 channel, quin
 
 void ContextManager::slotChannelTypeValueChanged(int type, quint8 value, quint32 channel)
 {
-    //qDebug() << "type:" << type << "value:" << value << "channel:" << channel;
+    qDebug() << "type:" << type << "value:" << value << "channel:" << channel;
     QList<SceneValue> svList = m_channelsMap.values(type);
-    foreach(SceneValue sv, svList)
+    for (SceneValue sv : svList)
     {
         if (channel == UINT_MAX || (channel != UINT_MAX && channel == sv.channel))
         {

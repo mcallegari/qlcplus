@@ -37,6 +37,7 @@ Button
     property string imgSource: ""
     property string entryText: ""
     property real mFontSize: UISettings.textSizeDefault * 0.70
+    property int iconSize: imgSource ? height - 4 - topPadding - bottomPadding : 0
 
     property Gradient bgGradient: defBgGradient
     property Gradient selGradient: defSelectionGradient
@@ -65,12 +66,12 @@ Button
             Image
             {
                 id: btnIcon
-                height: control.imgSource == "" ? 0 : control.height - control.topPadding - control.bottomPadding
-                width: height
+                height: control.iconSize
+                width: control.iconSize
                 x: 2
                 y: 2
                 source: control.imgSource
-                sourceSize: Qt.size(width, height)
+                sourceSize: Qt.size(control.iconSize, control.iconSize)
             }
 
             RobotoText

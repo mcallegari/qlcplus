@@ -57,8 +57,6 @@ Rectangle
 
         RobotoText
         {
-            id: titleBox
-            y: 7
             height: parent.height
             anchors.horizontalCenter: parent.horizontalCenter
             label: qsTr("Intensity")
