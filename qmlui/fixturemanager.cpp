@@ -328,7 +328,7 @@ bool FixtureManager::deleteFixtures(QVariantList IDList)
 {
     MonitorProperties *mProps = m_doc->monitorProperties();
 
-    foreach(QVariant id, IDList)
+    for (QVariant id : IDList)
     {
         quint32 fxID = id.toUInt();
         Tardis::instance()->enqueueAction(FixtureSetPosition, fxID,
@@ -398,7 +398,7 @@ void FixtureManager::addFixtureGroupTreeNode(Doc *doc, TreeModel *treeModel, Fix
     if (searchFilter.length() < SEARCH_MIN_CHARS || group->name().toLower().contains(searchFilter))
         matchFound |= GroupMatch;
 
-    foreach(quint32 fxID, group->fixtureList())
+    for (quint32 fxID : group->fixtureList())
     {
         Fixture *fixture = doc->fixture(fxID);
         if (fixture == NULL)
@@ -591,7 +591,7 @@ void FixtureManager::addFixturesToNewGroup(QList<quint32> fxList)
     // For now we use the "old" QLC+ mechanism of calculating an
     // equilateral grid size
     int headsCount = 0;
-    foreach(quint32 id, fxList)
+    for (quint32 id : fxList)
     {
         Fixture* fxi = m_doc->fixture(id);
         if (fxi != NULL)
@@ -603,7 +603,7 @@ void FixtureManager::addFixturesToNewGroup(QList<quint32> fxList)
         side += 1; // Fixture number doesn't provide a full square
 
     group->setSize(QSize(side, side));
-    foreach(quint32 id, fxList)
+    for (quint32 id : fxList)
         group->assignFixture(id);
 
     Tardis::instance()->enqueueAction(FixtureGroupCreate, group->id(), QVariant(),
@@ -616,7 +616,7 @@ void FixtureManager::addFixturesToNewGroup(QList<quint32> fxList)
 
 bool FixtureManager::deleteFixtureGroups(QVariantList IDList)
 {
-    foreach(QVariant id, IDList)
+    for (QVariant id : IDList)
     {
         quint32 groupID = id.toUInt();
         Tardis::instance()->enqueueAction(FixtureGroupDelete, groupID,

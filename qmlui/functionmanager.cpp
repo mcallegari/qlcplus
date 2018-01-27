@@ -106,7 +106,7 @@ QStringList FunctionManager::selectedFunctionsName()
 {
     QStringList names;
 
-    foreach(QVariant fID, m_selectedIDList)
+    for (QVariant fID : m_selectedIDList)
     {
         Function *f = m_doc->function(fID.toInt());
         if (f == NULL)
@@ -416,7 +416,7 @@ void FunctionManager::setPreview(bool enable)
     }
     else
     {
-        foreach(QVariant fID, m_selectedIDList)
+        for (QVariant fID : m_selectedIDList)
         {
             Function *f = m_doc->function(fID.toUInt());
             if (f != NULL)
@@ -438,7 +438,7 @@ void FunctionManager::selectFunctionID(quint32 fID, bool multiSelection)
 {
     if (multiSelection == false)
     {
-        foreach(QVariant fID, m_selectedIDList)
+        for (QVariant fID : m_selectedIDList)
         {
             if (m_previewEnabled == true)
             {

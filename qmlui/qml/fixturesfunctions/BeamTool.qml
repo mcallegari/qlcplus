@@ -33,7 +33,6 @@ Rectangle
 
     property real minDegrees: 15.0
     property real maxDegrees: 30.0
-    property real currentDegrees
 
     onMinDegreesChanged: gCanvas.requestPaint()
     onMaxDegreesChanged: gCanvas.requestPaint()
@@ -105,8 +104,8 @@ Rectangle
 
             // draw the current beam degrees
             context.fillStyle = "yellow"
-            compX = 100 * Math.cos(Math.PI * beamSpinBox.value / 360.0)
-            compY = 100 * Math.sin(Math.PI * beamSpinBox.value / 360.0)
+            compX = 100 * Math.cos(Math.PI * beamSpinBox.realValue / 360.0)
+            compY = 100 * Math.sin(Math.PI * beamSpinBox.realValue / 360.0)
             scaledHeight = (width * compY) / compX
             context.beginPath()
             context.moveTo(0, halfHeight)
@@ -131,20 +130,36 @@ Rectangle
         CustomSpinBox
         {
             id: beamSpinBox
-            from: minDegrees
-            to: maxDegrees
-            value: minDegrees
+            from: minDegrees * 100
+            to: maxDegrees * 100
+            value: minDegrees * 100
+            stepSize: 50
             suffix: "°"
 
-            onValueChanged:
+            property int decimals: 2
+            property real realValue: value / 100
+
+            validator: DoubleValidator {
+                bottom: Math.min(beamSpinBox.from, beamSpinBox.to)
+                top:  Math.max(beamSpinBox.from, beamSpinBox.to)
+            }
+
+            textFromValue: function(value, locale) {
+                return Number(value / 100).toLocaleString(locale, 'f', beamSpinBox.decimals) + suffix
+            }
+
+            valueFromText: function(text, locale) {
+                return Number.fromLocaleString(locale, text.replace(suffix, "")) * 100
+            }
+
+            onRealValueChanged:
             {
-                fixtureManager.setBeamValue((value - minDegrees) * 255 / (maxDegrees - minDegrees))
+                fixtureManager.setBeamValue((realValue - minDegrees) * 255 / (maxDegrees - minDegrees))
                 gCanvas.requestPaint()
             }
         }
 
         RobotoText { label: qsTr("Distance") }
-
 
         CustomSpinBox
         {

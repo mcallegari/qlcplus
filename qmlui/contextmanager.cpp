@@ -311,7 +311,7 @@ void ContextManager::setPositionPickPoint(QVector3D point)
             qDebug() << "Fixture" << fxID << "pan degrees:" << panDeg;
 
             QList<SceneValue> svList = m_fixtureManager->getFixturePosition(fxID, QLCChannel::Pan, panDeg);
-            foreach(SceneValue posSv, svList)
+            for (SceneValue posSv : svList)
             {
                 if (m_editingEnabled == false)
                     setDumpValue(posSv.fxi, posSv.channel, posSv.value);
@@ -335,7 +335,7 @@ void ContextManager::setPositionPickPoint(QVector3D point)
             qDebug() << "Fixture" << fxID << "tilt degrees:" << tiltDeg;
 
             QList<SceneValue> svList = m_fixtureManager->getFixturePosition(fxID, QLCChannel::Tilt, tiltDeg);
-            foreach(SceneValue posSv, svList)
+            for (SceneValue posSv : svList)
             {
                 if (m_editingEnabled == false)
                     setDumpValue(posSv.fxi, posSv.channel, posSv.value);
@@ -352,7 +352,7 @@ void ContextManager::resetContexts()
 {
     m_channelsMap.clear();
     resetDumpValues();
-    foreach(quint32 fxID, m_selectedFixtures)
+    for (quint32 fxID : m_selectedFixtures)
         setFixtureSelection(fxID, false);
 
     m_selectedFixtures.clear();
@@ -523,7 +523,7 @@ void ContextManager::setRectangleSelection(qreal x, qreal y, qreal width, qreal 
     if (m_2DView->isEnabled())
         fxIDList = m_2DView->selectFixturesRect(QRectF(x, y, width, height));
 
-    foreach(quint32 fxID, fxIDList)
+    for (quint32 fxID : fxIDList)
         setFixtureSelection(fxID, true);
     emit selectedFixturesChanged();
 }
@@ -622,7 +622,7 @@ void ContextManager::setFixturesAlignment(int alignment)
 
     QVector3D firstPos = mProps->fixturePosition(m_selectedFixtures.first());
 
-    foreach(quint32 fxID, m_selectedFixtures)
+    for (quint32 fxID : m_selectedFixtures)
     {
         QVector3D fxPos = mProps->fixturePosition(fxID);
         FixtureUtils::alignItem(firstPos, fxPos, mProps->pointOfView(), alignment);
@@ -653,7 +653,7 @@ void ContextManager::setFixturesDistribution(int direction)
      * 2- sort the fixture IDs from the leftmost/topmost item
      * 3- detect the minimum and maximum items position
      */
-    foreach(quint32 fxID, m_selectedFixtures)
+    for (quint32 fxID : m_selectedFixtures)
     {
         Fixture *fixture = m_doc->fixture(fxID);
         QPointF fxPos = FixtureUtils::item2DPosition(mProps, mProps->pointOfView(), mProps->fixturePosition(fxID));
@@ -850,7 +850,7 @@ void ContextManager::slotChannelValueChanged(quint32 fxID, quint32 channel, quin
 
 void ContextManager::slotChannelTypeValueChanged(int type, quint8 value, quint32 channel)
 {
-    qDebug() << "type:" << type << "value:" << value << "channel:" << channel;
+    //qDebug() << "type:" << type << "value:" << value << "channel:" << channel;
     QList<SceneValue> svList = m_channelsMap.values(type);
     for (SceneValue sv : svList)
     {
@@ -886,7 +886,7 @@ void ContextManager::slotPositionChanged(int type, int degrees)
     QList<quint32>fxIDs;
     QList<SceneValue> typeList = m_channelsMap.values(type);
 
-    foreach(SceneValue sv, typeList)
+    for (SceneValue sv : typeList)
     {
         if (fxIDs.contains(sv.fxi) == true)
             continue;
@@ -894,7 +894,7 @@ void ContextManager::slotPositionChanged(int type, int degrees)
         fxIDs.append(sv.fxi);
 
         QList<SceneValue> svList = m_fixtureManager->getFixturePosition(sv.fxi, type, degrees);
-        foreach(SceneValue posSv, svList)
+        for (SceneValue posSv : svList)
         {
             if (m_editingEnabled == false)
                 setDumpValue(posSv.fxi, posSv.channel, posSv.value);
@@ -906,7 +906,7 @@ void ContextManager::slotPositionChanged(int type, int degrees)
 
 void ContextManager::slotPresetChanged(const QLCChannel *channel, quint8 value)
 {
-    foreach(quint32 fxID, m_selectedFixtures)
+    for (quint32 fxID : m_selectedFixtures)
     {
         Fixture *fixture = m_doc->fixture(fxID);
         if (fixture == NULL)
