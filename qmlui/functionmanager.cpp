@@ -82,8 +82,8 @@ FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)
     m_functionTree->setColumnNames(treeColumns);
     m_functionTree->enableSorting(true);
 
-    connect(m_doc, &Doc::loaded, this, &FunctionManager::slotDocLoaded);
-    connect(m_doc, &Doc::functionAdded, this, &FunctionManager::slotFunctionAdded);
+    connect(m_doc, SIGNAL(loaded()), this, SLOT(slotDocLoaded()));
+    connect(m_doc, SIGNAL(functionAdded(quint32)), this, SLOT(slotFunctionAdded(quint32)));
 }
 
 

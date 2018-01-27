@@ -59,8 +59,8 @@ FixtureManager::FixtureManager(QQuickView *view, Doc *doc, QObject *parent)
     qmlRegisterUncreatableType<QLCCapability>("org.qlcplus.classes", 1, 0, "QLCCapability", "Can't create a QLCCapability !");
     qmlRegisterUncreatableType<ColorFilters>("org.qlcplus.classes", 1, 0, "ColorFilters", "Can't create a ColorFilters !");
 
-    connect(m_doc, &Doc::loaded, this, &FixtureManager::slotDocLoaded);
-    connect(m_doc, &Doc::fixtureGroupAdded, this, &FixtureManager::slotFixtureGroupAdded);
+    connect(m_doc, SIGNAL(loaded()), this, SLOT(slotDocLoaded()));
+    connect(m_doc, SIGNAL(fixtureGroupAdded(quint32)), this, SLOT(slotFixtureGroupAdded(quint32)));
 }
 
 FixtureManager::~FixtureManager()

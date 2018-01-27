@@ -37,8 +37,8 @@ VideoProvider::VideoProvider(QQuickView *view, Doc *doc, QObject *parent)
     for (Function *f : m_doc->functionsByType(Function::VideoType))
         slotFunctionAdded(f->id());
 
-    connect(m_doc, &Doc::functionAdded, this, &VideoProvider::slotFunctionAdded);
-    connect(m_doc, &Doc::functionRemoved, this, &VideoProvider::slotFunctionRemoved);
+    connect(m_doc, SIGNAL(functionAdded(quint32)), this, SLOT(slotFunctionAdded(quint32)));
+    connect(m_doc, SIGNAL(functionRemoved(quint32)), this, SLOT(slotFunctionRemoved(quint32)));
 }
 
 VideoProvider::~VideoProvider()

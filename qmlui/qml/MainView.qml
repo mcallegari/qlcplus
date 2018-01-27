@@ -103,8 +103,6 @@ Rectangle
             GradientStop { position: 1; color: UISettings.toolbarEnd }
         }
 
-        onHeightChanged: console.log("@@@@ HEIGHT CHANGED @@@@ " + height)
-
         RowLayout
         {
             spacing: 5
