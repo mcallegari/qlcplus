@@ -60,11 +60,10 @@ lessThan(QT_MAJOR_VERSION, 5) {
                                 $$QT_LIBS_PATH/Qt5PrintSupport.dll
     }
 
-    # Qt Libraries
+    # Qt library dependencies
     qt5deps.path  = $$INSTALLROOT/$$LIBSDIR
 
-    qt5deps.files += \
-                     $$SYS_LIBS_PATH/libbz2-1.dll \
+    qt5deps.files += $$SYS_LIBS_PATH/libbz2-1.dll \
                      $$SYS_LIBS_PATH/libfreetype-6.dll \
                      $$SYS_LIBS_PATH/libglib-2.0-0.dll \
                      $$SYS_LIBS_PATH/libgraphite2.dll \
@@ -76,6 +75,10 @@ lessThan(QT_MAJOR_VERSION, 5) {
                      $$SYS_LIBS_PATH/libspeex-1.dll \
                      $$SYS_LIBS_PATH/zlib1.dll
 
+    qmlui: {
+        qt5deps.files += $$SYS_LIBS_PATH/libassimp.dll \
+                         $$SYS_LIBS_PATH/libminizip-1.dll
+    }
     INSTALLS += qt5deps
 }
 
@@ -125,7 +128,8 @@ greaterThan(QT_MAJOR_VERSION, 4) {
                                   find . -name plugins.qmltypes -type f -delete && \
                                   rm -rf QtQuick/Extras QtQuick/Particles.2 QtQuick/XmlListModel \
                                   rm -rf QtQuick/Controls.2/designer QtQuick/Controls.2/Material \
-                                  rm -rf QtQuick/Controls.2/Universal QtQuick/Controls.2/Scene2D
+                                  rm -rf QtQuick/Controls.2/Universal QtQuick/Controls.2/Fusion \
+                                  rm -rf QtQuick/Controls.2/Imagine QtQuick/Controls.2/Scene2D
         INSTALLS  += qmlpostinstall
     }
 }
