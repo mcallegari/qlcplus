@@ -34,8 +34,8 @@ Entity
     property alias itemSource: eSceneLoader.source
     property bool isSelected: false
 
-    property int panMaxDegrees: 360
-    property int tiltMaxDegrees: 270
+    property real panMaxDegrees: 360
+    property real tiltMaxDegrees: 270
     property real focusMinDegrees: 15
     property real focusMaxDegrees: 30
     property real totalDuration: 4000 // in milliseconds
@@ -52,7 +52,7 @@ Entity
     property color lightColor: Qt.rgba(0, 0, 0, 1)
     property vector3d lightPosition: Qt.vector3d(0, 0, 0)
     property vector3d direction: Qt.vector3d(0, -1, 0)
-    property real cutOff: focusMaxDegrees / 2
+    property real cutOff: focusMinDegrees / 2
 
     onFixtureIDChanged: isSelected = contextManager.isFixtureSelected(fixtureID)
 
@@ -67,10 +67,11 @@ Entity
         //console.log("[3Ditem] set position " + pan + ", " + tilt)
         if (panMaxDegrees)
         {
+
             panAnim.stop()
             panAnim.from = panRotation
             panAnim.to = (panMaxDegrees / 0xFFFF) * pan
-            panAnim.duration = (totalDuration / panMaxDegrees) * Math.abs(panAnim.to - panAnim.from)
+            panAnim.duration = Math.max((totalDuration / panMaxDegrees) * Math.abs(panAnim.to - panAnim.from), 300)
             panAnim.start()
         }
 
@@ -81,7 +82,7 @@ Entity
             var degTo = parseInt(((tiltMaxDegrees / 0xFFFF) * tilt) - (tiltMaxDegrees / 2))
             //console.log("Tilt to " + degTo + ", max: " + tiltMaxDegrees)
             tiltAnim.to = -degTo
-            tiltAnim.duration = (totalDuration / tiltMaxDegrees) * Math.abs(tiltAnim.to - tiltAnim.from)
+            tiltAnim.duration = Math.max((totalDuration / tiltMaxDegrees) * Math.abs(tiltAnim.to - tiltAnim.from), 300)
             tiltAnim.start()
         }
     }
