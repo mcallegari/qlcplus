@@ -781,9 +781,15 @@ void MainView3D::updateFixtureSelection(QList<quint32> fixtures)
         FixtureMesh *meshRef = m_entitiesMap.value(fxID);
 
         if(fixtures.contains(fxID))
+        {
+            meshRef->m_rootItem->setProperty("isSelected", true);
             meshRef->m_selectionBox->setProperty("isSelected", true);
+        }
         else
+        {
+            meshRef->m_rootItem->setProperty("isSelected", false);
             meshRef->m_selectionBox->setProperty("isSelected", false);
+        }
     }
 }
 
@@ -793,7 +799,10 @@ void MainView3D::updateFixtureSelection(quint32 fxID, bool enable)
 
     FixtureMesh *meshRef = m_entitiesMap.value(fxID, NULL);
     if (meshRef)
+    {
+        meshRef->m_rootItem->setProperty("isSelected", enable);
         meshRef->m_selectionBox->setProperty("isSelected", enable);
+    }
 }
 
 void MainView3D::updateFixturePosition(quint32 fxID, QVector3D pos)
