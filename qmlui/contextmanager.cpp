@@ -494,11 +494,14 @@ void ContextManager::setFixtureSelection(quint32 fxID, bool enable)
     emit selectedFixturesChanged();
     emit fixturesPositionChanged();
     emit fixturesRotationChanged();
+
+    if (m_selectedFixtures.isEmpty())
+        m_fixtureManager->resetCapabilities();
 }
 
 void ContextManager::resetFixtureSelection()
 {
-    for(Fixture *fixture : m_doc->fixtures()) // C++11
+    for (Fixture *fixture : m_doc->fixtures()) // C++11
     {
         if (fixture != NULL)
             setFixtureSelection(fixture->id(), false);
@@ -511,7 +514,7 @@ void ContextManager::toggleFixturesSelection()
     if (m_selectedFixtures.count() == m_doc->fixtures().count())
         selectAll = false;
 
-    for(Fixture *fixture : m_doc->fixtures()) // C++11
+    for (Fixture *fixture : m_doc->fixtures()) // C++11
     {
         if (fixture != NULL)
             setFixtureSelection(fixture->id(), selectAll);

@@ -1271,6 +1271,15 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 fxID,
     return channelsMap;
 }
 
+void FixtureManager::resetCapabilities()
+{
+    m_maxPanDegrees = 0;
+    m_maxTiltDegrees = 0;
+    m_minBeamDegrees = 15.0;
+    m_maxBeamDegrees = 0;
+    m_colorsMask = 0;
+}
+
 QList<SceneValue> FixtureManager::getFixturePosition(quint32 fxID, int type, int degrees)
 {
     QList<SceneValue> posList;

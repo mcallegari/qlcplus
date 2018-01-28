@@ -319,6 +319,9 @@ public:
      */
     QMultiHash<int, SceneValue> getFixtureCapabilities(quint32 fxID, bool enable);
 
+    /** Reset any previously elapsed capability */
+    void resetCapabilities();
+
     /** Returns a list of SceneValues containing the requested position
      *  information for the specified Fixture with $fxID and $type (Pan/Tilt).
      *  This works on degrees because it considers 16-bit modes as well as
