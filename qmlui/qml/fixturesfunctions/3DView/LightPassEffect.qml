@@ -102,7 +102,7 @@ Effect
                                 gl_Position = modelMatrix * vertexPosition;
                             }"
                         fragmentShaderCode:
-                            "#version 130
+                            "#version 110
 
                             uniform sampler2D color;
                             uniform vec2 winSize;
@@ -110,7 +110,7 @@ Effect
                             void main()
                             {
                                 vec2 texCoord = gl_FragCoord.xy / winSize;
-                                gl_FragColor = texture(color, texCoord);
+                                gl_FragColor = texture2D(color, texCoord);
                             }"
                     }
                 }
