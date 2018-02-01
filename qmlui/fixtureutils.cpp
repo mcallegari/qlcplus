@@ -66,15 +66,12 @@ float FixtureUtils::item2DRotation(int pointOfView, QVector3D rot)
         case MonitorProperties::TopView:
             return rot.y();
         break;
-        case MonitorProperties::Undefined:
-        case MonitorProperties::FrontView:
-            return rot.z();
-        break;
         case MonitorProperties::RightSideView:
-            return rot.x();
-        break;
         case MonitorProperties::LeftSideView:
             return rot.x();
+        break;
+        default:
+            return rot.z();
         break;
     }
 
