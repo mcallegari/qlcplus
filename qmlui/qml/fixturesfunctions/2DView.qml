@@ -39,10 +39,18 @@ Rectangle
 
     function setZoom(amount)
     {
-        if (View2D.gridScale + amount < 1.0)
-            View2D.gridScale = 1.0
+        if (amount < 0)
+        {
+            if (View2D.gridScale > 0.1)
+                View2D.gridScale -= 0.1
+        }
         else
-            View2D.gridScale += amount
+        {
+            if (View2D.gridScale < 1)
+                View2D.gridScale += 0.1
+            else
+                View2D.gridScale += amount
+        }
 
         twoDView.calculateCellSize()
     }
