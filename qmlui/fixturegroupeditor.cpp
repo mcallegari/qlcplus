@@ -94,6 +94,16 @@ QString FixtureGroupEditor::groupName() const
     return m_editGroup == NULL ? "" : m_editGroup->name();
 }
 
+void FixtureGroupEditor::setGroupName(QString name)
+{
+    if (m_editGroup == NULL || m_editGroup->name() == name)
+        return;
+
+    m_editGroup->setName(name);
+
+    emit groupNameChanged();
+}
+
 QSize FixtureGroupEditor::groupSize() const
 {
     if (m_editGroup == NULL)

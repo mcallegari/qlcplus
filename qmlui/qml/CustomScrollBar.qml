@@ -34,7 +34,7 @@ Item
         bottom: flickable.bottom
         left: orientation === Qt.Horizontal ? flickable.left : undefined
         right: flickable.right
-        bottomMargin: doubleBars === true ? handleSize : 0
+        bottomMargin: doubleBars ? handleSize : 0
     }
 
     property Flickable flickable  : null

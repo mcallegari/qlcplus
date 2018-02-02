@@ -32,7 +32,7 @@ class FixtureGroupEditor : public QObject
     Q_OBJECT
 
     Q_PROPERTY(QVariant groupsListModel READ groupsListModel NOTIFY groupsListModelChanged)
-    Q_PROPERTY(QString groupName READ groupName NOTIFY groupNameChanged)
+    Q_PROPERTY(QString groupName READ groupName WRITE setGroupName NOTIFY groupNameChanged)
     Q_PROPERTY(QSize groupSize READ groupSize WRITE setGroupSize NOTIFY groupSizeChanged)
     Q_PROPERTY(QVariantList groupMap READ groupMap NOTIFY groupMapChanged)
     Q_PROPERTY(QVariantList groupLabels READ groupLabels NOTIFY groupLabelsChanged)
@@ -81,8 +81,9 @@ public:
     /** Set the reference of a FixtureGroup for editing */
     Q_INVOKABLE void setEditGroup(QVariant reference);
 
-    /** Get the name of the Fixture Group currently being edited */
+    /** Get/Set the name of the Fixture Group currently being edited */
     QString groupName() const;
+    void setGroupName(QString name);
 
     /** Get/Set the size of the Fixture Group currently being edited */
     QSize groupSize() const;

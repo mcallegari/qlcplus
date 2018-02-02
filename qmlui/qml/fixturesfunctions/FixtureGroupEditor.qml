@@ -24,12 +24,11 @@ import QtQuick.Controls 2.1
 import org.qlcplus.classes 1.0
 import "."
 
-Flickable
+Rectangle
 {
     id: fGroupEditor
     anchors.fill: parent
-    anchors.margins: viewMargin
-    boundsBehavior: Flickable.StopAtBounds
+    color: "transparent"
 
     property int viewMargin: UISettings.listItemHeight * 0.5
 
@@ -40,6 +39,7 @@ Flickable
         height: UISettings.iconSizeDefault
         width: parent.width
         color: UISettings.bgStrong
+        z: 1
 
         RowLayout
         {
@@ -48,14 +48,20 @@ Flickable
             anchors.leftMargin: viewMargin
             anchors.rightMargin: viewMargin
 
-            RobotoText
+            TextInput
             {
+                id: fNameEdit
                 height: parent.height
-                label: fixtureGroupEditor.groupName
-                labelColor: UISettings.fgLight
-                fontSize: UISettings.textSizeDefault * 1.5
-                fontBold: true
-                textVAlign: Text.AlignVCenter
+                Layout.fillWidth: true
+                color: UISettings.fgLight
+                clip: true
+                verticalAlignment: TextInput.AlignVCenter
+                font.family: UISettings.robotoFontName
+                font.pixelSize: UISettings.textSizeDefault * 1.5
+                font.bold: true
+                selectByMouse: true
+                text: fixtureGroupEditor.groupName
+                onTextChanged: fixtureGroupEditor.groupName = text
             }
 
             Rectangle { color: "transparent"; Layout.fillWidth: true; }
@@ -168,97 +174,124 @@ Flickable
         }
     }
 
-    GridEditor
+    Flickable
     {
-        id: groupGrid
+        id: gridFlickable
+        x: viewMargin
         y: editToolbar.y + editToolbar.height + viewMargin
-        width: parent.width
-        height: parent.height - editToolbar.height - (viewMargin * 3)
+        width: parent.width - x
+        height: parent.height - editToolbar.height - viewMargin
 
-        function getItemIcon(fixtureID, headNumber)
+        boundsBehavior: Flickable.StopAtBounds
+
+        GridEditor
         {
-            return fixtureManager.fixtureIcon(fixtureID)
-        }
+            id: groupGrid
+            width: parent.width
+            height: parent.height - (viewMargin * 3)
 
-        gridSize: fixtureGroupEditor.groupSize
-        fillDirection: Qt.Horizontal | Qt.Vertical
-        gridData: fixtureGroupEditor.groupMap
-        gridLabels: fixtureGroupEditor.groupLabels
-        labelsFontSize: cellSize / 5
-        evenColor: UISettings.fgLight
+            onHeightChanged: gridFlickable.contentHeight = height + cellSize
+            onWidthChanged: gridFlickable.contentWidth = width + cellSize
 
-        onPressed:
-        {
-            if (xPos < 0 && yPos < 0)
+            function getItemIcon(fixtureID, headNumber)
             {
-                var empty = []
-                setSelectionData(empty)
-                fixtureGroupEditor.resetSelection()
+                return fixtureManager.fixtureIcon(fixtureID)
             }
-            else
+
+            gridSize: fixtureGroupEditor.groupSize
+            fillDirection: Qt.Horizontal | Qt.Vertical
+            mininumCellSize: UISettings.iconSizeDefault * 1.5
+            gridData: fixtureGroupEditor.groupMap
+            gridLabels: fixtureGroupEditor.groupLabels
+            labelsFontSize: cellSize / 5
+            evenColor: UISettings.fgLight
+
+            onPressed:
             {
-                fGroupEditor.interactive = false
-                setSelectionData(fixtureGroupEditor.groupSelection(xPos, yPos, mods))
-            }
-        }
-
-        onReleased:
-        {
-            if (currentItemID === -1)
-                return
-
-            if (externalDrag == false)
-            {
-                fixtureGroupEditor.moveSelection(xPos, yPos, offset)
-                setSelectionData(fixtureGroupEditor.groupSelection(xPos, yPos, mods))
-            }
-            fGroupEditor.interactive = true
-        }
-
-        onPositionChanged:
-        {
-            validSelection = fixtureGroupEditor.checkSelection(xPos, yPos, offset)
-        }
-
-        onDragEntered:
-        {
-            console.log("Drag entered at " + xPos + ", " + yPos)
-            var tmp
-            var mods = 0
-            for (var i = 0; i < dragEvent.source.itemsList.length; i++)
-            {
-                console.log("Item #" + i + " type: " + dragEvent.source.itemsList[i].itemType)
-                switch(dragEvent.source.itemsList[i].itemType)
+                if (xPos < 0 && yPos < 0)
                 {
-                    case App.FixtureDragItem:
-                        tmp = fixtureGroupEditor.dragSelection(dragEvent.source.itemsList[i].cRef, xPos, yPos, mods)
-                    break;
-                    case App.HeadDragItem:
-                        efxEditor.addHead(dragEvent.source.itemsList[i].fixtureID, dragEvent.source.itemsList[i].headIndex)
-                    break;
+                    var empty = []
+                    setSelectionData(empty)
+                    fixtureGroupEditor.resetSelection()
                 }
-                mods = 1
-            }
-            setSelectionData(tmp)
-        }
-
-        onDragPositionChanged:
-        {
-            validSelection = fixtureGroupEditor.checkSelection(xPos, yPos, offset)
-        }
-
-        onDragDropped:
-        {
-            console.log("Drag dropped at " + xPos + ", " + yPos)
-            for (var i = 0; i < dragEvent.source.itemsList.length; i++)
-            {
-                switch(dragEvent.source.itemsList[i].itemType)
+                else
                 {
-                    case App.FixtureDragItem:
-                        fixtureGroupEditor.addFixture(dragEvent.source.itemsList[i].cRef, xPos, yPos)
-                    break;
+                    gridFlickable.interactive = false
+                    setSelectionData(fixtureGroupEditor.groupSelection(xPos, yPos, mods))
                 }
             }
-        }
+
+            onReleased:
+            {
+                gridFlickable.interactive = true
+
+                if (currentItemID === -1)
+                    return
+
+                if (externalDrag == false)
+                {
+                    fixtureGroupEditor.moveSelection(xPos, yPos, offset)
+                    setSelectionData(fixtureGroupEditor.groupSelection(xPos, yPos, mods))
+                }
+            }
+
+            onPositionChanged:
+            {
+                validSelection = fixtureGroupEditor.checkSelection(xPos, yPos, offset)
+            }
+
+            onDragEntered:
+            {
+                console.log("Drag entered at " + xPos + ", " + yPos)
+                var tmp
+                var mods = 0
+                for (var i = 0; i < dragEvent.source.itemsList.length; i++)
+                {
+                    console.log("Item #" + i + " type: " + dragEvent.source.itemsList[i].itemType)
+                    switch(dragEvent.source.itemsList[i].itemType)
+                    {
+                        case App.FixtureDragItem:
+                            tmp = fixtureGroupEditor.dragSelection(dragEvent.source.itemsList[i].cRef, xPos, yPos, mods)
+                        break;
+                        case App.HeadDragItem:
+                            efxEditor.addHead(dragEvent.source.itemsList[i].fixtureID, dragEvent.source.itemsList[i].headIndex)
+                        break;
+                    }
+                    mods = 1
+                }
+                setSelectionData(tmp)
+            }
+
+            onDragPositionChanged:
+            {
+                validSelection = fixtureGroupEditor.checkSelection(xPos, yPos, offset)
+            }
+
+            onDragDropped:
+            {
+                console.log("Drag dropped at " + xPos + ", " + yPos)
+                for (var i = 0; i < dragEvent.source.itemsList.length; i++)
+                {
+                    switch(dragEvent.source.itemsList[i].itemType)
+                    {
+                        case App.FixtureDragItem:
+                            fixtureGroupEditor.addFixture(dragEvent.source.itemsList[i].cRef, xPos, yPos)
+                        break;
+                    }
+                }
+            }
+        } // GridEditor
+    } // Flickable
+
+    CustomScrollBar
+    {
+        anchors.right: parent.right
+        flickable: gridFlickable
+        doubleBars: true
+    }
+    CustomScrollBar
+    {
+        flickable: gridFlickable;
+        orientation: Qt.Horizontal
     }
 }

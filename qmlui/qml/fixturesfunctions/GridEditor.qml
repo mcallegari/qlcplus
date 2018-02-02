@@ -29,10 +29,13 @@ Rectangle
     color: "transparent"
 
     /** The size of the universe grid to render */
-    property size gridSize: Qt.size(1,1)
+    property size gridSize: Qt.size(1, 1)
 
     /** The resize constrain to fill the view */
     property int fillDirection: Qt.Horizontal
+
+    /** The minimum size in pixels of a cell */
+    property int mininumCellSize: 0
 
     /** An array of data organized as follows: Item ID | Absolute Index | isOdd | item type */
     property variant gridData
@@ -90,6 +93,12 @@ Rectangle
         var horSize = width / gridSize.width
         var vertSize = height / gridSize.height
 
+        if (mininumCellSize)
+        {
+            horSize = Math.max(horSize, mininumCellSize)
+            vertSize = Math.max(vertSize, mininumCellSize)
+        }
+
         if (fillDirection == Qt.Vertical)
             cellSize = vertSize
         if (fillDirection == Qt.Horizontal)
@@ -97,9 +106,11 @@ Rectangle
         else
             cellSize = Math.min(Math.min(horSize, vertSize), UISettings.bigItemHeight)
 
-        // autosize height only if it needs to exceed the initial height
+        // autosize width/height only if it needs to exceed the initial height
         if (cellSize * gridSize.height > height)
             height = cellSize * gridSize.height
+        if (cellSize * gridSize.width > width)
+            width = cellSize * gridSize.width
 
         //console.log("Grid View cell size: " + cellSize)
         dataCanvas.requestPaint()
@@ -328,10 +339,9 @@ Rectangle
             }
             onReleased:
             {
-                if (dataCanvas.selectionOffset != 0 && selectionData && selectionData.length)
-                {
-                    gridRoot.released(dataCanvas.mouseLastX, dataCanvas.mouseLastY, dataCanvas.selectionOffset, mouse.modifiers)
-                }
+                gridRoot.released(dataCanvas.mouseLastX, dataCanvas.mouseLastY,
+                                  dataCanvas.selectionOffset, mouse.modifiers)
+
                 dataCanvas.mouseOrigX = -1
                 dataCanvas.mouseOrigY = -1
                 dataCanvas.mouseLastX = -1
