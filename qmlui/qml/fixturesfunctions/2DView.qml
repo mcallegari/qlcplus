@@ -75,12 +75,12 @@ Rectangle
       * Flickable (z = 1): main scrollable area
       *   Canvas (z = 0): The actual grid graphics view
       *     DropArea (z = 0): allow to drop items from fixture browser
-      *     MouseArea (z = 1): handles drag & drop of multiple fixture items
-      *     Rectangle (z = 2): multiple drag layer as big as the Canvas layer
-      *       MouseArea (z = 0): handles selection rectangle and mouse wheel for zooming
-      *   Fixture2DItem (z = 2): the Fixture 2D items
-      *     MouseArea (z = 0): handles only the press event for selecting the Fixture item,
-      *                        but doesn't accept it so it can be forwarded for dragging
+      *     Rectangle (z = 1): multiple drag layer as big as the Canvas layer
+      *       MouseArea (z = 0): handles drag & drop of multiple fixture items
+      *     MouseArea (z = 2): handles selection rectangle and mouse wheel for zooming
+      *     Fixture2DItem (z = 2): the Fixture 2D items
+      *       MouseArea (z = 0): handles only the press event for selecting the Fixture item,
+      *                          but doesn't accept it so it can be forwarded for dragging
       *   Selection rectangle (z = 99): visible only when a shift + mouse is in place
       * Popup (z = 1): point of view selection popup
       * SettingsView2D (z = 5): right side settings panel
