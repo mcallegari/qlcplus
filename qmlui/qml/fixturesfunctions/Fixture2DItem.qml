@@ -36,7 +36,7 @@ Rectangle
     border.width: isSelected ? 2 : 1
     border.color: isSelected ? UISettings.selection : UISettings.fgLight
 
-    Drag.active: fxMouseArea.drag.active
+    //Drag.active: fxMouseArea.drag.active
 
     property int fixtureID: fixtureManager.invalidFixture()
     property string fixtureName: ""
@@ -58,7 +58,6 @@ Rectangle
     property int tiltMaxDegrees: 0
 
     property bool isSelected: false
-    property bool isDragging: false
     property bool showLabel: false
 
     onWidthChanged: calculateHeadSize();
@@ -263,41 +262,16 @@ Rectangle
         id: fxMouseArea
         anchors.fill: parent
         hoverEnabled: true
-        preventStealing: false
-
-        drag.threshold: 10 //UISettings.iconSizeDefault
+        propagateComposedEvents: true
 
         onEntered: fixtureLabel.visible = true
         onExited: showLabel ? fixtureLabel.visible = true : fixtureLabel.visible = false
 
         onPressed:
         {
-            isSelected = !isSelected
-            contextManager.setFixtureSelection(fixtureID, isSelected)
-        }
-
-        onPositionChanged:
-        {
-            if (!fxMouseArea.pressed)
-                return
-
-            if (drag.target == null)
-            {
-                drag.target = fixtureItem
-                isSelected = true
-            }
-        }
-
-        onReleased:
-        {
-            if (drag.target !== null)
-            {
-                console.log("2D item drag finished");
-                mmXPos = (fixtureItem.x * gridUnits) / gridCellSize;
-                mmYPos = (fixtureItem.y * gridUnits) / gridCellSize;
-                contextManager.setFixturePosition("2D", fixtureID, mmXPos, mmYPos, 0)
-                drag.target = null
-            }
+            isSelected = true
+            contextManager.setFixtureSelection(fixtureID, true)
+            mouse.accepted = false
         }
     }
 }

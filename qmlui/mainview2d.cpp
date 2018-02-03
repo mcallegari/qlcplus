@@ -407,6 +407,19 @@ void MainView2D::updateFixtureSelection(quint32 fxID, bool enable)
 
     QQuickItem *fxItem = m_itemsMap[fxID];
     fxItem->setProperty("isSelected", enable);
+
+    if (enable)
+    {
+
+        QQuickItem *dragArea = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("contentsDragArea"));
+        if (dragArea)
+        {
+            qDebug() << "Reparenting fixture" << fxID << "to drag area";
+            fxItem->setParentItem(dragArea);
+        }
+    }
+    else
+        fxItem->setParentItem(m_contents2D);
 }
 
 void MainView2D::updateFixtureRotation(quint32 fxID, QVector3D degrees)

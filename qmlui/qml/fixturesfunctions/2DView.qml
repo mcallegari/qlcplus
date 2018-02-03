@@ -19,6 +19,9 @@
 
 import QtQuick 2.3
 
+import org.qlcplus.classes 1.0
+import "."
+
 Rectangle
 {
     anchors.fill: parent
@@ -65,6 +68,23 @@ Rectangle
         twoDSettings.visible = show
         twoDView.calculateCellSize()
     }
+
+    /**
+      * The stacking order of this view is very important and delicate
+      * From bottom to top:
+      * Flickable (z = 1): main scrollable area
+      *   Canvas (z = 0): The actual grid graphics view
+      *     DropArea (z = 0): allow to drop items from fixture browser
+      *     MouseArea (z = 1): handles drag & drop of multiple fixture items
+      *     Rectangle (z = 2): multiple drag layer as big as the Canvas layer
+      *       MouseArea (z = 0): handles selection rectangle and mouse wheel for zooming
+      *   Fixture2DItem (z = 2): the Fixture 2D items
+      *     MouseArea (z = 0): handles only the press event for selecting the Fixture item,
+      *                        but doesn't accept it so it can be forwarded for dragging
+      *   Selection rectangle (z = 99): visible only when a shift + mouse is in place
+      * Popup (z = 1): point of view selection popup
+      * SettingsView2D (z = 5): right side settings panel
+     */
 
     Flickable
     {
@@ -196,7 +216,7 @@ Rectangle
                 y: -twoDContents.y
                 width: twoDSettings.visible ? twoDView.width - twoDSettings.width : twoDView.width
                 height: twoDView.height
-                z: 1
+                z: 2
 
                 property int initialXPos
                 property int initialYPos
@@ -218,6 +238,11 @@ Rectangle
                         selectionRect.width = 0
                         selectionRect.height = 0
                         selectionRect.visible = true
+                    }
+                    else
+                    {
+                        // forward the event to the drag area
+                        mouse.accepted = false
                     }
                 }
 
@@ -274,9 +299,9 @@ Rectangle
                             case 90: contextManager.setRectangleSelection(rx - rh, ry, rh, rw); break;
                             case -90: contextManager.setRectangleSelection(rx, ry - rw, rh, rw); break;
                         }
+                        selectionRect.visible = false
                     }
 
-                    selectionRect.visible = false
                     twoDView.interactive = true
                 }
 
@@ -292,12 +317,60 @@ Rectangle
                     }
                 }
             }
+
+            Rectangle
+            {
+                id: contentsDragArea
+                objectName: "contentsDragArea"
+                width: twoDContents.width
+                height: twoDContents.height
+                color: "transparent"
+                /*
+                // enable for debug
+                color: "red"
+                opacity: 0.3
+                */
+                z: 1
+
+                Drag.active: dragMouseArea.drag.active
+
+                MouseArea
+                {
+                    id: dragMouseArea
+                    anchors.fill: parent
+                    drag.threshold: 10
+                    drag.target: parent
+
+                    onReleased:
+                    {
+                        if (drag.active)
+                        {
+                            var units = View2D.gridUnits === MonitorProperties.Meters ? 1000.0 : 304.8
+                            var xDelta = contentsDragArea.x
+                            var yDelta = contentsDragArea.y
+
+                            xDelta = (xDelta * units) / View2D.cellPixels;
+                            yDelta = (yDelta * units) / View2D.cellPixels;
+
+                            contextManager.setFixturesOffset(xDelta, yDelta)
+
+                            contentsDragArea.x = 0
+                            contentsDragArea.y = 0
+                        }
+                        else
+                        {
+                            contextManager.resetFixtureSelection()
+                        }
+                    }
+                }
+            }
+
             DropArea
             {
                 anchors.fill: parent
             }
-        }
-    }
+        } // Canvas
+    } // Flickable
 
     PopupMonitor
     {

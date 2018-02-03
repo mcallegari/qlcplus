@@ -542,34 +542,11 @@ bool ContextManager::isFixtureSelected(quint32 fxID)
     return m_selectedFixtures.contains(fxID) ? true : false;
 }
 
-void ContextManager::setFixturePosition(QString context, quint32 fxID, qreal x, qreal y, qreal z)
+void ContextManager::setFixturePosition(quint32 fxID, qreal x, qreal y, qreal z)
 {
     MonitorProperties *mProps = m_doc->monitorProperties();
     QVector3D currPos = mProps->fixturePosition(fxID);
     QVector3D newPos(x, y, z);
-
-    /* the 2D context sends XY only, so it is necessary to retrieve
-     * the missing third coordinate depending on the point of view */
-    if (context == "2D")
-    {
-        float gridUnits = mProps->gridUnits() == MonitorProperties::Meters ? 1000.0 : 304.8;
-
-        switch (mProps->pointOfView())
-        {
-            case MonitorProperties::TopView:
-                newPos = QVector3D(x, currPos.y(), y);
-            break;
-            case MonitorProperties::RightSideView:
-                newPos = QVector3D(currPos.x(), y, (mProps->gridSize().z() * gridUnits) - x);
-            break;
-            case MonitorProperties::LeftSideView:
-                newPos = QVector3D(currPos.x(), y, x);
-            break;
-            default:
-                newPos = QVector3D(x, (mProps->gridSize().y() * gridUnits) - y, currPos.z());
-            break;
-        }
-    }
 
     Tardis::instance()->enqueueAction(FixtureSetPosition, fxID, QVariant(currPos), QVariant(newPos));
     mProps->setFixturePosition(fxID, newPos);
@@ -578,6 +555,41 @@ void ContextManager::setFixturePosition(QString context, quint32 fxID, qreal x, 
         m_2DView->updateFixturePosition(fxID, newPos);
     if (m_3DView->isEnabled())
         m_3DView->updateFixturePosition(fxID, newPos);
+}
+
+void ContextManager::setFixturesOffset(qreal x, qreal y)
+{
+    MonitorProperties *mProps = m_doc->monitorProperties();
+    float gridUnits = mProps->gridUnits() == MonitorProperties::Meters ? 1000.0 : 304.8;
+
+    for (quint32 fxID : m_selectedFixtures)
+    {
+        QVector3D currPos = mProps->fixturePosition(fxID);
+        QVector3D newPos;
+
+        switch (mProps->pointOfView())
+        {
+            case MonitorProperties::TopView:
+                newPos = QVector3D(currPos.x() + x, currPos.y(), currPos.z() + y);
+            break;
+            case MonitorProperties::RightSideView:
+                newPos = QVector3D(currPos.x(), currPos.y() + y, (mProps->gridSize().z() * gridUnits) - (currPos.z() + x));
+            break;
+            case MonitorProperties::LeftSideView:
+                newPos = QVector3D(currPos.x(), currPos.y() + y, currPos.z() + x);
+            break;
+            default:
+                newPos = QVector3D(currPos.x() + x, (mProps->gridSize().y() * gridUnits) - (currPos.y() + y), currPos.z());
+            break;
+        }
+
+        Tardis::instance()->enqueueAction(FixtureSetPosition, fxID, QVariant(currPos), QVariant(newPos));
+        mProps->setFixturePosition(fxID, newPos);
+        if (m_2DView->isEnabled())
+            m_2DView->updateFixturePosition(fxID, newPos);
+        if (m_3DView->isEnabled())
+            m_3DView->updateFixturePosition(fxID, newPos);
+    }
 }
 
 QVector3D ContextManager::fixturesPosition() const
