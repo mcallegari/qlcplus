@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.11.2 GIT</Version>
+  <Author>Sherlock</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Rotosphere Q3</Model>
+ <Type>Other</Type>
+ <Channel Name="LED1-ManCol-Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255" Color="#ff0000">0-100%</Capability>
+ </Channel>
+ <Channel Name="LED1-ManCol-Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255" Color="#00aa00">0-100%</Capability>
+ </Channel>
+ <Channel Name="LED1-ManCol-Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255"></Capability>
+ </Channel>
+ <Channel Name="LED1-Strobe/Sound">
+  <Group Byte="0">Speed</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="5" Max="250">Strobe Slow-Fast</Capability>
+  <Capability Min="251" Max="255">Sound-active Strobe</Capability>
+ </Channel>
+ <Channel Name="LED2-ManCol-Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255" Color="#ff0000">0-100%</Capability>
+ </Channel>
+ <Channel Name="LED2-ManCol-Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255" Color="#00aa00">0-100%</Capability>
+ </Channel>
+ <Channel Name="LED2-ManCol-Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255"></Capability>
+ </Channel>
+ <Channel Name="LED2-Strobe/Sound">
+  <Group Byte="0">Speed</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="5" Max="250">Strobe Slow-Fast</Capability>
+  <Capability Min="251" Max="255">Sound-active Strobe</Capability>
+ </Channel>
+ <Channel Name="LED3-ManCol-Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255" Color="#ff0000">0-100%</Capability>
+ </Channel>
+ <Channel Name="LED3-ManCol-Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255" Color="#00aa00">0-100%</Capability>
+ </Channel>
+ <Channel Name="LED3-ManCol-Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255"></Capability>
+ </Channel>
+ <Channel Name="LED3-Strobe/Sound">
+  <Group Byte="0">Speed</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="5" Max="250">Strobe Slow-Fast</Capability>
+  <Capability Min="251" Max="255">Sound-active Strobe</Capability>
+ </Channel>
+ <Channel Name="Motor 1,2,3">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="0">Stop</Capability>
+  <Capability Min="1" Max="127">Rotate Left, slow to fast</Capability>
+  <Capability Min="128" Max="128">Stop</Capability>
+  <Capability Min="129" Max="255">Rotate Right, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Color Macros and Auto Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">Blackout</Capability>
+  <Capability Min="6" Max="211" Color="#000000">Macro Bank (see ref guide for detail)</Capability>
+  <Capability Min="212" Max="255">Program Bank (see ref guide for detail)</Capability>
+ </Channel>
+ <Channel Name="Progam Speed / Sound Sensitivity (when Ch. 17 is between 212-255)">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="250">Program speed, slow to fast</Capability>
+  <Capability Min="251" Max="255">Sound-active program sensitivity</Capability>
+ </Channel>
+ <Channel Name="Motor Control (Ch. 17 Color Macros)">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="0">Stop</Capability>
+  <Capability Min="1" Max="127">Rotate left, slow to fast</Capability>
+  <Capability Min="128" Max="128">Stop</Capability>
+  <Capability Min="129" Max="255">Rotate right, slow to fast</Capability>
+ </Channel>
+ <Channel Name="LED1-ManCol-White">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255"></Capability>
+ </Channel>
+ <Channel Name="LED2-ManCol-White">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255"></Capability>
+ </Channel>
+ <Channel Name="LED3-ManCol-White">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255"></Capability>
+ </Channel>
+ <Mode Name="19Ch Mode">
+  <Physical>
+   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="0" Width="0" Height="0" Depth="0"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+  </Physical>
+  <Channel Number="0">LED1-ManCol-Red</Channel>
+  <Channel Number="1">LED1-ManCol-Green</Channel>
+  <Channel Number="2">LED1-ManCol-Blue</Channel>
+  <Channel Number="3">LED1-ManCol-White</Channel>
+  <Channel Number="4">LED1-Strobe/Sound</Channel>
+  <Channel Number="5">LED2-ManCol-Red</Channel>
+  <Channel Number="6">LED2-ManCol-Green</Channel>
+  <Channel Number="7">LED2-ManCol-Blue</Channel>
+  <Channel Number="8">LED2-ManCol-White</Channel>
+  <Channel Number="9">LED2-Strobe/Sound</Channel>
+  <Channel Number="10">LED3-ManCol-Red</Channel>
+  <Channel Number="11">LED3-ManCol-Green</Channel>
+  <Channel Number="12">LED3-ManCol-Blue</Channel>
+  <Channel Number="13">LED3-ManCol-White</Channel>
+  <Channel Number="14">LED3-Strobe/Sound</Channel>
+  <Channel Number="15">Motor 1,2,3</Channel>
+  <Channel Number="16">Color Macros and Auto Programs</Channel>
+  <Channel Number="17">Progam Speed / Sound Sensitivity (when Ch. 17 is between 212-255)</Channel>
+  <Channel Number="18">Motor Control (Ch. 17 Color Macros)</Channel>
+ </Mode>
+</FixtureDefinition>
