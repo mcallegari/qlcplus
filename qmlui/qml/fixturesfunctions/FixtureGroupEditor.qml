@@ -291,7 +291,7 @@ Rectangle
     }
     CustomScrollBar
     {
-        flickable: gridFlickable;
+        flickable: gridFlickable
         orientation: Qt.Horizontal
     }
 }

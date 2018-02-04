@@ -42,14 +42,20 @@ Rectangle
 
     function setZoom(amount)
     {
+        var currentScale = View2D.gridScale
         if (amount < 0)
         {
-            if (View2D.gridScale > 0.1)
-                View2D.gridScale -= 0.1
+            if (currentScale > 0.1)
+            {
+                if (currentScale <= 1)
+                    View2D.gridScale -= 0.1
+                else
+                    View2D.gridScale += amount
+            }
         }
         else
         {
-            if (View2D.gridScale < 1)
+            if (currentScale < 1)
                 View2D.gridScale += 0.1
             else
                 View2D.gridScale += amount
@@ -371,6 +377,21 @@ Rectangle
             }
         } // Canvas
     } // Flickable
+
+    CustomScrollBar
+    {
+        anchors.right: parent.right
+        z: 2
+        flickable: twoDView
+        doubleBars: true
+    }
+    CustomScrollBar
+    {
+        anchors.bottom: parent.bottom
+        z: 2
+        flickable: twoDView
+        orientation: Qt.Horizontal
+    }
 
     PopupMonitor
     {
