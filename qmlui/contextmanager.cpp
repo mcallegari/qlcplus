@@ -684,18 +684,18 @@ void ContextManager::setFixturesDistribution(int direction)
         // 2
         for (i = 0; i < sortedPos.count(); i++)
         {
-            if (pos > sortedPos[i])
+            if (pos < sortedPos[i])
                 break;
         }
-        if (i == 0 || i == sortedIDs.count())
+        if (sortedPos.isEmpty() || i == sortedIDs.count())
         {
             sortedIDs.append(fxID);
             sortedPos.append(pos);
         }
         else
         {
-            sortedIDs.insert(i - 1, fxID);
-            sortedPos.insert(i - 1, pos);
+            sortedIDs.insert(i, fxID);
+            sortedPos.insert(i, pos);
         }
 
         // 3
@@ -706,6 +706,8 @@ void ContextManager::setFixturesDistribution(int direction)
     }
 
     gap = ((max - min) - fixturesSize) / (sortedIDs.count() - 1);
+
+    qDebug() << "Sorted IDs:" << sortedIDs << "min/max:" << min << max;
 
     qreal newPos = min;
 
