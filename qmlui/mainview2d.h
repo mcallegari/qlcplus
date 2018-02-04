@@ -91,6 +91,9 @@ protected:
     /** First time 2D view variables initializations */
     bool initialize2DProperties();
 
+    /** Update the Quick item selection and reparent for dragging if needed */
+    void selectFixture(QQuickItem *fxItem, bool enable);
+
 signals:
     void gridSizeChanged();
     void gridUnitsChanged();

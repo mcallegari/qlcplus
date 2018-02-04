@@ -560,7 +560,6 @@ void ContextManager::setFixturePosition(quint32 fxID, qreal x, qreal y, qreal z)
 void ContextManager::setFixturesOffset(qreal x, qreal y)
 {
     MonitorProperties *mProps = m_doc->monitorProperties();
-    float gridUnits = mProps->gridUnits() == MonitorProperties::Meters ? 1000.0 : 304.8;
 
     for (quint32 fxID : m_selectedFixtures)
     {
@@ -573,13 +572,13 @@ void ContextManager::setFixturesOffset(qreal x, qreal y)
                 newPos = QVector3D(currPos.x() + x, currPos.y(), currPos.z() + y);
             break;
             case MonitorProperties::RightSideView:
-                newPos = QVector3D(currPos.x(), currPos.y() + y, (mProps->gridSize().z() * gridUnits) - (currPos.z() + x));
+                newPos = QVector3D(currPos.x(), currPos.y() + y, currPos.z() - x);
             break;
             case MonitorProperties::LeftSideView:
                 newPos = QVector3D(currPos.x(), currPos.y() + y, currPos.z() + x);
             break;
             default:
-                newPos = QVector3D(currPos.x() + x, (mProps->gridSize().y() * gridUnits) - (currPos.y() + y), currPos.z());
+                newPos = QVector3D(currPos.x() + x, currPos.y() - y, currPos.z());
             break;
         }
 

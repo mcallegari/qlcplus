@@ -114,7 +114,6 @@ bool MainView2D::initialize2DProperties()
     return true;
 }
 
-
 void MainView2D::createFixtureItem(quint32 fxID, QVector3D pos, bool mmCoords)
 {
     if (isEnabled() == false)
@@ -385,6 +384,25 @@ void MainView2D::updateFixture(Fixture *fixture)
     }
 }
 
+void MainView2D::selectFixture(QQuickItem *fxItem, bool enable)
+{
+    if (fxItem == NULL)
+        return;
+
+    fxItem->setProperty("isSelected", enable);
+
+    if (enable)
+    {
+        QQuickItem *dragArea = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("contentsDragArea"));
+        if (dragArea)
+            fxItem->setParentItem(dragArea);
+    }
+    else
+    {
+        fxItem->setParentItem(m_contents2D);
+    }
+}
+
 void MainView2D::updateFixtureSelection(QList<quint32> fixtures)
 {
     QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
@@ -392,11 +410,12 @@ void MainView2D::updateFixtureSelection(QList<quint32> fixtures)
     {
         it.next();
         quint32 fxID = it.key();
-        QQuickItem *fxItem = it.value();
+        bool enable = false;
+
         if(fixtures.contains(fxID))
-            fxItem->setProperty("isSelected", true);
-        else
-            fxItem->setProperty("isSelected", false);
+            enable = true;
+
+        selectFixture(it.value(), enable);
     }
 }
 
@@ -405,21 +424,7 @@ void MainView2D::updateFixtureSelection(quint32 fxID, bool enable)
     if (isEnabled() == false || m_itemsMap.contains(fxID) == false)
         return;
 
-    QQuickItem *fxItem = m_itemsMap[fxID];
-    fxItem->setProperty("isSelected", enable);
-
-    if (enable)
-    {
-
-        QQuickItem *dragArea = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("contentsDragArea"));
-        if (dragArea)
-        {
-            qDebug() << "Reparenting fixture" << fxID << "to drag area";
-            fxItem->setParentItem(dragArea);
-        }
-    }
-    else
-        fxItem->setParentItem(m_contents2D);
+    selectFixture(m_itemsMap[fxID], enable);
 }
 
 void MainView2D::updateFixtureRotation(quint32 fxID, QVector3D degrees)
@@ -542,9 +547,8 @@ void MainView2D::setPointOfView(int pointOfView)
 
     setGridSize(m_monProps->gridSize());
 
-    slotRefreshView();
-    //for (Fixture *fixture : m_doc->fixtures())
-    //    updateFixturePosition(fixture->id(), m_monProps->fixturePosition(fixture->id()));
+    for (Fixture *fixture : m_doc->fixtures())
+        updateFixturePosition(fixture->id(), m_monProps->fixturePosition(fixture->id()));
 }
 
 

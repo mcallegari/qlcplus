@@ -167,7 +167,7 @@ public:
     /** Sets the position of the Fixture with the provided $fxID */
     Q_INVOKABLE void setFixturePosition(quint32 fxID, qreal x, qreal y, qreal z);
 
-    /** Adds an offset to the selected Fixture positions. This is called only by the 2D view */
+    /** Adds an offset (in mm) to the selected Fixture positions. This is called only by the 2D view */
     Q_INVOKABLE void setFixturesOffset(qreal x, qreal y);
 
     /** Set/Get the position of the currently selected fixtures */
