@@ -912,7 +912,7 @@ QVariantList FixtureManager::fixturesMap()
             if (group == QLCChannel::Intensity)
                 m_fixturesMap.append(fx->channel(cn)->colour());
             else
-                m_fixturesMap.append(group - 1);
+                m_fixturesMap.append(group);
         }
         odd = !odd;
 

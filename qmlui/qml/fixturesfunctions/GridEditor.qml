@@ -257,7 +257,7 @@ Rectangle
                         subIndex = 0
                         isOdd = gridData[idx + 2]
                     }
-                    //console.log("Item ID: " + gridData[idx] + ", subIndex: " + gridData[idx + 1]);
+                    //console.log("Item ID: " + gridData[idx] + ", subIndex: " + gridData[idx + 1] + ", type: " + gridData[idx + 3]);
                     if (checkIconCache(gridData[idx], subIndex, gridData[idx + 3]) === true)
                         needRepaint = true
 
