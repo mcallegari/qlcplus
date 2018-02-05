@@ -12,17 +12,17 @@
  <Channel Name="LED1-ManCol-Red">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">0-100%</Capability>
+  <Capability Min="0" Max="255" Color="#ff0000">0-100% Intensity</Capability>
  </Channel>
  <Channel Name="LED1-ManCol-Green">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00aa00">0-100%</Capability>
+  <Capability Min="0" Max="255" Color="#00aa00">0-100% Intensity</Capability>
  </Channel>
  <Channel Name="LED1-ManCol-Blue">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255">0-100% Intensity</Capability>
  </Channel>
  <Channel Name="LED1-Strobe/Sound">
   <Group Byte="0">Speed</Group>
@@ -33,17 +33,17 @@
  <Channel Name="LED2-ManCol-Red">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">0-100%</Capability>
+  <Capability Min="0" Max="255" Color="#ff0000">0-100% Intensity</Capability>
  </Channel>
  <Channel Name="LED2-ManCol-Green">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00aa00">0-100%</Capability>
+  <Capability Min="0" Max="255" Color="#00aa00">0-100% Intensity</Capability>
  </Channel>
  <Channel Name="LED2-ManCol-Blue">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255">0-100% Intensity</Capability>
  </Channel>
  <Channel Name="LED2-Strobe/Sound">
   <Group Byte="0">Speed</Group>
@@ -54,17 +54,17 @@
  <Channel Name="LED3-ManCol-Red">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">0-100%</Capability>
+  <Capability Min="0" Max="255" Color="#ff0000">0-100% Intensity</Capability>
  </Channel>
  <Channel Name="LED3-ManCol-Green">
   <Group Byte="0">Intensity</Group>
   <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00aa00">0-100%</Capability>
+  <Capability Min="0" Max="255" Color="#00aa00">0-100% Intensity</Capability>
  </Channel>
  <Channel Name="LED3-ManCol-Blue">
   <Group Byte="0">Intensity</Group>
   <Colour>Blue</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255">0-100% Intensity</Capability>
  </Channel>
  <Channel Name="LED3-Strobe/Sound">
   <Group Byte="0">Speed</Group>
@@ -100,25 +100,25 @@
  <Channel Name="LED1-ManCol-White">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255">0-100% Intensity</Capability>
  </Channel>
  <Channel Name="LED2-ManCol-White">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255">0-100% Intensity</Capability>
  </Channel>
  <Channel Name="LED3-ManCol-White">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
-  <Capability Min="0" Max="255"></Capability>
+  <Capability Min="0" Max="255">0-100% Intensity</Capability>
  </Channel>
- <Mode Name="19Ch Mode">
+ <Mode Name="19 channel">
   <Physical>
-   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="0" Width="0" Height="0" Depth="0"/>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="8.6" Width="266" Height="319" Depth="419"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+   <Focus Type="Fixed" PanMax="360" TiltMax="0"/>
+   <Technical PowerConsumption="7" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">LED1-ManCol-Red</Channel>
   <Channel Number="1">LED1-ManCol-Green</Channel>
