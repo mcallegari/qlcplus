@@ -35,6 +35,7 @@ CustomPopupDialog
         GridLayout
         {
             columnSpacing: UISettings.iconSizeMedium
+
             Image
             {
                 source: "qrc:/qlcplus.svg"
@@ -46,13 +47,15 @@ CustomPopupDialog
             Text
             {
                 color: UISettings.fgMain
+                linkColor: "#8AC800"
                 font.family: UISettings.robotoFontName
                 font.pixelSize: UISettings.textSizeDefault
                 text: "<h3>" + qlcplus.appName + "<br>" + qlcplus.appVersion + "</h3>\n" +
-                      "Copyright Ⓒ <b>Heikki Junnila, Massimo Callegari</b><br>" +
-                      "Website: <a href='http://www.qlcplus.org'>http://www.qlcplus.org</a><br><br>" +
-                      "This application is licensed under the terms<br>of the <a href='https://www.apache.org/licenses/LICENSE-2.0'>Apache 2.0 license</a>."
-                linkColor: "#8AC800"
+                      "Copyright Ⓒ <b>Heikki Junnila, Massimo Callegari</b> " + qsTr("and contributors") + "<br>" +
+                      qsTr("Website") + ": <a href='http://www.qlcplus.org'>http://www.qlcplus.org</a><br><br>" +
+                      qsTr("This application is licensed under the terms of the") +
+                      " <a href='https://www.apache.org/licenses/LICENSE-2.0'>" +
+                      qsTr("Apache 2.0 license") + "</a>."
                 onLinkActivated: Qt.openUrlExternally(link)
 
                 MouseArea
