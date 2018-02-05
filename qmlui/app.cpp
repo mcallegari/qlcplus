@@ -90,6 +90,16 @@ App::~App()
 
 }
 
+QString App::appName() const
+{
+    return QString(APPNAME);
+}
+
+QString App::appVersion() const
+{
+    return QString(APPVERSION);
+}
+
 void App::startup()
 {
     qmlRegisterType<Fixture>("org.qlcplus.classes", 1, 0, "Fixture");

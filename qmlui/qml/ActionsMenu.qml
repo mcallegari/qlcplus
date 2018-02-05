@@ -347,6 +347,24 @@ Popup
                 qlcplus.toggleFullscreen()
             }
         }
+
+        ContextMenuEntry
+        {
+            id: info
+            imgSource: "qrc:/info.svg"
+            entryText: qsTr("About")
+            onEntered: submenuItem = null
+            onClicked:
+            {
+                menuRoot.close()
+                infoPopup.open()
+            }
+
+            PopupAbout
+            {
+                id: infoPopup
+            }
+        }
     }
 }
 

@@ -53,9 +53,15 @@ class App : public QQuickView
     Q_PROPERTY(QString workingPath READ workingPath WRITE setWorkingPath NOTIFY workingPathChanged)
     Q_PROPERTY(int accessMask READ accessMask WRITE setAccessMask NOTIFY accessMaskChanged)
 
+    Q_PROPERTY(QString appName READ appName CONSTANT)
+    Q_PROPERTY(QString appVersion READ appVersion CONSTANT)
+
 public:
     App();
     ~App();
+
+    QString appName() const;
+    QString appVersion() const;
 
     enum MouseEvents
     {
