@@ -39,7 +39,6 @@ class QXmlStreamWriter;
  */
 
 #define KXMLQLCChannel          QString("Channel")
-#define KXMLQLCChannelNumber    QString("Number")
 #define KXMLQLCChannelName      QString("Name")
 #define KXMLQLCChannelGroup     QString("Group")
 #define KXMLQLCChannelGroupByte QString("Byte")
@@ -68,14 +67,15 @@ class QXmlStreamWriter;
  * fixture modes. Instead, a QLCFixtureMode defines the actual channel number
  * for each of its QLCChannels.
  */
-class QLCChannel
+class QLCChannel : public QObject
 {
+    Q_OBJECT
+
 public:
     /** Standard constructor */
-    QLCChannel();
+    QLCChannel(QObject *parent = 0);
 
-    /** Copy constructor */
-    QLCChannel(const QLCChannel* channel);
+    QLCChannel *createCopy();
 
     /** Destructor */
     ~QLCChannel();
@@ -87,6 +87,90 @@ public:
      * The invalid channel number (for comparison etc...)
      */
     static quint32 invalid();
+
+    /*********************************************************************
+     * Presets
+     *********************************************************************/
+public:
+    enum Preset
+    {
+        Custom = 0,
+        IntensityMasterDimmer,
+        IntensityMasterDimmerFine,
+        IntensityDimmer,
+        IntensityDimmerFine,
+        IntensityRed,
+        IntensityRedFine,
+        IntensityGreen,
+        IntensityGreenFine,
+        IntensityBlue,
+        IntensityBlueFine,
+        IntensityCyan,
+        IntensityCyanFine,
+        IntensityMagenta,
+        IntensityMagentaFine,
+        IntensityYellow,
+        IntensityYellowFine,
+        IntensityAmber,
+        IntensityAmberFine,
+        IntensityWhite,
+        IntensityWhiteFine,
+        IntensityUV,
+        IntensityUVFine,
+        IntensityIndigo,
+        IntensityIndigoFine,
+        IntensityLime,
+        IntensityLimeFine,
+        IntensityHue,
+        IntensityHueFine,
+        IntensitySaturation,
+        IntensitySaturationFine,
+        IntensityLightness,
+        IntensityLightnessFine,
+        IntensityValue,
+        IntensityValueFine,
+        PositionPan,
+        PositionPanFine,
+        PositionTilt,
+        PositionTiltFine,
+        PositionXAxis,
+        PositionYAxis,
+        SpeedPanSlowFast,
+        SpeedPanFastSlow,
+        SpeedTiltSlowFast,
+        SpeedTiltFastSlow,
+        SpeedPanTiltSlowFast,
+        SpeedPanTiltFastSlow,
+        ColorMacro,
+        ColorWheel,
+        ColorCTOMixer,
+        ColorCTBMixer,
+        GoboWheel,
+        GoboIndex,
+        GoboIndexFine,
+        ShutterStrobeSlowFast,
+        ShutterStrobeFastSlow,
+        BeamFocusNearFar,
+        BeamFocusFarNear,
+        BeamIris,
+        BeamIrisFine,
+        BeamZoomSmallBig,
+        BeamZoomBigSmall,
+        PrismRotationSlowFast,
+        PrismRotationFastSlow,
+        NoFunction,
+        LastPreset // dummy for cycles
+    };
+
+    static QString presetToString(Preset preset);
+
+    Preset preset() const;
+    void setPreset(Preset preset);
+
+    QLCCapability *addPresetCapability();
+
+protected:
+    Preset m_preset;
 
     /*********************************************************************
      * Groups

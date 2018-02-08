@@ -631,14 +631,14 @@ void VCSliderProperties::slotLevelByGroupClicked()
 
         for(quint32 i = 0; i < fixture->channels(); i++)
         {
-            QLCChannel channel = fixture->channel(i);
+            const QLCChannel *channel = fixture->channel(i);
 
-            QString property = QLCChannel::groupToString(channel.group());
+            QString property = QLCChannel::groupToString(channel->group());
 
-            if (channel.group() == QLCChannel::Intensity &&
-                channel.colour() != QLCChannel::NoColour)
+            if (channel->group() == QLCChannel::Intensity &&
+                channel->colour() != QLCChannel::NoColour)
             {
-                property = QLCChannel::colourToString(channel.colour());
+                property = QLCChannel::colourToString(channel->colour());
             }
 
             if (groups.contains(property) == false)

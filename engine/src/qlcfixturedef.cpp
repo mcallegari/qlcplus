@@ -75,7 +75,7 @@ QLCFixtureDef& QLCFixtureDef::operator=(const QLCFixtureDef& fixture)
 
         /* Copy channels from the other fixture */
         while (chit.hasNext() == true)
-            m_channels.append(new QLCChannel(chit.next()));
+            m_channels.append(chit.next()->createCopy());
 
         /* Clear all modes */
         while (m_modes.isEmpty() == false)
