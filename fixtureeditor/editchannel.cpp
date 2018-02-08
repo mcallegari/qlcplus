@@ -91,9 +91,20 @@ void EditChannel::init()
     connect(m_nameEdit, SIGNAL(textEdited(const QString&)),
             this, SLOT(slotNameChanged(const QString&)));
 
+    /* Get available presets and insert them into the groups combo */
+    m_presetCombo->addItem(QIcon(":/edit.png"), "Custom");
+    for (int i = QLCChannel::Custom + 1; i < QLCChannel::LastPreset; i++)
+    {
+        QLCChannel ch;
+        ch.setPreset(QLCChannel::Preset(i));
+        m_presetCombo->addItem(ch.getIcon(), ch.name());
+    }
+
+    connect(m_presetCombo, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(slotPresetActivated(int)));
+
     /* Get available groups and insert them into the groups combo */
     m_groupCombo->addItems(QLCChannel::groupList());
-    m_groupCombo->setIconSize(QSize(24, 24));
     for (int i = 0; i < m_groupCombo->count(); i++)
     {
         QLCChannel ch;
@@ -121,7 +132,6 @@ void EditChannel::init()
 
     /* Get available colours and insert them into the colour combo */
     m_colourCombo->addItems(QLCChannel::colourList());
-    m_colourCombo->setIconSize(QSize(24, 24));
     for (int i = 0; i < m_colourCombo->count(); i++)
     {
         QLCChannel ch;
@@ -240,14 +250,64 @@ void EditChannel::slotNameChanged(const QString& name)
     m_channel->setName(name.simplified());
 }
 
+void EditChannel::slotPresetActivated(int index)
+{
+    bool enable = index == 0 ? true : false;
+
+    m_groupCombo->setEnabled(enable);
+    m_colourCombo->setEnabled(enable);
+    m_controlByteGroup->setEnabled(enable);
+    m_capabilityList->setEnabled(enable);
+    m_addCapabilityButton->setEnabled(enable);
+
+    if (index != 0)
+        m_channel->setName("");
+
+    m_channel->setPreset(QLCChannel::Preset(index));
+
+    if (index == 0)
+        return;
+
+    m_nameEdit->setText(m_channel->name());
+
+    /* Select the channel's group */
+    for (int i = 0; i < m_groupCombo->count(); i++)
+    {
+        if (m_groupCombo->itemText(i) == QLCChannel::groupToString(m_channel->group()))
+        {
+            m_groupCombo->setCurrentIndex(i);
+            slotGroupActivated(QLCChannel::groupToString(m_channel->group()));
+            break;
+        }
+    }
+
+    /* Select the channel's colour */
+    for (int i = 0; i < m_colourCombo->count(); i++)
+    {
+        if (m_colourCombo->itemText(i) == QLCChannel::colourToString(m_channel->colour()))
+        {
+            m_colourCombo->setCurrentIndex(i);
+            slotColourActivated(QLCChannel::colourToString(m_channel->colour()));
+            break;
+        }
+    }
+
+    foreach(QLCCapability *cap, m_channel->capabilities())
+        m_channel->removeCapability(cap);
+
+    m_channel->addPresetCapability();
+
+    refreshCapabilities();
+}
+
 void EditChannel::slotGroupActivated(const QString& group)
 {
     m_channel->setGroup(QLCChannel::stringToGroup(group));
 
-    if (m_channel->controlByte() == 0)
-        m_msbRadio->click();
+    if (m_channel->controlByte() == QLCChannel::MSB)
+        m_msbRadio->setChecked(true);
     else
-        m_lsbRadio->click();
+        m_lsbRadio->setChecked(true);
 
     if (m_channel->group() == QLCChannel::Intensity)
     {
@@ -504,7 +564,6 @@ void EditChannel::slotColor2ButtonPressed()
     m_resourceButton->setIcon(pix);
     m_currentCapability->setResourceColors(firstColor, color);
 }
-
 
 void EditChannel::refreshCapabilities()
 {
