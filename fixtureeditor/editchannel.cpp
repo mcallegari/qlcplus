@@ -49,16 +49,16 @@
 #define COL_MAX  1
 #define COL_NAME 2
 
-EditChannel::EditChannel(QWidget* parent, QLCChannel* channel)
+EditChannel::EditChannel(QWidget *parent, QLCChannel *channel)
     : QDialog(parent)
 {
-    m_channel = new QLCChannel(channel);
+    m_channel = channel ? channel->createCopy() : new QLCChannel();
     m_currentCapability = NULL;
 
     setupUi(this);
     init();
 
-    QAction* action = new QAction(this);
+    QAction *action = new QAction(this);
     action->setShortcut(QKeySequence(QKeySequence::Close));
     connect(action, SIGNAL(triggered(bool)), this, SLOT(reject()));
     addAction(action);
@@ -97,7 +97,17 @@ void EditChannel::init()
     {
         QLCChannel ch;
         ch.setPreset(QLCChannel::Preset(i));
-        m_presetCombo->addItem(ch.getIcon(), ch.name());
+        m_presetCombo->addItem(ch.getIcon(), ch.name() + " (" + ch.presetToString(QLCChannel::Preset(i)) + ")");
+    }
+
+    if (m_channel->preset() != QLCChannel::Custom)
+    {
+        m_groupCombo->setEnabled(false);
+        m_colourCombo->setEnabled(false);
+        m_controlByteGroup->setEnabled(false);
+        m_capabilityList->setEnabled(false);
+        m_addCapabilityButton->setEnabled(false);
+        m_presetCombo->setCurrentIndex(m_channel->preset());
     }
 
     connect(m_presetCombo, SIGNAL(currentIndexChanged(int)),
@@ -245,6 +255,11 @@ void EditChannel::setupCapabilityGroup()
     }
 }
 
+QLCChannel *EditChannel::channel()
+{
+    return m_channel;
+}
+
 void EditChannel::slotNameChanged(const QString& name)
 {
     m_channel->setName(name.simplified());
@@ -346,7 +361,7 @@ void EditChannel::slotColourActivated(const QString& colour)
  * Capability list functions
  ****************************************************************************/
 
-void EditChannel::slotCapabilityListSelectionChanged(QTreeWidgetItem* item)
+void EditChannel::slotCapabilityListSelectionChanged(QTreeWidgetItem *item)
 {
     if (item == NULL)
         m_removeCapabilityButton->setEnabled(false);
@@ -372,7 +387,7 @@ void EditChannel::slotAddCapabilityClicked()
         idx++;
     }
 
-    QLCCapability* newCapability = new QLCCapability();
+    QLCCapability *newCapability = new QLCCapability();
     newCapability->setMin(minFound);
     newCapability->setMax(maxFound);
     if (m_channel->addCapability(newCapability) == false)
@@ -389,8 +404,8 @@ void EditChannel::slotAddCapabilityClicked()
 
 void EditChannel::slotRemoveCapabilityClicked()
 {
-    QTreeWidgetItem* item;
-    QTreeWidgetItem* next;
+    QTreeWidgetItem *item;
+    QTreeWidgetItem *next;
 
     item = m_capabilityList->currentItem();
     if (item == NULL)
@@ -440,7 +455,7 @@ void EditChannel::slotWizardClicked()
         QListIterator <QLCCapability*> it(cw.capabilities());
         while (it.hasNext() == true)
         {
-            QLCCapability* cap = it.next()->createCopy();
+            QLCCapability *cap = it.next()->createCopy();
             if (m_channel->addCapability(cap) == false)
             {
                 delete cap;
@@ -621,10 +636,10 @@ void EditChannel::refreshCapabilities()
     slotCapabilityListSelectionChanged(m_capabilityList->currentItem());
 }
 
-QLCCapability* EditChannel::currentCapability()
+QLCCapability *EditChannel::currentCapability()
 {
-    QTreeWidgetItem* item;
-    QLCCapability* cap = NULL;
+    QTreeWidgetItem *item;
+    QLCCapability *cap = NULL;
 
     // Convert the string-form ulong to a QLCChannel pointer and return it
     item = m_capabilityList->currentItem();

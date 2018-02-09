@@ -328,7 +328,7 @@ void QLCFixtureDef_Test::saveLoadXML()
     def->setModel("Xyzzy");
     def->setType(QLCFixtureDef::Other);
 
-    QLCChannel* ch = new QLCChannel;
+    QLCChannel* ch = new QLCChannel();
     ch->setName("Whatever");
     def->addChannel(ch);
 

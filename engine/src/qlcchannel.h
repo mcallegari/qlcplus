@@ -40,6 +40,7 @@ class QXmlStreamWriter;
 
 #define KXMLQLCChannel          QString("Channel")
 #define KXMLQLCChannelName      QString("Name")
+#define KXMLQLCChannelPreset    QString("Preset")
 #define KXMLQLCChannelGroup     QString("Group")
 #define KXMLQLCChannelGroupByte QString("Byte")
 #define KXMLQLCChannelColour    QString("Colour")
@@ -161,8 +162,13 @@ public:
         NoFunction,
         LastPreset // dummy for cycles
     };
-
+#if QT_VERSION >= 0x050500
+    Q_ENUM(Preset)
+#else
+    Q_ENUMS(Preset)
+#endif
     static QString presetToString(Preset preset);
+    static Preset stringToPreset(const QString &preset);
 
     Preset preset() const;
     void setPreset(Preset preset);

@@ -53,9 +53,9 @@
 #define SETTINGS_OPENDIALOGSTATE "workspace/opendialog"
 #define SETTINGS_WORKINGPATH "workspace/workingpath"
 
-App* _app;
+App *_app;
 
-App::App(QWidget* parent) : QMainWindow(parent)
+App::App(QWidget *parent) : QMainWindow(parent)
 {
     _app = this;
 
@@ -117,7 +117,7 @@ QString App::version()
 
 void App::loadFixtureDefinition(const QString& path)
 {
-    QLCFixtureDef* fixtureDef = NULL;
+    QLCFixtureDef *fixtureDef = NULL;
 
     /* Attempt to create a fixture definition from the selected file */
     QString error(tr("Unrecognized file extension: %1").arg(path));
@@ -132,8 +132,8 @@ void App::loadFixtureDefinition(const QString& path)
     {
         /* Create a new sub window and put a fixture editor widget
            in that sub window with the newly-created fixture def */
-        QMdiSubWindow* sub = new QMdiSubWindow(centralWidget());
-        QLCFixtureEditor* editor = new QLCFixtureEditor(sub, fixtureDef, path);
+        QMdiSubWindow *sub = new QMdiSubWindow(centralWidget());
+        QLCFixtureEditor *editor = new QLCFixtureEditor(sub, fixtureDef, path);
 
         sub->setWidget(editor);
         sub->setAttribute(Qt::WA_DeleteOnClose);
@@ -149,9 +149,9 @@ void App::loadFixtureDefinition(const QString& path)
     }
 }
 
-QLCFixtureDef* App::loadQXF(const QString& path, QString& errorMsg) const
+QLCFixtureDef *App::loadQXF(const QString& path, QString& errorMsg) const
 {
-    QLCFixtureDef* fixtureDef = new QLCFixtureDef;
+    QLCFixtureDef *fixtureDef = new QLCFixtureDef;
     Q_ASSERT(fixtureDef != NULL);
 
     QFile::FileError error = fixtureDef->loadXML(path);
@@ -165,9 +165,9 @@ QLCFixtureDef* App::loadQXF(const QString& path, QString& errorMsg) const
     return fixtureDef;
 }
 
-QLCFixtureDef* App::loadD4(const QString& path, QString& errorMsg) const
+QLCFixtureDef *App::loadD4(const QString& path, QString& errorMsg) const
 {
-    QLCFixtureDef* fixtureDef = new QLCFixtureDef;
+    QLCFixtureDef *fixtureDef = new QLCFixtureDef;
 
     AvolitesD4Parser parser;
     if (parser.loadXML(path, fixtureDef) == false)
@@ -180,7 +180,7 @@ QLCFixtureDef* App::loadD4(const QString& path, QString& errorMsg) const
     return fixtureDef;
 }
 
-void App::closeEvent(QCloseEvent* e)
+void App::closeEvent(QCloseEvent *e)
 {
     /* Accept the close event by default */
     e->accept();
@@ -189,8 +189,8 @@ void App::closeEvent(QCloseEvent* e)
         qobject_cast<QMdiArea*> (centralWidget())->subWindowList());
     while (it.hasNext() == true)
     {
-        QLCFixtureEditor* editor;
-        QMdiSubWindow* sub;
+        QLCFixtureEditor *editor;
+        QMdiSubWindow *sub;
 
         sub = it.next();
         Q_ASSERT(sub != NULL);
@@ -214,19 +214,19 @@ void App::closeEvent(QCloseEvent* e)
  * Copy channel
  *****************************************************************************/
 
-void App::setCopyChannel(QLCChannel* ch)
+void App::setCopyChannel(QLCChannel *ch)
 {
     if (m_copyChannel != NULL)
         delete m_copyChannel;
     m_copyChannel = NULL;
 
     if (ch != NULL)
-        m_copyChannel = new QLCChannel(ch);
+        m_copyChannel = ch->createCopy();
 
     emit clipboardChanged();
 }
 
-QLCChannel* App::copyChannel() const
+QLCChannel *App::copyChannel() const
 {
     return m_copyChannel;
 }
@@ -334,8 +334,8 @@ void App::initMenuBar()
 
 void App::slotFileNew()
 {
-    QLCFixtureEditor* editor;
-    QMdiSubWindow* sub;
+    QLCFixtureEditor *editor;
+    QMdiSubWindow *sub;
 
     sub = new QMdiSubWindow(centralWidget());
     editor = new QLCFixtureEditor(sub, new QLCFixtureDef());
@@ -390,8 +390,8 @@ void App::slotFileOpen()
 
 void App::slotFileSave()
 {
-    QLCFixtureEditor* editor;
-    QMdiSubWindow* sub;
+    QLCFixtureEditor *editor;
+    QMdiSubWindow *sub;
 
     sub = (qobject_cast<QMdiArea*> (centralWidget()))->activeSubWindow();
     if (sub == NULL)
@@ -406,8 +406,8 @@ void App::slotFileSave()
 
 void App::slotFileSaveAs()
 {
-    QLCFixtureEditor* editor;
-    QMdiSubWindow* sub;
+    QLCFixtureEditor *editor;
+    QMdiSubWindow *sub;
 
     sub = (qobject_cast<QMdiArea*> (centralWidget()))->activeSubWindow();
     if (sub == NULL)

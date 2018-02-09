@@ -20,6 +20,7 @@
 
 #include <QCoreApplication>
 #include <QXmlStreamReader>
+#include <QMetaEnum>
 #include <QString>
 #include <QDebug>
 #include <QFile>
@@ -40,7 +41,7 @@ QLCCapability::QLCCapability(uchar min, uchar max, const QString& name,
     , m_min(min)
     , m_max(max)
     , m_name(name)
-    , m_resourceName(resource)
+    , m_resource(resource)
     , m_resourceColor1(color1)
     , m_resourceColor2(color2)
 {
@@ -48,7 +49,7 @@ QLCCapability::QLCCapability(uchar min, uchar max, const QString& name,
 
 QLCCapability *QLCCapability::createCopy()
 {
-    QLCCapability* copy = new QLCCapability(m_min, m_max, m_name, m_resourceName,
+    QLCCapability *copy = new QLCCapability(m_min, m_max, m_name, m_resource,
                                             m_resourceColor1, m_resourceColor2);
     return copy;
 }
@@ -64,7 +65,7 @@ QLCCapability& QLCCapability::operator=(const QLCCapability& capability)
         m_min = capability.m_min;
         m_max = capability.m_max;
         m_name = capability.m_name;
-        m_resourceName = capability.m_resourceName;
+        m_resource = capability.m_resource;
         m_resourceColor1 = capability.m_resourceColor1;
         m_resourceColor2 = capability.m_resourceColor2;
     }
@@ -78,6 +79,31 @@ bool QLCCapability::operator<(const QLCCapability& capability) const
         return true;
     else
         return false;
+}
+
+QString QLCCapability::presetToString(QLCCapability::Preset preset)
+{
+    int index = staticMetaObject.indexOfEnumerator("Preset");
+    return staticMetaObject.enumerator(index).valueToKey(preset);
+}
+
+QLCCapability::Preset QLCCapability::stringToPreset(const QString &preset)
+{
+    int index = staticMetaObject.indexOfEnumerator("Preset");
+    return Preset(staticMetaObject.enumerator(index).keyToValue(preset.toStdString().c_str()));
+}
+
+QLCCapability::Preset QLCCapability::preset() const
+{
+    return m_preset;
+}
+
+void QLCCapability::setPreset(QLCCapability::Preset preset)
+{
+    if (preset == m_preset)
+        return;
+
+    m_preset = preset;
 }
 
 /************************************************************************
@@ -121,12 +147,12 @@ void QLCCapability::setName(const QString& name)
 
 QString QLCCapability::resourceName()
 {
-    return m_resourceName;
+    return m_resource;
 }
 
 void QLCCapability::setResourceName(const QString& name)
 {
-    m_resourceName = name;
+    m_resource = name;
     // invalidate any previous color set
     m_resourceColor1 = QColor();
     m_resourceColor2 = QColor();
@@ -147,7 +173,7 @@ void QLCCapability::setResourceColors(QColor col1, QColor col2)
     m_resourceColor1 = col1;
     m_resourceColor2 = col2;
     // invalidate any previous resource path set
-    m_resourceName = "";
+    m_resource = "";
 }
 
 bool QLCCapability::overlaps(const QLCCapability *cap)
@@ -180,9 +206,9 @@ bool QLCCapability::saveXML(QXmlStreamWriter *doc)
     doc->writeAttribute(KXMLQLCCapabilityMax, QString::number(m_max));
 
     /* Resource file attribute */
-    if (m_resourceName.isEmpty() == false)
+    if (m_resource.isEmpty() == false)
     {
-        QString modFilename = m_resourceName;
+        QString modFilename = m_resource;
         QDir dir = QDir::cleanPath(QLCFile::systemDirectory(GOBODIR).path());
 
         if (modFilename.contains(dir.path()))

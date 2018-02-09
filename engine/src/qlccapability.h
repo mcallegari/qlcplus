@@ -87,6 +87,45 @@ public:
      * Properties
      ********************************************************************/
 public:
+    enum Preset
+    {
+        Custom = 0,
+        SlowToFast,
+        FastToSlow,
+        StrobeSlowToFast,
+        StrobeFastToSlow,
+        PulseSlowToFast,
+        PulseFastToSlow,
+        NearToFar,
+        FarToNear,
+        BigToSmall,
+        SmallToBig,
+        Continuous, // for continuous tilt
+        ShutterOpen,
+        ShutterClose,
+        ShutterFreq, // precise frequency value in hertz specified in m_resource
+        ShutterFreqRange, // specified in m_resource as "min-max" hertz
+        Alias
+    };
+#if QT_VERSION >= 0x050500
+    Q_ENUM(Preset)
+#else
+    Q_ENUMS(Preset)
+#endif
+
+    static QString presetToString(Preset preset);
+    static Preset stringToPreset(const QString &preset);
+
+    Preset preset() const;
+    void setPreset(Preset preset);
+
+protected:
+    Preset m_preset;
+
+    /********************************************************************
+     * Properties
+     ********************************************************************/
+public:
     uchar min() const;
     void setMin(uchar value);
 
@@ -112,7 +151,7 @@ protected:
     uchar m_min;
     uchar m_max;
     QString m_name;
-    QString m_resourceName;
+    QString m_resource;
     QColor m_resourceColor1;
     QColor m_resourceColor2;
 

@@ -64,27 +64,27 @@ QLCChannel::QLCChannel(QObject *parent)
     , m_colour(NoColour)
 {
 }
-/*
-QLCChannel::QLCChannel(const QLCChannel* channel)
-    : m_group(Intensity)
-    , m_controlByte(MSB)
-    , m_colour(NoColour)
-{
-    if (channel != NULL)
-        *this = *channel;
-}
-*/
+
 QLCChannel *QLCChannel::createCopy()
 {
-    QLCChannel* copy = new QLCChannel();
-    copy->setGroup(this->group());
-    copy->setControlByte(this->controlByte());
-    copy->setColour(this->colour());
-    copy->setName(this->name());
+    QLCChannel *copy = new QLCChannel();
+    copy->setPreset(this->preset());
+    if (this->preset() != Custom)
+    {
+        copy->addPresetCapability();
+    }
+    else
+    {
+        copy->setGroup(this->group());
+        copy->setControlByte(this->controlByte());
+        copy->setColour(this->colour());
+        copy->setName(this->name());
 
-    QListIterator<QLCCapability*> it(this->capabilities());
-    while (it.hasNext() == true)
-        copy->addCapability(it.next()->createCopy());
+        QListIterator<QLCCapability*> it(this->capabilities());
+        while (it.hasNext() == true)
+            copy->addCapability(it.next()->createCopy());
+    }
+
 
     return copy;
 }
@@ -102,6 +102,7 @@ QLCChannel& QLCChannel::operator=(const QLCChannel& channel)
         QListIterator<QLCCapability*> it(channel.m_capabilities);
 
         m_name = channel.m_name;
+        m_preset = channel.m_preset;
         m_group = channel.m_group;
         m_controlByte = channel.m_controlByte;
         m_colour = channel.m_colour;
@@ -131,6 +132,12 @@ QString QLCChannel::presetToString(QLCChannel::Preset preset)
 {
     int index = staticMetaObject.indexOfEnumerator("Preset");
     return staticMetaObject.enumerator(index).valueToKey(preset);
+}
+
+QLCChannel::Preset QLCChannel::stringToPreset(const QString &preset)
+{
+    int index = staticMetaObject.indexOfEnumerator("Preset");
+    return Preset(staticMetaObject.enumerator(index).keyToValue(preset.toStdString().c_str()));
 }
 
 QLCChannel::Preset QLCChannel::preset() const
@@ -489,7 +496,7 @@ QLCCapability *QLCChannel::addPresetCapability()
             cap->setName("Tilt (Fast to slow)"); // TODO: replace with a preset
         break;
         case SpeedPanTiltSlowFast:
-            cap->setName("Pan and tilt (Fast to slow)"); // TODO: replace with a preset
+            cap->setName("Pan and tilt (Slow to fast)"); // TODO: replace with a preset
         break;
         case SpeedPanTiltFastSlow:
             cap->setName("Pan and tilt (Fast to slow)"); // TODO: replace with a preset
@@ -988,6 +995,13 @@ bool QLCChannel::saveXML(QXmlStreamWriter *doc) const
     doc->writeStartElement(KXMLQLCChannel);
     doc->writeAttribute(KXMLQLCChannelName, m_name);
 
+    if (m_preset != Custom)
+    {
+        doc->writeAttribute(KXMLQLCChannelPreset, presetToString(m_preset));
+        doc->writeEndElement();
+        return true;
+    }
+
     /* Group */
     doc->writeStartElement(KXMLQLCChannelGroup);
     /* Group control byte */
@@ -1017,11 +1031,20 @@ bool QLCChannel::loadXML(QXmlStreamReader &doc)
         return false;
     }
 
+    QXmlStreamAttributes attrs = doc.attributes();
+
     /* Get channel name */
-    QString str = doc.attributes().value(KXMLQLCChannelName).toString();
+    QString str = attrs.value(KXMLQLCChannelName).toString();
     if (str.isEmpty() == true)
         return false;
     setName(str);
+
+    if (attrs.hasAttribute(KXMLQLCChannelPreset))
+    {
+        str = attrs.value(KXMLQLCChannelPreset).toString();
+        setPreset(stringToPreset(str));
+        addPresetCapability();
+    }
 
     /* Subtags */
     while (doc.readNextStartElement())

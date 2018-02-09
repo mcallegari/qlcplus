@@ -49,9 +49,7 @@ protected:
      *********************************************************************/
 public:
     /** Get the channel that was edited. */
-    QLCChannel* channel() {
-        return m_channel;
-    }
+    QLCChannel* channel();
 
 protected:
     QLCChannel* m_channel;
