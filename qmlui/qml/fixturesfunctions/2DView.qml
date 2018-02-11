@@ -365,8 +365,10 @@ Rectangle
                         }
                         else
                         {
-                            contextManager.resetFixtureSelection()
+                            if (UISettings.justSelected == false)
+                                contextManager.resetFixtureSelection()
                         }
+                        UISettings.justSelected = false
                     }
                 }
             }
