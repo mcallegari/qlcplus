@@ -100,11 +100,17 @@ public:
         FarToNear,
         BigToSmall,
         SmallToBig,
-        Continuous, // for continuous tilt
         ShutterOpen,
         ShutterClose,
-        ShutterFreq, // precise frequency value in hertz specified in m_resource
-        ShutterFreqRange, // specified in m_resource as "min-max" hertz
+        StrobeFreq, // precise frequency value in hertz specified in m_resource
+        StrobeFreqRange, // specified in m_resource as "min-max" hertz
+        PulseFreq,
+        PulseFreqRange,
+        RotationClockwise,
+        RotationCounterClockwise,
+        TiltContinuous,
+        ColorMacro,
+        ColorWheelIndex,
         Alias
     };
 #if QT_VERSION >= 0x050500

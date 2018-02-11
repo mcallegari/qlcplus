@@ -25,8 +25,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>701</width>
-    <height>709</height>
+    <width>730</width>
+    <height>700</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -175,6 +175,12 @@
            <iconset resource="../ui/src/qlcui.qrc">
             <normaloff>:/color.png</normaloff>:/color.png</iconset>
           </property>
+          <property name="iconSize">
+           <size>
+            <width>24</width>
+            <height>24</height>
+           </size>
+          </property>
          </widget>
         </item>
         <item row="3" column="2">
@@ -188,6 +194,12 @@
           <property name="icon">
            <iconset resource="../ui/src/qlcui.qrc">
             <normaloff>:/color.png</normaloff>:/color.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>24</width>
+            <height>24</height>
+           </size>
           </property>
          </widget>
         </item>
