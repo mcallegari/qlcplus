@@ -103,6 +103,18 @@ SidePanel
                 tooltip: qsTr("Enable/Disable blackout on all the output patches")
                 onToggled: ioManager.blackout = checked
             }
+
+            IconButton
+            {
+                id: outputConfigureButton
+                z: 2
+                visible: ioManager.outputCanConfigure
+                width: iconSize
+                height: iconSize
+                imgSource: "qrc:/configure.svg"
+                tooltip: qsTr("Open the plugin configuration")
+                onClicked: ioManager.configurePlugin(false)
+            }
         }
     }
 }

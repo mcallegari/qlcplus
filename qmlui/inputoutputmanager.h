@@ -43,6 +43,9 @@ class InputOutputManager : public PreviewContext
     Q_PROPERTY(QVariant audioOutputDevice READ audioOutputDevice NOTIFY audioOutputDeviceChanged)
     Q_PROPERTY(bool blackout READ blackout WRITE setBlackout NOTIFY blackoutChanged)
 
+    Q_PROPERTY(bool inputCanConfigure READ inputCanConfigure NOTIFY inputCanConfigureChanged)
+    Q_PROPERTY(bool outputCanConfigure READ outputCanConfigure NOTIFY outputCanConfigureChanged)
+
     Q_PROPERTY(QString beatType READ beatType WRITE setBeatType NOTIFY beatTypeChanged)
     Q_PROPERTY(int bpmNumber READ bpmNumber WRITE setBpmNumber NOTIFY bpmNumberChanged)
 
@@ -110,6 +113,15 @@ public:
     Q_INVOKABLE void addInputPatch(int universe, QString plugin, QString line);
     Q_INVOKABLE void removeInputPatch(int universe);
     Q_INVOKABLE void setInputProfile(int universe, QString profileName);
+
+    Q_INVOKABLE void configurePlugin(bool input);
+
+    bool inputCanConfigure() const;
+    bool outputCanConfigure() const;
+
+signals:
+    void inputCanConfigureChanged();
+    void outputCanConfigureChanged();
 
 private:
     void clearInputList();
