@@ -70,6 +70,8 @@ public:
     /** Reset the actions history */
     void resetHistory();
 
+    void forwardActionToNetwork(int code, TardisAction &action);
+
     /** @reimp */
     void run(); // thread run function
 

@@ -129,8 +129,11 @@ enum
     VCWidgetFont,
     VCWidgetPage,
 
+    VCButtonSetFunctionID,
+
     /* Virtual Console live actions */
-    VCButtonSetState = 0xF000,
+    VCButtonSetPressed = 0xF000,
+    VCSliderSetValue,
 
     /* Network protocol actions */
     NetAnnounce = 0xFF00,

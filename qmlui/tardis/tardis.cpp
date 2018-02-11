@@ -33,6 +33,7 @@
 #include "rgbmatrix.h"
 #include "rgbimage.h"
 #include "vcwidget.h"
+#include "vcbutton.h"
 #include "vcframe.h"
 #include "rgbtext.h"
 #include "chaser.h"
@@ -138,12 +139,7 @@ void Tardis::undoAction()
         int code = processAction(action, true);
 
         /* If there are active network connections, send the action there too */
-        if (m_networkManager->connectionsCount())
-        {
-            QMetaObject::invokeMethod(m_networkManager, "sendAction", Qt::QueuedConnection,
-                    Q_ARG(int, code),
-                    Q_ARG(TardisAction, action));
-        }
+        forwardActionToNetwork(code, action);
 
         if (m_historyIndex == -1)
             break;
@@ -175,12 +171,7 @@ void Tardis::redoAction()
         int code = processAction(action, false);
 
         /* If there are active network connections, send the action there too */
-        if (m_networkManager->connectionsCount())
-        {
-            QMetaObject::invokeMethod(m_networkManager, "sendAction", Qt::QueuedConnection,
-                    Q_ARG(int, code),
-                    Q_ARG(TardisAction, action));
-        }
+        forwardActionToNetwork(code, action);
 
         /* Check if I am processing a batch of actions or a single one */
         if (m_historyIndex == m_history.count() - 1 ||
@@ -198,6 +189,16 @@ void Tardis::redoAction()
 void Tardis::resetHistory()
 {
     m_history.clear();
+}
+
+void Tardis::forwardActionToNetwork(int code, TardisAction &action)
+{
+    if (m_networkManager->connectionsCount())
+    {
+        QMetaObject::invokeMethod(m_networkManager, "sendAction", Qt::QueuedConnection,
+                Q_ARG(int, code),
+                Q_ARG(TardisAction, action));
+    }
 }
 
 void Tardis::run()
@@ -221,6 +222,14 @@ void Tardis::run()
                 continue;
 
             action = m_actionsQueue.dequeue();
+        }
+
+        /* VC Live actions don't make history */
+        if (action.m_action >= VCButtonSetPressed)
+        {
+            /* If there are active network connections, send the action there too */
+            forwardActionToNetwork(action.m_action, action);
+            continue;
         }
 
         /* If the history index is halfway, it means I need to remove
@@ -284,12 +293,7 @@ void Tardis::run()
         qDebug("Got action: 0x%02X, history length: %d (%d)", action.m_action, m_historyCount, m_history.count());
 
         /* If there are active network connections, send the action there too */
-        if (m_networkManager->connectionsCount())
-        {
-            QMetaObject::invokeMethod(m_networkManager, "sendAction", Qt::QueuedConnection,
-                    Q_ARG(int, action.m_action),
-                    Q_ARG(TardisAction, action));
-        }
+        forwardActionToNetwork(action.m_action, action);
     }
 }
 
@@ -932,6 +936,20 @@ int Tardis::processAction(TardisAction &action, bool undo)
             member(qobject_cast<VCWidget *>(m_virtualConsole->widget(action.m_objID)), value->value<QFont>());
         }
         break;
+
+        case VCButtonSetFunctionID:
+        {
+            auto member = std::mem_fn(&VCButton::setFunctionID);
+            member(qobject_cast<VCButton *>(m_virtualConsole->widget(action.m_objID)), action.m_newValue.toUInt());
+        }
+        break;
+        case VCButtonSetPressed:
+        {
+            auto member = std::mem_fn(&VCButton::requestStateChange);
+            member(qobject_cast<VCButton *>(m_virtualConsole->widget(action.m_objID)), action.m_newValue.toBool());
+        }
+        break;
+
         default:
             qWarning() << "Action" << action.m_action << "not implemented !";
         break;
