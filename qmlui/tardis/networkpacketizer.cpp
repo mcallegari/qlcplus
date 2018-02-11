@@ -66,6 +66,13 @@ void NetworkPacketizer::addSection(QByteArray &packet, QVariant value)
             packet.append((char)(intVal & 0x00FF)); // section data LSB
         }
         break;
+        case QMetaType::Double:
+        {
+            double val = value.toDouble();
+            packet.append(DoubleType);
+            packet.append(reinterpret_cast<const char*>(&val), sizeof(val));
+        }
+        break;
         case QMetaType::QByteArray:
         {
             QByteArray ba = value.toByteArray();
@@ -273,6 +280,13 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
                              ((quint8)ba.at(bytes_read + 2) << 8) + (quint8)ba.at(bytes_read + 3);
                 bytes_read += 4;
                 sections.append(QVariant(intVal));
+            }
+            break;
+            case DoubleType:
+            {
+                double val = *reinterpret_cast<const double *>(ba.data() + bytes_read);
+                bytes_read += sizeof(val);
+                sections.append(QVariant(val));
             }
             break;
             case StringType:

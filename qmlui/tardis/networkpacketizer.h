@@ -37,6 +37,7 @@ public:
     {
         BoolType,
         IntType,
+        DoubleType,
         StringType,
         ByteArrayType,
         Vector3DType,
