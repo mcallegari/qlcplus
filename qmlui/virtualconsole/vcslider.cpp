@@ -29,6 +29,7 @@
 #include "qlcmacros.h"
 #include "vcslider.h"
 #include "function.h"
+#include "tardis.h"
 #include "doc.h"
 #include "app.h"
 
@@ -155,12 +156,12 @@ VCSlider::SliderMode VCSlider::sliderMode() const
     return m_sliderMode;
 }
 
-void VCSlider::setSliderMode(SliderMode mode, bool init)
+void VCSlider::setSliderMode(SliderMode mode)
 {
     Q_ASSERT(mode >= Level && mode <= GrandMaster);
 
-    if (init == false && m_sliderMode == mode)
-        return;
+    if (mode != m_sliderMode)
+        Tardis::instance()->enqueueAction(VCSliderSetMode, id(), m_sliderMode, mode);
 
     m_sliderMode = mode;
 
@@ -262,6 +263,8 @@ void VCSlider::setValueDisplayStyle(VCSlider::ValueDisplayStyle style)
     if (m_valueDisplayStyle == style)
         return;
 
+    Tardis::instance()->enqueueAction(VCSliderSetDisplayStyle, id(), m_valueDisplayStyle, style);
+
     m_valueDisplayStyle = style;
     emit valueDisplayStyleChanged(style);
 }
@@ -276,6 +279,7 @@ void VCSlider::setInvertedAppearance(bool inverted)
     if (m_invertedAppearance == inverted)
         return;
 
+    Tardis::instance()->enqueueAction(VCSliderSetInverted, id(), m_invertedAppearance, inverted);
     m_invertedAppearance = inverted;
     emit invertedAppearanceChanged(inverted);
 }
@@ -317,6 +321,8 @@ void VCSlider::setValue(int value, bool setDMX, bool updateFeedback)
 {
     if (m_value == value)
         return;
+
+    Tardis::instance()->enqueueAction(VCSliderSetValue, id(), m_value, value);
 
     m_value = value;
 
@@ -372,6 +378,7 @@ void VCSlider::setRangeLowLimit(qreal value)
     if (value == m_rangeLowLimit)
         return;
 
+    Tardis::instance()->enqueueAction(VCSliderSetLowLimit, id(), m_rangeLowLimit, value);
     m_rangeLowLimit = value;
     emit rangeLowLimitChanged();
 }
@@ -386,6 +393,7 @@ void VCSlider::setRangeHighLimit(qreal value)
     if (value == m_rangeLowLimit)
         return;
 
+    Tardis::instance()->enqueueAction(VCSliderSetHighLimit, id(), m_rangeHighLimit, value);
     m_rangeHighLimit = value;
     emit rangeHighLimitChanged();
 }
@@ -706,7 +714,7 @@ void VCSlider::setControlledFunction(quint32 fid)
     if (m_controlledFunctionId == fid)
         return;
 
-    Function* current = m_doc->function(m_controlledFunctionId);
+    Function *current = m_doc->function(m_controlledFunctionId);
     if (current != NULL)
     {
         /* Get rid of old function connections */
@@ -722,7 +730,7 @@ void VCSlider::setControlledFunction(quint32 fid)
         }
     }
 
-    Function* function = m_doc->function(fid);
+    Function *function = m_doc->function(fid);
     if (function != NULL)
     {
         /* Connect to the new function */
@@ -749,7 +757,10 @@ void VCSlider::setControlledFunction(quint32 fid)
         m_controlledFunctionId = Function::invalidId();
         emit controlledFunctionChanged(-1);
     }
-    setDocModified();
+
+    Tardis::instance()->enqueueAction(VCSliderSetFunctionID, id(),
+                                      current ? current->id() : Function::invalidId(),
+                                      function ? function->id() : Function::invalidId());
 }
 
 void VCSlider::adjustIntensity(qreal val)
@@ -793,20 +804,22 @@ int VCSlider::controlledAttribute() const
     return m_controlledAttributeIndex;
 }
 
-void VCSlider::setControlledAttribute(int attr)
+void VCSlider::setControlledAttribute(int attributeIndex)
 {
-    if (m_controlledAttributeIndex == attr)
+    if (m_controlledAttributeIndex == attributeIndex)
         return;
 
     Function* function = m_doc->function(m_controlledFunctionId);
-    if (function == NULL || attr >= function->attributes().count())
+    if (function == NULL || attributeIndex >= function->attributes().count())
         return;
 
     int currentValue = m_value;
     qreal previousMin = m_attributeMinValue;
     qreal previousMax = m_attributeMaxValue;
 
-    m_controlledAttributeIndex = attr;
+    Tardis::instance()->enqueueAction(VCSliderSetControlledAttribute, id(), m_controlledAttributeIndex, attributeIndex);
+
+    m_controlledAttributeIndex = attributeIndex;
 
     // normalize intensity to 0-255 since Slider / Spin boxes step is an integer
     if (m_controlledAttributeIndex == Function::Intensity)
@@ -823,7 +836,7 @@ void VCSlider::setControlledAttribute(int attr)
     setRangeLowLimit(m_attributeMinValue);
     setRangeHighLimit(m_attributeMaxValue);
 
-    emit controlledAttributeChanged(attr);
+    emit controlledAttributeChanged(attributeIndex);
     emit attributeMinValueChanged();
     emit attributeMaxValueChanged();
 
@@ -1168,7 +1181,7 @@ bool VCSlider::loadXML(QXmlStreamReader &root)
         else if (root.name() == KXMLQLCVCSliderMode)
         {
             QXmlStreamAttributes mAttrs = root.attributes();
-            setSliderMode(stringToSliderMode(root.readElementText()), true);
+            setSliderMode(stringToSliderMode(root.readElementText()));
 
             str = mAttrs.value(KXMLQLCVCSliderValueDisplayStyle).toString();
             setValueDisplayStyle(stringToValueDisplayStyle(str));

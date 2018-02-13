@@ -34,6 +34,7 @@
 #include "rgbimage.h"
 #include "vcwidget.h"
 #include "vcbutton.h"
+#include "vcslider.h"
 #include "vcframe.h"
 #include "rgbtext.h"
 #include "chaser.h"
@@ -481,6 +482,13 @@ int Tardis::processAction(TardisAction &action, bool undo)
 
     switch(action.m_action)
     {
+        /* *********************** Global settings actions ************************ */
+        case EnvironmentSetSize:
+        {
+            m_contextManager->setEnvironmentSize(value->value<QVector3D>());
+        }
+        break;
+
         /* *********************** Fixture editing actions ************************ */
         case FixtureCreate:
         {
@@ -937,16 +945,86 @@ int Tardis::processAction(TardisAction &action, bool undo)
         }
         break;
 
+        case VCButtonSetActionType:
+        {
+            auto member = std::mem_fn(&VCButton::setActionType);
+            member(qobject_cast<VCButton *>(m_virtualConsole->widget(action.m_objID)), VCButton::ButtonAction(value->toInt()));
+        }
+        break;
         case VCButtonSetFunctionID:
         {
             auto member = std::mem_fn(&VCButton::setFunctionID);
-            member(qobject_cast<VCButton *>(m_virtualConsole->widget(action.m_objID)), action.m_newValue.toUInt());
+            member(qobject_cast<VCButton *>(m_virtualConsole->widget(action.m_objID)), value->toUInt());
         }
         break;
+        case VCButtonEnableStartupIntensity:
+        {
+            auto member = std::mem_fn(&VCButton::setStartupIntensityEnabled);
+            member(qobject_cast<VCButton *>(m_virtualConsole->widget(action.m_objID)), value->toBool());
+        }
+        break;
+        case VCButtonSetStartupIntensity:
+        {
+            auto member = std::mem_fn(&VCButton::setStartupIntensity);
+            member(qobject_cast<VCButton *>(m_virtualConsole->widget(action.m_objID)), value->toReal());
+        }
+        break;
+
+        case VCSliderSetMode:
+        {
+            auto member = std::mem_fn(&VCSlider::setSliderMode);
+            member(qobject_cast<VCSlider *>(m_virtualConsole->widget(action.m_objID)), VCSlider::SliderMode(value->toInt()));
+        }
+        break;
+        case VCSliderSetDisplayStyle:
+        {
+            auto member = std::mem_fn(&VCSlider::setValueDisplayStyle);
+            member(qobject_cast<VCSlider *>(m_virtualConsole->widget(action.m_objID)), VCSlider::ValueDisplayStyle(value->toInt()));
+        }
+        break;
+        case VCSliderSetInverted:
+        {
+            auto member = std::mem_fn(&VCSlider::setInvertedAppearance);
+            member(qobject_cast<VCSlider *>(m_virtualConsole->widget(action.m_objID)), value->toBool());
+        }
+        break;
+        case VCSliderSetFunctionID:
+        {
+            auto member = std::mem_fn(&VCSlider::setControlledFunction);
+            member(qobject_cast<VCSlider *>(m_virtualConsole->widget(action.m_objID)), value->toUInt());
+        }
+        break;
+        case VCSliderSetControlledAttribute:
+        {
+            auto member = std::mem_fn(&VCSlider::setControlledAttribute);
+            member(qobject_cast<VCSlider *>(m_virtualConsole->widget(action.m_objID)), value->toInt());
+        }
+        break;
+        case VCSliderSetLowLimit:
+        {
+            auto member = std::mem_fn(&VCSlider::setRangeLowLimit);
+            member(qobject_cast<VCSlider *>(m_virtualConsole->widget(action.m_objID)), value->toReal());
+        }
+        break;
+        case VCSliderSetHighLimit:
+        {
+            auto member = std::mem_fn(&VCSlider::setRangeHighLimit);
+            member(qobject_cast<VCSlider *>(m_virtualConsole->widget(action.m_objID)), value->toReal());
+        }
+        break;
+
+        /* ******************* Virtual Console live actions ******************* */
         case VCButtonSetPressed:
         {
             auto member = std::mem_fn(&VCButton::requestStateChange);
             member(qobject_cast<VCButton *>(m_virtualConsole->widget(action.m_objID)), action.m_newValue.toBool());
+        }
+        break;
+        case VCSliderSetValue:
+        {
+            VCSlider *slider = qobject_cast<VCSlider *>(m_virtualConsole->widget(action.m_objID));
+            if (slider)
+                slider->setValue(value->toInt());
         }
         break;
 

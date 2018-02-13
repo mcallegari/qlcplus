@@ -68,8 +68,8 @@ void NetworkPacketizer::addSection(QByteArray &packet, QVariant value)
         break;
         case QMetaType::Double:
         {
-            double val = value.toDouble();
-            packet.append(DoubleType);
+            float val = value.toFloat();
+            packet.append(FloatType);
             packet.append(reinterpret_cast<const char*>(&val), sizeof(val));
         }
         break;
@@ -282,9 +282,9 @@ int NetworkPacketizer::decodePacket(QByteArray &packet, int &opCode, QVariantLis
                 sections.append(QVariant(intVal));
             }
             break;
-            case DoubleType:
+            case FloatType:
             {
-                double val = *reinterpret_cast<const double *>(ba.data() + bytes_read);
+                float val = *reinterpret_cast<const float *>(ba.data() + bytes_read);
                 bytes_read += sizeof(val);
                 sections.append(QVariant(val));
             }

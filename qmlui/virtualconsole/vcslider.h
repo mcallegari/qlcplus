@@ -188,7 +188,7 @@ public:
 
     /** Get/Set the current slider mode */
     SliderMode sliderMode() const;
-    void setSliderMode(SliderMode mode, bool init = false);
+    void setSliderMode(SliderMode mode);
 
 signals:
     void sliderModeChanged(SliderMode mode);
@@ -357,7 +357,7 @@ public:
 
     /** Get/Set the attribute index that will be controlled by this Slider */
     int controlledAttribute() const;
-    void setControlledAttribute(int attr);
+    void setControlledAttribute(int attributeIndex);
 
     void adjustFunctionAttribute(Function *f, qreal value);
 
