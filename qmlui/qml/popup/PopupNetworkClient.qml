@@ -79,6 +79,8 @@ CustomPopupDialog
             rowSpacing: 5
             columnSpacing: 5
 
+            ButtonGroup { id: checkGroup }
+
             // row 1
             RobotoText
             {
@@ -96,19 +98,26 @@ CustomPopupDialog
             }
 
             // row 2
-            CustomCheckBox
+            Row
             {
-                id: autoServerCheck
-                implicitHeight: UISettings.listItemHeight
-                implicitWidth: height
-                Layout.alignment: Qt.AlignCenter
-                checked: true
-            }
-            RobotoText
-            {
-                height: UISettings.listItemHeight
+                Layout.columnSpan: 2
                 Layout.fillWidth: true
-                label: qsTr("Detected servers")
+                spacing: 5
+
+                CustomCheckBox
+                {
+                    id: autoServerCheck
+                    implicitHeight: UISettings.listItemHeight
+                    implicitWidth: height
+                    checked: true
+                    ButtonGroup.group: checkGroup
+                }
+                RobotoText
+                {
+                    height: UISettings.listItemHeight
+                    Layout.fillWidth: true
+                    label: qsTr("Detected servers")
+                }
             }
 
             // row 3
@@ -127,42 +136,59 @@ CustomPopupDialog
                     {
                         id: serverDelegate
                         Layout.columnSpan: 2
-                        width: serverName.width
+                        width: parent.width
                         height: UISettings.listItemHeight
-                        color: index === selectedIndex ? UISettings.highlight : UISettings.bgMedium
+                        color: index === selectedIndex ? UISettings.highlight : UISettings.bgLight
 
-                        RobotoText
+                        IconTextEntry
                         {
                             id: serverName
-                            anchors.verticalCenter: parent.verticalCenter
-                            label: modelData.name + " (" + modelData.address + ")"
+                            height: UISettings.listItemHeight
+                            width: headDelegate.width
+                            tLabel: modelData.name + " (" + modelData.address + ")"
+                            faSource: FontAwesome.fa_server
+                            faColor: UISettings.fgMain
+                        }
 
-                            MouseArea
+                        MouseArea
+                        {
+                            anchors.fill: parent
+                            onClicked:
                             {
-                                anchors.fill: parent
-                                onClicked:
-                                {
-                                    selectedIndex = index
-                                    popupRoot.serverAddress = modelData.address
-                                }
+                                selectedIndex = index
+                                popupRoot.serverAddress = modelData.address
                             }
+                        }
+                        Rectangle
+                        {
+                            y: parent.height - 1
+                            width: parent.width
+                            height: 1
+                            color: UISettings.bgLighter
                         }
                     }
             }
 
             // row 4
-            CustomCheckBox
+            Row
             {
-                id: manualServerCheck
-                implicitHeight: UISettings.listItemHeight
-                implicitWidth: height
-                Layout.alignment: Qt.AlignCenter
-            }
-            RobotoText
-            {
-                height: UISettings.listItemHeight
+                Layout.columnSpan: 2
                 Layout.fillWidth: true
-                label: qsTr("Manual server")
+                spacing: 5
+
+                CustomCheckBox
+                {
+                    id: manualServerCheck
+                    implicitHeight: UISettings.listItemHeight
+                    implicitWidth: height
+                    ButtonGroup.group: checkGroup
+                }
+                RobotoText
+                {
+                    height: UISettings.listItemHeight
+                    Layout.fillWidth: true
+                    label: qsTr("Manual server")
+                }
             }
 
             // row 5
