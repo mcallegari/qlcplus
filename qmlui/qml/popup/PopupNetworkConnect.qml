@@ -56,6 +56,8 @@ CustomPopupDialog
                 implicitHeight: UISettings.listItemHeight
                 implicitWidth: height
                 checked: true
+                autoExclusive: false
+
             }
             RobotoText
             {
@@ -71,6 +73,7 @@ CustomPopupDialog
                 implicitHeight: UISettings.listItemHeight
                 implicitWidth: height
                 checked: true
+                autoExclusive: false
             }
             RobotoText
             {
@@ -86,6 +89,7 @@ CustomPopupDialog
                 implicitHeight: UISettings.listItemHeight
                 implicitWidth: height
                 checked: true
+                autoExclusive: false
             }
             RobotoText
             {
@@ -101,6 +105,7 @@ CustomPopupDialog
                 implicitHeight: UISettings.listItemHeight
                 implicitWidth: height
                 checked: true
+                autoExclusive: false
             }
             RobotoText
             {
@@ -116,6 +121,7 @@ CustomPopupDialog
                 implicitHeight: UISettings.listItemHeight
                 implicitWidth: height
                 checked: true
+                autoExclusive: false
             }
             RobotoText
             {
@@ -131,6 +137,7 @@ CustomPopupDialog
                 implicitHeight: UISettings.listItemHeight
                 implicitWidth: height
                 checked: true
+                autoExclusive: false
             }
             RobotoText
             {
@@ -146,6 +153,7 @@ CustomPopupDialog
                 implicitHeight: UISettings.listItemHeight
                 implicitWidth: height
                 checked: true
+                autoExclusive: false
             }
             RobotoText
             {
@@ -161,6 +169,7 @@ CustomPopupDialog
                 implicitHeight: UISettings.listItemHeight
                 implicitWidth: height
                 checked: true
+                autoExclusive: false
             }
             RobotoText
             {

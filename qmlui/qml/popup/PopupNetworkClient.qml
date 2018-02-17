@@ -144,7 +144,6 @@ CustomPopupDialog
                         {
                             id: serverName
                             height: UISettings.listItemHeight
-                            width: headDelegate.width
                             tLabel: modelData.name + " (" + modelData.address + ")"
                             faSource: FontAwesome.fa_server
                             faColor: UISettings.fgMain
