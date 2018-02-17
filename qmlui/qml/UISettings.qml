@@ -24,6 +24,7 @@ import QtQuick 2.0
 QtObject
 {
     property string robotoFontName: "Roboto Condensed"
+
     /* Colors */
     property color bgMain:     "#303030"
     property color bgStronger: "#161616"
@@ -33,9 +34,9 @@ QtObject
     property color bgLight:    "#5F5F5F"
     property color bgLighter:  "#8F8F8F"
 
-    property color fgMain:   "white"
-    property color fgMedium: "#888"
-    property color fgLight:  "#aaa"
+    property color fgMain:     "white"
+    property color fgMedium:   "#888"
+    property color fgLight:    "#aaa"
 
     property color sectionHeader:    "#31456B"
     property color highlight:        "#0978FF"
@@ -59,4 +60,7 @@ QtObject
     property real mediumItemHeight: screenPixelDensity * 15
     property real bigItemHeight:    screenPixelDensity * 25
     property real scrollBarWidth:   screenPixelDensity * 6
+
+    /* Temporary runtime variables */
+    property bool justSelected: false
 }

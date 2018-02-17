@@ -231,6 +231,8 @@ void ContextManager::setEnvironmentSize(QVector3D environmentSize)
     if (environmentSize == mProps->gridSize())
         return;
 
+    Tardis::instance()->enqueueAction(EnvironmentSetSize, 0, mProps->gridSize(), environmentSize);
+
     mProps->setGridSize(environmentSize);
     if (m_2DView->isEnabled())
         m_2DView->setGridSize(environmentSize);

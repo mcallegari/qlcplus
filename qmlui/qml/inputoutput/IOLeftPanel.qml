@@ -131,6 +131,18 @@ SidePanel
                     fontBold: true
                 }
             }
+
+            IconButton
+            {
+                id: inputConfigureButton
+                z: 2
+                visible: ioManager.inputCanConfigure
+                width: iconSize
+                height: iconSize
+                imgSource: "qrc:/configure.svg"
+                tooltip: qsTr("Open the plugin configuration")
+                onClicked: ioManager.configurePlugin(true)
+            }
         }
     }
 }

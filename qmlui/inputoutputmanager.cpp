@@ -109,6 +109,9 @@ void InputOutputManager::setSelectedItem(QQuickItem *item, int index)
     m_selectedItem->setProperty("z", 5);
 
     qDebug() << "[InputOutputManager] Selected universe:" << index;
+
+    emit inputCanConfigureChanged();
+    emit outputCanConfigureChanged();
 }
 
 bool InputOutputManager::blackout() const
@@ -367,26 +370,84 @@ QVariant InputOutputManager::universeInputProfiles(int universe)
 void InputOutputManager::setOutputPatch(int universe, QString plugin, QString line, int index)
 {
     m_doc->inputOutputMap()->setOutputPatch(universe, plugin, line.toUInt(), false, index);
+    emit outputCanConfigureChanged();
 }
 
 void InputOutputManager::removeOutputPatch(int universe, int index)
 {
     m_doc->inputOutputMap()->setOutputPatch(universe, KOutputNone, QLCIOPlugin::invalidLine(), false, index);
+    emit outputCanConfigureChanged();
 }
 
 void InputOutputManager::addInputPatch(int universe, QString plugin, QString line)
 {
     m_doc->inputOutputMap()->setInputPatch(universe, plugin, line.toUInt());
+    emit inputCanConfigureChanged();
 }
 
 void InputOutputManager::removeInputPatch(int universe)
 {
     m_doc->inputOutputMap()->setInputPatch(universe, KInputNone, QLCIOPlugin::invalidLine());
+    emit inputCanConfigureChanged();
 }
 
 void InputOutputManager::setInputProfile(int universe, QString profileName)
 {
     m_doc->inputOutputMap()->setInputProfile(universe, profileName);
+}
+
+void InputOutputManager::configurePlugin(bool input)
+{
+    if (m_selectedUniverseIndex == -1)
+        return;
+
+    QLCIOPlugin *plugin = NULL;
+
+    if (input)
+    {
+        InputPatch *patch = m_doc->inputOutputMap()->inputPatch(m_selectedUniverseIndex);
+
+        if (patch == NULL || patch->plugin() == NULL)
+            return;
+        plugin = patch->plugin();
+    }
+    else
+    {
+        OutputPatch *patch = m_doc->inputOutputMap()->outputPatch(m_selectedUniverseIndex);
+
+        if (patch == NULL || patch->plugin() == NULL)
+            return;
+        plugin = patch->plugin();
+    }
+
+    if (plugin)
+        m_doc->inputOutputMap()->configurePlugin(plugin->name());
+}
+
+bool InputOutputManager::inputCanConfigure() const
+{
+    if (m_selectedUniverseIndex == -1)
+        return false;
+
+    InputPatch *patch = m_doc->inputOutputMap()->inputPatch(m_selectedUniverseIndex);
+
+    if (patch == NULL || patch->plugin() == NULL)
+        return false;
+
+    return patch->plugin()->canConfigure();
+}
+
+bool InputOutputManager::outputCanConfigure() const
+{
+    if (m_selectedUniverseIndex == -1)
+        return false;
+
+    OutputPatch *patch = m_doc->inputOutputMap()->outputPatch(m_selectedUniverseIndex);
+
+    if (patch == NULL || patch->plugin() == NULL)
+        return false;
+
+    return patch->plugin()->canConfigure();
 }
 
 int InputOutputManager::outputPatchesCount(int universe) const

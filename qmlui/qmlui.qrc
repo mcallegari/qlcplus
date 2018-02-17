@@ -50,6 +50,7 @@
     <!-- Popup system -->
     <file alias="CustomPopupDialog.qml">qml/popup/CustomPopupDialog.qml</file>
     <file alias="PopupAbout.qml">qml/popup/PopupAbout.qml</file>
+    <file alias="PopupDisclaimer.qml">qml/popup/PopupDisclaimer.qml</file>
     <file alias="PopupPINRequest.qml">qml/popup/PopupPINRequest.qml</file>
     <file alias="PopupPINSetup.qml">qml/popup/PopupPINSetup.qml</file>
     <file alias="PopupRenameFunctions.qml">qml/popup/PopupRenameFunctions.qml</file>

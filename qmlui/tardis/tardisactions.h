@@ -44,8 +44,11 @@ Q_DECLARE_METATYPE(StringStringPair)
 
 enum
 {
+    /* Global settings */
+    EnvironmentSetSize = 0x0000,
+
     /* Fixture editing actions */
-    FixtureCreate = 0x0000,
+    FixtureCreate = 0x0100,
     FixtureDelete,
     FixtureMove,
     FixtureSetPosition,
@@ -56,7 +59,7 @@ enum
     FixtureGroupDelete,
 
     /* Function editing actions */
-    FunctionCreate = 0x0100,
+    FunctionCreate = 0x0200,
     FunctionDelete,
     FunctionSetName,
     FunctionSetPath,
@@ -129,8 +132,22 @@ enum
     VCWidgetFont,
     VCWidgetPage,
 
+    VCButtonSetActionType,
+    VCButtonSetFunctionID,
+    VCButtonEnableStartupIntensity,
+    VCButtonSetStartupIntensity,
+
+    VCSliderSetMode,
+    VCSliderSetDisplayStyle,
+    VCSliderSetInverted,
+    VCSliderSetFunctionID,
+    VCSliderSetControlledAttribute,
+    VCSliderSetLowLimit,
+    VCSliderSetHighLimit,
+
     /* Virtual Console live actions */
-    VCButtonSetState = 0xF000,
+    VCButtonSetPressed = 0xF000,
+    VCSliderSetValue,
 
     /* Network protocol actions */
     NetAnnounce = 0xFF00,

@@ -307,4 +307,9 @@ Rectangle
         z: 99
         color: Qt.rgba(0, 0, 0, 0.5)
     }
+
+    PopupDisclaimer
+    {
+        visible: true
+    }
 }

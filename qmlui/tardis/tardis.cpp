@@ -33,6 +33,8 @@
 #include "rgbmatrix.h"
 #include "rgbimage.h"
 #include "vcwidget.h"
+#include "vcbutton.h"
+#include "vcslider.h"
 #include "vcframe.h"
 #include "rgbtext.h"
 #include "chaser.h"
@@ -138,12 +140,7 @@ void Tardis::undoAction()
         int code = processAction(action, true);
 
         /* If there are active network connections, send the action there too */
-        if (m_networkManager->connectionsCount())
-        {
-            QMetaObject::invokeMethod(m_networkManager, "sendAction", Qt::QueuedConnection,
-                    Q_ARG(int, code),
-                    Q_ARG(TardisAction, action));
-        }
+        forwardActionToNetwork(code, action);
 
         if (m_historyIndex == -1)
             break;
@@ -175,12 +172,7 @@ void Tardis::redoAction()
         int code = processAction(action, false);
 
         /* If there are active network connections, send the action there too */
-        if (m_networkManager->connectionsCount())
-        {
-            QMetaObject::invokeMethod(m_networkManager, "sendAction", Qt::QueuedConnection,
-                    Q_ARG(int, code),
-                    Q_ARG(TardisAction, action));
-        }
+        forwardActionToNetwork(code, action);
 
         /* Check if I am processing a batch of actions or a single one */
         if (m_historyIndex == m_history.count() - 1 ||
@@ -198,6 +190,16 @@ void Tardis::redoAction()
 void Tardis::resetHistory()
 {
     m_history.clear();
+}
+
+void Tardis::forwardActionToNetwork(int code, TardisAction &action)
+{
+    if (m_networkManager->connectionsCount())
+    {
+        QMetaObject::invokeMethod(m_networkManager, "sendAction", Qt::QueuedConnection,
+                Q_ARG(int, code),
+                Q_ARG(TardisAction, action));
+    }
 }
 
 void Tardis::run()
@@ -221,6 +223,14 @@ void Tardis::run()
                 continue;
 
             action = m_actionsQueue.dequeue();
+        }
+
+        /* VC Live actions don't make history */
+        if (action.m_action >= VCButtonSetPressed)
+        {
+            /* If there are active network connections, send the action there too */
+            forwardActionToNetwork(action.m_action, action);
+            continue;
         }
 
         /* If the history index is halfway, it means I need to remove
@@ -284,12 +294,7 @@ void Tardis::run()
         qDebug("Got action: 0x%02X, history length: %d (%d)", action.m_action, m_historyCount, m_history.count());
 
         /* If there are active network connections, send the action there too */
-        if (m_networkManager->connectionsCount())
-        {
-            QMetaObject::invokeMethod(m_networkManager, "sendAction", Qt::QueuedConnection,
-                    Q_ARG(int, action.m_action),
-                    Q_ARG(TardisAction, action));
-        }
+        forwardActionToNetwork(action.m_action, action);
     }
 }
 
@@ -477,6 +482,13 @@ int Tardis::processAction(TardisAction &action, bool undo)
 
     switch(action.m_action)
     {
+        /* *********************** Global settings actions ************************ */
+        case EnvironmentSetSize:
+        {
+            m_contextManager->setEnvironmentSize(value->value<QVector3D>());
+        }
+        break;
+
         /* *********************** Fixture editing actions ************************ */
         case FixtureCreate:
         {
@@ -932,6 +944,90 @@ int Tardis::processAction(TardisAction &action, bool undo)
             member(qobject_cast<VCWidget *>(m_virtualConsole->widget(action.m_objID)), value->value<QFont>());
         }
         break;
+
+        case VCButtonSetActionType:
+        {
+            auto member = std::mem_fn(&VCButton::setActionType);
+            member(qobject_cast<VCButton *>(m_virtualConsole->widget(action.m_objID)), VCButton::ButtonAction(value->toInt()));
+        }
+        break;
+        case VCButtonSetFunctionID:
+        {
+            auto member = std::mem_fn(&VCButton::setFunctionID);
+            member(qobject_cast<VCButton *>(m_virtualConsole->widget(action.m_objID)), value->toUInt());
+        }
+        break;
+        case VCButtonEnableStartupIntensity:
+        {
+            auto member = std::mem_fn(&VCButton::setStartupIntensityEnabled);
+            member(qobject_cast<VCButton *>(m_virtualConsole->widget(action.m_objID)), value->toBool());
+        }
+        break;
+        case VCButtonSetStartupIntensity:
+        {
+            auto member = std::mem_fn(&VCButton::setStartupIntensity);
+            member(qobject_cast<VCButton *>(m_virtualConsole->widget(action.m_objID)), value->toReal());
+        }
+        break;
+
+        case VCSliderSetMode:
+        {
+            auto member = std::mem_fn(&VCSlider::setSliderMode);
+            member(qobject_cast<VCSlider *>(m_virtualConsole->widget(action.m_objID)), VCSlider::SliderMode(value->toInt()));
+        }
+        break;
+        case VCSliderSetDisplayStyle:
+        {
+            auto member = std::mem_fn(&VCSlider::setValueDisplayStyle);
+            member(qobject_cast<VCSlider *>(m_virtualConsole->widget(action.m_objID)), VCSlider::ValueDisplayStyle(value->toInt()));
+        }
+        break;
+        case VCSliderSetInverted:
+        {
+            auto member = std::mem_fn(&VCSlider::setInvertedAppearance);
+            member(qobject_cast<VCSlider *>(m_virtualConsole->widget(action.m_objID)), value->toBool());
+        }
+        break;
+        case VCSliderSetFunctionID:
+        {
+            auto member = std::mem_fn(&VCSlider::setControlledFunction);
+            member(qobject_cast<VCSlider *>(m_virtualConsole->widget(action.m_objID)), value->toUInt());
+        }
+        break;
+        case VCSliderSetControlledAttribute:
+        {
+            auto member = std::mem_fn(&VCSlider::setControlledAttribute);
+            member(qobject_cast<VCSlider *>(m_virtualConsole->widget(action.m_objID)), value->toInt());
+        }
+        break;
+        case VCSliderSetLowLimit:
+        {
+            auto member = std::mem_fn(&VCSlider::setRangeLowLimit);
+            member(qobject_cast<VCSlider *>(m_virtualConsole->widget(action.m_objID)), value->toReal());
+        }
+        break;
+        case VCSliderSetHighLimit:
+        {
+            auto member = std::mem_fn(&VCSlider::setRangeHighLimit);
+            member(qobject_cast<VCSlider *>(m_virtualConsole->widget(action.m_objID)), value->toReal());
+        }
+        break;
+
+        /* ******************* Virtual Console live actions ******************* */
+        case VCButtonSetPressed:
+        {
+            auto member = std::mem_fn(&VCButton::requestStateChange);
+            member(qobject_cast<VCButton *>(m_virtualConsole->widget(action.m_objID)), action.m_newValue.toBool());
+        }
+        break;
+        case VCSliderSetValue:
+        {
+            VCSlider *slider = qobject_cast<VCSlider *>(m_virtualConsole->widget(action.m_objID));
+            if (slider)
+                slider->setValue(value->toInt());
+        }
+        break;
+
         default:
             qWarning() << "Action" << action.m_action << "not implemented !";
         break;
