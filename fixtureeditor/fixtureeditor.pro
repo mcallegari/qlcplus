@@ -31,6 +31,7 @@ HEADERS += ../ui/src/aboutbox.h \
            editchannel.h \
            edithead.h \
            editmode.h \
+           editphysical.h \
            fixtureeditor.h \
            util.h
 
@@ -40,6 +41,7 @@ FORMS += ../ui/src/aboutbox.ui \
          editchannel.ui \
          edithead.ui \
          editmode.ui \
+         editphysical.ui \
          fixtureeditor.ui
 
 SOURCES += ../ui/src/aboutbox.cpp \
@@ -51,6 +53,7 @@ SOURCES += ../ui/src/aboutbox.cpp \
            editchannel.cpp \
            edithead.cpp \
            editmode.cpp \
+           editphysical.cpp \
            fixtureeditor.cpp \
            main.cpp
 

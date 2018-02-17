@@ -25,6 +25,8 @@
 #include <QList>
 #include <QFile>
 
+#include "qlcphysical.h"
+
 /** @addtogroup engine Engine
  * @{
  */
@@ -200,6 +202,18 @@ public:
 protected:
     /** Modes (i.e. ordered collections of channels) */
     QList <QLCFixtureMode*> m_modes;
+
+
+    /*********************************************************************
+     * Physical
+     *********************************************************************/
+public:
+    /** Get/Set the global physical information */
+    QLCPhysical physical() const;
+    void setPhysical(const QLCPhysical& physical);
+
+protected:
+    QLCPhysical m_physical;
 
     /*********************************************************************
      * Load & Save

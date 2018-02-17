@@ -326,6 +326,20 @@ QList <QLCFixtureMode*> QLCFixtureDef::modes()
 }
 
 /****************************************************************************
+ * Physical
+ ****************************************************************************/
+
+void QLCFixtureDef::setPhysical(const QLCPhysical& physical)
+{
+    m_physical = physical;
+}
+
+QLCPhysical QLCFixtureDef::physical() const
+{
+    return m_physical;
+}
+
+/****************************************************************************
  * XML operations
  ****************************************************************************/
 
@@ -361,6 +375,8 @@ QFile::FileError QLCFixtureDef::saveXML(const QString& fileName)
     QListIterator <QLCFixtureMode*> modeit(m_modes);
     while (modeit.hasNext() == true)
         modeit.next()->saveXML(&doc);
+
+    m_physical.saveXML(&doc);
 
     /* End the document and close all the open elements */
     error = QFile::NoError;
@@ -496,6 +512,13 @@ bool QLCFixtureDef::loadXML(QXmlStreamReader& doc)
                     /* Loading failed */
                     delete mode;
                 }
+            }
+            else if (doc.name() == KXMLQLCPhysical)
+            {
+                /* Global physical */
+                QLCPhysical physical;
+                physical.loadXML(doc);
+                setPhysical(physical);
             }
             else
             {

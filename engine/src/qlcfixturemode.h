@@ -35,7 +35,6 @@ class QXmlStreamWriter;
 class QLCFixtureHead;
 class QLCFixtureMode;
 class QLCFixtureDef;
-class QLCPhysical;
 class QLCChannel;
 
 /** @addtogroup engine Engine
@@ -271,7 +270,15 @@ public:
      */
     QLCPhysical physical() const;
 
+    /** Reset the mode physical info and use the global ones */
+    void resetPhysical();
+
+    /** Returns if this mode is using the global physical information
+     *  or if it is overriding it */
+    bool useGlobalPhysical();
+
 protected:
+    bool m_useGlobalPhysical;
     QLCPhysical m_physical;
 
     /*********************************************************************

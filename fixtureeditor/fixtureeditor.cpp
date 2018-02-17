@@ -51,6 +51,7 @@
 #endif
 
 #include "fixtureeditor.h"
+#include "editphysical.h"
 #include "editchannel.h"
 #include "editmode.h"
 #include "util.h"
@@ -84,8 +85,7 @@ QLCFixtureEditor::QLCFixtureEditor(QWidget *parent, QLCFixtureDef *fixtureDef,
     setModified(false);
 
     /* Connect to be able to enable/disable clipboard actions */
-    connect(_app, SIGNAL(clipboardChanged()),
-            this, SLOT(slotClipboardChanged()));
+    connect(_app, SIGNAL(clipboardChanged()), this, SLOT(slotClipboardChanged()));
 
     /* Initial update to clipboard actions */
     slotClipboardChanged();
@@ -138,21 +138,14 @@ void QLCFixtureEditor::init()
             this, SLOT(slotAuthorTextEdited(const QString&)));
 
     /* Channel page */
-    connect(m_addChannelButton, SIGNAL(clicked()),
-            this, SLOT(slotAddChannel()));
-    connect(m_removeChannelButton, SIGNAL(clicked()),
-            this, SLOT(slotRemoveChannel()));
-    connect(m_editChannelButton, SIGNAL(clicked()),
-            this, SLOT(slotEditChannel()));
-    connect(m_copyChannelButton, SIGNAL(clicked()),
-            this, SLOT(slotCopyChannel()));
-    connect(m_pasteChannelButton, SIGNAL(clicked()),
-            this, SLOT(slotPasteChannel()));
-    connect(m_expandChannelsButton, SIGNAL(clicked()),
-            this, SLOT(slotExpandChannels()));
+    connect(m_addChannelButton, SIGNAL(clicked()), this, SLOT(slotAddChannel()));
+    connect(m_removeChannelButton, SIGNAL(clicked()), this, SLOT(slotRemoveChannel()));
+    connect(m_editChannelButton, SIGNAL(clicked()), this, SLOT(slotEditChannel()));
+    connect(m_copyChannelButton, SIGNAL(clicked()), this, SLOT(slotCopyChannel()));
+    connect(m_pasteChannelButton, SIGNAL(clicked()), this, SLOT(slotPasteChannel()));
+    connect(m_expandChannelsButton, SIGNAL(clicked()), this, SLOT(slotExpandChannels()));
 
-    connect(m_channelList, SIGNAL(currentItemChanged(QTreeWidgetItem*,
-                                  QTreeWidgetItem*)),
+    connect(m_channelList, SIGNAL(currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)),
             this, SLOT(slotChannelListSelectionChanged(QTreeWidgetItem*)));
     connect(m_channelList, SIGNAL(customContextMenuRequested(const QPoint&)),
             this, SLOT(slotChannelListContextMenuRequested()));
@@ -166,16 +159,11 @@ void QLCFixtureEditor::init()
     refreshChannelList();
 
     /* Mode page */
-    connect(m_addModeButton, SIGNAL(clicked()),
-            this, SLOT(slotAddMode()));
-    connect(m_removeModeButton, SIGNAL(clicked()),
-            this, SLOT(slotRemoveMode()));
-    connect(m_editModeButton, SIGNAL(clicked()),
-            this, SLOT(slotEditMode()));
-    connect(m_cloneModeButton, SIGNAL(clicked()),
-            this, SLOT(slotCloneMode()));
-    connect(m_expandModesButton, SIGNAL(clicked()),
-            this, SLOT(slotExpandModes()));
+    connect(m_addModeButton, SIGNAL(clicked()), this, SLOT(slotAddMode()));
+    connect(m_removeModeButton, SIGNAL(clicked()), this, SLOT(slotRemoveMode()));
+    connect(m_editModeButton, SIGNAL(clicked()), this, SLOT(slotEditMode()));
+    connect(m_cloneModeButton, SIGNAL(clicked()), this, SLOT(slotCloneMode()));
+    connect(m_expandModesButton, SIGNAL(clicked()), this, SLOT(slotExpandModes()));
 
     connect(m_modeList, SIGNAL(currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)),
             this, SLOT(slotModeListSelectionChanged(QTreeWidgetItem*)));
@@ -188,6 +176,16 @@ void QLCFixtureEditor::init()
 
     m_modeList->setContextMenuPolicy(Qt::CustomContextMenu);
     refreshModeList();
+
+    /* Physical page */
+    m_phyEdit = new EditPhysical(m_fixtureDef->physical(), this);
+    m_phyEdit->show();
+    physicalLayout->addWidget(m_phyEdit);
+
+    connect(m_phyEdit, SIGNAL(copyToClipboard(QLCPhysical)),
+            this, SLOT(slotCopyPhysicalClipboard(QLCPhysical)));
+    connect(m_phyEdit, SIGNAL(requestPasteFromClipboard()),
+            this, SLOT(slotPastePhysicalInfo()));
 }
 
 void QLCFixtureEditor::closeEvent(QCloseEvent *e)
@@ -256,6 +254,7 @@ bool QLCFixtureEditor::save()
     }
     else
     {
+        m_fixtureDef->setPhysical(m_phyEdit->physical());
         QFile::FileError error = m_fixtureDef->saveXML(m_fileName);
         if (error == QFile::NoError)
         {
@@ -312,6 +311,7 @@ bool QLCFixtureEditor::saveAs()
         if (path.right(strlen(KExtFixture)) != QString(KExtFixture))
             path += QString(KExtFixture);
 
+        m_fixtureDef->setPhysical(m_phyEdit->physical());
         QFile::FileError error = m_fixtureDef->saveXML(path);
         if (error == QFile::NoError)
         {
@@ -332,6 +332,21 @@ bool QLCFixtureEditor::saveAs()
     {
         return false;
     }
+}
+
+void QLCFixtureEditor::setFileName(QString path)
+{
+    m_fileName = path;
+}
+
+QString QLCFixtureEditor::fileName() const
+{
+    return m_fileName;
+}
+
+bool QLCFixtureEditor::modified() const
+{
+    return m_modified;
 }
 
 void QLCFixtureEditor::setCaption()
@@ -723,7 +738,7 @@ void QLCFixtureEditor::slotModeListSelectionChanged(QTreeWidgetItem *item)
 void QLCFixtureEditor::slotAddMode()
 {
     EditMode em(_app, m_fixtureDef);
-    em.setClipboard(m_physicalCopy);
+
     bool ok = false;
     while (ok == false)
     {
@@ -769,7 +784,6 @@ void QLCFixtureEditor::slotAddMode()
             ok = true;
         }
     }
-    m_physicalCopy = em.getClipboard();
 }
 
 void QLCFixtureEditor::slotRemoveMode()
@@ -795,7 +809,6 @@ void QLCFixtureEditor::slotEditMode()
         return;
 
     EditMode em(this, mode);
-    em.setClipboard(m_physicalCopy);
     if (em.exec() == QDialog::Accepted)
     {
         *mode = *(em.mode());
@@ -804,7 +817,6 @@ void QLCFixtureEditor::slotEditMode()
         updateModeItem(mode, item);
         setModified();
     }
-    m_physicalCopy = em.getClipboard();
 }
 
 void QLCFixtureEditor::slotCloneMode()
@@ -977,4 +989,14 @@ void QLCFixtureEditor::slotClipboardChanged()
         m_pasteChannelButton->setEnabled(true);
     else
         m_pasteChannelButton->setEnabled(false);
+}
+
+void QLCFixtureEditor::slotCopyPhysicalClipboard(QLCPhysical clipboard)
+{
+    m_physicalClipboard = clipboard;
+}
+
+void QLCFixtureEditor::slotPastePhysicalInfo()
+{
+    m_phyEdit->pasteFromClipboard(m_physicalClipboard);
 }
