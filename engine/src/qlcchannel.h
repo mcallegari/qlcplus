@@ -42,6 +42,7 @@ class QXmlStreamWriter;
 #define KXMLQLCChannelName      QString("Name")
 #define KXMLQLCChannelPreset    QString("Preset")
 #define KXMLQLCChannelGroup     QString("Group")
+#define KXMLQLCChannelDefault   QString("Default")
 #define KXMLQLCChannelGroupByte QString("Byte")
 #define KXMLQLCChannelColour    QString("Colour")
 
@@ -235,6 +236,7 @@ protected:
      * Properties
      *********************************************************************/
 public:
+    /** Role in a 16bit mode */
     enum ControlByte
     {
         MSB = 0,
@@ -247,6 +249,12 @@ public:
     /** Set the channel's name */
     void setName(const QString& name);
 
+    /** Get the channel's default value */
+    uchar defaultValue();
+
+    /** Set the channel's default value */
+    void setDefaultValue(uchar value);
+
     /** Set the channel's control byte */
     void setControlByte(ControlByte byte);
 
@@ -255,6 +263,7 @@ public:
 
 protected:
     QString m_name;
+    uchar m_defaultValue;
     ControlByte m_controlByte;
 
     /*************************************************************************

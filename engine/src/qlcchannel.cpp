@@ -60,6 +60,7 @@ QLCChannel::QLCChannel(QObject *parent)
     : QObject(parent)
     , m_preset(Custom)
     , m_group(Intensity)
+    , m_defaultValue(0)
     , m_controlByte(MSB)
     , m_colour(NoColour)
 {
@@ -84,7 +85,7 @@ QLCChannel *QLCChannel::createCopy()
         while (it.hasNext() == true)
             copy->addCapability(it.next()->createCopy());
     }
-
+    copy->setDefaultValue(this->defaultValue());
 
     return copy;
 }
@@ -104,6 +105,7 @@ QLCChannel& QLCChannel::operator=(const QLCChannel& channel)
         m_name = channel.m_name;
         m_preset = channel.m_preset;
         m_group = channel.m_group;
+        m_defaultValue = channel.m_defaultValue;
         m_controlByte = channel.m_controlByte;
         m_colour = channel.m_colour;
 
@@ -773,6 +775,16 @@ void QLCChannel::setName(const QString &name)
     m_name = name;
 }
 
+uchar QLCChannel::defaultValue()
+{
+    return m_defaultValue;
+}
+
+void QLCChannel::setDefaultValue(uchar value)
+{
+    m_defaultValue = value;
+}
+
 void QLCChannel::setControlByte(ControlByte byte)
 {
     m_controlByte = byte;
@@ -790,7 +802,7 @@ QLCChannel::ControlByte QLCChannel::controlByte() const
 QStringList QLCChannel::colourList()
 {
     QStringList list;
-    list << KXMLQLCChannelColourGeneric;
+    //list << KXMLQLCChannelColourGeneric;
     list << KXMLQLCChannelColourRed;
     list << KXMLQLCChannelColourGreen;
     list << KXMLQLCChannelColourBlue;
@@ -995,6 +1007,9 @@ bool QLCChannel::saveXML(QXmlStreamWriter *doc) const
     doc->writeStartElement(KXMLQLCChannel);
     doc->writeAttribute(KXMLQLCChannelName, m_name);
 
+    if (m_defaultValue)
+        doc->writeAttribute(KXMLQLCChannelDefault, QString::number(m_defaultValue));
+
     if (m_preset != Custom)
     {
         doc->writeAttribute(KXMLQLCChannelPreset, presetToString(m_preset));
@@ -1038,6 +1053,12 @@ bool QLCChannel::loadXML(QXmlStreamReader &doc)
     if (str.isEmpty() == true)
         return false;
     setName(str);
+
+    if (attrs.hasAttribute(KXMLQLCChannelDefault))
+    {
+        str = attrs.value(KXMLQLCChannelDefault).toString();
+        setDefaultValue(uchar(str.toInt()));
+    }
 
     if (attrs.hasAttribute(KXMLQLCChannelPreset))
     {

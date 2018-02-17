@@ -530,7 +530,7 @@ void QLCFixtureEditor::slotEditChannel()
         else
         {
             // Copy the channel's contents to the real channel
-            real = ec.channel();
+            *real = *(ec.channel());
 
             QTreeWidgetItem *item = m_channelList->currentItem();
             updateChannelItem(real, item);
@@ -604,15 +604,13 @@ void QLCFixtureEditor::refreshChannelList()
 
 void QLCFixtureEditor::updateChannelItem(const QLCChannel *channel, QTreeWidgetItem *item)
 {
-    QString str;
-
     Q_ASSERT(channel != NULL);
     Q_ASSERT(item != NULL);
 
     item->setText(CH_COL_NAME, channel->name());
     item->setIcon(CH_COL_NAME, channel->getIcon());
     item->setText(CH_COL_GRP, QLCChannel::groupToString(channel->group()));
-    item->setData(CH_COL_NAME, PROP_PTR, (qulonglong) channel);
+    item->setData(CH_COL_NAME, PROP_PTR, qVariantFromValue((void *)channel));
 
     /* Destroy the existing list of children */
     QList <QTreeWidgetItem*> children(item->takeChildren());
@@ -707,10 +705,10 @@ QLCChannel *QLCFixtureEditor::currentChannel()
     QLCChannel *ch = NULL;
     QTreeWidgetItem *item = NULL;
 
-    // Convert the string-form ulong to a QLCChannel pointer and return it
+    // Convert the QVariant to a QLCChannel pointer and return it
     item = m_channelList->currentItem();
     if (item != NULL)
-        ch = (QLCChannel*) item->data(CH_COL_NAME, PROP_PTR).toULongLong();
+        ch = (QLCChannel*) item->data(CH_COL_NAME, PROP_PTR).value<void *>();
 
     return ch;
 }

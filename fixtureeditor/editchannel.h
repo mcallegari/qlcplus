@@ -60,10 +60,10 @@ protected:
 protected slots:
     void slotNameChanged(const QString& name);
     void slotPresetActivated(int index);
-    void slotGroupActivated(const QString& group);
+    void slotGroupActivated(int index);
+    void slotDefaultValueChanged(int val);
     void slotMsbRadioToggled(bool toggled);
     void slotLsbRadioToggled(bool toggled);
-    void slotColourActivated(const QString& colour);
 
     /*********************************************************************
      * Capabilities

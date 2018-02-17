@@ -30,6 +30,7 @@
 #include <QGroupBox>
 #include <QSettings>
 #include <QPainter>
+#include <QDebug>
 #include <QPoint>
 #include <QSize>
 
@@ -78,6 +79,11 @@ EditChannel::~EditChannel()
         delete m_channel;
 }
 
+QLCChannel *EditChannel::channel()
+{
+    return m_channel;
+}
+
 void EditChannel::init()
 {
     Q_ASSERT(m_channel != NULL);
@@ -102,74 +108,59 @@ void EditChannel::init()
 
     if (m_channel->preset() != QLCChannel::Custom)
     {
-        m_groupCombo->setEnabled(false);
-        m_colourCombo->setEnabled(false);
-        m_controlByteGroup->setEnabled(false);
+        m_typeCombo->setEnabled(false);
+        m_msbRadio->setEnabled(false);
+        m_lsbRadio->setEnabled(false);
         m_capabilityList->setEnabled(false);
         m_addCapabilityButton->setEnabled(false);
         m_presetCombo->setCurrentIndex(m_channel->preset());
     }
 
-    connect(m_presetCombo, SIGNAL(currentIndexChanged(int)),
+    connect(m_presetCombo, SIGNAL(activated(int)),
             this, SLOT(slotPresetActivated(int)));
 
-    /* Get available groups and insert them into the groups combo */
-    m_groupCombo->addItems(QLCChannel::groupList());
-    for (int i = 0; i < m_groupCombo->count(); i++)
+    /* Get available groups/colors and insert them into the groups combo */
+    QString selectedType = QLCChannel::groupToString(m_channel->group());
+    int selectedIndex = 0;
+
+    if (m_channel->group() == QLCChannel::Intensity && m_channel->colour() != QLCChannel::NoColour)
+        selectedType = QLCChannel::colourToString(m_channel->colour());
+
+    foreach (QString grp, QLCChannel::groupList())
     {
         QLCChannel ch;
-        ch.setGroup(QLCChannel::stringToGroup(m_groupCombo->itemText(i)));
-        m_groupCombo->setItemIcon(i, ch.getIcon());
-    }
+        ch.setGroup(QLCChannel::stringToGroup(grp));
+        m_typeCombo->addItem(ch.getIcon(), grp, ch.group());
+        if (m_channel->group() == ch.group())
+            selectedIndex = m_typeCombo->count() - 1;
 
-    connect(m_groupCombo, SIGNAL(activated(const QString&)),
-            this, SLOT(slotGroupActivated(const QString&)));
-    connect(m_msbRadio, SIGNAL(toggled(bool)),
-            this, SLOT(slotMsbRadioToggled(bool)));
-    connect(m_lsbRadio, SIGNAL(toggled(bool)),
-            this, SLOT(slotLsbRadioToggled(bool)));
-
-    /* Select the channel's group */
-    for (int i = 0; i < m_groupCombo->count(); i++)
-    {
-        if (m_groupCombo->itemText(i) == QLCChannel::groupToString(m_channel->group()))
+        if (ch.group() == QLCChannel::Intensity)
         {
-            m_groupCombo->setCurrentIndex(i);
-            slotGroupActivated(QLCChannel::groupToString(m_channel->group()));
-            break;
+            foreach (QString color, QLCChannel::colourList())
+            {
+                QLCChannel cc;
+                cc.setGroup(QLCChannel::Intensity);
+                cc.setColour(QLCChannel::stringToColour(color));
+                m_typeCombo->addItem(cc.getIcon(), color, cc.colour());
+                if (m_channel->colour() == cc.colour())
+                    selectedIndex = m_typeCombo->count() - 1;
+            }
         }
     }
 
-    /* Get available colours and insert them into the colour combo */
-    m_colourCombo->addItems(QLCChannel::colourList());
-    for (int i = 0; i < m_colourCombo->count(); i++)
-    {
-        QLCChannel ch;
-        ch.setName(m_colourCombo->itemText(i));
-        ch.setGroup(QLCChannel::Intensity);
-        ch.setColour(QLCChannel::stringToColour(m_colourCombo->itemText(i)));
-        m_colourCombo->setItemIcon(i, ch.getIcon());
-    }
-    connect(m_colourCombo, SIGNAL(activated(const QString&)),
-            this, SLOT(slotColourActivated(const QString&)));
+    m_typeCombo->setCurrentIndex(selectedIndex);
+    slotGroupActivated(selectedIndex);
 
-    /* Select the channel's colour */
-    for (int i = 0; i < m_colourCombo->count(); i++)
-    {
-        if (m_colourCombo->itemText(i) == QLCChannel::colourToString(m_channel->colour()))
-        {
-            m_colourCombo->setCurrentIndex(i);
-            slotColourActivated(QLCChannel::colourToString(m_channel->colour()));
-            break;
-        }
-    }
+    m_defaultValSpin->setValue(m_channel->defaultValue());
 
-    connect(m_addCapabilityButton, SIGNAL(clicked()),
-            this, SLOT(slotAddCapabilityClicked()));
-    connect(m_removeCapabilityButton, SIGNAL(clicked()),
-            this, SLOT(slotRemoveCapabilityClicked()));
-    connect(m_wizardButton, SIGNAL(clicked()),
-            this, SLOT(slotWizardClicked()));
+    connect(m_typeCombo, SIGNAL(activated(int)), this, SLOT(slotGroupActivated(int)));
+    connect(m_defaultValSpin, SIGNAL(valueChanged(int)), this, SLOT(slotDefaultValueChanged(int)));
+    connect(m_msbRadio, SIGNAL(toggled(bool)), this, SLOT(slotMsbRadioToggled(bool)));
+    connect(m_lsbRadio, SIGNAL(toggled(bool)), this, SLOT(slotLsbRadioToggled(bool)));
+
+    connect(m_addCapabilityButton, SIGNAL(clicked()), this, SLOT(slotAddCapabilityClicked()));
+    connect(m_removeCapabilityButton, SIGNAL(clicked()), this, SLOT(slotRemoveCapabilityClicked()));
+    connect(m_wizardButton, SIGNAL(clicked()), this, SLOT(slotWizardClicked()));
 
     /* Capability list connections */
     connect(m_capabilityList, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)),
@@ -177,18 +168,13 @@ void EditChannel::init()
     connect(m_capabilityList, SIGNAL(itemActivated(QTreeWidgetItem*,int)),
             this, SLOT(slotEditCapabilityClicked()));
 
-    connect(m_minSpin, SIGNAL(valueChanged(int)),
-            this, SLOT(slotMinSpinChanged(int)));
-    connect(m_maxSpin, SIGNAL(valueChanged(int)),
-            this, SLOT(slotMaxSpinChanged(int)));
+    connect(m_minSpin, SIGNAL(valueChanged(int)), this, SLOT(slotMinSpinChanged(int)));
+    connect(m_maxSpin, SIGNAL(valueChanged(int)), this, SLOT(slotMaxSpinChanged(int)));
     connect(m_descriptionEdit, SIGNAL(textEdited(const QString&)),
             this, SLOT(slotDescriptionEdited(const QString&)));
-    connect(m_pictureButton, SIGNAL(pressed()),
-            this, SLOT(slotPictureButtonPressed()));
-    connect(m_color1Button, SIGNAL(pressed()),
-            this, SLOT(slotColor1ButtonPressed()));
-    connect(m_color2Button, SIGNAL(pressed()),
-            this, SLOT(slotColor2ButtonPressed()));
+    connect(m_pictureButton, SIGNAL(pressed()), this, SLOT(slotPictureButtonPressed()));
+    connect(m_color1Button, SIGNAL(pressed()), this, SLOT(slotColor1ButtonPressed()));
+    connect(m_color2Button, SIGNAL(pressed()), this, SLOT(slotColor2ButtonPressed()));
 
     refreshCapabilities();
     m_valueGroup->setVisible(false);
@@ -255,11 +241,6 @@ void EditChannel::setupCapabilityGroup()
     }
 }
 
-QLCChannel *EditChannel::channel()
-{
-    return m_channel;
-}
-
 void EditChannel::slotNameChanged(const QString& name)
 {
     m_channel->setName(name.simplified());
@@ -269,11 +250,12 @@ void EditChannel::slotPresetActivated(int index)
 {
     bool enable = index == 0 ? true : false;
 
-    m_groupCombo->setEnabled(enable);
-    m_colourCombo->setEnabled(enable);
-    m_controlByteGroup->setEnabled(enable);
+    m_typeCombo->setEnabled(enable);
+    m_msbRadio->setEnabled(enable);
+    m_lsbRadio->setEnabled(enable);
     m_capabilityList->setEnabled(enable);
     m_addCapabilityButton->setEnabled(enable);
+    m_wizardButton->setEnabled(enable);
 
     if (index != 0)
         m_channel->setName("");
@@ -286,23 +268,15 @@ void EditChannel::slotPresetActivated(int index)
     m_nameEdit->setText(m_channel->name());
 
     /* Select the channel's group */
-    for (int i = 0; i < m_groupCombo->count(); i++)
+    for (int i = 0; i < m_typeCombo->count(); i++)
     {
-        if (m_groupCombo->itemText(i) == QLCChannel::groupToString(m_channel->group()))
-        {
-            m_groupCombo->setCurrentIndex(i);
-            slotGroupActivated(QLCChannel::groupToString(m_channel->group()));
-            break;
-        }
-    }
+        quint32 val = m_typeCombo->itemData(i).toUInt();
 
-    /* Select the channel's colour */
-    for (int i = 0; i < m_colourCombo->count(); i++)
-    {
-        if (m_colourCombo->itemText(i) == QLCChannel::colourToString(m_channel->colour()))
+        if ((m_channel->colour() == QLCChannel::NoColour && val == m_channel->group()) ||
+            (m_channel->group() == QLCChannel::Intensity && val == m_channel->colour()))
         {
-            m_colourCombo->setCurrentIndex(i);
-            slotColourActivated(QLCChannel::colourToString(m_channel->colour()));
+            m_typeCombo->setCurrentIndex(i);
+            slotGroupActivated(i);
             break;
         }
     }
@@ -315,25 +289,30 @@ void EditChannel::slotPresetActivated(int index)
     refreshCapabilities();
 }
 
-void EditChannel::slotGroupActivated(const QString& group)
+void EditChannel::slotGroupActivated(int index)
 {
-    m_channel->setGroup(QLCChannel::stringToGroup(group));
+    quint32 val = m_typeCombo->itemData(index).toUInt();
+
+    if (val > QLCChannel::Maintenance && val < QLCChannel::NoGroup)
+    {
+        m_channel->setGroup(QLCChannel::Intensity);
+        m_channel->setColour(QLCChannel::PrimaryColour(val));
+    }
+    else
+    {
+        m_channel->setGroup(QLCChannel::Group(val));
+        m_channel->setColour(QLCChannel::NoColour);
+    }
 
     if (m_channel->controlByte() == QLCChannel::MSB)
         m_msbRadio->setChecked(true);
     else
         m_lsbRadio->setChecked(true);
+}
 
-    if (m_channel->group() == QLCChannel::Intensity)
-    {
-        m_colourLabel->show();
-        m_colourCombo->show();
-    }
-    else
-    {
-        m_colourLabel->hide();
-        m_colourCombo->hide();
-    }
+void EditChannel::slotDefaultValueChanged(int val)
+{
+    m_channel->setDefaultValue(uchar(val));
 }
 
 void EditChannel::slotMsbRadioToggled(bool toggled)
@@ -350,11 +329,6 @@ void EditChannel::slotLsbRadioToggled(bool toggled)
         m_channel->setControlByte(QLCChannel::LSB);
     else
         m_channel->setControlByte(QLCChannel::MSB);
-}
-
-void EditChannel::slotColourActivated(const QString& colour)
-{
-    m_channel->setColour(QLCChannel::stringToColour(colour));
 }
 
 /****************************************************************************
