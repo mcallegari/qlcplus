@@ -79,6 +79,7 @@ elementFormDefault="qualified"
     </xs:sequence>
     <xs:attribute name="Name" type="xs:string" use="required"/>
     <xs:attribute name="Default" type="xs:dmxValueType"/>
+    <xs:attribute name="Preset" type="xs:channelPresetType"/>
 </xs:complexType>
 
 <xs:complexType name="groupType">
@@ -141,6 +142,75 @@ elementFormDefault="qualified"
     </xs:extension>
   </xs:simpleContent>
 </xs:complexType>
+
+<xs:simpleType name="channelPresetType">
+    <xs:restriction base="xs:string">
+        <xs:enumeration value="IntensityMasterDimmer"/>
+        <xs:enumeration value="IntensityMasterDimmerFine"/>
+        <xs:enumeration value="IntensityDimmer"/>
+        <xs:enumeration value="IntensityDimmerFine"/>
+        <xs:enumeration value="IntensityRed"/>
+        <xs:enumeration value="IntensityRedFine"/>
+        <xs:enumeration value="IntensityGreen"/>
+        <xs:enumeration value="IntensityGreenFine"/>
+        <xs:enumeration value="IntensityBlue"/>
+        <xs:enumeration value="IntensityBlueFine"/>
+        <xs:enumeration value="IntensityCyan"/>
+        <xs:enumeration value="IntensityCyanFine"/>
+        <xs:enumeration value="IntensityMagenta"/>
+        <xs:enumeration value="IntensityMagentaFine"/>
+        <xs:enumeration value="IntensityYellow"/>
+        <xs:enumeration value="IntensityYellowFine"/>
+        <xs:enumeration value="IntensityAmber"/>
+        <xs:enumeration value="IntensityAmberFine"/>
+        <xs:enumeration value="IntensityWhite"/>
+        <xs:enumeration value="IntensityWhiteFine"/>
+        <xs:enumeration value="IntensityUV"/>
+        <xs:enumeration value="IntensityUVFine"/>
+        <xs:enumeration value="IntensityIndigo"/>
+        <xs:enumeration value="IntensityIndigoFine"/>
+        <xs:enumeration value="IntensityLime"/>
+        <xs:enumeration value="IntensityLimeFine"/>
+        <xs:enumeration value="IntensityHue"/>
+        <xs:enumeration value="IntensityHueFine"/>
+        <xs:enumeration value="IntensitySaturation"/>
+        <xs:enumeration value="IntensitySaturationFine"/>
+        <xs:enumeration value="IntensityLightness"/>
+        <xs:enumeration value="IntensityLightnessFine"/>
+        <xs:enumeration value="IntensityValue"/>
+        <xs:enumeration value="IntensityValueFine"/>
+        <xs:enumeration value="PositionPan"/>
+        <xs:enumeration value="PositionPanFine"/>
+        <xs:enumeration value="PositionTilt"/>
+        <xs:enumeration value="PositionTiltFine"/>
+        <xs:enumeration value="PositionXAxis"/>
+        <xs:enumeration value="PositionYAxis"/>
+        <xs:enumeration value="SpeedPanSlowFast"/>
+        <xs:enumeration value="SpeedPanFastSlow"/>
+        <xs:enumeration value="SpeedTiltSlowFast"/>
+        <xs:enumeration value="SpeedTiltFastSlow"/>
+        <xs:enumeration value="SpeedPanTiltSlowFast"/>
+        <xs:enumeration value="SpeedPanTiltFastSlow"/>
+        <xs:enumeration value="ColorMacro"/>
+        <xs:enumeration value="ColorWheel"/>
+        <xs:enumeration value="ColorCTOMixer"/>
+        <xs:enumeration value="ColorCTBMixer"/>
+        <xs:enumeration value="GoboWheel"/>
+        <xs:enumeration value="GoboIndex"/>
+        <xs:enumeration value="GoboIndexFine"/>
+        <xs:enumeration value="ShutterStrobeSlowFast"/>
+        <xs:enumeration value="ShutterStrobeFastSlow"/>
+        <xs:enumeration value="BeamFocusNearFar"/>
+        <xs:enumeration value="BeamFocusFarNear"/>
+        <xs:enumeration value="BeamIris"/>
+        <xs:enumeration value="BeamIrisFine"/>
+        <xs:enumeration value="BeamZoomSmallBig"/>
+        <xs:enumeration value="BeamZoomBigSmall"/>
+        <xs:enumeration value="PrismRotationSlowFast"/>
+        <xs:enumeration value="PrismRotationFastSlow"/>
+        <xs:enumeration value="NoFunction"/>
+    </xs:restriction>
+</xs:simpleType>
 
 <xs:simpleType name="dmxValueType">
     <xs:restriction base="xs:nonNegativeInteger">
