@@ -80,10 +80,46 @@ def update_fixture(path, filename, destpath):
     xmlObj = etree.parse(absname, parser=parser)
     root = xmlObj.getroot()
     fxSingleCapCount = 0
+    
+    namespace = "http://www.qlcplus.org/FixtureDefinition"
+    
+    ##################################### MODE PROCESSING #################################
 
-    for channel in root.xpath(".//*[local-name()='Channel']"):
+    global_phy = {}
+    gphy_tag = etree.Element("Physical")
+    
+    for mode in root.findall('{' + namespace + '}Mode'):
+        phy_dict = {}
+        phy_tag = mode.find('{' + namespace + '}Physical')
+        bulb_tag = phy_tag.find('{' + namespace + '}Bulb')
+        dim_tag = phy_tag.find('{' + namespace + '}Dimensions')
+        lens_tag = phy_tag.find('{' + namespace + '}Lens')
+        focus_tag = phy_tag.find('{' + namespace + '}Focus')
+        tech_tag = phy_tag.find('{' + namespace + '}Technical')
+        
+        phy_dict.update(phy_tag.attrib)
+        phy_dict.update(bulb_tag.attrib)
+        phy_dict.update(dim_tag.attrib)
+        phy_dict.update(lens_tag.attrib)
+        phy_dict.update(focus_tag.attrib)
+        phy_dict.update(tech_tag.attrib)
+        
+        if not global_phy:
+            global_phy = phy_dict
+            gphy_tag = phy_tag
+            mode.remove(phy_tag)
+            print "Moving mode " + mode.attrib['Name'] + " to global"
+        elif phy_dict == global_phy:
+            mode.remove(phy_tag)
+            print "Mode " + mode.attrib['Name'] + " is identical to global"     
+
+    root.append(gphy_tag)
+
+    ##################################### CHANNELS PROCESSING #################################
+    
+    for channel in root.findall('{' + namespace + '}Channel'):
         locCapCount = 0
-        for cap in channel.xpath(".//*[local-name()='Capability']"):
+        for cap in channel.findall('{' + namespace + '}Capability'):
             locCapCount += 1
 
         if locCapCount < 2:
@@ -95,14 +131,15 @@ def update_fixture(path, filename, destpath):
             color = ""
             controlByte = 0
             fineWord = ""
-            
+
             # Modes have a <Channel> tag too, but they don't have a name
             if not 'Name' in channel.attrib:
                 continue
 
             name = channel.attrib['Name']
 
-            for grpNode in channel.xpath(".//*[local-name()='Group']"):
+            grpNode = channel.find('{' + namespace + '}Group')
+            if grpNode is not None:
                 group = grpNode.text
                 controlByte = int(grpNode.attrib['Byte'])
 
@@ -110,7 +147,8 @@ def update_fixture(path, filename, destpath):
                 fineWord = "Fine"
 
             if group == "Intensity":
-                for colNode in channel.xpath(".//*[local-name()='Colour']"):
+                colNode = channel.find('{' + namespace + '}Colour')
+                if colNode is not None:
                     color = colNode.text
 
                 if color == "Red":
