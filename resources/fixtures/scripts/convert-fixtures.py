@@ -91,6 +91,11 @@ def update_fixture(path, filename, destpath):
     for mode in root.findall('{' + namespace + '}Mode'):
         phy_dict = {}
         phy_tag = mode.find('{' + namespace + '}Physical')
+        
+        if not phy_tag:
+            # Mode already processed. Skip
+            continue
+        
         bulb_tag = phy_tag.find('{' + namespace + '}Bulb')
         dim_tag = phy_tag.find('{' + namespace + '}Dimensions')
         lens_tag = phy_tag.find('{' + namespace + '}Lens')
@@ -119,6 +124,11 @@ def update_fixture(path, filename, destpath):
     
     for channel in root.findall('{' + namespace + '}Channel'):
         locCapCount = 0
+
+        if 'Preset' in channel.attrib:
+            # Channel already converted. Skip
+            continue
+
         for cap in channel.findall('{' + namespace + '}Capability'):
             locCapCount += 1
 
