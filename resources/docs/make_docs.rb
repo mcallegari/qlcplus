@@ -19,6 +19,7 @@ OptionParser.new do |opts|
 end.parse!
 
 VERSION = (File.read('../../variables.pri') =~ /APPVERSION = (.*?)$/) ? $1 : "Unknown"
+GIT_COMMIT = `git describe`.strip
 
 if !options[:destination].empty?
   FileUtils.mkdir_p options[:destination]
@@ -32,13 +33,13 @@ if !options[:destination].empty?
     text.gsub!(%r{file:}, "")
     text.gsub!(%r{qrc:/}, "gfx/")
     text.gsub!(%r{ onLoad="replaceqrc\(\)"}, "")
-    text.gsub!(%r{<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>\r?\n}, "")
+    text.gsub!(%r{<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>\r?\n}i, "")
     if !filename.include? "index.html"
-      text.gsub!(%r{<BODY>}, "<BODY>\n<H1 style=\"background-color: lightgreen;padding:3pt\"><img src=\"gfx/qlcplus.png\" width=32 align=\"absmiddle\" /> Q Light Controller Plus - User Documentation</H1>\n<a href=\"index.html\">Index page</a>")
+      text.gsub!(%r{<BODY>}i, "<BODY>\n<H1 style=\"background-color: lightgreen;padding:3pt\"><img src=\"gfx/qlcplus.png\" width=32 align=\"absmiddle\" /> Q Light Controller Plus - User Documentation</H1>\n<a href=\"index.html\">Index page</a>")
     else
-      text.gsub!(%r{<H1>}, "<H1 style=\"background-color: lightgreen;padding:3pt\"><img src=\"gfx/qlcplus.png\" width=32 align=\"absmiddle\" /> ")
+      text.gsub!(%r{<H1>}i, "<H1 style=\"background-color: lightgreen;padding:3pt\"><img src=\"gfx/qlcplus.png\" width=32 align=\"absmiddle\" /> ")
     end
-    text.gsub!(%r{</BODY>}, "<HR />\nVersion: #{VERSION} Last update: #{Time.now}\r\n</BODY>")
+    text.gsub!(%r{</BODY>}i, "<HR />\nVersion: #{VERSION} (#{GIT_COMMIT}) Last update: #{Time.now}\r\n</BODY>")
     File.open(File.join(options[:destination], filename), 'w') do |f|
       f << text
     end
