@@ -212,6 +212,33 @@ elementFormDefault="qualified"
     </xs:restriction>
 </xs:simpleType>
 
+<xs:simpleType name="capabilityPresetType">
+    <xs:restriction base="xs:string">
+        <xs:enumeration value="SlowToFast"/>
+        <xs:enumeration value="FastToSlow"/>
+        <xs:enumeration value="StrobeSlowToFast"/>
+        <xs:enumeration value="StrobeFastToSlow"/>
+        <xs:enumeration value="PulseSlowToFast"/>
+        <xs:enumeration value="PulseFastToSlow"/>
+        <xs:enumeration value="NearToFar"/>
+        <xs:enumeration value="FarToNear"/>
+        <xs:enumeration value="BigToSmall"/>
+        <xs:enumeration value="SmallToBig"/>
+        <xs:enumeration value="ShutterOpen"/>
+        <xs:enumeration value="ShutterClose"/>
+        <xs:enumeration value="StrobeFreq"/>
+        <xs:enumeration value="StrobeFreqRange"/>
+        <xs:enumeration value="PulseFreq"/>
+        <xs:enumeration value="PulseFreqRange"/>
+        <xs:enumeration value="RotationClockwise"/>
+        <xs:enumeration value="RotationCounterClockwise"/>
+        <xs:enumeration value="TiltContinuous"/>
+        <xs:enumeration value="ColorMacro"/>
+        <xs:enumeration value="ColorWheelIndex"/>
+        <xs:enumeration value="Alias
+    </xs:restriction>
+</xs:simpleType>
+
 <xs:simpleType name="dmxValueType">
     <xs:restriction base="xs:nonNegativeInteger">
         <xs:minInclusive value="0"/>
