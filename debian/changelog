@@ -7,6 +7,7 @@ qlcplus (4.11.2) stable; urgency=low
   * UI/RGBMatrix Editor: fix preview not updating on pattern change when play button is on
   * Virtual Console/Slider: fix submaster initial value not applied
   * Virtual Console/Slider: implemented 'value catching' for controllers without feedbacks (Lukas Jähn proposal)
+  * Virtual Console/Slider: fix values range when switching between Slider and Knob appearance
   * Virtual Console/Knob: fix DMX values not updated when interacting with the mouse wheel
   * Virtual Console/Cue List: allow to select a step with next/previous buttons during pause
   * Virtual Console/Frame: fix regression preventing to send the disable feedback
