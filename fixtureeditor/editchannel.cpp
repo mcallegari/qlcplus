@@ -91,6 +91,8 @@ void EditChannel::init()
     /* Set window title */
     setWindowTitle(tr("Edit Channel: ") + m_channel->name());
 
+    m_invalidMinMax->setStyleSheet("QLabel { color: red; }");
+
     /* Set name edit */
     m_nameEdit->setText(m_channel->name());
     m_nameEdit->setValidator(CAPS_VALIDATOR(this));
@@ -153,6 +155,14 @@ void EditChannel::init()
 
     m_defaultValSpin->setValue(m_channel->defaultValue());
 
+    m_capPresetCombo->addItem(QIcon(":/edit.png"), "Custom");
+    for (int i = QLCCapability::Custom + 1; i < QLCCapability::LastPreset; i++)
+    {
+        QLCCapability cap;
+        cap.setPreset(QLCCapability::Preset(i));
+        m_capPresetCombo->addItem(cap.presetToString(QLCCapability::Preset(i)));
+    }
+
     connect(m_typeCombo, SIGNAL(activated(int)), this, SLOT(slotGroupActivated(int)));
     connect(m_defaultValSpin, SIGNAL(valueChanged(int)), this, SLOT(slotDefaultValueChanged(int)));
     connect(m_msbRadio, SIGNAL(toggled(bool)), this, SLOT(slotMsbRadioToggled(bool)));
@@ -172,29 +182,20 @@ void EditChannel::init()
     connect(m_maxSpin, SIGNAL(valueChanged(int)), this, SLOT(slotMaxSpinChanged(int)));
     connect(m_descriptionEdit, SIGNAL(textEdited(const QString&)),
             this, SLOT(slotDescriptionEdited(const QString&)));
+    connect(m_capPresetCombo, SIGNAL(activated(int)), this, SLOT(slotCapabilityPresetActivated(int)));
     connect(m_pictureButton, SIGNAL(pressed()), this, SLOT(slotPictureButtonPressed()));
     connect(m_color1Button, SIGNAL(pressed()), this, SLOT(slotColor1ButtonPressed()));
     connect(m_color2Button, SIGNAL(pressed()), this, SLOT(slotColor2ButtonPressed()));
 
     refreshCapabilities();
     m_valueGroup->setVisible(false);
-    m_resourceGroup->setVisible(false);
+    updateCapabilityPresetGroup(false);
 }
 
 void EditChannel::setupCapabilityGroup()
 {
     m_valueGroup->setVisible(true);
-    m_resourceGroup->setVisible(true);
     m_invalidMinMax->setVisible(false);
-
-    if (m_channel->group() == QLCChannel::Gobo)
-        m_resourceGroup->setTitle(tr("Gobo"));
-    else if (m_channel->group() == QLCChannel::Colour)
-        m_resourceGroup->setTitle(tr("Colour"));
-    else if (m_channel->group() == QLCChannel::Effect)
-        m_resourceGroup->setTitle(tr("Effect"));
-    else
-        m_resourceGroup->hide();
 
     // temporarily block signals to avoid a full tree refresh
     m_minSpin->blockSignals(true);
@@ -216,29 +217,7 @@ void EditChannel::setupCapabilityGroup()
     m_maxSpin->blockSignals(false);
     m_descriptionEdit->blockSignals(false);
 
-    if (m_currentCapability->resourceName().isEmpty() == false)
-        m_resourceButton->setIcon(QIcon(m_currentCapability->resourceName()));
-    else if (m_currentCapability->resourceColor1().isValid())
-    {
-        QPixmap pix(58, 58);
-        if (m_currentCapability->resourceColor2().isValid())
-        {
-            QPainter painter(&pix);
-            painter.fillRect(0, 0, 29, 58, m_currentCapability->resourceColor1());
-            painter.fillRect(29, 0, 58, 58, m_currentCapability->resourceColor2());
-        }
-        else
-            pix.fill(m_currentCapability->resourceColor1());
-        m_color2Button->setEnabled(true);
-        m_resourceButton->setIcon(pix);
-    }
-    else
-    {
-        QPixmap pix(58, 58);
-        m_color2Button->setEnabled(false);
-        pix.fill(QColor(Qt::transparent));
-        m_resourceButton->setIcon(pix);
-    }
+    updateCapabilityPresetGroup(true);
 }
 
 void EditChannel::slotNameChanged(const QString& name)
@@ -256,6 +235,9 @@ void EditChannel::slotPresetActivated(int index)
     m_capabilityList->setEnabled(enable);
     m_addCapabilityButton->setEnabled(enable);
     m_wizardButton->setEnabled(enable);
+
+    if (index == m_channel->preset())
+        return;
 
     if (index != 0)
         m_channel->setName("");
@@ -402,7 +384,7 @@ void EditChannel::slotRemoveCapabilityClicked()
     else
     {
         m_valueGroup->setVisible(false);
-        m_resourceGroup->setVisible(false);
+        updateCapabilityPresetGroup(false);
     }
 }
 
@@ -412,7 +394,7 @@ void EditChannel::slotEditCapabilityClicked()
     if (m_currentCapability == NULL)
     {
         m_valueGroup->setVisible(false);
-        m_resourceGroup->setVisible(false);
+        updateCapabilityPresetGroup(false);
         return;
     }
 
@@ -496,6 +478,12 @@ void EditChannel::slotDescriptionEdited(const QString& text)
     QTreeWidgetItem *item = m_capabilityList->currentItem();
     if (item != NULL)
         item->setText(COL_NAME, text);
+}
+
+void EditChannel::slotCapabilityPresetActivated(int index)
+{
+    m_currentCapability->setPreset(QLCCapability::Preset(index));
+    updateCapabilityPresetGroup(index ? true : false);
 }
 
 void EditChannel::slotPictureButtonPressed()
@@ -629,4 +617,93 @@ int EditChannel::currentCapabilityIndex()
         return m_capabilityList->indexOfTopLevelItem(m_capabilityList->currentItem());
 
     return 0;
+}
+
+void EditChannel::updateCapabilityPresetGroup(bool show)
+{
+    bool showColor1 = false;
+    bool showColor2 = false;
+    bool showPicture = false;
+    bool showPreview = false;
+    bool showValue1 = false;
+    bool showValue2 = false;
+
+    if (show && m_currentCapability)
+    {
+        if (m_capPresetCombo->currentIndex() != m_currentCapability->preset())
+            m_capPresetCombo->setCurrentIndex(m_currentCapability->preset());
+
+        QLCCapability::PresetType type = m_currentCapability->presetType();
+
+        switch (type)
+        {
+            case QLCCapability::Picture:
+                m_resourceButton->setIcon(QIcon(m_currentCapability->resourceName()));
+                showPicture = true;
+                showPreview = true;
+            break;
+            case QLCCapability::SingleColor:
+            {
+                QPixmap pix(58, 58);
+                if (m_currentCapability->resourceColor1().isValid())
+                    pix.fill(m_currentCapability->resourceColor1());
+                else
+                    pix.fill(QColor(Qt::transparent));
+                m_resourceButton->setIcon(pix);
+
+                showColor1 = true;
+                showPreview = true;
+            }
+            break;
+            case QLCCapability::DoubleColor:
+            {
+                QPixmap pix(58, 58);
+                if (m_currentCapability->resourceColor1().isValid())
+                {
+                    pix.fill(m_currentCapability->resourceColor1());
+
+                    if (m_currentCapability->resourceColor2().isValid())
+                    {
+                        QPainter painter(&pix);
+                        painter.fillRect(29, 0, 58, 58, m_currentCapability->resourceColor2());
+                    }
+                }
+                else
+                {
+                    pix.fill(QColor(Qt::transparent));
+                }
+
+                m_resourceButton->setIcon(pix);
+                m_color2Button->setEnabled(true);
+
+                showColor1 = true;
+                showColor2 = true;
+                showPreview = true;
+            }
+            break;
+            case QLCCapability::SingleValue:
+                showValue1 = true;
+            break;
+            case QLCCapability::DoubleValue:
+                showValue1 = true;
+                showValue2 = true;
+            break;
+            default:
+            break;
+        }
+    }
+
+    m_capPresetLabel->setVisible(show);
+    m_capPresetCombo->setVisible(show);
+    m_color1Label->setVisible(showColor1);
+    m_color1Button->setVisible(showColor1);
+    m_color2Label->setVisible(showColor2);
+    m_color2Button->setVisible(showColor2);
+    m_pictureLabel->setVisible(showPicture);
+    m_pictureButton->setVisible(showPicture);
+    m_resourceGroup->setVisible(showPreview);
+    m_val1Label->setVisible(showValue1);
+    m_val1Spin->setVisible(showValue1);
+    m_val2Label->setVisible(showValue2);
+    m_val2Spin->setVisible(showValue2);
 }

@@ -78,6 +78,7 @@ protected slots:
     void slotMinSpinChanged(int value);
     void slotMaxSpinChanged(int value);
     void slotDescriptionEdited(const QString& text);
+    void slotCapabilityPresetActivated(int index);
     void slotPictureButtonPressed();
     void slotColor1ButtonPressed();
     void slotColor2ButtonPressed();
@@ -86,6 +87,7 @@ protected:
     void refreshCapabilities();
     QLCCapability* currentCapability();
     int currentCapabilityIndex();
+    void updateCapabilityPresetGroup(bool show);
 
 protected:
     QLCCapability* m_currentCapability;

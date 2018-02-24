@@ -38,6 +38,7 @@ QLCCapability::QLCCapability(uchar min, uchar max, const QString& name,
                              const QString &resource, const QColor &color1,
                              const QColor &color2, QObject *parent)
     : QObject(parent)
+    , m_preset(Custom)
     , m_min(min)
     , m_max(max)
     , m_name(name)
@@ -51,6 +52,7 @@ QLCCapability *QLCCapability::createCopy()
 {
     QLCCapability *copy = new QLCCapability(m_min, m_max, m_name, m_resource,
                                             m_resourceColor1, m_resourceColor2);
+    copy->setPreset(preset());
     return copy;
 }
 
@@ -65,6 +67,7 @@ QLCCapability& QLCCapability::operator=(const QLCCapability& capability)
         m_min = capability.m_min;
         m_max = capability.m_max;
         m_name = capability.m_name;
+        m_preset = capability.m_preset;
         m_resource = capability.m_resource;
         m_resourceColor1 = capability.m_resourceColor1;
         m_resourceColor2 = capability.m_resourceColor2;
@@ -104,6 +107,27 @@ void QLCCapability::setPreset(QLCCapability::Preset preset)
         return;
 
     m_preset = preset;
+}
+
+QLCCapability::PresetType QLCCapability::presetType() const
+{
+    switch (m_preset)
+    {
+        case StrobeFreq:
+        case PulseFreq:
+            return SingleValue;
+        case StrobeFreqRange:
+        case PulseFreqRange:
+            return DoubleValue;
+        case ColorMacro:
+            return SingleColor;
+        case ColorDoubleMacro:
+            return DoubleColor;
+        case GoboMacro:
+        case GenericPicture:
+            return Picture;
+        default: return None;
+    }
 }
 
 /************************************************************************
@@ -285,7 +309,10 @@ bool QLCCapability::loadXML(QXmlStreamReader &doc)
         {
             QDir dir = QLCFile::systemDirectory(GOBODIR);
             path = dir.path() + QDir::separator() + path;
+            setPreset(GoboMacro);
         }
+        else
+            setPreset(GenericPicture);
         setResourceName(path);
     }
 
@@ -297,7 +324,13 @@ bool QLCCapability::loadXML(QXmlStreamReader &doc)
         if (attrs.hasAttribute(KXMLQLCCapabilityColor2))
             col2 = QColor(attrs.value(KXMLQLCCapabilityColor2).toString());
         if (col1.isValid())
+        {
+            if (col2.isValid())
+                setPreset(ColorDoubleMacro);
+            else
+                setPreset(ColorMacro);
             setResourceColors(col1, col2);
+        }
     }
 
     if (min <= max)

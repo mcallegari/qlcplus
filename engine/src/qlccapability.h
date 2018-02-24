@@ -84,7 +84,7 @@ public:
     bool operator<(const QLCCapability& capability) const;
 
     /********************************************************************
-     * Properties
+     * Preset
      ********************************************************************/
 public:
     enum Preset
@@ -114,7 +114,10 @@ public:
         ColorMacro,
         ColorDoubleMacro,
         ColorWheelIndex,
-        Alias
+        GoboMacro,
+        GenericPicture,
+        Alias,
+        LastPreset // dummy for cycles
     };
 #if QT_VERSION >= 0x050500
     Q_ENUM(Preset)
@@ -122,11 +125,26 @@ public:
     Q_ENUMS(Preset)
 #endif
 
+    enum PresetType
+    {
+        None,
+        SingleColor,
+        DoubleColor,
+        SingleValue,
+        DoubleValue,
+        Picture
+    };
+
     static QString presetToString(Preset preset);
     static Preset stringToPreset(const QString &preset);
 
     Preset preset() const;
     void setPreset(Preset preset);
+
+    /** Return the type of the current preset.
+     *  This is useful for the UI to understand the type
+     *  of resources this capability is exposing */
+    PresetType presetType() const;
 
 protected:
     Preset m_preset;
