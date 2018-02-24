@@ -363,6 +363,15 @@ void QLCChannel::setPreset(QLCChannel::Preset preset)
             grp = Colour;
             prname = "Color wheel";
         break;
+        case ColorWheelFine:
+            grp = Colour;
+            prname = "Color wheel fine";
+            cb = LSB;
+        break;
+        case ColorRGBMixer:
+            grp = Colour;
+            prname = "RGB mixer";
+        break;
         case ColorCTOMixer:
             grp = Colour;
             prname = "CTO mixer";
@@ -374,6 +383,11 @@ void QLCChannel::setPreset(QLCChannel::Preset preset)
         case GoboWheel:
             grp = Gobo;
             prname = "Gobo wheel";
+        break;
+        case GoboWheelFine:
+            grp = Gobo;
+            prname = "Gobo wheel fine";
+            cb = LSB;
         break;
         case GoboIndex:
             grp = Gobo;
@@ -477,8 +491,11 @@ QLCCapability *QLCChannel::addPresetCapability()
         case PositionTiltFine:
         case PositionXAxis:
         case PositionYAxis:
+        case ColorWheelFine:
+        case ColorRGBMixer:
         case ColorCTOMixer:
         case ColorCTBMixer:
+        case GoboWheelFine:
         case GoboIndexFine:
         case BeamIris:
         case BeamIrisFine:

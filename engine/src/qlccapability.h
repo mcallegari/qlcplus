@@ -92,16 +92,18 @@ public:
         Custom = 0,
         SlowToFast,
         FastToSlow,
-        StrobeSlowToFast,
-        StrobeFastToSlow,
-        PulseSlowToFast,
-        PulseFastToSlow,
         NearToFar,
         FarToNear,
         BigToSmall,
         SmallToBig,
         ShutterOpen,
         ShutterClose,
+        StrobeSlowToFast,
+        StrobeFastToSlow,
+        StrobeRandomSlowToFast,
+        StrobeRandomFastToSlow,
+        PulseSlowToFast,
+        PulseFastToSlow,
         StrobeFreq, // precise frequency value in hertz specified in m_resource
         StrobeFreqRange, // specified in m_resource as "min-max" hertz
         PulseFreq,
@@ -110,6 +112,7 @@ public:
         RotationCounterClockwise,
         TiltContinuous,
         ColorMacro,
+        ColorDoubleMacro,
         ColorWheelIndex,
         Alias
     };
