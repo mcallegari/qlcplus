@@ -72,6 +72,7 @@ QLCChannel *QLCChannel::createCopy()
     copy->setPreset(this->preset());
     if (this->preset() != Custom)
     {
+        copy->setName(this->name());
         copy->addPresetCapability();
     }
     else
