@@ -1,0 +1,282 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus Documentation</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<meta charset="utf-8" />
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<h1>対応している外部入力デバイス</h1>
+
+<p>
+　以下のデバイスはQLC+で動作することが確認されています。
+　このリストに載っていないMIDI,OSC機器はほぼ全て使用可能と思います。動作したデバイスの情報等を<a href="http://www.qlcplus.org/forum/">QLC+ forum</a>で募集しています。
+</p>
+
+<table border="1" class="qlcTable">
+<tr>
+<th>デバイス</th>
+<th>タイプ</th>
+<TH><a href="midiplugin.html#midi-channel">Midi Channel</a></TH>
+<TH><a href="howto-input-profiles.html">Input Profile</a></TH>
+<TH><a href="midiplugin.html#midi-template">MIDI Template</a></TH>
+<TH><a href="midiplugin.html#feedbacks">Supports feedback</a></TH>
+<TH>コメント</TH>
+</TR>
+
+<TR>
+<TD><a href="http://www.akaipro.com/product/apc20">Akai APC20</a></TD>
+<TD><a href="midiplugin.html">MIDI</a></TD>
+<TD>1-16</TD>
+<TD>Akai APC20</TD>
+<TD>APC20 Ableton mode 2</TD>
+<TD><a href="midiplugin.html#akai-feedbacks">yes</a></TD>
+<TD></TD>
+</TR>
+
+<TR>
+<TD><a href="http://www.akaipro.com/product/apc40">Akai APC40</a></TD>
+<TD><a href="midiplugin.html">MIDI</a></TD>
+<TD>1-16</TD>
+<TD>Akai APC40</TD>
+<TD>APC40 Ableton mode 2</TD>
+<TD><a href="midiplugin.html#akai-feedbacks">yes</a></TD>
+<TD></TD>
+</TR>
+
+<TR>
+<TD><a href="http://www.akaipro.com/product/apc-mini">Akai APC Mini</a></TD>
+<TD><a href="midiplugin.html">MIDI</a></TD>
+<TD>1</TD>
+<TD>Akai APC Mini</TD>
+<TD>none</TD>
+<TD><a href="midiplugin.html#akai-feedbacks">yes</a></TD>
+<TD></TD>
+</TR>
+
+<TR>
+<TD><a href="https://www.music-group.com/Categories/Behringer/Computer-Audio/Desktop-Controllers/BCF2000/p/P0246">Behringer BCF2000</a> in default mode</TD>
+<TD><a href="midiplugin.html">MIDI</a></TD>
+<TD>1</TD>
+<TD>Behringer BCF2000</TD>
+<TD>none</TD>
+<TD>yes</TD>
+<TD></TD>
+</TR>
+
+<TR>
+<TD><a href="https://www.music-group.com/Categories/Behringer/Computer-Audio/Desktop-Controllers/BCF2000/p/P0246">Behringer BCF2000</a> in Mackie Control mode</TD>
+<TD><a href="midiplugin.html">MIDI</a></TD>
+<TD>1-16</TD>
+<TD>Behringer BCF2000 in Mackie Control mode</TD>
+<TD>none</TD>
+<TD>yes</TD>
+<td>デフォルトモードよりも多くの制御ができます。</td>
+</TR>
+
+<TR>
+<TD><a href="https://www.music-group.com/Categories/Behringer/Computer-Audio/Desktop-Controllers/BCR2000/p/P0245">Behringer BCR2000</a> in default mode</TD>
+<TD><a href="midiplugin.html">MIDI</a></TD>
+<TD>1</TD>
+<TD>Behringer BCR2000</TD>
+<TD>none</TD>
+<TD>yes</TD>
+<TD></TD>
+</TR>
+
+<TR>
+<TD><a href="http://www.music-group.com/Categories/Behringer/Lighting-Systems/DMX-Controllers/LC2412/p/P0058">Behringer LC2412</a></TD>
+<TD><a href="midiplugin.html">MIDI</a></TD>
+<TD>1</TD>
+<TD>Behringer LC2412</TD>
+<TD>none</TD>
+<TD>no</TD>
+<TD></TD>
+</TR>
+
+<TR>
+<TD>GLP Light Operator 24</TD>
+<TD><a href="midiplugin.html">MIDI</a></TD>
+<TD>1</TD>
+<TD>Showtec Showmaster 24</TD>
+<TD>none</TD>
+<TD>no</TD>
+<td>48chモードでも動作が確認されています。</td>
+</TR>
+
+<TR>
+<TD><a href="http://www.elationlighting.com/ProductDetails.aspx?ItemNumber=1708">Elation MIDIcon</a></TD>
+<TD><a href="midiplugin.html">MIDI</a></TD>
+<TD>1-16</TD>
+<TD>Elation MIDIcon</TD>
+<TD>none</TD>
+<TD>yes</TD>
+<TD>未検証</TD>
+</TR>
+
+<TR>
+<TD><a href="http://www.elationprofessional.com/ProductDetails.aspx?ItemNumber=1355">Elation Stage Setter-24</a></TD>
+<TD><a href="midiplugin.html">MIDI</a></TD>
+<TD>1</TD>
+<TD>Showtec Showmaster 24</TD>
+<TD>none</TD>
+<TD>no</TD>
+<td><a href="http://www.elationprofessional.com/ProductDetails.aspx?ItemNumber=1180">48 ch</a> モードでも動作が確認されています。</td>
+</TR>
+
+<TR>
+<TD><a href="http://www.enttec.com/index.php?main_menu=Products&amp;pn=70032">Enttec Playback Wing</a></TD>
+<TD>Enttec</TD>
+<TD>-</TD>
+<TD>Enttec Playback Wing</TD>
+<TD>-</TD>
+<TD>yes</TD>
+<TD></TD>
+</TR>
+
+<TR>
+<TD><a href="http://www.enttec.com/index.php?main_menu=Products&amp;pn=70031">Enttec Shortcut Wing</a></TD>
+<TD>Enttec</TD>
+<TD>-</TD>
+<TD>Enttec Shortcut Wing</TD>
+<TD>-</TD>
+<TD>yes</TD>
+<TD></TD>
+</TR>
+
+<TR>
+<TD>Generic MIDI</TD>
+<TD><a href="midiplugin.html">MIDI</a></TD>
+<TD>1</TD>
+<TD>Generic MIDI</TD>
+<TD>-</TD>
+<TD>no</TD>
+<TD></TD>
+</TR>
+
+<TR>
+<TD>Korg nanoKONTROL</TD>
+<TD><a href="midiplugin.html">MIDI</a></TD>
+<TD>1</TD>
+<TD>Korg nanoKONTROL</TD>
+<TD>none</TD>
+<TD>no</TD>
+<TD></TD>
+</TR>
+
+<TR>
+<TD><a href="http://www.korg.com/us/products/controllers/nanokontrol2/">Korg nanoKONTROL 2</a></TD>
+<TD><a href="midiplugin.html">MIDI</a></TD>
+<TD>1</TD>
+<TD>Korg nanoKONTROL2</TD>
+<TD>none</TD>
+<TD>yes</TD>
+<TD></TD>
+</TR>
+
+<TR>
+<TD>Korg nanoPAD</TD>
+<TD><a href="midiplugin.html">MIDI</a></TD>
+<TD>1</TD>
+<TD>Korg nanoPAD</TD>
+<TD>none</TD>
+<TD>no</TD>
+<TD></TD>
+</TR>
+
+<TR>
+<TD><a href="http://www.korg.com/us/products/controllers/nanopad2/">Korg nanoPAD 2</a></TD>
+<TD><a href="midiplugin.html">MIDI</a></TD>
+<TD>1</TD>
+<TD>Korg nanoPAD2</TD>
+<TD>none</TD>
+<TD>no</TD>
+<TD></TD>
+</TR>
+
+<TR>
+<TD>Logitech Wingman Attack 2</TD>
+<TD><a href="hidplugin.html">HID</a></TD>
+<TD>-</TD>
+<TD>Logitech Wingman Attack 2</TD>
+<TD>-</TD>
+<TD>no</TD>
+<TD></TD>
+</TR>
+
+<TR>
+<TD><a href="https://global.novationmusic.com/launch/launchpad">Novation Launchpad</a></TD>
+<TD><a href="midiplugin.html">MIDI</a></TD>
+<TD>1</TD>
+<TD>Novation Launchpad</TD>
+<TD>none</TD>
+<TD>yes</TD>
+<TD></TD>
+</TR>
+
+<TR>
+<TD><a href="https://global.novationmusic.com/launch/launch-control#">Novation Launch Control</a></TD>
+<TD><a href="midiplugin.html">MIDI</a></TD>
+<TD>1-16</TD>
+<TD>Novation Launch Control</TD>
+<TD>none</TD>
+<TD>yes</TD>
+<TD></TD>
+</TR>
+
+<TR>
+<TD><a href="http://www.highlite.nl/Shop/Products/Showtec/Lightcontrollers/Fader-Desks/Showmaster-24-MKII?product_id=125045">Showtec Showmaster 24</a></TD>
+<TD><a href="midiplugin.html">MIDI</a></TD>
+<TD>1</TD>
+<TD>Showtec Showmaster 24</TD>
+<TD>none</TD>
+<TD>no</TD>
+<TD><a href="http://www.highlite.nl/Shop/Products/Showtec/Lightcontrollers/Fader-Desks/Showmaster-48-MKII?product_id=125045">48ch</a>モードでも動作が確認されています。</TD>
+</TR>
+
+<TR>
+<TD>Stairville LC24</TD>
+<TD><a href="midiplugin.html">MIDI</a></TD>
+<TD>1</TD>
+<TD>Showtec Showmaster 24</TD>
+<TD>none</TD>
+<TD>no</TD>
+<td>48 ch モードでも動作が確認されています。</td>
+</TR>
+
+<TR>
+<TD><a href="http://hexler.net/software/touchosc">TouchOSC</a> Automat5</TD>
+<TD><a href="oscplugin.html">OSC</a></TD>
+<TD>-</TD>
+<TD>TouchOSC Automat5</TD>
+<TD>-</TD>
+<TD>yes</TD>
+<TD></TD>
+</TR>
+
+<TR>
+<TD><a href="http://hexler.net/software/touchosc">TouchOSC</a> Mix16</TD>
+<TD><a href="oscplugin.html">OSC</a></TD>
+<TD>-</TD>
+<TD>TouchOSC Mix16</TD>
+<TD>-</TD>
+<TD>yes</TD>
+<TD></TD>
+</TR>
+
+<TR>
+<TD><a href="https://www.zoom-na.com/products/production-recording/multi-track-recorders/zoom-r16-recorder-interface-controller">Zoom R16</a></TD>
+<TD><a href="midiplugin.html">MIDI</a></TD>
+<TD>1-16</TD>
+<TD>Zoom R16</TD>
+<TD>none</TD>
+<TD>no</TD>
+<TD></TD>
+</TR>
+
+</TABLE>
+
+</BODY>
+</HTML>

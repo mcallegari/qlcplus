@@ -1,0 +1,164 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - Channel Properties Configuration</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1><img src="qrc:/fade.png" ALIGN="absmiddle"> Channel Properties Configuration</H1>
+<P>
+This window displays a tree with items nested in a Universes/Fixtures/Channels structure.<br>
+On the right side of each fixture's channel are displayed the available options that can
+be set to modify the behaviour of each single channel.<br>
+
+<H2>Channels properties</H2>
+
+<TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD><B>Can fade</B></TD>
+  <TD>Determine if a channel is included or excluded in the QLC+ fade transitions.<br>
+      By default all the channels are affected by the Fade In and Fade Out timings
+      of the QLC+ functions.<br>
+      When this property is unchecked, a channel will not fade, meaning that 
+      a fade transition from 20 to 200, will set the channel immediately to 200.<br>
+      This is useful for example for Pan/Tilt channels of moving heads, where you want
+      the motors to avoid fading but immediately go to the final value.
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Behaviour</B></TD>
+  <TD>Force the channel behaviour according to the <A HREF="file:concept.html#HTP">HTP</A> and
+      <A HREF="file:concept.html#LTP">LTP</A> rules. When changing the behaviour of a channel,
+      the dropdown list will highlight in red, showing evidence that the channels has been modified.<br>
+      <b>Note: Use this functionality only if you know what you're doing and fully understand
+      how HTP and LTP work</b>
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Modifier</B></TD>
+  <TD>Channels modifiers are a powerful tool to modify the behaviour of a channel
+      by acting at the end of the DMX value calculation, right before the 
+      <A HREF="file:concept.html#GrandMaster">Grand Master</A> modification.<br>
+      By default all the channels will follow a linear rule, meaning that the original
+      DMX value will be equal to the output DMX value. (0-0, 1-1, ... , 255-255)<br>
+      When clicking on this button, the Channel Modifier Editor panel (described below) will be displayed.
+ </TR>
+</TABLE>
+
+<br>
+When dealing with a lot of fixtures of the same type, you might want to check 
+the "Apply changes to fixtures of the same type" check box.<br>
+This means that changing a channel property will affect all the channels of the same type and
+fixture in the list.<br>
+This can save you quite a lot of time when setting up your projects for the first time.
+</P>
+
+<H2>Channel Modifier Editor</H2>
+
+<P>
+The channel modifier editor is presented like this:<br>
+<img src="file:../images/channelmodifier.png"></img>
+<br><br>
+On the right side of the window, a list of available modifier templates is displayed.<br>
+Clicking on a template in the list, will show the curve preview on the left side of 
+the window.<br>
+A modifier curve is composed by a number of lines representing how a DMX channel
+should be modified when its value changes.<br>
+Each line starts and ends with a so called "handler". A modifier can have a virtually
+infinite number of handlers, but there must be always one handler on the DMX value 0 and one
+handler on the DMX value 255 to cover all the DMX values range.<br>
+Basically the X coordinate of the preview represents the original DMX value and the Y coordinate
+represents the modified DMX value.<br>
+When clicking on a handler this gets clearer as the fields above the curve preview
+are filled with the said values.<br>
+Handlers can be simply moved with the mouse by dragging them around or by manually
+changing the values of the original or modified DMX values.<br>
+<br>
+To create a new template just select an existing template, give it a new name and add/remove handlers
+as needed with the <IMG SRC="qrc:/edit_add.png"> and <IMG SRC="qrc:/edit_remove.png"> buttons.<br>
+When done, just click the <IMG SRC="qrc:/filesave.png"> button and your template will be saved
+in your user templates folder. Please refer to the 
+<A HREF="file:questionsandanswers.html">Questions and Answers</A> page to locate this folder.
+</P>
+
+<H2>Channel Modifier Templates</H2>
+
+<P>QLC+ delivers a few templates that might cover the most common cases.</P>
+
+<TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD><B>Always Full</B></TD>
+  <TD>Fix ("park") the channel value to 100% (255), regardless of other QLC+ mechanisms (except blackout and universe passthrough).
+      Useful for e.g. dimmer channels.
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Always Half</B></TD>
+  <TD>Fix ("park") the channel value to 50% (127). Useful for keeping Pan/Tilt channels at a neutral position.
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Always Off</B></TD>
+  <TD>Fix ("park") the channel value to 0% (0).
+      Useful for disabling wrong fixtures.
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Exponential Deep</B></TD>
+  <TD>
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Exponential Medium</B></TD>
+  <TD>
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Exponential Shallow</B></TD>
+  <TD>
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Exponential Simple</B></TD>
+  <TD>
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Inverted</B></TD>
+  <TD>Invert a Pan/Tilt channel where a product doesn't have
+this feature by factory default.
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Linear</B></TD>
+  <TD>Default curve, same as when no modifier is set.
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Logarithmic Deep</B></TD>
+  <TD rowspan="3">This template can improve the fade transitions of LED-based fixtures, trying to
+bring them back to a more linear effect
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Logarithmic Medium</B></TD>
+ </TR>
+ <TR>
+  <TD><B>Logarithmic Shallow</B></TD>
+ </TR>
+ <TR>
+  <TD><B>Preheat 5%</B></TD>
+  <TD>May extend lamp life by keeping them at 5% minimum
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Threshold</B></TD>
+  <TD>Converts dimmer channel to switch channel (off below 128, full above)
+  </TD>
+ </TR>
+</TABLE>
+
+</BODY>
+</HTML>

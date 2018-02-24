@@ -1,0 +1,197 @@
+<html dir="ltr">
+<head>
+<title>Q Light Controller Plus - スクリプトエディタ</title>
+<script src="utility.js" type="text/javascript"></script>
+<link href="style.css" rel="stylesheet" type="text/css"></link>
+  <meta charset="utf-8">
+</head>
+<BODY onLoad="replaceqrc()">
+
+
+<h1>スクリプトエディタ</h1>
+<p>
+　ファンクションの一種である<IMG SRC="qrc:/script.png" align="absmiddle"> <A HREF="file:concept.html#Script">スクリプト</a>を作成・編集できます。<br>
+　このエディタではスクリプト言語文法に従ってプログラミングすることができます。<br>
+　文法を理解している場合はご自身ですべてプログラミングできますが、ボタンを利用してプログラミングをアシストすることができます。<br>
+このスクリプトは上から随時実行されます。
+</p>
+
+<h3>設定項目</h3>
+
+<table border="1" class="qlcTable">
+ <tr>
+  <td>
+    <img src="qrc:/player_play.png" />
+  </td>
+  <td>
+　再生します。</td>
+ </tr>
+ <tr>
+  <td>
+   <b>名前</b>
+  </td>
+  <td>
+　ファンクション名を設定できます。
+  </td>
+ </tr>
+ <tr>
+  <td>
+    <IMG SRC="qrc:/edit_add.png">
+  </td>
+  <td>
+　ボタンをクリックするとポップアップが表示され以下の機能をカーソル位置に追加できます。
+   <ul>
+    <li><IMG SRC="qrc:/function.png" width=24 align="absmiddle"> <b>ファンクション開始</b>: <a href="selectfunction.html">ファンクションの選択ダイアルログ</a>が表示されます。<br>コマンドの末端にファンクション名がコメントアウトされて追加されます。
+    </li>
+    <li><IMG SRC="qrc:/fileclose.png" width=24 align="absmiddle"> <b>ファンクション停止</b>: <a href="selectfunction.html">ファンクションの選択ダイアルログ</a>が表示されます。選択したファンクションが再生されていなかった場合は何も起こりません。<br>コマンドの末端にファンクション名がコメントアウトされて追加されます。
+    </li>
+    <li><IMG SRC="qrc:/fixture.png" width=24 align="absmiddle"> <b>機器をセット</b>: フィクスチャーを追加できます。複数のチャンネルが選択されている場合でも追加されるコマンドは１行です。デフォルトでは、DMX値は0としてコマンドが追加されます、お好きな数値に書き換えてください。<br>コマンドの末端にファンクション名がコメントアウトされて追加されます。
+    </li>
+    <li><IMG SRC="qrc:/player_play.png" width=24 align="absmiddle"><b>System Command</b>: ファイル選択ダイアルログが開き外部スクリプトを呼び出すことができます。文法に従って記述された実行可能な外部ファイルを選択してください。ファイルが選択されると別のダイアルログで引数を入力するように求められます。外部スクリプトに引数を渡す必要がない場合は空のままで大丈夫です。
+    </li>
+    <li><IMG SRC="qrc:/speed.png" width=24 align="absmiddle"><b>ウェイト</b>: スクリプトの次の行を実行するまで指定時間待ちます。</li>
+    <li><IMG SRC="qrc:/label.png" width=24 align="absmiddle"> <b>コメント</b>: コメントアウトできます。<br>コメントはC言語に似た方式で" // "の後行末までをコメントアウトします。</li>
+    <li><IMG SRC="qrc:/other.png" width=24 align="absmiddle"> <b>Random Number</b>: 乱数を生成します。生成する乱数の範囲を指定できます。<br>
+    </li>
+    <li><IMG SRC="qrc:/fileopen.png" width=24 align="absmiddle"> <b>File Path</b>: ファイルを開きます。絶対パスとファイル名がコマンドとして追加されます。<br>
+　パスにスペースがある場合は " ダブルクォーテーションで囲みます。</li>
+   </ul>
+  </td>
+ </tr>
+ <tr>
+  <td>
+    <IMG SRC="qrc:/editcut.png">
+  </td>
+  <td>
+　選択したテキストを切り取ります。</td>
+ </tr>
+ <tr>
+  <td>
+    <IMG SRC="qrc:/editcopy.png">
+  </td>
+  <td>
+　選択したテキストをコピーします。</td>
+ </tr>
+ <tr>
+  <td>
+    <IMG SRC="qrc:/editpaste.png">
+  </td>
+  <td>
+　カーソル位置にペーストします。</td>
+ </tr>
+ <tr>
+  <td>
+    <IMG SRC="qrc:/undo.png">
+  </td>
+  <td>
+　戻る</td>
+ </tr>
+ <tr>
+  <td>
+    <IMG SRC="qrc:/check.png">
+  </td>
+  <td>
+　文法チェックをします。文法に問題があった場合はポップアップでエラー箇所が表示されます。
+  </td>
+ </tr>
+</table>
+
+<h3>文法</h3>
+<p>
+　基本構文として、<b>keyword:value</b>を覚えておいてください。<br><br>keyword と valueは以下を参照してください。
+</p>
+
+<table border="1" class="qlcTable">
+ <tr>
+  <td>ファンクションの開始</td>
+  <td>
+    <b>keyword</b>: startfunction<br>
+    <b>value</b>: ファンクションIDを引数に指定します。<br>
+    <b>例</b>: startfunction:{functionID}<br><br>
+    <i>functionID</i> はQLC+上でファンクションを管理している連番の数字です。この数値はユーザーは設定できず、QLC+が自動的に割り振る番号です。エディターの右にある＋ボタンからファンクションを追加してください。<br>
+　あなたがこの文法を理解しているならば、スクリプトを全て入力してもOKです。<br>
+    例:<pre>startfunction:2 // Green scene</pre>
+  </td>
+ </tr>
+ <tr>
+  <td>ファンクションの停止</td>
+  <td>
+    <b>keyword</b>: startfunction<br>
+    <b>value</b>: ファンクションIDを引数に渡します。<br>
+    <b>例</b>: stopfunction:{functionID}<br><br>
+    <i>functionID</i> はQLC+上でファンクションを管理している連番の数字です。この数値はユーザーは設定できず、QLC+が自動的に割り振る番号です。エディターの右にある＋ボタンからファンクションを追加してください。<br>
+    例:<pre>stopfunction:0 // Blue scene</pre>
+  </td>
+ </tr>
+ <tr>
+  <td>System Command</td>
+  <td>
+    <b>keyword</b>: systemcommand<br>
+    <b>value</b>: 実行したいプログラムを絶対パスで指定し、プログラムに応じて引数も記述してください。<br>
+    <b>例</b>: systemcommand:{programPath} arg:{arg1} arg:{arg2} ... arg:{argN}<br><br>
+    <i>programPath</i> 実行したいプログラムの絶対パスを入力してください。For example "/usr/bin/vlc" or "C:\Tools\myTool.exe"<br>
+　パスにスペースが含まれる場合は " ダブルクォーテーションで囲ってください。<br>
+    <i>arg1 ... argN</i> <i>実行したいプログラム</i>に応じた引数を指定してください 引数を必要としないプログラムの場合は省略できます。<br>
+　引数にスペースが含まれる場合は " ダブルクォーテーションで囲ってください。<br>
+    例<pre>
+        systemcommand:/usr/bin/vlc arg:-f arg:/home/user/video.mp4 // plays my video with VLC in fullscreen
+        systemcommand:"C:\Program Files\Tools\My Tool.exe" arg:"D:\My Files\My file.txt"
+      </pre>
+  </td>
+ </tr>
+ <tr>
+  <td>機器をセット</td>
+  <td>
+    <b>keyword</b>: setfixture<br>
+    <b>value</b>: チャンネルに設定したいDMX値を入力してください。<br>
+    <b>例</b>: setfixture:{fixtureID} ch:{channelIndex} val:{DMXValue}<br><br>
+    <i>functionID</i> はQLC+上でファンクションを管理している連番の数字です。この数値はユーザーは設定できず、QLC+が自動的に割り振る番号です。エディターの右にある＋ボタンからファンクションを追加してください。<br><br>
+    <i>channelIndex</i> フィクスチャー内のチャンネル番号です、フィスクチャー内で0からの連番が振られています。<br>
+    <i>DMXValue</i> DMXの出力値を設定できます。0~255<br>
+    例:<pre>setfixture:0 ch:1 val:135 // Generic RGB, Red. Sets the red channel of a Generic RGB fixture to DMX value 135</pre>
+  </td>
+ </tr>
+ <tr>
+  <td>ウェイト</td>
+  <td>
+    <b>keyword</b>: wait<br>
+    <b>value</b>: 待ち時間を指定してください。<br>　※後述する乱数を生成して秒数に指定することもできます。<br>
+    <b>例</b>: wait:{time}<br><br>
+    <i>time</i> 数値のみを入力するとミリ秒として解釈し、単位を付与するとその単位で解釈します。(h,m,s)。<br>
+    例<pre>
+        wait:1800 // Waits for 1 second and 800 milliseconds
+	wait:03s.20 // Waits for 3 seconds and 200 milliseconds
+      </pre>
+  </td>
+ </tr>
+ <tr>
+  <td>コメント</td>
+  <td>
+    <b>コメントアウト</b><br>
+    <b>説明</b>　スクリプト内にコメントを書くことができます。コメントは実行されないので好きに説明文やメモを残すことができます。<br>
+　C言語と同じように" // "から行末までをコメントとして扱います。
+<br>
+　コードの中に間違えて" // "と意図しないコメントを書かないように注意しましょう。<br>
+　コメントはコード内のどこにでも記述することができます。
+  </td>
+ </tr>
+ <tr>
+  <td>乱数</td>
+  <td>
+    <b>乱数</b><br>
+    <b>説明</b>: 範囲を指定して整数の乱数を生成できます。<br>
+    <b>例</b>: random({min}, {max})<br><br>
+    <i>{min}</i>範囲の最小値を設定できます。<br>
+    <i>{max}</i> 範囲の最大値を設定できます。生成される乱数は整数ですが、waitなど、時間を乱数で設定した場合には自動的に時間文字列に変換され、思った通りに動作します。<br>
+    例<pre>
+      wait:random(02s.00,05s.00) // Waits a random time between 2 and 5 seconds
+
+      // set channel 3 of fixture with ID:1 to a random DMX value between 20 and 235
+      setfixture:1 ch:2 val:random(20,235)
+    </pre>
+  </td>
+ </tr>
+</table>
+
+</BODY>
+</html>

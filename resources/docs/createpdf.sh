@@ -6,6 +6,8 @@
 # and copied in /usr/bin
 #
 
+cd $1
+
 wkhtmltopdf --footer-center "Page [page]" --image-quality 100 \
   pdf_cover.html \
   index_pdf.html \
@@ -88,3 +90,6 @@ wkhtmltopdf --footer-center "Page [page]" --image-quality 100 \
   parameterstuning.html \
   guicustomstyles.html \
   QLC+.pdf
+
+cd -
+mv $1/QLC+.pdf QLC+_manual_$1.pdf
