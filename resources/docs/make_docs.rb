@@ -49,9 +49,9 @@ if !options[:destination].empty?
 
         # add nice header    
         if !filename.include? "index.html"
-        text.gsub!(%r{<BODY>}i, "<BODY>\n<H1 style=\"background-color: lightgreen;padding:3pt\"><img src=\"gfx/qlcplus.png\" width=32 align=\"absmiddle\" /> Q Light Controller Plus - User Documentation</H1>\n<a href=\"index.html\">Index page</a>")
+        text.gsub!(%r{<BODY>}i, "<BODY>\n<H1 style=\"background-color: lightgreen;padding:3pt\"><img src=\"../icons/qlcplus.png\" width=32 align=\"absmiddle\" /> Q Light Controller Plus - User Documentation</H1>\n<a href=\"index.html\">Index page</a>")
         else
-        text.gsub!(%r{<H1>}i, "<H1 style=\"background-color: lightgreen;padding:3pt\"><img src=\"gfx/qlcplus.png\" width=32 align=\"absmiddle\" /> ")
+        text.gsub!(%r{<H1>}i, "<H1 style=\"background-color: lightgreen;padding:3pt\"><img src=\"../icons/qlcplus.png\" width=32 align=\"absmiddle\" /> ")
         end
 
         # add nice footer
