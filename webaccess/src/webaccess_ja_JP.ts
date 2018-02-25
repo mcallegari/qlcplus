@@ -106,7 +106,7 @@
     <message>
         <location filename="webaccessconfiguration.cpp" line="136"/>
         <source>Passthrough</source>
-        <translation>Passthrough</translation>
+        <translation>パススルー</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="210"/>
@@ -197,7 +197,7 @@
     <message>
         <location filename="webaccessconfiguration.cpp" line="325"/>
         <source>System</source>
-        <translation>System</translation>
+        <translation>システム</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="334"/>
@@ -250,7 +250,7 @@
     <message>
         <location filename="webaccessnetwork.cpp" line="115"/>
         <source>Static</source>
-        <translation>Static</translation>
+        <translation>スタティック</translation>
     </message>
     <message>
         <location filename="webaccessnetwork.cpp" line="119"/>
@@ -334,12 +334,12 @@
     <message>
         <location filename="webaccesssimpledesk.cpp" line="68"/>
         <source>Reset universe</source>
-        <translation>Reset universe</translation>
+        <translation>変更を戻す</translation>
     </message>
     <message>
         <location filename="webaccesssimpledesk.cpp" line="70"/>
         <source>Universe</source>
-        <translation>Univers</translation>
+        <translation>ユニバース</translation>
     </message>
 </context>
 </TS>
