@@ -1,0 +1,170 @@
+<html dir="ltr">
+<head>
+<title>Q Light Controller Plus - RGBマトリクスエディター</title>
+<script src="utility.js" type="text/javascript"></script>
+<link href="style.css" rel="stylesheet" type="text/css"></link>
+  <meta charset="utf-8">
+</head>
+<BODY onLoad="replaceqrc()">
+
+
+<h1>RGBマトリクスの編集</h1>
+<p><img src="qrc:/rgbmatrix.png">マトリクスエディタには<a href="concept.html#RGBMatrix">ファンクションマネージャー</a>で<a href="concept.html#FixtureGroup">フィクスチャーグループ</a>を作成しておく必要があります<IMG SRC="qrc:/group.png" align="absmiddle">
+</p>
+
+<h2 id="controls">設定項目</h2>
+
+<table border="1" class="qlcTable">
+ <tr>
+  <td>
+   <b>名前</b>
+  </td>
+  <td>
+　名前を変更できます。
+  </td>
+ </tr>
+ <tr>
+  <td>
+    <img src="qrc:/speed.png" />
+  </td>
+  <td>
+　RGBマトリクスの各種時間設定ができます。<p>
+      <li><b>フェードイン:</b> フェードインタイムを設定できます。</li>
+      <li><b>フェードアウト:</b> フェードアウトタイムを設定できます。</li>
+      <li><b>継続時間:</b> ステップを再生する時間を設定できます。</li>
+    </p>
+  </td>
+ </tr>
+ <tr>
+  <td>
+    <img src="qrc:/sequence.png" />
+  </td>
+  <td>
+   RGBマトリクスを<a href="concept.html#Sequence">シーケンス</a>に変換します。これは<a href="concept.html#Show">ショー</a>を作る時に便利な機能です。※　ランダムに生成されるパターンの場合、再生するごとに全く違うシーケンスを生成することに注意してください。
+  </td>
+ </tr>
+ <tr>
+  <td>
+    <img src="qrc:/square.png" />
+  </td>
+  <td>
+　プレビューに表示される図を丸と四角で切り替えます。</td>
+ </tr>
+ <tr>
+  <td>
+    <img src="qrc:/player_play.png" />
+  </td>
+  <td>
+　編集中のRGBマトリックスを再生できます。実際にフィクスチャーが点灯します。
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b></b>
+  </td>
+  <td>
+   操作したい<a href="virtualconsole.html">フィクスチャーグループ</a>を設定します。
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>プレビューエリア</b>
+  </td>
+  <td>
+　プレビューが表示されます。
+　プレビューはRGBカラーのフィクスチャーグループを想定して設計されているため、単色のフィクスチャーでも同じように表示されます。
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>パターン</b>
+  </td>
+  <td>　表示されるアニメーションのパターンを選べます。<br>
+　パターンは以下の通りです。<ul>
+    <li><b>単色</b>: 全てのフィクスチャーを同じ色で点灯します。</li>
+    <br>
+    <li><b>Animated Text</b>: 文字を表示します<ul>
+        <li>テキストボックスにお好きな文章を入力できます。</li>
+        <li><img src="qrc:/fonts.png">ボタンからフォントを変更できます。</li>
+        <li>ドロップダウンメニューからテキストアニメーションの種類を選択できます。</li>
+      </ul>
+    </li>
+    <br>
+    <li><b>Audio Spectrum</b>: オーディオ入力からの音に反応してアニメーションが動きます。<br>マトリックスの継続時間を長めに設定しておくのがコツです。</li>
+    <br>
+    <li><b>Image</b>: 写真を元に表示します。<ul>
+        <li>お好みの画像を表示できます</li>
+        <li><img src="qrc:/image.png">ボタンから画像を選択してください</li>
+	<li>画像アニメーションを選択できます。</li>
+      </ul>
+      <p>PNG, XPM, JPG, GIF が使用できます、(Animation GIF)の場合は最初のフレームのみ表示します。１ピクセルが１フィクスチャーに相当します、フィクスチャー数に合わせて画像を作成してください。</p>
+      <p>Styles:</p>
+      <ul>
+	<li><b>Static</b> - 画像を動かさずに表示します。画像サイズがフィクスチャー数よりも小さい場合は、画像が繰り返されて表示されます。</li>
+	<li><b>Horizontal</b> - 画像が水平方向に動きます画像は繰り返し表示されます。</li>
+	<li><b>Vertical</b> - <b>Horizontal</b>に似ていますがこちらは垂直方向です。</li>
+	<li><b>Animation</b> - アニメーション1つの画像に（フレームの幅に等しい）フレームを並べて並べます。たとえば、行列が8x8で、4つのフレームが必要な場合は、イメージを32x8にします。画像は依然として垂直方向に繰り返されます。</li>
+      </ul>
+    </li>
+    <br>
+    その他のアニメーションは<a href="concept.html#RGBScript">RGB スクリプト</a>で作られています。<br>
+　アニメーションによっては開始色と終了色を設定できます。いくつかのパターンは色の設定ができない場合もあります。<br>
+  </ul></td>
+ </tr>
+ <tr>
+  <td>
+   <b>Pattern Blend Mode</b>
+  </td>
+  <td>ブレンドモードは同時に２つ以上のRGBマトリックスを再生した時にどのような挙動をさせるかを設定できるものです。<br>
+以下の図で説明しています。<p><img src="../images/blending.png"></p>この時ブレンドを行うために下のレイヤーに表示されているRGBマトリックスはデフォルトのHTPである必要があります。
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>Offset</b>
+  </td>
+  <td>
+　<b>テキスト</b>や<b>画像</b>などを表示している時に２軸のオフセットを調整できます。
+   <ul>
+    <li><b>X:</b> X軸方向のオフセットを変更できます。</li>
+    <li><b>Y:</b> Y軸方向のオフセットを変更できます。</li>
+   </ul>
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>タイプ</b>
+  </td>
+  <td>
+   <ul>
+    <li>繰り返し  -  全てのステップを繰り返し実行します。</li>
+    <li>一方通行  -  最後のステップが再生され終わったら自動的にそのチェイスの再生が止まります。</li>
+    <li>往復  -  上のステップから順に実行し最後のステップを再生したら、下から上に向かって順に再生する動作を繰り返します。</li>
+   </ul>
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>方向</b>
+  </td>
+  <td>
+   <ul>
+    <li>順再生  -  ステップを上から下へ順に再生します。</li>
+    <li>逆再生  -  ステップを下から上へ順に実行します</li>
+   </ul>
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>Other Controls</b>
+  </td>
+  <td>
+   <ul>
+    <li><b>Dimmer control:</b> チェックを入れておくと、RGBマトリクスが再生中は自動できにフィクスチャーグループ内のフィクスチャーの光量が最大になります。光量を自分で調整したい場合はチェックを外しておくと良いでしょう。</li>
+   </ul>
+  </td>
+ </tr>
+</table>
+
+</BODY>
+</html>

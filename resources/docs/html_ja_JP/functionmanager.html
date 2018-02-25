@@ -1,0 +1,143 @@
+<html dir="ltr">
+<head>
+<title>Q Light Controller Plus - ファンクションマネージャー</title>
+<script src="utility.js" type="text/javascript"></script>
+<link href="style.css" rel="stylesheet" type="text/css"></link>
+  <meta charset="utf-8">
+</head>
+<BODY onLoad="replaceqrc()">
+
+
+<h1><img src="qrc:/function.png" width=32 align="absmiddle">ファンクション</h1>
+<p>
+　ファンクションタブでは、様々なファンクションを作成、修正できます。ファンクションを作成するにはツールバーにある作りたいファンクションの種類のアイコンをクリックしてください。
+</p>
+
+<p>
+　ファンクションにはシーンやEFXなどいくつかの種類があり、ファンクションを選択した時に、種類に応じたエディターが表示されます。エディター内で行った編集は自動保存されるため、OKボタンなどはありません。プロジェクトデータを閉じる時に１回だけ保存すれば大丈夫です。
+</p>
+
+<h2>設定項目</h2>
+
+<table border="1" class="qlcTable">
+ <tr>
+  <td>
+    <IMG SRC="qrc:/scene.png">
+  </td>
+  <td>
+   新しい<a href="./concept.html#Scene">シーン</a>を作成できます。
+   <a href="./sceneeditor.html">シーンエディタ</a>が表示されます。
+  </td>
+ </tr>
+ <tr>
+  <td>
+    <IMG SRC="qrc:/chaser.png">
+  </td>
+  <td>
+　新しい<a href="./concept.html#Chaser">チェイス</a>を作成できます。
+<a href="./chasereditor.html">チェイスエディター</a>が表示されます。
+  </td>
+ </tr>
+ <tr>
+  <td>
+    <IMG SRC="qrc:/sequence.png">
+  </td>
+  <td>
+　新しい<a href="./concept.html#Sequencer">シーケンス</a>を作成できます。
+<a href="./chasereditor.html">シーケンスエディター</a>が表示されます。
+  </td>
+ </tr>
+ <tr>
+  <td>
+    <IMG SRC="qrc:/efx.png">
+  </td>
+  <td>
+　新しい<a href="./concept.html#EFX">EFX</a>を作成できます。
+<a href="./efxeditor.html">EFXエディター</a>が表示されます。
+  </td>
+ </tr>
+ <tr>
+  <td>
+    <IMG SRC="qrc:/collection.png">
+  </td>
+  <td>
+　新しい<a href="./concept.html#Collection">コレクション</a>を作成できます。
+<a href="./collectioneditor.html">コレクションエディター</a>が表示されます。
+  </td>
+ </tr>
+ <tr>
+  <td>
+    <IMG SRC="qrc:/rgbmatrix.png">
+  </td>
+  <td>
+　新しい<a href="./concept.html#RGBMatrix">RGBマトリックス</a>を作成できます。
+<a href="./rgbmatrixeditor.html">RGBマトリックスエディター</a>が表示されます。
+  </td>
+ </tr>
+ <tr>
+  <td>
+    <IMG SRC="qrc:/script.png">
+  </td>
+  <td>
+　新しい<a href="./concept.html#RGBScript">RGBスクリプト</a>を作成できます。
+<a href="./rgbmscriptapi.html">RGBスクリプトエディター</a>が表示されます。
+  </td>
+ </tr>
+ <tr>
+  <td>
+    <IMG SRC="qrc:/audio.png">
+  </td>
+  <td>
+   新しい<a href="./concept.html#Audio">オーディオ</a>を作成できます。
+   <a href="concept.html#Chaser">チェイス</a>や<a href="concept.html#Show">ショー</a>に使用できるファンクションです。
+  </td>
+ </tr>
+ <tr>
+  <td>
+    <IMG SRC="qrc:/folder.png">
+  </td>
+  <td>
+　フォルダを作成します。ダブルクリックでフォルダ名を変更できます。<br>
+　フォルダを選択した状態で新しいファンクションを作成するとき、フォルダー内に作成されます。既存のファンクションはドラッグ&amp;ドロップでフォルダー内に移動することができます。<br>
+　フォルダを削除すると、中にあった全てのサブフォルダやファンクションが削除されます。<br>
+   <b>※</b>空のフォルダはプロジェクトデータには保存されません。
+  </td>
+ </tr>
+ <tr>
+  <td>
+    <IMG SRC="qrc:/autostart.png">
+  </td>
+  <td>
+　本番モードに切り替えた時に、ファンクションを自動再生することができます。選択したファンクションは本番モードに切り替えるたびに毎回実行されます。これは、QLC+をキオスクモードで使用する際に便利な機能です。(<a href="commandlineparameters.html">-k or -p</a>オプション)<br>
+　自動再生するファンクションを削除したい場合には "No function" を選択してください。
+  </td>
+ </tr>
+ <tr>
+  <td>
+    <IMG SRC="qrc:/wizard.png">
+  </td>
+  <td>
+   <a href="./functionwizard.html">ファンクションウィザード</a>を用いてファンクションを自動生成します。
+  </td>
+ </tr>
+ <tr>
+  <td>
+    <IMG SRC="qrc:/editcopy.png">
+  </td>
+  <td>
+　ファンクションをコピーします。
+
+  </td>
+ </tr>
+ <tr>
+  <td>
+    <IMG SRC="qrc:/editdelete.png">
+  </td>
+  <td>
+　ファンクションを削除します。
+  </td>
+ </tr>
+</table>
+
+</BODY>
+</html>

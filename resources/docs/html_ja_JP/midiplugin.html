@@ -1,0 +1,182 @@
+<html dir="ltr">
+<head>
+<title>Q Light Controller Plus - MIDI Plugin</title>
+<script src="utility.js" type="text/javascript"></script>
+<link href="style.css" rel="stylesheet" type="text/css"></link>
+  <meta charset="utf-8">
+</head>
+<BODY onLoad="replaceqrc()">
+
+
+<h1>MIDI input/output plugin</h1>
+
+<h1 id="introduction">導入</h1>
+<p> QLC+は <a href="http://en.wikipedia.org/wiki/MIDI">MIDI protocol</a>をサポートしています、しかし実際に使うためにはいくつかの設定をする必要があります。<br>
+　QLC+ではMIDIコントローラのほか、シーケンサーなどのほぼ全てのMIDIデバイスに対応しています。<br>
+　コントローラーであればボタンやフェダーを外部入力として使えます。</p>
+
+<h1 id="configuration">各種設定</h1>
+
+<p>
+設定ボタン<img src="qrc:/configure.png" ALIGN="absmiddle">からMIDI設定画面を開きます。<br>
+　設定項目は以下の通りです。<ul>
+ <li><b id="midi-channel">MIDI Channel</b>: QLC+と通信するチャンネルを設定できます。MIDI チャンネルは1 ~ 16のどれかです。 デバイスの説明書などを参考にしてください。
+ </li>
+ <li><b>Mode</b>: MIDIのモードを設定できます。
+　３つのパラメータがあります。<ul>
+      <li><b>Note velocity</b>: MIDI notes velocityを使用します。MIDIのベロシティーは0~127ですが、DMXは0~255までの数値を持つので、MIDIのベロシティーを２倍し数値が使われます。
+      </li>
+      <li><b>Control Change</b>: デバイスとコンピュータ間の通信です。
+　詳しくはデバイスの説明書をご覧ください。CCの範囲は0〜127で、0〜127の値を持つことができます。DMXは0~255までの数値を持つので、２倍した数値が使われます。
+      </li>
+      <li><b>Program Change</b>: プロトコルメッセージ等の設定です。
+　詳しくはデバイスの説明書をご覧ください。PCの範囲は0〜127で、0〜127の値を持つことができます。DMXは0~255までの数値を持つので、２倍した数値が使われます。
+      </li>
+     </ul>
+ </li>
+ <li><b>Initialization message</b>：これは、QLC +が使用する前にMIDIデバイスを開くときに送信する初期化メッセージを含むプリセット（テンプレート）のリストです。
+ </li>
+</ul>
+</p>
+
+<h1 id="feedbacks">Feedbacks</h1>
+<p>　QLC+ではMIDIフィードバックをサポートしています。設定は簡単で<a href="howto-input-output-mapping.html">入出力</a>設定のフィードバックにチェックを入れるだけです。フィードバックとMIDI outputを同時に使うことはできません。<br>
+　デバイスがフィードバックをサポートしている場合は、QLC+上の状況に合わせてデバイスも動作します。
+Behringer BCF2000 などのモーターフェーダーがわかりやすい例です。<br><br>
+　また、MIDI outputをしようして、外部のシーケンサなどのMIDIデバイスをQLC+からコントロールすることもできます。<br>
+こんな感じに<ul>
+ <li>Input: <b>OSC</b> ---&gt; Output: <b>DMX USB</b> --&gt; Feedback: <b>MIDI</b></li>
+ <li>Input: <b>Enttec Wing</b> --&gt; Output: <b>ArtNet</b> --&gt; Feedback: <b>MIDI</b></li>
+</ul>
+</p>
+
+<h1 id="korg-nanopad">KORG nanoPAD のX座標の設定</h1>
+<p>
+　このデバイスは工場出荷時の設定ではQLC+上にX座標のコントロールができません、KORGのホームページからユーティリティーツールをダウンロードし、設定を変更していきましょう。X座標にCC2(Control Change #2)を設定してください。
+<a href="http://www.korg.com/SupportPage.aspx?productid=415">詳しくはこちら</a>
+</p>
+
+<h1 id="akai-feedbacks">AKAI APC LED Feedbacks</h1>
+<p>
+　このデバイスはフィードバックでLEDカラーを変更できます。<br>
+　QLC+のデフォルトではvalue = 0: LED off, value = 255: LED greenが設定されています。<br>
+これらの設定は"Custom feedback"を使って変更できます。<br>
+　２つの入力フィードが表示されます。
+　デフォルトでは0と255に設定されています。<br>
+　MIDIプロトコルでは0~127までしか設定できないので、MIDIデバイスに送信される際は1/2の数値が送信されます。
+<table>
+<tr><th>Value</th><th>LED color</th></tr>
+<tr><td>0</td><td>Off</td></tr>
+<tr><td>2</td><td>Green</td></tr>
+<tr><td>4</td><td>Green Blinking</td></tr>
+<tr><td>6</td><td>Red</td></tr>
+<tr><td>8</td><td>Red Blinking</td></tr>
+<tr><td>10</td><td>Yellow</td></tr>
+<tr><td>12</td><td>Yellow Blinking</td></tr>
+<tr><td>14-255</td><td>Green</td></tr>
+</table>0をより低い値にする必要は必ずしもないことに注意するのは興味深いことです。例えばlower = 6 and upper = 2に設定すると
+Function Off -&gt; red LED, Function On -&gt; green LED.
+になります。</p>
+
+<h1 id="midi-beat-clock">MIDI beat clock</h1>
+<p>
+QLC+4.5.0から実装された機能です。<a href="http://en.wikipedia.org/wiki/MIDI_beat_clock">MIDI beat clock</a><br>
+<a href="http://en.wikipedia.org/wiki/MIDI_timecode">MIDIタイムコード</a>ではないことに注意してください。<br>2つの特別なMIDIチャンネルがQLC +にマッピングされており、 <a href="virtualconsole.html">仮想コンソール</a>ウィジェットをビートクロックで制御します。<br>特別なチャンネルについて簡単に説明します：<ul>
+ <li><b>チャンネル530</b> ：ビートクロックが開始または停止すると、このチャンネルに信号が送信されます。</li>
+ <li><b>チャンネル531</b> ：この信号はBPMごとに送信されます。 QLC +は測定値の通知（例えば3/4、4/4、7/8）をとらないので、MIDIクロックを設定するときにQLC +がどのようにそれを処理するかを考慮する必要があります。</li>
+</ul>
+<br>
+<b>ヒント</b> ：コントローラが高BPM（たとえば180-200）で動作するように設定されている場合は、開始信号をキャッチするのが難しい場合があります。これを行うための1つのトリックは、停止信号をキャッチすることです。例：<br>
+<ol>
+ <li>QLC +仮想コンソールウィジェットの自動検出を有効にする</li>
+ <li>MIDIビートクロックを生成するデバイスで再生をヒットします。QLC +はチャネル530を検出し、非常に迅速に531に切り替わります</li>
+ <li>MIDIビートクロックデバイスの再生を停止します。QLC +は再びチャネル530を検出する。</li>
+ <li>QLC +仮想コンソールウィジェットの自動検出を無効にする</li>
+</ol>同様の方法でビート信号もキャッチできます。ビートコントローラーの再生を停止する前に、自動検出プロセスを無効にしてください（ステップ3と4を逆にする）。
+</p>
+
+<h1 id="midi-template">MIDI initialization message</h1>
+<p>
+　MIDIデバイスによっては、初期化メッセージを送信する必要がある場合があります。<br>
+　MIDIプロトコルのSysExを指します。<br>
+　これらのメッセージをQLC+上ではXMLファイルで記述しておくことができます。<br>
+記法は以下の通りです。<br>
+<pre>&lt;DOCTYPE MidiTemplate&gt;
+&lt;MidiTemplate&gt;
+ &lt;Creator&gt;
+  &lt;Author&gt;Your name&lt;/Author&gt;
+ &lt;/Creator&gt;
+ &lt;Description&gt;A brief description of that the template does.&lt;/Description&gt;
+ &lt;Name&gt;Template name to be displayed by QLC+&lt;/Name&gt;
+ &lt;InitMessage&gt;F0 47 00 7B 60 00 04 41 09 00 05 F7&lt;/InitMessage&gt;
+&lt;/MidiTemplate&gt;
+</pre>作成したファイルは、MidiTemplatesフォルダに入れておいてください。<br>
+　あなたがこのファイルを作成したとき、ついでにQLC+ forumにも報告してくれませんか？みんなの手助けになります。
+</p>
+
+<h1 id="channelsmap">QLC+ Channels map</h1>
+
+<p>さまざまなMIDIメッセージ（Notes、PC、CCなど）を処理するために、QLC +はそれらを順番に再マッピングします。<br><a href="javascript:void(0);">入力プロファイルエディタで</a>使用するチャンネル番号：</p>
+
+<table>
+<tr>
+<th>チャンネル</th><th>MIDI message</th>
+</tr>
+<tr>
+<td>1</td><td>Control Change 1</td>
+<tr>
+<td>...</td><td>...</td>
+</tr>
+<tr>
+<td>128</td><td>Control Change 128</td>
+</tr>
+<tr>
+<td>129</td><td>NOTE ON/NOTE OFF 1</td>
+</tr>
+<tr>
+<td>...</td><td>...</td>
+</tr>
+<tr>
+<td>256</td><td>NOTE ON/NOTE OFF 128</td>
+</tr>
+<tr>
+<td>257</td><td>NOTE AFTERTOUCH 1</td>
+</tr>
+<tr>
+<td>...</td><td>...</td>
+</tr>
+<tr>
+<td>384</td><td>NOTE AFTERTOUCH 128</td>
+</tr>
+<tr>
+<td>385</td><td>Program Change 1</td>
+</tr>
+<tr>
+<td>...</td><td>...</td>
+</tr>
+<tr>
+<td>512</td><td>Program Change 128</td>
+</tr>
+<tr>
+<td>513</td><td>Channel Aftertouch</td>
+</tr>
+<tr>
+<td>514</td><td>Pitch Wheel</td>
+</tr>
+
+<tr>
+<td>530</td><td>MIDI Beat Clock: Start/Continue</td>
+</tr>
+<tr>
+<td>531</td><td>MIDI Beat Clock: Beat</td>
+</tr>
+<tr>
+<td>532</td><td>MIDI Beat Clock: Stop</td>
+</tr>
+
+</tr></table>
+
+<p>In OMNI mode, add 4096 * Channel number</p>
+
+</BODY>
+</html>

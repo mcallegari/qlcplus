@@ -1,0 +1,105 @@
+<html dir="ltr">
+<head>
+<title>Q Light Controller Plus - ボタン</title>
+<script src="utility.js" type="text/javascript"></script>
+<link href="style.css" rel="stylesheet" type="text/css"></link>
+  <meta charset="utf-8">
+</head>
+<BODY onLoad="replaceqrc()">
+
+
+<h1><IMG SRC="qrc:/button.png" ALIGN="absmiddle"> ボタン</h1>
+
+<p>
+　ボタンはバーチャルコンソールのウィジェットでファンクションを再生する機能があります。
+</p>
+
+<h3>各種設定</h3>
+
+<p>
+　ウィジェットのプロパティーを開くには<IMG SRC="qrc:/edit.png" ALIGN="bottom">アイコンをクリックするか、ダブルクリックで開けます。
+</p>
+
+<table border="1" class="qlcTable">
+ <tr>
+  <td>
+   <b>名前</b>
+  </td>
+  <td>
+　ボタンに表示するテキストを変更できます。<b>※:</b> ボタンにはアイコン画像を設定できます。右クリックから<b>アイコン -&gt; 選択</b>からお好きな画像を選択してください。
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>ファンクション</b>
+  </td>
+  <td>
+　ボタンに割り当てるファンクションを設定できます。
+   <p>
+    <IMG SRC="qrc:/attach.png" ALIGN="absmiddle"> ファンクションの選択ダイアルログを開きます。<br>
+    <IMG SRC="qrc:/detach.png" ALIGN="absmiddle">　ファンクションの割り当てを解除します。</p>
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>属性
+この機能は廃止されました。</b>
+  </td>
+  <td>
+   Shows you the list of attributes of the assigned function that can be adjusted. Attributes can be controlled
+   by right clicking on the button when in <A HREF="concept.html#Modes">Operate Mode</a>.<br>
+   A popup will display a number of sliders corresponding to the number of available attributes.<br>
+   If the assigned function is a <a href="concept.html#Show">Show</a>, attributes correspond
+   to the Show tracks, so you can adjust the intensity (or volume) of a whole track with just one click.
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>外部入力</b>
+  </td>
+  <td>
+　ボタンに外部入力を割り当てることができます。
+   <ul>
+    <li>Input universe: Universeが表示されます。</li>
+    <li>Input channel: 外部入力のチャンネルが表示されます。</li>
+    <li>自動判別: クリックした後、割り当てたい外部入力のチャンネルを動かすとそのチャンネルが自動的に割り当てられます。うまく設定できない場合は、入出力設定を確認して見てください。</li>
+    <li><a href="selectinputchannel.html">選択</a>から手動で選択することも可能です。</li>
+   </ul>
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>キーボードショートカット</b>
+  </td>
+  <td>
+　キーボードをボタンに割り当てることができます。
+   <p>
+    <IMG SRC="qrc:/key_bindings.png" ALIGN="absmiddle"> キーを設定します。<br>
+    <IMG SRC="qrc:/fileclose.png" ALIGN="absmiddle"> ショートカットの割り当てを解除します。</p>
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>押されたときの動作</b>
+  </td>
+  <td>
+   <ul>
+    <li>ON/OFF切り替え: ファンクション再生のON/OFFができます。一度ボタンを押すと再度押すまで再生し続けます。</li>
+    <li>フラッシュ(シーンのみ対応): ボタンが押されている間だけ<a href="concept.html#Scene">シーン</a>を再生します。シーン以外のファンクションを割り当てると何も起こらないボタンになってしまいます。</li>
+    <li>暗転: ファンクションに関係なく、全てのチャンネルからの出力をゼロにし暗転します。このボタンはON/OFFボタンと同様の挙動をします。</li>
+    <li>全てのファンクションを停止: ファンクションに関係なく、再生中の全てのファンクションの再生を停止します。</li>
+   </ul>
+  </td>
+ </tr>
+ <tr>
+   <td>
+   <b>ファンクション再生時の明るさ</b>
+  </td>
+  <td>
+　ボタンが押された時にファンクションの明るさを設定できます。
+  </td>
+ </tr>
+</table>
+
+</BODY>
+</html>

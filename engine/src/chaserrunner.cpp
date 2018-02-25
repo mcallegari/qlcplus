@@ -110,7 +110,6 @@ void ChaserRunner::slotChaserChanged()
     foreach(ChaserRunnerStep* step, delList)
     {
         step->m_function->stop(functionParent());
-        step->m_function->releaseAttributeOverride(step->m_intensityOverrideId);
         delete step;
         m_runnerSteps.removeAll(step);
     }
@@ -255,7 +254,6 @@ void ChaserRunner::stopStep(int stepIndex)
             step->m_function->stop(functionParent());
             // restore the original Function blend mode
             step->m_function->setBlendMode(step->m_blendMode);
-            step->m_function->releaseAttributeOverride(step->m_intensityOverrideId);
             m_runnerSteps.removeOne(step);
             delete step;
             stopped = true;
@@ -465,7 +463,6 @@ void ChaserRunner::clearRunningList()
             // restore the original Function blend mode
             step->m_function->setBlendMode(step->m_blendMode);
             step->m_function->stop(functionParent());
-            step->m_function->releaseAttributeOverride(step->m_intensityOverrideId);
         }
         delete step;
     }
@@ -707,7 +704,6 @@ bool ChaserRunner::write(MasterTimer* timer, QList<Universe *> universes)
                 prevStepRoundElapsed = step->m_elapsed % step->m_duration;
 
             step->m_function->stop(functionParent());
-            step->m_function->releaseAttributeOverride(step->m_intensityOverrideId);
             delete step;
             m_runnerSteps.removeOne(step);
         }

@@ -1,0 +1,44 @@
+<html dir="ltr">
+<head>
+<title>Q Light Controller Plus - Peperoni USBDMX Output Plugin</title>
+<script src="utility.js" type="text/javascript"></script>
+<link href="style.css" rel="stylesheet" type="text/css"></link>
+  <meta charset="utf-8">
+</head>
+<BODY onLoad="replaceqrc()">
+
+
+<h1>Peperoni output plugin</h1>
+
+<h2>1 始めに</h2>
+<p>USB-DMXデバイス<a href="http://www.peperoni-light.de/products1.htm">Peperoni Light</a>などを使いたいときにはいくつかの作業が必要です。
+</p>
+
+<h2>手順</h2>
+
+<h3>3.1 Linux</h3>
+<p>
+Linux系のシステムをお使いの場合は、 libftdiをインストールする必要があります。Ubuntuなどをお使いの場合はソフトウェアセンターなどのパッケージマネージャーを用いてインストールすることができます。
+</p>
+
+<h3>3.2 Mac OS X</h3>
+<p>
+　Macをお使いのあなたはラッキーです、作業を行わなくてもコンピュータとつなぐだけで使えます。
+</p>
+
+<h3>3.3 Windows</h3>
+<p>
+<a href="http://www.lighting-solutions.de/support/driver.html">Peperoni USBDMX Windows drivers</a>を参考にドライバーをインストールしてください。
+　このドライバーはデバイス購入時にCDで付いてきます、箱の中を確認して見てください。<br>
+　デバイスドライバーをインストールしたのにそれでもダメな場合は、usbdmx.dllをQLC+のシステムフォルダ内に入れておくと使える場合があります。
+</p>
+
+<ul>
+ <li>CD内のドライバパッケージをコンピュータ内に解凍してください。</li>
+ <li>デバイスをコンピュータに接続してください。</li>
+ <li>32bitOSをお使いの場合は新しいハードウェアの検出から<b>windows/i386</b>のドライバーを検索してください。</li>
+ <li>64bit OSの場合は同様の手順で<b>windows/ia64</b> もしくは <b>windows/amd64</b>を検索してください。</li>
+</ul>
+
+</BODY>
+</html>

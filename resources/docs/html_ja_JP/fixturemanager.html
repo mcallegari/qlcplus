@@ -1,0 +1,90 @@
+<html dir="ltr">
+<head>
+<title>Q Light Controller Plus - フィクスチャーマネージャー</title>
+<script src="utility.js" type="text/javascript"></script>
+<link href="style.css" rel="stylesheet" type="text/css"></link>
+  <meta charset="utf-8">
+</head>
+<BODY onLoad="replaceqrc()">
+
+
+<h1><img src="qrc:/fixture.png" width=32 align="absmiddle">フィクスチャーの追加・編集</h1>
+<p>フィクスチャーをプロジェクトへ追加、編集、削除することができます。画面左にはフィクスチャーの一覧が表示されます。フィクスチャーを選択した時、画面右ににはそのフィクスチャーの詳細が表示されます。
+</p>
+
+<h3>設定項目</h3>
+
+<table border="1" class="qlcTable">
+ <tr>
+  <td><img src="qrc:/edit_add.png"></td>
+  <td>
+　<a href="./addeditfixtures.html">DMX機器の追加</a> ダイアルログから<a href="./concept.html#Fixtures">フィクスチャー</a>を追加します。
+  </td>
+ </tr>
+ <tr>
+  <td><img src="qrc:/rgbpanel.png"></td>
+  <td>
+　<a href="./addrgbpanel.html">RGBパネルの追加</a>ダイアルログからRGBパネルを追加します。
+  </td>
+ </tr>
+ <tr>
+  <td><img src="qrc:/edit_remove.png"></td>
+  <td>
+　フィクスチャーを削除します。
+  フィクスチャーを削除すると、登録されていたすべてのフィクスチャーグループからも削除されます。
+  </td>
+ </tr>
+ <tr>
+  <td><img src="qrc:/configure.png"></td>
+  <td>
+　選択されているフィクスチャーを<a href="./addeditfixtures.html">ダイアルログ</a>で設定を変更することができます。
+  </td>
+ </tr>
+ <tr>
+  <td><img src="qrc:/fade.png"></td>
+  <td>
+　<a href="channelproperties.html">チャンネルプロパティ設定</a>を開きます。
+  </td>
+ </tr>
+ <tr>
+  <td><img src="qrc:/group.png"></td>
+  <td>
+　選択したフィクスチャーを<a href="./concept.html#FixtureGroup">フィクスチャーグループ</a>に追加することができます。このボタンから新規フィクスチャーグループを作成することもできます
+  </td>
+ </tr>
+ <tr>
+  <td><img src="qrc:/ungroup.png"></td>
+  <td>フィクスチャーグループから削除します。※ グループからフィクスチャーを削除してもプロジェクト自体から削除されるわけではありません。また、複数のフィクスチャーグループに属していたとしても、1つのグループ内の編集が他のフィクスチャーグループに影響することはありません。
+  </td>
+ </tr>
+ <tr>
+  <td><img src="qrc:/up.png"></td>
+  <td>選択したフィクスチャーを上へ移動します。</td>
+ </tr>
+ <tr>
+  <td><img src="qrc:/down.png"></td>
+  <td>選択したフィクスチャーを下へ移動します。</td>
+ </tr>
+ <tr>
+  <td><img src="qrc:/fileimport.png"></td>
+  <td>
+　フィクスチャーリストファイル (.qxfl)を読み込みます。既にフィクスチャーを登録している状態でフィクスチャーリストファイル(.qxfl)を読み込む時に既存のフィクスチャーと同じチャンネルに読み込んだフィクスチャーが割り当てられることがあり、QLC+にはそれを自動修正する機能はありません。下記のフィクスチャーとチャンネルの再割り当てを行うか、新規プロジェクトを作成した際にフィクスチャーリストファイル(.qxfl)を読み込むことをオススメします。
+  </td>
+ </tr>
+ <tr>
+  <td><img src="qrc:/fileexport.png"></td>
+  <td>
+　フィクスチャーリストファイル(.qxfl)を出力します。ここで作成したファイルを上で説明したように読み込むことができます。
+
+  </td>
+ </tr>
+ <tr>
+  <td><img src="qrc:/remap.png"></td>
+  <td>
+　<a href="fixturesremap.html">フィクスチャーとチャンネルの再割り当て</a>をします。
+  </td>
+ </tr>
+</table>
+
+</BODY>
+</html>

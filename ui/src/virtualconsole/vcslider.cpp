@@ -1287,6 +1287,7 @@ void VCSlider::setWidgetStyle(SliderWidgetStyle mode)
 
         m_slider = new KnobWidget(this);
         m_slider->setEnabled(false);
+        m_slider->setRange(levelLowLimit(), levelHighLimit());
         m_hbox->addWidget(m_slider);
         m_slider->show();
         connect(m_slider, SIGNAL(valueChanged(int)),
@@ -1309,6 +1310,7 @@ void VCSlider::setWidgetStyle(SliderWidgetStyle mode)
         m_hbox->addStretch();
         m_slider = new ClickAndGoSlider(this);
         m_slider->setEnabled(false);
+        m_slider->setRange(levelLowLimit(), levelHighLimit());
         m_hbox->addWidget(m_slider);
         m_slider->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
         m_slider->setMinimumWidth(32);

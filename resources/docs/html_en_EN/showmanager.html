@@ -1,0 +1,307 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - Show Manager</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1><IMG SRC="qrc:/show.png"> Show Manager</H1>
+<P>
+The Show Manager has been introduced in QLC+ starting from version 4.0.0, after forking the original
+QLC code on November 5th, 2012.<br>
+<br>
+This feature is meant to give users the possibility of setting up a time driven show in a friendly and
+completely graphical way.<br>
+The graphic interface shows a multitrack view, typical of audio sequencers or video editing softwares,
+and with it users are allowed to place QLC+ <A HREF="file:concept.html#Functions">Functions</A> at the desired
+place and time in the view.<br>
+Show Manager gives a lot of flexibility during a <A HREF="file:concept.html#Show">Show</a> creation thanks 
+to its visual-oriented approach. Once understood the basic elements, it is very easy to create, move or edit 
+the existing functions and improve a Show by adding new tracks to it.<br>
+<br>
+Typical use cases of Shows are those gigs where a band plays songs following a metronome and the light show has
+always to be the same, following the music.<br>
+Another case are visual entertainment shows, where dancers or singers follow some music and lights create
+the atmosphere at the right time.<br>
+<br>
+The Show Manager drives users to make large use of the Sequence function. Here's the explanation
+of the difference between a Chaser and a Sequence.<br>
+</P>
+
+<H2>Sequences vs Chasers</H2>
+<P>
+Even if the <A HREF="file:concept.html#Sequence">Sequence</a> and the 
+<A HREF="file:concept.html#Chaser">Chaser</a> functions have some common ground, they're not the same thing.<br>
+If not done yet, you are invited to read once again their definitions in the 
+<A HREF="file:concept.html">Basic Concepts &amp; Glossary</a> page of this documentation.<br>
+The main differences are:
+<ul>
+ <li><b>Steps</b>: The steps of a Chaser can represent any QLC+ Function, while the steps
+        of a Sequence represents different values of the same <A HREF="file:concept.html#Scene">Scene</a>.<br>
+        In other words, a Chaser is an independent function, while a Sequence can exist only
+        on top of a Scene.<br>
+        The reason for this is, as mentioned before, the visual approach of the Show Manager.
+        If a track of a Show is the graphical representation of a Scene, then it's more intuitive 
+        to think that each Sequence created on that track is a function controlling the values of that Scene.
+ </li>
+ <li><b>Order</b>: Chasers can be reproduced in any order (Forward, Backward, Ping-Pong, Random) while
+        in the Show Manager, Sequences are always reproduced from the beginning to the end (Forward).
+        Again, this is related to the visual aspect of the Show Manager, where the playback
+        has a natural time forward direction.<br>
+        On the other hand, Sequences created with the Function Manager can have the 
+        same order properties of Chasers.
+ </li>
+ <li><b>Editing</b>: The editing approach between Sequences and Chaser is different too.<br>
+        Normally the workflow of a Chaser is: create a Function, then add it to the Chaser as a step.<br>
+        The workflow of a Sequence is: create a Scene, create a Sequence on top of it, add steps to it.<br>
+        The Sequence approach might be very effective when you design a light show if you can pre-determine
+        which fixtures you're going to use. Another major advantage of Sequence editing is
+        that when you create a new step, the values of the previous step are copied in the new one.
+        So the user is simply required to adjust the differences between them.<br>
+        If you are going to create 500 steps and they're all different, then Sequences and Chasers
+        will take almost the same time to be created.<br>
+ </li>
+ <li><b>Synchronization</b>: another major advantage of using Sequences in a Show is that a Show
+        can easily be extended (or reduced) while with a Chaser you will have a hard time to
+        synchronize the new functions to the existing ones.<br>
+        An example. Let's say your project controls 50 fixtures that are a mixture of moving heads, PARs and scanners.
+        At some point you buy a couple of lasers and you want them to become active in existing scenes
+        at precise moments in time. The Show Manager allows you to do that in a few minutes !
+        You just need to add the 2 new fixtures to the project, add a track to the Shows affected by
+        the change and create a few Sequences to control the lasers.<br>
+        The Show Manager resume functionality will also save you a lot of time when testing the new
+        changes.<br>
+        With Chasers you'd probably have to deal with complex <A HREF="file:concept.html#Collection">Collections</a>
+        and review the timings of a few steps before finding the right combination.
+</ul>
+</P>
+
+<H2>Show Manager toolbar controls</H2>
+
+<TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD><IMG SRC="qrc:/show.png"/></TD>
+  <TD>CTRL+H</TD>
+  <TD>Create a new <A HREF="file:concept.html#Show">Show</A>. A Show is represented as a multitrack
+  workspace where tracks, sequences and audio elements can be added</TD>
+ </TR>
+ <TR></TR>
+ <TR>
+  <TD><B>Shows list</B></TD>
+  <TD></TD>
+  <TD>This drop down box lists the currently created Shows. Clicking on a Show will display it.</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/edit_add.png"/></TD>
+  <TD>CTRL+N</TD>
+  <TD>Create a new track or add existing functions to the Show. When clicking on this button
+  a window is displayed, allowing you to perform the following operations:
+  <ul>
+   <li>Create a new track: This creates a new empty track that will serve as a container 
+       for Sequences and Audio functions.
+   </li>
+   <li>Import an existing Scene. This will create a new track and a 10 seconds Sequence
+       with one single step representing the selected Scene.
+   </li>
+   <li>Import an existing Sequence: this operation scans the existing tracks and if
+       it finds a track already bound to the Sequence's bound Scene, then add the
+       Sequence to that track at the cursor position.<br>
+       If no compatible track is found, a new track will be created and bound to the
+       Sequence's bound Scene.
+   </li>
+   <li>Import an existing <A HREF="file:concept.html#Chaser">Chaser</A>: add a Chaser function at the cursor 
+       position on the selected track. If no track is available, it will create a new one.
+   </li>
+   <li>Import an existing <A HREF="file:concept.html#Audio">Audio</A>: add an Audio function at the cursor 
+       position on the selected track. If no track is available, it will create a new one.
+   </li>
+   <li>Import an existing <A HREF="file:concept.html#EFX">EFX</A>: add an EFX function at the cursor 
+       position on the selected track. If no track is available, it will create a new one.
+   </li>
+   <li>Import an existing <A HREF="file:concept.html#RGBMatrix">RGB Matrix</A>: add a RGB Matrix function at the cursor 
+       position on the selected track. If no track is available, it will create a new one.
+   </li>
+  </ul>
+  A Show can have a virtually infinite number of tracks.</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/sequence.png"/></TD>
+  <TD>CTRL+E</TD>
+  <TD>Create a new <A HREF="file:concept.html#Sequence">Sequence</A> item and bind it to the
+      selected track.
+  </TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/audio.png"/></TD>
+  <TD>CTRL+A</TD>
+  <TD>Create a new <A HREF="file:concept.html#Audio">Audio</A> item. An audio item simply represents
+  an audio file. Audio items can be added on any track, but if you want to to create a separate
+  track for it, just create an new track.<br>
+  <B>Note:</B> It is possible to display the waveform preview of an audio item just by right clicking it
+  and selecting the channels you want to display (mono, left channel, right channel, stereo)<br>
+  <B>Warning:</B> Even though QLC+ allows you to, it is not possible to play two audio files simultaneously.
+  Especially on Windows, you might experience unwanted crashes.
+  </TD>
+ </TR>
+ <TR></TR>
+ <TR>
+  <TD><IMG SRC="qrc:/editcopy.png"/></TD>
+  <TD>CTRL+C</TD>
+  <TD>Copy the currently selected item into QLC+ clipboard</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/editpaste.png"/></TD>
+  <TD>CTRL+V</TD>
+  <TD>Paste QLC+ clipboard content at the cursor position. When performing this 
+  operation two checks are performed:
+    <UL>
+     <LI>Overlapping: checks if the item you're going to paste overlaps with an 
+     existing item in the selected track</LI>
+     <LI>Validity: If you're pasting a Sequence, QLC+ will verify that the 
+     Sequence contents are compatible with the currently selected track</LI>
+  </TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/editdelete.png"/></TD>
+  <TD>Del</TD>
+  <TD>Delete the currently selected item. This can be a sequence, an audio item or a track.
+  Note that deleting a track will delete also all its sequences/audio children.<br>
+  <B>Note: Show Manager will only perform a "visual removal" of functions. To permanently 
+  delete them, please use the <A HREF="file:functionmanager.html">Function Manager</A></B></TD>
+ </TR>
+ <TR></TR>
+ <TR>
+  <TD><IMG SRC="qrc:/color.png"/></TD>
+  <TD>CTRL+R</TD>
+  <TD>Assign a custom color to the selected item</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/lock.png"/></TD>
+  <TD>CTRL+K</TD>
+  <TD>Lock or unlock then selected item. Once an item is locked, it cannot be dragged on the timeline anymore</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/speed.png"/></TD>
+  <TD>CTRL+T</TD>
+  <TD>Open a window where you can adjust the selected item start time and total duration.
+      The behaviour of the latter will depend on the selected item.<br>
+      On Audio and Video items it does nothing.<br>
+      On Sequences and Chasers it will stretch all the steps timings to fit to the desired duration.<br>
+      On EFXs and RGB Matrices some extra options will be displayed, allowing to stretch the original function
+      or loop the function until the desired duration is reached.</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/grid.png"/></TD>
+  <TD>CTRL+G</TD>
+  <TD>Enable/disable the "Snap to grid" functionality. The view will be filled with vertical bars
+  corresponding to the header markers (time or BPM)<br>
+  Snapping to grid will correct your items by dragging them to the nearest reference bar</TD>
+ </TR>
+ <TR></TR>
+ <TR>
+  <TD><B>00:00:00.000</B></TD>
+  <TD></TD>
+  <TD>This field displays the cursor time position both if the playback is stopped or activated</TD>
+ </TR>
+ <TR></TR>
+ <TR>
+  <TD><IMG SRC="qrc:/player_play.png"/><IMG SRC="qrc:/player_pause.png"/></TD>
+  <TD>Space</TD>
+  <TD>Start the current Show playback from the cursor position, or pause it and leave the lights on.</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/player_stop.png"/></TD>
+  <TD>CTRL+Space</TD>
+  <TD>Stop the current Show playback. Clicking once will stop the cursor at the current position
+  for resuming later. Clicking twice will restore the cursor to 0 seconds.<br>
+  <b>Hint:</b> When resuming a show with audio tracks, please keep in mind that audio accuracy depends on
+  the file formats you are using. For example MP3 files resume is not particularly accurate, while wave files resume is.
+ </TD>
+ </TR>
+ <TR></TR>
+ <TR>
+  <TD><B>Time markers</B></TD>
+  <TD></TD>
+  <TD>This drop down menu lets you to choose the desired time division to display for your Show.<br>
+  This can be either 'Time'. 'BPM 4/4', 'BPM 3/4' or 'BPM 2/2'</TD>
+ </TR>
+ <TR>
+  <TD><B>BPMs</B></TD>
+  <TD></TD>
+  <TD>When a BPM time division mode is selected, this field lets you decide the appropriate BPM
+  to set for you Show. This ranges from 20 to 240.<br>
+  This can be quite useful when dealing with electronic music or BPM synchronized shows</TD>
+ </TR>
+ 
+ 
+</TABLE>
+
+<H2>Just 4 steps</H2>
+
+The Show Manager has been set up to be used quickly and easily. Basically, with just 4 steps a complete
+<A HREF="file:concept.html#Show">Show</A> can be created:
+
+<OL>
+<H3><LI>Add a new Show <IMG SRC="qrc:/show.png" ALIGN="absmiddle"></LI></H3>
+First of all you need to add a new Show to the view. This creates an empty multitrack view with no tracks
+and no items, ready to be filled.<br>
+A popup will appear asking the name to assign to the Show. It is possible to change the name afterwards with the
+<A HREF="file:functionmanager.html">Function Manager</A>, using the <A HREF="file:showeditor.html">Show Editor</A> panel.
+
+<H3><LI>Add a track <IMG SRC="qrc:/edit_add.png" ALIGN="absmiddle"></LI></H3>
+When you add a track, a popup will ask you to select an existing function or to create a new one with a default name.<br>
+When done, a new track will be created. All the sequences created on this track
+will act only on the associated Scene, not affecting any of the other tracks.<br>
+A newly created track will be set automatically as active. An active track has a green light on the left hand side.<br>
+A Track can be set to <IMG SRC="file:../images/track-mute.png" ALIGN="absmiddle"> mute and
+<IMG SRC="file:../images/track-solo.png" ALIGN="absmiddle"> solo states. The mute state will exclude the track from the playback, 
+while the solo state will mute all the other tracks of the Show.<br>
+When right clicking on a track, it is possible to move it up <IMG SRC="qrc:/up.png" ALIGN="absmiddle"> or 
+down <IMG SRC="qrc:/down.png" ALIGN="absmiddle"> for logical ordering.<br>
+Once selected, a track will display its <A HREF="file:sceneeditor.html">Scene Editor</A> on the bottom of the screen.
+
+<H3><LI>Add some <A HREF="file:concept.html#Function">Functions</A></LI></H3>
+
+When a track has been activated, you can quickly add a <IMG SRC="qrc:/sequence.png" ALIGN="absmiddle">
+<A HREF="file:concept.html#Sequence">Sequence</A> or an <IMG SRC="qrc:/audio.png" ALIGN="absmiddle">
+<A HREF="file:concept.html#Audio">Audio</A> function to it by pressing the toolbar buttons.<br>
+Otherwise, by clicking on the <IMG SRC="qrc:/edit_add.png" ALIGN="absmiddle"> button, it is possible to import existing
+QLC+ Functions and add them to the Show timeline.<br>
+A new item will be placed at the cursor position, but it is always possible to move it to the desired time
+just by dragging it along the timeline.<br>
+An item cannot be moved to another track, since it is bound to the track where it has originally been created.<br>
+An item can be copied <IMG SRC="qrc:/editcopy.png" ALIGN="absmiddle">, pasted <IMG SRC="qrc:/editpaste.png" ALIGN="absmiddle"> or 
+deleted <IMG SRC="qrc:/editdelete.png" ALIGN="absmiddle"> with the toolbar icons. The pasted item will be placed at the current cursor position.<br>
+The item background color can be changed with the toolbar icon <IMG SRC="qrc:/color.png" ALIGN="absmiddle">. The assigned color will be saved
+in your project file.<br>
+Once selected, an item will display its specific Function Editor on the right hand side of the screen.
+When right clicking an item a contextual menu will be displayed, showing the following options:
+<ul>
+<li><b>Preview</b>: This option is available only on audio items. It will display the waveform preview for right, left or stereo channels when available</li>
+<li><b>Align to cursor</b>: This option will move the selected item to the cursor position</li>
+<li><IMG SRC="qrc:/lock.png" ALIGN="absmiddle"><b>Lock/Unlock</b>: Once an item is locked, it cannot be dragged on the timeline anymore</li>
+</ul>
+Follow step 4 to understand how to fill a Sequence<br>
+
+<H3><LI>Edit your Functions</LI></H3>
+Once an item has been created, it is now the time to edit it.<br>
+<b>Please note</b> that the difference between a Chaser and a Sequence is that a Sequence is bound to the Track (so the Scene)
+where it has been created. So, when adding a step, QLC+ will not ask to select a particular function, but will always use the
+channels of the same Scene.<br>
+When editing a Function, you will see the item changing on the multitrack view,
+giving an immediate feedback for aligning to other items or particular points in time.<br>
+Fade In and Fade Out times will be displayed as diagonal lines over the items on the multitrack view, while
+different steps/loops will be divided by vertical lines.<br>
+
+</OL>
+<br>
+To increase the complexity of the Show, more Functions can be added. Just repeat the above steps
+depending on your needs.<br>
+
+<H2>And finally...play ! <IMG SRC="qrc:/player_play.png"></H2>
+When a complete show has finally been created, it can be played just by clicking on the Play icon.<br>
+Playback always starts from the current cursor postion. The cursor position can be changed by clicking on the time line.
+</BODY>
+</HTML>

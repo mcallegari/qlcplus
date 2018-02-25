@@ -1,0 +1,63 @@
+<html dir="ltr">
+<head>
+<title>Q Light Controller Plus - DMX値に応じた機能</title>
+<script src="utility.js" type="text/javascript"></script>
+<link href="style.css" rel="stylesheet" type="text/css"></link>
+  <meta charset="utf-8">
+</head>
+<BODY onLoad="replaceqrc()">
+
+
+<h1>DMX値に応じた機能</h1>
+<p>DMX１chに複数の機能が割り当てられている場合に設定します。例えば、カラーチャンネルで0~15のレベルの時に白色になる場合は<ul>
+ <li><b>Min</b>に0を入力</li>
+ <li><b>Max</b>に15を入力</li>
+ <li><b>Description</b>機能名・説明に「白色」を入力</li>
+</ul>
+</p>
+
+<h3>設定項目</h3>
+
+<table border="1" class="qlcTable">
+ <tr>
+  <td>
+   <b>Min</b>
+  </td>
+  <td>DMXレベルの最小値を設定します。</td>
+ </tr>
+ <tr>
+  <td>
+   <b>Max</b>
+  </td>
+  <td>DMXレベルの最大値を設定します。</td>
+ </tr>
+ <tr>
+  <td>
+   <b>機能名・説明</b>
+  </td>
+  <td>表示する機能名を設定します
+  </td>
+ </tr>
+</table>
+
+<h3>アイコンの設定</h3>
+
+<p>ビジュアルエディタやシンプルエディタなどに表示されるアイコンはここので設定できます。<br>グループをColor, Effect, Goboに設定している場合は、<a href="./sceneeditor.html">シーンエディター</a>、<a href="./simpledesk.html">シンプル卓</a>、<a href="./vcslider.html">スライダー</a>に表示されるアイコンを設定できます。<br>アイコンを設定しておくと、シーンなどを作る際に便利になります。<br>アイコンを設定できる項目であれば、設定したいチャンネルをダブルクリックすると右側に設定項目が表示されます。設定項目は以下の通りです。</p>
+
+<table border="1" class="qlcTable">
+ <tr>
+  <td><b>アイコン画像</b></td>
+  <td>アイコン画像を設定します。</td>
+ </tr>
+ <tr>
+  <td><img src="qrc:/color.png">色</td>
+  <td>色を設定できます。ここで１色目を設定すると、２色目が設定できるようになります。</td>
+ </tr>
+ <tr>
+  <td>色２<img src="qrc:/color.png"></td>
+  <td>２色目が設定できる場合はこの項目を設定できます。例えば、カラーホイールを途中で止めて、左右で２色に設定できる場合はこの設定を使って２色で設定できます。</td>
+ </tr>
+</table>
+
+</BODY>
+</html>

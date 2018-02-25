@@ -1,0 +1,270 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - Virtual Console</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<meta charset="utf-8" />
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1><IMG SRC="qrc:/virtualconsole.png" ALIGN="absmiddle"> バーチャルコンソール</H1>
+  <p>
+  　バーチャルコンソールは、０からオペレートのためのインターフェイスを作っていく操作盤のようなものです。バーチャルコンソールには、下に示すいくつかのウィジェットを配置できます。</p>
+  <ul>
+   <li>スタート/ストップボタン</li>
+   <li>フェーダー(スライダー)</li>
+   <li>スピードダイヤル</li>
+   <li>XYパッド</li>
+   <li>キューリスト</li>
+   <li>フレーム</li>
+   <li>ソロフレーム</li>
+   <li>ラベル</li>
+  </ul>
+  <p>
+  　バーチャルコンソール画面の上のツールバーには、各種ウィジェットを追加するボタンや、コピー・ペースト、BlackOutボタンなどのボタンが並んでいます。
+  </p>
+
+  <p>　バーチャルコンソールの背景や、ボタンの色などの設定の他にも。ウィジェットはバーチャルコンソール上のどこにでも、どんな大きさでも自由に配置できます、使いやすいように工夫してみてください。
+  詳しくは、<a href="vcstylingplacement.html">バーチャルコンソールのスタイルのカスタマイズ</a>を参照してください。
+  </p>
+
+<H3>ツールバーの説明</H3>
+
+<TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/button.png">
+  </TD>
+  <TD>
+   <A HREF="file:vcbutton.html">ボタン</A> を追加します。
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/buttonmatrix.png">
+  </TD>
+  <td>
+　<a href="vcbuttonmatrix.html">複数のボタン</a>を選択したフレームに<a href="addvcbuttonmatrix.html">一括で追加します。</a>
+  </td>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/slider.png">
+  </TD>
+  <TD>
+   <A HREF="file:vcslider.html">フェーダー(スライダー)</a>を追加します。
+  </TD>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/slidermatrix.png">
+  </TD>
+  <TD>
+   <A HREF="file:vcslidermatrix.html">複数のフェーダー(スライダー)</a>を選択したフレームに一括で追加します。
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/rgbmatrix.png">
+  </TD>
+  <TD>
+   <A HREF="file:vcmatrix.html">アニメーション</a>を追加します。
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/knob.png">
+  </TD>
+  <td>
+　選択したフレームに<a href="vcslider.html">ノブ(ツマミ)</a>を追加します。
+　フェダー(スライダー)の代わりにノブ(ツマミ)を使用することができます。
+  </td>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/speed.png">
+  </TD>
+  <TD>
+   選択したフレームに<a href="vcspeeddial.html">スピードダイヤル</a>を追加します。
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/xypad.png">
+  </TD>
+  <TD>
+    選択したフレームに<a href="vcxypad.html">X/Yパッド</a>を追加します。
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/cuelist.png">
+  </TD>
+  <TD>
+    選択したフレームに<a href="vccuelist.html">キューリスト</a>を追加します。
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/frame.png">
+  </TD>
+  <TD>
+    選択したフレーム内部に<a href="vcframe.html">フレーム</a>を作成します。
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/soloframe.png">
+  </TD>
+  <TD>
+    選択したフレームに<a href="vcsoloframe.html">ソロフレーム</a>を作成します。
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/label.png">
+  </TD>
+  <TD>
+    選択したフレームに<a href="vclabel.html">ラベル</a>をつけられます。　
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/audioinput.png">
+  </TD>
+  <TD>
+    選択したフレームに<a href="audiotriggers.html">オーディオトリガー(サウンドアクティブ)</a>を追加します。
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/clock.png">
+  </TD>
+  <td>
+　選択したフレームにデジタル時計を設置します。時計には3種類あり、現在時刻・カウントダウンタイマー・ストップウォッチから選択できます。<br>
+　カウントダウンタイマーとストップウォッチを設置した場合、本番モード中に時計をクリックすることでスタートします。また、右クリックをするとリセットされます。<br>　現在時刻を表示している場合は、QLC+起動時にお使いのコンピュータの時計と同期します。長期間QLC+を起動したままにしておくと時計がずれることがあります。
+  </td>
+ </TR>
+ <TR><TD></TD><TD></TD></TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/editcut.png">
+  </TD>
+  <TD>
+    選択したウィジェットをクリップボードに切り取ります。※同じ場所にペーストすることはできません。
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/editcopy.png">
+  </TD>
+  <TD>
+    クリップボードからウェジットをペーストします。
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/editpaste.png">
+  </TD>
+  <TD>
+    選択したフレームにクリップボードからウィジェットをペーストします。
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/editdelete.png">
+  </TD>
+  <TD>
+    選択しているウィジェットを削除します。フレームを選択している場合は、中に入ったウィジェットも全て削除されます。
+  </TD>
+ </TR>
+ <TR><TD></TD><TD></TD></TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/edit.png">
+  </TD>
+  <TD>
+    選択しているウィジェットを編集します。
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/editclear.png">
+  </TD>
+  <TD>
+    選択しているウィジェットの名前を変更します。
+  </TD>
+ </TR>
+ <TR><TD></TD><TD></TD></TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/up.png">
+  </TD>
+  <TD>
+    選択したウィジェットを前面に移動します。
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/down.png">
+  </TD>
+  <TD>
+    選択したウィジェットを背面に移動します。
+  </TD>
+ </TR>
+ <TR><TD></TD><TD></TD></TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/color.png">
+  </TD>
+  <TD>
+    選択したウィジェットの背景色を変更します。
+    選択したウィジェットの文字色を変更します。
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/image.png">
+  </TD>
+  <TD>
+    選択したウィジェットの背景に写真を設定します。
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/fontcolor.png">
+  </TD>
+  <TD>
+    選択したウィジェットの文字色を変更します。
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/fonts.png">
+  </TD>
+  <TD>
+    選択したウィジェットのフォントの詳細設定を開きます。
+  </TD>
+ </TR>
+ <TR><TD></TD><TD></TD></TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/configure.png">
+  </TD>
+  <TD>
+    バーチャルコンソールの詳細設定を変更できます。
+  </TD>
+ </TR>
+ <TR><TD></TD><TD></TD></TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/panic.png">
+  </TD>
+  <TD>
+    再生中のファンクションを停止します。
+  </TD>
+ </TR>
+</TABLE>
+
+</BODY>
+</HTML>

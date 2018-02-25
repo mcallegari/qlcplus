@@ -160,6 +160,13 @@ void KnobWidget::paintEvent(QPaintEvent *e)
         painter.drawArc(valRect, -105 * 16, -degrees * 16);
 }
 
+void KnobWidget::wheelEvent(QWheelEvent *e)
+{
+    setSliderDown(true);
+    QDial::wheelEvent(e);
+    setSliderDown(false);
+}
+
 QPixmap KnobWidget::rotatePix(QPixmap *p_pix, float p_deg)
 {
     // perform rotation, transforming around the center of the image

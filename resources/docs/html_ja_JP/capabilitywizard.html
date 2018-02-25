@@ -1,0 +1,55 @@
+<html dir="ltr">
+<head>
+<title>Q Light Controller Plus - DMX値に応じた機能をまとめて追加</title>
+<script src="utility.js" type="text/javascript"></script>
+<link href="style.css" rel="stylesheet" type="text/css"></link>
+  <meta charset="utf-8">
+</head>
+<BODY onLoad="replaceqrc()">
+
+
+<h1>DMX値に応じた機能をまとめて追加</h1>
+<p>このウィザードでは、DMX１chに割り当てられた同じ幅の機能を一括で追加するためのものです。ゼラ式のカラーチャンネル、ゴボチャンネル、各種マクロチャンネルがDMXchに同じ幅で複数の機能が割り当てられていることが多いです。
+</p>
+
+<h3>設定項目</h3>
+
+<table border="1" class="qlcTable">
+ <tr>
+  <td>
+   <b>開始値</b>
+  </td>
+  <td>ウィザードで機能を割り当てたいDMXの初めのレベル。通常は0のままで大丈夫ですが、機材によってレベルの初めだけ幅が違ったりすることがあります、そういった場合に活用できる設定です。詳しくは機材のマニュアルをご覧ください。
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>幅</b>
+  </td>
+  <td>かくレベルの幅
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>数</b>
+  </td>
+  <td>ウィザードで登録したい機能の数
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>名前</b>
+  </td>
+  <td>ウィザードで作成される機能全てに名前をつけます。名前の中に#(ハッシュマーク)を入力しておくと自動で連番に置き換えられます。(例) 「ゴボ#」と入力すると[ゴボ1][ゴボ2][ゴボ3] ... と作成されます。
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>プレビュー</b>
+  </td>
+  <td>作成される機能をプレビューできます。各設定項目を変更すると自動でプレビューも更新されます。</td>
+ </tr>
+</table>
+
+</BODY>
+</html>

@@ -1,12 +1,15 @@
 qlcplus (4.11.2) stable; urgency=low
 
   * engine: fix crash caused by an invalid IO mapping
+  * engine: fix intensity override not considered during fade outs
   * UI/Function Manager: fixed keyboard shortcut conflicts and document them
   * UI/Function Manager: allow to import multiple of audio/video files at once
   * UI/Chaser Editor: add a button to shuffle the selected Chaser steps (thanks to Felix Edelmann)
   * UI/RGBMatrix Editor: fix preview not updating on pattern change when play button is on
   * Virtual Console/Slider: fix submaster initial value not applied
   * Virtual Console/Slider: implemented 'value catching' for controllers without feedbacks (Lukas Jähn proposal)
+  * Virtual Console/Slider: fix values range when switching between Slider and Knob appearance
+  * Virtual Console/Knob: fix DMX values not updated when interacting with the mouse wheel
   * Virtual Console/Cue List: allow to select a step with next/previous buttons during pause
   * Virtual Console/Frame: fix regression preventing to send the disable feedback
   * plugins/udmx: added 'channels' configuration parameter (see documentation)

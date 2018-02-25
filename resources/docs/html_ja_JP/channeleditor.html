@@ -1,0 +1,111 @@
+<html dir="ltr">
+<head>
+<title>Q Light Controller Plus - Edit Chanel: チャンネルエディタ</title>
+<script src="utility.js" type="text/javascript"></script>
+<link href="style.css" rel="stylesheet" type="text/css"></link>
+  <meta charset="utf-8">
+</head>
+<BODY onLoad="replaceqrc()">
+
+
+<h1>Edit Chanel (チャンネルエディタ)</h1>
+<p>チャンネルエディタでは、DMX機器の機能(色、ゴボ、プリズムなど)と範囲を設定することができます。フィクスチャーのDMXチャンネルは、各フィクスチャーのマニュアルを参照してください。
+</p>
+
+<h3>設定項目</h3>
+
+<table border="1" class="qlcTable">
+ <tr>
+  <td>
+   <b>名前</b>
+  </td>
+  <td>チャンネルの名前を設定します</td>
+ </tr>
+ <tr>
+  <td>
+   <b>グループ</b>
+  </td>
+  <td>
+   <p>チャンネルでコントロールできる項目の種類を選択します。</p>
+   <li>グループ<b>Intensity</b>を選択すると、このチャンネルを<a href="./concept.html#HTP">HTP</a>にします。また、<a href="./concept.html#GrandMaster">グランドマスター</a>は、デフォルトの状態ではIntensityのチャンネルのみを操作します。※ このチャンネルがフィクスチャーの原色カラー(RGB、CMYなど)の場合はグループを<i>Intensity</i>で設定します。グループを<b>Color</b>に設定するのはフィクスチャーがカラーホイールの場合などです。このグループ(<b>Intensity</b>)で適切に色の設定を行うと<a href="./sceneeditor.html">シーンエディタ</a> の<b>色のシーン設定</b>で<b>カラーパレット</b>を使用することができます。</li>
+   <br>
+   <li>フィクスチャーがカラーホイール、カラーマクロの場合はグループ<b>Color</b>を選択してください。<i>注意</i> フィクスチャーがRGBや CMYなどの原色カラーの場合はグループ<b>Intensity</b>を選択してください。グループColorでは<a href="./concept.html#LTP">LTP</a>になります。</li>
+   <br>
+   <li>グループ<b>Gobo</b> ゴボを操作するチャンネルの場合はこちらを選択してください。このチャンネルは<a href="./concept.html#LTP">LTP</a>になります。</li>
+   <br>
+   <li>グループ<b>Speed</b> フィクスチャーのスピード(ゴボの回転、カラーホイール回転、動作速度など)を操作するチャンネルの場合はこちらを選択してください。このチャンネルは<a href="./concept.html#LTP">LTP</a>になります。</li>
+   <br>
+   <li>グループ<b>Prism</b> プリズムを操作するチャンネルの場合はこちらを選択してください。このチャンネルは<a href="./concept.html#LTP">LTP</a>になります。</li>
+   <br>
+   <li>グループ<b>Prism</b> プリズムを操作するチャンネルの場合はこちらを選択してください。このチャンネルは<a href="./concept.html#LTP">LTP</a>になります。</li>
+   <br>
+   <li>グループ<b>Shutter</b> アイリスシャッターを操作するチャンネルの場合はこちらを選択してください。このチャンネルは<a href="./concept.html#LTP">LTP</a>になります。</li>
+   <br>
+   <li>グループ<b>Beam</b> ビームを操作するチャンネルの場合はこちらを選択してください。このチャンネルは<a href="./concept.html#LTP">LTP</a>になります。</li>
+   <br>
+   <li>グループ<b>Effect</b> 選択肢にフィクスチャーのチャンネルにあったグループがない場合はこのグループを選択しておいてください。このチャンネルは<a href="./concept.html#LTP">LTP</a>になります。</li>
+   <br>
+   <li>グループ<b>Maintenance</b> リセットや冷却ファンの制御などフィクスチャーのメンテナンス機能が割り当てられているチャンネルの場合はこちらを選択してください。このチャンネルは<a href="./concept.html#LTP">LTP</a>になります。</li>
+   <br>
+   <li>グループ<b>Nothing</b> このチャンネルを<a href="./sceneeditor.html">シーンエディタ</a>、<a href="./fixturemanager.html">フィクスチャーコンソール</a>に表示したくない場合はこのグループを選択してください。</li>
+   <br>
+   <li>グループ<b>Pan</b> グループ<b>Tilt</b> パン、チルトを操作するチャンネルの場合はこちらを選択してください。※ 下記の<b>Control Byte(16bit操作の場合)</b>も合わせて参照してください。このチャンネルは<a href="./concept.html#LTP">LTP</a>になります。</li>
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>色</b>
+  </td>
+  <td>グループを<b>Intensity</b>に設定している場合のみ色設定ができます。このチャンネルが操作する色を設定します、設定できる色は以下の通りです。<b>Red, Green, Blue, Cyan, Magenta, Yellow, Amber, White, UV</b>光量の操作などの場合は<b>Generic</b>を選択してください。
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>Control Byte(16bit操作の場合)</b>
+  </td>
+  <td>フィクスチャーによっては、DMXを2ch用いて16bitにし、細かな操作が可能な16bit操作ができる場合があります。一般に<b>Pan</b>、<b>Tilt</b>、RGB、ゴボ、フォーカスなどが対応している場合があります。詳しくはフィクスチャーの取扱説明書を参照してください。<br>もし、フィクスチャーがDMX1chに１つづつの機能しか割り当てられていない8bit操作の場合は<b>標準 (MSB,上位バイト)</b>を選択してください。
+フィクスチャーがDMX2chを使い操作する16bit操作に対応している場合には、まず大まかに操作をする上位8bitのDMXチャンネルに<b>標準 (MSB, 上位バイト)</b>を設定し、次に細かい操作をする下位8bitのDMXチャンネルに<b>ファイン (LSB,下位バイト)</b>を設定します。
+よくわからない場合には、<b>標準 (MSB,上位バイト)</b>に設定しておけば操作は可能です。</td>
+ </tr>
+ <tr>
+  <td>
+   <b>DMX値に応じた機能</b>
+  </td>
+  <td>現在編集されているチャンネルのDMX値の一覧を表示します。
+編集しているチャンネルが１つの機能を連続的に調整するチャンネル(Pan, Tilt, 光量など)である場合は、リストには１つだけ追加します。
+カラーホイールやゴボなど、DMX値で段階的に操作をする場合はそれぞれの色や模様などの範囲を定義します。(例)白0~15, 青16~32....
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <img src="qrc:/edit_add.png">
+  </td>
+  <td><a href="./capabilityeditor.html">エディタ</a>を使いチャンネルに機能の定義を追加します。
+
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <img src="qrc:/edit_remove.png">
+  </td>
+  <td>選択した機能の定義を削除します。
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <img src="qrc:/edit.png">
+  </td>
+  <td><a href="./capabilityeditor.html">エディタ</a>で選択した機能を編集します。
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <img src="qrc:/wizard.png">
+  </td>
+  <td><a href="./capabilitywizard.html">一括追加用のエディタ</a>を使い、DMX値に応じた機能をまとめて追加します。
+  </td>
+ </tr>
+</table>
+
+</BODY>
+</html>

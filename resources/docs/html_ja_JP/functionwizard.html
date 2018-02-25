@@ -1,0 +1,78 @@
+<html dir="ltr">
+<head>
+<title>Q Light Controller Plus - ファンクションウィザード</title>
+<script src="utility.js" type="text/javascript"></script>
+<link href="style.css" rel="stylesheet" type="text/css"></link>
+  <meta charset="utf-8">
+</head>
+<BODY onLoad="replaceqrc()">
+
+
+<h1>ファンクションウィザード</h1>
+<p>
+　ファンクションウィザードでは、フィクスチャーに応じたいくつかのファンクションを自動生成できます。
+</p>
+
+<h3>設定項目</h3>
+
+<table border="1" class="qlcTable">
+ <tr>
+  <td>
+   <b>フィクスチャー一覧</b>
+  </td>
+  <td>
+　選択したフィクスチャーのファンクションを自動生成します。"使用可能な機能"には、<b>自動生成できるファンクションの種類</b>を表示しています
+  </td>
+ </tr>
+ <tr>
+  <td>
+    <IMG SRC="qrc:/edit_add.png">
+  </td>
+  <td>
+　<a href="concept.html#Fixtures">フィクスチャー</a>を追加します。
+  </td>
+ </tr>
+ <tr>
+  <td>
+    <IMG SRC="qrc:/edit_remove.png">
+  </td>
+  <td>
+　フィクスチャーを削除します。
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>シーン</b>
+  </td>
+  <td>
+   <ul>
+    <li>カラーマクロ: フィクスチャーの色をコントロールするファンクションです。このファンクションには、RGBのような複数のチャンネルを一括でコントロールするファンクションや、カラーホイールでも同じように自動生成できます。</li>
+    <li>ゴボマクロ: ゴボをコントロールするファンクションです。ゴボコントロールのないフィクスチャーでは自動生成できません。</li>
+    <li>シャッターマクロ: シャッターをコントロールするファンクションです。シャッターコントロールのないファンクションでは自動生成できません。</li>
+   </ul>
+  </td>
+ </tr>
+ <td><!-- TR>
+  <TD>
+   <B>Chasers</B>
+  </TD>
+  <TD>
+   <UL>
+    <LI>Intensity: Create chasers that use the fixtures' intensity/dimmer channels.
+    The following chasers are created:
+     <UL>
+      <LI>Full - Zero: Fade all intensity channels on & off simultaneously.</LI>
+      <LI>Even - Odd: Fade all even intensity channels on, while odd channels fade to off and vice versa.</LI>
+      <LI>Sequence forwards: Fade each intensity channel on in a consecutive sequence.</LI>
+      <LI>Sequence backwards: The same as above, but in reverse.</LI>
+      <LI>Random Multi: Fade multiple channels on and off in a random sequence.</LI>
+      <LI>Random Single: Fade one channel on at a time in a random sequence.</LI>
+     </UL>
+    </LI>
+   </UL>
+  </TD>
+ </TR -->
+</td></table>
+
+</BODY>
+</html>
