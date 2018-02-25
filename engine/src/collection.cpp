@@ -399,8 +399,6 @@ void Collection::postRun(MasterTimer* timer, QList<Universe *> universes)
                 disconnect(function, SIGNAL(running(quint32)),
                         this, SLOT(slotChildStarted(quint32)));
             }
-
-            function->releaseAttributeOverride(m_intensityOverrideIds.at(i));
         }
 
         m_intensityOverrideIds.clear();
