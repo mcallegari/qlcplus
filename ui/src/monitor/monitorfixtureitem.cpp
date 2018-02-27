@@ -144,9 +144,9 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
                for(quint32 i = 0; i < 256; ++i)
                {
                    QLCCapability *cap = ch->searchCapability(i);
-                   if (cap != NULL)
+                   if (cap != NULL && cap->resource(0).isValid())
                    {
-                       values << cap->resourceColor1();
+                       values << cap->resource(0).value<QColor>();
                        containsColor = true;
                    }
                    else

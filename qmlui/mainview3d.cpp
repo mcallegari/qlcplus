@@ -738,16 +738,15 @@ void MainView3D::updateFixture(Fixture *fixture)
                 if (value == 0)
                     break;
 
-                foreach(QLCCapability *cap, ch->capabilities())
-                {
-                    if (value >= cap->min() && value <= cap->max())
-                    {
-                        if (cap->resourceColor1().isValid())
-                            color = cap->resourceColor1();
+                QLCCapability *cap = ch->searchCapability(value);
 
-                        break;
-                    }
-                }
+                if (cap == NULL ||
+                   (cap->presetType() != QLCCapability::SingleColor &&
+                    cap->presetType() != QLCCapability::DoubleColor))
+                    break;
+
+                if (cap->resource(0).isValid())
+                    color = cap->resource(0).value<QColor>();
             }
             break;
             case QLCChannel::Beam:

@@ -244,14 +244,26 @@ void ClickAndGoWidget::createPresetList(const QLCChannel *chan)
 
     foreach(QLCCapability* cap, chan->capabilities())
     {
-        if (cap->resourceName().isEmpty() == false)
-            m_resources.append(PresetResource(cap->resourceName(), cap->name(),
+        if (cap->presetType() == QLCCapability::Picture)
+        {
+            m_resources.append(PresetResource(cap->resource(0).toString(), cap->name(),
                                               cap->min(), cap->max()));
-        else if (cap->resourceColor1().isValid())
-            m_resources.append(PresetResource(cap->resourceColor1(), cap->resourceColor2(),
-                                              cap->name(), cap->min(), cap->max()));
+        }
+        else if (cap->presetType() == QLCCapability::SingleColor)
+        {
+            QColor col1 = cap->resource(0).value<QColor>();
+            m_resources.append(PresetResource(col1, QColor(), cap->name(), cap->min(), cap->max()));
+        }
+        else if (cap->presetType() == QLCCapability::DoubleColor)
+        {
+            QColor col1 = cap->resource(0).value<QColor>();
+            QColor col2 = cap->resource(1).value<QColor>();
+            m_resources.append(PresetResource(col1, col2, cap->name(), cap->min(), cap->max()));
+        }
         else
+        {
             m_resources.append(PresetResource(i, cap->name(), cap->min(), cap->max()));
+        }
         i++;
     }
 }

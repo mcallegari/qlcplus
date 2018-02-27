@@ -186,6 +186,8 @@ void EditChannel::init()
     connect(m_pictureButton, SIGNAL(pressed()), this, SLOT(slotPictureButtonPressed()));
     connect(m_color1Button, SIGNAL(pressed()), this, SLOT(slotColor1ButtonPressed()));
     connect(m_color2Button, SIGNAL(pressed()), this, SLOT(slotColor2ButtonPressed()));
+    connect(m_val1Spin, SIGNAL(valueChanged(double)), this, SLOT(slotValue1SpinChanged(double)));
+    connect(m_val2Spin, SIGNAL(valueChanged(double)), this, SLOT(slotValue2SpinChanged(double)));
 
     refreshCapabilities();
     m_valueGroup->setVisible(false);
@@ -483,7 +485,7 @@ void EditChannel::slotDescriptionEdited(const QString& text)
 void EditChannel::slotCapabilityPresetActivated(int index)
 {
     m_currentCapability->setPreset(QLCCapability::Preset(index));
-    updateCapabilityPresetGroup(index ? true : false);
+    updateCapabilityPresetGroup(true);
 }
 
 void EditChannel::slotPictureButtonPressed()
@@ -504,14 +506,15 @@ void EditChannel::slotPictureButtonPressed()
         return;
 
     m_resourceButton->setIcon(QIcon(filename));
-    m_currentCapability->setResourceName(filename);
+    m_currentCapability->setResource(0, filename);
 }
 
 void EditChannel::slotColor1ButtonPressed()
 {
     QColorDialog dialog(this);
-    if (m_currentCapability->resourceColor1().isValid())
-        dialog.setCurrentColor(m_currentCapability->resourceColor1());
+    QColor col1 = m_currentCapability->resource(0).value<QColor>();
+    if (col1.isValid())
+        dialog.setCurrentColor(col1);
     if (dialog.exec() != QDialog::Accepted)
         return;
 
@@ -519,27 +522,38 @@ void EditChannel::slotColor1ButtonPressed()
     QPixmap pix(58, 58);
     pix.fill(color);
     m_resourceButton->setIcon(pix);
-    m_currentCapability->setResourceColors(color, QColor());
+    m_currentCapability->setResource(0, color);
     m_color2Button->setEnabled(true);
 }
 
 void EditChannel::slotColor2ButtonPressed()
 {
     QColorDialog dialog(this);
-    if (m_currentCapability->resourceColor2().isValid())
-        dialog.setCurrentColor(m_currentCapability->resourceColor2());
+    QColor col1 = m_currentCapability->resource(0).value<QColor>();
+    QColor col2 = m_currentCapability->resource(1).value<QColor>();
+    if (col2.isValid())
+        dialog.setCurrentColor(col2);
     if (dialog.exec() != QDialog::Accepted)
         return;
 
-    QColor color = dialog.selectedColor();
-    QColor firstColor = m_currentCapability->resourceColor1();
+    col2 = dialog.selectedColor();
     QPixmap pix(58, 58);
     QPainter painter(&pix);
-    painter.fillRect(0, 0, 29, 58, firstColor);
-    painter.fillRect(29, 0, 58, 58, color);
+    painter.fillRect(0, 0, 29, 58, col1);
+    painter.fillRect(29, 0, 58, 58, col2);
 
     m_resourceButton->setIcon(pix);
-    m_currentCapability->setResourceColors(firstColor, color);
+    m_currentCapability->setResource(1, col2);
+}
+
+void EditChannel::slotValue1SpinChanged(double value)
+{
+    m_currentCapability->setResource(0, value);
+}
+
+void EditChannel::slotValue2SpinChanged(double value)
+{
+    m_currentCapability->setResource(1, value);
 }
 
 void EditChannel::refreshCapabilities()
@@ -573,13 +587,14 @@ void EditChannel::refreshCapabilities()
         // Pointer
         item->setData(COL_NAME, PROP_PTR, (qulonglong) cap);
 
-        if (cap->resourceName().isEmpty() == false)
+        if (cap->presetType() == QLCCapability::Picture && cap->resource(0).isValid())
         {
-            QFile gobo(cap->resourceName());
+            QString path = cap->resource(0).toString();
+            QFile gobo(path);
             if (gobo.exists() == false)
             {
                 QString descr = QString("[%1, %2] - %3 (%4)").arg(cap->min()).arg(cap->max())
-                        .arg(cap->name()).arg(cap->resourceName());
+                        .arg(cap->name()).arg(path);
                 goboErrors.append(descr);
             }
         }
@@ -638,15 +653,16 @@ void EditChannel::updateCapabilityPresetGroup(bool show)
         switch (type)
         {
             case QLCCapability::Picture:
-                m_resourceButton->setIcon(QIcon(m_currentCapability->resourceName()));
+                m_resourceButton->setIcon(QIcon(m_currentCapability->resource(0).toString()));
                 showPicture = true;
                 showPreview = true;
             break;
             case QLCCapability::SingleColor:
             {
                 QPixmap pix(58, 58);
-                if (m_currentCapability->resourceColor1().isValid())
-                    pix.fill(m_currentCapability->resourceColor1());
+                QColor col1 = m_currentCapability->resource(0).value<QColor>();
+                if (col1.isValid())
+                    pix.fill(col1);
                 else
                     pix.fill(QColor(Qt::transparent));
                 m_resourceButton->setIcon(pix);
@@ -658,14 +674,17 @@ void EditChannel::updateCapabilityPresetGroup(bool show)
             case QLCCapability::DoubleColor:
             {
                 QPixmap pix(58, 58);
-                if (m_currentCapability->resourceColor1().isValid())
-                {
-                    pix.fill(m_currentCapability->resourceColor1());
+                QColor col1 = m_currentCapability->resource(0).value<QColor>();
 
-                    if (m_currentCapability->resourceColor2().isValid())
+                if (col1.isValid())
+                {
+                    QColor col2 = m_currentCapability->resource(1).value<QColor>();
+                    pix.fill(col1);
+
+                    if (col2.isValid())
                     {
                         QPainter painter(&pix);
-                        painter.fillRect(29, 0, 58, 58, m_currentCapability->resourceColor2());
+                        painter.fillRect(29, 0, 58, 58, col2);
                     }
                 }
                 else

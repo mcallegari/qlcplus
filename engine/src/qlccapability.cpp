@@ -34,25 +34,22 @@
  * Initialization
  ************************************************************************/
 
-QLCCapability::QLCCapability(uchar min, uchar max, const QString& name,
-                             const QString &resource, const QColor &color1,
-                             const QColor &color2, QObject *parent)
+QLCCapability::QLCCapability(uchar min, uchar max, const QString& name, QObject *parent)
     : QObject(parent)
     , m_preset(Custom)
     , m_min(min)
     , m_max(max)
     , m_name(name)
-    , m_resource(resource)
-    , m_resourceColor1(color1)
-    , m_resourceColor2(color2)
 {
 }
 
 QLCCapability *QLCCapability::createCopy()
 {
-    QLCCapability *copy = new QLCCapability(m_min, m_max, m_name, m_resource,
-                                            m_resourceColor1, m_resourceColor2);
+    QLCCapability *copy = new QLCCapability(m_min, m_max, m_name);
     copy->setPreset(preset());
+    for (int i = 0; i < m_resources.count(); i++)
+        copy->setResource(i, m_resources.at(i));
+
     return copy;
 }
 
@@ -68,9 +65,7 @@ QLCCapability& QLCCapability::operator=(const QLCCapability& capability)
         m_max = capability.m_max;
         m_name = capability.m_name;
         m_preset = capability.m_preset;
-        m_resource = capability.m_resource;
-        m_resourceColor1 = capability.m_resourceColor1;
-        m_resourceColor2 = capability.m_resourceColor2;
+        m_resources = capability.m_resources;
     }
 
     return *this;
@@ -169,35 +164,27 @@ void QLCCapability::setName(const QString& name)
     m_name = name;
 }
 
-QString QLCCapability::resourceName()
+QVariant QLCCapability::resource(int index)
 {
-    return m_resource;
+    if (index < 0 || index >= m_resources.count())
+        return QVariant();
+
+    return m_resources.at(index);
 }
 
-void QLCCapability::setResourceName(const QString& name)
+void QLCCapability::setResource(int index, QVariant value)
 {
-    m_resource = name;
-    // invalidate any previous color set
-    m_resourceColor1 = QColor();
-    m_resourceColor2 = QColor();
+    if (index < 0)
+        return;
+    else if (index < m_resources.count())
+        m_resources[index] = value;
+    else
+        m_resources.append(value);
 }
 
-QColor QLCCapability::resourceColor1()
+QVariantList QLCCapability::resources()
 {
-    return m_resourceColor1;
-}
-
-QColor QLCCapability::resourceColor2()
-{
-    return m_resourceColor2;
-}
-
-void QLCCapability::setResourceColors(QColor col1, QColor col2)
-{
-    m_resourceColor1 = col1;
-    m_resourceColor2 = col2;
-    // invalidate any previous resource path set
-    m_resource = "";
+    return m_resources;
 }
 
 bool QLCCapability::overlaps(const QLCCapability *cap)
@@ -229,32 +216,46 @@ bool QLCCapability::saveXML(QXmlStreamWriter *doc)
     /* Max limit attribute */
     doc->writeAttribute(KXMLQLCCapabilityMax, QString::number(m_max));
 
-    /* Resource file attribute */
-    if (m_resource.isEmpty() == false)
-    {
-        QString modFilename = m_resource;
-        QDir dir = QDir::cleanPath(QLCFile::systemDirectory(GOBODIR).path());
+    /* Preset attribute if not custom */
+    if (m_preset != Custom)
+        doc->writeAttribute(KXMLQLCCapabilityPreset, presetToString(m_preset));
 
-        if (modFilename.contains(dir.path()))
+    /* First resource attribute */
+    if (resource(0).isValid())
+    {
+        if (presetType() == Picture)
         {
-            modFilename.remove(dir.path());
-            // The following line is a dirty workaround for an issue raised on Windows
-            // When building with MinGW, dir.path() is something like "C:/QLC+/Gobos"
-            // while QDir::separator() returns "\"
-            // So, to avoid any string mismatch I remove the first character
-            // no matter what it is
-            modFilename.remove(0, 1);
-        }
+            QString modFilename = resource(0).toString();
+            QDir dir = QDir::cleanPath(QLCFile::systemDirectory(GOBODIR).path());
 
-        doc->writeAttribute(KXMLQLCCapabilityResource, modFilename);
+            if (modFilename.contains(dir.path()))
+            {
+                modFilename.remove(dir.path());
+                // The following line is a dirty workaround for an issue raised on Windows
+                // When building with MinGW, dir.path() is something like "C:/QLC+/Gobos"
+                // while QDir::separator() returns "\"
+                // So, to avoid any string mismatch I remove the first character
+                // no matter what it is
+                modFilename.remove(0, 1);
+            }
+
+            doc->writeAttribute(KXMLQLCCapabilityRes1, modFilename);
+        }
+        else if (presetType() == SingleColor || presetType() == DoubleColor)
+        {
+            QColor col = resource(0).value<QColor>();
+            if (col.isValid())
+                doc->writeAttribute(KXMLQLCCapabilityRes1, col.name());
+        }
     }
-    if (m_resourceColor1.isValid())
+    if (resource(0).isValid())
     {
-        doc->writeAttribute(KXMLQLCCapabilityColor1, m_resourceColor1.name());
-    }
-    if (m_resourceColor2.isValid())
-    {
-        doc->writeAttribute(KXMLQLCCapabilityColor2, m_resourceColor2.name());
+        if (presetType() == DoubleColor)
+        {
+            QColor col = resource(1).value<QColor>();
+            if (col.isValid())
+                doc->writeAttribute(KXMLQLCCapabilityRes2, col.name());
+        }
     }
 
     /* Name */
@@ -301,6 +302,12 @@ bool QLCCapability::loadXML(QXmlStreamReader &doc)
         max = CLAMP(str.toInt(), 0, (int)UCHAR_MAX);
     }
 
+    if (attrs.hasAttribute(KXMLQLCCapabilityPreset))
+    {
+        str = attrs.value(KXMLQLCCapabilityPreset).toString();
+        setPreset(stringToPreset(str));
+    }
+
     /* Get (optional) resource name for gobo/effect/... */
     if(attrs.hasAttribute(KXMLQLCCapabilityResource))
     {
@@ -313,7 +320,7 @@ bool QLCCapability::loadXML(QXmlStreamReader &doc)
         }
         else
             setPreset(GenericPicture);
-        setResourceName(path);
+        setResource(0, path);
     }
 
     /* Get (optional) color resource for color presets */
@@ -323,13 +330,20 @@ bool QLCCapability::loadXML(QXmlStreamReader &doc)
         QColor col2 = QColor();
         if (attrs.hasAttribute(KXMLQLCCapabilityColor2))
             col2 = QColor(attrs.value(KXMLQLCCapabilityColor2).toString());
+
         if (col1.isValid())
         {
+            setResource(0, col1);
+
             if (col2.isValid())
+            {
+                setResource(1, col2);
                 setPreset(ColorDoubleMacro);
+            }
             else
+            {
                 setPreset(ColorMacro);
-            setResourceColors(col1, col2);
+            }
         }
     }
 

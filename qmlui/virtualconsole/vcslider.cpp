@@ -679,18 +679,29 @@ void VCSlider::updateClickAndGoResource()
             if (m_value < cap->min() || m_value > cap->max())
                 continue;
 
-            if (cap->resourceName().isEmpty() == false)
-                m_cngResource = cap->resourceName();
-            else if (cap->resourceColor1().isValid())
+            if (cap->presetType() == QLCCapability::Picture)
+            {
+                m_cngResource = cap->resource(0).toString();
+            }
+            else if (cap->presetType() == QLCCapability::SingleColor)
             {
                 m_cngResource = QString();
-                m_cngPrimaryColor = cap->resourceColor1();
-                m_cngSecondaryColor = cap->resourceColor2();
+                m_cngPrimaryColor = cap->resource(0).value<QColor>();
+                m_cngSecondaryColor = QColor();
+                emit cngPrimaryColorChanged(m_cngPrimaryColor);
+            }
+            else if (cap->presetType() == QLCCapability::DoubleColor)
+            {
+                m_cngResource = QString();
+                m_cngPrimaryColor = cap->resource(0).value<QColor>();
+                m_cngSecondaryColor = cap->resource(1).value<QColor>();
                 emit cngPrimaryColorChanged(m_cngPrimaryColor);
                 emit cngSecondaryColorChanged(m_cngSecondaryColor);
             }
             else
+            {
                 m_cngResource = QString();
+            }
 
             emit cngPresetResourceChanged();
             return;

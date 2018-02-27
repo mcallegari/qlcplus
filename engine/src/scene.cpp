@@ -224,9 +224,11 @@ QColor Scene::colorValue(quint32 fxi)
         else if (channel->group() == QLCChannel::Colour)
         {
             QLCCapability *cap = channel->searchCapability(scv.value);
-            if (cap && cap->resourceColor1() != QColor())
+            if (cap &&
+                (cap->presetType() == QLCCapability::SingleColor ||
+                 cap->presetType() == QLCCapability::DoubleColor))
             {
-                QColor col = cap->resourceColor1();
+                QColor col = cap->resource(0).value<QColor>();
                 rVal = col.red();
                 gVal = col.green();
                 bVal = col.blue();

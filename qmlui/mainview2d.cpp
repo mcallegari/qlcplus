@@ -316,32 +316,32 @@ void MainView2D::updateFixture(Fixture *fixture)
                 if (setColor && value == 0)
                     break;
 
-                foreach(QLCCapability *cap, ch->capabilities())
-                {
-                    if (value >= cap->min() && value <= cap->max())
-                    {
-                        QColor wheelColor1 = cap->resourceColor1();
-                        QColor wheelColor2 = cap->resourceColor2();
+                QLCCapability *cap = ch->searchCapability(value);
 
-                        if (wheelColor1.isValid())
-                        {
-                            if (wheelColor2.isValid())
-                            {
-                                QMetaObject::invokeMethod(fxItem, "setWheelColor",
-                                                          Q_ARG(QVariant, 0),
-                                                          Q_ARG(QVariant, wheelColor1),
-                                                          Q_ARG(QVariant, wheelColor2));
-                            }
-                            else
-                            {
-                                QMetaObject::invokeMethod(fxItem, "setHeadRGBColor",
-                                                          Q_ARG(QVariant, 0),
-                                                          Q_ARG(QVariant, wheelColor1));
-                            }
-                            setColor = true;
-                        }
-                        break;
+                if (cap == NULL ||
+                   (cap->presetType() != QLCCapability::SingleColor &&
+                    cap->presetType() != QLCCapability::DoubleColor))
+                    break;
+
+                QColor wheelColor1 = cap->resource(0).value<QColor>();
+                QColor wheelColor2 = cap->resource(1).value<QColor>();
+
+                if (wheelColor1.isValid())
+                {
+                    if (wheelColor2.isValid())
+                    {
+                        QMetaObject::invokeMethod(fxItem, "setWheelColor",
+                                                  Q_ARG(QVariant, 0),
+                                                  Q_ARG(QVariant, wheelColor1),
+                                                  Q_ARG(QVariant, wheelColor2));
                     }
+                    else
+                    {
+                        QMetaObject::invokeMethod(fxItem, "setHeadRGBColor",
+                                                  Q_ARG(QVariant, 0),
+                                                  Q_ARG(QVariant, wheelColor1));
+                    }
+                    setColor = true;
                 }
             }
             break;
@@ -354,7 +354,7 @@ void MainView2D::updateFixture(Fixture *fixture)
                 {
                     if (value >= cap->min() && value <= cap->max())
                     {
-                        QString resName = cap->resourceName();
+                        QString resName = cap->resource(0).toString();
 
                         if(resName.isEmpty() == false && resName.contains("open.png") == false)
                         {

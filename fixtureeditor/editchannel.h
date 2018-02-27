@@ -82,6 +82,8 @@ protected slots:
     void slotPictureButtonPressed();
     void slotColor1ButtonPressed();
     void slotColor2ButtonPressed();
+    void slotValue1SpinChanged(double value);
+    void slotValue2SpinChanged(double value);
 
 protected:
     void refreshCapabilities();

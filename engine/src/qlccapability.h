@@ -39,9 +39,16 @@ class QFile;
 #define KXMLQLCCapability    "Capability"
 #define KXMLQLCCapabilityMin "Min"
 #define KXMLQLCCapabilityMax "Max"
+#define KXMLQLCCapabilityPreset "Preset"
+#define KXMLQLCCapabilityRes1 "Res1"
+#define KXMLQLCCapabilityRes2 "Res2"
+
+/** ****************** LEGACY ***************** */
 #define KXMLQLCCapabilityResource "Res"
 #define KXMLQLCCapabilityColor1 "Color"
 #define KXMLQLCCapabilityColor2 "Color2"
+
+
 
 /**
  * QLCCapability represents one value range with a special meaning in a
@@ -58,9 +65,7 @@ class QLCCapability: public QObject
     Q_PROPERTY(QString name READ name CONSTANT)
     Q_PROPERTY(int min READ min CONSTANT)
     Q_PROPERTY(int max READ max CONSTANT)
-    Q_PROPERTY(QString resourceName READ resourceName CONSTANT)
-    Q_PROPERTY(QColor resourceColor1 READ resourceColor1 CONSTANT)
-    Q_PROPERTY(QColor resourceColor2 READ resourceColor2 CONSTANT)
+    Q_PROPERTY(QVariantList resources READ resources CONSTANT)
 
     /********************************************************************
      * Initialization
@@ -68,9 +73,7 @@ class QLCCapability: public QObject
 public:
     /** Default constructor */
     QLCCapability(uchar min = 0, uchar max = UCHAR_MAX,
-                  const QString& name = QString(), const QString& resource = QString(),
-                  const QColor &color1 = QColor(), const QColor &color2 = QColor(),
-                  QObject *parent = 0);
+                  const QString& name = QString(), QObject *parent = 0);
 
     QLCCapability *createCopy();
 
@@ -164,12 +167,10 @@ public:
     QString name() const;
     void setName(const QString& name);
 
-    QString resourceName();
-    void setResourceName(const QString& name);
+    QVariant resource(int index);
+    void setResource(int index, QVariant value);
 
-    QColor resourceColor1();
-    QColor resourceColor2();
-    void setResourceColors(QColor col1, QColor col2);
+    QVariantList resources();
 
     /** Check, whether the given capability overlaps with this */
     bool overlaps(const QLCCapability* cap);
@@ -178,9 +179,7 @@ protected:
     uchar m_min;
     uchar m_max;
     QString m_name;
-    QString m_resource;
-    QColor m_resourceColor1;
-    QColor m_resourceColor2;
+    QVariantList m_resources;
 
     /********************************************************************
      * Load & Save
