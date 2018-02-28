@@ -21,6 +21,7 @@
 #ifndef QLCCAPABILITY_H
 #define QLCCAPABILITY_H
 
+#include <QVariantList>
 #include <QObject>
 #include <climits>
 #include <QColor>
