@@ -39,31 +39,32 @@ Rectangle
     onCapabilityChanged:
     {
         if (capability === null)
-            return;
+            return
 
-        if (capability.resourceColor1 != "#000000")
+        var resArray = capability.resources
+        capName.label = capability.name
+
+        if (resArray.length === 0)
         {
-            col1.color = capability.resourceColor1
-            col2.color = capability.resourceColor1
+            capIdx.label = capIndex.toString()
+            return
         }
 
-        if (capability.resourceColor2 != "#000000")
-            col2.color = capability.resourceColor2
+        if (resArray[0].toString().startsWith('#'))
+        {
+            col1.color = resArray[0]
+            col2.color = resArray[0]
 
-        //console.log("Capability res name: " + capability.resourceName)
-        if (capability.resourceName)
+            if (resArray.length > 1 && resArray[1].toString().startsWith('#'))
+                col2.color = resArray[1]
+        }
+        else if (resArray[0].indexOf('.') !== -1)
         {
             if (Qt.platform.os === "android")
-                pic.source = capability.resourceName
+                pic.source = resArray[0]
             else
-                pic.source = "file:/" + capability.resourceName
+                pic.source = "file:/" + resArray[0]
         }
-        if (capability.resourceColor1 == "#000000" &&
-            capability.resourceColor2 == "#000000" &&
-            capability.resourceName == "")
-                capIdx.label = capIndex.toString()
-
-        capName.label = capability.name
     }
 
     Row

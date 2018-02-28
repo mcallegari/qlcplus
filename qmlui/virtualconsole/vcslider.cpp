@@ -689,6 +689,7 @@ void VCSlider::updateClickAndGoResource()
                 m_cngPrimaryColor = cap->resource(0).value<QColor>();
                 m_cngSecondaryColor = QColor();
                 emit cngPrimaryColorChanged(m_cngPrimaryColor);
+                emit cngSecondaryColorChanged(QColor());
             }
             else if (cap->presetType() == QLCCapability::DoubleColor)
             {

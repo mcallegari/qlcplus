@@ -183,6 +183,7 @@ VCWidgetItem
             onTextChanged: calculateTextHeight()
         }
 
+        // Override reset button
         IconButton
         {
             visible: sliderObj ? sliderObj.monitorEnabled : false
@@ -192,6 +193,7 @@ VCWidgetItem
             onClicked: if (sliderObj) sliderObj.isOverriding = false
         }
 
+        // Click & Go button
         IconButton
         {
             id: clickAndGoButton
