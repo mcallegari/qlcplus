@@ -82,7 +82,7 @@ appimage: {
     INSTALLS += qtplatform
 
     qtxcbgl.path = $$INSTALLROOT/$$LIBSDIR/qt5/plugins/xcbglintegrations
-    qtxcbgl.files = $$QT_PLUGINS_PATH/platforms/libqxcb-glx-integration.so
+    qtxcbgl.files = $$QT_PLUGINS_PATH/xcbglintegrations/libqxcb-glx-integration.so
     INSTALLS += qtxcbgl
 
     qtaudio.path = $$INSTALLROOT/$$LIBSDIR/qt5/plugins/audio
@@ -107,7 +107,7 @@ appimage: {
     sceneparsers.files = $$QT_PLUGINS_PATH/sceneparsers/libassimpsceneimport.so
     INSTALLS += sceneparsers
     
-    qmldeps.path   = $$INSTALLROOT/$$LIBSDIR/qt5/qml
+    qmldeps.path   = $$INSTALLROOT/bin
     qmldeps.files += $$QT_QML_PATH/QtQml \
                         $$QT_QML_PATH/QtQuick \
                         $$QT_QML_PATH/QtQuick.2 \

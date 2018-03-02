@@ -1,4 +1,9 @@
 #!/bin/bash
+#
+# Script to create a self contained AppImage
+# Requires wget and chrpath
+# Export QTDIR before running this, like:
+#   export QTDIR=/home/user/Qt5.9.4/5.9.4/gcc_64
 
 TARGET_DIR=~/qlcplus.AppDir
 
@@ -17,7 +22,9 @@ make INSTALL_ROOT=$TARGET_DIR install
 strip $TARGET_DIR/usr/bin/qlcplus-qml
 strip $TARGET_DIR/usr/lib/libqlcplusengine.so.1.0.0
 
-cd $TARGET_DIR/usr/lib/qt5/qml/ 
+chrpath -r "/usr/lib" $TARGET_DIR/usr/bin/qlcplus-qml
+
+cd $TARGET_DIR/usr/bin
 find . -name plugins.qmltypes -type f -delete && \
 rm -rf QtQuick/Extras QtQuick/Particles.2 QtQuick/XmlListModel
 rm -rf QtQuick/Controls.2/designer QtQuick/Controls.2/Material

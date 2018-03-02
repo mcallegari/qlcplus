@@ -103,6 +103,7 @@ unix:!macx:DATADIR = share/qlcplus
 macx:DATADIR       = Resources
 android:DATADIR    = /assets
 ios:DATADIR        =
+appimage: DATADIR  = ../share/qlcplus
 
 # User Data
 win32:USERDATADIR      = QLC+
@@ -187,6 +188,7 @@ unix:!macx:PLUGINDIR = $$LIBSDIR/qt4/plugins/qlcplus
 macx:PLUGINDIR       = PlugIns
 android:PLUGINDIR    = Plugins
 ios:PLUGINDIR        = Plugins
+appimage:PLUGINDIR   = ../lib/qt4/plugins/qlcplus
 
 # Audio Plugins
 win32:AUDIOPLUGINDIR      = $$PLUGINDIR/Audio
