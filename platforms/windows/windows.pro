@@ -181,9 +181,13 @@ INSTALLS += audio
 nsis.path  = $$INSTALLROOT/$$DATADIR
 
 lessThan(QT_MAJOR_VERSION, 5) {
-    nsis.files = qlcplus.nsi
+    nsis.files = qlcplus4Qt4.nsi
 } else {
-    nsis.files = qlcplusQt5.nsi
+    qmlui: {
+        nsis.files = qlcplus5Qt5.nsi
+    } else {
+        nsis.files = qlcplus4Qt5.nsi
+    }
 }
 
 INSTALLS  += nsis
