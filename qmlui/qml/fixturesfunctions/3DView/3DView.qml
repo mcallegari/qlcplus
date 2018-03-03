@@ -71,7 +71,7 @@ Rectangle
                 id: camController
                 camera: sceneEntity.camera
                 linearSpeed: 40.0
-                lookSpeed: 800.0
+                lookSpeed: 300.0
             }
 
             SceneEntity
