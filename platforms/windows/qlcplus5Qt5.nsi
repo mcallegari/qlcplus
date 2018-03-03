@@ -82,11 +82,13 @@ Section
 	File *.dll
 	File Sample.qxw
 	File /r audio
+	File /r geometryloaders
 	File /r imageformats
 	File /r mediaservice
 	File /r platforms
 	File /r printsupport
 	File /r sceneparsers
+	File /r Qt
 	File /r Qt3D
 	File /r QtQml
 	File /r QtQuick
@@ -121,11 +123,13 @@ Section "Uninstall"
 	Delete $INSTDIR\qlcplus-qml.exe
 	Delete $INSTDIR\*.dll
 	RMDir /r $INSTDIR\audio
+	RMDir /r $INSTDIR\geometryloaders
 	RMDir /r $INSTDIR\imageformats
 	RMDir /r $INSTDIR\mediaservice
 	RMDir /r $INSTDIR\platforms
 	RMDir /r $INSTDIR\printsupport
 	RMDir /r $INSTDIR\sceneparsers
+	RMDir /r $INSTDIR\Qt
 	RMDir /r $INSTDIR\Qt3D
 	RMDir /r $INSTDIR\QtQml
 	RMDir /r $INSTDIR\QtQuick
