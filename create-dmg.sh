@@ -1,5 +1,6 @@
 #!/bin/bash
-VERSION=`head -1 debian/changelog | sed 's/.*(\(.*\)).*/\1/'`
+#VERSION=`head -1 debian/changelog | sed 's/.*(\(.*\)).*/\1/'`
+VERSION=`grep -m 1 APPVERSION variables.pri | cut -d '=' -f 2 | sed -e 's/^[[:space:]]*//' | tr ' ' _ | tr -d '\r\n'`
 
 # Compile translations
 ./translate.sh
@@ -15,7 +16,7 @@ else
     qmake -spec macx-g++
 fi
 
-make
+make -j4
 
 if [ ! $? -eq 0 ]; then
     echo Compiler error. Aborting package creation.
