@@ -129,14 +129,20 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 qmlui: {
   INSTALLS += $$qt5LibTarget(LIBQTQML, QtQml) $$qt5LibTargetID(LIBQTQML, QtQml)
   INSTALLS += $$qt5LibTarget(LIBQTQUICK, QtQuick) $$qt5LibTargetID(LIBQTQUICK, QtQuick)
+  INSTALLS += $$qt5LibTarget(LIBQTQUICKCONTROLS2, QtQuickControls2) $$qt5LibTargetID(LIBQTQUICKCONTROLS2, QtQuickControls2)
+  INSTALLS += $$qt5LibTarget(LIBQTQUICKTEMPLATES2, QtQuickTemplates2) $$qt5LibTargetID(LIBQTQUICKTEMPLATES2, QtQuickTemplates2)
   INSTALLS += $$qt5LibTarget(LIBQTSVG, QtSvg) $$qt5LibTargetID(LIBQTSVG, QtSvg)
   INSTALLS += $$qt5LibTarget(LIBQTCONCURRENT, QtConcurrent) $$qt5LibTargetID(LIBQTCONCURRENT, QtConcurrent)
+  INSTALLS += $$qt5LibTarget(LIBQTGAMEPAD, QtGamepad) $$qt5LibTargetID(LIBQTGAMEPAD, QtGamepad)
   INSTALLS += $$qt5LibTarget(LIBQT3DCORE, Qt3DCore) $$qt5LibTargetID(LIBQT3DCORE, Qt3DCore)
+  INSTALLS += $$qt5LibTarget(LIBQT3DRENDER, Qt3DRender) $$qt5LibTargetID(LIBQT3DRENDER, Qt3DRender)
   INSTALLS += $$qt5LibTarget(LIBQT3DEXTRAS, Qt3DExtras) $$qt5LibTargetID(LIBQT3DEXTRAS, Qt3DExtras)
   INSTALLS += $$qt5LibTarget(LIBQT3DINPUT, Qt3DInput) $$qt5LibTargetID(LIBQT3DINPUT, Qt3DInput)
   INSTALLS += $$qt5LibTarget(LIBQT3DLOGIC, Qt3DLogic) $$qt5LibTargetID(LIBQT3DLOGIC, Qt3DLogic)
   INSTALLS += $$qt5LibTarget(LIBQT3DANIMATION, Qt3DAnimation) $$qt5LibTargetID(LIBQT3DANIMATION, Qt3DAnimation)
   INSTALLS += $$qt5LibTarget(LIBQT3DQUICK, Qt3DQuick) $$qt5LibTargetID(LIBQT3DQUICK, Qt3DQuick)
+  INSTALLS += $$qt5LibTarget(LIBQT3DQUICKRENDER, Qt3DQuickRender) $$qt5LibTargetID(LIBQT3DQUICKRENDER, Qt3DQuickRender)
+  INSTALLS += $$qt5LibTarget(LIBQT3DQUICKINPUT, Qt3DQuickInput) $$qt5LibTargetID(LIBQT3DQUICKINPUT, Qt3DQuickInput)
   INSTALLS += $$qt5LibTarget(LIBQT3DQUICKEXTRAS, Qt3DQuickExtras) $$qt5LibTargetID(LIBQT3DQUICKEXTRAS, Qt3DQuickExtras)
 }
 

@@ -238,7 +238,7 @@ PRE_TARGETDEPS += $$CONFIGFILE
 QMAKE_CLEAN += $$CONFIGFILE
 QMAKE_DISTCLEAN += $$CONFIGFILE
 
-macx|win32 {
+macx|win32|appimage {
     conf.commands += echo \"$$LITERAL_HASH ifndef CONFIG_H\" > $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define CONFIG_H\" >> $$CONFIGFILE &&
     conf.commands += echo \"$$LITERAL_HASH define APPNAME \\\"$$APPNAME\\\"\" >> $$CONFIGFILE &&
