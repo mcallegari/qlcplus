@@ -158,104 +158,7 @@
     </layout>
    </item>
    <item row="8" column="0" colspan="2">
-    <layout class="QHBoxLayout" name="m_capValueGroup">
-     <item>
-      <widget class="QGroupBox" name="m_valueGroup">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="title">
-        <string>Capability range</string>
-       </property>
-       <layout class="QGridLayout" name="_2">
-        <item row="2" column="0">
-         <widget class="QSpinBox" name="m_minSpin">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="accelerated">
-           <bool>true</bool>
-          </property>
-          <property name="maximum">
-           <number>255</number>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="m_minLabel">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>Min</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLabel" name="m_maxLabel">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>Max</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="2">
-         <widget class="QLineEdit" name="m_descriptionEdit"/>
-        </item>
-        <item row="1" column="2">
-         <widget class="QLabel" name="m_descriptionLabel">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>Description</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QSpinBox" name="m_maxSpin">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="accelerated">
-           <bool>true</bool>
-          </property>
-          <property name="maximum">
-           <number>255</number>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0" colspan="3">
-         <widget class="QLabel" name="m_invalidMinMax">
-          <property name="text">
-           <string>Invalid Range: overlapping with another capability.</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </item>
-    </layout>
+    <layout class="QHBoxLayout" name="m_capValueGroup"/>
    </item>
    <item row="10" column="0" colspan="2">
     <widget class="QDialogButtonBox" name="buttonBox">
@@ -279,6 +182,47 @@
       <string>Capabilities</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0" rowspan="6">
+       <widget class="QTableWidget" name="m_capabilityList">
+        <property name="rowCount">
+         <number>10</number>
+        </property>
+        <property name="columnCount">
+         <number>3</number>
+        </property>
+        <attribute name="horizontalHeaderStretchLastSection">
+         <bool>true</bool>
+        </attribute>
+        <attribute name="verticalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+        <row/>
+        <row/>
+        <row/>
+        <row/>
+        <row/>
+        <row/>
+        <row/>
+        <row/>
+        <row/>
+        <row/>
+        <column>
+         <property name="text">
+          <string>Minimum value</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Maximum value</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Description</string>
+         </property>
+        </column>
+       </widget>
+      </item>
       <item row="0" column="1">
        <widget class="QToolButton" name="m_addCapabilityButton">
         <property name="toolTip">
@@ -300,19 +244,6 @@
        </widget>
       </item>
       <item row="2" column="1">
-       <spacer>
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>84</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="3" column="1">
        <widget class="QToolButton" name="m_wizardButton">
         <property name="toolTip">
          <string>Capability wizard</string>
@@ -352,36 +283,31 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="0" rowspan="4">
-       <widget class="QTreeWidget" name="m_capabilityList">
-        <property name="alternatingRowColors">
-         <bool>true</bool>
+      <item row="6" column="0">
+       <widget class="QLabel" name="m_invalidMinMax">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
         </property>
-        <property name="rootIsDecorated">
-         <bool>false</bool>
+        <property name="text">
+         <string>Capability overlapping detected. Please fix.</string>
         </property>
-        <property name="itemsExpandable">
-         <bool>false</bool>
-        </property>
-        <property name="allColumnsShowFocus">
-         <bool>true</bool>
-        </property>
-        <column>
-         <property name="text">
-          <string>Minimum value</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Maximum value</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Description</string>
-         </property>
-        </column>
        </widget>
+      </item>
+      <item row="3" column="1" rowspan="4">
+       <spacer>
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>84</height>
+         </size>
+        </property>
+       </spacer>
       </item>
      </layout>
     </widget>
@@ -557,11 +483,6 @@
  <tabstops>
   <tabstop>m_addCapabilityButton</tabstop>
   <tabstop>m_removeCapabilityButton</tabstop>
-  <tabstop>m_wizardButton</tabstop>
-  <tabstop>m_minSpin</tabstop>
-  <tabstop>m_maxSpin</tabstop>
-  <tabstop>m_descriptionEdit</tabstop>
-  <tabstop>m_capabilityList</tabstop>
  </tabstops>
  <resources>
   <include location="../ui/src/qlcui.qrc"/>

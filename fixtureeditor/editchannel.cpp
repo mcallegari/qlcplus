@@ -92,6 +92,7 @@ void EditChannel::init()
     setWindowTitle(tr("Edit Channel: ") + m_channel->name());
 
     m_invalidMinMax->setStyleSheet("QLabel { color: red; }");
+    m_invalidMinMax->setVisible(false);
 
     /* Set name edit */
     m_nameEdit->setText(m_channel->name());
@@ -114,7 +115,6 @@ void EditChannel::init()
         m_msbRadio->setEnabled(false);
         m_lsbRadio->setEnabled(false);
         m_capabilityList->setEnabled(false);
-        m_addCapabilityButton->setEnabled(false);
         m_presetCombo->setCurrentIndex(m_channel->preset());
     }
 
@@ -168,20 +168,16 @@ void EditChannel::init()
     connect(m_msbRadio, SIGNAL(toggled(bool)), this, SLOT(slotMsbRadioToggled(bool)));
     connect(m_lsbRadio, SIGNAL(toggled(bool)), this, SLOT(slotLsbRadioToggled(bool)));
 
-    connect(m_addCapabilityButton, SIGNAL(clicked()), this, SLOT(slotAddCapabilityClicked()));
     connect(m_removeCapabilityButton, SIGNAL(clicked()), this, SLOT(slotRemoveCapabilityClicked()));
     connect(m_wizardButton, SIGNAL(clicked()), this, SLOT(slotWizardClicked()));
 
-    /* Capability list connections */
-    connect(m_capabilityList, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)),
-            this, SLOT(slotCapabilityListSelectionChanged(QTreeWidgetItem*)));
-    connect(m_capabilityList, SIGNAL(itemActivated(QTreeWidgetItem*,int)),
-            this, SLOT(slotEditCapabilityClicked()));
+    refreshCapabilities();
 
-    connect(m_minSpin, SIGNAL(valueChanged(int)), this, SLOT(slotMinSpinChanged(int)));
-    connect(m_maxSpin, SIGNAL(valueChanged(int)), this, SLOT(slotMaxSpinChanged(int)));
-    connect(m_descriptionEdit, SIGNAL(textEdited(const QString&)),
-            this, SLOT(slotDescriptionEdited(const QString&)));
+    /* Capability list connections */
+    connect(m_capabilityList, SIGNAL(cellChanged(int,int)), this, SLOT(slotCapabilityCellChanged(int,int)));
+    connect(m_capabilityList, SIGNAL(currentCellChanged(int,int,int,int)),
+            this, SLOT(slotCapabilityCellSelected(int,int,int,int)));
+
     connect(m_capPresetCombo, SIGNAL(activated(int)), this, SLOT(slotCapabilityPresetActivated(int)));
     connect(m_pictureButton, SIGNAL(pressed()), this, SLOT(slotPictureButtonPressed()));
     connect(m_color1Button, SIGNAL(pressed()), this, SLOT(slotColor1ButtonPressed()));
@@ -189,36 +185,12 @@ void EditChannel::init()
     connect(m_val1Spin, SIGNAL(valueChanged(double)), this, SLOT(slotValue1SpinChanged(double)));
     connect(m_val2Spin, SIGNAL(valueChanged(double)), this, SLOT(slotValue2SpinChanged(double)));
 
-    refreshCapabilities();
-    m_valueGroup->setVisible(false);
     updateCapabilityPresetGroup(false);
 }
 
 void EditChannel::setupCapabilityGroup()
 {
-    m_valueGroup->setVisible(true);
     m_invalidMinMax->setVisible(false);
-
-    // temporarily block signals to avoid a full tree refresh
-    m_minSpin->blockSignals(true);
-    m_maxSpin->blockSignals(true);
-    m_descriptionEdit->blockSignals(true);
-
-    m_minSpin->setRange(0, m_currentCapability->max());
-    m_maxSpin->setRange(m_currentCapability->min(), 255);
-
-    m_minSpin->setValue(m_currentCapability->min());
-    m_maxSpin->setValue(m_currentCapability->max());
-
-    m_descriptionEdit->setText(m_currentCapability->name());
-    m_descriptionEdit->setValidator(CAPS_VALIDATOR(this));
-    m_minSpin->setFocus();
-    m_minSpin->selectAll();
-
-    m_minSpin->blockSignals(false);
-    m_maxSpin->blockSignals(false);
-    m_descriptionEdit->blockSignals(false);
-
     updateCapabilityPresetGroup(true);
 }
 
@@ -235,7 +207,6 @@ void EditChannel::slotPresetActivated(int index)
     m_msbRadio->setEnabled(enable);
     m_lsbRadio->setEnabled(enable);
     m_capabilityList->setEnabled(enable);
-    m_addCapabilityButton->setEnabled(enable);
     m_wizardButton->setEnabled(enable);
 
     if (index == m_channel->preset())
@@ -315,77 +286,139 @@ void EditChannel::slotLsbRadioToggled(bool toggled)
         m_channel->setControlByte(QLCChannel::MSB);
 }
 
+void EditChannel::slotCapabilityCellChanged(int row, int column)
+{
+    QTableWidgetItem *item = m_capabilityList->item(row, column);
+    if (item == NULL)
+        return;
+
+    QLCCapability *cap = getRowCapability(row);
+    if (cap == NULL)
+        return;
+
+    if (column == COL_MIN || column == COL_MAX)
+    {
+        bool ok = false;
+        int newValue = item->text().toInt(&ok);
+        if (ok == false || newValue < 0 || newValue > 255)
+        {
+            // restore the original value
+            item->setText(column == COL_MIN ? QString::number(cap->min()) : QString::number(cap->max()));
+        }
+        else
+        {
+            if (column == COL_MIN)
+                cap->setMin(newValue);
+            else
+                cap->setMax(newValue);
+        }
+    }
+    else
+    {
+        cap->setName(item->text());
+    }
+}
+
+void EditChannel::slotCapabilityCellSelected(int currentRow, int currentColumn,
+                                             int previousRow, int previousColumn)
+{
+    QTableWidgetItem *prevItem = m_capabilityList->item(previousRow, previousColumn);
+    QTableWidgetItem *currItem = m_capabilityList->item(currentRow, currentColumn);
+
+    Q_UNUSED(prevItem)
+
+    if (currItem)
+    {
+        m_currentCapability = getRowCapability(currentRow);
+    }
+    else
+    {
+        uchar min = 0;
+        QString str;
+
+        if (currentRow > 0)
+        {
+            for (int i = currentRow; i >= 0; i--)
+            {
+                QLCCapability *cap = getRowCapability(i);
+                if (cap)
+                {
+                    // maximum already reached. Nothing to do here
+                    if (min == 255)
+                    {
+                        m_currentCapability = NULL;
+                        updateCapabilityPresetGroup(false);
+                        return;
+                    }
+                    min = cap->max() + 1;
+                    break;
+                }
+            }
+        }
+
+        QLCCapability *cap = new QLCCapability(min, UCHAR_MAX);
+        if (m_channel->addCapability(cap) == false)
+        {
+            delete cap;
+            return;
+        }
+
+        str.sprintf("%.3d", cap->min());
+        QTableWidgetItem *item = new QTableWidgetItem(str);
+        m_capabilityList->setItem(currentRow, COL_MIN, item);
+
+        str.sprintf("%.3d", cap->max());
+        item = new QTableWidgetItem(str);
+        m_capabilityList->setItem(currentRow, COL_MAX, item);
+
+        item = new QTableWidgetItem(cap->name());
+        m_capabilityList->setItem(currentRow, COL_NAME, item);
+
+        // QLCCapability reference
+        item->setData(Qt::UserRole, qVariantFromValue((void *)cap));
+
+        m_currentCapability = cap;
+    }
+
+    updateCapabilityPresetGroup(true);
+
+    if (currentRow == m_capabilityList->rowCount() - 1)
+        m_capabilityList->setRowCount(m_capabilityList->rowCount() + 1);
+
+}
+
 /****************************************************************************
  * Capability list functions
  ****************************************************************************/
 
-void EditChannel::slotCapabilityListSelectionChanged(QTreeWidgetItem *item)
-{
-    if (item == NULL)
-        m_removeCapabilityButton->setEnabled(false);
-    else
-        m_removeCapabilityButton->setEnabled(true);
-}
-
-void EditChannel::slotAddCapabilityClicked()
-{
-    uchar minFound = 0;
-    uchar maxFound = UCHAR_MAX;
-    int idx = 0;
-
-    foreach(QLCCapability *cap, m_channel->capabilities())
-    {
-        if (cap->min() > minFound + 1)
-        {
-            maxFound = cap->min() - 1;
-            break;
-        }
-        if (cap->max() > minFound || cap->min() == cap->max())
-            minFound = cap->max() + 1;
-        idx++;
-    }
-
-    QLCCapability *newCapability = new QLCCapability();
-    newCapability->setMin(minFound);
-    newCapability->setMax(maxFound);
-    if (m_channel->addCapability(newCapability) == false)
-    {
-        delete newCapability;
-        return;
-    }
-
-    m_currentCapability = newCapability;
-    refreshCapabilities();
-    m_capabilityList->setCurrentItem(m_capabilityList->topLevelItem(idx));
-    setupCapabilityGroup();
-}
-
 void EditChannel::slotRemoveCapabilityClicked()
 {
-    QTreeWidgetItem *item;
-    QTreeWidgetItem *next;
+    QTableWidgetItem *item;
 
-    item = m_capabilityList->currentItem();
-    if (item == NULL)
-        return;
+    int row = m_capabilityList->currentRow();
 
-    if (m_capabilityList->itemBelow(item) != NULL)
-        next = m_capabilityList->itemBelow(item);
-    else if (m_capabilityList->itemAbove(item) != NULL)
-        next = m_capabilityList->itemAbove(item);
-    else
-        next = NULL;
+    item = m_capabilityList->item(row, COL_MIN);
+    if (item != NULL)
+        delete item;
 
-    // This also deletes the capability
-    m_channel->removeCapability(currentCapability());
-    delete item;
-    m_capabilityList->setCurrentItem(next);
+    item = m_capabilityList->item(row, COL_MAX);
+    if (item != NULL)
+        delete item;
+
+    item = m_capabilityList->item(row, COL_NAME);
+    if (item != NULL)
+    {
+        // This also deletes the capability
+        QLCCapability *cap = (QLCCapability *) item->data(Qt::UserRole).value<void *>();
+        m_channel->removeCapability(cap);
+        delete item;
+    }
+
     m_currentCapability = currentCapability();
     if (m_currentCapability != NULL)
         setupCapabilityGroup();
     else
     {
-        m_valueGroup->setVisible(false);
         updateCapabilityPresetGroup(false);
     }
 }
@@ -395,7 +428,6 @@ void EditChannel::slotEditCapabilityClicked()
     m_currentCapability = currentCapability();
     if (m_currentCapability == NULL)
     {
-        m_valueGroup->setVisible(false);
         updateCapabilityPresetGroup(false);
         return;
     }
@@ -431,55 +463,6 @@ void EditChannel::slotWizardClicked()
                                     "because of overlapping values."));
         }
     }
-}
-
-void EditChannel::slotMinSpinChanged(int value)
-{
-    if (!m_channel->setCapabilityRange(m_currentCapability, value, m_maxSpin->value()))
-    {
-        m_invalidMinMax->setVisible(true);
-        return;
-    }
-    m_invalidMinMax->setVisible(false);
-
-    m_maxSpin->setRange(m_currentCapability->min(), 255);
-
-    QTreeWidgetItem *item = m_capabilityList->currentItem();
-    if (item != NULL)
-    {
-        QString str;
-        str.sprintf("%.3d", value);
-        item->setText(COL_MIN, str);
-    }
-}
-
-void EditChannel::slotMaxSpinChanged(int value)
-{
-    if (!m_channel->setCapabilityRange(m_currentCapability, m_minSpin->value(), value))
-    {
-        m_invalidMinMax->setVisible(true);
-        return;
-    }
-    m_invalidMinMax->setVisible(false);
-
-    m_minSpin->setRange(0, m_currentCapability->max());
-
-    QTreeWidgetItem *item = m_capabilityList->currentItem();
-    if (item != NULL)
-    {
-        QString str;
-        str.sprintf("%.3d", value);
-        item->setText(COL_MAX, str);
-    }
-}
-
-void EditChannel::slotDescriptionEdited(const QString& text)
-{
-    m_currentCapability->setName(text);
-
-    QTreeWidgetItem *item = m_capabilityList->currentItem();
-    if (item != NULL)
-        item->setText(COL_NAME, text);
 }
 
 void EditChannel::slotCapabilityPresetActivated(int index)
@@ -562,8 +545,10 @@ void EditChannel::refreshCapabilities()
 
     QListIterator <QLCCapability*> it(m_channel->capabilities());
     QString str;
+    int i = 0;
 
     m_capabilityList->clear();
+    m_capabilityList->setHorizontalHeaderLabels(QStringList() << tr("Minimum value") << tr("Maximum value") << tr("Description"));
 
     QStringList goboErrors;
 
@@ -571,21 +556,23 @@ void EditChannel::refreshCapabilities()
     while (it.hasNext() == true)
     {
         QLCCapability *cap = it.next();
-        QTreeWidgetItem *item = new QTreeWidgetItem(m_capabilityList);
 
         // Min
         str.sprintf("%.3d", cap->min());
-        item->setText(COL_MIN, str);
+        QTableWidgetItem *item = new QTableWidgetItem(str);
+        m_capabilityList->setItem(i, COL_MIN, item);
 
         // Max
         str.sprintf("%.3d", cap->max());
-        item->setText(COL_MAX, str);
+        item = new QTableWidgetItem(str);
+        m_capabilityList->setItem(i, COL_MAX, item);
 
         // Name
-        item->setText(COL_NAME, cap->name());
+        item = new QTableWidgetItem(cap->name());
+        m_capabilityList->setItem(i, COL_NAME, item);
 
-        // Pointer
-        item->setData(COL_NAME, PROP_PTR, (qulonglong) cap);
+        // QLCCapability reference
+        item->setData(Qt::UserRole, qVariantFromValue((void *)cap));
 
         if (cap->presetType() == QLCCapability::Picture && cap->resource(0).isValid())
         {
@@ -598,6 +585,9 @@ void EditChannel::refreshCapabilities()
                 goboErrors.append(descr);
             }
         }
+        i++;
+        if (i == m_capabilityList->rowCount())
+            m_capabilityList->setRowCount(i + 1);
     }
 
     if (goboErrors.isEmpty() == false)
@@ -607,31 +597,30 @@ void EditChannel::refreshCapabilities()
                              tr("Some gobos are missing:\n\n") + goboErrors.join("\n\n"));
     }
 
-    m_capabilityList->sortItems(COL_MIN, Qt::AscendingOrder);
-    m_capabilityList->header()->resizeSections(QHeaderView::ResizeToContents);
-
-    slotCapabilityListSelectionChanged(m_capabilityList->currentItem());
+    m_capabilityList->resizeColumnToContents(COL_MIN);
+    m_capabilityList->resizeColumnToContents(COL_MAX);
 }
 
 QLCCapability *EditChannel::currentCapability()
 {
-    QTreeWidgetItem *item;
     QLCCapability *cap = NULL;
+    int row = m_capabilityList->currentRow();
+    QTableWidgetItem *item = m_capabilityList->item(row, COL_NAME);
 
-    // Convert the string-form ulong to a QLCChannel pointer and return it
-    item = m_capabilityList->currentItem();
     if (item != NULL)
-        cap = (QLCCapability*) item->data(COL_NAME, PROP_PTR).toULongLong();
+        cap = (QLCCapability*) item->data(Qt::UserRole).value<void *>();
 
     return cap;
 }
 
-int EditChannel::currentCapabilityIndex()
+QLCCapability *EditChannel::getRowCapability(int row)
 {
-    if (m_capabilityList->currentItem() != NULL)
-        return m_capabilityList->indexOfTopLevelItem(m_capabilityList->currentItem());
+    QLCCapability *cap = NULL;
+    QTableWidgetItem *item = m_capabilityList->item(row, COL_NAME);
+    if (item)
+        cap = (QLCCapability*) item->data(Qt::UserRole).value<void *>();
 
-    return 0;
+    return cap;
 }
 
 void EditChannel::updateCapabilityPresetGroup(bool show)

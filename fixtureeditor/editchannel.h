@@ -37,7 +37,7 @@ class EditChannel : public QDialog, public Ui_EditChannel
 {
     Q_OBJECT
 public:
-    EditChannel(QWidget* parent, QLCChannel* channel = NULL);
+    EditChannel(QWidget *parent, QLCChannel *channel = NULL);
     ~EditChannel();
 
 protected:
@@ -49,10 +49,10 @@ protected:
      *********************************************************************/
 public:
     /** Get the channel that was edited. */
-    QLCChannel* channel();
+    QLCChannel *channel();
 
 protected:
-    QLCChannel* m_channel;
+    QLCChannel *m_channel;
 
     /*********************************************************************
      * Basic channel info
@@ -69,15 +69,13 @@ protected slots:
      * Capabilities
      *********************************************************************/
 protected slots:
-    void slotCapabilityListSelectionChanged(QTreeWidgetItem* item);
-    void slotAddCapabilityClicked();
+    void slotCapabilityCellChanged(int row, int column);
+    void slotCapabilityCellSelected(int currentRow, int currentColumn,
+                                    int previousRow, int previousColumn);
     void slotRemoveCapabilityClicked();
     void slotEditCapabilityClicked();
     void slotWizardClicked();
 
-    void slotMinSpinChanged(int value);
-    void slotMaxSpinChanged(int value);
-    void slotDescriptionEdited(const QString& text);
     void slotCapabilityPresetActivated(int index);
     void slotPictureButtonPressed();
     void slotColor1ButtonPressed();
@@ -87,12 +85,12 @@ protected slots:
 
 protected:
     void refreshCapabilities();
-    QLCCapability* currentCapability();
-    int currentCapabilityIndex();
+    QLCCapability *currentCapability();
+    QLCCapability *getRowCapability(int row);
     void updateCapabilityPresetGroup(bool show);
 
 protected:
-    QLCCapability* m_currentCapability;
+    QLCCapability *m_currentCapability;
 };
 
 /** @} */
