@@ -61,14 +61,14 @@ void ShowManager::setCurrentShowID(int currentShowID)
     {
         if (m_currentShow->id() == (quint32)currentShowID)
             return;
-        disconnect(m_currentShow, &Show::timeChanged, this, &ShowManager::slotTimeChanged);
+        disconnect(m_currentShow, SIGNAL(timeChanged(quint32)), this, SLOT(slotTimeChanged(quint32)));
     }
 
     m_currentShow = qobject_cast<Show*>(m_doc->function(currentShowID));
     emit currentShowIDChanged(currentShowID);
     if (m_currentShow != NULL)
     {
-        connect(m_currentShow, &Show::timeChanged, this, &ShowManager::slotTimeChanged);
+        connect(m_currentShow, SIGNAL(timeChanged(quint32)), this, SLOT(slotTimeChanged(quint32)));
         emit showDurationChanged(m_currentShow->totalDuration());
         emit showNameChanged(m_currentShow->name());
     }
@@ -192,7 +192,7 @@ void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVar
             m_currentShow = NULL;
             return;
         }
-        connect(m_currentShow, &Show::timeChanged, this, &ShowManager::slotTimeChanged);
+        connect(m_currentShow,SIGNAL(timeChanged(quint32)), this, SLOT(slotTimeChanged(quint32)));
         emit currentShowIDChanged(m_currentShow->id());
         emit showNameChanged(m_currentShow->name());
     }
