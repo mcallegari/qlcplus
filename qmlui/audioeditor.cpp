@@ -49,6 +49,9 @@ QString AudioEditor::sourceFileName() const
 
 void AudioEditor::setSourceFileName(QString sourceFileName)
 {
+    if (sourceFileName.startsWith("file:"))
+        sourceFileName = QUrl(sourceFileName).toLocalFile();
+
     if (m_audio == NULL || m_audio->getSourceFileName() == sourceFileName)
         return;
 
