@@ -72,6 +72,9 @@ QString VideoEditor::sourceFileName() const
 
 void VideoEditor::setSourceFileName(QString sourceFileName)
 {
+    if (sourceFileName.startsWith("file:"))
+        sourceFileName = QUrl(sourceFileName).toLocalFile();
+
     if (m_video == NULL || m_video->sourceUrl() == sourceFileName)
         return;
 

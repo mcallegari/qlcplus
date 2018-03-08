@@ -357,7 +357,9 @@ quint32 FunctionManager::createFunction(int type, QStringList fileList)
                 quint32 lastFuncID = Function::invalidId();
                 for (QString filePath : fileList)
                 {
-                    filePath = filePath.replace("file://", "");
+                    if (filePath.startsWith("file:"))
+                        filePath = QUrl(filePath).toLocalFile();
+
                     f = new Video(m_doc);
                     lastFuncID = addFunctiontoDoc(f, name, fileList.count() == 1 ? true : false);
                     if (lastFuncID != Function::invalidId())
