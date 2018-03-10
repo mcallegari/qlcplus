@@ -22,7 +22,7 @@ make INSTALL_ROOT=$TARGET_DIR install
 strip $TARGET_DIR/usr/bin/qlcplus-qml
 strip $TARGET_DIR/usr/lib/libqlcplusengine.so.1.0.0
 
-chrpath -r "/usr/lib" $TARGET_DIR/usr/bin/qlcplus-qml
+chrpath -r "../lib" $TARGET_DIR/usr/bin/qlcplus-qml
 
 cd $TARGET_DIR/usr/bin
 find . -name plugins.qmltypes -type f -delete && \
