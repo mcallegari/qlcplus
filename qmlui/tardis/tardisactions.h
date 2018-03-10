@@ -145,6 +145,8 @@ enum
     VCSliderSetLowLimit,
     VCSliderSetHighLimit,
 
+    VCCueListSetChaserID,
+
     /* Virtual Console live actions */
     VCButtonSetPressed = 0xF000,
     VCSliderSetValue,

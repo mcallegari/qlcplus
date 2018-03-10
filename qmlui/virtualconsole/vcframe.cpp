@@ -28,6 +28,7 @@
 #include "vcclock.h"
 #include "vcbutton.h"
 #include "vcslider.h"
+#include "vccuelist.h"
 #include "vcsoloframe.h"
 #include "virtualconsole.h"
 
@@ -227,6 +228,18 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             clock->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 25, m_vc->pixelDensity() * 8));
             setupWidget(clock, currentPage());
             clock->render(m_vc->view(), parent);
+        }
+        break;
+        case CueListWidget:
+        {
+            VCCueList *cuelist = new VCCueList(m_doc, this);
+            QQmlEngine::setObjectOwnership(cuelist, QQmlEngine::CppOwnership);
+            m_vc->addWidgetToMap(cuelist);
+            Tardis::instance()->enqueueAction(VCWidgetCreate, this->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(VCWidgetCreate, cuelist->id()));
+            cuelist->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 25, m_vc->pixelDensity() * 8));
+            setupWidget(cuelist, currentPage());
+            cuelist->render(m_vc->view(), parent);
         }
         break;
         default:
@@ -747,6 +760,21 @@ bool VCFrame::loadWidgetXML(QXmlStreamReader &root, bool render)
             m_vc->addWidgetToMap(clock);
             if (render && m_item)
                 clock->render(m_vc->view(), m_item);
+        }
+    }
+    else if (root.name() == KXMLQLCVCCueList)
+    {
+        /* Create a new cue list into its parent */
+        VCCueList *cuelist = new VCCueList(m_doc, this);
+        if (cuelist->loadXML(root) == false)
+            delete cuelist;
+        else
+        {
+            QQmlEngine::setObjectOwnership(cuelist, QQmlEngine::CppOwnership);
+            setupWidget(cuelist, cuelist->page());
+            m_vc->addWidgetToMap(cuelist);
+            if (render && m_item)
+                cuelist->render(m_vc->view(), m_item);
         }
     }
     else

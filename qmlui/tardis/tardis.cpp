@@ -31,6 +31,7 @@
 #include "functioneditor.h"
 #include "collection.h"
 #include "rgbmatrix.h"
+#include "vccuelist.h"
 #include "rgbimage.h"
 #include "vcwidget.h"
 #include "vcbutton.h"
@@ -1010,6 +1011,13 @@ int Tardis::processAction(TardisAction &action, bool undo)
         {
             auto member = std::mem_fn(&VCSlider::setRangeHighLimit);
             member(qobject_cast<VCSlider *>(m_virtualConsole->widget(action.m_objID)), value->toReal());
+        }
+        break;
+
+        case VCCueListSetChaserID:
+        {
+            auto member = std::mem_fn(&VCCueList::setChaserID);
+            member(qobject_cast<VCCueList *>(m_virtualConsole->widget(action.m_objID)), value->toUInt());
         }
         break;
 

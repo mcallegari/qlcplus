@@ -47,7 +47,8 @@ void ChaserEditor::setFunctionID(quint32 ID)
     if (m_chaser != NULL)
         connect(m_chaser, &Chaser::currentStepChanged, this, &ChaserEditor::slotStepChanged);
 
-    updateStepsList();
+    updateStepsList(m_doc, m_chaser, m_stepsList);
+    emit stepsListChanged();
 }
 
 bool ChaserEditor::isSequence() const
@@ -89,7 +90,10 @@ bool ChaserEditor::addFunctions(QVariantList idsList, int insertIndex)
         Tardis::instance()->enqueueAction(ChaserAddStep, m_chaser->id(), QVariant(), insertIndex);
         m_chaser->addStep(step, insertIndex++);
     }
-    updateStepsList();
+
+    updateStepsList(m_doc, m_chaser, m_stepsList);
+    emit stepsListChanged();
+
     return true;
 }
 
@@ -133,7 +137,10 @@ bool ChaserEditor::addStep(int insertIndex)
 
     Tardis::instance()->enqueueAction(ChaserAddStep, m_chaser->id(), QVariant(), insertIndex);
     m_chaser->addStep(step, insertIndex);
-    updateStepsList();
+
+    updateStepsList(m_doc, m_chaser, m_stepsList);
+    emit stepsListChanged();
+
     return true;
 }
 
@@ -176,24 +183,27 @@ void ChaserEditor::slotStepChanged(int index)
     setPlaybackIndex(index);
 }
 
-void ChaserEditor::updateStepsList()
+void ChaserEditor::updateStepsList(Doc *doc, Chaser *chaser, ListModel *stepsList)
 {
-    m_stepsList->clear();
+    if (doc == NULL || chaser == NULL || stepsList == NULL)
+        return;
 
-    if (m_chaser != NULL)
+    stepsList->clear();
+
+    if (chaser != NULL)
     {
-        foreach(ChaserStep step, m_chaser->steps())
+        foreach(ChaserStep step, chaser->steps())
         {
             QVariantMap stepMap;
-            Function *func = m_doc->function(step.fid);
+            Function *func = doc->function(step.fid);
 
             stepMap.insert("funcID", step.fid);
             stepMap.insert("isSelected", false);
 
-            switch (m_chaser->fadeInMode())
+            switch (chaser->fadeInMode())
             {
                 case Chaser::Common:
-                    stepMap.insert("fadeIn", m_chaser->fadeInSpeed());
+                    stepMap.insert("fadeIn", chaser->fadeInSpeed());
                 break;
                 case Chaser::PerStep:
                     stepMap.insert("fadeIn", step.fadeIn);
@@ -203,23 +213,23 @@ void ChaserEditor::updateStepsList()
                 break;
             }
 
-            switch (m_chaser->fadeOutMode())
+            switch (chaser->fadeOutMode())
             {
                 case Chaser::Common:
-                    stepMap.insert("fadeOut", m_chaser->fadeOutSpeed());
+                    stepMap.insert("fadeOut", chaser->fadeOutSpeed());
                 break;
                 case Chaser::PerStep:
                     stepMap.insert("fadeOut", step.fadeOut);
-                    break;
+                break;
                 default:
                     stepMap.insert("fadeOut", func->fadeOutSpeed());
                 break;
             }
 
-            switch (m_chaser->durationMode())
+            switch (chaser->durationMode())
             {
                 case Chaser::Common:
-                    step.duration = m_chaser->duration();
+                    step.duration = chaser->duration();
                     step.hold = Function::speedSubtract(step.duration, step.fadeIn);
                     stepMap.insert("hold", (int)step.hold);
                     stepMap.insert("duration", (int)step.duration);
@@ -237,10 +247,9 @@ void ChaserEditor::updateStepsList()
             }
 
             stepMap.insert("note", step.note);
-            m_stepsList->addDataMap(stepMap);
+            stepsList->addDataMap(stepMap);
         }
     }
-    emit stepsListChanged();
 }
 
 void ChaserEditor::setSelectedValue(Function::SpeedType type, QString param, uint value, bool selectedOnly)
@@ -406,7 +415,8 @@ void ChaserEditor::setTempoType(int tempoType)
     }
 
     emit tempoTypeChanged(tempoType);
-    updateStepsList();
+    updateStepsList(m_doc, m_chaser, m_stepsList);
+    emit stepsListChanged();
 }
 
 int ChaserEditor::stepsFadeIn() const
@@ -425,7 +435,8 @@ void ChaserEditor::setStepsFadeIn(int stepsFadeIn)
     m_chaser->setFadeInMode(Chaser::SpeedMode(stepsFadeIn));
 
     emit stepsFadeInChanged(stepsFadeIn);
-    updateStepsList();
+    updateStepsList(m_doc, m_chaser, m_stepsList);
+    emit stepsListChanged();
 }
 
 int ChaserEditor::stepsFadeOut() const
@@ -444,7 +455,8 @@ void ChaserEditor::setStepsFadeOut(int stepsFadeOut)
     m_chaser->setFadeOutMode(Chaser::SpeedMode(stepsFadeOut));
 
     emit stepsFadeOutChanged(stepsFadeOut);
-    updateStepsList();
+    updateStepsList(m_doc, m_chaser, m_stepsList);
+    emit stepsListChanged();
 }
 
 int ChaserEditor::stepsDuration() const
@@ -463,7 +475,8 @@ void ChaserEditor::setStepsDuration(int stepsDuration)
     m_chaser->setDurationMode(Chaser::SpeedMode(stepsDuration));
 
     emit stepsDurationChanged(stepsDuration);
-    updateStepsList();
+    updateStepsList(m_doc, m_chaser, m_stepsList);
+    emit stepsListChanged();
 }
 
 void ChaserEditor::setStepSpeed(int index, int value, int type)

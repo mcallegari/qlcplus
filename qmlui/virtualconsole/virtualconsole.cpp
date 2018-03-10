@@ -25,6 +25,7 @@
 
 #include "virtualconsole.h"
 #include "contextmanager.h"
+#include "vccuelist.h"
 #include "vcwidget.h"
 #include "vcbutton.h"
 #include "vcslider.h"
@@ -91,6 +92,7 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc,
     qmlRegisterType<VCSlider>("org.qlcplus.classes", 1, 0, "VCSlider");
     qmlRegisterType<VCClock>("org.qlcplus.classes", 1, 0, "VCClock");
     qmlRegisterType<VCClockSchedule>("org.qlcplus.classes", 1, 0, "VCClockSchedule");
+    qmlRegisterType<VCCueList>("org.qlcplus.classes", 1, 0, "VCCueList");
 
     connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar,QString)),
             this, SLOT(slotInputValueChanged(quint32,quint32,uchar)));
