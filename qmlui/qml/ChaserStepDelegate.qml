@@ -146,7 +146,7 @@ Rectangle
 
             var item = fieldsRow.childAt(mouse.x, mouse.y)
             if (item === funcIconName)
-                console.log("Func name clicked")
+                stepDelegate.doubleClicked(functionID, item, Function.Name)
             else if (item === fadeInText)
                 stepDelegate.doubleClicked(functionID, item, Function.FadeIn)
             else if (item === holdText)
@@ -155,8 +155,8 @@ Rectangle
                 stepDelegate.doubleClicked(functionID, item, Function.FadeOut)
             else if (item === durationText)
                 stepDelegate.doubleClicked(functionID, item, Function.Duration)
-            else if (mouse.x >= noteText.x)
-                console.log("Note clicked")
+            else if (item === noteText)
+                stepDelegate.doubleClicked(functionID, item, Function.Notes)
         }
     }
 
@@ -190,8 +190,8 @@ Rectangle
 
         IconTextEntry
         {
-            visible: showFunctionName
             id: funcIconName
+            visible: showFunctionName
             width: col2Width
             height: 35
             anchors.verticalCenter: parent.verticalCenter
@@ -250,10 +250,10 @@ Rectangle
         RobotoText
         {
             id: noteText
+            width: stepDelegate.width - x
             height: parent.height
             label: stepNote
             fontSize: labelFontSize
-            //Layout.fillWidth: true
         }
     }
 

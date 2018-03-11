@@ -252,7 +252,7 @@ void ChaserEditor::updateStepsList(Doc *doc, Chaser *chaser, ListModel *stepsLis
     }
 }
 
-void ChaserEditor::setSelectedValue(Function::SpeedType type, QString param, uint value, bool selectedOnly)
+void ChaserEditor::setSelectedValue(Function::PropType type, QString param, uint value, bool selectedOnly)
 {
     if (m_chaser == NULL)
         return;
@@ -348,6 +348,8 @@ void ChaserEditor::setSelectedValue(Function::SpeedType type, QString param, uin
 
                     m_stepsList->setDataWithRole(idx, "hold", step.hold);
                 }
+                break;
+                default:
                 break;
             }
 
@@ -484,7 +486,7 @@ void ChaserEditor::setStepSpeed(int index, int value, int type)
     if (m_chaser == NULL || index < 0 || index >= m_chaser->stepsCount())
         return;
 
-    switch(Function::SpeedType(type))
+    switch(Function::PropType(type))
     {
         case Function::FadeIn:
         {
@@ -527,6 +529,19 @@ void ChaserEditor::setStepSpeed(int index, int value, int type)
                 setSelectedValue(Function::Duration, "duration", uint(value));
             }
         break;
+        default:
+        break;
     }
 
+}
+
+void ChaserEditor::setStepNote(int index, QString text)
+{
+    if (m_chaser == NULL || index < 0 || index >= m_chaser->stepsCount())
+        return;
+
+    QModelIndex mIdx = m_stepsList->index(index, 0, QModelIndex());
+    ChaserStep *step = m_chaser->stepAt(index);
+    step->note = text;
+    m_stepsList->setDataWithRole(mIdx, "note", text);
 }

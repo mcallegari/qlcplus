@@ -80,7 +80,7 @@ protected:
     /** Set the steps $param to $value.
      *  If $selectedOnly is true, $value is applied only to the selected steps,
      *  otherwise it will be applied to all the steps */
-    void setSelectedValue(Function::SpeedType type, QString param, uint value, bool selectedOnly = true);
+    void setSelectedValue(Function::PropType type, QString param, uint value, bool selectedOnly = true);
 
 protected slots:
     /** Slot invoked during Chaser playback when the step index changes */
@@ -123,6 +123,9 @@ public:
 
     /** Set the speed value with $type of the step at $index */
     Q_INVOKABLE void setStepSpeed(int index, int value, int type);
+
+    /** Ste the notes text of the step at $index */
+    Q_INVOKABLE void setStepNote(int index, QString text);
 
 signals:
     void tempoTypeChanged(int tempoType);

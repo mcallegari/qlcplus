@@ -132,6 +132,12 @@ public:
         Intensity = 0
     };
 
+public:
+    enum PropType { Name = 0, FadeIn, Hold, FadeOut, Duration, Notes };
+#if QT_VERSION >= 0x050500
+    Q_ENUM(PropType)
+#endif
+
     /*********************************************************************
      * Initialization
      *********************************************************************/
@@ -458,12 +464,6 @@ private:
     /*********************************************************************
      * Speed
      *********************************************************************/
-public:
-    enum SpeedType { FadeIn = 0, Hold, FadeOut, Duration };
-#if QT_VERSION >= 0x050500
-    Q_ENUM(SpeedType)
-#endif
-
 public:
     /** Set the fade in time in milliseconds */
     void setFadeInSpeed(uint ms);

@@ -40,7 +40,9 @@ Column
 
     signal indexChanged(int index)
     signal stepValueChanged(int index, int value, int type)
+    signal noteTextChanged(int index, string text)
     signal addFunctions(var list, int index)
+    signal requestEditor(int funcID)
     signal dragEntered(var item)
     signal dragExited(var item)
 
@@ -374,6 +376,32 @@ Column
 
         onCurrentIndexChanged: ceSelector.selectItem(currentIndex, model, 0)
 
+        CustomTextEdit
+        {
+            id: noteTextEdit
+            visible: false
+
+            function show(stepIndex, item)
+            {
+                editStepIndex = stepIndex
+                x = item.x
+                y = item.mapToItem(cStepsList, 0, 0).y
+                width = item.width
+                height = item.height
+
+                inputText = item.label
+                visible = true
+                selectAndFocus()
+            }
+
+            onEnterPressed:
+            {
+                widgetRoot.noteTextChanged(editStepIndex, inputText)
+                editStepIndex = -1
+                visible = false
+            }
+        }
+
         delegate:
             ChaserStepDelegate
             {
@@ -409,7 +437,12 @@ Column
                 onDoubleClicked:
                 {
                     console.log("Double clicked: " + indexInList + ", " + type)
-                    widgetRoot.editStepTime(indexInList, this, type)
+                    if (type === Function.Name)
+                        widgetRoot.requestEditor(ID)
+                    else if (type === Function.Notes)
+                        noteTextEdit.show(indexInList, qItem)
+                    else
+                        widgetRoot.editStepTime(indexInList, this, type)
                 }
             }
 
