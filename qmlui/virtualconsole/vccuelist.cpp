@@ -550,6 +550,27 @@ bool VCCueList::loadXML(QXmlStreamReader &root)
         {
             setChaserID(root.readElementText().toUInt());
         }
+        else if (root.name() == KXMLQLCVCCueListPlaybackLayout)
+        {
+            PlaybackLayout layout = PlaybackLayout(root.readElementText().toInt());
+            if (layout != PlayPauseStop && layout != PlayStopPause)
+            {
+                qWarning() << Q_FUNC_INFO << "Playback layout" << layout << "does not exist.";
+                layout = PlayPauseStop;
+            }
+            setPlaybackLayout(layout);
+        }
+        else if (root.name() == KXMLQLCVCCueListNextPrevBehavior)
+        {
+            NextPrevBehavior nextPrev = NextPrevBehavior(root.readElementText().toInt());
+            if (nextPrev != DefaultRunFirst && nextPrev != RunNext &&
+                nextPrev != Select && nextPrev != Nothing)
+            {
+                qWarning() << Q_FUNC_INFO << "Next/Prev behavior" << nextPrev << "does not exist.";
+                nextPrev = DefaultRunFirst;
+            }
+            setNextPrevBehavior(nextPrev);
+        }
         else if (root.name() == KXMLQLCVCCueListNext)
         {
             loadXMLSources(root, INPUT_NEXT_STEP_ID);
@@ -598,6 +619,23 @@ bool VCCueList::saveXML(QXmlStreamWriter *doc)
 
     /* Appearance */
     saveXMLAppearance(doc);
+
+    /* Chaser */
+    doc->writeTextElement(KXMLQLCVCCueListChaser, QString::number(chaserID()));
+
+    /* Playback layout */
+    if (playbackLayout() != PlayPauseStop)
+        doc->writeTextElement(KXMLQLCVCCueListPlaybackLayout, QString::number(playbackLayout()));
+
+    /* Next/Prev behavior */
+    if (nextPrevBehavior() != DefaultRunFirst)
+        doc->writeTextElement(KXMLQLCVCCueListNextPrevBehavior, QString::number(nextPrevBehavior()));
+
+    /* Input controls */
+    saveXMLInputControl(doc, INPUT_NEXT_STEP_ID, KXMLQLCVCCueListNext);
+    saveXMLInputControl(doc, INPUT_PREVIOUS_STEP_ID, KXMLQLCVCCueListPrevious);
+    saveXMLInputControl(doc, INPUT_PLAY_PAUSE_ID, KXMLQLCVCCueListPlayback);
+    saveXMLInputControl(doc, INPUT_STOP_PAUSE_ID, KXMLQLCVCCueListStop);
 
     /* End the <CueList> tag */
     doc->writeEndElement();
