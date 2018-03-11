@@ -30,15 +30,19 @@ Column
     id: widgetRoot
     property bool isSequence: false
     property alias model: cStepsList.model
-    property alias playbackIndex: cStepsList.playbackIndex
+    property alias playbackIndex: cStepsList.currentIndex
     property int tempoType: Function.Time
     property bool isRunning: false
+    property alias containsDrag: cwDropArea.containsDrag
 
     property int editStepIndex: -1
     property int editStepType
 
     signal indexChanged(int index)
     signal stepValueChanged(int index, int value, int type)
+    signal addFunctions(var list, int index)
+    signal dragEntered(var item)
+    signal dragExited(var item)
 
     function editStepTime(stepIndex, stepItem, type)
     {
@@ -367,13 +371,8 @@ Column
         clip: true
 
         property int dragInsertIndex: -1
-        property int playbackIndex: 0
 
-        onPlaybackIndexChanged:
-        {
-            if (widgetRoot.isRunning)
-                ceSelector.selectItem(playbackIndex, model, 0)
-        }
+        onCurrentIndexChanged: ceSelector.selectItem(currentIndex, model, 0)
 
         delegate:
             ChaserStepDelegate
@@ -416,9 +415,17 @@ Column
 
         DropArea
         {
+            id: cwDropArea
             anchors.fill: parent
             // accept only functions
             keys: [ "function" ]
+
+            onEntered: widgetRoot.dragEntered(widgetRoot)
+            onExited:
+            {
+                cStepsList.dragInsertIndex = -1
+                widgetRoot.dragExited(widgetRoot)
+            }
 
             onDropped:
             {
@@ -427,7 +434,7 @@ Column
                 /* Check if the dragging was started from a Function Manager */
                 if (drag.source.hasOwnProperty("fromFunctionManager"))
                 {
-                    chaserEditor.addFunctions(drag.source.itemsList, cStepsList.dragInsertIndex)
+                    widgetRoot.addFunctions(drag.source.itemsList, cStepsList.dragInsertIndex)
                     cStepsList.dragInsertIndex = -1
                 }
             }
@@ -437,7 +444,6 @@ Column
                 //console.log("Item index:" + idx)
                 cStepsList.dragInsertIndex = idx
             }
-            onExited: cStepsList.dragInsertIndex = -1
         }
         CustomScrollBar { flickable: cStepsList }
     } // end of ListView

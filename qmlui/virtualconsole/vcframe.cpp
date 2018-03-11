@@ -237,7 +237,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             m_vc->addWidgetToMap(cuelist);
             Tardis::instance()->enqueueAction(VCWidgetCreate, this->id(), QVariant(),
                                               Tardis::instance()->actionToByteArray(VCWidgetCreate, cuelist->id()));
-            cuelist->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 25, m_vc->pixelDensity() * 8));
+            cuelist->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 80, m_vc->pixelDensity() * 50));
             setupWidget(cuelist, currentPage());
             cuelist->render(m_vc->view(), parent);
         }

@@ -132,6 +132,7 @@ Rectangle
 
                 onIndexChanged: chaserEditor.playbackIndex = index
                 onStepValueChanged: chaserEditor.setStepSpeed(index, value, type)
+                onAddFunctions: chaserEditor.addFunctions(list, index)
             }
 
             SectionBox

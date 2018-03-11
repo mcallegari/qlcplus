@@ -46,10 +46,15 @@ class VCCueList : public VCWidget
     Q_PROPERTY(quint32 chaserID READ chaserID WRITE setChaserID NOTIFY chaserIDChanged)
     Q_PROPERTY(QVariant stepsList READ stepsList NOTIFY stepsListChanged)
 
+    Q_PROPERTY(NextPrevBehavior nextPrevBehavior READ nextPrevBehavior WRITE setNextPrevBehavior NOTIFY nextPrevBehaviorChanged)
+    Q_PROPERTY(PlaybackLayout playbackLayout READ playbackLayout WRITE setPlaybackLayout NOTIFY playbackLayoutChanged)
+
+    Q_PROPERTY(PlaybackStatus playbackStatus READ playbackStatus NOTIFY playbackStatusChanged)
+    Q_PROPERTY(int playbackIndex READ playbackIndex WRITE setPlaybackIndex NOTIFY playbackIndexChanged)
+
     /*********************************************************************
      * Initialization
      *********************************************************************/
-
 public:
     VCCueList(Doc* doc = NULL, QObject *parent = 0);
     virtual ~VCCueList();
@@ -67,6 +72,40 @@ public:
     QString propertiesResource() const;
 
     /*********************************************************************
+     * UI settings
+     *********************************************************************/
+public:
+    enum NextPrevBehavior
+    {
+        DefaultRunFirst = 0,
+        RunNext,
+        Select,
+        Nothing
+    };
+    Q_ENUM(NextPrevBehavior)
+
+    enum PlaybackLayout
+    {
+        PlayPauseStop = 0,
+        PlayStopPause
+    };
+    Q_ENUM(PlaybackLayout)
+
+    NextPrevBehavior nextPrevBehavior() const;
+    void setNextPrevBehavior(NextPrevBehavior nextPrev);
+
+    PlaybackLayout playbackLayout() const;
+    void setPlaybackLayout(PlaybackLayout layout);
+
+signals:
+    void nextPrevBehaviorChanged();
+    void playbackLayoutChanged();
+
+private:
+    NextPrevBehavior m_nextPrevBehavior;
+    PlaybackLayout m_playbackLayout;
+
+    /*********************************************************************
      * Chaser attachment
      *********************************************************************/
 public:
@@ -79,6 +118,8 @@ public:
 
     /** Return the Chaser step list formatted as explained in m_stepsList */
     QVariant stepsList() const;
+
+    Q_INVOKABLE void addFunctions(QVariantList idsList, int insertIndex = -1);
 
 private:
     FunctionParent functionParent() const;
@@ -97,6 +138,62 @@ private:
      */
     ListModel *m_stepsList;
 
+    /*********************************************************************
+     * Playback
+     *********************************************************************/
+public:
+    enum PlaybackStatus
+    {
+        Stopped = 0,
+        Playing,
+        Paused
+    };
+    Q_ENUM(PlaybackStatus)
+
+    int playbackIndex() const;
+    void setPlaybackIndex(int playbackIndex);
+
+    PlaybackStatus playbackStatus();
+
+    Q_INVOKABLE void playClicked();
+    Q_INVOKABLE void stopClicked();
+    Q_INVOKABLE void previousClicked();
+    Q_INVOKABLE void nextClicked();
+
+signals:
+    void playbackStatusChanged();
+    void playbackIndexChanged(int playbackIndex);
+
+private slots:
+    /** Slot called whenever a function is started */
+    void slotFunctionRunning(quint32 fid);
+
+    /** Slot called whenever a function is stopped */
+    void slotFunctionStopped(quint32 fid);
+
+    /** Called when m_runner skips to another step */
+    void slotCurrentStepChanged(int stepNumber);
+
+private:
+    /** Get the index of the next item, based on the chaser direction */
+    int getNextIndex();
+
+    /** Get the index of the previous item, based on the chaser direction */
+    int getPrevIndex();
+
+    /** Get the index of the first item, based on the chaser direction */
+    int getFirstIndex();
+
+    /** Get the index of the last item, based on the chaser direction */
+    int getLastIndex();
+
+    /** Start the associated Chaser */
+    void startChaser(int startIndex = -1);
+
+    /** Stop the associated Chaser */
+    void stopChaser();
+
+private:
     /** Index of the current step being played. -1 when stopped */
     int m_playbackIndex;
 
