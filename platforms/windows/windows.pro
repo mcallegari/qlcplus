@@ -132,6 +132,7 @@ greaterThan(QT_MAJOR_VERSION, 4) {
         qmlpostinstall.path = $$INSTALLROOT/$$LIBSDIR
         qmlpostinstall.commands = cd $$INSTALLROOT/$$LIBSDIR && \
                                   find . -name plugins.qmltypes -type f -delete && \
+                                  find . -name *.qmlc -type f -delete && \
                                   rm -rf Qt/WebSockets QtQuick/Extras QtQuick/Particles.2 QtQuick/XmlListModel \
                                   rm -rf QtQuick/Controls.2/designer QtQuick/Controls.2/Material \
                                   rm -rf QtQuick/Controls.2/Universal QtQuick/Controls.2/Fusion \

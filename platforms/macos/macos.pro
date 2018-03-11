@@ -324,10 +324,11 @@ qmlui: {
     qmlpostinstall.commands = cd $$INSTALLROOT/qml && \
                               find . -name *_debug.dylib -type f -delete && \
                               find . -name plugins.qmltypes -type f -delete && \
+                              find . -name *.qmlc -type f -delete && \
                               rm -rf QtQuick/Extras QtQuick/Particles.2 QtQuick/XmlListModel \
                               rm -rf QtQuick/Controls.2/designer QtQuick/Controls.2/Material \
-                              rm -rf QtQuick/Controls.2/Universal QtQuick/Controls.2/Scene2D \
-                              rm -rf Qt3D/Animation Qt3D/Logic
+                              rm -rf QtQuick/Controls.2/Universal QtQuick/Controls.2/Fusion \
+                              rm -rf QtQuick/Controls.2/Imagine QtQuick/Controls.2/Scene2D
     INSTALLS  += qmlpostinstall
 }
 
