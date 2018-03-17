@@ -107,8 +107,9 @@ def update_fixture(path, filename, destpath):
         phy_dict.update(dim_tag.attrib)
         phy_dict.update(lens_tag.attrib)
         phy_dict.update(focus_tag.attrib)
-        phy_dict.update(tech_tag.attrib)
-        
+        if tech_tag:
+            phy_dict.update(tech_tag.attrib)
+
         if not global_phy:
             global_phy = phy_dict
             gphy_tag = phy_tag
@@ -236,6 +237,7 @@ def update_fixture(path, filename, destpath):
 
 for filename in os.listdir(path):
     if not filename.endswith('.qxf'): continue
+    print "Processing file " + filename
 
     singleCapCount += update_fixture(path, filename, destpath)
 
