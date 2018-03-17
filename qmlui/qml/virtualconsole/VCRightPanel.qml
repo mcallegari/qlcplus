@@ -27,7 +27,11 @@ SidePanel
 {
     id: vcRightPanel
 
-    onContentLoaded: if (item.functionID) item.functionID = itemID
+    onContentLoaded:
+    {
+        if (item.functionID)
+            item.functionID = itemID
+    }
 
     Rectangle
     {
@@ -71,6 +75,7 @@ SidePanel
                 height: iconSize
                 imgSource: "qrc:/edit.svg"
                 checkable: true
+                checked: virtualConsole.editMode
                 ButtonGroup.group: vcButtonsGroup
                 tooltip: qsTr("Enable/Disable the widgets edit mode")
 

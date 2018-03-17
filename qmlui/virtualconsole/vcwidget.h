@@ -73,6 +73,7 @@ class VCWidget : public QObject
     Q_OBJECT
 
     Q_PROPERTY(quint32 id READ id CONSTANT)
+    Q_PROPERTY(int type READ type CONSTANT)
     Q_PROPERTY(QString propertiesResource READ propertiesResource CONSTANT)
     Q_PROPERTY(bool isEditing READ isEditing WRITE setIsEditing NOTIFY isEditingChanged)
     Q_PROPERTY(QRectF geometry READ geometry WRITE setGeometry NOTIFY geometryChanged)

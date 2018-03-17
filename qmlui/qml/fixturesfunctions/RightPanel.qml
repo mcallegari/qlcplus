@@ -247,6 +247,25 @@ SidePanel
                     title: qsTr("Rename functions")
                 }
             }
+
+            IconButton
+            {
+                z: 2
+                width: iconSize
+                height: iconSize
+                faSource: FontAwesome.fa_sitemap
+                faColor: UISettings.fgMedium
+                tooltip: qsTr("Show function usage")
+                counter: functionManager.selectionCount
+                onClicked:
+                {
+                    var idList = functionManager.selectedFunctionsID()
+                    loaderSource = ""
+                    itemID = idList[0]
+                    loaderSource = "qrc:/UsageList.qml"
+                }
+            }
+
             IconButton
             {
                 id: sceneDump

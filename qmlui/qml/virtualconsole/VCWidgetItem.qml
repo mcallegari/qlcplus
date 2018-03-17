@@ -54,6 +54,11 @@ Rectangle
             return;
 
         wObj = obj
+        if (wObj.isEditing)
+        {
+            isSelected = true
+            virtualConsole.setWidgetSelection(wObj.id, wRoot, isSelected, true)
+        }
     }
 
     function setBgImageMargins(m)

@@ -76,6 +76,9 @@ public:
     /** Read only property to expose the function tree to the QML UI */
     QVariant functionsList();
 
+    /** Get a list of Functions that use $fid */
+    Q_INVOKABLE QVariantList usageList(quint32 fid);
+
     /** Get a list of the currently selected Function IDs, suitable to be used in QML */
     Q_INVOKABLE QVariantList selectedFunctionsID();
 

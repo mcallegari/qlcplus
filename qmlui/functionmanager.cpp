@@ -97,6 +97,33 @@ QVariant FunctionManager::functionsList()
     return QVariant::fromValue(m_functionTree);
 }
 
+QVariantList FunctionManager::usageList(quint32 fid)
+{
+    QVariantList list;
+    QList<quint32> funcUsageList = m_doc->getUsage(fid);
+
+    for (int i = 0; i < funcUsageList.count(); i+=2)
+    {
+        Function *f = m_doc->function(funcUsageList.at(i));
+        if (f == NULL)
+            continue;
+
+        QVariantMap funcMap;
+        funcMap.insert("classRef", QVariant::fromValue(f));
+        funcMap.insert("label", QString("%1 (@ %2)").arg(f->name()).arg(funcUsageList.at(i + 1)));
+        list.append(funcMap);
+    }
+
+    if (list.isEmpty())
+    {
+        QVariantMap noneMap;
+        noneMap.insert("label", tr("<None>"));
+        list.append(noneMap);
+    }
+
+    return list;
+}
+
 QVariantList FunctionManager::selectedFunctionsID()
 {
     return m_selectedIDList;

@@ -84,7 +84,8 @@ public:
         FixtureGroupDragItem,
         FixtureDragItem,
         ChannelDragItem,
-        HeadDragItem
+        HeadDragItem,
+        WidgetDragItem
     };
     Q_ENUM(DragItemTypes)
 
@@ -190,7 +191,7 @@ signals:
     void docModifiedChanged();
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
     bool m_docLoaded;
 
     /*********************************************************************

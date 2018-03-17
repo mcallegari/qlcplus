@@ -71,6 +71,9 @@ public:
     /** Get the current VC load status */
     LoadStatus loadStatus() const;
 
+    /** Get a list of Widgets that use $fid */
+    Q_INVOKABLE QVariantList usageList(quint32 fid);
+
 signals:
     void editModeChanged(bool editMode);
 
@@ -184,6 +187,9 @@ public:
     VCWidget *selectedWidget() const;
 
     Q_INVOKABLE void requestAddMatrixPopup(VCFrame *frame, QQuickItem *parent, QString widgetType, QPoint pos);
+
+    /** Return the associated qrc icon resource for the specified VCWidget $type */
+    Q_INVOKABLE QString widgetIcon(int type);
 
 signals:
     /** Notify the listeners that the currenly selected VC widget has changed */

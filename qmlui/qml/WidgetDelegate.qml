@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  FunctionDelegate.qml
+  WidgetDelegate.qml
 
   Copyright (c) Massimo Callegari
 
@@ -24,38 +24,28 @@ import "."
 
 Rectangle
 {
-    id: funcDelegate
+    id: delegateRoot
     width: 100
     height: UISettings.listItemHeight
 
     color: "transparent"
 
-    property Function cRef
+    property VCWidget cRef
     property string textLabel
     property string itemIcon: ""
-    property int itemType: App.FunctionDragItem
+    property int itemType: App.WidgetDragItem
     property bool isSelected: false
     property Item dragItem
+
+    signal mouseEvent(int type, int iID, int iType, var qItem, int mouseMods)
 
     onCRefChanged:
     {
         if (cRef == null)
             return
 
-        itemIcon = functionManager.functionIcon(cRef.type)
-        if (cRef.type == Function.SceneType)
-            fdDropArea.keys = [ "dumpValues" ]
-    }
-
-    signal toggled
-    signal destruction(int ID, var qItem)
-
-    signal mouseEvent(int type, int iID, int iType, var qItem, int mouseMods)
-
-    Component.onDestruction:
-    {
-        if (cRef)
-            funcDelegate.destruction(cRef.id, funcDelegate)
+        itemIcon = virtualConsole.widgetIcon(cRef.type)
+        console.log("Item icon: " + itemIcon)
     }
 
     Rectangle
@@ -63,16 +53,16 @@ Rectangle
         anchors.fill: parent
         radius: 3
         color: UISettings.highlight
-        visible: isSelected || fdDropArea.containsDrag
+        visible: isSelected
     }
 
     IconTextEntry
     {
-        id: funcEntry
+        id: wEntry
         width: parent.width
         height: parent.height
-        tLabel: cRef ? cRef.name : textLabel
-        functionType: cRef ? cRef.type : -1
+        tLabel: cRef ? cRef.caption : textLabel
+        iSrc: itemIcon
     }
     Rectangle
     {
@@ -91,23 +81,13 @@ Rectangle
         onDragActiveChanged:
         {
             //console.log("Drag changed on function: " + cRef.id)
-            funcDelegate.mouseEvent(dragActive ? App.DragStarted : App.DragFinished, cRef.id, cRef.type, funcDelegate, 0)
+            delegateRoot.mouseEvent(dragActive ? App.DragStarted : App.DragFinished, cRef.id, cRef.type, delegateRoot, 0)
         }
 
         drag.target: dragItem
 
-        onPressed: funcDelegate.mouseEvent(App.Pressed, cRef.id, cRef.type, funcDelegate, mouse.modifiers)
-        onClicked: funcDelegate.mouseEvent(App.Clicked, cRef.id, cRef.type, funcDelegate, mouse.modifiers)
-        onDoubleClicked: funcDelegate.mouseEvent(App.DoubleClicked, cRef.id, cRef.type, funcDelegate, mouse.modifiers)
-    }
-
-    DropArea
-    {
-        id: fdDropArea
-        anchors.fill: parent
-        keys: [ "none" ]
-
-        onDropped: drag.source.itemDropped(cRef.id, cRef.name)
+        onPressed: delegateRoot.mouseEvent(App.Pressed, cRef.id, cRef.type, delegateRoot, mouse.modifiers)
+        onClicked: delegateRoot.mouseEvent(App.Clicked, cRef.id, cRef.type, delegateRoot, mouse.modifiers)
+        onDoubleClicked: delegateRoot.mouseEvent(App.DoubleClicked, cRef.id, cRef.type, delegateRoot, mouse.modifiers)
     }
 }
-
