@@ -15,6 +15,7 @@
     <file alias="CustomCheckBox.qml">qml/CustomCheckBox.qml</file>
     <file alias="CustomComboBox.qml">qml/CustomComboBox.qml</file>
     <file alias="CustomScrollBar.qml">qml/CustomScrollBar.qml</file>
+    <file alias="CustomSlider.qml">qml/CustomSlider.qml</file>
     <file alias="CustomSpinBox.qml">qml/CustomSpinBox.qml</file>
     <file alias="CustomTextEdit.qml">qml/CustomTextEdit.qml</file>
     <file alias="DayTimeTool.qml">qml/DayTimeTool.qml</file>
