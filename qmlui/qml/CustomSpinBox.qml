@@ -103,8 +103,9 @@ SpinBox
         {
             anchors.centerIn: parent
             source: "qrc:/arrow-up.svg"
+            width: height * 2
             height: parent.height - 8
-            sourceSize: Qt.size(parent.width, parent.height - 8)
+            sourceSize: Qt.size(width, height)
         }
     }
 
@@ -122,8 +123,9 @@ SpinBox
             anchors.centerIn: parent
             source: "qrc:/arrow-up.svg"
             rotation: 180
+            width: height * 2
             height: parent.height - 8
-            sourceSize: Qt.size(parent.width, parent.height - 8)
+            sourceSize: Qt.size(width, height)
         }
     }
 }
