@@ -39,6 +39,7 @@ HEADERS += \
     fixtureutils.h \
     functioneditor.h \
     functionmanager.h \
+    importmanager.h \
     inputoutputmanager.h \
     listmodel.h \
     mainview2d.h \
@@ -68,6 +69,7 @@ SOURCES += main.cpp \
     fixtureutils.cpp \
     functioneditor.cpp \
     functionmanager.cpp \
+    importmanager.cpp \
     inputoutputmanager.cpp \
     listmodel.cpp \
     mainview2d.cpp \

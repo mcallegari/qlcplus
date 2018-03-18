@@ -387,7 +387,8 @@ bool FixtureManager::compareFixtures(Fixture *left, Fixture *right)
 }
 
 void FixtureManager::addFixtureGroupTreeNode(Doc *doc, TreeModel *treeModel, FixtureGroup *group,
-                                             QString searchFilter, QList<SceneValue> checkedChannels)
+                                             QString searchFilter, bool showChannels,
+                                             QList<SceneValue> checkedChannels)
 {
     int matchFound = 0;
     bool expandAll = searchFilter.length() >= SEARCH_MIN_CHARS;
@@ -411,31 +412,35 @@ void FixtureManager::addFixtureGroupTreeNode(Doc *doc, TreeModel *treeModel, Fix
         if (searchFilter.length() < SEARCH_MIN_CHARS || fixture->name().toLower().contains(searchFilter))
             matchFound |= FixtureMatch;
 
-        int chIdx = 0;
+
         QString chPath = QString("%1%2%3").arg(group->name()).arg(TreeModel::separator()).arg(fixture->name());
 
-        for (QLCChannel *channel : mode->channels()) // C++11
+        if (showChannels)
         {
-            if ((matchFound & GroupMatch) || (matchFound & FixtureMatch) ||
-                searchFilter.length() < SEARCH_MIN_CHARS ||
-                channel->name().toLower().contains(searchFilter))
+            int chIdx = 0;
+            for (QLCChannel *channel : mode->channels()) // C++11
             {
-                QVariantList chParams;
-                int flags = expandAll ? TreeModel::Expanded : 0;
+                if ((matchFound & GroupMatch) || (matchFound & FixtureMatch) ||
+                    searchFilter.length() < SEARCH_MIN_CHARS ||
+                    channel->name().toLower().contains(searchFilter))
+                {
+                    QVariantList chParams;
+                    int flags = expandAll ? TreeModel::Expanded : 0;
 
-                if (checkedChannels.contains(SceneValue(fixture->id(), chIdx)))
-                    flags |= TreeModel::Checked;
+                    if (checkedChannels.contains(SceneValue(fixture->id(), chIdx)))
+                        flags |= TreeModel::Checked;
 
-                chParams.append(QVariant::fromValue(NULL)); // classRef
-                chParams.append(App::ChannelDragItem); // type
-                chParams.append(fixture->id()); // id
-                chParams.append(group->id()); // subid
-                chParams.append(chIdx); // chIdx
+                    chParams.append(QVariant::fromValue(NULL)); // classRef
+                    chParams.append(App::ChannelDragItem); // type
+                    chParams.append(fixture->id()); // id
+                    chParams.append(group->id()); // subid
+                    chParams.append(chIdx); // chIdx
 
-                treeModel->addItem(channel->name(), chParams, chPath, flags);
-                matchFound |= ChannelMatch;
+                    treeModel->addItem(channel->name(), chParams, chPath, flags);
+                    matchFound |= ChannelMatch;
+                }
+                chIdx++;
             }
-            chIdx++;
         }
 
         if (matchFound)
@@ -466,8 +471,8 @@ void FixtureManager::addFixtureGroupTreeNode(Doc *doc, TreeModel *treeModel, Fix
     }
 }
 
-void FixtureManager::updateGroupsTree(Doc *doc, TreeModel *treeModel,
-                                       QString searchFilter, QList<SceneValue> checkedChannels)
+void FixtureManager::updateGroupsTree(Doc *doc, TreeModel *treeModel, QString searchFilter,
+                                      bool showChannels, QList<SceneValue> checkedChannels)
 {
     if (doc == NULL || treeModel == NULL)
         return;
@@ -480,7 +485,7 @@ void FixtureManager::updateGroupsTree(Doc *doc, TreeModel *treeModel,
 
     // add Fixture Groups first
     for (FixtureGroup *grp : doc->fixtureGroups()) // C++11
-        addFixtureGroupTreeNode(doc, treeModel, grp, searchFilter, checkedChannels);
+        addFixtureGroupTreeNode(doc, treeModel, grp, searchFilter, showChannels, checkedChannels);
 
     QList<Fixture*> origList = doc->fixtures();
     // sort the fixture list by address and not by ID
@@ -501,26 +506,29 @@ void FixtureManager::updateGroupsTree(Doc *doc, TreeModel *treeModel,
         if (mode == NULL)
             continue;
 
-        int chIdx = 0;
-        for (QLCChannel *channel : mode->channels()) // C++11
+        if (showChannels)
         {
-            if ((matchFound & FixtureMatch) || searchFilter.length() < SEARCH_MIN_CHARS ||
-                channel->name().toLower().contains(searchFilter))
+            int chIdx = 0;
+            for (QLCChannel *channel : mode->channels()) // C++11
             {
-                int flags = expandAll ? TreeModel::Expanded : 0;
-                if (checkedChannels.contains(SceneValue(fixture->id(), chIdx)))
-                    flags |= TreeModel::Checked;
+                if ((matchFound & FixtureMatch) || searchFilter.length() < SEARCH_MIN_CHARS ||
+                    channel->name().toLower().contains(searchFilter))
+                {
+                    int flags = expandAll ? TreeModel::Expanded : 0;
+                    if (checkedChannels.contains(SceneValue(fixture->id(), chIdx)))
+                        flags |= TreeModel::Checked;
 
-                QVariantList chParams;
-                chParams.append(QVariant::fromValue(NULL)); // classRef
-                chParams.append(App::ChannelDragItem); // type
-                chParams.append(fixture->id()); // id
-                chParams.append(fixture->universe()); // subid
-                chParams.append(chIdx); // chIdx
-                treeModel->addItem(channel->name(), chParams, chPath, flags);
-                matchFound |= ChannelMatch;
+                    QVariantList chParams;
+                    chParams.append(QVariant::fromValue(NULL)); // classRef
+                    chParams.append(App::ChannelDragItem); // type
+                    chParams.append(fixture->id()); // id
+                    chParams.append(fixture->universe()); // subid
+                    chParams.append(chIdx); // chIdx
+                    treeModel->addItem(channel->name(), chParams, chPath, flags);
+                    matchFound |= ChannelMatch;
+                }
+                chIdx++;
             }
-            chIdx++;
         }
 
         if (matchFound)
@@ -533,7 +541,10 @@ void FixtureManager::updateGroupsTree(Doc *doc, TreeModel *treeModel,
             fxParams.append(fixture->universe()); // subid
             fxParams.append(0); // chIdx
 
-            treeModel->setPathData(chPath, fxParams);
+            if (showChannels)
+                treeModel->setPathData(chPath, fxParams);
+            else
+                treeModel->addItem(fixture->name(), fxParams, uniNames.at(fixture->universe()), expandAll ? TreeModel::Expanded : 0);
         }
     }
 
@@ -610,8 +621,6 @@ void FixtureManager::addFixturesToNewGroup(QList<quint32> fxList)
                                       Tardis::instance()->actionToByteArray(FixtureGroupCreate, group->id()));
 
     addFixtureGroupTreeNode(m_doc, m_fixtureTree, group, m_searchFilter);
-    //updateGroupsTree(m_doc, m_fixtureTree, m_searchFilter);
-    //emit groupsTreeModelChanged();
 }
 
 bool FixtureManager::deleteFixtureGroups(QVariantList IDList)

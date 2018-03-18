@@ -37,6 +37,7 @@ class FunctionManager;
 class QXmlStreamReader;
 class FixtureGroupEditor;
 class InputOutputManager;
+class ImportManager;
 class NetworkManager;
 class VideoProvider;
 class Tardis;
@@ -231,6 +232,9 @@ public:
     /** Save the current workspace with the given $fileName */
     Q_INVOKABLE bool saveWorkspace(const QString& fileName);
 
+    /** Start the import process for the workspace with the given $fileName */
+    Q_INVOKABLE bool importWorkspace(const QString& fileName);
+
     /**
      * Load workspace contents from a XML file with the given name.
      *
@@ -274,5 +278,6 @@ private:
     QString m_fileName;
     QStringList m_recentFiles;
     QString m_workingPath;
+    ImportManager *m_importManager;
 };
 #endif // APP_H

@@ -24,7 +24,7 @@ import "."
 
 Slider
 {
-    id: siSlider
+    id: control
     orientation: Qt.Horizontal
     from: 0
     to: 100
@@ -32,28 +32,29 @@ Slider
     background:
         Rectangle
         {
-            x: siSlider.leftPadding
-            y: siSlider.topPadding + siSlider.availableHeight / 2 - height / 2
+            x: control.leftPadding
+            y: control.topPadding + control.availableHeight / 2 - height / 2
             implicitWidth: 200
             implicitHeight: UISettings.listItemHeight * 0.15
-            width: siSlider.availableWidth
+            width: control.availableWidth
             height: implicitHeight
             radius: height / 2
             color: UISettings.bgLight
 
             Rectangle
             {
-                width: siSlider.visualPosition * parent.width
+                width: control.visualPosition * parent.width
                 height: parent.height
                 color: UISettings.highlight
                 radius: height / 2
             }
         }
+
     handle:
         Rectangle
         {
-            x: siSlider.leftPadding + siSlider.visualPosition * (siSlider.availableWidth - width)
-            y: siSlider.topPadding + siSlider.availableHeight / 2 - height / 2
+            x: control.leftPadding + control.visualPosition * (control.availableWidth - width)
+            y: control.topPadding + control.availableHeight / 2 - height / 2
             implicitWidth: UISettings.listItemHeight * 0.8
             implicitHeight: UISettings.listItemHeight * 0.8
             radius: implicitWidth / 5

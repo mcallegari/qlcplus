@@ -36,6 +36,7 @@
 #include "showmanager.h"
 #include "modelselector.h"
 #include "videoprovider.h"
+#include "importmanager.h"
 #include "contextmanager.h"
 #include "virtualconsole.h"
 #include "fixturebrowser.h"
@@ -559,6 +560,12 @@ bool App::saveWorkspace(const QString &fileName)
     }
 
     return false;
+}
+
+bool App::importWorkspace(const QString &fileName)
+{
+    m_importManager = new ImportManager(this, m_doc);
+    return m_importManager->loadWorkspace(fileName);
 }
 
 QFileDevice::FileError App::loadXML(const QString &fileName)

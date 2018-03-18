@@ -35,6 +35,8 @@ Column
 
     property bool isExpanded: false
     property bool isSelected: false
+    property bool isCheckable: false
+    property bool isChecked: false
 
     property string nodePath
     property var nodeChildren
@@ -59,6 +61,7 @@ Column
 
     Rectangle
     {
+        id: nodeBgRect
         color: nodeIconImg.visible ? "transparent" : UISettings.sectionHeader
         width: nodeContainer.width
         height: UISettings.listItemHeight
@@ -72,75 +75,86 @@ Column
             visible: isSelected || tnDropArea.containsDrag
         }
 
-        Image
+        Row
         {
-            id: nodeIconImg
-            visible: itemIcon == "" ? false : true
-            width: visible ? parent.height : 0
-            height: width
-            source: itemIcon
-            sourceSize: Qt.size(width, height)
-        }
-
-        TextInput
-        {
-            property string originalText
-
-            id: nodeLabel
-            x: nodeIconImg.width + 2
-            z: 0
-            width: parent.width - nodeIconImg.width - 1
-            height: UISettings.listItemHeight
-            readOnly: true
-            text: textLabel
-            verticalAlignment: TextInput.AlignVCenter
-            color: UISettings.fgMain
-            font.family: UISettings.robotoFontName
-            font.pixelSize: UISettings.textSizeDefault
-            echoMode: TextInput.Normal
-            selectByMouse: true
-            selectionColor: "#4DB8FF"
-            selectedTextColor: "#111"
-
-            function disableEditing()
+            CustomCheckBox
             {
-                z = 0
-                select(0, 0)
-                readOnly = true
-                cursorVisible = false
+                visible: isCheckable
+                implicitWidth: UISettings.listItemHeight
+                implicitHeight: implicitWidth
+                checked: isChecked
+                onCheckedChanged: nodeContainer.mouseEvent(App.Checked, -1, -1, nodeContainer, 0)
             }
 
-            Keys.onPressed:
+            Image
             {
-                switch(event.key)
+                id: nodeIconImg
+                visible: itemIcon == "" ? false : true
+                width: nodeBgRect.height
+                height: width
+                source: itemIcon
+                sourceSize: Qt.size(width, height)
+            }
+
+            TextInput
+            {
+                property string originalText
+
+                id: nodeLabel
+                z: 0
+                width: nodeBgRect.width - x - 1
+                height: UISettings.listItemHeight
+                readOnly: true
+                text: textLabel
+                verticalAlignment: TextInput.AlignVCenter
+                color: UISettings.fgMain
+                font.family: UISettings.robotoFontName
+                font.pixelSize: UISettings.textSizeDefault
+                echoMode: TextInput.Normal
+                selectByMouse: true
+                selectionColor: "#4DB8FF"
+                selectedTextColor: "#111"
+
+                function disableEditing()
                 {
-                    case Qt.Key_F2:
-                        originalText = textLabel
-                        z = 5
-                        readOnly = false
-                        cursorPosition = text.length
-                        cursorVisible = true
-                    break;
-                    case Qt.Key_Escape:
-                        disableEditing()
-                        nodeLabel.text = originalText
-                    break;
-                    default:
-                        event.accepted = false
-                        return
+                    z = 0
+                    select(0, 0)
+                    readOnly = true
+                    cursorVisible = false
                 }
 
-                event.accepted = true
-            }
+                Keys.onPressed:
+                {
+                    switch(event.key)
+                    {
+                        case Qt.Key_F2:
+                            originalText = textLabel
+                            z = 5
+                            readOnly = false
+                            cursorPosition = text.length
+                            cursorVisible = true
+                        break;
+                        case Qt.Key_Escape:
+                            disableEditing()
+                            nodeLabel.text = originalText
+                        break;
+                        default:
+                            event.accepted = false
+                            return
+                    }
 
-            onEditingFinished:
-            {
-                if (readOnly)
-                    return
-                disableEditing()
-                nodeContainer.pathChanged(nodePath, text)
+                    event.accepted = true
+                }
+
+                onEditingFinished:
+                {
+                    if (readOnly)
+                        return
+                    disableEditing()
+                    nodeContainer.pathChanged(nodePath, text)
+                }
             }
-        }
+        } // Row
 
         MouseArea
         {
@@ -197,7 +211,9 @@ Column
                     onLoaded:
                     {
                         item.textLabel = label
-                        item.isSelected = Qt.binding(function() { return isSelected })
+                        item.isSelected = Qt.binding(function() { return model.isSelected })
+                        item.isCheckable = model.isCheckable
+                        item.isChecked = Qt.binding(function() { return model.isChecked })
                         item.dragItem = dragItem
                         if (hasOwnProperty("type") && item.hasOwnProperty("itemType"))
                             item.itemType = type
