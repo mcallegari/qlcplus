@@ -40,11 +40,6 @@ Rectangle
 
     signal mouseEvent(int type, int iID, int iType, var qItem, int mouseMods)
 
-    onCRefChanged:
-    {
-        console.log("Fixture name: " + cRef.name)
-    }
-
     Rectangle
     {
         anchors.fill: parent

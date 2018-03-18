@@ -276,6 +276,7 @@ Rectangle
                         height: UISettings.iconSizeMedium
                         width: height
                         checked: true
+                        autoExclusive: true
                     }
                     RobotoText  { label: qsTr("Normal") }
                     CustomCheckBox
@@ -283,6 +284,7 @@ Rectangle
                         id: soloFrameCheck
                         height: UISettings.iconSizeMedium
                         width: height
+                        autoExclusive: true
                     }
                     RobotoText  { label: qsTr("Solo") }
                 }

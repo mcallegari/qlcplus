@@ -96,7 +96,6 @@ CustomPopupDialog
                 implicitHeight: UISettings.listItemHeight
                 implicitWidth: height
                 Layout.columnSpan: 2
-                autoExclusive: false
             }
 
             // Row 4

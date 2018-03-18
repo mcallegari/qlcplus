@@ -158,6 +158,12 @@ CustomPopupDialog
                                                 model.isExpanded = item.isExpanded
                                         }
                                     break;
+                                    case App.Checked:
+                                        if (qItem == item)
+                                        {
+                                            model.isChecked = iType
+                                        }
+                                    break;
                                 }
                             }
                         }
@@ -222,6 +228,12 @@ CustomPopupDialog
                                                 model.isSelected = (mouseMods & Qt.ControlModifier) ? 2 : 1
                                                 if (model.hasChildren)
                                                     model.isExpanded = item.isExpanded
+                                            }
+                                        break;
+                                        case App.Checked:
+                                            if (qItem == item)
+                                            {
+                                                model.isChecked = iType
                                             }
                                         break;
                                     }

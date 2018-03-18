@@ -184,7 +184,6 @@ Rectangle
                       id: startupIntCheck
                       implicitWidth: UISettings.iconSizeMedium
                       implicitHeight: implicitWidth
-                      autoExclusive: false
                       checked: widgetRef ? widgetRef.startupIntensityEnabled : false
                       onClicked: if (widgetRef) widgetRef.startupIntensityEnabled = checked
                   }

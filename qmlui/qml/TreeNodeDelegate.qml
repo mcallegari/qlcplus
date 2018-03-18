@@ -83,7 +83,7 @@ Column
                 implicitWidth: UISettings.listItemHeight
                 implicitHeight: implicitWidth
                 checked: isChecked
-                onCheckedChanged: nodeContainer.mouseEvent(App.Checked, -1, -1, nodeContainer, 0)
+                onCheckedChanged: nodeContainer.mouseEvent(App.Checked, -1, checked, nodeContainer, 0)
             }
 
             Image
@@ -251,6 +251,12 @@ Column
                                         model.isSelected = (mouseMods & Qt.ControlModifier) ? 2 : 1
                                         if (model.hasChildren)
                                             model.isExpanded = item.isExpanded
+                                    }
+                                break;
+                                case App.Checked:
+                                    if (qItem == item)
+                                    {
+                                        model.isChecked = iType
                                     }
                                 break;
                                 case App.DragStarted:

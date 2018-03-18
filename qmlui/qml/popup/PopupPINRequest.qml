@@ -72,7 +72,6 @@ CustomPopupDialog
                 CustomCheckBox
                 {
                     id: validateCheck
-                    autoExclusive: false
                 }
 
                 RobotoText
