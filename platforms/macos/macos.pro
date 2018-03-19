@@ -316,7 +316,8 @@ qmlui: {
     qmldeps.files += $$(QTDIR)/qml/QtQml \
                      $$(QTDIR)/qml/QtQuick \
                      $$(QTDIR)/qml/QtQuick.2 \
-                     $$(QTDIR)/qml/Qt3D
+                     $$(QTDIR)/qml/Qt3D \
+                     $$(QTDIR)/qml/QtMultimedia
 
     INSTALLS += qmldeps
 

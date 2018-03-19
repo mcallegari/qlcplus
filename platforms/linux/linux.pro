@@ -116,7 +116,8 @@ appimage: {
     qmldeps.files += $$QT_QML_PATH/QtQml \
                      $$QT_QML_PATH/QtQuick \
                      $$QT_QML_PATH/QtQuick.2 \
-                     $$QT_QML_PATH/Qt3D
+                     $$QT_QML_PATH/Qt3D \
+                     $$QT_QML_PATH/QtMultimedia
 
     INSTALLS += qmldeps
 }
