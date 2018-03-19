@@ -42,6 +42,8 @@ public:
 
     bool loadWorkspace(const QString &fileName);
 
+    void apply();
+
     QVariant groupsTreeModel();
     QVariant functionsTreeModel();
 
@@ -61,9 +63,22 @@ private:
      */
     bool loadXML(QXmlStreamReader &doc);
 
+    /** Update a tree suitable to be displayed by the UI */
     void updateFunctionsTree();
 
+    /** Method called recursively to check/uncheck tree sub-items */
+    void setChildrenChecked(TreeModel *tree, bool checked);
+
+    void getAvailableFixtureAddress(int channels, int &universe, int &address);
+
+    /** Perform the actual import of Fixtures */
+    void importFixtures();
+
+    /** Perform the actual import of Functions */
+    void importFunctions();
+
 protected slots:
+    void slotFixtureTreeDataChanged(TreeModelItem *item, int role, const QVariant &value);
     void slotFunctionTreeDataChanged(TreeModelItem *item, int role, const QVariant &value);
 
 signals:
@@ -89,9 +104,18 @@ private:
     TreeModel *m_fixtureTree;
     /** A string to filter the displayed fixture tree items */
     QString m_fixtureSearchFilter;
+    /** The list of selected Fixture IDs */
+    QList<quint32> m_fixtureIDList;
+    /** A map of the Fixture IDs that need to be remapped */
+    QMap<quint32, quint32> m_fixtureIDRemap;
+
     /** Data model used by the QML UI to represent groups/fixtures/channels */
     TreeModel *m_functionTree;
     /** A string to filter the displayed fixture tree items */
     QString m_functionSearchFilter;
+    /** The list of selected Function IDs */
+    QList<quint32> m_functionIDList;
+    /** A map of the Function IDs that need to be remapped */
+    QMap<quint32, quint32> m_functionIDRemap;
 };
 #endif /* IMPORTMANAGER_H */

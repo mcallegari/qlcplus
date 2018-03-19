@@ -73,6 +73,9 @@ public:
     /** Enable/disable checkable flag of tree items */
     void setCheckable(bool enable);
 
+    /** Given an item $item, deselect all the other items in the tree */
+    void setSingleSelection(TreeModelItem *item);
+
     /** Add a new item to this tree.
      *  Note that by 'item' here we mean 'leaf' with name $label and path $path.
      *  If $path is composed (e.g. a/b/c/d) all the top nodes will be created, by
@@ -82,12 +85,29 @@ public:
      *  $flags are used to give an item a specific initial state. See TreeFlags */
     TreeModelItem *addItem(QString label, QVariantList data, QString path = QString(), int flags = 0);
 
+    /**
+     * Set the value of an item role by item path. This is recursive.
+     *
+     * @param path the absolute path of an item within a tree/subtree
+     * @param value the value to set
+     * @param role the model data role for which value is provided
+     */
     void setItemRoleData(QString path, const QVariant &value, int role = Qt::EditRole);
+
+    /**
+     * Set the value of an item role by item reference. This is not recursive.
+     *
+     * @param item reference to the item to set
+     * @param value the value to set
+     * @param role the model data role for which value is provided
+     */
+    void setItemRoleData(TreeModelItem *item, const QVariant &value, int role = Qt::EditRole);
+
+    /** Get the list of first level items of this tree. This doesn't include children. */
+    QList<TreeModelItem *> items();
 
     /** Set columns data on a specific item with the provided $path */
     void setPathData(QString path, QVariantList data);
-
-    void setSingleSelection(TreeModelItem *item);
 
     /** @reimp */
     Q_INVOKABLE int rowCount(const QModelIndex & parent = QModelIndex()) const;

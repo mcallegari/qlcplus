@@ -71,6 +71,7 @@ App::App()
     , m_doc(NULL)
     , m_docLoaded(false)
     , m_fileName(QString())
+    , m_importManager(NULL)
 {
     QSettings settings;
 
@@ -562,10 +563,32 @@ bool App::saveWorkspace(const QString &fileName)
     return false;
 }
 
-bool App::importWorkspace(const QString &fileName)
+bool App::loadImportWorkspace(const QString &fileName)
 {
+    if (m_importManager != NULL)
+        delete m_importManager;
+
     m_importManager = new ImportManager(this, m_doc);
     return m_importManager->loadWorkspace(fileName);
+}
+
+void App::cancelImport()
+{
+    if (m_importManager != NULL)
+        delete m_importManager;
+
+    m_importManager = NULL;
+}
+
+void App::importFromWorkspace()
+{
+    if (m_importManager == NULL)
+        return;
+
+    m_importManager->apply();
+
+    delete m_importManager;
+    m_importManager = NULL;
 }
 
 QFileDevice::FileError App::loadXML(const QString &fileName)

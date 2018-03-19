@@ -74,6 +74,31 @@ void TreeModel::setCheckable(bool enable)
     m_checkable = enable;
 }
 
+void TreeModel::setSingleSelection(TreeModelItem *item)
+{
+    //bool parentSignalSent = false;
+    //qDebug() << "Set single selection" << this;
+    for (int i = 0; i < m_items.count(); i++)
+    {
+        TreeModelItem *target = m_items.at(i);
+
+        if (target != item && target->flags() & Selected)
+        {
+            QModelIndex index = createIndex(i, 0, &i);
+            target->setFlag(Selected, false);
+            emit dataChanged(index, index, QVector<int>(1, IsSelectedRole));
+        }
+
+        if (target->hasChildren())
+        {
+            // if this slot has been called from self or a parent node,
+            // then walk down the children path
+            if (sender() != target->children())
+                target->children()->setSingleSelection(item);
+        }
+    }
+}
+
 TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path, int flags)
 {
     //qDebug() << "Adding item" << label << path;
@@ -180,6 +205,24 @@ void TreeModel::setItemRoleData(QString path, const QVariant &value, int role)
         QString subPath = path.mid(path.indexOf(TreeModel::separator()) + 1);
         item->children()->setItemRoleData(subPath, value, role);
     }
+}
+
+void TreeModel::setItemRoleData(TreeModelItem *item, const QVariant &value, int role)
+{
+    if (item == NULL)
+        return;
+
+    int index = m_items.indexOf(item);
+    if (index == -1)
+        return;
+
+    QModelIndex mIndex = createIndex(index, 0, &index);
+    setData(mIndex, value, role);
+}
+
+QList<TreeModelItem *> TreeModel::items()
+{
+    return m_items;
 }
 
 void TreeModel::setPathData(QString path, QVariantList data)
@@ -317,31 +360,6 @@ void TreeModel::slotRoleChanged(TreeModelItem *item, int role, const QVariant &v
 
     if (sender() != this)
         emit roleChanged(item, role, value);
-}
-
-void TreeModel::setSingleSelection(TreeModelItem *item)
-{
-    //bool parentSignalSent = false;
-    //qDebug() << "Set single selection" << this;
-    for (int i = 0; i < m_items.count(); i++)
-    {
-        TreeModelItem *target = m_items.at(i);
-
-        if (target != item && target->flags() & Selected)
-        {
-            QModelIndex index = createIndex(i, 0, &i);
-            target->setFlag(Selected, false);
-            emit dataChanged(index, index, QVector<int>(1, IsSelectedRole));
-        }
-
-        if (target->hasChildren())
-        {
-            // if this slot has been called from self or a parent node,
-            // then walk down the children path
-            if (sender() != target->children())
-                target->children()->setSingleSelection(item);
-        }
-    }
 }
 
 void TreeModel::printTree(int tab)

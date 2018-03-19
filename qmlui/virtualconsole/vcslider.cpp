@@ -522,32 +522,32 @@ void VCSlider::slotTreeDataChanged(TreeModelItem *item, int role, const QVariant
     qDebug() << "Slider tree data changed" << value.toInt();
     qDebug() << "Item data:" << item->data();
 
-    if (role == TreeModel::IsCheckedRole)
+    if (role != TreeModel::IsCheckedRole)
+        return;
+
+    QVariantList itemData = item->data();
+    // itemData must be "classRef" << "type" << "id" << "subid" << "chIdx";
+    if (itemData.count() != 5)
+        return;
+
+    //QString type = itemData.at(1).toString();
+    quint32 fixtureID = itemData.at(2).toUInt();
+    quint32 chIndex = itemData.at(4).toUInt();
+
+    if (value.toInt() == 0)
     {
-        QVariantList itemData = item->data();
-        // itemData must be "classRef" << "type" << "id" << "subid" << "chIdx";
-        if (itemData.count() != 5)
-            return;
+        removeLevelChannel(fixtureID, chIndex);
+    }
+    else
+    {
+        addLevelChannel(fixtureID, chIndex);
+        qSort(m_levelChannels.begin(), m_levelChannels.end());
+    }
 
-        //QString type = itemData.at(1).toString();
-        quint32 fixtureID = itemData.at(2).toUInt();
-        quint32 chIndex = itemData.at(4).toUInt();
-
-        if (value.toInt() == 0)
-        {
-            removeLevelChannel(fixtureID, chIndex);
-        }
-        else
-        {
-            addLevelChannel(fixtureID, chIndex);
-            qSort(m_levelChannels.begin(), m_levelChannels.end());
-        }
-
-        if (clickAndGoType() == CnGPreset)
-        {
-            updateClickAndGoResource();
-            emit clickAndGoPresetsListChanged();
-        }
+    if (clickAndGoType() == CnGPreset)
+    {
+        updateClickAndGoResource();
+        emit clickAndGoPresetsListChanged();
     }
 }
 

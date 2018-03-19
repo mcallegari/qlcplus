@@ -233,7 +233,13 @@ public:
     Q_INVOKABLE bool saveWorkspace(const QString& fileName);
 
     /** Start the import process for the workspace with the given $fileName */
-    Q_INVOKABLE bool importWorkspace(const QString& fileName);
+    Q_INVOKABLE bool loadImportWorkspace(const QString& fileName);
+
+    /** Cancel an ongoing import process started with loadImportWorkspace */
+    Q_INVOKABLE void cancelImport();
+
+    /** Perform the actual import of the selected items */
+    Q_INVOKABLE void importFromWorkspace();
 
     /**
      * Load workspace contents from a XML file with the given name.

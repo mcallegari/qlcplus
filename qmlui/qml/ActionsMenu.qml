@@ -63,7 +63,7 @@ Popup
 
         onAccepted:
         {
-            if (qlcplus.importWorkspace(fileUrl) === true)
+            if (qlcplus.loadImportWorkspace(fileUrl) === true)
                 importLoader.source = "qrc:/PopupImportProject.qml"
         }
         onRejected:
@@ -257,6 +257,12 @@ Popup
             {
                 id: importLoader
                 onLoaded: item.open()
+
+                Connections
+                {
+                    target: importLoader.item
+                    onClose: importLoader.source = ""
+                }
             }
         }
 

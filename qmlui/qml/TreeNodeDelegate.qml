@@ -153,31 +153,31 @@ Column
                     disableEditing()
                     nodeContainer.pathChanged(nodePath, text)
                 }
+
+                MouseArea
+                {
+                    anchors.fill: parent
+
+                    property bool dragActive: drag.active
+
+                    onDragActiveChanged:
+                    {
+                        console.log("Drag changed on node: " + textLabel)
+                        nodeContainer.mouseEvent(dragActive ? App.DragStarted : App.DragFinished, -1, -1, nodeContainer, 0)
+                    }
+
+                    drag.target: dragItem
+
+                    onPressed: nodeContainer.mouseEvent(App.Pressed, -1, -1, nodeContainer, mouse.modifiers)
+                    onClicked:
+                    {
+                        nodeLabel.forceActiveFocus()
+                        nodeContainer.mouseEvent(App.Clicked, -1, -1, nodeContainer, mouse.modifiers)
+                    }
+                    onDoubleClicked: isExpanded = !isExpanded
+                }
             }
         } // Row
-
-        MouseArea
-        {
-            anchors.fill: parent
-
-            property bool dragActive: drag.active
-
-            onDragActiveChanged:
-            {
-                console.log("Drag changed on node: " + textLabel)
-                nodeContainer.mouseEvent(dragActive ? App.DragStarted : App.DragFinished, -1, -1, nodeContainer, 0)
-            }
-
-            drag.target: dragItem
-
-            onPressed: nodeContainer.mouseEvent(App.Pressed, -1, -1, nodeContainer, mouse.modifiers)
-            onClicked:
-            {
-                nodeLabel.forceActiveFocus()
-                nodeContainer.mouseEvent(App.Clicked, -1, -1, nodeContainer, mouse.modifiers)
-            }
-            onDoubleClicked: isExpanded = !isExpanded
-        }
 
         DropArea
         {

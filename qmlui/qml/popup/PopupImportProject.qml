@@ -31,6 +31,19 @@ CustomPopupDialog
     title: qsTr("Import from project")
     standardButtons: Dialog.Cancel | Dialog.Apply
 
+    onClicked:
+    {
+        if (role === Dialog.Cancel)
+        {
+            qlcplus.cancelImport()
+        }
+        else if (role === Dialog.Apply)
+        {
+            qlcplus.importFromWorkspace()
+            close()
+        }
+    }
+
     contentItem:
         GridLayout
         {
@@ -159,6 +172,7 @@ CustomPopupDialog
                                         }
                                     break;
                                     case App.Checked:
+                                        console.log("Item checked " + qItem + "  " + item)
                                         if (qItem == item)
                                         {
                                             model.isChecked = iType

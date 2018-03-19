@@ -100,6 +100,8 @@ Dialog
                     control.clicked(Dialog.No)
                 else if (button === standardButton(Dialog.Ok))
                     control.clicked(Dialog.Ok)
+                else if (button === standardButton(Dialog.Apply))
+                    control.clicked(Dialog.Apply)
                 else if (button === standardButton(Dialog.Cancel))
                     control.clicked(Dialog.Cancel)
             }
