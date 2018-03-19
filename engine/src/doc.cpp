@@ -220,6 +220,11 @@ QLCFixtureDefCache* Doc::fixtureDefCache() const
     return m_fixtureDefCache;
 }
 
+void Doc::setFixtureDefinitionCache(QLCFixtureDefCache *cache)
+{
+    m_fixtureDefCache = cache;
+}
+
 QLCModifiersCache* Doc::modifiersCache() const
 {
     return m_modifiersCache;
