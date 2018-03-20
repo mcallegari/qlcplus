@@ -157,8 +157,8 @@ Rectangle
                 {
                     if (picture.fullscreen)
                     {
-                        x = video.customGeometry.x
-                        y = video.customGeometry.y
+                        x = picture.customGeometry.x
+                        y = picture.customGeometry.y
                     }
                     width = picture.customGeometry.width
                     height = picture.customGeometry.height
