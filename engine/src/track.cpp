@@ -324,3 +324,17 @@ bool Track::contains(Doc* doc, quint32 functionId)
 
     return false;
 }
+
+QList<quint32> Track::components()
+{
+    QList<quint32> ids;
+
+    QListIterator<ShowFunction*> it(m_functions);
+    while (it.hasNext())
+    {
+        ShowFunction* showFunction = it.next();
+        ids.append(showFunction->functionID());
+    }
+
+    return ids;
+}

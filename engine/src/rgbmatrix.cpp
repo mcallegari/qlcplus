@@ -168,6 +168,11 @@ bool RGBMatrix::copyFrom(const Function* function)
  * Fixtures
  ****************************************************************************/
 
+quint32 RGBMatrix::fixtureGroup() const
+{
+    return m_fixtureGroupID;
+}
+
 void RGBMatrix::setFixtureGroup(quint32 id)
 {
     m_fixtureGroupID = id;
@@ -178,9 +183,12 @@ void RGBMatrix::setFixtureGroup(quint32 id)
     m_stepsCount = stepsCount();
 }
 
-quint32 RGBMatrix::fixtureGroup() const
+QList<quint32> RGBMatrix::components()
 {
-    return m_fixtureGroupID;
+    if (m_group != NULL)
+        return m_group->fixtureList();
+
+    return QList<quint32>();
 }
 
 /****************************************************************************

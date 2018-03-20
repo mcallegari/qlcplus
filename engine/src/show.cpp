@@ -356,7 +356,7 @@ void Show::postLoad()
 
 bool Show::contains(quint32 functionId)
 {
-    Doc* doc = this->doc();
+    Doc *doc = this->doc();
     Q_ASSERT(doc != NULL);
 
     if (functionId == id())
@@ -369,6 +369,16 @@ bool Show::contains(quint32 functionId)
     }
 
     return false;
+}
+
+QList<quint32> Show::components()
+{
+    QList<quint32> ids;
+
+    foreach (Track* track, m_tracks)
+        ids.append(track->components());
+
+    return ids;
 }
 
 /*****************************************************************************

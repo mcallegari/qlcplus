@@ -137,8 +137,12 @@ public:
      * Fixture Group
      ************************************************************************/
 public:
-    void setFixtureGroup(quint32 id);
+    /** Get/Set the Fixture Group associated to this RGBMatrix */
     quint32 fixtureGroup() const;
+    void setFixtureGroup(quint32 id);
+
+    /** @reimp */
+    QList<quint32> components();
 
 private:
     quint32 m_fixtureGroupID;

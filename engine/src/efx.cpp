@@ -709,6 +709,19 @@ EFXFixture *EFX::fixture(quint32 id, int headIndex)
     return NULL;
 }
 
+QList<quint32> EFX::components()
+{
+    QList<quint32> ids;
+
+    foreach (EFXFixture *ef, m_fixtures)
+    {
+        if (ids.contains(ef->head().fxi) == false)
+            ids.append(ef->head().fxi);
+    }
+
+    return ids;
+}
+
 void EFX::slotFixtureRemoved(quint32 fxi_id)
 {
     /* Remove the destroyed fixture from our list */

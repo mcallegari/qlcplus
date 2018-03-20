@@ -498,6 +498,9 @@ public:
      *  Returns NULL on failure */
     EFXFixture *fixture(quint32 id, int headIndex);
 
+    /** @reimp */
+    QList<quint32> components();
+
 public slots:
     /** Slot that captures Doc::fixtureRemoved signals */
     void slotFixtureRemoved(quint32 fxi_id);

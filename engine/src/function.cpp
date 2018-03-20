@@ -957,6 +957,11 @@ bool Function::contains(quint32 functionId)
     return false;
 }
 
+QList<quint32> Function::components()
+{
+    return QList<quint32>();
+}
+
 /*****************************************************************************
  * Flash
  *****************************************************************************/

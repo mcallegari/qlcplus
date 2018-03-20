@@ -613,6 +613,12 @@ public:
      */
     virtual bool contains(quint32 functionId);
 
+    /**
+     * Return a list of components such as Functions/Fixtures with unique IDs.
+     * Subclasses should reimplement this.
+     */
+    virtual QList<quint32> components();
+
     /*********************************************************************
      * Flash
      *********************************************************************/

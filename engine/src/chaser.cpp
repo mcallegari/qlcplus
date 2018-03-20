@@ -605,6 +605,16 @@ bool Chaser::contains(quint32 functionId)
     return false;
 }
 
+QList<quint32> Chaser::components()
+{
+    QList<quint32> ids;
+
+    foreach(ChaserStep step, m_steps)
+        ids.append(step.fid);
+
+    return ids;
+}
+
 /*****************************************************************************
  * Running
  *****************************************************************************/

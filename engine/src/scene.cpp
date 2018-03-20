@@ -186,6 +186,19 @@ QList <SceneValue> Scene::values() const
     return m_values.keys();
 }
 
+QList<quint32> Scene::components()
+{
+    QList<quint32> ids;
+
+    foreach(SceneValue scv, m_values.keys())
+    {
+        if (ids.contains(scv.fxi) == false)
+            ids.append(scv.fxi);
+    }
+
+    return ids;
+}
+
 QColor Scene::colorValue(quint32 fxi)
 {
     int rVal = 0, gVal = 0, bVal = 0;
