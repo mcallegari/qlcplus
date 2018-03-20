@@ -364,7 +364,7 @@ void TreeModel::slotRoleChanged(TreeModelItem *item, int role, const QVariant &v
 
 void TreeModel::printTree(int tab)
 {
-    foreach(TreeModelItem *item, m_items)
+    for (TreeModelItem *item : m_items)
     {
         item->printItem(tab);
         if (item->hasChildren())

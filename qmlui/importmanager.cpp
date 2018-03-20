@@ -33,6 +33,7 @@
 #include "collection.h"
 #include "qlcconfig.h"
 #include "qlcfile.h"
+#include "script.h"
 #include "scene.h"
 #include "doc.h"
 #include "app.h"
@@ -42,7 +43,9 @@ ImportManager::ImportManager(QQuickView *view, Doc *doc, QObject *parent)
     , m_view(view)
     , m_doc(doc)
     , m_fixtureTree(NULL)
+    , m_fixtureTreeUpdating(false)
     , m_functionTree(NULL)
+    , m_functionTreeUpdating(false)
 {
     m_importDoc = new Doc(this);
 
@@ -157,20 +160,6 @@ bool ImportManager::loadXML(QXmlStreamReader &doc)
     }
 
     return true;
-}
-
-void ImportManager::setChildrenChecked(TreeModel *tree, bool checked)
-{
-    if (tree == NULL)
-        return;
-
-    for (TreeModelItem *item : tree->items())
-    {
-        tree->setItemRoleData(item, checked, TreeModel::IsCheckedRole);
-
-        if (item->hasChildren())
-            setChildrenChecked(item->children(), checked);
-    }
 }
 
 void ImportManager::getAvailableFixtureAddress(int channels, int &universe, int &address)
@@ -329,71 +318,23 @@ void ImportManager::importFunctions()
     }
 }
 
-void ImportManager::slotFixtureTreeDataChanged(TreeModelItem *item, int role, const QVariant &value)
+void ImportManager::setChildrenChecked(TreeModel *tree, bool checked)
 {
-    qDebug() << "Fixture tree data changed" << value.toInt() << "data" << item->data() << "value" << value;
-
-    if (role != TreeModel::IsCheckedRole)
+    if (tree == NULL)
         return;
 
-    bool checked = value.toBool();
-
-    if (item->hasChildren())
-        setChildrenChecked(item->children(), checked);
-
-    QVariantList itemData = item->data();
-    // itemData must be "classRef" << "type" << "id" << "subid" << "chIdx";
-    if (itemData.count() != 5 || itemData.at(1).toInt() != App::FixtureDragItem)
-        return;
-
-    //QString type = itemData.at(1).toString();
-    quint32 fixtureID = itemData.at(2).toUInt();
-    if (checked)
+    for (TreeModelItem *item : tree->items())
     {
-        if (m_fixtureIDList.contains(fixtureID) == false)
-            m_fixtureIDList.append(fixtureID);
-    }
-    else
-    {
-        m_fixtureIDList.removeOne(fixtureID);
-    }
+        tree->setItemRoleData(item, checked, TreeModel::IsCheckedRole);
 
-    qDebug() << "Selected fixtures:" << m_fixtureIDList.count();
+        if (item->hasChildren())
+            setChildrenChecked(item->children(), checked);
+    }
 }
 
-void ImportManager::slotFunctionTreeDataChanged(TreeModelItem *item, int role, const QVariant &value)
-{
-    qDebug() << "Function tree data changed" << value.toInt() << "data" << item->data();
-
-    if (role != TreeModel::IsCheckedRole)
-        return;
-
-    bool checked = value.toBool();
-
-    if (item->hasChildren())
-        setChildrenChecked(item->children(), checked);
-
-    QVariantList itemData = item->data();
-    if (itemData.isEmpty())
-        return;
-
-    QVariant cRef = item->data().first();
-    if (cRef.canConvert<Function *>())
-    {
-        Function *func = cRef.value<Function *>();
-        if (checked)
-        {
-            if (m_functionIDList.contains(func->id()) == false)
-                m_functionIDList.append(func->id());
-        }
-        else
-        {
-            m_functionIDList.removeOne(func->id());
-        }
-    }
-
-    qDebug() << "Selected functions:" << m_functionIDList.count();
-}
+/*********************************************************************
+ * Fixture tree
+ *********************************************************************/
 
 QVariant ImportManager::groupsTreeModel()
 {
@@ -416,6 +357,97 @@ QVariant ImportManager::groupsTreeModel()
     return QVariant::fromValue(m_fixtureTree);
 }
 
+void ImportManager::slotFixtureTreeDataChanged(TreeModelItem *item, int role, const QVariant &value)
+{
+    if (role != TreeModel::IsCheckedRole)
+        return;
+
+    bool checked = value.toBool();
+
+    if (m_fixtureTreeUpdating)
+        return;
+
+    m_fixtureTreeUpdating = true;
+
+    qDebug() << "Fixture tree data changed" << value.toInt() << "data" << item->data() << "value" << value;
+
+    if (item->hasChildren())
+        setChildrenChecked(item->children(), checked);
+
+    QVariantList itemData = item->data();
+    // itemData must be "classRef" << "type" << "id" << "subid" << "chIdx";
+    if (itemData.count() != 5 || itemData.at(1).toInt() != App::FixtureDragItem)
+        return;
+
+    //QString type = itemData.at(1).toString();
+    quint32 fixtureID = itemData.at(2).toUInt();
+    if (checked)
+    {
+        if (m_fixtureIDList.contains(fixtureID) == false)
+            m_fixtureIDList.append(fixtureID);
+    }
+    else
+    {
+        m_fixtureIDList.removeOne(fixtureID);
+    }
+
+    m_fixtureTreeUpdating = false;
+
+    qDebug() << "Selected fixtures:" << m_fixtureIDList.count();
+}
+
+QString ImportManager::fixtureSearchFilter() const
+{
+    return m_fixtureSearchFilter;
+}
+
+void ImportManager::setFixtureSearchFilter(QString searchFilter)
+{
+    if (m_fixtureSearchFilter == searchFilter)
+        return;
+
+    int currLen = m_fixtureSearchFilter.length();
+
+    m_fixtureSearchFilter = searchFilter;
+
+    if (searchFilter.length() >= SEARCH_MIN_CHARS ||
+        (currLen >= SEARCH_MIN_CHARS && searchFilter.length() < SEARCH_MIN_CHARS))
+    {
+        FixtureManager::updateGroupsTree(m_importDoc, m_fixtureTree, m_fixtureSearchFilter, false);
+        checkFixtureTree(m_fixtureTree);
+        emit groupsTreeModelChanged();
+    }
+
+    emit fixtureSearchFilterChanged();
+}
+
+void ImportManager::checkFixtureTree(TreeModel *tree)
+{
+    if (tree == NULL)
+        return;
+
+    for (TreeModelItem *item : tree->items())
+    {
+        QVariantList itemData = item->data();
+
+        // itemData must be "classRef" << "type" << "id" << "subid" << "chIdx";
+        if (itemData.count() == 5 && itemData.at(1).toInt() == App::FixtureDragItem)
+        {
+            quint32 fixtureID = itemData.at(2).toUInt();
+
+            if (m_fixtureIDList.contains(fixtureID))
+                tree->setItemRoleData(item, true, TreeModel::IsCheckedRole);
+        }
+
+        if (item->hasChildren())
+            checkFixtureTree(item->children());
+    }
+}
+
+/*********************************************************************
+ * Function tree
+ *********************************************************************/
+
 void ImportManager::updateFunctionsTree()
 {
     m_functionTree->clear();
@@ -437,6 +469,8 @@ void ImportManager::updateFunctionsTree()
             m_functionTree->addItem(func->name(), params, fPath, expandAll ? TreeModel::Expanded : 0);
         }
     }
+
+    checkFunctionTree(m_functionTree);
 }
 
 QVariant ImportManager::functionsTreeModel()
@@ -460,28 +494,73 @@ QVariant ImportManager::functionsTreeModel()
     return QVariant::fromValue(m_functionTree);
 }
 
-QString ImportManager::fixtureSearchFilter() const
+void ImportManager::checkFunctionTree(TreeModel *tree)
 {
-    return m_fixtureSearchFilter;
-}
-
-void ImportManager::setFixtureSearchFilter(QString searchFilter)
-{
-    if (m_fixtureSearchFilter == searchFilter)
+    if (tree == NULL)
         return;
 
-    int currLen = m_fixtureSearchFilter.length();
-
-    m_fixtureSearchFilter = searchFilter;
-
-    if (searchFilter.length() >= SEARCH_MIN_CHARS ||
-        (currLen >= SEARCH_MIN_CHARS && searchFilter.length() < SEARCH_MIN_CHARS))
+    for (TreeModelItem *item : tree->items())
     {
-        FixtureManager::updateGroupsTree(m_importDoc, m_fixtureTree, m_fixtureSearchFilter, false);
-        emit groupsTreeModelChanged();
+        QVariant cRef = item->data().first();
+        if (cRef.canConvert<Function *>())
+        {
+            Function *func = cRef.value<Function *>();
+            if (func != NULL)
+            {
+                if (m_functionIDList.contains(func->id()))
+                    tree->setItemRoleData(item, true, TreeModel::IsCheckedRole);
+            }
+        }
+        if (item->hasChildren())
+            checkFunctionTree(item->children());
+    }
+}
+
+void ImportManager::slotFunctionTreeDataChanged(TreeModelItem *item, int role, const QVariant &value)
+{
+    if (role != TreeModel::IsCheckedRole)
+        return;
+
+    bool checked = value.toBool();
+
+    if (m_functionTreeUpdating)
+        return;
+
+    m_functionTreeUpdating = true;
+
+    qDebug() << "Function tree data changed" << value.toInt() << "data" << item->data();
+
+    if (item->hasChildren())
+        setChildrenChecked(item->children(), checked);
+
+    QVariantList itemData = item->data();
+    if (itemData.isEmpty())
+        return;
+
+    QVariant cRef = item->data().first();
+    if (cRef.canConvert<Function *>())
+    {
+        Function *func = cRef.value<Function *>();
+        if (checked)
+        {
+            if (m_functionIDList.contains(func->id()) == false)
+            {
+                m_functionIDList.append(func->id());
+                checkFunctionDependency(func->id());
+                qDebug() << "Fixtures count:" << m_fixtureIDList.count() << "functions count:" << m_functionIDList.count();
+                checkFunctionTree(m_functionTree);
+                checkFixtureTree(m_fixtureTree);
+            }
+        }
+        else
+        {
+            m_functionIDList.removeOne(func->id());
+        }
     }
 
-    emit fixtureSearchFilterChanged();
+    m_functionTreeUpdating = false;
+
+    qDebug() << "Selected functions:" << m_functionIDList.count();
 }
 
 QString ImportManager::functionSearchFilter() const
@@ -506,4 +585,58 @@ void ImportManager::setFunctionSearchFilter(QString searchFilter)
     }
 
     emit functionSearchFilterChanged();
+}
+
+void ImportManager::checkFunctionDependency(quint32 fid)
+{
+    Function *func = m_importDoc->function(fid);
+    if (func == NULL)
+        return;
+
+    QList<quint32> funcList;
+    QList<quint32> fxList;
+
+    switch (func->type())
+    {
+        // these are 'leaves' and will return only Fixture IDs
+        case Function::SceneType:
+        case Function::EFXType:
+        case Function::RGBMatrixType:
+            fxList = func->components();
+        break;
+
+        // these will return only Function IDs
+        case Function::ChaserType:
+        case Function::SequenceType:
+            funcList = func->components();
+        break;
+
+        // Script are a mix: they can control Fixtures AND Functions
+        case Function::ScriptType:
+        {
+            Script *script = qobject_cast<Script *>(func);
+            funcList = script->functionList();
+            fxList = script->fixtureList();
+        }
+        break;
+
+        // Audio/Video go here. No dependency
+        default:
+        break;
+    }
+
+    for (quint32 id : fxList)
+    {
+        if (m_fixtureIDList.contains(id) == false)
+            m_fixtureIDList.append(id);
+    }
+
+    for (quint32 id : funcList)
+    {
+        if (m_functionIDList.contains(id) == false)
+        {
+            m_functionIDList.append(id);
+            checkFunctionDependency(id);
+        }
+    }
 }
