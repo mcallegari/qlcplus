@@ -31,10 +31,13 @@
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
 #include "collection.h"
-#include "qlcconfig.h"
+#include "rgbmatrix.h"
+#include "sequence.h"
 #include "qlcfile.h"
+#include "chaser.h"
 #include "script.h"
 #include "scene.h"
+#include "efx.h"
 #include "doc.h"
 #include "app.h"
 
@@ -125,8 +128,17 @@ bool ImportManager::loadWorkspace(const QString &fileName)
 
 void ImportManager::apply()
 {
+    // try to preserve the Fixture order
+    qSort(m_fixtureIDList.begin(), m_fixtureIDList.end());
     importFixtures();
-    importFunctions();
+
+    /* Functions need to be imported respecting their
+     * dependency order. Otherwise ID remapping will be
+     * messed up */
+    while (!m_functionIDList.isEmpty())
+    {
+        importFunctionID(m_functionIDList.first());
+    }
 }
 
 bool ImportManager::loadXML(QXmlStreamReader &doc)
@@ -259,63 +271,149 @@ void ImportManager::importFixtures()
     }
 }
 
-void ImportManager::importFunctions()
+void ImportManager::importFunctionID(quint32 funcID)
 {
-    for (quint32 importID : m_functionIDList)
+    Function *importFunction = m_importDoc->function(funcID);
+    QList<quint32> funcList;
+
+    // 1. Get a list of Function ID upon importFunction depends on
+    switch (importFunction->type())
     {
-        Function *importFunction = m_importDoc->function(importID);
+        // these will return only Function IDs
+        case Function::ChaserType:
+        case Function::SequenceType:
+            funcList = importFunction->components();
+        break;
 
-        // 1. Create a copy of the original Function. This will always create a new ID
-        Function *docFunction = importFunction->createCopy(m_doc, true);
-        m_functionIDRemap[importID] = docFunction->id();
-
-        // 2. Check Fixture/Function remapping depending on the Function type
-        switch (docFunction->type())
+        // Script are a mix: they can control Fixtures AND Functions
+        case Function::ScriptType:
         {
-            case Function::SceneType:
-            {
-                Scene *scene = qobject_cast<Scene *>(docFunction);
-                // create a copy of the existing values
-                QList<SceneValue> sceneValues = scene->values();
-                // point of no return. Delete all values
-                scene->clear();
-                // remap values against existing/remapped fixtures
-                for (SceneValue scv : sceneValues)
-                {
-                    // add a value only if it is present in the remapping map,
-                    // otherwise it means the Fixture disappeared
-                    if (m_fixtureIDRemap.contains(scv.fxi))
-                    {
-                        scv.fxi = m_fixtureIDRemap[scv.fxi];
-                        scene->setValue(scv);
-                    }
-                }
-            }
-            break;
-            case Function::CollectionType:
-            {
-                Collection *collection = qobject_cast<Collection *>(docFunction);
-                // create a copy of the existing function IDs
-                QList<quint32> funcList = collection->functions();
-
-                // point of no return. Empty the Collection
-                for (quint32 id : funcList)
-                    collection->removeFunction(id);
-
-                // Add only the functions that have been imported,
-                // with their remapped IDs
-                for (quint32 id : funcList)
-                {
-                    if (m_functionIDRemap.contains(id))
-                        collection->addFunction(m_functionIDRemap[id]);
-                }
-            }
-            break;
-            default:
-                qDebug() << "FIXME: Unhandled Function type" << docFunction->type();
-            break;
+            Script *script = qobject_cast<Script *>(importFunction);
+            funcList = script->functionList();
         }
+        break;
+        default:
+        break;
     }
+
+    // 2. import the dependecies first, if any
+    for (quint32 depID : funcList)
+    {
+        if (m_functionIDList.contains(depID))
+            importFunctionID(depID);
+    }
+
+    // 3. Finally create a copy of the original Function. This will always create a new ID
+    Function *docFunction = importFunction->createCopy(m_doc, true);
+    m_functionIDRemap[funcID] = docFunction->id();
+
+    qDebug() << "Importing function" << docFunction->name() << "with ID" << docFunction->id();
+
+    // 4. Check Fixture/Function remapping depending on the Function type
+    switch (docFunction->type())
+    {
+        case Function::SceneType:
+        {
+            Scene *scene = qobject_cast<Scene *>(docFunction);
+            // create a copy of the existing values
+            QList<SceneValue> sceneValues = scene->values();
+            // point of no return. Delete all values
+            scene->clear();
+            // remap values against existing/remapped fixtures
+            for (SceneValue scv : sceneValues)
+            {
+                // add a value only if it is present in the remapping map,
+                // otherwise it means the Fixture disappeared
+                if (m_fixtureIDRemap.contains(scv.fxi))
+                {
+                    scv.fxi = m_fixtureIDRemap[scv.fxi];
+                    scene->setValue(scv);
+                }
+            }
+        }
+        break;
+        case Function::CollectionType:
+        {
+            Collection *collection = qobject_cast<Collection *>(docFunction);
+            // create a copy of the existing function IDs
+            QList<quint32> funcList = collection->functions();
+
+            // point of no return. Empty the Collection
+            for (quint32 id : funcList)
+                collection->removeFunction(id);
+
+            // Add only the functions that have been imported,
+            // with their remapped IDs
+            for (quint32 id : funcList)
+            {
+                if (m_functionIDRemap.contains(id))
+                    collection->addFunction(m_functionIDRemap[id]);
+            }
+        }
+        break;
+        case Function::ChaserType:
+        {
+            Chaser *chaser = qobject_cast<Chaser *>(docFunction);
+            QList<quint32> removeList;
+
+            for (int i = 0; i < chaser->stepsCount(); i++)
+            {
+                ChaserStep *step = chaser->stepAt(i);
+                if (m_functionIDRemap.contains(step->fid))
+                {
+                    step->fid = m_functionIDRemap[step->fid];
+                }
+                else
+                {
+                    /* this might mean:
+                     * - same ID (nothing to do)
+                     * - missing ID (add step index to remove list)
+                     */
+                    if (m_doc->function(step->fid) == NULL)
+                        removeList.append(i);
+                }
+            }
+
+
+            if (removeList.isEmpty() == false)
+            {
+                qSort(removeList.begin(), removeList.end());
+                for (int i = removeList.count() - 1; i >= 0; i--)
+                    chaser->removeStep(removeList.at(i));
+            }
+        }
+        break;
+        case Function::SequenceType:
+        {
+            Sequence *sequence = qobject_cast<Sequence *>(docFunction);
+            quint32 boundSceneID = sequence->boundSceneID();
+
+            if (boundSceneID != Function::invalidId() &&
+                m_functionIDRemap.contains(boundSceneID))
+                    sequence->setBoundSceneID(m_functionIDRemap[boundSceneID]);
+        }
+        break;
+        case Function::EFXType:
+        {
+            EFX *efx = qobject_cast<EFX *>(docFunction);
+            for (EFXFixture *efxFixture : efx->fixtures())
+            {
+                GroupHead head(efxFixture->head());
+
+                if (m_functionIDRemap.contains(head.fxi))
+                {
+                    head.fxi = m_functionIDRemap[head.fxi];
+                    efxFixture->setHead(head);
+                }
+            }
+        }
+        break;
+        default:
+            qDebug() << "FIXME: Unhandled Function type" << docFunction->type();
+        break;
+    }
+
+    m_functionIDList.removeOne(funcID);
 }
 
 void ImportManager::setChildrenChecked(TreeModel *tree, bool checked)

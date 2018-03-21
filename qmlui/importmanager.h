@@ -59,8 +59,9 @@ private:
     /** Perform the actual import of Fixtures */
     void importFixtures();
 
-    /** Perform the actual import of Functions */
-    void importFunctions();
+    /** Recursive method that imports a Function ID
+     *  satisfying the Function dependecies first */
+    void importFunctionID(quint32 funcID);
 
     /** Method called recursively to check/uncheck all the sub-items of a tree */
     void setChildrenChecked(TreeModel *tree, bool checked);
