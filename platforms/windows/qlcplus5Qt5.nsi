@@ -15,8 +15,8 @@
 ;--------------------------------
 ;General
 Name "Q Light Controller Plus"
-OutFile "QLC+_5.0.0_alpha1.exe"
-InstallDir C:\QLC+
+OutFile "QLC+_5.0.0_alpha2.exe"
+InstallDir C:\QLC+5
 InstallDirRegKey HKCU "Software\qlcplus" "Install_Dir"
 RequestExecutionLevel user
 
@@ -90,6 +90,7 @@ Section
 	File /r sceneparsers
 	File /r Qt
 	File /r Qt3D
+	File /r QtMultimedia
 	File /r QtQml
 	File /r QtQuick
 	File /r QtQuick.2
@@ -131,6 +132,7 @@ Section "Uninstall"
 	RMDir /r $INSTDIR\sceneparsers
 	RMDir /r $INSTDIR\Qt
 	RMDir /r $INSTDIR\Qt3D
+	RMDir /r $INSTDIR\QtMultimedia
 	RMDir /r $INSTDIR\QtQml
 	RMDir /r $INSTDIR\QtQuick
 	RMDir /r $INSTDIR\QtQuick.2
