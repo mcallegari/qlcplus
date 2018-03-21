@@ -74,6 +74,7 @@ Rectangle
             id: videoRect
             //anchors.fill: parent
             color: "black"
+            opacity: video ? video.intensity : 1.0
 
             property VideoFunction video: null
 
@@ -150,6 +151,8 @@ Rectangle
         Image
         {
             property VideoFunction picture: null
+
+            opacity: picture ? picture.intensity : 1.0
 
             onPictureChanged:
             {

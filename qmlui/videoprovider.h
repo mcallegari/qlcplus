@@ -47,7 +47,6 @@ protected slots:
     void slotRequestPlayback();
     void slotRequestPause(bool enable);
     void slotRequestStop();
-    void slotBrightnessAdjust(int value);
 
 private:
     /** Reference of the QML view */
