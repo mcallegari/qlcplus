@@ -32,8 +32,10 @@
 #define KXMLQLCVideoGeometry "Geometry"
 #define KXMLQLCVideoRotation "Rotation"
 
-const QStringList Video::m_defaultVideoCaps = QStringList() << "*.avi" << "*.wmv" << "*.mkv" << "*.mp4" << "*.mpg" << "*.mpeg" << "*.flv" << "*.webm";
-const QStringList Video::m_defaultPictureCaps = QStringList() << "*.png" << "*.bmp" << "*.jpg" << "*.jpeg" << "*.gif";
+const QStringList Video::m_defaultVideoCaps =
+        QStringList() << "*.avi" << "*.wmv" << "*.mkv" << "*.mp4" << "*.mov" << "*.mpg" << "*.mpeg" << "*.flv" << "*.webm";
+const QStringList Video::m_defaultPictureCaps =
+        QStringList() << "*.png" << "*.bmp" << "*.jpg" << "*.jpeg" << "*.gif";
 
 /*****************************************************************************
  * Initialization
@@ -53,6 +55,11 @@ Video::Video(Doc* doc)
 {
     setName(tr("New Video"));
     setRunOrder(Video::SingleShot);
+
+    registerAttribute(tr("X Rotation"), Function::LastWins, -360.0, 360.0, 0.0);
+    registerAttribute(tr("Y Rotation"), Function::LastWins, -360.0, 360.0, 0.0);
+    registerAttribute(tr("Z Rotation"), Function::LastWins, -360.0, 360.0, 0.0);
+
 
     // Listen to member Function removals
     connect(doc, SIGNAL(functionRemoved(quint32)),
@@ -277,6 +284,11 @@ void Video::setFullscreen(bool enable)
     emit changed(id());
 }
 
+qreal Video::intensity()
+{
+    return getAttributeValue(Intensity);
+}
+
 bool Video::fullscreen()
 {
     return m_fullscreen;
@@ -286,10 +298,36 @@ int Video::adjustAttribute(qreal fraction, int attributeId)
 {
     int attrIndex = Function::adjustAttribute(fraction, attributeId);
 
-    if (attrIndex == Function::Intensity)
+    switch (attrIndex)
     {
-        int b = -100 - (int)((qreal)-100.0 * getAttributeValue(Function::Intensity));
-        emit requestBrightnessAdjust(b);
+        case Intensity:
+        {
+            int b = -100 - (int)((qreal)-100.0 * getAttributeValue(Intensity));
+            emit requestBrightnessAdjust(b);
+            emit intensityChanged();
+        }
+        break;
+        case XRotation:
+        {
+            QVector3D rot = rotation();
+            rot.setX(getAttributeValue(XRotation));
+            setRotation(rot);
+        }
+        break;
+        case YRotation:
+        {
+            QVector3D rot = rotation();
+            rot.setY(getAttributeValue(YRotation));
+            setRotation(rot);
+        }
+        break;
+        case ZRotation:
+        {
+            QVector3D rot = rotation();
+            rot.setZ(getAttributeValue(ZRotation));
+            setRotation(rot);
+        }
+        break;
     }
 
     return attrIndex;

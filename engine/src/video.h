@@ -39,6 +39,7 @@ class Video : public Function
     Q_DISABLE_COPY(Video)
 
     Q_PROPERTY(QString sourceUrl READ sourceUrl WRITE setSourceUrl NOTIFY sourceChanged)
+    Q_PROPERTY(qreal intensity READ intensity NOTIFY intensityChanged)
     Q_PROPERTY(QRect customGeometry READ customGeometry WRITE setCustomGeometry NOTIFY customGeometryChanged)
     Q_PROPERTY(QVector3D rotation READ rotation WRITE setRotation NOTIFY rotationChanged)
     Q_PROPERTY(bool fullscreen READ fullscreen WRITE setFullscreen)
@@ -47,6 +48,14 @@ class Video : public Function
      * Initialization
      *********************************************************************/
 public:
+    enum VideoAttr
+    {
+        Intensity = Function::Intensity,
+        XRotation,
+        YRotation,
+        ZRotation,
+    };
+
     Video(Doc* doc);
     virtual ~Video();
 
@@ -128,11 +137,15 @@ public:
     bool fullscreen();
     void setFullscreen(bool enable);
 
+    /** Get the current Video intensity */
+    qreal intensity();
+
     /** @reimp */
     int adjustAttribute(qreal fraction, int attributeId);
 
 signals:
     void sourceChanged(QString url);
+    void intensityChanged();
     void customGeometryChanged(QRect rect);
     void rotationChanged(QVector3D rotation);
     void totalTimeChanged(qint64);
