@@ -34,6 +34,7 @@ Column
     property int tempoType: Function.Time
     property bool isRunning: false
     property alias containsDrag: cwDropArea.containsDrag
+    property alias selector: ceSelector
 
     property int editStepIndex: -1
     property int editStepType

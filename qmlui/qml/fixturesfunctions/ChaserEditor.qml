@@ -115,7 +115,15 @@ Rectangle
                     height: UISettings.iconSizeMedium - 2
                     imgSource: "qrc:/remove.svg"
                     tooltip: qsTr("Remove the selected steps")
-                    onClicked: {   }
+                    onClicked: deleteItemsPopup.open()
+
+                    CustomPopupDialog
+                    {
+                        id: deleteItemsPopup
+                        title: qsTr("Delete steps")
+                        message: qsTr("Are you sure you want to remove the selected steps ?")
+                        onAccepted: functionManager.deleteEditorItems(chWidget.selector.itemsList())
+                    }
                 }
             }
 

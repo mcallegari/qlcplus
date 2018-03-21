@@ -178,6 +178,24 @@ void ChaserEditor::setPreviewEnabled(bool enable)
     FunctionEditor::setPreviewEnabled(enable);
 }
 
+void ChaserEditor::deleteItems(QVariantList list)
+{
+    if (m_chaser == NULL)
+        return;
+
+    qSort(list.begin(), list.end());
+    qDebug() << "Chaser delete list" << list;
+
+    while (!list.isEmpty())
+    {
+        m_chaser->removeStep(list.last().toUInt());
+        list.removeLast();
+    }
+
+    updateStepsList(m_doc, m_chaser, m_stepsList);
+    emit stepsListChanged();
+}
+
 void ChaserEditor::slotStepChanged(int index)
 {
     setPlaybackIndex(index);

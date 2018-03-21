@@ -76,6 +76,9 @@ public:
     /** @reimp */
     void setPreviewEnabled(bool enable);
 
+    /** @reimp */
+    void deleteItems(QVariantList list);
+
 protected:
     /** Set the steps $param to $value.
      *  If $selectedOnly is true, $value is applied only to the selected steps,
