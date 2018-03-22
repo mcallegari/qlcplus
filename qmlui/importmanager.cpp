@@ -103,7 +103,7 @@ bool ImportManager::loadWorkspace(const QString &fileName)
     if (doc->hasError())
     {
         QLCFile::releaseXMLReader(doc);
-        return QFile::ResourceError;
+        return false;
     }
 
     m_importDoc->clearContents();
