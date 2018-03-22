@@ -55,6 +55,7 @@ appimage: {
                     $$QT_LIBS_PATH/libQt5DBus.so.5 \
                     $$QT_LIBS_PATH/libQt5Multimedia.so.5 \
                     $$QT_LIBS_PATH/libQt5MultimediaWidgets.so.5 \
+                    $$QT_LIBS_PATH/libQt5MultimediaGstTools.so.5 \
                     $$QT_LIBS_PATH/libQt5Qml.so.5 \
                     $$QT_LIBS_PATH/libQt5Quick.so.5 \
                     $$QT_LIBS_PATH/libQt5QuickControls2.so.5 \
