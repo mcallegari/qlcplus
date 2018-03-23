@@ -453,7 +453,10 @@ void FixtureManager::addFixtureGroupTreeNode(Doc *doc, TreeModel *treeModel, Fix
             fxParams.append(group->id()); // subid
             fxParams.append(0); // chIdx
 
-            treeModel->setPathData(chPath, fxParams);
+            if (showChannels)
+                treeModel->setPathData(chPath, fxParams);
+            else
+                treeModel->addItem(fixture->name(), fxParams, group->name(), expandAll ? TreeModel::Expanded : 0);
         }
     }
 
