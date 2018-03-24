@@ -794,7 +794,11 @@ void VCSlider::slotControlledFunctionStopped(quint32 fid)
 {
     if (fid == controlledFunction())
     {
-        setValue(0, false, true);
+        if (m_controlledAttributeIndex == Function::Intensity)
+            setValue(0, false, true);
+
+        Function* function = m_doc->function(fid);
+        function->releaseAttributeOverride(m_controlledAttributeId);
         m_controlledAttributeId = Function::invalidAttributeId();
     }
 }
@@ -813,13 +817,13 @@ void VCSlider::setControlledAttribute(int attributeIndex)
     if (function == NULL || attributeIndex >= function->attributes().count())
         return;
 
-    int currentValue = m_value;
-    qreal previousMin = m_attributeMinValue;
-    qreal previousMax = m_attributeMaxValue;
+    function->releaseAttributeOverride(m_controlledAttributeId);
+    m_controlledAttributeId = Function::invalidAttributeId();
 
     Tardis::instance()->enqueueAction(Tardis::VCSliderSetControlledAttribute, id(), m_controlledAttributeIndex, attributeIndex);
 
     m_controlledAttributeIndex = attributeIndex;
+    qreal newValue = 0;
 
     // normalize intensity to 0-255 since Slider / Spin boxes step is an integer
     if (m_controlledAttributeIndex == Function::Intensity)
@@ -831,6 +835,7 @@ void VCSlider::setControlledAttribute(int attributeIndex)
     {
         m_attributeMinValue = function->attributes().at(m_controlledAttributeIndex).m_min;
         m_attributeMaxValue = function->attributes().at(m_controlledAttributeIndex).m_max;
+        newValue = function->getAttributeValue(m_controlledAttributeIndex);
     }
 
     setRangeLowLimit(m_attributeMinValue);
@@ -840,7 +845,6 @@ void VCSlider::setControlledAttribute(int attributeIndex)
     emit attributeMinValueChanged();
     emit attributeMaxValueChanged();
 
-    qreal newValue = SCALE(qreal(currentValue), previousMin, previousMax, m_rangeLowLimit, m_rangeHighLimit);
     setValue(newValue, false, true);
 }
 
