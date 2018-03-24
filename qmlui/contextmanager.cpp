@@ -829,6 +829,33 @@ void ContextManager::setFixturesRotation(QVector3D degrees)
     emit fixturesRotationChanged();
 }
 
+void ContextManager::setFixtureGroupSelection(quint32 id, bool enable, bool isUniverse)
+{
+    if (isUniverse)
+    {
+        for (Fixture *fixture : m_doc->fixtures())
+        {
+            if (fixture->universe() == id)
+                setFixtureSelection(fixture->id(), enable);
+        }
+    }
+    else
+    {
+        FixtureGroup *group = m_doc->fixtureGroup(id);
+        if (group == NULL)
+            return;
+
+        for (quint32 fxID : group->fixtureList())
+        {
+            Fixture *fixture = m_doc->fixture(fxID);
+            if (fixture == NULL)
+                continue;
+
+            setFixtureSelection(fxID, enable);
+        }
+    }
+}
+
 void ContextManager::slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal z)
 {
     if (m_doc->loadStatus() == Doc::Loading)
