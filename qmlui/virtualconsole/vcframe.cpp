@@ -329,6 +329,32 @@ void VCFrame::addFunctions(QQuickItem *parent, QVariantList idsList, QPoint pos,
                 currPos.setY(currPos.y() + slider->geometry().height());
             }
         }
+        else if (keyModifiers & Qt::ControlModifier)
+        {
+            Function *f = m_doc->function(funcID);
+            if (f->type() != Function::ChaserType)
+                return;
+
+            VCCueList *cuelist = new VCCueList(m_doc, this);
+            QQmlEngine::setObjectOwnership(cuelist, QQmlEngine::CppOwnership);
+            m_vc->addWidgetToMap(cuelist);
+
+            Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, cuelist->id()));
+            cuelist->setGeometry(QRect(currPos.x(), currPos.y(), m_vc->pixelDensity() * 80, m_vc->pixelDensity() * 50));
+            cuelist->setCaption(func->name());
+            cuelist->setChaserID(funcID);
+            setupWidget(cuelist, currentPage());
+
+            cuelist->render(m_vc->view(), parent);
+
+            currPos.setX(currPos.x() + cuelist->geometry().width());
+            if (currPos.x() >= geometry().width())
+            {
+                currPos.setX(pos.x());
+                currPos.setY(currPos.y() + cuelist->geometry().height());
+            }
+        }
         else
         {
             VCButton *button = new VCButton(m_doc, this);
