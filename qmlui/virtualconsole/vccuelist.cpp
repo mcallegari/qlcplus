@@ -183,7 +183,7 @@ void VCCueList::addFunctions(QVariantList idsList, int insertIndex)
                     step.duration = 1000;
                 step.hold = step.duration;
             }
-            Tardis::instance()->enqueueAction(ChaserAddStep, ch->id(), QVariant(), insertIndex);
+            Tardis::instance()->enqueueAction(Tardis::ChaserAddStep, ch->id(), QVariant(), insertIndex);
             ch->addStep(step, insertIndex++);
         }
 
@@ -264,7 +264,7 @@ void VCCueList::setChaserID(quint32 fid)
 
     emit stepsListChanged();
 
-    Tardis::instance()->enqueueAction(VCCueListSetChaserID, id(),
+    Tardis::instance()->enqueueAction(Tardis::VCCueListSetChaserID, id(),
                                       current ? current->id() : Function::invalidId(),
                                       function ? function->id() : Function::invalidId());
 }

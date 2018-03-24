@@ -182,7 +182,7 @@ void SceneEditor::unsetChannel(quint32 fxID, quint32 channel)
     QVariant currentVal;
     uchar currDmxValue = m_scene->value(fxID, channel);
     currentVal.setValue(SceneValue(fxID, channel, currDmxValue));
-    Tardis::instance()->enqueueAction(SceneUnsetChannelValue, m_scene->id(), currentVal, QVariant());
+    Tardis::instance()->enqueueAction(Tardis::SceneUnsetChannelValue, m_scene->id(), currentVal, QVariant());
 
     m_scene->unsetValue(fxID, channel);
     if (m_source->isOutputEnabled() == true)

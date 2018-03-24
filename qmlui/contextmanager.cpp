@@ -231,7 +231,7 @@ void ContextManager::setEnvironmentSize(QVector3D environmentSize)
     if (environmentSize == mProps->gridSize())
         return;
 
-    Tardis::instance()->enqueueAction(EnvironmentSetSize, 0, mProps->gridSize(), environmentSize);
+    Tardis::instance()->enqueueAction(Tardis::EnvironmentSetSize, 0, mProps->gridSize(), environmentSize);
 
     mProps->setGridSize(environmentSize);
     if (m_2DView->isEnabled())
@@ -550,7 +550,7 @@ void ContextManager::setFixturePosition(quint32 fxID, qreal x, qreal y, qreal z)
     QVector3D currPos = mProps->fixturePosition(fxID);
     QVector3D newPos(x, y, z);
 
-    Tardis::instance()->enqueueAction(FixtureSetPosition, fxID, QVariant(currPos), QVariant(newPos));
+    Tardis::instance()->enqueueAction(Tardis::FixtureSetPosition, fxID, QVariant(currPos), QVariant(newPos));
     mProps->setFixturePosition(fxID, newPos);
 
     if (m_2DView->isEnabled())
@@ -584,7 +584,7 @@ void ContextManager::setFixturesOffset(qreal x, qreal y)
             break;
         }
 
-        Tardis::instance()->enqueueAction(FixtureSetPosition, fxID, QVariant(currPos), QVariant(newPos));
+        Tardis::instance()->enqueueAction(Tardis::FixtureSetPosition, fxID, QVariant(currPos), QVariant(newPos));
         mProps->setFixturePosition(fxID, newPos);
         if (m_2DView->isEnabled())
             m_2DView->updateFixturePosition(fxID, newPos);
@@ -1007,7 +1007,7 @@ void ContextManager::setDumpValue(quint32 fxID, quint32 channel, uchar value)
 
     if (currentVal != newVal || value != currDmxValue)
     {
-        Tardis::instance()->enqueueAction(FixtureSetDumpValue, 0, currentVal, newVal);
+        Tardis::instance()->enqueueAction(Tardis::FixtureSetDumpValue, 0, currentVal, newVal);
         if (m_source)
             m_source->set(fxID, channel, value);
 

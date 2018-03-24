@@ -90,7 +90,6 @@ SOURCES += main.cpp \
 #############################################
 
 HEADERS += \
-    tardis/tardisactions.h \
     tardis/tardis.h \
     tardis/networkpacketizer.h \
     tardis/networkmanager.h \

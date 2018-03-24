@@ -204,7 +204,7 @@ void VCWidget::setGeometry(QRectF rect)
     if (m_geometry == scaled)
         return;
 
-    enqueueTardisAction(VCWidgetGeometry, QVariant(m_geometry), QVariant(scaled));
+    enqueueTardisAction(Tardis::VCWidgetGeometry, QVariant(m_geometry), QVariant(scaled));
 
     m_geometry = scaled;
 
@@ -300,7 +300,7 @@ void VCWidget::setCaption(QString caption)
     if (m_caption == caption)
         return;
 
-    enqueueTardisAction(VCWidgetCaption, m_caption, caption);
+    enqueueTardisAction(Tardis::VCWidgetCaption, m_caption, caption);
     m_caption = caption;
 
     emit captionChanged(caption);
@@ -321,7 +321,7 @@ void VCWidget::setBackgroundColor(QColor backgroundColor)
         return;
 
     setBackgroundImage("");
-    enqueueTardisAction(VCWidgetBackgroundColor, m_backgroundColor, backgroundColor);
+    enqueueTardisAction(Tardis::VCWidgetBackgroundColor, m_backgroundColor, backgroundColor);
 
     m_backgroundColor = backgroundColor;
     m_hasCustomBackgroundColor = true;
@@ -351,7 +351,7 @@ void VCWidget::setBackgroundImage(QString path)
     if (m_backgroundImage == strippedPath)
         return;
 
-    enqueueTardisAction(VCWidgetBackgroundImage, m_backgroundImage, strippedPath);
+    enqueueTardisAction(Tardis::VCWidgetBackgroundImage, m_backgroundImage, strippedPath);
 
     m_hasCustomBackgroundColor = false;
     m_backgroundImage = strippedPath;
@@ -378,7 +378,7 @@ void VCWidget::setForegroundColor(QColor foregroundColor)
     if (m_foregroundColor == foregroundColor)
         return;
 
-    enqueueTardisAction(VCWidgetForegroundColor, m_foregroundColor, foregroundColor);
+    enqueueTardisAction(Tardis::VCWidgetForegroundColor, m_foregroundColor, foregroundColor);
 
     m_foregroundColor = foregroundColor;
     m_hasCustomForegroundColor = true;
@@ -411,7 +411,7 @@ void VCWidget::setDefaultFontSize(qreal size)
 void VCWidget::setFont(const QFont& font)
 {
     m_hasCustomFont = true;
-    enqueueTardisAction(VCWidgetFont, m_font, font);
+    enqueueTardisAction(Tardis::VCWidgetFont, m_font, font);
     m_font = font;
 
     emit fontChanged();

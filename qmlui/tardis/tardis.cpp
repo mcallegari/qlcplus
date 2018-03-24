@@ -118,6 +118,12 @@ void Tardis::enqueueAction(int code, quint32 objID, QVariant oldVal, QVariant ne
     m_doc->setModified();
 }
 
+QString Tardis::actionToString(int action)
+{
+    int index = staticMetaObject.indexOfEnumerator("ActionCodes");
+    return staticMetaObject.enumerator(index).valueToKey(action);
+}
+
 void Tardis::undoAction()
 {
     if (m_historyIndex == -1 || m_history.isEmpty())
@@ -134,7 +140,7 @@ void Tardis::undoAction()
         if (refTimestamp - action.m_timestamp > TARDIS_ACTION_INTERTIME)
             break;
 
-        qDebug("Undo action 0x%02X", action.m_action);
+        qDebug() << "Undo action" << actionToString(action.m_action);
 
         m_historyIndex--;
 
@@ -168,7 +174,7 @@ void Tardis::redoAction()
         m_historyIndex++;
 
         TardisAction action = m_history.at(m_historyIndex);
-        qDebug("Redo action 0x%02X", action.m_action);
+        qDebug() << "Redo action" << actionToString(action.m_action);
 
         int code = processAction(action, false);
 
@@ -416,6 +422,12 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
                 chaser->addStep(step, stepNumber);
         }
         break;
+        case ChaserRemoveStep:
+        {
+            Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(objID));
+            chaser->removeStep(value.toUInt());
+        }
+        break;
         case EFXAddFixture:
         {
             EFX *efx = qobject_cast<EFX *>(m_doc->function(objID));
@@ -603,8 +615,14 @@ int Tardis::processAction(TardisAction &action, bool undo)
 
         case ChaserAddStep:
         {
-            Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(action.m_objID));
-            chaser->removeStep(action.m_newValue.toInt());
+            processBufferedAction(undo ? ChaserRemoveStep : ChaserAddStep, action.m_objID, action.m_newValue);
+            return undo ? ChaserRemoveStep : ChaserAddStep;
+        }
+        break;
+        case ChaserRemoveStep:
+        {
+            processBufferedAction(undo ? ChaserAddStep : ChaserRemoveStep, action.m_objID, action.m_oldValue);
+            return undo ? ChaserAddStep : ChaserRemoveStep;
         }
         break;
         case ChaserSetStepFadeIn:

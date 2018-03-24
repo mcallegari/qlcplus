@@ -78,7 +78,7 @@ void VideoEditor::setSourceFileName(QString sourceFileName)
     if (m_video == NULL || m_video->sourceUrl() == sourceFileName)
         return;
 
-    Tardis::instance()->enqueueAction(VideoSetSource, m_video->id(), m_video->sourceUrl(), sourceFileName);
+    Tardis::instance()->enqueueAction(Tardis::VideoSetSource, m_video->id(), m_video->sourceUrl(), sourceFileName);
     m_video->setSourceUrl(sourceFileName);
 
     if (m_video->isPicture())
@@ -159,7 +159,7 @@ void VideoEditor::setScreenIndex(int screenIndex)
     if (m_video == NULL || m_video->screen() == screenIndex)
         return;
 
-    Tardis::instance()->enqueueAction(VideoSetScreenIndex, m_video->id(), m_video->screen(), screenIndex);
+    Tardis::instance()->enqueueAction(Tardis::VideoSetScreenIndex, m_video->id(), m_video->screen(), screenIndex);
     m_video->setScreen(screenIndex);
     emit screenIndexChanged(screenIndex);
 }
@@ -177,7 +177,7 @@ void VideoEditor::setFullscreen(bool fullscreen)
     if (m_video == NULL || m_video->fullscreen() == fullscreen)
         return;
 
-    Tardis::instance()->enqueueAction(VideoSetFullscreen, m_video->id(), m_video->fullscreen(), fullscreen);
+    Tardis::instance()->enqueueAction(Tardis::VideoSetFullscreen, m_video->id(), m_video->fullscreen(), fullscreen);
     m_video->setFullscreen(fullscreen);
     emit fullscreenChanged(fullscreen);
 }
@@ -194,7 +194,8 @@ void VideoEditor::setLooped(bool looped)
 {
     if (m_video != NULL)
     {
-        Tardis::instance()->enqueueAction(FunctionSetRunOrder, m_video->id(), m_video->runOrder(), looped ? Video::Loop : Video::SingleShot);
+        Tardis::instance()->enqueueAction(Tardis::FunctionSetRunOrder, m_video->id(),
+                                          m_video->runOrder(), looped ? Video::Loop : Video::SingleShot);
         if (looped)
             m_video->setRunOrder(Video::Loop);
         else
@@ -223,7 +224,7 @@ void VideoEditor::setCustomGeometry(QRect customGeometry)
     if (m_video == NULL || m_video->customGeometry() == customGeometry)
         return;
 
-    Tardis::instance()->enqueueAction(VideoSetGeometry, m_video->id(), m_video->customGeometry(), customGeometry);
+    Tardis::instance()->enqueueAction(Tardis::VideoSetGeometry, m_video->id(), m_video->customGeometry(), customGeometry);
     m_video->setCustomGeometry(customGeometry);
     emit customGeometryChanged(customGeometry);
 }
@@ -241,7 +242,7 @@ void VideoEditor::setRotation(QVector3D rotation)
     if (m_video == NULL || m_video->rotation() == rotation)
         return;
 
-    Tardis::instance()->enqueueAction(VideoSetRotation, m_video->id(), m_video->rotation(), rotation);
+    Tardis::instance()->enqueueAction(Tardis::VideoSetRotation, m_video->id(), m_video->rotation(), rotation);
     m_video->setRotation(rotation);
     emit rotationChanged(rotation);
 }

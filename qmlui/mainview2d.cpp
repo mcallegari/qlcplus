@@ -181,7 +181,7 @@ void MainView2D::createFixtureItem(quint32 fxID, QVector3D pos, bool mmCoords)
         // add the new fixture to the Doc monitor properties
         QVector3D newPos = FixtureUtils::item3DPosition(m_monProps, itemPos, 1000.0);
         m_monProps->setFixturePosition(fxID, newPos);
-        Tardis::instance()->enqueueAction(FixtureSetPosition, fixture->id(), QVariant(QVector3D(0, 0, 0)), QVariant(newPos));
+        Tardis::instance()->enqueueAction(Tardis::FixtureSetPosition, fixture->id(), QVariant(QVector3D(0, 0, 0)), QVariant(newPos));
     }
 
     newFixtureItem->setProperty("mmXPos", itemPos.x());

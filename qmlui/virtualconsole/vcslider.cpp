@@ -161,7 +161,7 @@ void VCSlider::setSliderMode(SliderMode mode)
     Q_ASSERT(mode >= Level && mode <= GrandMaster);
 
     if (mode != m_sliderMode)
-        Tardis::instance()->enqueueAction(VCSliderSetMode, id(), m_sliderMode, mode);
+        Tardis::instance()->enqueueAction(Tardis::VCSliderSetMode, id(), m_sliderMode, mode);
 
     m_sliderMode = mode;
 
@@ -263,7 +263,7 @@ void VCSlider::setValueDisplayStyle(VCSlider::ValueDisplayStyle style)
     if (m_valueDisplayStyle == style)
         return;
 
-    Tardis::instance()->enqueueAction(VCSliderSetDisplayStyle, id(), m_valueDisplayStyle, style);
+    Tardis::instance()->enqueueAction(Tardis::VCSliderSetDisplayStyle, id(), m_valueDisplayStyle, style);
 
     m_valueDisplayStyle = style;
     emit valueDisplayStyleChanged(style);
@@ -279,7 +279,7 @@ void VCSlider::setInvertedAppearance(bool inverted)
     if (m_invertedAppearance == inverted)
         return;
 
-    Tardis::instance()->enqueueAction(VCSliderSetInverted, id(), m_invertedAppearance, inverted);
+    Tardis::instance()->enqueueAction(Tardis::VCSliderSetInverted, id(), m_invertedAppearance, inverted);
     m_invertedAppearance = inverted;
     emit invertedAppearanceChanged(inverted);
 }
@@ -322,7 +322,7 @@ void VCSlider::setValue(int value, bool setDMX, bool updateFeedback)
     if (m_value == value)
         return;
 
-    Tardis::instance()->enqueueAction(VCSliderSetValue, id(), m_value, value);
+    Tardis::instance()->enqueueAction(Tardis::VCSliderSetValue, id(), m_value, value);
 
     m_value = value;
 
@@ -378,7 +378,7 @@ void VCSlider::setRangeLowLimit(qreal value)
     if (value == m_rangeLowLimit)
         return;
 
-    Tardis::instance()->enqueueAction(VCSliderSetLowLimit, id(), m_rangeLowLimit, value);
+    Tardis::instance()->enqueueAction(Tardis::VCSliderSetLowLimit, id(), m_rangeLowLimit, value);
     m_rangeLowLimit = value;
     emit rangeLowLimitChanged();
 }
@@ -393,7 +393,7 @@ void VCSlider::setRangeHighLimit(qreal value)
     if (value == m_rangeLowLimit)
         return;
 
-    Tardis::instance()->enqueueAction(VCSliderSetHighLimit, id(), m_rangeHighLimit, value);
+    Tardis::instance()->enqueueAction(Tardis::VCSliderSetHighLimit, id(), m_rangeHighLimit, value);
     m_rangeHighLimit = value;
     emit rangeHighLimitChanged();
 }
@@ -758,7 +758,7 @@ void VCSlider::setControlledFunction(quint32 fid)
         emit controlledFunctionChanged(-1);
     }
 
-    Tardis::instance()->enqueueAction(VCSliderSetFunctionID, id(),
+    Tardis::instance()->enqueueAction(Tardis::VCSliderSetFunctionID, id(),
                                       current ? current->id() : Function::invalidId(),
                                       function ? function->id() : Function::invalidId());
 }
@@ -817,7 +817,7 @@ void VCSlider::setControlledAttribute(int attributeIndex)
     qreal previousMin = m_attributeMinValue;
     qreal previousMax = m_attributeMaxValue;
 
-    Tardis::instance()->enqueueAction(VCSliderSetControlledAttribute, id(), m_controlledAttributeIndex, attributeIndex);
+    Tardis::instance()->enqueueAction(Tardis::VCSliderSetControlledAttribute, id(), m_controlledAttributeIndex, attributeIndex);
 
     m_controlledAttributeIndex = attributeIndex;
 

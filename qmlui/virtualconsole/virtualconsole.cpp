@@ -674,8 +674,8 @@ void VirtualConsole::deleteVCWidgets(QVariantList IDList)
             VCFrame *frame = qobject_cast<VCFrame *>(w);
             for (VCWidget *child : frame->children(true))
             {
-                Tardis::instance()->enqueueAction(VCWidgetDelete, w->id(),
-                                                  Tardis::instance()->actionToByteArray(VCWidgetDelete, child->id()),
+                Tardis::instance()->enqueueAction(Tardis::VCWidgetDelete, w->id(),
+                                                  Tardis::instance()->actionToByteArray(Tardis::VCWidgetDelete, child->id()),
                                                   QVariant());
                 m_widgetsMap.remove(child->id());
             }
@@ -683,8 +683,8 @@ void VirtualConsole::deleteVCWidgets(QVariantList IDList)
 
         /* 3- remove the widget from the global VC widgets map */
         VCFrame *parent = qobject_cast<VCFrame *>(w->parent());
-        Tardis::instance()->enqueueAction(VCWidgetDelete, parent->id(),
-                                          Tardis::instance()->actionToByteArray(VCWidgetDelete, w->id()),
+        Tardis::instance()->enqueueAction(Tardis::VCWidgetDelete, parent->id(),
+                                          Tardis::instance()->actionToByteArray(Tardis::VCWidgetDelete, w->id()),
                                           QVariant());
         m_widgetsMap.remove(wID);
 
