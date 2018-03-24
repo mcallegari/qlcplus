@@ -30,10 +30,11 @@ Rectangle
     color: isSelected ? "#2D444E" : "transparent"
     border.width: 2
     border.color: isSelected ? UISettings.selection : "transparent"
+    z: isSelected ? 5 : 1
 
     property int itemHeight: Math.max(inputPatchesNumber, outputPatchesNumber) * UISettings.bigItemHeight
     property Universe universe
-    property bool isSelected: false
+    property bool isSelected: universe && ioManager.selectedIndex === universe.id ? true : false
     property int outputPatchesNumber: universe ? universe.outputPatchesCount : 0
     property int inputPatchesNumber: iPatch == null ? 0 : 1
     property int wireBoxWidth: (uniItem.width - uniBox.width) / 8 // one quarter of a uniItem side
@@ -98,7 +99,7 @@ Rectangle
                             id: ipItem
                             width: ipRoot.width
 
-                            universeID: universe.id
+                            universeID: universe ? universe.id : -1
                             patch: universe ? universe.inputPatch : null
 
                             Drag.active: ipMouseArea.drag.active
@@ -205,12 +206,8 @@ Rectangle
             {
                 enableEditing(false)
 
-                if (isSelected == false)
-                {
-                    isSelected = true
-                    ioManager.setSelectedItem(uniItem, universe.id)
-                    uniItem.selected(universe.id);
-                }
+                ioManager.selectedIndex = universe.id
+                uniItem.selected(universe.id);
             }
 
             onTextChanged: if (universe) universe.name = text
@@ -384,12 +381,8 @@ Rectangle
 
         onClicked:
         {
-            if (isSelected == false)
-            {
-                isSelected = true
-                ioManager.setSelectedItem(uniItem, universe.id)
-                uniItem.selected(universe.id);
-            }
+            ioManager.selectedIndex = universe.id
+            uniItem.selected(universe.id);
         }
     }
 

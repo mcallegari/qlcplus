@@ -36,6 +36,7 @@
 #include "vcwidget.h"
 #include "vcbutton.h"
 #include "vcslider.h"
+#include "universe.h"
 #include "vcframe.h"
 #include "rgbtext.h"
 #include "chaser.h"
@@ -313,6 +314,17 @@ QByteArray Tardis::actionToByteArray(int code, quint32 objID, QVariant data)
 
     switch(code)
     {
+        case IOAddUniverse:
+        case IORemoveUniverse:
+        {
+            if (objID >= (quint32)m_doc->inputOutputMap()->universes().count())
+                break;
+
+            Universe *universe = m_doc->inputOutputMap()->universes().at(objID);
+            universe->saveXML(&xmlWriter);
+        }
+        break;
+
         case FixtureCreate:
         case FixtureDelete:
         {
@@ -387,6 +399,23 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
 
     switch(action)
     {
+        case IOAddUniverse:
+        {
+            if (objID >= m_doc->inputOutputMap()->universesCount())
+                m_doc->inputOutputMap()->addUniverse(objID);
+
+            QList<Universe *> uniList = m_doc->inputOutputMap()->universes();
+            Universe *universe = qobject_cast<Universe *>(uniList.at(objID));
+            universe->loadXML(xmlReader, objID, m_doc->inputOutputMap());
+        }
+        break;
+
+        case IORemoveUniverse:
+        {
+            m_doc->inputOutputMap()->removeUniverse(objID);
+        }
+        break;
+
         case FixtureCreate:
         {
             Fixture::loader(xmlReader, m_doc);
@@ -499,6 +528,20 @@ int Tardis::processAction(TardisAction &action, bool undo)
         case EnvironmentSetSize:
         {
             m_contextManager->setEnvironmentSize(value->value<QVector3D>());
+        }
+        break;
+
+        /* *********************** Input/Output manager actions ************************ */
+        case IOAddUniverse:
+        {
+            processBufferedAction(undo ? IORemoveUniverse : IOAddUniverse, action.m_objID, action.m_newValue);
+            return undo ? IORemoveUniverse : IOAddUniverse;
+        }
+        break;
+        case IORemoveUniverse:
+        {
+            processBufferedAction(undo ? IOAddUniverse : IORemoveUniverse, action.m_objID, action.m_oldValue);
+            return undo ? IOAddUniverse : IORemoveUniverse;
         }
         break;
 

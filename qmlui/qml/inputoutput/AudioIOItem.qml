@@ -111,7 +111,7 @@ Rectangle
             if (isSelected == false)
             {
                 isSelected = true
-                ioManager.setSelectedItem(audioItem, 0)
+                ioManager.selectedIndex = -1
                 audioItem.selected(0);
             }
         }

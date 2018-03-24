@@ -66,6 +66,9 @@ public:
         /* Global settings */
         EnvironmentSetSize = 0x0000,
 
+        IOAddUniverse = 0x0090,
+        IORemoveUniverse,
+
         /* Fixture editing actions */
         FixtureCreate = 0x0100,
         FixtureDelete,

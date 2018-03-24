@@ -34,9 +34,11 @@ class InputOutputManager : public PreviewContext
 {
     Q_OBJECT
 
-    Q_PROPERTY(QQmlListProperty<Universe> universes READ universes CONSTANT)
-    Q_PROPERTY(QStringList universeNames READ universeNames CONSTANT)
+    Q_PROPERTY(QVariant universes READ universes NOTIFY universesChanged)
+    Q_PROPERTY(QStringList universeNames READ universeNames NOTIFY universeNamesChanged)
     Q_PROPERTY(QVariant universesListModel READ universesListModel NOTIFY universesListModelChanged)
+    Q_PROPERTY(int selectedIndex READ selectedIndex WRITE setSelectedIndex NOTIFY selectedIndexChanged)
+
     Q_PROPERTY(QVariant audioInputSources READ audioInputSources CONSTANT)
     Q_PROPERTY(QVariant audioOutputSources READ audioOutputSources CONSTANT)
     Q_PROPERTY(QVariant audioInputDevice READ audioInputDevice NOTIFY audioInputDeviceChanged)
@@ -62,11 +64,16 @@ private:
      * Universes
      *********************************************************************/
 public:
-    QQmlListProperty<Universe> universes();
+    QVariant universes();
     QStringList universeNames() const;
     QVariant universesListModel() const;
 
-    Q_INVOKABLE void setSelectedItem(QQuickItem *item, int index);
+    /** Get/Set the currently selected universe index */
+    int selectedIndex() const;
+    void setSelectedIndex(int index);
+
+    Q_INVOKABLE void addUniverse();
+    Q_INVOKABLE void removeLastUniverse();
 
     /** Get/Set the global output blackout state */
     bool blackout() const;
@@ -74,14 +81,15 @@ public:
 
 signals:
     void universesChanged();
+    void universeNamesChanged();
     void universesListModelChanged();
+    void selectedIndexChanged();
     void blackoutChanged(bool blackout);
 
 private:
     /** List of references to the current Universes in Doc */
     QList<Universe *> m_universeList;
 
-    QQuickItem *m_selectedItem;
     int m_selectedUniverseIndex;
     bool m_blackout;
 

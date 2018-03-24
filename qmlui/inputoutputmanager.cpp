@@ -21,18 +21,19 @@
 #include <QDebug>
 
 #include "inputoutputmanager.h"
+#include "monitorproperties.h"
+#include "audioplugincache.h"
 #include "audiorenderer_qt.h"
 #include "audiocapture_qt.h"
-#include "audioplugincache.h"
 #include "qlcioplugin.h"
 #include "outputpatch.h"
 #include "inputpatch.h"
 #include "universe.h"
+#include "tardis.h"
 #include "doc.h"
 
 InputOutputManager::InputOutputManager(QQuickView *view, Doc *doc, QObject *parent)
     : PreviewContext(view, doc, "IOMGR", parent)
-    , m_selectedItem(NULL)
     , m_selectedUniverseIndex(-1)
     , m_blackout(false)
     , m_beatType("INTERNAL")
@@ -63,12 +64,18 @@ void InputOutputManager::slotDocLoaded()
  * Universes
  *********************************************************************/
 
-QQmlListProperty<Universe> InputOutputManager::universes()
+QVariant InputOutputManager::universes()
 {
-    m_selectedItem = NULL;
-    m_universeList.clear();
-    m_universeList = m_ioMap->universes();
-    return QQmlListProperty<Universe>(this, m_universeList);
+    QVariantList universesList;
+
+    for (Universe *uni : m_ioMap->universes())
+    {
+        QVariantMap uniMap;
+        uniMap.insert("classRef", QVariant::fromValue(uni));
+        universesList.append(uniMap);
+    }
+
+    return QVariant::fromValue(universesList);
 }
 
 QStringList InputOutputManager::universeNames() const
@@ -85,7 +92,7 @@ QVariant InputOutputManager::universesListModel() const
     allMap.insert("mValue", (int)Universe::invalid());
     universesList.append(allMap);
 
-    foreach(Universe *uni, m_ioMap->universes())
+    for (Universe *uni : m_ioMap->universes())
     {
         QVariantMap uniMap;
         uniMap.insert("mLabel", uni->name());
@@ -96,22 +103,83 @@ QVariant InputOutputManager::universesListModel() const
     return QVariant::fromValue(universesList);
 }
 
-void InputOutputManager::setSelectedItem(QQuickItem *item, int index)
+int InputOutputManager::selectedIndex() const
 {
-    if (m_selectedItem != NULL)
-    {
-        m_selectedItem->setProperty("isSelected", false);
-        m_selectedItem->setProperty("z", 1);
-    }
+    return m_selectedUniverseIndex;
+}
 
-    m_selectedItem = item;
+void InputOutputManager::setSelectedIndex(int index)
+{
+    if (index == m_selectedUniverseIndex)
+        return;
+
     m_selectedUniverseIndex = index;
-    m_selectedItem->setProperty("z", 5);
 
-    qDebug() << "[InputOutputManager] Selected universe:" << index;
-
+    emit selectedIndexChanged();
     emit inputCanConfigureChanged();
     emit outputCanConfigureChanged();
+}
+
+void InputOutputManager::addUniverse()
+{
+    m_ioMap->addUniverse();
+
+    quint32 uniID = m_ioMap->universes().last()->id();
+    Tardis::instance()->enqueueAction(Tardis::IOAddUniverse, uniID, QVariant(),
+                                      Tardis::instance()->actionToByteArray(Tardis::IOAddUniverse, uniID));
+
+    emit universesChanged();
+    emit universeNamesChanged();
+}
+
+void InputOutputManager::removeLastUniverse()
+{
+    if (m_selectedUniverseIndex < 0)
+        return;
+
+    int index = m_selectedUniverseIndex;
+
+    m_selectedUniverseIndex = -1;
+    emit selectedIndexChanged();
+
+    // Check if the universe is patched
+    if (m_ioMap->isUniversePatched(index) == true)
+    {
+        // Show popup ?
+    }
+
+    // Check if there are fixtures using this universe
+    quint32 uniID = m_ioMap->getUniverseID(index);
+    if (uniID == m_ioMap->invalidUniverse())
+        return;
+
+    MonitorProperties *mProps = m_doc->monitorProperties();
+
+    for (Fixture *fixture : m_doc->fixtures())
+    {
+        if (fixture->universe() == uniID)
+        {
+            // delete the fixture monitor properties
+            Tardis::instance()->enqueueAction(Tardis::FixtureSetPosition, fixture->id(),
+                                              QVariant(mProps->fixturePosition(fixture->id())), QVariant());
+            mProps->removeFixture(fixture->id());
+
+            // delete the fixture
+            Tardis::instance()->enqueueAction(Tardis::FixtureDelete, fixture->id(),
+                                              Tardis::instance()->actionToByteArray(Tardis::FixtureDelete, fixture->id()),
+                                              QVariant());
+            m_doc->deleteFixture(fixture->id());
+        }
+    }
+
+    Tardis::instance()->enqueueAction(Tardis::IORemoveUniverse, index,
+                                      Tardis::instance()->actionToByteArray(Tardis::IORemoveUniverse, index),
+                                      QVariant());
+
+    m_ioMap->removeUniverse(index);
+
+    emit universesChanged();
+    emit universeNamesChanged();
 }
 
 bool InputOutputManager::blackout() const
