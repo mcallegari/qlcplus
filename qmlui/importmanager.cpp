@@ -204,6 +204,8 @@ void ImportManager::importFixtures()
         bool matchFound = false;
         Fixture *importFixture = m_importDoc->fixture(importID);
 
+        qDebug() << "Import fixture" << importFixture->name();
+
         /* Check if a Fixture with the same name already exists in m_doc.
          * If it does, check also if the ID needs to be remapped */
         for (Fixture *docFixture : m_doc->fixtures())
@@ -263,10 +265,68 @@ void ImportManager::importFixtures()
             fxi->setFixtureDefinition(fxiDef, fxiMode);
 
             if (m_doc->addFixture(fxi) == true)
+            {
                 m_fixtureIDRemap[importID] = fxi->id();
+            }
             else
+            {
                 qWarning() << "ERROR: Failed to add fixture" << importFixture->name()
                          << "to universe" << uniIdx << "@address" << address;
+                delete fxi;
+            }
+        }
+    }
+
+    for (quint32 groupID : m_fixtureGroupIDList)
+    {
+        bool matchFound = false;
+        FixtureGroup *importGroup = m_importDoc->fixtureGroup(groupID);
+
+        qDebug() << "Import fixture group" << importGroup->name();
+
+        for (FixtureGroup *docGroup : m_doc->fixtureGroups())
+        {
+            if (docGroup->name() == importGroup->name())
+            {
+                m_fixtureGroupIDRemap[groupID] = docGroup->id();
+                matchFound = true;
+                break;
+            }
+        }
+
+        /* if no match is found, it means a new FixtureGroup needs to be created
+         * in m_doc, which implies ID remapping */
+        if (matchFound == false)
+        {
+            FixtureGroup *newGroup = new FixtureGroup(m_doc);
+            newGroup->setName(importGroup->name());
+            newGroup->setSize(importGroup->size());
+
+            QMap<QLCPoint, GroupHead> headsMap = importGroup->headsMap();
+            QMap<QLCPoint, GroupHead>::const_iterator i = headsMap.constBegin();
+            while (i != headsMap.constEnd())
+            {
+                QLCPoint p = i.key();
+                GroupHead head = i.value();
+
+                if (m_fixtureIDList.contains(head.fxi))
+                {
+                    head.fxi = m_fixtureIDRemap[head.fxi];
+                    newGroup->assignHead(p, head);
+                }
+
+                ++i;
+            }
+
+            if (m_doc->addFixtureGroup(newGroup) == true)
+            {
+                m_fixtureGroupIDRemap[groupID] = newGroup->id();
+            }
+            else
+            {
+                qWarning() << "ERROR: Failed to add fixture group" << newGroup->name();
+                delete newGroup;
+            }
         }
     }
 }
@@ -282,6 +342,7 @@ void ImportManager::importFunctionID(quint32 funcID)
         // these will return only Function IDs
         case Function::ChaserType:
         case Function::SequenceType:
+        case Function::CollectionType:
             funcList = importFunction->components();
         break;
 
@@ -408,6 +469,16 @@ void ImportManager::importFunctionID(quint32 funcID)
             }
         }
         break;
+        case Function::RGBMatrixType:
+        {
+            RGBMatrix *rgbm = qobject_cast<RGBMatrix *>(docFunction);
+            if (rgbm->fixtureGroup() == FixtureGroup::invalidId())
+                break;
+
+            if (m_fixtureGroupIDRemap.contains(rgbm->fixtureGroup()))
+                rgbm->setFixtureGroup(m_fixtureGroupIDRemap[rgbm->fixtureGroup()]);
+        }
+        break;
         default:
             qDebug() << "FIXME: Unhandled Function type" << docFunction->type();
         break;
@@ -474,19 +545,36 @@ void ImportManager::slotFixtureTreeDataChanged(TreeModelItem *item, int role, co
 
     QVariantList itemData = item->data();
     // itemData must be "classRef" << "type" << "id" << "subid" << "chIdx";
-    if (itemData.count() != 5 || itemData.at(1).toInt() != App::FixtureDragItem)
+    if (itemData.count() != 5)
         return;
 
-    //QString type = itemData.at(1).toString();
-    quint32 fixtureID = itemData.at(2).toUInt();
-    if (checked)
+    int itemType = itemData.at(1).toInt();
+    quint32 itemID = itemData.at(2).toUInt();
+
+    if (itemType == App::FixtureDragItem)
     {
-        if (m_fixtureIDList.contains(fixtureID) == false)
-            m_fixtureIDList.append(fixtureID);
+        if (checked)
+        {
+            if (m_fixtureIDList.contains(itemID) == false)
+                m_fixtureIDList.append(itemID);
+        }
+        else
+        {
+            m_fixtureIDList.removeOne(itemID);
+        }
     }
-    else
+    else if (itemType == App::FixtureGroupDragItem)
     {
-        m_fixtureIDList.removeOne(fixtureID);
+        qDebug() << "Fixture group checked" << itemID;
+        if (checked)
+        {
+            if (m_fixtureGroupIDList.contains(itemID) == false)
+                m_fixtureGroupIDList.append(itemID);
+        }
+        else
+        {
+            m_fixtureGroupIDList.removeOne(itemID);
+        }
     }
 
     m_fixtureTreeUpdating = false;
@@ -699,13 +787,35 @@ void ImportManager::checkFunctionDependency(quint32 fid)
         // these are 'leaves' and will return only Fixture IDs
         case Function::SceneType:
         case Function::EFXType:
-        case Function::RGBMatrixType:
             fxList = func->components();
+        break;
+
+        // RGB Matrix requires a fixture group
+        case Function::RGBMatrixType:
+        {
+            fxList = func->components();
+            RGBMatrix *rgbm = qobject_cast<RGBMatrix *>(func);
+            quint32 groupID = rgbm->fixtureGroup();
+            if (groupID != FixtureGroup::invalidId() &&
+                m_fixtureGroupIDList.contains(groupID) == false)
+            {
+                FixtureGroup *group = m_importDoc->fixtureGroup(groupID);
+                // include the fixture group to the import
+                m_fixtureGroupIDList.append(groupID);
+                // include also all the group fixtures
+                for (quint32 id : group->fixtureList())
+                {
+                    if (m_fixtureIDList.contains(id))
+                        m_fixtureIDList.append(id);
+                }
+            }
+        }
         break;
 
         // these will return only Function IDs
         case Function::ChaserType:
         case Function::SequenceType:
+        case Function::CollectionType:
             funcList = func->components();
         break;
 

@@ -102,6 +102,11 @@ private:
     /** A map of the Fixture IDs that need to be remapped */
     QMap<quint32, quint32> m_fixtureIDRemap;
 
+    /** The list of selected Fixture group IDs */
+    QList<quint32> m_fixtureGroupIDList;
+    /** A map of the Fixture group IDs that need to be remapped */
+    QMap<quint32, quint32> m_fixtureGroupIDRemap;
+
     /*********************************************************************
      * Function tree
      *********************************************************************/
