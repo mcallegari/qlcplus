@@ -79,6 +79,7 @@ Column
         {
             CustomCheckBox
             {
+                id: nodeCheckBox
                 visible: isCheckable
                 implicitWidth: UISettings.listItemHeight
                 implicitHeight: implicitWidth
@@ -158,7 +159,9 @@ Column
 
         MouseArea
         {
-            anchors.fill: parent
+            x: nodeCheckBox.visible ? nodeCheckBox.width : 0
+            width: parent.width
+            height: parent.height
 
             property bool dragActive: drag.active
 
