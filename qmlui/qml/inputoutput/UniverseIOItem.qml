@@ -27,7 +27,7 @@ Rectangle
     id: uniItem
     width: parent.width
     height: itemHeight ? itemHeight : UISettings.bigItemHeight
-    color: isSelected ? "#2D444E" : "transparent"
+    color: isSelected ? UISettings.highlightPressed : "transparent"
     border.width: 2
     border.color: isSelected ? UISettings.selection : "transparent"
     z: isSelected ? 5 : 1
@@ -131,13 +131,13 @@ Rectangle
                                             }
                                         }
                                     ]
-                                }
-                            }
-                        }
-                    }
-                }
-        }
-    }
+                                } // Rectangle
+                            } // DropArea
+                        } // InputPatchItem
+                    } // MouseArea
+                } // Item
+        } // Repeater
+    } // Column
 
     // Input patches wires box
     PatchWireBox
@@ -149,13 +149,14 @@ Rectangle
         z: 10
 
         patchesNumber: inputPatchesNumber
+        showFeedback: universe ? universe.hasFeedbacks : false
     }
 
     // Input patch drop area
     DropArea
     {
         id: inputDropTarget
-        x: inputBox.x
+        x: 2
         y: 2
         width: ((uniItem.width - uniBox.width) / 2) - 6
         height: uniItem.height - 4
@@ -168,7 +169,7 @@ Rectangle
         {
             id: inDropRect
             anchors.fill: parent
-            color: inputDropTarget.containsDrag ? "#3356FF56" : "transparent"
+            color: inputDropTarget.containsDrag ? UISettings.highlight : "transparent"
         }
     }
 
@@ -186,8 +187,8 @@ Rectangle
             Gradient
             {
                 id: bgGradient
-                GradientStop { position: 0 ; color: "#1C2255" }
-                GradientStop { position: 1 ; color: "#2B3483" }
+                GradientStop { position: 0 ; color: UISettings.highlightPressed }
+                GradientStop { position: 1 ; color: UISettings.highlight }
             }
         border.width: 2
         border.color: "#111"
@@ -225,7 +226,7 @@ Rectangle
                 var vCenter = (height / 2) - 4
                 var wireMargin = width / 20
                 context.strokeStyle = "yellow"
-                context.lineWidth = 2
+                context.lineWidth = 3
                 context.beginPath()
                 context.clearRect(0, 0, width, height)
 
@@ -252,6 +253,34 @@ Rectangle
             tooltip: qsTr("Passthrough")
             checked: universe ? universe.passthrough : false
             onToggled: if (universe) universe.passthrough = checked
+        }
+
+        IconButton
+        {
+            id: fbButton
+            z: 2
+            visible: inputPatchesNumber
+            anchors.bottom: parent.bottom
+            width: UISettings.iconSizeMedium * 0.8
+            height: UISettings.iconSizeMedium * 0.8
+            checkedColor: "green"
+            imgSource: ""
+            checkable: true
+            checked: universe ? universe.hasFeedbacks : false
+            tooltip: qsTr("Enable/Disable feedbacks")
+            onToggled:
+            {
+                if (universe)
+                    ioManager.setFeedbackPatch(universe.id, checked)
+            }
+
+            RobotoText
+            {
+                anchors.centerIn: parent
+                label: "F"
+                fontSize: UISettings.textSizeDefault * 1.1
+                fontBold: true
+            }
         }
     }
 
@@ -332,14 +361,14 @@ Rectangle
                     }
                 }
         }
-    }
+    } // Column
 
     // New output patch drop area
     DropArea
     {
         id: outputDropTarget
         x: outWireBox.x + 6
-        y: outputBox.y + outputBox.height
+        y: outputBox.y + outputBox.height + 2
         width: ((uniItem.width - uniBox.width) / 2) - 6
         height: UISettings.bigItemHeight * 0.9
 
@@ -358,7 +387,7 @@ Rectangle
         {
             id: outDropRect
             anchors.fill: parent
-            color: outputDropTarget.containsDrag ? "#3356FF56" : "transparent"
+            color: outputDropTarget.containsDrag ? UISettings.highlight : "transparent"
             states: [
                 State
                 {

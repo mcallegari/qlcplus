@@ -537,7 +537,7 @@ QString VCWidget::propertiesResource() const
 }
 
 /*********************************************************************
- * External input
+ * Controls
  *********************************************************************/
 
 void VCWidget::registerExternalControl(quint8 id, QString name, bool allowKeyboard)
@@ -585,6 +585,10 @@ int VCWidget::controlIndex(quint8 id)
 
     return 0;
 }
+
+/*********************************************************************
+ * Input sources
+ *********************************************************************/
 
 void VCWidget::addInputSource(QSharedPointer<QLCInputSource> const& source)
 {
@@ -743,6 +747,48 @@ QSharedPointer<QLCInputSource> VCWidget::inputSource(quint32 id, quint32 univers
 
     return QSharedPointer<QLCInputSource>();
 }
+
+void VCWidget::sendFeedback(int value, quint8 id, SourceValueType type)
+{
+    for (QSharedPointer<QLCInputSource> source : m_inputSources) // C++11
+    {
+        if (source->id() != id)
+            continue;
+
+        if (type == LowerValue)
+            value = source->lowerValue();
+        else if (type == UpperValue)
+            value = source->upperValue();
+
+        // if in relative mode, send a "feedback" to this
+        // input source so it can continue to emit values
+        // from the right position
+        if (source->needsUpdate())
+            source->updateOuputValue(value);
+
+        if (isDisabled()) // was acceptsInput()
+            return;
+
+        QString chName = QString();
+
+        InputPatch *ip = m_doc->inputOutputMap()->inputPatch(source->universe());
+        if (ip != NULL)
+        {
+            QLCInputProfile* profile = ip->profile();
+            if (profile != NULL)
+            {
+                QLCInputChannel* ich = profile->channel(source->channel());
+                if (ich != NULL)
+                    chName = ich->name();
+            }
+        }
+        m_doc->inputOutputMap()->sendFeedBack(source->universe(), source->channel(), value, chName);
+    }
+}
+
+/*********************************************************************
+ * Key sequences
+ *********************************************************************/
 
 void VCWidget::addKeySequence(const QKeySequence &keySequence, const quint32 &id)
 {
@@ -1086,9 +1132,10 @@ bool VCWidget::saveXMLInputControl(QXmlStreamWriter *doc, quint8 controlId, QStr
             continue;
 
         if (found == false && tagName.isEmpty() == false)
+        {
             doc->writeStartElement(tagName);
-
-        found = true;
+            found = true;
+        }
 
         doc->writeStartElement(KXMLQLCVCWidgetInput);
         doc->writeAttribute(KXMLQLCVCWidgetInputUniverse, QString("%1").arg(source->universe()));

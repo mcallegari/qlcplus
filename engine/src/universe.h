@@ -66,12 +66,13 @@ class Universe: public QObject
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(quint32 id READ id CONSTANT)
     Q_PROPERTY(bool passthrough READ passthrough WRITE setPassthrough NOTIFY passthroughChanged)
-    Q_PROPERTY(InputPatch* inputPatch READ inputPatch NOTIFY inputPatchChanged)
+    Q_PROPERTY(InputPatch *inputPatch READ inputPatch NOTIFY inputPatchChanged)
     Q_PROPERTY(int outputPatchesCount READ outputPatchesCount NOTIFY outputPatchesCountChanged)
+    Q_PROPERTY(bool hasFeedbacks READ hasFeedbacks NOTIFY hasFeedbacksChanged)
 
 public:
     /** Construct a new Universe */
-    Universe(quint32 id = invalid(), GrandMaster *gm = NULL, QObject* parent = 0);
+    Universe(quint32 id = invalid(), GrandMaster *gm = NULL, QObject *parent = 0);
 
     /** Destructor */
     virtual ~Universe();
@@ -202,17 +203,20 @@ public:
     /** Sets a feedback patch for this Universe */
     bool setFeedbackPatch(QLCIOPlugin *plugin, quint32 output);
 
+    /** Flag that indicates if this Universe has a patched feedback line */
+    bool hasFeedbacks() const;
+
     /**
      * Get the reference to the input plugin associated to this universe.
      * If not present NULL is returned.
      */
-    InputPatch* inputPatch() const;
+    InputPatch *inputPatch() const;
 
     /**
      * Get the reference to the output plugin associated to this universe.
      * If not present NULL is returned.
      */
-    Q_INVOKABLE OutputPatch* outputPatch(int index = 0) const;
+    Q_INVOKABLE OutputPatch *outputPatch(int index = 0) const;
 
     /** Return the number of output patches associated to this Universe */
     int outputPatchesCount() const;
@@ -221,7 +225,7 @@ public:
      * Get the reference to the feedback plugin associated to this universe.
      * If not present NULL is returned.
      */
-    OutputPatch* feedbackPatch() const;
+    OutputPatch *feedbackPatch() const;
 
     /**
      * This is the actual function that writes data to an output patch
@@ -258,15 +262,18 @@ signals:
     /** Notify the listeners that the number of output patches has changed */
     void outputPatchesCountChanged();
 
+    /** Notify the listeners that a feedback line has been patched/unpatched */
+    void hasFeedbacksChanged();
+
 private:
     /** Reference to the input patch associated to this universe. */
-    InputPatch* m_inputPatch;
+    InputPatch *m_inputPatch;
 
     /** List of references to the output patches associated to this universe. */
     QList<OutputPatch*>m_outputPatchList;
 
     /** Reference to the feedback patch associated to this universe. */
-    OutputPatch* m_fbPatch;
+    OutputPatch *m_fbPatch;
 
 private:
     // Connect to inputPatch's valueChanged signal
@@ -345,7 +352,7 @@ public:
      *
      * @return The current values
      */
-    const QByteArray* postGMValues() const;
+    const QByteArray *postGMValues() const;
 
     /**
      * Get the current pre-Grand-Master values (used by functions and everyone
@@ -494,7 +501,7 @@ public:
      * @param root An XML subtree containing the universe contents
      * @return true if the Universe was loaded successfully, otherwise false
      */
-    bool loadXML(QXmlStreamReader &root, int index, InputOutputMap* ioMap);
+    bool loadXML(QXmlStreamReader &root, int index, InputOutputMap *ioMap);
 
     /**
      * Load an optional tag defining the plugin specific parameters

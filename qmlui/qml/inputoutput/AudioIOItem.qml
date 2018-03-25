@@ -25,7 +25,7 @@ Rectangle
     id: audioItem
     width: parent.width
     height: UISettings.bigItemHeight
-    color: isSelected ? "#2D444E" : "transparent"
+    color: isSelected ? UISettings.highlightPressed : "transparent"
     border.width: 2
     border.color: isSelected ? UISettings.selection : "transparent"
 

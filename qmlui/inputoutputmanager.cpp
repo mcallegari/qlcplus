@@ -408,7 +408,7 @@ QVariant InputOutputManager::universeInputProfiles(int universe)
 {
     QVariantList profilesList;
     QString currentProfile = KInputNone;
-    QStringList profileNames = m_doc->inputOutputMap()->profileNames();
+    QStringList profileNames = m_ioMap->profileNames();
     profileNames.sort();
 
     if (m_ioMap->inputPatch(universe) != NULL)
@@ -416,7 +416,7 @@ QVariant InputOutputManager::universeInputProfiles(int universe)
 
     foreach(QString name, profileNames)
     {
-        QLCInputProfile *ip = m_doc->inputOutputMap()->profile(name);
+        QLCInputProfile *ip = m_ioMap->profile(name);
         if (ip != NULL)
         {
             QString type = ip->typeToString(ip->type());
@@ -437,31 +437,44 @@ QVariant InputOutputManager::universeInputProfiles(int universe)
 
 void InputOutputManager::setOutputPatch(int universe, QString plugin, QString line, int index)
 {
-    m_doc->inputOutputMap()->setOutputPatch(universe, plugin, line.toUInt(), false, index);
+    m_ioMap->setOutputPatch(universe, plugin, line.toUInt(), false, index);
     emit outputCanConfigureChanged();
 }
 
 void InputOutputManager::removeOutputPatch(int universe, int index)
 {
-    m_doc->inputOutputMap()->setOutputPatch(universe, KOutputNone, QLCIOPlugin::invalidLine(), false, index);
+    m_ioMap->setOutputPatch(universe, KOutputNone, QLCIOPlugin::invalidLine(), false, index);
     emit outputCanConfigureChanged();
 }
 
 void InputOutputManager::addInputPatch(int universe, QString plugin, QString line)
 {
-    m_doc->inputOutputMap()->setInputPatch(universe, plugin, line.toUInt());
+    m_ioMap->setInputPatch(universe, plugin, line.toUInt());
     emit inputCanConfigureChanged();
+}
+
+void InputOutputManager::setFeedbackPatch(int universe, bool enable)
+{
+    InputPatch *patch = m_ioMap->inputPatch(universe);
+
+    if (patch == NULL)
+        return;
+
+    if (enable)
+        m_ioMap->setOutputPatch(universe, patch->pluginName(), patch->input(), true);
+    else
+        m_ioMap->setOutputPatch(universe, KInputNone, QLCIOPlugin::invalidLine(), true);
 }
 
 void InputOutputManager::removeInputPatch(int universe)
 {
-    m_doc->inputOutputMap()->setInputPatch(universe, KInputNone, QLCIOPlugin::invalidLine());
+    m_ioMap->setInputPatch(universe, KInputNone, QLCIOPlugin::invalidLine());
     emit inputCanConfigureChanged();
 }
 
 void InputOutputManager::setInputProfile(int universe, QString profileName)
 {
-    m_doc->inputOutputMap()->setInputProfile(universe, profileName);
+    m_ioMap->setInputProfile(universe, profileName);
 }
 
 void InputOutputManager::configurePlugin(bool input)
@@ -473,7 +486,7 @@ void InputOutputManager::configurePlugin(bool input)
 
     if (input)
     {
-        InputPatch *patch = m_doc->inputOutputMap()->inputPatch(m_selectedUniverseIndex);
+        InputPatch *patch = m_ioMap->inputPatch(m_selectedUniverseIndex);
 
         if (patch == NULL || patch->plugin() == NULL)
             return;
@@ -481,7 +494,7 @@ void InputOutputManager::configurePlugin(bool input)
     }
     else
     {
-        OutputPatch *patch = m_doc->inputOutputMap()->outputPatch(m_selectedUniverseIndex);
+        OutputPatch *patch = m_ioMap->outputPatch(m_selectedUniverseIndex);
 
         if (patch == NULL || patch->plugin() == NULL)
             return;
@@ -489,7 +502,7 @@ void InputOutputManager::configurePlugin(bool input)
     }
 
     if (plugin)
-        m_doc->inputOutputMap()->configurePlugin(plugin->name());
+        m_ioMap->configurePlugin(plugin->name());
 }
 
 bool InputOutputManager::inputCanConfigure() const
@@ -497,7 +510,7 @@ bool InputOutputManager::inputCanConfigure() const
     if (m_selectedUniverseIndex == -1)
         return false;
 
-    InputPatch *patch = m_doc->inputOutputMap()->inputPatch(m_selectedUniverseIndex);
+    InputPatch *patch = m_ioMap->inputPatch(m_selectedUniverseIndex);
 
     if (patch == NULL || patch->plugin() == NULL)
         return false;
@@ -510,7 +523,7 @@ bool InputOutputManager::outputCanConfigure() const
     if (m_selectedUniverseIndex == -1)
         return false;
 
-    OutputPatch *patch = m_doc->inputOutputMap()->outputPatch(m_selectedUniverseIndex);
+    OutputPatch *patch = m_ioMap->outputPatch(m_selectedUniverseIndex);
 
     if (patch == NULL || patch->plugin() == NULL)
         return false;
@@ -520,7 +533,7 @@ bool InputOutputManager::outputCanConfigure() const
 
 int InputOutputManager::outputPatchesCount(int universe) const
 {
-    return m_doc->inputOutputMap()->outputPatchesCount(universe);
+    return m_ioMap->outputPatchesCount(universe);
 }
 
 /*********************************************************************

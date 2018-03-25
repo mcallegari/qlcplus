@@ -64,6 +64,7 @@ Rectangle
         width: sidePanelRoot.width - collapseWidth
         height: parent.height
         source: loaderSource
+        z: 3
 
         // this is a generic ID used by the Loader
         // content to target an object to edit/view

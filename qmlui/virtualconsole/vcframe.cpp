@@ -616,7 +616,7 @@ void VCFrame::gotoPreviousPage()
     else
         setCurrentPage(m_currentPage - 1);
 
-    //sendFeedback(m_currentPage, previousPageInputSourceId);
+    sendFeedback(m_currentPage, INPUT_PREVIOUS_PAGE_ID);
 }
 
 void VCFrame::gotoNextPage()
@@ -626,7 +626,7 @@ void VCFrame::gotoNextPage()
     else
         setCurrentPage(m_currentPage + 1);
 
-    //sendFeedback(m_currentPage, nextPageInputSourceId);
+    sendFeedback(m_currentPage, INPUT_NEXT_PAGE_ID);
 }
 
 /*********************************************************************

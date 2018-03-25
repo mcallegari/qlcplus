@@ -246,7 +246,13 @@ void VCButton::setState(ButtonState state)
 
     emit stateChanged(m_state);
 
-    //updateFeedback(); // TODO
+    if (m_state == Monitoring)
+        return;
+
+    if (m_state == Inactive)
+        sendFeedback(0, INPUT_PRESSURE_ID, VCWidget::LowerValue);
+    else
+        sendFeedback(255, INPUT_PRESSURE_ID, VCWidget::UpperValue);
 }
 
 void VCButton::requestStateChange(bool pressed)

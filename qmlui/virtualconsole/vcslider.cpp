@@ -357,20 +357,17 @@ void VCSlider::setValue(int value, bool setDMX, bool updateFeedback)
     if (setDMX)
         m_levelValueChanged = true;
 
-    Q_UNUSED(updateFeedback)
-    /* TODO
     if (updateFeedback)
     {
         int fbv = 0;
         if (invertedAppearance() == true)
-            fbv = levelHighLimit() - m_value;
+            fbv = rangeHighLimit() - m_value;
         else
             fbv = m_value;
-        fbv = (int)SCALE(float(fbv), float(levelLowLimit()),
-                         float(levelHighLimit()), float(0), float(UCHAR_MAX));
-        sendFeedback(fbv);
+        fbv = (int)SCALE(float(fbv), float(rangeLowLimit()),
+                         float(rangeHighLimit()), float(0), float(UCHAR_MAX));
+        sendFeedback(fbv, INPUT_SLIDER_CONTROL_ID);
     }
-    */
 }
 
 void VCSlider::setRangeLowLimit(qreal value)
