@@ -31,8 +31,8 @@ Column
     property bool invalid: false
     property int controlID
     property alias controlIndex: controlsCombo.currentIndex
-    property int universe
-    property int channel
+    property var universe
+    property var channel
     property string uniName
     property string chName
     property bool customFeedback: false
@@ -63,7 +63,7 @@ Column
             onValueChanged:
             {
                 controlID = value
-                virtualConsole.updateInputSourceControlID(dObjRef, controlID, universe, channel)
+                dObjRef.updateInputSourceControlID(universe, channel, controlID)
             }
         }
 
@@ -171,18 +171,22 @@ Column
             RobotoText { id: cfLower; height: UISettings.listItemHeight; label: qsTr("Lower") }
             CustomSpinBox
             {
+                id: lowerSpin
                 width: (cfRow.width - cfLower.width - cfUpper.width - 20) / 2
                 from: 0
                 to: 255
                 value: lowerFb
+                onValueChanged: if (dObjRef) dObjRef.updateInputSourceRange(universe, channel, value, upperSpin.value)
             }
             RobotoText { id: cfUpper; height: UISettings.listItemHeight; label: qsTr("Upper") }
             CustomSpinBox
             {
+                id: upperSpin
                 width: (cfRow.width - cfLower.width - cfUpper.width - 20) / 2
                 from: 0
                 to: 255
                 value: upperFb
+                onValueChanged: if (dObjRef) dObjRef.updateInputSourceRange(universe, channel, lowerSpin.value, value)
             }
         }
     } // end of GridLayout

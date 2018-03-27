@@ -635,6 +635,19 @@ bool VCWidget::updateInputSourceControlID(quint32 universe, quint32 channel, qui
     return false;
 }
 
+bool VCWidget::updateInputSourceRange(quint32 universe, quint32 channel, quint8 lower, quint8 upper)
+{
+    for (QSharedPointer<QLCInputSource> source : m_inputSources) // C++11
+    {
+        if (source->universe() == universe && source->channel() == channel)
+        {
+            source->setRange(lower, upper);
+            return true;
+        }
+    }
+    return false;
+}
+
 void VCWidget::deleteInputSurce(quint32 id, quint32 universe, quint32 channel)
 {
     for (int i = 0; i < m_inputSources.count(); i++)

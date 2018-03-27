@@ -479,7 +479,10 @@ public:
     bool updateInputSource(const QSharedPointer<QLCInputSource> &source, quint32 universe, quint32 channel);
 
     /** Update the control ID of an existing input source bound to $universe and $channel */
-    bool updateInputSourceControlID(quint32 universe, quint32 channel, quint32 id);
+    Q_INVOKABLE bool updateInputSourceControlID(quint32 universe, quint32 channel, quint32 id);
+
+    /** Update the lower/upper values of an existing input source bound to $universe and $channel */
+    Q_INVOKABLE bool updateInputSourceRange(quint32 universe, quint32 channel, quint8 lower, quint8 upper);
 
     /** Delete an existing input source from this widget */
     void deleteInputSurce(quint32 id, quint32 universe, quint32 channel);
