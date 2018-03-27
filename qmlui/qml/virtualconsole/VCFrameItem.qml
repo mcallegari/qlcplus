@@ -50,6 +50,7 @@ VCWidgetItem
     // Frame header
     Rectangle
     {
+        id: frameHeader
         width: parent.width
         height: UISettings.listItemHeight
         color: "transparent"
@@ -114,7 +115,9 @@ VCWidgetItem
                 tooltip: qsTr("Enable/Disable this frame")
                 imgSource: "qrc:/apply.svg"
                 imgMargins: 1
+                checked: frameObj ? !frameObj.isDisabled : true
                 visible: frameObj ? frameObj.showEnable : true
+                onToggled: if (frameObj) frameObj.isDisabled = !checked
             }
 
             // multi page controls
@@ -218,5 +221,17 @@ VCWidgetItem
         }
 
         keys: [ "vcwidget", "function" ]
+    }
+
+    // disable layer
+    Rectangle
+    {
+        y: frameHeader.height
+        width: parent.width
+        height: parent.height - y
+        z: 5
+        visible: frameObj ? frameObj.isDisabled : false
+        opacity: 0.4
+        color: "black"
     }
 }
