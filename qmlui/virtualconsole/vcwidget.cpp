@@ -1124,17 +1124,17 @@ bool VCWidget::saveXMLInputControl(QXmlStreamWriter *doc, quint8 controlId, QStr
 {
     Q_ASSERT(doc != NULL);
 
-    bool found = false;
+    bool tagWritten = false;
 
     for (QSharedPointer<QLCInputSource> source : m_inputSources) // C++11
     {
         if (source->id() != controlId)
             continue;
 
-        if (found == false && tagName.isEmpty() == false)
+        if (tagWritten == false && tagName.isEmpty() == false)
         {
             doc->writeStartElement(tagName);
-            found = true;
+            tagWritten = true;
         }
 
         doc->writeStartElement(KXMLQLCVCWidgetInput);
@@ -1156,18 +1156,18 @@ bool VCWidget::saveXMLInputControl(QXmlStreamWriter *doc, quint8 controlId, QStr
             continue;
         }
 
-        if (found == false && tagName.isEmpty() == false)
+        if (tagWritten == false && tagName.isEmpty() == false)
+        {
             doc->writeStartElement(tagName);
-
-        found = true;
+            tagWritten = true;
+        }
 
         doc->writeTextElement(KXMLQLCVCWidgetKey, i.key().toString());
 
         ++i;
     }
 
-
-    if (found == true)
+    if (tagWritten == true)
         doc->writeEndElement();
 
     return true;

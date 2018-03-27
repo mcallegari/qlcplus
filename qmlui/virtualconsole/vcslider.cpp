@@ -1374,7 +1374,7 @@ bool VCSlider::saveXML(QXmlStreamWriter *doc)
     saveXMLAppearance(doc);
 
     /* Main external control */
-    saveXMLInputControl(doc, INPUT_SLIDER_CONTROL_ID, "");
+    saveXMLInputControl(doc, INPUT_SLIDER_CONTROL_ID);
 
     /* SliderMode */
     doc->writeStartElement(KXMLQLCVCSliderMode);

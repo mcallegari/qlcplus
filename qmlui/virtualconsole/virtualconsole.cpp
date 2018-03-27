@@ -848,7 +848,10 @@ void VirtualConsole::updateInputSourceControlID(VCWidget *widget, quint32 id, qu
 
     qDebug() << "Setting control ID" << id << "to widget" << widget->caption();
 
-    widget->updateInputSourceControlID(universe, channel, id);
+    if (m_inputDetectionEnabled)
+        m_autoDetectionSource->setID(id);
+    else
+        widget->updateInputSourceControlID(universe, channel, id);
 }
 
 bool VirtualConsole::enableKeyAutoDetection(VCWidget *widget, quint32 id, QString keyText)

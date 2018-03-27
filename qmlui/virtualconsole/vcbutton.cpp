@@ -528,7 +528,7 @@ bool VCButton::saveXML(QXmlStreamWriter *doc)
     doc->writeEndElement();
 
     /* External control */
-    saveXMLInputControl(doc, INPUT_PRESSURE_ID, "");
+    saveXMLInputControl(doc, INPUT_PRESSURE_ID);
 
     /* Intensity adjustment */
     if (startupIntensityEnabled())

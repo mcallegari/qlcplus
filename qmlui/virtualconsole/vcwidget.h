@@ -592,7 +592,7 @@ protected:
 
     /** Save all the input sources and key combination with the given $controlId
      *  in a tag with the given $tagName */
-    bool saveXMLInputControl(QXmlStreamWriter *doc, quint8 controlId, QString tagName);
+    bool saveXMLInputControl(QXmlStreamWriter *doc, quint8 controlId, QString tagName = QString());
 };
 
 #endif
