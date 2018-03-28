@@ -59,6 +59,11 @@ lessThan(QT_MAJOR_VERSION, 5) {
                                 $$QT_LIBS_PATH/Qt5Concurrent.dll \
                                 $$QT_LIBS_PATH/Qt5Gamepad.dll \
                                 $$QT_LIBS_PATH/Qt5PrintSupport.dll
+        lessThan(QT_MINOR_VERSION, 10) {
+            release: qtlibs.files += $$QT_LIBS_PATH/Qt5MultimediaQuick_p.dll
+        } else {
+            release: qtlibs.files += $$QT_LIBS_PATH/Qt5MultimediaQuick.dll
+        }
     }
 
     # Qt library dependencies

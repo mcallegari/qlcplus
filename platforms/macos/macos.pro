@@ -144,6 +144,11 @@ qmlui: {
   INSTALLS += $$qt5LibTarget(LIBQT3DQUICKRENDER, Qt3DQuickRender) $$qt5LibTargetID(LIBQT3DQUICKRENDER, Qt3DQuickRender)
   INSTALLS += $$qt5LibTarget(LIBQT3DQUICKINPUT, Qt3DQuickInput) $$qt5LibTargetID(LIBQT3DQUICKINPUT, Qt3DQuickInput)
   INSTALLS += $$qt5LibTarget(LIBQT3DQUICKEXTRAS, Qt3DQuickExtras) $$qt5LibTargetID(LIBQT3DQUICKEXTRAS, Qt3DQuickExtras)
+  lessThan(QT_MINOR_VERSION, 10) {
+    INSTALLS += $$qt5LibTarget(LIBQTMULTIMEDIAQUICK, Qt5MultimediaQuick_p) $$qt5LibTargetID(LIBQTMULTIMEDIAQUICK, Qt5MultimediaQuick_p)
+  } else {
+    INSTALLS += $$qt5LibTarget(LIBQTMULTIMEDIAQUICK, Qt5MultimediaQuick) $$qt5LibTargetID(LIBQTMULTIMEDIAQUICK, Qt5MultimediaQuick)
+  }
 }
 
 # QtGui, QtNetwork and QtScript depend on QtCore.
@@ -156,67 +161,6 @@ qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBQTNETWORK_DIR/$$LIBQTNETWORK_FILE
 qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBQTSCRIPT_DIR/$$LIBQTSCRIPT_FILE
-
-greaterThan(QT_MAJOR_VERSION, 4) {
-
-# Starting from Qt 5.5.0, all this nametool stuff
-# is not needed anymore cause @rpath is used
-
-  lessThan(QT_MINOR_VERSION, 5) {
-# QtWidgets depends on QtCore and QtGui
-    qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
-        $$INSTALLROOT/$$LIBSDIR/$$LIBQTWIDGETS_DIR/$$LIBQTWIDGETS_FILE
-    qtnametool.commands += && $$LIBQTGUI_INSTALL_NAME_TOOL \
-        $$INSTALLROOT/$$LIBSDIR/$$LIBQTWIDGETS_DIR/$$LIBQTWIDGETS_FILE
-# QtOpenGL depends on QtCore, QtGui and QtWidgets
-    qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
-        $$INSTALLROOT/$$LIBSDIR/$$LIBQTOPENGL_DIR/$$LIBQTOPENGL_FILE
-    qtnametool.commands += && $$LIBQTGUI_INSTALL_NAME_TOOL \
-        $$INSTALLROOT/$$LIBSDIR/$$LIBQTOPENGL_DIR/$$LIBQTOPENGL_FILE
-    qtnametool.commands += && $$LIBQTWIDGETS_INSTALL_NAME_TOOL \
-        $$INSTALLROOT/$$LIBSDIR/$$LIBQTOPENGL_DIR/$$LIBQTOPENGL_FILE
-# QtMultimedia depends on QtCore, QtGui and QtNetwork
-    qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
-        $$INSTALLROOT/$$LIBSDIR/$$LIBQTMULTIMEDIA_DIR/$$LIBQTMULTIMEDIA_FILE
-    qtnametool.commands += && $$LIBQTGUI_INSTALL_NAME_TOOL \
-        $$INSTALLROOT/$$LIBSDIR/$$LIBQTMULTIMEDIA_DIR/$$LIBQTMULTIMEDIA_FILE
-    qtnametool.commands += && $$LIBQTNETWORK_INSTALL_NAME_TOOL \
-        $$INSTALLROOT/$$LIBSDIR/$$LIBQTMULTIMEDIA_DIR/$$LIBQTMULTIMEDIA_FILE
-# QtMultimediaWidgets depends on QtCore, QtGui, QtWidgets, QtOpenGL, QtNetwork and QtMultimedia
-    qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
-        $$INSTALLROOT/$$LIBSDIR/$$LIBQTMULTIMEDIAWIDGETS_DIR/$$LIBQTMULTIMEDIAWIDGETS_FILE
-    qtnametool.commands += && $$LIBQTGUI_INSTALL_NAME_TOOL \
-        $$INSTALLROOT/$$LIBSDIR/$$LIBQTMULTIMEDIAWIDGETS_DIR/$$LIBQTMULTIMEDIAWIDGETS_FILE
-    qtnametool.commands += && $$LIBQTWIDGETS_INSTALL_NAME_TOOL \
-        $$INSTALLROOT/$$LIBSDIR/$$LIBQTMULTIMEDIAWIDGETS_DIR/$$LIBQTMULTIMEDIAWIDGETS_FILE
-    qtnametool.commands += && $$LIBQTOPENGL_INSTALL_NAME_TOOL \
-        $$INSTALLROOT/$$LIBSDIR/$$LIBQTMULTIMEDIAWIDGETS_DIR/$$LIBQTMULTIMEDIAWIDGETS_FILE
-    qtnametool.commands += && $$LIBQTNETWORK_INSTALL_NAME_TOOL \
-        $$INSTALLROOT/$$LIBSDIR/$$LIBQTMULTIMEDIAWIDGETS_DIR/$$LIBQTMULTIMEDIAWIDGETS_FILE
-    qtnametool.commands += && $$LIBQTMULTIMEDIA_INSTALL_NAME_TOOL \
-        $$INSTALLROOT/$$LIBSDIR/$$LIBQTMULTIMEDIAWIDGETS_DIR/$$LIBQTMULTIMEDIAWIDGETS_FILE
-# QtPrintSupport depends on QtCore, QtGui and QtWidgets
-    qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
-        $$INSTALLROOT/$$LIBSDIR/$$LIBQTPRINTSUPPORT_DIR/$$LIBQTPRINTSUPPORT_FILE
-    qtnametool.commands += && $$LIBQTGUI_INSTALL_NAME_TOOL \
-        $$INSTALLROOT/$$LIBSDIR/$$LIBQTPRINTSUPPORT_DIR/$$LIBQTPRINTSUPPORT_FILE
-    qtnametool.commands += && $$LIBQTWIDGETS_INSTALL_NAME_TOOL \
-        $$INSTALLROOT/$$LIBSDIR/$$LIBQTPRINTSUPPORT_DIR/$$LIBQTPRINTSUPPORT_FILE
-# QtSerialPort depends on QtCore
-    #qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
-    #    $$INSTALLROOT/$$LIBSDIR/$$LIBQTSERIALPORT_DIR/$$LIBQTSERIALPORT_FILE
-  }
-}
-
-qmlui: {
-    # QtQml, QtQuick and QtSvg depend on QtCore
-    qtnametool.commands = $$LIBQTCORE_INSTALL_NAME_TOOL \
-        $$INSTALLROOT/$$LIBSDIR/$$LIBQTQML_DIR/$$LIBQTQML_FILE
-    qtnametool.commands = $$LIBQTCORE_INSTALL_NAME_TOOL \
-        $$INSTALLROOT/$$LIBSDIR/$$LIBQTQUICK_DIR/$$LIBQTQUICK_FILE
-    qtnametool.commands = $$LIBQTCORE_INSTALL_NAME_TOOL \
-        $$INSTALLROOT/$$LIBSDIR/$$LIBQTSVG_DIR/$$LIBQTSVG_FILE
-}
 
 # Libftdi depends on libusb0.1 & 1.0
 qtnametool.commands += && $$LIBUSB0_INSTALL_NAME_TOOL \

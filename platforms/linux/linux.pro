@@ -74,6 +74,13 @@ appimage: {
                     $$QT_LIBS_PATH/libQt5Concurrent.so.5 \
                     $$QT_LIBS_PATH/libQt5Gamepad.so.5 \
                     $$QT_LIBS_PATH/libQt5PrintSupport.so.5
+
+    lessThan(QT_MINOR_VERSION, 10) {
+        qtlibs.files += $$QT_LIBS_PATH/libQt5MultimediaQuick_p.so.5
+    } else {
+        qtlibs.files += $$QT_LIBS_PATH/libQt5MultimediaQuick.so.5
+    }
+
     INSTALLS += qtlibs
 
     # Qt plugins
