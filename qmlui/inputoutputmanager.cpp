@@ -335,7 +335,10 @@ QVariant InputOutputManager::audioOutputSources() const
 void InputOutputManager::setAudioInput(QString privateName)
 {
     QSettings settings;
-    settings.setValue(SETTINGS_AUDIO_INPUT_DEVICE, privateName);
+    if (privateName == "__qlcplusdefault__")
+        settings.remove(SETTINGS_AUDIO_INPUT_DEVICE);
+    else
+        settings.setValue(SETTINGS_AUDIO_INPUT_DEVICE, privateName);
     m_doc->destroyAudioCapture();
     emit audioInputSourcesChanged();
     emit audioInputDeviceChanged();
@@ -344,7 +347,10 @@ void InputOutputManager::setAudioInput(QString privateName)
 void InputOutputManager::setAudioOutput(QString privateName)
 {
     QSettings settings;
-    settings.setValue(SETTINGS_AUDIO_OUTPUT_DEVICE, privateName);
+    if (privateName == "__qlcplusdefault__")
+        settings.remove(SETTINGS_AUDIO_OUTPUT_DEVICE);
+    else
+        settings.setValue(SETTINGS_AUDIO_OUTPUT_DEVICE, privateName);
     emit audioOutputSourcesChanged();
     emit audioOutputDeviceChanged();
 }

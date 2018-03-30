@@ -103,7 +103,8 @@ void AudioEditor::setLooped(bool looped)
 {
     if (m_audio != NULL)
     {
-        Tardis::instance()->enqueueAction(Tardis::FunctionSetRunOrder, m_audio->id(), m_audio->runOrder(), looped ? Audio::Loop : Audio::SingleShot);
+        Tardis::instance()->enqueueAction(Tardis::FunctionSetRunOrder, m_audio->id(), m_audio->runOrder(),
+                                          looped ? Audio::Loop : Audio::SingleShot);
 
         if (looped)
             m_audio->setRunOrder(Audio::Loop);
