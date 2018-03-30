@@ -309,10 +309,12 @@ void App::initDoc()
     m_doc->rgbScriptsCache()->load(RGBScriptsCache::userScriptsDirectory());
 
     /* Load plugins */
+/*
 #if defined(__APPLE__) || defined(Q_OS_MAC)
     connect(m_doc->ioPluginCache(), SIGNAL(pluginLoaded(const QString&)),
             this, SLOT(slotSetProgressText(const QString&)));
 #endif
+*/
 #if defined Q_OS_ANDROID
     QString pluginsPath = QString("%1/../lib").arg(QDir::currentPath());
     m_doc->ioPluginCache()->load(QDir(pluginsPath));
