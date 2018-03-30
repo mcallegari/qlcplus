@@ -223,6 +223,9 @@ Item
         }
         onReleased:
         {
+            if (sfRef && sfRef.locked)
+                return;
+
             if (drag.target !== null)
             {
                 console.log("Show item drag finished: " + showItemBody.x + " " + showItemBody.y);
