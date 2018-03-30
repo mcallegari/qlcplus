@@ -153,5 +153,5 @@ Section "Uninstall"
 ;	DeleteRegKey HKCR "QLightControllerPlus.Document"
 
 	; This will delete all settings
-	DeleteRegKey HKCU "Software\qlcplus"
+;	DeleteRegKey HKCU "Software\qlcplus"
 SectionEnd
