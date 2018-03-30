@@ -45,6 +45,8 @@ class VirtualConsole : public PreviewContext
     Q_PROPERTY(int pagesCount READ pagesCount NOTIFY pagesCountChanged)
     Q_PROPERTY(int selectedPage READ selectedPage WRITE setSelectedPage NOTIFY selectedPageChanged)
     Q_PROPERTY(bool editMode READ editMode WRITE setEditMode NOTIFY editModeChanged)
+    Q_PROPERTY(bool snapping READ snapping WRITE setSnapping NOTIFY snappingChanged)
+    Q_PROPERTY(qreal snappingSize READ snappingSize CONSTANT)
     Q_PROPERTY(VCWidget *selectedWidget READ selectedWidget NOTIFY selectedWidgetChanged)
     Q_PROPERTY(int selectedWidgetsCount READ selectedWidgetsCount NOTIFY selectedWidgetsCountChanged)
 
@@ -57,9 +59,16 @@ public:
     /** Reset the Virtual Console contents to an initial state */
     void resetContents();
 
-    /** Set/Get the VC edit mode flag */
+    /** Get/Set the VC edit mode flag */
     bool editMode() const;
     void setEditMode(bool editMode);
+
+    /** Get/Set VC widgets position snapping */
+    bool snapping() const;
+    void setSnapping(bool enable);
+
+    /** Get the VC widget position snapping size */
+    qreal snappingSize();
 
     enum LoadStatus
     {
@@ -76,9 +85,11 @@ public:
 
 signals:
     void editModeChanged(bool editMode);
+    void snappingChanged(bool enable);
 
 protected:
     bool m_editMode;
+    bool m_snapping;
 
     /** The current VC load status */
     LoadStatus m_loadStatus;

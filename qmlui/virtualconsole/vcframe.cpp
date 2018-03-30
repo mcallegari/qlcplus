@@ -150,6 +150,12 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
 
     VCWidget::WidgetType type = stringToType(wType);
 
+    if (m_vc->snapping())
+    {
+        pos.setX(qRound((qreal)pos.x() / m_vc->snappingSize()) * m_vc->snappingSize());
+        pos.setY(qRound((qreal)pos.y() / m_vc->snappingSize()) * m_vc->snappingSize());
+    }
+
     switch (type)
     {
         case FrameWidget:
@@ -267,6 +273,12 @@ void VCFrame::addWidgetMatrix(QQuickItem *parent, QString matrixType, QPoint pos
         frame = new VCFrame(m_doc, m_vc, this);
     }
 
+    if (m_vc->snapping())
+    {
+        pos.setX(qRound((qreal)pos.x() / m_vc->snappingSize()) * m_vc->snappingSize());
+        pos.setY(qRound((qreal)pos.y() / m_vc->snappingSize()) * m_vc->snappingSize());
+    }
+
     QQmlEngine::setObjectOwnership(frame, QQmlEngine::CppOwnership);
     m_vc->addWidgetToMap(frame);
     Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
@@ -297,6 +309,12 @@ void VCFrame::addFunctions(QQuickItem *parent, QVariantList idsList, QPoint pos,
     m_vc->resetDropTargets(true);
 
     //qDebug() << "modifiers:" << QString::number(keyModifiers, 16);
+
+    if (m_vc->snapping())
+    {
+        pos.setX(qRound((qreal)pos.x() / m_vc->snappingSize()) * m_vc->snappingSize());
+        pos.setY(qRound((qreal)pos.y() / m_vc->snappingSize()) * m_vc->snappingSize());
+    }
 
     QPoint currPos = pos;
 

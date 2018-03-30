@@ -132,8 +132,8 @@ Rectangle
         id: outputDropTarget
         x: outWireBox.x + 6
         y: 2
-        width: ((audioItem.width - audioBox.width) / 2) - 6
-        height: UISettings.bigItemHeight * 0.9
+        width: audioItem.width - x - 2
+        height: audioItem.height - 4
 
         // this key must match the one in AudioCardsList, to avoid dropping
         // an audio input on output and vice-versa

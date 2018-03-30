@@ -58,6 +58,7 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc,
                                ContextManager *ctxManager, QObject *parent)
     : PreviewContext(view, doc, "VC", parent)
     , m_editMode(false)
+    , m_snapping(true)
     , m_loadStatus(Cleared)
     , m_contextManager(ctxManager)
     , m_selectedPage(0)
@@ -130,6 +131,25 @@ void VirtualConsole::setEditMode(bool editMode)
 
     m_editMode = editMode;
     emit editModeChanged(editMode);
+}
+
+bool VirtualConsole::snapping() const
+{
+    return m_snapping;
+}
+
+void VirtualConsole::setSnapping(bool enable)
+{
+    if (m_snapping == enable)
+        return;
+
+    m_snapping = enable;
+    emit snappingChanged(enable);
+}
+
+qreal VirtualConsole::snappingSize()
+{
+    return pixelDensity() * 3;
 }
 
 VirtualConsole::LoadStatus VirtualConsole::loadStatus() const
@@ -542,6 +562,12 @@ void VirtualConsole::moveWidget(VCWidget *widget, VCFrame *targetFrame, QPoint p
         targetFrame->addWidgetToPageMap(widget);
 
         widget->setParent(targetFrame);
+    }
+
+    if (snapping())
+    {
+        pos.setX(qRound((qreal)pos.x() / snappingSize()) * snappingSize());
+        pos.setY(qRound((qreal)pos.y() / snappingSize()) * snappingSize());
     }
 
     QRectF wRect = widget->geometry();

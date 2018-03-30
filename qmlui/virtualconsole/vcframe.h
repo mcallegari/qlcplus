@@ -105,9 +105,11 @@ public:
     Q_INVOKABLE void addWidgetMatrix(QQuickItem *parent, QString matrixType, QPoint pos,
                                      QSize matrixSize, QSize widgetSize, bool soloFrame = false);
 
-    /** Add a Function with ID $funcID at position $pos to this frame.
-     *  If $modifierPressed is false, a VC Button is created to represent the Function
-     *  otherwise a VC Slider is created.
+    /** Add all the Functions IDs in $idsList at position $pos to this frame.
+     *  $keyModifiers determines the type of widget to create:
+     *      Shift: VC Slider in Adjust mode controlling intensity
+     *      Ctrl: VC Cue List (only when dropping Chasers)
+     *      None: VC Button
      *  $parent is used only to render the new widget */
     Q_INVOKABLE void addFunctions(QQuickItem *parent, QVariantList idsList, QPoint pos, int keyModifiers);
 

@@ -172,7 +172,19 @@ Rectangle
                         }
                 }
 
+                // filler
                 Rectangle { Layout.fillWidth: true }
+
+                IconButton
+                {
+                    width: vcToolbar.height
+                    height: width
+                    imgSource: "qrc:/grid.svg"
+                    tooltip: qsTr("Enable/Disable widgets snapping")
+                    checkable: true
+                    checked: virtualConsole.snapping
+                    onToggled: virtualConsole.snapping = checked
+                }
 
                 ZoomItem
                 {
