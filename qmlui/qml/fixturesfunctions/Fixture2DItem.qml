@@ -269,11 +269,8 @@ Rectangle
 
         onPressed:
         {
-            isSelected = true
-            contextManager.setFixtureSelection(fixtureID, true)
             // do not accept this event to propagate it to the drag rectangle
             mouse.accepted = false
-            UISettings.justSelected = true
         }
     }
 }

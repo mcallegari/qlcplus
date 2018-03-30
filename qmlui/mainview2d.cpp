@@ -197,13 +197,16 @@ void MainView2D::createFixtureItem(quint32 fxID, QVector3D pos, bool mmCoords)
 }
 
 QList<quint32> MainView2D::selectFixturesRect(QRectF rect)
-{
+{   
     QList<quint32>fxList;
-    QMapIterator<quint32, QQuickItem *> it(m_itemsMap);
-    while (it.hasNext())
+
+    if (rect.width() == 0 || rect.height() == 0)
+        return fxList;
+
+    QMap<quint32, QQuickItem *>::const_iterator i = m_itemsMap.constBegin();
+    while (i != m_itemsMap.constEnd())
     {
-        it.next();
-        QQuickItem *fxItem = it.value();
+        QQuickItem *fxItem = i.value();
         qreal itemXPos = fxItem->property("x").toReal();
         qreal itemYPos = fxItem->property("y").toReal();
         qreal itemWidth = fxItem->property("width").toReal();
@@ -218,11 +221,35 @@ QList<quint32> MainView2D::selectFixturesRect(QRectF rect)
             if (fxItem->property("isSelected").toBool() == false)
             {
                 fxItem->setProperty("isSelected", true);
-                fxList.append(it.key());
+                fxList.append(i.key());
             }
         }
+        ++i;
     }
     return fxList;
+}
+
+int MainView2D::fixtureAtPos(QPointF pos)
+{
+    QMap<quint32, QQuickItem *>::const_iterator i = m_itemsMap.constBegin();
+    while (i != m_itemsMap.constEnd())
+    {
+        QQuickItem *fxItem = i.value();
+        qreal itemXPos = fxItem->property("x").toReal();
+        qreal itemYPos = fxItem->property("y").toReal();
+        qreal itemWidth = fxItem->property("width").toReal();
+        qreal itemHeight = fxItem->property("height").toReal();
+        QRectF itemRect(itemXPos, itemYPos, itemWidth, itemHeight);
+
+        qDebug() << "Point:" << pos << "itemRect:" << itemRect;
+
+        if (itemRect.contains(pos))
+            return i.key();
+
+        ++i;
+    }
+
+    return -1;
 }
 
 void MainView2D::slotRefreshView()

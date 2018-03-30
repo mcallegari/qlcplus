@@ -54,18 +54,28 @@ public:
 
     void createFixtureItem(quint32 fxID, QVector3D pos, bool mmCoords = true);
 
+    /** Select some Fixtures included in the provided $rect area */
     QList<quint32> selectFixturesRect(QRectF rect);
 
+    /** Return the ID of a Fixture at the given $pos or -1 if not found */
+    Q_INVOKABLE int fixtureAtPos(QPointF pos);
+
+    /** Update the fixture preview when some channels have changed */
     void updateFixture(Fixture *fixture);
 
+    /** Update the selection status of a list of Fixture IDs */
     void updateFixtureSelection(QList<quint32>fixtures);
 
+    /** Update the selection status of a Fixture with the provided $fxID */
     void updateFixtureSelection(quint32 fxID, bool enable);
 
+    /** Update the rotation of a Fixture with the provided $fxID */
     void updateFixtureRotation(quint32 fxID, QVector3D degrees);
 
+    /** Update the position of a Fixture with the provided $fxID */
     void updateFixturePosition(quint32 fxID, QVector3D pos);
 
+    /** Remove a Fixture item with the provided $fxID from the preview */
     void removeFixtureItem(quint32 fxID);
 
     /** Get/Set the grid width/height */

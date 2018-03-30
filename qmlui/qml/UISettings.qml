@@ -60,7 +60,4 @@ QtObject
     property real mediumItemHeight: screenPixelDensity * 15
     property real bigItemHeight:    screenPixelDensity * 25
     property real scrollBarWidth:   screenPixelDensity * 6
-
-    /* Temporary runtime variables */
-    property bool justSelected: false
 }
