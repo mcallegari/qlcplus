@@ -131,7 +131,7 @@ greaterThan(QT_MAJOR_VERSION, 4) {
                          $$QT_QML_PATH/QtQuick \
                          $$QT_QML_PATH/QtQuick.2 \
                          $$QT_QML_PATH/Qt3D \
-                         $$QT_QML_PATH/Qt5Multimedia
+                         $$QT_QML_PATH/QtMultimedia
 
         INSTALLS += qmldeps
 
