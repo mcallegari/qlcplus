@@ -66,7 +66,7 @@ Rectangle
 
     function hasSettings()
     {
-        return true;
+        return true
     }
 
     function showSettings(show)

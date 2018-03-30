@@ -66,6 +66,7 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
 
     m_DMXView = new MainViewDMX(m_view, m_doc);
     registerContext(m_DMXView);
+    m_view->rootContext()->setContextProperty("ViewDMX", m_DMXView);
 
     m_2DView = new MainView2D(m_view, m_doc);
     registerContext(m_2DView);

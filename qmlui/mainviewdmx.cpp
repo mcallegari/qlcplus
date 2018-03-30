@@ -29,6 +29,8 @@
 
 MainViewDMX::MainViewDMX(QQuickView *view, Doc *doc, QObject *parent)
     : PreviewContext(view, doc, "DMX", parent)
+    , m_showAddresses(false)
+    , m_relativeAddresses(false)
 {
     setContextResource("qrc:/DMXView.qml");
     setContextTitle(tr("DMX View"));
@@ -153,6 +155,34 @@ void MainViewDMX::removeFixtureItem(quint32 fxID)
     delete fixtureItem;
 }
 
+bool MainViewDMX::showAddresses() const
+{
+    return m_showAddresses;
+}
+
+void MainViewDMX::setShowAddresses(bool showAddresses)
+{
+    if (m_showAddresses == showAddresses)
+        return;
+
+    m_showAddresses = showAddresses;
+    emit showAddressesChanged(m_showAddresses);
+}
+
+bool MainViewDMX::relativeAddresses() const
+{
+    return m_relativeAddresses;
+}
+
+void MainViewDMX::setRelativeAddresses(bool relativeAddresses)
+{
+    if (m_relativeAddresses == relativeAddresses)
+        return;
+
+    m_relativeAddresses = relativeAddresses;
+    emit relativeAddressesChanged(m_relativeAddresses);
+}
+
 void MainViewDMX::slotRefreshView()
 {
     if (isEnabled() == false)
@@ -160,7 +190,7 @@ void MainViewDMX::slotRefreshView()
 
     reset();
 
-    foreach(Fixture *fixture, m_doc->fixtures())
+    for (Fixture *fixture : m_doc->fixtures())
         createFixtureItem(fixture->id());
 }
 
