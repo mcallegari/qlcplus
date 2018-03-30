@@ -39,8 +39,8 @@ class InputOutputManager : public PreviewContext
     Q_PROPERTY(QVariant universesListModel READ universesListModel NOTIFY universesListModelChanged)
     Q_PROPERTY(int selectedIndex READ selectedIndex WRITE setSelectedIndex NOTIFY selectedIndexChanged)
 
-    Q_PROPERTY(QVariant audioInputSources READ audioInputSources CONSTANT)
-    Q_PROPERTY(QVariant audioOutputSources READ audioOutputSources CONSTANT)
+    Q_PROPERTY(QVariant audioInputSources READ audioInputSources NOTIFY audioInputSourcesChanged)
+    Q_PROPERTY(QVariant audioOutputSources READ audioOutputSources NOTIFY audioOutputSourcesChanged)
     Q_PROPERTY(QVariant audioInputDevice READ audioInputDevice NOTIFY audioInputDeviceChanged)
     Q_PROPERTY(QVariant audioOutputDevice READ audioOutputDevice NOTIFY audioOutputDeviceChanged)
     Q_PROPERTY(bool blackout READ blackout WRITE setBlackout NOTIFY blackoutChanged)
@@ -103,9 +103,15 @@ public:
     QVariant audioInputSources() const;
     QVariant audioOutputSources() const;
 
+    Q_INVOKABLE void setAudioInput(QString privateName);
+    Q_INVOKABLE void setAudioOutput(QString privateName);
+
 signals:
     void audioInputDeviceChanged();
     void audioOutputDeviceChanged();
+
+    void audioInputSourcesChanged();
+    void audioOutputSourcesChanged();
 
     /*********************************************************************
      * IO Patches

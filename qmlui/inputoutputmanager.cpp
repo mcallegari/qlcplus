@@ -268,22 +268,29 @@ QVariant InputOutputManager::audioOutputDevice()
 
 QVariant InputOutputManager::audioInputSources() const
 {
+    QSettings settings;
     QVariantList inputSources;
     QList<AudioDeviceInfo> devList = m_doc->audioPluginCache()->audioDevicesList();
+    QString currDevice = settings.value(SETTINGS_AUDIO_INPUT_DEVICE).toString();
 
     QVariantMap defAudioMap;
     defAudioMap.insert("mLabel", tr("Default device"));
     defAudioMap.insert("mValue", -1);
+    defAudioMap.insert("privateName", "__qlcplusdefault__");
     inputSources.append(defAudioMap);
 
     int i = 0;
-    foreach(AudioDeviceInfo info, devList)
+    for (AudioDeviceInfo info : devList)
     {
         if (info.capabilities & AUDIO_CAP_INPUT)
         {
+            if (info.privateName == currDevice)
+                continue;
+
             QVariantMap devMap;
             devMap.insert("mLabel", info.deviceName);
             devMap.insert("mValue", i);
+            devMap.insert("privateName", info.privateName);
             inputSources.append(devMap);
         }
         i++;
@@ -294,28 +301,52 @@ QVariant InputOutputManager::audioInputSources() const
 
 QVariant InputOutputManager::audioOutputSources() const
 {
+    QSettings settings;
     QVariantList outputSources;
     QList<AudioDeviceInfo> devList = m_doc->audioPluginCache()->audioDevicesList();
+    QString currDevice = settings.value(SETTINGS_AUDIO_OUTPUT_DEVICE).toString();
 
     QVariantMap defAudioMap;
     defAudioMap.insert("mLabel", tr("Default device"));
     defAudioMap.insert("mValue", -1);
+    defAudioMap.insert("privateName", "__qlcplusdefault__");
     outputSources.append(defAudioMap);
 
     int i = 0;
-    foreach(AudioDeviceInfo info, devList)
+    for (AudioDeviceInfo info : devList)
     {
         if (info.capabilities & AUDIO_CAP_OUTPUT)
         {
+            if (info.privateName == currDevice)
+                continue;
+
             QVariantMap devMap;
             devMap.insert("mLabel", info.deviceName);
             devMap.insert("mValue", i);
+            devMap.insert("privateName", info.privateName);
             outputSources.append(devMap);
         }
+        i++;
     }
-    i++;
 
     return QVariant::fromValue(outputSources);
+}
+
+void InputOutputManager::setAudioInput(QString privateName)
+{
+    QSettings settings;
+    settings.setValue(SETTINGS_AUDIO_INPUT_DEVICE, privateName);
+    m_doc->destroyAudioCapture();
+    emit audioInputSourcesChanged();
+    emit audioInputDeviceChanged();
+}
+
+void InputOutputManager::setAudioOutput(QString privateName)
+{
+    QSettings settings;
+    settings.setValue(SETTINGS_AUDIO_OUTPUT_DEVICE, privateName);
+    emit audioOutputSourcesChanged();
+    emit audioOutputDeviceChanged();
 }
 
 /*********************************************************************
