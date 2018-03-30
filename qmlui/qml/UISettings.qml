@@ -30,8 +30,8 @@ QtObject
     property color bgStronger: "#161616"
     property color bgStrong:   "#232323"
     property color bgMedium:   "#333"
-    property color bgControl:  "#444"
-    property color bgLight:    "#5F5F5F"
+    property color bgControl:  "#555"
+    property color bgLight:    "#6F6F6F"
     property color bgLighter:  "#8F8F8F"
 
     property color fgMain:     "white"

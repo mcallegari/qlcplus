@@ -28,7 +28,7 @@ Rectangle
     id: fxProps
     width: 400
     height: columnContainer.height + 8
-    color: UISettings.bgLight
+    color: UISettings.bgMedium
 
     property string fxMode: fixtureBrowser.selectedMode
     property string fxName: fixtureBrowser.fixtureName
@@ -82,7 +82,7 @@ Rectangle
             rowSpacing: 4
 
             property real itemsHeight: UISettings.listItemHeight
-            property real itemsFontSize: UISettings.textSizeDefault * 0.75
+            property real itemsFontSize: UISettings.textSizeDefault
 
             // row 1
             RobotoText
