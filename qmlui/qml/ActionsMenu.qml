@@ -146,8 +146,6 @@ Popup
             entryText: qsTr("New project")
             onClicked:
             {
-                menuRoot.close()
-
                 if (qlcplus.docModified)
                 {
                     saveFirstPopup.openAction = false
@@ -155,6 +153,8 @@ Popup
                 }
                 else
                     qlcplus.newWorkspace()
+
+                menuRoot.close()
             }
             onEntered: submenuItem = null
         }
@@ -166,8 +166,6 @@ Popup
             entryText: qsTr("Open project")
             onClicked:
             {
-                menuRoot.close()
-
                 if (qlcplus.docModified)
                 {
                     saveFirstPopup.openAction = true
@@ -175,6 +173,8 @@ Popup
                 }
                 else
                     openDialog.open()
+
+                menuRoot.close()
             }
             onEntered: submenuItem = recentMenu
 
@@ -217,12 +217,12 @@ Popup
 
             onClicked:
             {
-                menuRoot.close()
-
                 if (qlcplus.fileName())
                     qlcplus.saveWorkspace(qlcplus.fileName())
                 else
                     saveDialog.open()
+
+                menuRoot.close()
             }
         }
 
@@ -235,8 +235,8 @@ Popup
 
             onClicked:
             {
-                menuRoot.close()
                 saveDialog.open()
+                menuRoot.close()
             }
         }
 
@@ -249,8 +249,8 @@ Popup
 
             onClicked:
             {
-                menuRoot.close()
                 importDialog.open()
+                menuRoot.close()
             }
 
             Loader
