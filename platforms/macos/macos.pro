@@ -145,9 +145,9 @@ qmlui: {
   INSTALLS += $$qt5LibTarget(LIBQT3DQUICKINPUT, Qt3DQuickInput) $$qt5LibTargetID(LIBQT3DQUICKINPUT, Qt3DQuickInput)
   INSTALLS += $$qt5LibTarget(LIBQT3DQUICKEXTRAS, Qt3DQuickExtras) $$qt5LibTargetID(LIBQT3DQUICKEXTRAS, Qt3DQuickExtras)
   lessThan(QT_MINOR_VERSION, 10) {
-    INSTALLS += $$qt5LibTarget(LIBQTMULTIMEDIAQUICK, Qt5MultimediaQuick_p) $$qt5LibTargetID(LIBQTMULTIMEDIAQUICK, Qt5MultimediaQuick_p)
+    INSTALLS += $$qt5LibTarget(LIBQTMULTIMEDIAQUICK, QtMultimediaQuick_p) $$qt5LibTargetID(LIBQTMULTIMEDIAQUICK, QtMultimediaQuick_p)
   } else {
-    INSTALLS += $$qt5LibTarget(LIBQTMULTIMEDIAQUICK, Qt5MultimediaQuick) $$qt5LibTargetID(LIBQTMULTIMEDIAQUICK, Qt5MultimediaQuick)
+    INSTALLS += $$qt5LibTarget(LIBQTMULTIMEDIAQUICK, QtMultimediaQuick) $$qt5LibTargetID(LIBQTMULTIMEDIAQUICK, QtMultimediaQuick)
   }
 }
 
@@ -257,7 +257,8 @@ qmlui: {
     INSTALLS += qmlqtdeps
 
     qmldeps.path   = $$INSTALLROOT/qml
-    qmldeps.files += $$(QTDIR)/qml/QtQml \
+    qmldeps.files += $$(QTDIR)/qml/Qt \
+                     $$(QTDIR)/qml/QtQml \
                      $$(QTDIR)/qml/QtQuick \
                      $$(QTDIR)/qml/QtQuick.2 \
                      $$(QTDIR)/qml/Qt3D \
@@ -270,7 +271,7 @@ qmlui: {
                               find . -name *_debug.dylib -type f -delete && \
                               find . -name plugins.qmltypes -type f -delete && \
                               find . -name *.qmlc -type f -delete && \
-                              rm -rf QtQuick/Extras QtQuick/Particles.2 QtQuick/XmlListModel \
+                              rm -rf Qt/WebSockets rm -rf QtQuick/Extras QtQuick/Particles.2 QtQuick/XmlListModel \
                               rm -rf QtQuick/Controls.2/designer QtQuick/Controls.2/Material \
                               rm -rf QtQuick/Controls.2/Universal QtQuick/Controls.2/Fusion \
                               rm -rf QtQuick/Controls.2/Imagine QtQuick/Controls.2/Scene2D
