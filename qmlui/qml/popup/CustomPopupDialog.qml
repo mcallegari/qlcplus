@@ -69,7 +69,7 @@ Dialog
     background:
         Rectangle
         {
-            color: UISettings.bgControl
+            color: UISettings.bgMedium
             border.color: UISettings.bgLight
             border.width: 2
         }
@@ -110,7 +110,7 @@ Dialog
                 Rectangle
                 {
                     implicitHeight: UISettings.iconSizeDefault
-                    color: UISettings.bgControl
+                    color: UISettings.bgMedium
                     x: 2
                     y: 2
                     width: parent.width - 4

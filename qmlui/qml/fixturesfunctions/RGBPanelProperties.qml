@@ -29,7 +29,7 @@ Rectangle
     id: panelProps
     width: 400
     height: columnContainer.height + 8
-    color: UISettings.bgLight
+    color: UISettings.bgMedium
 
     property string name: fixtureBrowser.fixtureName
     property int universeIndex: fxUniverseCombo.currentIndex
@@ -85,7 +85,7 @@ Rectangle
             rowSpacing: 4
 
             property real itemsHeight: UISettings.listItemHeight
-            property real itemsFontSize: UISettings.textSizeDefault * 0.75
+            property real itemsFontSize: UISettings.textSizeDefault
 
             // row 1
             RobotoText
