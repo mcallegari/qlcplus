@@ -775,8 +775,6 @@ void FunctionManager::deleteSelectedFunctions()
                 static_cast<ChaserEditor*>(m_editor)->stopTest();
         }
 
-        m_doc->deleteFunction(fid);
-
         /* When deleting a Sequence, check if the bound Scene ID is still used
          * in the Doc. If not, get rid of it cause otherwise it would stay in the project
          * forever since bound Scenes are hidden and users cannot delete them */
@@ -787,6 +785,8 @@ void FunctionManager::deleteSelectedFunctions()
             if (m_doc->getUsage(boundSceneID).count() == 0)
                 m_doc->deleteFunction(boundSceneID);
         }
+
+        m_doc->deleteFunction(fid);
 
         QTreeWidgetItem* parent = item->parent();
         delete item;
