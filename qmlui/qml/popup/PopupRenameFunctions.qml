@@ -67,7 +67,6 @@ CustomPopupDialog
                 CustomCheckBox
                 {
                     id: numCheckBox
-                    autoExclusive: false
                 }
                 RobotoText
                 {

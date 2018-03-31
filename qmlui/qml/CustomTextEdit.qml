@@ -27,7 +27,7 @@ Rectangle
     height: UISettings.listItemHeight
     clip: true
     radius: 3
-    color: UISettings.bgMedium
+    color: UISettings.bgControl
 
     property alias inputFocus: ctEdit.focus
     property alias inputText: ctEdit.text

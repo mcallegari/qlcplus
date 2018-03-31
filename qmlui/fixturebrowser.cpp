@@ -108,6 +108,7 @@ void FixtureBrowser::setSelectedModel(QString selectedModel)
     m_selectedModel = selectedModel;
     setFixtureName(m_selectedModel);
     m_selectedMode = QString();
+    m_modeChannelsCount = 1;
     emit selectedModelChanged(selectedModel);
     emit modesListChanged();
     emit modeChannelsCountChanged();

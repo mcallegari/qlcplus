@@ -28,6 +28,7 @@
 #include "vcclock.h"
 #include "vcbutton.h"
 #include "vcslider.h"
+#include "vccuelist.h"
 #include "vcsoloframe.h"
 #include "virtualconsole.h"
 
@@ -149,6 +150,12 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
 
     VCWidget::WidgetType type = stringToType(wType);
 
+    if (m_vc->snapping())
+    {
+        pos.setX(qRound((qreal)pos.x() / m_vc->snappingSize()) * m_vc->snappingSize());
+        pos.setY(qRound((qreal)pos.y() / m_vc->snappingSize()) * m_vc->snappingSize());
+    }
+
     switch (type)
     {
         case FrameWidget:
@@ -156,8 +163,8 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             VCFrame *frame = new VCFrame(m_doc, m_vc, this);
             QQmlEngine::setObjectOwnership(frame, QQmlEngine::CppOwnership);
             m_vc->addWidgetToMap(frame);
-            Tardis::instance()->enqueueAction(VCWidgetCreate, this->id(), QVariant(),
-                                              Tardis::instance()->actionToByteArray(VCWidgetCreate, frame->id()));
+            Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, frame->id()));
             frame->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 50, m_vc->pixelDensity() * 50));
             setupWidget(frame, currentPage());
             frame->render(m_vc->view(), parent);
@@ -168,8 +175,8 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             VCSoloFrame *soloframe = new VCSoloFrame(m_doc, m_vc, this);
             QQmlEngine::setObjectOwnership(soloframe, QQmlEngine::CppOwnership);
             m_vc->addWidgetToMap(soloframe);
-            Tardis::instance()->enqueueAction(VCWidgetCreate, this->id(), QVariant(),
-                                              Tardis::instance()->actionToByteArray(VCWidgetCreate, soloframe->id()));
+            Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, soloframe->id()));
             soloframe->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 50, m_vc->pixelDensity() * 50));
             setupWidget(soloframe, currentPage());
             soloframe->render(m_vc->view(), parent);
@@ -180,8 +187,8 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             VCButton *button = new VCButton(m_doc, this);
             QQmlEngine::setObjectOwnership(button, QQmlEngine::CppOwnership);
             m_vc->addWidgetToMap(button);
-            Tardis::instance()->enqueueAction(VCWidgetCreate, this->id(), QVariant(),
-                                              Tardis::instance()->actionToByteArray(VCWidgetCreate, button->id()));
+            Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, button->id()));
             button->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 17, m_vc->pixelDensity() * 17));
             setupWidget(button, currentPage());
             button->render(m_vc->view(), parent);
@@ -192,8 +199,8 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             VCLabel *label = new VCLabel(m_doc, this);
             QQmlEngine::setObjectOwnership(label, QQmlEngine::CppOwnership);
             m_vc->addWidgetToMap(label);
-            Tardis::instance()->enqueueAction(VCWidgetCreate, this->id(), QVariant(),
-                                              Tardis::instance()->actionToByteArray(VCWidgetCreate, label->id()));
+            Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, label->id()));
             label->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 25, m_vc->pixelDensity() * 8));
             setupWidget(label, currentPage());
             label->render(m_vc->view(), parent);
@@ -204,8 +211,8 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             VCSlider *slider = new VCSlider(m_doc, this);
             QQmlEngine::setObjectOwnership(slider, QQmlEngine::CppOwnership);
             m_vc->addWidgetToMap(slider);
-            Tardis::instance()->enqueueAction(VCWidgetCreate, this->id(), QVariant(),
-                                              Tardis::instance()->actionToByteArray(VCWidgetCreate, slider->id()));
+            Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, slider->id()));
             if (wType == "Knob")
             {
                 slider->setWidgetStyle(VCSlider::WKnob);
@@ -222,11 +229,23 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             VCClock *clock = new VCClock(m_doc, this);
             QQmlEngine::setObjectOwnership(clock, QQmlEngine::CppOwnership);
             m_vc->addWidgetToMap(clock);
-            Tardis::instance()->enqueueAction(VCWidgetCreate, this->id(), QVariant(),
-                                              Tardis::instance()->actionToByteArray(VCWidgetCreate, clock->id()));
+            Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, clock->id()));
             clock->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 25, m_vc->pixelDensity() * 8));
             setupWidget(clock, currentPage());
             clock->render(m_vc->view(), parent);
+        }
+        break;
+        case CueListWidget:
+        {
+            VCCueList *cuelist = new VCCueList(m_doc, this);
+            QQmlEngine::setObjectOwnership(cuelist, QQmlEngine::CppOwnership);
+            m_vc->addWidgetToMap(cuelist);
+            Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, cuelist->id()));
+            cuelist->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 80, m_vc->pixelDensity() * 50));
+            setupWidget(cuelist, currentPage());
+            cuelist->render(m_vc->view(), parent);
         }
         break;
         default:
@@ -254,10 +273,16 @@ void VCFrame::addWidgetMatrix(QQuickItem *parent, QString matrixType, QPoint pos
         frame = new VCFrame(m_doc, m_vc, this);
     }
 
+    if (m_vc->snapping())
+    {
+        pos.setX(qRound((qreal)pos.x() / m_vc->snappingSize()) * m_vc->snappingSize());
+        pos.setY(qRound((qreal)pos.y() / m_vc->snappingSize()) * m_vc->snappingSize());
+    }
+
     QQmlEngine::setObjectOwnership(frame, QQmlEngine::CppOwnership);
     m_vc->addWidgetToMap(frame);
-    Tardis::instance()->enqueueAction(VCWidgetCreate, this->id(), QVariant(),
-                                      Tardis::instance()->actionToByteArray(VCWidgetCreate, frame->id()));
+    Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
+                                      Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, frame->id()));
     frame->setGeometry(QRect(pos.x(), pos.y(), totalWidth, totalHeight));
     frame->setShowHeader(false);
     setupWidget(frame, currentPage());
@@ -285,6 +310,12 @@ void VCFrame::addFunctions(QQuickItem *parent, QVariantList idsList, QPoint pos,
 
     //qDebug() << "modifiers:" << QString::number(keyModifiers, 16);
 
+    if (m_vc->snapping())
+    {
+        pos.setX(qRound((qreal)pos.x() / m_vc->snappingSize()) * m_vc->snappingSize());
+        pos.setY(qRound((qreal)pos.y() / m_vc->snappingSize()) * m_vc->snappingSize());
+    }
+
     QPoint currPos = pos;
 
     for (QVariant vID : idsList) // C++11
@@ -300,8 +331,8 @@ void VCFrame::addFunctions(QQuickItem *parent, QVariantList idsList, QPoint pos,
             VCSlider *slider = new VCSlider(m_doc, this);
             QQmlEngine::setObjectOwnership(slider, QQmlEngine::CppOwnership);
             m_vc->addWidgetToMap(slider);
-            Tardis::instance()->enqueueAction(VCWidgetCreate, this->id(), QVariant(),
-                                              Tardis::instance()->actionToByteArray(VCWidgetCreate, slider->id()));
+            Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, slider->id()));
             slider->setGeometry(QRect(currPos.x(), currPos.y(), m_vc->pixelDensity() * 10, m_vc->pixelDensity() * 35));
             slider->setCaption(func->name());
             slider->setControlledFunction(funcID);
@@ -316,13 +347,39 @@ void VCFrame::addFunctions(QQuickItem *parent, QVariantList idsList, QPoint pos,
                 currPos.setY(currPos.y() + slider->geometry().height());
             }
         }
+        else if (keyModifiers & Qt::ControlModifier)
+        {
+            Function *f = m_doc->function(funcID);
+            if (f->type() != Function::ChaserType)
+                return;
+
+            VCCueList *cuelist = new VCCueList(m_doc, this);
+            QQmlEngine::setObjectOwnership(cuelist, QQmlEngine::CppOwnership);
+            m_vc->addWidgetToMap(cuelist);
+
+            Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, cuelist->id()));
+            cuelist->setGeometry(QRect(currPos.x(), currPos.y(), m_vc->pixelDensity() * 80, m_vc->pixelDensity() * 50));
+            cuelist->setCaption(func->name());
+            cuelist->setChaserID(funcID);
+            setupWidget(cuelist, currentPage());
+
+            cuelist->render(m_vc->view(), parent);
+
+            currPos.setX(currPos.x() + cuelist->geometry().width());
+            if (currPos.x() >= geometry().width())
+            {
+                currPos.setX(pos.x());
+                currPos.setY(currPos.y() + cuelist->geometry().height());
+            }
+        }
         else
         {
             VCButton *button = new VCButton(m_doc, this);
             QQmlEngine::setObjectOwnership(button, QQmlEngine::CppOwnership);
             m_vc->addWidgetToMap(button);
-            Tardis::instance()->enqueueAction(VCWidgetCreate, this->id(), QVariant(),
-                                              Tardis::instance()->actionToByteArray(VCWidgetCreate, button->id()));
+            Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, button->id()));
             button->setGeometry(QRect(currPos.x(), currPos.y(), m_vc->pixelDensity() * 17, m_vc->pixelDensity() * 17));
             button->setCaption(func->name());
             button->setFunctionID(funcID);
@@ -577,7 +634,7 @@ void VCFrame::gotoPreviousPage()
     else
         setCurrentPage(m_currentPage - 1);
 
-    //sendFeedback(m_currentPage, previousPageInputSourceId);
+    sendFeedback(m_currentPage, INPUT_PREVIOUS_PAGE_ID);
 }
 
 void VCFrame::gotoNextPage()
@@ -587,7 +644,7 @@ void VCFrame::gotoNextPage()
     else
         setCurrentPage(m_currentPage + 1);
 
-    //sendFeedback(m_currentPage, nextPageInputSourceId);
+    sendFeedback(m_currentPage, INPUT_NEXT_PAGE_ID);
 }
 
 /*********************************************************************
@@ -747,6 +804,21 @@ bool VCFrame::loadWidgetXML(QXmlStreamReader &root, bool render)
             m_vc->addWidgetToMap(clock);
             if (render && m_item)
                 clock->render(m_vc->view(), m_item);
+        }
+    }
+    else if (root.name() == KXMLQLCVCCueList)
+    {
+        /* Create a new cue list into its parent */
+        VCCueList *cuelist = new VCCueList(m_doc, this);
+        if (cuelist->loadXML(root) == false)
+            delete cuelist;
+        else
+        {
+            QQmlEngine::setObjectOwnership(cuelist, QQmlEngine::CppOwnership);
+            setupWidget(cuelist, cuelist->page());
+            m_vc->addWidgetToMap(cuelist);
+            if (render && m_item)
+                cuelist->render(m_vc->view(), m_item);
         }
     }
     else

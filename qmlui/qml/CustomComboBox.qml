@@ -138,8 +138,10 @@ ComboBox
             background:
                 Rectangle
                 {
+                    width: control.width
+                    height: UISettings.listItemHeight
                     visible: control.down || control.highlighted || control.visualFocus
-                    color: highlighted ? UISettings.highlight : hovered ? UISettings.bgMedium : "transparent"
+                    color: highlighted ? UISettings.highlight : hovered ? UISettings.bgControl : "transparent"
                 }
 
             onClicked:
@@ -197,7 +199,7 @@ ComboBox
             visible: !control.flat || control.down
             implicitWidth: 150
             implicitHeight: UISettings.listItemHeight
-            color: control.hovered ? UISettings.bgLight : UISettings.bgMedium
+            color: control.hovered ? UISettings.bgLight : UISettings.bgControl
             border.width: 1
             border.color: UISettings.bgStrong
             radius: 3

@@ -102,6 +102,10 @@ public:
      *  The returned list is formatted as: Function ID / line number */
     QList<quint32> functionList() const;
 
+    /** Convenience method to retrieve Fixtures used by this Script.
+     *  The returned list is formatted as: Fixture ID / line number */
+    QList<quint32> fixtureList() const;
+
     QList<int> syntaxErrorsLines();
 
 private:
@@ -111,23 +115,23 @@ private:
      * Load & Save
      ************************************************************************/
 public:
-    /** @reimpl */
+    /** @reimp */
     bool loadXML(QXmlStreamReader &root);
 
-    /** @reimpl */
+    /** @reimp */
     bool saveXML(QXmlStreamWriter *doc);
 
     /************************************************************************
      * Running
      ************************************************************************/
 public:
-    /** @reimpl */
+    /** @reimp */
     void preRun(MasterTimer* timer);
 
-    /** @reimpl */
+    /** @reimp */
     void write(MasterTimer* timer, QList<Universe*> universes);
 
-    /** @reimpl */
+    /** @reimp */
     void postRun(MasterTimer* timer, QList<Universe*> universes);
 
 private:

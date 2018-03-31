@@ -36,6 +36,7 @@
 #include "showmanager.h"
 #include "modelselector.h"
 #include "videoprovider.h"
+#include "importmanager.h"
 #include "contextmanager.h"
 #include "virtualconsole.h"
 #include "fixturebrowser.h"
@@ -70,6 +71,7 @@ App::App()
     , m_doc(NULL)
     , m_docLoaded(false)
     , m_fileName(QString())
+    , m_importManager(NULL)
 {
     QSettings settings;
 
@@ -307,10 +309,12 @@ void App::initDoc()
     m_doc->rgbScriptsCache()->load(RGBScriptsCache::userScriptsDirectory());
 
     /* Load plugins */
+/*
 #if defined(__APPLE__) || defined(Q_OS_MAC)
     connect(m_doc->ioPluginCache(), SIGNAL(pluginLoaded(const QString&)),
             this, SLOT(slotSetProgressText(const QString&)));
 #endif
+*/
 #if defined Q_OS_ANDROID
     QString pluginsPath = QString("%1/../lib").arg(QDir::currentPath());
     m_doc->ioPluginCache()->load(QDir(pluginsPath));
@@ -559,6 +563,34 @@ bool App::saveWorkspace(const QString &fileName)
     }
 
     return false;
+}
+
+bool App::loadImportWorkspace(const QString &fileName)
+{
+    if (m_importManager != NULL)
+        delete m_importManager;
+
+    m_importManager = new ImportManager(this, m_doc);
+    return m_importManager->loadWorkspace(fileName);
+}
+
+void App::cancelImport()
+{
+    if (m_importManager != NULL)
+        delete m_importManager;
+
+    m_importManager = NULL;
+}
+
+void App::importFromWorkspace()
+{
+    if (m_importManager == NULL)
+        return;
+
+    m_importManager->apply();
+
+    delete m_importManager;
+    m_importManager = NULL;
 }
 
 QFileDevice::FileError App::loadXML(const QString &fileName)

@@ -73,6 +73,7 @@ class VCWidget : public QObject
     Q_OBJECT
 
     Q_PROPERTY(quint32 id READ id CONSTANT)
+    Q_PROPERTY(int type READ type CONSTANT)
     Q_PROPERTY(QString propertiesResource READ propertiesResource CONSTANT)
     Q_PROPERTY(bool isEditing READ isEditing WRITE setIsEditing NOTIFY isEditingChanged)
     Q_PROPERTY(QRectF geometry READ geometry WRITE setGeometry NOTIFY geometryChanged)
@@ -438,9 +439,10 @@ public:
     enum InputSourceTypes { Controller, Keyboard };
     Q_ENUM(InputSourceTypes)
 
-    /************************
+    /*********************************************************************
      * Controls
-     ************************/
+     *********************************************************************/
+public:
     /** Register some external control information known by this widget
      *
      *  @param id a unique id identifying the external control
@@ -459,9 +461,13 @@ public:
     /** Returns the index of a control with the given $id */
     int controlIndex(quint8 id);
 
-    /************************
+    /*********************************************************************
      * Input sources
-     ************************/
+     *********************************************************************/
+public:
+    enum SourceValueType { ExactValue, LowerValue, UpperValue };
+    Q_ENUM(SourceValueType)
+
     /**
      * Add an external input $source to the sources known by thie widget.
      *
@@ -473,7 +479,10 @@ public:
     bool updateInputSource(const QSharedPointer<QLCInputSource> &source, quint32 universe, quint32 channel);
 
     /** Update the control ID of an existing input source bound to $universe and $channel */
-    bool updateInputSourceControlID(quint32 universe, quint32 channel, quint32 id);
+    Q_INVOKABLE bool updateInputSourceControlID(quint32 universe, quint32 channel, quint32 id);
+
+    /** Update the lower/upper values of an existing input source bound to $universe and $channel */
+    Q_INVOKABLE bool updateInputSourceRange(quint32 universe, quint32 channel, quint8 lower, quint8 upper);
 
     /** Delete an existing input source from this widget */
     void deleteInputSurce(quint32 id, quint32 universe, quint32 channel);
@@ -488,9 +497,18 @@ public:
     /** Return a input source reference that matches the specified $id, $universe and $channel */
     QSharedPointer<QLCInputSource> inputSource(quint32 id, quint32 universe, quint32 channel) const;
 
-    /************************
+    /**
+     * Send a feedback to an external controller.
+     *
+     * @param value value from 0 to 255 to be sent
+     * @param id ID of the input source where to send feedback
+     */
+    void sendFeedback(int value, quint8 id = 0, SourceValueType type = ExactValue);
+
+    /*********************************************************************
      * Key sequences
-     ************************/
+     *********************************************************************/
+public:
     /** Add a new key sequence to this widget, bound to the specified control $id */
     void addKeySequence(const QKeySequence& keySequence, const quint32& id = 0);
 
@@ -577,7 +595,7 @@ protected:
 
     /** Save all the input sources and key combination with the given $controlId
      *  in a tag with the given $tagName */
-    bool saveXMLInputControl(QXmlStreamWriter *doc, quint8 controlId, QString tagName);
+    bool saveXMLInputControl(QXmlStreamWriter *doc, quint8 controlId, QString tagName = QString());
 };
 
 #endif

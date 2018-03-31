@@ -43,6 +43,8 @@ class FixtureGroup : public QObject
 {
     Q_OBJECT
 
+    Q_PROPERTY(quint32 id READ id CONSTANT)
+
     /************************************************************************
      * Initialization
      ************************************************************************/

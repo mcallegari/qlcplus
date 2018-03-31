@@ -340,7 +340,6 @@ Rectangle
                   {
                       implicitWidth: UISettings.iconSizeMedium
                       implicitHeight: implicitWidth
-                      autoExclusive: false
                       checked: widgetRef ? widgetRef.monitorEnabled : true
                       onClicked: if (widgetRef) widgetRef.monitorEnabled = checked
                   }

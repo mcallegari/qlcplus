@@ -31,10 +31,12 @@
 #include "functioneditor.h"
 #include "collection.h"
 #include "rgbmatrix.h"
+#include "vccuelist.h"
 #include "rgbimage.h"
 #include "vcwidget.h"
 #include "vcbutton.h"
 #include "vcslider.h"
+#include "universe.h"
 #include "vcframe.h"
 #include "rgbtext.h"
 #include "chaser.h"
@@ -117,6 +119,12 @@ void Tardis::enqueueAction(int code, quint32 objID, QVariant oldVal, QVariant ne
     m_doc->setModified();
 }
 
+QString Tardis::actionToString(int action)
+{
+    int index = staticMetaObject.indexOfEnumerator("ActionCodes");
+    return staticMetaObject.enumerator(index).valueToKey(action);
+}
+
 void Tardis::undoAction()
 {
     if (m_historyIndex == -1 || m_history.isEmpty())
@@ -133,7 +141,7 @@ void Tardis::undoAction()
         if (refTimestamp - action.m_timestamp > TARDIS_ACTION_INTERTIME)
             break;
 
-        qDebug("Undo action 0x%02X", action.m_action);
+        qDebug() << "Undo action" << actionToString(action.m_action);
 
         m_historyIndex--;
 
@@ -167,7 +175,7 @@ void Tardis::redoAction()
         m_historyIndex++;
 
         TardisAction action = m_history.at(m_historyIndex);
-        qDebug("Redo action 0x%02X", action.m_action);
+        qDebug() << "Redo action" << actionToString(action.m_action);
 
         int code = processAction(action, false);
 
@@ -306,6 +314,17 @@ QByteArray Tardis::actionToByteArray(int code, quint32 objID, QVariant data)
 
     switch(code)
     {
+        case IOAddUniverse:
+        case IORemoveUniverse:
+        {
+            if (objID >= (quint32)m_doc->inputOutputMap()->universes().count())
+                break;
+
+            Universe *universe = m_doc->inputOutputMap()->universes().at(objID);
+            universe->saveXML(&xmlWriter);
+        }
+        break;
+
         case FixtureCreate:
         case FixtureDelete:
         {
@@ -380,6 +399,23 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
 
     switch(action)
     {
+        case IOAddUniverse:
+        {
+            if (objID >= m_doc->inputOutputMap()->universesCount())
+                m_doc->inputOutputMap()->addUniverse(objID);
+
+            QList<Universe *> uniList = m_doc->inputOutputMap()->universes();
+            Universe *universe = qobject_cast<Universe *>(uniList.at(objID));
+            universe->loadXML(xmlReader, objID, m_doc->inputOutputMap());
+        }
+        break;
+
+        case IORemoveUniverse:
+        {
+            m_doc->inputOutputMap()->removeUniverse(objID);
+        }
+        break;
+
         case FixtureCreate:
         {
             Fixture::loader(xmlReader, m_doc);
@@ -413,6 +449,12 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
 
             if (step.loadXML(xmlReader, stepNumber, m_doc) == true)
                 chaser->addStep(step, stepNumber);
+        }
+        break;
+        case ChaserRemoveStep:
+        {
+            Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(objID));
+            chaser->removeStep(value.toUInt());
         }
         break;
         case EFXAddFixture:
@@ -486,6 +528,20 @@ int Tardis::processAction(TardisAction &action, bool undo)
         case EnvironmentSetSize:
         {
             m_contextManager->setEnvironmentSize(value->value<QVector3D>());
+        }
+        break;
+
+        /* *********************** Input/Output manager actions ************************ */
+        case IOAddUniverse:
+        {
+            processBufferedAction(undo ? IORemoveUniverse : IOAddUniverse, action.m_objID, action.m_newValue);
+            return undo ? IORemoveUniverse : IOAddUniverse;
+        }
+        break;
+        case IORemoveUniverse:
+        {
+            processBufferedAction(undo ? IOAddUniverse : IORemoveUniverse, action.m_objID, action.m_oldValue);
+            return undo ? IOAddUniverse : IORemoveUniverse;
         }
         break;
 
@@ -602,8 +658,14 @@ int Tardis::processAction(TardisAction &action, bool undo)
 
         case ChaserAddStep:
         {
-            Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(action.m_objID));
-            chaser->removeStep(action.m_newValue.toInt());
+            processBufferedAction(undo ? ChaserRemoveStep : ChaserAddStep, action.m_objID, action.m_newValue);
+            return undo ? ChaserRemoveStep : ChaserAddStep;
+        }
+        break;
+        case ChaserRemoveStep:
+        {
+            processBufferedAction(undo ? ChaserAddStep : ChaserRemoveStep, action.m_objID, action.m_oldValue);
+            return undo ? ChaserAddStep : ChaserRemoveStep;
         }
         break;
         case ChaserSetStepFadeIn:
@@ -1010,6 +1072,13 @@ int Tardis::processAction(TardisAction &action, bool undo)
         {
             auto member = std::mem_fn(&VCSlider::setRangeHighLimit);
             member(qobject_cast<VCSlider *>(m_virtualConsole->widget(action.m_objID)), value->toReal());
+        }
+        break;
+
+        case VCCueListSetChaserID:
+        {
+            auto member = std::mem_fn(&VCCueList::setChaserID);
+            member(qobject_cast<VCCueList *>(m_virtualConsole->widget(action.m_objID)), value->toUInt());
         }
         break;
 

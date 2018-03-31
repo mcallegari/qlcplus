@@ -121,7 +121,7 @@ Rectangle
         {
             id: outDropRect
             anchors.fill: parent
-            color: patchDropTarget.containsDrag ? "#33FF9B3E" : "transparent"
+            color: patchDropTarget.containsDrag ? "#7F00FF00" : "transparent"
         }
     }
 }

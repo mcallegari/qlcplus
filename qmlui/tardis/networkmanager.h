@@ -27,7 +27,7 @@
 #include <QThread>
 #include <QHash>
 
-#include "tardisactions.h"
+#include "tardis.h"
 
 class Doc;
 class SimpleCrypt;

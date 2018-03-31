@@ -237,22 +237,13 @@ Rectangle
             label: qsTr("White");
         }
 
-        Slider
+        CustomSlider
         {
             id: wSlider
             visible: colorsMask & App.White
             Layout.fillWidth: true
-            orientation: Qt.Horizontal
             from: 0
             to: 255
-            handle: Rectangle {
-                x: wSlider.leftPadding + wSlider.visualPosition * (wSlider.availableWidth - width)
-                y: wSlider.topPadding + wSlider.availableHeight / 2 - height / 2
-                implicitWidth: slHandleSize
-                implicitHeight: slHandleSize
-                radius: slHandleSize / 5
-            }
-
             onPositionChanged: currentWAUV = Qt.rgba(valueAt(position) / 255, currentWAUV.g, currentWAUV.b, 1.0)
         }
 
@@ -274,22 +265,13 @@ Rectangle
             label: qsTr("Amber");
         }
 
-        Slider
+        CustomSlider
         {
             id: aSlider
             visible: colorsMask & App.Amber
             Layout.fillWidth: true
-            orientation: Qt.Horizontal
             from: 0
             to: 255
-            handle: Rectangle {
-                x: aSlider.leftPadding + aSlider.visualPosition * (aSlider.availableWidth - width)
-                y: aSlider.topPadding + aSlider.availableHeight / 2 - height / 2
-                implicitWidth: slHandleSize
-                implicitHeight: slHandleSize
-                radius: slHandleSize / 5
-            }
-
             onPositionChanged: currentWAUV = Qt.rgba(currentWAUV.r, valueAt(position) / 255, currentWAUV.b, 1.0)
         }
 
@@ -311,22 +293,13 @@ Rectangle
             label: qsTr("UV");
         }
 
-        Slider
+        CustomSlider
         {
             id: uvSlider
             visible: colorsMask & App.UV
             Layout.fillWidth: true
-            orientation: Qt.Horizontal
             from: 0
             to: 255
-            handle: Rectangle {
-                x: uvSlider.leftPadding + uvSlider.visualPosition * (uvSlider.availableWidth - width)
-                y: uvSlider.topPadding + uvSlider.availableHeight / 2 - height / 2
-                implicitWidth: slHandleSize
-                implicitHeight: slHandleSize
-                radius: slHandleSize / 5
-            }
-
             onPositionChanged: currentWAUV = Qt.rgba(currentWAUV.r, currentWAUV.g, valueAt(position) / 255, 1.0)
         }
 

@@ -22,10 +22,11 @@ make INSTALL_ROOT=$TARGET_DIR install
 strip $TARGET_DIR/usr/bin/qlcplus-qml
 strip $TARGET_DIR/usr/lib/libqlcplusengine.so.1.0.0
 
-chrpath -r "/usr/lib" $TARGET_DIR/usr/bin/qlcplus-qml
+chrpath -r "../lib" $TARGET_DIR/usr/bin/qlcplus-qml
 
 cd $TARGET_DIR/usr/bin
-find . -name plugins.qmltypes -type f -delete && \
+find . -name plugins.qmltypes -type f -delete
+find . -name *.qmlc -type f -delete
 rm -rf QtQuick/Extras QtQuick/Particles.2 QtQuick/XmlListModel
 rm -rf QtQuick/Controls.2/designer QtQuick/Controls.2/Material
 rm -rf QtQuick/Controls.2/Universal QtQuick/Controls.2/Fusion

@@ -35,6 +35,8 @@ Rectangle
     property string itemIcon: ""
     property int itemType: App.FunctionDragItem
     property bool isSelected: false
+    property bool isCheckable: false
+    property bool isChecked: false
     property Item dragItem
 
     onCRefChanged:
@@ -66,49 +68,62 @@ Rectangle
         visible: isSelected || fdDropArea.containsDrag
     }
 
-    IconTextEntry
+    Row
     {
-        id: funcEntry
-        width: parent.width
-        height: parent.height
-        tLabel: cRef ? cRef.name : textLabel
-        functionType: cRef ? cRef.type : -1
+        CustomCheckBox
+        {
+            id: chCheckBox
+            visible: isCheckable
+            implicitWidth: UISettings.listItemHeight
+            implicitHeight: implicitWidth
+            checked: isChecked
+            onCheckedChanged: funcDelegate.mouseEvent(App.Checked, cRef.id, checked, funcDelegate, 0)
+        }
+
+        IconTextEntry
+        {
+            id: funcEntry
+            width: funcDelegate.width - (chCheckBox.visible ? chCheckBox.width : 0)
+            height: funcDelegate.height
+            tLabel: cRef ? cRef.name : textLabel
+            functionType: cRef ? cRef.type : -1
+
+            MouseArea
+            {
+                anchors.fill: parent
+
+                property bool dragActive: drag.active
+
+                onDragActiveChanged:
+                {
+                    //console.log("Drag changed on function: " + cRef.id)
+                    funcDelegate.mouseEvent(dragActive ? App.DragStarted : App.DragFinished, cRef.id, cRef.type, funcDelegate, 0)
+                }
+
+                drag.target: dragItem
+
+                onPressed: funcDelegate.mouseEvent(App.Pressed, cRef.id, cRef.type, funcDelegate, mouse.modifiers)
+                onClicked: funcDelegate.mouseEvent(App.Clicked, cRef.id, cRef.type, funcDelegate, mouse.modifiers)
+                onDoubleClicked: funcDelegate.mouseEvent(App.DoubleClicked, cRef.id, cRef.type, funcDelegate, mouse.modifiers)
+            }
+
+            DropArea
+            {
+                id: fdDropArea
+                anchors.fill: parent
+                keys: [ "none" ]
+
+                onDropped: drag.source.itemDropped(cRef.id, cRef.name)
+            }
+        }
     }
+
     Rectangle
     {
         width: parent.width
         height: 1
         y: parent.height - 1
         color: "#666"
-    }
-
-    MouseArea
-    {
-        id: funcMouseArea
-        anchors.fill: parent
-
-        property bool dragActive: drag.active
-
-        onDragActiveChanged:
-        {
-            //console.log("Drag changed on function: " + cRef.id)
-            funcDelegate.mouseEvent(dragActive ? App.DragStarted : App.DragFinished, cRef.id, cRef.type, funcDelegate, 0)
-        }
-
-        drag.target: dragItem
-
-        onPressed: funcDelegate.mouseEvent(App.Pressed, cRef.id, cRef.type, funcDelegate, mouse.modifiers)
-        onClicked: funcDelegate.mouseEvent(App.Clicked, cRef.id, cRef.type, funcDelegate, mouse.modifiers)
-        onDoubleClicked: funcDelegate.mouseEvent(App.DoubleClicked, cRef.id, cRef.type, funcDelegate, mouse.modifiers)
-    }
-
-    DropArea
-    {
-        id: fdDropArea
-        anchors.fill: parent
-        keys: [ "none" ]
-
-        onDropped: drag.source.itemDropped(cRef.id, cRef.name)
     }
 }
 

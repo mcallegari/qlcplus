@@ -125,7 +125,11 @@ public:
     void postLoad();
 
 public:
-    virtual bool contains(quint32 functionId);
+    /** @reimp */
+    bool contains(quint32 functionId);
+
+    /** @reimp */
+    QList<quint32> components();
 
     /*********************************************************************
      * Running

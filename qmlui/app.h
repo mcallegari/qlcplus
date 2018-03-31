@@ -37,6 +37,7 @@ class FunctionManager;
 class QXmlStreamReader;
 class FixtureGroupEditor;
 class InputOutputManager;
+class ImportManager;
 class NetworkManager;
 class VideoProvider;
 class Tardis;
@@ -84,7 +85,8 @@ public:
         FixtureGroupDragItem,
         FixtureDragItem,
         ChannelDragItem,
-        HeadDragItem
+        HeadDragItem,
+        WidgetDragItem
     };
     Q_ENUM(DragItemTypes)
 
@@ -190,7 +192,7 @@ signals:
     void docModifiedChanged();
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
     bool m_docLoaded;
 
     /*********************************************************************
@@ -229,6 +231,15 @@ public:
 
     /** Save the current workspace with the given $fileName */
     Q_INVOKABLE bool saveWorkspace(const QString& fileName);
+
+    /** Start the import process for the workspace with the given $fileName */
+    Q_INVOKABLE bool loadImportWorkspace(const QString& fileName);
+
+    /** Cancel an ongoing import process started with loadImportWorkspace */
+    Q_INVOKABLE void cancelImport();
+
+    /** Perform the actual import of the selected items */
+    Q_INVOKABLE void importFromWorkspace();
 
     /**
      * Load workspace contents from a XML file with the given name.
@@ -273,5 +284,6 @@ private:
     QString m_fileName;
     QStringList m_recentFiles;
     QString m_workingPath;
+    ImportManager *m_importManager;
 };
 #endif // APP_H

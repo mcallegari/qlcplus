@@ -66,7 +66,7 @@ Rectangle
 
     function hasSettings()
     {
-        return true;
+        return true
     }
 
     function showSettings(show)
@@ -98,6 +98,7 @@ Rectangle
         objectName: "twoDView"
         anchors.fill: parent
         z: 1
+        interactive: false
         boundsBehavior: Flickable.StopAtBounds
         //contentWidth: parent.width
         //contentHeight: parent.height
@@ -169,12 +170,7 @@ Rectangle
 
             property real cellSize: View2D.cellPixels
             property int gridUnits: twoDView.gridUnits
-
-            function setFlickableStatus(status)
-            {
-                console.log("Flickable interaction set to: " + status)
-                twoDView.interactive = status
-            }
+            property bool justSelected: false
 
             function showPovPopup()
             {
@@ -230,15 +226,16 @@ Rectangle
                 onPressed:
                 {
                     console.log("button: " + mouse.button + ", mods: " + mouse.modifiers)
+                    var remappedPos = this.mapToItem(twoDContents, mouse.x, mouse.y);
+                    var fixtureID = View2D.fixtureAtPos(remappedPos)
 
-                    if (mouse.button === Qt.LeftButton && mouse.modifiers & Qt.ShiftModifier)
+                    if (fixtureID === -1)
                     {
                         //console.log("Flickable shift-clicked !")
                         // initialize local variables to determine the selection orientation
                         initialXPos = mouse.x
                         initialYPos = mouse.y
 
-                        twoDView.interactive = false
                         selectionRect.x = mouse.x
                         selectionRect.y = mouse.y
                         selectionRect.width = 0
@@ -247,6 +244,12 @@ Rectangle
                     }
                     else
                     {
+                        if (contextManager.isFixtureSelected(fixtureID) === false)
+                            twoDContents.justSelected = true
+
+                        // select the Fixture in case a drag is starting on a deselected one
+                        contextManager.setFixtureSelection(fixtureID, true)
+
                         // forward the event to the drag area
                         mouse.accepted = false
                     }
@@ -292,7 +295,7 @@ Rectangle
 
                 onReleased:
                 {
-                    if (selectionRect.visible === true)
+                    if (selectionRect.visible === true && selectionRect.width && selectionRect.height)
                     {
                         var rx = selectionRect.x - twoDContents.x
                         var ry = selectionRect.y - twoDContents.y
@@ -307,8 +310,10 @@ Rectangle
                         }
                         selectionRect.visible = false
                     }
-
-                    twoDView.interactive = true
+                    else
+                    {
+                        contextManager.resetFixtureSelection()
+                    }
                 }
 
                 onWheel:
@@ -365,10 +370,17 @@ Rectangle
                         }
                         else
                         {
-                            if (UISettings.justSelected == false)
-                                contextManager.resetFixtureSelection()
+                            if (twoDContents.justSelected == false)
+                            {
+                                // handle Fixture selection/deselection here
+                                var remappedPos = this.mapToItem(twoDContents, mouse.x, mouse.y);
+                                var fixtureID = View2D.fixtureAtPos(remappedPos)
+
+                                console.log("Fixture ID on release " + fixtureID)
+                                contextManager.setFixtureSelection(fixtureID, false)
+                            }
+                            twoDContents.justSelected = false
                         }
-                        UISettings.justSelected = false
                     }
                 }
             }

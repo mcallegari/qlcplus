@@ -174,8 +174,10 @@ public:
     QVector3D fixturesPosition() const;
     void setFixturesPosition(QVector3D position);
 
+    /** Align the currently selected Fixtures with the provided $alignment */
     Q_INVOKABLE void setFixturesAlignment(int alignment);
 
+    /** Distribute the currently selected Fixtures with the provided $direction */
     Q_INVOKABLE void setFixturesDistribution(int direction);
 
     Q_INVOKABLE void updateFixturesCapabilities();
@@ -185,6 +187,9 @@ public:
     /** Set/Get the rotation of the currently selected fixtures */
     QVector3D fixturesRotation() const;
     void setFixturesRotation(QVector3D degrees);
+
+    /** Select/Deselect all the fixtures of the Group/Universe with the provided $id */
+    Q_INVOKABLE void setFixtureGroupSelection(quint32 id, bool enable, bool isUniverse);
 
 protected slots:
     void slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal z = 0);

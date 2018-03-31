@@ -45,6 +45,8 @@ class VirtualConsole : public PreviewContext
     Q_PROPERTY(int pagesCount READ pagesCount NOTIFY pagesCountChanged)
     Q_PROPERTY(int selectedPage READ selectedPage WRITE setSelectedPage NOTIFY selectedPageChanged)
     Q_PROPERTY(bool editMode READ editMode WRITE setEditMode NOTIFY editModeChanged)
+    Q_PROPERTY(bool snapping READ snapping WRITE setSnapping NOTIFY snappingChanged)
+    Q_PROPERTY(qreal snappingSize READ snappingSize CONSTANT)
     Q_PROPERTY(VCWidget *selectedWidget READ selectedWidget NOTIFY selectedWidgetChanged)
     Q_PROPERTY(int selectedWidgetsCount READ selectedWidgetsCount NOTIFY selectedWidgetsCountChanged)
 
@@ -57,9 +59,16 @@ public:
     /** Reset the Virtual Console contents to an initial state */
     void resetContents();
 
-    /** Set/Get the VC edit mode flag */
+    /** Get/Set the VC edit mode flag */
     bool editMode() const;
     void setEditMode(bool editMode);
+
+    /** Get/Set VC widgets position snapping */
+    bool snapping() const;
+    void setSnapping(bool enable);
+
+    /** Get the VC widget position snapping size */
+    qreal snappingSize();
 
     enum LoadStatus
     {
@@ -71,11 +80,16 @@ public:
     /** Get the current VC load status */
     LoadStatus loadStatus() const;
 
+    /** Get a list of Widgets that use $fid */
+    Q_INVOKABLE QVariantList usageList(quint32 fid);
+
 signals:
     void editModeChanged(bool editMode);
+    void snappingChanged(bool enable);
 
 protected:
     bool m_editMode;
+    bool m_snapping;
 
     /** The current VC load status */
     LoadStatus m_loadStatus;
@@ -185,6 +199,9 @@ public:
 
     Q_INVOKABLE void requestAddMatrixPopup(VCFrame *frame, QQuickItem *parent, QString widgetType, QPoint pos);
 
+    /** Return the associated qrc icon resource for the specified VCWidget $type */
+    Q_INVOKABLE QString widgetIcon(int type);
+
 signals:
     /** Notify the listeners that the currenly selected VC widget has changed */
     void selectedWidgetChanged();
@@ -239,10 +256,6 @@ public:
     /** Enable the autodetection process for a specific input source
      *  bound to an external controller. */
     Q_INVOKABLE bool enableInputSourceAutoDetection(VCWidget *widget, quint32 id, quint32 universe, quint32 channel);
-
-    /** Update the control ID of the specified $widget for a source coming
-     *  from $universe and $channel */
-    Q_INVOKABLE void updateInputSourceControlID(VCWidget *widget, quint32 id, quint32 universe, quint32 channel);
 
     /** Enable the autodetection process for a specific key sequence */
     Q_INVOKABLE bool enableKeyAutoDetection(VCWidget *widget, quint32 id, QString keyText);

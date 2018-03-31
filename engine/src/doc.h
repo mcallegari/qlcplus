@@ -119,25 +119,31 @@ signals:
      *********************************************************************/
 public:
     /** Get the fixture definition cache object */
-    QLCFixtureDefCache* fixtureDefCache() const;
+    QLCFixtureDefCache *fixtureDefCache() const;
+
+    /** Set the fixure definition cache reference. This is useful
+     *  to share a cache between different Docs.
+     *  Note: deletion of an existing cache must be performed before calling
+     *        this method, otherwise it creates a memory leak */
+    void setFixtureDefinitionCache(QLCFixtureDefCache *cache);
 
     /** Get the channel modifiers cache object */
-    QLCModifiersCache* modifiersCache() const;
+    QLCModifiersCache *modifiersCache() const;
 
     /** Get the RGB scripts cache object */
-    RGBScriptsCache* rgbScriptsCache() const;
+    RGBScriptsCache *rgbScriptsCache() const;
 
     /** Get the I/O plugin cache object */
-    IOPluginCache* ioPluginCache() const;
+    IOPluginCache *ioPluginCache() const;
 
     /** Get the audio decoder plugin cache object */
-    AudioPluginCache* audioPluginCache() const;
+    AudioPluginCache *audioPluginCache() const;
 
     /** Get the DMX output map object */
-    InputOutputMap* inputOutputMap() const;
+    InputOutputMap *inputOutputMap() const;
 
     /** Get the MasterTimer object that runs the show */
-    MasterTimer* masterTimer() const;
+    MasterTimer *masterTimer() const;
 
     /** Get the audio input capture object */
     QSharedPointer<AudioCapture> audioInputCapture();

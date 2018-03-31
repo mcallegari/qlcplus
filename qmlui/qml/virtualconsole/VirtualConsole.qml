@@ -172,7 +172,19 @@ Rectangle
                         }
                 }
 
+                // filler
                 Rectangle { Layout.fillWidth: true }
+
+                IconButton
+                {
+                    width: vcToolbar.height
+                    height: width
+                    imgSource: "qrc:/grid.svg"
+                    tooltip: qsTr("Enable/Disable widgets snapping")
+                    checkable: true
+                    checked: virtualConsole.snapping
+                    onToggled: virtualConsole.snapping = checked
+                }
 
                 ZoomItem
                 {
@@ -276,6 +288,7 @@ Rectangle
                         height: UISettings.iconSizeMedium
                         width: height
                         checked: true
+                        autoExclusive: true
                     }
                     RobotoText  { label: qsTr("Normal") }
                     CustomCheckBox
@@ -283,6 +296,7 @@ Rectangle
                         id: soloFrameCheck
                         height: UISettings.iconSizeMedium
                         width: height
+                        autoExclusive: true
                     }
                     RobotoText  { label: qsTr("Solo") }
                 }

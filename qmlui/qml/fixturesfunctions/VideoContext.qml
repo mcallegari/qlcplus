@@ -74,6 +74,7 @@ Rectangle
             id: videoRect
             //anchors.fill: parent
             color: "black"
+            opacity: video ? video.intensity : 1.0
 
             property VideoFunction video: null
 
@@ -151,14 +152,16 @@ Rectangle
         {
             property VideoFunction picture: null
 
+            opacity: picture ? picture.intensity : 1.0
+
             onPictureChanged:
             {
                 if (picture.customGeometry.width !== 0 && picture.customGeometry.height !== 0)
                 {
                     if (picture.fullscreen)
                     {
-                        x = video.customGeometry.x
-                        y = video.customGeometry.y
+                        x = picture.customGeometry.x
+                        y = picture.customGeometry.y
                     }
                     width = picture.customGeometry.width
                     height = picture.customGeometry.height

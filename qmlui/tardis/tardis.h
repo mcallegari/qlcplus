@@ -23,11 +23,10 @@
 #include <QThread>
 #include <QQueue>
 #include <QMutex>
+#include <QVariant>
 #include <QSemaphore>
 #include <QQuickView>
 #include <QElapsedTimer>
-
-#include "tardisactions.h"
 
 class FixtureManager;
 class FunctionManager;
@@ -37,11 +36,155 @@ class NetworkManager;
 class ShowManager;
 class Doc;
 
+typedef struct
+{
+    int m_action;
+    qint64 m_timestamp;
+    quint32  m_objID;
+    QVariant m_oldValue;
+    QVariant m_newValue;
+} TardisAction;
+
+Q_DECLARE_METATYPE(TardisAction)
+
+typedef QPair<quint32, uint> UIntPair;
+Q_DECLARE_METATYPE(UIntPair)
+
+typedef QPair<QString, int> StringIntPair;
+Q_DECLARE_METATYPE(StringIntPair)
+
+typedef QPair<QString, QString> StringStringPair;
+Q_DECLARE_METATYPE(StringStringPair)
+
 class Tardis : public QThread
 {
     Q_OBJECT
 
 public:
+    enum ActionCodes
+    {
+        /* Global settings */
+        EnvironmentSetSize = 0x0000,
+
+        IOAddUniverse = 0x0090,
+        IORemoveUniverse,
+
+        /* Fixture editing actions */
+        FixtureCreate = 0x0100,
+        FixtureDelete,
+        FixtureMove,
+        FixtureSetPosition,
+        FixtureSetDumpValue,
+
+        /* Fixture group editing actions */
+        FixtureGroupCreate,
+        FixtureGroupDelete,
+
+        /* Function editing actions */
+        FunctionCreate = 0x0200,
+        FunctionDelete,
+        FunctionSetName,
+        FunctionSetPath,
+        FunctionSetRunOrder,
+        FunctionSetDirection,
+        FunctionSetTempoType,
+        FunctionSetFadeIn,
+        FunctionSetFadeOut,
+        FunctionSetDuration,
+
+        SceneSetChannelValue,
+        SceneUnsetChannelValue,
+
+        ChaserAddStep,
+        ChaserRemoveStep,
+        ChaserSetStepFadeIn,
+        ChaserSetStepHold,
+        ChaserSetStepFadeOut,
+        ChaserSetStepDuration,
+
+        EFXAddFixture,
+        EFXRemoveFixture,
+        EFXSetAlgorithmIndex,
+        EFXSetRelative,
+        EFXSetWidth,
+        EFXSetHeight,
+        EFXSetXOffset,
+        EFXSetYOffset,
+        EFXSetRotation,
+        EFXSetStartOffset,
+        EFXSetXFrequency,
+        EFXSetYFrequency,
+        EFXSetXPhase,
+        EFXSetYPhase,
+
+        CollectionAddFunction,
+        CollectionRemoveFunction,
+
+        RGBMatrixSetFixtureGroup,
+        RGBMatrixSetAlgorithmIndex,
+        RGBMatrixSetStartColor,
+        RGBMatrixSetEndColor,
+        RGBMatrixSetScriptIntValue,
+        RGBMatrixSetScriptStringValue,
+        RGBMatrixSetText,
+        RGBMatrixSetTextFont,
+        RGBMatrixSetImage,
+        RGBMatrixSetOffset,
+        RGBMatrixSetAnimationStyle,
+
+        AudioSetSource,
+
+        VideoSetSource,
+        VideoSetScreenIndex,
+        VideoSetFullscreen,
+        VideoSetGeometry,
+        VideoSetRotation,
+
+        /* Virtual console editing actions */
+        VCWidgetCreate = 0xE000,
+        VCWidgetDelete,
+        VCWidgetGeometry,
+        VCWidgetAllowResize,
+        VCWidgetDisabled,
+        VCWidgetVisible,
+        VCWidgetCaption,
+        VCWidgetBackgroundColor,
+        VCWidgetBackgroundImage,
+        VCWidgetForegroundColor,
+        VCWidgetFont,
+        VCWidgetPage,
+
+        VCButtonSetActionType,
+        VCButtonSetFunctionID,
+        VCButtonEnableStartupIntensity,
+        VCButtonSetStartupIntensity,
+
+        VCSliderSetMode,
+        VCSliderSetDisplayStyle,
+        VCSliderSetInverted,
+        VCSliderSetFunctionID,
+        VCSliderSetControlledAttribute,
+        VCSliderSetLowLimit,
+        VCSliderSetHighLimit,
+
+        VCCueListSetChaserID,
+
+        /* Virtual Console live actions */
+        VCButtonSetPressed = 0xF000,
+        VCSliderSetValue,
+
+        /* Network protocol actions */
+        NetAnnounce = 0xFF00,
+        NetAnnounceReply,
+        NetAuthentication,
+        NetAuthenticationReply,
+        NetPoll,
+        NetPollReply,
+        NetProjectTransfer
+    };
+
+    Q_ENUM(ActionCodes)
+
     explicit Tardis(QQuickView *view, Doc *doc, NetworkManager *netMgr,
                     FixtureManager *fxMgr, FunctionManager *funcMgr,
                     ContextManager *ctxMgr, ShowManager *showMgr, VirtualConsole *vc,
@@ -76,6 +219,7 @@ public:
     void run(); // thread run function
 
 protected:
+    QString actionToString(int action);
     bool processBufferedAction(int action, quint32 objID, QVariant &value);
 
 protected slots:

@@ -19,6 +19,8 @@
 
 import QtQuick 2.0
 
+import "."
+
 Canvas
 {
     id: wireBox
@@ -27,27 +29,29 @@ Canvas
     contextType: "2d"
 
     property int patchesNumber: 0
+    property bool showFeedback: false
 
     onPatchesNumberChanged: requestPaint()
+    onShowFeedbackChanged: requestPaint()
 
     onPaint:
     {
         var nodeSize = 8
-        var vCenter = (height / 2) - (nodeSize / 2)
+        var halfNode = nodeSize / 2
+        var vCenter = (height / 2) - halfNode
         context.strokeStyle = "yellow"
         context.fillStyle = "yellow"
-        context.lineWidth = 2
+        context.lineWidth = 3
         context.beginPath()
         context.clearRect(0, 0, width, height)
 
         var yDelta = height / patchesNumber
+        var yPos = (yDelta / 2) - halfNode
+        var targetX = width - nodeSize
 
         if (patchesNumber > 0)
         {
-            var yPos = (yDelta / 2) - (nodeSize / 2)
-            var targetX = width - nodeSize - context.lineWidth
-
-            context.ellipse(context.lineWidth, vCenter - (nodeSize / 2), nodeSize, nodeSize)
+            context.ellipse(0, vCenter - halfNode, nodeSize, nodeSize)
             context.fill()
 
             context.beginPath()
@@ -58,7 +62,7 @@ Canvas
             for (var i = 0; i < patchesNumber; i++)
             {
                 context.beginPath()
-                context.ellipse(targetX, yPos - (nodeSize / 2), nodeSize, nodeSize)
+                context.ellipse(targetX, yPos - halfNode, nodeSize, nodeSize)
                 context.fill()
 
                 context.beginPath()
@@ -69,6 +73,24 @@ Canvas
 
                 yPos += yDelta
             }
+        }
+        if (showFeedback)
+        {
+            yPos = vCenter + (UISettings.bigItemHeight * 0.4) - (UISettings.iconSizeMedium * 0.4)
+            context.strokeStyle = "#00FF00"
+            context.fillStyle = "#00FF00"
+
+            context.ellipse(0, yPos - halfNode, nodeSize, nodeSize)
+            context.fill()
+
+            context.beginPath()
+            context.moveTo(context.lineWidth, yPos)
+            context.lineTo(targetX, yPos)
+            context.stroke()
+
+            context.beginPath()
+            context.ellipse(targetX, yPos - halfNode, nodeSize, nodeSize)
+            context.fill()
         }
     }
 }

@@ -483,23 +483,34 @@ bool Universe::setFeedbackPatch(QLCIOPlugin *plugin, quint32 output)
     qDebug() << Q_FUNC_INFO << "plugin:" << plugin << "output:" << output;
     if (m_fbPatch == NULL)
     {
-        if (output == QLCIOPlugin::invalidLine())
+        if (plugin == NULL || output == QLCIOPlugin::invalidLine())
             return false;
+
         m_fbPatch = new OutputPatch(m_id, this);
     }
     else
     {
-        if (output == QLCIOPlugin::invalidLine())
+        if (plugin == NULL || output == QLCIOPlugin::invalidLine())
         {
             delete m_fbPatch;
             m_fbPatch = NULL;
+            emit hasFeedbacksChanged();
             return true;
         }
     }
     if (m_fbPatch != NULL)
-        return m_fbPatch->set(plugin, output);
+    {
+        bool result = m_fbPatch->set(plugin, output);
+        emit hasFeedbacksChanged();
+        return result;
+    }
 
     return false;
+}
+
+bool Universe::hasFeedbacks() const
+{
+    return m_fbPatch != NULL ? true : false;
 }
 
 InputPatch *Universe::inputPatch() const

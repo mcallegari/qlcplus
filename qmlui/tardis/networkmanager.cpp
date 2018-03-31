@@ -99,19 +99,19 @@ void NetworkManager::sendAction(int code, TardisAction action)
 
     switch (action.m_action)
     {
-        case FixtureCreate:
-        case FixtureGroupCreate:
-        case FunctionCreate:
-        case ChaserAddStep:
-        case EFXAddFixture:
-        case VCWidgetCreate:
+        case Tardis::FixtureCreate:
+        case Tardis::FixtureGroupCreate:
+        case Tardis::FunctionCreate:
+        case Tardis::ChaserAddStep:
+        case Tardis::EFXAddFixture:
+        case Tardis::VCWidgetCreate:
             m_packetizer->addSection(packet, action.m_newValue);
         break;
 
-        case FixtureDelete:
-        case FixtureGroupDelete:
-        case FunctionDelete:
-        case VCWidgetDelete:
+        case Tardis::FixtureDelete:
+        case Tardis::FixtureGroupDelete:
+        case Tardis::FunctionDelete:
+        case Tardis::VCWidgetDelete:
             m_packetizer->addSection(packet, action.m_oldValue);
         break;
 
@@ -275,7 +275,7 @@ bool NetworkManager::setClientAccess(QString hostName, bool allow, int accessMas
         host->isAuthenticated = false;
 
     QByteArray reply;
-    m_packetizer->initializePacket(reply, NetAuthenticationReply);
+    m_packetizer->initializePacket(reply, Tardis::NetAuthenticationReply);
 
     if (allow)
     {
@@ -305,7 +305,7 @@ bool NetworkManager::sendWorkspaceToClient(QString hostName, QString filename)
 
     if (workspace.exists() == false)
     {
-        m_packetizer->initializePacket(packet, NetProjectTransfer);
+        m_packetizer->initializePacket(packet, Tardis::NetProjectTransfer);
         m_packetizer->addSection(packet, QVariant(0));
         m_packetizer->addSection(packet, QVariant(0));
         sendTCPPacket(host->tcpSocket, packet, m_encryptPackets);
@@ -318,7 +318,7 @@ bool NetworkManager::sendWorkspaceToClient(QString hostName, QString filename)
     while (!workspace.atEnd())
     {
         QByteArray data = workspace.read(WORKSPACE_CHUNK_SIZE);
-        m_packetizer->initializePacket(packet, NetProjectTransfer);
+        m_packetizer->initializePacket(packet, Tardis::NetProjectTransfer);
 
         qDebug() << "Data read:" << data.length();
 
@@ -404,7 +404,7 @@ bool NetworkManager::initializeClient()
     m_serverList.clear();
 
     /* compose the announce packet */
-    m_packetizer->initializePacket(packet, NetAnnounce);
+    m_packetizer->initializePacket(packet, Tardis::NetAnnounce);
     m_packetizer->addSection(packet, QVariant(m_hostType));
     m_packetizer->addSection(packet, QVariant(m_hostName));
 
@@ -450,7 +450,7 @@ bool NetworkManager::connectClient(QString ipAddress)
     connect(m_tcpSocket, &QTcpSocket::disconnected, this, &NetworkManager::slotHostDisconnected);
 
     QByteArray packet;
-    m_packetizer->initializePacket(packet, NetAuthentication);
+    m_packetizer->initializePacket(packet, Tardis::NetAuthentication);
     m_packetizer->addSection(packet, QVariant(QString::number(defaultKey, 16).toUtf8()));
     m_packetizer->addSection(packet, QVariant(hostName()));
 
@@ -523,10 +523,10 @@ void NetworkManager::slotProcessUDPPackets()
 
         switch (opCode)
         {
-            case NetAnnounce:
+            case Tardis::NetAnnounce:
             {
                 QByteArray packet;
-                m_packetizer->initializePacket(packet, NetAnnounceReply);
+                m_packetizer->initializePacket(packet, Tardis::NetAnnounceReply);
                 m_packetizer->addSection(packet, QVariant(m_hostType));
                 m_packetizer->addSection(packet, QVariant(m_hostName));
                 m_udpSocket->writeDatagram(packet, senderAddress, DEFAULT_UDP_PORT);
@@ -534,7 +534,7 @@ void NetworkManager::slotProcessUDPPackets()
             }
             break;
 
-            case NetAnnounceReply:
+            case Tardis::NetAnnounceReply:
             {
                 if (m_hostType == ClientHostType &&
                     paramsList.count() == 2 &&
@@ -594,7 +594,7 @@ void NetworkManager::slotProcessTCPPackets()
 
         switch (actionCode)
         {
-            case NetAuthentication:
+            case Tardis::NetAuthentication:
             {
                 bool success = false;
 
@@ -620,13 +620,13 @@ void NetworkManager::slotProcessTCPPackets()
                 {
                     host->isAuthenticated = false;
                     QByteArray reply;
-                    m_packetizer->initializePacket(reply, NetAuthenticationReply);
+                    m_packetizer->initializePacket(reply, Tardis::NetAuthenticationReply);
                     m_packetizer->addSection(reply, QVariant("Failed"));
                     sendTCPPacket(host->tcpSocket, reply, m_encryptPackets);
                 }
             }
             break;
-            case NetAuthenticationReply:
+            case Tardis::NetAuthenticationReply:
             {
                 if (!paramsList.isEmpty() && paramsList.at(0).toString() == "Success")
                 {
@@ -640,7 +640,7 @@ void NetworkManager::slotProcessTCPPackets()
                 }
             }
             break;
-            case NetProjectTransfer:
+            case Tardis::NetProjectTransfer:
             {
                 if (m_hostType != ClientHostType || paramsList.count() < 2)
                     break;

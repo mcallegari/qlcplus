@@ -111,7 +111,7 @@ void EFXEditor::setAlgorithmIndex(int algoIndex)
     if (m_efx == NULL || algoIndex == m_efx->algorithm())
         return;
 
-    Tardis::instance()->enqueueAction(EFXSetAlgorithmIndex, m_efx->id(), m_efx->algorithm(), algoIndex);
+    Tardis::instance()->enqueueAction(Tardis::EFXSetAlgorithmIndex, m_efx->id(), m_efx->algorithm(), algoIndex);
     m_efx->setAlgorithm(EFX::Algorithm(algoIndex));
     emit algorithmIndexChanged();
     updateAlgorithmData();
@@ -130,7 +130,7 @@ void EFXEditor::setIsRelative(bool relative)
     if (m_efx == NULL || relative == m_efx->isRelative())
         return;
 
-    Tardis::instance()->enqueueAction(EFXSetRelative, m_efx->id(), m_efx->isRelative(), relative);
+    Tardis::instance()->enqueueAction(Tardis::EFXSetRelative, m_efx->id(), m_efx->isRelative(), relative);
     m_efx->setIsRelative(relative);
 
     if (relative)
@@ -155,7 +155,7 @@ void EFXEditor::setAlgorithmWidth(int algorithmWidth)
     if (m_efx == NULL || algorithmWidth == m_efx->width())
         return;
 
-    Tardis::instance()->enqueueAction(EFXSetWidth, m_efx->id(), m_efx->width(), algorithmWidth);
+    Tardis::instance()->enqueueAction(Tardis::EFXSetWidth, m_efx->id(), m_efx->width(), algorithmWidth);
     m_efx->setWidth(algorithmWidth);
     emit algorithmWidthChanged();
     updateAlgorithmData();
@@ -174,7 +174,7 @@ void EFXEditor::setAlgorithmHeight(int algorithmHeight)
     if (m_efx == NULL || algorithmHeight == m_efx->height())
         return;
 
-    Tardis::instance()->enqueueAction(EFXSetHeight, m_efx->id(), m_efx->height(), algorithmHeight);
+    Tardis::instance()->enqueueAction(Tardis::EFXSetHeight, m_efx->id(), m_efx->height(), algorithmHeight);
     m_efx->setHeight(algorithmHeight);
     emit algorithmHeightChanged();
     updateAlgorithmData();
@@ -193,7 +193,7 @@ void EFXEditor::setAlgorithmXOffset(int algorithmXOffset)
     if (m_efx == NULL || algorithmXOffset == m_efx->xOffset())
         return;
 
-    Tardis::instance()->enqueueAction(EFXSetXOffset, m_efx->id(), m_efx->xOffset(), algorithmXOffset);
+    Tardis::instance()->enqueueAction(Tardis::EFXSetXOffset, m_efx->id(), m_efx->xOffset(), algorithmXOffset);
     m_efx->setXOffset(algorithmXOffset);
     emit algorithmXOffsetChanged();
     updateAlgorithmData();
@@ -212,7 +212,7 @@ void EFXEditor::setAlgorithmYOffset(int algorithmYOffset)
     if (m_efx == NULL || algorithmYOffset == m_efx->yOffset())
         return;
 
-    Tardis::instance()->enqueueAction(EFXSetYOffset, m_efx->id(), m_efx->yOffset(), algorithmYOffset);
+    Tardis::instance()->enqueueAction(Tardis::EFXSetYOffset, m_efx->id(), m_efx->yOffset(), algorithmYOffset);
     m_efx->setYOffset(algorithmYOffset);
     emit algorithmYOffsetChanged();
     updateAlgorithmData();
@@ -231,7 +231,7 @@ void EFXEditor::setAlgorithmRotation(int algorithmRotation)
     if (m_efx == NULL || algorithmRotation == m_efx->rotation())
         return;
 
-    Tardis::instance()->enqueueAction(EFXSetRotation, m_efx->id(), m_efx->rotation(), algorithmRotation);
+    Tardis::instance()->enqueueAction(Tardis::EFXSetRotation, m_efx->id(), m_efx->rotation(), algorithmRotation);
     m_efx->setRotation(algorithmRotation);
     emit algorithmRotationChanged();
     updateAlgorithmData();
@@ -250,7 +250,7 @@ void EFXEditor::setAlgorithmStartOffset(int algorithmStartOffset)
     if (m_efx == NULL || algorithmStartOffset == m_efx->startOffset())
         return;
 
-    Tardis::instance()->enqueueAction(EFXSetStartOffset, m_efx->id(), m_efx->startOffset(), algorithmStartOffset);
+    Tardis::instance()->enqueueAction(Tardis::EFXSetStartOffset, m_efx->id(), m_efx->startOffset(), algorithmStartOffset);
     m_efx->setStartOffset(algorithmStartOffset);
     emit algorithmStartOffsetChanged();
     updateAlgorithmData();
@@ -269,7 +269,7 @@ void EFXEditor::setAlgorithmXFrequency(int algorithmXFrequency)
     if (m_efx == NULL || algorithmXFrequency == m_efx->xFrequency())
         return;
 
-    Tardis::instance()->enqueueAction(EFXSetXFrequency, m_efx->id(), m_efx->xFrequency(), algorithmXFrequency);
+    Tardis::instance()->enqueueAction(Tardis::EFXSetXFrequency, m_efx->id(), m_efx->xFrequency(), algorithmXFrequency);
     m_efx->setXFrequency(algorithmXFrequency);
     emit algorithmXFrequencyChanged();
     updateAlgorithmData();
@@ -288,7 +288,7 @@ void EFXEditor::setAlgorithmYFrequency(int algorithmYFrequency)
     if (m_efx == NULL || algorithmYFrequency == m_efx->yFrequency())
         return;
 
-    Tardis::instance()->enqueueAction(EFXSetYFrequency, m_efx->id(), m_efx->yFrequency(), algorithmYFrequency);
+    Tardis::instance()->enqueueAction(Tardis::EFXSetYFrequency, m_efx->id(), m_efx->yFrequency(), algorithmYFrequency);
     m_efx->setYFrequency(algorithmYFrequency);
     emit algorithmYFrequencyChanged();
     updateAlgorithmData();
@@ -307,7 +307,7 @@ void EFXEditor::setAlgorithmXPhase(int algorithmXPhase)
     if (m_efx == NULL || algorithmXPhase == m_efx->xPhase())
         return;
 
-    Tardis::instance()->enqueueAction(EFXSetXPhase, m_efx->id(), m_efx->xPhase(), algorithmXPhase);
+    Tardis::instance()->enqueueAction(Tardis::EFXSetXPhase, m_efx->id(), m_efx->xPhase(), algorithmXPhase);
     m_efx->setXPhase(algorithmXPhase);
     emit algorithmXPhaseChanged();
     updateAlgorithmData();
@@ -326,7 +326,7 @@ void EFXEditor::setAlgorithmYPhase(int algorithmYPhase)
     if (m_efx == NULL || algorithmYPhase == m_efx->yPhase())
         return;
 
-    Tardis::instance()->enqueueAction(EFXSetYPhase, m_efx->id(), m_efx->yPhase(), algorithmYPhase);
+    Tardis::instance()->enqueueAction(Tardis::EFXSetYPhase, m_efx->id(), m_efx->yPhase(), algorithmYPhase);
     m_efx->setYPhase(algorithmYPhase);
     emit algorithmYPhaseChanged();
     updateAlgorithmData();
@@ -433,8 +433,8 @@ void EFXEditor::addGroup(QVariant reference)
                     }
                     else
                     {
-                        Tardis::instance()->enqueueAction(EFXAddFixture, m_efx->id(), QVariant(),
-                                                          Tardis::instance()->actionToByteArray(EFXAddFixture, m_efx->id(),
+                        Tardis::instance()->enqueueAction(Tardis::EFXAddFixture, m_efx->id(), QVariant(),
+                                                          Tardis::instance()->actionToByteArray(Tardis::EFXAddFixture, m_efx->id(),
                                                                                                 qVariantFromValue((void *)ef)));
                         listChanged = true;
                     }
@@ -474,8 +474,8 @@ void EFXEditor::addFixture(QVariant reference)
             }
             else
             {
-                Tardis::instance()->enqueueAction(EFXAddFixture, m_efx->id(), QVariant(),
-                                                  Tardis::instance()->actionToByteArray(EFXAddFixture, m_efx->id(),
+                Tardis::instance()->enqueueAction(Tardis::EFXAddFixture, m_efx->id(), QVariant(),
+                                                  Tardis::instance()->actionToByteArray(Tardis::EFXAddFixture, m_efx->id(),
                                                                                         qVariantFromValue((void *)ef)));
                 updateFixtureList();
             }
@@ -498,8 +498,8 @@ void EFXEditor::addHead(int fixtureID, int headIndex)
     }
     else
     {
-        Tardis::instance()->enqueueAction(EFXAddFixture, m_efx->id(), QVariant(),
-                                          Tardis::instance()->actionToByteArray(EFXAddFixture, m_efx->id(),
+        Tardis::instance()->enqueueAction(Tardis::EFXAddFixture, m_efx->id(), QVariant(),
+                                          Tardis::instance()->actionToByteArray(Tardis::EFXAddFixture, m_efx->id(),
                                                                                 qVariantFromValue((void *)ef)));
         updateFixtureList();
     }

@@ -129,8 +129,10 @@ Item
             {
                 anchors.centerIn: parent
                 source: "qrc:/arrow-down.svg"
+                width: parent.width - 2
+                height: width / 2
                 rotation: orientation === Qt.Vertical ? 180 : 90
-                sourceSize: Qt.size(parent.width - 2, parent.height)
+                sourceSize: Qt.size(width, height)
             }
         }
     }
@@ -166,8 +168,10 @@ Item
             {
                 anchors.centerIn: parent
                 source: "qrc:/arrow-down.svg"
+                width: parent.width - 2
+                height: width / 2
                 rotation: orientation === Qt.Vertical ? 0 : 270
-                sourceSize: Qt.size(parent.width - 2, parent.height)
+                sourceSize: Qt.size(width, height)
             }
         }
     }

@@ -68,10 +68,9 @@ void VideoProvider::slotFunctionAdded(quint32 id)
     Video *video = qobject_cast<Video *>(func);
     m_videoMap[id] = new VideoContent(video, this);
 
-    connect(video, &Video::requestPlayback, this, &VideoProvider::slotRequestPlayback);
-    connect(video, &Video::requestPause, this, &VideoProvider::slotRequestPause);
-    connect(video, &Video::requestStop, this, &VideoProvider::slotRequestStop);
-    connect(video, &Video::requestBrightnessAdjust, this, &VideoProvider::slotBrightnessAdjust);
+    connect(video, SIGNAL(requestPlayback()), this, SLOT(slotRequestPlayback()));
+    connect(video,SIGNAL(requestPause(bool)), this, SLOT(slotRequestPause(bool)));
+    connect(video, SIGNAL(requestStop()), this, SLOT(slotRequestStop()));
 }
 
 void VideoProvider::slotFunctionRemoved(quint32 id)
@@ -106,11 +105,6 @@ void VideoProvider::slotRequestStop()
 
     if (m_videoMap.contains(video->id()))
         m_videoMap[video->id()]->stopContent();
-}
-
-void VideoProvider::slotBrightnessAdjust(int value)
-{
-    Q_UNUSED(value)
 }
 
 /*********************************************************************

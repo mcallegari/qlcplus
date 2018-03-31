@@ -46,6 +46,8 @@ public:
     /** Returns if the Chaser being edited is a Sequence */
     bool isSequence() const;
 
+    static void updateStepsList(Doc *doc, Chaser *chaser, ListModel *stepsList);
+
     /** Return the Chaser step list formatted as explained in m_stepsList */
     QVariant stepsList() const;
 
@@ -74,19 +76,21 @@ public:
     /** @reimp */
     void setPreviewEnabled(bool enable);
 
-protected:
-    void updateStepsList();
+    /** @reimp */
+    void deleteItems(QVariantList list);
 
+protected:
     /** Set the steps $param to $value.
      *  If $selectedOnly is true, $value is applied only to the selected steps,
      *  otherwise it will be applied to all the steps */
-    void setSelectedValue(Function::SpeedType type, QString param, uint value, bool selectedOnly = true);
+    void setSelectedValue(Function::PropType type, QString param, uint value, bool selectedOnly = true);
 
 protected slots:
     /** Slot invoked during Chaser playback when the step index changes */
     void slotStepChanged(int index);
 
 signals:
+    void stepsListChanged();
     void playbackIndexChanged(int playbackIndex);
 
 private:
@@ -123,8 +127,10 @@ public:
     /** Set the speed value with $type of the step at $index */
     Q_INVOKABLE void setStepSpeed(int index, int value, int type);
 
+    /** Ste the notes text of the step at $index */
+    Q_INVOKABLE void setStepNote(int index, QString text);
+
 signals:
-    void stepsListChanged();
     void tempoTypeChanged(int tempoType);
     void stepsFadeInChanged(int stepsFadeIn);
     void stepsFadeOutChanged(int stepsFadeOut);

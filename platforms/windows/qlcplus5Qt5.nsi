@@ -15,8 +15,8 @@
 ;--------------------------------
 ;General
 Name "Q Light Controller Plus"
-OutFile "QLC+_5.0.0_alpha1.exe"
-InstallDir C:\QLC+
+OutFile "QLC+_5.0.0_alpha2.exe"
+InstallDir C:\QLC+5
 InstallDirRegKey HKCU "Software\qlcplus" "Install_Dir"
 RequestExecutionLevel user
 
@@ -82,12 +82,15 @@ Section
 	File *.dll
 	File Sample.qxw
 	File /r audio
+	File /r geometryloaders
 	File /r imageformats
 	File /r mediaservice
 	File /r platforms
 	File /r printsupport
 	File /r sceneparsers
+	File /r Qt
 	File /r Qt3D
+	File /r QtMultimedia
 	File /r QtQml
 	File /r QtQuick
 	File /r QtQuick.2
@@ -121,12 +124,15 @@ Section "Uninstall"
 	Delete $INSTDIR\qlcplus-qml.exe
 	Delete $INSTDIR\*.dll
 	RMDir /r $INSTDIR\audio
+	RMDir /r $INSTDIR\geometryloaders
 	RMDir /r $INSTDIR\imageformats
 	RMDir /r $INSTDIR\mediaservice
 	RMDir /r $INSTDIR\platforms
 	RMDir /r $INSTDIR\printsupport
 	RMDir /r $INSTDIR\sceneparsers
+	RMDir /r $INSTDIR\Qt
 	RMDir /r $INSTDIR\Qt3D
+	RMDir /r $INSTDIR\QtMultimedia
 	RMDir /r $INSTDIR\QtQml
 	RMDir /r $INSTDIR\QtQuick
 	RMDir /r $INSTDIR\QtQuick.2
@@ -147,5 +153,5 @@ Section "Uninstall"
 ;	DeleteRegKey HKCR "QLightControllerPlus.Document"
 
 	; This will delete all settings
-	DeleteRegKey HKCU "Software\qlcplus"
+;	DeleteRegKey HKCU "Software\qlcplus"
 SectionEnd

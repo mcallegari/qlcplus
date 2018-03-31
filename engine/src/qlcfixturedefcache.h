@@ -73,7 +73,7 @@ public:
      * @return A matching fixture definition or NULL if not found
      */
     QLCFixtureDef* fixtureDef(const QString& manufacturer,
-                                    const QString& model) const;
+                              const QString& model) const;
 
     /**
      * Get a list of available manufacturer names.

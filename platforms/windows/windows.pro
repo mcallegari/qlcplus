@@ -50,6 +50,7 @@ lessThan(QT_MAJOR_VERSION, 5) {
                                 $$QT_LIBS_PATH/Qt53DExtras.dll \
                                 $$QT_LIBS_PATH/Qt53DInput.dll \
                                 $$QT_LIBS_PATH/Qt53DLogic.dll \
+                                $$QT_LIBS_PATH/Qt53DAnimation.dll \
                                 $$QT_LIBS_PATH/Qt53DQuick.dll \
                                 $$QT_LIBS_PATH/Qt53DQuickExtras.dll \
                                 $$QT_LIBS_PATH/Qt53DQuickInput.dll \
@@ -58,6 +59,11 @@ lessThan(QT_MAJOR_VERSION, 5) {
                                 $$QT_LIBS_PATH/Qt5Concurrent.dll \
                                 $$QT_LIBS_PATH/Qt5Gamepad.dll \
                                 $$QT_LIBS_PATH/Qt5PrintSupport.dll
+        lessThan(QT_MINOR_VERSION, 10) {
+            release: qtlibs.files += $$QT_LIBS_PATH/Qt5MultimediaQuick_p.dll
+        } else {
+            release: qtlibs.files += $$QT_LIBS_PATH/Qt5MultimediaQuick.dll
+        }
     }
 
     # Qt library dependencies
@@ -111,22 +117,29 @@ greaterThan(QT_MAJOR_VERSION, 4) {
         qtprintsupport.files = $$QT_PLUGINS_PATH/printsupport/windowsprintersupport.dll
         INSTALLS += qtprintsupport
 
+        geometryloaders.path = $$INSTALLROOT/$$LIBSDIR/geometryloaders
+        geometryloaders.files = $$QT_PLUGINS_PATH/geometryloaders/defaultgeometryloader.dll
+        INSTALLS += geometryloaders
+
         sceneparsers.path = $$INSTALLROOT/$$LIBSDIR/sceneparsers
         sceneparsers.files = $$QT_PLUGINS_PATH/sceneparsers/assimpsceneimport.dll
         INSTALLS += sceneparsers
 
         qmldeps.path   = $$INSTALLROOT/$$LIBSDIR
-        qmldeps.files += $$QT_QML_PATH/QtQml \
+        qmldeps.files += $$QT_QML_PATH/Qt \
+                         $$QT_QML_PATH/QtQml \
                          $$QT_QML_PATH/QtQuick \
                          $$QT_QML_PATH/QtQuick.2 \
-                         $$QT_QML_PATH/Qt3D
+                         $$QT_QML_PATH/Qt3D \
+                         $$QT_QML_PATH/QtMultimedia
 
         INSTALLS += qmldeps
 
         qmlpostinstall.path = $$INSTALLROOT/$$LIBSDIR
         qmlpostinstall.commands = cd $$INSTALLROOT/$$LIBSDIR && \
                                   find . -name plugins.qmltypes -type f -delete && \
-                                  rm -rf QtQuick/Extras QtQuick/Particles.2 QtQuick/XmlListModel \
+                                  find . -name *.qmlc -type f -delete && \
+                                  rm -rf Qt/WebSockets QtQuick/Extras QtQuick/Particles.2 QtQuick/XmlListModel \
                                   rm -rf QtQuick/Controls.2/designer QtQuick/Controls.2/Material \
                                   rm -rf QtQuick/Controls.2/Universal QtQuick/Controls.2/Fusion \
                                   rm -rf QtQuick/Controls.2/Imagine QtQuick/Controls.2/Scene2D

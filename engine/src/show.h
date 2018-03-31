@@ -137,23 +137,26 @@ public:
     void postLoad();
 
 public:
-    /** @reimpl */
-    virtual bool contains(quint32 functionId);
+    /** @reimp */
+    bool contains(quint32 functionId);
+
+    /** @reimp */
+    QList<quint32> components();
 
     /*********************************************************************
      * Running
      *********************************************************************/
 public:
-    /** @reimpl */
+    /** @reimp */
     void preRun(MasterTimer* timer);
 
-    /** @reimpl */
+    /** @reimp */
     void setPause(bool enable);
 
-    /** @reimpl */
+    /** @reimp */
     void write(MasterTimer* timer, QList<Universe*> universes);
 
-    /** @reimpl */
+    /** @reimp */
     void postRun(MasterTimer* timer, QList<Universe*> universes);
 
 protected slots:

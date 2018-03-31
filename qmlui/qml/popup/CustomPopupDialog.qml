@@ -69,7 +69,7 @@ Dialog
     background:
         Rectangle
         {
-            color: UISettings.bgControl
+            color: UISettings.bgMedium
             border.color: UISettings.bgLight
             border.width: 2
         }
@@ -100,6 +100,8 @@ Dialog
                     control.clicked(Dialog.No)
                 else if (button === standardButton(Dialog.Ok))
                     control.clicked(Dialog.Ok)
+                else if (button === standardButton(Dialog.Apply))
+                    control.clicked(Dialog.Apply)
                 else if (button === standardButton(Dialog.Cancel))
                     control.clicked(Dialog.Cancel)
             }
@@ -108,7 +110,7 @@ Dialog
                 Rectangle
                 {
                     implicitHeight: UISettings.iconSizeDefault
-                    color: UISettings.bgControl
+                    color: UISettings.bgMedium
                     x: 2
                     y: 2
                     width: parent.width - 4

@@ -24,9 +24,9 @@
 #include <QFont>
 
 #include "networkpacketizer.h"
-#include "tardisactions.h"
 #include "simplecrypt.h"
 #include "scenevalue.h"
+#include "tardis.h"
 
 NetworkPacketizer::NetworkPacketizer()
 {

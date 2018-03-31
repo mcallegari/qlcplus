@@ -97,6 +97,33 @@ QVariant FunctionManager::functionsList()
     return QVariant::fromValue(m_functionTree);
 }
 
+QVariantList FunctionManager::usageList(quint32 fid)
+{
+    QVariantList list;
+    QList<quint32> funcUsageList = m_doc->getUsage(fid);
+
+    for (int i = 0; i < funcUsageList.count(); i+=2)
+    {
+        Function *f = m_doc->function(funcUsageList.at(i));
+        if (f == NULL)
+            continue;
+
+        QVariantMap funcMap;
+        funcMap.insert("classRef", QVariant::fromValue(f));
+        funcMap.insert("label", QString("%1 (@ %2)").arg(f->name()).arg(funcUsageList.at(i + 1)));
+        list.append(funcMap);
+    }
+
+    if (list.isEmpty())
+    {
+        QVariantMap noneMap;
+        noneMap.insert("label", tr("<None>"));
+        list.append(noneMap);
+    }
+
+    return list;
+}
+
 QVariantList FunctionManager::selectedFunctionsID()
 {
     return m_selectedIDList;
@@ -171,7 +198,7 @@ void FunctionManager::setFolderPath(QString oldAbsPath, QString newRelPath)
         qDebug() << "Function path:" << f->path();
         if (f->path(true).startsWith(oldAbsPath))
         {
-            Tardis::instance()->enqueueAction(FunctionSetPath, f->id(), f->path(true), newAbsPath);
+            Tardis::instance()->enqueueAction(Tardis::FunctionSetPath, f->id(), f->path(true), newAbsPath);
             f->setPath(newAbsPath);
         }
     }
@@ -202,8 +229,8 @@ quint32 FunctionManager::addFunctiontoDoc(Function *func, QString name, bool sel
             emit selectionCountChanged(m_selectedIDList.count());
         }
 
-        Tardis::instance()->enqueueAction(FunctionCreate, func->id(), QVariant(),
-                                          Tardis::instance()->actionToByteArray(FunctionCreate, func->id()));
+        Tardis::instance()->enqueueAction(Tardis::FunctionCreate, func->id(), QVariant(),
+                                          Tardis::instance()->actionToByteArray(Tardis::FunctionCreate, func->id()));
 
         return func->id();
     }
@@ -325,7 +352,9 @@ quint32 FunctionManager::createFunction(int type, QStringList fileList)
                 quint32 lastFuncID = Function::invalidId();
                 for (QString filePath : fileList)
                 {
-                    filePath = filePath.replace("file://", "");
+                    if (filePath.startsWith("file:"))
+                        filePath = QUrl(filePath).toLocalFile();
+
                     f = new Audio(m_doc);
                     lastFuncID = addFunctiontoDoc(f, name, fileList.count() == 1 ? true : false);
                     if (lastFuncID != Function::invalidId())
@@ -355,7 +384,9 @@ quint32 FunctionManager::createFunction(int type, QStringList fileList)
                 quint32 lastFuncID = Function::invalidId();
                 for (QString filePath : fileList)
                 {
-                    filePath = filePath.replace("file://", "");
+                    if (filePath.startsWith("file:"))
+                        filePath = QUrl(filePath).toLocalFile();
+
                     f = new Video(m_doc);
                     lastFuncID = addFunctiontoDoc(f, name, fileList.count() == 1 ? true : false);
                     if (lastFuncID != Function::invalidId())
@@ -621,8 +652,8 @@ void FunctionManager::deleteFunctions(QVariantList IDList)
         if (m_selectedIDList.contains(fID))
             m_selectedIDList.removeAll(fID);
 
-        Tardis::instance()->enqueueAction(FunctionDelete, f->id(),
-                                          Tardis::instance()->actionToByteArray(FunctionDelete, f->id()),
+        Tardis::instance()->enqueueAction(Tardis::FunctionDelete, f->id(),
+                                          Tardis::instance()->actionToByteArray(Tardis::FunctionDelete, f->id()),
                                           QVariant());
         m_doc->deleteFunction(f->id());
     }
@@ -640,7 +671,7 @@ void FunctionManager::moveFunctions(QString newPath)
         if (f == NULL)
             continue;
 
-        Tardis::instance()->enqueueAction(FunctionSetPath, f->id(), f->path(true), newPath);
+        Tardis::instance()->enqueueAction(Tardis::FunctionSetPath, f->id(), f->path(true), newPath);
         f->setPath(newPath);
     }
 
@@ -664,7 +695,7 @@ void FunctionManager::renameFunctions(QVariantList IDList, QString newName, bool
         Function *f = m_doc->function(IDList.first().toUInt());
         if (f != NULL)
         {
-            Tardis::instance()->enqueueAction(FunctionSetName, f->id(), f->name(), newName.simplified());
+            Tardis::instance()->enqueueAction(Tardis::FunctionSetName, f->id(), f->name(), newName.simplified());
             f->setName(newName.simplified());
         }
     }
@@ -681,13 +712,13 @@ void FunctionManager::renameFunctions(QVariantList IDList, QString newName, bool
             if (numbering)
             {
                 QString fName = QString("%1 %2").arg(newName.simplified()).arg(currNumber, digits, 10, QChar('0'));
-                Tardis::instance()->enqueueAction(FunctionSetName, f->id(), f->name(), fName);
+                Tardis::instance()->enqueueAction(Tardis::FunctionSetName, f->id(), f->name(), fName);
                 f->setName(fName);
                 currNumber++;
             }
             else
             {
-                Tardis::instance()->enqueueAction(FunctionSetName, f->id(), f->name(), newName.simplified());
+                Tardis::instance()->enqueueAction(Tardis::FunctionSetName, f->id(), f->name(), newName.simplified());
                 f->setName(newName.simplified());
             }
         }
@@ -789,8 +820,8 @@ void FunctionManager::dumpOnNewScene(QList<SceneValue> dumpValues, QList<quint32
     {
         setPreview(false);
         updateFunctionsTree();
-        Tardis::instance()->enqueueAction(FunctionCreate, newScene->id(), QVariant(),
-                                          Tardis::instance()->actionToByteArray(FunctionCreate, newScene->id()));
+        Tardis::instance()->enqueueAction(Tardis::FunctionCreate, newScene->id(), QVariant(),
+                                          Tardis::instance()->actionToByteArray(Tardis::FunctionCreate, newScene->id()));
     }
     else
         delete newScene;
@@ -822,7 +853,7 @@ void FunctionManager::dumpOnScene(QList<SceneValue> dumpValues, QList<quint32> s
             newVal.setValue(sv);
             if (currentVal != newVal || sv.value != currDmxValue)
             {
-                Tardis::instance()->enqueueAction(SceneSetChannelValue, scene->id(), currentVal, newVal);
+                Tardis::instance()->enqueueAction(Tardis::SceneSetChannelValue, scene->id(), currentVal, newVal);
                 scene->setValue(sv);
             }
         }
@@ -848,7 +879,7 @@ void FunctionManager::setChannelValue(quint32 fxID, quint32 channel, uchar value
         newVal.setValue(SceneValue(fxID, channel, value));
         if (currentVal != newVal || value != currDmxValue)
         {
-            Tardis::instance()->enqueueAction(SceneSetChannelValue, scene->id(), currentVal, newVal);
+            Tardis::instance()->enqueueAction(Tardis::SceneSetChannelValue, scene->id(), currentVal, newVal);
             scene->setValue(fxID, channel, value);
         }
     }

@@ -28,8 +28,8 @@ AudioRendererQt::AudioRendererQt(QString device, QObject * parent)
     : AudioRenderer(parent)
     , m_audioOutput(NULL)
     , m_output(NULL)
+    , m_device(device)
 {
-    m_device = device;
 }
 
 AudioRendererQt::~AudioRendererQt()
@@ -73,28 +73,28 @@ bool AudioRendererQt::initialize(quint32 freq, int chan, AudioFormat format)
 
     switch (format)
     {
-    case PCM_S8:
-        m_format.setSampleSize(8);
-        m_format.setSampleType(QAudioFormat::SignedInt);
+        case PCM_S8:
+            m_format.setSampleSize(8);
+            m_format.setSampleType(QAudioFormat::SignedInt);
         break;
-    case PCM_S16LE:
-        m_format.setSampleSize(16);
-        m_format.setSampleType(QAudioFormat::SignedInt);
-        m_format.setByteOrder(QAudioFormat::LittleEndian);
+        case PCM_S16LE:
+            m_format.setSampleSize(16);
+            m_format.setSampleType(QAudioFormat::SignedInt);
+            m_format.setByteOrder(QAudioFormat::LittleEndian);
         break;
-    case PCM_S24LE:
-        m_format.setSampleSize(16);
-        m_format.setSampleType(QAudioFormat::SignedInt);
-        m_format.setByteOrder(QAudioFormat::LittleEndian);
+        case PCM_S24LE:
+            m_format.setSampleSize(16);
+            m_format.setSampleType(QAudioFormat::SignedInt);
+            m_format.setByteOrder(QAudioFormat::LittleEndian);
         break;
-    case PCM_S32LE:
-        m_format.setSampleSize(16);
-        m_format.setSampleType(QAudioFormat::SignedInt);
-        m_format.setByteOrder(QAudioFormat::LittleEndian);
+        case PCM_S32LE:
+            m_format.setSampleSize(16);
+            m_format.setSampleType(QAudioFormat::SignedInt);
+            m_format.setByteOrder(QAudioFormat::LittleEndian);
         break;
-    default:
-        qWarning("AudioRendererQt: unsupported format detected");
-        return false;
+        default:
+            qWarning("AudioRendererQt: unsupported format detected");
+            return false;
     }
 
     if (!m_deviceInfo.isFormatSupported(m_format))
@@ -118,9 +118,11 @@ QList<AudioDeviceInfo> AudioRendererQt::getDevicesInfo()
     int i = 0;
     QStringList outDevs, inDevs;
 
+    // create a preliminary list of input devices only
     foreach (const QAudioDeviceInfo &deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioInput))
         inDevs.append(deviceInfo.deviceName());
 
+    // loop through output devices and check if they're input devices too
     foreach (const QAudioDeviceInfo &deviceInfo, QAudioDeviceInfo::availableDevices(QAudio::AudioOutput))
     {
         outDevs.append(deviceInfo.deviceName());
@@ -137,11 +139,13 @@ QList<AudioDeviceInfo> AudioRendererQt::getDevicesInfo()
         devList.append(info);
         i++;
     }
+
+    // add the devices left in the input list. These don't have output capabilities
     foreach(QString dev, inDevs)
     {
         AudioDeviceInfo info;
         info.deviceName = dev;
-        info.privateName = QString::number(i);
+        info.privateName = dev; //QString::number(i);
         info.capabilities = 0;
         info.capabilities |= AUDIO_CAP_INPUT;
         devList.append(info);

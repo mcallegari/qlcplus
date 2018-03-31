@@ -28,8 +28,9 @@ RadioButton
     implicitWidth: UISettings.iconSizeDefault
     implicitHeight: UISettings.iconSizeDefault
     hoverEnabled: true
+    autoExclusive: false
 
-    property color bgColor: UISettings.bgMedium
+    property color bgColor: UISettings.bgControl
     property color hoverColor: UISettings.bgLight
     property color pressColor: "#054A9E"
     property string tooltip: ""

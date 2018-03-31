@@ -161,7 +161,7 @@ void VCSlider::setSliderMode(SliderMode mode)
     Q_ASSERT(mode >= Level && mode <= GrandMaster);
 
     if (mode != m_sliderMode)
-        Tardis::instance()->enqueueAction(VCSliderSetMode, id(), m_sliderMode, mode);
+        Tardis::instance()->enqueueAction(Tardis::VCSliderSetMode, id(), m_sliderMode, mode);
 
     m_sliderMode = mode;
 
@@ -263,7 +263,7 @@ void VCSlider::setValueDisplayStyle(VCSlider::ValueDisplayStyle style)
     if (m_valueDisplayStyle == style)
         return;
 
-    Tardis::instance()->enqueueAction(VCSliderSetDisplayStyle, id(), m_valueDisplayStyle, style);
+    Tardis::instance()->enqueueAction(Tardis::VCSliderSetDisplayStyle, id(), m_valueDisplayStyle, style);
 
     m_valueDisplayStyle = style;
     emit valueDisplayStyleChanged(style);
@@ -279,7 +279,7 @@ void VCSlider::setInvertedAppearance(bool inverted)
     if (m_invertedAppearance == inverted)
         return;
 
-    Tardis::instance()->enqueueAction(VCSliderSetInverted, id(), m_invertedAppearance, inverted);
+    Tardis::instance()->enqueueAction(Tardis::VCSliderSetInverted, id(), m_invertedAppearance, inverted);
     m_invertedAppearance = inverted;
     emit invertedAppearanceChanged(inverted);
 }
@@ -322,7 +322,7 @@ void VCSlider::setValue(int value, bool setDMX, bool updateFeedback)
     if (m_value == value)
         return;
 
-    Tardis::instance()->enqueueAction(VCSliderSetValue, id(), m_value, value);
+    Tardis::instance()->enqueueAction(Tardis::VCSliderSetValue, id(), m_value, value);
 
     m_value = value;
 
@@ -357,20 +357,17 @@ void VCSlider::setValue(int value, bool setDMX, bool updateFeedback)
     if (setDMX)
         m_levelValueChanged = true;
 
-    Q_UNUSED(updateFeedback)
-    /* TODO
     if (updateFeedback)
     {
         int fbv = 0;
         if (invertedAppearance() == true)
-            fbv = levelHighLimit() - m_value;
+            fbv = rangeHighLimit() - m_value;
         else
             fbv = m_value;
-        fbv = (int)SCALE(float(fbv), float(levelLowLimit()),
-                         float(levelHighLimit()), float(0), float(UCHAR_MAX));
-        sendFeedback(fbv);
+        fbv = (int)SCALE(float(fbv), float(rangeLowLimit()),
+                         float(rangeHighLimit()), float(0), float(UCHAR_MAX));
+        sendFeedback(fbv, INPUT_SLIDER_CONTROL_ID);
     }
-    */
 }
 
 void VCSlider::setRangeLowLimit(qreal value)
@@ -378,7 +375,7 @@ void VCSlider::setRangeLowLimit(qreal value)
     if (value == m_rangeLowLimit)
         return;
 
-    Tardis::instance()->enqueueAction(VCSliderSetLowLimit, id(), m_rangeLowLimit, value);
+    Tardis::instance()->enqueueAction(Tardis::VCSliderSetLowLimit, id(), m_rangeLowLimit, value);
     m_rangeLowLimit = value;
     emit rangeLowLimitChanged();
 }
@@ -393,7 +390,7 @@ void VCSlider::setRangeHighLimit(qreal value)
     if (value == m_rangeLowLimit)
         return;
 
-    Tardis::instance()->enqueueAction(VCSliderSetHighLimit, id(), m_rangeHighLimit, value);
+    Tardis::instance()->enqueueAction(Tardis::VCSliderSetHighLimit, id(), m_rangeHighLimit, value);
     m_rangeHighLimit = value;
     emit rangeHighLimitChanged();
 }
@@ -484,7 +481,7 @@ QVariant VCSlider::groupsTreeModel()
         m_fixtureTree->enableSorting(false);
         m_fixtureTree->setCheckable(true);
 
-        FixtureManager::updateGroupsTree(m_doc, m_fixtureTree, m_searchFilter, m_levelChannels);
+        FixtureManager::updateGroupsTree(m_doc, m_fixtureTree, m_searchFilter, true, m_levelChannels);
 
         connect(m_fixtureTree, SIGNAL(roleChanged(TreeModelItem*,int,const QVariant&)),
                 this, SLOT(slotTreeDataChanged(TreeModelItem*,int,const QVariant&)));
@@ -510,7 +507,7 @@ void VCSlider::setSearchFilter(QString searchFilter)
     if (searchFilter.length() >= SEARCH_MIN_CHARS ||
         (currLen >= SEARCH_MIN_CHARS && searchFilter.length() < SEARCH_MIN_CHARS))
     {
-        FixtureManager::updateGroupsTree(m_doc, m_fixtureTree, m_searchFilter, m_levelChannels);
+        FixtureManager::updateGroupsTree(m_doc, m_fixtureTree, m_searchFilter, true, m_levelChannels);
         emit groupsTreeModelChanged();
     }
 
@@ -522,32 +519,32 @@ void VCSlider::slotTreeDataChanged(TreeModelItem *item, int role, const QVariant
     qDebug() << "Slider tree data changed" << value.toInt();
     qDebug() << "Item data:" << item->data();
 
-    if (role == TreeModel::IsCheckedRole)
+    if (role != TreeModel::IsCheckedRole)
+        return;
+
+    QVariantList itemData = item->data();
+    // itemData must be "classRef" << "type" << "id" << "subid" << "chIdx";
+    if (itemData.count() != 5)
+        return;
+
+    //QString type = itemData.at(1).toString();
+    quint32 fixtureID = itemData.at(2).toUInt();
+    quint32 chIndex = itemData.at(4).toUInt();
+
+    if (value.toInt() == 0)
     {
-        QVariantList itemData = item->data();
-        // itemData must be "classRef" << "type" << "id" << "subid" << "chIdx";
-        if (itemData.count() != 5)
-            return;
+        removeLevelChannel(fixtureID, chIndex);
+    }
+    else
+    {
+        addLevelChannel(fixtureID, chIndex);
+        qSort(m_levelChannels.begin(), m_levelChannels.end());
+    }
 
-        //QString type = itemData.at(1).toString();
-        quint32 fixtureID = itemData.at(2).toUInt();
-        quint32 chIndex = itemData.at(4).toUInt();
-
-        if (value.toInt() == 0)
-        {
-            removeLevelChannel(fixtureID, chIndex);
-        }
-        else
-        {
-            addLevelChannel(fixtureID, chIndex);
-            qSort(m_levelChannels.begin(), m_levelChannels.end());
-        }
-
-        if (clickAndGoType() == CnGPreset)
-        {
-            updateClickAndGoResource();
-            emit clickAndGoPresetsListChanged();
-        }
+    if (clickAndGoType() == CnGPreset)
+    {
+        updateClickAndGoResource();
+        emit clickAndGoPresetsListChanged();
     }
 }
 
@@ -770,7 +767,7 @@ void VCSlider::setControlledFunction(quint32 fid)
         emit controlledFunctionChanged(-1);
     }
 
-    Tardis::instance()->enqueueAction(VCSliderSetFunctionID, id(),
+    Tardis::instance()->enqueueAction(Tardis::VCSliderSetFunctionID, id(),
                                       current ? current->id() : Function::invalidId(),
                                       function ? function->id() : Function::invalidId());
 }
@@ -806,7 +803,11 @@ void VCSlider::slotControlledFunctionStopped(quint32 fid)
 {
     if (fid == controlledFunction())
     {
-        setValue(0, false, true);
+        if (m_controlledAttributeIndex == Function::Intensity)
+            setValue(0, false, true);
+
+        Function* function = m_doc->function(fid);
+        function->releaseAttributeOverride(m_controlledAttributeId);
         m_controlledAttributeId = Function::invalidAttributeId();
     }
 }
@@ -825,13 +826,13 @@ void VCSlider::setControlledAttribute(int attributeIndex)
     if (function == NULL || attributeIndex >= function->attributes().count())
         return;
 
-    int currentValue = m_value;
-    qreal previousMin = m_attributeMinValue;
-    qreal previousMax = m_attributeMaxValue;
+    function->releaseAttributeOverride(m_controlledAttributeId);
+    m_controlledAttributeId = Function::invalidAttributeId();
 
-    Tardis::instance()->enqueueAction(VCSliderSetControlledAttribute, id(), m_controlledAttributeIndex, attributeIndex);
+    Tardis::instance()->enqueueAction(Tardis::VCSliderSetControlledAttribute, id(), m_controlledAttributeIndex, attributeIndex);
 
     m_controlledAttributeIndex = attributeIndex;
+    qreal newValue = 0;
 
     // normalize intensity to 0-255 since Slider / Spin boxes step is an integer
     if (m_controlledAttributeIndex == Function::Intensity)
@@ -843,6 +844,7 @@ void VCSlider::setControlledAttribute(int attributeIndex)
     {
         m_attributeMinValue = function->attributes().at(m_controlledAttributeIndex).m_min;
         m_attributeMaxValue = function->attributes().at(m_controlledAttributeIndex).m_max;
+        newValue = function->getAttributeValue(m_controlledAttributeIndex);
     }
 
     setRangeLowLimit(m_attributeMinValue);
@@ -852,7 +854,6 @@ void VCSlider::setControlledAttribute(int attributeIndex)
     emit attributeMinValueChanged();
     emit attributeMaxValueChanged();
 
-    qreal newValue = SCALE(qreal(currentValue), previousMin, previousMax, m_rangeLowLimit, m_rangeHighLimit);
     setValue(newValue, false, true);
 }
 
@@ -1385,7 +1386,7 @@ bool VCSlider::saveXML(QXmlStreamWriter *doc)
     saveXMLAppearance(doc);
 
     /* Main external control */
-    saveXMLInputControl(doc, INPUT_SLIDER_CONTROL_ID, "");
+    saveXMLInputControl(doc, INPUT_SLIDER_CONTROL_ID);
 
     /* SliderMode */
     doc->writeStartElement(KXMLQLCVCSliderMode);

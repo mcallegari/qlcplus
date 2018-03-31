@@ -1601,10 +1601,12 @@ void ShowManager::slotFunctionRemoved(quint32 id)
             foreach (ShowFunction *sf, track->showFunctions())
             {
                 if (sf->functionID() == id)
-                {
                     m_showview->deleteShowItem(track, sf);
-                }
             }
+
+            // check if the Function being removed is a Scene bound to a Track
+            if (track->getSceneID() == id)
+                track->setSceneID(Function::invalidId());
         }
     }
 

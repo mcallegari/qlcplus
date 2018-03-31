@@ -141,7 +141,7 @@ void VCButton::setFunctionID(quint32 fid)
         emit functionIDChanged(-1);
     }
 
-    Tardis::instance()->enqueueAction(VCButtonSetFunctionID, id(),
+    Tardis::instance()->enqueueAction(Tardis::VCButtonSetFunctionID, id(),
                                       current ? current->id() : Function::invalidId(),
                                       function ? function->id() : Function::invalidId());
 }
@@ -246,7 +246,13 @@ void VCButton::setState(ButtonState state)
 
     emit stateChanged(m_state);
 
-    //updateFeedback(); // TODO
+    if (m_state == Monitoring)
+        return;
+
+    if (m_state == Inactive)
+        sendFeedback(0, INPUT_PRESSURE_ID, VCWidget::LowerValue);
+    else
+        sendFeedback(255, INPUT_PRESSURE_ID, VCWidget::UpperValue);
 }
 
 void VCButton::requestStateChange(bool pressed)
@@ -300,7 +306,7 @@ void VCButton::requestStateChange(bool pressed)
         break;
     }
 
-    Tardis::instance()->enqueueAction(VCButtonSetPressed, id(), false, pressed);
+    Tardis::instance()->enqueueAction(Tardis::VCButtonSetPressed, id(), false, pressed);
 }
 
 
@@ -318,7 +324,7 @@ void VCButton::setActionType(ButtonAction actionType)
     if (m_actionType == actionType)
         return;
 
-    Tardis::instance()->enqueueAction(VCButtonSetActionType, id(), m_actionType, actionType);
+    Tardis::instance()->enqueueAction(Tardis::VCButtonSetActionType, id(), m_actionType, actionType);
 
     m_actionType = actionType;
     emit actionTypeChanged(actionType);
@@ -373,7 +379,7 @@ void VCButton::setStartupIntensityEnabled(bool enable)
     if (enable == m_startupIntensityEnabled)
         return;
 
-    Tardis::instance()->enqueueAction(VCButtonEnableStartupIntensity, id(), m_startupIntensityEnabled, enable);
+    Tardis::instance()->enqueueAction(Tardis::VCButtonEnableStartupIntensity, id(), m_startupIntensityEnabled, enable);
 
     m_startupIntensityEnabled = enable;
     emit startupIntensityEnabledChanged();
@@ -390,7 +396,7 @@ void VCButton::setStartupIntensity(qreal fraction)
         return;
 
     qreal newVal = CLAMP(fraction, qreal(0), qreal(1));
-    Tardis::instance()->enqueueAction(VCButtonSetStartupIntensity, id(), m_startupIntensity, newVal);
+    Tardis::instance()->enqueueAction(Tardis::VCButtonSetStartupIntensity, id(), m_startupIntensity, newVal);
 
     m_startupIntensity = newVal;
     emit startupIntensityChanged();
@@ -522,7 +528,7 @@ bool VCButton::saveXML(QXmlStreamWriter *doc)
     doc->writeEndElement();
 
     /* External control */
-    saveXMLInputControl(doc, INPUT_PRESSURE_ID, "");
+    saveXMLInputControl(doc, INPUT_PRESSURE_ID);
 
     /* Intensity adjustment */
     if (startupIntensityEnabled())

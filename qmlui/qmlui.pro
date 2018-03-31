@@ -39,6 +39,7 @@ HEADERS += \
     fixtureutils.h \
     functioneditor.h \
     functionmanager.h \
+    importmanager.h \
     inputoutputmanager.h \
     listmodel.h \
     mainview2d.h \
@@ -68,6 +69,7 @@ SOURCES += main.cpp \
     fixtureutils.cpp \
     functioneditor.cpp \
     functionmanager.cpp \
+    importmanager.cpp \
     inputoutputmanager.cpp \
     listmodel.cpp \
     mainview2d.cpp \
@@ -88,7 +90,6 @@ SOURCES += main.cpp \
 #############################################
 
 HEADERS += \
-    tardis/tardisactions.h \
     tardis/tardis.h \
     tardis/networkpacketizer.h \
     tardis/networkmanager.h \
@@ -113,7 +114,8 @@ HEADERS += \
     virtualconsole/vcbutton.h \
     virtualconsole/vclabel.h \
     virtualconsole/vcslider.h \
-    virtualconsole/vcclock.h
+    virtualconsole/vcclock.h \
+    virtualconsole/vccuelist.h
 
 SOURCES += \
     virtualconsole/virtualconsole.cpp \
@@ -124,7 +126,8 @@ SOURCES += \
     virtualconsole/vcbutton.cpp \
     virtualconsole/vclabel.cpp \
     virtualconsole/vcslider.cpp \
-    virtualconsole/vcclock.cpp
+    virtualconsole/vcclock.cpp \
+    virtualconsole/vccuelist.cpp
 
 RESOURCES += qmlui.qrc ../resources/icons/svg/svgicons.qrc ../resources/fonts/fonts.qrc
 

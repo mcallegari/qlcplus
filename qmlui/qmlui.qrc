@@ -5,6 +5,8 @@
     <!-- Common components -->
     <file alias="ActionsMenu.qml">qml/ActionsMenu.qml</file>
     <file alias="BeatGeneratorsPanel.qml">qml/BeatGeneratorsPanel.qml</file>
+    <file alias="ChaserStepDelegate.qml">qml/ChaserStepDelegate.qml</file>
+    <file alias="ChaserWidget.qml">qml/ChaserWidget.qml</file>
     <file alias="ColorTool.qml">qml/ColorTool.qml</file>
     <file alias="ColorToolBasic.qml">qml/ColorToolBasic.qml</file>
     <file alias="ColorToolFilters.qml">qml/ColorToolFilters.qml</file>
@@ -13,6 +15,7 @@
     <file alias="CustomCheckBox.qml">qml/CustomCheckBox.qml</file>
     <file alias="CustomComboBox.qml">qml/CustomComboBox.qml</file>
     <file alias="CustomScrollBar.qml">qml/CustomScrollBar.qml</file>
+    <file alias="CustomSlider.qml">qml/CustomSlider.qml</file>
     <file alias="CustomSpinBox.qml">qml/CustomSpinBox.qml</file>
     <file alias="CustomTextEdit.qml">qml/CustomTextEdit.qml</file>
     <file alias="DayTimeTool.qml">qml/DayTimeTool.qml</file>
@@ -44,6 +47,8 @@
     <file alias="TimeEditTool.qml">qml/TimeEditTool.qml</file>
     <file alias="TreeNodeDelegate.qml">qml/TreeNodeDelegate.qml</file>
     <file alias="UISettings.qml">qml/UISettings.qml</file>
+    <file alias="UsageList.qml">qml/UsageList.qml</file>
+    <file alias="WidgetDelegate.qml">qml/WidgetDelegate.qml</file>
     <file alias="WindowLoader.qml">qml/WindowLoader.qml</file>
     <file alias="ZoomItem.qml">qml/ZoomItem.qml</file>
 
@@ -51,6 +56,7 @@
     <file alias="CustomPopupDialog.qml">qml/popup/CustomPopupDialog.qml</file>
     <file alias="PopupAbout.qml">qml/popup/PopupAbout.qml</file>
     <file alias="PopupDisclaimer.qml">qml/popup/PopupDisclaimer.qml</file>
+    <file alias="PopupImportProject.qml">qml/popup/PopupImportProject.qml</file>
     <file alias="PopupPINRequest.qml">qml/popup/PopupPINRequest.qml</file>
     <file alias="PopupPINSetup.qml">qml/popup/PopupPINSetup.qml</file>
     <file alias="PopupRenameFunctions.qml">qml/popup/PopupRenameFunctions.qml</file>
@@ -88,6 +94,7 @@
     <file alias="FixtureDMXItem.qml">qml/fixturesfunctions/FixtureDMXItem.qml</file>
     <file alias="2DView.qml">qml/fixturesfunctions/2DView.qml</file>
     <file alias="SettingsView2D.qml">qml/fixturesfunctions/SettingsView2D.qml</file>
+    <file alias="SettingsViewDMX.qml">qml/fixturesfunctions/SettingsViewDMX.qml</file>
     <file alias="Fixture2DItem.qml">qml/fixturesfunctions/Fixture2DItem.qml</file>
     <file alias="FunctionManager.qml">qml/fixturesfunctions/FunctionManager.qml</file>
     <file alias="AddFunctionMenu.qml">qml/fixturesfunctions/AddFunctionMenu.qml</file>
@@ -100,7 +107,6 @@
     <file alias="SceneEditor.qml">qml/fixturesfunctions/SceneEditor.qml</file>
     <file alias="SceneFixtureConsole.qml">qml/fixturesfunctions/SceneFixtureConsole.qml</file>
     <file alias="ChaserEditor.qml">qml/fixturesfunctions/ChaserEditor.qml</file>
-    <file alias="ChaserStepDelegate.qml">qml/fixturesfunctions/ChaserStepDelegate.qml</file>
     <file alias="SequenceEditor.qml">qml/fixturesfunctions/SequenceEditor.qml</file>
     <file alias="RGBMatrixEditor.qml">qml/fixturesfunctions/RGBMatrixEditor.qml</file>
     <file alias="RGBMatrixPreview.qml">qml/fixturesfunctions/RGBMatrixPreview.qml</file>
@@ -164,6 +170,8 @@
     <file alias="VCSliderProperties.qml">qml/virtualconsole/VCSliderProperties.qml</file>
     <file alias="VCClockItem.qml">qml/virtualconsole/VCClockItem.qml</file>
     <file alias="VCClockProperties.qml">qml/virtualconsole/VCClockProperties.qml</file>
+    <file alias="VCCueListItem.qml">qml/virtualconsole/VCCueListItem.qml</file>
+    <file alias="VCCueListProperties.qml">qml/virtualconsole/VCCueListProperties.qml</file>
 
     <!-- Show Manager -->
     <file alias="ShowManager.qml">qml/showmanager/ShowManager.qml</file>

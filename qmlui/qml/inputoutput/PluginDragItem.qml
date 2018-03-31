@@ -47,8 +47,8 @@ Rectangle
                 Gradient
                 {
                     id: bgGradient
-                    GradientStop { position: 0.75 ; color: "#FFF" }
-                    GradientStop { position: 1 ; color: "#7F7F7F" }
+                    GradientStop { position: 0.75 ; color: UISettings.fgMain }
+                    GradientStop { position: 1 ; color: UISettings.fgMedium }
                 }
             border.width: 2
             border.color: "#777"

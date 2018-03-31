@@ -309,6 +309,11 @@ QVariantList VCClock::scheduleList()
     return list;
 }
 
+QList<VCClockSchedule *> VCClock::schedules()
+{
+    return m_scheduleList;
+}
+
 void VCClock::addSchedule(VCClockSchedule *schedule)
 {
     if (schedule->functionID() != Function::invalidId())

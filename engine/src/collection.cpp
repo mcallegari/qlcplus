@@ -268,6 +268,11 @@ bool Collection::contains(quint32 functionId)
     return false;
 }
 
+QList<quint32> Collection::components()
+{
+    return m_functions;
+}
+
 /*****************************************************************************
  * Running
  *****************************************************************************/

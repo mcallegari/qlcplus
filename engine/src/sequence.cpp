@@ -89,6 +89,14 @@ quint32 Sequence::boundSceneID() const
     return m_boundSceneID;
 }
 
+QList<quint32> Sequence::components()
+{
+    QList<quint32> ids;
+    if (m_boundSceneID != Function::invalidId())
+        ids.append(m_boundSceneID);
+    return ids;
+}
+
 /*****************************************************************************
  * Save & Load
  *****************************************************************************/

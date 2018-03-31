@@ -25,6 +25,7 @@
 
 #include "virtualconsole.h"
 #include "contextmanager.h"
+#include "vccuelist.h"
 #include "vcwidget.h"
 #include "vcbutton.h"
 #include "vcslider.h"
@@ -57,6 +58,7 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc,
                                ContextManager *ctxManager, QObject *parent)
     : PreviewContext(view, doc, "VC", parent)
     , m_editMode(false)
+    , m_snapping(true)
     , m_loadStatus(Cleared)
     , m_contextManager(ctxManager)
     , m_selectedPage(0)
@@ -91,6 +93,7 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc,
     qmlRegisterType<VCSlider>("org.qlcplus.classes", 1, 0, "VCSlider");
     qmlRegisterType<VCClock>("org.qlcplus.classes", 1, 0, "VCClock");
     qmlRegisterType<VCClockSchedule>("org.qlcplus.classes", 1, 0, "VCClockSchedule");
+    qmlRegisterType<VCCueList>("org.qlcplus.classes", 1, 0, "VCCueList");
 
     connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar,QString)),
             this, SLOT(slotInputValueChanged(quint32,quint32,uchar)));
@@ -130,9 +133,105 @@ void VirtualConsole::setEditMode(bool editMode)
     emit editModeChanged(editMode);
 }
 
+bool VirtualConsole::snapping() const
+{
+    return m_snapping;
+}
+
+void VirtualConsole::setSnapping(bool enable)
+{
+    if (m_snapping == enable)
+        return;
+
+    m_snapping = enable;
+    emit snappingChanged(enable);
+}
+
+qreal VirtualConsole::snappingSize()
+{
+    return pixelDensity() * 3;
+}
+
 VirtualConsole::LoadStatus VirtualConsole::loadStatus() const
 {
     return m_loadStatus;
+}
+
+QVariantList VirtualConsole::usageList(quint32 fid)
+{
+    QVariantList list;
+
+    QHash<quint32, VCWidget *>::const_iterator i = m_widgetsMap.constBegin();
+    while (i != m_widgetsMap.constEnd())
+    {
+        VCWidget *widget = i.value();
+        bool found = false;
+
+        if (widget == NULL)
+        {
+            ++i;
+            continue;
+        }
+        switch (widget->type())
+        {
+            case VCWidget::ButtonWidget:
+            {
+                VCButton *button = qobject_cast<VCButton *>(widget);
+                if (button->functionID() == fid)
+                    found = true;
+            }
+            break;
+            case VCWidget::SliderWidget:
+            {
+                VCSlider *slider = qobject_cast<VCSlider *>(widget);
+                if (slider->controlledFunction() == fid)
+                    found = true;
+            }
+            break;
+            case VCWidget::CueListWidget:
+            {
+                VCCueList *cuelist = qobject_cast<VCCueList *>(widget);
+                if (cuelist->chaserID() == fid)
+                    found = true;
+            }
+            break;
+            case VCWidget::ClockWidget:
+            {
+                VCClock *clock = qobject_cast<VCClock *>(widget);
+                for (VCClockSchedule *schedule : clock->schedules())
+                {
+                    if (schedule->functionID() == fid)
+                    {
+                        found = true;
+                        // a single match will do
+                        break;
+                    }
+                }
+            }
+            break;
+            default:
+            break;
+        }
+
+        if (found)
+        {
+            QVariantMap wMap;
+            wMap.insert("classRef", QVariant::fromValue(widget));
+            wMap.insert("label", QString("%1").arg(widget->caption()));
+            list.append(wMap);
+        }
+
+        ++i;
+    }
+
+    if (list.isEmpty())
+    {
+        QVariantMap noneMap;
+        noneMap.insert("label", tr("<None>"));
+        list.append(noneMap);
+    }
+
+    return list;
 }
 
 /*********************************************************************
@@ -381,7 +480,8 @@ void VirtualConsole::setWidgetSelection(quint32 wID, QQuickItem *item, bool enab
 
     if (enable)
     {
-        m_itemsMap[wID] = item;
+        if (item != NULL)
+            m_itemsMap[wID] = item;
 
         vcWidget = m_widgetsMap[wID];
 
@@ -462,6 +562,12 @@ void VirtualConsole::moveWidget(VCWidget *widget, VCFrame *targetFrame, QPoint p
         targetFrame->addWidgetToPageMap(widget);
 
         widget->setParent(targetFrame);
+    }
+
+    if (snapping())
+    {
+        pos.setX(qRound((qreal)pos.x() / snappingSize()) * snappingSize());
+        pos.setY(qRound((qreal)pos.y() / snappingSize()) * snappingSize());
     }
 
     QRectF wRect = widget->geometry();
@@ -594,8 +700,8 @@ void VirtualConsole::deleteVCWidgets(QVariantList IDList)
             VCFrame *frame = qobject_cast<VCFrame *>(w);
             for (VCWidget *child : frame->children(true))
             {
-                Tardis::instance()->enqueueAction(VCWidgetDelete, w->id(),
-                                                  Tardis::instance()->actionToByteArray(VCWidgetDelete, child->id()),
+                Tardis::instance()->enqueueAction(Tardis::VCWidgetDelete, w->id(),
+                                                  Tardis::instance()->actionToByteArray(Tardis::VCWidgetDelete, child->id()),
                                                   QVariant());
                 m_widgetsMap.remove(child->id());
             }
@@ -603,8 +709,8 @@ void VirtualConsole::deleteVCWidgets(QVariantList IDList)
 
         /* 3- remove the widget from the global VC widgets map */
         VCFrame *parent = qobject_cast<VCFrame *>(w->parent());
-        Tardis::instance()->enqueueAction(VCWidgetDelete, parent->id(),
-                                          Tardis::instance()->actionToByteArray(VCWidgetDelete, w->id()),
+        Tardis::instance()->enqueueAction(Tardis::VCWidgetDelete, parent->id(),
+                                          Tardis::instance()->actionToByteArray(Tardis::VCWidgetDelete, w->id()),
                                           QVariant());
         m_widgetsMap.remove(wID);
 
@@ -633,6 +739,29 @@ void VirtualConsole::requestAddMatrixPopup(VCFrame *frame, QQuickItem *parent, Q
             Q_ARG(QVariant, QVariant::fromValue(parent)),
             Q_ARG(QVariant, widgetType),
             Q_ARG(QVariant, pos));
+}
+
+QString VirtualConsole::widgetIcon(int type)
+{
+    switch (type)
+    {
+        case VCWidget::ButtonWidget: return "qrc:/button.svg";
+        case VCWidget::SliderWidget: return "qrc:/slider.svg";
+        case VCWidget::XYPadWidget: return "qrc:/xypad.svg";
+        case VCWidget::FrameWidget: return "qrc:/frame.svg";
+        case VCWidget::SoloFrameWidget: return "qrc:/soloframe.svg";
+        case VCWidget::SpeedDialWidget: return "qrc:/speed.svg";
+        case VCWidget::CueListWidget: return "qrc:/cuelist.svg";
+        case VCWidget::LabelWidget: return "qrc:/label.svg";
+        case VCWidget::AudioTriggersWidget: return "qrc:/audiotriggers.svg";
+        case VCWidget::AnimationWidget: return "qrc:/animation.svg";
+        case VCWidget::ClockWidget: return "qrc:/clock.svg";
+        default:
+            qDebug() << "Unhandled widget type" << type << ". FIXME";
+        break;
+    }
+
+    return "";
 }
 
 /*********************************************************************
@@ -736,16 +865,6 @@ bool VirtualConsole::enableInputSourceAutoDetection(VCWidget *widget, quint32 id
      *  to when the first input signal comes from an external controller */
 
     return true;
-}
-
-void VirtualConsole::updateInputSourceControlID(VCWidget *widget, quint32 id, quint32 universe, quint32 channel)
-{
-    if (widget == NULL)
-        return;
-
-    qDebug() << "Setting control ID" << id << "to widget" << widget->caption();
-
-    widget->updateInputSourceControlID(universe, channel, id);
 }
 
 bool VirtualConsole::enableKeyAutoDetection(VCWidget *widget, quint32 id, QString keyText)

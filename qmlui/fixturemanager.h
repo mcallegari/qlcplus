@@ -144,13 +144,12 @@ public:
     QVariant groupsTreeModel();
 
     static void addFixtureGroupTreeNode(Doc *doc, TreeModel *treeModel, FixtureGroup *group,
-                                        QString searchFilter = QString(),
+                                        QString searchFilter = QString(), bool showChannels = true,
                                         QList<SceneValue> checkedChannels = QList<SceneValue>());
 
     /** Update the tree of groups/fixtures/channels */
-    static void updateGroupsTree(Doc *doc, TreeModel *treeModel,
-                                  QString searchFilter = QString(),
-                                  QList<SceneValue> checkedChannels = QList<SceneValue>());
+    static void updateGroupsTree(Doc *doc, TreeModel *treeModel, QString searchFilter = QString(),
+                                 bool showChannels = true, QList<SceneValue> checkedChannels = QList<SceneValue>());
 
     /** Return the type as string of the Fixture with ID $fixtureID */
     Q_INVOKABLE QString fixtureIcon(quint32 fixtureID);

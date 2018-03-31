@@ -66,8 +66,7 @@ Rectangle
 
         onAccepted:
         {
-            var url = "" + openVideoDialog.fileUrl
-            videoEditor.sourceFileName = url.replace("file://", "")
+            videoEditor.sourceFileName = openVideoDialog.fileUrl
         }
     }
 

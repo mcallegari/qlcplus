@@ -49,10 +49,13 @@ QString AudioEditor::sourceFileName() const
 
 void AudioEditor::setSourceFileName(QString sourceFileName)
 {
+    if (sourceFileName.startsWith("file:"))
+        sourceFileName = QUrl(sourceFileName).toLocalFile();
+
     if (m_audio == NULL || m_audio->getSourceFileName() == sourceFileName)
         return;
 
-    Tardis::instance()->enqueueAction(AudioSetSource, m_audio->id(), m_audio->getSourceFileName(), sourceFileName);
+    Tardis::instance()->enqueueAction(Tardis::AudioSetSource, m_audio->id(), m_audio->getSourceFileName(), sourceFileName);
     m_audio->setSourceFileName(sourceFileName);
     emit sourceFileNameChanged(sourceFileName);
     emit mediaInfoChanged();
@@ -100,7 +103,8 @@ void AudioEditor::setLooped(bool looped)
 {
     if (m_audio != NULL)
     {
-        Tardis::instance()->enqueueAction(FunctionSetRunOrder, m_audio->id(), m_audio->runOrder(), looped ? Audio::Loop : Audio::SingleShot);
+        Tardis::instance()->enqueueAction(Tardis::FunctionSetRunOrder, m_audio->id(), m_audio->runOrder(),
+                                          looped ? Audio::Loop : Audio::SingleShot);
 
         if (looped)
             m_audio->setRunOrder(Audio::Loop);

@@ -31,7 +31,12 @@ Rectangle
 
     function hasSettings()
     {
-        return false;
+        return true
+    }
+
+    function showSettings(show)
+    {
+        dmxSettings.visible = show
     }
 
     Flickable
@@ -62,4 +67,12 @@ Rectangle
         }
     }
     CustomScrollBar { flickable: fixtureDMXView }
+
+    SettingsViewDMX
+    {
+        id: dmxSettings
+        visible: false
+        x: parent.width - width
+        z: 5
+    }
 }

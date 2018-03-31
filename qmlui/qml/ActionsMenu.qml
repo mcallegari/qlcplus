@@ -42,10 +42,29 @@ Popup
 
         onAccepted:
         {
-            console.log("You chose: " + openDialog.fileUrl)
-            qlcplus.loadWorkspace(openDialog.fileUrl)
+            console.log("You chose: " + fileUrl)
+            qlcplus.loadWorkspace(fileUrl)
             console.log("Folder: " + folder.toString())
             qlcplus.workingPath = folder.toString()
+        }
+        onRejected:
+        {
+            console.log("Canceled")
+        }
+    }
+
+    FileDialog
+    {
+        id: importDialog
+        visible: false
+        title: qsTr("Import a workspace")
+        folder: "file://" + qlcplus.workingPath
+        nameFilters: [ qsTr("Workspace files") + " (*.qxw)", qsTr("All files") + " (*)" ]
+
+        onAccepted:
+        {
+            if (qlcplus.loadImportWorkspace(fileUrl) === true)
+                importLoader.source = "qrc:/PopupImportProject.qml"
         }
         onRejected:
         {
@@ -63,8 +82,8 @@ Popup
 
         onAccepted:
         {
-            console.log("You chose: " + saveDialog.fileUrl)
-            qlcplus.saveWorkspace(saveDialog.fileUrl)
+            console.log("You chose: " + fileUrl)
+            qlcplus.saveWorkspace(fileUrl)
         }
         onRejected:
         {
@@ -127,8 +146,6 @@ Popup
             entryText: qsTr("New project")
             onClicked:
             {
-                menuRoot.close()
-
                 if (qlcplus.docModified)
                 {
                     saveFirstPopup.openAction = false
@@ -136,9 +153,12 @@ Popup
                 }
                 else
                     qlcplus.newWorkspace()
+
+                menuRoot.close()
             }
             onEntered: submenuItem = null
         }
+
         ContextMenuEntry
         {
             id: fileOpen
@@ -146,8 +166,6 @@ Popup
             entryText: qsTr("Open project")
             onClicked:
             {
-                menuRoot.close()
-
                 if (qlcplus.docModified)
                 {
                     saveFirstPopup.openAction = true
@@ -155,6 +173,8 @@ Popup
                 }
                 else
                     openDialog.open()
+
+                menuRoot.close()
             }
             onEntered: submenuItem = recentMenu
 
@@ -187,6 +207,7 @@ Popup
                 }
             }
         }
+
         ContextMenuEntry
         {
             id: fileSave
@@ -196,14 +217,15 @@ Popup
 
             onClicked:
             {
-                menuRoot.close()
-
                 if (qlcplus.fileName())
                     qlcplus.saveWorkspace(qlcplus.fileName())
                 else
                     saveDialog.open()
+
+                menuRoot.close()
             }
         }
+
         ContextMenuEntry
         {
             id: fileSaveAs
@@ -213,10 +235,37 @@ Popup
 
             onClicked:
             {
-                menuRoot.close()
                 saveDialog.open()
+                menuRoot.close()
             }
         }
+
+        ContextMenuEntry
+        {
+            id: fileImport
+            imgSource: "qrc:/import.svg"
+            entryText: qsTr("Import from project")
+            onEntered: submenuItem = null
+
+            onClicked:
+            {
+                importDialog.open()
+                menuRoot.close()
+            }
+
+            Loader
+            {
+                id: importLoader
+                onLoaded: item.open()
+
+                Connections
+                {
+                    target: importLoader.item
+                    onClose: importLoader.source = ""
+                }
+            }
+        }
+
         Row
         {
             height: UISettings.iconSizeDefault

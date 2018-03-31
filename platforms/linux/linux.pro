@@ -55,6 +55,7 @@ appimage: {
                     $$QT_LIBS_PATH/libQt5DBus.so.5 \
                     $$QT_LIBS_PATH/libQt5Multimedia.so.5 \
                     $$QT_LIBS_PATH/libQt5MultimediaWidgets.so.5 \
+                    $$QT_LIBS_PATH/libQt5MultimediaGstTools.so.5 \
                     $$QT_LIBS_PATH/libQt5Qml.so.5 \
                     $$QT_LIBS_PATH/libQt5Quick.so.5 \
                     $$QT_LIBS_PATH/libQt5QuickControls2.so.5 \
@@ -64,6 +65,7 @@ appimage: {
                     $$QT_LIBS_PATH/libQt53DExtras.so.5 \
                     $$QT_LIBS_PATH/libQt53DInput.so.5 \
                     $$QT_LIBS_PATH/libQt53DLogic.so.5 \
+                    $$QT_LIBS_PATH/libQt53DAnimation.so.5 \
                     $$QT_LIBS_PATH/libQt53DQuick.so.5 \
                     $$QT_LIBS_PATH/libQt53DQuickExtras.so.5 \
                     $$QT_LIBS_PATH/libQt53DQuickInput.so.5 \
@@ -72,6 +74,13 @@ appimage: {
                     $$QT_LIBS_PATH/libQt5Concurrent.so.5 \
                     $$QT_LIBS_PATH/libQt5Gamepad.so.5 \
                     $$QT_LIBS_PATH/libQt5PrintSupport.so.5
+
+    lessThan(QT_MINOR_VERSION, 10) {
+        qtlibs.files += $$QT_LIBS_PATH/libQt5MultimediaQuick_p.so.5
+    } else {
+        qtlibs.files += $$QT_LIBS_PATH/libQt5MultimediaQuick.so.5
+    }
+
     INSTALLS += qtlibs
 
     # Qt plugins
@@ -107,11 +116,16 @@ appimage: {
     sceneparsers.files = $$QT_PLUGINS_PATH/sceneparsers/libassimpsceneimport.so
     INSTALLS += sceneparsers
     
+    geometryloaders.path = $$INSTALLROOT/$$LIBSDIR/qt5/plugins/geometryloaders
+    geometryloaders.files = $$QT_PLUGINS_PATH/geometryloaders/libdefaultgeometryloader.so
+    INSTALLS += geometryloaders
+
     qmldeps.path   = $$INSTALLROOT/bin
     qmldeps.files += $$QT_QML_PATH/QtQml \
-                        $$QT_QML_PATH/QtQuick \
-                        $$QT_QML_PATH/QtQuick.2 \
-                        $$QT_QML_PATH/Qt3D
+                     $$QT_QML_PATH/QtQuick \
+                     $$QT_QML_PATH/QtQuick.2 \
+                     $$QT_QML_PATH/Qt3D \
+                     $$QT_QML_PATH/QtMultimedia
 
     INSTALLS += qmldeps
 }

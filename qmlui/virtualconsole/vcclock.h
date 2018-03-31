@@ -169,7 +169,10 @@ private:
 public:
     bool enableSchedule() const;
     void setEnableSchedule(bool enableSchedule);
+
     QVariantList scheduleList();
+    QList<VCClockSchedule*> schedules();
+
     void addSchedule(VCClockSchedule *schedule);
     Q_INVOKABLE void addSchedules(QVariantList idsList);
     Q_INVOKABLE void removeSchedule(int index);

@@ -297,6 +297,24 @@ Rectangle
 
                                     if (infoButton.checked)
                                         fixtureManager.itemID = iID
+
+                                    if (!(mouseMods & Qt.ControlModifier))
+                                        contextManager.resetFixtureSelection()
+
+                                    console.log("Item clicked. Type: " + qItem.itemType + ", id: " + iID)
+
+                                    switch (qItem.itemType)
+                                    {
+                                        case App.FixtureDragItem:
+                                            contextManager.setFixtureSelection(iID, true)
+                                        break;
+                                        case App.UniverseDragItem:
+                                            contextManager.setFixtureGroupSelection(iID, true, true)
+                                        break;
+                                        case App.FixtureGroupDragItem:
+                                            contextManager.setFixtureGroupSelection(iID, true, false)
+                                        break;
+                                    }
                                 break;
                                 case App.DragStarted:
                                     if (qItem == item && !model.isSelected)

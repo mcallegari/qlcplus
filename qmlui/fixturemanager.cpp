@@ -290,8 +290,8 @@ bool FixtureManager::addFixture(QString manuf, QString model, QString mode, QStr
         fxi->setFixtureDefinition(fxiDef, fxiMode);
 
         m_doc->addFixture(fxi);
-        Tardis::instance()->enqueueAction(FixtureCreate, fxi->id(), QVariant(),
-                                          Tardis::instance()->actionToByteArray(FixtureCreate, fxi->id()));
+        Tardis::instance()->enqueueAction(Tardis::FixtureCreate, fxi->id(), QVariant(),
+                                          Tardis::instance()->actionToByteArray(Tardis::FixtureCreate, fxi->id()));
         emit newFixtureCreated(fxi->id(), xPos, yPos, 0);
     }
     m_fixtureList.clear();
@@ -313,7 +313,7 @@ bool FixtureManager::moveFixture(quint32 fixtureID, quint32 newAddress)
     if (fixture == NULL)
         return false;
 
-    Tardis::instance()->enqueueAction(FixtureMove, fixtureID, fixture->address(), newAddress);
+    Tardis::instance()->enqueueAction(Tardis::FixtureMove, fixtureID, fixture->address(), newAddress);
 
     fixture->setAddress(newAddress);
 
@@ -331,11 +331,11 @@ bool FixtureManager::deleteFixtures(QVariantList IDList)
     for (QVariant id : IDList)
     {
         quint32 fxID = id.toUInt();
-        Tardis::instance()->enqueueAction(FixtureSetPosition, fxID,
+        Tardis::instance()->enqueueAction(Tardis::FixtureSetPosition, fxID,
                                           QVariant(mProps->fixturePosition(fxID)), QVariant());
         mProps->removeFixture(fxID);
-        Tardis::instance()->enqueueAction(FixtureDelete, fxID,
-                                          Tardis::instance()->actionToByteArray(FixtureDelete, fxID),
+        Tardis::instance()->enqueueAction(Tardis::FixtureDelete, fxID,
+                                          Tardis::instance()->actionToByteArray(Tardis::FixtureDelete, fxID),
                                           QVariant());
         m_doc->deleteFixture(fxID);
         emit fixtureDeleted(fxID);
@@ -387,7 +387,8 @@ bool FixtureManager::compareFixtures(Fixture *left, Fixture *right)
 }
 
 void FixtureManager::addFixtureGroupTreeNode(Doc *doc, TreeModel *treeModel, FixtureGroup *group,
-                                             QString searchFilter, QList<SceneValue> checkedChannels)
+                                             QString searchFilter, bool showChannels,
+                                             QList<SceneValue> checkedChannels)
 {
     int matchFound = 0;
     bool expandAll = searchFilter.length() >= SEARCH_MIN_CHARS;
@@ -411,31 +412,35 @@ void FixtureManager::addFixtureGroupTreeNode(Doc *doc, TreeModel *treeModel, Fix
         if (searchFilter.length() < SEARCH_MIN_CHARS || fixture->name().toLower().contains(searchFilter))
             matchFound |= FixtureMatch;
 
-        int chIdx = 0;
+
         QString chPath = QString("%1%2%3").arg(group->name()).arg(TreeModel::separator()).arg(fixture->name());
 
-        for (QLCChannel *channel : mode->channels()) // C++11
+        if (showChannels)
         {
-            if ((matchFound & GroupMatch) || (matchFound & FixtureMatch) ||
-                searchFilter.length() < SEARCH_MIN_CHARS ||
-                channel->name().toLower().contains(searchFilter))
+            int chIdx = 0;
+            for (QLCChannel *channel : mode->channels()) // C++11
             {
-                QVariantList chParams;
-                int flags = expandAll ? TreeModel::Expanded : 0;
+                if ((matchFound & GroupMatch) || (matchFound & FixtureMatch) ||
+                    searchFilter.length() < SEARCH_MIN_CHARS ||
+                    channel->name().toLower().contains(searchFilter))
+                {
+                    QVariantList chParams;
+                    int flags = expandAll ? TreeModel::Expanded : 0;
 
-                if (checkedChannels.contains(SceneValue(fixture->id(), chIdx)))
-                    flags |= TreeModel::Checked;
+                    if (checkedChannels.contains(SceneValue(fixture->id(), chIdx)))
+                        flags |= TreeModel::Checked;
 
-                chParams.append(QVariant::fromValue(NULL)); // classRef
-                chParams.append(App::ChannelDragItem); // type
-                chParams.append(fixture->id()); // id
-                chParams.append(group->id()); // subid
-                chParams.append(chIdx); // chIdx
+                    chParams.append(QVariant::fromValue(NULL)); // classRef
+                    chParams.append(App::ChannelDragItem); // type
+                    chParams.append(fixture->id()); // id
+                    chParams.append(group->id()); // subid
+                    chParams.append(chIdx); // chIdx
 
-                treeModel->addItem(channel->name(), chParams, chPath, flags);
-                matchFound |= ChannelMatch;
+                    treeModel->addItem(channel->name(), chParams, chPath, flags);
+                    matchFound |= ChannelMatch;
+                }
+                chIdx++;
             }
-            chIdx++;
         }
 
         if (matchFound)
@@ -448,7 +453,10 @@ void FixtureManager::addFixtureGroupTreeNode(Doc *doc, TreeModel *treeModel, Fix
             fxParams.append(group->id()); // subid
             fxParams.append(0); // chIdx
 
-            treeModel->setPathData(chPath, fxParams);
+            if (showChannels)
+                treeModel->setPathData(chPath, fxParams);
+            else
+                treeModel->addItem(fixture->name(), fxParams, group->name(), expandAll ? TreeModel::Expanded : 0);
         }
     }
 
@@ -466,8 +474,8 @@ void FixtureManager::addFixtureGroupTreeNode(Doc *doc, TreeModel *treeModel, Fix
     }
 }
 
-void FixtureManager::updateGroupsTree(Doc *doc, TreeModel *treeModel,
-                                       QString searchFilter, QList<SceneValue> checkedChannels)
+void FixtureManager::updateGroupsTree(Doc *doc, TreeModel *treeModel, QString searchFilter,
+                                      bool showChannels, QList<SceneValue> checkedChannels)
 {
     if (doc == NULL || treeModel == NULL)
         return;
@@ -480,7 +488,7 @@ void FixtureManager::updateGroupsTree(Doc *doc, TreeModel *treeModel,
 
     // add Fixture Groups first
     for (FixtureGroup *grp : doc->fixtureGroups()) // C++11
-        addFixtureGroupTreeNode(doc, treeModel, grp, searchFilter, checkedChannels);
+        addFixtureGroupTreeNode(doc, treeModel, grp, searchFilter, showChannels, checkedChannels);
 
     QList<Fixture*> origList = doc->fixtures();
     // sort the fixture list by address and not by ID
@@ -501,26 +509,29 @@ void FixtureManager::updateGroupsTree(Doc *doc, TreeModel *treeModel,
         if (mode == NULL)
             continue;
 
-        int chIdx = 0;
-        for (QLCChannel *channel : mode->channels()) // C++11
+        if (showChannels)
         {
-            if ((matchFound & FixtureMatch) || searchFilter.length() < SEARCH_MIN_CHARS ||
-                channel->name().toLower().contains(searchFilter))
+            int chIdx = 0;
+            for (QLCChannel *channel : mode->channels()) // C++11
             {
-                int flags = expandAll ? TreeModel::Expanded : 0;
-                if (checkedChannels.contains(SceneValue(fixture->id(), chIdx)))
-                    flags |= TreeModel::Checked;
+                if ((matchFound & FixtureMatch) || searchFilter.length() < SEARCH_MIN_CHARS ||
+                    channel->name().toLower().contains(searchFilter))
+                {
+                    int flags = expandAll ? TreeModel::Expanded : 0;
+                    if (checkedChannels.contains(SceneValue(fixture->id(), chIdx)))
+                        flags |= TreeModel::Checked;
 
-                QVariantList chParams;
-                chParams.append(QVariant::fromValue(NULL)); // classRef
-                chParams.append(App::ChannelDragItem); // type
-                chParams.append(fixture->id()); // id
-                chParams.append(fixture->universe()); // subid
-                chParams.append(chIdx); // chIdx
-                treeModel->addItem(channel->name(), chParams, chPath, flags);
-                matchFound |= ChannelMatch;
+                    QVariantList chParams;
+                    chParams.append(QVariant::fromValue(NULL)); // classRef
+                    chParams.append(App::ChannelDragItem); // type
+                    chParams.append(fixture->id()); // id
+                    chParams.append(fixture->universe()); // subid
+                    chParams.append(chIdx); // chIdx
+                    treeModel->addItem(channel->name(), chParams, chPath, flags);
+                    matchFound |= ChannelMatch;
+                }
+                chIdx++;
             }
-            chIdx++;
         }
 
         if (matchFound)
@@ -533,7 +544,10 @@ void FixtureManager::updateGroupsTree(Doc *doc, TreeModel *treeModel,
             fxParams.append(fixture->universe()); // subid
             fxParams.append(0); // chIdx
 
-            treeModel->setPathData(chPath, fxParams);
+            if (showChannels)
+                treeModel->setPathData(chPath, fxParams);
+            else
+                treeModel->addItem(fixture->name(), fxParams, uniNames.at(fixture->universe()), expandAll ? TreeModel::Expanded : 0);
         }
     }
 
@@ -606,12 +620,10 @@ void FixtureManager::addFixturesToNewGroup(QList<quint32> fxList)
     for (quint32 id : fxList)
         group->assignFixture(id);
 
-    Tardis::instance()->enqueueAction(FixtureGroupCreate, group->id(), QVariant(),
-                                      Tardis::instance()->actionToByteArray(FixtureGroupCreate, group->id()));
+    Tardis::instance()->enqueueAction(Tardis::FixtureGroupCreate, group->id(), QVariant(),
+                                      Tardis::instance()->actionToByteArray(Tardis::FixtureGroupCreate, group->id()));
 
     addFixtureGroupTreeNode(m_doc, m_fixtureTree, group, m_searchFilter);
-    //updateGroupsTree(m_doc, m_fixtureTree, m_searchFilter);
-    //emit groupsTreeModelChanged();
 }
 
 bool FixtureManager::deleteFixtureGroups(QVariantList IDList)
@@ -619,8 +631,8 @@ bool FixtureManager::deleteFixtureGroups(QVariantList IDList)
     for (QVariant id : IDList)
     {
         quint32 groupID = id.toUInt();
-        Tardis::instance()->enqueueAction(FixtureGroupDelete, groupID,
-                                          Tardis::instance()->actionToByteArray(FixtureGroupDelete, groupID),
+        Tardis::instance()->enqueueAction(Tardis::FixtureGroupDelete, groupID,
+                                          Tardis::instance()->actionToByteArray(Tardis::FixtureGroupDelete, groupID),
                                           QVariant());
         m_doc->deleteFixtureGroup(groupID);
     }

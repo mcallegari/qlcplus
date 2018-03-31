@@ -25,7 +25,7 @@ Rectangle
     id: audioItem
     width: parent.width
     height: UISettings.bigItemHeight
-    color: isSelected ? "#2D444E" : "transparent"
+    color: isSelected ? UISettings.highlightPressed : "transparent"
     border.width: 2
     border.color: isSelected ? UISettings.selection : "transparent"
 
@@ -36,6 +36,7 @@ Rectangle
     AudioDeviceItem
     {
         x: 14
+        z: 1
         anchors.verticalCenter: audioItem.verticalCenter
         width: inWireBox.width * 3
         audioDevice: ioManager.audioInputDevice
@@ -51,6 +52,27 @@ Rectangle
         z: 10
 
         patchesNumber: 1
+    }
+
+    // Audio input drop area
+    DropArea
+    {
+        id: inputDropTarget
+        x: 2
+        y: 2
+        width: ((audioItem.width - audioBox.width) / 2) - 6
+        height: audioItem.height - 4
+
+        // this key must match the one in AudioCardsList, to avoid dropping
+        // an audio input on output and vice-versa
+        keys: [ "audioInput" ]
+
+        Rectangle
+        {
+            id: inDropRect
+            anchors.fill: parent
+            color: inputDropTarget.containsDrag ? UISettings.highlight : "transparent"
+        }
     }
 
     // representation of the central Audio block
@@ -96,10 +118,33 @@ Rectangle
 
     AudioDeviceItem
     {
+        id: outputBox
         x: outWireBox.x + outWireBox.width - 8
+        z: 1
         anchors.verticalCenter: audioItem.verticalCenter
         width: outWireBox.width * 3
         audioDevice: ioManager.audioOutputDevice
+    }
+
+    // New output patch drop area
+    DropArea
+    {
+        id: outputDropTarget
+        x: outWireBox.x + 6
+        y: 2
+        width: audioItem.width - x - 2
+        height: audioItem.height - 4
+
+        // this key must match the one in AudioCardsList, to avoid dropping
+        // an audio input on output and vice-versa
+        keys: [ "audioOutput" ]
+
+        Rectangle
+        {
+            id: outDropRect
+            anchors.fill: parent
+            color: outputDropTarget.containsDrag ? UISettings.highlight : "transparent"
+        }
     }
 
     // Global mouse area to select this Audio item
@@ -111,7 +156,7 @@ Rectangle
             if (isSelected == false)
             {
                 isSelected = true
-                ioManager.setSelectedItem(audioItem, 0)
+                ioManager.selectedIndex = -1
                 audioItem.selected(0);
             }
         }

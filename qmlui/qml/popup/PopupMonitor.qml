@@ -55,6 +55,7 @@ CustomPopupDialog
                 id: topViewCheck
                 implicitHeight: UISettings.listItemHeight
                 implicitWidth: height
+                autoExclusive: true
                 onCheckedChanged: if (checked) selectedPov = MonitorProperties.TopView
             }
             RobotoText
@@ -71,6 +72,7 @@ CustomPopupDialog
                 implicitHeight: UISettings.listItemHeight
                 implicitWidth: height
                 checked: true
+                autoExclusive: true
                 onCheckedChanged: if (checked) selectedPov = MonitorProperties.FrontView
             }
             RobotoText
@@ -86,6 +88,7 @@ CustomPopupDialog
                 id: rightViewCheck
                 implicitHeight: UISettings.listItemHeight
                 implicitWidth: height
+                autoExclusive: true
                 onCheckedChanged: if (checked) selectedPov = MonitorProperties.RightSideView
             }
             RobotoText
@@ -101,6 +104,7 @@ CustomPopupDialog
                 id: leftViewCheck
                 implicitHeight: UISettings.listItemHeight
                 implicitWidth: height
+                autoExclusive: true
                 onCheckedChanged: if (checked) selectedPov = MonitorProperties.LeftSideView
             }
             RobotoText

@@ -204,7 +204,7 @@ void VCWidget::setGeometry(QRectF rect)
     if (m_geometry == scaled)
         return;
 
-    enqueueTardisAction(VCWidgetGeometry, QVariant(m_geometry), QVariant(scaled));
+    enqueueTardisAction(Tardis::VCWidgetGeometry, QVariant(m_geometry), QVariant(scaled));
 
     m_geometry = scaled;
 
@@ -300,7 +300,7 @@ void VCWidget::setCaption(QString caption)
     if (m_caption == caption)
         return;
 
-    enqueueTardisAction(VCWidgetCaption, m_caption, caption);
+    enqueueTardisAction(Tardis::VCWidgetCaption, m_caption, caption);
     m_caption = caption;
 
     emit captionChanged(caption);
@@ -321,7 +321,7 @@ void VCWidget::setBackgroundColor(QColor backgroundColor)
         return;
 
     setBackgroundImage("");
-    enqueueTardisAction(VCWidgetBackgroundColor, m_backgroundColor, backgroundColor);
+    enqueueTardisAction(Tardis::VCWidgetBackgroundColor, m_backgroundColor, backgroundColor);
 
     m_backgroundColor = backgroundColor;
     m_hasCustomBackgroundColor = true;
@@ -351,7 +351,7 @@ void VCWidget::setBackgroundImage(QString path)
     if (m_backgroundImage == strippedPath)
         return;
 
-    enqueueTardisAction(VCWidgetBackgroundImage, m_backgroundImage, strippedPath);
+    enqueueTardisAction(Tardis::VCWidgetBackgroundImage, m_backgroundImage, strippedPath);
 
     m_hasCustomBackgroundColor = false;
     m_backgroundImage = strippedPath;
@@ -378,7 +378,7 @@ void VCWidget::setForegroundColor(QColor foregroundColor)
     if (m_foregroundColor == foregroundColor)
         return;
 
-    enqueueTardisAction(VCWidgetForegroundColor, m_foregroundColor, foregroundColor);
+    enqueueTardisAction(Tardis::VCWidgetForegroundColor, m_foregroundColor, foregroundColor);
 
     m_foregroundColor = foregroundColor;
     m_hasCustomForegroundColor = true;
@@ -411,7 +411,7 @@ void VCWidget::setDefaultFontSize(qreal size)
 void VCWidget::setFont(const QFont& font)
 {
     m_hasCustomFont = true;
-    enqueueTardisAction(VCWidgetFont, m_font, font);
+    enqueueTardisAction(Tardis::VCWidgetFont, m_font, font);
     m_font = font;
 
     emit fontChanged();
@@ -537,7 +537,7 @@ QString VCWidget::propertiesResource() const
 }
 
 /*********************************************************************
- * External input
+ * Controls
  *********************************************************************/
 
 void VCWidget::registerExternalControl(quint8 id, QString name, bool allowKeyboard)
@@ -586,6 +586,10 @@ int VCWidget::controlIndex(quint8 id)
     return 0;
 }
 
+/*********************************************************************
+ * Input sources
+ *********************************************************************/
+
 void VCWidget::addInputSource(QSharedPointer<QLCInputSource> const& source)
 {
     if (source.isNull() || m_externalControlList.isEmpty())
@@ -625,6 +629,19 @@ bool VCWidget::updateInputSourceControlID(quint32 universe, quint32 channel, qui
         if (source->universe() == universe && source->channel() == channel)
         {
             source->setID(id);
+            return true;
+        }
+    }
+    return false;
+}
+
+bool VCWidget::updateInputSourceRange(quint32 universe, quint32 channel, quint8 lower, quint8 upper)
+{
+    for (QSharedPointer<QLCInputSource> source : m_inputSources) // C++11
+    {
+        if (source->universe() == universe && source->channel() == channel)
+        {
+            source->setRange(lower, upper);
             return true;
         }
     }
@@ -743,6 +760,48 @@ QSharedPointer<QLCInputSource> VCWidget::inputSource(quint32 id, quint32 univers
 
     return QSharedPointer<QLCInputSource>();
 }
+
+void VCWidget::sendFeedback(int value, quint8 id, SourceValueType type)
+{
+    for (QSharedPointer<QLCInputSource> source : m_inputSources) // C++11
+    {
+        if (source->id() != id)
+            continue;
+
+        if (type == LowerValue)
+            value = source->lowerValue();
+        else if (type == UpperValue)
+            value = source->upperValue();
+
+        // if in relative mode, send a "feedback" to this
+        // input source so it can continue to emit values
+        // from the right position
+        if (source->needsUpdate())
+            source->updateOuputValue(value);
+
+        if (isDisabled()) // was acceptsInput()
+            return;
+
+        QString chName = QString();
+
+        InputPatch *ip = m_doc->inputOutputMap()->inputPatch(source->universe());
+        if (ip != NULL)
+        {
+            QLCInputProfile* profile = ip->profile();
+            if (profile != NULL)
+            {
+                QLCInputChannel* ich = profile->channel(source->channel());
+                if (ich != NULL)
+                    chName = ich->name();
+            }
+        }
+        m_doc->inputOutputMap()->sendFeedBack(source->universe(), source->channel(), value, chName);
+    }
+}
+
+/*********************************************************************
+ * Key sequences
+ *********************************************************************/
 
 void VCWidget::addKeySequence(const QKeySequence &keySequence, const quint32 &id)
 {
@@ -1078,17 +1137,18 @@ bool VCWidget::saveXMLInputControl(QXmlStreamWriter *doc, quint8 controlId, QStr
 {
     Q_ASSERT(doc != NULL);
 
-    bool found = false;
+    bool tagWritten = false;
 
     for (QSharedPointer<QLCInputSource> source : m_inputSources) // C++11
     {
         if (source->id() != controlId)
             continue;
 
-        if (found == false && tagName.isEmpty() == false)
+        if (tagWritten == false && tagName.isEmpty() == false)
+        {
             doc->writeStartElement(tagName);
-
-        found = true;
+            tagWritten = true;
+        }
 
         doc->writeStartElement(KXMLQLCVCWidgetInput);
         doc->writeAttribute(KXMLQLCVCWidgetInputUniverse, QString("%1").arg(source->universe()));
@@ -1109,18 +1169,18 @@ bool VCWidget::saveXMLInputControl(QXmlStreamWriter *doc, quint8 controlId, QStr
             continue;
         }
 
-        if (found == false && tagName.isEmpty() == false)
+        if (tagWritten == false && tagName.isEmpty() == false)
+        {
             doc->writeStartElement(tagName);
-
-        found = true;
+            tagWritten = true;
+        }
 
         doc->writeTextElement(KXMLQLCVCWidgetKey, i.key().toString());
 
         ++i;
     }
 
-
-    if (found == true)
+    if (tagWritten == true)
         doc->writeEndElement();
 
     return true;
