@@ -6,6 +6,7 @@ qlcplus (4.11.2) stable; urgency=low
   * UI/Function Manager: allow to import multiple of audio/video files at once
   * UI/Chaser Editor: add a button to shuffle the selected Chaser steps (thanks to Felix Edelmann)
   * UI/RGBMatrix Editor: fix preview not updating on pattern change when play button is on
+  * Show Manager: fix crash when adding a Sequence after deleting one
   * Virtual Console/Slider: fix submaster initial value not applied
   * Virtual Console/Slider: implemented 'value catching' for controllers without feedbacks (Lukas Jähn proposal)
   * Virtual Console/Slider: fix values range when switching between Slider and Knob appearance
@@ -21,8 +22,15 @@ qlcplus (4.11.2) stable; urgency=low
   * New fixture: Chauvet Intimidator Spot 255 IRC (thanks to Ham Sadler)
   * New fixture: Chauvet Geyser RGB (thanks to Andrew)
   * New fixture: Chauvet Rotosphere Q3 (thanks to Eric Sherlock)
+  * New fixture: Showtec Compact Par 7 Q4 (thanks to Alexander)
+  * New fixture: Contest Delirium (thanks to Vincent)
+  * New fixture: Solena Mini Par 12, Max Bar 28 RGB (thanks to Nathan Durnan)
+  * New fixtures: Showtec Phantom 65, Laserworld PRO-800RGB (thanks to Piotr Nowik)
+  * New fixture: Chauvet MiN Spot RGBW (thanks to Jungle Jim)
+  * New fixtures: Showtec Shark Wash One, American DJ Vizi Hex Wash7 (thanks to Georg Müller)
+  * New fixture: Showtec Shark Beam FX One (thanks to Mats Lourenco)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 25 Mar 2018 12:13:14 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 15 Apr 2018 12:13:14 +0200
 
 qlcplus (4.11.1) stable; urgency=low
 
