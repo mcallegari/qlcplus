@@ -63,11 +63,13 @@ Item
     /* Locker image */
     Image
     {
-        x: Math.max(0, itemRoot.width - 25)
-        y: itemRoot.height - 27
+        x: Math.max(0, itemRoot.width - width - 1)
+        y: itemRoot.height - height - 3
         z: 4
+        width: itemRoot.height / 3
+        height: width
         source: "qrc:/lock.svg"
-        sourceSize: Qt.size(24, 24)
+        sourceSize: Qt.size(width, height)
         visible: sfRef ? (sfRef.locked ? true : false) : false
     }
 
